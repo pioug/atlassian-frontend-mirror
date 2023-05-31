@@ -13,7 +13,6 @@ import ButtonItem from '@atlaskit/menu/button-item';
 import useCheckboxState from '../internal/hooks/use-checkbox-state';
 import useRegisterItemWithFocusManager from '../internal/hooks/use-register-item-with-focus-manager';
 import getIconColors from '../internal/utils/get-icon-colors';
-import isVoiceOverSupported from '../internal/utils/is-voice-over-supported';
 import { DropdownItemCheckboxProps } from '../types';
 
 /**
@@ -74,7 +73,7 @@ const DropdownItemCheckbox = (props: DropdownItemCheckboxProps) => {
     <ButtonItem
       id={id}
       onClick={onClickHandler}
-      role={isVoiceOverSupported() ? 'checkbox' : 'menuitemcheckbox'}
+      role="menuitemcheckbox"
       aria-checked={selected}
       shouldTitleWrap={shouldTitleWrap}
       shouldDescriptionWrap={shouldDescriptionWrap}

@@ -1,3 +1,4 @@
+import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { createLogger } from '../helpers/utils';
 import type { CatchupOptions, StepsPayload } from '../types';
 import { StepMap, Mapping, Step } from 'prosemirror-transform';
@@ -115,6 +116,18 @@ export const catchup = async (opt: CatchupOptions) => {
           unconfirmedSteps,
           mapping,
         );
+
+        if (newUnconfirmedSteps?.length < unconfirmedSteps.length) {
+          // Log the dropped steps after rebase
+          opt.analyticsHelper?.sendActionEvent(
+            EVENT_ACTION.DROPPED_STEPS,
+            EVENT_STATUS.SUCCESS,
+            {
+              numOfDroppedSteps:
+                unconfirmedSteps.length - newUnconfirmedSteps?.length,
+            },
+          );
+        }
         logger(
           `Re-aply ${
             newUnconfirmedSteps.length

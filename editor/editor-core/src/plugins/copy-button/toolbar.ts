@@ -2,7 +2,6 @@ import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { EditorState } from 'prosemirror-state';
 import { Command } from '../../../src/types';
 import commonMessages from '../../messages';
-import { hoverDecoration } from '../base/pm-plugins/decoration';
 import {
   FloatingToolbarButton,
   FloatingToolbarItem,
@@ -18,6 +17,7 @@ import {
   removeMarkVisualFeedbackForCopyButtonCommand,
 } from './commands';
 import { copyButtonPluginKey } from './pm-plugins/plugin-key';
+import { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 
 function isSeparator(item: any): item is FloatingToolbarSeparator {
   return item?.type === 'separator';
@@ -31,6 +31,7 @@ function isNodeOptions(
 
 export function getCopyButtonConfig(
   options: MarkOptions | NodeOptions,
+  hoverDecoration: HoverDecorationHandler | undefined,
 ): FloatingToolbarButton<Command> {
   const { state, formatMessage, onMouseEnter, onMouseLeave, onFocus, onBlur } =
     options;
@@ -46,15 +47,19 @@ export function getCopyButtonConfig(
       // the same action.
       onMouseEnter:
         onMouseEnter ||
-        hoverDecoration(options.nodeType, true, 'ak-editor-selected-node'),
+        hoverDecoration?.(options.nodeType, true, 'ak-editor-selected-node'),
       onFocus:
         onFocus ||
-        hoverDecoration(options.nodeType, true, 'ak-editor-selected-node'),
+        hoverDecoration?.(options.nodeType, true, 'ak-editor-selected-node'),
 
       // Note for future changes: these two handlers should perform
       // the same action.
-      onMouseLeave: resetCopiedState(options.nodeType, onMouseLeave),
-      onBlur: resetCopiedState(options.nodeType, onBlur),
+      onMouseLeave: resetCopiedState(
+        options.nodeType,
+        hoverDecoration,
+        onMouseLeave,
+      ),
+      onBlur: resetCopiedState(options.nodeType, hoverDecoration, onBlur),
     };
   } else {
     buttonActionHandlers = {
@@ -110,6 +115,7 @@ export const showCopyButton = (state?: EditorState) => {
 export function processCopyButtonItems(state: EditorState) {
   return (
     items: Array<FloatingToolbarItem<Command>>,
+    hoverDecoration: HoverDecorationHandler | undefined,
   ): Array<FloatingToolbarItem<Command>> =>
     items.flatMap((item) => {
       switch (item.type) {
@@ -120,7 +126,7 @@ export function processCopyButtonItems(state: EditorState) {
           return item?.items.map((copyButtonItem) =>
             isSeparator(copyButtonItem)
               ? copyButtonItem
-              : getCopyButtonConfig(copyButtonItem),
+              : getCopyButtonConfig(copyButtonItem, hoverDecoration),
           );
         default:
           return [item];

@@ -430,18 +430,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Use the new editor next component which uses a preset to configure the editor plugins used.
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/EA/pages/3356459260/MAKE+Project+Poster+Editor+Presets+for+Easy+Adoption
-   * @see https://product-fabric.atlassian.net/browse/ED-16576
-   * @see https://product-fabric.atlassian.net/browse/ED-16577
-   * DUE DATE: April 2023
-   * @default false
-   */
-  useEditorNext?: boolean;
-
-  /**
-   * @description
    * Alter the default navigation behaviour of the typeahead insertion
    *
    * @see https://hello.atlassian.net/wiki/spaces/~970827943/blog/2023/03/29/2499685575

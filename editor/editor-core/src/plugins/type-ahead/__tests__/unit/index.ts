@@ -44,6 +44,7 @@ import { closeTypeAhead } from '../../transforms/close-type-ahead';
 import { insertTypeAheadItem } from '../../commands/insert-type-ahead-item';
 import panelPlugin from '../../../panel';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 let _queueMicrotask: any;
 beforeAll(() => {
@@ -122,6 +123,7 @@ describe('type-ahead', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+      .add(decorationsPlugin)
       .add(fakePlugin)
       .add(panelPlugin)
       .add([typeAheadPlugin, { createAnalyticsEvent }]);

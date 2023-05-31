@@ -1007,6 +1007,7 @@ describe('Provider', () => {
         getUnconfirmedSteps: expect.any(Function),
         updateDocument: expect.any(Function),
         updateMetadata: expect.any(Function),
+        analyticsHelper: expect.any(Object),
       });
 
       await new Promise(process.nextTick);
@@ -1025,6 +1026,7 @@ describe('Provider', () => {
         getUnconfirmedSteps: expect.any(Function),
         updateDocument: expect.any(Function),
         updateMetadata: expect.any(Function),
+        analyticsHelper: expect.any(Object),
       });
     });
 
@@ -1318,7 +1320,7 @@ describe('Provider', () => {
       });
 
       it('should not log UGC when logging an error', async () => {
-        expect.assertions(7);
+        expect.assertions(8);
         const invalidDocument = {
           type: 'doc',
           content: [
@@ -1355,7 +1357,7 @@ describe('Provider', () => {
             'FAILURE',
             { latency: undefined }, // Performance API undefined when running jest tests
           );
-          expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
+          expect(sendErrorEventSpy).toHaveBeenCalledTimes(3);
           expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
             1,
             new TypeError(
@@ -1365,6 +1367,13 @@ describe('Provider', () => {
           );
           expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
             2,
+            new TypeError(
+              "Cannot read properties of undefined (reading 'forEach')",
+            ),
+            'Error while returning ADF version of the final draft document',
+          );
+          expect(sendErrorEventSpy).toHaveBeenNthCalledWith(
+            3,
             new TypeError(
               "Cannot read properties of undefined (reading 'forEach')",
             ),
@@ -1508,8 +1517,8 @@ describe('Provider', () => {
             expect(onSyncUpErrorMock).toHaveBeenCalledWith({
               clientId: 'some-random-prosemirror-client-Id',
               lengthOfUnconfirmedSteps: 1,
-              maxRetries: 30,
-              tries: 31,
+              maxRetries: 60,
+              tries: 61,
               version: undefined,
             });
           });

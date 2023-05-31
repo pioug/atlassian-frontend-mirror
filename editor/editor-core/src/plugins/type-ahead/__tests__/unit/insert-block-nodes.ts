@@ -42,6 +42,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
 import layoutPlugin from '../../../layout';
 import codeBlockPlugin from '../../../code-block';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { createTable } from '@atlaskit/editor-tables/utils';
 import type {
   TypeAheadHandler,
@@ -159,6 +160,7 @@ describe('type-ahead', () => {
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
       .add(contentInsertionPlugin)
+      .add(decorationsPlugin)
       .add([typeAheadPlugin, { createAnalyticsEvent }])
       .add(fakeQuickInsertPlugin)
       .add(tasksAndDecisionsPlugin)

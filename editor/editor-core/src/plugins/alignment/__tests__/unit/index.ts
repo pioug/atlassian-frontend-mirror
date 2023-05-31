@@ -34,11 +34,13 @@ import { AlignmentPluginState } from '../../pm-plugins/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const alignmentPreset = new Preset<LightEditorPlugin>()
   .add([featureFlagsPlugin, {}])
   .add([analyticsPlugin, {}])
   .add(contentInsertionPlugin)
+  .add(decorationsPlugin)
   .add(alignmentPlugin)
   .add(tablesPlugin)
   .add(listPlugin)

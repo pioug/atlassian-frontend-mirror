@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 9.0.1
+
+### Patch Changes
+
+- [`6fe0ddc993e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6fe0ddc993e) - ESS-3624 bug fix for missing avatar in editing sessions
+- [`579326b4915`](https://bitbucket.org/atlassian/atlassian-frontend/commits/579326b4915) - ESS-2763 update get final editor state
+
 ## 9.0.0
 
 ### Major Changes

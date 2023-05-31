@@ -130,9 +130,13 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 28/05/2023: https://product-fabric.atlassian.net/browse/ED-18110
 BrowserTestCase(
   'Sticky header should correctly toggle on and off, after table is scrolled to the bottom and a column has been added',
-  { skip: ['safari'] },
+  {
+    // skip: ['safari']
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(
       client,

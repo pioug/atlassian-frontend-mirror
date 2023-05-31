@@ -31,6 +31,7 @@ import blockTypePlugin from '../../../block-type';
 import textFormattingPlugin from '../../../text-formatting';
 import codeBlockPlugin from '../../../code-block';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });
@@ -48,6 +49,7 @@ describe('ascii emojis - input rules', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(decorationsPlugin)
         .add(emojiPlugin)
         .add(blockTypePlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])

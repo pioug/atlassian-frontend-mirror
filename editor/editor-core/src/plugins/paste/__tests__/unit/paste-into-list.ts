@@ -46,6 +46,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 // Starting docs
 const docWithEndOfListItemSelection = doc(
@@ -1494,6 +1495,7 @@ describe('pasting into an ordered list when restartNumberedLists FF is true', ()
       .add([featureFlagsPlugin, { restartNumberedLists: true }])
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
+      .add(decorationsPlugin)
       .add(widthPlugin)
       .add([pastePlugin, {}])
       .add([listPlugin, { restartNumberedLists: true }])

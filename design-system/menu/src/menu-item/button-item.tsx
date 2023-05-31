@@ -3,6 +3,7 @@ import { forwardRef, memo, Ref } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
@@ -41,6 +42,13 @@ const ButtonItem = memo(
       if (!children) {
         return null;
       }
+
+      propDeprecationWarning(
+        process.env._PACKAGE_NAME_,
+        'cssFn',
+        cssFn !== noop,
+        '', // TODO: Create DAC post when primitives/xcss are available as alternatives
+      );
 
       return (
         <MenuItemPrimitive

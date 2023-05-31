@@ -55,6 +55,7 @@ import layoutPlugin from '../../../../layout';
 import textFormattingPlugin from '../../../../text-formatting';
 import editorDisabledPlugin from '../../../../editor-disabled';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('lists plugin -> commands', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -66,6 +67,7 @@ describe('lists plugin -> commands', () => {
       .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+      .add(decorationsPlugin)
       .add(widthPlugin)
       .add(blockTypePlugin)
       .add(editorDisabledPlugin)

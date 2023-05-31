@@ -67,7 +67,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/media-card": "^76.0.0",
     "@atlaskit/media-core": "^34.1.0",
-    "@atlaskit/media-integration-test-helpers": "^2.6.0",
+    "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/modal-dialog": "^12.5.0",
     "@atlaskit/ssr": "*",

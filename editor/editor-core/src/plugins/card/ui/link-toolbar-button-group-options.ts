@@ -1,6 +1,6 @@
 import { IntlShape } from 'react-intl-next';
 
-import { Command } from '../../../types';
+import { Command } from '@atlaskit/editor-common/types';
 import { messages } from '../messages';
 import { IconCard } from './assets/card';
 import { IconEmbed } from './assets/embed';

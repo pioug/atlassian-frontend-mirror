@@ -24,10 +24,7 @@ import { DocumentService } from '../document-service';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { ACK_MAX_TRY } from '../../helpers/const';
 import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
-import {
-  CollabInitPayload,
-  StepsPayload,
-} from '@atlaskit/collab-provider/types';
+import { CollabInitPayload, StepsPayload } from '../../types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { MAX_STEP_REJECTED_ERROR } from '../../provider';
@@ -66,6 +63,7 @@ describe('document-service', () => {
         updateMetadata: service.metadataService.updateMetadata,
         // @ts-expect-error - checking if private method is passed
         applyLocalSteps: service.applyLocalSteps,
+        analyticsHelper: analyticsHelperMock,
       });
 
       expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(
@@ -255,7 +253,7 @@ describe('document-service', () => {
           jest.runAllTimers();
         }
         await expectThrowPromise;
-        expect(service.sendStepsFromCurrentState).toBeCalledTimes(31);
+        expect(service.sendStepsFromCurrentState).toBeCalledTimes(61);
         expect(analyticsMock.sendActionEvent).toBeCalledTimes(1);
         expect(analyticsMock.sendActionEvent).toBeCalledWith(
           'commitUnconfirmedSteps',
@@ -294,13 +292,13 @@ describe('document-service', () => {
           jest.runAllTimers();
         }
         await expectThrowPromise;
-        expect(service.sendStepsFromCurrentState).toBeCalledTimes(31);
+        expect(service.sendStepsFromCurrentState).toBeCalledTimes(61);
         // @ts-ignore
         expect(service.onSyncUpError).toBeCalledWith({
           clientId: 'test',
           lengthOfUnconfirmedSteps: 1,
-          maxRetries: 30,
-          tries: 31,
+          maxRetries: 60,
+          tries: 61,
           version: 1,
         });
       });

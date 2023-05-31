@@ -151,6 +151,26 @@ describe('typeahead: editor focus', () => {
     },
   );
 
+  BrowserTestCase(
+    'it should focus on Editor when Escpae is typed whilst in focus of typeahead',
+    {},
+    async (client: any, testName: string) => {
+      const page = await startEditor(client, onlyOneChar);
+
+      await setProseMirrorTextSelection(page, { anchor: 2, head: 2 });
+
+      await page.keys(' ');
+      await quickInsert(page, '', false);
+      await page.keys('ArrowDown');
+      await page.keys(['Escape', 'l', 'o', 'l']);
+
+      const jsonDocument = await page.$eval(editable, getDocFromElement);
+      const pmDocument = PMNode.fromJSON(sampleSchema, jsonDocument);
+      const expectedDocument = doc(p('C /lol'));
+      expect(pmDocument).toEqualDocument(expectedDocument);
+    },
+  );
+
   runEscapeKeydownSuite({
     openMenu: async (page) => {
       await quickInsert(page, '', false);

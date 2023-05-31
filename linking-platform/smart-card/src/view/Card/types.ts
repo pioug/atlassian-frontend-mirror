@@ -1,8 +1,12 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import { CardAppearance, CardPlatform } from '@atlaskit/linking-common';
+import {
+  CardAppearance,
+  CardPlatform,
+  CardState,
+} from '@atlaskit/linking-common';
 import { AnalyticsFacade } from '../../state/analytics';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
-import { InlinePreloaderStyle, OnErrorCallback } from '../types';
+import { ErrorCardType, InlinePreloaderStyle, OnErrorCallback } from '../types';
 import { FrameStyle } from '../EmbedCard/types';
 
 export type { CardAppearance, CardPlatform };
@@ -35,6 +39,11 @@ export interface CardProps extends WithAnalyticsEventsProps {
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
   importer?: (target: any) => void;
   container?: HTMLElement;
+  /**
+   * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3226 Internal documentation for deprecation (no external access)}
+   * Likely here for legacy reason where editor would store data in ADF instead of resolving it everytime
+   * https://product-fabric.atlassian.net/browse/EDM-6813
+   */
   data?: any;
   url?: string;
   testId?: string;
@@ -48,7 +57,22 @@ export interface CardProps extends WithAnalyticsEventsProps {
    */
   showServerActions?: boolean;
   onResolve?: OnResolveCallback;
+  /**
+   * A callback function currently invoked in two cases
+   * 1. When the {@link CardState.status} is one of {@link ErrorCardType}. "err" property in argument will be undefined in this case
+   *    This does not mean that smart card failed to render.
+   * 2. When there is any unhandled error inside smart card while rendering, resulting in failure to render smart card succesfully.
+   *    "err" property in argument will be provided in this case.
+   *    Presence of an err property indicates that the client should either render their own fallback
+   *    or provide a fallbackComponent prop which will be rendered instead smart card component.
+   *    If fallbackComponent is not provided, smart card will render null
+   */
   onError?: OnErrorCallback;
+  /**
+   * A component that will be rendered when smart card fails to render
+   * because of uncaught errors
+   */
+  fallbackComponent?: React.ComponentType;
   /** This props determines if dimensions of an embed card are to be inherited from the parent.
    * The parent container needs to override a style '.loader-wrapper' and set the desirable height there. (for instance, 'height: 100%')
    */

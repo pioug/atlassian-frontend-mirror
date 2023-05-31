@@ -270,8 +270,8 @@ describe('KeyboardNavigation for item listSize 10', () => {
     });
 
     if (keys.find((k) => k === 'enter')) {
-      it(`calls back onInsertItem with selected item at index: ${expectedState.selectedItemIndex}`, () => {
-        expect(testProps.onInsertItem).toHaveBeenCalledWith(
+      it(`calls back onSelectItem with selected item at index: ${expectedState.selectedItemIndex}`, () => {
+        expect(testProps.onSelectItem).toHaveBeenCalledWith(
           testProps.items[expectedState.selectedItemIndex],
         );
       });

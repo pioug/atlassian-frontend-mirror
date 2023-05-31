@@ -27,6 +27,7 @@ import blockType from '../../../block-type';
 import codeBlockTypePlugin from '../../../code-block';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('inputrules', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
@@ -42,6 +43,7 @@ describe('inputrules', () => {
         .add([featureFlagsPlugin, featureFlags])
         .add([listTypePlugin, featureFlags])
         .add(basePlugins)
+        .add(decorationsPlugin)
         .add(blockType)
         .add([codeBlockTypePlugin, { appearance: 'full-page' }])
         .add([analyticsPlugin, { createAnalyticsEvent }])

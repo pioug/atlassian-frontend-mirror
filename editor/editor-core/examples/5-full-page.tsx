@@ -42,7 +42,7 @@ import {
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 
-import { EditorMigrationComponent as Editor } from './../src';
+import { Editor } from './../src';
 import {
   EditorProps,
   // EditorPlugin,

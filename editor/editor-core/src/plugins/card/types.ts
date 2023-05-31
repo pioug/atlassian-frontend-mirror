@@ -1,4 +1,4 @@
-import { INPUT_METHOD, ACTION } from '../analytics/types/enums';
+import { INPUT_METHOD, ACTION } from '@atlaskit/editor-common/analytics';
 import {
   CardProvider,
   CardAppearance,

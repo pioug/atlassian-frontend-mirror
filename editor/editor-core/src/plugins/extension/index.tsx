@@ -12,7 +12,8 @@ import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
 import { getToolbarConfig } from './toolbar';
 import { getContextPanel } from './context-panel';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 interface ExtensionPluginOptions extends LongPressSelectionPluginOptions {
   allowAutoSave?: boolean;
@@ -25,7 +26,11 @@ const extensionPlugin: NextEditorPlugin<
   'extension',
   {
     pluginConfiguration: ExtensionPluginOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin, typeof widthPlugin];
+    dependencies: [
+      typeof featureFlagsPlugin,
+      typeof widthPlugin,
+      typeof decorationsPlugin,
+    ];
   }
 > = (options = {}, api) => {
   const featureFlags =
@@ -89,7 +94,10 @@ const extensionPlugin: NextEditorPlugin<
     },
 
     pluginsOptions: {
-      floatingToolbar: getToolbarConfig(options.breakoutEnabled),
+      floatingToolbar: getToolbarConfig(
+        options.breakoutEnabled,
+        api?.dependencies.decorations.actions.hoverDecoration,
+      ),
       contextPanel: getContextPanel(options.allowAutoSave, featureFlags),
     },
   };

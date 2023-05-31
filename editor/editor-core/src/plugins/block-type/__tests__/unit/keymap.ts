@@ -47,6 +47,7 @@ import listPlugin from '../../../list';
 import panelPlugin from '../../../panel';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const codeBlockGASV3Payload = {
   action: 'formatted',
@@ -78,6 +79,7 @@ describe('keymaps', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
         .add(blockTypePlugin)
         .add(tablesPlugin)
         .add(rulePlugin)

@@ -357,6 +357,11 @@ describe('media', () => {
               },
             },
           },
+          decorations: {
+            actions: {
+              hoverDecoration: () => () => {},
+            },
+          },
         },
       };
 

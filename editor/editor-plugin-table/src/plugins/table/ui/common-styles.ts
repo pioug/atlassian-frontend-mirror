@@ -24,7 +24,7 @@ import { TableCssClassName as ClassName } from '../types';
 
 import {
   tableCellBackgroundColor,
-  tableToolbarColor,
+  tableHeaderCellBackgroundColor,
   tableBorderColor,
   tableCellSelectedColor,
   tableToolbarSelectedColor,
@@ -481,7 +481,7 @@ export const tableStyles = (
       border: 1px solid ${tableBorderColor(props)};
       border-radius: 0;
       border-top-left-radius: ${tableBorderRadiusSize}px;
-      background: ${tableToolbarColor(props)};
+      background: ${tableHeaderCellBackgroundColor(props)};
       box-sizing: border-box;
       padding: 0;
       :focus {
@@ -598,7 +598,7 @@ export const tableStyles = (
       padding: 10px 2px;
       text-align: center;
       font-size: ${relativeFontSizeToBase16(fontSize())};
-      background-color: ${tableToolbarColor(props)};
+      background-color: ${tableHeaderCellBackgroundColor(props)};
       color: ${tableTextColor(props)};
       border-color: ${tableBorderColor(props)};
 

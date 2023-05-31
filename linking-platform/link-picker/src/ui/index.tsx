@@ -7,7 +7,7 @@ import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
-import { PackageMetaDataType } from '../analytics.codegen';
+import { PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
 import ErrorBoundary from './error-boundary';
 import { LinkPickerProps } from './link-picker';
 import { LoaderFallback } from './loader-fallback';

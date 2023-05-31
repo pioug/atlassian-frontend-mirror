@@ -20,16 +20,30 @@ import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 // @public (undocumented)
-type DisplayGuideline = (view: EditorView) => void;
+type DisplayGrid = (props: Required<GuidelinePluginState>) => boolean;
 
 // @public (undocumented)
-type Guideline = {
-  key?: string;
+type DisplayGuideline = (view: EditorView) => DisplayGrid;
+
+// @public (undocumented)
+export type GuidelineConfig = {
+  key: string;
+  position: GuidelinePosition;
   active?: boolean;
   show?: boolean;
   style?: 'dashed' | 'solid';
   color?: string;
 };
+
+// @public (undocumented)
+enum GuidelineContainerArea {
+  // (undocumented)
+  EditorContent = 'editorContent',
+  // (undocumented)
+  EditorLeftMargin = 'editorLeftMargin',
+  // (undocumented)
+  EditorRightMargin = 'editorRightMargin',
+}
 
 // @public (undocumented)
 export const guidelinePlugin: NextEditorPlugin<
@@ -45,8 +59,27 @@ export const guidelinePlugin: NextEditorPlugin<
 
 // @public (undocumented)
 type GuidelinePluginState = {
-  guidelines: Guideline[];
+  guidelines: GuidelineConfig[];
 };
+
+// @public (undocumented)
+type GuidelinePosition = {
+  containerArea?: GuidelineContainerArea;
+} & PositionSide;
+
+// @public (undocumented)
+type PositionSide =
+  | {
+      left: PositionValue;
+      right?: never;
+    }
+  | {
+      right: PositionValue;
+      left?: never;
+    };
+
+// @public (undocumented)
+type PositionValue = 0 | `${number}%` | `${number}px`;
 
 // (No @packageDocumentation comment for this package)
 ```

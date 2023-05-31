@@ -15,7 +15,7 @@ import type {
 import { createLogger } from '../helpers/utils';
 import AnalyticsHelper from '../analytics/analytics-helper';
 
-import type { SyncUpErrorFunction } from '../types';
+import type { SyncUpErrorFunction, PresenceData } from '../types';
 
 import { telepointerCallback } from '../participants/telepointers-helper';
 import {
@@ -117,6 +117,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.config.getUser,
       this.channel.broadcast,
       this.channel.sendPresenceJoined,
+      this.getPresenceData,
+      this.setUserId,
     );
     this.metadataService = new MetadataService(
       this.emitCallback,
@@ -202,6 +204,17 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       .on('error', this.onErrorHandled)
       .on('status', this.namespaceService.onNamespaceStatusChanged)
       .connect(shouldInitialize);
+  };
+
+  private setUserId = (id: string) => {
+    this.userId = id;
+  };
+  private getPresenceData = (): PresenceData => {
+    return {
+      sessionId: this.sessionId!,
+      userId: this.userId!,
+      clientId: this.clientId!,
+    };
   };
 
   /**
@@ -517,7 +530,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    */
   getFinalAcknowledgedState = async (): Promise<ResolvedEditorState> => {
     try {
-      return this.documentService.getFinalAcknowledgedState();
+      return await this.documentService.getFinalAcknowledgedState();
     } catch (error) {
       this.analyticsHelper?.sendErrorEvent(
         error,

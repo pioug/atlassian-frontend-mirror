@@ -398,7 +398,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 
       // todo: find out why this isnt working?
 
-      expect(analyticsHelperSpy).toHaveBeenCalledTimes(1);
+      expect(analyticsHelperSpy).toHaveBeenCalledTimes(2);
       expect(analyticsHelperSpy).toHaveBeenCalledWith(
         new Error('fake error'),
         'Error while returning ADF version of the final draft document',

@@ -8,12 +8,13 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { mediaImageSelector } from '@atlaskit/editor-test-helpers/page-objects/media';
+import { mediaSelector } from '@atlaskit/editor-test-helpers/page-objects/media';
+import { waitForNumFileCards } from './_utils';
 
 [comment].forEach((editor) => {
   BrowserTestCase(
     `insert-and-delete-mediaGroup.ts: Inserts and deletes media group on ${editor.name}`,
-    { skip: [] },
+    {},
     async (client: Parameters<typeof goToEditorTestingWDExample>[0]) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(page, {
@@ -30,23 +31,22 @@ import { mediaImageSelector } from '@atlaskit/editor-test-helpers/page-objects/m
       await insertMedia(page, ['one.jpg', 'one.jpg']);
 
       // wait for the nodeview to appear
-      await page.waitForSelector(mediaImageSelector);
-      expect(await page.count(mediaImageSelector)).toBe(2);
+      let cards = await waitForNumFileCards(page, 2);
 
       // TODO: check ADF
 
       // okay, delete the first
-      await page.click(mediaImageSelector);
+      await cards[0].click();
       await page.click('[aria-label="delete"]');
 
-      expect(await page.count(mediaImageSelector)).toBe(1);
+      cards = await waitForNumFileCards(page, 1);
 
       // TODO: check ADF
 
-      await page.click(mediaImageSelector);
+      await cards[0].click();
       await page.click('[aria-label="delete"]');
 
-      expect(await page.count(mediaImageSelector)).toBe(0);
+      expect(await page.count(mediaSelector)).toBe(0);
 
       // TODO: check ADF
     },

@@ -1,6 +1,6 @@
 import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 
-import { Command } from '../../../types';
+import { Command } from '@atlaskit/editor-common/types';
 
 export interface OptionConfig {
   appearance?: CardAppearance;

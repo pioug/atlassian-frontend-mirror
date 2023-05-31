@@ -129,6 +129,7 @@ export const MediaInlineCardInternal: FC<
       .subscribe({
         next: (fileState) => {
           setFileState(fileState);
+          setSubscribeError(undefined);
         },
         error: (e) => {
           setSubscribeError(e);

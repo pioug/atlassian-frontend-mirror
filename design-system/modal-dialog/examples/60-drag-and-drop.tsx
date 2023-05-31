@@ -14,7 +14,7 @@ import Button from '@atlaskit/button/standard-button';
 import noop from '@atlaskit/ds-lib/noop';
 import InlineMessage from '@atlaskit/inline-message';
 import { Box } from '@atlaskit/primitives';
-import { G300, R200, R75, Y75 } from '@atlaskit/theme/colors';
+import { B50, N20, N30, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
@@ -37,11 +37,10 @@ const baseCardStyles = css({
   display: 'flex',
   height: '20px',
   padding: `${token('space.100', '8px')} ${token('space.050', '4px')}`,
-
   position: 'relative',
-  background: token('color.background.warning', Y75),
+  background: token('color.background.neutral', N20),
 
-  borderBottom: `1px solid ${token('color.border.danger', R200)}`,
+  borderBottom: `1px solid ${token('color.border', N40)}`,
   borderRadius: token('border.radius.100', '3px'),
 
   cursor: 'pointer',
@@ -58,12 +57,12 @@ const draggingCardStyles = css({
 });
 
 const hoverCardStyles = css({
-  background: token('color.background.danger.hovered', R75),
+  background: token('color.background.neutral.hovered', N30),
   textDecoration: 'none',
 });
 
 const activeCardStyles = css({
-  background: token('color.background.success.pressed', G300),
+  background: token('color.background.neutral.pressed', B50),
 });
 
 const isMiddleClick = (event: React.MouseEvent) => event.button === 1;

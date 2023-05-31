@@ -4,6 +4,7 @@ import { forwardRef, Fragment, Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import { N30A } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
@@ -110,6 +111,13 @@ const Section = forwardRef<HTMLElement, SectionProps>(
     SectionProps,
     ref,
   ) => {
+    propDeprecationWarning(
+      process.env._PACKAGE_NAME_,
+      'overrides',
+      overrides !== undefined,
+      '', // TODO: Create DAC post when primitives/xcss are available as alternatives
+    );
+
     const childrenMarkup =
       title !== undefined ? (
         <Fragment>

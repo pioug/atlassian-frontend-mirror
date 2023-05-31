@@ -196,7 +196,23 @@ describe('media', () => {
 
     setNodeSelection(editorView, pos);
 
-    const toolbar = floatingToolbar(editorView.state, intl, options, undefined);
+    const mockAddAnalyticsEvent = (analyticsEvent: any) => {
+      createAnalyticsEvent(analyticsEvent);
+      return () => {};
+    };
+    const mockInjectionAPI: any = {
+      dependencies: {
+        analytics: { actions: { attachAnalyticsEvent: mockAddAnalyticsEvent } },
+        decorations: { actions: { hoverDecoration: () => () => {} } },
+      },
+    };
+
+    const toolbar = floatingToolbar(
+      editorView.state,
+      intl,
+      options,
+      mockInjectionAPI,
+    );
 
     let linkToolbarAppearance: ReactElement<LinkingToolbarProps> | undefined;
 

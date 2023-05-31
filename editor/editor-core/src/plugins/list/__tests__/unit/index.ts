@@ -39,6 +39,7 @@ import { insertMediaAsMediaSingle } from '../../../media/utils/media-single';
 import { INPUT_METHOD } from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('lists', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -48,6 +49,7 @@ describe('lists', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
+      .add(decorationsPlugin)
       .add(widthPlugin)
       .add(listPlugin)
       .add(blockTypePlugin)

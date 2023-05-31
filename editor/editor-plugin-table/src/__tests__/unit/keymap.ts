@@ -62,6 +62,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -89,6 +90,7 @@ describe('table keymap', () => {
     .add([analyticsPlugin, { createAnalyticsEvent }])
     .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
     .add(contentInsertionPlugin)
+    .add(decorationsPlugin)
     .add(widthPlugin)
     .add(gridPlugin)
     .add(selectionPlugin)

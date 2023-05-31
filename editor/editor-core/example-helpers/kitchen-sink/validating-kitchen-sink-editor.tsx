@@ -19,7 +19,7 @@ import {
 } from '@atlaskit/util-data-test/mention-story-data';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
-import { EditorMigrationComponent as Editor } from '../../src';
+import { Editor } from '../../src';
 import { EditorAppearance, EditorPlugin, EditorProps } from '../../src/types';
 import { EditorActions } from '../../src';
 

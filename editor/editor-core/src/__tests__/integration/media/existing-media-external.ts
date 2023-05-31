@@ -37,11 +37,10 @@ const baseADF = {
   ],
 };
 
-// FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18097
 BrowserTestCase(
   'upload-external-media.ts: Keeps existing external as is',
   {
-    skip: ['*'],
+    skip: [],
   },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],

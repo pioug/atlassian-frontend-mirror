@@ -7,6 +7,7 @@ import type {
   CollabEventPresenceData,
   CollabTelepointerPayload,
   ChannelEvent,
+  PresenceData,
   PresencePayload,
   StepJson,
   TelepointerPayload,
@@ -53,6 +54,8 @@ export class ParticipantsService {
       callback?: Function,
     ) => void,
     private sendPresenceJoined: () => void,
+    private getPresenceData: () => PresenceData,
+    private setUserId: (id: string) => void,
   ) {}
 
   /**
@@ -281,14 +284,15 @@ export class ParticipantsService {
     clearTimeout(this.participantUpdateTimeout);
   };
 
-  private sendPresence = (payload: PresencePayload) => {
+  private sendPresence = () => {
     try {
       clearTimeout(this.presenceUpdateTimeout);
 
-      this.channelBroadcast('participant:updated', payload);
+      const data = this.getPresenceData();
+      this.channelBroadcast('participant:updated', data);
 
       this.presenceUpdateTimeout = window.setTimeout(
-        () => this.sendPresence(payload),
+        () => this.sendPresence(),
         SEND_PRESENCE_INTERVAL,
       );
     } catch (error) {
@@ -311,7 +315,7 @@ export class ParticipantsService {
     try {
       logger('Participant joined with session: ', payload.sessionId);
       // This expose existing users to the newly joined user
-      this.sendPresence(payload);
+      this.sendPresence();
     } catch (error) {
       // We don't want to throw errors for Presence features as they tend to self-restore
       this.analyticsHelper?.sendErrorEvent(
@@ -330,7 +334,8 @@ export class ParticipantsService {
   onPresence = (payload: PresencePayload) => {
     try {
       logger('onPresence userId: ', payload.userId);
-      this.sendPresence(payload);
+      this.setUserId(payload.userId!);
+      this.sendPresence();
       this.sendPresenceJoined();
     } catch (error) {
       // We don't want to throw errors for Presence features as they tend to self-restore

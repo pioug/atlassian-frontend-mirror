@@ -24,7 +24,7 @@ export default {
   'fabric.editor.numberedColumn': '번호 매기기 열',
   'fabric.editor.removeColumns': '{0, plural, other {열 삭제}}',
   'fabric.editor.removeRows': '{0, plural, other {행 삭제}}',
-  'fabric.editor.rowControl': '열 강조',
+  'fabric.editor.rowControl': '열 강조 표시',
   'fabric.editor.sortColumnASC': '열 정렬: 오름차순',
   'fabric.editor.sortColumnDESC': '열 정렬: 내림차순',
   'fabric.editor.splitCell': '셀 나누기',

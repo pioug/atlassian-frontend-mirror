@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-picker",
-  "version": "1.22.0",
+  "version": "1.22.1",
   "description": "Standalone link picker",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
@@ -67,7 +67,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@af/analytics-codegen": "^0.0.7",
+    "@af/analytics-codegen": "^0.1.0",
     "@atlaskit/activity-provider": "^2.4.0",
     "@atlaskit/docs": "*",
     "@atlaskit/link-analytics": "^8.0.0",

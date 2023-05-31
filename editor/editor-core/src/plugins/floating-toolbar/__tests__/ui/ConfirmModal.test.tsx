@@ -17,6 +17,7 @@ import { FloatingToolbarItem } from '../../types';
 import floatingToolbarMessages from '../../ui/messages';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const emptyDoc = doc(p(''));
 
@@ -27,6 +28,7 @@ describe('toolbar-data', () => {
       doc,
       preset: new EditorPresetBuilder()
         .add([featureFlagsPlugin, {}])
+        .add(decorationsPlugin)
         .add(floatingToolbarPlugin),
     });
   };
@@ -69,6 +71,7 @@ describe('<Toolbar />', () => {
       doc,
       preset: new EditorPresetBuilder()
         .add([featureFlagsPlugin, {}])
+        .add(decorationsPlugin)
         .add(floatingToolbarPlugin),
     });
   };
@@ -104,6 +107,7 @@ describe('<Toolbar />', () => {
           items={items}
           dispatchCommand={dispatchCommand}
           featureFlags={{}}
+          api={undefined}
         />,
       );
 
@@ -146,6 +150,7 @@ describe('<Toolbar />', () => {
           items={items}
           dispatchCommand={dispatchCommand}
           featureFlags={{}}
+          api={undefined}
         />,
       );
 

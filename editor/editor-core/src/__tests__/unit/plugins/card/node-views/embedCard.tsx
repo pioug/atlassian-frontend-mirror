@@ -313,5 +313,27 @@ describe('EmbedCard', () => {
         (richMediaWrapperProps.width || 0) / richMediaWrapperProps.height,
       ).toEqual(0.42 / 1);
     });
+
+    it.each([new Error(), null, undefined])(
+      'should only throw err when onError prop is called with an err value',
+      (err) => {
+        const { cardComponent } = setup();
+        const { onError } = cardComponent.props();
+        if (!onError) {
+          throw new Error('Must have onError prop');
+        }
+        const onErrorPropCall = () =>
+          onError({
+            status: 'not_found',
+            url: 'https://my.url.com',
+            err,
+          } as any);
+        if (err) {
+          expect(onErrorPropCall).toThrow(err as any);
+        } else {
+          expect(onErrorPropCall).not.toThrow();
+        }
+      },
+    );
   });
 });

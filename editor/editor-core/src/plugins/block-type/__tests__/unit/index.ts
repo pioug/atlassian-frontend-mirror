@@ -57,6 +57,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { CellSelection } from '@atlaskit/editor-tables';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('block-type', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -76,6 +77,7 @@ describe('block-type', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
         .add(blockTypePlugin)
         .add(panelPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
@@ -548,6 +550,7 @@ describe('block-type', () => {
       createEditor({
         doc,
         preset: new Preset<LightEditorPlugin>()
+          .add(decorationsPlugin)
           .add([blockTypePlugin, { lastNodeMustBeParagraph: true }])
           .add([codeBlockPlugin, { appearance: 'full-page' }]),
       });

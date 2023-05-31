@@ -21,13 +21,13 @@ import {
   INPUT_METHOD,
   AnalyticsEventPayload,
   EditorAnalyticsAPI,
+  SMART_LINK_TYPE,
+  UnlinkToolbarAEP,
+  SmartLinkNodeContext,
 } from '@atlaskit/editor-common/analytics';
-import { UnlinkToolbarAEP } from '../../../plugins/analytics/types/link-tool-bar-events';
-import { SMART_LINK_TYPE } from '../../../plugins/analytics/types/node-events';
-import { Command } from '../../../types';
+import type { Command } from '@atlaskit/editor-common/types';
 import { nodesBetweenChanged, processRawValue } from '../../../utils';
 import { unlinkPayload } from '../../../utils/linking-utils';
-import { SmartLinkNodeContext } from '../../analytics/types/smart-links';
 import {
   isFromCurrentDomain,
   getLinkCreationAnalyticsEvent,

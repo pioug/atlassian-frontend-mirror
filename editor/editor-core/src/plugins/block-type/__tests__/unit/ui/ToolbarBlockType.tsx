@@ -36,6 +36,7 @@ import { messages } from '../../../messages';
 import blockTypePlugin from '../../../';
 import panelPlugin from '../../../../panel';
 import codeBlockPlugin from '../../../../code-block';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
 describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
@@ -47,6 +48,7 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
       pluginKey,
       preset: new Preset<LightEditorPlugin>()
         .add(blockTypePlugin)
+        .add(decorationsPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(panelPlugin),
     });

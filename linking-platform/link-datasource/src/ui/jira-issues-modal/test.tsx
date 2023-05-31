@@ -7,7 +7,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+import { InlineCardAdf } from '@atlaskit/linking-common/types';
 
 import SmartLinkClient from '../../../examples-helpers/smartLinkCustomClient';
 import {
@@ -23,9 +23,12 @@ import {
   JiraSearchContainer,
   SearchContainerProps,
 } from './jira-search-container';
-import { JiraIssueDatasourceParameters } from './types';
+import {
+  JiraIssueDatasourceParameters,
+  JiraIssuesDatasourceAdf,
+} from './types';
 
-import { JiraIssuesConfigModal, JiraIssuesConfigModalProps } from './index';
+import { JiraIssuesConfigModal } from './index';
 
 jest.mock('./../../services/getAvailableJiraSites', () => ({
   getAvailableJiraSites: jest.fn(),
@@ -111,32 +114,34 @@ describe('JiraIssuesConfigModal', () => {
 
     const onCancel = jest.fn();
     const onInsert = jest.fn();
-    const onUpdateParameters = jest.fn();
-    const onVisibleColumnKeysChange = jest.fn();
 
-    const component = render(
-      <IntlProvider locale="en">
-        <SmartCardProvider client={new SmartLinkClient()}>
-          <JiraIssuesConfigModal
-            datasourceId={'some-jira-jql-datasource-id'}
-            parameters={
-              Object.keys(args).includes('parameters')
-                ? args.parameters
-                : getDefaultParameters()
-            }
-            onUpdateParameters={onUpdateParameters}
-            onCancel={onCancel}
-            onInsert={onInsert}
-            visibleColumnKeys={
-              Object.keys(args).includes('visibleColumnKeys')
-                ? args.visibleColumnKeys
-                : ['myColumn']
-            }
-            onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-          />
-        </SmartCardProvider>
-      </IntlProvider>,
-    );
+    let renderFunction = render;
+
+    const renderComponent = () =>
+      renderFunction(
+        <IntlProvider locale="en">
+          <SmartCardProvider client={new SmartLinkClient()}>
+            <JiraIssuesConfigModal
+              datasourceId={'some-jira-jql-datasource-id'}
+              parameters={
+                Object.keys(args).includes('parameters')
+                  ? args.parameters
+                  : getDefaultParameters()
+              }
+              onCancel={onCancel}
+              onInsert={onInsert}
+              visibleColumnKeys={
+                Object.keys(args).includes('visibleColumnKeys')
+                  ? args.visibleColumnKeys
+                  : ['myColumn']
+              }
+            />
+          </SmartCardProvider>
+        </IntlProvider>,
+      );
+
+    const component = renderComponent();
+    renderFunction = component.rerender as typeof render;
 
     const getLatestJiraSearchContainerProps = () => {
       let calls = asMock(JiraSearchContainer).mock.calls;
@@ -154,12 +159,46 @@ describe('JiraIssuesConfigModal', () => {
       );
     }
 
+    const assertInsertResult = (
+      args: {
+        cloudId?: string;
+        jql?: string;
+        columnKeys?: string[];
+      } = {},
+    ) => {
+      const button = component.getByRole('button', { name: 'Insert issues' });
+      button.click();
+
+      expect(onInsert).toHaveBeenCalledWith({
+        type: 'blockCard',
+        attrs: {
+          datasource: {
+            id: 'some-jira-jql-datasource-id',
+            parameters: {
+              cloudId: args.cloudId || '67899',
+              jql: args.jql || 'some-query',
+            },
+            views: [
+              {
+                type: 'table',
+                properties: {
+                  columnKeys: Object.keys(args).includes('columnKeys')
+                    ? args.columnKeys
+                    : ['myColumn'],
+                },
+              },
+            ],
+          },
+        },
+      } as JiraIssuesDatasourceAdf);
+    };
+
     return {
       ...component,
+      renderComponent,
       onCancel,
       onInsert,
-      onUpdateParameters,
-      onVisibleColumnKeysChange,
+      assertInsertResult,
       getLatestJiraSearchContainerProps,
       getLatestIssueLikeTableProps,
     };
@@ -199,22 +238,6 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   describe('when selecting a different jira site', () => {
-    it('should call onUpdateParameters ', async () => {
-      const { findByTestId, getAllByRole, onUpdateParameters } = await setup();
-
-      const siteSelectorTrigger = await findByTestId(
-        'jira-jql-datasource-modal--site-selector--trigger',
-      );
-
-      siteSelectorTrigger.click();
-
-      const availableJiraSiteDropdownItems = getAllByRole('menuitem');
-
-      availableJiraSiteDropdownItems[0].click();
-
-      expect(onUpdateParameters).toHaveBeenCalledWith({ cloudId: '12345' });
-    });
-
     it('should reset hooks state', async () => {
       const hookState = getDefaultHookState();
       const { findByTestId, getAllByRole } = await setup({ hookState });
@@ -229,6 +252,22 @@ describe('JiraIssuesConfigModal', () => {
 
       availableJiraSiteDropdownItems[0].click();
       expect(hookState.reset).toHaveBeenCalled();
+    });
+
+    it('should produce ADF with new cloudId', async () => {
+      const { findByTestId, getAllByRole, assertInsertResult } = await setup();
+
+      const siteSelectorTrigger = await findByTestId(
+        'jira-jql-datasource-modal--site-selector--trigger',
+      );
+      siteSelectorTrigger.click();
+      const availableJiraSiteDropdownItems = getAllByRole('menuitem');
+
+      act(() => {
+        availableJiraSiteDropdownItems[0].click();
+      });
+
+      assertInsertResult({ cloudId: '12345' });
     });
   });
 
@@ -245,10 +284,8 @@ describe('JiraIssuesConfigModal', () => {
             cloudId: '12345',
             jql: 'some-query',
           }}
-          onUpdateParameters={jest.fn()}
           onCancel={jest.fn()}
           onInsert={jest.fn()}
-          onVisibleColumnKeysChange={jest.fn()}
         />
       </IntlProvider>,
     );
@@ -257,12 +294,27 @@ describe('JiraIssuesConfigModal', () => {
     expect(modalTitle2.innerText).toEqual('Insert Jira issues from test1');
   });
 
-  it('should set cloudId when its empty', async () => {
-    const { onUpdateParameters, findByTestId } = await setup({
-      parameters: undefined,
+  describe('when cloudId is not present', () => {
+    it('should produce ADF with first cloudId from the list', async () => {
+      const {
+        findByText,
+        getLatestJiraSearchContainerProps,
+        assertInsertResult,
+      } = await setup({
+        parameters: undefined,
+      });
+      await findByText('Insert Jira issues from test1');
+
+      // We need to do generate jql, since insert button won't active without it.
+      const { onSearch } = getLatestJiraSearchContainerProps();
+      act(() => {
+        onSearch({
+          jql: 'some-query',
+        });
+      });
+
+      assertInsertResult({ cloudId: '12345' });
     });
-    await findByTestId('jira-jql-datasource-modal--title');
-    expect(onUpdateParameters).toHaveBeenCalledWith({ cloudId: '12345' });
   });
 
   it('should provide parameters to JiraSearchContainer', async () => {
@@ -290,8 +342,8 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   describe('when onSearch is called from JiraSearchContainer', () => {
-    it('should call onUpdateParameters', async () => {
-      const { getLatestJiraSearchContainerProps, onUpdateParameters } =
+    it('should call onInsert with new JQL', async () => {
+      const { getLatestJiraSearchContainerProps, assertInsertResult } =
         await setup();
       const { onSearch } = getLatestJiraSearchContainerProps();
       act(() => {
@@ -299,9 +351,8 @@ describe('JiraIssuesConfigModal', () => {
           jql: 'different-query',
         });
       });
-      expect(onUpdateParameters).toHaveBeenCalledWith({
-        jql: 'different-query',
-      } as Parameters<JiraIssuesConfigModalProps['onUpdateParameters']>[0]);
+
+      assertInsertResult({ jql: 'different-query' });
     });
 
     it('should reset hooks state', async () => {
@@ -340,7 +391,7 @@ describe('JiraIssuesConfigModal', () => {
       expect(card).toBeInTheDocument();
       expect(card).toHaveAttribute(
         'href',
-        'https://hello.atlassian.net/issues/?jql=some-query',
+        'https://hello.atlassian.net/issues/?jql=different-query',
       );
     });
   });
@@ -603,7 +654,7 @@ describe('JiraIssuesConfigModal', () => {
             ],
           },
         },
-      } as DatasourceAdf);
+      } as JiraIssuesDatasourceAdf);
     });
 
     it('should call onInsert with inlineCard ADF upon Insert button press in count view mode', async () => {
@@ -634,28 +685,30 @@ describe('JiraIssuesConfigModal', () => {
   });
 
   describe('when consumer provides list of visible column keys', () => {
-    it('should NOT call onVisibleColumnKeysChange with default list coming from backend', async () => {
-      const { onVisibleColumnKeysChange } = await setup({
+    it('should NOT use default list coming from backend in resulting ADF', async () => {
+      const { assertInsertResult } = await setup({
         visibleColumnKeys: ['myColumn'],
       });
-      expect(onVisibleColumnKeysChange).not.toHaveBeenCalled();
+
+      assertInsertResult({ columnKeys: ['myColumn'] });
     });
   });
 
   describe('when user changes visible columns from within IssueLikeTable', () => {
-    it('should call onVisibleColumnKeysChange', async () => {
-      const { onVisibleColumnKeysChange, getLatestIssueLikeTableProps } =
+    it('should use new columnKeyList in resulting ADF', async () => {
+      const { getLatestIssueLikeTableProps, assertInsertResult } =
         await setup();
       const { onVisibleColumnKeysChange: tableOnVisibleColumnKeysChange } =
         getLatestIssueLikeTableProps();
       tableOnVisibleColumnKeysChange!(['someColumn']);
-      expect(onVisibleColumnKeysChange).toHaveBeenCalledWith(['someColumn']);
+
+      assertInsertResult({ columnKeys: ['someColumn'] });
     });
   });
 
   describe('when consumer not providing list of visible column keys', () => {
     it('should use default list coming from backend', async () => {
-      await setup({
+      const { assertInsertResult } = await setup({
         visibleColumnKeys: undefined,
       });
       expect(IssueLikeDataTableView).toHaveBeenCalledWith(
@@ -664,25 +717,22 @@ describe('JiraIssuesConfigModal', () => {
         }),
         expect.anything(),
       );
-    });
 
-    it('should call onVisibleColumnKeysChange with default list coming from backend', async () => {
-      const { onVisibleColumnKeysChange } = await setup({
-        visibleColumnKeys: undefined,
-      });
-      expect(onVisibleColumnKeysChange).toHaveBeenCalledWith([
-        'myColumn',
-        'otherColumn',
-      ]);
+      assertInsertResult({ columnKeys: ['myColumn', 'otherColumn'] });
     });
 
     describe("but hook state hasn't loaded default column keys yet", () => {
-      it('should NOT call onVisibleColumnKeysChange with default list coming from backend', async () => {
-        const { onVisibleColumnKeysChange } = await setup({
+      it('should NOT use default list coming from backend in resulting ADF', async () => {
+        const { assertInsertResult, renderComponent } = await setup({
           visibleColumnKeys: undefined,
           hookState: getEmptyHookState(),
         });
-        expect(onVisibleColumnKeysChange).not.toHaveBeenCalled();
+
+        asMock(useDatasourceTableState).mockReturnValue(getDefaultHookState());
+
+        renderComponent();
+
+        assertInsertResult({ columnKeys: ['myColumn', 'otherColumn'] });
       });
     });
   });

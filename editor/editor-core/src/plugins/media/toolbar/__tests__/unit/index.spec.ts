@@ -46,6 +46,16 @@ import {
 } from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
+const mockInjectionAPI: any = {
+  dependencies: {
+    decorations: {
+      actions: {
+        hoverDecoration: () => () => {},
+      },
+    },
+  },
+};
+
 describe('floatingToolbar()', () => {
   const intl = createIntl({ locale: 'en' });
   const createEditor = createEditorFactory<MediaPluginState>();
@@ -108,7 +118,7 @@ describe('floatingToolbar()', () => {
         {
           allowMediaInline,
         },
-        undefined,
+        mockInjectionAPI,
       );
       const items = getToolbarItems(toolbar!, editorView);
       const mediaPluginState: MediaPluginState | undefined = stateKey.getState(
@@ -188,7 +198,7 @@ describe('floatingToolbar()', () => {
         {
           allowMediaInline: true,
         },
-        undefined,
+        mockInjectionAPI,
       );
       const items = getToolbarItems(toolbar!, editorView);
       const mediaPluginState: MediaPluginState | undefined = stateKey.getState(
@@ -262,7 +272,7 @@ describe('floatingToolbar()', () => {
           allowLinking: true,
           allowAdvancedToolBarOptions: true,
         },
-        undefined,
+        mockInjectionAPI,
       );
       const items = getToolbarItems(toolbar!, editorView);
       const mediaPluginState: MediaPluginState | undefined = stateKey.getState(

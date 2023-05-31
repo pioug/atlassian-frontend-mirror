@@ -7,6 +7,7 @@ import type { InternalError } from './errors/error-types';
 import type { ProviderError } from './errors/error-types';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { ProviderParticipant } from './participants/participants-helper';
+import AnalyticsHelper from './analytics/analytics-helper';
 
 // types from editor common
 
@@ -213,10 +214,13 @@ export type BroadcastIncomingPayload = {
   data: PresencePayload | TelepointerPayload | StepsPayload | any; // broadcasted data from NCS, any added as a fallback
 };
 
-export type PresencePayload = {
+export type PresenceData = {
   sessionId: string;
   userId: string | undefined;
   clientId: number | string;
+};
+
+export type PresencePayload = PresenceData & {
   timestamp: number;
 };
 
@@ -336,6 +340,7 @@ export interface CatchupOptions {
     reserveCursor,
   }: CollabInitPayload) => void;
   updateMetadata: (metadata: Metadata | undefined) => void;
+  analyticsHelper: AnalyticsHelper | undefined;
 }
 
 export type ProductInformation = {

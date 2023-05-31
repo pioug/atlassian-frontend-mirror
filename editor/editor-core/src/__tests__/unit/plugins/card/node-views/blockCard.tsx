@@ -136,6 +136,37 @@ describe('blockCard', () => {
     });
   });
 
+  it.each([new Error(), null, undefined])(
+    'should only throw err when onError prop is called with an err value',
+    (err) => {
+      const mockBlockPmNode = blockCard({ url: 'https://some/url' })()(
+        defaultSchema,
+      );
+
+      const mockInlineCardNode = mount(
+        <BlockCardComponent
+          node={mockBlockPmNode}
+          view={mockEditorView}
+          getPos={() => 0}
+          cardContext={createCardContext()}
+        />,
+      );
+
+      const wrapper = mockInlineCardNode.find(Card);
+      const onErrorPropCall = () =>
+        wrapper.props().onError({
+          status: 'not_found',
+          url: 'https://my.url.com',
+          err,
+        });
+      if (err) {
+        expect(onErrorPropCall).toThrow(err as any);
+      } else {
+        expect(onErrorPropCall).not.toThrow();
+      }
+    },
+  );
+
   describe('give the browser is Edge 44 or below', () => {
     it('should NOT render span after SmartCard to stop edit popup rendering to low', () => {
       browser.ie = true;

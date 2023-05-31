@@ -32,6 +32,7 @@ import {
 } from '../../pm-plugins/better-type-history';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('close history', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -41,6 +42,7 @@ describe('close history', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
+        .add(decorationsPlugin)
         .add(blockTypePlugin)
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)

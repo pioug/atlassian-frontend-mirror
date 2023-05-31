@@ -64,7 +64,7 @@
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/calendar": "^13.1.0",
     "@atlaskit/checkbox": "^12.6.0",
-    "@atlaskit/datetime-picker": "^12.6.0",
+    "@atlaskit/datetime-picker": "^12.7.0",
     "@atlaskit/docs": "^9.1.0",
     "@atlaskit/dropdown-menu": "^11.9.0",
     "@atlaskit/ds-lib": "^2.2.0",

@@ -3,9 +3,8 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { NodeSelection, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import * as keymaps from '../../../keymaps';
-import { Command } from '../../../types';
 import { findChildren, flatten } from 'prosemirror-utils';
-import { FeatureFlags } from '../../../types/feature-flags';
+import type { FeatureFlags, Command } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
 
 const lookupPixel = 10;

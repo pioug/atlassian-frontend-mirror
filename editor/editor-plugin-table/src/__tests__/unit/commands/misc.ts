@@ -30,12 +30,14 @@ import tablePlugin from '../../../plugins/table';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('table plugin: commands', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, {}])
+    .add(decorationsPlugin)
     .add(panelPlugin)
     .add(contentInsertionPlugin)
     .add([

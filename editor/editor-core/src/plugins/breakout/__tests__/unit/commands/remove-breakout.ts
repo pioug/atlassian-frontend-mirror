@@ -13,6 +13,7 @@ import { removeBreakout } from '../../../commands/remove-breakout';
 // Editor plugins
 import breakoutPlugin from '../../../';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import codeBlockPlugin from '../../../../code-block';
 
 describe('Breakout Commands: remove-breakout', () => {
@@ -23,6 +24,7 @@ describe('Breakout Commands: remove-breakout', () => {
       doc: doc(breakout({ mode: 'wide' })(code_block()('Hel{<>}lo'))),
       preset: new Preset<LightEditorPlugin>()
         .add(widthPlugin)
+        .add(decorationsPlugin)
         .add([breakoutPlugin, { allowBreakoutButton: true }])
         .add([codeBlockPlugin, { appearance: 'full-page' }]),
     });
@@ -38,6 +40,7 @@ describe('Breakout Commands: remove-breakout', () => {
       doc: doc('{<node>}', breakout({ mode: 'wide' })(code_block()('Hello'))),
       preset: new Preset<LightEditorPlugin>()
         .add(widthPlugin)
+        .add(decorationsPlugin)
         .add([breakoutPlugin, { allowBreakoutButton: true }])
         .add([codeBlockPlugin, { appearance: 'full-page' }]),
     });

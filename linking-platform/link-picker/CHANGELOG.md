@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.22.1
+
+### Patch Changes
+
+- [`ae5ac36af00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae5ac36af00) - Updates analytics codegen to support screen events.
+
 ## 1.22.0
 
 ### Minor Changes

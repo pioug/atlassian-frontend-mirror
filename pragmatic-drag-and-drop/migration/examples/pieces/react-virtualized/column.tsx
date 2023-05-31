@@ -113,6 +113,8 @@ export const Column = memo(({ column, droppableId, index }: ColumnProps) => {
                       // react-virtualized has no way to get the list's ref
                       // So we use the `ReactDOM.findDOMNode(ref)` escape hatch to get the ref
                       if (ref) {
+                        // DSP-10519 TODO: ReactDOM.findDOMNode is deprecated in React18, consider using alternative solution
+                        // https://react.dev/reference/react-dom/findDOMNode#alternatives
                         // eslint-disable-next-line react/no-find-dom-node
                         const whatHasMyLifeComeTo = findDOMNode(ref);
                         if (whatHasMyLifeComeTo instanceof HTMLElement) {

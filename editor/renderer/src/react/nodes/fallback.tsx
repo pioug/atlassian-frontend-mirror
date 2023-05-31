@@ -7,7 +7,6 @@ export type CardErrorBoundaryProps = {
 export class CardErrorBoundary extends React.PureComponent<
   {
     url?: string;
-    data?: object;
     onClick?: (e: React.MouseEvent<HTMLElement>, url?: string) => void;
   } & CardErrorBoundaryProps
 > {

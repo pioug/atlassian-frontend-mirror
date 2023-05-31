@@ -62,6 +62,7 @@ describe('Renders custom UI on toolbar', () => {
         dispatchCommand={() => {}}
         node={undefined as any}
         featureFlags={{}}
+        api={undefined}
       />,
     );
     expect(wrapper.length).toBe(1);

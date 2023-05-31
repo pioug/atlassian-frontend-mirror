@@ -43,6 +43,7 @@ import textFormattingPlugin from '../../../../text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -59,6 +60,7 @@ describe('inputrules', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
         // TODO: Maybe it's worth to split this file to test each input rule for each different plugins
         .add(blockTypePlugin)
         .add(indentationPlugin)

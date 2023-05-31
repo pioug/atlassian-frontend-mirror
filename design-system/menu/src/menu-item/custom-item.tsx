@@ -4,6 +4,7 @@ import { forwardRef, memo, MouseEventHandler } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
@@ -59,6 +60,13 @@ const CustomItem = memo(
       if (!Component) {
         return null;
       }
+
+      propDeprecationWarning(
+        process.env._PACKAGE_NAME_,
+        'cssFn',
+        cssFn !== (noop as any),
+        '', // TODO: Create DAC post when primitives/xcss are available as alternatives
+      );
 
       return (
         <MenuItemPrimitive

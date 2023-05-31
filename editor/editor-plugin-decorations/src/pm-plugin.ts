@@ -1,10 +1,10 @@
-import { NodeType } from 'prosemirror-model';
-import { DecorationSet, Decoration } from 'prosemirror-view';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey, EditorState, NodeSelection } from 'prosemirror-state';
-import { Command } from '../../../types';
+import { Node, NodeType } from 'prosemirror-model';
+import { EditorState, NodeSelection, PluginKey } from 'prosemirror-state';
 import { findParentNodeOfType } from 'prosemirror-utils';
-import { Node } from 'prosemirror-model';
+import { Decoration, DecorationSet } from 'prosemirror-view';
+
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Command } from '@atlaskit/editor-common/types';
 
 export const decorationStateKey = new PluginKey('decorationPlugin');
 
@@ -13,14 +13,19 @@ export enum ACTIONS {
   DECORATION_REMOVE,
 }
 
-/**
- *
- * @private
- * @deprecated
- *
- * Please use the actions of the base plugin rather than this function
- * directly
- */
+export const removeDecoration: Command = (state, dispatch) => {
+  const { tr } = state;
+  if (dispatch) {
+    dispatch(
+      tr.setMeta(decorationStateKey, {
+        action: ACTIONS.DECORATION_REMOVE,
+      }),
+    );
+    return true;
+  }
+  return false;
+};
+
 export const hoverDecoration =
   (
     nodeType: NodeType | Array<NodeType>,
@@ -82,6 +87,9 @@ export const hoverDecoration =
 export type DecorationState = {
   decoration?: Decoration;
 };
+
+type HoverDecorationHandler = typeof hoverDecoration;
+export type { HoverDecorationHandler };
 
 export default () => {
   return new SafePlugin({

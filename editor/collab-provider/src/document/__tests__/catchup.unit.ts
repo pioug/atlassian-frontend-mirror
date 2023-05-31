@@ -1,6 +1,7 @@
 import { catchup, rebaseSteps } from '../catchup';
 import { CatchupOptions } from '../../types';
 import { StepMap } from 'prosemirror-transform';
+import AnalyticsHelper from '../../analytics/analytics-helper';
 
 describe('Catchup ', () => {
   afterEach(() => {
@@ -25,6 +26,7 @@ describe('Catchup ', () => {
       updateDocument: jest.fn(),
       updateMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
+      analyticsHelper: new AnalyticsHelper('fake-document-ari'),
     };
     await catchup(options);
     expect(options.fetchCatchup).toBeCalledWith(1);
@@ -49,6 +51,7 @@ describe('Catchup ', () => {
       applyLocalSteps: jest.fn(),
       updateDocument: jest.fn(),
       updateMetadata: jest.fn(),
+      analyticsHelper: new AnalyticsHelper('fake-document-ari'),
     };
 
     await catchup(options);
@@ -82,6 +85,7 @@ describe('Catchup ', () => {
       updateDocument: jest.fn(),
       updateMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
+      analyticsHelper: new AnalyticsHelper('fake-document-ari'),
     };
 
     await catchup(options);
@@ -118,6 +122,7 @@ describe('Catchup ', () => {
       updateDocument: jest.fn(),
       updateMetadata: jest.fn(),
       applyLocalSteps: jest.fn(),
+      analyticsHelper: new AnalyticsHelper('fake-document-ari'),
     };
 
     await catchup(options);

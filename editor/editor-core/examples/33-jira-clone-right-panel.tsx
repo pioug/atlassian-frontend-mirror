@@ -4,7 +4,7 @@ import { useState, Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian-navigation/skeleton';
 import { RightSidebar, TopNavigation } from '@atlaskit/page-layout';
-import { EditorMigrationComponent as Editor } from '../src';
+import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import Button from '@atlaskit/button';
 import MoreIcon from '@atlaskit/icon/glyph/more';

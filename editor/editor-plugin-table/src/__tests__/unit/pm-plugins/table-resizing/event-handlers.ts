@@ -33,6 +33,7 @@ import {
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('table-resizing/event-handlers', () => {
   const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
@@ -49,6 +50,7 @@ describe('table-resizing/event-handlers', () => {
           .add([featureFlagsPlugin, {}])
           .add([analyticsPlugin, {}])
           .add(contentInsertionPlugin)
+          .add(decorationsPlugin)
           .add([
             tablePlugin,
             {

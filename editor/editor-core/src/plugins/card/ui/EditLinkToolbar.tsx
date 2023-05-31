@@ -12,11 +12,11 @@ import { LinkPickerOptions } from '../../hyperlink/types';
 import HyperlinkToolbar from '../../hyperlink/ui/HyperlinkAddToolbar';
 import { showLinkToolbar, hideLinkToolbar } from '../pm-plugins/actions';
 
-import { Command } from '../../../types';
-import {
+import type {
+  Command,
   FloatingToolbarItem,
   FloatingToolbarConfig,
-} from '../../floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 
 import {
   ACTION_SUBJECT_ID,

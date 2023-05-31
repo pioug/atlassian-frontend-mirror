@@ -17,7 +17,7 @@ import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
 
 import commonMessages from '../../messages';
 import { removePanel, changePanelType } from './actions';
-import { hoverDecoration } from '../base/pm-plugins/decoration';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { EditorState } from 'prosemirror-state';
 import { NodeType } from 'prosemirror-model';
 
@@ -64,6 +64,7 @@ export const getToolbarItems = (
   isCustomPanelEnabled: boolean,
   isCustomPanelEditable: boolean,
   providerFactory: ProviderFactory,
+  hoverDecoration: HoverDecorationHandler | undefined,
   activePanelType?: string,
   activePanelColor?: string,
   activePanelIcon?: string,
@@ -310,10 +311,10 @@ export const getToolbarItems = (
       focusEditoronEnter: true,
       icon: RemoveIcon,
       onClick: removePanel(),
-      onMouseEnter: hoverDecoration(panelNodeType, true),
-      onMouseLeave: hoverDecoration(panelNodeType, false),
-      onFocus: hoverDecoration(panelNodeType, true),
-      onBlur: hoverDecoration(panelNodeType, false),
+      onMouseEnter: hoverDecoration?.(panelNodeType, true),
+      onMouseLeave: hoverDecoration?.(panelNodeType, false),
+      onFocus: hoverDecoration?.(panelNodeType, true),
+      onBlur: hoverDecoration?.(panelNodeType, false),
       title: formatMessage(commonMessages.remove),
       tabIndex: null,
     },
@@ -327,6 +328,7 @@ export const getToolbarConfig = (
   intl: IntlShape,
   options: PanelPluginOptions = {},
   providerFactory: ProviderFactory,
+  hoverDecoration: HoverDecorationHandler | undefined,
 ): FloatingToolbarConfig | undefined => {
   const { formatMessage } = intl;
   const panelObject = findPanel(state);
@@ -345,6 +347,7 @@ export const getToolbarConfig = (
       options.allowCustomPanel || false,
       (options.allowCustomPanel && options.allowCustomPanelEdit) || false,
       providerFactory,
+      hoverDecoration,
       panelType,
       options.allowCustomPanel ? panelColor : undefined,
       options.allowCustomPanel

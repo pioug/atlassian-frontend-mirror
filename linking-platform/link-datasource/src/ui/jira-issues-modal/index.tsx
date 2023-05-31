@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage, IntlProvider, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
-import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
+import { InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Link } from '@atlaskit/linking-types';
 import Modal, {
   ModalBody,
@@ -32,6 +32,7 @@ import { JiraSiteSelector } from './site-selector';
 import {
   JiraIssueDatasourceParameters,
   JiraIssueDatasourceParametersQuery,
+  JiraIssuesDatasourceAdf,
   JiraIssueViewModes,
 } from './types';
 
@@ -59,39 +60,40 @@ export const JIRA_LIST_OF_LINKS_DATASOURCE_ID =
 
 export interface JiraIssuesConfigModalProps {
   datasourceId: string;
-  onVisibleColumnKeysChange: (visibleColumnKeys: string[]) => void;
   visibleColumnKeys?: string[];
-
   parameters?: JiraIssueDatasourceParameters;
-  onUpdateParameters: (
-    parameters: Partial<JiraIssueDatasourceParameters>,
-  ) => void;
   onCancel: () => void;
-  // TODO: Add `| DatatypeCardAdf` once it is available in linking-common
-  // https://product-fabric.atlassian.net/browse/EDM-5733
-  onInsert: (adf: InlineCardAdf | DatasourceAdf) => void;
+  onInsert: (adf: InlineCardAdf | JiraIssuesDatasourceAdf) => void;
 }
 
 export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
+  const {
+    datasourceId,
+    parameters: initialParameters,
+    visibleColumnKeys: initialVisibleColumnKeys,
+    onCancel,
+    onInsert,
+  } = props;
+
   const [availableSites, setAvailableSites] = useState<Site[]>([]);
   const [currentViewMode, setCurrentViewMode] =
     useState<JiraIssueViewModes>('issue');
 
-  const {
-    datasourceId,
-    parameters,
-    visibleColumnKeys,
-    onCancel,
-    onInsert,
-    onUpdateParameters,
-    onVisibleColumnKeysChange,
-  } = props;
-  const isParametersSet = !!(
-    parameters &&
-    parameters.jql &&
-    parameters.cloudId
+  const [cloudId, setCloudId] = useState(initialParameters?.cloudId);
+  const [jql, setJql] = useState(initialParameters?.jql);
+
+  const isParametersSet = !!(jql && cloudId);
+
+  const parameters = useMemo<JiraIssueDatasourceParameters | undefined>(
+    () =>
+      !!cloudId
+        ? {
+            cloudId,
+            jql: jql || '',
+          }
+        : undefined,
+    [cloudId, jql],
   );
-  const { cloudId, jql } = parameters || {};
 
   const {
     reset,
@@ -102,6 +104,19 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     columns,
     defaultVisibleColumnKeys,
   } = useDatasourceTableState(datasourceId, parameters);
+
+  const [visibleColumnKeys, setVisibleColumnKeys] = useState(
+    initialVisibleColumnKeys || defaultVisibleColumnKeys,
+  );
+  useEffect(() => {
+    const newVisibleColumnKeys =
+      !initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
+        ? defaultVisibleColumnKeys
+        : initialVisibleColumnKeys;
+
+    setVisibleColumnKeys(newVisibleColumnKeys);
+  }, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
+
   const { formatMessage } = useIntl();
 
   useEffect(() => {
@@ -114,19 +129,19 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
   }, []);
 
   const onSearch = useCallback(
-    (parameters: JiraIssueDatasourceParametersQuery) => {
-      onUpdateParameters(parameters);
+    (newParameters: JiraIssueDatasourceParametersQuery) => {
+      setJql(newParameters.jql);
       reset();
     },
-    [reset, onUpdateParameters],
+    [reset],
   );
 
   const onSiteSelection = useCallback(
     (site: Site) => {
-      onUpdateParameters({ cloudId: site.cloudId });
+      setCloudId(site.cloudId);
       reset();
     },
-    [reset, onUpdateParameters],
+    [reset],
   );
 
   const selectedJiraSite = useMemo<Site | undefined>(
@@ -138,20 +153,9 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
 
   useEffect(() => {
     if (!cloudId && selectedJiraSite) {
-      onUpdateParameters({
-        cloudId: selectedJiraSite.cloudId,
-      });
+      setCloudId(selectedJiraSite.cloudId);
     }
-  }, [cloudId, onUpdateParameters, selectedJiraSite]);
-
-  useEffect(() => {
-    if (
-      (visibleColumnKeys || []).length === 0 &&
-      defaultVisibleColumnKeys.length > 0
-    ) {
-      onVisibleColumnKeysChange(defaultVisibleColumnKeys);
-    }
-  }, [visibleColumnKeys, defaultVisibleColumnKeys, onVisibleColumnKeysChange]);
+  }, [cloudId, selectedJiraSite]);
 
   const retrieveUrlForSmartCardRender = useCallback(() => {
     const [data] = responseItems;
@@ -200,7 +204,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
             ],
           },
         },
-      } as DatasourceAdf);
+      } as JiraIssuesDatasourceAdf);
     }
   }, [
     isParametersSet,
@@ -235,7 +239,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
         hasNextPage={hasNextPage}
         visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
         onNextPage={onNextPage}
-        onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+        onVisibleColumnKeysChange={setVisibleColumnKeys}
       />
     ),
     [
@@ -243,7 +247,6 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
       defaultVisibleColumnKeys,
       hasNextPage,
       onNextPage,
-      onVisibleColumnKeysChange,
       responseItems,
       status,
       visibleColumnKeys,

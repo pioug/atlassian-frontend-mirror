@@ -22,6 +22,7 @@ export const getToolbarItems = (
 
   return processCopyButtonItems(view.state)(
     Array.isArray(toolbar.items) ? toolbar.items : toolbar.items(node),
+    undefined,
   );
 };
 

@@ -37,6 +37,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { getToolbarConfig } from '../../toolbar';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 jest.mock('../../../../utils/clipboard');
 
@@ -53,6 +54,7 @@ describe('code-block', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tablesPlugin)
         .add(basePlugin)
@@ -320,7 +322,7 @@ describe('code-block', () => {
     });
 
     it('should not show clipboard button in toolbar when allowCopyToClipboard is false', () => {
-      const createToolbar = getToolbarConfig(false);
+      const createToolbar = getToolbarConfig(false, undefined);
       // @ts-ignore
       const toolbar = createToolbar(editorView.state, intl, {});
 
@@ -328,7 +330,7 @@ describe('code-block', () => {
     });
 
     it('should show clipboard button in toolbar when allowCopyToClipboard is true', () => {
-      const createToolbar = getToolbarConfig(true);
+      const createToolbar = getToolbarConfig(true, undefined);
       // @ts-ignore
       const toolbar = createToolbar(editorView.state, intl, {});
 
@@ -343,7 +345,7 @@ describe('code-block', () => {
         doc(code_block({ language: 'javascript' })('Some code here')),
       );
 
-      const createToolbar = getToolbarConfig(false);
+      const createToolbar = getToolbarConfig(false, undefined);
       // @ts-ignore
       const toolbar = createToolbar(editorView.state, intl, {});
 
@@ -361,7 +363,7 @@ describe('code-block', () => {
         doc(code_block({ language: 'js' })('Some code here')),
       );
 
-      const createToolbar = getToolbarConfig(false);
+      const createToolbar = getToolbarConfig(false, undefined);
       // @ts-ignore
       const toolbar = createToolbar(editorView.state, intl, {});
 
@@ -379,7 +381,7 @@ describe('code-block', () => {
         doc(code_block({ language: 'patagonia' })('Some code here')),
       );
 
-      const createToolbar = getToolbarConfig(false);
+      const createToolbar = getToolbarConfig(false, undefined);
       // @ts-ignore
       const toolbar = createToolbar(editorView.state, intl, {});
 

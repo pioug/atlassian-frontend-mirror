@@ -12,10 +12,7 @@ import {
   createEditorExampleForTests,
   mapProvidersToProps,
 } from '@atlaskit/editor-core/example-helpers/create-editor-example-for-tests';
-import {
-  EditorMigrationComponent as Editor,
-  ContextPanel,
-} from '@atlaskit/editor-core/src';
+import { Editor, ContextPanel } from '@atlaskit/editor-core/src';
 import { SaveAndCancelButtons } from '@atlaskit/editor-core/examples/5-full-page';
 import { TitleInput } from '@atlaskit/editor-core/example-helpers/PageElements';
 import { getDefaultLinkPickerOptions } from '@atlaskit/editor-core/example-helpers/link-picker';

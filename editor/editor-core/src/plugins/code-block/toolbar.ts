@@ -22,7 +22,7 @@ import {
   removeVisualFeedbackForCopyButton,
 } from './pm-plugins/codeBlockCopySelectionPlugin';
 import { Command } from '../../types';
-import { hoverDecoration } from '../base/pm-plugins/decoration';
+import { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { pluginKey } from './plugin-key';
 import { SelectOption } from '../floating-toolbar/ui/Select';
 import {
@@ -43,7 +43,10 @@ export const messages = defineMessages({
 const languageList = createLanguageList(DEFAULT_LANGUAGES);
 
 export const getToolbarConfig =
-  (allowCopyToClipboard: boolean = false): FloatingToolbarHandler =>
+  (
+    allowCopyToClipboard: boolean = false,
+    hoverDecoration: HoverDecorationHandler | undefined,
+  ): FloatingToolbarHandler =>
   (state, { formatMessage }) => {
     const codeBlockState: CodeBlockState | undefined =
       pluginKey.getState(state);
@@ -123,10 +126,10 @@ export const getToolbarConfig =
       type: 'button',
       appearance: 'danger',
       icon: RemoveIcon,
-      onMouseEnter: hoverDecoration(nodeType, true),
-      onMouseLeave: hoverDecoration(nodeType, false),
-      onFocus: hoverDecoration(nodeType, true),
-      onBlur: hoverDecoration(nodeType, false),
+      onMouseEnter: hoverDecoration?.(nodeType, true),
+      onMouseLeave: hoverDecoration?.(nodeType, false),
+      onFocus: hoverDecoration?.(nodeType, true),
+      onBlur: hoverDecoration?.(nodeType, false),
       onClick: removeCodeBlock,
       title: formatMessage(commonMessages.remove),
       tabIndex: null,

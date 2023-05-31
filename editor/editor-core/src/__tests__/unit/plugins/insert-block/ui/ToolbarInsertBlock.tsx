@@ -73,6 +73,7 @@ import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
@@ -173,6 +174,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
         .add(layoutPlugin)
         .add(panelPlugin)
         .add(rulePlugin)

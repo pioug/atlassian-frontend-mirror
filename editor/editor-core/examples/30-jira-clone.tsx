@@ -7,7 +7,7 @@ import { NavigationSkeleton as TopNavigationSkeleton } from '@atlaskit/atlassian
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import { LeftSidebar, TopNavigation } from '@atlaskit/page-layout';
 
-import { EditorMigrationComponent as Editor } from '../src';
+import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 
 const stickyHeader = css`

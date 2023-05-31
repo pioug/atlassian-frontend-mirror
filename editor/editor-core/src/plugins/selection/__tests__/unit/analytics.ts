@@ -34,12 +34,14 @@ import {
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('selection analytics', () => {
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, {}])
+    .add(decorationsPlugin)
     .add(selectionPlugin)
     .add(contentInsertionPlugin)
     .add(rulePlugin)

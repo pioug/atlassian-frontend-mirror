@@ -5,7 +5,7 @@ import { PureComponent } from 'react';
 import { css, jsx } from '@emotion/react';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { EditorMigrationComponent as Editor } from '../src';
+import { Editor } from '../src';
 import { content } from '../example-helpers/styles';
 import imageUploadHandler from '../example-helpers/imageUpload';
 import { N40 } from '@atlaskit/theme/colors';

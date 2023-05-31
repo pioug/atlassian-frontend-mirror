@@ -39,6 +39,7 @@ import deprecatedAnalyticsPlugin, {
 } from '../../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('join-list-item-forward', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -53,6 +54,7 @@ describe('join-list-item-forward', () => {
       .add([featureFlagsPlugin, {}])
       .add(listPlugin)
       .add(basePlugins)
+      .add(decorationsPlugin)
       .add(blockType)
       .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelBlockTypePlugin)

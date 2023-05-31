@@ -1,7 +1,24 @@
 import { EditorView } from 'prosemirror-view';
 
-type Guideline = {
-  key?: string; // will be used as the React key
+type PositionValue = `${number}px` | `${number}%` | 0;
+
+type PositionSide =
+  | { left: PositionValue; right?: never }
+  | { right: PositionValue; left?: never };
+
+export enum GuidelineContainerArea {
+  EditorLeftMargin = 'editorLeftMargin',
+  EditorContent = 'editorContent',
+  EditorRightMargin = 'editorRightMargin',
+}
+
+type GuidelinePosition = {
+  containerArea?: GuidelineContainerArea; //default to "EditorContent"
+} & PositionSide;
+
+type GuidelineConfig = {
+  key: string; // will be used as the React key
+  position: GuidelinePosition;
   active?: boolean;
   show?: boolean;
   style?: 'dashed' | 'solid'; // default solid
@@ -9,19 +26,18 @@ type Guideline = {
 };
 
 type GuidelinePluginState = {
-  guidelines: Guideline[];
+  guidelines: GuidelineConfig[];
 };
 
-interface GuidelinePluginOptions {
-  // GuidelinePluginOptions
-  // TODO add options here;
-}
+interface GuidelinePluginOptions {}
 
-type DisplayGuideline = (view: EditorView) => void;
+type DisplayGrid = (props: Required<GuidelinePluginState>) => boolean;
+type DisplayGuideline = (view: EditorView) => DisplayGrid;
 
 export type {
   GuidelinePluginState,
   GuidelinePluginOptions,
-  Guideline,
+  GuidelineConfig,
+  GuidelinePosition,
   DisplayGuideline,
 };

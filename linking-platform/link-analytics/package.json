@@ -46,13 +46,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@af/analytics-codegen": "^0.0.7",
+    "@af/analytics-codegen": "^0.1.0",
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
     "@atlaskit/link-picker": "^1.22.0",
     "@atlaskit/link-test-helpers": "^4.0.0",
     "@atlaskit/popup": "^1.6.0",
-    "@atlaskit/smart-card": "^26.4.0",
+    "@atlaskit/smart-card": "^26.5.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",

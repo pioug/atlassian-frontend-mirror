@@ -29,6 +29,7 @@ import {
 } from '../pm-plugins/main';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -42,6 +43,7 @@ describe('text color commands', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
         .add(textColorPlugin)
         .add(tablesPlugin)
         .add(blockTypePlugin)

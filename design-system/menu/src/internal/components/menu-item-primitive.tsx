@@ -3,6 +3,7 @@ import { useContext } from 'react';
 
 import { ClassNames, css, jsx } from '@emotion/react';
 
+import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import FocusRing from '@atlaskit/focus-ring';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Inline, { InlineProps } from '@atlaskit/primitives/inline';
@@ -204,6 +205,13 @@ const MenuItemPrimitive = ({
   isDisabled = false,
   isSelected = false,
 }: MenuItemPrimitiveProps) => {
+  propDeprecationWarning(
+    process.env._PACKAGE_NAME_,
+    'overrides',
+    overrides !== undefined,
+    '', // TODO: Create DAC post when primitives/xcss are available as alternatives
+  );
+
   const spacing = useContext(SpacingContext);
   const selectionStyle = useContext(SELECTION_STYLE_CONTEXT_DO_NOT_USE);
   const renderTitle =

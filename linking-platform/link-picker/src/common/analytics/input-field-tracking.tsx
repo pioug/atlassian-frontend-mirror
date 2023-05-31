@@ -4,7 +4,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { ANALYTICS_CHANNEL } from '../constants';
 import createEventPayload, {
   LinkPickerAnalyticsContextType,
-} from '../../analytics.codegen';
+} from '../../common/utils/analytics/analytics.codegen';
 import { useLinkPickerAnalytics } from '.';
 
 type InputFields = 'link' | 'displayText';

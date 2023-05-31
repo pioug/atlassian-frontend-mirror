@@ -72,17 +72,31 @@ interface JiraIssuesConfigModalProps {
   // (undocumented)
   onCancel: () => void;
   // (undocumented)
-  onInsert: (adf: DatasourceAdf | InlineCardAdf) => void;
-  // (undocumented)
-  onUpdateParameters: (
-    parameters: Partial<JiraIssueDatasourceParameters>,
-  ) => void;
-  // (undocumented)
-  onVisibleColumnKeysChange: (visibleColumnKeys: string[]) => void;
+  onInsert: (adf: InlineCardAdf | JiraIssuesDatasourceAdf) => void;
   // (undocumented)
   parameters?: JiraIssueDatasourceParameters;
   // (undocumented)
   visibleColumnKeys?: string[];
+}
+
+// @public (undocumented)
+export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
+  // (undocumented)
+  attrs: {
+    url?: string;
+    datasource: {
+      id: string;
+      parameters: JiraIssueDatasourceParameters;
+      views: [
+        {
+          type: 'table';
+          properties?: {
+            columnKeys: string[];
+          };
+        },
+      ];
+    };
+  };
 }
 
 // @public (undocumented)

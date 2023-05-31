@@ -2,7 +2,6 @@ import { IntlProviderIfMissingWrapper } from '@atlaskit/editor-common/ui';
 import React from 'react';
 import Editor from '../../editor';
 import EditorNext from '../../editor-next';
-import EditorMigrationComponent from '../../editor-next/editor-migration-component';
 import EditorWithActions from '../../labs/EditorWithActions';
 import ChromeCollapsed from '../ChromeCollapsed';
 
@@ -18,7 +17,7 @@ export interface Props {
 export interface State {}
 
 export default class CollapsedEditor extends React.Component<Props, State> {
-  editorComponent?: Editor | EditorNext | EditorMigrationComponent;
+  editorComponent?: Editor | EditorNext;
   previouslyExpanded?: boolean;
 
   componentDidUpdate() {
@@ -44,8 +43,7 @@ export default class CollapsedEditor extends React.Component<Props, State> {
     if (
       child.type !== Editor &&
       child.type !== EditorWithActions &&
-      child.type !== EditorNext &&
-      child.type !== EditorMigrationComponent
+      child.type !== EditorNext
     ) {
       throw new Error('Expected child to be of type `Editor`');
     }

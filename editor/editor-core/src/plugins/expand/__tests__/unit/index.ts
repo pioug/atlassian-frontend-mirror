@@ -29,6 +29,7 @@ import quickInsertPlugin from '../../../quick-insert';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('expand actions', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -43,6 +44,7 @@ describe('expand actions', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
         .add([expandPlugin, { allowInsertion: true }])
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)

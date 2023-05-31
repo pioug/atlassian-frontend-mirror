@@ -27,6 +27,7 @@ import { isNodeAWrappingBlockNode } from '../../../utils';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('delete block content', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -37,6 +38,7 @@ describe('delete block content', () => {
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
       .add(basePLugin)
+      .add(decorationsPlugin)
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(layoutPlugin)

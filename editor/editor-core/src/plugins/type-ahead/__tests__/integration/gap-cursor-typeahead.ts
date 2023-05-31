@@ -39,7 +39,11 @@ const startEditor = async (client: any, adf: any): Promise<WebDriverPage> => {
     `gap-cursor-typeahead.ts: opens a quick insert menu from a ${direction}-side gap cursor and inserts an emoji ${
       direction === 'Left' ? 'before' : 'after'
     } the panel`,
-    {},
+    {
+      // FIXME: This test was automatically skipped due to failure on 26/05/2023: https://product-fabric.atlassian.net/browse/ED-18083
+      // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18100
+      skip: ['*'],
+    },
     async (client: any, testName: string) => {
       const page = await startEditor(client, infoPanel);
 

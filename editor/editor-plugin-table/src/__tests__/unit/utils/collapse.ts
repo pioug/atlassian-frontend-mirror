@@ -21,6 +21,7 @@ import {
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('collapse', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -32,7 +33,9 @@ describe('collapse', () => {
       .add(contentInsertionPlugin)
       .add(tablePlugin);
 
-    const finalPreset = expandInPlugins ? preset.add(expandPlugin) : preset;
+    const finalPreset = expandInPlugins
+      ? preset.add(decorationsPlugin).add(expandPlugin)
+      : preset;
 
     return createEditor({ doc, preset: finalPreset });
   };

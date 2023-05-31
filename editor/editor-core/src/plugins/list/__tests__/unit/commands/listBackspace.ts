@@ -16,6 +16,7 @@ import { listBackspace } from '../../../commands/listBackspace';
 import listPlugin from '../../..';
 import codeBlockPlugin from '../../../../code-block';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('backspaceKeyCommand', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -23,6 +24,7 @@ describe('backspaceKeyCommand', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add(decorationsPlugin)
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }]);
 

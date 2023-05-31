@@ -20,6 +20,7 @@ import {
 import { pluginKey } from '../../plugin-key';
 import { Slice } from 'prosemirror-model';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('code-block', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -28,10 +29,9 @@ describe('code-block', () => {
     return createEditor({
       doc,
       pluginKey: pluginKey,
-      preset: new Preset<LightEditorPlugin>().add([
-        codeBlockPlugin,
-        { appearance: 'full-page' },
-      ]),
+      preset: new Preset<LightEditorPlugin>()
+        .add(decorationsPlugin)
+        .add([codeBlockPlugin, { appearance: 'full-page' }]),
     });
   };
 

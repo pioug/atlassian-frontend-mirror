@@ -7,6 +7,8 @@ describe('participants-service-presence', () => {
   let emit: any;
   let getUser: any;
   let sendPresenceJoined: any;
+  let setUserId: any;
+  let getPresenceData: any;
   let analyticsHelper: AnalyticsHelper;
   let analyticsSpy: any;
   let participantsService: ParticipantsService;
@@ -17,8 +19,16 @@ describe('participants-service-presence', () => {
     emit = jest.fn();
     getUser = jest.fn();
     sendPresenceJoined = jest.fn();
+    setUserId = jest.fn();
+    getPresenceData = jest.fn().mockReturnValue(payload);
     analyticsHelper = new AnalyticsHelper('nope');
     analyticsSpy = jest.spyOn(analyticsHelper, 'sendErrorEvent');
+    payload = {
+      sessionId: '420',
+      userId: '69',
+      clientId: '666',
+      timestamp: 756755856,
+    };
     participantsService = new ParticipantsService(
       analyticsHelper,
       undefined,
@@ -26,13 +36,9 @@ describe('participants-service-presence', () => {
       getUser,
       broadcast,
       sendPresenceJoined,
+      getPresenceData,
+      setUserId,
     );
-    payload = {
-      sessionId: '420',
-      userId: '69',
-      clientId: '666',
-      timestamp: 756755856,
-    };
   });
 
   afterEach(() => jest.clearAllMocks());
@@ -42,6 +48,11 @@ describe('participants-service-presence', () => {
       beforeEach(() => {
         participantsService.onPresence(payload);
       });
+      it('should set userId', () => {
+        expect(setUserId).toBeCalledTimes(1);
+        expect(setUserId).toBeCalledWith(payload.userId);
+      });
+
       it('should broadcast presence', () => {
         expect(broadcast).toBeCalledTimes(1);
         expect(broadcast).toBeCalledWith('participant:updated', payload);
@@ -80,7 +91,7 @@ describe('participants-service-presence', () => {
       expect(broadcast).toBeCalledTimes(1);
     });
 
-    it('when joining presence', () => {
+    it('should send analytics on error', () => {
       const fakeError = new Error('batman');
       jest
         // @ts-expect-error don't care about type issues for a mock
@@ -103,7 +114,11 @@ describe('participants-service-presence', () => {
       beforeEach(() => {
         jest.spyOn(window, 'setTimeout');
         // @ts-expect-error private function
-        participantsService.sendPresence(payload);
+        participantsService.sendPresence();
+      });
+
+      it('should get Presence data from provider', () => {
+        expect(getPresenceData).toBeCalledTimes(1);
       });
 
       it('should broadcast presence', () => {
@@ -126,7 +141,7 @@ describe('participants-service-presence', () => {
           throw error;
         });
         // @ts-expect-error private function
-        participantsService.sendPresence(payload);
+        participantsService.sendPresence();
       });
 
       it('should catch error and send analytics', () => {

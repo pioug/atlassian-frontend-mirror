@@ -19,7 +19,6 @@ import uuid from 'uuid';
 import { IntlProvider } from 'react-intl-next';
 import { isSpecialEvent } from '../../../utils';
 import * as cardWithUrlContent from '../../CardWithUrl/component';
-import { TestErrorBoundary } from '../_boundary';
 import { act } from '@testing-library/react';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
@@ -435,14 +434,10 @@ describe('smart-card: success analytics', () => {
 
       const onError = jest.fn();
       render(
-        <TestErrorBoundary onError={onError}>
-          <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl} />
-          </Provider>
-        </TestErrorBoundary>,
+        <Provider client={mockClient}>
+          <Card appearance="inline" url={mockUrl} onError={onError} />
+        </Provider>,
       );
-
-      expect(onError).toHaveBeenCalledTimes(1);
 
       await waitFor(
         () => expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1),
@@ -450,6 +445,7 @@ describe('smart-card: success analytics', () => {
           timeout: 5000,
         },
       );
+      expect(onError).toHaveBeenCalledTimes(1);
 
       expect(mockStartUfoExperience).toBeCalledWith(
         'smart-link-rendered',
@@ -480,27 +476,27 @@ describe('smart-card: success analytics', () => {
 
       const onError = jest.fn();
       const { rerender } = render(
-        <TestErrorBoundary onError={onError}>
-          <Provider client={mockClient}>
-            <Card appearance="inline" url={mockUrl} showActions={false} />
-          </Provider>
-        </TestErrorBoundary>,
+        <Provider client={mockClient}>
+          <Card
+            appearance="inline"
+            url={mockUrl}
+            showActions={false}
+            onError={onError}
+          />
+        </Provider>,
       );
 
       rerender(
-        <TestErrorBoundary onError={onError}>
-          <Provider client={mockClient}>
-            <Card
-              testId="resolvedCard1"
-              appearance="inline"
-              url={mockUrl}
-              showActions={true}
-            />
-          </Provider>
-        </TestErrorBoundary>,
+        <Provider client={mockClient}>
+          <Card
+            testId="resolvedCard1"
+            appearance="inline"
+            url={mockUrl}
+            showActions={true}
+            onError={onError}
+          />
+        </Provider>,
       );
-
-      expect(onError).toHaveBeenCalledTimes(1);
 
       await waitFor(
         () => expect(analytics.uiRenderFailedEvent).toBeCalledTimes(1),
@@ -509,6 +505,7 @@ describe('smart-card: success analytics', () => {
         },
       );
 
+      expect(onError).toHaveBeenCalledTimes(1);
       spy.mockRestore();
     });
   });

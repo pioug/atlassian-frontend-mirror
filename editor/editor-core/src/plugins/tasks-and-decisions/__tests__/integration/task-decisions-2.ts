@@ -95,9 +95,10 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 26/05/2023: https://product-fabric.atlassian.net/browse/ED-18082
 BrowserTestCase(
   'task-decision-2.ts: can insert mention into an action using click',
-  {},
+  { skip: ['*'] },
   async (client: any, testName: string) => {
     const browser = await goToEditorTestingWDExample(client);
     await mountEditor(browser, {

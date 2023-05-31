@@ -36,6 +36,7 @@ import { inlineCommentPluginKey } from '../../../../annotation/utils';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { undo, redo } from 'prosemirror-history';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('paste: handlePaste', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -81,6 +82,7 @@ describe('paste: handlePaste', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
+        .add(decorationsPlugin)
         .add([pastePlugin, pasteOptions])
         .add(blockTypePlugin)
         .add(textFormattingPlugin)

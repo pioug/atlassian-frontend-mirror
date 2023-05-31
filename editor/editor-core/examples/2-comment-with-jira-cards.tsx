@@ -7,7 +7,7 @@ import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { EditorCardProvider } from '@atlaskit/editor-card-provider';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
-import { EditorMigrationComponent as Editor } from './../src';
+import { Editor } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 
 const jiraUrlMatch = /https?\:\/\/[a-zA-Z0-9]+\.atlassian\.net\/browse\//i;

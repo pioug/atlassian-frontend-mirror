@@ -505,12 +505,12 @@ export class Channel extends Emitter<ChannelEvent> {
     this.socket.emit('metadata', metadata);
   };
 
-  sendPresenceJoined() {
+  sendPresenceJoined = () => {
     if (!this.connected || !this.socket) {
       return;
     }
     this.socket.emit('presence:joined');
-  }
+  };
 
   onOnlineHandler = () => {
     // Force an immediate reconnect, the socket must first be closed to reset reconnection delay logic

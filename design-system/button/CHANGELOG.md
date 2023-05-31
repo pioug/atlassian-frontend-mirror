@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.7.6
+
+### Patch Changes
+
+- [`687e9b93266`](https://bitbucket.org/atlassian/atlassian-frontend/commits/687e9b93266) - DUMMY changeset to fix version resolution
+
 ## 16.7.5
 
 ### Patch Changes

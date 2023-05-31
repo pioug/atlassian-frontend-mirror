@@ -29,6 +29,7 @@ import layoutPlugin from '../..';
 import { TextSelection, NodeSelection } from 'prosemirror-state';
 import { selectNode } from '../../../../utils/commands';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('layout actions', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -39,6 +40,7 @@ describe('layout actions', () => {
     createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add(decorationsPlugin)
       .add(layoutPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);

@@ -1,6 +1,9 @@
 import React from 'react';
 import { layoutColumn, layoutSection } from '@atlaskit/adf-schema';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import { FloatingToolbarConfig } from '../floating-toolbar/types';
 import { default as createLayoutPlugin } from './pm-plugins/main';
 import { buildToolbar } from './toolbar';
@@ -10,14 +13,15 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { LayoutState } from './pm-plugins/types';
 import { LayoutPluginOptions } from './types';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 export { pluginKey };
 
@@ -25,8 +29,12 @@ const layoutPlugin: NextEditorPlugin<
   'layout',
   {
     pluginConfiguration: LayoutPluginOptions | undefined;
+    dependencies: [
+      typeof decorationsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+    ];
   }
-> = (options = {}) => ({
+> = (options = {}, api) => ({
   name: 'layout',
 
   nodes() {
@@ -56,6 +64,7 @@ const layoutPlugin: NextEditorPlugin<
           allowBreakout,
           addSidebarLayouts,
           allowSingleColumnLayout,
+          api?.dependencies.decorations.actions?.hoverDecoration,
         );
       }
       return undefined;
@@ -70,7 +79,7 @@ const layoutPlugin: NextEditorPlugin<
         icon: () => <IconLayout />,
         action(insert, state) {
           const tr = insert(createDefaultLayoutSection(state));
-          return addAnalytics(state, tr, {
+          api?.dependencies.analytics?.actions?.attachAnalyticsEvent({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
             actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
@@ -78,7 +87,8 @@ const layoutPlugin: NextEditorPlugin<
               inputMethod: INPUT_METHOD.QUICK_INSERT,
             },
             eventType: EVENT_TYPE.TRACK,
-          });
+          })(tr);
+          return tr;
         },
       },
     ],

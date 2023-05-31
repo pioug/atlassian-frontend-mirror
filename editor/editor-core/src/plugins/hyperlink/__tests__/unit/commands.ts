@@ -48,6 +48,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import basePlugin from '../../../base';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const googleUrl = 'https://google.com';
 const confluenceUrl =
@@ -76,6 +77,7 @@ describe('hyperlink commands', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(basePlugin)
+        .add(decorationsPlugin)
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin)
         .add(emojiPlugin)

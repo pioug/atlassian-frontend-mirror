@@ -1,5 +1,9 @@
 import AnalyticsHelper from '../../analytics/analytics-helper';
-import { CollabEventTelepointerData, StepJson } from '../../types';
+import {
+  CollabEventTelepointerData,
+  PresencePayload,
+  StepJson,
+} from '../../types';
 import { ParticipantsMap, ProviderParticipant } from '../participants-helper';
 import { ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
@@ -17,6 +21,13 @@ const activeUser: ProviderParticipant = {
   avatar: 'www.jamescameron.com/image.png',
 };
 
+const payload: PresencePayload = {
+  sessionId: activeUser.sessionId,
+  userId: activeUser.userId,
+  clientId: activeUser.clientId,
+  timestamp: baseTime,
+};
+
 const participantsServiceConstructor = (deps: {
   analyticsHelper?: AnalyticsHelper;
   participants?: ParticipantsState;
@@ -24,6 +35,8 @@ const participantsServiceConstructor = (deps: {
   getUser?: any;
   broadcast?: any;
   sendPresenceJoined?: any;
+  getPresenceData?: any;
+  setUserId?: any;
 }): ParticipantsService =>
   new ParticipantsService(
     deps.analyticsHelper,
@@ -32,6 +45,8 @@ const participantsServiceConstructor = (deps: {
     deps.getUser || jest.fn(),
     deps.broadcast || jest.fn(),
     deps.sendPresenceJoined || jest.fn(),
+    deps.getPresenceData || jest.fn().mockReturnValue(payload),
+    deps.setUserId || jest.fn(),
   );
 
 const fakeSteps: StepJson[] = [

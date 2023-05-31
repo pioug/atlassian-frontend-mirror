@@ -802,9 +802,9 @@ describe('Renderer - React/Nodes/Table', () => {
         const tableState = [
           ['BBb', ' '],
           ['1a', '@yolo'],
-          ['C', 'A nEw world!'],
-          ['!c', 'A nEw world'],
           ['Bbb', 'A'],
+          ['!c', 'A nEw world'],
+          ['C', 'A nEw world!'],
           ['bBBB', 'B'],
           ['a1', 'be@ns'],
           [' C', 'C'],

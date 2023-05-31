@@ -1,6 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { testMediaGroup } from '@atlaskit/editor-test-helpers/media-mock';
-import { sleep } from '@atlaskit/media-test-helpers';
 import {
   editable,
   getDocFromElement,
@@ -10,8 +9,9 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { waitForAtLeastNumFileCards } from './_utils';
+import { waitForNumFileCards } from './_utils';
 import cloneDeep from 'lodash/cloneDeep';
+import { mediaClickableSelector } from '@atlaskit/editor-test-helpers/page-objects/media';
 
 const expectUniqueGeneratedMediaAttrs = (doc: { [key: string]: any }) => {
   expect(doc.content[1].content[0].attrs).toEqual(
@@ -51,9 +51,10 @@ const baseADF = {
   ],
 };
 
+// TODO MEX-2426: Skipped FireFox due to being flaky
 BrowserTestCase(
   'copy-mediaGroup.ts: Copies and pastes mediaGroup file card on fullpage',
-  {},
+  { skip: ['firefox'] },
   async (client: any, testCase: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -64,17 +65,14 @@ BrowserTestCase(
       },
     });
 
-    const fileCardSelector =
-      '[data-testid="media-file-card-view"][data-test-status="complete"]';
+    await waitForNumFileCards(page, 1);
 
-    await page.waitForSelector(fileCardSelector);
-    await page.keys(['ArrowDown']);
-    await page.click(fileCardSelector);
+    await page.click(mediaClickableSelector);
     await page.copy();
     await page.keys(['ArrowDown']);
     await page.paste();
-    await sleep(0);
-    await waitForAtLeastNumFileCards(page, 2);
+
+    await waitForNumFileCards(page, 2);
 
     const doc = await page.$eval(editable, getDocFromElement);
 

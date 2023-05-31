@@ -6,7 +6,6 @@ import rafSchedule from 'raf-schd';
 import { getInlineNodeViewProducer } from '../../../nodeviews/getInlineNodeViewProducer';
 
 import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
-import { PMPluginFactoryParams } from '../../../types';
 import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
 import { EmbedCard, EmbedCardNodeViewProps } from '../nodeviews/embedCard';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
@@ -20,7 +19,10 @@ import {
   getPluginStateWithUpdatedPos,
 } from './util/state';
 import { createAnalyticsQueue, eventsFromTransaction } from './analytics';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+  ExtractInjectionAPI,
+  PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types';
 import type cardPlugin from '../index';
 
 export { pluginKey } from './plugin-key';

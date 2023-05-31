@@ -9,7 +9,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
-import { EditorMigrationComponent as Editor } from './../src';
+import { Editor } from './../src';
 
 export const wrapper: any = css`
   height: 500px;

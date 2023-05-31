@@ -87,7 +87,7 @@ describe('extension toolbar', () => {
         ),
       );
 
-      const toolbar = getToolbarConfig()(
+      const toolbar = getToolbarConfig(undefined, undefined)(
         editorView.state,
         intl,
         providerFactory,
@@ -112,7 +112,7 @@ describe('extension toolbar', () => {
         ),
       );
 
-      const toolbar = getToolbarConfig()(
+      const toolbar = getToolbarConfig(undefined, undefined)(
         editorView.state,
         intl,
         providerFactory,
@@ -136,7 +136,7 @@ describe('extension toolbar', () => {
         ),
       );
 
-      const toolbar = getToolbarConfig(true)(
+      const toolbar = getToolbarConfig(true, undefined)(
         editorView.state,
         intl,
         providerFactory,
@@ -165,7 +165,7 @@ describe('extension toolbar', () => {
         ),
       );
 
-      const toolbar = getToolbarConfig(false)(
+      const toolbar = getToolbarConfig(false, undefined)(
         editorView.state,
         intl,
         providerFactory,
@@ -483,7 +483,7 @@ describe('extension toolbar', () => {
         expect(providerFactory.hasProvider('extensionProvider')).toBeTruthy();
         await waitForProvider(providerFactory)('extensionProvider');
 
-        const toolbar = getToolbarConfig()(
+        const toolbar = getToolbarConfig(undefined, undefined)(
           editorView.state,
           intl,
           providerFactory,
@@ -510,7 +510,7 @@ describe('extension toolbar', () => {
 
       describe('getToolbarConfig for extension', () => {
         const getTestConfig = (editorView: EditorView) => {
-          const toolbar = getToolbarConfig()(
+          const toolbar = getToolbarConfig(undefined, undefined)(
             editorView.state,
             intl,
             providerFactory,

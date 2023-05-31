@@ -46,6 +46,7 @@ import { IntlShape } from 'react-intl-next';
 import { processCopyButtonItems } from '../copy-button/toolbar';
 import forceFocusPlugin from './pm-plugins/force-focus';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 export type FloatingToolbarPluginState = Record<
   'getConfigWithNodeInfo',
@@ -158,7 +159,7 @@ function filterUndefined<T>(x?: T): x is T {
 const floatingToolbarPlugin: NextEditorPlugin<
   'floatingToolbar',
   {
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [typeof featureFlagsPlugin, typeof decorationsPlugin];
   }
 > = (_, api) => {
   const featureFlags =
@@ -251,6 +252,7 @@ const floatingToolbarPlugin: NextEditorPlugin<
             let customPositionCalculation;
             const toolbarItems = processCopyButtonItems(editorView.state)(
               Array.isArray(items) ? items : items(node),
+              api?.dependencies.decorations.actions.hoverDecoration,
             );
 
             if (onPositionCalculated) {
@@ -320,6 +322,7 @@ const floatingToolbarPlugin: NextEditorPlugin<
                     extensionsProvider={extensionsState?.extensionProvider}
                     scrollable={scrollable}
                     featureFlags={featureFlags}
+                    api={api}
                   />
                 </Popup>
 

@@ -1,3 +1,5 @@
+import { DatasourceAdf } from '@atlaskit/linking-common/types';
+
 type XOR<T1, T2> =
   | (T1 & {
       [k in Exclude<keyof T2, keyof T1>]?: never;
@@ -15,3 +17,21 @@ export type JiraIssueDatasourceParameters = {
 } & JiraIssueDatasourceParametersQuery;
 
 export type JiraIssueViewModes = 'issue' | 'count';
+
+export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
+  attrs: {
+    url?: string;
+    datasource: {
+      id: string;
+      parameters: JiraIssueDatasourceParameters;
+      views: [
+        {
+          type: 'table';
+          properties?: {
+            columnKeys: string[];
+          };
+        },
+      ];
+    };
+  };
+}

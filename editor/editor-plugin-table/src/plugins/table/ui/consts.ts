@@ -38,6 +38,10 @@ export const tableCellBackgroundColor = themed({
   light: token('elevation.surface', N0),
   dark: token('elevation.surface', DN30),
 });
+export const tableHeaderCellBackgroundColor = themed({
+  light: token('color.background.neutral', akEditorTableToolbar),
+  dark: token('color.background.neutral', akEditorTableToolbarDark),
+});
 export const tableToolbarColor = themed({
   light: token('color.background.neutral.subtle', akEditorTableToolbar),
   dark: token('color.background.neutral.subtle', akEditorTableToolbarDark),
@@ -47,8 +51,8 @@ export const tableTextColor = themed({
   dark: token('color.text.subtlest', DN400),
 });
 export const tableBorderColor = themed({
-  light: token('color.border', akEditorTableBorder),
-  dark: token('color.border', akEditorTableBorderDark),
+  light: token('color.background.accent.gray.subtler', akEditorTableBorder),
+  dark: token('color.background.accent.gray.subtler', akEditorTableBorderDark),
 });
 export const tableFloatingControlsColor = token(
   'color.background.neutral',

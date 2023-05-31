@@ -25,6 +25,7 @@ import {
 import { PanelPluginOptions } from '../../../../../plugins/panel/types';
 import { PanelIcon } from './../../../../../plugins/panel/nodeviews/panel';
 import panelPlugin from '../../../../../plugins/panel';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 jest.mock('@atlaskit/emoji/element');
 
@@ -151,7 +152,7 @@ describe('Panel - NodeView', () => {
     ) {
       const editorData = createEditor({
         doc: document,
-        preset: new Preset<LightEditorPlugin>().add([
+        preset: new Preset<LightEditorPlugin>().add(decorationsPlugin).add([
           panelPlugin,
           {
             allowCustomPanel: allowCustomPanel,

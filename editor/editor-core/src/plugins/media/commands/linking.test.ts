@@ -30,6 +30,7 @@ import * as analyticUtils from '../../analytics/utils';
 import * as commands from '../../../commands';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const { setUrlToMedia, showLinkingToolbarWithMediaTypeCheck, unlink } = linking;
 
@@ -53,6 +54,7 @@ describe('image linking', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
+        .add(decorationsPlugin)
         .add(widthPlugin)
         .add(gridPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowLinking: true }])

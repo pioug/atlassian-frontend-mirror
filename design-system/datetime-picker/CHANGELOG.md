@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.7.0
+
+### Minor Changes
+
+- [`1d5cd2e273c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d5cd2e273c) - [ux] We are testing an input behavior change in date picker behind a feature flag. Now when entering a date in the input this value will persist after selecting a date instead of being cleared, acting like a standard input. If this fix is successful it will be available in a later release.
+
 ## 12.6.1
 
 ### Patch Changes

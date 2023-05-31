@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Form, {
@@ -10,35 +10,77 @@ import Form, {
 
 import Textfield from '../src';
 
-function validate(value: unknown) {
-  if (value !== 'open sesame') {
-    return 'INCORRECT_PHRASE';
-  }
-  return undefined;
-}
-
 export default function FormValidationExample() {
+  const [fieldValue, setFieldValue] = useState<string | undefined>('');
+  const [fieldHasError, setFieldHasError] = useState(false);
+  const [isFieldNotFocused, setIsFieldNotFocused] = useState(false);
+
+  function validate(value: string | undefined) {
+    setFieldValue(value);
+    if (value === 'regular user') {
+      setFieldHasError(false);
+    } else {
+      return 'INCORRECT_PHRASE';
+    }
+    return undefined;
+  }
+
   const handleSubmit = (formState: { command: string }) => {
     console.log('form state', formState);
   };
+
+  const handleBlurEvent = () => {
+    setIsFieldNotFocused(true);
+    if (fieldValue !== 'regular user') {
+      setFieldHasError(true);
+    }
+  };
+
+  const handleFocusEvent = () => {
+    setIsFieldNotFocused(false);
+  };
+
+  type Obj = { [key: string]: string };
+  const errorAttributes: Obj = {};
+
+  if (isFieldNotFocused) {
+    errorAttributes['aria-relevant'] = 'all';
+    errorAttributes['aria-atomic'] = 'false';
+  }
+
+  const generateErrorMessage = () => {
+    if (isFieldNotFocused) {
+      return <span>Incorrect, try &lsquo;regular user&rsquo;</span>;
+    } else if (!isFieldNotFocused) {
+      return <p>Incorrect, try &lsquo;regular user&rsquo;</p>;
+    }
+  };
+
   return (
     <Form onSubmit={handleSubmit}>
       {({ formProps }) => (
         <form {...formProps} name="validation-example">
           <Field
-            label="Only validates on input = open sesame"
+            label="Validates entering existing role"
             isRequired
             name="command"
             validate={validate}
             defaultValue=""
           >
-            {({ fieldProps, error, meta: { valid } }: any) => (
+            {({ fieldProps, meta: { valid } }: any) => (
               <Fragment>
-                <Textfield testId="formValidationTest" {...fieldProps} />
-                {valid && <ValidMessage>Your wish granted</ValidMessage>}
-                {error === 'INCORRECT_PHRASE' && (
+                <Textfield
+                  testId="formValidationTest"
+                  {...fieldProps}
+                  onBlur={handleBlurEvent}
+                  onFocus={handleFocusEvent}
+                />
+                {valid && <ValidMessage>Your role is valid</ValidMessage>}
+                {fieldHasError && (
                   <ErrorMessage>
-                    Incorrect, try &lsquo;open sesame&rsquo;
+                    <div aria-live="polite" {...errorAttributes}>
+                      {generateErrorMessage()}
+                    </div>
                   </ErrorMessage>
                 )}
               </Fragment>

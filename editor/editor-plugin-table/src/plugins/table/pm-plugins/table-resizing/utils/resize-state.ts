@@ -289,11 +289,22 @@ export const getNewResizeStateFromSelectedColumns = (
   domAtPos: (pos: number) => { node: Node; offset: number },
   getEditorContainerWidth: GetEditorContainerWidth,
 ): ResizeStateWithAnalytics | undefined => {
+  // Fail early so that we don't do complex calculations for no reason
+  const numColumnsSelected = rect.right - rect.left;
+  if (numColumnsSelected <= 1) {
+    return;
+  }
+
   const { totalRowCount, totalColumnCount, table } = getSelectedTableInfo(
     state.selection,
   );
 
   if (!table) {
+    return;
+  }
+
+  // Fail early so that we don't do complex calculations for no reason
+  if (!hasTableBeenResized(table.node)) {
     return;
   }
 

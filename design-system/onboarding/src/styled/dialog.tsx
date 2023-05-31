@@ -22,6 +22,8 @@ const actionItemStyles = css({
   margin: `${token('space.0', '0px')} ${token('space.050', '4px')}`,
 });
 
+type DialogImageProps = ImgHTMLAttributes<HTMLImageElement>;
+
 /**
  * __Dialog image__
  *
@@ -29,10 +31,7 @@ const actionItemStyles = css({
  *
  * @internal
  */
-export const DialogImage = ({
-  alt,
-  ...props
-}: ImgHTMLAttributes<HTMLImageElement>) => (
+export const DialogImage = ({ alt, ...props }: DialogImageProps) => (
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
   <img css={imageStyles} alt={alt} {...props} />
 );

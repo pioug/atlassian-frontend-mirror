@@ -274,6 +274,27 @@ export const TypeAheadPopup: React.FC<TypeAheadPopupProps> = React.memo(
       };
     }, [ref, cancel]);
 
+    // ED-17443 When you press escape on typeahead panel, it should remove focus and close the panel
+    // This is the expected keyboard behaviour advised by the Accessibility team
+    useLayoutEffect(() => {
+      const escape = (event: any) => {
+        if (event.key === 'Escape') {
+          cancel({
+            addPrefixTrigger: true,
+            setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
+            forceFocusOnEditor: true,
+          });
+        }
+      };
+
+      const { current: element } = ref;
+      element?.addEventListener('keydown', escape);
+
+      return () => {
+        element?.removeEventListener('keydown', escape);
+      };
+    }, [ref, cancel]);
+
     return (
       <Popup
         zIndex={akEditorFloatingDialogZIndex}

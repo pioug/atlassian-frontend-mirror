@@ -14,6 +14,7 @@ import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import typeAheadPlugin from '../../../';
 import placeholderTextPlugin from '../../../../placeholder-text';
 import panelPlugin from '../../../../panel';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 import { openTypeAheadAtCursor } from '../../../transforms/open-typeahead-at-cursor';
 import { INPUT_METHOD } from '../../../../analytics/types/enums';
@@ -36,6 +37,7 @@ describe('typeahead -> transforms -> openTypeAheadAtCursor', () => {
   beforeAll(() => {
     const createEditor = createProsemirrorEditorFactory();
     const preset = new Preset<LightEditorPlugin>()
+      .add(decorationsPlugin)
       .add([placeholderTextPlugin, {}])
       .add(typeAheadPlugin)
       .add(panelPlugin);

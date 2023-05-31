@@ -15,6 +15,7 @@ import { setBreakoutMode } from '../../../commands/set-breakout-mode';
 import breakoutPlugin from '../../../';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import codeBlockPlugin from '../../../../code-block';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('Breakout Commands: set-breakout-mode', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -24,6 +25,7 @@ describe('Breakout Commands: set-breakout-mode', () => {
       doc: doc(code_block()('Hel{<>}lo')),
       preset: new Preset<LightEditorPlugin>()
         .add(widthPlugin)
+        .add(decorationsPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([breakoutPlugin, { allowBreakoutButton: true }]),
     });
@@ -39,6 +41,7 @@ describe('Breakout Commands: set-breakout-mode', () => {
       doc: doc('{<node>}', code_block()('Hello')),
       preset: new Preset<LightEditorPlugin>()
         .add(widthPlugin)
+        .add(decorationsPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([breakoutPlugin, { allowBreakoutButton: true }]),
     });
@@ -68,6 +71,7 @@ describe('Breakout Commands: set-breakout-mode', () => {
       doc: doc(breakout({ mode: 'wide' })(code_block()('Hel{<>}lo'))),
       preset: new Preset<LightEditorPlugin>()
         .add(widthPlugin)
+        .add(decorationsPlugin)
         .add([breakoutPlugin, { allowBreakoutButton: true }])
         .add([codeBlockPlugin, { appearance: 'full-page' }]),
     });

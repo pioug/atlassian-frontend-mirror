@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { Node } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
+import { waitForNumFileCards } from './_utils';
 
 [comment].forEach((editor) => {
   // FIXME: This test was automatically skipped due to failure on 21/04/2023: https://product-fabric.atlassian.net/browse/ED-17580
@@ -38,9 +39,7 @@ import sampleSchema from '@atlaskit/editor-test-helpers/schema';
       // now we can insert media as necessary
       await insertMedia(page);
 
-      expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
-        true,
-      );
+      await waitForNumFileCards(page, 1);
 
       const jsonDocument = await page.$eval(editable, getDocFromElement);
       const pmDocument = Node.fromJSON(sampleSchema, jsonDocument);
@@ -114,10 +113,7 @@ BrowserTestCase(
     // now we can insert media as necessary
     await insertMedia(page, ['test.pdf', 'test.txt', 'test.xls']);
 
-    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
-      true,
-    );
-
+    await waitForNumFileCards(page, 3);
     const doc = await page.$eval(editable, getDocFromElement);
 
     expect(doc).toMatchCustomDocSnapshot(testName);
@@ -146,10 +142,7 @@ BrowserTestCase(
     // now we can insert media as necessary
     await insertMedia(page, ['test.pdf']);
 
-    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
-      true,
-    );
-
+    await waitForNumFileCards(page, 1);
     const doc = await page.$eval(editable, getDocFromElement);
 
     expect(doc).toMatchCustomDocSnapshot(testName);

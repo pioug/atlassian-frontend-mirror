@@ -10,7 +10,7 @@ export default {
   'fabric.editor.canNotSortTable': '⚠️ Du kan inte sortera en panelvy med sammanslagna celler',
   'fabric.editor.cellBackground': 'Cellbakgrund',
   'fabric.editor.cellOptions': 'Cellalternativ',
-  'fabric.editor.clearCells': '{0, plural, one {Rensa celler} other {Rensa celler}}',
+  'fabric.editor.clearCells': '{0, plural, one {Rensa cell} other {Rensa celler}}',
   'fabric.editor.collapseTable': 'Dölj tabell',
   'fabric.editor.cornerControl': 'Markera tabellen',
   'fabric.editor.distributeColumns': 'Fördela kolumner',

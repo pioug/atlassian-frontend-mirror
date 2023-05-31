@@ -66,6 +66,7 @@ export function CardWithURLRenderer(props: CardProps) {
     showAuthTooltip,
     analyticsEvents,
     placeholder,
+    fallbackComponent,
   } = props;
 
   // Wrapper around analytics.
@@ -101,7 +102,7 @@ export function CardWithURLRenderer(props: CardProps) {
 
   const analytics = useSmartLinkAnalytics(url ?? '', dispatchAnalytics, id);
 
-  const logError = useCallback(
+  const errorHandler = useCallback(
     (
       error: Error,
       info: {
@@ -132,16 +133,18 @@ export function CardWithURLRenderer(props: CardProps) {
         });
       }
 
-      // Rethrow to hand control to the consumer of Smart-card.
-      // In the case of editor this allows the Smart Link to fallback to a blue link.
-      throw error;
+      onError && onError({ status: 'errored', url: url ?? '', err: error });
     },
-    [analytics.operational, analytics.ui, appearance, id],
+    [analytics.operational, analytics.ui, appearance, id, onError, url],
   );
 
   if (!url) {
     throw new Error('@atlaskit/smart-card: url property is missing.');
   }
+
+  const defaultFallBackComponent = () => null;
+  const FallbackComponent = fallbackComponent ?? defaultFallBackComponent;
+  const ErrorFallback = () => <FallbackComponent />;
 
   const cardWithUrlProps: CardWithUrlContentProps = {
     id,
@@ -171,7 +174,7 @@ export function CardWithURLRenderer(props: CardProps) {
   };
 
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback} onError={logError}>
+    <ErrorBoundary FallbackComponent={ErrorFallback} onError={errorHandler}>
       <Suspense fallback={<LoadingCardLink {...cardWithUrlProps} />}>
         <LazyCardWithUrlContent {...cardWithUrlProps}>
           {children}
@@ -180,7 +183,3 @@ export function CardWithURLRenderer(props: CardProps) {
     </ErrorBoundary>
   );
 }
-
-const ErrorFallback = () => {
-  return null;
-};

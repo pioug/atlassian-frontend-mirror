@@ -1,7 +1,6 @@
 import { Command, CommandDispatch } from '../../types';
 import { copyButtonPluginKey } from './pm-plugins/plugin-key';
 import { MarkType, NodeType } from 'prosemirror-model';
-import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { EditorState, Transaction, NodeSelection } from 'prosemirror-state';
 import {
   copyHTMLToClipboard,
@@ -11,6 +10,7 @@ import { getSelectedNodeOrNodeParentByNodeType, toDOM } from './utils';
 import { addAnalytics, ACTION, INPUT_METHOD } from '../analytics';
 import { getAnalyticsPayload } from '../clipboard/pm-plugins/main';
 import { browser } from '@atlaskit/editor-common/utils';
+import { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 
 export function createToolbarCopyCommandForMark(markType: MarkType): Command {
   function command(state: EditorState, dispatch: CommandDispatch | undefined) {
@@ -173,7 +173,11 @@ export const createToolbarCopyCommandForNode =
   };
 
 export const resetCopiedState =
-  (nodeType: NodeType | Array<NodeType>, onMouseLeave?: Command): Command =>
+  (
+    nodeType: NodeType | Array<NodeType>,
+    hoverDecoration: HoverDecorationHandler | undefined,
+    onMouseLeave?: Command,
+  ): Command =>
   (state, dispatch) => {
     let customTr = state.tr;
 
@@ -185,7 +189,7 @@ export const resetCopiedState =
 
     onMouseLeave
       ? onMouseLeave(state, customDispatch)
-      : hoverDecoration(nodeType, false)(state, customDispatch);
+      : hoverDecoration?.(nodeType, false)(state, customDispatch);
 
     const copyButtonState = copyButtonPluginKey.getState(state);
     if (copyButtonState?.copied) {

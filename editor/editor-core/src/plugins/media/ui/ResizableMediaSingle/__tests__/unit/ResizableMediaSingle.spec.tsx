@@ -50,6 +50,7 @@ import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { MediaClientConfig } from '@atlaskit/media-core';
 
 describe('<ResizableMediaSingle />', () => {
@@ -78,6 +79,7 @@ describe('<ResizableMediaSingle />', () => {
 
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add(decorationsPlugin)
       .add(widthPlugin)
       .add(gridPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }])

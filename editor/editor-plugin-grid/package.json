@@ -22,7 +22,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.2.0",
+    "@atlaskit/editor-common": "^74.3.0",
     "@atlaskit/editor-plugin-width": "^0.0.1",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@babel/runtime": "^7.0.0",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^184.0.0",
+    "@atlaskit/editor-core": "^185.0.0",
     "@atlaskit/editor-test-helpers": "^18.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

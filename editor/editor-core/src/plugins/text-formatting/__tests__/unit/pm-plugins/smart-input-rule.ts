@@ -29,6 +29,7 @@ import statusPlugin from '../../../../status';
 import emojiPlugin from '../../../../emoji';
 import panelPlugin from '../../../../panel';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 function typeText(view: EditorView, text: string) {
   const { $from, $to } = view.state.selection;
@@ -85,6 +86,7 @@ describe('text-formatting input rules', () => {
         preset: new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
           .add(base)
+          .add(decorationsPlugin)
           .add(textFormatting)
           .add(blockType)
           .add(textColorPlugin)

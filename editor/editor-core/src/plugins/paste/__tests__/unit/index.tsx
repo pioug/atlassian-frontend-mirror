@@ -120,6 +120,7 @@ import { Slice } from 'prosemirror-model';
 import { measureRender as measureRenderMocked } from '@atlaskit/editor-common/utils';
 import { createPasteMeasurePayload as createPasteMeasurePayloadMocked } from '../../pm-plugins/analytics';
 import unsupportedContentPlugin from '../../../unsupported-content';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -237,6 +238,7 @@ describe('paste plugins', () => {
             },
           },
         ])
+        .add(decorationsPlugin)
         .add(extensionPlugin)
         .add(blockTypePlugin)
         .add(hyperlinkPlugin)

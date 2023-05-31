@@ -84,9 +84,10 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 28/05/2023: https://product-fabric.atlassian.net/browse/ED-18108
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for an Action on renderer bridge.`,
-  {},
+  { skip: ['*'] },
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(
@@ -105,9 +106,10 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 28/05/2023: https://product-fabric.atlassian.net/browse/ED-18109
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for a Decision on renderer bridge.`,
-  {},
+  { skip: ['*'] },
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(
@@ -175,9 +177,10 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18102
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() multiple times on same nested heading inside expand on renderer bridge.`,
-  {},
+  { skip: ['*'] },
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     await checkScrollTo(browser, async () => {

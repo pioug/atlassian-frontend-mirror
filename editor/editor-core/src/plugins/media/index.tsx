@@ -45,6 +45,7 @@ import { ReactMediaInlineNode } from './nodeviews/mediaInline';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { MediaPluginState } from './pm-plugins/types';
 import { stateKey } from './pm-plugins/plugin-key';
 
@@ -60,6 +61,7 @@ const mediaPlugin: NextEditorPlugin<
       OptionalPlugin<typeof analyticsPlugin>,
       typeof gridPlugin,
       typeof widthPlugin,
+      typeof decorationsPlugin,
     ];
     sharedState: MediaPluginState | null;
   }

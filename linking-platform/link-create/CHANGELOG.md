@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.5.3
+
+### Patch Changes
+
+- [`ae5ac36af00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae5ac36af00) - Updates analytics codegen to support screen events.
+
 ## 0.5.2
 
 ### Patch Changes

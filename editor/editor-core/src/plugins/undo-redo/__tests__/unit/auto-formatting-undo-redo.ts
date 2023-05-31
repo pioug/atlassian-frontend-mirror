@@ -49,6 +49,7 @@ import rulePlugin from '../../../rule';
 import alignmentPlugin from '../../../alignment';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({
@@ -64,6 +65,7 @@ describe('plugins/undo-redo/autoformatting: undo & redo', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
         .add([analyticsPlugin, {}])
+        .add(decorationsPlugin)
         .add([emojiPlugin, {}])
         .add(typeAheadPlugin)
         .add(blockTypePlugin)

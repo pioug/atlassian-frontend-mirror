@@ -1,5 +1,36 @@
 # @atlaskit/editor-plugin-table
 
+## 1.5.1
+
+### Patch Changes
+
+- [`26d9c8cb4b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26d9c8cb4b1) - Extract decorations plugin from editor-core to its own package.
+- [`077e086c53f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/077e086c53f) - [ux] ED-17971 Changes the color token used for table borders and background of table controls and numbered column.
+- [`8f98e952174`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f98e952174) - [ED-17881] Fix performance issue when table has not been resized and distribute columns feature is turned on
+- [`741b3acd455`](https://bitbucket.org/atlassian/atlassian-frontend/commits/741b3acd455) - This major change includes:
+
+  - `EditorMigrationComponent` being renamed to `Editor`. This includes making component methods which should never be used private (which should never be used in normal operation and have been deprecated for several releases).
+  - `EditorMigrationComponent` is now removed
+  - Removing `useEditorNext` feature flag
+
+  This change was made as part of our strategy to move to a new architecture with `EditorMigrationComponent`, now that the component has served its purpose it is no longer required.
+
+  Any references to this component can be updated like so:
+
+  Before:
+
+  ```ts
+  import { EditorMigrationComponent } from '@atlaskit/editor-core';
+  ```
+
+  After:
+
+  ```ts
+  import { Editor } from '@atlaskit/editor-core';
+  ```
+
+- Updated dependencies
+
 ## 1.5.0
 
 ### Minor Changes

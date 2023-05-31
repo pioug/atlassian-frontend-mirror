@@ -38,6 +38,12 @@ export default function BlockCard(props: {
     location: 'renderer',
   };
 
+  const onError = ({ err }: { err?: Error }) => {
+    if (err) {
+      throw err;
+    }
+  };
+
   return (
     <AnalyticsContext data={analyticsData}>
       <div
@@ -56,6 +62,7 @@ export default function BlockCard(props: {
             platform={platform}
             showServerActions={showServerActions}
             {...cardProps}
+            onError={onError}
           />
         </CardErrorBoundary>
       </div>

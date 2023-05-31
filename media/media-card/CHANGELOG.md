@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 76.0.1
+
+### Patch Changes
+
+- [`501218d4044`](https://bitbucket.org/atlassian/atlassian-frontend/commits/501218d4044) - MEX-2393 fix error setting in subscribe method in media-inline
+
 ## 76.0.0
 
 ### Major Changes

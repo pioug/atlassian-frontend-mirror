@@ -12,6 +12,7 @@ export enum EVENT_ACTION {
   PUBLISH_PAGE = 'publishPage',
   GET_CURRENT_STATE = 'getCurrentState',
   INVALIDATE_TOKEN = 'invalidateToken',
+  DROPPED_STEPS = 'droppedStepInCatchup',
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',
@@ -122,6 +123,14 @@ type CatchUpFailureAnalyticsEvent = {
   };
 };
 
+type CatchUpDroppedStepsEvent = {
+  eventAction: EVENT_ACTION.DROPPED_STEPS;
+  attributes: {
+    documentAri: string;
+    numOfDroppedSteps: number;
+  };
+};
+
 type DocumentInitSuccessAnalyticsEvent = {
   eventAction: EVENT_ACTION.DOCUMENT_INIT;
   attributes: {
@@ -214,8 +223,9 @@ export type ActionAnalyticsEvent =
   | PublishPageFailureAnalyticsEvent
   | GetCurrentStateSuccessAnalyticsEvent
   | GetCurrentStateFailureAnalyticsEvent
-  | InvalidateTokenAnalyticsEvent;
+  | InvalidateTokenAnalyticsEvent
+  | CatchUpDroppedStepsEvent;
 
-export const ACK_MAX_TRY = 30;
+export const ACK_MAX_TRY = 60;
 
 export const CONFLUENCE = 'confluence';

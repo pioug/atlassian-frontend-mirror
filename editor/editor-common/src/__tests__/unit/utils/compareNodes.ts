@@ -1,3 +1,4 @@
+import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 
 import { CardAttributes, UrlType } from '@atlaskit/adf-schema';
@@ -10,6 +11,7 @@ import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
 import statusPlugin from '@atlaskit/editor-core/src/plugins/status';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
@@ -36,11 +38,12 @@ import { ProviderFactory } from '../../../provider-factory';
 import { SortOrder } from '../../../types';
 import { createCompareNodes } from '../../../utils/compareNodes';
 
-const compareNodes = createCompareNodes({
-  getInlineCardTextFromStore() {
-    return null;
-  },
-});
+const compareNodes = (nodeA: PMNode | null, nodeB: PMNode | null): number =>
+  createCompareNodes({
+    getInlineCardTextFromStore() {
+      return null;
+    },
+  })(nodeA, nodeB);
 
 enum CompareResult {
   greater = 'greater',
@@ -57,6 +60,7 @@ const compareResultToValue = {
 describe('Compare Nodes', () => {
   const createEditor = createProsemirrorEditorFactory();
   let editorView: EditorView;
+  let languageSpy: jest.SpyInstance;
 
   beforeAll(() => {
     const preset = new Preset<LightEditorPlugin>()
@@ -64,6 +68,7 @@ describe('Compare Nodes', () => {
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
       .add(basePlugin)
+      .add(decorationsPlugin)
       .add(editorDisabledPlugin)
       .add(mentionsPlugin)
       .add(hyperlinkPlugin)
@@ -84,6 +89,12 @@ describe('Compare Nodes', () => {
       providerFactory,
       preset,
     }));
+
+    languageSpy = jest.spyOn(window.navigator, 'language', 'get');
+  });
+
+  afterAll(() => {
+    languageSpy.mockReset();
   });
 
   describe('Text node', () => {
@@ -116,21 +127,11 @@ describe('Compare Nodes', () => {
       testTextNodesComparison([
         ['foo bar', CompareResult.greater, 'bar foo'],
         ['bar foo', CompareResult.less, 'foo bar'],
-        ['foo bar', CompareResult.equal, 'foo'],
-        ['hello world', CompareResult.equal, 'hello universe'],
+        ['foo bar', CompareResult.greater, 'foo'],
+        ['hello world', CompareResult.greater, 'hello universe'],
       ]);
 
       describe('for complex numbers', () => {
-        let languageSpy: jest.SpyInstance;
-
-        beforeEach(() => {
-          languageSpy = jest.spyOn(window.navigator, 'language', 'get');
-        });
-
-        afterEach(() => {
-          languageSpy.mockReset();
-        });
-
         describe('when locale is pt-BR', () => {
           beforeEach(() => {
             languageSpy.mockReturnValue('pt-BR');
@@ -160,8 +161,8 @@ describe('Compare Nodes', () => {
 
           describe('use string comparison instead', () => {
             testTextNodesComparison([
-              ['1.000.000$', CompareResult.greater, '200.000$'],
-              ['1000000$', CompareResult.less, '1.000.000$'],
+              ['1.000.000$', CompareResult.less, '200.000$'],
+              ['1000000$', CompareResult.greater, '1.000.000$'],
             ]);
           });
         });

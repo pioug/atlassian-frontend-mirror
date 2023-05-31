@@ -10,7 +10,7 @@ import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { useExampleDocument } from '@atlaskit/editor-test-helpers/use-example-document';
 
-import { EditorMigrationComponent as Editor } from './../src';
+import { Editor } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
 import ToolsDrawer from '../example-helpers/ToolsDrawer';

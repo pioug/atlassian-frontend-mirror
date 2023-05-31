@@ -6,28 +6,34 @@ import keymap from './pm-plugins/keymaps';
 import ideUX from './pm-plugins/ide-ux';
 import { codeBlockCopySelectionPlugin } from './pm-plugins/codeBlockCopySelectionPlugin';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
   EVENT_TYPE,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { IconCode } from '../quick-insert/assets';
 import {
   PMPluginFactoryParams,
   NextEditorPlugin,
+  OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { messages } from '../block-type/messages';
 import { CodeBlockOptions } from './types';
 import refreshBrowserSelectionOnChange from './refresh-browser-selection';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const codeBlockPlugin: NextEditorPlugin<
   'codeBlock',
   {
     pluginConfiguration: CodeBlockOptions;
+    dependencies: [
+      typeof decorationsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+    ];
   }
-> = (options) => ({
+> = (options, api) => ({
   name: 'codeBlock',
 
   nodes() {
@@ -82,17 +88,21 @@ const codeBlockPlugin: NextEditorPlugin<
         action(insert, state) {
           const schema = state.schema;
           const tr = insert(schema.nodes.codeBlock.createChecked());
-          return addAnalytics(state, tr, {
+          api?.dependencies.analytics?.actions.attachAnalyticsEvent({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
             actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
             attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
             eventType: EVENT_TYPE.TRACK,
-          });
+          })(tr);
+          return tr;
         },
       },
     ],
-    floatingToolbar: getToolbarConfig(options.allowCopyToClipboard),
+    floatingToolbar: getToolbarConfig(
+      options.allowCopyToClipboard,
+      api?.dependencies.decorations.actions.hoverDecoration,
+    ),
   },
 });
 

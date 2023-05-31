@@ -170,6 +170,12 @@ export default function EmbedCard(props: {
               ? uIMediaSingleLayoutStyles
               : '';
 
+          const onError = ({ err }: { err?: Error }) => {
+            if (err) {
+              throw err;
+            }
+          };
+
           return (
             <CardErrorBoundary
               unsupportedComponent={UnsupportedBlock}
@@ -207,6 +213,7 @@ export default function EmbedCard(props: {
                         onResolve={onResolve}
                         inheritDimensions={true}
                         embedIframeRef={embedIframeRef}
+                        onError={onError}
                       />
                     </div>
                   </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditorMigrationComponent as Editor } from '../src/index';
+import { Editor } from '../src/index';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 import {

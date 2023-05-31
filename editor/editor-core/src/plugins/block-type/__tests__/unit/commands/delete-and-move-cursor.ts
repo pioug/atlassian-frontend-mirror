@@ -29,6 +29,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('delete behaviour - cursor position after delete', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -38,6 +39,7 @@ describe('delete behaviour - cursor position after delete', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
+      .add(decorationsPlugin)
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(layoutPlugin)

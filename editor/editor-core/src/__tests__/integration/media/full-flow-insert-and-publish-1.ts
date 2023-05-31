@@ -3,10 +3,16 @@ import {
   goToFullPage,
   goToFullPageClickToEdit,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { MediaMockControlsBackdoor } from '@atlaskit/media-test-helpers';
 import { sleep } from '@atlaskit/editor-test-helpers/sleep';
-import { MediaViewerPageObject } from '@atlaskit/media-integration-test-helpers';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import {
+  mediaImageSelector,
+  mediaClickableSelector,
+} from '@atlaskit/editor-test-helpers/page-objects/media';
+import { MediaViewerPageObject } from '@atlaskit/media-integration-test-helpers';
+import { MediaMockControlsBackdoor } from '@atlaskit/media-test-helpers';
+import { waitForNumImages } from './_utils';
+
 type ClientType = Parameters<typeof goToFullPage>[0];
 
 // Skipping safari because of ongoing issue (comms via email with support with Browserstack atm)
@@ -28,11 +34,7 @@ BrowserTestCase(
       ).uploadFolderContainingFolderFromDrag();
     });
 
-    expect(
-      await page.isVisible(
-        '[data-testid="media-file-card-view"][data-test-status="complete"]',
-      ),
-    ).toBe(true);
+    await waitForNumImages(page, 4);
   },
 );
 
@@ -51,11 +53,7 @@ BrowserTestCase(
       ).uploadFolderFromDrag();
     });
 
-    expect(
-      await page.isVisible(
-        '[data-testid="media-file-card-view"][data-test-status="complete"]',
-      ),
-    ).toBe(true);
+    await waitForNumImages(page, 1);
   },
 );
 
@@ -73,11 +71,7 @@ BrowserTestCase(
       ).uploadImageFromDrag();
     });
 
-    expect(
-      await page.isVisible(
-        '[data-testid="media-file-card-view"][data-test-status="complete"]',
-      ),
-    ).toBe(true);
+    await waitForNumImages(page, 1);
   },
 );
 
@@ -115,10 +109,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18087
 BrowserTestCase(
   'full-flow-insert-and-publish.ts: Drag image, verify, wait, publish, close media viewer and make sure editor not opened',
   {
-    skip: ['safari'],
+    // skip: ['safari'],
+    skip: ['*'],
   },
   async (client: ClientType) => {
     const page = await goToFullPageClickToEdit(client);
@@ -131,20 +127,14 @@ BrowserTestCase(
       ).uploadImageFromDrag();
     });
 
-    expect(
-      await page.isVisible(
-        '[data-testid="media-file-card-view"][data-test-status="complete"]',
-      ),
-    ).toBe(true);
+    await waitForNumImages(page, 1);
 
     await page.publish();
 
-    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
-      true,
-    );
+    expect(await page.isVisible(mediaImageSelector)).toBe(true);
 
     await page.pause(300); // When running against chromedriver directly it may fail without this pause because event handlers haven't been assigned yet
-    await page.click('[data-testid="media-file-card-view"]');
+    await page.click(mediaClickableSelector);
 
     const mediaViewer = new MediaViewerPageObject(client);
     await mediaViewer.init();

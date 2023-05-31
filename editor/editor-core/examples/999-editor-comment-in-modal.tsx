@@ -8,7 +8,7 @@ import Modal, {
   ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/standard-button';
-import { EditorMigrationComponent as Editor } from '../src';
+import { Editor } from '../src';
 
 import { css, jsx } from '@emotion/react';
 

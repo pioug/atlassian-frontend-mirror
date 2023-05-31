@@ -94,8 +94,14 @@ const tableSharedStyle = (props: ThemeProps) => css`
     border-collapse: collapse;
     border: ${tableCellBorderWidth}px solid
       ${themed({
-        light: token('color.border', akEditorTableBorder),
-        dark: token('color.border', akEditorTableBorderDark),
+        light: token(
+          'color.background.accent.gray.subtler',
+          akEditorTableBorder,
+        ),
+        dark: token(
+          'color.background.accent.gray.subtler',
+          akEditorTableBorderDark,
+        ),
       })(props)};
     table-layout: fixed;
     font-size: 1em;
@@ -126,8 +132,14 @@ const tableSharedStyle = (props: ThemeProps) => css`
         vertical-align: top;
         border: 1px solid
           ${themed({
-            light: token('color.border', akEditorTableBorder),
-            dark: token('color.border', akEditorTableBorderDark),
+            light: token(
+              'color.background.accent.gray.subtler',
+              akEditorTableBorder,
+            ),
+            dark: token(
+              'color.background.accent.gray.subtler',
+              akEditorTableBorderDark,
+            ),
           })(props)};
         border-right-width: 0;
         border-bottom-width: 0;

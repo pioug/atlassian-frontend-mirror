@@ -27,6 +27,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const formatMessage: (t: { id: string }) => string = (message) =>
   `${message.id}`;
@@ -46,6 +47,7 @@ describe('color picker', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
+        .add(decorationsPlugin)
         .add(contentInsertionPlugin)
         .add(widthPlugin)
         .add(dataConsumerPlugin)

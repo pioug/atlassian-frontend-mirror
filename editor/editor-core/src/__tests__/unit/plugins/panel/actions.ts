@@ -22,6 +22,7 @@ import deprecatedAnalyticsPlugin from '../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { selectNode } from '../../../../utils/commands';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('panel actions', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -35,10 +36,11 @@ describe('panel actions', () => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
-      .add([panelPlugin, { allowCustomPanel, allowCustomPanelEdit }])
-      .add(emojiPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
-      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
+      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+      .add(decorationsPlugin)
+      .add([panelPlugin, { allowCustomPanel, allowCustomPanelEdit }])
+      .add(emojiPlugin);
 
     return createEditor({ doc, preset });
   };

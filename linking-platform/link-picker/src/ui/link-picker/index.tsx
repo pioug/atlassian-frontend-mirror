@@ -23,8 +23,7 @@ import {
   LinkPickerPlugin,
 } from '../types';
 
-import createEventPayload from '../../analytics.codegen';
-
+import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { ANALYTICS_CHANNEL } from '../../common/constants';
 import {
   useLinkPickerAnalytics,

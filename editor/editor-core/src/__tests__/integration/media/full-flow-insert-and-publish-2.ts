@@ -2,6 +2,11 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { goToFullPage } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { MediaMockControlsBackdoor } from '@atlaskit/media-test-helpers';
 import { MediaViewerPageObject } from '@atlaskit/media-integration-test-helpers';
+import {
+  mediaImageSelector,
+  mediaClickableSelector,
+} from '@atlaskit/editor-test-helpers/page-objects/media';
+import { waitForNumImages } from './_utils';
 type ClientType = Parameters<typeof goToFullPage>[0];
 
 BrowserTestCase(
@@ -18,19 +23,13 @@ BrowserTestCase(
       ).uploadImageFromDrag();
     });
 
-    expect(
-      await page.isVisible(
-        '[data-testid="media-file-card-view"][data-test-status="complete"]',
-      ),
-    ).toBe(true);
+    await waitForNumImages(page, 1);
 
     await page.publish();
 
-    expect(await page.isVisible('[data-testid="media-file-card-view"]')).toBe(
-      true,
-    );
+    expect(await page.isVisible(mediaImageSelector)).toBe(true);
 
-    const fileCardView = await page.$('[data-testid="media-file-card-view"]');
+    const fileCardView = await page.$(mediaClickableSelector);
     await fileCardView.waitForClickable();
     await fileCardView.click();
 

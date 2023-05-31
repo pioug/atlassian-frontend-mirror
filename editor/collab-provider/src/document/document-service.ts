@@ -107,6 +107,7 @@ export class DocumentService {
         applyLocalSteps: this.applyLocalSteps,
         updateDocument: this.updateDocument,
         updateMetadata: this.metadataService.updateMetadata,
+        analyticsHelper: this.analyticsHelper,
       });
       const latency = new Date().getTime() - start;
       this.analyticsHelper?.sendActionEvent(
@@ -451,7 +452,7 @@ export class DocumentService {
         while (!isLastTrConfirmed) {
           this.sendStepsFromCurrentState();
 
-          await sleep(1000);
+          await sleep(500);
 
           const nextUnconfirmedSteps = this.getUnconfirmedSteps();
           if (nextUnconfirmedSteps?.length) {

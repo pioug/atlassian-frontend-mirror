@@ -24,6 +24,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 import codeBlockPlugin from '../../../../../plugins/code-block';
 import deprecatedAnalyticsPlugin, {
@@ -140,6 +141,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
         doc,
         preset: new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
+          .add(decorationsPlugin)
           .add(textFormattingPlugin)
           .add([codeBlockPlugin, { appearance: 'full-page' }])
           .add([analyticsPlugin, { createAnalyticsEvent }])

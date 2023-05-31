@@ -52,7 +52,7 @@ const mockEditorAnalyticsApi: EditorAnalyticsAPI = {
 
 const mockPluginInjectionApi: any = {
   dependencies: {
-    base: {
+    decorations: {
       actions: {
         hoverDecoration: () => () => {},
       },

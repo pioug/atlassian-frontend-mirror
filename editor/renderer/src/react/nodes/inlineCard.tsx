@@ -51,6 +51,12 @@ const InlineCard: React.FunctionComponent<
     );
   }
 
+  const onError = ({ err }: { err?: Error }) => {
+    if (err) {
+      throw err;
+    }
+  };
+
   return (
     <AnalyticsContext data={analyticsData}>
       <span
@@ -75,6 +81,7 @@ const InlineCard: React.FunctionComponent<
 
               props.smartCardStorage.set(data.url, data.title);
             }}
+            onError={onError}
           />
         </CardErrorBoundary>
       </span>

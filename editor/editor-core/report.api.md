@@ -41,6 +41,7 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { CreateUIAnalyticsEvent as CreateUIAnalyticsEvent_2 } from '@atlaskit/analytics-next/types';
 import { darkModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import { DecorationSet } from 'prosemirror-view';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import { DirectEditorProps } from 'prosemirror-view';
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
@@ -380,7 +381,7 @@ export class CollapsedEditor extends React_2.Component<Props, State> {
   // (undocumented)
   componentDidUpdate(): void;
   // (undocumented)
-  editorComponent?: Editor | EditorMigrationComponent | EditorNext;
+  editorComponent?: Editor | EditorNext;
   // (undocumented)
   handleEditorRef: (editorRef?: Editor, editorRefCallback?: any) => void;
   // (undocumented)
@@ -588,83 +589,11 @@ type EditInsertedState = {
 };
 
 // @public (undocumented)
-export class Editor extends React_2.Component<
-  EditorProps,
-  ProviderFactoryState & PresetState
-> {
-  constructor(props: EditorProps, context: Context);
-  componentDidMount(): void;
-  componentDidUpdate(prevProps: EditorProps): void;
-  componentWillUnmount(): void;
+export class Editor extends React_2.Component<EditorProps> {
   // (undocumented)
-  static contextTypes: {
-    editorActions: PropTypes.Requireable<object>;
-  };
   static defaultProps: EditorProps;
-  // @deprecated (undocumented)
-  handleAnalyticsEvent: FireAnalyticsCallback;
-  // @deprecated (undocumented)
-  handleSave: (view: EditorView) => void;
-  // @deprecated (undocumented)
-  onEditorCreated(instance: {
-    view: EditorView;
-    eventDispatcher: EventDispatcher;
-    transformer?: Transformer_2<string>;
-  }): void;
-  // @deprecated (undocumented)
-  onEditorDestroyed(_instance: {
-    view: EditorView;
-    transformer?: Transformer_2<string>;
-  }): void;
-  // @deprecated (undocumented)
-  prepareExtensionProvider: (
-    extensionProviders?: ExtensionProvidersProp | undefined,
-  ) => ExtensionProvider<any> | undefined;
-  // @deprecated (undocumented)
-  prepareQuickInsertProvider: (
-    extensionProvider?: ExtensionProvider,
-    quickInsert?: QuickInsertOptions,
-  ) => Promise<QuickInsertProvider> | undefined;
-  // (undocumented)
-  static propTypes: {
-    minHeight: ({
-      appearance,
-      minHeight,
-    }: Pick<EditorProps, 'appearance' | 'minHeight'>) => Error | null;
-  };
-  // @deprecated (undocumented)
-  registerEditorForActions(
-    editorView: EditorView,
-    eventDispatcher: EventDispatcher,
-    contentTransformer?: Transformer_2<string>,
-  ): void;
   // (undocumented)
   render(): jsx.JSX.Element;
-  // @deprecated (undocumented)
-  trackEditorActions(
-    editorActions: EditorActions & {
-      _contentRetrievalTracking?: {
-        getValueTracked: boolean;
-        samplingCounters: {
-          success: number;
-          failure: number;
-        };
-      };
-    },
-    props: EditorProps,
-  ): EditorActions<any> & {
-    _contentRetrievalTracking?:
-      | undefined
-      | {
-          getValueTracked: boolean;
-          samplingCounters: {
-            success: number;
-            failure: number;
-          };
-        };
-  };
-  // @deprecated (undocumented)
-  unregisterEditorFromActions(): void;
 }
 
 // @public (undocumented)
@@ -869,20 +798,13 @@ export interface EditorInstance {
 }
 
 // @public (undocumented)
-export class EditorMigrationComponent extends React_2.Component<EditorProps> {
-  // (undocumented)
-  static defaultProps: EditorProps;
-  // (undocumented)
-  render(): JSX.Element;
-}
-
-// @public (undocumented)
 class EditorNext extends React_2.Component<EditorNextProps> {
   constructor(props: EditorNextProps, context: Context);
   // (undocumented)
   static contextTypes: {
     editorActions: PropTypes.Requireable<object>;
   };
+  // (undocumented)
   static defaultProps: EditorProps;
   // (undocumented)
   static propTypes: {
@@ -1658,6 +1580,7 @@ export const mediaPlugin: NextEditorPlugin<
       OptionalPlugin<typeof analyticsPlugin>,
       typeof gridPlugin,
       typeof widthPlugin,
+      typeof decorationsPlugin,
     ];
     sharedState: MediaPluginState | null;
   }
@@ -2098,11 +2021,6 @@ export { PresenceProvider };
 export { PresenceResource };
 
 // @public (undocumented)
-type PresetState = {
-  preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>;
-};
-
-// @public (undocumented)
 type PrimaryToolbarComponents =
   | BeforeAndAfterToolbarComponents
   | ReactComponents;
@@ -2171,12 +2089,6 @@ type Props_5 = {
 
 // @public (undocumented)
 type ProsemirrorGetPosHandler = () => number;
-
-// @public (undocumented)
-type ProviderFactoryState = {
-  extensionProvider?: ExtensionProvider;
-  quickInsertProvider?: Promise<QuickInsertProvider>;
-};
 
 export { QuickInsertActionInsert };
 

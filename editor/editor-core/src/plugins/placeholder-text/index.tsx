@@ -10,7 +10,11 @@ import { EditorView } from 'prosemirror-view';
 import { placeholder } from '@atlaskit/adf-schema';
 import MediaServicesTextIcon from '@atlaskit/icon/glyph/media-services/text';
 import { getPosHandler } from '../../nodeviews/types';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import {
+  ExtractInjectionAPI,
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 import { Dispatch } from '../../event-dispatcher';
 import { isNodeEmpty } from '../../utils';
@@ -27,13 +31,13 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { isSelectionAtPlaceholder } from './selection-utils';
 import { createInternalTypeAheadTools } from '../type-ahead/api';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const getOpenTypeAhead = (view: EditorView, content: string) => {
   const typeAheadAPI = createInternalTypeAheadTools(view);
@@ -173,12 +177,9 @@ export function createPlugin(
   });
 }
 
-const basePlaceholderTextPlugin: NextEditorPlugin<
-  'placeholderText',
-  {
-    pluginConfiguration: PlaceholderTextOptions;
-  }
-> = (options: PlaceholderTextOptions) => ({
+const basePlaceholderTextPlugin: PlaceholderTextPlugin = (
+  options: PlaceholderTextOptions,
+) => ({
   name: 'placeholderText',
 
   nodes() {
@@ -234,15 +235,9 @@ const basePlaceholderTextPlugin: NextEditorPlugin<
 });
 
 const decorateWithPluginOptions = (
-  plugin: ReturnType<
-    NextEditorPlugin<
-      'placeholderText',
-      {
-        pluginConfiguration: PlaceholderTextOptions;
-      }
-    >
-  >,
+  plugin: ReturnType<PlaceholderTextPlugin>,
   options: PlaceholderTextOptions,
+  api: ExtractInjectionAPI<typeof placeholderTextPlugin> | undefined,
 ) => {
   if (!options.allowInserting) {
     return plugin;
@@ -261,7 +256,7 @@ const decorateWithPluginOptions = (
           const tr = state.tr;
           tr.setMeta(pluginKey, { showInsertPanelAt: tr.selection.anchor });
 
-          return addAnalytics(state, tr, {
+          api?.dependencies.analytics?.actions.attachAnalyticsEvent({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,
             actionSubjectId: ACTION_SUBJECT_ID.PLACEHOLDER_TEXT,
@@ -269,7 +264,9 @@ const decorateWithPluginOptions = (
               inputMethod: INPUT_METHOD.QUICK_INSERT,
             },
             eventType: EVENT_TYPE.TRACK,
-          });
+          })(tr);
+
+          return tr;
         },
       },
     ],
@@ -277,12 +274,25 @@ const decorateWithPluginOptions = (
   return plugin;
 };
 
+type PlaceholderTextPlugin = NextEditorPlugin<
+  'placeholderText',
+  {
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    pluginConfiguration: PlaceholderTextOptions;
+  }
+>;
+
 const placeholderTextPlugin: NextEditorPlugin<
   'placeholderText',
   {
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
     pluginConfiguration: PlaceholderTextOptions;
   }
 > = (options: PlaceholderTextOptions, api) =>
-  decorateWithPluginOptions(basePlaceholderTextPlugin(options, api), options);
+  decorateWithPluginOptions(
+    basePlaceholderTextPlugin(options, api),
+    options,
+    api,
+  );
 
 export default placeholderTextPlugin;

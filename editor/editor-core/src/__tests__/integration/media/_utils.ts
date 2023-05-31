@@ -1,31 +1,28 @@
 import { mountEditor } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
-import type { ResizeMediaSingleResult } from '@atlaskit/editor-test-helpers/page-objects/media';
+import {
+  ResizeMediaSingleResult,
+  mediaFileIconSelector,
+  mediaImageSelector,
+  mediaClickableSelector,
+} from '@atlaskit/editor-test-helpers/page-objects/media';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { withInRangeMatchers } from './_matchers';
 
 expect.extend(withInRangeMatchers);
 
 export async function waitForNumImages(page: Page, n: number) {
-  await page.waitUntil(async () => {
-    const images = await page.$$('.ProseMirror [data-testid="media-image"]');
-    return images.length >= n;
-  }, 'waitForNumImages failed');
-
-  return await page.$$('.ProseMirror [data-testid="media-image"]');
+  const selector = `.ProseMirror ${mediaImageSelector}`;
+  await page.waitForSelector(selector);
+  expect(await page.count(selector)).toBe(n);
+  return await page.$$(selector);
 }
 
-export async function waitForAtLeastNumFileCards(page: Page, n: number) {
-  await page.waitUntil(async () => {
-    const fileCards = await page.$$(
-      '.ProseMirror [data-testid="media-file-card-view"][data-test-status="complete"]',
-    );
-    return fileCards.length >= n;
-  }, 'waitForAtLeastNumFileCards failed');
-
-  return await page.$$(
-    '.ProseMirror [data-testid="media-file-card-view"][data-test-status="complete"]',
-  );
+export async function waitForNumFileCards(page: Page, n: number) {
+  const selector = `.ProseMirror ${mediaFileIconSelector}, .ProseMirror ${mediaImageSelector}`;
+  await page.waitForSelector(selector);
+  expect(await page.count(selector)).toBe(n);
+  return await page.$$(`.ProseMirror ${mediaClickableSelector}`);
 }
 
 interface SetupEditorOptions {

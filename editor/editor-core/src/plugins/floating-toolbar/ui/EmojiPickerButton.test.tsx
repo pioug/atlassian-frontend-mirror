@@ -13,6 +13,7 @@ import panelPlugin from '../../panel';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { act } from 'react-dom/test-utils';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('emoji-picker-button', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -21,12 +22,14 @@ describe('emoji-picker-button', () => {
 
   const providerFactory = new ProviderFactory();
 
-  const panelPreset = new Preset<LightEditorPlugin>().add([
-    panelPlugin,
-    {
-      allowCustomPanel: true,
-    },
-  ]);
+  const panelPreset = new Preset<LightEditorPlugin>()
+    .add(decorationsPlugin)
+    .add([
+      panelPlugin,
+      {
+        allowCustomPanel: true,
+      },
+    ]);
 
   beforeEach(() => {
     const { editorView } = createEditor({

@@ -96,6 +96,7 @@ describe('layout toolbar', () => {
         true,
         true,
         false,
+        undefined,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);
@@ -123,6 +124,7 @@ describe('layout toolbar', () => {
         true,
         false,
         false,
+        undefined,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);
@@ -154,6 +156,7 @@ describe('layout toolbar', () => {
         true,
         true,
         true,
+        undefined,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);
@@ -174,6 +177,7 @@ describe('layout toolbar', () => {
         true,
         true,
         false,
+        undefined,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);
@@ -194,6 +198,7 @@ describe('layout toolbar', () => {
         true,
         true,
         false,
+        undefined,
       ) as FloatingToolbarConfig;
 
       items = getToolbarItems(toolbar, editorView);

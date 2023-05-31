@@ -104,6 +104,7 @@ const getDropdownSetup = (): {
         dispatchAnalyticsEvent={jest.fn()}
         dispatchCommand={jest.fn()}
         featureFlags={{}}
+        api={undefined}
       />
     </ReactEditorViewContext.Provider>,
   );

@@ -1,5 +1,38 @@
 # @atlaskit/editor-common
 
+## 74.3.0
+
+### Minor Changes
+
+- [`602d003d7e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/602d003d7e5) - [ux] The table column sort compartor method would previously only look at the first word when sorting the column. This means when words are joined with special characters they would not sort correctly. This now looks at all the text in the cell when calculating the sort order.
+
+### Patch Changes
+
+- [`26d9c8cb4b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26d9c8cb4b1) - Extract decorations plugin from editor-core to its own package.
+- [`077e086c53f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/077e086c53f) - [ux] ED-17971 Changes the color token used for table borders and background of table controls and numbered column.
+- [`8502175cafc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8502175cafc) - [ux] Updated top margin of Expand component from ~4.57px to 4px to align to spacing scale.
+- [`741b3acd455`](https://bitbucket.org/atlassian/atlassian-frontend/commits/741b3acd455) - This major change includes:
+
+  - `EditorMigrationComponent` being renamed to `Editor`. This includes making component methods which should never be used private (which should never be used in normal operation and have been deprecated for several releases).
+  - `EditorMigrationComponent` is now removed
+  - Removing `useEditorNext` feature flag
+
+  This change was made as part of our strategy to move to a new architecture with `EditorMigrationComponent`, now that the component has served its purpose it is no longer required.
+
+  Any references to this component can be updated like so:
+
+  Before:
+
+  ```ts
+  import { EditorMigrationComponent } from '@atlaskit/editor-core';
+  ```
+
+  After:
+
+  ```ts
+  import { Editor } from '@atlaskit/editor-core';
+  ```
+
 ## 74.2.1
 
 ### Patch Changes

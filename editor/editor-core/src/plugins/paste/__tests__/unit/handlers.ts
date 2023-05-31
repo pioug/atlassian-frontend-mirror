@@ -72,6 +72,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -249,6 +250,7 @@ describe('handleRichText', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
         .add([pastePlugin, {}])
         .add(panelPlugin)
         .add(blockTypePlugin)
@@ -690,6 +692,7 @@ describe('handleRichText', () => {
       const editor = (doc: any) => {
         const preset = new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
+          .add(decorationsPlugin)
           .add([pastePlugin, {}])
           .add(panelPlugin)
           .add(blockTypePlugin);
@@ -729,6 +732,7 @@ describe('handleRichText', () => {
         const preset = new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
           .add([pastePlugin, {}])
+          .add(decorationsPlugin)
           .add(panelPlugin)
           .add(listPlugin)
           .add(blockTypePlugin);
@@ -781,6 +785,7 @@ describe('handleRichText', () => {
         const editor = (doc: any) => {
           const preset = new Preset<LightEditorPlugin>()
             .add([featureFlagsPlugin, {}])
+            .add(decorationsPlugin)
             .add([pastePlugin, {}])
             .add(tasksAndDecisionsPlugin)
             .add(panelPlugin);
@@ -818,6 +823,7 @@ describe('handleRichText', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
         .add(widthPlugin)
         .add([pastePlugin, {}])
         .add(tablesPlugin)
@@ -1301,6 +1307,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
             .add([featureFlagsPlugin, {}])
             .add([analyticsPlugin, {}])
             .add(contentInsertionPlugin)
+            .add(decorationsPlugin)
             .add([pastePlugin, {}])
             .add(hyperlinkPlugin)
             .add(tasksAndDecisionsPlugin)
@@ -1350,6 +1357,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
+      .add(decorationsPlugin)
       .add([pastePlugin, {}])
       .add(listPlugin)
       .add(panelPlugin)
@@ -1626,6 +1634,7 @@ describe('handleExpand', () => {
             .add([featureFlagsPlugin, {}])
             .add([analyticsPlugin, {}])
             .add(contentInsertionPlugin)
+            .add(decorationsPlugin)
             .add([pastePlugin, {}])
             .add(tablesPlugin)
             .add(expandPlugin)
@@ -1681,6 +1690,7 @@ describe('handlePasteIntoCaption', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add([deprecatedAnalyticsPlugin, {}])
+        .add(decorationsPlugin)
         .add([pastePlugin, {}])
         .add(panelPlugin)
         .add(blockTypePlugin)
@@ -1719,6 +1729,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
+      .add(decorationsPlugin)
       .add([pastePlugin, {}])
       .add(hyperlinkPlugin)
       .add(tasksAndDecisionsPlugin)

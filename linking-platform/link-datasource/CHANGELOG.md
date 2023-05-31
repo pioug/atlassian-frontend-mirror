@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 0.18.0
+
+### Minor Changes
+
+- [`8ddcd8088a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ddcd8088a9) - - Removing `onUpdateParameters` and `onVisibleColumnKeysChange` props from JiraIssuesConfigModal
+  - make datasourceAdf type option of onInsert callback more jira concrete (JiraIssuesDatasourceAdf)
+  - Export `JiraIssuesDatasourceAdf` type
+
 ## 0.17.6
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 108.1.3
+
+### Patch Changes
+
+- [`077e086c53f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/077e086c53f) - [ux] ED-17971 Changes the color token used for table borders and background of table controls and numbered column.
+- [`65ff31a2ad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65ff31a2ad4) - use onError prop on smart card to handle errors
+- Updated dependencies
+
 ## 108.1.2
 
 ### Patch Changes

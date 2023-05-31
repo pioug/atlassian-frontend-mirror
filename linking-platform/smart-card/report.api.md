@@ -246,6 +246,7 @@ export const Card: React_2.ForwardRefExoticComponent<
     | 'data'
     | 'embedIframeRef'
     | 'embedIframeUrlType'
+    | 'fallbackComponent'
     | 'forwardedRef'
     | 'frameStyle'
     | 'id'
@@ -296,12 +297,13 @@ export interface CardProps extends WithAnalyticsEventsProps {
   children?: React.ReactNode;
   // (undocumented)
   container?: HTMLElement;
-  // (undocumented)
+  // @deprecated (undocumented)
   data?: any;
   // (undocumented)
   embedIframeRef?: React.Ref<HTMLIFrameElement>;
   // (undocumented)
   embedIframeUrlType?: EmbedIframeUrlType;
+  fallbackComponent?: React.ComponentType;
   frameStyle?: FrameStyle;
   // (undocumented)
   id?: string;
@@ -316,7 +318,6 @@ export interface CardProps extends WithAnalyticsEventsProps {
   isSelected?: boolean;
   // (undocumented)
   onClick?: React.EventHandler<React.KeyboardEvent | React.MouseEvent>;
-  // (undocumented)
   onError?: OnErrorCallback;
   // (undocumented)
   onResolve?: OnResolveCallback;

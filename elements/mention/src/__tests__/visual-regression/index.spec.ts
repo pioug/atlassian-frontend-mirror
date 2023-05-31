@@ -37,12 +37,16 @@ const SCENARIOS: Scenario[] = [
     exampleName: 'mention-item',
     interactions: [{ name: 'no-interaction' }],
   },
-  {
+  // Skipped this test as it is flaky.
+  // https://product-fabric.atlassian.net/browse/QS-3021
+  // https://product-fabric.atlassian.net/browse/QS-3022
+  // https://product-fabric.atlassian.net/browse/QS-3023
+  /* {
     exampleName: 'mention-list',
     interactions: [
       { name: 'no-interaction' }, // first item is hovered already, no need for interactions
     ],
-  },
+  }, */
   {
     exampleName: 'error-mention-list',
     interactions: [{ name: 'no-interaction' }],

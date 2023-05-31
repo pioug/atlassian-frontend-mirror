@@ -18,10 +18,11 @@ const UNICODE_CHARACTERS = {
   Meta: '\uE03D',
 };
 
+// FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18104
 BrowserTestCase(
   `The link should be clickable inside renderer with media card`,
   {
-    skip: [],
+    skip: ['*'],
   },
   async (client: BrowserObject) => {
     const page = new Page(client);

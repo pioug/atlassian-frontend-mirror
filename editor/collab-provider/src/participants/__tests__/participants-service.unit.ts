@@ -36,6 +36,8 @@ const participantsServiceConstructor = (deps: {
   getUser?: any;
   broadcast?: any;
   sendPresenceJoined?: any;
+  getPresenceData?: any;
+  setUserId?: any;
 }): ParticipantsService =>
   new ParticipantsService(
     deps.analyticsHelper,
@@ -44,6 +46,8 @@ const participantsServiceConstructor = (deps: {
     deps.getUser || jest.fn(),
     deps.broadcast || jest.fn(),
     deps.sendPresenceJoined || jest.fn(),
+    deps.getPresenceData || jest.fn().mockReturnValue(payload),
+    deps.setUserId || jest.fn(),
   );
 
 describe('removeInactiveParticipants', () => {

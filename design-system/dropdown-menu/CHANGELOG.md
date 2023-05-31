@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.9.3
+
+### Patch Changes
+
+- [`f42d723da8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f42d723da8c) - always render role="menuitemcheckbox"
+
 ## 11.9.2
 
 ### Patch Changes

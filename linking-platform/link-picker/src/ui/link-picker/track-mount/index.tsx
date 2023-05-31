@@ -7,7 +7,7 @@ import {
   succeedUfoExperience,
   ufoExperience,
 } from '../../../common/analytics/experiences';
-import createEventPayload from '../../../analytics.codegen';
+import createEventPayload from '../../../common/utils/analytics/analytics.codegen';
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import { useLinkPickerSessionId } from '../../../controllers/session-provider';
 

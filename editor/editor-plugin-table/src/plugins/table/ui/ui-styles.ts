@@ -21,9 +21,9 @@ import {
   Y200,
 } from '@atlaskit/theme/colors';
 import {
-  tableToolbarColor,
   tableBorderColor,
   tableToolbarSelectedColor,
+  tableHeaderCellBackgroundColor,
   tableBorderSelectedColor,
   tableCellDeleteColor,
   tableBorderDeleteColor,
@@ -95,7 +95,7 @@ const Button = (cssString?: string) => css`
 
 export const HeaderButton = (props: ThemeProps, cssString?: string) => css`
   .${ClassName.CONTROLS_BUTTON} {
-    background: ${tableToolbarColor(props)};
+    background: ${tableHeaderCellBackgroundColor(props)};
     border: 1px solid ${tableBorderColor(props)};
     display: block;
     box-sizing: border-box;
@@ -297,7 +297,7 @@ export const OverflowShadow = (props: ThemeProps) => css`
 `;
 
 const columnHeaderButton = (props: ThemeProps, cssString?: string) => css`
-  background: ${tableToolbarColor(props)};
+  background: ${tableHeaderCellBackgroundColor(props)};
   border: 1px solid ${tableBorderColor(props)};
   display: block;
   box-sizing: border-box;

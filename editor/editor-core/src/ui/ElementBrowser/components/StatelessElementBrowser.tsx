@@ -199,21 +199,23 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
   /* Only for hitting enter to select item when focused on search bar,
    * The actual enter key press is handled on individual items level.
    */
+  const selectedItem = items[selectedItemIndex];
   const onItemsEnterKeyPress = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key !== 'Enter') {
         return;
       }
-      props.onInsertItem(items[selectedItemIndex]);
+      if (onSelectItem && selectedItem != null) {
+        onSelectItem(selectedItem);
+      }
     },
-    [props, items, selectedItemIndex],
+    [onSelectItem, selectedItem],
   );
 
   /**
    * On arrow key selection and clicks the selectedItemIndex will change.
    * Making sure to update parent component.
    */
-  const selectedItem = items[selectedItemIndex];
   useEffect(() => {
     if (onSelectItem && selectedItem != null) {
       onSelectItem(selectedItem);

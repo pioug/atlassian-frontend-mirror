@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.7.6
+
+### Patch Changes
+
+- [`4b76c41be8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b76c41be8e) - Added prop deprecation warnings for cssFn and overrides props. These warnings are displayed in the console in development environments only.
+
 ## 1.7.5
 
 ### Patch Changes

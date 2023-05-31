@@ -31,6 +31,7 @@ import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 describe('table selection keymap', () => {
@@ -48,6 +49,7 @@ describe('table selection keymap', () => {
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, {}])
     .add(contentInsertionPlugin)
+    .add(decorationsPlugin)
     .add(selectionPlugin)
     .add([tablePlugin, { tableOptions: {}, editorSelectionAPI }])
     .add(panelPlugin)

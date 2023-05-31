@@ -28,6 +28,7 @@ import { PluginKey, Selection } from 'prosemirror-state';
 import listPlugin from '../../../../list';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -39,6 +40,7 @@ describe('hyperlink', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
+        .add(decorationsPlugin)
         .add(layoutPlugin)
         .add(listPlugin)
         .add(hyperlinkPlugin),

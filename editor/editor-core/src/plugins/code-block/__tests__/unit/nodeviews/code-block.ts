@@ -18,6 +18,7 @@ import {
   ignoreFollowingMutations,
   resetShouldIgnoreFollowingMutations,
 } from '../../../actions';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const codeBlock =
   (attrs?: {}) =>
@@ -155,10 +156,9 @@ describe('Code Block - NodeView', () => {
       const node = codeBlock()('this is code');
       const { editorView } = createProsemirrorEditorFactory()({
         doc: doc(p('paragraph{pPos}'), code_block()('codeBlock{<>}')),
-        preset: new Preset<LightEditorPlugin>().add([
-          codeBlockPlugin,
-          { appearance: 'full-page' },
-        ]),
+        preset: new Preset<LightEditorPlugin>()
+          .add(decorationsPlugin)
+          .add([codeBlockPlugin, { appearance: 'full-page' }]),
         pluginKey: codeBlockPluginKey,
       });
       const nodeView = codeBlockNodeView(node, editorView, () => -1);
@@ -176,10 +176,9 @@ describe('Code Block - NodeView', () => {
       const node = codeBlock()('this is code');
       const { editorView } = createProsemirrorEditorFactory()({
         doc: doc(p('paragraph{pPos}'), code_block()('codeBlock{<>}')),
-        preset: new Preset<LightEditorPlugin>().add([
-          codeBlockPlugin,
-          { appearance: 'full-page' },
-        ]),
+        preset: new Preset<LightEditorPlugin>()
+          .add(decorationsPlugin)
+          .add([codeBlockPlugin, { appearance: 'full-page' }]),
         pluginKey: codeBlockPluginKey,
       });
       const nodeView = codeBlockNodeView(node, editorView, () => -1);

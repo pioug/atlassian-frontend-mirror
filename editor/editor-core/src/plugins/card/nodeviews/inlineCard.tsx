@@ -44,8 +44,11 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
     )();
   };
 
-  onError = (data: { url?: string }) => {
-    const { url } = data;
+  onError = (data: { url?: string; err?: Error }) => {
+    const { url, err } = data;
+    if (err) {
+      throw err;
+    }
     this.onResolve({ url });
   };
 

@@ -38,6 +38,7 @@ import { EditorView } from 'prosemirror-view';
 import { emojiPluginKey } from '../emoji';
 import { G75 } from '@atlaskit/theme/colors';
 import { EmojiId } from '@atlaskit/emoji';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const dummyFormatMessage = (messageDescriptor: MessageDescriptor) =>
   (messageDescriptor.defaultMessage as string) || '';
@@ -51,19 +52,22 @@ describe('getToolbarItems', () => {
     Promise.resolve(getTestEmojiResource()),
   );
 
-  const panelPreset = new Preset<LightEditorPlugin>().add([
-    panelPlugin,
-    {
-      allowCustomPanel: true,
-      allowCustomPanelEdit: true,
-    },
-  ]);
+  const panelPreset = new Preset<LightEditorPlugin>()
+    .add(decorationsPlugin)
+    .add([
+      panelPlugin,
+      {
+        allowCustomPanel: true,
+        allowCustomPanelEdit: true,
+      },
+    ]);
   const itemsWithCustomPanelEnabled = getToolbarItems(
     dummyFormatMessage,
     defaultSchema.nodes.panel,
     true,
     true,
     providerFactory,
+    undefined,
     PanelType.INFO,
   );
 
@@ -78,6 +82,7 @@ describe('getToolbarItems', () => {
       false,
       false,
       providerFactory,
+      undefined,
     );
 
     expect(items).toHaveLength(7);
@@ -90,6 +95,7 @@ describe('getToolbarItems', () => {
       true,
       false,
       providerFactory,
+      undefined,
     );
 
     expect(items).toHaveLength(7);
@@ -102,6 +108,7 @@ describe('getToolbarItems', () => {
       false,
       true,
       providerFactory,
+      undefined,
     );
 
     expect(items).toHaveLength(7);
@@ -135,6 +142,7 @@ describe('getToolbarItems', () => {
         true,
         true,
         providerFactory,
+        undefined,
         PanelType.CUSTOM,
       );
 
@@ -258,6 +266,7 @@ describe('getToolbarItems', () => {
         true,
         true,
         providerFactory,
+        undefined,
         PanelType.CUSTOM,
       );
       const removeEmojiButton: FloatingToolbarButton<any> | undefined =
@@ -279,6 +288,7 @@ describe('getToolbarItems', () => {
         true,
         true,
         providerFactory,
+        undefined,
         PanelType.CUSTOM,
         '#ABF5D1',
         '',
@@ -299,6 +309,7 @@ describe('getToolbarItems', () => {
         true,
         true,
         providerFactory,
+        undefined,
         PanelType.CUSTOM,
         '#ABF5D1',
         ':smiley:',
@@ -319,6 +330,7 @@ describe('getToolbarItems', () => {
         true,
         true,
         providerFactory,
+        undefined,
         PanelType.INFO,
         undefined,
         'info',

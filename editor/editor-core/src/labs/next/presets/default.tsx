@@ -37,6 +37,7 @@ import { CodeBlockOptions } from '../../../plugins/code-block/types';
 import { SelectionPluginOptions } from '../../../plugins/selection/types';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import undoRedoPlugin from '../../../plugins/undo-redo';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { TypeAheadPluginOptions } from '../../../plugins/type-ahead';
 import { HyperlinkPluginOptions } from '../../../plugins/hyperlink/types';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
@@ -103,6 +104,7 @@ export function createDefaultPreset(
     .add([pastePlugin, options.paste])
     .add(clipboardPlugin)
     .add([basePlugin, options.base])
+    .add(decorationsPlugin)
     .maybeAdd(undoRedoPlugin, (p, builder) => {
       // The undo redo plugin needs to be add before the blockTypePlugin
       if (options.featureFlags?.undoRedoButtons) {

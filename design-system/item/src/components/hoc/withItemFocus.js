@@ -27,6 +27,8 @@ const withItemFocus = (WrappedComponent) =>
 
       this.contextId = uuid();
 
+      // DSP-10519 TODO: ReactDOM.findDOMNode is deprecated in React18, consider using alternative solution
+      // https://react.dev/reference/react-dom/findDOMNode#alternatives
       this.callContextFn(
         'registerItem',
         this.contextId,
@@ -39,6 +41,8 @@ const withItemFocus = (WrappedComponent) =>
         return;
       }
 
+      // DSP-10519 TODO: ReactDOM.findDOMNode is deprecated in React18, consider using alternative solution
+      // https://react.dev/reference/react-dom/findDOMNode#alternatives
       this.callContextFn(
         'updateItem',
         this.contextId,

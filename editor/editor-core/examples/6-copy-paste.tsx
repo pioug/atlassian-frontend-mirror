@@ -5,7 +5,7 @@ import React, { Fragment } from 'react';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import { ReactRenderer } from '@atlaskit/renderer';
-import { EditorMigrationComponent as Editor } from './../src';
+import { Editor } from './../src';
 import { EditorProps, EditorAppearance } from './../src/editor';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';

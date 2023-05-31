@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 22.0.4
+
+### Patch Changes
+
+- [`4d139e63f12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d139e63f12) - [ux] As part of migrating from the classic card experience to the new card experience, media of type 'doc' displays a preview by default
+
 ## 22.0.3
 
 ### Patch Changes

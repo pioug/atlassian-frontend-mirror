@@ -25,11 +25,6 @@ export const mockIo = {
         events?.get('presence')?.({
           userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
         });
-        // TODO: Not used at all? Why are we still emitting this?
-        events?.get('participant:joined')?.({
-          sessionId: 'Y9sQEI4e5GCYYPB6AFfe',
-          timestamp: 1678777100304,
-        });
 
         // Fake initial document
         events?.get('data')?.({
@@ -122,12 +117,12 @@ export const mockIo = {
         .mockImplementation((eventName, callback) =>
           events.set(eventName, callback),
         ),
-      emit: (event: string, ...args: any[]) => {
+      emit: jest.fn().mockImplementation((event: string, ...args: any[]) => {
         const handler = events.get(event);
         if (handler) {
           handler(...args);
         }
-      },
+      }),
       io: {
         opts: {
           transportOptions: opt.transportOptions,
@@ -138,12 +133,12 @@ export const mockIo = {
           .mockImplementation((eventName, callback) =>
             managerEvents.set(eventName, callback),
           ),
-        emit: (event: string, ...args: any[]) => {
+        emit: jest.fn().mockImplementation((event: string, ...args: any[]) => {
           const handler = managerEvents.get(event);
           if (handler) {
             handler(...args);
           }
-        },
+        }),
       },
     };
   }),

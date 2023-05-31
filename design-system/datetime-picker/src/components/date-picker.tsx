@@ -19,6 +19,7 @@ import {
   createLocalizationProvider,
   LocalizationProvider,
 } from '@atlaskit/locale';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Select, {
   ActionMeta,
   DropdownIndicatorProps,
@@ -465,16 +466,23 @@ class DatePicker extends Component<DatePickerProps, State> {
         this.setState({ isOpen: false });
         break;
       case 'backspace':
-      case 'delete':
+      case 'delete': {
+        const inputCount = getBooleanFF(
+          'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
+        )
+          ? 1
+          : 0;
+
         if (
           value &&
           event.target instanceof HTMLInputElement &&
-          event.target.value.length < 1
+          event.target.value.length <= inputCount
         ) {
           // If being cleared from keyboard, don't change behaviour
-          this.setState({ clearingFromIcon: false });
+          this.setState({ clearingFromIcon: false, value: '' });
         }
         break;
+      }
       case 'enter':
         if (!this.state.isOpen) {
           return;
@@ -630,6 +638,19 @@ class DatePicker extends Component<DatePickerProps, State> {
     const { value, calendarValue, isOpen, selectInputValue } =
       this.getSafeState();
 
+    let actualSelectInputValue;
+
+    if (
+      getBooleanFF(
+        'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
+      )
+    ) {
+      actualSelectInputValue =
+        selectInputValue || (value ? this.formatDate(value) : undefined);
+    } else {
+      actualSelectInputValue = selectInputValue;
+    }
+
     const menuIsOpen = isOpen && !isDisabled;
 
     const showClearIndicator = Boolean(
@@ -696,7 +717,7 @@ class DatePicker extends Component<DatePickerProps, State> {
           isDisabled={isDisabled}
           onBlur={this.onSelectBlur}
           onFocus={this.onSelectFocus}
-          inputValue={selectInputValue}
+          inputValue={actualSelectInputValue}
           onInputChange={this.handleSelectInputChange}
           components={selectComponents}
           onChange={this.onSelectChange}

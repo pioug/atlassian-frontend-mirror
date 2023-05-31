@@ -261,10 +261,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
         : false,
     ),
 
-    useEditorNext:
-      normalizedFeatureFlags.useEditorNext === true ||
-      props.featureFlags?.useEditorNext === true,
-
     // duplicated logic from `create-plugins-list.ts` due to presets not being finalised
     useBetterTypeaheadNavigation: Boolean(
       typeof pseudoNormalisedUseBetterTypeaheadNavigation === 'boolean'

@@ -9,7 +9,7 @@ import { CardPluginOptions } from './types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import type basePlugin from '../base';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { EditorSmartCardEventsNext } from './ui/EditorSmartCardEventsNext';
 
@@ -21,7 +21,7 @@ const cardPlugin: NextEditorPlugin<
       typeof featureFlagsPlugin,
       typeof analyticsPlugin,
       typeof widthPlugin,
-      typeof basePlugin,
+      typeof decorationsPlugin,
       typeof gridPlugin,
     ];
   }

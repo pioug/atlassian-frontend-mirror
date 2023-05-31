@@ -1,5 +1,43 @@
 # @atlaskit/editor-core
 
+## 185.0.0
+
+### Major Changes
+
+- [`741b3acd455`](https://bitbucket.org/atlassian/atlassian-frontend/commits/741b3acd455) - This major change includes:
+
+  - `EditorMigrationComponent` being renamed to `Editor`. This includes making component methods which should never be used private (which should never be used in normal operation and have been deprecated for several releases).
+  - `EditorMigrationComponent` is now removed
+  - Removing `useEditorNext` feature flag
+
+  This change was made as part of our strategy to move to a new architecture with `EditorMigrationComponent`, now that the component has served its purpose it is no longer required.
+
+  Any references to this component can be updated like so:
+
+  Before:
+
+  ```ts
+  import { EditorMigrationComponent } from '@atlaskit/editor-core';
+  ```
+
+  After:
+
+  ```ts
+  import { Editor } from '@atlaskit/editor-core';
+  ```
+
+### Minor Changes
+
+- [`26d9c8cb4b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26d9c8cb4b1) - Extract decorations plugin from editor-core to its own package.
+
+### Patch Changes
+
+- [`4fe16193baa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fe16193baa) - [ux] fix element browser adding component twice
+- [`6f5276b3eb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f5276b3eb1) - ED-17921 updated placeholder text analytics event to use new analyticsAPI
+- [`1df016865b3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1df016865b3) - [ED-17443] Update escape key behaviour when typeahead is open
+- [`65ff31a2ad4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65ff31a2ad4) - use onError prop on smart card to handle errors
+- Updated dependencies
+
 ## 184.0.4
 
 ### Patch Changes

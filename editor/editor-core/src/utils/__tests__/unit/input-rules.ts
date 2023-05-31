@@ -23,6 +23,7 @@ import hyperlinkPlugin from '../../../plugins/hyperlink';
 import alignmentPlugin from '../../../plugins/alignment';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 import { createWrappingJoinRule } from '../../input-rules';
 
@@ -35,6 +36,7 @@ describe('createWrappingJoinRule()', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(basePlugin)
+        .add(decorationsPlugin)
         .add(listPlugin)
         .add(hyperlinkPlugin)
         .add(alignmentPlugin)

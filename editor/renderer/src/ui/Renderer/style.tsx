@@ -616,8 +616,14 @@ export const rendererStyles =
             })(themeProps)};
             border-right: 1px solid
               ${themed({
-                light: token('color.border', akEditorTableBorder),
-                dark: token('color.border', akEditorTableBorderDark),
+                light: token(
+                  'color.background.accent.gray.subtler',
+                  akEditorTableBorder,
+                ),
+                dark: token(
+                  'color.background.accent.gray.subtler',
+                  akEditorTableBorderDark,
+                ),
               })(themeProps)};
             width: ${akEditorTableNumberColumnWidth}px;
             text-align: center;
@@ -642,13 +648,25 @@ export const rendererStyles =
 
         border-right: 1px solid
           ${themed({
-            light: token('color.border', akEditorTableBorder),
-            dark: token('color.border', akEditorTableBorderDark),
+            light: token(
+              'color.background.accent.gray.subtler',
+              akEditorTableBorder,
+            ),
+            dark: token(
+              'color.background.accent.gray.subtler',
+              akEditorTableBorderDark,
+            ),
           })(themeProps)};
         border-bottom: 1px solid
           ${themed({
-            light: token('color.border', akEditorTableBorder),
-            dark: token('color.border', akEditorTableBorderDark),
+            light: token(
+              'color.background.accent.gray.subtler',
+              akEditorTableBorder,
+            ),
+            dark: token(
+              'color.background.accent.gray.subtler',
+              akEditorTableBorderDark,
+            ),
           })(themeProps)};
 
         /* this is to compensate for the table border */
@@ -674,20 +692,44 @@ export const rendererStyles =
       .sticky td {
         box-shadow: 0px 1px
             ${themed({
-              light: token('color.border', akEditorTableBorder),
-              dark: token('color.border', akEditorTableBorderDark),
+              light: token(
+                'color.background.accent.gray.subtler',
+                akEditorTableBorder,
+              ),
+              dark: token(
+                'color.background.accent.gray.subtler',
+                akEditorTableBorderDark,
+              ),
             })(themeProps)},
           0px -0.5px ${themed({
-              light: token('color.border', akEditorTableBorder),
-              dark: token('color.border', akEditorTableBorderDark),
+              light: token(
+                'color.background.accent.gray.subtler',
+                akEditorTableBorder,
+              ),
+              dark: token(
+                'color.background.accent.gray.subtler',
+                akEditorTableBorderDark,
+              ),
             })(themeProps)},
           inset -1px 0px ${themed({
-              light: token('color.border', akEditorTableToolbar),
-              dark: token('color.border', akEditorTableToolbarDark),
+              light: token(
+                'color.background.accent.gray.subtler',
+                akEditorTableToolbar,
+              ),
+              dark: token(
+                'color.background.accent.gray.subtler',
+                akEditorTableToolbarDark,
+              ),
             })(themeProps)},
           0px -1px ${themed({
-              light: token('color.border', akEditorTableToolbar),
-              dark: token('color.border', akEditorTableToolbarDark),
+              light: token(
+                'color.background.accent.gray.subtler',
+                akEditorTableToolbar,
+              ),
+              dark: token(
+                'color.background.accent.gray.subtler',
+                akEditorTableToolbarDark,
+              ),
             })(themeProps)};
       }
 

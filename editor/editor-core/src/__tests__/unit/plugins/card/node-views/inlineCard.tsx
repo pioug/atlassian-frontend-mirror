@@ -257,4 +257,35 @@ describe('inlineCard', () => {
 
     mockInlineCardNode.unmount();
   });
+
+  it.each([new Error(), null, undefined])(
+    'should only throw err when onError prop is called with an err value',
+    (err) => {
+      const mockInlinePmNode = inlineCard({ url: 'https://some/url' })()(
+        defaultSchema,
+      );
+
+      const mockInlineCardNode = mount(
+        <InlineCardComponent
+          node={mockInlinePmNode}
+          view={mockEditorView}
+          getPos={() => 0}
+          cardContext={createCardContext()}
+        />,
+      );
+
+      const wrapper = mockInlineCardNode.find(Card);
+      const onErrorPropCall = () =>
+        wrapper.props().onError({
+          status: 'not_found',
+          url: 'https://my.url.com',
+          err,
+        });
+      if (err) {
+        expect(onErrorPropCall).toThrow(err as any);
+      } else {
+        expect(onErrorPropCall).not.toThrow();
+      }
+    },
+  );
 });

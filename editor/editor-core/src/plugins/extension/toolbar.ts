@@ -18,7 +18,6 @@ import {
   FloatingToolbarHandler,
   FloatingToolbarItem,
 } from '../floating-toolbar/types';
-import { hoverDecoration } from '../base/pm-plugins/decoration';
 import { editExtension } from './actions';
 import { getPluginState } from './pm-plugins/main';
 import { ExtensionState } from './types';
@@ -35,6 +34,7 @@ import {
   getChildrenInfo,
   getNodeName,
 } from '@atlaskit/editor-common/utils';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 
 export const messages = defineMessages({
   edit: {
@@ -173,7 +173,10 @@ const editButton = (
 };
 
 export const getToolbarConfig =
-  (breakoutEnabled: boolean = true): FloatingToolbarHandler =>
+  (
+    breakoutEnabled: boolean = true,
+    hoverDecoration: HoverDecorationHandler | undefined,
+  ): FloatingToolbarHandler =>
   (state, intl) => {
     const { formatMessage } = intl;
     const extensionState = getPluginState(state);
@@ -255,10 +258,10 @@ export const getToolbarConfig =
             icon: RemoveIcon,
             appearance: 'danger',
             onClick: removeExtension(),
-            onMouseEnter: hoverDecoration(nodeType, true),
-            onMouseLeave: hoverDecoration(nodeType, false),
-            onFocus: hoverDecoration(nodeType, true),
-            onBlur: hoverDecoration(nodeType, false),
+            onMouseEnter: hoverDecoration?.(nodeType, true),
+            onMouseLeave: hoverDecoration?.(nodeType, false),
+            onFocus: hoverDecoration?.(nodeType, true),
+            onBlur: hoverDecoration?.(nodeType, false),
             focusEditoronEnter: true,
             title: formatMessage(commonMessages.remove),
             tabIndex: null,

@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.5.0
+
+### Minor Changes
+
+- [`ce79111f98f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce79111f98f) - Card component will stop throwing any uncaught errors. Any existing consumer relying on this behaviour should start using `fallbackComponent` to provide fallback ui and `onError` to act on such errors. See CardProps type for more docs.
+  Reason this is a minor bump and not a major version is because the previous behaviour of error propagation was actually a bug and was not a public contract with clients. This minor version fixes this bug and requires the client to update their code.
+
 ## 26.4.1
 
 ### Patch Changes

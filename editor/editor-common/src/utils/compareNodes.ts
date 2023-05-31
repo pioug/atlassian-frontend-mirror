@@ -36,17 +36,35 @@ type NodeMeta =
   | NodeMetaGenerator<ContentType.MENTION, string>
   | NodeMetaGenerator<ContentType.LINK, string>;
 
+type NormalizeTextParser = (text: string) => string | number | null;
+
 function getLinkMark(node: PMNode): Mark | null {
   const [linkMark] = node.marks.filter((mark) => mark.type.name === 'link');
   return linkMark || null;
 }
 
-// Source: https://stackoverflow.com/questions/12004808/does-javascript-take-local-decimal-separators-into-account
-function parseLocaleNumber(stringNumber: string): number | null {
-  if (stringNumber.trim() === '') {
+function parseLocaleNumber(
+  stringNumber: string,
+  groupPattern: RegExp,
+  fractionPattern: RegExp,
+): number | null {
+  if (!stringNumber.trim().length) {
     return null;
   }
 
+  const maybeANumber = Number.parseFloat(
+    stringNumber.replace(groupPattern, '').replace(fractionPattern, '.'),
+  );
+
+  if (Number.isNaN(maybeANumber)) {
+    return null;
+  }
+
+  return maybeANumber;
+}
+
+export function createNormalizeTextParser(): NormalizeTextParser {
+  // Source: https://stackoverflow.com/questions/12004808/does-javascript-take-local-decimal-separators-into-account
   const locale = window.navigator.language;
   const thousandSeparator = Intl.NumberFormat(locale)
     .format(11111)
@@ -55,49 +73,63 @@ function parseLocaleNumber(stringNumber: string): number | null {
     .format(1.1)
     .replace(/\p{Number}/gu, '');
 
-  const maybeANumber = Number(
-    stringNumber
-      .replace(new RegExp('\\' + thousandSeparator, 'g'), '')
-      .replace(new RegExp('\\' + decimalSeparator), '.'),
+  const numericPattern = new RegExp(
+    `(\\d+(?:[${thousandSeparator}${decimalSeparator}]?\\d+)*)`,
+    'g',
   );
+  const thousandSeparatorPattern = new RegExp('\\' + thousandSeparator, 'g');
+  const decimalSeparatorPattern = new RegExp('\\' + decimalSeparator);
 
-  const isANumber = !Number.isNaN(maybeANumber);
-  if (!isANumber) {
-    return null;
-  }
+  return (text: string) => {
+    if (!text.trim().length) {
+      return null;
+    }
 
-  return maybeANumber;
+    // This will break the text apart at the locations of the formatted numbers
+    const result = text.split(numericPattern);
+
+    // We then put the text back together but with all the formatted numbers converted back to plain numerals,
+    // for example a sentence like "What is 1,000.01% of 10,000.01" would be normalized and sorted as
+    // if it's saying "What is 1000.01% of 10000.01". This way the Intl.Collator can use the numeric setting to sort
+    // numeral values within string correctly.
+    const tokens = result.reduce<(string | number)[]>((acc, stringNumber) => {
+      if (!stringNumber?.length) {
+        return acc;
+      }
+      const maybeANumber = parseLocaleNumber(
+        stringNumber,
+        thousandSeparatorPattern,
+        decimalSeparatorPattern,
+      );
+
+      // NOTE: We know there can only be a single decimal separator. So we can assume that if the first found separator
+      // is not at the same position as the last found one, then we can assume the locale used to format the number
+      // is different to our locale. This will result in the value being treated as a string.
+      if (
+        maybeANumber !== null &&
+        stringNumber.indexOf(decimalSeparator) ===
+          stringNumber.lastIndexOf(decimalSeparator)
+      ) {
+        acc.push(maybeANumber);
+      } else {
+        acc.push(stringNumber);
+      }
+
+      return acc;
+    }, []);
+
+    if (tokens.length === 1) {
+      return tokens[0];
+    }
+
+    return tokens.join('');
+  };
 }
 
-function extractFirstWordFromString(text: string): string {
-  // Firefox is the only browser that doesn't support it
-  if (!Intl || !Intl.Segmenter) {
-    // If the Segment API is not available
-    // let's fallback to a dumb way to extract the first word.
-    // However, this method doesn't cover some languages like Japanase
-    const firstEmptySpace = text.indexOf(' ');
-    const firstWord =
-      firstEmptySpace !== -1 ? text.substring(0, firstEmptySpace) : text;
-    return firstWord;
-  }
-
-  const languageSegment = new Intl.Segmenter(window.navigator.language, {
-    granularity: 'word',
-  });
-  const segmentsIterator = languageSegment.segment(text);
-
-  if (!segmentsIterator) {
-    return text;
-  }
-  const segmentsArray = Array.from(segmentsIterator);
-  if (segmentsArray.length === 0) {
-    return text;
-  }
-
-  return segmentsArray[0].segment;
-}
-
-export function extractMetaFromTextNode(textNode: PMNode): NodeMeta {
+export function extractMetaFromTextNode(
+  textNode: PMNode,
+  normalizeTextParser: NormalizeTextParser,
+): NodeMeta {
   // treat as a link if contain a link
   const linkMark = getLinkMark(textNode);
   if (linkMark) {
@@ -110,24 +142,25 @@ export function extractMetaFromTextNode(textNode: PMNode): NodeMeta {
 
   const text = textNode.text || '';
 
-  const firstWord = extractFirstWordFromString(text);
-  const maybeANumber = parseLocaleNumber(firstWord);
-  if (maybeANumber !== null) {
+  const normalizedText = normalizeTextParser(text);
+
+  if (typeof normalizedText === 'number') {
     return {
       type: ContentType.NUMBER,
-      value: maybeANumber,
+      value: normalizedText,
     };
   }
 
   return {
     type: ContentType.TEXT,
-    value: firstWord,
+    value: normalizedText ?? text,
   };
 }
 
 function getMetaFromNode(
   node: PMNode | null,
   options: CompareOptions,
+  normalizeTextParser: NormalizeTextParser,
 ): NodeMeta | null {
   if (!node) {
     return null;
@@ -142,11 +175,11 @@ function getMetaFromNode(
     /*
       Get Meta value from the first child if the cell is of type
         * Heading (Any cell where the text is set to a heading type)
-        * Paragraph (Normal text) 
+        * Paragraph (Normal text)
      */
     case 'heading':
     case 'paragraph': {
-      return getMetaFromNode(firstChild, options);
+      return getMetaFromNode(firstChild, options, normalizeTextParser);
     }
     case 'inlineCard': {
       const attrs = firstChild.attrs as CardAttributes;
@@ -165,7 +198,7 @@ function getMetaFromNode(
     }
 
     case 'text': {
-      return extractMetaFromTextNode(firstChild);
+      return extractMetaFromTextNode(firstChild, normalizeTextParser);
     }
     case 'status': {
       const text = (firstChild.attrs as StatusDefinition['attrs']).text;
@@ -208,6 +241,7 @@ function compareValue(
   if (typeof valueA === 'string' && typeof valueB === 'string') {
     return valueA.localeCompare(valueB, window.navigator.language, {
       caseFirst: 'upper',
+      numeric: true,
     }) as 1 | 0 | -1;
   }
 
@@ -242,11 +276,12 @@ export const createCompareNodes = (
   options: CompareOptions,
   order: SortOrder = SortOrder.ASC,
 ): Function => {
+  const normalizeTextParser = createNormalizeTextParser();
   return (nodeA: PMNode | null, nodeB: PMNode | null): number => {
-    const metaNodeA = getMetaFromNode(nodeA, options);
-    const metaNodeB = getMetaFromNode(nodeB, options);
-    /*  
-      Donot switch the order (Asec or Desc) if either node is null. 
+    const metaNodeA = getMetaFromNode(nodeA, options, normalizeTextParser);
+    const metaNodeB = getMetaFromNode(nodeB, options, normalizeTextParser);
+    /*
+      Donot switch the order (Asec or Desc) if either node is null.
       This will ensure that empty cells are always at the bottom during sorting.
     */
     if (metaNodeA === null || metaNodeB === null) {

@@ -21,6 +21,7 @@ import deprecatedAnalyticsPlugin from '../../analytics';
 
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('Caption plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -33,6 +34,7 @@ describe('Caption plugin', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(decorationsPlugin)
         .add(widthPlugin)
         .add(gridPlugin)
         .add([

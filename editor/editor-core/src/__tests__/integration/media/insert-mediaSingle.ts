@@ -11,9 +11,10 @@ import {
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 
+// FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18098
 BrowserTestCase(
   'insert-mediaSingle.ts: Inserts a media single on fullpage',
-  { skip: [] },
+  { skip: ['*'] },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     testName: string,

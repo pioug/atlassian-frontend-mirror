@@ -65,6 +65,7 @@ describe('<Toolbar />', () => {
           dispatchAnalyticsEvent={jest.fn()}
           dispatchCommand={jest.fn()}
           featureFlags={featureFlags}
+          api={undefined}
         />,
       );
 
@@ -102,6 +103,7 @@ describe('<Toolbar />', () => {
           dispatchAnalyticsEvent={jest.fn()}
           dispatchCommand={jest.fn()}
           featureFlags={featureFlags}
+          api={undefined}
         />,
       );
     }
@@ -160,6 +162,7 @@ describe('<Toolbar />', () => {
           dispatchAnalyticsEvent={jest.fn()}
           dispatchCommand={jest.fn()}
           featureFlags={featureFlags}
+          api={undefined}
         />,
       );
 

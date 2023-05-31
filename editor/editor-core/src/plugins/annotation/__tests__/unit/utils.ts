@@ -58,6 +58,7 @@ import {
 import { EditorState } from 'prosemirror-state';
 import { Slice, Fragment, Schema } from 'prosemirror-model';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const annotationPreset = new Preset<LightEditorPlugin>()
   .add([featureFlagsPlugin, {}])
@@ -67,6 +68,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
   ])
   .add(textFormattingPlugin)
   .add(emojiPlugin)
+  .add(decorationsPlugin)
   .add(panelPlugin)
   .add([codeBlockPlugin, { appearance: 'full-page' }])
   .add(blockTypePlugin)

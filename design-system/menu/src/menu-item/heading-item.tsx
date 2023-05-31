@@ -3,6 +3,7 @@ import { memo } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
 import { N300 } from '@atlaskit/theme/colors';
 import { headingSizes } from '@atlaskit/theme/typography';
@@ -39,6 +40,13 @@ const HeadingItem = memo(
     cssFn = noop as any,
     ...rest
   }: HeadingItemProps) => {
+    propDeprecationWarning(
+      process.env._PACKAGE_NAME_,
+      'cssFn',
+      cssFn !== (noop as any),
+      '', // TODO: Create DAC post when primitives/xcss are available as alternatives
+    );
+
     return (
       <div
         css={[

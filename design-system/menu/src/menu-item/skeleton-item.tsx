@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import noop from '@atlaskit/ds-lib/noop';
 import { N20A } from '@atlaskit/theme/colors';
 import {
@@ -114,29 +115,38 @@ const SkeletonItem = ({
   testId,
   width,
   cssFn = noop as any,
-}: SkeletonItemProps) => (
-  <SkeletonShimmer isShimmering={isShimmering}>
-    {({ className }) => (
-      <div
-        className={className}
-        style={
-          {
-            '--width': width,
-          } as CSSProperties
-        }
-        css={[
-          skeletonStyles,
-          (hasAvatar || hasIcon) && beforeElementStyles,
-          hasAvatar && avatarStyles,
-          hasIcon && iconStyles,
-          width ? customWidthStyles : defaultWidthStyles,
-          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-          css(cssFn()),
-        ]}
-        data-testid={testId}
-      />
-    )}
-  </SkeletonShimmer>
-);
+}: SkeletonItemProps) => {
+  propDeprecationWarning(
+    process.env._PACKAGE_NAME_,
+    'cssFn',
+    cssFn !== (noop as any),
+    '', // TODO: Create DAC post when primitives/xcss are available as alternatives
+  );
+
+  return (
+    <SkeletonShimmer isShimmering={isShimmering}>
+      {({ className }) => (
+        <div
+          className={className}
+          style={
+            {
+              '--width': width,
+            } as CSSProperties
+          }
+          css={[
+            skeletonStyles,
+            (hasAvatar || hasIcon) && beforeElementStyles,
+            hasAvatar && avatarStyles,
+            hasIcon && iconStyles,
+            width ? customWidthStyles : defaultWidthStyles,
+            // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+            css(cssFn()),
+          ]}
+          data-testid={testId}
+        />
+      )}
+    </SkeletonShimmer>
+  );
+};
 
 export default SkeletonItem;

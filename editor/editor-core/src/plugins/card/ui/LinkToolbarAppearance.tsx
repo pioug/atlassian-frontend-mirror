@@ -12,8 +12,8 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
 import { IntlShape } from 'react-intl-next';
-import nodeNames from '../../../messages';
-import { isSupportedInParent } from '../../../utils/nodes';
+import nodeNames from '@atlaskit/editor-common/messages';
+import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { messages } from '../messages';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import {

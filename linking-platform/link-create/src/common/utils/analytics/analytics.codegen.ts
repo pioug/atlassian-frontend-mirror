@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::6d7803f5c035dc3cde1be03caa91eb04>>
+ * @codegen <<SignedSource::1c6720e63161d16bb99fc183b17d1944>>
  * @codegenCommand yarn workspace @atlaskit/link-create run codegen-analytics
  */
 export type PackageMetaDataType = {
@@ -42,12 +42,21 @@ function createEventPayload<K extends keyof AnalyticsEventAttributes>(
   eventKey: K,
   attributes: AnalyticsEventAttributes[K]
 ) {
-  const event = eventKey.split('.');
+  const [eventType, actionSubject, action, actionSubjectId] =
+    eventKey.split('.');
+  if (eventType === 'screen') {
+    return {
+      eventType,
+      name: actionSubject,
+      action: 'viewed',
+      attributes: attributes,
+    };
+  }
   return {
-    eventType: event[0],
-    actionSubject: event[1],
-    action: event[2],
-    actionSubjectId: event[3],
+    eventType,
+    actionSubject,
+    actionSubjectId,
+    action,
     attributes: attributes,
   };
 }

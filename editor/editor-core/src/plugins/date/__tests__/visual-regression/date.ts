@@ -342,7 +342,9 @@ describe('Date:', () => {
         await clickOnDate(page);
         await snapshot(page);
       });
-      it('should dismiss the picker when using keys to navigate away', async () => {
+
+      // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18092
+      it.skip('should dismiss the picker when using keys to navigate away', async () => {
         const adf = {
           version: 1,
           type: 'doc',

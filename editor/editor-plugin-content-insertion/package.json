@@ -30,7 +30,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.2.0",
+    "@atlaskit/editor-common": "^74.3.0",
     "@atlaskit/editor-plugin-analytics": "^0.0.1",
     "@babel/runtime": "^7.0.0",
     "prosemirror-model": "1.16.0",

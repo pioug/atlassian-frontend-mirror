@@ -5,7 +5,7 @@ import {
   comment,
   insertMedia,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { waitForAtLeastNumFileCards } from './_utils';
+import { waitForNumFileCards } from './_utils';
 import {
   mountEditor,
   goToEditorTestingWDExample,
@@ -35,7 +35,7 @@ import { mediaImageSelector } from '@atlaskit/editor-test-helpers/page-objects/m
       // now we can insert media as necessary
       await insertMedia(page, ['one.jpg', 'one.jpg', 'one.jpg']);
 
-      const fileCards = await waitForAtLeastNumFileCards(page, 3);
+      const fileCards = await waitForNumFileCards(page, 3);
       await fileCards[0].click();
 
       await page.type(editable, 'replace first file card');

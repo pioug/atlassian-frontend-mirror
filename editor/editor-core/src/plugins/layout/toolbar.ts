@@ -25,7 +25,7 @@ import {
   deleteActiveLayoutNode,
   getPresetLayout,
 } from './actions';
-import { hoverDecoration } from '../base/pm-plugins/decoration';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { PresetLayout } from './types';
 
 type PresetLayoutButtonItem = {
@@ -105,6 +105,7 @@ export const buildToolbar = (
   _allowBreakout: boolean,
   addSidebarLayouts: boolean,
   allowSingleColumnLayout: boolean,
+  hoverDecoration: HoverDecorationHandler | undefined,
 ): FloatingToolbarConfig | undefined => {
   const node = state.doc.nodeAt(pos);
   if (node) {
@@ -125,10 +126,10 @@ export const buildToolbar = (
       testId: commonMessages.remove.id,
       title: intl.formatMessage(commonMessages.remove),
       onClick: deleteActiveLayoutNode,
-      onMouseEnter: hoverDecoration(nodeType, true),
-      onMouseLeave: hoverDecoration(nodeType, false),
-      onFocus: hoverDecoration(nodeType, true),
-      onBlur: hoverDecoration(nodeType, false),
+      onMouseEnter: hoverDecoration?.(nodeType, true),
+      onMouseLeave: hoverDecoration?.(nodeType, false),
+      onFocus: hoverDecoration?.(nodeType, true),
+      onBlur: hoverDecoration?.(nodeType, false),
       tabIndex: null,
     };
 

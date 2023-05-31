@@ -33,7 +33,14 @@ Consult [AUI](https://docs.atlassian.com/aui/latest/docs/forms.html) for impleme
 ## Accessibility
 
 - Avoid using placeholder text whenever possible. Make sure any critical information is communicated either in the field label or using helper text below the field. Search fields or brief examples are the only exceptions where placeholder text is OK.
-
+- To announce errors in helper text area during custom validation (reference to [Custom validation example](https://atlassian.design/components/textfield/examples#custom-validation)):
+    - Validate field onBlur.
+    - Make sure your error container would have `aria-live` attribute value being explicitly set to `polite` by default.
+    - Add `aria-relevant="all" aria-atomic="false"` to error container when field lose focus and remove those when field is focused again.
+    - Dynamically manipulate error's text content to trigger live region content changes.
+    - Announcement behavior using above techniques in Chrome and Safari:
+        1. Chrome announces error message onBlur.
+        2. Error message in Safari is being announced both onBlur and on keyup events after first loss of focus.
 
 ## Related
 

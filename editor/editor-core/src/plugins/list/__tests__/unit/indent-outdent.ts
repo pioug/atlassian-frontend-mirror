@@ -17,6 +17,7 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { undo } from 'prosemirror-history';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('lists plugin -> indent and outdent', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -24,6 +25,7 @@ describe('lists plugin -> indent and outdent', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add(decorationsPlugin)
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }]);
 

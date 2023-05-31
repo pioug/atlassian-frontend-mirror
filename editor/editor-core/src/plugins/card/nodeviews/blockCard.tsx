@@ -57,6 +57,12 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
     return <span contentEditable={true} />;
   };
 
+  onError = ({ err }: { err?: Error }) => {
+    if (err) {
+      throw err;
+    }
+  };
+
   render() {
     const { node, cardContext, platform, showServerActions } = this.props;
     const { url, data } = node.attrs;
@@ -71,6 +77,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
           appearance="block"
           onClick={this.onClick}
           onResolve={this.onResolve}
+          onError={this.onError}
           showActions={platform === 'web'}
           platform={platform}
           showServerActions={showServerActions}

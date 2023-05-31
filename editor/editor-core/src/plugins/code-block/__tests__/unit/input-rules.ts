@@ -20,6 +20,7 @@ import panelPlugin from '../../../panel';
 import textFormattingPlugin from '../../../text-formatting';
 import listPlugin from '../../../list';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -30,6 +31,7 @@ describe('inputrules', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add(blockTypePlugin)
+        .add(decorationsPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(panelPlugin)
         .add(listPlugin)

@@ -13,7 +13,7 @@ import {
   FloatingToolbarItem,
 } from '../../../plugins/floating-toolbar/types';
 import { stateKey } from '../pm-plugins/plugin-key';
-import { hoverDecoration } from '../../base/pm-plugins/decoration';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
 import buildLayoutButtons from '../../../ui/MediaAndEmbedsToolbar';
 import { MediaLinkingState, getMediaLinkingState } from '../pm-plugins/linking';
@@ -27,9 +27,8 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/media-ui';
 import { messages as cardMessages } from '../../card/messages';
 import { FilePreviewItem } from './filePreviewItem';
@@ -49,11 +48,7 @@ import ImageBorderItem from '../ui/ImageBorder';
 import { currentMediaNodeBorderMark } from '../utils/current-media-node';
 import { shouldShowImageBorder } from './imageBorder';
 import type mediaPlugin from '../index';
-import {
-  ExtractInjectionAPI,
-  PluginDependenciesAPI,
-} from '@atlaskit/editor-common/types';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -74,6 +69,7 @@ const generateMediaCardFloatingToolbar = (
   state: EditorState,
   intl: IntlShape,
   mediaPluginState: MediaPluginState,
+  hoverDecoration: HoverDecorationHandler | undefined,
 ) => {
   const { mediaGroup } = state.schema.nodes;
   const items: FloatingToolbarItem<Command>[] = [
@@ -147,10 +143,10 @@ const generateMediaCardFloatingToolbar = (
       appearance: 'danger',
       focusEditoronEnter: true,
       icon: RemoveIcon,
-      onMouseEnter: hoverDecoration(mediaGroup, true),
-      onMouseLeave: hoverDecoration(mediaGroup, false),
-      onFocus: hoverDecoration(mediaGroup, true),
-      onBlur: hoverDecoration(mediaGroup, false),
+      onMouseEnter: hoverDecoration?.(mediaGroup, true),
+      onMouseLeave: hoverDecoration?.(mediaGroup, false),
+      onFocus: hoverDecoration?.(mediaGroup, true),
+      onBlur: hoverDecoration?.(mediaGroup, false),
       title: intl.formatMessage(commonMessages.remove),
       onClick: handleRemoveMediaGroup,
       testId: 'media-toolbar-remove-button',
@@ -164,6 +160,7 @@ const generateMediaInlineFloatingToolbar = (
   state: EditorState,
   intl: IntlShape,
   mediaPluginState: MediaPluginState,
+  hoverDecoration: HoverDecorationHandler | undefined,
 ) => {
   const { mediaInline } = state.schema.nodes;
   const items: FloatingToolbarItem<Command>[] = [
@@ -237,10 +234,10 @@ const generateMediaInlineFloatingToolbar = (
       appearance: 'danger',
       focusEditoronEnter: true,
       icon: RemoveIcon,
-      onMouseEnter: hoverDecoration(mediaInline, true),
-      onMouseLeave: hoverDecoration(mediaInline, false),
-      onFocus: hoverDecoration(mediaInline, true),
-      onBlur: hoverDecoration(mediaInline, false),
+      onMouseEnter: hoverDecoration?.(mediaInline, true),
+      onMouseLeave: hoverDecoration?.(mediaInline, false),
+      onFocus: hoverDecoration?.(mediaInline, true),
+      onBlur: hoverDecoration?.(mediaInline, false),
       title: intl.formatMessage(commonMessages.remove),
       onClick: removeInlineCard,
       testId: 'media-toolbar-remove-button',
@@ -256,9 +253,7 @@ const generateMediaSingleFloatingToolbar = (
   options: MediaFloatingToolbarOptions,
   pluginState: MediaPluginState,
   mediaLinkingState: MediaLinkingState,
-  widthPluginDependencyApi:
-    | PluginDependenciesAPI<typeof widthPlugin>
-    | undefined,
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
   getEditorFeatureFlags?: GetEditorFeatureFlags,
 ) => {
   const { mediaSingle } = state.schema.nodes;
@@ -309,7 +304,7 @@ const generateMediaSingleFloatingToolbar = (
         state,
         intl,
         state.schema.nodes.mediaSingle,
-        widthPluginDependencyApi,
+        pluginInjectionApi?.dependencies.width,
         allowResizing,
         allowResizingInTables,
       ),
@@ -334,15 +329,19 @@ const generateMediaSingleFloatingToolbar = (
 
             const openLink = () => {
               if (editorView) {
-                const { state, dispatch } = editorView;
-                dispatch(
-                  addAnalytics(state, state.tr, {
+                const {
+                  state: { tr },
+                  dispatch,
+                } = editorView;
+                pluginInjectionApi?.dependencies.analytics?.actions.attachAnalyticsEvent(
+                  {
                     eventType: EVENT_TYPE.TRACK,
                     action: ACTION.VISITED,
                     actionSubject: ACTION_SUBJECT.MEDIA,
                     actionSubjectId: ACTION_SUBJECT_ID.LINK,
-                  }),
-                );
+                  },
+                )(tr);
+                dispatch(tr);
                 return true;
               }
             };
@@ -368,16 +367,18 @@ const generateMediaSingleFloatingToolbar = (
   if (allowAltTextOnImages) {
     toolbarButtons.push(altTextButton(intl, state), { type: 'separator' });
   }
+  const { hoverDecoration } =
+    pluginInjectionApi?.dependencies.decorations.actions ?? {};
   const removeButton: FloatingToolbarItem<Command> = {
     id: 'editor.media.delete',
     type: 'button',
     appearance: 'danger',
     focusEditoronEnter: true,
     icon: RemoveIcon,
-    onMouseEnter: hoverDecoration(mediaSingle, true),
-    onMouseLeave: hoverDecoration(mediaSingle, false),
-    onFocus: hoverDecoration(mediaSingle, true),
-    onBlur: hoverDecoration(mediaSingle, false),
+    onMouseEnter: hoverDecoration?.(mediaSingle, true),
+    onMouseLeave: hoverDecoration?.(mediaSingle, false),
+    onFocus: hoverDecoration?.(mediaSingle, true),
+    onBlur: hoverDecoration?.(mediaSingle, false),
     title: intl.formatMessage(commonMessages.remove),
     onClick: remove,
     testId: 'media-toolbar-remove-button',
@@ -419,6 +420,8 @@ export const floatingToolbar = (
   const mediaPluginState: MediaPluginState | undefined =
     stateKey.getState(state);
   const mediaLinkingState: MediaLinkingState = getMediaLinkingState(state);
+  const { hoverDecoration } =
+    pluginInjectionApi?.dependencies.decorations.actions ?? {};
 
   if (!mediaPluginState) {
     return;
@@ -473,7 +476,12 @@ export const floatingToolbar = (
       const selector = mediaFilmstripItemDOMSelector(mediaOffset);
       return mediaPluginState.element?.querySelector(selector) as HTMLElement;
     };
-    items = generateMediaCardFloatingToolbar(state, intl, mediaPluginState);
+    items = generateMediaCardFloatingToolbar(
+      state,
+      intl,
+      mediaPluginState,
+      hoverDecoration,
+    );
   } else if (
     allowMediaInline &&
     selectedNodeType &&
@@ -485,7 +493,12 @@ export const floatingToolbar = (
       ) as HTMLElement;
       return element || mediaPluginState.element;
     };
-    items = generateMediaInlineFloatingToolbar(state, intl, mediaPluginState);
+    items = generateMediaInlineFloatingToolbar(
+      state,
+      intl,
+      mediaPluginState,
+      hoverDecoration,
+    );
   } else {
     baseToolbar.getDomRef = () => {
       const element = mediaPluginState.element?.querySelector(
@@ -499,7 +512,7 @@ export const floatingToolbar = (
       options,
       mediaPluginState,
       mediaLinkingState,
-      pluginInjectionApi?.dependencies.width,
+      pluginInjectionApi,
       getEditorFeatureFlags,
     );
   }

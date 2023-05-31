@@ -18,11 +18,13 @@ import selectionPlugin from '../../index';
 import { selectionPluginKey, SelectionPluginState } from '../../types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const createEditor = createProsemirrorEditorFactory();
 const preset = new Preset<LightEditorPlugin>()
   .add([featureFlagsPlugin, {}])
   .add([analyticsPlugin, {}])
+  .add(decorationsPlugin)
   .add(editorDisabledPlugin)
   .add(selectionPlugin)
   .add(layoutPlugin)

@@ -145,6 +145,7 @@ export default class Example extends Component {
               node={undefined as any}
               dispatchCommand={() => SAVE_ACTION}
               featureFlags={{}}
+              api={undefined}
             />
           </div>
           <div className="toolsDrawer">

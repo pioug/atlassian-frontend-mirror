@@ -31,7 +31,7 @@ import {
   floatingLayouts,
   isRichMediaInsideOfBlockNode,
 } from '../../../utils/rich-media-utils';
-import { EventDispatcher } from '../../../event-dispatcher';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { ColumnResizingPluginState } from '@atlaskit/editor-plugin-table/types';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { EditorState, PluginKey } from 'prosemirror-state';
@@ -359,6 +359,12 @@ export class EmbedCardComponent extends React.PureComponent<
     this.saveOriginalDimensionsAttributes(height, undefined);
   };
 
+  onError = ({ err }: { err?: Error }) => {
+    if (err) {
+      throw err;
+    }
+  };
+
   render() {
     const {
       node,
@@ -407,6 +413,7 @@ export class EmbedCardComponent extends React.PureComponent<
         appearance="embed"
         onClick={this.onClick}
         onResolve={this.onResolve}
+        onError={this.onError}
         showActions={platform === 'web'}
         isFrameVisible
         inheritDimensions={true}

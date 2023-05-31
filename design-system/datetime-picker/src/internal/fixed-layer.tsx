@@ -4,6 +4,7 @@ import ScrollLock from 'react-scrolllock';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { sizes } from '@atlaskit/icon';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   Manager,
   Popper,
@@ -56,7 +57,6 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
     if (!containerRef) {
       return <div />;
     }
-    const containerRect = containerRef.getBoundingClientRect();
 
     return (
       /* Need to wrap layer in a fixed position div so that it will render its content as fixed
@@ -69,17 +69,27 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
             <div
               ref={ref}
               data-layer-child
-              style={{
-                position: 'absolute',
-                top: 0,
-                height: containerRect.height,
-                // Don't block the clear button
-                width:
-                  containerRect.width -
-                  parseInt(sizes.small.slice(0, -2)) -
-                  gridSize(),
-                background: 'transparent',
-              }}
+              style={
+                getBooleanFF(
+                  'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
+                )
+                  ? {
+                      inset: 0,
+                      pointerEvents: 'none',
+                      background: 'transparent',
+                    }
+                  : {
+                      position: 'absolute',
+                      top: 0,
+                      height: containerRef.getBoundingClientRect().height,
+                      // Don't block the clear button
+                      width:
+                        containerRef.getBoundingClientRect().width -
+                        parseInt(sizes.small.slice(0, -2)) -
+                        gridSize(),
+                      background: 'transparent',
+                    }
+              }
             />
           )}
         </Reference>

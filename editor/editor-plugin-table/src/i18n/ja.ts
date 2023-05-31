@@ -7,7 +7,7 @@
  */
 //Japanese
 export default {
-  'fabric.editor.canNotSortTable': '⚠️ 統合したセルで表を並べ替えることはできません',
+  'fabric.editor.canNotSortTable': '⚠️ 結合セルを含む表は並べ替えられません。',
   'fabric.editor.cellBackground': 'セルの背景',
   'fabric.editor.cellOptions': 'セルのオプション',
   'fabric.editor.clearCells': '{0, plural, other {セルをクリア}}',
@@ -22,13 +22,13 @@ export default {
   'fabric.editor.headerRow': 'ヘッダーの行',
   'fabric.editor.insertColumn': '列を右に挿入',
   'fabric.editor.insertRow': '行を下に挿入',
-  'fabric.editor.mergeCells': 'セルをマージ',
+  'fabric.editor.mergeCells': 'セルを結合',
   'fabric.editor.numberedColumn': '番号付き列',
   'fabric.editor.removeColumns': '{0, plural, other {列を削除}}',
   'fabric.editor.removeRows': '{0, plural, other {行を削除}}',
   'fabric.editor.rowControl': '行をハイライト',
-  'fabric.editor.sortColumnASC': '列の並べ替え A → Z',
-  'fabric.editor.sortColumnDESC': '列の並べ替え Z → A',
+  'fabric.editor.sortColumnASC': '列の並べ替え: 昇順',
+  'fabric.editor.sortColumnDESC': '列の並べ替え: 降順',
   'fabric.editor.splitCell': 'セルを分割',
   'fabric.editor.tableOptions': '表のオプション',
   'fabric.editor.tables.confirmDeleteLinkedModalMessage':

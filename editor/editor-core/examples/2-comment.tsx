@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import LockCircleIcon from '@atlaskit/icon/glyph/lock-circle';
-import { EditorMigrationComponent as Editor, EditorProps } from './../src';
+import { Editor, EditorProps } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
 import ToolbarHelp from './../src/ui/ToolbarHelp';

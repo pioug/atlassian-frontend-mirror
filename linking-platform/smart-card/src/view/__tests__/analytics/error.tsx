@@ -1,6 +1,5 @@
 import { JsonLd } from 'json-ld-types';
 import React from 'react';
-import { TestErrorBoundary } from '../_boundary';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { render, waitFor, cleanup } from '@testing-library/react';
@@ -27,16 +26,20 @@ describe('smart-card: error analytics', () => {
   let mockWindowOpen: jest.Mock;
   let mockUrl: string;
   const mockedLazyComponent = jest.spyOn(lazyComponent, 'default');
-
+  let consoleErrorFn: jest.SpyInstance;
   beforeEach(() => {
     mockWindowOpen = jest.fn();
     mockUrl = 'https://my.url';
     /// @ts-ignore
     global.open = mockWindowOpen;
+    consoleErrorFn = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => jest.fn());
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+    consoleErrorFn.mockRestore();
     cleanup();
   });
 
@@ -103,7 +106,7 @@ describe('smart-card: error analytics', () => {
     expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
   });
 
-  it('should throw fatal error on ResolveUnsupportedError', async () => {
+  it('should invoke onError on ResolveUnsupportedError', async () => {
     class MockClient extends CardClient {
       async fetchData(url: string): Promise<JsonLd.Response> {
         throw new APIError(
@@ -116,26 +119,25 @@ describe('smart-card: error analytics', () => {
     }
     const client = new MockClient();
     const onError = jest.fn();
-    const { getByTestId } = render(
+    render(
       <Provider client={client}>
-        <TestErrorBoundary onError={onError}>
-          <Card testId="erroredLink" appearance="inline" url={mockUrl} />
-        </TestErrorBoundary>
+        <Card
+          testId="erroredLink"
+          appearance="inline"
+          url={mockUrl}
+          onError={onError}
+        />
       </Provider>,
     );
-    const errorBoundary = await waitFor(() => getByTestId('error-boundary'), {
-      timeout: 10000,
-    });
-
-    expect(errorBoundary).toBeTruthy();
-    expect(onError).toHaveBeenCalledWith(
-      expect.objectContaining({
-        kind: 'fatal',
-        name: 'APIError',
-        message: 'received unsupported error',
-      }),
-      expect.objectContaining({
-        componentStack: expect.any(String),
+    await waitFor(() =>
+      expect(onError).toHaveBeenCalledWith({
+        err: expect.objectContaining({
+          kind: 'fatal',
+          name: 'APIError',
+          message: 'received unsupported error',
+        }),
+        status: 'errored',
+        url: mockUrl,
       }),
     );
     expect(analytics.unresolvedEvent).not.toHaveBeenCalled();
@@ -251,25 +253,24 @@ describe('smart-card: error analytics', () => {
     }
     const client = new MockClient();
     const onError = jest.fn();
-    const { getByTestId } = render(
+    render(
       <Provider client={client}>
-        <TestErrorBoundary onError={onError}>
-          <Card testId="erroredLink" appearance="inline" url={mockUrl} />
-        </TestErrorBoundary>
+        <Card
+          testId="erroredLink"
+          appearance="inline"
+          url={mockUrl}
+          onError={onError}
+        />
       </Provider>,
     );
-    const errorBoundary = await waitFor(() => getByTestId('error-boundary'), {
-      timeout: 10000,
-    });
-
-    expect(errorBoundary).toBeTruthy();
-    expect(onError).toHaveBeenCalledWith(
-      expect.objectContaining({
-        kind: 'fatal',
-        name: 'APIError',
-      }),
-      expect.objectContaining({
-        componentStack: expect.any(String),
+    await waitFor(() =>
+      expect(onError).toHaveBeenCalledWith({
+        err: expect.objectContaining({
+          kind: 'fatal',
+          name: 'APIError',
+        }),
+        status: 'errored',
+        url: mockUrl,
       }),
     );
     expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
@@ -300,9 +301,12 @@ describe('smart-card: error analytics', () => {
           },
         }}
       >
-        <TestErrorBoundary onError={onError}>
-          <Card testId="erroredLink" appearance="inline" url={mockUrl} />
-        </TestErrorBoundary>
+        <Card
+          testId="erroredLink"
+          appearance="inline"
+          url={mockUrl}
+          onError={onError}
+        />
       </Provider>,
     );
     const resolvedView = await waitFor(
@@ -341,25 +345,20 @@ describe('smart-card: error analytics', () => {
       }
     }
     const client = new MockClient();
-    const { getByTestId } = render(
+    render(
       <Provider client={client}>
-        <TestErrorBoundary onError={onError}>
-          <Card appearance="inline" url={mockUrl} />
-        </TestErrorBoundary>
+        <Card appearance="inline" url={mockUrl} onError={onError} />
       </Provider>,
     );
-
-    await waitFor(() => getByTestId('error-boundary'));
     await waitFor(() =>
       expect(analytics.chunkloadFailedEvent).toHaveBeenCalledTimes(1),
     );
-    expect(onError).toHaveBeenCalledWith(
-      expect.objectContaining({
+    expect(onError).toHaveBeenCalledWith({
+      err: expect.objectContaining({
         name: chunkLoadError.name,
       }),
-      expect.objectContaining({
-        componentStack: expect.any(String),
-      }),
-    );
+      status: 'errored',
+      url: mockUrl,
+    });
   });
 });

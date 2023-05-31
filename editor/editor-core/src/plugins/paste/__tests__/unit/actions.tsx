@@ -53,6 +53,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const pasteAndCompare = (
   { editorView }: { editorView: EditorView },
@@ -81,6 +82,7 @@ describe('action paste handler', () => {
         .add([analyticsPlugin, {}])
         .add([deprecatedAnalyticsPlugin, {}])
         .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
         .add(editorDisabledPlugin)
         .add([pastePlugin, {}])
         .add([tasksAndDecisionsPlugin, {}])

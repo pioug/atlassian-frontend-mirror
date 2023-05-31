@@ -8,13 +8,13 @@ import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { CardPlatform } from '@atlaskit/smart-card';
 
-import { Command } from '../../types';
-import {
+import type {
+  Command,
   FloatingToolbarHandler,
   FloatingToolbarItem,
-} from '../floating-toolbar/types';
-import { linkToolbarMessages, linkMessages } from '../../messages';
-import commonMessages from '../../messages';
+} from '@atlaskit/editor-common/types';
+import { linkToolbarMessages } from '../../messages';
+import commonMessages, { linkMessages } from '@atlaskit/editor-common/messages';
 
 import { Node } from 'prosemirror-model';
 import { changeSelectedCardToText } from './pm-plugins/doc';
@@ -313,8 +313,8 @@ const generateToolbarItems =
     const pluginState: CardPluginState = pluginKey.getState(state);
 
     const currentAppearance = appearanceForNodeType(node.type);
-    const hoverDecoration =
-      pluginInjectionApi?.dependencies?.base?.actions.hoverDecoration;
+    const { hoverDecoration } =
+      pluginInjectionApi?.dependencies?.decorations?.actions ?? {};
 
     /* mobile builds toolbar natively using toolbarItems */
     if (pluginState.showLinkingToolbar && platform !== 'mobile') {

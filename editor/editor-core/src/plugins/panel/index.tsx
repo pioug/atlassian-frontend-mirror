@@ -28,6 +28,7 @@ import { messages } from '../block-type/messages';
 import { PanelPluginOptions } from './types';
 import IconCustomPanel from '../quick-insert/assets/custom-panel';
 import { T50 } from '@atlaskit/theme/colors';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const insertPanelTypeWithAnalytics = (
   panelAttributes: PanelAttributes,
@@ -63,8 +64,9 @@ const panelPlugin: NextEditorPlugin<
   'panel',
   {
     pluginConfiguration: PanelPluginOptions | undefined;
+    dependencies: [typeof decorationsPlugin];
   }
-> = (options = {}) => ({
+> = (options = {}, api) => ({
   name: 'panel',
 
   nodes() {
@@ -190,7 +192,13 @@ const panelPlugin: NextEditorPlugin<
       return quickInsertOptions;
     },
     floatingToolbar: (state, intl, providerFactory) =>
-      getToolbarConfig(state, intl, options, providerFactory),
+      getToolbarConfig(
+        state,
+        intl,
+        options,
+        providerFactory,
+        api?.dependencies.decorations.actions.hoverDecoration,
+      ),
   },
 });
 

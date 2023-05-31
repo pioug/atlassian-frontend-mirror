@@ -129,9 +129,7 @@ export const ExpandLayoutWrapperWithRef = forwardRef(
 
 const containerStyles = (styleProps: StyleProps) => {
   const { expanded, focused } = styleProps;
-  // TODO: Migrate away from gridSize
-  // Recommendation: Verify if this is intentional: 8 / 4 / 14 rem = 4.57px?
-  const marginTop = `${gridSize() / 2 / fontSize()}rem`;
+  const marginTop = token('space.050', '0.25rem');
   const marginBottom = 0;
   // Only only these margins if the expand isn't editable
   // and is the root level expand.

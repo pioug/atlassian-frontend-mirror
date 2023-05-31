@@ -1,7 +1,7 @@
 import React from 'react';
 import { code } from '@atlaskit/docs';
 
-import { EditorMigrationComponent as Editor } from './../src';
+import { Editor } from './../src';
 
 export default function Example() {
   return (

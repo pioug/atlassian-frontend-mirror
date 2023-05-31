@@ -17,6 +17,9 @@ import type { SpinnerSizeType } from '../types';
 // there is a bug with findDOMNode and Suspense in React < 16.9: https://github.com/facebook/react/issues/14188
 const safeFindDOMNode: typeof findDOMNode = (component) => {
   try {
+    // DSP-10519 TODO: ReactDOM.findDOMNode is deprecated in React18, consider using alternative solution
+    // https://react.dev/reference/react-dom/findDOMNode#alternatives
+    // eslint-disable-next-line react/no-find-dom-node
     return findDOMNode(component);
   } catch (e) {
     return null;

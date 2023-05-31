@@ -42,6 +42,7 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorView } from 'prosemirror-view';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const emojiProvider = getTestEmojiResource();
 
@@ -63,6 +64,7 @@ describe('lists plugin -> keymap', () => {
       .add([featureFlagsPlugin, { restartNumberedLists: true }])
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+      .add(decorationsPlugin)
       .add([listPlugin, { restartNumberedLists: true }])
       .add(blockTypePlugin)
       .add(emojiPlugin)

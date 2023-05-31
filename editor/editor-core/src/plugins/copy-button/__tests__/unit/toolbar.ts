@@ -41,7 +41,10 @@ describe('process copy button', () => {
   it('should do nothing if items empty', () => {
     const items = [] as Array<FloatingToolbarItem<Command>>;
 
-    const newItems = processCopyButtonItems(statePluginEnabled)(items);
+    const newItems = processCopyButtonItems(statePluginEnabled)(
+      items,
+      undefined,
+    );
 
     expect(newItems.length).toEqual(0);
   });
@@ -55,7 +58,10 @@ describe('process copy button', () => {
       },
     ] as Array<FloatingToolbarItem<Command>>;
 
-    const newItems = processCopyButtonItems(statePluginEnabled)(items);
+    const newItems = processCopyButtonItems(statePluginEnabled)(
+      items,
+      undefined,
+    );
 
     expect(newItems.length).toEqual(1);
 
@@ -86,7 +92,10 @@ describe('process copy button', () => {
       },
     ] as Array<FloatingToolbarItem<Command>>;
 
-    const newItems = processCopyButtonItems(statePluginEnabled)(items);
+    const newItems = processCopyButtonItems(statePluginEnabled)(
+      items,
+      undefined,
+    );
 
     expect(newItems.length).toEqual(3);
 
@@ -114,7 +123,10 @@ describe('process copy button', () => {
       },
     ] as Array<FloatingToolbarItem<Command>>;
 
-    const newItems = processCopyButtonItems(statePluginEnabled)(items);
+    const newItems = processCopyButtonItems(statePluginEnabled)(
+      items,
+      undefined,
+    );
 
     expect(newItems.length).toEqual(1);
 
@@ -145,7 +157,10 @@ describe('process copy button', () => {
       },
     ] as Array<FloatingToolbarItem<Command>>;
 
-    const newItems = processCopyButtonItems(statePluginDisabled)(items);
+    const newItems = processCopyButtonItems(statePluginDisabled)(
+      items,
+      undefined,
+    );
 
     expect(newItems).toEqual([
       {

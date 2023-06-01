@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/in-product-testing-sample",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
@@ -32,11 +32,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*",
     "@atlaskit/editor-common": "^74.3.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/notification-common": "^5.1.0",
     "@atlassian/people-menu": "^56.0.0",

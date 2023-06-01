@@ -16,8 +16,16 @@
 
 ```ts
 import { DatasourceAdf } from '@atlaskit/linking-common/types';
+import { DatasourceAdfTableView } from '@atlaskit/linking-common/types';
+import { DatasourceAdfView } from '@atlaskit/linking-common/types';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
 import { jsx } from '@emotion/react';
+
+export { DatasourceAdf };
+
+export { DatasourceAdfTableView };
+
+export { DatasourceAdfView };
 
 // @public (undocumented)
 export const DatasourceTableView: ({

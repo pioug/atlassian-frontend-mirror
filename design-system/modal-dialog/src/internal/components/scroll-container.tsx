@@ -125,6 +125,7 @@ const ScrollContainer = forwardRef<HTMLElement | null, ScrollContainerProps>(
         <div
           // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
           tabIndex={showContentFocus ? 0 : undefined}
+          aria-label={showContentFocus ? 'Scrollable content' : undefined}
           data-testid={testId && `${testId}--scrollable`}
           ref={mergeRefs([ref, scrollableRef])}
           css={[

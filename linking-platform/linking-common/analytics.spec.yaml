@@ -1,0 +1,21 @@
+common:
+  libraryType: client
+  product: media
+
+context:
+  PackageMetaData:
+    packageName:
+      type: [ '@atlaskit/linking-common' ]
+      description: name of the package the event was fired from
+    packageVersion:
+      type: string
+      description: version of the package the event was fired from
+
+events:
+  - getAvailableSitesResolve failed:
+      type: operational
+      description: fired when an error occurs when attempting to resolve available sites
+      attributes:
+        error:
+          type: string
+          description: a stringified version of the error

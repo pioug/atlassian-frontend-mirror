@@ -6,6 +6,9 @@ import {
   AvailableSitesRequest,
   AvailableSitesResponse,
 } from './types';
+import createEventPayload from '../../common/utils/analytics/analytics.codegen';
+import { ANALYTICS_CHANNEL } from '../../common/utils/constants';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 const defaultProducts = [
   AvailableSitesProductType.WHITEBOARD,
@@ -31,6 +34,7 @@ export const useAvailableSites = () => {
     data: [],
     loading: true,
   });
+  const { createAnalyticsEvent } = useAnalyticsEvents();
 
   useEffect(() => {
     const fetchSites = async () => {
@@ -45,7 +49,12 @@ export const useAvailableSites = () => {
         });
       } catch (err: unknown) {
         const error = err instanceof Error ? err : new Error('unknown error');
-        // TODO: analytics
+        // If getAvailableSites errors fire an operational event
+        createAnalyticsEvent(
+          createEventPayload('operational.getAvailableSitesResolve.failed', {
+            error: error.toString(),
+          }),
+        ).fire(ANALYTICS_CHANNEL);
         setState({
           data: [],
           loading: false,
@@ -54,7 +63,7 @@ export const useAvailableSites = () => {
       }
     };
     fetchSites();
-  }, []);
+  }, [createAnalyticsEvent]);
 
   return state;
 };

@@ -87,6 +87,25 @@ export interface EmbedCardAdf {
     layout: 'wide';
   };
 }
+
+export interface DatasourceAdfTableView {
+  type: 'table';
+  properties?: {
+    columnKeys: string[];
+  };
+}
+
+// TODO Remove me when next View be added. I am here as an example of intent
+// export interface DatasourceAdfSomethingView {
+//   type: 'something';
+//   properties: {
+//     blah: string[];
+//   };
+// }
+
+export type DatasourceAdfView =
+  DatasourceAdfTableView /*| DatasourceAdfSomethingView*/;
+
 export interface DatasourceAdf {
   type: 'blockCard';
   attrs: {
@@ -94,12 +113,7 @@ export interface DatasourceAdf {
     datasource: {
       id: string;
       parameters: object;
-      views: [
-        {
-          type: string;
-          properties?: object;
-        },
-      ];
+      views: DatasourceAdfView[];
     };
   };
 }

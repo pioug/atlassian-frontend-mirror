@@ -12,6 +12,9 @@ export type {
   ServerActionPayload,
   MetadataStatus,
   EnvironmentsKeys,
+  DatasourceAdf,
+  DatasourceAdfView,
+  DatasourceAdfTableView,
 } from './types';
 
 export type {

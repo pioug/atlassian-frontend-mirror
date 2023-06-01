@@ -1,5 +1,19 @@
 # @atlaskit/linking-common
 
+## 2.14.0
+
+### Minor Changes
+
+- [`4d5119d5052`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d5119d5052) - New analytics for operational event for getAvailableSites failed
+- [`5ffc8529049`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ffc8529049) - - Export `DatasourceAdf`, `DatasourceAdfView`, `DatasourceAdfTableView`
+  - Modify DatasourceAdf table view type
+
+## 2.13.2
+
+### Patch Changes
+
+- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+
 ## 2.13.1
 
 ### Patch Changes

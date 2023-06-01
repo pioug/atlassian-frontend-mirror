@@ -2,6 +2,8 @@
 import styled from '@emotion/styled';
 
 import * as colors from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 
 const color: { [key: string]: string } = {
   blue: colors.B300,
@@ -30,7 +32,12 @@ interface StyledProps {
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Target = styled.div<StyledProps>`
-  background-color: ${(p) => color[p.color] || colors.primary};
+  background-color: ${(p) =>
+    color[p.color] ||
+    themed({
+      light: token('color.background.brand.bold', colors.B400),
+      dark: token('color.background.brand.bold', colors.B100),
+    })};
   border-radius: 3px;
   color: white;
   cursor: pointer;
@@ -44,7 +51,12 @@ export const Target = styled.div<StyledProps>`
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const BigTarget = styled.div<StyledProps>`
-  background-color: ${(p) => color[p.color] || colors.primary};
+  background-color: ${(p) =>
+    color[p.color] ||
+    themed({
+      light: token('color.background.brand.bold', colors.B400),
+      dark: token('color.background.brand.bold', colors.B100),
+    })};
   border-radius: 3px;
   color: white;
   cursor: pointer;

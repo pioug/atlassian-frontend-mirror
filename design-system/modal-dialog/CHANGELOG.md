@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.5.7
+
+### Patch Changes
+
+- [`7e018144c35`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e018144c35) - [ux] Add aria-label to scrollable ModalBody to communicate to AT users why ModalBody is focused.
+
 ## 12.5.6
 
 ### Patch Changes

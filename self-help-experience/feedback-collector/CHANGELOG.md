@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 12.1.3
+
+### Patch Changes
+
+- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+
 ## 12.1.2
 
 ### Patch Changes

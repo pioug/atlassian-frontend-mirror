@@ -1285,7 +1285,7 @@ type VoteCount = {
 
 ```json
 {
-  "@atlaskit/link-provider": "^1.6.3",
+  "@atlaskit/link-provider": "^1.6.4",
   "react": "^16.8.0",
   "react-dom": "^16.8.0",
   "react-intl-next": "npm:react-intl@^5.18.1"

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/help",
-  "version": "7.2.3",
+  "version": "7.2.4",
   "description": "A cross-product help component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -34,7 +34,6 @@
     "ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V src/**/*.svg"
   },
   "dependencies": {
-    "@atlaskit/analytics": "^8.1.0",
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/checkbox": "^12.6.0",

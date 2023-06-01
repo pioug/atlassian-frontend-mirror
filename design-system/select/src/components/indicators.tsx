@@ -11,9 +11,23 @@ import Spinner from '@atlaskit/spinner';
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import DownIcon from '@atlaskit/icon/glyph/chevron-down';
 
+const iconContainerStyles = css({
+  all: 'unset',
+  outline: 'revert',
+  display: 'flex',
+  alignItems: 'center',
+});
+
 export const ClearIndicator: FC<ClearIndicatorProps<any>> = (props) => (
-  <components.ClearIndicator {...props}>
-    <SelectClearIcon size="small" label="clear" />
+  <components.ClearIndicator
+    {...{
+      ...props,
+      innerProps: { ...props.innerProps, 'aria-hidden': 'false' },
+    }}
+  >
+    <button css={iconContainerStyles} type="button" tabIndex={-1}>
+      <SelectClearIcon size="small" label="clear" />
+    </button>
   </components.ClearIndicator>
 );
 

@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.5.2
+
+### Patch Changes
+
+- [`449ab6d341b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/449ab6d341b) - Clear control keyboard access for Select component
+
 ## 16.5.1
 
 ### Patch Changes

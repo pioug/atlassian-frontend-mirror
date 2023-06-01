@@ -1,5 +1,11 @@
 # @atlaskit/conversation
 
+## 16.2.6
+
+### Patch Changes
+
+- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+
 ## 16.2.5
 
 ### Patch Changes

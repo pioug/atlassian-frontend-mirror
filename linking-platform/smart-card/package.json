@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.5.0",
+  "version": "26.5.1",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
     "@atlaskit/in-product-testing": "^0.2.0",
     "@atlaskit/link-analytics": "^8.0.2",
     "@atlaskit/link-client-extension": "^1.1.0",
-    "@atlaskit/linking-common": "^2.13.0",
+    "@atlaskit/linking-common": "^2.14.0",
     "@atlaskit/linking-types": "^5.0.0",
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/lozenge": "^11.4.0",
@@ -71,7 +71,7 @@
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
-    "@atlaskit/link-provider": "^1.6.3",
+    "@atlaskit/link-provider": "^1.6.4",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
@@ -82,7 +82,6 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/css-reset": "^6.5.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/field-base": "^15.2.0",
     "@atlaskit/form": "^8.11.0",
     "@atlaskit/inline-message": "^11.5.0",
     "@atlaskit/link-test-helpers": "^4.0.0",
@@ -96,7 +95,6 @@
     "@atlaskit/select": "^16.5.0",
     "@atlaskit/table-tree": "^9.4.0",
     "@atlaskit/tabs": "^13.4.0",
-    "@atlaskit/textarea": "^4.7.0",
     "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/toggle": "^12.6.0",
     "@atlaskit/visual-regression": "*",

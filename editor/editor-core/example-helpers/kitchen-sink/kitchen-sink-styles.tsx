@@ -1,5 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import { N50, background, N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
+import { N50, N30, N0, DN30 } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { css } from '@emotion/react';
 import { createEditorContentStyle } from '../../src/ui/ContentStyles';
@@ -56,7 +58,10 @@ export const rail = (props: ThemeProps) => css`
   top: 0;
   right: 0;
   bottom: 0;
-  background: ${background(props)};
+  background: ${themed({
+    light: token('elevation.surface', N0),
+    dark: token('elevation.surface', DN30),
+  })(props)};
 `;
 
 export const editorColumn = ({

@@ -1,4 +1,6 @@
+import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
+import '@atlaskit/link-test-helpers/jest';
 
 import {
   mockAvailableSites,
@@ -6,6 +8,7 @@ import {
   mockRestore,
 } from '../../common/mocks/mockAvailableSites';
 import { useAvailableSites } from '.';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 describe('useAvailableSites', () => {
   beforeEach(() => {
@@ -31,7 +34,17 @@ describe('useAvailableSites', () => {
 
   it('should return loading status and the result', async () => {
     mockAvailableSitesWithError();
-    const { result, waitForNextUpdate } = renderHook(() => useAvailableSites());
+    const spy = jest.fn();
+    const { result, waitForNextUpdate } = renderHook(
+      () => useAvailableSites(),
+      {
+        wrapper: ({ children }) => (
+          <AnalyticsListener channel={'*'} onEvent={spy}>
+            {children}
+          </AnalyticsListener>
+        ),
+      },
+    );
 
     expect(result.current).toMatchInlineSnapshot(`
       Object {
@@ -42,6 +55,17 @@ describe('useAvailableSites', () => {
 
     await waitForNextUpdate();
 
+    expect(spy).toBeFiredWithAnalyticEventOnce({
+      payload: {
+        action: 'failed',
+        actionSubject: 'getAvailableSitesResolve',
+        actionSubjectId: undefined,
+        eventType: 'operational',
+        attributes: {
+          error: 'Error: unknown error',
+        },
+      },
+    });
     expect(result.current).toMatchInlineSnapshot(`
       Object {
         "data": Array [],

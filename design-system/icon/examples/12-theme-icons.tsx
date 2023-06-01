@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import Theme from '@atlaskit/theme/components';
+import Theme, { themed } from '@atlaskit/theme/components';
 import type { ThemeModes } from '@atlaskit/theme/types';
 
 import Icon from '../src';
@@ -19,7 +19,7 @@ import ArrowRightIcon from '../glyph/arrow-right';
 import ArrowUpIcon from '../glyph/arrow-up';
 import { useState } from 'react';
 import Button from '@atlaskit/button';
-import { background, text } from '@atlaskit/theme/colors';
+import { N900, DN600, N0, DN30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const iconRowStyles = css({
@@ -80,8 +80,14 @@ const IconSizeExample = () => {
             <Theme.Provider value={() => currentTheme} key={mode}>
               <div
                 style={{
-                  color: text({ theme: { mode } }),
-                  backgroundColor: background({ theme: { mode } }),
+                  color: themed({
+                    light: token('color.text', N900),
+                    dark: token('color.text', DN600),
+                  })({ theme: { mode } }),
+                  backgroundColor: themed({
+                    light: token('elevation.surface', N0),
+                    dark: token('elevation.surface', DN30),
+                  })({ theme: { mode } }),
                 }}
                 css={iconRowStyles}
               >

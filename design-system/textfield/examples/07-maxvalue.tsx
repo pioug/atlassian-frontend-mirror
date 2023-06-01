@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { subtleHeading } from '@atlaskit/theme/colors';
+import { N200 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -19,8 +19,7 @@ export default function MaxValueExample() {
           lineHeight: `${
             headingSizes.h200.lineHeight / headingSizes.h200.size
           }`,
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-          color: `${subtleHeading()}`,
+          color: token('color.text.subtlest', N200),
           fontWeight: 600,
           marginTop: token('space.200', '16px'),
         }}

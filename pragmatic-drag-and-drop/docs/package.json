@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-docs",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "This package holds the documentation for all @atlaskit/pragmatic-drag-and-drop-* packages in one place. It is not intended to be consumed in production applications",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,8 +43,6 @@
     "@atlaskit/badge": "^15.1.0",
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/docs": "*",
-    "@atlaskit/ds-explorations": "*",
     "@atlaskit/focus-ring": "^1.2.0",
     "@atlaskit/heading": "^1.2.0",
     "@atlaskit/icon": "^21.11.0",
@@ -58,7 +56,6 @@
     "@atlaskit/theme": "^12.4.0",
     "@atlaskit/tokens": "^1.5.0",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/react-async": "^0.10.0",
     "@emotion/react": "^11.7.1",

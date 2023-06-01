@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/skeleton",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A skeleton acts as a placeholder for content, usually while the content loads.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -50,9 +50,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/ds-explorations": "^2.2.0",
     "@atlaskit/primitives": "^0.9.0",
-    "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react-dom": "^16.8.0",

@@ -169,6 +169,34 @@ export type CardType =
   | 'unauthorized';
 
 // @public (undocumented)
+export interface DatasourceAdf {
+  // (undocumented)
+  attrs: {
+    url?: string;
+    datasource: {
+      id: string;
+      parameters: object;
+      views: DatasourceAdfView[];
+    };
+  };
+  // (undocumented)
+  type: 'blockCard';
+}
+
+// @public (undocumented)
+export interface DatasourceAdfTableView {
+  // (undocumented)
+  properties?: {
+    columnKeys: string[];
+  };
+  // (undocumented)
+  type: 'table';
+}
+
+// @public (undocumented)
+export type DatasourceAdfView = DatasourceAdfTableView;
+
+// @public (undocumented)
 export interface EmbedCardAdf {
   // (undocumented)
   attrs: {

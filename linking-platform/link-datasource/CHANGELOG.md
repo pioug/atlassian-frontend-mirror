@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 0.19.0
+
+### Minor Changes
+
+- [`5ffc8529049`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ffc8529049) - - Export `DatasourceAdf`, `DatasourceAdfView`, `DatasourceAdfTableView`
+  - Modify DatasourceAdf table view type
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.18.1
+
+### Patch Changes
+
+- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+
 ## 0.18.0
 
 ### Minor Changes

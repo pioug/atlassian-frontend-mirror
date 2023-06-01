@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-provider",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "Contains provider with react context for anything link related and the link http client",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -35,7 +35,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/linking-common": "^2.13.0",
+    "@atlaskit/linking-common": "^2.14.0",
     "@babel/runtime": "^7.0.0",
     "async-retry": "^1.2.3",
     "dataloader": "^2.0.0",
@@ -50,12 +50,8 @@
   },
   "devDependencies": {
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/docs": "*",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.5.0",
-    "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",

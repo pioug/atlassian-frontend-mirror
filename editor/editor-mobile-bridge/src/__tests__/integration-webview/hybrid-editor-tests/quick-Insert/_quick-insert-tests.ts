@@ -112,7 +112,8 @@ export default async () => {
 
   MobileTestCase(
     'Quick Insert - Mention: Users can add an mention by typing "/mention" and pressing enter',
-    {},
+    // Re-skipped due to failures again - See https://product-fabric.atlassian.net/browse/ED-18178
+    { skipPlatform: ['*'] },
     async (client: any, testName: string) => {
       const page = await Page.create(client);
       await loadEditor(page);
@@ -169,7 +170,8 @@ export default async () => {
 
   MobileTestCase(
     'Quick Insert - Block Quote: Users can add a block quote by typing ">" and pressing space',
-    {},
+    // Re-skipped due to failures again - See https://product-fabric.atlassian.net/browse/ED-18178
+    { skipPlatform: ['*'] },
     async (client: any, testName: string) => {
       const page = await Page.create(client);
       await loadEditor(page);

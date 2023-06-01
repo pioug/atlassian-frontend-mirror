@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-autoscroll",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Beautiful auto scrolling addon for @atlaskit/pragmatic-drag-and-drop",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -43,12 +43,6 @@
     "css-box-model": "^1.2.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*",
-    "@atlaskit/motion": "^1.4.0",
-    "@atlaskit/ssr": "*",
-    "@atlaskit/tokens": "^1.5.0",
-    "@atlaskit/visual-regression": "*",
-    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/react": "^11.7.1",
     "raf-stub": "^2.0.1",

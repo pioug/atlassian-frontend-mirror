@@ -1,5 +1,12 @@
 # @atlaskit/link-client-extension
 
+## 1.1.7
+
+### Patch Changes
+
+- [`61cb5313358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/61cb5313358) - Removing unused dependencies and dev dependencies
+- Updated dependencies
+
 ## 1.1.6
 
 ### Patch Changes

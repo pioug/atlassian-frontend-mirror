@@ -79,6 +79,15 @@ type RowProps = {
    * Normally set by parent Item component and does not need to be configured.
    */
   depth?: number;
+  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
+  /**
+    Adds detail to the expand and collapse row button's aria label by appending the value from the given column. If you don't set this prop, the aria label will read out "Expand `itemId` row".
+
+    Should be a string when we pass data via `items` property in `<TableTree />`, value should be one of the property `columns` names in `<TableTree />`.
+
+    Should be a number  when we pass data via `<Rows />` component as children in `<TableTree />`.
+   */
+  mainColumnForExpandCollapseLabel?: string | number;
 };
 
 const TableRow = function (props: RowProps) {

@@ -247,6 +247,18 @@ const tests: Tests = {
         { messageId: 'noRawSpacingValues' },
       ],
     },
+    // numbers border width
+    {
+      options: [{ applyImport: false, addons: ['shape'] }],
+      code: `const styles = css({
+            borderWidth: 2,
+          })`,
+      output: `const styles = css({
+            // TODO Delete this comment after verifying spacing token -> previous value \`2\`
+            borderWidth: token('border.width.100', '2px'),
+          })`,
+      errors: [{ messageId: 'noRawSpacingValues' }],
+    },
     // numbers border radius
     {
       options: [{ applyImport: false, addons: ['shape'] }],
@@ -259,7 +271,7 @@ const tests: Tests = {
           })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
     },
-    // numbers border radius
+    // import border radius
     {
       options: [{ applyImport: false, addons: ['shape'] }],
       code: `const styles = css({

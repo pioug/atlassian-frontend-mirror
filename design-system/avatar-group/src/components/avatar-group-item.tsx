@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
+import React, { forwardRef } from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import {
   ButtonItem,
   CustomItem,
@@ -8,6 +9,7 @@ import {
   LinkItem,
 } from '@atlaskit/menu';
 
+import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
 import { AvatarProps, onAvatarClickHandler } from './types';
 
 export interface AvatarGroupItemProps {
@@ -19,76 +21,77 @@ export interface AvatarGroupItemProps {
   testId?: string;
 }
 
-const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
-  avatar,
-  onAvatarClick,
-  testId,
-  index,
-}) => {
-  const { href, onClick, ...rest } = avatar;
+const AvatarGroupItem = forwardRef<HTMLElement, AvatarGroupItemProps>(
+  (props, ref) => {
+    const { avatar, onAvatarClick, testId, index } = props;
+    const { href, onClick, ...rest } = avatar;
+    const itemRef = useRegisterItemWithFocusManager();
 
-  const CustomComponent = ({
-    children,
-    ...props
-  }: CustomItemComponentProps) => {
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    return <span {...props}>{children}</span>;
-  };
+    const CustomComponent = ({
+      children,
+      ...props
+    }: CustomItemComponentProps) => {
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+      return <span {...props}>{children}</span>;
+    };
 
-  const AvatarIcon = (
-    <Avatar
-      {...rest}
-      testId={testId && `${testId}--avatar`}
-      borderColor="transparent"
-      size="small"
-      name=""
-    />
-  );
+    const AvatarIcon = (
+      <Avatar
+        {...rest}
+        testId={testId && `${testId}--avatar`}
+        borderColor="transparent"
+        size="small"
+        name=""
+      />
+    );
 
-  // onClick handler provided with avatar data takes precedence, same as with the normal avatar item
-  const callback = onClick || onAvatarClick;
+    // onClick handler provided with avatar data takes precedence, same as with the normal avatar item
+    const callback = onClick || onAvatarClick;
 
-  if (href) {
+    if (href) {
+      return (
+        <LinkItem
+          ref={mergeRefs([ref, itemRef])}
+          href={href}
+          target={avatar.target}
+          rel={avatar.target === '_blank' ? 'noopener noreferrer' : undefined}
+          iconBefore={AvatarIcon}
+          testId={testId}
+          onClick={(event) =>
+            callback &&
+            callback(event as React.MouseEvent<Element>, undefined, index)
+          }
+        >
+          {avatar.name}
+        </LinkItem>
+      );
+    }
+    if (typeof callback === 'function') {
+      return (
+        <ButtonItem
+          ref={mergeRefs([ref, itemRef])}
+          onClick={(event) =>
+            callback &&
+            callback(event as React.MouseEvent<Element>, undefined, index)
+          }
+          iconBefore={AvatarIcon}
+          testId={testId}
+        >
+          {avatar.name}
+        </ButtonItem>
+      );
+    }
     return (
-      <LinkItem
-        href={href}
-        target={avatar.target}
-        rel={avatar.target === '_blank' ? 'noopener noreferrer' : undefined}
+      <CustomItem
         iconBefore={AvatarIcon}
+        component={CustomComponent}
         testId={testId}
-        onClick={(event) =>
-          callback &&
-          callback(event as React.MouseEvent<Element>, undefined, index)
-        }
       >
         {avatar.name}
-      </LinkItem>
+      </CustomItem>
     );
-  }
-  if (typeof callback === 'function') {
-    return (
-      <ButtonItem
-        onClick={(event) =>
-          callback &&
-          callback(event as React.MouseEvent<Element>, undefined, index)
-        }
-        iconBefore={AvatarIcon}
-        testId={testId}
-      >
-        {avatar.name}
-      </ButtonItem>
-    );
-  }
-  return (
-    <CustomItem
-      iconBefore={AvatarIcon}
-      component={CustomComponent}
-      testId={testId}
-    >
-      {avatar.name}
-    </CustomItem>
-  );
-};
+  },
+);
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default AvatarGroupItem;

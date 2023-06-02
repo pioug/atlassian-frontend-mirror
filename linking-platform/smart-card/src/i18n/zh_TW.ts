@@ -54,6 +54,7 @@ export default {
   'fabric.linking.pending_request': '您的存取要求擱置中',
   'fabric.linking.preview': '全螢幕檢視',
   'fabric.linking.preview_close': '關閉預覽',
+  'fabric.linking.preview_improved': '開啟預覽',
   'fabric.linking.preview_max_size': '全螢幕檢視',
   'fabric.linking.preview_min_size': '關閉全螢幕',
   'fabric.linking.priority_blocker': '受阻',

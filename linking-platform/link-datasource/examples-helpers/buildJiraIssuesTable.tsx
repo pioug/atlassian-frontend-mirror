@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
-import { DatasourceTableView } from '../src/ui/datasourceTableView';
+import { DatasourceTableView } from '../src';
 import { JiraIssueDatasourceParameters } from '../src/ui/jira-issues-modal/types';
 
 mockDatasourceFetchRequests();

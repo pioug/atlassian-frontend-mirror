@@ -15,11 +15,12 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+/// <reference types="react" />
+
 import { DatasourceAdf } from '@atlaskit/linking-common/types';
 import { DatasourceAdfTableView } from '@atlaskit/linking-common/types';
 import { DatasourceAdfView } from '@atlaskit/linking-common/types';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
-import { jsx } from '@emotion/react';
 
 export { DatasourceAdf };
 
@@ -28,12 +29,9 @@ export { DatasourceAdfTableView };
 export { DatasourceAdfView };
 
 // @public (undocumented)
-export const DatasourceTableView: ({
-  datasourceId,
-  parameters,
-  visibleColumnKeys,
-  onVisibleColumnKeysChange,
-}: DatasourceTableViewProps) => jsx.JSX.Element;
+export const DatasourceTableView: (
+  props: DatasourceTableViewProps,
+) => JSX.Element;
 
 // @public (undocumented)
 interface DatasourceTableViewProps {
@@ -71,7 +69,7 @@ type JiraIssueDatasourceParametersQuery = XOR<
 // @public (undocumented)
 export const JiraIssuesConfigModal: (
   props: JiraIssuesConfigModalProps,
-) => jsx.JSX.Element;
+) => JSX.Element;
 
 // @public (undocumented)
 interface JiraIssuesConfigModalProps {

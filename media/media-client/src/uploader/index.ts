@@ -14,6 +14,7 @@ export type UploadableFile = {
   name?: string;
   mimeType?: string;
   collection?: string;
+  size?: number;
 };
 
 export type UploadableFileUpfrontIds = {
@@ -105,8 +106,12 @@ const createFileFromUpload = async (
   const { collection, name, mimeType } = file;
   const { id, occurrenceKey } = uploadableFileUpfrontIds;
 
+  const body = file.size
+    ? { uploadId, name, mimeType, conditions: { size: file.size } }
+    : { uploadId, name, mimeType };
+
   return store.createFileFromUpload(
-    { uploadId, name, mimeType },
+    body,
     {
       occurrenceKey,
       collection,

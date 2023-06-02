@@ -318,6 +318,7 @@ export class FileFetcherImpl implements FileFetcher {
         mimeType: type,
         collection,
         name,
+        size,
       };
       const mediaType = getMediaTypeFromMimeType(type);
 

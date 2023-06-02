@@ -1,51 +1,77 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import Chevron from '../../components/internal/chevron';
 
-const controlledId = 'controlled_element_id';
+describe('Chevron', () => {
+  const controlledId = 'controlled_element_id';
 
-test('accessibility', () => {
-  render(<Chevron ariaControls={controlledId} isExpanded={false} />);
+  it('should have aria-controls', () => {
+    const { getByRole } = render(
+      <Chevron ariaControls={controlledId} rowId="1" />,
+    );
 
-  const button = screen.getByRole('button');
-  expect(button).toBeInTheDocument();
-  expect(button.getAttribute('aria-controls')).toBe(controlledId);
-});
+    const button = getByRole('button');
+    expect(button).toBeInTheDocument();
+    expect(button.getAttribute('aria-controls')).toBe(controlledId);
+  });
 
-test('expanded', () => {
-  render(<Chevron ariaControls={controlledId} isExpanded />);
+  it('should give context of the row ID in the label', () => {
+    const changedRowId = '100';
+    const { getByLabelText } = render(<Chevron rowId={changedRowId} />);
 
-  const chevronLeftIcon = screen.queryByLabelText('Expand');
-  const chevronRightIcon = screen.getByLabelText('Collapse');
+    const chevronIconWithRowIdInLabel = getByLabelText(
+      new RegExp(changedRowId),
+    );
+    expect(chevronIconWithRowIdInLabel).toBeInTheDocument();
+  });
 
-  expect(chevronLeftIcon).not.toBeInTheDocument();
-  expect(chevronRightIcon).toBeInTheDocument();
-});
+  it('should give context of the row content in the label', () => {
+    const extendedLabel = 'Chapter 1: Clean Code';
+    const { getByLabelText } = render(
+      <Chevron rowId="1" extendedLabel={extendedLabel} />,
+    );
 
-test('collapsed', () => {
-  render(<Chevron ariaControls={controlledId} isExpanded={false} />);
+    const chevronIconWithRowIdInLabel = getByLabelText(
+      new RegExp(extendedLabel),
+    );
+    expect(chevronIconWithRowIdInLabel).toBeInTheDocument();
+  });
 
-  const chevronLeftIcon = screen.getByLabelText('Expand');
-  const chevronRightIcon = screen.queryByLabelText('Collapse');
+  test('expanded', () => {
+    const { getByLabelText, queryByLabelText } = render(
+      <Chevron isExpanded={true} rowId="1" />,
+    );
 
-  expect(chevronLeftIcon).toBeInTheDocument();
-  expect(chevronRightIcon).not.toBeInTheDocument();
-});
+    const chevronLeftIcon = queryByLabelText(/Expand/);
+    const chevronRightIcon = getByLabelText(/Collapse/);
 
-test('onExpandToggle', () => {
-  const onExpandToggle = jest.fn();
-  render(
-    <Chevron
-      ariaControls={controlledId}
-      onExpandToggle={onExpandToggle}
-      isExpanded={false}
-    />,
-  );
+    expect(chevronLeftIcon).not.toBeInTheDocument();
+    expect(chevronRightIcon).toBeInTheDocument();
+  });
 
-  const button = screen.getByRole('button');
-  fireEvent.click(button);
+  test('collapsed', () => {
+    const { getByLabelText, queryByLabelText } = render(
+      <Chevron isExpanded={false} rowId="1" />,
+    );
 
-  expect(onExpandToggle).toHaveBeenCalled();
+    const chevronLeftIcon = getByLabelText(/Expand/);
+    const chevronRightIcon = queryByLabelText(/Collapse/);
+
+    expect(chevronLeftIcon).toBeInTheDocument();
+    expect(chevronRightIcon).not.toBeInTheDocument();
+  });
+
+  test('onExpandToggle', () => {
+    const onExpandToggle = jest.fn();
+    const { getByRole } = render(
+      <Chevron onExpandToggle={onExpandToggle} rowId="1" />,
+    );
+
+    const button = getByRole('button');
+    fireEvent.click(button);
+
+    expect(onExpandToggle).toHaveBeenCalled();
+  });
 });

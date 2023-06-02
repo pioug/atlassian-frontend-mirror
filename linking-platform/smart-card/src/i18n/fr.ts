@@ -61,6 +61,7 @@ export default {
   'fabric.linking.pending_request': "Votre demande d'accès est en attente",
   'fabric.linking.preview': 'Affichage plein écran',
   'fabric.linking.preview_close': "Fermer l'aperçu",
+  'fabric.linking.preview_improved': "Ouvrir l'aperçu",
   'fabric.linking.preview_max_size': 'Afficher le mode Plein écran',
   'fabric.linking.preview_min_size': 'Fermer le mode Plein écran',
   'fabric.linking.priority_blocker': 'Bloqueur',

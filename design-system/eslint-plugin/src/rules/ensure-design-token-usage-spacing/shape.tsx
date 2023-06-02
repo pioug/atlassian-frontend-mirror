@@ -10,6 +10,17 @@ const shapeProperties = [
   'borderRadius',
 ];
 
+const borderSizeProperties = [
+  'borderWidth',
+  'outlineWidth',
+  'borderRightWidth',
+  'borderLeftWidth',
+  'borderTopWidth',
+  'borderBottomWidth',
+  'borderInlineWidth',
+  'borderBlockWidth',
+];
+
 export const radiusValueToToken = Object.fromEntries(
   shapeTokens
     .filter((t) => t.name.startsWith('border.radius'))
@@ -19,8 +30,22 @@ export const radiusValueToToken = Object.fromEntries(
     }),
 );
 
-export function isShapeProperty(propertyName: string) {
+export const borderWidthValueToToken = Object.fromEntries(
+  shapeTokens
+    .filter((t) => t.name.startsWith('border.width'))
+    .map((t) => [t.value, t.name]),
+);
+
+export function isRadiusProperty(propertyName: string) {
   return shapeProperties.includes(propertyName);
+}
+
+export function isBorderSizeProperty(propertyName: string) {
+  return borderSizeProperties.includes(propertyName);
+}
+
+export function isShapeProperty(propertyName: string) {
+  return isRadiusProperty(propertyName) || isBorderSizeProperty(propertyName);
 }
 
 export function isBorderRadius(node: EslintNode) {

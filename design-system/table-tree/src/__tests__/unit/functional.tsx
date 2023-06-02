@@ -293,6 +293,126 @@ describe('expanding and collapsing', () => {
       expect(rowContent[2]).toHaveTextContent('Chapter 3');
     });
   });
+
+  it('should show extended label for expand and collapse button when the mainColumnForExpandCollapseLabel is passed as string', () => {
+    const nestedItems = [
+      {
+        id: 'item1',
+        content: {
+          title: 'Chapter 1: Clean Code',
+          numbering: '1',
+        },
+        hasChildren: true,
+        children: [
+          {
+            id: 'child1.1',
+            content: {
+              title: 'There Will Be Code',
+              numbering: '1.1',
+            },
+            hasChildren: false,
+          },
+        ],
+      },
+    ];
+    const Title = (props: any) => <span>{props.title}</span>;
+    const Numbering = (props: any) => <span>{props.numbering}</span>;
+    const jsxTableTree = (
+      <TableTree
+        items={nestedItems}
+        columns={[Title, Numbering]}
+        headers={['Chapter Title', 'Numbering']}
+        mainColumnForExpandCollapseLabel="title"
+      ></TableTree>
+    );
+
+    const { getByLabelText, queryByLabelText } = render(jsxTableTree);
+
+    expect(getByLabelText(/Chapter 1: Clean Code/)).toBeInTheDocument();
+    expect(queryByLabelText(/item1/)).not.toBeInTheDocument();
+  });
+
+  it('should show extended label for expand and collapse button when the mainColumnForExpandCollapseLabel is passed as number', () => {
+    const nestedData = [
+      {
+        title: 'Chapter 1: Clean Code',
+        page: 1,
+        numbering: 'item1',
+        children: [
+          {
+            title: 'There Will Be Code',
+            page: 4,
+            numbering: 'item1.1',
+          },
+        ],
+      },
+    ];
+
+    const jsxTableTree = (
+      <TableTree>
+        <Rows
+          items={nestedData}
+          render={({ title, page, numbering, children }: any) => (
+            <Row
+              itemId={numbering}
+              items={children}
+              hasChildren={children?.length}
+              mainColumnForExpandCollapseLabel={0}
+            >
+              <Cell>{title}</Cell>
+              <Cell>{numbering}</Cell>
+              <Cell>{page}</Cell>
+            </Row>
+          )}
+        />
+      </TableTree>
+    );
+
+    const { getByLabelText, queryByLabelText } = render(jsxTableTree);
+
+    expect(getByLabelText(/Chapter 1: Clean Code/)).toBeInTheDocument();
+    expect(queryByLabelText(/item1/)).not.toBeInTheDocument();
+  });
+
+  it('should show default label for expand and collapse button when the mainColumnForExpandCollapseLabel is not passed', () => {
+    const nestedData = [
+      {
+        title: 'Chapter 1: Clean Code',
+        page: 1,
+        numbering: 'item1',
+        children: [
+          {
+            title: 'There Will Be Code',
+            page: 4,
+            numbering: 'item1.1',
+          },
+        ],
+      },
+    ];
+
+    const jsxTableTree = (
+      <TableTree>
+        <Rows
+          items={nestedData}
+          render={({ title, page, numbering, children }: any) => (
+            <Row
+              itemId={numbering}
+              items={children}
+              hasChildren={children?.length}
+            >
+              <Cell>{title}</Cell>
+              <Cell>{numbering}</Cell>
+              <Cell>{page}</Cell>
+            </Row>
+          )}
+        />
+      </TableTree>
+    );
+
+    const { getByLabelText } = render(jsxTableTree);
+
+    expect(getByLabelText(/item1/)).toBeInTheDocument();
+  });
 });
 
 test('with isDefaultExpanded property', async () => {

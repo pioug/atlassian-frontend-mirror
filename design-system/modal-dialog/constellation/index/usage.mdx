@@ -36,7 +36,15 @@ Although highly versatile, this doesn't mean modal dialogs are fit for all purpo
 
 ## Accessibility
 
-#### Dismissing modals
+### Labeling modals
+
+Modals must have a title or label available for users to understand what the modal is for. There are three ways you can ensure you have an accessible name for your modal:
+
+1. Use the modal title component (see the [modal header example](/components/modal-dialog/examples#modal-header))
+2. Add the `titleId` from the `useModal` hook to an element within your modal (see the [custom header example](/components/modal-dialog/examples#custom-modal-header))
+3. Use the `label` prop (this should almost never be used as there is no visual title available for sighted users).
+
+### Dismissing modals
 
 To cater for both mouse and keyboard interactions we've included numerous ways to dismiss a modal dialog:
 

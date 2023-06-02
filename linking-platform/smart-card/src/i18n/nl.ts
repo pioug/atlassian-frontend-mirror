@@ -60,6 +60,7 @@ export default {
   'fabric.linking.pending_request': 'Je toegangsaanvraag wordt behandeld.',
   'fabric.linking.preview': 'Volledig schermweergave',
   'fabric.linking.preview_close': 'Voorbeeldweergave sluiten',
+  'fabric.linking.preview_improved': 'Voorbeeld openen',
   'fabric.linking.preview_max_size': 'Volledig scherm openen',
   'fabric.linking.preview_min_size': 'Volledig scherm sluiten',
   'fabric.linking.priority_blocker': 'Blocker',

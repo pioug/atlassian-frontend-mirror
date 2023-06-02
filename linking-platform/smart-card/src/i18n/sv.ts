@@ -60,6 +60,7 @@ export default {
   'fabric.linking.pending_request': 'Din åtkomstförfrågan väntar på svar',
   'fabric.linking.preview': 'Helskärmsvy',
   'fabric.linking.preview_close': 'Stäng förhandsvisning',
+  'fabric.linking.preview_improved': 'Öppna förhandsgranskning',
   'fabric.linking.preview_max_size': 'Visa helskärm',
   'fabric.linking.preview_min_size': 'Stäng helskärm',
   'fabric.linking.priority_blocker': 'Blockerare',

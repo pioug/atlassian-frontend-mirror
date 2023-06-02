@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.19.1
+
+### Patch Changes
+
+- [`f5d34a140ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5d34a140ad) - Move both exported components to be behind lazy loading
+
 ## 0.19.0
 
 ### Minor Changes

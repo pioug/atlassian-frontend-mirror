@@ -97,6 +97,7 @@ const ModalDialog = (props: ModalDialogProps) => {
     onOpenComplete,
     height,
     children,
+    label,
     testId,
   } = props;
 
@@ -132,6 +133,7 @@ const ModalDialog = (props: ModalDialogProps) => {
               <FocusRing>
                 <section
                   {...bottomFadeInProps}
+                  aria-label={label}
                   ref={mergeRefs([bottomFadeInProps.ref, motionRef])}
                   style={
                     {
@@ -146,7 +148,7 @@ const ModalDialog = (props: ModalDialogProps) => {
                       : bodyScrollStyles,
                   ]}
                   role="dialog"
-                  aria-labelledby={titleId}
+                  aria-labelledby={label ? undefined : titleId}
                   data-testid={testId}
                   data-modal-stack={stackIndex}
                   tabIndex={-1}

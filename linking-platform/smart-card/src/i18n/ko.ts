@@ -58,6 +58,7 @@ export default {
   'fabric.linking.pending_request': '액세스 요청이 보류 중입니다',
   'fabric.linking.preview': '전체 화면 보기',
   'fabric.linking.preview_close': '미리 보기 닫기',
+  'fabric.linking.preview_improved': '미리보기 열기',
   'fabric.linking.preview_max_size': '전체 화면 보기',
   'fabric.linking.preview_min_size': '전체 화면 닫기',
   'fabric.linking.priority_blocker': '블로커',

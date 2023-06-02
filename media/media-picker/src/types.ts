@@ -15,6 +15,7 @@ import { PluginItemPayload } from './domain/plugin';
 export interface UploadParams {
   collection?: string;
   expireAfter?: number;
+  onUploadRejection?: (data: UploadRejectionData) => boolean;
 }
 
 export type MediaFile = {

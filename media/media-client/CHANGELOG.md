@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 22.0.5
+
+### Patch Changes
+
+- [`a7281dbb78f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7281dbb78f) - Moved onFileRejection prop to Upload params and added file-size-limit API changes to /upload endpoint
+
 ## 22.0.4
 
 ### Patch Changes

@@ -628,8 +628,8 @@ export type MediaStoreCreateFileFromBinaryParams = {
 };
 
 export type MediaStoreCreateFileFromUploadConditions = {
-  readonly hash: string;
-  readonly size: number;
+  readonly hash?: string;
+  readonly size?: number;
 };
 
 export type MediaStoreCreateFileFromUploadBody = {

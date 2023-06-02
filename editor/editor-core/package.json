@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "185.0.0",
+  "version": "185.0.2",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -75,12 +75,12 @@
     "@atlaskit/media-client": "^22.0.0",
     "@atlaskit/media-common": "^5.0.0",
     "@atlaskit/media-filmstrip": "^47.0.0",
-    "@atlaskit/media-picker": "^65.1.0",
+    "@atlaskit/media-picker": "^66.0.0",
     "@atlaskit/media-ui": "^23.0.0",
     "@atlaskit/media-viewer": "^48.0.0",
     "@atlaskit/mention": "^22.1.0",
     "@atlaskit/menu": "^1.7.0",
-    "@atlaskit/modal-dialog": "^12.5.0",
+    "@atlaskit/modal-dialog": "^12.6.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/prosemirror-collab": "^0.2.0",
     "@atlaskit/prosemirror-input-rules": "^2.2.0",

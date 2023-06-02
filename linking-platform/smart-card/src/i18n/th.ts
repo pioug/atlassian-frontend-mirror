@@ -59,6 +59,7 @@ export default {
   'fabric.linking.pending_request': 'คำขอการเข้าถึงของคุณกำลังรอดำเนินการ',
   'fabric.linking.preview': 'มุมมองแบบเต็มหน้าจอ',
   'fabric.linking.preview_close': 'ปิดการแสดงตัวอย่าง',
+  'fabric.linking.preview_improved': 'เปิดการแสดงตัวอย่าง',
   'fabric.linking.preview_max_size': 'ดูหน้าจอแบบเต็ม',
   'fabric.linking.preview_min_size': 'ปิดหน้าจอแบบเต็ม',
   'fabric.linking.priority_blocker': 'ตัวบล็อก',

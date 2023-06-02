@@ -59,6 +59,7 @@ export default {
   'fabric.linking.pending_request': 'Tu solicitud de acceso está pendiente',
   'fabric.linking.preview': 'Vista de pantalla completa',
   'fabric.linking.preview_close': 'Cerrar vista previa',
+  'fabric.linking.preview_improved': 'Abrir vista previa',
   'fabric.linking.preview_max_size': 'Ver a pantalla completa',
   'fabric.linking.preview_min_size': 'Cerrar pantalla completa',
   'fabric.linking.priority_blocker': 'Impedimento',

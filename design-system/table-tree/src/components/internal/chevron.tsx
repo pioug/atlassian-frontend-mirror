@@ -14,6 +14,8 @@ interface ChevronProps {
   isExpanded?: boolean;
   ariaControls?: string;
   onExpandToggle?: Function;
+  rowId: string;
+  extendedLabel?: string;
 }
 
 export default class Chevron extends Component<ChevronProps> {
@@ -29,11 +31,22 @@ export default class Chevron extends Component<ChevronProps> {
   };
 
   render() {
-    const { isExpanded, ariaControls, collapseLabel, expandLabel } = this.props;
+    const {
+      isExpanded,
+      ariaControls,
+      collapseLabel,
+      expandLabel,
+      rowId,
+      extendedLabel,
+    } = this.props;
     const iconProps = {
       size: 'medium',
       primaryColor: iconColor,
     } as const;
+    const getLabel = (defaultLabel: string) =>
+      extendedLabel
+        ? `${defaultLabel} ${extendedLabel} row`
+        : `${defaultLabel} row ${rowId}`;
     return (
       <ChevronContainer>
         <Button
@@ -44,9 +57,9 @@ export default class Chevron extends Component<ChevronProps> {
         >
           <ChevronIconContainer>
             {isExpanded ? (
-              <ChevronDownIcon label={collapseLabel} {...iconProps} />
+              <ChevronDownIcon label={getLabel(collapseLabel)} {...iconProps} />
             ) : (
-              <ChevronRightIcon label={expandLabel} {...iconProps} />
+              <ChevronRightIcon label={getLabel(expandLabel)} {...iconProps} />
             )}
           </ChevronIconContainer>
         </Button>

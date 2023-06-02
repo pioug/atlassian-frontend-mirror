@@ -36,3 +36,7 @@ export type onAvatarClickHandler = (
   analyticsEvent: AnalyticsEvent | undefined,
   index: number,
 ) => void;
+
+export type FocusableElement = HTMLAnchorElement | HTMLButtonElement;
+
+export type Action = 'next' | 'prev' | 'first' | 'last';

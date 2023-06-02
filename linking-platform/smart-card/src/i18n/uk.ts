@@ -61,6 +61,7 @@ export default {
   'fabric.linking.pending_request': 'Запит на надання доступу в очікуванні',
   'fabric.linking.preview': 'Повноекранне подання',
   'fabric.linking.preview_close': 'Закрити вікно попереднього перегляду',
+  'fabric.linking.preview_improved': 'Відкрити попередню версію',
   'fabric.linking.preview_max_size': 'Відкрити в повноекранному режимі',
   'fabric.linking.preview_min_size': 'Вийти з повноекранного режиму',
   'fabric.linking.priority_blocker': 'Блокувальний',

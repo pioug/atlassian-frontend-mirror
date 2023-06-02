@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 66.0.0
+
+### Major Changes
+
+- [`a7281dbb78f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7281dbb78f) - Moved onFileRejection prop to Upload params and added file-size-limit API changes to /upload endpoint
+
 ## 65.1.3
 
 ### Patch Changes

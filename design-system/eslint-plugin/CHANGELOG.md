@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 5.4.1
+
+### Patch Changes
+
+- [`432d4ce47ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/432d4ce47ee) - Account for additional border properties in spacing rule.
+
 ## 5.4.0
 
 ### Minor Changes

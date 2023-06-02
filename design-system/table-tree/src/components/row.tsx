@@ -77,22 +77,50 @@ class Row extends Component<any, any> {
     return isExpanded !== undefined ? isExpanded : this.state.isExpanded;
   }
 
+  getExtendedLabel = (
+    cellContent: any,
+    cellIndex: number,
+    mainColumnForExpandCollapseLabel: string | number,
+  ) => {
+    /**
+     * First condition - when we pass data via `items` property in `<TableTree />`
+     * Second condition - when we pass data via `<Rows />` as children in `<TableTree />`.
+     */
+    if (cellContent.hasOwnProperty('props')) {
+      return cellContent?.props[
+        (mainColumnForExpandCollapseLabel as string)?.toLowerCase()
+      ];
+    } else if (cellIndex === mainColumnForExpandCollapseLabel) {
+      return cellContent;
+    }
+
+    return undefined;
+  };
+
   renderCell(cell: any, cellIndex: number) {
     const { props } = this;
     const isExpanded = this.isExpanded();
-    const { hasChildren, depth } = props;
+    const { hasChildren, depth, mainColumnForExpandCollapseLabel } = props;
     const isFirstCell = cellIndex === 0;
     const indentLevel = isFirstCell ? depth : 0;
     let cellContent = cell.props.children || [];
+    const extendedLabel = this.getExtendedLabel(
+      cellContent,
+      cellIndex,
+      mainColumnForExpandCollapseLabel,
+    );
+
     if (isFirstCell && hasChildren) {
       cellContent = [
         <Chevron
           key="chevron"
           expandLabel={props.expandLabel}
           collapseLabel={props.collapseLabel}
+          extendedLabel={extendedLabel}
           isExpanded={isExpanded}
           onExpandToggle={this.onExpandToggle}
           ariaControls={toItemId(props.itemId)}
+          rowId={props.itemId}
         />,
       ].concat(cellContent);
     }

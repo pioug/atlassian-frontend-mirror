@@ -60,6 +60,7 @@ export default {
   'fabric.linking.pending_request': 'Ihre Zugriffsanfrage ist ausstehend.',
   'fabric.linking.preview': 'Vollbildansicht',
   'fabric.linking.preview_close': 'Vorschau beenden',
+  'fabric.linking.preview_improved': 'Vorschau öffnen',
   'fabric.linking.preview_max_size': 'Vollbildansicht anzeigen',
   'fabric.linking.preview_min_size': 'Vollbildansicht beenden',
   'fabric.linking.priority_blocker': 'Blocker',

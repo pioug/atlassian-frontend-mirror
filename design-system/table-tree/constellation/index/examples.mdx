@@ -12,6 +12,7 @@ import LoadingStateNestedTableTreeExample from '../../examples/constellation/loa
 import AsyncAppendTableTreeExample from '../../examples/constellation/async-append';
 import AsyncUpdateTableTreeExample from '../../examples/constellation/async-update';
 import ShouldExpandOnClickTableTreeExample from '../../examples/constellation/should-expand-on-click';
+import ExtendedExpandLabelTableTreeExample from '../../examples/constellation/extended-expand-collapse-label';
 
 ## Basic
 
@@ -90,10 +91,19 @@ The `updateItems` method will replace the existing items.
 
 <Example Component={AsyncUpdateTableTreeExample} packageName="@atlaskit/table-tree" />
 
-## Expanding/collapsing on click
+## Expand and collapse on row click
 
 Use the `shouldExpandOnClick` prop to change whether a row with children expands when clicked anywhere on a row instead of only via the chevron.
 
 Note that **this should not be used when interactive elements like a button or dropdown menu exist within your row**. Clicking on those elements will trigger the row's expanding or collapsing along with the default behavior of the interactive element.
 
 <Example Component={ShouldExpandOnClickTableTreeExample} packageName="@atlaskit/table-tree" />
+
+## Extended aria label for expand and collapse button
+
+Use the `mainColumnForExpandCollapseLabel` prop to add detail to the expand and collapse button `aria-label` readout.
+The prop accepts a column's component name and adds the text from that column's cell to the row's expand button.
+
+For example, the first expand button below would read "Expand Chapter 1: Clean Code row".
+
+<Example Component={ExtendedExpandLabelTableTreeExample} packageName="@atlaskit/table-tree" />

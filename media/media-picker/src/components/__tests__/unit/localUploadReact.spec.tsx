@@ -57,14 +57,16 @@ describe('LocalUploadReact', () => {
   const onPreviewUpdate = jest.fn();
   const onEnd = jest.fn();
   const onError = jest.fn();
-  const onFileRejection = jest.fn();
+  const onUploadRejection = jest.fn();
   let uploadComponent: UploadComponent<UploadEventPayloadMap>;
   let uploadService: UploadService;
 
   const mediaClient = fakeMediaClient();
 
   const config = {
-    uploadParams: {},
+    uploadParams: {
+      onUploadRejection,
+    },
   };
 
   const mockstartMediaUploadUfoExperience = jest.spyOn(
@@ -91,7 +93,6 @@ describe('LocalUploadReact', () => {
         onPreviewUpdate={onPreviewUpdate}
         onEnd={onEnd}
         onError={onError}
-        onFileRejection={onFileRejection}
       />,
     );
 
@@ -99,6 +100,7 @@ describe('LocalUploadReact', () => {
       localUploadComponent.instance() as DummyLocalUploadComponent;
     uploadComponent = (localUploadComponentInstance as any).uploadComponent;
     uploadService = (localUploadComponentInstance as any).uploadService;
+    onUploadRejection.mockImplementation(() => true);
   });
 
   afterEach(() => {
@@ -200,19 +202,75 @@ describe('LocalUploadReact', () => {
     });
   });
 
-  it('should set the onFileRejection callback for UploadService correctly', () => {
+  it('should call config onFileRejection callback', () => {
+    const data: UploadRejectionData = {
+      reason: 'fileSizeLimitExceeded',
+      fileName: 'test.png',
+      limit: 100,
+    };
+    const addFlag = jest.spyOn(
+      localUploadComponentInstance as any,
+      'addUploadRejectionFlag',
+    );
     const onFileRejectionInUploadService = jest.spyOn(
       uploadService,
       'onFileRejection',
     );
-    expect(onFileRejectionInUploadService).toBeCalledWith(onFileRejection);
+
+    const fileRejectionCallback =
+      onFileRejectionInUploadService.mock.calls[0][0];
+    fileRejectionCallback(data);
+
+    expect(onUploadRejection).toBeCalledWith(data);
+    expect(addFlag).not.toHaveBeenCalled();
   });
 
-  it('should set the onFileRejection callback for UploadService to the default implementation when the callback is undefined', () => {
-    const localUploadWithoutOnFileRejection = mount(
+  it('should call the addFlag when config callback returns false', () => {
+    const data: UploadRejectionData = {
+      reason: 'fileSizeLimitExceeded',
+      fileName: 'test.png',
+      limit: 100,
+    };
+
+    onUploadRejection.mockImplementation(() => false);
+
+    const withoutUploadRejectionOverride = mount(
       <DummyLocalUploadComponent
         mediaClient={mediaClient}
         config={config}
+        onUploadsStart={onUploadsStart}
+        onPreviewUpdate={onPreviewUpdate}
+        onEnd={onEnd}
+        onError={onError}
+      />,
+    );
+
+    const withoutOverideInstance =
+      withoutUploadRejectionOverride.instance() as any;
+    const uploadService: UploadService = withoutOverideInstance.uploadService;
+
+    const addFlag = jest.spyOn(
+      withoutOverideInstance as any,
+      'addUploadRejectionFlag',
+    );
+
+    const onFileRejectionInUploadService = jest.spyOn(
+      uploadService,
+      'onFileRejection',
+    );
+
+    const argument = onFileRejectionInUploadService.mock.calls[0][0];
+    argument(data);
+
+    expect(onUploadRejection).toBeCalledWith(data);
+    expect(addFlag).toBeCalledWith(data);
+  });
+
+  it('should set the onFileRejection callback for UploadService to the default implementation when the config is missing callback', () => {
+    const localUploadWithoutOnFileRejection = mount(
+      <DummyLocalUploadComponent
+        mediaClient={mediaClient}
+        config={{ uploadParams: {} }}
         onUploadsStart={onUploadsStart}
         onPreviewUpdate={onPreviewUpdate}
         onEnd={onEnd}
@@ -229,7 +287,9 @@ describe('LocalUploadReact', () => {
       uploadService,
       'onFileRejection',
     );
-    expect(onFileRejectionInUploadService).not.toBeCalledWith(onFileRejection);
+    expect(onFileRejectionInUploadService).not.toBeCalledWith(
+      onUploadRejection,
+    );
     expect(onFileRejectionInUploadService).toBeCalledWith(addFlag);
   });
 

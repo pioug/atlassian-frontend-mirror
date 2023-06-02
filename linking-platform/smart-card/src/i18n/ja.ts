@@ -59,6 +59,7 @@ export default {
   'fabric.linking.pending_request': 'アクセス リクエストは保留中です。',
   'fabric.linking.preview': '全画面表示',
   'fabric.linking.preview_close': 'プレビューを閉じる',
+  'fabric.linking.preview_improved': 'プレビューを開く',
   'fabric.linking.preview_max_size': '全画面表示',
   'fabric.linking.preview_min_size': '全画面表示を閉じる',
   'fabric.linking.priority_blocker': 'ブロッカー',

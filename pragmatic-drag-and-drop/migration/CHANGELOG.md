@@ -1,5 +1,12 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.10.0
+
+### Minor Changes
+
+- [`245cc4ba6c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/245cc4ba6c3) - [ux] Drags will no longer start while holding down a modifier key.
+  This change was done in order to match react-beautiful-dnd behaviour.
+
 ## 0.9.1
 
 ### Patch Changes

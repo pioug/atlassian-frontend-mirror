@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.6.0
+
+### Minor Changes
+
+- [`26388cfdd23`](https://bitbucket.org/atlassian/atlassian-frontend/commits/26388cfdd23) - Adds `label` prop for users of assistive technology to receive more context when using the modal.
+
 ## 12.5.7
 
 ### Patch Changes

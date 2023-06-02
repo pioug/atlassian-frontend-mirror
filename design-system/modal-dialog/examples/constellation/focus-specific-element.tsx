@@ -9,6 +9,7 @@ import Modal, {
   ModalBody,
   ModalFooter,
   ModalHeader,
+  ModalTitle,
   ModalTransition,
 } from '../../src';
 
@@ -28,6 +29,7 @@ export default function Example() {
         {isOpen && (
           <Modal autoFocus={focusRef} onClose={closeModal}>
             <ModalHeader>
+              <ModalTitle>Sign up</ModalTitle>
               <Breadcrumbs>
                 <BreadcrumbsItem href="#" text="Projects" />
                 <BreadcrumbsItem href="#" text="Design System Team" />

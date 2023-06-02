@@ -59,6 +59,7 @@ export default class TableTree extends Component<any, State> {
       headers,
       columns,
       columnWidths = [],
+      mainColumnForExpandCollapseLabel,
     } = this.props;
     const heads = headers && (
       <Headers>
@@ -75,25 +76,30 @@ export default class TableTree extends Component<any, State> {
       rows = (
         <Rows
           items={items}
-          render={({ id, children, hasChildren, content }: any) => (
-            <Row
-              itemId={id}
-              items={children}
-              hasChildren={hasChildren}
-              shouldExpandOnClick={shouldExpandOnClick}
-            >
-              {(columns as any[]).map((CellContent, index) => (
-                <Cell
-                  // eslint-disable-next-line react/no-array-index-key
-                  key={index}
-                  columnIndex={index}
-                  width={columnWidths[index]}
-                >
-                  <CellContent {...content} />
-                </Cell>
-              ))}
-            </Row>
-          )}
+          render={({ id, children, hasChildren, content }: any) => {
+            return (
+              <Row
+                itemId={id}
+                items={children}
+                hasChildren={hasChildren}
+                shouldExpandOnClick={shouldExpandOnClick}
+                mainColumnForExpandCollapseLabel={
+                  mainColumnForExpandCollapseLabel
+                }
+              >
+                {(columns as any[]).map((CellContent, index) => (
+                  <Cell
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
+                    columnIndex={index}
+                    width={columnWidths[index]}
+                  >
+                    <CellContent {...content} />
+                  </Cell>
+                ))}
+              </Row>
+            );
+          }}
         />
       );
     }

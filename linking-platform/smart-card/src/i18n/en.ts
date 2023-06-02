@@ -58,6 +58,7 @@ export default {
   'fabric.linking.pending_request': 'Your access request is pending',
   'fabric.linking.preview': 'Full screen view',
   'fabric.linking.preview_close': 'Close preview',
+  'fabric.linking.preview_improved': 'Open preview',
   'fabric.linking.preview_max_size': 'View full screen',
   'fabric.linking.preview_min_size': 'Close full screen',
   'fabric.linking.priority_blocker': 'Blocker',

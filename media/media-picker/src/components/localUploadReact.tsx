@@ -36,8 +36,6 @@ export type LocalUploadComponentBaseProps = {
   onEnd?: (payload: UploadEndEventPayload) => void;
   //This event is fired when errors occur during upload
   onError?: (payload: UploadErrorEventPayload) => void;
-  //This event is fired when a file is rejected from being uploaded e.g. exceeds file size limit
-  onFileRejection?: (rejectionData: UploadRejectionData) => void;
   featureFlags?: MediaFeatureFlags;
 } & WithAnalyticsEventsProps;
 
@@ -65,7 +63,6 @@ export class LocalUploadComponentReact<
       onPreviewUpdate,
       onEnd,
       onError,
-      onFileRejection,
     } = this.props;
     const tenantUploadParams = config.uploadParams;
     const { shouldCopyFileToRecents = true } = config;
@@ -95,8 +92,14 @@ export class LocalUploadComponentReact<
     this.uploadService.on('file-preview-update', this.onFilePreviewUpdate);
     this.uploadService.on('file-converting', this.onFileConverting);
     this.uploadService.on('file-upload-error', this.onUploadError);
-    if (onFileRejection) {
-      this.uploadService.onFileRejection(onFileRejection);
+    if (tenantUploadParams.onUploadRejection) {
+      const { onUploadRejection } = tenantUploadParams;
+      this.uploadService.onFileRejection((rejectionData) => {
+        const shouldOverride = onUploadRejection(rejectionData);
+        if (!shouldOverride) {
+          this.addUploadRejectionFlag(rejectionData);
+        }
+      });
     } else {
       this.uploadService.onFileRejection(this.addUploadRejectionFlag);
     }

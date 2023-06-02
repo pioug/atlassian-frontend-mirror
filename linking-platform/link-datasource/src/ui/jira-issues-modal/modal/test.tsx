@@ -9,39 +9,37 @@ import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
 
-import SmartLinkClient from '../../../examples-helpers/smartLinkCustomClient';
+import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
 import {
   DatasourceTableState,
   useDatasourceTableState,
-} from '../../hooks/useDatasourceTableState';
-import { getAvailableJiraSites } from '../../services/getAvailableJiraSites';
-import { IssueLikeDataTableView } from '../issue-like-table';
-import { LINK_TYPE_TEST_ID } from '../issue-like-table/render-type/link';
-import { IssueLikeDataTableViewProps } from '../issue-like-table/types';
-
+} from '../../../hooks/useDatasourceTableState';
+import { getAvailableJiraSites } from '../../../services/getAvailableJiraSites';
+import { IssueLikeDataTableView } from '../../issue-like-table';
+import { LINK_TYPE_TEST_ID } from '../../issue-like-table/render-type/link';
+import { IssueLikeDataTableViewProps } from '../../issue-like-table/types';
+import JiraIssuesConfigModal from '../index'; // Using async one to test lazy integration at the same time
 import {
   JiraSearchContainer,
   SearchContainerProps,
-} from './jira-search-container';
+} from '../jira-search-container';
 import {
   JiraIssueDatasourceParameters,
   JiraIssuesDatasourceAdf,
-} from './types';
+} from '../types';
 
-import { JiraIssuesConfigModal } from './index';
-
-jest.mock('./../../services/getAvailableJiraSites', () => ({
+jest.mock('../../../services/getAvailableJiraSites', () => ({
   getAvailableJiraSites: jest.fn(),
 }));
 
-jest.mock('./jira-search-container', () => ({
+jest.mock('../jira-search-container', () => ({
   JiraSearchContainer: jest.fn(() => null),
 }));
 
-jest.mock('../../hooks/useDatasourceTableState');
+jest.mock('../../../hooks/useDatasourceTableState');
 
-jest.mock('../issue-like-table', () => ({
-  ...jest.requireActual('../issue-like-table'),
+jest.mock('../../issue-like-table', () => ({
+  ...jest.requireActual('../../issue-like-table'),
   IssueLikeDataTableView: jest.fn(() => null),
 }));
 

@@ -60,6 +60,7 @@ export default {
   'fabric.linking.pending_request': 'La tua richiesta di accesso è in sospeso',
   'fabric.linking.preview': 'Visualizzazione a schermo intero',
   'fabric.linking.preview_close': "Chiudi l'anteprima",
+  'fabric.linking.preview_improved': "Apri l'anteprima",
   'fabric.linking.preview_max_size': 'Visualizza a schermo intero',
   'fabric.linking.preview_min_size': 'Esci da schermo intero',
   'fabric.linking.priority_blocker': 'Bloccante',

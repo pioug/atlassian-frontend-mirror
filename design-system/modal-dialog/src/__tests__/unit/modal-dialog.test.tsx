@@ -396,6 +396,27 @@ describe('<ModalDialog />', () => {
       expect(callback).not.toHaveBeenCalled();
     });
   });
+
+  describe('label', () => {
+    const label = 'label';
+
+    it('should be used as accessible name', () => {
+      const { getByRole } = render(<ModalDialog label={label} />);
+      const modal = getByRole('dialog');
+
+      expect(modal).toHaveAccessibleName(label);
+      expect(modal).not.toHaveAttribute('aria-labelledby');
+    });
+
+    it('should have `aria-labelledby` if label is not provided', () => {
+      const { getByRole } = render(<ModalDialog />);
+      const modal = getByRole('dialog');
+
+      // This is only the case because there is no ModalTitle, which is the default associateion
+      expect(modal).not.toHaveAccessibleName();
+      expect(modal).toHaveAttribute('aria-labelledby');
+    });
+  });
 });
 
 describe('focus lock', () => {

@@ -60,6 +60,7 @@ export default {
   'fabric.linking.pending_request': 'Đang chờ xử lý yêu cầu quyền truy cập của bạn',
   'fabric.linking.preview': 'Chế độ xem toàn màn hình',
   'fabric.linking.preview_close': 'Đóng bản xem trước',
+  'fabric.linking.preview_improved': 'Mở bản xem trước',
   'fabric.linking.preview_max_size': 'Xem toàn màn hình',
   'fabric.linking.preview_min_size': 'Đóng toàn màn hình',
   'fabric.linking.priority_blocker': 'Trở ngại',

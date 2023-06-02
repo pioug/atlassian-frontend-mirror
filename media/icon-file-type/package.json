@@ -50,7 +50,7 @@
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/modal-dialog": "^12.5.0",
+    "@atlaskit/modal-dialog": "^12.6.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/theme": "^12.5.0",

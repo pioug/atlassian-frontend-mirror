@@ -55,11 +55,11 @@ test('table row controls should be same height as table body after a long title 
   await inlineCard.isVisible();
 
   const currentTableBodyHeight =
-    editorResizeWatcher.getLastComponentResize('tableBody')?.height || 0;
+    editorResizeWatcher.getLastComponentResize('tableBody')?.height;
   const currentTableRowControls =
-    editorResizeWatcher.getLastComponentResize('tableRowControls')?.height || 0;
+    editorResizeWatcher.getLastComponentResize('tableRowControls')?.height;
 
-  expect(currentTableBodyHeight).not.toEqual(0);
-  expect(currentTableRowControls).not.toEqual(0);
+  expect(currentTableBodyHeight).toBeTruthy();
+  expect(currentTableRowControls).toBeTruthy();
   expect(currentTableBodyHeight).toEqual(currentTableRowControls);
 });

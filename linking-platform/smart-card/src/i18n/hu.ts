@@ -61,6 +61,7 @@ export default {
   'fabric.linking.pending_request': 'A hozzáférési kérelmed függőben van',
   'fabric.linking.preview': 'Teljes képernyős nézet',
   'fabric.linking.preview_close': 'Előnézet bezárása',
+  'fabric.linking.preview_improved': 'Előnézet megnyitása',
   'fabric.linking.preview_max_size': 'Megtekintés teljes képernyőn',
   'fabric.linking.preview_min_size': 'Teljes képernyő bezárása',
   'fabric.linking.priority_blocker': 'Blokkoló',

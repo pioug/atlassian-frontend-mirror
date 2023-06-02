@@ -1,5 +1,12 @@
 # @atlaskit/table-tree
 
+## 9.5.0
+
+### Minor Changes
+
+- [`6e5546981a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e5546981a3) - Accessibility: Fix the chevron button label.
+  Add a new prop `mainColumnForExpandCollapseLabel` that allows you to show a chevron label with row contents instead of a row index.
+
 ## 9.4.2
 
 ### Patch Changes

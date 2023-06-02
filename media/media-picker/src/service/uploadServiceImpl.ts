@@ -175,6 +175,7 @@ export class UploadServiceImpl implements UploadService {
           content: file,
           name: file.name,
           mimeType: file.type,
+          size: file.size,
         };
 
         const uploadableUpfrontIds: UploadableFileUpfrontIds = {

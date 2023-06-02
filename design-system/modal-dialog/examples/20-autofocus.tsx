@@ -87,9 +87,15 @@ export default function ModalDemo() {
               <ModalTitle>input has autoFocus</ModalTitle>
             </ModalHeader>
             <ModalBody>
-              <p>The textbox should be focused</p>
-              <input type="text" value="should not be focused" />
-              <input ref={focusRef} type="text" value="should be focused" />
+              <label htmlFor="not">
+                This textbox should not be focused
+                <input id="not" type="text" value="" />
+              </label>
+              <br />
+              <label htmlFor="should">
+                This textbox should be focused
+                <input id="should" ref={focusRef} type="text" value="" />
+              </label>
             </ModalBody>
             <ModalFooter>
               <Button appearance="subtle">Secondary Action</Button>

@@ -60,6 +60,7 @@ export default {
   'fabric.linking.pending_request': 'Din anmodning om adgang afventer behandling',
   'fabric.linking.preview': 'Fuldskærmsvisning',
   'fabric.linking.preview_close': 'Luk forhåndsvisning',
+  'fabric.linking.preview_improved': 'Åbn forhåndsvisning',
   'fabric.linking.preview_max_size': 'Vis fuld skærm',
   'fabric.linking.preview_min_size': 'Luk fuld skærm',
   'fabric.linking.priority_blocker': 'Blokering',

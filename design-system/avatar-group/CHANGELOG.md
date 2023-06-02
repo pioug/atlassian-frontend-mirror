@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 9.3.4
+
+### Patch Changes
+
+- [`cb7033c5b72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb7033c5b72) - keyboard arrow (UP and DOWN) support in avatar-group popup component
+
 ## 9.3.3
 
 ### Patch Changes

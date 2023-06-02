@@ -8,11 +8,11 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import {
   DatasourceTableState,
   useDatasourceTableState,
-} from '../hooks/useDatasourceTableState';
+} from '../../hooks/useDatasourceTableState';
 
-import { DatasourceTableView } from './datasourceTableView';
+import { DatasourceTableView } from './datasourceTableView'; // Using async one to test lazy integration at the same time
 
-jest.mock('../hooks/useDatasourceTableState');
+jest.mock('../../hooks/useDatasourceTableState');
 
 describe('JiraIssuesTableView', () => {
   const setup = (overrides: Partial<DatasourceTableState> = {}) => {
@@ -53,8 +53,7 @@ describe('JiraIssuesTableView', () => {
           datasourceId={'some-datasource-id'}
           parameters={{
             cloudId: 'some-cloud-id',
-            type: 'jql',
-            value: 'some-jql-query',
+            jql: 'some-jql-query',
           }}
           visibleColumnKeys={visibleColumnKeys}
           onVisibleColumnKeysChange={onVisibleColumnKeysChange}
@@ -68,8 +67,7 @@ describe('JiraIssuesTableView', () => {
 
     expect(useDatasourceTableState).toHaveBeenCalledWith('some-datasource-id', {
       cloudId: 'some-cloud-id',
-      type: 'jql',
-      value: 'some-jql-query',
+      jql: 'some-jql-query',
     });
   });
 
@@ -96,8 +94,7 @@ describe('JiraIssuesTableView', () => {
           datasourceId={'some-datasource-id'}
           parameters={{
             cloudId: 'some-cloud-id',
-            type: 'jql',
-            value: 'some-jql-query',
+            jql: 'some-jql-query',
           }}
           onVisibleColumnKeysChange={onVisibleColumnKeysChange}
         />

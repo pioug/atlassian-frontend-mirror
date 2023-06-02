@@ -210,7 +210,15 @@ export function Draggable({
     rbdInvariant(dragHandle instanceof HTMLElement);
 
     return draggable({
-      canDrag() {
+      canDrag({ input }) {
+        /**
+         * Do not start a drag if any modifier key is pressed.
+         * This matches the behavior of `react-beautiful-dnd`.
+         */
+        if (input.ctrlKey || input.metaKey || input.shiftKey || input.altKey) {
+          return false;
+        }
+
         return !isDragging;
       },
       element,

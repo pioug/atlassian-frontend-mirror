@@ -11,6 +11,7 @@ import Tooltip, { PositionType } from '@atlaskit/tooltip';
 
 import AvatarGroupItem from './avatar-group-item';
 import Grid from './grid';
+import FocusManager from './internal/components/focus-manager';
 import MoreIndicator from './more-indicator';
 import Stack from './stack';
 import {
@@ -239,29 +240,31 @@ const AvatarGroup = ({
         shouldFlip
         zIndex={layers.modal()}
         content={() => (
-          <PopupMenuGroup
-            onClick={(e) => e.stopPropagation()}
-            minWidth={250}
-            maxHeight={300}
-          >
-            <Section>
-              {data.slice(max).map((avatar, index) =>
-                getOverrides(overrides).AvatarGroupItem.render(
-                  AvatarGroupItem,
-                  {
-                    avatar,
-                    onAvatarClick,
-                    testId:
-                      testId && `${testId}--avatar-group-item-${index + max}`,
-                    index: index + max,
-                  },
-                  // This index holds the true index,
-                  // adding up the index of non-overflowed avatars and overflowed avatars.
-                  index + max,
-                ),
-              )}
-            </Section>
-          </PopupMenuGroup>
+          <FocusManager>
+            <PopupMenuGroup
+              onClick={(e) => e.stopPropagation()}
+              minWidth={250}
+              maxHeight={300}
+            >
+              <Section>
+                {data.slice(max).map((avatar, index) =>
+                  getOverrides(overrides).AvatarGroupItem.render(
+                    AvatarGroupItem,
+                    {
+                      avatar,
+                      onAvatarClick,
+                      testId:
+                        testId && `${testId}--avatar-group-item-${index + max}`,
+                      index: index + max,
+                    },
+                    // This index holds the true index,
+                    // adding up the index of non-overflowed avatars and overflowed avatars.
+                    index + max,
+                  ),
+                )}
+              </Section>
+            </PopupMenuGroup>
+          </FocusManager>
         )}
         trigger={(triggerProps) =>
           renderMoreButton({

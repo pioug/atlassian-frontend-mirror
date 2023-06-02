@@ -39,7 +39,7 @@
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/form": "^8.11.0",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/modal-dialog": "^12.5.0",
+    "@atlaskit/modal-dialog": "^12.6.0",
     "@atlaskit/select": "^16.5.0",
     "@atlaskit/textarea": "^4.7.0",
     "@atlaskit/theme": "^12.5.0",

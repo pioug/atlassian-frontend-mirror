@@ -61,6 +61,7 @@ export default {
   'fabric.linking.pending_request': 'Ваш запрос на доступ ожидает рассмотрения',
   'fabric.linking.preview': 'Полноэкранный режим',
   'fabric.linking.preview_close': 'Закрыть предварительный просмотр',
+  'fabric.linking.preview_improved': 'Открыть предпросмотр',
   'fabric.linking.preview_max_size': 'На весь экран',
   'fabric.linking.preview_min_size': 'Выйти из полноэкранного режима',
   'fabric.linking.priority_blocker': 'Блокер',

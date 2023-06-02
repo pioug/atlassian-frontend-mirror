@@ -1,4 +1,4 @@
-import { DatasourceAdf } from '@atlaskit/linking-common/types';
+import { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common/types';
 
 type XOR<T1, T2> =
   | (T1 & {
@@ -34,4 +34,12 @@ export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
       ];
     };
   };
+}
+
+export interface JiraIssuesConfigModalProps {
+  datasourceId: string;
+  visibleColumnKeys?: string[];
+  parameters?: JiraIssueDatasourceParameters;
+  onCancel: () => void;
+  onInsert: (adf: InlineCardAdf | JiraIssuesDatasourceAdf) => void;
 }

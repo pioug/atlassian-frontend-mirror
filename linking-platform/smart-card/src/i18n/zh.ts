@@ -54,6 +54,7 @@ export default {
   'fabric.linking.pending_request': '您的访问请求正等待处理',
   'fabric.linking.preview': '全屏视图',
   'fabric.linking.preview_close': '关闭预览',
+  'fabric.linking.preview_improved': '打开预览',
   'fabric.linking.preview_max_size': '全屏查看',
   'fabric.linking.preview_min_size': '关闭全屏',
   'fabric.linking.priority_blocker': '紧急',

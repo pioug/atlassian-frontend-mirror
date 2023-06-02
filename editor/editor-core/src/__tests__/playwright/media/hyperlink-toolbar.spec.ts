@@ -70,7 +70,6 @@ test.describe('hyperlink toolbar', () => {
 
       await smartLinkToolbarModel.openViaKeyboardShortcut();
 
-      await editor.page.pause();
       await editor.keyboard.type('www.atlassian.com');
       await editor.keyboard.press('Tab'); // To clear link button
       await editor.keyboard.press('Tab'); // To label field

@@ -104,6 +104,14 @@ export interface ModalDialogProps {
   stackIndex?: number;
 
   /**
+   * The label of the modal dialog that is announced to users of assistive
+   * technology. This should only be used if there is no modal title being
+   * associated to your modal, either via using the modal title component or the
+   * `titleId` prop within the `useModal` context.
+   */
+  label?: string;
+
+  /**
    * A `testId` prop is provided for specified elements,
    * which is a unique string that appears as a data attribute `data-testid` in the rendered code,
    * serving as a hook for automated tests.

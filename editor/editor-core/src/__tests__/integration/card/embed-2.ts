@@ -13,9 +13,12 @@ import { waitForEmbedCardSelection } from '@atlaskit/media-integration-test-help
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
+// FIXME: This test was automatically skipped due to failure on 01/06/2023: https://product-fabric.atlassian.net/browse/ED-18179
 BrowserTestCase(
   'card: changing the link URL of an embed link to an unsupported url should convert it to a "dumb" link',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

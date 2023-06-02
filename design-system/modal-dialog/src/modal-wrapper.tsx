@@ -65,6 +65,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
     width,
     onCloseComplete,
     onOpenComplete,
+    label,
     testId,
   } = props;
 
@@ -107,6 +108,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
     >
       <ModalDialog
         testId={testId}
+        label={label}
         autoFocus={autoFocus}
         stackIndex={stackIndex}
         onClose={onCloseHandler}

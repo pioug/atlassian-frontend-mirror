@@ -6,18 +6,11 @@ import { css, jsx } from '@emotion/react';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
-import { useDatasourceTableState } from '../hooks/useDatasourceTableState';
+import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
+import { IssueLikeDataTableView } from '../issue-like-table';
+import { TableFooter } from '../table-footer';
 
-import { IssueLikeDataTableView } from './issue-like-table';
-import { TableFooter } from './table-footer';
-
-export interface DatasourceTableViewProps {
-  datasourceId: string;
-  parameters: object;
-  fields?: string[];
-  onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
-  visibleColumnKeys?: string[];
-}
+import { DatasourceTableViewProps } from './types';
 
 const TableViewWrapperStyles = css({
   display: 'flex',

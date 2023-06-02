@@ -1,12 +1,12 @@
 /** @jsx jsx */
-import { useCallback, useState } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 import { token } from '@atlaskit/tokens';
 
-import Modal, { ModalTransition } from '../../src';
+import Modal, { ModalTransition, useModal } from '../../src';
 import welcomeImage from '../images/this-is-new-jira.png';
 
 const containerStyles = css({
@@ -32,6 +32,38 @@ const marginBottomStyles = css({
   marginBottom: token('space.500', '40px'),
 });
 
+const CustomModalContent = () => {
+  const { onClose, titleId } = useModal();
+
+  return (
+    <Fragment>
+      <img
+        alt="Graphic showing users working on a project"
+        src={welcomeImage}
+        css={imageStyles}
+      />
+      <div css={containerStyles}>
+        <h1 css={headerStyles} id={titleId}>
+          Experience your new Jira
+        </h1>
+        <p>
+          Switch context, jump between projects, and get back to work quickly
+          with our new look and feel.
+        </p>
+        <p css={marginBottomStyles}>
+          Take it for a spin and let us know what you think.
+        </p>
+        <ButtonGroup>
+          <Button appearance="subtle-link">Remind me later</Button>
+          <Button onClick={onClose} appearance="primary" autoFocus>
+            Switch to the new Jira
+          </Button>
+        </ButtonGroup>
+      </div>
+    </Fragment>
+  );
+};
+
 export default function Example() {
   const [isOpen, setIsOpen] = useState(false);
   const openModal = useCallback(() => setIsOpen(true), []);
@@ -46,27 +78,7 @@ export default function Example() {
       <ModalTransition>
         {isOpen && (
           <Modal onClose={closeModal}>
-            <img
-              alt="Graphic showing users working on a project"
-              src={welcomeImage}
-              css={imageStyles}
-            />
-            <div css={containerStyles}>
-              <h4 css={headerStyles}>Experience your new Jira</h4>
-              <p>
-                Switch context, jump between projects, and get back to work
-                quickly with our new look and feel.
-              </p>
-              <p css={marginBottomStyles}>
-                Take it for a spin and let us know what you think.
-              </p>
-              <ButtonGroup>
-                <Button appearance="subtle-link">Remind me later</Button>
-                <Button onClick={closeModal} appearance="primary" autoFocus>
-                  Switch to the new Jira
-                </Button>
-              </ButtonGroup>
-            </div>
+            <CustomModalContent />
           </Modal>
         )}
       </ModalTransition>

@@ -81,6 +81,7 @@ export default function ExampleScroll() {
       <ModalTransition>
         {isOpen && (
           <Modal
+            label="Modal Label"
             onClose={close}
             shouldScrollInViewport={shouldScrollInViewport}
             testId="modal"

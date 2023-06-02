@@ -287,7 +287,6 @@ test.describe('when a table without column widths is nested inside an layout', (
 
   test.describe('and when a new column is inserted', () => {
     test('should not overflow the table', async ({ editor }) => {
-      await editor.page.pause();
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 

@@ -60,6 +60,7 @@ export default {
   'fabric.linking.pending_request': 'Käyttöoikeuspyyntösi on vireillä',
   'fabric.linking.preview': 'Koko näytön näkymä',
   'fabric.linking.preview_close': 'Sulje esikatselu',
+  'fabric.linking.preview_improved': 'Avaa esikatselu',
   'fabric.linking.preview_max_size': 'Näytä koko näytöllä',
   'fabric.linking.preview_min_size': 'Sulje koko näytön tila',
   'fabric.linking.priority_blocker': 'Esto',

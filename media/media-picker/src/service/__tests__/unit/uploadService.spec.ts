@@ -349,12 +349,14 @@ describe('UploadService', () => {
         content: file2,
         name: 'some-other-filename',
         mimeType: 'image/png',
+        size: 10e7,
       };
       const expectedUploadableFile1: UploadableFile = {
         collection: 'some-collection',
         content: file,
         name: 'some-filename',
         mimeType: 'video/mp4',
+        size: 100,
       };
 
       expect(asMock(mediaClient.file.upload).mock.calls[0][0]).toEqual(

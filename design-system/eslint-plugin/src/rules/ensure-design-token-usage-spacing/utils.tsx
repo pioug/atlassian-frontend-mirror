@@ -13,7 +13,13 @@ import {
 
 import { spacing as spacingScale } from '@atlaskit/tokens/tokens-raw';
 
-import { isBorderRadius, isShapeProperty, radiusValueToToken } from './shape';
+import {
+  borderWidthValueToToken,
+  isBorderRadius,
+  isBorderSizeProperty,
+  isShapeProperty,
+  radiusValueToToken,
+} from './shape';
 import {
   isCodeFontFamily,
   isFontFamily,
@@ -694,7 +700,9 @@ export function findTokenNameByPropertyValue(
 ): string | undefined {
   const lookupValue = normaliseValue(propertyName, value);
   const tokenName = isShapeProperty(propertyName)
-    ? radiusValueToToken[lookupValue]
+    ? isBorderSizeProperty(propertyName)
+      ? borderWidthValueToToken[lookupValue]
+      : radiusValueToToken[lookupValue]
     : isTypographyProperty(propertyName)
     ? typographyValueToToken[propertyName][lookupValue]
     : spacingValueToToken[lookupValue];

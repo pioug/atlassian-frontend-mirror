@@ -60,6 +60,7 @@ export default {
   'fabric.linking.pending_request': 'Vaše žádost o přístup čeká na vyřízení.',
   'fabric.linking.preview': 'Zobrazení na celou obrazovku',
   'fabric.linking.preview_close': 'Zavřít náhled',
+  'fabric.linking.preview_improved': 'Otevřít náhled',
   'fabric.linking.preview_max_size': 'Zobrazit na celé obrazovce',
   'fabric.linking.preview_min_size': 'Zavřít zobrazení na celé obrazovce',
   'fabric.linking.priority_blocker': 'Blokující',

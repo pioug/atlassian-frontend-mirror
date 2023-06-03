@@ -55,6 +55,7 @@ export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({
   borderRadius: 3,
   color: textColor[mode],
   cursor: 'pointer',
+  flexGrow: 1,
   fontSize: token('font.size.100', '14px'),
   textAlign: 'center',
   '&[data-sibling]': {

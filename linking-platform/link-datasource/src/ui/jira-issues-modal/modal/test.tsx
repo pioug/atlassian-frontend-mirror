@@ -97,6 +97,16 @@ describe('JiraIssuesConfigModal', () => {
     reset: jest.fn(),
   });
 
+  const getLoadingHookState: () => DatasourceTableState = () => ({
+    columns: [],
+    status: 'loading',
+    responseItems: [],
+    hasNextPage: true,
+    defaultVisibleColumnKeys: [],
+    onNextPage: jest.fn(),
+    reset: jest.fn(),
+  });
+
   const setup = async (
     args: {
       parameters?: JiraIssueDatasourceParameters;
@@ -431,6 +441,19 @@ describe('JiraIssuesConfigModal', () => {
       });
 
       expect(hookState.onNextPage).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('when status is `loading` and parameters provided', () => {
+    it('should disable insert button', async () => {
+      const { getByRole } = await setup({
+        visibleColumnKeys: undefined,
+        parameters: { cloudId: 'abc123', jql: 'cool' },
+        hookState: getLoadingHookState(),
+      });
+
+      const button = getByRole('button', { name: 'Insert issues' });
+      expect(button).toBeDisabled();
     });
   });
 

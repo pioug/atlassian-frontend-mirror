@@ -115,7 +115,7 @@ function getColumnWidth(
       return BASE_WIDTH * 22;
 
     default:
-      undefined;
+      return undefined;
   }
 }
 
@@ -151,7 +151,7 @@ export const IssueLikeDataTableView = ({
     [orderedColumns, visibleColumnKeys],
   );
 
-  // TODO seems like this component can't handle some combination of incremental data retreaval.
+  // TODO seems like this component can't handle some combination of incremental data retrieval.
   // If data comes first, then columns and then visibleColumnKeys it blows up,
   // or some other combination.
 
@@ -333,7 +333,7 @@ export const IssueLikeDataTableView = ({
               const TruncatedContent = () => (
                 <div css={truncatedCellStyles}>{content}</div>
               );
-              if (onVisibleColumnKeysChange) {
+              if (onVisibleColumnKeysChange && status !== 'loading') {
                 return (
                   <DraggableTableHeading
                     tableId={tableId}
@@ -365,6 +365,7 @@ export const IssueLikeDataTableView = ({
             {onVisibleColumnKeysChange && (
               <th css={columnPickerHeaderStyles}>
                 <ColumnPicker
+                  isDatasourceLoading={status === 'loading'}
                   columns={orderedColumns}
                   selectedColumnKeys={visibleColumnKeys}
                   onSelectedColumnKeysChange={onSelectedColumnKeysChange}

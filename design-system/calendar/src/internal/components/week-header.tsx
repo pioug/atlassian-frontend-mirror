@@ -14,11 +14,15 @@ import WeekDayGrid from './week-day-grid';
 interface WeekHeaderProps {
   daysShort: string[];
   mode?: ThemeModes;
+  testId?: string;
 }
 
-const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({ daysShort }) {
+const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({
+  daysShort,
+  testId,
+}) {
   return (
-    <WeekDayGrid>
+    <WeekDayGrid testId={testId && `${testId}--column-headers`}>
       {daysShort.map((shortDay) => (
         <Box
           padding="space.100"
@@ -31,6 +35,7 @@ const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({ daysShort }) {
             color: token('color.text.subtle', N200), // Apply correct fallback to shortDay text
           }}
           key={shortDay}
+          role="columnheader"
         >
           <Text
             fontWeight="bold"

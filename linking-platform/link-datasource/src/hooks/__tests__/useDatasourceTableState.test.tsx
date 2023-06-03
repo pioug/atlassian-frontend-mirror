@@ -179,7 +179,7 @@ describe('useDatasourceTableState', () => {
           cloudId: mockCloudId,
           jql: mockParameterValue,
         },
-        pageSize: 10,
+        pageSize: 20,
         pageCursor: undefined,
       });
     });
@@ -222,7 +222,7 @@ describe('useDatasourceTableState', () => {
           cloudId: mockCloudId,
           jql: mockParameterValue,
         },
-        pageSize: 10,
+        pageSize: 20,
         pageCursor: undefined,
       });
 
@@ -237,7 +237,7 @@ describe('useDatasourceTableState', () => {
           cloudId: mockCloudId,
           jql: mockParameterValue,
         },
-        pageSize: 10,
+        pageSize: 20,
         pageCursor: mockDatasourceDataResponse.nextPageCursor,
       });
     });

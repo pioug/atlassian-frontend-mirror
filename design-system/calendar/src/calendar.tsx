@@ -155,7 +155,6 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
         onBlur={handleContainerBlur}
         onFocus={handleContainerFocus}
         onKeyDown={handleContainerKeyDown}
-        role="presentation"
         testId={testId && `${testId}--container`}
         ref={ref}
       >
@@ -172,8 +171,8 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
           }}
           aria-describedby={announceId}
           aria-label="calendar"
-          role="grid"
           tabIndex={tabIndex}
+          testId={testId && `${testId}--calendar`}
         >
           <Stack space="space.150">
             <Header
@@ -188,8 +187,12 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
               mode={mode}
               testId={testId}
             />
-            <Box display="block" role="presentation">
-              <WeekHeaderComponent daysShort={daysShort} mode={mode} />
+            <Box display="block" role="grid">
+              <WeekHeaderComponent
+                daysShort={daysShort}
+                mode={mode}
+                testId={testId}
+              />
               <WeekDaysComponent
                 weeks={weeks}
                 handleClickDay={handleClickDay}

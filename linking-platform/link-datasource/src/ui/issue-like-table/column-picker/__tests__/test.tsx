@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent } from '@testing-library/dom';
 import { render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
@@ -12,10 +13,26 @@ const CSS_PREFIX = 'column-picker-popup';
 const OPTION_CLASS = `.${CSS_PREFIX}__option`;
 const OPTION_LIST_CLASS = `.${CSS_PREFIX}__menu-list`;
 const OPTION_SELECTED_CLASS = `${OPTION_CLASS}--is-selected`;
+const mockOnChange = jest.fn();
+const renderColumnPicker = (
+  columns: DatasourceResponseSchemaProperty[],
+  selectedColumnKeys: string[],
+  isDatasourceLoading: boolean,
+) => {
+  return render(
+    <IntlProvider locale="en">
+      <ColumnPicker
+        columns={columns}
+        onSelectedColumnKeysChange={mockOnChange}
+        selectedColumnKeys={selectedColumnKeys}
+        isDatasourceLoading={isDatasourceLoading}
+      />
+    </IntlProvider>,
+  );
+};
 
 describe('Column picker', () => {
-  it('should have correct default checked and unchecked checkboxes based on the columns info passed in', async () => {
-    const mockOnChange = jest.fn();
+  it('popup button should be disabled if table is loading', async () => {
     const columns: DatasourceResponseSchemaProperty[] = [
       {
         key: 'type',
@@ -31,12 +48,37 @@ describe('Column picker', () => {
 
     const selectedColumnKeys: string[] = ['type'];
 
-    const { getByText, getByTestId } = render(
-      <ColumnPicker
-        columns={columns}
-        onSelectedColumnKeysChange={mockOnChange}
-        selectedColumnKeys={selectedColumnKeys}
-      />,
+    const { getByTestId } = renderColumnPicker(
+      columns,
+      selectedColumnKeys,
+      true,
+    );
+
+    // open popup
+    const triggerButton = getByTestId('column-picker-trigger-button');
+    expect(triggerButton).toBeDisabled();
+  });
+
+  it('should have correct default checked and unchecked checkboxes based on the columns info passed in', async () => {
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'type',
+        type: 'icon',
+        title: 'Type',
+      },
+      {
+        key: 'blah',
+        type: 'string',
+        title: 'Blah',
+      },
+    ];
+
+    const selectedColumnKeys: string[] = ['type'];
+
+    const { getByText, getByTestId } = renderColumnPicker(
+      columns,
+      selectedColumnKeys,
+      false,
     );
 
     // open popup
@@ -48,7 +90,6 @@ describe('Column picker', () => {
   });
 
   it('should call onChange with correct parameters if a checkbox is clicked', async () => {
-    const mockOnChange = jest.fn();
     const columns: DatasourceResponseSchemaProperty[] = [
       {
         key: 'type',
@@ -64,12 +105,10 @@ describe('Column picker', () => {
 
     const selectedColumnKeys: string[] = ['type'];
 
-    const { getByText, getByTestId } = render(
-      <ColumnPicker
-        columns={columns}
-        onSelectedColumnKeysChange={mockOnChange}
-        selectedColumnKeys={selectedColumnKeys}
-      />,
+    const { getByText, getByTestId } = renderColumnPicker(
+      columns,
+      selectedColumnKeys,
+      false,
     );
 
     // open popup
@@ -86,7 +125,6 @@ describe('Column picker', () => {
   });
 
   it('should bring all selected options to the top when opening the popup', async () => {
-    const mockOnChange = jest.fn();
     const columns: DatasourceResponseSchemaProperty[] = [
       {
         key: 'matt',
@@ -112,12 +150,10 @@ describe('Column picker', () => {
 
     const selectedColumnKeys: string[] = ['tom', 'john'];
 
-    const { getByText, getByTestId } = render(
-      <ColumnPicker
-        columns={columns}
-        onSelectedColumnKeysChange={mockOnChange}
-        selectedColumnKeys={selectedColumnKeys}
-      />,
+    const { getByText, getByTestId } = renderColumnPicker(
+      columns,
+      selectedColumnKeys,
+      false,
     );
 
     // open popup

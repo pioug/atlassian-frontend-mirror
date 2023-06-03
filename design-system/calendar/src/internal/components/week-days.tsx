@@ -3,6 +3,7 @@ import { memo } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import Box from '@atlaskit/ds-explorations/box';
 import type { ThemeModes } from '@atlaskit/theme/types';
 
 import { DateObj, Week } from '../types';
@@ -24,28 +25,30 @@ const WeekDays = memo<WeekDaysProps>(function WeekDays({
   testId,
 }) {
   return (
-    <WeekdayGrid role="grid" testId={testId && `${testId}--month`}>
-      {weeks.map((week) =>
-        week.values.map((weekDay) => (
-          <DateComponent
-            key={`${week.id}-${weekDay.id}`}
-            isDisabled={weekDay.isDisabled}
-            isFocused={weekDay.isFocused}
-            isToday={weekDay.isToday}
-            month={weekDay.month}
-            onClick={handleClickDay}
-            isPreviouslySelected={weekDay.isPreviouslySelected}
-            isSelected={weekDay.isSelected}
-            isSibling={weekDay.isSiblingMonth}
-            year={weekDay.year}
-            mode={mode}
-            testId={testId}
-          >
-            {weekDay.day}
-          </DateComponent>
-        )),
-      )}
-    </WeekdayGrid>
+    <Box display="block" role="rowgroup" testId={testId && `${testId}--month`}>
+      {weeks.map((week, i) => (
+        <WeekdayGrid key={i} testId={testId && `${testId}--week`}>
+          {week.values.map((weekDay) => (
+            <DateComponent
+              key={`${week.id}-${weekDay.id}`}
+              isDisabled={weekDay.isDisabled}
+              isFocused={weekDay.isFocused}
+              isToday={weekDay.isToday}
+              month={weekDay.month}
+              onClick={handleClickDay}
+              isPreviouslySelected={weekDay.isPreviouslySelected}
+              isSelected={weekDay.isSelected}
+              isSibling={weekDay.isSiblingMonth}
+              year={weekDay.year}
+              mode={mode}
+              testId={testId}
+            >
+              {weekDay.day}
+            </DateComponent>
+          ))}
+        </WeekdayGrid>
+      ))}
+    </Box>
   );
 });
 

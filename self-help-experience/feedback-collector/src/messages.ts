@@ -9,7 +9,8 @@ export const messages = defineMessages({
   },
   enrolInResearchLabel: {
     id: 'feedback-collector.enrol-in-research.label',
-    defaultMessage: "I'd like to participate in product research",
+    defaultMessage:
+      'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the <a>Atlassian Privacy Policy.</a>',
     description:
       'The checkbox label letting users enrol themselves in future product research interviews',
   },

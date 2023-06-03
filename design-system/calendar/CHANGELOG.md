@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 13.1.3
+
+### Patch Changes
+
+- [`74fec133d99`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74fec133d99) - [ux] Add proper grid roles to calendar.
+
 ## 13.1.2
 
 ### Patch Changes

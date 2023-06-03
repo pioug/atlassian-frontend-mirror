@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/react';
+import { useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import BoardIcon from '@atlaskit/icon/glyph/board';
@@ -9,13 +10,16 @@ import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
 import { CheckboxOption, OptionType, PopupSelect } from '@atlaskit/select';
 
+import { columnPickerMessages } from './messages';
 import { ColumnPickerProps } from './types';
 
 export const ColumnPicker = ({
+  isDatasourceLoading,
   columns,
   selectedColumnKeys,
   onSelectedColumnKeysChange,
 }: ColumnPickerProps) => {
+  const intl = useIntl();
   const [allOptions, setAllOptions] = useState<OptionType[]>([]);
 
   const mapColumnToOption: (
@@ -78,7 +82,7 @@ export const ColumnPicker = ({
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
       isMulti
-      placeholder="Search for fields" // TODO Translate
+      placeholder={intl.formatMessage(columnPickerMessages.search)}
       aria-label="Search for fields"
       onChange={handleChange}
       target={({ isOpen, ...triggerProps }) => (
@@ -94,6 +98,7 @@ export const ColumnPicker = ({
           spacing="compact"
           appearance="subtle"
           testId="column-picker-trigger-button"
+          isDisabled={isDatasourceLoading}
         />
       )}
     />

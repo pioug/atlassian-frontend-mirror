@@ -3,6 +3,8 @@ import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import Box from '@atlaskit/ds-explorations/box';
+
 const gridStyles = css({
   display: 'grid',
   gridTemplateColumns: 'repeat(7, minmax(max-content, 1fr))',
@@ -20,8 +22,8 @@ interface WeekDayGridProps extends React.HTMLAttributes<HTMLElement> {
  *
  */
 const WeekDayGrid = ({ testId, children }: WeekDayGridProps) => (
-  <div data-testid={testId} css={gridStyles}>
+  <Box testId={testId} css={gridStyles} role="row">
     {children}
-  </div>
+  </Box>
 );
 export default WeekDayGrid;

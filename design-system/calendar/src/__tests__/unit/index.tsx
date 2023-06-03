@@ -11,6 +11,7 @@ import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
 import Calendar, { CalendarProps } from '../../index';
+import { WeekDay } from '../../types';
 
 jest.mock('react-uid', () => ({
   useUIDSeed: () => () => 'react-uid',
@@ -24,26 +25,12 @@ const getDayElement = (renderResult: RenderResult, textContent: string) =>
       content === 'gridcell' && element?.textContent === textContent,
   )[0];
 
-const getCalendarElement = (renderResult: RenderResult) =>
-  renderResult.getByRole(
-    (content, element) =>
-      content === 'grid' && element!.getAttribute('aria-label') === 'calendar',
-  );
-
 const getSwitchMonthElement = (renderResult: RenderResult, label: string) =>
   renderResult.getAllByRole(
     (content, element) =>
       content === 'img' && element!.getAttribute('aria-label') === label,
     { hidden: true },
   )[0];
-
-const getHeaderElements = (renderResult: RenderResult, values: string[]) =>
-  renderResult.getByRole(
-    (content, element) =>
-      content === 'presentation' &&
-      element!.firstChild?.nodeName.toLowerCase() === 'div' &&
-      element!.firstChild?.textContent === values.join(''),
-  );
 
 const getAnnouncerElementTextContent = (container: HTMLElement) =>
   getById(container, 'announce-react-uid')?.textContent;
@@ -54,6 +41,9 @@ const weekendFilter = (date: string) => {
 };
 
 describe('Calendar', () => {
+  const testId = 'calendar';
+  const testIdMonth = `${testId}--month`;
+
   const setup = (calendarProps: Partial<CalendarProps> = {}) => {
     const props = {
       disabled: ['2019-12-04'],
@@ -250,7 +240,7 @@ describe('Calendar', () => {
   it('should have tabindex=0', () => {
     const { renderResult } = setup();
 
-    const calendarElement = getCalendarElement(renderResult);
+    const calendarElement = renderResult.getByTestId(`${testId}--calendar`);
     expect(calendarElement).toHaveAttribute('tabindex', '0');
   });
 
@@ -296,10 +286,11 @@ describe('Calendar', () => {
         'true',
       );
 
-      const isPrevented = fireEvent.keyDown(
-        renderResult.container.firstChild as HTMLDivElement,
-        { key, code },
-      );
+      const calendarGrid = renderResult.getByTestId(testIdMonth);
+      const isPrevented = fireEvent.keyDown(calendarGrid as HTMLDivElement, {
+        key,
+        code,
+      });
 
       const newSelectedDayElement = getDayElement(renderResult, '10');
 
@@ -342,10 +333,11 @@ describe('Calendar', () => {
         defaultDay: 15,
       });
 
-      const isPrevented = fireEvent.keyDown(
-        renderResult.container.firstChild as HTMLDivElement,
-        { key, code },
-      );
+      const calendarGrid = renderResult.getByTestId(testIdMonth);
+      const isPrevented = fireEvent.keyDown(calendarGrid as HTMLDivElement, {
+        key,
+        code,
+      });
 
       expect(isPrevented).toBe(false);
       expect(props.onChange).toHaveBeenCalledWith(date, expect.anything());
@@ -407,13 +399,11 @@ describe('Calendar', () => {
       defaultDay: 1,
     });
 
-    const isPrevented = fireEvent.keyDown(
-      renderResult.container.firstChild as HTMLDivElement,
-      {
-        key: 'ArrowUp',
-        code: 'ArrowUp',
-      },
-    );
+    const calendarGrid = renderResult.getByTestId(testIdMonth);
+    const isPrevented = fireEvent.keyDown(calendarGrid as HTMLDivElement, {
+      key: 'ArrowUp',
+      code: 'ArrowUp',
+    });
 
     expect(isPrevented).toBe(false);
     expect(props.onChange).toHaveBeenCalledWith(
@@ -452,29 +442,29 @@ describe('Calendar', () => {
     );
   });
 
-  it('should render weekdays depending on #weekStartDay', () => {
-    expect(
-      getHeaderElements(setup().renderResult, [
-        'Sun',
-        'Mon',
-        'Tue',
-        'Wed',
-        'Thu',
-        'Fri',
-        'Sat',
-      ]),
-    ).toBeInTheDocument();
-
-    expect(
-      getHeaderElements(setup({ weekStartDay: 1 }).renderResult, [
-        'Mon',
-        'Tue',
-        'Wed',
-        'Thu',
-        'Fri',
-        'Sat',
-        'Sun',
-      ]),
-    ).toBeInTheDocument();
-  });
+  cases(
+    'should render weekdays depending on #weekStartDay',
+    ({
+      weekStartDay,
+      expected,
+    }: {
+      weekStartDay: WeekDay;
+      expected: string;
+    }) => {
+      const headerElements = setup({
+        weekStartDay,
+      }).renderResult.getAllByTestId(`${testId}--column-headers`)?.[0];
+      expect(headerElements.textContent).toBe(expected);
+    },
+    {
+      weekStartDay0: {
+        weekStartDay: 0,
+        expected: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].join(''),
+      },
+      weekStartDay1: {
+        weekStartDay: 1,
+        expected: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].join(''),
+      },
+    },
+  );
 });

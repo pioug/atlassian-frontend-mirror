@@ -7,6 +7,7 @@ import Calendar from '../../index';
 const testIdNextMonth = 'testing--next-month';
 const testIdPrevMonth = 'testing--previous-month';
 const testIdMonth = 'testing--month';
+const testIdWeek = 'testing--week';
 const testIdSelectedDay = 'testing--selected-day';
 const testIdCurrentMonthYear = 'testing--current-month-year';
 const testIdContainer = 'testing--container';
@@ -42,14 +43,26 @@ describe('Calendar should be found by data-testid', () => {
     expect(() => getByTestId(testIdMonth)).toThrow();
   });
 
-  it('Selected day is accessible via data-testid', () => {
-    const { getByTestId } = render(<Calendar testId="testing" />);
+  it('Week container is accessible via data-testid', () => {
+    const { getAllByTestId, rerender } = render(<Calendar testId="testing" />);
 
-    const monthContainer = getByTestId(testIdMonth);
+    expect(getAllByTestId(testIdWeek)).toBeTruthy();
+
+    rerender(<Calendar />);
+
+    expect(() => getAllByTestId(testIdWeek)).toThrow();
+  });
+
+  it('Selected day is accessible via data-testid', () => {
+    const { getAllByTestId, getByTestId } = render(
+      <Calendar testId="testing" />,
+    );
+
+    const weekContainer = getAllByTestId(testIdWeek);
 
     expect(() => getByTestId(testIdSelectedDay)).toThrow();
 
-    fireEvent.click(monthContainer.children[0]);
+    fireEvent.click(weekContainer[0].children[0]);
 
     expect(getByTestId(testIdSelectedDay)).toBeTruthy();
   });

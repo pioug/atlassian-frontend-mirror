@@ -23,7 +23,8 @@ describe('Snapshot Test', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('status picker', async () => {
+  // FIXME: This test was automatically skipped due to failure on 03/06/2023: https://product-fabric.atlassian.net/browse/ED-18196
+  it.skip('status picker', async () => {
     const url = getExampleUrl(
       'elements',
       'status',

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { token } from '@atlaskit/tokens';
 
 export const Table = styled.table`
-  width: auto;
+  width: 100%;
 `;
 
 export const TableHeading = styled.th`

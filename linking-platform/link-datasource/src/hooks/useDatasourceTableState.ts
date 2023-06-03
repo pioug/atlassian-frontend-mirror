@@ -66,7 +66,7 @@ export const useDatasourceTableState = (
       datasourceId,
       {
         parameters,
-        pageSize: 10,
+        pageSize: 20,
         pageCursor: nextCursor,
         fields,
       },

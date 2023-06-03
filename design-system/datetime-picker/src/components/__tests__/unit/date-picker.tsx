@@ -348,23 +348,23 @@ describe('DatePicker', () => {
         );
         fireEvent.click(screen.getByTestId('test--container'));
 
-        const calendarGrid = screen.getByRole('grid', {
-          name: 'calendar',
-        });
-        expect(calendarGrid).toHaveAccessibleDescription(
+        // testId of DatePicker passes in `${testId}--calendar` and the
+        // Calendar uses `${testId}--calendar`, so you have it doubled
+        const calendar = screen.getByTestId('test--calendar--calendar');
+        expect(calendar).toHaveAccessibleDescription(
           expect.stringContaining('Jan 01 1970'),
         );
 
         rerender(<DatePicker value="1990-02-02" testId="test" />);
         // date doesn't update without focus
-        expect(calendarGrid).toHaveAccessibleDescription(
+        expect(calendar).toHaveAccessibleDescription(
           expect.stringContaining('Jan 01 1970'),
         );
 
         const select = screen.getByRole('combobox');
         fireEvent.focus(select);
         // date update after focus
-        expect(calendarGrid).toHaveAccessibleDescription(
+        expect(calendar).toHaveAccessibleDescription(
           expect.stringContaining('Feb 02 1990'),
         );
       },

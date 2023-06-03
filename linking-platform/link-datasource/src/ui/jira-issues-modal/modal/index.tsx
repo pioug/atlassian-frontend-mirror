@@ -340,7 +340,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
             <Button
               appearance="primary"
               onClick={onInsertPressed}
-              isDisabled={!isParametersSet}
+              isDisabled={!isParametersSet || status === 'loading'}
               testId={'jira-jql-datasource-modal--insert-button'}
             >
               <FormattedMessage {...modalMessages.insertIssuesButtonText} />

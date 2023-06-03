@@ -42,7 +42,7 @@ describe('useDatasourceClientExtension', () => {
         cloudId: 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b',
         jql: 'project = EDM',
       },
-      pageSize: 10,
+      pageSize: 20,
       pageCursor: 'c3RhcnRBdD01',
     };
 

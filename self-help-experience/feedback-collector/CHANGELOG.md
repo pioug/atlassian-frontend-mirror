@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 12.2.0
+
+### Minor Changes
+
+- [`32649ca71ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32649ca71ad) - [ux] Update the 'can be contacted' opt-in language
+
 ## 12.1.3
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import Calendar from '../../index';
 
 const testId = 'testing';
 const testIdMonth = `${testId}--month`;
+const testIdWeek = `${testId}--week`;
 const testIdSelectedDay = `${testId}--selected-day`;
 
 describe('Calendar should not submit form', () => {
@@ -17,18 +18,18 @@ describe('Calendar should not submit form', () => {
   });
 
   it('Day selection does not trigger form (click)', () => {
-    const { getByTestId } = render(
+    const { getAllByTestId, getByTestId } = render(
       <form onSubmit={onSubmit}>
         <Calendar testId={testId} />
       </form>,
     );
 
-    const monthContainer = getByTestId(testIdMonth);
+    const weekContainer = getAllByTestId(testIdWeek);
 
     expect(() => getByTestId(testIdSelectedDay)).toThrow();
 
     // this is 'a day'
-    fireEvent.click(monthContainer.children[0]);
+    fireEvent.click(weekContainer[0].children[0]);
 
     expect(onSubmit).toHaveBeenCalledTimes(0);
 

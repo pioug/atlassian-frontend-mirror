@@ -11,6 +11,7 @@ import {
 import {
   DatasourceDataResponseItem,
   DatasourceResponseSchemaProperty,
+  DatasourceTableStatusType,
 } from '@atlaskit/linking-types/datasource';
 
 import { IssueLikeDataTableView } from '../index';
@@ -18,6 +19,33 @@ import {
   IssueLikeDataTableViewProps,
   TableViewPropsRenderType,
 } from '../types';
+
+const renderIssueLikeTable = (
+  items: DatasourceDataResponseItem[],
+  status: DatasourceTableStatusType,
+  hasNextPage: boolean,
+  onNextPage: () => void,
+  columns: DatasourceResponseSchemaProperty[],
+  visibleColumnKeys: string[],
+  onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void,
+  renderItem?: TableViewPropsRenderType,
+) => {
+  return render(
+    <IntlProvider locale="en">
+      <IssueLikeDataTableView
+        testId="sometable"
+        items={items}
+        status={status}
+        hasNextPage={hasNextPage}
+        onNextPage={onNextPage}
+        columns={columns}
+        visibleColumnKeys={visibleColumnKeys}
+        onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+        renderItem={renderItem}
+      />
+    </IntlProvider>,
+  );
+};
 
 const dragAndDrop = async (source: HTMLElement, destination: HTMLElement) => {
   fireEvent.dragStart(source);
@@ -88,17 +116,15 @@ describe('IssueLikeDataTableView', () => {
 
     const onNextPage = async () => {};
 
-    const { getByTestId } = render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        items={items}
-        status={status}
-        hasNextPage={false}
-        onNextPage={onNextPage}
-        columns={columns}
-        visibleColumnKeys={selectedColumnKeys}
-        onVisibleColumnKeysChange={onColumnChange}
-      />,
+    const { getByTestId } = renderIssueLikeTable(
+      items,
+      status,
+      false,
+      onNextPage,
+      columns,
+      selectedColumnKeys,
+      onColumnChange,
+      undefined,
     );
 
     expect(getByTestId('id-column-heading')).toHaveTextContent('ID');
@@ -132,17 +158,15 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={false}
-        columns={columns}
-        visibleColumnKeys={['id']}
-        onVisibleColumnKeysChange={() => {}}
-      />,
+    renderIssueLikeTable(
+      items,
+      'resolved',
+      false,
+      onNextPage,
+      columns,
+      ['id'],
+      () => {},
+      undefined,
     );
 
     const rowTestIds = (await screen.findAllByTestId(/sometable--row-.+/)).map(
@@ -193,17 +217,15 @@ describe('IssueLikeDataTableView', () => {
 
     const selectedColumnKeys: string[] = ['id', 'someOtherKey'];
 
-    render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={false}
-        columns={columns}
-        visibleColumnKeys={selectedColumnKeys}
-        onVisibleColumnKeysChange={() => {}}
-      />,
+    renderIssueLikeTable(
+      items,
+      'resolved',
+      false,
+      onNextPage,
+      columns,
+      selectedColumnKeys,
+      () => {},
+      undefined,
     );
 
     const rowColumnTestIds = (
@@ -250,17 +272,15 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={false}
-        columns={columns}
-        visibleColumnKeys={['listProp']}
-        onVisibleColumnKeysChange={() => {}}
-      />,
+    renderIssueLikeTable(
+      items,
+      'resolved',
+      false,
+      onNextPage,
+      columns,
+      ['listProp'],
+      () => {},
+      undefined,
     );
 
     expect(await screen.findByTestId('sometable--cell-0')).toHaveTextContent(
@@ -306,17 +326,15 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={false}
-        columns={columns}
-        visibleColumnKeys={['listProp', 'name', 'anotherName']}
-        onVisibleColumnKeysChange={() => {}}
-      />,
+    renderIssueLikeTable(
+      items,
+      'resolved',
+      false,
+      onNextPage,
+      columns,
+      ['listProp', 'name', 'anotherName'],
+      () => {},
+      undefined,
     );
 
     expect(await screen.findByTestId('sometable--cell-0')).toHaveTextContent(
@@ -360,18 +378,15 @@ describe('IssueLikeDataTableView', () => {
       }
     };
 
-    render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={true}
-        columns={columns}
-        renderItem={renderItem}
-        visibleColumnKeys={selectedColumnKeys}
-        onVisibleColumnKeysChange={() => {}}
-      />,
+    renderIssueLikeTable(
+      items,
+      'resolved',
+      true,
+      onNextPage,
+      columns,
+      selectedColumnKeys,
+      () => {},
+      renderItem,
     );
 
     expect(await screen.findByTestId('sometable--cell-0')).toHaveTextContent(
@@ -414,17 +429,15 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={true}
-        columns={columns}
-        visibleColumnKeys={['id']}
-        onVisibleColumnKeysChange={() => {}}
-      />,
+    renderIssueLikeTable(
+      items,
+      'resolved',
+      true,
+      onNextPage,
+      columns,
+      ['id'],
+      () => {},
+      undefined,
     );
 
     // set bottom visible
@@ -470,17 +483,15 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={false}
-        columns={columns}
-        visibleColumnKeys={['id']}
-        onVisibleColumnKeysChange={() => {}}
-      />,
+    renderIssueLikeTable(
+      items,
+      'resolved',
+      false,
+      onNextPage,
+      columns,
+      ['id'],
+      () => {},
+      undefined,
     );
 
     mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
@@ -522,17 +533,16 @@ describe('IssueLikeDataTableView', () => {
         type: 'string',
       },
     ];
-    render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'loading'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={true}
-        columns={columns}
-        visibleColumnKeys={['id']}
-        onVisibleColumnKeysChange={() => {}}
-      />,
+
+    renderIssueLikeTable(
+      items,
+      'loading',
+      true,
+      onNextPage,
+      columns,
+      ['id'],
+      () => {},
+      undefined,
     );
 
     // first scroll to bottom
@@ -591,17 +601,15 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const { getByTestId } = render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'loading'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={true}
-        columns={columns}
-        visibleColumnKeys={['id']}
-        onVisibleColumnKeysChange={() => {}}
-      />,
+    const { getByTestId } = renderIssueLikeTable(
+      items,
+      'loading',
+      true,
+      onNextPage,
+      columns,
+      ['id'],
+      () => {},
+      undefined,
     );
 
     // scroll down
@@ -645,16 +653,15 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={true}
-        columns={columns}
-        visibleColumnKeys={['id']}
-      />,
+    renderIssueLikeTable(
+      items,
+      'resolved',
+      true,
+      onNextPage,
+      columns,
+      ['id'],
+      undefined,
+      undefined,
     );
 
     expect(
@@ -692,17 +699,15 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        items={items}
-        onNextPage={onNextPage}
-        hasNextPage={true}
-        columns={columns}
-        visibleColumnKeys={['id']}
-        onVisibleColumnKeysChange={() => {}}
-      />,
+    renderIssueLikeTable(
+      items,
+      'resolved',
+      true,
+      onNextPage,
+      columns,
+      ['id'],
+      () => {},
+      undefined,
     );
 
     expect(
@@ -766,17 +771,15 @@ describe('IssueLikeDataTableView', () => {
     const { onColumnsChange, columns, onNextPage, items, selectedColumnKeys } =
       makeDragAndDropTableProps();
 
-    const { getByTestId, getByLabelText } = render(
-      <IssueLikeDataTableView
-        testId="sometable"
-        status={'resolved'}
-        onNextPage={onNextPage}
-        items={items}
-        hasNextPage={false}
-        columns={columns}
-        visibleColumnKeys={selectedColumnKeys}
-        onVisibleColumnKeysChange={onColumnsChange}
-      />,
+    const { getByTestId, getByLabelText } = renderIssueLikeTable(
+      items,
+      'resolved',
+      false,
+      onNextPage,
+      columns,
+      selectedColumnKeys,
+      onColumnsChange,
+      undefined,
     );
 
     expect(getByLabelText('emoji-drag-icon')).toBeInTheDocument();
@@ -808,28 +811,30 @@ describe('IssueLikeDataTableView', () => {
     } = makeDragAndDropTableProps();
 
     const { getByTestId } = render(
-      <div>
-        <IssueLikeDataTableView
-          testId="sometable1"
-          status={'resolved'}
-          items={items1}
-          onNextPage={onNextPage1}
-          hasNextPage={false}
-          columns={columns1}
-          visibleColumnKeys={selectedColumnKeys}
-          onVisibleColumnKeysChange={onColumnsChange1}
-        />
-        <IssueLikeDataTableView
-          testId="sometable2"
-          status={'resolved'}
-          items={items2}
-          onNextPage={onNextPage2}
-          hasNextPage={false}
-          columns={columns2}
-          visibleColumnKeys={selectedColumnKeys}
-          onVisibleColumnKeysChange={onColumnsChange2}
-        />
-      </div>,
+      <IntlProvider locale="en">
+        <div>
+          <IssueLikeDataTableView
+            testId="sometable1"
+            status={'resolved'}
+            items={items1}
+            onNextPage={onNextPage1}
+            hasNextPage={false}
+            columns={columns1}
+            visibleColumnKeys={selectedColumnKeys}
+            onVisibleColumnKeysChange={onColumnsChange1}
+          />
+          <IssueLikeDataTableView
+            testId="sometable2"
+            status={'resolved'}
+            items={items2}
+            onNextPage={onNextPage2}
+            hasNextPage={false}
+            columns={columns2}
+            visibleColumnKeys={selectedColumnKeys}
+            onVisibleColumnKeysChange={onColumnsChange2}
+          />
+        </div>
+      </IntlProvider>,
     );
 
     const table1Head = getByTestId('sometable1--head');
@@ -850,21 +855,37 @@ describe('IssueLikeDataTableView', () => {
     expect(onColumnsChange2).not.toHaveBeenCalled();
   });
 
-  describe('when no onColumnsChange provided', () => {
-    it('should not show drag and drop features', async () => {
+  describe('drag and drop features should not be shown', () => {
+    it('should not show when onColumnsChange is not provided', async () => {
       const { columns, onNextPage, items, selectedColumnKeys } =
         makeDragAndDropTableProps();
-      const { queryByTestId, queryByLabelText } = render(
-        <IssueLikeDataTableView
-          testId="sometable"
-          status={'resolved'}
-          items={items}
-          onNextPage={onNextPage}
-          hasNextPage={false}
-          columns={columns}
-          visibleColumnKeys={selectedColumnKeys}
-          onVisibleColumnKeysChange={undefined}
-        />,
+      const { queryByTestId, queryByLabelText } = renderIssueLikeTable(
+        items,
+        'resolved',
+        false,
+        onNextPage,
+        columns,
+        selectedColumnKeys,
+        undefined,
+        undefined,
+      );
+
+      expect(queryByLabelText('emoji-drag-icon')).toBeNull();
+      expect(queryByTestId('column-drop-target')).toBeNull();
+    });
+
+    it('should not show when table is loading', async () => {
+      const { columns, onNextPage, items, selectedColumnKeys } =
+        makeDragAndDropTableProps();
+      const { queryByTestId, queryByLabelText } = renderIssueLikeTable(
+        items,
+        'loading',
+        false,
+        onNextPage,
+        columns,
+        selectedColumnKeys,
+        () => {},
+        undefined,
       );
 
       expect(queryByLabelText('emoji-drag-icon')).toBeNull();
@@ -919,18 +940,15 @@ describe('IssueLikeDataTableView', () => {
         { summary: { data: 'summary' }, key: { data: 'KEY-123' } },
       ];
 
-      const { queryByTestId } = render(
-        <IntlProvider locale="en">
-          <IssueLikeDataTableView
-            testId="sometable"
-            status={'resolved'}
-            items={items}
-            onNextPage={onNextPage}
-            hasNextPage={false}
-            columns={[summary, key]}
-            visibleColumnKeys={['summary', 'key']}
-          />
-        </IntlProvider>,
+      const { queryByTestId } = renderIssueLikeTable(
+        items,
+        'resolved',
+        false,
+        onNextPage,
+        [summary, key],
+        ['summary', 'key'],
+        undefined,
+        undefined,
       );
 
       expect(queryByTestId('summary-column-heading')).toHaveStyle({
@@ -953,18 +971,15 @@ describe('IssueLikeDataTableView', () => {
         { name: { data: 'key1' }, dob: { data: '12/12/2023' } },
       ];
 
-      const { queryByTestId } = render(
-        <IntlProvider locale="en">
-          <IssueLikeDataTableView
-            testId="sometable"
-            status={'resolved'}
-            items={items}
-            onNextPage={onNextPage}
-            hasNextPage={false}
-            columns={[name, dob]}
-            visibleColumnKeys={['name', 'dob']}
-          />
-        </IntlProvider>,
+      const { queryByTestId } = renderIssueLikeTable(
+        items,
+        'resolved',
+        false,
+        onNextPage,
+        [name, dob],
+        ['name', 'dob'],
+        undefined,
+        undefined,
       );
 
       expect(queryByTestId('name-column-heading')).toHaveStyle({
@@ -993,18 +1008,15 @@ describe('IssueLikeDataTableView', () => {
         },
       ];
 
-      const { queryByTestId } = render(
-        <IntlProvider locale="en">
-          <IssueLikeDataTableView
-            testId="sometable"
-            status={'resolved'}
-            items={items}
-            onNextPage={onNextPage}
-            hasNextPage={false}
-            columns={[summary, key, name, dob, hobby]}
-            visibleColumnKeys={['summary', 'key', 'name', 'dob', 'hobby']}
-          />
-        </IntlProvider>,
+      const { queryByTestId } = renderIssueLikeTable(
+        items,
+        'resolved',
+        false,
+        onNextPage,
+        [summary, key, name, dob, hobby],
+        ['summary', 'key', 'name', 'dob', 'hobby'],
+        undefined,
+        undefined,
       );
 
       const hobbyHeader = queryByTestId('hobby-column-heading');
@@ -1021,19 +1033,15 @@ describe('IssueLikeDataTableView', () => {
         { summary: { data: 'summary' }, key: { data: 'KEY-123' } },
       ];
 
-      const { queryByTestId } = render(
-        <IntlProvider locale="en">
-          <IssueLikeDataTableView
-            testId="sometable"
-            status={'resolved'}
-            items={items}
-            onNextPage={onNextPage}
-            hasNextPage={false}
-            columns={[summary, key]}
-            visibleColumnKeys={['summary', 'key']}
-            onVisibleColumnKeysChange={() => {}}
-          />
-        </IntlProvider>,
+      const { queryByTestId } = renderIssueLikeTable(
+        items,
+        'resolved',
+        false,
+        onNextPage,
+        [summary, key],
+        ['summary', 'key'],
+        () => {},
+        undefined,
       );
 
       expect(queryByTestId('summary-column-heading')).toHaveStyle({
@@ -1061,18 +1069,15 @@ describe('IssueLikeDataTableView', () => {
         },
       ];
 
-      const { queryByTestId } = render(
-        <IntlProvider locale="en">
-          <IssueLikeDataTableView
-            testId="sometable"
-            status={'resolved'}
-            items={items}
-            onNextPage={onNextPage}
-            hasNextPage={false}
-            columns={[summary, key]}
-            visibleColumnKeys={['summary', 'key']}
-          />
-        </IntlProvider>,
+      const { queryByTestId } = renderIssueLikeTable(
+        items,
+        'resolved',
+        false,
+        onNextPage,
+        [summary, key],
+        ['summary', 'key'],
+        undefined,
+        undefined,
       );
 
       const tableCell = queryByTestId('sometable--cell-0');

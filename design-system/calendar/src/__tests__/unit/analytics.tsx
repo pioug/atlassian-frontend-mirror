@@ -11,6 +11,8 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 describe('Calendar analytics', () => {
+  const testId = 'calendar';
+  const testIdMonth = `${testId}--month`;
   const setup = (analyticsContext = {}) => {
     const onChange = jest.fn();
     const onSelect = jest.fn();
@@ -20,7 +22,7 @@ describe('Calendar analytics', () => {
     const renderResult = render(
       <AnalyticsListener channel="atlaskit" onEvent={onAnalyticsEvent}>
         <Calendar
-          testId="calendar"
+          testId={testId}
           onChange={onChange}
           onSelect={onSelect}
           defaultDay={selectedDay}
@@ -111,7 +113,8 @@ describe('Calendar analytics', () => {
         const { renderResult, onChange, onAnalyticsEvent, changeEventResult } =
           setup();
 
-        fireEvent.keyDown(renderResult.container.firstChild as HTMLDivElement, {
+        const calendarGrid = renderResult.getByTestId(testIdMonth);
+        fireEvent.keyDown(calendarGrid as HTMLDivElement, {
           key,
           code,
         });
@@ -191,7 +194,8 @@ describe('Calendar analytics', () => {
         const { renderResult, onSelect, onAnalyticsEvent, selectEventResult } =
           setup();
 
-        fireEvent.keyDown(renderResult.container.firstChild as HTMLDivElement, {
+        const calendarGrid = renderResult.getByTestId(testIdMonth);
+        fireEvent.keyDown(calendarGrid as HTMLDivElement, {
           key,
           code,
         });

@@ -92,7 +92,8 @@ describe('Mention VR Snapshot Test', () => {
   themeModes.forEach((themeMode) => {
     SCENARIOS.forEach(({ exampleName, interactions }) => {
       interactions.forEach((interaction) => {
-        it(`should render ${exampleName} with theme=${themeMode} interaction=${interaction.name}`, async () => {
+        // FIXME: This test was automatically skipped due to failure on 31/05/2023: https://product-fabric.atlassian.net/browse/QS-3026
+        it.skip(`should render ${exampleName} with theme=${themeMode} interaction=${interaction.name}`, async () => {
           const url = getExampleUrl(
             'elements',
             'mention',

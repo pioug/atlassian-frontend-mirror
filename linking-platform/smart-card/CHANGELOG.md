@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.5.2
+
+### Patch Changes
+
+- [`c77f4d24dee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c77f4d24dee) - [ux] Show feature discovery (pulse) on lozenge action
+
 ## 26.5.1
 
 ### Patch Changes

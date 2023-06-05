@@ -38,7 +38,12 @@ export const DatasourceTableView = ({
     columns,
     defaultVisibleColumnKeys,
     totalIssueCount,
-  } = useDatasourceTableState(datasourceId, parameters);
+    loadDatasourceDetails,
+  } = useDatasourceTableState({
+    datasourceId,
+    parameters,
+    fieldKeys: visibleColumnKeys,
+  });
 
   useEffect(() => {
     if (
@@ -57,6 +62,7 @@ export const DatasourceTableView = ({
         hasNextPage={hasNextPage}
         items={responseItems}
         onNextPage={onNextPage}
+        onLoadDatasourceDetails={loadDatasourceDetails}
         status={status}
         columns={columns}
         visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}

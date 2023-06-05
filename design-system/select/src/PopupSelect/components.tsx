@@ -53,7 +53,13 @@ export const MenuDialog: FC<MenuDialogProps> = ({
 // ==============================
 
 const DropdownIndicator = () => (
-  <div css={{ marginRight: 2, textAlign: 'center', width: 32 }}>
+  <div
+    css={{
+      marginRight: token('space.025', '2px'),
+      textAlign: 'center',
+      width: 32,
+    }}
+  >
     <SearchIcon label="open" />
   </div>
 );
@@ -63,7 +69,15 @@ const Control: FC<ControlProps<OptionType, boolean>> = ({
   innerProps,
   ...props
 }) => (
-  <div ref={innerRef} css={{ padding: '8px 8px 4px' }}>
+  <div
+    ref={innerRef}
+    css={{
+      padding: `${token('space.100', '8px')} ${token(
+        'space.100',
+        '8px',
+      )} ${token('space.050', '4px')}`,
+    }}
+  >
     <components.Control
       {...(props as ControlProps<OptionType, boolean>)}
       innerProps={innerProps}

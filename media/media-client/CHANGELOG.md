@@ -1,5 +1,15 @@
 # @atlaskit/media-client
 
+## 23.0.0
+
+### Major Changes
+
+- [`eedf90fbaa9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eedf90fbaa9) - 'isPreviewableType' no longer requires feature flags to be passed as an argument since we are removing the new card experience feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.0.5
 
 ### Patch Changes

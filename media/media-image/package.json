@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-image",
-  "version": "17.4.2",
+  "version": "17.4.3",
   "description": "Media image element - provides single display of image",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/media-client": "^22.0.0",
+    "@atlaskit/media-client": "^23.0.0",
     "@babel/runtime": "^7.0.0"
   },
   "peerDependencies": {
@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^9.1.0",
-    "@atlaskit/media-common": "^5.0.0",
+    "@atlaskit/media-common": "^6.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/select": "^16.5.0",
     "@atlaskit/spinner": "^15.5.0",

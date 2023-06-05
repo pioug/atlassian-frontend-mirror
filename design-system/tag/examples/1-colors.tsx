@@ -1,12 +1,14 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import RemovableTag from '../src/tag/removable-tag';
 import Tag from '../src/tag/simple-tag';
 
 export default () => (
   <div data-testid="wrapper">
-    <table style={{ maxWidth: 700, margin: 30 }}>
+    <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Non-interactive tags</caption>
       <tr>
         <th></th>
@@ -74,7 +76,7 @@ export default () => (
       </tr>
     </table>
 
-    <table style={{ maxWidth: 700, margin: 30 }}>
+    <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Link tags</caption>
       <tr>
         <th></th>
@@ -203,7 +205,7 @@ export default () => (
       </tr>
     </table>
 
-    <table style={{ maxWidth: 700, margin: 30 }}>
+    <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Removable tags</caption>
       <tr>
         <th></th>
@@ -303,7 +305,7 @@ export default () => (
       </tr>
     </table>
 
-    <table style={{ maxWidth: 700, margin: 30 }}>
+    <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Removable + link tags</caption>
       <tr>
         <th></th>
@@ -446,7 +448,7 @@ export default () => (
       </tr>
     </table>
 
-    <table style={{ maxWidth: 700, margin: 30 }}>
+    <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Link + Element before tags</caption>
       <tr>
         <th></th>
@@ -463,7 +465,9 @@ export default () => (
         <th>Default</th>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="standard"
@@ -472,7 +476,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="blue"
@@ -480,7 +486,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="red"
@@ -488,7 +496,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="yellow"
@@ -496,7 +506,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="green"
@@ -504,7 +516,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="teal"
@@ -512,7 +526,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="purple"
@@ -520,7 +536,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="grey"
@@ -533,7 +551,9 @@ export default () => (
         <td></td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="blueLight"
@@ -541,7 +561,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="redLight"
@@ -549,7 +571,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="yellowLight"
@@ -557,7 +581,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="greenLight"
@@ -565,7 +591,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="tealLight"
@@ -573,7 +601,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="purpleLight"
@@ -581,7 +611,9 @@ export default () => (
         </td>
         <td>
           <Tag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="greyLight"
@@ -590,7 +622,7 @@ export default () => (
       </tr>
     </table>
 
-    <table style={{ maxWidth: 700, margin: 30 }}>
+    <table style={{ maxWidth: 700, margin: token('space.400', '32px') }}>
       <caption>Removable + Link + Element before tags</caption>
       <tr>
         <th></th>
@@ -607,7 +639,9 @@ export default () => (
         <th>Default</th>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="standard"
@@ -616,7 +650,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="blue"
@@ -624,7 +660,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="red"
@@ -632,7 +670,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="yellow"
@@ -640,7 +680,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="green"
@@ -648,7 +690,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="teal"
@@ -656,7 +700,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="purple"
@@ -664,7 +710,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="grey"
@@ -677,7 +725,9 @@ export default () => (
         <td></td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="blueLight"
@@ -685,7 +735,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="redLight"
@@ -693,7 +745,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="yellowLight"
@@ -701,7 +755,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="greenLight"
@@ -709,7 +765,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="tealLight"
@@ -717,7 +775,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="purpleLight"
@@ -725,7 +785,9 @@ export default () => (
         </td>
         <td>
           <RemovableTag
-            elemBefore={<span style={{ paddingLeft: 6 }}>#</span>}
+            elemBefore={
+              <span style={{ paddingLeft: token('space.075', '6px') }}>#</span>
+            }
             href="https://www.atlassian.com/search?query=Carrot%20cake"
             text="Tag"
             color="greyLight"

@@ -85,9 +85,6 @@ function renderCardImageView(
         displayInline={true}
       >
         <CardView
-          featureFlags={{
-            newCardExperience: true,
-          }}
           status={status}
           mediaItemType="file"
           metadata={metadata}

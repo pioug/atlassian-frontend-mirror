@@ -2,6 +2,7 @@ import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import { DynamicTableStateless } from '../src';
 
@@ -11,7 +12,7 @@ interface State {
   highlightedRows: number[];
 }
 
-const paddingStyle = { padding: '8px 0' };
+const paddingStyle = { padding: `${token('space.100', '8px')} 0` };
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default class extends React.Component<{}, State> {

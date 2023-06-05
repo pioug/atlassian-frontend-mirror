@@ -7,6 +7,7 @@ import Select from '@atlaskit/select';
 import * as colors from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import Button, {
   ButtonGroup,
@@ -37,11 +38,13 @@ function ThemeModeSwitcher({
 
   return (
     <React.Fragment>
-      <h3 css={{ marginBottom: 15 }}>Light + Dark Themes (using {title})</h3>
+      <h3 css={{ marginBottom: token('space.200', '16px') }}>
+        Light + Dark Themes (using {title})
+      </h3>
       <div
         /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
         style={{
-          padding: 20,
+          padding: token('space.250', '20px'),
           backgroundColor: mode === 'light' ? colors.N0 : colors.N800,
           border: `2px solid ${colors.N800}`,
           borderRadius: '5px',
@@ -62,7 +65,7 @@ function ThemeModeSwitcher({
             styles={{
               container: (provided) => ({
                 ...provided,
-                marginTop: 10,
+                marginTop: token('space.150', '12px'),
               }),
             }}
             options={options}

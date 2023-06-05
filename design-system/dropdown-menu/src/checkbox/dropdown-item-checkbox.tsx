@@ -1,18 +1,11 @@
-import React, {
-  KeyboardEvent,
-  MouseEvent,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { KeyboardEvent, MouseEvent, useCallback } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
 import ButtonItem from '@atlaskit/menu/button-item';
 
+import CheckboxIcon from '../internal/components/checkbox-icon';
 import useCheckboxState from '../internal/hooks/use-checkbox-state';
 import useRegisterItemWithFocusManager from '../internal/hooks/use-register-item-with-focus-manager';
-import getIconColors from '../internal/utils/get-icon-colors';
 import { DropdownItemCheckboxProps } from '../types';
 
 /**
@@ -53,8 +46,6 @@ const DropdownItemCheckbox = (props: DropdownItemCheckboxProps) => {
     defaultSelected,
   });
 
-  const [iconColors, setIconColors] = useState(getIconColors(defaultSelected));
-
   const onClickHandler = useCallback(
     (event: MouseEvent | KeyboardEvent) => {
       setSelected((selected) => !selected);
@@ -62,10 +53,6 @@ const DropdownItemCheckbox = (props: DropdownItemCheckboxProps) => {
     },
     [providedOnClick, setSelected],
   );
-
-  useEffect(() => {
-    setIconColors(getIconColors(selected));
-  }, [selected]);
 
   const itemRef = useRegisterItemWithFocusManager();
 
@@ -77,14 +64,7 @@ const DropdownItemCheckbox = (props: DropdownItemCheckboxProps) => {
       aria-checked={selected}
       shouldTitleWrap={shouldTitleWrap}
       shouldDescriptionWrap={shouldDescriptionWrap}
-      iconBefore={
-        <CheckboxIcon
-          label=""
-          size="medium"
-          primaryColor={iconColors.primary}
-          secondaryColor={iconColors.secondary}
-        />
-      }
+      iconBefore={<CheckboxIcon checked={selected} />}
       ref={itemRef}
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}

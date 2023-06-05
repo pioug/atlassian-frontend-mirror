@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/react';
 
 import { md } from '@atlaskit/docs';
+import { token } from '@atlaskit/tokens';
 
 import { Block, Centered, RetryContainer } from '../examples-utils';
 import { FadeIn, StaggeredEntrance } from '../src';
@@ -24,8 +25,8 @@ export default () => md`
       <div
         css={{
           width: '158px',
-          margin: '16px auto',
-          '> *': { margin: '8px !important' },
+          margin: `${token('space.200', '16px')} auto`,
+          '> *': { margin: `${token('space.100', '8px')} !important` },
         }}
       >
         <StaggeredEntrance columns={1}>
@@ -47,8 +48,8 @@ export default () => md`
           maxWidth: '474px',
           flexWrap: 'wrap',
           justifyContent: 'flex-start',
-          margin: '16px auto',
-          '> *': { margin: '4px !important' },
+          margin: `${token('space.200', '16px')} auto`,
+          '> *': { margin: `${token('space.050', '4px')} !important` },
         }}
       >
         <StaggeredEntrance columns="responsive">
@@ -76,8 +77,8 @@ export default () => md`
           display: 'flex',
           width: '474px',
           flexWrap: 'wrap',
-          margin: '16px auto',
-          '> *': { margin: '4px !important' },
+          margin: `${token('space.200', '16px')} auto`,
+          '> *': { margin: `${token('space.050', '4px')} !important` },
         }}
       >
         <StaggeredEntrance columns={3}>
@@ -105,10 +106,10 @@ export default () => md`
           width: '600px',
           flexWrap: 'wrap',
           margin: '0 auto',
-          paddingTop: '16px',
+          paddingTop: token('space.200', '16px'),
           li: { listStyle: 'none', margin: 0 },
-          div: { margin: '0 0 8px !important' },
-          '> div': { margin: '4px !important' },
+          div: { margin: `0 0 ${token('space.100', '8px')} !important` },
+          '> div': { margin: `${token('space.050', '4px')} !important` },
         }}
       >
         <div>

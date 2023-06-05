@@ -47,10 +47,12 @@ const LinkCreate = ({
   }
 
   const handleCreate = useCallback(
-    result => {
+    async result => {
       // Reset the form error message
       setFormErrorMessage(undefined);
-      onCreate && onCreate(result.url);
+      if (onCreate) {
+        await onCreate(result.url);
+      }
     },
     [onCreate, setFormErrorMessage],
   );
@@ -88,7 +90,7 @@ const LinkCreateWithModal = (props: LinkCreateProps) => {
 
   const handleCloseComplete = useCallback(() => {
     createAnalyticsEvent(
-      createEventPayload('screen.linkCreateScreen.closed', {}),
+      createEventPayload('ui.modalDialog.closed.linkCreate', {}),
     ).fire(ANALYTICS_CHANNEL);
   }, [createAnalyticsEvent]);
 

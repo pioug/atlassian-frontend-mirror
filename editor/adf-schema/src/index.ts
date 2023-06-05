@@ -128,6 +128,7 @@ export type {
   CodeBlockDefinition,
   CodeBlockWithMarksDefinition,
   CodeDefinition,
+  DatasourceAttributes,
   DataConsumerAttributes,
   DataConsumerDefinition,
   DataType,

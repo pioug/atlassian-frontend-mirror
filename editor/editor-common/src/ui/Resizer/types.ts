@@ -11,3 +11,5 @@ export type HandleStyles = {
 };
 
 export type HandlerHeightSizeType = 'small' | 'medium' | 'large';
+
+export type HandleAlignmentMethod = 'center' | 'sticky';

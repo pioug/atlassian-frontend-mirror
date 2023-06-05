@@ -69,15 +69,7 @@ const nonLoadingStatuses: Array<CardStatus> = [
 const shallowCardViewBase = (
   props: Partial<CardViewOwnProps> = {},
   renderOptions = {},
-) =>
-  shallow(
-    <CardViewBase
-      status="loading"
-      featureFlags={{ newCardExperience: true }}
-      {...props}
-    />,
-    renderOptions,
-  );
+) => shallow(<CardViewBase status="loading" {...props} />, renderOptions);
 
 const file: FileDetails = {
   id: 'abcd',
@@ -332,7 +324,6 @@ describe('CardView', () => {
           <CardViewBase
             status="complete"
             mediaItemType="file"
-            featureFlags={{ newCardExperience: true }}
             dimensions={{ width }}
           />,
         );

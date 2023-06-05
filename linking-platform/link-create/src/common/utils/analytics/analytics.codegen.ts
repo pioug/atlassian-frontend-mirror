@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::1c6720e63161d16bb99fc183b17d1944>>
+ * @codegen <<SignedSource::6c4bc6f47b1cf9cb3a9a70cac9a93775>>
  * @codegenCommand yarn workspace @atlaskit/link-create run codegen-analytics
  */
 export type PackageMetaDataType = {
@@ -20,7 +20,7 @@ export type LinkCreateAnalyticsContextType = {
 export type LinkCreateScreenViewedAttributesType = {};
 export type ButtonClickedCreateAttributesType = {};
 export type ButtonClickedCancelAttributesType = {};
-export type LinkCreateScreenClosedAttributesType = {};
+export type ModalDialogClosedLinkCreateAttributesType = {};
 export type LinkCreateUnhandledErrorCaughtAttributesType = {
   browserInfo: string;
   error: string;
@@ -34,7 +34,7 @@ type AnalyticsEventAttributes = {
   'screen.linkCreateScreen.viewed': LinkCreateScreenViewedAttributesType;
   'ui.button.clicked.create': ButtonClickedCreateAttributesType;
   'ui.button.clicked.cancel': ButtonClickedCancelAttributesType;
-  'screen.linkCreateScreen.closed': LinkCreateScreenClosedAttributesType;
+  'ui.modalDialog.closed.linkCreate': ModalDialogClosedLinkCreateAttributesType;
   'operational.linkCreate.unhandledErrorCaught': LinkCreateUnhandledErrorCaughtAttributesType;
   'track.object.created.linkCreate': ObjectCreatedLinkCreateAttributesType;
 };

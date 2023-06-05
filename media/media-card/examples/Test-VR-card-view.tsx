@@ -115,9 +115,6 @@ function renderCardImageView(
       key={key}
     >
       <CardView
-        featureFlags={{
-          newCardExperience: true,
-        }}
         error={mediaCardErrorState(error)}
         disableOverlay={disableOverlay}
         status={cardStatus || status}

@@ -1,5 +1,17 @@
 # @atlaskit/link-create
 
+## 0.5.6
+
+### Patch Changes
+
+- [`a02d619af5c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a02d619af5c) - Changed onCreate to return a possible Promise to hold the create button spinner while submitting
+
+## 0.5.5
+
+### Patch Changes
+
+- [`7b5fb18bb63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b5fb18bb63) - Update screen event to UI
+
 ## 0.5.4
 
 ### Patch Changes

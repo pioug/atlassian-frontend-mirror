@@ -12,7 +12,7 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               state: 'active',
               introduced: '0.6.0',
               description:
-                'Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+                'Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color.',
             },
           },
           bolder: {
@@ -20,7 +20,8 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               group: 'paint',
               state: 'active',
               introduced: '0.7.0',
-              description: 'Use on bold blue accent backgrounds.',
+              description:
+                'Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color.',
             },
           },
         },
@@ -31,7 +32,7 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               state: 'active',
               introduced: '0.6.0',
               description:
-                'Use for red text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+                'Use for red text on subtlest and subtler red accent backgrounds when there is no meaning tied to the color.',
             },
           },
           bolder: {
@@ -39,7 +40,8 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               group: 'paint',
               state: 'active',
               introduced: '0.7.0',
-              description: 'Use on bold red accent backgrounds.',
+              description:
+                'Use for red text on subtle red accent backgrounds when there is no meaning tied to the color.',
             },
           },
         },
@@ -50,7 +52,7 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               state: 'active',
               introduced: '0.6.0',
               description:
-                'Use for orange text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+                'Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color.',
             },
           },
           bolder: {
@@ -58,7 +60,8 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               group: 'paint',
               state: 'active',
               introduced: '0.7.0',
-              description: 'Use on bold orange accent backgrounds.',
+              description:
+                'Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color.',
             },
           },
         },
@@ -69,7 +72,7 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               state: 'active',
               introduced: '0.6.0',
               description:
-                'Use for yellow text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+                'Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color.',
             },
           },
           bolder: {
@@ -77,7 +80,8 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               group: 'paint',
               state: 'active',
               introduced: '0.7.0',
-              description: 'Use on bold yellow accent backgrounds.',
+              description:
+                'Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color.',
             },
           },
         },
@@ -88,7 +92,7 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               state: 'active',
               introduced: '0.6.0',
               description:
-                'Use for green text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+                'Use for green text on subtlest and subtler green accent backgrounds when there is no meaning tied to the color.',
             },
           },
           bolder: {
@@ -96,7 +100,8 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               group: 'paint',
               state: 'active',
               introduced: '0.7.0',
-              description: 'Use on bold green accent backgrounds.',
+              description:
+                'Use for green text on subtle green accent backgrounds when there is no meaning tied to the color.',
             },
           },
         },
@@ -107,7 +112,7 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               state: 'active',
               introduced: '0.6.0',
               description:
-                'Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+                'Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color.',
             },
           },
           bolder: {
@@ -115,7 +120,8 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               group: 'paint',
               state: 'active',
               introduced: '0.7.0',
-              description: 'Use on bold purple accent backgrounds.',
+              description:
+                'Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color.',
             },
           },
         },
@@ -126,7 +132,7 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               state: 'active',
               introduced: '0.6.0',
               description:
-                'Use for teal text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+                'Use for teal text on subtlest and subtler teal accent backgrounds when there is no meaning tied to the color.',
             },
           },
           bolder: {
@@ -134,7 +140,8 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               group: 'paint',
               state: 'active',
               introduced: '0.7.0',
-              description: 'Use on bold teal accent backgrounds.',
+              description:
+                'Use for teal text on subtle teal accent backgrounds when there is no meaning tied to the color.',
             },
           },
         },
@@ -145,7 +152,7 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               state: 'active',
               introduced: '0.6.0',
               description:
-                'Use for magenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags.',
+                'Use for magenta text on subtlest and subtler magenta accent backgrounds when there is no meaning tied to the color.',
             },
           },
           bolder: {
@@ -153,7 +160,8 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               group: 'paint',
               state: 'active',
               introduced: '0.7.0',
-              description: 'Use on bold magenta accent backgrounds.',
+              description:
+                'Use for magenta text on subtle magenta accent backgrounds when there is no meaning tied to the color.',
             },
           },
         },

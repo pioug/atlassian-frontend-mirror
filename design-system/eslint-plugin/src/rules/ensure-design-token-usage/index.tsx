@@ -1,7 +1,5 @@
-// @ts-expect-error
-import escodegen from 'escodegen-wallaby';
 import type { Rule } from 'eslint';
-import { isNodeOfType, Property } from 'eslint-codemod-utils';
+import { node as generate, isNodeOfType, Property } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
 import { getIsException } from '../utils/get-is-exception';
@@ -217,7 +215,7 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
                 node: node,
                 suggest: getTokenSuggestion(
                   node,
-                  escodegen.generate(node),
+                  generate(node).toString(),
                   config,
                 ),
               });
@@ -294,18 +292,17 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           return;
         }
 
-        if (
-          // @ts-expect-error
-          !isLegacyNamedColor(node.callee.name) ||
-          isException(node)
-        ) {
+        if (!isNodeOfType(node.callee, 'Identifier')) {
+          return;
+        }
+
+        if (!isLegacyNamedColor(node.callee.name) || isException(node)) {
           return;
         }
 
         context.report({
           messageId: 'hardCodedColor',
           node: node,
-          // @ts-expect-error
           suggest: getTokenSuggestion(node, `${node.callee.name}()`, config),
         });
       },
@@ -315,7 +312,14 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           return;
         }
 
-        // @ts-expect-error
+        if (!isNodeOfType(node.parent, 'JSXAttribute')) {
+          return;
+        }
+
+        if (!isNodeOfType(node.parent.name, 'JSXIdentifier')) {
+          return;
+        }
+
         if (['alt', 'src', 'label', 'key'].includes(node.parent.name.name)) {
           return;
         }
@@ -324,16 +328,18 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           return;
         }
 
+        // We only care about hex values
+        if (typeof node.value !== 'string') {
+          return;
+        }
+
         if (
-          // @ts-expect-error
           isHardCodedColor(node.value) ||
-          // @ts-expect-error
           includesHardCodedColor(node.value)
         ) {
           context.report({
             messageId: 'hardCodedColor',
             node,
-            // @ts-expect-error
             suggest: getTokenSuggestion(node, node.value, config),
           });
           return;
@@ -344,12 +350,14 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           return;
         }
 
+        if (!isNodeOfType(node.property, 'Identifier')) {
+          return;
+        }
+
         if (
-          // @ts-expect-error
           isLegacyColor(node.property.name) ||
-          // @ts-expect-error
-          (node.object.name === 'colors' &&
-            // @ts-expect-error
+          (isNodeOfType(node.object, 'Identifier') &&
+            node.object.name === 'colors' &&
             isLegacyNamedColor(node.property.name))
         ) {
           context.report({
@@ -357,14 +365,13 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
             node,
             suggest: getTokenSuggestion(
               node,
-              // @ts-expect-error
-              `${node.object.name}.${node.property.name}`,
+              generate(node).toString(),
               config,
             ),
           });
         }
       },
-      'JSXExpressionContainer > Identifier': (node: any) => {
+      'JSXExpressionContainer > Identifier': (node: Rule.Node) => {
         if (node.type !== 'Identifier') {
           return;
         }

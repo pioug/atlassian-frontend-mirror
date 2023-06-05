@@ -1,8 +1,9 @@
 /** @jsx jsx */
 
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
+import debounce from 'lodash/debounce';
 
 import Button from '@atlaskit/button';
 import AddIcon from '@atlaskit/icon/glyph/add';
@@ -79,12 +80,20 @@ const TokenSelect = ({
 }) => {
   const [colorValue, setColorValue] = useState(value);
 
-  const handleChange = (newValue: string) => {
-    if (colorValue.match(/^#[0-9A-Fa-f]{6}$/)) {
-      onChange({ selectedToken: selectedToken, value: colorValue });
-    }
-    setColorValue(newValue);
-  };
+  const handleChange = useCallback(
+    (newValue: string) => {
+      if (newValue.match(/^#[0-9A-Fa-f]{6}$/)) {
+        onChange({ selectedToken: selectedToken, value: newValue });
+      }
+      setColorValue(newValue);
+    },
+    [onChange, selectedToken],
+  );
+
+  const debouncedOnChange = useMemo(
+    () => debounce(handleChange, 200),
+    [handleChange],
+  );
 
   return (
     <Inline space="space.100" grow="hug">
@@ -122,7 +131,7 @@ const TokenSelect = ({
         type="color"
         value={colorValue}
         onChange={(e) => {
-          handleChange(e.target.value);
+          debouncedOnChange(e.target.value);
         }}
       />
       <TextField

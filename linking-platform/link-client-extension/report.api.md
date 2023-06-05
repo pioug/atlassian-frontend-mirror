@@ -18,7 +18,7 @@
 import type { CardClient } from '@atlaskit/link-provider';
 import type { DatasourceDataRequest } from '@atlaskit/linking-types';
 import type { DatasourceDataResponse } from '@atlaskit/linking-types';
-import type { DatasourceParameters } from '@atlaskit/linking-types';
+import type { DatasourceDetailsRequest } from '@atlaskit/linking-types';
 import type { DatasourceResponse } from '@atlaskit/linking-types';
 import { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
 import { InvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
@@ -27,13 +27,16 @@ import { InvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
 export const mockDatasourceDataResponse: DatasourceDataResponse;
 
 // @public (undocumented)
+export const mockDatasourceDataResponseWithSchema: DatasourceDataResponse;
+
+// @public (undocumented)
 export const mockDatasourceResponse: DatasourceResponse;
 
 // @public (undocumented)
 export const useDatasourceClientExtension: () => {
   getDatasourceDetails: (
     datasourceId: string,
-    data: DatasourceParameters,
+    data: DatasourceDetailsRequest,
   ) => Promise<DatasourceResponse>;
   getDatasourceData: (
     datasourceId: string,

@@ -11,6 +11,7 @@ import { token } from '@atlaskit/tokens';
 export const resizerItemClassName = 'resizer-item';
 export const resizerHandleRightClassName = 'resizer-handle-right';
 export const resizerHandleLeftClassName = 'resizer-handle-left';
+export const resizerHandleStickyClassName = 'resizer-handle-sticky';
 
 // akEditorSelectedNodeClassName from '@atlaskit/editor-shared-styles';
 const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
@@ -36,21 +37,15 @@ export const resizerStyles = css`
   .${resizerHandleRightClassName}, .${resizerHandleLeftClassName} {
     display: flex;
     flex-direction: column;
-
-    /* vertical align */
     justify-content: center;
   }
 
   .${resizerHandleRightClassName} {
     align-items: flex-end;
-    /* padding-right: 12px; */
-    /* margin-right: -${resizerHandlePadding}px; */
   }
 
   .${resizerHandleLeftClassName} {
     align-items: flex-start;
-    /* padding-left: 12px; */
-    /* margin-left: -${resizerHandlePadding}px; */
   }
 
   .${resizerHandleRightClassName}::after,
@@ -98,5 +93,12 @@ export const resizerStyles = css`
   .${resizerHandleRightClassName}.${resizerHandlerClassName.large}::after,
     .${resizerHandleLeftClassName}.${resizerHandlerClassName.large}::after {
     height: 96px;
+  }
+
+  .${resizerHandleRightClassName}.${resizerHandleStickyClassName}::after,
+    .${resizerHandleLeftClassName}.${resizerHandleStickyClassName}::after {
+    position: sticky;
+    top: 10px;
+    bottom: 10px;
   }
 `;

@@ -6,6 +6,7 @@ import Button from '@atlaskit/button/standard-button';
 import __noop from '@atlaskit/ds-lib/noop';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 
 import PageHeader from '../../src';
 
@@ -27,7 +28,7 @@ const barContent = (
     <div style={{ flex: '0 0 200px' }}>
       <TextField isCompact placeholder="Filter" aria-label="Filter" />
     </div>
-    <div style={{ flex: '0 0 200px', marginLeft: 8 }}>
+    <div style={{ flex: '0 0 200px', marginLeft: token('space.100', '8px') }}>
       <Select
         spacing="compact"
         placeholder="Choose an option"

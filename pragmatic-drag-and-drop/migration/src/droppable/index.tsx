@@ -37,6 +37,7 @@ import {
   useParentDroppableId,
 } from './droppable-context';
 import { idleState, reducer } from './state';
+import { VirtualPlaceholder } from './virtual-placeholder';
 
 export function Droppable({
   children,
@@ -238,6 +239,7 @@ export function Droppable({
       shouldRenderCloneWhileDragging,
       isDropDisabled,
       type,
+      mode,
     };
   }, [
     direction,
@@ -245,12 +247,33 @@ export function Droppable({
     shouldRenderCloneWhileDragging,
     isDropDisabled,
     type,
+    mode,
   ]);
+
+  /**
+   * For virtual lists we portal a placeholder in when dragging from the list.
+   *
+   * This is because `<Draggable />`'s can be unmounted at any time, so we
+   * cannot rely on rendering the placeholder as a sibling.
+   */
+  const shouldPortalPlaceholder =
+    draggingFromThisWith && mode === 'virtual' && element;
 
   return (
     <DroppableContextProvider value={contextValue}>
       {children(provided, snapshot)}
       {shouldPortalDropIndicator && createPortal(dropIndicator, element)}
+      {shouldPortalPlaceholder &&
+        createPortal(
+          <VirtualPlaceholder
+            droppableId={droppableId}
+            draggableId={draggingFromThisWith}
+            type={type}
+            direction={direction}
+            isDropDisabled={isDropDisabled}
+          />,
+          element,
+        )}
       {renderClone && (
         <DraggableClone
           droppableId={droppableId}

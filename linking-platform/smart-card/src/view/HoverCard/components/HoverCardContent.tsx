@@ -42,6 +42,7 @@ import { messages } from '../../../messages';
 import { useSmartCardActions } from '../../../state/actions';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { useSmartCardState } from '../../../state/store';
+import { useFeatureFlag } from '@atlaskit/link-provider';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
@@ -88,6 +89,8 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   onMouseLeave,
   showServerActions,
 }) => {
+  const useLozengeAction = useFeatureFlag('useLozengeAction') as string;
+
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const defaultAnalytics = useSmartLinkAnalytics(url, undefined, id);
   const analytics = _analytics ?? defaultAnalytics;
@@ -190,7 +193,10 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     onClick: onClick,
     onResolve: onResolve,
     renderers: renderers,
-    showServerActions,
+    showServerActions:
+      useLozengeAction === 'experiment' || showServerActions
+        ? { showStateActionFeatureDiscovery: true }
+        : false,
     ui: flexibleUiOptions,
     url: url,
     children: {},

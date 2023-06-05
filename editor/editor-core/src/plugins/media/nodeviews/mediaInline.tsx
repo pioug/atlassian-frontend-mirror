@@ -57,8 +57,10 @@ export const createMediaNodeUpdater = (
  * using the contextid
  *
  */
-export const updateMediaNodeAttributes = async (props: MediaInlineProps) => {
-  const mediaNodeUpdater = createMediaNodeUpdater(props);
+export const updateMediaNodeAttributes = async (
+  props: MediaInlineProps,
+  mediaNodeUpdater: MediaNodeUpdater,
+) => {
   const { addPendingTask } = props.mediaPluginState;
 
   const node = props.node;
@@ -74,6 +76,7 @@ export const updateMediaNodeAttributes = async (props: MediaInlineProps) => {
   const hasDifferentContextId = await mediaNodeUpdater.hasDifferentContextId();
 
   if (hasDifferentContextId) {
+    // Copy paste flow (different pages)
     try {
       const copyNode = mediaNodeUpdater.copyNode({
         traceId: node.attrs.__mediaTraceId,
@@ -97,9 +100,14 @@ export const MediaInline: React.FC<MediaInlineProps> = (props) => {
     MediaClientConfig | undefined
   >();
 
+  const [isContextIdUnsync, setIsContextIdUnsync] = useState<boolean>(true);
+
   useEffect(() => {
+    const mediaNodeUpdater = createMediaNodeUpdater(props);
+    mediaNodeUpdater.hasDifferentContextId().then(setIsContextIdUnsync);
+
     handleNewNode(props);
-    updateMediaNodeAttributes(props);
+    updateMediaNodeAttributes(props, mediaNodeUpdater);
     updateViewMediaClientConfig(props);
 
     return () => {
@@ -124,10 +132,13 @@ export const MediaInline: React.FC<MediaInlineProps> = (props) => {
   };
 
   /*
-   * Only show the loading view if the media provider is not ready
-   * prevents calling the media API before the provider is ready
+   * Show the loading view if
+   * 1. The media provider is not ready
+   * 2. Context Id is not synced
+   * to prevent calling the media API (in mounting of `MediaInlineCard`)
+   * before the prerequisites meet
    */
-  if (!viewMediaClientConfig) {
+  if (!viewMediaClientConfig || isContextIdUnsync) {
     return <MediaInlineCardLoadingView message="" isSelected={false} />;
   }
 

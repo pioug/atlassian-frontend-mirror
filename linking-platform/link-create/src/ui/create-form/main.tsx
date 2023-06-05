@@ -69,7 +69,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
       if (Object.keys(errors).length !== 0) {
         return errors;
       }
-      onSubmit(data);
+      return onSubmit(data);
     },
     [createAnalyticsEvent, getValidators, onSubmit],
   );
@@ -116,8 +116,8 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
                   {intl.formatMessage(messages.close)}
                 </Button>
                 <LoadingButton
-                  appearance="primary"
                   type="submit"
+                  appearance="primary"
                   isLoading={submitting}
                   testId={'create-button'}
                 >

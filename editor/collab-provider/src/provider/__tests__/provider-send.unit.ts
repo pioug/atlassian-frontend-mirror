@@ -206,15 +206,17 @@ describe('#sendData', () => {
               error: { data: { code: 'HEAD_VERSION_UPDATE_FAILED' } },
             });
             // @ts-ignore just spying on a private method, nothing to see here
-            expect(provider.emit).not.toHaveBeenCalled();
+            expect(provider.emit).toHaveBeenCalledTimes(1);
             expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
               1,
             );
 
             expect(
               fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenCalledTimes(1);
-            expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+            ).toHaveBeenCalledTimes(2);
+            expect(
+              fakeAnalyticsWebClient.sendOperationalEvent,
+            ).toHaveBeenNthCalledWith(2, {
               action: 'addSteps',
               actionSubject: 'collab',
               attributes: {
@@ -264,14 +266,16 @@ describe('#sendData', () => {
               error: { data: { code: 'VERSION_NUMBER_ALREADY_EXISTS' } },
             });
             // @ts-ignore just spying on a private method, nothing to see here
-            expect(provider.emit).not.toHaveBeenCalled();
+            expect(provider.emit).toHaveBeenCalledTimes(1);
             expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
               1,
             );
             expect(
               fakeAnalyticsWebClient.sendOperationalEvent,
-            ).toHaveBeenCalledTimes(1);
-            expect(fakeAnalyticsWebClient.sendOperationalEvent).toBeCalledWith({
+            ).toHaveBeenCalledTimes(2);
+            expect(
+              fakeAnalyticsWebClient.sendOperationalEvent,
+            ).toHaveBeenNthCalledWith(2, {
               action: 'addSteps',
               actionSubject: 'collab',
               attributes: {
@@ -352,7 +356,7 @@ describe('#sendData', () => {
           });
 
           // @ts-ignore provider emit is protected
-          expect(provider.emit).not.toHaveBeenCalled();
+          expect(provider.emit).toHaveBeenCalledTimes(1);
           // expect(provider.emit).toHaveBeenCalledWith('error', {
           //   code: 'INTERNAL_SERVICE_ERROR',
           //   message: 'Collab service has experienced an internal server error',
@@ -442,7 +446,7 @@ describe('#sendData', () => {
         it('should call emit analytics event on invalid acknowledgement', () => {
           ackCallback({ wat: true });
           // @ts-ignore just spying on a private method, nothing to see here
-          expect(provider.emit).not.toHaveBeenCalled();
+          expect(provider.emit).toHaveBeenCalledTimes(1);
           expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(
             1,
           );

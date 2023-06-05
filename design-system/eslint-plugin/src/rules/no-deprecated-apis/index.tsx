@@ -134,7 +134,9 @@ const rule = createRule<
         deprecatedConfig[jsxAttributeName].forEach((importItem) => {
           const importNode = source.ast.body
             .filter(isImportDeclaration)
-            .find((node) => node.source.value === importItem.moduleSpecifier);
+            .find((node) =>
+              node.source.value.includes(importItem.moduleSpecifier),
+            );
 
           if (!importNode) {
             return;

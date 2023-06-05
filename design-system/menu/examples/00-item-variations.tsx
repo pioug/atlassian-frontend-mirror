@@ -4,6 +4,7 @@ import { HashRouter, Link } from 'react-router-dom';
 
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import StarIcon from '@atlaskit/icon/glyph/star';
+import { token } from '@atlaskit/tokens';
 
 import {
   ButtonItem,
@@ -107,7 +108,10 @@ const ItemVariants = () => {
         // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         cssFn={() => {
           return {
-            padding: '12px 20px',
+            padding: `${token('space.150', '12px')} ${token(
+              'space.250',
+              '20px',
+            )}`,
             [`& [data-item-elem-after]`]: { opacity: 0 },
             [`&:hover [data-item-elem-after]`]: { opacity: 1 },
           };

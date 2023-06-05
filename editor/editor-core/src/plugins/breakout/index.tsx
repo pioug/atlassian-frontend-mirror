@@ -20,6 +20,7 @@ import { findSupportedNodeForBreakout } from './utils/find-breakout-node';
 import { BreakoutPluginState } from './types';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { ContentNodeWithPos } from 'prosemirror-utils';
 
 type BreakoutPMMark = Omit<PMMark, 'attrs'> & { attrs: BreakoutMarkAttrs };
 
@@ -129,11 +130,11 @@ class BreakoutView {
 }
 
 function shouldPluginStateUpdate(
-  newBreakoutNode: PMNode<any> | null,
-  currentBreakoutNode: PMNode<any> | null,
+  newBreakoutNode?: ContentNodeWithPos,
+  currentBreakoutNode?: ContentNodeWithPos,
 ): boolean {
   if (newBreakoutNode && currentBreakoutNode) {
-    return !newBreakoutNode.eq(currentBreakoutNode);
+    return newBreakoutNode !== currentBreakoutNode;
   }
   return newBreakoutNode || currentBreakoutNode ? true : false;
 }
@@ -151,12 +152,11 @@ function createPlugin(
       },
       apply(tr, pluginState: BreakoutPluginState) {
         const breakoutNode = findSupportedNodeForBreakout(tr.selection);
-        const node = breakoutNode ? breakoutNode.node : null;
 
-        if (shouldPluginStateUpdate(node, pluginState.breakoutNode)) {
+        if (shouldPluginStateUpdate(breakoutNode, pluginState.breakoutNode)) {
           const nextPluginState = {
             ...pluginState,
-            breakoutNode: node,
+            breakoutNode,
           };
           dispatch(pluginKey, nextPluginState);
           return nextPluginState;
@@ -199,7 +199,7 @@ const LayoutButtonWrapper = ({
       mountPoint={mountPoint}
       boundariesElement={boundariesElement}
       scrollableElement={scrollableElement}
-      node={breakoutState?.breakoutNode ?? null}
+      node={breakoutState?.breakoutNode?.node ?? null}
     />
   );
 };

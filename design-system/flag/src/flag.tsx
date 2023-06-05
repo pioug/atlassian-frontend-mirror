@@ -13,6 +13,7 @@ import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 import FocusRing from '@atlaskit/focus-ring';
+import { token } from '@atlaskit/tokens';
 
 import { DEFAULT_APPEARANCE } from './constants';
 import { flagTextColor, flagBackgroundColor, flagIconColor } from './theme';
@@ -158,7 +159,10 @@ const Flag: FC<FlagProps> = (props) => {
               space={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
             >
               <Inline space="space.100" spread="space-between">
-                <Box display="block" UNSAFE_style={{ paddingTop: 2 }}>
+                <Box
+                  display="block"
+                  UNSAFE_style={{ paddingTop: token('space.025', '2px') }}
+                >
                   <Text
                     color={textColor}
                     fontWeight="semibold"

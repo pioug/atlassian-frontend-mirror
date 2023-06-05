@@ -39,8 +39,6 @@ import {
 import { CardStatus } from '../../../types';
 
 describe('extractFilePreviewStatus()', () => {
-  const dummyFeatureFlags = {};
-
   describe('Local Preview', () => {
     const mediaType = 'some-mediaType' as MediaType;
     const mimeType = 'some-mimeType';
@@ -53,9 +51,9 @@ describe('extractFilePreviewStatus()', () => {
     it('should check if no preview is available', () => {
       asMockFunction(isPreviewableFileState).mockReturnValueOnce(false);
 
-      expect(
-        extractFilePreviewStatus(fileState, false, dummyFeatureFlags),
-      ).toMatchObject(expect.objectContaining({ hasPreview: false }));
+      expect(extractFilePreviewStatus(fileState, false)).toMatchObject(
+        expect.objectContaining({ hasPreview: false }),
+      );
 
       expect(isPreviewableFileState).toBeCalledWith(fileState);
       expect(isImageRepresentationReady).toBeCalledWith(fileState);
@@ -66,9 +64,9 @@ describe('extractFilePreviewStatus()', () => {
       asMockFunction(isSupportedLocalPreview).mockReturnValueOnce(true);
       asMockFunction(isMimeTypeSupportedByBrowser).mockReturnValueOnce(true);
 
-      expect(
-        extractFilePreviewStatus(fileState, false, dummyFeatureFlags),
-      ).toMatchObject(expect.objectContaining({ hasPreview: true }));
+      expect(extractFilePreviewStatus(fileState, false)).toMatchObject(
+        expect.objectContaining({ hasPreview: true }),
+      );
 
       expect(isPreviewableFileState).toBeCalledWith(fileState);
       expect(isSupportedLocalPreview).toBeCalledWith(mediaType);
@@ -80,9 +78,9 @@ describe('extractFilePreviewStatus()', () => {
       asMockFunction(isSupportedLocalPreview).mockReturnValueOnce(true);
       asMockFunction(isMimeTypeSupportedByBrowser).mockReturnValueOnce(true);
 
-      expect(
-        extractFilePreviewStatus(fileState, true, dummyFeatureFlags),
-      ).toMatchObject(expect.objectContaining({ hasPreview: false }));
+      expect(extractFilePreviewStatus(fileState, true)).toMatchObject(
+        expect.objectContaining({ hasPreview: false }),
+      );
 
       expect(isPreviewableFileState).toBeCalledWith(fileState);
       expect(isSupportedLocalPreview).toBeCalledWith(mediaType);
@@ -94,9 +92,9 @@ describe('extractFilePreviewStatus()', () => {
       asMockFunction(isSupportedLocalPreview).mockReturnValueOnce(true);
       asMockFunction(isMimeTypeSupportedByBrowser).mockReturnValueOnce(false);
 
-      expect(
-        extractFilePreviewStatus(fileState, false, dummyFeatureFlags),
-      ).toMatchObject(expect.objectContaining({ hasPreview: false }));
+      expect(extractFilePreviewStatus(fileState, false)).toMatchObject(
+        expect.objectContaining({ hasPreview: false }),
+      );
 
       expect(isPreviewableFileState).toBeCalledWith(fileState);
       expect(isSupportedLocalPreview).toBeCalledWith(mediaType);
@@ -112,9 +110,9 @@ describe('extractFilePreviewStatus()', () => {
       const fileState = {
         mediaType: mediaType,
       } as FileState;
-      expect(
-        extractFilePreviewStatus(fileState, false, dummyFeatureFlags),
-      ).toMatchObject(expect.objectContaining({ hasPreview: false }));
+      expect(extractFilePreviewStatus(fileState, false)).toMatchObject(
+        expect.objectContaining({ hasPreview: false }),
+      );
 
       expect(isPreviewableFileState).toBeCalledWith(fileState);
       expect(isSupportedLocalPreview).toBeCalledWith(mediaType);
@@ -129,9 +127,9 @@ describe('extractFilePreviewStatus()', () => {
     const fileState = {
       mediaType: 'some-mediaType' as MediaType,
     } as FileState;
-    expect(
-      extractFilePreviewStatus(fileState, false, dummyFeatureFlags),
-    ).toMatchObject(expect.objectContaining({ hasPreview: true }));
+    expect(extractFilePreviewStatus(fileState, false)).toMatchObject(
+      expect.objectContaining({ hasPreview: true }),
+    );
 
     expect(isImageRepresentationReady).toBeCalledWith(fileState);
   });
@@ -143,11 +141,11 @@ describe('extractFilePreviewStatus()', () => {
       mediaType: mediaType,
     } as FileState;
 
-    expect(
-      extractFilePreviewStatus(fileState, false, dummyFeatureFlags),
-    ).toMatchObject(expect.objectContaining({ isPreviewable: true }));
+    expect(extractFilePreviewStatus(fileState, false)).toMatchObject(
+      expect.objectContaining({ isPreviewable: true }),
+    );
     // Common helpers should be used for this operation
-    expect(isPreviewableType).toBeCalledWith(mediaType, dummyFeatureFlags);
+    expect(isPreviewableType).toBeCalledWith(mediaType);
   });
 
   it(`should use file state's file size`, () => {
@@ -159,11 +157,7 @@ describe('extractFilePreviewStatus()', () => {
     } as unknown as FileState;
 
     expect(
-      extractFilePreviewStatus(
-        dummyFileStateWithoutSize,
-        false,
-        dummyFeatureFlags,
-      ),
+      extractFilePreviewStatus(dummyFileStateWithoutSize, false),
     ).toMatchObject(
       expect.objectContaining({
         hasFilesize: false,
@@ -171,11 +165,7 @@ describe('extractFilePreviewStatus()', () => {
     );
 
     expect(
-      extractFilePreviewStatus(
-        dummyFileStateWithSize,
-        false,
-        dummyFeatureFlags,
-      ),
+      extractFilePreviewStatus(dummyFileStateWithSize, false),
     ).toMatchObject(
       expect.objectContaining({
         hasFilesize: true,

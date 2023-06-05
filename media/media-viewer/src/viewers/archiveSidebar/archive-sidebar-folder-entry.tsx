@@ -46,6 +46,7 @@ export class ArchiveSidebarFolderEntry extends React.Component<ArchiveSidebarFol
           <ButtonItem
             iconBefore={this.renderEntryIcon(entry)}
             onClick={onClick}
+            // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
             cssFn={() => itemStyle}
           >
             {this.formatName(root, entry.name)}

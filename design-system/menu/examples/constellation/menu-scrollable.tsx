@@ -28,7 +28,7 @@ export default () => {
         ),
         borderRadius: 4,
         maxWidth: 320,
-        margin: '16px auto',
+        margin: `${token('space.200', '16px')} auto`,
       }}
     >
       <MenuGroup maxHeight={300}>

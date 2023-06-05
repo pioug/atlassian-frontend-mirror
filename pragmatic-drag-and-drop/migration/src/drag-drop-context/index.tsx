@@ -15,6 +15,7 @@ import type {
   DragStart,
   DragUpdate,
   DroppableId,
+  DroppableMode,
   DropResult,
   MovementMode,
 } from 'react-beautiful-dnd';
@@ -25,6 +26,7 @@ import { getDraggableDimensions } from '../hooks/use-captured-dimensions';
 import { useCleanupFn } from '../hooks/use-cleanup-fn';
 import { attributes, getAttribute } from '../utils/attributes';
 import { findDragHandle } from '../utils/find-drag-handle';
+import { getClosestPositionedElement } from '../utils/get-closest-positioned-element';
 
 import { cancelPointerDrag } from './cancel-drag';
 import { isSameLocation } from './draggable-location';
@@ -60,6 +62,14 @@ export function resetServerContext() {
 
 function getContextId() {
   return `${instanceCount++}`;
+}
+
+function getOffset(args: { element: HTMLElement; mode: DroppableMode }) {
+  const offsetElement = getClosestPositionedElement(args);
+  return {
+    top: offsetElement.offsetTop,
+    left: offsetElement.offsetLeft,
+  };
 }
 
 export function DragDropContext({
@@ -261,27 +271,30 @@ export function DragDropContext({
           ? getAttribute(activeElement, attributes.dragHandle.draggableId)
           : null;
 
-      dragStateRef.current = {
-        isDragging: true,
-        mode,
-        draggableDimensions: getDraggableDimensions(sourceElement),
-        restoreFocusTo: dragHandleDraggableId,
-
-        draggableId,
-        type,
-        prevDestination: start.source,
-        sourceLocation: start.source,
-        targetLocation: start.source,
-      };
-
-      onBeforeDragStart?.(start);
-
       const { droppableId } = start.source;
       const droppable = droppableRegistry.getEntry({ droppableId });
       rbdInvariant(
         droppable,
         `should have entry for droppable '${droppableId}'`,
       );
+
+      dragStateRef.current = {
+        isDragging: true,
+        mode,
+        draggableDimensions: getDraggableDimensions(sourceElement),
+        restoreFocusTo: dragHandleDraggableId,
+        draggableId,
+        type,
+        prevDestination: start.source,
+        sourceLocation: start.source,
+        targetLocation: start.source,
+        draggableInitialOffsetInSourceDroppable: getOffset({
+          element: sourceElement,
+          mode: droppable.mode,
+        }),
+      };
+
+      onBeforeDragStart?.(start);
 
       /**
        * This is used to signal to <Draggable> and <Droppable> elements

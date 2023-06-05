@@ -117,7 +117,7 @@ interface LinkCreateCallbackProviderProps {
     url: string;
     objectId: string;
     objectType: string;
-  }) => void;
+  }) => Promise<void> | void;
   onFailure?: (errorMessage: string) => void;
 }
 
@@ -136,7 +136,7 @@ export interface LinkCreateProps {
   entityKey: string;
   groupKey?: string;
   onCancel?: () => void;
-  onCreate?: (url: string) => void;
+  onCreate?: (url: string) => Promise<void> | void;
   onFailure?: (error: unknown) => void;
   // (undocumented)
   plugins: LinkCreatePlugin[];

@@ -37,6 +37,7 @@ const headerStyles: React.CSSProperties = {
     'url(https://atlassian.design/react_assets/images/cards/personality.png) center top no-repeat',
   backgroundSize: 'cover',
   borderRadius: '4px 4px 0 0',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   paddingTop: 170,
   position: 'relative',
 };
@@ -46,7 +47,13 @@ const CustomHeader = () => {
 
   return (
     <div style={headerStyles}>
-      <span style={{ position: 'absolute', right: 0, top: 4 }}>
+      <span
+        style={{
+          position: 'absolute',
+          right: 0,
+          top: token('space.050', '4px'),
+        }}
+      >
         <Button onClick={onClose} appearance="link">
           <CrossIcon
             label="Close Modal"
@@ -60,6 +67,7 @@ const CustomHeader = () => {
 };
 
 const bodyStyles: React.CSSProperties = {
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   padding: 90,
   backgroundColor: token('elevation.surface.overlay', N30),
   overflowY: 'auto',

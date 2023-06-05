@@ -5,46 +5,16 @@ import type {
   DroppableMode,
 } from 'react-beautiful-dnd';
 
-import { rbdInvariant } from '../../drag-drop-context/rbd-invariant';
 import { attributes } from '../../utils/attributes';
 import { findClosestScrollContainer } from '../../utils/find-closest-scroll-container';
 import { getElement } from '../../utils/find-element';
 import { findPlaceholder } from '../../utils/find-placeholder';
+import { getClosestPositionedElement } from '../../utils/get-closest-positioned-element';
 import { getElementByDraggableLocation } from '../../utils/get-element-by-draggable-location';
 import { getGapOffset } from '../gap';
 
 import { directionMapping, lineOffset } from './constants';
 import type { IndicatorSizeAndOffset } from './types';
-
-/**
- * Returns the closest element that is offset relative to the scroll container.
- */
-function getOffsetElement({
-  element,
-  mode,
-}: {
-  element: HTMLElement;
-  mode: DroppableMode;
-}) {
-  if (mode === 'standard') {
-    return element;
-  }
-
-  const { offsetParent } = element;
-  if (!offsetParent) {
-    /**
-     * Sometimes this function gets called after the element has been
-     * disconnected / unmounted.
-     *
-     * This is a bailout. It could be handled more explicitly.
-     */
-    return element;
-  }
-
-  rbdInvariant(offsetParent instanceof HTMLElement);
-
-  return offsetParent;
-}
 
 /**
  * Returns the dimensions for a drop indicator either before or after a
@@ -67,7 +37,7 @@ function measureDraggable({
 }) {
   const { mainAxis, crossAxis } = directionMapping[direction];
 
-  const offsetElement = getOffsetElement({ element, mode });
+  const offsetElement = getClosestPositionedElement({ element, mode });
 
   const gapOffset = getGapOffset({
     element,
@@ -101,18 +71,21 @@ function measureDraggable({
  */
 function measurePlaceholder({
   element,
-  mode,
   direction,
 }: {
   element: HTMLElement;
-  mode: DroppableMode;
   direction: Direction;
 }) {
   const { mainAxis, crossAxis } = directionMapping[direction];
 
-  const offsetElement = getOffsetElement({ element, mode });
-
-  const baseOffset = offsetElement[mainAxis.offset] - lineOffset;
+  /**
+   * This function measures against the `element` directly instead of an
+   * `offsetElement` because:
+   * - For standard lists, that is already the behavior.
+   * - For virtual lists, we know that the `element` is being absolutely
+   *   positioned (and not an ancestor).
+   */
+  const baseOffset = element[mainAxis.offset] - lineOffset;
   const mainAxisOffset = baseOffset + element[mainAxis.length] / 2;
 
   return {
@@ -120,8 +93,8 @@ function measurePlaceholder({
       offset: mainAxisOffset,
     },
     crossAxis: {
-      offset: offsetElement[crossAxis.offset],
-      length: offsetElement[crossAxis.length],
+      offset: element[crossAxis.offset],
+      length: element[crossAxis.length],
     },
   };
 }
@@ -217,11 +190,7 @@ export function getIndicatorSizeAndOffset({
       return null;
     }
 
-    return measurePlaceholder({
-      element,
-      mode,
-      direction,
-    });
+    return measurePlaceholder({ element, direction });
   }
 
   if (targetLocation.index === 0) {

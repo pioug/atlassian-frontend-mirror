@@ -21,7 +21,6 @@ describe('Clipboard', () => {
 
   const someFeatureFlags: MediaFeatureFlags = {
     folderUploads: true,
-    newCardExperience: false,
   };
 
   const config: ClipboardConfig = {

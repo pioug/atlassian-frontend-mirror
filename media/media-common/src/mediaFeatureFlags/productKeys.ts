@@ -5,7 +5,6 @@ const productKeys: ProductKeys = {
     /**
      * Note: Confluence Flags must be prefixed with "confluence.frontend" in order to integrate properly with the product
      */
-    newCardExperience: 'confluence.frontend.media.cards.new.experience',
     captions: 'confluence.frontend.fabric.editor.media.captions',
     mediaInline: 'confluence.frontend.fabric.editor.media.inline',
     folderUploads: 'confluence.frontend.media.picker.folder.uploads',
@@ -15,7 +14,6 @@ const productKeys: ProductKeys = {
     memoryCacheLogging: 'confluence-frontend-media-card-memory-cache-logging',
   },
   jira: {
-    newCardExperience: 'issue.details.media-cards-new-experience',
     captions: 'issue.details.editor.media.captions',
     // Manged by Linking Platform. No Rollout plan found for Jira
     mediaInline: '',

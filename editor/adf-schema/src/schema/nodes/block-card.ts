@@ -1,4 +1,5 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
+import { RichMediaAttributes } from './types/rich-media-common';
 
 export interface UrlType {
   /**
@@ -14,6 +15,23 @@ export interface DataType {
   data: object;
 }
 
+export interface DatasourceAttributeProperties extends RichMediaAttributes {
+  id: string;
+  parameters: object;
+  views: [{ type: string; properties?: object }];
+}
+
+/**
+ * @stage 0
+ */
+export interface DatasourceAttributes {
+  /**
+   * @validatorFn safeUrl
+   */
+  url?: string;
+  datasource: DatasourceAttributeProperties;
+}
+
 export type CardAttributes = UrlType | DataType;
 
 /**
@@ -21,7 +39,7 @@ export type CardAttributes = UrlType | DataType;
  */
 export interface BlockCardDefinition {
   type: 'blockCard';
-  attrs: CardAttributes;
+  attrs: CardAttributes | DatasourceAttributes;
 }
 
 export const blockCard: NodeSpec = {
@@ -32,6 +50,7 @@ export const blockCard: NodeSpec = {
   attrs: {
     url: { default: null },
     data: { default: null },
+    datasource: { default: null },
   },
   parseDOM: [
     {
@@ -43,10 +62,12 @@ export const blockCard: NodeSpec = {
       getAttrs: (dom) => {
         const anchor = dom as HTMLAnchorElement;
         const data = anchor.getAttribute('data-card-data');
+        const datasource = anchor.getAttribute('data-datasource');
 
         return {
           url: anchor.getAttribute('href') || null,
           data: data ? JSON.parse(data) : null,
+          datasource: datasource ? JSON.parse(datasource) : null,
         };
       },
     },
@@ -57,10 +78,12 @@ export const blockCard: NodeSpec = {
       getAttrs: (dom) => {
         const anchor = dom as HTMLDivElement;
         const data = anchor.getAttribute('data-card-data');
+        const datasource = anchor.getAttribute('data-datasource');
 
         return {
           url: anchor.getAttribute('data-card-url') || null,
           data: data ? JSON.parse(data) : null,
+          datasource: datasource ? JSON.parse(datasource) : null,
         };
       },
     },
@@ -70,6 +93,9 @@ export const blockCard: NodeSpec = {
       'data-block-card': '',
       href: node.attrs.url || '',
       'data-card-data': node.attrs.data ? JSON.stringify(node.attrs.data) : '',
+      'data-datasource': node.attrs.datasource
+        ? JSON.stringify(node.attrs.datasource)
+        : '',
     };
     return ['a', attrs, node?.attrs?.url || ' '];
   },

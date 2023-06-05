@@ -52,7 +52,7 @@ const ScrollContainerExample = () => (
       border: `1px solid ${token('color.border.bold', 'black')}`,
       maxHeight: '400px',
       maxWidth: '800px',
-      marginTop: '20px',
+      marginTop: token('space.250', '20px'),
       overflow: 'auto',
     }}
   >
@@ -61,11 +61,11 @@ const ScrollContainerExample = () => (
         width: '300%',
         height: '250%',
         boxSizing: 'border-box',
-        padding: '16px',
+        padding: token('space.200', '16px'),
         background: token('elevation.surface', 'white'),
       }}
     >
-      <b style={{ display: 'block', marginBottom: '2rem' }}>
+      <b style={{ display: 'block', marginBottom: token('space.400', '2rem') }}>
         Scroll to the middle of this container to see the popper <span>↘</span>
       </b>
       <Lorem count={10} />

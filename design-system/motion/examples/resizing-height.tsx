@@ -40,7 +40,12 @@ export default () => {
 
   return (
     <div>
-      <div css={{ textAlign: 'center', '> *': { margin: '2px' } }}>
+      <div
+        css={{
+          textAlign: 'center',
+          '> *': { margin: token('space.025', '2px') },
+        }}
+      >
         {[1, 2, 3, 4, 5].map((number) => (
           <Button
             testId={`button--${number}`}
@@ -119,7 +124,7 @@ export default () => {
                         css={{
                           margin: 0,
                           fontWeight: 300,
-                          marginLeft: '8px',
+                          marginLeft: token('space.100', '8px'),
                         }}
                       >
                         {logos[index][1]}

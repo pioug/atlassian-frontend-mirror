@@ -1,13 +1,14 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { Gap } from '../examples-util/helpers';
 import Avatar, { AvatarItem } from '../src';
 
 export default () => (
-  <div style={{ padding: 20, width: 200 }}>
+  <div style={{ padding: token('space.250', '20px'), width: 200 }}>
     <Tooltip content="John Smith (approved)">
       <Avatar
         name="John Smith"

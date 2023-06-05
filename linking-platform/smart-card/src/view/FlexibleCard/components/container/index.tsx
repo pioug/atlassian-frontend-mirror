@@ -291,7 +291,10 @@ const Container: React.FC<ContainerProps> = ({
         canOpen={hoverCardCanOpen}
         closeOnChildClick={true}
         hidePreviewButton={hideHoverCardPreviewButton}
-        showServerActions={showServerActions}
+        // EDM-6709 extends the internal prop for showServerActions type to be
+        // an object. If we decide to use expose the type for hover preview
+        // remove the Boolean() conversion here.
+        showServerActions={Boolean(showServerActions)}
       >
         {containerContent}
       </HoverCard>

@@ -157,8 +157,6 @@ export interface MediaFeatureFlags {
   // (undocumented)
   memoryCacheLogging?: boolean;
   // (undocumented)
-  newCardExperience?: boolean;
-  // (undocumented)
   observedWidth?: boolean;
   // (undocumented)
   timestampOnVideo?: boolean;

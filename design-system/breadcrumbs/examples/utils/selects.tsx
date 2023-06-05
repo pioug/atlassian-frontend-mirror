@@ -7,11 +7,12 @@ import Select, {
   StylesConfig,
   ValueType,
 } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 
 const styles: StylesConfig<OptionType> = {
   container: (base) => ({
     ...base,
-    margin: '8px',
+    margin: token('space.100', '8px'),
     width: '160px',
     display: 'inline-block',
   }),

@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import { token } from '@atlaskit/tokens';
 
 import Textfield from '../src';
 
@@ -14,7 +15,12 @@ export default function ElementsBeforeAfterExample() {
         testId="after-input"
         id="after-input"
         elemAfterInput={
-          <div style={{ paddingRight: '6px', lineHeight: '100%' }}>
+          <div
+            style={{
+              paddingRight: token('space.075', '6px'),
+              lineHeight: '100%',
+            }}
+          >
             <ErrorIcon label="error" />
           </div>
         }
@@ -25,7 +31,12 @@ export default function ElementsBeforeAfterExample() {
         testId="before-input"
         id="before-input"
         elemBeforeInput={
-          <div style={{ paddingLeft: '6px', lineHeight: '100%' }}>
+          <div
+            style={{
+              paddingLeft: token('space.075', '6px'),
+              lineHeight: '100%',
+            }}
+          >
             <Avatar size="small" borderColor="transparent" />
           </div>
         }

@@ -103,7 +103,6 @@ const container = document.createElement('div');
     expectedContainer: container,
     defaultFeatureFlags: {
       folderUploads: false,
-      newCardExperience: false,
     },
   },
   {
@@ -111,7 +110,6 @@ const container = document.createElement('div');
     expectedContainer: document.body,
     defaultFeatureFlags: {
       folderUploads: false,
-      newCardExperience: false,
     },
   },
 ].forEach((data) => {
@@ -496,7 +494,6 @@ const container = document.createElement('div');
               config={config}
               featureFlags={{
                 folderUploads: true,
-                newCardExperience: true,
               }}
             />
             ,
@@ -512,7 +509,6 @@ const container = document.createElement('div');
           expect.objectContaining({
             context: expectedContext({
               folderUploads: true,
-              newCardExperience: true,
             }),
             payload: expectedPayload,
           }),

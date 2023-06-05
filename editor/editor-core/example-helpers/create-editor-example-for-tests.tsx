@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
 import { Step } from 'prosemirror-transform';
+import { TextSelection } from 'prosemirror-state';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
@@ -118,6 +119,8 @@ function createEditorWindowBindings<T extends EditorProps>(
           onMount(actions: any) {
             const view = actions._privateGetEditorView();
             win.__editorView = view;
+            // @ts-ignore
+            win.__TextSelection = TextSelection;
             win.__documentToJSON = function () {
               const transform = new JSONTransformer();
               const doc = view!.state.doc;
@@ -449,6 +452,7 @@ type WindowWithExtensionsForTesting = Window & {
   ) => void;
   __updateEditorProps?: (props: any, opts: any) => void;
   __editorView?: EditorView;
+  __TextSelection?: TextSelection;
   __applyRemoteSteps?: (__applyRemoteSteps: Array<string>) => void;
   __documentToJSON?: () => JSONDocNode;
   onChangeCounter?: number;

@@ -1,5 +1,18 @@
 # @atlaskit/editor-mobile-bridge
 
+## 185.1.0
+
+### Patch Changes
+
+- [`bb442ced942`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb442ced942) - Remove newCardExperience feature flag
+- Updated dependencies
+
+## 185.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 185.0.2
 
 ### Patch Changes

@@ -80,7 +80,7 @@ export interface LinkCreateProps {
   /**
    * This callback for when the resource has been successfully created.
    */
-  onCreate?: (url: string) => void;
+  onCreate?: (url: string) => Promise<void> | void;
 
   /**
    * This callback for any errors

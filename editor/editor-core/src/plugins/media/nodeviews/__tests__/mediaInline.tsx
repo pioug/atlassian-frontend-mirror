@@ -153,12 +153,29 @@ describe('MediaInline ReactNodeView', () => {
     });
   });
 
-  test('renders MediaInlineCard when mediaClientConfig is present', async () => {
+  test('renders MediaInlineCard when mediaClientConfig is present and contextId is synced', async () => {
+    (MediaNodeUpdater as any).setMock(
+      'hasDifferentContextId',
+      jest.fn().mockReturnValue(Promise.resolve(false)),
+    );
     const wrapper = mountWithIntl(<MediaInline {...mediaInlineProps} />);
     await flushPromises();
     wrapper.update();
-    const mediaInlineLoadingView = wrapper.find(MediaInlineCard).instance();
-    expect(mediaInlineLoadingView).toBeDefined();
+    const mediaInlineView = wrapper.find(MediaInlineCard).instance();
+    expect(mediaInlineView).toBeDefined();
+  });
+
+  test('returns loading view without message when mediaClientConfig is present and contextId is not synced', async () => {
+    const wrapper = mountWithIntl(<MediaInline {...mediaInlineProps} />);
+    await flushPromises();
+    wrapper.update();
+    const mediaInlineLoadingView = wrapper
+      .findWhere((el) => el.name() === 'MediaInlineCardLoadingView')
+      .instance();
+    expect(mediaInlineLoadingView.props).toEqual({
+      message: '',
+      isSelected: false,
+    });
   });
 
   it('copied node adds a promise to pending tasks', async () => {

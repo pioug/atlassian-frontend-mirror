@@ -169,6 +169,7 @@ export default function build(styleDictionary: Core) {
           getPalette('defaultPalette'),
         );
         styleDictionary.extend(config).buildPlatform('cssAsModule');
+        styleDictionary.extend(config).buildPlatform('raw');
         return;
       }
 

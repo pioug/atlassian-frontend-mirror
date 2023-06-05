@@ -15,6 +15,7 @@ import {
   StatuspageIcon,
   TrelloIcon,
 } from '@atlaskit/logo';
+import { token } from '@atlaskit/tokens';
 
 import { Block, RetryContainer } from '../examples-utils';
 import { FadeIn, StaggeredEntrance } from '../src';
@@ -39,7 +40,12 @@ export default () => {
 
   return (
     <div>
-      <div css={{ textAlign: 'center', '> *': { margin: '2px' } }}>
+      <div
+        css={{
+          textAlign: 'center',
+          '> *': { margin: token('space.025', '2px') },
+        }}
+      >
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 50, 80].map((num) => (
           <Button
             key={num}
@@ -64,7 +70,7 @@ export default () => {
             flexWrap: 'wrap',
             padding: 0,
             justifyContent: 'flex-start',
-            margin: '16px auto !important',
+            margin: `${token('space.200', '16px')} auto !important`,
             div: { margin: '0' },
           }}
         >
@@ -76,7 +82,11 @@ export default () => {
                   {(props) => (
                     <li
                       {...props}
-                      css={{ display: 'block', padding: 0, margin: '4px' }}
+                      css={{
+                        display: 'block',
+                        padding: 0,
+                        margin: token('space.050', '4px'),
+                      }}
                     >
                       <Block appearance={state.size}>
                         {/* eslint-disable-next-line @repo/internal/react/no-clone-element */}

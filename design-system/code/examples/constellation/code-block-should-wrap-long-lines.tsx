@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';
 import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
 
 import { CodeBlock } from '../../src';
 
@@ -30,7 +31,7 @@ const CodeBlockShouldWrapLongLinesExample = () => {
     <>
       <div
         style={{
-          paddingBottom: '24px',
+          paddingBottom: token('space.300', '24px'),
           display: 'flex',
           flexDirection: 'column',
         }}

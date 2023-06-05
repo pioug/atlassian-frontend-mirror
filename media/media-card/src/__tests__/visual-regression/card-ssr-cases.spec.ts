@@ -4,13 +4,11 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 function getURL(): string {
-  return (
-    getExampleUrl(
-      'media',
-      'media-card',
-      'Test-VR-SSR-cases',
-      global.__BASEURL__,
-    ) + `&additionalProps={"featureFlags":{"newCardExperience":true}}`
+  return getExampleUrl(
+    'media',
+    'media-card',
+    'Test-VR-SSR-cases',
+    global.__BASEURL__,
   );
 }
 

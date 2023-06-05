@@ -241,5 +241,43 @@ describe('extractState', () => {
         },
       });
     });
+
+    describe('server action options', () => {
+      it('returns action when server action options is an object (truthy)', () => {
+        const state = extractState(jiraTask as JsonLd.Response, {}, id);
+
+        expect(state?.action).toEqual({ read, update });
+      });
+
+      describe('feature discovery', () => {
+        it('returns feature discovery option with truthy value', () => {
+          const state = extractState(
+            jiraTask as JsonLd.Response,
+            { showStateActionFeatureDiscovery: true },
+            id,
+          );
+
+          expect(state?.action).toEqual({
+            read,
+            update,
+            showFeatureDiscovery: true,
+          });
+        });
+
+        it('returns feature discovery option with falsy value', () => {
+          const state = extractState(
+            jiraTask as JsonLd.Response,
+            { showStateActionFeatureDiscovery: false },
+            id,
+          );
+
+          expect(state?.action).toEqual({
+            read,
+            update,
+            showFeatureDiscovery: false,
+          });
+        });
+      });
+    });
   });
 });

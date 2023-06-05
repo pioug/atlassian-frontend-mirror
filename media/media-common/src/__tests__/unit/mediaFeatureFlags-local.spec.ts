@@ -12,16 +12,17 @@ describe('Media Feature Flags local', () => {
   storeWindowProperty('localStorage');
 
   it('should return key value if localStorage is accessible and key exists', () => {
-    window.localStorage.setItem('newCardExperience', 'true');
-    expect(getLocalMediaFeatureFlag('newCardExperience')).toEqual('true');
-    window.localStorage.removeItem('newCardExperience');
+    window.localStorage.setItem('someFlag', 'true');
+    expect(getLocalMediaFeatureFlag('someFlag')).toEqual('true');
+    window.localStorage.removeItem('someFlag');
   });
 
   it('should return null if localStorage is accessible and key does not exist', () => {
-    expect(getLocalMediaFeatureFlag('newCardExperience')).toBeNull();
+    expect(getLocalMediaFeatureFlag('someFlag')).toBeNull();
   });
 
   it('should return null if localStorage is inaccessible', () => {
+    window.localStorage.setItem('someFlag', 'true');
     Object.defineProperty(window, 'localStorage', {
       configurable: true,
       writable: true,
@@ -34,6 +35,6 @@ describe('Media Feature Flags local', () => {
       },
     });
 
-    expect(getLocalMediaFeatureFlag('newCardExperience')).toBeNull();
+    expect(getLocalMediaFeatureFlag('someFlag')).toBeNull();
   });
 });

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   ButtonItem,
   CustomItem,
@@ -24,7 +26,7 @@ const Link = ({ children, href, className, onClick, tabIndex }: LinkProps) => {
 
 export default function Example() {
   return (
-    <div data-testid="example" style={{ padding: 12 }}>
+    <div data-testid="example" style={{ padding: token('space.150', '12px') }}>
       <MenuGroup maxWidth={300}>
         <Section>
           <ButtonItem isSelected>Button</ButtonItem>

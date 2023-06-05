@@ -12,11 +12,14 @@ export enum EVENT_ACTION {
   PUBLISH_PAGE = 'publishPage',
   GET_CURRENT_STATE = 'getCurrentState',
   INVALIDATE_TOKEN = 'invalidateToken',
+  SEND_STEPS_RETRY = 'sendStepsRetry',
+  CATCHUP_AFTER_MAX_SEND_STEPS_RETRY = 'catchupAfterMaxSendStepsRetry',
   DROPPED_STEPS = 'droppedStepInCatchup',
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',
   FAILURE = 'FAILURE',
+  INFO = 'INFO',
 }
 export enum ADD_STEPS_TYPE {
   ACCEPTED = 'ACCEPTED',
@@ -206,6 +209,23 @@ type GetCurrentStateFailureAnalyticsEvent = {
   };
 };
 
+type SendStepsRetryAnalyticsEvent = {
+  eventAction: EVENT_ACTION.SEND_STEPS_RETRY;
+  attributes: {
+    documentAri: string;
+    eventStatus: EVENT_STATUS.SUCCESS;
+    count: number;
+  };
+};
+
+type CatchupAfterMaxSendStepsRetryAnalyticsEvent = {
+  eventAction: EVENT_ACTION.CATCHUP_AFTER_MAX_SEND_STEPS_RETRY;
+  attributes: {
+    documentAri: string;
+    eventStatus: EVENT_STATUS.SUCCESS;
+  };
+};
+
 export type ActionAnalyticsEvent =
   | AddStepsSuccessAnalyticsEvent
   | AddStepsFailureAnalyticsEvent
@@ -224,6 +244,8 @@ export type ActionAnalyticsEvent =
   | GetCurrentStateSuccessAnalyticsEvent
   | GetCurrentStateFailureAnalyticsEvent
   | InvalidateTokenAnalyticsEvent
+  | SendStepsRetryAnalyticsEvent
+  | CatchupAfterMaxSendStepsRetryAnalyticsEvent
   | CatchUpDroppedStepsEvent;
 
 export const ACK_MAX_TRY = 60;

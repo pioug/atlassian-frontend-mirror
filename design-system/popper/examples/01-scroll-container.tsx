@@ -56,7 +56,7 @@ export default () => (
       border: '1px solid black',
       maxHeight: '400px',
       maxWidth: '800px',
-      marginTop: '20px',
+      marginTop: token('space.250', '20px'),
       overflow: 'auto',
     }}
   >
@@ -65,7 +65,7 @@ export default () => (
         width: '300%',
         height: '250%',
         boxSizing: 'border-box',
-        padding: '16px',
+        padding: token('space.200', '16px'),
       }}
     >
       {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}

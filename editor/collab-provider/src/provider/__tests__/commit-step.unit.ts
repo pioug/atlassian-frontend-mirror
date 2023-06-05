@@ -24,6 +24,8 @@ const config = {
 const provider = createSocketIOCollabProvider(config);
 const fakeStep = new ReplaceStep(1, 1, Slice.empty);
 
+const emitMock = jest.fn();
+
 const createTestHelpers = () => {
   // using the Object['attribute'] syntax here to avoid calling
   // ts-ignore over every line. As a rule this syntax will only be used
@@ -45,6 +47,7 @@ const createTestHelpers = () => {
       onStepsAdded: provider['documentService'].onStepsAdded,
       onErrorHandled: provider['documentService']['onErrorHandled'],
       analyticsHelper: provider['analyticsHelper'],
+      emit: emitMock,
     });
   };
   const presetThrottledCommit = (
@@ -62,6 +65,7 @@ const createTestHelpers = () => {
       onStepsAdded: provider['documentService'].onStepsAdded,
       onErrorHandled: provider['documentService']['onErrorHandled'],
       analyticsHelper: provider['analyticsHelper'],
+      emit: emitMock,
     });
   };
 
@@ -199,6 +203,28 @@ describe('commitStep', () => {
           type: 'ACCEPTED',
         });
       });
+
+      it('commit attempt & success event emitted', () => {
+        expect(emitMock).toBeCalledTimes(2);
+        expect(emitMock.mock.calls).toMatchInlineSnapshot(`
+          Array [
+            Array [
+              "commit-status",
+              Object {
+                "status": "attempt",
+                "version": 1,
+              },
+            ],
+            Array [
+              "commit-status",
+              Object {
+                "status": "success",
+                "version": 2,
+              },
+            ],
+          ]
+        `);
+      });
     });
 
     describe('on unsuccessfull (ERROR) response', () => {
@@ -223,6 +249,31 @@ describe('commitStep', () => {
         });
       });
 
+      it('commit attempt & failure event emitted', () => {
+        broadcastMockErrorWithCode('Some weird stuff going on');
+        presetCommitStep([fakeStep], 1, 'user1', 'client1');
+
+        expect(emitMock).toBeCalledTimes(2);
+        expect(emitMock.mock.calls).toMatchInlineSnapshot(`
+          Array [
+            Array [
+              "commit-status",
+              Object {
+                "status": "attempt",
+                "version": 1,
+              },
+            ],
+            Array [
+              "commit-status",
+              Object {
+                "status": "failure",
+                "version": 1,
+              },
+            ],
+          ]
+        `);
+      });
+
       describe('analytics action event send with', () => {
         it('unknown/no response error code', () => {
           broadcastMockErrorWithCode('Some weird stuff going on');
@@ -239,22 +290,32 @@ describe('commitStep', () => {
           broadcastMockErrorWithCode('HEAD_VERSION_UPDATE_FAILED');
           presetCommitStep([fakeStep], 1, 'user1', 'client1');
 
-          expect(actionEventSpy).toBeCalledTimes(1);
-          expect(actionEventSpy).toBeCalledWith('addSteps', 'FAILURE', {
-            latency: 0,
-            type: 'REJECTED',
-          });
+          expect(actionEventSpy).toBeCalledTimes(2);
+          expect(actionEventSpy).toHaveBeenNthCalledWith(
+            2,
+            'addSteps',
+            'FAILURE',
+            {
+              latency: 0,
+              type: 'REJECTED',
+            },
+          );
         });
 
         it('version number exists response error code', () => {
           broadcastMockErrorWithCode('VERSION_NUMBER_ALREADY_EXISTS');
           presetCommitStep([fakeStep], 1, 'user1', 'client1');
 
-          expect(actionEventSpy).toBeCalledTimes(1);
-          expect(actionEventSpy).toBeCalledWith('addSteps', 'FAILURE', {
-            latency: 0,
-            type: 'REJECTED',
-          });
+          expect(actionEventSpy).toBeCalledTimes(2);
+          expect(actionEventSpy).toHaveBeenNthCalledWith(
+            2,
+            'addSteps',
+            'FAILURE',
+            {
+              latency: 0,
+              type: 'REJECTED',
+            },
+          );
         });
       });
 

@@ -79,6 +79,8 @@
     "@atlaskit/primitives": "^0.9.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/select": "^16.5.0",
+    "@atlaskit/spinner": "^15.5.1",
+    "@atlaskit/tabs": "^13.4.0",
     "@atlaskit/tag": "^11.5.0",
     "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/theme": "^12.5.0",

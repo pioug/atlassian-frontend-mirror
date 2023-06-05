@@ -409,14 +409,11 @@ export const emToPixels = <T extends unknown>(
 const percentageOrEmOrAuto = /(%$)|(\d+em$)|(auto$)/;
 
 export const removePixelSuffix = (value: string | number) => {
-  const isString = typeof value === 'string';
-  // @ts-ignore This shouldn't be a type error but CI is complaining
-  if (isString && percentageOrEmOrAuto.test(value)) {
+  if (typeof value === 'string' && percentageOrEmOrAuto.test(value)) {
     return value;
   }
 
-  // @ts-ignore This shouldn't be a type error but CI is complaining
-  return Number(isString ? value.replace('px', '') : value);
+  return Number(typeof value === 'string' ? value.replace('px', '') : value);
 };
 
 const invalidSpacingUnitRegex = /(%$)|(\d+rem$)|(vw$)|(vh$)/;

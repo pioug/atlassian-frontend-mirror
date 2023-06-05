@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-import type { Direction } from 'react-beautiful-dnd';
+import type { Direction, DroppableMode } from 'react-beautiful-dnd';
 
 import { rbdInvariant } from '../drag-drop-context/rbd-invariant';
 
@@ -10,6 +10,7 @@ export type DroppableContextProps = {
   shouldRenderCloneWhileDragging: boolean;
   isDropDisabled: boolean;
   type: string;
+  mode: DroppableMode;
 };
 
 const DroppableContext = createContext<DroppableContextProps | null>(null);

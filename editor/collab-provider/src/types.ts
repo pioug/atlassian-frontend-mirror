@@ -118,6 +118,11 @@ export interface Config {
   throwOnNotConnected?: boolean;
   // initial draft passed on provider creation
   initialDraft?: InitialDraft;
+  /**
+   * When a page is being published this number can control the number of failed steps until a catchup is triggered.
+   * The default value is MAX_STEP_REJECTED_ERROR (15).
+   */
+  failedStepLimitBeforeCatchupOnPublish?: number;
 }
 
 export interface InitAndAuthData {
@@ -175,6 +180,10 @@ export type CollabMetadataPayload = Metadata;
 export type CollabLocalStepsPayload = {
   steps: readonly Step[];
 };
+export type CollabCommitStatusEventPayload = {
+  status: 'attempt' | 'success' | 'failure';
+  version: number;
+};
 
 export interface CollabEvents {
   'metadata:changed': CollabMetadataPayload;
@@ -188,6 +197,7 @@ export interface CollabEvents {
   error: ProviderError;
   entity: any;
   connecting: CollabConnectingPayload;
+  'commit-status': CollabCommitStatusEventPayload;
 }
 
 // Channel

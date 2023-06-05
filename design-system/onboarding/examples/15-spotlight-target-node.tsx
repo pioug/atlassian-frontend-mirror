@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import Lorem from 'react-lorem-component';
 import { Transition } from 'react-transition-group';
 
+import { token } from '@atlaskit/tokens';
+
 import { Spotlight, SpotlightManager, SpotlightTransition } from '../src';
 
 import { Highlight } from './styled';
@@ -49,7 +51,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
     const duration = 300;
     return (
       <SpotlightManager>
-        <p style={{ marginBottom: '1em' }}>
+        <p style={{ marginBottom: token('space.200', '1em') }}>
           Use <code>targetNode</code> when you can&apos;t wrap the target in a{' '}
           <code>{'<SpotlightTarget />'}</code>. For example you need to wait for
           the node to be present in the DOM.
@@ -74,7 +76,7 @@ export default class SpotlightNodeExample extends Component<Object, State> {
             }
             const base = {
               transition: `opacity ${duration}ms, transform ${duration}ms`,
-              marginTop: 20,
+              marginTop: token('space.250', '20px'),
             };
             const anim: Record<string, AnimationState> = {
               entering: { opacity: 0, transform: 'translateX(-100%)' },
@@ -86,7 +88,9 @@ export default class SpotlightNodeExample extends Component<Object, State> {
               <div style={style}>
                 <Highlight ref={this.drawer} color="green">
                   <div style={{ width: 240 }}>
-                    <h3 style={{ marginBottom: 20 }}>Animated Element</h3>
+                    <h3 style={{ marginBottom: token('space.250', '20px') }}>
+                      Animated Element
+                    </h3>
                     <Lorem count={2} />
                   </div>
                 </Highlight>

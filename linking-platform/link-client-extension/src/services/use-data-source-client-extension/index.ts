@@ -5,7 +5,7 @@ import { request } from '@atlaskit/linking-common';
 import type {
   DatasourceDataRequest,
   DatasourceDataResponse,
-  DatasourceParameters,
+  DatasourceDetailsRequest,
   DatasourceResponse,
 } from '@atlaskit/linking-types';
 
@@ -18,7 +18,7 @@ export const useDatasourceClientExtension = () => {
   const resolverUrl = useResolverUrl(client);
 
   const getDatasourceDetails = useCallback(
-    (datasourceId: string, data: DatasourceParameters) =>
+    (datasourceId: string, data: DatasourceDetailsRequest) =>
       request<DatasourceResponse>(
         'post',
         `${resolverUrl}/datasource/${datasourceId}/fetch/details`,

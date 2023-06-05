@@ -1,5 +1,12 @@
 # @atlaskit/collab-provider
 
+## 9.1.0
+
+### Minor Changes
+
+- [`2c0c19cc14b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c0c19cc14b) - ESS-3609: add step commit status events for confl save indicator feature
+- [`470c3a7e8c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/470c3a7e8c6) - ESS-3644: allow max steps retry param to be passed thru collab provider to allow getFinalAcknowledgeState to catch up sooner on publish
+
 ## 9.0.1
 
 ### Patch Changes

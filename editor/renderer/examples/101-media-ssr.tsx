@@ -32,7 +32,6 @@ const Page = ({ ssr, title, mediaClientConfig }: PageProps) => {
         mode: ssr,
         config: mediaClientConfig, // TODO: update example to use Media Mock https://product-fabric.atlassian.net/browse/MEX-1260
       },
-      featureFlags: { newCardExperience: true },
     },
   };
   return (

@@ -88,6 +88,8 @@ export type {
   CodeBlockBaseDefinition,
   CodeBlockDefinition,
   CodeBlockWithMarksDefinition,
+  DatasourceAttributes,
+  DatasourceAttributeProperties,
   DataType,
   DateDefinition,
   DecisionItemDefinition,

@@ -44,6 +44,7 @@ export class DocumentService {
   private onSyncUpError?: SyncUpErrorFunction;
   private stepQueue: StepQueueState;
   private stepRejectCounter: number = 0;
+  private aggressiveCatchup: boolean = false;
 
   // ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
   private clientId?: number | string;
@@ -55,10 +56,11 @@ export class DocumentService {
    * @param analyticsHelper - Helper for analytics events
    * @param fetchCatchup - Function to fetch "catchup" data, data required to rebase current steps to the latest version.
    * @param providerEmitCallback - Callback for emitting events to listeners on the provider
-   * @param broadcastMetadata - Callback for broadcasting metadata changes to other clients
    * @param broadcast - Callback for broadcasting events to other clients
    * @param getUserId - Callback to fetch the current user's ID
    * @param onErrorHandled - Callback to handle
+   * @param metadataService
+   * @param failedStepsBeforeCatchupOnPublish - Control MAX_STEP_REJECTED_ERROR during page publishes.
    */
   constructor(
     private participantsService: ParticipantsService,
@@ -73,6 +75,7 @@ export class DocumentService {
     private getUserId: () => string | undefined,
     private onErrorHandled: (error: InternalError) => void,
     private metadataService: MetadataService,
+    private failedStepsBeforeCatchupOnPublish: number = MAX_STEP_REJECTED_ERROR,
   ) {
     this.stepQueue = new StepQueueState();
   }
@@ -373,6 +376,7 @@ export class DocumentService {
   };
 
   getFinalAcknowledgedState = async (): Promise<ResolvedEditorState> => {
+    this.aggressiveCatchup = true;
     try {
       startMeasure(MEASURE_NAME.PUBLISH_PAGE, this.analyticsHelper);
 
@@ -391,9 +395,10 @@ export class DocumentService {
           latency: measure?.duration,
         },
       );
-
+      this.aggressiveCatchup = false;
       return currentState;
     } catch (error) {
+      this.aggressiveCatchup = false;
       const measure = stopMeasure(
         MEASURE_NAME.PUBLISH_PAGE,
         this.analyticsHelper,
@@ -550,10 +555,24 @@ export class DocumentService {
   onStepRejectedError = () => {
     this.stepRejectCounter++;
     logger(`Steps rejected (tries=${this.stepRejectCounter})`);
+    this.analyticsHelper?.sendActionEvent(
+      EVENT_ACTION.SEND_STEPS_RETRY,
+      EVENT_STATUS.INFO,
+      {
+        count: this.stepRejectCounter,
+      },
+    );
+    let maxRetries = this.aggressiveCatchup
+      ? this.failedStepsBeforeCatchupOnPublish
+      : MAX_STEP_REJECTED_ERROR;
 
-    if (this.stepRejectCounter >= MAX_STEP_REJECTED_ERROR) {
+    if (this.stepRejectCounter >= maxRetries) {
       logger(
         `The steps were rejected too many times (tries=${this.stepRejectCounter}, limit=${MAX_STEP_REJECTED_ERROR}). Trying to catch-up.`,
+      );
+      this.analyticsHelper?.sendActionEvent(
+        EVENT_ACTION.CATCHUP_AFTER_MAX_SEND_STEPS_RETRY,
+        EVENT_STATUS.INFO,
       );
       this.throttledCatchup();
     } else {
@@ -599,6 +618,7 @@ export class DocumentService {
       onStepsAdded: this.onStepsAdded,
       onErrorHandled: this.onErrorHandled,
       analyticsHelper: this.analyticsHelper,
+      emit: this.providerEmitCallback,
     });
   }
 }

@@ -2,6 +2,7 @@
 import React from 'react';
 
 import RightArrow from '@atlaskit/icon/glyph/arrow-right';
+import { token } from '@atlaskit/tokens';
 
 import { ButtonItem } from '../src';
 
@@ -22,7 +23,10 @@ export default () => (
       // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
       cssFn={({ isSelected }) => {
         return {
-          padding: '12px 20px',
+          padding: `${token('space.150', '12px')} ${token(
+            'space.250',
+            '20px',
+          )}`,
           border: '1px solid #CDCDCD',
           backgroundColor: 'aliceblue',
           borderRadius: 3,

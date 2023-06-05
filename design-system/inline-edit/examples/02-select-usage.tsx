@@ -79,7 +79,7 @@ const InlineEditExample = () => {
           editValue && editValue.length === 0 ? (
             <ReadViewContainer>Click to choose options</ReadViewContainer>
           ) : (
-            <div style={{ padding: `${gridSize() / 2}px` }}>
+            <div style={{ padding: token('space.050', '4px') }}>
               <Group>
                 {editValue &&
                   editValue.map((option: OptionType) => (

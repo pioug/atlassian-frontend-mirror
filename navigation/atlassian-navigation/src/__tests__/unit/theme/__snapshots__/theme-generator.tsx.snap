@@ -128,7 +128,7 @@ Object {
     "color": "var(--ds-text-subtlest, #6B778C)",
   },
   "focus": Object {
-    "borderColor": "var(--ds-border-focused, #DFE1E6)",
+    "borderColor": "var(--ds-border-focused, #2684FF)",
   },
   "hover": Object {
     "backgroundColor": "var(--ds-background-input-hovered, #FFFFFF)",

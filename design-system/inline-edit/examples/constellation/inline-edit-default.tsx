@@ -37,7 +37,10 @@ const InlineEditDefaultExample = () => {
   return (
     <div
       style={{
-        padding: `${gridSize}px ${gridSize}px ${gridSize * 6}px`,
+        padding: `${token('space.100', '8px')} ${token(
+          'space.100',
+          '8px',
+        )} ${token('space.600', '48px')}`,
       }}
     >
       <InlineEdit

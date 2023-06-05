@@ -18,6 +18,7 @@ import {
   SpotlightTarget,
   SpotlightTransition,
 } from '@atlaskit/onboarding';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 const TooltipButton = ({
@@ -67,7 +68,7 @@ function ThreeStepSpotlight(props: SpotlightProps) {
         style={{
           display: 'flex',
           justifyContent: 'space-between',
-          padding: '24px',
+          padding: token('space.300', '24px'),
         }}
       >
         <SpotlightTarget name="1">{stepOne}</SpotlightTarget>

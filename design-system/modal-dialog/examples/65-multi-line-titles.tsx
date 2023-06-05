@@ -6,6 +6,7 @@ import Button from '@atlaskit/button/standard-button';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
+import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
   Appearance,
@@ -47,7 +48,7 @@ export default function MultiLineTitles() {
   );
 
   return (
-    <div style={{ padding: 16 }}>
+    <div style={{ padding: token('space.200', '16px') }}>
       <Button appearance="primary" testId="modal-trigger" onClick={open}>
         Open modal
       </Button>

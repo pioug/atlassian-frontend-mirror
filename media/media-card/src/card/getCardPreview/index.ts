@@ -245,7 +245,7 @@ export const shouldResolvePreview = ({
 }) => {
   const statusIsPreviewable = isPreviewableStatus(
     status,
-    extractFilePreviewStatus(fileState, isBannedLocalPreview, featureFlags),
+    extractFilePreviewStatus(fileState, isBannedLocalPreview),
   );
 
   const dimensionsAreBigger = isBigger(prevDimensions, dimensions);

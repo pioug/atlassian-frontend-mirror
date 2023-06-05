@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import {
+  DatasourceDataResponse,
   DatasourceDataResponseItem,
   DatasourceResponseSchemaProperty,
   StatusType,
@@ -85,7 +86,7 @@ const columns: DatasourceResponseSchemaProperty[] = [
     .map((prop, i) => ({ ...prop, key: prop.key + i, title: prop.title + i })),
 ];
 
-const initialVisibleColumnKeys: string[] = [
+export const initialVisibleColumnKeys: string[] = [
   // Order of actual columns is in different order is on purpose
   // To demonstrate that this list is a king
   'type',
@@ -121,11 +122,17 @@ const detailsResponse = {
   },
 };
 
-const generateDataResponse = (
-  cloudId: string = '',
+const generateDataResponse = ({
+  cloudId = '',
   maxItems = 99,
   numberOfLoads = 0,
-) => ({
+  includeSchema,
+}: {
+  cloudId: string;
+  maxItems?: number;
+  numberOfLoads?: number;
+  includeSchema: boolean;
+}): DatasourceDataResponse => ({
   data: mockJiraData.data
     .slice(0, maxItems)
     .map((item): DatasourceDataResponseItem => {
@@ -183,6 +190,7 @@ const generateDataResponse = (
   totalIssues: mockJiraData.totalIssues,
   nextPageCursor:
     numberOfLoads < 4 && maxItems > 1 ? 'c3RhcnRBdD01' : undefined,
+  ...(includeSchema && { schema: detailsResponse.schema }),
 });
 
 let numberOfLoads = 0;
@@ -208,14 +216,24 @@ export const mockDatasourceFetchRequests = (datasourceId?: string | null) => {
       const requestBody = JSON.parse(details.body);
       const {
         parameters: { cloudId },
+        includeSchema,
       } = requestBody;
       return new Promise(resolve => {
         const delay = numberOfLoads++ * 1000;
         setTimeout(() => {
           if (cloudId === '11111') {
-            resolve(generateDataResponse(cloudId, 1, numberOfLoads));
+            resolve(
+              generateDataResponse({
+                cloudId,
+                maxItems: 1,
+                numberOfLoads,
+                includeSchema,
+              }),
+            );
           } else {
-            resolve(generateDataResponse(cloudId, undefined, numberOfLoads));
+            resolve(
+              generateDataResponse({ cloudId, numberOfLoads, includeSchema }),
+            );
           }
         }, delay);
       });

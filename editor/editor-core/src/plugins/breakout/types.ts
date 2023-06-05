@@ -1,4 +1,4 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { ContentNodeWithPos } from 'prosemirror-utils';
 export interface BreakoutPluginState {
-  breakoutNode: PMNode;
+  breakoutNode: ContentNodeWithPos;
 }

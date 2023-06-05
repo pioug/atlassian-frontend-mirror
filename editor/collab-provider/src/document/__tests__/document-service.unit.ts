@@ -862,6 +862,7 @@ describe('document-service', () => {
           broadcastMock,
           analyticsHelperMock,
           onErrorHandledMock,
+          providerEmitCallbackMock,
         } = createMockService();
         (sendableSteps as jest.Mock).mockReturnValue({
           steps: ['step'],
@@ -872,6 +873,7 @@ describe('document-service', () => {
           broadcast: broadcastMock,
           userId: undefined,
           clientId: undefined,
+          emit: providerEmitCallbackMock,
           steps: ['step'],
           version: 'mockVersion',
           onStepsAdded: service.onStepsAdded,

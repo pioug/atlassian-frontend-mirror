@@ -4,6 +4,8 @@ import { ChangeEvent, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { Checkbox } from '../src';
 
 interface CheckedItems {
@@ -65,7 +67,7 @@ const IndeterminateCheckbox = () => {
 
   return (
     <div>
-      <p css={{ marginBottom: '8px' }}>
+      <p css={{ marginBottom: token('space.100', '8px') }}>
         An indeterminate checkbox can be used to show partially checked states.
         The parent checkbox below will be indeterminate until all its&#39;
         children are checked.
@@ -83,7 +85,7 @@ const IndeterminateCheckbox = () => {
         css={{
           display: 'flex',
           flexDirection: 'column',
-          paddingLeft: '24px',
+          paddingLeft: token('space.300', '24px'),
         }}
       >
         <Checkbox

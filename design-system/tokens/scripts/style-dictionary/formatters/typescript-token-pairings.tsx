@@ -44,12 +44,36 @@ function classifyTokenPair(
   foregroundToken: ContrastTokenMetadata,
   backgroundToken: ContrastTokenMetadata,
 ) {
+  // Other backgrounds (brand, accent.blue, etc...) are matched with foregrounds that have the same modifier
+  const hasMatchingRole = !!(
+    foregroundToken.role === backgroundToken.role ||
+    // include 'items with no modifiers'
+    foregroundToken.role === 'default' ||
+    !foregroundToken.role
+  );
+
+  const hasStandardBackground =
+    (backgroundToken.type === 'background' ||
+      backgroundToken.type === 'surface') &&
+    !['bold', 'bolder', 'subtle', 'inverse'].includes(backgroundToken.emphasis);
+
+  const hasStandardForeground =
+    ['text', 'icon', 'border', 'link'].includes(foregroundToken.type) &&
+    foregroundToken.emphasis !== 'inverse';
+
+  const isStandardHasMatchingModifier = !!(
+    hasStandardBackground &&
+    hasStandardForeground &&
+    hasMatchingRole
+  );
+
   // Bold backgrounds are matched with inverse foregrounds, ignoring warnings
   const isBoldPair = !!(
     backgroundToken.type === 'background' &&
     ['bold', 'bolder'].includes(backgroundToken.emphasis) &&
     ['text', 'icon', 'border'].includes(foregroundToken.type) &&
     foregroundToken.emphasis === 'inverse' &&
+    hasMatchingRole &&
     // Exclude warning
     backgroundToken.role !== 'warning' &&
     foregroundToken.role !== 'warning'
@@ -69,27 +93,9 @@ function classifyTokenPair(
   const isSubtlePair = !!(
     backgroundToken.type === 'background' &&
     backgroundToken.emphasis === 'subtle' &&
+    hasMatchingRole &&
     ['text', 'icon'].includes(foregroundToken.type) &&
     foregroundToken.emphasis === 'bolder'
-  );
-
-  // Other backgrounds (brand, accent.blue, etc...) are matched with foregrounds that have the same modifier
-  const hasStandardBackground =
-    (backgroundToken.type === 'background' ||
-      backgroundToken.type === 'surface') &&
-    !['bold', 'bolder', 'subtle', 'inverse'].includes(backgroundToken.emphasis);
-
-  const hasStandardForeground =
-    ['text', 'icon', 'border', 'link'].includes(foregroundToken.type) &&
-    foregroundToken.emphasis !== 'inverse';
-
-  const hasMatchingModifier = !!(
-    hasStandardBackground &&
-    hasStandardForeground &&
-    (foregroundToken.role === backgroundToken.role ||
-      // include 'items with no modifiers'
-      foregroundToken.role === 'default' ||
-      !foregroundToken.role)
   );
 
   // All non-background elements, icons, text, except inverse, should work on surfaces
@@ -155,7 +161,7 @@ function classifyTokenPair(
       (isBoldPair ||
         isBoldWarningPair ||
         isSubtlePair ||
-        hasMatchingModifier ||
+        isStandardHasMatchingModifier ||
         surfaceBackgroundPair ||
         backgroundBackgroundPair ||
         isSurfacePair))

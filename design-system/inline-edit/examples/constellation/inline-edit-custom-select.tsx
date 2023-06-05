@@ -60,7 +60,10 @@ const InlineEditCustomSelectExample = () => {
   return (
     <div
       style={{
-        padding: `${gridSize}px ${gridSize}px ${gridSize * 6}px`,
+        padding: `${token('space.100', '8px')} ${token(
+          'space.100',
+          '8px',
+        )} ${token('space.600', '48px')}`,
       }}
     >
       <InlineEdit<ValueType<OptionType, true>>
@@ -81,7 +84,7 @@ const InlineEditCustomSelectExample = () => {
           editValue && editValue.length === 0 ? (
             <div css={readViewContainerStyles}>Click to select options</div>
           ) : (
-            <div style={{ padding: `${gridSize / 2}px` }}>
+            <div style={{ padding: token('space.050', '4px') }}>
               <Group>
                 {editValue &&
                   editValue.map((option: OptionType) => (

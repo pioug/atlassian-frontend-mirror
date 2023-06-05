@@ -86,7 +86,10 @@ const Wrapper = (props: WrapperDivProps) => (
 export default () => (
   <Fragment>
     {logoOptions.map((Child, index) => (
-      <div style={{ display: 'flex', marginBottom: '20px' }} key={index}>
+      <div
+        style={{ display: 'flex', marginBottom: token('space.250', '20px') }}
+        key={index}
+      >
         {iconVariants.map((pairing, index2) => (
           <Wrapper
             color={pairing.color}

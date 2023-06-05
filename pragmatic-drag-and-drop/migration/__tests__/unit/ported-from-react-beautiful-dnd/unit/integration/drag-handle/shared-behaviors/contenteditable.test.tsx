@@ -8,7 +8,12 @@ import {
 } from '../../../../../../../src';
 import { setup } from '../../../../../_utils/setup';
 import App, { Item } from '../../_utils/app';
-import { Control, forEachSensor, simpleLift } from '../../_utils/controls';
+import {
+  Control,
+  forEachSensor,
+  mouseLiftExtended,
+  simpleLift,
+} from '../../_utils/controls';
 import { isDragging } from '../../_utils/helpers';
 
 beforeAll(() => {
@@ -19,16 +24,6 @@ beforeAll(() => {
 jest.spyOn(console, 'error').mockImplementation(() => {});
 
 forEachSensor((control: Control) => {
-  /**
-   * Originally all controls were tested for here.
-   *
-   * In the migration layer, this behavior for pointer drags is determined
-   * by the browser.
-   */
-  if (control.name === 'mouse') {
-    return;
-  }
-
   it('should block the drag if the drag handle is itself contenteditable', () => {
     const renderItem =
       (item: Item) =>
@@ -72,7 +67,11 @@ forEachSensor((control: Control) => {
     const inner: HTMLElement = getByTestId('inner-0');
     const handle: HTMLElement = getByTestId('handle-0');
 
-    simpleLift(control, inner);
+    if (control.name === 'mouse') {
+      mouseLiftExtended(handle, { elementUnderPointer: inner });
+    } else {
+      simpleLift(control, inner);
+    }
 
     expect(isDragging(handle)).toBe(false);
   });
@@ -100,7 +99,11 @@ forEachSensor((control: Control) => {
     const inner: HTMLElement = getByTestId('inner-0');
     const handle: HTMLElement = getByTestId('handle-0');
 
-    simpleLift(control, inner);
+    if (control.name === 'mouse') {
+      mouseLiftExtended(handle, { elementUnderPointer: inner });
+    } else {
+      simpleLift(control, inner);
+    }
 
     expect(isDragging(handle)).toBe(false);
   });

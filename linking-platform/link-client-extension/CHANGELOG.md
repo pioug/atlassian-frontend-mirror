@@ -1,5 +1,11 @@
 # @atlaskit/link-client-extension
 
+## 1.2.0
+
+### Minor Changes
+
+- [`b508cc26473`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b508cc26473) - Updated getDatasourceDetails request body to be `DatasourceDetailsRequest` type
+
 ## 1.1.7
 
 ### Patch Changes

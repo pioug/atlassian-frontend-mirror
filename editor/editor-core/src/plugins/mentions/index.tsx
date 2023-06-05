@@ -4,7 +4,10 @@ import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { ELEMENTS_CHANNEL } from '@atlaskit/mention/resource';
 import { mention } from '@atlaskit/adf-schema';
 
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 import { isTypeAheadAllowed } from '../type-ahead/utils';
 import ToolbarMention from './ui/ToolbarMention';
@@ -12,10 +15,9 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { IconMention } from '../quick-insert/assets';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { MentionPluginOptions, FireElementsChannelEvent } from './types';
@@ -23,6 +25,7 @@ import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-a
 import { createTypeAheadConfig } from './type-ahead';
 import { mentionPluginKey } from './pm-plugins/key';
 import { createMentionPlugin } from './pm-plugins/main';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 export { mentionPluginKey };
 
@@ -30,8 +33,9 @@ const mentionsPlugin: NextEditorPlugin<
   'mention',
   {
     pluginConfiguration: MentionPluginOptions | undefined;
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
   }
-> = (options?) => {
+> = (options?, api?) => {
   let sessionId = uuid();
   const fireEvent: FireElementsChannelEvent = <T extends AnalyticsEventPayload>(
     payload: T,
@@ -106,13 +110,16 @@ const mentionsPlugin: NextEditorPlugin<
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,
             })(tr);
-            return addAnalytics(state, tr, {
+
+            api?.dependencies.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.INVOKED,
               actionSubject: ACTION_SUBJECT.TYPEAHEAD,
               actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_MENTION,
               attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
               eventType: EVENT_TYPE.UI,
-            });
+            })(tr);
+
+            return tr;
           },
         },
       ],

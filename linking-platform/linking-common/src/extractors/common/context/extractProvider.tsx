@@ -48,12 +48,13 @@ const extractProviderIcon = (
     if (id === CONFLUENCE_GENERATOR_ID) {
       return (
         <ConfluenceIcon
+          // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
           textColor={token('color.text.subtle', N700)}
-          /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+          /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-deprecated-apis */
           iconColor={B200}
           iconGradientStart={B400}
           iconGradientStop={B200}
-          /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
+          /* eslint-enable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-deprecated-apis */
           size="xsmall"
         />
       );

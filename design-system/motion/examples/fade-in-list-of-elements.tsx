@@ -30,7 +30,7 @@ export default () => {
         css={{
           maxWidth: '474px',
           padding: 0,
-          margin: '16px auto !important',
+          margin: `${token('space.200', '16px')} auto !important`,
           div: { margin: '0' },
         }}
       >
@@ -41,7 +41,11 @@ export default () => {
               {(props) => (
                 <li
                   {...props}
-                  css={{ display: 'block', padding: 0, margin: '8px' }}
+                  css={{
+                    display: 'block',
+                    padding: 0,
+                    margin: token('space.100', '8px'),
+                  }}
                 >
                   <Block
                     css={{
@@ -55,12 +59,16 @@ export default () => {
                         width: '100%',
                         display: 'flex',
                         alignItems: 'center',
-                        paddingLeft: '8px',
+                        paddingLeft: token('space.100', '8px'),
                       }}
                     >
                       {logo[0]}
                       <h3
-                        css={{ margin: 0, fontWeight: 300, marginLeft: '8px' }}
+                        css={{
+                          margin: 0,
+                          fontWeight: 300,
+                          marginLeft: token('space.100', '8px'),
+                        }}
                       >
                         {logo[1]}
                       </h3>

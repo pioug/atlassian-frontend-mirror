@@ -40,10 +40,6 @@ export const getMediaImageResize = (): boolean => {
   return getQueryParams().get('enableMediaResize') === 'true';
 };
 
-export const getEnableNewMediaCard = (): boolean => {
-  return getQueryParams().get('enableNewMediaCard') === 'true';
-};
-
 export const getRestartNumberedLists = (): boolean => {
   return getQueryParams().get('restartNumberedLists') === 'true';
 };

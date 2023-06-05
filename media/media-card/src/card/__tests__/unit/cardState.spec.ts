@@ -129,11 +129,7 @@ describe('getCardStateFromFileState', () => {
       expect.objectContaining({ some: 'file-preview-status' }),
     );
     expect(extractFilePreviewStatus).toBeCalledTimes(1);
-    expect(extractFilePreviewStatus).toBeCalledWith(
-      fileState,
-      false,
-      featureFlags,
-    );
+    expect(extractFilePreviewStatus).toBeCalledWith(fileState, false);
   });
 
   it('should return state containing Media Card error if the file state is ErrorFilestate', () => {
@@ -158,11 +154,7 @@ describe('getCardStateFromFileState', () => {
       expect.objectContaining({ some: 'file-preview-status' }),
     );
     expect(extractFilePreviewStatus).toBeCalledTimes(1);
-    expect(extractFilePreviewStatus).toBeCalledWith(
-      fileState,
-      false,
-      featureFlags,
-    );
+    expect(extractFilePreviewStatus).toBeCalledWith(fileState, false);
   });
 
   it('should return state containing upload progress if the file state is UploadingFileState', () => {
@@ -191,10 +183,6 @@ describe('getCardStateFromFileState', () => {
       expect.objectContaining({ some: 'file-preview-status' }),
     );
     expect(extractFilePreviewStatus).toBeCalledTimes(1);
-    expect(extractFilePreviewStatus).toBeCalledWith(
-      fileState,
-      false,
-      featureFlags,
-    );
+    expect(extractFilePreviewStatus).toBeCalledWith(fileState, false);
   });
 });

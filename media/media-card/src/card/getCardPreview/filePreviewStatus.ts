@@ -1,7 +1,4 @@
-import {
-  MediaFeatureFlags,
-  isMimeTypeSupportedByBrowser,
-} from '@atlaskit/media-common';
+import { isMimeTypeSupportedByBrowser } from '@atlaskit/media-common';
 import { CardStatus, FilePreviewStatus } from '../../types';
 import {
   isPreviewableFileState,
@@ -16,14 +13,12 @@ import { isSupportedLocalPreview } from './helpers';
 export const extractFilePreviewStatus = (
   fileState: FileState,
   isBannedLocalPreview: boolean,
-  featureFlags?: MediaFeatureFlags,
 ): FilePreviewStatus => {
   const hasFilesize = 'size' in fileState && !!fileState.size;
   const { mediaType } = ('mediaType' in fileState && fileState) || {};
   const { mimeType } = ('mimeType' in fileState && fileState) || {};
 
-  const isPreviewable =
-    !!mediaType && isPreviewableType(mediaType, featureFlags);
+  const isPreviewable = !!mediaType && isPreviewableType(mediaType);
 
   // Local preview is available only if it's supported by browser and supported by Media Card (isSupportedLocalPreview)
   // For example, SVGs are mime type NOT supported by browser but media type supported by Media Card (image)

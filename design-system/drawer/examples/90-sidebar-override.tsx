@@ -27,8 +27,8 @@ const SidebarOverrideComponent: FC<{ children?: ReactNode }> = ({
         flexShrink: 0,
         flexDirection: 'column',
         height: '100vh',
-        paddingBottom: 16,
-        paddingTop: 24,
+        paddingBottom: token('space.200', '16px'),
+        paddingTop: token('space.300', '24px'),
         width: 64,
         // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
         border: `3px dashed ${token(
@@ -64,7 +64,7 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
-      <div style={{ padding: '2rem' }}>
+      <div style={{ padding: token('space.400', '2rem') }}>
         <Drawer
           onClose={this.onClose}
           onCloseComplete={this.onCloseComplete}

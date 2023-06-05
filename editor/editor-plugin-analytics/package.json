@@ -30,10 +30,10 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^25.7.0",
+    "@atlaskit/adf-schema": "^25.8.0",
     "@atlaskit/analytics-listeners": "^8.6.0",
     "@atlaskit/analytics-next": "^9.0.0",
-    "@atlaskit/editor-common": "^74.3.0",
+    "@atlaskit/editor-common": "^74.4.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-tables": "^2.2.0",
     "@babel/runtime": "^7.0.0",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^185.0.0",
+    "@atlaskit/editor-core": "^185.1.0",
     "@atlaskit/editor-test-helpers": "^18.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

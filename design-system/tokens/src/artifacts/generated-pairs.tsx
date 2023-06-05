@@ -4,7 +4,7 @@
  * Auto-generated list of token pairings that may need to have sufficient contrast.
  * Not currently used by tests, but is used by the custom theme contrast checker example
  *
- * @codegen <<SignedSource::349f00c184fe40bca26982001eabb94c>>
+ * @codegen <<SignedSource::ec8e2d34c5152b1b66186e14b261c0f1>>
  * @codegenCommand yarn build tokens
  */
 export const generatedPairs = [
@@ -229,46 +229,6 @@ export const generatedPairs = [
     desiredContrast: 4.5,
   },
   {
-    foreground: 'color.text.accent.red.bolder',
-    background: 'color.background.accent.orange.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.red.bolder',
-    background: 'color.background.accent.yellow.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.red.bolder',
-    background: 'color.background.accent.green.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.red.bolder',
-    background: 'color.background.accent.teal.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.red.bolder',
-    background: 'color.background.accent.blue.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.red.bolder',
-    background: 'color.background.accent.purple.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.red.bolder',
-    background: 'color.background.accent.magenta.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.red.bolder',
-    background: 'color.background.accent.gray.subtle',
-    desiredContrast: 4.5,
-  },
-  {
     foreground: 'color.text.accent.orange',
     background: 'color.background.accent.orange.subtlest',
     desiredContrast: 4.5,
@@ -276,11 +236,6 @@ export const generatedPairs = [
   {
     foreground: 'color.text.accent.orange',
     background: 'color.background.accent.orange.subtler',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.orange.bolder',
-    background: 'color.background.accent.red.subtle',
     desiredContrast: 4.5,
   },
   {
@@ -299,41 +254,6 @@ export const generatedPairs = [
     desiredContrast: 4.5,
   },
   {
-    foreground: 'color.text.accent.orange.bolder',
-    background: 'color.background.accent.yellow.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.orange.bolder',
-    background: 'color.background.accent.green.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.orange.bolder',
-    background: 'color.background.accent.teal.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.orange.bolder',
-    background: 'color.background.accent.blue.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.orange.bolder',
-    background: 'color.background.accent.purple.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.orange.bolder',
-    background: 'color.background.accent.magenta.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.orange.bolder',
-    background: 'color.background.accent.gray.subtle',
-    desiredContrast: 4.5,
-  },
-  {
     foreground: 'color.text.accent.yellow',
     background: 'color.background.accent.yellow.subtlest',
     desiredContrast: 4.5,
@@ -341,16 +261,6 @@ export const generatedPairs = [
   {
     foreground: 'color.text.accent.yellow',
     background: 'color.background.accent.yellow.subtler',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.yellow.bolder',
-    background: 'color.background.accent.red.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.yellow.bolder',
-    background: 'color.background.accent.orange.subtle',
     desiredContrast: 4.5,
   },
   {
@@ -369,36 +279,6 @@ export const generatedPairs = [
     desiredContrast: 4.5,
   },
   {
-    foreground: 'color.text.accent.yellow.bolder',
-    background: 'color.background.accent.green.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.yellow.bolder',
-    background: 'color.background.accent.teal.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.yellow.bolder',
-    background: 'color.background.accent.blue.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.yellow.bolder',
-    background: 'color.background.accent.purple.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.yellow.bolder',
-    background: 'color.background.accent.magenta.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.yellow.bolder',
-    background: 'color.background.accent.gray.subtle',
-    desiredContrast: 4.5,
-  },
-  {
     foreground: 'color.text.accent.green',
     background: 'color.background.accent.green.subtlest',
     desiredContrast: 4.5,
@@ -406,21 +286,6 @@ export const generatedPairs = [
   {
     foreground: 'color.text.accent.green',
     background: 'color.background.accent.green.subtler',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.green.bolder',
-    background: 'color.background.accent.red.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.green.bolder',
-    background: 'color.background.accent.orange.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.green.bolder',
-    background: 'color.background.accent.yellow.subtle',
     desiredContrast: 4.5,
   },
   {
@@ -439,31 +304,6 @@ export const generatedPairs = [
     desiredContrast: 4.5,
   },
   {
-    foreground: 'color.text.accent.green.bolder',
-    background: 'color.background.accent.teal.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.green.bolder',
-    background: 'color.background.accent.blue.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.green.bolder',
-    background: 'color.background.accent.purple.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.green.bolder',
-    background: 'color.background.accent.magenta.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.green.bolder',
-    background: 'color.background.accent.gray.subtle',
-    desiredContrast: 4.5,
-  },
-  {
     foreground: 'color.text.accent.teal',
     background: 'color.background.accent.teal.subtlest',
     desiredContrast: 4.5,
@@ -471,26 +311,6 @@ export const generatedPairs = [
   {
     foreground: 'color.text.accent.teal',
     background: 'color.background.accent.teal.subtler',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.teal.bolder',
-    background: 'color.background.accent.red.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.teal.bolder',
-    background: 'color.background.accent.orange.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.teal.bolder',
-    background: 'color.background.accent.yellow.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.teal.bolder',
-    background: 'color.background.accent.green.subtle',
     desiredContrast: 4.5,
   },
   {
@@ -509,26 +329,6 @@ export const generatedPairs = [
     desiredContrast: 4.5,
   },
   {
-    foreground: 'color.text.accent.teal.bolder',
-    background: 'color.background.accent.blue.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.teal.bolder',
-    background: 'color.background.accent.purple.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.teal.bolder',
-    background: 'color.background.accent.magenta.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.teal.bolder',
-    background: 'color.background.accent.gray.subtle',
-    desiredContrast: 4.5,
-  },
-  {
     foreground: 'color.text.accent.blue',
     background: 'color.background.accent.blue.subtlest',
     desiredContrast: 4.5,
@@ -536,31 +336,6 @@ export const generatedPairs = [
   {
     foreground: 'color.text.accent.blue',
     background: 'color.background.accent.blue.subtler',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.blue.bolder',
-    background: 'color.background.accent.red.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.blue.bolder',
-    background: 'color.background.accent.orange.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.blue.bolder',
-    background: 'color.background.accent.yellow.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.blue.bolder',
-    background: 'color.background.accent.green.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.blue.bolder',
-    background: 'color.background.accent.teal.subtle',
     desiredContrast: 4.5,
   },
   {
@@ -579,21 +354,6 @@ export const generatedPairs = [
     desiredContrast: 4.5,
   },
   {
-    foreground: 'color.text.accent.blue.bolder',
-    background: 'color.background.accent.purple.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.blue.bolder',
-    background: 'color.background.accent.magenta.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.blue.bolder',
-    background: 'color.background.accent.gray.subtle',
-    desiredContrast: 4.5,
-  },
-  {
     foreground: 'color.text.accent.purple',
     background: 'color.background.accent.purple.subtlest',
     desiredContrast: 4.5,
@@ -601,36 +361,6 @@ export const generatedPairs = [
   {
     foreground: 'color.text.accent.purple',
     background: 'color.background.accent.purple.subtler',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.purple.bolder',
-    background: 'color.background.accent.red.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.purple.bolder',
-    background: 'color.background.accent.orange.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.purple.bolder',
-    background: 'color.background.accent.yellow.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.purple.bolder',
-    background: 'color.background.accent.green.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.purple.bolder',
-    background: 'color.background.accent.teal.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.purple.bolder',
-    background: 'color.background.accent.blue.subtle',
     desiredContrast: 4.5,
   },
   {
@@ -649,16 +379,6 @@ export const generatedPairs = [
     desiredContrast: 4.5,
   },
   {
-    foreground: 'color.text.accent.purple.bolder',
-    background: 'color.background.accent.magenta.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.purple.bolder',
-    background: 'color.background.accent.gray.subtle',
-    desiredContrast: 4.5,
-  },
-  {
     foreground: 'color.text.accent.magenta',
     background: 'color.background.accent.magenta.subtlest',
     desiredContrast: 4.5,
@@ -666,41 +386,6 @@ export const generatedPairs = [
   {
     foreground: 'color.text.accent.magenta',
     background: 'color.background.accent.magenta.subtler',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.magenta.bolder',
-    background: 'color.background.accent.red.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.magenta.bolder',
-    background: 'color.background.accent.orange.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.magenta.bolder',
-    background: 'color.background.accent.yellow.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.magenta.bolder',
-    background: 'color.background.accent.green.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.magenta.bolder',
-    background: 'color.background.accent.teal.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.magenta.bolder',
-    background: 'color.background.accent.blue.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.magenta.bolder',
-    background: 'color.background.accent.purple.subtle',
     desiredContrast: 4.5,
   },
   {
@@ -716,11 +401,6 @@ export const generatedPairs = [
   {
     foreground: 'color.text.accent.magenta.bolder',
     background: 'color.background.accent.magenta.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.magenta.bolder',
-    background: 'color.background.accent.gray.subtle',
     desiredContrast: 4.5,
   },
   {
@@ -731,46 +411,6 @@ export const generatedPairs = [
   {
     foreground: 'color.text.accent.gray',
     background: 'color.background.accent.gray.subtler',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.gray.bolder',
-    background: 'color.background.accent.red.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.gray.bolder',
-    background: 'color.background.accent.orange.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.gray.bolder',
-    background: 'color.background.accent.yellow.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.gray.bolder',
-    background: 'color.background.accent.green.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.gray.bolder',
-    background: 'color.background.accent.teal.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.gray.bolder',
-    background: 'color.background.accent.blue.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.gray.bolder',
-    background: 'color.background.accent.purple.subtle',
-    desiredContrast: 4.5,
-  },
-  {
-    foreground: 'color.text.accent.gray.bolder',
-    background: 'color.background.accent.magenta.subtle',
     desiredContrast: 4.5,
   },
   {

@@ -3,15 +3,16 @@ import React from 'react';
 import { findByTestId, screen } from '@testing-library/dom';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+import invariant from 'tiny-invariant';
 
 import {
+  flushPromises,
   MockIntersectionObserverFactory,
   MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
 import {
   DatasourceDataResponseItem,
   DatasourceResponseSchemaProperty,
-  DatasourceTableStatusType,
 } from '@atlaskit/linking-types/datasource';
 
 import { IssueLikeDataTableView } from '../index';
@@ -19,33 +20,6 @@ import {
   IssueLikeDataTableViewProps,
   TableViewPropsRenderType,
 } from '../types';
-
-const renderIssueLikeTable = (
-  items: DatasourceDataResponseItem[],
-  status: DatasourceTableStatusType,
-  hasNextPage: boolean,
-  onNextPage: () => void,
-  columns: DatasourceResponseSchemaProperty[],
-  visibleColumnKeys: string[],
-  onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void,
-  renderItem?: TableViewPropsRenderType,
-) => {
-  return render(
-    <IntlProvider locale="en">
-      <IssueLikeDataTableView
-        testId="sometable"
-        items={items}
-        status={status}
-        hasNextPage={hasNextPage}
-        onNextPage={onNextPage}
-        columns={columns}
-        visibleColumnKeys={visibleColumnKeys}
-        onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-        renderItem={renderItem}
-      />
-    </IntlProvider>,
-  );
-};
 
 const dragAndDrop = async (source: HTMLElement, destination: HTMLElement) => {
   fireEvent.dragStart(source);
@@ -61,12 +35,14 @@ const dragAndDrop = async (source: HTMLElement, destination: HTMLElement) => {
 describe('IssueLikeDataTableView', () => {
   let mockGetEntries: jest.Mock;
   let mockIntersectionObserverOpts: MockIntersectionObserverOpts;
+  let mockCallBackFn: jest.Mock;
 
   beforeEach(() => {
     jest.useRealTimers();
     mockGetEntries = jest
       .fn()
       .mockImplementation(() => [{ isIntersecting: false }]);
+    mockCallBackFn = jest.fn(async () => {});
     mockIntersectionObserverOpts = {
       disconnect: jest.fn(),
       getMockEntries: mockGetEntries,
@@ -77,6 +53,36 @@ describe('IssueLikeDataTableView', () => {
       mockIntersectionObserverOpts,
     );
   });
+
+  const setup = (props: Partial<IssueLikeDataTableViewProps>) => {
+    const onNextPage = jest.fn(() => {});
+    const onLoadDatasourceDetails = jest.fn(() => {});
+    const onVisibleColumnKeysChange = jest.fn(() => {});
+
+    const renderResult = render(
+      <IntlProvider locale="en">
+        <IssueLikeDataTableView
+          testId="sometable"
+          status={'resolved'}
+          onNextPage={onNextPage}
+          onLoadDatasourceDetails={onLoadDatasourceDetails}
+          hasNextPage={false}
+          onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+          items={[]}
+          columns={[]}
+          visibleColumnKeys={['id']}
+          {...props}
+        />
+      </IntlProvider>,
+    );
+
+    return {
+      ...renderResult,
+      onNextPage,
+      onLoadDatasourceDetails,
+      onVisibleColumnKeysChange,
+    };
+  };
 
   async function assertColumnTitles(onColumnChange?: () => void) {
     const items = [
@@ -92,7 +98,6 @@ describe('IssueLikeDataTableView', () => {
         },
       },
     ];
-    const status: IssueLikeDataTableViewProps['status'] = 'resolved';
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -112,20 +117,12 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const selectedColumnKeys: string[] = ['id', 'someOtherKey'];
-
-    const onNextPage = async () => {};
-
-    const { getByTestId } = renderIssueLikeTable(
+    const { getByTestId } = setup({
       items,
-      status,
-      false,
-      onNextPage,
       columns,
-      selectedColumnKeys,
-      onColumnChange,
-      undefined,
-    );
+      visibleColumnKeys: ['id', 'someOtherKey'],
+      onVisibleColumnKeysChange: onColumnChange,
+    });
 
     expect(getByTestId('id-column-heading')).toHaveTextContent('ID');
     expect(getByTestId('someOtherKey-column-heading')).toHaveTextContent(
@@ -148,7 +145,6 @@ describe('IssueLikeDataTableView', () => {
         },
       },
     ];
-    const onNextPage = async () => {};
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -158,16 +154,10 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    renderIssueLikeTable(
+    setup({
       items,
-      'resolved',
-      false,
-      onNextPage,
       columns,
-      ['id'],
-      () => {},
-      undefined,
-    );
+    });
 
     const rowTestIds = (await screen.findAllByTestId(/sometable--row-.+/)).map(
       el => el.getAttribute('data-testid'),
@@ -195,7 +185,6 @@ describe('IssueLikeDataTableView', () => {
         },
       },
     ];
-    const onNextPage = async () => {};
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -215,22 +204,18 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const selectedColumnKeys: string[] = ['id', 'someOtherKey'];
+    const visibleColumnKeys = ['id', 'someOtherKey'];
 
-    renderIssueLikeTable(
+    setup({
       items,
-      'resolved',
-      false,
-      onNextPage,
       columns,
-      selectedColumnKeys,
-      () => {},
-      undefined,
-    );
+      visibleColumnKeys,
+    });
 
     const rowColumnTestIds = (
       await screen.findAllByTestId(/sometable--cell-.+/)
     ).map(el => el.getAttribute('data-testid'));
+
     expect(rowColumnTestIds).toEqual([
       'sometable--cell-0',
       'sometable--cell-1',
@@ -261,7 +246,6 @@ describe('IssueLikeDataTableView', () => {
         },
       },
     ];
-    const onNextPage = async () => {};
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -272,16 +256,11 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    renderIssueLikeTable(
+    setup({
       items,
-      'resolved',
-      false,
-      onNextPage,
       columns,
-      ['listProp'],
-      () => {},
-      undefined,
-    );
+      visibleColumnKeys: ['listProp'],
+    });
 
     expect(await screen.findByTestId('sometable--cell-0')).toHaveTextContent(
       'item1item2',
@@ -306,8 +285,6 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const onNextPage = async () => {};
-
     const columns: DatasourceResponseSchemaProperty[] = [
       {
         key: 'listProp',
@@ -326,16 +303,11 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    renderIssueLikeTable(
+    setup({
       items,
-      'resolved',
-      false,
-      onNextPage,
       columns,
-      ['listProp', 'name', 'anotherName'],
-      () => {},
-      undefined,
-    );
+      visibleColumnKeys: ['listProp', 'name', 'anotherName'],
+    });
 
     expect(await screen.findByTestId('sometable--cell-0')).toHaveTextContent(
       'item1item2',
@@ -352,7 +324,6 @@ describe('IssueLikeDataTableView', () => {
     const items: DatasourceDataResponseItem[] = [
       { someNumber: { data: 40 }, someString: { data: 'abc' } },
     ];
-    const onNextPage = async () => {};
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -367,7 +338,7 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const selectedColumnKeys: string[] = ['someNumber', 'someString'];
+    const visibleColumnKeys: string[] = ['someNumber', 'someString'];
 
     const renderItem: TableViewPropsRenderType = item => {
       switch (item.type) {
@@ -378,16 +349,13 @@ describe('IssueLikeDataTableView', () => {
       }
     };
 
-    renderIssueLikeTable(
+    setup({
       items,
-      'resolved',
-      true,
-      onNextPage,
       columns,
-      selectedColumnKeys,
-      () => {},
+      visibleColumnKeys,
       renderItem,
-    );
+      hasNextPage: true,
+    });
 
     expect(await screen.findByTestId('sometable--cell-0')).toHaveTextContent(
       '42',
@@ -419,7 +387,6 @@ describe('IssueLikeDataTableView', () => {
         },
       },
     ];
-    const onNextPage = jest.fn(async () => {});
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -429,16 +396,11 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    renderIssueLikeTable(
+    const { onNextPage } = setup({
       items,
-      'resolved',
-      true,
-      onNextPage,
       columns,
-      ['id'],
-      () => {},
-      undefined,
-    );
+      hasNextPage: true,
+    });
 
     // set bottom visible
     mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
@@ -473,7 +435,6 @@ describe('IssueLikeDataTableView', () => {
         },
       },
     ];
-    const onNextPage = jest.fn(async () => {});
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -483,16 +444,11 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    renderIssueLikeTable(
+    const { onNextPage } = setup({
       items,
-      'resolved',
-      false,
-      onNextPage,
       columns,
-      ['id'],
-      () => {},
-      undefined,
-    );
+      hasNextPage: false,
+    });
 
     mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
 
@@ -524,7 +480,6 @@ describe('IssueLikeDataTableView', () => {
         },
       },
     ];
-    const onNextPage = jest.fn(async () => {});
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -534,16 +489,12 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    renderIssueLikeTable(
+    const { onNextPage } = setup({
       items,
-      'loading',
-      true,
-      onNextPage,
       columns,
-      ['id'],
-      () => {},
-      undefined,
-    );
+      status: 'loading',
+      hasNextPage: true,
+    });
 
     // first scroll to bottom
     mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
@@ -591,7 +542,6 @@ describe('IssueLikeDataTableView', () => {
         },
       },
     ];
-    const onNextPage = jest.fn(async () => {});
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -601,16 +551,12 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const { getByTestId } = renderIssueLikeTable(
+    const { getByTestId } = setup({
       items,
-      'loading',
-      true,
-      onNextPage,
       columns,
-      ['id'],
-      () => {},
-      undefined,
-    );
+      status: 'loading',
+      hasNextPage: true,
+    });
 
     // scroll down
     mockGetEntries.mockImplementation(() => [{ isIntersecting: true }]);
@@ -643,7 +589,6 @@ describe('IssueLikeDataTableView', () => {
         },
       },
     ];
-    const onNextPage = jest.fn(async () => {});
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -653,16 +598,12 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    renderIssueLikeTable(
+    setup({
       items,
-      'resolved',
-      true,
-      onNextPage,
       columns,
-      ['id'],
-      undefined,
-      undefined,
-    );
+      hasNextPage: true,
+      onVisibleColumnKeysChange: undefined,
+    });
 
     expect(
       screen.queryByTestId('column-picker-trigger-button'),
@@ -689,7 +630,6 @@ describe('IssueLikeDataTableView', () => {
         },
       },
     ];
-    const onNextPage = jest.fn(async () => {});
 
     const columns: DatasourceResponseSchemaProperty[] = [
       {
@@ -699,20 +639,112 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    renderIssueLikeTable(
+    setup({
       items,
-      'resolved',
-      true,
-      onNextPage,
+      hasNextPage: true,
       columns,
-      ['id'],
-      () => {},
-      undefined,
-    );
+    });
 
     expect(
       screen.getByTestId('column-picker-trigger-button'),
     ).toBeInTheDocument();
+  });
+
+  it('should call onLoadDatasourceDetails when opening the picker for the first time', async () => {
+    jest.useFakeTimers();
+    let counter = 0;
+    const items: DatasourceDataResponseItem[] = [
+      {
+        id: {
+          data: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          data: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          data: `id${counter++}`,
+        },
+      },
+    ];
+
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'id',
+        title: 'ID',
+        type: 'string',
+      },
+    ];
+
+    const { onLoadDatasourceDetails, getByTestId, getByText } = setup({
+      items,
+      columns,
+      hasNextPage: true,
+    });
+
+    const triggerButton = getByTestId('column-picker-trigger-button');
+    invariant(triggerButton);
+
+    // open popup
+    fireEvent.click(triggerButton);
+
+    expect(getByText('Loading...')).not.toBeNull();
+    expect(onLoadDatasourceDetails).toHaveBeenCalledTimes(1);
+  });
+
+  it('should not call onLoadDatasourceDetails after opening the picker for the first time', async () => {
+    jest.useFakeTimers();
+    let counter = 0;
+    const items: DatasourceDataResponseItem[] = [
+      {
+        id: {
+          data: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          data: `id${counter++}`,
+        },
+      },
+      {
+        id: {
+          data: `id${counter++}`,
+        },
+      },
+    ];
+
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'id',
+        title: 'ID',
+        type: 'string',
+      },
+    ];
+
+    const { onLoadDatasourceDetails, getByTestId } = setup({
+      items,
+      columns,
+      hasNextPage: true,
+    });
+
+    const triggerButton = getByTestId('column-picker-trigger-button');
+    invariant(triggerButton);
+
+    // open popup
+    fireEvent.click(triggerButton);
+
+    await flushPromises();
+
+    // close popup
+    fireEvent.click(triggerButton);
+
+    // open popup
+    fireEvent.click(triggerButton);
+
+    expect(onLoadDatasourceDetails).toHaveBeenCalledTimes(1);
   });
 
   const makeDragAndDropTableProps = () => {
@@ -756,31 +788,26 @@ describe('IssueLikeDataTableView', () => {
       },
     ];
 
-    const selectedColumnKeys: string[] = ['id', 'task', 'emoji'];
+    const visibleColumnKeys: string[] = ['id', 'task', 'emoji'];
 
     return {
       onNextPage,
       items,
       columns,
-      selectedColumnKeys,
+      visibleColumnKeys,
       onColumnsChange,
     };
   };
 
   it('should have correct column order after a drag and drop reorder', async () => {
-    const { onColumnsChange, columns, onNextPage, items, selectedColumnKeys } =
-      makeDragAndDropTableProps();
+    const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
 
-    const { getByTestId, getByLabelText } = renderIssueLikeTable(
+    const { onVisibleColumnKeysChange, getByTestId, getByLabelText } = setup({
       items,
-      'resolved',
-      false,
-      onNextPage,
       columns,
-      selectedColumnKeys,
-      onColumnsChange,
-      undefined,
-    );
+      visibleColumnKeys,
+      hasNextPage: false,
+    });
 
     expect(getByLabelText('emoji-drag-icon')).toBeInTheDocument();
 
@@ -791,8 +818,8 @@ describe('IssueLikeDataTableView', () => {
     );
 
     await dragAndDrop(dragHandle, dropTarget);
-    expect(onColumnsChange).toBeCalledTimes(1);
-    expect(onColumnsChange).toBeCalledWith(['task', 'id', 'emoji']);
+    expect(onVisibleColumnKeysChange).toBeCalledTimes(1);
+    expect(onVisibleColumnKeysChange).toBeCalledWith(['task', 'id', 'emoji']);
   });
 
   it('should not be able to drag and drop between tables', async () => {
@@ -801,7 +828,7 @@ describe('IssueLikeDataTableView', () => {
       columns: columns1,
       onNextPage: onNextPage1,
       items: items1,
-      selectedColumnKeys,
+      visibleColumnKeys,
     } = makeDragAndDropTableProps();
     const {
       onColumnsChange: onColumnsChange2,
@@ -818,9 +845,10 @@ describe('IssueLikeDataTableView', () => {
             status={'resolved'}
             items={items1}
             onNextPage={onNextPage1}
+            onLoadDatasourceDetails={mockCallBackFn}
             hasNextPage={false}
             columns={columns1}
-            visibleColumnKeys={selectedColumnKeys}
+            visibleColumnKeys={visibleColumnKeys}
             onVisibleColumnKeysChange={onColumnsChange1}
           />
           <IssueLikeDataTableView
@@ -828,9 +856,10 @@ describe('IssueLikeDataTableView', () => {
             status={'resolved'}
             items={items2}
             onNextPage={onNextPage2}
+            onLoadDatasourceDetails={mockCallBackFn}
             hasNextPage={false}
             columns={columns2}
-            visibleColumnKeys={selectedColumnKeys}
+            visibleColumnKeys={visibleColumnKeys}
             onVisibleColumnKeysChange={onColumnsChange2}
           />
         </div>
@@ -857,36 +886,27 @@ describe('IssueLikeDataTableView', () => {
 
   describe('drag and drop features should not be shown', () => {
     it('should not show when onColumnsChange is not provided', async () => {
-      const { columns, onNextPage, items, selectedColumnKeys } =
-        makeDragAndDropTableProps();
-      const { queryByTestId, queryByLabelText } = renderIssueLikeTable(
+      const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+      const { queryByTestId, queryByLabelText } = setup({
         items,
-        'resolved',
-        false,
-        onNextPage,
         columns,
-        selectedColumnKeys,
-        undefined,
-        undefined,
-      );
+        visibleColumnKeys,
+        hasNextPage: false,
+        onVisibleColumnKeysChange: undefined,
+      });
 
       expect(queryByLabelText('emoji-drag-icon')).toBeNull();
       expect(queryByTestId('column-drop-target')).toBeNull();
     });
 
     it('should not show when table is loading', async () => {
-      const { columns, onNextPage, items, selectedColumnKeys } =
-        makeDragAndDropTableProps();
-      const { queryByTestId, queryByLabelText } = renderIssueLikeTable(
+      const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+      const { queryByTestId, queryByLabelText } = setup({
         items,
-        'loading',
-        false,
-        onNextPage,
         columns,
-        selectedColumnKeys,
-        () => {},
-        undefined,
-      );
+        status: 'loading',
+        visibleColumnKeys,
+      });
 
       expect(queryByLabelText('emoji-drag-icon')).toBeNull();
       expect(queryByTestId('column-drop-target')).toBeNull();
@@ -898,58 +918,54 @@ describe('IssueLikeDataTableView', () => {
   });
 
   describe('when column widths are applied', () => {
-    const onNextPage = async () => {};
-
-    const summary: DatasourceResponseSchemaProperty = {
-      key: 'summary',
-      title: 'Summary',
-      type: 'string',
-      isList: true,
-    };
-
-    const key: DatasourceResponseSchemaProperty = {
-      key: 'key',
-      title: 'Key',
-      type: 'string',
-      isList: true,
-    };
-
-    const name: DatasourceResponseSchemaProperty = {
-      key: 'name',
-      title: 'Name',
-      type: 'string',
-      isList: true,
-    };
-
-    const dob: DatasourceResponseSchemaProperty = {
-      key: 'dob',
-      title: 'DoB',
-      type: 'date',
-      isList: true,
-    };
-
-    const hobby: DatasourceResponseSchemaProperty = {
-      key: 'hobby',
-      title: 'Hobby',
-      type: 'tag',
-      isList: true,
-    };
+    const prepColumns = (): {
+      [key: string]: DatasourceResponseSchemaProperty;
+    } => ({
+      summary: {
+        key: 'summary',
+        title: 'Summary',
+        type: 'string',
+        isList: true,
+      },
+      key: {
+        key: 'key',
+        title: 'Key',
+        type: 'string',
+        isList: true,
+      },
+      name: {
+        key: 'name',
+        title: 'Name',
+        type: 'string',
+        isList: true,
+      },
+      dob: {
+        key: 'dob',
+        title: 'DoB',
+        type: 'date',
+        isList: true,
+      },
+      hobby: {
+        key: 'hobby',
+        title: 'Hobby',
+        type: 'tag',
+        isList: true,
+      },
+    });
 
     it('should render the header and cells with width from the configured fields', () => {
       const items: DatasourceDataResponseItem[] = [
         { summary: { data: 'summary' }, key: { data: 'KEY-123' } },
       ];
+      const columns = prepColumns();
 
-      const { queryByTestId } = renderIssueLikeTable(
+      const { queryByTestId } = setup({
         items,
-        'resolved',
-        false,
-        onNextPage,
-        [summary, key],
-        ['summary', 'key'],
-        undefined,
-        undefined,
-      );
+        columns: [columns.summary, columns.key],
+        visibleColumnKeys: ['summary', 'key'],
+        hasNextPage: false,
+        onVisibleColumnKeysChange: undefined,
+      });
 
       expect(queryByTestId('summary-column-heading')).toHaveStyle({
         'max-width': '360px',
@@ -970,17 +986,15 @@ describe('IssueLikeDataTableView', () => {
       const items: DatasourceDataResponseItem[] = [
         { name: { data: 'key1' }, dob: { data: '12/12/2023' } },
       ];
+      const columns = prepColumns();
 
-      const { queryByTestId } = renderIssueLikeTable(
+      const { queryByTestId } = setup({
         items,
-        'resolved',
-        false,
-        onNextPage,
-        [name, dob],
-        ['name', 'dob'],
-        undefined,
-        undefined,
-      );
+        columns: [columns.name, columns.dob],
+        visibleColumnKeys: ['name', 'dob'],
+        hasNextPage: false,
+        onVisibleColumnKeysChange: undefined,
+      });
 
       expect(queryByTestId('name-column-heading')).toHaveStyle({
         'max-width': '176px',
@@ -1007,17 +1021,15 @@ describe('IssueLikeDataTableView', () => {
           hobby: { data: 'Coding' },
         },
       ];
+      const columns = prepColumns();
 
-      const { queryByTestId } = renderIssueLikeTable(
+      const { queryByTestId } = setup({
         items,
-        'resolved',
-        false,
-        onNextPage,
-        [summary, key, name, dob, hobby],
-        ['summary', 'key', 'name', 'dob', 'hobby'],
-        undefined,
-        undefined,
-      );
+        columns: Object.values(columns),
+        visibleColumnKeys: ['summary', 'key', 'name', 'dob', 'hobby'],
+        hasNextPage: false,
+        onVisibleColumnKeysChange: undefined,
+      });
 
       const hobbyHeader = queryByTestId('hobby-column-heading');
       const hobbyCell = queryByTestId('sometable--cell-4');
@@ -1032,17 +1044,13 @@ describe('IssueLikeDataTableView', () => {
       const items: DatasourceDataResponseItem[] = [
         { summary: { data: 'summary' }, key: { data: 'KEY-123' } },
       ];
-
-      const { queryByTestId } = renderIssueLikeTable(
+      const columns = prepColumns();
+      const { queryByTestId } = setup({
         items,
-        'resolved',
-        false,
-        onNextPage,
-        [summary, key],
-        ['summary', 'key'],
-        () => {},
-        undefined,
-      );
+        columns: [columns.summary, columns.key],
+        visibleColumnKeys: ['summary', 'key'],
+        hasNextPage: false,
+      });
 
       expect(queryByTestId('summary-column-heading')).toHaveStyle({
         'max-width': '360px',
@@ -1068,17 +1076,13 @@ describe('IssueLikeDataTableView', () => {
           key: { data: 'KEY-123' },
         },
       ];
-
-      const { queryByTestId } = renderIssueLikeTable(
+      const columns = prepColumns();
+      const { queryByTestId } = setup({
         items,
-        'resolved',
-        false,
-        onNextPage,
-        [summary, key],
-        ['summary', 'key'],
-        undefined,
-        undefined,
-      );
+        columns: [columns.summary, columns.key],
+        visibleColumnKeys: ['summary', 'key'],
+        hasNextPage: false,
+      });
 
       const tableCell = queryByTestId('sometable--cell-0');
       const styles = getComputedStyle(tableCell!);

@@ -236,9 +236,6 @@ describe('Snapshot Test: Media', () => {
     it('should render Download button for mediaGroup if enableDownloadButton is true', async () => {
       await initRenderer(page, mediaGroupAdf, Device.Default, 'full-page', {
         enableDownloadButton: true,
-        featureFlags: {
-          newCardExperience: true,
-        },
       });
       const mediaCardSelector = `[data-testid="media-file-card-view"][data-test-status="complete"]`;
       await page.waitForSelector(mediaCardSelector);

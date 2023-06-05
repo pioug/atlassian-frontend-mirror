@@ -49,8 +49,7 @@ export const isPropertyKey = (node: Rule.Node): boolean => {
 };
 
 export const isDecendantOfStyleJsxAttribute = (node: Rule.Node): boolean => {
-  // @ts-ignore
-  if (node.type === 'JSXAttribute') {
+  if (isNodeOfType(node, 'JSXAttribute')) {
     return true;
   }
 

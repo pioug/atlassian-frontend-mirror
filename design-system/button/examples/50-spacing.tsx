@@ -3,6 +3,8 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import Button from '../src';
 
 const Table = (props: React.HTMLProps<HTMLDivElement>) => (
@@ -12,7 +14,9 @@ const Row = (props: React.HTMLProps<HTMLDivElement>) => (
   <div css={{ display: 'table-row' }}>{props.children}</div>
 );
 const Cell = (props: React.HTMLProps<HTMLDivElement>) => (
-  <div css={{ display: 'table-cell', padding: 4 }}>{props.children}</div>
+  <div css={{ display: 'table-cell', padding: token('space.050', '4px') }}>
+    {props.children}
+  </div>
 );
 
 const ButtonSpacing = () => (

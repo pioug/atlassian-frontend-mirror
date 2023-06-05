@@ -7,7 +7,7 @@ import { NetworkError } from '@atlaskit/linking-common';
 import type {
   DatasourceDataRequest,
   DatasourceDataResponse,
-  DatasourceParameters,
+  DatasourceDetailsRequest,
   DatasourceResponse,
 } from '@atlaskit/linking-types';
 
@@ -31,9 +31,11 @@ describe('useDatasourceClientExtension', () => {
   let mockFetch: jest.Mock;
 
   const setup = () => {
-    const datasourceDetailsParams: DatasourceParameters = {
-      cloudId: 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b',
-      jql: 'project=EDM',
+    const datasourceDetailsParams: DatasourceDetailsRequest = {
+      parameters: {
+        cloudId: 'DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b',
+        jql: 'project=EDM',
+      },
     };
 
     const datasourceDataParams: DatasourceDataRequest = {

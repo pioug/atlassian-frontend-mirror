@@ -49,8 +49,8 @@ events:
         <<: *PackageMetaDataContext
         <<: *LinkCreateAnalyticContext
 
-  - linkCreateScreen closed:
-      type: screen
+  - modalDialog closed (linkCreate):
+      type: ui
       description: fired when the link create component is unmounted/dismissed for any reason
       attributes:
         <<: *PackageMetaDataContext

@@ -6,6 +6,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import Checkbox from '@atlaskit/checkbox';
 import { Field } from '@atlaskit/form';
+import { token } from '@atlaskit/tokens';
 
 import ModalDialog, {
   ModalBody,
@@ -44,7 +45,7 @@ export default function NestedDemo() {
   };
 
   return (
-    <div style={{ maxWidth: 400, padding: 16 }}>
+    <div style={{ maxWidth: 400, padding: token('space.200', '16px') }}>
       <Field name="sb" label="Scrolling behavior">
         {() => (
           <Checkbox

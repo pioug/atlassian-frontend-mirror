@@ -158,7 +158,7 @@ const defaultTheme: { mode: Mode } = {
         borderColor: token('color.border.input', N40),
       },
       focus: {
-        borderColor: token('color.border.focused', N40),
+        borderColor: token('color.border.focused', B200),
       },
       hover: {
         backgroundColor: token('color.background.input.hovered', N0),

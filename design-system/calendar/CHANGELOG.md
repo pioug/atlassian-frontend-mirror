@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 13.1.4
+
+### Patch Changes
+
+- [`774ed69ecef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/774ed69ecef) - Internal changes to use space tokens for spacing values. There is no visual change.
+
 ## 13.1.3
 
 ### Patch Changes

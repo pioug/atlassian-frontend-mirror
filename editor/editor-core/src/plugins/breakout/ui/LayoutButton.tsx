@@ -86,7 +86,7 @@ function getBreakoutNodeElement(
     ) as HTMLElement;
   }
   return findParentDomRefOfType(
-    pluginState.breakoutNode.type,
+    pluginState.breakoutNode.node.type,
     editorView.domAtPos.bind(editorView),
   )(selection) as HTMLElement;
 }

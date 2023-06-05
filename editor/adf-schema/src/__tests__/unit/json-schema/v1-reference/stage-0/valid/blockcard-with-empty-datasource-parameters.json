@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "blockCard",
+      "attrs": {
+        "datasource": {
+          "id": "datasource-id",
+          "parameters": {},
+          "views": [
+            {
+              "type": "table",
+              "properties": {
+                "columnKeys": [
+                  "assignee",
+                  "priority",
+                  "status"
+                ]
+              }
+            }
+          ],
+          "width": 0,
+          "layout": "center"
+        }
+      }
+    }
+  ]
+}

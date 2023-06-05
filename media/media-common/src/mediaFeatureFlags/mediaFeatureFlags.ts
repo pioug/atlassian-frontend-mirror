@@ -20,7 +20,6 @@ export const areEqualFeatureFlags = (
   }
 
   const results: RequiredMediaFeatureFlags = {
-    newCardExperience: ffA.newCardExperience === ffB.newCardExperience,
     captions: ffA.captions === ffB.captions,
     mediaInline: ffA.mediaInline === ffB.mediaInline,
     folderUploads: ffA.folderUploads === ffB.folderUploads,
@@ -69,7 +68,6 @@ export const getFeatureFlagKeysAllProducts = (): Array<string> => {
  * that change should be released as a MAJOR, because it's a breaking change.
  */
 export const defaultMediaFeatureFlags: Required<MediaFeatureFlags> = {
-  newCardExperience: false,
   captions: false,
   mediaInline: false,
   // We can't yet switch this feature on

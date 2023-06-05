@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import DropdownMenu, {
   DropdownItem,
   DropdownItemCheckbox,
@@ -8,7 +10,7 @@ import DropdownMenu, {
 } from '../src';
 
 export default () => (
-  <div style={{ padding: 12 }}>
+  <div style={{ padding: token('space.150', '12px') }}>
     <DropdownMenu testId="dropdown" isOpen trigger="Filter cities">
       <DropdownItemGroup>
         <DropdownItemCheckbox id="checkbox" isSelected>

@@ -1,5 +1,12 @@
 # @atlaskit/media-picker
 
+## 66.0.1
+
+### Patch Changes
+
+- [`bb442ced942`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb442ced942) - Remove newCardExperience feature flag
+- Updated dependencies
+
 ## 66.0.0
 
 ### Major Changes

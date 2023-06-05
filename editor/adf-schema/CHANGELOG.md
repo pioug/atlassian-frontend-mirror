@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 25.8.0
+
+### Minor Changes
+
+- [`f3d2c08d61b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3d2c08d61b) - Adds new datasource attribute to existing blockCard node
+
 ## 25.7.0
 
 ### Minor Changes

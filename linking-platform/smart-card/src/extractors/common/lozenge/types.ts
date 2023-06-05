@@ -8,8 +8,12 @@ export type LinkLozengeColor =
   | 'new'
   | 'moved';
 
+export type LinkLozengeInvokeActions = InvokeActions & {
+  showFeatureDiscovery?: boolean;
+};
+
 export interface LinkLozenge {
-  action?: InvokeActions;
+  action?: LinkLozengeInvokeActions;
   text: string;
   appearance?: LinkLozengeColor;
 }

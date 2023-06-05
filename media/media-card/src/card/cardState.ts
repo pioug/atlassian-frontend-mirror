@@ -37,7 +37,7 @@ export const getCardStateFromFileState = (
 ): Partial<CardState> => {
   const status = getCardStatus(
     fileState.status,
-    extractFilePreviewStatus(fileState, isBannedLocalPreview, featureFlags),
+    extractFilePreviewStatus(fileState, isBannedLocalPreview),
   );
 
   const error =

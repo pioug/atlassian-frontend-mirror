@@ -4,6 +4,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import { AtlassianIcon } from '@atlaskit/logo';
+import { token } from '@atlaskit/tokens';
 
 import Button from '../src';
 
@@ -16,7 +17,12 @@ const ButtonWrapper = ({
   inline?: boolean;
   children: React.ReactNode;
 }) => (
-  <div css={{ display: inline ? 'inline-block' : 'block', padding: 4 }}>
+  <div
+    css={{
+      display: inline ? 'inline-block' : 'block',
+      padding: token('space.050', '4px'),
+    }}
+  >
     {children}
   </div>
 );

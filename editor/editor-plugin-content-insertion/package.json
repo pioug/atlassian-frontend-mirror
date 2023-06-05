@@ -30,7 +30,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.3.0",
+    "@atlaskit/editor-common": "^74.4.0",
     "@atlaskit/editor-plugin-analytics": "^0.0.1",
     "@babel/runtime": "^7.0.0",
     "prosemirror-model": "1.16.0",
@@ -40,7 +40,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^25.7.0",
+    "@atlaskit/adf-schema": "^25.8.0",
     "@atlaskit/docs": "*",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-test-helpers": "^18.5.0",

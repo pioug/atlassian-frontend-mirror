@@ -133,6 +133,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       () => this.userId,
       this.onErrorHandled,
       this.metadataService,
+      this.config.failedStepLimitBeforeCatchupOnPublish,
     );
     this.getStatePromise = new Promise((resolve) => {
       this.getStatePromiseResolve = resolve;

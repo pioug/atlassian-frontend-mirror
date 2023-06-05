@@ -1,5 +1,11 @@
 # @atlaskit/side-navigation
 
+## 1.8.3
+
+### Patch Changes
+
+- [`774ed69ecef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/774ed69ecef) - Internal changes to use space tokens for spacing values. There is no visual change.
+
 ## 1.8.2
 
 ### Patch Changes

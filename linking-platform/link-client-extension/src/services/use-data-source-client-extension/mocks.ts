@@ -160,3 +160,10 @@ export const mockDatasourceResponse: DatasourceResponse = {
     ],
   },
 };
+
+export const mockDatasourceDataResponseWithSchema: DatasourceDataResponse = {
+  ...mockDatasourceDataResponse,
+  schema: {
+    properties: mockDatasourceResponse.schema.properties,
+  },
+};

@@ -7,6 +7,7 @@ import { css, CSSObject, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { B400, G400, N0, P400, R400, T400, Y400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Drawer from '../src';
 
@@ -17,8 +18,8 @@ interface State {
 const sidebarOverrideCssFn = (defaultStyles: CSSObject): CSSObject => ({
   color: N0,
   position: 'absolute',
-  top: 24,
-  left: 12,
+  top: token('space.300', '24px'),
+  left: token('space.150', '12px'),
 });
 
 const contentOverrideCssFn = (defaultStyles: CSSObject): CSSObject => ({
@@ -75,7 +76,7 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
-      <div style={{ padding: '2rem' }}>
+      <div style={{ padding: token('space.400', '2rem') }}>
         <Drawer
           onClose={this.onClose}
           onCloseComplete={this.onCloseComplete}

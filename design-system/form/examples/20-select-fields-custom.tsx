@@ -7,6 +7,7 @@ import Select, {
   SingleValueProps,
   ValueType,
 } from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 
 import Form, { ErrorMessage, Field, FormFooter } from '../src';
 
@@ -80,8 +81,8 @@ const ColorBox = ({ color }: { color: string }) => (
       height: '10px',
       backgroundColor: color,
       display: 'inline-block',
-      marginRight: 8,
-      marginBottom: 4,
+      marginRight: token('space.100', '8px'),
+      marginBottom: token('space.050', '4px'),
       verticalAlign: 'middle',
     }}
   />

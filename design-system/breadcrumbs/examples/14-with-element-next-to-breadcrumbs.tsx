@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { AtlassianIcon } from '@atlaskit/logo';
+import { token } from '@atlaskit/tokens';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
@@ -13,7 +14,7 @@ export default () => (
         <BreadcrumbsItem href="/item" text="item3" />
       </Breadcrumbs>
 
-      <div style={{ marginLeft: 4 }}>
+      <div style={{ marginLeft: token('space.050', '4px') }}>
         <AtlassianIcon label="Test icon" />
       </div>
     </div>

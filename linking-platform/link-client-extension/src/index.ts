@@ -3,4 +3,5 @@ export { useDatasourceClientExtension } from './services/use-data-source-client-
 export {
   mockDatasourceResponse,
   mockDatasourceDataResponse,
+  mockDatasourceDataResponseWithSchema,
 } from './services/use-data-source-client-extension/mocks';

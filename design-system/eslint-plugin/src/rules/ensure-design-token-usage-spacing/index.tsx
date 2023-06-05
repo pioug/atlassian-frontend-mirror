@@ -80,7 +80,7 @@ const rule = createRule<
         'Automated corrections available for spacing values. Apply autofix to replace values with appropriate tokens',
     },
   },
-  // @ts-expect-error
+  // @ts-expect-error types associated with createRule clash with eslint-codemod-utils :(
   create(context: Rule.RuleContext, options: [RuleConfig]) {
     let tokenNode: ImportDeclaration | null = null;
 
@@ -126,11 +126,9 @@ const rule = createRule<
             return node.key.name === 'fontSize';
           });
 
-          const fontSizeValue = getValue(
-            // @ts-expect-error
-            isNodeOfType(fontSizeNode, 'Property') && fontSizeNode.value,
-            context,
-          );
+          const fontSizeValue = isNodeOfType(fontSizeNode!, 'Property')
+            ? getValue(fontSizeNode.value, context)
+            : null;
 
           const fontSize = Array.isArray(fontSizeValue)
             ? fontSizeValue[0]

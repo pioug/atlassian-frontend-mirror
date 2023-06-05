@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.3.0
+
+### Minor Changes
+
+- [`d7aa08972c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7aa08972c6) - add style handler for the editor guideline plugin
+- [`1dadcae5b09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1dadcae5b09) - COLLAB-2623 Updated API to newest interface and added utils to create default gridlines
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.0
 
 ### Minor Changes

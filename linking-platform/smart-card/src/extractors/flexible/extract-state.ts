@@ -1,13 +1,13 @@
 import { extractLozenge } from '../common/lozenge';
 import type { JsonLd } from 'json-ld-types';
 import type { LinkLozenge } from '../common/lozenge/types';
+import { LinkLozengeInvokeActions } from '../common/lozenge/types';
 import {
   InvokeRequest,
   InvokeRequestAction,
   SmartLinkActionType,
 } from '@atlaskit/linking-types';
 import {
-  InvokeActions,
   CardDetails,
   InvokeRequestWithCardDetails,
 } from '../../state/hooks/use-invoke/types';
@@ -15,6 +15,7 @@ import { getExtensionKey } from '../../state/helpers';
 import extractServerAction from './extract-server-action';
 import { extractLink } from '@atlaskit/linking-common/extractors';
 import { extractPreviewAction } from './actions/extract-preview-action';
+import { ServerActionOptions } from '../../view/FlexibleCard/types';
 
 const toInvokeRequest = (
   extensionKey: string,
@@ -39,7 +40,8 @@ const toInvokeRequest = (
 const extractAction = (
   response?: JsonLd.Response,
   id?: string,
-): InvokeActions | undefined => {
+  options?: ServerActionOptions,
+): LinkLozengeInvokeActions | undefined => {
   const extensionKey = getExtensionKey(response);
   const data = response?.data as JsonLd.Data.BaseData;
   const actions = extractServerAction(data);
@@ -75,12 +77,18 @@ const extractAction = (
     details,
   );
 
-  return read || update ? { read, update } : undefined;
+  return read || update
+    ? {
+        read,
+        update,
+        showFeatureDiscovery: options?.showStateActionFeatureDiscovery,
+      }
+    : undefined;
 };
 
 const extractState = (
   response?: JsonLd.Response,
-  showServerActions?: boolean,
+  showServerActions?: boolean | ServerActionOptions,
   id?: string,
 ): LinkLozenge | undefined => {
   if (!response || !response.data) {
@@ -96,7 +104,11 @@ const extractState = (
     return lozenge;
   }
 
-  const action = extractAction(response, id);
+  const action = extractAction(
+    response,
+    id,
+    typeof showServerActions === 'boolean' ? undefined : showServerActions,
+  );
   return { ...lozenge, action };
 };
 

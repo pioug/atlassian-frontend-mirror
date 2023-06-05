@@ -1,5 +1,5 @@
 import type { ThemeAppearance } from '@atlaskit/lozenge';
-import type { InvokeActions } from '../../../../../state/hooks/use-invoke/types';
+import type { LinkLozengeInvokeActions } from '../../../../../extractors/common/lozenge/types';
 
 export type LozengeItem = {
   appearance?: ThemeAppearance;
@@ -8,7 +8,7 @@ export type LozengeItem = {
 };
 
 export type LozengeActionProps = {
-  action: InvokeActions;
+  action: LinkLozengeInvokeActions;
   appearance?: ThemeAppearance;
   testId?: string;
   text: string | React.ReactNode;

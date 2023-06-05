@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import InlineDialog from '../../src';
 import { Placements } from '../utils';
@@ -38,7 +39,12 @@ export default class InlineDialogPositioningExample extends Component<
   render() {
     return (
       <div style={styles}>
-        <div style={{ marginTop: 80, marginBottom: 80 }}>
+        <div
+          style={{
+            marginTop: token('space.1000', '80px'),
+            marginBottom: token('space.1000', '80px'),
+          }}
+        >
           <InlineDialog
             content={
               <div>

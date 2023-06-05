@@ -1,6 +1,5 @@
 // Media feature flags - type and defaults defined here in one source of truth
 export interface MediaFeatureFlags {
-  newCardExperience?: boolean;
   captions?: boolean;
   mediaInline?: boolean;
   // We can't yet switch this feature on

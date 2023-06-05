@@ -6,13 +6,9 @@ import { css, jsx } from '@emotion/react';
 import styled, { ThemeProvider } from 'styled-components';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
-import {
-  AtlaskitThemeProvider,
-  gridSize,
-  ThemeModes,
-  typography,
-} from '../src';
+import { AtlaskitThemeProvider, ThemeModes, typography } from '../src';
 import DeprecatedThemeProvider from '../src/deprecated-provider-please-do-not-use';
 
 const LIGHT = 'light';
@@ -63,7 +59,7 @@ const Example = () => {
           </div>
         </div>
       </div>
-      <div style={{ marginTop: 2 * gridSize() }}>
+      <div style={{ marginTop: token('space.200', '16px') }}>
         <Button testId="themeSwitch" onClick={toggleMode}>
           Toggle theme
         </Button>

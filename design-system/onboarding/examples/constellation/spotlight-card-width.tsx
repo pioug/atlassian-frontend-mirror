@@ -1,12 +1,19 @@
 import React from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
+import { token } from '@atlaskit/tokens';
 
 import { SpotlightCard } from '../../src';
 
 const SpotlightCardWidth = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: token('space.300', '24px'),
+      }}
+    >
       <SpotlightCard
         width={200}
         heading="Switch it up"

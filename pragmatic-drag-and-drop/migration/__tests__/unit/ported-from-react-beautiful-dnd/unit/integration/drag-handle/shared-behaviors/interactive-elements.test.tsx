@@ -9,7 +9,12 @@ import {
 import { interactiveTagNames } from '../../../../../../../src/draggable/is-event-in-interactive-element';
 import { setup } from '../../../../../_utils/setup';
 import App, { Item } from '../../_utils/app';
-import { Control, forEachSensor, simpleLift } from '../../_utils/controls';
+import {
+  Control,
+  forEachSensor,
+  mouseLiftExtended,
+  simpleLift,
+} from '../../_utils/controls';
 import { isDragging } from '../../_utils/helpers';
 
 beforeAll(() => {
@@ -28,16 +33,6 @@ const forEachTagName = (fn: (tagName: string) => void) =>
 jest.spyOn(console, 'error').mockImplementation(() => {});
 
 forEachSensor((control: Control) => {
-  /**
-   * Originally all controls were tested for here.
-   *
-   * In the migration layer, this behavior for pointer drags is determined
-   * by the browser.
-   */
-  if (control.name === 'mouse') {
-    return;
-  }
-
   it('should not drag if the handle is an interactive element', () => {
     forEachTagName((tagName: string) => {
       const renderItem =
@@ -122,7 +117,11 @@ forEachSensor((control: Control) => {
       const inner: HTMLElement = getByTestId('inner-0');
       const handle: HTMLElement = getByTestId('handle-0');
 
-      simpleLift(control, inner);
+      if (control.name === 'mouse') {
+        mouseLiftExtended(handle, { elementUnderPointer: inner });
+      } else {
+        simpleLift(control, inner);
+      }
 
       expect(isDragging(handle)).toBe(false);
 
@@ -156,7 +155,11 @@ forEachSensor((control: Control) => {
       const handle: HTMLElement = getByTestId('handle-0');
       const inner: HTMLElement = getByTestId('inner-0');
 
-      simpleLift(control, inner);
+      if (control.name === 'mouse') {
+        mouseLiftExtended(handle, { elementUnderPointer: inner });
+      } else {
+        simpleLift(control, inner);
+      }
 
       expect(isDragging(handle)).toBe(true);
 

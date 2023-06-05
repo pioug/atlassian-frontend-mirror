@@ -5,6 +5,8 @@ import {
   DatasourceType,
 } from '@atlaskit/linking-types';
 
+import { NextPageType } from '../../hooks/useDatasourceTableState';
+
 export type TableViewPropsRenderType = (
   item: DatasourceType,
 ) => React.ReactNode;
@@ -24,7 +26,8 @@ export interface IssueLikeDataTableViewProps {
   hasNextPage: boolean;
   status: DatasourceTableStatusType;
   items: DatasourceDataResponseItem[];
-  onNextPage: () => void;
+  onNextPage: NextPageType;
+  onLoadDatasourceDetails: () => void;
   /**
    * A function to define new or override existing render components.
    * eg:

@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { N80 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Range from '../src';
 
@@ -41,7 +42,7 @@ function Playground() {
           height: '1px',
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           backgroundColor: N80,
-          margin: '20px',
+          margin: token('space.250', '20px'),
         }}
       />
       <Checkbox

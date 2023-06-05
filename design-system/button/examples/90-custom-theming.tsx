@@ -4,6 +4,7 @@ import { CSSObject, jsx } from '@emotion/react';
 
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import * as colors from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import {
   ButtonGroup,
@@ -30,8 +31,8 @@ function ourTheme(
 
 function Example() {
   return (
-    <div css={{ margin: 20 }}>
-      <h3 css={{ marginBottom: 15 }}>ADG Button</h3>
+    <div css={{ margin: token('space.250', '20px') }}>
+      <h3 css={{ marginBottom: token('space.200', '16px') }}>ADG Button</h3>
       <ButtonGroup>
         <CustomThemeButton iconBefore={<AddIcon label="" />}>
           Button
@@ -40,7 +41,7 @@ function Example() {
         <CustomThemeButton appearance="warning">Button</CustomThemeButton>
       </ButtonGroup>
 
-      <h3 css={{ marginBottom: 15 }}>Themed Button</h3>
+      <h3 css={{ marginBottom: token('space.200', '16px') }}>Themed Button</h3>
       <ButtonGroup>
         <CustomThemeButton
           // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
@@ -63,7 +64,9 @@ function Example() {
         </CustomThemeButton>
       </ButtonGroup>
 
-      <h3 css={{ marginBottom: 15 }}>Themed using Theme.Provider</h3>
+      <h3 css={{ marginBottom: token('space.200', '16px') }}>
+        Themed using Theme.Provider
+      </h3>
       <Theme.Provider value={ourTheme}>
         <ButtonGroup>
           <CustomThemeButton iconBefore={<AddIcon label="" />}>
@@ -84,7 +87,7 @@ export default () => <Example />;
 
 const baseStyles: CSSObject = {
   border: 'none',
-  padding: '0px 15px',
+  padding: `0px ${token('space.200', '16px')}`,
   borderRadius: '15px',
   fontWeight: 'bold',
 };

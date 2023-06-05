@@ -5,7 +5,10 @@ import { useDraggableDimensions } from '../hooks/use-captured-dimensions';
 import { attributes } from '../utils/attributes';
 
 export const Placeholder = memo(
-  forwardRef(function Placeholder({}, ref: Ref<HTMLDivElement>) {
+  forwardRef(function Placeholder(
+    { style: styleProp }: { style?: React.CSSProperties },
+    ref: Ref<HTMLDivElement>,
+  ) {
     const dimensions = useDraggableDimensions();
 
     const { contextId } = useDragDropContext();
@@ -25,8 +28,9 @@ export const Placeholder = memo(
         width: rect.width,
         height: rect.height,
         margin: margin,
+        ...styleProp,
       };
-    }, [dimensions]);
+    }, [dimensions, styleProp]);
 
     return <div ref={ref} style={style} {...dataAttributes} />;
   }),

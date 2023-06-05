@@ -22,9 +22,7 @@ const params =
     ? new URLSearchParams(location.search.slice(1))
     : null;
 const param = params ? params.get('url') : null;
-const defaultURL = param
-  ? param
-  : 'https://jdog.jira-dev.com/browse/BENTO-4222';
+const defaultURL = param ? param : 'https://spitz.jira-dev.com/browse/PAW-11';
 
 const codeStyles = css`
   display: inline-grid;
@@ -36,6 +34,7 @@ export interface ExampleState {
   hidePreviewButton: boolean;
   closeOnChildClick: boolean;
   canOpen: boolean;
+  showServerActions: boolean;
   id: string;
 }
 
@@ -46,6 +45,7 @@ class Example extends React.Component<{}, ExampleState> {
     closeOnChildClick: false,
     canOpen: true,
     id: 'NULL',
+    showServerActions: false,
   };
 
   preventDefaultAndSetUrl(url: string) {
@@ -85,6 +85,12 @@ class Example extends React.Component<{}, ExampleState> {
     });
   };
 
+  handleShowServerActions = (event: React.FormEvent<HTMLInputElement>) => {
+    this.setState({
+      showServerActions: (event.target as HTMLInputElement).checked,
+    });
+  };
+
   getCode = () => {
     return `<HoverCard ${toComponentProps(
       this.state,
@@ -97,6 +103,7 @@ class Example extends React.Component<{}, ExampleState> {
     closeOnChildClick: boolean,
     canOpen: boolean,
     id: string,
+    showServerActions: boolean,
   ) {
     if (url) {
       return (
@@ -106,6 +113,7 @@ class Example extends React.Component<{}, ExampleState> {
           closeOnChildClick={closeOnChildClick}
           canOpen={canOpen}
           id={id}
+          showServerActions={showServerActions}
         >
           <h1
             style={{
@@ -123,8 +131,14 @@ class Example extends React.Component<{}, ExampleState> {
   }
 
   render() {
-    const { url, hidePreviewButton, closeOnChildClick, canOpen, id } =
-      this.state;
+    const {
+      url,
+      hidePreviewButton,
+      closeOnChildClick,
+      canOpen,
+      id,
+      showServerActions,
+    } = this.state;
 
     return (
       <IntlProvider locale="en">
@@ -146,6 +160,7 @@ class Example extends React.Component<{}, ExampleState> {
                     closeOnChildClick,
                     canOpen,
                     id,
+                    showServerActions,
                   )}
                 </div>
               </GridColumn>
@@ -192,6 +207,13 @@ class Example extends React.Component<{}, ExampleState> {
                         label="Can Open"
                         value="canOpen"
                         name="canOpen"
+                      />
+                      <Checkbox
+                        isChecked={showServerActions}
+                        onChange={this.handleShowServerActions}
+                        label="Show server actions"
+                        value="showServerActions"
+                        name="showServerActions"
                       />
                     </form>
                   )}

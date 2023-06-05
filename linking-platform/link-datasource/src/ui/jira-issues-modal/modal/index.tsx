@@ -85,6 +85,10 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     [cloudId, jql],
   );
 
+  const [visibleColumnKeys, setVisibleColumnKeys] = useState(
+    initialVisibleColumnKeys,
+  );
+
   const {
     reset,
     status,
@@ -93,11 +97,13 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     hasNextPage,
     columns,
     defaultVisibleColumnKeys,
-  } = useDatasourceTableState(datasourceId, parameters);
+    loadDatasourceDetails,
+  } = useDatasourceTableState({
+    datasourceId,
+    parameters: isParametersSet ? parameters : undefined,
+    fieldKeys: visibleColumnKeys,
+  });
 
-  const [visibleColumnKeys, setVisibleColumnKeys] = useState(
-    initialVisibleColumnKeys || defaultVisibleColumnKeys,
-  );
   useEffect(() => {
     const newVisibleColumnKeys =
       !initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
@@ -213,12 +219,6 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     setCurrentViewMode(selectedMode as JiraIssueViewModes);
   };
 
-  useEffect(() => {
-    if (status === 'empty' && isParametersSet) {
-      void onNextPage();
-    }
-  }, [status, isParametersSet, onNextPage, reset]);
-
   const issueLikeDataTableView = useMemo(
     () => (
       <IssueLikeDataTableView
@@ -229,6 +229,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
         hasNextPage={hasNextPage}
         visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
         onNextPage={onNextPage}
+        onLoadDatasourceDetails={loadDatasourceDetails}
         onVisibleColumnKeysChange={setVisibleColumnKeys}
       />
     ),
@@ -236,6 +237,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
       columns,
       defaultVisibleColumnKeys,
       hasNextPage,
+      loadDatasourceDetails,
       onNextPage,
       responseItems,
       status,

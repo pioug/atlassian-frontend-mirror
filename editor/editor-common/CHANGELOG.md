@@ -1,5 +1,16 @@
 # @atlaskit/editor-common
 
+## 74.4.0
+
+### Minor Changes
+
+- [`d9fe34b3f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9fe34b3f2b) - [ux] The ResizerNext component now supports a new property handleAlignmentMethod which defaults to "sticky". This means the resizer handles wil stick to the top/bottom bounds of the browser viewport if the component extends beyond and the user scrolls down. An alternative "center" value can be set which means the handles will just center to their content and not stick.
+- [`f3d2c08d61b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3d2c08d61b) - Adds new datasource attribute to existing blockCard node
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 74.3.1
 
 ### Patch Changes

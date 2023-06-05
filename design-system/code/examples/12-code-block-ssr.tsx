@@ -4,6 +4,8 @@ import { ReactNode } from 'react';
 import { jsx } from '@emotion/react';
 import ReactDOMServer from 'react-dom/server';
 
+import { token } from '@atlaskit/tokens';
+
 import { CodeBlock } from '../src';
 
 const exampleCodeBlock = `// React component
@@ -25,10 +27,10 @@ ReactDOM.render(
 const Layout = (props: { children: ReactNode }) => (
   <div
     css={{
-      padding: 8,
+      padding: token('space.100', '8px'),
       display: 'grid',
       gridTemplateColumns: '1fr 1fr',
-      gap: 8,
+      gap: token('space.100', '8px'),
     }}
   >
     {props.children}
@@ -39,7 +41,7 @@ const H2 = (props: { children: ReactNode }) => (
   // eslint-disable-next-line jsx-a11y/heading-has-content
   <h2
     css={{
-      marginBottom: 8,
+      marginBottom: token('space.100', '8px'),
     }}
   >
     {props.children}

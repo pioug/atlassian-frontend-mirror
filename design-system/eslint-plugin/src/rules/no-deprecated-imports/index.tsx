@@ -167,7 +167,6 @@ const rule = createRule<
       const importNames = new Map<string, TSESTree.Node>();
 
       if ('specifiers' in node) {
-        // @ts-ignore
         for (const specifier of node.specifiers) {
           let name;
 

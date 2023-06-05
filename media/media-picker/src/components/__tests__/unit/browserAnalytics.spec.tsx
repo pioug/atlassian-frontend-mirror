@@ -26,7 +26,6 @@ describe('Browser analytics instrumentation', () => {
   };
   const someFeatureFlags: MediaFeatureFlags = {
     folderUploads: true,
-    newCardExperience: false,
   };
   const uploadId = 'upload id';
   let oldDateNow: () => number;

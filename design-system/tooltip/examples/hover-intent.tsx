@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import Tooltip, { PositionType } from '../src';
 
 import { Target } from './styled';
@@ -15,7 +17,7 @@ const HoverIntent = () => {
         Click a target to toggle the position of the tooltips between{' '}
         {`'bottom'`} and {`'mouse'`}.
       </p>
-      <div style={{ display: 'flex', marginTop: 10 }}>
+      <div style={{ display: 'flex', marginTop: token('space.150', '12px') }}>
         {colors.map((c, i) => (
           <Tooltip key={c} content={`Content ${i + 1}`} position={position}>
             {({ onClick, ...tooltipProps }) => (
@@ -24,7 +26,7 @@ const HoverIntent = () => {
                   setPosition(position === 'bottom' ? 'mouse' : 'bottom')
                 }
                 color={c}
-                style={{ marginRight: 8 }}
+                style={{ marginRight: token('space.100', '8px') }}
                 tabIndex={0}
                 {...tooltipProps}
               >

@@ -15,6 +15,7 @@ Object {
     Object {
       "attrs": Object {
         "data": null,
+        "datasource": null,
         "url": "http://...",
       },
       "type": "blockCard",
@@ -48,6 +49,7 @@ Object {
     Object {
       "attrs": Object {
         "data": null,
+        "datasource": null,
         "url": "http://...",
       },
       "type": "blockCard",
@@ -81,6 +83,7 @@ Object {
     Object {
       "attrs": Object {
         "data": null,
+        "datasource": null,
         "url": "http://...",
       },
       "type": "blockCard",
@@ -105,6 +108,7 @@ Object {
     Object {
       "attrs": Object {
         "data": null,
+        "datasource": null,
         "url": "http://...",
       },
       "type": "blockCard",
@@ -120,6 +124,7 @@ Object {
     Object {
       "attrs": Object {
         "data": null,
+        "datasource": null,
         "url": "http://...",
       },
       "type": "blockCard",
@@ -136,6 +141,7 @@ Object {
     Object {
       "attrs": Object {
         "data": null,
+        "datasource": null,
         "url": "http://...",
       },
       "type": "blockCard",
@@ -190,6 +196,7 @@ Object {
                 Object {
                   "attrs": Object {
                     "data": null,
+                    "datasource": null,
                     "url": "http://...",
                   },
                   "type": "blockCard",
@@ -253,6 +260,7 @@ Object {
                 Object {
                   "attrs": Object {
                     "data": null,
+                    "datasource": null,
                     "url": "http://...",
                   },
                   "type": "blockCard",
@@ -376,6 +384,7 @@ Object {
                 Object {
                   "attrs": Object {
                     "data": null,
+                    "datasource": null,
                     "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
                   },
                   "type": "blockCard",
@@ -394,6 +403,7 @@ Object {
                 Object {
                   "attrs": Object {
                     "data": null,
+                    "datasource": null,
                     "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
                   },
                   "type": "blockCard",
@@ -419,6 +429,7 @@ Object {
     Object {
       "attrs": Object {
         "data": null,
+        "datasource": null,
         "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
       },
       "type": "blockCard",

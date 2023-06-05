@@ -1,6 +1,8 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import { RANDOM_USERS } from '../examples-util/data';
 import Avatar, { AvatarItem } from '../src';
 
@@ -31,7 +33,7 @@ export default () => {
   return (
     <div id="avatar-item-examples" style={{ display: 'flex' }}>
       <div>
-        <div style={{ maxWidth: 270, padding: 20 }}>
+        <div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
           <h1>onClick</h1>
           {data.map((user, index) => (
             <AvatarItem
@@ -45,7 +47,7 @@ export default () => {
             />
           ))}
         </div>
-        <div style={{ maxWidth: 270, padding: 20 }}>
+        <div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
           <h1>href</h1>
           {data.map((user, index) => (
             <AvatarItem
@@ -61,7 +63,7 @@ export default () => {
         </div>
       </div>
       <div>
-        <div style={{ maxWidth: 270, padding: 20 }}>
+        <div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
           <h1>non-interactive</h1>
           {data.map((user, index) => (
             <AvatarItem
@@ -74,7 +76,7 @@ export default () => {
             />
           ))}
         </div>
-        <div style={{ maxWidth: 270, padding: 20 }}>
+        <div style={{ maxWidth: 270, padding: token('space.250', '20px') }}>
           <h1>disabled</h1>
           {data.map((user, index) => (
             <AvatarItem

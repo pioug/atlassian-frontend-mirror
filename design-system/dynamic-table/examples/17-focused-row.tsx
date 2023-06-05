@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import { DynamicTableStateless } from '../src';
 import { RowType } from '../src/types';
 
 import { head, rows } from './content/sample-data';
 
-const paddingStyle = { padding: '8px 0' };
+const paddingStyle = { padding: `${token('space.100', '8px')} 0` };
 
 const rowsWithTabIndex: Array<RowType> = rows.map((row) => ({
   ...row,

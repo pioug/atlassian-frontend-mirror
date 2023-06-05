@@ -37,7 +37,12 @@ export default () => {
 
   return (
     <RetryContainer>
-      <div css={{ textAlign: 'center', '> *': { marginRight: '4px' } }}>
+      <div
+        css={{
+          textAlign: 'center',
+          '> *': { marginRight: token('space.050', '4px') },
+        }}
+      >
         <Button onClick={() => setItems((list) => randRemove(list))}>
           Random remove
         </Button>
@@ -48,7 +53,7 @@ export default () => {
             maxWidth: '474px',
             height: '328px',
             padding: 0,
-            margin: '16px auto !important',
+            margin: `${token('space.200', '16px')} auto !important`,
             div: { margin: '0' },
           }}
         >
@@ -60,7 +65,11 @@ export default () => {
                   {(props) => (
                     <li
                       {...props}
-                      css={{ display: 'block', padding: 0, margin: '8px' }}
+                      css={{
+                        display: 'block',
+                        padding: 0,
+                        margin: token('space.100', '8px'),
+                      }}
                     >
                       <Block
                         css={{
@@ -74,7 +83,7 @@ export default () => {
                             width: '100%',
                             display: 'flex',
                             alignItems: 'center',
-                            paddingLeft: '8px',
+                            paddingLeft: token('space.100', '8px'),
                           }}
                         >
                           {logo[0]}
@@ -82,7 +91,7 @@ export default () => {
                             css={{
                               margin: 0,
                               fontWeight: 300,
-                              marginLeft: '8px',
+                              marginLeft: token('space.100', '8px'),
                             }}
                           >
                             {logo[1]}

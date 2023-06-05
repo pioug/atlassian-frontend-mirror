@@ -8,17 +8,18 @@ import {
   resizerHandlePadding,
   resizerHandlerClassName,
   resizerHandleRightClassName,
+  resizerHandleStickyClassName,
   resizerHandleZIndex,
   resizerItemClassName,
 } from '../../styles/shared/resizer';
 
 import {
   EnabledHandles,
+  HandleAlignmentMethod,
   HandleResize,
   HandlerHeightSizeType,
   HandleStyles,
 } from './types';
-import { handleSides } from './utils';
 
 export interface ResizableNumberSize {
   width: number;
@@ -60,18 +61,24 @@ export type ResizerProps = {
   handleComponent?: HandleComponent;
 
   handlerHeightSize?: HandlerHeightSizeType;
+
+  // This is the method that should be used by the resizer when positioning the handles
+  handleAlignmentMethod?: HandleAlignmentMethod;
 };
 
 export default function ResizerNext(
   props: PropsWithChildren<ResizerProps>,
 ): JSX.Element {
   const resizable: RefObject<Resizable> = React.useRef(null);
+
   const {
     handleResize,
     handleResizeStart,
     handleResizeStop,
     handlerHeightSize = 'medium',
+    handleAlignmentMethod = 'center',
   } = props;
+
   const onResizeStart = React.useCallback(
     (
       event:
@@ -104,7 +111,6 @@ export default function ResizerNext(
         width: resizableCurrent.state.original.width,
         height: resizableCurrent.state.original.height,
       };
-
       handleResize(originalState, delta);
     },
     [handleResize],
@@ -134,25 +140,20 @@ export default function ResizerNext(
     [handleResizeStop],
   );
 
-  let handles: Record<string, string> = {};
-  if (props.handleClassName) {
-    handleSides.forEach((side) => {
-      handles[side] = `${props.handleClassName}-${side}`;
-    });
-  } else {
-    handles = {
-      left: resizerHandleLeftClassName,
-      right: resizerHandleRightClassName,
-    };
-  }
-
-  // add handler height size classname to handleClasses
-  Object.keys(handles).forEach((key) => {
-    handles[key] = classnames(
-      handles[key],
-      resizerHandlerClassName[handlerHeightSize],
-    );
-  });
+  const handles: Record<string, string> = {
+    left: classnames({
+      [`${props.handleClassName}-left`]: !!props.handleClassName,
+      [resizerHandleLeftClassName]: !props.handleClassName,
+      [resizerHandlerClassName[handlerHeightSize]]: true,
+      [resizerHandleStickyClassName]: handleAlignmentMethod === 'sticky',
+    }),
+    right: classnames({
+      [`${props.handleClassName}-right`]: !!props.handleClassName,
+      [resizerHandleRightClassName]: !props.handleClassName,
+      [resizerHandlerClassName[handlerHeightSize]]: true,
+      [resizerHandleStickyClassName]: handleAlignmentMethod === 'sticky',
+    }),
+  };
 
   const innerPadding = props.innerPadding || resizerHandlePadding;
   const handleStyles: HandleStyles = {

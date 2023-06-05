@@ -93,6 +93,47 @@ BrowserTestCase(
 );
 
 BrowserTestCase(
+  'breakout: width button should appear next to selected component',
+  // Don't need to test cross browser for this
+  { skip: ['safari', 'firefox'] },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+
+    await mountEditor(page, {
+      appearance: 'full-page',
+      allowBreakout: true,
+    });
+
+    // Add three code blocks
+    // check the position of width button and move down to the next
+    await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+    await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+    await page.click(`[aria-label="${messages.codeblock.defaultMessage}"]`);
+
+    let breakoutButtonPosition = '';
+
+    await page.click('[data-testid="code-block--code"]');
+
+    for (let i = 0; i < 3; i += 1) {
+      await page.waitForSelector(wideBreakoutButtonQuery);
+
+      // Check the position of the width button
+      const top = await page.evaluate((selector) => {
+        const el = document.querySelector(selector);
+
+        return el ? window.getComputedStyle(el).top : '0';
+      }, wideBreakoutButtonQuery);
+
+      expect(top).not.toBe(breakoutButtonPosition);
+
+      breakoutButtonPosition = top;
+
+      await page.keys('ArrowDown');
+    }
+  },
+);
+
+BrowserTestCase(
   'breakout: should be able to delete last character inside a "wide" codeBlock preserving the node',
   {},
   async (client: any, testName: string) => {

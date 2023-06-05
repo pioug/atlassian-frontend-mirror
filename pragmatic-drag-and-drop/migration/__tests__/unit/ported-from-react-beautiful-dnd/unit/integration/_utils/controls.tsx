@@ -32,30 +32,37 @@ export function getTransitionEnd(propertyName: string = 'transform'): Event {
   return event;
 }
 
+export function mouseLiftExtended(
+  handle: HTMLElement,
+  { elementUnderPointer }: { elementUnderPointer: HTMLElement },
+) {
+  /**
+   * Added for compatibility with how pdnd checks drag handles.
+   */
+  const clearElementFromPoint = setElementFromPoint(elementUnderPointer);
+
+  // will fire `onGenerateDragPreview`
+  fireEvent.dragStart(handle, {
+    clientX: 0,
+    clientY: sloppyClickThreshold,
+  });
+
+  act(() => {
+    // after an animation frame we fire `onDragStart`
+    // @ts-expect-error
+    requestAnimationFrame.step();
+  });
+
+  clearElementFromPoint();
+}
+
 export const mouse: Control = {
   name: 'mouse',
   preLift: (handle: HTMLElement) => {
     fireEvent.mouseDown(handle);
   },
   lift: (handle: HTMLElement) => {
-    /**
-     * Added for compatibility with how pdnd checks drag handles.
-     */
-    const clearElementFromPoint = setElementFromPoint(handle);
-
-    // will fire `onGenerateDragPreview`
-    fireEvent.dragStart(handle, {
-      clientX: 0,
-      clientY: sloppyClickThreshold,
-    });
-
-    act(() => {
-      // after an animation frame we fire `onDragStart`
-      // @ts-expect-error
-      requestAnimationFrame.step();
-    });
-
-    clearElementFromPoint();
+    mouseLiftExtended(handle, { elementUnderPointer: handle });
   },
   move: (handle: HTMLElement) => {
     fireEvent.pointerMove(handle, {

@@ -124,11 +124,12 @@ const LozengeAction: FC<LozengeActionProps> = ({
       <LozengeActionTrigger
         {...props}
         appearance={selected.appearance}
+        showFeatureDiscovery={action?.showFeatureDiscovery}
         testId={testId}
         text={selected.text}
       />
     ),
-    [testId, selected],
+    [selected.appearance, selected.text, action?.showFeatureDiscovery, testId],
   );
 
   const handleItemClick = useCallback(

@@ -1,10 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { N30A } from '@atlaskit/theme/colors';
+import { B200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import { GuidelinePosition } from './types';
 
 const BasicGuidelineStyles = css({
   borderLeft: `1px solid ${token('color.border', N30A)}`,
@@ -12,18 +10,43 @@ const BasicGuidelineStyles = css({
   width: '1px',
   height: '100%',
   zIndex: 0,
-  transition: 'border-color 0.15s linear',
+  opacity: 1,
+  transition: 'border-color 0.15s linear, opacity 0.15s linear',
+});
+
+const ActiveGuidelineStyles = css({
+  borderColor: token('color.border.focused', B200),
+});
+
+const HiddenGuidelineStyles = css({
+  opacity: 0,
+});
+
+const DashedGuidelineStyles = css({
+  borderLeftStyle: 'dashed',
 });
 
 type Props = {
-  position: GuidelinePosition;
+  position: number;
+  active?: boolean;
+  show?: boolean;
+  style?: 'dashed' | 'solid'; // default solid
+  // color?: string;
+  // TODO: need an active color?
 };
 
-const positionToStyle = (position: GuidelinePosition): React.CSSProperties => {
-  const { left, right } = position;
-  return left ? { left } : { right };
+export const Guideline = (props: Props) => {
+  const { position, active, show = true, style } = props;
+  return (
+    <div
+      css={[
+        BasicGuidelineStyles,
+        active && ActiveGuidelineStyles,
+        !show && HiddenGuidelineStyles,
+        style === 'dashed' && DashedGuidelineStyles,
+      ]}
+      className="guideline"
+      style={{ left: `${position}px` }}
+    />
+  );
 };
-
-export const Guideline = (props: Props) => (
-  <div css={BasicGuidelineStyles} style={positionToStyle(props.position)} />
-);

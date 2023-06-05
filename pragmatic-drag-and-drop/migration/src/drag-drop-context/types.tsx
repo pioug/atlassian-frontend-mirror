@@ -19,6 +19,11 @@ export type DragState =
       type: string;
       sourceLocation: DraggableLocation;
       targetLocation: DraggableLocation | null;
+
+      /**
+       * This is used for positioning placeholders in virtual lists.
+       */
+      draggableInitialOffsetInSourceDroppable: { top: number; left: number };
     };
 
 /**

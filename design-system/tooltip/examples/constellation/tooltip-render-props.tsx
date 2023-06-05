@@ -98,7 +98,15 @@ export default () => {
 
       <p>Position</p>
       {/*eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions*/}
-      <div style={{ padding: '40px 40px' }} onClick={changeDirection}>
+      <div
+        style={{
+          padding: `${token('space.500', '40px')} ${token(
+            'space.500',
+            '40px',
+          )}`,
+        }}
+        onClick={changeDirection}
+      >
         <Tooltip content={positionText} position={positionText}>
           {(tooltipProps) => <Button {...tooltipProps}>Target</Button>}
         </Tooltip>

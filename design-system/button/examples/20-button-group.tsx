@@ -4,14 +4,21 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import AudioIcon from '@atlaskit/icon/glyph/audio';
+import { token } from '@atlaskit/tokens';
 
 import Button, { ButtonGroup } from '../src';
 
 const Row = (props: { children: React.ReactNode }) => (
-  <div css={{ padding: 8 }}>{props.children}</div>
+  <div css={{ padding: token('space.100', '8px') }}>{props.children}</div>
 );
 const ConstrainedRow = (props: { children: React.ReactNode }) => (
-  <div css={{ padding: 8, width: 180, overflowX: 'scroll' }}>
+  <div
+    css={{
+      padding: token('space.100', '8px'),
+      width: 180,
+      overflowX: 'scroll',
+    }}
+  >
     {props.children}
   </div>
 );

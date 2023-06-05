@@ -52,7 +52,7 @@ export default () => {
             '0px 4px 8px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
           ),
           borderRadius: 4,
-          margin: '16px auto',
+          margin: `${token('space.200', '16px')} auto`,
           minWidth: '320px',
           maxWidth: '100%',
         }}

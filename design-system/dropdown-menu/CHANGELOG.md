@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.9.4
+
+### Patch Changes
+
+- [`296683f5adc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/296683f5adc) - Update DropdownItemCheckbox and DropdownItemRadio icon color and add a border to these icons to be consistent within our design system.
+
 ## 11.9.3
 
 ### Patch Changes

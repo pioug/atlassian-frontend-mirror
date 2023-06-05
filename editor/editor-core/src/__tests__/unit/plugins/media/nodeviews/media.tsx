@@ -114,7 +114,7 @@ describe('nodeviews/media', () => {
   });
 
   it('passes feature flag to Card component', async () => {
-    const featureFlags: MediaFeatureFlags = { newCardExperience: true };
+    const featureFlags = { someFlag: true } as MediaFeatureFlags;
     const mediaOptions = {
       featureFlags,
     };

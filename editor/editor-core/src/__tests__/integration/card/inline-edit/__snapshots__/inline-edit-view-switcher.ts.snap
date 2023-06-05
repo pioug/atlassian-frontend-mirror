@@ -6,6 +6,7 @@ Object {
     Object {
       "attrs": Object {
         "data": null,
+        "datasource": null,
         "url": "https://inlineCardTestUrl",
       },
       "type": "blockCard",

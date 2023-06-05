@@ -18,6 +18,7 @@ import {
   GuidelinePluginOptions,
   GuidelinePluginState,
 } from './types';
+import { getEditorCenterX } from './utils';
 
 const guidelineStyles = css({
   position: 'absolute',
@@ -34,11 +35,8 @@ const key = new PluginKey<GuidelinePluginState>('guidelinePlugin');
 
 const displayGuideline: DisplayGuideline = view => props => {
   const { dispatch, state } = view;
-
   const tr = state.tr.setMeta(key, props);
-
   dispatch(tr);
-
   return true;
 };
 
@@ -93,6 +91,7 @@ const ContentComponent = ({
       <GuidelineContainer
         guidelines={guidelineState.guidelines}
         height={(editorView.dom as HTMLElement).scrollHeight}
+        centerOffset={getEditorCenterX(editorView)}
         containerWidth={widthState.containerWidth}
         editorWidth={widthState.lineLength}
       />

@@ -373,7 +373,9 @@ const getChildrenByType = (node: JSXElement, types: JSXChild[]) => {
   });
 };
 
-type CSSPropStyleObject = { [key: string]: string };
+// FIXME: This not correctly typed
+type CSSPropStyleObject = { [key: string]: any };
+
 const getCSSPropStyleObject = (
   node: JSXElement,
   context: Rule.RuleContext,
@@ -429,7 +431,14 @@ const getCSSPropStyleObject = (
         return;
       }
 
-      //@ts-ignore
+      if (!isNodeOfType(prop.key, 'Identifier')) {
+        return;
+      }
+
+      if (!isNodeOfType(prop.value, 'Literal')) {
+        return;
+      }
+
       styleObj[prop.key.name] = prop.value.value;
     });
   }

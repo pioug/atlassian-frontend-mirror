@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button';
 import { N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import {
   Spotlight,
@@ -21,7 +22,7 @@ const SpotlightImageExample = () => {
       <SpotlightTarget name="switch">
         <Button>Switch projects</Button>
       </SpotlightTarget>
-      <div style={{ marginTop: '16px' }}>
+      <div style={{ marginTop: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={() => start()}>
           Show example spotlight
         </Button>

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import Portal from '../src';
 
 const StackingContextExample = () => (
@@ -16,11 +18,11 @@ const StackingContextExample = () => (
       <div
         style={{
           position: 'absolute',
-          top: 24,
-          left: 24,
+          top: token('space.300', '24px'),
+          left: token('space.300', '24px'),
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           background: 'lightpink',
-          padding: '24px',
+          padding: token('space.300', '24px'),
           borderRadius: '3px',
           // this z-index is relative to the portal
           zIndex: 1,
@@ -34,11 +36,13 @@ const StackingContextExample = () => (
       <div
         style={{
           position: 'absolute',
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
           top: 100,
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
           left: 100,
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           background: 'aquamarine',
-          padding: '24px',
+          padding: token('space.300', '24px'),
           borderRadius: '3px',
           // this z-index is relative to the portal
           zIndex: 1000,

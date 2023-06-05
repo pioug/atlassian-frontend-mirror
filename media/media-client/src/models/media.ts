@@ -1,8 +1,4 @@
-import {
-  MediaTraceContext,
-  MediaFeatureFlags,
-  MediaType,
-} from '@atlaskit/media-common';
+import { MediaTraceContext, MediaType } from '@atlaskit/media-common';
 
 import type { MediaFileArtifacts } from './artifacts';
 
@@ -12,10 +8,7 @@ export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
 
 export type { MediaType } from '@atlaskit/media-common';
 
-export const isPreviewableType = (
-  type: MediaType,
-  featureFlags?: MediaFeatureFlags,
-): boolean => {
+export const isPreviewableType = (type: MediaType): boolean => {
   const defaultPreviewableTypes = ['audio', 'video', 'image', 'doc'];
   return defaultPreviewableTypes.indexOf(type) > -1;
 };

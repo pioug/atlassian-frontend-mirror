@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 185.1.0
+
+### Minor Changes
+
+- [`d9fe34b3f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9fe34b3f2b) - [ux] The ResizerNext component now supports a new property handleAlignmentMethod which defaults to "sticky". This means the resizer handles wil stick to the top/bottom bounds of the browser viewport if the component extends beyond and the user scrolls down. An alternative "center" value can be set which means the handles will just center to their content and not stick.
+
+### Patch Changes
+
+- [`bb442ced942`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb442ced942) - Remove newCardExperience feature flag
+- [`daee7ddddc2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/daee7ddddc2) - [MEX-2405] Fixed the flickering error (inline) card issue
+- [`d7888f058a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7888f058a9) - converted to using new AnalyticsAPI in mentions plugin and wrote test for it
+- Updated dependencies
+
 ## 185.0.2
 
 ### Patch Changes

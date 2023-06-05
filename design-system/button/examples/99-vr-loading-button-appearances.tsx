@@ -3,6 +3,8 @@ import React from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { Appearance, LoadingButton as Button } from '../src';
 
 const appearances: Appearance[] = [
@@ -35,7 +37,9 @@ const Row = (props: React.HTMLProps<HTMLDivElement>) => (
   <div css={{ display: 'flex', flexWrap: 'wrap' }}>{props.children}</div>
 );
 const Cell = (props: React.HTMLProps<HTMLDivElement>) => (
-  <div css={{ width: '100px', padding: '4px 0' }}>{props.children}</div>
+  <div css={{ width: '100px', padding: `${token('space.050', '4px')} 0` }}>
+    {props.children}
+  </div>
 );
 
 function capitalize(str: string) {

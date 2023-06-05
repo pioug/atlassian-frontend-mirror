@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';
+import { token } from '@atlaskit/tokens';
 
 import Select, { components } from '../src';
 import type {
@@ -34,8 +35,8 @@ const ColorBox = ({ color }: { color: string }) => (
       height: '10px',
       backgroundColor: color,
       display: 'inline-block',
-      marginRight: 8,
-      marginBottom: 4,
+      marginRight: token('space.100', '8px'),
+      marginBottom: token('space.050', '4px'),
       verticalAlign: 'middle',
     }}
   />

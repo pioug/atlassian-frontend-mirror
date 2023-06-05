@@ -163,4 +163,14 @@ describe('Column picker', () => {
     const popupList = getByText('Matt').closest(OPTION_LIST_CLASS);
     expect(popupList).toHaveTextContent('TomJohnMattBob');
   });
+
+  it('should show loading text when no columns are passed', async () => {
+    const { getByText, getByTestId } = renderColumnPicker([], [], false);
+
+    // open popup
+    const triggerButton = getByTestId('column-picker-trigger-button');
+    fireEvent.click(triggerButton);
+
+    expect(getByText('Loading...')).not.toBeNull();
+  });
 });

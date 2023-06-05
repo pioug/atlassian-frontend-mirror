@@ -114,12 +114,12 @@ describe('HoverCard', () => {
   };
 
   const serverActionsTest = (
-    fn: (showServerActions?: boolean) => ReturnType<typeof setup>,
+    renderComponent: (showServerActions?: boolean) => ReturnType<typeof setup>,
   ) => {
     const elementId = 'state-metadata-element--trigger';
 
     it('shows server actions when enabled', async () => {
-      const { findByTestId } = await fn(true);
+      const { findByTestId } = await renderComponent(true);
       jest.runAllTimers();
 
       const actionElement = await findByTestId(elementId);
@@ -127,7 +127,7 @@ describe('HoverCard', () => {
     });
 
     it('does not show server actions when disable', async () => {
-      const { queryByTestId } = await fn(false);
+      const { queryByTestId } = await renderComponent(false);
       jest.runAllTimers();
 
       const actionElement = queryByTestId(elementId);
@@ -136,7 +136,7 @@ describe('HoverCard', () => {
     });
 
     it('does not show server action when option not provided', async () => {
-      const { queryByTestId } = await fn();
+      const { queryByTestId } = await renderComponent();
       jest.runAllTimers();
 
       const actionElement = queryByTestId(elementId);
@@ -145,7 +145,7 @@ describe('HoverCard', () => {
     });
 
     it('fires the buttonClicked event on a click of the status lozenge', async () => {
-      const { findByTestId, analyticsSpy } = await fn(true);
+      const { findByTestId, analyticsSpy } = await renderComponent(true);
       jest.runAllTimers();
 
       const actionElement = await findByTestId(elementId);
@@ -163,6 +163,41 @@ describe('HoverCard', () => {
         },
         analytics.ANALYTICS_CHANNEL,
       );
+    });
+
+    describe('feature discovery', () => {
+      const fdTestId = `state-metadata-element-discovery`;
+
+      beforeEach(() => {
+        localStorage.clear();
+      });
+
+      it('shows feature discovery component', async () => {
+        const { findByTestId } = await renderComponent(true);
+        jest.runAllTimers();
+
+        const element = await findByTestId(fdTestId);
+        expect(element).toBeInTheDocument();
+      });
+
+      it('does not show feature discovery component twice', async () => {
+        const { element, findByTestId, queryByTestId } = await renderComponent(
+          true,
+        );
+        jest.runAllTimers();
+
+        // Confirm that feature discovery component is showing
+        await findByTestId(fdTestId);
+
+        // Close hover preview and trigger it to open again
+        fireEvent.mouseLeave(element);
+        jest.runAllTimers();
+        fireEvent.mouseEnter(element);
+        jest.runAllTimers();
+
+        const fdElement = queryByTestId(fdTestId);
+        expect(fdElement).not.toBeInTheDocument();
+      });
     });
   };
 

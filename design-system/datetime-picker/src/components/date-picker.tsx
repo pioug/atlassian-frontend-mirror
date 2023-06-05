@@ -28,8 +28,7 @@ import Select, {
   ValueType,
 } from '@atlaskit/select';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { borderRadius, gridSize, layers } from '@atlaskit/theme/constants';
+import { borderRadius, layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -633,8 +632,6 @@ class DatePicker extends Component<DatePickerProps, State> {
       weekStartDay,
     } = this.props;
 
-    const ICON_PADDING = 2;
-
     const { value, calendarValue, isOpen, selectInputValue } =
       this.getSafeState();
 
@@ -728,8 +725,8 @@ class DatePicker extends Component<DatePickerProps, State> {
             }),
             indicatorsContainer: (base) => ({
               ...base,
-              paddingLeft: ICON_PADDING,
-              paddingRight: gridSize() - ICON_PADDING,
+              paddingLeft: token('space.025', '2px'), // ICON_PADDING = 2
+              paddingRight: token('space.075', '6px'), // 8 - ICON_PADDING = 6
             }),
           })}
           placeholder={this.getPlaceholder()}

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage-spacing */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
@@ -141,7 +142,7 @@ export default () => (
     }}
   >
     <Test />
-    <div style={{ padding: 20 }}>
+    <div style={{ padding: token('space.250', '20px') }}>
       <h3 style={{ marginTop: SPACING }}> Scroll Container</h3>
     </div>
     <div
@@ -150,7 +151,7 @@ export default () => (
         boxShadow: 'inset 0px 0px 0px 10px lightgrey',
         height: '400px',
         width: '90%',
-        marginTop: '20px',
+        marginTop: token('space.250', '20px'),
         overflow: 'auto',
       }}
     >

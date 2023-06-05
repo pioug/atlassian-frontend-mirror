@@ -28,6 +28,7 @@ export class ArchiveSidebarHeader extends React.Component<HeaderProps> {
   render() {
     const { folderName, onHeaderClick } = this.props;
     return (
+      // eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
       <ButtonItem onClick={onHeaderClick} cssFn={() => itemStyle}>
         <SidebarHeaderWrapper>
           <SidebarHeaderIcon>{this.getHeaderIcon()}</SidebarHeaderIcon>

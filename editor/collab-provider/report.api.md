@@ -32,6 +32,12 @@ type BaseEvents = Pick<
 >;
 
 // @public (undocumented)
+type CollabCommitStatusEventPayload = {
+  status: 'attempt' | 'failure' | 'success';
+  version: number;
+};
+
+// @public (undocumented)
 export type CollabConnectedPayload = CollabEventConnectionData;
 
 // @public (undocumented)
@@ -155,6 +161,8 @@ export interface CollabEventRemoteData {
 // @public (undocumented)
 export interface CollabEvents {
   // (undocumented)
+  'commit-status': CollabCommitStatusEventPayload;
+  // (undocumented)
   'local-steps': CollabLocalStepsPayload;
   // (undocumented)
   'metadata:changed': CollabMetadataPayload;
@@ -251,6 +259,7 @@ interface Config {
   ) => Socket;
   // (undocumented)
   documentAri: string;
+  failedStepLimitBeforeCatchupOnPublish?: number;
   // (undocumented)
   featureFlags?: {
     [key: string]: boolean;

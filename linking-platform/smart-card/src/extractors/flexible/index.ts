@@ -84,7 +84,7 @@ const extractFlexibleUiContext = ({
     sourceBranch: extractSourceBranch(
       data as JsonLd.Data.SourceCodePullRequest,
     ),
-    state: extractState(response, showLozengeAction || showServerActions, id),
+    state: extractState(response, showServerActions || showLozengeAction, id),
     subscriberCount: extractSubscriberCount(data),
     targetBranch: extractTargetBranch(
       data as JsonLd.Data.SourceCodePullRequest,

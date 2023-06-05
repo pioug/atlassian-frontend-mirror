@@ -21,7 +21,7 @@ const ContentOverrideComponent: FC<{ children?: ReactNode }> = ({
       style={{
         flex: 1,
         overflow: 'auto',
-        marginTop: 24,
+        marginTop: token('space.300', '24px'),
         // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
         border: `3px dashed ${token(
           'color.background.accent.purple.subtle',
@@ -56,7 +56,7 @@ export default class DrawersExample extends Component<{}, State> {
 
   render() {
     return (
-      <div style={{ padding: '2rem' }}>
+      <div style={{ padding: token('space.400', '2rem') }}>
         <Drawer
           onClose={this.onClose}
           onCloseComplete={this.onCloseComplete}

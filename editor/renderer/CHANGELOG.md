@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 108.1.4
+
+### Patch Changes
+
+- [`bb442ced942`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb442ced942) - Remove newCardExperience feature flag
+- Updated dependencies
+
 ## 108.1.3
 
 ### Patch Changes

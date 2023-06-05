@@ -3,6 +3,8 @@ import React, { Component, Fragment } from 'react';
 
 import Lorem from 'react-lorem-component';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   Spotlight,
   SpotlightManager,
@@ -19,7 +21,7 @@ interface State {
 const Paragraph = ({ position }: { position: number }) => (
   <Fragment>
     <h3>{position}</h3>
-    <div style={{ marginBottom: 20 }}>
+    <div style={{ marginBottom: token('space.250', '20px') }}>
       <Lorem count={1} />
     </div>
   </Fragment>
@@ -39,7 +41,7 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
   render() {
     const { spotlight } = this.state;
     return (
-      <div style={{ paddingBottom: 40 }}>
+      <div style={{ paddingBottom: token('space.500', '40px') }}>
         <SpotlightManager>
           <p>
             To save some time for consumers and provide a delightfull experience
@@ -47,7 +49,7 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
             before rendering each spotlight dialog.
           </p>
           <p>Scroll down to see the target element.</p>
-          <p style={{ marginBottom: '1em' }}>
+          <p style={{ marginBottom: token('space.200', '1em') }}>
             <button type="button" onClick={this.highlightOne}>
               Show
             </button>
@@ -83,7 +85,7 @@ export default class SpotlightAutoscrollExample extends Component<{}, State> {
             </SpotlightTarget>
           </HighlightGroup>
 
-          <p style={{ marginBottom: '1em' }}>
+          <p style={{ marginBottom: token('space.200', '1em') }}>
             <button type="button" onClick={this.highlightTwo}>
               Show
             </button>

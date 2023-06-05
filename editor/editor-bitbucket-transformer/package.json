@@ -32,7 +32,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.3.0",
+    "@atlaskit/editor-common": "^74.4.0",
     "@babel/runtime": "^7.0.0",
     "prosemirror-markdown": "^1.4.2",
     "prosemirror-model": "1.16.0"
@@ -42,9 +42,9 @@
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/adf-schema": "^25.7.0",
+    "@atlaskit/adf-schema": "^25.8.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^185.0.0",
+    "@atlaskit/editor-core": "^185.1.0",
     "@atlaskit/editor-test-helpers": "^18.5.0",
     "@atlaskit/emoji": "^67.4.0",
     "@atlaskit/smart-card": "^26.5.0",

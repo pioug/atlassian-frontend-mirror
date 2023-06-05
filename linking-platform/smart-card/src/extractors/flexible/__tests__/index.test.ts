@@ -327,6 +327,7 @@ describe('extractFlexibleUiContext', () => {
 
         expect(data?.state?.action).toBeUndefined();
       });
+
       it('does not show lozenge action when lozenge action experiment is disabled', () => {
         const data = extractFlexibleUiContext({
           response: JiraTask as JsonLd.Response,
@@ -352,6 +353,36 @@ describe('extractFlexibleUiContext', () => {
         });
 
         expect(data?.state?.action).toBeDefined();
+      });
+
+      describe.each([
+        ['undefined'],
+        ['not-enrolled'],
+        ['control'],
+        ['experiment'],
+      ])('with show server actions when feature flag value is %s', (ff) => {
+        const featureFlags =
+          ff === 'undefined' ? undefined : { useLozengeAction: ff };
+
+        it(`show lozenge action when show server action is true`, () => {
+          const data = extractFlexibleUiContext({
+            response: JiraTask as JsonLd.Response,
+            featureFlags,
+            showServerActions: true,
+          });
+
+          expect(data?.state?.action).toBeDefined();
+        });
+
+        it(`show lozenge action when show server action options is defined`, () => {
+          const data = extractFlexibleUiContext({
+            response: JiraTask as JsonLd.Response,
+            featureFlags,
+            showServerActions: {},
+          });
+
+          expect(data?.state?.action).toBeDefined();
+        });
       });
     });
   });

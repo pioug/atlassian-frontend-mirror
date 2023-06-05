@@ -20,6 +20,7 @@ describe('JiraIssuesTableView', () => {
       reset: jest.fn(),
       status: 'resolved',
       onNextPage: jest.fn(),
+      loadDatasourceDetails: jest.fn(),
       hasNextPage: false,
       responseItems: [
         {
@@ -65,9 +66,13 @@ describe('JiraIssuesTableView', () => {
     setup();
     renderComponent();
 
-    expect(useDatasourceTableState).toHaveBeenCalledWith('some-datasource-id', {
-      cloudId: 'some-cloud-id',
-      jql: 'some-jql-query',
+    expect(useDatasourceTableState).toHaveBeenCalledWith({
+      datasourceId: 'some-datasource-id',
+      parameters: {
+        cloudId: 'some-cloud-id',
+        jql: 'some-jql-query',
+      },
+      fieldKeys: ['visible-column-1', 'visible-column-2'],
     });
   });
 

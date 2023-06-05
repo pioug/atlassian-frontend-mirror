@@ -49,13 +49,6 @@ If either of these changes is a blocker for you, please reach out to discuss opt
 Combining items is not supported by this migration layer. The main use case is for trees, which other packages are better suited for.
 
 If you are looking for a tree package, please reach out to us and we can help you with next steps.
-
-### `disableInteractiveElementBlocking`
-
-This prop now only affects when keyboard drags can occur.
-
-The browser determines when pointer drags can occur.
-
 ### Unsupported props
 
 A number of props are no longer supported. They will be accepted but won't have any effect.

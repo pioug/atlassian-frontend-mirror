@@ -53,7 +53,7 @@ const IconSizeExample = () => {
     <div>
       <ButtonGroup>
         {sizes.map((sizeOpt) => (
-          <div style={{ marginRight: 4 }} key={sizeOpt}>
+          <div style={{ marginRight: token('space.050', '4px') }} key={sizeOpt}>
             <Button
               testId={sizeOpt}
               isSelected={sizeOpt === size}

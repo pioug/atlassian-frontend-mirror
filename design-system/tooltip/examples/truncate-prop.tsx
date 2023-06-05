@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import Tooltip from '../src';
 
 // unique enough id
@@ -16,11 +18,17 @@ const Checkbox = ({ children, onChange }: CheckboxProps) => {
   const id = getUEID();
 
   return (
-    <label htmlFor={id} style={{ display: 'inline-block', marginBottom: 10 }}>
+    <label
+      htmlFor={id}
+      style={{
+        display: 'inline-block',
+        marginBottom: token('space.150', '12px'),
+      }}
+    >
       <input
         id={id}
         type="checkbox"
-        style={{ marginRight: 8 }}
+        style={{ marginRight: token('space.100', '8px') }}
         onChange={onChange}
       />
       {children}
@@ -49,7 +57,11 @@ const Image = () => {
             <img
               alt="Red panda - smiling"
               src={srcSmiling}
-              style={{ borderRadius: 4, marginTop: 4, marginRight: 4 }}
+              style={{
+                borderRadius: 4,
+                marginTop: token('space.050', '4px'),
+                marginRight: token('space.050', '4px'),
+              }}
               width="220"
               {...tooltipProps}
             />
@@ -60,7 +72,7 @@ const Image = () => {
             <img
               alt="Red panda - walking"
               src={srcWalking}
-              style={{ borderRadius: 4, marginTop: 4 }}
+              style={{ borderRadius: 4, marginTop: token('space.050', '4px') }}
               width="220"
               {...tooltipProps}
             />

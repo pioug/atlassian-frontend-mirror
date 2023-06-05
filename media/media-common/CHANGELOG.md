@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 6.0.0
+
+### Major Changes
+
+- [`a425ccdeb0c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a425ccdeb0c) - Remove 'newCardExperience' feature flag
+
 ## 5.0.0
 
 ### Major Changes

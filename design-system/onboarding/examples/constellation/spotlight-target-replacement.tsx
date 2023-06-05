@@ -4,6 +4,7 @@ import { ImgHTMLAttributes, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
+import { token } from '@atlaskit/tokens';
 
 import {
   Spotlight,
@@ -46,7 +47,7 @@ const SpotlightTargetReplacementExample = () => {
         <Image alt="I will be replaced..." src={logo} />
       </SpotlightTarget>
 
-      <div style={{ marginTop: '16px' }}>
+      <div style={{ marginTop: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={() => start()}>
           Show example spotlight
         </Button>

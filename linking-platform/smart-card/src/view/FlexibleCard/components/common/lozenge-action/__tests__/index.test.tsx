@@ -52,6 +52,7 @@ jest.mock('../../../../../../state/flexible-ui-context', () => ({
     },
   }),
 }));
+
 describe('LozengeAction', () => {
   const testId = 'test-smart-element-lozenge-dropdown';
   const triggerTestId = `${testId}--trigger`;
@@ -71,7 +72,10 @@ describe('LozengeAction', () => {
     url,
   };
 
-  const getAction = (details: CardDetails = { url, id }) => {
+  const getAction = (
+    details: CardDetails = { url, id },
+    showFeatureDiscovery?: boolean,
+  ) => {
     return {
       read: {
         action: {
@@ -94,6 +98,7 @@ describe('LozengeAction', () => {
         providerKey: 'object-provider',
         details,
       },
+      showFeatureDiscovery,
     };
   };
 
@@ -105,7 +110,7 @@ describe('LozengeAction', () => {
     jest.spyOn(useInvoke, 'default').mockReturnValue(mockInvoke);
     jest.spyOn(useResolve, 'default').mockReturnValue(mockResolve);
 
-    return render(
+    const component = (
       <IntlProvider locale="en">
         <LozengeAction
           action={props?.action || getAction()}
@@ -114,9 +119,12 @@ describe('LozengeAction', () => {
           text={text}
           {...props}
         />
-        ,
-      </IntlProvider>,
+      </IntlProvider>
     );
+
+    const result = render(component);
+
+    return { ...result, component };
   };
 
   afterEach(() => {
@@ -785,7 +793,7 @@ describe('LozengeAction', () => {
     expect(await findByTestId(`${testId}-item-0`)).toBeInTheDocument();
   });
 
-  describe('Analytics', () => {
+  describe('analytics', () => {
     it('fires button clicked event with smartLinkStatusLozenge subject id when element is clicked', async () => {
       const { findByTestId } = renderComponent({ action: getAction() });
 
@@ -1011,6 +1019,67 @@ describe('LozengeAction', () => {
         reason: TrackQuickActionFailureReason.ValidationError,
         step: 'update',
       });
+    });
+  });
+
+  describe('feature discovery', () => {
+    const fdTestId = `${testId}-discovery`;
+
+    beforeEach(() => {
+      localStorage.clear();
+    });
+
+    it('renders feature discovery component', async () => {
+      const { findByTestId } = renderComponent({
+        action: getAction(undefined, true),
+      });
+
+      const element = await findByTestId(fdTestId);
+
+      expect(element).toBeInTheDocument();
+      expect(element.textContent).toBe(text);
+    });
+
+    it('does not render feature discovery component twice', async () => {
+      const action = getAction(undefined, true);
+      const {
+        component,
+        container,
+        findByTestId,
+        queryByTestId,
+        rerender,
+        unmount,
+      } = renderComponent({
+        action,
+      });
+
+      await findByTestId(fdTestId);
+      unmount();
+
+      rerender(component);
+
+      const element = queryByTestId(`${testId}-discovery`);
+
+      expect(element).not.toBeInTheDocument();
+      expect(container.textContent).toBe(text);
+    });
+
+    it('does not render feature discovery component when showFeatureDiscovery is not defined', () => {
+      const { queryByTestId } = renderComponent();
+
+      const element = queryByTestId(fdTestId);
+
+      expect(element).not.toBeInTheDocument();
+    });
+
+    it('does not render feature discovery component when showFeatureDiscovery is false', () => {
+      const { queryByTestId } = renderComponent({
+        action: getAction(undefined, false),
+      });
+
+      const element = queryByTestId(fdTestId);
+
+      expect(element).not.toBeInTheDocument();
     });
   });
 });

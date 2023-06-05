@@ -1,18 +1,11 @@
-import React, {
-  KeyboardEvent,
-  MouseEvent,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { KeyboardEvent, MouseEvent, useCallback } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import RadioIcon from '@atlaskit/icon/glyph/radio';
 import ButtonItem from '@atlaskit/menu/button-item';
 
+import RadioIcon from '../internal/components/radio-icon';
 import useRadioState from '../internal/hooks/use-radio-state';
 import useRegisterItemWithFocusManager from '../internal/hooks/use-register-item-with-focus-manager';
-import getIconColors from '../internal/utils/get-icon-colors';
 import isVoiceOverSupported from '../internal/utils/is-voice-over-supported';
 import { DropdownItemRadioProps } from '../types';
 
@@ -54,8 +47,6 @@ const DropdownItemRadio = (props: DropdownItemRadioProps) => {
     defaultSelected,
   });
 
-  const [iconColors, setIconColors] = useState(getIconColors(defaultSelected));
-
   const onClickHandler = useCallback(
     (event: MouseEvent | KeyboardEvent) => {
       setSelected((selected) => !selected);
@@ -63,10 +54,6 @@ const DropdownItemRadio = (props: DropdownItemRadioProps) => {
     },
     [providedOnClick, setSelected],
   );
-
-  useEffect(() => {
-    setIconColors(getIconColors(selected));
-  }, [selected]);
 
   const itemRef = useRegisterItemWithFocusManager();
 
@@ -78,14 +65,7 @@ const DropdownItemRadio = (props: DropdownItemRadioProps) => {
       aria-checked={selected}
       shouldTitleWrap={shouldTitleWrap}
       shouldDescriptionWrap={shouldDescriptionWrap}
-      iconBefore={
-        <RadioIcon
-          label=""
-          size="medium"
-          primaryColor={iconColors.primary}
-          secondaryColor={iconColors.secondary}
-        />
-      }
+      iconBefore={<RadioIcon checked={selected} />}
       ref={itemRef}
       // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
       {...rest}

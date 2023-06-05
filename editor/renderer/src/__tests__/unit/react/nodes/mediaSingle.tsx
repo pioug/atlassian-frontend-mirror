@@ -145,7 +145,6 @@ describe('MediaSingle', () => {
   it('passes feature flags down to media node', () => {
     const featureFlags: MediaFeatureFlags = {
       captions: false,
-      newCardExperience: true,
     };
     const mediaSingle = mountMediaSingle({ featureFlags });
 

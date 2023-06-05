@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   ButtonItem,
   Header,
@@ -24,7 +26,7 @@ const BasicExample = () => {
         style={{
           display: 'grid',
           minHeight: 800,
-          gap: 48,
+          gap: token('space.600', '48px'),
         }}
       >
         <SideNavigation label="project" testId="controlled-invalid">

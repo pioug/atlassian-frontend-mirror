@@ -23,7 +23,7 @@ export const interactiveTagNames: TagNameMap = {
   audio: true,
 };
 
-function isAnInteractiveElement(
+export function isAnInteractiveElement(
   parent: Element,
   current: Element | null,
 ): boolean {

@@ -1,10 +1,12 @@
 /** @jsx jsx */
+import { useLayoutEffect, useRef, useState } from 'react';
+
 import { css, jsx } from '@emotion/react';
 
 import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 import { Guideline } from './guideline';
-import { GuidelineContainerArea as Areas, GuidelineConfig } from './types';
+import { GuidelineConfig } from './types';
 
 const guidelineContainerStyles = css({
   position: 'fixed',
@@ -16,72 +18,48 @@ const guidelineContainerStyles = css({
   maxWidth: `${akEditorFullWidthLayoutWidth}px`,
 });
 
-const guidelineSubContainerStyles = css({ position: 'relative' });
-
 type ContainerProps = {
   guidelines: GuidelineConfig[];
   height: number;
+  centerOffset: number;
   containerWidth: number;
   editorWidth: number;
 };
 
-type SubContainerProps = {
-  containerId: string;
-  guidelines: GuidelineConfig[];
-};
-
-const groupGuidelines = (guidelines: GuidelineConfig[]) =>
-  guidelines.reduce(
-    (acc, curr) => {
-      const areaKey = curr.position.containerArea || Areas.EditorContent;
-      const currentList = acc[areaKey];
-      return { ...acc, [areaKey]: [...currentList, curr] };
-    },
-    {
-      [Areas.EditorLeftMargin]: [] as GuidelineConfig[],
-      [Areas.EditorContent]: [] as GuidelineConfig[],
-      [Areas.EditorRightMargin]: [] as GuidelineConfig[],
-    },
-  );
-
-const GuidelineSubContainer = (props: SubContainerProps) => (
-  <div css={guidelineSubContainerStyles} data-container-id={props.containerId}>
-    {props.guidelines.map(guideline => (
-      <Guideline key={guideline.key} position={guideline.position} />
-    ))}
-  </div>
-);
-
 export const GuidelineContainer = (props: ContainerProps) => {
-  const { guidelines, height, editorWidth } = props;
+  const { guidelines, height, editorWidth, centerOffset } = props;
+  const [offset, setOffset] = useState(0);
 
-  if (guidelines.length === 0) {
-    return null;
-  }
+  const ref = useRef<HTMLDivElement>(null);
 
-  const guidelineGroups = groupGuidelines(guidelines);
+  useLayoutEffect(() => {
+    const rect = ref?.current?.getBoundingClientRect();
+    if (rect) {
+      // X pixels from guideline container left to editor center.
+      setOffset(centerOffset - rect.x);
+    }
+  }, [centerOffset, guidelines, editorWidth]);
 
   return (
     <div
+      ref={ref}
       css={guidelineContainerStyles}
       style={{
         height,
-        gridTemplateColumns: `[left] auto [editor] ${editorWidth}px [right] auto`,
       }}
       data-testid="guidelineContainer"
     >
-      <GuidelineSubContainer
-        containerId={Areas.EditorLeftMargin}
-        guidelines={guidelineGroups[Areas.EditorLeftMargin]}
-      />
-      <GuidelineSubContainer
-        containerId={Areas.EditorContent}
-        guidelines={guidelineGroups[Areas.EditorContent]}
-      />
-      <GuidelineSubContainer
-        containerId={Areas.EditorRightMargin}
-        guidelines={guidelineGroups[Areas.EditorRightMargin]}
-      />
+      {guidelines.map(guideline => {
+        return (
+          <Guideline
+            key={guideline.key}
+            position={guideline.position.x + offset}
+            active={guideline.active}
+            show={guideline.show}
+            style={guideline.style}
+          />
+        );
+      })}
     </div>
   );
 };

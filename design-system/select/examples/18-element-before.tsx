@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Label } from '@atlaskit/form';
 import { AtlassianIcon } from '@atlaskit/logo';
+import { token } from '@atlaskit/tokens';
 
 import Select, { OptionType, FormatOptionLabelMeta } from '../src';
 
@@ -20,7 +21,7 @@ const formatOptionLabel = (
         <AtlassianIcon size="small" />
         <span
           style={{
-            paddingLeft: 8,
+            paddingLeft: token('space.100', '8px'),
             paddingBottom: 0,
           }}
         >

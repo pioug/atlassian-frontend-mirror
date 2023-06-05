@@ -13,7 +13,7 @@ interface LinkCreateCallbackProviderProps {
     url: string;
     objectId: string;
     objectType: string;
-  }) => void;
+  }) => Promise<void> | void;
 
   /**
    * This callback for any errors
@@ -39,7 +39,7 @@ const LinkCreateCallbackProvider: React.FC<LinkCreateCallbackProviderProps> = ({
 
   const value = useMemo(
     () => ({
-      onCreate: (result: {
+      onCreate: async (result: {
         url: string;
         objectId: string;
         objectType: string;
@@ -51,7 +51,9 @@ const LinkCreateCallbackProvider: React.FC<LinkCreateCallbackProviderProps> = ({
             objectType,
           }),
         ).fire(ANALYTICS_CHANNEL);
-        onCreate && onCreate(result);
+        if (onCreate) {
+          await onCreate(result);
+        }
       },
       onFailure,
       onCancel,

@@ -614,10 +614,7 @@ export const isPreviewableFileState: (
   PreviewableFileState;
 
 // @public (undocumented)
-export const isPreviewableType: (
-  type: MediaType,
-  featureFlags?: MediaFeatureFlags,
-) => boolean;
+export const isPreviewableType: (type: MediaType) => boolean;
 
 // @public (undocumented)
 export const isProcessedFileState: (

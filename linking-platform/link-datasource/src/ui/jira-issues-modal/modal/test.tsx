@@ -55,6 +55,7 @@ describe('JiraIssuesConfigModal', () => {
     reset: jest.fn(),
     status: 'resolved',
     onNextPage: jest.fn(),
+    loadDatasourceDetails: jest.fn(),
     hasNextPage: false,
     responseItems: [
       {
@@ -94,6 +95,7 @@ describe('JiraIssuesConfigModal', () => {
     hasNextPage: true,
     defaultVisibleColumnKeys: [],
     onNextPage: jest.fn(),
+    loadDatasourceDetails: jest.fn(),
     reset: jest.fn(),
   });
 
@@ -104,6 +106,7 @@ describe('JiraIssuesConfigModal', () => {
     hasNextPage: true,
     defaultVisibleColumnKeys: [],
     onNextPage: jest.fn(),
+    loadDatasourceDetails: jest.fn(),
     reset: jest.fn(),
   });
 
@@ -408,7 +411,11 @@ describe('JiraIssuesConfigModal', () => {
     await setup();
     expect(useDatasourceTableState).toHaveBeenCalledWith<
       Parameters<typeof useDatasourceTableState>
-    >('some-jira-jql-datasource-id', getDefaultParameters());
+    >({
+      datasourceId: 'some-jira-jql-datasource-id',
+      parameters: getDefaultParameters(),
+      fieldKeys: ['myColumn'],
+    });
   });
 
   describe('when there is no parameters yet', () => {
@@ -469,7 +476,7 @@ describe('JiraIssuesConfigModal', () => {
         hookState,
       });
 
-      expect(hookState.onNextPage).toHaveBeenCalled();
+      expect(hookState.onNextPage).not.toHaveBeenCalled();
     });
   });
 
@@ -640,6 +647,7 @@ describe('JiraIssuesConfigModal', () => {
           ],
           visibleColumnKeys: ['myColumn'],
           onNextPage: hookState.onNextPage,
+          onLoadDatasourceDetails: hookState.loadDatasourceDetails,
           onVisibleColumnKeysChange: expect.any(Function),
         } as IssueLikeDataTableViewProps,
         expect.anything(),

@@ -27,7 +27,11 @@ function CreateBasic() {
     createConfluencePageLinkCreatePlugin(CLOUD_ID, 'https://pug.jira-dev.com'),
   ];
 
-  const handleCreate = useCallback((url: string) => {
+  const handleCreate = useCallback(async (url: string) => {
+    await new Promise<void>(resolve => {
+      setTimeout(() => resolve(), 2000);
+    });
+
     setLink(url);
     setActive(false);
   }, []);

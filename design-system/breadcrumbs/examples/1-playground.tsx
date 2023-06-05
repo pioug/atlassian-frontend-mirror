@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Select from '@atlaskit/select';
+import { token } from '@atlaskit/tokens';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../src';
 
@@ -81,7 +82,7 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
           style={{
             maxWidth: '200px',
             display: 'inline-block',
-            padding: '20px',
+            padding: token('space.250', '20px'),
           }}
         >
           <h3>Change how many breadcrumbs to show</h3>
@@ -101,7 +102,7 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
           style={{
             maxWidth: '200px',
             display: 'inline-block',
-            padding: '20px',
+            padding: token('space.250', '20px'),
           }}
         >
           <h3>maxItems</h3>
@@ -117,7 +118,7 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
           style={{
             maxWidth: '200px',
             display: 'inline-block',
-            padding: '20px',
+            padding: token('space.250', '20px'),
           }}
         >
           <h3>itemsBeforeCollapse</h3>
@@ -133,7 +134,7 @@ export default class BreadcrumbsExpand extends React.Component<{}, State> {
           style={{
             maxWidth: '200px',
             display: 'inline-block',
-            padding: '20px',
+            padding: token('space.250', '20px'),
           }}
         >
           <h3>itemsAfterCollapse</h3>

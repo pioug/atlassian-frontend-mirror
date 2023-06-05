@@ -1077,14 +1077,10 @@ describe('Card', () => {
     it('should attach feature flags to Analytics Context', () => {
       const mediaClient = fakeMediaClient();
 
-      const relevantFetureFlags: MediaFeatureFlags = {
-        newCardExperience: true,
-      };
-
-      const featureFlags: MediaFeatureFlags = {
-        ...relevantFetureFlags,
-        captions: false,
-      };
+      const featureFlags = {
+        someFlag: false,
+        someFlag2: true,
+      } as MediaFeatureFlags;
 
       const card = mount<CardProps>(
         <Card
@@ -1095,9 +1091,7 @@ describe('Card', () => {
       );
 
       const contextData = card.find(AnalyticsContext).at(0).props().data;
-      expect(contextData).toMatchObject({
-        [MEDIA_CONTEXT]: { featureFlags: relevantFetureFlags },
-      });
+      expect(contextData[MEDIA_CONTEXT]).toEqual({ featureFlags });
     });
 
     it('should pass the Analytics Event fired from CardView to the provided onClick callback', () => {

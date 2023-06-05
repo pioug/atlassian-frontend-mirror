@@ -26,7 +26,14 @@ const Card = ({
 }) => (
   <FadeIn>
     {(props) => (
-      <li {...props} css={{ display: 'block', padding: 0, margin: '8px' }}>
+      <li
+        {...props}
+        css={{
+          display: 'block',
+          padding: 0,
+          margin: token('space.100', '8px'),
+        }}
+      >
         <Block
           css={{
             width: '100%',
@@ -39,7 +46,7 @@ const Card = ({
               width: '100%',
               display: 'flex',
               alignItems: 'center',
-              paddingLeft: '8px',
+              paddingLeft: token('space.100', '8px'),
             }}
           >
             {icon}
@@ -47,7 +54,7 @@ const Card = ({
               css={{
                 margin: 0,
                 fontWeight: 300,
-                marginLeft: '8px',
+                marginLeft: token('space.100', '8px'),
               }}
             >
               {text}
@@ -64,7 +71,12 @@ export default () => {
 
   return (
     <RetryContainer>
-      <div css={{ textAlign: 'center', '> *': { marginRight: '4px' } }}>
+      <div
+        css={{
+          textAlign: 'center',
+          '> *': { marginRight: token('space.050', '4px') },
+        }}
+      >
         <Button onClick={() => setItems((list) => list - 1)}>Remove</Button>
         <Button onClick={() => setItems(6)}>Reset</Button>
 
@@ -72,7 +84,7 @@ export default () => {
           css={{
             maxWidth: '474px',
             padding: 0,
-            margin: '16px auto !important',
+            margin: `${token('space.200', '16px')} auto !important`,
             div: { margin: '0' },
           }}
         >

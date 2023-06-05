@@ -4,6 +4,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
+import { Checkbox } from '@atlaskit/checkbox';
 import Grid, { GridItem } from '@atlaskit/grid';
 import Heading from '@atlaskit/heading';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
@@ -15,6 +16,7 @@ import SectionMessage, {
   SectionMessageAction,
 } from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
+import Spinner from '@atlaskit/spinner';
 import Tooltip from '@atlaskit/tooltip';
 
 import { setGlobalTheme, token } from '../src';
@@ -22,52 +24,32 @@ import rawTokensDark from '../src/artifacts/tokens-raw/atlassian-dark';
 import rawTokensLight from '../src/artifacts/tokens-raw/atlassian-light';
 import tokenNames from '../src/entry-points/token-names';
 
-import checkThemePairContrasts from './utils/check-pair-contrasts';
+import checkThemePairContrasts, {
+  darkResults,
+  darkResultsWithOverrides,
+  lightResults,
+  rawTokensDarkWithOverrides,
+} from './utils/check-pair-contrasts';
+import { defaultCustomTheme } from './utils/default-custom-themes';
 import CustomThemeBuilder, { Theme } from './utils/theme-builder';
 
 type TokenName = keyof typeof tokenNames;
 type ColorMode = 'light' | 'dark';
 
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-const defaultCustomTheme: { name: TokenName; value: string }[] = [
-  /*** DS token overrides ***/
-  /* Brand tokens */
-  { name: 'color.text.brand', value: '#64329a' },
-  { name: 'color.icon.brand', value: '#64329a' },
-  { name: 'color.background.brand.bold', value: '#64329a' },
-  { name: 'color.background.brand.bold.hovered', value: '#452269' },
-  { name: 'color.background.brand.bold.pressed', value: '#2d1645' },
-  { name: 'color.border.brand', value: '#64329a' },
-  { name: 'color.chart.brand', value: '#8f6ab6' },
-  { name: 'color.chart.brand.hovered', value: '#835aae' },
-
-  /* Selected tokens */
-  { name: 'color.text.selected', value: '#64329a' },
-  { name: 'color.icon.selected', value: '#64329a' },
-  { name: 'color.background.selected', value: '#f4f0f8' },
-  { name: 'color.background.selected.hovered', value: '#e4dbed' },
-  { name: 'color.background.selected.pressed', value: '#c1aed7' },
-  { name: 'color.background.selected.bold', value: '#64329a' },
-  { name: 'color.background.selected.bold.hovered', value: '#452269' },
-  { name: 'color.background.selected.bold.pressed', value: '#2d1645' },
-  { name: 'color.border.selected', value: '#64329a' },
-
-  /* Link tokens */
-  { name: 'color.link', value: '#64329a' },
-  { name: 'color.link.pressed', value: '#452269' },
-];
-/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
-
 const url = new URL(window.location.href);
 const params = new URLSearchParams(window.location.search);
 
 // Get search params
-const getSearchParams = (): { theme: Theme; colorMode: ColorMode } => {
+const getSearchParams = (): {
+  theme: Theme;
+  colorMode: ColorMode;
+  isDarkIterationSelected: boolean;
+} => {
   const urlSearchParams = params;
   const paramEntries = Object.fromEntries(urlSearchParams.entries());
   var objectTheme = {};
   try {
-    objectTheme = JSON.parse(paramEntries.customTheme || '');
+    objectTheme = JSON.parse(paramEntries.customTheme || '""');
   } catch (error) {
     console.error(error);
   }
@@ -87,23 +69,58 @@ const getSearchParams = (): { theme: Theme; colorMode: ColorMode } => {
       ? (paramEntries.colorMode as ColorMode)
       : 'light',
     theme: filteredTheme,
+    isDarkIterationSelected: paramEntries.isDarkIterationSelected === 'true',
   };
 };
 
 // Set search params
-const setSearchParamsTheme = (theme: Theme, colorMode: ColorMode) => {
+const setSearchParamsTheme = (
+  theme: { name: string; value: string }[],
+  colorMode: ColorMode,
+  isDarkIterationSelected: boolean,
+) => {
   let objectTheme: { [index: string]: string } = {};
-  theme.forEach((value: Theme[0]) => {
+  theme.forEach((value: { name: string; value: string }) => {
     objectTheme[value.name] = value.value;
   });
   url.searchParams.set('colorMode', colorMode);
   url.searchParams.set('customTheme', JSON.stringify(objectTheme));
+  url.searchParams.set(
+    'isDarkIterationSelected',
+    isDarkIterationSelected.toString(),
+  );
   // set window query params to the newly generated URL
   window.history.replaceState({}, '', url.toString());
 };
 
-const resultsLight = checkThemePairContrasts(rawTokensLight, 'light');
-const resultsDark = checkThemePairContrasts(rawTokensDark, 'dark');
+const downloadResultsAsCSV = (
+  customResults?: typeof lightResults.fullResults,
+  isDarkIterationSelected?: boolean,
+) => {
+  const fullResults = [
+    ...Object.values(customResults || {}),
+    ...Object.values(lightResults.fullResults),
+    ...Object.values(
+      (isDarkIterationSelected ? darkResultsWithOverrides : darkResults)
+        .fullResults,
+    ),
+  ];
+
+  const headings = Object.keys(fullResults[0]);
+
+  const csv: string = fullResults.reduce((accum, pair) => {
+    return `${accum}\n${Object.values(pair).join(',')}`;
+  }, headings.join(','));
+
+  // Download string as CSV file in user's browser
+  const blob = new Blob([csv], { type: 'text/csv' });
+
+  const link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  link.download = 'contrast-results.csv';
+  link.click();
+  document.body.removeChild(link);
+};
 
 /**
  * Color contrast checking app - allows you to configure a custom theme and see how contrasts
@@ -111,9 +128,15 @@ const resultsDark = checkThemePairContrasts(rawTokensDark, 'dark');
  */
 export default function ContrastChecker() {
   const [customTheme, setCustomTheme] = useState<Theme>([]);
-  const [baseThemeType, setBaseThemeType] = useState<'light' | 'dark'>('light');
+  const paramEntries = Object.fromEntries(params.entries());
+  const colorModeFromUrl = paramEntries.colorMode as ColorMode;
+  const [baseThemeType, setBaseThemeType] = useState<'light' | 'dark'>(
+    ['light', 'dark'].includes(colorModeFromUrl) ? colorModeFromUrl : 'light',
+  );
+  const [isDarkIterationSelected, setIsDarkIterationSelected] =
+    useState<boolean>(false);
   if (customTheme) {
-    setSearchParamsTheme(customTheme, baseThemeType);
+    setSearchParamsTheme(customTheme, baseThemeType, isDarkIterationSelected);
   }
 
   setGlobalTheme({
@@ -123,9 +146,17 @@ export default function ContrastChecker() {
   });
 
   const baseRawTokens =
-    baseThemeType === 'light' ? rawTokensLight : rawTokensDark;
+    baseThemeType === 'light'
+      ? rawTokensLight
+      : isDarkIterationSelected
+      ? rawTokensDarkWithOverrides
+      : rawTokensDark;
   const resultsBaseTheme =
-    baseThemeType === 'light' ? resultsLight : resultsDark;
+    baseThemeType === 'light'
+      ? lightResults
+      : isDarkIterationSelected
+      ? darkResultsWithOverrides
+      : darkResults;
 
   // Parse query params and set the custom theme based on that
   useEffect(() => {
@@ -133,6 +164,7 @@ export default function ContrastChecker() {
     //TODO validate theme is correct
     setCustomTheme(queryParams.theme);
     setBaseThemeType(queryParams.colorMode);
+    setIsDarkIterationSelected(queryParams.isDarkIterationSelected);
   }, []);
 
   // Generate custom theme from input
@@ -151,7 +183,7 @@ export default function ContrastChecker() {
 
   // Generate results (should be debounced)
   const resultsCustom = useMemo(() => {
-    var temp: typeof resultsLight | undefined;
+    var temp: typeof lightResults | undefined;
     try {
       temp = checkThemePairContrasts(rawTokensCustom, 'custom');
     } catch (e) {
@@ -221,16 +253,25 @@ export default function ContrastChecker() {
           rawTokensCustom.find((token) => token.cleanName === background)
             ?.value as string
         }
-        contrastLight={resultsBaseTheme.fullResults[
+        contrastBase={resultsBaseTheme.fullResults[
           pairing
         ].contrast.toPrecision(4)}
+        baseThemeType={baseThemeType}
         contrastCustom={
           resultsCustom
             ? resultsCustom?.fullResults[pairing].contrast.toPrecision(4)
-            : 'N/A'
+            : undefined
         }
       />
     );
+  }
+
+  function setFocusToIframe() {
+    const iframe = window.parent.document.querySelector('iframe');
+    if (!iframe) {
+      return;
+    }
+    iframe.contentWindow?.focus();
   }
 
   const themeSelectOptions = [
@@ -244,21 +285,35 @@ export default function ContrastChecker() {
         <Box paddingBlockStart="space.500">
           <Inline spread="space-between">
             <Heading level="h900">Contrast Checker</Heading>
-            <Select
-              css={{ flexBasis: 300, flexShrink: 0 }}
-              spacing={'compact'}
-              inputId={`theme-select`}
-              value={themeSelectOptions.find(
-                (value) => value.value === baseThemeType,
-              )}
-              onChange={(e) => {
-                if (e?.value) {
-                  setBaseThemeType(e.value);
-                }
-              }}
-              options={themeSelectOptions}
-              placeholder="Choose a token"
-            />
+            <div css={{ flexBasis: 300, flexShrink: 0 }}>
+              <Stack space="space.100">
+                <Select
+                  spacing={'compact'}
+                  inputId={`theme-select`}
+                  onChange={(e) => {
+                    if (e?.value) {
+                      setBaseThemeType(e.value);
+                    }
+                  }}
+                  value={themeSelectOptions.find(
+                    (value) => value.value === baseThemeType,
+                  )}
+                  options={themeSelectOptions.filter((option) => option)}
+                  placeholder="Choose a base theme"
+                />
+                {baseThemeType === 'dark' && (
+                  <Checkbox
+                    value="dark_iteration"
+                    label="Dark iteration enabled"
+                    isChecked={isDarkIterationSelected}
+                    onChange={(e) =>
+                      setIsDarkIterationSelected(e.target.checked)
+                    }
+                    name="dark_iteration"
+                  />
+                )}
+              </Stack>
+            </div>
           </Inline>
         </Box>
       </GridItem>
@@ -273,6 +328,7 @@ export default function ContrastChecker() {
                     iconBefore={<CopyIcon label="Copy custom theme" />}
                     appearance="subtle"
                     onClick={() => {
+                      setFocusToIframe();
                       navigator.clipboard.writeText(
                         JSON.stringify(customTheme),
                       );
@@ -284,6 +340,7 @@ export default function ContrastChecker() {
                     iconBefore={<LinkIcon label="Share link to custom theme" />}
                     appearance="subtle"
                     onClick={() => {
+                      setFocusToIframe();
                       navigator.clipboard.writeText(location.href);
                     }}
                   />
@@ -326,7 +383,23 @@ export default function ContrastChecker() {
       </GridItem>
       <GridItem start={{ sm: 1, md: 7 }} span={{ sm: 12, md: 6 }}>
         <Stack space="space.200">
-          <Heading level="h800">Results:</Heading>
+          <Inline spread="space-between">
+            <Heading level="h800">Results:</Heading>
+            <Button
+              onClick={() => {
+                const fullCustomResults =
+                  customTheme.length > 0
+                    ? checkThemePairContrasts(rawTokensCustom, 'custom')
+                    : undefined;
+                downloadResultsAsCSV(
+                  fullCustomResults?.fullResults,
+                  isDarkIterationSelected,
+                );
+              }}
+            >
+              Download CSV
+            </Button>
+          </Inline>
           <p>
             Checking WCAG 2.1 contrast for "recommended pairings" of tokens,
             automatically generated by the{' '}
@@ -400,16 +473,24 @@ function Accordion({
   children: any;
   appearance?: 'information' | 'warning' | 'danger' | 'success';
 }) {
+  const [isOpen, setIsOpen] = useState(false);
   const appearanceMapping = {
     information: 'inprogress',
     warning: 'moved',
     danger: 'removed',
     success: 'success',
   } as const;
+
+  const handleToggle = (event: React.ChangeEvent<HTMLDetailsElement>) =>
+    setIsOpen(event.currentTarget.open);
+
   return (
     <Fragment>
       {children ? (
         <details
+          // @ts-ignore
+          onToggle={handleToggle}
+          open={isOpen}
           css={{
             alignItems: 'center',
             border: `1px solid ${token('color.border')}`,
@@ -457,7 +538,9 @@ function Accordion({
               </Lozenge>
             </span>
           </summary>
-          <ul style={{ listStyleType: 'none', padding: 0 }}>{children}</ul>
+          <ul style={{ listStyleType: 'none', padding: 0 }}>
+            {isOpen ? children : <Spinner />}
+          </ul>
         </details>
       ) : null}
     </Fragment>
@@ -473,7 +556,8 @@ function ContrastCard({
   backgroundName,
   foregroundValue,
   backgroundValue,
-  contrastLight,
+  baseThemeType,
+  contrastBase,
   contrastCustom,
 }: {
   name: string;
@@ -481,7 +565,8 @@ function ContrastCard({
   backgroundName: TokenName;
   foregroundValue: string;
   backgroundValue: string;
-  contrastLight: string;
+  baseThemeType: string;
+  contrastBase: string;
   contrastCustom?: string;
 }) {
   return (
@@ -520,8 +605,13 @@ function ContrastCard({
             gap: '4px',
           }}
         >
-          <ValueListItem description="Light:" value={contrastLight} />
-          <ValueListItem description="Custom:" value={contrastCustom} />
+          <ValueListItem
+            description={`${baseThemeType}:`}
+            value={contrastBase}
+          />
+          {contrastCustom && (
+            <ValueListItem description="Custom:" value={contrastCustom} />
+          )}
         </dl>
       </Inline>
     </Box>
@@ -537,7 +627,7 @@ const ValueListItem = ({
 }) => (
   <Inline spread="space-between" space="space.100">
     <dt>
-      <strong>{description}</strong>
+      <strong css={{ textTransform: 'capitalize' }}>{description}</strong>
     </dt>
     <dd css={{ marginTop: 0, marginInlineStart: 0 }}>
       <p css={{ margin: 0 }}>{value}</p>

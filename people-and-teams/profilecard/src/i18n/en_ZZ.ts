@@ -44,6 +44,9 @@ export default {
   'pt.team-profile-card.error.suggestion': '⁣⁢Wait a few moments, then try again.⁬‌⁬⁡‌‌‍⁠⁯⁬⁫⁭⁠⁡‍؜‌⁡⁭⁬⁠⁠⁡⁮⁠‍‍⁣⁤',
   'pt.team-profile-card.error.title':
     '⁣⁢We’re having trouble retrieving this teams information⁭⁭؜‍⁪⁭‌⁠⁡⁮⁭⁭⁭⁪⁡⁯⁡⁡⁭⁯⁪⁭⁣⁤',
+  'pt.team-profile-card.forbidden-error-state.description':
+    '⁣⁢You don’t have access to view this team.⁬⁪؜⁫؜‍⁡‌⁠⁭‌؜⁫؜⁠‍⁯‍⁠⁠‌⁣⁤',
+  'pt.team-profile-card.forbidden-error-state.title': '⁣⁢We can’t show you this team⁡‌⁫‌‍؜⁠⁪⁯⁠⁪⁯⁭‌⁯⁠‌⁭؜⁠⁣⁤',
   'pt.team-profile-card.manager.heading': '⁣⁢Manager⁡؜⁡⁡⁮⁡⁡⁮؜‍⁫‍‍⁪⁡⁯⁫⁫⁭⁯‍؜⁫⁭⁠⁣⁤',
   'pt.team-profile-card.team.action.view-profile': '⁣⁢View profile‌⁭⁠⁯‌‌⁡⁬⁭‌⁯⁭⁭⁯⁭⁪⁠⁠؜‍⁡⁫⁣⁤',
   'pt.team-profile-card.team.member.count':

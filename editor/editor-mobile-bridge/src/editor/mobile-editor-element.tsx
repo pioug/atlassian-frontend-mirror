@@ -37,7 +37,6 @@ import {
   getAllowCaptions,
   getMediaImageResize,
   getAllowMediaInline,
-  getEnableNewMediaCard,
   getRestartNumberedLists,
   getListNumberContinuity,
 } from '../query-param-reader';
@@ -137,7 +136,6 @@ export function MobileEditor(props: MobileEditorProps) {
     featureFlags: {
       captions: getAllowCaptions(),
       mediaInline: getAllowMediaInline(),
-      newCardExperience: getEnableNewMediaCard(),
     },
     alignLeftOnInsert: true,
   };

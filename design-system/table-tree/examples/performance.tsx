@@ -147,7 +147,12 @@ export default class extends PureComponent {
         <div css={performanceTweakContainerStyles}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div>Tree children per item:</div>
-            <div style={{ width: '90px', margin: '0 20px 0 10px' }}>
+            <div
+              style={{
+                width: '90px',
+                margin: `0 ${token('space.250', '20px')} 0 10px`,
+              }}
+            >
               <Select
                 autoFocus={false}
                 menuPosition="fixed"

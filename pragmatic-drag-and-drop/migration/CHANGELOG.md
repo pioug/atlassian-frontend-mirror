@@ -1,5 +1,17 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.12.0
+
+### Minor Changes
+
+- [`9909027b163`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9909027b163) - It is now possible to unmount a `<Draggable/>` in a virtual list at any time during a drag operation, including while it is still visible.
+
+## 0.11.0
+
+### Minor Changes
+
+- [`07779f6c5f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07779f6c5f7) - Pointer drags are now blocked by interactive elements. This can be overriden using the `disableInteractiveElementBlocking` prop. This behavior is consistent with `react-beautiful-dnd`.
+
 ## 0.10.0
 
 ### Minor Changes

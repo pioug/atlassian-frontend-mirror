@@ -77,7 +77,7 @@ export type FlexibleCardProps = {
   /**
    * Determines whether to show available server actions.
    */
-  showServerActions?: boolean;
+  showServerActions?: boolean | ServerActionOptions;
 
   /**
    * A `testId` prop is provided for specified elements, which is a unique
@@ -148,6 +148,29 @@ export type FlexibleUiOptions = {
    * This is passed to the portal component.
    */
   zIndex?: number;
+};
+
+/**
+ * Server action options to control action behaviour.
+ *
+ * If the type is applied to exported component (<Card />, <HoverCard />)
+ * please verify with the team if the deprecated prop can be removed prior.
+ *
+ * In the case that it is being exposed in HoverCard, please remove
+ * boolean conversion `Boolean(showServerActions)` in
+ * /src/view/FlexibleCard/components/container/index.tsx line 287
+ * @internal
+ */
+export type ServerActionOptions = {
+  /**
+   * DO NOT USE: This prop is part of an experiment. It will be removed once
+   * the experiment is completed. To be cleaned up on
+   * https://product-fabric.atlassian.net/browse/EDM-5795
+   * @see https://team.atlassian.com/project/ATLAS-13099/about
+   * @internal
+   * @deprecated
+   */
+  showStateActionFeatureDiscovery?: boolean;
 };
 
 /**

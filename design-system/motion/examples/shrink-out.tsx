@@ -5,6 +5,7 @@ import { jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import { Block, Centered } from '../examples-utils';
 import { ExitingPersistence, ShrinkOut } from '../src';
@@ -39,7 +40,7 @@ export default () => {
                   appearance="small"
                   css={{
                     width: 'auto',
-                    margin: '4px',
+                    margin: token('space.050', '4px'),
                     overflow: 'hidden',
                   }}
                 >

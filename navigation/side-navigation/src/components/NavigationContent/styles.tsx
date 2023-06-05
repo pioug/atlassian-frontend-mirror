@@ -50,7 +50,8 @@ export const outerContainerCSS = (
     '&::before': {
       content: "''",
       display: 'block',
-      left: containerPadding,
+      // TODO Delete this comment after verifying space token -> previous value `containerPadding`
+      left: token('space.100', '8px'),
       right: containerPadding + opts.scrollbarWidth,
       height: scrollIndicatorHeight,
       borderRadius: scrollIndicatorBorderRadius,
@@ -69,7 +70,8 @@ export const outerContainerCSS = (
       borderRadius: scrollIndicatorBorderRadius,
       flexShrink: 0,
       height: scrollIndicatorHeight,
-      left: containerPadding,
+      // TODO Delete this comment after verifying space token -> previous value `containerPadding`
+      left: token('space.100', '8px'),
       right: containerPadding + opts.scrollbarWidth,
       bottom: 0,
       zIndex: scrollIndicatorZIndex,

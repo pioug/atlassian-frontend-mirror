@@ -20,9 +20,6 @@ describe('Snapshot Test: Media group download', () => {
         {
           media: {
             enableDownloadButton: true,
-            featureFlags: {
-              newCardExperience: true,
-            },
           },
         },
       );

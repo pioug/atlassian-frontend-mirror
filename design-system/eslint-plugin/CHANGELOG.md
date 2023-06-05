@@ -1,5 +1,17 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 5.5.0
+
+### Minor Changes
+
+- [`35a57c481af`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35a57c481af) - Improved import matching for no-deprecated-apis rule to match substrings of import paths.
+
+## 5.4.2
+
+### Patch Changes
+
+- [`121f9ae5c38`](https://bitbucket.org/atlassian/atlassian-frontend/commits/121f9ae5c38) - Internal dependency bump.
+
 ## 5.4.1
 
 ### Patch Changes

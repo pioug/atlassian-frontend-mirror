@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.6.2
+
+### Patch Changes
+
+- [`9eec8b31eaf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9eec8b31eaf) - [ux] Change reverts a previous change to the focus border highlight color on focus for quick search in confluence
+
 ## 2.6.1
 
 ### Patch Changes

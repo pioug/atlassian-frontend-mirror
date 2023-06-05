@@ -1,4 +1,5 @@
-import { EslintNode, isNodeOfType } from 'eslint-codemod-utils';
+import type { Rule } from 'eslint';
+import { isNodeOfType, JSXElement } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
 
@@ -31,20 +32,6 @@ const rule = createLintRule({
       preferPrimitivesInline: `This "{{element}}" may be able to be replaced with an "Inline". See ${inlineDocsUrl} for guidance.`,
       preferPrimitivesStack: `This "{{element}}" may be able to be replaced with a "Stack". See ${stackDocsUrl} for guidance.`,
     },
-    schema: [
-      {
-        type: 'object',
-        properties: {
-          exclude: {
-            type: ['string', 'array'],
-            items: {
-              type: 'string',
-            },
-          },
-        },
-        additionalProperties: false,
-      },
-    ],
   },
   create(context) {
     return {
@@ -56,7 +43,7 @@ const rule = createLintRule({
        *
        * if b) suggest alternative use of primitives
        */
-      JSXOpeningElement(node: EslintNode) {
+      JSXOpeningElement(node: Rule.Node) {
         if (!isNodeOfType(node, 'JSXOpeningElement')) {
           return;
         }
@@ -64,13 +51,16 @@ const rule = createLintRule({
           return;
         }
 
-        const suggestBox = shouldSuggestBox(
-          node?.parent as any,
-          // context.getScope(),
-        );
+        const suggestBox = shouldSuggestBox(node?.parent as JSXElement);
 
-        const suggestInline = shouldSuggestInline(node?.parent as any, context);
-        const suggestStack = shouldSuggestStack(node?.parent as any, context);
+        const suggestInline = shouldSuggestInline(
+          node?.parent as JSXElement,
+          context,
+        );
+        const suggestStack = shouldSuggestStack(
+          node?.parent as JSXElement,
+          context,
+        );
 
         // const suggestText = shouldSuggestText(
         //   node?.parent as any,
@@ -79,7 +69,7 @@ const rule = createLintRule({
 
         if (suggestBox) {
           context.report({
-            node: node as any,
+            node: node,
             messageId: 'preferPrimitivesBox',
             data: {
               element: node.name.name,
@@ -94,7 +84,7 @@ const rule = createLintRule({
         }
         if (suggestInline) {
           context.report({
-            node: node as any,
+            node: node,
             messageId: 'preferPrimitivesInline',
             data: {
               element: node.name.name,
@@ -109,7 +99,7 @@ const rule = createLintRule({
         }
         if (suggestStack) {
           context.report({
-            node: node as any,
+            node: node,
             messageId: 'preferPrimitivesStack',
             data: {
               element: node.name.name,

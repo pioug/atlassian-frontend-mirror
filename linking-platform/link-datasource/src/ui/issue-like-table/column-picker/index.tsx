@@ -18,6 +18,7 @@ export const ColumnPicker = ({
   columns,
   selectedColumnKeys,
   onSelectedColumnKeysChange,
+  onOpen,
 }: ColumnPickerProps) => {
   const intl = useIntl();
   const [allOptions, setAllOptions] = useState<OptionType[]>([]);
@@ -54,7 +55,7 @@ export const ColumnPicker = ({
     [columns, onSelectedColumnKeysChange],
   );
 
-  const onPopupOpen = useCallback(() => {
+  const sortSelectedColumnsTop = useCallback(() => {
     if (!allOptions.length) {
       return;
     }
@@ -71,6 +72,11 @@ export const ColumnPicker = ({
     sortedOptions.length > 0 && setAllOptions(sortedOptions);
   }, [allOptions, selectedOptions]);
 
+  const handleOpen = useCallback(() => {
+    onOpen && void onOpen();
+    void sortSelectedColumnsTop();
+  }, [onOpen, sortSelectedColumnsTop]);
+
   return (
     <PopupSelect
       classNamePrefix={'column-picker-popup'}
@@ -78,13 +84,14 @@ export const ColumnPicker = ({
       components={{ Option: CheckboxOption }}
       options={allOptions}
       value={selectedOptions}
-      onOpen={onPopupOpen}
+      onOpen={handleOpen}
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
       isMulti
       placeholder={intl.formatMessage(columnPickerMessages.search)}
       aria-label="Search for fields"
       onChange={handleChange}
+      isLoading={allOptions.length === 0}
       target={({ isOpen, ...triggerProps }) => (
         <Button
           {...triggerProps}

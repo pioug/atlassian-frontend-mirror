@@ -122,6 +122,7 @@ function getColumnWidth(
 export const IssueLikeDataTableView = ({
   testId,
   onNextPage,
+  onLoadDatasourceDetails,
   items,
   columns,
   renderItem = fallbackRenderType,
@@ -135,6 +136,7 @@ export const IssueLikeDataTableView = ({
   const [lastRowElement, setLastRowElement] =
     useState<HTMLTableRowElement | null>(null);
   const [isDragPreview, setIsDragPreview] = useState(false);
+  const [hasFullSchema, setHasFullSchema] = useState(false);
   const isBottomOfTableVisibleRaw = useIsOnScreen(lastRowElement);
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -142,6 +144,10 @@ export const IssueLikeDataTableView = ({
   const [orderedColumns, setOrderedColumns] = useState(() =>
     orderColumns([...columns], [...visibleColumnKeys]),
   );
+
+  useEffect(() => {
+    setOrderedColumns(orderColumns([...columns], [...visibleColumnKeys]));
+  }, [columns, visibleColumnKeys]);
 
   const visibleSortedColumns = useMemo(
     () =>
@@ -187,11 +193,10 @@ export const IssueLikeDataTableView = ({
   );
 
   useEffect(() => {
-    if (
-      status === 'empty' ||
-      (isBottomOfTableVisibleRaw && hasNextPage && status !== 'loading')
-    ) {
-      void onNextPage();
+    if (isBottomOfTableVisibleRaw && hasNextPage && status === 'resolved') {
+      void onNextPage({
+        isSchemaFromData: false,
+      });
     }
   }, [isBottomOfTableVisibleRaw, status, hasNextPage, onNextPage]);
 
@@ -318,6 +323,19 @@ export const IssueLikeDataTableView = ({
     [onVisibleColumnKeysChange],
   );
 
+  const handlePickerOpen = useCallback(async () => {
+    if (hasFullSchema) {
+      return;
+    }
+
+    try {
+      await onLoadDatasourceDetails();
+      setHasFullSchema(true);
+    } catch (e) {
+      setHasFullSchema(false);
+    }
+  }, [hasFullSchema, onLoadDatasourceDetails]);
+
   return (
     <div
       ref={containerRef}
@@ -365,10 +383,11 @@ export const IssueLikeDataTableView = ({
             {onVisibleColumnKeysChange && (
               <th css={columnPickerHeaderStyles}>
                 <ColumnPicker
+                  columns={hasFullSchema ? orderedColumns : []}
+                  selectedColumnKeys={hasFullSchema ? visibleColumnKeys : []}
                   isDatasourceLoading={status === 'loading'}
-                  columns={orderedColumns}
-                  selectedColumnKeys={visibleColumnKeys}
                   onSelectedColumnKeysChange={onSelectedColumnKeysChange}
+                  onOpen={handlePickerOpen}
                 />
               </th>
             )}

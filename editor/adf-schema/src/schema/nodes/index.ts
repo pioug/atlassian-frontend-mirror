@@ -150,6 +150,8 @@ export { blockCard } from './block-card';
 export type {
   UrlType,
   DataType,
+  DatasourceAttributes,
+  DatasourceAttributeProperties,
   CardAttributes,
   BlockCardDefinition,
 } from './block-card';

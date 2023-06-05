@@ -5,6 +5,8 @@ import {
   AcknowledgementResponseTypes,
   AddStepAcknowledgementPayload,
   ChannelEvent,
+  CollabCommitStatusEventPayload,
+  CollabEvents,
   StepJson,
   StepsPayload,
 } from '../types';
@@ -24,6 +26,7 @@ export const commitStep = ({
   onStepsAdded,
   onErrorHandled,
   analyticsHelper,
+  emit,
 }: {
   broadcast: <K extends keyof ChannelEvent>(
     type: K,
@@ -37,6 +40,7 @@ export const commitStep = ({
   onStepsAdded: (data: StepsPayload) => void;
   onErrorHandled: (error: InternalError) => void;
   analyticsHelper?: AnalyticsHelper;
+  emit: (evt: keyof CollabEvents, data: CollabCommitStatusEventPayload) => void;
 }) => {
   const stepsWithClientAndUserId = steps.map((step) => ({
     ...step.toJSON(),
@@ -45,6 +49,7 @@ export const commitStep = ({
   })) as StepJson[];
 
   const start = new Date().getTime();
+  emit('commit-status', { status: 'attempt', version });
   try {
     broadcast(
       'steps:commit',
@@ -73,6 +78,10 @@ export const commitStep = ({
               ),
             },
           );
+          emit('commit-status', {
+            status: 'success',
+            version: response.version,
+          });
         } else if (response.type === AcknowledgementResponseTypes.ERROR) {
           onErrorHandled(response.error);
           analyticsHelper?.sendActionEvent(
@@ -96,12 +105,14 @@ export const commitStep = ({
             response.error,
             'Error while adding steps - Acknowledgement Error',
           );
+          emit('commit-status', { status: 'failure', version });
         } else {
           analyticsHelper?.sendErrorEvent(
             // @ts-expect-error We didn't type the invalid type case
             new Error(`Response type: ${response?.type || 'No response type'}`),
             'Error while adding steps - Invalid Acknowledgement',
           );
+          emit('commit-status', { status: 'failure', version });
         }
       },
     );
@@ -110,6 +121,7 @@ export const commitStep = ({
       error,
       'Error while adding steps - Broadcast threw exception',
     );
+    emit('commit-status', { status: 'failure', version });
   }
 };
 

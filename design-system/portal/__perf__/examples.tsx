@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import Portal from '../src';
 
 const PortalPerformance = () => {
@@ -8,11 +10,11 @@ const PortalPerformance = () => {
       <div
         style={{
           position: 'absolute',
-          top: 24,
-          left: 24,
+          top: token('space.300', '24px'),
+          left: token('space.300', '24px'),
           // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           background: 'lightpink',
-          padding: '24px',
+          padding: token('space.300', '24px'),
           borderRadius: '3px',
           // this z-index is relative to the portal
           zIndex: 1,

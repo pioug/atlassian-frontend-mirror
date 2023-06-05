@@ -15,10 +15,8 @@ import type {
 } from 'react-beautiful-dnd';
 import invariant from 'tiny-invariant';
 
-import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import {
   draggable,
-  dropTargetForElements,
   monitorForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
@@ -31,6 +29,7 @@ import { rbdInvariant } from '../drag-drop-context/rbd-invariant';
 import { useDroppableContext } from '../droppable/droppable-context';
 import { useDraggableDimensions } from '../hooks/use-captured-dimensions';
 import { useCleanupFn } from '../hooks/use-cleanup-fn';
+import { useDropTargetForDraggable } from '../hooks/use-drop-target-for-draggable';
 import { useKeyboardContext } from '../hooks/use-keyboard-context';
 import {
   attributes,
@@ -44,7 +43,9 @@ import { useStable } from '../utils/use-stable';
 
 import { isDraggableData, useDraggableData } from './data';
 import { getDraggableProvidedStyle } from './get-draggable-provided-style';
-import isEventInInteractiveElement from './is-event-in-interactive-element';
+import isEventInInteractiveElement, {
+  isAnInteractiveElement,
+} from './is-event-in-interactive-element';
 import { Placeholder } from './placeholder';
 import { idleState, reducer } from './state';
 import { useDraggableStateSnapshot } from './use-draggable-state-snapshot';
@@ -58,7 +59,7 @@ export function Draggable({
   isDragDisabled = false,
   disableInteractiveElementBlocking = false,
 }: DraggableProps) {
-  const { direction, droppableId, type } = useDroppableContext();
+  const { direction, droppableId, type, mode } = useDroppableContext();
 
   const { contextId, getDragState } = useDragDropContext();
 
@@ -219,6 +220,19 @@ export function Draggable({
           return false;
         }
 
+        /**
+         * To align with `react-beautiful-dnd` we are blocking drags
+         * on interactive elements, unless the `disableInteractiveElementBlocking`
+         * prop is provided.
+         */
+        if (!disableInteractiveElementBlocking) {
+          const elementUnderPointer = document.elementFromPoint(
+            input.clientX,
+            input.clientY,
+          );
+          return !isAnInteractiveElement(dragHandle, elementUnderPointer);
+        }
+
         return !isDragging;
       },
       element,
@@ -228,52 +242,30 @@ export function Draggable({
       },
       onGenerateDragPreview: disableNativeDragPreview,
     });
-  }, [data, isDragDisabled, isDragging, isHiding]);
+  }, [
+    data,
+    disableInteractiveElementBlocking,
+    isDragDisabled,
+    isDragging,
+    isHiding,
+  ]);
 
-  const hasPlaceholder = state.type !== 'idle';
+  const hasPlaceholder = state.type !== 'idle' && mode === 'standard';
   const placeholderRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useDropTargetForDraggable({
     /**
      * Swapping the drop target to the placeholder is important
      * to ensure that hovering over where the item was won't result in a
      * drop at the end of the list.
      */
-    const element = hasPlaceholder
-      ? placeholderRef.current
-      : elementRef.current;
-    rbdInvariant(element instanceof HTMLElement);
-
-    return dropTargetForElements({
-      element,
-      getIsSticky() {
-        return true;
-      },
-      canDrop({ source }) {
-        if (!isDraggableData(source.data)) {
-          // not dragging something from the migration layer
-          // we should not allow dropping
-          return false;
-        }
-
-        if (isDropDisabled) {
-          return false;
-        }
-
-        rbdInvariant(isDraggableData(source.data));
-
-        return source.data.type === type && source.data.contextId === contextId;
-      },
-      getData({ input }) {
-        return attachClosestEdge(data, {
-          element,
-          input,
-          allowedEdges:
-            direction === 'vertical' ? ['top', 'bottom'] : ['left', 'right'],
-        });
-      },
-    });
-  }, [data, direction, hasPlaceholder, contextId, isDropDisabled, type]);
+    elementRef: hasPlaceholder ? placeholderRef : elementRef,
+    data,
+    direction,
+    contextId,
+    isDropDisabled,
+    type,
+  });
 
   const isMountedRef = useRef(true);
   useEffect(() => {

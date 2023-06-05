@@ -7,13 +7,14 @@ import {
 } from '@atlaskit/ds-explorations';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
+import { token } from '@atlaskit/tokens';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
 const containerStyles: React.CSSProperties = {
   width: 300,
   height: 300,
-  padding: 8,
+  padding: token('space.100', '8px'),
 };
 
 export default () => {

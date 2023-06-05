@@ -21,6 +21,13 @@ describe(`${packageName}/schema blockCard node`, () => {
     summary:
       'Today is a big day for Atlassian – we have entered into an agreement to buy Trello. (boom)',
   };
+  const datasource = {
+    id: 'datasource-id',
+    parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
+    width: 0,
+    layout: 'center',
+    views: [{ type: 'table', properties: { columnKeys: ['col1', 'col2'] } }],
+  };
 
   describe('blockCard with "url" attribute', () => {
     describe('parse html', () => {
@@ -96,6 +103,52 @@ describe(`${packageName}/schema blockCard node`, () => {
 
       it('encodes and decodes to the same node', () => {
         const node = schema.nodes.blockCard.create({ data });
+        const dom = toDOM(node, schema).firstChild as HTMLElement;
+        const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!;
+        expect(parsedNode).toEqual(node);
+      });
+    });
+  });
+
+  describe('blockCard with "datasource" attribute', () => {
+    describe('parse html', () => {
+      it('converts to blockCard PM node', () => {
+        const doc = fromHTML(
+          `<a data-block-card href="" data-datasource='${JSON.stringify(
+            datasource,
+          )}' />`,
+          schema,
+        );
+        const node = doc.firstChild!;
+        expect(node.type.spec).toEqual(blockCard);
+      });
+
+      it('gets attributes from html', () => {
+        const doc = fromHTML(
+          `<a data-block-card href="" data-datasource='${JSON.stringify(
+            datasource,
+          )}' />`,
+          schema,
+        );
+
+        const node = doc.firstChild!;
+        expect(node.attrs.datasource).toEqual(datasource);
+      });
+    });
+
+    describe('encode html', () => {
+      it('converts html datasource attributes to node attributes', () => {
+        const dom = toDOM(schema.nodes.blockCard.create({ datasource }), schema)
+          .firstChild as HTMLElement;
+
+        expect(dom.getAttribute('href')).toEqual('');
+        expect(dom.getAttribute('data-datasource')).toEqual(
+          JSON.stringify(datasource),
+        );
+      });
+
+      it('encodes and decodes to the same node', () => {
+        const node = schema.nodes.blockCard.create({ datasource });
         const dom = toDOM(node, schema).firstChild as HTMLElement;
         const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!;
         expect(parsedNode).toEqual(node);

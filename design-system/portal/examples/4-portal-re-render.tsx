@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import Portal from '../src';
 
@@ -13,7 +14,7 @@ export default function BasicPortalExample() {
         <Button
           id="toggleZIndexBtn"
           appearance={'primary'}
-          style={{ margin: '0px 24px' }}
+          style={{ margin: `0px ${token('space.300', '24px')}` }}
           onClick={() =>
             setzIndex({ zIndex1: zIndexes.zIndex2, zIndex2: zIndexes.zIndex1 })
           }
@@ -32,11 +33,12 @@ export default function BasicPortalExample() {
         <div
           style={{
             position: 'absolute',
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
             top: 54,
-            left: 24,
+            left: token('space.300', '24px'),
             // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             background: 'lightpink',
-            padding: '24px',
+            padding: token('space.300', '24px'),
             borderRadius: '3px',
             zIndex: zIndexes.zIndex2,
           }}
@@ -49,11 +51,13 @@ export default function BasicPortalExample() {
         <div
           style={{
             position: 'absolute',
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
             top: 130,
+            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
             left: 100,
             // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             background: 'aquamarine',
-            padding: '24px',
+            padding: token('space.300', '24px'),
             borderRadius: '3px',
             zIndex: zIndexes.zIndex1,
           }}

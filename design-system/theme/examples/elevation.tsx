@@ -67,7 +67,12 @@ export default () => {
               </Box>
             </Wrapper>
 
-            <div style={{ padding: 8, textAlign: 'center' }}>
+            <div
+              style={{
+                padding: token('space.100', '8px'),
+                textAlign: 'center',
+              }}
+            >
               <Button appearance="primary" onClick={switchTheme}>
                 Switch theme ({themeMode})
               </Button>

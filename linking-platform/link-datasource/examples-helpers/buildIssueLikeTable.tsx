@@ -6,7 +6,10 @@ import styled from '@emotion/styled';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
-import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import {
+  initialVisibleColumnKeys,
+  mockDatasourceFetchRequests,
+} from '@atlaskit/link-test-helpers/datasource';
 
 import { useDatasourceTableState } from '../src/hooks/useDatasourceTableState';
 import { IssueLikeDataTableView } from '../src/ui/issue-like-table';
@@ -44,10 +47,14 @@ const ExampleBody = ({ isReadonly }: Props) => {
     hasNextPage,
     defaultVisibleColumnKeys,
     columns,
-  } = useDatasourceTableState('some-datasource-id', parameters);
+    loadDatasourceDetails,
+  } = useDatasourceTableState({
+    datasourceId: 'some-datasource-id',
+    parameters,
+  });
 
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<string[]>(
-    defaultVisibleColumnKeys,
+    initialVisibleColumnKeys,
   );
 
   useEffect(() => {
@@ -63,6 +70,7 @@ const ExampleBody = ({ isReadonly }: Props) => {
           testId="link-datasource"
           items={responseItems}
           onNextPage={onNextPage}
+          onLoadDatasourceDetails={loadDatasourceDetails}
           hasNextPage={hasNextPage}
           status={status}
           columns={columns}

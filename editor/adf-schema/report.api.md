@@ -150,7 +150,7 @@ export const blockCard: NodeSpec;
 // @public
 export interface BlockCardDefinition {
   // (undocumented)
-  attrs: CardAttributes;
+  attrs: CardAttributes | DatasourceAttributes;
   // (undocumented)
   type: 'blockCard';
 }
@@ -425,6 +425,28 @@ export const dataConsumerToJSON: (mark: Mark) => {
     [key: string]: any;
   };
 };
+
+// @public (undocumented)
+interface DatasourceAttributeProperties extends RichMediaAttributes {
+  // (undocumented)
+  id: string;
+  // (undocumented)
+  parameters: object;
+  // (undocumented)
+  views: [
+    {
+      type: string;
+      properties?: object;
+    },
+  ];
+}
+
+// @public (undocumented)
+export interface DatasourceAttributes {
+  // (undocumented)
+  datasource: DatasourceAttributeProperties;
+  url?: string;
+}
 
 // @public (undocumented)
 export interface DataType {

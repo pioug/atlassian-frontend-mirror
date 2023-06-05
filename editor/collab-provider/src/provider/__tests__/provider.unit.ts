@@ -1050,14 +1050,19 @@ describe('Provider', () => {
 
       expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
       expect(catchup).toHaveBeenCalledTimes(1);
-      expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
-      expect(sendActionEventSpy).toBeCalledWith('catchup', 'FAILURE', {
-        latency: 0,
-      });
+      expect(sendActionEventSpy).toHaveBeenCalledTimes(17);
+      expect(sendActionEventSpy).toHaveBeenNthCalledWith(
+        17,
+        'catchup',
+        'FAILURE',
+        {
+          latency: 0,
+        },
+      );
 
       channel.emit('error', stepRejectedError);
 
-      expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+      expect(sendActionEventSpy).toHaveBeenCalledTimes(18);
       expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
       expect(catchupMock).toHaveBeenCalledTimes(1);
     });
@@ -1073,6 +1078,7 @@ describe('Provider', () => {
           }),
         },
         steps: [],
+        emit: jest.fn(),
       });
     }).not.toThrow();
   });

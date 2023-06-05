@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Button, { ButtonGroup } from '@atlaskit/button';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import { N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import {
   Spotlight,
@@ -72,7 +73,7 @@ const SpotlightTargetBackground = () => {
           <Button iconBefore={<CopyIcon label="Copy" />} />
         </SpotlightTarget>
       </ButtonGroup>
-      <div style={{ marginTop: '16px' }}>
+      <div style={{ marginTop: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={() => start()}>
           Start example tour
         </Button>

@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 0.21.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.21.0
+
+### Minor Changes
+
+- [`0b68480a270`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b68480a270) - Update logic to call `/details` only when full schema is required and added field list, includeSchema flag to `/data` call
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.20.0
 
 ### Minor Changes

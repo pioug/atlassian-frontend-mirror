@@ -5,6 +5,7 @@ import Button, { ButtonGroup } from '@atlaskit/button';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import VidFullScreenOnIcon from '@atlaskit/icon/glyph/vid-full-screen-on';
 import { N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import {
   Spotlight,
@@ -115,7 +116,7 @@ const SpotlightWithConditionalTargets = () => {
         </SpotlightTarget>
       </ButtonGroup>
 
-      <div style={{ marginTop: '16px' }}>
+      <div style={{ marginTop: token('space.200', '16px') }}>
         <ButtonGroup>
           <Button appearance="primary" onClick={() => start()}>
             Start example tour

@@ -15,7 +15,7 @@
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "deprecated": "Item is deprecated. Please use @atlaskit/menu instead.",
       "name": "Item",

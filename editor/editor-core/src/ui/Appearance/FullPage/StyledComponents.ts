@@ -41,8 +41,13 @@ ScrollContainer.displayName = 'ScrollContainer';
 // transition used to match scrollbar with config panel opening animation
 // only use animation when opening as there is a bug with floating toolbars.
 export const positionedOverEditorStyle = css`
-  padding: 0 ${akEditorContextPanelWidth}px;
+  padding-right: ${akEditorContextPanelWidth}px;
   transition: padding 500ms ${akEditorSwoopCubicBezier};
+
+  .fabric-editor-popup-scroll-parent {
+    padding-left: ${akEditorContextPanelWidth}px;
+    transition: padding 500ms ${akEditorSwoopCubicBezier};
+  }
 `;
 
 export const contentArea = css`

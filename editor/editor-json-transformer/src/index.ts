@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import { Mark as PMMark, Node as PMNode } from 'prosemirror-model';
+import type { Mark as PMMark, Node as PMNode } from 'prosemirror-model';
 
 import {
   codeBlockToJSON,

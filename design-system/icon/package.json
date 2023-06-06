@@ -25,7 +25,7 @@
   "homepage": "https://atlassian.design/components/icon/",
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Icon",
       "category": "Components"
@@ -57,7 +57,7 @@
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.2.0",
-    "@atlaskit/dynamic-table": "^14.9.0",
+    "@atlaskit/dynamic-table": "^14.10.0",
     "@atlaskit/icon-file-type": "^6.4.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/logo": "^13.14.0",

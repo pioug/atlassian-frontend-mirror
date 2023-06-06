@@ -9,7 +9,7 @@
   },
   "atlassian": {
     "team": "Editor",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Editor Palette"
     }

@@ -25,7 +25,7 @@
   "sideEffects": false,
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Icon object",
       "category": "Components"

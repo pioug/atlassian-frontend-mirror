@@ -1,18 +1,16 @@
+import type { DocNode } from '@atlaskit/adf-schema';
+import { fullSchema, stageZeroSchema } from '@atlaskit/adf-schema/json-schema';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import { traverse } from '@atlaskit/adf-utils/traverse';
 import { generateADFDocument } from '@atlassian/adf-sample';
-import type { JsonSchemaV4Object } from '@atlassian/adf-sample/types';
 import {
   buildJSONSchema,
-  isEnum,
-  isString,
-  isNumber,
   isArray,
+  isEnum,
+  isNumber,
+  isString,
 } from '@atlassian/adf-sample/json-schema';
-import { traverse } from '@atlaskit/adf-utils/traverse';
-
-import * as fullSchema from '../../../../json-schema/v1/full.json';
-import * as stageZeroSchema from '../../../../json-schema/v1/stage-0.json';
-import { getSchemaBasedOnStage } from '../../../schema/default-schema';
-import { DocNode } from '../../../schema/nodes/doc';
+import type { JsonSchemaV4Object } from '@atlassian/adf-sample/types';
 
 type JsonSchemaV4Attrs = JsonSchemaV4Object & {
   required?: string[];
@@ -60,21 +58,21 @@ const isPrivateVariable = (name: string) => name.startsWith('_');
 // link mark only valid on children of paragraph and mediaSingle
 const removeInvalidLinkMarks = (doc: DocNode) =>
   (traverse(doc, {
-    paragraph: (node) => node,
-    media: (node) => node,
-    mediaGroup: (node) => {
-      node.content = node.content?.map((childNode) => {
+    paragraph: node => node,
+    media: node => node,
+    mediaGroup: node => {
+      node.content = node.content?.map(childNode => {
         if (childNode?.type === 'media') {
           childNode.marks = childNode.marks?.filter(
-            (mark) => mark.type !== 'link',
+            mark => mark.type !== 'link',
           );
         }
         return childNode;
       });
       return node;
     },
-    any: (node) => {
-      node.marks = node.marks?.filter((mark) => mark.type !== 'link');
+    any: node => {
+      node.marks = node.marks?.filter(mark => mark.type !== 'link');
       return node;
     },
   }) as DocNode) || doc;
@@ -129,17 +127,17 @@ describe('Stage0 JSON Schema', () => {
 
 describe('check validity of default mark attributes', () => {
   // Do this for both final and stage0 schemas
-  STAGE_ADF_MAP.forEach((stage) => {
+  STAGE_ADF_MAP.forEach(stage => {
     const schema = getSchemaBasedOnStage(stage.name);
 
     Object.keys(schema.marks)
-      .filter((markName) => {
+      .filter(markName => {
         if (isPrivateVariable(markName)) {
           return false;
         }
         return !IGNORE_KNOWN_MARKS.includes(markName);
       })
-      .forEach((markName) => {
+      .forEach(markName => {
         /**
          * We need to manually check marks because node.check()
          * does NOT seem to validate attrs against the allowed
@@ -177,7 +175,7 @@ describe('check validity of default mark attributes', () => {
 
           // Check if any required fields are missing
           if (attrsDef.required) {
-            attrsDef.required.forEach((attrName) => {
+            attrsDef.required.forEach(attrName => {
               expect(mark.attrs[attrName]).toBeDefined();
             });
           }
@@ -190,13 +188,13 @@ describe('check validity of default mark attributes', () => {
             const definedAttrs = Object.keys(attrsDef.properties);
             const extraAttrs = Object.keys(mark.attrs).filter(
               // We can ignore private attributes with leading _
-              (key) => !isPrivateVariable(key) && !definedAttrs.includes(key),
+              key => !isPrivateVariable(key) && !definedAttrs.includes(key),
             );
             expect(extraAttrs).toHaveLength(0);
           }
 
           // check if schema values satisfy type specified in ADF
-          Object.keys(attrsDef.properties).forEach((attrName) => {
+          Object.keys(attrsDef.properties).forEach(attrName => {
             const isRequired =
               attrsDef.required && attrsDef.required.includes(attrName);
             const value = mark.attrs[attrName];
@@ -238,7 +236,7 @@ describe('check validity of default mark attributes', () => {
                 if (isString(attrDefItems)) {
                   const valueArray = value as any[];
 
-                  valueArray.forEach((val) => {
+                  valueArray.forEach(val => {
                     expect(typeof val).toEqual(attrDefItems.type);
                   });
                 } else {

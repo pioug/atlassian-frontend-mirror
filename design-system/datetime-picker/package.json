@@ -25,7 +25,7 @@
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Date time picker",
       "category": "Components"

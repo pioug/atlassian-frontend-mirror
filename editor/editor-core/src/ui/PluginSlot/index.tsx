@@ -9,9 +9,11 @@ import EditorActions from '../../actions';
 import {
   DispatchAnalyticsEvent,
   ACTION_SUBJECT,
-} from '../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 import { whichTransitionEvent } from '../../utils';
 import { ErrorBoundary } from '../ErrorBoundary';
+import { MountPluginHooks } from './mount-plugin-hooks';
+import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 
 const pluginsComponentsWrapper = css`
   display: flex;
@@ -19,6 +21,7 @@ const pluginsComponentsWrapper = css`
 
 export interface Props {
   items?: UIComponentFactory[];
+  pluginHooks?: ReactHookFactory[];
   editorView?: EditorView;
   editorActions?: EditorActions;
   eventDispatcher?: EventDispatcher;
@@ -129,9 +132,10 @@ export default class PluginSlot extends React.Component<Props, any> {
       disabled,
       dispatchAnalyticsEvent,
       wrapperElement,
+      pluginHooks,
     } = this.props;
 
-    if (!items || !editorView) {
+    if ((!items && !pluginHooks) || !editorView) {
       return null;
     }
 
@@ -140,8 +144,13 @@ export default class PluginSlot extends React.Component<Props, any> {
         component={ACTION_SUBJECT.PLUGIN_SLOT}
         fallbackComponent={null}
       >
+        <MountPluginHooks
+          editorView={editorView}
+          pluginHooks={pluginHooks}
+          containerElement={containerElement}
+        />
         <div css={pluginsComponentsWrapper}>
-          {items.map((component, key) => {
+          {items?.map((component, key) => {
             const props: any = { key };
             const element = component({
               editorView: editorView as EditorView,

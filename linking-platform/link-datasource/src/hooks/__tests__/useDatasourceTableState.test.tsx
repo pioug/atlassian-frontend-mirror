@@ -130,7 +130,7 @@ describe('useDatasourceTableState', () => {
         hasNextPage: true,
         columns: [],
         defaultVisibleColumnKeys: [],
-        totalIssueCount: undefined,
+        totalCount: undefined,
       });
       await waitForNextUpdate();
     });
@@ -185,7 +185,7 @@ describe('useDatasourceTableState', () => {
         mockDatasourceDataResponse.data,
       );
 
-      expect(result.current.totalIssueCount).toEqual(1234);
+      expect(result.current.totalCount).toEqual(1234);
     });
 
     it('should populate hasNextPage', async () => {
@@ -444,16 +444,16 @@ describe('useDatasourceTableState', () => {
       expect(result.current.hasNextPage).toBe(true);
     });
 
-    it('should set totalIssueCount to undefined when reset() called', async () => {
+    it('should set totalCount to undefined when reset() called', async () => {
       const { result } = await customSetup();
 
-      expect(result.current.totalIssueCount).toEqual(1234);
+      expect(result.current.totalCount).toEqual(1234);
 
       act(() => {
         result.current.reset();
       });
 
-      expect(result.current.totalIssueCount).toBe(undefined);
+      expect(result.current.totalCount).toBe(undefined);
     });
 
     it('should set nextCursor to undefined when reset() called', async () => {

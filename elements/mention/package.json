@@ -25,7 +25,7 @@
   "atlassian": {
     "team": "Search Platform: Search Experience",
     "deprecatedAutoEntryPoints": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Mention"
     }

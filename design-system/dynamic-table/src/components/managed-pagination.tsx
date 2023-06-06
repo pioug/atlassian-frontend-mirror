@@ -35,6 +35,7 @@ export default class ManagedPagination extends React.Component<ManagedPagination
         label={i18n?.label}
         nextLabel={i18n?.next}
         previousLabel={i18n?.prev}
+        pageLabel={i18n?.pageLabel}
         onChange={this.onChange}
         pages={pages}
         testId={testId && `${testId}--pagination`}

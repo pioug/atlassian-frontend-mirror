@@ -38,7 +38,7 @@
   },
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Form",
       "category": "Components"

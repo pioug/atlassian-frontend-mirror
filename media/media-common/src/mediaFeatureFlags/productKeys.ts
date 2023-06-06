@@ -11,7 +11,6 @@ const productKeys: ProductKeys = {
     //TODO fill the value after https://product-fabric.atlassian.net/browse/MEX-1593
     observedWidth: '',
     timestampOnVideo: 'confluence.frontend.media.timestamp.on.video',
-    memoryCacheLogging: 'confluence-frontend-media-card-memory-cache-logging',
   },
   jira: {
     captions: 'issue.details.editor.media.captions',
@@ -21,7 +20,6 @@ const productKeys: ProductKeys = {
     //TODO fill the value after https://product-fabric.atlassian.net/browse/MEX-1593
     observedWidth: '',
     timestampOnVideo: 'issue.details.media-cards-timestamp-on-video',
-    memoryCacheLogging: 'jira-frontend-media-card-memory-cache-logging',
   },
 };
 

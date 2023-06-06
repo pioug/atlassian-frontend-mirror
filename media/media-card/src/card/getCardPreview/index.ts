@@ -33,11 +33,6 @@ import {
   extractFilePreviewStatus,
   isPreviewableStatus,
 } from './filePreviewStatus';
-import {
-  fireImageFetchingOperationalEvent,
-  calculatePercentageDifference,
-} from './imageRefetchingAnalytics';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
 
 export {
   getCardPreviewFromFilePreview,
@@ -135,15 +130,6 @@ export const getCardPreview = async ({
   const dimensionsAreBigger = isBigger(cachedPreview?.dimensions, dimensions);
 
   if (cachedPreview && !dimensionsAreBigger) {
-    if (getMediaFeatureFlag('memoryCacheLogging', featureFlags)) {
-      createAnalyticsEvent &&
-        fireImageFetchingOperationalEvent(createAnalyticsEvent, 'cache-hit', {
-          fileId: id,
-          prevDimensions: cachedPreview.dimensions,
-          currentDimensions: dimensions,
-          source: cachedPreview.source,
-        });
-    }
     return cachedPreview;
   }
 
@@ -200,23 +186,7 @@ export const getCardPreview = async ({
     mediaBlobUrlAttrs,
     traceContext,
   );
-  if (getMediaFeatureFlag('memoryCacheLogging', featureFlags)) {
-    createAnalyticsEvent &&
-      fireImageFetchingOperationalEvent(
-        createAnalyticsEvent,
-        'remote-success',
-        {
-          fileId: id,
-          prevDimensions: cachedPreview?.dimensions,
-          currentDimensions: dimensions,
-          dimensionsPercentageDiff: calculatePercentageDifference(
-            cachedPreview?.dimensions,
-            dimensions,
-          ),
-          source: remotePreview.source,
-        },
-      );
-  }
+
   return remotePreview;
 };
 

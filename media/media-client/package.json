@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "23.0.0",
+  "version": "23.0.1",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -29,14 +29,14 @@
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Media Client"
     }
   },
   "dependencies": {
     "@atlaskit/chunkinator": "^4.2.0",
-    "@atlaskit/media-common": "^6.0.0",
+    "@atlaskit/media-common": "^7.0.0",
     "@babel/runtime": "^7.0.0",
     "dataloader": "^2.0.0",
     "deep-equal": "^1.0.1",

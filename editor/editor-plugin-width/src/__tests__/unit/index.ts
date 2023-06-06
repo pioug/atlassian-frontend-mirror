@@ -5,7 +5,7 @@ import {
   p as paragraph,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { pluginKey } from '../../plugin';
+import { pluginKey } from '../../plugin-key';
 
 describe('width plugin', () => {
   const createEditor = createEditorFactory();
@@ -25,7 +25,7 @@ describe('width plugin', () => {
     view.dispatch(view.state.tr.setMeta('someotherplugin', { pos: 20 }));
 
     const pluginState = pluginKey.getState(view.state);
-    expect(pluginState).toEqual({ width: 0, containerWidth: 0 });
+    expect(pluginState).toEqual({ width: 0 });
 
     // Ensure width plugin never updates.
     // @ts-ignore
@@ -38,17 +38,14 @@ describe('width plugin', () => {
     );
     const spy = jest.spyOn(eventDispatcher, 'emit');
 
-    view.dispatch(
-      view.state.tr.setMeta(pluginKey, { width: 50, containerWidth: 0 }),
-    );
+    view.dispatch(view.state.tr.setMeta(pluginKey, { width: 50 }));
 
     const pluginState = pluginKey.getState(view.state);
-    expect(pluginState).toEqual({ width: 50, containerWidth: 0 });
+    expect(pluginState).toEqual({ width: 50 });
 
     // @ts-ignore
     expect(spy).toHaveBeenCalledWith(pluginKey.key, {
       width: 50,
-      containerWidth: 0,
     });
   });
 
@@ -63,14 +60,12 @@ describe('width plugin', () => {
     const pluginState = pluginKey.getState(view.state);
     expect(pluginState).toEqual({
       width: 0,
-      containerWidth: 0,
       lineLength: 50,
     });
 
     // @ts-ignore
     expect(spy).toHaveBeenCalledWith(pluginKey.key, {
       width: 0,
-      containerWidth: 0,
       lineLength: 50,
     });
   });
@@ -81,12 +76,10 @@ describe('width plugin', () => {
     );
     const spy = jest.spyOn(eventDispatcher, 'emit');
 
-    view.dispatch(
-      view.state.tr.setMeta(pluginKey, { width: 0, containerWidth: 0 }),
-    );
+    view.dispatch(view.state.tr.setMeta(pluginKey, { width: 0 }));
 
     const pluginState = pluginKey.getState(view.state);
-    expect(pluginState).toEqual({ width: 0, containerWidth: 0 });
+    expect(pluginState).toEqual({ width: 0 });
 
     // @ts-ignore
     expect(spy).not.toHaveBeenCalledWith(pluginKey.key, expect.anything());

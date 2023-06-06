@@ -6,7 +6,6 @@ export type EditorContainerWidth = {
    * container element prop).
    */
   width: number;
-  containerWidth?: number;
   /**
    * Starts as undefined, and then updates to the
    * clientWidth of the dom element the EditorView

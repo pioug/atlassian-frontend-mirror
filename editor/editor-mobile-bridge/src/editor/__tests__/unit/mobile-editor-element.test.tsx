@@ -335,6 +335,12 @@ describe('mobile editor element', () => {
   });
 
   describe('Mobile Editor on change content', () => {
+    beforeEach(() => {
+      jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+        cb(1);
+        return 1;
+      });
+    });
     it('should call updateText with content and empty content state as true', () => {
       initEditor();
       bridge.setContent('{"version":1,"type":"doc","content":[]}');

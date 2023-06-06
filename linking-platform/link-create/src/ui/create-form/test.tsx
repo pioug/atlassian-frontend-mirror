@@ -116,6 +116,35 @@ describe('<CreateForm />', () => {
       await userEvent.click(getByTestId('create-button'));
       expect(getByText('Something goes wrong')).toBeTruthy();
     });
+
+    it('should hide error message when after user makes changes', async () => {
+      const textFieldTestId = 'link-create-text-field';
+
+      const validator: Validator = {
+        isValid: (val: unknown) => !!val,
+        errorMessage: 'Something goes wrong',
+      };
+
+      const { getByTestId, queryByTestId } = setUpCreateForm(
+        <TextField
+          name="title"
+          label="Title"
+          testId={textFieldTestId}
+          validators={[validator]}
+        />,
+      );
+
+      await userEvent.click(getByTestId('create-button'));
+      expect(
+        queryByTestId(`${textFieldTestId}-error-message`),
+      ).toBeInTheDocument();
+
+      await userEvent.type(getByTestId(textFieldTestId), 'test');
+
+      expect(
+        queryByTestId(`${textFieldTestId}-error-message`),
+      ).not.toBeInTheDocument();
+    });
   });
 
   describe('AsyncSelect', () => {
@@ -129,8 +158,8 @@ describe('<CreateForm />', () => {
       expect(getByTestId(asyncSelectTestId)).toBeTruthy();
     });
 
-    it('should render error message when TextField validator fails', async () => {
-      const textFieldTestId = 'link-create-text-field';
+    it('should render error message when AsyncSelect validator fails', async () => {
+      const asyncSelectTestId = 'link-create-async-select';
 
       const validator: Validator = {
         isValid: () => false,
@@ -141,7 +170,7 @@ describe('<CreateForm />', () => {
         <AsyncSelect
           name="title"
           label="Title"
-          testId={textFieldTestId}
+          testId={asyncSelectTestId}
           validators={[validator]}
         />,
       );

@@ -2,7 +2,10 @@ import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 import { Transaction, EditorState } from 'prosemirror-state';
 import { PMPlugin } from './pm-plugin';
 import { MarkConfig, NodeConfig } from './pm-config';
-import { UIComponentFactory } from './ui-components';
+import type {
+  UIComponentFactory,
+  ReactHookFactory,
+} from '@atlaskit/editor-common/types';
 
 type EditorViewStateUpdatedCallbackProps = {
   readonly originalTransaction: Readonly<Transaction>;
@@ -16,6 +19,7 @@ export interface EditorConfig {
   marks: MarkConfig[];
   pmPlugins: Array<PMPlugin>;
   contentComponents: UIComponentFactory[];
+  pluginHooks: ReactHookFactory[];
   primaryToolbarComponents: ToolbarUIComponentFactory[];
   secondaryToolbarComponents: UIComponentFactory[];
   onEditorViewStateUpdatedCallbacks: Array<{

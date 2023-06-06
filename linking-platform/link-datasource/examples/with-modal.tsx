@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
-import { CodeBlock } from '@atlaskit/code';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
   initialVisibleColumnKeys,
@@ -52,13 +51,10 @@ export default () => {
         <Button appearance="primary" onClick={toggleIsOpen}>
           Toggle Modal
         </Button>
-        {generatedAdf ? (
-          <CodeBlock
-            text={generatedAdf}
-            language={'JSON'}
-            testId={'generated-adf'}
-          />
-        ) : null}
+        <div>Generated ADF:</div>
+        <pre>
+          <code data-testid="generated-adf">{generatedAdf}</code>
+        </pre>
         {showModal && (
           <JiraIssuesConfigModal
             datasourceId={JIRA_LIST_OF_LINKS_DATASOURCE_ID}

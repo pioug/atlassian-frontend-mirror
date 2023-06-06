@@ -187,7 +187,7 @@ const generateDataResponse = ({
         }),
       };
     }),
-  totalIssues: mockJiraData.totalIssues,
+  totalCount: mockJiraData.totalIssues,
   nextPageCursor:
     numberOfLoads < 4 && maxItems > 1 ? 'c3RhcnRBdD01' : undefined,
   ...(includeSchema && { schema: detailsResponse.schema }),

@@ -1,5 +1,12 @@
 # @atlaskit/link-test-helpers
 
+## 4.0.5
+
+### Patch Changes
+
+- [`105f0c7291b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/105f0c7291b) - [ux] Various bug fixes to jira issue modal
+- Updated dependencies
+
 ## 4.0.4
 
 ### Patch Changes

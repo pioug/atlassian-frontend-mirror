@@ -33,6 +33,10 @@ export default function CustomEllipsisExample() {
         )}
         max={maxPageSize}
         pages={[...Array(10)].map((_, i) => i + 1)}
+        nextLabel="Next"
+        label="Custom Ellipsis"
+        pageLabel="Page"
+        previousLabel="Previous"
       />
     </Stack>
   );

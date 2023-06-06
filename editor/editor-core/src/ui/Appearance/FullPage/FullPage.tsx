@@ -151,6 +151,7 @@ export class FullPageEditor extends React.Component<
             scrollContainer={this.scrollContainer}
             scrollContainerRef={this.scrollContainerRef}
             wrapperElement={this.wrapperElementRef.current}
+            pluginHooks={props.pluginHooks}
           />
         </div>
       </ContextPanelWidthProvider>

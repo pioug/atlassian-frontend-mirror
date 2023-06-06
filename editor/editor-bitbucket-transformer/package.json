@@ -26,13 +26,13 @@
     "team": "Editor",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Editor Bitbucket Transformer"
     }
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.4.0",
+    "@atlaskit/editor-common": "^74.5.0",
     "@babel/runtime": "^7.0.0",
     "prosemirror-markdown": "^1.4.2",
     "prosemirror-model": "1.16.0"
@@ -41,19 +41,10 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/activity": "^1.0.1",
     "@atlaskit/adf-schema": "^25.8.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-core": "^185.1.0",
     "@atlaskit/editor-test-helpers": "^18.5.0",
-    "@atlaskit/emoji": "^67.4.0",
-    "@atlaskit/smart-card": "^26.5.0",
-    "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/util-data-test": "^17.8.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
-    "@emotion/react": "^11.7.1",
-    "prosemirror-view": "1.23.7",
-    "react-intl-next": "npm:react-intl@^5.18.1",
     "typescript": "~4.9.5"
   },
   "techstack": {

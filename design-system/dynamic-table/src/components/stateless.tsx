@@ -71,9 +71,10 @@ class DynamicTable extends React.Component<Props, State> {
     onRankStart: noop,
     onRankEnd: noop,
     paginationi18n: {
-      prev: 'Prev',
+      prev: 'Previous',
       next: 'Next',
       label: 'Pagination',
+      pageLabel: 'Page',
     },
   };
 

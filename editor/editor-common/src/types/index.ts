@@ -106,6 +106,7 @@ export { ToolbarSize, ToolbarWidths, ToolbarWidthsFullPage } from './toolbar';
 export type {
   UiComponentFactoryParams,
   UIComponentFactory,
+  ReactHookFactory,
 } from './ui-components';
 
 export type { EditorReactContext } from './editor-react-context';

@@ -39,6 +39,14 @@ export interface I18nShape {
    * Accessible label applied to the current page button in the pagination component.
    */
   label: string;
+
+  /**
+   * Accessible label for the individual page numbers.
+   * The page number is automatically appended to the pageLabel.
+   * For Example, pageLabel="página" will render aria-label="página 1"
+   * as the label for page 1.
+   */
+  pageLabel?: string;
 }
 
 export interface StatelessProps extends WithAnalyticsEventsProps {
@@ -148,7 +156,7 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
 
   /**
    * Labels for the pagination wrapper, previous and next buttons used in pagination.
-   * Defaults to `"pagination"`, `"previous"` and `"next"`.
+   * Defaults to `"page"`, `"pagination"`, `"previous"` and `"next"`.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   paginationi18n?: I18nShape;

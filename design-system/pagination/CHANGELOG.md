@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.4.0
+
+### Minor Changes
+
+- [`12d9c63d4c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d9c63d4c1) - [ux] pass pageLabel to dynamic-table component and updat prev label in examples, add description in the types file, update example files
+
 ## 14.3.2
 
 ### Patch Changes

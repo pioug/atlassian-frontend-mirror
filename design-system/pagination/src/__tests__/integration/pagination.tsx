@@ -6,8 +6,8 @@ const urlPagination = getExampleUrl('design-system', 'pagination', 'basic');
 
 const pageBtnSelector = 'button[page]';
 const pageTextSelector = '[data-testid=description]';
-const nextPageBtnSelector = 'button[aria-label="next"]';
-const previousPageBtnSelector = 'button[aria-label="previous"]';
+const previousPageBtnSelector = '[data-testid="pagination--left-navigator"]';
+const nextPageBtnSelector = '[data-testid="pagination--right-navigator"]';
 const ellipsisSelector = '[data-testid=pagination-ellipsis-text]';
 
 BrowserTestCase(

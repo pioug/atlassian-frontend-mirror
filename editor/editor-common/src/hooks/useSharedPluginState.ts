@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useLayoutEffect, useMemo, useState } from 'react';
 
 import type {
   ExtractPluginSharedState,
@@ -77,6 +77,14 @@ function mapValues<T extends object, Result>(
   );
 }
 
+// When we use the `useSharedPluginState` example: `useSharedPluginState(api, ['width'])`
+// it will re-render every time the component re-renders as the array "['width']" is seen as an update.
+// This hook is used to prevent re-renders due to this.
+function useStaticPlugins<T>(plugins: T[]): T[] {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  return useMemo(() => plugins, []);
+}
+
 /**
  *
  * Used to return the current plugin state of
@@ -117,17 +125,19 @@ export function useSharedPluginState<
   injectionApi: PluginInjectionAPI<Name, Metadata> | undefined,
   plugins: PluginNames,
 ): NamedPluginStatesFromInjectionAPI<typeof injectionApi, PluginNames> {
+  const pluginNames = useStaticPlugins(plugins);
+
   // Create a memoized object containing the named plugins
   const namedExternalPlugins = useMemo(
     () =>
-      plugins.reduce(
+      pluginNames.reduce(
         (acc, pluginName) => ({
           ...acc,
           [`${pluginName}State`]: injectionApi?.dependencies[pluginName],
         }),
         {} as NamedPluginDependencies<typeof injectionApi, PluginNames>,
       ),
-    [injectionApi?.dependencies, plugins],
+    [injectionApi?.dependencies, pluginNames],
   );
 
   return useSharedPluginStateInternal(namedExternalPlugins);
@@ -136,28 +146,34 @@ export function useSharedPluginState<
 function useSharedPluginStateInternal<P extends NamedPluginKeys>(
   externalPlugins: P,
 ): NamedPluginStates<P> {
-  const [state, setState] = useState<NamedPluginStates<P>>(
+  const [pluginStates, setPluginState] = useState<NamedPluginStates<P>>(
     mapValues(externalPlugins, (value) => value?.sharedState.currentState()),
   );
 
-  useEffect(() => {
-    const unsubscribeListeners = Object.entries(externalPlugins).map(
-      ([pluginKey, externalPlugin]) =>
-        externalPlugin?.sharedState.onChange(
+  useLayoutEffect(() => {
+    const unsubs = Object.entries(externalPlugins).map(
+      ([pluginKey, externalPlugin]) => {
+        return externalPlugin?.sharedState.onChange(
           ({ nextSharedState, prevSharedState }) => {
             if (prevSharedState === nextSharedState) {
               return;
             }
-
-            setState((state) => ({ ...state, [pluginKey]: nextSharedState }));
+            setPluginState((currentPluginStates) => ({
+              ...currentPluginStates,
+              [pluginKey]: nextSharedState,
+            }));
           },
-        ),
+        );
+      },
     );
 
     return () => {
-      unsubscribeListeners.forEach((cb) => cb?.());
+      unsubs.forEach((cb) => cb?.());
     };
+    // Do not re-render due to state changes, we only need to check this when
+    // setting up the initial subscription.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [externalPlugins]);
 
-  return state;
+  return pluginStates;
 }

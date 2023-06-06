@@ -25,7 +25,6 @@ import { tableCommentEditorStyles } from '@atlaskit/editor-plugin-table/ui/commo
 import WithFlash from '../../WithFlash';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
-import WidthEmitter from '../../WidthEmitter';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import classnames from 'classnames';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
@@ -159,6 +158,7 @@ class Editor extends React.Component<
       dispatchAnalyticsEvent,
       intl,
       useStickyToolbar,
+      pluginHooks,
     } = this.props;
     const maxContentSizeReached = Boolean(
       maxContentSize?.maxContentSizeReached,
@@ -252,6 +252,7 @@ class Editor extends React.Component<
                       containerElement={this.containerElement}
                       disabled={!!disabled}
                       wrapperElement={this.wrapperElementRef.current}
+                      pluginHooks={pluginHooks}
                     />
                     {editorDOMElement}
                   </ContentArea>
@@ -259,7 +260,6 @@ class Editor extends React.Component<
               }}
             </WidthConsumer>
           </ClickAreaBlock>
-          <WidthEmitter editorView={editorView!} />
         </div>
         {showSecondaryToolbar && (
           <div

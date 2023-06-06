@@ -354,6 +354,8 @@ interface InitialDraft {
   // (undocumented)
   metadata?: Metadata_2;
   // (undocumented)
+  timestamp?: number;
+  // (undocumented)
   version: number;
 }
 

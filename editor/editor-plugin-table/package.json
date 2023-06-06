@@ -23,11 +23,11 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Editor",
-    "releaseModel": "scheduled"
+    "releaseModel": "continuous"
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^25.8.0",
-    "@atlaskit/editor-common": "^74.4.0",
+    "@atlaskit/editor-common": "^74.5.0",
     "@atlaskit/editor-palette": "1.4.2",
     "@atlaskit/editor-plugin-analytics": "^0.0.1",
     "@atlaskit/editor-plugin-content-insertion": "^0.0.1",
@@ -67,7 +67,7 @@
     "@atlaskit/editor-plugin-decorations": "^0.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-plugin-grid": "^0.1.0",
-    "@atlaskit/editor-plugin-width": "^0.0.1",
+    "@atlaskit/editor-plugin-width": "^0.1.0",
     "@atlaskit/editor-test-helpers": "^18.5.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/logo": "^13.14.0",

@@ -18,8 +18,8 @@ describe('Snapshot Test', () => {
     await loadPage(page, url);
 
     const paginationSelector = '[data-testid="pagination"]';
-    const prevPageBtnSelector = 'button[aria-label="previous"]';
-    const nextPageBtnSelector = 'button[aria-label="next"]';
+    const prevPageBtnSelector = '[data-testid="pagination--left-navigator"]';
+    const nextPageBtnSelector = '[data-testid="pagination--right-navigator"]';
     // Wait for next & prev buttons (and their inner icons)
     await page.waitForSelector(prevPageBtnSelector + '[disabled]');
     await page.waitForSelector(nextPageBtnSelector + ':not([disabled])');

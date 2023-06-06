@@ -75,6 +75,7 @@ describe('JiraIssuesConfigModal', () => {
       { key: 'myId', title: 'ID', type: 'string', isIdentity: true },
     ],
     defaultVisibleColumnKeys: ['myColumn', 'otherColumn'],
+    totalCount: 3,
   });
 
   const getSingleIssueHookState: () => DatasourceTableState = () => ({
@@ -97,6 +98,7 @@ describe('JiraIssuesConfigModal', () => {
     onNextPage: jest.fn(),
     loadDatasourceDetails: jest.fn(),
     reset: jest.fn(),
+    totalCount: undefined,
   });
 
   const getLoadingHookState: () => DatasourceTableState = () => ({
@@ -405,6 +407,28 @@ describe('JiraIssuesConfigModal', () => {
         'https://hello.atlassian.net/issues/?jql=different-query',
       );
     });
+
+    it('should not show footer issue count in count view', async () => {
+      const {
+        getLatestJiraSearchContainerProps,
+        getByLabelText,
+        queryByTestId,
+        findByText,
+      } = await setup();
+      const { onSearch } = getLatestJiraSearchContainerProps();
+      act(() => {
+        onSearch({
+          jql: 'different-query',
+        });
+      });
+
+      getByLabelText('Count view').click();
+      expect(await findByText('55 Issues')).toBeTruthy();
+
+      expect(
+        queryByTestId('jira-jql-datasource-modal-total-issues-count'),
+      ).toBeNull();
+    });
   });
 
   it('should use useDatasourceTableState hook', async () => {
@@ -427,6 +451,17 @@ describe('JiraIssuesConfigModal', () => {
       expect(
         queryByTestId('jira-jql-datasource-modal--empty-state'),
       ).toBeTruthy();
+    });
+
+    it('should not display issue count', async () => {
+      const { queryByTestId } = await setup({
+        hookState: getEmptyHookState(),
+        parameters: undefined,
+      });
+
+      expect(
+        queryByTestId('jira-jql-datasource-modal-total-issues-count'),
+      ).toBeNull();
     });
 
     it('should disable insert button', async () => {
@@ -654,6 +689,16 @@ describe('JiraIssuesConfigModal', () => {
       );
     });
 
+    it('should display a count of all issues found', async () => {
+      const hookState = getDefaultHookState();
+      const { getByTestId } = await setup({
+        hookState,
+      });
+      expect(
+        getByTestId('jira-jql-datasource-modal-total-issues-count').textContent,
+      ).toEqual('3 issues');
+    });
+
     it('should have enabled Insert button', async () => {
       const { getByRole } = await setup();
       const button = getByRole('button', { name: 'Insert issues' });
@@ -699,7 +744,7 @@ describe('JiraIssuesConfigModal', () => {
       expect(onInsert).toHaveBeenCalledWith({
         type: 'inlineCard',
         attrs: {
-          url: 'https://hello.atlassian.net/issues/some-query',
+          url: 'https://hello.atlassian.net/issues/?jql=some-query',
         },
       } as InlineCardAdf);
     });

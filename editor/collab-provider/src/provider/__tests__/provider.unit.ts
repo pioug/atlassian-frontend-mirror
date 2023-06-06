@@ -956,6 +956,105 @@ describe('Provider', () => {
       expect(throttledCatchupSpy).toHaveBeenCalledWith();
     });
 
+    it('should not be triggered when the initial draft of the provider does not contain a timestamp', async () => {
+      const testProviderConfigWithDraft = {
+        initialDraft: {
+          document: 'test-document' as any,
+          version: 1,
+          metadata: { title: 'random-title' },
+          timestamp: undefined,
+        },
+        ...testProviderConfig,
+      };
+      const provider = createSocketIOCollabProvider(
+        testProviderConfigWithDraft,
+      );
+      const throttledCatchupSpy = jest.spyOn(
+        // @ts-ignore
+        provider.documentService as any,
+        'throttledCatchup',
+      );
+      const updateDocumentSpy = jest.spyOn(
+        //@ts-ignore
+        provider.documentService as any,
+        'updateDocument',
+      );
+      provider.initialize(() => editorState);
+      channel.emit('connected', {
+        sid: 'pweq3Q7NOPY4y88QAGyr',
+        initialized: true,
+      });
+      expect(updateDocumentSpy).toHaveBeenCalledTimes(1);
+      expect(updateDocumentSpy).toHaveBeenCalledWith({
+        doc: 'test-document',
+        metadata: { title: 'random-title' },
+        version: 1,
+      });
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(0);
+    });
+    it('should be triggered when the initial draft of the provider is stale (greater than 15s)', async () => {
+      const testProviderConfigWithDraft = {
+        initialDraft: {
+          document: 'test-document' as any,
+          version: 1,
+          metadata: { title: 'random-title' },
+          timestamp: Date.now() - 16 * 1000, // 16s means draft is out of sync
+        },
+        ...testProviderConfig,
+      };
+      const provider = createSocketIOCollabProvider(
+        testProviderConfigWithDraft,
+      );
+      const throttledCatchupSpy = jest.spyOn(
+        // @ts-ignore
+        provider.documentService as any,
+        'throttledCatchup',
+      );
+      provider.initialize(() => editorState);
+      channel.emit('connected', {
+        sid: 'pweq3Q7NOPY4y88QAGyr',
+        initialized: true,
+      });
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(1);
+      expect(throttledCatchupSpy).toHaveBeenCalledWith();
+    });
+    it('should not be triggered when the initial draft of the provider is not stale (less than 15s)', async () => {
+      const testProviderConfigWithDraft = {
+        initialDraft: {
+          document: 'test-document' as any,
+          version: 1,
+          metadata: { title: 'random-title' },
+          timestamp: Date.now() - 10 * 1000,
+        },
+        ...testProviderConfig,
+      };
+      const provider = createSocketIOCollabProvider(
+        testProviderConfigWithDraft,
+      );
+      const throttledCatchupSpy = jest.spyOn(
+        // @ts-ignore
+        provider.documentService as any,
+        'throttledCatchup',
+      );
+      const updateDocumentSpy = jest.spyOn(
+        //@ts-ignore
+        provider.documentService as any,
+        'updateDocument',
+      );
+      provider.initialize(() => editorState);
+      channel.emit('connected', {
+        sid: 'pweq3Q7NOPY4y88QAGyr',
+        initialized: true,
+      });
+      expect(updateDocumentSpy).toHaveBeenCalledTimes(1);
+      expect(updateDocumentSpy).toHaveBeenCalledWith({
+        doc: 'test-document',
+        metadata: { title: 'random-title' },
+        version: 1,
+      });
+      expect(throttledCatchupSpy).toHaveBeenCalledTimes(0);
+    });
+
     it('should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
       const provider = createSocketIOCollabProvider(testProviderConfig);
       const throttledCatchupSpy = jest.spyOn(

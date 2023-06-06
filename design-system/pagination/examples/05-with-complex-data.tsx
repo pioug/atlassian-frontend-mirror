@@ -29,6 +29,10 @@ export default function ComplexDataExample() {
         pages={PAGES}
         onChange={handleChange}
         getPageLabel={getLabel}
+        nextLabel="Next"
+        label="Complex Data Page"
+        pageLabel="Page"
+        previousLabel="Previous"
       />
       <Text as="p">Received onChange event:</Text>
       <Code>

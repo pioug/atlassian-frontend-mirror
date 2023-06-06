@@ -5,9 +5,9 @@ import { IntlProvider } from 'react-intl-next';
 
 import { Editor, EditorContext, CollapsedEditor } from '@atlaskit/editor-core';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import ToolsDrawer from '../example-helpers/ToolsDrawer';
+import ToolsDrawer from './helpers/ToolsDrawer';
 import { BitbucketTransformer } from '../src';
-import exampleHTML from '../example-helpers/exampleHTML';
+import exampleHTML from './helpers/exampleHTML';
 
 const SAVE_ACTION = () => console.log('Save');
 const CANCEL_ACTION = () => console.log('Cancel');

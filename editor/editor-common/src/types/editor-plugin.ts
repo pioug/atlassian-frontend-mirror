@@ -7,7 +7,7 @@ import type { MarkConfig, NodeConfig } from './prosemirror-config';
 import type { QuickInsertHandler } from './quick-insert';
 import type { ToolbarUIComponentFactory } from './toolbar';
 import type { TypeAheadHandler } from './type-ahead';
-import type { UIComponentFactory } from './ui-components';
+import type { ReactHookFactory, UIComponentFactory } from './ui-components';
 
 export type PluginsOptions = {
   [pluginName: string]: any;
@@ -69,6 +69,16 @@ export interface EditorPlugin {
    * Although it’s common to specify a custom mount point (eg. date picker)
    */
   contentComponent?: UIComponentFactory;
+
+  /**
+   * Optional react hook that is mounted for all appearances
+   *
+   * This can be used to access React context, or other React specific code (ie. run `useEffect`)
+   * within a plugin that will run for all appearances without mounting any components.
+   *
+   * Example usages include analytics or width.
+   */
+  usePluginHook?: ReactHookFactory;
 
   /**
    * Optional UI-component that will be added to the toolbar at the top of the editor (doesn't exist in the compact-editor).

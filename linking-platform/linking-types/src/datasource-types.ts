@@ -169,7 +169,7 @@ export interface DatasourceDataResponse {
     properties: DatasourceResponseSchemaProperty[];
   };
   nextPageCursor?: string;
-  totalIssues?: number;
+  totalCount?: number;
 }
 
 export type DatasourceTableStatusType =

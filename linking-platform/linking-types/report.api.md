@@ -48,7 +48,7 @@ export interface DatasourceDataResponse {
     properties: DatasourceResponseSchemaProperty[];
   };
   // (undocumented)
-  totalIssues?: number;
+  totalCount?: number;
 }
 
 // @public (undocumented)

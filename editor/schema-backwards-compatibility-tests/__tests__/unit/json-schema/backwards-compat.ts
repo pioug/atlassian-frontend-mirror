@@ -1,6 +1,8 @@
 import { exec } from 'child_process';
+
 import { validateSchemaCompatibility } from 'json-schema-diff-validator';
-import newSchema from '../../../../json-schema/v1/full.json';
+
+import { fullSchema as newSchema } from '@atlaskit/adf-schema/json-schema';
 
 // TODO: remove this when jest unit tests are supported for TS files
 declare var expect: any;
@@ -34,7 +36,7 @@ expect.extend({
     definitionsToSkip: string[] = [],
   ) {
     try {
-      definitionsToSkip.forEach((definition) => {
+      definitionsToSkip.forEach(definition => {
         received.definitions[definition] = argument.definitions[definition];
       });
 

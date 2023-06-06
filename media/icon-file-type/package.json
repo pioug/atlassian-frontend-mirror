@@ -25,7 +25,7 @@
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Icon File Type"
     }

@@ -25,6 +25,7 @@ const jqlEditorBasicSearchButtonSelector =
 const insertButtonSelector =
   '[data-testid="jira-jql-datasource-modal--insert-button"]';
 const generatedAdfCodeBlockSelector = '[data-testid="generated-adf"]';
+const columnPickerSelector = '[data-testid="column-picker-trigger-button"]';
 
 describe('Modal', () => {
   let page: PuppeteerPage;
@@ -78,11 +79,18 @@ describe('Modal', () => {
   });
 
   it('should provide autocomplete for JQL fields', async () => {
-    await page.evaluate(selector => {
-      document.querySelector(selector).click();
-    }, jqlOptionSelector);
-
+    await page.click(jqlOptionSelector);
     const jqlInput = await page.waitForSelector(jqlEditorInputSelector);
+
+    // clear the default JQL in order to get autocompletion
+    const inputValue = await page.$eval(
+      jqlEditorInputSelector,
+      el => el.textContent,
+    );
+    [...(inputValue || [])]?.forEach(
+      async () => await page.keyboard.press('Backspace'),
+    );
+
     await jqlInput?.click();
     await jqlInput?.type('sta', { delay: 50 });
 
@@ -92,13 +100,20 @@ describe('Modal', () => {
   });
 
   it('should provide query suggestions for JQL fields', async () => {
-    await page.evaluate(selector => {
-      document.querySelector(selector).click();
-    }, jqlOptionSelector);
-
+    await page.click(jqlOptionSelector);
     const jqlInput = await page.waitForSelector(jqlEditorInputSelector, {
       visible: true,
     });
+
+    // clear the default JQL in order to get suggestions
+    const inputValue = await page.$eval(
+      jqlEditorInputSelector,
+      el => el.textContent,
+    );
+    [...(inputValue || [])]?.forEach(
+      async () => await page.keyboard.press('Backspace'),
+    );
+
     await jqlInput?.click();
     await jqlInput?.type('status = ', { delay: 50 });
 
@@ -136,8 +151,7 @@ describe('Modal', () => {
     ).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 13/05/2023: https://product-fabric.atlassian.net/browse/EDM-6673
-  it.skip('should show issues in a table when basic searched', async () => {
+  it('should show issues in a table when basic searched', async () => {
     const basicInput = await page.waitForSelector(jqlEditorBasicInputSelector, {
       visible: true,
     });
@@ -171,8 +185,7 @@ describe('Modal', () => {
     ).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 13/05/2023: https://product-fabric.atlassian.net/browse/EDM-6674
-  it.skip('should render smart link when result is single row', async () => {
+  it('should render smart link when result is single row', async () => {
     const siteSelectorTrigger = await page.waitForSelector(
       jiraModalSiteSelector,
       {
@@ -199,8 +212,6 @@ describe('Modal', () => {
     await page.click(insertButtonSelector);
     await page.waitForSelector(generatedAdfCodeBlockSelector);
 
-    await page.waitForTimeout(1000); // delay to ensure code block syntax color is complete
-
     expect(
       await takeElementScreenShot(page, generatedAdfCodeBlockSelector),
     ).toMatchProdImageSnapshot();
@@ -219,11 +230,33 @@ describe('Modal', () => {
     await page.click(insertButtonSelector);
     await page.waitForSelector(generatedAdfCodeBlockSelector);
 
-    await page.waitForTimeout(1000); // delay to ensure code block syntax color is complete
-
     expect(
       await takeElementScreenShot(page, generatedAdfCodeBlockSelector),
     ).toMatchProdImageSnapshot();
+  });
+
+  it('should close column picker on first ESC keydown, close modal on second ESC keydown', async () => {
+    await page.click(jqlEditorBasicInputSelector);
+    await page.type(jqlEditorBasicInputSelector, 'test');
+    await page.click(jqlEditorBasicSearchButtonSelector);
+
+    await page.waitForSelector(columnPickerSelector, { visible: true });
+    await page.click(columnPickerSelector);
+    await page.waitForSelector('.column-picker-popup__menu-list', {
+      visible: true,
+    });
+
+    // close column picker - modal should stay open
+    await page.keyboard.press('Escape');
+
+    expect(
+      await takeElementScreenShot(page, jiraModal),
+    ).toMatchProdImageSnapshot();
+
+    // close modal
+    await page.keyboard.press('Escape');
+
+    expect(await page.screenshot()).toMatchProdImageSnapshot();
   });
 });
 

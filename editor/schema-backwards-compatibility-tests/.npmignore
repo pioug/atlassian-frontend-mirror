@@ -1,0 +1,5 @@
+src/
+index.ts
+build/
+__tests__/
+tsconfig.json

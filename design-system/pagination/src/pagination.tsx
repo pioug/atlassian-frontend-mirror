@@ -35,6 +35,7 @@ function InnerPagination<T>(
     defaultSelectedIndex = 0,
     selectedIndex,
     label = 'pagination',
+    pageLabel = 'page',
     previousLabel = 'previous',
     nextLabel = 'next',
     style = emptyObject,
@@ -71,6 +72,10 @@ function InnerPagination<T>(
 
   const transform = (page: T, currPageIndex: number, testId?: string) => {
     const selectedPage = pages[selectedIndexValue];
+    const pageIndexLabel = `${pageLabel} ${
+      getPageLabel ? getPageLabel(page, currPageIndex) : page
+    }`;
+
     return (
       <PageComponent
         key={`page-${
@@ -80,6 +85,8 @@ function InnerPagination<T>(
         onClick={(event) =>
           onChangeWithAnalytics({ event, selectedPageIndex: currPageIndex })
         }
+        aria-current={page === selectedPage ? 'page' : undefined}
+        aria-label={pageIndexLabel}
         isSelected={page === selectedPage}
         page={page}
         testId={

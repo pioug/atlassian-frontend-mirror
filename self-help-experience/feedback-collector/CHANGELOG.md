@@ -1,5 +1,17 @@
 # @atlaskit/feedback-collector
 
+## 12.2.2
+
+### Patch Changes
+
+- [`a6e64a7df16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a6e64a7df16) - [ux] fix opt-in messages
+
+## 12.2.1
+
+### Patch Changes
+
+- [`44d70ecadb6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44d70ecadb6) - [ux] Fix enroll message
+
 ## 12.2.0
 
 ### Minor Changes

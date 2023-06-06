@@ -31,7 +31,8 @@ import {
   media,
   inlineCard,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Mark, Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from 'prosemirror-model';
+import { Mark } from 'prosemirror-model';
 
 const transformer = new BitbucketTransformer(schema);
 const parse = (html: string) => transformer.parse(html);

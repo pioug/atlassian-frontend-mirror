@@ -21,15 +21,26 @@ export interface PaginationPropTypes<T = unknown> {
    */
   getPageLabel?: (page: T, pageIndex: number) => number | string;
   /**
-   * The aria-label for the pagination wrapper
+   * The aria-label for the pagination nav wrapper.
+   * The default value is "pagination".
    */
   label?: string;
   /**
-   * The aria-label for the next button
+   * The aria-label for the next button.
+   * The default value is "next".
    */
   nextLabel?: string;
   /**
-   * The aria-label for the previous button
+   * The aria-label for the individual page numbers.
+   * The default value is "page".
+   * The page number is automatically appended to the pageLabel.
+   * For Example, pageLabel="página" will render aria-label="página 1"
+   * as the label for page 1.
+   */
+  pageLabel?: string;
+  /**
+   * The aria-label for the previous button.
+   * The default value is "previous".
    */
   previousLabel?: string;
   /**

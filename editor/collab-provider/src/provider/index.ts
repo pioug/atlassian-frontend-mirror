@@ -39,6 +39,7 @@ import type { InternalError } from '../errors/error-types';
 const logger = createLogger('Provider', 'black');
 
 const OUT_OF_SYNC_PERIOD = 3 * 1000; // 3 seconds
+const PRELOAD_DRAFT_SYNC_PERIOD = 15 * 1000; // 15 seconds
 
 export const MAX_STEP_REJECTED_ERROR = 15;
 
@@ -152,18 +153,25 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           sid,
           initial: !initialized,
         });
-        // If initial draft is already present and the channel is initialized,
-        // fire the provider's init event with initial draft document and version
+
+        // Early initialization with initial draft passed via provider
         if (this.initialDraft && initialized && !this.isProviderInitialized) {
-          const { document, version, metadata }: InitialDraft =
-            this.initialDraft;
-          // Initial document, version, metadata from initial draft
-          this.documentService.updateDocument({
-            doc: document,
-            version,
-            metadata,
-          });
-          this.metadataService.updateMetadata(metadata);
+          // Call catchup if the draft has become stale since being passed to provider
+          if (this.isDraftTimestampStale()) {
+            this.documentService.throttledCatchup();
+          }
+          // If the initial draft is already up to date, update the document with that of the initial draft
+          else {
+            const { document, version, metadata }: InitialDraft =
+              this.initialDraft;
+            // Initial document, version, metadata from initial draft
+            this.documentService.updateDocument({
+              doc: document,
+              version,
+              metadata,
+            });
+            this.metadataService.updateMetadata(metadata);
+          }
           this.isProviderInitialized = true;
         }
         // If already initialized, `connected` means reconnected
@@ -312,6 +320,20 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         initError,
       );
     }
+  }
+
+  /**
+   * Checks the provider's initial draft timestamp to determine if it is stale.
+   * Returns true only if the time elapsed since the draft timestamp is greater than or
+   * equal to a predetermined timeout. Returns false in all other cases.
+   */
+  private isDraftTimestampStale(): boolean {
+    if (!this.initialDraft?.timestamp) {
+      return false;
+    }
+    return (
+      Date.now() - this.initialDraft.timestamp >= PRELOAD_DRAFT_SYNC_PERIOD
+    );
   }
 
   /**

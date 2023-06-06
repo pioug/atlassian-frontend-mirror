@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 6.0.0
+
+### Major Changes
+
+- [`b232899125b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b232899125b) - Update DatasourceDataResponse.totalIssues is changed to totalCount
+
 ## 5.0.0
 
 ### Major Changes

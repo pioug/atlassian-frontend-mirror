@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 48.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 48.0.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "66.0.1",
+  "version": "66.0.2",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Media Picker"
     }
@@ -38,7 +38,7 @@
     "@atlaskit/flag": "^15.1.0",
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/media-client": "^23.0.0",
-    "@atlaskit/media-common": "^6.0.0",
+    "@atlaskit/media-common": "^7.0.0",
     "@atlaskit/media-ui": "^23.0.0",
     "@atlaskit/theme": "^12.4.0",
     "@atlaskit/tokens": "^1.5.0",

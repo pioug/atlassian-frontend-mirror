@@ -1,5 +1,24 @@
 # @atlaskit/editor-mobile-bridge
 
+## 185.1.3
+
+### Patch Changes
+
+- [`0414d1a9533`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0414d1a9533) - [ux] [ED-16506] Fix bug where in android when the editor is loaded for the first time with existing content a race condition was causing an enter key press to get triggered and add extra paragraphs to the start of the document
+- Updated dependencies
+
+## 185.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 185.1.0
 
 ### Patch Changes

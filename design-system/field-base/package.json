@@ -24,7 +24,7 @@
   "atlassian": {
     "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "deprecated": "Please use the Form/Textfield/Textarea/etc packages instead.",
       "name": "Field Base",

@@ -1,4 +1,5 @@
-import { Node as PMNode } from 'prosemirror-model';
+// eslint-disable no-duplicate-imports
+import type { Node as PMNode } from 'prosemirror-model';
 
 import { uuid } from '@atlaskit/adf-schema';
 import { bitbucketSchema } from '@atlaskit/adf-schema/schema-bitbucket';
@@ -8,10 +9,11 @@ import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 import { BitbucketTransformer } from '@atlaskit/editor-bitbucket-transformer';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ConfluenceTransformer } from '@atlaskit/editor-confluence-transformer';
-import { EditorProps } from '@atlaskit/editor-core';
 import { JIRATransformer } from '@atlaskit/editor-jira-transformer';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line no-duplicate-imports
+import type { Options } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   a,
   blockquote,
@@ -20,7 +22,6 @@ import {
   code_block,
   dataConsumer,
   doc,
-  DocBuilder,
   em,
   emoji,
   expand,
@@ -56,15 +57,14 @@ import {
   unsupportedMark,
   unsupportedNodeAttribute,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line no-duplicate-imports
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
-import {
-  JSONDocNode,
-  JSONNode,
-  JSONTransformer,
-  SchemaStage,
-} from '../../index';
+import { JSONTransformer, SchemaStage } from '../../index';
+// eslint-disable-next-line no-duplicate-imports
+import type { JSONDocNode, JSONNode } from '../../index';
 import * as markOverride from '../../markOverrideRules';
 import { sanitizeNode } from '../../sanitize/sanitize-node';
 
@@ -97,12 +97,7 @@ describe('JSONTransformer:', () => {
   afterEach(jest.clearAllMocks);
 
   describe('encode', () => {
-    const editor = (
-      doc: DocBuilder,
-      options?: {
-        editorProps: Partial<EditorProps>;
-      },
-    ) =>
+    const editor = (doc: DocBuilder, options?: Pick<Options, 'editorProps'>) =>
       createEditor({
         doc,
         editorProps: {
@@ -134,7 +129,6 @@ describe('JSONTransformer:', () => {
 
     it('should create a standard empty adf for empty Bitbucket', () => {
       const bitbucketTransformer = new BitbucketTransformer(bitbucketSchema);
-
       expect(toJSON(bitbucketTransformer.parse(''))).toEqual(standardEmptyAdf);
     });
 

@@ -81,6 +81,7 @@ export interface InitialDraft {
   document: JSONDocNode;
   version: number;
   metadata?: Metadata;
+  timestamp?: number;
 }
 
 export interface Config {

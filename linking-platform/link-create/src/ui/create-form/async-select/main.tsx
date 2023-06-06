@@ -6,6 +6,7 @@ import { jsx } from '@emotion/react';
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import { AsyncSelect as AkAsyncSelect, OptionType } from '@atlaskit/select';
 
+import { validateSubmitErrors } from '../../../common/utils/form';
 import { useFormContext } from '../../../controllers/form-context';
 
 import { AsyncSelectProps } from './types';
@@ -42,13 +43,26 @@ export function AsyncSelect<T = OptionType>({
         isRequired={isRequired}
         defaultValue={defaultValue}
       >
-        {({ fieldProps, error }) => (
-          <Fragment>
-            <AkAsyncSelect<T> {...fieldProps} {...rest} />
-            {!error && <HelperMessage>{validationHelpText}</HelperMessage>}
-            {error && <ErrorMessage>{error}</ErrorMessage>}
-          </Fragment>
-        )}
+        {({ fieldProps, meta, error }) => {
+          const isInvalid = validateSubmitErrors(meta);
+          return (
+            <Fragment>
+              <AkAsyncSelect<T>
+                {...fieldProps}
+                {...rest}
+                isInvalid={isInvalid}
+              />
+              {!error && validationHelpText && (
+                <HelperMessage>{validationHelpText}</HelperMessage>
+              )}
+              {isInvalid && (
+                <ErrorMessage testId={`${testId}-error-message`}>
+                  {error}
+                </ErrorMessage>
+              )}
+            </Fragment>
+          );
+        }}
       </Field>
     </div>
   );

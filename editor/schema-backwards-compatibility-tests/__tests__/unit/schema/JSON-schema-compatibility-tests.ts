@@ -1,22 +1,23 @@
+import type { MarkType, Node, NodeType } from 'prosemirror-model';
+
+import * as v1schema from '@atlaskit/adf-schema';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 import {
-  pmNodeFactory as factory,
+  bodiedExtension,
+  extension,
+  p,
+  table,
+  td,
+  th,
+  tr,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+import {
   pmNodeBuilder as builder,
+  pmNodeFactory as factory,
   pmMarkBuilder as markBuilder,
 } from '@atlaskit/editor-test-helpers/schema-element-builder';
-import { defaultSchema } from '../../../schema/default-schema';
-import * as v1schema from '../../../../json-schema/v1/full.json';
-import { initialize } from '@atlaskit/editor-test-helpers/ajv';
-import { NodeType, MarkType, Node } from 'prosemirror-model';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import {
-  p,
-  extension,
-  bodiedExtension,
-  table,
-  tr,
-  th,
-  td,
-} from '@atlaskit/editor-test-helpers/doc-builder';
 
 // TODO: We did this change when we bump ajv version 6.
 // It will be refactored in this ticket: https://product-fabric.atlassian.net/browse/ED-10888.
@@ -112,7 +113,7 @@ const getNodeMatches = (
   depth = 0,
 ): Function[] => {
   const matches: Function[] = [];
-  nodes.forEach((n) => {
+  nodes.forEach(n => {
     if (
       n.name !== nodeType.name &&
       nodeType.contentMatch.matchType(n) &&
@@ -132,7 +133,7 @@ const getNodeMatches = (
         } else {
           // add all the various combinations of child and its further children.
           matches.push(
-            ...childNodes.map((c) => (factory as any)[nodeType.name](c)),
+            ...childNodes.map(c => (factory as any)[nodeType.name](c)),
           );
         }
       }
@@ -162,8 +163,7 @@ const getDisplayName = (node: Node) => {
   }
   let displayName: string = `${getDisplayName(node.firstChild!)} -> `;
   const markDisplayText =
-    node.marks &&
-    node.marks.map((mark) => mark.type && mark.type.name).join(',');
+    node.marks && node.marks.map(mark => mark.type && mark.type.name).join(',');
   if (markDisplayText) {
     displayName += `${markDisplayText} -> `;
   }
@@ -176,16 +176,16 @@ describe('ProseMirror and JSON schema tests', () => {
   const dataSet = getNodeMatches(defaultSchema.nodes.doc, 4, 4);
   const transformer = new JSONTransformer();
 
-  dataSet.forEach((editorData) => {
+  dataSet.forEach(editorData => {
     const editorDoc = editorData(defaultSchema);
     const editorJson = transformer.encode(editorDoc);
     it(`should validate JSON schema for ${getDisplayName(editorDoc)}`, () => {
-      expect(isValidJSONSchema(editorJson)).toEqual(true);
+      expect(isValidJSONSchema(editorJson)).toBe(true);
     });
   });
 
   /**
-   *  Seprately testing fragment with supported nodes, as the above test suite generates an invalid dataset for nodes with fragment marks
+   *  Separately testing fragment with supported nodes, as the above test suite generates an invalid dataset for nodes with fragment marks
    */
   it(`should validate JSON schema for  -> extension -> fragment -> doc`, () => {
     const editorDoc = (factory as any)['doc'](
@@ -194,8 +194,9 @@ describe('ProseMirror and JSON schema tests', () => {
       ),
     )(defaultSchema);
     const editorJson = transformer.encode(editorDoc);
-    expect(isValidJSONSchema(editorJson)).toEqual(true);
+    expect(isValidJSONSchema(editorJson)).toBe(true);
   });
+
   it(`should validate JSON schema for  -> bodiedExtension -> fragment -> doc`, () => {
     const editorDoc = (factory as any)['doc'](
       (markBuilder as any)['fragment'](
@@ -206,8 +207,9 @@ describe('ProseMirror and JSON schema tests', () => {
       ),
     )(defaultSchema);
     const editorJson = transformer.encode(editorDoc);
-    expect(isValidJSONSchema(editorJson)).toEqual(true);
+    expect(isValidJSONSchema(editorJson)).toBe(true);
   });
+
   it(`should validate JSON schema for  -> table -> fragment -> doc`, () => {
     const editorDoc = (factory as any)['doc'](
       (markBuilder as any)['fragment'](
@@ -218,7 +220,7 @@ describe('ProseMirror and JSON schema tests', () => {
       ),
     )(defaultSchema);
     const editorJson = transformer.encode(editorDoc);
-    expect(isValidJSONSchema(editorJson)).toEqual(true);
+    expect(isValidJSONSchema(editorJson)).toBe(true);
   });
 });
 

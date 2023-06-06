@@ -8,7 +8,7 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { ActivityProvider } from '@atlaskit/activity';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';
 import { EmojiProvider } from '@atlaskit/emoji';
-import { BitbucketTransformer } from '../src';
+import { BitbucketTransformer } from '../../src';
 import { content } from './styles';
 
 const rejectedPromise = Promise.reject(

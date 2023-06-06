@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 7.0.0
+
+### Major Changes
+
+- [`5dcaf51b269`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5dcaf51b269) - Removed memoryCacheLogging feature flag
+
 ## 6.0.0
 
 ### Major Changes

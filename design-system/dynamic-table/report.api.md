@@ -110,6 +110,7 @@ export const DynamicTableStateless: React_2.ForwardRefExoticComponent<
               prev: string;
               next: string;
               label: string;
+              pageLabel: string;
             };
           },
           never
@@ -163,6 +164,7 @@ interface HeadType {
 interface I18nShape {
   label: string;
   next: string;
+  pageLabel?: string;
   prev: string;
 }
 

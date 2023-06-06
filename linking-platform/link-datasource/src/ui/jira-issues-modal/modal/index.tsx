@@ -2,7 +2,13 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { FormattedMessage, IntlProvider, useIntl } from 'react-intl-next';
+import {
+  FormattedMessage,
+  FormattedNumber,
+  FormattedPlural,
+  IntlProvider,
+  useIntl,
+} from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
@@ -14,7 +20,7 @@ import Modal, {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { B400, N0 } from '@atlaskit/theme/colors';
+import { B400, N0, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
@@ -54,6 +60,12 @@ const placeholderSmartLinkStyles = css({
     '0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
   color: token('color.text.brand', B400),
   padding: '0px 2px',
+});
+
+const issueCountStyles = css({
+  color: token('color.text.accent.gray', N800),
+  flex: 1,
+  fontWeight: 600,
 });
 
 export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
@@ -98,6 +110,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     columns,
     defaultVisibleColumnKeys,
     loadDatasourceDetails,
+    totalCount,
   } = useDatasourceTableState({
     datasourceId,
     parameters: isParametersSet ? parameters : undefined,
@@ -170,7 +183,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
       onInsert({
         type: 'inlineCard',
         attrs: {
-          url: `${selectedJiraSite.url}/issues/${encodeURI(jql)}`,
+          url: `${selectedJiraSite.url}/issues/?jql=${encodeURI(jql)}`,
         },
       } as InlineCardAdf);
     } else if (responseItems.length === 1 && firstIssueUrl) {
@@ -336,6 +349,19 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
             </div>
           </ModalBody>
           <ModalFooter>
+            {!!totalCount && currentViewMode === 'issue' && (
+              <div
+                data-testid="jira-jql-datasource-modal-total-issues-count"
+                css={issueCountStyles}
+              >
+                <FormattedNumber value={totalCount} />{' '}
+                <FormattedPlural
+                  one="issue"
+                  other="issues"
+                  value={totalCount}
+                />
+              </div>
+            )}
             <Button appearance="default" onClick={onCancel}>
               <FormattedMessage {...modalMessages.cancelButtonText} />
             </Button>

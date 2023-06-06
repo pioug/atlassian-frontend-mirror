@@ -26,7 +26,7 @@ export interface DatasourceTableState {
   hasNextPage: boolean;
   columns: DatasourceResponseSchemaProperty[];
   defaultVisibleColumnKeys: string[];
-  totalIssueCount?: number;
+  totalCount?: number;
 }
 
 export interface DatasourceTableStateProps {
@@ -54,8 +54,8 @@ export const useDatasourceTableState = ({
     useState<DatasourceTableState['hasNextPage']>(true);
   const [nextCursor, setNextCursor] = useState<string | undefined>(undefined);
   const [columns, setColumns] = useState<DatasourceTableState['columns']>([]);
-  const [totalIssueCount, setTotalIssueCount] =
-    useState<DatasourceTableState['totalIssueCount']>(undefined);
+  const [totalCount, setTotalCount] =
+    useState<DatasourceTableState['totalCount']>(undefined);
 
   const { getDatasourceData, getDatasourceDetails } =
     useDatasourceClientExtension();
@@ -123,10 +123,10 @@ export const useDatasourceTableState = ({
 
       setStatus('loading');
 
-      const { data, nextPageCursor, totalIssues, schema } =
+      const { data, nextPageCursor, totalCount, schema } =
         await getDatasourceData(datasourceId, datasourceDataRequest);
 
-      setTotalIssueCount(totalIssues);
+      setTotalCount(totalCount);
       setNextCursor(nextPageCursor);
 
       setResponseItems(currentResponseItems => {
@@ -162,7 +162,7 @@ export const useDatasourceTableState = ({
     setResponseItems([]);
     setHasNextPage(true);
     setNextCursor(undefined);
-    setTotalIssueCount(undefined);
+    setTotalCount(undefined);
     setLastRequestedFieldKeys([]);
   }, []);
 
@@ -216,6 +216,6 @@ export const useDatasourceTableState = ({
     hasNextPage,
     columns,
     defaultVisibleColumnKeys,
-    totalIssueCount,
+    totalCount,
   };
 };

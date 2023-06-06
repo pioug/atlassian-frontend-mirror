@@ -1,63 +1,28 @@
-import React from 'react';
-import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import Mobile from '../../Mobile';
-import { EditorView } from 'prosemirror-view';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import {
-  createWidthContext,
-  WidthContext,
-} from '@atlaskit/editor-common/src/ui/WidthProvider';
-import {
-  NextEditorPlugin,
-  PluginDependenciesAPI,
-} from '@atlaskit/editor-common/types';
+import { doc, DocBuilder, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { render } from '@testing-library/react';
-import { LightEditorConfig } from '../../../../test-utils';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-
-interface ExternalWidthUpdateProps {
-  editorView: EditorView;
-  width: number;
-  contentComponents: LightEditorConfig['contentComponents'];
-}
-
-const MobileWithExternalWidth: React.FC<ExternalWidthUpdateProps> = ({
-  editorView,
-  width,
-  contentComponents,
-}) => {
-  return (
-    <WidthContext.Provider value={createWidthContext(width)}>
-      <Mobile
-        editorView={editorView}
-        editorDOMElement={<span>Editor Slot</span>}
-        providerFactory={{} as ProviderFactory}
-        featureFlags={{}}
-        contentComponents={contentComponents}
-      />
-    </WidthContext.Provider>
-  );
-};
+import React from 'react';
+import Mobile from '../../Mobile';
 
 describe('mobile editor', () => {
   const createEditor = createProsemirrorEditorFactory();
 
-  const widthStateRef: {
-    current: PluginDependenciesAPI<typeof widthPlugin> | null;
-  } = { current: null };
+  const widthSharedStateUpdate = jest.fn();
 
   const stateCheckerPlugin: NextEditorPlugin<
     'test',
     { dependencies: [typeof widthPlugin] }
   > = (_, api) => {
-    widthStateRef.current = api?.dependencies.width ?? null;
+    api?.dependencies.width.sharedState.onChange((state) => {
+      widthSharedStateUpdate(state);
+    });
     return { name: 'test' };
   };
 
@@ -68,23 +33,30 @@ describe('mobile editor', () => {
         .add(widthPlugin)
         .add(stateCheckerPlugin),
     });
+
+  beforeEach(() => {
+    widthSharedStateUpdate.mockReset();
+  });
+
   it('should emit the initial width to width plugin', () => {
-    const initialWidth = 500;
+    expect(widthSharedStateUpdate).toBeCalledTimes(0);
     const {
       editorView,
-      editorConfig: { contentComponents },
+      editorConfig: { pluginHooks },
     } = editor(doc(p('Hello world'), p('Hello world')));
 
+    expect(widthSharedStateUpdate).toBeCalledTimes(1);
+
     render(
-      <MobileWithExternalWidth
+      <Mobile
         editorView={editorView}
-        width={initialWidth}
-        contentComponents={contentComponents}
+        editorDOMElement={<span>Editor Slot</span>}
+        providerFactory={{} as ProviderFactory}
+        featureFlags={{}}
+        pluginHooks={pluginHooks}
       />,
     );
 
-    const widthState = widthStateRef.current?.sharedState.currentState();
-
-    expect(widthState?.width).toEqual(initialWidth);
+    expect(widthSharedStateUpdate).toBeCalledTimes(2);
   });
 });

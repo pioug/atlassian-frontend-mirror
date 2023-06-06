@@ -10,7 +10,7 @@
   "atlassian": {
     "team": "UFO - Vulcans",
     "inPublicMirror": false,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "InteractionContext"
     }

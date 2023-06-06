@@ -28,22 +28,12 @@ type DisplayGuideline = (view: EditorView) => DisplayGrid;
 // @public (undocumented)
 export type GuidelineConfig = {
   key: string;
-  position: GuidelinePosition;
+  position: Position;
   active?: boolean;
   show?: boolean;
   style?: 'dashed' | 'solid';
   color?: string;
 };
-
-// @public (undocumented)
-enum GuidelineContainerArea {
-  // (undocumented)
-  EditorContent = 'editorContent',
-  // (undocumented)
-  EditorLeftMargin = 'editorLeftMargin',
-  // (undocumented)
-  EditorRightMargin = 'editorRightMargin',
-}
 
 // @public (undocumented)
 export const guidelinePlugin: NextEditorPlugin<
@@ -63,23 +53,9 @@ type GuidelinePluginState = {
 };
 
 // @public (undocumented)
-type GuidelinePosition = {
-  containerArea?: GuidelineContainerArea;
-} & PositionSide;
-
-// @public (undocumented)
-type PositionSide =
-  | {
-      left: PositionValue;
-      right?: never;
-    }
-  | {
-      right: PositionValue;
-      left?: never;
-    };
-
-// @public (undocumented)
-type PositionValue = 0 | `${number}%` | `${number}px`;
+type Position = {
+  x: number;
+};
 
 // (No @packageDocumentation comment for this package)
 ```

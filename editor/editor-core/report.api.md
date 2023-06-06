@@ -131,6 +131,7 @@ import { QuickInsertItemId } from '@atlaskit/editor-common/provider-factory';
 import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
+import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 import { RefObject } from 'react';
 import { ReplaceRawValue } from '@atlaskit/editor-common/types';
 import type { ResolvedEditorState } from '@atlaskit/collab-provider';
@@ -744,6 +745,8 @@ interface EditorConfig {
     pluginName: string;
     callback: (props: EditorViewStateUpdatedCallbackProps) => void;
   }>;
+  // (undocumented)
+  pluginHooks: ReactHookFactory[];
   // (undocumented)
   pmPlugins: Array<PMPlugin>;
   // (undocumented)

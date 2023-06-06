@@ -29,6 +29,8 @@ export interface SearchContainerProps {
   parameters?: JiraIssueDatasourceParameters;
 }
 
+const DEFAULT_JQL_QUERY = 'created >= -30d order by created DESC';
+
 export const JiraSearchContainer = (props: SearchContainerProps) => {
   const { parameters, onSearch } = props;
   const { cloudId, jql: initialJql } = parameters || {};
@@ -42,7 +44,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   const [currentSearchMode, setCurrentSearchMode] = useState<string>(
     initialJql ? jqlModeValue : basicModeValue,
   );
-  const [jql, setJql] = useState(initialJql || '');
+  const [jql, setJql] = useState(initialJql || DEFAULT_JQL_QUERY);
   const [orderKey, setOrderKey] = useState<string | undefined>();
   const [orderDirection, setOrderDirection] = useState<string | undefined>();
 

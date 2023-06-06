@@ -7,16 +7,21 @@ export const messages = defineMessages({
     description:
       'The title shown at the top of the feedback form encouraging users to leave feedback',
   },
+  privacyPolicy: {
+    id: 'feedback-collector.atlassian-privacy-policy',
+    defaultMessage: 'Atlassian Privacy Policy',
+    description: 'Link text for the Atlassian Privacy Policy',
+  },
   enrolInResearchLabel: {
     id: 'feedback-collector.enrol-in-research.label',
-    defaultMessage:
-      'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the <a>Atlassian Privacy Policy.</a>',
+    defaultMessage: "I'd like to participate in product research",
     description:
       'The checkbox label letting users enrol themselves in future product research interviews',
   },
   canBeContactedLabel: {
     id: 'feedback-collector.can-be-contacted.label',
-    defaultMessage: 'Atlassian can contact me about this feedback',
+    defaultMessage:
+      'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the ',
     description:
       'The checkbox label to give consent to be contacted about their feedback',
   },

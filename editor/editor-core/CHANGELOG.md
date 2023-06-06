@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 185.1.3
+
+### Patch Changes
+
+- [`7cd4abcdc0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cd4abcdc0d) - Fix workaround in `editor-plugin-width`. This involved removing `WidthEmitter` in `editor-core`, removing `containerWidth` from `WidthPluginState`. This change also introduces `usePluginHook` for an `EditorPlugin` - this enables a react hook to be mounted for plugins (in all appearances).
+- Updated dependencies
+
+## 185.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.1.1
+
+### Patch Changes
+
+- [`63ef771aab9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63ef771aab9) - [ux] Fix layout button. breakoutNode equals check should include position.
+
 ## 185.1.0
 
 ### Minor Changes

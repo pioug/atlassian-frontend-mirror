@@ -11,7 +11,6 @@ const LazyJiraIssuesConfigModal = lazy(() =>
   ).then(module => ({ default: module.JiraIssuesConfigModal })),
 );
 
-//
 const JiraIssuesConfigModalWithWrappers = (
   props: JiraIssuesConfigModalProps,
 ) => {

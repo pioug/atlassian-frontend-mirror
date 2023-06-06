@@ -25,6 +25,10 @@ export default function AnalyticsExample() {
             typeof page === 'object' ? page.value : page
           }
           pages={pageLinks}
+          nextLabel="Next"
+          label="Analytics Page"
+          pageLabel="Page"
+          previousLabel="Previous"
         />
         <Stack space="space.150">
           <Heading level="h700">Analytics event context received</Heading>

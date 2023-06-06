@@ -28,7 +28,7 @@
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Media Image"
     }
@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^9.1.0",
-    "@atlaskit/media-common": "^6.0.0",
+    "@atlaskit/media-common": "^7.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/select": "^16.5.0",
     "@atlaskit/spinner": "^15.5.0",

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.3.1
+
+### Patch Changes
+
+- [`7cd4abcdc0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cd4abcdc0d) - Fix workaround in `editor-plugin-width`. This involved removing `WidthEmitter` in `editor-core`, removing `containerWidth` from `WidthPluginState`. This change also introduces `usePluginHook` for an `EditorPlugin` - this enables a react hook to be mounted for plugins (in all appearances).
+- Updated dependencies
+
 ## 0.3.0
 
 ### Minor Changes

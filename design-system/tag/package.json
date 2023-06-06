@@ -25,7 +25,7 @@
   "homepage": "https://atlassian.design/components/tag/",
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Tag",
       "category": "Components"

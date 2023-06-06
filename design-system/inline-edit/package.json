@@ -25,7 +25,7 @@
   "homepage": "https://atlassian.design/components/inline-edit/",
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Inline edit",
       "category": "Components"

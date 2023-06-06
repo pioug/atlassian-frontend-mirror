@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { useCallback } from 'react';
+import React, { useCallback, forwardRef } from 'react';
 import { css, jsx } from '@emotion/react';
 import {
   pluginKey as maxContentSizePluginKey,
@@ -36,14 +36,16 @@ type MobileAppearanceProps = React.PropsWithChildren<{
   maxHeight?: number;
   persistScrollGutter?: boolean;
   editorDisabled?: boolean;
+  children?: React.ReactNode;
 }>;
 
-export function MobileAppearance({
-  editorView,
-  persistScrollGutter,
-  children,
-  editorDisabled,
-}: MobileAppearanceProps) {
+export const MobileAppearance = forwardRef<
+  HTMLDivElement,
+  MobileAppearanceProps
+>(function MobileAppearance(
+  { editorView, persistScrollGutter, children, editorDisabled },
+  ref,
+) {
   const render = useCallback(
     ({
       maxContentSize,
@@ -81,7 +83,7 @@ export function MobileAppearance({
       }
       return (
         <WithFlash animate={maxContentSizeReached}>
-          <div css={mobileEditor}>
+          <div css={mobileEditor} ref={ref}>
             <ClickArea
               editorView={editorView || undefined}
               minHeight={minHeight}
@@ -97,7 +99,7 @@ export function MobileAppearance({
         </WithFlash>
       );
     },
-    [children, editorView, persistScrollGutter, editorDisabled],
+    [children, editorView, persistScrollGutter, editorDisabled, ref],
   );
 
   return (
@@ -109,4 +111,4 @@ export function MobileAppearance({
       render={render}
     />
   );
-}
+});

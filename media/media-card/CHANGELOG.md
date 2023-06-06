@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 76.0.3
+
+### Patch Changes
+
+- [`5dcaf51b269`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5dcaf51b269) - removed unused memory cache logs
+- Updated dependencies
+
 ## 76.0.2
 
 ### Patch Changes

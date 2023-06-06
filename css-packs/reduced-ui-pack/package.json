@@ -15,7 +15,7 @@
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/overview",
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Reduced UI Pack",
       "category": "Libraries"

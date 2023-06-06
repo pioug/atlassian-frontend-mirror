@@ -25,7 +25,7 @@
   "atlassian": {
     "team": "Editor",
     "inPublicMirror": true,
-    "releaseModel": "scheduled"
+    "releaseModel": "continuous"
   },
   "af:exports": {
     "./builders": "./src/builders.ts",

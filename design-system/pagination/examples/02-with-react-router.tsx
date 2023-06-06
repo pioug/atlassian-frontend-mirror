@@ -92,6 +92,10 @@ const PaginationWithSelectPage = ({
         Previous: renderLink('previous', pageSelected),
         Next: renderLink('next', pageSelected),
       }}
+      nextLabel="Next"
+      label="React Router Page"
+      pageLabel="Page"
+      previousLabel="Previous"
     />
   </Box>
 );

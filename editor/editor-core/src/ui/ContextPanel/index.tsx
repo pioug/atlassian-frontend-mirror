@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { useContext } from 'react';
 import { css, jsx } from '@emotion/react';
 import Transition from 'react-transition-group/Transition';
 import { N30 } from '@atlaskit/theme/colors';
@@ -21,6 +21,7 @@ import { getChildBreakoutModes } from '../../utils/document';
 import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { token } from '@atlaskit/tokens';
 import type EditorActions from '../../actions';
+import { WidthContext } from '@atlaskit/editor-common/ui';
 
 export type Props = {
   visible: boolean;
@@ -35,6 +36,7 @@ const WIDE_MODE = 'wide';
 
 type EditorWidth = WidthPluginState & {
   contentBreakoutModes: BreakoutMarkAttrs['mode'][];
+  containerWidth?: number;
 };
 
 const absolutePanelStyles = css`
@@ -245,6 +247,7 @@ function ContextPanelWithActions({
 }: Props & { actions: EditorActions }) {
   const eventDispatcher = actions._privateGetEventDispatcher();
   const editorView = actions._privateGetEditorView();
+  const { width } = useContext(WidthContext);
 
   if (!eventDispatcher) {
     return <SwappableContentArea editorView={editorView} {...props} />;
@@ -263,6 +266,7 @@ function ContextPanelWithActions({
 
         const editorWidth = {
           ...widthState,
+          containerWidth: width,
           contentBreakoutModes: editorView
             ? getChildBreakoutModes(
                 editorView.state.doc,

@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.5.4
+
+### Patch Changes
+
+- [`2660603c726`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2660603c726) - [ux] A hover card loading state improvement is implemented: all elements except for actions would have a loading skeleton
+- Updated dependencies
+
 ## 26.5.3
 
 ### Patch Changes

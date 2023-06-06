@@ -17,7 +17,6 @@ import {
 import { ClickAreaBlock } from '../../Addon';
 import ContextPanel from '../../ContextPanel';
 import PluginSlot from '../../PluginSlot';
-import WidthEmitter from '../../WidthEmitter';
 import {
   contentArea,
   editorContentAreaStyle,
@@ -26,14 +25,16 @@ import {
   editorContentGutterStyle,
   positionedOverEditorStyle,
 } from './StyledComponents';
-import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
+import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import messages from './messages';
 import { ThemeProps } from '@atlaskit/theme/types';
+import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 
 interface FullPageEditorContentAreaProps {
   appearance: EditorAppearance | undefined;
   contentArea: HTMLElement | undefined;
   contentComponents: UIComponentFactory[] | undefined;
+  pluginHooks: ReactHookFactory[] | undefined;
   contextPanel: ReactComponents | undefined;
   customContentComponents: ReactComponents | undefined;
   disabled: boolean | undefined;
@@ -59,6 +60,7 @@ const Content: React.FunctionComponent<
 > = React.memo((props) => {
   const theme: ThemeProps = useTheme();
   const fullWidthMode = props.appearance === 'full-width';
+
   return (
     <WidthConsumer>
       {({ width }) => (
@@ -106,6 +108,7 @@ const Content: React.FunctionComponent<
                         providerFactory={props.providerFactory}
                         appearance={props.appearance}
                         items={props.contentComponents}
+                        pluginHooks={props.pluginHooks}
                         contentArea={props.contentArea}
                         popupsMountPoint={props.popupsMountPoint}
                         popupsBoundariesElement={props.popupsBoundariesElement}
@@ -123,7 +126,6 @@ const Content: React.FunctionComponent<
               <div css={sidebarArea}>
                 {props.contextPanel || <ContextPanel visible={false} />}
               </div>
-              <WidthEmitter editorView={props.editorView} />
             </div>
           )}
         </ContextPanelConsumer>

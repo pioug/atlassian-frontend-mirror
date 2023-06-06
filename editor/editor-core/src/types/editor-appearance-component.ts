@@ -12,11 +12,13 @@ import {
 } from '../types/editor-props';
 import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
-import { DispatchAnalyticsEvent } from '../plugins/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { EditorAppearance } from './editor-appearance';
 import { MenuItem } from '../ui/DropdownMenu/types';
 import { ReactElement } from 'react';
 import { FeatureFlags } from './feature-flags';
+import type { ReactHookFactory } from '@atlaskit/editor-common/types';
+
 export interface EditorAppearanceComponentProps {
   appearance?: EditorAppearance;
   onSave?: (editorView: EditorView) => void;
@@ -34,6 +36,7 @@ export interface EditorAppearanceComponentProps {
   minHeight?: number;
 
   contentComponents?: UIComponentFactory[];
+  pluginHooks?: ReactHookFactory[];
   primaryToolbarComponents?: ToolbarUIComponentFactory[];
   primaryToolbarIconBefore?: ReactElement;
   secondaryToolbarComponents?: UIComponentFactory[];

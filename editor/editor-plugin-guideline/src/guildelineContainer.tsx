@@ -22,7 +22,7 @@ type ContainerProps = {
   guidelines: GuidelineConfig[];
   height: number;
   centerOffset: number;
-  containerWidth: number;
+  width: number;
   editorWidth: number;
 };
 

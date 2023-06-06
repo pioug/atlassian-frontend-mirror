@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-types",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "Schema and Types for frontend and backend parts of linking platform",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

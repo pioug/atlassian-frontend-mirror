@@ -10,7 +10,7 @@
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Visually hidden",
       "category": "Components"

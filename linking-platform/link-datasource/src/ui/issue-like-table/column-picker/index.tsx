@@ -72,6 +72,14 @@ export const ColumnPicker = ({
     sortedOptions.length > 0 && setAllOptions(sortedOptions);
   }, [allOptions, selectedOptions]);
 
+  const stopEscapePropagationWhenOpen = (
+    e: React.KeyboardEvent<HTMLDivElement>,
+  ) => {
+    if (e.key === 'Escape') {
+      e.stopPropagation();
+    }
+  };
+
   const handleOpen = useCallback(() => {
     onOpen && void onOpen();
     void sortSelectedColumnsTop();
@@ -89,6 +97,7 @@ export const ColumnPicker = ({
       hideSelectedOptions={false}
       isMulti
       placeholder={intl.formatMessage(columnPickerMessages.search)}
+      onKeyDown={stopEscapePropagationWhenOpen}
       aria-label="Search for fields"
       onChange={handleChange}
       isLoading={allOptions.length === 0}

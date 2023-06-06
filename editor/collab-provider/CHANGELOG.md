@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.2.0
+
+### Minor Changes
+
+- [`ef726a72028`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ef726a72028) - adding provider catchup when initial draft timestamp exceeds stale timeout
+
 ## 9.1.0
 
 ### Minor Changes

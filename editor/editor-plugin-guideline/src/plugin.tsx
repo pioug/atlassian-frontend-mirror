@@ -77,7 +77,7 @@ const ContentComponent = ({
 
   if (
     !widthState ||
-    !widthState.containerWidth ||
+    !widthState.width ||
     !widthState.lineLength ||
     !guidelineState ||
     !guidelineState.guidelines ||
@@ -92,7 +92,7 @@ const ContentComponent = ({
         guidelines={guidelineState.guidelines}
         height={(editorView.dom as HTMLElement).scrollHeight}
         centerOffset={getEditorCenterX(editorView)}
-        containerWidth={widthState.containerWidth}
+        width={widthState.width}
         editorWidth={widthState.lineLength}
       />
     </div>

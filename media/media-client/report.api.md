@@ -1035,8 +1035,8 @@ export type MediaStoreCreateFileFromUploadBody = {
 
 // @public (undocumented)
 export type MediaStoreCreateFileFromUploadConditions = {
-  readonly hash: string;
-  readonly size: number;
+  readonly hash?: string;
+  readonly size?: number;
 };
 
 // @public (undocumented)
@@ -1551,6 +1551,7 @@ export type UploadableFile = {
   name?: string;
   mimeType?: string;
   collection?: string;
+  size?: number;
 };
 
 // @public (undocumented)

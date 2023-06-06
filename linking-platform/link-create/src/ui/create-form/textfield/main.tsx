@@ -6,6 +6,7 @@ import { jsx } from '@emotion/react';
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import AkTextfield from '@atlaskit/textfield';
 
+import { validateSubmitErrors } from '../../../common/utils/form';
 import { useFormContext } from '../../../controllers/form-context';
 
 import { TextFieldProps } from './types';
@@ -41,12 +42,19 @@ export function TextField({
      * to a controlled component and raise a warning from React.
      */
     <Field name={name} label={label} defaultValue={defaultValue ?? ''}>
-      {({ fieldProps, error }) => {
+      {({ fieldProps, meta, error }) => {
+        const isInvalid = validateSubmitErrors(meta);
         return (
           <Fragment>
-            <AkTextfield {...fieldProps} {...restProps} />
-            {!error && <HelperMessage>{validationHelpText}</HelperMessage>}
-            {error && <ErrorMessage>{error}</ErrorMessage>}
+            <AkTextfield {...fieldProps} {...restProps} isInvalid={isInvalid} />
+            {!error && validationHelpText && (
+              <HelperMessage>{validationHelpText}</HelperMessage>
+            )}
+            {error && isInvalid && (
+              <ErrorMessage testId={`${restProps.testId}-error-message`}>
+                {error}
+              </ErrorMessage>
+            )}
           </Fragment>
         );
       }}

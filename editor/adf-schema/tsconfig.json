@@ -12,8 +12,5 @@
     "test-helpers/**/*.tsx",
     "codemods"
   ],
-  "exclude": [
-    "node_modules",
-    "src/json-schema"
-  ]
+  "exclude": ["node_modules", "src/json-schema"]
 }

@@ -219,6 +219,7 @@ export function EditorInternalWithoutHooks({
                             }
                             useStickyToolbar={props.useStickyToolbar}
                             featureFlags={featureFlags}
+                            pluginHooks={config.pluginHooks}
                           />
                         </BaseTheme>
                       )}

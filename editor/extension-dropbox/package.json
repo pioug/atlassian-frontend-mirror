@@ -26,7 +26,7 @@
     "team": "Editor",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Editor Core"
     }
@@ -34,7 +34,7 @@
   "dependencies": {
     "@atlaskit/adf-utils": "^18.3.0",
     "@atlaskit/button": "^16.7.0",
-    "@atlaskit/editor-common": "^74.4.0",
+    "@atlaskit/editor-common": "^74.5.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/modal-dialog": "^12.6.0",
     "@babel/runtime": "^7.0.0",

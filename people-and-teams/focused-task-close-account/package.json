@@ -26,7 +26,7 @@
   },
   "atlassian": {
     "team": "People and Teams Collective",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Focused Task Close Account"
     }

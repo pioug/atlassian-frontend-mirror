@@ -25,7 +25,7 @@
   "homepage": "https://atlassian.design/components/range/",
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Range",
       "category": "Components"

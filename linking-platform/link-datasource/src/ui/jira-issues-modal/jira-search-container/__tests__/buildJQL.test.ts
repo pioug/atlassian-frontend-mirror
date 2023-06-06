@@ -25,11 +25,10 @@ describe('buildJQL', () => {
     );
   });
 
-  it('omits text search on empty search value', () => {
+  it('returns default query when raw search is empty', () => {
     const jql = buildJQL({
       rawSearch: ' ',
     });
-
     expect(jql).toEqual('created >= -30d order by created DESC');
   });
 

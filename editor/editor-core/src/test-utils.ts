@@ -24,12 +24,15 @@ import {
 import type {
   AllEditorPresetPluginTypes,
   UIComponentFactory,
+  ReactHookFactory,
 } from '@atlaskit/editor-common/types';
+
 export interface LightEditorConfig {
   nodes: NodeConfig[];
   marks: MarkConfig[];
   plugins: Array<LightPMPlugin>;
   contentComponents: UIComponentFactory[];
+  pluginHooks: ReactHookFactory[];
   onEditorViewStateUpdatedCallbacks: Array<OnEditorViewStateUpdated>;
 }
 
@@ -77,6 +80,9 @@ function lightProcessPluginsList(
       if (editorPlugin.contentComponent) {
         acc.contentComponents.push(editorPlugin.contentComponent);
       }
+      if (editorPlugin.usePluginHook) {
+        acc.pluginHooks.push(editorPlugin.usePluginHook);
+      }
       if (editorPlugin.onEditorViewStateUpdated) {
         acc.onEditorViewStateUpdatedCallbacks.push(
           editorPlugin.onEditorViewStateUpdated,
@@ -89,6 +95,7 @@ function lightProcessPluginsList(
       marks: [],
       plugins: [],
       contentComponents: [],
+      pluginHooks: [],
       onEditorViewStateUpdatedCallbacks: [],
     } as LightEditorConfig,
   );

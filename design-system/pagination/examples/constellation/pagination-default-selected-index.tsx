@@ -7,6 +7,10 @@ export default function PaginationDefaultSelectedIndexExample() {
     <Pagination
       defaultSelectedIndex={5}
       pages={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+      nextLabel="Next"
+      label="Page"
+      pageLabel="Page"
+      previousLabel="Previous"
     />
   );
 }

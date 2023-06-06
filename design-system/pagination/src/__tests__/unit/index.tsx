@@ -108,6 +108,36 @@ describe('Pagination', () => {
       });
     });
 
+    it('should render with an aria-label attribute', () => {
+      const { renderResult } = setup();
+      [
+        { page: '1', isSelected: true },
+        { page: '2', isSelected: false },
+        { page: '5', isSelected: false },
+      ].forEach(({ page, isSelected }) => {
+        assertPageButtonRendering(renderResult, { page, isSelected });
+        expect(renderResult.getByText(page).parentElement).toHaveAttribute(
+          'aria-label',
+        );
+      });
+    });
+    it('should render aria-current on selected page', () => {
+      const { renderResult } = setup();
+      [
+        { page: '1', isSelected: true },
+        { page: '2', isSelected: false },
+        { page: '3', isSelected: false },
+        { page: '4', isSelected: false },
+        { page: '5', isSelected: false },
+        { page: '10', isSelected: false },
+      ].forEach(({ page, isSelected }) => {
+        assertPageButtonRendering(renderResult, { page, isSelected });
+      });
+      expect(renderResult.getByText('1').parentElement).toHaveAttribute(
+        'aria-current',
+      );
+    });
+
     it('should render previous and next navigation buttons', () => {
       const { renderResult } = setup();
 
@@ -635,6 +665,21 @@ describe('Pagination', () => {
       });
 
       expect(onChange.mock.calls[0][1]).toBe(9);
+    });
+
+    it('should set aria-current on newly selected page', () => {
+      const onChange = jest.fn();
+      const { renderResult } = setup({ onChange });
+      expect(renderResult.getByText('1').parentElement).toHaveAttribute(
+        'aria-current',
+      );
+      fireEvent.click(renderResult.getByText('5'));
+      expect(renderResult.getByText('1').parentElement).not.toHaveAttribute(
+        'aria-current',
+      );
+      expect(renderResult.getByText('5').parentElement).toHaveAttribute(
+        'aria-current',
+      );
     });
   });
 });

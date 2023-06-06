@@ -265,3 +265,97 @@ export const threeImages = {
     },
   ],
 };
+
+export const mediaGroupWithThreeMediaAndParagraphAtEnd = {
+  type: 'doc',
+  version: 1,
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Hello',
+        },
+      ],
+    },
+    {
+      type: 'mediaGroup',
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            id: '6c160aba-2294-4a1e-a793-33b002267735',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          },
+        },
+        {
+          type: 'media',
+          attrs: {
+            id: '0fca5535-bfb3-4526-819b-1d9cf37f4b83',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          },
+        },
+        {
+          type: 'media',
+          attrs: {
+            id: '36b386d8-2be2-4049-a6aa-fdab0a14f552',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          },
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};
+
+export const mediaGroupWithThreeMedia = {
+  type: 'doc',
+  version: 1,
+  content: [
+    {
+      type: 'paragraph',
+      content: [
+        {
+          type: 'text',
+          text: 'Hello',
+        },
+      ],
+    },
+    {
+      type: 'mediaGroup',
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            id: '6c160aba-2294-4a1e-a793-33b002267735',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          },
+        },
+        {
+          type: 'media',
+          attrs: {
+            id: '0fca5535-bfb3-4526-819b-1d9cf37f4b83',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          },
+        },
+        {
+          type: 'media',
+          attrs: {
+            id: '36b386d8-2be2-4049-a6aa-fdab0a14f552',
+            type: 'file',
+            collection: 'MediaServicesSample',
+          },
+        },
+      ],
+    },
+  ],
+};

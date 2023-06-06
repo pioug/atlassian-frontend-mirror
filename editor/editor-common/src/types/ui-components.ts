@@ -26,3 +26,7 @@ export type UiComponentFactoryParams = {
 export type UIComponentFactory = (
   params: UiComponentFactoryParams,
 ) => React.ReactElement<any> | null;
+
+export type ReactHookFactory = (
+  params: Pick<UiComponentFactoryParams, 'editorView' | 'containerElement'>,
+) => void;

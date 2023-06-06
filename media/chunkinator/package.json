@@ -28,7 +28,7 @@
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Media Client"
     }
@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
-    "@atlaskit/media-common": "^6.0.0",
+    "@atlaskit/media-common": "^7.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "mockdate": "^3.0.5",

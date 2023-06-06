@@ -468,6 +468,10 @@ describe('replaceContent', () => {
     ({ toNativeBridge } = (await import('../../../web-to-native')) as any as {
       toNativeBridge: jest.Mocked<NativeBridge>;
     });
+    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+      cb(1);
+      return 1;
+    });
     jest
       .spyOn(EditorActions.prototype, 'replaceDocument')
       .mockReturnValue(true);
@@ -524,6 +528,14 @@ describe('replaceContent', () => {
     bridge.replaceContent('');
 
     expect(resetProviders).toBeCalled();
+  });
+
+  it('should use the requestAnimationFrame', () => {
+    const bridge: WebBridgeImpl = new WebBridgeImpl();
+    bridge.editorView = editorView;
+
+    bridge.replaceContent(content);
+    expect(window.requestAnimationFrame).toHaveBeenCalled();
   });
 });
 

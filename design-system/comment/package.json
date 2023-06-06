@@ -25,7 +25,7 @@
   "homepage": "https://atlassian.design/components/comment",
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Comment",
       "category": "Components"

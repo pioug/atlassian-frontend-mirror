@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/collab-provider",
-  "version": "9.1.0",
+  "version": "9.2.0",
   "description": "A provider for collaborative editing.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
   "atlassian": {
     "team": "Editor Services",
     "inPublicMirror": true,
-    "releaseModel": "scheduled"
+    "releaseModel": "continuous"
   },
   "af:exports": {
     ".": "./src/index.ts",

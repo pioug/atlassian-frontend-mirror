@@ -14,7 +14,7 @@ import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-c
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import imageUploadHandler from '@atlaskit/editor-core/example-helpers/imageUpload';
 import { BitbucketTransformer } from '../src';
-import exampleBitbucketHTML from '../example-helpers/exampleHTML';
+import exampleBitbucketHTML from './helpers/exampleHTML';
 
 const container = css`
   display: grid;

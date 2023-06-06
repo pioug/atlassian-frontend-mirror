@@ -9,7 +9,7 @@
   },
   "atlassian": {
     "team": "Editor",
-    "releaseModel": "scheduled"
+    "releaseModel": "continuous"
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "main": "dist/cjs/index.js",
@@ -33,7 +33,7 @@
     "@atlaskit/adf-schema": "^25.8.0",
     "@atlaskit/analytics-listeners": "^8.6.0",
     "@atlaskit/analytics-next": "^9.0.0",
-    "@atlaskit/editor-common": "^74.4.0",
+    "@atlaskit/editor-common": "^74.5.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-tables": "^2.2.0",
     "@babel/runtime": "^7.0.0",

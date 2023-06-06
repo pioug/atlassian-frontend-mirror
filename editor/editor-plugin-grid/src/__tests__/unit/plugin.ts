@@ -39,7 +39,7 @@ describe('gridPlugin', () => {
 
   it('should not be visible initially', async () => {
     const { findByTestId } = render(
-      editorConfig.contentComponents[1]({ editorView }),
+      editorConfig.contentComponents[0]({ editorView }),
     );
     const gridContainer = await findByTestId('gridContainer');
     expect(window.getComputedStyle(gridContainer).display).toBe('none');
@@ -47,7 +47,7 @@ describe('gridPlugin', () => {
 
   it('should be visible if it is executed via the API', async () => {
     const { findByTestId } = render(
-      editorConfig.contentComponents[1]({ editorView }),
+      editorConfig.contentComponents[0]({ editorView }),
     );
 
     act(() => {
@@ -68,7 +68,7 @@ describe('gridPlugin', () => {
 
   it('should be display none if turned off subsequently', async () => {
     const { findByTestId } = render(
-      editorConfig.contentComponents[1]({ editorView }),
+      editorConfig.contentComponents[0]({ editorView }),
     );
 
     act(() => {
@@ -93,7 +93,7 @@ describe('gridPlugin', () => {
 
   it('should show the highlights when requested by the API', async () => {
     const { findByTestId } = render(
-      editorConfig.contentComponents[1]({ editorView }),
+      editorConfig.contentComponents[0]({ editorView }),
     );
 
     const highlight = [2, 5];

@@ -364,37 +364,44 @@ export default class WebBridgeImpl
 
   replaceContent(content: any) {
     const performanceMatrices = new PerformanceMatrices();
+    if (!this.editorActions) {
+      return;
+    }
 
-    if (this.editorActions) {
-      this.resetProviders();
+    this.resetProviders();
+    // Using requestAnimationFrame prevents a race condition between this function
+    // and this code in ProseMirror View:
+    // https://github.com/ProseMirror/prosemirror-view/commit/681157dac411f8c062996132d74a16ca52e904ed
+    requestAnimationFrame(() => {
       const isReplaced = this.editorActions.replaceDocument(content, false);
 
       const padding = this.getPadding();
       this.setPadding(padding.top, padding.right, padding.bottom, padding.left);
       toNativeBridge.stateChanged(false, false);
-
-      if (isReplaced) {
-        let adfContent: JSONDocNode;
-        try {
-          adfContent = JSON.parse(content);
-        } catch (e) {
-          return;
-        }
-        if (!isContentEmpty(adfContent)) {
-          measureContentRenderedPerformance(
-            adfContent,
-            (totalNodeSize, nodes, actualRenderingDuration) => {
-              toNativeBridge.onContentRendered(
-                totalNodeSize,
-                nodes,
-                actualRenderingDuration,
-                performanceMatrices.duration,
-              );
-            },
-          );
-        }
+      if (!isReplaced) {
+        return;
       }
-    }
+
+      let adfContent: JSONDocNode;
+      try {
+        adfContent = JSON.parse(content);
+      } catch (e) {
+        return;
+      }
+      if (!isContentEmpty(adfContent)) {
+        measureContentRenderedPerformance(
+          adfContent,
+          (totalNodeSize, nodes, actualRenderingDuration) => {
+            toNativeBridge.onContentRendered(
+              totalNodeSize,
+              nodes,
+              actualRenderingDuration,
+              performanceMatrices.duration,
+            );
+          },
+        );
+      }
+    });
   }
 
   clearContent() {

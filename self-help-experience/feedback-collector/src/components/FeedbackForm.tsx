@@ -233,11 +233,19 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                       <Checkbox
                         {...fieldProps}
                         label={
-                          canBeContactedLabel ||
-                          formatMessage(messages.canBeContactedLabel, {
-                            a: (...chunks) =>
-                              `<a href="https://www.atlassian.com/legal/privacy-policy">${chunks}</a>`,
-                          })
+                          canBeContactedLabel || (
+                            <FormattedMessage {...messages.canBeContactedLabel}>
+                              {(chunks) => (
+                                <>
+                                  {chunks}
+                                  <a href="https://www.atlassian.com/legal/privacy-policy">
+                                    {formatMessage(messages.privacyPolicy)}
+                                  </a>
+                                  .
+                                </>
+                              )}
+                            </FormattedMessage>
+                          )
                         }
                         onChange={(event) =>
                           setCanBeContacted(event.target.checked)

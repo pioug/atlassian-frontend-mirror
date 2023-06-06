@@ -1,5 +1,3 @@
-import { PluginKey } from 'prosemirror-state';
-
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
@@ -7,9 +5,9 @@ import type {
   NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
 
-export type WidthPluginState = EditorContainerWidth;
-
-export const pluginKey = new PluginKey<WidthPluginState>('widthPlugin');
+import { pluginKey } from './plugin-key';
+import type { WidthPluginState } from './types';
+import { useResizeWidthObserver } from './useResizeWidthObserver';
 
 function createPlugin(
   dispatch: Dispatch<WidthPluginState>,
@@ -20,7 +18,6 @@ function createPlugin(
       init: () =>
         ({
           width: document.body.offsetWidth,
-          containerWidth: document.body.offsetWidth,
         } as WidthPluginState),
       apply(tr, pluginState: WidthPluginState) {
         const meta: WidthPluginState | undefined = tr.getMeta(pluginKey);
@@ -35,10 +32,9 @@ function createPlugin(
         };
 
         if (
-          (newPluginState &&
-            (pluginState.width !== newPluginState.width ||
-              pluginState.lineLength !== newPluginState.lineLength)) ||
-          pluginState.containerWidth !== newPluginState.containerWidth
+          newPluginState &&
+          (pluginState.width !== newPluginState.width ||
+            pluginState.lineLength !== newPluginState.lineLength)
         ) {
           dispatch(pluginKey, newPluginState);
           return newPluginState;
@@ -72,23 +68,7 @@ export const widthPlugin: NextEditorPlugin<
     return pluginKey.getState(editorState);
   },
 
-  // do this early here, otherwise we have to wait for WidthEmitter to debounce
-  // which causes anything dependent on lineLength to jump around
-  contentComponent({ editorView, containerElement }) {
-    const newState: Partial<WidthPluginState> = {
-      lineLength: editorView.dom.clientWidth,
-    };
-
-    if (containerElement) {
-      newState.width = containerElement.offsetWidth;
-
-      // wrapper width is used by context panel to determine whether there is
-      // enough space to open without overlapping the editor
-      newState.containerWidth = containerElement.parentElement?.offsetWidth;
-    }
-
-    const tr = editorView.state.tr.setMeta(pluginKey, newState);
-    editorView.dispatch(tr);
-    return null;
+  usePluginHook({ editorView, containerElement }) {
+    return useResizeWidthObserver({ editorView, containerElement });
   },
 });

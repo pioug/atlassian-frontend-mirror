@@ -26,14 +26,14 @@
     "team": "Editor",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Editor Jira Transformer"
     }
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^25.8.0",
-    "@atlaskit/editor-common": "^74.4.0",
+    "@atlaskit/editor-common": "^74.5.0",
     "@babel/runtime": "^7.0.0",
     "collapse-whitespace": "^1.1.6",
     "prosemirror-model": "1.16.0"

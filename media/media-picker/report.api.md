@@ -202,7 +202,6 @@ type LocalUploadComponentBaseProps = {
   onPreviewUpdate?: (payload: UploadPreviewUpdateEventPayload) => void;
   onEnd?: (payload: UploadEndEventPayload) => void;
   onError?: (payload: UploadErrorEventPayload) => void;
-  onFileRejection?: (rejectionData: UploadRejectionData) => void;
   featureFlags?: MediaFeatureFlags_2;
 } & WithAnalyticsEventsProps;
 
@@ -301,6 +300,8 @@ export interface UploadParams {
   collection?: string;
   // (undocumented)
   expireAfter?: number;
+  // (undocumented)
+  onUploadRejection?: (data: UploadRejectionData) => boolean;
 }
 
 // @public (undocumented)

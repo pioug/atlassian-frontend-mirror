@@ -13,7 +13,7 @@
     "team": "Editor",
     "deprecatedAutoEntryPoints": true,
     "inPublicMirror": true,
-    "releaseModel": "scheduled"
+    "releaseModel": "continuous"
   },
   "bin": {
     "akup": "./bin/akup.js"

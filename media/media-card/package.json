@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-card",
-  "version": "76.0.2",
+  "version": "76.0.3",
   "description": "Includes all media card related components, CardView, CardViewSmall, Card...",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
   "atlassian": {
     "team": "Media Experience",
     "inPublicMirror": true,
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Media Card"
     }
@@ -41,7 +41,7 @@
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/media-client": "^23.0.0",
-    "@atlaskit/media-common": "^6.0.0",
+    "@atlaskit/media-common": "^7.0.0",
     "@atlaskit/media-ui": "^23.0.0",
     "@atlaskit/media-viewer": "^48.0.0",
     "@atlaskit/spinner": "^15.5.0",

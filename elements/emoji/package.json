@@ -24,7 +24,7 @@
   "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Foundational Elements",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Emoji"
     }

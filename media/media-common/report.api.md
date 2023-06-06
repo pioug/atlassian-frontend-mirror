@@ -155,8 +155,6 @@ export interface MediaFeatureFlags {
   // (undocumented)
   mediaInline?: boolean;
   // (undocumented)
-  memoryCacheLogging?: boolean;
-  // (undocumented)
   observedWidth?: boolean;
   // (undocumented)
   timestampOnVideo?: boolean;

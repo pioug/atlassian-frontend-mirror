@@ -712,6 +712,7 @@ describe('@atlaskit/editor-core', () => {
         eventDispatcher: expect.any(EventDispatcher),
         config: {
           contentComponents: expect.anything(),
+          pluginHooks: expect.anything(),
           marks: expect.anything(),
           nodes: expect.anything(),
           pmPlugins: expect.anything(),
@@ -740,6 +741,7 @@ describe('@atlaskit/editor-core', () => {
         eventDispatcher: expect.any(EventDispatcher),
         config: {
           contentComponents: expect.anything(),
+          pluginHooks: expect.anything(),
           marks: expect.anything(),
           nodes: expect.anything(),
           pmPlugins: expect.anything(),
@@ -795,6 +797,7 @@ describe('@atlaskit/editor-core', () => {
           eventDispatcher: expect.any(EventDispatcher),
           config: {
             contentComponents: expect.anything(),
+            pluginHooks: expect.anything(),
             marks: expect.anything(),
             nodes: expect.anything(),
             pmPlugins: expect.anything(),

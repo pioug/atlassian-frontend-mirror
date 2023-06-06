@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.5.7
+
+### Patch Changes
+
+- [`ffb87e553ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffb87e553ea) - Hides the validation error when user edits the field
+
 ## 0.5.6
 
 ### Patch Changes

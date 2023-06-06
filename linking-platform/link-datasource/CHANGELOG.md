@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 0.21.2
+
+### Patch Changes
+
+- [`105f0c7291b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/105f0c7291b) - [ux] Various bug fixes to jira issue modal
+- Updated dependencies
+
 ## 0.21.1
 
 ### Patch Changes

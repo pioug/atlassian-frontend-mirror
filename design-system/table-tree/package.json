@@ -25,7 +25,7 @@
   "homepage": "https://atlassian.design/components/table-tree/",
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "scheduled",
+    "releaseModel": "continuous",
     "website": {
       "name": "Table tree",
       "category": "Components"

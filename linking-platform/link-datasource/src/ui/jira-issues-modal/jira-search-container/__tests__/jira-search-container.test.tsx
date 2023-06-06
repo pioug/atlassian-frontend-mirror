@@ -215,4 +215,28 @@ describe('JiraSearchContainer', () => {
       '(text ~ "testing*" OR summary ~ "testing*") order by created DESC',
     );
   });
+
+  it('has default JQL query when basic search input is empty', async () => {
+    const { getLatestJQLEditorProps, getByPlaceholderText, getByTestId } =
+      setup();
+
+    // has default query before any user input
+    fireEvent.click(getByTestId('mode-toggle-jql'));
+    expect(getLatestJQLEditorProps().query).toEqual(
+      'created >= -30d order by created DESC',
+    );
+
+    // persists default query if user enters empty string to basic search
+    fireEvent.click(getByTestId('mode-toggle-basic'));
+    const basicTextInput = getByPlaceholderText('Search');
+    fireEvent.change(basicTextInput, {
+      target: { value: '  ' },
+    });
+
+    fireEvent.click(getByTestId('mode-toggle-jql'));
+
+    expect(getLatestJQLEditorProps().query).toEqual(
+      'created >= -30d order by created DESC',
+    );
+  });
 });

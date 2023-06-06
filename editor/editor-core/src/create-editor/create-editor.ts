@@ -75,6 +75,10 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
         acc.contentComponents.push(plugin.contentComponent);
       }
 
+      if (plugin.usePluginHook) {
+        acc.pluginHooks.push(plugin.usePluginHook);
+      }
+
       if (plugin.primaryToolbarComponent) {
         acc.primaryToolbarComponents.push(plugin.primaryToolbarComponent);
       }
@@ -97,6 +101,7 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
       marks: [],
       pmPlugins: [],
       contentComponents: [],
+      pluginHooks: [],
       primaryToolbarComponents: [],
       secondaryToolbarComponents: [],
       onEditorViewStateUpdatedCallbacks: [],

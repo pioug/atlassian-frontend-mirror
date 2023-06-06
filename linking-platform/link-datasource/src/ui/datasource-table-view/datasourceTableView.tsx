@@ -37,7 +37,7 @@ export const DatasourceTableView = ({
     hasNextPage,
     columns,
     defaultVisibleColumnKeys,
-    totalIssueCount,
+    totalCount,
     loadDatasourceDetails,
   } = useDatasourceTableState({
     datasourceId,
@@ -69,7 +69,7 @@ export const DatasourceTableView = ({
         onVisibleColumnKeysChange={onVisibleColumnKeysChange}
       />
       <TableFooter
-        issueCount={totalIssueCount}
+        issueCount={totalCount}
         onRefresh={reset}
         isLoading={status === 'loading'}
       />

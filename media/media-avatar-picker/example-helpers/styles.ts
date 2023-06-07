@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { checkeredBg } from '../src/image-placer/styles';
+
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const labelStyles = css`
   display: block;
 
@@ -21,7 +23,7 @@ export const exportedImageStyles = css`
 export const exportedImageWrapperStyles = css`
   display: inline-block;
   background: url('${checkeredBg}');
-  margin-top: 20px;
+  margin-top: ${token('space.250', '20px')};
   position: relative;
 `;
 
@@ -33,6 +35,7 @@ export const layoutStyles = css`
   height: 80vh;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const wrapperStyles = css`
   margin: 10px;
 `;

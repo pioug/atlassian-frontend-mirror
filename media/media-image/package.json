@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-image",
-  "version": "17.4.3",
+  "version": "17.4.4",
   "description": "Media image element - provides single display of image",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,8 @@
   "techstack": {
     "@repo/internal": {
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ]
     }
   },

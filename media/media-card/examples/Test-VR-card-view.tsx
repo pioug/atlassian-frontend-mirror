@@ -6,6 +6,7 @@ import { CardStatus } from '../src';
 import { CardView } from '../src/card/cardView';
 import { FileDetails, MediaType } from '@atlaskit/media-client';
 import { tallImage, wideTransparentImage } from '@atlaskit/media-test-helpers';
+import { token } from '@atlaskit/tokens';
 import { IntlProvider } from 'react-intl-next';
 import { MainWrapper, mediaCardErrorState } from '../example-helpers';
 import { CardViewWrapper } from '../example-helpers/cardViewWrapper';
@@ -15,7 +16,7 @@ const dimensions = { width: '100%', height: '100%' };
 
 const styledContainerStyles = css`
   max-width: 800px;
-  margin: 20px auto;
+  margin: ${token('space.250', '20px')} auto;
   h3 {
     text-align: center;
   }

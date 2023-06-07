@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 import { PastedImageStyleType } from './stylesWrapper';
 
 interface DropzoneContainerProps {
@@ -11,7 +12,7 @@ export const popupContainerStyles = css`
   overflow: scroll;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage-spacing
 export const popupHeaderStyles = css`
   border-bottom: 1px solid #ccc;
   margin-bottom: 15px;
@@ -24,12 +25,13 @@ export const popupHeaderStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const previewImageWrapperStyles = css`
   position: relative;
   margin-right: 15px;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage-spacing
 export const infoWrapperStyles = css`
   position: absolute;
   width: 160px;
@@ -62,8 +64,8 @@ export const previewsWrapperStyles = css`
   display: flex;
   flex-direction: column;
   overflow: visible;
-  margin-left: 20px;
-  margin-bottom: 20px;
+  margin-left: ${token('space.250', '20px')};
+  margin-bottom: ${token('space.250', '20px')};
 `;
 
 export const previewsTitleStyles = css`
@@ -90,14 +92,15 @@ interface ClipboardContainerProps {
 
 export const clipboardContainerStyles = ({
   isWindowFocused,
-}: ClipboardContainerProps) => css`
+}: // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+ClipboardContainerProps) => css`
   padding: 10px;
   min-height: 400px;
 
   border: ${isWindowFocused ? `1px dashed gray` : `1px dashed transparent`};
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage-spacing
 export const infoContainerStyles = css`
   position: absolute;
   top: 0;

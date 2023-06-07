@@ -52,7 +52,10 @@ interface CheckboxProps {
 }
 
 // @public
-export const ErrorMessage: React_2.FC<MessageProps>;
+export const ErrorMessage: ({
+  children,
+  testId,
+}: MessageProps) => jsx.JSX.Element;
 
 // @public (undocumented)
 export function Field<
@@ -77,6 +80,7 @@ interface FieldComponentProps<FieldValue, Element extends SupportedElements> {
   isRequired?: boolean;
   label?: ReactNode;
   name: string;
+  testId?: string;
   transform?: (
     event: FieldValue | FormEvent<Element>,
     current: FieldValue,
@@ -162,7 +166,11 @@ interface FormFooterProps {
 }
 
 // @public
-export const FormHeader: React.FC<FormHeaderProps>;
+export const FormHeader: ({
+  children,
+  description,
+  title,
+}: FormHeaderProps) => jsx.JSX.Element;
 
 // @public (undocumented)
 interface FormHeaderProps {
@@ -188,7 +196,11 @@ export interface FormProps<FormValues> {
 }
 
 // @public
-export const FormSection: React_2.FC<FormSectionProps>;
+export const FormSection: ({
+  children,
+  description,
+  title,
+}: FormSectionProps) => jsx.JSX.Element;
 
 // @public (undocumented)
 interface FormSectionProps {
@@ -198,7 +210,10 @@ interface FormSectionProps {
 }
 
 // @public
-export const HelperMessage: React_2.FC<MessageProps>;
+export const HelperMessage: ({
+  children,
+  testId,
+}: MessageProps) => jsx.JSX.Element;
 
 // @public
 interface InternalMessageProps {
@@ -220,6 +235,8 @@ export interface LabelProps {
   htmlFor: string;
   // (undocumented)
   id?: string;
+  // (undocumented)
+  testId?: string;
 }
 
 // @public (undocumented)
@@ -288,7 +305,10 @@ type SupportedElements =
   | HTMLTextAreaElement;
 
 // @public
-export const ValidMessage: React_2.FC<MessageProps>;
+export const ValidMessage: ({
+  children,
+  testId,
+}: MessageProps) => jsx.JSX.Element;
 
 // (No @packageDocumentation comment for this package)
 ```

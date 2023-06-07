@@ -8,7 +8,7 @@ export const containerStyles = css`
 `;
 export const groupStyles = css`
   width: 250px;
-  padding: 20px;
+  padding: ${token('space.250', '20px')};
 `;
 
 export const buttonListStyles = css`
@@ -18,12 +18,12 @@ export const buttonListStyles = css`
 
 export const mVSidebarStyles = css`
   height: calc(100vh - 64px);
-  padding: 32px;
+  padding: ${token('space.400', '32px')};
   overflow: auto;
 
   h2 {
     color: ${token('color.text', '#c7d1db')};
-    margin-bottom: 16px;
+    margin-bottom: ${token('space.200', '16px')};
   }
 
   tbody {

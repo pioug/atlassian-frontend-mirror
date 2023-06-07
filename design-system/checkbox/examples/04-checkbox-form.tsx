@@ -1,10 +1,22 @@
-/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /**  @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import { Checkbox } from '../src';
+
+const iframeStyles = css({
+  boxSizing: 'border-box',
+  width: '95%',
+  height: '300px',
+  margin: token('space.100', '8px'),
+  padding: token('space.100', '8px'),
+  borderColor: '#ccc',
+  borderStyle: 'dashed',
+  borderWidth: '1px',
+  color: '#ccc',
+});
 
 const formTestUrl = '//httpbin.org/get';
 
@@ -52,19 +64,7 @@ export default function CheckboxGroupExample() {
         title="Checkbox Resopnse Frame"
         id="submitFrame"
         name="submitFrame"
-        css={{
-          width: '95%',
-          height: '300px',
-          borderStyle: 'dashed',
-          borderWidth: '1px',
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-          borderColor: '#ccc',
-          boxSizing: 'border-box',
-          padding: '0.5em',
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-          color: '#ccc',
-          margin: '0.5em',
-        }}
+        css={iframeStyles}
       />
     </div>
   );

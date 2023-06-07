@@ -1,12 +1,20 @@
-/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /**  @jsx jsx */
 import { ChangeEvent, useState } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
 import { Checkbox } from '../src';
+
+const introStyles = css({
+  marginBlockEnd: token('space.100', '8px'),
+});
+const groupStyles = css({
+  display: 'flex',
+  flexDirection: 'column',
+  paddingInlineStart: token('space.300', '24px'),
+});
 
 interface CheckedItems {
   [value: string]: boolean;
@@ -67,7 +75,7 @@ const IndeterminateCheckbox = () => {
 
   return (
     <div>
-      <p css={{ marginBottom: token('space.100', '8px') }}>
+      <p css={introStyles}>
         An indeterminate checkbox can be used to show partially checked states.
         The parent checkbox below will be indeterminate until all its&#39;
         children are checked.
@@ -81,13 +89,7 @@ const IndeterminateCheckbox = () => {
         name="parent"
         testId="parent"
       />
-      <div
-        css={{
-          display: 'flex',
-          flexDirection: 'column',
-          paddingLeft: token('space.300', '24px'),
-        }}
-      >
+      <div css={groupStyles}>
         <Checkbox
           isChecked={checkedItems[CHILD_1_ID]}
           onChange={onChange}

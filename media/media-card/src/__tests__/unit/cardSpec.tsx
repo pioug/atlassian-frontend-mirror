@@ -238,6 +238,36 @@ describe('Card', () => {
     expect(component.find(CardView)).toHaveLength(1);
   });
 
+  it('should update the card preview state when the file identifier is updated', () => {
+    const newIdentifier = {
+      id: 'new id',
+      mediaItemType: 'file',
+      collectionName: 'some-collection-name',
+      occurrenceKey: 'some-occurrence-key',
+    };
+    const newCardPreview: CardPreview = {
+      dataURI: 'some-new-data-uri',
+      orientation: 6,
+      source: 'remote',
+    };
+    asMockFunction(getCardPreviewFromCache)
+      .mockReturnValueOnce(defaultCardPreview)
+      .mockReturnValueOnce(newCardPreview);
+    const component = mount(
+      <Card
+        mediaClient={createMediaClientWithGetFile()}
+        identifier={identifier}
+      />,
+    );
+    expect(component.find(CardBase).state('cardPreview')).toEqual(
+      defaultCardPreview,
+    );
+    component.setProps({ identifier: newIdentifier });
+    expect(component.find(CardBase).state('cardPreview')).toEqual(
+      newCardPreview,
+    );
+  });
+
   it('should attach default IntlProvider when an ancestor is not found', () => {
     const component = mount(
       <Card mediaClient={mediaClient} identifier={identifier} />,
@@ -709,6 +739,42 @@ describe('Card', () => {
         mediaType: 'image',
         name: 'some external image',
       });
+    });
+
+    it('should update the card preview when the external image identifier updates', () => {
+      const identifier: ExternalImageIdentifier = {
+        mediaItemType: 'external-image',
+        dataURI: 'bla',
+        name: 'some external image',
+      };
+      const cardPreview: CardPreview = {
+        dataURI: 'bla',
+        orientation: 1,
+        source: 'external',
+      };
+      const newIdentifier: ExternalImageIdentifier = {
+        mediaItemType: 'external-image',
+        dataURI: 'new-uri',
+        name: 'some new external image',
+      };
+      const newCardPreview: CardPreview = {
+        dataURI: 'new-uri',
+        orientation: 1,
+        source: 'external',
+      };
+      const component = mount(
+        <Card
+          mediaClient={createMediaClientWithGetFile()}
+          identifier={identifier}
+        />,
+      );
+      expect(component.find(CardBase).state('cardPreview')).toEqual(
+        cardPreview,
+      );
+      component.setProps({ identifier: newIdentifier });
+      expect(component.find(CardBase).state('cardPreview')).toEqual(
+        newCardPreview,
+      );
     });
 
     it('should use dataURI as default name and mediaItemType as id', () => {

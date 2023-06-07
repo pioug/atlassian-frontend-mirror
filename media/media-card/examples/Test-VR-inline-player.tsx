@@ -6,6 +6,7 @@ import {
   videoSquareFileId,
 } from '@atlaskit/media-test-helpers';
 import { createMediaSubscribable } from '@atlaskit/media-client';
+import { token } from '@atlaskit/tokens';
 
 import { IntlProvider } from 'react-intl-next';
 import { MainWrapper } from '../example-helpers';
@@ -20,7 +21,7 @@ const dimensions = { width: '100%', height: '100%' };
 const inlinePlayerWrapperStyles = ({ width, height }: WrapperDimensions) => css`
   width: ${width};
   height: ${height};
-  margin: 20px 20px;
+  margin: ${token('space.250', '20px')} ${token('space.250', '20px')};
 `;
 
 export default () => {

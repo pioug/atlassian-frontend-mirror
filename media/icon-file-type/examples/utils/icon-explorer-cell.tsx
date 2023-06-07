@@ -12,6 +12,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const IconExplorerLink = styled.a`
   &,
   &:hover,
@@ -31,7 +32,7 @@ const IconExplorerLink = styled.a`
 
 const IconModalHeader = styled.h3`
   display: flex;
-  padding: 20px;
+  padding: ${token('space.250', '20px')};
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;

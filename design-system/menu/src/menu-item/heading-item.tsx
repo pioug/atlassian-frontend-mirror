@@ -51,7 +51,7 @@ const HeadingItem = memo(
       <div
         css={[
           headingStyles,
-          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+          // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
           css(cssFn(undefined)),
         ]}
         data-testid={testId}

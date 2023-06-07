@@ -54,7 +54,7 @@ describe('<CustomItem />', () => {
     });
 
     const { getByTestId } = render(
-      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       <CustomItem component={Component} css={hackStyles} testId="link">
         Hello world
       </CustomItem>,

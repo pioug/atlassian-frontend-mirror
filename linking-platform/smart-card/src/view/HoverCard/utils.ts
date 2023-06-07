@@ -1,7 +1,5 @@
 import { JsonLd } from 'json-ld-types';
 import { ElementName } from '../../constants';
-import { LinkAction } from '../../state/hooks-external/useSmartLinkActions';
-import { ElementItem } from '../FlexibleCard/components/blocks/types';
 import { extractType } from '@atlaskit/linking-common/extractors';
 import { extractOwnedBy } from '../../extractors/flexible/utils';
 
@@ -115,39 +113,4 @@ export const getSimulatedMetadata = (
         },
       };
   }
-};
-
-export const toActionableMetadata = (
-  onActionClick: (actionId: string) => void,
-  extensionKey?: string,
-  types: JsonLd.Primitives.ObjectType[] = [],
-  cardActions: LinkAction[] = [],
-  elementItems: ElementItem[] = [],
-) => {
-  // Actionable State for Jira issue
-  if (
-    extensionKey === 'jira-object-provider' &&
-    types?.includes('atlassian:Task')
-  ) {
-    const previewAction = cardActions.find(
-      (action) => action.id === 'preview-content',
-    );
-
-    if (previewAction) {
-      return elementItems.map((elementItem) =>
-        elementItem.name === ElementName.State
-          ? {
-              ...elementItem,
-              onClick: () => {
-                if (onActionClick) {
-                  onActionClick(previewAction.id);
-                }
-                return previewAction.invoke({ isReloadRequired: true });
-              },
-            }
-          : elementItem,
-      );
-    }
-  }
-  return elementItems;
 };

@@ -6,6 +6,7 @@ export interface MutableCardContainerProps {
   mutable: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const filmstripContainerStyles = css`
   border: 1px dotted ${token('color.border', N50A)};
   margin-top: 10px;
@@ -15,7 +16,7 @@ export const filmstripContainerStyles = css`
 export const filmstripWrapperStyles = css`
   border: 1px solid ${token('color.border', '#ccc')};
   width: 800px;
-  margin-bottom: 20px;
+  margin-bottom: ${token('space.250', '20px')};
 `;
 
 // 0-editable styles
@@ -45,7 +46,7 @@ type BoxProps = {
 };
 
 export const editableBoxStyles = ({ grow }: BoxProps) => css`
-  padding: 4px;
+  padding: ${token('space.050', '4px')};
   ${grow ? `flex-grow: ${grow};` : ''}
 `;
 

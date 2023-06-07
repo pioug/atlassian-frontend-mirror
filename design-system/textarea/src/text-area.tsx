@@ -147,7 +147,7 @@ const TextAreaWithTokens = forwardRef((props: InternalProps, ref) => {
       rows={minimumRows}
       // TODO refactor to follow emotion styling rules
       // see: https://product-fabric.atlassian.net/browse/DSP-6060
-      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       css={textAreaStyles}
       {...rest}
     />

@@ -14,10 +14,11 @@ import { DatasourceTableView } from './datasourceTableView'; // Using async one 
 
 jest.mock('../../hooks/useDatasourceTableState');
 
-describe('JiraIssuesTableView', () => {
+describe('DatasourceTableView', () => {
   const setup = (overrides: Partial<DatasourceTableState> = {}) => {
+    const mockReset = jest.fn();
     asMock(useDatasourceTableState).mockReturnValue({
-      reset: jest.fn(),
+      reset: mockReset,
       status: 'resolved',
       onNextPage: jest.fn(),
       loadDatasourceDetails: jest.fn(),
@@ -39,6 +40,8 @@ describe('JiraIssuesTableView', () => {
       defaultVisibleColumnKeys: ['myColumn'],
       ...overrides,
     } as DatasourceTableState);
+
+    return { mockReset };
   };
 
   const renderComponent = ({
@@ -153,5 +156,29 @@ describe('JiraIssuesTableView', () => {
     const { getByTestId } = renderComponent();
 
     expect(getByTestId('table-footer')).toBeInTheDocument();
+  });
+
+  describe('when results are not returned', () => {
+    it('should show no results if no responseItems are returned', () => {
+      const { mockReset } = setup({ responseItems: [] });
+      const { getByRole, getByText } = renderComponent();
+
+      expect(getByText('No results found')).toBeInTheDocument();
+
+      getByRole('button', { name: 'Refresh' }).click();
+      expect(mockReset).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('when an error on /data request occurs', () => {
+    it('should show an error message', () => {
+      const { mockReset } = setup({ status: 'rejected' });
+      const { getByRole, getByText } = renderComponent();
+
+      expect(getByText('Unable to load issues')).toBeInTheDocument();
+
+      getByRole('button', { name: 'Refresh' }).click();
+      expect(mockReset).toHaveBeenCalledTimes(1);
+    });
   });
 });

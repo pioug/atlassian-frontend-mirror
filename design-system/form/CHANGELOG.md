@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.11.7
+
+### Patch Changes
+
+- [`ddb4e858a79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddb4e858a79) - Removes usage of deprecated theme mixins in favor of static token / color usage.
+
 ## 8.11.6
 
 ### Patch Changes

@@ -193,8 +193,6 @@ const RadioWithMode = forwardRef(function Radio(
     <label
       data-testid={testId && `${testId}--radio-label`}
       data-disabled={isDisabled ? 'true' : undefined}
-      // TODO these will no longer be dynamic styles when legacy theming removed
-      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
       css={[labelStyles, mode === 'light' ? lightLabelStyles : darkLabelStyles]}
     >
       <input
@@ -212,7 +210,7 @@ const RadioWithMode = forwardRef(function Radio(
         // use :invalid selector
         data-invalid={isInvalid ? 'true' : undefined}
         // TODO radioCustomProperties can be defined at top of file when legacy theming removed
-        // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
         css={[radioStyles, radioCustomProperties]}
         ref={ref}
       />

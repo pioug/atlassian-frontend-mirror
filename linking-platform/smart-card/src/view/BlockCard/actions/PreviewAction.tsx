@@ -97,14 +97,13 @@ export default ({
   return {
     id: 'preview-content',
     text: <FormattedMessage {...previewText} />,
-    promise: (props) =>
+    promise: () =>
       previewFunction({
         popupMountPointId: 'twp-editor-preview-iframe',
         providerName: 'Preview',
         showModal: true,
         iframeName: 'twp-editor-preview-iframe',
         onClose: () => {},
-        ...props,
         ...rest,
       }),
   };

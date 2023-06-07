@@ -25,7 +25,7 @@ const responsiveWidthSearchStyles = css({
   minWidth: '100%',
 });
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const dynamicSizedVerticalPaddingStyles = Object.values(
   UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
     paddingBlock: `calc(${UNSAFE_BREAKPOINTS_CONFIG[breakpoint].gridMargin} * 2)`,

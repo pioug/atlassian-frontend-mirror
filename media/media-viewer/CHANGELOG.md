@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 48.0.5
+
+### Patch Changes
+
+- [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 48.0.4
 
 ### Patch Changes

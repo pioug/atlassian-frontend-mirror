@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { ThemeModes } from '@atlaskit/theme/types';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 import { Checkbox } from '@atlaskit/checkbox';
 import Select from '@atlaskit/select';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
@@ -29,10 +30,11 @@ const dimensions = { width: '100%', height: '100%' };
 const checkboxesContainerStyles = css`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: ${token('space.250', '20px')};
   align-items: center;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const styledTableStyles = css`
   margin: 30px auto 0 auto;
   max-width: 1100px;

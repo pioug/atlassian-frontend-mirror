@@ -127,7 +127,7 @@ export const Icon = memo(function Icon(props: IconProps) {
         // We could then simplify how common styles are dealt with simply by encapsualting them
         // at their appropriate level and/or having a singular approach to css variables in the package
         dimensions &&
-          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+          // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
           css({
             width: dimensions.width,
             height: dimensions.height,

@@ -23,6 +23,14 @@ const spacingValues = [
 
 const layerContainerStyles = xcss({ position: 'relative' });
 const colorStyles = xcss({ color: 'inverse' });
+const baseBorderStyles = xcss({
+  borderStyle: 'solid',
+  borderWidth: 'width.100',
+});
+const elevationStyles = xcss({
+  boxShadow: 'overlay',
+  position: 'absolute',
+});
 
 /**
  * Box permutations
@@ -113,12 +121,13 @@ export default () => {
               key={borderColor}
               backgroundColor="neutral"
               padding="space.400"
-              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-              xcss={xcss({
-                borderColor: borderColor,
-                borderStyle: 'solid',
-                borderWidth: 'width.100',
-              })}
+              xcss={[
+                baseBorderStyles,
+                // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+                xcss({
+                  borderColor: borderColor,
+                }),
+              ]}
             >
               <Box>{borderColor}</Box>
             </Box>
@@ -134,7 +143,7 @@ export default () => {
               key={shadow}
               backgroundColor="elevation.surface"
               padding="space.400"
-              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+              // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
               xcss={xcss({
                 boxShadow: shadow,
               })}
@@ -165,12 +174,8 @@ export default () => {
               key={zIndex}
               backgroundColor="elevation.surface"
               padding="space.400"
-              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-              xcss={xcss({
-                zIndex,
-                boxShadow: 'overlay',
-                position: 'absolute',
-              })}
+              // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+              xcss={[elevationStyles, xcss({ zIndex })]}
               style={{
                 insetBlockStart: index * 64,
                 insetInlineStart: index * 64,

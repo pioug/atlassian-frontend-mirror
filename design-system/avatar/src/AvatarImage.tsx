@@ -2,7 +2,7 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import { FC, useEffect, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import PersonIcon from '@atlaskit/icon/glyph/person';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
@@ -30,12 +30,29 @@ const avatarDefaultIconStyles = css({
   backgroundColor: ICON_COLOR,
 });
 
+const nestedAvatarStyles = Object.entries(AVATAR_SIZES).reduce(
+  (styles, [key, size]) => {
+    return {
+      ...styles,
+      [key]: css({
+        // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+        '& svg': {
+          width: `${size}px`,
+          height: `${size}px`,
+        },
+      }),
+    };
+  },
+  {} as Record<SizeType, SerializedStyles>,
+);
+
 const avatarImageStyles = css({
   display: 'flex',
   width: '100%',
   height: '100%',
   flex: '1 1 100%',
 });
+
 /**
  * __Avatar image__
  *
@@ -59,19 +76,7 @@ const AvatarImage: FC<AvatarImageProps> = ({
 
   if (!src || hasImageErrored) {
     return (
-      <span
-        css={[
-          avatarDefaultIconStyles,
-          // TODO: These dynamic SVG styles can't be set in 'style'. On a refactor, use a css custom property to pass down the size
-          // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-          {
-            '& svg': {
-              width: `${AVATAR_SIZES[size]}px`,
-              height: `${AVATAR_SIZES[size]}px`,
-            },
-          },
-        ]}
-      >
+      <span css={[avatarDefaultIconStyles, nestedAvatarStyles[size]]}>
         {appearance === 'circle' ? (
           <PersonIcon
             label={alt}

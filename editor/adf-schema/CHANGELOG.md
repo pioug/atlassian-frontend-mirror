@@ -1,5 +1,17 @@
 # @atlaskit/adf-schema
 
+## 25.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 25.8.1
+
+### Patch Changes
+
+- [`bbb877d8813`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bbb877d8813) - [ED-18157] Remove circular dependencies in adf-schema package by extracting the backwards compatibility tests to a separate package
+
 ## 25.8.0
 
 ### Minor Changes

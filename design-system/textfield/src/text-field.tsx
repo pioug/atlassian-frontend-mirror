@@ -120,7 +120,7 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
       data-testid={testId && `${testId}-container`}
       onMouseDown={handleOnMouseDown}
       // TODO: When removing legacy theming fix this.
-      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       css={containerStyles}
       className={className}
     >
@@ -139,7 +139,7 @@ const Textfield = forwardRef((props: TextfieldProps, ref) => {
         onFocus={handleOnFocus}
         ref={setInputRef}
         // TODO: When removing legacy theming fix this.
-        // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
         css={inputStyle}
       />
       {elemAfterInput}

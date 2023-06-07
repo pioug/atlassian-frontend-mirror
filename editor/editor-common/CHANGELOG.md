@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 74.5.1
+
+### Patch Changes
+
+- [`a336b15fe85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a336b15fe85) - NO-ISSUE Explicitly remove breadcrumbs for Editor Sentry events
+
 ## 74.5.0
 
 ### Minor Changes

@@ -133,7 +133,7 @@ const TabList = (props: TabListProps) => {
       position="relative"
       padding="space.0"
       ref={ref}
-      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       css={tabListStyles}
     >
       {childrenArray.map((child, index) =>

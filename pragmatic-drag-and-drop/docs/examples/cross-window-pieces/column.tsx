@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /** @jsx jsx */
 import { memo, useEffect, useRef, useState } from 'react';
 

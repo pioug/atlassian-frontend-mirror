@@ -1,8 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::474065f3ea733a64f4dd045c8be36c5b>>
+ * @codegen <<SignedSource::a966a7ed0f0346cea4b9a41131e25f2e>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
+import consistentCssPropUsage from './consistent-css-prop-usage';
 import ensureDesignTokenUsage from './ensure-design-token-usage';
 import ensureDesignTokenUsageSpacing from './ensure-design-token-usage-spacing';
 import iconLabel from './icon-label';
@@ -16,6 +17,7 @@ import usePrimitives from './use-primitives';
 import useVisuallyHidden from './use-visually-hidden';
 
 export default {
+  'consistent-css-prop-usage': consistentCssPropUsage,
   'ensure-design-token-usage': ensureDesignTokenUsage,
   'ensure-design-token-usage-spacing': ensureDesignTokenUsageSpacing,
   'icon-label': iconLabel,

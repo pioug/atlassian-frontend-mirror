@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.5.5
+
+### Patch Changes
+
+- [`8f456366d7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f456366d7b) - Clean up actionable element experiment
+
 ## 26.5.4
 
 ### Patch Changes

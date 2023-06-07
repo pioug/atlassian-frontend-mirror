@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-picker",
-  "version": "66.0.2",
+  "version": "66.0.4",
   "description": "Library for handling file uploads",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -69,6 +69,7 @@
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.6.0",
+    "@atlaskit/tokens": "^1.2.18",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/ufo": "^0.2.0",
     "@babel/plugin-proposal-numeric-separator": "^7.18.6",
@@ -87,7 +88,8 @@
   "techstack": {
     "@repo/internal": {
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ]
     }
   },

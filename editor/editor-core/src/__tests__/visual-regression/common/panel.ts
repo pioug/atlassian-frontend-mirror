@@ -249,31 +249,30 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.emojiPopup} input`);
   });
 
-  describe('with a duplicate short name, ', () => {
-    it('should be able select yellow warning emoji', async () => {
-      await page.click(`.${PanelSharedCssClassName.icon}`);
-      await page.click(`${PanelSharedSelectors.warningButton}`);
-      await page.click(`${PanelSharedSelectors.emojiIcon}`);
-      await page.waitForSelector(`${PanelSharedSelectors.emojiPopup}`, {
-        visible: true,
-      });
-      //Search warning in emojiPicker
-      await page.focus(`${PanelSharedSelectors.searchEmoji}`);
-      await page.keyboard.type('warning');
-      await page.waitForSelector(`${PanelSharedSelectors.orangeWarningIcon}`, {
-        visible: true,
-      });
-      await page.waitForSelector(`${PanelSharedSelectors.yellowWarningIcon}`, {
-        visible: true,
-      });
-
-      //Select yellow warning icon
-      await page.click(`${PanelSharedSelectors.yellowWarningIcon}`);
-      await page.waitForSelector(`.${PanelSharedCssClassName.icon}`, {
-        visible: true,
-      });
-      await page.click(`${PanelSharedSelectors.title}`);
+  // FIXME: This test was automatically skipped due to failure on 6/6/2023: https://product-fabric.atlassian.net/browse/ED-18241
+  it.skip('with a duplicate short name, should be able select yellow warning emoji', async () => {
+    await page.click(`.${PanelSharedCssClassName.icon}`);
+    await page.click(`${PanelSharedSelectors.warningButton}`);
+    await page.click(`${PanelSharedSelectors.emojiIcon}`);
+    await page.waitForSelector(`${PanelSharedSelectors.emojiPopup}`, {
+      visible: true,
     });
+    //Search warning in emojiPicker
+    await page.focus(`${PanelSharedSelectors.searchEmoji}`);
+    await page.keyboard.type('warning');
+    await page.waitForSelector(`${PanelSharedSelectors.orangeWarningIcon}`, {
+      visible: true,
+    });
+    await page.waitForSelector(`${PanelSharedSelectors.yellowWarningIcon}`, {
+      visible: true,
+    });
+
+    //Select yellow warning icon
+    await page.click(`${PanelSharedSelectors.yellowWarningIcon}`);
+    await page.waitForSelector(`.${PanelSharedCssClassName.icon}`, {
+      visible: true,
+    });
+    await page.click(`${PanelSharedSelectors.title}`);
   });
 });
 

@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { JsonLd } from 'json-ld-types';
 import { useFeatureFlag } from '@atlaskit/link-provider';
-import { extractType } from '@atlaskit/linking-common/extractors';
 import { ActionItem } from '../../../../FlexibleCard/components/blocks/types';
 import {
   ActionName,
@@ -21,7 +20,7 @@ import {
   metadataBlockCss,
 } from './styled';
 import FlexibleCard from '../../../../FlexibleCard';
-import { getSimulatedMetadata, toActionableMetadata } from '../../../utils';
+import { getSimulatedMetadata } from '../../../utils';
 import { LinkAction } from '../../../../../state/hooks-external/useSmartLinkActions';
 import { CustomActionItem } from '../../../../FlexibleCard/components/blocks/types';
 import SnippetOrPreview from '../../SnippetOrPreview';
@@ -83,7 +82,6 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   onActionClick,
   extensionKey,
 }) => {
-  const showActionableElement = useFeatureFlag('enableActionableElement');
   const enableImprovedPreviewAction = useFeatureFlag(
     'enableImprovedPreviewAction',
   );
@@ -110,26 +108,15 @@ const HoverCardResolvedView: React.FC<HoverCardResolvedProps> = ({
   const data = cardState.details?.data as JsonLd.Data.BaseData;
 
   const { primary, secondary } = useMemo(() => {
-    const types = data ? extractType(data) : undefined;
     //TODO: EDM-3224 deleted simulated and use real JsonLd
     const metadata = extractMetadata(getSimulatedMetadata(extensionKey, data));
 
-    const primary = showActionableElement
-      ? toActionableMetadata(
-          onActionClick,
-          extensionKey,
-          types,
-          cardActions,
-          metadata.primary,
-        )
-      : metadata.primary;
-
     return {
-      primary,
+      primary: metadata.primary,
       secondary: metadata.secondary,
       subtitle: metadata.subtitle,
     };
-  }, [cardActions, data, extensionKey, onActionClick, showActionableElement]);
+  }, [data, extensionKey]);
 
   const snippetHeight = React.useRef<number>(0);
   const snippetBlockRef = useRef<HTMLDivElement>(null);

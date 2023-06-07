@@ -8,6 +8,7 @@ export const avatarPickerViewWrapperStyles = css`
   min-height: 339px;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const modalHeaderStyles = css`
   margin: 15px;
   font-weight: 500;
@@ -23,6 +24,7 @@ export const croppingWrapperStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const modalFooterButtonsStyles = css`
   text-align: right;
   width: 100%;

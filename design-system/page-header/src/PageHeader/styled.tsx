@@ -78,7 +78,7 @@ export const OuterWrapper = ({ children }: { children: ReactNode }) => {
   return <div css={outerStyles}>{children}</div>;
 };
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const h700Styles = css(h700());
 
 interface StyledTitleWrapperProps {

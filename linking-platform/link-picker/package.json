@@ -77,7 +77,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@atlassian/link-picker-atlassian-plugin": "^33.0.0",
+    "@atlassian/link-picker-atlassian-plugin": "^33.1.0",
     "@atlassian/link-picker-plugins": "^22.2.0",
     "@atlassian/recent-work-client": "^1.8.0",
     "@testing-library/dom": "^8.17.1",

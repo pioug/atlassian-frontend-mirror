@@ -7,6 +7,8 @@ import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
+import { LoadingError } from '../common/error-state/loading-error';
+import { NoResults } from '../common/error-state/no-results';
 import { IssueLikeDataTableView } from '../issue-like-table';
 import { TableFooter } from '../table-footer';
 
@@ -54,6 +56,14 @@ export const DatasourceTableView = ({
       onVisibleColumnKeysChange(defaultVisibleColumnKeys);
     }
   }, [visibleColumnKeys, defaultVisibleColumnKeys, onVisibleColumnKeysChange]);
+
+  if (status === 'resolved' && !responseItems.length) {
+    return <NoResults onRefresh={reset} />;
+  }
+
+  if (status === 'rejected') {
+    return <LoadingError onRefresh={reset} />;
+  }
 
   return columns.length > 0 ? (
     <div css={TableViewWrapperStyles}>

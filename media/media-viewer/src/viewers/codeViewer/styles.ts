@@ -27,5 +27,5 @@ export const codeViewerHTMLStyles = css`
   overflow-x: auto;
   white-space: pre;
   font-size: 12px;
-  padding: 8px;
+  padding: ${token('space.100', '8px')};
 `;

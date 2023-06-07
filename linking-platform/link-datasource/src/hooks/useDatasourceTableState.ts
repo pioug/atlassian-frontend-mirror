@@ -123,28 +123,32 @@ export const useDatasourceTableState = ({
 
       setStatus('loading');
 
-      const { data, nextPageCursor, totalCount, schema } =
-        await getDatasourceData(datasourceId, datasourceDataRequest);
+      try {
+        const { data, nextPageCursor, totalCount, schema } =
+          await getDatasourceData(datasourceId, datasourceDataRequest);
 
-      setTotalCount(totalCount);
-      setNextCursor(nextPageCursor);
+        setTotalCount(totalCount);
+        setNextCursor(nextPageCursor);
 
-      setResponseItems(currentResponseItems => {
-        if (shouldRequestFirstPage) {
-          return data;
+        setResponseItems(currentResponseItems => {
+          if (shouldRequestFirstPage) {
+            return data;
+          }
+          return [...currentResponseItems, ...data];
+        });
+
+        setStatus('resolved');
+        setHasNextPage(Boolean(nextPageCursor));
+
+        if (fieldKeys.length > 0) {
+          setLastRequestedFieldKeys(fieldKeys);
         }
-        return [...currentResponseItems, ...data];
-      });
 
-      setStatus('resolved');
-      setHasNextPage(Boolean(nextPageCursor));
-
-      if (fieldKeys.length > 0) {
-        setLastRequestedFieldKeys(fieldKeys);
-      }
-
-      if (isSchemaFromData && schema) {
-        applySchemaProperties(schema.properties);
+        if (isSchemaFromData && schema) {
+          applySchemaProperties(schema.properties);
+        }
+      } catch (e) {
+        setStatus('rejected');
       }
     },
     [

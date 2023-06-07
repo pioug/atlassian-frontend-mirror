@@ -1,7 +1,8 @@
-import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 import { N20, N40, B400, B50 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const filmStripViewStyles = css`
   position: relative;
   padding: 3px 0;
@@ -19,7 +20,7 @@ export const filmStripViewStyles = css`
 export const filmStripListWrapperStyles = css`
   width: inherit;
   overflow: hidden;
-  padding: 2px 0;
+  padding: ${token('space.025', '2px')} 0;
 `;
 
 export const filmStripListStyles = css`
@@ -34,7 +35,7 @@ export const filmStripListStyles = css`
 export const filmStripListItemStyles = css`
   list-style-type: none;
   margin: 0;
-  padding: 0 4px;
+  padding: 0 ${token('space.050', '4px')};
   display: inline-block;
   vertical-align: middle;
   /* Fixes issue with child Cards using inline-block */
@@ -78,14 +79,16 @@ export const arrowWrapperStyles = css`
 
 export const arrowLeftWrapperStyles = css`
   ${arrowWrapperStyles};
-  left: 8px;
+  left: ${token('space.100', '8px')};
   svg {
-    padding-right: 2px;
+    padding-right: ${token('space.025', '2px')};
   }
 `;
+
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const arrowRightWrapperStyles = css`
   ${arrowWrapperStyles};
-  right: 8px;
+  right: ${token('space.100', '8px')};
   svg {
     padding-left: 1px;
   }

@@ -21,12 +21,6 @@ export type LozengeProps = ElementProps & {
   appearance?: LozengeAppearance;
 
   /**
-   * DO NOT USE! This is an experiment code and may be removed at any given time.
-   * @internal
-   */
-  onClick?: () => void;
-
-  /**
    * The text to display within the lozenge.
    */
   text?: string | React.ReactNode;

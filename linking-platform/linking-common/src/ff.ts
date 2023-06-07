@@ -3,6 +3,7 @@ export interface LinkingPlatformFeatureFlags {
   useLinkPickerScrollingTabs?: boolean;
   /**
    * Enable an experiment on clickable State element on Hover Preview for Jira issue link.
+   * @deprecated Implementation removed on EDM-5153
    */
   enableActionableElement?: boolean;
   /**

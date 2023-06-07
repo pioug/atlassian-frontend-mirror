@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/schema-backwards-compatibility-tests",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Tests to validate ADF schema changes are backwards compatible",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",

@@ -15,9 +15,9 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { Node as Node_2 } from 'prosemirror-model';
-import { Schema } from 'prosemirror-model';
-import { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
+import type { Node as Node_2 } from 'prosemirror-model';
+import type { Schema } from 'prosemirror-model';
+import type { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 
 // @public (undocumented)
 export class BitbucketTransformer implements Transformer_2<string> {

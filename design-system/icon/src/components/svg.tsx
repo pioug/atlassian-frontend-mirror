@@ -7,7 +7,7 @@ import type { SVGProps } from '../types';
 import { getBackground } from './utils';
 import { commonSVGStyles, sizeStyleMap } from './styles';
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const svgStyles = css(commonSVGStyles);
 
 /**

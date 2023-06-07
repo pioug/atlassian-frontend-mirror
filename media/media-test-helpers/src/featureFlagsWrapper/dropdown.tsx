@@ -9,6 +9,7 @@ import {
 import SelectClearIcon from '@atlaskit/icon/glyph/select-clear';
 import HipchatChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import styled from '@emotion/styled';
 
@@ -24,7 +25,7 @@ const camelCaseToSentenceCase = (text: string) => {
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 20px auto;
+  margin: ${token('space.250', '20px')} auto;
 `;
 
 const ItemWrapper: React.FC = ({ children }) => (

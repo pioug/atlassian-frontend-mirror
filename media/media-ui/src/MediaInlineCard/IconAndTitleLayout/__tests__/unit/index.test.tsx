@@ -2,15 +2,15 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { IconAndTitleLayout } from '../../index';
-import { TitleWrapper } from '../../styled';
 
 jest.mock('react-render-image');
 
 describe('IconAndTitleLayout', () => {
   it('should render the text', () => {
     const element = mount(<IconAndTitleLayout title="some text content" />);
-
-    expect(element.find(TitleWrapper).text()).toContain('some text content');
+    expect(element.find('[data-test-id="title"]').text()).toContain(
+      'some text content',
+    );
   });
 
   describe('renderIcon', () => {

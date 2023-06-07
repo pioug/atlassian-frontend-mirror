@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.22.0
+
+### Minor Changes
+
+- [`d0680816ada`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0680816ada) - [ux] Added empty and error states to jira modal and datasourceTable
+
 ## 0.21.2
 
 ### Patch Changes

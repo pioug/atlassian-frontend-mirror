@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 4.0.6
+
+### Patch Changes
+
+- [`d0680816ada`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0680816ada) - [ux] Added empty and error states to jira modal and datasourceTable
+
 ## 4.0.5
 
 ### Patch Changes

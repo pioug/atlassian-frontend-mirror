@@ -1,5 +1,17 @@
 # @atlaskit/media-ui
 
+## 23.0.6
+
+### Patch Changes
+
+- [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
+## 23.0.5
+
+### Patch Changes
+
+- [`da9024f099f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da9024f099f) - MEX-2432 Enable range selection on MediaInline component
+
 ## 23.0.4
 
 ### Patch Changes

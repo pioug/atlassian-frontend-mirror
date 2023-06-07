@@ -174,7 +174,7 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
                   css={[
                     containerStyles,
                     !isFlat && containerShadowStyles,
-                    // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+                    // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
                     container,
                   ]}
                   style={{ width: `${Math.min(Math.max(width!, 160), 600)}px` }}

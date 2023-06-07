@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { act, render, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
@@ -808,6 +808,52 @@ describe('JiraIssuesConfigModal', () => {
 
         assertInsertResult({ columnKeys: ['myColumn', 'otherColumn'] });
       });
+    });
+  });
+
+  describe('when no issues are returned', () => {
+    it('should show no results screen in issue view mode', async () => {
+      const { getByRole, getByText } = await setup({
+        hookState: { ...getDefaultHookState(), responseItems: [] },
+      });
+
+      expect(getByText('No results found')).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
+    });
+
+    it('should not show no results screen in count view mode', async () => {
+      const { getByLabelText, queryByText } = await setup({
+        hookState: { ...getDefaultHookState(), responseItems: [] },
+      });
+
+      act(() => {
+        fireEvent.click(getByLabelText('Count view'));
+      });
+
+      expect(queryByText('No results found')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('when an error occurs on data request', () => {
+    it('should show network error message', async () => {
+      const { getByRole, getByText } = await setup({
+        hookState: { ...getDefaultHookState(), status: 'rejected' },
+      });
+
+      expect(getByText('Unable to load results')).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
+    });
+
+    it('should not show network error message in count view mode', async () => {
+      const { getByLabelText, queryByText } = await setup({
+        hookState: { ...getDefaultHookState(), responseItems: [] },
+      });
+
+      act(() => {
+        fireEvent.click(getByLabelText('Count view'));
+      });
+
+      expect(queryByText('Unable to load results')).not.toBeInTheDocument();
     });
   });
 });

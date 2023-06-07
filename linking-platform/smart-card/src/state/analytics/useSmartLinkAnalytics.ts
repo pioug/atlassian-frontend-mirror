@@ -68,7 +68,6 @@ import {
 } from '../../utils/analytics/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
-  trackLinkUpdated,
   TrackQuickActionFailureReason,
   TrackQuickActionType,
   trackSmartLinkQuickActionFailed,
@@ -996,15 +995,10 @@ export const useSmartLinkAnalytics = (
         ),
 
       /**
-       * This fires a tracking event before and after link updated.
+       * Removed in EDM-5153: This is an even from an experiment.
+       * @deprecated
        */
-      linkUpdated: (props: CommonEventProps & { [key: string]: any }) =>
-        dispatchAnalytics(
-          applyCommonAttributes(
-            trackLinkUpdated({ ...commonAttributes, ...props }),
-            commonAttributes,
-          ),
-        ),
+      linkUpdated: (props: CommonEventProps & { [key: string]: any }) => {},
 
       /**
        * This fires a tracking event before an action invoke api call is made

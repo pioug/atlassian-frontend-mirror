@@ -21,9 +21,10 @@ export function getURL(
 export async function setup(url: string) {
   const page: PuppeteerPage = global.page;
   await page.goto(url, {
-    waitUntil: 'networkidle0',
+    waitUntil: 'domcontentloaded',
   });
   await page.waitForSelector(pageSelector);
+  await page.waitForNetworkIdle({ idleTime: 750 });
   return page;
 }
 

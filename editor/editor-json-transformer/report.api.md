@@ -15,7 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { Node as Node_2 } from 'prosemirror-model';
+import type { Node as Node_2 } from 'prosemirror-model';
 
 // @public (undocumented)
 export type JSONDocNode = {

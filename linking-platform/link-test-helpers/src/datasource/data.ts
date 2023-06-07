@@ -600,6 +600,16 @@ export const mockSiteData = [
     url: 'https://test5.atlassian.net',
     displayName: 'testSingleIssue',
   },
+  {
+    cloudId: '22222',
+    url: 'https://test6.atlassian.net',
+    displayName: 'testNoResults',
+  },
+  {
+    cloudId: '33333',
+    url: 'https://test7.atlassian.net',
+    displayName: 'testNetworkError',
+  },
 ];
 
 // https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-jql/#api-rest-api-3-jql-autocompletedata-post

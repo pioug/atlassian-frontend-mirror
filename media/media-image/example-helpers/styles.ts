@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { N40 } from '@atlaskit/theme/colors';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const optionsWrapperStyles = css`
   border-bottom: 1px solid ${token('color.border', N40)};
   padding: 10px;

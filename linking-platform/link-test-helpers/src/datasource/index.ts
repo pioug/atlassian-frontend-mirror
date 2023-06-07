@@ -187,7 +187,8 @@ const generateDataResponse = ({
         }),
       };
     }),
-  totalCount: mockJiraData.totalIssues,
+  totalCount:
+    maxItems === 0 || maxItems === 1 ? maxItems : mockJiraData.totalIssues,
   nextPageCursor:
     numberOfLoads < 4 && maxItems > 1 ? 'c3RhcnRBdD01' : undefined,
   ...(includeSchema && { schema: detailsResponse.schema }),
@@ -218,7 +219,7 @@ export const mockDatasourceFetchRequests = (datasourceId?: string | null) => {
         parameters: { cloudId },
         includeSchema,
       } = requestBody;
-      return new Promise(resolve => {
+      return new Promise((resolve, reject) => {
         const delay = numberOfLoads++ * 1000;
         setTimeout(() => {
           if (cloudId === '11111') {
@@ -230,6 +231,17 @@ export const mockDatasourceFetchRequests = (datasourceId?: string | null) => {
                 includeSchema,
               }),
             );
+          } else if (cloudId === '22222') {
+            resolve(
+              generateDataResponse({
+                cloudId,
+                maxItems: 0,
+                numberOfLoads,
+                includeSchema,
+              }),
+            );
+          } else if (cloudId === '33333') {
+            reject();
           } else {
             resolve(
               generateDataResponse({ cloudId, numberOfLoads, includeSchema }),

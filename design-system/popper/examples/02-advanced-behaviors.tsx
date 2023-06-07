@@ -4,9 +4,8 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
-import { B500 } from '@atlaskit/theme/colors';
+import { B500, N50A, N60A } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
-import { e300 } from '@atlaskit/theme/elevation';
 import { token } from '@atlaskit/tokens';
 
 import { Manager, Placement, Popper, Reference } from '../src';
@@ -33,7 +32,10 @@ const Popup = styled.div`
   text-overflow: 'ellipsis';
   transition: opacity 200ms ease-in-out;
   opacity: ${(p: PopupProps) => (p.isReferenceHidden ? 0 : 1)};
-  ${e300};
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    `0 8px 16px -4px ${N50A}, 0 0 1px ${N60A}`,
+  )};
 `;
 
 const ReferenceBox = styled.div`

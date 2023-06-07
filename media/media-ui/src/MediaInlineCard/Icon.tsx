@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { token } from '@atlaskit/tokens';
 
 // TODO: Figure out a more scalable/responsive solution
 // for vertical alignment.
@@ -8,7 +9,7 @@ import styled from '@emotion/styled';
 export const Icon = styled.img`
   height: 14px;
   width: 14px;
-  margin-right: 4px;
+  margin-right: ${token('space.050', '4px')};
   border-radius: 2px;
   user-select: none;
   position: absolute;
@@ -21,5 +22,5 @@ export const Icon = styled.img`
 // are less than that in height/width.
 // TODO: Replace this override with proper AtlasKit solution.
 export const AKIconWrapper = styled.span`
-  margin-right: -2px;
+  margin-right: calc(-1 * ${token('space.025', '2px')});
 `;

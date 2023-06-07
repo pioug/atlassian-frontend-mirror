@@ -29,30 +29,32 @@ export type HeaderWrapperProps = {
 
 export const headerWrapperStyles = ({
   isArchiveSideBarVisible,
-}: HeaderWrapperProps) => css`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 98px;
-  opacity: 0.85;
-  background: linear-gradient(
-      to bottom,
-      ${headerAndSidebarBackgroundColor},
-      rgba(14, 22, 36, 0)
-    )
-    no-repeat;
-  background-position: ${isArchiveSideBarVisible
-    ? `${ArchiveSideBarWidth}px 0`
-    : '0'};
-  color: #c7d1db;
-  font-weight: 500;
-  padding-top: 15px;
-  padding: 24px;
-  box-sizing: border-box;
-  pointer-events: none;
-  z-index: ${overlayZindex + 1};
-`;
+}: HeaderWrapperProps) =>
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  css`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 98px;
+    opacity: 0.85;
+    background: linear-gradient(
+        to bottom,
+        ${headerAndSidebarBackgroundColor},
+        rgba(14, 22, 36, 0)
+      )
+      no-repeat;
+    background-position: ${isArchiveSideBarVisible
+      ? `${ArchiveSideBarWidth}px 0`
+      : '0'};
+    color: #c7d1db;
+    font-weight: 500;
+    padding-top: 15px;
+    padding: ${token('space.300', '24px')};
+    box-sizing: border-box;
+    pointer-events: none;
+    z-index: ${overlayZindex + 1};
+  `;
 
 export interface ContentWrapperProps {
   showControls: boolean;
@@ -78,8 +80,8 @@ export const arrowsWrapperStyles = css`
 
 export const closeButtonWrapperStyles = css`
   position: absolute;
-  top: 24px;
-  right: 20px;
+  top: ${token('space.300', '24px')};
+  right: ${token('space.250', '20px')};
   z-index: ${overlayZindex + 2};
 `;
 
@@ -105,6 +107,7 @@ export const zoomWrapperStyles = css`
   pointer-events: none;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const zoomControlsWrapperStyles = css`
   width: 100%;
   position: absolute;
@@ -118,24 +121,26 @@ export const zoomControlsWrapperStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const zoomLevelIndicatorStyles = css`
   position: absolute;
-  right: 24px;
+  right: ${token('space.300', '24px')};
   bottom: 22px;
   color: #c7d1db;
   pointer-events: all;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const hdIconGroupWrapperStyles = css`
   position: absolute;
   right: 69px;
-  bottom: 16px;
+  bottom: ${token('space.200', '16px')};
 `;
 
 export const hdIconWrapperStyles = css`
   display: inline-block;
   vertical-align: top;
-  margin-left: -24px;
+  margin-left: calc(-1 * ${token('space.300', '24px')});
 `;
 
 export const errorMessageWrapperStyles = css`
@@ -146,6 +151,7 @@ export const errorMessageWrapperStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const errorImageStyles = css`
   margin-bottom: 10px;
   user-select: none;
@@ -199,7 +205,7 @@ const arrowWrapperStyles = css`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  padding: 20px;
+  padding: ${token('space.250', '20px')};
 `;
 
 export type LeftWrapperProps = {
@@ -297,8 +303,8 @@ export const metadataSubTextStyles = css`
 `;
 
 export const metadataIconWrapperStyles = css`
-  padding-top: 4px;
-  padding-right: 12px;
+  padding-top: ${token('space.050', '4px')};
+  padding-right: ${token('space.150', '12px')};
 `;
 
 export interface IconWrapperProps {
@@ -307,7 +313,7 @@ export interface IconWrapperProps {
 
 export const rightHeaderStyles = css`
   text-align: right;
-  margin-right: 40px;
+  margin-right: ${token('space.500', '40px')};
   min-width: 200px;
   > * {
     pointer-events: all;
@@ -360,6 +366,7 @@ export const defaultCoverWrapperStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const downloadButtonWrapperStyles = css`
   margin-top: 28px;
   text-align: center;

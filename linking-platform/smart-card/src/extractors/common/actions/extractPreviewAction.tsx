@@ -108,8 +108,7 @@ export const extractPreviewAction = ({
     // - Promise invoked by the action invocation handler; open preview.
     previewActionProps.action.promise = previewAction.promise;
     // - Promise invoked on click of `Preview` on block card; trigger above promise.
-    previewAction.promise = (opts) =>
-      handleInvoke({ ...previewActionProps, ...opts });
+    previewAction.promise = () => handleInvoke(previewActionProps);
     return previewAction;
   }
 };

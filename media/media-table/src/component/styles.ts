@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { token } from '@atlaskit/tokens';
 
 export const nameCellWrapperStyles = css`
   display: flex;
@@ -9,7 +10,7 @@ export const nameCellWrapperStyles = css`
 export const truncateWrapperStyles = css`
   min-width: 0;
   width: 100%;
-  margin-left: 4px;
+  margin-left: ${token('space.050', '4px')};
 
   span:first-of-type {
     &::first-letter {

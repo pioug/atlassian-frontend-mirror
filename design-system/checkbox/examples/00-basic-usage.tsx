@@ -1,10 +1,20 @@
-/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /**  @jsx jsx */
 import { ChangeEvent, useCallback, useState } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
+
+import { token } from '@atlaskit/tokens';
 
 import { Checkbox } from '../src';
+
+const resultStyles = css({
+  margin: token('space.100', '8px'),
+  padding: token('space.100', '8px'),
+  borderColor: '#ccc',
+  borderStyle: 'dashed',
+  borderWidth: '1px',
+  color: '#ccc',
+});
 
 export default function BasicUsageExample() {
   const [onChangeResult, setOnChangeResult] = useState(
@@ -51,20 +61,7 @@ export default function BasicUsageExample() {
         testId="cb-invalid"
       />
 
-      <div
-        css={{
-          borderStyle: 'dashed',
-          borderWidth: '1px',
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-          borderColor: '#ccc',
-          padding: '0.5em',
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-          color: '#ccc',
-          margin: '0.5em',
-        }}
-      >
-        {onChangeResult}
-      </div>
+      <div css={resultStyles}>{onChangeResult}</div>
     </div>
   );
 }

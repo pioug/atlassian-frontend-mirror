@@ -49,6 +49,7 @@ module.exports = {
 
 | Rule                                                                                                    | Description                                                                                     | Recommended | Fixable | Suggestions |
 | ------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------- | ------- | ----------- |
+| <a href="./src/rules/consistent-css-prop-usage/README.md">consistent-css-prop-usage</a>                 | Ensures consistency with CSS and xCSS prop usages                                               | Yes         | Yes     |             |
 | <a href="./src/rules/ensure-design-token-usage/README.md">ensure-design-token-usage</a>                 | Enforces usage of design tokens.                                                                | Yes         | Yes     | Yes         |
 | <a href="./src/rules/ensure-design-token-usage-spacing/README.md">ensure-design-token-usage-spacing</a> | Enforces usage of spacing design tokens rather than hard-coded values.                          |             | Yes     |             |
 | <a href="./src/rules/icon-label/README.md">icon-label</a>                                               | Enforces accessible usage of icon labels when composed with Atlassian Design System components. | Yes         | Yes     |             |

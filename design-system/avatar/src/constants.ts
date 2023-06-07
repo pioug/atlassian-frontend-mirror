@@ -25,6 +25,8 @@ export const AVATAR_RADIUS: AvatarSizeMap = {
 export const BORDER_WIDTH = 2;
 export const ACTIVE_SCALE_FACTOR = 0.9;
 
+export const CSS_VAR_AVATAR_BGCOLOR = '--avatar-background-color';
+
 export const ICON_SIZES: Record<IndicatorSizeType, number> = {
   small: 12,
   medium: 14,

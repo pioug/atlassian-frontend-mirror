@@ -5,8 +5,8 @@ import styled from '@emotion/styled';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
+import { N50A, N60A } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
-import { e300 } from '@atlaskit/theme/elevation';
 import { token } from '@atlaskit/tokens';
 
 import { Manager, Popper, Reference } from '../src';
@@ -22,7 +22,10 @@ const Popup = styled.div`
   padding: ${token('space.100', '8px')};
   transition: opacity 200ms ease-in-out;
   opacity: ${(p: PopupProps) => (p.isReferenceHidden ? 0 : 1)};
-  ${e300};
+  box-shadow: ${token(
+    'elevation.shadow.overlay',
+    `0 8px 16px -4px ${N50A}, 0 0 1px ${N60A}`,
+  )};
 `;
 
 const BasicPopper = () => (

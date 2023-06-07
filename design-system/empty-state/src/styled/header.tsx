@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import { h600 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const headerStyles = css([
   h600(),
   {

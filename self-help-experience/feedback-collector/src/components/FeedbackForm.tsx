@@ -234,17 +234,16 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                         {...fieldProps}
                         label={
                           canBeContactedLabel || (
-                            <FormattedMessage {...messages.canBeContactedLabel}>
-                              {(chunks) => (
-                                <>
-                                  {chunks}
+                            <FormattedMessage
+                              {...messages.canBeContactedLabel}
+                              values={{
+                                a: (chunks: string) => (
                                   <a href="https://www.atlassian.com/legal/privacy-policy">
-                                    {formatMessage(messages.privacyPolicy)}
+                                    {chunks}
                                   </a>
-                                  .
-                                </>
-                              )}
-                            </FormattedMessage>
+                                ),
+                              }}
+                            />
                           )
                         }
                         onChange={(event) =>

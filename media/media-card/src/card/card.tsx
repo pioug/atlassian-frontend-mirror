@@ -279,7 +279,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       wasResolvedUpfrontPreview,
     } = this.state;
 
-    const isDifferent = isDifferentIdentifier(prevIdentifier, identifier);
+    const isDiffIdentifier = isDifferentIdentifier(prevIdentifier, identifier);
     /**
      * Variable turnedVisible should only be true when media card
      * was invisible in the previous state and is visible in the current one
@@ -301,7 +301,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
 
     this.updateFileStateFlag(fileState);
 
-    if (isExternalImageIdentifier(identifier) && isDifferent) {
+    if (isExternalImageIdentifier(identifier) && isDiffIdentifier) {
       this.fireCommencedEvent();
       const { dataURI } = identifier;
       this.setState({
@@ -313,7 +313,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
     if (
       isFileIdentifier(identifier) &&
       (turnedVisible ||
-        (!!this.subscription && (isNewMediaClient || isDifferent)))
+        (!!this.subscription && (isNewMediaClient || isDiffIdentifier)))
     ) {
       this.updateStateForIdentifier(identifier);
     }
@@ -1135,6 +1135,12 @@ export class CardBase extends Component<CardBaseProps, CardState> {
   };
 }
 
+// We require this wrapper in order to refresh media card state when the identifier is updated
+const CardWithKey = (props: CardBaseProps) => {
+  const { identifier } = props;
+  const key = isFileIdentifier(identifier) ? identifier.id : identifier.dataURI;
+  return <CardBase {...props} key={key} />;
+};
 export const Card: React.ComponentType<CardBaseProps> =
   withMediaAnalyticsContext({
     packageVersion,
@@ -1144,7 +1150,9 @@ export const Card: React.ComponentType<CardBaseProps> =
   })(
     withAnalyticsEvents()(
       injectIntl(
-        CardBase as React.ComponentType<CardBaseProps & WrappedComponentProps>,
+        CardWithKey as React.ComponentType<
+          CardBaseProps & WrappedComponentProps
+        >,
         {
           enforceContext: false,
         },

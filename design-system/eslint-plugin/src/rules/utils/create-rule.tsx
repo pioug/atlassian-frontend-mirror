@@ -35,6 +35,10 @@ export interface LintRuleMeta extends Omit<Rule.RuleMetaData, 'docs'> {
      */
     description: string;
     /**
+     * Specifies the URL at which the full documentation can be accessed
+     */
+    url?: string | undefined;
+    /**
      * If this rule should be in the recommended preset or not.
      * Set to `false` to exclude it from the recommended preset.
      */

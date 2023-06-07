@@ -21,8 +21,7 @@ describe('Flexible Card', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    // FIXME: This test was automatically skipped due to failure on 17/12/2022: https://product-fabric.atlassian.net/browse/EDM-5293
-    it.skip('renders TitleBlock', async () => {
+    it('renders TitleBlock', async () => {
       const url = getURL('vr-flexible-ui-block-title');
       const screenHeight = 2640;
       const page = await setup(url);
@@ -49,6 +48,9 @@ describe('Flexible Card', () => {
       const deleteActionSelector = `[data-testid="smart-action-delete-action"]`;
       await page.waitForSelector(deleteActionSelector);
       await page.hover(deleteActionSelector);
+      await page.waitForSelector(
+        '[data-testid="smart-action-delete-action-tooltip"]',
+      );
 
       image = await takeSnapshot(page, screenHeight, undefined);
       expect(image).toMatchProdImageSnapshot();
@@ -72,8 +74,7 @@ describe('Flexible Card', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    // FIXME: This test was automatically skipped due to failure on 18/01/2023: https://product-fabric.atlassian.net/browse/EDM-5505
-    it.skip('renders FooterBlock', async () => {
+    it('renders FooterBlock', async () => {
       const url = getURL('vr-flexible-ui-block-footer');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="smart-links-container"]');
@@ -86,6 +87,12 @@ describe('Flexible Card', () => {
       await page.click('[data-testid="action-group-more-button"]');
 
       await page.waitForSelector('[data-testid="third-action-item"]');
+
+      //Wait until More Action tooltip is gone before taking a snapshot
+      await page.waitForSelector(
+        '[data-testid="action-group-more-button-tooltip"]',
+        { hidden: true },
+      );
       const image2 = await takeSnapshot(page, 810);
 
       expect(image2).toMatchProdImageSnapshot();
@@ -187,8 +194,7 @@ describe('Flexible Card', () => {
   });
 
   describe('integrated', () => {
-    // FIXME: This test was automatically skipped due to failure on 27/01/2023: https://product-fabric.atlassian.net/browse/EDM-5563
-    it.skip('renders various compositions', async () => {
+    it('renders various compositions', async () => {
       const url = getURL('vr-flexible-ui-composition');
       const page = await setup(url);
 
@@ -314,23 +320,26 @@ describe('Flexible Card', () => {
       return page;
     };
 
-    // FIXME: This test was automatically skipped due to failure on 11/03/2023: https://product-fabric.atlassian.net/browse/EDM-6107
-    it.skip('should open below trigger component when there is room below in viewport', async () => {
+    it('should open below trigger component when there is room below in viewport', async () => {
       const height = 500;
 
       const page = await renderHoverCard('vr-flexible-ui-hover-card', height);
+      await page.waitForSelector('[data-testid="hover-card"]');
 
       const image = await takeSnapshot(page, height);
       expect(image).toMatchProdImageSnapshot();
     });
 
-    // FIXME: This test was automatically skipped due to failure on 13/05/2023: https://product-fabric.atlassian.net/browse/EDM-6672
-    it.skip('should open on top of trigger component when there is no room below and there is room above in viewport', async () => {
+    it('should open on top of trigger component when there is no room below and there is room above in viewport', async () => {
       const height = 550;
 
       const page = await renderHoverCard(
         'vr-flexible-ui-hover-card-limited-space',
         height,
+      );
+
+      await page.waitForSelector(
+        '[data-testid="authorgroup-metadata-element"]',
       );
 
       const image = await takeSnapshot(page, height);

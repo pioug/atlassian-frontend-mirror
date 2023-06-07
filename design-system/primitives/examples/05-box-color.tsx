@@ -71,7 +71,7 @@ export default () => {
               key={color}
               backgroundColor="neutral"
               padding="space.400"
-              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+              // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
               xcss={xcss({
                 color,
               })}

@@ -33,9 +33,9 @@ export const predefinedAvatarViewWrapperStyles = css`
     list-style-type: none;
 
     li {
-      padding-right: 4px;
-      padding-left: 4px;
-      padding-bottom: 8px;
+      padding-right: ${token('space.050', '4px')};
+      padding-left: ${token('space.050', '4px')};
+      padding-bottom: ${token('space.100', '8px')};
       margin: 0;
     }
   }
@@ -44,11 +44,11 @@ export const predefinedAvatarViewWrapperStyles = css`
     display: flex;
     align-items: center;
 
-    padding-top: 4px;
-    padding-bottom: 8px;
+    padding-top: ${token('space.050', '4px')};
+    padding-bottom: ${token('space.100', '8px')};
 
     .description {
-      padding-left: 8px;
+      padding-left: ${token('space.100', '8px')};
     }
 
     .back-button {

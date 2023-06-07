@@ -1,5 +1,6 @@
 import React from 'react';
 import { FileState } from '@atlaskit/media-client';
+import { token } from '@atlaskit/tokens';
 import * as PDFJSViewer from 'pdfjs-dist/web/pdf_viewer';
 import * as pdfjsLib from 'pdfjs-dist/build/pdf';
 import { css, Global } from '@emotion/react';
@@ -13,11 +14,11 @@ import { MediaViewerError } from '../../errors';
 import { ZoomLevel } from '../../domain/zoomLevel';
 
 export const pdfViewerClassName = 'pdfViewer';
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage-spacing */
 const globalStyles = css`
   .${pdfViewerClassName} {
-    margin-top: 64px;
-    margin-bottom: 64px;
+    margin-top: ${token('space.800', '64px')};
+    margin-bottom: ${token('space.800', '64px')};
     .page {
       margin: 1px auto -8px auto;
       border: 9px solid transparent;

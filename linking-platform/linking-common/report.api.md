@@ -273,6 +273,7 @@ export interface InvokePayload<T> {
 
 // @public (undocumented)
 export interface LinkingPlatformFeatureFlags {
+  // @deprecated
   enableActionableElement?: boolean;
   enableFlexibleBlockCard?: boolean;
   enableImprovedPreviewAction?: boolean;

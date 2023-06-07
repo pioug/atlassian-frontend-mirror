@@ -1,4 +1,4 @@
-/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
+/* eslint-disable @atlaskit/design-system/consistent-css-prop-usage */
 import * as emotion from '@emotion/react';
 
 import { xcss } from '../../xcss';

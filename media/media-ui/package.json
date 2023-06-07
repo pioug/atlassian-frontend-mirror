@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-ui",
-  "version": "23.0.4",
+  "version": "23.0.6",
   "description": "Includes common components and utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -107,7 +107,8 @@
     },
     "@repo/internal": {
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ]
     }
   },

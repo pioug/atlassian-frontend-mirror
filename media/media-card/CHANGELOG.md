@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 76.0.5
+
+### Patch Changes
+
+- [`48e4a655534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48e4a655534) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
+## 76.0.4
+
+### Patch Changes
+
+- [`8b83c75ef6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b83c75ef6d) - MEX-2382 Fixed a bug in media card so that the card preview updates when the provided file identifier is different
+
 ## 76.0.3
 
 ### Patch Changes

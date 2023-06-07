@@ -20,10 +20,11 @@ const SHORT = 60;
 const StyledContainer = styled.div`
   display: flex;
   max-width: 600px;
-  margin: 20px;
+  margin: ${token('space.250', '20px')};
   align-items: center;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const ItemWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
@@ -43,6 +44,7 @@ const ItemWrapper = styled.div`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const OuterBorder = styled.div`
   position: absolute;
   background-color: ${token('color.border', '#ccc')};

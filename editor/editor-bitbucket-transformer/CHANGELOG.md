@@ -1,5 +1,11 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.1.4
+
+### Patch Changes
+
+- [`8f67b856676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f67b856676) - [ED-18156] Remove circular dependency cycles for editor-json-transformer & editor-bitbucket-transformer
+
 ## 8.1.3
 
 ### Patch Changes

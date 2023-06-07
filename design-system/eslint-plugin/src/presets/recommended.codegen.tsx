@@ -1,11 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b3d2f24d8d37a87fc2bbd964dfdcb87c>>
+ * @codegen <<SignedSource::5b7e085532640c14193d07c63e0f5442>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 export default {
   plugins: ['@atlaskit/design-system'],
   rules: {
+    '@atlaskit/design-system/consistent-css-prop-usage': 'error',
     '@atlaskit/design-system/ensure-design-token-usage': 'error',
     '@atlaskit/design-system/icon-label': 'warn',
     '@atlaskit/design-system/no-banned-imports': 'error',

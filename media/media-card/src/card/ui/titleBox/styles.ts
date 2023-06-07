@@ -95,7 +95,7 @@ titleBoxFooterStyles.displayName = 'TitleBoxFooter';
 
 export const titleBoxIconStyles = css`
   position: absolute;
-  right: 4px;
+  right: ${token('space.050', '4px')};
   bottom: 0px;
 `;
 
@@ -106,8 +106,8 @@ export const errorMessageWrapperStyles = css`
   span {
     vertical-align: middle;
     :nth-child(2) {
-      margin-left: 4px;
-      margin-right: 4px;
+      margin-left: ${token('space.050', '4px')};
+      margin-right: ${token('space.050', '4px')};
     }
   }
 `;

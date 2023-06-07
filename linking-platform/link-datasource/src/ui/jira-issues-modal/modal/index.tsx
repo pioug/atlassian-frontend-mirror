@@ -28,6 +28,8 @@ import {
   getAvailableJiraSites,
   Site,
 } from '../../../services/getAvailableJiraSites';
+import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
+import { NoResults } from '../../common/error-state/no-results';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
 import LinkRenderType from '../../issue-like-table/render-type/link';
 import { JiraSearchContainer } from '../jira-search-container';
@@ -49,6 +51,7 @@ const dropdownContainerStyles = css({
 });
 
 const contentContainerStyles = css({
+  display: 'grid',
   height: '420px',
   overflow: 'auto',
 });
@@ -66,6 +69,10 @@ const issueCountStyles = css({
   color: token('color.text.accent.gray', N800),
   flex: 1,
   fontWeight: 600,
+});
+
+const smartLinkContainerStyles = css({
+  paddingLeft: '1px',
 });
 
 export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
@@ -117,6 +124,30 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     fieldKeys: visibleColumnKeys,
   });
 
+  const { formatMessage } = useIntl();
+
+  const selectedJiraSite = useMemo<Site | undefined>(
+    () =>
+      availableSites.find(jiraSite => jiraSite.cloudId === cloudId) ||
+      availableSites[0],
+    [availableSites, cloudId],
+  );
+
+  const resolvedWithNoResults = status === 'resolved' && !responseItems.length;
+  const jqlUrl =
+    selectedJiraSite &&
+    jql &&
+    `${selectedJiraSite.url}/issues/?jql=${encodeURI(jql)}`;
+
+  const isDisabled =
+    !isParametersSet ||
+    status === 'rejected' ||
+    status === 'loading' ||
+    resolvedWithNoResults;
+
+  const shouldShowIssueCount =
+    !!totalCount && totalCount !== 1 && currentViewMode === 'issue';
+
   useEffect(() => {
     const newVisibleColumnKeys =
       !initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
@@ -126,8 +157,6 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     setVisibleColumnKeys(newVisibleColumnKeys);
   }, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
 
-  const { formatMessage } = useIntl();
-
   useEffect(() => {
     const fetchSiteDisplayNames = async () => {
       const jiraSites = await getAvailableJiraSites();
@@ -136,6 +165,12 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
 
     void fetchSiteDisplayNames();
   }, []);
+
+  useEffect(() => {
+    if (!cloudId && selectedJiraSite) {
+      setCloudId(selectedJiraSite.cloudId);
+    }
+  }, [cloudId, selectedJiraSite]);
 
   const onSearch = useCallback(
     (newParameters: JiraIssueDatasourceParametersQuery) => {
@@ -152,19 +187,6 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     },
     [reset],
   );
-
-  const selectedJiraSite = useMemo<Site | undefined>(
-    () =>
-      availableSites.find(jiraSite => jiraSite.cloudId === cloudId) ||
-      availableSites[0],
-    [availableSites, cloudId],
-  );
-
-  useEffect(() => {
-    if (!cloudId && selectedJiraSite) {
-      setCloudId(selectedJiraSite.cloudId);
-    }
-  }, [cloudId, selectedJiraSite]);
 
   const retrieveUrlForSmartCardRender = useCallback(() => {
     const [data] = responseItems;
@@ -183,7 +205,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
       onInsert({
         type: 'inlineCard',
         attrs: {
-          url: `${selectedJiraSite.url}/issues/?jql=${encodeURI(jql)}`,
+          url: jqlUrl,
         },
       } as InlineCardAdf);
     } else if (responseItems.length === 1 && firstIssueUrl) {
@@ -218,6 +240,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
   }, [
     isParametersSet,
     jql,
+    jqlUrl,
     selectedJiraSite,
     retrieveUrlForSmartCardRender,
     currentViewMode,
@@ -262,36 +285,51 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     const url = selectedJiraSite?.url;
     if (status === 'empty' || !jql || !url) {
       return (
-        <span
-          data-testid={`jira-jql-datasource-modal--smart-card-placeholder`}
-          css={placeholderSmartLinkStyles}
-        >
-          <FormattedMessage
-            {...modalMessages.issuesCountSmartCardPlaceholderText}
-          />
-        </span>
+        <div css={smartLinkContainerStyles}>
+          <span
+            data-testid={`jira-jql-datasource-modal--smart-card-placeholder`}
+            css={placeholderSmartLinkStyles}
+          >
+            <FormattedMessage
+              {...modalMessages.issuesCountSmartCardPlaceholderText}
+            />
+          </span>
+        </div>
       );
     } else {
       const urlWithEncodedJql = `${url}/issues/?jql=${encodeURI(jql)}`;
-      return <LinkRenderType url={urlWithEncodedJql} />;
+      return (
+        <div css={smartLinkContainerStyles}>
+          <LinkRenderType url={urlWithEncodedJql} />
+        </div>
+      );
     }
   }, [jql, selectedJiraSite?.url, status]);
 
   const renderIssuesModeContent = useCallback(() => {
-    if (status === 'empty' || columns.length === 0) {
+    if (status === 'empty') {
       return <EmptyState testId={`jira-jql-datasource-modal--empty-state`} />;
+    } else if (resolvedWithNoResults) {
+      return <NoResults />;
+    } else if (status === 'rejected' && jqlUrl) {
+      return <ModalLoadingError url={jqlUrl} />;
     }
 
     const firstIssueUrl = retrieveUrlForSmartCardRender();
     if (responseItems.length === 1 && firstIssueUrl) {
-      return <LinkRenderType url={firstIssueUrl} />;
+      return (
+        <div css={smartLinkContainerStyles}>
+          <LinkRenderType url={firstIssueUrl} />
+        </div>
+      );
     }
 
     return issueLikeDataTableView;
   }, [
-    columns.length,
     issueLikeDataTableView,
+    jqlUrl,
     responseItems.length,
+    resolvedWithNoResults,
     retrieveUrlForSmartCardRender,
     status,
   ]);
@@ -349,7 +387,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
             </div>
           </ModalBody>
           <ModalFooter>
-            {!!totalCount && currentViewMode === 'issue' && (
+            {shouldShowIssueCount && (
               <div
                 data-testid="jira-jql-datasource-modal-total-issues-count"
                 css={issueCountStyles}
@@ -368,7 +406,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
             <Button
               appearance="primary"
               onClick={onInsertPressed}
-              isDisabled={!isParametersSet || status === 'loading'}
+              isDisabled={isDisabled}
               testId={'jira-jql-datasource-modal--insert-button'}
             >
               <FormattedMessage {...modalMessages.insertIssuesButtonText} />

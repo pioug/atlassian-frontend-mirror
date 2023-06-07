@@ -47,9 +47,9 @@ const formHeaderWrapperStyles = css({
   fontFamily: `${fontFamily}`,
 });
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const darkH700Styles = css(h700({ theme: { mode: 'dark' } }));
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const lightH700Styles = css(h700({ theme: { mode: 'light' } }));
 
 const FormHeaderContent = ({ children }: { children: ReactNode }) => {

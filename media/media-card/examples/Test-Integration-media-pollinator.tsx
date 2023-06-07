@@ -20,6 +20,7 @@ const env = sessionStorage.getItem('env') === 'staging' ? 'staging' : 'dev';
 const mediaClientConfig = createUploadMediaClientConfig(undefined, env);
 const mediaClient = new MediaClient(mediaClientConfig);
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const cardWrapperStyles = css`
   border: 1px solid;
   padding: 10px;

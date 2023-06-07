@@ -8,6 +8,7 @@ import {
   imageFileId,
   createStorybookMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
+import { token } from '@atlaskit/tokens';
 import { Card } from '../src';
 import { MainWrapper } from '../example-helpers';
 
@@ -15,13 +16,13 @@ const mediaClientConfig = createStorybookMediaClientConfig();
 
 const wrapperStyles = css`
   max-width: 800px;
-  margin: 20px auto;
+  margin: ${token('space.250', '20px')} auto;
 `;
 
 const cardContainerStyles = css`
   display: inline-block;
-  margin-right: 20px;
-  margin-top: 20px;
+  margin-right: ${token('space.250', '20px')};
+  margin-top: ${token('space.250', '20px')};
 `;
 
 const cardDimensions = [

@@ -12,9 +12,9 @@ import { SpotlightCard } from '../src';
 
 import welcomeImage from './assets/this-is-new-jira.png';
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const lightH400Styles = css(h400({ theme: { mode: 'light' } }));
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const darkH400Styles = css(h400({ theme: { mode: 'dark' } }));
 
 const wrapperStyles = css({

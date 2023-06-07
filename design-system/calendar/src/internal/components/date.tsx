@@ -81,7 +81,7 @@ const Date = memo(
 
     return (
       <button
-        // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
         css={dateCellStyles}
         aria-selected={isSelected ? 'true' : 'false'}
         tabIndex={isSelected ? 0 : -1}

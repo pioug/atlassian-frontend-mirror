@@ -3,7 +3,7 @@ import { N900 } from '@atlaskit/theme/colors';
 import styled from '@emotion/styled';
 
 export const InputWrapper = styled.div`
-  margin: 20px 0;
+  margin: ${token('space.250', '20px')} 0;
 `;
 
 export const PreviewList = styled.ul`
@@ -16,6 +16,7 @@ export const PreviewInfo = styled.pre`
   font-size: 80%;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const PreviewItem = styled.li`
   border-radius: 10px;
   border: 1px solid ${token('color.border', '#ccc')};
@@ -26,6 +27,7 @@ export const PreviewItem = styled.li`
   margin-bottom: 10px;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Code = styled.code`
   padding: 5px;
   border-radius: 5px;
@@ -34,6 +36,7 @@ export const Code = styled.code`
   font-size: 80%;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const CloseButton = styled.button`
   position: absolute;
   top: 5px;
@@ -41,18 +44,19 @@ export const CloseButton = styled.button`
   cursor: pointer;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const PreviewImageContainer = styled.div`
   margin-top: 10px;
   margin-bottom: 10px;
 `;
 
 export const OrientationSelectWrapper = styled.label`
-  margin-bottom: 20px;
+  margin-bottom: ${token('space.250', '20px')};
   display: block;
 `;
 
 export const TimeRangeWrapper = styled.div`
-  margin-top: 40px;
+  margin-top: ${token('space.500', '40px')};
 `;
 
 export const Container = styled.div`
@@ -60,7 +64,8 @@ export const Container = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
 `;
+
 export const Group = styled.div`
   width: 250px;
-  padding: 20px;
+  padding: ${token('space.250', '20px')};
 `;

@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const LocaleSelectorWrapper = styled.div`
   position: fixed;
-  right: 20px;
-  top: 20px;
+  right: ${token('space.250', '20px')};
+  top: ${token('space.250', '20px')};
   width: 200px;
   border: 1px solid ${token('color.border', '#ccc')};
   padding: 10px;

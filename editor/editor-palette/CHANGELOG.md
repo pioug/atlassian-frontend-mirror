@@ -1,5 +1,11 @@
 # @atlaskit/editor-palette
 
+## 1.4.3
+
+### Patch Changes
+
+- [`1add49b7bf7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1add49b7bf7) - Updated the babel config file extension to .cts to enable Parcel to support ts/tsx file extensions by default through parcel.
+
 ## 1.4.2
 
 ### Patch Changes

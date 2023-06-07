@@ -1,6 +1,7 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import styled from '@emotion/styled';
 import { R300 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export interface MutedIndicatorProps {
   isMuted: boolean;
@@ -19,6 +20,7 @@ export const VideoWrapper = styled.div`
   flex-direction: column;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const TimebarWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -33,6 +35,7 @@ type VolumeWrapperProps = {
   showSlider: boolean;
 };
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const VolumeWrapper = styled.div<VolumeWrapperProps>`
   display: flex;
   width: 35px;
@@ -54,11 +57,13 @@ export const VolumeWrapper = styled.div<VolumeWrapperProps>`
       : ''}
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const TimeWrapper = styled.div`
-  margin: 0 20px 10px 20px;
+  margin: 0 ${token('space.250', '20px')} 10px ${token('space.250', '20px')};
   margin-bottom: 44px;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const CurrentTime = styled.div`
   color: #c7d1db;
   user-select: none;
@@ -116,11 +121,13 @@ export const BufferedTime = styled.div`
   width: 0;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const LeftControls = styled.div`
   display: flex;
   margin-left: 10px;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const RightControls = styled.div`
   display: flex;
   align-items: center;
@@ -137,6 +144,7 @@ export const ControlsWrapper = styled.div`
   position: absolute;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const VolumeToggleWrapper = styled.div`
   position: relative;
   margin-right: 13px;
@@ -150,9 +158,10 @@ export const VolumeToggleWrapper = styled.div`
 
 export const VolumeTimeRangeWrapper = styled.div`
   width: 100%;
-  margin-right: 20px;
+  margin-right: ${token('space.250', '20px')};
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const MutedIndicator = styled.div`
   width: 29px;
   height: 2px;
@@ -177,6 +186,7 @@ export interface CurrentTimeTooltipProps {
   isDragging: boolean;
 }
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const CurrentTimeTooltip = styled.div`
   position: absolute;
   user-select: none;

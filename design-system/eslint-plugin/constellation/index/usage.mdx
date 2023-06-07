@@ -13,6 +13,7 @@ This plugin contains rules that should be used when working with the [Atlassian 
 
 | Rule                                                                               | Description                                                                                     | Recommended | Fixable | Suggestions |
 | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------- | ------- | ----------- |
+| <a href="#consistent-css-prop-usage">consistent-css-prop-usage</a>                 | Ensures consistency with CSS and xCSS prop usages                                               | Yes         | Yes     |             |
 | <a href="#ensure-design-token-usage">ensure-design-token-usage</a>                 | Enforces usage of design tokens.                                                                | Yes         | Yes     | Yes         |
 | <a href="#ensure-design-token-usage-spacing">ensure-design-token-usage-spacing</a> | Enforces usage of spacing design tokens rather than hard-coded values.                          |             | Yes     |             |
 | <a href="#icon-label">icon-label</a>                                               | Enforces accessible usage of icon labels when composed with Atlassian Design System components. | Yes         | Yes     |             |
@@ -29,6 +30,100 @@ This plugin contains rules that should be used when working with the [Atlassian 
 
 <!-- START_RULE_CONTENT_CODEGEN -->
 <!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->
+
+## consistent-css-prop-usage
+
+> Ensures consistency with CSS prop usage.
+
+<h3>Rationale</h3>
+
+Every product should be defining styles in the same way, using the same tools, enforced by the same linting rules, which we can then all evolve and scale together.
+
+<h3>How the rule works</h3>
+
+This rule checks for the following cases:
+
+- When styles are defined inline.
+- When styles are not using `css` object api.
+- When styles are coming from outside of the module i.e. using imports.
+- When styles are spread inside another styles and not using array composition.
+
+This rule has no options.
+
+<h3>Examples</h3>
+
+👎 Example of **incorrect** code for this rule:
+
+```js
+function Button({ children }) {
+  return <div css={css({...})}>{children}</div>;
+                   ^^^^^^^ css functional call is used inline
+}
+```
+
+```js
+const container = {
+      ^^^^^^^^^ should be a css function call
+  zIndex: 10,
+};
+
+function Button({ children }) {
+  return <button css={container}>{children}</button>;
+}
+```
+
+```js
+import { container } from './styles';
+         ^^^^^^^^^ styles should be local, not shared
+
+function Button({ children }) {
+  return <button css={container}>{children}</button>;
+}
+```
+
+```js
+const baseContainerStyles = css({
+  zIndex: 5,
+});
+
+const containerStyles = css({
+  ...baseContainerStyles,
+  ^^^^^^^^^^^^^^^^^^^^^^ compose styles with an array to the css call instead
+  zIndex: 7,
+});
+
+function Button({ children }) {
+  return <button css={containerStyles}>{children}</button>;
+}
+```
+
+👍 Example of **correct** code for this rule:
+
+```js
+const containerStyles = css({
+  zIndex: 1,
+});
+
+function Button({ children }) {
+  return <button css={containerStyles}>{children}</button>;
+}
+```
+
+```js
+const baseContainerStyles = css({
+  zIndex: 5,
+});
+
+const containerStyles = css({
+  zIndex: 7,
+});
+
+function Button({ children }) {
+  return (
+    <button css={[baseContainerStyles, containerStyles]}>{children}</button>
+  );
+}
+```
 
 ## ensure-design-token-usage
 

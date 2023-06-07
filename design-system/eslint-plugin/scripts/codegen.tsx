@@ -152,7 +152,7 @@ async function generateRulesPageContent(
 
     if (file.match(/^# /)) {
       throw new Error(
-        `invariant: ${rule.moduleName} doc should not include a heading as it is injected later.`,
+        `invariant: ${rule.moduleName} README doc should not include a h1 heading as it is injected later.`,
       );
     }
 

@@ -23,6 +23,14 @@ const borderRadii = [
   'radius.round',
 ] as const;
 
+const baseBorderStyles = xcss({
+  borderStyle: 'solid',
+});
+const squareStyles = xcss({
+  height: 'size.600',
+  width: 'size.600',
+});
+
 /**
  * Box permutations
  */
@@ -37,12 +45,14 @@ export default () => {
               key={borderWidth}
               backgroundColor="neutral"
               padding="space.400"
-              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-              xcss={xcss({
-                borderStyle: 'solid',
-                borderColor: 'danger',
-                borderWidth,
-              })}
+              xcss={[
+                baseBorderStyles,
+                // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+                xcss({
+                  borderColor: 'danger',
+                  borderWidth,
+                }),
+              ]}
             >
               <Box>{borderWidth}</Box>
             </Box>
@@ -58,7 +68,7 @@ export default () => {
               key={borderStyle}
               backgroundColor="neutral"
               padding="space.400"
-              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+              // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
               xcss={xcss({
                 borderStyle,
               })}
@@ -77,7 +87,7 @@ export default () => {
               key={borderColor}
               backgroundColor="neutral"
               padding="space.400"
-              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+              // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
               xcss={xcss({
                 borderStyle: 'solid',
                 borderColor,
@@ -97,13 +107,14 @@ export default () => {
               key={borderRadius}
               backgroundColor="neutral"
               padding="space.400"
-              // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-              xcss={xcss({
-                borderRadius,
-                borderStyle: 'solid',
-                height: 'size.600',
-                width: 'size.600',
-              })}
+              xcss={[
+                baseBorderStyles,
+                squareStyles,
+                // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+                xcss({
+                  borderRadius,
+                }),
+              ]}
             >
               {borderRadius}
             </Box>

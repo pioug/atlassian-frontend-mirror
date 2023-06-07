@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-table",
-  "version": "15.0.4",
+  "version": "15.0.5",
   "description": "Table UI component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -73,7 +73,8 @@
   "techstack": {
     "@repo/internal": {
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ]
     }
   },

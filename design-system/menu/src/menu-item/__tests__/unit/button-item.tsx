@@ -37,7 +37,7 @@ describe('<ButtonItem />', () => {
     });
 
     const { getByTestId } = render(
-      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       <ButtonItem css={hackStyles} testId="link">
         Hello world
       </ButtonItem>,

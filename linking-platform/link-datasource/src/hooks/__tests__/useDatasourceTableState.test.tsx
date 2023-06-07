@@ -177,6 +177,14 @@ describe('useDatasourceTableState', () => {
       expect(result.current.status).toBe('resolved');
     });
 
+    it('should change status to "rejected" on request error', async () => {
+      asMock(getDatasourceData).mockRejectedValueOnce(new Error('error'));
+      const { result, waitForNextUpdate } = setup();
+      await waitForNextUpdate();
+
+      expect(result.current.status).toBe('rejected');
+    });
+
     it('should populate responseItems with data coming from getDatasourceData', async () => {
       const { result, waitForNextUpdate } = setup();
       await waitForNextUpdate();

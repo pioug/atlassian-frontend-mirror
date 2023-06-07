@@ -3,8 +3,8 @@ import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { subtleHeading } from '@atlaskit/theme/colors';
-import { useGlobalTheme } from '@atlaskit/theme/components';
+import { DN300, N200 } from '@atlaskit/theme/colors';
+import { themed, useGlobalTheme } from '@atlaskit/theme/components';
 import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -33,14 +33,17 @@ const getFieldsetLabelDynamicStyles = (mode: 'dark' | 'light') =>
   css([
     h200({ theme: { mode } }),
     {
-      color: token('color.text.subtle', subtleHeading({ theme: { mode } })),
+      color: themed({
+        dark: token('color.text.subtle', DN300),
+        light: token('color.text.subtle', N200),
+      })({ theme: { mode } }),
     },
   ]);
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const lightH200Styles = getFieldsetLabelDynamicStyles('light');
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const darkH200Styles = getFieldsetLabelDynamicStyles('dark');
 
 /**

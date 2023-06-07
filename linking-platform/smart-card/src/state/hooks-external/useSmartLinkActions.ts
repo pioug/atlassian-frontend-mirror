@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import uuid from 'uuid';
 import type { AnalyticsHandler, AnalyticsOrigin } from '../../utils/types';
 import type { CardInnerAppearance } from '../../view/Card/types';
@@ -9,12 +9,6 @@ import { useSmartCardActions as useLinkActions } from '../actions';
 import { useSmartLinkAnalytics as useLinkAnalytics } from '../analytics';
 import { useSmartCardState as useLinkState } from '../store';
 import { getExtensionKey } from '../helpers';
-import { useFeatureFlag } from '@atlaskit/link-provider';
-import { InvokeHandler } from '../../model/invoke-handler';
-
-type ExperimentInvokeOpts = {
-  isReloadRequired?: boolean;
-};
 
 export interface LinkAction {
   /**
@@ -32,7 +26,7 @@ export interface LinkAction {
    * Promise to invoke on triggering this action.
    * @example Clicking on `Delete` leading to deletion of content.
    */
-  invoke: (opts?: ExperimentInvokeOpts) => Promise<any>;
+  invoke: () => Promise<any>;
 }
 
 export interface UseSmartLinkActionsOpts {
@@ -79,29 +73,6 @@ export function useSmartLinkActions({
   const linkAnalytics = useLinkAnalytics(url, analyticsHandler, id);
   const linkActions = useLinkActions(id, url, linkAnalytics);
 
-  // Start: Smart ink Actions experiment
-  const enableActionableElement = useFeatureFlag('enableActionableElement');
-  const reload = useCallback(() => linkActions.reload(), [linkActions]);
-  const handleInvoke = useCallback(
-    (opts: Parameters<InvokeHandler>[0] & ExperimentInvokeOpts) => {
-      if (
-        enableActionableElement &&
-        opts.type === 'client' &&
-        opts.isReloadRequired &&
-        opts.action?.type === 'PreviewAction'
-      ) {
-        // Reload when embed preview modal close
-        const { promise } = opts.action;
-        opts.action.type = 'StatusAction';
-        opts.action.promise = () => promise({ onClose: reload });
-      }
-
-      return linkActions.invoke(opts, appearance);
-    },
-    [appearance, enableActionableElement, linkActions, reload],
-  );
-  // End: Smart ink Actions experiment
-
   useEffect(() => {
     if (!linkState.details) {
       return;
@@ -111,7 +82,7 @@ export function useSmartLinkActions({
       linkState.details.data as JsonLd.Data.BaseData,
       linkState.details.meta as JsonLd.Meta.BaseMeta,
       {
-        handleInvoke,
+        handleInvoke: (opts) => linkActions.invoke(opts, appearance),
         analytics: linkAnalytics,
         origin,
         extensionKey: getExtensionKey(linkState.details),
@@ -131,15 +102,7 @@ export function useSmartLinkActions({
     }));
 
     setActions(cardActions);
-  }, [
-    linkState,
-    linkActions,
-    linkAnalytics,
-    appearance,
-    platform,
-    origin,
-    handleInvoke,
-  ]);
+  }, [linkState, linkActions, linkAnalytics, appearance, platform, origin]);
 
   return actions;
 }

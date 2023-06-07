@@ -1,5 +1,11 @@
 # @atlaskit/item
 
+## 12.1.3
+
+### Patch Changes
+
+- [`ddb4e858a79`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddb4e858a79) - Removes usage of deprecated theme mixins in favor of static token / color usage.
+
 ## 12.1.2
 
 ### Patch Changes

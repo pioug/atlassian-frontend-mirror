@@ -37,6 +37,7 @@ const statusColorMap: { [key in FileStatus]: string } = {
   'failed-processing': token('color.background.accent.red.subtle', 'indianred'),
 };
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const fileWrapperStyles = (status: FileStatus) => css`
   padding: 5px;
   margin: 10px;
@@ -45,6 +46,7 @@ export const fileWrapperStyles = (status: FileStatus) => css`
   background-color: ${statusColorMap[status]};
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const cardsWrapperStyles = css`
   width: 900px;
   padding: 10px;
@@ -62,12 +64,14 @@ export const cardsWrapperStyles = css`
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const headerStyles = css`
   button {
     margin: 5px;
   }
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const fileStateWrapperStyles = css`
   border: 1px solid ${token('color.border', '#ccc')};
   margin: 10px;
@@ -86,6 +90,7 @@ export const uploadTouchWrapperStyles = css`
   align-content: center;
 `;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const rowStyles = css`
   flex-direction: row;
   justify-content: center;

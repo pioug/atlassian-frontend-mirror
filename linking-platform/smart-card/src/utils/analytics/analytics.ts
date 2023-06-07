@@ -271,20 +271,6 @@ export const trackAppAccountAuthStarted = ({
   },
 });
 
-export const trackLinkUpdated = ({
-  actionSubjectId,
-  ...attributes
-}: CommonEventProps & { [key: string]: any }): AnalyticsPayload => ({
-  action: 'updated',
-  actionSubject: 'link',
-  actionSubjectId,
-  eventType: 'track',
-  attributes: {
-    ...context,
-    ...attributes,
-  },
-});
-
 export const trackSmartLinkQuickActionStarted = ({
   smartLinkActionType,
   ...attributes

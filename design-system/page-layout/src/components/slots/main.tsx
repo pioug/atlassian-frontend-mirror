@@ -19,7 +19,7 @@ import { SidebarResizeContext, useSkipLink } from '../../controllers';
 
 import SlotFocusRing from './internal/slot-focus-ring';
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 const mainStyles = css({

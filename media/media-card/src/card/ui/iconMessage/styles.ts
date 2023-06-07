@@ -19,7 +19,8 @@ const animatedStyles = css`
 const getStylesBasedOnProps = ({
   animated,
   reducedFont,
-}: StyledTextProps) => css`
+}: // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+StyledTextProps) => css`
   overflow: hidden;
   opacity: 1;
   font-weight: 450;

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { token } from '@atlaskit/tokens';
 
 // TODO: remove this override behaviour for @atlaskit/icon-object
 export const IconObjectOverrides = `
@@ -49,7 +50,7 @@ export const IconWrapper = styled.span`
 // Wraps all emoji in Inline Links similar to icon
 export const EmojiWrapper = styled.span`
   display: inline-block;
-  margin-right: 2px;
+  margin-right: ${token('space.025', '2px')};
   user-select: none;
   ${IconOverrides}
   ${IconObjectOverrides}
@@ -68,21 +69,21 @@ export const LozengeWrapper = styled.span`
   display: inline-block;
   vertical-align: 1px;
   & > span {
-    margin-left: 4px;
-    padding: 2px 0 2px 0;
+    margin-left: ${token('space.050', '4px')};
+    padding: ${token('space.025', '2px')} 0 ${token('space.025', '2px')} 0;
   }
 `;
 // TODO: Replace overrides with proper AtlasKit solution.
 export const LozengeBlockWrapper = styled.span`
   & > span {
-    margin-left: 4px;
-    padding: 2px 0 2px 0;
+    margin-left: ${token('space.050', '4px')};
+    padding: ${token('space.025', '2px')} 0 ${token('space.025', '2px')} 0;
   }
 `;
 
 export const RightIconPositionWrapper = styled.span`
-  margin-left: 2px;
-  margin-right: 4px;
+  margin-left: ${token('space.025', '2px')};
+  margin-right: ${token('space.050', '4px')};
   position: relative;
   display: inline-block;
 `;
@@ -91,7 +92,7 @@ export const RightIconPositionWrapper = styled.span`
 // - IconPositionWrapper: the `relative` parent which has no height in itself.
 // - IconEmptyWrapper: the child which forces `IconPositionWrapper` to have a height.
 export const IconPositionWrapper = styled.span`
-  margin-right: 4px;
+  margin-right: ${token('space.050', '4px')};
   position: relative;
   display: inline-block;
 `;
@@ -101,9 +102,4 @@ export const IconEmptyWrapper = styled.span`
   height: 100%;
   display: inline-block;
   opacity: 0;
-`;
-export const TitleWrapper = styled.span`
-  ::selection {
-    background: none;
-  }
 `;

@@ -18,7 +18,7 @@ exports[`FilmstripView .render() styles 1`] = `
 .emotion-4 {
   width: inherit;
   overflow: hidden;
-  padding: 2px 0;
+  padding: var(--ds-space-025, 2px) 0;
 }
 
 .emotion-3 {
@@ -33,7 +33,7 @@ exports[`FilmstripView .render() styles 1`] = `
 .emotion-0 {
   list-style-type: none;
   margin: 0;
-  padding: 0 4px;
+  padding: 0 var(--ds-space-050, 4px);
   display: inline-block;
   vertical-align: middle;
   font-size: 0;
@@ -74,7 +74,7 @@ exports[`FilmstripView .render() styles 1`] = `
   -webkit-justify-content: center;
   justify-content: center;
   opacity: 0;
-  right: 8px;
+  right: var(--ds-space-100, 8px);
 }
 
 .emotion-6:hover {

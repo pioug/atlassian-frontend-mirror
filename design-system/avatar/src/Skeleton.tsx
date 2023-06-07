@@ -1,10 +1,15 @@
 /** @jsx jsx */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import { FC } from 'react';
+import { CSSProperties, FC } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
-import { AVATAR_RADIUS, AVATAR_SIZES, BORDER_WIDTH } from './constants';
+import {
+  AVATAR_RADIUS,
+  AVATAR_SIZES,
+  BORDER_WIDTH,
+  CSS_VAR_AVATAR_BGCOLOR,
+} from './constants';
 import { AppearanceType, SizeType } from './types';
 
 export interface SkeletonProps {
@@ -18,23 +23,47 @@ export interface SkeletonProps {
   weight?: 'normal' | 'strong';
 }
 
-const getStyles = ({
-  size = 'medium',
-  appearance = 'circle',
-  color = 'currentColor',
-  weight = 'normal',
-}: SkeletonProps): SerializedStyles =>
-  css({
-    display: 'inline-block',
-    width: `${AVATAR_SIZES[size]}px`,
-    height: `${AVATAR_SIZES[size]}px`,
-    backgroundColor: color,
-    border: `${BORDER_WIDTH}px solid transparent`,
-    borderRadius: `${
-      appearance === 'square' ? `${AVATAR_RADIUS[size]}px` : '50%'
-    }`,
-    opacity: `${weight === 'strong' ? 0.3 : 0.15}`,
-  });
+const skeletonStyles = css({
+  display: 'inline-block',
+  backgroundColor: `var(${CSS_VAR_AVATAR_BGCOLOR})`,
+  border: `${BORDER_WIDTH}px solid transparent`,
+});
+
+const sizeStyles = Object.entries(AVATAR_SIZES).reduce(
+  (styles, [key, size]) => {
+    return {
+      ...styles,
+      [key]: css({
+        width: `${size}px`,
+        height: `${size}px`,
+      }),
+    };
+  },
+  {} as Record<SizeType, SerializedStyles>,
+);
+
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+const radiusStyles = Object.entries(AVATAR_RADIUS).reduce(
+  (styles, [key, size]) => {
+    return {
+      ...styles,
+      [key]: css({
+        borderRadius: `${size}px`,
+      }),
+    };
+  },
+  {} as Record<SizeType, SerializedStyles>,
+);
+const defaultRadiusStyles = css({
+  borderRadius: '50%',
+});
+
+const strongOpacityStyles = css({
+  opacity: 0.3,
+});
+const defaultOpacityStyles = css({
+  opacity: 0.15,
+});
 
 /**
  * __Skeleton__
@@ -51,14 +80,19 @@ const Skeleton: FC<SkeletonProps> = ({
   weight,
 }: SkeletonProps) => (
   <div
-    // TODO: Refactor styles to follow css prop rules
-    // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
-    css={getStyles({
-      size,
-      appearance,
-      color,
-      weight,
-    })}
+    css={[
+      skeletonStyles,
+      sizeStyles[size ?? 'medium'],
+      appearance === 'square'
+        ? radiusStyles[size ?? 'medium']
+        : defaultRadiusStyles,
+      weight === 'strong' ? strongOpacityStyles : defaultOpacityStyles,
+    ]}
+    style={
+      {
+        [CSS_VAR_AVATAR_BGCOLOR]: color ?? 'currentColor',
+      } as CSSProperties
+    }
   />
 );
 

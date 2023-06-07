@@ -28,7 +28,7 @@ const shimmer = skeletonShimmer();
 const shimmerKeyframes = keyframes(shimmer.keyframes);
 
 const skeletonStyles = css({
-  // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+  // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
   ...shimmer.css,
 });
 
@@ -60,7 +60,7 @@ const Skeleton = ({
       css={[
         skeletonStyles,
         isShimmering && activeShimmerStyles,
-        // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
         { width, height, borderRadius },
       ]}
       {...(groupDataAttribute && { [groupDataAttribute]: 'true' })}

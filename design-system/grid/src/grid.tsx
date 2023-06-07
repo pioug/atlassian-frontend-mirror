@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/react/consistent-css-prop-usage */
 /** @jsx jsx */
 import { createContext, FC, useContext } from 'react';
 
@@ -72,8 +71,10 @@ export const Grid: FC<GridProps> = ({
       data-testid={testId}
       css={[
         baseStyles,
+        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
         gapMediaQueries,
         !isWithinContainer && maxWidth && gridMaxWidthMap[maxWidth],
+        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
         !isWithinContainer && showInlinePadding && inlinePaddingMediaQueries,
       ]}
     >

@@ -17,9 +17,9 @@ type ModalActionContainerProps = {
 
 const borderRadius = getBorderRadius();
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const darkH600Styles = css(h600({ theme: { mode: 'dark' } }));
 
 const modalBodyStyles = css({
@@ -27,7 +27,6 @@ const modalBodyStyles = css({
   textAlign: 'center',
 });
 
-// eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
 const modalHeadingStyles = css({
   marginBottom: token('space.100', '8px'),
   color: 'inherit',

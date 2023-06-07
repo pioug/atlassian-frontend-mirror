@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 12.2.3
+
+### Patch Changes
+
+- [`db4b539c969`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db4b539c969) - update internationalization formatting
+
 ## 12.2.2
 
 ### Patch Changes

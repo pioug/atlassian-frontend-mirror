@@ -85,6 +85,9 @@ export const logException = async (
           .FRONTEND_VERSION,
         ...tags,
       });
+      // Explicitly remove the breadcrumbs as it's too likely to log UGC/PII to side-step the hub integrations not being respected
+      scope.clearBreadcrumbs();
+
       hub.captureException(error);
     });
 

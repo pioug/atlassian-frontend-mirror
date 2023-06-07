@@ -1,3 +1,5 @@
+import { themed } from '@atlaskit/theme/components';
+import { token } from '@atlaskit/tokens';
 import {
   gridSize as akGridSize,
   borderRadius,
@@ -48,23 +50,44 @@ export const defaultTheme = {
     },
   },
   default: {
-    background: colors.background,
-    text: colors.text,
+    background: themed({
+      light: token('elevation.surface', colors.N0),
+      dark: token('elevation.surface', colors.DN30),
+    }),
+    text: themed({
+      light: token('color.text', colors.N900),
+      dark: token('color.text', colors.DN600),
+    }),
     secondaryText: colors.N200,
   },
   selected: {
-    background: colors.backgroundActive,
+    background: themed({
+      light: token('color.background.selected', colors.B50),
+      dark: token('color.background.selected', colors.B75),
+    }),
     text: colors.N500,
     secondaryText: colors.N200,
   },
   active: {
-    background: colors.backgroundActive,
-    text: colors.textActive,
+    background: themed({
+      light: token('color.background.selected', colors.B50),
+      dark: token('color.background.selected', colors.B75),
+    }),
+    text: themed({
+      light: token('color.text.selected', colors.B400),
+      dark: token('color.text.selected', colors.B400),
+    }),
     secondaryText: colors.N200,
   },
   hover: {
-    background: colors.backgroundHover,
-    text: colors.textHover,
+    background: themed({
+      light: token('color.background.neutral.hovered', colors.N30),
+      dark: token('color.background.neutral.hovered', colors.DN70),
+    }),
+    text: themed({
+      light: token('color.text', colors.N800),
+      dark: token('color.text', colors.DN600),
+    }),
     secondaryText: colors.N200,
   },
   disabled: {

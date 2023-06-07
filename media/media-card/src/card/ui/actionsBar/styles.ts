@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 
 import { transition } from '../styles';
@@ -10,8 +11,8 @@ export const wrapperStyles = (isFixed?: boolean) => css`
   ${isFixed ? fixedActionBarStyles : 'opacity: 0;'}
   ${transition()}
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: ${token('space.100', '8px')};
+  right: ${token('space.100', '8px')};
   display: flex;
   flex-flow: row nowrap;
   align-items: center;

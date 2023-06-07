@@ -16,6 +16,7 @@ export const getSelectedStyles = (selected?: boolean) =>
       color: ${token('color.icon.inverse', 'white')};`
     : ``;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const wrapperStyles = (selected?: boolean) => css`
   ${transition()}
   font-size: 14px;

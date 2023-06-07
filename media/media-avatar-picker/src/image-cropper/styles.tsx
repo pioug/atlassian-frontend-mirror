@@ -37,6 +37,7 @@ export const imageContainerStyles = css`
 
 export const CONTAINER_PADDING = 28;
 
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const maskStyles = css`
   position: absolute;
   top: ${CONTAINER_PADDING}px;
@@ -67,8 +68,8 @@ export const dragOverlayStyles = css`
 
 export const removeImageContainerStyles = css`
   position: absolute;
-  right: 4px;
-  top: 4px;
+  right: ${token('space.050', '4px')};
+  top: ${token('space.050', '4px')};
 `;
 
 export const removeImageButtonStyles = css`
@@ -82,8 +83,8 @@ export const removeImageButtonStyles = css`
 
   svg {
     position: absolute;
-    top: 4px;
-    left: 4px;
+    top: ${token('space.050', '4px')};
+    left: ${token('space.050', '4px')};
   }
 
   &:hover {

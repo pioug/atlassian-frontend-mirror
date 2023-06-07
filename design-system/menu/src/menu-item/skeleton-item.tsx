@@ -139,7 +139,7 @@ const SkeletonItem = ({
             hasAvatar && avatarStyles,
             hasIcon && iconStyles,
             width ? customWidthStyles : defaultWidthStyles,
-            // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+            // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
             css(cssFn()),
           ]}
           data-testid={testId}

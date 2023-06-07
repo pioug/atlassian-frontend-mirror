@@ -6,7 +6,6 @@ import {
   IconPositionWrapper,
   IconTitleWrapper,
   IconWrapper,
-  TitleWrapper,
   EmojiWrapper,
 } from './styled';
 import LinkIcon from '@atlaskit/icon/glyph/link';
@@ -110,7 +109,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
               </>
             )}
           </IconPositionWrapper>
-          <TitleWrapper>{title}</TitleWrapper>
+          <span data-test-id="title">{title}</span>
         </IconTitleWrapper>
       </>
     );

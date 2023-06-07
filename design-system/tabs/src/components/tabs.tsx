@@ -146,7 +146,7 @@ const Tabs = (props: TabsProps) => {
         flexBasis: '100%',
         flexGrow: 1,
       }}
-      // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage
+      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       css={tabsStyles}
     >
       <TabListContext.Provider

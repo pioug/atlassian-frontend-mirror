@@ -22,7 +22,7 @@ const Content = ({ cssFn, ...props }: ContentProps) => (
    * a complete override with no chance of partially changing styles.
    */
 
-  // eslint-disable-next-line @repo/internal/react/consistent-css-prop-usage, @repo/internal/react/no-unsafe-spread-props
+  // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @repo/internal/react/no-unsafe-spread-props
   <div css={css(cssFn(defaultStyles))} {...props} />
 );
 

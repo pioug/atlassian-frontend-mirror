@@ -1,15 +1,29 @@
 /** @jsx jsx */
 import { memo } from 'react';
 
-import { jsx } from '@emotion/react';
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import { css, jsx } from '@emotion/react';
 import FocusRing from '@atlaskit/focus-ring';
 import ChevronDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-down';
 import ChevronUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-up';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
+import { token } from '@atlaskit/tokens';
 
 import { flagTextColorToken } from '../theme';
 import { AppearanceTypes } from '../types';
+
+const buttonStyles = css({
+  display: 'flex',
+  width: '24px',
+  height: '24px',
+  padding: token('space.0', '0px'),
+  alignItems: 'center',
+  justifyContent: 'center',
+  flex: '0 0 auto',
+  background: 'none',
+  borderStyle: 'none',
+  cursor: 'pointer',
+  whiteSpace: 'nowrap',
+});
 
 interface DismissButtonProps {
   appearance: AppearanceTypes;
@@ -41,32 +55,19 @@ const DismissButton = ({
 
   return (
     <FocusRing>
-      <Box
-        as="button"
+      <button
         type="button"
-        justifyContent="center"
-        alignItems="center"
-        borderStyle="none"
-        borderRadius="normal"
-        padding="space.0"
-        width="size.200"
-        height="size.200"
+        css={buttonStyles}
         onClick={onClick}
         aria-expanded={isBold ? isExpanded : undefined}
-        UNSAFE_style={{
-          flex: '0 0 auto',
-          background: 'none',
-          cursor: 'pointer',
-          whiteSpace: 'nowrap',
-        }}
-        testId={buttonTestId}
+        data-testid={buttonTestId}
       >
         <ButtonIcon
           label={buttonLabel}
           size={size}
           primaryColor={flagTextColorToken[appearance]}
         />
-      </Box>
+      </button>
     </FocusRing>
   );
 };

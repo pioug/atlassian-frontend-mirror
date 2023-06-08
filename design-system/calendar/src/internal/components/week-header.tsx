@@ -3,11 +3,9 @@ import { memo } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Box from '@atlaskit/ds-explorations/box';
 import Text from '@atlaskit/ds-explorations/text';
-import { N200 } from '@atlaskit/theme/colors';
+import { Box, xcss } from '@atlaskit/primitives';
 import type { ThemeModes } from '@atlaskit/theme/types';
-import { token } from '@atlaskit/tokens';
 
 import WeekDayGrid from './week-day-grid';
 
@@ -16,6 +14,14 @@ interface WeekHeaderProps {
   mode?: ThemeModes;
   testId?: string;
 }
+
+const columnHeaderStyles = xcss({
+  minWidth: 'size.400', // Account for languages with short week day names
+  whiteSpace: 'nowrap', // Account for languages with long week day names
+  textAlign: 'center',
+  lineHeight: '16px',
+  color: 'subtle', // Apply correct fallback to shortDay text
+});
 
 const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({
   daysShort,
@@ -26,14 +32,7 @@ const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({
       {daysShort.map((shortDay) => (
         <Box
           padding="space.100"
-          display="block"
-          UNSAFE_style={{
-            minWidth: 40, // Account for languages with short week day names
-            whiteSpace: 'nowrap', // Account for languages with long week day names
-            textAlign: 'center',
-            lineHeight: '16px',
-            color: token('color.text.subtle', N200), // Apply correct fallback to shortDay text
-          }}
+          xcss={columnHeaderStyles}
           key={shortDay}
           role="columnheader"
         >

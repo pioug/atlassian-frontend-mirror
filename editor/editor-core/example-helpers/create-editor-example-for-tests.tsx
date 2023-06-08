@@ -27,6 +27,7 @@ import {
 } from '@atlaskit/editor-test-helpers/example-inline-comment-component';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 import { TestExtensionProviders } from '@atlaskit/editor-test-helpers/vr-utils';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 import {
   JSONTransformer,
@@ -73,7 +74,14 @@ function createEditorWindowBindings<T extends EditorProps>(
     props: T,
     opts: MountEditorOptions,
     MaybeWrapper?: EditorExampleComponent<T>,
-  ) => void = (props, options = {}, MaybeWrapper) => {
+    platformFeatureFlags?: Record<string, boolean>,
+  ) => void = (props, options = {}, MaybeWrapper, platformFeatureFlags) => {
+    if (platformFeatureFlags) {
+      setBooleanFeatureFlagResolver((ffName) => {
+        return platformFeatureFlags[ffName] ?? false;
+      });
+    }
+
     const target = document.getElementById('editor-container');
 
     if (!target) {

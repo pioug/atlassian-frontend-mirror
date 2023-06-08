@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Stack } from '@atlaskit/primitives';
 
 import Heading from '../src';
 

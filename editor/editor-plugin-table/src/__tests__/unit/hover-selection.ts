@@ -34,6 +34,7 @@ import { PluginKey } from 'prosemirror-state';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 describe('table hover selection plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -41,6 +42,7 @@ describe('table hover selection plugin', () => {
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, {}])
     .add(contentInsertionPlugin)
+    .add(widthPlugin)
     .add(tablePlugin);
 
   const editor = (doc: DocBuilder) =>

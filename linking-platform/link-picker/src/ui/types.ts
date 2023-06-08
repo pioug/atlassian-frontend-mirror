@@ -29,12 +29,6 @@ export interface LinkSearchListItemData {
   };
 }
 
-export type ListItemTimeStamp = {
-  pageAction: string;
-  dateString: string;
-  timeSince?: string | undefined;
-};
-
 export interface LinkPickerState {
   /** Current query string / URL input field value */
   query: string;
@@ -54,6 +48,8 @@ export interface LinkPickerPlugin {
   tabTitle?: string;
   /** Render function to customise the UI that is displayed when an error occurs resolving results */
   errorFallback?: LinkPickerPluginErrorFallback;
+  /** Render function to customise the UI that is displayed when there are no results, but an empty form (no search term) */
+  emptyStateNoResults?: LinkPickerPluginEmptyStateNoResults;
   /** Metadata about the plugin */
   meta?: {
     /** The data source that provides all results provided by the plugin */
@@ -74,3 +70,5 @@ export type LinkPickerPluginErrorFallback = (
   error: unknown,
   retry: () => void,
 ) => ReactNode;
+
+export type LinkPickerPluginEmptyStateNoResults = () => ReactNode;

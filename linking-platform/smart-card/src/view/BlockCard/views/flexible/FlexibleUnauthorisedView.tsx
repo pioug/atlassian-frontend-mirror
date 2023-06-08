@@ -29,6 +29,7 @@ const contentStyles = css`
  * @see FlexibleCardProps
  */
 const FlexibleUnauthorisedView = ({
+  anchorTarget,
   analytics,
   cardState,
   extensionKey = '',
@@ -68,7 +69,7 @@ const FlexibleUnauthorisedView = ({
       ui={ui}
       url={url}
     >
-      <TitleBlock hideRetry={true} />
+      <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
       <CustomBlock overrideCss={contentStyles} testId={`${testId}-content`}>
         <div>
           <UnauthorisedViewContent

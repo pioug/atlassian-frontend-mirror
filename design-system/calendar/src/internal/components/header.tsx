@@ -4,11 +4,10 @@ import { memo } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
-import Box from '@atlaskit/ds-explorations/box';
 import Heading from '@atlaskit/heading';
 import ArrowleftIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import ArrowrightIcon from '@atlaskit/icon/glyph/chevron-right-large';
-import Inline from '@atlaskit/primitives/inline';
+import { Box, Inline } from '@atlaskit/primitives';
 import { N700 } from '@atlaskit/theme/colors';
 import { ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
@@ -34,7 +33,7 @@ const Header = memo<HeaderProps>(function Header({
   testId,
 }) {
   return (
-    <Box display="block" paddingInline="space.100" aria-hidden="true">
+    <Box paddingInline="space.100" aria-hidden="true">
       <Inline space="space.0" alignBlock="center" spread="space-between">
         <Button
           appearance="subtle"

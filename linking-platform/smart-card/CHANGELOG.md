@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.5.6
+
+### Patch Changes
+
+- [`625aad4d6f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/625aad4d6f8) - [ux] Change block card link clicks to open in the same tab by default unless overriden with onclick behaviour.
+
 ## 26.5.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.3.0
+
+### Minor Changes
+
+- [`ea29cc6a723`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ea29cc6a723) - [ux] Add new themeState prop to EP components to enable theming
+
 ## 2.2.3
 
 ### Patch Changes

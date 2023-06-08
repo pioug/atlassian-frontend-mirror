@@ -225,7 +225,6 @@ function LinkPicker({
     tabs,
     error,
     retry,
-    errorFallback,
     pluginAction,
   } = usePlugins(queryState, activeTab, plugins);
 
@@ -562,9 +561,13 @@ function LinkPicker({
                 onChange={handleSearchListOnChange}
                 onKeyDown={handleKeyDown}
                 hasSearchTerm={!!queryState?.query.length}
+                activePlugin={activePlugin}
               />
             )}
-            {error && (errorFallback?.(error, retry) ?? <LinkSearchError />)}
+            {error &&
+              (activePlugin?.errorFallback?.(error, retry) ?? (
+                <LinkSearchError />
+              ))}
           </div>
         </Fragment>
       )}

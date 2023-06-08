@@ -22,7 +22,7 @@ import { default as React_2 } from 'react';
 // @public (undocumented)
 export type Appearance = 'none' | 'standard' | 'subtle';
 
-// @public (undocumented)
+// @public
 const _default: React_2.NamedExoticComponent<
   TextFieldProps & React_2.RefAttributes<unknown>
 >;

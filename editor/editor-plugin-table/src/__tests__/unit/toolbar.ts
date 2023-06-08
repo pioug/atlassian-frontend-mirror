@@ -34,6 +34,7 @@ import { getNewResizeStateFromSelectedColumns } from '../../plugins/table/pm-plu
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 jest.mock('@atlaskit/editor-tables/utils');
 jest.mock('../../plugins/table/transforms');
@@ -158,6 +159,7 @@ describe('getToolbarCellOptionsConfig', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
+      .add(widthPlugin)
       .add([
         tablePlugin,
         {

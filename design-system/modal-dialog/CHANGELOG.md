@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.6.1
+
+### Patch Changes
+
+- [`b6b02e57520`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6b02e57520) - Restore support for foreground modal
+
 ## 12.6.0
 
 ### Minor Changes

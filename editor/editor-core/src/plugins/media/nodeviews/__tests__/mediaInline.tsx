@@ -18,7 +18,7 @@ import { MediaPluginState } from '../../pm-plugins/types';
 import { FileIdentifier } from '@atlaskit/media-client';
 import React from 'react';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { MediaNodeUpdater } from '../mediaNodeUpdater';
 import { MediaInlineCard } from '@atlaskit/media-card';
 

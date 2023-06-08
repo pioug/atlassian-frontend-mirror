@@ -59,15 +59,15 @@ describe('<LinkSearchListItem />', () => {
     );
 
     expect(subtitle.textContent).toMatch(
-      /^Jira\s\s\•\s\sViewed December 01, 2018$/,
+      /^Jira\s\s\•\s\sViewed December 1, 2018$/,
     );
   });
 
-  it('should fallback to use `lastUpdatedDate` if present and `lastViewedDate` is missing', async () => {
+  it('should render relative `lastViewedDate` in seconds ago', async () => {
     const item = {
       ...defaultItem,
-      lastViewedDate: undefined,
-      lastUpdatedDate: new Date('2019-12-25T01:00+0000'),
+      lastViewedDate: new Date('2020-01-01T00:59:46+0000'),
+      lastUpdatedDate: undefined,
     };
 
     render(<LinkSearchListItem {...defaultProps} item={item} />);
@@ -76,7 +76,123 @@ describe('<LinkSearchListItem />', () => {
       'link-search-list-item-subtitle',
     );
 
-    expect(subtitle.textContent).toMatch(/^Jira\s\s\•\s\sUpdated 7 days ago$/);
+    expect(subtitle.textContent).toMatch(
+      /^Jira\s\s\•\s\sViewed 14 seconds ago$/,
+    );
+  });
+
+  it('should render relative `lastViewedDate` 1 minute ago', async () => {
+    const item = {
+      ...defaultItem,
+      lastViewedDate: new Date('2020-01-01T00:59+0000'),
+      lastUpdatedDate: undefined,
+    };
+
+    render(<LinkSearchListItem {...defaultProps} item={item} />);
+
+    const subtitle = await screen.findByTestId(
+      'link-search-list-item-subtitle',
+    );
+
+    expect(subtitle.textContent).toMatch(/^Jira\s\s\•\s\sViewed 1 minute ago$/);
+  });
+
+  it('should render relative `lastViewedDate` in minutes under 59 minutes', async () => {
+    const item = {
+      ...defaultItem,
+      lastViewedDate: new Date('2020-01-01T00:45+0000'),
+      lastUpdatedDate: undefined,
+    };
+
+    render(<LinkSearchListItem {...defaultProps} item={item} />);
+
+    const subtitle = await screen.findByTestId(
+      'link-search-list-item-subtitle',
+    );
+
+    expect(subtitle.textContent).toMatch(
+      /^Jira\s\s\•\s\sViewed 15 minutes ago$/,
+    );
+  });
+
+  it('should render relative `lastViewedDate` in hours under 24', async () => {
+    const item = {
+      ...defaultItem,
+      lastViewedDate: new Date('2019-12-31T20:00+0000'),
+      lastUpdatedDate: undefined,
+    };
+
+    render(<LinkSearchListItem {...defaultProps} item={item} />);
+
+    const subtitle = await screen.findByTestId(
+      'link-search-list-item-subtitle',
+    );
+
+    expect(subtitle.textContent).toMatch(/^Jira\s\s\•\s\sViewed 5 hours ago$/);
+  });
+
+  it('should render relative `lastViewedDate` as yesterday with timestamp if 1 day ago', async () => {
+    const item = {
+      ...defaultItem,
+      lastViewedDate: new Date('2019-12-31T01:00+0000'),
+      lastUpdatedDate: undefined,
+    };
+
+    render(<LinkSearchListItem {...defaultProps} item={item} />);
+
+    const subtitle = await screen.findByTestId(
+      'link-search-list-item-subtitle',
+    );
+
+    expect(subtitle.textContent).toMatch(/^Jira\s\s\•\s\sViewed yesterday$/);
+  });
+
+  it('should render relative `lastViewedDate` as days if under a week', async () => {
+    const item = {
+      ...defaultItem,
+      lastViewedDate: new Date('2019-12-27T01:00+0000'),
+      lastUpdatedDate: undefined,
+    };
+
+    render(<LinkSearchListItem {...defaultProps} item={item} />);
+
+    const subtitle = await screen.findByTestId(
+      'link-search-list-item-subtitle',
+    );
+
+    expect(subtitle.textContent).toMatch(/^Jira\s\s\•\s\sViewed 5 days ago$/);
+  });
+
+  it('should render relative `lastViewedDate` as last week if exactly a week', async () => {
+    const item = {
+      ...defaultItem,
+      lastViewedDate: new Date('2019-12-25T01:00+0000'),
+      lastUpdatedDate: undefined,
+    };
+
+    render(<LinkSearchListItem {...defaultProps} item={item} />);
+
+    const subtitle = await screen.findByTestId(
+      'link-search-list-item-subtitle',
+    );
+
+    expect(subtitle.textContent).toMatch(/^Jira\s\s\•\s\sViewed 1 week ago$/);
+  });
+
+  it('should fallback to use `lastUpdatedDate` if present and `lastViewedDate` is missing', async () => {
+    const item = {
+      ...defaultItem,
+      lastViewedDate: undefined,
+      lastUpdatedDate: new Date('2019-12-26T01:00+0000'),
+    };
+
+    render(<LinkSearchListItem {...defaultProps} item={item} />);
+
+    const subtitle = await screen.findByTestId(
+      'link-search-list-item-subtitle',
+    );
+
+    expect(subtitle.textContent).toMatch(/^Jira\s\s\•\s\sUpdated 6 days ago$/);
   });
 
   it('should handle missing `container`', async () => {

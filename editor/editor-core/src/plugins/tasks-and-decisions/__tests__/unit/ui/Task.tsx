@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 import { ResourcedTaskItem, TaskItem } from '@atlaskit/task-decision';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 

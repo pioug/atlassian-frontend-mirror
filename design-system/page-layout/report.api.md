@@ -116,7 +116,6 @@ export const PageLayout: ({
 
 // @public (undocumented)
 interface PageLayoutProps extends SidebarResizeControllerProps {
-  children: ReactNode;
   // (undocumented)
   skipLinksLabel?: string;
   testId?: string;
@@ -143,6 +142,7 @@ export const RightSidebar: (props: SlotWidthProps) => jsx.JSX.Element;
 
 // @public (undocumented)
 type SidebarResizeControllerProps = {
+  children: ReactNode;
   onLeftSidebarExpand?: (leftSidebarState: LeftSidebarState) => void;
   onLeftSidebarCollapse?: (leftSidebarState: LeftSidebarState) => void;
 };
@@ -198,11 +198,8 @@ export const usePageLayoutResize: () => {
   isLeftSidebarCollapsed: boolean;
   expandLeftSidebar: () => void;
   collapseLeftSidebar: (
-    event?:
-      | KeyboardEvent_2<Element>
-      | MouseEvent_2<Element, globalThis.MouseEvent>
-      | undefined,
-    collapseWithoutTransition?: boolean | undefined,
+    event?: KeyboardEvent_2 | MouseEvent_2,
+    collapseWithoutTransition?: boolean,
   ) => void;
   leftSidebarState: LeftSidebarState;
 };

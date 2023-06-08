@@ -7,12 +7,13 @@ import {
   useRef,
 } from 'react';
 import { jsx } from '@emotion/react';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import Spinner from '@atlaskit/spinner';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { LinkSearchListItemData } from '../../types';
+import { LinkPickerPlugin, LinkSearchListItemData } from '../../types';
 import LinkSearchListItem from '../list-item';
 
 import {
@@ -27,6 +28,7 @@ import LinkSearchNoResults, {
 } from './link-search-no-results';
 import { useTrackResultsShown } from './use-track-results-shown';
 import { handleNavKeyDown } from '../utils';
+import { emptyStateNoResultsWrapper } from './link-search-no-results/styled';
 
 export const messages = defineMessages({
   titleRecentlyViewed: {
@@ -75,6 +77,7 @@ export interface LinkSearchListProps
   role?: string;
   id?: string;
   hasSearchTerm?: boolean;
+  activePlugin?: LinkPickerPlugin;
 }
 
 const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
@@ -92,6 +95,7 @@ const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
       role,
       id,
       hasSearchTerm,
+      activePlugin,
       ...restProps
     },
     ref,
@@ -165,7 +169,23 @@ const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
     );
 
     if (items?.length === 0) {
-      return <LinkSearchNoResults />;
+      if (
+        getBooleanFF('platform.linking-platform.link-picker.enable-empty-state')
+      ) {
+        if (hasSearchTerm) {
+          return <LinkSearchNoResults />;
+        } else {
+          return (
+            <div css={emptyStateNoResultsWrapper}>
+              {activePlugin?.emptyStateNoResults
+                ? activePlugin.emptyStateNoResults()
+                : null}
+            </div>
+          );
+        }
+      } else {
+        return <LinkSearchNoResults />;
+      }
     }
 
     if (items && items.length > 0) {

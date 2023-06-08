@@ -5,10 +5,8 @@ import { forwardRef, Fragment, useCallback } from 'react';
 import { jsx } from '@emotion/react';
 
 import { easeInOut, smallDurationMs } from '@atlaskit/motion';
-// eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { visuallyHidden } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 export type RatingRender = (props: { isChecked: boolean }) => React.ReactNode;
 
@@ -114,7 +112,7 @@ const Rating = forwardRef<HTMLLabelElement, InternalRatingProps>(
           >
             {/* When tooltip doesn't render markup move it above <label /> */}
             <div>
-              <span css={visuallyHidden}>{label}</span>
+              <VisuallyHidden>{label}</VisuallyHidden>
               {/* We render two slots for the two states of the radio button so we don't need to use react state. */}
               <span
                 aria-hidden="true"
@@ -135,16 +133,19 @@ const Rating = forwardRef<HTMLLabelElement, InternalRatingProps>(
         </label>
 
         {/* When tooltip doesn't render markup add another to the input so when it gains focus the tooltip is displayed */}
-        <input
-          id={id}
-          css={visuallyHidden}
-          onChange={onChangeHandler}
-          checked={!!isChecked}
-          value={value}
-          name={name}
-          data-testid={testId && `${testId}--input`}
-          type="radio"
-        />
+        <VisuallyHidden
+          testId={`input-container${!!isChecked ? '-checked' : ''}`}
+        >
+          <input
+            id={id}
+            onChange={onChangeHandler}
+            checked={!!isChecked}
+            value={value}
+            name={name}
+            data-testid={testId && `${testId}--input`}
+            type="radio"
+          />
+        </VisuallyHidden>
       </Fragment>
     );
   },

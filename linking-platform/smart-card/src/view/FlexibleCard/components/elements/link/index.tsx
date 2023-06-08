@@ -135,7 +135,7 @@ const Link: React.FC<LinkProps> = ({
   theme = SmartLinkTheme.Link,
   url,
   onClick,
-  target,
+  target = '_blank',
 }) => {
   const onMouseDown = useMouseDownEvent();
 
@@ -153,7 +153,9 @@ const Link: React.FC<LinkProps> = ({
       onClick={onClick}
       onMouseDown={onMouseDown}
       href={url}
-      target={target || '_blank'}
+      // We do not want set the target if it is the default value of '_self'. This prevents link
+      // click issues in Confluence and Trello which rely on it not being set unless necessary.
+      {...(target !== '_self' && { target })}
     >
       {text}
     </a>

@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.7.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.6
 
 ### Patch Changes

@@ -25,6 +25,7 @@ import { extractRequestAccessContext } from '../../../../extractors/common/conte
  * @see FlexibleCardProps
  */
 const FlexibleForbiddenView = ({
+  anchorTarget,
   cardState,
   onAuthorize,
   onClick,
@@ -85,7 +86,7 @@ const FlexibleForbiddenView = ({
       ui={ui}
       url={url}
     >
-      <TitleBlock hideRetry={true} />
+      <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
       <CustomBlock>
         <LockIcon
           label="forbidden-lock-icon"

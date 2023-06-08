@@ -4,7 +4,7 @@ import { ReactWrapper } from 'enzyme';
 
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../__helpers/enzyme';
 import {
   doc,
   code_block,

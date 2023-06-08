@@ -39,6 +39,7 @@ import typeAheadPlugin from '../../../../../plugins/type-ahead';
 import quickInsertPlugin from '../../../../../plugins/quick-insert';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
 import mentionsPlugin from '../../../../../plugins/mentions';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 import { pluginKey as blockTypePluginKey } from '../../../../../plugins/block-type/pm-plugins/main';
 import {
@@ -70,7 +71,7 @@ import ToolbarButton from '../../../../../ui/ToolbarButton';
 import { openElementBrowserModal } from '../../../../../plugins/quick-insert/commands';
 import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
 
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../__helpers/enzyme';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -173,6 +174,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         .add(blockTypePlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add(widthPlugin)
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add(layoutPlugin)

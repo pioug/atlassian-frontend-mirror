@@ -32,6 +32,7 @@ function InnerPagination<T>(
     defaultSelectedIndex,
     selectedIndex,
     label,
+    pageLabel,
     previousLabel,
     nextLabel,
     style,
@@ -64,6 +65,7 @@ export interface PaginationPropTypes<T = unknown> {
     page: T,
     analyticsEvent?: UIAnalyticsEvent,
   ) => void;
+  pageLabel?: string;
   pages: T[];
   previousLabel?: string;
   renderEllipsis?: (arg: { key: string }) => ReactElement;

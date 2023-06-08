@@ -13,7 +13,7 @@ import ToolbarAlignment, {
 import { PluginKey } from 'prosemirror-state';
 import { AlignmentPluginState } from '../../../pm-plugins/types';
 import alignmentPlugin from '../../../';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 
 describe('ToolbarAlignment', () => {
   const createEditor = createProsemirrorEditorFactory();

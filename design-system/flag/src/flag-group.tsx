@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { token } from '@atlaskit/tokens';
+
 import {
   Children,
   createContext,
@@ -10,7 +12,6 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import { easeIn, ExitingPersistence, SlideIn } from '@atlaskit/motion';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 import noop from '@atlaskit/ds-lib/noop';
@@ -46,8 +47,6 @@ type FlagGroupProps = {
 const gridSize = getGridSize();
 export const flagWidth = gridSize * 50;
 export const flagAnimationTime = 400;
-const flagBottom = gridSize * 6;
-const flagLeft = gridSize * 10;
 
 type FlagGroupAPI = {
   onDismissed: (id: number | string, analyticsEvent: UIAnalyticsEvent) => void;
@@ -73,7 +72,7 @@ export function useFlagGroup() {
 // that causes a broken transition
 const baseStyles = css({
   width: flagWidth,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  position: 'absolute',
   bottom: 0,
   transition: `transform ${flagAnimationTime}ms ease-in-out`,
   '@media (max-width: 560px)': {
@@ -109,15 +108,12 @@ const dismissAllowedStyles = css({
 });
 
 const flagGroupContainerStyles = css({
-  zIndex: layers.flag(),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  bottom: flagBottom,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
-  left: flagLeft,
+  position: 'fixed',
+  zIndex: 'flag',
+  bottom: token('space.600', '48px'),
+  left: token('space.1000', '80px'),
   '@media (max-width: 560px)': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     bottom: 0,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     left: 0,
   },
 });
@@ -164,9 +160,7 @@ const FlagGroup = (props: FlagGroupProps) => {
               animationTimingFunction={() => easeIn}
             >
               {({ className, ref }) => (
-                <Box
-                  display="block"
-                  position="absolute"
+                <div
                   css={[baseStyles, isDismissAllowed && dismissAllowedStyles]}
                   className={className}
                   ref={ref}
@@ -181,7 +175,7 @@ const FlagGroup = (props: FlagGroupProps) => {
                   >
                     {flag}
                   </FlagGroupContext.Provider>
-                </Box>
+                </div>
               )}
             </SlideIn>
           );
@@ -191,12 +185,7 @@ const FlagGroup = (props: FlagGroupProps) => {
 
   return (
     <Portal zIndex={layers.flag()}>
-      <Box
-        display="block"
-        position="fixed"
-        id={id}
-        css={flagGroupContainerStyles}
-      >
+      <div id={id} css={flagGroupContainerStyles}>
         {hasFlags ? (
           <VisuallyHidden>
             <LabelTag>{label}</LabelTag>
@@ -206,7 +195,7 @@ const FlagGroup = (props: FlagGroupProps) => {
         <ExitingPersistence appear={false}>
           {renderChildren()}
         </ExitingPersistence>
-      </Box>
+      </div>
     </Portal>
   );
 };

@@ -1,17 +1,15 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import Box from '@atlaskit/primitives/box';
 
 import Comment, { CommentAuthor, CommentEdited, CommentTime } from '../src';
 
 import avatarImg from './utils/sample-avatar';
 
 export default () => (
-  <Box testId="comment" display="block">
+  <Box testId="comment">
     <Comment
       avatar={<Avatar src={avatarImg} name="John Smith" size="medium" />}
       author={<CommentAuthor>John Smith</CommentAuthor>}

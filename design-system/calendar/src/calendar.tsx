@@ -4,8 +4,9 @@ import { forwardRef, memo, useMemo } from 'react';
 import { jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
-import Box from '@atlaskit/ds-explorations/box';
 import noop from '@atlaskit/ds-lib/noop';
+import { xcss } from '@atlaskit/primitives';
+import Box from '@atlaskit/primitives/box';
 import Stack from '@atlaskit/primitives/stack';
 import GlobalTheme from '@atlaskit/theme/components';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -23,6 +24,11 @@ import useHandleDateSelect from './internal/hooks/use-handle-date-select';
 import useLocale from './internal/hooks/use-locale';
 import useUniqueId from './internal/hooks/use-unique-id';
 import type { CalendarProps } from './types';
+
+const boxStyles = xcss({
+  display: 'inlineBlock',
+  userSelect: 'none',
+});
 
 const analyticsAttributes = {
   componentName: 'calendar',
@@ -149,13 +155,14 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
     const { monthsLong, daysShort } = useLocale({ locale, weekStartDay });
 
     return (
-      <Box
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-static-element-interactions
+      <div
         className={className}
-        UNSAFE_style={style}
+        style={style}
         onBlur={handleContainerBlur}
         onFocus={handleContainerFocus}
         onKeyDown={handleContainerKeyDown}
-        testId={testId && `${testId}--container`}
+        data-testid={testId && `${testId}--container`}
         ref={ref}
       >
         <VisuallyHidden>
@@ -164,11 +171,8 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
           </span>
         </VisuallyHidden>
         <Box
-          display="inlineBlock"
+          xcss={boxStyles}
           padding="space.200"
-          UNSAFE_style={{
-            userSelect: 'none',
-          }}
           aria-describedby={announceId}
           aria-label="calendar"
           tabIndex={tabIndex}
@@ -187,7 +191,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
               mode={mode}
               testId={testId}
             />
-            <Box display="block" role="grid">
+            <Box role="grid">
               <WeekHeaderComponent
                 daysShort={daysShort}
                 mode={mode}
@@ -202,7 +206,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
             </Box>
           </Stack>
         </Box>
-      </Box>
+      </div>
     );
   },
 );

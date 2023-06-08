@@ -58,7 +58,7 @@ jest.mock('@atlaskit/editor-common/analytics', () => ({
 }));
 
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../__tests__/__helpers/enzyme';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { EditorView } from 'prosemirror-view';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';

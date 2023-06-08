@@ -48,7 +48,7 @@ function Basic() {
     () => [
       new AtlassianLinkPickerPlugin({
         cloudId: 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5',
-        scope: Scope.ConfluencePageBlog,
+        scope: Scope.ConfluencePageBlogWhiteboard,
         aggregatorUrl:
           'https://pug.jira-dev.com/gateway/api/xpsearch-aggregator',
         activityClientEndpoint: 'https://pug.jira-dev.com/gateway/api/graphql',

@@ -14,7 +14,7 @@ import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { uuid } from '@atlaskit/adf-schema';
 
 import { insertDate } from '../../actions';

@@ -36,7 +36,7 @@ const activeTokens = tokens
   .map(
     (t): Token => ({
       token: t.name,
-      fallback: t.value as string,
+      fallback: t.value === '4px' ? '3px' : (t.value as string),
       isDeprecated: t.attributes.state === 'deprecated',
     }),
   );

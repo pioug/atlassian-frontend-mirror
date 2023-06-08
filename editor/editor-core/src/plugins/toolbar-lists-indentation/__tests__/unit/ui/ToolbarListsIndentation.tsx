@@ -5,7 +5,7 @@ import {
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 import {
   doc,
   p,

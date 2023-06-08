@@ -52,10 +52,7 @@ export function getScreenReaderText(
       items[selectedIndex];
 
     const date = transformTimeStamp(intl, lastViewedDate, lastUpdatedDate);
-    const formattedDate = [date?.pageAction, date?.dateString, date?.timeSince]
-      .filter(Boolean)
-      .join(' ');
-    return [name, container, formattedDate].filter(Boolean).join(', ');
+    return [name, container, date].filter(Boolean).join(', ');
   }
 }
 

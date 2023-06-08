@@ -4,9 +4,7 @@ import { Children, cloneElement, Fragment, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/use-visually-hidden
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { visuallyHidden } from '@atlaskit/theme/constants';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 export interface RatingGroupProps {
   /**
@@ -102,10 +100,12 @@ Use "defaultValue" or "value" happy days :-).
         /* Instead of it starting in an empty state - it starts filled - and then uses the CSS sibling select "~" */
         /* to then display the empty state for the star rating. */
 
+        // By default, filled in icon is shown
         [data-rating-icon-checked] {
           display: inline-block;
         }
 
+        // By default, empty icon is NOT shown
         [data-rating-icon] {
           display: none;
         }
@@ -113,12 +113,14 @@ Use "defaultValue" or "value" happy days :-).
         label:hover
           ~ label
           [data-rating-icon-checked][data-rating-icon-checked],
-        input:checked ~ label [data-rating-icon-checked] {
+        [data-testid='input-container-checked']
+          ~ label
+          [data-rating-icon-checked] {
           display: none;
         }
 
         label:hover ~ label [data-rating-icon][data-rating-icon],
-        input:checked ~ label [data-rating-icon] {
+        [data-testid='input-container-checked'] ~ label [data-rating-icon] {
           display: inline-block;
         }
 
@@ -135,17 +137,22 @@ Use "defaultValue" or "value" happy days :-).
       {!firstSelectionMade && (
         <Fragment>
           {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
-          <label css={visuallyHidden} htmlFor={`${groupName}--empty`}></label>
-          <input
-            css={visuallyHidden}
-            id={`${groupName}--empty`}
-            data-testid={testId && `${testId}--input-empty`}
-            type="radio"
-            name={groupName}
-            checked={actualValue === undefined}
-            onChange={() => setValue(undefined)}
-            value={undefined}
-          />
+          <label htmlFor={`${groupName}--empty`}></label>
+          <VisuallyHidden
+            testId={`input-container${
+              actualValue === undefined ? '-checked' : ''
+            }`}
+          >
+            <input
+              id={`${groupName}--empty`}
+              data-testid={testId && `${testId}--input-empty`}
+              type="radio"
+              name={groupName}
+              checked={actualValue === undefined}
+              onChange={() => setValue(undefined)}
+              value={undefined}
+            />
+          </VisuallyHidden>
         </Fragment>
       )}
 

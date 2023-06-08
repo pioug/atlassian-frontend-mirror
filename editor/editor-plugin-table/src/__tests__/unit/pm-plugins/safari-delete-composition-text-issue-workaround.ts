@@ -16,6 +16,7 @@ import tablePlugin from '../../../plugins/table-plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 describe('table/safari-delete-composition-text-issue-workaround', () => {
   let editor: any;
@@ -28,6 +29,7 @@ describe('table/safari-delete-composition-text-issue-workaround', () => {
           .add([featureFlagsPlugin, {}])
           .add([analyticsPlugin, {}])
           .add(contentInsertionPlugin)
+          .add(widthPlugin)
           .add([tablePlugin, { tableOptions: { allowColumnResizing: true } }]),
         pluginKey,
       });

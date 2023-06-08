@@ -30,6 +30,14 @@ import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { MAX_STEP_REJECTED_ERROR } from '../../provider';
 import { throttledCommitStep } from '../../provider/commit-step';
 import { createMockService } from './document-service.mock';
+import step from '../../helpers/__tests__/__fixtures__/clean-step-for-empty-doc.json';
+import { Step as ProseMirrorStep } from 'prosemirror-transform';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+
+const proseMirrorStep = ProseMirrorStep.fromJSON(
+  getSchemaBasedOnStage('stage0'),
+  step,
+);
 
 describe('document-service', () => {
   afterEach(() => jest.clearAllMocks());
@@ -235,9 +243,9 @@ describe('document-service', () => {
       });
 
       it('Throws an error when it retries too many times to save steps', async () => {
-        expect.assertions(6);
+        expect.assertions(7);
         (service.getUnconfirmedSteps as jest.Mock).mockReturnValue([
-          'mockStep',
+          proseMirrorStep,
         ]);
         (service.getUnconfirmedStepsOrigins as jest.Mock).mockReturnValue([
           'mockStep',
@@ -260,8 +268,22 @@ describe('document-service', () => {
           'FAILURE',
           { latency: undefined, numUnconfirmedSteps: 1 },
         );
-        expect(analyticsMock.sendErrorEvent).toBeCalledTimes(1);
-        expect(analyticsMock.sendErrorEvent).toBeCalledWith(
+        expect(analyticsMock.sendErrorEvent).toBeCalledTimes(2);
+        expect(analyticsMock.sendErrorEvent).toHaveBeenNthCalledWith(
+          1,
+          {
+            unconfirmedStepsInfo: [
+              {
+                contentTypes: 'text',
+                type: 'replace',
+                stepSizeInBytes: 87,
+              },
+            ],
+          },
+          "Can't sync up with Collab Service: unable to send unconfirmed steps and max retry reached",
+        );
+        expect(analyticsMock.sendErrorEvent).toHaveBeenNthCalledWith(
+          2,
           new Error("Can't sync up with Collab Service"),
           'Error while committing unconfirmed steps',
         );

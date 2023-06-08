@@ -46,6 +46,7 @@ import undoRedoPlugin from '@atlaskit/editor-core/src/plugins/undo-redo';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 const array = (...args: any): Node[] => args.map((i: any) => i(defaultSchema));
@@ -107,6 +108,7 @@ describe('table plugin', () => {
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, {}])
     .add(contentInsertionPlugin)
+    .add(widthPlugin)
     .add([tablePlugin, { tableOptions }])
     .add(undoRedoPlugin);
 

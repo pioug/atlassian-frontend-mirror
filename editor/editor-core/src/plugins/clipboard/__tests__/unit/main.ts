@@ -37,6 +37,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -50,6 +51,7 @@ describe('clipboard plugin', () => {
     .add(decorationsPlugin)
     .add(rulePlugin)
     .add(layoutPlugin)
+    .add(widthPlugin)
     .add([
       tablesPlugin,
       {

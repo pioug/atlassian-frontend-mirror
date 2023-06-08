@@ -10,6 +10,8 @@ import type * as CSS from 'csstype';
 
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 
+import { UNSAFE_media } from '../helpers/responsive';
+import { MediaQuery } from '../helpers/responsive/types';
 import { Box, Inline } from '../index';
 
 import {
@@ -111,6 +113,19 @@ const isSafeEnvToThrow = () =>
 
 const reNestedSelectors = /(\.|\s|&+|\*\>|#|\[.*\])/;
 const rePseudos = /^::?.*$/;
+
+const reMediaQuery = /^@media .*$/;
+const reValidMediaQuery = new RegExp(
+  `^(${[
+    ...Object.values(UNSAFE_media.above),
+    ...Object.values(UNSAFE_media.below),
+  ]
+    .map(
+      (mediaQuery: MediaQuery) => mediaQuery.replace(/[.()]/g, '\\$&'), // Escape the ".", "(", and ")" in the media query syntax.
+    )
+    .join('|')})$`,
+);
+
 const transformStyles = (
   styleObj?: CSSObject | CSSObject[],
 ): CSSObject | CSSObject[] | undefined => {
@@ -128,7 +143,7 @@ const transformStyles = (
     ([key, value]: [string, CSSInterpolation]) => {
       if (isSafeEnvToThrow()) {
         // We don't support `.class`, `[data-testid]`, `> *`, `#some-id`
-        if (reNestedSelectors.test(key)) {
+        if (reNestedSelectors.test(key) && !reValidMediaQuery.test(key)) {
           throw new Error(`Styles not supported for key '${key}'.`);
         }
       }
@@ -140,7 +155,10 @@ const transformStyles = (
         return;
       }
 
-      // TODO: Deal with media queries
+      if (reMediaQuery.test(key)) {
+        styleObj[key] = transformStyles(value as CSSMediaQueries[MediaQuery]);
+        return;
+      }
 
       // We have now dealt with all the special cases, so,
       // check whether what remains is a style property
@@ -151,7 +169,7 @@ const transformStyles = (
 
       const tokenValue = tokensMap[key as StyleMapKey][value as TokensMapKey];
       if (!tokenValue) {
-        const message = `Invalid token alias: ${value}`;
+        const message = `Invalid token alias: ${key}: ${value}`;
         warnOnce(message);
       }
 
@@ -201,9 +219,15 @@ export const parseXcss = (
   return styles;
 };
 
-type CSSPseudos = { [Pseudo in CSS.Pseudos]?: SafeCSSObject };
+// Media queries should not contain nested media queries
+type CSSMediaQueries = { [MQ in MediaQuery]?: Omit<SafeCSSObject, MediaQuery> };
+// Pseudos should not contain nested pseudos, or media queries
+type CSSPseudos = {
+  [Pseudo in CSS.Pseudos]?: Omit<SafeCSSObject, CSS.Pseudos | MediaQuery>;
+};
 type SafeCSSObject = CSSPseudos &
   TokenisedProps &
+  CSSMediaQueries &
   Omit<CSSPropertiesWithMultiValues, keyof TokenisedProps>;
 
 type ScopedSafeCSSObject<T extends keyof SafeCSSObject> = Pick<

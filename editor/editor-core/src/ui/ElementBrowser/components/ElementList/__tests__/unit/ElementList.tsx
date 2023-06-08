@@ -12,7 +12,7 @@ jest.mock('../../../../hooks/use-container-width', () => {
 
 import React from 'react';
 import { ReactWrapper, mount } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../../../__tests__/__helpers/enzyme';
 import { ELEMENT_LIST_PADDING } from '../../../../constants';
 import ElementList from '../../ElementList';
 import EmptyState from '../../EmptyState';

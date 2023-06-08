@@ -283,12 +283,12 @@ describe('TitleBlock', () => {
 
     it('should have custom target attribute', async () => {
       const { findByTestId } = renderTitleBlock({
-        anchorTarget: '_self',
+        anchorTarget: '_top',
       });
 
       const element = await findByTestId('smart-element-link');
 
-      expect(element).toHaveAttribute('target', '_self');
+      expect(element).toHaveAttribute('target', '_top');
     });
   });
 

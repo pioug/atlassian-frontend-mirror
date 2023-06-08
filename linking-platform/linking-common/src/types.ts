@@ -120,3 +120,8 @@ export interface DatasourceAdf {
 export type CardAdf = InlineCardAdf | BlockCardAdf | EmbedCardAdf;
 
 export type EnvironmentsKeys = keyof typeof Environments;
+
+export {
+  type AvailableSite,
+  AvailableSitesProductType,
+} from './hooks/useAvailableSites/types';

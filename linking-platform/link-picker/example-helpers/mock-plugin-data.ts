@@ -392,4 +392,16 @@ const MOCK_DATA = {
   },
 };
 
+export const MOCK_NO_RESULTS = {
+  status: 200,
+  body: {
+    scopes: [
+      {
+        id: 'confluence.page,blogpost',
+        results: [],
+      },
+    ],
+  },
+};
+
 export default MOCK_DATA;

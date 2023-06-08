@@ -20,6 +20,7 @@ import { PluginKey } from 'prosemirror-state';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 describe('event-handlers', () => {
   let editor: any;
@@ -32,6 +33,7 @@ describe('event-handlers', () => {
           .add([featureFlagsPlugin, {}])
           .add([analyticsPlugin, {}])
           .add(contentInsertionPlugin)
+          .add(widthPlugin)
           .add([tablePlugin, { tableOptions: { allowColumnResizing: false } }]);
         editor = (doc: DocBuilder) =>
           createEditor<TablePluginState, PluginKey>({
@@ -63,6 +65,7 @@ describe('event-handlers', () => {
           .add([featureFlagsPlugin, {}])
           .add([analyticsPlugin, {}])
           .add(contentInsertionPlugin)
+          .add(widthPlugin)
           .add([tablePlugin, { tableOptions: { allowColumnResizing: false } }]);
         editor = (doc: DocBuilder) =>
           createEditor<TablePluginState, PluginKey>({

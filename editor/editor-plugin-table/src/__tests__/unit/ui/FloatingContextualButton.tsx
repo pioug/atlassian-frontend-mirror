@@ -26,6 +26,7 @@ import tablePlugin from '../../../plugins/table-plugin';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 const createEditor = createProsemirrorEditorFactory();
 let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
@@ -36,6 +37,7 @@ const editor = (doc: DocBuilder) =>
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
+      .add(widthPlugin)
       .add(tablePlugin),
   });
 

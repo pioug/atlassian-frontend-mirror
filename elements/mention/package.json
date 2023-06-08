@@ -60,7 +60,7 @@
     "@atlaskit/adf-utils": "^18.3.0",
     "@atlaskit/docs": "^9.1.0",
     "@atlaskit/editor-core": "^185.1.0",
-    "@atlaskit/editor-test-helpers": "^18.5.0",
+    "@atlaskit/editor-test-helpers": "^18.6.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/ssr": "*",

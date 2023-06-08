@@ -70,6 +70,7 @@ import { EditorState, Transaction } from 'prosemirror-state';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 interface TablePluginOptions {
   tableOptions: PluginConfig;
@@ -94,25 +95,19 @@ const tablesPlugin: NextEditorPlugin<
     actions: {
       insertTable: InsertTableAction;
     };
-    dependencies: [typeof analyticsPlugin, typeof contentInsertionPlugin];
+    dependencies: [
+      typeof analyticsPlugin,
+      typeof contentInsertionPlugin,
+      typeof widthPlugin,
+    ];
   }
 > = (options?: TablePluginOptions, api?) => {
   const editorViewRef: Record<'current', EditorView | null> = { current: null };
   const defaultGetEditorContainerWidth: GetEditorContainerWidth = () => {
-    if (!editorViewRef.current) {
-      return {
-        width: document?.body?.offsetWidth || 500,
-      };
-    }
-
-    const {
-      current: { state },
-    } = editorViewRef;
-
-    // TODO: ED-15663
-    // Please, do not copy or use this kind of code below
-    // @ts-ignore
-    return (state as any)['widthPlugin$'];
+    const defaultState = {
+      width: document?.body?.offsetWidth ?? 500,
+    };
+    return api?.dependencies.width.sharedState.currentState() ?? defaultState;
   };
 
   return {

@@ -1,10 +1,8 @@
 import React, { FC, ReactNode } from 'react';
 
 import Avatar from '@atlaskit/avatar';
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import Box from '@atlaskit/primitives/box';
 
 import Comment, { CommentAction, CommentAuthor } from '../src';
 
@@ -29,7 +27,7 @@ const ExampleComment: FC<{ isHighlighted?: boolean; children?: ReactNode }> = ({
 );
 
 export default () => (
-  <Box display="block" padding="space.200" testId="nested">
+  <Box padding="space.200" testId="nested">
     <ExampleComment isHighlighted>
       <ExampleComment>
         <ExampleComment />

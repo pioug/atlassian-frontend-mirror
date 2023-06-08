@@ -27,6 +27,8 @@ import { tokens } from '../../utils/token';
 import { css, jsx } from '@emotion/react';
 import { handleClickCommon } from './utils/handlers';
 import { useFeatureFlag } from '@atlaskit/link-provider';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { AnchorTarget } from '../FlexibleCard/components/types';
 
 export { default as PreviewAction } from './actions/PreviewAction';
 export type { ResolvedViewProps as BlockCardResolvedViewProps } from './views/ResolvedView';
@@ -86,6 +88,12 @@ export const BlockCard: FC<BlockCardProps> = ({
 
   if (enableFlexibleBlockCard) {
     const ui = { hideElevation: true };
+    const anchorTarget: AnchorTarget | undefined = getBooleanFF(
+      'platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab',
+    )
+      ? '_self'
+      : undefined;
+
     const flexibleProps = {
       id,
       cardState,
@@ -100,8 +108,8 @@ export const BlockCard: FC<BlockCardProps> = ({
       ui,
       analytics,
       extensionKey,
+      ...(anchorTarget ? { anchorTarget } : {}),
     };
-
     switch (status) {
       case 'pending':
       case 'resolving':

@@ -1,6 +1,6 @@
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { ButtonItem } from '@atlaskit/menu';
 import DropdownMenu from '../../ui/DropdownMenu';
 import { DropdownOptionT } from '../../ui/types';

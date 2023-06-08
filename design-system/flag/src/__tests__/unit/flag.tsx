@@ -2,10 +2,8 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import Box from '@atlaskit/primitives/box';
 import noop from '@atlaskit/ds-lib/noop';
 
 import { FlagProps } from '../../types';

@@ -2,7 +2,7 @@ import React from 'react';
 import Form from '@atlaskit/form';
 import userEvent from '@testing-library/user-event';
 import { shallow, ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { FieldComponent } from '../../FormContent';
 import ColorPickerField, {

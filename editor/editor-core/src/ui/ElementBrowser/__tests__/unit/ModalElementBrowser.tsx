@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import ModalElementBrowser from '../../ModalElementBrowser';
 import { createIntl } from 'react-intl-next';
 import { messages } from '../../messages';

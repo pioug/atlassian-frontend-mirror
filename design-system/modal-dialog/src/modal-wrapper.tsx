@@ -134,6 +134,7 @@ const ModalWrapper = (props: ModalDialogProps) => {
           >
             <FocusLock
               autoFocus={autoFocusLock}
+              disabled={!isForeground}
               returnFocus
               whiteList={whiteListElements}
             >

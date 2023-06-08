@@ -7,6 +7,7 @@ describe('xcss()', () => {
   beforeEach(() => {
     // @ts-expect-error
     jest.spyOn(emotion, 'css').mockImplementation(styles => styles);
+    jest.spyOn(console, 'warn').mockImplementation(jest.fn);
   });
   afterEach(() => {
     jest.resetAllMocks();
@@ -156,8 +157,6 @@ describe('xcss()', () => {
   });
 
   it('allows non-token values to be passed through for tokenisable properties', () => {
-    const warn = jest.spyOn(console, 'warn').mockImplementation(jest.fn);
-
     const styles = xcss({
       // @ts-expect-error
       padding: '10px',
@@ -168,7 +167,8 @@ describe('xcss()', () => {
       top: 0,
     });
 
-    expect(warn).toBeCalledTimes(3);
+    // eslint-disable-next-line no-console
+    expect(console.warn).toBeCalledTimes(3);
     expect(styles).toMatchInlineSnapshot(`
       Object {
         Symbol(UNSAFE_INTERNAL_styles): Object {
@@ -178,7 +178,22 @@ describe('xcss()', () => {
         },
       }
     `);
-    warn.mockReset();
+  });
+
+  it('should not throw warning on flexShrink: 0', () => {
+    const styles = xcss({
+      flexShrink: '0',
+    });
+
+    // eslint-disable-next-line no-console
+    expect(console.warn).not.toHaveBeenCalled();
+    expect(styles).toMatchInlineSnapshot(`
+      Object {
+        Symbol(UNSAFE_INTERNAL_styles): Object {
+          "flexShrink": "0",
+        },
+      }
+    `);
   });
 
   it('throws on unsupported selectors', () => {
@@ -192,7 +207,6 @@ describe('xcss()', () => {
       { '&': { gap: 'space.200' } },
       { '&&': { gap: 'space.200' } },
     ].forEach(style => {
-      // @ts-expect-error
       expect(() => xcss(style)).toThrow();
     });
   });

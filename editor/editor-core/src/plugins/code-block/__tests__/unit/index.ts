@@ -38,6 +38,7 @@ import { getToolbarConfig } from '../../toolbar';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 jest.mock('../../../../utils/clipboard');
 
@@ -56,6 +57,7 @@ describe('code-block', () => {
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
+        .add(widthPlugin)
         .add(tablesPlugin)
         .add(basePlugin)
         .add(typeAheadPlugin)

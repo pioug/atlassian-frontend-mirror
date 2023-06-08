@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.2.1
+
+### Patch Changes
+
+- [`65fafdf95fe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65fafdf95fe) - ESS-3666: add additional analytics events for when the cant sync up with collab service error occurs for better troubleshooting
+
 ## 9.2.0
 
 ### Minor Changes

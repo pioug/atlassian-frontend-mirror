@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 6.0.0
+
+### Major Changes
+
+- [`c8174712a85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8174712a85) - New rule consistent-css-prop-usage available as part of the recommended preset. For detailed docs please see: https://atlassian.design/components/eslint-plugin-design-system/usage#consistent-css-prop-usage
+
 ## 5.5.0
 
 ### Minor Changes

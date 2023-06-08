@@ -1,5 +1,5 @@
 export const flexShrinkMap = {
-  '0': 0,
+  '0': '0',
   '1': 1,
 } as const;
 

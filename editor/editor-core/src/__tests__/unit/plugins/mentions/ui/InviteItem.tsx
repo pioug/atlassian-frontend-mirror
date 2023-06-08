@@ -5,7 +5,7 @@ import InviteItem, {
   INVITE_ITEM_DESCRIPTION,
 } from '../../../../../plugins/mentions/ui/InviteItem';
 import { messages } from '../../../../../plugins/mentions/messages';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../__helpers/enzyme';
 
 const mentionItemSelector = `div[data-id="${INVITE_ITEM_DESCRIPTION.id}"]`;
 

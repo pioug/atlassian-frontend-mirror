@@ -200,4 +200,34 @@ describe('Element: Link', () => {
 
     expect(element).toHaveStyleDeclaration('background-color', 'blue');
   });
+
+  describe('target', () => {
+    it('does not set target attribute when target is _self', async () => {
+      const { findByTestId } = render(
+        <Link text={text} url={url} target="_self" />,
+      );
+
+      const element = await findByTestId(testId);
+
+      expect(element).not.toHaveAttribute('target');
+    });
+
+    it('defaults the target attribute to be _blank', async () => {
+      const { findByTestId } = render(<Link text={text} url={url} />);
+
+      const element = await findByTestId(testId);
+
+      expect(element).toHaveAttribute('target', '_blank');
+    });
+
+    it('respects the target attribute when it is set', async () => {
+      const { findByTestId } = render(
+        <Link text={text} url={url} target="_parent" />,
+      );
+
+      const element = await findByTestId(testId);
+
+      expect(element).toHaveAttribute('target', '_parent');
+    });
+  });
 });

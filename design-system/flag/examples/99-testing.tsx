@@ -1,11 +1,11 @@
 import React, { ReactElement, ReactNode, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
 import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
+import Box from '@atlaskit/primitives/box';
 import { G300, P300, R300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

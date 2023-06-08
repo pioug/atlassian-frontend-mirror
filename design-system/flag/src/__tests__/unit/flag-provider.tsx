@@ -1,4 +1,4 @@
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Box from '@atlaskit/primitives/box';
 import noop from '@atlaskit/ds-lib/noop';
 import React from 'react';
 

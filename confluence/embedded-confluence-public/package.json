@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/embedded-confluence",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "description": "Public release version of Embeddedable Pages for Confluence",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -53,7 +53,7 @@
     "wait-for-expect": "^1.2.0"
   },
   "optionalDependencies": {
-    "@atlassian/embedded-confluence-common": "^1.29.0",
+    "@atlassian/embedded-confluence-common": "^1.31.0",
     "@atlassian/experience-tracker": "^2.2.0"
   },
   "browser": "dist/embedded-confluence-bundle.js",

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 import { ReactWrapper } from 'enzyme';
 
 import { MediaType } from '@atlaskit/media-client';

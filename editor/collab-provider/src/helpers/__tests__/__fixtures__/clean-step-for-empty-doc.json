@@ -1,0 +1,15 @@
+{
+  "stepType": "replace",
+  "from": 1,
+  "to": 1,
+  "slice": {
+    "content": [
+      {
+        "type": "text",
+        "text": "/"
+      }
+    ]
+  },
+  "clientId": 2575662506,
+  "userId": "ari:cloud:identity::user/5522"
+}

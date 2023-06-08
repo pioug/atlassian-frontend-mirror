@@ -33,6 +33,7 @@ export const LinkPicker: React_2.MemoExoticComponent<
 // @public (undocumented)
 export interface LinkPickerPlugin {
   action?: LinkPickerPluginAction;
+  emptyStateNoResults?: LinkPickerPluginEmptyStateNoResults;
   errorFallback?: LinkPickerPluginErrorFallback;
   meta?: {
     source?: string;
@@ -53,6 +54,9 @@ export interface LinkPickerPluginAction {
   // (undocumented)
   label: MessageDescriptor | string;
 }
+
+// @public (undocumented)
+export type LinkPickerPluginEmptyStateNoResults = () => ReactNode;
 
 // @public (undocumented)
 export type LinkPickerPluginErrorFallback = (

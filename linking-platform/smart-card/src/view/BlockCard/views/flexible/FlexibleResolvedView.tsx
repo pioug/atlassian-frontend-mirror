@@ -32,6 +32,7 @@ const FlexibleResolvedView = ({
   onError,
   onResolve,
   showServerActions,
+  anchorTarget,
   testId = 'smart-block-resolved-view',
   ui,
   url,
@@ -86,6 +87,7 @@ const FlexibleResolvedView = ({
         hideRetry={true}
         subtitle={[{ name: ElementName.Location }]}
         metadataPosition={SmartLinkPosition.Top}
+        anchorTarget={anchorTarget}
       />
       <MetadataBlock primary={metadata} maxLines={1} />
 

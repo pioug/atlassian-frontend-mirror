@@ -3,7 +3,6 @@ import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import Stack from '@atlaskit/primitives/stack';
 import { N20A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -33,6 +32,8 @@ const gridTemplateNoChildrenStyles = css({
 // if the background is appied on Box and tokens are not switched on it breaks.
 // This can be safely removed (and applied on Box) when tokens are on by default
 const highlightOverlayStyles = css({
+  padding: token('space.100', '8px'),
+  position: 'absolute',
   inset: `calc(-1 * ${token('space.100', '8px')})`,
   backgroundColor: token('color.background.neutral', N20A),
   gridArea: '1 / 1 / 2 / 3',
@@ -108,12 +109,9 @@ const Layout: FC<CommentLayoutProps> = ({
       </span>
     )}
     {highlighted && (
-      <Box
-        display="block"
-        padding="space.100"
-        position="absolute"
+      <div
         css={highlightOverlayStyles}
-        testId={testId && `${testId}-highlighted`}
+        data-testid={testId && `${testId}-highlighted`}
       />
     )}
   </div>

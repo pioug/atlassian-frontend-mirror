@@ -1,6 +1,5 @@
 import React, { ReactElement } from 'react';
-
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Stack from '@atlaskit/primitives/stack';
 import noop from '@atlaskit/ds-lib/noop';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
@@ -83,25 +82,18 @@ const getIcon = (key: string) => {
 };
 
 export default () => (
-  <Box display="block">
+  <Stack space="space.100">
     {Object.keys(appearances).map((type, idx) => (
-      <Box
+      <Flag
+        actions={actions}
+        appearance={type as AppearanceTypes}
+        description={appearances[type].description}
+        icon={getIcon(type)}
+        id={type}
         key={type}
-        UNSAFE_style={
-          idx ? { marginTop: token('space.100', '8px') } : undefined
-        }
-      >
-        <Flag
-          actions={actions}
-          appearance={type as AppearanceTypes}
-          description={appearances[type].description}
-          icon={getIcon(type)}
-          id={type}
-          key={type}
-          title={appearances[type].title}
-          testId={`flag-${type}`}
-        />
-      </Box>
+        title={appearances[type].title}
+        testId={`flag-${type}`}
+      />
     ))}
-  </Box>
+  </Stack>
 );

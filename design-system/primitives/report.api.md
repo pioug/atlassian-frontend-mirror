@@ -316,9 +316,17 @@ type BoxXCSS = {
   readonly [uniqueSymbol]: BoxStyles;
 };
 
+// @public
+type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxl' | 'xxs';
+
+// @public (undocumented)
+type CSSMediaQueries = {
+  [MQ in MediaQuery]?: Omit<SafeCSSObject, MediaQuery>;
+};
+
 // @public (undocumented)
 type CSSPseudos = {
-  [Pseudo in CSS_2.Pseudos]?: SafeCSSObject;
+  [Pseudo in CSS_2.Pseudos]?: Omit<SafeCSSObject, CSS_2.Pseudos | MediaQuery>;
 };
 
 // @public (undocumented)
@@ -500,6 +508,11 @@ type MaxInlineSize = Dimension;
 type MaxWidth = Dimension;
 
 // @public (undocumented)
+type MediaQuery =
+  | (typeof UNSAFE_media.above)[Breakpoint]
+  | (typeof UNSAFE_media.below)[Exclude<Breakpoint, 'xxs'>];
+
+// @public (undocumented)
 type MinBlockSize = Dimension;
 
 // @public (undocumented)
@@ -560,6 +573,7 @@ type Right = Dimension;
 // @public (undocumented)
 type SafeCSSObject = CSSPseudos &
   TokenisedProps &
+  CSSMediaQueries &
   Omit<CSSPropertiesWithMultiValues, keyof TokenisedProps>;
 
 // @public (undocumented)
@@ -740,6 +754,27 @@ type Top = Dimension;
 
 // @public (undocumented)
 const uniqueSymbol: unique symbol;
+
+// @public
+const UNSAFE_media: {
+  readonly above: {
+    readonly xxs: `@media (min-width: ${number}rem)`;
+    readonly xs: `@media (min-width: ${number}rem)`;
+    readonly sm: `@media (min-width: ${number}rem)`;
+    readonly md: `@media (min-width: ${number}rem)`;
+    readonly lg: `@media (min-width: ${number}rem)`;
+    readonly xl: `@media (min-width: ${number}rem)`;
+    readonly xxl: `@media (min-width: ${number}rem)`;
+  };
+  readonly below: {
+    readonly xs: `@media (max-width: ${number}rem)`;
+    readonly sm: `@media (max-width: ${number}rem)`;
+    readonly md: `@media (max-width: ${number}rem)`;
+    readonly lg: `@media (max-width: ${number}rem)`;
+    readonly xl: `@media (max-width: ${number}rem)`;
+    readonly xxl: `@media (max-width: ${number}rem)`;
+  };
+};
 
 // @public (undocumented)
 type Width = Dimension;

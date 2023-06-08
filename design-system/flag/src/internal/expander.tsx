@@ -1,8 +1,15 @@
 import React from 'react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
-import Stack from '@atlaskit/primitives/stack';
+import { xcss, Stack, Box } from '@atlaskit/primitives';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
+
+const expanderStyles = xcss({
+  width: '100%',
+});
+
+const containerStyles = xcss({
+  transition: `max-height 0.3s`,
+});
 
 type ExpanderProps = {
   isExpanded: boolean;
@@ -17,11 +24,11 @@ const Expander = ({ children, isExpanded, testId }: ExpanderProps) => {
 
   return (
     <Box
-      UNSAFE_style={{
-        minWidth: 0,
+      xcss={containerStyles}
+      style={{
         maxHeight: isExpanded ? 150 : 0,
         flex: '1 1 100%',
-        transition: `max-height 0.3s`,
+        minWidth: 0,
       }}
       aria-hidden={!isExpanded}
       testId={testId && `${testId}-expander`}
@@ -30,7 +37,7 @@ const Expander = ({ children, isExpanded, testId }: ExpanderProps) => {
         {isExpanded && (
           <FadeIn>
             {(props) => (
-              <Box display="block" UNSAFE_style={{ width: '100%' }} {...props}>
+              <Box xcss={expanderStyles} {...props}>
                 <Stack space="space.100">{children}</Stack>
               </Box>
             )}

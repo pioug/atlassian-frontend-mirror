@@ -1,35 +1,38 @@
 import { IntlShape } from 'react-intl-next';
-import formatDistance from 'date-fns/formatDistance';
-import differenceInCalendarDays from 'date-fns/differenceInCalendarDays';
-import format from 'date-fns/format';
-import { messages } from './messages';
-import { ListItemTimeStamp } from '../types';
+import { timeMessages } from './messages';
+import { isMoreThanOneWeekAgo } from '../../common/utils/date';
+import { selectUnit } from '../../common/utils/dateUtils';
+import isYesterday from 'date-fns/isYesterday';
+
+const formatTime = (timeStamp: Date, intl: IntlShape): string => {
+  const isAbsolute = isMoreThanOneWeekAgo(timeStamp);
+
+  if (isAbsolute) {
+    return intl.formatDate(timeStamp, {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  }
+
+  const { value, unit } = selectUnit(timeStamp, new Date(), {
+    day: 7, // treat a week as 7 days (default is 5)
+  });
+  //formats as 'yesterday' instead of '1 day ago'
+  if (isYesterday(timeStamp)) {
+    return intl.formatRelativeTime(value, unit, { numeric: 'auto' });
+  }
+  return intl.formatRelativeTime(value, unit);
+};
 
 const renderAbsoluteOrRelativeDate = (
   timeStamp: Date,
   pageAction: 'updated' | 'viewed',
   intl: IntlShape,
-): ListItemTimeStamp => {
-  let pageActionText: string = '';
-  switch (pageAction) {
-    case 'updated':
-      pageActionText = intl.formatMessage(messages.timeUpdated);
-      break;
-    case 'viewed':
-      pageActionText = intl.formatMessage(messages.timeViewed);
-      break;
-  }
-  if (differenceInCalendarDays(timeStamp, Date.now()) < -7) {
-    return {
-      pageAction: pageActionText,
-      dateString: format(timeStamp, 'MMMM dd, yyyy'),
-    };
-  }
-  return {
-    pageAction: pageActionText,
-    dateString: formatDistance(timeStamp, Date.now()),
-    timeSince: intl.formatMessage(messages.timeAgo),
-  };
+): string => {
+  return intl.formatMessage(timeMessages[pageAction], {
+    time: formatTime(timeStamp, intl),
+  });
 };
 
 export const transformTimeStamp = (

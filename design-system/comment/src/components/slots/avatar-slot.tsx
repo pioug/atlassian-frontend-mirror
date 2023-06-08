@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { FC, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import { Box, xcss } from '@atlaskit/primitives';
 
-const avatarSectionStyles = css({
+const avatarSectionStyles = xcss({
   gridArea: 'avatar-area',
 });
 
@@ -23,9 +23,7 @@ interface AvatarSlotProps {
  *
  */
 const AvatarSlot: FC<AvatarSlotProps> = ({ children }) => (
-  <Box display="block" css={avatarSectionStyles}>
-    {children}
-  </Box>
+  <Box xcss={avatarSectionStyles}>{children}</Box>
 );
 
 export default AvatarSlot;

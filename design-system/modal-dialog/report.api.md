@@ -55,6 +55,7 @@ export interface ModalDialogProps {
   children?: React_2.ReactNode;
   height?: number | string;
   isBlanketHidden?: boolean;
+  label?: string;
   onClose?: OnCloseHandler;
   onCloseComplete?: OnCloseCompleteHandler;
   onOpenComplete?: OnOpenCompleteHandler;

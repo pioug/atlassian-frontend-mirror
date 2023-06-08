@@ -24,6 +24,7 @@ import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { TableLayout } from '@atlaskit/adf-schema';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 // @public (undocumented)
 type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
@@ -107,7 +108,11 @@ export const tablesPlugin: NextEditorPlugin<
     actions: {
       insertTable: InsertTableAction;
     };
-    dependencies: [typeof analyticsPlugin, typeof contentInsertionPlugin];
+    dependencies: [
+      typeof analyticsPlugin,
+      typeof contentInsertionPlugin,
+      typeof widthPlugin,
+    ];
   }
 >;
 

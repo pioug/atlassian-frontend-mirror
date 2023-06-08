@@ -24,6 +24,7 @@ import tablePlugin from '../../../plugins/table-plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
   left: Math.min(...cols),
@@ -48,6 +49,7 @@ describe('table plugin -> transforms -> delete columns', () => {
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, {}])
     .add(contentInsertionPlugin)
+    .add(widthPlugin)
     .add(tablePlugin);
 
   const editor = (doc: DocBuilder) =>

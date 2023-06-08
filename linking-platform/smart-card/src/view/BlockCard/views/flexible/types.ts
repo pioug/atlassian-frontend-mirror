@@ -4,12 +4,18 @@ import { FlexibleUiOptions } from '../../../FlexibleCard/types';
 import { OnResolveCallback } from '../../../Card/types';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
 import { AnalyticsFacade } from '../../../../state/analytics';
+import { AnchorTarget } from '../../../FlexibleCard/components/types';
 
 export type FlexibleBlockCardProps = {
   /**
    * An AnalyticsFacade object used for calling analytics.
    */
   analytics: AnalyticsFacade;
+
+  /**
+   * Determines the anchor target to be passed to the title block.
+   */
+  anchorTarget?: AnchorTarget;
 
   /**
    * Determines the status and data of the Smart Link.
@@ -51,15 +57,15 @@ export type FlexibleBlockCardProps = {
   onResolve?: OnResolveCallback;
 
   /**
+   * A name of the provider, needed to specify to user which account has to be connected
+   */
+  providerName?: string;
+
+  /**
    * Any additional renderers required by Flexible UI. Currently used by icon
    * to render Emoji.
    */
   renderers?: CardProviderRenderers;
-
-  /**
-   * A name of the provider, needed to specify to user which account has to be connected
-   */
-  providerName?: string;
 
   /**
    * Determines whether to show available server actions.

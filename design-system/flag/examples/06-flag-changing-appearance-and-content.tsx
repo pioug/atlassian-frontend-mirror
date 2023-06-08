@@ -3,10 +3,8 @@ import { ReactElement, SyntheticEvent, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Box, xcss } from '@atlaskit/primitives';
 import noop from '@atlaskit/ds-lib/noop';
 import Tick from '@atlaskit/icon/glyph/check-circle';
 import Error from '@atlaskit/icon/glyph/error';
@@ -22,6 +20,11 @@ import { AppearanceArray, AppearanceTypes } from '../src/types';
 type Appearances<Keys extends AppearanceTypes> = {
   [K in Keys]: { description?: string; title: string; actions?: any[] };
 };
+
+const infoWrapperStyles = xcss({
+  width: 'size.300',
+  height: 'size.300',
+});
 
 const appearances: Appearances<AppearanceTypes> = {
   normal: {
@@ -60,7 +63,7 @@ const iconMap = (key: string) => {
       <Tick label="Success" primaryColor={token('color.icon.success', G300)} />
     ),
     info: (
-      <Box width="size.300" height="size.300">
+      <Box xcss={infoWrapperStyles}>
         <Spinner size="small" appearance="invert" />
       </Box>
     ),
@@ -97,7 +100,7 @@ const ConnectionDemo = () => {
   );
 
   return (
-    <Box display="block">
+    <Box>
       <FlagGroup>
         <Flag
           appearance={appearance}

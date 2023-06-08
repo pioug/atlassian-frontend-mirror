@@ -13,6 +13,7 @@ import {
 
 import tablePlugin from '../../../plugins/table';
 import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 import {
   isTableCollapsible,
@@ -31,6 +32,7 @@ describe('collapse', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
+      .add(widthPlugin)
       .add(tablePlugin);
 
     const finalPreset = expandInPlugins

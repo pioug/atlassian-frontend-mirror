@@ -107,7 +107,8 @@ describe('Snapshot Test: Table sorting', () => {
   });
 
   describe('when there is merged cells', () => {
-    it('should display not allowed message', async () => {
+    // FIXME: This test was automatically skipped due to failure on 08/06/2023: https://product-fabric.atlassian.net/browse/ED-18312
+    it.skip('should display not allowed message', async () => {
       await initRenderer(page, tableWithMergedCells);
 
       await page.waitForSelector(

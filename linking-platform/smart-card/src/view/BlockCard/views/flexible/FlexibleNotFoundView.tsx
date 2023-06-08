@@ -18,6 +18,7 @@ import { FlexibleBlockCardProps } from './types';
  * @see FlexibleCardProps
  */
 const FlexibleNotFoundView = ({
+  anchorTarget,
   cardState,
   onAuthorize,
   onError,
@@ -39,7 +40,7 @@ const FlexibleNotFoundView = ({
       ui={ui}
       url={url}
     >
-      <TitleBlock hideRetry={true} />
+      <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
       <CustomBlock>
         <WarningIcon
           label="not-found-warning-icon"

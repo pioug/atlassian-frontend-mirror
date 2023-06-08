@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/avatar",
-  "version": "21.3.2",
+  "version": "21.3.3",
   "description": "An avatar is a visual representation of a user or entity.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

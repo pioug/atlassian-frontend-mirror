@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
+import Box from '@atlaskit/primitives/box';
 
 import Banner from '../src';
 
 export default () => (
-  <Box display="block">
+  <Box>
     <Banner
       icon={<WarningIcon label="" secondaryColor="inherit" size="medium" />}
     >

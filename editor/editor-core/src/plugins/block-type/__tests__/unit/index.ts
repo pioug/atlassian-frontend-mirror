@@ -58,6 +58,7 @@ import { CellSelection } from '@atlaskit/editor-tables';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 describe('block-type', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -80,6 +81,7 @@ describe('block-type', () => {
         .add(decorationsPlugin)
         .add(blockTypePlugin)
         .add(panelPlugin)
+        .add(widthPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tablesPlugin),
       pluginKey: blockTypePluginKey,

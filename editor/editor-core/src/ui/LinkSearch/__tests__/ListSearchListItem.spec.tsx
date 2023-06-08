@@ -4,7 +4,7 @@ import { getDefaultItems } from './__helpers';
 import { Props as LinkSearchListItemProps } from '../LinkSearchListItem';
 import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers';
 import MoreIcon from '@atlaskit/icon/glyph/more';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../__tests__/__helpers/enzyme';
 
 interface SetupOptions extends LinkSearchListItemProps {}
 

@@ -15,7 +15,12 @@ import type { MetadataService } from '../metadata/metadata-service';
 import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { SyncUpErrorFunction } from '../types';
 import type { EditorState, Transaction } from 'prosemirror-state';
-import { createLogger, sleep } from '../helpers/utils';
+import {
+  UGCFreeStepDetails,
+  createLogger,
+  getStepUGCFreeDetails,
+  sleep,
+} from '../helpers/utils';
 import throttle from 'lodash/throttle';
 import { throttledCommitStep } from '../provider/commit-step';
 import {
@@ -481,6 +486,17 @@ export class DocumentService {
                 version: getVersion(state),
               });
             }
+            const unconfirmedStepsInfoUGCRemoved:
+              | UGCFreeStepDetails[]
+              | undefined = this.getUnconfirmedSteps()?.map((step) =>
+              getStepUGCFreeDetails(step),
+            );
+            this.analyticsHelper?.sendErrorEvent(
+              {
+                unconfirmedStepsInfo: unconfirmedStepsInfoUGCRemoved,
+              },
+              "Can't sync up with Collab Service: unable to send unconfirmed steps and max retry reached",
+            );
 
             throw new Error("Can't sync up with Collab Service");
           }

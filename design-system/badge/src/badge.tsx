@@ -2,11 +2,16 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { memo } from 'react';
 
-import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
 import Text, { TextProps } from '@atlaskit/ds-explorations/text';
+import { Box, BoxProps, xcss } from '@atlaskit/primitives';
 
 import { formatValue } from './internal/utils';
 import type { BadgeProps, ThemeAppearance } from './types';
+
+const boxStyles = xcss({
+  borderRadius: 'radius.200',
+  display: 'inlineFlex',
+});
 
 /**
  * __Badge__
@@ -29,14 +34,13 @@ const Badge = memo(function Badge({
       testId={testId}
       as="span"
       backgroundColor={backgroundColors[appearance]}
-      borderRadius="badge"
-      display="inlineFlex"
-      paddingInline="space.075"
-      UNSAFE_style={
+      xcss={boxStyles}
+      style={
         style?.backgroundColor
           ? { backgroundColor: style.backgroundColor }
           : undefined
       }
+      paddingInline="space.075"
     >
       <Text
         fontSize="size.075"

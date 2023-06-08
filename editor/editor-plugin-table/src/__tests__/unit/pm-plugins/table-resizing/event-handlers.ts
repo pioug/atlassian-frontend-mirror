@@ -51,6 +51,7 @@ describe('table-resizing/event-handlers', () => {
           .add([analyticsPlugin, {}])
           .add(contentInsertionPlugin)
           .add(decorationsPlugin)
+          .add(widthPlugin)
           .add([
             tablePlugin,
             {
@@ -58,7 +59,6 @@ describe('table-resizing/event-handlers', () => {
               editorAnalyticsAPI: editorAnalyticsAPIFake,
             },
           ])
-          .add(widthPlugin)
           .add(panelPlugin),
         pluginKey,
       });

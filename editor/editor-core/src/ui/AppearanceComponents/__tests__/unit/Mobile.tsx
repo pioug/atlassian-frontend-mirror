@@ -19,6 +19,7 @@ import {
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 describe('Mobile Appearance Component', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -29,6 +30,7 @@ describe('Mobile Appearance Component', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
+        .add(widthPlugin)
         .add(tablesPlugin),
       pluginKey,
     });

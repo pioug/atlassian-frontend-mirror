@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 2.15.0
+
+### Minor Changes
+
+- [`5b744a84924`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b744a84924) - [ux] Support for an empty state in LinkPicker, and implementation of empty state for the link-picker-atlassian-plugin
+
 ## 2.14.0
 
 ### Minor Changes

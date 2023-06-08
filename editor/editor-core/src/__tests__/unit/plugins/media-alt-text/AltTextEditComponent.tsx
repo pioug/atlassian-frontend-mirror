@@ -9,7 +9,7 @@ jest.mock('prosemirror-history', () => ({
 }));
 
 import React from 'react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../__helpers/enzyme';
 import { EditorView } from 'prosemirror-view';
 import AltTextEdit, {
   AltTextEditComponent,

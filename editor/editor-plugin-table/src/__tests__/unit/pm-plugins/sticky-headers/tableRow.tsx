@@ -46,6 +46,7 @@ import {
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 describe('TableRowNodeView', () => {
   let tableRowNodeView: TableRowNodeView;
@@ -60,6 +61,7 @@ describe('TableRowNodeView', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
+        .add(widthPlugin)
         .add(tablePlugin),
       pluginKey,
       attachTo: document.body,
@@ -91,6 +93,7 @@ describe('TableRowNodeView', () => {
             .add([featureFlagsPlugin, {}])
             .add([analyticsPlugin, {}])
             .add(contentInsertionPlugin)
+            .add(widthPlugin)
             .add(tablePlugin),
           pluginKey,
         });

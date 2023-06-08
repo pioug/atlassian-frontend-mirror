@@ -3,7 +3,7 @@ import { forwardRef, Fragment, KeyboardEvent } from 'react';
 import { jsx } from '@emotion/react';
 import { IntlShape } from 'react-intl-next';
 
-import { LinkSearchListItemData, ListItemTimeStamp } from '../../types';
+import { LinkSearchListItemData } from '../../types';
 import { transformTimeStamp } from '../transformTimeStamp';
 import {
   itemNameStyles,
@@ -89,7 +89,7 @@ const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
             {date && (
               <div css={listItemContainerInnerStyles}>
                 {container && <Fragment>&nbsp; •&nbsp; </Fragment>}
-                <Fragment>{formatDate(date)}</Fragment>
+                <Fragment>{date}</Fragment>
               </div>
             )}
           </div>
@@ -100,12 +100,6 @@ const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
 );
 
 export default LinkSearchListItem;
-
-const formatDate = (date: ListItemTimeStamp) => {
-  return [date.pageAction, date.dateString, date.timeSince]
-    .filter(Boolean)
-    .join(' ');
-};
 
 const isSVG = (icon: string) =>
   icon.startsWith('<svg') && icon.endsWith('</svg>');

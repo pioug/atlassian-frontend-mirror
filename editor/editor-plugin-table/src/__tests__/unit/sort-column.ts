@@ -29,6 +29,7 @@ import { PluginKey } from 'prosemirror-state';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -54,6 +55,7 @@ describe('table plugin', () => {
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, {}])
     .add(contentInsertionPlugin)
+    .add(widthPlugin)
     .add([tablePlugin, { tableOptions }])
     .add(textFormattingPlugin)
     .add(blockTypePlugin);

@@ -255,6 +255,7 @@ describe('handleRichText', () => {
         .add(panelPlugin)
         .add(blockTypePlugin)
         .add(listPlugin)
+        .add(widthPlugin)
         .add(tablesPlugin)
         .add(rulePlugin)
         .add(textFormattingPlugin)
@@ -1313,6 +1314,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
             .add(tasksAndDecisionsPlugin)
             .add(panelPlugin)
             .add(emojiPlugin)
+            .add(widthPlugin)
             .add(tablesPlugin)
             .add(listPlugin);
 
@@ -1636,6 +1638,7 @@ describe('handleExpand', () => {
             .add(contentInsertionPlugin)
             .add(decorationsPlugin)
             .add([pastePlugin, {}])
+            .add(widthPlugin)
             .add(tablesPlugin)
             .add(expandPlugin)
             .add(layoutPlugin);
@@ -2420,6 +2423,7 @@ describe('handleMarkdown', () => {
           .add([analyticsPlugin, {}])
           .add(contentInsertionPlugin)
           .add([pastePlugin, {}])
+          .add(widthPlugin)
           .add(tablesPlugin)
           .add(listPlugin);
 

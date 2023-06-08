@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render } from '@testing-library/react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Box from '@atlaskit/primitives/box';
 
 import Flag from '../../flag';
 

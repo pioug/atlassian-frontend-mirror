@@ -72,20 +72,17 @@ export const linkTextMessages = defineMessages({
   },
 });
 
-export const messages = defineMessages({
-  timeUpdated: {
-    id: 'fabric.linkPicker.time.updated',
-    defaultMessage: 'Updated',
-    description: 'Time last updated',
+export const timeMessages = defineMessages({
+  updated: {
+    id: 'fabric.linkPicker.time.message.updated',
+    defaultMessage: 'Updated {time}',
+    description:
+      'Time last updated where {time} can be an absolute value e.g. June 5, 2023 or a relative value e.g. 3 hours ago',
   },
-  timeViewed: {
-    id: 'fabric.linkPicker.time.viewed',
-    defaultMessage: 'Viewed',
-    description: 'Time last viewed',
-  },
-  timeAgo: {
-    id: 'fabric.linkPicker.time.ago',
-    defaultMessage: 'ago',
-    description: 'Some time ago',
+  viewed: {
+    id: 'fabric.linkPicker.time.message.viewed',
+    defaultMessage: 'Viewed {time}',
+    description:
+      'Time last viewed where {time} can be an absolute value e.g. June 5, 2023 or a relative value e.g. 3 hours ago',
   },
 });

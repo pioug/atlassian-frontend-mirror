@@ -44,6 +44,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -69,6 +70,7 @@ describe('inputrules', () => {
         .add(textFormattingPlugin)
         .add(hyperlinkPlugin)
         .add(typeAheadPlugin)
+        .add(widthPlugin)
         .add(tablesPlugin),
     });
   };

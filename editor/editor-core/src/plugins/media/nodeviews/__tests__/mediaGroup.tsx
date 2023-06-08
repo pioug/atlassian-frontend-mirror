@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { Filmstrip } from '@atlaskit/media-filmstrip/filmstrip';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { Node as PMNode } from 'prosemirror-model';

@@ -44,13 +44,13 @@ describe('table plugin: insert', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
+      .add(widthPlugin)
       .add([
         tablePlugin,
         {
           tableOptions: {},
         },
-      ])
-      .add(widthPlugin);
+      ]);
 
     const editor = (doc: DocBuilder) =>
       createEditor<TablePluginState, PluginKey>({

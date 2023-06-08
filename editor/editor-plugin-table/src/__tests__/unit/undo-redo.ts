@@ -65,8 +65,8 @@ describe('undo/redo with tables', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
-        .add([tablePlugin, { tableOptions }])
-        .add(widthPlugin),
+        .add(widthPlugin)
+        .add([tablePlugin, { tableOptions }]),
       pluginKey: tablePluginKey,
     });
   };

@@ -3,7 +3,7 @@ import { memo } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Box from '@atlaskit/ds-explorations/box';
+import Box from '@atlaskit/primitives/box';
 import type { ThemeModes } from '@atlaskit/theme/types';
 
 import { DateObj, Week } from '../types';
@@ -25,7 +25,7 @@ const WeekDays = memo<WeekDaysProps>(function WeekDays({
   testId,
 }) {
   return (
-    <Box display="block" role="rowgroup" testId={testId && `${testId}--month`}>
+    <Box role="rowgroup" testId={testId && `${testId}--month`}>
       {weeks.map((week, i) => (
         <WeekdayGrid key={i} testId={testId && `${testId}--week`}>
           {week.values.map((weekDay) => (

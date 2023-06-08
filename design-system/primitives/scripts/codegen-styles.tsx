@@ -38,7 +38,7 @@ const sourceFns = [
   () =>
     createPartialSignedArtifact(
       options => options.map(createStylesFromFileTemplate).join('\n'),
-      'yarn codegen-styles',
+      'yarn workspace @atlaskit/primitives codegen-styles',
       {
         id: 'dimensions',
         absoluteFilePath: targetPath,
@@ -49,7 +49,7 @@ const sourceFns = [
   () =>
     createPartialSignedArtifact(
       createSpacingStylesFromTemplate,
-      'yarn codegen-styles',
+      'yarn workspace @atlaskit/primitives codegen-styles',
       {
         id: 'spacing',
         absoluteFilePath: targetPath,
@@ -60,7 +60,7 @@ const sourceFns = [
   () =>
     createPartialSignedArtifact(
       options => options.map(createColorStylesFromTemplate).join('\n'),
-      'yarn codegen-styles',
+      'yarn workspace @atlaskit/primitives codegen-styles',
       {
         id: 'colors',
         absoluteFilePath: targetPath,
@@ -71,7 +71,7 @@ const sourceFns = [
   () =>
     createPartialSignedArtifact(
       options => options.map(createBorderStylesFromTemplate).join('\n'),
-      'yarn codegen-styles',
+      'yarn workspace @atlaskit/primitives codegen-styles',
       {
         id: 'border',
         absoluteFilePath: targetPath,
@@ -82,7 +82,7 @@ const sourceFns = [
   () =>
     createPartialSignedArtifact(
       options => options.map(createStylesFromFileTemplate).join('\n'),
-      'yarn codegen-styles',
+      'yarn workspace @atlaskit/primitives codegen-styles',
       {
         id: 'misc',
         absoluteFilePath: targetPath,

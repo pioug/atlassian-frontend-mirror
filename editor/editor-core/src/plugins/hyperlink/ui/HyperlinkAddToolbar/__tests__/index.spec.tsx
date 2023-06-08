@@ -5,7 +5,7 @@ import HyperlinkAddToolbar from '../HyperlinkAddToolbar';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { expectToEqual } from '@atlaskit/media-test-helpers/jestHelpers';
 import { activityProviderMock, searchProviderMock } from './__helpers';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
 

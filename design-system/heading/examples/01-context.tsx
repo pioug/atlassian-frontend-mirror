@@ -2,15 +2,13 @@
 import React from 'react';
 
 import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
-import Box from '@atlaskit/ds-explorations/box';
-import Stack from '@atlaskit/primitives/stack';
-import { token } from '@atlaskit/tokens';
+import { Box, Stack } from '@atlaskit/primitives';
 
 import Heading, { HeadingContextProvider } from '../src';
 
 const Section = ({ level, children }: any) => (
   <HeadingContextProvider>
-    <Box UNSAFE_style={{ paddingLeft: token('space.100', '8px') }}>
+    <Box paddingInlineStart="space.100">
       <Stack space="space.100">
         <Heading level={level}>{level}</Heading>
         <Text>
@@ -28,7 +26,7 @@ const Section = ({ level, children }: any) => (
 export default () => {
   return (
     <HeadingContextProvider>
-      <Box UNSAFE_style={{ maxWidth: 850, margin: 'auto' }}>
+      <Box style={{ maxWidth: 850, margin: 'auto' }}>
         <Stack testId="headings" space="space.100">
           <Heading level="h900">h900 and H1</Heading>
           <Section level="h800">

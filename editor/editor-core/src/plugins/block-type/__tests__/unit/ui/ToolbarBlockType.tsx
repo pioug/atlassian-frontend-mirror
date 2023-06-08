@@ -9,7 +9,7 @@ import {
   panel,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

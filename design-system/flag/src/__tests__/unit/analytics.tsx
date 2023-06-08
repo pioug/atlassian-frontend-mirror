@@ -4,7 +4,7 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import { Box } from '@atlaskit/primitives';
 
 import { FlagProps } from '../../types';
 import Flag from '../../flag';

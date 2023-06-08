@@ -1,11 +1,11 @@
 /** @jsx jsx */
 import { ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
-import Box from '@atlaskit/ds-explorations/box';
+import { Box, xcss } from '@atlaskit/primitives';
 
-const gridStyles = css({
+const gridStyles = xcss({
   display: 'grid',
   gridTemplateColumns: 'repeat(7, minmax(max-content, 1fr))',
 });
@@ -22,7 +22,7 @@ interface WeekDayGridProps extends React.HTMLAttributes<HTMLElement> {
  *
  */
 const WeekDayGrid = ({ testId, children }: WeekDayGridProps) => (
-  <Box testId={testId} css={gridStyles} role="row">
+  <Box testId={testId} xcss={gridStyles} role="row">
     {children}
   </Box>
 );

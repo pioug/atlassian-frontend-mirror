@@ -1,10 +1,9 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import AkBlanket from '@atlaskit/blanket';
-import Box from '@atlaskit/ds-explorations/box';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 
 import { animationTimingFunction, transitionDurationMs } from '../constants';
@@ -16,6 +15,10 @@ type BlanketProps = {
   ) => void;
   testId?: string;
 };
+
+const blanketStyles = css({
+  position: 'relative',
+});
 
 /**
  * A wrapper around `@atlaskit/blanket` that adds a fade in/out transition.
@@ -40,13 +43,13 @@ const Blanket = ({ isOpen, onBlanketClicked, testId }: BlanketProps) => {
           animationTimingFunction={animationTimingFunction}
         >
           {({ className }) => (
-            <Box position="relative" className={className}>
+            <div css={blanketStyles} className={className}>
               <AkBlanket
                 isTinted
                 onBlanketClicked={onBlanketClicked}
                 testId={testId && testId}
               />
-            </Box>
+            </div>
           )}
         </FadeIn>
       )}

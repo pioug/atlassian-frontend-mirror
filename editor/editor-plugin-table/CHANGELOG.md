@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 1.5.3
+
+### Patch Changes
+
+- [`b38a0fcd924`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b38a0fcd924) - Use NextEditorPlugin API for width plugin in tables.
+
 ## 1.5.2
 
 ### Patch Changes

@@ -31,6 +31,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 interface InputOutput {
   initial: DocBuilder;
@@ -180,6 +181,7 @@ describe('inputrules', () => {
         .add(typeAheadPlugin)
         .add(listPlugin)
         .add(panelPlugin)
+        .add(widthPlugin)
         .add(tablesPlugin),
     });
 

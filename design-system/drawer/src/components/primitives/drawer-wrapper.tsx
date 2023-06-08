@@ -2,12 +2,11 @@
 
 import { forwardRef, ReactElement, Ref, useCallback } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { useMergeRefs } from 'use-callback-ref';
 
-import Box from '@atlaskit/ds-explorations/box';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
+import { N0 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { DrawerPrimitiveProps, Widths } from '../types';
 
@@ -16,16 +15,21 @@ import usePreventProgrammaticScroll from './hooks/use-prevent-programmatic-scrol
 export const wrapperWidth: Widths = {
   full: { width: '100vw' },
   extended: { width: '95vw' },
-  narrow: { width: 45 * gridSize() },
-  medium: { width: 60 * gridSize() },
-  wide: { width: 75 * gridSize() },
+  narrow: { width: 360 },
+  medium: { width: 480 },
+  wide: { width: 600 },
 };
 
-const wrapperStyles = {
+const wrapperStyles = css({
+  display: 'flex',
+  height: '100vh',
+  position: 'fixed',
+  zIndex: 500,
   top: 0,
   left: 0,
-  height: '100vh',
-};
+  backgroundColor: token('elevation.surface.overlay', N0),
+  overflow: 'hidden',
+});
 
 interface FocusLockRefTargetProps
   extends Pick<DrawerPrimitiveProps, 'width' | 'testId'> {
@@ -70,22 +74,15 @@ const DrawerWrapper = forwardRef<HTMLElement, FocusLockRefTargetProps>(
     usePreventProgrammaticScroll();
 
     return (
-      <Box
-        display="flex"
-        position="fixed"
-        backgroundColor="elevation.surface.overlay"
-        overflow="hidden"
-        layer="blanket"
-        UNSAFE_style={{
-          ...wrapperStyles,
-          ...wrapperWidth[width],
-        }}
+      <div
+        css={wrapperStyles}
+        style={wrapperWidth[width]}
         className={className}
-        testId={testId}
+        data-testid={testId}
         ref={ref}
       >
         {children}
-      </Box>
+      </div>
     );
   },
 );

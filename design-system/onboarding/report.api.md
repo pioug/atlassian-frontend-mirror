@@ -19,6 +19,7 @@ import { Component } from 'react';
 import { ComponentType } from 'react';
 import { CustomThemeButtonProps } from '@atlaskit/button/types';
 import { ElementType } from 'react';
+import { ForwardRefExoticComponent } from 'react';
 import { jsx } from '@emotion/react';
 import { MemoizedFn } from 'memoize-one';
 import { ModalFooterProps } from '@atlaskit/modal-dialog';
@@ -29,6 +30,7 @@ import { PureComponent } from 'react';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
 import { Ref } from 'react';
+import { RefAttributes } from 'react';
 import { ThemeProp } from '@atlaskit/theme/components';
 
 // @public (undocumented)
@@ -91,7 +93,14 @@ type ModalProps = {
 export { ModalTransition };
 
 // @public
-export const Spotlight: React_2.FC<SpotlightProps>;
+export const Spotlight: ({
+  dialogWidth,
+  pulse,
+  testId,
+  targetNode,
+  target,
+  ...rest
+}: SpotlightProps) => JSX.Element;
 
 // @public @deprecated (undocumented)
 export const spotlightButtonTheme: (
@@ -100,8 +109,8 @@ export const spotlightButtonTheme: (
 ) => any;
 
 // @public
-export const SpotlightCard: React_2.ForwardRefExoticComponent<
-  SpotlightCardProps & React_2.RefAttributes<HTMLDivElement>
+export const SpotlightCard: ForwardRefExoticComponent<
+  SpotlightCardProps & RefAttributes<HTMLDivElement>
 >;
 
 // @public (undocumented)
@@ -213,10 +222,18 @@ interface SpotlightProps {
 }
 
 // @public
-export const SpotlightPulse: React.FC<TargetProps>;
+export const SpotlightPulse: ({
+  children,
+  pulse,
+  testId,
+  ...props
+}: TargetProps) => jsx.JSX.Element;
 
 // @public
-export const SpotlightTarget: React_2.FC<SpotlightTargetProps>;
+export const SpotlightTarget: ({
+  children,
+  name,
+}: SpotlightTargetProps) => JSX.Element;
 
 // @public (undocumented)
 interface SpotlightTargetProps {

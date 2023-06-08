@@ -12,6 +12,6 @@
     "scripts"
   ],
   "compilerOptions": {
-    "baseUrl": ""
+    "baseUrl": "./"
   }
 }

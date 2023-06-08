@@ -1,5 +1,11 @@
 # @atlaskit/rating
 
+## 0.3.11
+
+### Patch Changes
+
+- [`f88d0921a57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f88d0921a57) - Fix deprecated import from @atlaskit/theme for "Dev Portal"
+
 ## 0.3.10
 
 ### Patch Changes

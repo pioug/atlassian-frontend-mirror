@@ -11,17 +11,14 @@ const renderIcon: RatingRender = (props) => {
 };
 
 const expectIsVisuallyHidden = (element: HTMLElement) => {
-  expect(element).toHaveStyleDeclaration('border', '0!important');
-  expect(element).toHaveStyleDeclaration(
-    'clip',
-    'rect(1px, 1px, 1px, 1px)!important',
-  );
-  expect(element).toHaveStyleDeclaration('height', '1px!important');
-  expect(element).toHaveStyleDeclaration('overflow', 'hidden!important');
-  expect(element).toHaveStyleDeclaration('padding', '0!important');
-  expect(element).toHaveStyleDeclaration('position', 'absolute!important');
-  expect(element).toHaveStyleDeclaration('width', '1px!important');
-  expect(element).toHaveStyleDeclaration('white-space', 'nowrap!important');
+  expect(element).toHaveStyleDeclaration('border', '0');
+  expect(element).toHaveStyleDeclaration('clip', 'rect(1px, 1px, 1px, 1px)');
+  expect(element).toHaveStyleDeclaration('height', '1px');
+  expect(element).toHaveStyleDeclaration('overflow', 'hidden');
+  expect(element).toHaveStyleDeclaration('padding', '0');
+  expect(element).toHaveStyleDeclaration('position', 'absolute');
+  expect(element).toHaveStyleDeclaration('width', '1px');
+  expect(element).toHaveStyleDeclaration('white-space', 'nowrap');
 };
 
 describe('<Rating />', () => {
@@ -67,7 +64,7 @@ describe('<Rating />', () => {
   });
 
   it('should visually hide the text inside the label', () => {
-    const { getByLabelText } = render(
+    const { getByText } = render(
       <Rating
         render={renderIcon}
         label="GREAT"
@@ -77,7 +74,7 @@ describe('<Rating />', () => {
       />,
     );
 
-    expectIsVisuallyHidden(getByLabelText('GREAT'));
+    expectIsVisuallyHidden(getByText('GREAT'));
   });
 
   it('should visually hide the radio button', () => {
@@ -91,7 +88,8 @@ describe('<Rating />', () => {
       />,
     );
 
-    expectIsVisuallyHidden(getByTestId('item--input'));
+    const inputContainer = getByTestId('item--input').parentElement;
+    expectIsVisuallyHidden(inputContainer!);
   });
 
   it('should callback when the radio button has its value change', () => {

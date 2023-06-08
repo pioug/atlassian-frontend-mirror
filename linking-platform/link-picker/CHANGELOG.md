@@ -1,5 +1,27 @@
 # @atlaskit/link-picker
 
+## 1.23.2
+
+### Patch Changes
+
+- [`44d226ae268`](https://bitbucket.org/atlassian/atlassian-frontend/commits/44d226ae268) - [ux] This adds support for Confluence Whiteboards in Link Picker search. This also adds a new scope in `@atlassian/search-client`, which contains pages, blogs and whiteboards.
+
+## 1.23.1
+
+### Patch Changes
+
+- [`1d9bcdf92d8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d9bcdf92d8) - EDM-5278: refactor timestamp in link-picker to remove string concatenation, to switch between relative and absolute time with correct display values and add new atlas kit example to test translations for link-picker
+
+## 1.23.0
+
+### Minor Changes
+
+- [`5b744a84924`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b744a84924) - [ux] Support for an empty state in LinkPicker, and implementation of empty state for the link-picker-atlassian-plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.22.2
 
 ### Patch Changes

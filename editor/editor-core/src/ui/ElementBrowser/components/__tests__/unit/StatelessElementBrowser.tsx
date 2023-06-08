@@ -16,7 +16,7 @@ jest.mock('../../../hooks/use-container-width', () => {
 import React from 'react';
 import { ReactWrapper } from 'enzyme';
 import { act } from '@testing-library/react';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 import { replaceRaf } from 'raf-stub';
 import { DEVICE_BREAKPOINT_NUMBERS } from '../../../constants';
 import StatelessElementBrowser from '../../StatelessElementBrowser';

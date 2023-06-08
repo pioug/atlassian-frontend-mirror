@@ -2,10 +2,16 @@ import { SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { UNSAFE_media } from './media-helper';
+
 /**
  * The breakpoints we have for responsiveness.
  */
 export type Breakpoint = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+
+export type MediaQuery =
+  | (typeof UNSAFE_media.above)[Breakpoint]
+  | (typeof UNSAFE_media.below)[Exclude<Breakpoint, 'xxs'>];
 
 /**
  * An object type mapping a value to each breakpoint (optionally)

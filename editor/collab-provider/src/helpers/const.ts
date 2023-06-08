@@ -213,7 +213,7 @@ type SendStepsRetryAnalyticsEvent = {
   eventAction: EVENT_ACTION.SEND_STEPS_RETRY;
   attributes: {
     documentAri: string;
-    eventStatus: EVENT_STATUS.SUCCESS;
+    eventStatus: EVENT_STATUS.INFO;
     count: number;
   };
 };
@@ -222,7 +222,7 @@ type CatchupAfterMaxSendStepsRetryAnalyticsEvent = {
   eventAction: EVENT_ACTION.CATCHUP_AFTER_MAX_SEND_STEPS_RETRY;
   attributes: {
     documentAri: string;
-    eventStatus: EVENT_STATUS.SUCCESS;
+    eventStatus: EVENT_STATUS.INFO;
   };
 };
 

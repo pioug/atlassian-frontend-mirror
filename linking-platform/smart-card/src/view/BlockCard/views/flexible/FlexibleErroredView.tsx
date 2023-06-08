@@ -20,6 +20,7 @@ import { FlexibleBlockCardProps } from './types';
  * @see FlexibleCardProps
  */
 const FlexibleErroredView = ({
+  anchorTarget,
   cardState,
   onAuthorize,
   onError,
@@ -45,7 +46,7 @@ const FlexibleErroredView = ({
       ui={ui}
       url={url}
     >
-      <TitleBlock hideRetry={true} />
+      <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
       <CustomBlock>
         <WarningIcon
           label="errored-warning-icon"

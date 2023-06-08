@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.10.0
+
+### Minor Changes
+
+- [`313d71fce9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/313d71fce9c) - Allow media queries at predefined breakpoints to be applied through xCSS.
+
 ## 0.9.5
 
 ### Patch Changes

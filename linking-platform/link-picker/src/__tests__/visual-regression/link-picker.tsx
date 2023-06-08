@@ -10,6 +10,8 @@ import {
   LoadPageOptions,
 } from '@atlaskit/visual-regression/helper';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 export function getURL(testName: string): string {
   return getExampleUrl(
     'linking-platform',
@@ -418,4 +420,26 @@ describe('link-picker', () => {
     const image = await takeElementScreenShot(page, testSelector);
     expect(image).toMatchProdImageSnapshot();
   });
+
+  ffTest(
+    'platform.linking-platform.link-picker.enable-empty-state',
+    async () => {
+      const url = getURL('vr-with-no-results');
+      const page = await setup(url);
+
+      const image = await takeElementScreenShot(page, testSelector);
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
+
+  ffTest(
+    'platform.linking-platform.link-picker.enable-empty-state',
+    async () => {
+      const url = getURL('vr-with-no-results-multi-product');
+      const page = await setup(url);
+
+      const image = await takeElementScreenShot(page, testSelector);
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 });

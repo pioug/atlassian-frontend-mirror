@@ -7,8 +7,7 @@ import { FlagProps } from '../../types';
 import FlagGroup from '../../flag-group';
 
 import { matchers } from '@emotion/jest';
-
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Box from '@atlaskit/primitives/box';
 
 expect.extend(matchers);
 

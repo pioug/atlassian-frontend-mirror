@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -15,48 +16,131 @@
 
 ```ts
 import { Rule } from 'eslint';
+import { RuleListener } from '@typescript-eslint/utils/dist/ts-eslint/Rule';
+import { RuleModule } from '@typescript-eslint/utils/dist/ts-eslint/Rule';
 
 // @public (undocumented)
 export const configs: {
-  recommended: {
-    plugins: string[];
-    rules: {
-      '@atlaskit/design-system/icon-label': string;
-      '@atlaskit/design-system/no-deprecated-apis': string;
-      '@atlaskit/design-system/no-deprecated-imports': string;
-      '@atlaskit/design-system/use-visually-hidden': string;
-      '@atlaskit/design-system/no-banned-imports': string;
-    };
-  };
   all: {
     plugins: string[];
     rules: {
-      '@atlaskit/design-system/icon-label': string;
-      '@atlaskit/design-system/no-deprecated-apis': string;
-      '@atlaskit/design-system/no-deprecated-imports': string;
-      '@atlaskit/design-system/use-visually-hidden': string;
+      '@atlaskit/design-system/consistent-css-prop-usage': string;
       '@atlaskit/design-system/ensure-design-token-usage': string;
-      '@atlaskit/design-system/no-banned-imports': string;
-      '@atlaskit/design-system/no-unsafe-design-token-usage': string;
       '@atlaskit/design-system/ensure-design-token-usage-spacing': string;
+      '@atlaskit/design-system/icon-label': string;
+      '@atlaskit/design-system/no-banned-imports': string;
+      '@atlaskit/design-system/no-deprecated-apis': string;
+      '@atlaskit/design-system/no-deprecated-design-token-usage': string;
+      '@atlaskit/design-system/no-deprecated-imports': string;
+      '@atlaskit/design-system/no-margin': string;
+      '@atlaskit/design-system/no-unsafe-design-token-usage': string;
+      '@atlaskit/design-system/use-primitives': string;
+      '@atlaskit/design-system/use-visually-hidden': string;
+    };
+  };
+  recommended: {
+    plugins: string[];
+    rules: {
+      '@atlaskit/design-system/consistent-css-prop-usage': string;
+      '@atlaskit/design-system/ensure-design-token-usage': string;
+      '@atlaskit/design-system/icon-label': string;
+      '@atlaskit/design-system/no-banned-imports': string;
+      '@atlaskit/design-system/no-deprecated-apis': string;
+      '@atlaskit/design-system/no-deprecated-design-token-usage': string;
+      '@atlaskit/design-system/no-deprecated-imports': string;
+      '@atlaskit/design-system/no-unsafe-design-token-usage': string;
+      '@atlaskit/design-system/use-visually-hidden': string;
     };
   };
 };
 
 // @public (undocumented)
+type DeprecatedConfig = DeprecatedImportConfig | DeprecatedJSXAttributeConfig;
+
+// @public (undocumented)
+type DeprecatedImportConfig = {
+  [key: string]: DeprecatedImportConfigEntry;
+};
+
+// @public (undocumented)
+type DeprecatedImportConfigEntry = {
+  message?: string;
+  importSpecifiers?: {
+    importName: string;
+    message: string;
+  }[];
+};
+
+// @public (undocumented)
+type DeprecatedJSXAttributeConfig = {
+  [key: string]: DeprecatedJSXAttributeConfigEntry[];
+};
+
+// @public (undocumented)
+type DeprecatedJSXAttributeConfigEntry = {
+  moduleSpecifier: string;
+  namedSpecifiers?: string[];
+  actionableVersion?: string;
+};
+
+// @public (undocumented)
+export const filterActionableDeprecations: (
+  originalDeprecatedConfig: string,
+  rootPackageJson: string,
+) => string;
+
+// @public (undocumented)
 export const rules: {
+  'consistent-css-prop-usage': Rule.RuleModule;
   'ensure-design-token-usage': Rule.RuleModule;
+  'ensure-design-token-usage-spacing': RuleModule<
+    'autofixesPossible' | 'noRawRadiusValues' | 'noRawSpacingValues',
+    [
+      {
+        addons: ('shape' | 'spacing' | 'typography')[];
+        applyImport?: boolean | undefined;
+      },
+    ],
+    RuleListener
+  >;
   'icon-label': Rule.RuleModule;
-  'no-deprecated-apis': Rule.RuleModule;
-  'no-deprecated-design-token-usage': Rule.RuleModule;
-  'no-deprecated-imports': Rule.RuleModule;
   'no-banned-imports': Rule.RuleModule;
+  'no-deprecated-apis': RuleModule<
+    string,
+    [
+      {
+        deprecatedConfig: DeprecatedConfig;
+      },
+    ],
+    RuleListener
+  >;
+  'no-deprecated-design-token-usage': Rule.RuleModule;
+  'no-deprecated-imports': RuleModule<
+    string,
+    [
+      {
+        deprecatedConfig: DeprecatedConfig;
+      },
+    ],
+    RuleListener
+  >;
+  'no-margin': Rule.RuleModule;
   'no-unsafe-design-token-usage': Rule.RuleModule;
+  'use-primitives': Rule.RuleModule;
   'use-visually-hidden': Rule.RuleModule;
-  'ensure-design-token-usage-spacing': Rule.RuleModule;
 };
 
 // (No @packageDocumentation comment for this package)
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{}
+```
+
+<!--SECTION END: Peer Dependencies-->

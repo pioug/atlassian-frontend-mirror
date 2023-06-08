@@ -94,4 +94,18 @@ describe('@atlaskit/banner visual regression', () => {
     const image = await element?.screenshot();
     expect(image).toMatchProdImageSnapshot();
   });
+
+  it('banner with link example should match production example', async () => {
+    const url = getExampleUrl(
+      'design-system',
+      'banner',
+      'banner-with-link',
+      global.__BASEURL__,
+    );
+    const { page } = global;
+    await loadPage(page, url);
+    const element = await waitForBannerVisible(page);
+    const image = await element?.screenshot();
+    expect(image).toMatchProdImageSnapshot();
+  });
 });

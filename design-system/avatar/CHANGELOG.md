@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 21.3.3
+
+### Patch Changes
+
+- [`e2d375fa634`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2d375fa634) - Refactor how some internal styles are applied; no functional changes.
+
 ## 21.3.2
 
 ### Patch Changes

@@ -1,19 +1,14 @@
 /** @jsx jsx */
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState, CSSProperties } from 'react';
 
 import { jsx, css } from '@emotion/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
-import Inline from '@atlaskit/primitives/inline';
-import Stack from '@atlaskit/primitives/stack';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Inline, Stack, Box, xcss } from '@atlaskit/primitives';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
 import FocusRing from '@atlaskit/focus-ring';
-import { token } from '@atlaskit/tokens';
 
 import { DEFAULT_APPEARANCE } from './constants';
 import { flagTextColor, flagBackgroundColor, flagIconColor } from './theme';
@@ -22,6 +17,28 @@ import type { FlagProps } from './types';
 import Actions from './flag-actions';
 import { useFlagGroup } from './flag-group';
 import { Expander, DismissButton } from './internal';
+
+const CSS_VAR_ICON_COLOR = '--flag-icon-color';
+
+const iconWrapperStyles = css({
+  display: 'flex',
+  alignItems: 'start',
+  flexShrink: 0,
+  color: `var(${CSS_VAR_ICON_COLOR})`,
+});
+
+const flagStyles = xcss({
+  boxShadow: 'overlay',
+  borderRadius: 'radius.100',
+  overflow: 'hidden',
+  zIndex: 'flag',
+  width: '100%',
+  transition: 'background-color 200ms',
+});
+
+const flagWrapperStyles = css({
+  width: '100%',
+});
 
 const analyticsAttributes = {
   componentName: 'flag',
@@ -130,88 +147,82 @@ const Flag: FC<FlagProps> = (props) => {
 
   return (
     <FocusRing>
-      <Box
-        display="block"
-        backgroundColor={flagBackgroundColor[appearance]}
-        shadow="overlay"
-        padding="space.200"
-        borderRadius="normal"
-        overflow="hidden"
-        layer="flag"
-        UNSAFE_style={{
-          width: '100%',
-          transition: 'background-color 200ms',
-        }}
-        role="alert"
+      <div
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}
-        testId={testId}
+        role="alert"
+        css={flagWrapperStyles}
+        data-testid={testId}
         {...autoDismissProps}
       >
-        <Inline space="space.200">
-          <Box
-            alignItems="start"
-            UNSAFE_style={{ color: iconColor, flexShrink: 0 }}
-          >
-            {icon}
-          </Box>
-          <span css={transitionStyles}>
-            <Stack
-              space={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
+        <Box
+          backgroundColor={flagBackgroundColor[appearance]}
+          padding="space.200"
+          xcss={flagStyles}
+        >
+          <Inline space="space.200">
+            <div
+              css={iconWrapperStyles}
+              style={{ [CSS_VAR_ICON_COLOR]: iconColor } as CSSProperties}
             >
-              <Inline space="space.100" spread="space-between">
-                <Box
-                  display="block"
-                  UNSAFE_style={{ paddingTop: token('space.025', '2px') }}
-                >
-                  <Text
-                    color={textColor}
-                    fontWeight="semibold"
-                    UNSAFE_style={{
-                      overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
-                    }}
-                  >
-                    {title}
-                  </Text>
-                </Box>
-                {isDismissable
-                  ? !(isBold && !description && !actions.length) && (
-                      <DismissButton
-                        testId={testId}
-                        appearance={appearance}
-                        isBold={isBold}
-                        isExpanded={isExpanded}
-                        onClick={isBold ? toggleExpand : buttonActionCallback}
-                      />
-                    )
-                  : null}
-              </Inline>
-              {/* Normal appearance can't be expanded so isExpanded is always true */}
-              <Expander isExpanded={!isBold || isExpanded} testId={testId}>
-                {description && (
-                  <Text
-                    as="div"
-                    color={textColor}
-                    UNSAFE_style={{
-                      maxHeight: 100, // height is defined as 5 lines maximum by design
-                      overflow: 'auto',
-                      overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
-                    }}
-                    testId={testId && `${testId}-description`}
-                  >
-                    {description}
-                  </Text>
-                )}
-                <Actions
-                  actions={actions}
-                  appearance={appearance}
-                  linkComponent={linkComponent}
-                  testId={testId}
-                />
-              </Expander>
-            </Stack>
-          </span>
-        </Inline>
-      </Box>
+              {icon}
+            </div>
+            <span css={transitionStyles}>
+              <Stack
+                space={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
+              >
+                <Inline space="space.100" spread="space-between">
+                  <Box paddingBlockStart="space.025">
+                    <Text
+                      color={textColor}
+                      fontWeight="semibold"
+                      UNSAFE_style={{
+                        overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
+                      }}
+                    >
+                      {title}
+                    </Text>
+                  </Box>
+                  {isDismissable
+                    ? !(isBold && !description && !actions.length) && (
+                        <DismissButton
+                          testId={testId}
+                          appearance={appearance}
+                          isBold={isBold}
+                          isExpanded={isExpanded}
+                          onClick={isBold ? toggleExpand : buttonActionCallback}
+                        />
+                      )
+                    : null}
+                </Inline>
+                {/* Normal appearance can't be expanded so isExpanded is always true */}
+                <Expander isExpanded={!isBold || isExpanded} testId={testId}>
+                  {description && (
+                    <Text
+                      as="div"
+                      color={textColor}
+                      UNSAFE_style={{
+                        maxHeight: 100, // height is defined as 5 lines maximum by design
+                        overflow: 'auto',
+                        overflowWrap: 'anywhere', // For cases where a single word is longer than the container (e.g. filenames)
+                      }}
+                      testId={testId && `${testId}-description`}
+                    >
+                      {description}
+                    </Text>
+                  )}
+                  <Actions
+                    actions={actions}
+                    appearance={appearance}
+                    linkComponent={linkComponent}
+                    testId={testId}
+                  />
+                </Expander>
+              </Stack>
+            </span>
+          </Inline>
+        </Box>
+      </div>
     </FocusRing>
   );
 };

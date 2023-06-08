@@ -1,21 +1,22 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
-import React, { forwardRef } from 'react';
+import React, { CSSProperties, forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_BoxProps as BoxProps,
-  UNSAFE_Text as Text,
-  UNSAFE_TextProps as TextProps,
-} from '@atlaskit/ds-explorations';
-import Inline from '@atlaskit/primitives/inline';
+import { Box, BoxProps, Inline, xcss } from '@atlaskit/primitives';
 import { N0, N500, N700, R400, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// Applies styles to nested links within banner messages.
-const nestedLinkStyles = css({
+const CSS_VAR_TEXT_COLOR = '--banner-text-color';
+
+const textStyles = css({
+  color: `var(${CSS_VAR_TEXT_COLOR})`,
+  fontWeight: token('font.weight.medium', '500'),
+  lineHeight: token('font.lineHeight.300', '24px'),
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   'a, a:visited, a:hover, a:focus, a:active': {
     color: 'currentColor',
@@ -35,12 +36,6 @@ const tokenBackgroundColors: Record<Appearance, string> = {
   announcement: token('color.background.neutral.bold', N500),
 };
 
-const textColors: Record<Appearance, TextProps['color']> = {
-  warning: 'warning.inverse',
-  error: 'inverse',
-  announcement: 'inverse',
-};
-
 const tokenTextColors: Record<Appearance, string> = {
   warning: token('color.text.warning.inverse', N700),
   error: token('color.text.inverse', N0),
@@ -48,6 +43,18 @@ const tokenTextColors: Record<Appearance, string> = {
 };
 
 type Appearance = 'warning' | 'error' | 'announcement';
+
+const containerStyles = xcss({
+  overflow: 'hidden',
+  maxHeight: 'size.500',
+});
+
+const iconWrapperStyles = xcss({
+  display: 'block',
+  width: 'size.200',
+  height: 'size.200', // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
+  flexShrink: '0',
+});
 
 interface BannerProps {
   /**
@@ -84,42 +91,36 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
 
     return (
       <Box
-        display="block"
+        xcss={containerStyles}
         backgroundColor={backgroundColors[appearanceType]}
-        overflow="hidden"
         padding="space.150"
         testId={testId}
         ref={ref}
         role="alert"
-        UNSAFE_style={{
-          maxHeight: '48px',
-        }}
-        css={nestedLinkStyles}
       >
         <Inline space="space.050" alignBlock="center" alignInline="start">
           {icon ? (
             <Box
               as="span"
-              display="inline"
-              width="size.200"
-              height="size.200" // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
-              UNSAFE_style={{
+              xcss={iconWrapperStyles}
+              style={{
                 fill: tokenBackgroundColors[appearanceType],
                 color: tokenTextColors[appearanceType],
-                flexShrink: 0,
               }}
             >
               {icon}
             </Box>
           ) : null}
-          <Text
-            fontWeight="medium"
-            lineHeight="lineHeight.300"
-            color={textColors[appearanceType]}
-            shouldTruncate
+          <span
+            style={
+              {
+                [CSS_VAR_TEXT_COLOR]: tokenTextColors[appearanceType],
+              } as CSSProperties
+            }
+            css={textStyles}
           >
             {children}
-          </Text>
+          </span>
         </Inline>
       </Box>
     );

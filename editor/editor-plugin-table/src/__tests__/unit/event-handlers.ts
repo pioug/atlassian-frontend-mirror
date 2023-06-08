@@ -51,6 +51,7 @@ describe('table plugin: decorations', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
+        .add(widthPlugin)
         .add(tablePlugin),
       pluginKey,
     });

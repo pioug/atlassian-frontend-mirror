@@ -4,9 +4,9 @@ import { token } from '@atlaskit/tokens';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2c35cc3f884146ac8ccdf053bf413481>>
+ * @codegen <<SignedSource::b6657585e3df6f8017d4c35bb9150e3f>>
  * @codegenId dimensions
- * @codegenCommand yarn codegen-styles
+ * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["dimensions"]
  * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::01143ff41135244db1d8ec2efe4339d6>>
  */
@@ -45,9 +45,9 @@ export type MinInlineSize = Dimension;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c32ec2103b151d3533775390e92f0f03>>
+ * @codegen <<SignedSource::de092b03d79b8477034921622fcddd53>>
  * @codegenId spacing
- * @codegenCommand yarn codegen-styles
+ * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::86e173b0e020fe5d091fdf4bff023711>>
  */
 export const spaceMap = {
@@ -74,9 +74,9 @@ export type Space = keyof typeof spaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::aa1cfa3cd24f141a85ac1e0b70dbd8a8>>
+ * @codegen <<SignedSource::98eba397b6a9706307e40f32a49200fd>>
  * @codegenId colors
- * @codegenCommand yarn codegen-styles
+ * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "shadow", "text", "fill"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::10aa7e87eca39e4d6594a764e78e0698>>
  */
@@ -459,17 +459,17 @@ export type Fill = keyof typeof fillMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e63fc5ff12523b2d49dc72925e1648e6>>
+ * @codegen <<SignedSource::7787d50b7bc64a9350e4cf35ae608a79>>
  * @codegenId misc
- * @codegenCommand yarn codegen-styles
+ * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["align-self", "border-style", "display", "flex-direction", "flex-grow", "flex-shrink", "flex", "layer", "overflow", "position"]
  * @codegenDependency ../../scripts/codegen-file-templates/align-self.tsx <<SignedSource::074079802534462de54bf882bb2073e5>>
  * @codegenDependency ../../scripts/codegen-file-templates/border-style.tsx <<SignedSource::87e7e289ffeaac901997c4af98084a5f>>
  * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::01143ff41135244db1d8ec2efe4339d6>>
- * @codegenDependency ../../scripts/codegen-file-templates/display.tsx <<SignedSource::04ea30fcb3c02f2545af7fdc0206e645>>
+ * @codegenDependency ../../scripts/codegen-file-templates/display.tsx <<SignedSource::486569d9e228265c1688d0a7122bdedc>>
  * @codegenDependency ../../scripts/codegen-file-templates/flex-direction.tsx <<SignedSource::19809ba11675679c188b0d98fb651dc1>>
  * @codegenDependency ../../scripts/codegen-file-templates/flex-grow.tsx <<SignedSource::b8a06b122cb609170f1f42778a6c270e>>
- * @codegenDependency ../../scripts/codegen-file-templates/flex-shrink.tsx <<SignedSource::bf6626972898bf22d2eeee2130693d47>>
+ * @codegenDependency ../../scripts/codegen-file-templates/flex-shrink.tsx <<SignedSource::77effeb1e5c39997e34b21b000a91faf>>
  * @codegenDependency ../../scripts/codegen-file-templates/flex.tsx <<SignedSource::ffa0189d14f1f00a16ec1e9f43a17ce9>>
  * @codegenDependency ../../scripts/codegen-file-templates/layer.tsx <<SignedSource::79d24a1e558f12d671c06a7609f90dc1>>
  * @codegenDependency ../../scripts/codegen-file-templates/overflow.tsx <<SignedSource::ccb841f2f51525aed895c06e00f15089>>
@@ -498,6 +498,7 @@ export const displayMap = {
   inline: 'inline',
   inlineBlock: 'inline-block',
   inlineFlex: 'inline-flex',
+  grid: 'grid',
 } as const;
 
 export type Display = keyof typeof displayMap;
@@ -517,7 +518,7 @@ export const flexGrowMap = {
 export type FlexGrow = keyof typeof flexGrowMap;
 
 export const flexShrinkMap = {
-  '0': 0,
+  '0': '0',
   '1': 1,
 } as const;
 
@@ -579,9 +580,9 @@ export type Position = keyof typeof positionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::80ae367205568f9ca76d35f0cbc9d127>>
+ * @codegen <<SignedSource::f923934816cc73cf3f82820a93df5377>>
  * @codegenId border
- * @codegenCommand yarn codegen-styles
+ * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["width", "radius"]
  * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::81055547b21306c07a3e8a3c734a2f1c>>
  */
@@ -595,7 +596,7 @@ export type BorderWidth = keyof typeof borderWidthMap;
 
 export const borderRadiusMap = {
   'radius.050': token('border.radius.050', '2px'),
-  'radius.100': token('border.radius.100', '4px'),
+  'radius.100': token('border.radius.100', '3px'),
   'radius.200': token('border.radius.200', '8px'),
   'radius.300': token('border.radius.300', '12px'),
   'radius.400': token('border.radius.400', '16px'),

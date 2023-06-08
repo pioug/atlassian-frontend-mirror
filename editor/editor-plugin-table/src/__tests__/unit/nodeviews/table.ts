@@ -24,6 +24,7 @@ import { hoverRows } from '../../../plugins/table/commands';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 describe('table -> nodeviews -> table.tsx', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -41,6 +42,7 @@ describe('table -> nodeviews -> table.tsx', () => {
             .add([featureFlagsPlugin, {}])
             .add([analyticsPlugin, {}])
             .add(contentInsertionPlugin)
+            .add(widthPlugin)
             .add([
               tablePlugin,
               {

@@ -12,7 +12,7 @@ import Blog16Icon from '@atlaskit/icon-object/glyph/blog/16';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import LinkSearchListItem from '../../../../../ui/LinkSearch/LinkSearchListItem';
 import LinkSearchList from '../../../../../ui/LinkSearch/LinkSearchList';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 import {
   activityProviderMockResults,
   generateActivityProviderMockResults,

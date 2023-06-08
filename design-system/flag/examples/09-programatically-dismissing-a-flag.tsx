@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import Box from '@atlaskit/primitives/box';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 
 import Flag, { FlagGroup } from '../src';

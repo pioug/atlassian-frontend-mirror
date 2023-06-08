@@ -52,7 +52,7 @@
     "@atlaskit/ds-explorations": "^2.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/form": "^8.11.0",
-    "@atlaskit/primitives": "^0.9.0",
+    "@atlaskit/primitives": "^0.10.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.6.0",

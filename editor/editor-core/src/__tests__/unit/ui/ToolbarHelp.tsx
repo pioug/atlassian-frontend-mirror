@@ -1,4 +1,4 @@
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../__helpers/enzyme';
 import React from 'react';
 import Tooltip from '@atlaskit/tooltip';
 import ToolbarHelp from '../../../ui/ToolbarHelp';

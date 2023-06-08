@@ -27,6 +27,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 const emojiProvider = getTestEmojiResource();
 const providerFactory = ProviderFactory.create({ emojiProvider });
@@ -53,6 +54,7 @@ describe('Inline cursor target', () => {
         .add(contentInsertionPlugin)
         .add([basePlugin, { allowInlineCursorTarget: true }])
         .add(emojiPlugin)
+        .add(widthPlugin)
         .add(tablesPlugin),
     });
 

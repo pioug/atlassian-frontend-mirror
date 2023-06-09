@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { PureComponent } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';

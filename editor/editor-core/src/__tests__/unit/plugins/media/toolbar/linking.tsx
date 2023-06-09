@@ -35,7 +35,10 @@ import { ReactWrapper } from 'enzyme';
 import { EditorView } from 'prosemirror-view';
 import { ReactElement } from 'react';
 import { createIntl, IntlProvider } from 'react-intl-next';
-import { linkToolbarMessages, linkMessages } from '../../../../../messages';
+import {
+  linkMessages,
+  linkToolbarMessages,
+} from '@atlaskit/editor-common/messages';
 import { INPUT_METHOD } from '../../../../../plugins/analytics';
 import {
   FloatingToolbarConfig,

@@ -3,7 +3,7 @@ import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
-import { getInlineNodeViewProducer } from '../../../nodeviews/getInlineNodeViewProducer';
+import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 
 import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
 import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';

@@ -79,7 +79,7 @@ export const createColorStylesFromTemplate = (
     throw new Error(`[codegen] Unknown option found "${colorProperty}"`);
   }
 
-  const { prefix, filterFn, objectName } = tokenStyles[colorProperty];
+  const { filterFn, objectName } = tokenStyles[colorProperty];
 
   return (
     prettier.format(
@@ -90,11 +90,9 @@ export const ${objectName}Map = {
     // @ts-ignore
     .map(t => ({ ...t, token: t.token.replaceAll('.[default]', '') }))
     .map(t => {
-      // handle the default case eg color.border or color.text
-      const propName = t.token.replace(prefix, '');
       return `
         ${t.isDeprecated ? '// @deprecated' : ''}
-        '${propName}': ${constructTokenFunctionCall(t.token, t.fallback)}
+        '${t.token}': ${constructTokenFunctionCall(t.token, t.fallback)}
       `.trim();
     })
     .join(',\n\t')}

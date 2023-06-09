@@ -27,9 +27,9 @@ const spaceItems = [
 
 const containerStyles = xcss({
   display: 'flex',
-  borderRadius: 'radius.050',
+  borderRadius: 'border.radius.050',
 });
-const blockStyles = xcss({ borderRadius: 'radius.050' });
+const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 
 /**
  * Stack permutations
@@ -50,7 +50,7 @@ export default () => (
                   <Box
                     xcss={containerStyles}
                     padding="space.050"
-                    backgroundColor="neutral"
+                    backgroundColor="color.background.neutral"
                     style={{
                       height: '200px',
                     }}
@@ -59,17 +59,17 @@ export default () => (
                       <Box
                         xcss={blockStyles}
                         padding="space.200"
-                        backgroundColor="discovery.bold"
+                        backgroundColor="color.background.discovery.bold"
                       />
                       <Box
                         xcss={blockStyles}
                         padding="space.200"
-                        backgroundColor="discovery.bold"
+                        backgroundColor="color.background.discovery.bold"
                       />
                       <Box
                         xcss={blockStyles}
                         padding="space.200"
-                        backgroundColor="discovery.bold"
+                        backgroundColor="color.background.discovery.bold"
                       />
                     </Stack>
                   </Box>
@@ -90,7 +90,7 @@ export default () => (
                   <Box
                     xcss={containerStyles}
                     padding="space.050"
-                    backgroundColor="neutral"
+                    backgroundColor="color.background.neutral"
                     style={{
                       height: '200px',
                     }}
@@ -99,17 +99,17 @@ export default () => (
                       <Box
                         xcss={blockStyles}
                         padding="space.200"
-                        backgroundColor="discovery.bold"
+                        backgroundColor="color.background.discovery.bold"
                       />
                       <Box
                         xcss={blockStyles}
                         padding="space.200"
-                        backgroundColor="discovery.bold"
+                        backgroundColor="color.background.discovery.bold"
                       />
                       <Box
                         xcss={blockStyles}
                         padding="space.200"
-                        backgroundColor="discovery.bold"
+                        backgroundColor="color.background.discovery.bold"
                       />
                     </Stack>
                   </Box>
@@ -128,7 +128,7 @@ export default () => (
                 <Box
                   xcss={blockStyles}
                   padding="space.050"
-                  backgroundColor="neutral"
+                  backgroundColor="color.background.neutral"
                   style={{
                     width: '200px',
                   }}
@@ -141,17 +141,17 @@ export default () => (
                     <Box
                       xcss={blockStyles}
                       padding="space.200"
-                      backgroundColor="discovery.bold"
+                      backgroundColor="color.background.discovery.bold"
                     />
                     <Box
                       xcss={blockStyles}
                       padding="space.200"
-                      backgroundColor="discovery.bold"
+                      backgroundColor="color.background.discovery.bold"
                     />
                     <Box
                       xcss={blockStyles}
                       padding="space.200"
-                      backgroundColor="discovery.bold"
+                      backgroundColor="color.background.discovery.bold"
                     />
                   </Stack>
                 </Box>
@@ -170,18 +170,18 @@ export default () => (
                   <Box
                     xcss={blockStyles}
                     padding="space.050"
-                    backgroundColor="neutral"
+                    backgroundColor="color.background.neutral"
                   >
                     <Stack space={space}>
                       <Box
                         xcss={blockStyles}
                         padding="space.200"
-                        backgroundColor="discovery.bold"
+                        backgroundColor="color.background.discovery.bold"
                       />
                       <Box
                         xcss={blockStyles}
                         padding="space.200"
-                        backgroundColor="discovery.bold"
+                        backgroundColor="color.background.discovery.bold"
                       />
                     </Stack>
                   </Box>

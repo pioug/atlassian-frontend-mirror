@@ -21,7 +21,7 @@ import { getToolbarConfig } from './Toolbar';
 import { tooltip, addLink } from '../../keymaps';
 import { IconLink } from '../quick-insert/assets';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { HyperlinkPluginOptions } from './types';
+import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 

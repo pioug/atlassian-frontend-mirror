@@ -21,7 +21,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';
 import blockTypePlugin from '../../../block-type';
-import { HyperlinkPluginOptions } from '../../types';
+import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('hyperlink - keymap with no card provider', () => {

@@ -16,7 +16,6 @@ import {
   ul,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import * as analytics from '../../../../../plugins/analytics/utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 /**
  * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
@@ -39,7 +38,7 @@ import { FloatingToolbarItem } from '../../../../../plugins/floating-toolbar/typ
 import { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../../../../plugins/media/toolbar';
-import { toolbarMessages } from '../../../../../ui/MediaAndEmbedsToolbar/toolbar-messages';
+import { mediaAndEmbedToolbarMessages as toolbarMessages } from '@atlaskit/editor-common/messages';
 import { setNodeSelection } from '../../../../../utils';
 import {
   getFreshMediaProvider,
@@ -345,7 +344,7 @@ describe('media', () => {
       const { editorView } = editor(docWithMediaSingle);
       setNodeSelection(editorView, 0);
 
-      const analyticsFn = jest.spyOn(analytics, 'addAnalytics');
+      const analyticsFn = jest.fn().mockImplementation(() => () => {});
       const mockPluginInjectionApi: any = {
         dependencies: {
           width: {
@@ -360,6 +359,11 @@ describe('media', () => {
           decorations: {
             actions: {
               hoverDecoration: () => () => {},
+            },
+          },
+          analytics: {
+            actions: {
+              attachAnalyticsEvent: analyticsFn,
             },
           },
         },

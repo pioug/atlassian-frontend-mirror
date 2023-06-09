@@ -25,9 +25,9 @@ const textStyles = css({
 });
 
 const backgroundColors: Record<Appearance, BoxProps['backgroundColor']> = {
-  warning: 'warning.bold',
-  error: 'danger.bold',
-  announcement: 'neutral.bold',
+  warning: 'color.background.warning.bold',
+  error: 'color.background.danger.bold',
+  announcement: 'color.background.neutral.bold',
 };
 
 const tokenBackgroundColors: Record<Appearance, string> = {

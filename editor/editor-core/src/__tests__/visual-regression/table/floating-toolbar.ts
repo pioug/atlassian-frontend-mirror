@@ -51,7 +51,6 @@ describe('Table floating toolbar:fullpage - no snapshot', () => {
     await page.hover(cellBackgroundMenuItemSelector);
     await page.mouse.down();
     const bgColor = await page.evaluate(cellBackgroundMenuItemColor);
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     expect(bgColor).toEqual(blue);
     await page.mouse.up();
 
@@ -60,7 +59,6 @@ describe('Table floating toolbar:fullpage - no snapshot', () => {
     const bgColorSubmenuActive = await page.evaluate(
       cellBackgroundMenuItemColor,
     );
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     expect(bgColorSubmenuActive).toEqual(grey);
   });
 });

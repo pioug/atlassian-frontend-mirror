@@ -1,14 +1,12 @@
-import { SnapPointsProps } from './../plugins/media/ui/ResizableMediaSingle/types';
-import { RichMediaAttributes, RichMediaLayout } from '@atlaskit/adf-schema';
-import {
-  wrappedLayouts,
-  shouldAddDefaultWrappedWidth,
-  calcPxFromColumns,
-} from '@atlaskit/editor-common/ui';
-
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
+
+import { RichMediaAttributes, RichMediaLayout } from '@atlaskit/adf-schema';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
+
+import { SnapPointsProps } from '../types';
+import { shouldAddDefaultWrappedWidth } from '../ui/MediaSingle';
+import { calcPxFromColumns, wrappedLayouts } from '../ui/MediaSingle/grid';
 
 export const nonWrappedLayouts: RichMediaLayout[] = [
   'center',

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import rafSchedule from 'raf-schd';
 
 import { SmartCardProps, Card } from './genericCard';
-import { ReactNodeView } from '../../../nodeviews/';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { registerCard } from '../pm-plugins/actions';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 

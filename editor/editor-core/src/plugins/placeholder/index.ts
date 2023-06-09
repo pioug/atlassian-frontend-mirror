@@ -3,7 +3,7 @@ import { browser } from '@atlaskit/editor-common/utils';
 import { PluginKey, EditorState } from 'prosemirror-state';
 import { DecorationSet, Decoration } from 'prosemirror-view';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { isEmptyDocument, bracketTyped } from '../../utils/document';
+import { isEmptyDocument, bracketTyped } from '@atlaskit/editor-common/utils';
 
 export const pluginKey = new PluginKey('placeholderPlugin');
 import { focusStateKey } from '../base/pm-plugins/focus-handler';

@@ -1,24 +1,24 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
 import React from 'react';
-import { NodeView, EditorProps, EditorView } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
-import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 
-import type { PMPluginFactoryParams } from '../types';
+import { jsx } from '@emotion/react';
+import { Node as PMNode } from 'prosemirror-model';
+import { EditorProps, EditorView, NodeView } from 'prosemirror-view';
+
 import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   AnalyticsEventPayload,
-} from '../plugins/analytics';
-import { analyticsEventKey } from '../plugins/analytics/consts';
+} from '../analytics';
+import type { PMPluginFactoryParams } from '../types';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
-
 import {
+  analyticsEventKey,
   getPerformanceOptions,
   startMeasureReactNodeViewRendered,
   stopMeasureReactNodeViewRendered,
-} from './getPerformanceOptions';
+  ZERO_WIDTH_SPACE,
+} from '../utils';
 
 export type InlineNodeViewComponentProps = {
   view: EditorView;

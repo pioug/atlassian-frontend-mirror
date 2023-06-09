@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/status",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Fabric Status React Components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -48,7 +48,6 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^9.1.0",
-    "@atlaskit/editor-test-helpers": "^18.6.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

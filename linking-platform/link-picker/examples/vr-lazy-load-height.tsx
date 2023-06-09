@@ -6,7 +6,7 @@ import { PageWrapper } from '../example-helpers/common';
 import { ReactNode } from 'react';
 import { LoaderFallback } from '../src/ui/loader-fallback';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 const borderStyle = css`
   &[data-testid='link-picker-debug-border'] {
     /** Display the components left to right */

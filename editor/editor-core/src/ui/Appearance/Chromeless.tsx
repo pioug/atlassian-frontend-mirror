@@ -68,6 +68,7 @@ export default class Editor extends React.Component<
       disabled,
       dispatchAnalyticsEvent,
       pluginHooks,
+      featureFlags,
     } = this.props;
     const maxContentSizeReached = Boolean(
       maxContentSize?.maxContentSizeReached,
@@ -89,7 +90,10 @@ export default class Editor extends React.Component<
           data-testid="chromeless-editor"
           ref={(ref: HTMLElement | null) => (this.containerElement = ref)}
         >
-          <ContentArea className="ak-editor-content-area">
+          <ContentArea
+            className="ak-editor-content-area"
+            featureFlags={featureFlags}
+          >
             {customContentComponents}
             <PluginSlot
               editorView={editorView}

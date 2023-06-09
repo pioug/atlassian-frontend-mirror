@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 7.5.3
+
+### Patch Changes
+
+- [`779727e307a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/779727e307a) - Internal change only. Replace all instances of Box with stable @atlaskit/primitives version.
+
 ## 7.5.2
 
 ### Patch Changes

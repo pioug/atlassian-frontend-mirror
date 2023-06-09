@@ -47,7 +47,7 @@ import { figureWrapper, MediaSingleNodeSelector } from './styles';
 import {
   floatingLayouts,
   isRichMediaInsideOfBlockNode,
-} from '../../../utils/rich-media-utils';
+} from '@atlaskit/editor-common/utils';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';

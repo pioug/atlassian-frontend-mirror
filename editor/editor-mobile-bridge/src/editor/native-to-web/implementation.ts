@@ -13,7 +13,6 @@ import {
   insertLinkWithAnalyticsMobileNative,
   insertTaskDecisionCommand,
   isLinkAtPos,
-  LinkInputMethod,
   ListInputMethod,
   ListState,
   MentionPluginState,
@@ -46,6 +45,7 @@ import {
   createQuickInsertTools,
   hasVisibleContent,
 } from '@atlaskit/editor-core';
+import type { LinkInputType as LinkInputMethod } from '@atlaskit/editor-common/types';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { EditorViewWithComposition } from '../../types';
 import {

@@ -33,7 +33,6 @@ const SelectableDate = styled(Date)`
       : null};
 ` as React.ComponentType<Props>;
 
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 export default () => (
   <div>
     <p>

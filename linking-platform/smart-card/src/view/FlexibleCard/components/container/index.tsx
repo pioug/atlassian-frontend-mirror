@@ -239,6 +239,7 @@ const Container: React.FC<ContainerProps> = ({
   hidePadding = false,
   onClick,
   retry,
+  showAuthTooltip = false,
   showHoverPreview = false,
   showServerActions = false,
   size = SmartLinkSize.Medium,
@@ -284,7 +285,11 @@ const Container: React.FC<ContainerProps> = ({
     </div>
   );
 
-  if (showHoverPreview && context?.url) {
+  if (
+    context?.url &&
+    ((showHoverPreview && status === 'resolved') ||
+      (showAuthTooltip && status === 'unauthorized'))
+  ) {
     return (
       <HoverCard
         url={context?.url}

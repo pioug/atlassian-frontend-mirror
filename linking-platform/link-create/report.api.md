@@ -158,11 +158,12 @@ export function TextField({
   validationHelpText,
   validators,
   defaultValue,
+  isRequired,
   ...restProps
 }: TextFieldProps): jsx.JSX.Element;
 
 // @public (undocumented)
-type TextFieldProps = Omit<TextFieldProps_2, 'isRequired' | 'name'> & {
+type TextFieldProps = Omit<TextFieldProps_2, 'name'> & {
   name: string;
   label?: string;
   validationHelpText?: string;

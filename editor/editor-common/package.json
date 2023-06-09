@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "74.5.2",
+  "version": "74.6.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -66,7 +66,7 @@
     "./hooks": "./src/hooks/index.ts",
     "./monitoring": "./src/monitoring/index.ts",
     "./paste": "./src/paste/index.ts",
-    "./resizer": "./src/resizer.ts"
+    "./resizer": "./src/resizer/index.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
@@ -135,10 +135,10 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/editor-core": "^185.1.0",
+    "@atlaskit/editor-core": "^185.2.0",
     "@atlaskit/editor-json-transformer": "^8.9.0",
-    "@atlaskit/editor-plugin-analytics": "^0.0.1",
-    "@atlaskit/editor-plugin-content-insertion": "^0.0.1",
+    "@atlaskit/editor-plugin-analytics": "^0.0.2",
+    "@atlaskit/editor-plugin-content-insertion": "^0.0.2",
     "@atlaskit/editor-plugin-decorations": "^0.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-plugin-grid": "^0.1.0",
@@ -146,6 +146,7 @@
     "@atlaskit/editor-plugin-width": "^0.1.0",
     "@atlaskit/editor-test-helpers": "^18.6.0",
     "@atlaskit/media-core": "^34.1.0",
+    "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

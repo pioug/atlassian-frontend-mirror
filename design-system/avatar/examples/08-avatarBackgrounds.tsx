@@ -9,7 +9,6 @@ import { Code, Note } from '../examples-util/helpers';
 import nucleusImage from '../examples-util/nucleus.png';
 import Avatar, { AppearanceType, PresenceType, StatusType } from '../src';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const exampleColors = [N800, B500, N20, N0];
 
 const presences: PresenceType[] = ['focus', 'online', 'offline', 'busy'];

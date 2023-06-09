@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
@@ -7,42 +6,42 @@ import { Box, Inline, xcss } from '../src';
 const containerStyles = xcss({ display: 'flex', flexDirection: 'row' });
 
 const boxStyles = xcss<typeof Box>({
-  backgroundColor: 'danger',
+  backgroundColor: 'color.background.danger',
   border: '2px solid rebeccapurple',
   padding: 'space.200',
-  borderRadius: 'radius.050',
+  borderRadius: 'border.radius.050',
 });
 
 const inlineStyles = xcss<typeof Inline>({
-  backgroundColor: 'inverse.subtle',
+  backgroundColor: 'color.background.inverse.subtle',
   // @ts-expect-error because `InlineStyles` does not accept `border`
   border: '2px solid red',
   padding: 'space.200',
-  borderRadius: 'radius.050',
+  borderRadius: 'border.radius.050',
 });
 
 const defaultStyles = xcss({
-  backgroundColor: 'success',
+  backgroundColor: 'color.background.success',
   border: '2px solid green',
-  borderRadius: 'radius.050',
+  borderRadius: 'border.radius.050',
 });
 
 export default () => (
   <Box xcss={containerStyles} padding="space.100">
     <Inline space="space.100" testId="classname-examples">
       <Box
-        backgroundColor="discovery.bold"
+        backgroundColor="color.background.discovery.bold"
         padding="space.200"
         xcss={boxStyles}
       />
       <Box
-        backgroundColor="success"
+        backgroundColor="color.background.success"
         padding="space.200"
         // @ts-expect-error because these are `inlineStyles` given to a `Box`
         xcss={inlineStyles}
       />
       <Box
-        backgroundColor="discovery.bold"
+        backgroundColor="color.background.discovery.bold"
         padding="space.200"
         xcss={defaultStyles}
       />

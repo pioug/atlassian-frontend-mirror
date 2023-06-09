@@ -20,12 +20,14 @@ import {
 import schema from '@atlaskit/editor-test-helpers/schema';
 import {
   isNodeEmpty,
-  isEmptyDocument,
-  processRawValue,
   processRawFragmentValue,
   hasVisibleContent,
 } from '../../../utils/document';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import {
+  isEmptyParagraph,
+  isEmptyDocument,
+  processRawValue,
+} from '@atlaskit/editor-common/utils';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,

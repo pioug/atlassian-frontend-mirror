@@ -1,5 +1,4 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../helpers/_enzyme';
 import TextField from '@atlaskit/textfield';
 import React from 'react';
 import { StatusPicker } from '../../..';

@@ -1,43 +1,52 @@
+import { Node, NodeType, Schema } from 'prosemirror-model';
 import { EditorState, NodeSelection } from 'prosemirror-state';
-import { IntlShape } from 'react-intl-next';
 import { hasParentNodeOfType } from 'prosemirror-utils';
-import { Schema, NodeType, Node } from 'prosemirror-model';
-import {
-  FloatingToolbarSeparator,
-  FloatingToolbarItem,
-} from '../../plugins/floating-toolbar/types';
+import { IntlShape } from 'react-intl-next';
+
 import {
   RichMediaLayout as MediaSingleLayout,
   RichMediaAttributes,
 } from '@atlaskit/adf-schema';
-import { Command } from '../../types';
-import commonMessages from '../../messages';
-
-import WrapLeftIcon from '@atlaskit/icon/glyph/editor/media-wrap-left';
-import WrapRightIcon from '@atlaskit/icon/glyph/editor/media-wrap-right';
-import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
-import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
-
+import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-shared-styles';
+import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
 import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';
 import EditorAlignImageRight from '@atlaskit/icon/glyph/editor/align-image-right';
-import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
-import { alignAttributes } from '../../utils/rich-media-utils';
-import type {
-  WidthPluginState,
-  widthPlugin,
-} from '@atlaskit/editor-plugin-width';
-import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-shared-styles';
+import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
+import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
+import WrapLeftIcon from '@atlaskit/icon/glyph/editor/media-wrap-left';
+import WrapRightIcon from '@atlaskit/icon/glyph/editor/media-wrap-right';
 
-import { addAnalytics } from '../../plugins/analytics/utils';
 import {
+  ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
+  EditorAnalyticsAPI,
   EVENT_TYPE,
-  ACTION,
-} from '../../plugins/analytics';
-import { toolbarMessages } from './toolbar-messages';
-import { insideTable, isInLayoutColumn } from '../../utils';
-import type { PluginDependenciesAPI } from '@atlaskit/editor-common/types';
+} from '../../analytics';
+import { insideTable } from '../../core-utils';
+import commonMessages, {
+  mediaAndEmbedToolbarMessages as toolbarMessages,
+} from '../../messages';
+import type {
+  Command,
+  EditorContainerWidth,
+  FloatingToolbarItem,
+  FloatingToolbarSeparator,
+  NextEditorPlugin,
+  PluginDependenciesAPI,
+} from '../../types';
+import { alignAttributes, isInLayoutColumn } from '../../utils';
+
+// Workaround as we don't want to import this package into `editor-common`
+// We'll get type errors if this gets out of sync with `editor-plugin-width`.
+type WidthPluginType = NextEditorPlugin<
+  'width',
+  { sharedState: EditorContainerWidth | undefined }
+>;
+
+type WidthPluginDependencyApi =
+  | PluginDependenciesAPI<WidthPluginType>
+  | undefined;
 
 type IconMap = Array<
   | { id?: string; value: string; icon: React.ComponentClass<any> }
@@ -93,9 +102,8 @@ const getNodeWidth = (node: Node, schema: Schema): number => {
 const makeAlign = (
   layout: MediaSingleLayout,
   nodeType: NodeType,
-  widthPluginDependencyApi:
-    | PluginDependenciesAPI<typeof widthPlugin>
-    | undefined,
+  widthPluginDependencyApi: WidthPluginDependencyApi,
+  analyticsApi: EditorAnalyticsAPI | undefined,
 ): Command => {
   return (state, dispatch) => {
     const { node } = state.selection as NodeSelection;
@@ -105,7 +113,7 @@ const makeAlign = (
       return false;
     }
 
-    const widthPluginState: WidthPluginState | undefined =
+    const widthPluginState: EditorContainerWidth | undefined =
       widthPluginDependencyApi?.sharedState.currentState();
 
     if (!node || node.type !== nodeType || !widthPluginState) {
@@ -151,19 +159,19 @@ const makeAlign = (
       tr.insert(state.selection.to, paragraph.createAndFill());
     }
 
-    dispatch(
-      addAnalytics(state, tr, {
-        eventType: EVENT_TYPE.TRACK,
-        action: ACTION.SELECTED,
-        actionSubject:
-          ACTION_SUBJECT[node.type === mediaSingle ? 'MEDIA_SINGLE' : 'EMBEDS'],
-        actionSubjectId: ACTION_SUBJECT_ID.RICH_MEDIA_LAYOUT,
-        attributes: {
-          previousLayoutType,
-          currentLayoutType: layout,
-        },
-      }),
-    );
+    analyticsApi?.attachAnalyticsEvent({
+      eventType: EVENT_TYPE.TRACK,
+      action: ACTION.SELECTED,
+      actionSubject:
+        ACTION_SUBJECT[node.type === mediaSingle ? 'MEDIA_SINGLE' : 'EMBEDS'],
+      actionSubjectId: ACTION_SUBJECT_ID.RICH_MEDIA_LAYOUT,
+      attributes: {
+        previousLayoutType,
+        currentLayoutType: layout,
+      },
+    })(tr);
+
+    dispatch(tr);
     return true;
   };
 };
@@ -173,9 +181,8 @@ const mapIconsToToolbarItem = (
   layout: MediaSingleLayout,
   intl: IntlShape,
   nodeType: NodeType,
-  widthPluginDependencyApi:
-    | PluginDependenciesAPI<typeof widthPlugin>
-    | undefined,
+  widthPluginDependencyApi: WidthPluginDependencyApi,
+  analyticsApi: EditorAnalyticsAPI | undefined,
 ) =>
   icons.map<FloatingToolbarItem<Command>>((toolbarItem) => {
     const { id, value } = toolbarItem;
@@ -186,7 +193,12 @@ const mapIconsToToolbarItem = (
       icon: toolbarItem.icon,
       title: intl.formatMessage(layoutToMessages[value]),
       selected: layout === value,
-      onClick: makeAlign(value, nodeType, widthPluginDependencyApi),
+      onClick: makeAlign(
+        value,
+        nodeType,
+        widthPluginDependencyApi,
+        analyticsApi,
+      ),
     };
   });
 
@@ -210,9 +222,8 @@ const buildLayoutButtons = (
   state: EditorState,
   intl: IntlShape,
   nodeType: NodeType,
-  widthPluginDependencyApi:
-    | PluginDependenciesAPI<typeof widthPlugin>
-    | undefined,
+  widthPluginDependencyApi: WidthPluginDependencyApi,
+  analyticsApi: EditorAnalyticsAPI | undefined,
   allowResizing?: boolean,
   allowResizingInTables?: boolean,
   allowWrapping = true,
@@ -238,6 +249,7 @@ const buildLayoutButtons = (
         intl,
         nodeType,
         widthPluginDependencyApi,
+        analyticsApi,
       )
     : [];
   const wrappingToolbarItems = allowWrapping
@@ -247,6 +259,7 @@ const buildLayoutButtons = (
         intl,
         nodeType,
         widthPluginDependencyApi,
+        analyticsApi,
       )
     : [];
   const breakOutToolbarItems = !allowResizing
@@ -256,6 +269,7 @@ const buildLayoutButtons = (
         intl,
         nodeType,
         widthPluginDependencyApi,
+        analyticsApi,
       )
     : [];
 

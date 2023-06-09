@@ -8,10 +8,13 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { APIError, CardPlatform } from '@atlaskit/smart-card';
 import { SmartCardContext } from '@atlaskit/link-provider';
 
-import { getPosHandler, ReactComponentProps } from '../../../nodeviews';
+import {
+  getPosHandler,
+  ReactComponentProps,
+} from '@atlaskit/editor-common/react-node-view';
 import { titleUrlPairFromNode } from '../utils';
-import { EventDispatcher } from '../../../event-dispatcher';
-import { DispatchAnalyticsEvent } from '../../../plugins/analytics/types';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { changeSelectedCardToLinkFallback } from '../pm-plugins/doc';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { getPluginState } from '../pm-plugins/util/state';

@@ -42,7 +42,6 @@ function ThemeModeSwitcher({
         Light + Dark Themes (using {title})
       </h3>
       <div
-        /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
         style={{
           padding: token('space.250', '20px'),
           backgroundColor: mode === 'light' ? colors.N0 : colors.N800,

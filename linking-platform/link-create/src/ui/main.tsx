@@ -12,7 +12,11 @@ import Modal, {
   ModalTransition,
 } from '@atlaskit/modal-dialog';
 
-import { ANALYTICS_CHANNEL, COMPONENT_NAME } from '../common/constants';
+import {
+  ANALYTICS_CHANNEL,
+  COMPONENT_NAME,
+  CREATE_FORM_MAX_WIDTH_IN_PX,
+} from '../common/constants';
 import { LinkCreateProps } from '../common/types';
 import { withLinkCreateAnalyticsContext } from '../common/utils/analytics';
 import createEventPayload, {
@@ -103,6 +107,7 @@ const LinkCreateWithModal = (props: LinkCreateProps) => {
           shouldScrollInViewport={true}
           onOpenComplete={handleOpenComplete}
           onCloseComplete={handleCloseComplete}
+          width={`${CREATE_FORM_MAX_WIDTH_IN_PX}px`}
         >
           <ModalHeader>
             <ModalTitle>{intl.formatMessage(messages.heading)}</ModalTitle>

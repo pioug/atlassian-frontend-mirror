@@ -22,7 +22,7 @@ const editViewStyles = css({
   boxSizing: 'border-box',
   width: '100%',
   padding: `${token('space.075', '6px')} ${token('space.075', '6px')}`,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+
   border: `2px solid ${N40}`,
   borderRadius: '3px',
   cursor: 'inherit',
@@ -30,7 +30,6 @@ const editViewStyles = css({
   fontWeight: 500,
   outline: 'none',
   ':focus': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     border: `2px solid ${B100}`,
   },
 });

@@ -18,7 +18,10 @@ export default () => {
 
       <Stack space="space.200" testId="box-custom-padding">
         <Heading level="h600">Custom padding</Heading>
-        <Box style={{ paddingLeft: '14px' }} backgroundColor="discovery.bold">
+        <Box
+          style={{ paddingLeft: '14px' }}
+          backgroundColor="color.background.discovery.bold"
+        >
           <Box backgroundColor="elevation.surface">custom padding</Box>
         </Box>
       </Stack>

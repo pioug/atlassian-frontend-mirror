@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { FC } from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';

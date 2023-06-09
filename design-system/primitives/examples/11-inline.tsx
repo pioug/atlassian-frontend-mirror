@@ -28,10 +28,10 @@ const spaceItems = [
 
 const pageContainerStyles = css({ maxWidth: '900px' });
 const spaceNameStyles = css({ minWidth: token('space.1000', '80px') });
-const blockStyles = xcss({ borderRadius: 'radius.050' });
+const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 const containerStyles = xcss({
   display: 'flex',
-  borderRadius: 'radius.050',
+  borderRadius: 'border.radius.050',
 });
 
 export default () => (
@@ -47,7 +47,7 @@ export default () => (
               {alignInline}
               <Box
                 xcss={blockStyles}
-                backgroundColor="neutral"
+                backgroundColor="color.background.neutral"
                 padding="space.050"
                 style={{
                   width: '200px',
@@ -57,17 +57,17 @@ export default () => (
                   <Box
                     xcss={blockStyles}
                     padding="space.200"
-                    backgroundColor="discovery.bold"
+                    backgroundColor="color.background.discovery.bold"
                   />
                   <Box
                     xcss={blockStyles}
                     padding="space.200"
-                    backgroundColor="discovery.bold"
+                    backgroundColor="color.background.discovery.bold"
                   />
                   <Box
                     xcss={blockStyles}
                     padding="space.200"
-                    backgroundColor="discovery.bold"
+                    backgroundColor="color.background.discovery.bold"
                   />
                 </Inline>
               </Box>
@@ -82,7 +82,7 @@ export default () => (
               {spread}
               <Box
                 xcss={blockStyles}
-                backgroundColor="neutral"
+                backgroundColor="color.background.neutral"
                 padding="space.050"
                 style={{
                   width: '200px',
@@ -92,17 +92,17 @@ export default () => (
                   <Box
                     xcss={blockStyles}
                     padding="space.200"
-                    backgroundColor="discovery.bold"
+                    backgroundColor="color.background.discovery.bold"
                   />
                   <Box
                     xcss={blockStyles}
                     padding="space.200"
-                    backgroundColor="discovery.bold"
+                    backgroundColor="color.background.discovery.bold"
                   />
                   <Box
                     xcss={blockStyles}
                     padding="space.200"
-                    backgroundColor="discovery.bold"
+                    backgroundColor="color.background.discovery.bold"
                   />
                 </Inline>
               </Box>
@@ -116,7 +116,7 @@ export default () => (
               <Stack key={alignBlock} alignInline="center">
                 {alignBlock}
                 <Box
-                  backgroundColor="neutral"
+                  backgroundColor="color.background.neutral"
                   padding="space.050"
                   xcss={containerStyles}
                   style={{
@@ -127,17 +127,17 @@ export default () => (
                     <Box
                       xcss={blockStyles}
                       padding="space.300"
-                      backgroundColor="discovery.bold"
+                      backgroundColor="color.background.discovery.bold"
                     ></Box>
                     <Box
                       xcss={blockStyles}
                       padding="space.200"
-                      backgroundColor="discovery.bold"
+                      backgroundColor="color.background.discovery.bold"
                     />
                     <Box
                       xcss={blockStyles}
                       padding="space.200"
-                      backgroundColor="discovery.bold"
+                      backgroundColor="color.background.discovery.bold"
                     />
                   </Inline>
                 </Box>
@@ -155,18 +155,18 @@ export default () => (
                 <Box
                   xcss={blockStyles}
                   padding="space.050"
-                  backgroundColor="neutral"
+                  backgroundColor="color.background.neutral"
                 >
                   <Inline space={space}>
                     <Box
                       xcss={blockStyles}
                       padding="space.200"
-                      backgroundColor="discovery.bold"
+                      backgroundColor="color.background.discovery.bold"
                     />
                     <Box
                       xcss={blockStyles}
                       padding="space.200"
-                      backgroundColor="discovery.bold"
+                      backgroundColor="color.background.discovery.bold"
                     />
                   </Inline>
                 </Box>
@@ -177,14 +177,18 @@ export default () => (
 
         <section>
           <Heading level="h500">shouldWrap</Heading>
-          <Box xcss={blockStyles} padding="space.050" backgroundColor="neutral">
+          <Box
+            xcss={blockStyles}
+            padding="space.050"
+            backgroundColor="color.background.neutral"
+          >
             <Inline space="space.200" shouldWrap={true}>
               {[...Array(25)].map((_, index) => (
                 <Box
                   key={index}
                   xcss={blockStyles}
                   padding="space.200"
-                  backgroundColor="discovery.bold"
+                  backgroundColor="color.background.discovery.bold"
                 />
               ))}
             </Inline>
@@ -193,7 +197,11 @@ export default () => (
 
         <section>
           <Heading level="h500">Separator</Heading>
-          <Box xcss={blockStyles} padding="space.050" backgroundColor="neutral">
+          <Box
+            xcss={blockStyles}
+            padding="space.050"
+            backgroundColor="color.background.neutral"
+          >
             <Inline
               space="space.100"
               shouldWrap={true}
@@ -205,7 +213,7 @@ export default () => (
                   key={index}
                   xcss={blockStyles}
                   padding="space.200"
-                  backgroundColor="discovery.bold"
+                  backgroundColor="color.background.discovery.bold"
                 />
               ))}
             </Inline>

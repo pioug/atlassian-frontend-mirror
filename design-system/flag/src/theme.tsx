@@ -10,11 +10,11 @@ export const flagBackgroundColor: Record<
   AppearanceTypes,
   BoxProps['backgroundColor']
 > = {
-  error: 'danger.bold',
-  info: 'neutral.bold',
+  error: 'color.background.danger.bold',
+  info: 'color.background.neutral.bold',
   normal: 'elevation.surface.overlay',
-  success: 'success.bold',
-  warning: 'warning.bold',
+  success: 'color.background.success.bold',
+  warning: 'color.background.warning.bold',
 };
 
 export const flagIconColor: Record<AppearanceTypes, string> = {

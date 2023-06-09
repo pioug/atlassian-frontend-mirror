@@ -35,7 +35,6 @@ describe('Mention', () => {
       'background-color',
     );
 
-    /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
     const focusedMentionBgColor = B50;
     expect(normalizeHexColor(mentionBgColor)?.toUpperCase()).toBe(
       focusedMentionBgColor,
@@ -64,7 +63,6 @@ describe('Mention', () => {
       'background-color',
     );
 
-    /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
     const darkThemeMentionBgColor = DN80;
     expect(normalizeHexColor(mentionBgColor)?.toUpperCase()).toBe(
       darkThemeMentionBgColor,

@@ -273,6 +273,7 @@ function Component({
         renderers={renderers}
         ui={ui}
         showHoverPreview={showHoverPreview}
+        showAuthTooltip={showAuthTooltipProp}
         showServerActions={showServerActions}
         url={url}
         testId={testId}

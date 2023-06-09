@@ -30,7 +30,7 @@ import {
 } from '@atlaskit/editor-common/types';
 
 import { createDispatch, Dispatch, EventDispatcher } from '../event-dispatcher';
-import { processRawValue } from '../utils';
+import { processRawValue } from '@atlaskit/editor-common/utils';
 import { freezeUnsafeTransactionProperties } from '../utils/performance/safer-transactions';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import {

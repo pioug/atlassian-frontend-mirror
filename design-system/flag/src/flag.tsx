@@ -28,8 +28,8 @@ const iconWrapperStyles = css({
 });
 
 const flagStyles = xcss({
-  boxShadow: 'overlay',
-  borderRadius: 'radius.100',
+  boxShadow: 'elevation.shadow.overlay',
+  borderRadius: 'border.radius.100',
   overflow: 'hidden',
   zIndex: 'flag',
   width: '100%',

@@ -19,7 +19,7 @@ import {
   PMPluginFactory,
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
-import { getInlineNodeViewProducer } from '../../nodeviews/getInlineNodeViewProducer';
+import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 
 export const pluginKey = new PluginKey('unsupportedContentPlugin');
 

@@ -4,8 +4,10 @@ import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import { CardInfo } from './types';
 import { CardPluginState } from './types';
 import { pluginKey } from './pm-plugins/plugin-key';
-import { mapChildren } from '../../utils/slice';
-import { isSupportedInParent } from '../../utils/nodes';
+import {
+  isSupportedInParent,
+  mapChildren,
+} from '@atlaskit/editor-common/utils';
 import { CardOptions } from '@atlaskit/editor-common/card';
 
 export const appearanceForNodeType = (

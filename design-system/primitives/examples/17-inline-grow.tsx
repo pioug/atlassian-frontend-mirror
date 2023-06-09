@@ -11,7 +11,7 @@ const truncateStyles = css({
   whiteSpace: 'nowrap',
 });
 
-const blockStyles = xcss({ borderRadius: 'radius.050' });
+const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 
 export default () => (
   <Stack testId="inline-example" space="space.100" alignInline="start">
@@ -20,7 +20,7 @@ export default () => (
         <Stack alignInline="center">
           {grow}
           <Box
-            backgroundColor="neutral"
+            backgroundColor="color.background.neutral"
             style={{
               width: '200px',
             }}
@@ -29,17 +29,17 @@ export default () => (
               <Stack space="space.100" grow={grow}>
                 <Box
                   xcss={blockStyles}
-                  backgroundColor="discovery.bold"
+                  backgroundColor="color.background.discovery.bold"
                   padding="space.200"
                 />
                 <Box
                   xcss={blockStyles}
-                  backgroundColor="discovery.bold"
+                  backgroundColor="color.background.discovery.bold"
                   padding="space.200"
                 />
                 <Box
                   xcss={blockStyles}
-                  backgroundColor="discovery.bold"
+                  backgroundColor="color.background.discovery.bold"
                   padding="space.200"
                 />
               </Stack>
@@ -51,7 +51,7 @@ export default () => (
 
     <Stack space="space.100">
       width=100% enables truncation
-      <Box backgroundColor="neutral" style={{ maxWidth: 200 }}>
+      <Box backgroundColor="color.background.neutral" style={{ maxWidth: 200 }}>
         <Inline grow="fill">
           <Stack space="space.100" grow="fill">
             <span css={truncateStyles}>

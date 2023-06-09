@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';

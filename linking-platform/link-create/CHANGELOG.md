@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.6.0
+
+### Minor Changes
+
+- [`ac3927f0650`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac3927f0650) - Make modal 480px wide, Update TextField to take isRequired prop w/o default browser validation, remove extra internal spacing in the create form
+
 ## 0.5.7
 
 ### Patch Changes

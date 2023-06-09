@@ -10,9 +10,7 @@ interface ThemeTokens {
 }
 
 const Theme = createTheme<ThemeTokens, void>(() => ({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: '#333',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   textColor: '#eee',
 }));
 
@@ -53,7 +51,6 @@ export default () => (
   <React.Fragment>
     <DisplayThemeColors />
     <Theme.Provider
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       value={(themeFn) => ({ ...themeFn(), backgroundColor: 'palevioletred' })}
     >
       <DisplayThemeColors />

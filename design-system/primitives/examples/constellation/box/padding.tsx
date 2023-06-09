@@ -8,7 +8,7 @@ const containerStyles = xcss({ display: 'flex' });
 const boxStyles = xcss({
   display: 'block',
   justifyContent: 'start',
-  color: 'inverse',
+  color: 'color.text.inverse',
 });
 
 const spacingValues: BoxProps['padding'][] = [
@@ -51,7 +51,7 @@ export default function Example() {
 
         <Box xcss={containerStyles}>
           <Box
-            backgroundColor="discovery.bold"
+            backgroundColor="color.background.discovery.bold"
             xcss={boxStyles}
             padding={spacingValues[padding]}
           >
@@ -81,7 +81,7 @@ export default function Example() {
 
         <Box xcss={containerStyles}>
           <Box
-            backgroundColor="discovery.bold"
+            backgroundColor="color.background.discovery.bold"
             xcss={boxStyles}
             paddingInline={spacingValues[paddingInline]}
             paddingBlock={spacingValues[paddingBlock]}
@@ -134,7 +134,7 @@ export default function Example() {
 
         <Box xcss={containerStyles}>
           <Box
-            backgroundColor="discovery.bold"
+            backgroundColor="color.background.discovery.bold"
             xcss={boxStyles}
             paddingBlockStart={spacingValues[paddingBlockStart]}
             paddingBlockEnd={spacingValues[paddingBlockEnd]}

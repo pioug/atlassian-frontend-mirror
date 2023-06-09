@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 185.2.2
+
+### Patch Changes
+
+- [`f07a1e036a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f07a1e036a9) - Refactoring editor-core to prepare for extracting card plugin.
+- Updated dependencies
+
+## 185.2.0
+
+### Minor Changes
+
+- [`66adfa8cd12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/66adfa8cd12) - [ux] Passthru editor feature flags props into the Appearance content area so it's able to setup styles which rely on feature flags
+
 ## 185.1.6
 
 ### Patch Changes

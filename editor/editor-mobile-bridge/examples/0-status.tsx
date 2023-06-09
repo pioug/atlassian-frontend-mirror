@@ -1,5 +1,4 @@
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4044
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import React from 'react';

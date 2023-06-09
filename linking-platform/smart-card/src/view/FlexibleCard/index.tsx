@@ -29,6 +29,7 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
   onError,
   onResolve,
   renderers,
+  showAuthTooltip,
   showHoverPreview,
   showServerActions,
   testId,
@@ -89,6 +90,7 @@ const FlexibleCard: React.FC<FlexibleCardProps> = ({
             retry={retry}
             showHoverPreview={showHoverPreview}
             showServerActions={showServerActions}
+            showAuthTooltip={showAuthTooltip}
             status={status}
           >
             {children}

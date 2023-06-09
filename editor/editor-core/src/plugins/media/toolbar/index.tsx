@@ -15,7 +15,8 @@ import {
 import { stateKey } from '../pm-plugins/plugin-key';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
-import buildLayoutButtons from '../../../ui/MediaAndEmbedsToolbar';
+import { buildLayoutButtons } from '@atlaskit/editor-common/card';
+
 import { MediaLinkingState, getMediaLinkingState } from '../pm-plugins/linking';
 import { getPluginState as getMediaAltTextPluginState } from '../pm-plugins/alt-text';
 import { altTextButton, getAltTextToolbar } from './alt-text';
@@ -305,6 +306,7 @@ const generateMediaSingleFloatingToolbar = (
         intl,
         state.schema.nodes.mediaSingle,
         pluginInjectionApi?.dependencies.width,
+        pluginInjectionApi?.dependencies.analytics?.actions,
         allowResizing,
         allowResizingInTables,
       ),

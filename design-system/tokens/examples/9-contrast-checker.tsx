@@ -573,8 +573,12 @@ function ContrastCard({
     <Box
       as="li"
       padding="space.100"
-      backgroundColor="neutral"
-      xcss={xcss({ flex: '1', width: '100%', borderRadius: 'radius.200' })}
+      backgroundColor="color.background.neutral"
+      xcss={xcss({
+        flex: '1',
+        width: '100%',
+        borderRadius: 'border.radius.200',
+      })}
     >
       <Inline space="space.050" spread="space-between">
         <Inline space="space.100">

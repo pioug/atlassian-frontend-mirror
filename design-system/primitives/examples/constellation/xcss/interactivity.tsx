@@ -11,16 +11,16 @@ const cardStyles = xcss({
   backgroundColor: 'elevation.surface',
   padding: 'space.200',
   borderColor: 'color.border',
-  borderWidth: 'width.100',
+  borderWidth: 'border.width.100',
   borderStyle: 'solid',
-  borderRadius: 'radius.100',
+  borderRadius: 'border.radius.100',
   ':hover': {
     backgroundColor: 'elevation.surface.hovered',
   },
   ':focus-visible': {
     outline: '2px solid',
     outlineOffset: 'space.025',
-    outlineColor: 'focused',
+    outlineColor: 'color.border.focused',
   },
 });
 

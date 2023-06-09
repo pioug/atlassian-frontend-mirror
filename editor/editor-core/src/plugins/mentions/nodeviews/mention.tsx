@@ -6,7 +6,8 @@ import {
 } from '@atlaskit/editor-common/provider-factory';
 import Mention, { MentionProps } from '../ui/Mention';
 import { MentionPluginOptions } from '../types';
-import { InlineNodeViewComponentProps } from '../../../nodeviews/getInlineNodeViewProducer';
+import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
+
 import { useIntl } from 'react-intl-next';
 import { messages } from '../messages';
 import {

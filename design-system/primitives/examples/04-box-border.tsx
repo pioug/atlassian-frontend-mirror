@@ -5,22 +5,22 @@ import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, xcss } from '../src';
 
 const borderColors = [
-  'discovery',
-  'success',
-  'warning',
-  'danger',
-  'information',
-  'brand',
+  'color.border.discovery',
+  'color.border.success',
+  'color.border.warning',
+  'color.border.danger',
+  'color.border.information',
+  'color.border.brand',
 ] as const;
 
 const borderStyles = ['none', 'solid'] as const;
-const borderWidths = ['width.050', 'width.100'] as const;
+const borderWidths = ['border.width.050', 'border.width.100'] as const;
 const borderRadii = [
-  'radius.100',
-  'radius.200',
-  'radius.300',
-  'radius.400',
-  'radius.round',
+  'border.radius.100',
+  'border.radius.200',
+  'border.radius.300',
+  'border.radius.400',
+  'border.radius.round',
 ] as const;
 
 const baseBorderStyles = xcss({
@@ -43,13 +43,13 @@ export default () => {
           {borderWidths.map(borderWidth => (
             <Box
               key={borderWidth}
-              backgroundColor="neutral"
+              backgroundColor="color.background.neutral"
               padding="space.400"
               xcss={[
                 baseBorderStyles,
                 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
                 xcss({
-                  borderColor: 'danger',
+                  borderColor: 'color.border.danger',
                   borderWidth,
                 }),
               ]}
@@ -66,12 +66,15 @@ export default () => {
           {borderStyles.map(borderStyle => (
             <Box
               key={borderStyle}
-              backgroundColor="neutral"
+              backgroundColor="color.background.neutral"
               padding="space.400"
-              // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-              xcss={xcss({
-                borderStyle,
-              })}
+              xcss={[
+                baseBorderStyles,
+                // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+                xcss({
+                  borderStyle,
+                }),
+              ]}
             >
               <Box>{borderStyle}</Box>
             </Box>
@@ -85,7 +88,7 @@ export default () => {
           {borderColors.map(borderColor => (
             <Box
               key={borderColor}
-              backgroundColor="neutral"
+              backgroundColor="color.background.neutral"
               padding="space.400"
               // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
               xcss={xcss({
@@ -105,7 +108,7 @@ export default () => {
           {borderRadii.map(borderRadius => (
             <Box
               key={borderRadius}
-              backgroundColor="neutral"
+              backgroundColor="color.background.neutral"
               padding="space.400"
               xcss={[
                 baseBorderStyles,

@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 /* This example exists SOLELY so we can iframe it inot the bad-example-test-modal */

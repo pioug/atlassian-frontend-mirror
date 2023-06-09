@@ -4,20 +4,20 @@ import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
 import { Box, type BoxProps, Inline, Stack } from '@atlaskit/primitives';
 
 const backgroundColors: BoxProps['backgroundColor'][] = [
-  'neutral',
-  'warning',
-  'selected',
-  'danger',
-  'success',
-  'discovery',
-  'information',
+  'color.background.neutral',
+  'color.background.warning',
+  'color.background.selected',
+  'color.background.danger',
+  'color.background.success',
+  'color.background.discovery',
+  'color.background.information',
 ];
 
 export default function Example() {
   const [backgroundColor, setBackgroundColor]: [
     BoxProps['backgroundColor'],
     Function,
-  ] = useState('discovery');
+  ] = useState('color.background.discovery');
 
   return (
     <Stack space="space.200" alignInline="start">

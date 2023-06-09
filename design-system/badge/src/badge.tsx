@@ -9,7 +9,7 @@ import { formatValue } from './internal/utils';
 import type { BadgeProps, ThemeAppearance } from './types';
 
 const boxStyles = xcss({
-  borderRadius: 'radius.200',
+  borderRadius: 'border.radius.200',
   display: 'inlineFlex',
 });
 
@@ -62,12 +62,12 @@ Badge.displayName = 'Badge';
 export default Badge;
 
 const backgroundColors: Record<ThemeAppearance, BoxProps['backgroundColor']> = {
-  added: 'success',
-  default: 'neutral',
-  important: 'danger.bold',
-  primary: 'brand.bold',
+  added: 'color.background.success',
+  default: 'color.background.neutral',
+  important: 'color.background.danger.bold',
+  primary: 'color.background.brand.bold',
   primaryInverted: 'elevation.surface',
-  removed: 'danger',
+  removed: 'color.background.danger',
 };
 
 const textColors: Record<ThemeAppearance, TextProps['color']> = {

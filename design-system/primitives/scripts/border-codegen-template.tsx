@@ -16,7 +16,6 @@ const tokenStyles = {
   width: {
     objectName: 'borderWidth',
     filterPrefix: 'border.width.',
-    renamePrefix: 'border.',
     cssProperty: 'borderWidth',
     filterFn: <T extends Token>(t: T) =>
       t.token.startsWith(tokenStyles.width.filterPrefix),
@@ -24,7 +23,6 @@ const tokenStyles = {
   radius: {
     objectName: 'borderRadius',
     filterPrefix: 'border.radius.',
-    renamePrefix: 'border.',
     cssProperty: 'borderRadius',
     filterFn: <T extends Token>(t: T) =>
       t.token.startsWith(tokenStyles.radius.filterPrefix),
@@ -48,7 +46,7 @@ export const createBorderStylesFromTemplate = (
     throw new Error(`[codegen] Unknown option found "${property}"`);
   }
 
-  const { filterFn, renamePrefix, objectName } = tokenStyles[property];
+  const { filterFn, objectName } = tokenStyles[property];
 
   return (
     prettier.format(
@@ -57,10 +55,9 @@ export const ${objectName}Map = {
   ${activeTokens
     .filter(filterFn)
     .map(t => {
-      const propName = t.token.replace(renamePrefix, '');
       return `
         ${t.isDeprecated ? '// @deprecated' : ''}
-        '${propName}': ${constructTokenFunctionCall(
+        '${t.token}': ${constructTokenFunctionCall(
         t.token,
         t.fallback,
       )}`.trim();

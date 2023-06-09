@@ -26,6 +26,13 @@ import {
   shouldUpdate,
 } from './types';
 
+export type { getPosHandler, ReactComponentProps };
+export type { InlineNodeViewComponentProps } from './getInlineNodeViewProducer';
+export {
+  getInlineNodeViewProducer,
+  inlineNodeViewClassname,
+} from './getInlineNodeViewProducer';
+
 export default class ReactNodeView<P = ReactComponentProps>
   implements NodeView
 {

@@ -12,6 +12,7 @@ import WithFlash from '../WithFlash';
 import { createEditorContentStyle } from '../ContentStyles';
 import { ClickAreaMobile as ClickArea } from '../Addon';
 import { EditorView } from 'prosemirror-view';
+import type { FeatureFlags } from '../../types/feature-flags';
 
 const mobileEditor = css`
   min-height: 30px;
@@ -37,13 +38,14 @@ type MobileAppearanceProps = React.PropsWithChildren<{
   persistScrollGutter?: boolean;
   editorDisabled?: boolean;
   children?: React.ReactNode;
+  featureFlags?: FeatureFlags;
 }>;
 
 export const MobileAppearance = forwardRef<
   HTMLDivElement,
   MobileAppearanceProps
 >(function MobileAppearance(
-  { editorView, persistScrollGutter, children, editorDisabled },
+  { editorView, persistScrollGutter, children, editorDisabled, featureFlags },
   ref,
 ) {
   const render = useCallback(
@@ -91,7 +93,7 @@ export const MobileAppearance = forwardRef<
               isExpanded={currentIsExpanded}
               editorDisabled={editorDisabled}
             >
-              <ContentArea>
+              <ContentArea featureFlags={featureFlags}>
                 <div className="ak-editor-content-area">{children}</div>
               </ContentArea>
             </ClickArea>
@@ -99,7 +101,14 @@ export const MobileAppearance = forwardRef<
         </WithFlash>
       );
     },
-    [children, editorView, persistScrollGutter, editorDisabled, ref],
+    [
+      children,
+      editorView,
+      persistScrollGutter,
+      editorDisabled,
+      ref,
+      featureFlags,
+    ],
   );
 
   return (

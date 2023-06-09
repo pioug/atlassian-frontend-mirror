@@ -17,9 +17,9 @@ import { floatingToolbar } from '../../../../plugins/card/toolbar';
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
 
 import commonMessages, {
-  linkToolbarMessages,
   linkMessages,
-} from '../../../../messages';
+  linkToolbarMessages,
+} from '@atlaskit/editor-common/messages';
 
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
@@ -31,7 +31,7 @@ import {
   FloatingToolbarButton,
   FloatingToolbarConfig,
 } from '../../../../plugins/floating-toolbar/types';
-import { Command } from '../../../../types';
+import type { Command } from '@atlaskit/editor-common/types';
 import { getToolbarItems } from '../../../../plugins/floating-toolbar/__tests__/_helpers';
 import * as CardUtils from '../../../../plugins/card/utils';
 import { EditorView } from 'prosemirror-view';
@@ -575,11 +575,13 @@ describe('card', () => {
           (item) => 'id' in item && item.id === 'editor.link.edit',
         ) as FloatingToolbarButton<Command>;
         editButton.onClick(editorView.state, editorView.dispatch);
-        const editToolbar = floatingToolbar({}, featureFlags)(
-          editorView.state,
-          intl,
-          providerFactory,
-        );
+        const editToolbar = floatingToolbar(
+          {},
+          featureFlags,
+          undefined,
+          undefined,
+          mockPluginInjectionApi,
+        )(editorView.state, intl, providerFactory);
         expect(editToolbar?.height).toBe(height);
       },
     );

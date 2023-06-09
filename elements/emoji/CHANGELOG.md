@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.4.6
+
+### Patch Changes
+
+- [`54ce14a4fd3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54ce14a4fd3) - [ED-18129] Duplicate Enzyme mount helper to avoid circular references in Emoji and Status
+
 ## 67.4.5
 
 ### Patch Changes

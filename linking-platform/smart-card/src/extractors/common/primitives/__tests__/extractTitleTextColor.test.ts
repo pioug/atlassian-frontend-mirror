@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { extractTitleTextColor } from '../extractTitleTextColor';
 import { TEST_BASE_DATA, TEST_UNDEFINED_LINK } from '../../__mocks__/jsonld';
 

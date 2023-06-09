@@ -12,7 +12,7 @@ import * as constants from '../../../../util/constants';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 import browserSupport from '../../../../util/browser-support';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../_enzyme';
 import { renderWithIntl } from '../../_testing-library';
 
 jest.mock('../../../../util/constants', () => {

@@ -24,7 +24,7 @@ const spaceItems = [
 ] as const;
 
 const spaceValueStyles = css({ minWidth: token('space.1000', '80px') });
-const blockStyles = xcss({ borderRadius: 'radius.050' });
+const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 const containerStyles = xcss({ width: 'size.300' });
 
 export default () => (
@@ -39,12 +39,12 @@ export default () => (
               <Box
                 xcss={blockStyles}
                 padding="space.200"
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
               />
               <Box
                 xcss={blockStyles}
                 padding="space.200"
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
               />
             </Inline>
           </Inline>
@@ -61,12 +61,12 @@ export default () => (
                 <Box
                   xcss={blockStyles}
                   padding="space.200"
-                  backgroundColor="discovery.bold"
+                  backgroundColor="color.background.discovery.bold"
                 />
                 <Box
                   xcss={blockStyles}
                   padding="space.200"
-                  backgroundColor="discovery.bold"
+                  backgroundColor="color.background.discovery.bold"
                 />
               </Inline>
             </Inline>

@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
 import React, { KeyboardEvent, FormEvent } from 'react';

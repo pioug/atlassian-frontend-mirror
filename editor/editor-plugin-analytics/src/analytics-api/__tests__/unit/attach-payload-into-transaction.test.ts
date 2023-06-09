@@ -3,7 +3,7 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { getStepRange } from '@atlaskit/editor-core/src/utils';
+import { getStepRange } from '@atlaskit/editor-common/utils';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 

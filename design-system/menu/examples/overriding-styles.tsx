@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 import RightArrow from '@atlaskit/icon/glyph/arrow-right';

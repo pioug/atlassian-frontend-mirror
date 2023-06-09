@@ -10,7 +10,7 @@ const boxStyles = xcss({
 export default function Basic() {
   return (
     <Box
-      backgroundColor="brand.bold"
+      backgroundColor="color.background.brand.bold"
       testId="box-basic"
       padding="space.100"
       xcss={boxStyles}

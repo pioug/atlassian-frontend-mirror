@@ -24,9 +24,9 @@ import {
 import deprecationWarnings from '../utils/deprecation-warnings';
 import {
   isEmptyDocument,
-  processRawFragmentValue,
   processRawValue,
-} from '../utils/document';
+} from '@atlaskit/editor-common/utils';
+import { processRawFragmentValue } from '../utils/document';
 import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
 
 export default class EditorActions<T = any> implements EditorActionsOptions<T> {

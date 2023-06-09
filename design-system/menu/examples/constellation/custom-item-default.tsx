@@ -40,7 +40,7 @@ const cssFn: CSSFn = (state) => {
           width: 3,
           transform: 'translateX(-1px)',
           transition: 'transform 70ms ease-in-out',
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+
           backgroundColor: B100,
         },
 

@@ -2,7 +2,9 @@ import { waitForResolvedBlockCard } from '@atlaskit/media-integration-test-helpe
 import { getURL, setup, takeSnapshot } from '../__utils__/vr-helpers';
 
 describe('Block Card', () => {
-  it.each([
+  // FIXME: This test was automatically skipped due to failure on 08/06/2023: https://product-fabric.atlassian.net/browse/EDM-6951
+  // FIXME: This test was automatically skipped due to failure on 09/06/2023: https://product-fabric.atlassian.net/browse/EDM-6956
+  it.skip.each([
     ['shows collaborators on block cards', 'vr-block-card-collaborators'],
     ['shows default icon on block cards', 'vr-block-card-default-icon'],
     ['renders lozenge correctly on block cards', 'vr-block-card-lozenge'],

@@ -20,7 +20,7 @@ const columnHeaderStyles = xcss({
   whiteSpace: 'nowrap', // Account for languages with long week day names
   textAlign: 'center',
   lineHeight: '16px',
-  color: 'subtle', // Apply correct fallback to shortDay text
+  color: 'color.text.subtle', // Apply correct fallback to shortDay text
 });
 
 const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({

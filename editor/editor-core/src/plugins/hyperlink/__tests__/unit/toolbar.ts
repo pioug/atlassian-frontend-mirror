@@ -19,7 +19,7 @@ import {
   FloatingToolbarButton,
   FloatingToolbarItem,
 } from '../../../../plugins/floating-toolbar/types';
-import { Command } from '../../../../types';
+import type { Command } from '@atlaskit/editor-common/types';
 import deprecatedAnalyticsPlugin from '../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';

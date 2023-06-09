@@ -24,9 +24,7 @@ export const JiraProductHome = () => (
 
 const theme = generateTheme({
   name: 'high-contrast',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: '#272727',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   highlightColor: '#E94E34',
 });
 

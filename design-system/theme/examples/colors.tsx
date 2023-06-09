@@ -131,10 +131,8 @@ export default () => (
               : actualColor;
 
             const secondaryColor = color(formattedColor).isLight()
-              ? // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-                colors.N800
-              : // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-                colors.N10;
+              ? colors.N800
+              : colors.N10;
 
             return (
               <ColorPill

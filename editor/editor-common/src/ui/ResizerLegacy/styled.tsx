@@ -1,6 +1,9 @@
 import { css } from '@emotion/react';
-import { MediaSingleDimensionHelper } from '@atlaskit/editor-common/ui';
-import type { MediaSingleDimensionHelperProps } from '@atlaskit/editor-common/ui';
+
+import {
+  MediaSingleDimensionHelper,
+  MediaSingleWrapperProps as MediaSingleDimensionHelperProps,
+} from '../MediaSingle/styled';
 
 export const wrapperStyle = (props: MediaSingleDimensionHelperProps) => css`
   & > div {

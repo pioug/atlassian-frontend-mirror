@@ -32,7 +32,7 @@ describe('xcss()', () => {
       padding: 'space.100',
       zIndex: 'blanket',
       color: 'color.text',
-      boxShadow: 'overflow',
+      boxShadow: 'elevation.shadow.overflow',
     });
 
     expect(styles).toMatchInlineSnapshot(`
@@ -81,10 +81,10 @@ describe('xcss()', () => {
     const styles = xcss({
       ':hover': {
         display: 'flex',
-        borderWidth: 'width.100',
+        borderWidth: 'border.width.100',
       },
       ':visited': {
-        borderWidth: 'width.050',
+        borderWidth: 'border.width.050',
       },
     });
 
@@ -161,7 +161,6 @@ describe('xcss()', () => {
       // @ts-expect-error
       padding: '10px',
       // @ts-expect-error
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       color: '#F0F0F0',
       // @ts-expect-error
       top: 0,
@@ -213,7 +212,7 @@ describe('xcss()', () => {
 
   it('supports arrays', () => {
     const colorStyles = {
-      backgroundColor: 'brand.bold',
+      backgroundColor: 'color.background.brand.bold',
       color: 'color.text',
     } as const;
     const spacingStyles = {

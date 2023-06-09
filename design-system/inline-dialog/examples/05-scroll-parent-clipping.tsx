@@ -35,7 +35,6 @@ export default class InlineDialogParentClippingExample extends Component<
         </p>
         <div
           style={{
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             border: '2px dashed grey',
             boxSizing: 'border-box',
             height: '100px',

@@ -179,22 +179,19 @@ const contentStyles = (props: ContentStylesProps) => css`
   }
 `;
 
-type Props = Omit<
-  ContentStylesProps & React.HTMLProps<HTMLDivElement>,
-  'featureFlags'
->;
+type Props = ContentStylesProps & React.HTMLProps<HTMLDivElement>;
 
 export const createEditorContentStyle = (styles?: SerializedStyles) => {
   return React.forwardRef<HTMLDivElement, Props>((props, ref) => {
-    const { className, children } = props;
+    const { className, children, featureFlags } = props;
     const theme = useTheme();
-
     const memoizedStyle = useMemo(
       () =>
         contentStyles({
           theme,
+          featureFlags,
         }),
-      [theme],
+      [theme, featureFlags],
     );
 
     return (

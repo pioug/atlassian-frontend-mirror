@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import { IntlProvider } from 'react-intl-next';
 import { JsonLd } from 'json-ld-types';

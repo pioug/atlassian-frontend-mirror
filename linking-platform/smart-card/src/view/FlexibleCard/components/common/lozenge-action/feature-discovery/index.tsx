@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import type { FC } from 'react';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
 
 import { getPulseStyles } from './styled';
@@ -9,7 +9,9 @@ import type { FeatureDiscoveryProps } from './types';
 
 const LOCAL_STORAGE_CLIENT_KEY = '@atlaskit/smart-card';
 const LOCAL_STORAGE_DISCOVERY_KEY = 'action-discovery-status';
+const LOCAL_STORAGE_DISCOVERY_VALUE = 'discovered';
 const LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS = 15552000000; // 180 days
+const LOCAL_STORAGE_DISCOVERY_REQUIRED_TIME = 2000; // 2s
 
 /**
  * This is a hacky solution to help with the feature discovery.
@@ -22,23 +24,34 @@ const FeatureDiscovery: FC<FeatureDiscoveryProps> = ({
   children,
   testId,
 }) => {
+  const renderedTime = useRef<number>();
+
   const storageClient = useMemo(
     () => new StorageClient(LOCAL_STORAGE_CLIENT_KEY),
     [],
   );
   const discovered = useMemo(
-    () => storageClient.getItem(LOCAL_STORAGE_DISCOVERY_KEY) ?? false,
+    () =>
+      storageClient.getItem(LOCAL_STORAGE_DISCOVERY_KEY) ===
+      LOCAL_STORAGE_DISCOVERY_VALUE,
     [storageClient],
   );
 
   useEffect(() => {
-    if (!discovered) {
-      storageClient.setItemWithExpiry(
-        LOCAL_STORAGE_DISCOVERY_KEY,
-        true,
-        LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS,
-      );
-    }
+    renderedTime.current = Date.now();
+
+    return () => {
+      if (!discovered && renderedTime.current) {
+        const duration = Date.now() - renderedTime.current;
+        if (duration > LOCAL_STORAGE_DISCOVERY_REQUIRED_TIME) {
+          storageClient.setItemWithExpiry(
+            LOCAL_STORAGE_DISCOVERY_KEY,
+            LOCAL_STORAGE_DISCOVERY_VALUE,
+            LOCAL_STORAGE_DISCOVERY_EXPIRY_IN_MS,
+          );
+        }
+      }
+    };
   }, [storageClient, discovered]);
 
   const component = useMemo(() => {

@@ -1,5 +1,24 @@
 # @atlaskit/editor-mobile-bridge
 
+## 185.2.2
+
+### Patch Changes
+
+- [`f07a1e036a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f07a1e036a9) - Refactoring editor-core to prepare for extracting card plugin.
+- Updated dependencies
+
+## 185.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.2.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 185.1.7
 
 ### Patch Changes

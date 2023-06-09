@@ -33,8 +33,8 @@ const noMarginStyles = css({ margin: 0 });
 const noPointerEventsStyles = css({ pointerEvents: 'none' });
 const containerStyles = xcss({
   width: '100%',
-  borderRadius: 'radius.200',
-  boxShadow: 'raised',
+  borderRadius: 'border.radius.200',
+  boxShadow: 'elevation.shadow.raised',
   position: 'relative',
 });
 const draggingStyles = xcss({

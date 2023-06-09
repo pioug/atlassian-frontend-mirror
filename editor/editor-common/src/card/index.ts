@@ -4,3 +4,4 @@ export {
   getLinkMetadataFromTransaction,
   commandWithMetadata,
 } from './utils';
+export { default as buildLayoutButtons } from './MediaAndEmbedsToolbar';

@@ -6,7 +6,7 @@ import Square from '../shared/square';
 
 const flexContainerStyles = xcss({
   display: 'flex',
-  borderRadius: 'radius.050',
+  borderRadius: 'border.radius.050',
   height: 'size.600',
 });
 
@@ -17,7 +17,7 @@ export default function Example() {
         <Stack alignInline="center">
           Start alignment
           <Box
-            backgroundColor="neutral"
+            backgroundColor="color.background.neutral"
             padding="space.050"
             xcss={flexContainerStyles}
           >
@@ -31,7 +31,7 @@ export default function Example() {
         <Stack alignInline="center">
           Center alignment
           <Box
-            backgroundColor="neutral"
+            backgroundColor="color.background.neutral"
             padding="space.050"
             xcss={flexContainerStyles}
           >
@@ -45,7 +45,7 @@ export default function Example() {
         <Stack alignInline="center">
           End alignment
           <Box
-            backgroundColor="neutral"
+            backgroundColor="color.background.neutral"
             padding="space.050"
             xcss={flexContainerStyles}
           >
@@ -59,7 +59,7 @@ export default function Example() {
         <Stack alignInline="center">
           Baseline alignment
           <Box
-            backgroundColor="neutral"
+            backgroundColor="color.background.neutral"
             padding="space.050"
             xcss={flexContainerStyles}
           >

@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { Component, Fragment } from 'react';
 
 import Lorem from 'react-lorem-component';

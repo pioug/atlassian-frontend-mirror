@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
-import type { InlineNodeViewComponentProps } from '../../../nodeviews/getInlineNodeViewProducer';
+import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 
 import Emoji from '../ui/Emoji';
 import { useIntl } from 'react-intl-next';

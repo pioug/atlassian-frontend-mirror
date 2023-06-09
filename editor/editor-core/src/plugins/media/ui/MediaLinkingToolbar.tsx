@@ -22,7 +22,8 @@ import {
   RecentSearchInputTypes,
   RecentSearchSubmitOptions,
 } from '../../../ui/LinkSearch/types';
-import { linkToolbarMessages } from '../../../messages';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
+
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import { R400 } from '@atlaskit/theme/colors';
 import { INPUT_METHOD } from '../../analytics/types/enums';

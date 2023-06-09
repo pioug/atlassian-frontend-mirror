@@ -42,10 +42,11 @@ import {
   nextTick,
 } from '@atlaskit/media-test-helpers';
 import ResizableMediaSingle, { calcOffsetLeft } from '../../index';
-import Resizer, {
+import {
+  Resizer,
   ResizerProps,
   ResizerState,
-} from '../../../../../../ui/Resizer';
+} from '@atlaskit/editor-common/ui';
 import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';

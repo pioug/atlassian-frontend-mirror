@@ -1,5 +1,4 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage-spacing */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
 import styled from '@emotion/styled';

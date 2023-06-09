@@ -2,7 +2,7 @@ import { TextFieldProps as AKTextFieldProps } from '@atlaskit/textfield';
 
 import { Validator } from '../../../common/types';
 
-export type TextFieldProps = Omit<AKTextFieldProps, 'name' | 'isRequired'> & {
+export type TextFieldProps = Omit<AKTextFieldProps, 'name'> & {
   /** Name passed to the <Field>.*/
   name: string;
   label?: string;

@@ -7,10 +7,10 @@ const growItems = ['hug', 'fill'] as const;
 
 const containerStyles = xcss({
   display: 'flex',
-  borderRadius: 'radius.050',
+  borderRadius: 'border.radius.050',
 });
 
-const blockStyles = xcss({ borderRadius: 'radius.050' });
+const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 
 export default () => (
   <Box testId="stack-example" padding="space.100">
@@ -20,7 +20,7 @@ export default () => (
           {grow}
           <Box
             xcss={containerStyles}
-            backgroundColor="neutral"
+            backgroundColor="color.background.neutral"
             style={{
               height: '200px',
             }}
@@ -29,17 +29,17 @@ export default () => (
               <Inline space="space.100" grow={grow}>
                 <Box
                   xcss={blockStyles}
-                  backgroundColor="discovery.bold"
+                  backgroundColor="color.background.discovery.bold"
                   padding="space.200"
                 />
                 <Box
                   xcss={blockStyles}
-                  backgroundColor="discovery.bold"
+                  backgroundColor="color.background.discovery.bold"
                   padding="space.200"
                 />
                 <Box
                   xcss={blockStyles}
-                  backgroundColor="discovery.bold"
+                  backgroundColor="color.background.discovery.bold"
                   padding="space.200"
                 />
               </Inline>

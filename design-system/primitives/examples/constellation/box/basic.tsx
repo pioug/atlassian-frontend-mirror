@@ -14,8 +14,8 @@ const containerStyles = xcss({
   backgroundColor: 'elevation.surface.raised',
   padding: 'space.150',
   transition: '200ms',
-  borderRadius: 'radius.100',
-  boxShadow: 'raised',
+  borderRadius: 'border.radius.100',
+  boxShadow: 'elevation.shadow.raised',
   ':hover': {
     backgroundColor: 'elevation.surface.hovered',
   },

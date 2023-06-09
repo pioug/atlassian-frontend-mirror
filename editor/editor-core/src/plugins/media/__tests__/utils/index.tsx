@@ -43,7 +43,7 @@ import {
 } from '../../../../utils';
 import { Side } from '../../../selection/gap-cursor-selection';
 import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
-import { alignAttributes } from '../../../../utils/rich-media-utils';
+import { alignAttributes } from '@atlaskit/editor-common/utils';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   temporaryMedia,
@@ -65,7 +65,7 @@ import { Schema } from '@atlaskit/editor-test-helpers/schema';
 import { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/create-editor';
 import { ReactWrapper, mount } from 'enzyme';
 import { ClipboardWrapper } from '../../../../plugins/media/ui/MediaPicker/ClipboardWrapper';
-import { INPUT_METHOD } from '../../../../plugins/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import MediaItem, {
   MediaNodeProps,
   MediaNode,

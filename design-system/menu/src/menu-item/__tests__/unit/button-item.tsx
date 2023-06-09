@@ -32,7 +32,6 @@ describe('<ButtonItem />', () => {
 
   it('should override styles without stripping them', () => {
     const hackStyles = css({
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       backgroundColor: 'red',
     });
 

@@ -21,18 +21,16 @@ import {
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
-import { wrapperStyle } from '../../../ui/Resizer/styled';
 import {
+  wrapperStyle,
   EnabledHandles,
-  Props as ResizerProps,
-} from '../../../ui/Resizer/types';
-import Resizer from '../../../ui/Resizer';
-import {
+  ResizerProps,
+  Resizer,
   handleSides,
   imageAlignmentMap,
   snapTo,
-} from '../../../ui/Resizer/utils';
-import { calcMediaPxWidth } from '@atlaskit/editor-common/ui';
+  calcMediaPxWidth,
+} from '@atlaskit/editor-common/ui';
 import { embedSpacingStyles } from './styled';
 
 type State = {

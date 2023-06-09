@@ -36,7 +36,6 @@ export default function BasicPortalExample() {
             // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
             top: 54,
             left: token('space.300', '24px'),
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             background: 'lightpink',
             padding: token('space.300', '24px'),
             borderRadius: '3px',
@@ -55,7 +54,6 @@ export default function BasicPortalExample() {
             top: 130,
             // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
             left: 100,
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             background: 'aquamarine',
             padding: token('space.300', '24px'),
             borderRadius: '3px',

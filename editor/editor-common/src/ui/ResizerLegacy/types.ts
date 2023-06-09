@@ -1,10 +1,12 @@
-import { RichMediaLayout } from '@atlaskit/adf-schema';
-import type { MediaSingleProps } from '@atlaskit/editor-common/ui';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import type { GridType } from '@atlaskit/editor-common/types';
 import { EditorView } from 'prosemirror-view';
-import { getPosHandler } from '../../nodeviews/types';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+
+import { RichMediaLayout } from '@atlaskit/adf-schema';
+import { MediaClientConfig } from '@atlaskit/media-core';
+
+import type { DispatchAnalyticsEvent } from '../../analytics';
+import type { getPosHandler } from '../../react-node-view';
+import type { GridType } from '../../types';
+import type { MediaSingleProps } from '../../ui';
 
 export type EnabledHandles = { left?: boolean; right?: boolean };
 

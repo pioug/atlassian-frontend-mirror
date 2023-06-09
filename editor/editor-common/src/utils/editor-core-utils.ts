@@ -6,6 +6,7 @@ import {
   TextSelection,
 } from 'prosemirror-state';
 import { ReplaceAroundStep, ReplaceStep, Step } from 'prosemirror-transform';
+import { hasParentNodeOfType } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 
 import { closest } from './dom';
@@ -106,4 +107,8 @@ export const isValidPosition = (pos: number, state: EditorState): boolean => {
   }
 
   return false;
+};
+
+export const isInLayoutColumn = (state: EditorState): boolean => {
+  return hasParentNodeOfType(state.schema.nodes.layoutSection)(state.selection);
 };

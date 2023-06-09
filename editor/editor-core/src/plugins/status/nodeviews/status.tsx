@@ -8,7 +8,8 @@ import { injectIntl, IntlShape } from 'react-intl-next';
 import { Color, Status, StatusStyle } from '@atlaskit/status/element';
 
 import { EventDispatcher } from '../../../event-dispatcher';
-import { InlineNodeViewComponentProps } from '../../../nodeviews/getInlineNodeViewProducer';
+import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
+
 import { StatusPluginOptions } from '../types';
 import { messages } from './messages';
 

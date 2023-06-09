@@ -15,15 +15,16 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { wrapperStyle } from './styled';
-import { Props, EnabledHandles, SnapPointsProps } from './types';
-import Resizer from '../../../../ui/Resizer';
+import { Props, EnabledHandles } from './types';
+import { SnapPointsProps } from '@atlaskit/editor-common/types';
 import {
+  Resizer,
+  calcMediaPxWidth,
   snapTo,
   handleSides,
   imageAlignmentMap,
-} from '../../../../ui/Resizer/utils';
-import { calcMediaPxWidth } from '@atlaskit/editor-common/ui';
-import { calculateSnapPoints } from '../../../../utils/rich-media-utils';
+} from '@atlaskit/editor-common/ui';
+import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
 
 type State = {
   offsetLeft: number;

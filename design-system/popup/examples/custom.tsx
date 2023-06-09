@@ -11,7 +11,6 @@ import { borderRadius } from '@atlaskit/theme/constants';
 import Popup, { PopupComponentProps } from '../src';
 
 const containerStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: N700,
   borderRadius: borderRadius(),
   ':focus': {

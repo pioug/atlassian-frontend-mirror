@@ -24,7 +24,7 @@ import * as samplingUfo from '../../../../util/analytics/samplingUfo';
 import browserSupport from '../../../../util/browser-support';
 import { EmojiId } from '../../../..';
 import { renderWithIntl } from '../../_testing-library';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../_enzyme';
 
 const findEmoji = (component: ReactWrapper) =>
   component.update() && component.find(Emoji);

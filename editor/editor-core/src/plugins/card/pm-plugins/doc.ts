@@ -24,10 +24,14 @@ import {
   SMART_LINK_TYPE,
   UnlinkToolbarAEP,
   SmartLinkNodeContext,
+  unlinkPayload,
 } from '@atlaskit/editor-common/analytics';
 import type { Command } from '@atlaskit/editor-common/types';
-import { nodesBetweenChanged, processRawValue } from '../../../utils';
-import { unlinkPayload } from '../../../utils/linking-utils';
+import {
+  nodesBetweenChanged,
+  processRawValue,
+} from '@atlaskit/editor-common/utils';
+
 import {
   isFromCurrentDomain,
   getLinkCreationAnalyticsEvent,

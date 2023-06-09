@@ -7,7 +7,8 @@ import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import rafSchedule from 'raf-schd';
 
 import { SmartCardProps, Card } from './genericCard';
-import { InlineNodeViewComponentProps } from '../../../nodeviews/getInlineNodeViewProducer';
+import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
+
 import { registerCard } from '../pm-plugins/actions';
 
 export class InlineCardComponent extends React.PureComponent<SmartCardProps> {

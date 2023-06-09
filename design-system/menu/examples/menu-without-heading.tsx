@@ -37,7 +37,6 @@ export default () => {
                   height: 24,
                   width: 24,
                   background:
-                    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                     'linear-gradient(180deg, #4E86EE 0%, #3562C1 100%), #4E86EE',
                   borderRadius: 3,
                 }}

@@ -10,7 +10,7 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '../../../plugins/analytics/types/enums';
-import { processRawValue, getStepRange } from '../../document';
+import { processRawValue, getStepRange } from '@atlaskit/editor-common/utils';
 
 describe('document: processRawValue', () => {
   describe('invalid prosemirror model', () => {

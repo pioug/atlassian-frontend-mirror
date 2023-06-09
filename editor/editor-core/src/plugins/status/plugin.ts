@@ -6,8 +6,7 @@ import {
 } from 'prosemirror-state';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
-import { getInlineNodeViewProducer } from '../../nodeviews/getInlineNodeViewProducer';
-
+import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import type { PMPluginFactoryParams } from '../../types';
 
 import { StatusNodeView } from './nodeviews/status';

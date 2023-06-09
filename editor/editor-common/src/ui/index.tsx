@@ -84,8 +84,27 @@ export { default as IntlProviderIfMissingWrapper } from './IntlProviderIfMissing
 export { default as FloatingToolbarButton } from './FloatingToolbar/Button';
 
 export {
+  RECENT_SEARCH_WIDTH_IN_PX,
+  RECENT_SEARCH_WIDTH_WITHOUT_ITEMS_IN_PX,
+  RECENT_SEARCH_HEIGHT_IN_PX,
+  LINKPICKER_HEIGHT_IN_PX,
+} from './LinkSearch/const';
+
+export {
   ContextPanelProvider,
   ContextPanelWidthProvider,
   ContextPanelConsumer,
   ContextPanel,
 } from './ContextPanel/context';
+
+export { default as Resizer } from './ResizerLegacy';
+export type { ResizerState } from './ResizerLegacy';
+
+export type {
+  EnabledHandles,
+  Props as ResizerProps,
+} from './ResizerLegacy/types';
+
+export { snapTo, handleSides, imageAlignmentMap } from './ResizerLegacy/utils';
+
+export { wrapperStyle } from './ResizerLegacy/styled';

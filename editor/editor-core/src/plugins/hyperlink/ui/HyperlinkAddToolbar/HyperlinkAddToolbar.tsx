@@ -51,7 +51,7 @@ import { mapContentTypeToIcon, sha1, wordCount } from './utils';
 import { HyperlinkState } from '../../pm-plugins/main';
 import { hideLinkToolbar } from '../../commands';
 import { EditorView } from 'prosemirror-view';
-import { LinkInputType } from '../../types';
+import type { LinkInputType } from '@atlaskit/editor-common/types';
 import { hideLinkToolbar as cardHideLinkToolbar } from '../../../card/pm-plugins/actions';
 import { visuallyHiddenStyles } from '../../styles';
 import { browser } from '@atlaskit/editor-common/utils';

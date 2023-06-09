@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.6.0
+
+### Minor Changes
+
+- [`f07a1e036a9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f07a1e036a9) - Refactoring editor-core to prepare for extracting card plugin.
+
 ## 74.5.2
 
 ### Patch Changes

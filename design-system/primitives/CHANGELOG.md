@@ -1,5 +1,18 @@
 # @atlaskit/primitives
 
+## 0.11.0
+
+### Minor Changes
+
+- [`8bd6dc6027f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bd6dc6027f) - Box backgroundColor prop now accepts full token names, abbreviated forms will no longer work. xCSS now accepts full token names, abbreviated forms will no longer work.
+
+## 0.10.1
+
+### Patch Changes
+
+- [`b6302963111`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6302963111) - Change border.radius.normal to be 3px instead of 4px.
+  `display: grid` is now accepted for `xcss`.
+
 ## 0.10.0
 
 ### Minor Changes

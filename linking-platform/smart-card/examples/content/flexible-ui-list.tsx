@@ -52,7 +52,7 @@ export default () => (
               hideElevation: true,
               hidePadding: true,
               size: SmartLinkSize.Large,
-              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+
               theme: SmartLinkTheme.Black,
             }}
             url={url}

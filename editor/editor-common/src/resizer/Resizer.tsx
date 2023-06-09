@@ -11,7 +11,7 @@ import {
   resizerHandleStickyClassName,
   resizerHandleZIndex,
   resizerItemClassName,
-} from '../../styles/shared/resizer';
+} from '../styles/shared/resizer';
 
 import {
   EnabledHandles,

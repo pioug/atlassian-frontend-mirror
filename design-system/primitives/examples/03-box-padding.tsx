@@ -2,9 +2,9 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 
-import { Box, Inline, Stack } from '../src';
+import { Box, type BoxProps, Inline, Stack } from '../src';
 
-const spacingValues = [
+const spacingValues: BoxProps['padding'][] = [
   'space.0',
   'space.025',
   'space.050',
@@ -19,7 +19,7 @@ const spacingValues = [
   'space.600',
   'space.800',
   'space.1000',
-] as const;
+];
 
 /**
  * Box permutations
@@ -31,7 +31,11 @@ export default () => {
         <Heading level="h600">padding</Heading>
         <Inline space="space.200" alignBlock="center">
           {spacingValues.map(space => (
-            <Box key={space} backgroundColor="discovery.bold" padding={space}>
+            <Box
+              key={space}
+              backgroundColor="color.background.discovery.bold"
+              padding={space}
+            >
               <Box backgroundColor="elevation.surface">{space}</Box>
             </Box>
           ))}
@@ -44,7 +48,7 @@ export default () => {
           {spacingValues.map(space => (
             <Box
               key={space}
-              backgroundColor="discovery.bold"
+              backgroundColor="color.background.discovery.bold"
               paddingBlock={space}
             >
               <Box backgroundColor="elevation.surface">{space}</Box>
@@ -62,7 +66,7 @@ export default () => {
           {spacingValues.map(space => (
             <Box
               key={space}
-              backgroundColor="discovery.bold"
+              backgroundColor="color.background.discovery.bold"
               paddingBlockStart={space}
             >
               <Box backgroundColor="elevation.surface">{space}</Box>
@@ -77,7 +81,7 @@ export default () => {
           {spacingValues.map(space => (
             <Box
               key={space}
-              backgroundColor="discovery.bold"
+              backgroundColor="color.background.discovery.bold"
               paddingBlockEnd={space}
             >
               <Box backgroundColor="elevation.surface">{space}</Box>
@@ -93,7 +97,7 @@ export default () => {
             {spacingValues.map(space => (
               <Box
                 key={space}
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
                 paddingInline={space}
               >
                 <Box backgroundColor="elevation.surface">{space}</Box>
@@ -111,7 +115,7 @@ export default () => {
             {spacingValues.map(space => (
               <Box
                 key={space}
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
                 paddingInlineStart={space}
               >
                 <Box backgroundColor="elevation.surface">{space}</Box>
@@ -129,7 +133,7 @@ export default () => {
             {spacingValues.map(space => (
               <Box
                 key={space}
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
                 paddingInlineEnd={space}
               >
                 <Box backgroundColor="elevation.surface">{space}</Box>
@@ -145,7 +149,7 @@ export default () => {
       >
         <Heading level="h600">overlapping padding props</Heading>
         <Box
-          backgroundColor="discovery.bold"
+          backgroundColor="color.background.discovery.bold"
           padding="space.100"
           paddingBlock="space.200"
           paddingInlineStart="space.300"

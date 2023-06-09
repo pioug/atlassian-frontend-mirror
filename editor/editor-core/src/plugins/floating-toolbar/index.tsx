@@ -26,7 +26,11 @@ import {
   CONTENT_COMPONENT,
   FLOATING_CONTROLS_TITLE,
 } from '../analytics/types';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { pluginKey as extensionsPluginKey } from '../extension/plugin-key';
 import { pluginKey as editorDisabledPluginKey } from '../editor-disabled';
 import { pluginKey as dataPluginKey } from './pm-plugins/toolbar-data/plugin-key';

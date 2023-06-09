@@ -8,7 +8,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { ButtonGroup } from '@atlaskit/button';
 import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/standard-button';
-import Form, { FormFooter, FormSection } from '@atlaskit/form';
+import Form, { FormFooter } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { token } from '@atlaskit/tokens';
 
@@ -94,7 +94,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
           data-testid={testId}
           css={formStyles}
         >
-          <FormSection>{children}</FormSection>
+          <div>{children}</div>
           {!hideFooter && (
             <FormFooter>
               {formErrorMessage && (

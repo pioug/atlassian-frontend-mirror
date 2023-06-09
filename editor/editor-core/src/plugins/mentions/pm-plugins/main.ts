@@ -7,7 +7,7 @@ import {
   MentionProvider,
 } from '@atlaskit/mention/resource';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { getInlineNodeViewProducer } from '../../../nodeviews/getInlineNodeViewProducer';
+import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { MentionNodeView } from '../nodeviews/mention';
 import { mentionPluginKey } from './key';
 import type { Command, PMPluginFactoryParams } from '../../../types';

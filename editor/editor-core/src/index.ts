@@ -129,7 +129,6 @@ export {
   isLinkAtPos,
   updateLink,
 } from './plugins/hyperlink/commands';
-export type { LinkInputType as LinkInputMethod } from './plugins/hyperlink/types';
 export { historyPluginKey } from './plugins/history';
 export {
   INPUT_METHOD,
@@ -152,7 +151,6 @@ export {
   getNodesCount,
   measurements,
   hasVisibleContent,
-  isEmptyDocument,
 } from './utils';
 export { getListCommands } from './utils/list-commands';
 export { ReactEditorView, BaseReactEditorView } from './create-editor';

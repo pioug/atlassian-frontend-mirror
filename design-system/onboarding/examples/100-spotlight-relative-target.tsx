@@ -25,7 +25,7 @@ const relativeDivStyles = css({
   position: 'relative',
   top: token('space.500', '40px'),
   left: token('space.500', '40px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+
   backgroundColor: 'PaleVioletRed',
   borderRadius: token('border.radius.100', '3px'),
   transform: 'translate(10px, 10px)',
@@ -40,7 +40,6 @@ export default class SpotlightRelativeTarget extends Component<Object, State> {
       <SpotlightManager>
         <div
           style={{
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             backgroundColor: 'wheat',
           }}
         >

@@ -1,10 +1,11 @@
 import {
   BlockTypeInputMethod,
   InsertBlockInputMethodToolbar,
-  LinkInputMethod,
   ListInputMethod,
   TextFormattingInputMethodBasic,
 } from '@atlaskit/editor-core';
+import type { LinkInputType as LinkInputMethod } from '@atlaskit/editor-common/types';
+
 import { Color as StatusColor } from '@atlaskit/status/element';
 
 export default interface NativeToWebBridge {

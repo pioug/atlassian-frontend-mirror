@@ -24,6 +24,7 @@ export function TextField({
   validationHelpText,
   validators,
   defaultValue,
+  isRequired,
   ...restProps
 }: TextFieldProps) {
   const { assignValidator } = useFormContext();
@@ -41,12 +42,22 @@ export function TextField({
      * `value` will be populated again in `fieldProps` which cause the TextField to be changed
      * to a controlled component and raise a warning from React.
      */
-    <Field name={name} label={label} defaultValue={defaultValue ?? ''}>
+    <Field
+      name={name}
+      label={label}
+      isRequired={isRequired}
+      defaultValue={defaultValue ?? ''}
+    >
       {({ fieldProps, meta, error }) => {
         const isInvalid = validateSubmitErrors(meta);
         return (
           <Fragment>
-            <AkTextfield {...fieldProps} {...restProps} isInvalid={isInvalid} />
+            <AkTextfield
+              {...fieldProps}
+              {...restProps}
+              isInvalid={isInvalid}
+              isRequired={false} // Remove the default browser validation
+            />
             {!error && validationHelpText && (
               <HelperMessage>{validationHelpText}</HelperMessage>
             )}

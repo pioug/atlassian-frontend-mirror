@@ -2,7 +2,6 @@ import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import { LinkAttributes } from '@atlaskit/adf-schema';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { Command } from '../../types';
 import {
   normalizeUrl,
   getLinkCreationAnalyticsEvent,
@@ -18,11 +17,12 @@ import {
   INPUT_METHOD,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
+  buildEditLinkPayload,
+  unlinkPayload,
+  UnlinkToolbarAEP,
 } from '@atlaskit/editor-common/analytics';
 import { queueCardsFromChangedTr } from '../card/pm-plugins/doc';
-import { LinkInputType } from './types';
-import { buildEditLinkPayload, unlinkPayload } from '../../utils/linking-utils';
-import { UnlinkToolbarAEP } from '../analytics/types/link-tool-bar-events';
+import type { Command, LinkInputType } from '@atlaskit/editor-common/types';
 
 export function isTextAtPos(pos: number): Predicate {
   return (state: EditorState) => {

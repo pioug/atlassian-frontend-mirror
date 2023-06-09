@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.5.8
+
+### Patch Changes
+
+- [`27f4aa34132`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27f4aa34132) - [ux] Fix for Hover Card in Flexible UI links: it will show only supported states, such as resolved and unauthorized based on the corresponding featureFlag ('showHoverPreview' and 'showAuthTooltip')
+
+## 26.5.7
+
+### Patch Changes
+
+- [`5b5d7b22e80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5b5d7b22e80) - [ux] Update feature discovery on lozenge action to display for 2s before marking it as discovered
+
 ## 26.5.6
 
 ### Patch Changes

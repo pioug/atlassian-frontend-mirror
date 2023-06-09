@@ -2,7 +2,11 @@ import { keymap } from 'prosemirror-keymap';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { NodeSelection, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import * as keymaps from '../../../keymaps';
+import {
+  bindKeymapWithCommand,
+  moveDown,
+  moveUp,
+} from '@atlaskit/editor-common/keymaps';
 import { findChildren, flatten } from 'prosemirror-utils';
 import type { FeatureFlags, Command } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
@@ -82,14 +86,14 @@ export function cardKeymap(featureFlags: FeatureFlags): SafePlugin {
     featureFlags.chromeCursorHandlerFixedVersion &&
     browser.chrome_version < featureFlags.chromeCursorHandlerFixedVersion
   ) {
-    keymaps.bindKeymapWithCommand(
-      keymaps.moveUp.common!,
+    bindKeymapWithCommand(
+      moveUp.common!,
       selectAboveBelowInlineCard('up'),
       list,
     );
 
-    keymaps.bindKeymapWithCommand(
-      keymaps.moveDown.common!,
+    bindKeymapWithCommand(
+      moveDown.common!,
       selectAboveBelowInlineCard('down'),
       list,
     );

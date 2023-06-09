@@ -8,7 +8,7 @@ import { withOuterListeners } from '@atlaskit/editor-common/ui';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { LinkPickerOptions } from '../../hyperlink/types';
+import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import HyperlinkToolbar from '../../hyperlink/ui/HyperlinkAddToolbar';
 import { showLinkToolbar, hideLinkToolbar } from '../pm-plugins/actions';
 
@@ -23,20 +23,20 @@ import {
   INPUT_METHOD,
   ACTION,
   EditorAnalyticsAPI,
+  buildEditLinkPayload,
 } from '@atlaskit/editor-common/analytics';
 
 import {
   LINKPICKER_HEIGHT_IN_PX,
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
-} from '../../../ui/LinkSearch/ToolbarComponents';
+} from '@atlaskit/editor-common/ui';
 
 import { changeSelectedCardToLink, updateCard } from '../pm-plugins/doc';
 import { findCardInfo, displayInfoForCard } from '../utils';
 import { NodeSelection } from 'prosemirror-state';
-import { buildEditLinkPayload } from '../../../utils/linking-utils';
 import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';
-import { linkToolbarMessages } from '../../../messages';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export type EditLinkToolbarProps = {

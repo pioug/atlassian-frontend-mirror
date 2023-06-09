@@ -29,7 +29,7 @@ import { BlockTypePluginOptions } from '../plugins/block-type/types';
 import { CodeBlockOptions } from '../plugins/code-block/types';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
 import { FindReplaceOptions } from '../plugins/find-replace/types';
-import { LinkingOptions } from '../plugins/hyperlink/types';
+import type { LinkingOptions } from '@atlaskit/editor-common/types';
 import { LayoutPluginOptions } from '../plugins/layout/types';
 import { MediaOptions, MediaState } from '../plugins/media/types';
 import { PlaceholderTextOptions } from '../plugins/placeholder-text/types';

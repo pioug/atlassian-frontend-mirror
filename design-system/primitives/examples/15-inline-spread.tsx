@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import { Box, Inline, Stack, xcss } from '../src';
 
 const containerStyles = xcss({ display: 'flex' });
-const blockStyles = xcss({ borderRadius: 'radius.050' });
+const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 
 export default () => (
   <Box testId="inline-example" padding="space.100" xcss={containerStyles}>
@@ -13,7 +13,7 @@ export default () => (
       <Box
         xcss={blockStyles}
         padding="space.050"
-        backgroundColor="neutral"
+        backgroundColor="color.background.neutral"
         style={{
           width: '200px',
         }}
@@ -22,17 +22,17 @@ export default () => (
           <Box
             xcss={blockStyles}
             padding="space.200"
-            backgroundColor="discovery.bold"
+            backgroundColor="color.background.discovery.bold"
           />
           <Box
             xcss={blockStyles}
             padding="space.200"
-            backgroundColor="discovery.bold"
+            backgroundColor="color.background.discovery.bold"
           />
           <Box
             xcss={blockStyles}
             padding="space.200"
-            backgroundColor="discovery.bold"
+            backgroundColor="color.background.discovery.bold"
           />
         </Inline>
       </Box>

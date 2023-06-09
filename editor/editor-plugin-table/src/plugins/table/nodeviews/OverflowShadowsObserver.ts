@@ -39,21 +39,19 @@ export class OverflowShadowsObserver {
       const intersectonOnbserverCallback = (
         entry: IntersectionObserverEntry,
       ) => {
-        if (!entry.rootBounds?.height && !entry.rootBounds?.width) {
-          return;
-        }
         if (
           entry.target !== this.leftShadowSentinel &&
           entry.target !== this.rightShadowSentinel
         ) {
           return;
         }
+
         this.updateStickyShadowsHeightIfChanged();
-        this.checkIntersectionEvent(
-          entry,
+        this.updateShadowState(
           this.leftShadowSentinel === entry.target
             ? ShadowEvent.SHOW_BEFORE_SHADOW
             : ShadowEvent.SHOW_AFTER_SHADOW,
+          entry.intersectionRatio !== 1,
         );
       };
 
@@ -68,24 +66,6 @@ export class OverflowShadowsObserver {
         },
       );
       return;
-    }
-  };
-
-  private checkIntersectionEvent = (
-    entry: IntersectionObserverEntry,
-    shadowKey: ShadowEvent,
-  ) => {
-    if (
-      // If it's in full view, don't show shadow.
-      entry.isIntersecting &&
-      entry.intersectionRatio === 1
-    ) {
-      this.updateShadowState(shadowKey, false);
-    } else if (
-      // If it's in partial view, show a shadow
-      entry.intersectionRatio < 1
-    ) {
-      this.updateShadowState(shadowKey, true);
     }
   };
 

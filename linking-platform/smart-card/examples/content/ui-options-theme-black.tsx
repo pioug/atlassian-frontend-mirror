@@ -13,7 +13,6 @@ export default () => (
   <Provider client={new CustomClient('stg')}>
     <Card
       appearance="inline"
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       ui={{ theme: SmartLinkTheme.Black }}
       url={response1.data.url}
     >

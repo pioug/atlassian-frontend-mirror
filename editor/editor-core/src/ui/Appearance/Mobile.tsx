@@ -20,6 +20,7 @@ export default function Mobile({
   popupsScrollableElement,
   innerRef,
   pluginHooks,
+  featureFlags,
 }: EditorAppearanceComponentProps) {
   return (
     <MobileAppearance
@@ -28,6 +29,7 @@ export default function Mobile({
       maxHeight={maxHeight}
       persistScrollGutter={persistScrollGutter}
       editorDisabled={disabled}
+      featureFlags={featureFlags}
     >
       {editorDOMElement}
       <PluginSlot

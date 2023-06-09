@@ -13,8 +13,13 @@ import type {
   FloatingToolbarHandler,
   FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
-import { linkToolbarMessages } from '../../messages';
-import commonMessages, { linkMessages } from '@atlaskit/editor-common/messages';
+
+import { buildLayoutButtons } from '@atlaskit/editor-common/card';
+
+import commonMessages, {
+  linkMessages,
+  linkToolbarMessages,
+} from '@atlaskit/editor-common/messages';
 
 import { Node } from 'prosemirror-model';
 import { changeSelectedCardToText } from './pm-plugins/doc';
@@ -39,12 +44,7 @@ import {
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
 import { messages } from './messages';
-import buildLayoutButtons from '../../ui/MediaAndEmbedsToolbar';
-import {
-  buildOpenedSettingsPayload,
-  buildVisitedLinkPayload,
-} from '../../utils/linking-utils';
-import { LinkPickerOptions } from '../hyperlink/types';
+import { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from './styles';
 import type {
   FeatureFlags,
@@ -60,6 +60,8 @@ import {
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
+  buildOpenedSettingsPayload,
+  buildVisitedLinkPayload,
 } from '@atlaskit/editor-common/analytics';
 import type cardPlugin from './index';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
@@ -265,6 +267,7 @@ const buildAlignmentOptions = (
   widthPluginDependencyApi:
     | PluginDependenciesAPI<typeof widthPlugin>
     | undefined,
+  analyticsApi: EditorAnalyticsAPI | undefined,
   cardOptions?: CardOptions,
 ): FloatingToolbarItem<Command>[] => {
   return buildLayoutButtons(
@@ -272,6 +275,7 @@ const buildAlignmentOptions = (
     intl,
     state.schema.nodes.embedCard,
     widthPluginDependencyApi,
+    analyticsApi,
     true,
     true,
     cardOptions?.allowWrapping,
@@ -395,6 +399,7 @@ const generateToolbarItems =
           state,
           intl,
           pluginInjectionApi?.dependencies?.width,
+          pluginInjectionApi?.dependencies?.analytics?.actions,
           cardOptions,
         );
         if (alignmentOptions.length) {

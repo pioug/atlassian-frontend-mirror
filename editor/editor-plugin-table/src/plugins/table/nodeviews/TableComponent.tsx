@@ -280,11 +280,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     if (this.state[shadowKey] === value) {
       return;
     }
-    // need this check to satisfy types for the setState argument
-    if (shadowKey === ShadowEvent.SHOW_BEFORE_SHADOW) {
-      return this.setState({ [shadowKey]: value });
-    }
-    this.setState({ [shadowKey]: value });
+    this.setState({ [shadowKey]: value } as Pick<TableState, typeof shadowKey>);
   };
 
   private createShadowSentinels = (table: HTMLTableElement | null) => {
@@ -537,11 +533,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       this.updateShadows();
     }
 
-    if (this.wrapper.scrollLeft === 0) {
-      this.setState({ [ShadowEvent.SHOW_BEFORE_SHADOW]: false });
-    } else {
-      this.setState({ [ShadowEvent.SHOW_BEFORE_SHADOW]: true });
-    }
+    this.setState({
+      [ShadowEvent.SHOW_BEFORE_SHADOW]: this.wrapper.scrollLeft !== 0,
+    });
   };
 
   private handleTableResizing = () => {

@@ -39,7 +39,7 @@ import { CardOptions } from '@atlaskit/editor-common/card';
 import undoRedoPlugin from '../../../plugins/undo-redo';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { TypeAheadPluginOptions } from '../../../plugins/type-ahead';
-import { HyperlinkPluginOptions } from '../../../plugins/hyperlink/types';
+import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 // #endregion
 

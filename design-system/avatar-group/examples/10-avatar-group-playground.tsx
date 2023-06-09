@@ -158,7 +158,6 @@ const AvatarGroupExample: FC = () => {
         />
         <span
           style={{
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             borderLeft: '1px solid #ccc',
             paddingLeft: '1em',
             fontSize: 11,
@@ -166,7 +165,6 @@ const AvatarGroupExample: FC = () => {
             right: 0,
             top: 0,
 
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             color: '#999',
             transform: 'translateX(100%)',
           }}
@@ -246,7 +244,6 @@ const AvatarGroupExample: FC = () => {
         <p>Expand and scroll up to reposition the avatar group menu</p>
         <div
           style={{
-            // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
             border: '1px solid black',
             height: '200px',
             width: '300px',

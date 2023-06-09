@@ -33,7 +33,6 @@ import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/
 import { N700 } from '@atlaskit/theme/colors';
 import { normalizeHexColor } from '@atlaskit/adf-schema';
 
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const selectedColor = N700;
 
 async function focusToolbar(page: PuppeteerPage) {

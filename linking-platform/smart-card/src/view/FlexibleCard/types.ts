@@ -102,6 +102,12 @@ export type FlexibleCardProps = {
    * over the smartlink. Default value is false.
    */
   showHoverPreview?: Boolean;
+
+  /**
+   * Determines whether to show an unauthorised view of the hover card
+   * when a user hovers over a smartlink.
+   */
+  showAuthTooltip?: Boolean;
 };
 
 export type FlexibleUiOptions = {

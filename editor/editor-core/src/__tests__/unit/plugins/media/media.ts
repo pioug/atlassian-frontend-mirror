@@ -9,7 +9,7 @@ import {
   media,
   unsupportedBlock,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { processRawValue } from '../../../../utils/document';
+import { processRawValue } from '@atlaskit/editor-common/utils';
 import schema from '@atlaskit/editor-test-helpers/schema';
 
 const getNodeNames = (plugin: EditorPlugin) =>

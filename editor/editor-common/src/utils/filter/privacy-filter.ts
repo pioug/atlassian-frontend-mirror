@@ -4,7 +4,8 @@ import {
   isResolvingMentionProvider,
   MentionProvider,
 } from '@atlaskit/mention/resource';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+
+import { ProviderFactory } from '../../provider-factory';
 
 /**
  * Sanitises a document where some content should not be in the document (e.g. mention names).

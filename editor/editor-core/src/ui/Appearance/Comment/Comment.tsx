@@ -159,6 +159,7 @@ class Editor extends React.Component<
       intl,
       useStickyToolbar,
       pluginHooks,
+      featureFlags,
     } = this.props;
     const maxContentSizeReached = Boolean(
       maxContentSize?.maxContentSizeReached,
@@ -236,6 +237,7 @@ class Editor extends React.Component<
                     className={classnames('ak-editor-content-area', {
                       'less-margin': width < akEditorMobileBreakoutPoint,
                     })}
+                    featureFlags={featureFlags}
                   >
                     {customContentComponents}
                     <PluginSlot

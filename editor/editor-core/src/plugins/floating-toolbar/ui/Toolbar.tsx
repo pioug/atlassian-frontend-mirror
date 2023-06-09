@@ -13,7 +13,7 @@ import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { DN70 } from '@atlaskit/theme/colors';
 
-import { DispatchAnalyticsEvent } from '../../analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { FloatingToolbarItem } from '../types';
 import { compareArrays, shallowEqual } from '../utils';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';

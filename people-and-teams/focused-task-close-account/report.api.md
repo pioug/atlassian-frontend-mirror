@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -167,3 +168,17 @@ interface User {
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0",
+  "react-dom": "^16.8.0",
+  "react-transition-group": "^4.4.1"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

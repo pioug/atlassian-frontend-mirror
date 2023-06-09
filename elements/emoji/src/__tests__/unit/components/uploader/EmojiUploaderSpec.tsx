@@ -1,6 +1,6 @@
 import React from 'react';
 import { waitUntil } from '@atlaskit/elements-test-helpers';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../_enzyme';
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { axe, toHaveNoViolations } from 'jest-axe';

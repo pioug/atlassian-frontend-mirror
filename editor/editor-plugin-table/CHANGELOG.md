@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 1.5.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.4
+
+### Patch Changes
+
+- [`00d7488cf36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/00d7488cf36) - [ux] The table shadow sentinels when rendered out of view would sometimes return a 0 root bounds object in the intersection observer. This became an issue because we ignore intersection entities with 0 root bounds. This fixes the right shadow not appear on tablessimply by removing the root bounds check from the observer
+
 ## 1.5.3
 
 ### Patch Changes

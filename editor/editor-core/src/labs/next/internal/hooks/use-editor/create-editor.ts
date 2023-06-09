@@ -10,7 +10,8 @@ import {
   processPluginsList,
   createPMPlugins,
 } from '../../../../../create-editor/create-editor';
-import { processRawValue } from '../../../../../utils';
+import { processRawValue } from '@atlaskit/editor-common/utils';
+
 import EditorActions from '../../../../../actions';
 import { PortalProviderAPI } from '../../../../../ui/PortalProvider';
 import { EditorSharedConfig } from '../../context/shared-config';

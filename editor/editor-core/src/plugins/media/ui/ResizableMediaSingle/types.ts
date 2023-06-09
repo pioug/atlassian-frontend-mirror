@@ -5,7 +5,6 @@ import type { GridType } from '@atlaskit/editor-common/types';
 import { EditorView } from 'prosemirror-view';
 import { getPosHandler } from '../../../../nodeviews/types';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { ResolvedPos } from 'prosemirror-model';
 
 export type EnabledHandles = { left?: boolean; right?: boolean };
 
@@ -27,18 +26,3 @@ export type Props = MediaSingleProps & {
   fullWidthMode?: boolean;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 };
-
-export interface SnapPointsProps {
-  $pos?: ResolvedPos | null;
-  akEditorWideLayoutWidth: number;
-  allowBreakoutSnapPoints?: boolean;
-  containerWidth: number;
-  gridSize: number;
-  gridWidth: number;
-  insideInlineLike: boolean;
-  insideLayout: boolean;
-  isVideoFile: boolean;
-  lineLength: number;
-  offsetLeft: number;
-  wrappedLayout: boolean;
-}

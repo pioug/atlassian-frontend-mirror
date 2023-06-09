@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import evaluateInner from '../../../utils/evaluate-inner';
 
 describe('css-reset evaluateInner', () => {

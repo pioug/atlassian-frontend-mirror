@@ -28,6 +28,7 @@ export {
   extractSliceFromStep,
   isValidPosition,
   isEmptyParagraph,
+  isInLayoutColumn,
 } from './editor-core-utils';
 export { withImageLoader } from './imageLoader';
 export type {
@@ -183,3 +184,21 @@ export {
 // prosemirror-history does not export its plugin key
 export const pmHistoryPluginKey = 'history$';
 export { gridTypeForLayout } from './grid';
+
+export {
+  nodesBetweenChanged,
+  getStepRange,
+  isEmptyDocument,
+  processRawValue,
+  hasDocAsParent,
+  bracketTyped,
+} from './document';
+
+export {
+  floatingLayouts,
+  isRichMediaInsideOfBlockNode,
+  calculateSnapPoints,
+  alignAttributes,
+} from './rich-media-utils';
+
+export { sanitizeNodeForPrivacy } from './filter/privacy-filter';

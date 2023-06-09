@@ -3,10 +3,10 @@ import React from 'react';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
 const boxStyles = xcss({
-  color: 'inverse',
-  backgroundColor: 'success.bold',
+  color: 'color.text.inverse',
+  backgroundColor: 'color.background.success.bold',
   padding: 'space.100',
-  borderRadius: 'radius.100',
+  borderRadius: 'border.radius.100',
   transitionDuration: '200ms',
   listStyle: 'none',
   '::before': {
@@ -18,7 +18,7 @@ const boxStyles = xcss({
     paddingInlineStart: 'space.050',
   },
   ':hover': {
-    backgroundColor: 'success.bold.hovered',
+    backgroundColor: 'color.background.success.bold.hovered',
     transform: 'scale(1.02)',
   },
 });

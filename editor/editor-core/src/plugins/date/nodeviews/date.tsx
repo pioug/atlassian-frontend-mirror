@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 import { Date } from '@atlaskit/date';
 import { setDatePickerAt } from '../actions';
-import { InlineNodeViewComponentProps } from '../../../nodeviews/getInlineNodeViewProducer';
+import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 
 export function DateNodeView(props: InlineNodeViewComponentProps) {
   const {

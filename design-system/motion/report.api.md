@@ -8,6 +8,7 @@
 ### Table of contents
 
 - [Main Entry Types](#main-entry-types)
+- [Peer Dependencies](#peer-dependencies)
 
 ### Main Entry Types
 
@@ -59,7 +60,13 @@ interface ExitingChildContext {
 }
 
 // @public
-export const ExitingPersistence: React_2.FC<ExitingPersistenceProps>;
+export const ExitingPersistence: React_2.MemoExoticComponent<
+  ({
+    appear: appearFromProp,
+    children: childs,
+    exitThenEnter,
+  }: ExitingPersistenceProps) => any
+>;
 
 // @public (undocumented)
 export interface ExitingPersistenceProps {
@@ -72,11 +79,19 @@ export interface ExitingPersistenceProps {
 type Fade = 'in' | 'inout' | 'none' | 'out';
 
 // @public
-export const FadeIn: React_2.FC<FadeKeyframesMotionProps>;
+export const FadeIn: ({
+  children,
+  duration,
+  entranceDirection,
+  exitDirection,
+  distance,
+  onFinish,
+  isPaused,
+}: FadeKeyframesMotionProps) => JSX.Element;
 
 // @public (undocumented)
 export const fadeInAnimation: (
-  direction?: Direction | undefined,
+  direction?: Direction,
   distance?: Distance,
 ) => CSSObject;
 
@@ -125,8 +140,8 @@ export const ResizingHeight: ({
   children,
   ...props
 }: ResizingHeightOpts & {
-  children: (opts: { ref: CallbackRef }) => React.ReactNode;
-}) => ReactNode;
+  children: (opts: { ref: CallbackRef }) => React_2.ReactNode;
+}) => JSX.Element;
 
 // @public (undocumented)
 interface ResizingHeightOpts {
@@ -139,7 +154,11 @@ interface ResizingHeightOpts {
 }
 
 // @public
-export const ShrinkOut: React_2.FC<ShrinkOutProps>;
+export const ShrinkOut: ({
+  children,
+  duration,
+  onFinish,
+}: ShrinkOutProps) => any;
 
 // @public (undocumented)
 export const shrinkOutAnimation: () => CSSObject;
@@ -151,7 +170,16 @@ export interface ShrinkOutProps
   }> {}
 
 // @public
-export const SlideIn: React_2.FC<SlideInProps>;
+export const SlideIn: ({
+  children,
+  enterFrom,
+  exitTo,
+  fade,
+  duration,
+  isPaused,
+  onFinish,
+  animationTimingFunction,
+}: SlideInProps) => JSX.Element;
 
 // @public (undocumented)
 export const slideInAnimation: (
@@ -172,7 +200,12 @@ interface SlideInProps extends KeyframesMotionProps {
 export const smallDurationMs: number;
 
 // @public
-export const StaggeredEntrance: React_2.FC<StaggeredEntranceProps>;
+export const StaggeredEntrance: ({
+  children,
+  column,
+  columns,
+  delayStep,
+}: StaggeredEntranceProps) => JSX.Element;
 
 // @public (undocumented)
 export interface StaggeredEntranceProps {
@@ -200,7 +233,12 @@ export const useResizingHeight: ({
 };
 
 // @public
-export const ZoomIn: React_2.FC<KeyframesMotionProps>;
+export const ZoomIn: ({
+  children,
+  duration,
+  isPaused,
+  onFinish,
+}: KeyframesMotionProps) => JSX.Element;
 
 // @public (undocumented)
 export const zoomInAnimation: () => CSSObject;
@@ -209,3 +247,15 @@ export const zoomInAnimation: () => CSSObject;
 ```
 
 <!--SECTION END: Main Entry Types-->
+
+### Peer Dependencies
+
+<!--SECTION START: Peer Dependencies-->
+
+```json
+{
+  "react": "^16.8.0"
+}
+```
+
+<!--SECTION END: Peer Dependencies-->

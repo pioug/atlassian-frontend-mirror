@@ -19,8 +19,7 @@ import type {
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 
-import { getInlineNodeViewProducer } from '../../nodeviews/getInlineNodeViewProducer';
-
+import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { inputRulePlugin as asciiInputRulePlugin } from './pm-plugins/ascii-input-rules';
 import {
   ACTION,

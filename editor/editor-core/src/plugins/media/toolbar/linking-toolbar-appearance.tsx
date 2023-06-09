@@ -15,7 +15,9 @@ import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/
 
 import Separator from '../../floating-toolbar/ui/Separator';
 
-import { linkToolbarMessages, linkMessages } from '../../../messages';
+import { linkMessages } from '../../../messages';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
+
 import { ToolTipContent, addLink } from '../../../keymaps';
 import { stateKey } from '../pm-plugins/plugin-key';
 import { MediaClientConfig } from '@atlaskit/media-core';

@@ -30,9 +30,6 @@ export { insideTable } from '@atlaskit/editor-common/core-utils';
 export {
   hasVisibleContent,
   isNodeEmpty,
-  isEmptyDocument,
-  processRawValue,
-  getStepRange,
   findFarthestParentNode,
   isSelectionEndOfParagraph,
   nodesBetweenChanged,
@@ -370,10 +367,6 @@ export const isEmptyNode = (schema: Schema) => {
 export const insideTableCell = (state: EditorState) => {
   const { tableCell, tableHeader } = state.schema.nodes;
   return hasParentNodeOfType([tableCell, tableHeader])(state.selection);
-};
-
-export const isInLayoutColumn = (state: EditorState): boolean => {
-  return hasParentNodeOfType(state.schema.nodes.layoutSection)(state.selection);
 };
 
 export const isInListItem = (state: EditorState): boolean => {

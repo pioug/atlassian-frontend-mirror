@@ -34,22 +34,20 @@ import {
   LINKPICKER_HEIGHT_IN_PX,
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
-} from '../../ui/LinkSearch/ToolbarComponents';
+} from '@atlaskit/editor-common/ui';
 import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
-import { Command, CommandDispatch } from '../../types';
+import { Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import {
-  addAnalytics,
   ACTION_SUBJECT_ID,
   AnalyticsEventPayload,
   ACTION,
   INPUT_METHOD,
-} from '../analytics';
-import {
   buildVisitedLinkPayload,
   buildOpenedSettingsPayload,
   LinkType,
-} from '../../utils/linking-utils';
-import { HyperlinkPluginOptions } from './types';
+} from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../analytics';
+import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { IntlShape } from 'react-intl-next';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';

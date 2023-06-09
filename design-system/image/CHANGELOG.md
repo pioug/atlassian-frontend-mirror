@@ -1,5 +1,11 @@
 # @atlaskit/image
 
+## 1.1.4
+
+### Patch Changes
+
+- [`d0a020ae050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d0a020ae050) - Basic accessibility unit tests with jest-axe
+
 ## 1.1.3
 
 ### Patch Changes

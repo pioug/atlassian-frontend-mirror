@@ -28,8 +28,8 @@ import {
 } from './_utils';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { richMediaClassName } from '@atlaskit/editor-common/styles';
-import { INPUT_METHOD } from '../../../../plugins/analytics';
-import { processRawValue } from '../../../../utils/document';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { processRawValue } from '@atlaskit/editor-common/utils';
 import {
   createSchema,
   mediaSingleWithCaption,

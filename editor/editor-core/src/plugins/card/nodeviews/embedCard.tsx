@@ -30,14 +30,15 @@ import ResizableEmbedCard from '../ui/ResizableEmbedCard';
 import {
   floatingLayouts,
   isRichMediaInsideOfBlockNode,
-} from '../../../utils/rich-media-utils';
+} from '@atlaskit/editor-common/utils';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { ColumnResizingPluginState } from '@atlaskit/editor-plugin-table/types';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { EditorState, PluginKey } from 'prosemirror-state';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type cardPlugin from '../index';
-import { getPosHandler } from '../../../nodeviews';
+import { getPosHandler } from '@atlaskit/editor-common/react-node-view';
+
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
 
 interface CardProps {

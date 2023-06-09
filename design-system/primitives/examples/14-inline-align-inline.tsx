@@ -5,7 +5,7 @@ import { Box, Inline, Stack, xcss } from '../src';
 
 const alignInlineItems = ['start', 'center', 'end'] as const;
 
-const blockStyles = xcss({ borderRadius: 'radius.050' });
+const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 
 export default () => (
   <Box testId="inline-example" padding="space.100">
@@ -15,7 +15,7 @@ export default () => (
           {alignInline}
           <Box
             xcss={blockStyles}
-            backgroundColor="neutral"
+            backgroundColor="color.background.neutral"
             padding="space.050"
             style={{
               width: '200px',
@@ -25,17 +25,17 @@ export default () => (
               <Box
                 xcss={blockStyles}
                 padding="space.200"
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
               />
               <Box
                 xcss={blockStyles}
                 padding="space.200"
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
               />
               <Box
                 xcss={blockStyles}
                 padding="space.200"
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
               />
             </Inline>
           </Box>

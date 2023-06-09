@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 
 import { Box, Inline, Stack, xcss } from '../src';
 
-const blockStyles = xcss({ borderRadius: 'radius.050' });
+const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 const spaceItems = [
   'space.0',
   'space.025',
@@ -31,12 +31,12 @@ export default () => (
             <Box
               xcss={blockStyles}
               padding="space.200"
-              backgroundColor="discovery.bold"
+              backgroundColor="color.background.discovery.bold"
             />
             <Box
               xcss={blockStyles}
               padding="space.200"
-              backgroundColor="discovery.bold"
+              backgroundColor="color.background.discovery.bold"
             />
           </Stack>
         </Stack>

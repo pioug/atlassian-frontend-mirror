@@ -126,3 +126,10 @@ export type {
 export type { EditorAnalyticsAPI } from './api';
 export { fireAnalyticsEvent } from './fire-analytics-event';
 export { getAnalyticsEventsFromTransaction } from './utils';
+export {
+  buildEditLinkPayload,
+  buildVisitedLinkPayload,
+  buildOpenedSettingsPayload,
+  unlinkPayload,
+} from './linking-utils';
+export type { LinkType } from './linking-utils';

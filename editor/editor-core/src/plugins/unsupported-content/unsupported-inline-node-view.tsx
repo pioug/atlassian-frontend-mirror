@@ -5,7 +5,7 @@ import { jsx } from '@emotion/react';
 import { Node as PMNode } from 'prosemirror-model';
 import { UnsupportedContentTooltipPayload } from '@atlaskit/editor-common/utils';
 import { UnsupportedInline } from '@atlaskit/editor-common/ui';
-import { InlineNodeViewComponentProps } from '../../nodeviews/getInlineNodeViewProducer';
+import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 
 export type Props = InlineNodeViewComponentProps & {
   node?: PMNode;

@@ -7,8 +7,11 @@ import {
   insideTableCell,
   isInListItem,
   findFarthestParentNode,
-  isInLayoutColumn,
 } from '../../../utils';
+import {
+  isInLayoutColumn,
+  isSupportedInParent,
+} from '@atlaskit/editor-common/utils';
 import { MediaState } from '../types';
 import {
   posOfPrecedingMediaGroup,
@@ -31,16 +34,15 @@ import {
   endPositionOfParent,
   startPositionOfParent,
 } from '../../../utils/prosemirror/position';
-import { isSupportedInParent } from '../../../utils/nodes';
 import {
   InsertEventPayload,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-  addAnalytics,
   InputMethodInsertMedia,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../../analytics';
 
 export interface Range {
   start: number;

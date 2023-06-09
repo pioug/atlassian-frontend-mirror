@@ -8,7 +8,7 @@ import {
   NodeSelection,
 } from 'prosemirror-state';
 import { flatmap, mapChildren } from '../../utils/slice';
-import { getStepRange, isEmptyDocument } from '../../utils';
+import { getStepRange, isEmptyDocument } from '@atlaskit/editor-common/utils';
 import {
   ACTION,
   ACTION_SUBJECT,

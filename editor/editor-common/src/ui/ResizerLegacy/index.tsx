@@ -1,21 +1,24 @@
-import React from 'react';
-import { RefObject } from 'react';
+import React, { RefObject } from 'react';
+
 import classnames from 'classnames';
 import { HandleComponent, Resizable, ResizeDirection } from 're-resizable';
+
 import { RichMediaLayout } from '@atlaskit/adf-schema';
-import { gridTypeForLayout } from '@atlaskit/editor-common/utils';
-import { snapTo, handleSides } from './utils';
-import { Props as ResizableMediaSingleProps, EnabledHandles } from './types';
-import { richMediaClassName } from '@atlaskit/editor-common/styles';
 import { akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
+
 import {
-  DispatchAnalyticsEvent,
-  MediaEventPayload,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
+  DispatchAnalyticsEvent,
   EVENT_TYPE,
-} from '../../plugins/analytics';
+  MediaEventPayload,
+} from '../../analytics';
+import { richMediaClassName } from '../../styles';
+import { gridTypeForLayout } from '../../utils';
+
+import { EnabledHandles, Props as ResizableMediaSingleProps } from './types';
+import { handleSides, snapTo } from './utils';
 
 const getResizeAnalyticsEvent = (
   type: string | undefined,

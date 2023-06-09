@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { IntlProvider, MessageFormatElement } from 'react-intl-next';
 import { render } from '@testing-library/react';

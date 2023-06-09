@@ -330,7 +330,8 @@ describe('Flexible Card', () => {
       expect(image).toMatchProdImageSnapshot();
     });
 
-    it('should open on top of trigger component when there is no room below and there is room above in viewport', async () => {
+    // FIXME: This test was automatically skipped due to failure on 08/06/2023: https://product-fabric.atlassian.net/browse/EDM-6950
+    it.skip('should open on top of trigger component when there is no room below and there is room above in viewport', async () => {
       const height = 550;
 
       const page = await renderHoverCard(

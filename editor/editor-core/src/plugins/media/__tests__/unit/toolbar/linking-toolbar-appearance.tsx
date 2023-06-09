@@ -41,7 +41,7 @@ import {
   mediaSingle,
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { linkToolbarMessages } from '../../../../../messages';
+import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 
 const defaultMediaLinkingState: MediaLinkingState = {
   mediaPos: 1,

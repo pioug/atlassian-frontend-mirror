@@ -20,7 +20,6 @@ const elevations = { ...AkElevations };
 const Box = styled.div<{ elevation: Elevation; theme: ThemeType }>`
   ${({ elevation }) => elevations[elevation]}
   background-color: ${(props) =>
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     themed({ light: 'white', dark: '#283447' })(props)};
   border-radius: 3px;
   margin-bottom: 2em;

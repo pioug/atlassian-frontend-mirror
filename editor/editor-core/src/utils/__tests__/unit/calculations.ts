@@ -1,6 +1,6 @@
-import { SnapPointsProps } from '../../../plugins/media/ui/ResizableMediaSingle/types';
+import type { SnapPointsProps } from '@atlaskit/editor-common/types';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { calculateSnapPoints } from '../../rich-media-utils';
+import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
 
 describe('calculations', () => {
   describe('snapPoints', () => {

@@ -8,8 +8,12 @@ import { LinkPickerProps } from '@atlaskit/link-picker';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import HyperlinkAddToolbarComp from './HyperlinkAddToolbar';
-import { LinkInputType, LinkPickerOptions } from '../../types';
-import { INPUT_METHOD } from '../../../analytics/types';
+import type {
+  LinkInputType,
+  LinkPickerOptions,
+} from '@atlaskit/editor-common/types';
+
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { stateKey as pluginKey } from '../../pm-plugins/main';
 import WithPluginState from '../../../../ui/WithPluginState';
 import { EditorLinkPicker, EditorLinkPickerProps } from '../EditorLinkPicker';

@@ -1,7 +1,9 @@
-import { CardOptions } from '@atlaskit/editor-common/card';
-import { LinkPickerProps } from '@atlaskit/link-picker';
-import { INPUT_METHOD } from '../analytics/types';
-import { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { LinkPickerProps } from '@atlaskit/link-picker';
+
+import { INPUT_METHOD } from '../analytics';
+import { CardOptions } from '../card';
+
+import { EditorAppearance } from './editor-appearance';
 
 export type LinkInputType = INPUT_METHOD.MANUAL | INPUT_METHOD.TYPEAHEAD;
 

@@ -11,7 +11,7 @@ import {
 import { CardOptions } from '@atlaskit/editor-common/card';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
-import { LinkPickerOptions } from '../hyperlink/types';
+import { LinkPickerOptions } from '@atlaskit/editor-common/types';
 
 export type CardInfo = {
   title?: string;

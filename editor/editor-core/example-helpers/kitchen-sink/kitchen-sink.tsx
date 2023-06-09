@@ -31,7 +31,7 @@ import { KitchenSinkAdfInput } from './kitchen-sink-adf-input';
 import { container, editorColumn, column, rail } from './kitchen-sink-styles';
 import { KitchenSinkRenderer } from './kitchen-sink-renderer';
 import { KitchenSinkEditor } from './kitchen-sink-editor';
-import { isEmptyDocument } from '../../src/utils/document';
+import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import { getExampleExtensionProviders } from '../get-example-extension-providers';
 import { exampleSelectionDebugger } from '../example-editor-plugins';
 import { getTranslations } from '../../example-helpers/get-translations';

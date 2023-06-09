@@ -85,6 +85,7 @@ import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
 import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { InputTracking } from '@atlaskit/editor-common/types';
@@ -92,7 +93,8 @@ import { IntlShape } from 'react-intl-next';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
 import { lightModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
-import { LinkPickerProps } from '@atlaskit/link-picker';
+import type { LinkingOptions } from '@atlaskit/editor-common/types';
+import type { LinkInputType } from '@atlaskit/editor-common/types';
 import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { MarkConfig } from '@atlaskit/editor-common/types';
@@ -1226,18 +1228,6 @@ export enum HyperlinkInsertStatus {
   INSERT_LINK_TOOLBAR = 'INSERT',
 }
 
-// @public
-interface HyperlinkPluginOptions {
-  // (undocumented)
-  cardOptions?: CardOptions;
-  // (undocumented)
-  editorAppearance?: EditorAppearance;
-  // (undocumented)
-  linkPicker?: LinkPickerOptions;
-  // (undocumented)
-  platform?: 'mobile' | 'web';
-}
-
 // @public (undocumented)
 export interface HyperlinkState {
   // (undocumented)
@@ -1347,13 +1337,13 @@ export function insertLink(
   incomingHref: string,
   incomingTitle?: string,
   displayText?: string,
-  source?: LinkInputMethod,
+  source?: LinkInputType,
   sourceEvent?: UIAnalyticsEvent | null | undefined,
-): Command;
+): Command_2;
 
 // @public (undocumented)
 export const insertLinkWithAnalytics: (
-  inputMethod: LinkInputMethod,
+  inputMethod: LinkInputType,
   from: number,
   to: number,
   href: string,
@@ -1361,11 +1351,11 @@ export const insertLinkWithAnalytics: (
   displayText?: string,
   cardsAvailable?: boolean,
   sourceEvent?: UIAnalyticsEvent | null | undefined,
-) => Command;
+) => Command_2;
 
 // @public (undocumented)
 export const insertLinkWithAnalyticsMobileNative: (
-  inputMethod: LinkInputMethod,
+  inputMethod: LinkInputType,
   from: number,
   to: number,
   href: string,
@@ -1413,9 +1403,6 @@ type InviteToEditComponentProps = {
   children: ReactElement<InviteToEditButtonProps>;
 };
 
-// @public
-export function isEmptyDocument(node: Node_2): boolean;
-
 // @public (undocumented)
 export function isLinkAtPos(pos: number): Predicate;
 
@@ -1433,18 +1420,6 @@ interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
 }
 
 export { lightModeStatusColorPalette };
-
-// @public
-interface LinkingOptions {
-  linkPicker?: LinkPickerOptions;
-  smartLinks?: CardOptions;
-}
-
-// @public (undocumented)
-export type LinkInputMethod = INPUT_METHOD.MANUAL | INPUT_METHOD.TYPEAHEAD;
-
-// @public
-interface LinkPickerOptions extends Partial<LinkPickerProps> {}
 
 // @public (undocumented)
 type LinkToolbarState = EditInsertedState | EditState | InsertState | undefined;
@@ -2674,7 +2649,7 @@ export function updateLink(
   text: string,
   pos: number,
   to?: number,
-): Command;
+): Command_2;
 
 // @public (undocumented)
 export const updateStatus: (status?: StatusType) => Command;

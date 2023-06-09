@@ -6,9 +6,9 @@ import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 const blockStyles = xcss({
   display: 'flex',
   textAlign: 'center',
-  borderRadius: 'radius.050',
+  borderRadius: 'border.radius.050',
   justifyContent: 'center',
-  color: 'inverse',
+  color: 'color.text.inverse',
 });
 
 export default function Example() {
@@ -17,7 +17,7 @@ export default function Example() {
       <Stack space="space.100" grow="hug">
         <Box
           xcss={blockStyles}
-          backgroundColor="discovery.bold"
+          backgroundColor="color.background.discovery.bold"
           padding="space.200"
         >
           This content is hugged
@@ -26,7 +26,7 @@ export default function Example() {
       <Stack space="space.100" grow="fill">
         <Box
           xcss={blockStyles}
-          backgroundColor="discovery.bold"
+          backgroundColor="color.background.discovery.bold"
           padding="space.200"
         >
           Available space is filled

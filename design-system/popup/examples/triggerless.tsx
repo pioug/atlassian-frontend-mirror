@@ -12,7 +12,6 @@ import { token } from '@atlaskit/tokens';
 import Popup from '../src';
 
 const triggerStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: B75,
 });
 const popupStyles = css({

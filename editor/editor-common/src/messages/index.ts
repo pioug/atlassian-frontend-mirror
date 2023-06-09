@@ -2,9 +2,11 @@ import { defineMessages } from 'react-intl-next';
 
 export { codeBidiWarningMessages } from './codeBidiWarning';
 export { linkMessages } from './link';
+export { linkToolbarMessages } from './link-toolbar';
 export { unsupportedContentMessages } from './unsupportedContent';
 export { codeBlockButtonMessages } from './codeBlockButton';
 export { toolbarInsertBlockMessages } from './insert-block';
+export { toolbarMessages as mediaAndEmbedToolbarMessages } from './media-and-embed-toolbar';
 
 export default defineMessages({
   layoutFixedWidth: {

@@ -1,5 +1,17 @@
 # @atlaskit/heading
 
+## 1.3.5
+
+### Patch Changes
+
+- [`b8b41649492`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8b41649492) - Update how certain background colors are referenced by name. Internal changes only.
+
+## 1.3.4
+
+### Patch Changes
+
+- [`779727e307a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/779727e307a) - Internal change only. Replace all instances of Box with stable @atlaskit/primitives version.
+
 ## 1.3.3
 
 ### Patch Changes

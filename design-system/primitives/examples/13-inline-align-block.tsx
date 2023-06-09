@@ -5,10 +5,10 @@ import { Box, Inline, Stack, xcss } from '../src';
 
 const alignBlockItems = ['start', 'center', 'end', 'baseline'] as const;
 
-const blockStyles = xcss({ borderRadius: 'radius.050' });
+const blockStyles = xcss({ borderRadius: 'border.radius.050' });
 const containerStyles = xcss({
   display: 'flex',
-  borderRadius: 'radius.050',
+  borderRadius: 'border.radius.050',
 });
 
 export default () => (
@@ -18,7 +18,7 @@ export default () => (
         <Stack key={alignBlock} alignInline="center">
           {alignBlock}
           <Box
-            backgroundColor="neutral"
+            backgroundColor="color.background.neutral"
             padding="space.050"
             xcss={containerStyles}
             style={{
@@ -29,17 +29,17 @@ export default () => (
               <Box
                 xcss={blockStyles}
                 padding="space.300"
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
               ></Box>
               <Box
                 xcss={blockStyles}
                 padding="space.200"
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
               />
               <Box
                 xcss={blockStyles}
                 padding="space.200"
-                backgroundColor="discovery.bold"
+                backgroundColor="color.background.discovery.bold"
               />
             </Inline>
           </Box>

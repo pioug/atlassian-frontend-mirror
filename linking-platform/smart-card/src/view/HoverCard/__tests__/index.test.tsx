@@ -27,7 +27,7 @@ import {
   AnalyticsListener,
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import { fakeFactory } from '../../../utils/mocks';
+import { fakeFactory, mocks } from '../../../utils/mocks';
 import { CardClient } from '@atlaskit/link-provider';
 import { CardProps, Provider, ProviderProps, TitleBlock } from '../../..';
 import * as analytics from '../../../utils/analytics/analytics';
@@ -51,6 +51,7 @@ import { setGlobalTheme } from '@atlaskit/tokens';
 const mockUrl = 'https://some.url';
 
 describe('HoverCard', () => {
+  const now = new Date('April 1, 2022 00:00:00').getTime();
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
   let mockGetEntries: jest.Mock;
@@ -62,14 +63,15 @@ describe('HoverCard', () => {
     testId = 'inline-card-resolved-view',
     component,
     extraCardProps,
+    mockFetch = jest.fn(() => Promise.resolve(mock)),
   }: {
     mock?: any;
     featureFlags?: ProviderProps['featureFlags'];
     testId?: string;
     component?: ReactElement;
     extraCardProps?: Partial<CardProps>;
+    mockFetch?: () => {};
   } = {}) => {
-    mockFetch = jest.fn(() => Promise.resolve(mock));
     mockClient = new (fakeFactory(mockFetch))();
     const analyticsSpy = jest.fn();
     setGlobalTheme({ colorMode: 'dark' });
@@ -88,6 +90,7 @@ describe('HoverCard', () => {
                 appearance="inline"
                 url={mockUrl}
                 showHoverPreview={true}
+                showAuthTooltip={true}
                 {...extraCardProps}
               />
             )}
@@ -98,9 +101,7 @@ describe('HoverCard', () => {
 
     const element = await findByTestId(testId);
     jest.useFakeTimers();
-    jest
-      .spyOn(Date, 'now')
-      .mockImplementation(() => new Date('April 1, 2022 00:00:00').getTime());
+    const dateSpy = jest.spyOn(Date, 'now').mockImplementation(() => now);
 
     fireEvent.mouseEnter(element);
 
@@ -110,7 +111,7 @@ describe('HoverCard', () => {
       },
     });
 
-    return { findByTestId, queryByTestId, element, analyticsSpy };
+    return { findByTestId, queryByTestId, element, analyticsSpy, dateSpy };
   };
 
   const serverActionsTest = (
@@ -172,6 +173,19 @@ describe('HoverCard', () => {
         localStorage.clear();
       });
 
+      const hoverInOutAndVerify = async ({
+        element,
+        findByTestId,
+      }: Awaited<ReturnType<typeof setup>>) => {
+        // Close hover preview and trigger it to open again
+        fireEvent.mouseLeave(element);
+        jest.runAllTimers();
+        fireEvent.mouseEnter(element);
+        jest.runAllTimers();
+
+        expect(await findByTestId(fdTestId)).toBeInTheDocument();
+      };
+
       it('shows feature discovery component', async () => {
         const { findByTestId } = await renderComponent(true);
         jest.runAllTimers();
@@ -180,16 +194,26 @@ describe('HoverCard', () => {
         expect(element).toBeInTheDocument();
       });
 
-      it('does not show feature discovery component twice', async () => {
-        const { element, findByTestId, queryByTestId } = await renderComponent(
-          true,
-        );
+      it('shows feature discovery component multiple times', async () => {
+        const renderResult = await renderComponent(true);
+        jest.runAllTimers();
+
+        await hoverInOutAndVerify(renderResult);
+        await hoverInOutAndVerify(renderResult);
+        await hoverInOutAndVerify(renderResult);
+        await hoverInOutAndVerify(renderResult);
+      });
+
+      it('does not render feature discovery component again after component has been visible over 2s', async () => {
+        const { element, dateSpy, findByTestId, queryByTestId } =
+          await renderComponent(true);
         jest.runAllTimers();
 
         // Confirm that feature discovery component is showing
         await findByTestId(fdTestId);
 
         // Close hover preview and trigger it to open again
+        dateSpy.mockReturnValue(now + 2001);
         fireEvent.mouseLeave(element);
         jest.runAllTimers();
         fireEvent.mouseEnter(element);
@@ -706,6 +730,29 @@ describe('HoverCard', () => {
       expect(open).toHaveBeenCalledWith('https://some.url', '_blank');
       expect(content).toBeTruthy();
       mockOpen.mockRestore();
+    });
+
+    it('should not show a hover card for an errored link', async () => {
+      const mockFetch = jest.fn(() =>
+        Promise.reject({
+          error: {
+            type: 'ResolveUnsupportedError',
+            message: 'URL not supported',
+            status: 404,
+          },
+          status: 404,
+        }),
+      );
+
+      const { findByTestId } = await setup({
+        mock: mockBaseResponseWithErrorPreview,
+        mockFetch: mockFetch,
+        testId: 'inline-card-errored-view',
+      });
+
+      await expect(() =>
+        findByTestId('hover-card-loading-view'),
+      ).rejects.toThrow();
     });
 
     describe('analytics', () => {
@@ -1262,7 +1309,7 @@ describe('HoverCard', () => {
         </div>,
       );
 
-      const element = await findByTestId('smart-links-container');
+      const element = await findByTestId('hover-card-trigger-wrapper');
       jest.useFakeTimers();
       fireEvent.mouseEnter(element);
       jest.runAllTimers();
@@ -1383,6 +1430,43 @@ describe('HoverCard', () => {
         );
 
         expect(unauthorisedHoverCard).toBeTruthy();
+      });
+
+      it('renders Unauthorised hover card for Flexible Cards when "showAuthTooltip" is true', async () => {
+        const { findByTestId } = await setup({
+          mock: mockUnauthorisedResponse,
+          featureFlags: { showAuthTooltip: 'experiment' },
+          testId: 'hover-card-trigger-wrapper',
+          extraCardProps: {
+            appearance: 'block',
+            children: <TitleBlock />,
+          },
+        });
+        jest.runAllTimers();
+        const unauthorisedHoverCard = await findByTestId(
+          'hover-card-unauthorised-view',
+        );
+
+        expect(unauthorisedHoverCard).toBeTruthy();
+      });
+
+      it('does not render a hover card for unauthorised Flexible Card when "showAuthTooltip" is %s', async () => {
+        mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
+        mockClient = new (fakeFactory(mockFetch))();
+        const { queryByTestId } = render(
+          <Provider client={mockClient}>
+            <Card
+              showAuthTooltip={false}
+              appearance="block"
+              url="https://some.url"
+            >
+              <TitleBlock />
+            </Card>
+          </Provider>,
+        );
+        jest.runAllTimers();
+
+        expect(await queryByTestId('hover-card-trigger-wrapper')).toBeNull();
       });
 
       it('should fire viewed event when hover card is opened', async () => {
@@ -1558,7 +1642,11 @@ describe('HoverCard', () => {
       });
 
       describe('flexible smart link', () => {
-        const setupWithFlexible = (showServerActions?: boolean) =>
+        const setupWithFlexible = (
+          showServerActions?: boolean,
+          mockFetch?: () => {},
+          testId = 'hover-card-trigger-wrapper',
+        ) =>
           setup({
             extraCardProps: {
               appearance: 'block',
@@ -1566,8 +1654,52 @@ describe('HoverCard', () => {
               children: <TitleBlock />,
             },
             mock,
-            testId: 'hover-card-trigger-wrapper',
+            testId,
+            mockFetch,
           });
+
+        it('should show a hover card for a link that has resolved state in the store and the FF is on', async () => {
+          const { findByTestId } = await setupWithFlexible();
+
+          const hoverCard = await findByTestId('hover-card');
+          expect(hoverCard).toBeTruthy();
+        });
+
+        it.each([
+          {
+            mockFetch: jest.fn(() => Promise.resolve(mocks.forbidden)),
+            state: 'forbidden',
+          },
+          {
+            mockFetch: jest.fn(() => Promise.resolve(mocks.notFound)),
+            state: 'forbidden',
+          },
+          {
+            mockFetch: jest.fn(() =>
+              Promise.reject({
+                error: {
+                  type: 'ResolveUnsupportedError',
+                  message: 'URL not supported',
+                  status: 404,
+                },
+                status: 404,
+              }),
+            ),
+            state: 'errored',
+          },
+        ])(
+          `should not show a hover card for a Flex UI link that has %s state in the store`,
+          async ({ mockFetch, state }) => {
+            const { queryByTestId } = await setupWithFlexible(
+              false,
+              mockFetch,
+              'smart-element-link',
+            );
+            expect(
+              await queryByTestId('hover-card-trigger-wrapper'),
+            ).toBeNull();
+          },
+        );
 
         serverActionsTest(setupWithFlexible);
       });

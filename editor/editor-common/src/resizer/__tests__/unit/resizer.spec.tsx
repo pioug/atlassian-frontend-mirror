@@ -8,8 +8,8 @@ import {
   resizerHandleRightClassName,
   resizerItemClassName,
 } from '../../../styles/shared/resizer';
-import ResizerNext from '../../../ui/Resizer';
-import { HandleResize } from '../../../ui/Resizer/types';
+import { ResizerNext } from '../../index';
+import { HandleResize } from '../../types';
 
 describe('Resizer', () => {
   let initialWidth: number;

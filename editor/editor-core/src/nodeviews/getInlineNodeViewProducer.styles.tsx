@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
-import { inlineNodeViewClassname } from './getInlineNodeViewProducer';
+import { inlineNodeViewClassname } from '@atlaskit/editor-common/react-node-view';
 
 // For reasoning behind styles, see comments in:
 // ./getInlineNodeViewProducer -> portalChildren()

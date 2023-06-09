@@ -1,5 +1,5 @@
 /** @jsx jsx */
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+
 import { jsx } from '@emotion/react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';

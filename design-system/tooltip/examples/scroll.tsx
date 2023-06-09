@@ -58,11 +58,7 @@ export default () => (
         </p>
         <Tooltip content={'Scroll "horizontal"'}>
           {(tooltipProps) => (
-            <Target
-              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-              color="green"
-              {...tooltipProps}
-            >
+            <Target color="green" {...tooltipProps}>
               Horizontal
             </Target>
           )}
@@ -76,11 +72,7 @@ export default () => (
         </p>
         <Tooltip content={'Scroll "vertical"'}>
           {(tooltipProps) => (
-            <Target
-              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-              color="yellow"
-              {...tooltipProps}
-            >
+            <Target color="yellow" {...tooltipProps}>
               Vertical
             </Target>
           )}
@@ -104,11 +96,7 @@ export default () => (
             </p>
             <Tooltip content={'Scroll "nested"'}>
               {(tooltipProps) => (
-                <Target
-                  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-                  color="red"
-                  {...tooltipProps}
-                >
+                <Target color="red" {...tooltipProps}>
                   Nested
                 </Target>
               )}

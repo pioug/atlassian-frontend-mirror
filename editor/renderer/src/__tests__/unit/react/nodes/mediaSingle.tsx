@@ -270,7 +270,6 @@ describe('MediaSingle', () => {
             {
               type: 'border',
               attrs: {
-                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 color: '#091E4224',
                 size: 3,
               },

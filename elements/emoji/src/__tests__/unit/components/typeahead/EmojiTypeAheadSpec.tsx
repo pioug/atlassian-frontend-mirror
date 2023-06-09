@@ -43,7 +43,7 @@ import {
   recordFailed,
   ufoExperiences,
 } from '../../../../util/analytics';
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
+import { mountWithIntl } from '../../_enzyme';
 
 function setupTypeAhead(props?: Props): Promise<ReactWrapper<any, any>> {
   const component = mountWithIntl(

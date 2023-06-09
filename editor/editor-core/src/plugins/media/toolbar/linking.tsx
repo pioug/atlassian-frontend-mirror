@@ -11,7 +11,7 @@ import MediaLinkingToolbar from '../ui/MediaLinkingToolbar';
 import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
-} from '../../../ui/LinkSearch/ToolbarComponents';
+} from '@atlaskit/editor-common/ui';
 
 import { MediaToolbarBaseConfig } from '../types';
 import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';

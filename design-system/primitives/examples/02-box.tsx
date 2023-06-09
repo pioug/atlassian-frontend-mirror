@@ -2,9 +2,9 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 
-import { Box, Inline, Stack, xcss } from '../src';
+import { Box, type BoxProps, Inline, Stack, xcss } from '../src';
 
-const spacingValues = [
+const spacingValues: BoxProps['padding'][] = [
   'space.0',
   'space.025',
   'space.050',
@@ -19,16 +19,25 @@ const spacingValues = [
   'space.600',
   'space.800',
   'space.1000',
-] as const;
+];
+
+const backgroundColors: BoxProps['backgroundColor'][] = [
+  'color.background.discovery.bold',
+  'color.background.success.bold',
+  'color.background.warning.bold',
+  'color.background.danger.bold',
+  'color.background.information.bold',
+  'color.background.brand.bold',
+];
 
 const layerContainerStyles = xcss({ position: 'relative' });
-const colorStyles = xcss({ color: 'inverse' });
+const colorStyles = xcss({ color: 'color.text.inverse' });
 const baseBorderStyles = xcss({
   borderStyle: 'solid',
-  borderWidth: 'width.100',
+  borderWidth: 'border.width.100',
 });
 const elevationStyles = xcss({
-  boxShadow: 'overlay',
+  boxShadow: 'elevation.shadow.overlay',
   position: 'absolute',
 });
 
@@ -44,7 +53,7 @@ export default () => {
           {spacingValues.map(space => (
             <Box
               key={space}
-              backgroundColor="discovery.bold"
+              backgroundColor="color.background.discovery.bold"
               paddingBlock={space}
             >
               <Box backgroundColor="elevation.surface">{space}</Box>
@@ -59,7 +68,7 @@ export default () => {
           {spacingValues.map(space => (
             <Box
               key={space}
-              backgroundColor="discovery.bold"
+              backgroundColor="color.background.discovery.bold"
               paddingInline={space}
             >
               <Box backgroundColor="elevation.surface">{space}</Box>
@@ -72,7 +81,11 @@ export default () => {
         <Heading level="h600">padding</Heading>
         <Inline space="space.200" alignBlock="center">
           {spacingValues.map(space => (
-            <Box key={space} backgroundColor="discovery.bold" padding={space}>
+            <Box
+              key={space}
+              backgroundColor="color.background.discovery.bold"
+              padding={space}
+            >
               <Box backgroundColor="elevation.surface">{space}</Box>
             </Box>
           ))}
@@ -82,23 +95,14 @@ export default () => {
       <Stack space="space.200" testId="box-with-backgroundColor">
         <Heading level="h600">backgroundColor</Heading>
         <Inline space="space.200" alignBlock="center">
-          {(
-            [
-              'discovery.bold',
-              'success.bold',
-              'warning.bold',
-              'danger.bold',
-              'information.bold',
-              'brand.bold',
-            ] as const
-          ).map(bgColor => (
+          {backgroundColors.map(backgroundColor => (
             <Box
-              key={bgColor}
-              backgroundColor={bgColor}
+              key={backgroundColor}
+              backgroundColor={backgroundColor}
               padding="space.400"
               xcss={colorStyles}
             >
-              <Box>{bgColor}</Box>
+              <Box>{backgroundColor}</Box>
             </Box>
           ))}
         </Inline>
@@ -109,17 +113,17 @@ export default () => {
         <Inline space="space.200" alignBlock="center">
           {(
             [
-              'discovery',
-              'success',
-              'warning',
-              'danger',
-              'information',
-              'brand',
+              'color.border.discovery',
+              'color.border.success',
+              'color.border.warning',
+              'color.border.danger',
+              'color.border.information',
+              'color.border.brand',
             ] as const
           ).map(borderColor => (
             <Box
               key={borderColor}
-              backgroundColor="neutral"
+              backgroundColor="color.background.neutral"
               padding="space.400"
               xcss={[
                 baseBorderStyles,
@@ -138,7 +142,13 @@ export default () => {
       <Stack space="space.200" testId="box-with-shadow">
         <Heading level="h600">shadow</Heading>
         <Inline space="space.200" alignBlock="center">
-          {(['raised', 'overflow', 'overlay'] as const).map(shadow => (
+          {(
+            [
+              'elevation.shadow.raised',
+              'elevation.shadow.overflow',
+              'elevation.shadow.overlay',
+            ] as const
+          ).map(shadow => (
             <Box
               key={shadow}
               backgroundColor="elevation.surface"

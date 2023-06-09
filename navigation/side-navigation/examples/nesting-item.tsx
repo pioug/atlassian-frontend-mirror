@@ -102,10 +102,8 @@ const BasicExample = () => {
             title="Settings"
             // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
             cssFn={() => ({
-              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
               color: 'red',
               '&:hover': {
-                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 color: 'blue',
               },
             })}

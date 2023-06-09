@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DateNodeView } from '../nodeviews/date';
-import { getInlineNodeViewProducer } from '../../../nodeviews/getInlineNodeViewProducer';
+import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { PMPluginFactory } from '../../../types';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 

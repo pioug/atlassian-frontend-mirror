@@ -23,7 +23,7 @@ export default function Basic() {
   return (
     <Box
       xcss={safeStyles}
-      backgroundColor="brand.bold"
+      backgroundColor="color.background.brand.bold"
       testId="box-basic"
       padding="space.100"
     />

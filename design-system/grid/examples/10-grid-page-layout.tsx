@@ -41,10 +41,7 @@ export default () => {
         height={60}
         isFixed={false}
       >
-        <div
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-          style={{ padding: 20, border: '1px solid grey' }}
-        >
+        <div style={{ padding: 20, border: '1px solid grey' }}>
           Product Navigation
         </div>
       </TopNavigation>
@@ -58,9 +55,8 @@ export default () => {
         >
           <div
             style={{
-              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
               padding: 20,
-              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+
               border: '1px solid grey',
               height: '100%',
             }}
@@ -94,10 +90,7 @@ export default () => {
         isFixed={false}
         width={125}
       >
-        <div
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-          style={{ padding: 20, border: '1px solid grey', height: '100%' }}
-        >
+        <div style={{ padding: 20, border: '1px solid grey', height: '100%' }}>
           Help Panel
         </div>
       </RightPanel>

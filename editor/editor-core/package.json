@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "185.1.6",
+  "version": "185.2.2",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,12 +49,12 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.7.0",
-    "@atlaskit/editor-common": "^74.5.0",
+    "@atlaskit/editor-common": "^74.6.0",
     "@atlaskit/editor-json-transformer": "^8.9.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.0",
     "@atlaskit/editor-palette": "1.4.3",
-    "@atlaskit/editor-plugin-analytics": "^0.0.1",
-    "@atlaskit/editor-plugin-content-insertion": "^0.0.1",
+    "@atlaskit/editor-plugin-analytics": "^0.0.2",
+    "@atlaskit/editor-plugin-content-insertion": "^0.0.2",
     "@atlaskit/editor-plugin-decorations": "^0.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-plugin-grid": "^0.1.0",
@@ -129,7 +129,6 @@
     "prosemirror-utils": "^1.0.0-0",
     "prosemirror-view": "1.23.7",
     "raf-schd": "^4.0.3",
-    "re-resizable": "6.0.0",
     "react-loadable": "^5.1.0",
     "react-transition-group": "^4.4.1",
     "react-virtualized": "^9.8.0",

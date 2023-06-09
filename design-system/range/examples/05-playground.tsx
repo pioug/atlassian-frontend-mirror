@@ -40,7 +40,7 @@ function Playground() {
         style={{
           width: '100%',
           height: '1px',
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+
           backgroundColor: N80,
           margin: token('space.250', '20px'),
         }}

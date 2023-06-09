@@ -7,11 +7,10 @@ import TextField from '../src';
 
 const overrideStyles = css({
   padding: token('space.075', '6px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+
   border: '2px solid orange',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '& > [data-ds--text-field--input]': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     border: '2px solid green',
     fontSize: 20,
   },

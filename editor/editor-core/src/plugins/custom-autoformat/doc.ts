@@ -1,7 +1,7 @@
 import { closeHistory } from 'prosemirror-history';
 import { EditorView } from 'prosemirror-view';
 
-import { processRawValue } from '../../utils';
+import { processRawValue } from '@atlaskit/editor-common/utils';
 import { CustomAutoformatState } from './types';
 import { InputRuleHander } from './input-rules';
 import { autoformatAction } from './utils';

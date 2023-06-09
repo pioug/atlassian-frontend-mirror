@@ -16,7 +16,7 @@ export default () => {
       <Heading level="h700">h700</Heading>
       <Heading level="h800">h800</Heading>
       <Heading level="h900">h900</Heading>
-      <Box backgroundColor="brand.bold">
+      <Box backgroundColor="color.background.brand.bold">
         <Heading level="h900" color="inverse">
           inverse
         </Heading>

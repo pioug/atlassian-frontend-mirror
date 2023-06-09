@@ -4,7 +4,6 @@ import Avatar, { AvatarItem } from '../../src';
 
 const AvatarItemBackgroundColorExample = () => (
   <AvatarItem
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     backgroundColor="pink"
     avatar={
       <Avatar

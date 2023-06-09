@@ -161,12 +161,7 @@ const PositionExample = () => {
           mousePosition={mousePosition}
         >
           {(tooltipProps) => (
-            <BigTarget
-              // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-              color="blue"
-              tabIndex={0}
-              {...tooltipProps}
-            >
+            <BigTarget color="blue" tabIndex={0} {...tooltipProps}>
               <span>Target</span>
               <span>Position: {tooltipPosition}</span>
               <span>

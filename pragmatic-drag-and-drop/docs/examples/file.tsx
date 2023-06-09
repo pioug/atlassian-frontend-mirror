@@ -61,7 +61,6 @@ const uploadDetailStyles = css({
   gap: 'var(--grid)',
   flexDirection: 'row',
   // background: token('color.background.sunken', fallbackColor),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   backgroundColor: 'rgba(255,255,255,0.5)',
 });
 

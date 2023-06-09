@@ -168,3 +168,11 @@ export type {
 } from './performance-tracking';
 
 export type { GridType } from './grid';
+export type {
+  LinkInputType,
+  LinkPickerOptions,
+  LinkingOptions,
+  HyperlinkPluginOptions,
+} from './hyperlink';
+
+export type { SnapPointsProps } from './resizable-media-single';

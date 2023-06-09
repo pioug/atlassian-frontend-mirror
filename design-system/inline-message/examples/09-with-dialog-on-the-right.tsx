@@ -16,7 +16,6 @@ export default () => (
   <InlineMessage
     appearance="connectivity"
     title="JIRA Service Desk"
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     secondaryText="Carrot cake chocolate bar caramels."
     placement="right"
   >

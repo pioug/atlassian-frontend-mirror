@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import Theme from '@atlaskit/theme/components';
 import { DN30 } from '@atlaskit/theme/colors';

@@ -29,6 +29,7 @@ import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import messages from './messages';
 import { ThemeProps } from '@atlaskit/theme/types';
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '../../../types/feature-flags';
 
 interface FullPageEditorContentAreaProps {
   appearance: EditorAppearance | undefined;
@@ -51,6 +52,7 @@ interface FullPageEditorContentAreaProps {
   contentAreaRef(ref: HTMLElement | null): void;
   scrollContainerRef(ref: HTMLElement | null): void;
   wrapperElement: HTMLElement | null;
+  featureFlags?: FeatureFlags;
 }
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
@@ -76,6 +78,7 @@ const Content: React.FunctionComponent<
               <ScrollContainer
                 ref={props.scrollContainerRef}
                 className="fabric-editor-popup-scroll-parent"
+                featureFlags={props.featureFlags}
               >
                 <ClickAreaBlock
                   editorView={props.editorView}

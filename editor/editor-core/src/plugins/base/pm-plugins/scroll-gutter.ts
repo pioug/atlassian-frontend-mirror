@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { isEmptyDocument } from '../../../utils';
+import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import { getMobileDimensionsPluginState } from '../../mobile-dimensions/utils';
 
 export const GUTTER_SIZE_IN_PX = 120; // Default gutter size

@@ -19,7 +19,6 @@ it('should support passing in additional classnames', () => {
 
 it('should merge css props into one classname', () => {
   const { getByTestId } = render(
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     <Button testId="button" css={{ color: 'red' }}>
       children
     </Button>,
@@ -32,7 +31,6 @@ it('should merge css props into one classname', () => {
 
 it('should merge css props into one classname, and independent class names separately', () => {
   const { getByTestId } = render(
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     <Button testId="button" css={{ color: 'red' }} className="hello">
       children
     </Button>,

@@ -2,14 +2,21 @@ import React from 'react';
 
 import { Box, type BoxProps, xcss } from '@atlaskit/primitives';
 
-const blockStyles = xcss({ display: 'flex', borderRadius: 'radius.050' });
+const blockStyles = xcss({
+  display: 'flex',
+  borderRadius: 'border.radius.050',
+});
 
 const Square = ({
   padding = 'space.200',
 }: {
   padding?: BoxProps['padding'];
 }) => (
-  <Box xcss={blockStyles} padding={padding} backgroundColor="discovery.bold" />
+  <Box
+    xcss={blockStyles}
+    padding={padding}
+    backgroundColor="color.background.discovery.bold"
+  />
 );
 
 export default Square;

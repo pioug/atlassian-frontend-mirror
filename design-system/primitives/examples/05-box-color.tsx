@@ -5,25 +5,25 @@ import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, xcss } from '../src';
 
 const backgroundColors = [
-  'disabled',
-  'input',
-  'inverse.subtle',
-  'neutral',
-  'neutral.subtle',
-  'neutral.bold',
-  'selected',
-  'selected.bold',
-  'brand.bold',
-  'danger',
-  'danger.bold',
-  'warning',
-  'warning.bold',
-  'success',
-  'success.bold',
-  'discovery',
-  'discovery.bold',
-  'information',
-  'information.bold',
+  'color.background.disabled',
+  'color.background.input',
+  'color.background.inverse.subtle',
+  'color.background.neutral',
+  'color.background.neutral.subtle',
+  'color.background.neutral.bold',
+  'color.background.selected',
+  'color.background.selected.bold',
+  'color.background.brand.bold',
+  'color.background.danger',
+  'color.background.danger.bold',
+  'color.background.warning',
+  'color.background.warning.bold',
+  'color.background.success',
+  'color.background.success.bold',
+  'color.background.discovery',
+  'color.background.discovery.bold',
+  'color.background.information',
+  'color.background.information.bold',
   'color.blanket',
   'color.blanket.selected',
   'color.blanket.danger',
@@ -35,18 +35,18 @@ const backgroundColors = [
 
 const foregroundColors = [
   'color.text',
-  'disabled',
-  'inverse',
-  'selected',
-  'brand',
-  'danger',
-  'warning',
-  'warning.inverse',
-  'success',
-  'discovery',
-  'information',
-  'subtlest',
-  'subtle',
+  'color.text.disabled',
+  'color.text.inverse',
+  'color.text.selected',
+  'color.text.brand',
+  'color.text.danger',
+  'color.text.warning',
+  'color.text.warning.inverse',
+  'color.text.success',
+  'color.text.discovery',
+  'color.text.information',
+  'color.text.subtlest',
+  'color.text.subtle',
 ] as const;
 
 export default () => {
@@ -69,7 +69,7 @@ export default () => {
           {foregroundColors.map(color => (
             <Box
               key={color}
-              backgroundColor="neutral"
+              backgroundColor="color.background.neutral"
               padding="space.400"
               // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
               xcss={xcss({

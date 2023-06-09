@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { exampleDocumentWithComments } from '../example-helpers/example-doc-with-comments';

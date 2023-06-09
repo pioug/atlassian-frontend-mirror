@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';

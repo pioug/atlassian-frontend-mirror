@@ -66,7 +66,6 @@ export default class SpotlightTargetBackgroundExample extends Component<
         heading="Aah, that's better!"
         key="with"
         target="with"
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
         targetBgColor="white"
       >
         <Lorem count={1} />

@@ -41,7 +41,7 @@ export default () => (
         <Heading level="h700">Inline</Heading>
 
         <section>
-          <Heading level="h500">Align Inline</Heading>
+          <Heading level="h500">Align inline</Heading>
           {alignInlineItems.map(alignInline => (
             <Stack key={alignInline}>
               {alignInline}
@@ -110,7 +110,7 @@ export default () => (
           ))}
         </section>
         <section>
-          <Heading level="h500">Align Block</Heading>
+          <Heading level="h500">Align block</Heading>
           <Inline space="space.200">
             {alignBlockItems.map(alignBlock => (
               <Stack key={alignBlock} alignInline="center">
@@ -176,7 +176,7 @@ export default () => (
         </section>
 
         <section>
-          <Heading level="h500">shouldWrap</Heading>
+          <Heading level="h500">Should wrap</Heading>
           <Box
             xcss={blockStyles}
             padding="space.050"

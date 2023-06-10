@@ -50,7 +50,7 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
           wordBreak: 'break-word',
         }}
       >
-        <Inline space="space.200">
+        <Inline space="space.200" alignBlock="stretch">
           <Box
             UNSAFE_style={{
               margin: '-2px 0',

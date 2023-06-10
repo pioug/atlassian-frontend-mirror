@@ -80,7 +80,7 @@ export interface InlineProps<T extends ElementType = 'div'> {
 }
 
 export type AlignInline = 'start' | 'center' | 'end';
-export type AlignBlock = 'start' | 'center' | 'end' | 'baseline';
+export type AlignBlock = 'start' | 'center' | 'end' | 'baseline' | 'stretch';
 export type Spread = 'space-between';
 export type Grow = 'hug' | 'fill';
 
@@ -89,6 +89,7 @@ const alignItemsMap = {
   baseline: css({ alignItems: 'baseline' }),
   start: css({ alignItems: 'flex-start' }),
   end: css({ alignItems: 'flex-end' }),
+  stretch: css({ alignItems: 'stretch' }),
 };
 
 const justifyContentMap = {
@@ -147,7 +148,7 @@ const Inline = memo(
       {
         as,
         alignInline,
-        alignBlock: alignItems,
+        alignBlock: alignItems = 'start',
         shouldWrap = false,
         spread,
         grow,

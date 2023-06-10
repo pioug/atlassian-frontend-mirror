@@ -54,7 +54,6 @@
   "devDependencies": {
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/field-base": "^15.2.0",
     "@atlaskit/form": "^8.11.0",
     "@atlaskit/modal-dialog": "^12.6.0",
     "@atlaskit/popup": "^1.6.0",

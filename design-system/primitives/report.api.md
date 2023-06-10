@@ -32,7 +32,7 @@ import { RefAttributes } from 'react';
 import { SerializedStyles } from '@emotion/serialize';
 
 // @public (undocumented)
-type AlignBlock = 'baseline' | 'center' | 'end' | 'start';
+type AlignBlock = 'baseline' | 'center' | 'end' | 'start' | 'stretch';
 
 // @public (undocumented)
 type AlignBlock_2 = 'center' | 'end' | 'start';

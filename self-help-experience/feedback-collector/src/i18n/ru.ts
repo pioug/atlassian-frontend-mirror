@@ -7,8 +7,6 @@
  */
 //Russian
 export default {
-  'feedback-collector.can-be-contacted.label':
-    'Я разрешаю сотрудникам Atlassian связываться со мной по поводу моего отзыва.',
   'feedback-collector.cancel-button.label': 'Отмена',
   'feedback-collector.enrol-in-research.label': 'Я хочу принять участие в исследовании продукта',
   'feedback-collector.feedback-title': 'Напишите отзыв',

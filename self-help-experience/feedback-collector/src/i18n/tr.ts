@@ -7,7 +7,6 @@
  */
 //Turkish (Turkey)
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian bu geri bildirim hakkında benimle iletişime geçebilir',
   'feedback-collector.cancel-button.label': 'İptal',
   'feedback-collector.enrol-in-research.label': 'Ürün araştırmasına katılmak istiyorum',
   'feedback-collector.feedback-title': 'Düşüncelerinizi paylaşın',

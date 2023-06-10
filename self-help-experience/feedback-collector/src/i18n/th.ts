@@ -7,7 +7,6 @@
  */
 //Thai (Thailand)
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian สามารถติดต่อฉันเกี่ยวกับข้อคิดเห็นนี้ได้',
   'feedback-collector.cancel-button.label': 'ยกเลิก',
   'feedback-collector.enrol-in-research.label': 'ฉันต้องการเข้าร่วมการวิจัยผลิตภัณฑ์',
   'feedback-collector.feedback-title': 'แบ่งปันความคิดเห็นของคุณ',

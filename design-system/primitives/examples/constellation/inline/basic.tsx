@@ -23,12 +23,12 @@ const ActionsMenu = () => (
 
 export default function Example() {
   return (
-    <Inline spread="space-between">
+    <Inline alignBlock="center" spread="space-between">
       <Inline space="space.100" alignBlock="center">
         <StoryIcon label="Issue type: Story" />
         <Heading level="h700">Create a backlog</Heading>
       </Inline>
-      <Inline space="space.050">
+      <Inline alignBlock="center" space="space.050">
         <Button
           iconAfter={
             <StarFilledIcon

@@ -7,7 +7,6 @@
  */
 //Norwegian (Bokmål)
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian kan kontakte meg angående denne tilbakemeldingen',
   'feedback-collector.cancel-button.label': 'Avbryt',
   'feedback-collector.enrol-in-research.label': 'Jeg vil gjerne delta i produktundersøkelser',
   'feedback-collector.feedback-title': 'Del tankene dine med oss',

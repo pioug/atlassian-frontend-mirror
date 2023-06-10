@@ -51,9 +51,7 @@
   },
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^8.7.0",
-    "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/editor-common": "^74.6.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/renderer": "^108.1.0",
     "@atlaskit/util-data-test": "^17.8.0",

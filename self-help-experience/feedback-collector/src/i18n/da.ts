@@ -7,7 +7,6 @@
  */
 //Danish (Denmark)
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian må kontakte mig vedrørende denne feedback',
   'feedback-collector.cancel-button.label': 'Annuller',
   'feedback-collector.enrol-in-research.label': 'Jeg vil gerne deltage i produktundersøgelser',
   'feedback-collector.feedback-title': 'Del dine meninger',

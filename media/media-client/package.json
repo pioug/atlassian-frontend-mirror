@@ -57,7 +57,6 @@
   "devDependencies": {
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/media-card": "^76.0.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",

@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.12.0
+
+### Minor Changes
+
+- [`407853b7b26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/407853b7b26) - Inline now has a new default value for the `alignBlock` prop: `start` - the previous default, `stretch`, is now an option that can be set explicitly as well.
+
 ## 0.11.0
 
 ### Minor Changes

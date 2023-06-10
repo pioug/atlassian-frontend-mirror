@@ -77,7 +77,6 @@
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/button": "^16.7.0",
-    "@atlaskit/checkbox": "^12.6.0",
     "@atlaskit/docs": "*",
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/media-test-helpers": "^33.0.0",

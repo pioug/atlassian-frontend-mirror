@@ -7,7 +7,6 @@
  */
 //Czech
 export default {
-  'feedback-collector.can-be-contacted.label': 'Společnost Atlassian mě může ohledně této zpětné vazby kontaktovat',
   'feedback-collector.cancel-button.label': 'Zrušit',
   'feedback-collector.enrol-in-research.label': 'Chci se zúčastnit produktového průzkumu',
   'feedback-collector.feedback-title': 'Sdělte nám svůj názor',

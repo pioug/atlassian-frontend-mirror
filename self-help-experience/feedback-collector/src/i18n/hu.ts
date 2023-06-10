@@ -7,8 +7,6 @@
  */
 //Hungarian
 export default {
-  'feedback-collector.can-be-contacted.label':
-    'Az Atlassian felveheti velem a kapcsolatot ezzel a visszajelzéssel kapcsolatban',
   'feedback-collector.cancel-button.label': 'Mégse',
   'feedback-collector.enrol-in-research.label': 'Szeretnék részt venni a termékekkel kapcsolatos kutatásban',
   'feedback-collector.feedback-title': 'Oszd meg a véleményedet',

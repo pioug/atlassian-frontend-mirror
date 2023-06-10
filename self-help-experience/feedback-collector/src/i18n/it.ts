@@ -7,7 +7,6 @@
  */
 //Italian (Italy)
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian può contattarmi in merito a questo feedback',
   'feedback-collector.cancel-button.label': 'Annulla',
   'feedback-collector.enrol-in-research.label': 'Vorrei partecipare alla ricerca sui prodotti',
   'feedback-collector.feedback-title': 'Condividi le tue opinioni',

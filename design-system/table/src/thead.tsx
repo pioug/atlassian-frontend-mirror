@@ -45,7 +45,9 @@ const THead: FC<THeadProps> = ({ actions, children }) => {
               {state.checked.length} selected
             </Text>
             {actions && (
-              <Inline space="space.100">{actions(state.checked)}</Inline>
+              <Inline alignBlock="stretch" space="space.100">
+                {actions(state.checked)}
+              </Inline>
             )}
           </Primitives.BulkActionOverlay>
         )}

@@ -7,7 +7,6 @@
  */
 //Finnish
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian voi ottaa minuun yhteyttä tähän palautteeseen liittyen',
   'feedback-collector.cancel-button.label': 'Peruuta',
   'feedback-collector.enrol-in-research.label': 'Haluan osallistua tuotetutkimukseen',
   'feedback-collector.feedback-title': 'Jaa ajatuksesi',

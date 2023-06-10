@@ -7,7 +7,6 @@
  */
 //Vietnamese (Vietnam)
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian có thể liên hệ với tôi về phản hồi này',
   'feedback-collector.cancel-button.label': 'Hủy',
   'feedback-collector.enrol-in-research.label': 'Tôi muốn tham gia vào việc tìm kiếm sản phẩm',
   'feedback-collector.feedback-title': 'Chia sẻ suy nghĩ của bạn',

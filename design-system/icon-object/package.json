@@ -48,12 +48,10 @@
   },
   "devDependencies": {
     "@af/icon-build-process": "^0.3.0",
-    "@af/icon-explorer": "^0.0.28",
     "@atlaskit/button": "^16.7.0",
     "@atlaskit/docs": "*",
     "@atlaskit/modal-dialog": "^12.6.0",
     "@atlaskit/section-message": "^6.4.0",
-    "@atlaskit/ssr": "*",
     "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.5.0",

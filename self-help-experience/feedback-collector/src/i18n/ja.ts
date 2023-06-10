@@ -7,10 +7,9 @@
  */
 //Japanese
 export default {
-  'feedback-collector.can-be-contacted.label': 'このフィードバックについて、アトラシアンから連絡を受けてもよい',
   'feedback-collector.cancel-button.label': 'キャンセル',
   'feedback-collector.enrol-in-research.label': '製品調査に参加する',
-  'feedback-collector.feedback-title': '考えを共有する',
+  'feedback-collector.feedback-title': 'ご意見をお聞かせください',
   'feedback-collector.form.bug.label': 'バグまたは課題の説明をご入力ください。',
   'feedback-collector.form.comment.label': '具体的な内容をご入力ください。',
   'feedback-collector.form.empty.label': 'オプションを選択',

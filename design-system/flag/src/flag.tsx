@@ -160,7 +160,7 @@ const Flag: FC<FlagProps> = (props) => {
           padding="space.200"
           xcss={flagStyles}
         >
-          <Inline space="space.200">
+          <Inline alignBlock="stretch" space="space.200">
             <div
               css={iconWrapperStyles}
               style={{ [CSS_VAR_ICON_COLOR]: iconColor } as CSSProperties}
@@ -171,7 +171,11 @@ const Flag: FC<FlagProps> = (props) => {
               <Stack
                 space={shouldRenderGap ? 'space.100' : 'space.0'} // Gap exists even when not expanded due to Expander internals always being in the DOM
               >
-                <Inline space="space.100" spread="space-between">
+                <Inline
+                  alignBlock="stretch"
+                  space="space.100"
+                  spread="space-between"
+                >
                   <Box paddingBlockStart="space.025">
                     <Text
                       color={textColor}

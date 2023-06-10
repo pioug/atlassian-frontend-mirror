@@ -7,7 +7,8 @@
  */
 //English (United Kingdom)
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian can contact me about this feedback',
+  'feedback-collector.can-be-contacted.label':
+    'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the <a>Atlassian Privacy Policy</a>.',
   'feedback-collector.cancel-button.label': 'Cancel',
   'feedback-collector.enrol-in-research.label': "I'd like to participate in product research",
   'feedback-collector.feedback-title': 'Share your thoughts',

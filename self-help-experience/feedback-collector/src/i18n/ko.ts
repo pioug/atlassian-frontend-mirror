@@ -7,7 +7,6 @@
  */
 //Korean
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian에서 이 피드백에 대해 묻기 위해 연락해도 괜찮습니다',
   'feedback-collector.cancel-button.label': '취소',
   'feedback-collector.enrol-in-research.label': '제품 조사에 참여하고 싶습니다',
   'feedback-collector.feedback-title': '피드백 공유',

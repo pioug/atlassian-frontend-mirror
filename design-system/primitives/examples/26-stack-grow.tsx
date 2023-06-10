@@ -8,6 +8,7 @@ const growItems = ['hug', 'fill'] as const;
 const containerStyles = xcss({
   display: 'flex',
   borderRadius: 'border.radius.050',
+  height: 'size.1000',
 });
 
 const blockStyles = xcss({ borderRadius: 'border.radius.050' });
@@ -21,12 +22,9 @@ export default () => (
           <Box
             xcss={containerStyles}
             backgroundColor="color.background.neutral"
-            style={{
-              height: '200px',
-            }}
           >
             <Stack grow={grow}>
-              <Inline space="space.100" grow={grow}>
+              <Inline alignBlock="stretch" space="space.100" grow={grow}>
                 <Box
                   xcss={blockStyles}
                   backgroundColor="color.background.discovery.bold"

@@ -7,7 +7,6 @@
  */
 //Swedish
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian får kontakta mig angående denna feedback',
   'feedback-collector.cancel-button.label': 'Avbryt',
   'feedback-collector.enrol-in-research.label': 'Jag vill delta i produktundersökningar',
   'feedback-collector.feedback-title': 'Dela dina åsikter',

@@ -7,8 +7,6 @@
  */
 //German (Germany)
 export default {
-  'feedback-collector.can-be-contacted.label':
-    'Ich bin damit einverstanden, dass Atlassian mich zu diesem Feedbacks kontaktiert.',
   'feedback-collector.cancel-button.label': 'Abbrechen',
   'feedback-collector.enrol-in-research.label': 'Ich würde gerne an der Produktforschung teilnehmen.',
   'feedback-collector.feedback-title': 'Teilen Sie uns Ihre Meinung mit',

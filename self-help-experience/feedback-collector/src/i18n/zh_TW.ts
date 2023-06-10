@@ -7,7 +7,6 @@
  */
 //Chinese (Traditional)
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian 可以連絡我來了解此意見反應',
   'feedback-collector.cancel-button.label': '取消',
   'feedback-collector.enrol-in-research.label': '我想要參與產品研究',
   'feedback-collector.feedback-title': '分享您的想法',

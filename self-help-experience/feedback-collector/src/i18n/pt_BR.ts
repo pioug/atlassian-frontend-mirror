@@ -7,7 +7,6 @@
  */
 //Portuguese (Brazil)
 export default {
-  'feedback-collector.can-be-contacted.label': 'A Atlassian pode entrar em contato comigo sobre esse feedback',
   'feedback-collector.cancel-button.label': 'Cancelar',
   'feedback-collector.enrol-in-research.label': 'Eu gostaria de participar da pesquisa de produtos',
   'feedback-collector.feedback-title': 'Compartilhe suas ideias',

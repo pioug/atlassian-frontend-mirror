@@ -7,7 +7,6 @@
  */
 //Ukrainian (Ukraine)
 export default {
-  'feedback-collector.can-be-contacted.label': 'Atlassian може зв’язатися зі мною щодо цього відгуку',
   'feedback-collector.cancel-button.label': 'Скасувати',
   'feedback-collector.enrol-in-research.label': 'Я хочу взяти участь у дослідженні продукту',
   'feedback-collector.feedback-title': 'Розкажіть, що ви думаєте',

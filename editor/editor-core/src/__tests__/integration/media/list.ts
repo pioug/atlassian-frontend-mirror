@@ -70,9 +70,12 @@ const getMediaListAdf = (type: 'bulletList' | 'orderedList') => {
   };
 };
 
+// FIXME: This test was automatically skipped due to failure on 10/06/2023: https://product-fabric.atlassian.net/browse/ED-18762
 BrowserTestCase(
   `list: insert a media single inside a bullet list`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {

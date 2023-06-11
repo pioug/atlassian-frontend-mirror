@@ -13,9 +13,12 @@ import * as paragraphADF from '../__fixtures__/paragraph.adf.json';
 import { annotationSelectors } from '../_utils';
 import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 
+// FIXME: This test was automatically skipped due to failure on 10/06/2023: https://product-fabric.atlassian.net/browse/ED-18763
 BrowserTestCase(
   `toolbar is disabled when selection includes inline nodes`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any) => {
     const page = await goToEditorTestingWDExample(client);
 

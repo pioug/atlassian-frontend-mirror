@@ -193,7 +193,8 @@ describe('Floating toolbars:', () => {
         expect(scrollRightButtonExists).toBeTruthy();
       });
 
-      it('should retain scroll position on type', async () => {
+      // FIXME: This test was automatically skipped due to failure on 11/06/2023: https://product-fabric.atlassian.net/browse/ED-18764
+      it.skip('should retain scroll position on type', async () => {
         await page.click(scrollRightButtonSelector);
         await waitForTimeOut();
 

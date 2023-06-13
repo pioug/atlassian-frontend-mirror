@@ -14,6 +14,7 @@ import type {
 import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
+import { attachClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 
@@ -106,8 +107,13 @@ export function Droppable({
       }),
       dropTargetForElements({
         element,
-        getData() {
-          return data;
+        getData({ input }) {
+          return attachClosestEdge(data, {
+            element,
+            input,
+            allowedEdges:
+              direction === 'vertical' ? ['top', 'bottom'] : ['left', 'right'],
+          });
         },
         canDrop({ source }) {
           if (!isDraggableData(source.data)) {

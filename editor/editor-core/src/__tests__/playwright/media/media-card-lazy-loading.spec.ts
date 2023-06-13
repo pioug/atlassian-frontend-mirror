@@ -3,7 +3,7 @@ import {
   EditorNodeContainerModel,
   EditorMediaSingleModel,
   expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 import { mediaCardLazyLoad } from './__fixtures__/adf-documents';
 
 test.use({

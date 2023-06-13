@@ -2,7 +2,7 @@ import {
   EditorBreakoutModel,
   editorTestCase as test,
   expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 
 test.describe('when our layout has breakout and copy button enabled', () => {
   const adf = {

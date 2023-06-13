@@ -1,4 +1,5 @@
 import { validateAttrs } from '../../../validator';
+import { AttributesSpec } from '@atlaskit/adf-utils/validatorTypes';
 
 jest.mock('../../rules', () => ({
   validatorFnMap: {
@@ -170,15 +171,58 @@ describe('validateAttrs', () => {
   });
 
   describe('array', () => {
-    const spec = { type: 'array', items: [{ type: 'number' }] } as any;
-    const tupleSpec = {
-      ...spec,
-      items: [{ type: 'number' }, { type: 'string' }],
-    };
-    const nestedSpec = {
+    const spec: AttributesSpec = {
       type: 'array',
-      items: [{ type: 'array', items: [{ type: 'number' }] }],
-    } as any;
+      items: [{ type: 'number', maximum: 100, minimum: 0 }],
+    };
+    const tupleSpec: AttributesSpec = {
+      type: 'array',
+      items: [{ type: 'number', maximum: 100, minimum: 0 }, { type: 'string' }],
+      isTupleLike: true,
+    };
+    const nonTupleSpec: AttributesSpec = {
+      type: 'array',
+      items: [{ type: 'number', maximum: 100, minimum: 0 }, { type: 'string' }],
+    };
+    const nestedSpec: AttributesSpec = {
+      type: 'array',
+      items: [
+        {
+          type: 'array',
+          items: [{ type: 'number', maximum: 100, minimum: 0 }],
+        },
+      ],
+    };
+    const complexSpec: AttributesSpec = {
+      type: 'array',
+      items: [
+        { type: 'string' },
+        {
+          props: {
+            valueA: { type: 'string' },
+            valueB: { type: 'number', maximum: 100, minimum: 0 },
+          },
+        },
+        { type: 'number', maximum: 100, minimum: 0 },
+        {
+          props: {
+            valueC: { type: 'string' },
+          },
+          optional: true,
+        },
+        {
+          type: 'array',
+          items: [{ type: 'string' }],
+          optional: true,
+        },
+      ],
+    };
+    const minMaxSpec: AttributesSpec = {
+      type: 'array',
+      items: [{ type: 'number', minimum: 0, maximum: 10 }],
+      minItems: 1,
+      maxItems: 2,
+    };
 
     it('should pass for simple array', () => {
       expect(validateAttrs(spec, [])).toBeTruthy();
@@ -188,10 +232,50 @@ describe('validateAttrs', () => {
     it('should pass for tuple', () => {
       expect(validateAttrs(tupleSpec, [1, '2'])).toBeTruthy();
       expect(validateAttrs(tupleSpec, [1])).toBeTruthy();
+      expect(validateAttrs(tupleSpec, [1, '2', 3])).toBeTruthy();
+    });
+
+    it('should pass for non tuple', () => {
+      expect(validateAttrs(nonTupleSpec, [1, '2'])).toBeTruthy();
+      expect(validateAttrs(nonTupleSpec, ['2', 1])).toBeTruthy();
+      expect(validateAttrs(nonTupleSpec, [1])).toBeTruthy();
+      expect(validateAttrs(nonTupleSpec, [1, '2', '2', 3])).toBeTruthy();
     });
 
     it('should pass for nested array', () => {
       expect(validateAttrs(nestedSpec, [[1, 2, 3]])).toBeTruthy();
+    });
+
+    it('should pass for minMax array', () => {
+      expect(validateAttrs(minMaxSpec, [1, 2])).toBeTruthy();
+      expect(validateAttrs(minMaxSpec, [1])).toBeTruthy();
+    });
+
+    it('should pass for valid complex spec', () => {
+      expect(
+        validateAttrs(complexSpec, [
+          'some-string',
+          {
+            valueA: 'some-string',
+            valueB: 15,
+          },
+          25,
+        ]),
+      ).toBeTruthy();
+      expect(
+        validateAttrs(complexSpec, [
+          'some-string',
+          {
+            valueA: 'some-string',
+            valueB: 15,
+          },
+          25,
+          {
+            valueC: 'some-string',
+          },
+          ['a', 'b'],
+        ]),
+      ).toBeTruthy();
     });
 
     it('should fail for invalid array', () => {
@@ -201,8 +285,19 @@ describe('validateAttrs', () => {
 
     it('should fail for invalid tuple', () => {
       expect(validateAttrs(tupleSpec, ['1'])).toBeFalsy();
-      expect(validateAttrs(tupleSpec, ['1', '2'])).toBeFalsy();
+      expect(validateAttrs(tupleSpec, [1, 2])).toBeFalsy();
       expect(validateAttrs(tupleSpec, ['1', 2])).toBeFalsy();
+    });
+
+    it('should fail for invalid non-tuple', () => {
+      expect(validateAttrs(nonTupleSpec, [true])).toBeFalsy();
+      expect(validateAttrs(nonTupleSpec, [1, true])).toBeFalsy();
+      expect(validateAttrs(nonTupleSpec, ['1', 2, true])).toBeFalsy();
+    });
+
+    it('should fail for minMax array', () => {
+      expect(validateAttrs(minMaxSpec, [])).toBeFalsy();
+      expect(validateAttrs(minMaxSpec, [1, 2, 3])).toBeFalsy();
     });
 
     it('should fail for invalid nested array', () => {
@@ -217,6 +312,124 @@ describe('validateAttrs', () => {
       expect(validateAttrs(spec, true)).toBeFalsy();
       expect(validateAttrs(spec, false)).toBeFalsy();
       expect(validateAttrs(spec, () => {})).toBeFalsy();
+    });
+
+    it('should fail for complex spec', () => {
+      expect(
+        validateAttrs(complexSpec, [
+          'some-string',
+          {
+            valueA: 'some-string',
+            valueB: 'some-string',
+          },
+          25,
+        ]),
+      ).toBeFalsy();
+      expect(
+        validateAttrs(complexSpec, [
+          'some-string',
+          {
+            valueA: 'some-string',
+            valueB: 'some-string',
+          },
+        ]),
+      ).toBeFalsy();
+      expect(
+        validateAttrs(complexSpec, [
+          'some-string',
+          {
+            valueA: 'some-string',
+            valueB: 15,
+          },
+          25,
+          {
+            valueC: 'some-string',
+          },
+          ['a', 1],
+        ]),
+      ).toBeFalsy();
+    });
+  });
+
+  describe('object', () => {
+    let complexObjectSpec: AttributesSpec;
+    beforeEach(() => {
+      complexObjectSpec = {
+        props: {
+          optionalProp: {
+            props: {
+              someString: { type: 'string' },
+            },
+            optional: true,
+          },
+          datasource: {
+            props: {
+              id: { type: 'string' },
+              views: {
+                type: 'array',
+                items: [
+                  {
+                    props: {
+                      name: { type: 'string' },
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        },
+      };
+    });
+
+    it('should pass for valid complex spec', () => {
+      expect(
+        validateAttrs(complexObjectSpec, {
+          datasource: {
+            id: 'some-string',
+            views: [{ name: 'some-string' }, { name: 'some-other-string' }],
+          },
+        }),
+      ).toBeTruthy();
+
+      expect(
+        validateAttrs(complexObjectSpec, {
+          optionalProp: {
+            someString: 'some-string',
+          },
+          datasource: {
+            id: 'some-string',
+            views: [],
+          },
+        }),
+      ).toBeTruthy();
+    });
+
+    it('should fail for invalid complex spec', () => {
+      expect(
+        validateAttrs(complexObjectSpec, {
+          optionalProp: {
+            someString: 'some-string',
+          },
+        }),
+      ).toBeFalsy();
+
+      expect(
+        validateAttrs(complexObjectSpec, {
+          datasource: {
+            id: 10,
+            views: [],
+          },
+        }),
+      ).toBeFalsy();
+
+      expect(
+        validateAttrs(complexObjectSpec, {
+          datasource: {
+            id: 'some-string',
+            views: ['blah'],
+          },
+        }),
+      ).toBeFalsy();
     });
   });
 });

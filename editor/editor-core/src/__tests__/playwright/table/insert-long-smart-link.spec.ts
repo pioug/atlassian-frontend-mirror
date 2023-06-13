@@ -4,7 +4,7 @@ import {
   EditorNodeContainerModel,
   EditorTableModel,
   editorTestCase as test,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 
 const inlineCardLongNameSlowResolveUrl =
   'https://inlineCardTestUrl/longNameSlowResolve';

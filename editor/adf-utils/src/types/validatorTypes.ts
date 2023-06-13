@@ -43,11 +43,24 @@ export type AttributesSpec =
     }
   | { type: 'enum'; values: Array<string>; optional?: boolean }
   | { type: 'object'; optional?: boolean }
-  | { type: 'array'; items: Array<AttributesSpec>; optional?: boolean };
+  | {
+      type: 'array';
+      items: Array<AttributesSpec>;
+      optional?: boolean;
+      minItems?: number;
+      maxItems?: number;
+      isTupleLike?: boolean;
+    }
+  | ValidatorSpecAttrs;
+
+export interface ValidatorSpecAttrs {
+  props: { [key: string]: AttributesSpec };
+  optional?: boolean;
+}
 
 export interface ValidatorSpec {
   props?: {
-    attrs?: { props: { [key: string]: AttributesSpec }; optional?: boolean };
+    attrs?: ValidatorSpecAttrs;
     content?: ValidatorContent;
     text?: AttributesSpec;
     marks?: {

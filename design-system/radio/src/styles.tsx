@@ -27,9 +27,15 @@ const radioThemeColors = {
     background: token('color.background.input', N10),
     backgroundHover: token('color.background.input.hovered', N30),
     backgroundActive: token('color.background.input.pressed', N30),
-    backgroundChecked: token('color.background.brand.bold', B400),
-    backgroundCheckedHover: token('color.background.brand.bold.hovered', B300),
-    backgroundCheckedActive: token('color.background.brand.bold.pressed', B50),
+    backgroundChecked: token('color.background.selected.bold', B400),
+    backgroundCheckedHover: token(
+      'color.background.selected.bold.hovered',
+      B300,
+    ),
+    backgroundCheckedActive: token(
+      'color.background.selected.bold.pressed',
+      B50,
+    ),
     backgroundDisabled: token('color.background.disabled', N20),
 
     dotChecked: token('color.icon.inverse', N10),
@@ -55,9 +61,15 @@ const radioThemeColors = {
     background: token('color.background.input', DN10),
     backgroundHover: token('color.background.input.hovered', DN30),
     backgroundActive: token('color.background.input.pressed', B200),
-    backgroundChecked: token('color.background.brand.bold', B400),
-    backgroundCheckedHover: token('color.background.brand.bold.hovered', B75),
-    backgroundCheckedActive: token('color.background.brand.bold.pressed', B200),
+    backgroundChecked: token('color.background.selected.bold', B400),
+    backgroundCheckedHover: token(
+      'color.background.selected.bold.hovered',
+      B75,
+    ),
+    backgroundCheckedActive: token(
+      'color.background.selected.bold.pressed',
+      B200,
+    ),
     backgroundDisabled: token('color.background.disabled', DN10),
 
     dotChecked: token('color.icon.inverse', DN10),

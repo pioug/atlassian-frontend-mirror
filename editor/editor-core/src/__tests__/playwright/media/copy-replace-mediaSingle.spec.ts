@@ -2,7 +2,7 @@ import {
   editorTestCase as test,
   expect,
   EditorNodeContainerModel,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 import { threeImages, oneImage } from './__fixtures__/adf-documents';
 import { doc, p, mediaSingle } from '@atlaskit/editor-test-helpers/doc-builder';
 

@@ -1,8 +1,5 @@
 import type { EditorProps } from '@atlaskit/editor-core';
-import {
-  editorTestCase as test,
-  expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+import { editorTestCase as test, expect } from '@af/editor-libra';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   spaceAtEnd,

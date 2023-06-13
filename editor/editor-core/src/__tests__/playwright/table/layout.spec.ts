@@ -7,7 +7,7 @@ import {
   editorTestCase as test,
   EditorPopupModel,
   expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 import { createSquareTable } from './__fixtures__/resize-documents';
 import { nestedInExtension, nestedInLayout } from './__fixtures__/base-adfs';
 import {

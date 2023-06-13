@@ -3,7 +3,7 @@ import {
   EditorNodeContainerModel,
   editorTestCase as test,
   expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 import { simpleTable } from './__fixtures__/base-adfs';
 
 test.use({

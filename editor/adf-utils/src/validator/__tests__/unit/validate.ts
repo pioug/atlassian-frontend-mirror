@@ -38,12 +38,6 @@ describe('validate', () => {
           'codeBlock-with-empty-marks.json',
           'heading-with-empty-marks.json',
           'extension-with-empty-marks.json',
-          // https://product-fabric.atlassian.net/browse/EDM-6846
-          // TODO EDM-6846
-          // remove this in the future after validator shallow object check is updated
-          'blockcard-with-datasources.json',
-          'blockcard-with-empty-datasource-parameters.json',
-          'blockcard-without-optional-fields.json',
         ];
 
         if (!ignoreList.includes(file.name)) {

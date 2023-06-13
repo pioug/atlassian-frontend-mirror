@@ -3,7 +3,7 @@ import {
   EditorNodeContainerModel,
   EditorBlockCardModel,
   expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 import { p, blockCard, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import { blockCardAdf } from './block-3.spec.ts-fixtures/adf-blockCard';
 

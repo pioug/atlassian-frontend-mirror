@@ -26,6 +26,7 @@ import {
   SpecValidatorResult,
   Err,
   Validate,
+  ValidatorSpecAttrs,
 } from '../types/validatorTypes';
 import { validatorFnMap } from './rules';
 
@@ -65,7 +66,8 @@ const partitionObject = <T extends { [key: string]: any }>(
 ) =>
   Object.keys(obj).reduce<[Array<string>, Array<string>]>(
     (acc, key) => {
-      acc[predicate(key, obj[key], obj) ? 0 : 1].push(key);
+      const result = predicate(key, obj[key], obj);
+      acc[result ? 0 : 1].push(key);
       return acc;
     },
     [[], []],
@@ -193,14 +195,29 @@ function getOptionsForType(
   return false;
 }
 
+const isValidatorSpecAttrs = (
+  spec: AttributesSpec,
+): spec is ValidatorSpecAttrs => {
+  return !!(spec as ValidatorSpecAttrs).props;
+};
+
 export function validateAttrs<T>(spec: AttributesSpec, value: T): boolean {
+  if (!isDefined(value)) {
+    return !!spec.optional;
+  }
+
+  if (isValidatorSpecAttrs(spec)) {
+    // If spec has ".props" it is ValidatorSpecAttrs and need to pipe back in recursively
+    const [_, invalidKeys] = partitionObject(spec.props, (key, subSpec) =>
+      validateAttrs(subSpec, (value as any)[key]),
+    );
+    return invalidKeys.length === 0;
+  }
   // extension_node parameters has no type
   if (!isDefined(spec.type)) {
     return !!spec.optional;
   }
-  if (!isDefined(value)) {
-    return !!spec.optional;
-  }
+
   switch (spec.type) {
     case 'boolean':
       return isBoolean(value);
@@ -232,14 +249,31 @@ export function validateAttrs<T>(spec: AttributesSpec, value: T): boolean {
     case 'object':
       return isPlainObject(value);
     case 'array':
-      const types = spec.items;
-      const lastTypeIndex = types.length - 1;
       if (Array.isArray(value)) {
-        // We are doing this to support tuple which can be defined as [number, string]
-        // NOTE: Not validating tuples strictly
-        return value.every((x, i) =>
-          validateAttrs(types[Math.min(i, lastTypeIndex)], x),
-        );
+        const isTuple = !!spec.isTupleLike;
+        const { minItems, maxItems } = spec;
+        if (
+          (minItems !== undefined && value.length < minItems) ||
+          (maxItems !== undefined && value.length > maxItems)
+        ) {
+          return false;
+        }
+
+        if (isTuple) {
+          // If value has fewer items than tuple has specs - we are fine with that.
+          const numberOfItemsToCheck = Math.min(
+            spec.items.length,
+            value.length,
+          );
+          return Array(numberOfItemsToCheck)
+            .fill(null)
+            .every((_, i) => validateAttrs(spec.items[i], value[i]));
+        } else {
+          return value.every((valueItem) =>
+            // We check that at least one of the specs in the list (spec.items) matches each value from
+            spec.items.some((itemSpec) => validateAttrs(itemSpec, valueItem)),
+          );
+        }
       }
       return false;
 
@@ -633,8 +667,9 @@ export function validator(
       for (let i = 0, length = attrOptions.length; i < length; ++i) {
         const attrOption = attrOptions[i];
         if (attrOption && attrOption.props) {
-          [, invalidAttrs] = partitionObject(attrOption.props, (k, v) => {
-            return validateAttrs(v, (prevEntity.attrs as any)[k]);
+          [, invalidAttrs] = partitionObject(attrOption.props, (key, spec) => {
+            const valueToValidate = (prevEntity.attrs as any)[key];
+            return validateAttrs(spec, valueToValidate);
           });
         }
         validatorAttrs = attrOption!;

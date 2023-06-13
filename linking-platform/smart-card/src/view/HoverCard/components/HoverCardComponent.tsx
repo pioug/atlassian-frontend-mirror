@@ -181,7 +181,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       ) ? (
         <SmartLinkAnalyticsContext
           url={url}
-          appearance={CardDisplay.HoverCardPreview}
+          display={CardDisplay.HoverCardPreview}
           id={id}
           source={HOVER_CARD_SOURCE}
         >

@@ -52,11 +52,13 @@ function getDraggableLocationFromDraggableData({
 /**
  * Derives the `DraggableLocation` of a `<Droppable>`.
  *
- * This corresponds to the last index in the list.
+ * This corresponds to the first or last index of the list,
+ * depending on where the user is hovering.
  */
 function getDraggableLocationFromDroppableData({
   contextId,
   droppableId,
+  ...data
 }: DroppableData): DraggableLocation | null {
   const draggables = findAllDraggables({ contextId, droppableId });
 
@@ -64,6 +66,22 @@ function getDraggableLocationFromDroppableData({
    * If there are no draggables, then the index should be 0
    */
   if (draggables.length === 0) {
+    return { droppableId, index: 0 };
+  }
+
+  const closestEdge = extractClosestEdge(data);
+  /**
+   * Whether the user is closer to the start of the droppable.
+   *
+   * For a vertical list it is the top half,
+   * while for a horizontal list it is the left half.
+   */
+  const isCloserToStart = closestEdge === 'top' || closestEdge === 'left';
+  if (isCloserToStart) {
+    /**
+     * If the user is closer to the start of the list, we will target the
+     * first (0th) index.
+     */
     return { droppableId, index: 0 };
   }
 

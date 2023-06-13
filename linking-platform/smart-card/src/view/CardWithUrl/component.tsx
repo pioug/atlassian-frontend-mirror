@@ -364,17 +364,26 @@ function Component({
   }
 }
 
-export const CardWithUrlContent = (props: CardWithUrlContentProps) =>
-  getBooleanFF(
-    'platform.linking-platform.smart-card.enable-analytics-context',
-  ) ? (
-    <SmartLinkAnalyticsContext
-      url={props.url}
-      appearance={props.appearance}
-      id={props.id}
-    >
-      <Component {...props} />
-    </SmartLinkAnalyticsContext>
-  ) : (
-    <Component {...props} />
-  );
+export const CardWithUrlContent = (props: CardWithUrlContentProps) => {
+  if (
+    getBooleanFF(
+      'platform.linking-platform.smart-card.enable-analytics-context',
+    )
+  ) {
+    const display = isFlexibleUiCard(props.children)
+      ? CardDisplay.Flexible
+      : props.appearance;
+
+    return (
+      <SmartLinkAnalyticsContext
+        url={props.url}
+        id={props.id}
+        display={display}
+      >
+        <Component {...props} />
+      </SmartLinkAnalyticsContext>
+    );
+  }
+
+  return <Component {...props} />;
+};

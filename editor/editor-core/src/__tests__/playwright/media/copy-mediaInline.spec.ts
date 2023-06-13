@@ -3,7 +3,7 @@ import {
   expect,
   EditorNodeContainerModel,
   EditorMediaInlineModel,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 import { doc, p, mediaInline } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mediaInlineAdf } from './copy-mediaInline.spec.ts-fixtures/adf-mediaInline';
 

@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.6.4
+
+### Patch Changes
+
+- [`e2a6337bb05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e2a6337bb05) - Reverts changes 1.6.3 in @atlaskit/popup, reverts disabling pointer events on iframes when popup is open.
+
 ## 1.6.3
 
 ### Patch Changes

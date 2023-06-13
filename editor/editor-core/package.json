@@ -35,7 +35,7 @@
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
     "@atlaskit/adf-schema": "^25.8.0",
-    "@atlaskit/adf-utils": "^18.3.0",
+    "@atlaskit/adf-utils": "^18.4.0",
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
@@ -144,6 +144,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
+    "@af/editor-libra": "*",
     "@af/integration-testing": "*",
     "@atlaskit/atlassian-navigation": "^2.6.0",
     "@atlaskit/breadcrumbs": "11.10.4",

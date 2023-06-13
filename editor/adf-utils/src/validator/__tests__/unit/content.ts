@@ -15,12 +15,72 @@ jest.mock('../../../validator/specs', () => ({
       type: { type: 'enum', values: ['nodeB'] },
     },
   },
+  nodeC: {
+    props: {
+      type: { type: 'enum', values: ['nodeC'] },
+      content: {
+        type: 'array',
+        items: ['nodeA', 'nodeB'],
+        isTupleLike: false,
+      },
+    },
+  },
+  nodeD: {
+    props: {
+      type: { type: 'enum', values: ['nodeD'] },
+      content: {
+        type: 'array',
+        items: ['nodeA', 'nodeB'],
+        isTupleLike: true,
+      },
+    },
+  },
 }));
 
 import { validator } from '../../../validator/validator';
 
 describe('validate content', () => {
   const validate = validator();
+
+  test('isLikeTuple', () => {
+    expect(() => {
+      validate({
+        type: 'nodeC',
+        content: [{ type: 'nodeB' }, { type: 'nodeB' }, { type: 'nodeB' }],
+      });
+    }).not.toThrow();
+
+    expect(() => {
+      validate({
+        type: 'nodeC',
+        content: [
+          { type: 'nodeB' },
+          { type: 'nodeB' },
+          { type: 'nodeA', content: [{ type: 'nodeB' }] },
+        ],
+      });
+    }).not.toThrow();
+
+    expect(() => {
+      validate({
+        type: 'nodeD',
+        content: [
+          { type: 'nodeA', content: [{ type: 'nodeB' }] },
+          { type: 'nodeB' },
+        ],
+      });
+    }).not.toThrow();
+
+    expect(() => {
+      validate({
+        type: 'nodeD',
+        content: [
+          { type: 'nodeB' },
+          { type: 'nodeA', content: [{ type: 'nodeB' }] },
+        ],
+      });
+    }).toThrow();
+  });
 
   test('minItems', () => {
     const run = () => {

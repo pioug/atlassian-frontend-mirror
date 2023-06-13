@@ -3,7 +3,7 @@ import {
   EditorLinkFloatingToolbarModel,
   editorTestCase as test,
   expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 import { doc, p, a } from '@atlaskit/editor-test-helpers/doc-builder';
 import { emptyDocument } from './__fixtures__/adf-documents';
 

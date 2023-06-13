@@ -1,7 +1,4 @@
-import {
-  editorTestCase as test,
-  expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+import { editorTestCase as test, expect } from '@af/editor-libra';
 import { akEditorContextPanelWidth } from '@atlaskit/editor-shared-styles';
 
 test.describe('context panel', () => {

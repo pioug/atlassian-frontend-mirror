@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button';
 import Heading from '@atlaskit/heading';
-import { Inline, Stack } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives';
 
 import Square from '../shared/square';
 
@@ -19,11 +19,11 @@ export default function Example() {
   }, [nextIndex]);
   return (
     <Stack space="space.500">
-      <div>
+      <Box>
         <Button appearance="primary" onClick={changeAlignment}>
           Change alignment to "{alignmentValues[nextIndex]}"
         </Button>
-      </div>
+      </Box>
       <Stack space="space.100">
         <Heading level="h400">Inline alignment</Heading>
         <Inline space="space.100" alignInline={alignmentValues[alignmentIndex]}>

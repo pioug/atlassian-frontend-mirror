@@ -4,7 +4,7 @@ import {
   EditorTableModel,
   editorTestCase as test,
   expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 import {
   doc,
   table,

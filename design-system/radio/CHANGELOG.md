@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 5.6.3
+
+### Patch Changes
+
+- [`53ffecf71cb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/53ffecf71cb) - Updated selected radio to use `color.background.selected.bold` instead of `color.background.brand.bold`. There's no visual change as these tokens have same hex value in both light and dark mode.
+
 ## 5.6.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 18.4.0
+
+### Minor Changes
+
+- [`55d241a3794`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55d241a3794) - Improve ADF validation by making deeper and stricter array checks as well as ability to have deep attribute structures.
+
 ## 18.3.0
 
 ### Minor Changes

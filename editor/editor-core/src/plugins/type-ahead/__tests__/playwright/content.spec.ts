@@ -3,7 +3,7 @@ import {
   EditorMainToolbarModel,
   editorTestCase as test,
   expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 
 import type { EditorProps } from '@atlaskit/editor-core';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';

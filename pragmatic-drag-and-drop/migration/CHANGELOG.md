@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.13.0
+
+### Minor Changes
+
+- [`5e58af07ce8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e58af07ce8) - [ux] Entering a droppable from the start will now target the first index instead of the last.
+
 ## 0.12.0
 
 ### Minor Changes

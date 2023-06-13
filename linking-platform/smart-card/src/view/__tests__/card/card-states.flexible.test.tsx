@@ -5,6 +5,7 @@ jest.mock(
 );
 jest.doMock('../../../utils/analytics/analytics');
 import { APIError } from '@atlaskit/linking-common';
+import '@atlaskit/link-test-helpers/jest';
 import {
   CardClient,
   CardProviderStoreOpts,

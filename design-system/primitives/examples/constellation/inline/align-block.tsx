@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
@@ -12,65 +12,67 @@ const flexContainerStyles = xcss({
 
 export default function Example() {
   return (
-    <Box padding="space.100">
-      <Inline space="space.200" spread="space-between">
-        <Stack alignInline="center">
-          Start alignment
-          <Box
-            backgroundColor="color.background.neutral"
-            padding="space.050"
-            xcss={flexContainerStyles}
-          >
-            <Inline space="space.050" alignBlock="start">
-              <Square />
-              <Square />
-              <Square padding="space.300" />
-            </Inline>
-          </Box>
-        </Stack>
-        <Stack alignInline="center">
-          Center alignment
-          <Box
-            backgroundColor="color.background.neutral"
-            padding="space.050"
-            xcss={flexContainerStyles}
-          >
-            <Inline space="space.050" alignBlock="center">
-              <Square />
-              <Square />
-              <Square padding="space.300" />
-            </Inline>
-          </Box>
-        </Stack>
-        <Stack alignInline="center">
-          End alignment
-          <Box
-            backgroundColor="color.background.neutral"
-            padding="space.050"
-            xcss={flexContainerStyles}
-          >
-            <Inline space="space.050" alignBlock="end">
-              <Square />
-              <Square />
-              <Square padding="space.300" />
-            </Inline>
-          </Box>
-        </Stack>
-        <Stack alignInline="center">
-          Baseline alignment
-          <Box
-            backgroundColor="color.background.neutral"
-            padding="space.050"
-            xcss={flexContainerStyles}
-          >
-            <Inline space="space.050" alignBlock="baseline">
-              <Square />
-              <Square />
-              <Square padding="space.300" />
-            </Inline>
-          </Box>
-        </Stack>
-      </Inline>
-    </Box>
+    <Inline spread="space-between">
+      <Stack alignInline="center">
+        "start" (default)
+        <VisualContainer>
+          <Inline space="space.050" alignBlock="start">
+            <Square />
+            <Square />
+            <Square padding="space.300" />
+          </Inline>
+        </VisualContainer>
+      </Stack>
+      <Stack alignInline="center">
+        "center"
+        <VisualContainer>
+          <Inline space="space.050" alignBlock="center">
+            <Square />
+            <Square />
+            <Square padding="space.300" />
+          </Inline>
+        </VisualContainer>
+      </Stack>
+      <Stack alignInline="center">
+        "end"
+        <VisualContainer>
+          <Inline space="space.050" alignBlock="end">
+            <Square />
+            <Square />
+            <Square padding="space.300" />
+          </Inline>
+        </VisualContainer>
+      </Stack>
+      <Stack alignInline="center">
+        "baseline"
+        <VisualContainer>
+          <Inline space="space.050" alignBlock="baseline">
+            <Square />
+            <Square />
+            <Square padding="space.300" />
+          </Inline>
+        </VisualContainer>
+      </Stack>
+      <Stack alignInline="center">
+        "stretch"
+        <VisualContainer>
+          <Inline space="space.050" alignBlock="stretch">
+            <Square />
+            <Square />
+            <Square padding="space.300" />
+          </Inline>
+        </VisualContainer>
+      </Stack>
+    </Inline>
   );
 }
+
+const VisualContainer = ({ children }: { children: ReactNode }) => (
+  <Box
+    backgroundColor="color.background.neutral"
+    padding="space.050"
+    xcss={flexContainerStyles}
+  >
+    {children}
+  </Box>
+);

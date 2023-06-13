@@ -2,7 +2,7 @@ import {
   editorTestCase as test,
   EditorUploadMediaModel,
   expect,
-} from '@atlaskit/editor-test-helpers/playwright';
+} from '@af/editor-libra';
 import {
   doc,
   mediaSingle,

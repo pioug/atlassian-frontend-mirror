@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.5.9
+
+### Patch Changes
+
+- [`d394a5db254`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d394a5db254) - Fixes display analytics attribute provided by analytics context when the apperance is flexible
+
 ## 26.5.8
 
 ### Patch Changes

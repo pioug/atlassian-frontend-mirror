@@ -28,8 +28,6 @@ export interface Props {
   customFeedbackUrl?: string;
   /** Whether to request email details and product entitlements */
   shouldGetEntitlementDetails?: boolean;
-  /** The customer email */
-  email?: string;
   /** The customer name */
   name?: string;
   /** The id of the entrypoint in the feedback service; to acquire your entrypointId, visit the #feedback-collectors channel */
@@ -56,10 +54,6 @@ export interface Props {
   enrollInResearchAgreeValue: FieldValueType;
   /**  Override the decline value for the "enroll in research" custom field in your widget service */
   enrollInResearchDeclineValue: FieldValueType;
-  /**  Override the default id for the "email" custom field in your widget service */
-  emailFieldId: string;
-  /**  Override the default value for the "email" custom field in your widget service */
-  emailDefaultValue: FieldValueType;
   /**  Override the default id for the "summary" custom field in your widget service */
   summaryFieldId: string;
   /**  Override the default value for the "summary" custom field in your widget service */
@@ -108,6 +102,12 @@ export interface Props {
   customContent?: React.ReactChild;
   /**  Override to hide the default text fields for feedback */
   showDefaultTextFields?: boolean;
+  /** Optional parameter for feedback submitter's Atlassian Account ID */
+  atlassianAccountId?: string;
+  /** Optional parameter for feedback submitter's email address */
+  email?: string;
+  /** Override to mark feedback as anonymous */
+  anonymousFeedback?: boolean;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -135,8 +135,6 @@ export default class FeedbackCollector extends Component<Props> {
     enrollInResearchFieldId: 'customfield_10044',
     enrollInResearchAgreeValue: [{ id: '10110' }],
     enrollInResearchDeclineValue: [{ id: '10112' }],
-    emailFieldId: 'email',
-    emailDefaultValue: 'do-not-reply@atlassian.com',
     summaryFieldId: 'summary',
     summaryDefaultValue: '',
     summaryTruncateLength: 100,
@@ -149,6 +147,7 @@ export default class FeedbackCollector extends Component<Props> {
     typeEmptyDefaultValue: { id: 'empty' },
     showTypeField: true,
     showDefaultTextFields: true,
+    anonymousFeedback: false,
     onClose: () => {},
     onSubmit: () => {},
   };
@@ -165,7 +164,7 @@ export default class FeedbackCollector extends Component<Props> {
     return FeedbackCollector.defaultProps.url;
   }
 
-  getFeedbackUrl(): string {
+  getFeedbackUrl() {
     const { customFeedbackUrl, url } = this.props;
 
     if (customFeedbackUrl) {
@@ -232,10 +231,9 @@ export default class FeedbackCollector extends Component<Props> {
 
     let entitlement;
     const entitlementInformation = [];
-    const cloudSiteId =
-      (entitlementDetails && entitlementDetails.cloudSiteId) || '';
-    if (entitlementDetails && entitlementDetails.children) {
-      entitlement = entitlementDetails.children.find(
+    const cloudSiteId = entitlementDetails?.cloudSiteId || '';
+    if (entitlementDetails?.children) {
+      entitlement = entitlementDetails?.children.find(
         (entitlement: { key: string }) => {
           return entitlement.key === productKey;
         },
@@ -249,14 +247,11 @@ export default class FeedbackCollector extends Component<Props> {
       },
       {
         id: 'hostingType',
-        value:
-          entitlement && entitlement.product
-            ? entitlement.product.hostingType
-            : 'CLOUD',
+        value: entitlement?.product ? entitlement.product.hostingType : 'CLOUD',
       },
       {
         id: 'entitlementEdition',
-        value: productEntitlement || '',
+        value: productEntitlement ?? '',
       },
       {
         id: 'cloudId',
@@ -283,44 +278,45 @@ export default class FeedbackCollector extends Component<Props> {
     }
   }
 
-  async getEmailAndAtlassianID(formValues: FormFields) {
+  async getAtlassianID(): Promise<string | undefined> {
+    const { atlassianAccountId, shouldGetEntitlementDetails } = this.props;
     try {
-      if (formValues.canBeContacted) {
-        if (this.props.email || !this.props.shouldGetEntitlementDetails) {
-          return {
-            email: this.props.email,
-            aaidOrHash: Buffer.from(this.props.email as string).toString(
-              'base64',
-            ),
-          };
-        }
-        const url = this.getGatewayUrl();
-        const result = await fetch(`${url}/me`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          ...(isApiGatewayUrl(url) ? { credentials: 'include' } : {}),
-        });
-
-        const json = await result.json();
-        return { email: json.email, aaidOrHash: json.account_id };
-      } else {
-        return {
-          email: this.props.emailDefaultValue,
-          aaidOrHash: Buffer.from(
-            this.props.emailDefaultValue as string,
-          ).toString('base64'),
-        };
+      if (atlassianAccountId || !shouldGetEntitlementDetails) {
+        return atlassianAccountId;
       }
+      const url = this.getGatewayUrl();
+      const result = await fetch(`${url}/me`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        ...(isApiGatewayUrl(url) ? { credentials: 'include' } : {}),
+      });
+      const json = await result.json();
+
+      return json.account_id;
     } catch (e) {
-      return {
-        email: this.props.emailDefaultValue,
-        aaidOrHash: Buffer.from(
-          this.props.emailDefaultValue as string,
-        ).toString('base64'),
-      };
+      return undefined;
     }
+  }
+
+  shouldShowOptInCheckboxes(): boolean {
+    if (this.props.anonymousFeedback) {
+      return !this.props.anonymousFeedback;
+    }
+    if (this.props.atlassianAccountId) {
+      return true;
+    }
+    let response: boolean;
+    this.getAtlassianID()
+      .then((result) => {
+        response = result !== undefined;
+      })
+      .catch(() => {
+        response = false;
+      });
+    // @ts-ignore
+    return response;
   }
 
   getDescription(formValues: FormFields) {
@@ -337,7 +333,22 @@ export default class FeedbackCollector extends Component<Props> {
   }
 
   getCustomerName() {
-    return this.props.name || this.props.customerNameDefaultValue;
+    return this.props.name ?? this.props.customerNameDefaultValue;
+  }
+
+  addEmailToContext() {
+    const contextField = this.props.additionalFields.find((field) => {
+      return field.id === 'customfield_10047';
+    });
+    if (contextField) {
+      contextField.value = `${contextField.value}
+        email: ${this.props.email}`;
+    } else {
+      this.props.additionalFields.push({
+        id: 'customfield_10047',
+        value: `email: ${this.props.email}`,
+      });
+    }
   }
 
   async mapFormToJSD(formValues: FormFields) {
@@ -346,8 +357,11 @@ export default class FeedbackCollector extends Component<Props> {
     if (this.props.shouldGetEntitlementDetails) {
       entitlementInformation = await this.getEntitlementInformation();
     }
+    if (this.props.email) {
+      this.addEmailToContext();
+    }
 
-    const userDetails = await this.getEmailAndAtlassianID(formValues);
+    const atlassianID = await this.getAtlassianID();
 
     return {
       fields: [
@@ -367,12 +381,8 @@ export default class FeedbackCollector extends Component<Props> {
           value: this.getDescription(formValues),
         },
         {
-          id: this.props.emailFieldId,
-          value: userDetails.email,
-        },
-        {
           id: 'aaidOrHash',
-          value: userDetails.aaidOrHash,
+          value: formValues.canBeContacted ? atlassianID : undefined,
         },
         {
           id: this.props.customerNameFieldId,
@@ -415,11 +425,13 @@ export default class FeedbackCollector extends Component<Props> {
           ...formData,
         },
       };
+
       if (isApiGatewayUrl(fetchUrl)) {
         fetchUrl += '/feedback-collector-api';
       } else if (!this.props.customFeedbackUrl) {
         fetchUrl = 'https://feedback-collector-api.services.atlassian.com';
       }
+
       const postData = Buffer.from(JSON.stringify(body)).toString('base64');
       fetch(`${fetchUrl}/v2/feedback`, {
         method: 'POST',
@@ -446,6 +458,7 @@ export default class FeedbackCollector extends Component<Props> {
   };
 
   render() {
+    const anonymousFeedback: boolean = !this.shouldShowOptInCheckboxes();
     return (
       <FeedbackForm
         customContent={this.props.customContent}
@@ -462,6 +475,7 @@ export default class FeedbackCollector extends Component<Props> {
         onSubmit={this.postFeedback}
         onClose={this.props.onClose}
         locale={this.props.locale}
+        anonymousFeedback={anonymousFeedback}
       />
     );
   }

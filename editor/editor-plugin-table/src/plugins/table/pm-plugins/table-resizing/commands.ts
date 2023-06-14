@@ -1,82 +1,13 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
-
-import { isTableSelected } from '@atlaskit/editor-tables/utils';
-
-import type { Command } from '@atlaskit/editor-common/types';
-import type { DomAtPos } from 'prosemirror-utils';
-import { updateColumnWidths } from '../../transforms';
-
-import { createCommand, getPluginState } from './plugin-factory';
-import {
-  evenAllColumnsWidths,
-  hasTableBeenResized,
-  isClickNear,
-  insertColgroupFromNode as recreateResizeColsByNode,
-  ResizeState,
-  scale,
-  ScaleOptions,
-  scaleWithParent,
-} from './utils';
-
 import { ContentNodeWithPos } from 'prosemirror-utils';
 
-// Scale the table to meet new requirements (col, layout change etc)
-export const scaleTable =
-  (
-    tableRef: HTMLTableElement | null | undefined,
-    options: ScaleOptions,
-    domAtPos: DomAtPos,
-  ): Command =>
-  (state, dispatch) => {
-    if (!tableRef) {
-      return false;
-    }
+import { isTableSelected } from '@atlaskit/editor-tables/utils';
+import type { Command } from '@atlaskit/editor-common/types';
 
-    const { node, start, parentWidth, layoutChanged } = options;
-
-    // If a table has not been resized yet, columns should be auto.
-    if (hasTableBeenResized(node) === false) {
-      // If its not a re-sized table, we still want to re-create cols
-      // To force reflow of columns upon delete.
-      recreateResizeColsByNode(tableRef, node);
-      return false;
-    }
-
-    let resizeState;
-    if (parentWidth) {
-      resizeState = scaleWithParent(
-        tableRef,
-        parentWidth,
-        node,
-        start,
-        domAtPos,
-      );
-    } else {
-      resizeState = scale(tableRef, options, domAtPos);
-    }
-
-    if (resizeState) {
-      let { tr } = state;
-      tr = updateColumnWidths(resizeState, node, start)(tr);
-
-      if (tr.docChanged && dispatch) {
-        tr.setMeta('scrollIntoView', false);
-        // TODO: ED-8995
-        // We need to do this check to reduce the number of race conditions when working with tables.
-        // This metadata is been used in the sendTransaction function in the Collab plugin
-        /* Added !layoutChanged check here to solve unnecessary scroll bar after publish when click on breakout button multiple times and publish
-           scaleTable is only called once every time a breakout button is clicked, so it is safe not to add the meta 'scaleTable' to the tr.
-           Leaving the tr.setMeta('scaleTable', true) here for race conditions that we aren't aware of.
-         */
-        !layoutChanged && tr.setMeta('scaleTable', true);
-        dispatch(tr);
-        return true;
-      }
-    }
-
-    return false;
-  };
+import { createCommand, getPluginState } from './plugin-factory';
+import { evenAllColumnsWidths, isClickNear, ResizeState } from './utils';
+import { updateColumnWidths } from '../../transforms';
 
 export const evenColumns =
   ({

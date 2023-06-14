@@ -448,6 +448,7 @@ export const floatingToolbar = (
       mediaLinkingState,
       state,
       intl,
+      pluginInjectionApi,
       providerFactory,
     );
     if (linkingToolbar) {

@@ -12,6 +12,7 @@ import Modal, {
   ModalHeader,
   ModalTitle,
 } from '@atlaskit/modal-dialog';
+import SectionMessage from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
 import { N500 } from '@atlaskit/theme/colors';
@@ -51,6 +52,8 @@ interface Props {
   locale?: string;
   /** Optional custom content */
   customContent?: React.ReactChild;
+  /** Optional parameter for showing contact opt-in checkboxes */
+  anonymousFeedback?: boolean;
 }
 
 export interface OptionType {
@@ -72,6 +75,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
   enrolInResearchLabel,
   submitButtonLabel,
   cancelButtonLabel,
+  anonymousFeedback,
 }) => {
   const [canBeContacted, setCanBeContacted] =
     useState<FormFields['canBeContacted']>(false);
@@ -228,45 +232,67 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                       />
                     )}
                   </Field>
-                  <Field name="can-be-contacted">
-                    {({ fieldProps }) => (
-                      <Checkbox
-                        {...fieldProps}
-                        label={
-                          canBeContactedLabel || (
-                            <FormattedMessage
-                              {...messages.canBeContactedLabel}
-                              values={{
-                                a: (chunks: string) => (
-                                  <a href="https://www.atlassian.com/legal/privacy-policy">
-                                    {chunks}
-                                  </a>
-                                ),
-                              }}
-                            />
-                          )
-                        }
-                        onChange={(event) =>
-                          setCanBeContacted(event.target.checked)
-                        }
-                      />
-                    )}
-                  </Field>
+                  {(!anonymousFeedback && (
+                    <>
+                      <Field name="can-be-contacted">
+                        {({ fieldProps }) => (
+                          <Checkbox
+                            {...fieldProps}
+                            label={
+                              canBeContactedLabel || (
+                                <FormattedMessage
+                                  {...messages.canBeContactedLabel}
+                                  values={{
+                                    a: (chunks: string) => (
+                                      <a href="https://www.atlassian.com/legal/privacy-policy">
+                                        {chunks}
+                                      </a>
+                                    ),
+                                  }}
+                                />
+                              )
+                            }
+                            onChange={(event) =>
+                              setCanBeContacted(event.target.checked)
+                            }
+                          />
+                        )}
+                      </Field>
 
-                  <Field name="enroll-in-research-group">
-                    {({ fieldProps }) => (
-                      <Checkbox
-                        {...fieldProps}
-                        label={
-                          enrolInResearchLabel ||
-                          formatMessage(messages.enrolInResearchLabel)
-                        }
-                        onChange={(event) =>
-                          setEnrollInResearchGroup(event.target.checked)
-                        }
-                      />
-                    )}
-                  </Field>
+                      <Field name="enroll-in-research-group">
+                        {({ fieldProps }) => (
+                          <Checkbox
+                            {...fieldProps}
+                            label={
+                              enrolInResearchLabel ||
+                              formatMessage(messages.enrolInResearchLabel)
+                            }
+                            onChange={(event) =>
+                              setEnrollInResearchGroup(event.target.checked)
+                            }
+                          />
+                        )}
+                      </Field>
+                    </>
+                  )) || (
+                    <>
+                      <Field
+                        name={'anonymousFeedback'}
+                        label={'anonymousFeedback'}
+                      >
+                        {() => (
+                          <SectionMessage
+                            title={formatMessage(
+                              messages.feedbackIsAnonymousTitle,
+                            )}
+                            appearance={'information'}
+                          >
+                            <p>{formatMessage(messages.feedbackIsAnonymous)}</p>
+                          </SectionMessage>
+                        )}
+                      </Field>
+                    </>
+                  )}
                 </>
               )}
             </ModalBody>

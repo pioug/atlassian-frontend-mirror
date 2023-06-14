@@ -5,21 +5,16 @@ import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import {
-  calcTableWidth,
-  tableMarginSides,
-} from '@atlaskit/editor-common/styles';
+import { tableMarginSides } from '@atlaskit/editor-common/styles';
 import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
 import {
   akEditorMobileBreakoutPoint,
   akEditorTableToolbarSize as tableToolbarSize,
 } from '@atlaskit/editor-shared-styles';
 
-import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
-import { parsePx } from '@atlaskit/editor-common/utils';
+import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
 
 import { autoSizeTable, clearHoverSelection } from '../commands';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -29,10 +24,10 @@ import {
   pluginKey as stickyHeadersPluginKey,
   StickyPluginState,
 } from '../pm-plugins/sticky-headers';
-import { scaleTable } from '../pm-plugins/table-resizing';
 import {
   getLayoutSize,
   insertColgroupFromNode as recreateResizeColsByNode,
+  scaleTable,
 } from '../pm-plugins/table-resizing/utils';
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
 
@@ -56,6 +51,7 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 
 import memoizeOne from 'memoize-one';
 import { OverflowShadowsObserver } from './OverflowShadowsObserver';
+import { TableContainer } from './TableContainer';
 
 const isIE11 = browser.ie_version === 11;
 const NOOP = () => undefined;
@@ -81,7 +77,6 @@ export interface ComponentProps {
 
 interface TableState {
   scroll: number;
-  tableContainerWidth: string;
   parentWidth?: number;
   isLoading: boolean;
   stickyHeader?: RowStickyState;
@@ -93,7 +88,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
   state: TableState = {
     scroll: 0,
-    tableContainerWidth: 'inherit',
     parentWidth: undefined,
     isLoading: true,
     [ShadowEvent.SHOW_BEFORE_SHADOW]: false,
@@ -157,7 +151,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
        * Instead we use the resize event to only trigger updates when necessary.
        */
       window.addEventListener('resize', this.handleWindowResizeDebounced);
-      this.updateTableContainerWidth();
       this.handleTableResizingDebounced();
     }
 
@@ -324,13 +317,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       isHeaderColumnEnabled,
       tableActive,
       containerWidth,
+      options,
+      getPos,
     } = this.props;
-    const {
-      isLoading,
-      tableContainerWidth,
-      showBeforeShadow,
-      showAfterShadow,
-    } = this.state;
+    const { isLoading, showBeforeShadow, showAfterShadow } = this.state;
     const node = getNode();
     // doesn't work well with WithPluginState
     const { isInDanger, hoveredRows } = getPluginState(view.state);
@@ -390,17 +380,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         )
       : NOOP;
 
-    if (getBooleanFF('platform.editor.custom-table-width')) {
-      // new table experience code goes here
-      // return <Resizer>...
-    }
-
     return (
-      <div
-        style={{
-          width: tableContainerWidth,
-          marginLeft: this.getMarginLeft(tableContainerWidth),
-        }}
+      <TableContainer
         className={classnames(ClassName.TABLE_CONTAINER, {
           [ClassName.WITH_CONTROLS]: allowControls && tableActive,
           [ClassName.TABLE_STICKY]: this.state.stickyHeader && hasHeaderRow,
@@ -408,8 +389,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           [ClassName.TABLE_SELECTED]: isTableSelected(view.state.selection),
           'less-padding': containerWidth.width < akEditorMobileBreakoutPoint,
         })}
-        data-number-column={node.attrs.isNumberColumnEnabled}
-        data-layout={node.attrs.layout}
+        editorView={view}
+        getPos={getPos}
+        node={node}
+        tableRef={tableRef!}
+        containerWidth={containerWidth}
+        isFullWidthModeEnabled={options?.isFullWidthModeEnabled}
+        isBreakoutEnabled={options?.isBreakoutEnabled}
       >
         {stickyHeadersOptimization && (
           <div
@@ -492,23 +478,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
             data-testid="sticky-sentinel-bottom"
           />
         )}
-      </div>
+      </TableContainer>
     );
   }
-
-  private getMarginLeft = (tableContainerCssWidth: string) => {
-    const { containerWidth } = this.props;
-    const { lineLength } = containerWidth;
-    let marginLeft;
-    if (tableContainerCssWidth !== 'inherit' && lineLength) {
-      const containerWidth = parsePx(tableContainerCssWidth);
-
-      if (containerWidth) {
-        marginLeft = (lineLength - containerWidth) / 2;
-      }
-    }
-    return marginLeft;
-  };
 
   private handleScroll = (event: Event) => {
     if (!this.wrapper || event.target !== this.wrapper) {
@@ -584,7 +556,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       this.updateParentWidth(parentWidth);
     }
 
-    this.updateTableContainerWidth();
     this.node = node;
     this.containerWidth = containerWidth;
     this.layoutSize = layoutSize;
@@ -598,6 +569,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const node = getNode();
     const { state, dispatch } = view;
     const pos = getPos();
+
     if (!isValidPosition(pos, state)) {
       return;
     }
@@ -606,7 +578,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
     this.scaleTableDebounced.cancel();
 
-    scaleTable(
+    const tr = scaleTable(
       this.table,
       {
         ...scaleOptions,
@@ -618,7 +590,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         ...options,
       },
       domAtPos,
-    )(state, dispatch);
+    )(state.tr);
+
+    dispatch(tr);
   };
 
   private handleAutoSize = () => {
@@ -656,36 +630,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     });
   };
 
-  private updateTableContainerWidth = () => {
-    const { getNode, containerWidth, options } = this.props;
-    const node = getNode();
-    if (options && options.isBreakoutEnabled === false) {
-      return;
-    }
-    const tableContainerWidth = calcTableWidth(
-      node.attrs.layout,
-      containerWidth.width,
-    );
-
-    if (this.state.tableContainerWidth === tableContainerWidth) {
-      return null;
-    }
-
-    this.setState((prevState: TableState) => {
-      if (
-        options &&
-        options.isBreakoutEnabled === false &&
-        prevState.tableContainerWidth !== 'inherit'
-      ) {
-        return { tableContainerWidth: 'inherit' };
-      }
-
-      return {
-        tableContainerWidth,
-      };
-    });
-  };
-
   private getParentNodeWidth = () => {
     const {
       getPos,
@@ -697,7 +641,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     if (!isValidPosition(pos, state)) {
       return;
     }
-
     const parentNodeWith = getParentNodeWidth(
       pos,
       state,

@@ -46,6 +46,8 @@ import mediaPlugin from '../../../media';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import selectionPlugin from '../../../selection';
+import floatingToolbarPlugin from '../../../floating-toolbar';
+
 import { hideCaretModifier } from '../../gap-cursor/styles';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -513,6 +515,7 @@ describe('gap-cursor', () => {
           .add(decorationsPlugin)
           .add(widthPlugin)
           .add(gridPlugin)
+          .add(floatingToolbarPlugin)
           .add([mediaPlugin, { allowMediaSingle: true }])
           .add(selectionPlugin),
       });

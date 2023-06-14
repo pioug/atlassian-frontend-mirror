@@ -26,6 +26,8 @@ import blockTypePlugin from '../../../block-type';
 import codeBlockTypePlugin from '../../../code-block';
 import emojiPlugin, { emojiPluginKey } from '../../../emoji';
 import panelPlugin from '../../../panel';
+import floatingToolbarPlugin from '../../../floating-toolbar';
+
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 
@@ -72,6 +74,7 @@ describe('lists plugin -> keymap', () => {
       .add(panelPlugin)
       .add(widthPlugin)
       .add(gridPlugin)
+      .add(floatingToolbarPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }]);
 
     return createEditor({

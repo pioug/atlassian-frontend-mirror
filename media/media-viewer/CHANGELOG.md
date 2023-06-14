@@ -1,5 +1,12 @@
 # @atlaskit/media-viewer
 
+## 48.0.6
+
+### Patch Changes
+
+- [`8b9680efe08`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b9680efe08) - Better logging of PDFjs errors
+- Updated dependencies
+
 ## 48.0.5
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 185.2.5
+
+### Patch Changes
+
+- [`b48d0a5f88f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b48d0a5f88f) - Create new placeholder for the floating toolbar plugin and use a new action to replace the forceFocusSelector action.
+- Updated dependencies
+
 ## 185.2.2
 
 ### Patch Changes

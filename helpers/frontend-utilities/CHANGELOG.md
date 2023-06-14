@@ -1,5 +1,11 @@
 # @af/frontend-utilities
 
+## 2.7.0
+
+### Minor Changes
+
+- [`2742de48f31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2742de48f31) - Added lightweight simple (insecure) hashing algorithm to frontend-utilities and use it for the remote-module-hashing.
+
 ## 2.6.2
 
 ### Patch Changes

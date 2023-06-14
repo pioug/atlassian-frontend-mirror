@@ -12,6 +12,7 @@ import { Spinner } from '../../loading';
 import ErrorMessage from '../../errorMessage';
 import { MediaViewerError } from '../../errors';
 import { ZoomLevel } from '../../domain/zoomLevel';
+import { processError } from './processError';
 
 export const pdfViewerClassName = 'pdfViewer';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage-spacing */
@@ -139,10 +140,7 @@ export class PDFRenderer extends React.Component<Props, State> {
         }
       });
     } catch (error) {
-      const pdfError = new MediaViewerError(
-        'docviewer-fetch-pdf',
-        error instanceof Error ? error : undefined,
-      );
+      const pdfError = processError(error);
       this.setState({
         doc: Outcome.failed(pdfError),
       });

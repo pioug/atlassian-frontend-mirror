@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "1.5.5",
+  "version": "1.6.1",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^25.8.0",
-    "@atlaskit/editor-common": "^74.6.0",
+    "@atlaskit/editor-common": "^74.7.0",
     "@atlaskit/editor-palette": "1.4.3",
     "@atlaskit/editor-plugin-analytics": "^0.0.2",
     "@atlaskit/editor-plugin-content-insertion": "^0.0.2",
@@ -76,6 +76,7 @@
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/feature-flags-test-utils": "^0.1.2",
     "@testing-library/react": "^12.1.5",
     "@types/prosemirror-history": "^1.0.1",
     "prosemirror-history": "^1.1.3",

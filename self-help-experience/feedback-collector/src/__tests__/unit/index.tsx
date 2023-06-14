@@ -39,7 +39,6 @@ describe('Feedback Collector unit tests', () => {
         <FeedbackCollector
           onClose={() => {}}
           onSubmit={() => {}}
-          email="email"
           name="name"
           entrypointId="entrypoint_id"
         />,
@@ -53,11 +52,7 @@ describe('Feedback Collector unit tests', () => {
 
       beforeEach(() => {
         wrapper = mount(
-          <FeedbackCollector
-            email="email"
-            name="name"
-            entrypointId="entrypoint_id"
-          />,
+          <FeedbackCollector name="name" entrypointId="entrypoint_id" />,
         );
       });
 
@@ -90,12 +85,8 @@ describe('Feedback Collector unit tests', () => {
               value: '',
             },
             {
-              id: 'email',
-              value: 'do-not-reply@atlassian.com',
-            },
-            {
               id: 'aaidOrHash',
-              value: 'ZG8tbm90LXJlcGx5QGF0bGFzc2lhbi5jb20=',
+              value: undefined,
             },
             {
               id: 'customfield_10045',
@@ -142,12 +133,8 @@ describe('Feedback Collector unit tests', () => {
               value: 'some text',
             },
             {
-              id: 'email',
-              value: 'do-not-reply@atlassian.com',
-            },
-            {
               id: 'aaidOrHash',
-              value: 'ZG8tbm90LXJlcGx5QGF0bGFzc2lhbi5jb20=',
+              value: undefined,
             },
             {
               id: 'customfield_10045',
@@ -194,12 +181,8 @@ describe('Feedback Collector unit tests', () => {
               value: 'some text',
             },
             {
-              id: 'email',
-              value: 'email',
-            },
-            {
               id: 'aaidOrHash',
-              value: 'ZW1haWw=',
+              value: undefined,
             },
             {
               id: 'customfield_10045',
@@ -246,12 +229,8 @@ describe('Feedback Collector unit tests', () => {
               value: 'some text',
             },
             {
-              id: 'email',
-              value: 'email',
-            },
-            {
               id: 'aaidOrHash',
-              value: 'ZW1haWw=',
+              value: undefined,
             },
             {
               id: 'customfield_10045',
@@ -288,7 +267,6 @@ describe('Feedback Collector unit tests', () => {
       beforeEach(() => {
         wrapper = mount(
           <FeedbackCollector
-            email="email"
             name="name"
             entrypointId="entrypoint_id"
             showTypeField={false}
@@ -319,12 +297,8 @@ describe('Feedback Collector unit tests', () => {
               value: 'some text',
             },
             {
-              id: 'email',
-              value: 'email',
-            },
-            {
               id: 'aaidOrHash',
-              value: 'ZW1haWw=',
+              value: undefined,
             },
             {
               id: 'customfield_10045',
@@ -354,6 +328,129 @@ describe('Feedback Collector unit tests', () => {
         expect(resultJsd).toEqual(resultValues);
       });
 
+      test('should add context with email', async () => {
+        const formValues: FormFields = {
+          type: 'question',
+          description: 'some text',
+          canBeContacted: true,
+          enrollInResearchGroup: true,
+        };
+        wrapper.setProps({
+          email: 'test@test.com',
+        });
+
+        const resultValues = {
+          fields: [
+            {
+              id: 'summary',
+              value: 'some text',
+            },
+            {
+              id: 'description',
+              value: 'some text',
+            },
+            {
+              id: 'aaidOrHash',
+              value: undefined,
+            },
+            {
+              id: 'customfield_10045',
+              value: 'name',
+            },
+            {
+              id: 'customfield_10043',
+              value: [
+                {
+                  id: '10109',
+                },
+              ],
+            },
+            {
+              id: 'customfield_10044',
+              value: [
+                {
+                  id: '10110',
+                },
+              ],
+            },
+            {
+              id: 'customfield_10047',
+              value: 'email: test@test.com',
+            },
+          ],
+        };
+
+        const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+
+        expect(resultJsd).toEqual(resultValues);
+      });
+
+      test('should add email to existing context', async () => {
+        const formValues: FormFields = {
+          type: 'question',
+          description: 'some text',
+          canBeContacted: true,
+          enrollInResearchGroup: true,
+        };
+        wrapper.setProps({
+          email: 'test@test.com',
+          additionalFields: [
+            {
+              id: 'customfield_10047',
+              value: `This is a test
+          We have some formatting here`,
+            },
+          ],
+        });
+
+        const resultValues = {
+          fields: [
+            {
+              id: 'summary',
+              value: 'some text',
+            },
+            {
+              id: 'description',
+              value: 'some text',
+            },
+            {
+              id: 'aaidOrHash',
+              value: undefined,
+            },
+            {
+              id: 'customfield_10045',
+              value: 'name',
+            },
+            {
+              id: 'customfield_10043',
+              value: [
+                {
+                  id: '10109',
+                },
+              ],
+            },
+            {
+              id: 'customfield_10044',
+              value: [
+                {
+                  id: '10110',
+                },
+              ],
+            },
+            {
+              id: 'customfield_10047',
+              value: `This is a test
+          We have some formatting here
+        email: test@test.com`,
+            },
+          ],
+        };
+
+        const resultJsd = await wrapper.instance().mapFormToJSD(formValues);
+
+        expect(resultJsd).toEqual(resultValues);
+      });
+
       test('Should not render Select in the component', () => {
         expect(wrapper.contains('Select')).toBeFalsy();
       });
@@ -369,7 +466,6 @@ describe('Feedback Collector unit tests', () => {
       beforeEach(() => {
         wrapper = mount(
           <FeedbackCollector
-            email="email"
             name="name"
             entrypointId="entrypoint_id"
             showTypeField={false}
@@ -403,16 +499,50 @@ describe('Feedback Collector unit tests', () => {
         expect(wrapper.find('#test-preamble-content').text()).toEqual(
           customPreamble,
         );
-        expect(wrapper.find('#test-contacted-content').text()).toEqual(
-          customCanContact,
-        );
-        expect(wrapper.find('#test-research-content').text()).toEqual(
-          customEnroll,
-        );
       });
 
       test('Should render the custom copy in the component with reason select', () => {
         wrapper.setProps({
+          showTypeField: true,
+          submitButtonLabel: 'Submit Button',
+          cancelButtonLabel: 'Cancel Button',
+          feedbackGroupLabels: customFieldRecords,
+        });
+
+        const { options, defaultValue } = wrapper.find(Select).props();
+        const feedbackFormWrapper = wrapper.find(FeedbackForm);
+
+        expect(wrapper.find('button')).toBeTruthy();
+        expect(wrapper.find('button').length).toBe(3); // now includes 'x'
+        wrapper
+          .find('button')
+          ?.slice(1)
+          .forEach((action, index) => {
+            expect(action.text()).toEqual(expectedButtonLabels[index]);
+          });
+
+        expect(wrapper.find(Select)).toBeTruthy();
+        expect(defaultValue).toEqual(emptyOptionData);
+        expect(options).toEqual(customOptionsData);
+        for (const [key, value] of Object.entries(customFieldRecords)) {
+          if (key !== 'empty') {
+            act(() => {
+              feedbackFormWrapper.find(Select).props().onChange({ value: key });
+            });
+            feedbackFormWrapper.update();
+            expect(wrapper.find(Field).at(0).props().label).toBe(
+              value.fieldLabel,
+            );
+            expect(wrapper.find('#test-preamble-content').text()).toEqual(
+              customPreamble,
+            );
+          }
+        }
+      });
+
+      test('Should render the custom copy in the component with reason select and aaid', () => {
+        wrapper.setProps({
+          atlassianAccountId: 'aaid',
           showTypeField: true,
           submitButtonLabel: 'Submit Button',
           cancelButtonLabel: 'Cancel Button',
@@ -479,7 +609,6 @@ describe('Feedback Collector unit tests', () => {
             onClose={() => wrapper.unmount()}
             onSubmit={onSubmit}
             timeoutOnSubmit={timeoutOnSubmit}
-            email="email"
             name="name"
             entrypointId=""
           />,
@@ -525,7 +654,6 @@ describe('Feedback Collector unit tests', () => {
               onClose={() => wrapper.unmount()}
               onSubmit={onSubmit}
               timeoutOnSubmit={timeoutOnSubmit}
-              email="email"
               name="name"
               entrypointId="some-id"
               url={url}
@@ -577,6 +705,7 @@ describe('Feedback Collector unit tests', () => {
               entrypointId="entrypoint_id"
               url={url}
               showTypeField={false}
+              atlassianAccountId={'12345'}
             />,
           );
           const textarea = screen.getByPlaceholderText(
@@ -605,7 +734,7 @@ describe('Feedback Collector unit tests', () => {
         'Should correctly determine feedback url based on passed parameters',
         async ({ url, customFeedbackUrl, expected }) => {
           fetchMock.mockClear();
-          const mocked = fetchMock.mockResponseOnce(
+          const mocked = fetchMock.mockResponse(
             JSON.stringify({
               status: 'OK',
               message: 'Successfully collected and dispatched Feedback',
@@ -630,12 +759,12 @@ describe('Feedback Collector unit tests', () => {
           });
           fireEvent.click(submitBtn);
           await waitFor(() => {
-            expect(mocked.mock.calls?.[0]?.[0]).toBe(expected);
+            expect(mocked.mock.calls?.[2]?.[0]).toBe(expected);
           });
         },
       );
 
-      test('should not send requests for email and entitlement if shouldGetEntitlementDetails is false', async () => {
+      test('should not send requests for entitlement if shouldGetEntitlementDetails is false', async () => {
         class TestableFeedbackCollector extends FeedbackCollector {}
 
         const onSubmit = jest.fn();
@@ -646,7 +775,6 @@ describe('Feedback Collector unit tests', () => {
             onClose={() => wrapper.unmount()}
             onSubmit={onSubmit}
             timeoutOnSubmit={timeoutOnSubmit}
-            email="email"
             name="name"
             entrypointId="entrypoint_id"
             customFeedbackUrl={'/custom-feedback-url'}
@@ -700,6 +828,22 @@ describe('Feedback Collector unit tests', () => {
       expect(wrapper.find(Checkbox)).toHaveLength(0);
     });
 
+    test('FeedbackForm should render textarea when something is selected', () => {
+      const wrapper = mount(
+        <FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
+      );
+
+      act(() => {
+        wrapper.find(Select).props().onChange({ value: 'comment' });
+      });
+
+      // explicitly update the wrapper to ensure the subsequent renders are flushed.
+      wrapper.update();
+
+      expect(wrapper.find(Select)).toHaveLength(1);
+      expect(wrapper.find('textarea')).toHaveLength(1);
+    });
+
     test('FeedbackForm should render checkboxes and textarea when something is selected', () => {
       const wrapper = mount(
         <FeedbackForm onClose={() => {}} onSubmit={async () => {}} />,
@@ -715,6 +859,24 @@ describe('Feedback Collector unit tests', () => {
       expect(wrapper.find(Select)).toHaveLength(1);
       expect(wrapper.find('textarea')).toHaveLength(1);
       expect(wrapper.find(Checkbox)).toHaveLength(2);
+    });
+
+    test('FeedbackForm should render textarea and anon panel when something is selected', () => {
+      const wrapper = mount(
+        <FeedbackForm
+          onClose={() => {}}
+          onSubmit={async () => {}}
+          anonymousFeedback={true}
+        />,
+      );
+      act(() => {
+        wrapper.find(Select).props().onChange({ value: 'question' });
+      });
+
+      wrapper.update();
+      expect(wrapper.find(Select)).toHaveLength(1);
+      expect(wrapper.find('textarea')).toHaveLength(1);
+      expect(wrapper.find(Field).at(1).props().label).toBe('anonymousFeedback');
     });
 
     test('should render a field label based on type', () => {

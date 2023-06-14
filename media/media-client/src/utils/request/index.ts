@@ -7,7 +7,7 @@ export type {
 } from './types';
 
 export { RequestError, isRequestError } from './errors';
-export { isRateLimitedError } from './helpers';
+export { isRateLimitedError, createRequestErrorReason } from './helpers';
 
 import {
   createUrl,

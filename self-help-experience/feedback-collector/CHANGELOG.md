@@ -1,5 +1,12 @@
 # @atlaskit/feedback-collector
 
+## 13.0.0
+
+### Major Changes
+
+- [`a823baa34dc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a823baa34dc) - Only send Atlassian Account ID, never use hashed email
+  The `email` property has been removed, only an Atlassian Account ID will ever be sent in `aaidOrHash` to avoid interception and submitting feedback as another user.
+
 ## 12.2.3
 
 ### Patch Changes

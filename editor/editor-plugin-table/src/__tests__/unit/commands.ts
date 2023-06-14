@@ -59,6 +59,8 @@ import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
 import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
+import floatingToolbarPlugin from '@atlaskit/editor-core/src/plugins/floating-toolbar';
+
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import textFormattingPlugin from '@atlaskit/editor-core/src/plugins/text-formatting';
@@ -94,6 +96,7 @@ describe('table plugin: actions', () => {
         .add(panelPlugin)
         .add(textFormattingPlugin)
         .add(extensionPlugin)
+        .add(floatingToolbarPlugin)
         .add([mediaPlugin, { allowMediaSingle: true }])
         .add(expandPlugin),
       pluginKey,

@@ -169,7 +169,7 @@ const tablesPlugin: NextEditorPlugin<
             } =
               options ||
               ({
-                editorAnalyticsAPI: api?.dependencies.analytics.actions,
+                editorAnalyticsAPI: api?.dependencies.analytics?.actions,
               } as TablePluginOptions);
             return createPlugin(
               dispatchAnalyticsEvent,
@@ -347,6 +347,26 @@ const tablesPlugin: NextEditorPlugin<
                 ? findStickyHeaderForTable(stickyHeadersState, tablePos)
                 : undefined;
 
+              const LayoutContent = getBooleanFF(
+                'platform.editor.custom-table-width',
+              ) ? null : isLayoutSupported(state) &&
+                options &&
+                options.breakoutEnabled ? (
+                <LayoutButton
+                  editorView={editorView}
+                  mountPoint={popupsMountPoint}
+                  boundariesElement={popupsBoundariesElement}
+                  scrollableElement={popupsScrollableElement}
+                  targetRef={tableWrapperTarget!}
+                  layout={layout}
+                  isResizing={
+                    !!resizingPluginState && !!resizingPluginState.dragging
+                  }
+                  stickyHeader={stickyHeader}
+                  editorAnalyticsAPI={options?.editorAnalyticsAPI}
+                />
+              ) : null;
+
               return (
                 <>
                   {targetCellPosition &&
@@ -416,24 +436,7 @@ const tablesPlugin: NextEditorPlugin<
                       editorAnalyticsAPI={options?.editorAnalyticsAPI}
                     />
                   )}
-                  {isLayoutSupported(state) &&
-                    options &&
-                    options.breakoutEnabled && (
-                      <LayoutButton
-                        editorView={editorView}
-                        mountPoint={popupsMountPoint}
-                        boundariesElement={popupsBoundariesElement}
-                        scrollableElement={popupsScrollableElement}
-                        targetRef={tableWrapperTarget!}
-                        layout={layout}
-                        isResizing={
-                          !!resizingPluginState &&
-                          !!resizingPluginState.dragging
-                        }
-                        stickyHeader={stickyHeader}
-                        editorAnalyticsAPI={options?.editorAnalyticsAPI}
-                      />
-                    )}
+                  {LayoutContent}
                 </>
               );
             }}

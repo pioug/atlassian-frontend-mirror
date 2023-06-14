@@ -48,6 +48,7 @@ import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { MediaPluginState } from './pm-plugins/types';
 import { stateKey } from './pm-plugins/plugin-key';
+import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
@@ -62,6 +63,7 @@ const mediaPlugin: NextEditorPlugin<
       typeof gridPlugin,
       typeof widthPlugin,
       typeof decorationsPlugin,
+      FloatingToolbarPlugin,
     ];
     sharedState: MediaPluginState | null;
   }

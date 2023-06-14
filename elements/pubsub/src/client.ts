@@ -63,6 +63,7 @@ export class Client implements ActionablePubSubClient {
             config.apsProtocol?.url,
             config.apsProtocol?.preferredTransport,
             config.apsProtocol?.skipFallback,
+            config.analyticsClient,
           ),
         );
       }

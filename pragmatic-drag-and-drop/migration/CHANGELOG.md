@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.14.0
+
+### Minor Changes
+
+- [`f32aef7bfed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f32aef7bfed) - [ux] Adds a grab cursor when hovering over draggable elements. Also adds other styles provided by the `react-beautiful-dnd` style marshal.
+
 ## 0.13.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.24.0
+
+### Minor Changes
+
+- [`5a810cbc8c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a810cbc8c7) - Adds internal MessagesProvider behind `platform.linking-platform.link-picker.lazy-intl-messages` feature flag which, when enabled, lazy loads and self-provides messages for the current locale (as defined by a parent `IntlProvider`).
+
 ## 1.23.2
 
 ### Patch Changes

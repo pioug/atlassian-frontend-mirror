@@ -1,19 +1,22 @@
-import { logDebug, logError } from '../../../../util/logger';
+import { logDebug } from '../../../../util/logger';
 import { EventType } from '../../../../types';
 import WebsocketClient from './websocketClient';
 import { MessageData } from '../../types';
 import { APSTransport, APSTransportParams } from '../index';
 import { APSTransportType } from '../../../../apiTypes';
+import { APSAnalyticsClient } from '../../APSAnalyticsClient';
 
 export default class WebsocketTransport implements APSTransport {
   private readonly activeChannels = new Set<string>();
   private readonly eventEmitter;
+  private readonly analyticsClient: APSAnalyticsClient;
   private websocketClient?: WebsocketClient;
   readonly url: URL;
 
   constructor(params: APSTransportParams) {
     this.url = WebsocketTransport.toWssUrl(params.url);
     this.eventEmitter = params.eventEmitter;
+    this.analyticsClient = params.analyticsClient;
   }
 
   transportType() {
@@ -28,13 +31,16 @@ export default class WebsocketTransport implements APSTransport {
       (channelName) => !channels.has(channelName),
     );
 
+    newChannels.forEach((channel) => this.activeChannels.add(channel));
+    removedChannels.forEach((channel) => this.activeChannels.delete(channel));
+
     if (!this.websocketClient) {
       this.websocketClient = new WebsocketClient({
         url: this.url,
         onOpen: () => {
           this.eventEmitter.emit(EventType.NETWORK_UP, {});
         },
-        onMessage: (event: any) => {
+        onMessage: (event: MessageEvent) => {
           const data = JSON.parse(event.data) as MessageData;
 
           if (data.type === 'CHANNEL_ACCESS_DENIED') {
@@ -44,19 +50,28 @@ export default class WebsocketTransport implements APSTransport {
 
           this.eventEmitter.emit(EventType.MESSAGE, data.type, data.payload);
         },
-        onClose: (event: any) => {
-          logDebug('Websocket connection closed', event);
+        onClose: (event: CloseEvent) => {
+          if (event.code !== 1000) {
+            // 1000 is "normal closure"
+            this.analyticsClient.sendEvent('aps-ws', 'unexpected close', {
+              code: event.code,
+              wasClean: event.wasClean,
+              reason: event.reason,
+            });
+          }
+
           this.eventEmitter.emit(EventType.NETWORK_DOWN, {});
         },
-        onError: (event: any) => {
-          logError('Websocket connection closed due to error', event);
-          throw new Error('Websocket connection closed due to error');
+        onMessageSendError: (readyState: number) => {
+          this.analyticsClient.sendEvent('aps-ws', 'error sending message', {
+            readyState,
+          });
+        },
+        onError: (event: ErrorEvent) => {
+          logDebug('Websocket connection closed due to error', event);
         },
       });
     }
-
-    newChannels.forEach((channel) => this.activeChannels.add(channel));
-    removedChannels.forEach((channel) => this.activeChannels.delete(channel));
 
     if (newChannels.length > 0) {
       this.websocketClient.send({

@@ -12,7 +12,7 @@ interface State {
 
 const ENTRYPOINT_ID: string = 'e0d501eb-7386-4ba7-aedc-68dc1dde485a';
 const name: string = 'Feedback Sender';
-const email: string = 'fsender@atlassian.com';
+const aaid: string = 'test-aaid';
 
 class DisplayFeedback extends Component<{}, State> {
   state = { isOpen: false, displayFlag: false };
@@ -38,7 +38,7 @@ class DisplayFeedback extends Component<{}, State> {
             url={'https://api-private.atlassian.com'}
             onClose={this.close}
             onSubmit={this.displayFlag}
-            email={email}
+            atlassianAccountId={aaid}
             name={name}
             entrypointId={ENTRYPOINT_ID}
           />

@@ -48,6 +48,7 @@ import { inlineCommentProvider } from '../_utils';
 import mediaPlugin from '../../../media';
 import codeBlockPlugin from '../../../code-block';
 import blockTypePlugin from '../../../block-type';
+import floatingToolbarPlugin from '../../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import panelPlugin from '../../../panel';
@@ -74,6 +75,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
   .add(blockTypePlugin)
   .add(widthPlugin)
   .add(gridPlugin)
+  .add(floatingToolbarPlugin)
   .add([
     mediaPlugin,
     {

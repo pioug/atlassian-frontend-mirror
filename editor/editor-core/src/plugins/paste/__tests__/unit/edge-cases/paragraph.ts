@@ -43,6 +43,8 @@ import { default as textFormattingPlugin } from '../../../../text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
+import floatingToolbarPlugin from '../../../../floating-toolbar';
+
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -70,6 +72,7 @@ describe('paste paragraph edge cases', () => {
         .add(tablesPlugin)
         .add(layoutPlugin)
         .add(gridPlugin)
+        .add(floatingToolbarPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([mediaPlugin, { allowMediaSingle: true }])
         .add(panelPlugin),

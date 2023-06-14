@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 23.1.0
+
+### Minor Changes
+
+- [`195c473dd37`](https://bitbucket.org/atlassian/atlassian-frontend/commits/195c473dd37) - Exposed helper to create Request errors externally
+
 ## 23.0.2
 
 ### Patch Changes

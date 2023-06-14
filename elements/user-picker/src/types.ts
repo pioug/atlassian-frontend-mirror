@@ -103,6 +103,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
    * If message is undefined, default message will be displayed.
    */
   noOptionsMessage?: ((value: { inputValue: string }) => string | null) | null;
+  /** Footer to be displayed in MenuList */
+  footer?: React.ReactNode;
   /** Controls if the user picker has a value or not. If not provided, UserPicker will control the value internally. */
   value?: Value;
   /** Disable all interactions with the picker, putting it in a read-only state. */

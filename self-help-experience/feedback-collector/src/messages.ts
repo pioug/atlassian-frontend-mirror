@@ -108,4 +108,15 @@ export const messages = defineMessages({
     defaultMessage: 'Thanks!',
     description: 'Button to dismiss successflag flag after submitting feedback',
   },
+  feedbackIsAnonymousTitle: {
+    id: 'feedback-collector.anonymous.title',
+    defaultMessage: 'Anonymous feedback',
+    description: 'Section message title for anonymous feedback',
+  },
+  feedbackIsAnonymous: {
+    id: 'feedback-collector.anonymous',
+    defaultMessage:
+      'This feedback is being submitted anonymously. Atlassian will not be able to contact you directly regarding this feedback',
+    description: 'Notice that feedback is anonymous',
+  },
 });

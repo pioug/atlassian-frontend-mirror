@@ -18,7 +18,6 @@ import { Popup } from '@atlaskit/editor-common/ui';
 import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 
 import WithPluginState from '../../ui/WithPluginState';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Dispatch } from '../../event-dispatcher';
 import {
   DispatchAnalyticsEvent,
@@ -48,9 +47,8 @@ import { findNode } from './utils';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
 import { IntlShape } from 'react-intl-next';
 import { processCopyButtonItems } from '../copy-button/toolbar';
-import forceFocusPlugin from './pm-plugins/force-focus';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import forceFocusPlugin, { forceFocusSelector } from './pm-plugins/force-focus';
+import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 
 export type FloatingToolbarPluginState = Record<
   'getConfigWithNodeInfo',
@@ -160,12 +158,7 @@ function filterUndefined<T>(x?: T): x is T {
   return !!x;
 }
 
-const floatingToolbarPlugin: NextEditorPlugin<
-  'floatingToolbar',
-  {
-    dependencies: [typeof featureFlagsPlugin, typeof decorationsPlugin];
-  }
-> = (_, api) => {
+const floatingToolbarPlugin: FloatingToolbarPlugin = (_, api) => {
   const featureFlags =
     api?.dependencies?.featureFlags?.sharedState.currentState() || {};
   return {
@@ -193,6 +186,10 @@ const floatingToolbarPlugin: NextEditorPlugin<
           plugin: () => forceFocusPlugin(),
         },
       ];
+    },
+
+    actions: {
+      forceFocusSelector,
     },
 
     contentComponent({

@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.12.1
+
+### Patch Changes
+
+- [`3f273cdd54f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3f273cdd54f) - Allow for an Inline list item.
+
 ## 0.12.0
 
 ### Minor Changes

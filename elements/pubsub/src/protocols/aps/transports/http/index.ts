@@ -2,11 +2,14 @@ import { APSTransport, APSTransportParams } from '../index';
 import { EventType } from '../../../../types';
 import { logDebug, logError } from '../../../../util/logger';
 import { APSTransportType } from '../../../../apiTypes';
+import { APSAnalyticsClient } from '../../APSAnalyticsClient';
 
 export default class HttpTransport implements APSTransport {
   private static readonly MSG_BOUNDARY = '\n';
   private static readonly PARAM_SUBSCRIBE_TO_CHANNELS = 'subscribeToChannels';
   private static readonly PARAM_REPLAY_FROM = 'replayFrom';
+  private readonly analyticsClient: APSAnalyticsClient;
+
   readonly baseUrl: URL;
   private readonly eventEmitter;
   private networkUp: boolean = false;
@@ -17,6 +20,7 @@ export default class HttpTransport implements APSTransport {
   constructor(params: APSTransportParams) {
     this.baseUrl = params.url;
     this.eventEmitter = params.eventEmitter;
+    this.analyticsClient = params.analyticsClient;
   }
 
   transportType() {
@@ -24,6 +28,13 @@ export default class HttpTransport implements APSTransport {
   }
 
   subscribe(channels: Set<string>) {
+    if (channels == null || channels.size === 0) {
+      logDebug(
+        'channel list is null or empty. HTTP request is not going to be sent.',
+      );
+      return;
+    }
+
     const url = new URL(this.baseUrl);
     url.searchParams.set(
       // The list of channels to subscribe to is passed as a query parameter.
@@ -141,7 +152,9 @@ export default class HttpTransport implements APSTransport {
     const reader = response?.body?.getReader();
 
     if (reader === null || reader === undefined) {
-      throw Error('Response body from APS request was null');
+      this.analyticsClient.sendEvent('aps-http', 'null response');
+      logDebug('Response body from APS request was null');
+      return;
     }
 
     const decoder = new TextDecoder();

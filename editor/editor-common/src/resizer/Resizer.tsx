@@ -64,6 +64,8 @@ export type ResizerProps = {
 
   // This is the method that should be used by the resizer when positioning the handles
   handleAlignmentMethod?: HandleAlignmentMethod;
+  // Ratio that will scale the delta by
+  resizeRatio?: number;
 };
 
 export default function ResizerNext(
@@ -77,6 +79,7 @@ export default function ResizerNext(
     handleResizeStop,
     handlerHeightSize = 'medium',
     handleAlignmentMethod = 'center',
+    resizeRatio = 1,
   } = props;
 
   const onResizeStart = React.useCallback(
@@ -191,6 +194,7 @@ export default function ResizerNext(
       onResizeStart={onResizeStart}
       onResize={onResize}
       onResizeStop={onResizeStop}
+      resizeRatio={resizeRatio}
     >
       {props.children}
     </Resizable>

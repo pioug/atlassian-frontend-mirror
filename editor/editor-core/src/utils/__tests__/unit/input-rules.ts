@@ -16,6 +16,8 @@ import {
 import listPlugin from '../../../plugins/list';
 import basePlugin from '../../../plugins/base';
 import mediaPlugin from '../../../plugins/media';
+import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
+
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 
@@ -42,6 +44,7 @@ describe('createWrappingJoinRule()', () => {
         .add(alignmentPlugin)
         .add(widthPlugin)
         .add(gridPlugin)
+        .add(floatingToolbarPlugin)
         .add([mediaPlugin, { allowMediaSingle: true }]),
     });
     return editorTemp;

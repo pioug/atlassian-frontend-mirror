@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/frontend-utilities",
-  "version": "2.6.2",
+  "version": "2.7.0",
   "description": "Collecton of small useful frontend utilities",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -37,7 +37,8 @@
     "./use-previous": "./src/hooks/use-previous/index.ts",
     "./retry-operation": "./src/network/retry-operation/index.ts",
     "./local-storage": "./src/storage/local-storage/index.ts",
-    "./storage-client": "./src/storage/storage-client/index.ts"
+    "./storage-client": "./src/storage/storage-client/index.ts",
+    "./simple-hash": "./src/utils/simple-hash/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

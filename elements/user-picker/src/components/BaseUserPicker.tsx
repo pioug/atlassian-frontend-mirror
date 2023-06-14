@@ -542,6 +542,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       loadOptionsErrorMessage,
       addMoreMessage,
       noOptionsMessage,
+      footer,
       disableInput,
       components,
       pickerProps,
@@ -599,6 +600,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
         noOptionsMessage={
           showError ? loadOptionsErrorMessage : noOptionsMessage
         }
+        footer={footer}
         openMenuOnFocus
         isDisabled={isDisabled}
         isFocused={menuIsOpen}

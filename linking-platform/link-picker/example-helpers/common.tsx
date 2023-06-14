@@ -5,8 +5,6 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { ufologger } from '@atlaskit/ufo';
 import { LanguagePicker } from './LanguagePicker';
 import languages from '../src/i18n/languages';
-import enMessages from '../src/i18n/en';
-import { getTranslations } from './get-translations';
 
 interface WrapperProps {
   children: ReactNode;
@@ -21,20 +19,14 @@ export function PageWrapper({
 }: WrapperProps) {
   ufologger.enable();
   const [locale, setLocale] = useState('en');
-  const [messages, setMessages] = useState<messages>(enMessages);
 
   const getProperLanguageKey = (locale: string) => locale.replace('_', '-');
-
-  const loadLocale = async (locale: string) => {
-    await getTranslations(locale).then(setMessages);
-    setLocale(getProperLanguageKey(locale));
-  };
 
   const languagePicker = isLanguagePickerVisible && (
     <LanguagePicker
       locale={locale}
       languages={languages}
-      onChange={loadLocale}
+      onChange={locale => setLocale(getProperLanguageKey(locale))}
     />
   );
 
@@ -47,9 +39,7 @@ export function PageWrapper({
     >
       <div className="example" style={{ padding: 50 }}>
         {languagePicker}
-        <IntlProvider locale={locale} messages={messages}>
-          {children}
-        </IntlProvider>
+        <IntlProvider locale={locale}>{children}</IntlProvider>
       </div>
     </SmartCardProvider>
   );

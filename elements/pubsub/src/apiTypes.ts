@@ -34,6 +34,10 @@ export enum APSTransportType {
   WEBSOCKET = 'WEBSOCKET',
 }
 
+export interface AnalyticsWebClient {
+  sendOperationalEvent: Function;
+}
+
 export interface PubSubClientConfig extends ServiceConfig {
   product: string;
   apsProtocol?: {
@@ -58,4 +62,5 @@ export interface PubSubClientConfig extends ServiceConfig {
   featureFlags?: {
     [key: string]: boolean;
   };
+  analyticsClient?: AnalyticsWebClient;
 }

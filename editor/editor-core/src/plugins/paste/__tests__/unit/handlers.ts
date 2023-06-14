@@ -68,6 +68,8 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
 import rulePlugin from '../../../rule';
+import floatingToolbarPlugin from '../../../floating-toolbar';
+
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -1700,6 +1702,7 @@ describe('handlePasteIntoCaption', () => {
         .add(captionPlugin)
         .add(widthPlugin)
         .add(gridPlugin)
+        .add(floatingToolbarPlugin)
         .add([
           mediaPlugin,
           { allowMediaSingle: true, featureFlags: { captions: true } },

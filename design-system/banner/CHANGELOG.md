@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 12.1.7
+
+### Patch Changes
+
+- [`529814693a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/529814693a1) - Pin version of @atlaskit/primitives so it resolves to correct version
+
 ## 12.1.6
 
 ### Patch Changes

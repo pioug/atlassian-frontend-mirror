@@ -75,7 +75,7 @@
     "@atlaskit/task-decision": "^17.6.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.5.0",
-    "@atlaskit/user-picker": "^10.2.0",
+    "@atlaskit/user-picker": "^10.3.0",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

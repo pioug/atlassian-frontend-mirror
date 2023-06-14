@@ -43,6 +43,7 @@ import cardPlugin from '../../../card';
 import emojiPlugin from '../../../emoji';
 import hyperlinkPlugin from '../../index';
 import textFormattingPlugin from '../../../text-formatting';
+import floatingToolbarPlugin from '../../../floating-toolbar';
 import codeBlockPlugin from '../../../code-block';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -84,6 +85,7 @@ describe('hyperlink commands', () => {
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(widthPlugin)
         .add(gridPlugin)
+        .add(floatingToolbarPlugin)
         .add([
           cardPlugin,
           { provider: Promise.resolve(cardProvider), platform: 'web' },

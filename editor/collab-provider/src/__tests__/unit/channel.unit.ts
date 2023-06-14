@@ -674,7 +674,7 @@ describe('Channel unit tests', () => {
       channel = getChannel(configuration);
       // Before connected
       expect(permissionTokenRefresh).toBeCalledTimes(1);
-      //wait for permissionTokenRefresh promise to resolve to set the token in channel
+      // wait for permissionTokenRefresh promise to resolve to set the token in channel
       await new Promise(process.nextTick);
       expect((channel.getSocket() as any)?._authCb).toHaveBeenCalledWith({
         initialized: false,

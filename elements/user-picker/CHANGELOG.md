@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.3.0
+
+### Minor Changes
+
+- [`413f440129c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/413f440129c) - [ux] Customised Menu component to allow users to include a footer in the dropdown list
+
 ## 10.2.5
 
 ### Patch Changes

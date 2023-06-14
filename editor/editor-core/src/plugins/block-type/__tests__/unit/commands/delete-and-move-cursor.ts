@@ -24,6 +24,8 @@ import codeBlockPlugin from '../../../../code-block';
 import layoutPlugin from '../../../../layout';
 import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
+import floatingToolbarPlugin from '../../../../floating-toolbar';
+
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -45,6 +47,7 @@ describe('delete behaviour - cursor position after delete', () => {
       .add(layoutPlugin)
       .add(widthPlugin)
       .add(gridPlugin)
+      .add(floatingToolbarPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(tablesPlugin)
       .add(panelPlugin);

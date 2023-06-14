@@ -12,7 +12,7 @@ interface State {
 
 const ENTRYPOINT_ID: string = 'your_entrypoint_id';
 const name: string = 'Feedback Sender';
-const email: string = 'fsender@atlassian.com';
+const aaid: string = 'test-aaid';
 
 const FeedbackPreamble = () => {
   const linkToSupport = 'https://support.atlassian.com/contact/#/';
@@ -79,7 +79,7 @@ class DisplayFeedback extends Component<{}, State> {
           <FeedbackCollector
             onClose={this.close}
             onSubmit={this.displayFlag}
-            email={email}
+            atlassianAccountId={aaid}
             name={name}
             entrypointId={ENTRYPOINT_ID}
             feedbackTitle="Give feedback"

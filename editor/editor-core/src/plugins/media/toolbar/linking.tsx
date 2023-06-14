@@ -12,9 +12,10 @@ import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '@atlaskit/editor-common/ui';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import { MediaToolbarBaseConfig } from '../types';
-import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';
+import type mediaPlugin from '../index';
 
 const FORCE_FOCUS_SELECTOR =
   '[data-testid="add-link-button"],[data-testid="edit-link-button"]';
@@ -43,6 +44,7 @@ export const getLinkingToolbar = (
   mediaLinkingState: MediaLinkingState,
   state: EditorState,
   intl: IntlShape,
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
   providerFactory?: ProviderFactory,
 ): FloatingToolbarConfig | undefined => {
   const { link, visible, editable: editing, mediaPos } = mediaLinkingState;
@@ -88,7 +90,10 @@ export const getLinkingToolbar = (
                     /** Focus should move to the 'Add link' button when the toolbar closes
                      * and not close the floating toolbar.
                      */
-                    forceFocusSelector(FORCE_FOCUS_SELECTOR, view);
+                    pluginInjectionApi?.dependencies.floatingToolbar.actions?.forceFocusSelector(
+                      FORCE_FOCUS_SELECTOR,
+                      view,
+                    );
                   }}
                   onSubmit={(href, meta) => {
                     setUrlToMedia(href, meta.inputMethod)(

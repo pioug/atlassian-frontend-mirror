@@ -19,6 +19,7 @@ import layoutPlugin from '../../../../layout';
 import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
 import cardPlugin from '../../../../card';
+import floatingToolbarPlugin from '../../../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import basePLugin from '../../../../base';
@@ -44,6 +45,7 @@ describe('delete block content', () => {
       .add(layoutPlugin)
       .add(widthPlugin)
       .add(gridPlugin)
+      .add(floatingToolbarPlugin)
       .add([cardPlugin, { platform: 'web' }])
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(tablesPlugin)

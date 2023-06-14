@@ -45,6 +45,8 @@ import panelPlugin from '../../../panel';
 import mediaPlugin from '../../../media';
 import captionPlugin from '../../../caption';
 import listPlugin from '../../../list';
+import floatingToolbarPlugin from '../../../floating-toolbar';
+
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import extensionPlugin from '../../../extension';
@@ -90,6 +92,7 @@ describe('action paste handler', () => {
         .add(captionPlugin)
         .add(widthPlugin)
         .add(gridPlugin)
+        .add(floatingToolbarPlugin)
         .add([
           mediaPlugin,
           { allowMediaSingle: true, featureFlags: { captions: true } },

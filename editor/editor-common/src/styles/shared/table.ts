@@ -58,6 +58,7 @@ export const TableSharedCssClassName = {
   TABLE_HEADER_CELL_WRAPPER: tableHeaderSelector,
   TABLE_ROW_CONTROLS_WRAPPER: `${tablePrefixSelector}-row-controls-wrapper`,
   TABLE_COLUMN_CONTROLS_DECORATIONS: `${tablePrefixSelector}-column-controls-decoration`,
+  TABLE_RESIZER_CONTAINER: `${tablePrefixSelector}-resizer-container`,
 };
 
 const tableSharedStyle = (props: ThemeProps) => css`
@@ -252,25 +253,25 @@ export const calcTableWidth = (
   layout: TableLayout,
   containerWidth?: number,
   addControllerPadding: boolean = true,
-): string => {
+): number | 'inherit' => {
   switch (layout) {
     case 'full-width':
       return containerWidth
-        ? `${Math.min(
+        ? Math.min(
             containerWidth -
               (addControllerPadding ? akEditorBreakoutPadding : 0),
             akEditorFullWidthLayoutWidth,
-          )}px`
-        : `${akEditorFullWidthLayoutWidth}px`;
+          )
+        : akEditorFullWidthLayoutWidth;
     case 'wide':
       if (containerWidth) {
-        return `${Math.min(
+        return Math.min(
           containerWidth - (addControllerPadding ? akEditorBreakoutPadding : 0),
           akEditorWideLayoutWidth,
-        )}px`;
+        );
       }
 
-      return `${akEditorWideLayoutWidth}px`;
+      return akEditorWideLayoutWidth;
     default:
       return 'inherit';
   }

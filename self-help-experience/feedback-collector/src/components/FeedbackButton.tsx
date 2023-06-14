@@ -14,7 +14,7 @@ import { IntlProviderWithResolvedMessages } from './IntlProviderWithResolvedMess
 
 interface Props {
   entrypointId: string;
-  email?: string;
+  atlassianAccountId?: string;
 }
 
 /*
@@ -24,7 +24,7 @@ const FeedbackButton = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [displayFlag, setDisplayFlag] = useState(false);
   const { formatMessage } = useIntl();
-  const { entrypointId, email } = props;
+  const { entrypointId, atlassianAccountId } = props;
 
   return (
     <>
@@ -44,7 +44,7 @@ const FeedbackButton = (props: Props) => {
         <FeedbackCollector
           onClose={() => setIsOpen(false)}
           onSubmit={() => setDisplayFlag(true)}
-          email={email}
+          atlassianAccountId={atlassianAccountId}
           entrypointId={entrypointId}
         />
       )}

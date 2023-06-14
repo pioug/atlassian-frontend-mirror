@@ -55,6 +55,7 @@ import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
 import datePlugin from '@atlaskit/editor-core/src/plugins/date';
 import layoutPlugin from '@atlaskit/editor-core/src/plugins/layout';
 import statusPlugin from '@atlaskit/editor-core/src/plugins/status';
+import floatingToolbarPlugin from '@atlaskit/editor-core/src/plugins/floating-toolbar';
 import tablePlugin from '../../plugins/table';
 import { TablePluginState } from '../../plugins/table/types';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
@@ -113,6 +114,7 @@ describe('table keymap', () => {
     .add(datePlugin)
     .add(layoutPlugin)
     .add([statusPlugin, { menuDisabled: false }])
+    .add(floatingToolbarPlugin)
     .add([mediaPlugin, { allowMediaSingle: true }]);
 
   const editor = (doc: DocBuilder) =>

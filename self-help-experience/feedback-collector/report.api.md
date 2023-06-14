@@ -37,6 +37,8 @@ export const FeedbackButton: React_2.FunctionComponent<Props_3>;
 // @public (undocumented)
 class FeedbackCollector extends Component<Props> {
   // (undocumented)
+  addEmailToContext(): void;
+  // (undocumented)
   static defaultProps: {
     url: string;
     shouldGetEntitlementDetails: boolean;
@@ -59,8 +61,6 @@ class FeedbackCollector extends Component<Props> {
     enrollInResearchDeclineValue: {
       id: string;
     }[];
-    emailFieldId: string;
-    emailDefaultValue: string;
     summaryFieldId: string;
     summaryDefaultValue: string;
     summaryTruncateLength: number;
@@ -83,18 +83,16 @@ class FeedbackCollector extends Component<Props> {
     };
     showTypeField: boolean;
     showDefaultTextFields: boolean;
+    anonymousFeedback: boolean;
     onClose: () => void;
     onSubmit: () => void;
   };
   // (undocumented)
+  getAtlassianID(): Promise<string | undefined>;
+  // (undocumented)
   getCustomerName(): FieldValueType;
   // (undocumented)
   getDescription(formValues: FormFields): FieldValueType;
-  // (undocumented)
-  getEmailAndAtlassianID(formValues: FormFields): Promise<{
-    email: any;
-    aaidOrHash: any;
-  }>;
   // (undocumented)
   getEntitlementInformation(): Promise<FieldType[] | []>;
   // (undocumented)
@@ -113,6 +111,8 @@ class FeedbackCollector extends Component<Props> {
   postFeedback: (formValues: FormFields) => Promise<void>;
   // (undocumented)
   render(): JSX.Element;
+  // (undocumented)
+  shouldShowOptInCheckboxes(): boolean;
 }
 export default FeedbackCollector;
 
@@ -159,6 +159,8 @@ export interface FormFields {
 // @public (undocumented)
 interface Props {
   additionalFields: FieldType[];
+  anonymousFeedback?: boolean;
+  atlassianAccountId?: string;
   canBeContactedAgreeValue: FieldValueType;
   canBeContactedDeclineValue: FieldValueType;
   canBeContactedFieldId: string;
@@ -172,8 +174,6 @@ interface Props {
   descriptionDefaultValue: FieldValueType;
   descriptionFieldId: string;
   email?: string;
-  emailDefaultValue: FieldValueType;
-  emailFieldId: string;
   enrolInResearchLabel?: React_2.ReactChild;
   enrollInResearchAgreeValue: FieldValueType;
   enrollInResearchDeclineValue: FieldValueType;
@@ -206,6 +206,7 @@ interface Props {
 
 // @public (undocumented)
 interface Props_2 {
+  anonymousFeedback?: boolean;
   canBeContactedLabel?: React_2.ReactChild;
   cancelButtonLabel?: string;
   customContent?: React_2.ReactChild;
@@ -225,7 +226,7 @@ interface Props_2 {
 // @public (undocumented)
 interface Props_3 {
   // (undocumented)
-  email?: string;
+  atlassianAccountId?: string;
   // (undocumented)
   entrypointId: string;
 }

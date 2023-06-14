@@ -12,10 +12,12 @@ import ErrorBoundary from './error-boundary';
 import { LinkPickerProps } from './link-picker';
 import { LoaderFallback } from './loader-fallback';
 import { LinkPickerSessionProvider } from '../controllers/session-provider';
+import { MessagesProvider } from './messages-provider';
 
 export const testIds = {
   linkPickerRoot: 'link-picker-root',
 };
+
 export const PACKAGE_DATA: PackageMetaDataType = {
   packageName,
   packageVersion,
@@ -44,19 +46,19 @@ export const ComposedLinkPicker = memo((props: LinkPickerProps) => {
   return (
     <AnalyticsContext data={PACKAGE_DATA}>
       <LinkPickerSessionProvider>
-        <ErrorBoundary>
-          <LazySuspense
-            fallback={
-              <LoaderFallback
-                hideDisplayText={props.hideDisplayText}
-              ></LoaderFallback>
-            }
-          >
-            <RootComponent {...props} data-testid={testIds.linkPickerRoot}>
-              <LazyLinkPicker {...props} />
-            </RootComponent>
-          </LazySuspense>
-        </ErrorBoundary>
+        <MessagesProvider>
+          <ErrorBoundary>
+            <LazySuspense
+              fallback={
+                <LoaderFallback hideDisplayText={props.hideDisplayText} />
+              }
+            >
+              <RootComponent {...props} data-testid={testIds.linkPickerRoot}>
+                <LazyLinkPicker {...props} />
+              </RootComponent>
+            </LazySuspense>
+          </ErrorBoundary>
+        </MessagesProvider>
       </LinkPickerSessionProvider>
     </AnalyticsContext>
   );

@@ -23,7 +23,7 @@ import { MediaInlineNodeSelector } from './styles';
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
-import { DispatchAnalyticsEvent } from '../../analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 
 export interface MediaInlineProps {

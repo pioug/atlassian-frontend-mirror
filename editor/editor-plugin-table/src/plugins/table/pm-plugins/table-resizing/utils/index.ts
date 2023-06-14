@@ -23,7 +23,6 @@ export {
   adjustColumnsWidths,
 } from './resize-state';
 export {
-  tableLayoutToSize,
   getLayoutSize,
   getDefaultLayoutMaxWidth,
   pointsAtCell,
@@ -31,7 +30,12 @@ export {
   domCellAround,
 } from './misc';
 export { updateControls, isClickNear, getResizeCellPos } from './dom';
-export { scale, scaleWithParent } from './scale-table';
+export {
+  scale,
+  scaleWithParent,
+  scaleTable,
+  previewScaleTable,
+} from './scale-table';
 export type { ScaleOptions } from './scale-table';
 export type { ResizeState, ResizeStateWithAnalytics } from './types';
 export { resizeColumn } from './resize-column';

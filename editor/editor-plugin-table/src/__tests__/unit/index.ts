@@ -57,6 +57,7 @@ import deprecatedAnalyticsPlugin from '@atlaskit/editor-core/src/plugins/analyti
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
+import floatingToolbarPlugin from '@atlaskit/editor-core/src/plugins/floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { insertMediaAsMediaSingle } from '@atlaskit/editor-core/src/plugins/media/utils/media-single';
@@ -105,6 +106,7 @@ describe('table plugin', () => {
       .add(widthPlugin)
       .add(gridPlugin)
       .add([tablePlugin, { tableOptions }])
+      .add(floatingToolbarPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(textFormattingPlugin)
       .add(listPlugin)

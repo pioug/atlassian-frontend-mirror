@@ -8,10 +8,8 @@ import {
   mapBreakpointToLayoutMaxWidth,
 } from '@atlaskit/editor-common/ui';
 import {
-  akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
   akEditorGutterPadding,
-  akEditorWideLayoutWidth,
   akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles';
 
@@ -20,13 +18,10 @@ import { TableOptions } from '../../../nodeviews/types';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
-
-export const tableLayoutToSize: Record<string, number> = {
-  default: akEditorDefaultLayoutWidth,
-  wide: akEditorWideLayoutWidth,
-  'full-width': akEditorFullWidthLayoutWidth,
-};
+import {
+  getParentNodeWidth,
+  layoutToWidth,
+} from '@atlaskit/editor-common/node-width';
 
 // Translates named layouts in number values.
 export function getLayoutSize(
@@ -50,11 +45,11 @@ export function getLayoutSize(
     containerWidth,
     true,
   );
-  if (calculatedTableWidth.endsWith('px')) {
-    return parseInt(calculatedTableWidth, 10);
+  if (calculatedTableWidth !== 'inherit') {
+    return calculatedTableWidth;
   }
 
-  return tableLayoutToSize[tableLayout] || containerWidth;
+  return layoutToWidth[tableLayout] || containerWidth;
 }
 
 export function getDefaultLayoutMaxWidth(containerWidth?: number): number {

@@ -387,6 +387,17 @@ describe('UserPicker VR Snapshot Test', () => {
             });
           });
         });
+
+        describe('user picker with a footer', () => {
+          it('renders a footer', async () => {
+            await vrForExample('footer', async (page: PuppeteerPage) => {
+              await disableCaretCursor(page);
+
+              await page.click(CONTROL_SELECTOR);
+              await page.waitForSelector(MENU_LIST_SELECTOR);
+            });
+          });
+        });
       });
     });
   });

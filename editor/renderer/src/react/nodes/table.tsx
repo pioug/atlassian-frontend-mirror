@@ -346,11 +346,7 @@ export class TableContainer extends React.Component<
       canUseLinelength(this.props.rendererAppearance) &&
       tableWidth !== 'inherit'
     ) {
-      const tableWidthPx = Number(
-        tableWidth.substring(0, tableWidth.length - 2),
-      );
-
-      left = lineLength / 2 - tableWidthPx / 2;
+      left = lineLength / 2 - tableWidth / 2;
     }
 
     const wrapperWidth = this.wrapperRef.current

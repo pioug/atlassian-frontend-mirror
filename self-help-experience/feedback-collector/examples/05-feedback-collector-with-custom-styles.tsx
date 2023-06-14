@@ -20,7 +20,6 @@ interface State {
 
 const ENTRYPOINT_ID: string = 'your_entrypoint_id';
 const name: string = 'Feedback Sender';
-const email: string = 'fsender@atlassian.com';
 
 const validateSelectComponent = (value: any) => {
   if (!value) {
@@ -162,7 +161,6 @@ class DisplayFeedback extends Component<{}, State> {
             }
             onClose={this.close}
             onSubmit={this.displayFlag}
-            email={email}
             name={name}
             entrypointId={ENTRYPOINT_ID}
             feedbackTitle="Give feedback"

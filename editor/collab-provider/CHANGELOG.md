@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.2.2
+
+### Patch Changes
+
+- [`11ac0368176`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11ac0368176) - Dummy changeset to trigger release
+
 ## 9.2.1
 
 ### Patch Changes

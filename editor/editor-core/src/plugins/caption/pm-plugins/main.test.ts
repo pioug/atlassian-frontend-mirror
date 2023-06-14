@@ -4,6 +4,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import mediaPlugin from '../../media';
+import floatingToolbarPlugin from '../../floating-toolbar';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import captionPlugin from '../';
@@ -37,6 +38,7 @@ describe('Caption plugin', () => {
         .add(decorationsPlugin)
         .add(widthPlugin)
         .add(gridPlugin)
+        .add(floatingToolbarPlugin)
         .add([
           mediaPlugin,
           { allowMediaSingle: true, featureFlags: { captions: true } },

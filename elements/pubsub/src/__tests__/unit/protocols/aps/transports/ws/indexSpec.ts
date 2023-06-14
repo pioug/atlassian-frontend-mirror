@@ -1,6 +1,7 @@
 import WebsocketClient from '../../../../../../protocols/aps/transports/ws/websocketClient';
 import WebsocketTransport from '../../../../../../protocols/aps/transports/ws';
 import { EventEmitter2 } from 'eventemitter2';
+import getAnalyticsClient from '../../../../../../protocols/aps/APSAnalyticsClient';
 
 jest.mock('../../../../../../protocols/aps/transports/ws/websocketClient');
 
@@ -15,7 +16,11 @@ const eventEmitter = new EventEmitter2();
 
 describe('WebsocketTransport', () => {
   let websocketTransport: WebsocketTransport;
-  const transportParams = { url: new URL('https://mock.com'), eventEmitter };
+  const transportParams = {
+    url: new URL('https://mock.com'),
+    eventEmitter,
+    analyticsClient: getAnalyticsClient(),
+  };
 
   beforeEach(() => {
     websocketTransport = new WebsocketTransport(transportParams);
@@ -33,6 +38,7 @@ describe('WebsocketTransport', () => {
           const websocketTransportForUrl = new WebsocketTransport({
             url: new URL(`${protocol}://mock.com`),
             eventEmitter,
+            analyticsClient: getAnalyticsClient(),
           });
           expect(websocketTransportForUrl.url.toString()).toEqual(
             'wss://mock.com/',

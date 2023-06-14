@@ -328,7 +328,7 @@ const generateToolbarItems =
           linkPicker,
           node,
           featureFlags,
-          editorAnalyticsApi,
+          pluginInjectionApi,
         }),
       ];
     } else {

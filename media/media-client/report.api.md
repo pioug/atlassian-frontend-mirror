@@ -128,6 +128,11 @@ export function createMediaSubscribable(
 ): MediaSubscribable;
 
 // @public (undocumented)
+export function createRequestErrorReason(
+  statusCode: number,
+): RequestErrorReason;
+
+// @public (undocumented)
 export function createUrl(
   url: string,
   { params, auth }: CreateUrlOptions,

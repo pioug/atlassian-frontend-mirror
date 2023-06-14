@@ -249,6 +249,7 @@ export const PopupUserPicker: React_2.ForwardRefExoticComponent<
     | 'disableInput'
     | 'emailLabel'
     | 'fieldId'
+    | 'footer'
     | 'inputId'
     | 'isClearable'
     | 'isDisabled'
@@ -416,6 +417,7 @@ const UserPicker: React_2.ForwardRefExoticComponent<
     | 'disableInput'
     | 'emailLabel'
     | 'fieldId'
+    | 'footer'
     | 'inputId'
     | 'isClearable'
     | 'isDisabled'
@@ -499,6 +501,7 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   placeholder?: React_2.ReactNode;
   addMoreMessage?: string;
   noOptionsMessage?: ((value: { inputValue: string }) => null | string) | null;
+  footer?: React_2.ReactNode;
   value?: Value;
   isDisabled?: boolean;
   isClearable?: boolean;

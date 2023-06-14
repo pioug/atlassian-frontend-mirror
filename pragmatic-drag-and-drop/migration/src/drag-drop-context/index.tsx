@@ -39,6 +39,7 @@ import { getActualDestination } from './get-destination';
 import useHiddenTextElement from './hooks/use-hidden-text-element';
 import { useKeyboardControls } from './hooks/use-keyboard-controls';
 import { usePointerControls } from './hooks/use-pointer-controls';
+import useStyleMarshal from './hooks/use-style-marshal';
 import { DragDropContextProvider } from './internal-context';
 import { LifecycleContextProvider, useLifecycle } from './lifecycle-context';
 import { rbdInvariant } from './rbd-invariant';
@@ -75,6 +76,7 @@ function getOffset(args: { element: HTMLElement; mode: DroppableMode }) {
 export function DragDropContext({
   children,
   dragHandleUsageInstructions = defaultDragHandleUsageInstructions,
+  nonce,
   onBeforeCapture,
   onBeforeDragStart,
   onDragStart,
@@ -507,6 +509,8 @@ export function DragDropContext({
   );
 
   droppableRegistry.setUpdateListener(onDroppableUpdate);
+
+  useStyleMarshal({ contextId, nonce });
 
   return (
     <ErrorBoundary contextId={contextId} dragController={dragController}>

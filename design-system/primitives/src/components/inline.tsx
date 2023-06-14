@@ -21,7 +21,7 @@ export interface InlineProps<T extends ElementType = 'div'> {
   /**
    * The DOM element to render as the Inline. Defaults to `div`.
    */
-  as?: 'div' | 'span' | 'ul' | 'ol';
+  as?: 'div' | 'span' | 'ul' | 'ol' | 'li';
   /**
    * Used to align children along the main axis.
    */

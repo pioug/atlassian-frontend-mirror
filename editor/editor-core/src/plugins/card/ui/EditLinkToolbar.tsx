@@ -16,6 +16,7 @@ import type {
   Command,
   FloatingToolbarItem,
   FloatingToolbarConfig,
+  ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 
 import {
@@ -35,9 +36,10 @@ import {
 import { changeSelectedCardToLink, updateCard } from '../pm-plugins/doc';
 import { findCardInfo, displayInfoForCard } from '../utils';
 import { NodeSelection } from 'prosemirror-state';
-import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type cardPlugin from '../index';
+import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 
 export type EditLinkToolbarProps = {
   view: EditorView;
@@ -52,6 +54,7 @@ export type EditLinkToolbarProps = {
   ) => void;
   linkPickerOptions?: LinkPickerOptions;
   featureFlags: FeatureFlags;
+  forceFocusSelector: ForceFocusSelector | undefined;
 };
 const HyperLinkToolbarWithListeners = withOuterListeners(HyperlinkToolbar);
 
@@ -70,7 +73,7 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
    * and not close the floating toolbar.
    */
   private handleEsc = (e: KeyboardEvent) => {
-    forceFocusSelector(
+    this.props.forceFocusSelector?.(
       `[aria-label="${linkToolbarMessages.editLink.defaultMessage}"]`,
       this.props.view,
     );
@@ -145,13 +148,13 @@ export const buildEditLinkToolbar = ({
   node,
   linkPicker,
   featureFlags,
-  editorAnalyticsApi,
+  pluginInjectionApi,
 }: {
   providerFactory: ProviderFactory;
   node: Node;
   linkPicker?: LinkPickerOptions;
   featureFlags: FeatureFlags;
-  editorAnalyticsApi: EditorAnalyticsAPI | undefined;
+  pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 }): FloatingToolbarItem<Command> => {
   return {
     type: 'custom',
@@ -174,6 +177,10 @@ export const buildEditLinkToolbar = ({
           text={displayInfo.title || ''}
           node={node}
           featureFlags={featureFlags}
+          forceFocusSelector={
+            pluginInjectionApi?.dependencies.floatingToolbar.actions
+              ?.forceFocusSelector
+          }
           onSubmit={(newHref, newText, analytic) => {
             const urlChanged = newHref !== displayInfo.url;
             const titleChanged = newText !== displayInfo.title;
@@ -188,7 +195,7 @@ export const buildEditLinkToolbar = ({
                   undefined,
                   undefined,
                   undefined,
-                  editorAnalyticsApi,
+                  pluginInjectionApi?.dependencies.analytics?.actions,
                 ),
                 {
                   action: ACTION.UPDATED,

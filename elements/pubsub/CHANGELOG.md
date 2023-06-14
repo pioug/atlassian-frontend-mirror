@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.5.0
+
+### Minor Changes
+
+- [`5a905de1b6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a905de1b6d) - Added reconnects for WebSockets and analytics events
+
 ## 6.4.3
 
 ### Patch Changes

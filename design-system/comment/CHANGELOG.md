@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.8.5
+
+### Patch Changes
+
+- [`529814693a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/529814693a1) - Pin version of @atlaskit/primitives so it resolves to correct version
+
 ## 10.8.4
 
 ### Patch Changes

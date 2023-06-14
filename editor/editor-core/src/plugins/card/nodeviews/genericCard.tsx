@@ -131,7 +131,7 @@ export function Card(
           true,
           node,
           getPos(),
-          pluginInjectionApi?.dependencies.analytics.actions,
+          pluginInjectionApi?.dependencies.analytics?.actions,
         )(view.state, view.dispatch);
         return null;
       } else {

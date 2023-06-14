@@ -13,7 +13,7 @@ describe('@atlaskit/editor-common table utils', () => {
       it(`should not exceed ${akEditorFullWidthLayoutWidth}px`, () => {
         const pageWidth = 2000;
         expect(calcTableWidth('full-width', pageWidth)).toEqual(
-          `${akEditorFullWidthLayoutWidth}px`,
+          akEditorFullWidthLayoutWidth,
         );
       });
     });

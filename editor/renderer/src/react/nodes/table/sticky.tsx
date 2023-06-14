@@ -96,7 +96,7 @@ export type StickyTableProps = {
   rowHeight: number;
 
   wrapperWidth: number;
-  tableWidth: string;
+  tableWidth: 'inherit' | number;
   isNumberColumnEnabled: boolean;
   children: React.ReactNode[];
   layout: TableLayout;

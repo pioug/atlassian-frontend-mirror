@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 108.1.7
+
+### Patch Changes
+
+- [`07cc766e1ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07cc766e1ac) - Remove conversion of width from string to number
+- Updated dependencies
+
 ## 108.1.6
 
 ### Patch Changes

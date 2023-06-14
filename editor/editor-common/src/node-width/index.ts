@@ -2,8 +2,11 @@ import { Node as PMNode } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 
+import { TableLayout } from '@atlaskit/adf-schema';
 import {
+  akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
+  akEditorWideLayoutWidth,
   akLayoutGutterOffset,
   gridMediumMaxWidth,
 } from '@atlaskit/editor-shared-styles';
@@ -17,6 +20,12 @@ import {
 } from '../styles/shared/layout';
 import type { EditorContainerWidth } from '../types/editor-container-width';
 import { absoluteBreakoutWidth } from '../utils/breakout';
+
+export const layoutToWidth = {
+  default: akEditorDefaultLayoutWidth,
+  wide: akEditorWideLayoutWidth,
+  'full-width': akEditorFullWidthLayoutWidth,
+};
 
 /**
  * Calculates width of parent node of a nested node (inside layouts, extension)
@@ -125,4 +134,12 @@ const calcBreakoutNodeWidth = (
         akEditorFullWidthLayoutWidth,
       )
     : absoluteBreakoutWidth(layout, containerWidth.width);
+};
+
+export const getTableContainerWidth = (node: PMNode): number => {
+  if (node.attrs.width) {
+    return node.attrs.width;
+  }
+
+  return layoutToWidth[node.attrs.layout as TableLayout];
 };

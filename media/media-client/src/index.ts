@@ -113,6 +113,7 @@ export {
   RequestError,
   isRequestError,
   isRateLimitedError,
+  createRequestErrorReason,
 } from './utils/request';
 
 export type {

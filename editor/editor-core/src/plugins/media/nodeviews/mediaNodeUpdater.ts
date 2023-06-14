@@ -20,7 +20,7 @@ import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { MediaOptions } from '../types';
 import {
   replaceExternalMedia,

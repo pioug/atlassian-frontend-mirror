@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.7.1
+
+### Patch Changes
+
+- [`b48d0a5f88f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b48d0a5f88f) - Create new placeholder for the floating toolbar plugin and use a new action to replace the forceFocusSelector action.
+
+## 74.7.0
+
+### Minor Changes
+
+- [`89989e06f43`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89989e06f43) - [ux] Adding initial Resizer to table plugin behind a platform feature flag, allowing tables to resize to a custom width. This change also includes the following refactors:- change calcTableWidth function to return number instead of px- allowing tables to use breakout values when allowColumnResize is disabled
+
 ## 74.6.0
 
 ### Minor Changes

@@ -30,12 +30,9 @@ export const resizerHandlerClassName = {
 };
 
 export const resizerStyles = css`
-  .${resizerItemClassName} {
-    background: ${token('color.border.focused', B200)};
-  }
-
   .${resizerHandleRightClassName}, .${resizerHandleLeftClassName} {
     display: flex;
+    visibility: hidden;
     flex-direction: column;
     justify-content: center;
   }
@@ -56,6 +53,13 @@ export const resizerStyles = css`
     height: 64px;
 
     border-radius: 6px;
+  }
+
+  .${resizerItemClassName}:hover
+    .${resizerHandleLeftClassName},
+    .${resizerItemClassName}:hover
+    .${resizerHandleRightClassName} {
+    visibility: visible;
   }
 
   .${resizerItemClassName}:hover

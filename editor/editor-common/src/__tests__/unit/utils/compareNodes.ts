@@ -6,6 +6,7 @@ import basePlugin from '@atlaskit/editor-core/src/plugins/base';
 import cardPlugin from '@atlaskit/editor-core/src/plugins/card';
 import datePlugin from '@atlaskit/editor-core/src/plugins/date';
 import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
+import floatingToolbar from '@atlaskit/editor-core/src/plugins/floating-toolbar';
 import hyperlinkPlugin from '@atlaskit/editor-core/src/plugins/hyperlink';
 import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
 import statusPlugin from '@atlaskit/editor-core/src/plugins/status';
@@ -75,6 +76,7 @@ describe('Compare Nodes', () => {
       .add(datePlugin)
       .add(widthPlugin)
       .add(gridPlugin)
+      .add(floatingToolbar)
       .add([cardPlugin, { platform: 'web' }])
       .add([statusPlugin, { menuDisabled: false }])
       .add([tablesPlugin, { tableOptions: { allowHeaderRow: true } }]);

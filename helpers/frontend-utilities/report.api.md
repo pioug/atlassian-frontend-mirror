@@ -76,6 +76,9 @@ export const retryOnException: <T>(
   { intervalsMS, retryOn, captureException, onRetry }: RetryConfig,
 ) => Promise<T>;
 
+// @public (undocumented)
+export const simpleHash: (str: string) => string;
+
 // @public
 export const STORAGE_MOCK: Storage;
 

@@ -26,6 +26,12 @@ export interface ActionablePubSubClient extends PubSubClient {
 }
 
 // @public (undocumented)
+interface AnalyticsWebClient {
+  // (undocumented)
+  sendOperationalEvent: Function;
+}
+
+// @public (undocumented)
 enum APSTransportType {
   // (undocumented)
   HTTP = 'HTTP',
@@ -119,6 +125,8 @@ export interface PubSubClient {
 
 // @public (undocumented)
 export interface PubSubClientConfig extends ServiceConfig {
+  // (undocumented)
+  analyticsClient?: AnalyticsWebClient;
   // (undocumented)
   apsProtocol?: {
     enabled: boolean;

@@ -31,6 +31,8 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import layoutPlugin from '../../../layout';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import mediaPlugin from '../../../media';
+import floatingToolbarPlugin from '../../../floating-toolbar';
+
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -57,6 +59,7 @@ describe('lists', () => {
       .add(gridPlugin)
       .add([layoutPlugin, { allowBreakout: true }])
       .add(tablesPlugin)
+      .add(floatingToolbarPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }]);
 
     return createEditor({

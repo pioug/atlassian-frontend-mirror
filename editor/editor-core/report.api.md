@@ -79,6 +79,7 @@ import { FloatingToolbarEmojiPicker } from '@atlaskit/editor-common/types';
 import { FloatingToolbarInput } from '@atlaskit/editor-common/types';
 import { FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import { FloatingToolbarListPicker } from '@atlaskit/editor-common/types';
+import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import { FloatingToolbarSelect } from '@atlaskit/editor-common/types';
 import { FULL_WIDTH_MODE } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
@@ -1559,6 +1560,7 @@ export const mediaPlugin: NextEditorPlugin<
       typeof gridPlugin,
       typeof widthPlugin,
       typeof decorationsPlugin,
+      FloatingToolbarPlugin,
     ];
     sharedState: MediaPluginState | null;
   }

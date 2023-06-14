@@ -162,6 +162,7 @@ export { DragActions };
 export function DragDropContext({
   children,
   dragHandleUsageInstructions,
+  nonce,
   onBeforeCapture,
   onBeforeDragStart,
   onDragStart,

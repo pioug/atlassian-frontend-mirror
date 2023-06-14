@@ -35,6 +35,7 @@ import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import tablePlugin from '../../plugins/table-plugin';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
+import floatingToolbarPlugin from '@atlaskit/editor-core/src/plugins/floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -172,6 +173,7 @@ describe('table event handlers', () => {
         .add(widthPlugin)
         .add(gridPlugin)
         .add(tablePlugin)
+        .add(floatingToolbarPlugin)
         .add([
           mediaPlugin,
           {

@@ -1,5 +1,11 @@
 # @atlaskit/heading
 
+## 1.3.6
+
+### Patch Changes
+
+- [`529814693a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/529814693a1) - Pin version of @atlaskit/primitives so it resolves to correct version
+
 ## 1.3.5
 
 ### Patch Changes

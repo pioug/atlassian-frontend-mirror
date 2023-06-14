@@ -139,7 +139,7 @@ const CardInner = ({
     gridType: GridType,
     highlight: number[] | string[],
   ) =>
-    pluginInjectionApi?.dependencies?.grid?.actions.displayGrid(view)({
+    pluginInjectionApi?.dependencies.grid.actions?.displayGrid(view)({
       visible,
       gridType,
       highlight: highlight as Highlights,

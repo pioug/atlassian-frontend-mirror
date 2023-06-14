@@ -9,7 +9,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { ProsemirrorGetPosHandler, ForwardRef } from '../../../nodeviews';
 import { EventDispatcher } from '../../../event-dispatcher';
 import { MediaOptions } from '../types';
-import { DispatchAnalyticsEvent } from '../../analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { MediaPluginState } from '../pm-plugins/types';
 import type mediaPlugin from '../index';
 

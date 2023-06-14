@@ -5,6 +5,7 @@ import {
   TextEncoder as TextEncoderNode,
 } from 'util';
 import { EventType } from '../../../../../../types';
+import getAnalyticsClient from '../../../../../../protocols/aps/APSAnalyticsClient';
 import * as sinon from 'sinon';
 
 const textEncoder = new TextEncoderNode();
@@ -78,8 +79,30 @@ describe('HttpTransport', () => {
   });
 
   describe('#subscribe', () => {
+    it("won't call the http endpoint when list of channels is empty", async () => {
+      const stubbedFetch = sinon
+        .stub(window, 'fetch')
+        .resolves(
+          mockResponseWithReader([
+            JSON.stringify({ type: 'event', payload: 'hello' }),
+          ]),
+        );
+
+      const httpTransport = new HttpTransport({
+        url,
+        eventEmitter,
+        analyticsClient: getAnalyticsClient(),
+      });
+
+      await httpTransport.subscribe(new Set());
+
+      expect(stubbedFetch.getCalls().length).toBe(0);
+
+      httpTransport.close();
+    });
+
     it('can consume multiple messages', async () => {
-      sinon
+      const stubbedFetch = sinon
         .stub(window, 'fetch')
         .resolves(
           mockResponseWithReader([
@@ -88,11 +111,17 @@ describe('HttpTransport', () => {
           ]),
         );
 
-      const httpTransport = new HttpTransport({ url, eventEmitter });
+      const httpTransport = new HttpTransport({
+        url,
+        eventEmitter,
+        analyticsClient: getAnalyticsClient(),
+      });
 
       httpTransport.subscribe(new Set(['channel-1']));
 
       const [msg1, msg2] = await consumeMessageEvents(eventEmitter, 2);
+
+      expect(stubbedFetch.getCalls().length).toBe(1);
 
       expect(msg1).toStrictEqual({ type: 'event', payload: 'hello' });
       expect(msg2).toStrictEqual({ type: 'event', payload: 'goodbye' });
@@ -101,7 +130,7 @@ describe('HttpTransport', () => {
     });
 
     it('can consume messages separated by line break', async () => {
-      sinon
+      const stubbedFetch = sinon
         .stub(window, 'fetch')
         .resolves(
           mockResponseWithReader([
@@ -111,11 +140,17 @@ describe('HttpTransport', () => {
           ]),
         );
 
-      const httpTransport = new HttpTransport({ url, eventEmitter });
+      const httpTransport = new HttpTransport({
+        url,
+        eventEmitter,
+        analyticsClient: getAnalyticsClient(),
+      });
 
       httpTransport.subscribe(new Set(['channel-1']));
 
       const [msg1, msg2] = await consumeMessageEvents(eventEmitter, 2);
+
+      expect(stubbedFetch.getCalls().length).toBe(1);
 
       expect(msg1).toStrictEqual({ type: 'event', payload: 'hello' });
       expect(msg2).toStrictEqual({ type: 'event', payload: 'goodbye' });
@@ -128,7 +163,11 @@ describe('HttpTransport', () => {
     it('does not try to reconnect when subscription is closed', () => {
       sinon.stub(window, 'fetch').resolves(mockRequestThatNeverCompletes());
 
-      const httpTransport = new HttpTransport({ url, eventEmitter });
+      const httpTransport = new HttpTransport({
+        url,
+        eventEmitter,
+        analyticsClient: getAnalyticsClient(),
+      });
 
       httpTransport.subscribe(new Set(['channel-1']));
 

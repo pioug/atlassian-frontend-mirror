@@ -11,6 +11,8 @@ import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
+
 import { EditorSmartCardEventsNext } from './ui/EditorSmartCardEventsNext';
 
 const cardPlugin: NextEditorPlugin<
@@ -23,6 +25,7 @@ const cardPlugin: NextEditorPlugin<
       typeof widthPlugin,
       typeof decorationsPlugin,
       typeof gridPlugin,
+      FloatingToolbarPlugin,
     ];
   }
 > = (options, api) => {

@@ -454,7 +454,7 @@ export const Inline: MemoExoticComponent<
 export interface InlineProps<T extends ElementType = 'div'> {
   alignBlock?: AlignBlock;
   alignInline?: AlignInline;
-  as?: 'div' | 'ol' | 'span' | 'ul';
+  as?: 'div' | 'li' | 'ol' | 'span' | 'ul';
   children: ReactNode;
   grow?: Grow;
   ref?: React.ComponentPropsWithRef<T>['ref'];

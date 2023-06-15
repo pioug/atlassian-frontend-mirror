@@ -1,5 +1,12 @@
 # @atlaskit/adf-schema
 
+## 25.8.3
+
+### Patch Changes
+
+- [`f22911fb9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f22911fb9be) - ENGHEALTH-2667: Adjust table cell color logic to enable static analysis of token usages and follow eslint rules
+- Updated dependencies
+
 ## 25.8.2
 
 ### Patch Changes

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 
-import { LinkCreatePlugin, LinkCreateProps } from '../common/types';
+import { LinkCreatePlugin, LinkCreateWithModalProps } from '../common/types';
 import { useLinkCreateCallback } from '../controllers/callback-context';
 
 import LinkCreate from './index';
@@ -77,7 +77,7 @@ describe('<LinkCreate />', () => {
     form: <CreatePluginForm />,
   };
 
-  const setUpLinkCreate = (props?: Partial<LinkCreateProps>) => {
+  const setUpLinkCreate = (props?: Partial<LinkCreateWithModalProps>) => {
     return render(
       <IntlProvider locale="en">
         <LinkCreate
@@ -120,5 +120,34 @@ describe('<LinkCreate />', () => {
     const { getByTestId } = setUpLinkCreate();
     getByTestId('close-button').click();
     expect(onCloseMock).toBeCalled();
+  });
+
+  it('should display a custom title when provided', async () => {
+    const { queryByTestId, getByText } = setUpLinkCreate({
+      modalTitle: 'Create meeting notes',
+    });
+    expect(queryByTestId(testId)).toBeInTheDocument();
+    expect(getByText('Create meeting notes')).toBeTruthy();
+  });
+
+  it('should trigger the Modal Callbacks when provided', async () => {
+    let onOpenComplete = jest.fn();
+    let onCloseComplete = jest.fn();
+    const { getByTestId, queryByTestId } = setUpLinkCreate({
+      onOpenComplete,
+      onCloseComplete,
+    });
+
+    waitFor(() => {
+      expect(queryByTestId(testId)).toBeInTheDocument();
+      expect(onOpenComplete).toHaveBeenCalledTimes(1);
+    });
+
+    getByTestId('close-button').click();
+
+    waitFor(() => {
+      expect(queryByTestId(testId)).not.toBeInTheDocument();
+      expect(onCloseComplete).toHaveBeenCalledTimes(1);
+    });
   });
 });

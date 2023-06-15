@@ -4,6 +4,7 @@ import { ChangeEvent, Fragment, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import { AtlassianNavigation } from '../src';
 import { NavigationSkeleton } from '../src/skeleton';
@@ -20,12 +21,12 @@ import { SwitcherPopup } from './shared/switcher-popup';
 
 const controlsStyles = css({
   display: 'flex',
-  margin: '1rem',
+  margin: token('space.200', '1rem'),
   alignItems: 'center',
 });
 
 const labelStyles = css({
-  margin: '1rem',
+  margin: token('space.200', '1rem'),
 });
 
 const inputStyles = css({

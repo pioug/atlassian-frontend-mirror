@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { token } from '@atlaskit/tokens';
 import { Provider, Card, Client } from '../src';
 
 const InheritDimensionWrapper = styled.div`
@@ -12,7 +13,13 @@ const InheritDimensionWrapper = styled.div`
 
 export default () => (
   <Provider client={new Client('stg')}>
-    <div style={{ width: '680px', margin: '0 auto', marginTop: '64px' }}>
+    <div
+      style={{
+        width: '680px',
+        margin: '0 auto',
+        marginTop: token('space.800', '64px'),
+      }}
+    >
       <h2> Resolved Embed Card view </h2>
       <br />
       <Card

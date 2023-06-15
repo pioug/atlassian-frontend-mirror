@@ -142,7 +142,8 @@ export const getValueFromShorthand = (str: unknown): any[] => {
 const isGridSize = (node: EslintNode): node is CallExpression =>
   isNodeOfType(node, 'CallExpression') &&
   isNodeOfType(node.callee, 'Identifier') &&
-  (node.callee.name === 'gridSize' || node.callee.name === 'getGridSize');
+  (node.callee.name === 'gridSize' || node.callee.name === 'getGridSize') &&
+  node.arguments.length === 0;
 
 const isToken = (node: EslintNode): node is CallExpression =>
   isNodeOfType(node, 'CallExpression') &&

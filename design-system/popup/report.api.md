@@ -70,6 +70,7 @@ export interface PopupComponentProps {
 
 // @public (undocumented)
 export interface PopupProps extends BaseProps {
+  shouldRenderToParent?: boolean;
   trigger: (props: TriggerProps) => React_2.ReactNode;
   zIndex?: number;
 }

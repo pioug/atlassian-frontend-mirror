@@ -1,4 +1,7 @@
-import { hexToEditorBackgroundPaletteColor } from './index';
+import {
+  hexToEditorBackgroundPaletteColor,
+  hexToEditorBackgroundPaletteRawValue,
+} from './index';
 
 describe('hexToEditorBackgroundPaletteColor', () => {
   test.each([
@@ -35,5 +38,15 @@ describe('hexToEditorBackgroundPaletteColor', () => {
     expect(hexToEditorBackgroundPaletteColor('#deebff')).toBe(
       'var(--ds-background-accent-blue-subtlest, #DEEBFF)',
     );
+  });
+});
+
+describe('hexToEditorBackgroundPaletteRawValue', () => {
+  test('Returns input hex when tokens are on the page', () => {
+    expect(hexToEditorBackgroundPaletteRawValue('#deebff')).toBe('#deebff');
+  });
+
+  test('Returns undefined when unmapped input is provided', () => {
+    expect(hexToEditorBackgroundPaletteRawValue('invalid')).toBe(undefined);
   });
 });

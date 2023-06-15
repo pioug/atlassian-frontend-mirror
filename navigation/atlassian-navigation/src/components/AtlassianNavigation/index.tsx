@@ -37,6 +37,7 @@ const containerStyles = css({
   '&::after': {
     height: token('space.050', '4px'),
     position: 'absolute',
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     top: '100%',
     right: 0,
     left: 0,

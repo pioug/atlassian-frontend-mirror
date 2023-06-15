@@ -2,8 +2,8 @@ import React, { useCallback } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-import { ANALYTICS_CHANNEL } from '../../common/constants';
-import createEventPayload from '../../common/utils/analytics/analytics.codegen';
+import { ANALYTICS_CHANNEL } from '../../../common/constants';
+import createEventPayload from '../../../common/utils/analytics/analytics.codegen';
 
 import {
   BaseErrorBoundary,

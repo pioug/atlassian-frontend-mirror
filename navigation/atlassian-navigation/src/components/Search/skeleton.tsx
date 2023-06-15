@@ -11,7 +11,7 @@ import { IconButtonSkeleton } from '../IconButton/skeleton';
 
 const searchInputContainerStyles = css({
   marginRight: token('space.100', '8px'),
-  marginLeft: 20,
+  marginLeft: token('space.250', '20px'),
   position: 'relative',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {

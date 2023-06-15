@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.3.0
+
+### Minor Changes
+
+- [`1b0098b3680`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b0098b3680) - [ux] Updated the Share dialog to handle errors relating to user, group, or team selection.
+
 ## 4.2.3
 
 ### Patch Changes

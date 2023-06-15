@@ -13,7 +13,7 @@ class ColorPickerExample extends React.Component<{}, { color: string }> {
 
   render() {
     return (
-      <div style={{ padding: 20 }}>
+      <div style={{ padding: token('space.250', '20px') }}>
         <ColorPicker
           label="Change color"
           palette={simplePalette}

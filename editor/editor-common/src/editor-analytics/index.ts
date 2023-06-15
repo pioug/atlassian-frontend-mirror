@@ -1,0 +1,1 @@
+export { withAnalytics } from './withAnalytics';

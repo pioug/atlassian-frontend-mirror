@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider, Card, Client, ResolveResponse } from '../src';
 import { EnvironmentsKeys } from '@atlaskit/link-provider';
+import { token } from '@atlaskit/tokens';
 
 class ConfluenceClient extends Client {
   constructor(config: EnvironmentsKeys) {
@@ -39,7 +40,13 @@ class ConfluenceClient extends Client {
 }
 export default () => (
   <Provider client={new ConfluenceClient('stg')}>
-    <div style={{ width: '680px', margin: '0 auto', marginTop: '64px' }}>
+    <div
+      style={{
+        width: '680px',
+        margin: '0 auto',
+        marginTop: token('space.800', '64px'),
+      }}
+    >
       <p>
         Normally, clicking a card would bring you to a page, or to a page create
         action.

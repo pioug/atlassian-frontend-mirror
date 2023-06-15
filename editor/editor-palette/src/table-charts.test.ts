@@ -1,4 +1,7 @@
-import { hexToEditorTableChartsPaletteColor } from './index';
+import {
+  hexToEditorTableChartsPaletteColor,
+  hexToEditorTableChartsPaletteRawValue,
+} from './index';
 
 describe('hexToEditorTableChartsPaletteColor', () => {
   test.each([
@@ -40,5 +43,15 @@ describe('hexToEditorTableChartsPaletteColor', () => {
     ['#44546F', 'var(--ds-chart-gray-boldest, #44546F)'],
   ])(`mapHexToDstChartsPalette(%s)`, (hex, expected) => {
     expect(hexToEditorTableChartsPaletteColor(hex)).toBe(expected);
+  });
+});
+
+describe('hexToEditorTableChartsPaletteRawValue', () => {
+  test('Returns input hex when tokens are on the page', () => {
+    expect(hexToEditorTableChartsPaletteRawValue('#7AB2FF')).toBe('#7AB2FF');
+  });
+
+  test('Returns undefined when unmapped input is provided', () => {
+    expect(hexToEditorTableChartsPaletteRawValue('invalid')).toBe(undefined);
   });
 });

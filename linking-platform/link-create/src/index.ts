@@ -1,6 +1,9 @@
-export type { Option } from './ui/types';
 export type { CreateFormProps } from './ui/index';
-export type { LinkCreateProps, LinkCreatePlugin } from './common/types';
+export type {
+  LinkCreateProps,
+  LinkCreatePlugin,
+  LinkCreateWithModalProps,
+} from './common/types';
 
 export {
   default,

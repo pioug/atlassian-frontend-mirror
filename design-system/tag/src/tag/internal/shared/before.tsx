@@ -15,7 +15,6 @@ interface BeforeProps {
 const beforeElementStyles = css({
   display: 'flex',
   position: 'absolute',
-  // TODO Delete this comment after verifying spacing token -> previous value `0`
   top: token('space.0', '0px'),
   alignItems: 'center',
   justifyContent: 'center',

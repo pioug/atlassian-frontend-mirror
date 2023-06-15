@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 
-import { Validator, ValidatorMap } from '../../common/types';
+import { LinkCreateProps, Validator, ValidatorMap } from '../../common/types';
 
 interface FormContextType {
   getValidators: () => ValidatorMap;
@@ -60,3 +60,13 @@ const FormContextProvider: React.FC<{}> = ({ children }) => {
 const useFormContext = () => useContext(FormContext);
 
 export { FormContextProvider, useFormContext };
+
+export const withLinkCreateFormContext = <P extends LinkCreateProps>(
+  WrappedComponent: React.ComponentType<P>,
+) => {
+  return (props: P) => (
+    <FormContextProvider>
+      <WrappedComponent {...props} />
+    </FormContextProvider>
+  );
+};

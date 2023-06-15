@@ -22,6 +22,10 @@ const searchButtonStyles = css({
   marginRight: token('space.075', '6px'),
 });
 
+const formStyles = css({
+  flex: 1,
+});
+
 export const BasicSearchInput = ({
   isDisabled,
   isSearching,
@@ -32,32 +36,41 @@ export const BasicSearchInput = ({
 }: BasicSearchInputProps) => {
   const { formatMessage } = useIntl();
 
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearch(searchTerm);
+  };
+
   return (
-    <Textfield
-      elemAfterInput={
-        <LoadingButton
-          appearance="primary"
-          css={searchButtonStyles}
-          iconBefore={
-            <SearchIcon
-              label={formatMessage(
-                basicSearchInputMessages.basicTextSearchLabel,
-              )}
-              size="medium"
-            />
-          }
-          isDisabled={isDisabled}
-          isLoading={isSearching}
-          onClick={() => onSearch(searchTerm)}
-          spacing="none"
-          testId="jira-jql-datasource-modal--basic-search-button"
-        />
-      }
-      autoFocus
-      onChange={onChange}
-      placeholder={formatMessage(basicSearchInputMessages.basicTextSearchLabel)}
-      testId={testId}
-      value={searchTerm}
-    />
+    <form css={formStyles} onSubmit={handleFormSubmit}>
+      <Textfield
+        elemAfterInput={
+          <LoadingButton
+            appearance="primary"
+            css={searchButtonStyles}
+            iconBefore={
+              <SearchIcon
+                label={formatMessage(
+                  basicSearchInputMessages.basicTextSearchLabel,
+                )}
+                size="medium"
+              />
+            }
+            isDisabled={isDisabled}
+            isLoading={isSearching}
+            onClick={() => onSearch(searchTerm)}
+            spacing="none"
+            testId="jira-jql-datasource-modal--basic-search-button"
+          />
+        }
+        autoFocus
+        onChange={onChange}
+        placeholder={formatMessage(
+          basicSearchInputMessages.basicTextSearchLabel,
+        )}
+        testId={testId}
+        value={searchTerm}
+      />
+    </form>
   );
 };

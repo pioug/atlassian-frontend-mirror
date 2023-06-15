@@ -4,6 +4,7 @@ import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { token } from '@atlaskit/tokens';
 
 import {
   AtlassianLinkPickerPlugin,
@@ -98,7 +99,7 @@ function CustomEndPoints() {
           <b>Unmocked endpoints</b> (requires access to Staging)
         </p>
       </PageHeader>
-      <div style={{ paddingBottom: 20 }}>
+      <div style={{ paddingBottom: token('space.250', '20px') }}>
         <a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
           {link.displayText || link.url}
         </a>

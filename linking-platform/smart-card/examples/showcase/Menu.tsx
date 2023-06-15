@@ -70,7 +70,7 @@ export const ShowcaseMenu = ({
         bottom: 0,
         left: 0,
         width: '100%',
-        padding: '24px 60px',
+        padding: `${token('space.300', '24px')} 60px`,
         backgroundColor: token('elevation.surface', 'white'),
         boxShadow: token(
           'elevation.shadow.overflow',

@@ -45,7 +45,7 @@ describe('link-create', () => {
     // click Create button
     await page.click('[data-testid="link-create-show"]');
     // Wait for Modal
-    await page.waitForSelector('[data-testid="link-create"]');
+    await page.waitForSelector('[data-testid="link-create--modal"]');
     // click on dropdown
     await page.click('#space_or_page-uid2');
     // wait for list
@@ -65,13 +65,13 @@ describe('link-create', () => {
     // click Create button
     await page.click('[data-testid="link-create-show"]');
     // Wait for Modal
-    await page.waitForSelector('[data-testid="link-create"]');
+    await page.waitForSelector('[data-testid="link-create--modal"]');
     // remove auto focus
     await page.click('[data-testid="link-create-error-boundary-ui"]');
 
     const image = await takeElementScreenShot(
       page,
-      '[data-testid="link-create"]',
+      '[data-testid="link-create--modal"]',
     );
 
     expect(image).toMatchProdImageSnapshot();
@@ -84,15 +84,30 @@ describe('link-create', () => {
     // click Show Create button
     await page.click('[data-testid="link-create-show"]');
     // Wait for Modal
-    await page.waitForSelector('[data-testid="link-create"]');
+    await page.waitForSelector('[data-testid="link-create--modal"]');
     // Wait for Modal
     await page.waitForSelector('[data-testid="link-create-form-error"]');
     // remove auto focus
-    await page.click('[data-testid="link-create"]');
+    await page.click('[data-testid="link-create--modal"]');
 
     const image = await takeElementScreenShot(
       page,
-      '[data-testid="link-create"]',
+      '[data-testid="link-create--modal"]',
+    );
+
+    expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('should display custom title when provided', async () => {
+    const url = getURL('vr-modal-title');
+    const page = await setup(url);
+
+    // Wait for Modal
+    await page.waitForSelector('[data-testid="link-create--modal"]');
+
+    const image = await takeElementScreenShot(
+      page,
+      '[data-testid="link-create--modal"]',
     );
 
     expect(image).toMatchProdImageSnapshot();

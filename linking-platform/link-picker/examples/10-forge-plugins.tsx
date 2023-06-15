@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useState } from 'react';
 
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { token } from '@atlaskit/tokens';
 
 import {
   LinkPickerPluginsConfiguration,
@@ -71,7 +72,7 @@ function ForgePlugins() {
           <b>link-picker-plugins</b>.
         </p>
       </PageHeader>
-      <div style={{ paddingBottom: 20 }}>
+      <div style={{ paddingBottom: token('space.250', '20px') }}>
         <a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
           {link.displayText || link.url}
         </a>

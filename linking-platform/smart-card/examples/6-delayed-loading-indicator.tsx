@@ -2,6 +2,7 @@ import React from 'react';
 import Page, { Grid, GridColumn } from '@atlaskit/page';
 import Form, { Field, FormHeader } from '@atlaskit/form';
 import Textfield from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 import { Card, Client, Provider, ResolveResponse } from '../src';
 
 const customResponse = (url: string): ResolveResponse => ({
@@ -73,7 +74,12 @@ class Example extends React.Component<any, ExampleState> {
       <Page>
         <Grid>
           <GridColumn medium={8}>
-            <div style={{ margin: '20px 0', minHeight: 150 }}>
+            <div
+              style={{
+                margin: `${token('space.250', '20px')} 0`,
+                minHeight: 150,
+              }}
+            >
               <Provider client={this.state.client} key={this.state.url}>
                 <Card url={this.state.url} appearance="block" />
                 <br />

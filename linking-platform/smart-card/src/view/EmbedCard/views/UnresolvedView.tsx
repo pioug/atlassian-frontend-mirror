@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage-spacing */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { Appearance } from '@atlaskit/button/types';

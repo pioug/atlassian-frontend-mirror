@@ -687,7 +687,7 @@ describe('ShareDialogWithTrigger', () => {
         isDialogOpen: true,
         ignoreIntermediateState: false,
         defaultValue: mockShareData,
-        shareError: new Error('unable to share'),
+        shareError: { message: 'unable to share', retryable: true },
       });
       wrapper
         .find('EmotionCssPropInternal')
@@ -703,7 +703,7 @@ describe('ShareDialogWithTrigger', () => {
       ).toBeFalsy();
       expect(
         (wrapper.state() as ShareDialogWithTriggerStates).shareError,
-      ).toBeInstanceOf(Error);
+      ).toMatchObject({ message: 'unable to share', retryable: true });
     });
 
     it('should not preventDefault if shouldCloseOnEscapePress is true, and dialog should close', () => {
@@ -731,7 +731,7 @@ describe('ShareDialogWithTrigger', () => {
         isDialogOpen: true,
         ignoreIntermediateState: false,
         defaultValue: mockShareData,
-        shareError: new Error('unable to share'),
+        shareError: { message: 'unable to share', retryable: true },
       };
 
       wrapper.setState(state);
@@ -776,7 +776,7 @@ describe('ShareDialogWithTrigger', () => {
         isDialogOpen: true,
         ignoreIntermediateState: false,
         defaultValue: mockShareData,
-        shareError: new Error('unable to share'),
+        shareError: { message: 'unable to share', retryable: true },
       });
       wrapper
         .find('EmotionCssPropInternal')
@@ -854,7 +854,7 @@ describe('ShareDialogWithTrigger', () => {
         isSharing: false,
         ignoreIntermediateState: false,
         defaultValue: values,
-        shareError: { message: 'unable to share' },
+        shareError: { message: 'unable to share', retryable: true },
       };
       const wrapper = getWrapper({
         onShareSubmit: mockOnSubmit,
@@ -888,6 +888,61 @@ describe('ShareDialogWithTrigger', () => {
           type: OBJECT_SHARED,
         },
       ]);
+    });
+
+    it('should set shareError when onShareSubmit fails', async () => {
+      // @ts-ignore This violated type definition upgrade of @types/jest to v24.0.18 & ts-jest v24.1.0.
+      //See BUILDTOOLS-210-clean: https://bitbucket.org/atlassian/atlaskit-mk-2/pull-requests/7178/buildtools-210-clean/diff
+      const mockOnSubmit = jest.fn<{}>().mockRejectedValue({
+        code: 403,
+        reason: 'Forbidden',
+        body: Promise.resolve({
+          status: 403,
+          messages: ['Not allowed'],
+          messagesDetails: [
+            {
+              message: 'Not allowed',
+              errorCode: 'example-error-code',
+              helpUrl: 'https://example.com',
+            },
+          ],
+        }),
+      });
+
+      const values: ShareData = {
+        users: [
+          { type: 'user', id: 'id', name: 'name' },
+          { type: 'email', id: 'email@atlassian.com', name: 'email' },
+        ],
+        comment: {
+          format: 'plain_text',
+          value: 'comment',
+        },
+      };
+      const mockState: Partial<ShareDialogWithTriggerStates> = {
+        isDialogOpen: true,
+        isSharing: false,
+        ignoreIntermediateState: false,
+        defaultValue: values,
+      };
+      const wrapper = getWrapper({
+        onShareSubmit: mockOnSubmit,
+      });
+
+      wrapper.setState(mockState);
+
+      const popupContent = renderDialogContent(wrapper);
+      popupContent.find(ShareForm).simulate('submit', values);
+      expect(mockOnSubmit).toHaveBeenCalledTimes(1);
+      expect(mockOnSubmit).toHaveBeenCalledWith(values);
+
+      setImmediate(() => {
+        const shareError = (wrapper.update().state() as any).shareError;
+        expect(shareError.message).toBe('Not allowed');
+        expect(shareError.errorCode).toBe('example-error-code');
+        expect(shareError.helpUrl).toBe('https://example.com');
+        expect(shareError.retryable).toBe(false);
+      });
     });
   });
 

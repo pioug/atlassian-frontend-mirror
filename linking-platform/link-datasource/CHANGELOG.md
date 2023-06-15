@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.23.0
+
+### Minor Changes
+
+- [`62465d6399f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62465d6399f) - [ux] Adding loading spinner to search button and fixed initial search loading state in table
+
 ## 0.22.0
 
 ### Minor Changes

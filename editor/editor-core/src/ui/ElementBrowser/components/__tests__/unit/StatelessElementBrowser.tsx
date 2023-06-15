@@ -215,7 +215,7 @@ describe('KeyboardNavigation for item listSize 10', () => {
 
   type ExpectedState = {
     focusOnSearch: boolean;
-    selectedItemIndex: number;
+    selectedItemIndex?: number;
     focusedItemIndex?: number;
   };
 
@@ -272,7 +272,7 @@ describe('KeyboardNavigation for item listSize 10', () => {
     if (keys.find((k) => k === 'enter')) {
       it(`calls back onSelectItem with selected item at index: ${expectedState.selectedItemIndex}`, () => {
         expect(testProps.onSelectItem).toHaveBeenCalledWith(
-          testProps.items[expectedState.selectedItemIndex],
+          testProps.items[expectedState.selectedItemIndex!],
         );
       });
     }

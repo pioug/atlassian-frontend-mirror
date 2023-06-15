@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import {
-  useState,
   useCallback,
+  useState,
   ComponentClass,
   ReactElement,
   HTMLAttributes,
@@ -9,7 +9,6 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import { Section, ButtonItem } from '@atlaskit/menu';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius } from '@atlaskit/theme';
@@ -72,7 +71,9 @@ const InsertMenu = ({
 
   const quickInsertDropdownItems = dropdownItems.map(transform);
 
-  const viewMoreItem = showElementBrowserLink && quickInsertDropdownItems.pop();
+  const viewMoreItem = showElementBrowserLink
+    ? quickInsertDropdownItems.pop()
+    : undefined;
 
   const onInsertItem = useCallback(
     (item) => {
@@ -120,10 +121,17 @@ const InsertMenu = ({
           showCategories={false}
           // On page resize we want the InlineElementBrowser to show updated tools/overflow items
           key={quickInsertDropdownItems.length}
+          viewMoreItem={viewMoreItem}
         />
       </ElementBrowserWrapper>
     ),
-    [getItems, onInsertItem, quickInsertDropdownItems.length, toggleVisiblity],
+    [
+      getItems,
+      onInsertItem,
+      quickInsertDropdownItems.length,
+      toggleVisiblity,
+      viewMoreItem,
+    ],
   );
 
   return (
@@ -132,27 +140,7 @@ const InsertMenu = ({
         plugins={{ quickInsertState: pluginKey }}
         render={render}
       />
-      {itemCount > 0 && viewMoreItem && <ViewMore item={viewMoreItem} />}
     </div>
-  );
-};
-
-const ViewMore = ({ item }: { item: QuickInsertItem }) => {
-  return (
-    <Section hasSeparator>
-      <ButtonItem
-        onClick={item.action as any}
-        iconBefore={<div css={itemBefore}>{item.icon!()}</div>}
-        aria-describedby={item.title}
-        data-testid="view-more-elements-item"
-        // @ts-ignore Overriding Menu styles is not supported
-        css={css`
-          padding: 0px 12px;
-        `}
-      >
-        {item.title}
-      </ButtonItem>
-    </Section>
   );
 };
 
@@ -202,16 +190,6 @@ const insertMenuWrapper = (theme: ThemeProps, itemCount: number) => css`
     0 2px 1px ${N30A},
     0 0 20px -6px ${N60A}`,
   )};
-`;
-
-const itemBefore = css`
-  width: 40px;
-  height: 40px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: ${token('space.050', '4px')};
 `;
 
 const flexWrapperStyles = css`

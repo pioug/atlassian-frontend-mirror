@@ -9,7 +9,7 @@ replaceRaf();
 describe('useSelectAndFocusOnArrowNavigation', () => {
   it('sets focused and selected item index', () => {
     const { result } = renderHook(() =>
-      useSelectAndFocusOnArrowNavigation(10, 1),
+      useSelectAndFocusOnArrowNavigation(10, 1, false),
     );
     act(() => {
       result.current.setFocusedItemIndex(5);

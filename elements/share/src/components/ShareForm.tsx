@@ -132,6 +132,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       orgId,
       isBrowseUsersDisabled,
       intl: { formatMessage },
+      shareError,
     } = this.props;
 
     return (
@@ -155,6 +156,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
               helperMessage={helperMessage}
               orgId={orgId}
               isBrowseUsersDisabled={isBrowseUsersDisabled}
+              shareError={shareError}
             />
           </div>
           <div css={formFieldStyles}>
@@ -193,7 +195,10 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       isPublicLink,
       integrationMode,
     } = this.props;
-    const shouldShowWarning = shareError && !isSharing;
+    const isRetryableError = !!shareError?.retryable;
+    const isNonRetryableError = shareError && !shareError.retryable;
+    const shouldShowWarning = isRetryableError && !isSharing;
+
     const buttonAppearance = !shouldShowWarning ? 'primary' : 'warning';
     const tabMode = integrationMode === 'tabs';
     const formPublicLabel = tabMode
@@ -201,7 +206,8 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
       : messages.formSendPublic;
     const formSendLabel = messages.formShare;
     const sendLabel = isPublicLink ? formPublicLabel : formSendLabel;
-    const buttonLabel = shareError ? messages.formRetry : sendLabel;
+    const buttonLabel = isRetryableError ? messages.formRetry : sendLabel;
+    const buttonDisabled = isDisabled || isNonRetryableError;
     const ButtonLabelWrapper =
       buttonAppearance === 'warning' ? 'strong' : React.Fragment;
 
@@ -224,7 +230,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
           appearance={buttonAppearance}
           type="submit"
           isLoading={isSharing}
-          isDisabled={isDisabled}
+          isDisabled={buttonDisabled}
         >
           <ButtonLabelWrapper>
             {submitButtonLabel || <FormattedMessage {...buttonLabel} />}

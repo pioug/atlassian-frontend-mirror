@@ -14,6 +14,7 @@ export interface Props {
   showCategories: boolean;
   defaultCategory?: string;
   emptyStateHandler?: EmptyStateHandler;
+  viewMoreItem?: QuickInsertItem;
 }
 
 export interface State {
@@ -115,6 +116,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
       showCategories,
       mode,
       emptyStateHandler,
+      viewMoreItem,
     } = this.props;
     const { categories, searchTerm, selectedCategory, items } = this.state;
     return (
@@ -131,6 +133,7 @@ export default class ElementBrowser extends PureComponent<Props, State> {
         mode={mode}
         searchTerm={searchTerm}
         emptyStateHandler={emptyStateHandler}
+        viewMoreItem={viewMoreItem}
       />
     );
   }

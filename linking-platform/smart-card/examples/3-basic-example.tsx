@@ -95,7 +95,7 @@ class Example extends React.Component<{}, ExampleState> {
               <GridColumn medium={12} key={url}>
                 <div
                   style={{
-                    margin: '20px 0',
+                    margin: `${token('space.250', '20px')} 0`,
                     minHeight: 150,
                     borderBottom: `1px solid ${token('color.border', '#eee')}`,
                   }}

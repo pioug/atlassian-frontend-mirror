@@ -8,6 +8,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Popup, { TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
@@ -185,6 +186,13 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
         fallbackPlacements={fallbackPlacements}
         testId={testId && `${testId}--content`}
         shouldUseCaptureOnOutsideClick
+        shouldRenderToParent={
+          getBooleanFF(
+            'platform.design-system-team.render-popup-in-parent_f73ij',
+          )
+            ? true
+            : undefined
+        }
         trigger={(triggerProps: TriggerProps) => {
           if (typeof trigger === 'function') {
             const { ref, ...providedProps } = triggerProps;

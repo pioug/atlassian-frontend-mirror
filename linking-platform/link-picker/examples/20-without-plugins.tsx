@@ -2,6 +2,7 @@ import React, { Fragment, SyntheticEvent, useState } from 'react';
 
 import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
+import { token } from '@atlaskit/tokens';
 
 import { LinkPicker } from '../src';
 import { PageHeader, PageWrapper } from '../example-helpers/common';
@@ -71,7 +72,7 @@ function WithoutPlugins() {
           valid link with custom display text.
         </p>
       </PageHeader>
-      <div style={{ paddingBottom: 20 }}>
+      <div style={{ paddingBottom: token('space.250', '20px') }}>
         <a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
           {link.displayText || link.url}
         </a>

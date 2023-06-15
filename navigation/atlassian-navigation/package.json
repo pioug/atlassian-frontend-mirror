@@ -38,7 +38,7 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/logo": "*",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/popup": "^1.6.0",
+    "@atlaskit/popup": "^1.7.0",
     "@atlaskit/primitives": "^0.12.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.5.0",
@@ -92,7 +92,8 @@
         "static"
       ],
       "design-tokens": [
-        "color"
+        "color",
+        "spacing"
       ],
       "deprecation": "no-deprecated-imports"
     }

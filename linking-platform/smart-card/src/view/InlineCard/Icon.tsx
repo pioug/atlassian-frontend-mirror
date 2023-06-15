@@ -31,10 +31,12 @@ export const AKIconWrapper = styled.span`
 export const Shimmer = ({ testId }: { testId: string }) => {
   const skeletonCustomStyles: React.CSSProperties = {
     position: 'absolute',
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     top: '50%',
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    marginRight: 4,
+    marginRight: token('space.050', '4px'),
   };
 
   return (

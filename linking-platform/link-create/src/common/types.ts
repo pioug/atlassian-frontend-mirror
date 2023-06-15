@@ -1,5 +1,7 @@
 import { ReactNode } from 'react';
 
+import { ModalDialogProps } from '@atlaskit/modal-dialog';
+
 /** Map of field names to a list of validators for that field */
 export type ValidatorMap = Record<string, Validator[]>;
 
@@ -93,15 +95,24 @@ export interface LinkCreateProps {
   onCancel?: () => void;
 
   /**
-   * This value controls whether the Create Modal should be active or hidden
-   * Default: false
-   */
-  active?: boolean;
-
-  /**
    * This value tells where the linkCreate was triggered from. And it's for
    * analytic purpose only.
    * Default: unknown
    */
   triggeredFrom?: string;
+}
+
+export interface LinkCreateWithModalProps
+  extends LinkCreateProps,
+    Partial<Pick<ModalDialogProps, 'onOpenComplete' | 'onCloseComplete'>> {
+  /**
+   * This value controls whether the Create Modal should be active or hidden
+   * Default: false
+   */
+  active?: boolean;
+  /**
+   * A title for the LinkCreate with Modal component
+   * Default: Create new
+   */
+  modalTitle?: string;
 }

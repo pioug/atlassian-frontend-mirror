@@ -1,7 +1,10 @@
 import React from 'react';
 import { IntlShape } from 'react-intl-next';
 import { blockquote, hardBreak, heading } from '@atlaskit/adf-schema';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import { createPlugin, pluginKey } from './pm-plugins/main';
 import keymapPlugin from './pm-plugins/keymap';
 import inputRulePlugin from './pm-plugins/input-rule';
@@ -13,10 +16,9 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import * as keymaps from '../../keymaps';
 import { IconHeading, IconQuote } from '../quick-insert/assets';
 import {
@@ -28,9 +30,13 @@ import { EditorState } from 'prosemirror-state';
 import { messages } from './messages';
 import { ToolbarSize } from '../../ui/Toolbar/types';
 
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
 const headingPluginOptions = (
   { formatMessage }: IntlShape,
   isAllowed: boolean,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): Array<QuickInsertItem> => {
   if (!isAllowed) {
     return [];
@@ -57,7 +63,7 @@ const headingPluginOptions = (
       icon: () => <IconHeading level={level} />,
       action(insert: QuickInsertActionInsert, state: EditorState) {
         const tr = insert(state.schema.nodes.heading.createChecked({ level }));
-        return addAnalytics(state, tr, {
+        editorAnalyticsApi?.attachAnalyticsEvent({
           action: ACTION.FORMATTED,
           actionSubject: ACTION_SUBJECT.TEXT,
           eventType: EVENT_TYPE.TRACK,
@@ -66,7 +72,9 @@ const headingPluginOptions = (
             inputMethod: INPUT_METHOD.QUICK_INSERT,
             newHeadingLevel: level,
           },
-        });
+        })(tr);
+
+        return tr;
       },
     };
   });
@@ -75,6 +83,7 @@ const headingPluginOptions = (
 const blockquotePluginOptions = (
   { formatMessage }: IntlShape,
   isAllowed: boolean,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): Array<QuickInsertItem> => {
   if (!isAllowed) {
     return [];
@@ -95,8 +104,7 @@ const blockquotePluginOptions = (
             state.schema.nodes.paragraph.createChecked(),
           ),
         );
-
-        return addAnalytics(state, tr, {
+        editorAnalyticsApi?.attachAnalyticsEvent({
           action: ACTION.FORMATTED,
           actionSubject: ACTION_SUBJECT.TEXT,
           eventType: EVENT_TYPE.TRACK,
@@ -104,7 +112,9 @@ const blockquotePluginOptions = (
           attributes: {
             inputMethod: INPUT_METHOD.QUICK_INSERT,
           },
-        });
+        })(tr);
+
+        return tr;
       },
     },
   ];
@@ -114,8 +124,9 @@ const blockTypePlugin: NextEditorPlugin<
   'blockType',
   {
     pluginConfiguration: BlockTypePluginOptions | undefined;
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
   }
-> = (options?) => ({
+> = (options?, api?) => ({
   name: 'blockType',
 
   nodes() {
@@ -210,8 +221,16 @@ const blockTypePlugin: NextEditorPlugin<
           : [];
 
       return [
-        ...blockquotePluginOptions(intl, exclude.indexOf('blockquote') === -1),
-        ...headingPluginOptions(intl, exclude.indexOf('heading') === -1),
+        ...blockquotePluginOptions(
+          intl,
+          exclude.indexOf('blockquote') === -1,
+          api?.dependencies.analytics?.actions,
+        ),
+        ...headingPluginOptions(
+          intl,
+          exclude.indexOf('heading') === -1,
+          api?.dependencies.analytics?.actions,
+        ),
       ];
     },
   },

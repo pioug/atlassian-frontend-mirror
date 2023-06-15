@@ -2,7 +2,6 @@
 import { jsx } from '@emotion/react';
 import Tooltip from '@atlaskit/tooltip';
 
-import { gs } from './utils';
 import { N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -19,18 +18,32 @@ export const Metadata = ({ text, icon, iconUrl, tooltip }: MetadataProps) => {
   let metadataIcon = icon || null;
 
   if (!metadataIcon && iconUrl) {
-    metadataIcon = <img src={iconUrl} css={{ width: gs(1), height: gs(1) }} />;
+    metadataIcon = (
+      <img
+        src={iconUrl}
+        css={{
+          width: token('space.100', '8px'),
+          height: token('space.100', '8px'),
+        }}
+      />
+    );
   }
 
   const metadata = (
-    <div css={{ display: 'flex', alignItems: 'center', marginRight: gs(0.5) }}>
+    <div
+      css={{
+        display: 'flex',
+        alignItems: 'center',
+        marginRight: token('space.050', '4px'),
+      }}
+    >
       {metadataIcon}
       <span
         css={{
-          fontSize: gs(1.5),
+          fontSize: token('space.150', '12px'),
           color: `${token('color.text.subtlest', N300)}`,
-          marginRight: gs(0.5),
-          marginLeft: '2px',
+          marginRight: token('space.050', '4px'),
+          marginLeft: token('space.025', '2px'),
         }}
       >
         {text}

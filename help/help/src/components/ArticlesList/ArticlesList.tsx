@@ -1,6 +1,5 @@
 import React from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { gridSize } from '@atlaskit/theme/constants';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import AnimateHeight from 'react-animate-height';
@@ -23,13 +22,13 @@ const getStyles = (style: string) => {
   if (style === 'secondary') {
     return {
       border: `2px solid ${token('color.border', N30)}`,
-      padding: `${gridSize() * 2}px`,
-      marginBottom: `${gridSize() * 1.5}px`,
+      padding: token('space.200', '16px'),
+      marginBottom: token('space.150', '12px'),
     };
   }
   return {
     border: 0,
-    padding: `${gridSize()}px`,
+    padding: token('space.100', '8px'),
     marginBottom: 0,
   };
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import { messages } from '../../../../messages';
 
 import { LoadingRectangle } from '../../../../util/styled';
@@ -21,7 +21,7 @@ export const Loading: React.FC<WrappedComponentProps> = ({
     />
     <LoadingRectangle
       style={{
-        marginLeft: `${gridSize()}px`,
+        marginLeft: token('space.100', '8px'),
       }}
       contentHeight="11px"
       contentWidth="60px"

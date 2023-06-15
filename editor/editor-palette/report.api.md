@@ -18,102 +18,96 @@
 // @public (undocumented)
 type EditorBackgroundPalette = typeof editorBackgroundPalette;
 
-// @public (undocumented)
+// @public
 const editorBackgroundPalette: {
   '#DEEBFF': {
-    tokenName: 'color.background.accent.blue.subtlest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-blue-subtlest, #DEEBFF)';
   };
   '#B3D4FF': {
-    tokenName: 'color.background.accent.blue.subtler';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-blue-subtler, #B3D4FF)';
   };
   '#4C9AFF': {
-    tokenName: 'color.background.accent.blue.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-blue-subtle, #4C9AFF)';
   };
   '#E6FCFF': {
-    tokenName: 'color.background.accent.teal.subtlest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-teal-subtlest, #E6FCFF)';
   };
   '#B3F5FF': {
-    tokenName: 'color.background.accent.teal.subtler';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-teal-subtler, #B3F5FF)';
   };
   '#79E2F2': {
-    tokenName: 'color.background.accent.teal.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-teal-subtle, #79E2F2)';
   };
   '#E3FCEF': {
-    tokenName: 'color.background.accent.green.subtlest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-green-subtlest, #E3FCEF)';
   };
   '#ABF5D1': {
-    tokenName: 'color.background.accent.green.subtler';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-green-subtler, #ABF5D1)';
   };
   '#57D9A3': {
-    tokenName: 'color.background.accent.green.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-green-subtle, #57D9A3)';
   };
   '#FFFAE6': {
-    tokenName: 'color.background.accent.yellow.subtlest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-yellow-subtlest, #FFFAE6)';
   };
   '#FFF0B3': {
-    tokenName: 'color.background.accent.yellow.subtler';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-yellow-subtler, #FFF0B3)';
   };
   '#FFC400': {
-    tokenName: 'color.background.accent.orange.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-orange-subtle, #FFC400)';
   };
   '#FFEBE6': {
-    tokenName: 'color.background.accent.red.subtlest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-red-subtlest, #FFEBE6)';
   };
   '#FFBDAD': {
-    tokenName: 'color.background.accent.red.subtler';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-red-subtler, #FFBDAD)';
   };
   '#FF8F73': {
-    tokenName: 'color.background.accent.red.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-red-subtle, #FF8F73)';
   };
   '#EAE6FF': {
-    tokenName: 'color.background.accent.purple.subtlest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-purple-subtlest, #EAE6FF)';
   };
   '#C0B6F2': {
-    tokenName: 'color.background.accent.purple.subtler';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-purple-subtler, #C0B6F2)';
   };
   '#998DD9': {
-    tokenName: 'color.background.accent.purple.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-purple-subtle, #998DD9)';
   };
   '#FFFFFF': {
-    tokenName: 'elevation.surface';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-surface, #FFFFFF)';
   };
   '#F4F5F7': {
-    tokenName: 'color.background.accent.gray.subtlest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-gray-subtlest, #F4F5F7)';
   };
   '#B3BAC5': {
-    tokenName: 'color.background.accent.gray.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-gray-subtle, #B3BAC5)';
   };
 };
 
 // @public (undocumented)
 type EditorBackgroundPaletteKey = keyof EditorBackgroundPalette;
-
-// @public (undocumented)
-type EditorBackgroundPaletteTokenNames = (typeof tokenNames)[number];
-
-// @public (undocumented)
-type EditorBackgroundPaletteTokenNames_2 = (typeof tokenNames_2)[number];
 
 // @public (undocumented)
 type EditorBorderPalette = typeof editorBorderPalette;
@@ -134,147 +128,147 @@ type EditorTableChartsPalette = typeof editorTableChartsPalette;
 // @public
 const editorTableChartsPalette: {
   '#7AB2FF': {
-    tokenName: 'color.background.accent.blue.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-blue-subtle, #7AB2FF)';
   };
   '#60C6D2': {
-    tokenName: 'color.background.accent.teal.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-teal-subtle, #60C6D2)';
   };
   '#6BE1B0': {
-    tokenName: 'color.background.accent.green.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-green-subtle, #6BE1B0)';
   };
   '#FFDB57': {
-    tokenName: 'color.background.accent.yellow.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-yellow-subtle, #FFDB57)';
   };
   '#FAA53D': {
-    tokenName: 'color.background.accent.orange.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-orange-subtle, #FAA53D)';
   };
   '#FF8F73': {
-    tokenName: 'color.background.accent.red.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-red-subtle, #FF8F73)';
   };
   '#E774BB': {
-    tokenName: 'color.background.accent.magenta.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-magenta-subtle, #E774BB)';
   };
   '#B5A7FB': {
-    tokenName: 'color.background.accent.purple.subtle';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-purple-subtle, #B5A7FB)';
   };
   '#8993A5': {
-    tokenName: 'color.background.accent.gray.subtler';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-background-accent-gray-subtler, #8993A5)';
   };
   '#247FFF': {
-    tokenName: 'color.chart.blue.bold';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-blue-bold, #247FFF)';
   };
   '#1D9AAA': {
-    tokenName: 'color.chart.teal.bold';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-teal-bold, #1D9AAA)';
   };
   '#23A971': {
-    tokenName: 'color.chart.green.bold';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-green-bold, #23A971)';
   };
   '#FFBE33': {
-    tokenName: 'color.chart.yellow.bold';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-yellow-bold, #FFBE33)';
   };
   '#D97008': {
-    tokenName: 'color.chart.orange.bold';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-orange-bold, #D97008)';
   };
   '#FC552C': {
-    tokenName: 'color.chart.red.bold';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-red-bold, #FC552C)';
   };
   '#DA62AC': {
-    tokenName: 'color.chart.magenta.bold';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-magenta-bold, #DA62AC)';
   };
   '#8B77EE': {
-    tokenName: 'color.chart.purple.bold';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-purple-bold, #8B77EE)';
   };
   '#8590A2': {
-    tokenName: 'color.chart.gray.bold';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-gray-bold, #8590A2)';
   };
   '#0055CC': {
-    tokenName: 'color.chart.blue.bolder';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-blue-bolder, #0055CC)';
   };
   '#1D7F8C': {
-    tokenName: 'color.chart.teal.bolder';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-teal-bolder, #1D7F8C)';
   };
   '#177D52': {
-    tokenName: 'color.chart.green.bolder';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-green-bolder, #177D52)';
   };
   '#FF9D00': {
-    tokenName: 'color.chart.yellow.bolder';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-yellow-bolder, #FF9D00)';
   };
   '#B65C02': {
-    tokenName: 'color.chart.orange.bolder';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-orange-bolder, #B65C02)';
   };
   '#D32D03': {
-    tokenName: 'color.chart.red.bolder';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-red-bolder, #D32D03)';
   };
   '#CD519D': {
-    tokenName: 'color.chart.magenta.bolder';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-magenta-bolder, #CD519D)';
   };
   '#5A43D0': {
-    tokenName: 'color.chart.purple.bolder';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-purple-bolder, #5A43D0)';
   };
   '#758195': {
-    tokenName: 'color.chart.gray.bolder';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-gray-bolder, #758195)';
   };
   '#003884': {
-    tokenName: 'color.chart.blue.boldest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-blue-boldest, #003884)';
   };
   '#206B74': {
-    tokenName: 'color.chart.teal.boldest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-teal-boldest, #206B74)';
   };
   '#055C3F': {
-    tokenName: 'color.chart.green.boldest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-green-boldest, #055C3F)';
   };
   '#946104': {
-    tokenName: 'color.chart.yellow.boldest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-yellow-boldest, #946104)';
   };
   '#974F0C': {
-    tokenName: 'color.chart.orange.boldest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-orange-boldest, #974F0C)';
   };
   '#A32000': {
-    tokenName: 'color.chart.red.boldest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-red-boldest, #A32000)';
   };
   '#943D73': {
-    tokenName: 'color.chart.magenta.boldest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-magenta-boldest, #943D73)';
   };
   '#44368B': {
-    tokenName: 'color.chart.purple.boldest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-purple-boldest, #44368B)';
   };
   '#44546F': {
-    tokenName: 'color.chart.gray.boldest';
+    getValue: (fallback: string) => string;
     token: 'var(--ds-chart-gray-boldest, #44546F)';
   };
 };
@@ -320,14 +314,10 @@ export function hexToEditorBackgroundPaletteColor<HexColor extends string>(
   ? EditorBackgroundPalette[HexColor]['token']
   : string | undefined;
 
-// @public (undocumented)
-export function hexToEditorBackgroundPaletteColorTokenName<
-  HexColor extends string,
->(
+// @public
+export function hexToEditorBackgroundPaletteRawValue<HexColor extends string>(
   hexColor: HexColor,
-): HexColor extends EditorBackgroundPaletteKey
-  ? EditorBackgroundPalette[HexColor]['tokenName']
-  : EditorBackgroundPaletteTokenNames | undefined;
+): HexColor extends EditorBackgroundPaletteKey ? string : undefined;
 
 // @public
 export function hexToEditorBorderPaletteColor<HexColor extends string>(
@@ -343,14 +333,10 @@ export function hexToEditorTableChartsPaletteColor<HexColor extends string>(
   ? EditorTableChartsPalette[HexColor]['token']
   : string | undefined;
 
-// @public (undocumented)
-export function hexToEditorTableChartsPaletteColorTokenName<
-  HexColor extends string,
->(
+// @public
+export function hexToEditorTableChartsPaletteRawValue<HexColor extends string>(
   hexColor: HexColor,
-): HexColor extends EditorTableChartsPaletteKey
-  ? EditorTableChartsPalette[HexColor]['tokenName']
-  : EditorBackgroundPaletteTokenNames_2 | undefined;
+): HexColor extends EditorTableChartsPaletteKey ? string : undefined;
 
 // @public
 export function hexToEditorTextPaletteColor<HexColor extends string>(
@@ -358,71 +344,6 @@ export function hexToEditorTextPaletteColor<HexColor extends string>(
 ): HexColor extends EditorTextPaletteKey
   ? EditorTextPalette[HexColor]
   : string | undefined;
-
-// @public (undocumented)
-const tokenNames: (
-  | 'color.background.accent.blue.subtle'
-  | 'color.background.accent.blue.subtler'
-  | 'color.background.accent.blue.subtlest'
-  | 'color.background.accent.gray.subtle'
-  | 'color.background.accent.gray.subtlest'
-  | 'color.background.accent.green.subtle'
-  | 'color.background.accent.green.subtler'
-  | 'color.background.accent.green.subtlest'
-  | 'color.background.accent.orange.subtle'
-  | 'color.background.accent.purple.subtle'
-  | 'color.background.accent.purple.subtler'
-  | 'color.background.accent.purple.subtlest'
-  | 'color.background.accent.red.subtle'
-  | 'color.background.accent.red.subtler'
-  | 'color.background.accent.red.subtlest'
-  | 'color.background.accent.teal.subtle'
-  | 'color.background.accent.teal.subtler'
-  | 'color.background.accent.teal.subtlest'
-  | 'color.background.accent.yellow.subtler'
-  | 'color.background.accent.yellow.subtlest'
-  | 'elevation.surface'
-)[];
-
-// @public (undocumented)
-const tokenNames_2: (
-  | 'color.background.accent.blue.subtle'
-  | 'color.background.accent.gray.subtler'
-  | 'color.background.accent.green.subtle'
-  | 'color.background.accent.magenta.subtle'
-  | 'color.background.accent.orange.subtle'
-  | 'color.background.accent.purple.subtle'
-  | 'color.background.accent.red.subtle'
-  | 'color.background.accent.teal.subtle'
-  | 'color.background.accent.yellow.subtle'
-  | 'color.chart.blue.bold'
-  | 'color.chart.blue.bolder'
-  | 'color.chart.blue.boldest'
-  | 'color.chart.gray.bold'
-  | 'color.chart.gray.bolder'
-  | 'color.chart.gray.boldest'
-  | 'color.chart.green.bold'
-  | 'color.chart.green.bolder'
-  | 'color.chart.green.boldest'
-  | 'color.chart.magenta.bold'
-  | 'color.chart.magenta.bolder'
-  | 'color.chart.magenta.boldest'
-  | 'color.chart.orange.bold'
-  | 'color.chart.orange.bolder'
-  | 'color.chart.orange.boldest'
-  | 'color.chart.purple.bold'
-  | 'color.chart.purple.bolder'
-  | 'color.chart.purple.boldest'
-  | 'color.chart.red.bold'
-  | 'color.chart.red.bolder'
-  | 'color.chart.red.boldest'
-  | 'color.chart.teal.bold'
-  | 'color.chart.teal.bolder'
-  | 'color.chart.teal.boldest'
-  | 'color.chart.yellow.bold'
-  | 'color.chart.yellow.bolder'
-  | 'color.chart.yellow.boldest'
-)[];
 
 // (No @packageDocumentation comment for this package)
 ```

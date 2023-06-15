@@ -198,7 +198,7 @@ exports[`BackButton Should match snapshot 1`] = `
 
 <div
   class="emotion-4"
-  style="transition: left 220ms, opacity 220ms; left: 8px; opacity: 1;"
+  style="transition: left 220ms, opacity 220ms; opacity: 1;"
 >
   <button
     class="emotion-3"

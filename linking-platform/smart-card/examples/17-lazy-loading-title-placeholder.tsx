@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider, Client } from '../src';
 import { EnvironmentsKeys } from '@atlaskit/link-provider';
+import { token } from '@atlaskit/tokens';
 import { LoadingCardLink } from '../src/view/CardWithUrl/component-lazy/LazyFallback';
 import { AnalyticsPayload } from '../src/utils/types';
 
@@ -14,7 +15,13 @@ class BrokenClient extends Client {
 }
 export default () => (
   <Provider client={new BrokenClient('stg')}>
-    <div style={{ width: '680px', margin: '0 auto', marginTop: '64px' }}>
+    <div
+      style={{
+        width: '680px',
+        margin: '0 auto',
+        marginTop: token('space.800', '64px'),
+      }}
+    >
       This is a placeholder for a Smart Link with the text override!
       <br />
       <LoadingCardLink

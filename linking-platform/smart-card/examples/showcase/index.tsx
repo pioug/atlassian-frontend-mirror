@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage-spacing */
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 
 import { Provider, Client } from '../../src';
@@ -120,7 +121,7 @@ export const SmartLinksShowcase = () => {
             <div
               style={{
                 textAlign: 'center',
-                paddingTop: '24px',
+                paddingTop: token('space.300', '24px'),
                 paddingBottom: '72px',
                 position: 'relative',
                 zIndex: 1,

@@ -1,14 +1,16 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { useTheme } from '../../theme';
 
 import { SkeletonIconButtonProps } from './types';
 
 const skeletonIconButtonStyles = css({
   margin: 0,
-  marginRight: 4,
-  padding: '4px 6px',
+  marginRight: token('space.050', '4px'),
+  padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
   border: 0,
   borderRadius: '100%',
   pointerEvents: 'none',

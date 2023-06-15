@@ -77,7 +77,7 @@ describe('MediaNodeUpdater', () => {
         collection: 'destination-collection',
       },
     });
-    const node: any = {
+    const node: any = props?.node ?? {
       attrs: {
         id: 'source-file-id',
         collection: 'source-collection',
@@ -402,6 +402,27 @@ describe('MediaNodeUpdater', () => {
       expect(uploadMediaClientConfig.getAuthFromContext).toBeCalledWith(
         'source-context-id',
       );
+    });
+
+    it('should call copyFile when collection is empty', async () => {
+      const node: any = {
+        attrs: {
+          id: 'source-file-id',
+          collection: '',
+          __contextId: 'source-context-id',
+          type: 'file',
+        },
+      };
+      const { mediaNodeUpdater, mediaClient, authFromContext } = setup({
+        node,
+      });
+      const traceId = '123';
+
+      await mediaNodeUpdater.copyNode({ traceId });
+      expect(mediaClient.file.copyFile).toBeCalledTimes(1);
+      const authProvider = (mediaClient.file.copyFile as jest.Mock).mock
+        .calls[0][0].authProvider;
+      expect(authProvider()).toEqual(authFromContext);
     });
 
     it('should call copyFile with media traceId, right source and destination', async () => {

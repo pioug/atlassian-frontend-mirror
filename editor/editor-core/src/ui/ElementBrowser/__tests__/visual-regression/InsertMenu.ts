@@ -41,26 +41,13 @@ describe('InsertMenu Button', () => {
   it('should match the InsertMenu item snapshot', async () => {
     await animationFrame(page);
     await waitForInsertMenuIcons(page);
-    await animationFrame(page);
-    await snapshot(
-      page,
-      { tolerance: 0.0005 },
-      elementBrowserSelectors.elementBrowser,
-      {
-        captureBeyondViewport: false,
-      },
-    );
-  });
-
-  it('should correctly render the View More menu item', async () => {
-    await animationFrame(page);
     // Wait for loaded SVG icon
     await page.waitForSelector(`${elementBrowserSelectors.viewMore} svg`);
     await animationFrame(page);
     await snapshot(
       page,
       { tolerance: 0.0005 },
-      elementBrowserSelectors.viewMore,
+      elementBrowserSelectors.elementBrowser,
       {
         captureBeyondViewport: false,
       },

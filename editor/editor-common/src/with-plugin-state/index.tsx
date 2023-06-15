@@ -67,20 +67,40 @@ export interface Props<P extends NamedPluginKeys> {
 }
 
 /**
- * Wraps component in a high order component that watches state changes of given plugins
- * and passes those states to the wrapped component.
+ * @private
+ * @deprecated
  *
- * Example:
+ * Using this component is deprecated. It should be replaced with `useSharedPluginState`.
+ * This requires having access to the injection API from the plugin itself.
+ *
+ * An example of the refactor with the new hook (using hyperlink as an example) is:
+ *
+ * Before:
+ * ```ts
  * <WithPluginState
- *   eventDispatcher={eventDispatcher}
  *   editorView={editorView}
  *   plugins={{
- *     hyperlink: hyperlinkPluginKey
+ *     hyperlinkState: hyperlinkPluginKey
  *   }}
- *   render={renderComponent}
+ *   render={({ hyperlinkState }) =>
+ *     renderComponent({ hyperlinkState })
+ *   }
  * />
+ * ```
  *
- * renderComponent: ({ hyperlink }) => React.Component;
+ * After:
+ * ```ts
+ * import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+ * import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+ *
+ * function ComponentWithState(
+ *   api: ExtractInjectionAPI<typeof hyperlinkPlugin> | undefined
+ * ) {
+ *   const { hyperlinkState } = useSharedPluginState(api, ['hyperlink']);
+ *   return renderComponent({ hyperlinkState })
+ * }
+ * ```
+ *
  */
 class WithPluginState<P extends NamedPluginKeys> extends React.Component<
   Props<P>,

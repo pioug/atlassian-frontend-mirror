@@ -22,7 +22,7 @@ import { SearchProps } from './types';
 
 const searchInputContainerStyles = css({
   marginRight: token('space.100', '8px'),
-  marginLeft: 20,
+  marginLeft: token('space.250', '20px'),
   position: 'relative',
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
@@ -34,7 +34,9 @@ const searchInputIconStyles = css({
   width: '20px',
   height: '20px',
   position: 'absolute',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   top: '5px',
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: '10px',
   pointerEvents: 'none',
 });

@@ -117,7 +117,7 @@ class Example extends React.Component<{}, ExampleState> {
         >
           <h1
             style={{
-              paddingTop: '10px',
+              paddingTop: token('space.150', '12px'),
               cursor: 'pointer',
               display: 'inline-block',
             }}
@@ -148,7 +148,7 @@ class Example extends React.Component<{}, ExampleState> {
               <GridColumn medium={12} key={url}>
                 <div
                   style={{
-                    margin: '20px 0',
+                    margin: `${token('space.250', '20px')} 0`,
                     minHeight: 180,
                     borderBottom: `1px solid ${token('color.border', '#eee')}`,
                     textAlign: 'center',

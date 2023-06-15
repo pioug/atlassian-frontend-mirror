@@ -5,10 +5,10 @@ import {
   UIAnalyticsEvent,
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
-import { gridSize } from '@atlaskit/theme/constants';
 import { Transition } from 'react-transition-group';
 import ArrowleftIcon from '@atlaskit/icon/glyph/arrow-left';
 import Button from '@atlaskit/button/standard-button';
+import { token } from '@atlaskit/tokens';
 
 import {
   name as packageName,
@@ -33,12 +33,12 @@ interface Props {
 // Animation
 const defaultStyle = {
   transition: `left ${TRANSITION_DURATION_MS}ms, opacity ${TRANSITION_DURATION_MS}ms`,
-  left: `${gridSize() * 3}px`,
+  left: token('space.300', '24px'),
   opacity: 0,
 };
 const transitionStyles: { [id: string]: React.CSSProperties } = {
-  entered: { left: `${gridSize()}px`, opacity: 1 },
-  exited: { left: `${gridSize()}px`, opacity: 0 },
+  entered: { left: token('space.100', '8px'), opacity: 1 },
+  exited: { left: token('space.100', '8px'), opacity: 0 },
 };
 
 export const BackButton: React.FC<Props & WrappedComponentProps> = ({

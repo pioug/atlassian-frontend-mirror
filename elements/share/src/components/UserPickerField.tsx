@@ -19,7 +19,12 @@ import SmartUserPicker, {
 import UserPicker from '@atlaskit/user-picker';
 
 import { messages } from '../i18n';
-import { ConfigResponse, MessageDescriptor, ProductName } from '../types';
+import {
+  ConfigResponse,
+  MessageDescriptor,
+  ProductName,
+  ShareError,
+} from '../types';
 
 import { MAX_PICKER_HEIGHT } from './styles';
 import { allowEmails, getMenuPortalTargetCurrentHTML } from './utils';
@@ -48,6 +53,7 @@ export type Props = {
   helperMessage?: string;
   orgId?: string;
   isBrowseUsersDisabled?: boolean;
+  shareError?: ShareError;
 };
 
 type GetPlaceHolderMessageDescriptor = (
@@ -159,7 +165,7 @@ export class UserPickerFieldComponent extends React.Component<
     }
   };
 
-  private getInviteWarningMessage = (): React.ReactNode => {
+  private getHelperMessageOrDefault = (): React.ReactNode => {
     const { product, isPublicLink, helperMessage } = this.props;
 
     if (isPublicLink) {
@@ -204,6 +210,7 @@ export class UserPickerFieldComponent extends React.Component<
       isPublicLink,
       orgId,
       isBrowseUsersDisabled,
+      shareError,
     } = this.props;
 
     const smartUserPickerProps: Partial<SmartUserPickerProps> =
@@ -265,8 +272,18 @@ export class UserPickerFieldComponent extends React.Component<
         defaultValue={defaultValue}
         transform={this.handleUserPickerTransform}
       >
-        {({ fieldProps, error, meta: { valid } }) => {
-          const inviteWarningMessage = this.getInviteWarningMessage();
+        {({
+          fieldProps,
+          error: fieldValidationError,
+          meta: { valid: fieldValid },
+        }) => {
+          const helperMessage = this.getHelperMessageOrDefault();
+          const addMoreMessage = shareError?.errorCode
+            ? null
+            : intl.formatMessage(messages.userPickerAddMoreMessage);
+
+          const wasValidationOrShareError =
+            !!fieldValidationError || !!shareError;
 
           return (
             <>
@@ -274,18 +291,27 @@ export class UserPickerFieldComponent extends React.Component<
                 {...fieldProps}
                 {...commonPickerProps}
                 {...smartUserPickerProps}
-                addMoreMessage={intl.formatMessage(
-                  messages.userPickerAddMoreMessage,
-                )}
+                addMoreMessage={addMoreMessage}
                 menuPortalTarget={menuPortalTarget}
               />
 
-              {inviteWarningMessage && (
-                <HelperMessage>{inviteWarningMessage}</HelperMessage>
+              {helperMessage && !wasValidationOrShareError && (
+                <HelperMessage>{helperMessage}</HelperMessage>
               )}
-              {!valid && error === REQUIRED && (
+              {!fieldValid && fieldValidationError === REQUIRED && (
                 <ErrorMessage>
                   <FormattedMessage {...requiredMessage} />
+                </ErrorMessage>
+              )}
+              {shareError && shareError.errorCode && (
+                <ErrorMessage>
+                  {shareError.message}
+                  &nbsp;
+                  {shareError.helpUrl && (
+                    <a target="_blank" href={shareError.helpUrl} rel="help">
+                      Learn why
+                    </a>
+                  )}
                 </ErrorMessage>
               )}
             </>

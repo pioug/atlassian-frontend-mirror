@@ -44,6 +44,14 @@ function CreateBasic() {
     setActive(false);
   }, []);
 
+  const handleCloseComplete = useCallback(() => {
+    console.log('Modal closed');
+  }, []);
+
+  const handleOpenComplete = useCallback(() => {
+    console.log('Modal opened');
+  }, []);
+
   return (
     <div style={{ padding: '20px' }}>
       {link && (
@@ -62,14 +70,16 @@ function CreateBasic() {
         Create
       </Button>
       <LinkCreate
-        testId="link-create"
+        active={active}
         plugins={plugins}
+        testId="link-create"
+        triggeredFrom="example"
         entityKey="confluence-page"
         onCreate={handleCreate}
         onFailure={handleFailure}
         onCancel={handleCancel}
-        active={active}
-        triggeredFrom="example"
+        onOpenComplete={handleOpenComplete}
+        onCloseComplete={handleCloseComplete}
       />
     </div>
   );

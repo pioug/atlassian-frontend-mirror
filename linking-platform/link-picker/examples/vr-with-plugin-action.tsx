@@ -3,6 +3,7 @@ import React, { useMemo, Fragment } from 'react';
 import { PageWrapper } from '../example-helpers/common';
 import { LinkPicker } from '../src';
 import { MockLinkPickerPromisePlugin } from '@atlaskit/link-test-helpers/link-picker';
+import { token } from '@atlaskit/tokens';
 
 const link = {
   url: '',
@@ -33,7 +34,7 @@ export default function VrWithPluginAction() {
   return (
     <PageWrapper>
       <Fragment>
-        <div style={{ paddingBottom: 20 }}>
+        <div style={{ paddingBottom: token('space.250', '20px') }}>
           <a id="test-link" href={link.url} target="_blank">
             {link.displayText || link.url}
           </a>

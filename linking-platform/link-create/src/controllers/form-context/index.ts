@@ -1,1 +1,5 @@
-export { FormContextProvider, useFormContext } from './main';
+export {
+  FormContextProvider,
+  useFormContext,
+  withLinkCreateFormContext,
+} from './main';

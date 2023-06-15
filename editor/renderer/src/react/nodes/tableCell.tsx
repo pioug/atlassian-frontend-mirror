@@ -5,8 +5,7 @@ import {
 } from '@atlaskit/adf-schema';
 import { compose } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
-import { hexToEditorBackgroundPaletteColorTokenName } from '@atlaskit/editor-palette';
-import { getTokenValue } from '@atlaskit/tokens';
+import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette';
 
 import SortingIcon from '../../ui/SortingIcon';
 import { AnalyticsEventPayload, MODE, PLATFORM } from '../../analytics/events';
@@ -106,9 +105,8 @@ const getStyle = (
     // ignore setting inline styles if ds neutral token is detected
     !background.includes('--ds-background-neutral')
   ) {
-    const tokenName = hexToEditorBackgroundPaletteColorTokenName(background);
-    // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-    const tokenColor = tokenName ? getTokenValue(tokenName) : background;
+    const tokenColor =
+      hexToEditorBackgroundPaletteRawValue(background) || background;
     style.backgroundColor = tokenColor;
   }
 

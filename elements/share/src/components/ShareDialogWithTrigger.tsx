@@ -19,6 +19,7 @@ import Popup, { TriggerProps } from '@atlaskit/popup';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 import Aktooltip from '@atlaskit/tooltip';
+import { Value } from '@atlaskit/user-picker';
 
 import { messages } from '../i18n';
 import {
@@ -28,6 +29,7 @@ import {
   ShareData,
   ShareDialogWithTriggerProps,
   ShareDialogWithTriggerStates,
+  ShareError,
 } from '../types';
 
 import {
@@ -289,6 +291,20 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     });
   };
 
+  private async generateShareError(err: any): Promise<ShareError> {
+    const errorBody = err.body ? await err.body : {};
+
+    // We'll only try and deal with the first error, sorry
+    const firstErrorFromBody = errorBody.messagesDetails?.[0];
+
+    return {
+      message: firstErrorFromBody?.message || err.message,
+      errorCode: firstErrorFromBody?.errorCode,
+      helpUrl: firstErrorFromBody?.helpUrl,
+      retryable: firstErrorFromBody?.errorCode === undefined,
+    };
+  }
+
   private handleShareSubmit = (data: ShareData) => {
     const {
       onShareSubmit,
@@ -323,12 +339,17 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 
         shareSubmitExp.success();
       })
-      .catch((err: Error) => {
+      .catch(async (err: Error) => {
+        const shareError = await this.generateShareError(err).catch(
+          (errorGenFailed) => ({
+            message: err.message || errorGenFailed.message || 'Unknown error',
+            retryable: true,
+          }),
+        );
+
         this.setState({
           isSharing: false,
-          shareError: {
-            message: err.message,
-          },
+          shareError,
         });
 
         isValidFailedExperience(shareSubmitExp, err);
@@ -475,6 +496,14 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
     });
   };
 
+  handleOnUserSelectionChange = (value: Value) => {
+    const { onUserSelectionChange } = this.props;
+    this.setState({
+      shareError: undefined,
+    });
+    onUserSelectionChange?.(value);
+  };
+
   render() {
     const {
       isDialogOpen,
@@ -502,7 +531,6 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
       cloudId,
       orgId,
       shareFieldsFooter,
-      onUserSelectionChange,
       dialogZIndex,
       isPublicLink,
       tabIndex,
@@ -561,7 +589,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
                 loggedInAccountId={loggedInAccountId}
                 cloudId={cloudId}
                 orgId={orgId}
-                onUserSelectionChange={onUserSelectionChange}
+                onUserSelectionChange={this.handleOnUserSelectionChange}
                 shareFieldsFooter={shareFieldsFooter}
                 isPublicLink={isPublicLink}
                 copyTooltipText={copyTooltipText}

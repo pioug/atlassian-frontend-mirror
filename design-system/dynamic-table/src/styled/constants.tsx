@@ -35,11 +35,9 @@ export const cellStyles = css({
   border: 'none',
   textAlign: 'left',
   '&:first-of-type': {
-    // TODO Delete this comment after verifying spacing token -> previous value `0`
     paddingLeft: token('space.0', '0px'),
   },
   '&:last-child': {
-    // TODO Delete this comment after verifying spacing token -> previous value `0`
     paddingRight: token('space.0', '0px'),
   },
 });

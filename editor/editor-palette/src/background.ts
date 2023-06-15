@@ -1,6 +1,6 @@
 // This import will be stripped on build
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { token } from '@atlaskit/tokens';
+import { getTokenValue, token } from '@atlaskit/tokens';
 
 /**
  * This takes an adf hex color and returns a matching background palette
@@ -19,7 +19,7 @@ import { token } from '@atlaskit/tokens';
  * The exact output of this function is an implementation detail and should only be used when rendering
  * content to the user, on a client with a matching major version of `@atlaskit/tokens`.
  * - **DO NOT**: store the output of these functions in any user-generated content or back-end.
- * - **DO**: store the ADF hex color, and use these utilities at render time to display the themed version of the color
+ * - **DO**: store the ADF hex color, and use these utilities at render time to display the themed version of the color.
  */
 export function hexToEditorBackgroundPaletteColor<HexColor extends string>(
   hexColor: HexColor,
@@ -34,19 +34,30 @@ export function hexToEditorBackgroundPaletteColor<HexColor extends string>(
   return tokenData ? tokenData.token : undefined;
 }
 
-export function hexToEditorBackgroundPaletteColorTokenName<
-  HexColor extends string,
->(
+/**
+ * Takes an ADF hex color and returns the rendered hex code for the associated background palette design token using getTokenValue.
+ * If the provided color does not exist in the Editor color palette, this function returns undefined.
+ *
+ * This should only be used when rendering content where CSS variables are not feasible, such as a non-CSS environment
+ * or to enable cross-app copy/paste.
+ *
+ * WARNING: If the rendered theme changes (such as from light -> dark mode) the value returned here will no longer match
+ * the surrounding UI and will need to be re-fetched.
+ * In addition, the values of tokens will differ between themes and the value for a given theme can and will change.
+ * - **DO NOT**: store the output of these functions in any user-generated content or back-end.
+ * - **DO**: store the ADF hex color, and use these utilities at render time to display the themed version of the color.
+ */
+export function hexToEditorBackgroundPaletteRawValue<HexColor extends string>(
   hexColor: HexColor,
 ): HexColor extends EditorBackgroundPaletteKey
   ? /** If the hexColor is an template literal matching a hex color -- we know what string will be returned  */
-    EditorBackgroundPalette[HexColor]['tokenName']
-  : EditorBackgroundPaletteTokenNames | undefined {
+    string
+  : undefined {
   // Ts ignore used to allow use of conditional return type
   // (preferencing better type on consumption over safety in implementation)
   // @ts-ignore
   const tokenData = editorBackgroundPalette[hexColor.toUpperCase()];
-  return tokenData ? tokenData.tokenName : undefined;
+  return tokenData ? tokenData.getValue(hexColor) : undefined;
 }
 type EditorBackgroundPalette = typeof editorBackgroundPalette;
 export type EditorBackgroundPaletteKey = keyof EditorBackgroundPalette;
@@ -54,15 +65,17 @@ export type EditorBackgroundPaletteKey = keyof EditorBackgroundPalette;
 // Colors taken from
 // https://hello.atlassian.net/wiki/spaces/DST/pages/1790979421/DSTRFC-002+-+Shifting+Editor+s+color+palette+to+design+tokens
 
-// values are asserted to improve generated type declarations
-// Modified structure as having tokenName, token
-//  and possibly editorColorName in future will make it
-//  simpler to link everything together.
+/**
+ * Values are asserted to improve generated type declarations
+ * Using object structure as getValue() function needed for table values, and other
+ * properties may be needed in the future.
+ */
 export const editorBackgroundPalette = {
   // blue
   /** blue - light */
   ['#DEEBFF']: {
-    tokenName: 'color.background.accent.blue.subtlest' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.blue.subtlest', fallback),
     token: token(
       'color.background.accent.blue.subtlest',
       '#DEEBFF',
@@ -70,7 +83,8 @@ export const editorBackgroundPalette = {
   }, // source for hex code was legacy token B50
   /** blue - medium */
   ['#B3D4FF']: {
-    tokenName: 'color.background.accent.blue.subtler' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.blue.subtler', fallback),
     token: token(
       'color.background.accent.blue.subtler',
       '#B3D4FF',
@@ -78,7 +92,8 @@ export const editorBackgroundPalette = {
   }, // source for hex code was legacy token B75
   /** blue - strong */
   ['#4C9AFF']: {
-    tokenName: 'color.background.accent.blue.subtle' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.blue.subtle', fallback),
     token: token(
       'color.background.accent.blue.subtle',
       '#4C9AFF',
@@ -88,7 +103,8 @@ export const editorBackgroundPalette = {
   // teal
   /** teal - light */
   ['#E6FCFF']: {
-    tokenName: 'color.background.accent.teal.subtlest' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.teal.subtlest', fallback),
     token: token(
       'color.background.accent.teal.subtlest',
       '#E6FCFF',
@@ -96,7 +112,8 @@ export const editorBackgroundPalette = {
   },
   /** teal - medium */
   ['#B3F5FF']: {
-    tokenName: 'color.background.accent.teal.subtler' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.teal.subtler', fallback),
     token: token(
       'color.background.accent.teal.subtler',
       '#B3F5FF',
@@ -104,7 +121,8 @@ export const editorBackgroundPalette = {
   },
   /** teal - strong */
   ['#79E2F2']: {
-    tokenName: 'color.background.accent.teal.subtle' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.teal.subtle', fallback),
     token: token(
       'color.background.accent.teal.subtle',
       '#79E2F2',
@@ -114,7 +132,8 @@ export const editorBackgroundPalette = {
   // green
   /** green - light */
   ['#E3FCEF']: {
-    tokenName: 'color.background.accent.green.subtlest' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.green.subtlest', fallback),
     token: token(
       'color.background.accent.green.subtlest',
       '#E3FCEF',
@@ -122,7 +141,8 @@ export const editorBackgroundPalette = {
   },
   /** green - medium */
   ['#ABF5D1']: {
-    tokenName: 'color.background.accent.green.subtler' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.green.subtler', fallback),
     token: token(
       'color.background.accent.green.subtler',
       '#ABF5D1',
@@ -130,7 +150,8 @@ export const editorBackgroundPalette = {
   },
   /** green - strong */
   ['#57D9A3']: {
-    tokenName: 'color.background.accent.green.subtle' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.green.subtle', fallback),
     token: token(
       'color.background.accent.green.subtle',
       '#57D9A3',
@@ -140,7 +161,8 @@ export const editorBackgroundPalette = {
   // yellowOrange
   /** yellowOrange - light */
   ['#FFFAE6']: {
-    tokenName: 'color.background.accent.yellow.subtlest' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.yellow.subtlest', fallback),
     token: token(
       'color.background.accent.yellow.subtlest',
       '#FFFAE6',
@@ -148,7 +170,8 @@ export const editorBackgroundPalette = {
   },
   /** yellowOrange - medium */
   ['#FFF0B3']: {
-    tokenName: 'color.background.accent.yellow.subtler' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.yellow.subtler', fallback),
     token: token(
       'color.background.accent.yellow.subtler',
       '#FFF0B3',
@@ -156,7 +179,8 @@ export const editorBackgroundPalette = {
   },
   /** yellowOrange - strong */
   ['#FFC400']: {
-    tokenName: 'color.background.accent.orange.subtle' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.orange.subtle', fallback),
     token: token(
       'color.background.accent.orange.subtle',
       '#FFC400',
@@ -166,7 +190,8 @@ export const editorBackgroundPalette = {
   // red
   /** red - light */
   ['#FFEBE6']: {
-    tokenName: 'color.background.accent.red.subtlest' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.red.subtlest', fallback),
     token: token(
       'color.background.accent.red.subtlest',
       '#FFEBE6',
@@ -174,7 +199,8 @@ export const editorBackgroundPalette = {
   },
   /** red - medium */
   ['#FFBDAD']: {
-    tokenName: 'color.background.accent.red.subtler' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.red.subtler', fallback),
     token: token(
       'color.background.accent.red.subtler',
       '#FFBDAD',
@@ -182,7 +208,8 @@ export const editorBackgroundPalette = {
   },
   /** red - strong */
   ['#FF8F73']: {
-    tokenName: 'color.background.accent.red.subtle' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.red.subtle', fallback),
     token: token(
       'color.background.accent.red.subtle',
       '#FF8F73',
@@ -192,7 +219,8 @@ export const editorBackgroundPalette = {
   // purple
   /** purple - light */
   ['#EAE6FF']: {
-    tokenName: 'color.background.accent.purple.subtlest' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.purple.subtlest', fallback),
     token: token(
       'color.background.accent.purple.subtlest',
       '#EAE6FF',
@@ -200,7 +228,8 @@ export const editorBackgroundPalette = {
   },
   /** purple - medium */
   ['#C0B6F2']: {
-    tokenName: 'color.background.accent.purple.subtler' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.purple.subtler', fallback),
     token: token(
       'color.background.accent.purple.subtler',
       '#C0B6F2',
@@ -208,7 +237,8 @@ export const editorBackgroundPalette = {
   },
   /** purple - strong */
   ['#998DD9']: {
-    tokenName: 'color.background.accent.purple.subtle' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.purple.subtle', fallback),
     token: token(
       'color.background.accent.purple.subtle',
       '#998DD9',
@@ -218,7 +248,8 @@ export const editorBackgroundPalette = {
   // whiteGray
   /** whiteGray - light */
   ['#FFFFFF']: {
-    tokenName: 'elevation.surface' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('elevation.surface', fallback),
     token: token(
       'elevation.surface',
       '#FFFFFF',
@@ -226,7 +257,8 @@ export const editorBackgroundPalette = {
   },
   /** whiteGray - medium */
   ['#F4F5F7']: {
-    tokenName: 'color.background.accent.gray.subtlest' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.gray.subtlest', fallback),
     token: token(
       'color.background.accent.gray.subtlest',
       '#F4F5F7',
@@ -234,20 +266,11 @@ export const editorBackgroundPalette = {
   },
   /** whiteGray - strong */
   ['#B3BAC5']: {
-    tokenName: 'color.background.accent.gray.subtle' as const,
+    getValue: (fallback: string) =>
+      getTokenValue('color.background.accent.gray.subtle', fallback),
     token: token(
       'color.background.accent.gray.subtle',
       '#B3BAC5',
     ) as 'var(--ds-background-accent-gray-subtle, #B3BAC5)', // source for hex code was legacy token N60,
   },
 };
-
-const backgroundPaletteKeys = Object.keys(
-  editorBackgroundPalette,
-) as EditorBackgroundPaletteKey[];
-
-const tokenNames = backgroundPaletteKeys.map(
-  hexCode => editorBackgroundPalette[hexCode].tokenName,
-);
-
-export type EditorBackgroundPaletteTokenNames = (typeof tokenNames)[number];

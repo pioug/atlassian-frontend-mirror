@@ -1,5 +1,11 @@
 # @atlaskit/editor-palette
 
+## 1.5.0
+
+### Minor Changes
+
+- [`f22911fb9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f22911fb9be) - ENGHEALTH-2667: Adjust table cell color logic to enable static analysis of token usages and follow eslint rules
+
 ## 1.4.3
 
 ### Patch Changes

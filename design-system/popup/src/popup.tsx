@@ -4,6 +4,7 @@ import { FC, memo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Manager, Reference } from '@atlaskit/popper';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
@@ -31,8 +32,29 @@ export const Popup: FC<PopupProps> = memo(
     autoFocus = true,
     zIndex = defaultLayer,
     shouldUseCaptureOnOutsideClick = false,
+    shouldRenderToParent = false,
   }: PopupProps) => {
     const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
+
+    const renderPopperWrapper = () => (
+      <PopperWrapper
+        content={content}
+        isOpen={isOpen}
+        placement={placement}
+        fallbackPlacements={fallbackPlacements}
+        boundary={boundary}
+        rootBoundary={rootBoundary}
+        shouldFlip={shouldFlip}
+        offset={offset}
+        popupComponent={PopupContainer}
+        id={id}
+        testId={testId}
+        onClose={onClose}
+        autoFocus={autoFocus}
+        shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
+        triggerRef={triggerRef}
+      />
+    );
 
     return (
       <Manager>
@@ -55,27 +77,18 @@ export const Popup: FC<PopupProps> = memo(
             });
           }}
         </Reference>
-        {isOpen && (
-          <Portal zIndex={zIndex}>
-            <PopperWrapper
-              content={content}
-              isOpen={isOpen}
-              placement={placement}
-              fallbackPlacements={fallbackPlacements}
-              boundary={boundary}
-              rootBoundary={rootBoundary}
-              shouldFlip={shouldFlip}
-              offset={offset}
-              popupComponent={PopupContainer}
-              id={id}
-              testId={testId}
-              onClose={onClose}
-              autoFocus={autoFocus}
-              shouldUseCaptureOnOutsideClick={shouldUseCaptureOnOutsideClick}
-              triggerRef={triggerRef}
-            />
-          </Portal>
-        )}
+        {isOpen &&
+          (getBooleanFF(
+            'platform.design-system-team.render-popup-in-parent_f73ij',
+          ) ? (
+            shouldRenderToParent ? (
+              renderPopperWrapper()
+            ) : (
+              <Portal zIndex={zIndex}>{renderPopperWrapper()}</Portal>
+            )
+          ) : (
+            <Portal zIndex={zIndex}>{renderPopperWrapper()}</Portal>
+          ))}
       </Manager>
     );
   },

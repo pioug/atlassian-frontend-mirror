@@ -184,6 +184,12 @@ export interface PopupProps extends BaseProps {
    * Defaults to `layers.layer()` from `@atlaskit/theme`.
    */
   zIndex?: number;
+
+  /**
+   * The root element where the popup should be rendered.
+   * Defaults to `false`.
+   */
+  shouldRenderToParent?: boolean;
 }
 
 export interface PopperWrapperProps extends BaseProps {

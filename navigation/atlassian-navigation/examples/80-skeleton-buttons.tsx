@@ -9,6 +9,7 @@ import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { PopupProps } from '@atlaskit/popup/types';
+import { token } from '@atlaskit/tokens';
 
 import {
   AtlassianNavigation,
@@ -36,7 +37,7 @@ import { SwitcherPopup } from './shared/switcher-popup';
 import { theme } from './shared/themes';
 
 const paragraphStyles = css({
-  padding: '8px 16px',
+  padding: `${token('space.100', '8px')} ${token('space.200', '16px')}`,
 });
 
 const SettingsDrawer = () => {

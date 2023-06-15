@@ -3,6 +3,7 @@ import React, { useState, useCallback, useRef, Fragment } from 'react';
 import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
 import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
 import { MockLinkPickerPromisePlugin } from '@atlaskit/link-test-helpers/link-picker';
 
 import { LinkPicker, LinkPickerState } from '../src';
@@ -55,6 +56,7 @@ function TestContentResize() {
           appearance="primary"
           isSelected={isOpen}
           onClick={handleToggle}
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
           style={{ position: 'fixed', bottom: 350 }}
         >
           Toggle
@@ -82,7 +84,7 @@ function TestContentResize() {
           ordinarily be off-screen when a full set of results are loaded.
         </p>
       </PageHeader>
-      <div style={{ marginTop: 20 }}>
+      <div style={{ marginTop: token('space.250', '20px') }}>
         <Toggle
           id="provide-updateFn-toggle"
           testId="provide-updateFn-toggle"

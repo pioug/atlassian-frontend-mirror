@@ -126,7 +126,7 @@ export const ProviderCard = ({
           <h6
             style={{
               margin: 0,
-              marginLeft: '8px',
+              marginLeft: token('space.100', '8px'),
               display: 'flex',
               alignItems: 'center',
             }}

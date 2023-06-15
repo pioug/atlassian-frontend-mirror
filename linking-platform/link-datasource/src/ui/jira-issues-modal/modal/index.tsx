@@ -307,12 +307,13 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
   }, [jql, selectedJiraSite?.url, status]);
 
   const renderIssuesModeContent = useCallback(() => {
-    if (status === 'empty') {
-      return <EmptyState testId={`jira-jql-datasource-modal--empty-state`} />;
+    if (status === 'rejected' && jqlUrl) {
+      return <ModalLoadingError url={jqlUrl} />;
     } else if (resolvedWithNoResults) {
       return <NoResults />;
-    } else if (status === 'rejected' && jqlUrl) {
-      return <ModalLoadingError url={jqlUrl} />;
+      // persist the empty state when making the initial /data request which contains the columns
+    } else if (status === 'empty' || !columns.length) {
+      return <EmptyState testId={`jira-jql-datasource-modal--empty-state`} />;
     }
 
     const firstIssueUrl = retrieveUrlForSmartCardRender();
@@ -326,12 +327,13 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
 
     return issueLikeDataTableView;
   }, [
-    issueLikeDataTableView,
-    jqlUrl,
-    responseItems.length,
-    resolvedWithNoResults,
-    retrieveUrlForSmartCardRender,
     status,
+    columns.length,
+    resolvedWithNoResults,
+    jqlUrl,
+    retrieveUrlForSmartCardRender,
+    responseItems.length,
+    issueLikeDataTableView,
   ]);
 
   return (
@@ -379,7 +381,11 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
             />
           </ModalHeader>
           <ModalBody>
-            <JiraSearchContainer parameters={parameters} onSearch={onSearch} />
+            <JiraSearchContainer
+              isSearching={status === 'loading'}
+              parameters={parameters}
+              onSearch={onSearch}
+            />
             <div css={contentContainerStyles}>
               {currentViewMode === 'count'
                 ? renderCountModeContent()

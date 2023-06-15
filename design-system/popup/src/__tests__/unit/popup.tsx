@@ -3,6 +3,8 @@ import React, { Dispatch, forwardRef, SetStateAction, useRef } from 'react';
 import { fireEvent, render } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { Popup } from '../../popup';
 import { ContentProps, PopupComponentProps, TriggerProps } from '../../types';
 
@@ -447,5 +449,39 @@ describe('Popup', () => {
     fireEvent.click(getByText('Button content'));
 
     expect(onClose).toHaveBeenCalledTimes(0);
+  });
+
+  describe('popup renders inside parent when the shouldRenderToParent is passed', () => {
+    ffTest(
+      'platform.design-system-team.render-popup-in-parent_f73ij',
+      () => {
+        const { getByText } = render(
+          <Popup {...defaultProps} isOpen shouldRenderToParent />,
+        );
+        const popupEl = getByText('content');
+        const triggerEl = getByText('trigger');
+        const triggerParent = triggerEl.parentElement as HTMLElement;
+        expect(getByText('content')).toBeInTheDocument();
+        expect(triggerParent).toContainElement(popupEl);
+      },
+      () => {
+        const { getByText } = render(<Popup {...defaultProps} isOpen />);
+        const popupEl = getByText('content');
+        const triggerEl = getByText('trigger');
+        const triggerParent = triggerEl.parentElement as HTMLElement;
+        expect(getByText('content')).toBeInTheDocument();
+        expect(triggerParent).not.toContainElement(popupEl);
+      },
+    );
+  });
+  describe('popup renders outside parent when the shouldRenderToParent is not passed', () => {
+    ffTest('platform.design-system-team.render-popup-in-parent_f73ij', () => {
+      const { getByText } = render(<Popup {...defaultProps} isOpen />);
+      const popupEl = getByText('content');
+      const triggerEl = getByText('trigger');
+      const triggerParent = triggerEl.parentElement as HTMLElement;
+      expect(getByText('content')).toBeInTheDocument();
+      expect(triggerParent).not.toContainElement(popupEl);
+    });
   });
 });

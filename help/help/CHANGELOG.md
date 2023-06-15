@@ -1,5 +1,11 @@
 # @atlaskit/help
 
+## 7.2.5
+
+### Patch Changes
+
+- [`7bdb050c04e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7bdb050c04e) - Internal change to use space tokens for spacing properties. There is no visual change.
+
 ## 7.2.4
 
 ### Patch Changes

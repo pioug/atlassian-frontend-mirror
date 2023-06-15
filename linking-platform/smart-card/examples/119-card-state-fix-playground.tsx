@@ -36,7 +36,13 @@ export default () => {
 
   return (
     <Provider client={client}>
-      <div style={{ width: '680px', margin: '0 auto', marginTop: '64px' }}>
+      <div
+        style={{
+          width: '680px',
+          margin: '0 auto',
+          marginTop: token('space.800', '64px'),
+        }}
+      >
         <Card appearance="block" url="https://youtube.com" />
         <br />
         <Card appearance="block" url={url} />

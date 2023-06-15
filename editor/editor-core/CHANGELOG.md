@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 185.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.2.9
+
+### Patch Changes
+
+- [`c0d84ed8771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c0d84ed8771) - fix copy and paste across issues in Jira
+
+## 185.2.8
+
+### Patch Changes
+
+- [`af998742600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af998742600) - [ux] ED-18059 Updated arrow key navigation within insert menu and element browser.
+
+## 185.2.7
+
+### Patch Changes
+
+- [`1259df9a9ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1259df9a9ef) - converted some of block-type's analytics to use new EditorAnalyticsAPI
+
 ## 185.2.5
 
 ### Patch Changes

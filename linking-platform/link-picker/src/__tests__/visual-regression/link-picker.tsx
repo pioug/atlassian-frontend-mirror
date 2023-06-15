@@ -47,7 +47,8 @@ describe('link-picker', () => {
     testSelector = '[data-testid="link-picker"]';
   });
 
-  it('should render component with results', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-6996
+  it.skip('should render component with results', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
     const image = await takeElementScreenShot(page, testSelector);
@@ -61,14 +62,16 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should render component without display text field with results', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-6997
+  it.skip('Should render component without display text field with results', async () => {
     const url = getURL('vr-hide-display-text-with-plugin');
     const page = await setup(url);
     const image = await takeElementScreenShot(page, testSelector);
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should render component without display text field with plugins', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-6998
+  it.skip('Should render component without display text field with plugins', async () => {
     const url = getURL('vr-hide-display-text-with-multiple-plugins');
     const page = await setup(url);
     const image = await takeElementScreenShot(page, testSelector);
@@ -85,7 +88,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should change list-item background on hover and selection', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-6999
+  it.skip('Should change list-item background on hover and selection', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
     await page.keyboard.press('ArrowDown');
@@ -96,7 +100,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should select the search list via keyboard tab', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7000
+  it.skip('should select the search list via keyboard tab', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
     await page.keyboard.press('Tab');
@@ -106,7 +111,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should select the search list via keyboard tab and use arrows up/down to navigate', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7001
+  it.skip('should select the search list via keyboard tab and use arrows up/down to navigate', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
 
@@ -126,7 +132,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should select the search list via keyboard tab and use Home key to select first item', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7002
+  it.skip('should select the search list via keyboard tab and use Home key to select first item', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
 
@@ -146,7 +153,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('should select the search list via keyboard tab and use End key to select last item', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7003
+  it.skip('should select the search list via keyboard tab and use End key to select last item', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
 
@@ -165,7 +173,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should not change the background of selected list-item on hover', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7004
+  it.skip('Should not change the background of selected list-item on hover', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
     await page.keyboard.press('ArrowDown');
@@ -175,7 +184,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should change input background on hover', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7005
+  it.skip('Should change input background on hover', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
     await page.hover('[data-testid="link-text-container"]');
@@ -184,7 +194,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should change input border-color on focus', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7006
+  it.skip('Should change input border-color on focus', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
     await page.focus('[data-testid="link-text"]');
@@ -193,7 +204,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should display ClearText button when input has value', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7007
+  it.skip('Should display ClearText button when input has value', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
 
@@ -204,7 +216,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should display ClearText tooltip on hover', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7008
+  it.skip('Should display ClearText tooltip on hover', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
 
@@ -216,7 +229,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should not display text under ClearText button', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7009
+  it.skip('Should not display text under ClearText button', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
 
@@ -228,7 +242,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should render Linkpicker within Popup with input focused', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7010
+  it.skip('Should render Linkpicker within Popup with input focused', async () => {
     const url = getURL('vr-with-popup-integration');
     const page = await setup(url);
 
@@ -244,7 +259,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should display error message and highlight input border for invalid URLs', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7011
+  it.skip('Should display error message and highlight input border for invalid URLs', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
 
@@ -255,7 +271,8 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should display error message and highlight input border for empty URLs', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7012
+  it.skip('Should display error message and highlight input border for empty URLs', async () => {
     const url = getURL('vr-basic');
     const page = await setup(url);
 

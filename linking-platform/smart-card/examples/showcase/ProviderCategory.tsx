@@ -68,7 +68,7 @@ export const ProviderCategory = ({
     return sum;
   }, 0);
   return (
-    <div key={category} style={{ marginBottom: '48px' }}>
+    <div key={category} style={{ marginBottom: token('space.600', '48px') }}>
       <div
         className="header"
         style={{
@@ -90,7 +90,7 @@ export const ProviderCategory = ({
           <h5
             style={{
               color: token('color.text.subtlest', N200),
-              paddingBottom: '24px',
+              paddingBottom: token('space.300', '24px'),
             }}
           >
             {categoryExamplesTotal} entities supported across {examples.length}{' '}
@@ -99,24 +99,24 @@ export const ProviderCategory = ({
         </div>
         <div className="right">
           <Button
-            iconBefore={<CopyIcon size="small" label="copy" />}
+            iconBefore={<CopyIcon size="small" label="" />}
             onClick={handleCopyToClipboard}
             style={{
-              marginRight: '8px',
+              marginRight: token('space.100', '8px'),
             }}
           >
             Copy
           </Button>
           {Object.entries(expanded).every(([, isExpanded]) => isExpanded) ? (
             <Button
-              iconBefore={<CollapseIcon size="small" label="collapse" />}
+              iconBefore={<CollapseIcon size="small" label="" />}
               onClick={handleCollapseAll}
             >
               Collapse all
             </Button>
           ) : (
             <Button
-              iconBefore={<ExpandIcon size="small" label="expand" />}
+              iconBefore={<ExpandIcon size="small" label="" />}
               onClick={handleExpandAll}
             >
               Expand all

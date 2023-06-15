@@ -7,15 +7,15 @@ import {
   DevPreviewWarning,
 } from '@atlaskit/docs';
 import Button from '@atlaskit/button/custom-theme-button';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 export default md`
   ${(
     <>
-      <div style={{ marginBottom: '0.5rem' }}>
+      <div style={{ marginBottom: token('space.100', '0.5rem') }}>
         <AtlassianInternalWarning />
       </div>
-      <div style={{ marginTop: '0.5rem' }}>
+      <div style={{ marginTop: token('space.100', '0.5rem') }}>
         <DevPreviewWarning />
       </div>
     </>
@@ -79,7 +79,7 @@ export default md`
   `}
 
   ${(
-    <div style={{ paddingTop: `${gridSize() * 2}px` }}>
+    <div style={{ paddingTop: token('space.200', '16px') }}>
       <Button
         onClick={() =>
           window.open(

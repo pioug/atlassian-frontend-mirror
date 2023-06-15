@@ -1,8 +1,4 @@
-import {
-  RequestServiceOptions,
-  ServiceConfig,
-  utils,
-} from '@atlaskit/util-service-support';
+import { ServiceConfig, utils } from '@atlaskit/util-service-support';
 
 import { Comment, Content, MetaData, User } from '../types';
 
@@ -65,22 +61,30 @@ export class ShareServiceClient implements ShareClient {
     metadata: MetaData,
     comment?: Comment,
   ): Promise<ShareResponse> {
-    const options: RequestServiceOptions = {
-      path: DEFAULT_SHARE_PATH,
-      requestInit: {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: JSON.stringify({
-          content,
-          recipients,
-          metadata,
-          comment,
-        }),
+    return fetch(`${this.serviceConfig.url}/${DEFAULT_SHARE_PATH}`, {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
       },
-    };
-
-    return utils.requestService(this.serviceConfig, options);
+      credentials: 'include',
+      body: JSON.stringify({
+        content,
+        recipients,
+        metadata,
+        comment,
+      }),
+    }).then((response: Response) => {
+      if (response.status === 204) {
+        return Promise.resolve();
+      } else if (response.ok) {
+        return response.json();
+      } else {
+        return Promise.reject({
+          code: response.status,
+          reason: response.statusText,
+          body: response.json(),
+        });
+      }
+    });
   }
 }

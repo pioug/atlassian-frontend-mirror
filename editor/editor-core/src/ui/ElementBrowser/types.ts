@@ -17,7 +17,7 @@ export enum Modes {
 }
 
 export type SelectedItemProps = {
-  selectedItemIndex: number;
+  selectedItemIndex?: number;
   focusedItemIndex?: number;
 };
 

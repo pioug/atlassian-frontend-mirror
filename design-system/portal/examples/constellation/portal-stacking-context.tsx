@@ -34,7 +34,6 @@ const bottomSquareStyles = css({
 });
 
 const topSquarePositionStyles = css({
-  // TODO Delete this comment after verifying spacing token -> previous value `'0px'`
   top: token('space.0', '0px'),
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   left: '256px',

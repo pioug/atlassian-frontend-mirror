@@ -8,13 +8,14 @@ import { makeGetJqlSuggestionsData } from '../../../services/makeGetJqlSuggestio
 
 export interface JiraJQLEditorProps {
   cloudId: string;
+  isSearching?: boolean;
   onChange?: (query: string) => void;
   onSearch: (query: string) => void;
   query: string;
 }
 
 export const JiraJQLEditor: React.FC<JiraJQLEditorProps> = props => {
-  const { cloudId, onChange, onSearch, query } = props;
+  const { cloudId, isSearching, onChange, onSearch, query } = props;
 
   const autocompleteProvider = useAutocompleteProvider(
     'link-datasource',
@@ -36,6 +37,7 @@ export const JiraJQLEditor: React.FC<JiraJQLEditorProps> = props => {
       autocompleteProvider={autocompleteProvider}
       onSearch={onSearch}
       onUpdate={onChange}
+      isSearching={isSearching}
       inputRef={inputRef}
       query={query}
     />

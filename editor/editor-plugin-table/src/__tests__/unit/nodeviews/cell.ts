@@ -43,20 +43,6 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
   },
 }));
 
-jest.mock('@atlaskit/editor-palette', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-palette'),
-  hexToEditorBackgroundPaletteColorTokenName: jest.fn((hexColor: string) => {
-    return hexColor;
-  }),
-}));
-
-jest.mock('@atlaskit/tokens', () => ({
-  ...jest.requireActual<Object>('@atlaskit/tokens'),
-  getTokenValue: jest.fn((tokenId: string, fallback: string = '') => {
-    return tokenId || fallback;
-  }),
-}));
-
 describe('table -> nodeviews -> tableCell.tsx', () => {
   const TABLE_LOCAL_ID = 'test-table-local-id';
   const createEditor = createProsemirrorEditorFactory();

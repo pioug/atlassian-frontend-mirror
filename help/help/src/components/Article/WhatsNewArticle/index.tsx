@@ -2,7 +2,7 @@ import React from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import HelpArticleContent from '@atlaskit/help-article';
-import { gridSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/custom-theme-button';
@@ -69,7 +69,7 @@ export const WhatsNewArticle: React.FC<Props & WrappedComponentProps> = ({
         {(article.relatedExternalLinks || article.communityUrl) && (
           <>
             <DividerLine
-              style={{ marginTop: 0, marginBottom: gridSize() * 2 }}
+              style={{ marginTop: 0, marginBottom: token('space.200', '16px') }}
             />
             <WhatsNewTitleText>RELATED LINKS</WhatsNewTitleText>
             <AnalyticsContext

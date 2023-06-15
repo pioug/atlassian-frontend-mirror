@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.7.0
+
+### Minor Changes
+
+- [`eca89633804`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eca89633804) - Add a new prop `shouldRenderToParent` to allow render popup into a DOM node within the parent DOM hierarchy instead of React portal.
+
 ## 1.6.4
 
 ### Patch Changes

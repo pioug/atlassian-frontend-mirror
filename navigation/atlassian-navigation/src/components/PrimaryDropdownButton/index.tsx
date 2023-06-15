@@ -4,14 +4,15 @@ import { forwardRef, Ref } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import ChevronIcon from '@atlaskit/icon/glyph/chevron-down';
+import { token } from '@atlaskit/tokens';
 
 import { PrimaryButton } from '../PrimaryButton';
 
 import { PrimaryDropdownButtonProps } from './types';
 
 const chevronIconStyles = css({
-  marginRight: '-8px',
-  marginLeft: '-8px',
+  marginRight: `calc(-1 * ${token('space.100', '8px')})`,
+  marginLeft: `calc(-1 * ${token('space.100', '8px')})`,
   opacity: 0.51,
 });
 

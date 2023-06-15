@@ -12,7 +12,6 @@ import Form, { Field, CheckboxField, FormFooter } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
 import { Checkbox } from '@atlaskit/checkbox';
 import TextArea from '@atlaskit/textarea';
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 // AFP-2532 TODO: Fix automatic suppressions below
@@ -198,7 +197,9 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
       return (
         <>
           <ArticleFeedbackContainer>
-            <ArticleFeedbackText style={{ paddingRight: `${gridSize()}px` }}>
+            <ArticleFeedbackText
+              style={{ paddingRight: token('space.100', '8px') }}
+            >
               {formatMessage(messages.help_article_rating_title)}
             </ArticleFeedbackText>
             <ButtonGroup>
@@ -293,7 +294,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
         <ArticleFeedbackContainer>
           <span
             style={{
-              paddingRight: `${gridSize()}px`,
+              paddingRight: token('space.100', '8px'),
               verticalAlign: 'middle',
             }}
           >

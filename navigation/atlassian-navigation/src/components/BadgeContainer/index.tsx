@@ -1,12 +1,14 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { BadgeProps } from './types';
 
 const badgeContainerStyles = css({
   position: 'absolute',
-  top: '-4px',
-  right: '-2px',
+  top: `calc(-1 * ${token('space.050', '4px')})`,
+  right: `calc(-1 * ${token('space.025', '2px')})`,
   pointerEvents: 'none',
 });
 

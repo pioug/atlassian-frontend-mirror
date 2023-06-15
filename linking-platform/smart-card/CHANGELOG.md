@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.5.10
+
+### Patch Changes
+
+- [`70f573b2c44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70f573b2c44) - Internal change to use space tokens for spacing properties. There is no visual change.
+
 ## 26.5.9
 
 ### Patch Changes

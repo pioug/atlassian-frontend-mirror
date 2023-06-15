@@ -25,6 +25,7 @@ const inputContainerStyles = css({
 });
 
 export interface SearchContainerProps {
+  isSearching?: boolean;
   onSearch: (query: JiraIssueDatasourceParametersQuery) => void;
   parameters?: JiraIssueDatasourceParameters;
 }
@@ -32,7 +33,7 @@ export interface SearchContainerProps {
 const DEFAULT_JQL_QUERY = 'created >= -30d order by created DESC';
 
 export const JiraSearchContainer = (props: SearchContainerProps) => {
-  const { parameters, onSearch } = props;
+  const { isSearching, parameters, onSearch } = props;
   const { cloudId, jql: initialJql } = parameters || {};
 
   const { formatMessage } = useIntl();
@@ -87,6 +88,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
     <div css={inputContainerStyles}>
       {currentSearchMode === basicModeValue && (
         <BasicSearchInput
+          isSearching={isSearching}
           onChange={handleBasicSearchChange}
           onSearch={handleSearch}
           searchTerm={basicSearchTerm}
@@ -95,6 +97,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
       {currentSearchMode === jqlModeValue && (
         <JiraJQLEditor
           cloudId={cloudId || ''}
+          isSearching={isSearching}
           onChange={onQueryChange}
           onSearch={handleSearch}
           query={jql}

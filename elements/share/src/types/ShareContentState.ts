@@ -10,6 +10,9 @@ export type ShareContentState = {
 
 export type ShareError = {
   message: string;
+  errorCode?: string;
+  helpUrl?: string;
+  retryable: boolean;
 };
 
 export type ShareData = {

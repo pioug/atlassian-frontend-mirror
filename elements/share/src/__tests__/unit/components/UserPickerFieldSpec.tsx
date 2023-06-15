@@ -414,6 +414,41 @@ describe('UserPickerField', () => {
         messages.userPickerRequiredExistingUserOnlyMessageJira,
       );
     });
+
+    it('should display share error message', () => {
+      const fieldProps = {
+        onChange: jest.fn(),
+        value: [{}],
+      };
+      const loadOptions = jest.fn();
+      const errorMessage = renderUserPicker(
+        {
+          loadOptions,
+          product: 'confluence',
+          shareError: {
+            message: "You can't do that",
+            errorCode: 'some-error-code',
+            helpUrl: 'https://example.com',
+            retryable: false,
+          },
+        },
+        {
+          fieldProps,
+          meta: { valid: true },
+          error: undefined,
+        },
+      ).find(ErrorMessage);
+
+      const message = errorMessage.children();
+      expect(message).toHaveLength(3);
+      expect(message.at(0).text()).toBe("You can't do that");
+      expect(message.at(1).text()).toBe('\u00a0');
+
+      const link = message.at(2).find('a');
+      expect(link.props()).toMatchObject({
+        href: 'https://example.com',
+      });
+    });
   });
 
   describe('invite warning', () => {

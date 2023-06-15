@@ -209,7 +209,6 @@ exports[`ArticleContent Should match snapshot 1`] = `
   />
   <div
     class="emotion-1"
-    style="margin-left: 8px;"
   />
   <div
     class="emotion-2"

@@ -1,4 +1,4 @@
-import { ServiceConfig, utils } from '@atlaskit/util-service-support';
+import { utils } from '@atlaskit/util-service-support';
 
 import {
   DEFAULT_SHARE_PATH,
@@ -11,6 +11,7 @@ import { Comment, Content, MetaData, User } from '../../../types';
 
 describe('ShareServiceClientImpl', () => {
   let requestSpy: jest.SpyInstance;
+  let fetchSpy: jest.SpyInstance;
   let shareServiceClient: ShareClient;
   let mockContent: Content = {
     link: 'link',
@@ -33,6 +34,7 @@ describe('ShareServiceClientImpl', () => {
 
   beforeEach(() => {
     requestSpy = jest.spyOn(utils, 'requestService').mockResolvedValue({});
+    fetchSpy = jest.spyOn(window, 'fetch');
     shareServiceClient = new ShareServiceClient();
   });
 
@@ -41,49 +43,62 @@ describe('ShareServiceClientImpl', () => {
   });
 
   describe('share', () => {
-    it('should call requestService with default serviceConfig and options object', async () => {
-      await shareServiceClient.share(
+    it('should work in successful fetch path', async () => {
+      fetchSpy.mockResolvedValue({
+        status: 202,
+        ok: true,
+        json: () => Promise.resolve('body response'),
+      });
+
+      const fetchResult = await shareServiceClient.share(
         mockContent,
         mockRecipients,
         mockMetaData,
         mockComment,
       );
-      expect(requestSpy).toBeCalledTimes(1);
-      const callArgs = requestSpy.mock.calls[0];
-      expect(callArgs[0]).toMatchObject({
-        url: DEFAULT_SHARE_SERVICE_URL,
-      });
+      expect(fetchSpy).toBeCalledTimes(1);
+      const callArgs = fetchSpy.mock.calls[0];
+      expect(callArgs[0]).toEqual(
+        `${DEFAULT_SHARE_SERVICE_URL}/${DEFAULT_SHARE_PATH}`,
+      );
       expect(callArgs[1]).toMatchObject({
-        path: DEFAULT_SHARE_PATH,
-        requestInit: {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-          body: JSON.stringify({
-            content: mockContent,
-            recipients: mockRecipients,
-            metadata: mockMetaData,
-            comment: mockComment,
-          }),
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
         },
+        credentials: 'include',
+        body: JSON.stringify({
+          content: mockContent,
+          recipients: mockRecipients,
+          metadata: mockMetaData,
+          comment: mockComment,
+        }),
       });
+
+      expect(fetchResult).toEqual('body response');
     });
 
-    it('should call requestService with configurable serviceConfig', async () => {
-      const mockServiceConfig: ServiceConfig = {
-        url: 'customurl',
-      };
-      shareServiceClient = new ShareServiceClient(mockServiceConfig);
-      await shareServiceClient.share(
+    it('should work in unsuccessful fetch path', async () => {
+      fetchSpy.mockResolvedValue({
+        status: 400,
+        statusText: 'Bad request',
+        ok: false,
+        json: () => Promise.resolve('body response'),
+      });
+
+      const fetchPromise = shareServiceClient.share(
         mockContent,
         mockRecipients,
         mockMetaData,
         mockComment,
       );
-      expect(requestSpy).toBeCalledTimes(1);
-      const callArgs = requestSpy.mock.calls[0];
-      expect(callArgs[0]).toMatchObject(mockServiceConfig);
+
+      await expect(fetchPromise).rejects.toMatchObject({
+        code: 400,
+        reason: 'Bad request',
+      });
+      const fetchError = await fetchPromise.catch((x) => x);
+      await expect(fetchError.body).resolves.toEqual('body response');
     });
   });
 

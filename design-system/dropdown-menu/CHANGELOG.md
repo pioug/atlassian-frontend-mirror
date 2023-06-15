@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 11.9.5
+
+### Patch Changes
+
+- [`6a13926a3d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a13926a3d4) - Internal code changes.
+- Updated dependencies
+
 ## 11.9.4
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 74.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 74.7.3
+
+### Patch Changes
+
+- [`1259df9a9ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1259df9a9ef) - converted some of block-type's analytics to use new EditorAnalyticsAPI
+
+## 74.7.2
+
+### Patch Changes
+
+- [`b9c2562b357`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9c2562b357) - Mark WithPluginState as deprecated.
+
 ## 74.7.1
 
 ### Patch Changes

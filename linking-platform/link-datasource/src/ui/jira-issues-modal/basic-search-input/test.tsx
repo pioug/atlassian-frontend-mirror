@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { BasicSearchInput, BasicSearchInputProps } from './index';
@@ -62,5 +62,16 @@ describe('BasicSearchInput', () => {
     );
 
     expect(searchButton.getAttribute('data-has-overlay')).toEqual('true');
+  });
+
+  it('calls onSearch on form submit', async () => {
+    const { getByPlaceholderText, mockOnSearch } = setup();
+
+    const input = getByPlaceholderText('Search');
+
+    fireEvent.click(input);
+    fireEvent.submit(input);
+
+    expect(mockOnSearch).toHaveBeenCalledTimes(1);
   });
 });

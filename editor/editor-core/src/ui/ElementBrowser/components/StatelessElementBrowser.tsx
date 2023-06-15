@@ -31,6 +31,7 @@ import useContainerWidth from '../hooks/use-container-width';
 import useSelectAndFocusOnArrowNavigation from '../hooks/use-select-and-focus-on-arrow-navigation';
 import { Category, Modes, SelectedItemProps } from '../types';
 import { EmptyStateHandler } from '../../../types/empty-state-handler';
+import { ViewMore } from '../ViewMore';
 
 export type StatelessElementBrowserProps = {
   categories?: Category[];
@@ -45,6 +46,7 @@ export type StatelessElementBrowserProps = {
   mode: keyof typeof Modes;
   searchTerm?: string;
   emptyStateHandler?: EmptyStateHandler;
+  viewMoreItem?: QuickInsertItem;
 } & WithAnalyticsEventsProps;
 
 const wrapper = css`
@@ -156,7 +158,7 @@ const categoryListWrapper = css`
 `;
 
 function StatelessElementBrowser(props: StatelessElementBrowserProps) {
-  const { items, onSelectItem } = props;
+  const { items, onSelectItem, viewMoreItem } = props;
 
   const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
 
@@ -166,9 +168,14 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
     focusedItemIndex,
     setFocusedItemIndex,
     focusOnSearch,
+    focusOnViewMore,
     onKeyDown,
     setFocusOnSearch,
-  } = useSelectAndFocusOnArrowNavigation(items.length - 1, columnCount);
+  } = useSelectAndFocusOnArrowNavigation(
+    items.length - 1,
+    columnCount,
+    !!viewMoreItem,
+  );
 
   useEffect(() => {
     fireAnalyticsEvent(props.createAnalyticsEvent)({
@@ -199,7 +206,8 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
   /* Only for hitting enter to select item when focused on search bar,
    * The actual enter key press is handled on individual items level.
    */
-  const selectedItem = items[selectedItemIndex];
+  const selectedItem =
+    selectedItemIndex !== undefined ? items[selectedItemIndex] : null;
   const onItemsEnterKeyPress = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key !== 'Enter') {
@@ -236,6 +244,8 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
           setFocusOnSearch={setFocusOnSearch}
           onKeyPress={onItemsEnterKeyPress}
           onKeyDown={onKeyDown}
+          viewMoreItem={viewMoreItem}
+          focusOnViewMore={focusOnViewMore}
         />
       ) : (
         <DesktopBrowser
@@ -268,6 +278,7 @@ function MobileBrowser({
   focusedItemIndex,
   setFocusedItemIndex,
   focusOnSearch,
+  focusOnViewMore,
   setColumnCount,
   setFocusOnSearch,
   onKeyPress,
@@ -275,9 +286,11 @@ function MobileBrowser({
   searchTerm,
   createAnalyticsEvent,
   emptyStateHandler,
+  viewMoreItem,
 }: StatelessElementBrowserProps &
   SelectedItemProps & {
     focusOnSearch: boolean;
+    focusOnViewMore: boolean;
     setFocusOnSearch: () => void;
     onKeyPress: (e: React.KeyboardEvent) => void;
     onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
@@ -332,6 +345,7 @@ function MobileBrowser({
           searchTerm={searchTerm}
         />
       </div>
+      {viewMoreItem && <ViewMore item={viewMoreItem} focus={focusOnViewMore} />}
     </div>
   );
 }

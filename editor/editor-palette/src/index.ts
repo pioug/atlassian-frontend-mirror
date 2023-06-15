@@ -1,10 +1,10 @@
 export {
   hexToEditorBackgroundPaletteColor,
-  hexToEditorBackgroundPaletteColorTokenName,
+  hexToEditorBackgroundPaletteRawValue,
 } from './background';
 export { hexToEditorBorderPaletteColor } from './border';
 export { hexToEditorTextPaletteColor } from './text';
 export {
   hexToEditorTableChartsPaletteColor,
-  hexToEditorTableChartsPaletteColorTokenName,
+  hexToEditorTableChartsPaletteRawValue,
 } from './table-charts';

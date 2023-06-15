@@ -101,6 +101,18 @@ describe('JiraIssuesConfigModal', () => {
     totalCount: undefined,
   });
 
+  const getErrorHookState: () => DatasourceTableState = () => ({
+    columns: [],
+    status: 'rejected',
+    responseItems: [],
+    hasNextPage: true,
+    defaultVisibleColumnKeys: [],
+    onNextPage: jest.fn(),
+    loadDatasourceDetails: jest.fn(),
+    reset: jest.fn(),
+    totalCount: undefined,
+  });
+
   const getLoadingHookState: () => DatasourceTableState = () => ({
     columns: [],
     status: 'loading',
@@ -338,6 +350,7 @@ describe('JiraIssuesConfigModal', () => {
           cloudId: '67899',
           jql: 'some-query',
         },
+        isSearching: false,
         onSearch: expect.any(Function),
       } as SearchContainerProps,
       expect.anything(),
@@ -837,7 +850,7 @@ describe('JiraIssuesConfigModal', () => {
   describe('when an error occurs on data request', () => {
     it('should show network error message', async () => {
       const { getByRole, getByText } = await setup({
-        hookState: { ...getDefaultHookState(), status: 'rejected' },
+        hookState: { ...getErrorHookState() },
       });
 
       expect(getByText('Unable to load results')).toBeInTheDocument();
@@ -846,7 +859,7 @@ describe('JiraIssuesConfigModal', () => {
 
     it('should not show network error message in count view mode', async () => {
       const { getByLabelText, queryByText } = await setup({
-        hookState: { ...getDefaultHookState(), responseItems: [] },
+        hookState: { ...getErrorHookState() },
       });
 
       act(() => {

@@ -1,6 +1,7 @@
 import React, { SyntheticEvent, useState, useMemo, Fragment } from 'react';
 
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+import { token } from '@atlaskit/tokens';
 
 import {
   AtlassianLinkPickerPlugin,
@@ -68,7 +69,7 @@ function HideDisplayText() {
 
   return (
     <Fragment>
-      <div style={{ paddingBottom: 20 }}>
+      <div style={{ paddingBottom: token('space.250', '20px') }}>
         <a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
           {link.displayText || link.url}
         </a>

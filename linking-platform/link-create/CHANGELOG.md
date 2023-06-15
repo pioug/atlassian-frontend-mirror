@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.7.0
+
+### Minor Changes
+
+- [`eb070266532`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb070266532) - Expose Modal callbacks and Add modalTitle to the linkCreate Props
+
 ## 0.6.0
 
 ### Minor Changes

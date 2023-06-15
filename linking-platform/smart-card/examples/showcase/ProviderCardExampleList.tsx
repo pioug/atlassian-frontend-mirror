@@ -12,10 +12,13 @@ export const ProviderCardExampleList = ({
   config: ExampleUIConfig;
 }): JSX.Element => {
   return (
-    <div style={{ marginTop: '24px' }}>
+    <div style={{ marginTop: token('space.300', '24px') }}>
       {examples.map((example) => {
         return (
-          <div key={example.displayName} style={{ marginTop: '24px' }}>
+          <div
+            key={example.displayName}
+            style={{ marginTop: token('space.300', '24px') }}
+          >
             <h6
               style={{
                 textTransform: 'uppercase',

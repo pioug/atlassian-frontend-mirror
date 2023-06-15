@@ -87,6 +87,7 @@ describe('ShareForm', () => {
         appearance: 'primary',
         type: 'submit',
         isLoading: false,
+        isDisabled: undefined,
         children: (
           <>
             {submitButtonLabel || <FormattedMessage {...messages.formShare} />}
@@ -127,7 +128,7 @@ describe('ShareForm', () => {
 
     it('should set appearance prop to "primary" and isLoading prop to true to the Send button, and hide the tooltip', () => {
       const mockLink = 'link';
-      const mockShareError: ShareError = { message: 'error' };
+      const mockShareError: ShareError = { message: 'error', retryable: true };
       const loadOptions = jest.fn();
       const wrapper = shallow(
         <ShareForm
@@ -178,7 +179,10 @@ describe('ShareForm', () => {
 
   describe('shareError prop', () => {
     it('should render Retry button with an ErrorIcon and Tooltip', () => {
-      const mockShareError: ShareError = { message: 'error' };
+      const mockShareError: ShareError = {
+        message: 'error',
+        retryable: true,
+      };
       const wrapper = shallow(
         <ShareForm
           {...defaultProps}
@@ -211,6 +215,36 @@ describe('ShareForm', () => {
 
       const errorIcon = tooltip.find(ErrorIcon);
       expect(errorIcon).toHaveLength(1);
+    });
+
+    it('should render disabeld Share button with no ErrorIcon when client error', () => {
+      const mockShareError: ShareError = {
+        message: 'error',
+        errorCode: 'blah',
+        retryable: false,
+      };
+      const wrapper = shallow(
+        <ShareForm
+          {...defaultProps}
+          copyLink="link"
+          loadOptions={jest.fn()}
+          shareError={mockShareError}
+          product="confluence"
+        />,
+      );
+
+      const akForm = wrapper.find<FormProps<{}>>(Form);
+      const form = renderProp(akForm, 'children', { formProps: {} })
+        .dive()
+        .dive()
+        .find('form');
+      const footer = form.find('[data-testid="form-footer"]');
+      const button = footer.find(Button);
+      expect(button).toHaveLength(1);
+      expect(button.prop('appearance')).toEqual('primary');
+      expect(button.prop('isDisabled')).toEqual(true);
+
+      expect(form.find(ErrorIcon).exists()).toBe(false);
     });
   });
 

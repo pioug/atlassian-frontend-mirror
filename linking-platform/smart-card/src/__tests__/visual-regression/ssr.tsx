@@ -1,5 +1,6 @@
 import { JSDOM } from 'jsdom';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { token } from '@atlaskit/tokens';
 import Loadable from 'react-loadable';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -29,7 +30,7 @@ describe('SSR support', () => {
           data-testid="card-wrapper"
           style={{
             width: '680px',
-            padding: 20,
+            padding: token('space.250', '20px'),
           }}
         >
           <CardSSR appearance="inline" url={url} />

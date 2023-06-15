@@ -1,13 +1,15 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { useTheme } from '../../theme';
 
 import { SkeletonCreateButtonProps } from './types';
 
 const skeletonCreateButtonStyles = css({
   height: 32,
-  padding: '0 12px',
+  padding: `0 ${token('space.150', '12px')}`,
   alignSelf: 'center',
   border: 0,
   borderRadius: 3,
@@ -22,7 +24,7 @@ const skeletonCreateButtonStyles = css({
   },
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '&&': {
-    marginLeft: 12,
+    marginLeft: token('space.150', '12px'),
   },
 });
 

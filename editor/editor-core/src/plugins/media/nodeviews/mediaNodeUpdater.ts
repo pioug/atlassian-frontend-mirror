@@ -441,11 +441,11 @@ export class MediaNodeUpdater {
 
   private copyFile = async (
     id: string,
-    collection: string,
+    collection: string, // Some consumers pass empty string eg: Jira
     traceContext?: MediaTraceContext,
   ): Promise<object | undefined> => {
     const mediaProvider = await this.props.mediaProvider;
-    if (!id || !collection || !mediaProvider?.uploadParams) {
+    if (!mediaProvider?.uploadParams) {
       return;
     }
 

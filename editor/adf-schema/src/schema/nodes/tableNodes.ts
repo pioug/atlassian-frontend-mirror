@@ -1,7 +1,6 @@
 import { Node as PmNode, NodeSpec } from 'prosemirror-model';
 import { CellAttributes } from '@atlaskit/editor-tables/types';
-import { hexToEditorBackgroundPaletteColorTokenName } from '@atlaskit/editor-palette';
-import { getTokenValue } from '@atlaskit/tokens';
+import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette';
 import {
   B100,
   B50,
@@ -166,9 +165,7 @@ export const getCellDomAttrs = (node: PmNode): CellDomAttrs => {
         isRgb(background) && rgbToHex(background)
           ? rgbToHex(background)
           : background;
-      const tokenName = hexToEditorBackgroundPaletteColorTokenName(color);
-      // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-      const tokenColor = tokenName ? getTokenValue(tokenName) : color;
+      const tokenColor = hexToEditorBackgroundPaletteRawValue(color) || color;
 
       attrs.style = `${attrs.style || ''}background-color: ${tokenColor};`;
 

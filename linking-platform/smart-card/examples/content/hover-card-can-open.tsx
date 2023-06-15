@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Provider, Client } from '../../src';
 import { HoverCard } from '../../src/hoverCard';
 import { Checkbox } from '@atlaskit/checkbox';
+import { token } from '@atlaskit/tokens';
 
 export default () => {
   const [canOpen, setCanOpen] = useState(true);
@@ -17,7 +18,9 @@ export default () => {
           url="https://www.youtube.com/watch?v=8xiwyk3ouuI"
           canOpen={canOpen}
         >
-          <div css={{ border: '1px solid', padding: '20px' }}>
+          <div
+            css={{ border: '1px solid', padding: token('space.250', '20px') }}
+          >
             Hover over me!
           </div>
         </HoverCard>

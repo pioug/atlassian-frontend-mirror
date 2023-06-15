@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 6.0.1
+
+### Patch Changes
+
+- [`fa18829653d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa18829653d) - Updated spacing rule to ignore gridSize functions that accept arguments as these are custom and not part of the Design System.
+
 ## 6.0.0
 
 ### Major Changes

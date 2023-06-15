@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popup",
-  "version": "1.6.4",
+  "version": "1.7.0",
   "description": "A popup displays brief content in an overlay.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^2.2.0",
+    "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/popper": "^5.5.0",
     "@atlaskit/portal": "^4.3.0",
     "@atlaskit/theme": "^12.5.0",
@@ -62,6 +63,7 @@
     "@atlaskit/toggle": "^12.6.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
     "ast-types": "^0.13.3",
@@ -99,5 +101,10 @@
     }
   },
   "homepage": "https://atlassian.design/components/popup/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "platform-feature-flags": {
+    "platform.design-system-team.render-popup-in-parent_f73ij": {
+      "type": "boolean"
+    }
+  }
 }

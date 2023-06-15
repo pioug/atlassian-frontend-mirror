@@ -20,6 +20,7 @@
 import { AsyncSelectProps as AsyncSelectProps_2 } from '@atlaskit/select';
 import { jsx } from '@emotion/react';
 import { MemoExoticComponent } from 'react';
+import { ModalDialogProps } from '@atlaskit/modal-dialog';
 import { OptionType } from '@atlaskit/select';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
@@ -50,7 +51,7 @@ type AsyncSelectProps<T = OptionType> = AsyncSelectProps_2<T> & {
 
 // @public (undocumented)
 const ComposedLinkCreate: MemoExoticComponent<
-  (props: LinkCreateProps) => jsx.JSX.Element
+  (props: LinkCreateWithModalProps) => jsx.JSX.Element
 >;
 export default ComposedLinkCreate;
 
@@ -132,7 +133,6 @@ export interface LinkCreatePlugin {
 
 // @public (undocumented)
 export interface LinkCreateProps {
-  active?: boolean;
   entityKey: string;
   groupKey?: string;
   onCancel?: () => void;
@@ -145,11 +145,12 @@ export interface LinkCreateProps {
 }
 
 // @public (undocumented)
-interface Option_2 {
-  label: string;
-  value: string;
+export interface LinkCreateWithModalProps
+  extends LinkCreateProps,
+    Partial<Pick<ModalDialogProps, 'onCloseComplete' | 'onOpenComplete'>> {
+  active?: boolean;
+  modalTitle?: string;
 }
-export { Option_2 as Option };
 
 // @public
 export function TextField({

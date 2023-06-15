@@ -347,6 +347,9 @@ export type ShareDialogContainerProps = {
 // @public (undocumented)
 export type ShareError = {
   message: string;
+  errorCode?: string;
+  helpUrl?: string;
+  retryable: boolean;
 };
 
 // @public (undocumented)

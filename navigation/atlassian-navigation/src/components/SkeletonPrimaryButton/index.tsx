@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { useTheme } from '../../theme';
 
 import { SkeletonPrimaryButtonProps } from './types';
@@ -11,8 +13,8 @@ const VAR_PRIMARY_BUTTON_AFTER_DROPDOWN_BORDER_COLOR =
   '--primary-button-after-dropdown-border-color';
 
 const primaryButtonSkeletonStyles = css({
-  margin: '0 6px',
-  padding: '0 4px',
+  margin: `0 ${token('space.075', '6px')}`,
+  padding: `0 ${token('space.050', '4px')}`,
   position: 'relative',
   appearance: 'none',
   border: 0,
@@ -35,7 +37,7 @@ const isHighlightedStyles = css({
     height: 3,
     position: 'absolute',
     bottom: 0,
-    left: 2,
+    left: token('space.025', '2px'),
     backgroundColor: `var(${VAR_PRIMARY_BUTTON_BEFORE_HIGHLIGHTED_BACKGROUND_COLOR})`,
     borderTopLeftRadius: 1,
     borderTopRightRadius: 1,
@@ -45,24 +47,26 @@ const isHighlightedStyles = css({
 
 const isHighlightedAndDropdownButtonStyles = css({
   '&:before': {
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
     right: -10,
   },
 });
 
 const isHighlightedNotDropdownButtonStyles = css({
   '&:before': {
-    right: 2,
+    right: token('space.025', '2px'),
   },
 });
 
 const isDropdownButtonStyles = css({
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginRight: 18,
 
   '&:after': {
     display: 'inline-block',
     width: 4,
     height: 4,
-    marginLeft: 4,
+    marginLeft: token('space.050', '4px'),
     position: 'absolute',
     top: 'calc(50% - 4px)',
     left: 'calc(100% - 3px)',

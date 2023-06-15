@@ -1,4 +1,5 @@
 import React from 'react';
+import { token } from '@atlaskit/tokens';
 import {
   Provider,
   Client,
@@ -19,7 +20,13 @@ const storeOptions: CardProviderStoreOpts = {
 
 export default () => (
   <Provider storeOptions={storeOptions} client={new Client('stg')}>
-    <div style={{ width: '680px', margin: '0 auto', marginTop: '64px' }}>
+    <div
+      style={{
+        width: '680px',
+        margin: '0 auto',
+        marginTop: token('space.800', '64px'),
+      }}
+    >
       <h4>Inline:</h4>
       <CardSSR appearance="inline" url={url} />
 

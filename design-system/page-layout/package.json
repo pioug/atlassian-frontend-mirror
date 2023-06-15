@@ -58,7 +58,7 @@
     "@atlaskit/menu": "^1.7.0",
     "@atlaskit/notification-indicator": "^9.1.0",
     "@atlaskit/notification-log-client": "^6.1.0",
-    "@atlaskit/popup": "^1.6.0",
+    "@atlaskit/popup": "^1.7.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/side-navigation": "^1.8.0",
     "@atlaskit/ssr": "*",

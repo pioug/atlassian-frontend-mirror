@@ -24,7 +24,7 @@ const searchInputSkeletonStyles = css({
   width: '220px',
   height: token('space.400', '32px'),
   padding: `0 ${token('space.100', '8px')} 0 ${token('space.500', '40px')}`,
-  borderRadius: 6,
+  borderRadius: token('border.radius.200', '6px'),
   opacity: 0.15,
 });
 

@@ -35,9 +35,19 @@ export const modalMessages = defineMessages({
     defaultMessage: 'Count view',
   },
   issuesCountSmartCardPlaceholderText: {
-    id: 'linkDataSource.jira-issues.configmodal.issues',
+    id: 'linkDataSource.jira-issues.configmodal.placeholder.issues',
     description:
       'Placeholder text that will be placed next to a count of jira issues',
     defaultMessage: '### Issues',
+  },
+  singularIssue: {
+    id: 'linkDataSource.jira-issues.configmodal.singular.issue',
+    description: 'Text that appears after single issue count number.',
+    defaultMessage: 'issue',
+  },
+  pluralIssues: {
+    id: 'linkDataSource.jira-issues.configmodal.plural.issues',
+    description: 'Text that appears after plural issue count number.',
+    defaultMessage: 'issues',
   },
 });

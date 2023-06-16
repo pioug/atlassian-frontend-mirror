@@ -34,7 +34,7 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^25.8.0",
+    "@atlaskit/adf-schema": "^25.9.0",
     "@atlaskit/adf-utils": "^18.4.0",
     "@atlaskit/editor-json-transformer": "^8.9.0",
     "@atlaskit/editor-test-helpers": "^18.6.0",

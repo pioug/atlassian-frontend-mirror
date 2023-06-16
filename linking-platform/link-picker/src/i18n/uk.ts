@@ -31,6 +31,8 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Знайдіть останні посилання або вставте нове',
   'fabric.linkPicker.search.noResults.description': 'Повторіть спробу, увівши інший запит.',
   'fabric.linkPicker.search.noResults.heading': 'За вашим запитом нічого не знайдено.',
+  'fabric.linkPicker.time.message.updated': 'Оновлено {time}',
+  'fabric.linkPicker.time.message.viewed': 'Переглянуто {time}',
   'fabric.linkPicker.unhandledError.description': 'Спробуйте перезавантажити сторінку.',
   'fabric.linkPicker.unhandledError.heading': 'Сталася помилка',
 };

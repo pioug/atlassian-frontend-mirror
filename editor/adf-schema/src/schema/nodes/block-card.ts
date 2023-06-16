@@ -1,5 +1,5 @@
 import { NodeSpec, Node as PMNode } from 'prosemirror-model';
-import { RichMediaAttributes } from './types/rich-media-common';
+import { Layout, OptionalRichMediaAttributes } from './types/rich-media-common';
 
 export interface UrlType {
   /**
@@ -15,16 +15,19 @@ export interface DataType {
   data: object;
 }
 
-export interface DatasourceAttributeProperties extends RichMediaAttributes {
+export interface DatasourceAttributeProperties {
   id: string;
   parameters: object;
-  views: [{ type: string; properties?: object }];
+  /**
+   * @minItems 1
+   */
+  views: { type: string; properties?: object }[];
 }
 
 /**
  * @stage 0
  */
-export interface DatasourceAttributes {
+export interface DatasourceAttributes extends OptionalRichMediaAttributes {
   /**
    * @validatorFn safeUrl
    */
@@ -42,6 +45,23 @@ export interface BlockCardDefinition {
   attrs: CardAttributes | DatasourceAttributes;
 }
 
+const getCommonAttributesFromDom = (
+  dom: string | Node,
+): Partial<BlockCardDefinition['attrs']> => {
+  const anchor = dom as HTMLAnchorElement;
+  const data = anchor.getAttribute('data-card-data');
+  const datasource = anchor.getAttribute('data-datasource');
+
+  return {
+    data: data ? JSON.parse(data) : undefined,
+    layout: datasource
+      ? ((dom as HTMLElement).getAttribute('data-layout') as Layout) || 'center'
+      : undefined,
+    width: Number((dom as HTMLElement).getAttribute('data-width')) || undefined,
+    datasource: datasource ? JSON.parse(datasource) : undefined,
+  };
+};
+
 export const blockCard: NodeSpec = {
   inline: false,
   group: 'block',
@@ -51,6 +71,8 @@ export const blockCard: NodeSpec = {
     url: { default: null },
     data: { default: null },
     datasource: { default: null },
+    layout: { default: null },
+    width: { default: null },
   },
   parseDOM: [
     {
@@ -61,13 +83,10 @@ export const blockCard: NodeSpec = {
 
       getAttrs: (dom) => {
         const anchor = dom as HTMLAnchorElement;
-        const data = anchor.getAttribute('data-card-data');
-        const datasource = anchor.getAttribute('data-datasource');
 
         return {
-          url: anchor.getAttribute('href') || null,
-          data: data ? JSON.parse(data) : null,
-          datasource: datasource ? JSON.parse(datasource) : null,
+          url: anchor.getAttribute('href') || undefined,
+          ...getCommonAttributesFromDom(dom),
         };
       },
     },
@@ -77,25 +96,25 @@ export const blockCard: NodeSpec = {
 
       getAttrs: (dom) => {
         const anchor = dom as HTMLDivElement;
-        const data = anchor.getAttribute('data-card-data');
-        const datasource = anchor.getAttribute('data-datasource');
 
         return {
-          url: anchor.getAttribute('data-card-url') || null,
-          data: data ? JSON.parse(data) : null,
-          datasource: datasource ? JSON.parse(datasource) : null,
+          url: anchor.getAttribute('data-card-url') || undefined,
+          ...getCommonAttributesFromDom(dom),
         };
       },
     },
   ],
   toDOM(node: PMNode) {
+    const { url } = node.attrs as UrlType;
+    const { data } = node.attrs as DataType;
+    const { layout, width, datasource } = node.attrs as DatasourceAttributes;
     const attrs = {
       'data-block-card': '',
-      href: node.attrs.url || '',
-      'data-card-data': node.attrs.data ? JSON.stringify(node.attrs.data) : '',
-      'data-datasource': node.attrs.datasource
-        ? JSON.stringify(node.attrs.datasource)
-        : '',
+      href: url || '',
+      'data-card-data': data ? JSON.stringify(data) : '',
+      'data-datasource': datasource ? JSON.stringify(datasource) : '',
+      'data-layout': layout,
+      'data-width': `${width}`,
     };
     return ['a', attrs, node?.attrs?.url || ' '];
   },

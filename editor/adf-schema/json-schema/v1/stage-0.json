@@ -774,32 +774,30 @@
                           "type"
                         ],
                         "additionalProperties": false
-                      }
-                    },
-                    "width": {
-                      "type": "number",
-                      "minimum": 0,
-                      "maximum": 100
-                    },
-                    "layout": {
-                      "enum": [
-                        "wide",
-                        "full-width",
-                        "center",
-                        "wrap-right",
-                        "wrap-left",
-                        "align-end",
-                        "align-start"
-                      ]
+                      },
+                      "minItems": 1
                     }
                   },
                   "required": [
                     "id",
                     "parameters",
-                    "views",
-                    "layout"
+                    "views"
                   ],
                   "additionalProperties": false
+                },
+                "width": {
+                  "type": "number"
+                },
+                "layout": {
+                  "enum": [
+                    "wide",
+                    "full-width",
+                    "center",
+                    "wrap-right",
+                    "wrap-left",
+                    "align-end",
+                    "align-start"
+                  ]
                 }
               },
               "additionalProperties": false,

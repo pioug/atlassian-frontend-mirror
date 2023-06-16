@@ -60,7 +60,9 @@ export const isDecendantOfStyleJsxAttribute = (node: Rule.Node): boolean => {
   return false;
 };
 
-export const isStyledTemplateNode = (
+const cssInJsCallees = ['css', 'styled', 'styled2'];
+
+export const isCssInJsTemplateNode = (
   node?: Expression | null,
 ): node is TaggedTemplateExpression =>
   node?.type === 'TaggedTemplateExpression' &&
@@ -68,13 +70,20 @@ export const isStyledTemplateNode = (
   node.tag.object.type === 'Identifier' &&
   node.tag.object.name === 'styled';
 
-export const isStyledObjectNode = (
+export const isCssInJsCallNode = (
+  node?: Expression | null,
+): node is CallExpression =>
+  node?.type === 'CallExpression' &&
+  node.callee.type === 'Identifier' &&
+  cssInJsCallees.includes(node.callee.name);
+
+export const isCssInJsObjectNode = (
   node?: Expression | null,
 ): node is CallExpression =>
   node?.type === 'CallExpression' &&
   node.callee.type === 'MemberExpression' &&
   node.callee.object.type === 'Identifier' &&
-  node.callee.object.name === 'styled';
+  cssInJsCallees.includes(node.callee.object.name);
 
 export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
   if (node.type === 'VariableDeclarator') {
@@ -108,14 +117,10 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
   }
 
   if (
-    node.type === 'CallExpression' &&
-    node.callee.type === 'Identifier' &&
-    node.callee.name === 'css'
+    isCssInJsCallNode(node as Expression) ||
+    isCssInJsObjectNode(node as Expression) ||
+    isCssInJsTemplateNode(node as Expression)
   ) {
-    return true;
-  }
-
-  if (isStyledTemplateNode(node as Expression)) {
     return true;
   }
 

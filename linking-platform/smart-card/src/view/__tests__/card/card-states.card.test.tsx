@@ -73,6 +73,13 @@ describe('smart-card: card states, block', () => {
         expect(resolvedViewDescription).toBeTruthy();
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
+        expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+        expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            display: 'block',
+            status: 'resolved',
+          }),
+        );
       });
 
       it('block: should render with metadata when resolved and call onResolve if provided', async () => {

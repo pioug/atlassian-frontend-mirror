@@ -54,7 +54,7 @@
     "@atlaskit/pragmatic-drag-and-drop-react-indicator": "^0.14.0",
     "@atlaskit/primitives": "^0.12.0",
     "@atlaskit/theme": "^12.4.0",
-    "@atlaskit/tokens": "^1.5.0",
+    "@atlaskit/tokens": "^1.6.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/react-async": "^0.10.0",

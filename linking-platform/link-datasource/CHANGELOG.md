@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.24.0
+
+### Minor Changes
+
+- [`108aa0ad121`](https://bitbucket.org/atlassian/atlassian-frontend/commits/108aa0ad121) - [ux] Fix some table bugs such as inconsistency between issue count for modal/table and fix case where user can deselect all fields in the column picker
+
 ## 0.23.0
 
 ### Minor Changes

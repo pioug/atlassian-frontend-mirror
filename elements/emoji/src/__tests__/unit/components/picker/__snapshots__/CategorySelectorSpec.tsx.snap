@@ -35,7 +35,7 @@ exports[`<CategorySelector /> active category highlighted 1`] = `
 .emotion-1 {
   background-color: transparent;
   border: 0;
-  border-radius: var(--ds-radius-100, 3px);
+  border-radius: var(--ds-border-radius-100, 3px);
   color: var(--ds-text-subtlest, rgba(9, 30, 66, 0.54));
   cursor: pointer;
   padding: var(--ds-space-0, 0px);

@@ -1,5 +1,15 @@
 # @atlaskit/tokens
 
+## 1.6.0
+
+### Minor Changes
+
+- [`191bbd4a3c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/191bbd4a3c2) - Public changes to types for `setGlobalTheme` to match API - previously themes could be incorrectly applied ie the light theme could theoretically take the space theme as a valid value. No behavior changes. Internally the shape theme has been moved from experimental status. These tokens are now active however they remain disabled by default.
+
+### Patch Changes
+
+- [`98edc7e8b62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/98edc7e8b62) - Patch for tokens metadata and descriptions.
+
 ## 1.5.2
 
 ### Patch Changes

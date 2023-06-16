@@ -1,5 +1,5 @@
 import type { ThemeAppearance } from '@atlaskit/lozenge';
-import type { LinkLozengeInvokeActions } from '../../../../../extractors/common/lozenge/types';
+import type { LinkLozengeInvokeActions } from '../../../../../../extractors/common/lozenge/types';
 
 export type LozengeItem = {
   appearance?: ThemeAppearance;

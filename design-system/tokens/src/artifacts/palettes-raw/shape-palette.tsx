@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a2e59b8e1421ca4ad026a5b2161824b2>>
+ * @codegen <<SignedSource::ba57ec0a6991ab386479b6c9006397ba>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -105,14 +105,14 @@ const tokens = [
     ]
   },
   {
-    "value": "50%",
+    "value": "32032px",
     "attributes": {
       "group": "shape"
     },
     "filePath": "src/palettes/shape-palette.tsx",
     "isSource": true,
     "original": {
-      "value": "50%",
+      "value": 32032,
       "attributes": {
         "group": "shape"
       }

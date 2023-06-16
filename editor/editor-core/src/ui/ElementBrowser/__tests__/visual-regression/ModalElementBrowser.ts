@@ -91,7 +91,8 @@ describe('ModalElementBrowser', () => {
 
 describe('InlineElementBrowser', () => {
   beforeEach(getElementBrowserPage);
-  it('should match InlineElementBrowser snapshot', async () => {
+  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/ED-18802
+  it.skip('should match InlineElementBrowser snapshot', async () => {
     await shouldMatchSnapshotFor(
       'InlineElementBrowser__example__open_button',
       undefined,

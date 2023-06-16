@@ -1,9 +1,4 @@
-jest.mock('react-lazily-render', () => (data: any) => data.content);
-jest.mock(
-  'react-transition-group/Transition',
-  () => (data: any) => data.children,
-);
-jest.doMock('../../../utils/analytics/analytics');
+import './card-states.card.test.mock';
 
 import React from 'react';
 import { JsonLd } from 'json-ld-types';
@@ -12,6 +7,7 @@ import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
+import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { IntlProvider } from 'react-intl-next';
 
@@ -71,6 +67,13 @@ describe('smart-card: card states, embed', () => {
         );
         expect(mockFetch).toBeCalled();
         expect(mockFetch).toBeCalledTimes(1);
+        expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+        expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+          expect.objectContaining({
+            display: 'embed',
+            status: 'resolved',
+          }),
+        );
       });
 
       it('embed: should render with metadata when resolved, as block card - no preview present', async () => {

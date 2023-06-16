@@ -1,12 +1,10 @@
-jest.mock('react-lazily-render', () => (data: any) => data.content);
-jest.mock(
-  'react-transition-group/Transition',
-  () => (data: any) => data.children,
-);
+import './card-states.card.test.mock';
+
 import { render, cleanup, waitFor } from '@testing-library/react';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { IntlProvider } from 'react-intl-next';
+import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Provider } from '../../..';
 import { Card } from '../../Card';
@@ -59,6 +57,14 @@ describe('smart-card: card states, flexible block withUrl', () => {
       expect(resolvedViewDescription).toBeTruthy();
       expect(mockFetch).toBeCalled();
       expect(mockFetch).toBeCalledTimes(1);
+
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          display: 'block',
+          status: 'resolved',
+        }),
+      );
     });
 
     it('should re-render when URL changes', async () => {

@@ -42,6 +42,7 @@ import quickInsertProviderFactory from './quick-insert-provider';
 import { EditorProps } from '../src';
 import { createTestExtensionProvider } from '../src/plugins/floating-toolbar/__tests__/_helpers';
 import { createExtensionFramesProvider } from '../src/__tests__/visual-regression/common/__helpers__/extensionFrameManifest';
+import { getConfluenceMacrosExtensionProvider } from './confluence-macros';
 
 const mediaMockServer = createEditorMediaMock();
 /**
@@ -97,6 +98,8 @@ function createEditorWindowBindings<T extends EditorProps>(
     const providers = createProviders(options.providers, {
       editorProps: {},
       withTestExtensionProviders: options.withTestExtensionProviders,
+      withConfluenceMacrosExtensionProvider:
+        options.withConfluenceMacrosExtensionProvider,
     });
 
     const Wrapper = MaybeWrapper || createWrappers(options, render);
@@ -242,8 +245,10 @@ function createProviders(
   opts: Record<string, any> = {},
   {
     withTestExtensionProviders = {},
+    withConfluenceMacrosExtensionProvider = false,
     editorProps: props = {},
   }: {
+    withConfluenceMacrosExtensionProvider?: boolean;
     withTestExtensionProviders?: TestExtensionProviders;
     editorProps?: EditorProps;
   },
@@ -277,6 +282,7 @@ function createProviders(
 
   if (opts.extensionProviders) {
     const extensionProvidersArr = [];
+
     if (withTestExtensionProviders.extensionFrameManifest) {
       extensionProvidersArr.push(createExtensionFramesProvider());
     }
@@ -285,6 +291,10 @@ function createProviders(
     }
 
     providers.extensionProviders = extensionProvidersArr;
+  }
+
+  if (withConfluenceMacrosExtensionProvider) {
+    providers.extensionProviders = [getConfluenceMacrosExtensionProvider()];
   }
 
   return providers;
@@ -505,4 +515,5 @@ export type MountEditorOptions = {
   invalidAltTextValues?: string[];
   withCollab?: boolean;
   withLinkPickerOptions?: boolean;
+  withConfluenceMacrosExtensionProvider?: boolean;
 };

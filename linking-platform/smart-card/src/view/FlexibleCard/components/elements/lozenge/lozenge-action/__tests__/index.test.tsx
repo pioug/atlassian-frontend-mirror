@@ -8,20 +8,20 @@ import {
 } from '@testing-library/react';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import LozengeAction from '../index';
-import * as useInvoke from '../../../../../../state/hooks/use-invoke';
-import * as useResolve from '../../../../../../state/hooks/use-resolve';
+import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
+import * as useResolve from '../../../../../../../state/hooks/use-resolve';
 import {
   SmartLinkActionType,
   InvokeError,
 } from '@atlaskit/linking-types/smart-link-actions';
 import { LozengeActionProps } from '../types';
-import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
+import extractLozengeActionItems from '../../../../../../../extractors/action/extract-lozenge-action-items';
 import { LozengeActionErrorMessages } from '../lozenge-action-error/types';
-import { CardDetails } from '../../../../../../state/hooks/use-invoke/types';
+import { CardDetails } from '../../../../../../../state/hooks/use-invoke/types';
 import {
   TrackQuickActionFailureReason,
   TrackQuickActionType,
-} from '../../../../../../utils/analytics/analytics';
+} from '../../../../../../../utils/analytics/analytics';
 
 const mockSmartLinkLozengeActionClickedEvent = jest.fn();
 const mockSmartLinkLozengeActionListItemClickedEvent = jest.fn();
@@ -30,7 +30,7 @@ const mockSmartLinkQuickActionStarted = jest.fn();
 const mockSmartLinkQuickActionSuccess = jest.fn();
 const mockSmartLinkQuickActionFailed = jest.fn();
 
-jest.mock('../../../../../../state/flexible-ui-context', () => ({
+jest.mock('../../../../../../../state/flexible-ui-context', () => ({
   useFlexibleUiAnalyticsContext: () => ({
     ui: {
       smartLinkLozengeActionClickedEvent:

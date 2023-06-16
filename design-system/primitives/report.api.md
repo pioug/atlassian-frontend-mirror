@@ -78,6 +78,9 @@ type As =
   | 'ul';
 
 // @public (undocumented)
+type AutoComplete<T extends string> = Omit<string, T> | T;
+
+// @public (undocumented)
 type BackgroundColor = keyof typeof backgroundColorMap;
 
 // @public (undocumented)
@@ -255,12 +258,13 @@ type BorderRadius = keyof typeof borderRadiusMap;
 
 // @public (undocumented)
 const borderRadiusMap: {
-  readonly 'border.radius.050': 'var(--ds-radius-050)';
-  readonly 'border.radius.100': 'var(--ds-radius-100)';
-  readonly 'border.radius.200': 'var(--ds-radius-200)';
-  readonly 'border.radius.300': 'var(--ds-radius-300)';
-  readonly 'border.radius.400': 'var(--ds-radius-400)';
-  readonly 'border.radius.round': 'var(--ds-radius-round)';
+  readonly 'border.radius.050': 'var(--ds-border-radius-050)';
+  readonly 'border.radius': 'var(--ds-border-radius)';
+  readonly 'border.radius.100': 'var(--ds-border-radius-100)';
+  readonly 'border.radius.200': 'var(--ds-border-radius-200)';
+  readonly 'border.radius.300': 'var(--ds-border-radius-300)';
+  readonly 'border.radius.400': 'var(--ds-border-radius-400)';
+  readonly 'border.radius.circle': 'var(--ds-border-radius-circle)';
 };
 
 // @public (undocumented)
@@ -277,9 +281,10 @@ type BorderWidth = keyof typeof borderWidthMap;
 
 // @public
 const borderWidthMap: {
-  readonly 'border.width.0': 'var(--ds-width-0)';
-  readonly 'border.width.050': 'var(--ds-width-050)';
-  readonly 'border.width.100': 'var(--ds-width-100)';
+  readonly 'border.width': 'var(--ds-border-width)';
+  readonly 'border.width.0': 'var(--ds-border-width-0)';
+  readonly 'border.width.050': 'var(--ds-border-width-050)';
+  readonly 'border.width.100': 'var(--ds-border-width-100)';
 };
 
 // @public (undocumented)
@@ -711,7 +716,7 @@ type TokenisedProps = {
   flexGrow?: FlexGrow;
   flexShrink?: FlexShrink;
   gap?: Space;
-  height?: Height;
+  height?: AutoComplete<Height>;
   inlineSize?: InlineSize;
   inset?: Space;
   insetBlock?: Space;
@@ -721,14 +726,14 @@ type TokenisedProps = {
   insetInlineEnd?: Space;
   insetInlineStart?: Space;
   left?: Left;
-  maxBlockSize?: MaxBlockSize;
-  maxHeight?: MaxHeight;
-  maxInlineSize?: MaxInlineSize;
-  maxWidth?: MaxWidth;
-  minBlockSize?: MinBlockSize;
-  minHeight?: MinHeight;
-  minInlineSize?: MinInlineSize;
-  minWidth?: MinWidth;
+  maxBlockSize?: AutoComplete<MaxBlockSize>;
+  maxHeight?: AutoComplete<MaxHeight>;
+  maxInlineSize?: AutoComplete<MaxInlineSize>;
+  maxWidth?: AutoComplete<MaxWidth>;
+  minBlockSize?: AutoComplete<MinBlockSize>;
+  minHeight?: AutoComplete<MinHeight>;
+  minInlineSize?: AutoComplete<MinInlineSize>;
+  minWidth?: AutoComplete<MinWidth>;
   outlineColor?: BorderColor;
   outlineOffset?: Space;
   outlineWidth?: BorderWidth;
@@ -746,7 +751,7 @@ type TokenisedProps = {
   right?: Right;
   rowGap?: Space;
   top?: Top;
-  width?: Width;
+  width?: AutoComplete<Width>;
   zIndex?: Layer;
 };
 

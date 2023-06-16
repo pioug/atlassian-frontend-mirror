@@ -1,4 +1,5 @@
 import { ThemeProps, ThemeTokens } from '@atlaskit/button/types';
+import { token } from '@atlaskit/tokens';
 
 import { NavigationTheme } from '../../theme';
 
@@ -13,7 +14,7 @@ export const getIconButtonTheme =
     return {
       buttonStyles: {
         ...buttonStyles,
-        borderRadius: '100%',
+        borderRadius: token('border.radius.circle', '100%'),
         display: 'flex',
         margin: '0 2px',
         padding: 4,

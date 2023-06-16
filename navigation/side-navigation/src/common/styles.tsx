@@ -1,9 +1,6 @@
 import { CSSFn, StatelessCSSFn } from '@atlaskit/menu';
 import { B400, B50, N30, N500 } from '@atlaskit/theme/colors';
-import { borderRadius as borderRadiusFn } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-const borderRadius = borderRadiusFn();
 
 /**
  * Allows chaining of style functions on top of base style functions
@@ -54,7 +51,7 @@ export const baseSideNavItemStyle: CSSFn = ({ isSelected, isDisabled }) => {
     // is approximately center aligned with the horizontal app switcher.
     paddingBlock: token('space.100', '8px'),
     paddingInline: token('space.100', '10px'),
-    borderRadius,
+    borderRadius: token('border.radius', '3px'),
     // -- TODO: DELETE THESE COLOR OVERRIDES WHEN CLEANING UP FALLBACK THEMING --
     // Menu and side navigation are now color aligned so they do not need this!
     // See: https://product-fabric.atlassian.net/browse/DSP-1684

@@ -12,11 +12,7 @@ import {
 import { ClassNames, css, jsx } from '@emotion/react';
 import { CSSInterpolation } from '@emotion/serialize';
 
-import {
-  B200,
-  backgroundActive,
-  backgroundHover,
-} from '@atlaskit/theme/colors';
+import { B200, B50, N30 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
@@ -142,7 +138,7 @@ const getStyles = (
         :hover {
           background-color: ${token(
             'color.background.neutral.subtle.hovered',
-            backgroundHover(),
+            N30,
           )};
           cursor: pointer;
           text-decoration: none;
@@ -156,7 +152,7 @@ const getStyles = (
         :active {
           background-color: ${token(
             'color.background.neutral.subtle.pressed',
-            backgroundActive(),
+            B50,
           )};
         }
       `}

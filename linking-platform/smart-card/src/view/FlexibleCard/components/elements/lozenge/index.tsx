@@ -2,7 +2,7 @@
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 import AtlaskitLozenge from '@atlaskit/lozenge';
-import LozengeAction from '../../common/lozenge-action';
+import LozengeAction from './lozenge-action';
 import type { LozengeProps } from './types';
 import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
 

@@ -400,8 +400,8 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
               >
                 <FormattedNumber value={totalCount} />{' '}
                 <FormattedPlural
-                  one="issue"
-                  other="issues"
+                  one={<FormattedMessage {...modalMessages.singularIssue} />}
+                  other={<FormattedMessage {...modalMessages.pluralIssues} />}
                   value={totalCount}
                 />
               </div>

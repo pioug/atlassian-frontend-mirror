@@ -8,6 +8,7 @@ import {
   insertImportDeclaration,
   isNodeOfType,
   literal,
+  ObjectExpression,
   TaggedTemplateExpression,
 } from 'eslint-codemod-utils';
 
@@ -28,6 +29,9 @@ import {
   isTypographyProperty,
   typographyValueToToken,
 } from './typography';
+
+export const replacementComment =
+  '// TODO Delete this comment after verifying space token -> previous value';
 
 const properties = [
   'padding',
@@ -581,7 +585,7 @@ export function processCssNode(
   const cssProperties = splitCssProperties(cleanComments(combinedString));
   const unalteredCssProperties = splitCssProperties(cleanComments(rawString));
   if (cssProperties.length !== unalteredCssProperties.length) {
-    // this means something wen't wrong with the parsing, the original lines can't be reconciliated with the processed lines
+    // this means something went wrong with the parsing, the original lines can't be reconciled with the processed lines
     return undefined;
   }
   return cssProperties.map((cssProperty, index): [string, string] => [
@@ -728,4 +732,31 @@ export function getTokenReplacement(propertyName: string, value: string) {
   const fallbackValue = normaliseValue(propertyName, value);
 
   return getTokenNodeForValue(propertyName, fallbackValue);
+}
+
+export function getFontSizeFromNode(
+  parentNode: ObjectExpression & Rule.NodeParentExtension,
+  context: Rule.RuleContext,
+) {
+  const fontSizeNode = parentNode.properties.find((node) => {
+    if (!isNodeOfType(node, 'Property')) {
+      return;
+    }
+
+    if (!isNodeOfType(node.key, 'Identifier')) {
+      return;
+    }
+
+    return node.key.name === 'fontSize';
+  });
+
+  const fontSizeValue = isNodeOfType(fontSizeNode!, 'Property')
+    ? getValue(fontSizeNode.value, context)
+    : null;
+
+  const fontSize = Array.isArray(fontSizeValue)
+    ? fontSizeValue[0]
+    : fontSizeValue;
+
+  return fontSize;
 }

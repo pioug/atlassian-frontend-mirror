@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 21.3.4
+
+### Patch Changes
+
+- [`abf69e9a4f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abf69e9a4f6) - Removes usage of deprecated theme mixins in favor of static token / color usage.
+
 ## 21.3.3
 
 ### Patch Changes

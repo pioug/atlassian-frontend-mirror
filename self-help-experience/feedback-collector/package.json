@@ -44,7 +44,7 @@
     "@atlaskit/select": "^16.5.0",
     "@atlaskit/textarea": "^4.7.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.5.0",
+    "@atlaskit/tokens": "^1.6.0",
     "@babel/runtime": "^7.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },

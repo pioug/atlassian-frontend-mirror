@@ -188,7 +188,7 @@ function Component({
   useEffect(() => {
     if (isFinalState(state.status)) {
       analytics.ui.renderSuccessEvent({
-        display: appearance,
+        display: isFlexibleUi ? 'flexible' : appearance,
         status: state.status,
         id,
         definitionId,
@@ -196,6 +196,7 @@ function Component({
       });
     }
   }, [
+    isFlexibleUi,
     appearance,
     state.status,
     url,

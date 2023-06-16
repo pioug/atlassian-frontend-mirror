@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';
 import InlineDialog from '@atlaskit/inline-dialog';
-import { subtleText } from '@atlaskit/theme/colors';
+import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Modal, {
@@ -22,7 +22,7 @@ const wrapperStyles = css({
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
   marginRight: 'auto',
   alignItems: 'center',
-  color: token('color.text.subtlest', subtleText()),
+  color: token('color.text.subtlest', N200),
   cursor: 'help',
 });
 

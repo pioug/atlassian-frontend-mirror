@@ -15,3 +15,8 @@ export interface RichMediaAttributes {
   width?: number;
   layout: Layout;
 }
+
+export interface OptionalRichMediaAttributes {
+  width?: number;
+  layout?: Layout;
+}

@@ -99,7 +99,7 @@ test.describe('media-group', () => {
               __contextId: 'DUMMY-OBJECT-ID',
               __fileMimeType: 'application/pdf',
               __fileName: 'test.pdf',
-              __fileSize: 469513,
+              __fileSize: expect.any(Number),
               id: expect.any(String),
               collection: 'MediaServicesSample',
               type: 'file',

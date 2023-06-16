@@ -299,20 +299,18 @@ const generateMediaSingleFloatingToolbar = (
   }
 
   if (allowAdvancedToolBarOptions) {
-    toolbarButtons = [
-      ...toolbarButtons,
-      ...buildLayoutButtons(
-        state,
-        intl,
-        state.schema.nodes.mediaSingle,
-        pluginInjectionApi?.dependencies.width,
-        pluginInjectionApi?.dependencies.analytics?.actions,
-        allowResizing,
-        allowResizingInTables,
-      ),
-    ];
+    const layoutButtons = buildLayoutButtons(
+      state,
+      intl,
+      state.schema.nodes.mediaSingle,
+      pluginInjectionApi?.dependencies.width,
+      pluginInjectionApi?.dependencies.analytics?.actions,
+      allowResizing,
+      allowResizingInTables,
+    );
+    toolbarButtons = [...toolbarButtons, ...layoutButtons];
 
-    if (toolbarButtons.length) {
+    if (layoutButtons.length) {
       toolbarButtons.push({ type: 'separator' });
     }
 

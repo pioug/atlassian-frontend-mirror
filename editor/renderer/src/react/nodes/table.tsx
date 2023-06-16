@@ -17,6 +17,9 @@ import {
   compose,
 } from '@atlaskit/editor-common/utils';
 import { SortOrder } from '@atlaskit/editor-common/types';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 
 import {
   RendererAppearance,
@@ -37,7 +40,6 @@ import {
 } from './table/sticky';
 import { Table } from './table/table';
 import { SharedTableProps } from './table/types';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 type TableArrayMapped = {
   rowNodes: Array<PMNode | null>;
@@ -334,17 +336,25 @@ export class TableContainer extends React.Component<
       columnWidths,
       stickyHeaders,
       tableNode,
+      rendererAppearance,
     } = this.props;
 
     const { stickyMode } = this.state;
 
-    let tableWidth = calcTableWidth(layout, renderWidth, false);
     const lineLength = akEditorDefaultLayoutWidth;
+    let tableWidth: number | 'inherit';
+    let left: number | undefined;
 
-    let left;
+    if (getBooleanFF('platform.editor.custom-table-width') && tableNode) {
+      tableWidth = Math.min(getTableContainerWidth(tableNode), renderWidth);
+    } else {
+      tableWidth = calcTableWidth(layout, renderWidth, false);
+    }
+
     if (
-      canUseLinelength(this.props.rendererAppearance) &&
-      tableWidth !== 'inherit'
+      canUseLinelength(rendererAppearance) &&
+      tableWidth !== 'inherit' &&
+      tableWidth > lineLength
     ) {
       left = lineLength / 2 - tableWidth / 2;
     }
@@ -386,7 +396,7 @@ export class TableContainer extends React.Component<
           ref={this.props.handleRef}
           style={{
             width: tableWidth,
-            left: left && left < 0 ? left : undefined,
+            left,
           }}
         >
           <div
@@ -400,6 +410,7 @@ export class TableContainer extends React.Component<
               layout={layout}
               isNumberColumnEnabled={isNumberColumnEnabled}
               renderWidth={renderWidth}
+              tableNode={tableNode}
             >
               {this.grabFirstRowRef(children)}
             </Table>

@@ -31,9 +31,8 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Hitta senaste länkar eller klistra in en ny länk',
   'fabric.linkPicker.search.noResults.description': 'Försök med ett annat sökord.',
   'fabric.linkPicker.search.noResults.heading': 'Vi kunde inte hitta några träffar för din sökning.',
-  'fabric.linkPicker.time.ago': 'sedan',
-  'fabric.linkPicker.time.updated': 'Uppdaterad',
-  'fabric.linkPicker.time.viewed': 'Visad',
+  'fabric.linkPicker.time.message.updated': 'Uppdaterades {time}',
+  'fabric.linkPicker.time.message.viewed': 'Visades {time}',
   'fabric.linkPicker.unhandledError.description': 'Försök uppdatera sidan.',
   'fabric.linkPicker.unhandledError.heading': 'Något gick fel!',
 };

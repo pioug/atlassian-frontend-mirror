@@ -25,6 +25,16 @@ interface ActiveThemeState extends ThemeState {
 
 // @public
 export type ActiveTokens =
+  | 'border.radius'
+  | 'border.radius.050'
+  | 'border.radius.100'
+  | 'border.radius.200'
+  | 'border.radius.300'
+  | 'border.radius.400'
+  | 'border.radius.circle'
+  | 'border.width'
+  | 'border.width.050'
+  | 'border.width.100'
   | 'color.background.accent.blue.bolder'
   | 'color.background.accent.blue.subtle'
   | 'color.background.accent.blue.subtler'
@@ -350,6 +360,74 @@ export type ActiveTokens =
 type ActiveTokenState = 'active';
 
 // @public (undocumented)
+type BaseRadiusToken = keyof typeof baseRadiusTokens;
+
+// @public (undocumented)
+const baseRadiusTokens: {
+  readonly Radius050: {
+    readonly value: 2;
+    readonly attributes: {
+      readonly group: 'shape';
+    };
+  };
+  readonly Radius100: {
+    readonly value: 4;
+    readonly attributes: {
+      readonly group: 'shape';
+    };
+  };
+  readonly Radius200: {
+    readonly value: 8;
+    readonly attributes: {
+      readonly group: 'shape';
+    };
+  };
+  readonly Radius300: {
+    readonly value: 12;
+    readonly attributes: {
+      readonly group: 'shape';
+    };
+  };
+  readonly Radius400: {
+    readonly value: 16;
+    readonly attributes: {
+      readonly group: 'shape';
+    };
+  };
+  readonly RadiusCircle: {
+    readonly value: 32032;
+    readonly attributes: {
+      readonly group: 'shape';
+    };
+  };
+};
+
+// @public (undocumented)
+type BaseSizeToken = keyof typeof baseSizeTokens;
+
+// @public (undocumented)
+const baseSizeTokens: {
+  readonly Size0: {
+    readonly value: 0;
+    readonly attributes: {
+      readonly group: 'shape';
+    };
+  };
+  readonly Size050: {
+    readonly value: 1;
+    readonly attributes: {
+      readonly group: 'shape';
+    };
+  };
+  readonly Size100: {
+    readonly value: 2;
+    readonly attributes: {
+      readonly group: 'shape';
+    };
+  };
+};
+
+// @public (undocumented)
 const baseSpacingTokens: {
   readonly Space0: {
     readonly value: 0;
@@ -442,15 +520,6 @@ export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
 // @public (undocumented)
 type CSSTokenMap = {
-  'border.radius.050': 'var(--ds-radius-050)';
-  'border.radius.100': 'var(--ds-radius-100)';
-  'border.radius.200': 'var(--ds-radius-200)';
-  'border.radius.300': 'var(--ds-radius-300)';
-  'border.radius.400': 'var(--ds-radius-400)';
-  'border.radius.round': 'var(--ds-radius-round)';
-  'border.width.0': 'var(--ds-width-0)';
-  'border.width.050': 'var(--ds-width-050)';
-  'border.width.100': 'var(--ds-width-100)';
   'color.text': 'var(--ds-text)';
   'color.text.accent.red': 'var(--ds-text-accent-red)';
   'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
@@ -737,6 +806,17 @@ type CSSTokenMap = {
   'opacity.disabled': 'var(--ds-opacity-disabled)';
   'opacity.loading': 'var(--ds-opacity-loading)';
   'utility.UNSAFE.transparent': 'var(--ds-UNSAFE-transparent)';
+  'border.radius.050': 'var(--ds-border-radius-050)';
+  'border.radius': 'var(--ds-border-radius)';
+  'border.radius.100': 'var(--ds-border-radius-100)';
+  'border.radius.200': 'var(--ds-border-radius-200)';
+  'border.radius.300': 'var(--ds-border-radius-300)';
+  'border.radius.400': 'var(--ds-border-radius-400)';
+  'border.radius.circle': 'var(--ds-border-radius-circle)';
+  'border.width': 'var(--ds-border-width)';
+  'border.width.0': 'var(--ds-border-width-0)';
+  'border.width.050': 'var(--ds-border-width-050)';
+  'border.width.100': 'var(--ds-border-width-100)';
   'space.0': 'var(--ds-space-0)';
   'space.025': 'var(--ds-space-025)';
   'space.050': 'var(--ds-space-050)';
@@ -843,6 +923,7 @@ export const getThemeHtmlAttrs: ({
   colorMode,
   dark,
   light,
+  shape,
   spacing,
   typography,
 }?: Partial<ThemeState>) => Record<string, string>;
@@ -854,6 +935,7 @@ export const getThemeStyles: ({
   light,
   spacing,
   typography,
+  shape,
 }?: Partial<ThemeState>) => Promise<ThemeStyles[]>;
 
 // @public
@@ -879,6 +961,16 @@ export type Groups =
 
 // @public
 type InternalTokenIds =
+  | 'border.radius.050'
+  | 'border.radius.100'
+  | 'border.radius.200'
+  | 'border.radius.300'
+  | 'border.radius.400'
+  | 'border.radius.[default]'
+  | 'border.radius.circle'
+  | 'border.width.050'
+  | 'border.width.100'
+  | 'border.width.[default]'
   | 'color.background.accent.blue.bolder'
   | 'color.background.accent.blue.subtle'
   | 'color.background.accent.blue.subtler'
@@ -1225,6 +1317,7 @@ export const setGlobalTheme: ({
   colorMode,
   dark,
   light,
+  shape,
   spacing,
   typography,
 }?: Partial<ThemeState>) => Promise<UnbindFn>;
@@ -1244,6 +1337,12 @@ export type ShadowToken<BaseToken> = DesignToken<
   }>,
   'shadow'
 >;
+
+// @public
+type ShapePaletteToken = BaseRadiusToken | BaseSizeToken;
+
+// @public (undocumented)
+export type ShapeToken = DesignToken<ShapePaletteToken, 'shape'>;
 
 // @public
 type SpacingPaletteToken = keyof typeof baseSpacingTokens;
@@ -1330,13 +1429,15 @@ export interface ThemeState {
   // (undocumented)
   colorMode: ThemeColorModes;
   // (undocumented)
-  dark: ThemeIds;
+  dark: Extract<ThemeIds, 'dark' | 'legacy-dark' | 'legacy-light' | 'light'>;
   // (undocumented)
-  light: ThemeIds;
+  light: Extract<ThemeIds, 'dark' | 'legacy-dark' | 'legacy-light' | 'light'>;
   // (undocumented)
-  spacing?: ThemeIds;
+  shape?: Extract<ThemeIds, 'shape'>;
   // (undocumented)
-  typography?: ThemeIds;
+  spacing?: Extract<ThemeIds, 'spacing'>;
+  // (undocumented)
+  typography?: Extract<ThemeIds, 'typography'>;
 }
 
 // @public
@@ -1376,15 +1477,6 @@ type Tokens = typeof tokens;
 
 // @public
 const tokens: {
-  readonly 'border.radius.050': '--ds-radius-050';
-  readonly 'border.radius.100': '--ds-radius-100';
-  readonly 'border.radius.200': '--ds-radius-200';
-  readonly 'border.radius.300': '--ds-radius-300';
-  readonly 'border.radius.400': '--ds-radius-400';
-  readonly 'border.radius.round': '--ds-radius-round';
-  readonly 'border.width.0': '--ds-width-0';
-  readonly 'border.width.050': '--ds-width-050';
-  readonly 'border.width.100': '--ds-width-100';
   readonly 'color.text': '--ds-text';
   readonly 'color.text.accent.red': '--ds-text-accent-red';
   readonly 'color.text.accent.red.bolder': '--ds-text-accent-red-bolder';
@@ -1671,6 +1763,17 @@ const tokens: {
   readonly 'opacity.disabled': '--ds-opacity-disabled';
   readonly 'opacity.loading': '--ds-opacity-loading';
   readonly 'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent';
+  readonly 'border.radius.050': '--ds-border-radius-050';
+  readonly 'border.radius': '--ds-border-radius';
+  readonly 'border.radius.100': '--ds-border-radius-100';
+  readonly 'border.radius.200': '--ds-border-radius-200';
+  readonly 'border.radius.300': '--ds-border-radius-300';
+  readonly 'border.radius.400': '--ds-border-radius-400';
+  readonly 'border.radius.circle': '--ds-border-radius-circle';
+  readonly 'border.width': '--ds-border-width';
+  readonly 'border.width.0': '--ds-border-width-0';
+  readonly 'border.width.050': '--ds-border-width-050';
+  readonly 'border.width.100': '--ds-border-width-100';
   readonly 'space.0': '--ds-space-0';
   readonly 'space.025': '--ds-space-025';
   readonly 'space.050': '--ds-space-050';

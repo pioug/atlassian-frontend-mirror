@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 // eslint-disable-next-line no-restricted-imports
 import styled from '@emotion/styled';
 
-import { N100, R400, R50, subtleHeading, text } from '@atlaskit/theme/colors';
+import { N100, N200, N900, R400, R50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const Wrapper = styled.div`
@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 
 const ChildrenWrapper = styled.div`
   align-items: baseline;
-  color: ${text};
+  color: ${token('color.text', N900)};
   display: flex;
   flex-wrap: wrap;
 
@@ -49,7 +49,7 @@ export const ShrinkWrap = styled(Gap)`
 `;
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
 export const Heading = styled.div`
-  color: ${subtleHeading};
+  color: ${token('color.text.subtlest', N200)};
   display: flex;
   font-size: 0.8rem;
   font-weight: 500;

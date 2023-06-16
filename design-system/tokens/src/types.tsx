@@ -872,17 +872,19 @@ export interface SpacingTokenSchema {
 export interface ShapeTokenSchema {
   border: {
     width: {
+      '[default]': ShapeToken;
       '0': ShapeToken;
       '050': ShapeToken;
       '100': ShapeToken;
     };
     radius: {
+      '[default]': ShapeToken;
       '050': ShapeToken;
       '100': ShapeToken;
       '200': ShapeToken;
       '300': ShapeToken;
       '400': ShapeToken;
-      round: ShapeToken;
+      circle: ShapeToken;
     };
   };
 }

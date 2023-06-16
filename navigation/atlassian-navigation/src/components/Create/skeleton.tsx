@@ -14,8 +14,8 @@ const buttonHeight = token('space.400', '32px');
 const skeletonStyles = css({
   width: 68,
   height: buttonHeight,
-  marginLeft: token('space.150', '12px'),
-  borderRadius: 3,
+  borderRadius: token('border.radius', '3px'),
+  marginInlineStart: token('space.150', '12px'),
   opacity: 0.15,
 });
 

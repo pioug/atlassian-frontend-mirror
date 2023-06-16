@@ -49,7 +49,7 @@ const searchInputStyles = css({
   backgroundColor: `var(${varSearchBackgroundColor})`,
   border: '2px solid',
   borderColor: `var(${varSearchBorderColor})`,
-  borderRadius: 6,
+  borderRadius: token('border.radius.200', '6px'),
   color: `var(${varSearchColor})`,
   fontSize: `${fontSize}px`,
   outline: 'none',
@@ -84,12 +84,12 @@ const SearchComponent = (props: SearchComponentProps) => {
   const search = theme.mode.search;
 
   const onChange = (...args: any[]) => {
-    // @ts-ignore
+    // @ts-expect-error
     onClick && onClick(...args);
   };
 
   const onInputClick = (...args: any[]) => {
-    // @ts-ignore
+    // @ts-expect-error
     onClick && onClick(...args);
   };
 

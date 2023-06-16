@@ -239,6 +239,15 @@ export interface LabelProps {
   testId?: string;
 }
 
+// @public
+export const Legend: FC<LegendProps>;
+
+// @public (undocumented)
+export interface LegendProps {
+  // (undocumented)
+  children: ReactNode;
+}
+
 // @public (undocumented)
 type MessageAppearance = 'default' | 'error' | 'valid';
 

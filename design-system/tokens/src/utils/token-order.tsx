@@ -34,7 +34,7 @@ export const tokenOrder = [
     subpaths: [],
   },
   {
-    path: 'shape',
+    path: 'border',
     subpaths: ['radius', 'width'],
   },
   {

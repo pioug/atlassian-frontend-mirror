@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 6.1.0
+
+### Minor Changes
+
+- [`99d5309f42b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99d5309f42b) - The ensure-design-token-usage-spacing rule will now lint against inline style objects
+
 ## 6.0.1
 
 ### Patch Changes

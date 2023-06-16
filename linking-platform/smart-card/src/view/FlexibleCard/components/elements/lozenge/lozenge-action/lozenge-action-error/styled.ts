@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { N800 } from '@atlaskit/theme/colors';
-import { getTruncateStyles } from '../../../utils';
+import { getTruncateStyles } from '../../../../utils';
 
 export const dropdownItemGroupStyles = css`
   button {

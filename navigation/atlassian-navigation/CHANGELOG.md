@@ -1,5 +1,18 @@
 # @atlaskit/atlassian-navigation
 
+## 2.6.7
+
+### Patch Changes
+
+- [`967dd926bfc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967dd926bfc) - Updates all navigation components to use border/shape tokens. This is a no-op as these tokens are not enabled in product.
+- Updated dependencies
+
+## 2.6.6
+
+### Patch Changes
+
+- [`fe65eb90595`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe65eb90595) - Internal change to enforce token usage for spacing properties. There is no expected visual or behaviour change.
+
 ## 2.6.5
 
 ### Patch Changes

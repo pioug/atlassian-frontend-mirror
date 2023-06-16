@@ -1,18 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::462a85d7e15b8fb4e0c4225b94e89903>>
+ * @codegen <<SignedSource::488b6f348c638f30edc95365a3de0725>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
-  'border.radius.050': '--ds-radius-050',
-  'border.radius.100': '--ds-radius-100',
-  'border.radius.200': '--ds-radius-200',
-  'border.radius.300': '--ds-radius-300',
-  'border.radius.400': '--ds-radius-400',
-  'border.radius.round': '--ds-radius-round',
-  'border.width.0': '--ds-width-0',
-  'border.width.050': '--ds-width-050',
-  'border.width.100': '--ds-width-100',
   'color.text': '--ds-text',
   'color.text.accent.red': '--ds-text-accent-red',
   'color.text.accent.red.bolder': '--ds-text-accent-red-bolder',
@@ -336,6 +327,17 @@ const tokens = {
   'opacity.disabled': '--ds-opacity-disabled',
   'opacity.loading': '--ds-opacity-loading',
   'utility.UNSAFE.transparent': '--ds-UNSAFE-transparent',
+  'border.radius.050': '--ds-border-radius-050',
+  'border.radius': '--ds-border-radius',
+  'border.radius.100': '--ds-border-radius-100',
+  'border.radius.200': '--ds-border-radius-200',
+  'border.radius.300': '--ds-border-radius-300',
+  'border.radius.400': '--ds-border-radius-400',
+  'border.radius.circle': '--ds-border-radius-circle',
+  'border.width': '--ds-border-width',
+  'border.width.0': '--ds-border-width-0',
+  'border.width.050': '--ds-border-width-050',
+  'border.width.100': '--ds-border-width-100',
   'space.0': '--ds-space-0',
   'space.025': '--ds-space-025',
   'space.050': '--ds-space-050',
@@ -373,15 +375,6 @@ const tokens = {
 } as const;
 
 export type CSSTokenMap = {
-  'border.radius.050': 'var(--ds-radius-050)';
-  'border.radius.100': 'var(--ds-radius-100)';
-  'border.radius.200': 'var(--ds-radius-200)';
-  'border.radius.300': 'var(--ds-radius-300)';
-  'border.radius.400': 'var(--ds-radius-400)';
-  'border.radius.round': 'var(--ds-radius-round)';
-  'border.width.0': 'var(--ds-width-0)';
-  'border.width.050': 'var(--ds-width-050)';
-  'border.width.100': 'var(--ds-width-100)';
   'color.text': 'var(--ds-text)';
   'color.text.accent.red': 'var(--ds-text-accent-red)';
   'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
@@ -668,6 +661,17 @@ export type CSSTokenMap = {
   'opacity.disabled': 'var(--ds-opacity-disabled)';
   'opacity.loading': 'var(--ds-opacity-loading)';
   'utility.UNSAFE.transparent': 'var(--ds-UNSAFE-transparent)';
+  'border.radius.050': 'var(--ds-border-radius-050)';
+  'border.radius': 'var(--ds-border-radius)';
+  'border.radius.100': 'var(--ds-border-radius-100)';
+  'border.radius.200': 'var(--ds-border-radius-200)';
+  'border.radius.300': 'var(--ds-border-radius-300)';
+  'border.radius.400': 'var(--ds-border-radius-400)';
+  'border.radius.circle': 'var(--ds-border-radius-circle)';
+  'border.width': 'var(--ds-border-width)';
+  'border.width.0': 'var(--ds-border-width-0)';
+  'border.width.050': 'var(--ds-border-width-050)';
+  'border.width.100': 'var(--ds-border-width-100)';
   'space.0': 'var(--ds-space-0)';
   'space.025': 'var(--ds-space-025)';
   'space.050': 'var(--ds-space-050)';

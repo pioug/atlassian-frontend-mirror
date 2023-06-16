@@ -37,8 +37,8 @@ const buttonHighlightedStyles = css({
     bottom: 0,
     left: token('space.050', '4px'),
     backgroundColor: `var(${VAR_BUTTON_SELECTED_BORDER_COLOR})`,
-    borderTopLeftRadius: 1,
-    borderTopRightRadius: 1,
+    borderTopLeftRadius: token('border.radius.050', '1px'),
+    borderTopRightRadius: token('border.radius.050', '1px'),
     content: '""',
   },
 });

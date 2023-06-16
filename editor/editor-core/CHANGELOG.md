@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 185.2.14
+
+### Patch Changes
+
+- [`6de13a329d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6de13a329d4) - Move `width` and `layout` out from `datasource` into `attr` root (context blockCard node)
+- Updated dependencies
+
+## 185.2.13
+
+### Patch Changes
+
+- [`406f89ad910`](https://bitbucket.org/atlassian/atlassian-frontend/commits/406f89ad910) - [ux] fix image border missing in renderer when image is linked and also double seperators issue
+
 ## 185.2.10
 
 ### Patch Changes

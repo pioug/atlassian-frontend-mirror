@@ -3,7 +3,12 @@ import { Fragment, useEffect, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 import styled from '@emotion/styled';
-import { FormattedMessage, useIntl } from 'react-intl-next';
+import {
+  FormattedMessage,
+  FormattedNumber,
+  FormattedPlural,
+  useIntl,
+} from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import Heading from '@atlaskit/heading';
@@ -74,10 +79,12 @@ export const TableFooter = ({
     <FooterWrapper data-testid="table-footer">
       <IssueCounterWrapper>
         {showIssueCount && (
-          <Heading testId="issue-count" level={'h400'}>
-            <FormattedMessage
-              {...footerMessages.issueText}
-              values={{ issueCount }}
+          <Heading testId="issue-count" level="h400">
+            <FormattedNumber value={issueCount as number} />{' '}
+            <FormattedPlural
+              one={<FormattedMessage {...footerMessages.singularIssue} />}
+              other={<FormattedMessage {...footerMessages.pluralIssues} />}
+              value={issueCount as number}
             />
           </Heading>
         )}

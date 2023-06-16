@@ -12,7 +12,7 @@ const skeletonIconButtonStyles = css({
   marginRight: token('space.050', '4px'),
   padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
   border: 0,
-  borderRadius: '100%',
+  borderRadius: token('border.radius.circle', '100%'),
   pointerEvents: 'none',
   ':focus, :active, :hover': {
     appearance: 'none',
@@ -30,7 +30,7 @@ const skeletonIconButtonStyles = css({
   '& > img': {
     width: 24,
     height: 24,
-    borderRadius: '100%',
+    borderRadius: token('border.radius.circle', '100%'),
     verticalAlign: 'middle',
   },
 });

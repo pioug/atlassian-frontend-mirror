@@ -60,7 +60,8 @@ const baseRadiusTokens = {
     },
   },
   RadiusCircle: {
-    value: '50%',
+    // The year atlassian was founded in rem
+    value: 32032,
     attributes: {
       group: 'shape',
     },

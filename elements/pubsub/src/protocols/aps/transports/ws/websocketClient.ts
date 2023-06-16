@@ -3,7 +3,7 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 const noop: OnWebSocketEvent = () => {};
 
 interface OnWebSocketEvent<T = any> {
-  (data: T): void;
+  (data?: T): void;
 }
 
 export interface WebsocketClientParams {
@@ -13,6 +13,7 @@ export interface WebsocketClientParams {
   onClose?: OnWebSocketEvent;
   onError?: OnWebSocketEvent;
   onMessageSendError?: OnWebSocketEvent;
+  onMaximumRetriesError?: OnWebSocketEvent;
 }
 
 interface Message {
@@ -26,76 +27,82 @@ const reconnectingWSOptions = {
    * exponential backoff wait time:
    *    delay = minReconnectionDelay * Math.pow(reconnectionDelayGrowFactor, retryCount - 1);
    */
-  minReconnectionDelay: 1000 + Math.random() * 4000,
-  reconnectionDelayGrowFactor: 1.5, // how fast should the delay grow
-  maxReconnectionDelay: 60000, // maximum time between reconnections
-  maxRetries: 10,
+  minReconnectionDelay: 1000 + Math.random() * 2000,
+  reconnectionDelayGrowFactor: 1.2, // how fast should the delay grow
+  maxReconnectionDelay: 3000, // maximum time between reconnections
+  maxRetries: 2,
   debug: false,
 };
 
 export default class WebsocketClient {
   readonly url: URL;
-  private readonly websocket: ReconnectingWebSocket;
-  private readonly maxSendRetries = 5;
+  private readonly promise: Promise<ReconnectingWebSocket>;
   private readonly onMessageSendError;
-  private currentSendRetry = 0;
+  private readonly onMaximumRetriesError;
+  private currentConnectRetry = 0;
 
   constructor(params: WebsocketClientParams) {
     this.url = params.url;
     this.onMessageSendError = params.onMessageSendError || noop;
-    this.websocket = this.initializeClient(params);
+    this.onMaximumRetriesError = params.onMaximumRetriesError || noop;
+    this.promise = this.initializeClient(params);
   }
 
-  private initializeClient({
+  private async initializeClient({
     url,
     onMessage = noop,
     onClose = noop,
     onOpen = noop,
     onError = noop,
-  }: WebsocketClientParams): ReconnectingWebSocket {
-    const websocket = new ReconnectingWebSocket(
-      url.toString(),
-      [],
-      reconnectingWSOptions,
-    );
+  }: WebsocketClientParams): Promise<ReconnectingWebSocket> {
+    return new Promise((resolve, reject) => {
+      const websocket = new ReconnectingWebSocket(
+        url.toString(),
+        [],
+        reconnectingWSOptions,
+      );
 
-    websocket.addEventListener('open', (event) => {
-      onOpen(event);
+      websocket.addEventListener('open', (event) => {
+        onOpen(event);
+        resolve(websocket);
+      });
+
+      websocket.addEventListener('message', (event) => onMessage(event));
+
+      websocket.addEventListener('error', (event) => {
+        onError(event);
+      });
+
+      websocket.addEventListener('close', (event) => {
+        // On the last 2 reconnection attempts, the ReconnectionWebSocket object
+        // maintains the same "retryCount"
+        if (this.currentConnectRetry === event.target.retryCount) {
+          this.onMaximumRetriesError();
+        } else {
+          this.currentConnectRetry = event.target.retryCount;
+        }
+        onClose(event);
+      });
     });
-
-    websocket.addEventListener('message', (event) => onMessage(event));
-
-    websocket.addEventListener('error', (event) => {
-      onError(event);
-    });
-
-    websocket.addEventListener('close', (event) => {
-      onClose(event);
-    });
-
-    return websocket;
   }
 
-  public send(message: Message) {
-    if (this.websocket.readyState === WebSocket.OPEN) {
-      this.currentSendRetry = 0;
-      this.websocket.send(JSON.stringify(message));
-    } else if (
-      this.websocket.readyState === WebSocket.CONNECTING &&
-      this.currentSendRetry < this.maxSendRetries
-    ) {
-      this.currentSendRetry++;
-      setTimeout(() => {
-        this.send(message);
-      }, 1000);
+  public async send(message: Message) {
+    const websocket = await this.promise;
+
+    if (websocket.readyState === WebSocket.OPEN) {
+      websocket.send(JSON.stringify(message));
     } else {
-      this.onMessageSendError(this.websocket.readyState);
+      this.onMessageSendError(websocket.readyState);
     }
   }
 
-  public close() {
-    if (this.websocket.readyState === WebSocket.OPEN) {
-      this.websocket.close();
+  public async close() {
+    const websocket = await this.promise;
+    if (
+      websocket.readyState === WebSocket.OPEN ||
+      websocket.readyState === WebSocket.CONNECTING
+    ) {
+      websocket.close();
     }
   }
 }

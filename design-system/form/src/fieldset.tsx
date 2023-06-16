@@ -3,11 +3,9 @@ import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { DN300, N200 } from '@atlaskit/theme/colors';
-import { themed, useGlobalTheme } from '@atlaskit/theme/components';
-import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
-import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
+
+import { Legend } from './label';
 
 export interface FieldsetProps {
   /**
@@ -20,53 +18,9 @@ export interface FieldsetProps {
   legend?: ReactNode;
 }
 
-const fontFamily = getFontFamily();
-
-const fieldsetLabelStyles = css({
-  display: 'inline-block',
-  marginTop: 0,
-  marginBottom: 0,
-  fontFamily: `${fontFamily}`,
-});
-
 const fieldSetStyles = css({
   marginTop: token('space.100', '8px'),
 });
-
-/**
- * TODO: Address duplication with packages/design-system/form/src/label.tsx
- * in https://product-fabric.atlassian.net/browse/DSP-7731
- */
-const getFieldsetLabelDynamicStyles = (mode: 'dark' | 'light') =>
-  css([
-    h200({ theme: { mode } }),
-    {
-      color: themed({
-        dark: token('color.text.subtle', DN300),
-        light: token('color.text.subtle', N200),
-      })({ theme: { mode } }),
-    },
-  ]);
-
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const lightH200Styles = getFieldsetLabelDynamicStyles('light');
-
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const darkH200Styles = getFieldsetLabelDynamicStyles('dark');
-
-const FieldsetLabel = ({ children }: { children: ReactNode }) => {
-  const { mode } = useGlobalTheme();
-  return (
-    <label
-      css={[
-        mode === 'light' ? lightH200Styles : darkH200Styles,
-        fieldsetLabelStyles,
-      ]}
-    >
-      {children}
-    </label>
-  );
-};
 
 /**
  * __Fieldset__
@@ -81,11 +35,7 @@ const FieldsetLabel = ({ children }: { children: ReactNode }) => {
 const Fieldset = ({ children, legend }: FieldsetProps) => {
   return (
     <fieldset css={fieldSetStyles}>
-      {legend && (
-        <legend>
-          <FieldsetLabel>{legend}</FieldsetLabel>
-        </legend>
-      )}
+      {legend && <Legend>{legend}</Legend>}
       {children}
     </fieldset>
   );

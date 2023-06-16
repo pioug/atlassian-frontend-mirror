@@ -19,7 +19,7 @@ import invariant from 'tiny-invariant';
 import { token } from '@atlaskit/tokens';
 
 import { FormContext, IsDisabledContext } from './form';
-import Label from './label';
+import { Label } from './label';
 import RequiredAsterisk from './required-asterisk';
 
 const fieldWrapperStyles = css({

@@ -10,13 +10,18 @@ import {
 } from 'eslint-codemod-utils';
 
 import { createRule } from '../utils/create-rule';
-import { isDecendantOfGlobalToken } from '../utils/is-node';
+import {
+  isDecendantOfGlobalToken,
+  isDecendantOfStyleBlock,
+  isDecendantOfType,
+} from '../utils/is-node';
 
 import {
   convertHyphenatedNameToCamelCase,
   emToPixels,
   findParentNodeForLine,
   findTokenNameByPropertyValue,
+  getFontSizeFromNode,
   getFontSizeValueInScope,
   getRawExpression,
   getTokenNodeForValue,
@@ -30,6 +35,7 @@ import {
   isValidSpacingValue,
   isZero,
   processCssNode,
+  replacementComment,
   shouldAnalyzeProperty,
   splitShorthandValues,
 } from './utils';
@@ -105,258 +111,243 @@ const rule = createRule<
       },
       // CSSObjectExpression
       // const styles = css({ color: 'red', margin: '4px' }), styled.div({ color: 'red', margin: '4px' })
-      'CallExpression[callee.name=css] > ObjectExpression, CallExpression[callee.object.name=styled] > ObjectExpression, CallExpression[callee.object.name=styled2] > ObjectExpression':
-        (parentNode: Rule.Node) => {
-          if (!isNodeOfType(parentNode, 'ObjectExpression')) {
+      ObjectExpression: (parentNode: Rule.Node) => {
+        if (!isNodeOfType(parentNode, 'ObjectExpression')) {
+          return;
+        }
+
+        // Return for nested objects - these get handled automatically so without returning we'd be doubling up
+        if (parentNode.parent.type === 'Property') {
+          return;
+        }
+
+        if (
+          !isDecendantOfStyleBlock(parentNode) &&
+          !isDecendantOfType(parentNode, 'JSXExpressionContainer')
+        ) {
+          return;
+        }
+
+        /**
+         * We do this in case the fontSize for a style object is declared alongside the `em` or `lineHeight` declaration
+         */
+        const fontSize = getFontSizeFromNode(parentNode, context);
+
+        function findObjectStyles(node: EslintNode): void {
+          if (!isNodeOfType(node, 'Property')) {
             return;
           }
 
-          /**
-           * We do this in case the fontSize for a style object is declared alongside the `em` or `lineHeight` declaration
-           */
-          const fontSizeNode = parentNode.properties.find((node) => {
-            if (!isNodeOfType(node, 'Property')) {
-              return;
-            }
+          if (isNodeOfType(node.value, 'ObjectExpression')) {
+            return node.value.properties.forEach(findObjectStyles);
+          }
 
-            if (!isNodeOfType(node.key, 'Identifier')) {
-              return;
-            }
+          if (!isNodeOfType(node.key, 'Identifier')) {
+            return;
+          }
 
-            return node.key.name === 'fontSize';
-          });
+          if (!shouldAnalyzeProperty(node.key.name, ruleConfig.addons)) {
+            return;
+          }
 
-          const fontSizeValue = isNodeOfType(fontSizeNode!, 'Property')
-            ? getValue(fontSizeNode.value, context)
-            : null;
+          if (isDecendantOfGlobalToken(node.value)) {
+            return;
+          }
 
-          const fontSize = Array.isArray(fontSizeValue)
-            ? fontSizeValue[0]
-            : fontSizeValue;
+          if (
+            isNodeOfType(node.value, 'TemplateLiteral') &&
+            node.value.expressions.some(isDecendantOfGlobalToken)
+          ) {
+            return;
+          }
 
-          function findObjectStyles(node: EslintNode): void {
-            if (!isNodeOfType(node, 'Property')) {
-              return;
-            }
+          if (
+            isNodeOfType(node.value, 'Literal') &&
+            !isValidSpacingValue(node.value.value, fontSize)
+          ) {
+            context.report({
+              node,
+              messageId: 'noRawSpacingValues',
+              data: {
+                payload: `NaN:${node.value.value}`,
+              },
+            });
+            return;
+          }
 
-            if (isNodeOfType(node.value, 'ObjectExpression')) {
-              return node.value.properties.forEach(findObjectStyles);
-            }
+          // Don't report on CSS calc function
+          if (isNodeOfType(node.value, 'Literal') && isCalc(node.value.value)) {
+            return;
+          }
 
-            if (!isNodeOfType(node.key, 'Identifier')) {
-              return;
-            }
+          const propertyName = (node.key as Identifier).name;
+          const isFontFamily = /fontFamily/.test(propertyName);
 
-            if (!shouldAnalyzeProperty(node.key.name, ruleConfig.addons)) {
-              return;
-            }
+          const value = getValue(node.value, context);
 
-            if (isDecendantOfGlobalToken(node.value)) {
-              return;
-            }
-
-            if (
-              isNodeOfType(node.value, 'TemplateLiteral') &&
-              node.value.expressions.some(isDecendantOfGlobalToken)
-            ) {
-              return;
-            }
-
-            if (
-              isNodeOfType(node.value, 'Literal') &&
-              !isValidSpacingValue(node.value.value, fontSize)
-            ) {
-              context.report({
-                node,
-                messageId: 'noRawSpacingValues',
-                data: {
-                  payload: `NaN:${node.value.value}`,
-                },
-              });
-              return;
-            }
-
-            // Don't report on CSS calc function
-            if (
-              isNodeOfType(node.value, 'Literal') &&
-              isCalc(node.value.value)
-            ) {
-              return;
-            }
-
-            const propertyName = (node.key as Identifier).name;
-            const isFontFamily = /fontFamily/.test(propertyName);
-
-            const value = getValue(node.value, context);
-
-            // value is either NaN or it can't be resolved eg, em, 100% etc...
-            if (!(value && isValidSpacingValue(value, fontSize))) {
-              return context.report({
-                node,
-                messageId: 'noRawSpacingValues',
-                data: {
-                  payload: `NaN:${value}`,
-                },
-              });
-            }
-
-            const values = Array.isArray(value) ? value : [value];
-
-            // value is a single value so we can apply a more robust approach to our fix
-            // treat fontFamily as having one value
-            if (values.length === 1 || isFontFamily) {
-              const [value] = values;
-
-              // Do not report or suggest a token to replace 0 or auto
-              if (isZero(value) || isAuto(value)) {
-                return;
-              }
-
-              const pixelValue = isFontFamily
-                ? value
-                : emToPixels(value, fontSize);
-
-              return context.report({
-                node,
-                messageId: 'noRawSpacingValues',
-                data: {
-                  payload: `${propertyName}:${pixelValue}`,
-                },
-                fix: (fixer) => {
-                  if (!shouldAnalyzeProperty(propertyName, ruleConfig.addons)) {
-                    return null;
-                  }
-
-                  const replacementNode = getTokenReplacement(
-                    propertyName,
-                    pixelValue,
-                  );
-
-                  if (!replacementNode) {
-                    return null;
-                  }
-
-                  return (
-                    !tokenNode && ruleConfig.applyImport
-                      ? [insertTokensImport(fixer)]
-                      : []
-                  ).concat([
-                    fixer.insertTextBefore(
-                      node,
-                      `// TODO Delete this comment after verifying spacing token -> previous value \`${nodeFn(
-                        node.value,
-                      )}\`\n${' '.padStart(node.loc?.start.column || 0)}`,
-                    ),
-                    fixer.replaceText(
-                      node,
-                      property({
-                        ...node,
-                        value: replacementNode,
-                      }).toString(),
-                    ),
-                  ]);
-                },
-              });
-            }
-
-            /**
-             * Compound values are hard to deal with / replace because we need to find/replace strings inside an
-             * estree node.
-             *
-             * @example
-             * { padding: '8px 0px' }
-             */
-            values.forEach((val) => {
-              const pixelValue = emToPixels(val, fontSize);
-
-              // Do not report or suggest a token to replace 0 or auto
-              if (isZero(val) || isAuto(val)) {
-                return;
-              }
-
-              context.report({
-                node,
-                messageId: 'noRawSpacingValues',
-                data: {
-                  payload: `${propertyName}:${pixelValue}`,
-                },
-                fix: (fixer) => {
-                  const allResolvableValues = values.every(
-                    (value) => !Number.isNaN(emToPixels(value, fontSize)),
-                  );
-                  if (!allResolvableValues) {
-                    return null;
-                  }
-
-                  const valuesWithTokenReplacement = values
-                    .filter((value) =>
-                      findTokenNameByPropertyValue(propertyName, value),
-                    )
-                    .filter((value) => value !== 0);
-
-                  if (valuesWithTokenReplacement.length === 0) {
-                    // all values could be replaceable but that just means they're numeric
-                    // if none of the values have token replacement we bail
-                    return null;
-                  }
-
-                  const originalCssString = getRawExpression(
-                    node.value,
-                    context,
-                  );
-                  if (!originalCssString) {
-                    return null;
-                  }
-                  /**
-                   * at this stage none of the values are tokens or irreplaceable values
-                   * since we know this is shorthand, there will be multiple values
-                   * we'll need to remove all quote chars since `getRawExpression` will return those as part of the string
-                   * given they're part of the substring of the current node
-                   */
-                  const originalValues = splitShorthandValues(
-                    originalCssString.replace(/`|'|"/g, ''),
-                  );
-                  if (originalValues.length !== values.length) {
-                    // we bail just in case original values don't correspond to the replaced values
-                    return null;
-                  }
-
-                  return (
-                    !tokenNode && ruleConfig.applyImport
-                      ? [insertTokensImport(fixer)]
-                      : []
-                  ).concat([
-                    fixer.replaceText(
-                      node.value,
-                      `\`${values
-                        .map((value, index) => {
-                          if (isZero(value)) {
-                            return originalValues[index];
-                          }
-                          const pixelValue = emToPixels(value, fontSize);
-                          const pixelValueString = `${pixelValue}px`;
-                          // if there is a token we take it, otherwise we go with the original value
-
-                          return findTokenNameByPropertyValue(
-                            propertyName,
-                            value,
-                          )
-                            ? `\${${getTokenNodeForValue(
-                                propertyName,
-                                pixelValueString,
-                              )}}`
-                            : originalValues[index];
-                        })
-                        .join(' ')}\``,
-                    ),
-                  ]);
-                },
-              });
+          // value is either NaN or it can't be resolved (e.g. em, 100% etc...)
+          if (!(value && isValidSpacingValue(value, fontSize))) {
+            return context.report({
+              node,
+              messageId: 'noRawSpacingValues',
+              data: {
+                payload: `NaN:${value}`,
+              },
             });
           }
 
-          parentNode.properties.forEach(findObjectStyles);
-        },
+          // The corresponding values for a single CSS property (e.g. padding: '8px 16px 2px' => [8, 16, 2])
+          const valuesForProperty = Array.isArray(value) ? value : [value];
+
+          // value is a single value so we can apply a more robust approach to our fix
+          // treat fontFamily as having one value
+          if (valuesForProperty.length === 1 || isFontFamily) {
+            const [value] = valuesForProperty;
+
+            // Do not report or suggest a token to replace 0 or auto
+            if (isZero(value) || isAuto(value)) {
+              return;
+            }
+
+            const pixelValue = isFontFamily
+              ? value
+              : emToPixels(value, fontSize);
+
+            return context.report({
+              node,
+              messageId: 'noRawSpacingValues',
+              data: {
+                payload: `${propertyName}:${pixelValue}`,
+              },
+              fix: (fixer) => {
+                if (!shouldAnalyzeProperty(propertyName, ruleConfig.addons)) {
+                  return null;
+                }
+
+                const replacementNode = getTokenReplacement(
+                  propertyName,
+                  pixelValue,
+                );
+
+                if (!replacementNode) {
+                  return null;
+                }
+
+                return (
+                  !tokenNode && ruleConfig.applyImport
+                    ? [insertTokensImport(fixer)]
+                    : []
+                ).concat([
+                  fixer.insertTextBefore(
+                    node,
+                    `${replacementComment} \`${nodeFn(
+                      node.value,
+                    )}\`\n${' '.padStart(node.loc?.start.column || 0)}`,
+                  ),
+                  fixer.replaceText(
+                    node,
+                    property({
+                      ...node,
+                      value: replacementNode,
+                    }).toString(),
+                  ),
+                ]);
+              },
+            });
+          }
+
+          /**
+           * Compound values are hard to deal with / replace because we need to find/replace strings inside an
+           * estree node.
+           *
+           * @example
+           * { padding: '8px 0px' }
+           */
+          valuesForProperty.forEach((val) => {
+            const pixelValue = emToPixels(val, fontSize);
+
+            // Do not report or suggest a token to replace 0 or auto
+            if (isZero(val) || isAuto(val)) {
+              return;
+            }
+
+            context.report({
+              node,
+              messageId: 'noRawSpacingValues',
+              data: {
+                payload: `${propertyName}:${pixelValue}`,
+              },
+              fix: (fixer) => {
+                const allResolvableValues = valuesForProperty.every(
+                  (value) => !Number.isNaN(emToPixels(value, fontSize)),
+                );
+                if (!allResolvableValues) {
+                  return null;
+                }
+
+                const valuesWithTokenReplacement = valuesForProperty
+                  .filter((value) =>
+                    findTokenNameByPropertyValue(propertyName, value),
+                  )
+                  .filter((value) => value !== 0);
+
+                if (valuesWithTokenReplacement.length === 0) {
+                  // all values could be replaceable but that just means they're numeric
+                  // if none of the values have token replacement we bail
+                  return null;
+                }
+
+                const originalCssString = getRawExpression(node.value, context);
+                if (!originalCssString) {
+                  return null;
+                }
+                /**
+                 * at this stage none of the values are tokens or irreplaceable values
+                 * since we know this is shorthand, there will be multiple values
+                 * we'll need to remove all quote chars since `getRawExpression` will return those as part of the string
+                 * given they're part of the substring of the current node
+                 */
+                const originalValues = splitShorthandValues(
+                  originalCssString.replace(/`|'|"/g, ''),
+                );
+                if (originalValues.length !== valuesForProperty.length) {
+                  // we bail just in case original values don't correspond to the replaced values
+                  return null;
+                }
+
+                return (
+                  !tokenNode && ruleConfig.applyImport
+                    ? [insertTokensImport(fixer)]
+                    : []
+                ).concat([
+                  fixer.replaceText(
+                    node.value,
+                    `\`${valuesForProperty
+                      .map((value, index) => {
+                        if (isZero(value)) {
+                          return originalValues[index];
+                        }
+                        const pixelValue = emToPixels(value, fontSize);
+                        const pixelValueString = `${pixelValue}px`;
+                        // if there is a token we take it, otherwise we go with the original value
+
+                        return findTokenNameByPropertyValue(propertyName, value)
+                          ? `\${${getTokenNodeForValue(
+                              propertyName,
+                              pixelValueString,
+                            )}}`
+                          : originalValues[index];
+                      })
+                      .join(' ')}\``,
+                  ),
+                ]);
+              },
+            });
+          });
+        }
+
+        parentNode.properties.forEach(findObjectStyles);
+      },
 
       // CSSTemplateLiteral and StyledTemplateLiteral
       // const cssTemplateLiteral = css`color: red; padding: 12px`;
@@ -440,17 +431,17 @@ const rule = createRule<
                   });
 
                   // from here on we know value is numeric or a font family, so it might or might not have a token equivalent
-                  const replacementTokenNode = getTokenReplacement(
+                  const replacementNode = getTokenReplacement(
                     propertyName,
                     numericOrNanValue,
                   );
 
-                  if (!replacementTokenNode) {
+                  if (!replacementNode) {
                     return originalValue;
                   }
 
                   const replacementToken =
-                    '${' + replacementTokenNode.toString() + '}';
+                    '${' + replacementNode.toString() + '}';
 
                   replacedValuesPerProperty.push(
                     isFontFamily ? numericOrNanValue.trim() : pxValue,
@@ -480,13 +471,13 @@ const rule = createRule<
           );
 
           if (completeSource !== textForSource) {
-            // means we found some replacement values, well give the option to fix them
+            // means we found some replacement values, we'll give the option to fix them
 
             const replacementComments = `${allReplacedValues
               .map((replacedProperties) => {
                 const [propertyName] = replacedProperties;
                 const replacedValues = replacedProperties.slice(1).join(' ');
-                return `// TODO Delete this comment after verifying spacing token -> previous value \`${propertyName}: ${replacedValues}\``;
+                return `${replacementComment} \`${propertyName}: ${replacedValues}\``;
               })
               .join('\n')}\n`;
 

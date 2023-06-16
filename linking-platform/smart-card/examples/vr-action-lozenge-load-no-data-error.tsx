@@ -6,7 +6,7 @@ import {
   LozengeActionWithPreviewExample,
   VRTestWrapper,
 } from './utils/vr-test';
-import LozengeAction from '../src/view/FlexibleCard/components/common/lozenge-action';
+import LozengeAction from '../src/view/FlexibleCard/components/elements/lozenge/lozenge-action';
 import {
   getFetchMockInvokeOptions,
   mockNoDataResponse,

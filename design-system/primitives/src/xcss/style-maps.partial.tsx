@@ -74,11 +74,11 @@ export type Space = keyof typeof spaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7d56840c81e052d4dc9e5ebb6a1a0053>>
+ * @codegen <<SignedSource::ca2805602ea60d52a8c2cf8926fb97d3>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "shadow", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::10aa7e87eca39e4d6594a764e78e0698>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::224665ba07a6c41e68ce15f72b24cd92>>
  */
 export const borderColorMap = {
   'color.border': token('color.border', '#091e4221'),
@@ -721,13 +721,14 @@ export type Position = keyof typeof positionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::290c3673c7e8302a6517c5004ca82979>>
+ * @codegen <<SignedSource::cc9d48c89e323c87a3a00966f631120f>>
  * @codegenId border
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["width", "radius"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::81055547b21306c07a3e8a3c734a2f1c>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-shape.tsx <<SignedSource::f2aa6660594ff30e42a666fb87655052>>
  */
 export const borderWidthMap = {
+  'border.width': token('border.width', '1px'),
   'border.width.0': token('border.width.0', '0px'),
   'border.width.050': token('border.width.050', '1px'),
   'border.width.100': token('border.width.100', '2px'),
@@ -737,11 +738,12 @@ export type BorderWidth = keyof typeof borderWidthMap;
 
 export const borderRadiusMap = {
   'border.radius.050': token('border.radius.050', '2px'),
+  'border.radius': token('border.radius', '3px'),
   'border.radius.100': token('border.radius.100', '3px'),
   'border.radius.200': token('border.radius.200', '8px'),
   'border.radius.300': token('border.radius.300', '12px'),
   'border.radius.400': token('border.radius.400', '16px'),
-  'border.radius.round': token('border.radius.round', '50%'),
+  'border.radius.circle': token('border.radius.circle', '32032px'),
 } as const;
 
 export type BorderRadius = keyof typeof borderRadiusMap;
@@ -749,6 +751,8 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 /**
  * @codegenEnd
  */
+
+type AutoComplete<T extends string> = T | Omit<string, T>;
 
 export type TokenisedProps = {
   alignSelf?: AlignSelf;
@@ -769,7 +773,7 @@ export type TokenisedProps = {
   flexGrow?: FlexGrow;
   flexShrink?: FlexShrink;
   gap?: Space;
-  height?: Height;
+  height?: AutoComplete<Height>;
   inlineSize?: InlineSize;
   inset?: Space;
   insetBlock?: Space;
@@ -779,14 +783,14 @@ export type TokenisedProps = {
   insetInlineEnd?: Space;
   insetInlineStart?: Space;
   left?: Left;
-  maxBlockSize?: MaxBlockSize;
-  maxHeight?: MaxHeight;
-  maxInlineSize?: MaxInlineSize;
-  maxWidth?: MaxWidth;
-  minBlockSize?: MinBlockSize;
-  minHeight?: MinHeight;
-  minInlineSize?: MinInlineSize;
-  minWidth?: MinWidth;
+  maxBlockSize?: AutoComplete<MaxBlockSize>;
+  maxHeight?: AutoComplete<MaxHeight>;
+  maxInlineSize?: AutoComplete<MaxInlineSize>;
+  maxWidth?: AutoComplete<MaxWidth>;
+  minBlockSize?: AutoComplete<MinBlockSize>;
+  minHeight?: AutoComplete<MinHeight>;
+  minInlineSize?: AutoComplete<MinInlineSize>;
+  minWidth?: AutoComplete<MinWidth>;
   outlineColor?: BorderColor;
   outlineOffset?: Space;
   outlineWidth?: BorderWidth;
@@ -804,7 +808,7 @@ export type TokenisedProps = {
   right?: Right;
   rowGap?: Space;
   top?: Top;
-  width?: Width;
+  width?: AutoComplete<Width>;
   zIndex?: Layer;
 };
 

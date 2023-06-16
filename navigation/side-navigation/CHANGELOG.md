@@ -1,5 +1,18 @@
 # @atlaskit/side-navigation
 
+## 1.8.8
+
+### Patch Changes
+
+- [`967dd926bfc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/967dd926bfc) - Updates all navigation components to use border/shape tokens. This is a no-op as these tokens are not enabled in product.
+- Updated dependencies
+
+## 1.8.7
+
+### Patch Changes
+
+- [`4757acc0f98`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4757acc0f98) - Internal change to use space tokens for spacing properties. There is no visual change.
+
 ## 1.8.6
 
 ### Patch Changes

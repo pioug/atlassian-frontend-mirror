@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 2.2.2
+
+### Patch Changes
+
+- [`79e94411a9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79e94411a9c) - Bump to account for regeneration of tokens artifacts.
+- Updated dependencies
+
 ## 2.2.1
 
 ### Patch Changes

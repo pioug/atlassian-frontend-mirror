@@ -31,9 +31,8 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Find recent links or paste a new link',
   'fabric.linkPicker.search.noResults.description': 'Try again with a different term.',
   'fabric.linkPicker.search.noResults.heading': 'We couldn’t find anything matching your search.',
-  'fabric.linkPicker.time.ago': 'ago',
-  'fabric.linkPicker.time.updated': 'Updated',
-  'fabric.linkPicker.time.viewed': 'Viewed',
+  'fabric.linkPicker.time.message.updated': 'Updated {time}',
+  'fabric.linkPicker.time.message.viewed': 'Viewed {time}',
   'fabric.linkPicker.unhandledError.description': 'Try reloading the page.',
   'fabric.linkPicker.unhandledError.heading': 'Something went wrong!',
 };

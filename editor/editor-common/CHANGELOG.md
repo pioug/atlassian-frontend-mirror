@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.7.5
+
+### Patch Changes
+
+- [`12d33fa653a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12d33fa653a) - [ED-17762] Fix nested table rescale logic when the context menu opens
+
 ## 74.7.4
 
 ### Patch Changes

@@ -7,7 +7,7 @@ import {
 } from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
-import { isStyledObjectNode, isStyledTemplateNode } from '../utils/is-node';
+import { isCssInJsObjectNode, isCssInJsTemplateNode } from '../utils/is-node';
 
 import fixJsx from './fix-jsx';
 import fixVanilla from './fix-vanilla';
@@ -85,8 +85,8 @@ const rule = createLintRule({
                   // this is either a styled usage OR mixin usage in a styled usage
                 } else if (idNode.parent.type === 'CallExpression') {
                   if (
-                    isStyledObjectNode(idNode.parent) ||
-                    isStyledTemplateNode(idNode.parent)
+                    isCssInJsObjectNode(idNode.parent) ||
+                    isCssInJsTemplateNode(idNode.parent)
                   ) {
                     context.report({
                       node: idNode.parent,
@@ -144,7 +144,7 @@ const rule = createLintRule({
           return;
         }
 
-        const isStyled = isStyledObjectNode(node);
+        const isStyled = isCssInJsObjectNode(node);
 
         if (
           node.callee.type === 'MemberExpression' &&

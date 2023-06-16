@@ -1,5 +1,5 @@
 import { Node as PMNode } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, PluginKey } from 'prosemirror-state';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 
 import { TableLayout } from '@atlaskit/adf-schema';
@@ -59,12 +59,28 @@ export const getParentNodeWidth = (
     isFullWidthModeEnabled,
   );
 
+  // TODO: ED-15663
+  // Please, do not copy or use this kind of code below
+  // @ts-ignore
+  const contextPanelPluginKey = {
+    key: 'contextPanelPluginKey$',
+    getState: (state: EditorState) => {
+      return (state as any)['contextPanelPluginKey$'];
+    },
+  } as PluginKey;
+
   if (node.type === schema.nodes.layoutSection) {
     parentWidth += akLayoutGutterOffset * 2; // extra width that gets added to layout
 
-    if (containerWidth.width > gridMediumMaxWidth) {
+    // Calculate width of parent layout column when
+    // Parallel layout with viewport greater than 1024px
+    // OR side panel of an extension is open and change the node width to smaller than containerWidth
+    if (
+      containerWidth.width > gridMediumMaxWidth ||
+      (contextPanelPluginKey.getState(state)?.contents.length > 0 &&
+        contextPanelPluginKey.getState(state)?.contents[0] !== undefined)
+    ) {
       parentWidth -= (LAYOUT_SECTION_MARGIN + 2) * (node.childCount - 1); // margin between sections
-
       const $pos = state.doc.resolve(pos);
       const column = findParentNodeOfTypeClosestToPos($pos, [
         state.schema.nodes.layoutColumn,

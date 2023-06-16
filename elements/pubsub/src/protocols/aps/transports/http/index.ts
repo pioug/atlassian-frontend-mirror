@@ -27,12 +27,12 @@ export default class HttpTransport implements APSTransport {
     return APSTransportType.HTTP;
   }
 
-  subscribe(channels: Set<string>) {
+  subscribe(channels: Set<string>): Promise<void> {
     if (channels == null || channels.size === 0) {
       logDebug(
         'channel list is null or empty. HTTP request is not going to be sent.',
       );
-      return;
+      return Promise.resolve();
     }
 
     const url = new URL(this.baseUrl);
@@ -97,7 +97,7 @@ export default class HttpTransport implements APSTransport {
     return response;
   }
 
-  private async makeHttpRequest(urlWithParams: URL): Promise<any> {
+  private async makeHttpRequest(urlWithParams: URL): Promise<void> {
     // AbortController allows us to abort the HTTP request - in case the "close" function is called, or the list of
     // subscribed channels change.
     this.abortController = new AbortController();

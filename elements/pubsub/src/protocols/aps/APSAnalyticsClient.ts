@@ -33,6 +33,6 @@ class DefaultAnalyticsClient implements APSAnalyticsClient {
 
 class MockAnalyticsClient implements APSAnalyticsClient {
   sendEvent(subject: string, action: string, _arguments?: any): void {
-    logDebug('Mock analytics client', subject, action, _arguments);
+    logDebug('[Mock analytics client]', subject, action, _arguments);
   }
 }

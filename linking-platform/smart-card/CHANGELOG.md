@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.5.12
+
+### Patch Changes
+
+- [`472882f9947`](https://bitbucket.org/atlassian/atlassian-frontend/commits/472882f9947) - fix analytics display to be flexible when it is a flex ui
+
+## 26.5.11
+
+### Patch Changes
+
+- [`0dd86b5573c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0dd86b5573c) - Small refactoring to move lozenge action to lozenge element
+
 ## 26.5.10
 
 ### Patch Changes

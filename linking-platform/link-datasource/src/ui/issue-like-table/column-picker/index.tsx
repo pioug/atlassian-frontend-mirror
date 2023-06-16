@@ -85,6 +85,17 @@ export const ColumnPicker = ({
     void sortSelectedColumnsTop();
   }, [onOpen, sortSelectedColumnsTop]);
 
+  // If only 1 option is selected, disable it since we don't want user to uncheck everything
+  const handleIsOptionDisabled = (
+    option: OptionType,
+    selectValue: readonly OptionType[],
+  ): boolean => {
+    return (
+      selectValue.length === 1 &&
+      selectValue.some(selectedValue => selectedValue.value === option.value)
+    );
+  };
+
   return (
     <PopupSelect
       classNamePrefix={'column-picker-popup'}
@@ -96,6 +107,7 @@ export const ColumnPicker = ({
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
       isMulti
+      isOptionDisabled={handleIsOptionDisabled}
       placeholder={intl.formatMessage(columnPickerMessages.search)}
       onKeyDown={stopEscapePropagationWhenOpen}
       aria-label="Search for fields"

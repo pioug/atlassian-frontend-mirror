@@ -156,6 +156,7 @@ const transformStyles = (
       }
 
       if (reMediaQuery.test(key)) {
+        // @ts-expect-error
         styleObj[key] = transformStyles(value as CSSMediaQueries[MediaQuery]);
         return;
       }
@@ -181,7 +182,7 @@ const transformStyles = (
 };
 
 const baseXcss = <T,>(style?: SafeCSSObject | SafeCSSObject[]) => {
-  const transformedStyles = transformStyles(style);
+  const transformedStyles = transformStyles(style as CSSObject);
 
   return {
     [uniqueSymbol]: cssEmotion(

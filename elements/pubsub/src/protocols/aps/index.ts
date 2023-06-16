@@ -1,8 +1,7 @@
-import { AnalyticsWebClient } from '../../apiTypes';
+import { AnalyticsWebClient, APSTransportType, OnEvent } from '../../apiTypes';
 import { EventEmitter2 } from 'eventemitter2';
 import { APSProtocolConfig } from '../types';
 import { logDebug, logInfo } from '../../util/logger';
-import { APSTransportType, OnEvent } from '../../apiTypes';
 import { EventType, Protocol } from '../../types';
 import HttpTransport from './transports/http';
 import { APS_STARGATE_PATH } from './utils';
@@ -90,31 +89,35 @@ export default class APSProtocol implements Protocol {
   }
 
   subscribe(config: APSProtocolConfig): void {
-    try {
-      this.activeTransport.subscribe(new Set(config.channels));
-    } catch (error) {
-      logDebug(
-        `Could not subscribe using primary transport: ${this.activeTransport.transportType()}. Will fallback? ${!this
-          .skipFallback}`,
-        error,
-      );
-      if (this.skipFallback) {
-        logInfo('Skipping subscription fallback');
-      } else {
-        this.analyticsClient?.sendEvent('aps-protocol', 'falling back');
-        this.activeTransport = this.fallbackTransport;
-        logInfo(
-          `Retrying with fallback transport: ${this.fallbackTransport.transportType()}`,
+    this.activeTransport
+      .subscribe(new Set(config.channels))
+      .catch((errorPrimary) => {
+        logDebug(
+          `Could not subscribe using primary transport: ${this.activeTransport.transportType()}. Will fallback? ${!this
+            .skipFallback}`,
+          errorPrimary,
         );
-        try {
-          this.activeTransport.subscribe(new Set(config.channels));
-        } catch (error) {
-          this.analyticsClient?.sendEvent('aps-protocol', 'fall back failed', {
-            error,
-          });
+        if (this.skipFallback) {
+          logDebug('Skipping subscription fallback');
+        } else {
+          this.analyticsClient.sendEvent('aps-protocol', 'falling back');
+          this.activeTransport = this.fallbackTransport;
+          logDebug(
+            `Retrying with fallback transport: ${this.fallbackTransport.transportType()}`,
+          );
+          this.activeTransport
+            .subscribe(new Set(config.channels))
+            .catch((errorSecondary) => {
+              this.analyticsClient.sendEvent(
+                'aps-protocol',
+                'fall back failed',
+                {
+                  error: errorSecondary.message || 'Unknown error',
+                },
+              );
+            });
         }
-      }
-    }
+      });
   }
 
   unsubscribeAll(): void {

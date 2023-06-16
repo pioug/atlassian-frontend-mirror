@@ -55,7 +55,7 @@ const productHomeButtonStyles = css({
   alignItems: 'center',
   background: 'none',
   border: 0,
-  borderRadius: 3,
+  borderRadius: token('border.radius', '3px'),
   color: 'inherit',
   cursor: 'pointer',
   '&::-moz-focus-inner': {

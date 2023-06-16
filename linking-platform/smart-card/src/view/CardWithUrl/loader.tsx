@@ -20,6 +20,7 @@ import { useSmartLinkAnalytics } from '../../state/analytics';
 import { LoadingCardLink } from './component-lazy/LazyFallback';
 import { CardWithUrlContentProps } from './types';
 import { importWithRetry } from '../../utils';
+import { isFlexibleUiCard } from '../../utils/flexible';
 
 const LazyCardWithUrlContent = lazy(() =>
   importWithRetry(
@@ -101,7 +102,7 @@ export function CardWithURLRenderer(props: CardProps) {
   }, [appearance, createAnalyticsEvent]);
 
   const analytics = useSmartLinkAnalytics(url ?? '', dispatchAnalytics, id);
-
+  const isFlexibleUi = isFlexibleUiCard(children);
   const errorHandler = useCallback(
     (
       error: Error,
@@ -126,7 +127,7 @@ export function CardWithURLRenderer(props: CardProps) {
         });
       } else if (error.name !== 'APIError') {
         analytics.ui.renderFailedEvent({
-          display: appearance,
+          display: isFlexibleUi ? 'flexible' : appearance,
           id,
           error,
           errorInfo,
@@ -135,7 +136,15 @@ export function CardWithURLRenderer(props: CardProps) {
 
       onError && onError({ status: 'errored', url: url ?? '', err: error });
     },
-    [analytics.operational, analytics.ui, appearance, id, onError, url],
+    [
+      analytics.operational,
+      analytics.ui,
+      appearance,
+      id,
+      onError,
+      url,
+      isFlexibleUi,
+    ],
   );
 
   if (!url) {

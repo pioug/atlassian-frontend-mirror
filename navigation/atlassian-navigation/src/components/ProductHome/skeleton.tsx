@@ -30,7 +30,7 @@ const productHomeButtonStyles = css({
   alignItems: 'center',
   background: 'none',
   border: 0,
-  borderRadius: 3,
+  borderRadius: token('border.radius', '3px'),
   color: 'inherit',
   cursor: 'pointer',
   '&::-moz-focus-inner': {
@@ -90,7 +90,7 @@ const productIconStyles = css({
   display: 'flex',
   width: 28,
   height: 28,
-  borderRadius: '50%',
+  borderRadius: token('border.radius.circle', '50%'),
   opacity: 0.15,
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '& > *': {
@@ -114,7 +114,7 @@ const siteTitleStyles = css({
     width: '100%',
     height: 14,
     backgroundColor: `var(${VAR_SITE_TITLE_BG_COLOR_AFTER})`,
-    borderRadius: 4,
+    borderRadius: token('border.radius', '4px'),
     content: '""',
   },
 });

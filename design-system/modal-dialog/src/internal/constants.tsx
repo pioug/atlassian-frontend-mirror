@@ -1,4 +1,4 @@
-import { N30, R400, text, Y400 } from '@atlaskit/theme/colors';
+import { N30, N900, R400, Y400 } from '@atlaskit/theme/colors';
 import {
   borderRadius as getBorderRadius,
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -38,7 +38,7 @@ export const titleIconMargin = gridSize;
 
 export const keylineHeight = 2;
 export const keylineColor = token('color.border', N30);
-export const textColor = token('color.text', text());
+export const textColor = token('color.text', N900);
 
 export const iconColor: { [key in Appearance]: string } = {
   danger: token('color.icon.danger', R400),

@@ -4,19 +4,10 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::856ff062171d44deb03158a6fa7d7bd1>>
+ * @codegen <<SignedSource::cc9231cd2b7a9797c51b4b8b742bab92>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
-  'border.radius.050': '0.125rem',
-  'border.radius.100': '0.25rem',
-  'border.radius.200': '0.5rem',
-  'border.radius.300': '0.75rem',
-  'border.radius.400': '1rem',
-  'border.radius.round': '50%',
-  'border.width.0': '0rem',
-  'border.width.050': '0.0625rem',
-  'border.width.100': '0.125rem',
   'color.text': '#172B4D',
   'color.text.accent.red': '#AE2A19',
   'color.text.accent.red.bolder': '#601E16',
@@ -303,6 +294,17 @@ const defaultTokenValues = {
   'opacity.disabled': '0.4',
   'opacity.loading': '0.2',
   'utility.UNSAFE.transparent': 'transparent',
+  'border.radius.050': '0.125rem',
+  'border.radius': '0.25rem',
+  'border.radius.100': '0.25rem',
+  'border.radius.200': '0.5rem',
+  'border.radius.300': '0.75rem',
+  'border.radius.400': '1rem',
+  'border.radius.circle': '2002rem',
+  'border.width': '0.0625rem',
+  'border.width.0': '0rem',
+  'border.width.050': '0.0625rem',
+  'border.width.100': '0.125rem',
   'space.0': '0rem',
   'space.025': '0.125rem',
   'space.050': '0.25rem',

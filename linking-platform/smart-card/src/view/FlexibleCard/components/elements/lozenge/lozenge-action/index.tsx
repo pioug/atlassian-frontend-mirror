@@ -11,17 +11,17 @@ import LozengeActionTrigger from './lozenge-action-trigger';
 import LozengeActionError from './lozenge-action-error';
 import withErrorBoundary from './error-boundary';
 import { dropdownItemGroupStyles } from './styled';
-import useInvoke from '../../../../../state/hooks/use-invoke';
-import extractLozengeActionItems from '../../../../../extractors/action/extract-lozenge-action-items';
+import useInvoke from '../../../../../../state/hooks/use-invoke';
+import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
 import type { LozengeActionProps, LozengeItem } from './types';
-import createStatusUpdateRequest from '../../../../../utils/actions/create-status-update-request';
-import useResolve from '../../../../../state/hooks/use-resolve';
-import { MessageProps } from '../../types';
+import createStatusUpdateRequest from '../../../../../../utils/actions/create-status-update-request';
+import useResolve from '../../../../../../state/hooks/use-resolve';
+import { MessageProps } from '../../../types';
 import { LozengeActionErrorMessages } from './lozenge-action-error/types';
 import { InvokeError } from '@atlaskit/linking-types/smart-link-actions';
-import { useFlexibleUiAnalyticsContext } from '../../../../../state/flexible-ui-context';
+import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
 import type { LozengeActionTriggerProps } from './lozenge-action-trigger/type';
-import { TrackQuickActionType } from '../../../../../utils/analytics/analytics';
+import { TrackQuickActionType } from '../../../../../../utils/analytics/analytics';
 import {
   permissionLoadErrorAnalyticsPayload,
   unknownLoadErrorAnalyticsPayload,

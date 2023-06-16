@@ -1,6 +1,6 @@
-import { MessageProps } from '../../../types';
-import { messages } from '../../../../../../messages';
-import { PreviewActionData } from '../../../../../../state/flexible-ui-context/types';
+import { MessageProps } from '../../../../types';
+import { messages } from '../../../../../../../messages';
+import { PreviewActionData } from '../../../../../../../state/flexible-ui-context/types';
 
 export type LozengeActionErrorProps = {
   /**

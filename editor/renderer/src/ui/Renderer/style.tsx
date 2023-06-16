@@ -4,6 +4,7 @@ import { fontFamily, fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { token } from '@atlaskit/tokens';
 
@@ -330,10 +331,17 @@ const fullWidthStyles = ({ appearance }: RendererWrapperProps) => {
     margin: 0 auto;
 
     .fabric-editor-breakout-mark,
-    .pm-table-container,
     .ak-renderer-extension {
       width: 100% !important;
     }
+
+    ${getBooleanFF('platform.editor.custom-table-width')
+      ? ''
+      : `
+      .pm-table-container {
+        width: 100% !important;
+      }
+    `}
   `;
 };
 

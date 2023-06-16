@@ -22,10 +22,10 @@
                 ]
               }
             }
-          ],
-          "width": "100",
-          "layout": "center"
-        }
+          ]
+        },
+        "width": "100",
+        "layout": "center"
       }
     }
   ]

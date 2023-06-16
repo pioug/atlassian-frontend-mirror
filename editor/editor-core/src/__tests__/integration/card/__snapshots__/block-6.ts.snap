@@ -24,7 +24,9 @@ Object {
           "url": "http://www.atlassian.com",
         },
         "datasource": null,
+        "layout": null,
         "url": null,
+        "width": null,
       },
       "type": "blockCard",
     },
@@ -40,48 +42,9 @@ Object {
           "url": "http://www.atlassian.com",
         },
         "datasource": null,
+        "layout": null,
         "url": null,
-      },
-      "type": "blockCard",
-    },
-    Object {
-      "content": Array [
-        Object {
-          "text": " ",
-          "type": "text",
-        },
-      ],
-      "type": "paragraph",
-    },
-    Object {
-      "attrs": Object {
-        "data": Object {
-          "@context": "https://www.w3.org/ns/activitystreams",
-          "@type": "Document",
-          "generator": Object {
-            "icon": "https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/favicon.png",
-          },
-          "name": "Welcome to Atlassian!",
-          "url": "http://www.atlassian.com",
-        },
-        "datasource": null,
-        "url": null,
-      },
-      "type": "blockCard",
-    },
-    Object {
-      "attrs": Object {
-        "data": Object {
-          "@context": "https://www.w3.org/ns/activitystreams",
-          "@type": "Document",
-          "generator": Object {
-            "icon": "https://wac-cdn.atlassian.com/assets/img/favicons/atlassian/favicon.png",
-          },
-          "name": "Welcome to Atlassian!",
-          "url": "http://www.atlassian.com",
-        },
-        "datasource": null,
-        "url": null,
+        "width": null,
       },
       "type": "blockCard",
     },

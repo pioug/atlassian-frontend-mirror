@@ -12,12 +12,10 @@ import {
   akEditorTableLegacyCellMinWidth,
   akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 
 import { SharedTableProps } from './types';
-
-interface TableWidthOptions {
-  containerWidth?: number;
-}
 
 // we allow scaling down column widths by no more than 30%
 // this intends to reduce unwanted scrolling in the Renderer in these scenarios:
@@ -25,7 +23,7 @@ interface TableWidthOptions {
 // User A creates a table with column widths → User A views it with reduced viewport space (eg. Confluence sidebar is open)
 const MAX_SCALING_PERCENT = 0.3;
 
-const getTableLayoutWidth = (layout: TableLayout, opts?: TableWidthOptions) => {
+const getTableLayoutWidth = (layout: TableLayout) => {
   switch (layout) {
     case 'full-width':
       return akEditorFullWidthLayoutWidth;
@@ -80,22 +78,24 @@ export const calcScalePercent = ({
 };
 
 export const Colgroup = (props: SharedTableProps) => {
-  let { columnWidths, layout, isNumberColumnEnabled, renderWidth } = props;
+  let { columnWidths, layout, isNumberColumnEnabled, renderWidth, tableNode } =
+    props;
   if (!columnWidths || !isTableResized(columnWidths)) {
     return null;
   }
 
+  let tableContainerWidth: number;
+  if (getBooleanFF('platform.editor.custom-table-width') && tableNode) {
+    tableContainerWidth = getTableContainerWidth(tableNode);
+  } else {
+    tableContainerWidth = getTableLayoutWidth(layout);
+  }
   // @see ED-6056
-  const layoutWidth = getTableLayoutWidth(layout, {
-    containerWidth: renderWidth,
-  });
-  const maxTableWidth = renderWidth < layoutWidth ? renderWidth : layoutWidth;
+  const maxTableWidth =
+    renderWidth < tableContainerWidth ? renderWidth : tableContainerWidth;
 
-  // If table has a layout of default, it is confined by the defined column width.
-  // renderWidth is better used for breakout tables.
-  // @see ED-6737
   if (layout === 'default') {
-    renderWidth = Math.min(renderWidth, layoutWidth);
+    renderWidth = Math.min(renderWidth, tableContainerWidth);
   }
 
   let tableWidth = isNumberColumnEnabled ? akEditorTableNumberColumnWidth : 0;

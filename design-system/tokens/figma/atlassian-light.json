@@ -15,7 +15,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for red text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for red text on subtlest and subtler red accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#AE2A19"
     },
@@ -24,7 +24,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold red accent backgrounds."
+        "description": "Use for red text on subtle red accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#601E16"
     },
@@ -33,7 +33,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for orange text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#974F0C"
     },
@@ -42,7 +42,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold orange accent backgrounds."
+        "description": "Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#5F3811"
     },
@@ -51,7 +51,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for yellow text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#7F5F01"
     },
@@ -60,7 +60,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold yellow accent backgrounds."
+        "description": "Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#533F04"
     },
@@ -69,7 +69,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for green text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for green text on subtlest and subtler green accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#216E4E"
     },
@@ -78,7 +78,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold green accent backgrounds."
+        "description": "Use for green text on subtle green accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#164B35"
     },
@@ -87,7 +87,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for teal text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for teal text on subtlest and subtler teal accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#206B74"
     },
@@ -96,7 +96,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold teal accent backgrounds."
+        "description": "Use for teal text on subtle teal accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#1D474C"
     },
@@ -105,7 +105,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#0055CC"
     },
@@ -114,7 +114,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold blue accent backgrounds."
+        "description": "Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#09326C"
     },
@@ -123,7 +123,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#5E4DB2"
     },
@@ -132,7 +132,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold purple accent backgrounds."
+        "description": "Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#352C63"
     },
@@ -141,7 +141,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for magenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for magenta text on subtlest and subtler magenta accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#943D73"
     },
@@ -150,7 +150,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold magenta accent backgrounds."
+        "description": "Use for magenta text on subtle magenta accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#50253F"
     },

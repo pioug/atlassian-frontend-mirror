@@ -427,22 +427,20 @@ export const dataConsumerToJSON: (mark: Mark) => {
 };
 
 // @public (undocumented)
-interface DatasourceAttributeProperties extends RichMediaAttributes {
+interface DatasourceAttributeProperties {
   // (undocumented)
   id: string;
   // (undocumented)
   parameters: object;
   // (undocumented)
-  views: [
-    {
-      type: string;
-      properties?: object;
-    },
-  ];
+  views: {
+    type: string;
+    properties?: object;
+  }[];
 }
 
 // @public (undocumented)
-export interface DatasourceAttributes {
+export interface DatasourceAttributes extends OptionalRichMediaAttributes {
   // (undocumented)
   datasource: DatasourceAttributeProperties;
   url?: string;
@@ -1289,6 +1287,14 @@ export function normalizeHexColor(
 
 // @public
 export function normalizeUrl(url?: string): string;
+
+// @public (undocumented)
+interface OptionalRichMediaAttributes {
+  // (undocumented)
+  layout?: RichMediaLayout;
+  // (undocumented)
+  width?: number;
+}
 
 // @public (undocumented)
 export const orderedList: NodeSpec;

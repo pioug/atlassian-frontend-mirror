@@ -1,15 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7cdaa82f55e6537ca0b68d196db9e1d6>>
+ * @codegen <<SignedSource::8b50feb722f3a686c5a45c85ec5545b2>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
   {
     "attributes": {
       "group": "shape",
-      "state": "experimental",
+      "state": "active",
       "introduced": "1.1.0",
-      "description": "Experimental, description needs to be amended"
+      "description": "Used for selection indicators, like tabs."
     },
     "value": "2px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
@@ -17,9 +17,9 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "shape",
-        "state": "experimental",
+        "state": "active",
         "introduced": "1.1.0",
-        "description": "Experimental, description needs to be amended"
+        "description": "Used for selection indicators, like tabs."
       },
       "value": "Radius050"
     },
@@ -34,9 +34,9 @@ const tokens = [
   {
     "attributes": {
       "group": "shape",
-      "state": "experimental",
-      "introduced": "1.1.0",
-      "description": "Experimental, description needs to be amended"
+      "state": "active",
+      "introduced": "1.5.2",
+      "description": "The default border radius."
     },
     "value": "4px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
@@ -44,9 +44,36 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "shape",
-        "state": "experimental",
+        "state": "active",
+        "introduced": "1.5.2",
+        "description": "The default border radius."
+      },
+      "value": "Radius100"
+    },
+    "name": "border.radius.[default]",
+    "path": [
+      "border",
+      "radius",
+      "[default]"
+    ],
+    "cleanName": "border.radius"
+  },
+  {
+    "attributes": {
+      "group": "shape",
+      "state": "active",
+      "introduced": "1.1.0",
+      "description": "Used for buttons and inputs."
+    },
+    "value": "4px",
+    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "shape",
+        "state": "active",
         "introduced": "1.1.0",
-        "description": "Experimental, description needs to be amended"
+        "description": "Used for buttons and inputs."
       },
       "value": "Radius100"
     },
@@ -61,9 +88,9 @@ const tokens = [
   {
     "attributes": {
       "group": "shape",
-      "state": "experimental",
+      "state": "active",
       "introduced": "1.1.0",
-      "description": "Experimental, description needs to be amended"
+      "description": "Used for smaller cards."
     },
     "value": "8px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
@@ -71,9 +98,9 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "shape",
-        "state": "experimental",
+        "state": "active",
         "introduced": "1.1.0",
-        "description": "Experimental, description needs to be amended"
+        "description": "Used for smaller cards."
       },
       "value": "Radius200"
     },
@@ -88,9 +115,9 @@ const tokens = [
   {
     "attributes": {
       "group": "shape",
-      "state": "experimental",
+      "state": "active",
       "introduced": "1.1.0",
-      "description": "Experimental, description needs to be amended"
+      "description": "Used for cards and larger containers."
     },
     "value": "12px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
@@ -98,9 +125,9 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "shape",
-        "state": "experimental",
+        "state": "active",
         "introduced": "1.1.0",
-        "description": "Experimental, description needs to be amended"
+        "description": "Used for cards and larger containers."
       },
       "value": "Radius300"
     },
@@ -115,9 +142,9 @@ const tokens = [
   {
     "attributes": {
       "group": "shape",
-      "state": "experimental",
+      "state": "active",
       "introduced": "1.1.0",
-      "description": "Experimental, description needs to be amended"
+      "description": "Used for modals."
     },
     "value": "16px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
@@ -125,9 +152,9 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "shape",
-        "state": "experimental",
+        "state": "active",
         "introduced": "1.1.0",
-        "description": "Experimental, description needs to be amended"
+        "description": "Used for modals."
       },
       "value": "Radius400"
     },
@@ -142,29 +169,56 @@ const tokens = [
   {
     "attributes": {
       "group": "shape",
-      "state": "experimental",
+      "state": "active",
       "introduced": "1.1.0",
-      "description": "Experimental, description needs to be amended"
+      "description": "Used for circular containers, like a rounded button."
     },
-    "value": "50%",
+    "value": "32032px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "shape",
-        "state": "experimental",
+        "state": "active",
         "introduced": "1.1.0",
-        "description": "Experimental, description needs to be amended"
+        "description": "Used for circular containers, like a rounded button."
       },
       "value": "RadiusCircle"
     },
-    "name": "border.radius.round",
+    "name": "border.radius.circle",
     "path": [
       "border",
       "radius",
-      "round"
+      "circle"
     ],
-    "cleanName": "border.radius.round"
+    "cleanName": "border.radius.circle"
+  },
+  {
+    "attributes": {
+      "group": "shape",
+      "state": "active",
+      "introduced": "1.5.2",
+      "description": "The default border width."
+    },
+    "value": "1px",
+    "filePath": "src/tokens/atlassian-shape/shape.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "shape",
+        "state": "active",
+        "introduced": "1.5.2",
+        "description": "The default border width."
+      },
+      "value": "Size050"
+    },
+    "name": "border.width.[default]",
+    "path": [
+      "border",
+      "width",
+      "[default]"
+    ],
+    "cleanName": "border.width"
   },
   {
     "attributes": {
@@ -196,9 +250,9 @@ const tokens = [
   {
     "attributes": {
       "group": "shape",
-      "state": "experimental",
+      "state": "active",
       "introduced": "1.1.0",
-      "description": "Experimental, description needs to be amended"
+      "description": "Used for all borders and dividers."
     },
     "value": "1px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
@@ -206,9 +260,9 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "shape",
-        "state": "experimental",
+        "state": "active",
         "introduced": "1.1.0",
-        "description": "Experimental, description needs to be amended"
+        "description": "Used for all borders and dividers."
       },
       "value": "Size050"
     },
@@ -223,9 +277,9 @@ const tokens = [
   {
     "attributes": {
       "group": "shape",
-      "state": "experimental",
+      "state": "active",
       "introduced": "1.1.0",
-      "description": "Experimental, description needs to be amended"
+      "description": "Used for bolder dividers and interaction states."
     },
     "value": "2px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
@@ -233,9 +287,9 @@ const tokens = [
     "original": {
       "attributes": {
         "group": "shape",
-        "state": "experimental",
+        "state": "active",
         "introduced": "1.1.0",
-        "description": "Experimental, description needs to be amended"
+        "description": "Used for bolder dividers and interaction states."
       },
       "value": "Size100"
     },

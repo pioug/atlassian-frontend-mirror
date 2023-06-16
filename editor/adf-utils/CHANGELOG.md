@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 18.4.1
+
+### Patch Changes
+
+- [`6de13a329d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6de13a329d4) - Move `width` and `layout` out from `datasource` into `attr` root (context blockCard node)
+- Updated dependencies
+
 ## 18.4.0
 
 ### Minor Changes

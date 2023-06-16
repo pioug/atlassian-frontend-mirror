@@ -23,69 +23,75 @@ export default class WebsocketTransport implements APSTransport {
     return APSTransportType.WEBSOCKET;
   }
 
-  subscribe(channels: Set<string>): void {
-    const newChannels = [...channels].filter(
-      (channelName) => !this.activeChannels.has(channelName),
-    );
-    const removedChannels = [...this.activeChannels].filter(
-      (channelName) => !channels.has(channelName),
-    );
+  async subscribe(channels: Set<string>): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const newChannels = [...channels].filter(
+        (channelName) => !this.activeChannels.has(channelName),
+      );
+      const removedChannels = [...this.activeChannels].filter(
+        (channelName) => !channels.has(channelName),
+      );
 
-    newChannels.forEach((channel) => this.activeChannels.add(channel));
-    removedChannels.forEach((channel) => this.activeChannels.delete(channel));
+      newChannels.forEach((channel) => this.activeChannels.add(channel));
+      removedChannels.forEach((channel) => this.activeChannels.delete(channel));
 
-    if (!this.websocketClient) {
-      this.websocketClient = new WebsocketClient({
-        url: this.url,
-        onOpen: () => {
-          this.eventEmitter.emit(EventType.NETWORK_UP, {});
-        },
-        onMessage: (event: MessageEvent) => {
-          const data = JSON.parse(event.data) as MessageData;
+      if (!this.websocketClient) {
+        this.websocketClient = new WebsocketClient({
+          url: this.url,
+          onOpen: () => {
+            resolve();
+            this.eventEmitter.emit(EventType.NETWORK_UP, {});
+          },
+          onMessage: (event: MessageEvent) => {
+            const data = JSON.parse(event.data) as MessageData;
 
-          if (data.type === 'CHANNEL_ACCESS_DENIED') {
-            this.eventEmitter.emit(EventType.ACCESS_DENIED, data.payload);
-            return;
-          }
+            if (data.type === 'CHANNEL_ACCESS_DENIED') {
+              this.eventEmitter.emit(EventType.ACCESS_DENIED, data.payload);
+              return;
+            }
 
-          this.eventEmitter.emit(EventType.MESSAGE, data.type, data.payload);
-        },
-        onClose: (event: CloseEvent) => {
-          if (event.code !== 1000) {
-            // 1000 is "normal closure"
-            this.analyticsClient.sendEvent('aps-ws', 'unexpected close', {
-              code: event.code,
-              wasClean: event.wasClean,
-              reason: event.reason,
+            this.eventEmitter.emit(EventType.MESSAGE, data.type, data.payload);
+          },
+          onClose: (event: CloseEvent) => {
+            if (event.code !== 1000) {
+              // 1000 is "normal closure"
+              this.analyticsClient.sendEvent('aps-ws', 'unexpected close', {
+                code: event.code,
+                wasClean: event.wasClean,
+                reason: event.reason,
+              });
+            }
+
+            this.eventEmitter.emit(EventType.NETWORK_DOWN, {});
+          },
+          onMessageSendError: (readyState: number) => {
+            this.analyticsClient.sendEvent('aps-ws', 'error sending message', {
+              readyState,
             });
-          }
+          },
+          onMaximumRetriesError: () => {
+            reject('Maximum reconnection attempts reached.');
+          },
+          onError: (event: ErrorEvent) => {
+            logDebug('Websocket connection closed due to error', event);
+          },
+        });
+      }
 
-          this.eventEmitter.emit(EventType.NETWORK_DOWN, {});
-        },
-        onMessageSendError: (readyState: number) => {
-          this.analyticsClient.sendEvent('aps-ws', 'error sending message', {
-            readyState,
-          });
-        },
-        onError: (event: ErrorEvent) => {
-          logDebug('Websocket connection closed due to error', event);
-        },
-      });
-    }
+      if (newChannels.length > 0) {
+        this.websocketClient?.send({
+          type: 'subscribe',
+          channels: Array.from(newChannels),
+        });
+      }
 
-    if (newChannels.length > 0) {
-      this.websocketClient.send({
-        type: 'subscribe',
-        channels: Array.from(newChannels),
-      });
-    }
-
-    if (removedChannels.length > 0) {
-      this.websocketClient.send({
-        type: 'unsubscribe',
-        channels: Array.from(removedChannels),
-      });
-    }
+      if (removedChannels.length > 0) {
+        this.websocketClient?.send({
+          type: 'unsubscribe',
+          channels: Array.from(removedChannels),
+        });
+      }
+    });
   }
 
   close(): void {

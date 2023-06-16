@@ -31,9 +31,8 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Zoek recente links of plak een nieuwe link',
   'fabric.linkPicker.search.noResults.description': 'Probeer het opnieuw met een andere term.',
   'fabric.linkPicker.search.noResults.heading': 'We hebben geen overeenkomsten gevonden voor je zoekopdracht.',
-  'fabric.linkPicker.time.ago': 'geleden',
-  'fabric.linkPicker.time.updated': 'Bijgewerkt',
-  'fabric.linkPicker.time.viewed': 'Bekeken',
+  'fabric.linkPicker.time.message.updated': 'Bijgewerkt: {time}',
+  'fabric.linkPicker.time.message.viewed': 'Bekeken: {time}',
   'fabric.linkPicker.unhandledError.description': 'Probeer de pagina opnieuw te laden.',
   'fabric.linkPicker.unhandledError.heading': 'Er is iets misgegaan.',
 };

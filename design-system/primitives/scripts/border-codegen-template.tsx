@@ -15,14 +15,14 @@ type Token = {
 const tokenStyles = {
   width: {
     objectName: 'borderWidth',
-    filterPrefix: 'border.width.',
+    filterPrefix: 'border.width',
     cssProperty: 'borderWidth',
     filterFn: <T extends Token>(t: T) =>
       t.token.startsWith(tokenStyles.width.filterPrefix),
   },
   radius: {
     objectName: 'borderRadius',
-    filterPrefix: 'border.radius.',
+    filterPrefix: 'border.radius',
     cssProperty: 'borderRadius',
     filterFn: <T extends Token>(t: T) =>
       t.token.startsWith(tokenStyles.radius.filterPrefix),
@@ -33,7 +33,7 @@ const activeTokens = tokens
   .filter(t => t.attributes.state !== 'deleted')
   .map(
     (t): Token => ({
-      token: t.name,
+      token: t.cleanName,
       fallback: t.value === '4px' ? '3px' : (t.value as string),
       isDeprecated: t.attributes.state === 'deprecated',
     }),

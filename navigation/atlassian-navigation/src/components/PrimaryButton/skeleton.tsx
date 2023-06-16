@@ -15,7 +15,7 @@ const skeletonStyles = css({
   display: 'inline-flex',
   width: '68px',
   height: `${buttonHeight - paddingAll * 2.5}px`,
-  borderRadius: token('border.radius.100', '4px'),
+  borderRadius: token('border.radius', '4px'),
   opacity: 0.15,
 });
 

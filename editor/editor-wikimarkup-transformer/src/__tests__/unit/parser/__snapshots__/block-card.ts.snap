@@ -16,7 +16,9 @@ Object {
       "attrs": Object {
         "data": null,
         "datasource": null,
+        "layout": null,
         "url": "http://...",
+        "width": null,
       },
       "type": "blockCard",
     },
@@ -50,7 +52,9 @@ Object {
       "attrs": Object {
         "data": null,
         "datasource": null,
+        "layout": null,
         "url": "http://...",
+        "width": null,
       },
       "type": "blockCard",
     },
@@ -84,7 +88,9 @@ Object {
       "attrs": Object {
         "data": null,
         "datasource": null,
+        "layout": null,
         "url": "http://...",
+        "width": null,
       },
       "type": "blockCard",
     },
@@ -109,7 +115,9 @@ Object {
       "attrs": Object {
         "data": null,
         "datasource": null,
+        "layout": null,
         "url": "http://...",
+        "width": null,
       },
       "type": "blockCard",
     },
@@ -125,7 +133,9 @@ Object {
       "attrs": Object {
         "data": null,
         "datasource": null,
+        "layout": null,
         "url": "http://...",
+        "width": null,
       },
       "type": "blockCard",
     },
@@ -142,7 +152,9 @@ Object {
       "attrs": Object {
         "data": null,
         "datasource": null,
+        "layout": null,
         "url": "http://...",
+        "width": null,
       },
       "type": "blockCard",
     },
@@ -197,7 +209,9 @@ Object {
                   "attrs": Object {
                     "data": null,
                     "datasource": null,
+                    "layout": null,
                     "url": "http://...",
+                    "width": null,
                   },
                   "type": "blockCard",
                 },
@@ -261,7 +275,9 @@ Object {
                   "attrs": Object {
                     "data": null,
                     "datasource": null,
+                    "layout": null,
                     "url": "http://...",
+                    "width": null,
                   },
                   "type": "blockCard",
                 },
@@ -385,7 +401,9 @@ Object {
                   "attrs": Object {
                     "data": null,
                     "datasource": null,
+                    "layout": null,
                     "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
+                    "width": null,
                   },
                   "type": "blockCard",
                 },
@@ -404,7 +422,9 @@ Object {
                   "attrs": Object {
                     "data": null,
                     "datasource": null,
+                    "layout": null,
                     "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
+                    "width": null,
                   },
                   "type": "blockCard",
                 },
@@ -430,7 +450,9 @@ Object {
       "attrs": Object {
         "data": null,
         "datasource": null,
+        "layout": null,
         "url": "https://aolrich-automation.atlassian.net/browse/SOF-1",
+        "width": null,
       },
       "type": "blockCard",
     },

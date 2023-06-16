@@ -1,12 +1,15 @@
 import { defineMessages } from 'react-intl-next';
 
 export const footerMessages = defineMessages({
-  issueText: {
+  singularIssue: {
     id: 'linkDataSource.table-footer.issue',
-    description:
-      'Text that appears after issue count number if there is only 1 issue.',
-    defaultMessage:
-      '{issueCount} {issueCount, plural, one {issue} other {issues}}',
+    description: 'Text that appears after single issue count number.',
+    defaultMessage: 'issue',
+  },
+  pluralIssues: {
+    id: 'linkDataSource.table-footer.issues',
+    description: 'Text that appears after plural issue count number.',
+    defaultMessage: 'issues',
   },
   loadingText: {
     id: 'linkDataSource.table-footer.loading',

@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.5.1
+
+### Patch Changes
+
+- [`6aeadb8078a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6aeadb8078a) - Fix HTTP fallback mechanism after introduction of WebSocket connection retries
+
 ## 6.5.0
 
 ### Minor Changes

@@ -84,11 +84,12 @@ const rule = createLintRule({
       hardCodedColor: `Colors can be sourced from the global theme using the token function.`,
     },
   },
-  create(context) {
+  create(context: Rule.RuleContext) {
     const config: PluginConfig = context.options[0] || defaultConfig;
     const isException = getIsException(config.exceptions);
 
     return {
+      // For expressions within template literals (e.g. `color: ${red}`)
       'TemplateLiteral > Identifier': (node: Rule.Node) => {
         if (node.type !== 'Identifier') {
           return;
@@ -143,6 +144,7 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         }
       },
 
+      // For css/styled template literals (not handling expressions) (e.g. css`color: red`)
       'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]':
         (node: Rule.Node) => {
           if (node.type !== 'TaggedTemplateExpression') {
@@ -169,6 +171,7 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           });
         },
 
+      // For style objects with identifiers as values (expressions) (e.g. { color: red })
       'ObjectExpression > Property > Identifier, ObjectExpression > Property > MemberExpression':
         (node: Rule.Node) => {
           if (isDecendantOfGlobalToken(node)) {
@@ -246,6 +249,7 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           }
         },
 
+      // For style objects with literals as values (strings/numbers) (e.g. { color: "red" })
       'ObjectExpression > Property > Literal': (node: Rule.Node) => {
         if (node.type !== 'Literal') {
           return;
@@ -276,6 +280,7 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         }
       },
 
+      // For style objects with function calls as values (e.g. { color: red() })
       'ObjectExpression > Property > CallExpression': (node: Rule.Node) => {
         if (node.type !== 'CallExpression') {
           return;
@@ -307,6 +312,7 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
         });
       },
 
+      // For inline JSX styles - literals (e.g. <Test color="red"/>)
       'JSXAttribute > Literal': (node: Rule.Node) => {
         if (node.type !== 'Literal') {
           return;
@@ -345,6 +351,8 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           return;
         }
       },
+
+      // For inline JSX styles - members (e.g. <Test color={color.red}/>)
       'JSXExpressionContainer > MemberExpression': (node: Rule.Node) => {
         if (node.type !== 'MemberExpression') {
           return;
@@ -371,6 +379,8 @@ ${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
           });
         }
       },
+
+      // For inline JSX styles - identifiers (e.g. <Test color={red}/>)
       'JSXExpressionContainer > Identifier': (node: Rule.Node) => {
         if (node.type !== 'Identifier') {
           return;

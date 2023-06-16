@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 25.9.0
+
+### Minor Changes
+
+- [`6de13a329d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6de13a329d4) - Move `width` and `layout` out from `datasource` into `attr` root (context blockCard node)
+
 ## 25.8.3
 
 ### Patch Changes

@@ -6,7 +6,7 @@ import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import PersonIcon from '@atlaskit/icon/glyph/person';
 import ShipIcon from '@atlaskit/icon/glyph/ship';
-import { background, N90 } from '@atlaskit/theme/colors';
+import { N0, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { AVATAR_RADIUS, AVATAR_SIZES } from './constants';
@@ -20,7 +20,7 @@ interface AvatarImageProps {
   testId?: string;
 }
 
-export const ICON_BACKGROUND = token('color.icon.inverse', background());
+export const ICON_BACKGROUND = token('color.icon.inverse', N0);
 export const ICON_COLOR = token('color.icon.subtle', N90);
 
 const avatarDefaultIconStyles = css({

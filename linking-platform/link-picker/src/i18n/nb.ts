@@ -31,6 +31,8 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': 'Finn nylige koblinger eller lim inn en ny kobling',
   'fabric.linkPicker.search.noResults.description': 'Prøv igjen med et annet begrep.',
   'fabric.linkPicker.search.noResults.heading': 'Vi finner ikke noe som samsvarer med søket ditt.',
+  'fabric.linkPicker.time.message.updated': 'Oppdatert {time}',
+  'fabric.linkPicker.time.message.viewed': 'Vist {time}',
   'fabric.linkPicker.unhandledError.description': 'Prøv å laste inn siden på nytt.',
   'fabric.linkPicker.unhandledError.heading': 'Noe gikk galt!',
 };

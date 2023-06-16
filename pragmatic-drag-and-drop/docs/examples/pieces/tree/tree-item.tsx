@@ -139,9 +139,19 @@ function Preview({ item }: { item: TreeItemType }) {
   return <div css={previewStyles}>Item {item.id}</div>;
 }
 
-const reparentingToStyles = css({
+const parentOfInstructionStyles = css({
   background: token('color.background.selected.hovered', 'transparent'),
 });
+
+function getParentLevelOfInstruction(instruction: Instruction): number {
+  if (instruction.type === 'instruction-blocked') {
+    return getParentLevelOfInstruction(instruction.desired);
+  }
+  if (instruction.type === 'reparent') {
+    return instruction.desiredLevel - 1;
+  }
+  return instruction.currentLevel - 1;
+}
 
 function delay({
   waitMs: timeMs,
@@ -174,7 +184,7 @@ const TreeItem = memo(function TreeItem({
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const [state, setState] = useState<
-    'idle' | 'dragging' | 'preview' | 'reparenting-to'
+    'idle' | 'dragging' | 'preview' | 'parent-of-instruction'
   >('idle');
   const [instruction, setInstruction] = useState<Instruction | null>(null);
   const cancelExpandRef = useRef<(() => void) | null>(null);
@@ -191,12 +201,16 @@ const TreeItem = memo(function TreeItem({
     cancelExpandRef.current = null;
   }, []);
 
-  const clearReparentingToState = useCallback(() => {
-    setState(current => (current === 'reparenting-to' ? 'idle' : current));
+  const clearParentOfInstructionState = useCallback(() => {
+    setState(current =>
+      current === 'parent-of-instruction' ? 'idle' : current,
+    );
   }, []);
 
-  const shouldReparent = useCallback(
-    function shouldReparent(location: DragLocationHistory): boolean {
+  // When an item has an instruction applied
+  // we are highlighting it's parent item for improved clarity
+  const shouldHighlightParent = useCallback(
+    (location: DragLocationHistory): boolean => {
       const target = location.current.dropTargets[0];
 
       if (!target) {
@@ -204,13 +218,17 @@ const TreeItem = memo(function TreeItem({
       }
 
       const instruction = extractInstruction(target.data);
-      if (instruction?.type !== 'reparent') {
+
+      if (!instruction) {
         return false;
       }
+
       const targetId = target.data.id;
       invariant(typeof targetId === 'string');
+
       const path = getPathToItem(targetId);
-      const parentId = path[instruction.desiredLevel - 1];
+      const parentLevel: number = getParentLevelOfInstruction(instruction);
+      const parentId = path[parentLevel];
       return parentId === item.id;
     },
     [getPathToItem, extractInstruction, item],
@@ -312,14 +330,14 @@ const TreeItem = memo(function TreeItem({
         canMonitor: ({ source }) =>
           source.data.uniqueContextId === uniqueContextId,
         onDrag({ location }) {
-          if (shouldReparent(location)) {
-            setState('reparenting-to');
+          if (shouldHighlightParent(location)) {
+            setState('parent-of-instruction');
             return;
           }
-          clearReparentingToState();
+          clearParentOfInstructionState();
         },
         onDrop() {
-          clearReparentingToState();
+          clearParentOfInstructionState();
         },
       }),
     );
@@ -333,8 +351,8 @@ const TreeItem = memo(function TreeItem({
     extractInstruction,
     attachInstruction,
     getPathToItem,
-    clearReparentingToState,
-    shouldReparent,
+    clearParentOfInstructionState,
+    shouldHighlightParent,
   ]);
 
   useEffect(
@@ -376,8 +394,8 @@ const TreeItem = memo(function TreeItem({
               innerButtonStyles,
               state === 'dragging'
                 ? innerDraggingStyles
-                : state === 'reparenting-to'
-                ? reparentingToStyles
+                : state === 'parent-of-instruction'
+                ? parentOfInstructionStyles
                 : undefined,
             ]}
           >

@@ -189,7 +189,7 @@ export default Text;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c5cbba9e889615c5824ee237fd52ad2e>>
+ * @codegen <<SignedSource::9f746e797b8b5262d58b40dfecb39e6d>>
  * @codegenId typography
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["fontSize", "fontWeight", "fontFamily", "lineHeight"]
@@ -215,10 +215,10 @@ const fontSizeMap = {
     fontSize: token('font.size.400', '24px'),
   }),
   'size.500': css({
-    fontSize: token('font.size.500', '28px'),
+    fontSize: token('font.size.500', '29px'),
   }),
   'size.600': css({
-    fontSize: token('font.size.600', '36px'),
+    fontSize: token('font.size.600', '35px'),
   }),
 };
 
@@ -287,11 +287,11 @@ export type LineHeight = keyof typeof lineHeightMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3780858df77f5fe0c6e0f39a4c989741>>
+ * @codegen <<SignedSource::b9002172aa12744cedd1fd50ab7836a1>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["text"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::10aa7e87eca39e4d6594a764e78e0698>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::224665ba07a6c41e68ce15f72b24cd92>>
  */
 const textColorMap = {
   'color.text': css({

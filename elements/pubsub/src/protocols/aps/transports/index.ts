@@ -9,7 +9,7 @@ export interface APSTransportParams {
 }
 
 export interface APSTransport {
-  subscribe: (channels: Set<string>) => void;
+  subscribe: (channels: Set<string>) => Promise<void>;
   close: () => void;
   transportType: () => APSTransportType;
 }

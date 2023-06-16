@@ -16,6 +16,7 @@ export const Table = React.memo(
     layout,
     renderWidth,
     children,
+    tableNode,
   }: TableProps) => {
     return (
       <table data-number-column={isNumberColumnEnabled} ref={innerRef}>
@@ -24,6 +25,7 @@ export const Table = React.memo(
           layout={layout}
           isNumberColumnEnabled={isNumberColumnEnabled}
           renderWidth={renderWidth}
+          tableNode={tableNode}
         />
         <tbody>{children}</tbody>
       </table>

@@ -20,7 +20,7 @@ const borderRadii = [
   'border.radius.200',
   'border.radius.300',
   'border.radius.400',
-  'border.radius.round',
+  'border.radius.circle',
 ] as const;
 
 const baseBorderStyles = xcss({

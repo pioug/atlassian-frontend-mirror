@@ -222,7 +222,7 @@ describe('smartLink renderSuccess event for flexible UI with `enable context` an
                 action: 'renderSuccess',
                 actionSubject: 'smartLink',
                 attributes: {
-                  display: 'inline',
+                  display: 'flexible',
                 },
               },
               context: [
@@ -275,7 +275,7 @@ describe('smartLink renderSuccess event for flexible UI with `enable context` an
                 action: 'renderSuccess',
                 actionSubject: 'smartLink',
                 attributes: {
-                  display: 'inline',
+                  display: 'flexible',
                 },
               },
               context: [

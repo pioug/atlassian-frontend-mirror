@@ -41,6 +41,14 @@ describe('TableFooter', () => {
     expect(issueCount).toHaveTextContent('1 issue');
   });
 
+  it('should show correct text if issue count is a number large enough to contain commas', async () => {
+    const { getByTestId } = renderFooter(false, 100123, mockOnRefresh);
+    const syncText = getByTestId('sync-text');
+    const issueCount = getByTestId('issue-count');
+    expect(syncText).toHaveTextContent('Synced just now');
+    expect(issueCount).toHaveTextContent('100,123 issues');
+  });
+
   it('should hide issue count if 0 and show Loading text if table is loading', async () => {
     const { getByTestId, queryByTestId } = renderFooter(true, 0, mockOnRefresh);
     const issueCount = queryByTestId('issue-count');

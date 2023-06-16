@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage-spacing */
 import { N10, N30 } from '@atlaskit/theme/colors';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -10,7 +11,7 @@ import {
 const scrollIndicatorMaskZIndex = 2;
 const scrollIndicatorZIndex = 1;
 const scrollIndicatorHeight = 2;
-const scrollIndicatorBorderRadius = 1;
+const scrollIndicatorBorderRadius = '1px';
 const containerPadding = 8;
 
 const itemHeadingContentHeight = headingSizes.h100.lineHeight;
@@ -50,11 +51,10 @@ export const outerContainerCSS = (
     '&::before': {
       content: "''",
       display: 'block',
-      // TODO Delete this comment after verifying space token -> previous value `containerPadding`
       left: token('space.100', '8px'),
       right: containerPadding + opts.scrollbarWidth,
       height: scrollIndicatorHeight,
-      borderRadius: scrollIndicatorBorderRadius,
+      borderRadius: token('border.radius.050', scrollIndicatorBorderRadius),
       backgroundColor: `var(${VAR_SEPARATOR_COLOR}, ${token(
         'color.border',
         N30,
@@ -67,10 +67,9 @@ export const outerContainerCSS = (
       content: "''",
       position: 'absolute',
       display: 'block',
-      borderRadius: scrollIndicatorBorderRadius,
+      borderRadius: token('border.radius.050', scrollIndicatorBorderRadius),
       flexShrink: 0,
       height: scrollIndicatorHeight,
-      // TODO Delete this comment after verifying space token -> previous value `containerPadding`
       left: token('space.100', '8px'),
       right: containerPadding + opts.scrollbarWidth,
       bottom: 0,
@@ -101,7 +100,7 @@ export const innerContainerCSS = (opts: StyleOpts) =>
     ...(!opts.showTopScrollIndicator &&
       ({
         '&::before': {
-          borderRadius: scrollIndicatorBorderRadius,
+          borderRadius: token('border.radius.050', scrollIndicatorBorderRadius),
           content: "''",
           left: 0,
           right: 0,
@@ -119,7 +118,7 @@ export const innerContainerCSS = (opts: StyleOpts) =>
     // This after pseudo element abuses being a flex child and pushes itself down to the
     // very bottom of the container - doing so ends up "masking" the actual scroll indicator.
     '&::after': {
-      borderRadius: scrollIndicatorBorderRadius,
+      borderRadius: token('border.radius.050', scrollIndicatorBorderRadius),
       content: "''",
       display: 'block',
       flexShrink: 0,

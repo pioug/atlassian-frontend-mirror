@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a70f8f90a96e7e15c85d47284f7ef5a6>>
+ * @codegen <<SignedSource::5a69885c78d580dd4da675165d8163c0>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -36,7 +36,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for red text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      "description": "Use for red text on subtlest and subtler red accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#DE350B",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -46,7 +46,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for red text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for red text on subtlest and subtler red accent backgrounds when there is no meaning tied to the color."
       },
       "value": "R400"
     },
@@ -65,7 +65,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use on bold red accent backgrounds."
+      "description": "Use for red text on subtle red accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#BF2600",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -75,7 +75,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold red accent backgrounds."
+        "description": "Use for red text on subtle red accent backgrounds when there is no meaning tied to the color."
       },
       "value": "R500"
     },
@@ -94,7 +94,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for orange text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      "description": "Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#F18D13",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -104,7 +104,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for orange text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for orange text on subtlest and subtler orange accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#F18D13"
     },
@@ -123,7 +123,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use on bold orange accent backgrounds."
+      "description": "Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#B65C02",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -133,7 +133,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold orange accent backgrounds."
+        "description": "Use for orange text on subtle orange accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#B65C02"
     },
@@ -152,7 +152,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for yellow text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      "description": "Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#FF991F",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -162,7 +162,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for yellow text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for yellow text on subtlest and subtler yellow accent backgrounds when there is no meaning tied to the color."
       },
       "value": "Y400"
     },
@@ -181,7 +181,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use on bold yellow accent backgrounds."
+      "description": "Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#FF8B00",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -191,7 +191,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold yellow accent backgrounds."
+        "description": "Use for yellow text on subtle yellow accent backgrounds when there is no meaning tied to the color."
       },
       "value": "Y500"
     },
@@ -210,7 +210,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for green text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      "description": "Use for green text on subtlest and subtler green accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#00875A",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -220,7 +220,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for green text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for green text on subtlest and subtler green accent backgrounds when there is no meaning tied to the color."
       },
       "value": "G400"
     },
@@ -239,7 +239,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use on bold green accent backgrounds."
+      "description": "Use for green text on subtle green accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#006644",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -249,7 +249,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold green accent backgrounds."
+        "description": "Use for green text on subtle green accent backgrounds when there is no meaning tied to the color."
       },
       "value": "G500"
     },
@@ -268,7 +268,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for teal text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      "description": "Use for teal text on subtlest and subtler teal accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#00A3BF",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -278,7 +278,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for teal text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for teal text on subtlest and subtler teal accent backgrounds when there is no meaning tied to the color."
       },
       "value": "T400"
     },
@@ -297,7 +297,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use on bold teal accent backgrounds."
+      "description": "Use for teal text on subtle teal accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#008DA6",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -307,7 +307,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold teal accent backgrounds."
+        "description": "Use for teal text on subtle teal accent backgrounds when there is no meaning tied to the color."
       },
       "value": "T500"
     },
@@ -326,7 +326,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      "description": "Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#0052CC",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -336,7 +336,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for blue text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for blue text on subtlest and subtler blue accent backgrounds when there is no meaning tied to the color."
       },
       "value": "B400"
     },
@@ -355,7 +355,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use on bold blue accent backgrounds."
+      "description": "Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#0747A6",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -365,7 +365,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold blue accent backgrounds."
+        "description": "Use for blue text on subtle blue accent backgrounds when there is no meaning tied to the color."
       },
       "value": "B500"
     },
@@ -384,7 +384,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      "description": "Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#5243AA",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -394,7 +394,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for purple text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for purple text on subtlest and subtler purple accent backgrounds when there is no meaning tied to the color."
       },
       "value": "P400"
     },
@@ -413,7 +413,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use on bold purple accent backgrounds."
+      "description": "Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#403294",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -423,7 +423,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold purple accent backgrounds."
+        "description": "Use for purple text on subtle purple accent backgrounds when there is no meaning tied to the color."
       },
       "value": "P500"
     },
@@ -442,7 +442,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Use for magenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+      "description": "Use for magenta text on subtlest and subtler magenta accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#E774BB",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -452,7 +452,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Use for magenta text on non-bold backgrounds when there is no meaning tied to the color, such as colored tags."
+        "description": "Use for magenta text on subtlest and subtler magenta accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#E774BB"
     },
@@ -471,7 +471,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.7.0",
-      "description": "Use on bold magenta accent backgrounds."
+      "description": "Use for magenta text on subtle magenta accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#DA62AC",
     "filePath": "src/tokens/atlassian-legacy-light/color/accent.tsx",
@@ -481,7 +481,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.7.0",
-        "description": "Use on bold magenta accent backgrounds."
+        "description": "Use for magenta text on subtle magenta accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#DA62AC"
     },

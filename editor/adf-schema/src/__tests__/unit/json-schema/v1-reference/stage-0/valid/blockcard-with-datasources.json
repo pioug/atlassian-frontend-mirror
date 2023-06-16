@@ -21,11 +21,17 @@
                   "status"
                 ]
               }
+            },
+            {
+              "type": "other-type",
+              "properties": {
+                "someProp": "value"
+              }
             }
-          ],
-          "width": 0,
-          "layout": "center"
-        }
+          ]
+        },
+        "width": 0,
+        "layout": "center"
       }
     }
   ]

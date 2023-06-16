@@ -17,6 +17,7 @@ export type {
   RawToken,
   ShadowToken,
   SpacingToken,
+  ShapeToken,
 } from './types';
 export { default as themeConfig } from './theme-config';
 export { useThemeObserver } from './use-theme-observer';

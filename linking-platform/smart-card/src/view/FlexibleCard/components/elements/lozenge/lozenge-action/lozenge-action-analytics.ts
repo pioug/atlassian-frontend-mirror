@@ -1,7 +1,7 @@
 import {
   TrackQuickActionFailureReason,
   TrackQuickActionType,
-} from '../../../../../utils/analytics/analytics';
+} from '../../../../../../utils/analytics/analytics';
 
 export const unknownLoadErrorAnalyticsPayload = {
   smartLinkActionType: TrackQuickActionType.StatusUpdate,

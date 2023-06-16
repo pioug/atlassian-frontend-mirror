@@ -6,7 +6,7 @@ import { css, jsx } from '@emotion/react';
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';
 import InlineDialog from '@atlaskit/inline-dialog';
-import { subtleText } from '@atlaskit/theme/colors';
+import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Modal, {
@@ -27,7 +27,7 @@ const footerStyles = css({
 const wrapperStyles = css({
   display: 'flex',
   alignItems: 'center',
-  color: token('color.text.subtlest', subtleText()),
+  color: token('color.text.subtlest', N200),
   cursor: 'help',
 });
 

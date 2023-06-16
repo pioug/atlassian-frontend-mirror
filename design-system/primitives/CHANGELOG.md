@@ -1,5 +1,18 @@
 # @atlaskit/primitives
 
+## 0.12.3
+
+### Patch Changes
+
+- [`79e94411a9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79e94411a9c) - Bump to account for regeneration of tokens artifacts.
+- Updated dependencies
+
+## 0.12.2
+
+### Patch Changes
+
+- [`e278a3b0ea9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e278a3b0ea9) - Allow loose auto completion and less strict types for some xcss properties.
+
 ## 0.12.1
 
 ### Patch Changes

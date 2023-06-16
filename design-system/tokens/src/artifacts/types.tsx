@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0590226763691ce0543ee24e9a6bb722>>
+ * @codegen <<SignedSource::7af1f88dfeb09fd8473d7895cf1609b4>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -290,6 +290,16 @@ export type ActiveTokens =
   | 'opacity.disabled'
   | 'opacity.loading'
   | 'utility.UNSAFE.transparent'
+  | 'border.radius.050'
+  | 'border.radius'
+  | 'border.radius.100'
+  | 'border.radius.200'
+  | 'border.radius.300'
+  | 'border.radius.400'
+  | 'border.radius.circle'
+  | 'border.width.050'
+  | 'border.width'
+  | 'border.width.100'
   | 'space.0'
   | 'space.025'
   | 'space.050'

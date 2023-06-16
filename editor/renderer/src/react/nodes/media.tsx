@@ -97,6 +97,8 @@ export default class Media extends PureComponent<MediaProps, {}> {
         data-color={borderColor}
         data-size={borderWidth}
         style={{
+          width: '100%',
+          height: '100%',
           borderColor: paletteColorValue,
           borderWidth: `${borderWidth}px`,
           borderStyle: 'solid',

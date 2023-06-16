@@ -1,7 +1,7 @@
 import type { ThemeState } from '../set-global-theme';
 import { ThemeColorModes, ThemeIds, themeIds } from '../theme-config';
 
-const themeKinds = ['light', 'dark', 'spacing', 'typography'] as const;
+const themeKinds = ['light', 'dark', 'spacing', 'typography', 'shape'] as const;
 type ThemeKind = (typeof themeKinds)[number];
 
 const isThemeKind = (themeKind: string): themeKind is ThemeKind => {
@@ -39,6 +39,7 @@ export const themeStringToObject = (
       }
 
       if (isThemeKind(kind) && isThemeIds(id)) {
+        // @ts-expect-error FIXME - this is a valid ts error
         themeObject[kind] = id;
       }
 

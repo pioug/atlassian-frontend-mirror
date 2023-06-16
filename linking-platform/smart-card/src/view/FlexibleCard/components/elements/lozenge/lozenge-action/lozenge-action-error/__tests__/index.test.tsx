@@ -2,12 +2,12 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { render, waitForElementToBeRemoved } from '@testing-library/react';
 import LozengeActionError from '../index';
-import * as useResolve from '../../../../../../../state/hooks/use-resolve';
+import * as useResolve from '../../../../../../../../state/hooks/use-resolve';
 import { LozengeActionErrorMessages, LozengeActionErrorProps } from '../types';
 
 const mockSmartLinkLozengeOpenPreviewClickedEvent = jest.fn();
 
-jest.mock('../../../../../../../state/flexible-ui-context', () => ({
+jest.mock('../../../../../../../../state/flexible-ui-context', () => ({
   useFlexibleUiAnalyticsContext: () => ({
     ui: {
       smartLinkLozengeActionErrorOpenPreviewClickedEvent:

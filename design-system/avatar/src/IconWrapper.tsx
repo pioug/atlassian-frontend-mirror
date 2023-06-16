@@ -4,7 +4,7 @@ import { FC, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { background } from '@atlaskit/theme/colors';
+import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { BORDER_WIDTH } from './constants';
@@ -32,7 +32,7 @@ const iconWrapperStyles = css({
  * An icon wrapper is used internally only.
  */
 const IconWrapper: FC<IconWrapperProps> = ({
-  bgColor = token('elevation.surface.overlay', background()),
+  bgColor = token('elevation.surface.overlay', N0),
   children,
   label,
 }) => (

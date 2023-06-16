@@ -33,7 +33,7 @@ const productHomeButtonStyles = css({
   alignItems: 'center',
   background: 'none',
   border: 0,
-  borderRadius: 3,
+  borderRadius: token('border.radius', '3px'),
   color: 'inherit',
   cursor: 'pointer',
   '&::-moz-focus-inner': {
@@ -55,7 +55,10 @@ const productHomeButtonStyles = css({
   '&:focus-visible': {
     backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_FOCUS})`,
     color: `var(${VAR_PRODUCT_HOME_COLOR_FOCUS})`,
-    outline: `2px solid ${token('color.border.focused', '#4C9AFF')}`,
+    outline: `${token('border.width.100', '2px')} solid ${token(
+      'color.border.focused',
+      '#4C9AFF',
+    )}`,
   },
 
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles

@@ -30,6 +30,8 @@ export default {
   'fabric.linkPicker.search.linkPlaceholder': '查找最近的链接或粘贴新链接',
   'fabric.linkPicker.search.noResults.description': '请使用其他词语重试。',
   'fabric.linkPicker.search.noResults.heading': '未找到符合搜索条件的内容。',
+  'fabric.linkPicker.time.message.updated': '更新时间：{time}',
+  'fabric.linkPicker.time.message.viewed': '查看时间：{time}',
   'fabric.linkPicker.unhandledError.description': '请尝试重新加载该页面。',
   'fabric.linkPicker.unhandledError.heading': '出错了！',
 };

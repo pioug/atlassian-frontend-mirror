@@ -124,6 +124,68 @@ describe('Column picker', () => {
     expect(mockOnChange).toBeCalledWith(['type', 'blah']);
   });
 
+  it('should disable the checkbox if only 1 is passed in and is selected', async () => {
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'type',
+        type: 'icon',
+        title: 'Type',
+      },
+    ];
+
+    const selectedColumnKeys: string[] = ['type'];
+
+    const { getByText, getByTestId } = renderColumnPicker(
+      columns,
+      selectedColumnKeys,
+      false,
+    );
+
+    // open popup
+    const triggerButton = getByTestId('column-picker-trigger-button');
+    fireEvent.click(triggerButton);
+
+    const checkbox = getByText('Type').closest(OPTION_CLASS);
+    expect(checkbox).toHaveClass('column-picker-popup__option--is-disabled');
+  });
+
+  it('should disable last checked checkbox when there are multiple options and they are all deselected', async () => {
+    const columns: DatasourceResponseSchemaProperty[] = [
+      {
+        key: 'type',
+        type: 'icon',
+        title: 'Type',
+      },
+      {
+        key: 'blah',
+        type: 'string',
+        title: 'Blah',
+      },
+      {
+        key: 'cool',
+        type: 'string',
+        title: 'Cool',
+      },
+    ];
+
+    const selectedColumnKeys: string[] = ['type'];
+
+    const { getByText, getByTestId } = renderColumnPicker(
+      columns,
+      selectedColumnKeys,
+      false,
+    );
+
+    // open popup
+    const triggerButton = getByTestId('column-picker-trigger-button');
+    fireEvent.click(triggerButton);
+
+    const typeCheckbox = getByText('Type').closest(OPTION_CLASS);
+    expect(typeCheckbox).toHaveClass(
+      'column-picker-popup__option--is-disabled',
+    );
+  });
+
   it('should bring all selected options to the top when opening the popup', async () => {
     const columns: DatasourceResponseSchemaProperty[] = [
       {

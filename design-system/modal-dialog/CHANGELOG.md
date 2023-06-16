@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.6.2
+
+### Patch Changes
+
+- [`abf69e9a4f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/abf69e9a4f6) - Removes usage of deprecated theme mixins in favor of static token / color usage.
+
 ## 12.6.1
 
 ### Patch Changes

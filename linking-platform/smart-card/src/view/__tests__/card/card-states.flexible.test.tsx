@@ -1,9 +1,5 @@
-jest.mock('react-lazily-render', () => (data: any) => data.content);
-jest.mock(
-  'react-transition-group/Transition',
-  () => (data: any) => data.children,
-);
-jest.doMock('../../../utils/analytics/analytics');
+import './card-states.card.test.mock';
+
 import { APIError } from '@atlaskit/linking-common';
 import '@atlaskit/link-test-helpers/jest';
 import {
@@ -15,6 +11,7 @@ import React, { useState } from 'react';
 import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { Card, CardAppearance } from '../../Card';
+import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mockByUrl, mocks } from '../../../utils/mocks';
 import { TitleBlock } from '../../FlexibleCard/components/blocks';
 import { flushPromises } from '@atlaskit/media-test-helpers';
@@ -241,6 +238,9 @@ describe('smart-card: card states, flexible', () => {
     'embed' as CardAppearance,
   ])('with %s card appearance', (appearance: CardAppearance) => {
     const testId = 'smart-links-container'; // default Flexible UI container testId
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
     it('renders Flexible UI', async () => {
       const { getByTestId } = render(
         <Provider client={mockClient}>
@@ -251,26 +251,51 @@ describe('smart-card: card states, flexible', () => {
       );
       const block = await waitFor(() => getByTestId(testId));
       expect(block).toBeTruthy();
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          display: 'flexible',
+          status: 'resolved',
+        }),
+      );
     });
 
-    it('does not render Flexible UI when card has no children', () => {
-      const { queryByTestId } = render(
+    it('does not render Flexible UI when card has no children', async () => {
+      const { queryByTestId, getByText } = render(
         <Provider client={mockClient}>
           <Card appearance={appearance} url={mockUrl} />
         </Provider>,
       );
+      const resolvedView = await waitFor(() => getByText('I love cheese'));
+      expect(resolvedView).toBeInTheDocument();
       expect(queryByTestId(testId)).toBeNull();
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          display: appearance,
+          status: 'resolved',
+        }),
+      );
     });
 
-    it('does not render Flexible UI when card has no valid children', () => {
-      const { queryByTestId } = render(
+    it('does not render Flexible UI when card has no valid children', async () => {
+      const { queryByTestId, getByText } = render(
         <Provider client={mockClient}>
           <Card appearance={appearance} url={mockUrl}>
             <div>Test</div>
           </Card>
         </Provider>,
       );
+      const resolvedView = await waitFor(() => getByText('I love cheese'));
+      expect(resolvedView).toBeInTheDocument();
       expect(queryByTestId(testId)).toBeNull();
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+      expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          display: appearance,
+          status: 'resolved',
+        }),
+      );
     });
   });
 

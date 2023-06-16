@@ -5,7 +5,7 @@ import {
   akEditorTableLegacyCellMinWidth as tableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
 import { TableLayout } from '@atlaskit/adf-schema';
-import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { inlineCard, p, table, td, th, tr } from '@atlaskit/adf-utils/builders';
 import Table, { TableProcessor } from '../../../../react/nodes/table';
 import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
@@ -14,6 +14,12 @@ import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStor
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { Node as PMNode } from 'prosemirror-model';
+import { ReactWrapper } from 'enzyme';
+
+const schema = getSchemaBasedOnStage('stage0');
 
 const mountBasicTable = ({
   columnWidths,
@@ -853,6 +859,183 @@ describe('Renderer - React/Nodes/Table', () => {
       expect(
         table.html().includes(shadowObserverClassNames.SENTINEL_RIGHT),
       ).toBeTruthy();
+    });
+  });
+
+  describe('Table widths', () => {
+    const createTable = (width: number, layout: TableLayout) => {
+      return schema.nodeFromJSON({
+        ...table(
+          tr([
+            th()(p('Header content 1')),
+            th()(p('Header content 2')),
+            th()(p('Header content 3')),
+          ]),
+          tr([
+            td()(p('Body content 1')),
+            td()(p('Body content 2')),
+            td()(p('Body content 3')),
+          ]),
+        ),
+        attrs: { width, layout },
+      });
+    };
+
+    const mountTable = (
+      node: PMNode,
+      rendererWidth: number,
+      columnWidths?: number[],
+    ) => {
+      return mountWithIntl(
+        <Table
+          layout={node.attrs.layout}
+          renderWidth={rendererWidth}
+          rendererAppearance="full-page"
+          isNumberColumnEnabled={false}
+          tableNode={node}
+          columnWidths={columnWidths}
+        >
+          <TableRow>
+            <TableHeader />
+            <TableHeader />
+            <TableHeader />
+          </TableRow>
+          <TableRow>
+            <TableCell />
+            <TableCell />
+            <TableCell />
+          </TableRow>
+        </Table>,
+      );
+    };
+
+    const checkColWidths = (
+      table: ReactWrapper,
+      expectedColWidths: number[],
+    ) => {
+      table.find('col').forEach((col, index) => {
+        expect(col.prop('style')!.width).toBe(`${expectedColWidths[index]}px`);
+      });
+    };
+
+    describe('table is centered and has correct width', () => {
+      const tableNode = createTable(700, 'wide');
+      const rendererWidth = 1800;
+
+      ffTest(
+        'platform.editor.custom-table-width',
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          expect(tableContainer.prop('style')!.width).toBe(700);
+          expect(tableContainer.prop('style')!.left).toBe(undefined);
+        },
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          expect(tableContainer.prop('style')!.width).toBe(960);
+          expect(tableContainer.prop('style')!.left).toBe(-100);
+        },
+      );
+    });
+
+    describe('table width responsively scales down', () => {
+      const tableNode = createTable(700, 'wide');
+      const rendererWidth = 600;
+
+      ffTest(
+        'platform.editor.custom-table-width',
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          expect(tableContainer.prop('style')!.width).toBe(600);
+          expect(tableContainer.prop('style')!.left).toBe(undefined);
+        },
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          expect(tableContainer.prop('style')!.width).toBe(600);
+          expect(tableContainer.prop('style')!.left).toBe(undefined);
+        },
+      );
+    });
+
+    describe('table scales table columns down', () => {
+      const tableWidth = 960;
+      const scale = 0.9;
+      const tableNode = createTable(tableWidth, 'wide');
+      const rendererWidth = tableWidth * scale;
+      const colWidths = [420, 220, 320];
+      const expectedWidths = colWidths.map((w) => w * scale);
+
+      ffTest(
+        'platform.editor.custom-table-width',
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth, [420, 220, 320]);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          checkColWidths(tableContainer, expectedWidths);
+        },
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth, [420, 220, 320]);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          checkColWidths(tableContainer, expectedWidths);
+        },
+      );
+    });
+
+    describe('table scales table columns down max 30%', () => {
+      const tableWidth = 960;
+      const scale = 0.6;
+      const tableNode = createTable(tableWidth, 'wide');
+      const rendererWidth = tableWidth * scale;
+      const colWidths = [420, 220, 320];
+      const expectedWidths = colWidths.map((w) => w * 0.7);
+
+      ffTest(
+        'platform.editor.custom-table-width',
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth, [420, 220, 320]);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          checkColWidths(tableContainer, expectedWidths);
+        },
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth, [420, 220, 320]);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          checkColWidths(tableContainer, expectedWidths);
+        },
+      );
     });
   });
 });

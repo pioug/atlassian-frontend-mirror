@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 108.2.0
+
+### Minor Changes
+
+- [`149b6c14e3e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/149b6c14e3e) - [ux] [ED-17634] Use the table width attribute in the renderer when platform.editor.custom-table-width FF is true
+
+### Patch Changes
+
+- [`406f89ad910`](https://bitbucket.org/atlassian/atlassian-frontend/commits/406f89ad910) - [ux] fix image border missing in renderer when image is linked and also double seperators issue
+
 ## 108.1.8
 
 ### Patch Changes

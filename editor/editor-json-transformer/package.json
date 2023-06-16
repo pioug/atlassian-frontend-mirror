@@ -37,7 +37,7 @@
     "./types": "./src/types.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^25.8.0",
+    "@atlaskit/adf-schema": "^25.9.0",
     "@atlaskit/adf-utils": "^18.4.0",
     "@babel/runtime": "^7.0.0",
     "lodash": "^4.17.21"

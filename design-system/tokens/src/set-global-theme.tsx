@@ -9,11 +9,12 @@ import { loadAndAppendThemeCss, loadThemeCss } from './utils/theme-loading';
 import { themeObjectToString } from './utils/theme-state-transformer';
 
 export interface ThemeState {
-  light: ThemeIds;
-  dark: ThemeIds;
+  light: Extract<ThemeIds, 'light' | 'dark' | 'legacy-dark' | 'legacy-light'>;
+  dark: Extract<ThemeIds, 'light' | 'dark' | 'legacy-dark' | 'legacy-light'>;
   colorMode: ThemeColorModes;
-  spacing?: ThemeIds;
-  typography?: ThemeIds;
+  shape?: Extract<ThemeIds, 'shape'>;
+  spacing?: Extract<ThemeIds, 'spacing'>;
+  typography?: Extract<ThemeIds, 'typography'>;
 }
 
 // Represents theme state once mounted to the page (auto is hidden from observers)
@@ -35,6 +36,7 @@ const themeStateDefaults: ThemeState = {
   colorMode: 'auto',
   dark: 'dark',
   light: 'light',
+  shape: undefined,
   spacing: undefined,
   typography: undefined,
 };
@@ -52,7 +54,7 @@ const checkNativeListener = function (e: MediaQueryListEvent) {
 const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
   const { colorMode, dark, light, spacing, typography } = themeState;
 
-  const themePreferences =
+  const themePreferences: ThemeIds[] =
     colorMode === 'auto' ? [light, dark] : [themeState[colorMode]];
 
   [spacing, typography].forEach((themeId) => {
@@ -93,6 +95,7 @@ const setGlobalTheme = async ({
   colorMode = themeStateDefaults['colorMode'],
   dark = themeStateDefaults['dark'],
   light = themeStateDefaults['light'],
+  shape = themeStateDefaults['shape'],
   spacing = themeStateDefaults['spacing'],
   typography = themeStateDefaults['typography'],
 }: Partial<ThemeState> = {}): Promise<UnbindFn> => {
@@ -100,6 +103,7 @@ const setGlobalTheme = async ({
     colorMode,
     dark,
     light,
+    shape,
     spacing,
     typography,
   });
@@ -141,6 +145,7 @@ const setGlobalTheme = async ({
     colorMode,
     dark,
     light,
+    shape,
     spacing,
     typography,
   });
@@ -178,11 +183,13 @@ export const getThemeStyles = async ({
   light = themeStateDefaults['light'],
   spacing = themeStateDefaults['spacing'],
   typography = themeStateDefaults['typography'],
+  shape = themeStateDefaults['shape'],
 }: Partial<ThemeState> = {}): Promise<ThemeStyles[]> => {
   const themePreferences = getThemePreferences({
     colorMode,
     dark,
     light,
+    shape,
     spacing,
     typography,
   });
@@ -241,10 +248,11 @@ export const getThemeHtmlAttrs = ({
   colorMode = themeStateDefaults['colorMode'],
   dark = themeStateDefaults['dark'],
   light = themeStateDefaults['light'],
+  shape = themeStateDefaults['shape'],
   spacing = themeStateDefaults['spacing'],
   typography = themeStateDefaults['typography'],
 }: Partial<ThemeState> = {}): Record<string, string> => {
-  const themePreferences = { dark, light, spacing, typography };
+  const themePreferences = { dark, light, spacing, typography, shape };
   const themeAttribute = themeObjectToString(themePreferences);
 
   return {

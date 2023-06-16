@@ -1,5 +1,12 @@
 # @atlaskit/form
 
+## 8.11.8
+
+### Patch Changes
+
+- [`421b74bf0f9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/421b74bf0f9) - Combines stylings of label and legend for simpler maintenance.
+- [`215b4b5df50`](https://bitbucket.org/atlassian/atlassian-frontend/commits/215b4b5df50) - Removes redundant label from legend in fieldset.
+
 ## 8.11.7
 
 ### Patch Changes

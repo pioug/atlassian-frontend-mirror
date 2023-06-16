@@ -18,17 +18,17 @@ export interface LabelProps {
   testId?: string;
 }
 
-const labelStyles = css({
+export interface LegendProps {
+  children: ReactNode;
+}
+
+const fieldsetLabelStyles = css({
   display: 'inline-block',
   marginTop: 0,
   marginBottom: token('space.050', '4px'),
   fontFamily: fontFamily,
 });
 
-/**
- * TODO: Address duplication with packages/design-system/form/src/fieldset.tsx
- * in https://product-fabric.atlassian.net/browse/DSP-7731
- */
 const getFieldsetLabelDynamicStyles = (mode: 'dark' | 'light') =>
   css([
     h200({ theme: { mode } }),
@@ -54,17 +54,40 @@ const darkH200Styles = getFieldsetLabelDynamicStyles('dark');
  * It's recommended that a label has a `4px` spacing above its associated
  * control element.
  */
-const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => {
+export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => {
   const { mode } = useGlobalTheme();
   return (
     <label
-      css={[mode === 'light' ? lightH200Styles : darkH200Styles, labelStyles]}
+      css={[
+        mode === 'light' ? lightH200Styles : darkH200Styles,
+        fieldsetLabelStyles,
+      ]}
       id={id}
       htmlFor={htmlFor}
       data-testid={testId}
     >
       {children}
     </label>
+  );
+};
+
+/**
+ * __Legend__
+ *
+ * A Legend represents a caption for a fieldset in a user interface.
+ */
+export const Legend: FC<LegendProps> = ({ children }) => {
+  const { mode } = useGlobalTheme();
+
+  return (
+    <legend
+      css={[
+        mode === 'light' ? lightH200Styles : darkH200Styles,
+        fieldsetLabelStyles,
+      ]}
+    >
+      {children}
+    </legend>
   );
 };
 

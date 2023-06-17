@@ -7,6 +7,11 @@
  */
 //Japanese
 export default {
+  'feedback-collector.anonymous':
+    'このフィードバックは匿名で提出されます。このフィードバックについて、アトラシアンがお客様に直接連絡を取ることはできません。',
+  'feedback-collector.anonymous.title': '匿名のフィードバック',
+  'feedback-collector.can-be-contacted.label':
+    'はい、アトラシアンの製品とサービスの向上のために、アトラシアンのチームから利用体験に関する問い合わせを受け取ることを了承します。<a>アトラシアンのプライバシー ポリシー</a>に同意します。',
   'feedback-collector.cancel-button.label': 'キャンセル',
   'feedback-collector.enrol-in-research.label': '製品調査に参加する',
   'feedback-collector.feedback-title': 'ご意見をお聞かせください',

@@ -7,6 +7,11 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'feedback-collector.anonymous':
+    'Цей відгук надсилається анонімно. Atlassian не зможе зв’язатися з вами безпосередньо щодо нього.',
+  'feedback-collector.anonymous.title': 'Анонімний відгук',
+  'feedback-collector.can-be-contacted.label':
+    'Так, команди Atlassian можуть зв’язуватися зі мною щодо моєї роботи з продуктами й службами Atlassian із метою вдосконалення їх. Я погоджуюся з <a>Політикою конфіденційності Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Скасувати',
   'feedback-collector.enrol-in-research.label': 'Я хочу взяти участь у дослідженні продукту',
   'feedback-collector.feedback-title': 'Розкажіть, що ви думаєте',

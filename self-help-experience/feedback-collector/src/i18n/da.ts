@@ -7,6 +7,11 @@
  */
 //Danish (Denmark)
 export default {
+  'feedback-collector.anonymous':
+    'Denne feedback indsendes anonymt. Atlassian vil ikke kunne kontakte dig direkte angående denne feedback',
+  'feedback-collector.anonymous.title': 'Anonym feedback',
+  'feedback-collector.can-be-contacted.label':
+    'Ja, Atlassian-teams kan kontakte mig for at lære om mine oplevelser med at forbedre Atlassian-produkter og -tjenester. Jeg accepterer <a>Atlassians politik om beskyttelse af personlige oplysninger</a>.',
   'feedback-collector.cancel-button.label': 'Annuller',
   'feedback-collector.enrol-in-research.label': 'Jeg vil gerne deltage i produktundersøgelser',
   'feedback-collector.feedback-title': 'Del dine meninger',

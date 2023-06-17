@@ -7,6 +7,8 @@
  */
 //French (France)
 export default {
+  'feedback-collector.can-be-contacted.label':
+    "Oui, les équipes Atlassian peuvent me contacter pour en savoir plus sur mon expérience afin d'améliorer les produits et services Atlassian. J'accepte la <a>Politique de confidentialité Atlassian</a>.",
   'feedback-collector.cancel-button.label': 'Annuler',
   'feedback-collector.enrol-in-research.label': "J'aimerais participer à la recherche produit",
   'feedback-collector.feedback-title': 'Donner votre avis',

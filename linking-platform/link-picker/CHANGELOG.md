@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.24.1
+
+### Patch Changes
+
+- [`83a802f2806`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83a802f2806) - Release translations
+
 ## 1.24.0
 
 ### Minor Changes

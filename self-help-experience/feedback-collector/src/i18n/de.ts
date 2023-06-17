@@ -7,6 +7,11 @@
  */
 //German (Germany)
 export default {
+  'feedback-collector.anonymous':
+    'Dieses Feedback wird anonym übermittelt. Atlassian wird Sie bezüglich dieses Feedbacks nicht direkt kontaktieren können.',
+  'feedback-collector.anonymous.title': 'Anonymes Feedback',
+  'feedback-collector.can-be-contacted.label':
+    'Ja, Atlassian-Teams dürfen mich kontaktieren, um weitere Informationen zu meinen Erfahrungen zu erhalten, damit Produkte und Services von Atlassian verbessert werden können. Ich erkläre mich mit der <a>Datenschutzrichtlinie von Atlassian</a> einverstanden.',
   'feedback-collector.cancel-button.label': 'Abbrechen',
   'feedback-collector.enrol-in-research.label': 'Ich würde gerne an der Produktforschung teilnehmen.',
   'feedback-collector.feedback-title': 'Teilen Sie uns Ihre Meinung mit',

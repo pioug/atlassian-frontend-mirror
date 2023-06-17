@@ -7,6 +7,11 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'feedback-collector.anonymous':
+    'Denne tilbakemeldingen blir sendt inn anonymt. Atlassian vil ikke kunne kontakte deg direkte om denne tilbakemeldingen',
+  'feedback-collector.anonymous.title': 'Anonym tilbakemelding',
+  'feedback-collector.can-be-contacted.label':
+    'Ja, Atlassian-team kan kontakte meg om mine erfaringer med å forbedre Atlassian-produkter og tjenester. Jeg godtar <a>Atlassians personvernerklæring</a>.',
   'feedback-collector.cancel-button.label': 'Avbryt',
   'feedback-collector.enrol-in-research.label': 'Jeg vil gjerne delta i produktundersøkelser',
   'feedback-collector.feedback-title': 'Del tankene dine med oss',

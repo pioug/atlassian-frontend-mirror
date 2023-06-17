@@ -7,6 +7,11 @@
  */
 //Hungarian
 export default {
+  'feedback-collector.anonymous':
+    'Ez a visszajelzés névtelenül lesz elküldve. Az Atlassian nem tudja közvetlenül felvenni veled a kapcsolatot ennek ügyében.',
+  'feedback-collector.anonymous.title': 'Anonim visszajelzés',
+  'feedback-collector.can-be-contacted.label':
+    'Igen, az Atlassian csapatai felvehetik velem a kapcsolatot, hogy kikérjék a véleményemet az Atlassian termékeinek és szolgáltatásainak fejlesztéséről. Elfogadom az <a>Atlassian adatvédelmi nyilatkozatát</a>.',
   'feedback-collector.cancel-button.label': 'Mégse',
   'feedback-collector.enrol-in-research.label': 'Szeretnék részt venni a termékekkel kapcsolatos kutatásban',
   'feedback-collector.feedback-title': 'Oszd meg a véleményedet',

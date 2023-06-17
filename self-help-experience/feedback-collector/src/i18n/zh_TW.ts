@@ -7,6 +7,10 @@
  */
 //Chinese (Traditional)
 export default {
+  'feedback-collector.anonymous': '此意見反應會以匿名方式提交。Atlassian 將無法就此意見反應直接與您聯繫',
+  'feedback-collector.anonymous.title': '匿名意見反應',
+  'feedback-collector.can-be-contacted.label':
+    '是的，Atlassian 團隊可以與我聯繫，詢問我的使用體驗，以便改善 Atlassian 產品和服務。我同意 <a>Atlassian 隱私政策</a>。',
   'feedback-collector.cancel-button.label': '取消',
   'feedback-collector.enrol-in-research.label': '我想要參與產品研究',
   'feedback-collector.feedback-title': '分享您的想法',

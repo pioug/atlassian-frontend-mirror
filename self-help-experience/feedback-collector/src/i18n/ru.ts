@@ -7,6 +7,11 @@
  */
 //Russian
 export default {
+  'feedback-collector.anonymous':
+    'Этот отзыв будет отправлен анонимно. Сотрудники Atlassian не смогут связаться с вами напрямую по поводу этого отзыва',
+  'feedback-collector.anonymous.title': 'Анонимный отзыв',
+  'feedback-collector.can-be-contacted.label':
+    'Да, команды Atlassian могут связаться со мной, чтобы узнать о моих впечатлениях и использовать эту информацию для улучшения продуктов и услуг Atlassian. Я соглашаюсь с <a>Политикой конфиденциальности Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Отмена',
   'feedback-collector.enrol-in-research.label': 'Я хочу принять участие в исследовании продукта',
   'feedback-collector.feedback-title': 'Напишите отзыв',

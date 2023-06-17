@@ -7,6 +7,8 @@
  */
 //Czech
 export default {
+  'feedback-collector.can-be-contacted.label':
+    'Ano, týmy Atlassian mě mohou kontaktovat ohledně mých zkušeností a pomoci s vylepšováním produktů a služeb společnosti Atlassian. Potvrzuji, že znám <a>Zásady ochrany osobních údajů společnosti Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Zrušit',
   'feedback-collector.enrol-in-research.label': 'Chci se zúčastnit produktového průzkumu',
   'feedback-collector.feedback-title': 'Sdělte nám svůj názor',

@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.0.1
+
+### Patch Changes
+
+- [`2441f8995ee`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2441f8995ee) - [ux] Allow close icon to be tab-selected. Issue type select still retains initial focus
+
 ## 13.0.0
 
 ### Major Changes

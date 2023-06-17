@@ -7,6 +7,11 @@
  */
 //Finnish
 export default {
+  'feedback-collector.anonymous':
+    'Palaute lähetetään anonyymisti. Atlassian ei voi ottaa yhteyttä suoraan sinuun tämän palautteen perusteella.',
+  'feedback-collector.anonymous.title': 'Anonyymi palaute',
+  'feedback-collector.can-be-contacted.label':
+    'Kyllä, Atlassian-tiimit voivat ottaa minuun yhteyttä ja pyytää lisätietoja kokemuksistani Atlassian-tuotteiden ja ‑palveluiden parantamista varten. Hyväksyn <a>Atlassianin tietosuojakäytännön</a>.',
   'feedback-collector.cancel-button.label': 'Peruuta',
   'feedback-collector.enrol-in-research.label': 'Haluan osallistua tuotetutkimukseen',
   'feedback-collector.feedback-title': 'Jaa ajatuksesi',

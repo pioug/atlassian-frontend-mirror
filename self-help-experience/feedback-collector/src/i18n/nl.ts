@@ -7,6 +7,11 @@
  */
 //Dutch (Netherlands)
 export default {
+  'feedback-collector.anonymous':
+    'Deze feedback wordt anoniem verzonden. Atlassian kan niet rechtstreeks contact met je opnemen over de feedback.',
+  'feedback-collector.anonymous.title': 'Anonieme feedback',
+  'feedback-collector.can-be-contacted.label':
+    'Ja, Atlassian-teams mogen contact met me opnemen om te vragen naar mijn ervaringen, zodat Atlassian-producten en -diensten kunnen worden verbeterd. Ik stem in met het <a>Privacybeleid van Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Annuleren',
   'feedback-collector.enrol-in-research.label': 'Ik wil graag meewerken aan productonderzoek',
   'feedback-collector.feedback-title': 'Laat ons weten wat je ervan vindt',

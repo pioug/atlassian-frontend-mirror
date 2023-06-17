@@ -7,6 +7,11 @@
  */
 //Swedish
 export default {
+  'feedback-collector.anonymous':
+    'Denna feedback skickas anonymt. Atlassian kommer inte att kunna kontakta dig direkt angående denna feedback',
+  'feedback-collector.anonymous.title': 'Anonym feedback',
+  'feedback-collector.can-be-contacted.label':
+    'Ja, Atlassian-team får kontakta mig för att lära sig om mina erfarenheter i syfte att förbättra Atlassians produkter och tjänster. Jag bekräftar <a>Atlassians sekretesspolicy</a>',
   'feedback-collector.cancel-button.label': 'Avbryt',
   'feedback-collector.enrol-in-research.label': 'Jag vill delta i produktundersökningar',
   'feedback-collector.feedback-title': 'Dela dina åsikter',

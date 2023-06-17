@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useRef, useState } from 'react';
 
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
@@ -145,10 +145,13 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
     value: 'empty',
   });
 
+  const focusRef = useRef<HTMLElement>();
+
   return (
     <Modal
       shouldCloseOnOverlayClick={false}
       shouldCloseOnEscapePress={false}
+      autoFocus={focusRef}
       onClose={onClose}
       testId="feedbackCollectorModalDialog"
     >
@@ -175,7 +178,6 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
               <Button
                 style={{ lineHeight: 'normal' }}
                 spacing={'none'}
-                tabIndex={-1}
                 onClick={onClose}
                 appearance={'subtle'}
               >
@@ -205,6 +207,8 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                   }}
                   defaultValue={getDefaultSelectValue(feedbackGroupLabels)}
                   options={getSelectOptions(feedbackGroupLabels)}
+                  // @ts-ignore
+                  ref={focusRef}
                 />
               ) : null}
               {showDefaultTextFields && canShowTextField && (

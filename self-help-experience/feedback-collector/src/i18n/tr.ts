@@ -7,6 +7,11 @@
  */
 //Turkish (Turkey)
 export default {
+  'feedback-collector.anonymous':
+    'Bu geri bildirim anonim olarak gönderilir. Atlassian, bu geri bildirimle ilgili olarak sizinle doğrudan iletişime geçemez',
+  'feedback-collector.anonymous.title': 'Anonim geri bildirim',
+  'feedback-collector.can-be-contacted.label':
+    'Evet, Atlassian takımları Atlassian ürünlerini ve hizmetlerini iyileştirmek üzere deneyimlerimi öğrenmek için benimle iletişime geçebilir. <a>Atlassian Gizlilik Politikası</a> hükümlerini onaylıyorum.',
   'feedback-collector.cancel-button.label': 'İptal',
   'feedback-collector.enrol-in-research.label': 'Ürün araştırmasına katılmak istiyorum',
   'feedback-collector.feedback-title': 'Düşüncelerinizi paylaşın',

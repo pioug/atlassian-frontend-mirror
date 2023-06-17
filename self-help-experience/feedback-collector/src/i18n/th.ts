@@ -7,6 +7,11 @@
  */
 //Thai (Thailand)
 export default {
+  'feedback-collector.anonymous':
+    'ข้อคิดเห็นนี้กำลังถูกส่งโดยไม่ระบุชื่อ Atlassian จะไม่สามารถติดต่อคุณได้โดยตรงเกี่ยวกับข้อคิดเห็นนี้',
+  'feedback-collector.anonymous.title': 'ข้อคิดเห็นจากผู้ที่ไม่ระบุตัวตน',
+  'feedback-collector.can-be-contacted.label':
+    'ใช่ ทีม Atlassian สามารถติดต่อฉันเพื่อเรียนรู้เกี่ยวกับประสบการณ์ของฉันเพื่อปรับปรุงผลิตภัณฑ์และบริการของ Atlassian ได้ ฉันรับทราบ <a>นโยบายความเป็นส่วนตัวของ Atlassian</a> แล้ว',
   'feedback-collector.cancel-button.label': 'ยกเลิก',
   'feedback-collector.enrol-in-research.label': 'ฉันต้องการเข้าร่วมการวิจัยผลิตภัณฑ์',
   'feedback-collector.feedback-title': 'แบ่งปันความคิดเห็นของคุณ',

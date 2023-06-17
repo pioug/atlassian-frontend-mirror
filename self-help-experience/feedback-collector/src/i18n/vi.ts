@@ -7,6 +7,11 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'feedback-collector.anonymous':
+    'Phản hồi này đang được gửi ẩn danh. Atlassian sẽ không thể liên hệ trực tiếp với bạn về phản hồi này',
+  'feedback-collector.anonymous.title': 'Phản hồi ẩn danh',
+  'feedback-collector.can-be-contacted.label':
+    'Có, đội ngũ Atlassian có thể liên hệ với tôi để tìm hiểu thêm về trải nghiệm của tôi nhằm cải thiện các sản phẩm và dịch vụ của Atlassian. Tôi công nhận <a>Chính sách Quyền riêng tư của Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Hủy',
   'feedback-collector.enrol-in-research.label': 'Tôi muốn tham gia vào việc tìm kiếm sản phẩm',
   'feedback-collector.feedback-title': 'Chia sẻ suy nghĩ của bạn',

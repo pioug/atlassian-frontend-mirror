@@ -7,6 +7,11 @@
  */
 //Korean
 export default {
+  'feedback-collector.anonymous':
+    '이 피드백은 익명으로 제출됩니다. Atlassian은 이 피드백과 관련하여 귀하에게 직접 연락할 수 없습니다',
+  'feedback-collector.anonymous.title': '익명 피드백',
+  'feedback-collector.can-be-contacted.label':
+    '예, Atlassian 팀에서 Atlassian 제품 및 서비스 개선을 위해 연락하여 제 경험에 대해 물어봐도 괜찮습니다. 본인은 <a>Atlassian 개인정보 보호정책</a>을 인정합니다.',
   'feedback-collector.cancel-button.label': '취소',
   'feedback-collector.enrol-in-research.label': '제품 조사에 참여하고 싶습니다',
   'feedback-collector.feedback-title': '피드백 공유',

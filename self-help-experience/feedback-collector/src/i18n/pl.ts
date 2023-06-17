@@ -7,6 +7,11 @@
  */
 //Polish (Poland)
 export default {
+  'feedback-collector.anonymous':
+    'Ta opinia jest przekazywana anonimowo. Firma Atlassian nie będzie mogła kontaktować się z Tobą bezpośrednio w sprawie tej opinii',
+  'feedback-collector.anonymous.title': 'Opinia anonimowa',
+  'feedback-collector.can-be-contacted.label':
+    'Tak, zespoły Atlassian mogą się ze mną kontaktować, aby poznać moją opinię i na jej podstawie ulepszać produkty oraz usługi Atlassian. Potwierdzam, że znam <a>Politykę prywatności Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Anuluj',
   'feedback-collector.enrol-in-research.label': 'Chcę uczestniczyć w badaniach nad produktem',
   'feedback-collector.feedback-title': 'Podziel się swoimi przemyśleniami',

@@ -7,6 +7,9 @@
  */
 //English (United Kingdom)
 export default {
+  'feedback-collector.anonymous':
+    'This feedback is being submitted anonymously. Atlassian will not be able to contact you directly regarding this feedback',
+  'feedback-collector.anonymous.title': 'Anonymous feedback',
   'feedback-collector.can-be-contacted.label':
     'Yes, Atlassian teams can contact me to learn about my experiences to improve Atlassian products and services. I acknowledge the <a>Atlassian Privacy Policy</a>.',
   'feedback-collector.cancel-button.label': 'Cancel',

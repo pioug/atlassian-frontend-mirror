@@ -105,9 +105,15 @@ export interface WithSortedPageRowsProps {
 // get one page of data in table, sorting all rows previously
 export default function withSortedPageRows<
   WrappedComponentProps extends WithSortedPageRowsProps & TableProps,
+  RefType = HTMLTableSectionElement,
 >(WrappedComponent: React.ComponentType<WrappedComponentProps>) {
-  return class WithSortedPageRows extends React.Component<
-    Omit<WrappedComponentProps & TableProps, 'pageRows'>,
+  type InternalWithSortedPageRowsProps = Omit<
+    WrappedComponentProps & TableProps,
+    'pageRows'
+  > & { forwardedRef?: React.RefObject<RefType> };
+
+  class WithSortedPageRows extends React.Component<
+    InternalWithSortedPageRowsProps,
     { pageRows: Array<RowType> }
   > {
     state = { pageRows: [] };
@@ -146,7 +152,7 @@ export default function withSortedPageRows<
     }
 
     componentDidUpdate(
-      _prevProps: Omit<WrappedComponentProps & TableProps, 'pageRows'>,
+      _prevProps: InternalWithSortedPageRowsProps,
       prevState: { pageRows: Array<RowType> },
     ) {
       if (
@@ -165,7 +171,7 @@ export default function withSortedPageRows<
         sortOrder,
         rowsPerPage,
         page,
-        // @ts-ignore - Rest types may only be created from object types
+        forwardedRef,
         ...restProps
       } = this.props;
 
@@ -175,8 +181,15 @@ export default function withSortedPageRows<
           pageRows={this.state.pageRows}
           head={head}
           {...(restProps as WrappedComponentProps)}
+          ref={forwardedRef}
         />
       );
     }
-  };
+  }
+
+  return React.forwardRef<RefType, InternalWithSortedPageRowsProps>(
+    (props, ref) => {
+      return <WithSortedPageRows {...props} forwardedRef={ref} />;
+    },
+  );
 }

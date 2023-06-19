@@ -39,9 +39,11 @@ export const testIds = {
 } as const;
 
 interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
+  /** If the results section appears to be loading, impact whether the submit button is disabled */
   isLoading: boolean;
   error: unknown | null;
-  state: LinkPickerState | null;
+  url: string;
+  queryState: LinkPickerState | null;
   items: LinkSearchListItemData[] | null;
   isEditing?: boolean;
   onCancel?: () => void;
@@ -51,7 +53,8 @@ interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
 const FormFooter = ({
   isLoading,
   error,
-  state,
+  url,
+  queryState,
   items,
   isEditing,
   onCancel,
@@ -64,7 +67,13 @@ const FormFooter = ({
     return null;
   }
 
-  const isSubmitDisabled = checkSubmitDisabled(isLoading, error, state, items);
+  const isSubmitDisabled = checkSubmitDisabled(
+    isLoading,
+    error,
+    url,
+    queryState,
+    items,
+  );
 
   const insertButtonMsg = isEditing
     ? messages.saveButton

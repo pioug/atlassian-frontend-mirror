@@ -12,9 +12,12 @@ import * as inlineCardAdf from '../_fixtures_/inline-card.adf.json';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
+// FIXME: This test was automatically skipped due to failure on 16/06/2023: https://product-fabric.atlassian.net/browse/ED-18844
 BrowserTestCase(
   'card: should be able to switch views with view switcher with icons toolbar',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

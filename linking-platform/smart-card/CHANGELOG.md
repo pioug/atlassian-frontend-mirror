@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.5.13
+
+### Patch Changes
+
+- [`2d2b6b23bec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d2b6b23bec) - Updated dependencies
+
 ## 26.5.12
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from 'prosemirror-state';
 
 export const getParticipantsCount = (editorState?: EditorState) => {
   // TODO: ED-15663

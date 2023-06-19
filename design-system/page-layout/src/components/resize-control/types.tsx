@@ -27,6 +27,4 @@ export type ResizeControlProps = {
   onResizeEnd?: (leftSidebarState: LeftSidebarState) => void;
   onFlyoutCollapse?: () => void;
   onFlyoutExpand?: () => void;
-  leftSidebarState: LeftSidebarState;
-  setLeftSidebarState: (leftSidebarState: LeftSidebarState) => void;
 };

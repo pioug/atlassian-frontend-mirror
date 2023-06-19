@@ -53,7 +53,7 @@ export interface State {
 }
 
 class DynamicTable extends React.Component<Props, State> {
-  tableBody?: HTMLDivElement;
+  tableBody = React.createRef<HTMLTableSectionElement>();
 
   state = {
     isRanking: false,
@@ -227,9 +227,7 @@ class DynamicTable extends React.Component<Props, State> {
       isFixedSize: isFixedSize || false,
       onPageRowsUpdate,
       isTotalPagesControlledExternally,
-      ref: (el: any) => {
-        this.tableBody = el;
-      },
+      ref: this.tableBody,
       testId,
     };
     const rowsExist = !!rowsLength;
@@ -242,7 +240,7 @@ class DynamicTable extends React.Component<Props, State> {
         <LoadingContainerAdvanced
           isLoading={isLoading && rowsExist}
           spinnerSize={spinnerSize}
-          targetRef={() => this.tableBody}
+          targetRef={() => this.tableBody.current}
           testId={testId}
         >
           <Table

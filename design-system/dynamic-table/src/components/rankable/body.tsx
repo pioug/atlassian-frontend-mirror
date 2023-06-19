@@ -29,6 +29,7 @@ export interface RankableBodyProps extends WithSortedPageRowsProps {
   isRankingDisabled: boolean;
   head?: HeadType;
   testId?: string;
+  forwardedRef?: React.Ref<HTMLTableSectionElement>;
 }
 
 // computes destination of ranking
@@ -101,6 +102,7 @@ export class RankableBody extends React.Component<RankableBodyProps, {}> {
       isRanking,
       isRankingDisabled,
       testId,
+      forwardedRef,
     } = this.props;
 
     return (
@@ -115,7 +117,17 @@ export class RankableBody extends React.Component<RankableBodyProps, {}> {
           {(provided) => (
             <tbody
               data-testid={testId}
-              ref={provided.innerRef}
+              ref={(ref) => {
+                if (provided && typeof provided.innerRef === 'function') {
+                  provided.innerRef(ref);
+                }
+
+                if (forwardedRef) {
+                  (
+                    forwardedRef as React.MutableRefObject<HTMLTableSectionElement | null>
+                  ).current = ref;
+                }
+              }}
               {...provided.droppableProps}
             >
               {pageRows.map((row, rowIndex) => (
@@ -145,4 +157,8 @@ export class RankableBody extends React.Component<RankableBodyProps, {}> {
   }
 }
 
-export default withSortedPageRows<RankableBodyProps>(RankableBody);
+export default withSortedPageRows<RankableBodyProps>(
+  React.forwardRef<HTMLTableSectionElement, RankableBodyProps>((props, ref) => {
+    return <RankableBody {...props} forwardedRef={ref} />;
+  }),
+);

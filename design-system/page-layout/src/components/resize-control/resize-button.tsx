@@ -6,6 +6,8 @@ import { css, jsx } from '@emotion/react';
 import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs, smallDurationMs } from '@atlaskit/motion/durations';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { UNSAFE_media as media } from '@atlaskit/primitives/responsive';
 import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -21,10 +23,22 @@ const increaseHitAreaStyles = css({
   left: `calc(-1 * ${token('space.100', '8px')})`,
 });
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
+const mobileStyles = getBooleanFF(
+  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+)
+  ? css({
+      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      [media.below.md]: {
+        opacity: 1,
+      },
+    })
+  : undefined;
+
 const resizeIconButtonStyles = css({
   width: 24,
   height: 24,
-  padding: 0,
+  padding: token('space.0', '0px'),
   position: 'absolute',
   top: token('space.400', '32px'),
   left: 0,
@@ -84,11 +98,11 @@ const ResizeButton = ({
     type="button"
     css={[
       resizeIconButtonStyles,
+      mobileStyles,
       !isLeftSidebarCollapsed && resizeIconButtonExpandedStyles,
     ]}
     data-testid={testId}
-    // Prevents focus staying attached to the button
-    // when pressed
+    // Prevents focus staying attached to the button when pressed
     onMouseDown={preventDefault}
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...props}

@@ -4,12 +4,16 @@ import type { ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { UNSAFE_media as media } from '@atlaskit/primitives/responsive';
 
 import {
   BANNER_HEIGHT,
   LEFT_PANEL_WIDTH,
   LEFT_SIDEBAR_FLYOUT_WIDTH,
   LEFT_SIDEBAR_WIDTH,
+  MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH,
+  MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH,
   TOP_NAVIGATION_HEIGHT,
   TRANSITION_DURATION,
 } from '../../../common/constants';
@@ -23,6 +27,39 @@ type LeftSidebarInnerProps = {
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const prefersReducedMotionStyles = css(prefersReducedMotion());
+
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
+const mobileStyles = getBooleanFF(
+  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+)
+  ? css({
+      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      [media.below.md]: {
+        width: `${MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
+        position: 'fixed',
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+        top: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
+        bottom: 0,
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+        left: `${LEFT_PANEL_WIDTH}`,
+        transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
+      },
+    })
+  : undefined;
+
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
+const mobileInnerFlyoutStyles = getBooleanFF(
+  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+)
+  ? css({
+      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      [media.below.md]: {
+        width: `min(90vw, ${MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH}px)`,
+        maxWidth: MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH,
+        transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s, box-shadow ${TRANSITION_DURATION}ms ${easeOut} 0s`,
+      },
+    })
+  : undefined;
 
 /**
  * This inner wrapper is required to allow the sidebar to be `position: fixed`.
@@ -70,6 +107,11 @@ const LeftSidebarInner = ({
   return (
     <div
       css={[
+        // mobile breakpoint styles
+        mobileStyles,
+        isFlyoutOpen && mobileInnerFlyoutStyles,
+
+        // generic styles
         !isFixed && staticInnerStyles,
         isFixed && fixedInnerStyles,
         isFixed && isFlyoutOpen && fixedInnerFlyoutStyles,

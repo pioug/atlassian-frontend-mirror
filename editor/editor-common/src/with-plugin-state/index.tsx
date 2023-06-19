@@ -1,7 +1,7 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { EditorState, PluginKey } from 'prosemirror-state';
+import type { EditorState, PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import {

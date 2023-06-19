@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, RefObject } from 'react';
+import React, { PropsWithChildren, useRef, useState } from 'react';
 
 import classnames from 'classnames';
 import { HandleComponent, Resizable, ResizeDirection } from 're-resizable';
@@ -14,53 +14,37 @@ import {
 } from '../styles/shared/resizer';
 
 import {
+  Dimensions,
   EnabledHandles,
   HandleAlignmentMethod,
+  HandleHeightSizeType,
   HandleResize,
-  HandlerHeightSizeType,
   HandleStyles,
 } from './types';
-
-export interface ResizableNumberSize {
-  width: number;
-  height: number;
-}
 
 export type ResizerProps = {
   // Enables resizing in left and/or right direction and enables handles
   enable: EnabledHandles;
   // initial width for now as Resizer is using defaultSize.
   width: number;
-
   // Resizer lifecycle callbacks:
-  //    1. handleResizeStart returns new width based on calculation in parent component
-  handleResizeStart: () => number;
-  //    2. handleResize returns new width based on calculation in parent component
+  handleResizeStart: () => void;
   handleResize: HandleResize;
-  //    3. handleResizeStop returns new width based on calculation in parent component
   handleResizeStop: HandleResize;
-
-  // positions handles closer or further away from the resizable element
-  // if not provided is set to 13px.
+  // positions handles closer or further away from the resizable element default: 13px.
   innerPadding?: number;
-
-  // Props to add:
   // sets classes for handles
   // eg: handleClassName={'node-handle'} will become 'node-handle-right' and/or 'node-handle-left'
   handleClassName?: string;
-  // sets class name for the resizable component
-  // if not provided Resizer class will be used
+  // sets class name for the resizable component on top of default styles
   // (resizerItemClassName in packages/editor/editor-common/src/styles/shared/resizer.ts)
   className?: string;
   minWidth?: number;
   maxWidth?: number;
-
-  // These are currently used in media to fix media-specific bugs and they likely will be required to be added
-  // But we can remove them until it's clear how we want to use them.
   handleWrapperStyle?: React.CSSProperties;
   handleComponent?: HandleComponent;
 
-  handlerHeightSize?: HandlerHeightSizeType;
+  handleHeightSize?: HandleHeightSizeType;
 
   // This is the method that should be used by the resizer when positioning the handles
   handleAlignmentMethod?: HandleAlignmentMethod;
@@ -71,15 +55,22 @@ export type ResizerProps = {
 export default function ResizerNext(
   props: PropsWithChildren<ResizerProps>,
 ): JSX.Element {
-  const resizable: RefObject<Resizable> = React.useRef(null);
+  const [isResizing, setIsResizing] = useState(false);
+  const resizable = useRef<Resizable>(null);
 
   const {
+    width,
+    children,
+    handleClassName,
+    className,
     handleResize,
     handleResizeStart,
     handleResizeStop,
-    handlerHeightSize = 'medium',
+    handleHeightSize = 'medium',
     handleAlignmentMethod = 'center',
     resizeRatio = 1,
+    innerPadding = resizerHandlePadding,
+    ...otherProps
   } = props;
 
   const onResizeStart = React.useCallback(
@@ -91,6 +82,7 @@ export default function ResizerNext(
       // prevent creating a drag event on Firefox
       event.preventDefault();
 
+      setIsResizing(true);
       handleResizeStart();
     },
     [handleResizeStart],
@@ -101,7 +93,7 @@ export default function ResizerNext(
       _event: MouseEvent | TouchEvent,
       _direction: ResizeDirection,
       _elementRef: HTMLDivElement,
-      delta: ResizableNumberSize,
+      delta: Dimensions,
     ) => {
       const resizableCurrent = resizable.current;
       if (!resizableCurrent || !resizableCurrent.state.original) {
@@ -124,7 +116,7 @@ export default function ResizerNext(
       _event: MouseEvent | TouchEvent,
       _direction: ResizeDirection,
       _elementRef: HTMLElement,
-      delta: ResizableNumberSize,
+      delta: Dimensions,
     ) => {
       const resizableCurrent = resizable.current;
       if (!resizableCurrent || !resizableCurrent.state.original) {
@@ -138,27 +130,25 @@ export default function ResizerNext(
         height: resizableCurrent.state.original.height,
       };
 
+      setIsResizing(false);
       handleResizeStop(originalState, delta);
     },
     [handleResizeStop],
   );
 
-  const handles: Record<string, string> = {
-    left: classnames({
-      [`${props.handleClassName}-left`]: !!props.handleClassName,
-      [resizerHandleLeftClassName]: !props.handleClassName,
-      [resizerHandlerClassName[handlerHeightSize]]: true,
+  const handles = {
+    left: classnames(resizerHandlerClassName[handleHeightSize], {
+      [`${handleClassName}-left`]: !!handleClassName,
+      [resizerHandleLeftClassName]: !handleClassName,
       [resizerHandleStickyClassName]: handleAlignmentMethod === 'sticky',
     }),
-    right: classnames({
-      [`${props.handleClassName}-right`]: !!props.handleClassName,
-      [resizerHandleRightClassName]: !props.handleClassName,
-      [resizerHandlerClassName[handlerHeightSize]]: true,
+    right: classnames(resizerHandlerClassName[handleHeightSize], {
+      [`${handleClassName}-right`]: !!handleClassName,
+      [resizerHandleRightClassName]: !handleClassName,
       [resizerHandleStickyClassName]: handleAlignmentMethod === 'sticky',
     }),
   };
 
-  const innerPadding = props.innerPadding || resizerHandlePadding;
   const handleStyles: HandleStyles = {
     left: {
       width: '24px',
@@ -174,29 +164,27 @@ export default function ResizerNext(
     },
   };
 
-  const className = classnames(props.className, resizerItemClassName);
+  const resizerClassName = classnames(className, resizerItemClassName, {
+    'is-resizing': isResizing,
+  });
 
   return (
     <Resizable
       ref={resizable}
       size={{
-        width: props.width, // just content itself (no paddings)
+        width, // just content itself (no paddings)
         height: 'auto',
       }}
-      maxWidth={props.maxWidth}
-      minWidth={props.minWidth}
-      className={className}
-      enable={props.enable}
+      className={resizerClassName}
       handleClasses={handles}
       handleStyles={handleStyles}
-      handleWrapperStyle={props.handleWrapperStyle} //  is used to override the style of resize handles wrapper, needed for media when it is selected and caption appears makes sure the handlers won't jump.
-      handleComponent={props.handleComponent} // in media was added as a workaround to fix Up arrow key bug when media has caption and the cursor is place below the image. Our epic has a separate ticket to address this problem.
       onResizeStart={onResizeStart}
       onResize={onResize}
       onResizeStop={onResizeStop}
       resizeRatio={resizeRatio}
+      {...otherProps}
     >
-      {props.children}
+      {children}
     </Resizable>
   );
 }

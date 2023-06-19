@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.11.0
+
+### Minor Changes
+
+- [`ec1f82f8027`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ec1f82f8027) - Move away from findDOMNode API to refs
+
 ## 14.10.0
 
 ### Minor Changes

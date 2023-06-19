@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.3.4
+
+### Patch Changes
+
+- [`fa1f53e0ae7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa1f53e0ae7) - [ED-18167] Remove dependency of editor-tables on adf schema library to avoid a circular dependency
+
 ## 2.3.3
 
 ### Patch Changes

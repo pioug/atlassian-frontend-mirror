@@ -13,6 +13,8 @@ import { bind } from 'bind-event-listener';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { isReducedMotion } from '@atlaskit/motion';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
@@ -31,7 +33,6 @@ import {
 type Callback = (leftSidebarState: LeftSidebarState) => void;
 const handleDataAttributesAndCb = (
   callback: Callback = noop,
-  isLeftSidebarCollapsed: boolean,
   leftSidebarState: LeftSidebarState,
 ) => {
   document.documentElement.removeAttribute(IS_SIDEBAR_COLLAPSING);
@@ -62,31 +63,64 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
     isFixed: true,
   });
 
-  const { isLeftSidebarCollapsed } = leftSidebarState;
+  const {
+    leftSidebarWidth,
+    lastLeftSidebarWidth,
+    isResizing,
+    flyoutLockCount,
+    isFixed,
+    isLeftSidebarCollapsed,
+    isFlyoutOpen,
+  } = leftSidebarState;
 
   // We put the latest callbacks into a ref so we can always have the latest
   // functions in our transitionend listeners
-  const stableRef = useRef({
-    onExpand,
-    onCollapse,
-  });
+  const stableRef = useRef({ onExpand, onCollapse });
   useEffect(() => {
-    stableRef.current = {
-      onExpand,
-      onCollapse,
-    };
-  });
+    stableRef.current = { onExpand, onCollapse };
+  }, [onExpand, onCollapse]);
 
   const transition = useRef<Transition | null>(null);
+  const mobileMediaQuery = getBooleanFF(
+    'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+  )
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks -- With the feature flag, this does not apply as it should be static.
+      useMediaQuery('below.md')
+    : null;
+
+  const isOpen = mobileMediaQuery?.matches
+    ? isFlyoutOpen
+    : !isLeftSidebarCollapsed;
 
   const expandLeftSidebar = useCallback(() => {
-    const {
-      lastLeftSidebarWidth,
-      isResizing,
-      flyoutLockCount,
-      isFixed,
-      isLeftSidebarCollapsed,
-    } = leftSidebarState;
+    if (isOpen) {
+      return;
+    }
+
+    // If the user is at a mobile viewport when this runs, we handle it differently
+    // We don't expand at mobile widths; instead we use a flyout which is treated the same otherwise
+    if (mobileMediaQuery?.matches) {
+      const flyoutOpenSidebarState = {
+        isResizing: false,
+        isLeftSidebarCollapsed: true,
+        leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
+        lastLeftSidebarWidth: leftSidebarWidth,
+        isFlyoutOpen: true,
+        flyoutLockCount: 0,
+        isFixed,
+      };
+
+      setLeftSidebarState(flyoutOpenSidebarState);
+
+      // Flush the desktop transitions, cleanup, and call the `onExpand` still
+      transition.current?.complete();
+      handleDataAttributesAndCb(
+        stableRef.current.onExpand,
+        flyoutOpenSidebarState,
+      );
+
+      return;
+    }
 
     if (
       isResizing ||
@@ -111,12 +145,12 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       flyoutLockCount,
       isFixed,
     };
+
     setLeftSidebarState(updatedLeftSidebarState);
 
     function finish() {
       handleDataAttributesAndCb(
         stableRef.current.onExpand,
-        false, // isCollapsed
         updatedLeftSidebarState,
       );
     }
@@ -151,20 +185,50 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
       },
     };
     transition.current = value;
-  }, [leftSidebarState]);
+  }, [
+    isOpen,
+    mobileMediaQuery,
+    isResizing,
+    isLeftSidebarCollapsed,
+    lastLeftSidebarWidth,
+    flyoutLockCount,
+    isFixed,
+    leftSidebarWidth,
+  ]);
 
   const collapseLeftSidebar = useCallback(
     (
       event?: MouseEvent | KeyboardEvent,
       collapseWithoutTransition?: boolean,
     ) => {
-      const {
-        leftSidebarWidth,
-        isResizing,
-        flyoutLockCount,
-        isFixed,
-        isLeftSidebarCollapsed,
-      } = leftSidebarState;
+      if (!isOpen) {
+        return;
+      }
+
+      // If the user is at a mobile viewport when this runs, we handle it differently
+      // We don't collapse at mobile widths; instead we close the flyout.
+      if (mobileMediaQuery?.matches) {
+        const flyoutCloseSidebarState = {
+          isResizing: false,
+          isLeftSidebarCollapsed: true,
+          leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
+          lastLeftSidebarWidth,
+          isFlyoutOpen: false,
+          flyoutLockCount: 0,
+          isFixed,
+        };
+
+        setLeftSidebarState(flyoutCloseSidebarState);
+
+        // Flush the desktop transitions, cleanup, and call the `onCollapse` still
+        transition.current?.complete();
+        handleDataAttributesAndCb(
+          stableRef.current.onCollapse,
+          flyoutCloseSidebarState,
+        );
+
+        return;
+      }
 
       if (
         isResizing ||
@@ -190,12 +254,12 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
         flyoutLockCount,
         isFixed,
       };
+
       setLeftSidebarState(updatedLeftSidebarState);
 
       function finish() {
         handleDataAttributesAndCb(
           stableRef.current.onCollapse,
-          true,
           updatedLeftSidebarState,
         );
       }
@@ -219,6 +283,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
           }
         },
       });
+
       const value: Transition = {
         action: 'collapse',
         complete: () => {
@@ -230,9 +295,37 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
           transition.current = null;
         },
       };
+
       transition.current = value;
     },
-    [leftSidebarState],
+    [
+      isOpen,
+      mobileMediaQuery,
+      isResizing,
+      isLeftSidebarCollapsed,
+      leftSidebarWidth,
+      flyoutLockCount,
+      isFixed,
+      lastLeftSidebarWidth,
+    ],
+  );
+
+  /**
+   * Conditionally toggle the expanding or collapsing the sidebars.
+   * This supports our mobile flyout mode as well.
+   */
+  const toggleLeftSidebar = useCallback(
+    (
+      event?: MouseEvent | KeyboardEvent,
+      collapseWithoutTransition?: boolean,
+    ) => {
+      if (isOpen) {
+        collapseLeftSidebar(event, collapseWithoutTransition);
+      } else {
+        expandLeftSidebar();
+      }
+    },
+    [isOpen, expandLeftSidebar, collapseLeftSidebar],
   );
 
   // Make sure we finish any lingering transitions when unmounting
@@ -244,17 +337,19 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 
   const context: SidebarResizeContextValue = useMemo(
     () => ({
-      isLeftSidebarCollapsed,
+      isLeftSidebarCollapsed: !isOpen, // Technically this isn't quite true, but with mobile it's a bit safer if products are using this to roll their own collapse/expand
       expandLeftSidebar,
       collapseLeftSidebar,
       leftSidebarState,
       setLeftSidebarState,
+      toggleLeftSidebar,
     }),
     [
-      isLeftSidebarCollapsed,
+      isOpen,
       expandLeftSidebar,
       collapseLeftSidebar,
       leftSidebarState,
+      toggleLeftSidebar,
     ],
   );
 

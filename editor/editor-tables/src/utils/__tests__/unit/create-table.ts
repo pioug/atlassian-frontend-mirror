@@ -1,8 +1,3 @@
-import { createSchema, table as tableSchema } from '@atlaskit/adf-schema';
-import {
-  defaultSchema,
-  defaultSchemaConfig,
-} from '@atlaskit/adf-schema/schema-default';
 import {
   p,
   tr as row,
@@ -10,6 +5,7 @@ import {
   td,
   th,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { cEmpty, hEmpty } from '../../../__tests__/__helpers/doc-builder';
 import { createTable } from '../../create-table';
@@ -103,15 +99,9 @@ describe('createTable', () => {
   });
 
   describe('localId', () => {
-    const config = defaultSchemaConfig;
-    config.customNodeSpecs = {
-      table: tableSchema,
-    };
-    const schema = createSchema(config);
-
     it('it should set localId attribute', () => {
       const table = createTable({
-        schema,
+        schema: defaultSchema,
       });
 
       expect(table.attrs).toEqual(

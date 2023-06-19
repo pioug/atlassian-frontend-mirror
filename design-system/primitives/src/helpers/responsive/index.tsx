@@ -13,3 +13,5 @@ export type {
   ResponsiveObject,
   ResponsiveCSSObject,
 } from './types';
+
+export { UNSAFE_useMediaQuery } from './use-media-query';

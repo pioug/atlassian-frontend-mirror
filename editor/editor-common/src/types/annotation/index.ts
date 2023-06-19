@@ -1,7 +1,7 @@
-import { Step } from 'prosemirror-transform';
+import type { Step } from 'prosemirror-transform';
 
 import { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 import {
   AnnotationState,

@@ -1,4 +1,3 @@
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
   p,
   RefsNode,
@@ -6,6 +5,7 @@ import {
   td,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { TableMap } from '../../table-map';
 

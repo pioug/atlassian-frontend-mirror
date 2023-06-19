@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 108.2.1
+
+### Patch Changes
+
+- [`1b8397cca2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b8397cca2c) - [ux] Stop event from bubbling when user clicks on either the copy clipboard button or wrap button for code blocks in renderer view
+
 ## 108.2.0
 
 ### Minor Changes

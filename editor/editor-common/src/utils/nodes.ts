@@ -1,4 +1,4 @@
-import {
+import type {
   Fragment,
   MarkType,
   NodeType,
@@ -8,11 +8,11 @@ import {
   Schema,
   Slice,
 } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
-import { Step } from 'prosemirror-transform';
+import type { EditorState, Transaction } from 'prosemirror-state';
+import type { Step } from 'prosemirror-transform';
 import { findParentNodeOfType } from 'prosemirror-utils';
 
-import { CardAppearance } from '@atlaskit/smart-card';
+import type { CardAppearance } from '@atlaskit/smart-card';
 
 /**
  * Finds all top level nodes affected by the transaction

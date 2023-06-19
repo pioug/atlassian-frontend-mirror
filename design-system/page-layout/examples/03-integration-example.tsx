@@ -1,16 +1,17 @@
 /** @jsx jsx */
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import {
+  AppSwitcher,
   AtlassianNavigation,
   Create,
   Help,
   PrimaryButton,
   ProductHome,
 } from '@atlaskit/atlassian-navigation';
-import noop from '@atlaskit/ds-lib/noop';
+import Button from '@atlaskit/button';
 import { ConfluenceIcon, ConfluenceLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
@@ -21,56 +22,104 @@ import {
   NestingItem,
   SideNavigation,
 } from '@atlaskit/side-navigation';
+import { token } from '@atlaskit/tokens';
 
-import { Content, LeftSidebar, Main, PageLayout, TopNavigation } from '../src';
+import {
+  Content,
+  LeftSidebar,
+  Main,
+  PageLayout,
+  RightPanel,
+  TopNavigation,
+} from '../src';
 
-import { SlotLabel, SlotWrapper } from './common';
+import {
+  ExpandLeftSidebarKeyboardShortcut,
+  SlotLabel,
+  SlotWrapper,
+} from './common';
+
+const centeredStyles = css({ textAlign: 'center' });
+const mainContentStyles = css({
+  height: '2000px',
+  backgroundColor: token('color.background.neutral', '#eeeeee'),
+});
 
 export default function ProductLayout() {
+  const [rightPanelWidth, setRightPanelWidth] = useState(0);
+  const toggle = useCallback(
+    () => setRightPanelWidth((c) => (c > 0 ? 0 : 360)),
+    [],
+  );
+  const close = useCallback(() => setRightPanelWidth(0), []);
+
+  const TriggerHelp = useCallback(
+    () => (
+      <Help
+        isSelected={rightPanelWidth !== 0}
+        onClick={toggle}
+        tooltip="Help"
+      />
+    ),
+    [rightPanelWidth, toggle],
+  );
+
   return (
     <PageLayout>
       <TopNavigation
-        isFixed={true}
         id="confluence-navigation"
         skipLinkTitle="Confluence Navigation"
       >
-        <TopNavigationContents />
+        <AtlassianNavigation
+          label="site"
+          moreLabel="More"
+          primaryItems={[
+            <PrimaryButton isHighlighted>Item 1</PrimaryButton>,
+            <PrimaryButton>Item 2</PrimaryButton>,
+            <PrimaryButton>Item 3</PrimaryButton>,
+            <PrimaryButton>Item 4</PrimaryButton>,
+          ]}
+          renderProductHome={ProductHomeExample}
+          renderAppSwitcher={() => <AppSwitcher tooltip="Switch to..." />}
+          renderCreate={DefaultCreate}
+          renderHelp={TriggerHelp}
+        />
       </TopNavigation>
       <Content testId="content">
         <LeftSidebar
-          isFixed={false}
+          isFixed={true}
           width={450}
           id="project-navigation"
           skipLinkTitle="Project Navigation"
           testId="left-sidebar"
         >
           <SideNavigationContent />
+          <ExpandLeftSidebarKeyboardShortcut />
         </LeftSidebar>
         <Main id="main-content" skipLinkTitle="Main Content">
-          <SlotWrapper>
-            <SlotLabel>Main Content</SlotLabel>
-          </SlotWrapper>
+          <div css={mainContentStyles}>
+            <h3 css={centeredStyles}>Main Content</h3>
+          </div>
         </Main>
       </Content>
+      <RightPanel
+        testId="rightPanel"
+        id="right-panel"
+        skipLinkTitle="Right Panel"
+        isFixed
+        width={rightPanelWidth}
+      >
+        <SlotWrapper
+          borderColor={token('color.border.accent.orange', 'orange')}
+          backgroundColor={token('elevation.surface.overlay', 'white')}
+        >
+          <SlotLabel>Help Panel</SlotLabel>
+          <Button type="button" onClick={close}>
+            Close Panel
+          </Button>
+        </SlotWrapper>
+      </RightPanel>
     </PageLayout>
-  );
-}
-
-function TopNavigationContents() {
-  return (
-    <AtlassianNavigation
-      label="site"
-      moreLabel="More"
-      primaryItems={[
-        <PrimaryButton isHighlighted>Item 1</PrimaryButton>,
-        <PrimaryButton>Item 2</PrimaryButton>,
-        <PrimaryButton>Item 3</PrimaryButton>,
-        <PrimaryButton>Item 4</PrimaryButton>,
-      ]}
-      renderProductHome={ProductHomeExample}
-      renderCreate={DefaultCreate}
-      renderHelp={HelpPopup}
-    />
   );
 }
 
@@ -88,6 +137,16 @@ const SideNavigationContent = () => {
               <ButtonItem>Item 2</ButtonItem>
             </Section>
           </NestingItem>
+
+          <Section title="Group 2">
+            {Array.from({ length: 30 })
+              .fill(undefined)
+              .map((_, i) => (
+                <ButtonItem key={i + 1}>
+                  Atlassian SideNavigation: This is item {i + 1}
+                </ButtonItem>
+              ))}
+          </Section>
         </Section>
       </NestableNavigationContent>
     </SideNavigation>
@@ -102,7 +161,7 @@ export const DefaultCreate = () => (
   <Create
     buttonTooltip="Create"
     iconButtonTooltip="Create"
-    onClick={noop}
+    onClick={console.log}
     text="Create"
   />
 );
@@ -119,24 +178,19 @@ const ProductHomeExample = () => (
 export const HelpPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const onClick = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const onClose = () => {
-    setIsOpen(false);
-  };
+  const toggle = useCallback(() => setIsOpen((c) => !c), []);
+  const close = useCallback(() => setIsOpen(false), []);
 
   return (
     <Popup
       placement="bottom-start"
       content={HelpPopupContent}
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={close}
       trigger={(triggerProps) => (
         <Help
           isSelected={isOpen}
-          onClick={onClick}
+          onClick={toggle}
           tooltip="Help"
           {...triggerProps}
         />

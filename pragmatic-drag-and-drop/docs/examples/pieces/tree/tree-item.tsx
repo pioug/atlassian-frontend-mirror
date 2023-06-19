@@ -237,6 +237,18 @@ const TreeItem = memo(function TreeItem({
   useEffect(() => {
     invariant(buttonRef.current);
 
+    function updateIsParentOfInstruction({
+      location,
+    }: {
+      location: DragLocationHistory;
+    }) {
+      if (shouldHighlightParent(location)) {
+        setState('parent-of-instruction');
+        return;
+      }
+      clearParentOfInstructionState();
+    }
+
     return combine(
       draggable({
         element: buttonRef.current,
@@ -329,13 +341,8 @@ const TreeItem = memo(function TreeItem({
       monitorForElements({
         canMonitor: ({ source }) =>
           source.data.uniqueContextId === uniqueContextId,
-        onDrag({ location }) {
-          if (shouldHighlightParent(location)) {
-            setState('parent-of-instruction');
-            return;
-          }
-          clearParentOfInstructionState();
-        },
+        onDragStart: updateIsParentOfInstruction,
+        onDrag: updateIsParentOfInstruction,
         onDrop() {
           clearParentOfInstructionState();
         },

@@ -1,19 +1,30 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /** @jsx jsx */
 import {
+  Fragment,
   MouseEvent as ReactMouseEvent,
+  useCallback,
   useContext,
   useEffect,
   useRef,
 } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
+
+import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
+import { easeOut } from '@atlaskit/motion';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
+import { N100A } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   DEFAULT_LEFT_SIDEBAR_WIDTH,
   FLYOUT_DELAY,
+  MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH,
   RESIZE_BUTTON_SELECTOR,
+  TRANSITION_DURATION,
   VAR_LEFT_SIDEBAR_FLYOUT,
   VAR_LEFT_SIDEBAR_WIDTH,
 } from '../../common/constants';
@@ -35,10 +46,39 @@ import LeftSidebarOuter from './internal/left-sidebar-outer';
 import ResizableChildrenWrapper from './internal/resizable-children-wrapper';
 import SlotDimensions from './slot-dimensions';
 
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
+const openBackdropStyles = getBooleanFF(
+  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+)
+  ? css({
+      width: '100%',
+      height: '100%',
+      position: 'absolute',
+      background: token('color.blanket', N100A),
+      opacity: 1,
+    })
+  : undefined;
+
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
+const hiddenBackdropStyles = getBooleanFF(
+  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+)
+  ? css({
+      opacity: 0,
+      transition: `opacity ${TRANSITION_DURATION}ms ${easeOut} 0s`,
+    })
+  : undefined;
+
 /**
  * __Left sidebar__
  *
  * Provides a slot for a left sidebar within the PageLayout.
+ *
+ * [Behind a feature-flag 'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g']:
+ * On smaller viewports, the left sidebar can no longer be expanded.  Instead, expanding it will
+ * put it into our "flyout mode" to lay overtop (which in desktop is explicitly a hover state).
+ * This ensures the contents behind do not reflow oddly and allows for a better experience
+ * resizing between mobile and desktop.
  *
  * - [Examples](https://atlassian.design/components/page-layout/examples)
  * - [Code](https://atlassian.design/components/page-layout/code)
@@ -65,7 +105,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 
   const flyoutTimerRef = useRef<ReturnType<typeof setTimeout>>();
   const mouseOverEventRef = useRef<(event: MouseEvent) => void | null>();
-  const leftSideBarRef = useRef(null);
+  const leftSideBarRef = useRef<HTMLDivElement>(null);
 
   const { leftSidebarState, setLeftSidebarState } =
     useContext(SidebarResizeContext);
@@ -79,10 +119,10 @@ const LeftSidebar = (props: LeftSidebarProps) => {
   } = leftSidebarState;
 
   const isLocked = flyoutLockCount > 0;
-
   const isLockedRef = useRef(isLocked);
   const mouseXRef = useRef<number>(0);
   const handlerRef = useRef<((event: MouseEvent) => void) | null>(null);
+
   useEffect(() => {
     isLockedRef.current = isLocked;
 
@@ -103,7 +143,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 
     if (!isLocked && handlerRef.current) {
       if (mouseXRef.current >= lastLeftSidebarWidth) {
-        setLeftSidebarState({ ...leftSidebarState, isFlyoutOpen: false });
+        setLeftSidebarState((current) => ({ ...current, isFlyoutOpen: false }));
       }
       document.removeEventListener('mousemove', handlerRef.current);
       handlerRef.current = null;
@@ -114,14 +154,13 @@ const LeftSidebar = (props: LeftSidebarProps) => {
         document.removeEventListener('mousemove', handlerRef.current);
       }
     };
-  }, [isLocked, lastLeftSidebarWidth, leftSidebarState, setLeftSidebarState]);
+  }, [isLocked, lastLeftSidebarWidth, setLeftSidebarState]);
 
   const _width = Math.max(width || 0, DEFAULT_LEFT_SIDEBAR_WIDTH);
 
   const collapsedStateOverrideOpen = collapsedState === 'expanded';
 
   let leftSidebarWidthOnMount: number;
-
   if (collapsedStateOverrideOpen) {
     leftSidebarWidthOnMount = resolveDimension(
       VAR_LEFT_SIDEBAR_FLYOUT,
@@ -191,6 +230,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
         [VAR_LEFT_SIDEBAR_WIDTH]: leftSidebarWidth || leftSidebarWidthOnMount,
         [VAR_LEFT_SIDEBAR_FLYOUT]: lastLeftSidebarWidth,
       });
+
       mergeGridStateIntoStorage(
         'isLeftSidebarCollapsed',
         isLeftSidebarCollapsed,
@@ -296,46 +336,153 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     }, FLYOUT_DELAY);
   };
 
-  return (
-    // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-    <LeftSidebarOuter
-      ref={leftSideBarRef}
-      testId={testId}
-      onMouseOver={onMouseOver}
-      onMouseLeave={onMouseLeave}
-      id={id}
-      isFixed={isFixed}
-      isFlyoutOpen={isFlyoutOpen}
-    >
-      <SlotDimensions
-        variableName={VAR_LEFT_SIDEBAR_WIDTH}
-        value={notFirstRun.current ? leftSidebarWidth : leftSidebarWidthOnMount}
-      />
-      <LeftSidebarInner isFixed={isFixed} isFlyoutOpen={isFlyoutOpen}>
-        <ResizableChildrenWrapper
-          isFlyoutOpen={isFlyoutOpen}
-          isLeftSidebarCollapsed={isLeftSidebarCollapsed}
-          hasCollapsedState={
-            !notFirstRun.current && collapsedState === 'collapsed'
+  const mobileMediaQuery = getBooleanFF(
+    'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+  )
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
+      useMediaQuery('below.md')
+    : null;
+
+  const openMobileFlyout = getBooleanFF(
+    'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+  )
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
+      useCallback(() => {
+        if (!mobileMediaQuery?.matches) {
+          return;
+        }
+
+        setLeftSidebarState((current) => {
+          if (current.isFlyoutOpen) {
+            return current;
           }
-        >
-          {children}
-        </ResizableChildrenWrapper>
-        <ResizeControl
-          testId={testId}
-          resizeGrabAreaLabel={resizeGrabAreaLabel}
-          resizeButtonLabel={resizeButtonLabel}
-          // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-          overrides={overrides}
-          onCollapse={onCollapse}
-          onExpand={onExpand}
-          onResizeStart={onResizeStart}
-          onResizeEnd={onResizeEnd}
-          leftSidebarState={leftSidebarState}
-          setLeftSidebarState={setLeftSidebarState}
+
+          onExpand?.();
+          return { ...current, isFlyoutOpen: true };
+        });
+      }, [setLeftSidebarState, onExpand, mobileMediaQuery])
+    : undefined;
+
+  const closeMobileFlyout = getBooleanFF(
+    'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+  )
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
+      useCallback(() => {
+        if (!mobileMediaQuery?.matches) {
+          return;
+        }
+
+        setLeftSidebarState((current) => {
+          if (!current.isFlyoutOpen) {
+            return current;
+          }
+
+          onCollapse?.();
+          return { ...current, isFlyoutOpen: false };
+        });
+      }, [setLeftSidebarState, onCollapse, mobileMediaQuery])
+    : undefined;
+
+  if (
+    getBooleanFF(
+      'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+    )
+  ) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
+    useMediaQuery('below.md', (event) => {
+      setLeftSidebarState((current) => {
+        if (event.matches && !current.isLeftSidebarCollapsed) {
+          // Sidebar was previously open when resizing downwards, convert the sidebar being open to a flyout being open
+          return {
+            ...current,
+            isResizing: false,
+            isLeftSidebarCollapsed: true,
+            leftSidebarWidth: COLLAPSED_LEFT_SIDEBAR_WIDTH,
+            lastLeftSidebarWidth: current.leftSidebarWidth,
+            isFlyoutOpen: true,
+          };
+        } else if (!event.matches && current.isFlyoutOpen) {
+          // The user is resizing "upwards", eg. going from mobile to desktop.
+          // Flyout was previously open, let's keep it open by moving to the un-collapsed sidebar instead
+
+          return {
+            ...current,
+            isResizing: false,
+            isLeftSidebarCollapsed: false,
+            leftSidebarWidth: Math.max(
+              current.lastLeftSidebarWidth,
+              DEFAULT_LEFT_SIDEBAR_WIDTH,
+            ),
+            isFlyoutOpen: false,
+          };
+        }
+
+        return current;
+      });
+    });
+
+    // Close the flyout when the "escape" key is pressed.
+    // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
+    useCloseOnEscapePress({
+      onClose: closeMobileFlyout!,
+      isDisabled: !isFlyoutOpen,
+    });
+  }
+
+  return (
+    <Fragment>
+      {mobileMediaQuery?.matches &&
+        getBooleanFF(
+          'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+        ) && (
+          <div
+            aria-hidden="true"
+            css={[hiddenBackdropStyles, isFlyoutOpen && openBackdropStyles]}
+            onClick={closeMobileFlyout}
+          />
+        )}
+
+      {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
+      <LeftSidebarOuter
+        ref={leftSideBarRef}
+        testId={testId}
+        onMouseOver={!mobileMediaQuery?.matches ? onMouseOver : undefined}
+        onMouseLeave={!mobileMediaQuery?.matches ? onMouseLeave : undefined}
+        onClick={mobileMediaQuery?.matches ? openMobileFlyout : undefined}
+        id={id}
+        isFixed={isFixed}
+      >
+        <SlotDimensions
+          variableName={VAR_LEFT_SIDEBAR_WIDTH}
+          value={
+            notFirstRun.current ? leftSidebarWidth : leftSidebarWidthOnMount
+          }
+          mobileValue={MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH}
         />
-      </LeftSidebarInner>
-    </LeftSidebarOuter>
+        <LeftSidebarInner isFixed={isFixed} isFlyoutOpen={isFlyoutOpen}>
+          <ResizableChildrenWrapper
+            isFlyoutOpen={isFlyoutOpen}
+            isLeftSidebarCollapsed={isLeftSidebarCollapsed}
+            hasCollapsedState={
+              !notFirstRun.current && collapsedState === 'collapsed'
+            }
+          >
+            {children}
+          </ResizableChildrenWrapper>
+          <ResizeControl
+            testId={testId}
+            resizeGrabAreaLabel={resizeGrabAreaLabel}
+            resizeButtonLabel={resizeButtonLabel}
+            // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+            overrides={overrides}
+            onCollapse={onCollapse}
+            onExpand={onExpand}
+            onResizeStart={onResizeStart}
+            onResizeEnd={onResizeEnd}
+          />
+        </LeftSidebarInner>
+      </LeftSidebarOuter>
+    </Fragment>
   );
 };
 

@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.12.4
+
+### Patch Changes
+
+- [`b2706220d22`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b2706220d22) - Adds an experimental `UNSAFE_useMediaQuery` hook to utilize our media query breakpoints in JavaScript. This is not SSR-safe and will return `null` or perhaps incorrectly depending on your SSR environment.
+
 ## 0.12.3
 
 ### Patch Changes

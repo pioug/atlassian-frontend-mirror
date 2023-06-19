@@ -1,4 +1,4 @@
-import { Mark as PMMark, Schema } from 'prosemirror-model';
+import type { Mark as PMMark, Schema } from 'prosemirror-model';
 
 import {
   CellAttributes,

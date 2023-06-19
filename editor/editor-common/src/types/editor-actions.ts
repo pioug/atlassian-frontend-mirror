@@ -1,10 +1,10 @@
-import { Node } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
+import type { Node } from 'prosemirror-model';
+import type { EditorView } from 'prosemirror-view';
 
 import type { ResolvedEditorState } from '@atlaskit/collab-provider/types';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
-import { EventDispatcher } from '../event-dispatcher';
+import type { EventDispatcher } from '../event-dispatcher';
 
 export type ContextUpdateHandler = (
   editorView: EditorView,

@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.24.1
+
+### Patch Changes
+
+- [`2d2b6b23bec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d2b6b23bec) - Updated dependencies
+
 ## 0.24.0
 
 ### Minor Changes

@@ -1,2 +1,6 @@
 export { default as ResizerNext } from './Resizer';
-export type { HandlerHeightSizeType, EnabledHandles } from './types';
+export type {
+  HandleHeightSizeType,
+  EnabledHandles,
+  HandleResize,
+} from './types';

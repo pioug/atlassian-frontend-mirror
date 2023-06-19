@@ -1,4 +1,4 @@
-import { PluginKey } from 'prosemirror-state';
+import type { PluginKey } from 'prosemirror-state';
 
 export type NamedPluginKeys = Readonly<{ [stateName: string]: PluginKey }>;
 export type NamedPluginStates<P extends NamedPluginKeys> = Readonly<

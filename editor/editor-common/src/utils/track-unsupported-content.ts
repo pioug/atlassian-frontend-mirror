@@ -1,4 +1,4 @@
-import { Node as PMNode, Schema } from 'prosemirror-model';
+import type { Node as PMNode, Schema } from 'prosemirror-model';
 
 import {
   ACTION,
@@ -7,7 +7,7 @@ import {
   EVENT_TYPE,
 } from '../analytics';
 
-import {
+import type {
   UnsupportedContentPayload,
   UnsupportedContentTooltipPayload,
 } from './analytics';

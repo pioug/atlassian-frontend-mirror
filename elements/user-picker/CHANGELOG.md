@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.4.0
+
+### Minor Changes
+
+- [`6734af6576d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6734af6576d) - Improved the behaviour of the aria-labelledby prop on the Input component. It used to use aria-describedby and if it didn't exist, fall back to using aria-labelledby. This has now been swapped to give aria-labelledby precedence with aria-describedby now being the fallback.
+
 ## 10.3.0
 
 ### Minor Changes

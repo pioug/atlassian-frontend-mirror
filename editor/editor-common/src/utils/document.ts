@@ -1,5 +1,5 @@
 import { Node, ResolvedPos, Schema } from 'prosemirror-model';
-import {
+import type {
   EditorState,
   ReadonlyTransaction,
   TextSelection,
@@ -15,7 +15,7 @@ import {
   transformTextLinkCodeMarks,
 } from '@atlaskit/adf-utils/transforms';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 
 import {
   ACTION,
@@ -23,8 +23,8 @@ import {
   DispatchAnalyticsEvent,
   EVENT_TYPE,
 } from '../analytics';
-import { ProviderFactory } from '../provider-factory';
-import { ReplaceRawValue, Transformer } from '../types';
+import type { ProviderFactory } from '../provider-factory';
+import type { ReplaceRawValue, Transformer } from '../types';
 
 import { isEmptyParagraph } from './editor-core-utils';
 import { sanitizeNodeForPrivacy } from './filter/privacy-filter';

@@ -1,7 +1,7 @@
 // TODO: remove from editor-core utils, re-export from editor-common
 
 import { Slice } from 'prosemirror-model';
-import { ReadonlyTransaction, Transaction } from 'prosemirror-state';
+import type { ReadonlyTransaction, Transaction } from 'prosemirror-state';
 import { ReplaceStep } from 'prosemirror-transform';
 
 interface DetailedReplaceStep extends ReplaceStep {

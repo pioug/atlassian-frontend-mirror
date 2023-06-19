@@ -42,13 +42,13 @@ const Modal = ({
       focusInEditor();
       insertItem(item)(editorView.state, editorView.dispatch);
     },
-    [editorView.dispatch, editorView.state, focusInEditor],
+    [editorView, focusInEditor],
   );
 
   const onClose = useCallback(() => {
     closeElementBrowserModal()(editorView.state, editorView.dispatch);
     focusInEditor();
-  }, [editorView.dispatch, editorView.state, focusInEditor]);
+  }, [editorView, focusInEditor]);
 
   return (
     <ModalElementBrowser

@@ -20,6 +20,8 @@ const Example = () => {
         serializer="react"
         allowHeadingAnchorLinks
         allowColumnSorting={true}
+        allowWrapCodeBlock
+        allowCopyToClipboard
         useSpecBasedValidator={true}
       />
     </IntlProvider>

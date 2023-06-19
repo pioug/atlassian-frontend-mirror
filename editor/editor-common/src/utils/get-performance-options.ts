@@ -1,4 +1,4 @@
-import { EditorState, PluginKey } from 'prosemirror-state';
+import type { EditorState, PluginKey } from 'prosemirror-state';
 import type { EditorView } from 'prosemirror-view';
 
 import {

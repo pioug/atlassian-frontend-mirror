@@ -25,6 +25,14 @@ export type SidebarResizeContextValue = {
     event?: MouseEvent | KeyboardEvent,
     collapseWithoutTransition?: boolean,
   ) => void;
+  /**
+   * Conditionally expands or collapses the left sidebar based on the current state.
+   * This is aware of our flyout mode in mobile as well.
+   */
+  toggleLeftSidebar: (
+    event?: MouseEvent | KeyboardEvent,
+    collapseWithoutTransition?: boolean,
+  ) => void;
   leftSidebarState: LeftSidebarState;
   setLeftSidebarState: (
     value:
@@ -49,6 +57,7 @@ export const SidebarResizeContext = createContext<SidebarResizeContextValue>({
   collapseLeftSidebar: noop,
   leftSidebarState,
   setLeftSidebarState: noop,
+  toggleLeftSidebar: noop,
 });
 
 export const usePageLayoutResize = () => {

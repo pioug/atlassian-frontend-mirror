@@ -62,7 +62,7 @@ const modalFooter = css`
 
 const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
   const [selectedItem, setSelectedItem] = useState<QuickInsertItem>();
-  const { helpUrl, intl } = props;
+  const { helpUrl, intl, onClose, onInsertItem: onInsertItemFn } = props;
 
   const onSelectItem = useCallback(
     (item: QuickInsertItem) => {
@@ -73,9 +73,9 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 
   const onInsertItem = useCallback(
     (item: QuickInsertItem) => {
-      props.onInsertItem(item);
+      onInsertItemFn(item);
     },
-    [props],
+    [onInsertItemFn],
   );
 
   const RenderFooter = useCallback(
@@ -96,10 +96,10 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
   const onKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === 'Escape') {
-        props.onClose();
+        onClose();
       }
     },
-    [props],
+    [onClose],
   );
 
   const RenderBody = useCallback(

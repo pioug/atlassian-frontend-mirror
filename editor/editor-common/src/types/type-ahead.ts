@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react';
 
 import { Fragment, Node as PMNode } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
+import type { EditorState, Transaction } from 'prosemirror-state';
 
 import type { TypeAheadPayload } from '../analytics/types/type-ahead';
 import type { SelectItemMode, TypeAheadAvailableNodes } from '../type-ahead';

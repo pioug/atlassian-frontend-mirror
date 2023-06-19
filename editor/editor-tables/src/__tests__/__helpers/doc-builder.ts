@@ -1,6 +1,5 @@
 import { EditorState } from 'prosemirror-state';
 
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
   BuilderContent,
   doc,
@@ -11,6 +10,7 @@ import {
   td,
   th,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 export const createEditorState = (content: DocBuilder) => {
   return EditorState.create({

@@ -13,15 +13,17 @@ const containerStyles = css({
 
 type ContainerProps = HTMLProps<HTMLDivElement> & { testId?: string };
 
-export const Container = (props: ContainerProps) => {
-  const { children, testId, ...rest } = props;
-  return (
-    // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-    <div css={containerStyles} {...rest} data-testid={testId}>
-      {children}
-    </div>
-  );
-};
+export const Container = forwardRef<HTMLDivElement, ContainerProps>(
+  (props, ref) => {
+    const { children, testId, ...rest } = props;
+    return (
+      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+      <div css={containerStyles} {...rest} data-testid={testId} ref={ref}>
+        {children}
+      </div>
+    );
+  },
+);
 
 const spinnerBackdropStyles = css({
   display: 'flex',

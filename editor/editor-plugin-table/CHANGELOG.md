@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 1.6.3
+
+### Patch Changes
+
+- [`1202f6f0a82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1202f6f0a82) - ED-16692: add logic to position FloatingContextualButton correctly when sticky and scrolling
+
 ## 1.6.2
 
 ### Patch Changes

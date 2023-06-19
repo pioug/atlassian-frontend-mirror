@@ -63,6 +63,8 @@ import { getDataSource, getScreenReaderText, handleNavKeyDown } from './utils';
 
 import TrackTabViewed from './track-tab-viewed';
 import TrackMount from './track-mount';
+import { spinnerContainerStyles } from './link-search-list/styled';
+import Spinner from '@atlaskit/spinner/spinner';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
@@ -121,6 +123,8 @@ export interface LinkPickerProps {
   displayText?: string | null;
   /** Plugins that provide link suggestions / search capabilities. */
   plugins?: LinkPickerPlugin[];
+  /** If set true, Link picker will show the loading spinner where the tabs and results will show. */
+  isLoadingPlugins?: boolean;
   /** Customise the link picker root component */
   component?: React.ComponentType<
     Partial<LinkPickerProps> & { children: React.ReactElement }
@@ -192,6 +196,7 @@ function LinkPicker({
   onCancel,
   onContentResize,
   plugins,
+  isLoadingPlugins,
   url: initUrl,
   displayText: initDisplayText,
   hideDisplayText,
@@ -219,7 +224,7 @@ function LinkPicker({
 
   const {
     items,
-    isLoading,
+    isLoading: isLoadingResults,
     isActivePlugin,
     activePlugin,
     tabs,
@@ -228,7 +233,7 @@ function LinkPicker({
     pluginAction,
   } = usePlugins(queryState, activeTab, plugins);
 
-  const fixListHeightProps = useFixHeight(isLoading);
+  const fixListHeightProps = useFixHeight(isLoadingResults);
 
   const isEditing = !!initUrl;
   const selectedItem: LinkSearchListItemData | undefined =
@@ -241,7 +246,7 @@ function LinkPicker({
     if (onContentResize) {
       onContentResize();
     }
-  }, [onContentResize, items, isLoading, isActivePlugin, tabs]);
+  }, [onContentResize, items, isLoadingResults, isActivePlugin, tabs]);
 
   const handleChangeUrl = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -529,7 +534,12 @@ function LinkPicker({
           onChange={handleChangeText}
         />
       )}
-      {isActivePlugin && !!queryState && (
+      {isLoadingPlugins && !!queryState && (
+        <div css={spinnerContainerStyles}>
+          <Spinner testId={testIds.tabsLoadingIndicator} size="medium" />
+        </div>
+      )}
+      {!isLoadingPlugins && isActivePlugin && !!queryState && (
         <Fragment>
           {tabs.length > 0 && (
             <div css={tabsWrapperStyles}>
@@ -554,7 +564,7 @@ function LinkPicker({
                 id={linkSearchListId}
                 role="listbox"
                 items={items}
-                isLoading={isLoading}
+                isLoading={isLoadingResults}
                 selectedIndex={selectedIndex}
                 activeIndex={activeIndex}
                 onSelect={handleSelected}
@@ -574,8 +584,10 @@ function LinkPicker({
       <FormFooter
         error={error}
         items={items}
-        state={queryState}
-        isLoading={isLoading}
+        /** If the results section appears to be loading, impact whether the submit button is disabled */
+        isLoading={isLoadingResults || !!isLoadingPlugins}
+        queryState={queryState}
+        url={url}
         isEditing={isEditing}
         onCancel={onCancel}
         action={pluginAction}

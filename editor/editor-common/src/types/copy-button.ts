@@ -1,6 +1,6 @@
-import { MarkType, NodeType } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { IntlShape } from 'react-intl-next';
+import type { MarkType, NodeType } from 'prosemirror-model';
+import type { EditorState } from 'prosemirror-state';
+import type { IntlShape } from 'react-intl-next';
 
 import { Command } from './command';
 

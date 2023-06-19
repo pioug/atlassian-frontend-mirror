@@ -1,16 +1,13 @@
 /** @jsx jsx */
 import {
   CSSProperties,
-  FC,
   Fragment,
   ReactElement,
   useCallback,
-  useEffect,
   useState,
 } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { bind } from 'bind-event-listener';
 
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -26,10 +23,10 @@ import {
   RightPanel,
   RightSidebar,
   TopNavigation,
-  usePageLayoutResize,
 } from '../src';
 
 import {
+  ExpandLeftSidebarKeyboardShortcut,
   ScrollableContent,
   SlotLabel,
   SlotWrapper,
@@ -46,34 +43,6 @@ type SlotName =
   | 'RightSidebar'
   | 'RightPanel'
   | 'PageLayout';
-
-const ExpandKeyboardShortcut: FC = () => {
-  const { isLeftSidebarCollapsed, expandLeftSidebar, collapseLeftSidebar } =
-    usePageLayoutResize();
-
-  const toggleSidebarCollapse = useCallback(() => {
-    if (isLeftSidebarCollapsed) {
-      expandLeftSidebar();
-    } else {
-      collapseLeftSidebar();
-    }
-  }, [isLeftSidebarCollapsed, expandLeftSidebar, collapseLeftSidebar]);
-
-  useEffect(() => {
-    const toggle = (event: KeyboardEvent) => {
-      if (event.which === 219) {
-        toggleSidebarCollapse();
-      }
-    };
-
-    return bind(document, {
-      type: 'keydown',
-      listener: toggle,
-    });
-  }, [toggleSidebarCollapse]);
-
-  return null;
-};
 
 const initialState = {
   isBannerShown: false,
@@ -272,7 +241,7 @@ const BasicGrid = () => {
                   <ToggleFixed slotName="LeftSidebar" />
                   <ToggleScrollable slotName="LeftSidebar" />
                 </SlotWrapper>
-                <ExpandKeyboardShortcut />
+                <ExpandLeftSidebarKeyboardShortcut />
               </LeftSidebar>
             )}
             {gridState.isMainShown && (

@@ -6,8 +6,8 @@ import {
   Transaction,
 } from 'prosemirror-state';
 
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
+import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { CellSelection } from '../../cell-selection';
 import { tableEditing } from '../../pm-plugins/table-editing';

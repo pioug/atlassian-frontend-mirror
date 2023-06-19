@@ -36,9 +36,11 @@ export const DEFAULT_LEFT_PANEL_WIDTH = 368;
 
 // Other constants
 export const COLLAPSED_LEFT_SIDEBAR_WIDTH = 20;
+export const MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH = 16;
 export const MIN_LEFT_SIDEBAR_WIDTH = 80;
 export const DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH = 240;
 export const MIN_LEFT_SIDEBAR_DRAG_THRESHOLD = 200;
+export const MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH = 350;
 export const TRANSITION_DURATION = 300;
 export const FLYOUT_DELAY = 200;
 export const LEFT_SIDEBAR_EXPANDED_WIDTH = 'expandedLeftSidebarWidth';

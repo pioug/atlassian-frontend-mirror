@@ -1,5 +1,5 @@
 import { Mark, Node as PMNode } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from 'prosemirror-state';
 
 import type { FragmentAttributes } from '@atlaskit/adf-schema/schema';
 

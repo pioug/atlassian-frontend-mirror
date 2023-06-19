@@ -9,6 +9,8 @@ export default function Example() {
       allowHeadingAnchorLinks
       allowColumnSorting={true}
       allowUgcScrubber={true}
+      allowWrapCodeBlock
+      allowCopyToClipboard
     />
   );
 }

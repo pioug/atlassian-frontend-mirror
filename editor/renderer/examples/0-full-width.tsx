@@ -8,6 +8,8 @@ export default function Example() {
       appearance="full-width"
       serializer="react"
       allowHeadingAnchorLinks
+      allowWrapCodeBlock
+      allowCopyToClipboard
     />
   );
 }

@@ -576,3 +576,34 @@ export const mediaCardLazyLoad = {
     },
   ],
 };
+
+export const adfWithOneExternalMedia = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'mediaSingle',
+      attrs: { layout: 'center' },
+      content: [
+        {
+          type: 'media',
+          attrs: {
+            id: 'd2c06372-8edb-4371-8cb9-007fb60cfa94',
+            type: 'file',
+            collection: 'MediaServicesSample',
+            occurrenceKey: 'a2babdf8-27d9-4a6a-897a-7c6d22671c95',
+            width: 860,
+            height: 359,
+            __fileName: 'test-image-9kb.jpg',
+            __fileSize: 8751,
+            __fileMimeType: 'image/jpeg',
+            __displayType: null,
+            __contextId: 'DUMMY-OBJECT-ID',
+            __mediaTraceId: null,
+            __external: true,
+          },
+        },
+      ],
+    },
+  ],
+};

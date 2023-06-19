@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 
 import { act, cleanup, fireEvent, render } from '@testing-library/react';
 
@@ -30,12 +30,16 @@ export const ResizeControlledConsumer = () => {
     setLeftSidebarState,
   } = useContext(SidebarResizeContext);
 
-  const setWidth = (event: any) => {
-    setLeftSidebarState({
-      ...leftSidebarState,
-      leftSidebarWidth: Number((event.target as HTMLInputElement).value),
-    });
-  };
+  const setWidth = useCallback(
+    (event: any) => {
+      event.persist(); // otherwise it will not be available in the setState closure on React 16
+      setLeftSidebarState((current) => ({
+        ...current,
+        leftSidebarWidth: Number((event.target as HTMLInputElement).value),
+      }));
+    },
+    [setLeftSidebarState],
+  );
 
   return (
     <>

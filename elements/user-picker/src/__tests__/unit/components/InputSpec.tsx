@@ -120,7 +120,7 @@ describe('ClearIndicator', () => {
       expect(ariaAttr).not.toBeInTheDocument();
     });
 
-    it('should have aria-labelledby from aria-describedby if passed', () => {
+    it('should use aria-labelledby over aria-describedby if both are passed', () => {
       mockedProps = {
         ...mockedProps,
         'aria-describedby': describedById,
@@ -131,20 +131,20 @@ describe('ClearIndicator', () => {
 
       const ariaAttr = baseElement.querySelector(ariaSelector);
 
-      expect(ariaAttr?.getAttribute('aria-labelledby')).toEqual(describedById);
+      expect(ariaAttr?.getAttribute('aria-labelledby')).toEqual(labelledById);
     });
 
-    it('should have aria-labelledby from props if aria-describedby is not passed', () => {
+    it('should default to aria-describedby if aria-laballedby is not passed', () => {
       mockedProps = {
         ...mockedProps,
-        'aria-labelledby': labelledById,
+        'aria-describedby': describedById,
       };
 
       const { baseElement } = render(<Input {...mockedProps} />);
 
       const ariaAttr = baseElement.querySelector(ariaSelector);
 
-      expect(ariaAttr?.getAttribute('aria-labelledby')).toEqual(labelledById);
+      expect(ariaAttr?.getAttribute('aria-labelledby')).toEqual(describedById);
     });
   });
 });

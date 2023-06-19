@@ -1,5 +1,5 @@
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
+import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 const originWeakMap = window.WeakMap;
 Object.defineProperty(window, 'WeakMap', {

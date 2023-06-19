@@ -4,14 +4,18 @@ import { normalizeUrl } from '@atlaskit/linking-common/url';
 export const checkSubmitDisabled = (
   isLoading: boolean,
   error: unknown | null,
-  state: LinkPickerState | null,
+  url: string,
+  queryState: LinkPickerState | null,
   items: LinkSearchListItemData[] | null,
 ): boolean => {
   /*
    * Enable insert when search term is a valid url and it can be normalized
    * Need to explicitly enable it here otherwise next condition could meet
+   *
+   * This should effectively be the validation function for the form, ie if the form
+   * could be submitted, then it should not be disabled
    */
-  if (state && normalizeUrl(state.query)) {
+  if (url && normalizeUrl(url)) {
     return false;
   }
 
@@ -19,7 +23,7 @@ export const checkSubmitDisabled = (
    * Disable insert button when plugin returns no results,
    * but not if it is a valid url
    */
-  if (state && items?.length === 0) {
+  if (queryState && items?.length === 0) {
     return true;
   }
 

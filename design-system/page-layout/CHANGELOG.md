@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 1.7.0
+
+### Minor Changes
+
+- [`7be6f82bb0d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7be6f82bb0d) - [ux] Behind tested behind a feature flag, we're testing new mobile functionality to keep our left sidebar in a "flyout" mode in mobile so navigation or content sits ontop of the main page content rather than crushing it.
+
+  This is designed to be SSR-compatible as it's primarily CSS-based with some user-event driven logic around mobile breakpoints that should not be inmpacted by SSR rendering (and should return the default desktop experience if such a state is achieved).
+
 ## 1.6.5
 
 ### Patch Changes

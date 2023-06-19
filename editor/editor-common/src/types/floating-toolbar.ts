@@ -1,7 +1,7 @@
 import type React from 'react';
 
 import { Node, NodeType } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { IntlShape } from 'react-intl-next';
 

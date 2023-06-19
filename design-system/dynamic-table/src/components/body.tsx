@@ -11,16 +11,23 @@ interface BodyProps extends WithSortedPageRowsProps {
   head?: HeadType;
   highlightedRowIndex?: number | number[];
   isFixedSize: boolean;
+  forwardedRef?: React.Ref<HTMLTableSectionElement>;
   testId?: string;
 }
 
 class Body extends React.Component<BodyProps, {}> {
   render() {
-    const { pageRows, head, isFixedSize, highlightedRowIndex, testId } =
-      this.props;
+    const {
+      pageRows,
+      head,
+      isFixedSize,
+      highlightedRowIndex,
+      testId,
+      forwardedRef,
+    } = this.props;
 
     return (
-      <tbody data-testid={testId && `${testId}--body`}>
+      <tbody data-testid={testId && `${testId}--body`} ref={forwardedRef}>
         {pageRows.map((row, rowIndex) => (
           <TableRow
             head={head}
@@ -42,4 +49,8 @@ class Body extends React.Component<BodyProps, {}> {
   }
 }
 
-export default withSortedPageRows<BodyProps>(Body);
+export default withSortedPageRows<BodyProps>(
+  React.forwardRef<HTMLTableSectionElement, BodyProps>((props, ref) => {
+    return <Body {...props} forwardedRef={ref} />;
+  }),
+);

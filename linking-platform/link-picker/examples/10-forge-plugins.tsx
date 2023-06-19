@@ -52,11 +52,14 @@ function ForgePlugins() {
 
   const handleCancel = () => setIsLinkPickerVisible(false);
 
-  const plugins = useLinkPickerPlugins(LINK_PICKER_PLUGINS_CONFIG);
+  const { plugins, isLoading } = useLinkPickerPlugins(
+    LINK_PICKER_PLUGINS_CONFIG,
+  );
 
   const linkPicker = isLinkPickerVisible && (
     <LinkPicker
       plugins={plugins}
+      isLoadingPlugins={isLoading}
       url={link.url}
       displayText={link.displayText}
       onSubmit={handleSubmit}

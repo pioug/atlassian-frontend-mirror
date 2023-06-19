@@ -1,4 +1,4 @@
-import { Schema } from 'prosemirror-model';
+import type { Schema } from 'prosemirror-model';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { validator } from '@atlaskit/adf-utils/validator';
@@ -13,7 +13,7 @@ import { ACTION_SUBJECT_ID } from '../analytics';
 
 export const UNSUPPORTED_NODE_ATTRIBUTE = 'unsupportedNodeAttribute';
 
-import { UnsupportedContentPayload } from './analytics';
+import type { UnsupportedContentPayload } from './analytics';
 import { fireUnsupportedEvent } from './track-unsupported-content';
 
 export type DispatchAnalyticsEvent = (event: UnsupportedContentPayload) => void;

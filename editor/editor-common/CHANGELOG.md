@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.7.7
+
+### Patch Changes
+
+- [`8493df1e169`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8493df1e169) - NO-ISSUE Moved some purely type dependencies to dev dependencies
+
+## 74.7.6
+
+### Patch Changes
+
+- [`0edc12510fb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0edc12510fb) - Updating types, examples and general clean up of Resizer component
+
 ## 74.7.5
 
 ### Patch Changes

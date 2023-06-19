@@ -3,6 +3,9 @@ import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { UNSAFE_media as media } from '@atlaskit/primitives/responsive';
+
 import {
   BANNER,
   BANNER_HEIGHT,
@@ -25,6 +28,12 @@ import { SkipLinkWrapper } from '../skip-links';
 
 const pageLayoutSelector = { [PAGE_LAYOUT_CONTAINER_SELECTOR]: true };
 
+const gridTemplateAreasMobile = `
+  "${LEFT_PANEL} ${BANNER}"
+  "${LEFT_PANEL} ${TOP_NAVIGATION}"
+  "${LEFT_PANEL} ${CONTENT}"
+ `;
+
 const gridTemplateAreas = `
   "${LEFT_PANEL} ${BANNER} ${RIGHT_PANEL}"
   "${LEFT_PANEL} ${TOP_NAVIGATION} ${RIGHT_PANEL}"
@@ -39,6 +48,19 @@ const gridStyles = css({
   gridTemplateRows: `${BANNER_HEIGHT} ${TOP_NAVIGATION_HEIGHT} auto`,
   outline: 'none',
 });
+
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- With a feature flag, this does not apply
+const gridStylesMobile = getBooleanFF(
+  'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+)
+  ? css({
+      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      [media.below.md]: {
+        gridTemplateAreas: gridTemplateAreasMobile,
+        gridTemplateColumns: `${LEFT_PANEL_WIDTH} minmax(0, 1fr)`,
+      },
+    })
+  : undefined;
 
 /**
  * __Page layout__
@@ -62,7 +84,7 @@ const PageLayout = ({
         <div
           {...pageLayoutSelector}
           data-testid={testId}
-          css={gridStyles}
+          css={[gridStyles, gridStylesMobile]}
           tabIndex={-1}
         >
           <SidebarResizeController

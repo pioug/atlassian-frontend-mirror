@@ -16,12 +16,14 @@ import { css, Global, jsx } from '@emotion/react';
 import { bindAll, UnbindFn } from 'bind-event-listener';
 import rafSchd from 'raf-schd';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
+
 import {
   COLLAPSED_LEFT_SIDEBAR_WIDTH,
   DEFAULT_LEFT_SIDEBAR_WIDTH,
   IS_SIDEBAR_DRAGGING,
   MIN_LEFT_SIDEBAR_DRAG_THRESHOLD,
-  RESIZE_BUTTON_SELECTOR,
   RESIZE_CONTROL_SELECTOR,
   VAR_LEFT_SIDEBAR_WIDTH,
 } from '../../common/constants';
@@ -91,18 +93,24 @@ const ResizeControl = ({
   onResizeEnd,
 }: ResizeControlProps) => {
   const {
-    expandLeftSidebar,
+    toggleLeftSidebar,
     collapseLeftSidebar,
     leftSidebarState,
     setLeftSidebarState,
   } = useContext(SidebarResizeContext);
-  const { isLeftSidebarCollapsed, isResizing } = leftSidebarState;
+  const { isLeftSidebarCollapsed } = leftSidebarState;
   const sidebarWidth = useRef(leftSidebarState[VAR_LEFT_SIDEBAR_WIDTH]);
   // Distance of mouse from left sidebar onMouseDown
   const offset = useRef(0);
   const keyboardEventTimeout = useRef<number>();
   const [isGrabAreaFocused, setIsGrabAreaFocused] = useState(false);
   const unbindEvents = useRef<UnbindFn | null>(null);
+  const mobileMediaQuery = getBooleanFF(
+    'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
+  )
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks -- With the feature flag, this does not apply as it should be static.
+      useMediaQuery('below.md')
+    : null;
 
   // Used in some cases to ensure function references don't have to change
   // TODO: more functions could use `stableSidebarState` rather than `leftSidebarState`
@@ -111,28 +119,15 @@ const ResizeControl = ({
     stableSidebarState.current = leftSidebarState;
   }, [leftSidebarState]);
 
-  const toggleSideBar = (
-    e?: ReactMouseEvent | ReactKeyboardEvent<HTMLButtonElement>,
-  ) => {
-    if (isResizing) {
-      return;
-    }
+  const toggleSideBar = useCallback(
+    (event?: ReactMouseEvent | ReactKeyboardEvent<HTMLButtonElement>) => {
+      // don't cascade down to the LeftSidebarOuter
+      event?.stopPropagation();
 
-    if (isLeftSidebarCollapsed) {
-      expandLeftSidebar();
-    } else {
-      collapseLeftSidebar();
-    }
-
-    // Bring focus to the resize button if the grab area is
-    // "clicked" using enter/space on keyboard.
-    if (e && e.nativeEvent.detail === 0) {
-      const resizeButton: HTMLButtonElement | null = document.querySelector(
-        `[${RESIZE_BUTTON_SELECTOR}]`,
-      );
-      resizeButton && resizeButton.focus();
-    }
-  };
+      toggleLeftSidebar();
+    },
+    [toggleLeftSidebar],
+  );
 
   const onMouseDown = (event: ReactMouseEvent<HTMLButtonElement>) => {
     if (isLeftSidebarCollapsed) {
@@ -449,23 +444,27 @@ const ResizeControl = ({
         ]}
       >
         <Shadow testId={testId && `${testId}-shadow`} />
-        <GrabArea
-          role="separator"
-          aria-label={resizeGrabAreaLabel}
-          aria-valuenow={leftSidebarPercentageExpanded}
-          aria-valuemin={0}
-          aria-valuemax={100}
-          aria-expanded={!isLeftSidebarCollapsed}
-          onKeyDown={onKeyDown}
-          onMouseDown={onMouseDown}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          testId={testId && `${testId}-grab-area`}
-          isLeftSidebarCollapsed={isLeftSidebarCollapsed}
-          disabled={isLeftSidebarCollapsed}
-        />
+        {!mobileMediaQuery?.matches && (
+          <GrabArea
+            role="separator"
+            aria-label={resizeGrabAreaLabel}
+            aria-valuenow={leftSidebarPercentageExpanded}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-expanded={!isLeftSidebarCollapsed}
+            onKeyDown={onKeyDown}
+            onMouseDown={onMouseDown}
+            onFocus={onFocus}
+            onBlur={onBlur}
+            testId={testId && `${testId}-grab-area`}
+            isLeftSidebarCollapsed={isLeftSidebarCollapsed}
+            disabled={isLeftSidebarCollapsed}
+          />
+        )}
         {resizeButton.render(ResizeButton, {
-          isLeftSidebarCollapsed,
+          isLeftSidebarCollapsed: mobileMediaQuery?.matches
+            ? !leftSidebarState.isFlyoutOpen
+            : isLeftSidebarCollapsed,
           label: resizeButtonLabel,
           onClick: toggleSideBar,
           testId: testId && `${testId}-resize-button`,

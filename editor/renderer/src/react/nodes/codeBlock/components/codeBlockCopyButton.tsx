@@ -43,7 +43,7 @@ const CopyButton: React.FC<Props & WrappedComponentProps> = ({
                 aria-label={tooltip}
                 className={className}
                 iconBefore={<CopyIcon label={tooltip} />}
-                onClick={() => {
+                onClick={(event) => {
                   fireAnalyticsEvent({
                     action: ACTION.CLICKED,
                     actionSubject: ACTION_SUBJECT.BUTTON,
@@ -58,6 +58,8 @@ const CopyButton: React.FC<Props & WrappedComponentProps> = ({
                     ),
                   );
                   setClassName('copy-to-clipboard clicked');
+
+                  event.stopPropagation();
                 }}
                 spacing="compact"
               />

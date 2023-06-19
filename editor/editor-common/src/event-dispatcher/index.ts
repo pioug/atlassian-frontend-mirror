@@ -1,4 +1,4 @@
-import { PluginKey } from 'prosemirror-state';
+import type { PluginKey } from 'prosemirror-state';
 export interface Listeners {
   [name: string]: Set<Listener>;
 }

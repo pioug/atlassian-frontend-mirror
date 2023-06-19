@@ -1,8 +1,6 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 import React from 'react';
 
-import { findDOMNode } from 'react-dom';
-
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
@@ -14,24 +12,11 @@ import {
 } from '../styled/loading-container-advanced';
 import type { SpinnerSizeType } from '../types';
 
-// there is a bug with findDOMNode and Suspense in React < 16.9: https://github.com/facebook/react/issues/14188
-const safeFindDOMNode: typeof findDOMNode = (component) => {
-  try {
-    // DSP-10519 TODO: ReactDOM.findDOMNode is deprecated in React18, consider using alternative solution
-    // https://react.dev/reference/react-dom/findDOMNode#alternatives
-    // eslint-disable-next-line react/no-find-dom-node
-    return findDOMNode(component);
-  } catch (e) {
-    return null;
-  }
-};
-
 export interface LoadingContainerAdvancedProps {
-  children: React.ReactElement<any>;
   isLoading?: boolean;
   spinnerSize?: SpinnerSizeType;
   contentsOpacity: number | string;
-  targetRef?: () => HTMLDivElement | undefined;
+  targetRef?: () => HTMLTableSectionElement | null;
   testId?: string;
 }
 
@@ -39,13 +24,15 @@ export default class LoadingContainerAdvanced extends React.Component<
   LoadingContainerAdvancedProps,
   {}
 > {
-  children?: HTMLElement;
-  spinnerRef?: HTMLDivElement;
+  spinnerRef = React.createRef<HTMLDivElement>();
+  containerRef = React.createRef<HTMLDivElement>();
+
   static defaultProps = {
     isLoading: true,
     spinnerSize: LARGE,
     contentsOpacity: token('opacity.loading', `${LOADING_CONTENTS_OPACITY}`),
   };
+
   componentDidMount = () => {
     if (this.props.isLoading && this.hasTargetNode()) {
       this.attachListeners();
@@ -81,18 +68,9 @@ export default class LoadingContainerAdvanced extends React.Component<
 
   getTargetNode = (nextProps: LoadingContainerAdvancedProps = this.props) => {
     const { targetRef } = nextProps;
-    // targetRef prop may be defined but it is not guaranteed it returns an element
-    const targetElement = targetRef ? targetRef() : this.children;
-    // @ts-ignore - targetElement is not assignable to type 'ReactInstance'
-    const targetNode = safeFindDOMNode(targetElement);
-
-    return targetNode;
+    const target = targetRef?.();
+    return target || this.containerRef.current;
   };
-
-  getThisNode = () => safeFindDOMNode(this);
-
-  // @ts-ignore - this.spinnerRef is not assignable to type 'ReactInstance'
-  getSpinnerNode = () => safeFindDOMNode(this.spinnerRef);
 
   hasTargetNode = (nextProps?: LoadingContainerAdvancedProps) =>
     !!this.getTargetNode(nextProps);
@@ -145,7 +123,7 @@ export default class LoadingContainerAdvanced extends React.Component<
   };
 
   updateTargetAppearance = () => {
-    const targetNode = this.getTargetNode() as HTMLElement;
+    const targetNode = this.getTargetNode();
 
     const { isLoading, contentsOpacity } = this.props;
     if (
@@ -160,10 +138,14 @@ export default class LoadingContainerAdvanced extends React.Component<
 
   updateSpinnerPosition() {
     const viewportHeight = window.innerHeight;
-    const targetNode = this.getTargetNode() as HTMLElement;
-    const spinnerNode = this.getSpinnerNode() as HTMLElement;
+    const targetNode = this.getTargetNode();
+    const spinnerNode = this.spinnerRef?.current;
 
-    if (!targetNode || !spinnerNode) {
+    if (
+      !targetNode ||
+      typeof targetNode.getBoundingClientRect !== 'function' ||
+      !spinnerNode
+    ) {
       return;
     }
 
@@ -214,9 +196,12 @@ export default class LoadingContainerAdvanced extends React.Component<
     // 1) the element is fully visible
     // 2) the element is too small for the spinner to follow
     // 3) the spinner might still be visible while the element isn't
-    const thisNode = this.getThisNode() as HTMLElement;
-    if (thisNode && typeof thisNode.getBoundingClientRect === 'function') {
-      const thisTop = thisNode.getBoundingClientRect().top;
+    const containerNode = this.containerRef?.current;
+    if (
+      containerNode &&
+      typeof containerNode.getBoundingClientRect === 'function'
+    ) {
+      const thisTop = containerNode.getBoundingClientRect().top;
       const y = (top - thisTop) / 2;
       this.translateSpinner(spinnerNode, y, false);
     }
@@ -226,18 +211,14 @@ export default class LoadingContainerAdvanced extends React.Component<
     const { children, isLoading, spinnerSize, testId } = this.props;
 
     return (
-      <Container testId={testId && `${testId}--loading--container--advanced`}>
-        {/* eslint-disable-next-line @repo/internal/react/no-clone-element */}
-        {React.cloneElement(children, {
-          ref: (el: HTMLElement) => {
-            this.children = el;
-          },
-        })}
+      <Container
+        testId={testId && `${testId}--loading--container--advanced`}
+        ref={this.containerRef}
+      >
+        {children}
         {isLoading && (
           <SpinnerBackdrop testId={testId}>
-            <SpinnerContainer
-              ref={(el: HTMLDivElement) => (this.spinnerRef = el)}
-            >
+            <SpinnerContainer ref={this.spinnerRef}>
               <Spinner
                 size={spinnerSize}
                 testId={testId && `${testId}--loadingSpinner`}

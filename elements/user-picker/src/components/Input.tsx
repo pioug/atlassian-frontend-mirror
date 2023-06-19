@@ -33,7 +33,7 @@ export class Input extends React.Component<Props & AriaAttributes> {
    * {@link https://github.com/JedWatson/react-select/issues/5651#issue-1731353197 GitHub}
    */
   get ariaLabelledBy(): AriaAttributesType {
-    return this.props['aria-describedby'] ?? this.props['aria-labelledby'];
+    return this.props['aria-labelledby'] ?? this.props['aria-describedby'];
   }
 
   get ariaDescribedBy(): AriaAttributesType {

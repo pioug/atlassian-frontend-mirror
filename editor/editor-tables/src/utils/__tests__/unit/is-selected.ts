@@ -1,4 +1,3 @@
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
   doc,
   p,
@@ -6,6 +5,7 @@ import {
   table,
   td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { cEmpty } from '../../../__tests__/__helpers/doc-builder';
 import { selectionFor } from '../../../__tests__/__helpers/selection-for';

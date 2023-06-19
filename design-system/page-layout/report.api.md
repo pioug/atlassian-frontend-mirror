@@ -201,6 +201,10 @@ export const usePageLayoutResize: () => {
     event?: KeyboardEvent_2 | MouseEvent_2,
     collapseWithoutTransition?: boolean,
   ) => void;
+  toggleLeftSidebar: (
+    event?: KeyboardEvent_2 | MouseEvent_2,
+    collapseWithoutTransition?: boolean,
+  ) => void;
   leftSidebarState: LeftSidebarState;
 };
 

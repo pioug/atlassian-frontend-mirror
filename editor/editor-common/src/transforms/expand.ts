@@ -1,5 +1,5 @@
 import { Fragment, Node as PMNode, Schema, Slice } from 'prosemirror-model';
-import { EditorState, Selection } from 'prosemirror-state';
+import type { EditorState, Selection } from 'prosemirror-state';
 import {
   findParentNodeOfType,
   findSelectedNodeOfType,

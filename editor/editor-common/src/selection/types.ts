@@ -1,5 +1,5 @@
-import { EditorState, Selection, Transaction } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
+import type { EditorState, Selection, Transaction } from 'prosemirror-state';
+import type { DecorationSet } from 'prosemirror-view';
 
 export enum RelativeSelectionPos {
   Before = 'Before',

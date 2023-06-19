@@ -289,6 +289,7 @@ export const TableCssClassName = {
   CONTEXTUAL_SUBMENU: `${tablePrefixSelector}-contextual-submenu`,
   CONTEXTUAL_MENU_BUTTON_WRAP: `${tablePrefixSelector}-contextual-menu-button-wrap`,
   CONTEXTUAL_MENU_BUTTON: `${tablePrefixSelector}-contextual-menu-button`,
+  CONTEXTUAL_MENU_BUTTON_FIXED: `${tablePrefixSelector}-contextual-menu-button-fixed`,
   CONTEXTUAL_MENU_ICON: `${tablePrefixSelector}-contextual-submenu-icon`,
 
   // come from prosemirror-table

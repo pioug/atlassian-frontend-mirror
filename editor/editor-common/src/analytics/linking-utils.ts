@@ -1,4 +1,4 @@
-import { CardAppearance } from '@atlaskit/smart-card';
+import type { CardAppearance } from '@atlaskit/smart-card';
 
 import {
   ACTION,

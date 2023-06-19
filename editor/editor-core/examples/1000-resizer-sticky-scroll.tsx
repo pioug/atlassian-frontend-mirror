@@ -3,38 +3,29 @@ import { useState } from 'react';
 import { jsx, css } from '@emotion/react';
 
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import { HandlerHeightSizeType } from '@atlaskit/editor-common/resizer';
+import {
+  HandleHeightSizeType,
+  HandleResize,
+} from '@atlaskit/editor-common/resizer';
 import { resizerStyles } from '@atlaskit/editor-common/styles';
-
-export type HandleResize = (
-  stateOriginal: { x: number; y: number; width: number; height: number },
-  delta: { width: number; height: number },
-) => number;
 
 function Parent(props: {
   text?: string;
   height: number;
-  handlerHeightSize?: HandlerHeightSizeType;
+  handleHeightSize?: HandleHeightSizeType;
 }): JSX.Element {
   const [width, setWidth] = useState(80);
   const [_height, setHeight] = useState(props.height);
 
-  const handleResizeStart = () => {
-    const newWidth = 55;
-    return newWidth;
-  };
+  const handleResizeStart = () => {};
 
   const handleResize: HandleResize = (stateOriginal, delta) => {
-    const newWidth = stateOriginal.width + delta.width + 5;
-
     setHeight(stateOriginal.height + -delta.width * 20);
-    return newWidth;
   };
 
   const handleResizeStop: HandleResize = (stateOriginal, delta) => {
     const newWidth = stateOriginal.width + delta.width + 10;
     setWidth(newWidth);
-    return newWidth;
   };
 
   return (
@@ -43,7 +34,7 @@ function Parent(props: {
       handleResizeStart={handleResizeStart}
       handleResize={handleResize}
       handleResizeStop={handleResizeStop}
-      handlerHeightSize={props.handlerHeightSize}
+      handleHeightSize={props.handleHeightSize}
       width={width}
       minWidth={20} // we are adding 10px in the handleResizeStop, so the actual min width will be 20+10 = 30px.
       maxWidth={700} // max width will be 700

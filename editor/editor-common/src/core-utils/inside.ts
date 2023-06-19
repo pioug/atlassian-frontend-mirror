@@ -1,4 +1,4 @@
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from 'prosemirror-state';
 import { hasParentNodeOfType } from 'prosemirror-utils';
 
 export const insideTable = (state: EditorState): Boolean => {

@@ -47,7 +47,7 @@ function CustomEndPoints() {
 
   const handleToggle = () => setIsOpen(!isOpen);
 
-  const forgePlugins = useForgeSearchProviders();
+  const { plugins: forgePlugins, isLoading } = useForgeSearchProviders();
   const plugins = useMemo(
     () => [
       new AtlassianLinkPickerPlugin({
@@ -70,6 +70,7 @@ function CustomEndPoints() {
       content={({ update }) => (
         <LinkPicker
           plugins={plugins}
+          isLoadingPlugins={isLoading}
           url={link.url}
           displayText={link.displayText}
           onSubmit={handleSubmit}
@@ -111,7 +112,14 @@ function CustomEndPoints() {
 
 export default function ForgePluginsWrapper() {
   return (
-    <SmartCardProvider client={smartCardClient}>
+    <SmartCardProvider
+      client={smartCardClient}
+      featureFlags={{
+        useLinkPickerScrollingTabs: true,
+        useLinkPickerAtlassianTabs: true,
+        enableLinkPickerForgeTabs: true,
+      }}
+    >
       <CustomEndPoints />
     </SmartCardProvider>
   );

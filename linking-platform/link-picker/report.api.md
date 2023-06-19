@@ -75,6 +75,7 @@ export interface LinkPickerProps {
   // (undocumented)
   featureFlags?: Record<string, unknown>;
   hideDisplayText?: boolean;
+  isLoadingPlugins?: boolean;
   onCancel: () => void;
   onContentResize?: () => void;
   onSubmit: (

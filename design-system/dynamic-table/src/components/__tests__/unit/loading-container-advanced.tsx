@@ -104,7 +104,7 @@ describe('LoadingContainerAdvanced', () => {
     };
 
     it('should update styles on mount only when loading and there is a target node', () => {
-      class Contents extends Component<{ contentRef?: Ref<HTMLDivElement> }> {
+      class Contents extends Component<{ contentRef?: Ref<any> }> {
         render() {
           return (
             <div
@@ -114,11 +114,12 @@ describe('LoadingContainerAdvanced', () => {
           );
         }
       }
-      let target: HTMLDivElement;
+
+      let target: HTMLTableSectionElement | null = null;
 
       // targetRef returns invalid target
       const { rerender } = render(
-        <LoadingContainerAdvanced targetRef={() => undefined}>
+        <LoadingContainerAdvanced targetRef={() => null}>
           <Contents />
         </LoadingContainerAdvanced>,
       );
@@ -127,27 +128,27 @@ describe('LoadingContainerAdvanced', () => {
 
       // Not loading
       rerender(
-        <LoadingContainerAdvanced isLoading={false}>
+        <LoadingContainerAdvanced isLoading={false} testId={testId}>
           <Contents />
         </LoadingContainerAdvanced>,
       );
-      contents = screen.getByTestId(`${testId}--content`);
+      contents = screen.getByTestId(`${testId}--loading--container--advanced`);
       assertTargetStylesAreCorrect(contents, false);
 
       // Loading and has children
       rerender(
-        <LoadingContainerAdvanced>
+        <LoadingContainerAdvanced testId={testId}>
           <Contents />
         </LoadingContainerAdvanced>,
       );
-      contents = screen.getByTestId(`${testId}--content`);
+      contents = screen.getByTestId(`${testId}--loading--container--advanced`);
       assertTargetStylesAreCorrect(contents, true);
 
       // Loading and has a valid target
       rerender(
         <LoadingContainerAdvanced targetRef={() => target}>
           <Contents
-            contentRef={(el: HTMLDivElement) => {
+            contentRef={(el: any) => {
               target = el;
             }}
           />
@@ -157,26 +158,28 @@ describe('LoadingContainerAdvanced', () => {
       assertTargetStylesAreCorrect(contents, true);
     });
 
-    it('should set styles to the children if the targetRef is not defined and revert them on loading mode change', () => {
+    it('should set styles to the container if the targetRef is not defined and revert them on loading mode change', () => {
       const { rerender } = render(
-        <LoadingContainerAdvanced>
-          <Contents data-testid={`${testId}--content`} />
+        <LoadingContainerAdvanced testId={testId}>
+          <Contents />
         </LoadingContainerAdvanced>,
       );
-      let contents = screen.getByTestId(`${testId}--content`);
+      let contents = screen.getByTestId(
+        `${testId}--loading--container--advanced`,
+      );
       assertTargetStylesAreCorrect(contents, true);
 
       rerender(
-        <LoadingContainerAdvanced isLoading={false}>
+        <LoadingContainerAdvanced isLoading={false} testId={testId}>
           <Contents data-testid={`${testId}--content`} />
         </LoadingContainerAdvanced>,
       );
-      contents = screen.getByTestId(`${testId}--content`);
+      contents = screen.getByTestId(`${testId}--loading--container--advanced`);
       assertTargetStylesAreCorrect(contents, false);
     });
 
     it('should set styles to the target and revert them on loading mode change', () => {
-      let target: HTMLDivElement;
+      let target: HTMLTableSectionElement | null = null;
 
       const InnerComponent = styled.div``;
       const { rerender } = render(
@@ -184,7 +187,7 @@ describe('LoadingContainerAdvanced', () => {
           <Contents>
             <InnerComponent
               data-testid={`${testId}--inner--component`}
-              ref={(el: HTMLDivElement) => {
+              ref={(el: HTMLTableSectionElement) => {
                 target = el;
               }}
             />
@@ -199,7 +202,7 @@ describe('LoadingContainerAdvanced', () => {
           <Contents>
             <InnerComponent
               data-testid={`${testId}--inner--component`}
-              ref={(el: HTMLDivElement) => {
+              ref={(el: HTMLTableSectionElement) => {
                 target = el;
               }}
             />

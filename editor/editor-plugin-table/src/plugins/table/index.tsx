@@ -387,6 +387,7 @@ const tablesPlugin: NextEditorPlugin<
                         isContextualMenuOpen={isContextualMenuOpen}
                         layout={layout}
                         stickyHeader={stickyHeader}
+                        tableWrapper={tableWrapperTarget}
                       />
                     )}
                   {allowControls && (

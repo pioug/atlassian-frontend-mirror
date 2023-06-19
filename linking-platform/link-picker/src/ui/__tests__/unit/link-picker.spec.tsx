@@ -21,6 +21,7 @@ import { LinkPickerProps } from '../../..';
 import LinkPicker, { testIds } from '../../link-picker';
 
 import { messages as resultsListMessages } from '../../link-picker/link-search-list';
+import { IntlProvider } from 'react-intl-next';
 
 jest.mock('date-fns/differenceInCalendarDays', () => {
   return jest.fn().mockImplementation(() => -5);
@@ -60,7 +61,7 @@ describe('<LinkPicker />', () => {
     const onCancelMock: LinkPickerProps['onCancel'] = jest.fn();
     const onContentResize: LinkPickerProps['onContentResize'] = jest.fn();
 
-    render(
+    const { rerender } = render(
       <LinkPicker
         url={url}
         onSubmit={onSubmitMock}
@@ -72,11 +73,28 @@ describe('<LinkPicker />', () => {
       />,
     );
 
+    const rerenderLinkPicker = (props: any) => {
+      rerender(
+        <IntlProvider locale="en">
+          <LinkPicker
+            url={url}
+            onSubmit={onSubmitMock}
+            plugins={plugins ?? []}
+            onCancel={onCancelMock}
+            onContentResize={onContentResize}
+            featureFlags={{ scrollingTabs }}
+            {...props}
+          />
+        </IntlProvider>,
+      );
+    };
+
     return {
       onSubmitMock,
       onCancelMock,
       onContentResize,
       testIds,
+      rerenderLinkPicker,
     };
   };
 
@@ -279,10 +297,15 @@ describe('<LinkPicker />', () => {
       ]);
       const resolve = jest.spyOn(plugin, 'resolve');
 
-      const { testIds, onSubmitMock, onContentResize } = setupLinkPicker({
-        plugins: [plugin],
-        ...props,
-      });
+      const { testIds, onSubmitMock, onContentResize, rerenderLinkPicker } =
+        setupLinkPicker({
+          plugins: [plugin],
+          ...props,
+        });
+
+      const rerender = (props: Partial<LinkPickerProps>) => {
+        rerenderLinkPicker(props);
+      };
 
       return {
         onSubmitMock,
@@ -290,8 +313,82 @@ describe('<LinkPicker />', () => {
         testIds,
         plugin,
         resolve,
+        rerender,
       };
     };
+
+    describe('loading', () => {
+      it('should show a spinner when `isLoadingPlugins` is true', async () => {
+        const { testIds } = setupWithGenericPlugin({
+          isLoadingPlugins: true,
+        });
+
+        const resultsList = screen.queryByTestId('link-search-list');
+        const spinner = screen.queryByTestId(testIds.tabsLoadingIndicator);
+
+        expect(resultsList).not.toBeInTheDocument();
+        expect(spinner).toBeInTheDocument();
+        expect(screen.getByTestId(testIds.insertButton)).toHaveAttribute(
+          'disabled',
+        );
+      });
+
+      it('should not have spinner if `isLoadingPlugins` is false once recents have loaded', async () => {
+        const { testIds, plugin, rerender } = setupWithGenericPlugin({
+          isLoadingPlugins: true,
+          url: '',
+        });
+
+        let resultsList = screen.queryByTestId('link-search-list');
+        let spinner = screen.queryByTestId(testIds.tabsLoadingIndicator);
+
+        expect(resultsList).not.toBeInTheDocument();
+        expect(spinner).toBeInTheDocument();
+
+        // Resolve plugin and rerender
+        await asyncAct(() => plugin.promises[0]);
+        await asyncAct(() => plugin.promises[1]);
+        rerender({ isLoadingPlugins: false });
+
+        // Get latest screen state
+        resultsList = screen.queryByTestId('link-search-list');
+        spinner = screen.queryByTestId(testIds.tabsLoadingIndicator);
+        expect(resultsList).toBeInTheDocument();
+        expect(spinner).not.toBeInTheDocument();
+      });
+
+      it('should keep submit button in disabled state if `isLoadingPlugins` is true even if recents have loaded', async () => {
+        const { testIds, plugin, rerender } = setupWithGenericPlugin({
+          isLoadingPlugins: true,
+          url: '',
+        });
+
+        let resultsList = screen.queryByTestId('link-search-list');
+        let spinner = screen.queryByTestId(testIds.tabsLoadingIndicator);
+
+        expect(resultsList).not.toBeInTheDocument();
+        expect(spinner).toBeInTheDocument();
+        expect(screen.getByTestId(testIds.insertButton)).toHaveAttribute(
+          'disabled',
+        );
+
+        // Resolve plugin and rerender
+        await asyncAct(() => plugin.promises[0]);
+        await asyncAct(() => plugin.promises[1]);
+
+        // Rerender with the isLoadingPlugins still true
+        rerender({ isLoadingPlugins: true });
+
+        // Get latest screen state
+        resultsList = screen.queryByTestId('link-search-list');
+        spinner = screen.queryByTestId(testIds.tabsLoadingIndicator);
+        expect(resultsList).not.toBeInTheDocument();
+        expect(spinner).toBeInTheDocument();
+        expect(screen.getByTestId(testIds.insertButton)).toHaveAttribute(
+          'disabled',
+        );
+      });
+    });
 
     it('should submit with valid url in the input field', async () => {
       const { onSubmitMock, testIds } = setupWithGenericPlugin();

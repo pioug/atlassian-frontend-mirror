@@ -31,6 +31,8 @@ export default function Example() {
       <RendererDemo
         allowColumnSorting
         allowSelectAllTrap
+        allowWrapCodeBlock
+        allowCopyToClipboard
         serializer="react"
         adfStage={adfStage}
         schema={schema}

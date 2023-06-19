@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-picker",
-  "version": "1.24.1",
+  "version": "1.25.0",
   "description": "Standalone link picker",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
@@ -90,7 +90,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/feature-flags-test-utils": "*",
     "@atlassian/link-picker-atlassian-plugin": "^33.3.0",
-    "@atlassian/link-picker-plugins": "^22.3.0",
+    "@atlassian/link-picker-plugins": "^23.0.0",
     "@atlassian/recent-work-client": "^1.8.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/jest-dom": "^5.16.5",

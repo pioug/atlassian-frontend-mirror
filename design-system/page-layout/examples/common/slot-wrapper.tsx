@@ -6,6 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 type SlotWrapperProps = {
   borderColor?: string;
+  backgroundColor?: string;
   children: React.ReactNode;
   className?: string;
   hasExtraPadding?: boolean;
@@ -29,6 +30,7 @@ const extraPaddingStyles = css({
 
 const SlotWrapper = ({
   borderColor,
+  backgroundColor,
   children,
   className,
   hasExtraPadding,
@@ -40,6 +42,7 @@ const SlotWrapper = ({
     css={[slotWrapperStyles, hasExtraPadding && extraPaddingStyles]}
     style={{
       minHeight,
+      backgroundColor: backgroundColor,
       outline: borderColor ? `2px dashed ${borderColor}` : 'none',
       overflowX: hasHorizontalScrollbar ? 'auto' : 'hidden',
     }}

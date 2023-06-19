@@ -611,7 +611,7 @@ export class TableRowNodeView implements NodeView {
       return;
     }
 
-    const { table } = tree;
+    const { table, wrapper } = tree;
 
     // ED-16035 Make sure sticky header is only applied to first row
     const tbody = this.dom.parentElement;
@@ -639,6 +639,7 @@ export class TableRowNodeView implements NodeView {
 
     this.dom.style.top = `${domTop}px`;
     updateTableMargin(table);
+    this.dom.scrollLeft = wrapper.scrollLeft;
 
     this.emitOn(domTop, this.colControlsOffset);
   };

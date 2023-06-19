@@ -11,6 +11,9 @@ import PageLayoutLockedSidebar from '../../examples/constellation/page-layout-lo
 import PageLayoutCustomSkipLinks from '../../examples/constellation/page-layout-custom-skip-links';
 import PageLayoutServerRendered from '../../examples/constellation/page-layout-server-rendered';
 
+import { ExpandLeftSidebarKeyboardShortcut } from '../../examples/common/expand-sidebar-keyboard-shortcut';
+import PageLayoutLeftSidebarWithKeyboardExpand from '../../examples/constellation/page-layout-left-sidebar-keyboard-event';
+
 
 <SectionMessage>Open the examples below in Codesandbox for a full-page experience.</SectionMessage>
 
@@ -53,6 +56,21 @@ In some circumstances you may want to prevent the sidebar flyout from collapsing
 ### Left sidebar without resize
 
 If you just need a left sidebar slot without any resize functionality, use the lighter-weight `LeftSidebarWithoutResize` component instead of the `LeftSidebar` component.
+
+### Programatically toggling with a keyboard shortcut
+
+A common pattern with our LeftSidebar is to show, hide, and/or toggle the state based on a keyboard shortcut or some external input.  For this, we provide utilities that control sidebar state using React Context.
+
+These are the supported options exposed via context:
+ - `toggleLeftSidebar()` to toggle visibility of the left sidebar
+ - `collapseLeftSidebar()` to hide the left sidebar
+ - `expandLeftSidebar()` to show the left sidebar visible
+ - `isLeftSidebarCollapsed` whether or not the left sidebar is currently hidden
+
+<Example Component={ExpandLeftSidebarKeyboardShortcut} showcaseVisible={false} packageName="@atlaskit/page-layout" />
+
+The context is only available within the `LeftSidebar` component, so ensure your logic exists as a child for these to be available, example:
+<Example Component={PageLayoutLeftSidebarWithKeyboardExpand} showcaseVisible={false} packageName="@atlaskit/page-layout" />
 
 
 ## Skip links

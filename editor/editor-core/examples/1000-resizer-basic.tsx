@@ -3,7 +3,10 @@ import { useCallback, SyntheticEvent, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import { HandlerHeightSizeType } from '@atlaskit/editor-common/resizer';
+import {
+  HandleHeightSizeType,
+  HandleResize,
+} from '@atlaskit/editor-common/resizer';
 
 import { RadioGroup } from '@atlaskit/radio';
 import { OptionsPropType } from '@atlaskit/radio/types';
@@ -13,34 +16,22 @@ import { resizerStyles } from '@atlaskit/editor-common/styles';
 const options: OptionsPropType = [
   { name: 'small', value: 'small', label: 'Small handler' },
   { name: 'medium', value: 'medium', label: 'Medium handler' },
-  { name: 'large', value: 'large', label: 'Large hander' },
+  { name: 'large', value: 'large', label: 'Large handler' },
 ];
-
-export type HandleResize = (
-  stateOriginal: { x: number; y: number; width: number; height: number },
-  delta: { width: number; height: number },
-) => number;
 
 function Parent(props: {
   text: string;
-  handlerHeightSize: HandlerHeightSizeType | undefined;
+  handleHeightSize: HandleHeightSizeType | undefined;
 }): JSX.Element {
   const [width, setWidth] = useState(80);
 
-  const handleResizeStart = () => {
-    const newWidth = 55;
-    return newWidth;
-  };
+  const handleResizeStart = () => {};
 
-  const handleResize: HandleResize = (stateOriginal, delta) => {
-    const newWidth = stateOriginal.width + delta.width + 5;
-    return newWidth;
-  };
+  const handleResize: HandleResize = (stateOriginal, delta) => {};
 
   const handleResizeStop: HandleResize = (stateOriginal, delta) => {
-    const newWidth = stateOriginal.width + delta.width + 10;
+    const newWidth = stateOriginal.width + delta.width;
     setWidth(newWidth);
-    return newWidth;
   };
 
   return (
@@ -49,7 +40,7 @@ function Parent(props: {
       handleResizeStart={handleResizeStart}
       handleResize={handleResize}
       handleResizeStop={handleResizeStop}
-      handlerHeightSize={props.handlerHeightSize}
+      handleHeightSize={props.handleHeightSize}
       width={width}
       minWidth={20} // we are adding 10px in the handleResizeStop, so the actual min width will be 20+10 = 30px.
       maxWidth={700} // max width will be 700
@@ -70,10 +61,10 @@ function Parent(props: {
 }
 
 export default function Example() {
-  const [size, setSize] = useState<HandlerHeightSizeType>('medium');
+  const [size, setSize] = useState<HandleHeightSizeType>('medium');
 
   const onChange = useCallback((event: SyntheticEvent<HTMLInputElement>) => {
-    setSize(event.currentTarget.value as HandlerHeightSizeType);
+    setSize(event.currentTarget.value as HandleHeightSizeType);
   }, []);
 
   return (
@@ -96,7 +87,7 @@ export default function Example() {
         aria-labelledby="radiogroup-label"
       />
       <div style={{ display: 'block' }}>
-        <Parent text={size} handlerHeightSize={size} />
+        <Parent text={size} handleHeightSize={size} />
       </div>
     </div>
   );

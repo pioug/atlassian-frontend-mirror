@@ -1,6 +1,5 @@
 import { EditorState } from 'prosemirror-state';
 
-import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
   doc,
   DocBuilder,
@@ -9,6 +8,7 @@ import {
   table,
   td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 
 import { cEmpty } from '../../../__tests__/__helpers/doc-builder';
 import { getSelectionRangeInRow } from '../../get-selection-range-in-row';

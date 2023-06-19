@@ -1,10 +1,10 @@
-import {
+import type {
   EditorState,
   ReadonlyTransaction,
   Selection,
   Transaction,
 } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 
 import { LinkMetaStep, LinkStepMetadata } from '@atlaskit/adf-schema/steps';
 

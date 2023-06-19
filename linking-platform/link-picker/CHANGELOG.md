@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 1.25.0
+
+### Minor Changes
+
+- [`bf9689fce97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf9689fce97) - [ux] Modified behaviour to load to all plugins before Link Picker UI is loaded, introduces a isLoading attribute to
+  indicate when a plugins have loaded
+
 ## 1.24.1
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import { CardAdf } from '@atlaskit/smart-card';
+import type { CardAdf } from '@atlaskit/smart-card';
 
 export type CardAppearance = 'inline' | 'block' | 'embed';
 export type { CardAdf };

@@ -1,9 +1,9 @@
-import { ReadonlyTransaction, Transaction } from 'prosemirror-state';
-import { Step } from 'prosemirror-transform';
+import type { ReadonlyTransaction, Transaction } from 'prosemirror-state';
+import type { Step } from 'prosemirror-transform';
 
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 
-import {
+import type {
   AnalyticsEventPayload,
   AnalyticsEventPayloadWithChannel,
 } from './types';

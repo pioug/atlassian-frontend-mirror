@@ -1,4 +1,4 @@
-import { Schema } from 'prosemirror-model';
+import type { Schema } from 'prosemirror-model';
 import { Plugin, PluginSpec, SafePluginSpec } from 'prosemirror-state';
 
 export class SafePlugin<T = any, S extends Schema = any> extends Plugin {

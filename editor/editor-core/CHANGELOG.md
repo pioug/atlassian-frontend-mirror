@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 185.2.16
+
+### Patch Changes
+
+- [`b273cb8b28a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b273cb8b28a) - The ModalElementBrower will no longer rerender when the editor state changes, instead it will only cause a rerender when the view is changed. This is to avoid lose of context within the element browser.
+
 ## 185.2.14
 
 ### Patch Changes

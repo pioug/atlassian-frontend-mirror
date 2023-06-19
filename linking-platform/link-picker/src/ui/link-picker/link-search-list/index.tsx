@@ -57,9 +57,11 @@ export const testIds = {
   searchResultItem: 'link-search-list-item',
   searchResultList: 'link-search-list',
   searchResultLoadingIndicator: 'link-picker.results-loading-indicator',
+  tabsLoadingIndicator: 'link-picker.tabs-loading-indicator',
 };
 
 type LinkSearchListElement = HTMLElement;
+
 export interface LinkSearchListProps
   extends Omit<
     React.HTMLAttributes<LinkSearchListElement>,

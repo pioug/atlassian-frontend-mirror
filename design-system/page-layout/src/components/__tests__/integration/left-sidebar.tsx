@@ -10,11 +10,8 @@ const exampleUrl = getExampleUrl(
 );
 
 /* Css selectors used for the test */
-
 const content = "[data-testid='content']";
 const resizeControl = "[data-resize-button='true']";
-const leftSidebar = "[data-testid='left-sidebar']";
-const collapsedSidebar = '[aria-expanded="false"]';
 
 /**
  * This test was originally marked as flakey. The problem has been found with
@@ -29,19 +26,35 @@ BrowserTestCase(
     await testPage.goto(exampleUrl);
     await testPage.waitForSelector(content);
 
-    await testPage.click(leftSidebar);
+    // Initially, the sidebar is open
     expect(await testPage.getAttribute(resizeControl, 'aria-expanded')).toBe(
       'true',
     );
+
+    // Tab to the "Skip to: Main Content" then go backwards…
     await testPage.keys('Tab');
     await testPage.keys('Tab');
+    await testPage.keys('Tab');
+    expect(await testPage.hasFocus("[href='#main-content']")).toBe(true);
+    await testPage.keys('Enter'); // Go to the main content
+
+    // Tab backwards into the ResizeControl
+    await testPage.keys(['Shift', 'Tab', 'Shift'], true);
+    expect(await testPage.hasFocus(resizeControl)).toBe(true);
+
+    // We've tabbed around a lot, everything is expanded, as expected…
     expect(await testPage.getAttribute(resizeControl, 'aria-expanded')).toBe(
       'true',
     );
+
+    // "Enter" on the ResizeControl
     await testPage.keys('Enter');
-    await testPage.waitForSelector(collapsedSidebar);
-    expect(await testPage.getAttribute(resizeControl, 'aria-expanded')).toBe(
-      'false',
+
+    // Left sidebar should now be collapsed:
+    expect(
+      await testPage.getAttribute(resizeControl, 'aria-expanded'),
+    ).not.toEqual(
+      'true', // sometimes this is `null`, other times it's `"false"`
     );
   },
 );

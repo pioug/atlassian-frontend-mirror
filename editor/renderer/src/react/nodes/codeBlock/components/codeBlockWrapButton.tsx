@@ -63,7 +63,7 @@ const CodeBlockWrapButton: React.FC<Props & WrappedComponentProps> = ({
               className={`wrap-code ${wrapLongLines ? 'clicked' : ''}`}
               iconBefore={<Icon glyph={WrapIcon} label="" />}
               isSelected={wrapLongLines}
-              onClick={() => {
+              onClick={(event) => {
                 fireAnalyticsEvent({
                   action: ACTION.CLICKED,
                   actionSubject: ACTION_SUBJECT.BUTTON,
@@ -75,6 +75,8 @@ const CodeBlockWrapButton: React.FC<Props & WrappedComponentProps> = ({
                 });
 
                 setWrapLongLines(!wrapLongLines);
+
+                event.stopPropagation();
               }}
               spacing="compact"
             />

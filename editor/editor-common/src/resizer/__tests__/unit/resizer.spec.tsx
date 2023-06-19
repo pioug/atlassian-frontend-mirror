@@ -18,7 +18,7 @@ describe('Resizer', () => {
   let customHandleRightClassName: string;
   let customResizableClassName: string;
 
-  let mockHandleResizeStart: () => number;
+  let mockHandleResizeStart: () => void;
   let mockHandleResize: HandleResize;
   let mockHandleResizeStop: HandleResize;
 
@@ -105,6 +105,33 @@ describe('Resizer', () => {
     expect(
       container.querySelector(`.${resizerHandleRightClassName}`),
     ).toBeInTheDocument();
+  });
+
+  it('should correct add and remove class name for resizing', async () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    const handleRight = container.querySelector(
+      `.${resizerHandleLeftClassName}`,
+    );
+    const resizable = container.querySelector(`.${resizerItemClassName}`);
+
+    if (handleRight && resizable) {
+      fireEvent.mouseDown(handleRight, { clientX: 99 });
+      expect(resizable).toHaveClass('is-resizing');
+
+      fireEvent.mouseUp(handleRight, { clientX: 150 });
+      expect(resizable).not.toHaveClass('is-resizing');
+    }
   });
 
   it('should create left and right handles when both are enabled', () => {
@@ -241,7 +268,7 @@ describe('Resizer', () => {
         handleResize={mockHandleResize}
         handleResizeStop={mockHandleResizeStop}
         width={initialWidth}
-        handlerHeightSize={'large'}
+        handleHeightSize={'large'}
         className={customResizableClassName}
         handleClassName={customHandleClassName}
       >
@@ -264,7 +291,7 @@ describe('Resizer', () => {
         handleResize={mockHandleResize}
         handleResizeStop={mockHandleResizeStop}
         width={initialWidth}
-        handlerHeightSize={'small'}
+        handleHeightSize={'small'}
         className={customResizableClassName}
         handleClassName={customHandleClassName}
       >

@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 108.2.2
+
+### Patch Changes
+
+- [`fef7f2e3676`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fef7f2e3676) - [ux] ED-17462 fix table column shriking in renderer
+
 ## 108.2.1
 
 ### Patch Changes

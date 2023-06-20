@@ -42,17 +42,16 @@ interface InlineMessageProps {
    * Set the icon to be used before the title.
    */
   type?: IconAppearance;
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-    A unique string that appears as a data attribute, `data-testid`,
-    in the rendered code. It is provided to serve as a hook for automated tests.
-
-    The value of `testId` is attached to the different sub-components in Inline Message:
-    - `testId`: the top-level inline message component
-    - `testId--inline-dialog`: the content of the message
-    - `testId--button`: the button element that opens the dialog on press
-    - `testId--title`: the title of the message
-    - `testId--text`: the text of the message
+   * A unique string that appears as a data attribute, `data-testid`,
+   * in the rendered code. It is provided to serve as a hook for automated tests.
+   *
+   * The value of `testId` is attached to the different sub-components in Inline Message:
+   *  - `testId`: the top-level inline message component
+   *  - `testId--inline-dialog`: the content of the message
+   *  - `testId--button`: the button element that opens the dialog on press
+   *  - `testId--title`: the title of the message
+   *  - `testId--text`: the text of the message
    */
   testId?: string;
   /**

@@ -1,10 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::488b6f348c638f30edc95365a3de0725>>
+ * @codegen <<SignedSource::87bc2dd9f7bab2c43fbdcafbd9e9e3ac>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
   'color.text': '--ds-text',
+  'color.text.accent.lime': '--ds-text-accent-lime',
+  'color.text.accent.lime.bolder': '--ds-text-accent-lime-bolder',
   'color.text.accent.red': '--ds-text-accent-red',
   'color.text.accent.red.bolder': '--ds-text-accent-red-bolder',
   'color.text.accent.orange': '--ds-text-accent-orange',
@@ -38,6 +40,7 @@ const tokens = {
   'color.link': '--ds-link',
   'color.link.pressed': '--ds-link-pressed',
   'color.icon': '--ds-icon',
+  'color.icon.accent.lime': '--ds-icon-accent-lime',
   'color.icon.accent.red': '--ds-icon-accent-red',
   'color.icon.accent.orange': '--ds-icon-accent-orange',
   'color.icon.accent.yellow': '--ds-icon-accent-yellow',
@@ -59,6 +62,7 @@ const tokens = {
   'color.icon.information': '--ds-icon-information',
   'color.icon.subtle': '--ds-icon-subtle',
   'color.border': '--ds-border',
+  'color.border.accent.lime': '--ds-border-accent-lime',
   'color.border.accent.red': '--ds-border-accent-red',
   'color.border.accent.orange': '--ds-border-accent-orange',
   'color.border.accent.yellow': '--ds-border-accent-yellow',
@@ -80,6 +84,11 @@ const tokens = {
   'color.border.discovery': '--ds-border-discovery',
   'color.border.information': '--ds-border-information',
   'color.border.bold': '--ds-border-bold',
+  'color.background.accent.lime.subtlest':
+    '--ds-background-accent-lime-subtlest',
+  'color.background.accent.lime.subtler': '--ds-background-accent-lime-subtler',
+  'color.background.accent.lime.subtle': '--ds-background-accent-lime-subtle',
+  'color.background.accent.lime.bolder': '--ds-background-accent-lime-bolder',
   'color.background.accent.red.subtlest': '--ds-background-accent-red-subtlest',
   'color.background.accent.red.subtler': '--ds-background-accent-red-subtler',
   'color.background.accent.red.subtle': '--ds-background-accent-red-subtle',
@@ -231,6 +240,12 @@ const tokens = {
   'color.chart.categorical.7.hovered': '--ds-chart-categorical-7-hovered',
   'color.chart.categorical.8': '--ds-chart-categorical-8',
   'color.chart.categorical.8.hovered': '--ds-chart-categorical-8-hovered',
+  'color.chart.lime.bold': '--ds-chart-lime-bold',
+  'color.chart.lime.bold.hovered': '--ds-chart-lime-bold-hovered',
+  'color.chart.lime.bolder': '--ds-chart-lime-bolder',
+  'color.chart.lime.bolder.hovered': '--ds-chart-lime-bolder-hovered',
+  'color.chart.lime.boldest': '--ds-chart-lime-boldest',
+  'color.chart.lime.boldest.hovered': '--ds-chart-lime-boldest-hovered',
   'color.chart.neutral': '--ds-chart-neutral',
   'color.chart.neutral.hovered': '--ds-chart-neutral-hovered',
   'color.chart.red.bold': '--ds-chart-red-bold',
@@ -376,6 +391,8 @@ const tokens = {
 
 export type CSSTokenMap = {
   'color.text': 'var(--ds-text)';
+  'color.text.accent.lime': 'var(--ds-text-accent-lime)';
+  'color.text.accent.lime.bolder': 'var(--ds-text-accent-lime-bolder)';
   'color.text.accent.red': 'var(--ds-text-accent-red)';
   'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
   'color.text.accent.orange': 'var(--ds-text-accent-orange)';
@@ -409,6 +426,7 @@ export type CSSTokenMap = {
   'color.link': 'var(--ds-link)';
   'color.link.pressed': 'var(--ds-link-pressed)';
   'color.icon': 'var(--ds-icon)';
+  'color.icon.accent.lime': 'var(--ds-icon-accent-lime)';
   'color.icon.accent.red': 'var(--ds-icon-accent-red)';
   'color.icon.accent.orange': 'var(--ds-icon-accent-orange)';
   'color.icon.accent.yellow': 'var(--ds-icon-accent-yellow)';
@@ -430,6 +448,7 @@ export type CSSTokenMap = {
   'color.icon.information': 'var(--ds-icon-information)';
   'color.icon.subtle': 'var(--ds-icon-subtle)';
   'color.border': 'var(--ds-border)';
+  'color.border.accent.lime': 'var(--ds-border-accent-lime)';
   'color.border.accent.red': 'var(--ds-border-accent-red)';
   'color.border.accent.orange': 'var(--ds-border-accent-orange)';
   'color.border.accent.yellow': 'var(--ds-border-accent-yellow)';
@@ -451,6 +470,10 @@ export type CSSTokenMap = {
   'color.border.discovery': 'var(--ds-border-discovery)';
   'color.border.information': 'var(--ds-border-information)';
   'color.border.bold': 'var(--ds-border-bold)';
+  'color.background.accent.lime.subtlest': 'var(--ds-background-accent-lime-subtlest)';
+  'color.background.accent.lime.subtler': 'var(--ds-background-accent-lime-subtler)';
+  'color.background.accent.lime.subtle': 'var(--ds-background-accent-lime-subtle)';
+  'color.background.accent.lime.bolder': 'var(--ds-background-accent-lime-bolder)';
   'color.background.accent.red.subtlest': 'var(--ds-background-accent-red-subtlest)';
   'color.background.accent.red.subtler': 'var(--ds-background-accent-red-subtler)';
   'color.background.accent.red.subtle': 'var(--ds-background-accent-red-subtle)';
@@ -565,6 +588,12 @@ export type CSSTokenMap = {
   'color.chart.categorical.7.hovered': 'var(--ds-chart-categorical-7-hovered)';
   'color.chart.categorical.8': 'var(--ds-chart-categorical-8)';
   'color.chart.categorical.8.hovered': 'var(--ds-chart-categorical-8-hovered)';
+  'color.chart.lime.bold': 'var(--ds-chart-lime-bold)';
+  'color.chart.lime.bold.hovered': 'var(--ds-chart-lime-bold-hovered)';
+  'color.chart.lime.bolder': 'var(--ds-chart-lime-bolder)';
+  'color.chart.lime.bolder.hovered': 'var(--ds-chart-lime-bolder-hovered)';
+  'color.chart.lime.boldest': 'var(--ds-chart-lime-boldest)';
+  'color.chart.lime.boldest.hovered': 'var(--ds-chart-lime-boldest-hovered)';
   'color.chart.neutral': 'var(--ds-chart-neutral)';
   'color.chart.neutral.hovered': 'var(--ds-chart-neutral-hovered)';
   'color.chart.red.bold': 'var(--ds-chart-red-bold)';

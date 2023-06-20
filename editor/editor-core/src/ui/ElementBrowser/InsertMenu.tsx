@@ -111,6 +111,7 @@ const InsertMenu = ({
       <ElementBrowserWrapper
         handleClickOutside={toggleVisiblity}
         handleEscapeKeydown={toggleVisiblity}
+        closeOnTab={true}
       >
         <ElementBrowser
           mode="inline"

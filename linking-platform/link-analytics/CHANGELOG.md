@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 8.0.5
+
+### Patch Changes
+
+- [`3b393e53508`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b393e53508) - Updates events triggered from link picker source event to have method of linkpicker_none if the link picker analytic event has no input method for the url field. This means if the link picker was mounted with a url and submitted without any change the method for an updated event will have updateMethod of linkpicker_none instead of having no updateMethod.
+
 ## 8.0.4
 
 ### Patch Changes

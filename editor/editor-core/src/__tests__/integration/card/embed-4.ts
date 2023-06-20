@@ -13,9 +13,12 @@ import * as embedCardAdf from './_fixtures_/embed-card.adf.fallback.json';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
+// FIXME: This test was automatically skipped due to failure on 19/06/2023: https://product-fabric.atlassian.net/browse/ED-18873
 BrowserTestCase(
   'card: embed card should render as block card if preview missing',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 

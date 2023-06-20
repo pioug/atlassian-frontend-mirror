@@ -1,1 +1,1 @@
-export { setCustomNativeDragPreview } from '../../util/set-custom-native-drag-preview';
+export { setCustomNativeDragPreview } from '../../util/custom-native-drag-preview/set-custom-native-drag-preview';

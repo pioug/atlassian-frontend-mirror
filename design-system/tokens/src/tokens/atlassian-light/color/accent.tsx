@@ -37,6 +37,10 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
           '[default]': { value: 'Magenta800' },
           bolder: { value: 'Magenta900' },
         },
+        lime: {
+          '[default]': { value: 'Lime800' },
+          bolder: { value: 'Lime900' },
+        },
         gray: {
           '[default]': { value: 'Neutral800' },
           bolder: { value: 'Neutral1100' },
@@ -53,6 +57,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
         purple: { value: 'Purple600' },
         teal: { value: 'Teal600' },
         magenta: { value: 'Magenta600' },
+        lime: { value: 'Lime600' },
         gray: { value: 'Neutral600' },
       },
     },
@@ -66,6 +71,7 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
         purple: { value: 'Purple600' },
         teal: { value: 'Teal600' },
         magenta: { value: 'Magenta600' },
+        lime: { value: 'Lime600' },
         gray: { value: 'Neutral600' },
       },
     },
@@ -118,6 +124,12 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
           subtler: { value: 'Magenta200' },
           subtle: { value: 'Magenta400' },
           bolder: { value: 'Magenta700' },
+        },
+        lime: {
+          subtlest: { value: 'Lime100' },
+          subtler: { value: 'Lime200' },
+          subtle: { value: 'Lime400' },
+          bolder: { value: 'Lime700' },
         },
         gray: {
           subtlest: { value: 'Neutral200' },

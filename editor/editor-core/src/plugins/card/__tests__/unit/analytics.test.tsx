@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
@@ -624,6 +625,75 @@ describe('Analytics key events', () => {
         },
       );
     });
+
+    /**
+     * should fire when inserting a link via link picker over a text selection
+     */
+    ffTest(
+      'platform.linking-platform.editor.fix-link-insert-analytics',
+      async () => {
+        const url = 'https://google.com';
+        const urlDetails = { url };
+
+        const { editorView } = await setup({
+          doc: doc(p('{<}Text{>}')),
+        });
+
+        sendKeyToPm(editorView, 'Mod-k');
+
+        const urlField = await screen.findByTestId('link-url');
+        const submitButton = await screen.findByRole('button', {
+          name: 'Insert',
+        });
+
+        await userEvent.type(urlField, url);
+        await userEvent.click(submitButton);
+
+        expect(mockLinkCreated).toHaveBeenCalledTimes(1);
+        expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+        expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+        expect(mockLinkCreated).toHaveBeenCalledWith(
+          { ...urlDetails, displayCategory: 'link' },
+          expect.any(UIAnalyticsEvent),
+          {
+            creationMethod: undefined,
+            display: 'url',
+            nodeContext: 'doc',
+          },
+        );
+      },
+      async () => {
+        const url = 'https://google.com';
+        const urlDetails = { url };
+
+        const { editorView } = await setup({
+          doc: doc(p('{<}Text{>}')),
+        });
+
+        sendKeyToPm(editorView, 'Mod-k');
+
+        const urlField = await screen.findByTestId('link-url');
+        const submitButton = await screen.findByRole('button', {
+          name: 'Insert',
+        });
+
+        await userEvent.type(urlField, url);
+        await userEvent.click(submitButton);
+
+        expect(mockLinkCreated).toHaveBeenCalledTimes(1);
+        expect(mockLinkUpdated).toHaveBeenCalledTimes(0);
+        expect(mockLinkDeleted).toHaveBeenCalledTimes(0);
+        expect(mockLinkCreated).toHaveBeenCalledWith(
+          { ...urlDetails, displayCategory: 'link' },
+          null,
+          {
+            creationMethod: 'unknown',
+            display: 'url',
+            nodeContext: 'doc',
+          },
+        );
+      },
+    );
 
     describe('paste', () => {
       it('fires link created when pasting a link over text', async () => {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::670815fe4109478f3806467cac36e30f>>
+ * @codegen <<SignedSource::8edab6541f62f57636153fe3ff90017a>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -8,6 +8,8 @@ html[data-color-mode="light"][data-theme~="light:dark"],
 html[data-color-mode="dark"][data-theme~="dark:dark"] {
   color-scheme: dark;
   --ds-text: #C7D1DB;
+  --ds-text-accent-lime: #B3DF72;
+  --ds-text-accent-lime-bolder: #D3F1A7;
   --ds-text-accent-red: #FF9C8F;
   --ds-text-accent-red-bolder: #FFD2CC;
   --ds-text-accent-orange: #FEC57B;
@@ -41,6 +43,7 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-link: #579DFF;
   --ds-link-pressed: #85B8FF;
   --ds-icon: #9FADBC;
+  --ds-icon-accent-lime: #82B536;
   --ds-icon-accent-red: #EF5C48;
   --ds-icon-accent-orange: #F18D13;
   --ds-icon-accent-yellow: #CF9F02;
@@ -62,6 +65,7 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-icon-information: #388BFF;
   --ds-icon-subtle: #8696A7;
   --ds-border: #A6C5E229;
+  --ds-border-accent-lime: #82B536;
   --ds-border-accent-red: #EF5C48;
   --ds-border-accent-orange: #F18D13;
   --ds-border-accent-yellow: #CF9F02;
@@ -83,6 +87,10 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-border-discovery: #8F7EE7;
   --ds-border-information: #388BFF;
   --ds-border-bold: #738496;
+  --ds-background-accent-lime-subtlest: #2A3818;
+  --ds-background-accent-lime-subtler: #37471F;
+  --ds-background-accent-lime-subtle: #4C6B1F;
+  --ds-background-accent-lime-bolder: #94C748;
   --ds-background-accent-red-subtlest: #391813;
   --ds-background-accent-red-subtler: #601E16;
   --ds-background-accent-red-subtle: #AE2A19;
@@ -197,6 +205,12 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-chart-categorical-7-hovered: #FFECF8;
   --ds-chart-categorical-8: #FEC57B;
   --ds-chart-categorical-8-hovered: #FFE2BD;
+  --ds-chart-lime-bold: #37B4C3;
+  --ds-chart-lime-bold-hovered: #60C6D2;
+  --ds-chart-lime-bolder: #60C6D2;
+  --ds-chart-lime-bolder-hovered: #8BDBE5;
+  --ds-chart-lime-boldest: #8BDBE5;
+  --ds-chart-lime-boldest-hovered: #C1F0F5;
   --ds-chart-neutral: #738496;
   --ds-chart-neutral-hovered: #8696A7;
   --ds-chart-red-bold: #E34935;

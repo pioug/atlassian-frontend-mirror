@@ -406,6 +406,38 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
           },
         },
       },
+      lime: {
+        bold: {
+          '[default]': {
+            // @ts-expect-error
+            value: '#6A9A23',
+          },
+          hovered: {
+            // @ts-expect-error
+            value: '#5B7F24',
+          },
+        },
+        bolder: {
+          '[default]': {
+            // @ts-expect-error
+            value: '#5B7F24',
+          },
+          hovered: {
+            // @ts-expect-error
+            value: '#4C6B1F',
+          },
+        },
+        boldest: {
+          '[default]': {
+            // @ts-expect-error
+            value: '#4C6B1F',
+          },
+          hovered: {
+            // @ts-expect-error
+            value: '#37471F',
+          },
+        },
+      },
       gray: {
         bold: {
           '[default]': {

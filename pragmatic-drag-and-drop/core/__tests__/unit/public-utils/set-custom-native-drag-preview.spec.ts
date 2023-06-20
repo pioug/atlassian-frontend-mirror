@@ -117,7 +117,7 @@ describe('cleanup in `onDragStart`', () => {
   });
 });
 
-test('placement: { type: "center" } should position the center of the drag preview user the users pointer', () => {
+it('should allow custom placement of the drag preview', () => {
   const [A] = getElements();
   const ordered: string[] = [];
   let pointerToContainer: HTMLElement | null = null;
@@ -132,6 +132,7 @@ test('placement: { type: "center" } should position the center of the drag previ
       nativeSetDragImage(...args);
     };
   }
+  const previewOffset = { x: 1000, y: 2000 };
   const cleanup = combine(
     appendToBody(A),
     draggable({
@@ -139,7 +140,7 @@ test('placement: { type: "center" } should position the center of the drag previ
       onGenerateDragPreview({ nativeSetDragImage }) {
         ordered.push('preview');
         setCustomNativeDragPreview({
-          placement: { type: 'center' },
+          getOffset: () => previewOffset,
           render({ container }) {
             pointerToContainer = container;
             setBoundingClientRect(container, rect);
@@ -160,8 +161,8 @@ test('placement: { type: "center" } should position the center of the drag previ
   expect(setImageMock).nthCalledWith(
     1,
     pointerToContainer,
-    rect.width / 2,
-    rect.height / 2,
+    previewOffset.x,
+    previewOffset.y,
   );
 
   // @ts-expect-error
@@ -171,7 +172,7 @@ test('placement: { type: "center" } should position the center of the drag previ
   cleanup();
 });
 
-test('placement: { type: "offset-from-pointer" } should position shift the drag preview off the users pointer', () => {
+it('should use the default placement function when none is provided', () => {
   const [A] = getElements();
   const ordered: string[] = [];
   let pointerToContainer: HTMLElement | null = null;
@@ -193,11 +194,6 @@ test('placement: { type: "offset-from-pointer" } should position shift the drag 
       onGenerateDragPreview({ nativeSetDragImage }) {
         ordered.push('preview');
         setCustomNativeDragPreview({
-          placement: {
-            type: 'offset-from-pointer',
-            x: '10px',
-            y: '20px',
-          },
           render({ container }) {
             pointerToContainer = container;
             setBoundingClientRect(container, rect);
@@ -215,16 +211,8 @@ test('placement: { type: "offset-from-pointer" } should position shift the drag 
 
   expect(ordered).toEqual(['preview']);
   ordered.length = 0;
-  // position drag preview at default of top / left at 0 on the users pointer
-  invariant(pointerToContainer);
+  // default: positioned on `{x: 0, y: 0}`
   expect(setImageMock).nthCalledWith(1, pointerToContainer, 0, 0);
-  // use a transparent border to shift the drag preview
-  expect((pointerToContainer as HTMLElement).style.borderLeft).toEqual(
-    '10px solid transparent',
-  );
-  expect((pointerToContainer as HTMLElement).style.borderTop).toEqual(
-    '20px solid transparent',
-  );
 
   // @ts-expect-error
   requestAnimationFrame.step();

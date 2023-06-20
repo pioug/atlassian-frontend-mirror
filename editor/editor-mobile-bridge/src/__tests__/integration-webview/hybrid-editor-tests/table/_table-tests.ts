@@ -7,6 +7,7 @@ import {
 import { callNativeBridge } from '../../../integration/_utils';
 import { INSERT_BLOCK_TYPE } from '../../_utils/bridge-methods';
 import { TABLE_NODE } from '../../_utils/test-data';
+import { mobileSnapshot } from '../../_utils/snapshot';
 
 export default async () => {
   MobileTestCase(
@@ -20,6 +21,21 @@ export default async () => {
       await page.tapKeys(tableHeaderText);
 
       expect(await isTableHeaderTextAdded(page, tableHeaderText)).toBe(true);
+    },
+  );
+
+  MobileTestCase(
+    'Table: inserting text in table header will not affect the width of column',
+    {},
+    async (client) => {
+      const page = await Page.create(client);
+      await loadEditor(page);
+      await callNativeBridge(page, INSERT_BLOCK_TYPE, TABLE_NODE);
+      const longTextTest =
+        "Extremely long title to place in header of cell, which shouldn't adjust width";
+      await page.tapKeys(longTextTest);
+
+      await mobileSnapshot(page);
     },
   );
 };

@@ -165,6 +165,26 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
             },
           },
         },
+        lime: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.6.0',
+              description:
+                'Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.7.0',
+              description:
+                'Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color.',
+            },
+          },
+        },
         gray: {
           '[default]': {
             attributes: {
@@ -261,6 +281,15 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               'Use for magenta icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
           },
         },
+        lime: {
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            introduced: '1.6.0',
+            description:
+              'Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.',
+          },
+        },
         gray: {
           attributes: {
             group: 'paint',
@@ -335,6 +364,15 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
             introduced: '0.6.0',
             description:
               'Use for teal borders on non-bold backgrounds when there is no meaning tied to the color.',
+          },
+        },
+        lime: {
+          attributes: {
+            group: 'paint',
+            state: 'active',
+            introduced: '1.6.0',
+            description:
+              'Use for lime borders on non-bold backgrounds when there is no meaning tied to the color.',
           },
         },
         magenta: {
@@ -659,6 +697,44 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
               introduced: '0.7.0',
               description:
                 'Use for magenta backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
+            },
+          },
+        },
+        lime: {
+          subtlest: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.6.0',
+              description:
+                'Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.',
+            },
+          },
+          subtler: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.6.0',
+              description:
+                'Use for for backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          subtle: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.6.0',
+              description:
+                'Use for vibrant for backgrounds when there is no meaning tied to the color, such as colored tags.',
+            },
+          },
+          bolder: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.6.0',
+              description:
+                'Use for for backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.',
             },
           },
         },

@@ -4,11 +4,13 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::cc9231cd2b7a9797c51b4b8b742bab92>>
+ * @codegen <<SignedSource::7911282577fcdc751d61fa316ef72797>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
   'color.text': '#172B4D',
+  'color.text.accent.lime': '#4C6B1F',
+  'color.text.accent.lime.bolder': '#37471F',
   'color.text.accent.red': '#AE2A19',
   'color.text.accent.red.bolder': '#601E16',
   'color.text.accent.orange': '#974F0C',
@@ -42,6 +44,7 @@ const defaultTokenValues = {
   'color.link': '#0C66E4',
   'color.link.pressed': '#0055CC',
   'color.icon': '#44546F',
+  'color.icon.accent.lime': '#6A9A23',
   'color.icon.accent.red': '#E34935',
   'color.icon.accent.orange': '#D97008',
   'color.icon.accent.yellow': '#B38600',
@@ -63,6 +66,7 @@ const defaultTokenValues = {
   'color.icon.information': '#1D7AFC',
   'color.icon.subtle': '#626F86',
   'color.border': '#091E4224',
+  'color.border.accent.lime': '#6A9A23',
   'color.border.accent.red': '#E34935',
   'color.border.accent.orange': '#D97008',
   'color.border.accent.yellow': '#B38600',
@@ -84,6 +88,10 @@ const defaultTokenValues = {
   'color.border.discovery': '#8270DB',
   'color.border.information': '#1D7AFC',
   'color.border.bold': '#758195',
+  'color.background.accent.lime.subtlest': '#EEFBDA',
+  'color.background.accent.lime.subtler': '#D3F1A7',
+  'color.background.accent.lime.subtle': '#94C748',
+  'color.background.accent.lime.bolder': '#5B7F24',
   'color.background.accent.red.subtlest': '#FFEDEB',
   'color.background.accent.red.subtler': '#FFD2CC',
   'color.background.accent.red.subtle': '#F87462',
@@ -198,6 +206,12 @@ const defaultTokenValues = {
   'color.chart.categorical.7.hovered': '#341829',
   'color.chart.categorical.8': '#974F0C',
   'color.chart.categorical.8.hovered': '#5F3811',
+  'color.chart.lime.bold': '#6A9A23',
+  'color.chart.lime.bold.hovered': '#5B7F24',
+  'color.chart.lime.bolder': '#5B7F24',
+  'color.chart.lime.bolder.hovered': '#4C6B1F',
+  'color.chart.lime.boldest': '#4C6B1F',
+  'color.chart.lime.boldest.hovered': '#37471F',
   'color.chart.neutral': '#8590A2',
   'color.chart.neutral.hovered': '#758195',
   'color.chart.red.bold': '#EF5C48',

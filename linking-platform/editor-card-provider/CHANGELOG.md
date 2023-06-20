@@ -1,5 +1,11 @@
 # @atlaskit/editor-card-provider
 
+## 3.0.4
+
+### Patch Changes
+
+- [`1674b5907b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1674b5907b4) - [ux] Make confluence whiteboard urls default to embed view
+
 ## 3.0.3
 
 ### Patch Changes

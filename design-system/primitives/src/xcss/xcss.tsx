@@ -243,7 +243,29 @@ const inlineWrapper = (style: any) => xcss<typeof Inline>(style);
 type XCSS = ReturnType<typeof boxWrapper> | ReturnType<typeof inlineWrapper>;
 
 type AllowedBoxStyles = keyof SafeCSSObject;
-type AllowedInlineStyles = 'backgroundColor' | 'padding';
+type Spacing =
+  | 'columnGap'
+  | 'gap'
+  | 'inset'
+  | 'insetBlock'
+  | 'insetBlockEnd'
+  | 'insetBlockStart'
+  | 'insetInline'
+  | 'insetInlineEnd'
+  | 'insetInlineStart'
+  | 'outlineOffset'
+  | 'padding'
+  | 'paddingBlock'
+  | 'paddingBlockEnd'
+  | 'paddingBlockStart'
+  | 'paddingBottom'
+  | 'paddingInline'
+  | 'paddingInlineEnd'
+  | 'paddingInlineStart'
+  | 'paddingLeft'
+  | 'paddingRight'
+  | 'paddingTop'
+  | 'rowGap';
 
 /**
  * ### xcss
@@ -263,9 +285,7 @@ export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
         | ScopedSafeCSSObject<AllowedBoxStyles>
         | ScopedSafeCSSObject<AllowedBoxStyles>[]
     : Primitive extends typeof Inline
-    ?
-        | ScopedSafeCSSObject<AllowedInlineStyles>
-        | ScopedSafeCSSObject<AllowedInlineStyles>[]
+    ? ScopedSafeCSSObject<Spacing> | ScopedSafeCSSObject<Spacing>[]
     : never,
 ) {
   return baseXcss<

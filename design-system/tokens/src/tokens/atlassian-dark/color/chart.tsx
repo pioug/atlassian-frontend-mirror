@@ -384,6 +384,32 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
           },
         },
       },
+      lime: {
+        bold: {
+          '[default]': {
+            value: 'Teal500',
+          },
+          hovered: {
+            value: 'Teal400',
+          },
+        },
+        bolder: {
+          '[default]': {
+            value: 'Teal400',
+          },
+          hovered: {
+            value: 'Teal300',
+          },
+        },
+        boldest: {
+          '[default]': {
+            value: 'Teal300',
+          },
+          hovered: {
+            value: 'Teal200',
+          },
+        },
+      },
       gray: {
         bold: {
           '[default]': {

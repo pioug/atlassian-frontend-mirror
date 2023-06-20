@@ -4,8 +4,6 @@ order: 0
 
 import SectionMessage from '@atlaskit/section-message';
 
-<!-- I'd like to change this section to be called Drag-and-drop or something, not Core, but still mulling it over. -->
-
 This package contains the essential pieces of the system, and is not tied to any JavaScript framework.
 
 - The [element adapter](/components/pragmatic-drag-and-drop/adapter/element-adapter) powers drag operations of elements.
@@ -176,10 +174,6 @@ You can use `setCustomNativeDragPreview` to mount a new element to the page to b
 
 `setCustomNativeDragPreview` has been designed to work with any view abstraction
 
-```ts
-import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
-```
-
 #### Usage example: `react` portals
 
 This technique requires your component to be re-rendered, but maintains the current `react` `context`
@@ -234,7 +228,6 @@ function Item() {
 
 This technique requires no re-rendering of your component, but does not maintain the current `react` `context`
 
-
 ```tsx
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 
@@ -254,12 +247,33 @@ draggable({
 });
 ```
 
-#### Placement
+#### Offset
 
-You can control where the custom native drag preview is placed by using the `placement` argument:
+You can control where the custom native drag preview is placed by using the `getOffset()` argument.
 
-- `type: 'center'`: Place the center of the drag preview user the users pointer
-- `type: 'offset-from-pointer'`: Shift the drag preview away from the users pointer
+You can return an `{x: number, y: number}` object from `getOffset()` which will control where the native drag preview is rendered relative to the users pointer. `{x: 0, y: 0}` represents having the users pointer user the top left corner of the drag preview.
+
+For clarity:
+
+> `const rect = container.getBoundingClientRect()`
+
+- `{x: 0, y: 0}` → top left of the `container` will be under the users pointer **(default)**
+- `{x: rect.width, y: 0}` top right of the `container` will be under the users pointer
+- `{x: rect.width, y: rect.height}` bottom right of the `container` will be under the users pointer
+- `{x: 0, y: rect.height}` bottom left of the `container` will be under the users pointer
+
+
+```ts
+type GetOffsetFn = (args: { container: HTMLElement }) => {x: number, y: number};
+```
+
+Notes:
+
+- `GetOffsetFn` needs to return `x` and `y` as numbers as that is what the platform requires
+- You cannot use negative values (not supported by browsers). If you want to push the drag preview away from the users pointer, use `offsetFromPointer` (see below)
+- The max offset value for an axis is the `border-box`. Values greater than the `border-box` get trimmed to be the `border-box` value
+
+`{x: rect.width + 1, y: rect.height + 1}` effectively becomes `{x: rect.width, y: rect.height}`.
 
 ```tsx
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
@@ -268,7 +282,11 @@ draggable({
   element: myElement,
   onGenerateDragPreview: ({ nativeSetDragImage }) => {
     setCustomNativeDragPreview({
-      placement: { type: 'offset-from-pointer', x: '16px', y: '8px' },
+      // place the (near) top middle of the `container` under the users pointer
+      getOffset: () => {
+        const rect = container.getBoundingClientRect();
+        return { x: rect.width / 2, y: 16 };
+      },
       render: function render({ container }) {
         ReactDOM.render(<Preview item={item} />, container);
         return function cleanup() {
@@ -280,6 +298,51 @@ draggable({
   },
 });
 ```
+
+We have `getOffset()` helpers for `setCustomnativeDragPreview()`:
+
+1. `centerUnderPointer`: centers the custom native drag preview under the users cursor
+
+```ts
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+import { centerUnderPointer } from '@atlaskit/pragmatic-drag-and-drop/util/center-under-pointer';
+
+draggable({
+  element: myElement,
+  onGenerateDragPreview: ({ nativeSetDragImage }) => {
+    setCustomNativeDragPreview({
+      getOffset: centerUnderPointer,
+      render: function render({ container }) {
+        /* ... */
+      },
+      nativeSetDragImage,
+    });
+  },
+});
+```
+
+2. `offsetFromPointer`: a cross browser mechanism to push the drag preview away from the users pointer
+
+```ts
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
+
+draggable({
+  element: myElement,
+  onGenerateDragPreview: ({ nativeSetDragImage }) => {
+    setCustomNativeDragPreview({
+      // `x` and `y` can be any CSS value
+      getOffset: offsetFromPointer({ x: '8px', y: 'calc(var(--grid) * 2)' }),
+      render: function render({ container }) {
+        /* ... */
+      },
+      nativeSetDragImage,
+    });
+  },
+});
+```
+
+Note: if you are using css variables inside of your `getOffset()` you need to be sure your css variables are available at the `<body>` element, as the `container` is temporarily mounted as a child of `<body>`
 
 ### Disable native drag preview
 

@@ -74,14 +74,15 @@ export type Space = keyof typeof spaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ca2805602ea60d52a8c2cf8926fb97d3>>
+ * @codegen <<SignedSource::d072e2cad501ea7aa5c4171d8c1b5d17>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "shadow", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::224665ba07a6c41e68ce15f72b24cd92>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::7e5a6402120dcaf0373e364561a78a73>>
  */
 export const borderColorMap = {
   'color.border': token('color.border', '#091e4221'),
+  'color.border.accent.lime': token('color.border.accent.lime', '#6A9A23'),
   'color.border.accent.red': token('color.border.accent.red', '#FF5630'),
   'color.border.accent.orange': token('color.border.accent.orange', '#D94008'),
   'color.border.accent.yellow': token('color.border.accent.yellow', '#FFAB00'),
@@ -111,6 +112,22 @@ export const borderColorMap = {
 export type BorderColor = keyof typeof borderColorMap;
 
 export const backgroundColorMap = {
+  'color.background.accent.lime.subtlest': token(
+    'color.background.accent.lime.subtlest',
+    '#EEFBDA',
+  ),
+  'color.background.accent.lime.subtler': token(
+    'color.background.accent.lime.subtler',
+    '#D3F1A7',
+  ),
+  'color.background.accent.lime.subtle': token(
+    'color.background.accent.lime.subtle',
+    '#94C748',
+  ),
+  'color.background.accent.lime.bolder': token(
+    'color.background.accent.lime.bolder',
+    '#5B7F24',
+  ),
   'color.background.accent.red.subtlest': token(
     'color.background.accent.red.subtlest',
     '#FF8F73',
@@ -507,6 +524,11 @@ export type Shadow = keyof typeof shadowMap;
 
 export const textColorMap = {
   'color.text': token('color.text', '#172B4D'),
+  'color.text.accent.lime': token('color.text.accent.lime', '#4C6B1F'),
+  'color.text.accent.lime.bolder': token(
+    'color.text.accent.lime.bolder',
+    '#37471F',
+  ),
   'color.text.accent.red': token('color.text.accent.red', '#DE350B'),
   'color.text.accent.red.bolder': token(
     'color.text.accent.red.bolder',
@@ -570,6 +592,7 @@ export type TextColor = keyof typeof textColorMap;
 
 export const fillMap = {
   'color.icon': token('color.icon', '#505F79'),
+  'color.icon.accent.lime': token('color.icon.accent.lime', '#6A9A23'),
   'color.icon.accent.red': token('color.icon.accent.red', '#FF5630'),
   'color.icon.accent.orange': token('color.icon.accent.orange', '#D94008'),
   'color.icon.accent.yellow': token('color.icon.accent.yellow', '#FFAB00'),

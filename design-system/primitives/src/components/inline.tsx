@@ -16,6 +16,7 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import { type Space, spaceStylesMap } from '../xcss/style-maps.partial';
+import { type InlineXCSS, parseXcss } from '../xcss/xcss';
 
 export interface InlineProps<T extends ElementType = 'div'> {
   /**
@@ -62,6 +63,11 @@ export interface InlineProps<T extends ElementType = 'div'> {
    * Renders a separator string between each child.
    */
   separator?: string;
+
+  /**
+   * Safe subset of styles that can be applied as a classname.
+   */
+  xcss?: InlineXCSS | Array<InlineXCSS | false | undefined>;
 
   /**
    * A unique string that appears as data attribute data-testid in the rendered code, serving as a hook for automated tests.
@@ -155,6 +161,7 @@ const Inline = memo(
         space,
         rowSpace,
         separator,
+        xcss,
         testId,
         children: rawChildren,
       }: InlineProps<T>,
@@ -182,10 +189,13 @@ const Inline = memo(
         : rawChildren;
 
       const justifyContent = spread || alignInline;
+      const className = xcss && parseXcss(xcss);
 
       return (
         <Component
           css={[
+            // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+            className,
             baseStyles,
             space && spaceStylesMap.gap[space],
             justifyContent && justifyContentMap[justifyContent],

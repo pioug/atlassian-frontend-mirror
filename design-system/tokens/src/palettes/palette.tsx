@@ -81,6 +81,16 @@ type PaletteValues =
   | 'Magenta800'
   | 'Magenta900'
   | 'Magenta1000'
+  | 'Lime100'
+  | 'Lime200'
+  | 'Lime300'
+  | 'Lime400'
+  | 'Lime500'
+  | 'Lime600'
+  | 'Lime700'
+  | 'Lime800'
+  | 'Lime900'
+  | 'Lime1000'
   | 'DarkNeutral-100'
   | 'DarkNeutral-100A'
   | 'DarkNeutral0'
@@ -700,6 +710,76 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         attributes: {
           group: 'palette',
           category: 'magenta',
+        },
+      },
+      Lime100: {
+        value: '#EEFBDA',
+        attributes: {
+          group: 'palette',
+          category: 'lime',
+        },
+      },
+      Lime200: {
+        value: '#D3F1A7',
+        attributes: {
+          group: 'palette',
+          category: 'lime',
+        },
+      },
+      Lime300: {
+        value: '#B3DF72',
+        attributes: {
+          group: 'palette',
+          category: 'lime',
+        },
+      },
+      Lime400: {
+        value: '#94C748',
+        attributes: {
+          group: 'palette',
+          category: 'lime',
+        },
+      },
+      Lime500: {
+        value: '#82B536',
+        attributes: {
+          group: 'palette',
+          category: 'lime',
+        },
+      },
+      Lime600: {
+        value: '#6A9A23',
+        attributes: {
+          group: 'palette',
+          category: 'lime',
+        },
+      },
+      Lime700: {
+        value: '#5B7F24',
+        attributes: {
+          group: 'palette',
+          category: 'lime',
+        },
+      },
+      Lime800: {
+        value: '#4C6B1F',
+        attributes: {
+          group: 'palette',
+          category: 'lime',
+        },
+      },
+      Lime900: {
+        value: '#37471F',
+        attributes: {
+          group: 'palette',
+          category: 'lime',
+        },
+      },
+      Lime1000: {
+        value: '#2A3818',
+        attributes: {
+          group: 'palette',
+          category: 'lime',
         },
       },
       'DarkNeutral-100': {

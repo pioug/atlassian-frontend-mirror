@@ -10,6 +10,7 @@ import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext
 import { useLinkWarningModal } from './LinkWarningModal/hooks/use-link-warning-modal';
 import LinkWarningModal from './LinkWarningModal';
 import { LinkUrlProps, PackageDataType } from './types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const PACKAGE_DATA: PackageDataType = {
   packageName,
@@ -27,7 +28,8 @@ const LinkUrl: React.FC<LinkUrlProps> = ({
   testId = 'link-with-safety',
   ...props
 }) => {
-  const { checkLinkSafety, ...linkWarningModalProps } = useLinkWarningModal();
+  const { isLinkSafe, showSafetyWarningModal, ...linkWarningModalProps } =
+    useLinkWarningModal();
 
   return (
     <>
@@ -36,8 +38,29 @@ const LinkUrl: React.FC<LinkUrlProps> = ({
           data-testid={testId}
           href={href}
           onClick={(e) => {
-            checkSafety && checkLinkSafety(e, href);
-            onClick && onClick(e);
+            if (
+              getBooleanFF(
+                'platform.linking-platform.smart-card.should-call-onclick-in-warning-modal-only-when-safe',
+              )
+            ) {
+              if (!checkSafety) {
+                onClick && onClick(e);
+                return;
+              }
+
+              // Only call the onClick if the link is safe
+              if (isLinkSafe(e, href)) {
+                onClick && onClick(e);
+              } else {
+                showSafetyWarningModal(e, href);
+              }
+            } else {
+              if (checkSafety && !isLinkSafe(e, href)) {
+                showSafetyWarningModal(e, href);
+              }
+              // Call the onClick regardless of the link safety
+              onClick && onClick(e);
+            }
           }}
           {...props}
         >

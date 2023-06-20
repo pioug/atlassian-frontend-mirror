@@ -59,9 +59,6 @@ const alignSelfMap: {
 type AllowedBoxStyles = keyof SafeCSSObject;
 
 // @public (undocumented)
-type AllowedInlineStyles = 'backgroundColor' | 'padding';
-
-// @public (undocumented)
 type As =
   | 'article'
   | 'aside'
@@ -85,6 +82,10 @@ type BackgroundColor = keyof typeof backgroundColorMap;
 
 // @public (undocumented)
 const backgroundColorMap: {
+  readonly 'color.background.accent.lime.subtlest': 'var(--ds-background-accent-lime-subtlest)';
+  readonly 'color.background.accent.lime.subtler': 'var(--ds-background-accent-lime-subtler)';
+  readonly 'color.background.accent.lime.subtle': 'var(--ds-background-accent-lime-subtle)';
+  readonly 'color.background.accent.lime.bolder': 'var(--ds-background-accent-lime-bolder)';
   readonly 'color.background.accent.red.subtlest': 'var(--ds-background-accent-red-subtlest)';
   readonly 'color.background.accent.red.subtler': 'var(--ds-background-accent-red-subtler)';
   readonly 'color.background.accent.red.subtle': 'var(--ds-background-accent-red-subtle)';
@@ -230,6 +231,7 @@ type BorderColor = keyof typeof borderColorMap;
 // @public
 const borderColorMap: {
   readonly 'color.border': 'var(--ds-border)';
+  readonly 'color.border.accent.lime': 'var(--ds-border-accent-lime)';
   readonly 'color.border.accent.red': 'var(--ds-border-accent-red)';
   readonly 'color.border.accent.orange': 'var(--ds-border-accent-orange)';
   readonly 'color.border.accent.yellow': 'var(--ds-border-accent-yellow)';
@@ -368,6 +370,7 @@ type Fill = keyof typeof fillMap;
 // @public (undocumented)
 const fillMap: {
   readonly 'color.icon': 'var(--ds-icon)';
+  readonly 'color.icon.accent.lime': 'var(--ds-icon-accent-lime)';
   readonly 'color.icon.accent.red': 'var(--ds-icon-accent-red)';
   readonly 'color.icon.accent.orange': 'var(--ds-icon-accent-orange)';
   readonly 'color.icon.accent.yellow': 'var(--ds-icon-accent-yellow)';
@@ -450,6 +453,7 @@ export const Inline: MemoExoticComponent<
       | 'space'
       | 'spread'
       | 'testId'
+      | 'xcss'
     > &
       RefAttributes<any>
   >
@@ -469,6 +473,7 @@ export interface InlineProps<T extends ElementType = 'div'> {
   space?: Space;
   spread?: Spread;
   testId?: string;
+  xcss?: Array<InlineXCSS | false | undefined> | InlineXCSS;
 }
 
 // @public (undocumented)
@@ -481,6 +486,11 @@ type InlineStyles = SerializedStyles & {
 
 // @public (undocumented)
 const inlineTag: unique symbol;
+
+// @public (undocumented)
+type InlineXCSS = {
+  readonly [uniqueSymbol]: InlineStyles;
+};
 
 // @public (undocumented)
 type Layer = keyof typeof layerMap;
@@ -622,6 +632,31 @@ const spaceMap: {
 };
 
 // @public (undocumented)
+type Spacing =
+  | 'columnGap'
+  | 'gap'
+  | 'inset'
+  | 'insetBlock'
+  | 'insetBlockEnd'
+  | 'insetBlockStart'
+  | 'insetInline'
+  | 'insetInlineEnd'
+  | 'insetInlineStart'
+  | 'outlineOffset'
+  | 'padding'
+  | 'paddingBlock'
+  | 'paddingBlockEnd'
+  | 'paddingBlockStart'
+  | 'paddingBottom'
+  | 'paddingInline'
+  | 'paddingInlineEnd'
+  | 'paddingInlineStart'
+  | 'paddingLeft'
+  | 'paddingRight'
+  | 'paddingTop'
+  | 'rowGap';
+
+// @public (undocumented)
 type Spread = 'space-between';
 
 // @public (undocumented)
@@ -664,6 +699,8 @@ type TextColor = keyof typeof textColorMap;
 // @public (undocumented)
 const textColorMap: {
   readonly 'color.text': 'var(--ds-text)';
+  readonly 'color.text.accent.lime': 'var(--ds-text-accent-lime)';
+  readonly 'color.text.accent.lime.bolder': 'var(--ds-text-accent-lime-bolder)';
   readonly 'color.text.accent.red': 'var(--ds-text-accent-red)';
   readonly 'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
   readonly 'color.text.accent.orange': 'var(--ds-text-accent-orange)';
@@ -792,9 +829,7 @@ export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
         | ScopedSafeCSSObject<AllowedBoxStyles>
         | ScopedSafeCSSObject<AllowedBoxStyles>[]
     : Primitive extends typeof Inline
-    ?
-        | ScopedSafeCSSObject<AllowedInlineStyles>
-        | ScopedSafeCSSObject<AllowedInlineStyles>[]
+    ? ScopedSafeCSSObject<Spacing> | ScopedSafeCSSObject<Spacing>[]
     : never,
 ): {
   readonly [uniqueSymbol]: Primitive extends (<
@@ -819,6 +854,7 @@ export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
             | 'space'
             | 'spread'
             | 'testId'
+            | 'xcss'
           > &
             RefAttributes<any>
         >

@@ -1,6 +1,10 @@
-import { commandWithMetadata } from '@atlaskit/editor-common/card';
+import {
+  addLinkMetadata,
+  commandWithMetadata,
+} from '@atlaskit/editor-common/card';
 import { LinkAttributes } from '@atlaskit/adf-schema';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   normalizeUrl,
@@ -172,6 +176,19 @@ export function insertLink(
           false,
           sourceEvent,
         );
+      } else if (
+        getBooleanFF(
+          'platform.linking-platform.editor.fix-link-insert-analytics',
+        )
+      ) {
+        /**
+         * Add link metadata because queue cards would have otherwise handled this for us
+         */
+        addLinkMetadata(state.selection, tr, {
+          action: ACTION.INSERTED,
+          inputMethod: source,
+          sourceEvent,
+        });
       }
 
       tr.setMeta(stateKey, { type: LinkAction.HIDE_TOOLBAR });

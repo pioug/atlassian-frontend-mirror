@@ -119,12 +119,10 @@ export const processAttributesFromBaseEvent = (
     const { linkFieldContentInputMethod: inputMethod } =
       extractAttributesFromEvent(event);
 
-    if (inputMethod) {
-      return {
-        sourceEvent,
-        [attribute]: `linkpicker_${inputMethod}`,
-      };
-    }
+    return {
+      sourceEvent,
+      [attribute]: `linkpicker_${inputMethod ?? 'none'}`,
+    };
   }
 
   return {

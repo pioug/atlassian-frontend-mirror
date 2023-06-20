@@ -246,7 +246,7 @@ const tableSortableColumnStyle = ({
         width: 100%;
         height: 100%;
         padding: ${tableCellPadding}px;
-        border-width: 1.5px;
+        border-width: 0px;
         border-style: solid;
         border-color: transparent;
 
@@ -604,7 +604,7 @@ export const rendererStyles =
           height: 1px; /* will be ignored */
           ${tableSortableColumnStyle(wrapperProps)};
           margin-left: 0;
-          margin-right: 0;
+          margin-right: -1px; // match editor's margin right
         }
 
         table tr:first-of-type {

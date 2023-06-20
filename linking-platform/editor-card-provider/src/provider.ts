@@ -49,6 +49,12 @@ const isProformaView = (url: string) =>
     /^https:\/\/[^/]+\/jira\/(core|software(\/c)?|servicedesk)\/projects\/\w+\/forms\/form\/direct\/\d+\/\d+.*$/,
   );
 
+const isConfluenceWhiteboard = (url: string) =>
+  url.match(/\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>\d+)(\?\/)?/) ||
+  url.match(
+    /\/wiki\/spaces\/?.*\/whiteboard\/(?<resourceId>[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12})(\?\/)?/,
+  );
+
 export class EditorCardProvider implements CardProvider {
   private baseUrl: string;
   private resolverUrl: string;
@@ -194,7 +200,8 @@ export class EditorCardProvider implements CardProvider {
       isPolarisView(url) ||
       isJwmView(url) ||
       isGiphyMedia(url) ||
-      isProformaView(url)
+      isProformaView(url) ||
+      isConfluenceWhiteboard(url)
     ) {
       return 'embed';
     }

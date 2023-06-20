@@ -321,6 +321,33 @@ describe('providers > editor', () => {
 
   it.each<[string, string]>([
     [
+      'A whiteboard',
+      'https://pug.jira-dev.com/wiki/spaces/BT2/whiteboard/452724424706',
+    ],
+    [
+      'A whiteboard with query params',
+      'https://pug.jira-dev.com/wiki/spaces/BT2/whiteboard/452724424706?myQueryParam=foo&bar=baz',
+    ],
+  ])(
+    'returns embedCard when %s confluence whiteboard is inserted, calling /providers endpoint',
+    async (_, url) => {
+      const provider = new EditorCardProvider();
+      mockFetch.mockResolvedValueOnce({
+        json: async () => getMockProvidersResponse(),
+        ok: true,
+      });
+      // Mocking call to /resolve/batch
+      mockFetch.mockResolvedValueOnce({
+        json: async () => [{ body: mocks.success, status: 200 }],
+        ok: true,
+      });
+      const adf = await provider.resolve(url, 'inline', false);
+      expect(adf).toEqual(expectedEmbedAdf(url));
+    },
+  );
+
+  it.each<[string, string]>([
+    [
       'Domain ending in "giphy"',
       'https://dodgygiphy.com/gifs/happy-kawaii-nice-yCZEmKBKejysx5V2Yaa',
     ],

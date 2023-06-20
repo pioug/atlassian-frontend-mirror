@@ -1,0 +1,49 @@
+name: Media Table
+id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/68a05520-f5c0-4478-9b4e-a3e36b80ca6c'
+description: This package provides the capability to display the already uploaded media in tabular format with pagination.
+configVersion: 1
+typeId: UI_ELEMENT
+ownerId: 'ari:cloud:teams::team/ef910622-ce0a-44a0-b441-ba89efe7891b'
+fields:
+  lifecycle: Active
+  tier: 4
+labels:
+  - atlassian-platform
+customFields:
+  - name: Dev Owner
+    type: user
+    value: null
+  - name: Product
+    type: text
+    value: null
+  - name: Test
+    type: text
+    value: null
+links:
+  - name: ''
+    type: REPOSITORY
+    url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/media/media-table/'
+  - name: ''
+    type: DOCUMENT
+    url: 'https://atlaskit.atlassian.com/packages/media/media-table'
+  # - name: '' # Tome Capability
+  #   type: OTHER_LINK
+  #   url: ''
+  - name: Media By Product
+    type: DASHBOARD
+    url: 'https://atlassian.signalfx.com/#/dashboard/E-vk3wqAwAA?groupId=E-vkzo1AwAA&configId=E-vk5fsAwAA&startTime=-7d&endTime=Now'
+  - name: ''
+    type: CHAT_CHANNEL
+    url: 'https://atlassian.slack.com/archives/C020CGJDJ3A'
+  - name: ''
+    type: ON_CALL
+    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b62291ff-4029-4f26-b7fc-d75d46d7aebc'
+  - name: ''
+    type: PROJECT
+    url: 'https://product-fabric.atlassian.net/jira/software/c/projects/MEX/boards/713'
+relationships:
+  DEPENDS_ON:
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/652381b6-c323-4b50-bf31-c94941a0b6ef'
+
+# Learn more about formatting compass.yml:
+# https://go.atlassian.com/compass-yml-format

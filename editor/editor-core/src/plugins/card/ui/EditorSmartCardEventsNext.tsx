@@ -124,15 +124,15 @@ export const EventsBinding = ({ editorView }: AnalyticsBindingsProps) => {
   const events: SmartLinkEventsNext = useMemo(() => {
     return {
       created: ({ url, display, nodeContext, ...metadata }) => {
-        linkCreated(
-          { url, displayCategory: displayCategoryFromDisplay(display) },
-          getSourceEventFromMetadata(metadata),
-          {
-            display,
-            nodeContext,
-            creationMethod: getMethod(metadata),
-          },
-        );
+        const displayCategory = displayCategoryFromDisplay(display);
+        const sourceEvent = getSourceEventFromMetadata(metadata);
+        const creationMethod = getMethod(metadata);
+
+        linkCreated({ url, displayCategory }, sourceEvent, {
+          display,
+          nodeContext,
+          creationMethod,
+        });
       },
       updated: ({
         url,
@@ -141,29 +141,31 @@ export const EventsBinding = ({ editorView }: AnalyticsBindingsProps) => {
         nodeContext,
         ...metadata
       }) => {
-        linkUpdated(
-          { url, displayCategory: displayCategoryFromDisplay(display) },
-          getSourceEventFromMetadata(metadata),
-          {
-            display,
-            previousDisplay,
-            nodeContext,
-            updateMethod: getMethod(metadata),
-            updateType: getUpdateType(metadata),
-          },
-        );
+        const displayCategory = displayCategoryFromDisplay(display);
+        const sourceEvent = getSourceEventFromMetadata(metadata);
+        const updateMethod = getMethod(metadata);
+        const updateType = getUpdateType(metadata);
+
+        linkUpdated({ url, displayCategory }, sourceEvent, {
+          display,
+          previousDisplay,
+          nodeContext,
+          updateMethod,
+          updateType,
+        });
       },
       deleted: ({ url, display, nodeContext, ...metadata }) => {
-        linkDeleted(
-          { url, displayCategory: displayCategoryFromDisplay(display) },
-          getSourceEventFromMetadata(metadata),
-          {
-            display,
-            nodeContext,
-            deleteMethod: getMethod(metadata),
-            deleteType: getDeleteType(metadata),
-          },
-        );
+        const displayCategory = displayCategoryFromDisplay(display);
+        const sourceEvent = getSourceEventFromMetadata(metadata);
+        const deleteMethod = getMethod(metadata);
+        const deleteType = getDeleteType(metadata);
+
+        linkDeleted({ url, displayCategory }, sourceEvent, {
+          display,
+          nodeContext,
+          deleteMethod,
+          deleteType,
+        });
       },
     };
   }, [linkCreated, linkUpdated, linkDeleted]);

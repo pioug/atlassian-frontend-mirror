@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 185.2.23
+
+### Patch Changes
+
+- [`91ea76040d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91ea76040d5) - Fix editor not providing creation method for link created events triggered by link picker insertions on text selections
+
+## 185.2.20
+
+### Patch Changes
+
+- [`9702c38714d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9702c38714d) - ED-16962 close element browser on tab
+
+## 185.2.19
+
+### Patch Changes
+
+- [`6d852a003e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d852a003e4) - Fixes link picker not returning focus on close when `lp-link-picker-focus-trap` feature flag is enabled
+
 ## 185.2.16
 
 ### Patch Changes

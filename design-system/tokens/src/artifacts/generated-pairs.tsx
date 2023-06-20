@@ -4,10 +4,20 @@
  * Auto-generated list of token pairings that may need to have sufficient contrast.
  * Not currently used by tests, but is used by the custom theme contrast checker example
  *
- * @codegen <<SignedSource::ec8e2d34c5152b1b66186e14b261c0f1>>
+ * @codegen <<SignedSource::411fd07bb804a9703b71946f1557b2a1>>
  * @codegenCommand yarn build tokens
  */
 export const generatedPairs = [
+  {
+    foreground: 'color.text',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 4.5,
+  },
   {
     foreground: 'color.text',
     background: 'color.background.accent.red.subtlest',
@@ -201,6 +211,31 @@ export const generatedPairs = [
   {
     foreground: 'color.text',
     background: 'color.background.information.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'color.background.accent.lime.subtle',
     desiredContrast: 4.5,
   },
   {
@@ -430,6 +465,11 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.text.inverse',
+    background: 'color.background.accent.lime.bolder',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.inverse',
     background: 'color.background.accent.red.bolder',
     desiredContrast: 4.5,
   },
@@ -685,6 +725,16 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.text.subtlest',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.subtlest',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.subtlest',
     background: 'color.background.accent.red.subtlest',
     desiredContrast: 4.5,
   },
@@ -880,6 +930,16 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.text.subtle',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.subtle',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.subtle',
     background: 'color.background.accent.red.subtlest',
     desiredContrast: 4.5,
   },
@@ -1075,6 +1135,16 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.link',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.link',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.link',
     background: 'color.background.accent.red.subtlest',
     desiredContrast: 3,
   },
@@ -1270,6 +1340,16 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.icon',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon',
     background: 'color.background.accent.red.subtlest',
     desiredContrast: 3,
   },
@@ -1461,6 +1541,16 @@ export const generatedPairs = [
   {
     foreground: 'color.icon',
     background: 'color.background.information.pressed',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'color.background.accent.lime.subtler',
     desiredContrast: 3,
   },
   {
@@ -1551,6 +1641,11 @@ export const generatedPairs = [
   {
     foreground: 'color.icon.accent.gray',
     background: 'color.background.accent.gray.subtler',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.inverse',
+    background: 'color.background.accent.lime.bolder',
     desiredContrast: 3,
   },
   {
@@ -1810,6 +1905,16 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.icon.subtle',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.subtle',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.subtle',
     background: 'color.background.accent.red.subtlest',
     desiredContrast: 3,
   },
@@ -2004,6 +2109,16 @@ export const generatedPairs = [
     desiredContrast: 3,
   },
   {
+    foreground: 'color.border.accent.lime',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 3,
+  },
+  {
     foreground: 'color.border.accent.red',
     background: 'color.background.accent.red.subtlest',
     desiredContrast: 3,
@@ -2091,6 +2206,11 @@ export const generatedPairs = [
   {
     foreground: 'color.border.accent.gray',
     background: 'color.background.accent.gray.subtler',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.inverse',
+    background: 'color.background.accent.lime.bolder',
     desiredContrast: 3,
   },
   {
@@ -2335,6 +2455,16 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.border.bold',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.bold',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.bold',
     background: 'color.background.accent.red.subtlest',
     desiredContrast: 3,
   },
@@ -2529,6 +2659,16 @@ export const generatedPairs = [
     desiredContrast: 3,
   },
   {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'color.background.accent.lime.subtlest',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'color.background.accent.lime.subtler',
+    desiredContrast: 3,
+  },
+  {
     foreground: 'color.background.accent.red.bolder',
     background: 'color.background.accent.red.subtlest',
     desiredContrast: 3,
@@ -2889,6 +3029,56 @@ export const generatedPairs = [
     desiredContrast: 3,
   },
   {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'elevation.surface',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'elevation.surface.hovered',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'elevation.surface.pressed',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'elevation.surface.overlay',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'elevation.surface.overlay.hovered',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'elevation.surface.overlay.pressed',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'elevation.surface.raised',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'elevation.surface.raised.hovered',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'elevation.surface.raised.pressed',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.background.accent.lime.bolder',
+    background: 'elevation.surface.sunken',
+    desiredContrast: 3,
+  },
+  {
     foreground: 'color.background.accent.red.bolder',
     background: 'elevation.surface',
     desiredContrast: 3,
@@ -4589,6 +4779,106 @@ export const generatedPairs = [
     desiredContrast: 4.5,
   },
   {
+    foreground: 'color.text.accent.lime',
+    background: 'elevation.surface',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'elevation.surface.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'elevation.surface.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'elevation.surface.overlay',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'elevation.surface.overlay.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'elevation.surface.overlay.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'elevation.surface.raised',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'elevation.surface.raised.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'elevation.surface.raised.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime',
+    background: 'elevation.surface.sunken',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'elevation.surface',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'elevation.surface.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'elevation.surface.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'elevation.surface.overlay',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'elevation.surface.overlay.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'elevation.surface.overlay.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'elevation.surface.raised',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'elevation.surface.raised.hovered',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'elevation.surface.raised.pressed',
+    desiredContrast: 4.5,
+  },
+  {
+    foreground: 'color.text.accent.lime.bolder',
+    background: 'elevation.surface.sunken',
+    desiredContrast: 4.5,
+  },
+  {
     foreground: 'color.text.accent.red',
     background: 'elevation.surface',
     desiredContrast: 4.5,
@@ -6089,6 +6379,56 @@ export const generatedPairs = [
     desiredContrast: 3,
   },
   {
+    foreground: 'color.icon.accent.lime',
+    background: 'elevation.surface',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'elevation.surface.hovered',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'elevation.surface.pressed',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'elevation.surface.overlay',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'elevation.surface.overlay.hovered',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'elevation.surface.overlay.pressed',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'elevation.surface.raised',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'elevation.surface.raised.hovered',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'elevation.surface.raised.pressed',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.icon.accent.lime',
+    background: 'elevation.surface.sunken',
+    desiredContrast: 3,
+  },
+  {
     foreground: 'color.icon.accent.red',
     background: 'elevation.surface',
     desiredContrast: 3,
@@ -6935,6 +7275,56 @@ export const generatedPairs = [
   },
   {
     foreground: 'color.icon.subtle',
+    background: 'elevation.surface.sunken',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
+    background: 'elevation.surface',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
+    background: 'elevation.surface.hovered',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
+    background: 'elevation.surface.pressed',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
+    background: 'elevation.surface.overlay',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
+    background: 'elevation.surface.overlay.hovered',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
+    background: 'elevation.surface.overlay.pressed',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
+    background: 'elevation.surface.raised',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
+    background: 'elevation.surface.raised.hovered',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
+    background: 'elevation.surface.raised.pressed',
+    desiredContrast: 3,
+  },
+  {
+    foreground: 'color.border.accent.lime',
     background: 'elevation.surface.sunken',
     desiredContrast: 3,
   },

@@ -22,6 +22,7 @@ const loadApi = (): Api => {
   return module!;
 };
 
+/* eslint-disable no-console */
 describe('feature flags API', () => {
   it('should return false when getting undefined value of FF', () => {
     // given, when
@@ -32,6 +33,8 @@ describe('feature flags API', () => {
   });
 
   it('should return true when setting and then getting a value of defined FF', () => {
+    console.debug = jest.fn();
+
     // given
     const { getBooleanFF, setBooleanFeatureFlagResolver } = loadApi();
 
@@ -43,10 +46,13 @@ describe('feature flags API', () => {
     setBooleanFeatureFlagResolver(resolver);
 
     // then
+    expect(console.debug).toHaveBeenCalledTimes(0);
     expect(getBooleanFF('my-flag')).toBe(true);
   });
 
   it('should ignore a non-boolean value when resolving FF and throw invariant error', () => {
+    console.debug = jest.fn();
+
     // given
     const { getBooleanFF, setBooleanFeatureFlagResolver } = loadApi();
 
@@ -61,7 +67,45 @@ describe('feature flags API', () => {
     setBooleanFeatureFlagResolver(resolver);
 
     // then
+    expect(console.debug).toHaveBeenCalledTimes(0);
     expect(getBooleanFF('my-new-flag')).toEqual(false);
+  });
+
+  it('should log a collection of feature flags that are called before setBooleanFeatureFlagResolver is initialised', () => {
+    console.debug = jest.fn();
+
+    // given
+    const { getBooleanFF, setBooleanFeatureFlagResolver } = loadApi();
+
+    // when
+    getBooleanFF('early-flag-1');
+    getBooleanFF('early-flag-3');
+    getBooleanFF('early-flag-3');
+    getBooleanFF('early-flag-3');
+    getBooleanFF('early-flag-2');
+    getBooleanFF('early-flag-2');
+
+    const resolver: FeatureFlagResolverBoolean = () => {
+      return true;
+    };
+
+    setBooleanFeatureFlagResolver(resolver);
+
+    getBooleanFF('my-feature-flag');
+
+    setBooleanFeatureFlagResolver(resolver);
+
+    // then
+    expect(console.debug).toHaveBeenCalledTimes(1);
+    expect(console.debug).toHaveBeenCalledWith(
+      '[%s]: The following list of Feature Flags were called, the following number of times, before setBooleanResolver.',
+      '@atlaskit/platform-feature-flags',
+      [
+        ['early-flag-1', 1],
+        ['early-flag-3', 3],
+        ['early-flag-2', 2],
+      ],
+    );
   });
 });
 
@@ -94,7 +138,6 @@ describe('tests support', function () {
   });
 });
 
-/* eslint-disable no-console */
 describe('browser environment', () => {
   const orgProcess = globalThis.process;
 

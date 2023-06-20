@@ -1,5 +1,32 @@
 # @atlaskit/tokens
 
+## 1.8.0
+
+### Minor Changes
+
+- [`e200f2340ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e200f2340ed) - Introduces new lime token set.
+
+  - `color.text.accent.lime` - Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color.
+  - `color.text.accent.lime.bolder` - Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color.
+  - `color.background.accent.lime.subtlest` - Use for lime backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color.
+  - `color.background.accent.lime.subtler` - Use for lime backgrounds when there is no meaning tied to the color, such as colored tags.
+  - `color.background.accent.lime.subtle` - Use for vibrant lime backgrounds when there is no meaning tied to the color, such as colored tags.
+  - `color.background.accent.lime.bolder` - Use for lime backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements.
+  - `color.icon.accent.lime` - Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons.
+  - `color.border.accent.lime` - Use for lime borders on non-bold backgrounds when there is no meaning tied to the color.
+  - `color.chart.lime` - For data visualisation only.
+  - `color.chart.lime.hovered` - Hovered state of color.chart.lime
+  - `color.chart.lime.bolder` - For data visualisation only.
+  - `color.chart.lime.bolder.hovered` - Hovered state of color.chart.lime.bolder
+  - `color.chart.lime.boldest` - For data visualisation only.
+  - `color.chart.lime.boldest.hovered` - Hovered state of color.chart.lime.boldest
+
+## 1.7.0
+
+### Minor Changes
+
+- [`85b5f222844`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85b5f222844) - We are testing shape and space tokens behind a feature flag. These tokens will be enabled by default whenever `setGlobalTheme` is called. If this test is successful it will be available in a later release.
+
 ## 1.6.0
 
 ### Minor Changes

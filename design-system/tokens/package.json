@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.6.0",
+  "version": "1.8.0",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -134,6 +134,9 @@
       "type": "boolean"
     },
     "platform.design-system-team.update-border-input_ff9l1": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.space-and-shape-tokens_q5me6": {
       "type": "boolean"
     }
   },

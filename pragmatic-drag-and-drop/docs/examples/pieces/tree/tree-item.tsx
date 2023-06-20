@@ -28,6 +28,7 @@ import {
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import type { DragLocationHistory } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
@@ -260,7 +261,7 @@ const TreeItem = memo(function TreeItem({
         }),
         onGenerateDragPreview: ({ nativeSetDragImage }) => {
           setCustomNativeDragPreview({
-            placement: { type: 'offset-from-pointer', x: '16px', y: '8px' },
+            getOffset: offsetFromPointer({ x: '16px', y: '8px' }),
             render: ({ container }) => {
               ReactDOM.render(<Preview item={item} />, container);
               return () => ReactDOM.unmountComponentAtNode(container);

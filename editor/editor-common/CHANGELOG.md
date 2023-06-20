@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.7.8
+
+### Patch Changes
+
+- [`b32b60b7807`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b32b60b7807) - [ux] ED-17462 fix 1px overflow
+
 ## 74.7.7
 
 ### Patch Changes

@@ -147,7 +147,7 @@ describe('Renderer - React/Nodes/Table', () => {
     });
     it('should add an extra <col> node for number column', () => {
       const columnWidths = [300, 380];
-      const resultingColumnWidths = [299, 379];
+      const resultingColumnWidths = [300, 380];
       const table = mountWithIntl(
         <Table
           layout="default"
@@ -204,9 +204,7 @@ describe('Renderer - React/Nodes/Table', () => {
       expect(table.find('col')).toHaveLength(2);
 
       table.find('col').forEach((col, index) => {
-        expect(col.prop('style')!.width).toEqual(
-          `${columnWidths[index] - 1}px`,
-        );
+        expect(col.prop('style')!.width).toEqual(`${columnWidths[index]}px`);
       });
     });
   });
@@ -244,7 +242,7 @@ describe('Renderer - React/Nodes/Table', () => {
         table.find('col').forEach((col, index) => {
           if (index < 2) {
             expect(col.prop('style')!.width).toEqual(
-              `${columnWidths[index] - 1}px`,
+              `${columnWidths[index]}px`,
             );
           } else {
             expect(col.prop('style')!.width).toEqual(`${tableCellMinWidth}px`);
@@ -284,7 +282,7 @@ describe('Renderer - React/Nodes/Table', () => {
         table.find('col').forEach((col, index) => {
           if (index < 2) {
             expect(col.prop('style')!.width).toEqual(
-              `${columnWidths[index] - 1}px`,
+              `${columnWidths[index]}px`,
             );
           } else {
             expect(typeof col.prop('style')!.width).toEqual('undefined');

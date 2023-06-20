@@ -1,5 +1,12 @@
 # @atlaskit/ds-explorations
 
+## 2.2.3
+
+### Patch Changes
+
+- [`55be182b904`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55be182b904) - Regenerates codegen'd artifacts as a result of introducting new design tokens.
+- Updated dependencies
+
 ## 2.2.2
 
 ### Patch Changes

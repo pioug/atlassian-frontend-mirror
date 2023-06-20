@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9f67599bfba65a0405dbfb30738d18c8>>
+ * @codegen <<SignedSource::8ddb2f3e15cdae2f6245075e72c1be8b>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -30,6 +30,64 @@ const tokens = [
       "[default]"
     ],
     "cleanName": "color.text"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.6.0",
+      "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
+    },
+    "value": "#B3DF72",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
+      },
+      "value": "Lime300"
+    },
+    "name": "color.text.accent.lime.[default]",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "lime",
+      "[default]"
+    ],
+    "cleanName": "color.text.accent.lime"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.7.0",
+      "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
+    },
+    "value": "#D3F1A7",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
+      },
+      "value": "Lime200"
+    },
+    "name": "color.text.accent.lime.bolder",
+    "path": [
+      "color",
+      "text",
+      "accent",
+      "lime",
+      "bolder"
+    ],
+    "cleanName": "color.text.accent.lime.bolder"
   },
   {
     "attributes": {
@@ -964,6 +1022,34 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "1.6.0",
+      "description": "Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+    },
+    "value": "#82B536",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "Lime500"
+    },
+    "name": "color.icon.accent.lime",
+    "path": [
+      "color",
+      "icon",
+      "accent",
+      "lime"
+    ],
+    "cleanName": "color.icon.accent.lime"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "introduced": "0.6.0",
       "description": "Use for red icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
     },
@@ -1542,6 +1628,34 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "1.6.0",
+      "description": "Use for lime borders on non-bold backgrounds when there is no meaning tied to the color."
+    },
+    "value": "#82B536",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for lime borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "Lime500"
+    },
+    "name": "color.border.accent.lime",
+    "path": [
+      "color",
+      "border",
+      "accent",
+      "lime"
+    ],
+    "cleanName": "color.border.accent.lime"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "introduced": "0.6.0",
       "description": "Use for red borders on non-bold backgrounds when there is no meaning tied to the color."
     },
@@ -2113,6 +2227,122 @@ const tokens = [
       "bold"
     ],
     "cleanName": "color.border.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.6.0",
+      "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+    },
+    "value": "#2A3818",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "Lime1000"
+    },
+    "name": "color.background.accent.lime.subtlest",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "subtlest"
+    ],
+    "cleanName": "color.background.accent.lime.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.6.0",
+      "description": "Use for for backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#37471F",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for for backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "Lime900"
+    },
+    "name": "color.background.accent.lime.subtler",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "subtler"
+    ],
+    "cleanName": "color.background.accent.lime.subtler"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.6.0",
+      "description": "Use for vibrant for backgrounds when there is no meaning tied to the color, such as colored tags."
+    },
+    "value": "#4C6B1F",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for vibrant for backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "Lime800"
+    },
+    "name": "color.background.accent.lime.subtle",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "subtle"
+    ],
+    "cleanName": "color.background.accent.lime.subtle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.6.0",
+      "description": "Use for for backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+    },
+    "value": "#94C748",
+    "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for for backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "Lime400"
+    },
+    "name": "color.background.accent.lime.bolder",
+    "path": [
+      "color",
+      "background",
+      "accent",
+      "lime",
+      "bolder"
+    ],
+    "cleanName": "color.background.accent.lime.bolder"
   },
   {
     "attributes": {
@@ -5400,6 +5630,180 @@ const tokens = [
       "hovered"
     ],
     "cleanName": "color.chart.categorical.8.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#37B4C3",
+    "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "Teal500"
+    },
+    "name": "color.chart.lime.bold.[default]",
+    "path": [
+      "color",
+      "chart",
+      "lime",
+      "bold",
+      "[default]"
+    ],
+    "cleanName": "color.chart.lime.bold"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.lime.bold."
+    },
+    "value": "#60C6D2",
+    "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.lime.bold."
+      },
+      "value": "Teal400"
+    },
+    "name": "color.chart.lime.bold.hovered",
+    "path": [
+      "color",
+      "chart",
+      "lime",
+      "bold",
+      "hovered"
+    ],
+    "cleanName": "color.chart.lime.bold.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#60C6D2",
+    "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "Teal400"
+    },
+    "name": "color.chart.lime.bolder.[default]",
+    "path": [
+      "color",
+      "chart",
+      "lime",
+      "bolder",
+      "[default]"
+    ],
+    "cleanName": "color.chart.lime.bolder"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.lime.bolder."
+    },
+    "value": "#8BDBE5",
+    "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.lime.bolder."
+      },
+      "value": "Teal300"
+    },
+    "name": "color.chart.lime.bolder.hovered",
+    "path": [
+      "color",
+      "chart",
+      "lime",
+      "bolder",
+      "hovered"
+    ],
+    "cleanName": "color.chart.lime.bolder.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only."
+    },
+    "value": "#8BDBE5",
+    "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "Teal300"
+    },
+    "name": "color.chart.lime.boldest.[default]",
+    "path": [
+      "color",
+      "chart",
+      "lime",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.chart.lime.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.lime.boldest."
+    },
+    "value": "#C1F0F5",
+    "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.lime.boldest."
+      },
+      "value": "Teal200"
+    },
+    "name": "color.chart.lime.boldest.hovered",
+    "path": [
+      "color",
+      "chart",
+      "lime",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.chart.lime.boldest.hovered"
   },
   {
     "attributes": {

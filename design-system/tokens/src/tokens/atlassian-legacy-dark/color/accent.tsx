@@ -41,6 +41,12 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
           // @ts-expect-error
           bolder: { value: '#FDD0EC' },
         },
+        lime: {
+          // @ts-expect-error
+          '[default]': { value: '#4C6B1F' },
+          // @ts-expect-error
+          bolder: { value: '#37471F' },
+        },
         gray: {
           '[default]': { value: 'DN300' },
           bolder: { value: 'DN500' },
@@ -59,6 +65,8 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
         teal: { value: 'T500' },
         // @ts-expect-error
         magenta: { value: '#DA62AC' },
+        // @ts-expect-error
+        lime: { value: '#6A9A23' },
         gray: { value: 'DN600' },
       },
     },
@@ -74,6 +82,8 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
         teal: { value: 'T500' },
         // @ts-expect-error
         magenta: { value: '#DA62AC' },
+        // @ts-expect-error
+        lime: { value: '#6A9A23' },
         gray: { value: 'DN600' },
       },
     },
@@ -134,6 +144,16 @@ const color: ValueSchema<AccentColorTokenSchema<BaseToken>> = {
           subtle: { value: '#943D73' },
           // @ts-expect-error
           bolder: { value: '#E774BB' },
+        },
+        lime: {
+          // @ts-expect-error
+          subtlest: { value: '#EEFBDA' },
+          // @ts-expect-error
+          subtler: { value: '#D3F1A7' },
+          // @ts-expect-error
+          subtle: { value: '#94C748' },
+          // @ts-expect-error
+          bolder: { value: '#5B7F24' },
         },
         gray: {
           subtlest: { value: 'DN300' },

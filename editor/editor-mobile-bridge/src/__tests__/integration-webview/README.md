@@ -14,7 +14,7 @@ Examples:
 1. Touch screen devices present their own challenges using a touch input instead of a mouse.
 1. Orientation changes and how they impact the layout and any existing content on the page.
 
-**These mobile integation tests are designed to compliment the desktop tests and cover the gaps.**
+**These mobile integration tests are designed to compliment the desktop tests and cover the gaps.**
 
 > Read the `@atlaskit/webdriver-runner` [webview docs](../../../../../../build/test-tooling/webdriver-runner/utils/mobile/README.md) to learn more.
 
@@ -32,10 +32,13 @@ For now, the legacy tests reside within the `src/__tests__/integration/` while o
 
 ### How to run a test
 
-For local testing, you can run the `test:webdriver:browserstack:mobile` script and point it at your desired file or the entire package. e.g.
+For local testing, you can run the `test:webdriver:browserstack:mobile` script and point it at your desired file or the entire package.
 
-- `yarn test:webdriver:browserstack:mobile packages/editor/editor-mobile-bridge/src/__tests__/integration-webview/composition.ts`
 - `yarn test:webdriver:browserstack:mobile editor-mobile-bridge`
+
+Tests under `/integration-webview` are combined into a `spec` file, which are located at the root level. If you want to run any test you will actually need to first find whic `spec` file imports the required test, and run that. For example to run any the `smart link` tests you would run `2.spec.ts`
+
+- `yarn test:webdriver:browserstack:mobile packages/editor/editor-mobile-bridge/src/__tests__/integration-webview/1.spec.ts`
 
 ### Test Suite Efficiency
 

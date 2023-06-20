@@ -79,6 +79,7 @@ const tableSharedStyle = (props: ThemeProps) => css`
     padding-left: ${akEditorTableNumberColumnWidth - 1}px;
     clear: both;
   }
+
   .${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table {
     margin: ${tableMarginTop}px 0 0 0;
   }

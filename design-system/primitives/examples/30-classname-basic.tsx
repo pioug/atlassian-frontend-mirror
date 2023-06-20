@@ -13,8 +13,8 @@ const boxStyles = xcss<typeof Box>({
 });
 
 const inlineStyles = xcss<typeof Inline>({
-  backgroundColor: 'color.background.inverse.subtle',
   // @ts-expect-error because `InlineStyles` does not accept `border`
+  backgroundColor: 'color.background.inverse.subtle',
   border: '2px solid red',
   padding: 'space.200',
   borderRadius: 'border.radius.050',

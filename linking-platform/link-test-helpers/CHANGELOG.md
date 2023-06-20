@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 4.0.7
+
+### Patch Changes
+
+- [`09348dbabbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/09348dbabbb) - Changes images in link picker plugin mock data to be base64 images
+
 ## 4.0.6
 
 ### Patch Changes

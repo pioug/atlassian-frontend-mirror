@@ -1,9 +1,229 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c144bfcbb2df5e70994524a9f6da2dfa>>
+ * @codegen <<SignedSource::9c6b0dc194cd08f14bf3fd6a258b05a5>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
+  {
+    "value": "#EEFBDA",
+    "attributes": {
+      "group": "palette",
+      "category": "lime"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#EEFBDA",
+      "attributes": {
+        "group": "palette",
+        "category": "lime"
+      }
+    },
+    "name": "color.palette.Lime100",
+    "path": [
+      "color",
+      "palette",
+      "Lime100"
+    ]
+  },
+  {
+    "value": "#D3F1A7",
+    "attributes": {
+      "group": "palette",
+      "category": "lime"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#D3F1A7",
+      "attributes": {
+        "group": "palette",
+        "category": "lime"
+      }
+    },
+    "name": "color.palette.Lime200",
+    "path": [
+      "color",
+      "palette",
+      "Lime200"
+    ]
+  },
+  {
+    "value": "#B3DF72",
+    "attributes": {
+      "group": "palette",
+      "category": "lime"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#B3DF72",
+      "attributes": {
+        "group": "palette",
+        "category": "lime"
+      }
+    },
+    "name": "color.palette.Lime300",
+    "path": [
+      "color",
+      "palette",
+      "Lime300"
+    ]
+  },
+  {
+    "value": "#94C748",
+    "attributes": {
+      "group": "palette",
+      "category": "lime"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#94C748",
+      "attributes": {
+        "group": "palette",
+        "category": "lime"
+      }
+    },
+    "name": "color.palette.Lime400",
+    "path": [
+      "color",
+      "palette",
+      "Lime400"
+    ]
+  },
+  {
+    "value": "#82B536",
+    "attributes": {
+      "group": "palette",
+      "category": "lime"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#82B536",
+      "attributes": {
+        "group": "palette",
+        "category": "lime"
+      }
+    },
+    "name": "color.palette.Lime500",
+    "path": [
+      "color",
+      "palette",
+      "Lime500"
+    ]
+  },
+  {
+    "value": "#6A9A23",
+    "attributes": {
+      "group": "palette",
+      "category": "lime"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#6A9A23",
+      "attributes": {
+        "group": "palette",
+        "category": "lime"
+      }
+    },
+    "name": "color.palette.Lime600",
+    "path": [
+      "color",
+      "palette",
+      "Lime600"
+    ]
+  },
+  {
+    "value": "#5B7F24",
+    "attributes": {
+      "group": "palette",
+      "category": "lime"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#5B7F24",
+      "attributes": {
+        "group": "palette",
+        "category": "lime"
+      }
+    },
+    "name": "color.palette.Lime700",
+    "path": [
+      "color",
+      "palette",
+      "Lime700"
+    ]
+  },
+  {
+    "value": "#4C6B1F",
+    "attributes": {
+      "group": "palette",
+      "category": "lime"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#4C6B1F",
+      "attributes": {
+        "group": "palette",
+        "category": "lime"
+      }
+    },
+    "name": "color.palette.Lime800",
+    "path": [
+      "color",
+      "palette",
+      "Lime800"
+    ]
+  },
+  {
+    "value": "#37471F",
+    "attributes": {
+      "group": "palette",
+      "category": "lime"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#37471F",
+      "attributes": {
+        "group": "palette",
+        "category": "lime"
+      }
+    },
+    "name": "color.palette.Lime900",
+    "path": [
+      "color",
+      "palette",
+      "Lime900"
+    ]
+  },
+  {
+    "value": "#2A3818",
+    "attributes": {
+      "group": "palette",
+      "category": "lime"
+    },
+    "filePath": "src/palettes/palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "#2A3818",
+      "attributes": {
+        "group": "palette",
+        "category": "lime"
+      }
+    },
+    "name": "color.palette.Lime1000",
+    "path": [
+      "color",
+      "palette",
+      "Lime1000"
+    ]
+  },
   {
     "value": "#FFEDEB",
     "attributes": {

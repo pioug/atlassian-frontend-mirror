@@ -62,6 +62,7 @@ describe('setGlobalTheme', () => {
     await setGlobalTheme({
       light: 'legacy-light',
       dark: 'legacy-dark',
+      shape: 'shape',
       spacing: 'spacing',
       typography: 'typography',
       colorMode: 'light',
@@ -69,7 +70,7 @@ describe('setGlobalTheme', () => {
     const htmlElement = document.getElementsByTagName('html')[0];
     expect(htmlElement).toHaveAttribute(
       THEME_DATA_ATTRIBUTE,
-      'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+      'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
     );
     expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
   });
@@ -117,6 +118,40 @@ describe('setGlobalTheme', () => {
     await setGlobalTheme({
       dark: 'dark',
       light: 'light',
+      shape: 'shape',
+      spacing: 'spacing',
+      typography: 'typography',
+    });
+
+    // Wait for styles to be added to the page
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(5);
+    });
+
+    // Validate that the data-theme attributes match the expected values
+    const styleElements = document.querySelectorAll('style');
+    const dataThemes = Array.from(styleElements).map((el) =>
+      el.getAttribute('data-theme'),
+    );
+
+    expect(dataThemes.sort()).toEqual([
+      'dark',
+      'light',
+      'shape',
+      'spacing',
+      'typography',
+    ]);
+  });
+
+  it('should load a minimal set of themes when auto switching is disabled', async () => {
+    await setGlobalTheme({
+      colorMode: 'light',
+      dark: 'dark',
+      light: 'light',
+      shape: 'shape',
       spacing: 'spacing',
       typography: 'typography',
     });
@@ -136,37 +171,11 @@ describe('setGlobalTheme', () => {
     );
 
     expect(dataThemes.sort()).toEqual([
-      'dark',
       'light',
+      'shape',
       'spacing',
       'typography',
     ]);
-  });
-
-  it('should load a minimal set of themes when auto switching is disabled', async () => {
-    await setGlobalTheme({
-      colorMode: 'light',
-      dark: 'dark',
-      light: 'light',
-      spacing: 'spacing',
-      typography: 'typography',
-    });
-
-    // Wait for styles to be added to the page
-    await waitFor(() => {
-      const styleElements = document.querySelectorAll(
-        `style[${THEME_DATA_ATTRIBUTE}]`,
-      );
-      expect(styleElements).toHaveLength(3);
-    });
-
-    // Validate that the data-theme attributes match the expected values
-    const styleElements = document.querySelectorAll('style');
-    const dataThemes = Array.from(styleElements).map((el) =>
-      el.getAttribute('data-theme'),
-    );
-
-    expect(dataThemes.sort()).toEqual(['light', 'spacing', 'typography']);
   });
 
   it('should load theme CSS on the page without duplicates', async () => {
@@ -269,6 +278,69 @@ describe('setGlobalTheme', () => {
       'typography',
     ]);
   });
+
+  it('should not load the spacing and shape themes on the page by default when the feature flag is not enabled', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      (name) => name === 'platform.design-system-team.something-else',
+    );
+
+    await setGlobalTheme({
+      dark: 'dark',
+      light: 'light',
+      typography: 'typography',
+    });
+
+    // Wait for styles to be added to the page
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(3);
+    });
+
+    // Validate that the data-theme attributes match the expected values
+    const styleElements = document.querySelectorAll('style');
+    const dataThemes = Array.from(styleElements).map((el) =>
+      el.getAttribute('data-theme'),
+    );
+
+    expect(dataThemes.sort()).toEqual(['dark', 'light', 'typography']);
+  });
+
+  it('should load the spacing and shape themes on the page when the feature flag is enabled', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      (name) =>
+        name === 'platform.design-system-team.space-and-shape-tokens_q5me6',
+    );
+
+    await setGlobalTheme({
+      dark: 'dark',
+      light: 'light',
+      typography: 'typography',
+    });
+
+    // Wait for styles to be added to the page
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(5);
+    });
+
+    // Validate that the data-theme attributes match the expected values
+    const styleElements = document.querySelectorAll('style');
+    const dataThemes = Array.from(styleElements).map((el) =>
+      el.getAttribute('data-theme'),
+    );
+
+    expect(dataThemes.sort()).toEqual([
+      'dark',
+      'light',
+      'shape',
+      'spacing',
+      'typography',
+    ]);
+  });
 });
 
 describe('getThemeStyles', () => {
@@ -361,6 +433,28 @@ describe('getThemeStyles', () => {
         id: 'dark-new-input-border',
         attrs: { 'data-theme': 'dark-new-input-border' },
       },
+    ]);
+  });
+
+  it('returns an array of ThemeStyles that includes `shape` and `spacing` when the feature flag is enabled', async () => {
+    (getBooleanFF as jest.Mock).mockImplementation(
+      (name) =>
+        name === 'platform.design-system-team.space-and-shape-tokens_q5me6',
+    );
+
+    let results = await getThemeStyles({
+      colorMode: 'auto',
+      dark: 'dark',
+      light: 'light',
+      typography: 'typography',
+    });
+
+    expect(getThemeData(results)).toEqual([
+      { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
+      { id: 'typography', attrs: { 'data-theme': 'typography' } },
+      { id: 'shape', attrs: { 'data-theme': 'shape' } },
+      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
     ]);
   });
 

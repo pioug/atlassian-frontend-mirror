@@ -222,3 +222,39 @@ BrowserTestCase(
     ).toBe(true);
   },
 );
+
+BrowserTestCase(
+  'with ff lp-link-picker && lp-link-picker-focus-trap: when inserting a link mark focus returns to editor',
+  {
+    // Skip safari as per https://hello.atlassian.net/wiki/spaces/AF/pages/971139617/Browserstack+known+issues
+    skip: ['safari'],
+  },
+  async (client: any, testName: string) => {
+    const page = await goToEditorTestingWDExample(client);
+    await mountEditor(
+      page,
+      {
+        appearance: fullpage.appearance,
+        featureFlags: {
+          'lp-link-picker': true,
+          'lp-link-picker-focus-trap': true,
+        },
+      },
+      {
+        withLinkPickerOptions: true,
+      },
+    );
+
+    await quickInsert(page, 'Link');
+    await page.waitForSelector(linkPickerSelectors.linkInput);
+    await page.type(linkPickerSelectors.linkInput, 'http://atlassian.com');
+    await page.type(linkPickerSelectors.linkDisplayTextInput, 'Atlassian');
+    await page.keys('Return');
+
+    const doc = await page.$eval(editable, getDocFromElement);
+    expect(doc).toMatchCustomDocSnapshot(testName);
+
+    const editor = await page.$(selectors.editor);
+    expect(await editor.isFocused()).toBe(true);
+  },
+);

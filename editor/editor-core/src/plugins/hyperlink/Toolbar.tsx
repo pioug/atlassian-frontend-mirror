@@ -142,7 +142,9 @@ export const getToolbarConfig =
      */
     const { lpLinkPicker, lpLinkPickerFocusTrap, preventPopupOverflow } =
       featureFlags;
-    const shouldEnableFocusTrap = lpLinkPicker && lpLinkPickerFocusTrap;
+    const shouldEnableFocusTrap = Boolean(
+      lpLinkPicker && lpLinkPickerFocusTrap,
+    );
 
     if (linkState && linkState.activeLinkMark) {
       const { activeLinkMark } = linkState;
@@ -314,6 +316,9 @@ export const getToolbarConfig =
                       displayText={displayText || ''}
                       providerFactory={providerFactory}
                       onCancel={() => view.focus()}
+                      onClose={
+                        lpLinkPickerFocusTrap ? () => view.focus() : undefined
+                      }
                       onSubmit={(
                         href,
                         title = '',
@@ -351,7 +356,9 @@ export const getToolbarConfig =
 
                         command(view.state, view.dispatch, view);
 
-                        view.focus();
+                        if (!lpLinkPickerFocusTrap) {
+                          view.focus();
+                        }
                       }}
                     />
                   );

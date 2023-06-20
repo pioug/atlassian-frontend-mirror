@@ -20,7 +20,7 @@ import { EditorLinkPicker, EditorLinkPickerProps } from '../EditorLinkPicker';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export interface Props
-  extends Pick<EditorLinkPickerProps, 'onCancel' | 'invokeMethod'> {
+  extends Pick<EditorLinkPickerProps, 'onCancel' | 'invokeMethod' | 'onClose'> {
   view: EditorView;
   providerFactory: ProviderFactory;
   onSubmit: (
@@ -65,6 +65,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
       onCancel,
       invokeMethod,
       featureFlags,
+      onClose,
     } = this.props;
 
     return (
@@ -95,6 +96,7 @@ export default class HyperlinkAddToolbar extends React.PureComponent<Props> {
                     displayText={displayText}
                     onSubmit={onSubmitInterface(onSubmit)}
                     onCancel={onCancel}
+                    onClose={onClose}
                   />
                 );
               }

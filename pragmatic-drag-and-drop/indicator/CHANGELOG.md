@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-indicator
 
+## 0.14.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.14.3
 
 ### Patch Changes

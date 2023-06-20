@@ -1,5 +1,41 @@
 # @atlaskit/editor-mobile-bridge
 
+## 185.2.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.2.22
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.2.21
+
+### Patch Changes
+
+- [`a133cf2c682`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a133cf2c682) - [ux] Typing in table cells for mobile editor will no longer increase the width of the table cell unexpectedly
+
+## 185.2.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.2.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.2.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 185.2.17
 
 ### Patch Changes

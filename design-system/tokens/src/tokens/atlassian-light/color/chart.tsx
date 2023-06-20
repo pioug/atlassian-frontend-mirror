@@ -384,6 +384,32 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
           },
         },
       },
+      lime: {
+        bold: {
+          '[default]': {
+            value: 'Lime600',
+          },
+          hovered: {
+            value: 'Lime700',
+          },
+        },
+        bolder: {
+          '[default]': {
+            value: 'Lime700',
+          },
+          hovered: {
+            value: 'Lime800',
+          },
+        },
+        boldest: {
+          '[default]': {
+            value: 'Lime800',
+          },
+          hovered: {
+            value: 'Lime900',
+          },
+        },
+      },
       gray: {
         bold: {
           '[default]': {

@@ -109,26 +109,26 @@ describe('Snapshot Test: sticky-headers', () => {
 
   it(`should have the header stick for an table within a layout`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 4803);
+    await scrollToPos(page, 4763);
   });
 
   it(`should have the header stick for an table within layout and brokenout`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 5160);
+    await scrollToPos(page, 5060);
   });
 
   it(`should have both headers stick for an table with multiple headers`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 5689);
+    await scrollToPos(page, 5470);
   });
 
   it(`should have both headers stick for an table with multiple headers`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 5783);
+    await scrollToPos(page, 5703);
   });
 
   it(`should have the headers not stick for an table with merged cells`, async () => {
     await initRenderer(page, stickyHeaderADF);
-    await scrollToPos(page, 6033);
+    await scrollToPos(page, 5988);
   });
 });

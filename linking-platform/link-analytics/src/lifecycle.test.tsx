@@ -292,7 +292,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       submit: 'link-picker-insert-button',
     };
 
-    const setup = () => {
+    const setup = ({ url }: { url?: string } = {}) => {
       const mockFetch = jest.fn(async () => mocks.success);
       const mockClient = new (fakeFactory(mockFetch))();
       const onEvent = jest.fn();
@@ -301,7 +301,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
         const [link, setLink] = useState<{
           url?: string;
           displayText?: string | null;
-        }>({});
+        }>({ url });
 
         const callbacks = useSmartLinkLifecycleAnalytics();
         const onSubmit: LinkPickerProps['onSubmit'] = useCallback(
@@ -455,6 +455,26 @@ describe('useSmartLinkLifecycleAnalytics', () => {
             actionSubject: 'link',
             attributes: {
               updateMethod: 'linkpicker_searchResult',
+            },
+          },
+        });
+      });
+    });
+
+    it('should support `creationMethod` and `updateMethod` as `linkpicker_none` when saving a link without making changes', async () => {
+      const { onEvent } = setup({ url: 'https://atlassian.com' });
+
+      await screen.findByTestId(testIds.urlInputField);
+      jest.clearAllMocks();
+      await userEvent.keyboard('{enter}');
+
+      await waitFor(() => {
+        expect(onEvent).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'updated',
+            actionSubject: 'link',
+            attributes: {
+              updateMethod: 'linkpicker_none',
             },
           },
         });

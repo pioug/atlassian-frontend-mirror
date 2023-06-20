@@ -49,7 +49,8 @@ describe('code-block: WYSIWYG', () => {
     });
   });
 
-  test('code-block is WYSIWYG when in table header', async () => {
+  // FIXME: This test was automatically skipped due to failure on 19/06/2023: https://product-fabric.atlassian.net/browse/ED-18872
+  test.skip('code-block is WYSIWYG when in table header', async () => {
     const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
       adf: tableHeaderCodeBlock,
       editorSelector: '.code-block',

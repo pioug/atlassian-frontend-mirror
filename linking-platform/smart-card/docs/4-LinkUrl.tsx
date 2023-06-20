@@ -23,12 +23,9 @@ ${code`
 **LinkUrl** component has a built-in safety check and can be used as a plain hyperlink <a> tag where we want to have
 a link safety check.
 
-**NOTE**: We want to keep the link safety validation simple and check ANY difference between a link destination
-and link description text.
-
-For instance:
-**https://www.atlassian.com/?tab=work-management** as a destination and **https://www.atlassian.com** as a link description triggers
-a warning.
+Note that when the checkSafety is true we only call the onClick function when the link is safe. If you would like to ensure that the onClick
+is always called then you can disable the safety checking by setting the safetyCheck to false. This is because onClick is often used to
+programatically open a link in a new tab or window and we don't want the links to open until we have checked that they are safe.
 
 ### Installation
 

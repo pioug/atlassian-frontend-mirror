@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { EditorView } from 'prosemirror-view';
 import { LinkPicker, LinkPickerProps } from '@atlaskit/link-picker';
@@ -26,6 +26,8 @@ export interface EditorLinkPickerProps
    */
   invokeMethod?: string;
   editorAppearance?: EditorAppearance;
+  /** Callback to execute on unmount */
+  onClose?: () => void;
 }
 
 export const EditorLinkPicker = ({
@@ -33,8 +35,26 @@ export const EditorLinkPicker = ({
   onCancel,
   invokeMethod = '_unknown',
   editorAppearance,
+  onClose,
   ...restProps
 }: EditorLinkPickerProps) => {
+  /**
+   * Track onClose handler in a
+   * ref so that we void needing it in the dependency array
+   * below
+   */
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
+
+  /**
+   * Call onClose on mount, usefull to provide
+   * a handler for performing an action after the component has been
+   * unmounted (e.g. return focus to the editors)
+   */
+  useEffect(() => () => onCloseRef.current?.(), []);
+
   const onEscape = useCallback(() => {
     hideLinkToolbar()(view.state, view.dispatch);
     view.dispatch(cardHideLinkToolbar(view.state.tr));

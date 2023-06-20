@@ -1,7 +1,7 @@
 {
   "name": "@atlaskit/platform-feature-flags",
-  "version": "0.2.2",
-  "description": "Platform Feature Flags - DO NOT USE (yet)",
+  "version": "0.2.3",
+  "description": "Platform Feature Flags",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },

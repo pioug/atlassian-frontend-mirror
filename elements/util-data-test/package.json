@@ -74,7 +74,7 @@
     "@atlaskit/profilecard": "^19.4.0",
     "@atlaskit/task-decision": "^17.6.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.6.0",
+    "@atlaskit/tokens": "^1.8.0",
     "@atlaskit/user-picker": "^10.4.0",
     "@atlaskit/util-service-support": "^6.2.0",
     "@babel/runtime": "^7.0.0",

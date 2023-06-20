@@ -126,16 +126,15 @@ export interface AvatarGroupProps {
    */
   isTooltipDisabled?: boolean;
 
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-    Text to be used as aria-label for the list of avatars.
-    Screen reader announcement with default label, which is `avatar group`, is `list, avatar group, X items`.
-
-    The label should describe the `AvatarGroup`'s entities, for instance:
-    - `label="team members"`, screen reader announcement would be `list team members, X items`
-    - `label="reviewers"` screen reader announcement would be `list reviewers, X items`
-
-    When there are several AvatarGroups on the page you should use a unique label to let users distinguish different lists.
+   * Text to be used as aria-label for the list of avatars.
+   * Screen reader announcement with default label, which is `avatar group`, is `list, avatar group, X items`.
+   *
+   * The label should describe the `AvatarGroup`'s entities, for instance:
+   * - `label="team members"`, screen reader announcement would be `list team members, X items`
+   * - `label="reviewers"` screen reader announcement would be `list reviewers, X items`
+   *
+   * When there are several AvatarGroups on the page you should use a unique label to let users distinguish different lists.
    */
   label?: string;
 }

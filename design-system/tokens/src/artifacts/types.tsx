@@ -1,10 +1,12 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7af1f88dfeb09fd8473d7895cf1609b4>>
+ * @codegen <<SignedSource::91d9e5ee340016d156f56631de55a7df>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
   | 'color.text'
+  | 'color.text.accent.lime'
+  | 'color.text.accent.lime.bolder'
   | 'color.text.accent.red'
   | 'color.text.accent.red.bolder'
   | 'color.text.accent.orange'
@@ -38,6 +40,7 @@ export type ActiveTokens =
   | 'color.link'
   | 'color.link.pressed'
   | 'color.icon'
+  | 'color.icon.accent.lime'
   | 'color.icon.accent.red'
   | 'color.icon.accent.orange'
   | 'color.icon.accent.yellow'
@@ -59,6 +62,7 @@ export type ActiveTokens =
   | 'color.icon.information'
   | 'color.icon.subtle'
   | 'color.border'
+  | 'color.border.accent.lime'
   | 'color.border.accent.red'
   | 'color.border.accent.orange'
   | 'color.border.accent.yellow'
@@ -80,6 +84,10 @@ export type ActiveTokens =
   | 'color.border.discovery'
   | 'color.border.information'
   | 'color.border.bold'
+  | 'color.background.accent.lime.subtlest'
+  | 'color.background.accent.lime.subtler'
+  | 'color.background.accent.lime.subtle'
+  | 'color.background.accent.lime.bolder'
   | 'color.background.accent.red.subtlest'
   | 'color.background.accent.red.subtler'
   | 'color.background.accent.red.subtle'
@@ -194,6 +202,12 @@ export type ActiveTokens =
   | 'color.chart.categorical.7.hovered'
   | 'color.chart.categorical.8'
   | 'color.chart.categorical.8.hovered'
+  | 'color.chart.lime.bold'
+  | 'color.chart.lime.bold.hovered'
+  | 'color.chart.lime.bolder'
+  | 'color.chart.lime.bolder.hovered'
+  | 'color.chart.lime.boldest'
+  | 'color.chart.lime.boldest.hovered'
   | 'color.chart.neutral'
   | 'color.chart.neutral.hovered'
   | 'color.chart.red.bold'

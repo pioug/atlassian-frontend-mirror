@@ -10,6 +10,24 @@
       },
       "value": "#172B4D"
     },
+    "Light/color.text.accent.lime": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#4C6B1F"
+    },
+    "Light/color.text.accent.lime.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.7.0",
+        "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#37471F"
+    },
     "Light/color.text.accent.red": {
       "attributes": {
         "group": "paint",
@@ -307,6 +325,15 @@
       },
       "value": "#44546F"
     },
+    "Light/color.icon.accent.lime": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for lime icons on non-bold backgrounds when there is no meaning tied to the color, such as file type icons."
+      },
+      "value": "#6A9A23"
+    },
     "Light/color.icon.accent.red": {
       "attributes": {
         "group": "paint",
@@ -496,6 +523,15 @@
       },
       "value": "#091E4224"
     },
+    "Light/color.border.accent.lime": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for lime borders on non-bold backgrounds when there is no meaning tied to the color."
+      },
+      "value": "#6A9A23"
+    },
     "Light/color.border.accent.red": {
       "attributes": {
         "group": "paint",
@@ -684,6 +720,42 @@
         "description": "A neutral border option that passes min 3:1 contrast ratios."
       },
       "value": "#758195"
+    },
+    "Light/color.background.accent.lime.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for for backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
+      },
+      "value": "#EEFBDA"
+    },
+    "Light/color.background.accent.lime.subtler": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for for backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#D3F1A7"
+    },
+    "Light/color.background.accent.lime.subtle": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for vibrant for backgrounds when there is no meaning tied to the color, such as colored tags."
+      },
+      "value": "#94C748"
+    },
+    "Light/color.background.accent.lime.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.6.0",
+        "description": "Use for for backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
+      },
+      "value": "#5B7F24"
     },
     "Light/color.background.accent.red.subtlest": {
       "attributes": {
@@ -1710,6 +1782,60 @@
         "description": "Hovered state of color.chart.categorical.8."
       },
       "value": "#5F3811"
+    },
+    "Light/color.chart.lime.bold": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#6A9A23"
+    },
+    "Light/color.chart.lime.bold.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.lime.bold."
+      },
+      "value": "#5B7F24"
+    },
+    "Light/color.chart.lime.bolder": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#5B7F24"
+    },
+    "Light/color.chart.lime.bolder.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.lime.bolder."
+      },
+      "value": "#4C6B1F"
+    },
+    "Light/color.chart.lime.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only."
+      },
+      "value": "#4C6B1F"
+    },
+    "Light/color.chart.lime.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.lime.boldest."
+      },
+      "value": "#37471F"
     },
     "Light/color.chart.neutral": {
       "attributes": {

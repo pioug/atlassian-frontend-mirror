@@ -52,12 +52,12 @@ const checkNativeListener = function (e: MediaQueryListEvent) {
 };
 
 const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
-  const { colorMode, dark, light, spacing, typography } = themeState;
+  const { colorMode, dark, light, shape, spacing, typography } = themeState;
 
   const themePreferences: ThemeIds[] =
     colorMode === 'auto' ? [light, dark] : [themeState[colorMode]];
 
-  [spacing, typography].forEach((themeId) => {
+  [shape, spacing, typography].forEach((themeId) => {
     if (themeId) {
       themePreferences.push(themeId);
     }
@@ -71,6 +71,18 @@ const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
     );
   }
 
+  // Load shape and spacing by default, currently behind a feature flag
+  if (
+    getBooleanFF('platform.design-system-team.space-and-shape-tokens_q5me6')
+  ) {
+    if (!themePreferences.includes('shape')) {
+      themePreferences.push('shape');
+    }
+    if (!themePreferences.includes('spacing')) {
+      themePreferences.push('spacing');
+    }
+  }
+
   return [...new Set(themePreferences)];
 };
 
@@ -81,6 +93,7 @@ const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
  * @param {string} themeState.colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
  * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
  * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.shape The shape theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
  *
@@ -171,6 +184,7 @@ export interface ThemeStyles {
  * @param {string} themeState.colorMode Determines which color theme is applied. If set to `auto`, the theme applied will be determined by the OS setting.
  * @param {string} themeState.dark The color theme to be applied when the color mode resolves to 'dark'.
  * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
+ * @param {string} themeState.shape The shape theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
  *
@@ -181,9 +195,9 @@ export const getThemeStyles = async ({
   colorMode = themeStateDefaults['colorMode'],
   dark = themeStateDefaults['dark'],
   light = themeStateDefaults['light'],
+  shape = themeStateDefaults['shape'],
   spacing = themeStateDefaults['spacing'],
   typography = themeStateDefaults['typography'],
-  shape = themeStateDefaults['shape'],
 }: Partial<ThemeState> = {}): Promise<ThemeStyles[]> => {
   const themePreferences = getThemePreferences({
     colorMode,
@@ -252,7 +266,27 @@ export const getThemeHtmlAttrs = ({
   spacing = themeStateDefaults['spacing'],
   typography = themeStateDefaults['typography'],
 }: Partial<ThemeState> = {}): Record<string, string> => {
-  const themePreferences = { dark, light, spacing, typography, shape };
+  let themePreferences: Partial<ThemeState> = {
+    dark,
+    light,
+    shape,
+    spacing,
+    typography,
+  };
+
+  // Load shape and spacing by default, currently behind a feature flag
+  if (
+    getBooleanFF('platform.design-system-team.space-and-shape-tokens_q5me6')
+  ) {
+    themePreferences = {
+      dark,
+      light,
+      shape: 'shape',
+      spacing: 'spacing',
+      typography,
+    };
+  }
+
   const themeAttribute = themeObjectToString(themePreferences);
 
   return {

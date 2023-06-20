@@ -47,6 +47,10 @@ export type ActiveTokens =
   | 'color.background.accent.green.subtle'
   | 'color.background.accent.green.subtler'
   | 'color.background.accent.green.subtlest'
+  | 'color.background.accent.lime.bolder'
+  | 'color.background.accent.lime.subtle'
+  | 'color.background.accent.lime.subtler'
+  | 'color.background.accent.lime.subtlest'
   | 'color.background.accent.magenta.bolder'
   | 'color.background.accent.magenta.subtle'
   | 'color.background.accent.magenta.subtler'
@@ -133,6 +137,7 @@ export type ActiveTokens =
   | 'color.border.accent.blue'
   | 'color.border.accent.gray'
   | 'color.border.accent.green'
+  | 'color.border.accent.lime'
   | 'color.border.accent.magenta'
   | 'color.border.accent.orange'
   | 'color.border.accent.purple'
@@ -199,6 +204,12 @@ export type ActiveTokens =
   | 'color.chart.information.bold'
   | 'color.chart.information.bold.hovered'
   | 'color.chart.information.hovered'
+  | 'color.chart.lime.bold'
+  | 'color.chart.lime.bold.hovered'
+  | 'color.chart.lime.bolder'
+  | 'color.chart.lime.bolder.hovered'
+  | 'color.chart.lime.boldest'
+  | 'color.chart.lime.boldest.hovered'
   | 'color.chart.magenta.bold'
   | 'color.chart.magenta.bold.hovered'
   | 'color.chart.magenta.bolder'
@@ -249,6 +260,7 @@ export type ActiveTokens =
   | 'color.icon.accent.blue'
   | 'color.icon.accent.gray'
   | 'color.icon.accent.green'
+  | 'color.icon.accent.lime'
   | 'color.icon.accent.magenta'
   | 'color.icon.accent.orange'
   | 'color.icon.accent.purple'
@@ -279,6 +291,8 @@ export type ActiveTokens =
   | 'color.text.accent.gray.bolder'
   | 'color.text.accent.green'
   | 'color.text.accent.green.bolder'
+  | 'color.text.accent.lime'
+  | 'color.text.accent.lime.bolder'
   | 'color.text.accent.magenta'
   | 'color.text.accent.magenta.bolder'
   | 'color.text.accent.orange'
@@ -521,6 +535,8 @@ export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 // @public (undocumented)
 type CSSTokenMap = {
   'color.text': 'var(--ds-text)';
+  'color.text.accent.lime': 'var(--ds-text-accent-lime)';
+  'color.text.accent.lime.bolder': 'var(--ds-text-accent-lime-bolder)';
   'color.text.accent.red': 'var(--ds-text-accent-red)';
   'color.text.accent.red.bolder': 'var(--ds-text-accent-red-bolder)';
   'color.text.accent.orange': 'var(--ds-text-accent-orange)';
@@ -554,6 +570,7 @@ type CSSTokenMap = {
   'color.link': 'var(--ds-link)';
   'color.link.pressed': 'var(--ds-link-pressed)';
   'color.icon': 'var(--ds-icon)';
+  'color.icon.accent.lime': 'var(--ds-icon-accent-lime)';
   'color.icon.accent.red': 'var(--ds-icon-accent-red)';
   'color.icon.accent.orange': 'var(--ds-icon-accent-orange)';
   'color.icon.accent.yellow': 'var(--ds-icon-accent-yellow)';
@@ -575,6 +592,7 @@ type CSSTokenMap = {
   'color.icon.information': 'var(--ds-icon-information)';
   'color.icon.subtle': 'var(--ds-icon-subtle)';
   'color.border': 'var(--ds-border)';
+  'color.border.accent.lime': 'var(--ds-border-accent-lime)';
   'color.border.accent.red': 'var(--ds-border-accent-red)';
   'color.border.accent.orange': 'var(--ds-border-accent-orange)';
   'color.border.accent.yellow': 'var(--ds-border-accent-yellow)';
@@ -596,6 +614,10 @@ type CSSTokenMap = {
   'color.border.discovery': 'var(--ds-border-discovery)';
   'color.border.information': 'var(--ds-border-information)';
   'color.border.bold': 'var(--ds-border-bold)';
+  'color.background.accent.lime.subtlest': 'var(--ds-background-accent-lime-subtlest)';
+  'color.background.accent.lime.subtler': 'var(--ds-background-accent-lime-subtler)';
+  'color.background.accent.lime.subtle': 'var(--ds-background-accent-lime-subtle)';
+  'color.background.accent.lime.bolder': 'var(--ds-background-accent-lime-bolder)';
   'color.background.accent.red.subtlest': 'var(--ds-background-accent-red-subtlest)';
   'color.background.accent.red.subtler': 'var(--ds-background-accent-red-subtler)';
   'color.background.accent.red.subtle': 'var(--ds-background-accent-red-subtle)';
@@ -710,6 +732,12 @@ type CSSTokenMap = {
   'color.chart.categorical.7.hovered': 'var(--ds-chart-categorical-7-hovered)';
   'color.chart.categorical.8': 'var(--ds-chart-categorical-8)';
   'color.chart.categorical.8.hovered': 'var(--ds-chart-categorical-8-hovered)';
+  'color.chart.lime.bold': 'var(--ds-chart-lime-bold)';
+  'color.chart.lime.bold.hovered': 'var(--ds-chart-lime-bold-hovered)';
+  'color.chart.lime.bolder': 'var(--ds-chart-lime-bolder)';
+  'color.chart.lime.bolder.hovered': 'var(--ds-chart-lime-bolder-hovered)';
+  'color.chart.lime.boldest': 'var(--ds-chart-lime-boldest)';
+  'color.chart.lime.boldest.hovered': 'var(--ds-chart-lime-boldest-hovered)';
   'color.chart.neutral': 'var(--ds-chart-neutral)';
   'color.chart.neutral.hovered': 'var(--ds-chart-neutral-hovered)';
   'color.chart.red.bold': 'var(--ds-chart-red-bold)';
@@ -933,9 +961,9 @@ export const getThemeStyles: ({
   colorMode,
   dark,
   light,
+  shape,
   spacing,
   typography,
-  shape,
 }?: Partial<ThemeState>) => Promise<ThemeStyles[]>;
 
 // @public
@@ -983,6 +1011,10 @@ type InternalTokenIds =
   | 'color.background.accent.green.subtle'
   | 'color.background.accent.green.subtler'
   | 'color.background.accent.green.subtlest'
+  | 'color.background.accent.lime.bolder'
+  | 'color.background.accent.lime.subtle'
+  | 'color.background.accent.lime.subtler'
+  | 'color.background.accent.lime.subtlest'
   | 'color.background.accent.magenta.bolder'
   | 'color.background.accent.magenta.subtle'
   | 'color.background.accent.magenta.subtler'
@@ -1069,6 +1101,7 @@ type InternalTokenIds =
   | 'color.border.accent.blue'
   | 'color.border.accent.gray'
   | 'color.border.accent.green'
+  | 'color.border.accent.lime'
   | 'color.border.accent.magenta'
   | 'color.border.accent.orange'
   | 'color.border.accent.purple'
@@ -1135,6 +1168,12 @@ type InternalTokenIds =
   | 'color.chart.information.[default].hovered'
   | 'color.chart.information.bold.[default]'
   | 'color.chart.information.bold.hovered'
+  | 'color.chart.lime.bold.[default]'
+  | 'color.chart.lime.bold.hovered'
+  | 'color.chart.lime.bolder.[default]'
+  | 'color.chart.lime.bolder.hovered'
+  | 'color.chart.lime.boldest.[default]'
+  | 'color.chart.lime.boldest.hovered'
   | 'color.chart.magenta.bold.[default]'
   | 'color.chart.magenta.bold.hovered'
   | 'color.chart.magenta.bolder.[default]'
@@ -1185,6 +1224,7 @@ type InternalTokenIds =
   | 'color.icon.accent.blue'
   | 'color.icon.accent.gray'
   | 'color.icon.accent.green'
+  | 'color.icon.accent.lime'
   | 'color.icon.accent.magenta'
   | 'color.icon.accent.orange'
   | 'color.icon.accent.purple'
@@ -1215,6 +1255,8 @@ type InternalTokenIds =
   | 'color.text.accent.gray.bolder'
   | 'color.text.accent.green.[default]'
   | 'color.text.accent.green.bolder'
+  | 'color.text.accent.lime.[default]'
+  | 'color.text.accent.lime.bolder'
   | 'color.text.accent.magenta.[default]'
   | 'color.text.accent.magenta.bolder'
   | 'color.text.accent.orange.[default]'
@@ -1478,6 +1520,8 @@ type Tokens = typeof tokens;
 // @public
 const tokens: {
   readonly 'color.text': '--ds-text';
+  readonly 'color.text.accent.lime': '--ds-text-accent-lime';
+  readonly 'color.text.accent.lime.bolder': '--ds-text-accent-lime-bolder';
   readonly 'color.text.accent.red': '--ds-text-accent-red';
   readonly 'color.text.accent.red.bolder': '--ds-text-accent-red-bolder';
   readonly 'color.text.accent.orange': '--ds-text-accent-orange';
@@ -1511,6 +1555,7 @@ const tokens: {
   readonly 'color.link': '--ds-link';
   readonly 'color.link.pressed': '--ds-link-pressed';
   readonly 'color.icon': '--ds-icon';
+  readonly 'color.icon.accent.lime': '--ds-icon-accent-lime';
   readonly 'color.icon.accent.red': '--ds-icon-accent-red';
   readonly 'color.icon.accent.orange': '--ds-icon-accent-orange';
   readonly 'color.icon.accent.yellow': '--ds-icon-accent-yellow';
@@ -1532,6 +1577,7 @@ const tokens: {
   readonly 'color.icon.information': '--ds-icon-information';
   readonly 'color.icon.subtle': '--ds-icon-subtle';
   readonly 'color.border': '--ds-border';
+  readonly 'color.border.accent.lime': '--ds-border-accent-lime';
   readonly 'color.border.accent.red': '--ds-border-accent-red';
   readonly 'color.border.accent.orange': '--ds-border-accent-orange';
   readonly 'color.border.accent.yellow': '--ds-border-accent-yellow';
@@ -1553,6 +1599,10 @@ const tokens: {
   readonly 'color.border.discovery': '--ds-border-discovery';
   readonly 'color.border.information': '--ds-border-information';
   readonly 'color.border.bold': '--ds-border-bold';
+  readonly 'color.background.accent.lime.subtlest': '--ds-background-accent-lime-subtlest';
+  readonly 'color.background.accent.lime.subtler': '--ds-background-accent-lime-subtler';
+  readonly 'color.background.accent.lime.subtle': '--ds-background-accent-lime-subtle';
+  readonly 'color.background.accent.lime.bolder': '--ds-background-accent-lime-bolder';
   readonly 'color.background.accent.red.subtlest': '--ds-background-accent-red-subtlest';
   readonly 'color.background.accent.red.subtler': '--ds-background-accent-red-subtler';
   readonly 'color.background.accent.red.subtle': '--ds-background-accent-red-subtle';
@@ -1667,6 +1717,12 @@ const tokens: {
   readonly 'color.chart.categorical.7.hovered': '--ds-chart-categorical-7-hovered';
   readonly 'color.chart.categorical.8': '--ds-chart-categorical-8';
   readonly 'color.chart.categorical.8.hovered': '--ds-chart-categorical-8-hovered';
+  readonly 'color.chart.lime.bold': '--ds-chart-lime-bold';
+  readonly 'color.chart.lime.bold.hovered': '--ds-chart-lime-bold-hovered';
+  readonly 'color.chart.lime.bolder': '--ds-chart-lime-bolder';
+  readonly 'color.chart.lime.bolder.hovered': '--ds-chart-lime-bolder-hovered';
+  readonly 'color.chart.lime.boldest': '--ds-chart-lime-boldest';
+  readonly 'color.chart.lime.boldest.hovered': '--ds-chart-lime-boldest-hovered';
   readonly 'color.chart.neutral': '--ds-chart-neutral';
   readonly 'color.chart.neutral.hovered': '--ds-chart-neutral-hovered';
   readonly 'color.chart.red.bold': '--ds-chart-red-bold';

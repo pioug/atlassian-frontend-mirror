@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.2.3
+
+### Patch Changes
+
+- [`71902efa32d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71902efa32d) - Added logging for any feature flags that are called before the platform feature flags resolver is created
+
 ## 0.2.2
 
 ### Patch Changes

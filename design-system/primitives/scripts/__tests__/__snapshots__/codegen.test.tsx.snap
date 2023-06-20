@@ -2,6 +2,22 @@
 
 exports[`@atlaskit/primitives bg styles are generated correctly 1`] = `
 "export const backgroundColorMap = {
+  'color.background.accent.lime.subtlest': token(
+    'color.background.accent.lime.subtlest',
+    '#EEFBDA',
+  ),
+  'color.background.accent.lime.subtler': token(
+    'color.background.accent.lime.subtler',
+    '#D3F1A7',
+  ),
+  'color.background.accent.lime.subtle': token(
+    'color.background.accent.lime.subtle',
+    '#94C748',
+  ),
+  'color.background.accent.lime.bolder': token(
+    'color.background.accent.lime.bolder',
+    '#5B7F24',
+  ),
   'color.background.accent.red.subtlest': token(
     'color.background.accent.red.subtlest',
     '#FF8F73',
@@ -376,6 +392,7 @@ export type BackgroundColor = keyof typeof backgroundColorMap;
 exports[`@atlaskit/primitives border styles are generated correctly 1`] = `
 "export const borderColorMap = {
   'color.border': token('color.border', '#091e4221'),
+  'color.border.accent.lime': token('color.border.accent.lime', '#6A9A23'),
   'color.border.accent.red': token('color.border.accent.red', '#FF5630'),
   'color.border.accent.orange': token('color.border.accent.orange', '#D94008'),
   'color.border.accent.yellow': token('color.border.accent.yellow', '#FFAB00'),
@@ -409,6 +426,11 @@ export type BorderColor = keyof typeof borderColorMap;
 exports[`@atlaskit/primitives text styles are generated correctly 1`] = `
 "export const textColorMap = {
   'color.text': token('color.text', '#172B4D'),
+  'color.text.accent.lime': token('color.text.accent.lime', '#4C6B1F'),
+  'color.text.accent.lime.bolder': token(
+    'color.text.accent.lime.bolder',
+    '#37471F',
+  ),
   'color.text.accent.red': token('color.text.accent.red', '#DE350B'),
   'color.text.accent.red.bolder': token(
     'color.text.accent.red.bolder',

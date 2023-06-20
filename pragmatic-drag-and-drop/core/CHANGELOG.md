@@ -1,5 +1,68 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 0.19.0
+
+### Minor Changes
+
+- [`8c301a251e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c301a251e4) - We have changed the API of `setCustomNativeDragPreview()` to allow increased control and slightly lower bundles as well.
+
+  We have removed the `placement` argument, and replaced it with `getOffset()`.
+
+  ```diff
+  - placement: { type: 'center' } | { type: 'offset-from-pointer'; x: CSSValue; y: CSSValue };
+  + getOffset: (args: { container: HTMLElement }) => {x: number, y: number}
+  ```
+
+  `getOffset()` allows unlimited control over how to place the custom native drag preview relative to the users pointer. Please see our updated documentation for detailed information about the new `getOffset()` API. Our new `getOffset()` approach means that we also no longer need to bake in all `placement` options into the bundle - consumers now only pay for what they use!
+
+  `placement: { type: 'offset-from-pointer' }` has been replaced by `offsetFromPointer()`
+
+  ```diff
+  import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+  + import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer;
+
+  draggable({
+    element: myElement,
+    onGenerateDragPreview: ({ nativeSetDragImage }) => {
+      setCustomNativeDragPreview({
+  -      placement: { type: 'offset-from-pointer', x: '16px', y: '8px' }
+  +      getOffset: offsetFromPointer({x: '16px', y: '8px'}),
+        render: function render({ container }) {
+          ReactDOM.render(<Preview item={item} />, container);
+          return function cleanup() {
+            ReactDOM.unmountComponentAtNode(container);
+          };
+        },
+        nativeSetDragImage,
+      });
+    },
+  });
+  ```
+
+  `placement: { type: 'center' }` has been replaced by `centerUnderPointer()`
+
+  ```diff
+  import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+  + import { centerUnderPointer } from '@atlaskit/pragmatic-drag-and-drop/util/center-under-pointer-pointer;
+
+  draggable({
+    element: myElement,
+    onGenerateDragPreview: ({ nativeSetDragImage }) => {
+      setCustomNativeDragPreview({
+  -      placement: { type: 'center' }
+  +      getOffset: centerUnderPointer,
+        render: function render({ container }) {
+          ReactDOM.render(<Preview item={item} />, container);
+          return function cleanup() {
+            ReactDOM.unmountComponentAtNode(container);
+          };
+        },
+        nativeSetDragImage,
+      });
+    },
+  });
+  ```
+
 ## 0.18.2
 
 ### Patch Changes

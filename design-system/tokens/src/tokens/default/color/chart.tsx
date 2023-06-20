@@ -843,6 +843,62 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
           },
         },
       },
+      lime: {
+        bold: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.13.3',
+              description: 'For data visualisation only.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.13.3',
+              description: 'Hovered state of color.chart.lime.bold.',
+            },
+          },
+        },
+        bolder: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.13.3',
+              description: 'For data visualisation only.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.13.3',
+              description: 'Hovered state of color.chart.lime.bolder.',
+            },
+          },
+        },
+        boldest: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.13.3',
+              description: 'For data visualisation only.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '0.13.3',
+              description: 'Hovered state of color.chart.lime.boldest.',
+            },
+          },
+        },
+      },
       gray: {
         bold: {
           '[default]': {

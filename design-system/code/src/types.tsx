@@ -22,12 +22,11 @@ export interface CodeProps extends HTMLProps<HTMLElement> {
    */
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   codeBidiWarnings?: boolean;
-  // eslint-disable-next-line jsdoc/require-asterisk-prefix, jsdoc/check-alignment
   /**
-   Label for the bidi warning tooltip.
-
-   Defaults to `Bidirectional characters change the order that text is rendered.
-   This could be used to obscure malicious code.`
+   * Label for the bidi warning tooltip.
+   *
+   * Defaults to `Bidirectional characters change the order that text is rendered.
+   * This could be used to obscure malicious code.`
    */
   codeBidiWarningLabel?: string;
   /**

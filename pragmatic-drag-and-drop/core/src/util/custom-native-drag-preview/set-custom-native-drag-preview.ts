@@ -1,7 +1,10 @@
 import {
   ElementEventPayloadMap,
   monitorForElements,
-} from '../adapter/element-adapter';
+} from '../../adapter/element-adapter';
+import type { Position } from '../../internal-types';
+
+import type { GetOffsetFn } from './types';
 
 /** A function to remove the element that has been added to the `container`.
  * @example () => ReactDOM.unmountComponentAtNode(container)
@@ -19,48 +22,9 @@ type RenderFn = ({
   container: HTMLElement;
 }) => CleanupFn | void;
 
-/** Any valid CSS string value
- * @example `calc(var(--grid) * 2)
- */
-type CSSValue = string;
-
-/**
- * Where to place the custom drag preview
- *
- * `type: 'center'`: Place the center of the drag preview user the users pointer
- *
- * `type: 'offset-from-pointer'`: Shift the drag preview away from the users pointer
- */
-type Placement =
-  | { type: 'center' }
-  | { type: 'offset-from-pointer'; x: CSSValue; y: CSSValue };
-
-function setImage({
-  container,
-  placement,
-  nativeSetDragImage,
-}: {
-  container: HTMLElement;
-  placement: Placement | undefined;
-  nativeSetDragImage: ElementEventPayloadMap['onGenerateDragPreview']['nativeSetDragImage'];
-}) {
-  if (placement?.type === 'center') {
-    const box = container.getBoundingClientRect();
-    nativeSetDragImage?.(container, box.width / 2, box.height / 2);
-    return;
-  }
-  if (placement?.type === 'offset-from-pointer') {
-    // Using a transparent border to push the drag preview away
-    // from the user's pointer.
-    // In Chrome and Safari we could use `padding`:
-    // padding: 'var(--grid)',
-    // But it does not work in Firefox which trims the padding (or inner margin)
-    Object.assign(container.style, {
-      borderLeft: `${placement.x} solid transparent`,
-      borderTop: `${placement.y} solid transparent`,
-    });
-  }
-  nativeSetDragImage?.(container, 0, 0);
+/** By default we use the build in values for the native drag preview: {x: 0, y: 0} */
+function defaultOffset(): Position {
+  return { x: 0, y: 0 };
 }
 
 /** This function provides the ability to mount an element for it to be used as the native drag preview
@@ -81,9 +45,9 @@ function setImage({
 export function setCustomNativeDragPreview({
   render,
   nativeSetDragImage,
-  placement,
+  getOffset = defaultOffset,
 }: {
-  placement?: Placement;
+  getOffset?: GetOffsetFn;
   render: RenderFn;
   nativeSetDragImage: ElementEventPayloadMap['onGenerateDragPreview']['nativeSetDragImage'];
 }) {
@@ -112,7 +76,8 @@ export function setCustomNativeDragPreview({
   document.body.append(container);
   const unmount = render({ container });
 
-  setImage({ container, placement, nativeSetDragImage });
+  const previewOffset: Position = getOffset({ container });
+  nativeSetDragImage?.(container, previewOffset.x, previewOffset.y);
 
   function cleanup() {
     unbindMonitor();

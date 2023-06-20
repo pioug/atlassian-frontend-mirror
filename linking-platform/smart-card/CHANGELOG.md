@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.5.14
+
+### Patch Changes
+
+- [`fd2375e6f26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd2375e6f26) - [ux] Prevent skipping of warning modal when onClick callback programatically opens a window. OnClick function is no longer called if the warning modal is shown. This will prevent link click analytics from firing but there is no easy way to distinguish the effects of what happens within onClick. Additionally, clicking continue in the warning modal will always open the link in a new tab.
+
 ## 26.5.13
 
 ### Patch Changes

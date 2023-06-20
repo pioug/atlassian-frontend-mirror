@@ -40,6 +40,7 @@ export type PaletteCategory =
   | 'yellow'
   | 'green'
   | 'teal'
+  | 'lime'
   | 'light mode neutral'
   | 'dark mode neutral';
 
@@ -447,6 +448,10 @@ export interface AccentColorTokenSchema<BaseToken> {
           '[default]': PaintToken<BaseToken>;
           bolder: PaintToken<BaseToken>;
         };
+        lime: {
+          '[default]': PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
+        };
         gray: {
           '[default]': PaintToken<BaseToken>;
           bolder: PaintToken<BaseToken>;
@@ -463,6 +468,7 @@ export interface AccentColorTokenSchema<BaseToken> {
         purple: PaintToken<BaseToken>;
         teal: PaintToken<BaseToken>;
         magenta: PaintToken<BaseToken>;
+        lime: PaintToken<BaseToken>;
         gray: PaintToken<BaseToken>;
       };
     };
@@ -476,6 +482,7 @@ export interface AccentColorTokenSchema<BaseToken> {
         purple: PaintToken<BaseToken>;
         teal: PaintToken<BaseToken>;
         magenta: PaintToken<BaseToken>;
+        lime: PaintToken<BaseToken>;
         gray: PaintToken<BaseToken>;
       };
     };
@@ -524,6 +531,12 @@ export interface AccentColorTokenSchema<BaseToken> {
           bolder: PaintToken<BaseToken>;
         };
         magenta: {
+          subtlest: PaintToken<BaseToken>;
+          subtler: PaintToken<BaseToken>;
+          subtle: PaintToken<BaseToken>;
+          bolder: PaintToken<BaseToken>;
+        };
+        lime: {
           subtlest: PaintToken<BaseToken>;
           subtler: PaintToken<BaseToken>;
           subtle: PaintToken<BaseToken>;
@@ -713,6 +726,20 @@ export interface ChartColorTokenSchema<BaseToken> {
         };
       };
       green: {
+        bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        bolder: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+        boldest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+        };
+      };
+      lime: {
         bold: {
           '[default]': PaintToken<BaseToken>;
           hovered: PaintToken<BaseToken>;

@@ -9,44 +9,54 @@ export const useLinkWarningModal = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { createAnalyticsEvent } = useAnalyticsEvents();
-  const sendAnalyticsEvent = () => {
+  const sendWarningModalViewedEvent = () => {
     createAnalyticsEvent({
-      action: 'shown',
-      actionSubject: 'warningModal',
-      actionSubjectId: 'linkSafetyWarning',
-      eventType: 'operational',
+      action: 'viewed',
+      actionSubject: 'linkSafetyWarningModal',
+      eventType: 'screen',
+      name: 'linkSafetyWarningModal',
+    }).fire(ANALYTICS_CHANNEL);
+  };
+
+  const sendContinueClickedEvent = () => {
+    createAnalyticsEvent({
+      action: 'clicked',
+      actionSubject: 'button',
+      actionSubjectId: 'linkSafetyWarningModalContinue',
+      eventType: 'ui',
+      screen: 'linkSafetyWarningModal',
     }).fire(ANALYTICS_CHANNEL);
   };
 
   /**
    * It checks and warns if a link text is a URL and different from an actual link destination
    */
-  const checkLinkSafety = (
+  const isLinkSafe = (
     event: MouseEvent<HTMLAnchorElement>,
     href: string | undefined,
   ) => {
     if (!href) {
-      return;
+      return true;
     }
     const anchor = event.currentTarget;
     const linkText = anchor.innerText;
 
     const normalisedUrlFromLinkText = normalizeUrl(linkText);
     if (!normalisedUrlFromLinkText) {
-      return;
+      return true;
     }
 
     const anchorLinkRegex = new RegExp(/^#/im);
     const isAnchorLink = anchorLinkRegex.test(linkText);
 
     if (isAnchorLink) {
-      return;
+      return true;
     }
 
     const relativeLinkRegex = new RegExp(/^\//im);
     const isRelativeHrefLink = relativeLinkRegex.test(href);
     if (isRelativeHrefLink) {
-      return;
+      return true;
     }
 
     const hrefUrl = new URL(href, window.location.origin);
@@ -78,12 +88,22 @@ export const useLinkWarningModal = () => {
       areProtocolsEquivalent;
 
     if (!areEquivalentLinks) {
-      event.preventDefault();
-      setUnsafeLinkText(linkText);
-      href && setUrl(href);
-      setIsOpen(true);
-      sendAnalyticsEvent();
+      return false;
     }
+    return true;
+  };
+
+  const showSafetyWarningModal = (
+    event: MouseEvent<HTMLAnchorElement>,
+    href: string | undefined,
+  ) => {
+    event.preventDefault();
+    const anchor = event.currentTarget;
+    const linkText = anchor.innerText;
+    setUnsafeLinkText(linkText);
+    href && setUrl(href);
+    setIsOpen(true);
+    sendWarningModalViewedEvent();
   };
 
   const onClose = () => {
@@ -94,8 +114,17 @@ export const useLinkWarningModal = () => {
 
   const onContinue = () => {
     onClose();
-    url && window.location.assign(url);
+    sendContinueClickedEvent();
+    url && window.open(url, '_blank', 'noopener noreferrer');
   };
 
-  return { checkLinkSafety, unsafeLinkText, onClose, onContinue, isOpen, url };
+  return {
+    isLinkSafe,
+    isOpen,
+    onClose,
+    onContinue,
+    showSafetyWarningModal,
+    unsafeLinkText,
+    url,
+  };
 };

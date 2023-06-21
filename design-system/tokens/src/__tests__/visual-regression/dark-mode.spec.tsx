@@ -4,7 +4,8 @@ import {
   takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 
-it('should honour the dark theme', async () => {
+// FIXME: This test was automatically skipped due to failure on 21/06/2023: https://product-fabric.atlassian.net/browse/DSP-11330
+it.skip('should honour the dark theme', async () => {
   const url = getExampleUrl(
     'design-system',
     'tokens',

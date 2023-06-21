@@ -17,6 +17,7 @@ export default {
         ],
       ],
       minItems: 0,
+      allowUnsupportedInline: true,
     },
   },
 };

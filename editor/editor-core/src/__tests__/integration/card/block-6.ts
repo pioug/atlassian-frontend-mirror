@@ -13,10 +13,9 @@ import * as blockCardCopyAdf from './_fixtures_/block-card-copy.adf.json';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
-// FIXME: This test was skipped due to  failure on 14/06/2023: https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1619
 BrowserTestCase(
   'card: copy paste multiple block card should work as expected in editor',
-  { skip: ['*'] },
+  { skip: [] },
   async (client: ClientType, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
 
@@ -42,26 +41,7 @@ BrowserTestCase(
     // Copy and move cursor to start of doc
     await page.copy();
 
-    const selector = '.ProseMirror';
-
-    // get code block position
-    let { left, top } = JSON.parse(
-      await page.executeAsync((selector, done) => {
-        const { left, top } = (document as any)
-          .querySelector(selector)
-          .getBoundingClientRect();
-
-        done(
-          JSON.stringify({
-            left: left + 2,
-            top: top + 2,
-          }),
-        );
-      }, selector),
-    );
-
-    // simulate click at start of document
-    await page.simulateUserDragAndDrop(left, top, left, top, 100);
+    await page.keys(['ArrowLeft']);
 
     // Paste
     await page.paste();

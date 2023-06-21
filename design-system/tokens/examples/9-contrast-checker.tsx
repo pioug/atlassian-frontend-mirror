@@ -2,6 +2,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
+import { VariableSizeList as List } from 'react-window';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 import { Checkbox } from '@atlaskit/checkbox';
@@ -10,26 +11,26 @@ import Heading from '@atlaskit/heading';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 import LinkIcon from '@atlaskit/icon/glyph/link';
 import TrashIcon from '@atlaskit/icon/glyph/trash';
-import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage, {
   SectionMessageAction,
 } from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
-import Spinner from '@atlaskit/spinner';
 import Tooltip from '@atlaskit/tooltip';
 
-import { setGlobalTheme, token } from '../src';
+import { setGlobalTheme } from '../src';
 import rawTokensDark from '../src/artifacts/tokens-raw/atlassian-dark';
 import rawTokensLight from '../src/artifacts/tokens-raw/atlassian-light';
 import tokenNames from '../src/entry-points/token-names';
 
+import Accordion from './utils/accordion';
 import checkThemePairContrasts, {
   darkResults,
   darkResultsWithOverrides,
   lightResults,
   rawTokensDarkWithOverrides,
 } from './utils/check-pair-contrasts';
+import ContrastCard from './utils/contrast-card';
 import { defaultCustomTheme } from './utils/default-custom-themes';
 import CustomThemeBuilder, { Theme } from './utils/theme-builder';
 
@@ -122,6 +123,14 @@ const downloadResultsAsCSV = (
   document.body.removeChild(link);
 };
 
+function setFocusToIframe() {
+  const iframe = window.parent.document.querySelector('iframe');
+  if (!iframe) {
+    return;
+  }
+  iframe.contentWindow?.focus();
+}
+
 /**
  * Color contrast checking app - allows you to configure a custom theme and see how contrasts
  * change over time
@@ -133,8 +142,13 @@ export default function ContrastChecker() {
   const [baseThemeType, setBaseThemeType] = useState<'light' | 'dark'>(
     ['light', 'dark'].includes(colorModeFromUrl) ? colorModeFromUrl : 'light',
   );
+
   const [isDarkIterationSelected, setIsDarkIterationSelected] =
     useState<boolean>(false);
+  const [includeTransparencies, setIncludeTransparencies] =
+    useState<boolean>(false);
+  const [includeInteractions, setIncludeInteractions] = useState<boolean>(true);
+
   if (customTheme) {
     setSearchParamsTheme(customTheme, baseThemeType, isDarkIterationSelected);
   }
@@ -161,7 +175,6 @@ export default function ContrastChecker() {
   // Parse query params and set the custom theme based on that
   useEffect(() => {
     const queryParams = getSearchParams();
-    //TODO validate theme is correct
     setCustomTheme(queryParams.theme);
     setBaseThemeType(queryParams.colorMode);
     setIsDarkIterationSelected(queryParams.isDarkIterationSelected);
@@ -198,81 +211,121 @@ export default function ContrastChecker() {
   const newViolations: string[] = [];
   const solvedViolations: string[] = [];
   const bothViolations: string[] = [];
+  const bothPassing: string[] = [];
 
   if (resultsCustom && resultsCustom.fullResults) {
-    Object.keys(resultsBaseTheme.fullResults).forEach((combination) => {
-      const combinationLight = resultsBaseTheme.fullResults[combination];
+    Object.keys(resultsCustom.fullResults).forEach((combination) => {
+      if (
+        (!includeTransparencies &&
+          resultsBaseTheme.fullResults[combination].middleLayer !==
+            undefined) ||
+        (!includeInteractions &&
+          resultsBaseTheme.fullResults[combination].isInteraction)
+      ) {
+        return;
+      }
+      const combinationBase = resultsBaseTheme.fullResults[combination];
       const combinationCustom = (resultsCustom as typeof resultsBaseTheme)
         .fullResults[combination];
-      const isPairing =
-        combinationLight.meetsRequiredContrast === 'FAIL' ||
-        combinationLight.meetsRequiredContrast === 'TRUE';
-      if (isPairing && combinationCustom.contrast > combinationLight.contrast) {
+      if (combinationCustom.contrast > combinationBase.contrast) {
         betterContrast.push(combination);
       }
-      if (isPairing && combinationCustom.contrast < combinationLight.contrast) {
+      if (combinationCustom.contrast < combinationBase.contrast) {
         worseContrast.push(combination);
       }
       if (
-        combinationLight.meetsRequiredContrast === 'FAIL' &&
+        combinationBase.meetsRequiredContrast === 'FAIL' &&
         combinationCustom.meetsRequiredContrast === 'PASS'
       ) {
         solvedViolations.push(combination);
       }
       if (
-        combinationLight.meetsRequiredContrast === 'PASS' &&
+        combinationBase.meetsRequiredContrast === 'PASS' &&
         combinationCustom.meetsRequiredContrast === 'FAIL'
       ) {
         newViolations.push(combination);
       }
       if (
-        combinationLight.meetsRequiredContrast === 'FAIL' &&
+        combinationBase.meetsRequiredContrast === 'FAIL' &&
         combinationCustom.meetsRequiredContrast === 'FAIL'
       ) {
         bothViolations.push(combination);
       }
+      if (
+        combinationBase.meetsRequiredContrast === 'PASS' &&
+        combinationCustom.meetsRequiredContrast === 'PASS'
+      ) {
+        bothPassing.push(combination);
+      }
     });
   }
 
-  function mapToCards(pairing: string) {
-    const foreground = resultsBaseTheme.fullResults[pairing]
-      .token1 as TokenName;
-    const background = resultsBaseTheme.fullResults[pairing]
-      .token2 as TokenName;
-    return (
-      <ContrastCard
-        name={pairing}
-        key={pairing}
-        foregroundName={foreground}
-        backgroundName={background}
-        foregroundValue={
-          rawTokensCustom.find((token) => token.cleanName === foreground)
-            ?.value as string
-        }
-        backgroundValue={
-          rawTokensCustom.find((token) => token.cleanName === background)
-            ?.value as string
-        }
-        contrastBase={resultsBaseTheme.fullResults[
-          pairing
-        ].contrast.toPrecision(4)}
-        baseThemeType={baseThemeType}
-        contrastCustom={
-          resultsCustom
-            ? resultsCustom?.fullResults[pairing].contrast.toPrecision(4)
-            : undefined
-        }
-      />
-    );
-  }
-
-  function setFocusToIframe() {
-    const iframe = window.parent.document.querySelector('iframe');
-    if (!iframe) {
-      return;
+  const ResultsAccordion = ({
+    appearance,
+    description,
+    resultList,
+  }: {
+    appearance: 'information' | 'warning' | 'danger' | 'success';
+    description: string;
+    resultList: string[];
+  }) => {
+    const PairingCard = ({ index, style }: { index: number; style: any }) => {
+      const pairing = resultList[index];
+      const { foreground, middleLayer, background } =
+        resultsBaseTheme.fullResults[pairing];
+      return (
+        <ContrastCard
+          key={pairing}
+          style={style}
+          foregroundName={foreground as TokenName}
+          middleLayerName={middleLayer as TokenName}
+          backgroundName={background as TokenName}
+          foregroundValue={
+            rawTokensCustom.find((token) => token.cleanName === foreground)
+              ?.value as string
+          }
+          middleLayerValue={
+            rawTokensCustom.find((token) => token.cleanName === middleLayer)
+              ?.value as string
+          }
+          backgroundValue={
+            rawTokensCustom.find((token) => token.cleanName === background)
+              ?.value as string
+          }
+          contrastBase={resultsBaseTheme.fullResults[
+            pairing
+          ].contrast.toPrecision(4)}
+          baseThemeType={baseThemeType}
+          contrastCustom={
+            customTheme.length
+              ? resultsCustom?.fullResults[pairing].contrast.toPrecision(4)
+              : undefined
+          }
+        />
+      );
+    };
+    function getItemSize(index: number) {
+      return resultsBaseTheme.fullResults[resultList[index]].middleLayer
+        ? 128
+        : 88;
     }
-    iframe.contentWindow?.focus();
-  }
+    return (
+      <Accordion
+        appearance={appearance}
+        description={description}
+        size={resultList.length}
+      >
+        <List
+          height={500}
+          itemCount={resultList.length}
+          itemSize={getItemSize}
+          width={'100%'}
+        >
+          {PairingCard}
+        </List>
+      </Accordion>
+    );
+  };
 
   const themeSelectOptions = [
     { label: 'Light Theme', value: 'light' },
@@ -283,9 +336,9 @@ export default function ContrastChecker() {
     <Grid maxWidth="wide">
       <GridItem>
         <Box paddingBlockStart="space.500">
-          <Inline spread="space-between">
+          <Inline spread="space-between" shouldWrap={true} space="space.100">
             <Heading level="h900">Contrast Checker</Heading>
-            <div css={{ flexBasis: 300, flexShrink: 0 }}>
+            <div css={{ flexBasis: 300, flexShrink: 2 }}>
               <Stack space="space.100">
                 <Select
                   spacing={'compact'}
@@ -389,7 +442,7 @@ export default function ContrastChecker() {
               onClick={() => {
                 const fullCustomResults =
                   customTheme.length > 0
-                    ? checkThemePairContrasts(rawTokensCustom, 'custom')
+                    ? checkThemePairContrasts(rawTokensCustom, 'custom', true)
                     : undefined;
                 downloadResultsAsCSV(
                   fullCustomResults?.fullResults,
@@ -410,40 +463,68 @@ export default function ContrastChecker() {
             some valid pairings may be missing. Transparent tokens are not
             checked.
           </SectionMessage>
+          <Inline shouldWrap={true} space="space.200">
+            <Checkbox
+              value="include_interactions"
+              label="Include interaction tokens"
+              isChecked={includeInteractions}
+              onChange={(e) => setIncludeInteractions(e.target.checked)}
+              name="include_interactions"
+            />
+            <Checkbox
+              value="include_transparencies"
+              label="Include transparent tokens"
+              isChecked={includeTransparencies}
+              onChange={(e) => setIncludeTransparencies(e.target.checked)}
+              name="include_transparencies"
+            />
+          </Inline>
           {resultsCustom ? (
             <Fragment>
               <Box xcss={xcss({ overflow: 'auto', height: '100%' })}>
                 <Stack space="space.200">
-                  <Accordion
-                    appearance="danger"
-                    description="Pairings that now breach:"
-                  >
-                    {newViolations.map(mapToCards)}
-                  </Accordion>
-                  <Accordion
-                    appearance="success"
-                    description="Pairings that no longer breach:"
-                  >
-                    {solvedViolations.map(mapToCards)}
-                  </Accordion>
-                  <Accordion
-                    appearance="success"
-                    description="Pairings with better contrast:"
-                  >
-                    {betterContrast.map(mapToCards)}
-                  </Accordion>
-                  <Accordion
+                  {customTheme.length > 0 && (
+                    <Fragment>
+                      <ResultsAccordion
+                        appearance="danger"
+                        description="Pairings that now breach:"
+                        resultList={newViolations}
+                      ></ResultsAccordion>
+                      <ResultsAccordion
+                        appearance="success"
+                        description="Pairings that no longer breach:"
+                        resultList={solvedViolations}
+                      ></ResultsAccordion>
+                      <ResultsAccordion
+                        appearance="success"
+                        description="Pairings with better contrast:"
+                        resultList={betterContrast}
+                      ></ResultsAccordion>
+                      <ResultsAccordion
+                        appearance="warning"
+                        description="Pairings with worse contrast:"
+                        resultList={worseContrast}
+                      ></ResultsAccordion>
+                    </Fragment>
+                  )}
+                  <ResultsAccordion
                     appearance="warning"
-                    description="Pairings with worse contrast:"
-                  >
-                    {worseContrast.map(mapToCards)}
-                  </Accordion>
-                  <Accordion
-                    appearance="warning"
-                    description="Breaching in both"
-                  >
-                    {bothViolations.map(mapToCards)}
-                  </Accordion>
+                    description={
+                      customTheme.length > 0
+                        ? 'Failing in both'
+                        : 'Failing contrast'
+                    }
+                    resultList={bothViolations}
+                  ></ResultsAccordion>
+                  <ResultsAccordion
+                    appearance="success"
+                    description={
+                      customTheme.length > 0
+                        ? 'Passing in both'
+                        : 'Passing contrast'
+                    }
+                    resultList={bothPassing}
+                  ></ResultsAccordion>
                 </Stack>
               </Box>
             </Fragment>
@@ -460,181 +541,3 @@ export default function ContrastChecker() {
     </Grid>
   );
 }
-
-/**
- * Accordion for displaying content
- */
-function Accordion({
-  description,
-  children,
-  appearance = 'information',
-}: {
-  description: string;
-  children: any;
-  appearance?: 'information' | 'warning' | 'danger' | 'success';
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-  const appearanceMapping = {
-    information: 'inprogress',
-    warning: 'moved',
-    danger: 'removed',
-    success: 'success',
-  } as const;
-
-  const handleToggle = (event: React.ChangeEvent<HTMLDetailsElement>) =>
-    setIsOpen(event.currentTarget.open);
-
-  return (
-    <Fragment>
-      {children ? (
-        <details
-          // @ts-ignore
-          onToggle={handleToggle}
-          open={isOpen}
-          css={{
-            alignItems: 'center',
-            border: `1px solid ${token('color.border')}`,
-            background: token('elevation.surface.raised'),
-            boxShadow: token('elevation.shadow.raised'),
-            borderRadius: '4px',
-            padding: '0em 0.5em',
-            transition: 'background 0.2s ease-in',
-            '&[open]': {
-              padding: '0em 0.5em 0.5em',
-              '& summary': {
-                marginBottom: '0.5em',
-              },
-            },
-          }}
-        >
-          <summary
-            css={{
-              margin: '0em -0.5em 0',
-              padding: '1em',
-              ':hover': {
-                background: token('color.background.neutral.subtle.hovered'),
-              },
-              ':active': {
-                background: token('color.background.neutral.subtle.pressed'),
-              },
-            }}
-          >
-            <span
-              css={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: token('space.050'),
-              }}
-            >
-              <Heading level="h600">{description}</Heading>
-              <Lozenge
-                appearance={
-                  children.length > 0
-                    ? appearanceMapping[appearance]
-                    : 'default'
-                }
-              >
-                {children.length}
-              </Lozenge>
-            </span>
-          </summary>
-          <ul style={{ listStyleType: 'none', padding: 0 }}>
-            {isOpen ? children : <Spinner />}
-          </ul>
-        </details>
-      ) : null}
-    </Fragment>
-  );
-}
-
-/**
- * Card for displaying a single pairing and its contrast
- */
-function ContrastCard({
-  name,
-  foregroundName,
-  backgroundName,
-  foregroundValue,
-  backgroundValue,
-  baseThemeType,
-  contrastBase,
-  contrastCustom,
-}: {
-  name: string;
-  foregroundName: TokenName;
-  backgroundName: TokenName;
-  foregroundValue: string;
-  backgroundValue: string;
-  baseThemeType: string;
-  contrastBase: string;
-  contrastCustom?: string;
-}) {
-  return (
-    <Box
-      as="li"
-      padding="space.100"
-      backgroundColor="color.background.neutral"
-      xcss={xcss({
-        flex: '1',
-        width: '100%',
-        borderRadius: 'border.radius.200',
-      })}
-    >
-      <Inline space="space.050" spread="space-between">
-        <Inline space="space.100">
-          <div
-            css={{
-              backgroundColor: backgroundValue,
-              padding: '8px',
-              alignSelf: 'center',
-            }}
-          >
-            <div css={{ backgroundColor: foregroundValue, padding: '8px' }} />
-          </div>
-          <Stack space="space.050">
-            <code css={{ maxWidth: '320px', overflowX: 'auto' }}>
-              {foregroundName}
-            </code>
-            <code css={{ maxWidth: '320px', overflowX: 'auto' }}>
-              {backgroundName}
-            </code>
-          </Stack>
-        </Inline>
-        <dl
-          css={{
-            padding: 0,
-            margin: 0,
-            display: 'flex',
-            flexFlow: 'column',
-            gap: '4px',
-          }}
-        >
-          <ValueListItem
-            description={`${baseThemeType}:`}
-            value={contrastBase}
-          />
-          {contrastCustom && (
-            <ValueListItem description="Custom:" value={contrastCustom} />
-          )}
-        </dl>
-      </Inline>
-    </Box>
-  );
-}
-
-const ValueListItem = ({
-  description,
-  value,
-}: {
-  description: string;
-  value?: string;
-}) => (
-  <Inline spread="space-between" space="space.100">
-    <dt>
-      <strong css={{ textTransform: 'capitalize' }}>{description}</strong>
-    </dt>
-    <dd css={{ marginTop: 0, marginInlineStart: 0 }}>
-      <p css={{ margin: 0 }}>{value}</p>
-    </dd>
-  </Inline>
-);

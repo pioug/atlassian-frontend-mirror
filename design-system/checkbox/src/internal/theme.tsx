@@ -26,13 +26,13 @@ const theme = {
     borderColor: {
       rest: token(
         'color.border.input',
-        getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+        getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
           ? N100
           : N40,
       ),
       hovered: token(
         'color.border.input',
-        getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+        getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
           ? N100
           : N40,
       ),
@@ -62,7 +62,7 @@ const theme = {
     borderColor: {
       rest: token(
         'color.border.input',
-        getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+        getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
           ? DN200
           : DN80,
       ),

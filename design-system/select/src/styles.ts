@@ -50,9 +50,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         ? token('color.border.focused', B100)
         : token(
             'color.border.input',
-            getBooleanFF(
-              'platform.design-system-team.update-border-input_ff9l1',
-            )
+            getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
               ? N100
               : N20,
           );
@@ -78,9 +76,7 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         ? token('color.border.focused', B100)
         : token(
             'color.border.input',
-            getBooleanFF(
-              'platform.design-system-team.update-border-input_ff9l1',
-            )
+            getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
               ? N100
               : N30,
           );
@@ -121,13 +117,13 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         borderStyle: 'solid',
         borderRadius: token('border.radius.100', '3px'),
         borderWidth: getBooleanFF(
-          'platform.design-system-team.update-border-input_ff9l1',
+          'platform.design-system-team.border-checkbox_nyoiu',
         )
           ? token('border.width.050', '1px')
           : token('border.width.100', '2px'),
         boxShadow: 'none',
         ...(getBooleanFF(
-          'platform.design-system-team.update-border-input_ff9l1',
+          'platform.design-system-team.border-checkbox_nyoiu',
         ) && {
           '&:focus-within': {
             boxShadow: `inset 0 0 0 1px ${borderColor}`,

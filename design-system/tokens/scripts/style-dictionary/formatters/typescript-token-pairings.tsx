@@ -15,22 +15,15 @@ type ContrastTokenMetadata = {
   emphasis: string;
 };
 
+const isInteractiveOverlay = (token: ContrastTokenMetadata) =>
+  [
+    'elevation.surface.overlay.pressed',
+    'elevation.surface.overlay.hovered',
+  ].includes(token.name);
+
 // Manual overrides of auto-detection
-// TODO: ensure that these are checked even if they're not in the groupings above
-const includePairings = [
-  ['color.text.inverse', 'color.text'],
-  // These transparencies are in the existing contrast tests but can't be tested by this tool yet
-  // ['color.text', 'color.background.inverse.subtle.hovered'],
-  // ['color.text', 'color.background.inverse.subtle.pressed'],
-  // ['color.text', 'color.background.inverse.subtle'],
-  // ['color.text', 'color.background.neutral.hovered'],
-  // ['color.text', 'color.background.neutral.pressed'],
-  // ['color.text', 'color.background.neutral.subtle.hovered'],
-  // ['color.text', 'color.background.neutral.subtle.pressed'],
-  // ['color.text', 'color.background.neutral.subtle'],
-  // ['color.text', 'color.background.neutral'],
-];
-const excludePairings = [['color.text.disabled', 'color.background.disabled']];
+const includePairings: [string, string][] = [];
+const excludePairings: [string, string][] = [];
 
 /**
  * Classify whether a pair of tokens are a valid pairing that needs to meet some WCAG contrast requirement
@@ -52,19 +45,29 @@ function classifyTokenPair(
     !foregroundToken.role
   );
 
+  // Other backgrounds (brand, accent.blue, etc...) are matched with foregrounds that have the same modifier
   const hasStandardBackground =
-    (backgroundToken.type === 'background' ||
-      backgroundToken.type === 'surface') &&
-    !['bold', 'bolder', 'subtle', 'inverse'].includes(backgroundToken.emphasis);
+    backgroundToken.type === 'background' &&
+    (!['bold', 'bolder', 'subtle', 'inverse'].includes(
+      backgroundToken.emphasis,
+    ) ||
+      (['subtle', 'inverse'].includes(backgroundToken.emphasis) &&
+        ['neutral', 'default'].includes(backgroundToken.role)));
 
   const hasStandardForeground =
-    ['text', 'icon', 'border', 'link'].includes(foregroundToken.type) &&
-    foregroundToken.emphasis !== 'inverse';
+    ['text', 'icon', 'border', 'link', 'chart'].includes(
+      foregroundToken.type,
+    ) && foregroundToken.emphasis !== 'inverse';
 
   const isStandardHasMatchingModifier = !!(
     hasStandardBackground &&
     hasStandardForeground &&
-    hasMatchingRole
+    hasMatchingRole &&
+    // Special case for subtlest text
+    !(
+      foregroundToken.name === 'color.text.subtlest' &&
+      ['subtler'].includes(backgroundToken.emphasis)
+    )
   );
 
   // Bold backgrounds are matched with inverse foregrounds, ignoring warnings
@@ -94,19 +97,30 @@ function classifyTokenPair(
     backgroundToken.type === 'background' &&
     backgroundToken.emphasis === 'subtle' &&
     hasMatchingRole &&
+    backgroundToken.role !== 'neutral' &&
     ['text', 'icon'].includes(foregroundToken.type) &&
     foregroundToken.emphasis === 'bolder'
   );
 
   // All non-background elements, icons, text, except inverse, should work on surfaces
-  // TODO what borders need contrast?
   const isSurfacePair = !!(
-    backgroundToken.type === 'surface' && hasStandardForeground
+    backgroundToken.type === 'surface' &&
+    !isInteractiveOverlay(backgroundToken) &&
+    hasStandardForeground
+  );
+
+  // Only basic text/icons go on hovered/pressed overlay surfaces (as they're just for buttons)
+  const isInteractiveOverlaySurfacePair = !!(
+    isInteractiveOverlay(backgroundToken) &&
+    ['icon', 'text'].includes(foregroundToken.type) &&
+    foregroundToken.emphasis === 'default' &&
+    foregroundToken.role === 'default'
   );
 
   // Subtle and bold backgrounds should work on surfaces
   const surfaceBackgroundPair = !!(
     backgroundToken.type === 'surface' &&
+    !isInteractiveOverlay(backgroundToken) &&
     foregroundToken.type === 'background' &&
     ['bold', 'bolder'].includes(foregroundToken.emphasis)
   );
@@ -127,6 +141,9 @@ function classifyTokenPair(
   ) {
     return;
   }
+
+  // skip default border
+  const isDefaultBorder = foregroundToken.name === 'color.border';
 
   // skip disabled tokens
   const isDisabledPair =
@@ -157,6 +174,7 @@ function classifyTokenPair(
     isIncludedPairing ||
     (!isExcludedPairing &&
       !isDisabledPair &&
+      !isDefaultBorder &&
       !isTransparent &&
       (isBoldPair ||
         isBoldWarningPair ||
@@ -164,7 +182,8 @@ function classifyTokenPair(
         isStandardHasMatchingModifier ||
         surfaceBackgroundPair ||
         backgroundBackgroundPair ||
-        isSurfacePair))
+        isSurfacePair ||
+        isInteractiveOverlaySurfacePair))
   );
 }
 
@@ -175,7 +194,8 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({
 
   const sortedAllTokens = sortTokens(dictionary.allTokens);
 
-  ['text', 'link', 'icon', 'border', 'background', 'surface'].forEach(
+  // Filter out inactive non-color tokens
+  ['text', 'link', 'icon', 'border', 'chart', 'background', 'surface'].forEach(
     (type) => {
       groupedTokens[type] = sortedAllTokens.filter(
         (token) =>
@@ -198,10 +218,11 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({
     ['link', 'surface'],
     ['icon', 'surface'],
     ['border', 'surface'],
+    ['chart', 'surface'],
   ];
 
+  // Create all pairings of the above types of tokens
   const pairingsToCheck: { [index: string]: TransformedToken[] } = {};
-
   // Iterate over each pairing of token types
   groupPairings.forEach((pairing) => {
     // Iterate over the first type of token
@@ -243,8 +264,10 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({
     foreground: string;
     background: string;
     desiredContrast: number;
+    layeredTokens?: string[];
   }[] = [];
 
+  // Iterate over each pairing and determine if it is recommended
   Object.values(pairingsToCheck).forEach(([foreground, background]) => {
     const [foregroundMetadata, backgroundMetadata] = [
       foreground,
@@ -255,21 +278,34 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({
        * metadata about a token's role, emphasis etc (even in raw format).
        * We have to make some educated guesses based on the token's path.
        */
-      var role = token.path[2] === 'accent' ? token.path[3] : token.path[2];
-      var emphasis = token.path[2] === 'accent' ? token.path[4] : token.path[3];
-      if (
-        [
-          'subtlest',
-          'subtler',
-          'subtle',
-          'bold',
-          'bolder',
-          'inverse',
-          '[default]',
-        ].includes(token.path[2])
-      ) {
+      const validInteractions = ['hovered', 'pressed'];
+      const validEmphasis = [
+        'subtlest',
+        'subtler',
+        'subtle',
+        'bold',
+        'bolder',
+        'inverse',
+        '[default]',
+      ];
+      var role = token.path[2] !== 'accent' ? token.path[2] : token.path[3];
+      var emphasis = token.path[2] !== 'accent' ? token.path[3] : token.path[4];
+      if (validEmphasis.includes(role)) {
+        // role skipped
         role = 'default';
         emphasis = token.path[2];
+      }
+      if (validInteractions.includes(role)) {
+        // role and emphasis skipped
+        role = 'default';
+        emphasis = 'default';
+      }
+      if (
+        !emphasis ||
+        emphasis === '[default]' ||
+        validInteractions.includes(emphasis)
+      ) {
+        emphasis = 'default';
       }
       return {
         name: getTokenId(token.name || ''),
@@ -285,16 +321,37 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({
       backgroundMetadata,
     );
 
+    // Determine if any transparent tokens are layered in between the pairing
+    const layeredTokens: string[] = [];
+    if (
+      (backgroundMetadata.type === 'surface' && isInteractiveOverlay) ||
+      (backgroundMetadata.type === 'background' &&
+        ['default', 'subtlest'].includes(backgroundMetadata.emphasis))
+    ) {
+      layeredTokens.push(
+        'color.background.neutral.subtle',
+        'color.background.neutral',
+      );
+    }
+
+    if (
+      backgroundMetadata.type === 'background' &&
+      ['bolder', 'bold'].includes(backgroundMetadata.emphasis)
+    ) {
+      layeredTokens.push('color.background.inverse.subtle');
+    }
+
     // Determine if the pairing passes the required contrast threshold
     // TODO this check is very broad - some text contrasts don't need 4.5:1
     const needsTextContrast =
-      possiblePair && foregroundMetadata.type === 'text';
+      possiblePair && ['text', 'link'].includes(foregroundMetadata.type);
 
     if (possiblePair) {
       recommendedPairs.push({
         foreground: getTokenId(foregroundMetadata.name),
         background: getTokenId(backgroundMetadata.name),
         desiredContrast: needsTextContrast ? 4.5 : 3,
+        ...(layeredTokens.length > 0 && { layeredTokens }),
       });
     }
   });

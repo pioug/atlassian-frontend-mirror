@@ -12,7 +12,7 @@ describe('Snapshot Test', () => {
   beforeEach(async () => {
     page = global.page;
   });
-  ffTest('platform.design-system-team.update-border-input_ff9l1', async () => {
+  ffTest('platform.design-system-team.border-checkbox_nyoiu', async () => {
     const url = getExampleUrl(
       'design-system',
       'textfield',

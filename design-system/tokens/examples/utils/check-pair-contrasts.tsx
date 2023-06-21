@@ -1,4 +1,5 @@
 import chroma from 'chroma-js';
+import { normal } from 'color-blend';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
 
@@ -8,15 +9,17 @@ import rawTokensDarkIteration from '../../src/artifacts/tokens-raw/atlassian-dar
 import rawTokensLight from '../../src/artifacts/tokens-raw/atlassian-light';
 
 const groupedTokens: { [key: string]: typeof rawTokensDark } = {};
-['text', 'link', 'icon', 'border', 'background', 'surface'].forEach((type) => {
-  groupedTokens[type] = rawTokensDark.filter(
-    (token) =>
-      token &&
-      token.attributes?.group !== 'palette' &&
-      token.attributes?.state === 'active' &&
-      token.path[1] === type,
-  );
-});
+['text', 'link', 'icon', 'border', 'background', 'surface', 'chart'].forEach(
+  (type) => {
+    groupedTokens[type] = rawTokensDark.filter(
+      (token) =>
+        token &&
+        token.attributes?.group !== 'palette' &&
+        token.attributes?.state === 'active' &&
+        token.path[1] === type,
+    );
+  },
+);
 
 const groupPairings = [
   ['text', 'background'],
@@ -28,12 +31,13 @@ const groupPairings = [
   ['link', 'surface'],
   ['icon', 'surface'],
   ['border', 'surface'],
+  ['chart', 'surface'],
 ];
 
 const invalidPairs: {
   foreground: string;
   background: string;
-  desiredContrast: undefined;
+  desiredContrast: number;
 }[] = [];
 
 // Iterate over each pairing of token types
@@ -42,34 +46,75 @@ groupPairings.forEach((pairing) => {
   groupedTokens[pairing[0]].forEach((foreground) => {
     groupedTokens[pairing[1]].forEach((background) => {
       if (
-        generatedPairs.find(
+        !generatedPairs.find(
           (pairing) =>
-            pairing.foreground === foreground.name &&
-            pairing.background === background.name,
+            pairing.foreground === foreground.cleanName &&
+            pairing.background === background.cleanName,
         )
       ) {
-        return;
+        invalidPairs.push({
+          foreground: foreground.cleanName,
+          background: background.cleanName,
+          desiredContrast: 0,
+        });
       }
-      invalidPairs.push({
-        foreground: foreground.cleanName,
-        background: background.cleanName,
-        desiredContrast: undefined,
-      });
     });
   });
 });
+
+const layeredTokenMap: { [index: string]: string[] } = {
+  'color.background.neutral': [
+    'color.background.neutral',
+    'color.background.neutral.hovered',
+    'color.background.neutral.pressed',
+  ],
+  'color.background.neutral.subtle': [
+    'color.background.neutral.subtle',
+    'color.background.neutral.subtle.hovered',
+    'color.background.neutral.subtle.pressed',
+  ],
+  'color.background.inverse.subtle': [
+    'color.background.inverse.subtle',
+    'color.background.inverse.subtle.hovered',
+    'color.background.inverse.subtle.pressed',
+  ],
+};
+
+type RGBA = {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+};
+
+function ArrayToRGBA(
+  array: [number, number, number, number] = [0, 0, 0, 0],
+): RGBA {
+  return {
+    r: array[0],
+    g: array[1],
+    b: array[2],
+    a: array[3],
+  };
+}
+
+function RGBAToString(rgba: RGBA): string {
+  return `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;
+}
 
 export default function checkThemePairContrasts(
   rawTokenSet: typeof rawTokensDark,
   theme: string,
   checkAll = false,
 ) {
+  9;
   const fullResults: {
     [index: string]: {
       theme: string;
       pairing: string;
-      token1: string;
-      token2: string;
+      foreground: string;
+      middleLayer?: string;
+      background: string;
       meetsRequiredContrast: string;
       isInteraction: boolean;
       contrast: number;
@@ -78,61 +123,93 @@ export default function checkThemePairContrasts(
     };
   } = {};
 
-  const pairsToCheck: {
-    foreground: string;
-    background: string;
-    desiredContrast: number | undefined;
-  }[] = generatedPairs;
+  const pairsToCheck: typeof generatedPairs = [...generatedPairs];
   if (checkAll) {
     pairsToCheck.push(...invalidPairs);
   }
 
   // Iterate over each pairing of token types
-  generatedPairs.forEach(({ foreground, background, desiredContrast }) => {
-    const [foregroundMetadata, backgroundMetadata] = [
-      foreground,
-      background,
-    ].map((tokenName: string) =>
-      rawTokenSet.find((rawToken) => rawToken.cleanName === tokenName),
-    );
-    // Short circuit if there are missing values
-    if (!(foregroundMetadata?.value && backgroundMetadata?.value)) {
-      return;
-    }
-    // Measure contrast
-    var contrast = 0;
-    try {
-      contrast = chroma.contrast(
-        foregroundMetadata?.value as string,
-        backgroundMetadata?.value as string,
+  pairsToCheck.forEach(
+    ({ foreground, background, desiredContrast, layeredTokens }) => {
+      const [foregroundMetadata, backgroundMetadata] = [
+        foreground,
+        background,
+      ].map((tokenName: string) =>
+        rawTokenSet.find((rawToken) => rawToken.cleanName === tokenName),
       );
-    } catch (e) {}
+      // Short circuit if there are missing values
+      if (!(foregroundMetadata?.value && backgroundMetadata?.value)) {
+        return;
+      }
 
-    const isInteraction = !!(
-      foreground.match(/(hovered|pressed)/) ||
-      background.match(/(hovered|pressed)/)
-    );
+      // Generate the list of transparent tokens that need to be checked for this pairing
+      const layeredTokensToTest: (string | undefined)[] = [undefined];
+      layeredTokens?.forEach((layeredToken) => {
+        layeredTokensToTest.push(...(layeredTokenMap[layeredToken] || []));
+      });
 
-    const meetsContrastRequirement = contrast >= desiredContrast;
+      layeredTokensToTest.forEach((layeredToken) => {
+        const layeredTokenMetadata = rawTokenSet.find(
+          (rawToken) => rawToken.cleanName === layeredToken,
+        );
 
-    const pairingKey = `${foreground}-${background}`;
-    // Output the required CSV/objects for the artifacts
-    fullResults[pairingKey] = {
-      theme,
-      pairing: `${foregroundMetadata.path[1]}-${backgroundMetadata.path[1]}`,
-      token1: foreground,
-      token2: background,
-      meetsRequiredContrast: desiredContrast
-        ? meetsContrastRequirement
-          ? 'PASS'
-          : 'FAIL'
-        : 'N/A',
-      isInteraction,
-      contrast,
-      isTextContrast: contrast >= 4.5 ? 'PASS' : 'FAIL',
-      isGraphicContrast: contrast >= 3 ? 'PASS' : 'FAIL',
-    };
-  });
+        if (layeredToken && typeof layeredTokenMetadata?.value !== 'string') {
+          return;
+        }
+
+        const backgroundValue: string = layeredToken
+          ? RGBAToString(
+              normal(
+                ArrayToRGBA(chroma(backgroundMetadata.value as string).rgba()),
+                ArrayToRGBA(
+                  chroma(layeredTokenMetadata?.value as string).rgba(),
+                ),
+              ),
+            )
+          : (backgroundMetadata.value as string);
+
+        var contrast = 0;
+        try {
+          contrast = chroma.contrast(
+            foregroundMetadata.value as string,
+            backgroundValue,
+          );
+        } catch (e) {}
+
+        const isInteraction = !!(
+          foreground.match(/(hovered|pressed)/) ||
+          background.match(/(hovered|pressed)/)
+        );
+
+        // Account for color space blending differences for transparent tokens with a buffer
+        const meetsContrastRequirement = layeredToken
+          ? contrast - desiredContrast > 0.05
+          : contrast >= desiredContrast;
+
+        const pairingKey = layeredToken
+          ? `${foreground}-${layeredToken}-${background}`
+          : `${foreground}-${background}`;
+
+        // Output the required CSV/objects for the artifacts
+        fullResults[pairingKey] = {
+          theme,
+          pairing: `${foregroundMetadata.path[1]}-${backgroundMetadata.path[1]}`,
+          foreground: foreground,
+          middleLayer: layeredToken,
+          background: background,
+          meetsRequiredContrast: desiredContrast
+            ? meetsContrastRequirement
+              ? 'PASS'
+              : 'FAIL'
+            : 'N/A',
+          isInteraction,
+          contrast,
+          isTextContrast: contrast >= 4.5 ? 'PASS' : 'FAIL',
+          isGraphicContrast: contrast >= 3 ? 'PASS' : 'FAIL',
+        };
+      });
+    },
+  );
 
   return {
     generatedPairs,

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 6.2.0
+
+### Minor Changes
+
+- [`373b6b701ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/373b6b701ca) - Linters will now error when deprecated theme color mixins are imported
+
 ## 6.1.0
 
 ### Minor Changes

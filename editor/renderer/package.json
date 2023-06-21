@@ -81,7 +81,7 @@
     "@atlaskit/css-reset": "^6.5.0",
     "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^185.2.0",
-    "@atlaskit/editor-test-helpers": "^18.6.0",
+    "@atlaskit/editor-test-helpers": "^18.7.0",
     "@atlaskit/inline-edit": "^12.3.3",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^4.0.0",

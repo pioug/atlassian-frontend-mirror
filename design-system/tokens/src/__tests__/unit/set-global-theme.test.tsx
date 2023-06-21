@@ -245,8 +245,7 @@ describe('setGlobalTheme', () => {
 
   it('should load the border theme override CSS on the page when the feature flag is enabled', async () => {
     (getBooleanFF as jest.Mock).mockImplementation(
-      (name) =>
-        name === 'platform.design-system-team.update-border-input_ff9l1',
+      (name) => name === 'platform.design-system-team.border-checkbox_nyoiu',
     );
 
     await setGlobalTheme({
@@ -412,8 +411,7 @@ describe('getThemeStyles', () => {
 
   it('returns an array of ThemeStyles that includes `new-input-border` when the feature flag is enabled', async () => {
     (getBooleanFF as jest.Mock).mockImplementation(
-      (name) =>
-        name === 'platform.design-system-team.update-border-input_ff9l1',
+      (name) => name === 'platform.design-system-team.border-checkbox_nyoiu',
     );
 
     let results = await getThemeStyles({

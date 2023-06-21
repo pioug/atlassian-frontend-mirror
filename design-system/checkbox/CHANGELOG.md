@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.6.4
+
+### Patch Changes
+
+- [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
+
 ## 12.6.3
 
 ### Patch Changes

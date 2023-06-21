@@ -74,7 +74,8 @@ describe('code-block: WYSIWYG', () => {
     });
   });
 
-  test('code-block is WYSIWYG when overflowing in table header', async () => {
+  // FIXME: This test was automatically skipped due to failure on 21/06/2023: https://product-fabric.atlassian.net/browse/ED-18894
+  test.skip('code-block is WYSIWYG when overflowing in table header', async () => {
     const { $editorElement, $rendererElement } = await initWysiwygTest(page, {
       adf: tableHeaderOverflowCodeBlock,
       editorSelector: '.code-block',

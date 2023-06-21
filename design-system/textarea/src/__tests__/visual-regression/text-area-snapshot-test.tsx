@@ -12,7 +12,7 @@ describe('TextArea', () => {
   let page: PuppeteerPage;
   let url: string;
 
-  ffTest('platform.design-system-team.update-border-input_ff9l1', async () => {
+  ffTest('platform.design-system-team.border-checkbox_nyoiu', async () => {
     page = global.page;
     url = getExampleUrl(
       'design-system',

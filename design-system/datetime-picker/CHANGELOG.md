@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.7.2
+
+### Patch Changes
+
+- [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
+
 ## 12.7.1
 
 ### Patch Changes

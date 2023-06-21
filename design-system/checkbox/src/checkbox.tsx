@@ -48,7 +48,7 @@ const checkboxStyles = css({
     'rect:first-of-type': {
       stroke: 'var(--checkbox-border-color)',
       strokeWidth: getBooleanFF(
-        'platform.design-system-team.update-border-input_ff9l1',
+        'platform.design-system-team.border-checkbox_nyoiu',
       )
         ? 1
         : 2,

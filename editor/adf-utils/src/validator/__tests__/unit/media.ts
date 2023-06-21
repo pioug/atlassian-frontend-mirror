@@ -274,4 +274,57 @@ describe('media', () => {
     );
     expect(errorCallbackFn).not.toHaveBeenCalled();
   });
+
+  it('should throw for invalid content in caption', () => {
+    const run = () => {
+      validate({
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'mediaSingle',
+            content: [
+              {
+                type: 'media',
+                attrs: {
+                  type: 'file',
+                  id: '1234',
+                  collection: 'SampleCollection',
+                },
+              },
+              {
+                type: 'caption',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Hello World!',
+                  },
+                  {
+                    marks: [
+                      {
+                        type: 'strong',
+                      },
+                      {
+                        attrs: {
+                          href: 'https://www.atlassian.com',
+                        },
+                        type: 'link',
+                      },
+                    ],
+                    text: 'World!',
+                    type: 'unknownTypeInline',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            content: [],
+          },
+        ],
+      });
+    };
+    expect(run).toThrowError(`unknownTypeInline: invalid content.`);
+  });
 });

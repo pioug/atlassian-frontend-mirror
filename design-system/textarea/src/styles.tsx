@@ -62,7 +62,7 @@ const bgAndBorderColorStyles = (
       backgroundColor: props.backgroundColorFocus,
       borderColor: props.borderColorFocus,
       boxShadow: getBooleanFF(
-        'platform.design-system-team.update-border-input_ff9l1',
+        'platform.design-system-team.border-checkbox_nyoiu',
       )
         ? `inset 0 0 0 1px ${props.borderColorFocus}`
         : undefined,
@@ -76,7 +76,7 @@ const bgAndBorderColorStyles = (
       backgroundColor: props.invalidRules.backgroundColorFocus,
       borderColor: props.invalidRules.borderColorFocus,
       boxShadow: getBooleanFF(
-        'platform.design-system-team.update-border-input_ff9l1',
+        'platform.design-system-team.border-checkbox_nyoiu',
       )
         ? `inset 0 0 0 1px ${props.invalidRules.borderColorFocus}`
         : undefined,
@@ -86,7 +86,7 @@ const bgAndBorderColorStyles = (
       backgroundColor: props.invalidRules.backgroundColor,
       borderColor: props.invalidRules.borderColor,
       boxShadow: getBooleanFF(
-        'platform.design-system-team.update-border-input_ff9l1',
+        'platform.design-system-team.border-checkbox_nyoiu',
       )
         ? `inset 0 0 0 1px ${props.invalidRules.borderColor}`
         : undefined,
@@ -127,7 +127,7 @@ const hoverBackgroundAndBorderStyles = (props: ThemeTokens) =>
         backgroundColor: props.invalidRules.backgroundColorHover,
         borderColor: props.invalidRules.borderColor,
         boxShadow: getBooleanFF(
-          'platform.design-system-team.update-border-input_ff9l1',
+          'platform.design-system-team.border-checkbox_nyoiu',
         )
           ? `inset 0 0 0 1px ${props.invalidRules.borderColor}`
           : undefined,
@@ -160,7 +160,7 @@ const borderPaddingAndHeightStyles = (
   appearance: string | undefined,
 ) => {
   const borderWidth =
-    getBooleanFF('platform.design-system-team.update-border-input_ff9l1') &&
+    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu') &&
     appearance !== 'none'
       ? 1
       : 2;
@@ -193,9 +193,7 @@ const staticStyles = css({
   position: 'relative',
   flex: '1 1 100%',
   borderRadius: borderRadius,
-  borderWidth: getBooleanFF(
-    'platform.design-system-team.update-border-input_ff9l1',
-  )
+  borderWidth: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
     ? 1
     : borderWidth,
   fontSize: fontSize,

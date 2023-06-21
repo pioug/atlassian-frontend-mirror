@@ -37,7 +37,7 @@
     "@atlaskit/adf-schema": "^25.9.0",
     "@atlaskit/adf-utils": "^18.4.0",
     "@atlaskit/editor-json-transformer": "^8.9.0",
-    "@atlaskit/editor-test-helpers": "^18.6.0",
+    "@atlaskit/editor-test-helpers": "^18.7.0",
     "@atlassian/adf-sample": "^1.1.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@types/prosemirror-model": "^1.11.0",

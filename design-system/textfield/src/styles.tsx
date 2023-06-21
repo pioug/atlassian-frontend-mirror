@@ -103,9 +103,7 @@ const getContainerTextBgAndBorderColor = (
   '&:focus-within:not([data-disabled])': {
     backgroundColor: backgroundColorFocus[appearance][mode],
     borderColor: borderColorFocus[appearance][mode],
-    boxShadow: getBooleanFF(
-      'platform.design-system-team.update-border-input_ff9l1',
-    )
+    boxShadow: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
       ? `inset 0 0 0 1px ${borderColorFocus[appearance][mode]}`
       : undefined,
   },
@@ -121,18 +119,14 @@ const getContainerTextBgAndBorderColor = (
   },
   '&[data-invalid], &[data-invalid]:hover': {
     borderColor: invalidRules[mode].borderColor,
-    boxShadow: getBooleanFF(
-      'platform.design-system-team.update-border-input_ff9l1',
-    )
+    boxShadow: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
       ? `inset 0 0 0 1px ${invalidRules[mode].borderColor}`
       : undefined,
   },
   '&[data-invalid]:focus-within': {
     backgroundColor: invalidRules[mode].backgroundColorFocus,
     borderColor: invalidRules[mode].borderColorFocus,
-    boxShadow: getBooleanFF(
-      'platform.design-system-team.update-border-input_ff9l1',
-    )
+    boxShadow: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
       ? `inset 0 0 0 1px ${invalidRules[mode].borderColorFocus}`
       : undefined,
   },
@@ -170,12 +164,12 @@ export const containerStyles = (
     ...getContainerTextBgAndBorderColor(appearance, mode),
     borderRadius: 3,
     borderWidth: getBooleanFF(
-      'platform.design-system-team.update-border-input_ff9l1',
+      'platform.design-system-team.border-checkbox_nyoiu',
     )
       ? 1
       : 2,
     // add 1px padding on both top and bottom to keep the same overall height after border reduced from 2px to 1px under feature flag
-    ...(getBooleanFF('platform.design-system-team.update-border-input_ff9l1') &&
+    ...(getBooleanFF('platform.design-system-team.border-checkbox_nyoiu') &&
     appearance !== 'none'
       ? // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
         { padding: '1px 0' }

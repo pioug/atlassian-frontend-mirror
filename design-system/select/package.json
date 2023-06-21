@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/select",
-  "version": "16.5.3",
+  "version": "16.5.4",
   "description": "Select allows users to make a single selection or multiple selections from a list of options.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -101,7 +101,7 @@
     }
   },
   "platform-feature-flags": {
-    "platform.design-system-team.update-border-input_ff9l1": {
+    "platform.design-system-team.border-checkbox_nyoiu": {
       "type": "boolean"
     },
     "platform.design-system-team.popup-select-render-perf_i0s6m": {

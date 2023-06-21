@@ -72,7 +72,7 @@ const radioStyles = css({
   /* Border should multiply by 24/14 to offset scale, a scale of 12 / 7 is to fix a Chrome bug that makes the circle become an oval and the
     inner circle not be centred at various zoom levels */
   border: `${
-    getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
       ? '1px'
       : 'calc(2px * 12 / 7)'
   } solid var(--radio-border-color)`,

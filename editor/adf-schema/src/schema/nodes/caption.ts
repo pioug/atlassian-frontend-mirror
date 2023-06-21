@@ -15,6 +15,7 @@ export interface CaptionDefinition {
   type: 'caption';
   /**
    * @minItems 0
+   * @allowUnsupportedInline true
    */
   content: Array<
     | InlineFormattedText
@@ -30,7 +31,8 @@ export interface CaptionDefinition {
 }
 
 export const caption: NodeSpec = {
-  content: '(text|hardBreak|mention|emoji|date|placeholder|inlineCard|status)*',
+  content:
+    '(text|hardBreak|mention|emoji|date|placeholder|inlineCard|status|unsupportedInline)*',
   isolating: true,
   marks: '_',
   selectable: false,

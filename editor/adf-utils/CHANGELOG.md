@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 18.4.2
+
+### Patch Changes
+
+- [`bf7e8e4968b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bf7e8e4968b) - ED-15895 add unsupportedinline support to caption
+
 ## 18.4.1
 
 ### Patch Changes

@@ -42,13 +42,13 @@ export const defaultBackgroundColorHover = {
 export const defaultBorderColor = {
   light: token(
     'color.border.input',
-    getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
       ? N100
       : N40,
   ),
   dark: token(
     'color.border.input',
-    getBooleanFF('platform.design-system-team.update-border-input_ff9l1')
+    getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
       ? DN200
       : DN40,
   ),

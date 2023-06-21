@@ -43,7 +43,7 @@
     "@atlaskit/docs": "*",
     "@atlaskit/editor-common": "^74.7.0",
     "@atlaskit/editor-core": "^185.2.0",
-    "@atlaskit/editor-test-helpers": "^18.6.0",
+    "@atlaskit/editor-test-helpers": "^18.7.0",
     "@atlaskit/mention": "^22.1.0",
     "@atlaskit/renderer": "^108.2.0",
     "@atlaskit/util-data-test": "^17.8.0",

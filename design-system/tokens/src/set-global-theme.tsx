@@ -63,7 +63,7 @@ const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
     }
   });
 
-  if (getBooleanFF('platform.design-system-team.update-border-input_ff9l1')) {
+  if (getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')) {
     themePreferences.push(
       `${
         themePreferences.includes('dark') ? 'dark' : 'light'

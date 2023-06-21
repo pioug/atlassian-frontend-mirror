@@ -276,7 +276,6 @@ export const caption: NodeSpec;
 
 // @public
 export interface CaptionDefinition {
-  // (undocumented)
   content: Array<
     | DateDefinition
     | EmojiDefinition

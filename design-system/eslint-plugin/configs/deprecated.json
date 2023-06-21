@@ -93,6 +93,30 @@
         "@atlaskit/item": {
             "message": "item is deprecated. Please use '@atlaskit/menu' instead."
         },
+        "@atlaskit/theme/elevation": {
+            "importSpecifiers": [
+                {
+                    "importName": "e100",
+                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
+                },
+                {
+                    "importName": "e200",
+                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
+                },
+                {
+                    "importName": "e300",
+                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
+                },
+                {
+                    "importName": "e400",
+                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
+                },
+                {
+                    "importName": "e500",
+                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
+                }
+            ]
+        },
         "@atlaskit/theme/constants": {
             "importSpecifiers": [
                 {
@@ -113,6 +137,34 @@
                 }
             ]
         },
+        "@atlaskit/theme/colors": {
+            "importSpecifiers": [
+                { "importName": "background", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "backgroundActive", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "backgroundHover", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "backgroundOnLayer", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "text", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "textHover", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "textActive", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "subtleText", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "placeholderText", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "heading", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "subtleHeading", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "codeBlock", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "link", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "linkHover", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "linkActive", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "linkOutline", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "primary", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "blue", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "teal", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "purple", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "red", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "yellow", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "green", "message": "Named color utils are deprecated in favor of design tokens." },
+                { "importName": "skeleton", "message": "Named color utils are deprecated in favor of design tokens." }
+            ]
+        },
         "@atlaskit/theme": {
             "importSpecifiers": [
                 {
@@ -130,6 +182,10 @@
                 {
                     "importName": "gridSize",
                     "message": "The gridSize mixin is deprecated. Please use space tokens via `@atlaskit/tokens` instead."
+                },
+                {
+                    "importName": "elevation",
+                    "message": "Elevation mixin is deprecated. Please use design tokens instead."
                 }
             ]
         },

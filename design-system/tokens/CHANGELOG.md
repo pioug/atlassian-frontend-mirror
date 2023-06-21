@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.8.1
+
+### Patch Changes
+
+- [`8f436f0c301`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f436f0c301) - extend border contrast feature flag to support confluence
+
 ## 1.8.0
 
 ### Minor Changes

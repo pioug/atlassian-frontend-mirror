@@ -21,8 +21,7 @@ type TokenName = keyof typeof tokenNames;
 export type Theme = { name: TokenName; value: string }[];
 
 /**
- * Editor for custom themes; currently a text field with syntax highlighting
- * TODO: improve performance by debouncing and preventing re-renders
+ * Editor for custom themes
  */
 const CustomThemeBuilder = ({
   theme,
@@ -123,7 +122,7 @@ const TokenSelect = ({
           border: `2px solid ${token('color.border', N20)}`,
           backgroundColor: token('color.background.input', 'white'),
           borderRadius: token('border.radius.100', '3px'),
-          height: 'inherit',
+          height: token('space.400', '32px'),
           '&:hover': {
             backgroundColor: token('color.background.input.hovered', 'N20'),
           },

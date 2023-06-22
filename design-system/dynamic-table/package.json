@@ -41,7 +41,7 @@
     "@atlaskit/pagination": "^14.4.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-beautiful-dnd": "^12.1.1"
@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@atlaskit/avatar": "^21.3.0",
-    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/button": "^16.8.0",
     "@atlaskit/docs": "*",
     "@atlaskit/dropdown-menu": "^11.9.0",
     "@atlaskit/ssr": "*",

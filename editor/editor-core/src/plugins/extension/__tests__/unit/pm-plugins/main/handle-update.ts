@@ -47,6 +47,7 @@ describe('handleUpdate', () => {
         prevState,
         domAtPos,
         extensionHandlers: {},
+        applyChange: undefined,
       });
       expect(updateEditButtonSpy).toHaveBeenCalled();
     });
@@ -63,6 +64,7 @@ describe('handleUpdate', () => {
         prevState,
         domAtPos,
         extensionHandlers: {},
+        applyChange: undefined,
       });
       expect(updateEditButtonSpy).not.toHaveBeenCalled();
     });

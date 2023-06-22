@@ -13,16 +13,14 @@ import {
   DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/ui';
 import { Node as PMNode } from 'prosemirror-model';
-import { NodeSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { EditorView, Decoration } from 'prosemirror-view';
 import React from 'react';
 import { EventDispatcher } from '../../../../event-dispatcher';
-import {
-  getPosHandler,
-  getPosHandlerNode,
-  SelectionBasedNodeView,
-} from '../../../../nodeviews';
-import { PortalProviderAPI } from '../../../../ui/PortalProvider';
+import { getPosHandler, getPosHandlerNode } from '../../../../nodeviews';
+import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
+
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import { MediaOptions } from '../../types';
 import { MediaNodeViewProps } from '../types';
@@ -32,6 +30,7 @@ import { isMediaBlobUrlFromAttrs } from '../../utils/media-common';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type mediaPlugin from '../../index';
+import type { MediaDecorationSpec } from '../../types';
 
 interface MediaNodeWithProvidersProps {
   pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
@@ -46,7 +45,17 @@ const MediaNodeWithProviders = ({
   return innerComponent({ width: widthState });
 };
 
+function isMediaDecorationSpec(
+  decoration: Decoration,
+): decoration is Decoration<MediaDecorationSpec> {
+  return (
+    decoration.spec.type !== undefined && decoration.spec.selected !== undefined
+  );
+}
+
 class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
+  private isSelected = false;
+
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
     if (
@@ -60,12 +69,24 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
     return domRef;
   }
 
-  viewShouldUpdate(nextNode: PMNode) {
+  viewShouldUpdate(nextNode: PMNode, decorations: Decoration[]) {
+    const hasMediaNodeSelectedDecoration = decorations.some(
+      (decoration) =>
+        isMediaDecorationSpec(decoration) &&
+        decoration.spec.type === 'media' &&
+        decoration.spec.selected,
+    );
+
+    if (this.isSelected !== hasMediaNodeSelectedDecoration) {
+      this.isSelected = hasMediaNodeSelectedDecoration;
+      return true;
+    }
+
     if (this.node.attrs !== nextNode.attrs) {
       return true;
     }
 
-    return super.viewShouldUpdate(nextNode);
+    return super.viewShouldUpdate(nextNode, decorations);
   }
 
   stopEvent(event: Event) {
@@ -97,11 +118,6 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
       const getPos = this.getPos as getPosHandlerNode;
       const { mediaOptions } = this.reactComponentProps;
 
-      const { selection } = this.view.state;
-      const isSelected = () =>
-        this.isNodeInsideSelection(selection.from, selection.to) ||
-        (selection instanceof NodeSelection && selection.from === getPos());
-
       const attrs = this.getAttrs();
       const url = attrs.type === 'external' ? attrs.url : '';
 
@@ -132,7 +148,7 @@ class MediaNodeView extends SelectionBasedNodeView<MediaNodeViewProps> {
           view={this.view}
           node={this.node}
           getPos={getPos}
-          selected={isSelected()}
+          selected={this.nodeInsideSelection()}
           originalDimensions={originalDimensions}
           maxDimensions={maxDimensions}
           url={url}

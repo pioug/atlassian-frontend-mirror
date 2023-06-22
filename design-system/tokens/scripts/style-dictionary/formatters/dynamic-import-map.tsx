@@ -2,10 +2,10 @@ import type { Format } from 'style-dictionary';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
-import themeConfig, { themeOverrideConfig } from '../../../src/theme-config';
+import themeConfig from '../../../src/theme-config';
 
 const formatter: Format['formatter'] = () => {
-  const imports = Object.entries({ ...themeConfig, ...themeOverrideConfig })
+  const imports = Object.entries(themeConfig)
     .map(
       ([key, value]) => `  '${value.id}': () =>
     import(

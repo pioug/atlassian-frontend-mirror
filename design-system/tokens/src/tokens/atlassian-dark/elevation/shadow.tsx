@@ -65,7 +65,7 @@ const shadow: ValueSchema<ShadowTokenSchema<BaseToken>> = {
             spread: 1,
             color: 'DarkNeutral100A',
             offset: { x: 0, y: 0 },
-            opacity: 0.04,
+            opacity: 0.12,
             inset: true,
           },
           {

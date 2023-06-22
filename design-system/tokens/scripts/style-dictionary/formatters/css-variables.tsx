@@ -6,11 +6,7 @@ import {
   COLOR_MODE_ATTRIBUTE,
   THEME_DATA_ATTRIBUTE,
 } from '../../../src/constants';
-import themeConfig, {
-  themeOverrideConfig,
-  ThemeOverrides,
-  Themes,
-} from '../../../src/theme-config';
+import themeConfig, { Themes } from '../../../src/theme-config';
 import { getCSSCustomProperty } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';
 
@@ -22,9 +18,7 @@ export const cssVariableFormatter: Format['formatter'] = ({
     throw new Error('options.themeName required');
   }
 
-  const theme =
-    themeOverrideConfig[options.themeName as ThemeOverrides] ||
-    themeConfig[options.themeName as Themes];
+  const theme = themeConfig[options.themeName as Themes];
   const colorModes = ['light', 'dark'] as const;
 
   if (!theme.id) {
@@ -47,7 +41,7 @@ export const cssVariableFormatter: Format['formatter'] = ({
   });
 
   let output = '';
-  const themeId = theme.overrideTheme || theme.id;
+  const themeId = theme.override || theme.id;
 
   if (theme.attributes.type === 'color') {
     const selectors = colorModes.map(

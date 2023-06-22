@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8ddb2f3e15cdae2f6245075e72c1be8b>>
+ * @codegen <<SignedSource::dc8db05fe763e65a797963e967232801>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -11,7 +11,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
     },
-    "value": "#C7D1DB",
+    "value": "#B6C2CF",
     "filePath": "src/tokens/atlassian-dark/color/text.tsx",
     "isSource": true,
     "original": {
@@ -21,7 +21,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for primary text, such as body copy, sentence case headers, and buttons."
       },
-      "value": "DarkNeutral1000"
+      "value": "DarkNeutral900"
     },
     "name": "color.text.[default]",
     "path": [
@@ -645,7 +645,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for text on bold backgrounds."
     },
-    "value": "#161A1D",
+    "value": "#1D2125",
     "filePath": "src/tokens/atlassian-dark/color/text.tsx",
     "isSource": true,
     "original": {
@@ -655,7 +655,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for text on bold backgrounds."
       },
-      "value": "DarkNeutral0"
+      "value": "DarkNeutral100"
     },
     "name": "color.text.inverse",
     "path": [
@@ -781,7 +781,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for text when on bold warning backgrounds."
     },
-    "value": "#161A1D",
+    "value": "#1D2125",
     "filePath": "src/tokens/atlassian-dark/color/text.tsx",
     "isSource": true,
     "original": {
@@ -791,7 +791,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for text when on bold warning backgrounds."
       },
-      "value": "DarkNeutral0"
+      "value": "DarkNeutral100"
     },
     "name": "color.text.warning.inverse",
     "path": [
@@ -890,7 +890,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for tertiary text, such as meta-data, breadcrumbs, input field placeholder and helper text."
     },
-    "value": "#8696A7",
+    "value": "#8C9BAB",
     "filePath": "src/tokens/atlassian-dark/color/text.tsx",
     "isSource": true,
     "original": {
@@ -1332,7 +1332,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for icons on bold backgrounds."
     },
-    "value": "#161A1D",
+    "value": "#1D2125",
     "filePath": "src/tokens/atlassian-dark/color/icon.tsx",
     "isSource": true,
     "original": {
@@ -1342,7 +1342,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons on bold backgrounds."
       },
-      "value": "DarkNeutral0"
+      "value": "DarkNeutral100"
     },
     "name": "color.icon.inverse",
     "path": [
@@ -1468,7 +1468,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for icons when on bold warning backgrounds."
     },
-    "value": "#161A1D",
+    "value": "#1D2125",
     "filePath": "src/tokens/atlassian-dark/color/icon.tsx",
     "isSource": true,
     "original": {
@@ -1478,7 +1478,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for icons when on bold warning backgrounds."
       },
-      "value": "DarkNeutral0"
+      "value": "DarkNeutral100"
     },
     "name": "color.icon.warning.inverse",
     "path": [
@@ -1577,7 +1577,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for icons paired with color.text.subtle"
     },
-    "value": "#8696A7",
+    "value": "#8C9BAB",
     "filePath": "src/tokens/atlassian-dark/color/icon.tsx",
     "isSource": true,
     "original": {
@@ -2351,7 +2351,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for red backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#391813",
+    "value": "#4F1C16",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -2467,7 +2467,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for orange backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#43290F",
+    "value": "#4A2B0F",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -2583,7 +2583,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for yellow backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#3D2E00",
+    "value": "#3F3102",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -2699,7 +2699,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for green backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#133527",
+    "value": "#143C2B",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -2815,7 +2815,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for teal backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#153337",
+    "value": "#15373B",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -2931,7 +2931,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for blue backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#082145",
+    "value": "#092957",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3047,7 +3047,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for purple backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#231C3F",
+    "value": "#2B2451",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3163,7 +3163,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for magenta backgrounds when there is no meaning tied to the color. Reserved for when you only want a hint of color."
     },
-    "value": "#341829",
+    "value": "#421F34",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3366,7 +3366,7 @@ const tokens = [
       "introduced": "0.7.0",
       "description": "Use for gray backgrounds when there is no meaning tied to the color, and the background needs to pass min 3:1 contrast requirements."
     },
-    "value": "#8696A7",
+    "value": "#8C9BAB",
     "filePath": "src/tokens/atlassian-dark/color/accent.tsx",
     "isSource": true,
     "original": {
@@ -3422,7 +3422,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
     },
-    "value": "#1D2125",
+    "value": "#22272B",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -3432,7 +3432,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
       },
-      "value": "DarkNeutral100"
+      "value": "DarkNeutral200"
     },
     "name": "color.background.input.[default]",
     "path": [
@@ -3450,7 +3450,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Hovered state for color.background.input"
     },
-    "value": "#22272B",
+    "value": "#282E33",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -3460,7 +3460,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Hovered state for color.background.input"
       },
-      "value": "DarkNeutral200"
+      "value": "DarkNeutral250"
     },
     "name": "color.background.input.hovered",
     "path": [
@@ -3478,7 +3478,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Pressed state for color.background.input"
     },
-    "value": "#1D2125",
+    "value": "#22272B",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -3488,7 +3488,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Pressed state for color.background.input"
       },
-      "value": "DarkNeutral100"
+      "value": "DarkNeutral200"
     },
     "name": "color.background.input.pressed",
     "path": [
@@ -3854,7 +3854,7 @@ const tokens = [
       "introduced": "0.6.2",
       "description": "Use for the background of elements in a selected state, such as in opened dropdown buttons."
     },
-    "value": "#082145",
+    "value": "#092957",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4115,7 +4115,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for backgrounds communicating critical information, such in error section messages."
     },
-    "value": "#391813",
+    "value": "#4F1C16",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4289,7 +4289,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for backgrounds communicating caution, such as in warning section messages."
     },
-    "value": "#3D2E00",
+    "value": "#3F3102",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4463,7 +4463,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for backgrounds communicating a favorable outcome, such as in success section messages."
     },
-    "value": "#133527",
+    "value": "#143C2B",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4637,7 +4637,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for backgrounds communicating change or something new, such as in discovery section messages."
     },
-    "value": "#231C3F",
+    "value": "#2B2451",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4811,7 +4811,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for backgrounds communicating information or something in-progress, such as in information section messages."
     },
-    "value": "#082145",
+    "value": "#092957",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4985,7 +4985,7 @@ const tokens = [
       "introduced": "0.0.15",
       "description": "Use for the screen overlay that appears with modal dialogs"
     },
-    "value": "#03040442",
+    "value": "#10121499",
     "filePath": "src/tokens/atlassian-dark/color/background.tsx",
     "isSource": true,
     "original": {
@@ -4995,7 +4995,7 @@ const tokens = [
         "introduced": "0.0.15",
         "description": "Use for the screen overlay that appears with modal dialogs"
       },
-      "value": "DarkNeutral-100A"
+      "value": "#10121499"
     },
     "name": "color.blanket.[default]",
     "path": [
@@ -5840,7 +5840,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.neutral."
     },
-    "value": "#8696A7",
+    "value": "#8C9BAB",
     "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -7289,7 +7289,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.gray.bold."
     },
-    "value": "#8696A7",
+    "value": "#8C9BAB",
     "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -7318,7 +7318,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "For data visualisation only."
     },
-    "value": "#8696A7",
+    "value": "#8C9BAB",
     "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -8070,7 +8070,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use as the primary background for the UI."
     },
-    "value": "#161A1D",
+    "value": "#1D2125",
     "filePath": "src/tokens/atlassian-dark/elevation/surface.tsx",
     "isSource": true,
     "original": {
@@ -8080,7 +8080,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use as the primary background for the UI."
       },
-      "value": "DarkNeutral0"
+      "value": "DarkNeutral100"
     },
     "name": "elevation.surface.[default].[default]",
     "path": [
@@ -8098,7 +8098,7 @@ const tokens = [
       "introduced": "0.10.20",
       "description": "Hovered state of elevation.surface"
     },
-    "value": "#1D2125",
+    "value": "#22272B",
     "filePath": "src/tokens/atlassian-dark/elevation/surface.tsx",
     "isSource": true,
     "original": {
@@ -8108,7 +8108,7 @@ const tokens = [
         "introduced": "0.10.20",
         "description": "Hovered state of elevation.surface"
       },
-      "value": "DarkNeutral100"
+      "value": "DarkNeutral200"
     },
     "name": "elevation.surface.[default].hovered",
     "path": [
@@ -8126,7 +8126,7 @@ const tokens = [
       "introduced": "0.10.20",
       "description": "Pressed state of elevation.surface"
     },
-    "value": "#22272B",
+    "value": "#282E33",
     "filePath": "src/tokens/atlassian-dark/elevation/surface.tsx",
     "isSource": true,
     "original": {
@@ -8136,7 +8136,7 @@ const tokens = [
         "introduced": "0.10.20",
         "description": "Pressed state of elevation.surface"
       },
-      "value": "DarkNeutral200"
+      "value": "DarkNeutral250"
     },
     "name": "elevation.surface.[default].pressed",
     "path": [
@@ -8154,7 +8154,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
     },
-    "value": "#22272B",
+    "value": "#282E33",
     "filePath": "src/tokens/atlassian-dark/elevation/surface.tsx",
     "isSource": true,
     "original": {
@@ -8164,7 +8164,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for the background of elements that sit on top of they UI, such as modals, dialogs, dropdown menus, floating toolbars, and floating single-action buttons. Also use for the background of raised cards in a dragged state. Combine with elevation.shadow.overlay."
       },
-      "value": "DarkNeutral200"
+      "value": "DarkNeutral250"
     },
     "name": "elevation.surface.overlay.[default]",
     "path": [
@@ -8210,7 +8210,7 @@ const tokens = [
       "introduced": "0.10.20",
       "description": "Pressed state of elevation.surface.overlay"
     },
-    "value": "#454F59",
+    "value": "#38414A",
     "filePath": "src/tokens/atlassian-dark/elevation/surface.tsx",
     "isSource": true,
     "original": {
@@ -8220,7 +8220,7 @@ const tokens = [
         "introduced": "0.10.20",
         "description": "Pressed state of elevation.surface.overlay"
       },
-      "value": "DarkNeutral400"
+      "value": "DarkNeutral350"
     },
     "name": "elevation.surface.overlay.pressed",
     "path": [
@@ -8238,7 +8238,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
     },
-    "value": "#1D2125",
+    "value": "#22272B",
     "filePath": "src/tokens/atlassian-dark/elevation/surface.tsx",
     "isSource": true,
     "original": {
@@ -8248,7 +8248,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for the background of cards that can be moved, such as Jira cards on a Kanban board. Combine with elevation.shadow.raised."
       },
-      "value": "DarkNeutral100"
+      "value": "DarkNeutral200"
     },
     "name": "elevation.surface.raised.[default]",
     "path": [
@@ -8266,7 +8266,7 @@ const tokens = [
       "introduced": "0.10.20",
       "description": "Hovered state of elevation.surface.raised"
     },
-    "value": "#22272B",
+    "value": "#282E33",
     "filePath": "src/tokens/atlassian-dark/elevation/surface.tsx",
     "isSource": true,
     "original": {
@@ -8276,7 +8276,7 @@ const tokens = [
         "introduced": "0.10.20",
         "description": "Hovered state of elevation.surface.raised"
       },
-      "value": "DarkNeutral200"
+      "value": "DarkNeutral250"
     },
     "name": "elevation.surface.raised.hovered",
     "path": [
@@ -8322,7 +8322,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
     },
-    "value": "#101214",
+    "value": "#161A1D",
     "filePath": "src/tokens/atlassian-dark/elevation/surface.tsx",
     "isSource": true,
     "original": {
@@ -8332,7 +8332,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "A secondary background for the UI commonly used for grouping items, such as Jira cards in columns."
       },
-      "value": "DarkNeutral-100"
+      "value": "DarkNeutral0"
     },
     "name": "elevation.surface.sunken",
     "path": [
@@ -8480,7 +8480,7 @@ const tokens = [
           "x": 0,
           "y": 0
         },
-        "opacity": 0.04,
+        "opacity": 0.12,
         "inset": true
       },
       {
@@ -8520,7 +8520,7 @@ const tokens = [
             "x": 0,
             "y": 0
           },
-          "opacity": 0.04,
+          "opacity": 0.12,
           "inset": true
         },
         {

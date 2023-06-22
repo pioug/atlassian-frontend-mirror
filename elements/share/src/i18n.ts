@@ -207,7 +207,7 @@ export const messages = defineMessages({
       'report {Report shared}' +
       'repository {Repository shared}' +
       'request {Request shared}' +
-      'roadmap {Roadmap shared}' +
+      'roadmap {Timeline shared}' +
       'site {Site shared}' +
       'space {Space shared}' +
       'other {Link Shared}' +

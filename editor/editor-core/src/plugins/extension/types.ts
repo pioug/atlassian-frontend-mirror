@@ -6,6 +6,7 @@ import {
   TransformBefore,
   TransformAfter,
 } from '@atlaskit/editor-common/extensions';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
 export type ExtensionState<T extends Parameters = Parameters> = {
   localId?: string;
@@ -20,6 +21,7 @@ export type ExtensionState<T extends Parameters = Parameters> = {
   processParametersBefore?: TransformBefore<T>;
   processParametersAfter?: TransformAfter<T>;
   positions?: Record<number, number>;
+  applyChangeToContextPanel: ApplyChangeHandler | undefined;
 };
 
 export type ExtensionAction<T extends Parameters = Parameters> = {

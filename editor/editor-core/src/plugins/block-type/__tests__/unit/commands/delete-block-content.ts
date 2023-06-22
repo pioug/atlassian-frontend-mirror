@@ -20,6 +20,8 @@ import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
 import cardPlugin from '../../../../card';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
+import editorDisabledPlugin from '../../../../editor-disabled';
+
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import basePLugin from '../../../../base';
@@ -40,6 +42,7 @@ describe('delete block content', () => {
       .add(contentInsertionPlugin)
       .add(basePLugin)
       .add(decorationsPlugin)
+      .add(editorDisabledPlugin)
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(layoutPlugin)

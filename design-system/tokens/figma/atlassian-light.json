@@ -1727,7 +1727,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.5."
       },
-      "value": "#082145"
+      "value": "#092957"
     },
     "Light/color.chart.categorical.6": {
       "attributes": {
@@ -1763,7 +1763,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.7."
       },
-      "value": "#341829"
+      "value": "#421F34"
     },
     "Light/color.chart.categorical.8": {
       "attributes": {

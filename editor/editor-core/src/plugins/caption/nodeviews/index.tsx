@@ -7,10 +7,12 @@ import {
   getPosHandler,
   getPosHandlerNode,
   ForwardRef,
-  SelectionBasedNodeView,
 } from '../../../nodeviews/';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { EventDispatcher } from '../../../event-dispatcher';
+import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type captionPlugin from '../index';
 
 export class CaptionNodeView extends SelectionBasedNodeView {
   private selected = this.insideSelection();
@@ -57,6 +59,7 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 export default function captionNodeView(
   portalProviderAPI: PortalProviderAPI,
   eventDispatcher: EventDispatcher,
+  pluginInjectionApi: ExtractInjectionAPI<typeof captionPlugin> | undefined,
 ) {
   return (node: PMNode, view: EditorView, getPos: getPosHandler) => {
     const hasIntlContext = true;

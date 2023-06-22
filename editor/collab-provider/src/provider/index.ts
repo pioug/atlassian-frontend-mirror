@@ -577,4 +577,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     clearTimeout(this.presenceUpdateTimeout);
     this.participantsService.clearTimers();
   };
+
+  /**
+   *
+   */
+  getParticipants = () => {
+    return this.participantsService.getParticipants();
+  };
 }

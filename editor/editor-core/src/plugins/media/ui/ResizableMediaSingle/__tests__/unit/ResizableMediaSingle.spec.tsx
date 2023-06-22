@@ -51,6 +51,7 @@ import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
 import floatingToolbarPlugin from '../../../../../../plugins/floating-toolbar';
 
+import editorDisabledPlugin from '../../../../../../plugins/editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -86,6 +87,7 @@ describe('<ResizableMediaSingle />', () => {
       .add(widthPlugin)
       .add(gridPlugin)
       .add(floatingToolbarPlugin)
+      .add(editorDisabledPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(layoutPlugin);
 

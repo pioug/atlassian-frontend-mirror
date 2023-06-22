@@ -35,7 +35,7 @@ A `role` prop is inferred from the element type or you can pass in a role prop i
 
 ### Focus behavior
 
-`tabIndex={0}` is added by default so the button element can get browser focus regardless of the element type used.
+`tabIndex={0}` is added by default when the `component` prop is specified, so the button element can get browser focus regardless of the element type used.
 
 On a `mousedown`, `event.preventDefault()` is always called to prevent the button from getting focus. This is questionable behavior that we hope to change in future.
 

@@ -80,6 +80,13 @@ export type PluginInjectionAPIWithDependency<Plugin> =
       }
     : never;
 
+export type PluginInjectionAPIWithDependencies<Plugins> =
+  Plugins extends NextEditorPlugin<infer Name, infer Metadata>[]
+    ? {
+        dependencies: CreatePluginDependenciesAPI<Plugins>;
+      }
+    : never;
+
 type NextEditorPluginFunctionDefinition<
   Name extends string,
   Metadata extends NextEditorPluginMetadata,

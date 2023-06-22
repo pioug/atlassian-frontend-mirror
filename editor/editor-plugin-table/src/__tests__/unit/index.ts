@@ -56,6 +56,7 @@ import textFormattingPlugin from '@atlaskit/editor-core/src/plugins/text-formatt
 import deprecatedAnalyticsPlugin from '@atlaskit/editor-core/src/plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
+import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import floatingToolbarPlugin from '@atlaskit/editor-core/src/plugins/floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
@@ -101,6 +102,7 @@ describe('table plugin', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add([deprecatedAnalyticsPlugin, {}])
+      .add(editorDisabledPlugin)
       .add(contentInsertionPlugin)
       .add(decorationsPlugin)
       .add(widthPlugin)

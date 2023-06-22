@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.9.0
+
+### Minor Changes
+
+- [`06fb6792d1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/06fb6792d1f) - Subtle adjustments to some color design tokens to improve the dark theme. These changes were previously being tested behind a feature flag.
+
 ## 1.8.1
 
 ### Patch Changes

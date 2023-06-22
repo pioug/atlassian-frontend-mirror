@@ -47,7 +47,6 @@ function createNewState(
 /**
  *
  * This hook is used to create the provider factory object.
- * WARNING: Consider any changes to also make to `src/editor.tsx`
  *
  * @param props
  * @param editorActions
@@ -59,7 +58,26 @@ export default function useProviderFactory(
   editorActions: EditorActions,
   createAnalyticsEvent: CreateUIAnalyticsEvent,
 ): ProviderFactory {
-  const { extensionProviders, quickInsert } = props;
+  const {
+    extensionProviders,
+    quickInsert,
+    linking,
+    smartLinks,
+    UNSAFE_cards,
+    autoformattingProvider,
+    media,
+    emojiProvider,
+    mentionProvider,
+    legacyImageUploadProvider,
+    taskDecisionProvider,
+    contextIdentifierProvider,
+    searchProvider,
+    macroProvider,
+    activityProvider,
+    collabEdit,
+    collabEditProvider,
+    presenceProvider,
+  } = props;
 
   const providerFactory = useRef(new ProviderFactory());
   const [providerState, setProviderState] = useState<ProviderFactoryState>(
@@ -91,7 +109,24 @@ export default function useProviderFactory(
 
       handleProviders(
         providerFactory.current,
-        getProvidersFromEditorProps(props),
+        getProvidersFromEditorProps({
+          linking,
+          smartLinks,
+          UNSAFE_cards,
+          autoformattingProvider,
+          media,
+          emojiProvider,
+          mentionProvider,
+          legacyImageUploadProvider,
+          taskDecisionProvider,
+          contextIdentifierProvider,
+          searchProvider,
+          macroProvider,
+          activityProvider,
+          collabEdit,
+          collabEditProvider,
+          presenceProvider,
+        }),
         newState.extensionProvider,
         newState.quickInsertProvider,
       );
@@ -99,12 +134,44 @@ export default function useProviderFactory(
     }
     handleProviders(
       providerFactory.current,
-      getProvidersFromEditorProps(props),
+      getProvidersFromEditorProps({
+        linking,
+        smartLinks,
+        UNSAFE_cards,
+        autoformattingProvider,
+        media,
+        emojiProvider,
+        mentionProvider,
+        legacyImageUploadProvider,
+        taskDecisionProvider,
+        contextIdentifierProvider,
+        searchProvider,
+        macroProvider,
+        activityProvider,
+        collabEdit,
+        collabEditProvider,
+        presenceProvider,
+      }),
       providerState.extensionProvider,
       providerState.quickInsertProvider,
     );
   }, [
-    props,
+    linking,
+    smartLinks,
+    UNSAFE_cards,
+    autoformattingProvider,
+    media,
+    emojiProvider,
+    mentionProvider,
+    legacyImageUploadProvider,
+    taskDecisionProvider,
+    contextIdentifierProvider,
+    searchProvider,
+    macroProvider,
+    activityProvider,
+    collabEdit,
+    collabEditProvider,
+    presenceProvider,
     prevProps?.quickInsert,
     prevProps?.extensionProviders,
     createAnalyticsEvent,

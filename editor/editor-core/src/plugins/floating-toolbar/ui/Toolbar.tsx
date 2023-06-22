@@ -44,9 +44,11 @@ import {
 } from '../pm-plugins/force-focus';
 import {
   FeatureFlags,
-  PluginInjectionAPIWithDependency,
+  PluginInjectionAPIWithDependencies,
+  OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 
 export type Item = FloatingToolbarItem<Function>;
 
@@ -66,7 +68,11 @@ export interface Props {
   extensionsProvider?: ExtensionProvider;
   scrollable?: boolean;
   featureFlags: FeatureFlags;
-  api: PluginInjectionAPIWithDependency<typeof decorationsPlugin> | undefined;
+  api:
+    | PluginInjectionAPIWithDependencies<
+        [typeof decorationsPlugin, OptionalPlugin<typeof contextPanelPlugin>]
+      >
+    | undefined;
 }
 
 const ToolbarItems = React.memo(
@@ -85,6 +91,7 @@ const ToolbarItems = React.memo(
     setDisableScroll,
     mountRef,
     featureFlags,
+    api,
   }: Props & {
     setDisableScroll?: (disable: boolean) => void;
     mountRef: React.RefObject<HTMLDivElement>;
@@ -296,6 +303,9 @@ const ToolbarItems = React.memo(
                     editorView={editorView}
                     extensionProvider={extensionsProvider}
                     separator={item.separator}
+                    applyChangeToContextPanel={
+                      api?.dependencies.contextPanel?.actions.applyChange
+                    }
                   />
                 );
               case 'separator':

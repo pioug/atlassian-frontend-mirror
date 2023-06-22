@@ -3,8 +3,11 @@ import { EditorState, Transaction } from 'prosemirror-state';
 import { findParentNodeOfType } from 'prosemirror-utils';
 import { pluginKey } from './plugin-key';
 import captionNodeView from './../nodeviews';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import {
+  Dispatch,
+  EventDispatcher,
+} from '@atlaskit/editor-common/event-dispatcher';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   EditorAnalyticsAPI,
@@ -13,6 +16,8 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type captionPlugin from '../index';
 
 const fireAnalytics = (
   tr: Transaction,
@@ -32,8 +37,9 @@ export default (
   eventDispatcher: EventDispatcher,
   providerFactory: ProviderFactory,
   dispatch: Dispatch,
-  analyticsApi: EditorAnalyticsAPI | undefined,
+  pluginInjectionApi: ExtractInjectionAPI<typeof captionPlugin> | undefined,
 ) => {
+  const analyticsApi = pluginInjectionApi?.dependencies.analytics?.actions;
   return new SafePlugin({
     appendTransaction(
       transactions: Transaction[],
@@ -67,7 +73,11 @@ export default (
     key: pluginKey,
     props: {
       nodeViews: {
-        caption: captionNodeView(portalProviderAPI, eventDispatcher),
+        caption: captionNodeView(
+          portalProviderAPI,
+          eventDispatcher,
+          pluginInjectionApi,
+        ),
       },
     },
   });

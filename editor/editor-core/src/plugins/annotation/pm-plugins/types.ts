@@ -1,7 +1,10 @@
 import { DecorationSet } from 'prosemirror-view';
 import { EditorState, SelectionBookmark } from 'prosemirror-state';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import {
+  Dispatch,
+  EventDispatcher,
+} from '@atlaskit/editor-common/event-dispatcher';
 import { InlineCommentAnnotationProvider, AnnotationInfo } from '../types';
 
 export enum ACTIONS {

@@ -1,7 +1,16 @@
-import { p, table, tr, td } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+  p,
+  table,
+  tr,
+  td,
+  th,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { isMinCellWidthTable } from '../../../../plugins/table/pm-plugins/table-resizing/utils/colgroup';
-import { generateColgroup } from '../../../../plugins/table/pm-plugins/table-resizing/utils';
+import {
+  generateColgroup,
+  getColgroupChildrenLength,
+} from '../../../../plugins/table/pm-plugins/table-resizing/utils';
 
 describe('table-resizing/colgroup', () => {
   describe('#generateColgroup', () => {
@@ -119,6 +128,43 @@ describe('table-resizing/colgroup', () => {
           ),
         )(defaultSchema);
       }
+    });
+  });
+
+  describe('#getColgroupChildrenLength', () => {
+    it('returns 1 when table only have 1 column', () => {
+      expect(
+        getColgroupChildrenLength(table()(tr(td()(p(''))))(defaultSchema)),
+      ).toBe(1);
+    });
+
+    it('returns 3 when table have 3 column', () => {
+      expect(
+        getColgroupChildrenLength(
+          table()(tr(td()(p('')), td()(p('')), td()(p(''))))(defaultSchema),
+        ),
+      ).toBe(3);
+    });
+
+    it('returns 5 when table have 5 column', () => {
+      expect(
+        getColgroupChildrenLength(
+          table()(
+            tr(td()(p('')), td()(p('')), td()(p('')), td()(p('')), td()(p(''))),
+          )(defaultSchema),
+        ),
+      ).toBe(5);
+    });
+
+    it('returns correct number when table have merged header column', () => {
+      expect(
+        getColgroupChildrenLength(
+          table()(
+            tr(th({ colspan: 2 })(p('')), th()(p(''))),
+            tr(td()(p('')), td()(p('')), td()(p(''))),
+          )(defaultSchema),
+        ),
+      ).toBe(3);
     });
   });
 });

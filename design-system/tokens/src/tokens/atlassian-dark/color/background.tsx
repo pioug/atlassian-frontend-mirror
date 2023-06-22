@@ -4,7 +4,8 @@ import type { BackgroundColorTokenSchema, ValueSchema } from '../../../types';
 const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
   color: {
     blanket: {
-      '[default]': { value: 'DarkNeutral-100A' },
+      // @ts-ignore temporary value (DarkNeutral-100 60% opacity)
+      '[default]': { value: '#10121499' },
       // @ts-ignore temporary value (Blue600 8% opacity)
       selected: { value: '#1D7AFC14' },
       // @ts-ignore temporary value (Red600 8% opacity)
@@ -23,9 +24,9 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
         },
       },
       input: {
-        '[default]': { value: 'DarkNeutral100' },
-        hovered: { value: 'DarkNeutral200' },
-        pressed: { value: 'DarkNeutral100' },
+        '[default]': { value: 'DarkNeutral200' },
+        hovered: { value: 'DarkNeutral250' },
+        pressed: { value: 'DarkNeutral200' },
       },
       neutral: {
         '[default]': {

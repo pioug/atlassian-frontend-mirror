@@ -38,6 +38,7 @@ import type { EmptyStateProps } from './types';
 const EmptyState = ({
   description,
   header,
+  headingLevel = 4,
   imageHeight,
   imageUrl,
   imageWidth,
@@ -79,7 +80,7 @@ const EmptyState = ({
         renderImage &&
         renderImage({ maxImageWidth, maxImageHeight, imageWidth, imageHeight })
       )}
-      <Header>{header}</Header>
+      <Header level={headingLevel}>{header}</Header>
       {description && <Description>{description}</Description>}
       {actionsContainer}
       {tertiaryAction}

@@ -55,6 +55,7 @@ import { handleCut } from '../../plugins/table/event-handlers';
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../plugins/table';
+import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
 import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
@@ -87,6 +88,7 @@ describe('table plugin: actions', () => {
       attachTo: document.body,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add(editorDisabledPlugin)
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)

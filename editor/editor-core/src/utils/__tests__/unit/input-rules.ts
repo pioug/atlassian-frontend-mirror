@@ -18,6 +18,7 @@ import basePlugin from '../../../plugins/base';
 import mediaPlugin from '../../../plugins/media';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 
+import editorDisabledPlugin from '../../../plugins/editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 
@@ -36,6 +37,7 @@ describe('createWrappingJoinRule()', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add(editorDisabledPlugin)
         .add([analyticsPlugin, {}])
         .add(basePlugin)
         .add(decorationsPlugin)

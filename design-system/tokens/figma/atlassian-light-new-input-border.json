@@ -1,0 +1,15 @@
+{
+  "name": "Light new-input-border",
+  "tokens": {
+    "Light new-input-border/color.border.input": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.6.0",
+        "description": "Use for borders of form UI elements, such as text fields, checkboxes, and radio buttons."
+      },
+      "value": "#8590A2"
+    }
+  },
+  "renameMap": {}
+}

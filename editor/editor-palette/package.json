@@ -10,6 +10,7 @@
   "atlassian": {
     "team": "Editor",
     "releaseModel": "continuous",
+    "inPublicMirror": true,
     "website": {
       "name": "Editor Palette"
     }
@@ -33,13 +34,13 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/section-message": "^6.4.0",
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "react": "^16.8.0",

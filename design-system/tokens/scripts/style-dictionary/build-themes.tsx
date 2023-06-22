@@ -9,12 +9,7 @@ import defaultPalette from '../../src/palettes/palette';
 import shapePalette from '../../src/palettes/shape-palette';
 import spacingScale from '../../src/palettes/spacing-scale';
 import typographyPalette from '../../src/palettes/typography-palette';
-import themeConfig, {
-  Palettes,
-  ThemeFileNames,
-  themeOverrideConfig,
-  ThemeOverrides,
-} from '../../src/theme-config';
+import themeConfig, { Palettes, ThemeFileNames } from '../../src/theme-config';
 
 import {
   ARTIFACT_OUTPUT_DIR,
@@ -162,17 +157,6 @@ export default function build(styleDictionary: Core) {
   fs.readdirSync(tokensInputDir, { withFileTypes: true })
     .filter((result) => result.isDirectory() && result.name !== 'default')
     .forEach((theme) => {
-      if (themeOverrideConfig[theme.name as ThemeOverrides]) {
-        const config = createThemeConfig(
-          theme.name as ThemeFileNames,
-          [],
-          getPalette('defaultPalette'),
-        );
-        styleDictionary.extend(config).buildPlatform('cssAsModule');
-        styleDictionary.extend(config).buildPlatform('raw');
-        return;
-      }
-
       const themeName = theme.name as ThemeFileNames;
       const baseThemes = getBaseThemes(themeName);
       const palette = getPalette(themeConfig[themeName].palette);

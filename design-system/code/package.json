@@ -36,7 +36,7 @@
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -47,7 +47,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/button": "^16.8.0",
     "@atlaskit/docs": "^9.1.0",
     "@atlaskit/ds-explorations": "^2.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
@@ -63,6 +63,7 @@
     "@types/jscodeshift": "^0.11.0",
     "@types/refractor": "^3.0.2",
     "color-contrast-checker": "^1.5.0",
+    "jest-axe": "^4.0.0",
     "jscodeshift": "^0.13.0",
     "prismjs": "^1.25.0",
     "react-dom": "^16.8.0",

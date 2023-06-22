@@ -63,6 +63,7 @@ import emojiPlugin from '../../../emoji';
 import blockTypePlugin from '../../../block-type';
 import captionPlugin from '../../../caption';
 import mediaPlugin from '../../../media';
+import editorDisabledPlugin from '../../../editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import listPlugin from '../../../list';
@@ -75,6 +76,7 @@ import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 
 describe('handleParagraphBlockMarks', () => {
   let slice: Slice;
@@ -829,6 +831,7 @@ describe('handleRichText', () => {
         .add(decorationsPlugin)
         .add(widthPlugin)
         .add([pastePlugin, {}])
+        .add(contextPanelPlugin)
         .add(tablesPlugin)
         .add(listPlugin)
         .add(extensionPlugin)
@@ -1699,6 +1702,7 @@ describe('handlePasteIntoCaption', () => {
         .add([pastePlugin, {}])
         .add(panelPlugin)
         .add(blockTypePlugin)
+        .add(editorDisabledPlugin)
         .add(captionPlugin)
         .add(widthPlugin)
         .add(gridPlugin)

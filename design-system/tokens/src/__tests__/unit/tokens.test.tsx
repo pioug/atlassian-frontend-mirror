@@ -2,13 +2,15 @@ import fs from 'fs';
 
 import tokens from '../../artifacts/token-names';
 import type { Themes } from '../../index';
-import themeConfig, { themeOverrideConfig } from '../../theme-config';
+import themeConfig from '../../theme-config';
 
 const extensionThemes = Object.keys(themeConfig).filter(
   (fileName) => themeConfig[fileName as Themes].attributes.extends,
 );
 
-const themeOverrides = Object.keys(themeOverrideConfig);
+const themeOverrides = Object.keys(themeConfig).filter(
+  (fileName) => themeConfig[fileName as Themes].override,
+);
 
 describe('tokens', () => {
   /**

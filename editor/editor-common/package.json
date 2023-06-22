@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "74.7.8",
+  "version": "74.8.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -67,7 +67,8 @@
     "./monitoring": "./src/monitoring/index.ts",
     "./paste": "./src/paste/index.ts",
     "./resizer": "./src/resizer/index.ts",
-    "./editor-analytics": "./src/editor-analytics/index.ts"
+    "./editor-analytics": "./src/editor-analytics/index.ts",
+    "./selection-based-node-view": "./src/selection-based-node-view/index.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
@@ -77,10 +78,10 @@
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/analytics-next-stable-react-context": "1.0.1",
-    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/button": "^16.8.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/collab-provider": "^9.2.0",
+    "@atlaskit/collab-provider": "^9.3.0",
     "@atlaskit/editor-palette": "1.5.0",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/emoji": "^67.4.0",
@@ -88,7 +89,7 @@
     "@atlaskit/in-product-testing": "^0.2.0",
     "@atlaskit/media-card": "^76.0.0",
     "@atlaskit/media-client": "^23.1.0",
-    "@atlaskit/media-picker": "^66.0.0",
+    "@atlaskit/media-picker": "^66.1.0",
     "@atlaskit/mention": "^22.1.0",
     "@atlaskit/menu": "^1.7.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
@@ -96,7 +97,7 @@
     "@atlaskit/smart-user-picker": "^6.1.0",
     "@atlaskit/task-decision": "^17.6.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/width-detector": "^4.1.0",

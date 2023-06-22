@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^10.0.7",
     "exenv": "^1.2.2",
@@ -44,7 +44,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/button": "^16.8.0",
     "@atlaskit/docs": "*",
     "@atlaskit/navigation": "^37.0.0",
     "@atlaskit/page": "^12.3.0",

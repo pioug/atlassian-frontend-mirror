@@ -2,7 +2,7 @@ import { caption } from '@atlaskit/adf-schema';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { default as createCaptionPlugin } from './pm-plugins/main';
 import { captionKeymap } from './pm-plugins/keymap';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const captionPlugin: NextEditorPlugin<
   'caption',
@@ -30,7 +30,7 @@ const captionPlugin: NextEditorPlugin<
               eventDispatcher,
               providerFactory,
               dispatch,
-              api?.dependencies.analytics?.actions,
+              api,
             ),
         },
         {

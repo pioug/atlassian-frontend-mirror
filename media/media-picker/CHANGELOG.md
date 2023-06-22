@@ -1,5 +1,15 @@
 # @atlaskit/media-picker
 
+## 66.1.0
+
+### Minor Changes
+
+- [`8c7beee89c0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c7beee89c0) - Multiple simultaneous uploads above 255 files are batched due to backend restrictions
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 66.0.4
 
 ### Patch Changes

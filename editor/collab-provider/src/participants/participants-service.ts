@@ -345,4 +345,11 @@ export class ParticipantsService {
       );
     }
   };
+
+  /**
+   *
+   */
+  getParticipants = () => {
+    return this.participantsState.getParticipants();
+  };
 }

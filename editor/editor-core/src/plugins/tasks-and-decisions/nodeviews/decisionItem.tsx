@@ -4,8 +4,11 @@ import { Node as PMNode } from 'prosemirror-model';
 import { Decoration, NodeView } from 'prosemirror-view';
 
 import { EventDispatcher } from '../../../event-dispatcher';
-import { ForwardRef, getPosHandler, ReactNodeView } from '../../../nodeviews';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { ForwardRef, getPosHandler } from '../../../nodeviews';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+
 import DecisionItem from '../ui/Decision';
 import { isTypeAheadOpen } from '../../type-ahead/utils';
 

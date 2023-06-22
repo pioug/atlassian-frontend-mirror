@@ -1,6 +1,9 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { PortalRenderer, PortalProvider } from '../../ui/PortalProvider';
+import {
+  PortalRenderer,
+  PortalProvider,
+} from '@atlaskit/editor-common/portal-provider';
 import { EditorInternal } from './internal/components/EditorInternal';
 import {
   usePresetContext,

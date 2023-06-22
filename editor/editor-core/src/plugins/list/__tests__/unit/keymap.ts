@@ -27,6 +27,7 @@ import codeBlockTypePlugin from '../../../code-block';
 import emojiPlugin, { emojiPluginKey } from '../../../emoji';
 import panelPlugin from '../../../panel';
 import floatingToolbarPlugin from '../../../floating-toolbar';
+import editorDisabledPlugin from '../../../editor-disabled';
 
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -67,6 +68,7 @@ describe('lists plugin -> keymap', () => {
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
       .add(decorationsPlugin)
+      .add(editorDisabledPlugin)
       .add([listPlugin, { restartNumberedLists: true }])
       .add(blockTypePlugin)
       .add(emojiPlugin)

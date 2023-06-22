@@ -35,7 +35,8 @@ import {
 import { setNodeSelection, setTextSelection } from '../../../utils';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import { EventDispatcher } from '../../../event-dispatcher';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+
 import { MediaOptions } from '../types';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
 import { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
@@ -51,7 +52,7 @@ import {
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import ReactNodeView from '../../../nodeviews/ReactNodeView';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import CaptionPlaceholder from '../ui/CaptionPlaceholder';
 import { NodeSelection } from 'prosemirror-state';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';

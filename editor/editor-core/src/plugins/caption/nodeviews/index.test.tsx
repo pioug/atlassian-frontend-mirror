@@ -13,15 +13,10 @@ import { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import captionNodeView from '.';
 import { EditorView } from 'prosemirror-view';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+
 import { EventDispatcher } from '../../../event-dispatcher';
 import { screen } from '@testing-library/react';
-
-jest.mock('../../base/pm-plugins/react-nodeview', () => ({
-  stateKey: {
-    getState: () => ({ subscribe: jest.fn(), unsubscribe: jest.fn() }),
-  },
-}));
 
 const createEditorTestingLibrary = createEditorFactory();
 const editor = (doc: (schema: Schema<any, any>) => RefsNode) =>
@@ -110,11 +105,11 @@ describe('nodeview updating based on child count', () => {
   const getPos = jest.fn();
 
   it('does not update if the childCount has not changed', () => {
-    const nodeView = captionNodeView(portalProviderAPI, eventDispatcher)(
-      node,
-      view,
-      getPos,
-    );
+    const nodeView = captionNodeView(
+      portalProviderAPI,
+      eventDispatcher,
+      undefined,
+    )(node, view, getPos);
 
     // ensure that if it falls through to the default it returns false
     nodeView['_viewShouldUpdate'] = jest.fn((_node) => false);
@@ -123,11 +118,11 @@ describe('nodeview updating based on child count', () => {
   });
 
   it('updates if the childCount has changed', () => {
-    const nodeView = captionNodeView(portalProviderAPI, eventDispatcher)(
-      node,
-      view,
-      getPos,
-    );
+    const nodeView = captionNodeView(
+      portalProviderAPI,
+      eventDispatcher,
+      undefined,
+    )(node, view, getPos);
 
     // when captions is in full schema, use defaultSchema
     const newNode = caption()(getSchemaBasedOnStage('stage0'));

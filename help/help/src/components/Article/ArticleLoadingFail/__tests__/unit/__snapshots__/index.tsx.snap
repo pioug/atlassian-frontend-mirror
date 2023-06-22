@@ -3056,6 +3056,7 @@ exports[`ArticleLoadingFail Should match snapshot 1`] = `
     class="emotion-2"
   >
     <button
+      aria-busy="false"
       class="emotion-1"
       tabindex="0"
       type="button"

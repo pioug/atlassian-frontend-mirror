@@ -16,6 +16,11 @@ export interface EmptyStateProps {
    */
   header: string;
   /**
+   * The value used to set the heading level of the header element.
+   * Must be in the range of 1 to 6. Defaults to 4.
+   */
+  headingLevel?: number;
+  /**
    * The main block of text that holds additional supporting information.
    */
   description?: ReactNode;

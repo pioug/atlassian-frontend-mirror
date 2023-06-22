@@ -61,7 +61,8 @@ import {
 } from '../types';
 import type { EditorNextProps } from '../types/editor-props';
 import { FeatureFlags } from '../types/feature-flags';
-import { PortalProviderAPI } from '../ui/PortalProvider';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+
 import {
   createErrorReporter,
   createPMPlugins,

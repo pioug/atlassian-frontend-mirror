@@ -28,6 +28,7 @@ const LoadingButton = React.forwardRef(function LoadingButton(
     <Button
       {...rest}
       ref={ref}
+      aria-busy={isLoading}
       overlay={isLoading ? <LoadingSpinner {...rest} /> : null}
     />
   );

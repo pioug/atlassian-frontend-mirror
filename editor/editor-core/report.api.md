@@ -121,6 +121,9 @@ import { PerformanceTracking } from '@atlaskit/editor-common/types';
 import { PluginConfig } from '@atlaskit/editor-plugin-table/types';
 import { PluginKey } from 'prosemirror-state';
 import { PMPlugin } from '@atlaskit/editor-common/types';
+import { PortalProvider } from '@atlaskit/editor-common/portal-provider';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import { PortalRenderer } from '@atlaskit/editor-common/portal-provider';
 import { PositionType } from '@atlaskit/tooltip/types';
 import { PresenceProvider } from '@atlaskit/mention/resource';
 import { PresenceResource } from '@atlaskit/mention/resource';
@@ -147,7 +150,6 @@ import { setTextSelection } from '@atlaskit/editor-common/utils';
 import { SEVERITY } from '@atlaskit/editor-common/utils';
 import { TaskDecisionProvider } from '@atlaskit/task-decision';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';
-import type { ThemeModes } from '@atlaskit/theme/types';
 import { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import { Transaction } from 'prosemirror-state';
 import { TransactionTracking } from '@atlaskit/editor-common/types';
@@ -258,16 +260,6 @@ interface BasePluginOptions {
   // (undocumented)
   ufo?: boolean;
 }
-
-// @public (undocumented)
-type BasePortalProviderProps = {
-  render: (
-    portalProviderAPI: PortalProviderAPI,
-  ) => JSX.Element | React_2.ReactChild | null;
-  onAnalyticsEvent?: FireAnalyticsCallback;
-  useAnalyticsContext?: boolean;
-  themeMode?: ThemeModes;
-} & WrappedComponentProps;
 
 // @public (undocumented)
 export class BaseReactEditorView<T = {}> extends ReactEditorView_2<T> {}
@@ -776,6 +768,19 @@ export class EditorContext extends React_2.Component<EditorContextProps, {}> {
 // @public (undocumented)
 type EditorContextProps = {
   editorActions?: EditorActions;
+};
+
+// @public (undocumented)
+const editorDisabledPlugin: NextEditorPlugin<
+  'editorDisabled',
+  {
+    sharedState: EditorDisabledPluginState;
+  }
+>;
+
+// @public (undocumented)
+type EditorDisabledPluginState = {
+  editorDisabled: boolean;
 };
 
 export { EditorFeatureFlags };
@@ -1561,6 +1566,7 @@ export const mediaPlugin: NextEditorPlugin<
       typeof widthPlugin,
       typeof decorationsPlugin,
       FloatingToolbarPlugin,
+      typeof editorDisabledPlugin,
     ];
     sharedState: MediaPluginState | null;
   }
@@ -1800,13 +1806,6 @@ type MobileUploadEndEventPayload = {
 };
 
 // @public (undocumented)
-type MountedPortal = {
-  children: () => React_2.ReactChild | null;
-  hasAnalyticsContext: boolean;
-  hasIntlContext: boolean;
-};
-
-// @public (undocumented)
 const name_2: string;
 export { name_2 as name };
 
@@ -1923,75 +1922,11 @@ interface PlaceholderTextOptions {
   allowInserting?: boolean;
 }
 
-// @public (undocumented)
-export const PortalProvider: React_2.FC<
-  WithIntlProps<BasePortalProviderProps>
-> & {
-  WrappedComponent: React_2.ComponentType<BasePortalProviderProps>;
-};
+export { PortalProvider };
 
-// @public (undocumented)
-export class PortalProviderAPI extends EventDispatcher {
-  constructor(
-    intl: IntlShape,
-    onAnalyticsEvent?: FireAnalyticsCallback,
-    analyticsContext?: boolean,
-    themeMode?: ThemeModes,
-  );
-  // (undocumented)
-  context: any;
-  // (undocumented)
-  forceUpdate({
-    intl,
-    themeMode,
-  }: {
-    intl: IntlShape;
-    themeMode: ThemeModes | undefined;
-  }): void;
-  // (undocumented)
-  intl: IntlShape;
-  // (undocumented)
-  onAnalyticsEvent?: FireAnalyticsCallback;
-  // (undocumented)
-  portals: Map<HTMLElement, MountedPortal>;
-  // (undocumented)
-  remove(container: HTMLElement): void;
-  // (undocumented)
-  render(
-    children: () => JSX.Element | React_2.ReactChild | null,
-    container: HTMLElement,
-    hasAnalyticsContext?: boolean,
-    hasIntlContext?: boolean,
-  ): void;
-  // (undocumented)
-  setContext: (context: any) => void;
-  // (undocumented)
-  themeMode?: ThemeModes;
-  // (undocumented)
-  useAnalyticsContext?: boolean;
-}
+export { PortalProviderAPI };
 
-// @public (undocumented)
-export class PortalRenderer extends React_2.Component<
-  {
-    portalProviderAPI: PortalProviderAPI;
-  },
-  PortalRendererState
-> {
-  constructor(props: { portalProviderAPI: PortalProviderAPI });
-  // (undocumented)
-  handleUpdate: (portals: Portals) => void;
-  // (undocumented)
-  render(): JSX.Element;
-}
-
-// @public (undocumented)
-type PortalRendererState = {
-  portals: Portals;
-};
-
-// @public (undocumented)
-type Portals = Map<HTMLElement, React_2.ReactChild>;
+export { PortalRenderer };
 
 // @public (undocumented)
 type Predicate = (state: EditorState, view?: EditorView) => boolean;

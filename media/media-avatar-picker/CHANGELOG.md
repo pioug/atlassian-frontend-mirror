@@ -1,5 +1,12 @@
 # @atlaskit/media-avatar-picker
 
+## 24.3.5
+
+### Patch Changes
+
+- [`a67386c9448`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a67386c9448) - add missing label for media avatar picker back button
+- Updated dependencies
+
 ## 24.3.4
 
 ### Patch Changes

@@ -147,7 +147,6 @@ export const createPMSchemaAndPlugins =
     };
   };
 
-export { PortalProviderAPI } from './ui/PortalProvider';
 export { EventDispatcher } from './event-dispatcher';
 export type { Dispatch } from './event-dispatcher';
 export {

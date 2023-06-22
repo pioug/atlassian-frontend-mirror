@@ -26,7 +26,7 @@ import {
   FloatingToolbarConfig,
   FloatingToolbarButton,
 } from '../../../floating-toolbar/types';
-import { Command } from '../../../../types';
+import type { Command } from '@atlaskit/editor-common/types';
 import { SelectionBookmark, AllSelection } from 'prosemirror-state';
 import { DecorationSet } from 'prosemirror-view';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';

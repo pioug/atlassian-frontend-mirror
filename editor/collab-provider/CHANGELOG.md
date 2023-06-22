@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.3.0
+
+### Minor Changes
+
+- [`ece61235edc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ece61235edc) - ESS-3713: add getParticipants function to the collab provider
+
 ## 9.2.2
 
 ### Patch Changes

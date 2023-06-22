@@ -43,7 +43,7 @@
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@atlaskit/badge": "^15.1.0",
-    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/button": "^16.8.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.6.0",
@@ -62,6 +62,7 @@
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
+    "jest-axe": "^4.0.0",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",

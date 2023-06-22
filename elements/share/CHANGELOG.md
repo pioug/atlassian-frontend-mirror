@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.3.1
+
+### Patch Changes
+
+- [`6febf275a0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6febf275a0a) - [ux] Rename Roadmap to Timeline in the shared success message for roadmap share content type
+
 ## 4.3.0
 
 ### Minor Changes

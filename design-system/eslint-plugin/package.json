@@ -33,7 +33,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@babel/runtime": "^7.0.0",
     "@typescript-eslint/utils": "^5.48.1",
     "ajv": "^6.12.6",

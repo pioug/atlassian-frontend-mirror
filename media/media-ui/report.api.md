@@ -545,6 +545,7 @@ export type MessageKey =
   | 'annotate_tool_text'
   | 'archive'
   | 'audio'
+  | 'avatar_picker_back_btn_label'
   | 'cancel'
   | 'cant_preview_file_type'
   | 'cant_retrieve_files'

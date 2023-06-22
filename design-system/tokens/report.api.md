@@ -1415,13 +1415,15 @@ interface ThemeConfig {
   // (undocumented)
   displayName: string;
   // (undocumented)
-  id: ThemeIds;
+  id: ThemeIds | ThemeOverrideIds;
+  // (undocumented)
+  override?: ThemeIds;
   // (undocumented)
   palette: Palettes;
 }
 
 // @public (undocumented)
-export const themeConfig: Record<Themes, ThemeConfig>;
+export const themeConfig: Record<ThemeOverrides | Themes, ThemeConfig>;
 
 // @public (undocumented)
 export type ThemeIds = (typeof themeIds)[number];
@@ -1455,6 +1457,20 @@ export class ThemeMutationObserver {
 
 // @public
 export const themeObjectToString: (themeState: Partial<ThemeState>) => string;
+
+// @public (undocumented)
+type ThemeOverrideIds = (typeof themeOverrideIds)[number];
+
+// @public
+const themeOverrideIds: readonly [
+  'light-new-input-border',
+  'dark-new-input-border',
+];
+
+// @public
+type ThemeOverrides =
+  | 'atlassian-dark-new-input-border'
+  | 'atlassian-light-new-input-border';
 
 // @public
 export type Themes =

@@ -62,9 +62,7 @@ describe('JSON schema', () => {
   it('should be backwards compatible', async () => {
     const existingSchema = await fetchLastPublishedJSONSchema();
     try {
-      // TODO: Remove this orderedList_node skip after ADF schema changes merge to master
-      // (See: https://product-fabric.atlassian.net/browse/ED-15903)
-      const definitionsToSkip = ['orderedList_node'];
+      const definitionsToSkip = [''];
       expect(newSchema).toBeBackwardsCompatibleWith(
         existingSchema,
         definitionsToSkip,

@@ -13,6 +13,7 @@ import type { EditorView } from 'prosemirror-view';
 import type { ContentNodeWithPos } from 'prosemirror-utils';
 import type { ExtensionState } from './types';
 import { SaveIndicator } from './ui/SaveIndicator/SaveIndicator';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
 const areParametersEqual = (
   firstParameters: any,
@@ -36,7 +37,11 @@ const areParametersEqual = (
 };
 
 export const getContextPanel =
-  (allowAutoSave?: boolean, featureFlags?: FeatureFlags) =>
+  (
+    allowAutoSave?: boolean,
+    featureFlags?: FeatureFlags,
+    applyChange?: ApplyChangeHandler,
+  ) =>
   (state: EditorState) => {
     const nodeWithPos = getSelectedExtension(state, true);
 
@@ -111,7 +116,7 @@ export const getContextPanel =
                           autoSaveResolve();
                         }
                         if (!allowAutoSave) {
-                          clearEditingContext(
+                          clearEditingContext(applyChange)(
                             editorView.state,
                             editorView.dispatch,
                           );
@@ -121,7 +126,7 @@ export const getContextPanel =
                         if (allowAutoSave) {
                           try {
                             await new Promise<void>((resolve, reject) => {
-                              forceAutoSave(resolve, reject)(
+                              forceAutoSave(applyChange)(resolve, reject)(
                                 editorView.state,
                                 editorView.dispatch,
                               );
@@ -133,7 +138,7 @@ export const getContextPanel =
                           }
                         }
 
-                        clearEditingContext(
+                        clearEditingContext(applyChange)(
                           editorView.state,
                           editorView.dispatch,
                         );

@@ -2,6 +2,7 @@ import {
   editorTestCase as test,
   expect,
   EditorNodeContainerModel,
+  EditorMediaSingleModel,
 } from '@af/editor-libra';
 import { threeImages, oneImage } from './__fixtures__/adf-documents';
 import { doc, p, mediaSingle } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -36,6 +37,25 @@ test.describe('media single', () => {
     await editor.paste();
 
     await expect(await mediaSingle.count()).toBe(2);
+  });
+
+  test('should select the image on paste', async ({ editor }) => {
+    const { mediaSingle } = EditorNodeContainerModel.from(editor);
+
+    await test.step('make sure there is only one image in the document', async () => {
+      await expect(await mediaSingle.count()).toBe(1);
+    });
+
+    await mediaSingle.first().click();
+
+    await editor.copy();
+
+    await editor.selection.set({ anchor: 4, head: 4 });
+
+    await editor.paste();
+
+    const secondImageModel = EditorMediaSingleModel.from(mediaSingle.nth(1));
+    expect(await secondImageModel.isSelected()).toBe(true);
   });
 
   test.describe('when paste on top of other media single', () => {

@@ -36,6 +36,7 @@ import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import tablePlugin from '../../plugins/table-plugin';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
 import floatingToolbarPlugin from '@atlaskit/editor-core/src/plugins/floating-toolbar';
+import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -167,6 +168,7 @@ describe('table event handlers', () => {
       attachTo: document.body,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add(editorDisabledPlugin)
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)

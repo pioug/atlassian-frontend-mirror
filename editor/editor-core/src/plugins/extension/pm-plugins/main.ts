@@ -13,8 +13,12 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { EditorAppearance } from '../../../types/editor-appearance';
-import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import {
+  Dispatch,
+  EventDispatcher,
+} from '@atlaskit/editor-common/event-dispatcher';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+
 import { createSelectionClickHandler } from '../../selection/utils';
 import ExtensionNodeView from '../nodeviews/extension';
 import { updateState, clearEditingContext } from '../commands';
@@ -27,6 +31,7 @@ import {
 import { pluginKey } from '../plugin-key';
 import { updateEditButton } from './utils';
 import type extensionPlugin from '../index';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
 const shouldShowEditButton = (
   extensionHandler?: Extension | ExtensionHandler,
@@ -104,11 +109,13 @@ export const handleUpdate = ({
   prevState,
   domAtPos,
   extensionHandlers,
+  applyChange,
 }: {
   view: EditorView;
   prevState: EditorState;
   domAtPos: EditorView['domAtPos'];
   extensionHandlers: ExtensionHandlers;
+  applyChange: ApplyChangeHandler | undefined;
 }) => {
   const { state, dispatch } = view;
   const {
@@ -124,7 +131,7 @@ export const handleUpdate = ({
 
   if (!selectedExtension) {
     if (showContextPanel) {
-      clearEditingContext(state, dispatch);
+      clearEditingContext(applyChange)(state, dispatch);
     }
     return;
   }
@@ -153,7 +160,7 @@ export const handleUpdate = ({
 
   if (isNewNodeSelected || shouldUpdateEditButton) {
     if (showContextPanel) {
-      clearEditingContext(state, dispatch);
+      clearEditingContext(applyChange)(state, dispatch);
       return;
     }
 
@@ -205,6 +212,8 @@ const createPlugin = (
   const state = createPluginState(dispatch, {
     showEditButton: false,
     showContextPanel: false,
+    applyChangeToContextPanel:
+      pluginInjectionApi?.dependencies.contextPanel?.actions.applyChange,
   });
 
   const extensionNodeViewOptions = {
@@ -228,7 +237,15 @@ const createPlugin = (
 
       return {
         update: (view, prevState) => {
-          handleUpdate({ view, prevState, domAtPos, extensionHandlers });
+          handleUpdate({
+            view,
+            prevState,
+            domAtPos,
+            extensionHandlers,
+            applyChange:
+              pluginInjectionApi?.dependencies.contextPanel?.actions
+                .applyChange,
+          });
         },
         destroy: () => {
           providerFactory.unsubscribe(

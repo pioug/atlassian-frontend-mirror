@@ -13,6 +13,7 @@ import FocusRing from '@atlaskit/focus-ring';
 import type { InteractionContextType } from '@atlaskit/interaction-context';
 // eslint-disable-next-line no-duplicate-imports
 import InteractionContext from '@atlaskit/interaction-context';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -51,7 +52,14 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
       className,
       href,
       overlay,
-      tabIndex = 0,
+      // Don't set unnecessary tabIndex for focus if using standard <button> or <a>
+      // html elements. Set to `0` for custom components to ensure other elements can
+      // be focused (although the custom component could be a <button> or <a>...)
+      tabIndex = !props.component &&
+      getBooleanFF('platform.design-system-team.clove-sprint-a11y-button_5rz5j')
+        ? undefined
+        : 0,
+
       type = !href ? 'button' : undefined,
       onMouseDown: providedOnMouseDown = noop,
       onClick: providedOnClick = noop,

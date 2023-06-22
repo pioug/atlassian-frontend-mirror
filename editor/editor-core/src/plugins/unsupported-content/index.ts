@@ -13,7 +13,7 @@ import {
 import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
 import { UnsupportedInlineNodeView } from './unsupported-inline-node-view';
 
-import { ReactNodeView } from '../../nodeviews';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import {
   NextEditorPlugin,
   PMPluginFactory,

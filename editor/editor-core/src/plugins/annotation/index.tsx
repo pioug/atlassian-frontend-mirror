@@ -1,8 +1,10 @@
 import React from 'react';
 import { annotation } from '@atlaskit/adf-schema';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import WithPluginState from '../../ui/WithPluginState';
-import { stateKey as reactPluginKey } from '../../plugins/base/pm-plugins/react-nodeview';
+import type {
+  NextEditorPlugin,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
+import type { EditorView } from 'prosemirror-view';
 import { FloatingToolbarConfig } from '../floating-toolbar/types';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { inlineCommentPlugin } from './pm-plugins/inline-comment';
@@ -17,16 +19,20 @@ import {
   AnnotationTypeProvider,
 } from './types';
 import { UpdateEvent, AnnotationUpdateEmitter } from './update-provider';
-import { getPluginState, inlineCommentPluginKey } from './utils';
+import { getPluginState } from './utils';
 import { buildToolbar } from './toolbar';
 import { InlineCommentView } from './ui/InlineCommentView';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { InlineCommentPluginState } from './pm-plugins/types';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 
 const annotationPlugin: NextEditorPlugin<
   'annotation',
   {
     pluginConfiguration: AnnotationProviders | undefined;
+    sharedState: InlineCommentPluginState | undefined;
   }
-> = (annotationProviders?) => {
+> = (annotationProviders?, api?) => {
   return {
     name: 'annotation',
 
@@ -37,6 +43,13 @@ const annotationPlugin: NextEditorPlugin<
           mark: annotation,
         },
       ];
+    },
+
+    getSharedState(editorState) {
+      if (!editorState) {
+        return undefined;
+      }
+      return getPluginState(editorState);
     },
 
     pmPlugins: () => [
@@ -89,33 +102,48 @@ const annotationPlugin: NextEditorPlugin<
       if (!annotationProviders) {
         return null;
       }
-
       return (
-        <WithPluginState
-          plugins={{
-            selectionState: reactPluginKey,
-            inlineCommentState: inlineCommentPluginKey,
-          }}
-          render={({ inlineCommentState }) => {
-            if (inlineCommentState && !inlineCommentState.isVisible) {
-              return null;
-            }
-
-            return (
-              <div data-editor-popup="true">
-                <InlineCommentView
-                  providers={annotationProviders}
-                  editorView={editorView}
-                  dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-                />
-              </div>
-            );
-          }}
+        <AnnotationContentComponent
+          api={api}
+          editorView={editorView}
+          annotationProviders={annotationProviders}
+          dispatchAnalyticsEvent={dispatchAnalyticsEvent}
         />
       );
     },
   };
 };
+
+interface AnnotationContentComponentProps {
+  api: ExtractInjectionAPI<typeof annotationPlugin> | undefined;
+  editorView: EditorView;
+  annotationProviders: AnnotationProviders;
+  dispatchAnalyticsEvent: DispatchAnalyticsEvent | undefined;
+}
+
+function AnnotationContentComponent({
+  api,
+  editorView,
+  annotationProviders,
+  dispatchAnalyticsEvent,
+}: AnnotationContentComponentProps) {
+  const { annotationState: inlineCommentState } = useSharedPluginState(api, [
+    'annotation',
+  ]);
+  if (inlineCommentState && !inlineCommentState.isVisible) {
+    return null;
+  }
+
+  return (
+    <div data-editor-popup="true">
+      <InlineCommentView
+        providers={annotationProviders}
+        editorView={editorView}
+        dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+      />
+    </div>
+  );
+}
 
 export default annotationPlugin;
 export { AnnotationUpdateEmitter };

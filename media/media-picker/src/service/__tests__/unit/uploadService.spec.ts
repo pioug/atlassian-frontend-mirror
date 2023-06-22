@@ -88,6 +88,7 @@ describe('UploadService', () => {
     mediaClient: MediaClient = getMediaClient(),
     tenantUploadParams: UploadParams = { collection: '', expireAfter: 2 },
     shouldCopyFileToRecents: boolean = true,
+    maxUploadBatchSize = 255,
   ) => {
     asMock(mediaClient.file.touchFiles).mockResolvedValue(
       successfulTouchedFiles,
@@ -105,6 +106,7 @@ describe('UploadService', () => {
       mediaClient,
       tenantUploadParams,
       shouldCopyFileToRecents,
+      maxUploadBatchSize,
     );
 
     const filesAddedPromise = new Promise<void>((resolve) =>
@@ -131,7 +133,8 @@ describe('UploadService', () => {
       .mockReturnValueOnce('uuid4')
       .mockReturnValueOnce('uuid5')
       .mockReturnValueOnce('uuid6')
-      .mockReturnValueOnce('uuid7');
+      .mockReturnValueOnce('uuid7')
+      .mockReturnValue('uuidX');
   });
 
   afterEach(() => {
@@ -366,6 +369,87 @@ describe('UploadService', () => {
       expect(asMock(mediaClient.file.upload).mock.calls[1][0]).toEqual(
         expectedUploadableFile2,
       );
+    });
+
+    it('should  touch files in batches', async () => {
+      const file2: File = {
+        size: 10e7,
+        name: 'some-other-filename',
+        type: 'image/png',
+      } as File;
+
+      const file3: File = {
+        size: 50e7,
+        name: 'some-other-other-filename',
+        type: 'image/png',
+      } as File;
+
+      const file4: File = {
+        size: 40e7,
+        name: 'some-other-other-other-filename',
+        type: 'image/png',
+      } as File;
+
+      const maxUploadBatchSize = 3;
+      const expireAfter = 100;
+      const collection = 'some-collection';
+
+      const { mediaClient, uploadService } = setup(
+        undefined,
+        { collection, expireAfter },
+        undefined,
+        maxUploadBatchSize,
+      );
+
+      uploadService.addFiles([file, file2, file3, file4]);
+
+      await flushPromises();
+      expect(mediaClient.file.touchFiles).toHaveBeenCalledTimes(2);
+
+      const inputDescriptors0 = asMock(mediaClient.file.touchFiles).mock
+        .calls[0][0];
+      expect(inputDescriptors0).toHaveLength(3);
+      expect(inputDescriptors0).toEqual([
+        {
+          fileId: expect.any(String),
+          occurrenceKey: expect.any(String),
+          size: file.size,
+          collection,
+          expireAfter,
+        },
+        {
+          fileId: expect.any(String),
+          occurrenceKey: expect.any(String),
+          size: file2.size,
+          collection,
+          expireAfter,
+        },
+        {
+          fileId: expect.any(String),
+          occurrenceKey: expect.any(String),
+          size: file3.size,
+          collection,
+          expireAfter,
+        },
+      ]);
+
+      const input1 = asMock(mediaClient.file.touchFiles).mock.calls[1][0];
+      expect(input1).toHaveLength(1);
+
+      expect(input1).toEqual([
+        {
+          fileId: expect.any(String),
+          occurrenceKey: expect.any(String),
+          size: file4.size,
+          collection,
+          expireAfter,
+        },
+      ]);
+
+      // Trace context must be the same for all the calls
+      const inputTrace0 = asMock(mediaClient.file.touchFiles).mock.calls[0][2];
+      const inputTrace1 = asMock(mediaClient.file.touchFiles).mock.calls[1][2];
+      expect(inputTrace0).toEqual(inputTrace1);
     });
 
     it.each(['processing', 'processed', 'failed-processing'])(

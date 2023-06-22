@@ -11,7 +11,7 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
         value: 'DarkNeutral700',
       },
       inverse: {
-        value: 'DarkNeutral0',
+        value: 'DarkNeutral100',
       },
       disabled: {
         value: 'DarkNeutral400A',
@@ -30,7 +30,7 @@ const color: ValueSchema<IconColorTokenSchema<BaseToken>> = {
           value: 'Yellow500',
         },
         inverse: {
-          value: 'DarkNeutral0',
+          value: 'DarkNeutral100',
         },
       },
       success: {

@@ -127,21 +127,6 @@ const setGlobalTheme = async ({
     ),
   );
 
-  if (themePreferences.includes('dark')) {
-    if (
-      // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-      getBooleanFF('design-system-team.dark-theme-iteration_dk1ln')
-    ) {
-      await loadAndAppendThemeCss('dark-iteration');
-    } else if (
-      getBooleanFF(
-        'platform.design-system-team.dark-iteration-confluence_e2t22',
-      )
-    ) {
-      await loadAndAppendThemeCss('dark-iteration');
-    }
-  }
-
   if (colorMode === 'auto' && darkModeMql) {
     colorMode = darkModeMql.matches ? 'dark' : 'light';
     // Add an event listener for changes to the system theme.
@@ -207,21 +192,6 @@ export const getThemeStyles = async ({
     spacing,
     typography,
   });
-
-  if (themePreferences.includes('dark')) {
-    if (
-      // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-      getBooleanFF('design-system-team.dark-theme-iteration_dk1ln')
-    ) {
-      themePreferences.push('dark-iteration' as ThemeIds);
-    } else if (
-      getBooleanFF(
-        'platform.design-system-team.dark-iteration-confluence_e2t22',
-      )
-    ) {
-      themePreferences.push('dark-iteration' as ThemeIds);
-    }
-  }
 
   const results = await Promise.all(
     themePreferences.map(async (themeId): Promise<ThemeStyles | undefined> => {

@@ -28,7 +28,7 @@ import EditorContext from '../ui/EditorContext';
 import {
   PortalProviderWithThemeProviders,
   PortalRenderer,
-} from '../ui/PortalProvider';
+} from '@atlaskit/editor-common/portal-provider';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import { getBaseFontSize } from './utils/getBaseFontSize';
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';

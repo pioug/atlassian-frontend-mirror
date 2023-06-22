@@ -144,6 +144,7 @@ export type {
   ExtractInjectionAPI,
   ExtractPluginActions,
   PluginInjectionAPIWithDependency,
+  PluginInjectionAPIWithDependencies,
 } from './next-editor-plugin';
 
 export type IconProps = {

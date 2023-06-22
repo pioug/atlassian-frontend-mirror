@@ -49,6 +49,7 @@ import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { MediaPluginState } from './pm-plugins/types';
 import { stateKey } from './pm-plugins/plugin-key';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
+import type editorDisabled from '../editor-disabled';
 
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
@@ -64,6 +65,7 @@ const mediaPlugin: NextEditorPlugin<
       typeof widthPlugin,
       typeof decorationsPlugin,
       FloatingToolbarPlugin,
+      typeof editorDisabled,
     ];
     sharedState: MediaPluginState | null;
   }
@@ -142,6 +144,7 @@ const mediaPlugin: NextEditorPlugin<
                     eventDispatcher,
                     providerFactory,
                     options,
+                    api,
                   ),
                   mediaSingle: ReactMediaSingleNode(
                     portalProviderAPI,
@@ -162,6 +165,7 @@ const mediaPlugin: NextEditorPlugin<
                     portalProviderAPI,
                     eventDispatcher,
                     providerFactory,
+                    api,
                   ),
                 },
                 errorReporter,

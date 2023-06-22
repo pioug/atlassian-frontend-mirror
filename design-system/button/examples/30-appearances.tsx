@@ -38,7 +38,7 @@ export default function Example() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
-    <React.Fragment>
+    <div aria-live="polite">
       <Checkbox
         label="Show Loading State"
         isChecked={isLoading}
@@ -65,6 +65,6 @@ export default function Example() {
           </Row>
         ))}
       </Table>
-    </React.Fragment>
+    </div>
   );
 }

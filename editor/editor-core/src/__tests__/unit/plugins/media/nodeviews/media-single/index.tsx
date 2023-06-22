@@ -28,9 +28,8 @@ import MediaSingle, {
 } from '../../../../../../plugins/media/nodeviews/mediaSingle';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { EventDispatcher } from '../../../../../../event-dispatcher';
-import { PortalProviderAPI } from '../../../../../../ui/PortalProvider';
-import { stateKey as SelectionChangePluginKey } from '../../../../../../plugins/base/pm-plugins/react-nodeview';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { MediaOptions } from '../../../../../../plugins/media/types';
 import {
   nextTick,
@@ -187,10 +186,6 @@ describe('nodeviews/mediaSingle', () => {
     };
 
     jest.spyOn(mediaStateKey, 'getState').mockImplementation(() => pluginState);
-    jest.spyOn(SelectionChangePluginKey, 'getState').mockImplementation(() => ({
-      subscribe: jest.fn(),
-      unsubscribe: jest.fn(),
-    }));
   });
 
   describe('external images', () => {

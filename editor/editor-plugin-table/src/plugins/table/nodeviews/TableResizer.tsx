@@ -8,6 +8,9 @@ import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import {
   scaleTable,
   previewScaleTable,
+  getColgroupChildrenLength,
+  COLUMN_MIN_WIDTH,
+  TABLE_MAX_WIDTH,
 } from '../pm-plugins/table-resizing/utils';
 
 interface TableResizerProps {
@@ -30,6 +33,12 @@ export const TableResizer = ({
   node,
   tableRef,
 }: PropsWithChildren<TableResizerProps>) => {
+  const currentColumnCount = getColgroupChildrenLength(node);
+  const minColumnWidth =
+    currentColumnCount <= 3
+      ? currentColumnCount * COLUMN_MIN_WIDTH
+      : 3 * COLUMN_MIN_WIDTH;
+
   return (
     <ResizerNext
       enable={handles}
@@ -81,6 +90,8 @@ export const TableResizer = ({
         return newWidth;
       }}
       resizeRatio={2}
+      minWidth={minColumnWidth}
+      maxWidth={TABLE_MAX_WIDTH}
     >
       {children}
     </ResizerNext>

@@ -98,8 +98,12 @@ type PaletteValues =
   | 'DarkNeutral100A'
   | 'DarkNeutral200'
   | 'DarkNeutral200A'
+  | 'DarkNeutral250'
+  | 'DarkNeutral250A'
   | 'DarkNeutral300'
   | 'DarkNeutral300A'
+  | 'DarkNeutral350'
+  | 'DarkNeutral350A'
   | 'DarkNeutral400'
   | 'DarkNeutral400A'
   | 'DarkNeutral500'
@@ -216,7 +220,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Blue1000: {
-        value: '#082145',
+        value: '#092957',
         attributes: {
           group: 'palette',
           category: 'blue',
@@ -286,7 +290,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Red1000: {
-        value: '#391813',
+        value: '#4F1C16',
         attributes: {
           group: 'palette',
           category: 'red',
@@ -356,7 +360,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Yellow1000: {
-        value: '#3D2E00',
+        value: '#3F3102',
         attributes: {
           group: 'palette',
           category: 'yellow',
@@ -426,7 +430,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Green1000: {
-        value: '#133527',
+        value: '#143C2B',
         attributes: {
           group: 'palette',
           category: 'green',
@@ -496,7 +500,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Purple1000: {
-        value: '#231C3F',
+        value: '#2B2451',
         attributes: {
           group: 'palette',
           category: 'purple',
@@ -566,7 +570,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Teal1000: {
-        value: '#153337',
+        value: '#15373B',
         attributes: {
           group: 'palette',
           category: 'teal',
@@ -636,7 +640,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Orange1000: {
-        value: '#43290F',
+        value: '#4A2B0F',
         attributes: {
           group: 'palette',
           category: 'orange',
@@ -706,7 +710,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       Magenta1000: {
-        value: '#341829',
+        value: '#421F34',
         attributes: {
           group: 'palette',
           category: 'magenta',
@@ -834,6 +838,21 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
           category: 'dark mode neutral',
         },
       },
+      DarkNeutral250: {
+        value: '#282E33',
+        attributes: {
+          group: 'palette',
+          category: 'dark mode neutral',
+        },
+      },
+      DarkNeutral250A: {
+        // #C8E1F9 10%
+        value: '#C8E1F91A',
+        attributes: {
+          group: 'palette',
+          category: 'dark mode neutral',
+        },
+      },
       DarkNeutral300: {
         value: '#2C333A',
         attributes: {
@@ -844,6 +863,21 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
       DarkNeutral300A: {
         // #A6C5E2 16%
         value: '#A6C5E229',
+        attributes: {
+          group: 'palette',
+          category: 'dark mode neutral',
+        },
+      },
+      DarkNeutral350: {
+        value: '#38414A',
+        attributes: {
+          group: 'palette',
+          category: 'dark mode neutral',
+        },
+      },
+      DarkNeutral350A: {
+        // #C3DEFE 20%
+        value: '#C3DEFE33',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',
@@ -887,7 +921,7 @@ const palette: PaletteColorTokenSchema<PaletteValues> = {
         },
       },
       DarkNeutral700: {
-        value: '#8696A7',
+        value: '#8C9BAB',
         attributes: {
           group: 'palette',
           category: 'dark mode neutral',

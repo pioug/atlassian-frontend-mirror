@@ -17,10 +17,9 @@ import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider'
 import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProsemirrorGetPosHandler } from '../../../../../nodeviews/types';
 import { ReactMediaNode } from '../../../../../plugins/media/nodeviews/mediaNodeView';
-import { stateKey as SelectionChangePluginKey } from '../../../../../plugins/base/pm-plugins/react-nodeview';
-import { PortalProviderAPI } from '../../../../../ui/PortalProvider';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { MediaOptions } from '../../../../../plugins/media/types';
-import { EventDispatcher } from '../../../../../event-dispatcher';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 
 const getMockWidthInjectionApi: any = (width: number) => ({
   dependencies: {
@@ -80,10 +79,6 @@ describe('nodeviews/media', () => {
     cardDimensions = {} as NumericalCardDimensions;
 
     jest.spyOn(mediaStateKey, 'getState').mockImplementation(() => pluginState);
-    jest.spyOn(SelectionChangePluginKey, 'getState').mockImplementation(() => ({
-      subscribe: jest.fn(),
-      unsubscribe: jest.fn(),
-    }));
     pluginState.handleMediaNodeMount = jest.fn();
     pluginState.handleMediaNodeUnmount = jest.fn();
     pluginState.updateElement = jest.fn();

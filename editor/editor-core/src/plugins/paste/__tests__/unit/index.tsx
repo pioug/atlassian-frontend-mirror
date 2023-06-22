@@ -106,6 +106,7 @@ import codeBlockPlugin from '../../../code-block';
 import textFormattingPlugin from '../../../text-formatting';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import layoutPlugin from '../../../layout';
+import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { setupProvider } from '../../../../__tests__/unit/plugins/card/_helpers';
 import { InlineCommentAnnotationProvider } from '../../../annotation/types';
@@ -239,6 +240,7 @@ describe('paste plugins', () => {
           },
         ])
         .add(decorationsPlugin)
+        .add(contextPanelPlugin)
         .add(extensionPlugin)
         .add(blockTypePlugin)
         .add(hyperlinkPlugin)

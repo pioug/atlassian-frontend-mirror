@@ -56,6 +56,7 @@ import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 
 const pasteAndCompare = (
   { editorView }: { editorView: EditorView },
@@ -100,6 +101,7 @@ describe('action paste handler', () => {
         .add(listPlugin)
         .add(hyperlinkPlugin)
         .add([statusPlugin, { menuDisabled: false }])
+        .add(contextPanelPlugin)
         .add(tablesPlugin)
         .add(expandPlugin)
         .add(datePlugin)

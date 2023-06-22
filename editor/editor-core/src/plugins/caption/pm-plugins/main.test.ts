@@ -19,6 +19,7 @@ import {
 import { pluginKey } from './plugin-key';
 import { setTextSelection } from '../../../utils/selection';
 import deprecatedAnalyticsPlugin from '../../analytics';
+import editorDisabledPlugin from '../../editor-disabled';
 
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -36,6 +37,7 @@ describe('Caption plugin', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(decorationsPlugin)
+        .add(editorDisabledPlugin)
         .add(widthPlugin)
         .add(gridPlugin)
         .add(floatingToolbarPlugin)

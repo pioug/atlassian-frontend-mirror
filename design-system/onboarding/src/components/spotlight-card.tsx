@@ -23,6 +23,10 @@ const bodyStyles = css({
   flexDirection: 'column',
 });
 
+const imageStyles = css({
+  display: 'block',
+});
+
 const defaultHeaderStyles = css({
   display: 'flex',
   paddingBottom: token('space.100', '8px'),
@@ -182,7 +186,7 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
                   data-testid={testId}
                 >
                   {typeof image === 'string' ? (
-                    <img src={image} alt="" />
+                    <img css={imageStyles} src={image} alt="" />
                   ) : (
                     image
                   )}

@@ -246,6 +246,7 @@ describe('ExtensionsPlaceholder', () => {
             ],
           },
         ])}
+        applyChangeToContextPanel={undefined}
       />,
     );
   }

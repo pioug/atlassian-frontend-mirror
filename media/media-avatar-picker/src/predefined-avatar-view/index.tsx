@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
 import { predefinedAvatarViewWrapperStyles } from './styles';
 import { Avatar } from '../avatar-list';
@@ -15,17 +15,18 @@ export interface BackBtnProps {
   onClick?: () => void;
 }
 
-class BackBtn extends PureComponent<BackBtnProps, {}> {
-  render() {
-    return (
-      <Button
-        className="back-button"
-        iconAfter={<ArrowLeftIcon label="" />}
-        onClick={this.props.onClick}
-      />
-    );
-  }
-}
+const BackBtn = ({ onClick }: BackBtnProps) => {
+  const intl = useIntl();
+
+  return (
+    <Button
+      aria-label={intl.formatMessage(messages.avatar_picker_back_btn_label)}
+      className="back-button"
+      iconAfter={<ArrowLeftIcon label="" />}
+      onClick={onClick}
+    />
+  );
+};
 
 export interface PredefinedAvatarViewProps {
   avatars: Array<Avatar>;

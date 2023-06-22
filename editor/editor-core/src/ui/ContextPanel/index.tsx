@@ -13,7 +13,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import WithPluginState from '../WithPluginState';
-import { pluginKey as contextPanelPluginKey } from '../../plugins/context-panel';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import WithEditorActions from '../WithEditorActions';
 import { EditorView } from 'prosemirror-view';
@@ -238,6 +237,14 @@ const widthPluginKey = {
   key: 'widthPlugin$',
   getState: (state: EditorState) => {
     return (state as any)['widthPlugin$'];
+  },
+} as PluginKey;
+
+// @ts-ignore
+const contextPanelPluginKey = {
+  key: 'contextPanelPluginKey$',
+  getState: (state: EditorState) => {
+    return (state as any)['contextPanelPluginKey$'];
   },
 } as PluginKey;
 

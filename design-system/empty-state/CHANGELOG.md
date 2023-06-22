@@ -1,5 +1,11 @@
 # @atlaskit/empty-state
 
+## 7.6.0
+
+### Minor Changes
+
+- [`56d11ec914b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56d11ec914b) - Add a new prop `headingLevel` to set the heading level in the header element.
+
 ## 7.5.2
 
 ### Patch Changes

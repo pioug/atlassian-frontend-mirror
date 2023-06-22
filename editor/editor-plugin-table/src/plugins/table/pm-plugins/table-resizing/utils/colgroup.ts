@@ -1,6 +1,7 @@
 import { DOMSerializer, Node as PmNode } from 'prosemirror-model';
 import { getFragmentBackingArray } from '@atlaskit/editor-common/utils';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 type Col = Array<string | { [name: string]: string }>;
 
@@ -74,3 +75,8 @@ function renderColgroupFromNode(table: PmNode): HTMLElement {
 
   return rendered.dom as HTMLElement;
 }
+
+export const getColgroupChildrenLength = (table: PmNode): number => {
+  const map = TableMap.get(table);
+  return map.width;
+};

@@ -3,7 +3,7 @@ import EditorActions from '../../../actions';
 import { Transformer } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '../../../types';
 import { FireAnalyticsCallback } from '../../../plugins/analytics';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
 export type EditorProps = {
   plugins?: Array<EditorPlugin>;

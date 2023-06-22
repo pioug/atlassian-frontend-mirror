@@ -39,7 +39,7 @@
     "@atlaskit/menu": "^1.7.0",
     "@atlaskit/popup": "^1.7.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/button": "^16.8.0",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/form": "^8.11.0",

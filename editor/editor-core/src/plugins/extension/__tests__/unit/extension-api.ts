@@ -58,7 +58,7 @@ describe('ExtensionAPI', () => {
   };
 
   const createAPI = (editorView: EditorView): ExtensionAPI => {
-    return createExtensionAPI({ editorView });
+    return createExtensionAPI({ editorView, applyChange: undefined });
   };
 
   afterEach(() => {

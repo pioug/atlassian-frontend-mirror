@@ -17,8 +17,13 @@ export type Themes =
   | 'atlassian-typography';
 export type ThemeFileNames = Themes;
 
+/**
+ * ThemeOverrides: The internal identifier of a theme override. Which are themes that contain
+ * a subset of tokens intended to override an existing theme. These ids are what the actual
+ * theme files/folders are called. style-dictionary will attempt to locate these in the file-system.
+ * Theme overrides are temporary and there may not be any defined at times.
+ */
 export type ThemeOverrides =
-  | 'atlassian-dark-iteration'
   | 'atlassian-light-new-input-border'
   | 'atlassian-dark-new-input-border';
 
@@ -56,10 +61,15 @@ export const themeIds = [
 ] as const;
 export type ThemeIds = (typeof themeIds)[number];
 
-export type ThemeOverrideIds =
-  | 'dark-iteration'
-  | 'light-new-input-border'
-  | 'dark-new-input-border';
+/**
+ * Theme override ids: the equivalent of themeIds for theme overrides.
+ * Theme overrides are temporary and there may not be any defined at times.
+ */
+export const themeOverrideIds = [
+  'light-new-input-border',
+  'dark-new-input-border',
+] as const;
+export type ThemeOverrideIds = (typeof themeOverrideIds)[number];
 
 /**
  * Theme to use a base. This will create the theme as
@@ -85,7 +95,7 @@ export type Palettes =
  * This object should be used whenever interfacing with themes.
  */
 interface ThemeConfig {
-  id: ThemeIds;
+  id: ThemeIds | ThemeOverrideIds;
   displayName: string;
   palette: Palettes;
   attributes: (
@@ -100,9 +110,10 @@ interface ThemeConfig {
   ) & {
     extends?: ExtensionThemeId;
   };
+  override?: ThemeIds;
 }
 
-const themeConfig: Record<Themes, ThemeConfig> = {
+const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
   'atlassian-light': {
     id: 'light',
     displayName: 'Light Theme',
@@ -163,24 +174,11 @@ const themeConfig: Record<Themes, ThemeConfig> = {
       type: 'shape',
     },
   },
-};
-
-export const themeOverrideConfig = {
-  'atlassian-dark-iteration': {
-    id: 'dark-iteration',
-    displayName: 'Dark Theme Iteration',
-    palette: 'defaultPalette',
-    overrideTheme: 'dark',
-    attributes: {
-      type: 'color',
-      mode: 'dark',
-    },
-  },
   'atlassian-light-new-input-border': {
     id: 'light-new-input-border',
     displayName: 'Light Theme New Input Border',
     palette: 'defaultPalette',
-    overrideTheme: 'light',
+    override: 'light',
     attributes: {
       type: 'color',
       mode: 'light',
@@ -190,7 +188,7 @@ export const themeOverrideConfig = {
     id: 'dark-new-input-border',
     displayName: 'Dark Theme New Input Border',
     palette: 'defaultPalette',
-    overrideTheme: 'dark',
+    override: 'dark',
     attributes: {
       type: 'color',
       mode: 'dark',

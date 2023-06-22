@@ -35,6 +35,7 @@ import mediaPlugin from '../../../../media';
 import pastePlugin from '../../../index';
 import blockTypePlugin from '../../../../block-type';
 import hyperlinkPlugin from '../../../../hyperlink';
+import editorDisabledPlugin from '../../../../editor-disabled';
 import listPlugin from '../../../../list';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -59,6 +60,7 @@ describe('paste paragraph edge cases', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add(editorDisabledPlugin)
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)

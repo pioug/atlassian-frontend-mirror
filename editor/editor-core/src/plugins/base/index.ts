@@ -12,7 +12,6 @@ import contextIdentifierPlugin from './pm-plugins/context-identifier';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
 import betterTypeHistoryPlugin from './pm-plugins/better-type-history';
-import { plugin as reactNodeView } from './pm-plugins/react-nodeview';
 import scrollGutter, {
   ScrollGutterPluginOptions,
 } from './pm-plugins/scroll-gutter';
@@ -84,7 +83,6 @@ const basePlugin: NextEditorPlugin<
           name: 'newlinePreserveMarksPlugin',
           plugin: newlinePreserveMarksPlugin,
         },
-        { name: 'reactNodeView', plugin: () => reactNodeView },
         {
           name: 'frozenEditor',
           plugin: ({ dispatchAnalyticsEvent }) => {

@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@af/analytics-codegen": "^0.1.0",
-    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/button": "^16.8.0",
     "@atlaskit/docs": "*",
     "@atlaskit/link-picker": "^1.25.0",
     "@atlaskit/link-test-helpers": "^4.0.0",

@@ -35,6 +35,7 @@ import {
   getNodeName,
 } from '@atlaskit/editor-common/utils';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
 export const messages = defineMessages({
   edit: {
@@ -141,6 +142,7 @@ const breakoutOptions = (
 const editButton = (
   formatMessage: IntlShape['formatMessage'],
   extensionState: ExtensionState,
+  applyChangeToContextPanel: ApplyChangeHandler | undefined,
 ): Array<FloatingToolbarItem<Command>> => {
   if (!extensionState.showEditButton) {
     return [];
@@ -157,11 +159,11 @@ const editButton = (
         const macroState: MacroState = macroPluginKey.getState(state);
         const { updateExtension } = getPluginState(state);
 
-        editExtension(macroState && macroState.macroProvider, updateExtension)(
-          state,
-          dispatch,
-          view,
-        );
+        editExtension(
+          macroState && macroState.macroProvider,
+          applyChangeToContextPanel,
+          updateExtension,
+        )(state, dispatch, view);
 
         return true;
       },
@@ -172,11 +174,18 @@ const editButton = (
   ];
 };
 
+interface GetToolbarConfigProps {
+  breakoutEnabled: boolean | undefined;
+  hoverDecoration: HoverDecorationHandler | undefined;
+  applyChangeToContextPanel: ApplyChangeHandler | undefined;
+}
+
 export const getToolbarConfig =
-  (
-    breakoutEnabled: boolean = true,
-    hoverDecoration: HoverDecorationHandler | undefined,
-  ): FloatingToolbarHandler =>
+  ({
+    breakoutEnabled = true,
+    hoverDecoration,
+    applyChangeToContextPanel,
+  }: GetToolbarConfigProps): FloatingToolbarHandler =>
   (state, intl) => {
     const { formatMessage } = intl;
     const extensionState = getPluginState(state);
@@ -192,7 +201,11 @@ export const getToolbarConfig =
         state.schema.nodes.bodiedExtension,
       ];
 
-      const editButtonArray = editButton(formatMessage, extensionState);
+      const editButtonArray = editButton(
+        formatMessage,
+        extensionState,
+        applyChangeToContextPanel,
+      );
       const breakoutButtonArray = breakoutOptions(
         state,
         formatMessage,

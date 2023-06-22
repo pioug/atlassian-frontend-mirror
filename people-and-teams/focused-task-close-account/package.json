@@ -33,13 +33,13 @@
   },
   "dependencies": {
     "@atlaskit/avatar": "^21.3.0",
-    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/button": "^16.8.0",
     "@atlaskit/drawer": "^7.5.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/inline-dialog": "^13.6.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/styled": "^11.0.0",
     "react-intl-next": "npm:react-intl@^5.18.1"

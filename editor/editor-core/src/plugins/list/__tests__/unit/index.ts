@@ -26,6 +26,7 @@ import {
 import listPlugin from '../..';
 import blockTypePlugin from '../../../block-type';
 import breakoutPlugin from '../../../breakout';
+import editorDisabledPlugin from '../../../editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import layoutPlugin from '../../../layout';
@@ -52,6 +53,7 @@ describe('lists', () => {
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
       .add(decorationsPlugin)
+      .add(editorDisabledPlugin)
       .add(widthPlugin)
       .add(listPlugin)
       .add(blockTypePlugin)

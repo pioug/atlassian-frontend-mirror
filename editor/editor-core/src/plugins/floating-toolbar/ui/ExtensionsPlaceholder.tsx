@@ -14,6 +14,7 @@ import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { nodeToJSON } from '../../../utils';
 import { createExtensionAPI } from '../../extension/extension-api';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
 import Separator from './Separator';
 
@@ -22,12 +23,14 @@ interface Props {
   extensionProvider: ExtensionProvider;
   editorView: EditorView;
   separator?: 'start' | 'end' | 'both';
+  applyChangeToContextPanel: ApplyChangeHandler | undefined;
 }
 
 type ExtensionButtonProps = {
   item: ExtensionToolbarButton;
   editorView: EditorView;
   node: PMNode;
+  applyChangeToContextPanel: ApplyChangeHandler | undefined;
 };
 
 type ExtensionIconModule = ExtensionToolbarButton['icon'];
@@ -49,7 +52,7 @@ const resolveExtensionIcon = async (getIcon: ExtensionIconModule) => {
 };
 
 const ExtensionButton = (props: ExtensionButtonProps) => {
-  const { item, node, editorView } = props;
+  const { item, node, editorView, applyChangeToContextPanel } = props;
 
   const ButtonIcon = React.useMemo(
     () =>
@@ -70,7 +73,10 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
     }
 
     const targetNodeAdf: ADFEntity = nodeToJSON(node);
-    const api: ExtensionAPI = createExtensionAPI({ editorView });
+    const api: ExtensionAPI = createExtensionAPI({
+      editorView,
+      applyChange: applyChangeToContextPanel,
+    });
 
     item.action(targetNodeAdf, api);
   };
@@ -90,7 +96,13 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
 };
 
 export const ExtensionsPlaceholder = (props: Props) => {
-  const { node, editorView, extensionProvider, separator } = props;
+  const {
+    node,
+    editorView,
+    extensionProvider,
+    separator,
+    applyChangeToContextPanel,
+  } = props;
   const [extensions, setExtensions] = useState<ExtensionManifest<any>[]>([]);
 
   useEffect(() => {
@@ -109,9 +121,12 @@ export const ExtensionsPlaceholder = (props: Props) => {
     return getContextualToolbarItemsFromModule(
       extensions,
       nodeAdf,
-      createExtensionAPI({ editorView }),
+      createExtensionAPI({
+        editorView,
+        applyChange: applyChangeToContextPanel,
+      }),
     );
-  }, [extensions, nodeAdf, editorView]);
+  }, [extensions, nodeAdf, editorView, applyChangeToContextPanel]);
 
   if (!extensionItems.length) {
     return null;
@@ -125,7 +140,12 @@ export const ExtensionsPlaceholder = (props: Props) => {
   }
   extensionItems.forEach((item: any, index: number) => {
     children.push(
-      <ExtensionButton node={node} item={item} editorView={editorView} />,
+      <ExtensionButton
+        node={node}
+        item={item}
+        editorView={editorView}
+        applyChangeToContextPanel={applyChangeToContextPanel}
+      />,
     );
     if (index < extensionItems.length - 1) {
       children.push(<Separator />);

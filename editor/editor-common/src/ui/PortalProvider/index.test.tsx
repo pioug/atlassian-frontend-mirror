@@ -4,15 +4,20 @@ jest.mock('react-dom', () => ({
 }));
 
 import React from 'react';
-import { unmountComponentAtNode } from 'react-dom';
+
 import { render } from '@testing-library/react';
+import { unmountComponentAtNode } from 'react-dom';
+
 import {
   AnalyticsListener,
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
-import { PortalProvider, PortalRenderer, PortalProviderAPI } from './';
-import { ContextAdapter } from '../../nodeviews/context-adapter';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
+// eslint-disable-next-line
+import { ContextAdapter } from '../../../../editor-core/src/nodeviews/context-adapter';
+
+import { PortalProvider, PortalProviderAPI, PortalRenderer } from './index';
 const Component = () => <div className="component">My component</div>;
 const Component2 = () => {
   const { createAnalyticsEvent } = useAnalyticsEvents();

@@ -9,11 +9,12 @@ import {
   ForwardRef,
   getPosHandler,
   ProsemirrorGetPosHandler,
-  ReactNodeView,
 } from '../../../nodeviews';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+
 import Extension from '../ui/Extension';
 import ExtensionNodeWrapper from '../ui/Extension/ExtensionNodeWrapper';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { EventDispatcher } from '../../../event-dispatcher';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 

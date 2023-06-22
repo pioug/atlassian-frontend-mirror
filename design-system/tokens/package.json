@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -66,7 +66,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@atlaskit/avatar": "^21.3.0",
-    "@atlaskit/button": "^16.7.0",
+    "@atlaskit/button": "^16.8.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/docs": "^9.1.0",
     "@atlaskit/dropdown-menu": "^11.9.0",
@@ -129,12 +129,6 @@
     }
   },
   "platform-feature-flags": {
-    "design-system-team.dark-theme-iteration_dk1ln": {
-      "type": "boolean"
-    },
-    "platform.design-system-team.dark-iteration-confluence_e2t22": {
-      "type": "boolean"
-    },
     "platform.design-system-team.border-checkbox_nyoiu": {
       "type": "boolean"
     },

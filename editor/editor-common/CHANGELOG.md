@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.8.0
+
+### Minor Changes
+
+- [`5e01082b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e01082b600) - Extracting SelectionBasedNodeView to editor-common.
+
+## 74.7.9
+
+### Patch Changes
+
+- [`87366c84531`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87366c84531) - Extract context panel plugin to new package @atlaskit/editor-plugin-context-panel
+
 ## 74.7.8
 
 ### Patch Changes

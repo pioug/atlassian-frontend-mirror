@@ -2,6 +2,7 @@ export {
   generateColgroup,
   insertColgroupFromNode,
   hasTableBeenResized,
+  getColgroupChildrenLength,
 } from './colgroup';
 export { contentWidth } from './content-width';
 export {
@@ -39,3 +40,4 @@ export {
 export type { ScaleOptions } from './scale-table';
 export type { ResizeState, ResizeStateWithAnalytics } from './types';
 export { resizeColumn } from './resize-column';
+export { COLUMN_MIN_WIDTH, TABLE_MAX_WIDTH } from './consts';

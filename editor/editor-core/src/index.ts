@@ -174,7 +174,7 @@ export {
   PortalProvider,
   PortalProviderAPI,
   PortalRenderer,
-} from './ui/PortalProvider';
+} from '@atlaskit/editor-common/portal-provider';
 export {
   GapCursorSelection,
   Side as GapCursorSide,

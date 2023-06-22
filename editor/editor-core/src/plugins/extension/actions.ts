@@ -40,6 +40,7 @@ import {
   getEditInLegacyMacroBrowser,
   createExtensionAPI,
 } from './extension-api';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
 export const buildExtensionNode = <S extends Schema>(
   type: 'inlineExtension' | 'extension' | 'bodiedExtension',
@@ -200,8 +201,10 @@ export const updateExtensionParams =
 
 export const editSelectedExtension = (editorActions: EditorActions) => {
   const editorView = editorActions._privateGetEditorView()!;
-  const { updateExtension } = getPluginState(editorView.state);
-  return editExtension(null, updateExtension)(
+  const { updateExtension, applyChangeToContextPanel } = getPluginState(
+    editorView.state,
+  );
+  return editExtension(null, applyChangeToContextPanel, updateExtension)(
     editorView.state,
     editorView.dispatch,
     editorView,
@@ -211,6 +214,7 @@ export const editSelectedExtension = (editorActions: EditorActions) => {
 export const editExtension =
   (
     macroProvider: MacroProvider | null,
+    applyChangeToContextPanel: ApplyChangeHandler | undefined,
     updateExtension?: Promise<UpdateExtension<object> | void>,
   ): Command =>
   (state, dispatch, view): boolean => {
@@ -235,6 +239,7 @@ export const editExtension =
           const actions = createExtensionAPI({
             editorView: view,
             editInLegacyMacroBrowser,
+            applyChange: applyChangeToContextPanel,
           });
 
           updateExtensionParams(updateMethod, nodeWithPos, actions)(

@@ -13,7 +13,8 @@ import {
 import { processRawValue } from '@atlaskit/editor-common/utils';
 
 import EditorActions from '../../../../../actions';
-import { PortalProviderAPI } from '../../../../../ui/PortalProvider';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+
 import { EditorSharedConfig } from '../../context/shared-config';
 import { EditorPropsExtended } from '../../editor-props-type';
 import { createSchema } from '../../../../../create-editor/create-schema';

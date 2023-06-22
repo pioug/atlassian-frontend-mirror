@@ -16,7 +16,10 @@ export async function __temporaryFixForConfigPanel(editorView: EditorView) {
 
   if (extensionPluginState && extensionPluginState.showContextPanel) {
     await new Promise<void>((resolve) => {
-      forceAutoSave(resolve)(editorView.state, editorView.dispatch);
+      forceAutoSave(extensionPluginState.applyChangeToContextPanel)(resolve)(
+        editorView.state,
+        editorView.dispatch,
+      );
     });
   }
 }

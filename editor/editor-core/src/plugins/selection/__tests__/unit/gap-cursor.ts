@@ -43,6 +43,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import mediaPlugin from '../../../media';
+import editorDisabledPlugin from '../../../editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import selectionPlugin from '../../../selection';
@@ -513,6 +514,7 @@ describe('gap-cursor', () => {
         preset: new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
           .add(decorationsPlugin)
+          .add(editorDisabledPlugin)
           .add(widthPlugin)
           .add(gridPlugin)
           .add(floatingToolbarPlugin)

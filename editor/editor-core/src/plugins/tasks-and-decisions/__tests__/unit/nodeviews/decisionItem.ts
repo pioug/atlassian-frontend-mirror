@@ -6,8 +6,9 @@ import {
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { EventDispatcher } from '../../../../../event-dispatcher';
-import ReactNodeView from '../../../../../nodeviews/ReactNodeView';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+
 import { decisionItemNodeView } from '../../../../../plugins/tasks-and-decisions/nodeviews/decisionItem';
 
 describe('Decision Item - NodeView', () => {

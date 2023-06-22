@@ -176,6 +176,7 @@ const CustomThemeButton = React.memo(
                   {...restProps}
                   ref={ref}
                   overlay={isLoading ? <LoadingSpinner {...restProps} /> : null}
+                  aria-busy={isLoading}
                   onMouseEnter={onMouseEnter}
                   onMouseLeave={onMouseLeave}
                   onMouseDown={onMouseDown}

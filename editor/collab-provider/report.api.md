@@ -477,6 +477,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   getFinalAcknowledgedState: () => Promise<ResolvedEditorState>;
   getMetadata: () => Metadata_2;
   // (undocumented)
+  getParticipants: () => ProviderParticipant[];
+  // (undocumented)
   getStatePromiseResolve: (value: PromiseLike<void> | void) => void;
   // (undocumented)
   getUnconfirmedSteps: () => readonly Step[] | undefined;

@@ -16,9 +16,10 @@ import {
   ForwardRef,
   getPosHandler,
   getPosHandlerNode,
-  ReactNodeView,
 } from '../../../nodeviews';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import WithPluginState from '../../../ui/WithPluginState';
 import { stateKey as taskPluginKey } from '../pm-plugins/plugin-key';
 import TaskItem from '../ui/Task';

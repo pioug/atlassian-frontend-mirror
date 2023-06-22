@@ -119,10 +119,16 @@ export const setupConfigPanel = async (
 
   await waitForProvider(providerFactory)('extensionProvider');
 
-  setEditingContextToContextPanel(actualTransformBefore, actualTransformAfter)(
-    editorView.state,
-    editorView.dispatch,
-  );
+  // For tests we don't have access to the plugin injection api, let's hack around this for now
+  const applyChangeToContextPanel =
+    // @ts-ignore
+    editorView.state['extensionPlugin$'].applyChangeToContextPanel;
+
+  setEditingContextToContextPanel(
+    actualTransformBefore,
+    actualTransformAfter,
+    applyChangeToContextPanel,
+  )(editorView.state, editorView.dispatch);
 
   const contextPanel = getContextPanel(autoSave, {
     expandedChartColors: true,

@@ -170,4 +170,46 @@ describe('Empty state', () => {
     expect(images).toHaveLength(1);
     expect(images[0]).toHaveAttribute('src', 'image-url-in-props');
   });
+
+  it('should render heading level without passed `headingLevel` correctly', async () => {
+    render(<EmptyState header="Test header" imageUrl="image-url-in-props" />);
+
+    expect(screen.getByRole('heading', { level: 4 })).toBeInTheDocument();
+  });
+
+  it('should render heading level with passed `headingLevel = 2` correctly', async () => {
+    render(
+      <EmptyState
+        header="Test header"
+        headingLevel={2}
+        imageUrl="image-url-in-props"
+      />,
+    );
+
+    expect(screen.getByRole('heading', { level: 2 })).toBeInTheDocument();
+  });
+
+  it('should render heading level with passed `headingLevel = value that is less than 1` correctly', async () => {
+    render(
+      <EmptyState
+        header="Test header"
+        headingLevel={0}
+        imageUrl="image-url-in-props"
+      />,
+    );
+
+    expect(screen.getByRole('heading', { level: 4 })).toBeInTheDocument();
+  });
+
+  it('should render heading level with passed `headingLevel = value greater than 6` correctly', async () => {
+    render(
+      <EmptyState
+        header="Test header"
+        headingLevel={7}
+        imageUrl="image-url-in-props"
+      />,
+    );
+
+    expect(screen.getByRole('heading', { level: 6 })).toBeInTheDocument();
+  });
 });

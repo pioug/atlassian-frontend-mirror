@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.8.0
+
+### Minor Changes
+
+- [`5104149700b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5104149700b) - Button no longer unnecessarily sets `tabindex` as `0` for focus when using default `<button>` or `<a>` elements, as they are already focusable. This is still set when using the `component` prop so other elements can still be be focused. (This change is feature flagged)
+
 ## 16.7.6
 
 ### Patch Changes

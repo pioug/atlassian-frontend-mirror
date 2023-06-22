@@ -8,7 +8,7 @@ import { token } from '@atlaskit/tokens';
 
 import Button from '../src';
 
-const Icon = <AtlassianIcon label="Test icon" size="small" />;
+const Icon = <AtlassianIcon label="" size="small" />;
 
 const ButtonWrapper = ({
   inline = true,

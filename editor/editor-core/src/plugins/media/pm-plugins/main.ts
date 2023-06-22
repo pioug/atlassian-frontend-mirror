@@ -2,7 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Node as PMNode, Schema } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, NodeSelection } from 'prosemirror-state';
+import {
+  EditorState,
+  NodeSelection,
+  TextSelection,
+  AllSelection,
+} from 'prosemirror-state';
 import { insertPoint } from 'prosemirror-transform';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { MediaClientConfig } from '@atlaskit/media-core';
@@ -47,6 +52,8 @@ import { isInListItem } from '../../../utils';
 import { CAPTION_PLACEHOLDER_ID } from '../ui/CaptionPlaceholder';
 import { IntlShape, RawIntlProvider } from 'react-intl-next';
 import { MediaTaskManager } from './mediaTaskManager';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import type { MediaDecorationSpec } from '../types';
 
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
@@ -740,7 +747,6 @@ export const createPlugin = (
           // we shift it to the media single parent as other code is opinionated about
           // the selection landing there. In particular the caption insertion and selection
           // action.
-
           return newState.tr.setSelection(
             NodeSelection.create(
               newState.doc,
@@ -765,15 +771,45 @@ export const createPlugin = (
     },
     props: {
       decorations: (state) => {
-        const pluginState = getMediaPluginState(state);
-        if (!pluginState.showDropzone) {
-          return;
-        }
-
+        // Use this to indicate that the media node is selected
+        const mediaNodes: Decoration[] = [];
         const {
           schema,
           selection: { $anchor },
+          doc,
         } = state;
+
+        // Find any media nodes in the current selection
+        if (
+          state.selection instanceof TextSelection ||
+          state.selection instanceof AllSelection ||
+          state.selection instanceof NodeSelection ||
+          state.selection instanceof CellSelection
+        ) {
+          doc.nodesBetween(
+            state.selection.from,
+            state.selection.to,
+            (node, pos) => {
+              if (node.type === schema.nodes.media) {
+                mediaNodes.push(
+                  Decoration.node<MediaDecorationSpec>(
+                    pos,
+                    pos + node.nodeSize,
+                    {},
+                    { type: 'media', selected: true },
+                  ),
+                );
+                return false;
+              }
+              return true;
+            },
+          );
+        }
+
+        const pluginState = getMediaPluginState(state);
+        if (!pluginState.showDropzone) {
+          return DecorationSet.create(state.doc, mediaNodes);
+        }
 
         // When a media is already selected
         if (state.selection instanceof NodeSelection) {
@@ -788,10 +824,10 @@ export const createPlugin = (
               },
             );
 
-            return DecorationSet.create(state.doc, [deco]);
+            return DecorationSet.create(state.doc, [deco, ...mediaNodes]);
           }
 
-          return;
+          return DecorationSet.create(state.doc, mediaNodes);
         }
 
         let pos: number | null | void = $anchor.pos;
@@ -803,11 +839,12 @@ export const createPlugin = (
         }
 
         if (pos === null || pos === undefined) {
-          return;
+          return DecorationSet.create(state.doc, mediaNodes);
         }
 
         const dropPlaceholders: Decoration[] = [
           Decoration.widget(pos, dropPlaceholder, { key: 'drop-placeholder' }),
+          ...mediaNodes,
         ];
         return DecorationSet.create(state.doc, dropPlaceholders);
       },

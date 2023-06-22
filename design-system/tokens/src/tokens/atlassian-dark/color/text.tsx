@@ -5,7 +5,7 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
   color: {
     text: {
       '[default]': {
-        value: 'DarkNeutral1000',
+        value: 'DarkNeutral900',
       },
       subtle: {
         value: 'DarkNeutral800',
@@ -14,7 +14,7 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
         value: 'DarkNeutral700',
       },
       inverse: {
-        value: 'DarkNeutral0',
+        value: 'DarkNeutral100',
       },
       disabled: {
         value: 'DarkNeutral400A',
@@ -33,7 +33,7 @@ const color: ValueSchema<TextColorTokenSchema<BaseToken>> = {
           value: 'Yellow300',
         },
         inverse: {
-          value: 'DarkNeutral0',
+          value: 'DarkNeutral100',
         },
       },
       success: {

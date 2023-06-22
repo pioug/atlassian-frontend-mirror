@@ -1,6 +1,7 @@
 import React from 'react';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
-import { ReactNodeView, ForwardRef } from '../../../nodeviews';
+import { ForwardRef } from '../../../nodeviews';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
 export class AnnotationNodeView extends ReactNodeView {
   createDomRef() {

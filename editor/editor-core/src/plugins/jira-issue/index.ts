@@ -2,7 +2,8 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from 'prosemirror-state';
 import { confluenceJiraIssue } from '@atlaskit/adf-schema';
 import { NextEditorPlugin, PMPluginFactory } from '../../types';
-import { ReactNodeView } from '../../nodeviews';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+
 import ReactJIRAIssueNode from './nodeviews/jira-issue';
 
 export const pluginKey = new PluginKey('jiraIssuePlugin');

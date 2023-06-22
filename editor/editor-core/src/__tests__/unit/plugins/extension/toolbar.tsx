@@ -87,11 +87,11 @@ describe('extension toolbar', () => {
         ),
       );
 
-      const toolbar = getToolbarConfig(undefined, undefined)(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
+      const toolbar = getToolbarConfig({
+        breakoutEnabled: undefined,
+        hoverDecoration: undefined,
+        applyChangeToContextPanel: undefined,
+      })(editorView.state, intl, providerFactory);
       expect(toolbar).toBeDefined();
       const removeButton = getToolbarItems(toolbar!, editorView).find(
         (item) => item.type === 'button' && item.title === removeTitle,
@@ -112,11 +112,11 @@ describe('extension toolbar', () => {
         ),
       );
 
-      const toolbar = getToolbarConfig(undefined, undefined)(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
+      const toolbar = getToolbarConfig({
+        breakoutEnabled: undefined,
+        hoverDecoration: undefined,
+        applyChangeToContextPanel: undefined,
+      })(editorView.state, intl, providerFactory);
       expect(toolbar).toBeDefined();
       const editButton = getToolbarItems(toolbar!, editorView).find(
         (item) => item.type === 'button' && item.title === 'Edit',
@@ -136,11 +136,11 @@ describe('extension toolbar', () => {
         ),
       );
 
-      const toolbar = getToolbarConfig(true, undefined)(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
+      const toolbar = getToolbarConfig({
+        breakoutEnabled: true,
+        hoverDecoration: undefined,
+        applyChangeToContextPanel: undefined,
+      })(editorView.state, intl, providerFactory);
       expect(toolbar).toBeDefined();
 
       const breakoutButtons = getToolbarItems(toolbar!, editorView).filter(
@@ -165,11 +165,11 @@ describe('extension toolbar', () => {
         ),
       );
 
-      const toolbar = getToolbarConfig(false, undefined)(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
+      const toolbar = getToolbarConfig({
+        breakoutEnabled: false,
+        hoverDecoration: undefined,
+        applyChangeToContextPanel: undefined,
+      })(editorView.state, intl, providerFactory);
       expect(toolbar).toBeDefined();
       const breakoutButtons = getToolbarItems(toolbar!, editorView).filter(
         (item) =>
@@ -483,11 +483,11 @@ describe('extension toolbar', () => {
         expect(providerFactory.hasProvider('extensionProvider')).toBeTruthy();
         await waitForProvider(providerFactory)('extensionProvider');
 
-        const toolbar = getToolbarConfig(undefined, undefined)(
-          editorView.state,
-          intl,
-          providerFactory,
-        );
+        const toolbar = getToolbarConfig({
+          breakoutEnabled: undefined,
+          hoverDecoration: undefined,
+          applyChangeToContextPanel: undefined,
+        })(editorView.state, intl, providerFactory);
         expect(toolbar).toBeDefined();
 
         await flushPromises();
@@ -510,11 +510,11 @@ describe('extension toolbar', () => {
 
       describe('getToolbarConfig for extension', () => {
         const getTestConfig = (editorView: EditorView) => {
-          const toolbar = getToolbarConfig(undefined, undefined)(
-            editorView.state,
-            intl,
-            providerFactory,
-          );
+          const toolbar = getToolbarConfig({
+            breakoutEnabled: undefined,
+            hoverDecoration: undefined,
+            applyChangeToContextPanel: undefined,
+          })(editorView.state, intl, providerFactory);
           expect(toolbar).toBeDefined();
 
           const removeButton = findToolbarBtn(

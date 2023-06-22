@@ -13,23 +13,20 @@ import { Filmstrip, FilmstripItem } from '@atlaskit/media-filmstrip';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
 import React from 'react';
-import { EventDispatcher } from '../../../event-dispatcher';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
   ForwardRef,
   getPosHandler,
   getPosHandlerNode,
   ProsemirrorGetPosHandler,
 } from '../../../nodeviews/';
-import ReactNodeView from '../../../nodeviews/ReactNodeView';
-import { stateKey as reactNodeViewStateKey } from '../../../plugins/base/pm-plugins/react-nodeview';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
-import WithPluginState from '../../../ui/WithPluginState';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+
 import { setNodeSelection } from '../../../utils';
 import { isNodeSelectedOrInRange, SelectedState } from '../../../utils/nodes';
-import {
-  EditorDisabledPluginState,
-  pluginKey as editorDisabledPluginKey,
-} from '../../editor-disabled';
+import { EditorDisabledPluginState } from '../../editor-disabled';
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
@@ -37,6 +34,9 @@ import { MediaOptions } from '../types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages } from './messages';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type mediaPlugin from '../index';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 export type MediaGroupProps = {
   forwardRef?: (ref: HTMLElement) => void;
@@ -310,22 +310,39 @@ interface MediaGroupNodeViewProps {
   isCopyPasteEnabled?: boolean;
   providerFactory: ProviderFactory;
   mediaOptions: MediaOptions;
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+}
+
+interface RenderFn {
+  editorDisabledPlugin?: EditorDisabledPluginState;
+}
+
+interface MediaGroupNodeViewInternalProps {
+  renderFn: (props: RenderFn) => JSX.Element | null;
+  pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
+}
+
+function MediaGroupNodeViewInternal({
+  renderFn,
+  pluginInjectionApi,
+}: MediaGroupNodeViewInternalProps) {
+  const { editorDisabledState: editorDisabledPlugin } = useSharedPluginState(
+    pluginInjectionApi,
+    ['editorDisabled'],
+  );
+  return renderFn({ editorDisabledPlugin });
 }
 
 class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
   render(props: MediaGroupNodeViewProps, forwardRef: ForwardRef) {
-    const { providerFactory, mediaOptions } = props;
+    const { providerFactory, mediaOptions, pluginInjectionApi } = props;
     const getPos = this.getPos as getPosHandlerNode;
     return (
       <WithProviders
         providers={['mediaProvider', 'contextIdentifierProvider']}
         providerFactory={providerFactory}
         renderNode={({ mediaProvider, contextIdentifierProvider }) => {
-          const renderFn = ({
-            editorDisabledPlugin,
-          }: {
-            editorDisabledPlugin?: EditorDisabledPluginState;
-          }) => {
+          const renderFn = ({ editorDisabledPlugin }: RenderFn) => {
             if (!mediaProvider) {
               return null;
             }
@@ -347,13 +364,9 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
             );
           };
           return (
-            <WithPluginState
-              editorView={this.view}
-              plugins={{
-                reactNodeViewState: reactNodeViewStateKey,
-                editorDisabledPlugin: editorDisabledPluginKey,
-              }}
-              render={renderFn}
+            <MediaGroupNodeViewInternal
+              renderFn={renderFn}
+              pluginInjectionApi={pluginInjectionApi}
             />
           );
         }}
@@ -368,6 +381,7 @@ export const ReactMediaGroupNode =
     eventDispatcher: EventDispatcher,
     providerFactory: ProviderFactory,
     mediaOptions: MediaOptions = {},
+    pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
   ) =>
   (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
     const hasIntlContext = true;
@@ -380,6 +394,7 @@ export const ReactMediaGroupNode =
       {
         providerFactory,
         mediaOptions,
+        pluginInjectionApi,
       },
       undefined,
       undefined,

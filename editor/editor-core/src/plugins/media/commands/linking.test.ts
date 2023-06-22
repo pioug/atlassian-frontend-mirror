@@ -22,6 +22,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import mediaPlugin from '../';
 import floatingToolbarPlugin from '../../floating-toolbar';
+import editorDisabledPlugin from '../../editor-disabled';
 
 import { MediaLinkingActionsTypes } from '../pm-plugins/linking/actions';
 import { checkMediaType } from '../utils/check-media-type';
@@ -60,6 +61,7 @@ describe('image linking', () => {
         .add(widthPlugin)
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
+        .add(editorDisabledPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowLinking: true }])
         .add(hyperlinkPlugin),
       providerFactory,

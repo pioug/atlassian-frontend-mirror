@@ -8,7 +8,7 @@ import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider
 
 import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
 import { Command } from '../../../types';
-import { PortalProviderAPI } from '../../../ui/PortalProvider';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { nodesBetweenChanged, SetAttrsStep } from '../../../utils';
 import { createSelectionClickHandler } from '../../selection/utils';
 import { decisionItemNodeView } from '../nodeviews/decisionItem';

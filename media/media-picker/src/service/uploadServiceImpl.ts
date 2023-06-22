@@ -34,6 +34,10 @@ export interface CancellableFileUpload {
   cancel?: () => void;
 }
 
+const generateTraceContext = (): MediaTraceContext => ({
+  traceId: getRandomHex(8),
+});
+
 export class UploadServiceImpl implements UploadService {
   private readonly userMediaClient?: MediaClient;
   private readonly emitter: EventEmitter2;
@@ -44,6 +48,7 @@ export class UploadServiceImpl implements UploadService {
     private readonly tenantMediaClient: MediaClient,
     private tenantUploadParams: UploadParams,
     private readonly shouldCopyFileToRecents: boolean,
+    private readonly maxUploadBatchSize = 255, // Max supported batch is 255. We parametrise it for testing purposes
   ) {
     this.emitter = new EventEmitter2();
     this.cancellableFilesUploads = {};
@@ -59,12 +64,22 @@ export class UploadServiceImpl implements UploadService {
   }
 
   addFiles(files: File[]): void {
-    this.addFilesWithSource(
-      files.map((file: File) => ({
-        file,
-        source: LocalFileSource.LocalUpload,
-      })),
-    );
+    const { maxUploadBatchSize } = this;
+    const traceContext = generateTraceContext();
+    for (
+      let iterator = 0;
+      iterator < files.length;
+      iterator += maxUploadBatchSize
+    ) {
+      const filesArray = files
+        .slice(iterator, iterator + maxUploadBatchSize)
+        .map((file: File) => ({
+          file,
+          source: LocalFileSource.LocalUpload,
+        }));
+
+      this.addFilesWithSource(filesArray, traceContext);
+    }
   }
 
   addFile(file: File, replaceFileId?: string) {
@@ -73,7 +88,10 @@ export class UploadServiceImpl implements UploadService {
     ]);
   }
 
-  async addFilesWithSource(files: LocalFileWithSource[]): Promise<void> {
+  async addFilesWithSource(
+    files: LocalFileWithSource[],
+    traceContext = generateTraceContext(),
+  ): Promise<void> {
     if (files.length === 0) {
       return;
     }
@@ -110,9 +128,6 @@ export class UploadServiceImpl implements UploadService {
         expireAfter,
       });
     }
-    const traceContext: MediaTraceContext = {
-      traceId: getRandomHex(8),
-    };
 
     let touchedFiles: TouchedFiles;
     let caughtError: unknown;

@@ -48,6 +48,7 @@ export type MessageKey =
   | 'or'
   | 'upload_photo'
   | 'default_avatars'
+  | 'avatar_picker_back_btn_label'
   | 'drag_and_drop_images_here'
   | 'upload_image'
   | 'image_url_invalid_error'
@@ -384,6 +385,11 @@ export const messages: Messages = defineMessages({
     id: 'fabric.media.default_avatars',
     defaultMessage: 'Default avatars',
     description: 'Showed above the default avatar list',
+  },
+  avatar_picker_back_btn_label: {
+    id: 'fabric.media.avatar_picker_back_btn_label',
+    defaultMessage: 'Go Back',
+    description: 'Button text to navigate back to the previous screen',
   },
   drag_and_drop_images_here: {
     id: 'fabric.media.drag_and_drop_images_here',

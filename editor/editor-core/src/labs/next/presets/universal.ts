@@ -35,7 +35,6 @@ import {
   scrollIntoViewPlugin,
   mobileDimensionsPlugin,
   findReplacePlugin,
-  contextPanelPlugin,
   mobileSelectionPlugin,
   annotationPlugin,
   captionPlugin,
@@ -46,6 +45,7 @@ import {
   copyButtonPlugin,
   borderPlugin,
 } from '../../../plugins';
+import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import cardPlugin from '../../../plugins/card';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
@@ -405,6 +405,13 @@ export default function createUniversalPreset(
 
       return builder;
     })
+    .maybeAdd(contextPanelPlugin, (plugin, builder) => {
+      if (isFullPage) {
+        return builder.add(contextPanelPlugin);
+      }
+
+      return builder;
+    })
     .maybeAdd(extensionPlugin, (plugin, builder) => {
       if (props.allowExtension) {
         const extensionConfig =
@@ -517,13 +524,6 @@ export default function createUniversalPreset(
     .maybeAdd(indentationPlugin, (plugin, builder) => {
       if (props.allowIndentation) {
         return builder.add(plugin);
-      }
-
-      return builder;
-    })
-    .maybeAdd(contextPanelPlugin, (plugin, builder) => {
-      if (isFullPage) {
-        return builder.add(contextPanelPlugin);
       }
 
       return builder;

@@ -30,7 +30,7 @@ function ourTheme(
 
 function Example() {
   return (
-    <div css={{ margin: token('space.250', '20px') }}>
+    <div css={{ margin: token('space.250', '20px') }} aria-live="polite">
       <h3 css={{ marginBottom: token('space.200', '16px') }}>ADG Button</h3>
       <ButtonGroup>
         <CustomThemeButton iconBefore={<AddIcon label="" />}>

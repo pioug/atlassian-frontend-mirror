@@ -3,8 +3,11 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { getPluginState } from './main';
 import * as keymaps from '../../../keymaps';
 import { clearEditingContext } from '../commands';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
-export default function keymapPlugin(): SafePlugin {
+export default function keymapPlugin(
+  applyChange: ApplyChangeHandler | undefined,
+): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
@@ -16,7 +19,7 @@ export default function keymapPlugin(): SafePlugin {
         return false;
       }
 
-      return clearEditingContext(state, dispatch);
+      return clearEditingContext(applyChange)(state, dispatch);
     },
     list,
   );

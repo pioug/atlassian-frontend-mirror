@@ -14,6 +14,7 @@ import EmptyStateImageDimensions from '../../examples/constellation/empty-state-
 import EmptyStateImageMaxDimensions from '../../examples/constellation/empty-state-image-max-dimensions';
 import EmptyStateNarrow from '../../examples/constellation/empty-state-narrow';
 import EmptyStateWide from '../../examples/constellation/empty-state-wide';
+import EmptyStateWithHeadingLevel from '../../examples/constellation/empty-state-with-heading-level';
 
 
 ## Default
@@ -21,6 +22,14 @@ import EmptyStateWide from '../../examples/constellation/empty-state-wide';
 The only required part of an empty state is the header.
 
 <Example Component={EmptyStateDefault} packageName="@atlaskit/empty-state" />
+
+## Custom Heading Level
+
+The heading level rendered by default is heading level 4. Based on the heading structure and placement of the `<EmptyState>`, you may need to modify this.
+
+Use the `headingLevel` prop to set the heading level of the header element.
+
+<Example Component={EmptyStateWithHeadingLevel} packageName="@atlaskit/empty-state" />
 
 ## Description
 

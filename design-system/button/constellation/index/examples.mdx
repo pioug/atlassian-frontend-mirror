@@ -45,6 +45,8 @@ A small wrapper around `Button` that allows you to show an `@atlaskit/spinner` a
 
 `LoadingButton` takes care of applying a spinner with the correct size and color based on the button spacing and appearance props.
 
+To assist screen readers, it will also set the `aria-busy` attribute based on the value of `isLoading`. For this reason, it's important that elements containing `LoadingButton`'s have an `aria-live` attribute (e.g. `aria-live="polite"`).
+
 ```js
 // from named entry point (to ensure minimum code is brought in)
 import LoadingButton from '@atlaskit/button/loading-button';   

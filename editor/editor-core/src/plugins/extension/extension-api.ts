@@ -39,6 +39,7 @@ import {
   AnalyticsEventPayload,
 } from '../analytics';
 import { NodeWithPos, setTextSelection } from 'prosemirror-utils';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
 interface EditInLegacyMacroBrowserArgs {
   view: EditorView;
@@ -70,6 +71,7 @@ export const getEditInLegacyMacroBrowser = ({
 
 interface CreateExtensionAPIOptions {
   editorView: EditorView;
+  applyChange: ApplyChangeHandler | undefined;
   editInLegacyMacroBrowser?: () => void;
 }
 
@@ -324,11 +326,11 @@ export const createExtensionAPI = (
     ) => {
       const { editorView } = options;
 
-      setEditingContextToContextPanel(transformBefore, transformAfter)(
-        editorView.state,
-        editorView.dispatch,
-        editorView,
-      );
+      setEditingContextToContextPanel(
+        transformBefore,
+        transformAfter,
+        options.applyChange,
+      )(editorView.state, editorView.dispatch, editorView);
     },
 
     _editInLegacyMacroBrowser: () => {

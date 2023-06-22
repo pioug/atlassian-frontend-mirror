@@ -1,5 +1,12 @@
 # @atlaskit/onboarding
 
+## 10.8.4
+
+### Patch Changes
+
+- [`df6aac8c5a6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df6aac8c5a6) - When providing an image path to `SpotlightCard`, there is no longer an additional space that appears between the image and content padding.
+- Updated dependencies
+
 ## 10.8.3
 
 ### Patch Changes

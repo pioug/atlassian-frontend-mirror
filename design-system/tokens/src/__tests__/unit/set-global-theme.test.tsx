@@ -205,44 +205,6 @@ describe('setGlobalTheme', () => {
     expect(dataThemes.sort()).toEqual(['dark', 'spacing', 'typography']);
   });
 
-  it('should load the dark theme override CSS on the page when the feature flag is enabled and dark theme is specified', async () => {
-    (getBooleanFF as jest.Mock).mockImplementation(
-      (name) => name === 'design-system-team.dark-theme-iteration_dk1ln',
-    );
-
-    await setGlobalTheme({
-      dark: 'dark',
-      light: 'light',
-      spacing: 'spacing',
-      typography: 'typography',
-    });
-
-    // Wait for styles to be added to the page
-    await waitFor(() => {
-      const styleElements = document.querySelectorAll(
-        `style[${THEME_DATA_ATTRIBUTE}]`,
-      );
-      expect(styleElements).toHaveLength(5);
-    });
-
-    // Validate that the data-theme attributes match the expected values
-    const styleElements = document.querySelectorAll('style');
-    const dataThemes = Array.from(styleElements).map((el) =>
-      el.getAttribute('data-theme'),
-    );
-
-    // Validate that dark-iteration is the last theme added to the page
-    expect(dataThemes[4]).toBe('dark-iteration');
-
-    expect(dataThemes.sort()).toEqual([
-      'dark',
-      'dark-iteration',
-      'light',
-      'spacing',
-      'typography',
-    ]);
-  });
-
   it('should load the border theme override CSS on the page when the feature flag is enabled', async () => {
     (getBooleanFF as jest.Mock).mockImplementation(
       (name) => name === 'platform.design-system-team.border-checkbox_nyoiu',
@@ -384,28 +346,6 @@ describe('getThemeStyles', () => {
     expect(getThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
       { id: 'dark', attrs: { 'data-theme': 'dark' } },
-    ]);
-  });
-
-  it('returns an array of ThemeStyles that includes `dark-iteration` when the feature flag is enabled and the `dark` theme is included', async () => {
-    (getBooleanFF as jest.Mock).mockImplementation(
-      (name) => name === 'design-system-team.dark-theme-iteration_dk1ln',
-    );
-
-    let results = await getThemeStyles({
-      colorMode: 'auto',
-      dark: 'dark',
-      light: 'light',
-      spacing: 'spacing',
-      typography: 'typography',
-    });
-
-    expect(getThemeData(results)).toEqual([
-      { id: 'light', attrs: { 'data-theme': 'light' } },
-      { id: 'dark', attrs: { 'data-theme': 'dark' } },
-      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-      { id: 'typography', attrs: { 'data-theme': 'typography' } },
-      { id: 'dark-iteration', attrs: { 'data-theme': 'dark-iteration' } },
     ]);
   });
 

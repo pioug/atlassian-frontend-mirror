@@ -52,6 +52,8 @@ import floatingToolbarPlugin from '../../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import panelPlugin from '../../../panel';
+import editorDisabledPlugin from '../../../editor-disabled';
+
 import {
   InlineCommentMap,
   InlineCommentPluginState,
@@ -76,6 +78,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
   .add(widthPlugin)
   .add(gridPlugin)
   .add(floatingToolbarPlugin)
+  .add(editorDisabledPlugin)
   .add([
     mediaPlugin,
     {

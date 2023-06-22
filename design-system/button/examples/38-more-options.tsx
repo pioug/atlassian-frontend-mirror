@@ -9,7 +9,6 @@ import Open from '@atlaskit/icon/glyph/editor/open';
 import Unlink from '@atlaskit/icon/glyph/editor/unlink';
 import Page from '@atlaskit/icon/glyph/page';
 import Question from '@atlaskit/icon/glyph/question';
-import { getTokenValue } from '@atlaskit/tokens';
 
 import { Appearance } from '../src';
 import Button, { ButtonProps } from '../src/button';
@@ -23,23 +22,10 @@ const styles = {
     paddingBottom: '10px',
     paddingTop: '10px',
   },
-  customBorder: {
-    border: `2px solid ${getTokenValue(
-      'color.border.accent.purple',
-      'purple',
-    )} !important`,
-  },
-  customBackground: {
-    backgroundColor: `${getTokenValue(
-      'color.background.accent.magenta.subtler',
-      'pink',
-    )} !important`,
-  },
-  customText: {
-    color: `${getTokenValue(
-      'color.text.accent.teal.bolder',
-      'aquamarine',
-    )} !important`,
+  customColor: {
+    backgroundColor: '#ffbbc7 !important',
+    border: '1px solid #c87a88',
+    color: '#6B0014 !important',
   },
   truncated: {
     maxWidth: '100px',
@@ -134,14 +120,7 @@ const BuildStory = (props: ButtonProps) => {
       </div>
 
       <div css={styles.sample}>
-        <Button
-          appearance={appearance}
-          css={[
-            styles.customBorder,
-            styles.customBackground,
-            styles.customText,
-          ]}
-        >
+        <Button appearance={appearance} css={styles.customColor}>
           Custom classes with crazy colors
         </Button>
         <span>custom classes</span>

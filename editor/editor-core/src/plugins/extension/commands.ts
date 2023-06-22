@@ -2,7 +2,6 @@ import { removeSelectedNode, removeParentNodeOfType } from 'prosemirror-utils';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
 import { Node as PMNode } from 'prosemirror-model';
 
-import { applyChange } from '../context-panel/transforms';
 import { createCommand } from './plugin-factory';
 import { ExtensionAction, ExtensionState } from './types';
 import { getSelectedExtension } from './utils';
@@ -14,6 +13,7 @@ import {
   TransformBefore,
   TransformAfter,
 } from '@atlaskit/editor-common/src/extensions';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
 export function updateState(state: Partial<ExtensionState>) {
   return createCommand({
@@ -27,6 +27,7 @@ export function setEditingContextToContextPanel<
 >(
   processParametersBefore: TransformBefore<T>,
   processParametersAfter: TransformAfter<T>,
+  applyChangeToContextPanel: ApplyChangeHandler | undefined,
 ) {
   return createCommand<ExtensionAction<T>>(
     {
@@ -37,33 +38,35 @@ export function setEditingContextToContextPanel<
         processParametersAfter,
       },
     },
-    applyChange,
+    applyChangeToContextPanel,
   );
 }
 
-export const clearEditingContext = createCommand(
-  {
-    type: 'UPDATE_STATE',
-    data: {
-      showContextPanel: false,
-      processParametersBefore: undefined,
-      processParametersAfter: undefined,
-    },
-  },
-  applyChange,
-);
-
-export const forceAutoSave = (
-  resolve: () => void,
-  reject?: (reason?: any) => void,
+export const clearEditingContext = (
+  applyChangeToContextPanel: ApplyChangeHandler | undefined,
 ) =>
   createCommand(
     {
       type: 'UPDATE_STATE',
-      data: { autoSaveResolve: resolve, autoSaveReject: reject },
+      data: {
+        showContextPanel: false,
+        processParametersBefore: undefined,
+        processParametersAfter: undefined,
+      },
     },
-    applyChange,
+    applyChangeToContextPanel,
   );
+
+export const forceAutoSave =
+  (applyChangeToContextPanel: ApplyChangeHandler | undefined) =>
+  (resolve: () => void, reject?: (reason?: any) => void) =>
+    createCommand(
+      {
+        type: 'UPDATE_STATE',
+        data: { autoSaveResolve: resolve, autoSaveReject: reject },
+      },
+      applyChangeToContextPanel,
+    );
 
 export const updateExtensionLayout = (layout: ExtensionLayout) =>
   createCommand({ type: 'UPDATE_STATE', data: { layout } }, (tr, state) => {

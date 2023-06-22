@@ -6,8 +6,9 @@ import {
   getPosHandler,
   getPosHandlerNode,
   ProsemirrorGetPosHandler,
-  SelectionBasedNodeView,
 } from '../../../nodeviews/';
+import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
+
 import WithPluginState from '../../../ui/WithPluginState';
 import { MediaInlineCard } from '@atlaskit/media-card';
 import { MediaClientConfig } from '@atlaskit/media-core/auth';
@@ -18,13 +19,16 @@ import {
   ContextIdentifierProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { PortalProviderAPI } from '../../../../src/ui/PortalProvider';
+import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+
 import { MediaInlineNodeSelector } from './styles';
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type mediaPlugin from '../index';
 
 export interface MediaInlineProps {
   mediaProvider: Promise<MediaProvider>;
@@ -227,6 +231,7 @@ export const ReactMediaInlineNode =
     portalProviderAPI: PortalProviderAPI,
     eventDispatcher: EventDispatcher,
     providerFactory: ProviderFactory,
+    pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
     dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
   ) =>
   (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {

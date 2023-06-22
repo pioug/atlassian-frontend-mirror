@@ -35,7 +35,7 @@
     "@atlaskit/item": "^12.1.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.8.0",
+    "@atlaskit/tokens": "^1.9.0",
     "@babel/runtime": "^7.0.0",
     "keycode": "^2.1.7"
   },

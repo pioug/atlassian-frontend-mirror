@@ -26,7 +26,7 @@ import {
   shouldUpdate,
 } from './types';
 
-export type { getPosHandler, ReactComponentProps };
+export type { getPosHandler, ReactComponentProps, shouldUpdate };
 export type { InlineNodeViewComponentProps } from './getInlineNodeViewProducer';
 export {
   getInlineNodeViewProducer,
@@ -44,6 +44,7 @@ export default class ReactNodeView<P = ReactComponentProps>
   private _viewShouldUpdate?: shouldUpdate;
   protected eventDispatcher?: EventDispatcher;
   private hasIntlContext: boolean;
+  protected decorations: Decoration[] = [];
 
   reactComponentProps: P;
 
@@ -196,13 +197,15 @@ export default class ReactNodeView<P = ReactComponentProps>
 
   update(
     node: PMNode,
-    _decorations: Array<Decoration>,
+    decorations: Array<Decoration>,
     _innerDecorations?: Array<Decoration>,
     validUpdate: (currentNode: PMNode, newNode: PMNode) => boolean = () => true,
   ) {
     // @see https://github.com/ProseMirror/prosemirror/issues/648
     const isValidUpdate =
       this.node.type === node.type && validUpdate(this.node, node);
+
+    this.decorations = decorations;
 
     if (!isValidUpdate) {
       return false;
@@ -214,7 +217,7 @@ export default class ReactNodeView<P = ReactComponentProps>
 
     // View should not process a re-render if this is false.
     // We dont want to destroy the view, so we return true.
-    if (!this.viewShouldUpdate(node)) {
+    if (!this.viewShouldUpdate(node, decorations)) {
       this.node = node;
       return true;
     }
@@ -228,7 +231,7 @@ export default class ReactNodeView<P = ReactComponentProps>
     return true;
   }
 
-  viewShouldUpdate(nextNode: PMNode): boolean {
+  viewShouldUpdate(nextNode: PMNode, decorations?: Array<Decoration>): boolean {
     if (this._viewShouldUpdate) {
       return this._viewShouldUpdate(nextNode);
     }

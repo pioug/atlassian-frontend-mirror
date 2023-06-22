@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bf68f8b27a7e8cb681dab129d7d61d14>>
+ * @codegen <<SignedSource::4775571c3069bfd6624c6d9e47870342>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -198,11 +198,11 @@ html[data-color-mode="dark"][data-theme~="dark:light"] {
   --ds-chart-categorical-4: #943D73;
   --ds-chart-categorical-4-hovered: #50253F;
   --ds-chart-categorical-5: #09326C;
-  --ds-chart-categorical-5-hovered: #082145;
+  --ds-chart-categorical-5-hovered: #092957;
   --ds-chart-categorical-6: #8F7EE7;
   --ds-chart-categorical-6-hovered: #8270DB;
   --ds-chart-categorical-7: #50253F;
-  --ds-chart-categorical-7-hovered: #341829;
+  --ds-chart-categorical-7-hovered: #421F34;
   --ds-chart-categorical-8: #974F0C;
   --ds-chart-categorical-8-hovered: #5F3811;
   --ds-chart-lime-bold: #6A9A23;

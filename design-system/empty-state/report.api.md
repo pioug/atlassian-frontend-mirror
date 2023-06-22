@@ -23,6 +23,7 @@ import type { ReactNode } from 'react';
 const EmptyState: ({
   description,
   header,
+  headingLevel,
   imageHeight,
   imageUrl,
   imageWidth,
@@ -43,6 +44,7 @@ export default EmptyState;
 export interface EmptyStateProps {
   description?: ReactNode;
   header: string;
+  headingLevel?: number;
   imageHeight?: number;
   imageUrl?: string;
   imageWidth?: number;

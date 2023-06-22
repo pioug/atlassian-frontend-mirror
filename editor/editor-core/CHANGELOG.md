@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 185.2.27
+
+### Patch Changes
+
+- [`8114875676c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8114875676c) - [ux] ED-17625: move playwright test from editor-plugin-table to editor-core
+
+## 185.2.26
+
+### Patch Changes
+
+- [`5e01082b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e01082b600) - Extracting SelectionBasedNodeView to editor-common.
+- Updated dependencies
+
+## 185.2.25
+
+### Patch Changes
+
+- [`87366c84531`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87366c84531) - Extract context panel plugin to new package @atlaskit/editor-plugin-context-panel
+- Updated dependencies
+
+## 185.2.24
+
+### Patch Changes
+
+- [`a7642631f34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a7642631f34) - Reduce re-rendering due to props changing in the Editor.
+
 ## 185.2.23
 
 ### Patch Changes

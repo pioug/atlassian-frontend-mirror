@@ -15,7 +15,7 @@ import {
 import { EditorPlugin } from '../../../types';
 import { EventDispatcher } from '../../../event-dispatcher';
 import EditorActions from '../../../actions';
-import contextPanelPlugin from '../../../plugins/context-panel';
+import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import {
   ContextPanelConsumer,
   ContextPanelWidthProvider,

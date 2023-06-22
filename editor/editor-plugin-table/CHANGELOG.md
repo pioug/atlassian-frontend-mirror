@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 1.6.5
+
+### Patch Changes
+
+- [`dcb378acc03`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dcb378acc03) - [ux] ED-17625: add restriction of resizing table
+
+## 1.6.4
+
+### Patch Changes
+
+- [`5e01082b600`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e01082b600) - Extracting SelectionBasedNodeView to editor-common.
+- Updated dependencies
+
 ## 1.6.3
 
 ### Patch Changes

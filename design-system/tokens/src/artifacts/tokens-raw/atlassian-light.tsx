@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::148c69092f499e3fd244297f7a130fbf>>
+ * @codegen <<SignedSource::20f8ad047dd30f24c669af342c4b2993>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -5435,7 +5435,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.5."
     },
-    "value": "#082145",
+    "value": "#092957",
     "filePath": "src/tokens/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -5551,7 +5551,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.7."
     },
-    "value": "#341829",
+    "value": "#421F34",
     "filePath": "src/tokens/atlassian-light/color/chart.tsx",
     "isSource": true,
     "original": {

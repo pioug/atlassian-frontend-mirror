@@ -118,3 +118,8 @@ export type MediaFloatingToolbarOptions = {
   altTextValidator?: (value: string) => string[];
   getEditorFeatureFlags?: GetEditorFeatureFlags;
 };
+
+export type MediaDecorationSpec = {
+  type: 'media';
+  selected: boolean;
+};

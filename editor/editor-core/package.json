@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "185.2.27",
+  "version": "185.3.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,12 +49,12 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.7.0",
-    "@atlaskit/editor-common": "^74.8.0",
+    "@atlaskit/editor-common": "^74.9.0",
     "@atlaskit/editor-json-transformer": "^8.9.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.0",
-    "@atlaskit/editor-palette": "1.5.0",
-    "@atlaskit/editor-plugin-analytics": "^0.0.2",
-    "@atlaskit/editor-plugin-content-insertion": "^0.0.2",
+    "@atlaskit/editor-palette": "1.5.1",
+    "@atlaskit/editor-plugin-analytics": "^0.0.3",
+    "@atlaskit/editor-plugin-content-insertion": "^0.0.3",
     "@atlaskit/editor-plugin-context-panel": "^0.1.0",
     "@atlaskit/editor-plugin-decorations": "^0.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
@@ -248,6 +248,10 @@
     },
     "platform.linking-platform.editor.fix-link-insert-analytics": {
       "type": "boolean"
+    },
+    "platform.design-system-team.menu-selected-state-change_0see9": {
+      "type": "boolean",
+      "referenceOnly": "true"
     }
   }
 }

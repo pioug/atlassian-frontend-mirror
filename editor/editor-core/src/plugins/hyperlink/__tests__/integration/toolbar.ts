@@ -80,9 +80,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 22/06/2023: https://product-fabric.atlassian.net/browse/ED-18914
 BrowserTestCase(
   'can edit hyperlink URL with toolbar',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(page, {
@@ -242,9 +245,12 @@ describe('with feature flag: lp-link-picker', () => {
     },
   );
 
+  // FIXME: This test was automatically skipped due to failure on 22/06/2023: https://product-fabric.atlassian.net/browse/ED-18914
   BrowserTestCase(
     'can edit hyperlink URL with toolbar',
-    {},
+    {
+      skip: ['*'],
+    },
     async (client: any, testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(

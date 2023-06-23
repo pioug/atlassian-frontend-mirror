@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.4.0
+
+### Minor Changes
+
+- [`b5a13856081`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5a13856081) - [ux] Better accessibility support and copy for the Share dialog
+
 ## 4.3.1
 
 ### Patch Changes

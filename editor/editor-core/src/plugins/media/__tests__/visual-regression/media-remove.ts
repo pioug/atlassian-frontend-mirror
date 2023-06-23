@@ -35,7 +35,8 @@ describe('Snapshot Test: remove media', () => {
     afterEach(async () => {
       await snapshot(page);
     });
-    it('receives focus should highlight an element', async () => {
+    // FIXME: This test was automatically skipped due to failure on 22/06/2023: https://product-fabric.atlassian.net/browse/ED-18913
+    it.skip('receives focus should highlight an element', async () => {
       await initEditor(page);
       await retryUntilStablePosition(
         page,

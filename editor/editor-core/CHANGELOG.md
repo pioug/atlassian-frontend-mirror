@@ -1,5 +1,16 @@
 # @atlaskit/editor-core
 
+## 185.3.0
+
+### Minor Changes
+
+- [`4bf22e4eb1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4bf22e4eb1c) - The editor dropdown menu items are now forced to be `position: static` when a feature flag is on to work around menu items being position relative now. This is a short term fix to keep the table cell color nested menu working.
+
+### Patch Changes
+
+- [`8b14ad8d3e2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b14ad8d3e2) - Dummy change to trigger pipeline
+- Updated dependencies
+
 ## 185.2.27
 
 ### Patch Changes

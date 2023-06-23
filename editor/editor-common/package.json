@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "74.8.0",
+  "version": "74.9.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,6 +25,7 @@
   "atlassian": {
     "team": "Editor",
     "inPublicMirror": true,
+    "singleton": true,
     "releaseModel": "continuous"
   },
   "af:exports": {
@@ -82,7 +83,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/collab-provider": "^9.3.0",
-    "@atlaskit/editor-palette": "1.5.0",
+    "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/emoji": "^67.4.0",
     "@atlaskit/icon": "^21.12.0",
@@ -93,7 +94,7 @@
     "@atlaskit/mention": "^22.1.0",
     "@atlaskit/menu": "^1.7.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/profilecard": "^19.4.0",
+    "@atlaskit/profilecard": "^19.5.0",
     "@atlaskit/smart-user-picker": "^6.1.0",
     "@atlaskit/task-decision": "^17.6.0",
     "@atlaskit/theme": "^12.5.0",
@@ -135,10 +136,10 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/editor-core": "^185.2.0",
+    "@atlaskit/editor-core": "^185.3.0",
     "@atlaskit/editor-json-transformer": "^8.9.0",
-    "@atlaskit/editor-plugin-analytics": "^0.0.2",
-    "@atlaskit/editor-plugin-content-insertion": "^0.0.2",
+    "@atlaskit/editor-plugin-analytics": "^0.0.3",
+    "@atlaskit/editor-plugin-content-insertion": "^0.0.3",
     "@atlaskit/editor-plugin-decorations": "^0.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-plugin-grid": "^0.1.0",
@@ -183,6 +184,9 @@
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.editor.sentry-error-monitoring_6bksu": {
+      "type": "boolean"
+    },
+    "platform.design-system-team.menu-selected-state-change_0see9": {
       "type": "boolean"
     }
   }

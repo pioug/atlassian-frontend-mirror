@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 66.1.1
+
+### Patch Changes
+
+- [`c5a5b4ec141`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a5b4ec141) - Reverted back the changes done as part of UTEST-643
+
 ## 66.1.0
 
 ### Minor Changes

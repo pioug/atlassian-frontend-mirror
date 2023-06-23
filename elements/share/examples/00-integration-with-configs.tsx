@@ -193,6 +193,7 @@ type ExampleState = {
   hasFooter: boolean;
   enableSmartUserPicker: boolean;
   hasShareFieldsFooter: boolean;
+  isBrowseUsersDisabled: boolean;
   isCopyDisabled: boolean;
   isPublicLink: boolean;
   hasTabs: boolean;
@@ -307,37 +308,38 @@ const IntegrationContent = (props: IntegrationContentProps) => {
   );
 };
 
-export default function Example() {
-  const defaultProps: State = {
-    isAutoOpenDialog: false,
-    customButton: false,
-    customTitle: false,
-    customHelperMessage: false,
-    chosenConfig: 0,
-    customTooltipText: false,
-    customTriggerButtonIcon: false,
-    restrictionMessage: false,
-    useUrlShortener: false,
-    shortLinkData: undefined,
-    dialogPlacement: dialogPlacementOptions[2].value,
-    escapeOnKeyPress: true,
-    triggerButtonAppearance: triggerButtonAppearanceOptions[0].value,
-    triggerButtonStyle: triggerButtonStyleOptions[0].value,
-    triggerButtonTooltipPosition: triggerButtonTooltipPositionOptions[0].value,
-    product: 'confluence',
-    hasFooter: false,
-    enableSmartUserPicker: false,
-    hasShareFieldsFooter: false,
-    isCopyDisabled: false,
-    isPublicLink: false,
-    hasTabs: false,
-    hasSplit: false,
-    integrationMode: 'off',
-    shareIntegrations: [],
-    locales: Object.keys(languages),
-    locale: 'en-US',
-  };
+const defaultProps: State = {
+  isAutoOpenDialog: false,
+  customButton: false,
+  customTitle: false,
+  customHelperMessage: false,
+  chosenConfig: 0,
+  customTooltipText: false,
+  customTriggerButtonIcon: false,
+  restrictionMessage: false,
+  useUrlShortener: false,
+  shortLinkData: undefined,
+  dialogPlacement: dialogPlacementOptions[2].value,
+  escapeOnKeyPress: true,
+  triggerButtonAppearance: triggerButtonAppearanceOptions[0].value,
+  triggerButtonStyle: triggerButtonStyleOptions[0].value,
+  triggerButtonTooltipPosition: triggerButtonTooltipPositionOptions[0].value,
+  product: 'confluence',
+  hasFooter: false,
+  enableSmartUserPicker: false,
+  hasShareFieldsFooter: false,
+  isBrowseUsersDisabled: false,
+  isCopyDisabled: false,
+  isPublicLink: false,
+  hasTabs: false,
+  hasSplit: false,
+  integrationMode: 'off',
+  shareIntegrations: [],
+  locales: Object.keys(languages),
+  locale: 'en-US',
+};
 
+export default function Example() {
   const [state, setState] = useState<State>(defaultProps);
 
   const share = (
@@ -390,6 +392,8 @@ export default function Example() {
               <h4>Share Component</h4>
               <WrapperWithMarginTop>
                 <ShareDialogContainer
+                  // Allow the example to refresh when this config changes
+                  key={configOptions[state.chosenConfig].label}
                   isAutoOpenDialog={state.isAutoOpenDialog}
                   shareClient={shareClient}
                   urlShortenerClient={urlShortenerClient}
@@ -446,10 +450,63 @@ export default function Example() {
                       ? 'Custom Helper Message'
                       : undefined
                   }
+                  isBrowseUsersDisabled={state.isBrowseUsersDisabled}
                 />
               </WrapperWithMarginTop>
               <h4>Options</h4>
               <div>
+                <WrapperWithMarginTop>
+                  <h5>Recipient controls</h5>
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Product (groups are not enabled in Jira)
+                  <Select
+                    value={{
+                      label: state.product,
+                      value: state.product,
+                    }}
+                    options={[
+                      { label: 'confluence', value: 'confluence' },
+                      { label: 'jira', value: 'jira' },
+                    ]}
+                    onChange={(option: any) =>
+                      setState({
+                        ...state,
+                        product: option.value,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Is Browse Users Disabled
+                  <Toggle
+                    isChecked={state.isBrowseUsersDisabled}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        isBrowseUsersDisabled: !state.isBrowseUsersDisabled,
+                      })
+                    }
+                  />
+                  (if true, only emails can be selected)
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Share config (controls whether emails are available)
+                  <Select
+                    value={configOptions[state.chosenConfig]}
+                    options={configOptions}
+                    onChange={(config: ConfigOption | null) => {
+                      setState({
+                        ...state,
+                        chosenConfig:
+                          configOptions.findIndex(
+                            (option) => option.label === config?.label,
+                          ) || 0,
+                      });
+                    }}
+                  />
+                </WrapperWithMarginTop>
+                <h5>Features controls</h5>
                 <WrapperWithMarginTop>
                   Enable Integration Tabs
                   <Toggle
@@ -515,18 +572,7 @@ export default function Example() {
                     }
                   />
                 </WrapperWithMarginTop>
-                <WrapperWithMarginTop>
-                  Close Share Dialog on escape key press
-                  <Toggle
-                    isChecked={state.escapeOnKeyPress}
-                    onChange={() =>
-                      setState({
-                        ...state,
-                        escapeOnKeyPress: !state.escapeOnKeyPress,
-                      })
-                    }
-                  />
-                </WrapperWithMarginTop>
+                <h5>Custom UI components</h5>
                 <WrapperWithMarginTop>
                   Custom Share Dialog Trigger Button
                   <Toggle
@@ -594,6 +640,28 @@ export default function Example() {
                   />
                 </WrapperWithMarginTop>
                 <WrapperWithMarginTop>
+                  Custom Footer
+                  <Toggle
+                    isChecked={state.hasFooter}
+                    onChange={() =>
+                      setState({ ...state, hasFooter: !state.hasFooter })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <WrapperWithMarginTop>
+                  Share Fields Footer
+                  <Toggle
+                    isChecked={state.hasShareFieldsFooter}
+                    onChange={() =>
+                      setState({
+                        ...state,
+                        hasShareFieldsFooter: !state.hasShareFieldsFooter,
+                      })
+                    }
+                  />
+                </WrapperWithMarginTop>
+                <h5>URL shortening</h5>
+                <WrapperWithMarginTop>
                   Use URL shortener
                   <Toggle
                     isChecked={!!state.shortLinkData}
@@ -639,15 +707,7 @@ export default function Example() {
                     }}
                   />
                 </WrapperWithMarginTop>
-                <WrapperWithMarginTop>
-                  Custom Footer
-                  <Toggle
-                    isChecked={state.hasFooter}
-                    onChange={() =>
-                      setState({ ...state, hasFooter: !state.hasFooter })
-                    }
-                  />
-                </WrapperWithMarginTop>
+                <h5>Core behavioural settings</h5>
                 <WrapperWithMarginTop>
                   Enable Smart User Picker
                   <Toggle
@@ -656,18 +716,6 @@ export default function Example() {
                       setState({
                         ...state,
                         enableSmartUserPicker: !state.enableSmartUserPicker,
-                      })
-                    }
-                  />
-                </WrapperWithMarginTop>
-                <WrapperWithMarginTop>
-                  Share Fields Footer
-                  <Toggle
-                    isChecked={state.hasShareFieldsFooter}
-                    onChange={() =>
-                      setState({
-                        ...state,
-                        hasShareFieldsFooter: !state.hasShareFieldsFooter,
                       })
                     }
                   />
@@ -685,19 +733,15 @@ export default function Example() {
                   />
                 </WrapperWithMarginTop>
                 <WrapperWithMarginTop>
-                  Share config
-                  <Select
-                    value={configOptions[state.chosenConfig]}
-                    options={configOptions}
-                    onChange={(config: ConfigOption | null) => {
+                  Close Share Dialog on escape key press
+                  <Toggle
+                    isChecked={state.escapeOnKeyPress}
+                    onChange={() =>
                       setState({
                         ...state,
-                        chosenConfig:
-                          configOptions.findIndex(
-                            (option) => option.label === config?.label,
-                          ) || 0,
-                      });
-                    }}
+                        escapeOnKeyPress: !state.escapeOnKeyPress,
+                      })
+                    }
                   />
                 </WrapperWithMarginTop>
                 <WrapperWithMarginTop>
@@ -741,25 +785,6 @@ export default function Example() {
                       setState({
                         ...state,
                         triggerButtonTooltipPosition: option.value,
-                      })
-                    }
-                  />
-                </WrapperWithMarginTop>
-                <WrapperWithMarginTop>
-                  Product
-                  <Select
-                    value={{
-                      label: state.product,
-                      value: state.product,
-                    }}
-                    options={[
-                      { label: 'confluence', value: 'confluence' },
-                      { label: 'jira', value: 'jira' },
-                    ]}
-                    onChange={(option: any) =>
-                      setState({
-                        ...state,
-                        product: option.value,
                       })
                     }
                   />

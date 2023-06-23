@@ -11,10 +11,15 @@ export type Props = {
   isDisabled?: boolean;
   onClick: (e: React.MouseEvent<HTMLElement>) => void;
   text?: React.ReactNode;
+  'aria-haspopup'?: boolean;
 };
 
 export const ShareButton = React.forwardRef<HTMLElement, Props>(
-  function ShareButton({ text, ...props }: Props, ref) {
+  // Discard aria-haspopup
+  function ShareButton(
+    { text, 'aria-haspopup': _ariaHasPopup, ...props }: Props,
+    ref,
+  ) {
     return (
       <Button ref={ref} aria-expanded={props.isSelected} {...props}>
         {text}

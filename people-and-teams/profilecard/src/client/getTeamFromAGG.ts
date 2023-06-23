@@ -1,4 +1,7 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import type { Team } from '../types';
+import packageInfo from '../version.json';
 
 import { graphqlQuery } from './graphqlUtils';
 
@@ -43,9 +46,8 @@ export const convertTeam = (result: AGGResult): Team => {
   };
 };
 
-const GATEWAY_QUERY = `query TeamCard($teamId: ID!) {
-  Team: team {
-    team (id: $teamId) {
+// indented so it's
+const TEAM_FRAGMENT = `
       id
       displayName
       description
@@ -61,19 +63,44 @@ const GATEWAY_QUERY = `query TeamCard($teamId: ID!) {
             picture
           }
         }
-      }
+`;
+
+// We alias the team node to always be team
+const GATEWAY_QUERY_V2 = `query TeamCard($teamId: ID!, $siteID: ID!) {
+  Team: team {
+    team: teamV2(id: $teamId, siteId: $siteId) {
+${TEAM_FRAGMENT}
+    }
+  }
+}`;
+const GATEWAY_QUERY = `query TeamCard($teamId: ID!) {
+  Team: team {
+    team(id: $teamId) {
+${TEAM_FRAGMENT}
     }
   }
 }`;
 
-export const buildGatewayQuery = (teamId: string) => ({
-  query: GATEWAY_QUERY,
-  variables: { teamId: idToAri(teamId) },
+type TeamQueryVariables = { teamId: string; siteId?: string };
+
+export const buildGatewayQuery = ({ teamId, siteId }: TeamQueryVariables) => ({
+  query:
+    getBooleanFF('platform.teams.site-scoped.m1') && siteId
+      ? GATEWAY_QUERY_V2
+      : GATEWAY_QUERY,
+  variables: {
+    teamId: idToAri(teamId),
+    ...(getBooleanFF('platform.teams.site-scoped.m1') && siteId
+      ? { siteId }
+      : {}),
+  },
 });
 
-export const addExperimentalHeaders = (headers: Headers): Headers => {
+export const addHeaders = (headers: Headers): Headers => {
   headers.append('X-ExperimentalApi', 'teams-beta');
   headers.append('X-ExperimentalApi', 'team-members-beta');
+  headers.append('atl-client-name', packageInfo.name);
+  headers.append('atl-client-version', packageInfo.version);
 
   return headers;
 };
@@ -81,13 +108,17 @@ export const addExperimentalHeaders = (headers: Headers): Headers => {
 export async function getTeamFromAGG(
   url: string,
   teamId: string,
+  siteId?: string,
 ): Promise<Team> {
-  const query = buildGatewayQuery(teamId);
+  const query = buildGatewayQuery({
+    teamId,
+    siteId,
+  });
 
   const { Team } = await graphqlQuery<{ Team: AGGResult }>(
     url,
     query,
-    addExperimentalHeaders,
+    addHeaders,
   );
 
   return convertTeam(Team);

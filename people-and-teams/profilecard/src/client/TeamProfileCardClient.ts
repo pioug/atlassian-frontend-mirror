@@ -24,7 +24,11 @@ export default class TeamProfileCardClient extends CachingClient<Team> {
       );
     }
 
-    return getTeamFromAGG(this.options.gatewayGraphqlUrl, teamId);
+    return getTeamFromAGG(
+      this.options.gatewayGraphqlUrl,
+      teamId,
+      this.options.cloudId,
+    );
   }
 
   getProfile(

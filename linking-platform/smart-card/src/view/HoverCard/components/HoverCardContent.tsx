@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
 
@@ -123,32 +122,26 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   }, [analytics, linkStatus]);
 
   useEffect(() => {
-    if (
-      getBooleanFF(
-        'platform.linking-platform.smart-card.refactor-hover-card-analytics',
-      )
-    ) {
-      const previewDisplay = 'card';
-      const previewInvokeMethod = 'mouse_hover';
-      const cardOpenTime = Date.now();
+    const previewDisplay = 'card';
+    const previewInvokeMethod = 'mouse_hover';
+    const cardOpenTime = Date.now();
 
-      analyticsRef.current.ui.hoverCardViewedEvent({
+    analyticsRef.current.ui.hoverCardViewedEvent({
+      previewDisplay,
+      previewInvokeMethod,
+      status: statusRef.current,
+    });
+
+    return () => {
+      const hoverTime = Date.now() - cardOpenTime;
+
+      analyticsRef.current.ui.hoverCardDismissedEvent({
         previewDisplay,
         previewInvokeMethod,
+        hoverTime,
         status: statusRef.current,
       });
-
-      return () => {
-        const hoverTime = Date.now() - cardOpenTime;
-
-        analyticsRef.current.ui.hoverCardDismissedEvent({
-          previewDisplay,
-          previewInvokeMethod,
-          hoverTime,
-          status: statusRef.current,
-        });
-      };
-    }
+    };
   }, []);
 
   const onClick = useCallback(

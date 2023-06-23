@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.5.14",
+  "version": "26.5.15",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -139,9 +139,6 @@
   },
   "platform-feature-flags": {
     "platform.linking-platform.smart-card.enable-analytics-context": {
-      "type": "boolean"
-    },
-    "platform.linking-platform.smart-card.refactor-hover-card-analytics": {
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop": {

@@ -3,10 +3,10 @@ import { normal } from 'color-blend';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
 
-import generatedPairs from '../../src/artifacts/generated-pairs';
-import rawTokensDark from '../../src/artifacts/tokens-raw/atlassian-dark';
-import rawTokensDarkIteration from '../../src/artifacts/tokens-raw/atlassian-dark-iteration';
-import rawTokensLight from '../../src/artifacts/tokens-raw/atlassian-light';
+import generatedPairs from '../../../src/artifacts/generated-pairs';
+import rawTokensDark from '../../../src/artifacts/tokens-raw/atlassian-dark';
+import rawTokensDarkIteration from '../../../src/artifacts/tokens-raw/atlassian-dark-iteration';
+import rawTokensLight from '../../../src/artifacts/tokens-raw/atlassian-light';
 
 const groupedTokens: { [key: string]: typeof rawTokensDark } = {};
 ['text', 'link', 'icon', 'border', 'background', 'surface', 'chart'].forEach(

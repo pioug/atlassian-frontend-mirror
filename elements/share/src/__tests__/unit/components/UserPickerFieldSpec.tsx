@@ -7,7 +7,7 @@ jest.mock('../../../components/utils', () => ({
 import React from 'react';
 
 import { mount, shallow } from 'enzyme';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, MessageDescriptor } from 'react-intl-next';
 
 import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
 import SmartUserPicker, { OptionData } from '@atlaskit/smart-user-picker';
@@ -42,216 +42,295 @@ jest.mock('react-intl-next', () => {
   };
 });
 
+type Scenario = {
+  product: ProductName;
+  isBrowseUsersDisabled: boolean;
+  disableSharingToEmails: boolean;
+};
+
+type ScenarioAndOutcome<T> = [string, Scenario, T];
+
+const NO_EMAIL_JIRA: [string, Scenario] = [
+  'email disabled in Jira',
+  {
+    product: 'jira',
+    isBrowseUsersDisabled: false,
+    disableSharingToEmails: true,
+  },
+];
+const NO_EMAIL_CONFLUENCE: [string, Scenario] = [
+  'email disabled in Confluence',
+  {
+    product: 'confluence',
+    isBrowseUsersDisabled: false,
+    disableSharingToEmails: true,
+  },
+];
+const NO_BROWSE_JIRA: [string, Scenario] = [
+  'browse users is disabled Jira',
+  {
+    product: 'jira',
+    isBrowseUsersDisabled: true,
+    disableSharingToEmails: false,
+  },
+];
+const NO_BROWSE_CONFLUENCE: [string, Scenario] = [
+  'browse users is disabled Confluence',
+  {
+    product: 'confluence',
+    isBrowseUsersDisabled: true,
+    disableSharingToEmails: false,
+  },
+];
+const REGULAR_JIRA: [string, Scenario] = [
+  'in Jira',
+  {
+    product: 'jira',
+    isBrowseUsersDisabled: false,
+    disableSharingToEmails: false,
+  },
+];
+const REGULAR_CONFLUENCE: [string, Scenario] = [
+  'in Confluence',
+  {
+    product: 'confluence',
+    isBrowseUsersDisabled: false,
+    disableSharingToEmails: false,
+  },
+];
+
 describe('UserPickerField', () => {
+  const render = (userPickerFieldProps: Props, ...args: any[]) => {
+    const component = shallow(<UserPickerField {...userPickerFieldProps} />)
+      .dive()
+      .find(Field);
+    const userPicker = renderProp(component, 'children', ...args);
+
+    return { component, userPicker };
+  };
+
   const renderUserPicker = (userPickerFieldProps: Props, ...args: any[]) => {
-    const c = shallow(<UserPickerField {...userPickerFieldProps} />);
-    return renderProp(c.dive().find(Field), 'children', ...args);
+    return render(userPickerFieldProps, ...args).userPicker;
   };
 
   afterEach(() => {
     (getMenuPortalTargetCurrentHTML as jest.Mock).mockClear();
   });
 
-  it('should render UserPicker', () => {
-    const fieldProps = {
-      onChange: jest.fn(),
-      value: [],
-    };
-    const loadOptions = jest.fn();
-    const mockIsLoading = true;
-    const field = renderUserPicker(
-      {
-        loadOptions,
-        isLoading: mockIsLoading,
-        product: 'confluence',
+  it.each<[ProductName, string]>([
+    ['jira', 'Recipients will see the name of the roadmap and your message'],
+    [
+      'confluence',
+      'Recipients will see the name of the board and your message',
+    ],
+  ])(
+    'should render UserPicker when product is %s and helperMessage is available',
+    (product, helperMessage) => {
+      const fieldProps = {
+        onChange: jest.fn(),
+        value: [],
+      };
+      const loadOptions = jest.fn();
+
+      const field = renderUserPicker(
+        {
+          loadOptions,
+          isLoading: true,
+          product,
+          helperMessage,
+        },
+        { fieldProps, meta: { valid: true } },
+      );
+
+      const fieldHelperMessage = field.find(HelperMessage);
+
+      expect(fieldHelperMessage).toHaveLength(1);
+      expect(fieldHelperMessage.html()).toEqual(
+        expect.stringContaining(helperMessage),
+      );
+    },
+  );
+
+  describe.each<ProductName>(['jira', 'confluence'])(
+    'should render UserPicker in %s',
+    (product) => {
+      it('without HelperMessage when helperMessage is defined empty', () => {
+        const fieldProps = {
+          onChange: jest.fn(),
+          value: [],
+        };
+        const loadOptions = jest.fn();
+
+        const field = renderUserPicker(
+          {
+            loadOptions,
+            isLoading: true,
+            product,
+            helperMessage: '',
+          },
+          { fieldProps, meta: { valid: true } },
+        );
+
+        const fieldHelperMessage = field.find(HelperMessage);
+
+        expect(fieldHelperMessage).toHaveLength(0);
+      });
+
+      const helperMessage = {
+        jira: 'Recipients will see the name of the issue and your message',
+        confluence: 'Recipients will see the name of the page and your message',
+      };
+
+      it('with default HelperMessage when helperMessage is not defined', () => {
+        const fieldProps = {
+          onChange: jest.fn(),
+          value: [],
+        };
+        const loadOptions = jest.fn();
+
+        const field = renderUserPicker(
+          {
+            loadOptions,
+            isLoading: true,
+            product,
+          },
+          { fieldProps, meta: { valid: true } },
+        );
+
+        const fieldHelperMessage = field.find(HelperMessage);
+
+        expect(fieldHelperMessage).toHaveLength(1);
+        expect(fieldHelperMessage.html()).toEqual(
+          expect.stringContaining(helperMessage[product]),
+        );
+      });
+
+      it('with appropriate defaultValue', () => {
+        const defaultValue: OptionData[] = [];
+        const loadOptions = jest.fn();
+        const component = mount(
+          <UserPickerField
+            loadOptions={loadOptions}
+            defaultValue={defaultValue}
+            product={product}
+          />,
+        );
+        expect(component.find(Field).prop('defaultValue')).toBe(defaultValue);
+      });
+    },
+  );
+
+  describe('labels and placeholders', () => {
+    const labelScenarios: ScenarioAndOutcome<MessageDescriptor[]>[] = [
+      [
+        ...NO_EMAIL_JIRA,
+        [
+          messages.userPickerLabelEmailDisabledJira,
+          messages.userPickerPlaceholderEmailDisabledJira,
+        ],
+      ],
+      // The same placeholder is used in Confluence for "email disabled" or not, as the placeholder does not call out email due to copy length
+      [
+        ...NO_EMAIL_CONFLUENCE,
+        [
+          messages.userPickerLabelEmailDisabledConfluence,
+          messages.userPickerPlaceholderConfluence,
+        ],
+      ],
+      [
+        ...NO_BROWSE_JIRA,
+        [
+          messages.userPickerLabelBrowseUsersDisabled,
+          messages.userPickerPlaceholderBrowseUsersDisabled,
+        ],
+      ],
+      [
+        ...NO_BROWSE_CONFLUENCE,
+        [
+          messages.userPickerLabelBrowseUsersDisabled,
+          messages.userPickerPlaceholderBrowseUsersDisabled,
+        ],
+      ],
+      [
+        ...REGULAR_JIRA,
+        [messages.userPickerLabelJira, messages.userPickerPlaceholderJira],
+      ],
+      [
+        ...REGULAR_CONFLUENCE,
+        [
+          messages.userPickerLabelConfluence,
+          messages.userPickerPlaceholderConfluence,
+        ],
+      ],
+    ];
+
+    it.each<ScenarioAndOutcome<MessageDescriptor[]>>(labelScenarios)(
+      'should show correct label and placeholder when %s',
+      (_case: string, props, expectedMessages: MessageDescriptor[]) => {
+        const [label, placeholder] = expectedMessages;
+        const fieldProps = {
+          onChange: jest.fn(),
+          value: [],
+        };
+        const loadOptions = jest.fn();
+        const { component, userPicker: field } = render(
+          {
+            loadOptions,
+            isLoading: true,
+            product: props.product,
+            config: { disableSharingToEmails: props.disableSharingToEmails },
+            isBrowseUsersDisabled: props.isBrowseUsersDisabled,
+          },
+          { fieldProps, meta: { valid: true } },
+        );
+
+        // Find info message
+        const formattedMessage = field.find(FormattedMessage);
+        expect(formattedMessage).toHaveLength(1);
+
+        const expectedInfoMessages = {
+          jira: messages.infoMessageDefaultJira,
+          confluence: messages.infoMessageDefaultConfluence,
+        };
+
+        const infoMessageDefaultJira = formattedMessage.first();
+        expect(infoMessageDefaultJira).toHaveLength(1);
+        expect(infoMessageDefaultJira.props()).toMatchObject(
+          expectedInfoMessages[props.product],
+        );
+
+        // Check no error messages
+        expect(field.find(ErrorMessage).exists()).toBeFalsy();
+
+        // Check for field label
+        const labelMessage = component.find(Field).prop('label');
+        expect(labelMessage).toEqual(
+          <span id="share-user-picker-field-label">
+            <FormattedMessage {...label} />
+          </span>,
+        );
+
+        // Check for appropriate props
+        const expectProps = {
+          fieldId: 'share',
+          addMoreMessage: 'Enter more',
+          onChange: fieldProps.onChange,
+          value: fieldProps.value,
+          // Verify expected placeholder
+          placeholder: (
+            <span>
+              <FormattedMessage {...placeholder} />
+            </span>
+          ),
+          loadOptions: expect.any(Function),
+          isLoading: true,
+        };
+
+        const userPicker = field.find(UserPicker);
+        expect(userPicker).toHaveLength(1);
+        expect(userPicker.props()).toMatchObject(expectProps);
       },
-      { fieldProps, meta: { valid: true } },
     );
-
-    const formattedMessage = field.find(FormattedMessage);
-    expect(formattedMessage).toHaveLength(1);
-
-    const formattedMessageDefaultConfluence = formattedMessage.first();
-    expect(formattedMessageDefaultConfluence).toHaveLength(1);
-    expect(formattedMessageDefaultConfluence.props()).toMatchObject(
-      messages.infoMessageDefaultConfluence,
-    );
-
-    expect(field.find(ErrorMessage).exists()).toBeFalsy();
-
-    const expectProps = {
-      fieldId: 'share',
-      addMoreMessage: 'Enter more',
-      onChange: fieldProps.onChange,
-      value: fieldProps.value,
-      placeholder: (
-        <FormattedMessage {...messages.userPickerGenericPlaceholder} />
-      ),
-      loadOptions: expect.any(Function),
-      isLoading: mockIsLoading,
-    };
-
-    const userPicker = field.find(UserPicker);
-    expect(userPicker).toHaveLength(1);
-    expect(userPicker.props()).toMatchObject(expectProps);
-  });
-
-  it('should render UserPicker when product is Confluence and helperMessage is available', () => {
-    const fieldProps = {
-      onChange: jest.fn(),
-      value: [],
-    };
-    const loadOptions = jest.fn();
-    const mockIsLoading = true;
-    const helperMessage =
-      'Recipients will see the name of the board and your message';
-
-    const field = renderUserPicker(
-      {
-        loadOptions,
-        isLoading: mockIsLoading,
-        product: 'confluence',
-        helperMessage,
-      },
-      { fieldProps, meta: { valid: true } },
-    );
-
-    const fieldHelperMessage = field.find(HelperMessage);
-
-    expect(fieldHelperMessage).toHaveLength(1);
-    expect(fieldHelperMessage.html()).toEqual(
-      expect.stringContaining(
-        'Recipients will see the name of the board and your message',
-      ),
-    );
-  });
-
-  it('should render UserPicker when product is jira and helperMessage is available', () => {
-    const fieldProps = {
-      onChange: jest.fn(),
-      value: [],
-    };
-    const loadOptions = jest.fn();
-    const mockIsLoading = true;
-    const helperMessage =
-      'Recipients will see the name of the roadmap and your message';
-
-    const field = renderUserPicker(
-      { loadOptions, isLoading: mockIsLoading, product: 'jira', helperMessage },
-      { fieldProps, meta: { valid: true } },
-    );
-
-    const fieldHelperMessage = field.find(HelperMessage);
-
-    expect(fieldHelperMessage).toHaveLength(1);
-    expect(fieldHelperMessage.html()).toEqual(
-      expect.stringContaining(
-        'Recipients will see the name of the roadmap and your message',
-      ),
-    );
-  });
-
-  it('should render UserPicker without HelperMessage when helperMessage is defined empty', () => {
-    const fieldProps = {
-      onChange: jest.fn(),
-      value: [],
-    };
-    const loadOptions = jest.fn();
-    const mockIsLoading = true;
-
-    const field = renderUserPicker(
-      {
-        loadOptions,
-        isLoading: mockIsLoading,
-        product: 'jira',
-        helperMessage: '',
-      },
-      { fieldProps, meta: { valid: true } },
-    );
-
-    const fieldHelperMessage = field.find(HelperMessage);
-
-    expect(fieldHelperMessage).toHaveLength(0);
-  });
-
-  it('should still render UserPicker with default HelperMessage when helperMessage is not defined', () => {
-    const fieldProps = {
-      onChange: jest.fn(),
-      value: [],
-    };
-    const loadOptions = jest.fn();
-    const mockIsLoading = true;
-
-    const field = renderUserPicker(
-      {
-        loadOptions,
-        isLoading: mockIsLoading,
-        product: 'jira',
-      },
-      { fieldProps, meta: { valid: true } },
-    );
-
-    const fieldHelperMessage = field.find(HelperMessage);
-
-    expect(fieldHelperMessage).toHaveLength(1);
-    expect(fieldHelperMessage.html()).toEqual(
-      expect.stringContaining(
-        'Recipients will see the name of the issue and your message',
-      ),
-    );
-  });
-
-  it('should render UserPicker when product is `jira` and no helper message is available', () => {
-    const fieldProps = {
-      onChange: jest.fn(),
-      value: [],
-    };
-    const loadOptions = jest.fn();
-    const mockIsLoading = true;
-    const field = renderUserPicker(
-      { loadOptions, isLoading: mockIsLoading, product: 'jira' },
-      { fieldProps, meta: { valid: true } },
-    );
-
-    const formattedMessage = field.find(FormattedMessage);
-    expect(formattedMessage).toHaveLength(1);
-
-    const infoMessageDefaultJira = formattedMessage.first();
-    expect(infoMessageDefaultJira).toHaveLength(1);
-    expect(infoMessageDefaultJira.props()).toMatchObject(
-      messages.infoMessageDefaultJira,
-    );
-
-    expect(field.find(ErrorMessage).exists()).toBeFalsy();
-
-    const expectProps = {
-      fieldId: 'share',
-      addMoreMessage: 'Enter more',
-      onChange: fieldProps.onChange,
-      value: fieldProps.value,
-      placeholder: (
-        <FormattedMessage {...messages.userPickerGenericPlaceholderJira} />
-      ),
-      loadOptions: expect.any(Function),
-      isLoading: mockIsLoading,
-    };
-
-    const userPicker = field.find(UserPicker);
-    expect(userPicker).toHaveLength(1);
-    expect(userPicker.props()).toMatchObject(expectProps);
-  });
-
-  it('should set defaultValue', () => {
-    const defaultValue: OptionData[] = [];
-    const loadOptions = jest.fn();
-    const component = mount(
-      <UserPickerField
-        loadOptions={loadOptions}
-        defaultValue={defaultValue}
-        product="confluence"
-      />,
-    );
-    expect(component.find(Field).prop('defaultValue')).toBe(defaultValue);
   });
 
   it('should not call loadUsers on empty query', () => {
@@ -302,7 +381,7 @@ describe('UserPickerField', () => {
   });
 
   describe('validate function', () => {
-    test.each<[string | undefined, { id: string }[] | null]>([
+    it.each<[string | undefined, { id: string }[] | null]>([
       ['REQUIRED', []],
       ['REQUIRED', null],
       [undefined, [{ id: 'some-id' }]],
@@ -316,139 +395,88 @@ describe('UserPickerField', () => {
     });
   });
 
+  const errorMessageScenarios: ScenarioAndOutcome<MessageDescriptor>[] = [
+    [...NO_EMAIL_JIRA, messages.userPickerRequiredMessageEmailDisabledJira],
+    [
+      ...NO_EMAIL_CONFLUENCE,
+      messages.userPickerRequiredMessageEmailDisabledConfluence,
+    ],
+    [...NO_BROWSE_JIRA, messages.userPickerRequiredMessageBrowseUsersDisabled],
+    [
+      ...NO_BROWSE_CONFLUENCE,
+      messages.userPickerRequiredMessageBrowseUsersDisabled,
+    ],
+    [...REGULAR_JIRA, messages.userPickerRequiredMessageJira],
+    [...REGULAR_CONFLUENCE, messages.userPickerRequiredMessageConfluence],
+  ];
+
   describe('error messages', () => {
-    it('should display required message', () => {
-      const fieldProps = {
-        onChange: jest.fn(),
-        value: [],
-      };
-      const loadOptions = jest.fn();
-      const errorMessage = renderUserPicker(
-        { loadOptions, product: 'confluence' },
-        {
-          fieldProps,
-          meta: { valid: false },
-          error: REQUIRED,
-        },
-      ).find(ErrorMessage);
-
-      expect(errorMessage).toHaveLength(1);
-      const message = errorMessage.find(FormattedMessage);
-      expect(message).toHaveLength(1);
-      expect(message.props()).toMatchObject(messages.userPickerRequiredMessage);
-    });
-
-    it('should display required message when product is `jira`', () => {
-      const fieldProps = {
-        onChange: jest.fn(),
-        value: [],
-      };
-      const loadOptions = jest.fn();
-      const errorMessage = renderUserPicker(
-        { loadOptions, product: 'jira' },
-        {
-          fieldProps,
-          meta: { valid: false },
-          error: REQUIRED,
-        },
-      ).find(ErrorMessage);
-
-      expect(errorMessage).toHaveLength(1);
-      const message = errorMessage.find(FormattedMessage);
-      expect(message).toHaveLength(1);
-      expect(message.props()).toMatchObject(
-        messages.userPickerRequiredMessageJira,
-      );
-    });
-
-    it('should display required message when email is disabled', () => {
-      const fieldProps = {
-        onChange: jest.fn(),
-        value: [],
-      };
-      const loadOptions = jest.fn();
-      const errorMessage = renderUserPicker(
-        {
-          loadOptions,
-          product: 'confluence',
-          config: { disableSharingToEmails: true },
-        },
-        {
-          fieldProps,
-          meta: { valid: false },
-          error: REQUIRED,
-        },
-      ).find(ErrorMessage);
-
-      expect(errorMessage).toHaveLength(1);
-      const message = errorMessage.find(FormattedMessage);
-      expect(message).toHaveLength(1);
-      expect(message.props()).toMatchObject(
-        messages.userPickerRequiredExistingUserOnlyMessage,
-      );
-    });
-
-    it('should display required message when product is `jira` and email is disabled', () => {
-      const fieldProps = {
-        onChange: jest.fn(),
-        value: [],
-      };
-      const loadOptions = jest.fn();
-      const errorMessage = renderUserPicker(
-        {
-          loadOptions,
-          product: 'jira',
-          config: { disableSharingToEmails: true },
-        },
-        {
-          fieldProps,
-          meta: { valid: false },
-          error: REQUIRED,
-        },
-      ).find(ErrorMessage);
-
-      expect(errorMessage).toHaveLength(1);
-      const message = errorMessage.find(FormattedMessage);
-      expect(message).toHaveLength(1);
-      expect(message.props()).toMatchObject(
-        messages.userPickerRequiredExistingUserOnlyMessageJira,
-      );
-    });
-
-    it('should display share error message', () => {
-      const fieldProps = {
-        onChange: jest.fn(),
-        value: [{}],
-      };
-      const loadOptions = jest.fn();
-      const errorMessage = renderUserPicker(
-        {
-          loadOptions,
-          product: 'confluence',
-          shareError: {
-            message: "You can't do that",
-            errorCode: 'some-error-code',
-            helpUrl: 'https://example.com',
-            retryable: false,
+    it.each<ScenarioAndOutcome<MessageDescriptor>>(errorMessageScenarios)(
+      'should show correct error message when %s',
+      (_case: string, props, expectedMessage: MessageDescriptor) => {
+        const fieldProps = {
+          onChange: jest.fn(),
+          value: [],
+        };
+        const loadOptions = jest.fn();
+        const errorMessage = renderUserPicker(
+          {
+            loadOptions,
+            product: props.product,
+            config: { disableSharingToEmails: props.disableSharingToEmails },
+            isBrowseUsersDisabled: props.isBrowseUsersDisabled,
           },
-        },
-        {
-          fieldProps,
-          meta: { valid: true },
-          error: undefined,
-        },
-      ).find(ErrorMessage);
+          {
+            fieldProps,
+            meta: { valid: false },
+            error: REQUIRED,
+          },
+        ).find(ErrorMessage);
 
-      const message = errorMessage.children();
-      expect(message).toHaveLength(3);
-      expect(message.at(0).text()).toBe("You can't do that");
-      expect(message.at(1).text()).toBe('\u00a0');
+        expect(errorMessage).toHaveLength(1);
+        const message = errorMessage.find(FormattedMessage);
+        expect(message).toHaveLength(1);
+        expect(message.props()).toMatchObject(expectedMessage);
+      },
+    );
 
-      const link = message.at(2).find('a');
-      expect(link.props()).toMatchObject({
-        href: 'https://example.com',
-      });
-    });
+    it.each<ProductName>(['confluence', 'jira'])(
+      'should show error messages when %s',
+      (product: ProductName) => {
+        const fieldProps = {
+          onChange: jest.fn(),
+          value: [{}],
+        };
+        const loadOptions = jest.fn();
+        const errorMessage = renderUserPicker(
+          {
+            loadOptions,
+            product,
+            shareError: {
+              message: "You can't do that",
+              errorCode: 'some-error-code',
+              helpUrl: 'https://example.com',
+              retryable: false,
+            },
+          },
+          {
+            fieldProps,
+            meta: { valid: true },
+            error: undefined,
+          },
+        ).find(ErrorMessage);
+
+        const message = errorMessage.children();
+        expect(message).toHaveLength(3);
+        expect(message.at(0).text()).toBe("You can't do that");
+        expect(message.at(1).text()).toBe('\u00a0');
+
+        const link = message.at(2).find('a');
+        expect(link.props()).toMatchObject({
+          href: 'https://example.com',
+        });
+      },
+    );
   });
 
   describe('invite warning', () => {
@@ -479,26 +507,6 @@ describe('UserPickerField', () => {
         component,
       };
     };
-
-    it('should show existing user only placeholder', () => {
-      const { component } = setUpInviteWarningTest();
-      const userPicker = component.find(UserPicker);
-      expect(userPicker.prop('placeholder')).toEqual(
-        <FormattedMessage
-          {...messages.userPickerGenericExistingUserOnlyPlaceholder}
-        />,
-      );
-    });
-
-    it('should show existing user only placeholder in Jira', () => {
-      const { component } = setUpInviteWarningTest('jira');
-      const userPicker = component.find(UserPicker);
-      expect(userPicker.prop('placeholder')).toEqual(
-        <FormattedMessage
-          {...messages.userPickerExistingUserOnlyPlaceholder}
-        />,
-      );
-    });
 
     it('should display warning message when product is confluence', () => {
       const { component } = setUpInviteWarningTest();

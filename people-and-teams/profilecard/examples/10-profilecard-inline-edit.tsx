@@ -94,7 +94,12 @@ class MockTeamClient extends TeamProfileCardClient {
   }
 }
 
-const args = { cacheSize: 10, maxCacheAge: 0, url: 'DUMMY' };
+const args = {
+  cacheSize: 10,
+  maxCacheAge: 0,
+  url: 'DUMMY',
+  cloudId: 'site-id',
+};
 
 const profileClient = new ProfileCardClient(args, {
   teamClient: new MockTeamClient(args),

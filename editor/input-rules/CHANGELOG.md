@@ -1,5 +1,12 @@
 # @atlaskit/prosemirror-input-rules
 
+## 2.2.4
+
+### Patch Changes
+
+- [`73b5128036b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73b5128036b) - [ED-17082] Mark package as a singleton one
+- Updated dependencies
+
 ## 2.2.3
 
 ### Patch Changes

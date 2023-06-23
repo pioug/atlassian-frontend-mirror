@@ -1,5 +1,11 @@
 # @atlaskit/stylelint-design-system
 
+## 0.5.0
+
+### Minor Changes
+
+- [`c92bc3601d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c92bc3601d1) - Add autofix to automatically add fallback values for token declarations missing fallbacks
+
 ## 0.4.3
 
 ### Patch Changes

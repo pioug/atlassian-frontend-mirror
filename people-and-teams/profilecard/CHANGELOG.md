@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.5.0
+
+### Minor Changes
+
+- [`5a5c412a944`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5a5c412a944) - Site scoped changes for TeamProfileCard - behind FF platform.teams.site-scoped.m1
+
 ## 19.4.2
 
 ### Patch Changes

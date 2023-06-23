@@ -1,12 +1,18 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import {
-  addExperimentalHeaders,
+  addHeaders,
+  buildGatewayQuery,
   convertTeam,
   extractIdFromAri,
   getTeamFromAGG,
   idToAri,
-} from '../../client/getTeamFromAGG';
+} from '../getTeamFromAGG';
+import * as gqlUtils from '../graphqlUtils';
+
+jest.mock('@atlaskit/platform-feature-flags');
 
 const ARI_PREFIX = 'ari:cloud:identity::team';
 
@@ -34,44 +40,44 @@ describe('idToAri', () => {
   });
 });
 
-describe('convertTeam', () => {
-  it('should convert team formats as expected', () => {
-    expect(
-      convertTeam({
-        team: {
-          largeAvatarImageUrl: 'https://example.com/picture',
-          id: `${ARI_PREFIX}/${teamId}`,
-          displayName: 'Cool team!',
-          description: '',
-          organizationId: 'abc',
-          members: {
-            nodes: [
-              {
-                member: {
-                  accountId: '1',
-                  name: 'Test user A',
-                  picture: 'https://example.com/picture/1',
-                },
-              },
-              {
-                member: {
-                  accountId: '2',
-                  name: 'Test user B',
-                  picture: 'https://example.com/picture/2',
-                },
-              },
-              {
-                member: {
-                  accountId: '3',
-                  name: 'Test user C',
-                  picture: 'https://example.com/picture/3',
-                },
-              },
-            ],
+const TEAM_RESPONSE = {
+  team: {
+    largeAvatarImageUrl: 'https://example.com/picture',
+    id: `${ARI_PREFIX}/${teamId}`,
+    displayName: 'Cool team!',
+    description: '',
+    organizationId: 'abc',
+    members: {
+      nodes: [
+        {
+          member: {
+            accountId: '1',
+            name: 'Test user A',
+            picture: 'https://example.com/picture/1',
           },
         },
-      }),
-    ).toEqual({
+        {
+          member: {
+            accountId: '2',
+            name: 'Test user B',
+            picture: 'https://example.com/picture/2',
+          },
+        },
+        {
+          member: {
+            accountId: '3',
+            name: 'Test user C',
+            picture: 'https://example.com/picture/3',
+          },
+        },
+      ],
+    },
+  },
+};
+
+describe('convertTeam', () => {
+  it('should convert team formats as expected', () => {
+    expect(convertTeam(TEAM_RESPONSE)).toEqual({
       largeAvatarImageUrl: 'https://example.com/picture',
       id: teamId,
       displayName: 'Cool team!',
@@ -98,23 +104,33 @@ describe('convertTeam', () => {
   });
 });
 
-describe('addExperimentalHeaders', () => {
+describe('addHeaders', () => {
   it('should add headers for experiment', () => {
     const headers = new Headers();
     headers.append('Test', '123');
 
-    const result = addExperimentalHeaders(headers);
+    const result = addHeaders(headers);
 
     expect(result.get('X-ExperimentalApi')).toEqual(
       'teams-beta, team-members-beta',
     );
   });
 
+  it('should add headers for packageInfo', () => {
+    const headers = new Headers();
+    headers.append('Test', '123');
+
+    const result = addHeaders(headers);
+
+    expect(result.get('atl-client-name')).toEqual('@atlaskit/profilecard');
+    expect(result.get('atl-client-version')).toEqual('999.9.9');
+  });
+
   it('should return the same headers instance', () => {
     const headers = new Headers();
     headers.append('Test', '123');
 
-    const result = addExperimentalHeaders(headers);
+    const result = addHeaders(headers);
 
     expect(result).toBe(headers);
   });
@@ -123,17 +139,38 @@ describe('addExperimentalHeaders', () => {
     const headers = new Headers();
     headers.append('Test', '123');
 
-    const result = addExperimentalHeaders(headers);
+    const result = addHeaders(headers);
 
     expect(result.get('Test')).toBe('123');
   });
 });
+
+describe.each([[true], [false]])(
+  'buildGatewayQuery - site-scoped %s',
+  (siteScopedEnabled) => {
+    beforeEach(() => {
+      (getBooleanFF as jest.Mock).mockImplementation(() => siteScopedEnabled);
+    });
+    it('should build the correct gateway query', () => {
+      const query = buildGatewayQuery({
+        teamId: '12345',
+        siteId: 'site-id',
+      });
+      expect(query.query.includes('teamV2')).toBe(siteScopedEnabled);
+      expect(query.query.includes('siteId')).toBe(siteScopedEnabled);
+      expect(query.variables.siteId).toBe(
+        siteScopedEnabled ? 'site-id' : undefined,
+      );
+    });
+  },
+);
 
 describe('getTeamFromAGG', () => {
   const serviceUrl = 'test/url';
 
   afterEach(() => {
     fetchMock.restore();
+    jest.resetAllMocks();
   });
 
   it('should return error when response is not ok', async () => {
@@ -189,4 +226,46 @@ describe('getTeamFromAGG', () => {
       message,
     });
   });
+
+  it.each([
+    [
+      true,
+      expect.objectContaining({
+        query: expect.stringContaining(
+          'team: teamV2(id: $teamId, siteId: $siteId)',
+        ),
+        variables: {
+          siteId: 'site-id',
+          teamId: 'ari:cloud:identity::team/1234-5678-abcd-89ef',
+        },
+      }),
+    ],
+    [
+      false,
+      expect.objectContaining({
+        query: expect.stringContaining('team(id: $teamId)'),
+        variables: {
+          teamId: 'ari:cloud:identity::team/1234-5678-abcd-89ef',
+        },
+      }),
+    ],
+  ])(
+    'should make the correct query - site scoped %s',
+    async (siteScopedTeamsEnabled, expectedObject) => {
+      const gqlQuery = jest
+        .spyOn(gqlUtils, 'graphqlQuery')
+        .mockImplementation(() => Promise.resolve({ Team: TEAM_RESPONSE }));
+      (getBooleanFF as jest.Mock).mockImplementation(
+        () => siteScopedTeamsEnabled,
+      );
+
+      await getTeamFromAGG(serviceUrl, teamId, 'site-id');
+
+      expect(gqlQuery).toHaveBeenCalledWith(
+        'test/url',
+        expectedObject,
+        expect.anything(),
+      );
+    },
+  );
 });

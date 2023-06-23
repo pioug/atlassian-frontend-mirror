@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.9.1
+
+### Patch Changes
+
+- [`7ab8146e433`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ab8146e433) - Re-introduce entry point for token-default-values
+
 ## 1.9.0
 
 ### Minor Changes

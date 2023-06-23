@@ -122,7 +122,7 @@ observer.disconnect();
 
 ### themeObjectToString(themes)
 
-The `themeObjectToString()` function converts a theme state object into a formatted string. Useful for cases where the theme state needs to be stored or transferred between systems via iframes etc.
+The `themeObjectToString()` function converts a theme state object into a formatted string. Useful for cases where the theme state needs to be stored or transferred between systems via iframes etc. The returned value could be provided as an argument to JavaScript's built-in `encodeURIComponent()` function to convert the string into a URL friendly format.
 
 <TokenPropsTable
   propName={'themes'}
@@ -139,12 +139,22 @@ The `themeObjectToString()` function converts a theme state object into a format
 #### Example usage
 
 ```tsx
-import { useThemeObserver, themeObjectToString } from '@atlaskit/tokens';
+import { themeObjectToString } from '@atlaskit/tokens';
 
-const theme = useThemeObserver();
+const theme = {
+  colorMode: 'auto',
+  dark: 'dark',
+  light: 'legacy-light',
+  spacing: 'spacing',
+}
+
 const themeString = themeObjectToString(theme);
+console.log(themeString);
+// 'colorMode:auto dark:dark light:legacy-light spacing:spacing'
 
-console.log(themeString); // 'light:light dark:dark ...'
+const themeQueryString = encodeURIComponent(themeString);
+console.log(themeQueryString);
+// 'colorMode%3Aauto%20dark%3Adark%20light%3Alegacy-light%20spacing%3Aspacing'
 ```
 
 ### themeStringToObject(themes)

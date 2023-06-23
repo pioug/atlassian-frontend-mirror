@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-guideline",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "guideline plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -9,6 +9,7 @@
   },
   "atlassian": {
     "team": "Editor Media Experience: Porygon",
+    "singleton": true,
     "releaseModel": "continuous"
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
@@ -22,7 +23,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.8.0",
+    "@atlaskit/editor-common": "^74.9.0",
     "@atlaskit/editor-plugin-width": "^0.1.0",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/theme": "^12.5.0",

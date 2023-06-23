@@ -5,10 +5,9 @@ import type { RuleMessageFunc } from 'stylelint';
 
 import renameMapping from '@atlaskit/tokens/rename-mapping';
 import { getCSSCustomProperty } from '@atlaskit/tokens/token-ids';
-// import tokenNames from '@atlaskit/tokens/token-names';
 
 import { isFunction, isVar, isWord } from '../../utils/rules';
-import { isToken } from '../../utils/tokens';
+import { getDefaultTokenValue, isToken } from '../../utils/tokens';
 
 type PluginFlags = {
   shouldEnsureFallbackUsage: boolean;
@@ -118,18 +117,29 @@ export default stylelint.createPlugin(
 
           const hasFallback = tail.some(node => !isToken(node));
           const isError = shouldEnsureFallbackUsage !== hasFallback;
-          if (isError) {
-            const message = shouldEnsureFallbackUsage
-              ? messages.missingFallback
-              : messages.hasFallback;
-            stylelint.utils.report({
-              message,
-              node: decl,
-              word: node.value,
-              result,
-              ruleName,
-            });
+          if (!isError) {
+            return;
           }
+          if (context.fix && !hasFallback) {
+            const defaultFallback = getDefaultTokenValue(head);
+            if (defaultFallback) {
+              decl.value = decl.value.replace(
+                head.value,
+                `${head.value}, ${defaultFallback}`,
+              );
+              return;
+            }
+          }
+          const message = hasFallback
+            ? messages.hasFallback
+            : messages.missingFallback;
+          stylelint.utils.report({
+            message,
+            node: decl,
+            word: node.value,
+            result,
+            ruleName,
+          });
         });
       });
     };

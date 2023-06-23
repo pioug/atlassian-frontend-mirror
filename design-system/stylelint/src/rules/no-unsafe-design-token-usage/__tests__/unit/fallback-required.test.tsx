@@ -30,6 +30,13 @@ jest.mock('@atlaskit/tokens/token-names', (): Record<string, string> => {
   return mockTokens;
 });
 
+jest.mock(
+  '@atlaskit/tokens/token-default-values',
+  (): Record<string, string> => ({
+    'color.text': '#172B4D',
+  }),
+);
+
 import path from 'path';
 
 import renameMapper from '@atlaskit/tokens/rename-mapping';
@@ -88,6 +95,22 @@ testRule({
         { message: messages.missingFallback },
         { message: messages.missingFallback },
       ],
+    },
+  ],
+});
+
+testRule({
+  plugins: [plugin],
+  ruleName,
+  config: [true, { shouldEnsureFallbackUsage: true }],
+  fix: true,
+  reject: [
+    {
+      code: 'color: var(--ds-text);',
+      fixed: 'color: var(--ds-text, #172B4D);',
+      message: messages.missingFallback,
+      description:
+        'should automatically add a fallback that matches the default value from the light theme stylesheet',
     },
   ],
 });

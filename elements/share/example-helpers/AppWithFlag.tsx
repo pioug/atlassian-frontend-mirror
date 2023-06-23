@@ -37,7 +37,7 @@ export default class AppWithFlag extends React.PureComponent<Props, State> {
 
   render() {
     return (
-      <>
+      <div style={{ padding: token('space.200', '16px') }}>
         {this.props.children(this.addFlag)}
         <FlagGroup onDismissed={this.handleDismiss}>
           {this.state.flags.map((flag: Flag, index) => {
@@ -58,7 +58,7 @@ export default class AppWithFlag extends React.PureComponent<Props, State> {
             );
           })}
         </FlagGroup>
-      </>
+      </div>
     );
   }
 }

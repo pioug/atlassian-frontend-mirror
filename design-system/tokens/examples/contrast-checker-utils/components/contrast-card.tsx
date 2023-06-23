@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import { token } from '../../src';
+import { token } from '../../../src';
 
 /**
  * Card for displaying a single pairing and its contrast
@@ -33,10 +33,10 @@ export default function ContrastCard({
   style: any;
 }) {
   return (
-    <div style={style}>
+    <li style={{ listStyleType: 'none', padding: 0, ...style }}>
       <Box
-        as="li"
-        padding="space.100"
+        paddingBlock="space.100"
+        paddingInline="space.150"
         backgroundColor="color.background.neutral"
         xcss={xcss({
           flex: '1',
@@ -50,7 +50,8 @@ export default function ContrastCard({
             overflowX: 'auto',
           })}
         >
-          <Inline space="space.100">
+          <Inline space="space.150">
+            {/* eslint-disable @atlaskit/design-system/use-primitives */}
             <div
               css={{
                 backgroundColor: backgroundValue,
@@ -60,13 +61,17 @@ export default function ContrastCard({
               <div
                 css={{
                   backgroundColor: middleLayerValue || 'transparent',
-                  padding: '8px',
+                  padding: token('space.150', '0.75rem'),
                 }}
               >
                 <div
-                  css={{ backgroundColor: foregroundValue, padding: '8px' }}
+                  css={{
+                    backgroundColor: foregroundValue,
+                    padding: token('space.150', '0.75rem'),
+                  }}
                 />
               </div>
+              {/* eslint-enable @atlaskit/design-system/use-primitives */}
             </div>
 
             <Stack space="space.050">
@@ -104,7 +109,7 @@ export default function ContrastCard({
           </Inline>
         </Box>
       </Box>
-    </div>
+    </li>
   );
 }
 

@@ -36,41 +36,105 @@ export const messages = defineMessages({
     defaultMessage: 'You do not have the ability to share.',
     description: 'Copy to show when a user can not share.',
   },
+  commentLabel: {
+    id: 'fabric.elements.share.form.comment.label',
+    defaultMessage: 'Message (optional)',
+    description: 'Label for the comment field in the Share form.',
+  },
   commentPlaceholder: {
     id: 'fabric.elements.share.form.comment.placeholder',
-    defaultMessage: 'Add a message',
+    defaultMessage: 'Anything they should know?',
     description: 'Placeholder for the comment field in Share form.',
   },
-  userPickerGenericPlaceholder: {
-    id: 'fabric.elements.share.form.user-picker.placeholder.generic',
-    defaultMessage: 'Enter name, group, team or email',
-    description: 'Generic placeholder for the user picker field in Share form.',
-  },
-  userPickerGenericExistingUserOnlyPlaceholder: {
-    id: 'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly',
-    defaultMessage: 'Enter name, group or team',
+  // Email disabled (Jira)
+  userPickerLabelEmailDisabledJira: {
+    id: 'fabric.elements.share.form.user-picker.label.email-disabled-jira',
+    defaultMessage: 'Names or teams',
     description:
-      'Existing user only placeholder for the user picker field in Share form (emails are not an option).',
+      'Label for the user picker field in the Share form in Jira with no email option.',
   },
-  userPickerGenericPlaceholderJira: {
+  userPickerPlaceholderEmailDisabledJira: {
+    id: 'fabric.elements.share.form.user-picker.placeholder.email-disabled-jira',
+    defaultMessage: 'e.g. Maria, Team Orange',
+    description:
+      'Placeholder for the user picker field in the Share form in Jira with no email option. These examples should be localized.',
+  },
+  userPickerRequiredMessageEmailDisabledJira: {
+    id: 'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-jira',
+    defaultMessage: 'Select at least one person or team',
+    description:
+      'Error message for the user picker field in the Share form in Jira with no email option, when no entries are selected.',
+  },
+  // Email disabled (Confluence)
+  userPickerLabelEmailDisabledConfluence: {
+    id: 'fabric.elements.share.form.user-picker.label.email-disabled-confluence',
+    defaultMessage: 'Names, teams, or groups',
+    description:
+      'Label for the user picker field in the Share form in Confluence with no email option.',
+  },
+  userPickerRequiredMessageEmailDisabledConfluence: {
+    id: 'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-confluence',
+    defaultMessage: 'Select at least one person, team, or group',
+    description:
+      'Error message for the user picker field in the Share form in Confluence with no email option, when no entries are selected.',
+  },
+  // Browse users disabled
+  userPickerLabelBrowseUsersDisabled: {
+    id: 'fabric.elements.share.form.user-picker.label.email-only',
+    defaultMessage: 'Emails',
+    description:
+      'Label for the user picker field in the Share form when browse user permissions are disabled.',
+  },
+  userPickerPlaceholderBrowseUsersDisabled: {
+    id: 'fabric.elements.share.form.user-picker.placeholder.email-only',
+    defaultMessage: 'e.g. maria@company.com',
+    description:
+      'Placeholder for the user picker field in the Share form when browse user permissions are disabled. These examples should be localized.',
+  },
+  userPickerRequiredMessageBrowseUsersDisabled: {
+    id: 'fabric.elements.share.form.user-picker.validation.required-message.email-only',
+    defaultMessage: 'Select at least one email',
+    description:
+      'Error message for the user picker field in the Share form in when browse user permissions are disabled, when no entries are selected.',
+  },
+  // Generic (Jira)
+  userPickerLabelJira: {
+    id: 'fabric.elements.share.form.user-picker.label.jira',
+    defaultMessage: 'Names, teams, or emails',
+    description: 'Label for the user picker field in the Share form in Jira.',
+  },
+  userPickerPlaceholderJira: {
     id: 'fabric.elements.share.form.user-picker.placeholder.jira',
-    defaultMessage: 'Enter name, team or email',
+    defaultMessage: 'e.g. Maria, Team Orange, maria@company.com',
     description:
-      'Generic placeholder for the user picker field in Share form. ' +
-      'This message is used only for Jira product because Jira does not have Group concept.',
+      'Placeholder for the user picker field in the Share form in Jira. These examples should be localized.',
   },
-  userPickerExistingUserOnlyPlaceholder: {
-    id: 'fabric.elements.share.form.user-picker.placeholder.existingUserOnly',
-    defaultMessage: 'Enter name or team',
+  userPickerRequiredMessageJira: {
+    id: 'fabric.elements.share.form.user-picker.validation.required-message.jira',
+    defaultMessage: 'Select at least one person, team, or email',
     description:
-      'Existing user only placeholder for the user picker field in Share form.',
+      'Error message for the user picker field in the Share form in Jira, when no entries are selected.',
   },
-  userPickerGenericEmailOnlyPlaceholder: {
-    id: 'fabric.elements.share.form.user-picker.placeholder.emailOnly',
-    defaultMessage: 'Enter email',
+  // Generic (Confluence)
+  userPickerLabelConfluence: {
+    id: 'fabric.elements.share.form.user-picker.label.confluence',
+    defaultMessage: 'Names, teams, groups, or emails',
     description:
-      'Email only placeholder for the user picker field in Share form.',
+      'Label for the user picker field in the Share form in Confluence.',
   },
+  userPickerPlaceholderConfluence: {
+    id: 'fabric.elements.share.form.user-picker.placeholder.confluence',
+    defaultMessage: 'e.g. Maria, Team Orange, group-one',
+    description:
+      'Placeholder for the user picker field in the Share form in Confluence. These examples should be localized.',
+  },
+  userPickerRequiredMessageConfluence: {
+    id: 'fabric.elements.share.form.user-picker.validation.required-message.confluence',
+    defaultMessage: 'Select at least one person, team, group, or email',
+    description:
+      'Error message for the user picker field in the Share form in Confluence, when no entries are selected.',
+  },
+  // Common messages
   userPickerAddMoreMessage: {
     id: 'fabric.elements.share.form.user-picker.add-more',
     defaultMessage: 'Enter more',
@@ -82,33 +146,6 @@ export const messages = defineMessages({
     defaultMessage: 'Select at least one user, group, team or email.',
     description:
       'Required error message for the user picker field in Share form.',
-  },
-  userPickerRequiredMessageJira: {
-    id: 'fabric.elements.share.form.user-picker.validation.required.jira',
-    defaultMessage: 'Select at least one user, team or email.',
-    description:
-      'Required error message for the user picker field in Share form. ' +
-      'This message is used only for Jira product because Jira does not have Group concept.',
-  },
-  userPickerRequiredMessageEmailOnly: {
-    id: 'fabric.elements.share.form.user-picker.validation.required.email-only',
-    defaultMessage: 'Select at least one email.',
-    description:
-      'Required error message for the user picker field when email only enabled in Share form. ' +
-      'This message is used for both jira and confluence.',
-  },
-  userPickerRequiredExistingUserOnlyMessage: {
-    id: 'fabric.elements.share.form.user-picker.validation.required.existingUserOnly',
-    defaultMessage: 'Select at least one user, group or team.',
-    description:
-      'Required error message for the user picker field in Share form when email is not allowed.',
-  },
-  userPickerRequiredExistingUserOnlyMessageJira: {
-    id: 'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly',
-    defaultMessage: 'Select at least one user or team.',
-    description:
-      'Required error message for the user picker field in Share form when email is not allowed. ' +
-      'This message is used only for Jira product because Jira does not have Group concept.',
   },
   userPickerExistingUserOnlyNoOptionsMessage: {
     id: 'fabric.elements.share.form.user-picker.no-options.existingUserOnly',

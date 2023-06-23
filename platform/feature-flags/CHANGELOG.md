@@ -1,5 +1,11 @@
 # @atlaskit/platform-feature-flags
 
+## 0.2.4
+
+### Patch Changes
+
+- [`d6a9413f008`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6a9413f008) - Store the Platform Feaature Flags booleanFeatureFlagResolver on the global so that it won't matter if multiple different versions of the library are installed
+
 ## 0.2.3
 
 ### Patch Changes

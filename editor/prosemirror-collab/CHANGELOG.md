@@ -1,5 +1,11 @@
 ## 1.3.0 (2022-05-30)
 
+## 0.2.4
+
+### Patch Changes
+
+- [`73b5128036b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/73b5128036b) - [ED-17082] Mark package as a singleton one
+
 ## 0.2.3
 
 ### Patch Changes

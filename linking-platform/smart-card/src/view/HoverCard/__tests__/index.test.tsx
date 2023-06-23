@@ -257,94 +257,50 @@ describe('HoverCard', () => {
     describe('hover card viewed event has correct data the analytics context', () => {
       ffTest(
         'platform.linking-platform.smart-card.enable-analytics-context',
-        (ff) => {
-          ffTest(
-            'platform.linking-platform.smart-card.refactor-hover-card-analytics',
-            async () => {
-              const { findByTestId, analyticsSpy } = await setup();
-              jest.runAllTimers();
-              await findByTestId('hover-card');
+        async () => {
+          const { findByTestId, analyticsSpy } = await setup();
+          jest.runAllTimers();
+          await findByTestId('hover-card');
 
-              expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-                payload: {
-                  action: 'viewed',
-                  actionSubject: 'hoverCard',
-                  attributes: {
-                    previewDisplay: 'card',
-                    previewInvokeMethod: 'mouse_hover',
-                    status: 'resolved',
-                  },
-                },
-                context: [
-                  {
-                    componentName: 'smart-cards',
-                  },
-                  {
-                    attributes: {
-                      display: 'inline',
-                    },
-                  },
-                  {
-                    attributes: {
-                      extensionKey: 'confluence-object-provider',
-                      status: 'resolved',
-                    },
-                  },
-                  {
-                    attributes: {
-                      display: 'hoverCardPreview',
-                    },
-                    source: 'smartLinkPreviewHoverCard',
-                  },
-                  {
-                    attributes: {
-                      extensionKey: 'confluence-object-provider',
-                      status: 'resolved',
-                    },
-                  },
-                ],
-              });
+          expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+            payload: {
+              action: 'viewed',
+              actionSubject: 'hoverCard',
+              attributes: {
+                previewDisplay: 'card',
+                previewInvokeMethod: 'mouse_hover',
+                status: 'resolved',
+              },
             },
-            async () => {
-              const { findByTestId, analyticsSpy } = await setup();
-              jest.runAllTimers();
-              await findByTestId('hover-card');
-
-              expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-                payload: {
-                  action: 'viewed',
-                  actionSubject: 'hoverCard',
-                  attributes: {
-                    previewDisplay: 'card',
-                    previewInvokeMethod: 'mouse_hover',
-                    status: 'resolved',
-                  },
+            context: [
+              {
+                componentName: 'smart-cards',
+              },
+              {
+                attributes: {
+                  display: 'inline',
                 },
-                context: [
-                  {
-                    componentName: 'smart-cards',
-                  },
-                  {
-                    attributes: {
-                      display: 'inline',
-                    },
-                  },
-                  {
-                    attributes: {
-                      extensionKey: 'confluence-object-provider',
-                    },
-                  },
-                  {
-                    attributes: {
-                      display: 'hoverCardPreview',
-                    },
-                    source: 'smartLinkPreviewHoverCard',
-                  },
-                ],
-              });
-            },
-            ff,
-          );
+              },
+              {
+                attributes: {
+                  extensionKey: 'confluence-object-provider',
+                  status: 'resolved',
+                },
+              },
+              {
+                attributes: {
+                  display: 'hoverCardPreview',
+                },
+                source: 'smartLinkPreviewHoverCard',
+              },
+              {
+                attributes: {
+                  extensionKey: 'confluence-object-provider',
+                  status: 'resolved',
+                },
+              },
+            ],
+          });
         },
         async () => {
           const { findByTestId, analyticsSpy } = await setup();
@@ -919,80 +875,38 @@ describe('HoverCard', () => {
         );
       });
 
-      describe('should fire link clicked event with attributes from SmartLinkAnalyticsContext if link is resolved', () => {
-        ffTest(
-          'platform.linking-platform.smart-card.enable-analytics-context',
-          async () => {
-            const { findByTestId, analyticsSpy } = await setup({
-              extraCardProps: { id: 'some-id' },
-            });
-            jest.runAllTimers();
+      it('should fire link clicked event with attributes from SmartLinkAnalyticsContext if link is resolved', async () => {
+        const { findByTestId, analyticsSpy } = await setup({
+          extraCardProps: { id: 'some-id' },
+        });
+        jest.runAllTimers();
 
-            await findByTestId('smart-block-title-resolved-view');
-            const link = await findByTestId('smart-element-link');
+        await findByTestId('smart-block-title-resolved-view');
+        const link = await findByTestId('smart-element-link');
 
-            fireEvent.click(link);
+        fireEvent.click(link);
 
-            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+            },
+            context: [
               {
-                payload: {
-                  action: 'clicked',
-                  actionSubject: 'link',
+                attributes: {
+                  display: 'hoverCardPreview',
+                  id: 'some-id',
                 },
-                context: [
-                  {
-                    attributes: {
-                      display: 'hoverCardPreview',
-                      id: 'some-id',
-                    },
-                  },
-                  {
-                    attributes: {
-                      status: 'resolved',
-                    },
-                  },
-                ],
               },
-              analytics.ANALYTICS_CHANNEL,
-            );
+              {
+                attributes: {
+                  status: 'resolved',
+                },
+              },
+            ],
           },
-          async () => {
-            const { findByTestId, analyticsSpy } = await setup({
-              extraCardProps: { id: 'some-id' },
-            });
-            jest.runAllTimers();
-
-            await findByTestId('smart-block-title-resolved-view');
-            const link = await findByTestId('smart-element-link');
-
-            fireEvent.click(link);
-
-            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-              {
-                payload: {
-                  action: 'clicked',
-                  actionSubject: 'link',
-                },
-              },
-              analytics.ANALYTICS_CHANNEL,
-            );
-            expect(analyticsSpy).not.toBeFiredWithAnalyticEventOnce(
-              {
-                payload: {
-                  action: 'clicked',
-                  actionSubject: 'link',
-                },
-                context: [
-                  {
-                    attributes: {
-                      status: 'resolved',
-                    },
-                  },
-                ],
-              },
-              analytics.ANALYTICS_CHANNEL,
-            );
-          },
+          analytics.ANALYTICS_CHANNEL,
         );
       });
 
@@ -1539,91 +1453,44 @@ describe('HoverCard', () => {
         });
       });
 
-      describe('should fire link clicked event when resolved hover card is clicked', () => {
-        ffTest(
-          'platform.linking-platform.smart-card.enable-analytics-context',
-          async () => {
-            const testId = 'hover-test-div';
-            const hoverCardComponent = (
-              <HoverCard url={mockUrl} id="some-id">
-                <div data-testid={testId}>Hover on me</div>
-              </HoverCard>
-            );
-            const { findByTestId, analyticsSpy } = await setup({
-              testId,
-              component: hoverCardComponent,
-            });
-            await findByTestId('smart-block-metadata-resolved-view');
-            const link = await findByTestId('smart-element-link');
+      it('should fire link clicked event when resolved hover card is clicked', async () => {
+        const testId = 'hover-test-div';
+        const hoverCardComponent = (
+          <HoverCard url={mockUrl} id="some-id">
+            <div data-testid={testId}>Hover on me</div>
+          </HoverCard>
+        );
+        const { findByTestId, analyticsSpy } = await setup({
+          testId,
+          component: hoverCardComponent,
+        });
+        await findByTestId('smart-block-metadata-resolved-view');
+        const link = await findByTestId('smart-element-link');
 
-            fireEvent.click(link);
+        fireEvent.click(link);
 
-            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+            },
+            context: [
               {
-                payload: {
-                  action: 'clicked',
-                  actionSubject: 'link',
+                attributes: {
+                  display: 'hoverCardPreview',
+                  id: 'some-id',
                 },
-                context: [
-                  {
-                    attributes: {
-                      display: 'hoverCardPreview',
-                      id: 'some-id',
-                    },
-                  },
-                  {
-                    attributes: {
-                      displayCategory: 'smartLink',
-                      status: 'resolved',
-                    },
-                  },
-                ],
               },
-              analytics.ANALYTICS_CHANNEL,
-            );
+              {
+                attributes: {
+                  displayCategory: 'smartLink',
+                  status: 'resolved',
+                },
+              },
+            ],
           },
-          async () => {
-            const testId = 'hover-test-div';
-            const hoverCardComponent = (
-              <HoverCard url={mockUrl} id="some-id">
-                <div data-testid={testId}>Hover on me</div>
-              </HoverCard>
-            );
-            const { findByTestId, analyticsSpy } = await setup({
-              testId,
-              component: hoverCardComponent,
-            });
-            await findByTestId('smart-block-metadata-resolved-view');
-            const link = await findByTestId('smart-element-link');
-
-            fireEvent.click(link);
-
-            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-              {
-                payload: {
-                  action: 'clicked',
-                  actionSubject: 'link',
-                },
-              },
-              analytics.ANALYTICS_CHANNEL,
-            );
-            expect(analyticsSpy).not.toBeFiredWithAnalyticEventOnce(
-              {
-                payload: {
-                  action: 'clicked',
-                  actionSubject: 'link',
-                },
-                context: [
-                  {
-                    attributes: {
-                      status: 'resolved',
-                    },
-                  },
-                ],
-              },
-              analytics.ANALYTICS_CHANNEL,
-            );
-          },
+          analytics.ANALYTICS_CHANNEL,
         );
       });
     });
@@ -1768,200 +1635,87 @@ describe('HoverCard', () => {
         </Provider>
       );
 
-      ffTest(
-        'platform.linking-platform.smart-card.enable-analytics-context',
-        (ff) => {
-          ffTest(
-            'platform.linking-platform.smart-card.refactor-hover-card-analytics',
-            async () => {
-              const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
-              const { findByTestId, analyticsSpy } = await setup({
-                testId,
-                component: hoverCardComponent,
-              });
+      it('should fire link clicked event with correct attributes', async () => {
+        const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
+        const { findByTestId, analyticsSpy } = await setup({
+          testId,
+          component: hoverCardComponent,
+        });
 
-              act(() => {
-                jest.runAllTimers();
-              });
+        act(() => {
+          jest.runAllTimers();
+        });
 
-              await findByTestId('smart-block-metadata-resolved-view');
+        await findByTestId('smart-block-metadata-resolved-view');
 
-              const link = await findByTestId('smart-element-link');
-              fireEvent.click(link);
+        const link = await findByTestId('smart-element-link');
+        fireEvent.click(link);
 
-              expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-              expect(spy.mock.results[0].value).toEqual({
-                action: 'clicked',
-                actionSubject: 'smartLink',
-                actionSubjectId: 'titleGoToLink',
+        expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+        expect(spy.mock.results[0].value).toEqual({
+          action: 'clicked',
+          actionSubject: 'smartLink',
+          actionSubjectId: 'titleGoToLink',
+          attributes: {
+            componentName: 'smart-cards',
+            definitionId: 'd1',
+            extensionKey: 'confluence-object-provider',
+            display: 'hoverCardPreview',
+            id: expect.any(String),
+            isModifierKeyPressed: false,
+            packageName: '@atlaskit/smart-card',
+            packageVersion: '999.9.9',
+            status: 'resolved',
+          },
+          eventType: 'ui',
+        });
+
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+          {
+            context: [
+              {
                 attributes: {
-                  componentName: 'smart-cards',
-                  definitionId: 'd1',
-                  extensionKey: 'confluence-object-provider',
                   display: 'hoverCardPreview',
-                  id: expect.any(String),
-                  isModifierKeyPressed: false,
-                  packageName: '@atlaskit/smart-card',
-                  packageVersion: '999.9.9',
-                  status: 'resolved',
+                  id: 'some-id',
                 },
-                eventType: 'ui',
-              });
-
-              expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-                {
-                  context: [
-                    {
-                      attributes: {
-                        display: 'hoverCardPreview',
-                        id: 'some-id',
-                      },
-                    },
-                    {
-                      attributes: {
-                        status: 'resolved',
-                      },
-                    },
-                  ],
-                  payload: {
-                    action: 'clicked',
-                    actionSubject: 'smartLink',
-                  },
-                },
-                analytics.ANALYTICS_CHANNEL,
-              );
-              expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-                {
-                  context: [
-                    {
-                      attributes: {
-                        display: 'hoverCardPreview',
-                        id: 'some-id',
-                      },
-                      source: 'smartLinkPreviewHoverCard',
-                    },
-                    {
-                      attributes: {
-                        status: 'resolved',
-                      },
-                    },
-                  ],
-                  payload: {
-                    action: 'clicked',
-                    actionSubject: 'link',
-                  },
-                },
-                analytics.ANALYTICS_CHANNEL,
-              );
-            },
-            async () => {
-              const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
-              const { findByTestId, analyticsSpy } = await setup({
-                testId,
-                component: hoverCardComponent,
-              });
-
-              await findByTestId('smart-block-metadata-resolved-view');
-
-              const link = await findByTestId('smart-element-link');
-              fireEvent.click(link);
-
-              expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-              expect(spy.mock.results[0].value).toEqual({
-                action: 'clicked',
-                actionSubject: 'smartLink',
-                actionSubjectId: 'titleGoToLink',
-                attributes: {
-                  componentName: 'smart-cards',
-                  /**
-                   * packages/linking-platform/smart-card/src/state/analytics/useSmartLinkAnalytics.ts
-                   * these attributes below missing because useSmartLinkAnalytics does not react to loading in url data
-                   */
-                  // definitionId: 'd1',
-                  // extensionKey: 'confluence-object-provider',
-                  display: 'hoverCardPreview',
-                  id: expect.any(String),
-                  isModifierKeyPressed: false,
-                  packageName: '@atlaskit/smart-card',
-                  packageVersion: '999.9.9',
-                  status: 'resolved',
-                },
-                eventType: 'ui',
-              });
-
-              expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-                {
-                  context: [
-                    {
-                      attributes: {
-                        display: 'hoverCardPreview',
-                        id: 'some-id',
-                      },
-                    },
-                    {
-                      attributes: {
-                        status: 'resolved',
-                      },
-                    },
-                  ],
-                  payload: {
-                    action: 'clicked',
-                    actionSubject: 'link',
-                  },
-                },
-                analytics.ANALYTICS_CHANNEL,
-              );
-            },
-            ff,
-          );
-        },
-        async () => {
-          const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
-          const { findByTestId, analyticsSpy } = await setup({
-            testId,
-            component: hoverCardComponent,
-          });
-
-          await findByTestId('smart-block-metadata-resolved-view');
-
-          const link = await findByTestId('smart-element-link');
-          fireEvent.click(link);
-
-          expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-          expect(spy.mock.results[0].value).toEqual({
-            action: 'clicked',
-            actionSubject: 'smartLink',
-            actionSubjectId: 'titleGoToLink',
-            attributes: {
-              componentName: 'smart-cards',
-              /**
-               * packages/linking-platform/smart-card/src/state/analytics/useSmartLinkAnalytics.ts
-               * these attributes below missing because useSmartLinkAnalytics does not react to loading in url data
-               */
-              // definitionId: 'd1',
-              // extensionKey: 'confluence-object-provider',
-              display: 'hoverCardPreview',
-              id: expect.any(String),
-              isModifierKeyPressed: false,
-              packageName: '@atlaskit/smart-card',
-              packageVersion: '999.9.9',
-              status: 'resolved',
-            },
-            eventType: 'ui',
-          });
-
-          expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-            {
-              context: [],
-              payload: {
-                action: 'clicked',
-                actionSubject: 'link',
               },
+              {
+                attributes: {
+                  status: 'resolved',
+                },
+              },
+            ],
+            payload: {
+              action: 'clicked',
+              actionSubject: 'smartLink',
             },
-            analytics.ANALYTICS_CHANNEL,
-          );
-        },
-      );
+          },
+          analytics.ANALYTICS_CHANNEL,
+        );
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+          {
+            context: [
+              {
+                attributes: {
+                  display: 'hoverCardPreview',
+                  id: 'some-id',
+                },
+                source: 'smartLinkPreviewHoverCard',
+              },
+              {
+                attributes: {
+                  status: 'resolved',
+                },
+              },
+            ],
+            payload: {
+              action: 'clicked',
+              actionSubject: 'link',
+            },
+          },
+          analytics.ANALYTICS_CHANNEL,
+        );
+      });
     });
 
     describe('analytics context', () => {
@@ -1986,135 +1740,45 @@ describe('HoverCard', () => {
         </HoverCard>
       );
 
-      ffTest(
-        'platform.linking-platform.smart-card.enable-analytics-context',
-        (ff) => {
-          ffTest(
-            'platform.linking-platform.smart-card.refactor-hover-card-analytics',
-            async () => {
-              const { analyticsSpy } = await setup({
-                testId,
-                component,
-              });
+      it('should fire link viewed event with correct attributes', async () => {
+        const { analyticsSpy } = await setup({
+          testId,
+          component,
+        });
 
-              act(() => {
-                jest.runAllTimers();
-              });
-
-              expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-                payload: {
-                  action: 'fired',
-                  actionSubject: 'event',
-                },
-                // Wrapped component SHOULD NOT have context (disabled by enable-analytics-context)
-                context: [],
-              });
-
-              expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-                payload: {
-                  action: 'viewed',
-                  actionSubject: 'hoverCard',
-                  attributes: {
-                    previewDisplay: 'card',
-                    previewInvokeMethod: 'mouse_hover',
-                    status: 'pending',
-                  },
-                },
-                context: [
-                  {
-                    attributes: {
-                      display: 'hoverCardPreview',
-                    },
-                    source: 'smartLinkPreviewHoverCard',
-                  },
-                ],
-              });
-            },
-            async () => {
-              const { analyticsSpy } = await setup({
-                testId,
-                component,
-              });
-
-              act(() => {
-                jest.runAllTimers();
-              });
-
-              expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-                payload: {
-                  action: 'fired',
-                  actionSubject: 'event',
-                },
-                // Wrapped component SHOULD have context (present unless enable-analytics-context)
-                context: [
-                  {
-                    attributes: {
-                      display: 'hoverCardPreview',
-                    },
-                    source: 'smartLinkPreviewHoverCard',
-                  },
-                ],
-              });
-
-              expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-                payload: {
-                  action: 'viewed',
-                  actionSubject: 'hoverCard',
-                  attributes: {
-                    previewDisplay: 'card',
-                    previewInvokeMethod: 'mouse_hover',
-                    status: 'pending',
-                  },
-                },
-                context: [],
-              });
-            },
-            ff,
-          );
-        },
-        async () => {
-          const { analyticsSpy } = await setup({
-            testId,
-            component,
-          });
-
+        act(() => {
           jest.runAllTimers();
+        });
 
-          expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-            payload: {
-              action: 'fired',
-              actionSubject: 'event',
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'fired',
+            actionSubject: 'event',
+          },
+          // Wrapped component SHOULD NOT have context (disabled by enable-analytics-context)
+          context: [],
+        });
+
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+          payload: {
+            action: 'viewed',
+            actionSubject: 'hoverCard',
+            attributes: {
+              previewDisplay: 'card',
+              previewInvokeMethod: 'mouse_hover',
+              status: 'pending',
             },
-            context: [
-              {
-                attributes: {
-                  display: 'hoverCardPreview',
-                },
-                source: 'smartLinkPreviewHoverCard',
-              },
-            ],
-          });
-          expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-            payload: {
-              action: 'viewed',
-              actionSubject: 'hoverCard',
+          },
+          context: [
+            {
               attributes: {
-                previewDisplay: 'card',
-                previewInvokeMethod: 'mouse_hover',
-                status: 'pending',
+                display: 'hoverCardPreview',
               },
+              source: 'smartLinkPreviewHoverCard',
             },
-            context: [
-              {
-                attributes: {
-                  display: 'hoverCardPreview',
-                },
-                source: 'smartLinkPreviewHoverCard',
-              },
-            ],
-          });
-        },
-      );
+          ],
+        });
+      });
     });
 
     describe('server actions', () => {

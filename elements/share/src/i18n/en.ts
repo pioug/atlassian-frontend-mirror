@@ -12,7 +12,7 @@ export default {
   'fabric.elements.share.copypubliclink.button.text': 'Copy public link',
   'fabric.elements.share.failure.icon.label': 'Error icon',
   'fabric.elements.share.failure.message': 'Unable to share',
-  'fabric.elements.share.form.comment.placeholder': 'Add a message',
+  'fabric.elements.share.form.comment.placeholder': 'Anything they should know?',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'Recipients will see the name of the page and your message',
   'fabric.elements.share.form.info.message.no.invite.jira':

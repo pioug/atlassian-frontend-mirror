@@ -1,5 +1,11 @@
 # @atlaskit/editor-palette
 
+## 1.5.1
+
+### Patch Changes
+
+- [`c5a5b4ec141`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a5b4ec141) - Reverted back the changes done as part of UTEST-643
+
 ## 1.5.0
 
 ### Minor Changes

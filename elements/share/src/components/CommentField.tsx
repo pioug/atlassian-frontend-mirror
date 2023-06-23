@@ -17,7 +17,11 @@ export const CommentField: React.FunctionComponent<Props> = ({
 }) => {
   const intl = useIntl();
   return (
-    <Field<Comment> name="comment" defaultValue={defaultValue}>
+    <Field<Comment>
+      name="comment"
+      defaultValue={defaultValue}
+      label={intl.formatMessage(messages.commentLabel)}
+    >
       {({ fieldProps }) => (
         <TextArea
           {...fieldProps}

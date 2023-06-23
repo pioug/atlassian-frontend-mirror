@@ -1,4 +1,4 @@
-import tokenNames from '../../src/entry-points/token-names';
+import tokenNames from '../../../src/entry-points/token-names';
 
 type TokenName = keyof typeof tokenNames;
 

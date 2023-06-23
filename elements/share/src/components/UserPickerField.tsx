@@ -32,6 +32,11 @@ import { allowEmails, getMenuPortalTargetCurrentHTML } from './utils';
 export const REQUIRED = 'REQUIRED';
 const DEBOUNCE_MS = 150;
 
+const USER_PICKER_FIELD_LABEL = 'share-user-picker-field-label';
+const USER_PICKER_FIELD_PLACEHOLDER = 'share-user-picker-field-placeholder';
+
+const USER_PICKER_ARIA_LABEL = `${USER_PICKER_FIELD_LABEL} ${USER_PICKER_FIELD_PLACEHOLDER}`;
+
 const validate = (value: Value) => {
   return value && value instanceof Array && value.length > 0
     ? undefined
@@ -56,7 +61,7 @@ export type Props = {
   shareError?: ShareError;
 };
 
-type GetPlaceHolderMessageDescriptor = (
+type GetMessageDescriptor = (
   product?: ProductName,
   allowEmail?: boolean,
   isBrowseUsersDisabled?: boolean,
@@ -100,56 +105,84 @@ const getNoOptionsMessage =
         ) as any)
       : null;
 
-const getPlaceHolderMessageDescriptor: GetPlaceHolderMessageDescriptor = (
+const getPlaceHolderMessageDescriptor: GetMessageDescriptor = (
   product: ProductName = 'confluence',
   allowEmail?: boolean,
   isBrowseUsersDisabled?: boolean,
 ) => {
   if (!allowEmail) {
     const placeholderMessage = {
-      jira: messages.userPickerExistingUserOnlyPlaceholder,
-      confluence: messages.userPickerGenericExistingUserOnlyPlaceholder,
+      jira: messages.userPickerPlaceholderEmailDisabledJira,
+      // We can use the same message as when emails are not disabled, since
+      // emails are not mentioned in this placeholder as it would be too long
+      confluence: messages.userPickerPlaceholderConfluence,
     };
 
     return placeholderMessage[product];
   }
 
   if (isBrowseUsersDisabled) {
-    return messages.userPickerGenericEmailOnlyPlaceholder;
+    return messages.userPickerPlaceholderBrowseUsersDisabled;
   }
 
   const placeholderMessage = {
-    jira: messages.userPickerGenericPlaceholderJira,
-    confluence: messages.userPickerGenericPlaceholder,
+    jira: messages.userPickerPlaceholderJira,
+    confluence: messages.userPickerPlaceholderConfluence,
   };
 
   return placeholderMessage[product];
 };
 
-const requiredMessagesWithEmail = {
-  confluence: messages.userPickerRequiredMessage,
-  jira: messages.userPickerRequiredMessageJira,
-};
-
-const requiredMessagesWithoutEmail = {
-  confluence: messages.userPickerRequiredExistingUserOnlyMessage,
-  jira: messages.userPickerRequiredExistingUserOnlyMessageJira,
-};
-
-const getRequiredMessage = (
-  product: ProductName,
-  allowEmail: boolean,
+const getLabelMessageDescriptor: GetMessageDescriptor = (
+  product: ProductName = 'confluence',
+  allowEmail?: boolean,
   isBrowseUsersDisabled?: boolean,
-): MessageDescriptor => {
-  if (isBrowseUsersDisabled) {
-    return messages.userPickerRequiredMessageEmailOnly;
+) => {
+  if (!allowEmail) {
+    const labelMessage = {
+      jira: messages.userPickerLabelEmailDisabledJira,
+      confluence: messages.userPickerLabelEmailDisabledConfluence,
+    };
+
+    return labelMessage[product];
   }
 
-  const emailMessages = allowEmail
-    ? requiredMessagesWithEmail
-    : requiredMessagesWithoutEmail;
+  if (isBrowseUsersDisabled) {
+    return messages.userPickerLabelBrowseUsersDisabled;
+  }
 
-  return emailMessages[product];
+  const labelMessage = {
+    jira: messages.userPickerLabelJira,
+    confluence: messages.userPickerLabelConfluence,
+  };
+
+  return labelMessage[product];
+};
+
+const getRequiredMessage: GetMessageDescriptor = (
+  product: ProductName = 'confluence',
+  allowEmail?: boolean,
+  isBrowseUsersDisabled?: boolean,
+): MessageDescriptor => {
+  if (!allowEmail) {
+    const requiredMessage = {
+      jira: messages.userPickerRequiredMessageEmailDisabledJira,
+      confluence: messages.userPickerRequiredMessageEmailDisabledConfluence,
+    };
+
+    return requiredMessage[product];
+  }
+
+  if (isBrowseUsersDisabled) {
+    return messages.userPickerRequiredMessageBrowseUsersDisabled;
+  }
+
+  const requiredMessage = {
+    jira: messages.userPickerRequiredMessageJira,
+    confluence: messages.userPickerRequiredMessageConfluence,
+  };
+
+  return requiredMessage[product];
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -239,15 +272,6 @@ export class UserPickerFieldComponent extends React.Component<
       loadOptions: this.loadOptions,
       isMulti: true,
       width: '100%',
-      placeholder: (
-        <FormattedMessage
-          {...getPlaceHolderMessageDescriptor(
-            product,
-            allowEmail,
-            isBrowseUsersDisabled,
-          )}
-        />
-      ),
       allowEmail,
       noOptionsMessage: getNoOptionsMessage(isPublicLink, allowEmail),
       isLoading,
@@ -267,10 +291,22 @@ export class UserPickerFieldComponent extends React.Component<
 
     return (
       <Field<Value>
+        label={
+          <span id={USER_PICKER_FIELD_LABEL}>
+            <FormattedMessage
+              {...getLabelMessageDescriptor(
+                product,
+                allowEmail,
+                isBrowseUsersDisabled,
+              )}
+            />
+          </span>
+        }
         name="users"
         validate={validate}
         defaultValue={defaultValue}
         transform={this.handleUserPickerTransform}
+        isRequired
       >
         {({
           fieldProps,
@@ -291,7 +327,20 @@ export class UserPickerFieldComponent extends React.Component<
                 {...fieldProps}
                 {...commonPickerProps}
                 {...smartUserPickerProps}
+                aria-labelledby={USER_PICKER_ARIA_LABEL}
+                aria-required={true}
                 addMoreMessage={addMoreMessage}
+                placeholder={
+                  <span id={USER_PICKER_FIELD_PLACEHOLDER}>
+                    <FormattedMessage
+                      {...getPlaceHolderMessageDescriptor(
+                        product,
+                        allowEmail,
+                        isBrowseUsersDisabled,
+                      )}
+                    />
+                  </span>
+                }
                 menuPortalTarget={menuPortalTarget}
               />
 

@@ -6,7 +6,7 @@ import { jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';
 import Lozenge from '@atlaskit/lozenge';
-import Spinner from '@atlaskit/spinner';
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -20,7 +20,7 @@ export default function Accordion({
 }: {
   description: string;
   appearance?: 'information' | 'warning' | 'danger' | 'success';
-  size: number;
+  size?: number;
   children: any;
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,8 +31,9 @@ export default function Accordion({
     success: 'success',
   } as const;
 
-  const handleToggle = (event: React.ChangeEvent<HTMLDetailsElement>) =>
+  const handleToggle = (event: React.ChangeEvent<HTMLDetailsElement>) => {
     setIsOpen(event.currentTarget.open);
+  };
 
   return (
     <Fragment>
@@ -48,12 +49,6 @@ export default function Accordion({
             overflow: 'hidden',
             padding: '0em 0.5em',
             transition: 'background 0.2s ease-in',
-            '&[open]': {
-              padding: '0em 0.5em 0.5em',
-              '& summary': {
-                marginBottom: '0.5em',
-              },
-            },
           }}
         >
           <summary
@@ -69,26 +64,35 @@ export default function Accordion({
               },
             }}
           >
-            <span
-              css={{
-                display: 'inline-flex',
+            <Box
+              xcss={xcss({
+                display: 'inlineFlex',
                 alignItems: 'center',
-                gap: token('space.050'),
-              }}
+                gap: 'space.050',
+              })}
+              as="span"
             >
               <Heading level="h600">{description}</Heading>
-              <Lozenge
-                appearance={
-                  size > 0 ? appearanceMapping[appearance] : 'default'
-                }
-              >
-                {size}
-              </Lozenge>
-            </span>
+              {size !== undefined && (
+                <Lozenge
+                  appearance={
+                    size > 0 ? appearanceMapping[appearance] : 'default'
+                  }
+                >
+                  {size}
+                </Lozenge>
+              )}
+            </Box>
           </summary>
-          <ul style={{ listStyleType: 'none', padding: 0 }}>
-            {isOpen ? children : <Spinner />}
-          </ul>
+          {isOpen && children && (
+            <Box
+              xcss={xcss({
+                paddingBlock: 'space.100',
+              })}
+            >
+              {children}
+            </Box>
+          )}
         </details>
       ) : null}
     </Fragment>

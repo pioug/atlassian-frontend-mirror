@@ -9,6 +9,7 @@ import {
   CustomItemComponentProps,
   MenuGroup,
 } from '@atlaskit/menu';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B100, DN600, DN80, N70, N900 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { ThemeProps } from '@atlaskit/theme/types';
@@ -283,7 +284,23 @@ const DropdownMenuItemCustomComponent = React.forwardRef<
   const { children, ...rest } = props;
 
   return (
-    <span ref={ref} {...rest}>
+    <span
+      ref={ref}
+      {...rest}
+      style={{
+        // This forces the item container back to be `position: static`, the default value.
+        // This ensures the custom nested menu for table color picker still works as now
+        // menu items from @atlaskit/menu all have `position: relative` set for the selected borders.
+        // The current implementation unfortunately is very brittle. Design System Team will
+        // be prioritizing official support for accessible nested menus that we want you to move
+        // to in the future.
+        position: getBooleanFF(
+          'platform.design-system-team.menu-selected-state-change_0see9',
+        )
+          ? 'static'
+          : undefined,
+      }}
+    >
       {children}
     </span>
   );

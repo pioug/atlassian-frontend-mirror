@@ -19,6 +19,7 @@ const clientArgs = {
   cacheMaxAge: 0,
   url: 'DUMMY',
   gatewayGraphqlUrl: 'https://api-private.stg.atlassian.com/graphql',
+  cloudId: 'site-id',
 };
 
 const defaultTeamData = teamData({

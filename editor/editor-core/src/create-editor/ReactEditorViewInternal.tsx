@@ -168,6 +168,7 @@ export class ReactEditorView<T = {}> extends React.Component<
   transactionTracker: TransactionTracker;
   validTransactionCount: number;
   experienceStore?: ExperienceStore;
+
   editorRef = React.createRef<HTMLDivElement>();
 
   static contextTypes = {

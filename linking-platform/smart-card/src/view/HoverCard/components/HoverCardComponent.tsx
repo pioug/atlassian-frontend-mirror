@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
 import { jsx } from '@emotion/react';
 import React, { FC, useCallback, useMemo, useRef } from 'react';
@@ -19,7 +18,6 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   url,
   id,
   analyticsHandler,
-  analytics,
   canOpen = true,
   closeOnChildClick = false,
   hidePreviewButton = false,
@@ -29,16 +27,12 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   const [isOpen, setIsOpen] = React.useState(false);
   const fadeOutTimeoutId = useRef<ReturnType<typeof setTimeout>>();
   const fadeInTimeoutId = useRef<ReturnType<typeof setTimeout>>();
-  const cardOpenTime = useRef<number>();
   const mousePos = useRef<{ x: number; y: number }>();
   const popupOffset = useRef<[number, number]>();
   const parentSpan = useRef<HTMLSpanElement>(null);
 
   const renderers = useSmartLinkRenderers();
   const linkState = useLinkState(url);
-  const linkStatus = linkState.status;
-  const hoverDisplay = 'card';
-  const invokeMethod = 'mouse_hover';
 
   const setMousePosition = useCallback(
     (event) => {
@@ -51,28 +45,8 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   );
 
   const hideCard = useCallback(() => {
-    if (
-      getBooleanFF(
-        'platform.linking-platform.smart-card.refactor-hover-card-analytics',
-      )
-    ) {
-      /**
-       * Defer to inner HoverCardContent to fire this event
-       */
-    } else {
-      //Check its previously open to avoid firing events when moving between the child and hover card components
-      if (isOpen === true && cardOpenTime.current) {
-        const hoverTime = Date.now() - cardOpenTime.current;
-        analytics?.ui.hoverCardDismissedEvent({
-          previewDisplay: 'card',
-          hoverTime,
-          previewInvokeMethod: 'mouse_hover',
-          status: linkStatus,
-        });
-      }
-    }
     setIsOpen(false);
-  }, [analytics, isOpen, linkStatus]);
+  }, []);
 
   const initHideCard = useCallback(() => {
     if (fadeInTimeoutId.current) {
@@ -89,25 +63,6 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       //Set mouse position in the case it's not already set by onMouseMove, as in the case of scrolling
       setMousePosition(event);
       fadeInTimeoutId.current = setTimeout(() => {
-        if (
-          getBooleanFF(
-            'platform.linking-platform.smart-card.refactor-hover-card-analytics',
-          )
-        ) {
-          /**
-           * Defer to inner HoverCardContent to fire this event
-           */
-        } else {
-          //Check if its previously closed to avoid firing events when moving between the child and hover card components
-          if (isOpen === false) {
-            cardOpenTime.current = Date.now();
-            analytics?.ui.hoverCardViewedEvent({
-              previewDisplay: hoverDisplay,
-              previewInvokeMethod: invokeMethod,
-              status: linkStatus,
-            });
-          }
-        }
         //If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
         if (parentSpan.current && mousePos.current) {
           const { bottom, left } = parentSpan.current.getBoundingClientRect();
@@ -119,7 +74,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         setIsOpen(true);
       }, delay);
     },
-    [isOpen, setMousePosition, analytics, linkStatus],
+    [setMousePosition],
   );
 
   const linkActions = useSmartLinkActions({
@@ -169,16 +124,9 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         showServerActions,
         url,
         id,
-        ...(getBooleanFF(
-          'platform.linking-platform.smart-card.refactor-hover-card-analytics',
-        )
-          ? {}
-          : { analytics }),
       };
 
-      return getBooleanFF(
-        'platform.linking-platform.smart-card.enable-analytics-context',
-      ) ? (
+      return (
         <SmartLinkAnalyticsContext
           url={url}
           display={CardDisplay.HoverCardPreview}
@@ -187,12 +135,9 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         >
           <HoverCardContent {...hoverCardContentProps} />
         </SmartLinkAnalyticsContext>
-      ) : (
-        <HoverCardContent {...hoverCardContentProps} />
       );
     },
     [
-      analytics,
       initHideCard,
       initShowCard,
       filteredActions,

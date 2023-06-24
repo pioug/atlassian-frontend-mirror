@@ -3,7 +3,7 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 import { Node as PMNode } from 'prosemirror-model';
-import { EditorProps, EditorView, NodeView } from 'prosemirror-view';
+import { Decoration, EditorView, NodeView } from 'prosemirror-view';
 
 import {
   ACTION_SUBJECT,
@@ -22,7 +22,7 @@ import {
 
 export type InlineNodeViewComponentProps = {
   view: EditorView;
-  getPos: NodeViewParams['getPos'];
+  getPos: () => GetPosReturn;
   node: PMNode;
 };
 type InlineNodeViewComponent<ExtraComponentProps> = React.ComponentType<
@@ -225,7 +225,8 @@ function getPortalChildren<ExtraComponentProps>({
         </span>
         <Component
           view={nodeViewParams.view}
-          getPos={nodeViewParams.getPos}
+          // TODO:  ED-13910 - Remove the boolean to fix the prosemirror view type
+          getPos={nodeViewParams.getPos as any}
           node={currentNode}
           {...extraComponentProps}
         />
@@ -251,7 +252,14 @@ function getPortalChildren<ExtraComponentProps>({
 // nodeViews: {
 //   [nodeViewName: string]: NodeViewProducer
 // }
-type NodeViewProducer = NonNullable<EditorProps['nodeViews']>[string];
+type NodeViewProducer = (
+  node: PMNode,
+  view: EditorView,
+  // TODO:  ED-13910 - Remove the boolean to fix the prosemirror view type
+  getPos: (() => GetPosReturn) | boolean,
+  decorations: Decoration[],
+) => NodeView;
+type GetPosReturn = number | undefined;
 type NodeViewProducerParameters = Parameters<NodeViewProducer>;
 type NodeViewParams = {
   node: Parameters<NodeViewProducer>[0];

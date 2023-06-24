@@ -59,6 +59,11 @@ export class PlaceholderTextNodeView implements NodeView {
 
       const { view } = this;
       const startNodePosition = this.getPos();
+
+      if (typeof startNodePosition !== 'number') {
+        return false;
+      }
+
       const tr = view.state.tr;
 
       tr.setSelection(Selection.near(tr.doc.resolve(startNodePosition)));
@@ -78,7 +83,10 @@ export class PlaceholderTextNodeView implements NodeView {
 
     const { view, node } = this;
     const placeholderStartPosition = this.getPos();
-    const placeholderEndPosition = this.getPos() + node.nodeSize;
+    if (typeof placeholderStartPosition !== 'number') {
+      return false;
+    }
+    const placeholderEndPosition = placeholderStartPosition + node.nodeSize;
     const selection = view.state.selection;
 
     // when the selection is set right after the placeholder.

@@ -66,6 +66,7 @@
     "@emotion/styled": "^11.0.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
+    "jest-axe": "^4.0.0",
     "jest-in-case": "^1.0.2",
     "react-dom": "^16.8.0",
     "react-redux": "^5.1.2",

@@ -69,6 +69,7 @@ export const updateAllMediaSingleNodesAttrs =
       (acc, { getPos }) => {
         const pos = getPos();
         if (
+          typeof pos !== 'number' ||
           isNaN(pos) ||
           (typeof pos === 'number' && !isMediaNode(pos, state))
         ) {
@@ -102,7 +103,11 @@ export const updateCurrentMediaNodeAttrs =
   (attrs: object, mediaNode: MediaNodeWithPosHandler): Command =>
   (state, dispatch) => {
     const pos = mediaNode.getPos();
-    if (isNaN(pos) || (typeof pos === 'number' && !isMediaNode(pos, state))) {
+    if (
+      typeof pos !== 'number' ||
+      isNaN(pos) ||
+      (typeof pos === 'number' && !isMediaNode(pos, state))
+    ) {
       return false;
     }
 
@@ -130,7 +135,7 @@ export const updateMediaSingleNodeAttrs =
     const tr = state.tr;
     const pos = mediaNodeWithPos.getPos();
 
-    if (!isMediaNode(pos, state)) {
+    if (typeof pos !== 'number' || !isMediaNode(pos, state)) {
       return false;
     }
 

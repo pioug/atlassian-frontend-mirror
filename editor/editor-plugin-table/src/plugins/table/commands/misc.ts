@@ -470,9 +470,13 @@ export const autoSizeTable = (
   view: EditorView,
   node: PMNode,
   table: HTMLTableElement,
-  basePos: number,
+  basePos: number | undefined,
   opts: { containerWidth: number },
 ) => {
+  if (typeof basePos !== 'number') {
+    return false;
+  }
+
   view.dispatch(fixAutoSizedTable(view, node, table, basePos, opts));
   return true;
 };

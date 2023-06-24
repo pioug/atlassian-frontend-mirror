@@ -190,6 +190,10 @@ export const removeMediaNode = (
   const { tr, selection, doc } = state;
 
   const currentMediaNodePos = getPos();
+  if (typeof currentMediaNodePos !== 'number') {
+    return;
+  }
+
   tr.deleteRange(currentMediaNodePos, currentMediaNodePos + node.nodeSize);
 
   if (isTemporary(id)) {

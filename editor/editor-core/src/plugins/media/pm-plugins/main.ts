@@ -441,7 +441,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   ) => {
     let getNode = node;
     if (!getNode) {
-      getNode = this.view.state.doc.nodeAt(getPos()) as PMNode;
+      const pos = getPos();
+      if (typeof pos !== 'number') {
+        return;
+      }
+      getNode = this.view.state.doc.nodeAt(pos) as PMNode;
     }
 
     removeMediaNode(this.view, getNode, getPos);

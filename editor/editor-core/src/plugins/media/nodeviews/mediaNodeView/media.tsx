@@ -127,11 +127,16 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
   private selectMediaSingle = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
   ) => {
+    const propPos = this.props.getPos();
+
+    if (typeof propPos !== 'number') {
+      return;
+    }
+
     // We need to call "stopPropagation" here in order to prevent the browser from navigating to
     // another URL if the media node is wrapped in a link mark.
     event.stopPropagation();
 
-    const propPos = this.props.getPos();
     const { state } = this.props.view;
 
     if (event.shiftKey) {

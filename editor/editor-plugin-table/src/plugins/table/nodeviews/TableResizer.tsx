@@ -17,7 +17,7 @@ interface TableResizerProps {
   width: number;
   updateWidth: (width: number) => void;
   editorView: EditorView;
-  getPos: () => number;
+  getPos: () => number | undefined;
   node: PMNode;
   tableRef: HTMLTableElement;
 }
@@ -46,13 +46,17 @@ export const TableResizer = ({
       handleResizeStart={() => width}
       handleResize={rafSchd((originalState, delta) => {
         const newWidth = originalState.width + delta.width;
+        const pos = getPos();
+        if (typeof pos !== 'number') {
+          return;
+        }
 
         previewScaleTable(
           tableRef,
           {
             node,
             prevNode: node,
-            start: getPos() + 1,
+            start: pos + 1,
             parentWidth: newWidth,
           },
           editorView.domAtPos.bind(editorView),
@@ -67,6 +71,10 @@ export const TableResizer = ({
         const { state, dispatch } = editorView;
         const pos = getPos();
 
+        if (typeof pos !== 'number') {
+          return;
+        }
+
         let tr = state.tr.setNodeMarkup(pos, undefined, {
           ...node.attrs,
           width: newWidth,
@@ -78,7 +86,7 @@ export const TableResizer = ({
           {
             node: newNode,
             prevNode: node,
-            start: getPos() + 1,
+            start: pos + 1,
             parentWidth: newWidth,
           },
           editorView.domAtPos.bind(editorView),

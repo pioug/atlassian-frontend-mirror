@@ -205,7 +205,13 @@ export class MediaNodeUpdater {
         );
 
         const { uploadableFileUpfrontIds, dimensions } = uploader;
-        replaceExternalMedia(getPos() + 1, {
+        const pos = getPos();
+
+        if (typeof pos !== 'number') {
+          return;
+        }
+
+        replaceExternalMedia(pos + 1, {
           id: uploadableFileUpfrontIds.id,
           collection,
           height: dimensions.height,
@@ -380,7 +386,12 @@ export class MediaNodeUpdater {
     };
     const mediaFile = await mediaClient.file.copyFile(source, destination);
 
-    replaceExternalMedia(getPos() + 1, {
+    const pos = getPos();
+    if (typeof pos !== 'number') {
+      return;
+    }
+
+    replaceExternalMedia(pos + 1, {
       id: mediaFile.id,
       collection: currentCollectionName,
       height,

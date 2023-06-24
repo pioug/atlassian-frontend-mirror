@@ -22,10 +22,12 @@ export function DateNodeView(props: InlineNodeViewComponentProps) {
   } = props;
   const intl = useIntl();
 
+  const pos: number | undefined =
+    typeof getPos === 'function' ? getPos() : undefined;
+
   // We fall back to selection.$from even though it does not cover all use cases
   // eg. upon Editor init, selection is at the start, not at the Date node
-  const $nodePos =
-    typeof getPos === 'function' ? doc.resolve(getPos()) : selection.$from;
+  const $nodePos = typeof pos === 'number' ? doc.resolve(pos) : selection.$from;
 
   const parent = $nodePos.parent;
   const withinIncompleteTask =

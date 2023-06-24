@@ -34,15 +34,21 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 
     // don't dispatch immediately since we might be in the middle of
     // rendering a nodeview
-    rafSchedule(() =>
+    rafSchedule(() => {
+      const pos = getPos();
+
+      if (typeof pos !== 'number') {
+        return;
+      }
+
       view.dispatch(
         registerCard({
           title,
           url,
-          pos: getPos(),
+          pos,
         })(view.state.tr),
-      ),
-    )();
+      );
+    })();
   };
 
   gapCursorSpan = () => {

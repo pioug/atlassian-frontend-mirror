@@ -42,7 +42,7 @@ export type MediaGroupProps = {
   forwardRef?: (ref: HTMLElement) => void;
   node: PMNode;
   view: EditorView;
-  getPos: () => number;
+  getPos: () => number | undefined;
   disabled?: boolean;
   allowLazyLoading?: boolean;
   mediaProvider: Promise<MediaProvider>;
@@ -60,10 +60,16 @@ export interface MediaGroupState {
 }
 
 const isMediaGroupSelectedFromProps = (props: MediaGroupProps) => {
+  const pos = props.getPos();
+
+  if (typeof pos !== 'number') {
+    return false;
+  }
+
   return isNodeSelectedOrInRange(
     props.anchorPos,
     props.headPos,
-    props.getPos(),
+    pos,
     props.node.nodeSize,
   );
 };
@@ -123,7 +129,20 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
         isMediaSingle: false,
       });
 
-      const getPos = () => this.props.getPos() + 1;
+      const getPos = () => {
+        const pos = this.props.getPos();
+
+        if (typeof pos !== 'number') {
+          // That may seems weird, but the previous type wasn't match with the real ProseMirror code. And a lot of Media API was built expecting a number
+          // Because the original code would return NaN on runtime
+          // We are just make it explict now.
+          // We may run a deep investagation on Media code to figure out a better fix. But, for now, we want to keep the current behavior.
+          // TODO: ED-13910 prosemirror-bump leftovers
+          return NaN;
+        }
+
+        return pos + 1;
+      };
 
       const contextId = mediaNodeUpdater.getNodeContextId();
       if (!contextId) {
@@ -198,7 +217,20 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
     const oldMediaNodes = this.mediaNodes;
     this.mediaNodes = [] as Array<PMNode>;
     node.forEach((item, childOffset) => {
-      const getPos = () => props.getPos() + childOffset + 1;
+      const getPos = () => {
+        const pos = props.getPos();
+
+        if (typeof pos !== 'number') {
+          // That may seems weird, but the previous type wasn't match with the real ProseMirror code. And a lot of Media API was built expecting a number
+          // Because the original code would return NaN on runtime
+          // We are just make it explict now.
+          // We may run a deep investagation on Media code to figure out a better fix. But, for now, we want to keep the current behavior.
+          // TODO: ED-13910 prosemirror-bump leftovers
+          return NaN;
+        }
+
+        return pos + childOffset + 1;
+      };
       this.mediaNodes.push(item);
       if (updatedAttrs) {
         this.updateNodeAttrs(props, item, getPos);
@@ -245,7 +277,18 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
     const items: FilmstripItem[] = this.mediaNodes.map((item, idx) => {
       // We declared this to get a fresh position every time
       const getNodePos = () => {
-        return getPos() + idx + 1;
+        const pos = getPos();
+
+        if (typeof pos !== 'number') {
+          // That may seems weird, but the previous type wasn't match with the real ProseMirror code. And a lot of Media API was built expecting a number
+          // Because the original code would return NaN on runtime
+          // We are just make it explict now.
+          // We may run a deep investagation on Media code to figure out a better fix. But, for now, we want to keep the current behavior.
+          // TODO: ED-13910 prosemirror-bump leftovers
+          return NaN;
+        }
+
+        return pos + idx + 1;
       };
 
       // Media Inline creates a floating toolbar with the same options, excludes these options if enabled

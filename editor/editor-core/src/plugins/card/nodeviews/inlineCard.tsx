@@ -34,15 +34,22 @@ export class InlineCardComponent extends React.PureComponent<SmartCardProps> {
     const { title, url } = data;
     // don't dispatch immediately since we might be in the middle of
     // rendering a nodeview
-    rafSchedule(() =>
+    rafSchedule(() => {
+      // prosemirror-bump-fix
+      const pos = getPos();
+
+      if (typeof pos !== 'number') {
+        return;
+      }
+
       view.dispatch(
         registerCard({
           title,
           url,
-          pos: getPos(),
+          pos,
         })(view.state.tr),
-      ),
-    )();
+      );
+    })();
   };
 
   onError = (data: { url?: string; err?: Error }) => {

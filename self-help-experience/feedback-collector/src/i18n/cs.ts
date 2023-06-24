@@ -7,6 +7,9 @@
  */
 //Czech
 export default {
+  'feedback-collector.anonymous':
+    'Tato zpětná vazba je odesílána anonymně. Společnost Atlassian vás ohledně této zpětné vazby nebude moci přímo kontaktovat.',
+  'feedback-collector.anonymous.title': 'Anonymní zpětná vazba',
   'feedback-collector.can-be-contacted.label':
     'Ano, týmy Atlassian mě mohou kontaktovat ohledně mých zkušeností a pomoci s vylepšováním produktů a služeb společnosti Atlassian. Potvrzuji, že znám <a>Zásady ochrany osobních údajů společnosti Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Zrušit',

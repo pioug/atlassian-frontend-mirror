@@ -2,7 +2,6 @@ import React, { Component, Ref } from 'react';
 
 import styled from '@emotion/styled';
 import { render, screen } from '@testing-library/react';
-// import { mount, ReactWrapper, ShallowWrapper } from 'enzyme';
 // import ReactDOM from 'react-dom';
 
 import LoadingContainerAdvanced from '../../loading-container-advanced'; // LoadingContainerAdvancedProps,

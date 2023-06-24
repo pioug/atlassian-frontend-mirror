@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 185.3.1
+
+### Patch Changes
+
+- [`18344c31ea3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18344c31ea3) - [ED-13910] Fix EditorView getPos type
+
 ## 185.3.0
 
 ### Minor Changes

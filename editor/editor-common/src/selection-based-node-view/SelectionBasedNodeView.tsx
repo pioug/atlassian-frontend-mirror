@@ -81,8 +81,12 @@ export class SelectionBasedNodeView<
     if (typeof this.getPos === 'boolean') {
       return;
     }
-    this.pos = this.getPos();
-    this.posEnd = this.pos + this.node.nodeSize;
+    const pos = this.getPos();
+
+    if (typeof pos === 'number') {
+      this.pos = pos;
+      this.posEnd = pos + this.node.nodeSize;
+    }
   }
 
   private getPositionsWithDefault(pos?: number, posEnd?: number) {

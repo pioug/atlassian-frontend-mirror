@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.4.0
+
+### Minor Changes
+
+- [`5cd96271a12`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5cd96271a12) - Adding ability to disable the new Share button via allowedFeatures.
+
 ## 2.3.0
 
 ### Minor Changes

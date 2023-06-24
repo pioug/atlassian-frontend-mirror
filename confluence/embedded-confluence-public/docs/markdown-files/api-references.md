@@ -157,6 +157,7 @@ There are two different types of `allowedFeatures` depending on the components.
 | edit                | To show/hide the "Edit" pencil icon. If set to true, the edit icon will show if user has edit permission. To handle navigation when user clicks on the edit icon, please use `navigationPolicy`. |
 | inline-comments     | To show/hide inline comments and highlight button to create inline comments and Jira issues.                                                                                                     |
 | sticky-header       | To show/hide sticky header.                                                                                                                                                                      |
+| disable-share       | To hide the share button. Providing `[]` will not hide the share button, `'disable-share'` will need to be explicitly passed in to hide the share button.                                        |
 
 #### A list of features for `EditPage`:
 

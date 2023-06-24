@@ -67,7 +67,7 @@ type ResizableTableContainerProps = {
   node: PMNode;
   className: string;
   editorView: EditorView;
-  getPos: () => number;
+  getPos: () => number | undefined;
   tableRef: HTMLTableElement;
 };
 
@@ -146,7 +146,7 @@ type TableContainerProps = {
   isFullWidthModeEnabled: boolean | undefined;
   isBreakoutEnabled: boolean | undefined;
   editorView: EditorView;
-  getPos: () => number;
+  getPos: () => number | undefined;
   tableRef: HTMLTableElement;
 };
 

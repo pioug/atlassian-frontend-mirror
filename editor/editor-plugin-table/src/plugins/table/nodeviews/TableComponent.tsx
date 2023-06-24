@@ -60,7 +60,7 @@ export interface ComponentProps {
   getNode: () => PmNode;
   allowColumnResizing?: boolean;
   eventDispatcher: EventDispatcher;
-  getPos: () => number;
+  getPos: () => number | undefined;
   options?: TableOptions;
 
   contentDOM: (node: HTMLElement | null) => void;
@@ -570,7 +570,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const { state, dispatch } = view;
     const pos = getPos();
 
-    if (!isValidPosition(pos, state)) {
+    if (typeof pos !== 'number' || !isValidPosition(pos, state)) {
       return;
     }
     const domAtPos = view.domAtPos.bind(view);

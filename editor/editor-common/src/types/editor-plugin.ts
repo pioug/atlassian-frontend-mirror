@@ -104,4 +104,4 @@ export interface EditorPlugin {
 }
 
 export type getPosHandler = getPosHandlerNode | boolean;
-export type getPosHandlerNode = () => number;
+export type getPosHandlerNode = () => number | undefined;

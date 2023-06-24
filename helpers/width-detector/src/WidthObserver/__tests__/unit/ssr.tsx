@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import ReactDOM from 'react-dom';
 import { WidthDetectorObserver } from '../../width-detector-observer';
 
 describe('SSR', () => {
@@ -7,17 +7,14 @@ describe('SSR', () => {
     it('should not call setWidth', () => {
       const setWidth = jest.fn();
       const div = document.createElement('div');
-      mount(
+
+      ReactDOM.hydrate(
         <>
           <WidthDetectorObserver setWidth={setWidth} />
           <span>1</span>
         </>,
-        {
-          // @ts-ignore
-          hydrateIn: div,
-        },
+        div,
       );
-
       expect(setWidth).not.toHaveBeenCalled();
     });
   });

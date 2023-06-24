@@ -185,11 +185,16 @@ export default class MediaSingleNode extends Component<
   }
 
   selectMediaSingle = ({ event }: CardEvent) => {
+    const propPos = this.props.getPos();
+
+    if (typeof propPos !== 'number') {
+      return;
+    }
+
     // We need to call "stopPropagation" here in order to prevent the browser from navigating to
     // another URL if the media node is wrapped in a link mark.
     event.stopPropagation();
 
-    const propPos = this.props.getPos();
     const { state } = this.props.view;
 
     if (event.shiftKey) {
@@ -391,7 +396,13 @@ export default class MediaSingleNode extends Component<
     );
   };
 
-  private getLineLength = (view: EditorView, pos: number): number | null => {
+  private getLineLength = (
+    view: EditorView,
+    pos: number | undefined,
+  ): number | null => {
+    if (typeof pos !== 'number') {
+      return null;
+    }
     if (isRichMediaInsideOfBlockNode(view, pos)) {
       const $pos = view.state.doc.resolve(pos);
       const domNode = view.nodeDOM($pos.pos);

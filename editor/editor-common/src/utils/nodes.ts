@@ -86,9 +86,13 @@ export enum SelectedState {
 export const isNodeSelectedOrInRange = (
   anchorPosition: number,
   headPosition: number,
-  nodePosition: number,
+  nodePosition: number | undefined,
   nodeSize: number,
 ): SelectedState | null => {
+  if (typeof nodePosition !== 'number') {
+    return null;
+  }
+
   const rangeStart = Math.min(anchorPosition, headPosition);
   const rangeEnd = Math.max(anchorPosition, headPosition);
   const nodeStart = nodePosition;

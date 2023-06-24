@@ -37,8 +37,11 @@ export const selectCaptionFromMediaSinglePos =
   };
 
 export const insertAndSelectCaptionFromMediaSinglePos =
-  (mediaSingleNodePos: number, mediaSingleNode: PMNode): Command =>
+  (mediaSingleNodePos: number | undefined, mediaSingleNode: PMNode): Command =>
   (state, dispatch) => {
+    if (typeof mediaSingleNodePos !== 'number') {
+      return false;
+    }
     let tr = state.tr;
 
     // node should have one child, media

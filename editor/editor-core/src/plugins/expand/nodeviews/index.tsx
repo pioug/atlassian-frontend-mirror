@@ -93,7 +93,6 @@ export class ExpandNodeView implements NodeView {
   titleContainer?: HTMLElement | null;
   content?: HTMLElement | null;
   getPos: getPosHandlerNode;
-  pos: number;
   intl: IntlShape;
   allowInteractiveExpand: boolean = true;
   isMobile: boolean = false;
@@ -113,7 +112,6 @@ export class ExpandNodeView implements NodeView {
       toDOM(node, this.intl),
     );
     this.getPos = getPos;
-    this.pos = getPos();
     this.view = view;
     this.node = node;
     this.dom = dom as HTMLElement;
@@ -200,6 +198,11 @@ export class ExpandNodeView implements NodeView {
   };
 
   private handleClick = (event: Event) => {
+    const pos = this.getPos();
+    if (typeof pos !== 'number') {
+      return;
+    }
+
     const target = event.target as HTMLElement;
     const { state, dispatch } = this.view;
 
@@ -215,7 +218,7 @@ export class ExpandNodeView implements NodeView {
         this.view.dom.blur();
       }
 
-      toggleExpandExpanded(this.getPos(), this.node.type)(state, dispatch);
+      toggleExpandExpanded(pos, this.node.type)(state, dispatch);
       return;
     }
 
@@ -227,15 +230,16 @@ export class ExpandNodeView implements NodeView {
   };
 
   private handleInput = (event: Event) => {
+    const pos = this.getPos();
+    if (typeof pos !== 'number') {
+      return;
+    }
+
     const target = event.target as HTMLInputElement;
     if (target === this.input) {
       event.stopPropagation();
       const { state, dispatch } = this.view;
-      updateExpandTitle(
-        target.value,
-        this.getPos(),
-        this.node.type,
-      )(state, dispatch);
+      updateExpandTitle(target.value, pos, this.node.type)(state, dispatch);
     }
   };
 
@@ -271,6 +275,10 @@ export class ExpandNodeView implements NodeView {
     if (!this.input) {
       return;
     }
+    const pos = this.getPos();
+    if (typeof pos !== 'number') {
+      return;
+    }
     const { selectionStart, selectionEnd } = this.input;
 
     if (selectionStart !== selectionEnd || selectionStart !== 0) {
@@ -280,14 +288,19 @@ export class ExpandNodeView implements NodeView {
     const { state } = this.view;
     const expandNode = this.node;
     if (expandNode && isEmptyNode(state.schema)(expandNode)) {
-      deleteExpandAtPos(this.getPos(), expandNode)(state, this.view.dispatch);
+      deleteExpandAtPos(pos, expandNode)(state, this.view.dispatch);
     }
   };
 
   private toggleExpand = () => {
+    const pos = this.getPos();
+    if (typeof pos !== 'number') {
+      return;
+    }
+
     if (this.isAllowInteractiveExpandEnabled()) {
       const { state, dispatch } = this.view;
-      toggleExpandExpanded(this.getPos(), this.node.type)(state, dispatch);
+      toggleExpandExpanded(pos, this.node.type)(state, dispatch);
     }
   };
 
@@ -333,6 +346,10 @@ export class ExpandNodeView implements NodeView {
     if (!this.input) {
       return;
     }
+    const pos = this.getPos();
+    if (typeof pos !== 'number') {
+      return;
+    }
     const { value, selectionStart, selectionEnd } = this.input;
     if (selectionStart === selectionEnd && selectionStart === value.length) {
       const { state, dispatch } = this.view;
@@ -341,7 +358,7 @@ export class ExpandNodeView implements NodeView {
       dispatch(
         state.tr.setSelection(
           new GapCursorSelection(
-            state.doc.resolve(this.node.nodeSize + this.getPos()),
+            state.doc.resolve(this.node.nodeSize + pos),
             Side.RIGHT,
           ),
         ),
@@ -353,6 +370,10 @@ export class ExpandNodeView implements NodeView {
     if (!this.input) {
       return;
     }
+    const pos = this.getPos();
+    if (typeof pos !== 'number') {
+      return;
+    }
     const { selectionStart, selectionEnd } = this.input;
     if (selectionStart === selectionEnd && selectionStart === 0) {
       event.preventDefault();
@@ -360,7 +381,7 @@ export class ExpandNodeView implements NodeView {
       this.view.focus();
       dispatch(
         state.tr.setSelection(
-          new GapCursorSelection(state.doc.resolve(this.getPos()), Side.LEFT),
+          new GapCursorSelection(state.doc.resolve(pos), Side.LEFT),
         ),
       );
     }
@@ -368,6 +389,10 @@ export class ExpandNodeView implements NodeView {
 
   private handleArrowRightFromTitle = (event: KeyboardEvent) => {
     if (!this.input) {
+      return;
+    }
+    const pos = this.getPos();
+    if (typeof pos !== 'number') {
       return;
     }
     const { value, selectionStart, selectionEnd } = this.input;
@@ -378,13 +403,17 @@ export class ExpandNodeView implements NodeView {
 
       setSelectionRelativeToNode(
         RelativeSelectionPos.End,
-        NodeSelection.create(state.doc, this.getPos()),
+        NodeSelection.create(state.doc, pos),
       )(state, dispatch);
     }
   };
 
   private handleArrowLeftFromTitle = (event: KeyboardEvent) => {
     if (!this.input) {
+      return;
+    }
+    const pos = this.getPos();
+    if (typeof pos !== 'number') {
       return;
     }
     const { selectionStart, selectionEnd } = this.input;
@@ -400,12 +429,12 @@ export class ExpandNodeView implements NodeView {
       ) {
         setSelectionRelativeToNode(
           undefined,
-          new GapCursorSelection(state.doc.resolve(this.getPos()), Side.LEFT),
+          new GapCursorSelection(state.doc.resolve(pos), Side.LEFT),
         )(state, dispatch);
       } else {
         setSelectionRelativeToNode(
           RelativeSelectionPos.Start,
-          NodeSelection.create(state.doc, this.getPos()),
+          NodeSelection.create(state.doc, pos),
         )(state, dispatch);
       }
     }

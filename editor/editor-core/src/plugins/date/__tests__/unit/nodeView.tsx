@@ -90,7 +90,7 @@ describe('date plugin', () => {
           <DateNodeView
             view={view}
             node={view.state.doc.nodeAt(view.state.selection.$from.pos)!}
-            getPos={false}
+            getPos={() => undefined}
           />,
         );
         expect(
@@ -118,7 +118,7 @@ describe('date plugin', () => {
           <DateNodeView
             view={view}
             node={view.state.doc.nodeAt(view.state.selection.$from.pos)!}
-            getPos={false}
+            getPos={() => undefined}
           />,
         );
         expect(

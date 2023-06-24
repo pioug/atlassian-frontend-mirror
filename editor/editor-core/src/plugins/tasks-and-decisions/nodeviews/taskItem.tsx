@@ -38,6 +38,10 @@ class Task extends ReactNodeView<Props> {
     const { tr } = this.view.state;
     const nodePos = (this.getPos as getPosHandlerNode)();
 
+    if (typeof nodePos !== 'number') {
+      return false;
+    }
+
     // SetAttrsStep should be used to prevent task updates from being dropped when mapping task ticks
     // from a previous version of the document, such as a published page.
     tr.step(
@@ -62,9 +66,12 @@ class Task extends ReactNodeView<Props> {
    */
   private addListAnalyticsData = (event: UIAnalyticsEvent) => {
     try {
-      const resolvedPos = this.view.state.doc.resolve(
-        (this.getPos as getPosHandlerNode)(),
-      );
+      const nodePos = (this.getPos as getPosHandlerNode)();
+      if (typeof nodePos !== 'number') {
+        return false;
+      }
+
+      const resolvedPos = this.view.state.doc.resolve(nodePos);
       const position = resolvedPos.index();
       const listSize = resolvedPos.parent.childCount;
       const listLocalId = resolvedPos.parent.attrs.localId;

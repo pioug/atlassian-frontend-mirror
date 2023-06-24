@@ -64,10 +64,12 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
   const hasChildren = !!children;
   const removeBorder = (hideFrame && !isMobile && !hasBody) || false;
 
+  const pos: number | undefined =
+    typeof props.getPos === 'function' ? props.getPos() : undefined;
   const isTopLevelNode =
-    props.getPos &&
-    !isNaN(props.getPos()) &&
-    props.view.state.doc.resolve(props.getPos()).depth === 0;
+    typeof pos !== 'undefined' &&
+    !isNaN(pos) &&
+    props.view.state.doc.resolve(pos).depth === 0;
 
   const shouldBreakout =
     // Extension should breakout when the layout is set to 'full-width' or 'wide'.

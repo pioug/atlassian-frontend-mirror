@@ -1202,7 +1202,7 @@ export function getNodesCount(node: Node_2): Record<string, number>;
 type getPosHandler = boolean | getPosHandlerNode;
 
 // @public (undocumented)
-type getPosHandlerNode = () => number;
+type getPosHandlerNode = () => number | undefined;
 
 // @public
 export function hasVisibleContent(node: Node_2): boolean;
@@ -2003,7 +2003,7 @@ type Props_5 = {
 };
 
 // @public (undocumented)
-type ProsemirrorGetPosHandler = () => number;
+type ProsemirrorGetPosHandler = () => number | undefined;
 
 export { QuickInsertActionInsert };
 

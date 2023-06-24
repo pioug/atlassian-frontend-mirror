@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 1.6.7
+
+### Patch Changes
+
+- [`18344c31ea3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/18344c31ea3) - [ED-13910] Fix EditorView getPos type
+
 ## 1.6.6
 
 ### Patch Changes

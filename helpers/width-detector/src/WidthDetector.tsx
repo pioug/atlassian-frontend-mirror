@@ -40,7 +40,7 @@ type ResizeObject = HTMLObjectElement & {
 };
 
 /**
- * @deprecated use WidthOvserver instead
+ * @deprecated use WidthObserver instead
  *
  * This component uses iframes for rendering and is currently
  * not performant. It will be DEPRECATED in the future.

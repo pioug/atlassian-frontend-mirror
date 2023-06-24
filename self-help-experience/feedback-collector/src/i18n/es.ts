@@ -7,6 +7,9 @@
  */
 //Spanish (International)
 export default {
+  'feedback-collector.anonymous':
+    'Este comentario se envía de forma anónima. Atlassian no podrá ponerse en contacto contigo directamente en relación con estos comentarios',
+  'feedback-collector.anonymous.title': 'Comentario anónimo',
   'feedback-collector.can-be-contacted.label':
     'Sí, los equipos de Atlassian pueden ponerse en contacto conmigo para obtener información sobre mis experiencias y mejorar los productos y servicios de Atlassian. Acepto la <a>Política de privacidad de Atlassian</a>.',
   'feedback-collector.cancel-button.label': 'Cancelar',

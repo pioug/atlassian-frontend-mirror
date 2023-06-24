@@ -21,7 +21,7 @@ export interface Props {
   cellMinWidth?: number;
   portalProviderAPI: PortalProviderAPI;
   eventDispatcher: EventDispatcher;
-  getPos: () => number;
+  getPos: () => number | undefined;
   options?: TableOptions;
   tableRenderOptimization?: boolean;
   getEditorContainerWidth: GetEditorContainerWidth;

@@ -17,7 +17,7 @@ export default () => (
         Bridge and esteemed Royal Botanic Garden nearby. Sydney Tower’s outdoor
         platform, the Skywalk, offers 360-degree views of the city and suburbs.
       </DropdownItemCheckbox>
-      <DropdownItemCheckbox id="newcastle" isSelected>
+      <DropdownItemCheckbox id="newcastle" defaultSelected>
         Newcastle
       </DropdownItemCheckbox>
     </DropdownItemCheckboxGroup>

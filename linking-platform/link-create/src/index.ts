@@ -3,6 +3,7 @@ export type {
   LinkCreateProps,
   LinkCreatePlugin,
   LinkCreateWithModalProps,
+  CreatePayload,
 } from './common/types';
 
 export {

@@ -1,5 +1,12 @@
 # @atlaskit/atlassian-navigation
 
+## 2.6.8
+
+### Patch Changes
+
+- [`37131e3a8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37131e3a8ea) - Uses the Alpha release of our responsive media helpers via either the public `media` export or the internal `UNSAFE_media` export.
+- Updated dependencies
+
 ## 2.6.7
 
 ### Patch Changes

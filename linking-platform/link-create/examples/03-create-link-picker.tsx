@@ -17,6 +17,7 @@ import {
 } from '@atlassian/link-picker-atlassian-plugin';
 
 import LinkCreate from '../src';
+import { CreatePayload } from '../src/common/types';
 
 // Mocks
 mockFetchPage();
@@ -98,9 +99,9 @@ const LinkPickerCreate = () => {
       <LinkCreate
         plugins={createPlugins}
         onCancel={() => setShowCreateModal(false)}
-        onCreate={(url: string) => {
-          setLink(url);
-          console.log(url);
+        onCreate={(payload: CreatePayload) => {
+          setLink(payload.url);
+          console.log(payload.url);
           setShowCreateModal(false);
           setShowPicker(false);
         }}

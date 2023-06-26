@@ -206,6 +206,7 @@ describe('xcss()', () => {
       { '&': { gap: 'space.200' } },
       { '&&': { gap: 'space.200' } },
     ].forEach(style => {
+      // @ts-expect-error -- These are not valid selectors
       expect(() => xcss(style)).toThrow();
     });
   });

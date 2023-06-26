@@ -56,6 +56,18 @@ export interface LinkCreatePlugin {
   form: ReactNode;
 }
 
+/** The object that is returned on successful callback of create function*/
+export type CreatePayload = {
+  /** The url to the resource created by the create plugin */
+  url: string;
+  /** The object identifier for the resource created by the create plugin (for analytics) */
+  objectId: string;
+  /** The type of object created (for analytics) */
+  objectType: string;
+  /** The raw object returned from the create plugin */
+  data?: Record<string, unknown>;
+};
+
 export interface LinkCreateProps {
   /**
    * A `testId` prop is provided for specified elements, which is a unique
@@ -82,7 +94,7 @@ export interface LinkCreateProps {
   /**
    * This callback for when the resource has been successfully created.
    */
-  onCreate?: (url: string) => Promise<void> | void;
+  onCreate?: (payload: CreatePayload) => Promise<void> | void;
 
   /**
    * This callback for any errors

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-picker",
-  "version": "1.25.0",
+  "version": "1.25.1",
   "description": "Standalone link picker",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
@@ -78,7 +78,7 @@
   "devDependencies": {
     "@af/analytics-codegen": "^0.1.0",
     "@atlaskit/docs": "*",
-    "@atlaskit/dropdown-menu": "^11.9.0",
+    "@atlaskit/dropdown-menu": "^11.10.0",
     "@atlaskit/link-analytics": "^8.0.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^4.0.0",

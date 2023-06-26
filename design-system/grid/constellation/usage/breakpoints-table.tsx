@@ -20,9 +20,11 @@ export const BreakpointsTable = () => (
     <TBody>
       {Object.entries(UNSAFE_BREAKPOINTS_CONFIG).map(([breakpoint, config]) => (
         <TR key={breakpoint}>
-          <TD>{breakpoint}</TD>
+          <TD>
+            <strong>{breakpoint}</strong>
+          </TD>
           <TD align="number">{config.min}</TD>
-          <TD align="number">{config.max}</TD>
+          <TD align="number">{config.max || 'n/a'}</TD>
           <TD align="number">12</TD>
         </TR>
       ))}

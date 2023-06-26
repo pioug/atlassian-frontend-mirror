@@ -1,10 +1,8 @@
 import React, { Component, ComponentType } from 'react';
-import { mergeStyles } from 'react-select';
+import { mergeStyles, OptionsOrGroups } from 'react-select';
 import BaseSelect from 'react-select/base';
 import memoizeOne from 'memoize-one';
 import isEqual from 'react-fast-compare';
-
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
   SelectProps,
@@ -12,9 +10,14 @@ import {
   OptionType,
   AsyncSelectProps,
   CreatableSelectProps,
+  GroupType,
 } from './types';
 import * as defaultComponents from './components';
 import baseStyles from './styles';
+import {
+  onFocus,
+  isOptionsGrouped,
+} from './utils/grouped-options-announcement';
 
 export default function createSelect(WrappedComponent: ComponentType<any>) {
   return class AtlaskitSelect<
@@ -83,6 +86,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
         spacing,
         isMulti,
         appearance,
+        ariaLiveMessages,
         ...props
       } = this.props;
       const isCompact = spacing === 'compact';
@@ -93,6 +97,16 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
           ref={this.onSelectRef}
           isMulti={isMulti}
           aria-live="assertive"
+          ariaLiveMessages={
+            isOptionsGrouped(
+              this.props.options as OptionsOrGroups<
+                OptionType,
+                GroupType<OptionType>
+              >,
+            )
+              ? { onFocus, ...ariaLiveMessages }
+              : { ...ariaLiveMessages }
+          }
           {...props}
           components={this.components}
           styles={mergeStyles(
@@ -108,22 +122,6 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
             ),
             styles!,
           )}
-          placeholder={
-            <>
-              {isMulti && (
-                // NOTE: This has been added because react-select does not announce to screen readers that multiple options can be selected.
-                // Here we hijack the placeholder to include more info.
-                // The placeholder is used as the `aria-describedby` for the input, and gets rendered in a div rather than a native input placeholder.
-                // Ideally react-select should make use of the aria-multiselectable attribute.
-                <VisuallyHidden>
-                  Multiple options can be selected.
-                </VisuallyHidden>
-              )}
-              {props.placeholder !== undefined
-                ? props.placeholder
-                : 'Select...'}
-            </>
-          }
         />
       );
     }

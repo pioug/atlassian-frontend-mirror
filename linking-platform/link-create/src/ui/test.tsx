@@ -23,6 +23,9 @@ const CreatePluginForm = () => {
           onCreate &&
           onCreate({
             url: 'https://www.atlassian.com',
+            data: {
+              spaceName: 'space',
+            },
             objectId: '123',
             objectType: 'page',
           })
@@ -107,7 +110,14 @@ describe('<LinkCreate />', () => {
   it('should trigger the callback onCreate when it submits the form', async () => {
     const { getByTestId } = setUpLinkCreate();
     await getByTestId('submit-button').click();
-    expect(onCreateMock).toBeCalledWith('https://www.atlassian.com');
+    expect(onCreateMock).toBeCalledWith(
+      expect.objectContaining({
+        url: 'https://www.atlassian.com',
+        objectId: '123',
+        objectType: 'page',
+        data: { spaceName: 'space' },
+      }),
+    );
   });
 
   it('should trigger the callback onFailure when the form fails', async () => {

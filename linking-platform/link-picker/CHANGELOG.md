@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.25.1
+
+### Patch Changes
+
+- [`e967d74f6f8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e967d74f6f8) - Changes the link picker search results subtext color from 'color.text' to 'color.text.subtlest'.
+
 ## 1.25.0
 
 ### Minor Changes

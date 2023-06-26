@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { UNSAFE_media as media } from '@atlaskit/primitives/responsive';
+import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 
 import {
   BANNER,
@@ -55,7 +55,7 @@ const gridStylesMobile = getBooleanFF(
 )
   ? css({
       // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-      [media.below.md]: {
+      [UNSAFE_media.below.md]: {
         gridTemplateAreas: gridTemplateAreasMobile,
         gridTemplateColumns: `${LEFT_PANEL_WIDTH} minmax(0, 1fr)`,
       },

@@ -12,14 +12,20 @@ import {
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-export function getURL(testName: string): string {
+export function getURL(
+  testName: string,
+  colorMode: 'dark' | 'light' | 'none' = 'none',
+): string {
   return getExampleUrl(
     'linking-platform',
     'link-picker',
     testName,
     global.__BASEURL__,
+    colorMode,
   );
 }
+
+const COLOR_MODES = ['dark', 'light', 'none'] as const;
 
 export async function setup(url: string, options: LoadPageOptions = {}) {
   const { page } = global;
@@ -47,12 +53,15 @@ describe('link-picker', () => {
     testSelector = '[data-testid="link-picker"]';
   });
 
-  it('should render component with results', async () => {
-    const url = getURL('vr-basic');
-    const page = await setup(url);
-    const image = await takeElementScreenShot(page, testSelector);
-    expect(image).toMatchProdImageSnapshot();
-  });
+  it.each(COLOR_MODES)(
+    'should render component with results with %s tokens',
+    async colorMode => {
+      const url = getURL('vr-basic', colorMode);
+      const page = await setup(url);
+      const image = await takeElementScreenShot(page, testSelector);
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
   it('Should render component without display text field', async () => {
     const url = getURL('vr-hide-display-text');
@@ -85,16 +94,19 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should change list-item background on hover and selection', async () => {
-    const url = getURL('vr-basic');
-    const page = await setup(url);
-    await page.keyboard.press('ArrowDown');
-    await page.keyboard.press('ArrowDown');
-    await page.hover('[data-testid="link-search-list-item"]');
+  it.each(COLOR_MODES)(
+    'Should change list-item background on hover and selection with %s tokens',
+    async colorMode => {
+      const url = getURL('vr-basic', colorMode);
+      const page = await setup(url);
+      await page.keyboard.press('ArrowDown');
+      await page.keyboard.press('ArrowDown');
+      await page.hover('[data-testid="link-search-list-item"]');
 
-    const image = await takeElementScreenShot(page, testSelector);
-    expect(image).toMatchProdImageSnapshot();
-  });
+      const image = await takeElementScreenShot(page, testSelector);
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
   // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/EDM-7000
   it('should select the search list via keyboard tab', async () => {
@@ -185,14 +197,17 @@ describe('link-picker', () => {
     expect(image).toMatchProdImageSnapshot();
   });
 
-  it('Should change input border-color on focus', async () => {
-    const url = getURL('vr-basic');
-    const page = await setup(url);
-    await page.focus('[data-testid="link-text"]');
+  it.each(COLOR_MODES)(
+    'Should change input border-color on focus with %s tokens',
+    async colorMode => {
+      const url = getURL('vr-basic', colorMode);
+      const page = await setup(url);
+      await page.focus('[data-testid="link-text"]');
 
-    const image = await takeElementScreenShot(page, testSelector);
-    expect(image).toMatchProdImageSnapshot();
-  });
+      const image = await takeElementScreenShot(page, testSelector);
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
   it('Should display ClearText button when input has value', async () => {
     const url = getURL('vr-basic');

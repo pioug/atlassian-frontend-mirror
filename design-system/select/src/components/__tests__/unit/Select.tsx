@@ -5,6 +5,18 @@ import userEvent from '@testing-library/user-event';
 
 import AtlaskitSelect from '../../..';
 
+jest.mock('../../../utils/grouped-options-announcement', () => {
+  const originalModule = jest.requireActual<
+    typeof import('../../../utils/grouped-options-announcement')
+  >('../../../utils/grouped-options-announcement');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+    onFocus: () => 'overwrite native ariaLiveMessages onFocus method',
+  };
+});
+
 const user = userEvent.setup();
 
 const OPTIONS = [
@@ -39,6 +51,36 @@ describe('Select', () => {
       'aria-expanded',
       'true',
     );
+  });
+
+  describe('Grouped value Select', () => {
+    it('should pass onFocus to react-select if options are grouped', async () => {
+      const groupedOptions = [
+        {
+          label: 'group',
+          options: [
+            { value: 1, label: '1' },
+            { value: 2, label: '2' },
+          ],
+        },
+      ];
+
+      const { rerender } = render(
+        <AtlaskitSelect options={groupedOptions} menuIsOpen />,
+      );
+
+      await user.click(screen.getByText('Select...'));
+      expect(
+        screen.getByText(/overwrite native ariaLiveMessages onFocus method/),
+      ).toBeInTheDocument();
+
+      rerender(<AtlaskitSelect options={OPTIONS} menuIsOpen />);
+
+      await user.click(screen.getByText('Select...'));
+      expect(
+        screen.queryByText(/overwrite native ariaLiveMessages onFocus method/),
+      ).toBeNull();
+    });
   });
 
   describe('single value select', () => {

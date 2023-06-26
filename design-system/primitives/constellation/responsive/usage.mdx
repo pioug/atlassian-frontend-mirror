@@ -1,0 +1,53 @@
+---
+title: Responsive
+description: Responsive helpers and primitives to build responsive UIs with
+order: 1
+---
+
+## Media query helpers
+
+We expose two media query helper objects which map to our [breakpoints](/components/grid/usage#breakpoints) as media queries for use in css-in-js:
+ - `media.above[breakpoint]` to target all viewports **above** (larger than) the min-width of a given breakpoint
+
+### A basic example:
+
+Compose your default styles alongside media overrides in [xcss](/components/primitives/xcss) or `css`
+
+```tsx
+const customStyles = xcss({
+  display: 'none', // hide by default
+  padding: 'space.100',
+  [media.above.md]: { display: 'revert' }, // show above md
+  [media.above.lg]: { padding: 'space.150' }, // increase padding above md
+});
+
+export const Component = ({ children }: { children: ReactNode }) => (
+  <div css={customStyles}>{children}</div>
+);
+```
+
+### `media.above` usage
+
+Please note that `media.above.xxs` will **always** match; it is explicitly `'@media all'`.  This is only included for easy programatic usage, but it has a negative performance impact.
+
+```tsx
+const customStyles = css({
+  marginBlock: token('space.0'),
+  [media.above.xs]: { marginBlock: token('space.025') },
+  [media.above.sm]: { marginBlock: token('space.050') },
+  [media.above.md]: { marginBlock: token('space.075') },
+  [media.above.lg]: { marginBlock: token('space.100') },
+  [media.above.xl]: { marginBlock: token('space.150') },
+});
+```
+
+### `media.below` usage
+
+This is intentionally excluded at the moment as we're shipping our opinion that teams should design mobile-first.
+We understand this will not scale and we're open to change, but we'd like to change this with feedback.
+
+If we do add it back, we'd suggest codebases prefer a single approach (eg. `above` or `below`) and use that consistently.  Mixing them results in confusion (though they can be safely used together and can result in better CSS performance when done correctly).
+
+### Some notes and suggestions
+
+- Please combine this with our [xcss](/components/primitives/xcss) when available as this uses our media queries to allow for safe, responsive styling.

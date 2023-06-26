@@ -1,5 +1,18 @@
 # @atlaskit/page-layout
 
+## 1.7.2
+
+### Patch Changes
+
+- [`37131e3a8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37131e3a8ea) - Uses the Alpha release of our responsive media helpers via either the public `media` export or the internal `UNSAFE_media` export.
+- Updated dependencies
+
+## 1.7.1
+
+### Patch Changes
+
+- [`009e6a78811`](https://bitbucket.org/atlassian/atlassian-frontend/commits/009e6a78811) - Fixed dependency resolution issue with `@atlaskit/primitives`.
+
 ## 1.7.0
 
 ### Minor Changes

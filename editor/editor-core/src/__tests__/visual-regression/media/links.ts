@@ -26,8 +26,7 @@ describe('Snapshot Test: Media', () => {
 
   describe('Media Linking Toolbar', () => {
     describe('CMD+K menu', () => {
-      // FIXME: This test was automatically skipped due to failure on 16/06/2023: https://product-fabric.atlassian.net/browse/EDM-7004
-      it.skip('should show dropdown menu', async () => {
+      it('should show dropdown menu', async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 
@@ -43,8 +42,7 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
-      // FIXME: This test was automatically skipped due to failure on 16/06/2023: https://product-fabric.atlassian.net/browse/EDM-7004
-      it.skip('should not trigger search if input is a URL', async () => {
+      it('should not trigger search if input is a URL', async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 
@@ -64,8 +62,7 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
-      // FIXME: This test was automatically skipped due to failure on 16/06/2023: https://product-fabric.atlassian.net/browse/EDM-7004
-      it.skip("shouldn't submit after clicking between inputs", async () => {
+      it("shouldn't submit after clicking between inputs", async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 
@@ -91,8 +88,7 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
-      // FIXME: This test was automatically skipped due to failure on 16/06/2023: https://product-fabric.atlassian.net/browse/EDM-7004
-      it.skip('should highlight items with mouse over', async () => {
+      it('should highlight items with mouse over', async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 
@@ -108,8 +104,7 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
-      // FIXME: This test was automatically skipped due to failure on 16/06/2023: https://product-fabric.atlassian.net/browse/EDM-7004
-      it.skip('should not highligh items when mouse move away from result item', async () => {
+      it('should not highligh items when mouse move away from result item', async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 
@@ -126,8 +121,7 @@ describe('Snapshot Test: Media', () => {
         await snapshot(page);
       });
 
-      // FIXME: This test was automatically skipped due to failure on 16/06/2023: https://product-fabric.atlassian.net/browse/EDM-7004
-      it.skip('should populate Url field with selected item using keyboard', async () => {
+      it('should populate Url field with selected item using keyboard', async () => {
         await page.mouse.move(0, 0); // Prevent keep mouse over the button. (This cause to sometimes highlight the button)
         await page.click('.ProseMirror');
 

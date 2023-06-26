@@ -12,7 +12,11 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 
 import { CREATE_FORM_MAX_WIDTH_IN_PX } from '../../common/constants';
-import { LinkCreateProps, LinkCreateWithModalProps } from '../../common/types';
+import {
+  CreatePayload,
+  LinkCreateProps,
+  LinkCreateWithModalProps,
+} from '../../common/types';
 import { LinkCreateCallbackProvider } from '../../controllers/callback-context';
 import {
   useFormContext,
@@ -44,11 +48,11 @@ const LinkCreate = withLinkCreateFormContext(
     const { setFormErrorMessage } = useFormContext();
 
     const handleCreate = useCallback(
-      async result => {
+      async (result: CreatePayload) => {
         // Reset the form error message
         setFormErrorMessage(undefined);
         if (onCreate) {
-          await onCreate(result.url);
+          await onCreate(result);
         }
       },
       [onCreate, setFormErrorMessage],
@@ -67,9 +71,9 @@ const LinkCreate = withLinkCreateFormContext(
       <div data-testid={testId}>
         <ErrorBoundary>
           <LinkCreateCallbackProvider
+            onCancel={onCancel}
             onCreate={handleCreate}
             onFailure={handleFailure}
-            onCancel={onCancel}
           >
             <TrackMount />
             <LinkCreateContent {...restProps} />

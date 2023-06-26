@@ -1,7 +1,9 @@
 import React, { KeyboardEvent, MouseEvent, useCallback } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
 import ButtonItem from '@atlaskit/menu/button-item';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import RadioIcon from '../internal/components/radio-icon';
 import useRadioState from '../internal/hooks/use-radio-state';
@@ -58,18 +60,26 @@ const DropdownItemRadio = (props: DropdownItemRadioProps) => {
   const itemRef = useRegisterItemWithFocusManager();
 
   return (
-    <ButtonItem
-      id={id}
-      onClick={onClickHandler}
-      role={isVoiceOverSupported() ? 'radio' : 'menuitemradio'}
-      aria-checked={selected}
-      shouldTitleWrap={shouldTitleWrap}
-      shouldDescriptionWrap={shouldDescriptionWrap}
-      iconBefore={<RadioIcon checked={selected} />}
-      ref={itemRef}
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-      {...rest}
-    />
+    <SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="none">
+      <ButtonItem
+        id={id}
+        onClick={onClickHandler}
+        role={isVoiceOverSupported() ? 'radio' : 'menuitemradio'}
+        aria-checked={selected}
+        shouldTitleWrap={shouldTitleWrap}
+        shouldDescriptionWrap={shouldDescriptionWrap}
+        iconBefore={<RadioIcon checked={selected} />}
+        isSelected={
+          selected &&
+          getBooleanFF(
+            'platform.design-system-team.menu-selected-state-change_0see9',
+          )
+        }
+        ref={itemRef}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...rest}
+      />
+    </SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
   );
 };
 

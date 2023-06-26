@@ -211,7 +211,9 @@ export { SectionProps as SectionBaseProps };
 export { SectionProps };
 
 // @internal
-export const SELECTION_STYLE_CONTEXT_DO_NOT_USE: Context<'border' | 'notch'>;
+export const SELECTION_STYLE_CONTEXT_DO_NOT_USE: Context<
+  'border' | 'none' | 'notch'
+>;
 
 // @public
 export const SkeletonHeadingItem: ({

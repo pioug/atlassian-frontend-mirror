@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 16.5.5
+
+### Patch Changes
+
+- [`96ac277d0d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96ac277d0d7) - [ux] - created custom onFocus function, which overwrites built in onFocus method for ariaLiveMessages;
+
+  - function is conditionally invoked only for grouped select options to enable group label announcement with it's group options;
+
 ## 16.5.4
 
 ### Patch Changes

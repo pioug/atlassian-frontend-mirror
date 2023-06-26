@@ -10,7 +10,7 @@ import type * as CSS from 'csstype';
 
 import warnOnce from '@atlaskit/ds-lib/warn-once';
 
-import { UNSAFE_media } from '../helpers/responsive';
+import { media } from '../helpers/responsive';
 import { MediaQuery } from '../helpers/responsive/types';
 import { Box, Inline } from '../index';
 
@@ -115,11 +115,12 @@ const reNestedSelectors = /(\.|\s|&+|\*\>|#|\[.*\])/;
 const rePseudos = /^::?.*$/;
 
 const reMediaQuery = /^@media .*$/;
+
+/**
+ * Reduce our media queries into a safe string for regex comparison.
+ */
 const reValidMediaQuery = new RegExp(
-  `^(${[
-    ...Object.values(UNSAFE_media.above),
-    ...Object.values(UNSAFE_media.below),
-  ]
+  `^(${Object.values(media.above)
     .map(
       (mediaQuery: MediaQuery) => mediaQuery.replace(/[.()]/g, '\\$&'), // Escape the ".", "(", and ")" in the media query syntax.
     )

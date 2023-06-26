@@ -324,7 +324,7 @@ type BoxXCSS = {
 };
 
 // @public
-type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxl' | 'xxs';
+type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxs';
 
 // @public (undocumented)
 type CSSMediaQueries = {
@@ -523,10 +523,20 @@ type MaxInlineSize = Dimension;
 // @public (undocumented)
 type MaxWidth = Dimension;
 
-// @public (undocumented)
-type MediaQuery =
-  | (typeof UNSAFE_media.above)[Breakpoint]
-  | (typeof UNSAFE_media.below)[Exclude<Breakpoint, 'xxs'>];
+// @public
+const media: {
+  readonly above: {
+    readonly xxs: '@media all';
+    readonly xs: '@media (min-width: 30rem)';
+    readonly sm: '@media (min-width: 48rem)';
+    readonly md: '@media (min-width: 64rem)';
+    readonly lg: '@media (min-width: 90rem)';
+    readonly xl: '@media (min-width: 110rem)';
+  };
+};
+
+// @public
+type MediaQuery = (typeof media.above)[Breakpoint];
 
 // @public (undocumented)
 type MinBlockSize = Dimension;
@@ -797,27 +807,6 @@ type Top = Dimension;
 
 // @public (undocumented)
 const uniqueSymbol: unique symbol;
-
-// @public
-const UNSAFE_media: {
-  readonly above: {
-    readonly xxs: `@media (min-width: ${number}rem)`;
-    readonly xs: `@media (min-width: ${number}rem)`;
-    readonly sm: `@media (min-width: ${number}rem)`;
-    readonly md: `@media (min-width: ${number}rem)`;
-    readonly lg: `@media (min-width: ${number}rem)`;
-    readonly xl: `@media (min-width: ${number}rem)`;
-    readonly xxl: `@media (min-width: ${number}rem)`;
-  };
-  readonly below: {
-    readonly xs: `@media (max-width: ${number}rem)`;
-    readonly sm: `@media (max-width: ${number}rem)`;
-    readonly md: `@media (max-width: ${number}rem)`;
-    readonly lg: `@media (max-width: ${number}rem)`;
-    readonly xl: `@media (max-width: ${number}rem)`;
-    readonly xxl: `@media (max-width: ${number}rem)`;
-  };
-};
 
 // @public (undocumented)
 type Width = Dimension;

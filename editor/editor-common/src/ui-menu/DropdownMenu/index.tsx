@@ -217,6 +217,10 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
             isTriggerNotTabbable={true}
             handleClickOutside={this.handleClose}
             handleEscapeKeydown={this.handleCloseAndFocus}
+            handleEnterKeydown={(e: KeyboardEvent) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             targetRef={this.state.target}
           >
             <div style={{ height: 0, minWidth: fitWidth || 0 }} />

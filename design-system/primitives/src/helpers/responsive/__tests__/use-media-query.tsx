@@ -11,7 +11,9 @@ const mockMatchMediaAtWidth = (rem: number = 0) => {
   (removeEventListener as jest.Mock).mockReset();
 
   window.matchMedia = jest.fn().mockImplementation(query => {
-    const isMax = !!String(query).includes('max-width');
+    const isMax =
+      !!String(query).includes('max-width') ||
+      !!String(query).match(/not all and \(min-width: [\d]+rem\)/);
     const mediaWidth = parseFloat(query.replace(/[^\d\.]+/g, ''));
     const matches = isMax ? mediaWidth > rem : mediaWidth <= rem;
 
@@ -36,27 +38,25 @@ describe('useMediaQuery (with a mocked matchMedia)', () => {
   });
 
   test('mounts matchMedia with expected queries (only once)', () => {
-    expect(window.matchMedia).toHaveBeenCalledTimes(13);
+    expect(window.matchMedia).toHaveBeenCalledTimes(11);
 
     // Call to make sure it doesn't bind again
     renderHook(() => useMediaQuery('above.sm'));
     renderHook(() => useMediaQuery('below.md'));
 
-    expect(window.matchMedia).toHaveBeenCalledTimes(13);
+    expect(window.matchMedia).toHaveBeenCalledTimes(11);
     expect((window.matchMedia as jest.Mock).mock.calls).toEqual([
-      ['(min-width: 0rem)'],
+      ['all'],
       ['(min-width: 30rem)'],
       ['(min-width: 48rem)'],
       ['(min-width: 64rem)'],
       ['(min-width: 90rem)'],
       ['(min-width: 110rem)'],
-      ['(min-width: 135rem)'],
-      ['(max-width: 29.998rem)'],
-      ['(max-width: 47.998rem)'],
-      ['(max-width: 63.998rem)'],
-      ['(max-width: 89.998rem)'],
-      ['(max-width: 109.998rem)'],
-      ['(max-width: 134.998rem)'],
+      ['not all and (min-width: 30rem)'],
+      ['not all and (min-width: 48rem)'],
+      ['not all and (min-width: 64rem)'],
+      ['not all and (min-width: 90rem)'],
+      ['not all and (min-width: 110rem)'],
     ]);
   });
 
@@ -190,20 +190,18 @@ describe('useMediaQuery (with a mocked matchMedia)', () => {
   });
 
   test.each([
-    ['above.xxs', -0.01, 0], // This doesn't make sense in a brower, but it exists…
+    // NOTE: There is no `above.xxs` as we cannot actually invalidate it (or test it)
     ['above.xs', 29.99, 30],
     ['above.sm', 47.99, 48],
     ['above.md', 63.99, 64],
     ['above.lg', 89.99, 90],
     ['above.xl', 109.99, 110],
-    ['above.xxl', 134.99, 135],
     // NOTE: There is no `below.xxs`, we can't be below 0…
     ['below.xs', 30, 29.99],
     ['below.sm', 48, 47.99],
     ['below.md', 64, 63.99],
     ['below.lg', 90, 89.99],
     ['below.xl', 110, 109.99],
-    ['below.xxl', 135, 134.99],
   ] as const)('%p changes around %prem', (query, noMatchAt, matchAt) => {
     // Eg. at 30rem it's not "below xs"; below is <= 29.99rem
     mockMatchMediaAtWidth(noMatchAt);

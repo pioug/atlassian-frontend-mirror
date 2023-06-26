@@ -86,6 +86,14 @@ export interface CreateFormProps<FormData> {
   testId?: string;
 }
 
+// @public
+export type CreatePayload = {
+  url: string;
+  objectId: string;
+  objectType: string;
+  data?: Record<string, unknown>;
+};
+
 // @public (undocumented)
 export const FormContextProvider: React_2.FC<{}>;
 
@@ -114,11 +122,7 @@ export const LinkCreateCallbackProvider: React_2.FC<LinkCreateCallbackProviderPr
 // @public (undocumented)
 interface LinkCreateCallbackProviderProps {
   onCancel?: () => void;
-  onCreate?: (result: {
-    url: string;
-    objectId: string;
-    objectType: string;
-  }) => Promise<void> | void;
+  onCreate?: (result: CreatePayload) => Promise<void> | void;
   onFailure?: (errorMessage: string) => void;
 }
 
@@ -136,7 +140,7 @@ export interface LinkCreateProps {
   entityKey: string;
   groupKey?: string;
   onCancel?: () => void;
-  onCreate?: (url: string) => Promise<void> | void;
+  onCreate?: (payload: CreatePayload) => Promise<void> | void;
   onFailure?: (error: unknown) => void;
   // (undocumented)
   plugins: LinkCreatePlugin[];

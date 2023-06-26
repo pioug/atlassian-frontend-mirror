@@ -2,16 +2,19 @@ import { SerializedStyles } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { UNSAFE_media } from './media-helper';
+import { media } from './media-helper';
 
 /**
  * The breakpoints we have for responsiveness.
  */
-export type Breakpoint = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+export type Breakpoint = 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
-export type MediaQuery =
-  | (typeof UNSAFE_media.above)[Breakpoint]
-  | (typeof UNSAFE_media.below)[Exclude<Breakpoint, 'xxs'>];
+/**
+ * All supported media queries for use as keys, eg. in `xcss({ [MediaQuery]: { … } })`
+ *
+ * TODO: Should this have `media.above.xxs`?  This is explicitly `@media all`, which I believe is just additional specificity (which could lead to some mistakes)
+ */
+export type MediaQuery = (typeof media.above)[Breakpoint];
 
 /**
  * An object type mapping a value to each breakpoint (optionally)
@@ -52,12 +55,7 @@ export type BreakpointConfig = {
    */
   min: `${number}rem`;
   /**
-   * The max-width used in media queries
+   * The max-width used in media queries; if set to `null`, it has no max-width (should strictly only be on the largest breakpoint).
    */
-  max: `${number}rem`;
-  /**
-   * To ensure min-width and max-width do both target at the same time, we subtract a value.
-   * We use a fractional value here as used in other libraries and described in @link https://www.w3.org/TR/mediaqueries-4/#mq-min-max: "…possibility of fractional viewport sizes which can occur as a result of non-integer pixel densities…"
-   */
-  below: `${number}rem`;
+  max: `${number}rem` | null;
 };

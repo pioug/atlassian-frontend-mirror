@@ -7,7 +7,7 @@ import ChevronRight from '@atlaskit/icon/glyph/chevron-right';
 import { easeOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs, smallDurationMs } from '@atlaskit/motion/durations';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { UNSAFE_media as media } from '@atlaskit/primitives/responsive';
+import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { B100, B200, N0, N200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -29,7 +29,7 @@ const mobileStyles = getBooleanFF(
 )
   ? css({
       // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-      [media.below.md]: {
+      [UNSAFE_media.below.md]: {
         opacity: 1,
       },
     })

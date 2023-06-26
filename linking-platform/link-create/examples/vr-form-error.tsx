@@ -7,6 +7,7 @@ import Button from '@atlaskit/button/standard-button';
 import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
 
 import LinkCreate from '../src';
+import { CreatePayload } from '../src/common/types';
 
 // This is the cloud id for pug.jira-dev.com
 const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
@@ -19,8 +20,8 @@ function FormErrors() {
 
   const plugins = [createConfluencePageLinkCreatePlugin(CLOUD_ID)];
 
-  const handleCreate = useCallback((url: string) => {
-    setLink(url);
+  const handleCreate = useCallback((payload: CreatePayload) => {
+    setLink(payload.url);
     setActive(false);
   }, []);
 

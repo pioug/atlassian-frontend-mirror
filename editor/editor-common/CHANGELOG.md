@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.9.2
+
+### Patch Changes
+
+- [`87070f514cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87070f514cd) - [ux] ED-18024 Adds an enter keydown handler on the main toolbar droplist (BlockInsertMenuLegacy) to prevent the editor capturing the keypress when the keyboard is used to insert nodes.
+
 ## 74.9.1
 
 ### Patch Changes

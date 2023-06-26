@@ -19,5 +19,5 @@ export const SpacingContext = createContext<SpacingMode>('cozy');
  * @internal Do not use directly.
  */
 export const SELECTION_STYLE_CONTEXT_DO_NOT_USE = createContext<
-  'notch' | 'border'
+  'notch' | 'border' | 'none'
 >('border');

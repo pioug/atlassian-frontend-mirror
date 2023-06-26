@@ -1,5 +1,15 @@
 # @atlaskit/dropdown-menu
 
+## 11.10.0
+
+### Minor Changes
+
+- [`6794b446742`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6794b446742) - [ux] We are testing a new selected state for radio and checkbox items under a feature flag. If successful this will be released in a later version.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.9.5
 
 ### Patch Changes

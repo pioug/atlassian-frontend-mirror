@@ -10,6 +10,7 @@ import { CardSSR } from '@atlaskit/smart-card/ssr';
 import InlineCard from '../../../../react/nodes/inlineCard';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MockCardComponent } from './card.mock';
+import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 jest.mock('@atlaskit/smart-card', () => {
   const originalModule = jest.requireActual('@atlaskit/smart-card');
@@ -108,6 +109,11 @@ describe('Renderer - React/Nodes/InlineCard', () => {
   });
 
   it('should use Card SSR component for ssr mode', () => {
+    const mockedOnClick = jest.fn();
+    const mockedEvent = { target: {} };
+    const mockEventHandlers: EventHandlers = {
+      smartCard: { onClick: mockedOnClick },
+    };
     node = mount(
       <Provider client={new Client('staging')}>
         <InlineCard
@@ -117,6 +123,7 @@ describe('Renderer - React/Nodes/InlineCard', () => {
             showAuthTooltip: true,
             showServerActions: true,
           }}
+          eventHandlers={mockEventHandlers}
         />
       </Provider>,
     );
@@ -126,7 +133,12 @@ describe('Renderer - React/Nodes/InlineCard', () => {
       appearance: 'inline',
       showAuthTooltip: true,
       showServerActions: true,
+      onClick: expect.any(Function),
     });
+
+    const onClick = node.find(CardSSR).prop('onClick');
+    onClick(mockedEvent);
+    expect(mockedOnClick).toHaveBeenCalledWith(mockedEvent, url);
   });
 });
 

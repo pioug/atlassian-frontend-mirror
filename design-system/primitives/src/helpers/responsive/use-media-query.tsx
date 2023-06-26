@@ -2,11 +2,11 @@ import { useEffect, useLayoutEffect, useRef } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import { UNSAFE_media as media } from './media-helper';
+import { UNSAFE_media } from './media-helper';
 
 type NestedQueryString =
-  | `above.${keyof typeof media.above}`
-  | `below.${keyof typeof media.below}`;
+  | `above.${keyof typeof UNSAFE_media.above}`
+  | `below.${keyof typeof UNSAFE_media.below}`;
 
 type Queries = Record<NestedQueryString, MediaQueryList | undefined>;
 
@@ -14,55 +14,69 @@ const queries: Queries = {
   'above.xxs':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.above.xxs.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.above.xxs.replace('@media ', '').trim(),
+        ),
   'above.xs':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.above.xs.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.above.xs.replace('@media ', '').trim(),
+        ),
   'above.sm':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.above.sm.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.above.sm.replace('@media ', '').trim(),
+        ),
   'above.md':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.above.md.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.above.md.replace('@media ', '').trim(),
+        ),
   'above.lg':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.above.lg.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.above.lg.replace('@media ', '').trim(),
+        ),
   'above.xl':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.above.xl.replace('@media ', '').trim()),
-  'above.xxl':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(media.above.xxl.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.above.xl.replace('@media ', '').trim(),
+        ),
   'below.xs':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.below.xs.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.below.xs.replace('@media ', '').trim(),
+        ),
   'below.sm':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.below.sm.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.below.sm.replace('@media ', '').trim(),
+        ),
   'below.md':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.below.md.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.below.md.replace('@media ', '').trim(),
+        ),
   'below.lg':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.below.lg.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.below.lg.replace('@media ', '').trim(),
+        ),
   'below.xl':
     typeof window === 'undefined'
       ? undefined
-      : window?.matchMedia?.(media.below.xl.replace('@media ', '').trim()),
-  'below.xxl':
-    typeof window === 'undefined'
-      ? undefined
-      : window?.matchMedia?.(media.below.xxl.replace('@media ', '').trim()),
+      : window?.matchMedia?.(
+          UNSAFE_media.below.xl.replace('@media ', '').trim(),
+        ),
 };
 
 /**

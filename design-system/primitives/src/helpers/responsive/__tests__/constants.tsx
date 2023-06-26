@@ -12,7 +12,6 @@ describe('constants', () => {
       'md',
       'lg',
       'xl',
-      'xxl',
     ]);
   });
 

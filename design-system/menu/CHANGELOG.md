@@ -1,5 +1,15 @@
 # @atlaskit/menu
 
+## 1.8.0
+
+### Minor Changes
+
+- [`b53207f89ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b53207f89ef) - The internal menu context now can have no border or notch for the selected state. This is being tested under a feature flag and if successful will be available in a later release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.9
 
 ### Patch Changes

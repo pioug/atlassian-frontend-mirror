@@ -11,6 +11,7 @@ import {
 } from '@atlassian/link-create-confluence/mocks';
 
 import LinkCreate from '../src';
+import { CreatePayload } from '../src/common/types';
 
 // This is the cloud id for pug.jira-dev.com
 const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
@@ -27,12 +28,12 @@ function CreateBasic() {
     createConfluencePageLinkCreatePlugin(CLOUD_ID, 'https://pug.jira-dev.com'),
   ];
 
-  const handleCreate = useCallback(async (url: string) => {
+  const handleCreate = useCallback(async (payload: CreatePayload) => {
     await new Promise<void>(resolve => {
       setTimeout(() => resolve(), 2000);
     });
-
-    setLink(url);
+    console.log(payload.data);
+    setLink(payload.url);
     setActive(false);
   }, []);
 

@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 108.2.4
+
+### Patch Changes
+
+- [`d14653566eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d14653566eb) - Pass onClick to CardSSR component as prop
+
 ## 108.2.3
 
 ### Patch Changes

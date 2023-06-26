@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.7.1
+
+### Patch Changes
+
+- [`41d73aab05c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41d73aab05c) - EDM-6938: pass spaceName into onCreate submit for confluence-create and pass as optional meta data into link-create."
+
 ## 0.7.0
 
 ### Minor Changes

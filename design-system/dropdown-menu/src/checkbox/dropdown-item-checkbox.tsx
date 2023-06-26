@@ -1,7 +1,9 @@
 import React, { KeyboardEvent, MouseEvent, useCallback } from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
 import ButtonItem from '@atlaskit/menu/button-item';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import CheckboxIcon from '../internal/components/checkbox-icon';
 import useCheckboxState from '../internal/hooks/use-checkbox-state';
@@ -57,18 +59,26 @@ const DropdownItemCheckbox = (props: DropdownItemCheckboxProps) => {
   const itemRef = useRegisterItemWithFocusManager();
 
   return (
-    <ButtonItem
-      id={id}
-      onClick={onClickHandler}
-      role="menuitemcheckbox"
-      aria-checked={selected}
-      shouldTitleWrap={shouldTitleWrap}
-      shouldDescriptionWrap={shouldDescriptionWrap}
-      iconBefore={<CheckboxIcon checked={selected} />}
-      ref={itemRef}
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-      {...rest}
-    />
+    <SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="none">
+      <ButtonItem
+        id={id}
+        onClick={onClickHandler}
+        role="menuitemcheckbox"
+        aria-checked={selected}
+        shouldTitleWrap={shouldTitleWrap}
+        shouldDescriptionWrap={shouldDescriptionWrap}
+        iconBefore={<CheckboxIcon checked={selected} />}
+        isSelected={
+          selected &&
+          getBooleanFF(
+            'platform.design-system-team.menu-selected-state-change_0see9',
+          )
+        }
+        ref={itemRef}
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        {...rest}
+      />
+    </SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
   );
 };
 

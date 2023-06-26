@@ -11,7 +11,7 @@ import { css, jsx } from '@emotion/react';
 
 import { easeOut, prefersReducedMotion } from '@atlaskit/motion';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { UNSAFE_media as media } from '@atlaskit/primitives/responsive';
+import { UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -47,7 +47,7 @@ const mobileStyles = getBooleanFF(
 )
   ? css({
       // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-      [media.below.md]: {
+      [UNSAFE_media.below.md]: {
         width: MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH,
         cursor: 'pointer',
         opacity: 1,
@@ -67,7 +67,7 @@ const mobileFlyoutStyles = getBooleanFF(
 )
   ? css({
       // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-      [media.below.md]: {
+      [UNSAFE_media.below.md]: {
         cursor: 'revert',
       },
     })

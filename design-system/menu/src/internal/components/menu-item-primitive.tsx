@@ -236,10 +236,10 @@ const MenuItemPrimitive = ({
                       selectedStyles,
                       getBooleanFF(
                         'platform.design-system-team.menu-selected-state-change_0see9',
-                      ) &&
-                        (selectionStyle === 'border'
-                          ? selectedBorderStyles
-                          : selectedNotchStyles),
+                      ) && [
+                        selectionStyle === 'border' && selectedBorderStyles,
+                        selectionStyle === 'notch' && selectedNotchStyles,
+                      ],
                     ],
                   isDisabled ? disabledStyles : interactiveStyles,
                 ]),

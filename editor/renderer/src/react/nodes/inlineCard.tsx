@@ -46,6 +46,7 @@ const InlineCard: React.FunctionComponent<
           url={url}
           showAuthTooltip={showAuthTooltip}
           showServerActions={showServerActions}
+          onClick={onClick}
         />
       </AnalyticsContext>
     );

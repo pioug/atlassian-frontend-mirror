@@ -5,7 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
-import { UNSAFE_media as media } from '@atlaskit/primitives/responsive';
+import { media, UNSAFE_media } from '@atlaskit/primitives/responsive';
 import { token } from '@atlaskit/tokens';
 
 import { OverflowProvider } from '../../controllers/overflow';
@@ -27,7 +27,7 @@ const basePrimaryContainerStyles = css({
 
 const smallContainerStyles = css({
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
-  [media.below.sm]: {
+  [UNSAFE_media.below.sm]: {
     display: 'flex',
   },
 });

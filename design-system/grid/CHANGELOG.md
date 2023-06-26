@@ -1,5 +1,12 @@
 # @atlaskit/grid
 
+## 0.11.4
+
+### Patch Changes
+
+- [`37131e3a8ea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37131e3a8ea) - Uses the Alpha release of our responsive media helpers via either the public `media` export or the internal `UNSAFE_media` export.
+- Updated dependencies
+
 ## 0.11.3
 
 ### Patch Changes

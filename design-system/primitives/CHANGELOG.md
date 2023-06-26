@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 0.13.0
+
+### Minor Changes
+
+- [`455677dbd4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/455677dbd4c) - - Documents the responsive media helpers into an Alpha state.
+  - BREAKING: Removes the `xxl` breakpoint from all media queries (should be unused).
+  - Adds a new `media` export without `media.below` intentionally omitted. Should be unused externally, but used internally and still available via the existing `UNSAFE_media` export.
+  - Changes the underlying media queries to be a bit safer against unexpected overlap. This changes the breakpoints ever-so-slightly, but given browsers round fractional rems, it's impractical that this will have any unintended impact—if anything, it may fix a bug.
+
 ## 0.12.6
 
 ### Patch Changes

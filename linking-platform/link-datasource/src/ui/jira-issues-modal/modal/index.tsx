@@ -229,7 +229,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
               {
                 type: 'table',
                 properties: {
-                  columnKeys: visibleColumnKeys,
+                  columns: visibleColumnKeys?.map(key => ({ key })),
                 },
               },
             ],

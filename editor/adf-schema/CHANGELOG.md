@@ -1,5 +1,17 @@
 # @atlaskit/adf-schema
 
+## 25.10.1
+
+### Patch Changes
+
+- [`54c95071cce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/54c95071cce) - Move around order of BlockCardDefinition attribute variations.
+
+## 25.10.0
+
+### Minor Changes
+
+- [`d85c737c1e9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d85c737c1e9) - Memoize getSchemaBasedOnStage for improved performance on repeated invocations
+
 ## 25.9.2
 
 ### Patch Changes

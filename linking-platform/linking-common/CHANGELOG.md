@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 3.0.0
+
+### Major Changes
+
+- [`67370a954bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/67370a954bd) - DatasourceAdfTableView has changed in a breaking way. Instead of properties.columnKeys: string[] there is now properties.columns: {key: string}[]
+
 ## 2.15.0
 
 ### Minor Changes

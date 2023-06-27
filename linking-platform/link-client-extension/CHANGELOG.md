@@ -1,5 +1,11 @@
 # @atlaskit/link-client-extension
 
+## 1.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.1
 
 ### Patch Changes

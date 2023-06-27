@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.4.0
+
+### Minor Changes
+
+- [`ac5a05f5929`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac5a05f5929) - We are testing an upgrade to the `focus-trap` dependency behind a feature flag. If this fix is successful it will be available in a later release.
+
 ## 22.3.3
 
 ### Patch Changes

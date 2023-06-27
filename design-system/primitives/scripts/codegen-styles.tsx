@@ -78,7 +78,7 @@ const sourceFns = [
         dependencies: [shapeTokensDependencyPath],
       },
     ),
-  // align-self, border-color, border-radius, border-style, border-width, display, flex-grow, flex-shrink, flex, layer, overflow, position',
+  // border-color, border-radius, border-width, layer',
   () =>
     createPartialSignedArtifact(
       options => options.map(createStylesFromFileTemplate).join('\n'),

@@ -10,6 +10,9 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { MockCardComponent } from './card.mock';
 
+import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
+import { DatasourceTableView } from '@atlaskit/link-datasource';
+
 jest.mock('@atlaskit/smart-card', () => {
   const originalModule = jest.requireActual('@atlaskit/smart-card');
   return {
@@ -94,6 +97,73 @@ describe('Renderer - React/Nodes/BlockCard', () => {
       </Provider>,
     );
     expect(node.find(Card).prop('showServerActions')).toEqual(true);
+  });
+
+  describe('rendering a datasource', () => {
+    const datasourceAttributeProperties: DatasourceAttributeProperties = {
+      id: 'mock-datasource-id',
+      parameters: {
+        cloudId: 'mock-cloud-id',
+        jql: 'JQL=MOCK',
+      },
+      views: [
+        {
+          type: 'table',
+          properties: {
+            columns: [{ key: 'column-1' }, { key: 'column-2' }],
+          },
+        },
+      ],
+    };
+
+    it('should render a DatasourceTableView if datasource is provided with JQL and a table view', () => {
+      node = mount(
+        <Provider client={new Client('staging')}>
+          <BlockCard
+            url={url}
+            datasource={datasourceAttributeProperties}
+            smartLinks={{ showServerActions: true }}
+          />
+        </Provider>,
+      );
+      expect(node.find(Card).length).toBe(0);
+      expect(node.find(DatasourceTableView).length).toBe(1);
+
+      expect(node.find(DatasourceTableView).prop('datasourceId')).toEqual(
+        'mock-datasource-id',
+      );
+      expect(node.find(DatasourceTableView).prop('parameters')).toEqual({
+        cloudId: 'mock-cloud-id',
+        jql: 'JQL=MOCK',
+      });
+      expect(node.find(DatasourceTableView).prop('visibleColumnKeys')).toEqual([
+        'column-1',
+        'column-2',
+      ]);
+    });
+
+    it('should render null if datasource is provided with JQL but NOT a table view', () => {
+      const notRenderableDatasource = {
+        ...datasourceAttributeProperties,
+        views: [
+          {
+            ...datasourceAttributeProperties.views[0],
+            type: 'NOT_TABLE',
+          },
+        ],
+      } as any;
+
+      node = mount(
+        <Provider client={new Client('staging')}>
+          <BlockCard
+            url={url}
+            datasource={notRenderableDatasource}
+            smartLinks={{ showServerActions: true }}
+          />
+        </Provider>,
+      );
+      expect(node.isEmptyRender()).toBe(true);
+    });
   });
 });
 

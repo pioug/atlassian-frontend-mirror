@@ -1,5 +1,12 @@
 # @atlaskit/link-test-helpers
 
+## 4.0.8
+
+### Patch Changes
+
+- [`b1ffae0351d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b1ffae0351d) - - Remove duplicating entry in datasource mock data that was causing react's "key" uniqness error
+  - Move from table view having list of keys in table view to list of objects with key as a string
+
 ## 4.0.7
 
 ### Patch Changes

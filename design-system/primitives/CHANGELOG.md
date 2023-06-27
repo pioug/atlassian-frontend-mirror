@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.14.0
+
+### Minor Changes
+
+- [`5af07899f5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af07899f5b) - Loosens types to better reflect `xcss` API.
+
 ## 0.13.0
 
 ### Minor Changes

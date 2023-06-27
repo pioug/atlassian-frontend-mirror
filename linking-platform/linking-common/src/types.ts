@@ -91,7 +91,7 @@ export interface EmbedCardAdf {
 export interface DatasourceAdfTableView {
   type: 'table';
   properties?: {
-    columnKeys: string[];
+    columns: { key: string }[];
   };
 }
 

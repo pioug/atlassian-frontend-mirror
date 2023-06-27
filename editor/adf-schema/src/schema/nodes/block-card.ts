@@ -42,7 +42,7 @@ export type CardAttributes = UrlType | DataType;
  */
 export interface BlockCardDefinition {
   type: 'blockCard';
-  attrs: CardAttributes | DatasourceAttributes;
+  attrs: DatasourceAttributes | CardAttributes;
 }
 
 const getCommonAttributesFromDom = (
@@ -71,8 +71,8 @@ export const blockCard: NodeSpec = {
     url: { default: null },
     data: { default: null },
     datasource: { default: null },
-    layout: { default: null },
     width: { default: null },
+    layout: { default: null },
   },
   parseDOM: [
     {

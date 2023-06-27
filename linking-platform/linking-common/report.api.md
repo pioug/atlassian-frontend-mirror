@@ -187,7 +187,9 @@ export interface DatasourceAdf {
 export interface DatasourceAdfTableView {
   // (undocumented)
   properties?: {
-    columnKeys: string[];
+    columns: {
+      key: string;
+    }[];
   };
   // (undocumented)
   type: 'table';

@@ -152,6 +152,8 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   // (undocumented)
   readonly shouldEnableDownloadButton?: boolean;
   // (undocumented)
+  readonly shouldHideTooltip?: boolean;
+  // (undocumented)
   readonly shouldOpenMediaViewer?: boolean;
   // (undocumented)
   readonly ssr?: SSR;

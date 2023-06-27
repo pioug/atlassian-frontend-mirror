@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.5.17
+
+### Patch Changes
+
+- [`b3ed4f7f776`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3ed4f7f776) - [ux] Fix for Hover Card unmount - added a clean up function that will clearTimeouts. Additionally changed the trigger of HoverCard from onMouseEnter to onMouseOver and added a function that after 100ms of hover starts fetching the data for the url to reduce the loading state experienced on standalone HoverCards.
+
+## 26.5.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.5.15
 
 ### Patch Changes

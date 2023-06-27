@@ -38,7 +38,6 @@ import HoverCardUnauthorisedView from './views/unauthorised';
 import HoverCardResolvedView from './views/resolved';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../messages';
-import { useSmartCardActions } from '../../../state/actions';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { useSmartCardState } from '../../../state/store';
 import { useFeatureFlag } from '@atlaskit/link-provider';
@@ -97,16 +96,11 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     () => getExtensionKey(cardState.details),
     [cardState.details],
   );
-  const actions = useSmartCardActions(id, url, analytics);
   const linkState = useSmartCardState(url);
-  const linkStatus = linkState.status;
+  const linkStatus = linkState.status ?? 'pending';
 
   const statusRef = useRef(linkStatus);
   const analyticsRef = useRef(analytics);
-
-  useEffect(() => {
-    actions.loadMetadata();
-  }, [actions]);
 
   useEffect(() => {
     /**

@@ -153,6 +153,8 @@ export interface CardProps extends SharedCardProps, CardEventProps {
   readonly shouldEnableDownloadButton?: boolean;
   // Server-Side-Rendering modes are "media" and "client"
   readonly ssr?: SSR;
+  // Disable tooltip for the card
+  readonly shouldHideTooltip?: boolean;
 }
 
 export interface CardState {

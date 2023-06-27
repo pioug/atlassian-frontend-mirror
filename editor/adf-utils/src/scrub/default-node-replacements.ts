@@ -17,6 +17,7 @@ export type NodeReplacements = {
 const card: NodeReplacer = (node, { valueReplacements }) => ({
   type: node.type,
   attrs: {
+    ...(node.attrs || {}),
     url: valueReplacements.href(node.attrs?.url),
   },
 });

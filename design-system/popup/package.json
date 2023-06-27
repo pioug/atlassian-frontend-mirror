@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/popup",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "A popup displays brief content in an overlay.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -44,7 +44,8 @@
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1",
-    "focus-trap": "^2.4.5"
+    "focus-trap": "^7.0.0",
+    "focus-trap-v2": "npm:focus-trap@^2.4.5"
   },
   "peerDependencies": {
     "react": "^16.8.0",
@@ -62,6 +63,7 @@
     "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/toggle": "^12.6.0",
     "@atlaskit/visual-regression": "*",
+    "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/dom": "^8.17.1",
@@ -101,10 +103,13 @@
     }
   },
   "homepage": "https://atlassian.design/components/popup/",
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
     "platform.design-system-team.render-popup-in-parent_f73ij": {
       "type": "boolean"
+    },
+    "platform.design-system-team.focus-trap-upgrade_p2cei": {
+      "type": "boolean"
     }
-  }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

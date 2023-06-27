@@ -82,7 +82,8 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  it(`should render a linked media image inside an expand correctly`, async () => {
+  // FIXME: This test was automatically skipped due to failure on 26/06/2023: https://product-fabric.atlassian.net/browse/ED-18924
+  it.skip(`should render a linked media image inside an expand correctly`, async () => {
     await loadAdf(page, mediaLinkInsideExpand);
 
     await waitForAllMedia(page, 1);

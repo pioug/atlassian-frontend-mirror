@@ -135,35 +135,6 @@ export const mockJiraData = {
     },
     {
       type: {
-        label: 'story',
-        source:
-          'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10315?size=medium',
-      },
-      issueNumber: 'DONUT-1176',
-      summary:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ultricies accumsan justo, eget pretium quam aliquet semper.',
-      assignee: {
-        displayName: 'Scott Farquhar',
-        source:
-          'https://pbs.twimg.com/profile_images/803832195970433027/aaoG6PJI_400x400.jpg',
-      },
-      priority: {
-        label: 'trivial',
-        source:
-          'https://product-fabric.atlassian.net/images/icons/priorities/trivial.svg',
-      },
-      status: {
-        text: 'To do',
-        status: 'default',
-      },
-      resolution: 'Unresolved',
-      created: '23/Jul/20',
-      updated: '23/Jul/20',
-      due: '24/Jul/20',
-      link: 'https://product-fabric.atlassian.net/browse/EDM-5591',
-    },
-    {
-      type: {
         label: 'epic',
         source:
           'https://product-fabric.atlassian.net/rest/api/2/universal_avatar/view/type/issuetype/avatar/10307?size=medium',

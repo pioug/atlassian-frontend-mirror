@@ -15,24 +15,12 @@ import { MediaQuery } from '../helpers/responsive/types';
 import { Box, Inline } from '../index';
 
 import {
-  alignSelfMap,
   backgroundColorMap,
   borderColorMap,
   borderRadiusMap,
-  borderStyleMap,
   borderWidthMap,
   dimensionMap,
-  displayMap,
-  fillMap,
-  flexDirectionMap,
-  flexGrowMap,
-  flexMap,
-  flexShrinkMap,
   layerMap,
-  overflowBlockMap,
-  overflowInlineMap,
-  overflowMap,
-  positionMap,
   shadowMap,
   spaceMap,
   textColorMap,
@@ -40,23 +28,15 @@ import {
 } from './style-maps.partial';
 
 const tokensMap = {
-  alignSelf: alignSelfMap,
   backgroundColor: backgroundColorMap,
   blockSize: dimensionMap,
   borderColor: borderColorMap,
   borderRadius: borderRadiusMap,
-  borderStyle: borderStyleMap,
   borderWidth: borderWidthMap,
-  bottom: dimensionMap,
+  bottom: spaceMap,
   boxShadow: shadowMap,
   color: textColorMap,
   columnGap: spaceMap,
-  display: displayMap,
-  fill: fillMap,
-  flex: flexMap,
-  flexDirection: flexDirectionMap,
-  flexGrow: flexGrowMap,
-  flexShrink: flexShrinkMap,
   gap: spaceMap,
   height: dimensionMap,
   inlineSize: dimensionMap,
@@ -67,7 +47,14 @@ const tokensMap = {
   insetInline: spaceMap,
   insetInlineEnd: spaceMap,
   insetInlineStart: spaceMap,
-  left: dimensionMap,
+  margin: spaceMap,
+  marginBlock: spaceMap,
+  marginBlockEnd: spaceMap,
+  marginBlockStart: spaceMap,
+  marginInline: spaceMap,
+  marginInlineEnd: spaceMap,
+  marginInlineStart: spaceMap,
+  left: spaceMap,
   maxBlockSize: dimensionMap,
   maxHeight: dimensionMap,
   maxInlineSize: dimensionMap,
@@ -79,9 +66,6 @@ const tokensMap = {
   outlineOffset: spaceMap,
   outlineWidth: borderWidthMap,
   outlineColor: borderColorMap,
-  overflow: overflowMap,
-  overflowBlock: overflowBlockMap,
-  overflowInline: overflowInlineMap,
   padding: spaceMap,
   paddingBlock: spaceMap,
   paddingBlockEnd: spaceMap,
@@ -93,10 +77,9 @@ const tokensMap = {
   paddingLeft: spaceMap,
   paddingRight: spaceMap,
   paddingTop: spaceMap,
-  position: positionMap,
-  right: dimensionMap,
+  right: spaceMap,
   rowGap: spaceMap,
-  top: dimensionMap,
+  top: spaceMap,
   width: dimensionMap,
   zIndex: layerMap,
 } as const;
@@ -254,6 +237,13 @@ type Spacing =
   | 'insetInline'
   | 'insetInlineEnd'
   | 'insetInlineStart'
+  | 'margin'
+  | 'marginBlock'
+  | 'marginBlockEnd'
+  | 'marginBlockStart'
+  | 'marginInline'
+  | 'marginInlineEnd'
+  | 'marginInlineStart'
   | 'outlineOffset'
   | 'padding'
   | 'paddingBlock'

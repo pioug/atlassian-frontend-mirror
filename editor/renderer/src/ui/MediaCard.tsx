@@ -68,7 +68,7 @@ export interface State {
   fileState?: FileState;
 }
 
-const mediaIdentifierMap: Map<string, Identifier> = new Map();
+export const mediaIdentifierMap: Map<string, Identifier> = new Map();
 
 export const getListOfIdentifiersFromDoc = (doc?: ADFEntity): Identifier[] => {
   if (!doc) {
@@ -201,6 +201,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       alt,
       featureFlags,
       ssr,
+      rendererAppearance,
     } = this.props;
 
     if (imageStatus === 'loading' || !url) {
@@ -228,6 +229,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
         mediaViewerItems={Array.from(mediaIdentifierMap.values())}
         featureFlags={featureFlags}
         ssr={ssr?.mode}
+        shouldHideTooltip={rendererAppearance === 'mobile'}
       />
     );
   }
@@ -286,6 +288,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
     const isMobile = rendererAppearance === 'mobile';
     const shouldPlayInline =
       useInlinePlayer !== undefined ? useInlinePlayer : true;
+
     const isInlinePlayer = isMobile ? false : shouldPlayInline;
 
     const onCardClick = this.getOnCardClickCallback(isInlinePlayer);
@@ -350,6 +353,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
           featureFlags={featureFlags}
           shouldEnableDownloadButton={shouldEnableDownloadButton}
           ssr={ssr?.mode}
+          shouldHideTooltip={isMobile}
         />
       </div>
     );

@@ -293,7 +293,7 @@ export const IssueLikeDataTableView = ({
 
           return {
             key,
-            content,
+            content: content.length === 1 ? content[0] : content,
             maxWidth: getColumnWidth(key, type),
           };
         }),
@@ -400,9 +400,9 @@ export const IssueLikeDataTableView = ({
               data-testid={testId && `${testId}--row-${key}`}
               ref={ref}
             >
-              {cells.map(({ key, content, maxWidth }, cellIndex) => (
+              {cells.map(({ key: cellKey, content, maxWidth }, cellIndex) => (
                 <td
-                  key={key}
+                  key={cellKey}
                   data-testid={testId && `${testId}--cell-${cellIndex}`}
                   colSpan={cellIndex + 1 === cells.length ? 2 : undefined}
                   css={truncatedCellStyles}

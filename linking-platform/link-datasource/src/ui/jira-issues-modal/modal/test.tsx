@@ -207,9 +207,9 @@ describe('JiraIssuesConfigModal', () => {
               {
                 type: 'table',
                 properties: {
-                  columnKeys: Object.keys(args).includes('columnKeys')
-                    ? args.columnKeys
-                    : ['myColumn'],
+                  columns: Object.keys(args).includes('columnKeys')
+                    ? args.columnKeys?.map(key => ({ key }))
+                    : [{ key: 'myColumn' }],
                 },
               },
             ],
@@ -735,7 +735,7 @@ describe('JiraIssuesConfigModal', () => {
               {
                 type: 'table',
                 properties: {
-                  columnKeys: ['myColumn'],
+                  columns: [{ key: 'myColumn' }],
                 },
               },
             ],

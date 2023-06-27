@@ -97,7 +97,9 @@ export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
         {
           type: 'table';
           properties?: {
-            columnKeys: string[];
+            columns: {
+              key: string;
+            }[];
           };
         },
       ];

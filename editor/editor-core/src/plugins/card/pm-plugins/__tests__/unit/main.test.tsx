@@ -1,8 +1,29 @@
+import React from 'react';
+
+jest.mock('@atlaskit/link-datasource', () => ({
+  DatasourceTableView: ({
+    onVisibleColumnKeysChange,
+  }: {
+    onVisibleColumnKeysChange: (columnKeys: string[]) => void;
+  }) => {
+    return (
+      <button
+        data-testid="mock-datasource-table-view"
+        onClick={() => onVisibleColumnKeysChange(['mock-new-column'])}
+      >
+        Mock Datasource Table View
+      </button>
+    );
+  },
+  __esModule: true,
+}));
+
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
   p,
   inlineCard,
+  datasourceBlockCard,
   DocBuilder,
   a,
 } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -11,10 +32,11 @@ import {
   CardAppearance,
   CardProvider,
 } from '@atlaskit/editor-common/provider-factory';
+import { DatasourceAttributes } from '@atlaskit/adf-schema/schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import { Request } from '../../../types';
-import { INPUT_METHOD } from '../../../../../plugins/analytics/types';
+import { INPUT_METHOD } from '../../../../analytics/types';
 import { pluginKey } from '../../plugin-key';
 import { createAnalyticsQueue } from '../../analytics/create-analytics-queue';
 import { resolveWithProvider } from '../../util/resolve';
@@ -164,6 +186,60 @@ describe('resolveWithProvider()', () => {
 
         spy.mockRestore();
       },
+    );
+  });
+});
+
+describe('datasource', () => {
+  const createEditor = createEditorFactory();
+  const providerFactory = new ProviderFactory();
+  const editor = (doc: DocBuilder) => {
+    return createEditor({
+      doc,
+      providerFactory,
+      editorProps: {
+        allowPanel: true,
+        smartLinks: {},
+      },
+      pluginKey,
+    });
+  };
+
+  const mockAdfAttributes: DatasourceAttributes = {
+    layout: 'wide',
+    datasource: {
+      id: 'mock-datasource-id',
+      parameters: {
+        cloudId: 'mock-cloud-id',
+        jql: 'JQL=MOCK',
+      },
+      views: [
+        {
+          type: 'table',
+          properties: {
+            columns: [{ key: 'column-1' }, { key: 'column-2' }],
+          },
+        },
+      ],
+    },
+  };
+
+  it('should render the datasource component', async () => {
+    const { editorView } = editor(
+      doc(datasourceBlockCard(mockAdfAttributes)()),
+    );
+    expect(editorView.state.doc.content.childCount).toBe(1);
+    expect(editorView.state.doc.content.firstChild?.attrs).toEqual({
+      data: null,
+      url: null,
+      width: null,
+      ...mockAdfAttributes,
+    });
+    const nodeDOM = editorView.nodeDOM(0);
+    expect((nodeDOM as HTMLDivElement).innerHTML).toMatch(
+      new RegExp(
+        '<div class="[\\w-]+"><button data-testid="mock-datasource-table-view">Mock Datasource Table View</button></div>',
+      ),
     );
   });
 });

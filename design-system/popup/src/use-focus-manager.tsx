@@ -1,8 +1,10 @@
 import { useEffect } from 'react';
 
-import createFocusTrap from 'focus-trap';
+import { createFocusTrap, FocusTrap } from 'focus-trap';
+import createFocusTrapV2, { FocusTrap as FocusTrapV2 } from 'focus-trap-v2';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { FocusManagerHook } from './types';
 
@@ -23,7 +25,12 @@ export const useFocusManager = ({
       returnFocusOnDeactivate: true,
     };
 
-    const focusTrap = createFocusTrap(popupRef, trapConfig);
+    let focusTrap: FocusTrap | FocusTrapV2;
+    if (getBooleanFF('platform.design-system-team.focus-trap-upgrade_p2cei')) {
+      focusTrap = createFocusTrap(popupRef, trapConfig);
+    } else {
+      focusTrap = createFocusTrapV2(popupRef, trapConfig);
+    }
 
     // wait for the popup to reposition itself before we focus
     let frameId: number | null = requestAnimationFrame(() => {

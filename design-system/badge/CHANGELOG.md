@@ -1,5 +1,12 @@
 # @atlaskit/badge
 
+## 15.1.8
+
+### Patch Changes
+
+- [`5af07899f5b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5af07899f5b) - Loosens types to better reflect `xcss` API.
+- Updated dependencies
+
 ## 15.1.7
 
 ### Patch Changes

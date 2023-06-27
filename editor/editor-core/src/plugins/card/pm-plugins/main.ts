@@ -24,6 +24,7 @@ import type {
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import type cardPlugin from '../index';
+import { Datasource } from '../nodeviews/datasource';
 
 export { pluginKey } from './plugin-key';
 
@@ -171,6 +172,21 @@ export const createPlugin =
               showServerActions,
             };
             const hasIntlContext = true;
+
+            if (node.attrs.datasource) {
+              return new Datasource(
+                node,
+                view,
+                getPos,
+                portalProviderAPI,
+                eventDispatcher,
+                undefined,
+                undefined,
+                true,
+                undefined,
+                hasIntlContext,
+              ).init();
+            }
             return new BlockCard(
               node,
               view,

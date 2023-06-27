@@ -744,5 +744,11 @@ describe('CardView', () => {
       const componentA = shallowCardViewBase();
       expect(componentA.find(Tooltip)).toHaveLength(1);
     });
+
+    it('should not render the tooltip if shouldHideTooltip is set to `true`', () => {
+      // Without filename and overlay enabled
+      const componentA = shallowCardViewBase({ shouldHideTooltip: true });
+      expect(componentA.find(Tooltip)).toHaveLength(0);
+    });
   });
 });

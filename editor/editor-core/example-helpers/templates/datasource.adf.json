@@ -1,0 +1,36 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "blockCard",
+      "attrs": {
+        "url": "https://some-host.atlassian.net/jira/blah?jql=project=EDM",
+        "datasource": {
+          "id": "some-datasource-id",
+          "parameters": {
+            "cloudId": "DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b",
+            "jql": "project=EDM"
+          },
+          "views": [
+            {
+              "type": "table",
+              "properties": {
+                "columns": [
+                  { "key": "key" },
+                  { "key": "type" },
+                  { "key": "summary" },
+                  { "key": "assignee" },
+                  { "key": "priority" },
+                  { "key": "labels" },
+                  { "key": "status" },
+                  { "key": "created" }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,3 +1,5 @@
+import memoizeOne from 'memoize-one';
+
 import { layoutSectionWithSingleColumn, tableWithCustomWidth } from './nodes';
 import { border } from './marks';
 import { createSchema, SchemaConfig } from './create-schema';
@@ -157,7 +159,7 @@ export const defaultSchemaConfig: SchemaConfig<
   DefaultSchemaMarks
 > = getDefaultSchemaConfig();
 
-export const getSchemaBasedOnStage = (stage = 'final') => {
+export const getSchemaBasedOnStage = memoizeOne((stage = 'final') => {
   const defaultSchemaConfig = getDefaultSchemaConfig();
   if (stage === 'stage0') {
     defaultSchemaConfig.customNodeSpecs = {
@@ -171,6 +173,6 @@ export const getSchemaBasedOnStage = (stage = 'final') => {
   }
 
   return createSchema(defaultSchemaConfig);
-};
+});
 
 export const defaultSchema = getSchemaBasedOnStage();

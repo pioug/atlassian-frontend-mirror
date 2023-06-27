@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 76.0.6
+
+### Patch Changes
+
+- [`4807883cf8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4807883cf8e) - [MEX-2468] Disable Tooltip in Media Card in Hybrid Renderer
+
 ## 76.0.5
 
 ### Patch Changes

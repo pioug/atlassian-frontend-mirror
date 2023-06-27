@@ -60,7 +60,7 @@
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/menu": "^1.8.0",
     "@atlaskit/platform-feature-flags": "^0.2.3",
-    "@atlaskit/popup": "^1.7.0",
+    "@atlaskit/popup": "^1.8.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.9.0",

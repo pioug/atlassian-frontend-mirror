@@ -12,10 +12,10 @@
             {
               "type": "table",
               "properties": {
-                "columnKeys": [
-                  "assignee",
-                  "priority",
-                  "status"
+                "columns": [
+                  { "key": "assignee"},
+                  { "key": "priority"},
+                  { "key": "status"}
                 ]
               }
             }

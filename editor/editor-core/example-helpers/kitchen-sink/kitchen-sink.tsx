@@ -35,8 +35,10 @@ import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 import { getExampleExtensionProviders } from '../get-example-extension-providers';
 import { exampleSelectionDebugger } from '../example-editor-plugins';
 import { getTranslations } from '../../example-helpers/get-translations';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 addGlobalEventEmitterListeners();
+mockDatasourceFetchRequests();
 
 const appearanceOptions = [
   {
@@ -67,6 +69,10 @@ const docOptions = [
   {
     label: 'Different extension types',
     value: './adf/extension-types.adf.json',
+  },
+  {
+    label: 'With datasource',
+    value: './adf/datasource.adf.json',
   },
 ];
 
@@ -397,6 +403,7 @@ export class KitchenSink extends React.Component<
 
     const response = await fetch(opt.value);
     const adf = await response.json();
+
     this.props.actions.replaceDocument(adf, false);
   };
 

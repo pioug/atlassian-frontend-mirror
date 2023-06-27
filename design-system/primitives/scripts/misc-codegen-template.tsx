@@ -3,20 +3,11 @@ import { join } from 'path';
 
 export const createStylesFromFileTemplate = (
   property:
-    | 'align-self'
     | 'border-color'
     | 'border-radius'
-    | 'border-style'
     | 'border-width'
     | 'dimensions'
-    | 'display'
-    | 'flex-direction'
-    | 'flex-grow'
-    | 'flex-shrink'
-    | 'flex'
-    | 'layer'
-    | 'overflow'
-    | 'position',
+    | 'layer',
 ) => {
   const path = join(__dirname, './codegen-file-templates', `${property}.tsx`);
   const source = readFileSync(path);

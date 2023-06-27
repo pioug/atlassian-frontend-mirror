@@ -26,7 +26,7 @@ import useUniqueId from './internal/hooks/use-unique-id';
 import type { CalendarProps } from './types';
 
 const boxStyles = xcss({
-  display: 'inlineBlock',
+  display: 'inline-block',
   userSelect: 'none',
 });
 

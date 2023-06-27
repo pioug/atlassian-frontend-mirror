@@ -70,6 +70,7 @@ export interface CardViewOwnProps extends SharedCardProps {
   readonly forceSyncDisplay?: boolean;
   // Used to disable animation for testing purposes
   disableAnimation?: boolean;
+  shouldHideTooltip?: boolean;
 }
 
 export interface CardViewState {
@@ -321,6 +322,7 @@ export class CardViewBase extends React.Component<
       disableOverlay,
       cardPreview,
       mediaCardCursor,
+      shouldHideTooltip,
     } = this.props;
 
     const { name } = metadata || {};
@@ -334,7 +336,7 @@ export class CardViewBase extends React.Component<
     );
     const isTickBoxSelectable = !disableOverlay && !!selectable && !selected;
     // Disable tooltip for Media Single
-    const shouldDisplayTooltip = !disableOverlay;
+    const shouldDisplayTooltip = !disableOverlay && !shouldHideTooltip;
 
     return (
       <Wrapper

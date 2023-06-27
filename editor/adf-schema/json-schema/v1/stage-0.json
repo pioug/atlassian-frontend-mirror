@@ -730,28 +730,6 @@
               "properties": {
                 "url": {
                   "type": "string"
-                }
-              },
-              "required": [
-                "url"
-              ],
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "data": {}
-              },
-              "required": [
-                "data"
-              ],
-              "additionalProperties": false
-            },
-            {
-              "type": "object",
-              "properties": {
-                "url": {
-                  "type": "string"
                 },
                 "datasource": {
                   "type": "object",
@@ -804,6 +782,28 @@
               "required": [
                 "datasource"
               ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "url"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "data": {}
+              },
+              "required": [
+                "data"
+              ],
+              "additionalProperties": false
             }
           ]
         }

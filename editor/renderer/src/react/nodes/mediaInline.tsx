@@ -19,6 +19,7 @@ import {
   getClipboardAttrs,
   MediaProvider,
   ClipboardAttrs,
+  mediaIdentifierMap,
 } from '../../ui/MediaCard';
 import { MediaClientConfig } from '@atlaskit/media-core/auth';
 import {
@@ -30,6 +31,7 @@ import {
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
+import { RendererContext } from '../types';
 
 type MediaInlineProviders = {
   mediaProvider?: Promise<MediaProvider>;
@@ -46,6 +48,7 @@ export type RenderMediaInlineProps = {
   eventHandlers?: EventHandlers;
   rendererAppearance?: RendererAppearance;
   featureFlags?: MediaFeatureFlags;
+  rendererContext?: RendererContext;
 };
 
 export type MediaInlineProps = {
@@ -101,6 +104,20 @@ export const RenderMediaInline: React.FC<RenderMediaInlineProps> = ({
     },
     [collectionName, featureFlags],
   );
+
+  useEffect(() => {
+    const { id } = identifier;
+    const nodeIsInCache = id && mediaIdentifierMap.has(id);
+    if (!nodeIsInCache) {
+      mediaIdentifierMap.set(identifier.id as string, {
+        ...identifier,
+        collectionName,
+      });
+    }
+    return () => {
+      mediaIdentifierMap.delete(id);
+    };
+  }, [identifier, collectionName]);
 
   useEffect(() => {
     const { mediaProvider, contextIdentifierProvider } = mediaInlineProviders;
@@ -161,6 +178,7 @@ export const RenderMediaInline: React.FC<RenderMediaInlineProps> = ({
           shouldOpenMediaViewer={shouldOpenMediaViewer}
           shouldDisplayToolTip={shouldDisplayToolTip}
           mediaClientConfig={viewMediaClientConfigState}
+          mediaViewerItems={Array.from(mediaIdentifierMap.values())}
         />
       ) : (
         <MediaInlineCardErroredView

@@ -5,6 +5,7 @@ jest.mock('raf-schd', () =>
     return fnRunner;
   }),
 );
+jest.mock('@atlaskit/link-datasource');
 import rafSchd from 'raf-schd';
 jest.mock('prosemirror-history');
 import { closeHistory } from 'prosemirror-history';

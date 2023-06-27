@@ -1,5 +1,11 @@
 # @atlaskit/adf-utils
 
+## 18.4.3
+
+### Patch Changes
+
+- [`c630941e8ca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c630941e8ca) - Fix validation spec and modify default card node replacement where rest of the attributes are spread on top of replaced URL
+
 ## 18.4.2
 
 ### Patch Changes

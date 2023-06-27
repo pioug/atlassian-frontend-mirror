@@ -13,7 +13,6 @@ import { ReactionPicker } from '../ReactionPicker';
 import { RENDER_BUTTON_TESTID } from '../EmojiButton';
 import { RENDER_TRIGGER_BUTTON_TESTID } from '../Trigger/Trigger';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from './ReactionPicker';
-import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
 import { replaceRaf } from 'raf-stub';
 
 // override requestAnimationFrame letting us execute it when we need
@@ -67,7 +66,7 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
     expect(btn).toBeInTheDocument();
   });
 
-  it('should render selector options when trigger button is clicked, and should not auto focus the first emoji', async () => {
+  it('should render selector options when trigger button is clicked', async () => {
     renderWithIntl(renderPicker());
     const triggerPickerButton = await screen.findByLabelText('Add reaction');
 
@@ -79,7 +78,6 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
     const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
     expect(selectorButtons).toBeDefined();
     expect(selectorButtons.length).toEqual(DefaultReactions.length);
-    expect(selectorButtons[0]).not.toHaveFocus();
   });
 
   it('should call "onSelection" when an emoji is seleted', async () => {
@@ -127,8 +125,6 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
     requestAnimationFrame.step();
     const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
     expect(selectorButtons).toBeDefined();
-    const firstEmoji = selectorButtons[0];
-    firstEmoji.focus();
 
     // esc to close the popup
     await user.keyboard('{Esc}');
@@ -138,38 +134,5 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
     expect(
       screen.queryByTestId(RENDER_REACTIONPICKERPANEL_TESTID),
     ).not.toBeInTheDocument();
-    // should focus on trigger button when esc
-    expect(triggerPickerButton).toHaveFocus();
-  });
-
-  it('should trap focus within reaction picker', async () => {
-    renderWithIntl(renderPicker());
-
-    const triggerPickerButton = await screen.getByTestId(
-      RENDER_TRIGGER_BUTTON_TESTID,
-    );
-    expect(triggerPickerButton).toBeInTheDocument();
-    await user.click(triggerPickerButton);
-    //@ts-ignore
-    requestAnimationFrame.step();
-    expect(triggerPickerButton).not.toHaveFocus();
-
-    // should show default reaction emojis
-    const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
-    expect(selectorButtons).toBeDefined();
-
-    // should not auto focus first element
-    expect(selectorButtons[0]).not.toHaveFocus();
-
-    // tab to focus on first element
-    await user.tab();
-    expect(selectorButtons[0]).toHaveFocus();
-
-    // shift tab should focus on last element
-    await user.tab({
-      shift: true,
-    });
-    const showMoreButton = await screen.getByTestId(RENDER_SHOWMORE_TESTID);
-    expect(showMoreButton).toHaveFocus();
   });
 });

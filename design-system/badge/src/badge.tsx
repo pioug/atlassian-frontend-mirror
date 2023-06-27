@@ -10,7 +10,7 @@ import type { BadgeProps, ThemeAppearance } from './types';
 
 const boxStyles = xcss({
   borderRadius: 'border.radius.200',
-  display: 'inlineFlex',
+  display: 'inline-flex',
 });
 
 /**

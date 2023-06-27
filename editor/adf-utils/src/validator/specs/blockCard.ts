@@ -2,8 +2,6 @@ export default {
   props: {
     type: { type: 'enum', values: ['blockCard'] },
     attrs: [
-      { props: { url: { type: 'string', validatorFn: 'safeUrl' } } },
-      { props: { data: { type: 'object' } } },
       {
         props: {
           url: { type: 'string', validatorFn: 'safeUrl', optional: true },
@@ -41,6 +39,8 @@ export default {
           },
         },
       },
+      { props: { url: { type: 'string', validatorFn: 'safeUrl' } } },
+      { props: { data: { type: 'object' } } },
     ],
   },
   required: ['attrs'],

@@ -1,10 +1,12 @@
 import React from 'react';
 
-import createFocusTrap, { FocusTrap } from 'focus-trap';
+import { createFocusTrap, FocusTrap } from 'focus-trap';
+import createFocusTrapV2, { FocusTrap as FocusTrapV2 } from 'focus-trap-v2';
 import rafSchedule from 'raf-schd';
 import { createPortal } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   calculatePlacement,
@@ -13,6 +15,7 @@ import {
   Position,
   validatePosition,
 } from './utils';
+
 export interface Props {
   zIndex?: number;
   // The alignments are using the same placements from Popper
@@ -65,7 +68,7 @@ export default class Popup extends React.Component<Props, State> {
   private popupRef: React.MutableRefObject<HTMLElement | null> =
     React.createRef<HTMLDivElement>();
 
-  private focusTrap?: FocusTrap;
+  private focusTrap?: FocusTrap | FocusTrapV2;
 
   private placement: [string, string] = ['', ''];
 
@@ -240,7 +243,11 @@ export default class Popup extends React.Component<Props, State> {
       returnFocusOnDeactivate: false,
     };
 
-    this.focusTrap = createFocusTrap(popup, trapConfig);
+    if (getBooleanFF('platform.design-system-team.focus-trap-upgrade_p2cei')) {
+      this.focusTrap = createFocusTrap(popup, trapConfig);
+    } else {
+      this.focusTrap = createFocusTrapV2(popup, trapConfig);
+    }
     this.focusTrap.activate();
   });
 

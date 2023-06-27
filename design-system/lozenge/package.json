@@ -48,7 +48,7 @@
     "@atlaskit/button": "*",
     "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.2.0",
-    "@atlaskit/primitives": "^0.13.0",
+    "@atlaskit/primitives": "^0.14.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

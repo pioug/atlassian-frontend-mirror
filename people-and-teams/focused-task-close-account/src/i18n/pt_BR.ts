@@ -70,9 +70,9 @@ export default {
   'focused-task-close-account.delete-account.overview.inline-dialog.content-created.self':
     'Por exemplo, páginas, itens e comentários que você criou em produtos.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.admin':
-    'Você ou outros usuários podem ter instalado aplicativos que adicionam recursos aos produtos da Atlassian. Esses aplicativos podem ter armazenado as informações de perfil do usuário.',
+    'Você ou outros usuários podem ter instalado aplicativos que adicionam funções aos produtos da Atlassian. Esses aplicativos podem ter armazenado as informações de perfil do usuário.',
   'focused-task-close-account.delete-account.overview.inline-dialog.data-apps.self':
-    'Você ou outros usuários podem ter instalado aplicativos que adicionam recursos aos produtos da Atlassian. Esses aplicativos podem ter armazenado suas informações de perfil.',
+    'Você ou outros usuários podem ter instalado aplicativos que adicionam funções aos produtos da Atlassian. Esses aplicativos podem ter armazenado suas informações de perfil.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.admin':
     'Informações relacionadas a compras, que precisamos manter para relatórios financeiros.',
   'focused-task-close-account.delete-account.overview.inline-dialog.personal-data-will-be-deleted.li1.self':

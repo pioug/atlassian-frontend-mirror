@@ -1000,6 +1000,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       ssr,
       useInlinePlayer,
       shouldOpenMediaViewer,
+      shouldHideTooltip,
     } = this.props;
     const { mediaItemType } = identifier;
     const { status, progress, cardPreview, error, cardRef, isCardVisible } =
@@ -1053,6 +1054,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
         nativeLazyLoad={nativeLazyLoad}
         forceSyncDisplay={forceSyncDisplay}
         mediaCardCursor={mediaCardCursor}
+        shouldHideTooltip={shouldHideTooltip}
       />
     );
 

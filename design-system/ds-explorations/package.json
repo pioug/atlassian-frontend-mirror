@@ -57,7 +57,7 @@
     "@atlaskit/heading": "*",
     "@atlaskit/icon": "*",
     "@atlaskit/lozenge": "*",
-    "@atlaskit/primitives": "^0.13.0",
+    "@atlaskit/primitives": "^0.14.0",
     "@atlaskit/section-message": "*",
     "@atlaskit/textfield": "*",
     "@atlaskit/visual-regression": "*",

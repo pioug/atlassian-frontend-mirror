@@ -27,8 +27,8 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^25.9.0",
-    "@atlaskit/editor-common": "^74.9.0",
+    "@atlaskit/adf-schema": "^25.10.0",
+    "@atlaskit/editor-common": "^74.10.0",
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-plugin-analytics": "^0.0.3",
     "@atlaskit/editor-plugin-content-insertion": "^0.0.3",
@@ -65,7 +65,7 @@
     "@af/editor-libra": "*",
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/button": "^16.8.0",
-    "@atlaskit/editor-core": "^185.3.0",
+    "@atlaskit/editor-core": "^185.4.0",
     "@atlaskit/editor-plugin-decorations": "^0.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-plugin-grid": "^0.1.0",

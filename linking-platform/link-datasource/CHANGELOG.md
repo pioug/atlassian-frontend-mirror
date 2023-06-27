@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 0.24.4
+
+### Patch Changes
+
+- [`b75c571b91b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b75c571b91b) - Fix up problem where we don't set react's "key" for list of content we show in each cell (like tags)
+- Updated dependencies
+
 ## 0.24.3
 
 ### Patch Changes

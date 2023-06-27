@@ -38,7 +38,7 @@ export default () => {
     if (adf.type === 'blockCard') {
       setParameters(adf.attrs.datasource.parameters);
       setVisibleColumnKeys(
-        adf.attrs.datasource.views[0].properties?.columnKeys,
+        adf.attrs.datasource.views[0].properties?.columns.map(c => c.key),
       );
     }
     setGeneratedAdf(JSON.stringify(adf, null, 2));

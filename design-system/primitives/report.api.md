@@ -44,18 +44,6 @@ type AlignInline = 'center' | 'end' | 'start';
 type AlignInline_2 = 'center' | 'end' | 'start';
 
 // @public (undocumented)
-type AlignSelf = keyof typeof alignSelfMap;
-
-// @public
-const alignSelfMap: {
-  readonly center: 'center';
-  readonly start: 'start';
-  readonly stretch: 'stretch';
-  readonly end: 'end';
-  readonly baseline: 'baseline';
-};
-
-// @public (undocumented)
 type AllowedBoxStyles = keyof SafeCSSObject;
 
 // @public (undocumented)
@@ -223,9 +211,6 @@ type BasePrimitiveProps = {
 };
 
 // @public (undocumented)
-type BlockSize = Dimension;
-
-// @public (undocumented)
 type BorderColor = keyof typeof borderColorMap;
 
 // @public
@@ -270,15 +255,6 @@ const borderRadiusMap: {
 };
 
 // @public (undocumented)
-type BorderStyle = keyof typeof borderStyleMap;
-
-// @public (undocumented)
-const borderStyleMap: {
-  readonly none: 'none';
-  readonly solid: 'solid';
-};
-
-// @public (undocumented)
 type BorderWidth = keyof typeof borderWidthMap;
 
 // @public
@@ -288,9 +264,6 @@ const borderWidthMap: {
   readonly 'border.width.050': 'var(--ds-border-width-050)';
   readonly 'border.width.100': 'var(--ds-border-width-100)';
 };
-
-// @public (undocumented)
-type Bottom = Dimension;
 
 // @public
 export const Box: BoxComponent;
@@ -352,90 +325,10 @@ const dimensionMap: {
 };
 
 // @public (undocumented)
-type Display = keyof typeof displayMap;
-
-// @public (undocumented)
-const displayMap: {
-  readonly flex: 'flex';
-  readonly block: 'block';
-  readonly inline: 'inline';
-  readonly inlineBlock: 'inline-block';
-  readonly inlineFlex: 'inline-flex';
-  readonly grid: 'grid';
-};
-
-// @public (undocumented)
-type Fill = keyof typeof fillMap;
-
-// @public (undocumented)
-const fillMap: {
-  readonly 'color.icon': 'var(--ds-icon)';
-  readonly 'color.icon.accent.lime': 'var(--ds-icon-accent-lime)';
-  readonly 'color.icon.accent.red': 'var(--ds-icon-accent-red)';
-  readonly 'color.icon.accent.orange': 'var(--ds-icon-accent-orange)';
-  readonly 'color.icon.accent.yellow': 'var(--ds-icon-accent-yellow)';
-  readonly 'color.icon.accent.green': 'var(--ds-icon-accent-green)';
-  readonly 'color.icon.accent.teal': 'var(--ds-icon-accent-teal)';
-  readonly 'color.icon.accent.blue': 'var(--ds-icon-accent-blue)';
-  readonly 'color.icon.accent.purple': 'var(--ds-icon-accent-purple)';
-  readonly 'color.icon.accent.magenta': 'var(--ds-icon-accent-magenta)';
-  readonly 'color.icon.accent.gray': 'var(--ds-icon-accent-gray)';
-  readonly 'color.icon.disabled': 'var(--ds-icon-disabled)';
-  readonly 'color.icon.inverse': 'var(--ds-icon-inverse)';
-  readonly 'color.icon.selected': 'var(--ds-icon-selected)';
-  readonly 'color.icon.brand': 'var(--ds-icon-brand)';
-  readonly 'color.icon.danger': 'var(--ds-icon-danger)';
-  readonly 'color.icon.warning': 'var(--ds-icon-warning)';
-  readonly 'color.icon.warning.inverse': 'var(--ds-icon-warning-inverse)';
-  readonly 'color.icon.success': 'var(--ds-icon-success)';
-  readonly 'color.icon.discovery': 'var(--ds-icon-discovery)';
-  readonly 'color.icon.information': 'var(--ds-icon-information)';
-  readonly 'color.icon.subtle': 'var(--ds-icon-subtle)';
-};
-
-// @public (undocumented)
-type Flex = keyof typeof flexMap;
-
-// @public (undocumented)
-type FlexDirection = keyof typeof flexDirectionMap;
-
-// @public (undocumented)
-const flexDirectionMap: {
-  readonly row: 'row';
-  readonly column: 'column';
-};
-
-// @public (undocumented)
-type FlexGrow = keyof typeof flexGrowMap;
-
-// @public (undocumented)
-const flexGrowMap: {
-  readonly '0': 0;
-  readonly '1': 1;
-};
-
-// @public (undocumented)
-const flexMap: {
-  readonly '1': 1;
-};
-
-// @public (undocumented)
-type FlexShrink = keyof typeof flexShrinkMap;
-
-// @public (undocumented)
-const flexShrinkMap: {
-  readonly '0': '0';
-  readonly '1': 1;
-};
-
-// @public (undocumented)
 type Grow = 'fill' | 'hug';
 
 // @public (undocumented)
 type Grow_2 = 'fill' | 'hug';
-
-// @public (undocumented)
-type Height = Dimension;
 
 // @public
 export const Inline: MemoExoticComponent<
@@ -477,9 +370,6 @@ export interface InlineProps<T extends ElementType = 'div'> {
 }
 
 // @public (undocumented)
-type InlineSize = Dimension;
-
-// @public (undocumented)
 type InlineStyles = SerializedStyles & {
   [inlineTag]: true;
 };
@@ -495,7 +385,7 @@ type InlineXCSS = {
 // @public (undocumented)
 type Layer = keyof typeof layerMap;
 
-// @public (undocumented)
+// @public
 const layerMap: {
   readonly card: 100;
   readonly navigation: 200;
@@ -507,21 +397,6 @@ const layerMap: {
   readonly spotlight: 700;
   readonly tooltip: 800;
 };
-
-// @public (undocumented)
-type Left = Dimension;
-
-// @public (undocumented)
-type MaxBlockSize = Dimension;
-
-// @public (undocumented)
-type MaxHeight = Dimension;
-
-// @public (undocumented)
-type MaxInlineSize = Dimension;
-
-// @public (undocumented)
-type MaxWidth = Dimension;
 
 // @public
 const media: {
@@ -539,62 +414,9 @@ const media: {
 type MediaQuery = (typeof media.above)[Breakpoint];
 
 // @public (undocumented)
-type MinBlockSize = Dimension;
-
-// @public (undocumented)
-type MinHeight = Dimension;
-
-// @public (undocumented)
-type MinInlineSize = Dimension;
-
-// @public (undocumented)
-type MinWidth = Dimension;
-
-// @public (undocumented)
-type Overflow = keyof typeof overflowMap;
-
-// @public (undocumented)
-type OverflowBlock = keyof typeof overflowBlockMap;
-
-// @public (undocumented)
-const overflowBlockMap: {
-  readonly auto: 'auto';
-  readonly hidden: 'hidden';
-};
-
-// @public (undocumented)
-type OverflowInline = keyof typeof overflowInlineMap;
-
-// @public (undocumented)
-const overflowInlineMap: {
-  readonly auto: 'auto';
-  readonly hidden: 'hidden';
-};
-
-// @public (undocumented)
-const overflowMap: {
-  readonly auto: 'auto';
-  readonly hidden: 'hidden';
-};
-
-// @public (undocumented)
-type Position = keyof typeof positionMap;
-
-// @public (undocumented)
-const positionMap: {
-  readonly absolute: 'absolute';
-  readonly fixed: 'fixed';
-  readonly relative: 'relative';
-  readonly static: 'static';
-};
-
-// @public (undocumented)
 type PublicBoxPropsBase = {
   xcss?: Array<BoxXCSS | false | undefined> | BoxXCSS;
 };
-
-// @public (undocumented)
-type Right = Dimension;
 
 // @public (undocumented)
 type SafeCSSObject = CSSPseudos &
@@ -652,6 +474,13 @@ type Spacing =
   | 'insetInline'
   | 'insetInlineEnd'
   | 'insetInlineStart'
+  | 'margin'
+  | 'marginBlock'
+  | 'marginBlockEnd'
+  | 'marginBlockStart'
+  | 'marginInline'
+  | 'marginInlineEnd'
+  | 'marginInlineStart'
   | 'outlineOffset'
   | 'padding'
   | 'paddingBlock'
@@ -745,26 +574,18 @@ const textColorMap: {
 
 // @public (undocumented)
 type TokenisedProps = {
-  alignSelf?: AlignSelf;
   backgroundColor?: BackgroundColor;
-  blockSize?: BlockSize;
+  blockSize?: AutoComplete<Dimension>;
   borderColor?: BorderColor;
   borderRadius?: BorderRadius;
-  borderStyle?: BorderStyle;
   borderWidth?: BorderWidth;
-  bottom?: Bottom;
+  bottom?: AutoComplete<Space>;
   boxShadow?: Shadow;
   color?: TextColor;
   columnGap?: Space;
-  display?: Display;
-  fill?: Fill;
-  flex?: Flex;
-  flexDirection?: FlexDirection;
-  flexGrow?: FlexGrow;
-  flexShrink?: FlexShrink;
   gap?: Space;
-  height?: AutoComplete<Height>;
-  inlineSize?: InlineSize;
+  height?: AutoComplete<Dimension>;
+  inlineSize?: AutoComplete<Dimension>;
   inset?: Space;
   insetBlock?: Space;
   insetBlockEnd?: Space;
@@ -772,21 +593,18 @@ type TokenisedProps = {
   insetInline?: Space;
   insetInlineEnd?: Space;
   insetInlineStart?: Space;
-  left?: Left;
-  maxBlockSize?: AutoComplete<MaxBlockSize>;
-  maxHeight?: AutoComplete<MaxHeight>;
-  maxInlineSize?: AutoComplete<MaxInlineSize>;
-  maxWidth?: AutoComplete<MaxWidth>;
-  minBlockSize?: AutoComplete<MinBlockSize>;
-  minHeight?: AutoComplete<MinHeight>;
-  minInlineSize?: AutoComplete<MinInlineSize>;
-  minWidth?: AutoComplete<MinWidth>;
+  left?: AutoComplete<Space>;
+  maxBlockSize?: AutoComplete<Dimension>;
+  maxHeight?: AutoComplete<Dimension>;
+  maxInlineSize?: AutoComplete<Dimension>;
+  maxWidth?: AutoComplete<Dimension>;
+  minBlockSize?: AutoComplete<Dimension>;
+  minHeight?: AutoComplete<Dimension>;
+  minInlineSize?: AutoComplete<Dimension>;
+  minWidth?: AutoComplete<Dimension>;
   outlineColor?: BorderColor;
   outlineOffset?: Space;
   outlineWidth?: BorderWidth;
-  overflow?: Overflow;
-  overflowBlock?: OverflowBlock;
-  overflowInline?: OverflowInline;
   padding?: Space;
   paddingBlock?: Space;
   paddingBlockEnd?: Space;
@@ -794,22 +612,15 @@ type TokenisedProps = {
   paddingInline?: Space;
   paddingInlineEnd?: Space;
   paddingInlineStart?: Space;
-  position?: Position;
-  right?: Right;
+  right?: AutoComplete<Space>;
   rowGap?: Space;
-  top?: Top;
-  width?: AutoComplete<Width>;
+  top?: AutoComplete<Space>;
+  width?: AutoComplete<Dimension>;
   zIndex?: Layer;
 };
 
 // @public (undocumented)
-type Top = Dimension;
-
-// @public (undocumented)
 const uniqueSymbol: unique symbol;
-
-// @public (undocumented)
-type Width = Dimension;
 
 // @public
 export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(

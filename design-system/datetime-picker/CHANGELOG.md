@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.7.3
+
+### Patch Changes
+
+- [`758165c64f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/758165c64f6) - Fixes bug that made escapes not work correctly in format strings.
+
 ## 12.7.2
 
 ### Patch Changes

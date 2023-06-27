@@ -4,11 +4,11 @@ import { token } from '@atlaskit/tokens';
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b6657585e3df6f8017d4c35bb9150e3f>>
+ * @codegen <<SignedSource::7af6097e56f7fb03635b6f8aaf121b02>>
  * @codegenId dimensions
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["dimensions"]
- * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::01143ff41135244db1d8ec2efe4339d6>>
+ * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::0cd422575c3f2a3784eeef767abe71f4>>
  */
 export const dimensionMap = {
   '100%': '100%',
@@ -20,24 +20,7 @@ export const dimensionMap = {
   'size.600': '6rem',
   'size.1000': '12rem',
 } as const;
-type Dimension = keyof typeof dimensionMap;
-
-export type Width = Dimension;
-export type Height = Dimension;
-export type MinWidth = Dimension;
-export type MaxWidth = Dimension;
-export type MinHeight = Dimension;
-export type MaxHeight = Dimension;
-export type Top = Dimension;
-export type Left = Dimension;
-export type Bottom = Dimension;
-export type Right = Dimension;
-export type BlockSize = Dimension;
-export type InlineSize = Dimension;
-export type MaxBlockSize = Dimension;
-export type MaxInlineSize = Dimension;
-export type MinBlockSize = Dimension;
-export type MinInlineSize = Dimension;
+export type Dimension = keyof typeof dimensionMap;
 
 /**
  * @codegenEnd
@@ -623,77 +606,13 @@ export type Fill = keyof typeof fillMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7787d50b7bc64a9350e4cf35ae608a79>>
+ * @codegen <<SignedSource::01a4b055c311d198921d4e000a2d7a54>>
  * @codegenId misc
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
- * @codegenParams ["align-self", "border-style", "display", "flex-direction", "flex-grow", "flex-shrink", "flex", "layer", "overflow", "position"]
- * @codegenDependency ../../scripts/codegen-file-templates/align-self.tsx <<SignedSource::074079802534462de54bf882bb2073e5>>
- * @codegenDependency ../../scripts/codegen-file-templates/border-style.tsx <<SignedSource::87e7e289ffeaac901997c4af98084a5f>>
- * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::01143ff41135244db1d8ec2efe4339d6>>
- * @codegenDependency ../../scripts/codegen-file-templates/display.tsx <<SignedSource::486569d9e228265c1688d0a7122bdedc>>
- * @codegenDependency ../../scripts/codegen-file-templates/flex-direction.tsx <<SignedSource::19809ba11675679c188b0d98fb651dc1>>
- * @codegenDependency ../../scripts/codegen-file-templates/flex-grow.tsx <<SignedSource::b8a06b122cb609170f1f42778a6c270e>>
- * @codegenDependency ../../scripts/codegen-file-templates/flex-shrink.tsx <<SignedSource::77effeb1e5c39997e34b21b000a91faf>>
- * @codegenDependency ../../scripts/codegen-file-templates/flex.tsx <<SignedSource::ffa0189d14f1f00a16ec1e9f43a17ce9>>
+ * @codegenParams ["layer"]
+ * @codegenDependency ../../scripts/codegen-file-templates/dimensions.tsx <<SignedSource::0cd422575c3f2a3784eeef767abe71f4>>
  * @codegenDependency ../../scripts/codegen-file-templates/layer.tsx <<SignedSource::79d24a1e558f12d671c06a7609f90dc1>>
- * @codegenDependency ../../scripts/codegen-file-templates/overflow.tsx <<SignedSource::ccb841f2f51525aed895c06e00f15089>>
- * @codegenDependency ../../scripts/codegen-file-templates/position.tsx <<SignedSource::8709494ef16c48046c1784a9aaec6d80>>
  */
-export const alignSelfMap = {
-  center: 'center',
-  start: 'start',
-  stretch: 'stretch',
-  end: 'end',
-  baseline: 'baseline',
-} as const;
-
-export type AlignSelf = keyof typeof alignSelfMap;
-
-export const borderStyleMap = {
-  none: 'none',
-  solid: 'solid',
-} as const;
-
-export type BorderStyle = keyof typeof borderStyleMap;
-
-export const displayMap = {
-  flex: 'flex',
-  block: 'block',
-  inline: 'inline',
-  inlineBlock: 'inline-block',
-  inlineFlex: 'inline-flex',
-  grid: 'grid',
-} as const;
-
-export type Display = keyof typeof displayMap;
-
-export const flexDirectionMap = {
-  row: 'row',
-  column: 'column',
-} as const;
-
-export type FlexDirection = keyof typeof flexDirectionMap;
-
-export const flexGrowMap = {
-  '0': 0,
-  '1': 1,
-} as const;
-
-export type FlexGrow = keyof typeof flexGrowMap;
-
-export const flexShrinkMap = {
-  '0': '0',
-  '1': 1,
-} as const;
-
-export type FlexShrink = keyof typeof flexShrinkMap;
-
-export const flexMap = {
-  '1': 1,
-} as const;
-
-export type Flex = keyof typeof flexMap;
-
 export const layerMap = {
   card: 100,
   navigation: 200,
@@ -707,36 +626,6 @@ export const layerMap = {
 } as const;
 
 export type Layer = keyof typeof layerMap;
-
-export const overflowMap = {
-  auto: 'auto',
-  hidden: 'hidden',
-} as const;
-
-export type Overflow = keyof typeof overflowMap;
-
-export const overflowInlineMap = {
-  auto: 'auto',
-  hidden: 'hidden',
-} as const;
-
-export type OverflowInline = keyof typeof overflowInlineMap;
-
-export const overflowBlockMap = {
-  auto: 'auto',
-  hidden: 'hidden',
-} as const;
-
-export type OverflowBlock = keyof typeof overflowBlockMap;
-
-export const positionMap = {
-  absolute: 'absolute',
-  fixed: 'fixed',
-  relative: 'relative',
-  static: 'static',
-} as const;
-
-export type Position = keyof typeof positionMap;
 
 /**
  * @codegenEnd
@@ -778,26 +667,18 @@ export type BorderRadius = keyof typeof borderRadiusMap;
 type AutoComplete<T extends string> = T | Omit<string, T>;
 
 export type TokenisedProps = {
-  alignSelf?: AlignSelf;
   backgroundColor?: BackgroundColor;
-  blockSize?: BlockSize;
+  blockSize?: AutoComplete<Dimension>;
   borderColor?: BorderColor;
   borderRadius?: BorderRadius;
-  borderStyle?: BorderStyle;
   borderWidth?: BorderWidth;
-  bottom?: Bottom;
+  bottom?: AutoComplete<Space>;
   boxShadow?: Shadow;
   color?: TextColor;
   columnGap?: Space;
-  display?: Display;
-  fill?: Fill;
-  flex?: Flex;
-  flexDirection?: FlexDirection;
-  flexGrow?: FlexGrow;
-  flexShrink?: FlexShrink;
   gap?: Space;
-  height?: AutoComplete<Height>;
-  inlineSize?: InlineSize;
+  height?: AutoComplete<Dimension>;
+  inlineSize?: AutoComplete<Dimension>;
   inset?: Space;
   insetBlock?: Space;
   insetBlockEnd?: Space;
@@ -805,21 +686,18 @@ export type TokenisedProps = {
   insetInline?: Space;
   insetInlineEnd?: Space;
   insetInlineStart?: Space;
-  left?: Left;
-  maxBlockSize?: AutoComplete<MaxBlockSize>;
-  maxHeight?: AutoComplete<MaxHeight>;
-  maxInlineSize?: AutoComplete<MaxInlineSize>;
-  maxWidth?: AutoComplete<MaxWidth>;
-  minBlockSize?: AutoComplete<MinBlockSize>;
-  minHeight?: AutoComplete<MinHeight>;
-  minInlineSize?: AutoComplete<MinInlineSize>;
-  minWidth?: AutoComplete<MinWidth>;
+  left?: AutoComplete<Space>;
+  maxBlockSize?: AutoComplete<Dimension>;
+  maxHeight?: AutoComplete<Dimension>;
+  maxInlineSize?: AutoComplete<Dimension>;
+  maxWidth?: AutoComplete<Dimension>;
+  minBlockSize?: AutoComplete<Dimension>;
+  minHeight?: AutoComplete<Dimension>;
+  minInlineSize?: AutoComplete<Dimension>;
+  minWidth?: AutoComplete<Dimension>;
   outlineColor?: BorderColor;
   outlineOffset?: Space;
   outlineWidth?: BorderWidth;
-  overflow?: Overflow;
-  overflowBlock?: OverflowBlock;
-  overflowInline?: OverflowInline;
   padding?: Space;
   paddingBlock?: Space;
   paddingBlockEnd?: Space;
@@ -827,11 +705,10 @@ export type TokenisedProps = {
   paddingInline?: Space;
   paddingInlineEnd?: Space;
   paddingInlineStart?: Space;
-  position?: Position;
-  right?: Right;
+  right?: AutoComplete<Space>;
   rowGap?: Space;
-  top?: Top;
-  width?: AutoComplete<Width>;
+  top?: AutoComplete<Space>;
+  width?: AutoComplete<Dimension>;
   zIndex?: Layer;
 };
 

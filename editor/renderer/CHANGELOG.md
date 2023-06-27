@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 108.3.0
+
+### Minor Changes
+
+- [`714f16e525a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/714f16e525a) - [ux] Added blockCard integration with datasource ADFs
+
+## 108.2.6
+
+### Patch Changes
+
+- [`4807883cf8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4807883cf8e) - [MEX-2468] Disable Tooltip in Media Card in Hybrid Renderer
+- Updated dependencies
+
+## 108.2.5
+
+### Patch Changes
+
+- [`077e0fdfa41`](https://bitbucket.org/atlassian/atlassian-frontend/commits/077e0fdfa41) - [MEX-2452] Add Inline in Viewer Carousel
+
 ## 108.2.4
 
 ### Patch Changes

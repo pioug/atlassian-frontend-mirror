@@ -48,7 +48,7 @@
     "@atlaskit/ds-explorations": "*",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/form": "^8.11.0",
-    "@atlaskit/primitives": "~0.13.0",
+    "@atlaskit/primitives": "~0.14.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/toggle": "^12.6.0",
     "@atlaskit/visual-regression": "*",

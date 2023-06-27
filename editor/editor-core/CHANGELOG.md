@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 185.4.0
+
+### Minor Changes
+
+- [`714f16e525a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/714f16e525a) - [ux] Added blockCard integration with datasource ADFs
+
 ## 185.3.1
 
 ### Patch Changes

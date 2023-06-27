@@ -1,5 +1,12 @@
 # @atlaskit/calendar
 
+## 13.1.10
+
+### Patch Changes
+
+- [`76d4d797a2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76d4d797a2d) - Updates calendar for primitives bump.
+- Updated dependencies
+
 ## 13.1.9
 
 ### Patch Changes

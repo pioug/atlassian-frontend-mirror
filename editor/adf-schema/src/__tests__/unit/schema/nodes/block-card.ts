@@ -1,9 +1,6 @@
 import { toDOM, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { createSchema } from '../../../../schema/create-schema';
-import {
-  blockCard,
-  DatasourceAttributes,
-} from '../../../../schema/nodes/block-card';
+import { blockCard } from '../../../../schema/nodes/block-card';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 
@@ -24,14 +21,15 @@ describe(`${packageName}/schema blockCard node`, () => {
     summary:
       'Today is a big day for Atlassian – we have entered into an agreement to buy Trello. (boom)',
   };
-  const datasourceBlockCardAttributes: DatasourceAttributes = {
-    width: 10,
-    layout: 'center',
-    datasource: {
-      id: 'datasource-id',
-      parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
-      views: [{ type: 'table', properties: { columnKeys: ['col1', 'col2'] } }],
-    },
+  const datasource = {
+    id: 'datasource-id',
+    parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
+    views: [
+      {
+        type: 'table',
+        properties: { columns: [{ key: 'col1' }, { key: 'col2' }] },
+      },
+    ],
   };
 
   describe('blockCard with "url" attribute', () => {
@@ -119,12 +117,9 @@ describe(`${packageName}/schema blockCard node`, () => {
     describe('parse html', () => {
       it('converts to blockCard PM node', () => {
         const doc = fromHTML(
-          `<a
-                    data-block-card
-                    href=""
-                    data-datasource='${JSON.stringify(
-                      datasourceBlockCardAttributes.datasource,
-                    )}' />`,
+          `<a data-block-card href="" data-datasource='${JSON.stringify(
+            datasource,
+          )}' />`,
           schema,
         );
         const node = doc.firstChild!;
@@ -132,25 +127,18 @@ describe(`${packageName}/schema blockCard node`, () => {
       });
 
       it('gets attributes from html', () => {
-        const { width, layout, datasource } = datasourceBlockCardAttributes;
         const doc = fromHTML(
-          `<a
-                    data-block-card
-                    href=""
-                    data-width="${width}"
-                    data-layout="${layout}"
-                    data-datasource='${JSON.stringify(datasource)}' />`,
+          `<a data-block-card href="" data-datasource='${JSON.stringify(
+            datasource,
+          )}' />`,
           schema,
         );
 
         const node = doc.firstChild!;
         expect(node.attrs.datasource).toEqual(datasource);
-        expect(node.attrs.layout).toEqual(layout);
-        expect(node.attrs.width).toEqual(width);
       });
 
       it('get attributes from html when layout is not set', () => {
-        const { datasource } = datasourceBlockCardAttributes;
         const doc = fromHTML(
           `<a
                     data-block-card
@@ -166,27 +154,30 @@ describe(`${packageName}/schema blockCard node`, () => {
 
     describe('encode html', () => {
       it('converts html datasource attributes to node attributes', () => {
-        const { width, layout, datasource } = datasourceBlockCardAttributes;
-        const dom = toDOM(
-          schema.nodes.blockCard.create(datasourceBlockCardAttributes),
-          schema,
-        ).firstChild as HTMLElement;
+        const dom = toDOM(schema.nodes.blockCard.create({ datasource }), schema)
+          .firstChild as HTMLElement;
 
         expect(dom.getAttribute('href')).toEqual('');
         expect(dom.getAttribute('data-datasource')).toEqual(
           JSON.stringify(datasource),
         );
-        expect(dom.getAttribute('data-width')).toEqual(`${width}`);
-        expect(dom.getAttribute('data-layout')).toEqual(layout);
       });
 
       it('encodes and decodes to the same node', () => {
-        const node = schema.nodes.blockCard.create(
-          datasourceBlockCardAttributes,
-        );
+        const node = schema.nodes.blockCard.create({ datasource });
         const dom = toDOM(node, schema).firstChild as HTMLElement;
+
         const parsedNode = fromHTML(dom.outerHTML, schema).firstChild!;
-        expect(parsedNode).toEqual(node);
+
+        // Defaults to center
+        expect(node.attrs.layout).toBeNull();
+        expect(parsedNode).toEqual({
+          ...node,
+          attrs: {
+            ...node.attrs,
+            layout: 'center',
+          },
+        });
       });
     });
   });

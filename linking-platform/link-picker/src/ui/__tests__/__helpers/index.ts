@@ -1,7 +1,5 @@
 import { LinkSearchListItemData } from '../../types';
 
-export { default as ManualPromise } from './manual-promise';
-
 export const getDefaultItems = (
   numberOfItems: number = 2,
 ): LinkSearchListItemData[] =>

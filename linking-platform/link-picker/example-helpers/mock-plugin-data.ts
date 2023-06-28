@@ -1,4 +1,4 @@
-const MOCK_DATA = {
+export const MOCK_DATA = {
   MOCKED_PROVIDERS: {
     providers: [
       {
@@ -403,5 +403,3 @@ export const MOCK_NO_RESULTS = {
     ],
   },
 };
-
-export default MOCK_DATA;

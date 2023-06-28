@@ -14,7 +14,7 @@ import { useLinkPickerSessionId } from '../../../controllers/session-provider';
 /**
  * UFO + Analytics tracking for component mount (and unmount)
  */
-function TrackMount() {
+export function TrackMount() {
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const linkPickerSessionId = useLinkPickerSessionId();
 
@@ -38,5 +38,3 @@ function TrackMount() {
 
   return null;
 }
-
-export default TrackMount;

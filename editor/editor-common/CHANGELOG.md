@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.10.2
+
+### Patch Changes
+
+- [`a9350cf3831`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9350cf3831) - Check existence of window and document variable for confluence SSR to work
+
 ## 74.10.1
 
 ### Patch Changes

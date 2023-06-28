@@ -1,0 +1,43 @@
+name: Linking Platform - Smart Card
+id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/37b0c35b-cb07-487e-a5cc-4163251423e3'
+description: Smart card component
+configVersion: 1
+typeId: UI_ELEMENT
+ownerId: 'ari:cloud:teams::team/25e5b679-2a57-4fce-b749-5504e84d6799'
+fields:
+  tier: 2
+links:
+  - name: null
+    type: REPOSITORY
+    url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/linking-platform/smart-card/'
+  - name: '#linking-platform'
+    type: CHAT_CHANNEL
+    url: 'https://atlassian.slack.com/app_redirect?channel=linking-platform'
+  - name: ''
+    type: ON_CALL
+    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/98927e5e-f400-41a3-bdd1-b580c9b1d78b'
+  - name: ''
+    type: DOCUMENT
+    url: 'https://hello.atlassian.net/wiki/spaces/TWPLP/overview'
+  - name: ''
+    type: PROJECT
+    url: 'https://product-fabric.atlassian.net/jira/software/c/projects/EDM/boards/893'
+  - name: ''
+    type: DASHBOARD
+    url: 'https://atlassian.signalfx.com/#/dashboard/EXwrMgYAwAA?groupId=EXwtbIrA4AA&configId=EXwrNLcA4AA'
+relationships: {}
+labels:
+  - atlassian-platform
+customFields:
+  - name: Dev Owner
+    type: user
+    value: null
+  - name: Product
+    type: text
+    value: null
+  - name: Test
+    type: text
+    value: null
+
+# Learn more about formatting compass.yml:
+# https://go.atlassian.com/compass-yml-format

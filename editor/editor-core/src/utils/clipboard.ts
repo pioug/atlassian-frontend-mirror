@@ -62,7 +62,7 @@ export const copyHTMLToClipboard = async (
     } catch (error) {
       throw new Error('Clipboard api is not supported');
     }
-  } else {
+  } else if (typeof document !== undefined) {
     // ED-17083 extension copy seems have issue with ClipboardItem API
     // Hence of use of this polyfill
     copyHTMLToClipboardPolyfill(elementToCopy, plainTextToCopy);

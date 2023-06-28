@@ -159,7 +159,7 @@ describe('useDatasourceTableState', () => {
       await waitForNextUpdate();
 
       const expectedProperties =
-        mockDatasourceDataResponseWithSchema?.schema?.properties;
+        mockDatasourceDataResponseWithSchema?.data.schema?.properties;
       const expectedDefaultProperties = expectedProperties?.map(
         prop => prop.key,
       );
@@ -190,7 +190,7 @@ describe('useDatasourceTableState', () => {
       await waitForNextUpdate();
 
       expect(result.current.responseItems).toEqual(
-        mockDatasourceDataResponse.data,
+        mockDatasourceDataResponse.data.items,
       );
 
       expect(result.current.totalCount).toEqual(1234);
@@ -238,7 +238,7 @@ describe('useDatasourceTableState', () => {
             jql: mockParameterValue,
           },
           pageSize: 20,
-          pageCursor: mockDatasourceDataResponse.nextPageCursor,
+          pageCursor: mockDatasourceDataResponse.data.nextPageCursor,
           fields: [],
           includeSchema: true,
         });
@@ -255,7 +255,7 @@ describe('useDatasourceTableState', () => {
         await waitForNextUpdate();
 
         expect(result.current.responseItems.length).toBe(
-          mockDatasourceDataResponse.data.length * 2,
+          mockDatasourceDataResponse.data.items.length * 2,
         );
       });
 
@@ -298,7 +298,7 @@ describe('useDatasourceTableState', () => {
         await waitForNextUpdate();
 
         const expectedProperties =
-          mockDatasourceDataResponseWithSchema?.schema?.properties;
+          mockDatasourceDataResponseWithSchema?.data.schema?.properties;
         expect(result.current.columns).toEqual(expectedProperties);
 
         act(() => {
@@ -317,7 +317,10 @@ describe('useDatasourceTableState', () => {
       it('should populate hasNextPage', async () => {
         getDatasourceData = jest.fn().mockResolvedValue({
           ...mockDatasourceDataResponse,
-          nextPageCursor: undefined,
+          data: {
+            ...mockDatasourceDataResponse.data,
+            nextPageCursor: undefined,
+          },
         });
         const { result, waitForNextUpdate } = setup();
         await waitForNextUpdate();
@@ -335,14 +338,16 @@ describe('useDatasourceTableState', () => {
   describe('#loadDatasourceDetails', () => {
     it('should update only if new columns are available', async () => {
       asMock(getDatasourceDetails).mockResolvedValue({
-        schema: {
-          properties: [
-            {
-              key: 'newcol',
-              title: 'New Column',
-              type: 'string',
-            },
-          ],
+        data: {
+          schema: {
+            properties: [
+              {
+                key: 'newcol',
+                title: 'New Column',
+                type: 'string',
+              },
+            ],
+          },
         },
       });
       asMock(getDatasourceData).mockResolvedValue(
@@ -357,7 +362,8 @@ describe('useDatasourceTableState', () => {
       await waitForNextUpdate();
 
       expect(result.current.columns).toEqual([
-        ...(mockDatasourceDataResponseWithSchema?.schema?.properties || []),
+        ...(mockDatasourceDataResponseWithSchema?.data.schema?.properties ||
+          []),
         {
           key: 'newcol',
           title: 'New Column',
@@ -367,17 +373,6 @@ describe('useDatasourceTableState', () => {
     });
 
     it('should not update when no new columns are available', async () => {
-      asMock(getDatasourceDetails).mockResolvedValue({
-        schema: {
-          properties: [
-            {
-              key: 'issue',
-              title: 'Key',
-              type: 'link',
-            },
-          ],
-        },
-      });
       asMock(getDatasourceData).mockResolvedValue(
         mockDatasourceDataResponseWithSchema,
       );
@@ -389,7 +384,7 @@ describe('useDatasourceTableState', () => {
       });
 
       expect(result.current.columns).toEqual(
-        mockDatasourceDataResponseWithSchema?.schema?.properties,
+        mockDatasourceDataResponseWithSchema?.data.schema?.properties,
       );
     });
   });
@@ -397,11 +392,12 @@ describe('useDatasourceTableState', () => {
   describe('#reset()', () => {
     const customSetup = async () => {
       const { result, waitForNextUpdate, rerender } = setup();
-      await waitForNextUpdate();
 
       rerender({
         parameters: {},
       });
+
+      await waitForNextUpdate();
 
       return { result, waitForNextUpdate, rerender };
     };
@@ -420,7 +416,7 @@ describe('useDatasourceTableState', () => {
       const { result } = await customSetup();
 
       expect(result.current.responseItems).toEqual(
-        mockDatasourceDataResponse.data,
+        mockDatasourceDataResponse.data.items,
       );
 
       act(() => {
@@ -432,9 +428,12 @@ describe('useDatasourceTableState', () => {
 
     it('should set hasNextPage to true when reset() called', async () => {
       getDatasourceData = jest.fn().mockResolvedValue({
-        ...mockDatasourceDataResponse,
-        nextPageCursor: undefined,
+        data: {
+          ...mockDatasourceDataResponse.data,
+          nextPageCursor: undefined,
+        },
       });
+
       const { result, waitForNextUpdate, rerender } = setup();
 
       await waitForNextUpdate();
@@ -476,7 +475,7 @@ describe('useDatasourceTableState', () => {
       expect(getDatasourceData).toHaveBeenLastCalledWith(
         mockDatasourceId,
         expect.objectContaining({
-          pageCursor: mockDatasourceDataResponse.nextPageCursor,
+          pageCursor: mockDatasourceDataResponse.data.nextPageCursor,
         }),
       );
 

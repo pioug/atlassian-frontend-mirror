@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 0.14.1
+
+### Patch Changes
+
+- [`d79b6172a93`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d79b6172a93) - Add documentation for responsive xcss.
+
 ## 0.14.0
 
 ### Minor Changes

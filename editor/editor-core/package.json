@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "185.4.0",
+  "version": "185.4.4",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -70,7 +70,7 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/link-analytics": "^8.0.0",
-    "@atlaskit/link-datasource": "^0.24.0",
+    "@atlaskit/link-datasource": "^0.25.0",
     "@atlaskit/link-picker": "^1.25.0",
     "@atlaskit/locale": "^2.5.0",
     "@atlaskit/logo": "^13.14.0",
@@ -152,7 +152,7 @@
     "@atlaskit/atlassian-navigation": "^2.6.0",
     "@atlaskit/breadcrumbs": "11.10.4",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/collab-provider": "9.3.0",
+    "@atlaskit/collab-provider": "9.3.1",
     "@atlaskit/docs": "*",
     "@atlaskit/drawer": "^7.5.0",
     "@atlaskit/dropdown-menu": "^11.10.0",
@@ -163,7 +163,7 @@
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/inline-dialog": "^13.6.0",
     "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/link-test-helpers": "^4.0.0",
+    "@atlaskit/link-test-helpers": "^4.1.0",
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",

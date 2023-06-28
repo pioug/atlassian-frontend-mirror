@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 1.6.8
+
+### Patch Changes
+
+- [`a9350cf3831`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9350cf3831) - Check existence of window and document variable for confluence SSR to work
+
 ## 1.6.7
 
 ### Patch Changes

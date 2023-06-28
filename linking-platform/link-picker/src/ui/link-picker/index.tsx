@@ -16,6 +16,7 @@ import { useAnalyticsEvents, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 import VisuallyHidden from '@atlaskit/visually-hidden';
+import Spinner from '@atlaskit/spinner/spinner';
 
 import {
   LinkSearchListItemData,
@@ -35,7 +36,7 @@ import { browser } from '@atlaskit/linking-common/user-agent';
 
 import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
-import useFixHeight from '../../controllers/use-fix-height';
+import { useFixHeight } from '../../controllers/use-fix-height';
 
 import {
   searchMessages,
@@ -43,7 +44,7 @@ import {
   formMessages,
   linkTextMessages,
 } from './messages';
-import TextInput, { testIds as textFieldTestIds } from './text-input';
+import { TextInput, testIds as textFieldTestIds } from './text-input';
 import {
   rootContainerStyles,
   searchIconStyles,
@@ -51,20 +52,20 @@ import {
   flexColumnStyles,
   formFooterMargin,
 } from './styled';
-import Announcer from './announcer';
-import ScrollingTabList from '../scrolling-tabs';
+import { Announcer } from './announcer';
+import { ScrollingTabList } from '../scrolling-tabs';
 
-import LinkSearchList, { testIds as listTestIds } from './link-search-list';
-import LinkSearchError, {
+import { LinkSearchList, testIds as listTestIds } from './link-search-list';
+import {
+  LinkSearchError,
   testIds as searchErrorTestIds,
 } from './link-search-error';
-import FormFooter, { testIds as formFooterTestIds } from './form-footer';
+import { FormFooter, testIds as formFooterTestIds } from './form-footer';
 import { getDataSource, getScreenReaderText, handleNavKeyDown } from './utils';
 
-import TrackTabViewed from './track-tab-viewed';
-import TrackMount from './track-mount';
+import { TrackTabViewed } from './track-tab-viewed';
+import { TrackMount } from './track-mount';
 import { spinnerContainerStyles } from './link-search-list/styled';
-import Spinner from '@atlaskit/spinner/spinner';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
@@ -191,410 +192,425 @@ const LinkInputField = withInputFieldTracking(
 
 const DisplayTextInputField = withInputFieldTracking(TextInput, 'displayText');
 
-function LinkPicker({
-  onSubmit,
-  onCancel,
-  onContentResize,
-  plugins,
-  isLoadingPlugins,
-  url: initUrl,
-  displayText: initDisplayText,
-  hideDisplayText,
-  featureFlags,
-}: LinkPickerProps) {
-  const { createAnalyticsEvent } = useAnalyticsEvents();
+export const LinkPicker = withLinkPickerAnalyticsContext(
+  memo(
+    ({
+      onSubmit,
+      onCancel,
+      onContentResize,
+      plugins,
+      isLoadingPlugins,
+      url: initUrl,
+      displayText: initDisplayText,
+      hideDisplayText,
+      featureFlags,
+    }: LinkPickerProps) => {
+      const { createAnalyticsEvent } = useAnalyticsEvents();
 
-  const [state, dispatch] = useReducer(reducer, {
-    ...initState,
-    url: normalizeUrl(initUrl) || '',
-    displayText: initDisplayText || '',
-  });
-
-  const {
-    activeIndex,
-    selectedIndex,
-    url,
-    displayText,
-    invalidUrl,
-    activeTab,
-  } = state;
-
-  const intl = useIntl();
-  const queryState = useSearchQuery(state);
-
-  const {
-    items,
-    isLoading: isLoadingResults,
-    isActivePlugin,
-    activePlugin,
-    tabs,
-    error,
-    retry,
-    pluginAction,
-  } = usePlugins(queryState, activeTab, plugins);
-
-  const fixListHeightProps = useFixHeight(isLoadingResults);
-
-  const isEditing = !!initUrl;
-  const selectedItem: LinkSearchListItemData | undefined =
-    items?.[selectedIndex];
-  const isSelectedItem = selectedItem?.url === url;
-
-  const { trackAttribute, getAttributes } = useLinkPickerAnalytics();
-
-  useLayoutEffect(() => {
-    if (onContentResize) {
-      onContentResize();
-    }
-  }, [onContentResize, items, isLoadingResults, isActivePlugin, tabs]);
-
-  const handleChangeUrl = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      /** Any on change event is triggered by manual input or paste, so source is null */
-      trackAttribute('linkFieldContentInputSource', null);
-      dispatch({
-        url: e.currentTarget.value,
-        // If the last action was changing tabs, make sure we're now allowing recents to be hidden
-        preventHidingRecents: false,
+      const [state, dispatch] = useReducer(reducer, {
+        ...initState,
+        url: normalizeUrl(initUrl) || '',
+        displayText: initDisplayText || '',
       });
-    },
-    [dispatch, trackAttribute],
-  );
 
-  const handleChangeText = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch({
-        displayText: e.currentTarget.value,
-      });
-    },
-    [dispatch],
-  );
-
-  const handleClear = useCallback(
-    (field: string) => {
-      dispatch({
-        activeIndex: -1,
-        selectedIndex: -1,
-        [field]: '',
-      });
-    },
-    [dispatch],
-  );
-
-  const handleUrlClear = useCallback(() => {
-    trackAttribute('linkFieldContentInputSource', null);
-    handleClear('url');
-  }, [trackAttribute, handleClear]);
-
-  const handleInsert = useCallback(
-    (url: string, title: string | null, inputType: LinkInputType) => {
-      const event = createAnalyticsEvent(
-        createEventPayload('ui.form.submitted.linkPicker', {}),
-      );
-
-      // Clone the event so that it can be emitted for consumer usage
-      // This must happen BEFORE the original event is fired!
-      const consumerEvent = event.clone();
-      // Cloned event doesnt have the attributes that are added by
-      // the analytics listener in the LinkPickerAnalyticsContext, add them here
-      consumerEvent?.update({ attributes: getAttributes() });
-      // Dispatch the original event to our channel
-      event.fire(ANALYTICS_CHANNEL);
-
-      onSubmit(
-        {
-          url,
-          displayText: displayText || null,
-          title: title || null,
-          meta: { inputMethod: inputType },
-          ...(inputType === 'manual' ? { rawUrl: state.url } : {}),
-        },
-        consumerEvent,
-      );
-    },
-    [displayText, onSubmit, state.url, createAnalyticsEvent, getAttributes],
-  );
-
-  const handleSelected = useCallback(
-    (objectId: string) => {
-      const selectedItem = items?.find(item => item.objectId === objectId);
-
-      if (selectedItem) {
-        const { url, name } = selectedItem;
-        /**
-         * Manually track that the url has been updated using searchResult method
-         */
-        dispatchEvent(new Event('submit'));
-        trackAttribute('linkFieldContent', getLinkFieldContent(url));
-        trackAttribute('linkFieldContentInputMethod', 'searchResult');
-        trackAttribute(
-          'linkFieldContentInputSource',
-          getDataSource(selectedItem, activePlugin),
-        );
-        handleInsert(url, name, 'typeAhead');
-      }
-    },
-    [handleInsert, trackAttribute, items, activePlugin],
-  );
-
-  const handleSubmit = useCallback(
-    (event?: FormEvent<HTMLFormElement>) => {
-      event?.preventDefault();
-      if (isSelectedItem && selectedItem) {
-        return handleInsert(selectedItem.url, selectedItem.name, 'typeAhead');
-      }
-
-      const normalized = normalizeUrl(url);
-      if (normalized) {
-        return handleInsert(normalized, null, 'manual');
-      }
-
-      return dispatch({
-        invalidUrl: true,
-      });
-    },
-    [dispatch, handleInsert, isSelectedItem, selectedItem, url],
-  );
-
-  const handleTabChange = useCallback(
-    (activeTab: number) => {
-      dispatch({
-        // We don't want any selection to exist after changing tab, as the selection
-        // wouldn't mean anything.
-        activeIndex: -1,
-        selectedIndex: -1,
-
-        // We don't want recents to be hidden, even though we don't have a selection
-        preventHidingRecents: true,
-        invalidUrl: false,
+      const {
+        activeIndex,
+        selectedIndex,
+        url,
+        displayText,
+        invalidUrl,
         activeTab,
-      });
-      trackAttribute('tab', plugins?.[activeTab]?.tabKey ?? null);
-    },
-    [dispatch, plugins, trackAttribute],
-  );
+      } = state;
 
-  const handleSearchListOnChange = (id: string) => {
-    const index = items?.findIndex(item => item.objectId === id);
-    if (typeof index === 'number') {
-      const item = items?.[index];
-      if (item) {
-        /**
-         * Manually track that the url has been updated using searchResult method
-         */
-        trackAttribute('linkFieldContent', getLinkFieldContent(item.url));
-        trackAttribute('linkFieldContentInputMethod', 'searchResult');
-        trackAttribute(
-          'linkFieldContentInputSource',
-          getDataSource(item, activePlugin),
-        );
-        dispatch({
-          activeIndex: index,
-          selectedIndex: index,
-          url: item.url,
-          invalidUrl: false,
-        });
-      }
-    }
-  };
+      const intl = useIntl();
+      const queryState = useSearchQuery(state);
 
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent<HTMLElement>) => {
-      if (!items?.length) {
-        return;
-      }
+      const {
+        items,
+        isLoading: isLoadingResults,
+        isActivePlugin,
+        activePlugin,
+        tabs,
+        error,
+        retry,
+        pluginAction,
+      } = usePlugins(queryState, activeTab, plugins);
 
-      let updatedIndex = activeIndex;
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        if (selectedItem) {
-          handleSelected(selectedItem.objectId);
-        } else {
-          // triggers validation error message
-          handleSubmit();
+      const fixListHeightProps = useFixHeight(isLoadingResults);
+
+      const isEditing = !!initUrl;
+      const selectedItem: LinkSearchListItemData | undefined =
+        items?.[selectedIndex];
+      const isSelectedItem = selectedItem?.url === url;
+
+      const { trackAttribute, getAttributes } = useLinkPickerAnalytics();
+
+      useLayoutEffect(() => {
+        if (onContentResize) {
+          onContentResize();
         }
-      } else {
-        updatedIndex = handleNavKeyDown(event, items.length, activeIndex);
-      }
+      }, [onContentResize, items, isLoadingResults, isActivePlugin, tabs]);
 
-      const item = items[updatedIndex];
+      const handleChangeUrl = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+          /** Any on change event is triggered by manual input or paste, so source is null */
+          trackAttribute('linkFieldContentInputSource', null);
+          dispatch({
+            url: e.currentTarget.value,
+            // If the last action was changing tabs, make sure we're now allowing recents to be hidden
+            preventHidingRecents: false,
+          });
+        },
+        [dispatch, trackAttribute],
+      );
 
-      if (
-        ['Enter', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key) &&
-        item
-      ) {
-        /**
-         * Manually track that the url has been updated using searchResult method
-         */
-        trackAttribute('linkFieldContent', getLinkFieldContent(item.url));
-        trackAttribute('linkFieldContentInputMethod', 'searchResult');
-        trackAttribute(
-          'linkFieldContentInputSource',
-          getDataSource(item, activePlugin),
-        );
-        dispatch({
-          activeIndex: updatedIndex,
-          selectedIndex: updatedIndex,
-          url: item.url,
-          invalidUrl: false,
-        });
-      }
-    },
-    [
-      items,
-      activeIndex,
-      selectedItem,
-      handleSelected,
-      handleSubmit,
-      trackAttribute,
-      activePlugin,
-    ],
-  );
+      const handleChangeText = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+          dispatch({
+            displayText: e.currentTarget.value,
+          });
+        },
+        [dispatch],
+      );
 
-  const messages = isActivePlugin ? searchMessages : linkMessages;
+      const handleClear = useCallback(
+        (field: string) => {
+          dispatch({
+            activeIndex: -1,
+            selectedIndex: -1,
+            [field]: '',
+          });
+        },
+        [dispatch],
+      );
 
-  const screenReaderDescriptionId = 'search-recent-links-field-description';
-  const linkSearchListId = 'link-picker-search-list';
-  const ariaActiveDescendant =
-    selectedIndex > -1 ? `link-search-list-item-${selectedIndex}` : '';
+      const handleUrlClear = useCallback(() => {
+        trackAttribute('linkFieldContentInputSource', null);
+        handleClear('url');
+      }, [trackAttribute, handleClear]);
 
-  // Added workaround with a screen reader Announcer specifically for VoiceOver + Safari
-  // as the Aria design pattern for combobox does not work in this case
-  // for details: https://a11y-internal.atlassian.net/browse/AK-740
-  const screenReaderText =
-    browser().safari && getScreenReaderText(items ?? [], selectedIndex, intl);
+      const handleInsert = useCallback(
+        (url: string, title: string | null, inputType: LinkInputType) => {
+          const event = createAnalyticsEvent(
+            createEventPayload('ui.form.submitted.linkPicker', {}),
+          );
 
-  const searchIcon = isActivePlugin && (
-    <span css={searchIconStyles} data-testid={testIds.searchIcon}>
-      <EditorSearchIcon size="medium" label={''} />
-    </span>
-  );
+          // Clone the event so that it can be emitted for consumer usage
+          // This must happen BEFORE the original event is fired!
+          const consumerEvent = event.clone();
+          // Cloned event doesnt have the attributes that are added by
+          // the analytics listener in the LinkPickerAnalyticsContext, add them here
+          consumerEvent?.update({ attributes: getAttributes() });
+          // Dispatch the original event to our channel
+          event.fire(ANALYTICS_CHANNEL);
 
-  const tabList = (
-    <TabList>
-      {tabs.map(tab => (
-        <Tab key={tab.tabTitle} testId={testIds.tabItem}>
-          {tab.tabTitle}
-        </Tab>
-      ))}
-    </TabList>
-  );
+          onSubmit(
+            {
+              url,
+              displayText: displayText || null,
+              title: title || null,
+              meta: { inputMethod: inputType },
+              ...(inputType === 'manual' ? { rawUrl: state.url } : {}),
+            },
+            consumerEvent,
+          );
+        },
+        [displayText, onSubmit, state.url, createAnalyticsEvent, getAttributes],
+      );
 
-  return (
-    <form
-      data-testid={testIds.linkPicker}
-      css={rootContainerStyles}
-      onSubmit={handleSubmit}
-    >
-      <TrackMount />
-      {screenReaderText && (
-        <Announcer
-          ariaLive="assertive"
-          text={screenReaderText}
-          ariaRelevant="additions"
-          delay={250}
-        />
-      )}
-      <VisuallyHidden id={screenReaderDescriptionId}>
-        <FormattedMessage {...messages.linkAriaLabel} />
-      </VisuallyHidden>
-      <LinkInputField
-        role="combobox"
-        autoComplete="off"
-        name="url"
-        testId={testIds.urlInputField}
-        label={intl.formatMessage(messages.linkLabel)}
-        placeholder={intl.formatMessage(messages.linkPlaceholder)}
-        value={url}
-        autoFocus
-        elemBeforeInput={searchIcon}
-        clearLabel={intl.formatMessage(formMessages.clearLink)}
-        aria-expanded
-        aria-autocomplete="list"
-        aria-controls={linkSearchListId}
-        aria-activedescendant={ariaActiveDescendant}
-        aria-describedby={screenReaderDescriptionId}
-        error={invalidUrl ? intl.formatMessage(formMessages.linkInvalid) : null}
-        spotlightTargetName="link-picker-search-field-spotlight-target"
-        onClear={handleUrlClear}
-        onKeyDown={handleKeyDown}
-        onChange={handleChangeUrl}
-      />
-      {!hideDisplayText && (
-        <DisplayTextInputField
-          autoComplete="off"
-          name="displayText"
-          testId={testIds.textInputField}
-          value={displayText}
-          label={intl.formatMessage(linkTextMessages.linkTextLabel)}
-          placeholder={intl.formatMessage(linkTextMessages.linkTextPlaceholder)}
-          clearLabel={intl.formatMessage(linkTextMessages.clearLinkText)}
-          aria-label={intl.formatMessage(linkTextMessages.linkTextAriaLabel)}
-          onClear={handleClear}
-          onChange={handleChangeText}
-        />
-      )}
-      {isLoadingPlugins && !!queryState && (
-        <div css={spinnerContainerStyles}>
-          <Spinner testId={testIds.tabsLoadingIndicator} size="medium" />
-        </div>
-      )}
-      {!isLoadingPlugins && isActivePlugin && !!queryState && (
-        <Fragment>
-          {tabs.length > 0 && (
-            <div css={tabsWrapperStyles}>
-              <Tabs
-                id={testIds.tabList}
-                testId={testIds.tabList}
-                selected={activeTab}
-                onChange={handleTabChange}
-              >
-                {featureFlags?.scrollingTabs ? (
-                  <ScrollingTabList>{tabList}</ScrollingTabList>
-                ) : (
-                  tabList
-                )}
-              </Tabs>
-              <TrackTabViewed activePlugin={activePlugin} />
+      const handleSelected = useCallback(
+        (objectId: string) => {
+          const selectedItem = items?.find(item => item.objectId === objectId);
+
+          if (selectedItem) {
+            const { url, name } = selectedItem;
+            /**
+             * Manually track that the url has been updated using searchResult method
+             */
+            dispatchEvent(new Event('submit'));
+            trackAttribute('linkFieldContent', getLinkFieldContent(url));
+            trackAttribute('linkFieldContentInputMethod', 'searchResult');
+            trackAttribute(
+              'linkFieldContentInputSource',
+              getDataSource(selectedItem, activePlugin),
+            );
+            handleInsert(url, name, 'typeAhead');
+          }
+        },
+        [handleInsert, trackAttribute, items, activePlugin],
+      );
+
+      const handleSubmit = useCallback(
+        (event?: FormEvent<HTMLFormElement>) => {
+          event?.preventDefault();
+          if (isSelectedItem && selectedItem) {
+            return handleInsert(
+              selectedItem.url,
+              selectedItem.name,
+              'typeAhead',
+            );
+          }
+
+          const normalized = normalizeUrl(url);
+          if (normalized) {
+            return handleInsert(normalized, null, 'manual');
+          }
+
+          return dispatch({
+            invalidUrl: true,
+          });
+        },
+        [dispatch, handleInsert, isSelectedItem, selectedItem, url],
+      );
+
+      const handleTabChange = useCallback(
+        (activeTab: number) => {
+          dispatch({
+            // We don't want any selection to exist after changing tab, as the selection
+            // wouldn't mean anything.
+            activeIndex: -1,
+            selectedIndex: -1,
+
+            // We don't want recents to be hidden, even though we don't have a selection
+            preventHidingRecents: true,
+            invalidUrl: false,
+            activeTab,
+          });
+          trackAttribute('tab', plugins?.[activeTab]?.tabKey ?? null);
+        },
+        [dispatch, plugins, trackAttribute],
+      );
+
+      const handleSearchListOnChange = (id: string) => {
+        const index = items?.findIndex(item => item.objectId === id);
+        if (typeof index === 'number') {
+          const item = items?.[index];
+          if (item) {
+            /**
+             * Manually track that the url has been updated using searchResult method
+             */
+            trackAttribute('linkFieldContent', getLinkFieldContent(item.url));
+            trackAttribute('linkFieldContentInputMethod', 'searchResult');
+            trackAttribute(
+              'linkFieldContentInputSource',
+              getDataSource(item, activePlugin),
+            );
+            dispatch({
+              activeIndex: index,
+              selectedIndex: index,
+              url: item.url,
+              invalidUrl: false,
+            });
+          }
+        }
+      };
+
+      const handleKeyDown = useCallback(
+        (event: KeyboardEvent<HTMLElement>) => {
+          if (!items?.length) {
+            return;
+          }
+
+          let updatedIndex = activeIndex;
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            if (selectedItem) {
+              handleSelected(selectedItem.objectId);
+            } else {
+              // triggers validation error message
+              handleSubmit();
+            }
+          } else {
+            updatedIndex = handleNavKeyDown(event, items.length, activeIndex);
+          }
+
+          const item = items[updatedIndex];
+
+          if (
+            ['Enter', 'ArrowDown', 'ArrowUp', 'Home', 'End'].includes(
+              event.key,
+            ) &&
+            item
+          ) {
+            /**
+             * Manually track that the url has been updated using searchResult method
+             */
+            trackAttribute('linkFieldContent', getLinkFieldContent(item.url));
+            trackAttribute('linkFieldContentInputMethod', 'searchResult');
+            trackAttribute(
+              'linkFieldContentInputSource',
+              getDataSource(item, activePlugin),
+            );
+            dispatch({
+              activeIndex: updatedIndex,
+              selectedIndex: updatedIndex,
+              url: item.url,
+              invalidUrl: false,
+            });
+          }
+        },
+        [
+          items,
+          activeIndex,
+          selectedItem,
+          handleSelected,
+          handleSubmit,
+          trackAttribute,
+          activePlugin,
+        ],
+      );
+
+      const messages = isActivePlugin ? searchMessages : linkMessages;
+
+      const screenReaderDescriptionId = 'search-recent-links-field-description';
+      const linkSearchListId = 'link-picker-search-list';
+      const ariaActiveDescendant =
+        selectedIndex > -1 ? `link-search-list-item-${selectedIndex}` : '';
+
+      // Added workaround with a screen reader Announcer specifically for VoiceOver + Safari
+      // as the Aria design pattern for combobox does not work in this case
+      // for details: https://a11y-internal.atlassian.net/browse/AK-740
+      const screenReaderText =
+        browser().safari &&
+        getScreenReaderText(items ?? [], selectedIndex, intl);
+
+      const searchIcon = isActivePlugin && (
+        <span css={searchIconStyles} data-testid={testIds.searchIcon}>
+          <EditorSearchIcon size="medium" label={''} />
+        </span>
+      );
+
+      const tabList = (
+        <TabList>
+          {tabs.map(tab => (
+            <Tab key={tab.tabTitle} testId={testIds.tabItem}>
+              {tab.tabTitle}
+            </Tab>
+          ))}
+        </TabList>
+      );
+
+      return (
+        <form
+          data-testid={testIds.linkPicker}
+          css={rootContainerStyles}
+          onSubmit={handleSubmit}
+        >
+          <TrackMount />
+          {screenReaderText && (
+            <Announcer
+              ariaLive="assertive"
+              text={screenReaderText}
+              ariaRelevant="additions"
+              delay={250}
+            />
+          )}
+          <VisuallyHidden id={screenReaderDescriptionId}>
+            <FormattedMessage {...messages.linkAriaLabel} />
+          </VisuallyHidden>
+          <LinkInputField
+            role="combobox"
+            autoComplete="off"
+            name="url"
+            testId={testIds.urlInputField}
+            label={intl.formatMessage(messages.linkLabel)}
+            placeholder={intl.formatMessage(messages.linkPlaceholder)}
+            value={url}
+            autoFocus
+            elemBeforeInput={searchIcon}
+            clearLabel={intl.formatMessage(formMessages.clearLink)}
+            aria-expanded
+            aria-autocomplete="list"
+            aria-controls={linkSearchListId}
+            aria-activedescendant={ariaActiveDescendant}
+            aria-describedby={screenReaderDescriptionId}
+            error={
+              invalidUrl ? intl.formatMessage(formMessages.linkInvalid) : null
+            }
+            spotlightTargetName="link-picker-search-field-spotlight-target"
+            onClear={handleUrlClear}
+            onKeyDown={handleKeyDown}
+            onChange={handleChangeUrl}
+          />
+          {!hideDisplayText && (
+            <DisplayTextInputField
+              autoComplete="off"
+              name="displayText"
+              testId={testIds.textInputField}
+              value={displayText}
+              label={intl.formatMessage(linkTextMessages.linkTextLabel)}
+              placeholder={intl.formatMessage(
+                linkTextMessages.linkTextPlaceholder,
+              )}
+              clearLabel={intl.formatMessage(linkTextMessages.clearLinkText)}
+              aria-label={intl.formatMessage(
+                linkTextMessages.linkTextAriaLabel,
+              )}
+              onClear={handleClear}
+              onChange={handleChangeText}
+            />
+          )}
+          {isLoadingPlugins && !!queryState && (
+            <div css={spinnerContainerStyles}>
+              <Spinner testId={testIds.tabsLoadingIndicator} size="medium" />
             </div>
           )}
-          <div css={flexColumnStyles} {...fixListHeightProps}>
-            {!error && (
-              <LinkSearchList
-                id={linkSearchListId}
-                role="listbox"
-                items={items}
-                isLoading={isLoadingResults}
-                selectedIndex={selectedIndex}
-                activeIndex={activeIndex}
-                onSelect={handleSelected}
-                onChange={handleSearchListOnChange}
-                onKeyDown={handleKeyDown}
-                hasSearchTerm={!!queryState?.query.length}
-                activePlugin={activePlugin}
-              />
-            )}
-            {error &&
-              (activePlugin?.errorFallback?.(error, retry) ?? (
-                <LinkSearchError />
-              ))}
-          </div>
-        </Fragment>
-      )}
-      <FormFooter
-        error={error}
-        items={items}
-        /** If the results section appears to be loading, impact whether the submit button is disabled */
-        isLoading={isLoadingResults || !!isLoadingPlugins}
-        queryState={queryState}
-        url={url}
-        isEditing={isEditing}
-        onCancel={onCancel}
-        action={pluginAction}
-        css={!queryState || !plugins?.length ? formFooterMargin : undefined}
-      />
-    </form>
-  );
-}
-
-export default withLinkPickerAnalyticsContext(memo(LinkPicker));
+          {!isLoadingPlugins && isActivePlugin && !!queryState && (
+            <Fragment>
+              {tabs.length > 0 && (
+                <div css={tabsWrapperStyles}>
+                  <Tabs
+                    id={testIds.tabList}
+                    testId={testIds.tabList}
+                    selected={activeTab}
+                    onChange={handleTabChange}
+                  >
+                    {featureFlags?.scrollingTabs ? (
+                      <ScrollingTabList>{tabList}</ScrollingTabList>
+                    ) : (
+                      tabList
+                    )}
+                  </Tabs>
+                  <TrackTabViewed activePlugin={activePlugin} />
+                </div>
+              )}
+              <div css={flexColumnStyles} {...fixListHeightProps}>
+                {!error && (
+                  <LinkSearchList
+                    id={linkSearchListId}
+                    role="listbox"
+                    items={items}
+                    isLoading={isLoadingResults}
+                    selectedIndex={selectedIndex}
+                    activeIndex={activeIndex}
+                    onSelect={handleSelected}
+                    onChange={handleSearchListOnChange}
+                    onKeyDown={handleKeyDown}
+                    hasSearchTerm={!!queryState?.query.length}
+                    activePlugin={activePlugin}
+                  />
+                )}
+                {error &&
+                  (activePlugin?.errorFallback?.(error, retry) ?? (
+                    <LinkSearchError />
+                  ))}
+              </div>
+            </Fragment>
+          )}
+          <FormFooter
+            error={error}
+            items={items}
+            /** If the results section appears to be loading, impact whether the submit button is disabled */
+            isLoading={isLoadingResults || !!isLoadingPlugins}
+            queryState={queryState}
+            url={url}
+            isEditing={isEditing}
+            onCancel={onCancel}
+            action={pluginAction}
+            css={!queryState || !plugins?.length ? formFooterMargin : undefined}
+          />
+        </form>
+      );
+    },
+  ),
+);

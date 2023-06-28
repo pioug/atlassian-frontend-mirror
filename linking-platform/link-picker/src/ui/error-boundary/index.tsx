@@ -1,9 +1,6 @@
 import React, { ReactNode, useCallback } from 'react';
 
-import {
-  withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { ANALYTICS_CHANNEL } from '../../common/constants';
 import {
@@ -18,11 +15,12 @@ import {
   ErrorBoundaryErrorInfo,
 } from './error-boundary-base';
 
-interface ErrorBoundaryProps extends WithAnalyticsEventsProps {
+interface ErrorBoundaryProps {
   children: ReactNode;
 }
 
-function ErrorBoundary({ children, createAnalyticsEvent }: ErrorBoundaryProps) {
+export function ErrorBoundary({ children }: ErrorBoundaryProps) {
+  const { createAnalyticsEvent } = useAnalyticsEvents();
   const linkPickerSessionId = useLinkPickerSessionId();
 
   const handleError = useCallback(
@@ -51,5 +49,3 @@ function ErrorBoundary({ children, createAnalyticsEvent }: ErrorBoundaryProps) {
     </BaseErrorBoundary>
   );
 }
-
-export default withAnalyticsEvents()(ErrorBoundary);

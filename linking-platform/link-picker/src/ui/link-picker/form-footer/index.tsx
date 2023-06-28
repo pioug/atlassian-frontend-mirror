@@ -50,70 +50,70 @@ interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
   action?: LinkPickerPluginAction;
 }
 
-const FormFooter = ({
-  isLoading,
-  error,
-  url,
-  queryState,
-  items,
-  isEditing,
-  onCancel,
-  action,
-  ...restProps
-}: FormFooterProps) => {
-  const intl = useIntl();
-
-  if (error && error instanceof UnauthenticatedError) {
-    return null;
-  }
-
-  const isSubmitDisabled = checkSubmitDisabled(
+export const FormFooter = memo(
+  ({
     isLoading,
     error,
     url,
     queryState,
     items,
-  );
+    isEditing,
+    onCancel,
+    action,
+    ...restProps
+  }: FormFooterProps) => {
+    const intl = useIntl();
 
-  const insertButtonMsg = isEditing
-    ? messages.saveButton
-    : messages.insertButton;
+    if (error && error instanceof UnauthenticatedError) {
+      return null;
+    }
 
-  return (
-    <footer css={formFooterStyles} {...restProps}>
-      {action && (
-        <div css={formFooterActionStyles}>
+    const isSubmitDisabled = checkSubmitDisabled(
+      isLoading,
+      error,
+      url,
+      queryState,
+      items,
+    );
+
+    const insertButtonMsg = isEditing
+      ? messages.saveButton
+      : messages.insertButton;
+
+    return (
+      <footer css={formFooterStyles} {...restProps}>
+        {action && (
+          <div css={formFooterActionStyles}>
+            <Button
+              testId={testIds.actionButton}
+              onClick={action.callback}
+              appearance="default"
+              iconBefore={<EditorAddIcon label="" size="medium" />}
+            >
+              {typeof action.label === 'string'
+                ? action.label
+                : intl.formatMessage(action.label)}
+            </Button>
+          </div>
+        )}
+        <ButtonGroup>
           <Button
-            testId={testIds.actionButton}
-            onClick={action.callback}
-            appearance="default"
-            iconBefore={<EditorAddIcon label="" size="medium" />}
+            appearance="subtle"
+            onClick={onCancel}
+            testId={testIds.cancelButton}
           >
-            {typeof action.label === 'string'
-              ? action.label
-              : intl.formatMessage(action.label)}
+            {intl.formatMessage(messages.cancelButton)}
           </Button>
-        </div>
-      )}
-      <ButtonGroup>
-        <Button
-          appearance="subtle"
-          onClick={onCancel}
-          testId={testIds.cancelButton}
-        >
-          {intl.formatMessage(messages.cancelButton)}
-        </Button>
-        <Button
-          type="submit"
-          appearance="primary"
-          testId={testIds.insertButton}
-          isDisabled={isSubmitDisabled}
-        >
-          {intl.formatMessage(insertButtonMsg)}
-        </Button>
-      </ButtonGroup>
-    </footer>
-  );
-};
-
-export default memo(FormFooter);
+          <Button
+            type="submit"
+            appearance="primary"
+            testId={testIds.insertButton}
+            isDisabled={isSubmitDisabled}
+          >
+            {intl.formatMessage(insertButtonMsg)}
+          </Button>
+        </ButtonGroup>
+      </footer>
+    );
+  },
+);

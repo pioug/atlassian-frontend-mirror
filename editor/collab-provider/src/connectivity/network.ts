@@ -20,8 +20,10 @@ export default class Network {
       this.onlineCallback = props.onlineCallback;
     }
 
-    window.addEventListener('offline', this.offlineHandler);
-    window.addEventListener('online', this.onlineHandler);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('offline', this.offlineHandler);
+      window.addEventListener('online', this.onlineHandler);
+    }
   }
 
   private offlineHandler = () => {

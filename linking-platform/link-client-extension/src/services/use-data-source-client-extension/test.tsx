@@ -8,7 +8,7 @@ import type {
   DatasourceDataRequest,
   DatasourceDataResponse,
   DatasourceDetailsRequest,
-  DatasourceResponse,
+  DatasourceDetailsResponse,
 } from '@atlaskit/linking-types';
 
 import { mockDatasourceDataResponse, mockDatasourceResponse } from './mocks';
@@ -153,7 +153,8 @@ describe('useDatasourceClientExtension', () => {
     it('returns success response', async () => {
       const { getDatasourceDetails, datasourceDetailsParams } = setup();
 
-      const expectedResponse: DatasourceResponse = mockDatasourceResponse;
+      const expectedResponse: DatasourceDetailsResponse =
+        mockDatasourceResponse;
 
       mockFetch.mockResolvedValueOnce({
         body: '{}',

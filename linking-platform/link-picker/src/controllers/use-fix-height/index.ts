@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
 
-const useFixHeight = (shouldFixHeight: boolean) => {
+export const useFixHeight = (shouldFixHeight: boolean) => {
   const ref = useRef<HTMLDivElement>(null);
   const currentHeight: React.MutableRefObject<number | null> =
     useRef<number>(null);
@@ -18,5 +18,3 @@ const useFixHeight = (shouldFixHeight: boolean) => {
       : undefined,
   };
 };
-
-export default useFixHeight;

@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 
 import { genericErrorStyles } from './styled';
 
-const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
+export const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
   const id = 'link-picker-ui-generic-error-svg';
 
   return (
@@ -49,5 +49,3 @@ const GenericErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export default GenericErrorSVG;

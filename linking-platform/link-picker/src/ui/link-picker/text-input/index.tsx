@@ -40,7 +40,7 @@ export const testIds = {
   clearUrlButton: 'clear-text',
 };
 
-const TextInput = ({
+export const TextInput = ({
   name,
   label,
   autoFocus,
@@ -137,5 +137,3 @@ const TextInput = ({
     </div>
   );
 };
-
-export default TextInput;

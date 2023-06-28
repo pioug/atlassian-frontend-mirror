@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 108.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.3.1
+
+### Patch Changes
+
+- [`5e15dddfbe2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e15dddfbe2) - skip border mark if it is not a child of mediaSingle
+
 ## 108.3.0
 
 ### Minor Changes

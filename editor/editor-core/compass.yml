@@ -1,0 +1,52 @@
+name: Editor
+id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/3d05b1c1-0470-426d-9d4c-4983c298f65d'
+description: A package contains Atlassian editor core functionality
+configVersion: 1
+typeId: UI_ELEMENT
+ownerId: 'ari:cloud:teams::team/cf6a670b-5252-4c68-a769-9207de366beb'
+fields:
+  tier: 2
+links:
+  - name: null
+    type: REPOSITORY
+    url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/editor/editor-core/'
+  - name: '#team-cc-editor-services'
+    type: CHAT_CHANNEL
+    url: 'https://atlassian.slack.com/app_redirect?channel=team-cc-editor-services'
+  - name: ''
+    type: ON_CALL
+    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b2599bc4-2eec-4364-963c-a52b0fea279b'
+  - name: ''
+    type: PROJECT
+    url: 'https://product-fabric.atlassian.net/jira/software/c/projects/ED/boards/2107'
+  - name: ''
+    type: DASHBOARD
+    url: 'https://atlassian.signalfx.com/#/dashboard/EzEdH3ZA0AA?groupId=EzEdHB6A4AA&configId=EzEdILZAwAE'
+  - name: ''
+    type: DASHBOARD
+    url: 'https://atlassian.signalfx.com/#/dashboard/E1UTo1cAwAE?groupId=E1UTovfA0AI&configId=E1UTo82A4AE'
+  - name: ''
+    type: DOCUMENT
+    url: 'https://hello.atlassian.net/wiki/spaces/EDITOR/overview'
+  - name: '#help-editor'
+    type: CHAT_CHANNEL
+    url: 'https://atlassian.slack.com/app_redirect?channel=help-editor'
+relationships:
+  DEPENDS_ON:
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/75a52084-b8d0-49ca-bd36-d185348854d5'
+    - 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/3aa89c97-0733-451b-bbe9-073e1e7353e2'
+labels:
+  - atlassian-platform
+customFields:
+  - name: Dev Owner
+    type: user
+    value: null
+  - name: Product
+    type: text
+    value: null
+  - name: Test
+    type: text
+    value: null
+
+# Learn more about formatting compass.yml:
+# https://go.atlassian.com/compass-yml-format

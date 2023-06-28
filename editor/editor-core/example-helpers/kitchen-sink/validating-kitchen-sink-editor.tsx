@@ -25,7 +25,7 @@ import { EditorActions } from '../../src';
 
 import {
   mediaProvider,
-  providers,
+  getProviders,
   quickInsertProvider,
 } from '../../examples/5-full-page';
 import { Error } from '../ErrorReport';
@@ -170,7 +170,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
           allowStatus={true}
           allowNestedTasks
           codeBlock={{ allowCopyToClipboard: true, appearance }}
-          {...providers}
+          {...getProviders()}
           mentionProvider={Promise.resolve(
             sanitizePrivateContent ?? false
               ? mentionResourceProviderWithResolver

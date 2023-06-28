@@ -54,7 +54,7 @@
   "devDependencies": {
     "@atlaskit/docs": "*",
     "@atlaskit/link-picker": "^1.25.0",
-    "@atlaskit/link-test-helpers": "^4.0.0",
+    "@atlaskit/link-test-helpers": "^4.1.0",
     "@atlaskit/popup": "^1.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

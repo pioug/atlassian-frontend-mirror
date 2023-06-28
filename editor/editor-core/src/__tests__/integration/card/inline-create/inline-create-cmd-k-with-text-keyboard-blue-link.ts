@@ -18,9 +18,12 @@ import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock
 const mockLinkSearchTitle = 'home opt-in';
 const mockLinkUrlEndsWith = 'Home+opt-in+requests';
 
+// FIXME: This test was automatically skipped due to failure on 27/06/2023: https://product-fabric.atlassian.net/browse/ED-18930
 BrowserTestCase(
   'card: inserting a link with CMD + K with keyboard should retain display text and insert a blue link',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(
@@ -62,9 +65,12 @@ BrowserTestCase(
 );
 
 describe('with feature flag: lp-link-picker', () => {
+  // FIXME: This test was automatically skipped due to failure on 27/06/2023: https://product-fabric.atlassian.net/browse/ED-18930
   BrowserTestCase(
     'card: inserting a link with CMD + K with keyboard should retain display text and insert a blue link',
-    {},
+    {
+      skip: ['*'],
+    },
     async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(

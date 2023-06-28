@@ -1,0 +1,43 @@
+name: Share Dialog
+id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/46e9bc87-9ff6-4052-bd8b-349a9b08efb9'
+description: Fabric Share Element
+configVersion: 1
+typeId: UI_ELEMENT
+ownerId: 'ari:cloud:teams::team/229da7a2-bf93-4813-9e24-a6efbd2d445e'
+fields:
+  tier: 2
+links:
+  - name: null
+    type: REPOSITORY
+    url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/elements/share/'
+  - name: '#pt-team-collective'
+    type: CHAT_CHANNEL
+    url: 'https://atlassian.slack.com/app_redirect?channel=pt-team-collective'
+  - name: ''
+    type: ON_CALL
+    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/5c7ec80e-eb7e-421c-9583-8dc1494853e9'
+  - name: ''
+    type: PROJECT
+    url: 'https://product-fabric.atlassian.net/jira/software/c/projects/PTC/boards/2076'
+  - name: ''
+    type: DOCUMENT
+    url: 'https://hello.atlassian.net/wiki/spaces/PTC/overview?homepageId=137483481'
+  - name: ''
+    type: DASHBOARD
+    url: 'https://atlassian.signalfx.com/#/dashboard/Fb4ITLpA0AA?groupId=Fb4INPgA4AQ&configId=Fb4ITcPAwAA'
+relationships: {}
+labels:
+  - atlassian-platform
+customFields:
+  - name: Dev Owner
+    type: user
+    value: null
+  - name: Product
+    type: text
+    value: null
+  - name: Test
+    type: text
+    value: null
+
+# Learn more about formatting compass.yml:
+# https://go.atlassian.com/compass-yml-format

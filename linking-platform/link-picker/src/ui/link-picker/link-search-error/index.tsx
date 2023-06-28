@@ -5,7 +5,7 @@ import { useIntl, FormattedMessage, defineMessages } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import EmptyState from '@atlaskit/empty-state';
 
-import GenericErrorSVG from '../../../common/generic-error-svg';
+import { GenericErrorSVG } from '../../../common/generic-error-svg';
 
 export const CONTACT_SUPPORT_LINK = 'https://support.atlassian.com/contact/';
 
@@ -27,7 +27,7 @@ export const testIds = {
   searchError: 'link-search-error',
 };
 
-const LinkSearchError = () => {
+export const LinkSearchError = () => {
   const intl = useIntl();
 
   return (
@@ -56,5 +56,3 @@ const LinkSearchError = () => {
     />
   );
 };
-
-export default LinkSearchError;

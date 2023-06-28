@@ -3,6 +3,7 @@ import fetchMock from 'fetch-mock/cjs/client';
 import {
   DatasourceDataResponse,
   DatasourceDataResponseItem,
+  DatasourceDetailsResponse,
   DatasourceResponseSchemaProperty,
   StatusType,
 } from '@atlaskit/linking-types';
@@ -64,7 +65,7 @@ const columns: DatasourceResponseSchemaProperty[] = [
   },
   {
     key: 'status',
-    title: 'Status for the each issue',
+    title: 'Status for each issue',
     type: 'status',
   },
   {
@@ -99,26 +100,36 @@ export const initialVisibleColumnKeys: string[] = [
   'created',
 ];
 
-const detailsResponse = {
-  ari: 'ari:cloud:linking-platform:datasource/12e74246-a3f1-46c1-9fd9-8d952aa9f12f',
-  id: '12e74246-a3f1-46c1-9fd9-8d952aa9f12f',
-  name: 'JQL Datasource',
-  description: 'Fetches Issues using JQL',
-  parameters: [
-    {
-      key: 'cloudId',
-      type: 'string',
-      description: 'Cloud Id',
+const detailsResponse: DatasourceDetailsResponse = {
+  meta: {
+    key: 'jira-object-provider',
+    access: 'granted',
+    auth: [],
+    definitionId: 'object-resolver-service',
+    product: 'jira',
+    visibility: 'restricted',
+  },
+  data: {
+    ari: 'ari:cloud:linking-platform:datasource/12e74246-a3f1-46c1-9fd9-8d952aa9f12f',
+    id: '12e74246-a3f1-46c1-9fd9-8d952aa9f12f',
+    name: 'JQL Datasource',
+    description: 'Fetches Issues using JQL',
+    parameters: [
+      {
+        key: 'cloudId',
+        type: 'string',
+        description: 'Cloud Id',
+      },
+      {
+        key: 'jql',
+        type: 'string',
+        description: 'JQL query to retrieve list of issues',
+      },
+    ],
+    schema: {
+      properties: columns,
+      defaultProperties: initialVisibleColumnKeys,
     },
-    {
-      key: 'jql',
-      type: 'string',
-      description: 'JQL query to retrieve list of issues',
-    },
-  ],
-  schema: {
-    properties: columns,
-    defaultProperties: initialVisibleColumnKeys,
   },
 };
 
@@ -133,65 +144,75 @@ const generateDataResponse = ({
   numberOfLoads?: number;
   includeSchema: boolean;
 }): DatasourceDataResponse => ({
-  data: mockJiraData.data
-    .slice(0, maxItems)
-    .map((item): DatasourceDataResponseItem => {
-      return {
-        // Fake identifier attribute that is a primitive value.
-        // Adding number of pages to make all issueNumbers unique
-        id: {
-          data: item.issueNumber + numberOfLoads,
-        },
-        type: {
-          data: { source: item.type.source, label: item.type.label },
-        },
-        key: {
-          data: {
-            url: item.link,
-            text: item.issueNumber + numberOfLoads,
-            style: {
-              appearance: 'key',
+  meta: {
+    key: 'jira-object-provider',
+    access: 'granted',
+    auth: [],
+    definitionId: 'object-resolver-service',
+    product: 'jira',
+    visibility: 'restricted',
+  },
+  data: {
+    items: mockJiraData.data
+      .slice(0, maxItems)
+      .map((item): DatasourceDataResponseItem => {
+        return {
+          // Fake identifier attribute that is a primitive value.
+          // Adding number of pages to make all issueNumbers unique
+          id: {
+            data: item.issueNumber + numberOfLoads,
+          },
+          type: {
+            data: { source: item.type.source, label: item.type.label },
+          },
+          key: {
+            data: {
+              url: item.link,
+              text: item.issueNumber + numberOfLoads,
+              style: {
+                appearance: 'key',
+              },
             },
           },
-        },
-        summary: {
-          data: { url: item.link, text: `[${cloudId}] ${item.summary}` },
-        },
-        assignee: {
-          data: {
-            displayName: item.assignee?.displayName,
-            avatarSource: item.assignee?.source,
+          summary: {
+            data: { url: item.link, text: `[${cloudId}] ${item.summary}` },
           },
-        },
-        priority: {
-          data: { source: item.priority.source, label: item.priority.label },
-        },
-        status: {
-          data: {
-            text: item.status.text,
-            style: {
-              appearance: item?.status?.status,
+          assignee: {
+            data: {
+              displayName: item.assignee?.displayName,
+              avatarSource: item.assignee?.source,
             },
-          } as StatusType['value'],
-        },
-        created: {
-          data: item.created,
-        },
-        due: {
-          data: item.due,
-        },
-        ...(item.labels?.length && {
-          labels: {
-            data: item.labels.map(label => ({ text: label })),
           },
-        }),
-      };
-    }),
-  totalCount:
-    maxItems === 0 || maxItems === 1 ? maxItems : mockJiraData.totalIssues,
-  nextPageCursor:
-    numberOfLoads < 4 && maxItems > 1 ? 'c3RhcnRBdD01' : undefined,
-  ...(includeSchema && { schema: detailsResponse.schema }),
+          priority: {
+            data: { source: item.priority.source, label: item.priority.label },
+          },
+          status: {
+            data: {
+              text: item.status.text,
+              style: {
+                appearance: item?.status?.status,
+              },
+            } as StatusType['value'],
+          },
+          created: {
+            data: item.created,
+          },
+          due: {
+            data: item.due,
+          },
+          ...(item.labels?.length && {
+            labels: {
+              data: item.labels.map(label => ({ text: label })),
+            },
+          }),
+        };
+      }),
+    totalCount:
+      maxItems === 0 || maxItems === 1 ? maxItems : mockJiraData.totalIssues,
+    nextPageCursor:
+      numberOfLoads < 4 && maxItems > 1 ? 'c3RhcnRBdD01' : undefined,
+    ...(includeSchema && { schema: detailsResponse.data.schema }),
+  },
 });
 
 let numberOfLoads = 0;

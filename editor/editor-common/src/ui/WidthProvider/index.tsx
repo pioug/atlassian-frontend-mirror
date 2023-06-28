@@ -52,7 +52,9 @@ export class WidthProvider extends React.Component<
 
   constructor(props: any) {
     super(props);
-    this.state.width = document.body.offsetWidth;
+    if (typeof document !== 'undefined') {
+      this.state.width = document.body.offsetWidth;
+    }
   }
 
   render() {

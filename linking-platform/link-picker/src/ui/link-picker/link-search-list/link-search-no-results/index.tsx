@@ -3,7 +3,7 @@ import { jsx } from '@emotion/react';
 import EmptyState from '@atlaskit/empty-state';
 import { useIntl, defineMessages } from 'react-intl-next';
 
-import NoResultsSVG from './no-results-svg';
+import { NoResultsSVG } from './no-results-svg';
 import { emptyStateWrapperStyles } from './styled';
 
 export const messages = defineMessages({
@@ -23,7 +23,7 @@ export const testIds = {
   emptyResultPage: 'link-search-no-results',
 };
 
-const NoResults = () => {
+export const NoResults = () => {
   const intl = useIntl();
 
   return (
@@ -37,5 +37,3 @@ const NoResults = () => {
     </div>
   );
 };
-
-export default NoResults;

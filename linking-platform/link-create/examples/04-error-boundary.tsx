@@ -8,16 +8,14 @@ import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-con
 import LinkCreate from '../src';
 import { CreatePayload } from '../src/common/types';
 
-// This is the cloud id for pug.jira-dev.com
-const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
+const CLOUD_ID = 'cloud-id';
+const BASE_URL = 'https://atlassian.com/';
 
 function CreateError() {
   const [link, setLink] = useState<string | null>();
   const [active, setActive] = useState(false);
 
-  const plugins = [
-    createConfluencePageLinkCreatePlugin(CLOUD_ID, 'https://pug.jira-dev.com'),
-  ];
+  const plugins = [createConfluencePageLinkCreatePlugin(CLOUD_ID, BASE_URL)];
 
   const handleCreate = useCallback((payload: CreatePayload) => {
     setLink(payload.url);

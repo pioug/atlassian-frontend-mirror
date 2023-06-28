@@ -1,13 +1,13 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
-import mockPluginData, { MOCK_NO_RESULTS } from './mock-plugin-data';
+import { MOCK_DATA, MOCK_NO_RESULTS } from './mock-plugin-data';
 
 const XP_SEARCH_ENDPOINT = /\/gateway\/api\/xpsearch-aggregator/;
 const OBJECT_RESOLVER_SERVICE_ENDPOINT = /\/gateway\/api\/object-resolver/;
 const PROVIDERS = 'providers';
 
 export const mockPluginEndpoints = () => {
-  const { MOCKED_DATA, MOCKED_PROVIDERS, MOCKED_SEARCH } = mockPluginData;
+  const { MOCKED_DATA, MOCKED_PROVIDERS, MOCKED_SEARCH } = MOCK_DATA;
 
   fetchMock.post(
     OBJECT_RESOLVER_SERVICE_ENDPOINT,
@@ -30,7 +30,7 @@ export const mockPluginEndpoints = () => {
 };
 
 export const mockPluginEndpointsNoData = () => {
-  const { MOCKED_DATA, MOCKED_PROVIDERS } = mockPluginData;
+  const { MOCKED_DATA, MOCKED_PROVIDERS } = MOCK_DATA;
 
   fetchMock.post(
     OBJECT_RESOLVER_SERVICE_ENDPOINT,

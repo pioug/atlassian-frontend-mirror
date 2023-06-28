@@ -1,10 +1,10 @@
 import React from 'react';
-import LinkSearchList, {
-  LinkSearchListProps,
-  testIds,
-} from '../../link-picker/link-search-list';
-import { getDefaultItems } from '../__helpers';
+
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+
+import { getDefaultItems } from '../../__tests__/__helpers';
+
+import { LinkSearchList, LinkSearchListProps, testIds } from './index';
 
 interface SetupOptions extends LinkSearchListProps {}
 

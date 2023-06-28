@@ -431,6 +431,23 @@ const tests: Tests = {
         },
       ],
     },
+    // media query
+    {
+      options: [{ applyImport: false }],
+      code: `const styles = css({
+            [media.sm.above]: { padding: '8px' },
+          })`,
+      output: `const styles = css({
+            [media.sm.above]: { // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
+                                padding: token('space.100', '8px') },
+          })`,
+      errors: [
+        {
+          message:
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<padding:8>>',
+        },
+      ],
+    },
     // multiple properties
     {
       options: [{ applyImport: false }],

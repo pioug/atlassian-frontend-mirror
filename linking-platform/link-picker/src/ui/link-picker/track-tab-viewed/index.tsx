@@ -7,7 +7,7 @@ import createEventPayload from '../../../common/utils/analytics/analytics.codege
 import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import { LinkPickerPlugin } from '../../../index';
 
-function TrackTabViewed({
+export function TrackTabViewed({
   activePlugin,
 }: {
   activePlugin: LinkPickerPlugin | undefined;
@@ -24,5 +24,3 @@ function TrackTabViewed({
 
   return null;
 }
-
-export default TrackTabViewed;

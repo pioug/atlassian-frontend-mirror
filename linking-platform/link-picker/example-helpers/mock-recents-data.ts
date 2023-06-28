@@ -34,7 +34,7 @@ export const MOCK_NO_RESULTS: MockDataV3 = {
   },
 };
 
-const MOCK_DATA_V3: MockDataV3 = {
+export const MOCK_DATA_V3: MockDataV3 = {
   ACTIVITIES_DATA: {
     data: {
       activity: {
@@ -322,5 +322,3 @@ const MOCK_DATA_V3: MockDataV3 = {
     },
   },
 };
-
-export default MOCK_DATA_V3;

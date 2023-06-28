@@ -47,43 +47,43 @@ type AnnouncerProps = {
 // https://github.com/nvaccess/nvda/labels/bug%2Fdouble-speaking
 
 let timer: ReturnType<typeof setTimeout>;
-const Announcer: React.FC<AnnouncerProps> = forwardRef(
-  (
-    {
-      ariaAtomic = 'true',
-      ariaLive = 'polite',
-      ariaRelevant = 'all',
-      role = 'status',
-      text = '',
-      delay = 0,
+export const Announcer: React.FC<AnnouncerProps> = memo(
+  forwardRef(
+    (
+      {
+        ariaAtomic = 'true',
+        ariaLive = 'polite',
+        ariaRelevant = 'all',
+        role = 'status',
+        text = '',
+        delay = 0,
+      },
+      ref,
+    ) => {
+      const [contentRendered, setContentRendered] = useState(false);
+
+      useEffect(() => {
+        clearTimeout(timer);
+        setContentRendered(false);
+        timer = setTimeout(() => {
+          setContentRendered(true);
+        }, delay);
+
+        return () => clearTimeout(timer);
+      }, [text, delay]);
+
+      return (
+        <div
+          className="assistive"
+          ref={ref}
+          role={role}
+          aria-atomic={ariaAtomic}
+          aria-relevant={ariaRelevant}
+          aria-live={ariaLive}
+        >
+          {contentRendered && <span>{text}</span>}
+        </div>
+      );
     },
-    ref,
-  ) => {
-    const [contentRendered, setContentRendered] = useState(false);
-
-    useEffect(() => {
-      clearTimeout(timer);
-      setContentRendered(false);
-      timer = setTimeout(() => {
-        setContentRendered(true);
-      }, delay);
-
-      return () => clearTimeout(timer);
-    }, [text, delay]);
-
-    return (
-      <div
-        className="assistive"
-        ref={ref}
-        role={role}
-        aria-atomic={ariaAtomic}
-        aria-relevant={ariaRelevant}
-        aria-live={ariaLive}
-      >
-        {contentRendered && <span>{text}</span>}
-      </div>
-    );
-  },
+  ),
 );
-
-export default memo(Announcer);

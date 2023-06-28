@@ -1,0 +1,46 @@
+name: Quick Search
+id: 'ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/d4e8d7f4-b706-458e-9c5f-7ecba5b923dd'
+description: A quick-search component
+configVersion: 1
+typeId: UI_ELEMENT
+ownerId: 'ari:cloud:teams::team/8c518cea-39e4-4a9e-976b-2eec1db07eb2'
+fields:
+  tier: 2
+links:
+  - name: null
+    type: REPOSITORY
+    url: 'https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/search/quick-search/'
+  - name: ''
+    type: DOCUMENT
+    url: 'https://hello.atlassian.net/wiki/spaces/SEARCH/overview'
+  - name: '#search-infra-content'
+    type: CHAT_CHANNEL
+    url: 'https://atlassian.slack.com/app_redirect?channel=search-infra-content'
+  - name: '#help-search'
+    type: CHAT_CHANNEL
+    url: 'https://atlassian.slack.com/app_redirect?channel=help-search'
+  - name: ''
+    type: ON_CALL
+    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/24075951-e992-4184-a5e4-ba89245072f9'
+  - name: ''
+    type: DASHBOARD
+    url: 'https://atlassian.signalfx.com/#/dashboard/EVrIDLlAwAA?groupId=ELtFFMyA4AU&configId=EVrIDsMA4AA'
+  - name: ''
+    type: PROJECT
+    url: 'https://product-fabric.atlassian.net/jira/software/c/projects/SP/boards/684'
+relationships: {}
+labels:
+  - atlassian-platform
+customFields:
+  - name: Dev Owner
+    type: user
+    value: null
+  - name: Product
+    type: text
+    value: null
+  - name: Test
+    type: text
+    value: null
+
+# Learn more about formatting compass.yml:
+# https://go.atlassian.com/compass-yml-format

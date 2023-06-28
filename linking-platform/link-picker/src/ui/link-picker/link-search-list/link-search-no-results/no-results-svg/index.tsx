@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 
 import { noResultsSVGStyles } from './styled';
 
-const NoResultsSVG = () => {
+export const NoResultsSVG = () => {
   const id = 'link-picker-ui-no-results-svg';
 
   return (
@@ -66,5 +66,3 @@ const NoResultsSVG = () => {
     </svg>
   );
 };
-
-export default NoResultsSVG;

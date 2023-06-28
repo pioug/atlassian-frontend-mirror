@@ -23,7 +23,7 @@ export const getBaseUrl = (envKey?: keyof typeof BaseUrls) => {
   }
 
   // Otherwise, use the current origin of the page.
-  return window.location.origin;
+  return typeof window.location !== 'undefined' ? window.location.origin : '';
 };
 
 export const getResolverUrl = (

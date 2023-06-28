@@ -24,12 +24,11 @@ mockFetchPage();
 mockFetchSpace();
 mockCreatePage();
 
-// This is the cloud id for pug.jira-dev.com
-const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
+const CLOUD_ID = 'cloud-id';
 
 const LinkPickerCreate = () => {
   const [link, setLink] = useState<string | null>(null);
-  const [showPicker, setShowPicker] = useState(true);
+  const [showPicker, setShowPicker] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const confluenceForm = createConfluencePageLinkCreatePlugin(

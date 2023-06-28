@@ -8,7 +8,7 @@ import {
   version as packageVersion,
 } from '../version.json';
 import { PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
-import ErrorBoundary from './error-boundary';
+import { ErrorBoundary } from './error-boundary';
 import { LinkPickerProps } from './link-picker';
 import { LoaderFallback } from './loader-fallback';
 import { LinkPickerSessionProvider } from '../controllers/session-provider';
@@ -25,12 +25,11 @@ export const PACKAGE_DATA: PackageMetaDataType = {
   source: COMPONENT_NAME,
 };
 
-const LazyLinkPicker = lazyForPaint(
-  () =>
-    import(
-      /* webpackChunkName: "@atlaskit-internal_link-picker" */
-      './link-picker'
-    ),
+const LazyLinkPicker = lazyForPaint(() =>
+  import(
+    /* webpackChunkName: "@atlaskit-internal_link-picker" */
+    './link-picker'
+  ).then(({ LinkPicker }) => ({ default: LinkPicker })),
 );
 
 const DefaultRootComponent = ({
@@ -63,5 +62,3 @@ export const ComposedLinkPicker = memo((props: LinkPickerProps) => {
     </AnalyticsContext>
   );
 });
-
-export default ComposedLinkPicker;

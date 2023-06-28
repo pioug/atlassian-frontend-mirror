@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.25.3
+
+### Patch Changes
+
+- [`ceaa8d259c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ceaa8d259c2) - Minor internal refactors with no expected functional changes.
+
 ## 1.25.2
 
 ### Patch Changes

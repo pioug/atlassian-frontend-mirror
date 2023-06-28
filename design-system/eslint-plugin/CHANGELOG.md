@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 6.2.1
+
+### Patch Changes
+
+- [`0f48aae95e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0f48aae95e4) - Patch for incorrect behavior in upstream library.
+
 ## 6.2.0
 
 ### Minor Changes

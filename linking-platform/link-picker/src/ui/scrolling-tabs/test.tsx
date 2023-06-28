@@ -1,4 +1,4 @@
-import { calculateConditionalButtons } from '../../scrolling-tabs/scrolling-tabs';
+import { calculateConditionalButtons } from './scrolling-tabs';
 
 describe('scrolling tabs', () => {
   describe('calculateConditionalButtons', () => {

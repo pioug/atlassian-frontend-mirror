@@ -32,7 +32,6 @@ import {
   TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS,
 } from '@atlaskit/editor-common/utils';
 
-import { EmojiProvider } from '@atlaskit/emoji/resource';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 
 import {
@@ -215,11 +214,11 @@ const searchProvider = createSearchProvider(
   'https://api-private.stg.atlassian.com/gateway/api/xpsearch-aggregator',
 );
 
-export const providers: Partial<Providers> = {
+export const getProviders = (): Partial<Providers> => ({
   emojiProvider: getEmojiProvider({
     uploadSupported: true,
     currentUser,
-  }) as Promise<EmojiProvider>,
+  }),
   mentionProvider: Promise.resolve(mentionResourceProvider),
   taskDecisionProvider: Promise.resolve(getMockTaskDecisionResource()),
   contextIdentifierProvider: storyContextIdentifierProviderFactory(),
@@ -227,7 +226,7 @@ export const providers: Partial<Providers> = {
   searchProvider: Promise.resolve(searchProvider),
   macroProvider: Promise.resolve(macroProvider),
   autoformattingProvider: Promise.resolve(autoformattingProvider),
-};
+});
 
 export const mediaProvider = storyMediaProviderFactory();
 
@@ -388,7 +387,7 @@ export class ExampleEditorComponent extends React.Component<
                   allowCopyToClipboard: true,
                   appearance: this.state.appearance,
                 }}
-                {...providers}
+                {...getProviders()}
                 media={{
                   provider: mediaProvider,
                   allowMediaSingle: true,
@@ -624,45 +623,40 @@ export class ExampleEditorComponent extends React.Component<
 
 export const ExampleEditor = ExampleEditorComponent;
 
-const MockProfileClient: any = simpleMockProfilecardClient();
-
-const mentionProvider = Promise.resolve(mentionResourceProvider);
-
-const emojiProvider = getEmojiProvider();
-
-const profilecardProvider = Promise.resolve({
-  cloudId: 'DUMMY-CLOUDID',
-  resourceClient: MockProfileClient,
-  getActions: (id: string) => {
-    const actions = [
-      {
-        label: 'Mention',
-        callback: () => console.log('profile-card:mention'),
-      },
-      {
-        label: 'Message',
-        callback: () => console.log('profile-card:message'),
-      },
-    ];
-
-    return id === '1' ? actions : actions.slice(0, 1);
-  },
-});
-
-const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
-
-const contextIdentifierProvider = storyContextIdentifierProviderFactory();
-
-const providerFactory = ProviderFactory.create({
-  mentionProvider,
-  mediaProvider,
-  emojiProvider,
-  profilecardProvider,
-  taskDecisionProvider,
-  contextIdentifierProvider,
-});
-
 const Renderer = (props: ExampleRendererProps) => {
+  const emojiProvider = getEmojiProvider();
+  const mentionProvider = Promise.resolve(mentionResourceProvider);
+  const MockProfileClient: any = simpleMockProfilecardClient();
+  const profilecardProvider = Promise.resolve({
+    cloudId: 'DUMMY-CLOUDID',
+    resourceClient: MockProfileClient,
+    getActions: (id: string) => {
+      const actions = [
+        {
+          label: 'Mention',
+          callback: () => console.log('profile-card:mention'),
+        },
+        {
+          label: 'Message',
+          callback: () => console.log('profile-card:message'),
+        },
+      ];
+
+      return id === '1' ? actions : actions.slice(0, 1);
+    },
+  });
+  const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
+  const contextIdentifierProvider = storyContextIdentifierProviderFactory();
+
+  const providerFactory = ProviderFactory.create({
+    mentionProvider,
+    mediaProvider,
+    emojiProvider,
+    profilecardProvider,
+    taskDecisionProvider,
+    contextIdentifierProvider,
+  });
+
   if (props.extensionProviders && props.extensionProviders.length > 0) {
     providerFactory.setProvider(
       'extensionProvider',

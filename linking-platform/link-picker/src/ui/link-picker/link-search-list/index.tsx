@@ -14,7 +14,10 @@ import Spinner from '@atlaskit/spinner';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { LinkPickerPlugin, LinkSearchListItemData } from '../../types';
-import LinkSearchListItem from '../list-item';
+import {
+  LinkSearchListItem,
+  testIds as searchResultItemTestIds,
+} from '../list-item';
 
 import {
   listContainerStyles,
@@ -23,7 +26,8 @@ import {
   listTitleStyles,
 } from './styled';
 
-import LinkSearchNoResults, {
+import {
+  NoResults,
   testIds as noResultsTestIds,
 } from './link-search-no-results';
 import { useTrackResultsShown } from './use-track-results-shown';
@@ -53,8 +57,8 @@ export const messages = defineMessages({
 
 export const testIds = {
   ...noResultsTestIds,
+  ...searchResultItemTestIds,
   resultListTitle: 'link-picker-list-title',
-  searchResultItem: 'link-search-list-item',
   searchResultList: 'link-search-list',
   searchResultLoadingIndicator: 'link-picker.results-loading-indicator',
   tabsLoadingIndicator: 'link-picker.tabs-loading-indicator',
@@ -82,7 +86,7 @@ export interface LinkSearchListProps
   activePlugin?: LinkPickerPlugin;
 }
 
-const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
+export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
   (
     {
       onChange,
@@ -175,7 +179,7 @@ const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
         getBooleanFF('platform.linking-platform.link-picker.enable-empty-state')
       ) {
         if (hasSearchTerm) {
-          return <LinkSearchNoResults />;
+          return <NoResults />;
         } else {
           return (
             <div css={emptyStateNoResultsWrapper}>
@@ -186,7 +190,7 @@ const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
           );
         }
       } else {
-        return <LinkSearchNoResults />;
+        return <NoResults />;
       }
     }
 
@@ -257,5 +261,3 @@ const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
     );
   },
 );
-
-export default LinkSearchList;

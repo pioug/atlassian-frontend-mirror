@@ -1,3 +1,4 @@
+import { token } from '@atlaskit/tokens';
 import React, { SyntheticEvent, useState, useMemo, Fragment } from 'react';
 
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
@@ -9,7 +10,7 @@ import {
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { LinkPicker, LinkPickerProps } from '../src';
-import mockRecentData from '../example-helpers/mock-recents-data';
+import { MOCK_DATA_V3 as mockRecentData } from '../example-helpers/mock-recents-data';
 import { mockPluginEndpoints } from '../example-helpers/mock-plugin-endpoints';
 import { PageWrapper } from '../example-helpers/common';
 
@@ -69,7 +70,11 @@ function Basic() {
 
   return (
     <Fragment>
-      <div style={{ paddingBottom: 20 }}>
+      <div
+        style={{
+          paddingBottom: token('space.250', '20px'),
+        }}
+      >
         <a id="test-link" href={link.url} target="_blank" onClick={handleClick}>
           {link.displayText || link.url}
         </a>

@@ -297,7 +297,7 @@ type BoxXCSS = {
 };
 
 // @public
-type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxs';
+export type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxs';
 
 // @public (undocumented)
 type CSSMediaQueries = {
@@ -621,6 +621,73 @@ type TokenisedProps = {
 
 // @public (undocumented)
 const uniqueSymbol: unique symbol;
+
+// @public
+export const UNSAFE_BREAKPOINTS_CONFIG: {
+  readonly xxs: {
+    readonly gridItemGutter: 'var(--ds-space-200)';
+    readonly gridMargin: 'var(--ds-space-200)';
+    readonly min: '0rem';
+    readonly max: '29.99rem';
+  };
+  readonly xs: {
+    readonly gridItemGutter: 'var(--ds-space-200)';
+    readonly gridMargin: 'var(--ds-space-200)';
+    readonly min: '30rem';
+    readonly max: '47.99rem';
+  };
+  readonly sm: {
+    readonly gridItemGutter: 'var(--ds-space-200)';
+    readonly gridMargin: 'var(--ds-space-300)';
+    readonly min: '48rem';
+    readonly max: '63.99rem';
+  };
+  readonly md: {
+    readonly gridItemGutter: 'var(--ds-space-300)';
+    readonly gridMargin: 'var(--ds-space-400)';
+    readonly min: '64rem';
+    readonly max: '89.99rem';
+  };
+  readonly lg: {
+    readonly gridItemGutter: 'var(--ds-space-400)';
+    readonly gridMargin: 'var(--ds-space-400)';
+    readonly min: '90rem';
+    readonly max: '109.99rem';
+  };
+  readonly xl: {
+    readonly gridItemGutter: 'var(--ds-space-400)';
+    readonly gridMargin: 'var(--ds-space-500)';
+    readonly min: '110rem';
+    readonly max: null;
+  };
+};
+
+// @internal
+export const UNSAFE_media: {
+  above: {
+    readonly xxs: '@media all';
+    readonly xs: '@media (min-width: 30rem)';
+    readonly sm: '@media (min-width: 48rem)';
+    readonly md: '@media (min-width: 64rem)';
+    readonly lg: '@media (min-width: 90rem)';
+    readonly xl: '@media (min-width: 110rem)';
+  };
+  below: {
+    readonly xs: '@media not all and (min-width: 30rem)';
+    readonly sm: '@media not all and (min-width: 48rem)';
+    readonly md: '@media not all and (min-width: 64rem)';
+    readonly lg: '@media not all and (min-width: 90rem)';
+    readonly xl: '@media not all and (min-width: 110rem)';
+  };
+  only: {
+    readonly xxs: '@media (min-width: 0rem) and (max-width: 29.99rem)';
+    readonly xs: '@media (min-width: 30rem) and (max-width: 47.99rem)';
+    readonly sm: '@media (min-width: 48rem) and (max-width: 63.99rem)';
+    readonly md: '@media (min-width: 64rem) and (max-width: 89.99rem)';
+    readonly lg: '@media (min-width: 90rem) and (max-width: 109.99rem)';
+    readonly xl: '@media (min-width: 110rem)';
+  };
+};
 
 // @public
 export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(

@@ -5,7 +5,7 @@ import { waitForElementToBeRemoved } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
 import '@testing-library/jest-dom/extend-expect';
 
-import { LinkPicker as LinkPickerType, LinkPickerProps } from '../../..';
+import { LinkPicker as LinkPickerType, LinkPickerProps } from './link-picker';
 
 describe('<ComposedLinkPicker />', () => {
   const setupLinkPicker = ({
@@ -15,7 +15,8 @@ describe('<ComposedLinkPicker />', () => {
     scrollingTabs,
   }: Partial<LinkPickerProps> & { scrollingTabs?: boolean } = {}) => {
     jest.isolateModules(() => {
-      const LinkPicker: typeof LinkPickerType = require('../../..').LinkPicker;
+      const LinkPicker: typeof LinkPickerType =
+        require('./index').ComposedLinkPicker;
       render(
         <LinkPicker
           component={component}

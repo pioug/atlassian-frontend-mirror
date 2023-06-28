@@ -3,13 +3,22 @@ import React, { useCallback, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
+import {
+  mockCreatePage,
+  mockFetchPage,
+  mockFetchSpace,
+} from '@atlassian/link-create-confluence/mocks';
 import { createDefaultPluginPresets } from '@atlassian/link-create-presets';
 
 import LinkCreate from '../src';
 import { CreatePayload } from '../src/common/types';
 
-// This is the cloud id for pug.jira-dev.com
-const CLOUD_ID = 'DUMMY-a5a01d21-1cc3-4f29-9565-f2bb8cd969f5';
+const CLOUD_ID = 'cloud-id';
+
+// Mocks
+mockFetchPage();
+mockFetchSpace();
+mockCreatePage();
 
 function CreatePresets() {
   const [link, setLink] = useState<string | null>();

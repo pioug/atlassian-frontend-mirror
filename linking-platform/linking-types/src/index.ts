@@ -19,7 +19,7 @@ export type {
   DatasourceDataResponseItem,
   DatasourceType,
   DatasourceResponseParameter,
-  DatasourceResponse,
+  DatasourceDetailsResponse,
   DatasourceDataResponse,
   DatasourceDataRequest,
   DatasourceParameters,

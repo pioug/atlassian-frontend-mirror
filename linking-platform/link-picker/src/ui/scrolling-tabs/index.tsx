@@ -166,5 +166,3 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
     </div>
   );
 };
-
-export default ScrollingTabList;

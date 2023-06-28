@@ -72,7 +72,7 @@ export const useDatasourceTableState = ({
       col: DatasourceResponseSchemaProperty,
     ) => !columns.find(column => column.key === col.key);
 
-    const allColumns = result.schema.properties;
+    const allColumns = result.data.schema.properties;
     const newColumns = allColumns.filter(
       isColumnNotPresentInCurrentColumnsList,
     );
@@ -124,17 +124,18 @@ export const useDatasourceTableState = ({
       setStatus('loading');
 
       try {
-        const { data, nextPageCursor, totalCount, schema } =
-          await getDatasourceData(datasourceId, datasourceDataRequest);
+        const {
+          data: { items, nextPageCursor, totalCount, schema },
+        } = await getDatasourceData(datasourceId, datasourceDataRequest);
 
         setTotalCount(totalCount);
         setNextCursor(nextPageCursor);
 
         setResponseItems(currentResponseItems => {
           if (shouldRequestFirstPage) {
-            return data;
+            return items;
           }
-          return [...currentResponseItems, ...data];
+          return [...currentResponseItems, ...items];
         });
 
         setStatus('resolved');

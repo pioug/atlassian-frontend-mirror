@@ -10,7 +10,7 @@ import {
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
 import { LinkPicker, LinkPickerProps } from '../src';
-import mockRecentData from '../example-helpers/mock-recents-data';
+import { MOCK_DATA_V3 as mockRecentData } from '../example-helpers/mock-recents-data';
 import { PageWrapper } from '../example-helpers/common';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];

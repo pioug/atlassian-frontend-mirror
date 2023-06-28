@@ -14,7 +14,7 @@ import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/glo
 import Warning from '@atlaskit/icon/glyph/warning';
 
 import {
-  providers,
+  getProviders,
   mediaProvider,
   LOCALSTORAGE_defaultDocKey,
 } from '../../examples/5-full-page';
@@ -253,7 +253,7 @@ export class KitchenSink extends React.Component<
   };
 
   private dataProviders = ProviderFactory.create({
-    ...providers,
+    ...getProviders(),
     mediaProvider,
     extensionProvider: Promise.resolve(getExampleExtensionProviders()),
   });

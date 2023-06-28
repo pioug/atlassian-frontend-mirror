@@ -303,11 +303,16 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
     const marks = node.marks ? [...node.marks] : [];
     const isMedia = node.type.name === 'media';
 
-    const shouldSkipMark = (mark: Mark): boolean =>
+    const shouldSkipBorderMark = (mark: Mark): boolean =>
+      currentPath.some((n) => n.type?.name !== 'mediaSingle') &&
+      isMedia &&
+      mark.type.name === 'border';
+
+    const shouldSkipLinkMark = (mark: Mark): boolean =>
       this.allowMediaLinking !== true && isMedia && mark.type.name === 'link';
 
     return marks.reverse().reduce((content, mark) => {
-      if (shouldSkipMark(mark)) {
+      if (shouldSkipLinkMark(mark) || shouldSkipBorderMark(mark)) {
         return content;
       }
 
@@ -492,8 +497,13 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
       marks: { link, border },
     } = node.type.schema;
 
+    const isChildOfMediaSingle = path.some(
+      (n) => n.type?.name === 'mediaSingle',
+    );
+
     const isLinkMark = (mark: Mark) => mark.type === link;
-    const isBorderMark = (mark: Mark) => mark.type === border;
+    const isBorderMark = (mark: Mark) =>
+      isChildOfMediaSingle && mark.type === border;
 
     return {
       ...this.getProps(node),

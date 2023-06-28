@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 185.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.4.2
+
+### Patch Changes
+
+- [`a9350cf3831`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9350cf3831) - Check existence of window and document variable for confluence SSR to work
+
 ## 185.4.0
 
 ### Minor Changes

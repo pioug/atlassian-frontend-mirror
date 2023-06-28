@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 7.0.0
+
+### Major Changes
+
+- [`f427908df3d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f427908df3d) - change the datasource response type to include the meta data section and the data response will wrap in the data section
+
 ## 6.0.0
 
 ### Major Changes

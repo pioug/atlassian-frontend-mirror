@@ -1,6 +1,7 @@
 /*
  Basic types
 */
+
 export interface BooleanType {
   type: 'boolean';
   value: boolean;
@@ -151,7 +152,27 @@ export interface DatasourceResponseParameter {
   isRequired?: boolean;
 }
 
-export interface DatasourceResponse {
+interface DatasourceResponse<TData> {
+  meta: DatasourceMeta;
+  data: TData;
+}
+
+export interface DatasourceDetailsResponse
+  extends DatasourceResponse<DatasourceDetails> {}
+
+export interface DatasourceDataResponse
+  extends DatasourceResponse<DatasourceData> {}
+
+export type Visibility = 'public' | 'restricted' | 'other' | 'not_found';
+export type Access = 'granted' | 'forbidden' | 'unauthorized' | 'not_found';
+
+export interface AuthService {
+  key: string;
+  displayName: string;
+  url: string;
+}
+
+export type DatasourceDetails = {
   ari: string;
   id: string;
   name: string;
@@ -161,16 +182,23 @@ export interface DatasourceResponse {
     properties: DatasourceResponseSchemaProperty[];
     defaultProperties: string[];
   };
-}
-
-export interface DatasourceDataResponse {
-  data: DatasourceDataResponseItem[];
+};
+export type DatasourceData = {
+  items: DatasourceDataResponseItem[];
   schema?: {
+    defaultProperties: string[];
     properties: DatasourceResponseSchemaProperty[];
   };
   nextPageCursor?: string;
   totalCount?: number;
-}
+};
+
+export type DatasourceMeta = {
+  access: Access;
+  visibility: Visibility;
+  auth?: AuthService[];
+  [k: string]: any;
+};
 
 export type DatasourceTableStatusType =
   | 'empty'

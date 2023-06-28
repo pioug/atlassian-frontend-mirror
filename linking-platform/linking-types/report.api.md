@@ -16,12 +16,36 @@
 
 ```ts
 // @public (undocumented)
+type Access = 'forbidden' | 'granted' | 'not_found' | 'unauthorized';
+
+// @public (undocumented)
+interface AuthService {
+  // (undocumented)
+  displayName: string;
+  // (undocumented)
+  key: string;
+  // (undocumented)
+  url: string;
+}
+
+// @public (undocumented)
 export interface BooleanType {
   // (undocumented)
   type: 'boolean';
   // (undocumented)
   value: boolean;
 }
+
+// @public (undocumented)
+type DatasourceData = {
+  items: DatasourceDataResponseItem[];
+  schema?: {
+    defaultProperties: string[];
+    properties: DatasourceResponseSchemaProperty[];
+  };
+  nextPageCursor?: string;
+  totalCount?: number;
+};
 
 // @public (undocumented)
 export interface DatasourceDataRequest {
@@ -38,18 +62,8 @@ export interface DatasourceDataRequest {
 }
 
 // @public (undocumented)
-export interface DatasourceDataResponse {
-  // (undocumented)
-  data: DatasourceDataResponseItem[];
-  // (undocumented)
-  nextPageCursor?: string;
-  // (undocumented)
-  schema?: {
-    properties: DatasourceResponseSchemaProperty[];
-  };
-  // (undocumented)
-  totalCount?: number;
-}
+export interface DatasourceDataResponse
+  extends DatasourceResponse<DatasourceData> {}
 
 // @public (undocumented)
 export interface DatasourceDataResponseItem {
@@ -60,8 +74,33 @@ export interface DatasourceDataResponseItem {
 }
 
 // @public (undocumented)
+type DatasourceDetails = {
+  ari: string;
+  id: string;
+  name: string;
+  description: string;
+  parameters: DatasourceResponseParameter[];
+  schema: {
+    properties: DatasourceResponseSchemaProperty[];
+    defaultProperties: string[];
+  };
+};
+
+// @public (undocumented)
 export type DatasourceDetailsRequest = {
   parameters: DatasourceParameters;
+};
+
+// @public (undocumented)
+export interface DatasourceDetailsResponse
+  extends DatasourceResponse<DatasourceDetails> {}
+
+// @public (undocumented)
+type DatasourceMeta = {
+  access: Access;
+  visibility: Visibility;
+  auth?: AuthService[];
+  [k: string]: any;
 };
 
 // @public (undocumented)
@@ -71,22 +110,11 @@ export interface DatasourceParameters {
 }
 
 // @public (undocumented)
-export interface DatasourceResponse {
+interface DatasourceResponse<TData> {
   // (undocumented)
-  ari: string;
+  data: TData;
   // (undocumented)
-  description: string;
-  // (undocumented)
-  id: string;
-  // (undocumented)
-  name: string;
-  // (undocumented)
-  parameters: DatasourceResponseParameter[];
-  // (undocumented)
-  schema: {
-    properties: DatasourceResponseSchemaProperty[];
-    defaultProperties: string[];
-  };
+  meta: DatasourceMeta;
 }
 
 // @public (undocumented)
@@ -323,6 +351,9 @@ export interface UserType {
   // (undocumented)
   value: User;
 }
+
+// @public (undocumented)
+type Visibility = 'not_found' | 'other' | 'public' | 'restricted';
 
 // (No @packageDocumentation comment for this package)
 ```

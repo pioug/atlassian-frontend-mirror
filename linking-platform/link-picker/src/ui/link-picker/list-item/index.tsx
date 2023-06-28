@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { forwardRef, Fragment, KeyboardEvent } from 'react';
 import { jsx } from '@emotion/react';
-import { IntlShape } from 'react-intl-next';
+import { IntlShape, useIntl } from 'react-intl-next';
 
 import { LinkSearchListItemData } from '../../types';
 import { transformTimeStamp } from '../transformTimeStamp';
@@ -15,10 +15,53 @@ import {
   listItemContainerStyles,
   listItemContainerInnerStyles,
 } from './styled';
-import { testIds } from '..';
-import { useIntl } from 'react-intl-next';
 
-export interface Props {
+export const testIds = {
+  searchResultItem: 'link-search-list-item',
+  searchResultIcon: 'link-search-list-item-icon',
+};
+
+const isSVG = (icon: string) =>
+  icon.startsWith('<svg') && icon.endsWith('</svg>');
+
+const base64SVG = (icon: string) =>
+  `data:image/svg+xml;base64,${Buffer.from(icon).toString('base64')}`;
+
+const ListItemIcon = (props: {
+  item: LinkSearchListItemData;
+  intl: IntlShape;
+}) => {
+  const { item, intl } = props;
+  const { icon, iconAlt } = item;
+  if (!icon) {
+    return null;
+  }
+
+  const alt =
+    typeof iconAlt === 'string' ? iconAlt : intl.formatMessage(iconAlt);
+
+  if (typeof icon !== 'string') {
+    const Glyph = icon;
+
+    return (
+      <span css={itemIconStyles}>
+        <Glyph alt={alt} data-testid={testIds.searchResultIcon} />
+      </span>
+    );
+  }
+  return (
+    <span css={itemIconStyles}>
+      <img
+        data-testid={testIds.searchResultIcon}
+        src={isSVG(icon) ? base64SVG(icon) : icon}
+        alt={alt}
+        css={imgStyles}
+      />
+    </span>
+  );
+};
+
+export interface LinkSearchListItemProps {
   item: LinkSearchListItemData;
   selected: boolean;
   active: boolean;
@@ -30,9 +73,10 @@ export interface Props {
   role?: string;
 }
 
-type LinkSearchListItemProps = Props;
-
-const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
+export const LinkSearchListItem = forwardRef<
+  HTMLDivElement,
+  LinkSearchListItemProps
+>(
   (
     {
       item,
@@ -98,47 +142,3 @@ const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemProps>(
     );
   },
 );
-
-export default LinkSearchListItem;
-
-const isSVG = (icon: string) =>
-  icon.startsWith('<svg') && icon.endsWith('</svg>');
-
-const base64SVG = (icon: string) =>
-  `data:image/svg+xml;base64,${Buffer.from(icon).toString('base64')}`;
-
-const testId = 'link-search-list-item-icon';
-
-const ListItemIcon = (props: {
-  item: LinkSearchListItemData;
-  intl: IntlShape;
-}) => {
-  const { item, intl } = props;
-  const { icon, iconAlt } = item;
-  if (!icon) {
-    return null;
-  }
-
-  const alt =
-    typeof iconAlt === 'string' ? iconAlt : intl.formatMessage(iconAlt);
-
-  if (typeof icon !== 'string') {
-    const Glyph = icon;
-
-    return (
-      <span css={itemIconStyles}>
-        <Glyph alt={alt} data-testid={testId} />
-      </span>
-    );
-  }
-  return (
-    <span css={itemIconStyles}>
-      <img
-        data-testid={testId}
-        src={isSVG(icon) ? base64SVG(icon) : icon}
-        alt={alt}
-        css={imgStyles}
-      />
-    </span>
-  );
-};

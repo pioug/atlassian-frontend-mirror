@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import { screen } from '@testing-library/dom';
 import MockDate from 'mockdate';
 
-import LinkSearchListItem from '../../link-picker/list-item';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
+
+import { LinkSearchListItem } from './index';
 
 describe('<LinkSearchListItem />', () => {
   beforeEach(() => {

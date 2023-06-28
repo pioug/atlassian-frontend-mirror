@@ -3,26 +3,24 @@ title: xCSS
 description: xCSS is a safer, tokens-first approach to CSS-in-JS.
 order: 0
 ---
+import { MediaQueriesTable } from '@af/design-system-docs-ui';
 
 ![xcss Logo](logo.png "xcss Logo")
 
-`xcss` is an Atlassian Design System styling API designed to natively integrate with
-Atlassian's [design tokens](/tokens) and [primitives](/components/primitives) in a safer, more resilient and evolvable way.
+`xcss` is an Atlassian Design System styling API that natively integrates with Atlassian's [design tokens](/tokens) and [primitives](/components/primitives).
 
-The `xcss` utility behaves similarly to the `css` utility in libraries
-like `styled-components`, `@compiled` or `@emotion` - so if you've used those libraries before
-it will feel very familiar, with a few additional features and some constraints.
+The `xcss` utility behaves similarly to the `css` utility in libraries like `styled-components`, `@compiled` or `@emotion`. If you've used these libraries, `xcss` will feel familiar, with a few additional features and constraints.
 
-Features that will feel familiar:
+Familiar features:
 
-* `xcss` will generate a `className` to be applied on your components
-* `xcss` will provide key-value pairs of CSS properties in an object format
+* `xcss` generates a `className` that is applied to the components
+* `xcss` provides key-value pairs of CSS properties in an object format
 * `xcss` supports style precedence and conditional styles
 
-But it also has a few key differences.
+Key differences:
 
-* `xcss` has type-safety that uses token names for all CSS properties that are represented by design tokens.
-* `xcss` restricts nested selectors completely from usage.
+* `xcss` has type-safety that ensures token name usage for all CSS properties represented by design tokens.
+* `xcss` restricts nested selectors completely from usage
 
 ## Usage
 
@@ -51,17 +49,14 @@ const MyBox = () => {
   return <Box xcss={someStyles} />
 }
 ```
+The `xcss` prop and the `xcss` function are direct complements and are designed to be used together.
 
-The prop and the `xcss` function are direct complements and are meant
-to be used together. Note: styles generated from `xcss` cannot be applied directly
-to the `className` property or `css` as they are with other CSS-in-JS libraries.
+Note: styles generated from `xcss` cannot be applied directly to the `className` property or `css` as they are with other CSS-in-JS libraries.
 
 ### Type safety
 
-`xcss` uses strongly-typed values generated from design token
-definitions to make it simpler to apply the right token for the right CSS property.
-This is intended to be more ergonomic and intuitive but also prevent the misapplication of tokens
-to the wrong properties.
+`xcss` uses strongly-typed values generated from design token definitions, making it simpler to apply the right token to the right CSS property. 
+This is intended to be more ergonomic and intuitive, but also prevent the misapplication of tokens to the wrong properties.
 
 Any [valid token name](/components/tokens/all-tokens) is available to be applied against its
 matching CSS property. For example, the token name `space.200`
@@ -79,6 +74,10 @@ const someStyles = xcss({
 ```
 
 ### Restricted nesting
+`xcss` is flexible enough to implement any design, but it does restrict the application of styles in one key way. 
+Selectors cannot be nested or target elements beyond the element on which styles are applied.
+This restriction is intended to encourage better component encapsulation, reduce side-effects and make the codebase more resilient to change.
+
 
 `xcss` is meant to be flexible enough for you to implement any design but it does
 restrict the application of styles in one key way. Selectors cannot be
@@ -106,7 +105,46 @@ const someStyles = xcss({
 ```
 
 These unsafe selectors will throw a type error if applied.
-For richer examples of how to use `xcss` please see our [documentation here](/components/primitives/xcss/examples).
+For richer examples of how to use `xcss` please see the [primitives `xcss` documentation](/components/primitives/xcss/examples).
+
+### Media Queries
+xCSS can create responsive layouts at predefined breakpoints that are consistent with the Atlassian Design System. To enable responsive behavior, xCSS exposes the following pre-defined breakpoints:
+<MediaQueriesTable />
+
+Media queries can be applied through keys that can be imported from `@atlaskit/primitives/responsive`.
+For in depth examples on how to enable responsive behavior, please see our [primitive responsiveness documentation](/components/primitives/xcss/examples#responsiveness).
+
+The objects defined at each breakpoint behave in much the same way as a normal xCSS object, and can apply responsiveness to any CSS.
+The only limitation is that a media query can't contain another media query. This is to prevent arbitrary nesting. 
+Additionally, pseudo-selectors can't contain media queries. To use media queries and pseudos, the media query must contain the pseudo.
+
+```
+import { xcss } from '@atlaskit/primitives';
+import { media } from '@atlaskit/primitives/responsive';
+
+const someStyles = xcss({
+  // This is okay, since media queries can contain pseudos
+  [media.above.md]: {
+    ':hover': {
+      backgroundColor: 'color.background.primary.hovered'
+    }
+  },
+
+  // This is not okay, since pseudos can't contain media queries
+  ':hover': {
+    [media.above.md]: {
+      backgroundColor: 'color.background.primary.hovered'
+    }
+  },
+
+  // This is not okay, since media queries can't contain media queries
+  [media.above.md]: {
+    [media.above.xs]: {
+      backgroundColor: 'color.background.primary.hovered'
+    }
+  },
+});
+```
 
 ## Get help
 

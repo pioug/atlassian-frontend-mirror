@@ -84,14 +84,13 @@ ${TEAM_FRAGMENT}
 type TeamQueryVariables = { teamId: string; siteId?: string };
 
 export const buildGatewayQuery = ({ teamId, siteId }: TeamQueryVariables) => ({
-  query:
-    getBooleanFF('platform.teams.site-scoped.m1') && siteId
-      ? GATEWAY_QUERY_V2
-      : GATEWAY_QUERY,
+  query: getBooleanFF('platform.teams.site-scoped.m1')
+    ? GATEWAY_QUERY_V2
+    : GATEWAY_QUERY,
   variables: {
     teamId: idToAri(teamId),
-    ...(getBooleanFF('platform.teams.site-scoped.m1') && siteId
-      ? { siteId }
+    ...(getBooleanFF('platform.teams.site-scoped.m1')
+      ? { siteId: siteId || 'None' }
       : {}),
   },
 });

@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.5.1
+
+### Patch Changes
+
+- [`5259a126fa1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5259a126fa1) - Replace calls to pf-directory `Team` and `TeamMembership` with AGG `teamV2` in Directory app.
+
 ## 19.5.0
 
 ### Minor Changes

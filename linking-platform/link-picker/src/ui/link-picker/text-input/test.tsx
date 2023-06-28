@@ -4,7 +4,8 @@ import { browser } from '@atlaskit/linking-common/user-agent';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import { createEvent, fireEvent, render, screen } from '@testing-library/react';
-import TextInput, { TextInputProps, testIds } from '.';
+
+import { TextInput, TextInputProps, testIds } from './index';
 
 jest.mock('@atlaskit/linking-common/user-agent', () => ({
   browser: jest.fn(() => ({

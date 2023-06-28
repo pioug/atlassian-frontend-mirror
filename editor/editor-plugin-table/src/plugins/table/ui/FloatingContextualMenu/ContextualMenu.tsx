@@ -152,7 +152,8 @@ export class ContextualMenu extends Component<
   };
 
   static defaultProps = {
-    boundariesElement: document.body,
+    boundariesElement:
+      typeof document !== 'undefined' ? document.body : undefined,
   };
 
   render() {

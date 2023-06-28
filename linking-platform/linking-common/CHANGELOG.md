@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 3.0.1
+
+### Patch Changes
+
+- [`a9350cf3831`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9350cf3831) - Check existence of window and document variable for confluence SSR to work
+
 ## 3.0.0
 
 ### Major Changes

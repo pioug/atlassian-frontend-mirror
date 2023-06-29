@@ -15,10 +15,7 @@ import { TableFooter } from '../table-footer';
 import { DatasourceTableViewProps } from './types';
 
 const TableViewWrapperStyles = css({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '100%',
-  height: '100%',
+  display: 'grid',
   position: 'relative',
   padding: token('space.200', '16px'),
   paddingBottom: 0,

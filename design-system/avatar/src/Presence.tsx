@@ -6,10 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 import { ICON_OFFSET, ICON_SIZES } from './constants';
 import IconWrapper from './IconWrapper';
-import { AppearanceType, IndicatorSizeType } from './types';
-
-// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
-export type PresenceType = 'busy' | 'focus' | 'offline' | 'online' | ReactNode;
+import { AppearanceType, IndicatorSizeType, Presence } from './types';
 
 export interface PresenceProps {
   /**
@@ -25,7 +22,7 @@ export interface PresenceProps {
   /**
    * The type of presence indicator to show
    */
-  presence?: PresenceType;
+  presence?: Presence;
   /**
    * Test Id
    */
@@ -68,7 +65,7 @@ const OnlineIndicator = (
   <circle fill={token('color.icon.success', G300)} cx="4" cy="4" r="4" />
 );
 
-function getPresence(presence: PresenceType) {
+function getPresence(presence: Presence) {
   switch (presence) {
     case 'busy':
       return BusyIndicator;
@@ -154,7 +151,7 @@ export const PresenceWrapper: FC<PresenceWrapperProps> = ({
     >
       <AvatarPresence
         borderColor={borderColor}
-        presence={!children && presence}
+        presence={!children ? presence : undefined}
       >
         {children}
       </AvatarPresence>

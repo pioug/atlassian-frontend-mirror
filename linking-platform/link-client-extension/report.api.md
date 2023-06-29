@@ -20,8 +20,26 @@ import type { DatasourceDataRequest } from '@atlaskit/linking-types';
 import type { DatasourceDataResponse } from '@atlaskit/linking-types';
 import type { DatasourceDetailsRequest } from '@atlaskit/linking-types';
 import type { DatasourceDetailsResponse } from '@atlaskit/linking-types';
+import type { DatasourceParameters } from '@atlaskit/linking-types';
 import { InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
 import { InvokeResponse } from '@atlaskit/linking-types/smart-link-actions';
+import { JsonLd } from 'json-ld-types';
+
+// @public (undocumented)
+export type DatasourceResolveResponse = {
+  id: string;
+  ari?: string;
+  key?: string;
+  name?: string;
+  description?: string;
+  parameters: DatasourceParameters;
+};
+
+// @public (undocumented)
+export interface JsonLdDatasourceResponse extends JsonLd.Response {
+  // (undocumented)
+  datasources?: DatasourceResolveResponse[];
+}
 
 // @public (undocumented)
 export const mockDatasourceDataResponse: DatasourceDataResponse;

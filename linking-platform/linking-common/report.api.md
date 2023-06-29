@@ -169,15 +169,21 @@ export type CardType =
   | 'unauthorized';
 
 // @public (undocumented)
+export interface Datasource {
+  // (undocumented)
+  id: string;
+  // (undocumented)
+  parameters: object;
+  // (undocumented)
+  views: DatasourceAdfView[];
+}
+
+// @public (undocumented)
 export interface DatasourceAdf {
   // (undocumented)
   attrs: {
     url?: string;
-    datasource: {
-      id: string;
-      parameters: object;
-      views: DatasourceAdfView[];
-    };
+    datasource: Datasource;
   };
   // (undocumented)
   type: 'blockCard';

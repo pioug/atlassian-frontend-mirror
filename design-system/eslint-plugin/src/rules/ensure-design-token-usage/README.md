@@ -1,5 +1,6 @@
-Using color design tokens enables our experiences to be themed and harmonious.
-All experiences must use these design tokens otherwise when switching between themes unexpected incidents can occur where not all of the UI is themed.
+Using design tokens results in a harmonious experience for end users whilst providing theming and consistency.
+All experiences must use color tokens otherwise when switching between themes, unexpected incidents can occur where not all of the UI is themed.
+Space, typography, and shape tokens are strongly recommended to further align our experiences and make future changes easier.
 
 ## Examples
 
@@ -30,3 +31,40 @@ css({ color: token('color.text.danger') });
 
 css({ boxShadow: token('elevation.shadow.card') });
 ```
+
+### Incorrect
+
+```js
+css({ padding: '16px' });
+                ^^^
+css({ margin: gridSize() });
+              ^^^^^^^^^^
+```
+
+### Correct
+
+```js
+import { token } from '@atlaskit/tokens';
+
+css({ padding: token('space.100') });
+```
+
+## Options
+
+This rule comes with options to aid in migrating to design tokens.
+
+### domains
+
+An array specifiying which token domains to lint against (`color`, `spacing`, `typography`, `shape`). Defaults to [`'color'`] if not provided.
+
+### applyImport
+
+When `true`, the rule when automatically add imports to the `@atlaskit/tokens` package where tokens are auto-fixed. Defaults to `true` if not provided.
+
+### shouldEnforceFallbacks
+
+When `true` the rule will add in stub fallbacks when choosing a suggestion in your IDE. Defaults to `false` if not provided.
+
+### exceptions
+
+An array specifying strings to ingore when linting.

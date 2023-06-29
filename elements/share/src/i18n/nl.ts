@@ -27,25 +27,12 @@ export default {
     "Geen resultaten gevonden voor ''{inputValue}'.",
   'fabric.elements.share.form.user-picker.no-options.generic':
     "Geen resultaten gevonden voor ''{inputValue}'. Nodig personen uit door hun e-mailadres in te voeren.",
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'Voer e-mailadres in',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Voer een naam of team in',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Voer naam, groep, team of e-mailadres in',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Voer een naam, team of e-mailadress in',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'Voer een naam, groep of team in',
   'fabric.elements.share.form.user-picker.validation.required':
     'Selecteer minimaal één gebruiker, groep, team of e-mailadres.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'Kies ten minste één e-mailadres.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Selecteer minimaal één gebruiker, groep of team.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Selecteer minimaal één gebruiker, team of e-mailadres.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Selecteer minimaal één gebruiker of team.',
   'fabric.elements.share.in.integration.button': 'Delen in {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Pagina delen',
   'fabric.elements.share.main.tab.text.jira': 'Issue delen',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {blogpost gedeeld}board {bord gedeeld}calendar {agenda gedeeld}draft {concept gedeeld}filter {filter gedeeld}issue {issue gedeeld}summary {samenvatting gedeeld}list {lijst gedeeld}timeline {tijdlijn gedeeld}form {formulier gedeeld}media {media gedeeld}page {pagina gedeeld}project {project gedeeld}pullrequest {pull request gedeeld}question {vraag gedeeld}report {rapport gedeeld}repository {repository gedeeld}request {aanvraag gedeeld}roadmap {roadmap gedeeld}site {site gedeeld}space {space gedeeld}other {link gedeeld}}',
   'fabric.elements.share.to.integration.button': 'Delen met {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': "Pictogram 'Delen'",
   'fabric.elements.share.trigger.button.invite.text': 'Uitnodigen',

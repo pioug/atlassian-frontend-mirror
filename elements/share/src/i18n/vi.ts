@@ -27,23 +27,11 @@ export default {
     'Chúng tôi không thể tìm thấy bất cứ kết quả nào cho "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Chúng tôi không thể tìm thấy bất cứ kết quả nào cho "{inputValue}". Mời mọi người bằng cách sử dụng địa chỉ email.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'Nhập địa chỉ email',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Nhập tên hoặc nhóm',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Nhập tên, đội, nhóm hoặc email',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Điền tên, nhóm hoặc email',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'Nhập tên, nhóm hoặc đội',
   'fabric.elements.share.form.user-picker.validation.required': 'Chọn ít nhất một người dùng, đội, nhóm hoặc email.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'Chọn ít nhất một email.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Chọn ít nhất một người dùng, nhóm hoặc đội ngũ.',
-  'fabric.elements.share.form.user-picker.validation.required.jira': 'Chọn ít nhất một người dùng, nhóm hoặc email.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Chọn ít nhất một người dùng hoặc đội ngũ.',
   'fabric.elements.share.in.integration.button': 'Chia sẻ trong {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Chia sẻ trang',
   'fabric.elements.share.main.tab.text.jira': 'Chia sẻ vấn đề',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Đã chia sẻ bài đăng trên blog}board {Đã chia sẻ bảng thông tin}calendar {Đã chia sẻ lịch}draft {Đã chia sẻ bản nháp}filter {Đã chia sẻ bộ lọc}issue {Đã chia sẻ vấn đề}summary {Đã chia sẻ bản tóm tắt}list {Đã chia sẻ danh sách}timeline {Đã chia sẻ lịch trình}form {Đã chia sẻ biểu mẫu}media {Đã chia sẻ phương tiện}page {Đã chia sẻ trang}project {Đã chia sẻ dự án}pullrequest {Đã chia sẻ Pull request}question {Đã chia sẻ câu hỏi}report {Đã chia sẻ báo cáo}repository {Đã chia sẻ kho}request {Đã chia sẻ yêu cầu}roadmap {Đã chia sẻ lịch trình dự án}site {Đã chia sẻ trang web}space {Đã chia sẻ không gian}other {Đã chia sẻ liên kết}}',
   'fabric.elements.share.to.integration.button': 'Chia sẻ với {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Biểu tượng chia sẻ',
   'fabric.elements.share.trigger.button.invite.text': 'Mời',

@@ -1,0 +1,3 @@
+This rule is a clone of `ensure-design-token-usage` and is intended to allow you to set some domains to `warn` before they are set to `error` in the main rule.
+
+See `ensure-design-token-usage` for full usage documentation.

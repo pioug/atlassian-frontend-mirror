@@ -28,26 +28,12 @@ export default {
     'Es wurden keine Ergebnisse für „{inputValue}“ gefunden.',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Es wurden keine Ergebnisse für „{inputValue}“ gefunden. Laden Sie Personen mittels E-Mail-Adresse ein.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'E-Mail-Adresse eingeben',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Namen oder Team eingeben',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Namen, Gruppe, Team oder E-Mail-Adresse eingeben',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Namen, Team oder E-Mail-Adresse eingeben',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'Namen, Gruppe oder Team eingeben',
   'fabric.elements.share.form.user-picker.validation.required':
     'Wählen Sie mindestens einen Benutzer, eine Gruppe, ein Team oder eine E-Mail-Adresse aus.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only':
-    'Wählen Sie mindestens eine E-Mail-Adresse aus.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Wählen Sie mindestens einen Benutzer, eine Gruppe oder ein Team aus.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Bitte wählen Sie mindestens einen Benutzer, ein Team oder eine E-Mail-Adresse aus.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Wählen Sie mindestens einen Benutzer oder ein Team aus.',
   'fabric.elements.share.in.integration.button': 'In {integrationName} teilen',
   'fabric.elements.share.main.tab.text.confluence': 'Seite teilen',
   'fabric.elements.share.main.tab.text.jira': 'Vorgang teilen',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Blogpost geteilt}board {Board geteilt}calendar {Kalender geteilt}draft {Entwurf geteilt}filter {Filter geteilt}issue {Vorgang geteilt}summary {Zusammenfassung geteilt}list {Liste geteilt}timeline {Zeitleiste geteilt}form {Formular geteilt}media {Medien geteilt}page {Seite geteilt}project {Projekt geteilt}pullrequest {Pull-Anfrage geteilt}question {Frage geteilt}report {Bericht geteilt}repository {Repository geteilt}request {Anfrage geteilt}roadmap {Roadmap geteilt}site {Site geteilt}space {Bereich geteilt}other {Link geteilt}}',
   'fabric.elements.share.to.integration.button': 'Mit {integrationName} teilen',
   'fabric.elements.share.trigger.button.icon.label': 'Teilen-Symbol',
   'fabric.elements.share.trigger.button.invite.text': 'Einladen',

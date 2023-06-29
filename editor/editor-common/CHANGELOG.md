@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 74.11.0
+
+### Minor Changes
+
+- [`04295e9d5bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04295e9d5bc) - [ux] Updating ORS response to include datasources and facilitating pasting JQL links turning into datasource tables
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 74.10.2
 
 ### Patch Changes

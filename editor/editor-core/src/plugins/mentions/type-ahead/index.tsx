@@ -360,8 +360,9 @@ export const createTypeAheadConfig = ({
         mentionProvider.recordMentionSelection(item.mention, mentionContext);
       }
 
+      // use same timer as StatsModifier
       const pickerElapsedTime = stats.startedAt
-        ? Date.now() - stats.startedAt
+        ? performance.now() - stats.startedAt
         : 0;
 
       if (
@@ -442,7 +443,7 @@ export const createTypeAheadConfig = ({
     dismiss({ editorState, query, stats, wasItemInserted }) {
       firstQueryWithoutResults = null;
       const pickerElapsedTime = stats.startedAt
-        ? Date.now() - stats.startedAt
+        ? performance.now() - stats.startedAt
         : 0;
 
       if (!wasItemInserted) {

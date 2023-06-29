@@ -346,13 +346,17 @@ describe('Avatar', () => {
   });
 
   it('should show a presence indicator if provided', () => {
-    const { queryByTestId } = render(<Avatar testId={'avatar'} presence />);
+    const { queryByTestId } = render(
+      <Avatar testId={'avatar'} presence="busy" />,
+    );
 
     expect(queryByTestId('avatar--presence')).toBeTruthy();
   });
 
   it('should keep presence out of the accessibility tree', () => {
-    const { queryByTestId } = render(<Avatar testId={'avatar'} presence />);
+    const { queryByTestId } = render(
+      <Avatar testId={'avatar'} presence="offline" />,
+    );
 
     expect(queryByTestId('avatar--presence')).toHaveAttribute(
       'aria-hidden',
@@ -378,13 +382,17 @@ describe('Avatar', () => {
   });
 
   it('should show a status indicator if provided', () => {
-    const { queryByTestId } = render(<Avatar testId={'avatar'} status />);
+    const { queryByTestId } = render(
+      <Avatar testId={'avatar'} status="approved" />,
+    );
 
     expect(queryByTestId('avatar--status')).toBeTruthy();
   });
 
   it('should keep status out of the accessibility tree', () => {
-    const { queryByTestId } = render(<Avatar testId={'avatar'} status />);
+    const { queryByTestId } = render(
+      <Avatar testId={'avatar'} status="declined" />,
+    );
 
     expect(queryByTestId('avatar--status')).toHaveAttribute(
       'aria-hidden',
@@ -405,7 +413,7 @@ describe('Avatar', () => {
 
   it('should show only a status indicator if both presence and status are provided', () => {
     const { queryByTestId } = render(
-      <Avatar testId={'avatar'} presence status />,
+      <Avatar testId={'avatar'} presence="busy" status="declined" />,
     );
 
     expect(queryByTestId('avatar--status')).toBeTruthy();

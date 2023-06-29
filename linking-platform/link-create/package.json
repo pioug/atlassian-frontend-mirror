@@ -60,7 +60,7 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/link-create-confluence": "^8.1.0",
     "@atlassian/link-create-presets": "^6.0.0",
-    "@atlassian/link-picker-atlassian-plugin": "^34.0.0",
+    "@atlassian/link-picker-atlassian-plugin": "^34.1.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "fetch-mock": "^8.0.0",

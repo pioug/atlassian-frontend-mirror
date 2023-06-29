@@ -1,18 +1,16 @@
 import React, { Fragment } from 'react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 import { Placement } from '../src/types';
 
-const gridStyles: React.CSSProperties = {
+const gridStyles = xcss({
   display: 'grid',
   height: '100vh',
   gridTemplateColumns: 'repeat(3, 1fr)',
-};
+});
 
 const ExampleDropdown = ({
   numItems = 3,
@@ -28,7 +26,7 @@ const ExampleDropdown = ({
     dropdownItems.push(<DropdownItem key={i}>Edit</DropdownItem>);
   }
   return (
-    <Box display="block">
+    <Box>
       <Text as="p">{description}</Text>
       <DropdownMenu trigger={placement} defaultOpen placement={placement}>
         <DropdownItemGroup>{dropdownItems}</DropdownItemGroup>
@@ -39,7 +37,7 @@ const ExampleDropdown = ({
 
 const DropdownMenuDefaultExample = () => {
   return (
-    <Box UNSAFE_style={gridStyles}>
+    <Box xcss={gridStyles}>
       <ExampleDropdown
         description={
           <Fragment>
@@ -76,7 +74,7 @@ const DropdownMenuDefaultExample = () => {
         description="Natural bottom-end behavior"
         placement="bottom-end"
       />
-      <Box display="block">
+      <Box>
         <ExampleDropdown placement="top" />
         <Text>Natural top behavior</Text>
       </Box>

@@ -26,36 +26,54 @@ export const mockContext = {
   schema: 'http://schema.org/',
 } as const;
 
+const jsonLdResponse = {
+  meta: {
+    visibility: 'public',
+    access: 'granted',
+    auth: [],
+    definitionId: 'd1',
+    key: 'object-provider',
+  },
+  data: {
+    '@context': {
+      '@vocab': 'https://www.w3.org/ns/activitystreams#',
+      atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+      schema: 'http://schema.org/',
+    },
+    '@type': 'Object',
+    name: 'I love cheese',
+    summary: 'Here is your serving of cheese: 🧀',
+    'schema:potentialAction': {
+      '@id': 'comment',
+      '@type': 'CommentAction',
+      identifier: 'object-provider',
+      name: 'Comment',
+    },
+    preview: {
+      href: 'https://www.ilovecheese.com',
+    },
+    url: 'https://some.url',
+  },
+};
+
 export const mocks = {
-  success: {
-    meta: {
-      visibility: 'public',
-      access: 'granted',
-      auth: [],
-      definitionId: 'd1',
-      key: 'object-provider',
-    },
-    data: {
-      '@context': {
-        '@vocab': 'https://www.w3.org/ns/activitystreams#',
-        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-        schema: 'http://schema.org/',
+  success: jsonLdResponse as JsonLd.Response,
+  datasourceSuccess: {
+    ...jsonLdResponse,
+    datasources: [
+      {
+        key: 'datasource-jira-issues',
+        parameters: {
+          jql: 'ORDER BY assignee DESC',
+          cloudId: 'a957adff-45b0-4f4f-8669-b640ed9973b6',
+        },
+        id: 'd8b75300-dfda-4519-b6cd-e49abbd50401',
+        ari: 'ari:cloud:linking-platform::datasource/d8b75300-dfda-4519-b6cd-e49abbd50401',
+        description: 'For extracting a list of Jira issues using JQL',
+        name: 'Jira issues',
       },
-      '@type': 'Object',
-      name: 'I love cheese',
-      summary: 'Here is your serving of cheese: 🧀',
-      'schema:potentialAction': {
-        '@id': 'comment',
-        '@type': 'CommentAction',
-        identifier: 'object-provider',
-        name: 'Comment',
-      },
-      preview: {
-        href: 'https://www.ilovecheese.com',
-      },
-      url: 'https://some.url',
-    },
-  } as JsonLd.Response,
+    ],
+  },
   searchSuccess: {
     meta: {
       visibility: 'public',

@@ -27,26 +27,12 @@ export default {
     'Nincs találat a következő keresésre: „{inputValue}”.',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Nincs találat a következő keresésre: „{inputValue}”. Hívj meg embereket az e-mail-címük alapján.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'E-mail-cím megadása',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Add meg a nevet vagy csapatot',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Név, csoport, csapat vagy e-mail-cím megadása',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Írd be a nevet, a csapatot vagy az e-mail-címet',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
-    'Add meg a nevet, csoportot vagy csapatot',
   'fabric.elements.share.form.user-picker.validation.required':
     'Válassz ki legalább egy felhasználót, csoportot, csapatot vagy e-mail-címet.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'Legalább egy e-mail-címet válassz ki.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Válassz ki legalább egy felhasználót, csoportot vagy csapatot.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Válassz ki legalább egy felhasználót, csapatot vagy e-mail-címet.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Válassz ki legalább egy felhasználót vagy csapatot.',
   'fabric.elements.share.in.integration.button': 'Megosztás itt: {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Oldal megosztása',
   'fabric.elements.share.main.tab.text.jira': 'Ügy megosztása',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Blogposzt megosztva}board {Tábla megosztva}calendar {Naptár megosztva}draft {Piszkozat megosztva}filter {Szűrő megosztva}issue {Ügy megosztva}summary {Összefoglaló megosztva}list {Lista megosztva}timeline {Idővonal megosztva}form {Űrlap megosztva}media {Média megosztva}page {Oldal megosztva}project {Projekt megosztva}pullrequest {Pull-kérelem megosztva}question {Kérdés megosztva}report {Jelentés megosztva}repository {Adattár megosztva}request {Kérelem megosztva}roadmap {Útvonalterv megosztva}site {Webhely megosztva}space {Munkatér megosztva}other {Link megosztva}}',
   'fabric.elements.share.to.integration.button': 'Megosztás itt: {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Ikon megosztása',
   'fabric.elements.share.trigger.button.invite.text': 'Meghívás',

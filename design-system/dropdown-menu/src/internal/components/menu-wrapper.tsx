@@ -7,11 +7,11 @@ import {
   useLayoutEffect,
 } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import MenuGroup from '@atlaskit/menu/menu-group';
+import { Box, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
-import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { FocusableElement, MenuWrapperProps } from '../../types';
@@ -19,10 +19,10 @@ import { FocusManagerContext } from '../components/focus-manager';
 import isCheckboxItem from '../utils/is-checkbox-item';
 import isRadioItem from '../utils/is-radio-item';
 
-const spinnerContainerStyles = css({
+const spinnerContainerStyles = xcss({
   display: 'flex',
   minWidth: '160px',
-  padding: token('space.250', '20px'),
+  padding: 'space.250',
   justifyContent: 'center',
 });
 
@@ -31,10 +31,10 @@ const LoadingIndicator = ({
 }: {
   statusLabel: MenuWrapperProps['statusLabel'];
 }) => (
-  <div css={spinnerContainerStyles}>
+  <Box xcss={spinnerContainerStyles}>
     <Spinner size="small" />
     <VisuallyHidden role="status">{statusLabel}</VisuallyHidden>
-  </div>
+  </Box>
 );
 /**
  *

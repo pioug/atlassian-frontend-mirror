@@ -10,7 +10,14 @@ import type { LintRule } from '../src/rules/utils/create-rule';
 
 interface FoundRule {
   module: LintRule;
+  /**
+   * Same as the directory name
+   */
   moduleName: string;
+  /**
+   *  Friendly name that can include special characters
+   */
+  ruleName: string;
 }
 
 interface GeneratedConfig {
@@ -22,11 +29,11 @@ interface GeneratedConfig {
  * After moving the rule to the new createLintRule API remove it from this list.
  */
 const legacyRulesExclusionList = [
-  'ensure-design-token-usage-spacing',
   'no-deprecated-apis',
   'no-deprecated-imports',
 ];
 const ignoreList = ['index.codegen.tsx', 'TEMPLATE.md', '__tests__', 'utils'];
+const ruleNameExceptionList = ['ensure-design-token-usage/preview'];
 const srcDir = join(__dirname, '../src');
 const rulesDir = join(srcDir, 'rules');
 const presetsDir = join(srcDir, 'presets');
@@ -63,7 +70,7 @@ async function generateConfig(name: string, rules: FoundRule[]) {
               severity ??
               (typeof recommended === 'string' ? String(recommended) : 'error');
 
-            return `'@atlaskit/design-system/${rule.moduleName}': '${calculatedSeverity}'`;
+            return `'@atlaskit/design-system/${rule.ruleName}': '${calculatedSeverity}'`;
           })
           .join(',')}
       },
@@ -109,7 +116,7 @@ async function generateRuleIndex(rules: FoundRule[]) {
 
     export default {
     ${rules
-      .map((rule) => `'${rule.moduleName}': ${camelCase(rule.moduleName)}`)
+      .map((rule) => `'${rule.ruleName}': ${camelCase(rule.moduleName)}`)
       .join(',')}
     }
   `;
@@ -158,7 +165,7 @@ async function generateRulesPageContent(
 
     const ruleContent =
       // Inject a second level heading for the rule
-      `## ${rule.moduleName}\n` +
+      `## ${rule.ruleName}\n` +
       // Increase all found headings by one
       file
         .replace(/(##+) /g, (match) => `#${match}`)
@@ -210,7 +217,7 @@ async function generateRuleTable(
       docsPath = `#${rule.moduleName}`;
     }
 
-    const row = `| ${link(rule.moduleName, docsPath)} | ${
+    const row = `| ${link(rule.ruleName, docsPath)} | ${
       rule.module.meta?.docs?.description || ''
     } | ${conditional(
       'Yes',
@@ -270,14 +277,17 @@ async function generate() {
     const foundRule = {
       module: rule,
       moduleName: dirname,
+      ruleName: rule.name || rule.meta.name,
     };
 
-    const lintRuleName = foundRule.module.name || foundRule.module.meta.name;
-    if (typeof lintRuleName === 'string') {
-      if (foundRule.moduleName !== lintRuleName) {
-        throw new Error(
-          `invariant: module name ${foundRule.moduleName} does not match lint rule name ${lintRuleName}`,
-        );
+    if (typeof foundRule.ruleName === 'string') {
+      // Exception list exists to support nested rules (e.g. ensure-design-token-usage/preview)
+      if (!ruleNameExceptionList.includes(foundRule.ruleName)) {
+        if (foundRule.moduleName !== foundRule.ruleName) {
+          throw new Error(
+            `invariant: module name ${foundRule.moduleName} does not match lint rule name ${foundRule.ruleName}`,
+          );
+        }
       }
     } else {
       if (legacyRulesExclusionList.includes(foundRule.moduleName)) {
@@ -290,6 +300,7 @@ async function generate() {
           `  > invariant: The ${foundRule.moduleName} rule must use the createLintRule() function.`,
         );
       }
+      foundRule.ruleName = foundRule.moduleName;
     }
 
     rules.push(foundRule);

@@ -12,7 +12,7 @@ export type {
   ServerActionPayload,
   MetadataStatus,
   EnvironmentsKeys,
-  DatasourceAdf,
+  Datasource,
   DatasourceAdfView,
   DatasourceAdfTableView,
 } from './types';
@@ -22,6 +22,7 @@ export type {
   InlineCardAdf,
   BlockCardAdf,
   EmbedCardAdf,
+  DatasourceAdf,
 } from './types';
 
 export { extractUrlFromLinkJsonLd, extractPreview } from './extractors';

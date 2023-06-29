@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives';
 
 import DropdownMenu, {
   DropdownItem,
@@ -10,7 +10,7 @@ import DropdownMenu, {
 } from '../src';
 
 export default () => (
-  <div style={{ padding: token('space.150', '12px') }}>
+  <Box padding="space.150">
     <DropdownMenu testId="dropdown" isOpen trigger="Filter cities">
       <DropdownItemGroup>
         <DropdownItemCheckbox id="checkbox" isSelected>
@@ -22,5 +22,5 @@ export default () => (
         <DropdownItem isSelected>Item</DropdownItem>
       </DropdownItemGroup>
     </DropdownMenu>
-  </div>
+  </Box>
 );

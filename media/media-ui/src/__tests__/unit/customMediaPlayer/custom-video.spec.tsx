@@ -971,7 +971,7 @@ describe('<CustomMediaPlayer />', () => {
     const assertPayload = (
       actualPayload: any,
       payload: {
-        action: 'clicked' | 'pressed' | 'changed' | 'navigated';
+        action: 'clicked' | 'pressed' | 'changed' | 'navigated' | 'firstPlayed';
         actionSubject: string;
         actionSubjectId?: string;
       },
@@ -979,7 +979,7 @@ describe('<CustomMediaPlayer />', () => {
     ) => {
       expect(actualPayload).toEqual(
         expect.objectContaining({
-          eventType: 'ui',
+          eventType: expect.stringMatching(/(ui|track)/i),
           ...payload,
           attributes: expect.objectContaining({
             ...attributes,
@@ -1407,6 +1407,55 @@ describe('<CustomMediaPlayer />', () => {
         },
       );
     });
+
+    it('should fire firstPlayed event when inline player is loaded with auto play', () => {
+      const { getUIAnalyticsEventDetails } = setup({
+        isAutoPlay: true,
+        onFirstPlay: () => {},
+      });
+
+      const { payload } = getUIAnalyticsEventDetails();
+
+      assertPayload(
+        payload,
+        {
+          action: 'firstPlayed',
+          actionSubject: 'customMediaPlayer',
+          actionSubjectId: 'some-file-id',
+        },
+        {
+          type: 'video',
+          fileAttributes: {
+            fileId: 'some-file-id',
+          },
+        },
+      );
+    });
+
+    it('should fire firstPlayed event when play button in inline player is clicked for the first time', () => {
+      const { triggerPlay, getUIAnalyticsEventDetails } = setup({
+        onFirstPlay: () => {},
+      });
+
+      triggerPlay();
+
+      const { payload } = getUIAnalyticsEventDetails();
+
+      assertPayload(
+        payload,
+        {
+          action: 'firstPlayed',
+          actionSubject: 'customMediaPlayer',
+          actionSubjectId: 'some-file-id',
+        },
+        {
+          type: 'video',
+          fileAttributes: {
+            fileId: 'some-file-id',
+          },
+        },
+      );
+    });
   });
 
   describe('on toggle fullscreen', () => {
@@ -1612,6 +1661,7 @@ describe('<CustomMediaPlayer />', () => {
     });
   });
   it('ControlsWrapper should be visible when a video does not have autoplay, until it has been played for the first time as then it should be hidden', async () => {
+    getControlsWrapperClassName.mockClear();
     const component = mountWithIntlContext<
       CustomMediaPlayerProps,
       CustomMediaPlayerState,

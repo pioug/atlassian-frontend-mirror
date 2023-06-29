@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 108.4.0
+
+### Minor Changes
+
+- [`5462d0142c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5462d0142c7) - [ux] Updating ORS response to include datasources and faciliating pasting JQL links turning into datasource tables
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.3.2
 
 ### Patch Changes

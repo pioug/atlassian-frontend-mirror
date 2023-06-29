@@ -28,26 +28,12 @@ export default {
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly': 'Nessun risultato trovato per “{inputValue}”.',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Nessun risultato trovato per “{inputValue}”. Invita le persone inserendo il loro indirizzo e-mail.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': "Inserisci l'indirizzo e-mail",
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Inserisci nome o team',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Inserisci nome, gruppo, team o e-mail',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Inserisci nome, team o indirizzo e-mail',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
-    'Inserisci il nome, il gruppo o il team',
   'fabric.elements.share.form.user-picker.validation.required':
     "Seleziona almeno un utente, un gruppo, un team o un'e-mail.",
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'Seleziona almeno un indirizzo e-mail.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Seleziona almeno un utente, un gruppo o un team.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Seleziona almeno un utente, un team o un indirizzo e-mail.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Seleziona almeno un utente o un team.',
   'fabric.elements.share.in.integration.button': 'Condividi in {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Condividi pagina',
   'fabric.elements.share.main.tab.text.jira': 'Condividi ticket',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Post del blog condiviso}board {Board condivisa}calendar {Calendario condiviso}draft {Bozza condivisa}filter {Filtro condiviso}issue {Ticket condiviso}summary {Riepilogo condiviso}list {Elenco condiviso}timeline {Timeline condivisa}form {Modulo condiviso}media {Elemento multimediale condiviso}page {Pagina condiviso}project {Progetto condiviso}pullrequest {Pull request condivisa}question {Domanda condivisa}report {Report condiviso}repository {Repository condiviso}request {Richiesta condivisa}roadmap {Roadmap condivisa}site {Sito condiviso}space {Spazio condiviso}other {Link condiviso}}',
   'fabric.elements.share.to.integration.button': 'Condividi in {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Icona Condividi',
   'fabric.elements.share.trigger.button.invite.text': 'Invita',

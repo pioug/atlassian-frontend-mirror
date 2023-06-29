@@ -7,7 +7,7 @@ module.exports = {
         '@atlaskit/design-system/no-deprecated-design-token-usage': ['warn'],
         '@atlaskit/design-system/ensure-design-token-usage': [
           'error',
-          { shouldEnforceFallbacks: true },
+          { domains: ['color'], shouldEnforceFallbacks: true },
         ],
       },
     },

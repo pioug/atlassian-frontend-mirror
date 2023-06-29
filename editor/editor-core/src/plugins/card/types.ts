@@ -10,7 +10,6 @@ import {
 } from '@atlaskit/analytics-next';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
-
 import { LinkPickerOptions } from '@atlaskit/editor-common/types';
 
 export type CardInfo = {

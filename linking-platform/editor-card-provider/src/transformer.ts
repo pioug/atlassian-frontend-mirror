@@ -4,6 +4,8 @@ import {
   CardAdf,
   EmbedCardAdf,
   InlineCardAdf,
+  DatasourceAdf,
+  Datasource,
 } from '@atlaskit/linking-common';
 
 export class Transformer {
@@ -35,7 +37,20 @@ export class Transformer {
     };
   }
 
-  toAdf(url: string, appearance: CardAppearance): CardAdf {
+  private buildDatasourceAdf(
+    datasource: Datasource,
+    url?: string,
+  ): DatasourceAdf {
+    return {
+      type: 'blockCard',
+      attrs: {
+        url,
+        datasource,
+      },
+    };
+  }
+
+  toSmartlinkAdf(url: string, appearance: CardAppearance): CardAdf {
     switch (appearance) {
       case 'inline':
         return this.buildInlineAdf(url);
@@ -44,5 +59,9 @@ export class Transformer {
       case 'embed':
         return this.buildEmbedAdf(url);
     }
+  }
+
+  toDatasourceAdf(datasource: Datasource, url?: string): DatasourceAdf {
+    return this.buildDatasourceAdf(datasource, url);
   }
 }

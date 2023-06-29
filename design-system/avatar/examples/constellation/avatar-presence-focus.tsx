@@ -1,13 +1,9 @@
 import React from 'react';
 
-import { Presence } from '../../src';
+import Avatar from '../../src';
 
 const AvatarPresenceFocusExample = () => {
-  return (
-    <div style={{ width: 24 }}>
-      <Presence presence="focus" />
-    </div>
-  );
+  return <Avatar presence="focus" />;
 };
 
 export default AvatarPresenceFocusExample;

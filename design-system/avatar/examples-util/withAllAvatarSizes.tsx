@@ -7,7 +7,7 @@ import { AppearanceType } from '../src/types';
 import { Block } from './helpers';
 
 interface WithAllAvatarSizesProps {
-  presence?: React.ReactNode;
+  presence?: JSX.Element;
   appearance?: AppearanceType;
 }
 

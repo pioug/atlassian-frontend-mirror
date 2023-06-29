@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 23.1.1
+
+### Patch Changes
+
+- [`183fdc63b26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/183fdc63b26) - MEX-2467 Fix firstPlayed track event firing when autoPlay is false
+
 ## 23.1.0
 
 ### Minor Changes

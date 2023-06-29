@@ -27,25 +27,12 @@ export default {
     'Pro „{inputValue}“ se nepodařilo najít žádné výsledky.',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Pro „{inputValue}“ se nepodařilo najít žádné výsledky. Pozvěte lidi pomocí jejich e-mailové adresy.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'Zadejte e-mail.',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Zadejte jméno nebo tým',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Zadejte jméno, skupinu, tým nebo e-mail',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Zadejte jméno, tým nebo e-mail',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'Zadejte jméno, skupinu nebo tým.',
   'fabric.elements.share.form.user-picker.validation.required':
     'Vyberte alespoň jednoho uživatele, skupinu, tým nebo e-mail.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'Vyberte alespoň jeden e-mail.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Vyberte alespoň jednoho uživatele, skupinu nebo tým.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Vyberte alespoň jednoho uživatele, tým nebo e-mail.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Vyberte alespoň jednoho uživatele nebo tým.',
   'fabric.elements.share.in.integration.button': 'Sdílet v: {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Sdílet stránku',
   'fabric.elements.share.main.tab.text.jira': 'Sdílet požadavek',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Příspěvek na blogu byl sdílen}board {Board byl sdílen}calendar {Kalendář byl sdílen}draft {Koncept byl sdílen}filter {Filtr byl sdílen}issue {Požadavek byl sdílen}summary {Souhrn byl sdílen}list {Seznam byl sdílen}timeline {Časová osa byla sdílena}form {Formulář byl sdílen}media {Multimédia byla sdílena}page {Stránka byla sdílena}project {Projekt byl sdílen}pullrequest {Pull request byl sdílen}question {Otázka byla sdílena}report {Sestava byla sdílena}repository {Repozitář byl sdílen}request {Žádost byla sdílena}roadmap {Roadmapa byla sdílena}site {Web byl sdílen}space {Prostor byl sdílen}other {Odkaz byl sdílen}}',
   'fabric.elements.share.to.integration.button': 'Sdílet ve službě {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Ikona sdílení',
   'fabric.elements.share.trigger.button.invite.text': 'Pozvat',

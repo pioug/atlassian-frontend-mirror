@@ -1,5 +1,11 @@
 # @atlaskit/avatar
 
+## 21.3.5
+
+### Patch Changes
+
+- [`342bd17ba74`](https://bitbucket.org/atlassian/atlassian-frontend/commits/342bd17ba74) - Fix presence and status props being expanded to all strings instead of the allowed values.
+
 ## 21.3.4
 
 ### Patch Changes

@@ -17,6 +17,7 @@
 ```ts
 import { CardAdf } from '@atlaskit/linking-common';
 import { CardAppearance } from '@atlaskit/linking-common';
+import { DatasourceAdf } from '@atlaskit/linking-common';
 
 // @public (undocumented)
 const BaseUrls: {
@@ -49,7 +50,7 @@ export class EditorCardProvider implements CardProvider {
     url: string,
     appearance: CardAppearance,
     shouldForceAppearance?: boolean,
-  ): Promise<CardAdf>;
+  ): Promise<CardAdf | DatasourceAdf>;
 }
 
 // @public (undocumented)

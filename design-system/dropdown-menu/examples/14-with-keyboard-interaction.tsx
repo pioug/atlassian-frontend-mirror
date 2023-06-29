@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
 import ModalDialog, {
   ModalBody,
@@ -9,6 +8,7 @@ import ModalDialog, {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { Box } from '@atlaskit/primitives';
 import Stack from '@atlaskit/primitives/stack';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';

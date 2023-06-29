@@ -27,25 +27,12 @@ export default {
     'Vi kunne ikke finne noen resultater for "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Vi kunne ikke finne noen resultater for "{inputValue}". Inviter personer ved å bruke en e-postadresse.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'Angi e-postadresse',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Skriv inn navn eller team',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Skriv inn navn, gruppe, team eller e-post',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Skriv inn navn, team eller e-postadresse',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'Angi navn, gruppe eller team',
   'fabric.elements.share.form.user-picker.validation.required':
     'Velg minst én bruker, gruppe eller e-post eller minst ett team.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'Velg minst én e-postadresse.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Velg minst én bruker, gruppe eller ett team.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Velg minst én bruker, arbeidsgruppe eller e-postadresse.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Velg minst én bruker eller ett team.',
   'fabric.elements.share.in.integration.button': 'Del i {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Del side',
   'fabric.elements.share.main.tab.text.jira': 'Del sak',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Blogginnlegg er delt}board {Tavle er delt}calendar {Kalender er delt}draft {Utkast er delt}filter {Filter er delt}issue {Sak er delt}summary {Sammendrag er delt}list {Liste er delt}timeline {Tidslinje er delt}form {Skjema er delt}media {Medier er delt}page {Side er delt}project {Prosjekt er delt}pullrequest {Pull-forespørsel er delt}question {Spørsmål er delt}report {Rapport er delt}repository {Repositorium er delt}request {Forespørsel er delt}roadmap {Veikart er delt}site {Nettsted er delt}space {Område er delt}other {Kobling er delt}}',
   'fabric.elements.share.to.integration.button': 'Del til {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Dele-ikon',
   'fabric.elements.share.trigger.button.invite.text': 'Inviter',

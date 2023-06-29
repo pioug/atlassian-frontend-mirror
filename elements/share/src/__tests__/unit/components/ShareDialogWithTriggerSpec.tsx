@@ -43,14 +43,6 @@ jest.mock('../../../components/LazyShareForm/lazy', () => {
   return jest.requireActual('../../../components/LazyShareForm/LazyShareForm');
 });
 
-jest.mock('../../../components/localStorageUtils.ts', () => {
-  return {
-    getIsOnboardingDismissed: jest.fn(() => {
-      return 'no';
-    }),
-    setIsOnboardingDismissed: jest.fn(),
-  };
-});
 mockPopper();
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;

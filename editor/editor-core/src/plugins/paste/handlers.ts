@@ -26,7 +26,7 @@ import uuid from 'uuid/v4';
 
 import { MentionAttributes } from '@atlaskit/adf-schema';
 import { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
-import { CardAdf, CardAppearance } from '@atlaskit/smart-card';
+import { CardAdf, DatasourceAdf, CardAppearance } from '@atlaskit/smart-card';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
 
 import { Command, CommandDispatch } from '../../types';
@@ -613,7 +613,7 @@ async function getSmartLinkAdf(
   text: string,
   type: CardAppearance,
   cardOptions: CardOptions,
-): Promise<CardAdf> {
+): Promise<CardAdf | DatasourceAdf> {
   if (!cardOptions.provider) {
     throw Error('No card provider found');
   }

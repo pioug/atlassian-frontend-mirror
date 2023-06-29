@@ -27,6 +27,7 @@ export interface LintRuleMeta extends Omit<Rule.RuleMetaData, 'docs'> {
   /**
    * Name of the rule.
    * Must match the folder it is in exactly else build will throw.
+   * Add an exception in codegen.tsx for nested rules.
    */
   name: string;
   docs: {
@@ -57,7 +58,8 @@ export interface LintRuleMeta extends Omit<Rule.RuleMetaData, 'docs'> {
  * as well as improving type support.
  */
 export const createLintRule = (rule: LintRule) => {
-  const url = `https://atlassian.design/components/eslint-plugin-design-system/usage#${rule.meta.name}`;
+  const ruleName = rule.meta.name.replace('/', ''); // If it's a nested rule, ensure the url is clean
+  const url = `https://atlassian.design/components/eslint-plugin-design-system/usage#${ruleName}`;
 
   (rule.meta.docs as Record<string, unknown>).url = url;
 

@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 3.1.0
+
+### Minor Changes
+
+- [`04295e9d5bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04295e9d5bc) - [ux] Updating ORS response to include datasources and facilitating pasting JQL links turning into datasource tables
+
 ## 3.0.1
 
 ### Patch Changes

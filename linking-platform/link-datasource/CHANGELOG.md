@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.25.1
+
+### Patch Changes
+
+- [`64bdd3a389b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/64bdd3a389b) - Style changes and translation updates. Also remove IntlProvider from prode code.
+
 ## 0.25.0
 
 ### Minor Changes

@@ -1,5 +1,45 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 7.0.0
+
+### Major Changes
+
+- [`177c8c14160`](https://bitbucket.org/atlassian/atlassian-frontend/commits/177c8c14160) - Merged the `ensure-design-token-usage` and `ensure-design-token-usage-spacing` rules into a single rule: `ensure-design-token-usage`. This rule enforces color and space tokens and will be extended to enforce domains such as typography and shape in the future. The rule accepts a `domains` option which allows you to specify which domains to lint, currently defaulting to 'color' and 'space'. This rule defaults to `error`.
+
+  To update to this version:
+
+  - If you are using the `ensure-design-token-usage` rule, add the `domains` property with a value of `['color']`:
+
+    ```js
+    rules: {
+      '@atlaskit/design-system/ensure-design-token-usage': [
+        'error',
+        {
+          domains: ['color'],
+          shouldEnforceFallbacks: false
+        },
+      ],
+    },
+    ```
+
+  - If you are using the `ensure-design-token-usage-spacing` rule, remove any references to it and add `'spacing'` to the domains array above.
+
+    ```js
+    rules: {
+      '@atlaskit/design-system/ensure-design-token-usage': [
+        'error',
+        {
+          domains: ['color', 'spacing'],
+          shouldEnforceFallbacks: false
+        },
+      ],
+    },
+    ```
+
+  - If you are not using either of these rules, no changes are required.
+
+  Added a new rule `ensure-design-token-usage/preview` which is a direct clone of `ensure-design-token-usage`, but defaults to `warn`. Through this rule you can specify domains to enforce tokens for, but with a warning rather than a blocking error. This is intended to ease the introduction of certain tokens into a codebase.
+
 ## 6.2.1
 
 ### Patch Changes

@@ -13,6 +13,13 @@ import AvatarMedium from '../../examples/constellation/avatar-medium';
 import AvatarLarge from '../../examples/constellation/avatar-large';
 import AvatarXLarge from '../../examples/constellation/avatar-x-large';
 import AvatarXXLarge from '../../examples/constellation/avatar-x-x-large';
+import AvatarBusy from '../../examples/constellation/avatar-presence-busy';
+import AvatarFocus from '../../examples/constellation/avatar-presence-focus';
+import AvatarOffline from '../../examples/constellation/avatar-presence-offline';
+import AvatarOnline from '../../examples/constellation/avatar-presence-online';
+import AvatarApproved from '../../examples/constellation/avatar-status-approved';
+import AvatarDeclined from '../../examples/constellation/avatar-status-declined';
+import AvatarLocked from '../../examples/constellation/avatar-status-locked';
 
 ## Default
 
@@ -43,6 +50,43 @@ Set `isDisabled` to disable an avatar that is not usable. This sets the avatar i
 Avoid using disabled UI, as it can cause accessibility problems.
 
 <Example Component={AvatarDisabled} packageName="@atlaskit/avatar" />
+
+## Status
+
+Indicates contextual information by showing a small icon on the avatar.
+Takes precedence over presence.
+
+### Approved
+
+<Example Component={AvatarApproved} packageName="@atlaskit/avatar" />
+
+### Declined
+
+<Example Component={AvatarDeclined} packageName="@atlaskit/avatar" />
+
+### Locked
+
+<Example Component={AvatarLocked} packageName="@atlaskit/avatar" />
+
+## Presence
+
+Indicates a user's online status by showing a small icon on the avatar.
+
+### Busy
+
+<Example Component={AvatarBusy} packageName="@atlaskit/avatar" />
+
+### Focus
+
+<Example Component={AvatarFocus} packageName="@atlaskit/avatar" />
+
+### Offline
+
+<Example Component={AvatarOffline} packageName="@atlaskit/avatar" />
+
+### Online
+
+<Example Component={AvatarOnline} packageName="@atlaskit/avatar" />
 
 ## Size
 

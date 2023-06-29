@@ -13,6 +13,7 @@ export type {
   InlineCardAdf,
   BlockCardAdf,
   EmbedCardAdf,
+  DatasourceAdf,
 } from '@atlaskit/linking-common';
 export { APIError } from '@atlaskit/linking-common';
 export { CardClient as Client } from '@atlaskit/link-provider';

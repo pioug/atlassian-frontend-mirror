@@ -94,7 +94,6 @@ export interface DatasourceAdfTableView {
     columns: { key: string }[];
   };
 }
-
 // TODO Remove me when next View be added. I am here as an example of intent
 // export interface DatasourceAdfSomethingView {
 //   type: 'something';
@@ -103,6 +102,12 @@ export interface DatasourceAdfTableView {
 //   };
 // }
 
+export interface Datasource {
+  id: string;
+  parameters: object;
+  views: DatasourceAdfView[];
+}
+
 export type DatasourceAdfView =
   DatasourceAdfTableView /*| DatasourceAdfSomethingView*/;
 
@@ -110,11 +115,7 @@ export interface DatasourceAdf {
   type: 'blockCard';
   attrs: {
     url?: string;
-    datasource: {
-      id: string;
-      parameters: object;
-      views: DatasourceAdfView[];
-    };
+    datasource: Datasource;
   };
 }
 export type CardAdf = InlineCardAdf | BlockCardAdf | EmbedCardAdf;

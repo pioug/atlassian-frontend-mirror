@@ -11,6 +11,7 @@ import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   CardAdf,
+  DatasourceAdf,
   CardAppearance,
 } from '@atlaskit/editor-common/provider-factory';
 import {
@@ -88,7 +89,7 @@ function replaceLinksToCards(
 export const replaceQueuedUrlWithCard =
   (
     url: string,
-    cardData: CardAdf,
+    cardData: CardAdf | DatasourceAdf,
     analyticsAction?: ACTION,
     editorAnalyticsApi?: EditorAnalyticsAPI,
   ): Command =>

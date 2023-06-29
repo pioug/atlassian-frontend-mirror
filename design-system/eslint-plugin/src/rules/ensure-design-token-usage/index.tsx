@@ -1,406 +1,357 @@
 import type { Rule } from 'eslint';
-import { node as generate, isNodeOfType, Property } from 'eslint-codemod-utils';
+import {
+  EslintNode,
+  ImportDeclaration,
+  isNodeOfType,
+  ObjectExpression,
+} from 'eslint-codemod-utils';
 
 import { createLintRule } from '../utils/create-rule';
-import { getIsException } from '../utils/get-is-exception';
+import { includesHardCodedColor } from '../utils/is-color';
 import {
-  includesHardCodedColor,
-  isColorCssPropertyName,
-  isHardCodedColor,
-  isLegacyColor,
-  isLegacyNamedColor,
-} from '../utils/is-color';
-import { isLegacyElevation } from '../utils/is-elevation';
-import {
-  isChildOfType,
   isDecendantOfGlobalToken,
   isDecendantOfStyleBlock,
   isDecendantOfType,
 } from '../utils/is-node';
 
-type PluginConfig = {
-  shouldEnforceFallbacks: boolean;
-  /**
-   * List of exceptions that can be configured for the rule to always ignore.
-   */
-  exceptions?: string[];
-};
+import {
+  lintJSXIdentifierForColor,
+  lintJSXLiteralForColor,
+  lintJSXMemberForColor,
+  lintObjectForColor,
+  lintTemplateIdentifierForColor,
+} from './color';
+import ruleMeta from './rule-meta';
+import { lintObjectForSpacing } from './spacing';
+import {
+  convertHyphenatedNameToCamelCase,
+  emToPixels,
+  findParentNodeForLine,
+  getDomainsForProperty,
+  getFontSizeFromNode,
+  getFontSizeValueInScope,
+  getTokenReplacement,
+  getValueFromShorthand,
+  includesTokenString,
+  insertTokensImport,
+  isAuto,
+  isTokenValueString,
+  isValidSpacingValue,
+  isZero,
+  processCssNode,
+  replacementComment,
+  splitShorthandValues,
+} from './spacing-utils';
+import { RuleConfig } from './types';
 
-const defaultConfig: PluginConfig = {
+const defaultConfig: RuleConfig = {
+  domains: ['color'],
+  applyImport: true,
   shouldEnforceFallbacks: false,
 };
 
-type Suggestion = {
-  shouldReturnSuggestion: boolean;
-} & Rule.SuggestionReportDescriptor;
+const createWithConfig: (
+  initialConfig: RuleConfig,
+) => Rule.RuleModule['create'] =
+  (initialConfig: RuleConfig) => (context: Rule.RuleContext) => {
+    const userConfig = context.options[0];
+    // merge configs
+    const config: RuleConfig = {
+      domains: userConfig?.domains || initialConfig.domains,
+      applyImport:
+        userConfig?.applyImport !== undefined
+          ? userConfig.applyImport
+          : initialConfig.applyImport,
+      shouldEnforceFallbacks:
+        userConfig?.shouldEnforceFallbacks !== undefined
+          ? userConfig.shouldEnforceFallbacks
+          : initialConfig.shouldEnforceFallbacks,
+      exceptions: userConfig?.exceptions || [],
+    };
 
-const getTokenSuggestion = (
-  node: Rule.Node,
-  reference: string,
-  config: PluginConfig,
-): Suggestion[] =>
-  [
-    {
-      shouldReturnSuggestion:
-        !isDecendantOfGlobalToken(node) &&
-        config.shouldEnforceFallbacks === false,
-      desc: `Convert to token`,
-      fix: (fixer: Rule.RuleFixer) => fixer.replaceText(node, `token('')`),
-    },
-    {
-      shouldReturnSuggestion:
-        !isDecendantOfGlobalToken(node) &&
-        config.shouldEnforceFallbacks === true,
-      desc: `Convert to token with fallback`,
-      fix: (fixer: Rule.RuleFixer) =>
-        fixer.replaceText(
-          node,
-          isNodeOfType(node.parent, 'JSXAttribute')
-            ? `{token('', ${reference})}`
-            : `token('', ${reference})`,
-        ),
-    },
-  ].filter(filterSuggestion);
-
-const getNodeColumn = (node: Rule.Node) =>
-  node.loc ? node.loc.start.column : 0;
-
-const filterSuggestion = ({ shouldReturnSuggestion }: Suggestion) =>
-  shouldReturnSuggestion;
-
-const rule = createLintRule({
-  meta: {
-    name: 'ensure-design-token-usage',
-    hasSuggestions: true,
-    docs: {
-      description: 'Enforces usage of design tokens.',
-      recommended: true,
-      severity: 'error',
-    },
-    fixable: 'code',
-    type: 'problem',
-    messages: {
-      legacyElevation: `Elevations can be sourced from the global theme using the token function made of both a background and shadow. Use "card" for card elevations, and "overlay" for anything else that should appear elevated.`,
-      hardCodedColor: `Colors can be sourced from the global theme using the token function.`,
-    },
-  },
-  create(context: Rule.RuleContext) {
-    const config: PluginConfig = context.options[0] || defaultConfig;
-    const isException = getIsException(config.exceptions);
+    let tokenNode: ImportDeclaration | null = null;
 
     return {
-      // For expressions within template literals (e.g. `color: ${red}`)
+      ImportDeclaration(node) {
+        if (node.source.value === '@atlaskit/tokens' && config.applyImport) {
+          tokenNode = node;
+        }
+      },
+      // For expressions within template literals (e.g. `color: ${red}`) - color only
       'TemplateLiteral > Identifier': (node: Rule.Node) => {
-        if (node.type !== 'Identifier') {
+        return lintTemplateIdentifierForColor(node, context, config);
+      },
+      // const styles = css({ color: 'red', margin: '4px' }), styled.div({ color: 'red', margin: '4px' })
+      ObjectExpression: (parentNode: Rule.Node) => {
+        // To force the correct node type
+        if (!isNodeOfType(parentNode, 'ObjectExpression')) {
           return;
         }
 
-        if (isDecendantOfGlobalToken(node) || !isDecendantOfStyleBlock(node)) {
+        // Return for nested objects - these get handled automatically so without returning we'd be doubling up
+        if (parentNode.parent.type === 'Property') {
           return;
         }
 
-        const elevation = isLegacyElevation(node.name);
+        if (
+          !isDecendantOfStyleBlock(parentNode) &&
+          !isDecendantOfType(parentNode, 'JSXExpressionContainer')
+        ) {
+          return;
+        }
 
-        if (elevation) {
-          context.report({
-            messageId: 'legacyElevation',
-            node,
-            data: {
-              example: `\`\`\`
-import { token } from '@atlaskit/tokens';
+        function findObjectStyles(node: EslintNode): void {
+          if (!isNodeOfType(node, 'Property')) {
+            return;
+          }
 
-css({
-  backgroundColor: token('${elevation.background}');
-  boxShadow: token('${elevation.shadow}');
-});
-\`\`\``,
-            },
-            fix: (fixer) => {
-              if (isChildOfType(node, 'TemplateLiteral') && node.range) {
-                return fixer.replaceTextRange(
-                  [node.range[0] - 2, node.range[1] + 1],
-                  `background-color: \${token('${elevation.background}')};
-${' '.repeat(getNodeColumn(node) - 2)}box-shadow: \${token('${
-                    elevation.shadow
-                  }')}`,
-                );
+          if (isNodeOfType(node.value, 'ObjectExpression')) {
+            return node.value.properties.forEach(findObjectStyles);
+          }
+
+          if (!isNodeOfType(node.key, 'Identifier')) {
+            return;
+          }
+
+          // Returns which domains to lint against based on rule's config and current property
+          const domains = getDomainsForProperty(node.key.name, config.domains);
+
+          if (domains.length === 0 || isDecendantOfGlobalToken(node.value)) {
+            return;
+          }
+
+          if (
+            isNodeOfType(node.value, 'TemplateLiteral') &&
+            node.value.expressions.some(isDecendantOfGlobalToken)
+          ) {
+            return;
+          }
+
+          if (domains.includes('color')) {
+            return lintObjectForColor(node, context, config);
+          }
+
+          if (
+            domains.includes('spacing') ||
+            domains.includes('shape') ||
+            domains.includes('typography')
+          ) {
+            /**
+             * We do this in case the fontSize for a style object is declared alongside the `em` or `lineHeight` declaration
+             */
+            const fontSize = getFontSizeFromNode(
+              parentNode as ObjectExpression & Rule.NodeParentExtension,
+              context,
+            );
+
+            return lintObjectForSpacing(
+              node,
+              context,
+              config,
+              fontSize,
+              tokenNode,
+            );
+          }
+        }
+
+        parentNode.properties.forEach(findObjectStyles);
+      },
+
+      // CSSTemplateLiteral and StyledTemplateLiteral
+      // const cssTemplateLiteral = css`color: red; padding: 12px`;
+      // const styledTemplateLiteral = styled.p`color: red; padding: 8px`;
+      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"],TaggedTemplateExpression[tag.callee.name="styled"]':
+        (node: Rule.Node) => {
+          // To force the correct node type
+          if (!isNodeOfType(node, 'TaggedTemplateExpression')) {
+            return;
+          }
+
+          const processedCssLines = processCssNode(node, context);
+          if (!processedCssLines) {
+            // if we can't get a processed css we bail
+            return;
+          }
+          const parentNode = findParentNodeForLine(node);
+          const globalFontSize = getFontSizeValueInScope(processedCssLines);
+          const textForSource = context.getSourceCode().getText(node.quasi);
+          const allReplacedValues: string[][] = [];
+
+          const completeSource = processedCssLines.reduce(
+            (currentSource, [resolvedCssLine, originalCssLine]) => {
+              const [originalProperty, resolvedCssValues] =
+                resolvedCssLine.split(':');
+              const [_, originalCssValues] = originalCssLine.split(':');
+              const propertyName =
+                convertHyphenatedNameToCamelCase(originalProperty);
+              const isFontFamily = /fontFamily/.test(propertyName);
+              const replacedValuesPerProperty: string[] = [originalProperty];
+
+              const domains = getDomainsForProperty(
+                propertyName,
+                config.domains,
+              );
+
+              if (domains.length === 0 || !resolvedCssValues) {
+                // in both of these cases no changes should be made to the current property
+                return currentSource;
               }
 
-              return null;
+              if (domains.includes('color')) {
+                if (includesTokenString(resolvedCssValues.trim())) {
+                  return currentSource;
+                }
+
+                if (includesHardCodedColor(resolvedCssValues)) {
+                  context.report({ messageId: 'hardCodedColor', node });
+                  return currentSource;
+                }
+              }
+
+              if (
+                domains.includes('spacing') ||
+                domains.includes('typography') ||
+                domains.includes('shape')
+              ) {
+                if (!isValidSpacingValue(resolvedCssValues, globalFontSize)) {
+                  // no changes should be made to the current property
+                  return currentSource;
+                }
+
+                // gets the values from the associated property, numeric values or NaN
+                const processedNumericValues =
+                  getValueFromShorthand(resolvedCssValues);
+                const processedValues = splitShorthandValues(resolvedCssValues);
+                // only splits shorthand values but it does not transform NaNs so tokens are preserved
+                const originalValues = splitShorthandValues(originalCssValues);
+
+                // reconstructing the string
+                // should replace what it can and preserve the raw value for everything else
+
+                const replacementValue = processedNumericValues
+                  // put together resolved value and original value on a tuple
+                  .map((value, index) => [
+                    // if emToPX conversion fails we'll default to original value
+                    emToPixels(value, globalFontSize) || value,
+                    processedValues[index],
+                    originalValues[index],
+                  ])
+                  .map(([numericOrNanValue, pxValue, originalValue]) => {
+                    if (isTokenValueString(originalValue)) {
+                      // if the value is already valid, nothing to report or replace
+                      return originalValue;
+                    }
+
+                    // do not replace 0 or auto with tokens
+                    if (isZero(pxValue) || isAuto(pxValue)) {
+                      return originalValue;
+                    }
+
+                    if (isNaN(numericOrNanValue) && !isFontFamily) {
+                      // do not report if we have nothing to replace with
+                      return originalValue;
+                    }
+
+                    // value is numeric or fontFamily, and needs replacing we'll report first
+                    context.report({
+                      node,
+                      messageId: 'noRawSpacingValues',
+                      data: {
+                        payload: `${propertyName}:${numericOrNanValue}`,
+                      },
+                    });
+
+                    // from here on we know value is numeric or a font family, so it might or might not have a token equivalent
+                    const replacementNode = getTokenReplacement(
+                      propertyName,
+                      numericOrNanValue,
+                    );
+
+                    if (!replacementNode) {
+                      return originalValue;
+                    }
+
+                    const replacementToken =
+                      '${' + replacementNode.toString() + '}';
+
+                    replacedValuesPerProperty.push(
+                      isFontFamily ? numericOrNanValue.trim() : pxValue,
+                    );
+                    return replacementToken;
+                  })
+                  .join(' ');
+
+                if (replacedValuesPerProperty.length > 1) {
+                  // first value is the property name, so it will always have at least 1
+                  allReplacedValues.push(replacedValuesPerProperty);
+                }
+
+                // replace property:val with new property:val
+                const replacedCssLine: string = currentSource.replace(
+                  originalCssLine, //  padding: ${gridSize()}px;
+                  `${originalProperty}: ${replacementValue}`,
+                );
+
+                if (!replacedCssLine) {
+                  return currentSource;
+                }
+
+                return replacedCssLine;
+              }
+              return currentSource;
             },
-          });
-        }
+            textForSource,
+          );
 
-        if (
-          (isLegacyColor(node.name) || isLegacyNamedColor(node.name)) &&
-          !isException(node)
-        ) {
-          context.report({
-            messageId: 'hardCodedColor',
-            node,
-            suggest: getTokenSuggestion(node, node.name, config),
-          });
-          return;
-        }
-      },
+          if (completeSource !== textForSource) {
+            // means we found some replacement values, we'll give the option to fix them
 
-      // For css/styled template literals (not handling expressions) (e.g. css`color: red`)
-      'TaggedTemplateExpression[tag.name="css"],TaggedTemplateExpression[tag.object.name="styled"]':
-        (node: Rule.Node) => {
-          if (node.type !== 'TaggedTemplateExpression') {
-            return;
-          }
+            const replacementComments = `${allReplacedValues
+              .map((replacedProperties) => {
+                const [propertyName] = replacedProperties;
+                const replacedValues = replacedProperties.slice(1).join(' ');
+                return `${replacementComment} \`${propertyName}: ${replacedValues}\``;
+              })
+              .join('\n')}\n`;
 
-          const value = node.quasi.quasis.map((q) => q.value.raw).join('');
-
-          /**
-           * Attempts to remove all non-essential words & characters from a style block.
-           * Including selectors, queries and property names, leaving only values
-           * This is necessary to avoid cases where a property might have a color in its name ie. "white-space"
-           */
-          const cssProperties = value
-            .replace(/\n/g, '')
-            .split(/;|{|}/)
-            .map((el) => el.trim().split(':').pop() || '');
-
-          cssProperties.forEach((property) => {
-            if (includesHardCodedColor(property)) {
-              context.report({ messageId: 'hardCodedColor', node });
-              return;
-            }
-          });
-        },
-
-      // For style objects with identifiers as values (expressions) (e.g. { color: red })
-      'ObjectExpression > Property > Identifier, ObjectExpression > Property > MemberExpression':
-        (node: Rule.Node) => {
-          if (isDecendantOfGlobalToken(node)) {
-            return;
-          }
-
-          const property = node.parent as Property;
-          let propertyKey = '';
-
-          if (property.key.type === 'Identifier') {
-            propertyKey = property.key.name.toString();
-          }
-
-          if (property.key.type === 'Literal') {
-            propertyKey = property.key.value?.toString() || '';
-          }
-
-          if (!isColorCssPropertyName(propertyKey)) {
-            return;
-          }
-
-          if (
-            !isDecendantOfStyleBlock(node) &&
-            !isDecendantOfType(node, 'JSXExpressionContainer')
-          ) {
-            return;
-          }
-
-          let identifierNode: any;
-
-          if (node.type === 'Identifier') {
-            // identifier is the key and not the value
-            if (node.name === propertyKey) {
-              return;
-            }
-
-            identifierNode = node;
-          }
-
-          if (node.type === 'MemberExpression') {
-            if (node.property.type !== 'Identifier') {
-              context.report({
-                messageId: 'hardCodedColor',
-                node: node,
-                suggest: getTokenSuggestion(
-                  node,
-                  generate(node).toString(),
-                  config,
-                ),
-              });
-
-              return;
-            }
-
-            identifierNode = node.property;
-          }
-
-          if (
-            (isHardCodedColor(identifierNode.name) ||
-              includesHardCodedColor(identifierNode.name) ||
-              isLegacyColor(identifierNode.name)) &&
-            !isException(identifierNode)
-          ) {
             context.report({
-              messageId: 'hardCodedColor',
-              node: identifierNode,
-              suggest: getTokenSuggestion(
-                identifierNode,
-                identifierNode.name,
-                config,
-              ),
+              node,
+              messageId: 'autofixesPossible',
+              fix: (fixer) => {
+                return (
+                  !tokenNode && config.applyImport
+                    ? [insertTokensImport(fixer)]
+                    : []
+                ).concat([
+                  fixer.insertTextBefore(parentNode, replacementComments),
+                  fixer.replaceText(node.quasi, completeSource),
+                ]);
+              },
             });
-
-            return;
           }
         },
 
-      // For style objects with literals as values (strings/numbers) (e.g. { color: "red" })
-      'ObjectExpression > Property > Literal': (node: Rule.Node) => {
-        if (node.type !== 'Literal') {
-          return;
-        }
-
-        if (isDecendantOfGlobalToken(node)) {
-          return;
-        }
-
-        if (
-          !isDecendantOfStyleBlock(node) &&
-          !isDecendantOfType(node, 'JSXExpressionContainer')
-        ) {
-          return;
-        }
-
-        const nodeVal = node.value?.toString() || '';
-
-        if (
-          (isHardCodedColor(nodeVal) || includesHardCodedColor(nodeVal)) &&
-          !isException(node)
-        ) {
-          context.report({
-            messageId: 'hardCodedColor',
-            node,
-            suggest: getTokenSuggestion(node, `'${nodeVal}'`, config),
-          });
-        }
-      },
-
-      // For style objects with function calls as values (e.g. { color: red() })
-      'ObjectExpression > Property > CallExpression': (node: Rule.Node) => {
-        if (node.type !== 'CallExpression') {
-          return;
-        }
-
-        if (isDecendantOfGlobalToken(node)) {
-          return;
-        }
-
-        if (
-          !isDecendantOfStyleBlock(node) &&
-          !isDecendantOfType(node, 'JSXExpressionContainer')
-        ) {
-          return;
-        }
-
-        if (!isNodeOfType(node.callee, 'Identifier')) {
-          return;
-        }
-
-        if (!isLegacyNamedColor(node.callee.name) || isException(node)) {
-          return;
-        }
-
-        context.report({
-          messageId: 'hardCodedColor',
-          node: node,
-          suggest: getTokenSuggestion(node, `${node.callee.name}()`, config),
-        });
-      },
-
-      // For inline JSX styles - literals (e.g. <Test color="red"/>)
+      // For inline JSX styles - literals (e.g. <Test color="red"/>) - color only
       'JSXAttribute > Literal': (node: Rule.Node) => {
-        if (node.type !== 'Literal') {
-          return;
-        }
-
-        if (!isNodeOfType(node.parent, 'JSXAttribute')) {
-          return;
-        }
-
-        if (!isNodeOfType(node.parent.name, 'JSXIdentifier')) {
-          return;
-        }
-
-        if (['alt', 'src', 'label', 'key'].includes(node.parent.name.name)) {
-          return;
-        }
-
-        if (isException(node.parent)) {
-          return;
-        }
-
-        // We only care about hex values
-        if (typeof node.value !== 'string') {
-          return;
-        }
-
-        if (
-          isHardCodedColor(node.value) ||
-          includesHardCodedColor(node.value)
-        ) {
-          context.report({
-            messageId: 'hardCodedColor',
-            node,
-            suggest: getTokenSuggestion(node, node.value, config),
-          });
-          return;
-        }
+        return lintJSXLiteralForColor(node, context, config);
       },
 
-      // For inline JSX styles - members (e.g. <Test color={color.red}/>)
+      // For inline JSX styles - members (e.g. <Test color={color.red}/>) - color only
       'JSXExpressionContainer > MemberExpression': (node: Rule.Node) => {
-        if (node.type !== 'MemberExpression') {
-          return;
-        }
-
-        if (!isNodeOfType(node.property, 'Identifier')) {
-          return;
-        }
-
-        if (
-          isLegacyColor(node.property.name) ||
-          (isNodeOfType(node.object, 'Identifier') &&
-            node.object.name === 'colors' &&
-            isLegacyNamedColor(node.property.name))
-        ) {
-          context.report({
-            messageId: 'hardCodedColor',
-            node,
-            suggest: getTokenSuggestion(
-              node,
-              generate(node).toString(),
-              config,
-            ),
-          });
-        }
+        return lintJSXMemberForColor(node, context, config);
       },
 
-      // For inline JSX styles - identifiers (e.g. <Test color={red}/>)
+      // For inline JSX styles - identifiers (e.g. <Test color={red}/>) - color only
       'JSXExpressionContainer > Identifier': (node: Rule.Node) => {
-        if (node.type !== 'Identifier') {
-          return;
-        }
-
-        if (isException(node)) {
-          return;
-        }
-
-        if (isLegacyColor(node.name) || includesHardCodedColor(node.name)) {
-          context.report({
-            messageId: 'hardCodedColor',
-            node,
-            suggest: getTokenSuggestion(node, node.name, config),
-          });
-          return;
-        }
+        return lintJSXIdentifierForColor(node, context, config);
       },
     };
-  },
+  };
+
+const rule = createLintRule({
+  meta: ruleMeta,
+  create: createWithConfig(defaultConfig),
 });
 
 export default rule;
+export { createWithConfig };

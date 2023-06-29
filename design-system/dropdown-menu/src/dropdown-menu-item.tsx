@@ -25,6 +25,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
       elemAfter,
       shouldTitleWrap = true,
       shouldDescriptionWrap = true,
+      children,
       ...rest
     } = props;
 
@@ -38,7 +39,9 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
           shouldTitleWrap={shouldTitleWrap}
           shouldDescriptionWrap={shouldDescriptionWrap}
           {...rest}
-        />
+        >
+          {children}
+        </CustomItem>
       );
     } else if (props.href) {
       return (
@@ -51,7 +54,9 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
           shouldTitleWrap={shouldTitleWrap}
           shouldDescriptionWrap={shouldDescriptionWrap}
           {...rest}
-        />
+        >
+          {children}
+        </LinkItem>
       );
     } else {
       return (
@@ -63,7 +68,9 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
           shouldTitleWrap={shouldTitleWrap}
           shouldDescriptionWrap={shouldDescriptionWrap}
           {...rest}
-        />
+        >
+          {children}
+        </ButtonItem>
       );
     }
   },

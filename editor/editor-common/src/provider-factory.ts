@@ -35,6 +35,7 @@ export type {
   CardProvider,
   CardAppearance,
   CardAdf,
+  DatasourceAdf,
 } from './provider-factory/card-provider';
 
 export type {

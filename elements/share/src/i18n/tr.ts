@@ -27,25 +27,12 @@ export default {
     '"{inputValue}" için herhangi bir sonuç bulunamadı.',
   'fabric.elements.share.form.user-picker.no-options.generic':
     '"{inputValue}" için herhangi bir sonuç bulunamadı. Kişileri e-posta adresi kullanarak davet edin.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'E-posta adresi girin',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Ad veya takım girin',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Ad, grup, takım veya e-posta adresi girin',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Ad, takım veya e-posta adresi girin',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'Ad, grup veya takım girin',
   'fabric.elements.share.form.user-picker.validation.required':
     'En az bir kullanıcı, grup, takım veya e-posta adresi seçin.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'En az bir e-posta adresi seçin.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'En az bir kullanıcı, grup veya takım seçin.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'En az bir kullanıcı, takım veya e-posta adresi seçin.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'En az bir kullanıcı veya takım seçin.',
   'fabric.elements.share.in.integration.button': '{integrationName} içinde paylaş',
   'fabric.elements.share.main.tab.text.confluence': 'Sayfayı paylaşın',
   'fabric.elements.share.main.tab.text.jira': 'Konuyu paylaşın',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Blog gönderisi paylaşıldı}board {Pano paylaşıldı}calendar {Takvim paylaşıldı}draft {Taslak paylaşıldı}filter {Filtre paylaşıldı}issue {Konu paylaşıldı}summary {Özet paylaşıldı}list {Liste paylaşıldı}timeline {Zaman Çizelgesi paylaşıldı}form {Form paylaşıldı}media {Medya paylaşıldı}page {Sayfa paylaşıldı}project {Proje paylaşıldı}pullrequest {Çekme İsteği paylaşıldı}question {Soru paylaşıldı}report {Rapor paylaşıldı}repository {Depo paylaşıldı}request {Talep paylaşıldı}roadmap {Yol haritası paylaşıldı}site {Site paylaşıldı}space {Alan paylaşıldı}other {Bağlantı Paylaşıldı}}',
   'fabric.elements.share.to.integration.button': '{integrationName} üzerinden paylaş',
   'fabric.elements.share.trigger.button.icon.label': 'Paylaşma simgesi',
   'fabric.elements.share.trigger.button.invite.text': 'Davet Et',

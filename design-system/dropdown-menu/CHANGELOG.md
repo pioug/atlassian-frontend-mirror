@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.10.1
+
+### Patch Changes
+
+- [`a07c7d8af4f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a07c7d8af4f) - Apply `box-sizing: border-box` to menu wrapper when loading spinner is visible.
+
 ## 11.10.0
 
 ### Minor Changes

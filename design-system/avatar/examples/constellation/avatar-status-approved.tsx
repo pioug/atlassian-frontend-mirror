@@ -1,13 +1,9 @@
 import React from 'react';
 
-import { Status } from '../../src';
+import Avatar from '../../src';
 
 const AvatarStatusApprovedExample = () => {
-  return (
-    <div style={{ width: 24 }}>
-      <Status status="approved" />
-    </div>
-  );
+  return <Avatar status="approved" />;
 };
 
 export default AvatarStatusApprovedExample;

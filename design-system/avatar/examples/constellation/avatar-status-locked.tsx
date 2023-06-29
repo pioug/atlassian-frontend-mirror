@@ -1,13 +1,9 @@
 import React from 'react';
 
-import { Status } from '../../src';
+import Avatar from '../../src';
 
 const AvatarStatusLockedExample = () => {
-  return (
-    <div style={{ width: 24 }}>
-      <Status status="locked" />
-    </div>
-  );
+  return <Avatar status="locked" />;
 };
 
 export default AvatarStatusLockedExample;

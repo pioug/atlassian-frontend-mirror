@@ -29,27 +29,12 @@ export default {
     'No hemos encontrado ningún resultado para "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'No hemos encontrado ningún resultado para "{inputValue}". Invita a la gente mediante una dirección de correo electrónico.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'Indicar dirección de correo',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Introduce un nombre o equipo',
-  'fabric.elements.share.form.user-picker.placeholder.generic':
-    'Introduce un nombre, grupo, equipo o correo electrónico',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Introducir nombre, equipo o correo electrónico',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly':
-    'Introduce el nombre, el grupo o el equipo',
   'fabric.elements.share.form.user-picker.validation.required':
     'Selecciona al menos un usuario, grupo, equipo o correo electrónico.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'Selecciona al menos un correo electrónico.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Selecciona al menos un usuario, grupo o equipo.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Selecciona al menos un usuario, equipo o correo electrónico.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Selecciona al menos un usuario o equipo.',
   'fabric.elements.share.in.integration.button': 'Compartir en {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Compartir página',
   'fabric.elements.share.main.tab.text.jira': 'Compartir incidencia',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Entrada de blog compartida}board {Tablero compartido}calendar {Calendario compartido}draft {Borrador compartido}filter {Filtro compartido}issue {Incidencia compartida}summary {Resumen compartido}list {Lista compartida}timeline {Cronograma compartido}form {Formulario compartido}media {Medios compartidos}page {Página compartida}project {Proyecto compartido}pullrequest {Solicitud de incorporación de cambios compartida}question {Pregunta compartida}report {Informe compartido}repository {Repositorio compartido}request {Solicitud compartida}roadmap {Hoja de ruta compartida}site {Sitio compartido}space {Espacio compartido}other {Enlace compartido}}',
   'fabric.elements.share.to.integration.button': 'Compartir en {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Icono de compartir',
   'fabric.elements.share.trigger.button.invite.text': 'Invitar',

@@ -26,25 +26,12 @@ export default {
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly': 'Tuloksia ei löytynyt haulle "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Tuloksia ei löytynyt haulle "{inputValue}". Kutsu henkilöitä sähköpostiosoitteen avulla.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'Anna sähköpostiosoite',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Anna nimi tai tiimi',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Syötä nimi, ryhmä, tiimi tai sähköpostiosoite',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Syötä nimi, tiimi tai sähköpostiosoite',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'Syötä nimi, ryhmä tai tiimi',
   'fabric.elements.share.form.user-picker.validation.required':
     'Valitse vähintään yksi käyttäjä, ryhmä, tiimi tai sähköpostiosoite.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'Valitse vähintään yksi sähköposti.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Valitse vähintään yksi käyttäjä, ryhmä tai tiimi.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Valitse vähintään yksi käyttäjä, tiimi tai sähköpostiosoite.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Valitse vähintään yksi käyttäjä tai tiimi.',
   'fabric.elements.share.in.integration.button': 'Jaa sovelluksessa {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Jaa sivu',
   'fabric.elements.share.main.tab.text.jira': 'Jaa asia',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Blogijulkaisu jaettu}board {Taulu jaettu}calendar {Kalenteri jaettu}draft {Luonnos jaettu}filter {Suodatin jaettu}issue {Asia jaettu}summary {Yhteenveto jaettu}list {Luettelo jaettu}timeline {Aikajana jaettu}form {Lomake jaettu}media {Media jaettu}page {Sivu jaettu}project {Projekti jaettu}pullrequest {Pull-pyyntö jaettu}question {Kysymys jaettu}report {Raportti jaettu}repository {Säilö jaettu}request {Pyyntö jaettu}roadmap {Etenemissuunnitelma jaettu}site {Sivusto jaettu}space {Työtila jaettu}other {Linkki jaettu}}',
   'fabric.elements.share.to.integration.button': 'Jaa kohteeseen {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Jaa kuvake',
   'fabric.elements.share.trigger.button.invite.text': 'Kutsu',

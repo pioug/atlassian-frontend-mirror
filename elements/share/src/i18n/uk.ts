@@ -28,25 +28,12 @@ export default {
     'Не знайдено жодних результатів за запитом «{inputValue}».',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Не знайдено жодних результатів за запитом «{inputValue}». Запросіть людей за допомогою електронної адреси.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'Введіть електронну адресу',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Введіть ім’я або команду',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Введіть ім’я, групу, команду або електронну адресу',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Введіть ім’я, назву команди або електронну адресу',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'Введіть ім’я, групу або команду',
   'fabric.elements.share.form.user-picker.validation.required':
     'Виберіть принаймні одного користувача, групу або електронну пошту.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'Виберіть принаймні одну електронну адресу.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Виберіть принаймні одного користувача, групу або команду.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Виберіть принаймні одного користувача, команду або електронну адресу.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Виберіть принаймні одного користувача або команду.',
   'fabric.elements.share.in.integration.button': 'Поділитися в {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Поділитися сторінкою',
   'fabric.elements.share.main.tab.text.jira': 'Поділитися завданням',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Надано доступ до допису у блозі}board {Надано доступ до дошки}calendar {Надано доступ до календаря}draft {Надано доступ до чернетки}filter {Надано доступ до фільтра}issue {Надано доступ до завдання}summary {Надано доступ до підсумку}list {Надано доступ до списку}timeline {Надано доступ до шкали}form {Надано доступ до форми}media {Надано доступ до медіафайлу}page {Надано доступ до сторінки}project {Надано доступ до проєкту}pullrequest {Надано доступ до запиту на внесення змін}question {Надано доступ до запитання}report {Надано доступ до звіту}repository {Надано доступ до репозиторію}request {Надано доступ до запиту}roadmap {Надано доступ до плану розробки}site {Надано доступ до сайту}space {Надано доступ до розділу}other {Надано доступ до посилання}}',
   'fabric.elements.share.to.integration.button': 'Надіслати в {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Надіслати піктограму',
   'fabric.elements.share.trigger.button.invite.text': 'Запросити',

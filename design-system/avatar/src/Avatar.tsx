@@ -33,7 +33,9 @@ import {
   AppearanceType,
   AvatarClickEventHandler,
   IndicatorSizeType,
+  Presence,
   SizeType,
+  Status,
 } from './types';
 import { getButtonProps, getCustomElement, getLinkProps } from './utilities';
 
@@ -95,7 +97,7 @@ export interface AvatarPropTypes {
    * Alternatively accepts any React element. For best results, it is recommended to
    * use square content with height and width of 100%.
    */
-  presence?: ('online' | 'busy' | 'focus' | 'offline') | ReactNode;
+  presence?: Presence | Omit<ReactNode, string> | (string & {}) | null;
   /**
    * Defines the size of the avatar
    */
@@ -108,7 +110,7 @@ export interface AvatarPropTypes {
    * Indicates contextual information by showing a small icon on the avatar.
    * Refer to status values on the Status component.
    */
-  status?: ('approved' | 'declined' | 'locked') | ReactNode;
+  status?: Status | Omit<ReactNode, string> | (string & {}) | null;
   /**
    * The index of where this avatar is in the group `stack`.
    */
@@ -404,7 +406,9 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
           <PresenceWrapper
             appearance={appearance!}
             size={size as IndicatorSizeType}
-            presence={!customPresenceNode && presence}
+            presence={
+              typeof presence === 'string' ? (presence as Presence) : undefined
+            }
             testId={testId}
           >
             {customPresenceNode}
@@ -415,7 +419,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
             appearance={appearance!}
             size={size as IndicatorSizeType}
             borderColor={borderColor}
-            status={!customStatusNode && status}
+            status={typeof status === 'string' ? (status as Status) : undefined}
             testId={testId}
           >
             {customStatusNode}

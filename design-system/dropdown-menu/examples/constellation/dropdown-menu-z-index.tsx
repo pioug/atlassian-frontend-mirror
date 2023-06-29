@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../src';
 
-const containerStyles: React.CSSProperties = {
-  width: 300,
-  height: 300,
-};
+const containerStyles = xcss({
+  width: 'size.300',
+  height: 'size.300',
+});
 
 const DropdownMenuZIndex = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +22,7 @@ const DropdownMenuZIndex = () => {
       placement="bottom-start"
       zIndex={600}
       content={() => (
-        <Box padding="space.100" UNSAFE_style={containerStyles}>
+        <Box padding="space.100" xcss={containerStyles}>
           <DropdownMenu trigger="Page actions" zIndex={610} testId="dropdown">
             <DropdownItemGroup>
               <DropdownItem>Move</DropdownItem>

@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 185.5.0
+
+### Minor Changes
+
+- [`04295e9d5bc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04295e9d5bc) - [ux] Updating ORS response to include datasources and facilitating pasting JQL links turning into datasource tables
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.4.5
+
+### Patch Changes
+
+- [`9c56055e190`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9c56055e190) - Fixed session duration payload calculation to use consistent timers
+
 ## 185.4.4
 
 ### Patch Changes

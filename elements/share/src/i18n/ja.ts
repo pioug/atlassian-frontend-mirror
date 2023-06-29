@@ -27,26 +27,12 @@ export default {
     '"{inputValue}" に一致する結果が見つかりませんでした。',
   'fabric.elements.share.form.user-picker.no-options.generic':
     '"{inputValue}" に一致する結果が見つかりませんでした。メール アドレスを使用してユーザーを招待してください。',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'メール アドレスを入力',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': '名前またはチームを入力',
-  'fabric.elements.share.form.user-picker.placeholder.generic': '名前、グループ、チーム、メールを入力',
   'fabric.elements.share.form.user-picker.placeholder.jira': '名前、チーム、メールアドレスを入力',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': '名前、グループ、またはチームを入力',
   'fabric.elements.share.form.user-picker.validation.required':
     'ユーザー、グループ、チーム、メールを少なくとも 1 つ選択してください。',
-  'fabric.elements.share.form.user-picker.validation.required.email-only':
-    'メール アドレスを少なくとも 1 つお選びください。',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'ユーザー、グループ、またはチームのいずれかを少なくとも 1 つ選択してください。',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'ユーザー、チーム、メールを少なくとも 1 つ選択してください。',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'ユーザーまたはチームを少なくとも 1 つ選択してください。',
   'fabric.elements.share.in.integration.button': '{integrationName} で共有',
   'fabric.elements.share.main.tab.text.confluence': 'ページを共有',
   'fabric.elements.share.main.tab.text.jira': '課題を共有',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {ブログ投稿が共有されました}board {ボードが共有されました}calendar {カレンダーが共有されました}draft {下書きが共有されました}filter {フィルターが共有されました}issue {課題が共有されました}summary {要約が共有されました}list {リストが共有されました}timeline {タイムラインが共有されました}form {フォームが共有されました}media {メディアが共有されました}page {ページが共有されました}project {プロジェクトが共有されました}pullrequest {プル リクエストが共有されました}question {質問が共有されました}report {レポートが共有されました}repository {リポジトリが共有されました}request {リクエストが共有されました}roadmap {ロードマップが共有されました}site {サイトが共有されました}space {スペースが共有されました}other {リンクが共有されました}}',
   'fabric.elements.share.to.integration.button': '{integrationName} と共有',
   'fabric.elements.share.trigger.button.icon.label': '共有アイコン',
   'fabric.elements.share.trigger.button.invite.text': '招待',

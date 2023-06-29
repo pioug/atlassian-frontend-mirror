@@ -26,23 +26,11 @@ export default {
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly': 'เราไม่พบผลลัพธ์ใด ๆ สำหรับ "{inputValue}"',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'เราไม่พบผลลัพธ์ใด ๆ สำหรับ "{inputValue}" เชิญผู้ใช้โดยการใช้ที่อยู่อีเมล',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'ป้อนอีเมล',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'ป้อนชื่อหรือทีม',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'ป้อนชื่อ กลุ่ม ทีม หรืออีเมล',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'ป้อนชื่อ ทีม หรืออีเมล',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'ป้อนชื่อ กลุ่ม หรือทีม',
   'fabric.elements.share.form.user-picker.validation.required': 'เลือกผู้ใช้ กลุ่ม ทีม หรืออีเมลอย่างน้อยหนึ่งรายการ',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'เลือกอีเมลอย่างน้อยหนึ่งรายการ',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'เลือกอย่างน้อยหนึ่งผู้ใช้ หนึ่งกลุ่ม หรือหนึ่งทีม',
-  'fabric.elements.share.form.user-picker.validation.required.jira': 'เลือกผู้ใช้ ทีม หรืออีเมลอย่างน้อยหนึ่งรายการ',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'เลือกอย่างน้อยหนึ่งผู้ใช้ หรือหนึ่งทีม',
   'fabric.elements.share.in.integration.button': 'แชร์ใน {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'แชร์หน้าข้อมูล',
   'fabric.elements.share.main.tab.text.jira': 'แชร์ปัญหา',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {แชร์โพสต์บล็อกแล้ว}board {แชร์บอร์ดแล้ว}calendar {แชร์ปฏิทินแล้ว}draft {แชร์แบบร่างแล้ว}filter {แชร์ตัวกรองแล้ว}issue {แชร์ปัญหาแล้ว}summary {แชร์สรุปแล้ว}list {แชร์รายการแล้ว}timeline {แชร์เส้นเวลา (ไทม์ไลน์) แล้ว}form {แชร์แบบฟอร์มแล้ว}media {แชร์สื่อแล้ว}page {แชร์หน้าข้อมูลแล้ว}project {แชร์โปรเจกต์แล้ว}pullrequest {แชร์ Pull Request แล้ว}question {แชร์คำถามแล้ว}report {แชร์รายงานแล้ว}repository {แชร์คลังรายการแล้ว}request {แชร์คำขอแล้ว}roadmap {แชร์แผนงานแล้ว}site {แชร์เว็บไซต์แล้ว}space {แชร์พื้นที่แล้ว}other {แชร์ลิงก์แล้ว}}',
   'fabric.elements.share.to.integration.button': 'แชร์ไปยัง {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'แชร์ไอคอน',
   'fabric.elements.share.trigger.button.invite.text': 'เชิญ',

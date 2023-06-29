@@ -26,23 +26,11 @@ export default {
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly': '"{inputValue}"에 대한 결과를 찾지 못했습니다.',
   'fabric.elements.share.form.user-picker.no-options.generic':
     '"{inputValue}"에 대한 결과를 찾지 못했습니다. 이메일 주소를 사용하여 사용자를 초대하세요.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': '이메일 입력',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': '이름 또는 팀 입력',
-  'fabric.elements.share.form.user-picker.placeholder.generic': '이름, 그룹, 팀 또는 이메일 입력',
   'fabric.elements.share.form.user-picker.placeholder.jira': '이름, 팀 또는 이메일 입력',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': '이름, 그룹 또는 팀 입력',
   'fabric.elements.share.form.user-picker.validation.required': '사용자, 그룹, 팀 또는 이메일을 하나 이상 선택하세요.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': '이메일을 하나 이상 선택하세요.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    '사용자, 그룹 또는 팀을 하나 이상 선택하세요.',
-  'fabric.elements.share.form.user-picker.validation.required.jira': '사용자, 팀 또는 이메일을 하나 이상 선택하세요.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    '사용자 또는 팀을 하나 이상 선택하세요.',
   'fabric.elements.share.in.integration.button': '{integrationName}에서 공유',
   'fabric.elements.share.main.tab.text.confluence': '페이지 공유',
   'fabric.elements.share.main.tab.text.jira': '이슈 공유',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {공유한 블로그 게시물}board {공유한 보드}calendar {공유한 캘린더}draft {공유한 초안}filter {공유한 필터}issue {공유한 이슈}summary {공유한 요약}list {공유한 목록}timeline {공유한 타임라인}form {공유한 양식}media {공유한 미디어}page {공유한 페이지}project {공유한 프로젝트}pullrequest {공유한 풀리퀘스트}question {공유한 질문}report {공유한 보고서}repository {공유한 리포지토리}request {공유한 요청}roadmap {공유한 로드맵}site {공유한 사이트}space {공유한 스페이스}other {공유한 링크}}',
   'fabric.elements.share.to.integration.button': '{integrationName}에 공유',
   'fabric.elements.share.trigger.button.icon.label': '공유 아이콘',
   'fabric.elements.share.trigger.button.invite.text': '초대',

@@ -5,6 +5,7 @@ import DataLoader from 'dataloader';
 import {
   CardAdf,
   CardAppearance,
+  DatasourceAdf,
   extractPreview,
 } from '@atlaskit/linking-common';
 import {
@@ -20,6 +21,7 @@ import { EnvironmentsKeys, getBaseUrl, getResolverUrl } from './environments';
 import { getStatus } from './utils';
 import { CardClient } from '@atlaskit/link-provider';
 import { JsonLd } from 'json-ld-types';
+import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import * as api from './api';
 
 const BATCH_WAIT_TIME = 50;
@@ -86,7 +88,9 @@ export class EditorCardProvider implements CardProvider {
     return keys.map(() => providersData);
   }
 
-  private async check(resourceUrl: string): Promise<boolean | undefined> {
+  private async checkLinkResolved(
+    resourceUrl: string,
+  ): Promise<boolean | undefined> {
     try {
       const response = await this.cardClient.fetchData(resourceUrl);
       if (getStatus(response) !== 'not_found') {
@@ -132,7 +136,10 @@ export class EditorCardProvider implements CardProvider {
   }
 
   async findPattern(url: string): Promise<boolean> {
-    return !!(await this.findPatternData(url)) || !!(await this.check(url));
+    return (
+      !!(await this.findPatternData(url)) ||
+      !!(await this.checkLinkResolved(url))
+    );
   }
 
   private doesUrlMatchPath(path: string, url: string) {
@@ -209,8 +216,6 @@ export class EditorCardProvider implements CardProvider {
 
   /**
    * Make a /resolve call and find out if result has embed capability
-   * @param url
-   * @private
    */
   private async canBeResolvedAsEmbed(url: string) {
     try {
@@ -233,17 +238,35 @@ export class EditorCardProvider implements CardProvider {
     }
   }
 
+  /**
+   * Make a /resolve call and find out if result has datasource capability
+   */
+  private async getDatasourceFromResolveResponse(url: string) {
+    try {
+      const response = await this.cardClient.fetchData(url);
+      const datasources =
+        (response && (response as JsonLdDatasourceResponse).datasources) || [];
+      if (datasources.length > 0) {
+        // For now we only have one datasource expected even though it is in an array.
+        // When we have resources returning more than one we will have revisit this part.
+        return datasources[0];
+      }
+    } catch (e) {
+      return undefined;
+    }
+  }
+
   async resolve(
     url: string,
     appearance: CardAppearance,
     shouldForceAppearance?: boolean,
-  ): Promise<CardAdf> {
+  ): Promise<CardAdf | DatasourceAdf> {
     try {
       if (shouldForceAppearance === true) {
         // At this point we don't need to check pattern nor call `check` because manual change means
         // this url is already supported and can be resolved. We want to ignore all other options and
         // respect user's choice.
-        return this.transformer.toAdf(url, appearance);
+        return this.transformer.toSmartlinkAdf(url, appearance);
       }
 
       const hardCodedAppearance = this.getHardCodedAppearance(url);
@@ -256,7 +279,8 @@ export class EditorCardProvider implements CardProvider {
         return Promise.reject(undefined);
       }
 
-      let isSupported = !!matchedProviderPattern || (await this.check(url));
+      let isSupported =
+        !!matchedProviderPattern || (await this.checkLinkResolved(url));
       if (isSupported) {
         const providerDefaultAppearance = matchedProviderPattern?.defaultView;
 
@@ -285,7 +309,22 @@ export class EditorCardProvider implements CardProvider {
           }
         }
 
-        return this.transformer.toAdf(url, preferredAppearance);
+        const datasource = await this.getDatasourceFromResolveResponse(url);
+        if (datasource) {
+          const { id, parameters } = datasource;
+          return this.transformer.toDatasourceAdf(
+            {
+              id,
+              parameters,
+              // in the future when we support multiple views, we will need to pass this in as a parameter
+              // transform toDatasourceAdf to accept multiple views (like how how appearance for other other transforms are handled)
+              views: [{ type: 'table' }],
+            },
+            url,
+          );
+        }
+
+        return this.transformer.toSmartlinkAdf(url, preferredAppearance);
       }
     } catch (e) {
       // eslint-disable-next-line

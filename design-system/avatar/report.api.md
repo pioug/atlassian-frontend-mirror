@@ -81,11 +81,11 @@ export interface AvatarPropTypes {
   label?: string;
   name?: string;
   onClick?: AvatarClickEventHandler;
-  presence?: ('busy' | 'focus' | 'offline' | 'online') | ReactNode;
+  presence?: (string & {}) | Omit<ReactNode, string> | PresenceType | null;
   size?: SizeType;
   src?: string;
   stackIndex?: number;
-  status?: ('approved' | 'declined' | 'locked') | ReactNode;
+  status?: (string & {}) | Omit<ReactNode, string> | StatusType | null;
   tabIndex?: number;
   target?: '_blank' | '_parent' | '_self' | '_top';
   testId?: string;
@@ -150,7 +150,7 @@ export interface PresenceProps {
 }
 
 // @public (undocumented)
-export type PresenceType = 'busy' | 'focus' | 'offline' | 'online' | ReactNode;
+export type PresenceType = 'busy' | 'focus' | 'offline' | 'online';
 
 // @public (undocumented)
 export type SizeType =
@@ -187,7 +187,7 @@ export interface StatusProps {
 }
 
 // @public (undocumented)
-export type StatusType = ('approved' | 'declined' | 'locked') | ReactNode;
+export type StatusType = 'approved' | 'declined' | 'locked';
 
 // (No @packageDocumentation comment for this package)
 ```

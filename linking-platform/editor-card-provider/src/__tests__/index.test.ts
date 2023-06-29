@@ -2,6 +2,7 @@ import { EnvironmentsKeys } from '../environments';
 import { EditorCardProvider } from '..';
 import { LinkAppearance, ProviderPattern, UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
+import { Datasource } from '@atlaskit/linking-common';
 
 type PatternsProviderResponse = {
   providers: Provider[];
@@ -104,6 +105,14 @@ const expectedEmbedAdf = (url: string) => ({
 const expectedBlockAdf = (url: string) => ({
   type: 'blockCard',
   attrs: {
+    url,
+  },
+});
+
+const expectedDatasourceAdf = (datasource: Datasource, url?: string) => ({
+  type: 'blockCard',
+  attrs: {
+    datasource,
     url,
   },
 });
@@ -460,6 +469,29 @@ describe('providers > editor', () => {
     },
   );
 
+  it('returns datasource when jql link inserted, calling /resolve endpoint', async () => {
+    const url =
+      'https://forge-smart-link-battleground.jira-dev.com/issues/EDJ-3?filter=-4&jql=ORDER%20BY%20assignee%20DESC';
+    const provider = setupEditorCardProvider();
+    mockFetch.mockResolvedValueOnce({
+      json: async () => getMockProvidersResponse(),
+      ok: true,
+    });
+    const mockResolveResponse = {
+      json: async () => [{ body: mocks.datasourceSuccess, status: 200 }],
+      ok: true,
+    };
+    mockFetch.mockResolvedValueOnce(mockResolveResponse);
+    const datasourceAdfData: Datasource = {
+      id: mocks.datasourceSuccess.datasources[0].id,
+      parameters: mocks.datasourceSuccess.datasources[0].parameters,
+      views: [{ type: 'table' }],
+    };
+    const adf = await provider.resolve(url, 'inline', false);
+    expect(adf).toEqual(expectedDatasourceAdf(datasourceAdfData, url));
+    expect(mockFetch).toHaveBeenCalledTimes(2);
+  });
+
   it('returns inlineCard when calling /providers endpoint, with fallback to /resolve', async () => {
     const provider = setupEditorCardProvider();
     // Mocking call to /providers
@@ -523,7 +555,11 @@ describe('providers > editor', () => {
       provider.resolve('https://drive.google.com/file/d/456/view', 'inline'),
       provider.resolve('https://drive.google.com/file/d/789/view', 'inline'),
     ]);
-    expect(mockFetch).toHaveBeenCalledTimes(1);
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      1,
+      expect.stringContaining('/providers'),
+      expect.any(Object),
+    );
   });
 
   it('calls /providers endpoint again if the first request fails', async () => {
@@ -550,27 +586,27 @@ describe('providers > editor', () => {
 
     const provider = setupEditorCardProvider();
 
-    // Expected: /providers failed, resolve/batch is called.
-    const url = 'https://drive.google.com/file/d/123/view?usp=sharing';
-    const adf = await provider.resolve(url, 'inline', false);
-    expect(adf).toEqual(expectedInlineAdf(url));
+    // Expected: Pattern not matched, /batch/resolve is called.
+    const url1 = 'https://site-without-pattern.com';
+    const adf1 = await provider.resolve(url1, 'inline', false);
+    expect(adf1).toEqual(expectedInlineAdf(url1));
 
-    // Expected: /provider retried and success, pattern matched.
-    const url2 = 'https://drive.google.com/file/d/456/view?usp=sharing';
+    // Expected: /providers failed, resolve/batch is called.
+    const url2 = 'https://drive.google.com/file/d/123/view?usp=sharing';
     const adf2 = await provider.resolve(url2, 'inline', false);
     expect(adf2).toEqual(expectedInlineAdf(url2));
 
-    // Expected: Pattern matched, no request is made.
-    const url3 = 'https://drive.google.com/file/d/789/view?usp=sharing';
+    // Expected: /provider retried and success, pattern matched.
+    const url3 = 'https://drive.google.com/file/d/456/view?usp=sharing';
     const adf3 = await provider.resolve(url3, 'inline', false);
     expect(adf3).toEqual(expectedInlineAdf(url3));
 
-    // Expected: Pattern not matched, /batch/resolve is called.
-    const url4 = 'https://site-without-pattern.com';
+    // Expected: Pattern matched, no request is made.
+    const url4 = 'https://drive.google.com/file/d/789/view?usp=sharing';
     const adf4 = await provider.resolve(url4, 'inline', false);
     expect(adf4).toEqual(expectedInlineAdf(url4));
 
-    expect(mockFetch).toHaveBeenCalledTimes(4);
+    expect(mockFetch).toHaveBeenCalledTimes(6);
     expect(mockFetch).toHaveBeenNthCalledWith(
       1,
       expect.stringContaining('/providers'),

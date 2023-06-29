@@ -1,5 +1,11 @@
 # @atlaskit/share
 
+## 4.4.1
+
+### Patch Changes
+
+- [`a3b895a070a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a3b895a070a) - Remove unused local storage util functions
+
 ## 4.4.0
 
 ### Minor Changes

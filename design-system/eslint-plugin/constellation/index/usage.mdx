@@ -11,20 +11,21 @@ This plugin contains rules that should be used when working with the [Atlassian 
 <!-- START_RULE_TABLE_CODEGEN -->
 <!-- @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen -->
 
-| Rule                                                                               | Description                                                                                     | Recommended | Fixable | Suggestions |
-| ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------- | ------- | ----------- |
-| <a href="#consistent-css-prop-usage">consistent-css-prop-usage</a>                 | Ensures consistency with CSS and xCSS prop usages                                               | Yes         | Yes     |             |
-| <a href="#ensure-design-token-usage">ensure-design-token-usage</a>                 | Enforces usage of design tokens.                                                                | Yes         | Yes     | Yes         |
-| <a href="#ensure-design-token-usage-spacing">ensure-design-token-usage-spacing</a> | Enforces usage of spacing design tokens rather than hard-coded values.                          |             | Yes     |             |
-| <a href="#icon-label">icon-label</a>                                               | Enforces accessible usage of icon labels when composed with Atlassian Design System components. | Yes         | Yes     |             |
-| <a href="#no-banned-imports">no-banned-imports</a>                                 | Disallow importing banned modules.                                                              | Yes         |         |             |
-| <a href="#no-deprecated-apis">no-deprecated-apis</a>                               | Disallow using deprecated APIs.                                                                 | Yes         |         |             |
-| <a href="#no-deprecated-design-token-usage">no-deprecated-design-token-usage</a>   | Disallow using deprecated design tokens.                                                        | Yes         | Yes     |             |
-| <a href="#no-deprecated-imports">no-deprecated-imports</a>                         | Disallow importing deprecated modules.                                                          | Yes         |         |             |
-| <a href="#no-margin">no-margin</a>                                                 | Disallow using the margin CSS property.                                                         |             |         |             |
-| <a href="#no-unsafe-design-token-usage">no-unsafe-design-token-usage</a>           | Enforces design token usage is statically and locally analyzable.                               | Yes         | Yes     |             |
-| <a href="#use-primitives">use-primitives</a>                                       | Encourage the usage of primitives components.                                                   |             | Yes     | Yes         |
-| <a href="#use-visually-hidden">use-visually-hidden</a>                             | Enforce usage of the visually hidden component.                                                 | Yes         | Yes     |             |
+| Rule                                                                               | Description                                                                                            | Recommended | Fixable | Suggestions |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ----------- | ------- | ----------- |
+| <a href="#consistent-css-prop-usage">consistent-css-prop-usage</a>                 | Ensures consistency with CSS and xCSS prop usages                                                      | Yes         | Yes     |             |
+| <a href="#ensure-design-token-usage">ensure-design-token-usage</a>                 | Enforces usage of design tokens rather than hard-coded values.                                         | Yes         | Yes     |             |
+| <a href="#ensure-design-token-usage-preview">ensure-design-token-usage/preview</a> | Enforces usage of pre-release design tokens rather than hard-coded values.                             |             | Yes     |             |
+| <a href="#ensure-design-token-usage-spacing">ensure-design-token-usage-spacing</a> | NOTE: This rule is deprecated and will be removed imminently. Use `ensure-design-token-usage` instead. |             | Yes     |             |
+| <a href="#icon-label">icon-label</a>                                               | Enforces accessible usage of icon labels when composed with Atlassian Design System components.        | Yes         | Yes     |             |
+| <a href="#no-banned-imports">no-banned-imports</a>                                 | Disallow importing banned modules.                                                                     | Yes         |         |             |
+| <a href="#no-deprecated-apis">no-deprecated-apis</a>                               | Disallow using deprecated APIs.                                                                        | Yes         |         |             |
+| <a href="#no-deprecated-design-token-usage">no-deprecated-design-token-usage</a>   | Disallow using deprecated design tokens.                                                               | Yes         | Yes     |             |
+| <a href="#no-deprecated-imports">no-deprecated-imports</a>                         | Disallow importing deprecated modules.                                                                 | Yes         |         |             |
+| <a href="#no-margin">no-margin</a>                                                 | Disallow using the margin CSS property.                                                                |             |         |             |
+| <a href="#no-unsafe-design-token-usage">no-unsafe-design-token-usage</a>           | Enforces design token usage is statically and locally analyzable.                                      | Yes         | Yes     |             |
+| <a href="#use-primitives">use-primitives</a>                                       | Encourage the usage of primitives components.                                                          |             | Yes     | Yes         |
+| <a href="#use-visually-hidden">use-visually-hidden</a>                             | Enforce usage of the visually hidden component.                                                        | Yes         | Yes     |             |
 
 <!-- END_RULE_TABLE_CODEGEN -->
 
@@ -57,7 +58,7 @@ This rule has no options.
 ```js
 function Button({ children }) {
   return <div css={css({...})}>{children}</div>;
-                   ^^^^^^^ css functional call is used inline
+                   ^^^^^^^ css function call used inline (performance issue)
 }
 ```
 
@@ -88,7 +89,7 @@ const baseContainerStyles = css({
 
 const containerStyles = css({
   ...baseContainerStyles,
-  ^^^^^^^^^^^^^^^^^^^^^^ compose styles with an array to the css call instead
+  ^^^^^^^^^^^^^^^^^^^^^^ compose styles by providing an array to the css call instead (see example below)
   zIndex: 7,
 });
 
@@ -127,8 +128,9 @@ function Button({ children }) {
 
 ## ensure-design-token-usage
 
-Using color design tokens enables our experiences to be themed and harmonious.
-All experiences must use these design tokens otherwise when switching between themes unexpected incidents can occur where not all of the UI is themed.
+Using design tokens results in a harmonious experience for end users whilst providing theming and consistency.
+All experiences must use color tokens otherwise when switching between themes, unexpected incidents can occur where not all of the UI is themed.
+Space, typography, and shape tokens are strongly recommended to further align our experiences and make future changes easier.
 
 <h3>Examples</h3>
 
@@ -160,21 +162,11 @@ css({ color: token('color.text.danger') });
 css({ boxShadow: token('elevation.shadow.card') });
 ```
 
-## ensure-design-token-usage-spacing
-
-Using spacing,
-typography,
-and shape design tokens results in a harmonious experience for end users.
-
-<h3>Examples</h3>
-
-Using anything other than design tokens such as hardcoded values or legacy theme colors will be considered violations.
-
 #### Incorrect
 
 ```js
-css({  padding: 'red' });
-                 ^^^
+css({ padding: '16px' });
+                ^^^
 css({ margin: gridSize() });
               ^^^^^^^^^^
 ```
@@ -191,9 +183,31 @@ css({ padding: token('space.100') });
 
 This rule comes with options to aid in migrating to design tokens.
 
+#### domains
+
+An array specifiying which token domains to lint against (`color`, `spacing`, `typography`, `shape`). Defaults to [`'color'`] if not provided.
+
+#### applyImport
+
+When `true`, the rule when automatically add imports to the `@atlaskit/tokens` package where tokens are auto-fixed. Defaults to `true` if not provided.
+
 #### shouldEnforceFallbacks
 
-When `true` the rule will add in stub fallbacks when choosing a suggestion in your IDE.
+When `true` the rule will add in stub fallbacks when choosing a suggestion in your IDE. Defaults to `false` if not provided.
+
+#### exceptions
+
+An array specifying strings to ingore when linting.
+
+## ensure-design-token-usage/preview
+
+This rule is a clone of `ensure-design-token-usage` and is intended to allow you to set some domains to `warn` before they are set to `error` in the main rule.
+
+See `ensure-design-token-usage` for full usage documentation.
+
+## ensure-design-token-usage-spacing
+
+This rule is deprecated and will be removed imminently. Use `ensure-design-token-usage` instead.
 
 ## icon-label
 

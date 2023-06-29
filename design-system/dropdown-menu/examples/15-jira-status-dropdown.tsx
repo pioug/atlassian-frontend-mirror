@@ -1,21 +1,22 @@
 import React from 'react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
 import Arrow from '@atlaskit/icon/glyph/arrow-right';
 import Lozenge from '@atlaskit/lozenge';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
-const jiraItemStyles: React.CSSProperties = {
-  width: 105,
-};
+const jiraItemStyles = xcss({
+  width: 'size.600',
+  alignItems: 'center',
+});
 
 export default () => (
   <DropdownMenu defaultOpen trigger="To do">
     <DropdownItemGroup>
       <DropdownItem
         elemAfter={
-          <Box alignItems="center" UNSAFE_style={jiraItemStyles}>
+          <Box xcss={jiraItemStyles}>
             <Arrow label="" size="small" />
             <Lozenge appearance="inprogress">in progress</Lozenge>
           </Box>
@@ -25,7 +26,7 @@ export default () => (
       </DropdownItem>
       <DropdownItem
         elemAfter={
-          <Box alignItems="center" UNSAFE_style={jiraItemStyles}>
+          <Box xcss={jiraItemStyles}>
             <Arrow label="" size="small" />
             <Lozenge appearance="success">Done</Lozenge>
           </Box>

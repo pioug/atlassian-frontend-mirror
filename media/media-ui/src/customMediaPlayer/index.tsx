@@ -169,27 +169,40 @@ export class CustomMediaPlayerBase extends Component<
     if (isAutoPlay) {
       simultaneousPlayManager.pauseOthers(this);
       if (onFirstPlay) {
-        fireAnalyticsEvent(
-          createFirstPlayedTrackEvent(
-            type,
-            {
-              isAutoPlay,
-              isHDAvailable,
-              isHDActive,
-              isFullScreenEnabled,
-              playerSize,
-              playbackSpeed,
-            },
-            fileId,
-          ),
-          createAnalyticsEvent,
-        );
-
+        this.fireFirstPlayedTrackEvent();
         this.wasPlayedOnce = true;
         onFirstPlay();
       }
     }
   }
+
+  private fireFirstPlayedTrackEvent = () => {
+    const {
+      type,
+      fileId,
+      isHDActive,
+      isHDAvailable,
+      isAutoPlay,
+      createAnalyticsEvent,
+    } = this.props;
+    const { isFullScreenEnabled, playerSize, playbackSpeed } = this.state;
+
+    fireAnalyticsEvent(
+      createFirstPlayedTrackEvent(
+        type,
+        {
+          isAutoPlay,
+          isHDAvailable,
+          isHDActive,
+          isFullScreenEnabled,
+          playerSize,
+          playbackSpeed,
+        },
+        fileId,
+      ),
+      createAnalyticsEvent,
+    );
+  };
 
   componentWillUnmount() {
     if (this.videoWrapperRef.current) {
@@ -552,6 +565,7 @@ export class CustomMediaPlayerBase extends Component<
     }
     simultaneousPlayManager.pauseOthers(this);
     if (!this.wasPlayedOnce && onFirstPlay) {
+      this.fireFirstPlayedTrackEvent();
       this.wasPlayedOnce = true;
       onFirstPlay();
     }

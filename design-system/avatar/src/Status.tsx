@@ -6,10 +6,7 @@ import { token } from '@atlaskit/tokens';
 
 import { ICON_OFFSET, ICON_SIZES } from './constants';
 import IconWrapper from './IconWrapper';
-import { AppearanceType, IndicatorSizeType } from './types';
-
-// eslint-disable-next-line @repo/internal/react/consistent-types-definitions
-export type StatusType = ('approved' | 'declined' | 'locked') | ReactNode;
+import { AppearanceType, IndicatorSizeType, Status } from './types';
 
 export interface StatusProps {
   /**
@@ -26,7 +23,7 @@ export interface StatusProps {
    * Content to use as a custom status indicator. Not needed if consuming
    * `Status` separate to `Avatar`.
    */
-  status?: StatusType;
+  status?: Status;
 }
 
 const ApprovedIndicator = (
@@ -57,7 +54,7 @@ const LockedIndicator = (
   </Fragment>
 );
 
-function getStatus(status: StatusType) {
+function getStatus(status: Status) {
   switch (status) {
     case 'approved':
       return ApprovedIndicator;
@@ -138,7 +135,10 @@ export const StatusWrapper: FC<StatusWrapperProps> = ({
         width: `${ICON_SIZES[size]}px`,
       }}
     >
-      <AvatarStatus borderColor={borderColor} status={!children && status}>
+      <AvatarStatus
+        borderColor={borderColor}
+        status={!children ? status : undefined}
+      >
         {children}
       </AvatarStatus>
     </span>

@@ -1,13 +1,9 @@
 import React from 'react';
 
-import { Presence } from '../../src';
+import Avatar from '../../src';
 
 const AvatarPresenceOfflineExample = () => {
-  return (
-    <div style={{ width: 24 }}>
-      <Presence presence="offline" />
-    </div>
-  );
+  return <Avatar presence="offline" />;
 };
 
 export default AvatarPresenceOfflineExample;

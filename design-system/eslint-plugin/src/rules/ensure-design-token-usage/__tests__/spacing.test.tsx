@@ -1,20 +1,18 @@
-import { RuleTester } from 'eslint';
-
 import { tester, typescriptEslintTester } from '../../__tests__/utils/_tester';
-import rule from '../index';
+import rule from '../../ensure-design-token-usage';
 
-type Tests = Parameters<RuleTester['run']>[2];
+import { Tests } from './_types';
 
-const tests: Tests = {
+export const spacingTests: Tests = {
   valid: [
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
-        color: 'red'
+        overflow: auto
       })`,
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
       styled.div\`
         display: flex;
@@ -28,38 +26,38 @@ const tests: Tests = {
       \``,
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({ padding: token('space.100', '8px') })`,
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({ borderRadius: token('border.radius.100', '3px') })`,
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({ borderWidth: token('border.width.100', '2px') })`,
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({ gap: token('space.100', '8px') })`,
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const someValue = 8;\nconst styles = css({
       padding: \`\${token('space.100', '8px')} \${token('space.100', '8px')}\`,
     });`,
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const cssTemplateLiteral = css\`
-      color: pink;
+      width: 50%;
       div {
         padding: \${token('space.200', '16px')}
         \${token('space.300', '24px')};
       }\`;`,
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         padding: token('space.100', '8px'),
         margin: token('space.150', '12px'),
@@ -70,7 +68,7 @@ const tests: Tests = {
       })`,
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         paddingInlineStart: token('space.100', '8px'),
         paddingInlineEnd: token('space.100', '8px'),
@@ -84,7 +82,7 @@ const tests: Tests = {
     },
     // object calc with token
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
           const wrapperStyles = css({
             padding: \`calc(100vh - \${token('space.300', '24px')})\`,
@@ -92,7 +90,7 @@ const tests: Tests = {
     },
     // object calc with hardcoded value
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
           const wrapperStyles = css({
             padding: 'calc(100vh - 200px)',
@@ -100,28 +98,28 @@ const tests: Tests = {
     },
     // object single value, 0
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
             padding: 0,
           })`,
     },
     // object compound value, 0 0
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         padding: '0 0',
       });`,
     },
     // object single value, auto
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         margin: 'auto',
       });`,
     },
     // template single value, 0
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css\`
         margin: 0,
       ;\`
@@ -129,7 +127,7 @@ const tests: Tests = {
     },
     // template compound value, 0 auto
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
         styled.div\`
           margin: 0 auto 0 auto;
@@ -141,7 +139,7 @@ const tests: Tests = {
       `,
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
         styled(Button)\`
           width: 50%;
@@ -156,7 +154,7 @@ const tests: Tests = {
   invalid: [
     // just literals
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         paddingInlineStart:'8px',
         paddingInlineEnd:'8px',
@@ -205,7 +203,7 @@ const tests: Tests = {
         fontSize: '20px',
         lineHeight: '24px',
       })`,
-      options: [{ addons: ['typography'], applyImport: false }],
+      options: [{ domains: ['spacing', 'typography'], applyImport: false }],
       output: `const styles = css({
         // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
         padding: token('space.100', '8px'),
@@ -231,7 +229,7 @@ const tests: Tests = {
     },
     // numbers and strings
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         padding: 8,
         margin: '12px',
@@ -249,7 +247,7 @@ const tests: Tests = {
     },
     // numbers border width
     {
-      options: [{ applyImport: false, addons: ['shape'] }],
+      options: [{ applyImport: false, domains: ['spacing', 'shape'] }],
       code: `const styles = css({
             borderWidth: 2,
           })`,
@@ -261,7 +259,7 @@ const tests: Tests = {
     },
     // numbers border radius
     {
-      options: [{ applyImport: false, addons: ['shape'] }],
+      options: [{ applyImport: false, domains: ['spacing', 'shape'] }],
       code: `const styles = css({
             borderRadius: 3,
           })`,
@@ -273,7 +271,7 @@ const tests: Tests = {
     },
     // import border radius
     {
-      options: [{ applyImport: false, addons: ['shape'] }],
+      options: [{ applyImport: false, domains: ['spacing', 'shape'] }],
       code: `const styles = css({
                 borderRadius: borderRadius(),
               })`,
@@ -285,7 +283,7 @@ const tests: Tests = {
     },
     // numbers border radius in interpolations
     {
-      options: [{ applyImport: false, addons: ['shape'] }],
+      options: [{ applyImport: false, domains: ['spacing', 'shape'] }],
       code: `const styles = css({
                 borderRadius: \`\${borderRadius()}px\`,
               })`,
@@ -297,7 +295,7 @@ const tests: Tests = {
     },
     // numbers and strings with styled
     {
-      options: [{ applyImport: true }],
+      options: [{ domains: ['spacing'], applyImport: true }],
       code: `const styles = styled2.div({
         padding: 8,
       })`,
@@ -308,7 +306,7 @@ const tests: Tests = {
       errors: [{ messageId: 'noRawSpacingValues' }],
     },
     {
-      options: [{ applyImport: true }],
+      options: [{ domains: ['spacing'], applyImport: true }],
       code: `import { token } from '@atlaskit/tokens'\nconst styles = styled.div({
         padding: 8,
       })`,
@@ -320,7 +318,7 @@ const tests: Tests = {
     },
     // numbers and strings with styled
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = styled.div({
         padding: 8,
         margin: '12px 5px',
@@ -337,7 +335,7 @@ const tests: Tests = {
       ],
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = styled.div({
         margin: \`\${gridSize}px \${gridSize() -3}px\`,
       })`,
@@ -356,7 +354,7 @@ const tests: Tests = {
         margin: '12rem',
         lineHeight: '2%'
       })`,
-      options: [{ addons: ['typography'], applyImport: false }],
+      options: [{ domains: ['spacing', 'typography'], applyImport: false }],
       errors: [
         {
           message:
@@ -373,7 +371,7 @@ const tests: Tests = {
       ],
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         padding: gridSize(),
       })`,
@@ -388,7 +386,7 @@ const tests: Tests = {
       code: `const styles = css({
         fontSize: fontSize(),
       })`,
-      options: [{ addons: ['typography'], applyImport: false }],
+      options: [{ domains: ['spacing', 'typography'], applyImport: false }],
       output: `const styles = css({
         // TODO Delete this comment after verifying space token -> previous value \`fontSize()\`
         fontSize: token('font.size.100', '14px'),
@@ -401,7 +399,7 @@ const tests: Tests = {
         fontSize: 8,
         padding: '1em', // should be 8
       })`,
-      options: [{ addons: ['typography'], applyImport: false }],
+      options: [{ domains: ['spacing', 'typography'], applyImport: false }],
       output: `const styles = css({
         fontSize: 8,
         // TODO Delete this comment after verifying space token -> previous value \`'1em'\`
@@ -420,7 +418,7 @@ const tests: Tests = {
     },
     // em with no fontSize
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
             padding: '1em', // should be NaN
           })`,
@@ -433,7 +431,7 @@ const tests: Tests = {
     },
     // media query
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
             [media.sm.above]: { padding: '8px' },
           })`,
@@ -450,7 +448,7 @@ const tests: Tests = {
     },
     // multiple properties
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         padding: gridSize(),
         margin: gridSize() * 5,
@@ -488,7 +486,7 @@ const tests: Tests = {
     },
     // 'auto' and '0' values
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         padding: \`\${gridSize()} 0\`,
         margin: '0 auto',
@@ -506,7 +504,7 @@ const tests: Tests = {
     },
     // gridSize and 0
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         padding: \`\${gridSize()} 0\`,
       })`,
@@ -522,7 +520,7 @@ const tests: Tests = {
     },
     // shorthand string literal
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
             padding: '8px 12px',
           });`,
@@ -542,7 +540,7 @@ const tests: Tests = {
     },
     // shorthand template literal
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
             padding: \`8px 12px\`,
           });`,
@@ -562,7 +560,7 @@ const tests: Tests = {
     },
     // shorthand template literal with unknown expression
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `import { someValue } from 'other';\nconst styles = css({
         padding: \`\${someValue}px 12px\`,
       });`,
@@ -579,7 +577,7 @@ const tests: Tests = {
     },
     // shorthand template literal with known expression
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const someValue = 8;\nconst styles = css({
         padding: \`\${someValue}px 12px\`,
       });`,
@@ -598,7 +596,7 @@ const tests: Tests = {
       ],
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const someValue = 8;\nconst styles = css({
         padding: \`\${someValue}px \${someValue}px\`,
       });`,
@@ -618,7 +616,7 @@ const tests: Tests = {
     },
     // identifier
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const padding = 8;\nconst styles = css({
         padding,
       });`,
@@ -635,7 +633,7 @@ const tests: Tests = {
     },
     // identifier with property shorthand
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const someValue = 8;\nconst styles = css({
         padding: someValue,
       });`,
@@ -652,7 +650,7 @@ const tests: Tests = {
     },
     // unary expression with identifier
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const someValue = gridSize();\nconst styles = css({
         padding: -someValue,
       });`,
@@ -670,7 +668,7 @@ const tests: Tests = {
     },
     // unary expression with fontSizeSmall
     {
-      options: [{ addons: ['typography'], applyImport: false }],
+      options: [{ domains: ['typography'], applyImport: false }],
       code: `const someValue = fontSizeSmall();\nconst styles = css({
         fontSize: -someValue,
       });`,
@@ -683,9 +681,9 @@ const tests: Tests = {
     },
     // tagged TemplateLiteral padding
     {
-      options: [{ applyImport: false }],
-      code: 'const cssTemplateLiteral = css`color: red; padding: 16px 24px;`;',
-      output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 16px 24px\`\nconst cssTemplateLiteral = css\`color: red; padding: \${token('space.200', '16px')} \${token('space.300', '24px')};\`;`,
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: 'const cssTemplateLiteral = css`width: 50%; padding: 16px 24px;`;',
+      output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 16px 24px\`\nconst cssTemplateLiteral = css\`width: 50%; padding: \${token('space.200', '16px')} \${token('space.300', '24px')};\`;`,
       errors: [
         {
           message:
@@ -703,9 +701,9 @@ const tests: Tests = {
     },
     // tagged TemplateLiteral font-weight
     {
-      code: 'const cssTemplateLiteral = css`color: red; font-weight: 400;`;',
-      options: [{ addons: ['typography'], applyImport: false }],
-      output: `// TODO Delete this comment after verifying space token -> previous value \`font-weight: 400\`\nconst cssTemplateLiteral = css\`color: red; font-weight: \${token('font.weight.regular', '400')};\`;`,
+      code: 'const cssTemplateLiteral = css`width: 50%; font-weight: 400;`;',
+      options: [{ domains: ['typography'], applyImport: false }],
+      output: `// TODO Delete this comment after verifying space token -> previous value \`font-weight: 400\`\nconst cssTemplateLiteral = css\`width: 50%; font-weight: \${token('font.weight.regular', '400')};\`;`,
       errors: [
         {
           message:
@@ -719,9 +717,9 @@ const tests: Tests = {
     },
     // tagged TemplateLiteral line-height
     {
-      code: 'const cssTemplateLiteral = css`color: red; line-height: 24px;`;',
-      options: [{ addons: ['typography'], applyImport: false }],
-      output: `// TODO Delete this comment after verifying space token -> previous value \`line-height: 24px\`\nconst cssTemplateLiteral = css\`color: red; line-height: \${token('font.lineHeight.300', '24px')};\`;`,
+      code: 'const cssTemplateLiteral = css`width: 50%; line-height: 24px;`;',
+      options: [{ domains: ['typography'], applyImport: false }],
+      output: `// TODO Delete this comment after verifying space token -> previous value \`line-height: 24px\`\nconst cssTemplateLiteral = css\`width: 50%; line-height: \${token('font.lineHeight.300', '24px')};\`;`,
       errors: [
         {
           message:
@@ -737,13 +735,13 @@ const tests: Tests = {
     {
       code: `
     const cssTemplateLiteral = css\`
-      color: red;
+      width: 50%;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;\`;
     `,
-      options: [{ addons: ['typography'], applyImport: false }],
+      options: [{ domains: ['typography'], applyImport: false }],
       output: `
     // TODO Delete this comment after verifying space token -> previous value \`font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`\nconst cssTemplateLiteral = css\`
-      color: red;
+      width: 50%;
       font-family: \${token('font.family.sans', \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`)};\`;
     `,
       errors: [
@@ -758,9 +756,9 @@ const tests: Tests = {
     },
     // tagged TemplateLiteral with nested styles
     {
-      options: [{ applyImport: false }],
-      code: 'const cssTemplateLiteral = css`color: red; div { padding: 16px 24px; }`;',
-      output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 16px 24px\`\nconst cssTemplateLiteral = css\`color: red; div { padding: \${token('space.200', '16px')} \${token('space.300', '24px')}; }\`;`,
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: 'const cssTemplateLiteral = css`width: 50%; div { padding: 16px 24px; }`;',
+      output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 16px 24px\`\nconst cssTemplateLiteral = css\`width: 50%; div { padding: \${token('space.200', '16px')} \${token('space.300', '24px')}; }\`;`,
       errors: [
         {
           message:
@@ -778,12 +776,12 @@ const tests: Tests = {
     },
     // vanilla template
     {
-      options: [{ applyImport: false }],
-      code: 'const styledTemplateLiteral = styled.p`color: red; padding: 12px; margin: 4px; gap: 2px`;',
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: 'const styledTemplateLiteral = styled.p`width: 50%; padding: 12px; margin: 4px; gap: 2px`;',
       output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 12px\`
 // TODO Delete this comment after verifying space token -> previous value \`margin: 4px\`
 // TODO Delete this comment after verifying space token -> previous value \`gap: 2px\`
-const styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150', '12px')}; margin: \${token('space.050', '4px')}; gap: \${token('space.025', '2px')}\`;`,
+const styledTemplateLiteral = styled.p\`width: 50%; padding: \${token('space.150', '12px')}; margin: \${token('space.050', '4px')}; gap: \${token('space.025', '2px')}\`;`,
       errors: [
         {
           message:
@@ -804,9 +802,9 @@ const styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150
       ],
     },
     {
-      options: [{ applyImport: false }],
-      code: 'const styledTemplateLiteral = styled.p`color: red; padding: 12px 8px 10px 9px;`;',
-      output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 12px 8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150', '12px')} \${token('space.100', '8px')} 10px 9px;\`;`,
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: 'const styledTemplateLiteral = styled.p`width: 50%; padding: 12px 8px 10px 9px;`;',
+      output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 12px 8px\`\nconst styledTemplateLiteral = styled.p\`width: 50%; padding: \${token('space.150', '12px')} \${token('space.100', '8px')} 10px 9px;\`;`,
       errors: [
         {
           message:
@@ -845,7 +843,7 @@ const styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150
     // },
     // nested object
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const decoration = css({
         position: 'relative',
         ':before': {
@@ -888,7 +886,7 @@ const styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150
     // },
     // vh and vw
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({
         paddingLeft: '100vh',
         margin: '90vw',
@@ -905,7 +903,7 @@ const styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.150
       ],
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 styled.div\`
   padding: 0px;
@@ -935,7 +933,7 @@ styled.div\`
       ],
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 styled.div\`
   padding: \${token('space.0', '0px')};
@@ -965,7 +963,7 @@ styled.div\`
       ],
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 styled.div\`
   padding: \${token('space.0', '0px')};
@@ -995,7 +993,7 @@ styled.div\`
       ],
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 styled.div\`
   padding: \${token('space.0', '0px')};
@@ -1025,7 +1023,7 @@ styled.div\`
       ],
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 styled.div\`
   display: flex;
@@ -1063,7 +1061,7 @@ styled.div\`
       ],
     },
     {
-      options: [{ addons: ['typography'], applyImport: false }],
+      options: [{ domains: ['typography'], applyImport: false }],
       code: `
 styled.div\`
   display: flex;
@@ -1087,7 +1085,7 @@ styled.div\`
       ],
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 styled.div\`
   font-size: 8;
@@ -1111,7 +1109,7 @@ styled.div\`
       ],
     },
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 styled.div\`
   padding-inline: \${gridSize}px \${gridSize *2}px;
@@ -1149,7 +1147,7 @@ styled.div\`
     },
     // styled as a function
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 styled(Flex)\`
   font-size: 8;
@@ -1174,7 +1172,7 @@ styled(Flex)\`
     },
     // "styles" in object name
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 const someStyles = {
   padding: '8px 4px',
@@ -1203,7 +1201,7 @@ const someStyles = {
     },
     // inline styles object in JSX
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 <MyComponent
   stuff={{
@@ -1236,7 +1234,7 @@ const someStyles = {
     },
     // inline styles object in JSX with css call
     {
-      options: [{ applyImport: false }],
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `
 <MyComponent
   stuff={css({
@@ -1268,6 +1266,7 @@ const someStyles = {
       ],
     },
     {
+      options: [{ domains: ['spacing'], applyImport: false }],
       // FROM JIRA
       code: `
 // @flow strict-local
@@ -1340,7 +1339,10 @@ export const StickyWrapper = styled.div\`
   ],
 };
 
-// @ts-expect-error
-typescriptEslintTester.run('ensure-design-token-usage-spacing', rule, tests);
-// @ts-expect-error
-tester.run('ensure-design-token-usage-spacing', rule, tests);
+typescriptEslintTester.run(
+  'ensure-design-token-usage',
+  // @ts-expect-error
+  rule,
+  spacingTests,
+);
+tester.run('ensure-design-token-usage', rule, spacingTests);

@@ -26,26 +26,12 @@ export default {
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly': 'Нет результатов по запросу «{inputValue}».',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Нет результатов по запросу «{inputValue}». Пригласите пользователей по адресу электронной почты.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'Введите адрес электронной почты',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Укажите имя или название команды',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Введите имя, группу, команду или адрес эл. почты',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Введите имя, команду или адрес эл. почты',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'Введите имя, группу или команду',
   'fabric.elements.share.form.user-picker.validation.required':
     'Выберите хотя бы 1 пользователя, группу, команду или адрес эл. почты.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only':
-    'Выберите хотя бы один адрес электронной почты.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Выберите хотя бы 1 пользователя, группу или команду.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Выберите хотя бы 1 пользователя, команду или адрес эл. почты.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Выберите хотя бы 1 пользователя или команду.',
   'fabric.elements.share.in.integration.button': 'Поделиться в {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Поделиться страницей',
   'fabric.elements.share.main.tab.text.jira': 'Поделиться задачей',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Доступ к записи в блоге предоставлен}board {Доступ к доске предоставлен}calendar {Доступ к календарю предоставлен}draft {Доступ к черновику предоставлен}filter {Доступ к фильтру предоставлен}issue {Доступ к задаче предоставлен}summary {Доступ к теме предоставлен}list {Доступ к списку предоставлен}timeline {Доступ к хронологии предоставлен}form {Доступ к форме предоставлен}media {Доступ к медиафайлу предоставлен}page {Доступ к странице предоставлен}project {Доступ к проекту предоставлен}pullrequest {Доступ к запросу pull предоставлен}question {Доступ к вопросу предоставлен}report {Доступ к отчету предоставлен}repository {Доступ к репозиторию предоставлен}request {Доступ к запросу предоставлен}roadmap {Доступ к дорожной карте предоставлен}site {Доступ к сайту предоставлен}space {Доступ к разделу предоставлен}other {Доступ к ссылке предоставлен}}',
   'fabric.elements.share.to.integration.button': 'Поделиться в {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Значок «Поделиться»',
   'fabric.elements.share.trigger.button.invite.text': 'Пригласить',

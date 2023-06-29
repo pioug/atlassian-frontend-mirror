@@ -27,25 +27,12 @@ export default {
     'Vi hittade inte några resultat för "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Vi hittade inte några resultat för "{inputValue}". Bjud in personer genom att använda e-postadresser.',
-  'fabric.elements.share.form.user-picker.placeholder.emailOnly': 'Ange e-postadress',
-  'fabric.elements.share.form.user-picker.placeholder.existingUserOnly': 'Ange namn eller team',
-  'fabric.elements.share.form.user-picker.placeholder.generic': 'Ange namn, grupp, team eller e-postadress',
   'fabric.elements.share.form.user-picker.placeholder.jira': 'Ange namn, team eller e-postadress',
-  'fabric.elements.share.form.user-picker.placholder.generic.existingUserOnly': 'Ange namn, grupp eller team',
   'fabric.elements.share.form.user-picker.validation.required':
     'Välj minst en användare, en grupp, ett team eller en e-postadress.',
-  'fabric.elements.share.form.user-picker.validation.required.email-only': 'Välj minst en e-postadress.',
-  'fabric.elements.share.form.user-picker.validation.required.existingUserOnly':
-    'Välj minst en användare, en grupp eller ett team.',
-  'fabric.elements.share.form.user-picker.validation.required.jira':
-    'Välj minst en användare, ett team eller en e-postadress.',
-  'fabric.elements.share.form.user-picker.validation.required.jira.existingUserOnly':
-    'Välj minst en användare eller ett team.',
   'fabric.elements.share.in.integration.button': 'Dela i {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Dela sida',
   'fabric.elements.share.main.tab.text.jira': 'Dela ärende',
-  'fabric.elements.share.success.message':
-    '{object, select,blogpost {Blogginlägg har delats}board {Tavla har delats}calendar {Kalender har delats}draft {Utkast har delats}filter {Filter har delats}issue {Ärende har delats}summary {Sammanfattning har delats}list {Lista har delats}timeline {Tidslinje har delats}form {Formulär har delats}media {Media har delats}page {Sida har delats}project {Projekt har delats}pullrequest {Pull request har delats}question {Fråga har delats}report {Rapport har delats}repository {Lagringsplats har delats}request {Förfrågan har delats}roadmap {Översikt har delats}site {Webbplats har delats}space {Utrymme har delats}other {Länk har delats}}',
   'fabric.elements.share.to.integration.button': 'Dela till {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Dela-ikon',
   'fabric.elements.share.trigger.button.invite.text': 'Bjud In',

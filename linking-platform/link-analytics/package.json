@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/linking-common": "^3.0.0",
+    "@atlaskit/linking-common": "^3.1.0",
     "@babel/runtime": "^7.0.0",
     "json-ld-types": "3.7.0",
     "lru_map": "^0.4.1",
@@ -52,7 +52,7 @@
     "@atlaskit/link-picker": "^1.25.0",
     "@atlaskit/link-test-helpers": "^4.1.0",
     "@atlaskit/popup": "^1.8.0",
-    "@atlaskit/smart-card": "^26.5.0",
+    "@atlaskit/smart-card": "^26.6.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",

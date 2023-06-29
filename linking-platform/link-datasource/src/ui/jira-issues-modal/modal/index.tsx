@@ -2,13 +2,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import {
-  FormattedMessage,
-  FormattedNumber,
-  FormattedPlural,
-  IntlProvider,
-  useIntl,
-} from 'react-intl-next';
+import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
@@ -337,89 +331,86 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
   ]);
 
   return (
-    <IntlProvider locale="en">
-      <ModalTransition>
-        <Modal
-          testId={'jira-jql-datasource-modal'}
-          onClose={onCancel}
-          width="x-large"
-          shouldScrollInViewport={true}
-        >
-          <ModalHeader>
-            <ModalTitle>
-              {availableSites.length < 2 ? (
-                <FormattedMessage {...modalMessages.insertIssuesTitle} />
-              ) : (
-                <div css={dropdownContainerStyles}>
-                  <FormattedMessage
-                    {...modalMessages.insertIssuesTitleManySites}
-                    values={{ siteName: selectedJiraSite?.displayName }}
-                  />
-                  <JiraSiteSelector
-                    testId={`jira-jql-datasource-modal--site-selector`}
-                    availableSites={availableSites}
-                    onSiteSelection={onSiteSelection}
-                    selectedJiraSite={selectedJiraSite}
-                  />
-                </div>
-              )}
-            </ModalTitle>
-            <ModeSwitcher
-              isCompact
-              options={[
-                {
-                  label: formatMessage(modalMessages.issueViewModeLabel),
-                  value: 'issue' as JiraIssueViewModes,
-                },
-                {
-                  label: formatMessage(modalMessages.countViewModeLabel),
-                  value: 'count' as JiraIssueViewModes,
-                },
-              ]}
-              onOptionValueChange={handleViewModeChange}
-              selectedOptionValue={currentViewMode}
-            />
-          </ModalHeader>
-          <ModalBody>
-            <JiraSearchContainer
-              isSearching={status === 'loading'}
-              parameters={parameters}
-              onSearch={onSearch}
-            />
-            <div css={contentContainerStyles}>
-              {currentViewMode === 'count'
-                ? renderCountModeContent()
-                : renderIssuesModeContent()}
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            {shouldShowIssueCount && (
-              <div
-                data-testid="jira-jql-datasource-modal-total-issues-count"
-                css={issueCountStyles}
-              >
-                <FormattedNumber value={totalCount} />{' '}
-                <FormattedPlural
-                  one={<FormattedMessage {...modalMessages.singularIssue} />}
-                  other={<FormattedMessage {...modalMessages.pluralIssues} />}
-                  value={totalCount}
+    <ModalTransition>
+      <Modal
+        testId={'jira-jql-datasource-modal'}
+        onClose={onCancel}
+        width="x-large"
+        shouldScrollInViewport={true}
+      >
+        <ModalHeader>
+          <ModalTitle>
+            {availableSites.length < 2 ? (
+              <FormattedMessage {...modalMessages.insertIssuesTitle} />
+            ) : (
+              <div css={dropdownContainerStyles}>
+                <FormattedMessage
+                  {...modalMessages.insertIssuesTitleManySites}
+                  values={{ siteName: selectedJiraSite?.displayName }}
+                />
+                <JiraSiteSelector
+                  testId={`jira-jql-datasource-modal--site-selector`}
+                  availableSites={availableSites}
+                  onSiteSelection={onSiteSelection}
+                  selectedJiraSite={selectedJiraSite}
                 />
               </div>
             )}
-            <Button appearance="default" onClick={onCancel}>
-              <FormattedMessage {...modalMessages.cancelButtonText} />
-            </Button>
-            <Button
-              appearance="primary"
-              onClick={onInsertPressed}
-              isDisabled={isDisabled}
-              testId={'jira-jql-datasource-modal--insert-button'}
+          </ModalTitle>
+          <ModeSwitcher
+            isCompact
+            options={[
+              {
+                label: formatMessage(modalMessages.issueViewModeLabel),
+                value: 'issue' as JiraIssueViewModes,
+              },
+              {
+                label: formatMessage(modalMessages.countViewModeLabel),
+                value: 'count' as JiraIssueViewModes,
+              },
+            ]}
+            onOptionValueChange={handleViewModeChange}
+            selectedOptionValue={currentViewMode}
+          />
+        </ModalHeader>
+        <ModalBody>
+          <JiraSearchContainer
+            isSearching={status === 'loading'}
+            parameters={parameters}
+            onSearch={onSearch}
+          />
+          <div css={contentContainerStyles}>
+            {currentViewMode === 'count'
+              ? renderCountModeContent()
+              : renderIssuesModeContent()}
+          </div>
+        </ModalBody>
+        <ModalFooter>
+          {shouldShowIssueCount && (
+            <div
+              data-testid="jira-jql-datasource-modal-total-issues-count"
+              css={issueCountStyles}
             >
-              <FormattedMessage {...modalMessages.insertIssuesButtonText} />
-            </Button>
-          </ModalFooter>
-        </Modal>
-      </ModalTransition>
-    </IntlProvider>
+              <FormattedNumber value={totalCount} />{' '}
+              <FormattedMessage
+                {...modalMessages.issueText}
+                values={{ totalCount }}
+              />
+            </div>
+          )}
+          <Button appearance="default" onClick={onCancel}>
+            <FormattedMessage {...modalMessages.cancelButtonText} />
+          </Button>
+          <Button
+            appearance="primary"
+            onClick={onInsertPressed}
+            isDisabled={isDisabled}
+            testId={'jira-jql-datasource-modal--insert-button'}
+          >
+            <FormattedMessage {...modalMessages.insertIssuesButtonText} />
+          </Button>
+        </ModalFooter>
+      </Modal>
+    </ModalTransition>
   );
 };

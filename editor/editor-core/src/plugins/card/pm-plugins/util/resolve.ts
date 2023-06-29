@@ -1,6 +1,7 @@
 import {
   CardProvider,
   CardAdf,
+  DatasourceAdf,
 } from '@atlaskit/editor-common/provider-factory';
 import { EditorView } from 'prosemirror-view';
 
@@ -38,7 +39,10 @@ export const resolveWithProvider = (
   return handleResolve;
 };
 
-const updateCardType = (resolvedCard: CardAdf, options: CardOptions) => {
+const updateCardType = (
+  resolvedCard: CardAdf | DatasourceAdf,
+  options: CardOptions,
+) => {
   if (
     (resolvedCard?.type === 'blockCard' && !options.allowBlockCards) ||
     (resolvedCard?.type === 'embedCard' && !options.allowEmbeds)
@@ -58,7 +62,7 @@ const handleResolved =
     editorAnalyticsApi: EditorAnalyticsAPI | undefined,
     options: CardOptions,
   ) =>
-  (resolvedCard: CardAdf) => {
+  (resolvedCard: CardAdf | DatasourceAdf) => {
     updateCardType(resolvedCard, options);
     replaceQueuedUrlWithCard(
       request.url,

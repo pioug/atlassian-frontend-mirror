@@ -14,6 +14,8 @@ import {
 
 import { spacing as spacingScale } from '@atlaskit/tokens/tokens-raw';
 
+import { isColorCssPropertyName } from '../utils/is-color';
+
 import {
   borderWidthValueToToken,
   isBorderRadius,
@@ -21,6 +23,7 @@ import {
   isShapeProperty,
   radiusValueToToken,
 } from './shape';
+import { Domains } from './types';
 import {
   isCodeFontFamily,
   isFontFamily,
@@ -75,7 +78,6 @@ const properties = [
 ];
 
 export type ProcessedCSSLines = [string, string][];
-export type TargetOptions = ('spacing' | 'typography' | 'shape')[];
 
 const spacingValueToToken = Object.fromEntries(
   spacingScale.map((token) => [token.value, token.name]),
@@ -147,6 +149,7 @@ const isGridSize = (node: EslintNode): node is CallExpression =>
   isNodeOfType(node, 'CallExpression') &&
   isNodeOfType(node.callee, 'Identifier') &&
   (node.callee.name === 'gridSize' || node.callee.name === 'getGridSize') &&
+  // If there are arguments we know it's a custom gridSize function and cannot be certain what it returns
   node.arguments.length === 0;
 
 const isToken = (node: EslintNode): node is CallExpression =>
@@ -507,34 +510,41 @@ export const findParentNodeForLine = (node: Rule.Node): Rule.Node => {
 };
 
 /**
- * Returns a boolean that signals wether the current property is revelant under the current configuration
+ * Returns an array of domains that are relevant to the provided property based on the rule options
  * @param propertyName camelCase CSS property
  * @param targetOptions Array containing the types of properties that should be included in the rule
  * @example
  * ```
- * propertyName: padding, targetOptions: ['spacing']
- * propertyName: fontWeight, targetOptions: ['spacing', 'typography']
+ * propertyName: padding, targetOptions: ['spacing'] -> returns ['spacing']
+ * propertyName: fontWeight, targetOptions: ['spacing', 'typography'] -> returns ['typography']
+ * propertyName: backgroundColor, targetOptions: ['spacing', 'typography'] -> returns []
+ * propertyName: backgroundColor, targetOptions: ['color', 'spacing'] -> returns ['color']
  * ```
  */
-export function shouldAnalyzeProperty(
+export function getDomainsForProperty(
   propertyName: string,
-  targetOptions: TargetOptions,
-): boolean {
+  targetOptions: Domains,
+): Domains {
+  const domains: Domains = [];
+  if (isColorCssPropertyName(propertyName) && targetOptions.includes('color')) {
+    domains.push('color');
+  }
+
   if (isSpacingProperty(propertyName) && targetOptions.includes('spacing')) {
-    return true;
+    domains.push('spacing');
   }
 
   if (isShapeProperty(propertyName) && targetOptions.includes('shape')) {
-    return true;
+    domains.push('shape');
   }
 
   if (
     isTypographyProperty(propertyName) &&
     targetOptions.includes('typography')
   ) {
-    return true;
+    domains.push('typography');
   }
-  return false;
+  return domains;
 }
 
 /**
@@ -667,11 +677,15 @@ export function splitCssProperties(styleString: string): string[] {
 }
 
 /**
- * returns wether the current string is a token value
+ * returns whether the current string is a token value
  * @param originalVaue string representing a css property value e.g 1em, 12px
  */
 export function isTokenValueString(originalValue: string): boolean {
   return originalValue.startsWith('${token(') && originalValue.endsWith('}');
+}
+
+export function includesTokenString(originalValue: string): boolean {
+  return originalValue.includes('${token(');
 }
 
 /**

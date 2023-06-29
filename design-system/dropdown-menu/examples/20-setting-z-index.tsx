@@ -1,21 +1,18 @@
 import React, { Fragment, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/glyph/media-services/add-comment';
 import Popup from '@atlaskit/popup';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
-const containerStyles: React.CSSProperties = {
-  width: 300,
-  height: 300,
-  padding: token('space.100', '8px'),
-};
+const containerStyles = xcss({
+  width: 'size.1000',
+  height: 'size.1000',
+  padding: 'space.100',
+});
 
 export default () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +28,7 @@ export default () => {
         placement="bottom-start"
         zIndex={600}
         content={() => (
-          <Box UNSAFE_style={containerStyles} as="div">
+          <Box xcss={containerStyles}>
             <DropdownMenu trigger="Page actions" zIndex={610} testId="dropdown">
               <DropdownItemGroup>
                 <DropdownItem>Move</DropdownItem>

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { LinkPicker } from '../src';
 import { PageWrapper } from '../example-helpers/common';
+import { LinkPicker } from '../src';
 
 export default function VrNoPlugins() {
   return (

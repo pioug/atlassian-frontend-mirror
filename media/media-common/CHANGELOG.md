@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 7.1.0
+
+### Minor Changes
+
+- [`9d91eb4b59b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d91eb4b59b) - MEX-2411 Remove Observed Width feature flag
+
 ## 7.0.0
 
 ### Major Changes

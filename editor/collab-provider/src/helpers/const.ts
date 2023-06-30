@@ -27,6 +27,14 @@ export enum ADD_STEPS_TYPE {
   ERROR = 'ERROR',
 }
 
+export type DocumentUpdateErrorAttributes = {
+  isDocTruthy?: boolean;
+  editorVersion?: number;
+  newVersion?: number;
+  docHasContent?: boolean;
+  isDocContentValid?: boolean;
+};
+
 export type ErrorAnalyticsEvent = {
   eventAction: EVENT_ACTION.ERROR;
   attributes: {
@@ -34,7 +42,7 @@ export type ErrorAnalyticsEvent = {
     errorName?: string;
     documentAri?: string;
     mappedError?: ProviderError;
-  };
+  } & DocumentUpdateErrorAttributes;
   nonPrivacySafeAttributes: {
     error: unknown;
   };

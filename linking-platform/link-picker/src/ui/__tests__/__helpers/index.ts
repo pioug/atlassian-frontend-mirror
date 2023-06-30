@@ -1,4 +1,4 @@
-import { LinkSearchListItemData } from '../../types';
+import { LinkSearchListItemData } from '../../../common/types';
 
 export const getDefaultItems = (
   numberOfItems: number = 2,

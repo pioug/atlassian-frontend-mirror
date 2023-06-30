@@ -19,6 +19,7 @@ import { ButtonItem, CustomItem, NavigationContent } from '../index';
 import { ROOT_ID } from '../NestableNavigationContent';
 import {
   NestedContext,
+  NestedContextValue,
   useNestedContext,
 } from '../NestableNavigationContent/context';
 import { useChildIdsEffect } from '../utils/hooks';
@@ -154,6 +155,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
     backButton: contextualBackButton,
     stack,
     childIds,
+    forceShowTopScrollIndicator,
   } = useNestedContext();
 
   const mergedStyles = overrideStyleFunction(nestingItemStyle, cssFn);
@@ -170,7 +172,7 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
       })) ||
     contextualBackButton;
 
-  const context = useMemo(
+  const context: NestedContextValue = useMemo(
     () => ({
       stack,
       currentStackId,
@@ -179,10 +181,18 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
       backButton,
       parentId: id,
       childIds,
+      forceShowTopScrollIndicator,
     }),
-    // childIds shouldn't change as it's a ref
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onNest, onUnNest, backButton, stack, id, currentStackId],
+    [
+      stack,
+      currentStackId,
+      onNest,
+      onUnNest,
+      backButton,
+      id,
+      childIds,
+      forceShowTopScrollIndicator,
+    ],
   );
 
   useChildIdsEffect(childIds, id);
@@ -228,7 +238,9 @@ const NestingItem = <TCustomComponentProps extends CustomItemComponentProps>(
         )}
         <NavigationContent
           testId={testId}
-          showTopScrollIndicator={stack.length >= 1}
+          showTopScrollIndicator={
+            forceShowTopScrollIndicator || stack.length >= 1
+          }
         >
           {children}
         </NavigationContent>

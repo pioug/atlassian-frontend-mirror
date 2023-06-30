@@ -1,0 +1,14 @@
+---
+title: Async creatable select
+description: Async creatable select handles loading data from remote sources and allows users to create new options.
+order: 0
+---
+
+import SelectAsyncCreatable from '../../examples/constellation/select-async-creatable';
+
+Async creatable select introduces a `loadOptions` prop that can be given a promise or callback that will eventually resolve to its list of options.
+
+It also introduces the `onCreateOption` prop that can be used to enable users to create new options that are not yet available.
+
+<Example Component={SelectAsyncCreatable} packageName="@atlaskit/select" />
+

@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
-import { waitForElementToBeRemoved } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
+import { waitForElementToBeRemoved } from '@testing-library/react';
+
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import '@testing-library/jest-dom/extend-expect';
 
-import { LinkPicker as LinkPickerType, LinkPickerProps } from './link-picker';
+import { LinkPickerProps, LinkPicker as LinkPickerType } from './link-picker';
 
 describe('<ComposedLinkPicker />', () => {
   const setupLinkPicker = ({

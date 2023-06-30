@@ -29,6 +29,11 @@ export interface SectionProps {
    * serving as a hook for automated tests.
    */
   testId?: string;
+
+  /**
+   * Specifically adds <ul> and <li> elements around the items for better semantic markup if it is a list of items
+   */
+  isList?: boolean;
 }
 
 // Type needed on props to extract types with extract react types.

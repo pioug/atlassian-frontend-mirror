@@ -14,6 +14,7 @@ describe('Section', () => {
     onUnNest: jest.fn(),
     stack: [],
     parentId: ROOT_ID,
+    forceShowTopScrollIndicator: false,
     childIds: jest
       .spyOn(React, 'useRef')
       .mockReturnValue({ current: new Set<string>() }) as any,

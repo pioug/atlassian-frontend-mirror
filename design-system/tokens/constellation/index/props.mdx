@@ -20,11 +20,12 @@ const buttonStyles = {
 };
 ```
 
-### setGlobalTheme(themeState);
+### setGlobalTheme(themeState, themeLoader);
 
 Use the `setGlobalTheme` method to switch themes globally at runtime. It:
 - updates the `data-theme` and `data-color-mode` attributes on your page's HTML tag.
 - dynamically loads in the CSS required to support each selected themes, and adds it to a series of `<style>` tag in your page's document head.
+- optionally overrides default theme loading behavior if a `themeLoader` function has been provided. E.g. when appending `<style>` elements isn't possible.
 
 The `themeState` object includes the following properties:
 
@@ -48,6 +49,12 @@ The `themeState` object includes the following properties:
 />
 
 <TokenPropsTable
+  propName={'themeLoader'}
+  description={'A callback function that can be used to override the default theme loading functionality. It will run the function for each required theme ID instead of creating `<style>` elements. For example, this can be used to add `<link>` elements for each theme instead.'}
+  typing={'(id: ThemeIds) => void'}
+/>
+
+<TokenPropsTable
   propName={'return value'}
   description={'A Promise of a function, that can be used to stop listening for changes to system theme.'}
   typing={'Promise<() => void>'}/>
@@ -65,6 +72,37 @@ const App = () => {
     colorMode: 'auto',
     typography: 'typography',
   });
+
+  return (
+    <div style={{backgroundColor: token('elevation.surface')}}>...</div>
+  );
+};
+```
+
+#### Example usage with a custom theme loader
+
+The `themeLoader` parameter takes a synchronous function, which will be called with the `themeId` for each theme that needs to be loaded onto the page based for the provided `ThemeState`. If `colorMode` is set to ‘light’, the theme set in `ThemeState.dark` will not be loaded, and visa versa.
+
+```tsx
+import { token, setGlobalTheme } from '@atlaskit/tokens';
+
+const App = () => {
+  const themeLoader = (id) => {
+    const link = document.createElement('link');
+    const stylesheetUrl = `https://test-cdn.com/atlaskit-tokens_${id}.css`;
+
+    link.rel = 'stylesheet';
+    link.href = stylesheetUrl;
+    link.dataset.theme = id;
+    document.head.appendChild(link);
+  };
+
+  setGlobalTheme({
+    light: 'light',
+    dark: 'dark',
+    colorMode: 'auto',
+    typography: 'typography',
+  }, themeLoader);
 
   return (
     <div style={{backgroundColor: token('elevation.surface')}}>...</div>
@@ -283,19 +321,21 @@ export default MyDocument
 
 **These utilities should only be used when configuring SSR.**
 
-### getThemeStyles(themeState)
+### getThemeStyles(themeState | "all")
 
 When server-side rendering the app, a number of themes need to be added as `<style>` tags to the `<head>` of the document,
 based on the user's theme preferences.
 
-Given a `themeState` object representing the user's theme preferences, getThemeStyles provides an array of objects that can be used
+Given a `themeState` object representing the user's theme preferences, `getThemeStyles` provides an array of objects that can be used
 to construct these `<style>` tags:
-- **`id:`** the ID the loaded theme
-- **`attrs:`** an object of data attributes to attach to `<style>` tag
-- **`css:`** the string of CSS to set as the `innerhtml` of the `<style>`, containing the styles for that theme.
+- **`id:`** the ID of the loaded theme
+- **`attrs:`** an object of data attributes to attach to the `<style>` tag
+- **`css:`** the string of CSS to set as the `innerHtml` of the `<style>`, containing the styles for that theme.
 
-getThemeStyles only supplies the color themes necessary for initial render, based on the current themeState. I.e.
+By default, `getThemeStyles` only supplies the color themes necessary for initial render, based on the current `themeState`. I.e.
 if the user has automatic theme switching turned off, and is in light mode, dark mode themes will not be returned.
+
+When passing the string "all" as an argument to `getThemeStyles`, it will return objects for all possible themes instead of just the ones associated with a `themeState`.
 
 If an error is encountered while loading a specific theme, the theme styles for that theme will be
 missing from the returned array, and will only be visible to the user on app hydration.

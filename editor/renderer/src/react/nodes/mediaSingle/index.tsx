@@ -20,7 +20,6 @@ import {
 import { AnalyticsEventPayload } from '../../../analytics/events';
 import { FullPagePadding } from '../../../ui/Renderer/style';
 import { RendererAppearance } from '../../../ui/Renderer/types';
-import { useObservedWidth } from '../../hooks/use-observed-width';
 import { MediaProps } from '../media';
 import { uiMediaSingleBaseStyles, uiMediaSingleLayoutStyles } from './styles';
 
@@ -98,13 +97,6 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
       });
     },
     [],
-  );
-
-  const observedWidthFlag = getMediaFeatureFlag('observedWidth', featureFlags);
-
-  const { width: observedWidth } = useObservedWidth(
-    ref.current?.parentElement,
-    observedWidthFlag,
   );
 
   let media: ReactElement<MediaProps & MediaADFAttrs>;
@@ -222,9 +214,7 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     );
   };
 
-  return observedWidthFlag ? (
-    renderMediaSingle(observedWidth || document.body.offsetWidth)
-  ) : (
+  return (
     <WidthConsumer>
       {({ width, breakpoint }) => {
         return renderMediaSingle(width, breakpoint);

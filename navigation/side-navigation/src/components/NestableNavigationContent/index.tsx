@@ -9,7 +9,7 @@ import { GoBackItem as GoBackButton } from '../Item';
 import { default as NestingItem } from '../NestingItem';
 import { useChildIds } from '../utils/hooks';
 
-import { NestedContext } from './context';
+import { NestedContext, NestedContextValue } from './context';
 import { NestingMotion } from './nesting-motion';
 // Named so ERT doesn't pick up the override name as a type.
 
@@ -33,6 +33,13 @@ export interface NestableNavigationContentProps {
    * - The back item (displayed when inside a nested view) - `{testId}--go-back-item`
    */
   testId?: string;
+
+  /**
+   * Forces the top scroll indicator to be shown. This prop should be used when needing to
+   * distinctly separate the side navigation header from the side navigation content.
+   */
+  // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
+  showTopScrollIndicator?: boolean;
 
   /**
    * Array of the initial stack you want to show.
@@ -116,6 +123,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
     onChange,
     onUnknownNest,
     stack,
+    showTopScrollIndicator,
   } = props;
   const [committedStack, setCommittedStack] = useState(
     stack || initialStack || [],
@@ -209,7 +217,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
     testId: backTestId,
   });
 
-  const context = useMemo(
+  const context: NestedContextValue = useMemo(
     () => ({
       currentStackId,
       backButton,
@@ -218,6 +226,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
       onUnNest: onUnNestHandler,
       parentId: ROOT_ID,
       childIds: childIdsRef,
+      forceShowTopScrollIndicator: showTopScrollIndicator,
     }),
     [
       currentStackId,
@@ -226,6 +235,7 @@ const NestableNavigationContent = (props: NestableNavigationContentProps) => {
       onNestHandler,
       onUnNestHandler,
       childIdsRef,
+      showTopScrollIndicator,
     ],
   );
 

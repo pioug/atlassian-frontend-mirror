@@ -259,6 +259,7 @@ interface Config {
   ) => Socket;
   // (undocumented)
   documentAri: string;
+  enableErrorOnFailedDocumentApply?: boolean;
   failedStepLimitBeforeCatchupOnPublish?: number;
   // (undocumented)
   featureFlags?: {
@@ -513,6 +514,8 @@ export enum PROVIDER_ERROR_CODE {
   // (undocumented)
   DOCUMENT_RESTORE_ERROR = 'DOCUMENT_RESTORE_ERROR',
   // (undocumented)
+  DOCUMENT_UPDATE_ERROR = 'DOCUMENT_UPDATE_ERROR',
+  // (undocumented)
   FAIL_TO_SAVE = 'FAIL_TO_SAVE',
   // (undocumented)
   INITIALISATION_ERROR = 'INITIALISATION_ERROR',
@@ -530,6 +533,14 @@ export enum PROVIDER_ERROR_CODE {
   NO_PERMISSION_ERROR = 'NO_PERMISSION_ERROR',
 }
 
+// @public (undocumented)
+type ProviderDocumentUpdateError = {
+  code: PROVIDER_ERROR_CODE.DOCUMENT_UPDATE_ERROR;
+  message: 'The provider failed to apply changes to the editor';
+  recoverable: boolean;
+  status?: number;
+};
+
 // @public
 export type ProviderError =
   | DocumentNotFound
@@ -541,7 +552,8 @@ export type ProviderError =
   | InvalidProviderConfiguration
   | InvalidUserToken
   | Locked
-  | NetworkIssue;
+  | NetworkIssue
+  | ProviderDocumentUpdateError;
 
 // @public (undocumented)
 type ProviderParticipant = CollabParticipant & {

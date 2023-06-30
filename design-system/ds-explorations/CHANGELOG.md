@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.2.4
+
+### Patch Changes
+
+- [`267a88221e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/267a88221e8) - Internal change to update codegen.
+
 ## 2.2.3
 
 ### Patch Changes

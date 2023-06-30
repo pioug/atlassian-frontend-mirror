@@ -1,5 +1,5 @@
-import React from 'react';
-import type { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
+
 import { SpotlightTarget } from '@atlaskit/onboarding';
 
 export interface ConditionalSpotlightTargetWrapperProps {

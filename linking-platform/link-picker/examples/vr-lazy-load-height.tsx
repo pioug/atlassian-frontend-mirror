@@ -1,12 +1,13 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
-import { css } from '@emotion/react';
-import { LinkPicker } from '../src';
-import { PageWrapper } from '../example-helpers/common';
 import { ReactNode } from 'react';
+
+import { css, jsx } from '@emotion/react';
+
+import { PageWrapper } from '../example-helpers/common';
+import { LinkPicker } from '../src';
 import { LoaderFallback } from '../src/ui/loader-fallback';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const borderStyle = css`
   &[data-testid='link-picker-debug-border'] {
     /** Display the components left to right */

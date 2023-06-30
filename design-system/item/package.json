@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.9.0",
+    "@atlaskit/tokens": "^1.10.0",
     "@babel/runtime": "^7.0.0",
     "prop-types": "^15.5.10",
     "react-addons-text-content": "^0.0.4",

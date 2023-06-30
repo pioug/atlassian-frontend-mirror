@@ -72,6 +72,9 @@
       "styling": [
         "static",
         "emotion"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
   },

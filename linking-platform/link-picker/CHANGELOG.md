@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.25.4
+
+### Patch Changes
+
+- [`2d56ffa47b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2d56ffa47b1) - [ux] Removes the decorative search icon from the URL/search field.
+
 ## 1.25.3
 
 ### Patch Changes

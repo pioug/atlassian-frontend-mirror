@@ -1,3 +1,5 @@
+import { UpdateDocumentError } from '../../errors/error-types';
+
 jest.mock('../catchup', () => {
   return {
     __esModule: true,
@@ -31,6 +33,7 @@ import { MAX_STEP_REJECTED_ERROR } from '../../provider';
 import { throttledCommitStep } from '../../provider/commit-step';
 import { createMockService } from './document-service.mock';
 import step from '../../helpers/__tests__/__fixtures__/clean-step-for-empty-doc.json';
+import emptyDoc from '../../helpers/__tests__/__fixtures__/empty-document.json';
 import { Step as ProseMirrorStep } from 'prosemirror-transform';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 
@@ -932,21 +935,33 @@ describe('document-service', () => {
     });
 
     describe('updateDocument', () => {
+      beforeEach(() => {
+        jest.clearAllMocks();
+      });
       const updateDocumentData = {
-        doc: 'mocDoc',
+        doc: emptyDoc,
         metadata: undefined,
         version: 1,
         reserveCursor: true,
       } as unknown as CollabInitPayload;
 
-      it('Calls provider emit callback', () => {
-        const { service, providerEmitCallbackMock } = createMockService();
+      it('Calls provider emit callback without errors', () => {
+        const { service, providerEmitCallbackMock, analyticsHelperMock } =
+          createMockService();
+
+        service.setup({
+          getState: jest.fn().mockReturnValue('mockState'),
+          clientId: 'unused',
+        });
+        (getVersion as jest.Mock).mockReturnValue(1);
+
         service.updateDocument(updateDocumentData);
         expect(providerEmitCallbackMock).toBeCalledTimes(1);
         expect(providerEmitCallbackMock).toBeCalledWith(
           'init',
           updateDocumentData,
         );
+        expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(0);
       });
 
       it('does not emit reserveCursor when it is false', () => {
@@ -960,6 +975,78 @@ describe('document-service', () => {
         expect(providerEmitCallbackMock.mock.calls[0][1]).not.toEqual(
           expect.objectContaining({ reserveCursor: expect.anything() }),
         );
+      });
+
+      it('Detects when the editor did not update the document, and emits error analytics', () => {
+        const { service, analyticsHelperMock } = createMockService();
+        const schema = getSchemaBasedOnStage('stage0');
+        service.setup({
+          getState: jest.fn().mockReturnValue({ schema }),
+          clientId: 'unused',
+        });
+        (getVersion as jest.Mock).mockReturnValue(1);
+
+        service.updateDocument({
+          ...{ ...updateDocumentData, version: 2 },
+          reserveCursor: false,
+        });
+
+        expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
+        expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
+          expect.any(UpdateDocumentError),
+          'Failed to update the document in document service',
+        );
+        expect(
+          analyticsHelperMock.sendErrorEvent.mock.calls[0][0].getExtraErrorEventAttributes(),
+        ).toEqual({
+          docHasContent: true,
+          editorVersion: 1,
+          isDocTruthy: true,
+          newVersion: 2,
+          isDocContentValid: true, // We sent a valid empty doc
+        });
+      });
+
+      it('Detects when the editor did not update the document and emits an error when enableErrorOnFailedDocumentApply is set', () => {
+        const { service, analyticsHelperMock, onErrorHandledMock } =
+          createMockService({
+            enableErrorOnFailedDocumentApply: true,
+          });
+        const schema = getSchemaBasedOnStage('stage0');
+        service.setup({
+          getState: jest.fn().mockReturnValue({ schema }),
+          clientId: 'unused',
+        });
+        (getVersion as jest.Mock).mockReturnValue(1);
+
+        expect(() =>
+          service.updateDocument({
+            ...{ ...updateDocumentData, version: 2 },
+            reserveCursor: false,
+          }),
+        ).toThrowErrorMatchingInlineSnapshot(`"Failed to update the document"`);
+        expect(onErrorHandledMock).toBeCalledTimes(1);
+        expect(onErrorHandledMock).toBeCalledWith({
+          data: {
+            code: 'DOCUMENT_UPDATE_ERROR',
+            meta: {
+              editorVersion: 1,
+              newVersion: 2,
+            },
+            status: 500,
+          },
+          message: 'The provider failed to apply changes to the editor',
+        });
+        expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
+        expect(
+          analyticsHelperMock.sendErrorEvent.mock.calls[0][0].getExtraErrorEventAttributes(),
+        ).toEqual({
+          docHasContent: true,
+          editorVersion: 1,
+          isDocTruthy: true,
+          newVersion: 2,
+          isDocContentValid: true, // We sent a valid empty doc
+        });
       });
     });
   });

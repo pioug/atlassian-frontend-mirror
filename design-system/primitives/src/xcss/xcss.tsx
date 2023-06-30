@@ -153,7 +153,11 @@ const transformStyles = (
       }
 
       const tokenValue = tokensMap[key as StyleMapKey][value as TokensMapKey];
-      if (!tokenValue) {
+      if (
+        !tokenValue &&
+        typeof process &&
+        process.env.NODE_ENV === 'development'
+      ) {
         const message = `Invalid token alias: ${key}: ${value}`;
         warnOnce(message);
       }

@@ -7,7 +7,11 @@ import {
   name as packageName,
   version as packageVersion,
 } from '../../version-wrapper';
-import { InternalError, NCS_ERROR_CODE } from '../../errors/error-types';
+import {
+  CustomError,
+  InternalError,
+  NCS_ERROR_CODE,
+} from '../../errors/error-types';
 
 describe('Analytics helper function', () => {
   const fakeAnalyticsWebClient: AnalyticsWebClient = {
@@ -140,6 +144,40 @@ describe('Analytics helper function', () => {
       },
       nonPrivacySafeAttributes: {
         error: stepRejectedError,
+      },
+      tags: ['editor'],
+      source: 'unknown',
+    });
+  });
+
+  it('should send an analytics event with error additional event attributes if supported by the error event', () => {
+    const customError = new CustomError('Hello world', undefined, {
+      extraKey: 1,
+    });
+
+    analyticsHelper.sendErrorEvent(
+      customError,
+      'Meaningful Context-Aware Error Message',
+    );
+
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalledTimes(1);
+    expect(fakeAnalyticsWebClient.sendTrackEvent).toBeCalledWith({
+      action: 'error',
+      actionSubject: 'collab',
+      attributes: {
+        packageName,
+        packageVersion,
+        collabService: 'ncs',
+        network: {
+          status: 'ONLINE',
+        },
+        documentAri: fakeDocumentAri,
+        errorName: 'Error',
+        errorMessage: 'Meaningful Context-Aware Error Message',
+        extraKey: 1, // The extra key here <---------------------------------------
+      },
+      nonPrivacySafeAttributes: {
+        error: customError,
       },
       tags: ['editor'],
       source: 'unknown',

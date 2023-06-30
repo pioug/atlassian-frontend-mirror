@@ -1,10 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+
 import Spinner from '@atlaskit/spinner';
+
 import {
   rootContainerStylesForLoaderWithDisplaytext,
   rootContainerStylesForLoaderWithoutDisplaytext,
-} from '../link-picker/styled';
+} from './styled';
 
 /**
  * Loader / skeleton for the Link Picker. Takes displayText prop - when no displayText is given the height of the skeleton

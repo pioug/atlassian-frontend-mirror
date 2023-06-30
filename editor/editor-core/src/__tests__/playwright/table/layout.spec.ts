@@ -7,6 +7,7 @@ import {
   editorTestCase as test,
   EditorPopupModel,
   expect,
+  fixTest,
 } from '@af/editor-libra';
 import { createSquareTable } from './__fixtures__/resize-documents';
 import { nestedInExtension, nestedInLayout } from './__fixtures__/base-adfs';
@@ -42,8 +43,12 @@ test.describe('when a table is overflowed', () => {
   });
 
   test.describe('and when the table layout changes', () => {
-    // TODO: DTR-1547 Regression found when we were migrating the original test case
-    test.fixme('should not overflow the table anymore', async ({ editor }) => {
+    test('should not overflow the table anymore', async ({ editor }) => {
+      fixTest({
+        jiraIssueId: 'DTR-1547',
+        reason:
+          'Regression found when we were migrating the original test case',
+      });
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
@@ -83,8 +88,12 @@ test.describe('when a table is not overflowed', () => {
   });
 
   test.describe('and when the table layout changes', () => {
-    // TODO: DTR-1547 Regression found when we were migrating the original test case
-    test.fixme('should not overflow table', async ({ editor }) => {
+    test('should not overflow table', async ({ editor }) => {
+      fixTest({
+        jiraIssueId: 'DTR-1547',
+        reason:
+          'Regression found when we were migrating the original test case',
+      });
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 

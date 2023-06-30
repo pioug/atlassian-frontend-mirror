@@ -197,7 +197,11 @@ const ActionGroup: React.FC<ActionGroupProps> = ({
   ]);
 
   return renderableActionItems.length > 0 ? (
-    <div css={styles} className="actions-button-group">
+    <div
+      css={styles}
+      className="actions-button-group"
+      data-action-open={isOpen}
+    >
       <ButtonGroup>
         {actionButtons}
         {moreActionDropdown}

@@ -1,7 +1,8 @@
 import { useRef } from 'react';
-import { LinkPickerState } from '../../ui/types';
-import { PickerState } from '../../ui/link-picker';
+
 import { isSafeUrl } from '@atlaskit/linking-common/url';
+
+import { LinkPickerState, PickerState } from '../../common/types';
 
 export function useSearchQuery(state: PickerState) {
   const queryState = useRef<LinkPickerState | null>(null);

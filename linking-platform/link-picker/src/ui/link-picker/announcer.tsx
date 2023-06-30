@@ -1,10 +1,10 @@
 import React, {
+  AriaAttributes,
   forwardRef,
   memo,
-  useState,
-  useEffect,
-  AriaAttributes,
   Ref,
+  useEffect,
+  useState,
 } from 'react';
 
 // How to use:

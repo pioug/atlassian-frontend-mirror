@@ -39,7 +39,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.9.0",
+    "@atlaskit/tokens": "^1.10.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -93,6 +93,9 @@
       "styling": [
         "static",
         "emotion"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
   },

@@ -80,6 +80,7 @@ describe('<LoadingItems />', () => {
           onNest: __noop,
           onUnNest: __noop,
           stack: [],
+          forceShowTopScrollIndicator: false,
           childIds: jest
             .spyOn(React, 'useRef')
             .mockReturnValue({ current: new Set<string>() }) as any,

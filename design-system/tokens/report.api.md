@@ -957,14 +957,9 @@ export const getThemeHtmlAttrs: ({
 }?: Partial<ThemeState>) => Record<string, string>;
 
 // @public
-export const getThemeStyles: ({
-  colorMode,
-  dark,
-  light,
-  shape,
-  spacing,
-  typography,
-}?: Partial<ThemeState>) => Promise<ThemeStyles[]>;
+export const getThemeStyles: (
+  preferences?: 'all' | Partial<ThemeState>,
+) => Promise<ThemeStyles[]>;
 
 // @public
 export function getTokenValue<T extends keyof Tokens_2>(
@@ -1355,14 +1350,12 @@ export type RawToken = DesignToken<string, 'raw'>;
 type Replacement = InternalTokenIds | InternalTokenIds[];
 
 // @public
-export const setGlobalTheme: ({
-  colorMode,
-  dark,
-  light,
-  shape,
-  spacing,
-  typography,
-}?: Partial<ThemeState>) => Promise<UnbindFn>;
+export const setGlobalTheme: (
+  { colorMode, dark, light, shape, spacing, typography }?: Partial<ThemeState>,
+  themeLoader?:
+    | ((id: ThemeIdsWithOverrides) => Promise<void> | void)
+    | undefined,
+) => Promise<UnbindFn>;
 
 // @public (undocumented)
 export type ShadowToken<BaseToken> = DesignToken<
@@ -1439,6 +1432,22 @@ const themeIds: readonly [
   'shape',
 ];
 
+// @public (undocumented)
+type ThemeIdsWithOverrides = (typeof themeIdsWithOverrides)[number];
+
+// @public (undocumented)
+const themeIdsWithOverrides: readonly [
+  'light',
+  'dark',
+  'legacy-light',
+  'legacy-dark',
+  'spacing',
+  'typography',
+  'shape',
+  'light-new-input-border',
+  'dark-new-input-border',
+];
+
 // @public
 type ThemeKinds = 'color' | 'shape' | 'spacing' | 'typography';
 
@@ -1508,7 +1517,7 @@ interface ThemeStyles {
   // (undocumented)
   css: string;
   // (undocumented)
-  id: ThemeIds;
+  id: ThemeIdsWithOverrides;
 }
 
 // @public (undocumented)

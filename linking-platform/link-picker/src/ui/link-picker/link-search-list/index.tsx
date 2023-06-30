@@ -6,33 +6,36 @@ import {
   useCallback,
   useRef,
 } from 'react';
+
 import { jsx } from '@emotion/react';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import Spinner from '@atlaskit/spinner';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { LinkPickerPlugin, LinkSearchListItemData } from '../../types';
 import {
-  LinkSearchListItem,
-  testIds as searchResultItemTestIds,
-} from '../list-item';
-
-import {
-  listContainerStyles,
-  spinnerContainerStyles,
-  listStyles,
-  listTitleStyles,
-} from './styled';
+  LinkPickerPlugin,
+  LinkSearchListItemData,
+} from '../../../common/types';
+import { handleNavKeyDown } from '../../../common/utils/handleNavKeyDown';
 
 import {
   NoResults,
   testIds as noResultsTestIds,
 } from './link-search-no-results';
-import { useTrackResultsShown } from './use-track-results-shown';
-import { handleNavKeyDown } from '../utils';
 import { emptyStateNoResultsWrapper } from './link-search-no-results/styled';
+import {
+  LinkSearchListItem,
+  testIds as searchResultItemTestIds,
+} from './list-item';
+import {
+  listContainerStyles,
+  listStyles,
+  listTitleStyles,
+  spinnerContainerStyles,
+} from './styled';
+import { useTrackResultsShown } from './use-track-results-shown';
 
 export const messages = defineMessages({
   titleRecentlyViewed: {

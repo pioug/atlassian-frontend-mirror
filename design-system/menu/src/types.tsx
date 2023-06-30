@@ -134,6 +134,11 @@ export interface SectionProps {
    * the HeadingItem will not be rendered, and this component acts as a regular Section
    */
   title?: string;
+
+  /**
+   * Specifically adds <ul> and <li> elements around the items for better semantic markup if it is a list of items
+   */
+  isList?: boolean;
 }
 
 export interface MenuItemPrimitiveProps {

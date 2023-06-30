@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 import { MessageDescriptor } from 'react-intl-next';
 
 export type LinkInputType = 'manual' | 'typeAhead';
@@ -72,3 +73,14 @@ export type LinkPickerPluginErrorFallback = (
 ) => ReactNode;
 
 export type LinkPickerPluginEmptyStateNoResults = () => ReactNode;
+
+export interface PickerState {
+  selectedIndex: number;
+  activeIndex: number;
+  url: string;
+  displayText: string;
+  invalidUrl: boolean;
+  activeTab: number;
+  /** When true, even if the selected index is -1, don't hide the recents. */
+  preventHidingRecents: boolean;
+}

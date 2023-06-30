@@ -1,5 +1,6 @@
 import {
   editorTestCase as test,
+  EditorLinkPickerModel,
   EditorNodeContainerModel,
   EditorFloatingToolbarModel,
   EditorEmbedCardModel,
@@ -36,13 +37,14 @@ test.describe('card', () => {
       editor,
       embedCardModel,
     );
+    const linkPickerModel = EditorLinkPickerModel.from(floatingToolbarModel);
 
     // edit link label
     await embedCardModel.waitForStable();
     await embedCardModel.click();
     await floatingToolbarModel.editLink();
-    await floatingToolbarModel.waitForToolbarItemsStable();
-    await floatingToolbarModel.clearLabel();
+
+    await linkPickerModel.clearLabel();
     await editor.keyboard.type('New heading');
     await editor.keyboard.press('Enter');
 

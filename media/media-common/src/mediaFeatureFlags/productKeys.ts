@@ -8,8 +8,6 @@ const productKeys: ProductKeys = {
     captions: 'confluence.frontend.fabric.editor.media.captions',
     mediaInline: 'confluence.frontend.fabric.editor.media.inline',
     folderUploads: 'confluence.frontend.media.picker.folder.uploads',
-    //TODO fill the value after https://product-fabric.atlassian.net/browse/MEX-1593
-    observedWidth: '',
     timestampOnVideo: 'confluence.frontend.media.timestamp.on.video',
   },
   jira: {
@@ -17,8 +15,6 @@ const productKeys: ProductKeys = {
     // Manged by Linking Platform. No Rollout plan found for Jira
     mediaInline: '',
     folderUploads: 'issue.details.media-picker-folder-upload',
-    //TODO fill the value after https://product-fabric.atlassian.net/browse/MEX-1593
-    observedWidth: '',
     timestampOnVideo: 'issue.details.media-cards-timestamp-on-video',
   },
 };

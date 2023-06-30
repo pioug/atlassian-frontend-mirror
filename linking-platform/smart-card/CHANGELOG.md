@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.6.1
+
+### Patch Changes
+
+- [`ebb6750a97d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ebb6750a97d) - [ux] Flexible Smart Links: Change hover preview show/hide behavior. Hover preview should not show when hovering over metadata elements and actions.
+- Updated dependencies
+
 ## 26.6.0
 
 ### Minor Changes

@@ -8,5 +8,5 @@ export type {
   LinkSearchListItemData,
   LinkPickerPluginErrorFallback,
   LinkPickerPluginEmptyStateNoResults,
-} from './ui/types';
+} from './common/types';
 export { UnauthenticatedError } from './common/utils/errors';

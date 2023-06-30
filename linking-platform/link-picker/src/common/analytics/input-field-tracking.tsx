@@ -1,11 +1,13 @@
 import React, { useCallback, useRef } from 'react';
+
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
-import { ANALYTICS_CHANNEL } from '../constants';
 import createEventPayload, {
   LinkPickerAnalyticsContextType,
 } from '../../common/utils/analytics/analytics.codegen';
-import { useLinkPickerAnalytics } from '.';
+import { ANALYTICS_CHANNEL } from '../constants';
+
+import { useLinkPickerAnalytics } from './index';
 
 type InputFields = 'link' | 'displayText';
 

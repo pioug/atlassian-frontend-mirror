@@ -3,6 +3,7 @@ import {
   EditorLinkFloatingToolbarModel,
   editorTestCase as test,
   expect,
+  fixTest,
 } from '@af/editor-libra';
 import { doc, p, a } from '@atlaskit/editor-test-helpers/doc-builder';
 import { emptyDocument } from './__fixtures__/adf-documents';
@@ -62,27 +63,29 @@ test.describe('hyperlink toolbar', () => {
     await expect(editor).toHaveDocument(doc(p('Click Me'), p()));
   });
 
-  // DTR-1554 Clear button is not selectable on Safari by Tab
-  test.fixme(
-    'inserts a link when tabbing through hyperlink toolbar',
-    async ({ editor }) => {
-      const smartLinkToolbarModel = EditorLinkFloatingToolbarModel.from(editor);
+  test('inserts a link when tabbing through hyperlink toolbar', async ({
+    editor,
+  }) => {
+    fixTest({
+      jiraIssueId: 'DTR-1554',
+      reason: 'Clear button is not selectable on Safari by Tab',
+    });
+    const smartLinkToolbarModel = EditorLinkFloatingToolbarModel.from(editor);
 
-      await smartLinkToolbarModel.openViaKeyboardShortcut();
+    await smartLinkToolbarModel.openViaKeyboardShortcut();
 
-      await editor.keyboard.type('www.atlassian.com');
-      await editor.keyboard.press('Tab'); // To clear link button
-      await editor.keyboard.press('Tab'); // To label field
-      await editor.keyboard.type('Hello world!');
-      await editor.keyboard.press('Tab'); // To clear text button
-      await editor.keyboard.press('Tab'); // Submit
+    await editor.keyboard.type('www.atlassian.com');
+    await editor.keyboard.press('Tab'); // To clear link button
+    await editor.keyboard.press('Tab'); // To label field
+    await editor.keyboard.type('Hello world!');
+    await editor.keyboard.press('Tab'); // To clear text button
+    await editor.keyboard.press('Tab'); // Submit
 
-      const smartLinkModel = EditorLinkModel.from(editor);
-      await smartLinkModel.isVisibleByText('Hello world!');
+    const smartLinkModel = EditorLinkModel.from(editor);
+    await smartLinkModel.isVisibleByText('Hello world!');
 
-      await expect(editor).toHaveDocument(
-        doc(p(a({ href: 'http://www.atlassian.com' })('Hello world!'))),
-      );
-    },
-  );
+    await expect(editor).toHaveDocument(
+      doc(p(a({ href: 'http://www.atlassian.com' })('Hello world!'))),
+    );
+  });
 });

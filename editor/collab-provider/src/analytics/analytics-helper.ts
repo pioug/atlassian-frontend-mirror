@@ -11,6 +11,7 @@ import {
   version as packageVersion,
 } from '../version-wrapper';
 import { network } from '../connectivity/singleton';
+import { CustomError } from '../errors/error-types';
 
 const EVENT_SUBJECT = 'collab';
 
@@ -91,12 +92,17 @@ export default class AnalyticsHelper {
   }
 
   sendErrorEvent(error: unknown, errorMessage: string) {
+    let errorExtraAttributes = {};
+    if (error instanceof CustomError) {
+      errorExtraAttributes = error.getExtraErrorEventAttributes() || {};
+    }
     const errorAnalyticsEvent: ErrorAnalyticsEvent = {
       eventAction: EVENT_ACTION.ERROR,
       attributes: {
         documentAri: this.documentAri,
         errorMessage,
         errorName: error instanceof Error ? error.name : undefined,
+        ...errorExtraAttributes,
       },
       nonPrivacySafeAttributes: {
         error,

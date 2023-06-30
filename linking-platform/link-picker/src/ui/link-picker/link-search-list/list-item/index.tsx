@@ -1,19 +1,22 @@
 /** @jsx jsx */
 import { forwardRef, Fragment, KeyboardEvent } from 'react';
+
 import { jsx } from '@emotion/react';
 import { IntlShape, useIntl } from 'react-intl-next';
 
-import { LinkSearchListItemData } from '../../types';
-import { transformTimeStamp } from '../transformTimeStamp';
+import { LinkSearchListItemData } from '../../../../common/types';
+/* eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports */
+import { transformTimeStamp } from '../../transformTimeStamp';
+
 import {
-  itemNameStyles,
-  itemIconStyles,
-  listItemContextStyles,
-  listItemNameStyles,
   composeListItemStyles,
   imgStyles,
-  listItemContainerStyles,
+  itemIconStyles,
+  itemNameStyles,
   listItemContainerInnerStyles,
+  listItemContainerStyles,
+  listItemContextStyles,
+  listItemNameStyles,
 } from './styled';
 
 export const testIds = {

@@ -13,8 +13,8 @@ import {
 import LinkCreate from '../src';
 import { CreatePayload } from '../src/common/types';
 
-const CLOUD_ID = 'cloud-id';
-const BASE_URL = 'https://atlassian.com/';
+const cloudId = 'cloud-id';
+const baseUrl = 'https://atlassian.com/';
 
 // Mocks
 mockFetchPage();
@@ -25,7 +25,7 @@ function CreateBasic() {
   const [link, setLink] = useState<string | null>();
   const [active, setActive] = useState(false);
 
-  const plugins = [createConfluencePageLinkCreatePlugin(CLOUD_ID, BASE_URL)];
+  const plugins = [createConfluencePageLinkCreatePlugin({ cloudId, baseUrl })];
 
   const handleCreate = useCallback(async (payload: CreatePayload) => {
     await new Promise<void>(resolve => {

@@ -9,6 +9,7 @@ import {
   SetMetadataError,
   GetCurrentStateError,
   GetFinalAcknowledgedStateError,
+  UpdateDocumentError,
 } from '../error-types';
 
 describe('Custom errors', () => {
@@ -71,4 +72,19 @@ describe('Custom errors', () => {
       });
     },
   );
+
+  it('Sets and gets extra error attributes when creating a UpdateDocumentError', () => {
+    const error = new UpdateDocumentError('Failed to update the document', {
+      editorVersion: 200,
+      newVersion: 400,
+      docHasContent: true,
+      isDocTruthy: true,
+    });
+    expect(error.getExtraErrorEventAttributes()).toEqual({
+      editorVersion: 200,
+      newVersion: 400,
+      docHasContent: true,
+      isDocTruthy: true,
+    });
+  });
 });

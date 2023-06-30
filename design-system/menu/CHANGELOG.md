@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.9.0
+
+### Minor Changes
+
+- [`0af122e7d0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0af122e7d0f) - [ux] Prop isList in Section component allows to add `<ul>` and `<li>` elements around the items to better semantic markup if it is a list of items
+
 ## 1.8.1
 
 ### Patch Changes

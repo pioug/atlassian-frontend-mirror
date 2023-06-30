@@ -1,6 +1,7 @@
-import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
+
 import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const clearTextButtonStyles = css`
   padding: 0;

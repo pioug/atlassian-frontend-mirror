@@ -1,0 +1,43 @@
+---
+title: Popup select
+description: Popup select allows users to filter through a list of options.
+order: 0
+---
+
+import SelectPopup from '../../examples/constellation/select-popup';
+import SelectPopupNoSearch from '../../examples/constellation/select-popup-no-search';
+import SelectPopupPlacement from '../../examples/constellation/select-popup-placement';
+import SelectPopupModalExample from '../../examples/constellation/select-popup-in-modal';
+import SelectPopupCheckbox from '../../examples/constellation/select-popup-checkbox';
+
+## Default
+
+Used to enable users to filter through a list of actions where limited space is a concern for the trigger.
+
+<Example Component={SelectPopup} packageName="@atlaskit/select" />
+
+## Hidden search input
+
+To hide the search input use the `searchThreshold` prop.
+
+<Example Component={SelectPopupNoSearch} packageName="@atlaskit/select" />
+
+## Checkbox options
+
+Enable checkbox options and multi select using the checkbox option component and `isMulti` prop.
+
+<Example Component={SelectPopupCheckbox} packageName="@atlaskit/select" />
+
+## Placement
+
+Position the popup relative to the trigger.
+
+<Example Component={SelectPopupPlacement} packageName="@atlaskit/select" />
+
+## Layering
+
+Currently there is no foundational platform solution that enables layered components to be composed together without extra effort.
+Use the `offset` and `preventOverflow` props from [popper](https://atlaskit.atlassian.com/packages/design-system/popper) to keep them in view as a stop-gap.
+
+<Example Component={SelectPopupModalExample} packageName="@atlaskit/select" />
+

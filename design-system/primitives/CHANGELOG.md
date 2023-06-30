@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 0.14.3
+
+### Patch Changes
+
+- [`4c026f170d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c026f170d6) - Remove warnings for non-token values passed to xCSS in non-development environments.
+
+## 0.14.2
+
+### Patch Changes
+
+- [`267a88221e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/267a88221e8) - Internal change to update codegen.
+
 ## 0.14.1
 
 ### Patch Changes

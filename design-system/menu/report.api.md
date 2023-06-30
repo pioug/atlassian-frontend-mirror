@@ -197,6 +197,7 @@ interface SectionProps {
   children: React.ReactNode;
   hasSeparator?: boolean;
   id?: string;
+  isList?: boolean;
   isScrollable?: boolean;
   // @deprecated (undocumented)
   overrides?: {

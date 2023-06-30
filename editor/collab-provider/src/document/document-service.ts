@@ -14,7 +14,10 @@ import type { MetadataService } from '../metadata/metadata-service';
 
 import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { SyncUpErrorFunction } from '../types';
+
 import type { EditorState, Transaction } from 'prosemirror-state';
+import type { Node as PMNode } from 'prosemirror-model';
+
 import {
   UGCFreeStepDetails,
   createLogger,
@@ -35,7 +38,10 @@ import { ParticipantsService } from '../participants/participants-service';
 import { StepQueueState } from './step-queue-state';
 import type { InternalError } from '../errors/error-types';
 
-import { INTERNAL_ERROR_CODE } from '../errors/error-types';
+import {
+  INTERNAL_ERROR_CODE,
+  UpdateDocumentError,
+} from '../errors/error-types';
 
 const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 
@@ -66,6 +72,7 @@ export class DocumentService {
    * @param onErrorHandled - Callback to handle
    * @param metadataService
    * @param failedStepsBeforeCatchupOnPublish - Control MAX_STEP_REJECTED_ERROR during page publishes.
+   * @param enableErrorOnFailedDocumentApply - Enable failed document update exceptions.
    */
   constructor(
     private participantsService: ParticipantsService,
@@ -81,6 +88,7 @@ export class DocumentService {
     private onErrorHandled: (error: InternalError) => void,
     private metadataService: MetadataService,
     private failedStepsBeforeCatchupOnPublish: number = MAX_STEP_REJECTED_ERROR,
+    private enableErrorOnFailedDocumentApply: boolean = false,
   ) {
     this.stepQueue = new StepQueueState();
   }
@@ -435,6 +443,56 @@ export class DocumentService {
       metadata,
       ...(reserveCursor ? { reserveCursor } : {}),
     });
+    const updatedVersion = this.getCurrentPmVersion();
+    if (this.getCurrentPmVersion() !== version) {
+      const isDocContentValid = this.validatePMJSONDocument(doc);
+      const error = new UpdateDocumentError('Failed to update the document', {
+        newVersion: version,
+        editorVersion: updatedVersion,
+        isDocTruthy: !!doc,
+        docHasContent: doc?.content?.length >= 1,
+        isDocContentValid,
+      });
+
+      this.analyticsHelper?.sendErrorEvent(
+        error,
+        'Failed to update the document in document service',
+      );
+      if (this.enableErrorOnFailedDocumentApply) {
+        this.onErrorHandled({
+          message: 'The provider failed to apply changes to the editor',
+          data: {
+            code: INTERNAL_ERROR_CODE.DOCUMENT_UPDATE_ERROR,
+            meta: {
+              newVersion: version,
+              editorVersion: updatedVersion,
+            },
+            status: 500,
+          },
+        });
+        throw error;
+      }
+      // Otherwise just fail silently for now
+    }
+  };
+
+  private validatePMJSONDocument = (doc: any) => {
+    try {
+      const state = this.getState!();
+      const content: Array<PMNode> = (doc.content || []).map((child: any) =>
+        state.schema.nodeFromJSON(child),
+      );
+      return content.every((node) => {
+        try {
+          node.check(); // this will throw an error if the node is invalid
+        } catch (error) {
+          return false;
+        }
+        return true;
+      });
+    } catch (e) {
+      return false;
+    }
   };
 
   /**

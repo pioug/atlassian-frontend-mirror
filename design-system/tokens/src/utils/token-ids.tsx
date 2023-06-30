@@ -18,7 +18,7 @@ export const getCSSCustomProperty = (path: string | string[]): string => {
   const normalizedPath = typeof path === 'string' ? path.split('.') : path;
 
   // Opacity and other 'shallow' groups are more readable when not trimmed
-  const slice = CSS_VAR_FULL.includes(path[0]) ? 0 : 1;
+  const slice = CSS_VAR_FULL.includes(normalizedPath[0]) ? 0 : 1;
 
   return `--${[CSS_PREFIX, ...normalizedPath.slice(slice)]
     .filter((el) => el !== '[default]')

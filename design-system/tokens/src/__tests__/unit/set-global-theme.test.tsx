@@ -1,10 +1,12 @@
 import { waitFor } from '@testing-library/dom';
 
+import __noop from '@atlaskit/ds-lib/noop';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../../constants';
 // This import is just to get types
 import * as setGlobalThemeTypes from '../../set-global-theme';
+
 type ThemeStyles = setGlobalThemeTypes.ThemeStyles;
 
 // Mock window.matchMedia before importing setGlobalTheme
@@ -55,6 +57,13 @@ const cleanDOM = () => {
   document.getElementsByTagName('html')[0].innerHTML = '';
   setMatchMedia(false);
 };
+
+function getThemeData(themes: ThemeStyles[]) {
+  return themes.reduce((acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
+    acc.push({ ...rest });
+    return acc;
+  }, []);
+}
 
 describe('setGlobalTheme', () => {
   beforeEach(cleanDOM);
@@ -268,6 +277,48 @@ describe('setGlobalTheme', () => {
     expect(dataThemes.sort()).toEqual(['dark', 'light', 'typography']);
   });
 
+  it('should set the correct themes and color mode when a theme loader is provided', async () => {
+    await setGlobalTheme(
+      {
+        light: 'legacy-light',
+        dark: 'legacy-dark',
+        spacing: 'spacing',
+        typography: 'typography',
+        colorMode: 'light',
+      },
+      __noop,
+    );
+
+    const htmlElement = document.getElementsByTagName('html')[0];
+
+    expect(htmlElement).toHaveAttribute(
+      THEME_DATA_ATTRIBUTE,
+      'dark:legacy-dark light:legacy-light spacing:spacing typography:typography',
+    );
+
+    expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+  });
+
+  it('should NOT add style elements by default when a theme loader is provided', async () => {
+    await setGlobalTheme(
+      {
+        light: 'legacy-light',
+        dark: 'legacy-dark',
+        spacing: 'spacing',
+        typography: 'typography',
+        colorMode: 'light',
+      },
+      __noop,
+    );
+
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(0);
+    });
+  });
+
   it('should load the spacing and shape themes on the page when the feature flag is enabled', async () => {
     (getBooleanFF as jest.Mock).mockImplementation(
       (name) =>
@@ -302,19 +353,33 @@ describe('setGlobalTheme', () => {
       'typography',
     ]);
   });
+
+  it('should use the provided theme loader to load styles', async () => {
+    const themeLoaderMock = jest.fn();
+
+    await setGlobalTheme(
+      {
+        light: 'light',
+        dark: 'dark',
+        spacing: 'spacing',
+        typography: 'typography',
+        colorMode: 'light',
+      },
+      themeLoaderMock,
+    );
+
+    // Should be called for each theme it injects (light, spacing, typography)
+    expect(themeLoaderMock).toBeCalledTimes(3);
+
+    await waitFor(() => {
+      // There should be no style elements since the default theme loader should not be called
+      const styleElements = document.getElementsByTagName('style');
+      expect(styleElements.length).toBe(0);
+    });
+  });
 });
 
 describe('getThemeStyles', () => {
-  function getThemeData(themes: ThemeStyles[]) {
-    return themes.reduce(
-      (acc: Omit<ThemeStyles, 'css'>[], { css, ...rest }) => {
-        acc.push({ ...rest });
-        return acc;
-      },
-      [],
-    );
-  }
-
   it('returns an array of ThemeStyles when given non-default theme state', async () => {
     let results = await getThemeStyles({
       light: 'legacy-light',
@@ -428,7 +493,7 @@ describe('getThemeStyles', () => {
     ]);
   });
 
-  it('Skips invalid themes when given invalid theme state', async () => {
+  it('skips invalid themes when given invalid theme state', async () => {
     const results = await getThemeStyles({
       //@ts-ignore
       dark: 'invalid',
@@ -436,6 +501,33 @@ describe('getThemeStyles', () => {
 
     expect(getThemeData(results)).toEqual([
       { id: 'light', attrs: { 'data-theme': 'light' } },
+    ]);
+  });
+
+  it('returns all theme styles when provided "all" as an argument', async () => {
+    const results = await getThemeStyles('all');
+
+    // Check that CSS is defined for each result
+    results.forEach((result) => {
+      expect(result.css).toBeDefined();
+    });
+
+    expect(getThemeData(results)).toEqual([
+      { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
+      { id: 'legacy-light', attrs: { 'data-theme': 'legacy-light' } },
+      { id: 'legacy-dark', attrs: { 'data-theme': 'legacy-dark' } },
+      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+      { id: 'typography', attrs: { 'data-theme': 'typography' } },
+      { id: 'shape', attrs: { 'data-theme': 'shape' } },
+      {
+        id: 'light-new-input-border',
+        attrs: { 'data-theme': 'light-new-input-border' },
+      },
+      {
+        id: 'dark-new-input-border',
+        attrs: { 'data-theme': 'dark-new-input-border' },
+      },
     ]);
   });
 });

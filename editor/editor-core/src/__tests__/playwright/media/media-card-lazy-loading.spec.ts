@@ -3,6 +3,7 @@ import {
   EditorNodeContainerModel,
   EditorMediaSingleModel,
   expect,
+  fixTest,
 } from '@af/editor-libra';
 import { mediaCardLazyLoad } from './__fixtures__/adf-documents';
 
@@ -24,10 +25,12 @@ test.describe('media-card', () => {
     editor,
     browserName,
   }) => {
-    test.fixme(
-      browserName === 'firefox',
-      'This test fails on firefox due to a playwright+firefox issue where the network request for the image is not present',
-    );
+    fixTest({
+      jiraIssueId: 'UTEST-708',
+      reason:
+        'This test fails on firefox due to a playwright+firefox issue where the network request for the image is not present',
+      condition: browserName === 'firefox',
+    });
 
     let wasBlobRequested = false;
     editor.page.on('request', (request) => {

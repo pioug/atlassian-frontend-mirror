@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 185.5.2
+
+### Patch Changes
+
+- [`d11b0938949`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d11b0938949) - [No Issue] Add aria label for Hyperlink Edit popup
+
 ## 185.5.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { useIntl, FormattedMessage, defineMessages } from 'react-intl-next';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import EmptyState from '@atlaskit/empty-state';

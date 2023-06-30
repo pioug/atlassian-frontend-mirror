@@ -50,7 +50,7 @@
     "@atlaskit/tabs": "^13.4.0",
     "@atlaskit/textarea": "^4.7.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.9.0",
+    "@atlaskit/tokens": "^1.10.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@atlaskit/ufo": "^0.2.0",
     "@atlaskit/user-picker": "^10.4.0",

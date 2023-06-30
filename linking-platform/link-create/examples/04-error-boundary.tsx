@@ -15,7 +15,12 @@ function CreateError() {
   const [link, setLink] = useState<string | null>();
   const [active, setActive] = useState(false);
 
-  const plugins = [createConfluencePageLinkCreatePlugin(CLOUD_ID, BASE_URL)];
+  const plugins = [
+    createConfluencePageLinkCreatePlugin({
+      cloudId: CLOUD_ID,
+      baseUrl: BASE_URL,
+    }),
+  ];
 
   const handleCreate = useCallback((payload: CreatePayload) => {
     setLink(payload.url);

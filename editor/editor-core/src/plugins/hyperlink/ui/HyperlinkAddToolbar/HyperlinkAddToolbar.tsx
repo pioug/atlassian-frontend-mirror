@@ -589,7 +589,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     const screenReaderText = browser.safari && this.getScreenReaderText();
 
     return (
-      <div className="recent-list">
+      <div aria-label="Hyperlink Edit" className="recent-list">
         <div
           css={[container, !!activityProvider && containerWithProvider]}
           ref={this.wrapperRef}

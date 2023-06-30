@@ -1,7 +1,10 @@
 import React from 'react';
 import { TableLayout } from '@atlaskit/adf-schema';
 
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import {
+  tableCellBorderWidth,
+  tableCellMinWidth,
+} from '@atlaskit/editor-common/styles';
 import {
   akEditorTableNumberColumnWidth,
   akEditorWideLayoutWidth,
@@ -35,6 +38,7 @@ const isTableResized = (columnWidths: Array<number>) => {
   const filteredWidths = columnWidths.filter((width) => width !== 0);
   return !!filteredWidths.length;
 };
+
 const fixColumnWidth = (
   columnWidth: number,
   _tableWidth: number,
@@ -53,7 +57,8 @@ const fixColumnWidth = (
   }
 
   return Math.max(
-    columnWidth,
+    // We need to take tableCellBorderWidth, to avoid unneccesary overflow.
+    columnWidth - tableCellBorderWidth,
     zeroWidthColumnsCount ? akEditorTableLegacyCellMinWidth : tableCellMinWidth,
   );
 };
@@ -127,6 +132,7 @@ export const Colgroup = (props: SharedTableProps) => {
       maxScale: MAX_SCALING_PERCENT,
     });
   }
+
   return (
     <colgroup>
       {isNumberColumnEnabled && (

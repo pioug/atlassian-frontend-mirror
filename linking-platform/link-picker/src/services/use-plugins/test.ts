@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react-hooks';
+
 import { ManualPromise } from '@atlaskit/link-test-helpers';
 import {
   MockLinkPickerGeneratorPlugin,
@@ -7,12 +8,13 @@ import {
   UnstableMockLinkPickerPlugin,
 } from '@atlaskit/link-test-helpers/link-picker';
 
-import { LinkPickerPlugin, LinkPickerState } from '../../ui/types';
-import { RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
+import { RECENT_SEARCH_LIST_SIZE } from '../../common/constants';
+import { LinkPickerPlugin, LinkPickerState } from '../../common/types';
 
-import { usePlugins } from '.';
-import { CancellationError, resolvePluginUpdates } from './utils';
 import * as reducer from './reducer';
+import { CancellationError, resolvePluginUpdates } from './utils';
+
+import { usePlugins } from './index';
 
 beforeEach(() => {
   jest.restoreAllMocks();

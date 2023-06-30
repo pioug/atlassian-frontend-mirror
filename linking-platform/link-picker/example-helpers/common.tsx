@@ -1,10 +1,13 @@
 import React, { ReactNode, useState } from 'react';
-import { IntlProvider } from 'react-intl-next';
-import { SmartCardProvider } from '@atlaskit/link-provider';
 
+import { IntlProvider } from 'react-intl-next';
+
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { ufologger } from '@atlaskit/ufo';
-import { LanguagePicker } from './LanguagePicker';
+
 import languages from '../src/i18n/languages';
+
+import { LanguagePicker } from './LanguagePicker';
 
 interface WrapperProps {
   children: ReactNode;

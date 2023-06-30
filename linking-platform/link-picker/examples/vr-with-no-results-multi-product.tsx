@@ -1,16 +1,16 @@
-import React, { useState, useMemo, Fragment } from 'react';
+import React, { Fragment, useMemo, useState } from 'react';
 
+import { mockAvailableSites } from '@atlaskit/linking-common/mocks';
 import {
   AtlassianLinkPickerPlugin,
   Scope,
 } from '@atlassian/link-picker-atlassian-plugin';
 import { mockEndpoints } from '@atlassian/recent-work-client/mocks';
 
-import { LinkPicker, LinkPickerProps } from '../src';
-import { MOCK_NO_RESULTS } from '../example-helpers/mock-recents-data';
 import { PageWrapper } from '../example-helpers/common';
 import { mockPluginEndpointsNoData } from '../example-helpers/mock-plugin-endpoints';
-import { mockAvailableSites } from '@atlaskit/linking-common/mocks';
+import { MOCK_NO_RESULTS } from '../example-helpers/mock-recents-data';
+import { LinkPicker, LinkPickerProps } from '../src';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 

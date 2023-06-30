@@ -47,8 +47,8 @@ const CardBuilder: React.FC<{
         template={template}
       />
       <CheckboxOption
-        exclude={!isInline}
-        label="Show auth tooltip (inline)"
+        exclude={!(isInline || isFlexible)}
+        label="Show auth tooltip (inline, flexible)"
         name="showAuthTooltip"
         onChange={onChange}
         propName="showAuthTooltip"

@@ -1,21 +1,24 @@
-import { useEffect, useMemo, useState, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { convertToError } from '@atlaskit/frontend-utilities/convert-to-error';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { convertToError } from '@atlaskit/frontend-utilities/convert-to-error';
 
-import { RECENT_SEARCH_LIST_SIZE } from '../../ui/link-picker';
+import { useLinkPickerAnalytics } from '../../common/analytics';
+import {
+  ANALYTICS_CHANNEL,
+  RECENT_SEARCH_LIST_SIZE,
+} from '../../common/constants';
 import {
   LinkPickerPlugin,
   LinkPickerPluginAction,
   LinkPickerPluginErrorFallback,
   LinkPickerState,
   LinkSearchListItemData,
-} from '../../ui/types';
+} from '../../common/types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
-import { ANALYTICS_CHANNEL } from '../../common/constants';
-import { CancellationError, resolvePluginUpdates } from './utils';
+
 import { usePluginReducer } from './reducer';
-import { useLinkPickerAnalytics } from '../../common/analytics';
+import { CancellationError, resolvePluginUpdates } from './utils';
 
 export interface LinkPickerPluginsService {
   items: LinkSearchListItemData[] | null;

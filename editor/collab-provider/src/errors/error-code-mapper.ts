@@ -71,6 +71,13 @@ export const errorCodeMapper = (
         recoverable: false,
         status: 500,
       };
+    case INTERNAL_ERROR_CODE.DOCUMENT_UPDATE_ERROR:
+      return {
+        code: PROVIDER_ERROR_CODE.DOCUMENT_UPDATE_ERROR,
+        message: 'The provider failed to apply changes to the editor',
+        recoverable: false,
+        status: 500,
+      };
     case INTERNAL_ERROR_CODE.RECONNECTION_NETWORK_ISSUE:
       return {
         code: PROVIDER_ERROR_CODE.NETWORK_ISSUE,

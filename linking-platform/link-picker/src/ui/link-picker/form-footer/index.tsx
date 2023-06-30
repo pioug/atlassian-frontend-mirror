@@ -1,18 +1,21 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
 import { memo } from 'react';
-import { useIntl, defineMessages } from 'react-intl-next';
+
+import { jsx } from '@emotion/react';
+import { defineMessages, useIntl } from 'react-intl-next';
+
 import Button, { ButtonGroup } from '@atlaskit/button';
 import EditorAddIcon from '@atlaskit/icon/glyph/editor/add';
 
-import { formFooterStyles, formFooterActionStyles } from './styled';
-import { checkSubmitDisabled } from './utils';
 import {
   LinkPickerPluginAction,
   LinkPickerState,
   LinkSearchListItemData,
-} from '../../types';
+} from '../../../common/types';
 import { UnauthenticatedError } from '../../../common/utils/errors';
+
+import { formFooterActionStyles, formFooterStyles } from './styled';
+import { checkSubmitDisabled } from './utils';
 
 const messages = defineMessages({
   cancelButton: {

@@ -70,6 +70,9 @@
       ],
       "deprecation": [
         "no-deprecated-imports"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
   },

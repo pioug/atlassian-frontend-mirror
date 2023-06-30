@@ -3,6 +3,7 @@ import {
   EditorNodeContainerModel,
   EditorFloatingToolbarModel,
   EditorEmbedCardModel,
+  EditorHyperlinkModel,
   expect,
 } from '@af/editor-libra';
 import { embedCardAdf } from './embed-1.spec.ts-fixtures/adf';
@@ -30,13 +31,14 @@ test.describe('card', () => {
       editor,
       embedCardModel,
     );
+    const hyperlinkModel = EditorHyperlinkModel.from(floatingToolbarModel);
 
     // edit link label
     await embedCardModel.waitForStable();
     await embedCardModel.click();
+
     await floatingToolbarModel.editLink();
-    await floatingToolbarModel.waitForToolbarItemsStable();
-    await floatingToolbarModel.clearLabel();
+    await hyperlinkModel.clearLabel();
     await editor.keyboard.type('New heading');
     await editor.keyboard.press('Enter');
 

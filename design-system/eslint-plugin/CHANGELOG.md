@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 7.0.1
+
+### Patch Changes
+
+- [`8c955333863`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c955333863) - Fix ensure-design-token-usage to declare that is has suggestions, unblocking ESLint 7+ usage.
+
 ## 7.0.0
 
 ### Major Changes

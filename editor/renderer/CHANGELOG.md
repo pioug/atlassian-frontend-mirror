@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 108.4.2
+
+### Patch Changes
+
+- [`05435759325`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05435759325) - Revert ED-17462 due to scroll issue in renderer for table
+
+## 108.4.1
+
+### Patch Changes
+
+- [`9d91eb4b59b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d91eb4b59b) - MEX-2411 Remove Observed Width feature flag
+- Updated dependencies
+
 ## 108.4.0
 
 ### Minor Changes

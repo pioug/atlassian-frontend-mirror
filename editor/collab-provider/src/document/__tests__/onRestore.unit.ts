@@ -165,6 +165,11 @@ describe('DocumentService onRestore', () => {
         .mockImplementation(() => {
           throw new Error('testing');
         });
+      jest
+        .spyOn(provider.documentService, 'updateDocument')
+        .mockImplementation(() => {
+          // Mockout updateDocument to exclude its own metrics that it can emit
+        });
       provider.on('error', (err: any) => {
         expect(err).toEqual({
           recoverable: false,

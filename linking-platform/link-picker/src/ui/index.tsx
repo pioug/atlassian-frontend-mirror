@@ -1,17 +1,20 @@
-import { AnalyticsContext } from '@atlaskit/analytics-next';
 import React, { memo } from 'react';
-import { LazySuspense, lazyForPaint } from 'react-loosely-lazy';
-import { COMPONENT_NAME } from '../common/constants';
 
+import { lazyForPaint, LazySuspense } from 'react-loosely-lazy';
+
+import { AnalyticsContext } from '@atlaskit/analytics-next';
+
+import { COMPONENT_NAME } from '../common/constants';
+import { PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
+import { LinkPickerSessionProvider } from '../controllers/session-provider';
 import {
   name as packageName,
   version as packageVersion,
 } from '../version.json';
-import { PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
+
 import { ErrorBoundary } from './error-boundary';
 import { LinkPickerProps } from './link-picker';
 import { LoaderFallback } from './loader-fallback';
-import { LinkPickerSessionProvider } from '../controllers/session-provider';
 import { MessagesProvider } from './messages-provider';
 
 export const testIds = {

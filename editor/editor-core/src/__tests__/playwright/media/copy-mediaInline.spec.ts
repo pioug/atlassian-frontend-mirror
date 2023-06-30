@@ -1,6 +1,7 @@
 import {
   editorTestCase as test,
   expect,
+  fixTest,
   EditorNodeContainerModel,
   EditorMediaInlineModel,
 } from '@af/editor-libra';
@@ -68,10 +69,11 @@ test.describe('media inline', () => {
     editor,
     browserName,
   }) => {
-    test.fixme(
-      browserName === 'firefox',
-      'Copy HTML element does not work on Firefox headless at all.',
-    );
+    fixTest({
+      jiraIssueId: 'UTEST-660',
+      reason: 'Copy HTML element does not work on Firefox headless at all.',
+      condition: browserName === 'firefox',
+    });
 
     const nodes = EditorNodeContainerModel.from(editor);
     const mediaInlineModel = EditorMediaInlineModel.from(nodes.mediaInline);

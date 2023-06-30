@@ -1,13 +1,14 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
+
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu, {
-  DropdownItemGroup,
   DropdownItem,
+  DropdownItemGroup,
 } from '@atlaskit/dropdown-menu';
-import WorldIcon from '@atlaskit/icon/glyph/world';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import WorldIcon from '@atlaskit/icon/glyph/world';
+import { token } from '@atlaskit/tokens';
 
 const dropdownContainer = css`
   margin-right: ${token('space.100', '8px')};

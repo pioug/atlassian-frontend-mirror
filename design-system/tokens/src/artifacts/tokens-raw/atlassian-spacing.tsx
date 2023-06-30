@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c89f0dcd1df97245a694a1a77741bb39>>
+ * @codegen <<SignedSource::c0a40bffb143a2043c80064395011941>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -9,7 +9,7 @@ const tokens = [
       "group": "spacing",
       "state": "active",
       "introduced": "0.12.0",
-      "description": "Equates to `0`. Can be used for resetting default spacing styles."
+      "description": "Equates to `0`. Use for resetting default spacing styles."
     },
     "value": "0px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -19,7 +19,7 @@ const tokens = [
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "description": "Equates to `0`. Can be used for resetting default spacing styles."
+        "description": "Equates to `0`. Use for resetting default spacing styles."
       },
       "value": "Space0"
     },
@@ -39,7 +39,7 @@ const tokens = [
         "3px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for spacing in compact scenarios. The smallest value in our scale."
+      "description": "Use for small and compact pieces of UI."
     },
     "value": "2px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -53,7 +53,7 @@ const tokens = [
           "3px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for spacing in compact scenarios. The smallest value in our scale."
+        "description": "Use for small and compact pieces of UI."
       },
       "value": "Space025"
     },
@@ -73,7 +73,7 @@ const tokens = [
         "5px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for spacing in compact scenarios."
+      "description": "Use for small and compact pieces of UI"
     },
     "value": "4px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -87,7 +87,7 @@ const tokens = [
           "5px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for spacing in compact scenarios."
+        "description": "Use for small and compact pieces of UI"
       },
       "value": "Space050"
     },
@@ -107,7 +107,7 @@ const tokens = [
         "7px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for spacing in compact scenarios."
+      "description": "Use for small and compact pieces of UI"
     },
     "value": "6px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -121,7 +121,7 @@ const tokens = [
           "7px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for spacing in compact scenarios."
+        "description": "Use for small and compact pieces of UI"
       },
       "value": "Space075"
     },
@@ -141,7 +141,7 @@ const tokens = [
         "9px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for gutter spacing."
+      "description": "Use for small and compact pieces of UI"
     },
     "value": "8px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -155,7 +155,7 @@ const tokens = [
           "9px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for gutter spacing."
+        "description": "Use for small and compact pieces of UI"
       },
       "value": "Space100"
     },
@@ -177,7 +177,7 @@ const tokens = [
         "14px"
       ],
       "introduced": "0.12.0",
-      "description": "Helpful guidance goes here"
+      "description": "Use for larger and less dense pieces of UI."
     },
     "value": "12px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -193,7 +193,7 @@ const tokens = [
           "14px"
         ],
         "introduced": "0.12.0",
-        "description": "Helpful guidance goes here"
+        "description": "Use for larger and less dense pieces of UI."
       },
       "value": "Space150"
     },
@@ -215,7 +215,7 @@ const tokens = [
         "18px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for gutter spacing."
+      "description": "Use for larger and less dense pieces of UI."
     },
     "value": "16px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -231,7 +231,7 @@ const tokens = [
           "18px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for gutter spacing."
+        "description": "Use for larger and less dense pieces of UI."
       },
       "value": "Space200"
     },
@@ -253,7 +253,7 @@ const tokens = [
         "23px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for gutter spacing."
+      "description": "Use for larger and less dense pieces of UI."
     },
     "value": "20px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -269,7 +269,7 @@ const tokens = [
           "23px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for gutter spacing."
+        "description": "Use for larger and less dense pieces of UI."
       },
       "value": "Space250"
     },
@@ -292,7 +292,7 @@ const tokens = [
         "28px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for gutter spacing."
+      "description": "Use for larger and less dense pieces of UI."
     },
     "value": "24px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -309,7 +309,7 @@ const tokens = [
           "28px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for gutter spacing."
+        "description": "Use for larger and less dense pieces of UI."
       },
       "value": "Space300"
     },
@@ -334,7 +334,7 @@ const tokens = [
         "35px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for gutter spacing."
+      "description": "Use for the largest pieces of UI and for layout elements."
     },
     "value": "32px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -353,7 +353,7 @@ const tokens = [
           "35px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for gutter spacing."
+        "description": "Use for the largest pieces of UI and for layout elements."
       },
       "value": "Space400"
     },
@@ -369,7 +369,7 @@ const tokens = [
       "group": "spacing",
       "state": "active",
       "introduced": "0.12.0",
-      "description": "Use for larger layout-specific spacing."
+      "description": "Use for the largest pieces of UI and for layout elements."
     },
     "value": "40px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -379,7 +379,7 @@ const tokens = [
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "description": "Use for larger layout-specific spacing."
+        "description": "Use for the largest pieces of UI and for layout elements."
       },
       "value": "Space500"
     },
@@ -395,7 +395,7 @@ const tokens = [
       "group": "spacing",
       "state": "active",
       "introduced": "0.12.0",
-      "description": "Use for larger layout-specific spacing."
+      "description": "Use for the largest pieces of UI and for layout elements."
     },
     "value": "48px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -405,7 +405,7 @@ const tokens = [
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "description": "Use for larger layout-specific spacing."
+        "description": "Use for the largest pieces of UI and for layout elements."
       },
       "value": "Space600"
     },
@@ -421,7 +421,7 @@ const tokens = [
       "group": "spacing",
       "state": "active",
       "introduced": "0.12.0",
-      "description": "Use for larger layout-specific spacing."
+      "description": "Use for the largest pieces of UI and for layout elements."
     },
     "value": "64px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -431,7 +431,7 @@ const tokens = [
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "description": "Use for larger layout-specific spacing."
+        "description": "Use for the largest pieces of UI and for layout elements."
       },
       "value": "Space800"
     },
@@ -447,7 +447,7 @@ const tokens = [
       "group": "spacing",
       "state": "active",
       "introduced": "0.12.0",
-      "description": "Use for larger layout-specific spacing."
+      "description": "Use for the largest pieces of UI and for layout elements."
     },
     "value": "80px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -457,7 +457,7 @@ const tokens = [
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "description": "Use for larger layout-specific spacing."
+        "description": "Use for the largest pieces of UI and for layout elements."
       },
       "value": "Space1000"
     },

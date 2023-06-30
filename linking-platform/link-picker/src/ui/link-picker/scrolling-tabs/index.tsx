@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import React, { useRef, useMemo, useState, useCallback } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+
 import { jsx } from '@emotion/react';
 
 import Button, { ButtonProps } from '@atlaskit/button';
@@ -7,19 +8,18 @@ import ChevronLeftIcon from '@atlaskit/icon/glyph/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/glyph/chevron-right';
 
 import {
+  calculateConditionalButtons,
+  ConditionalButtons,
+  createGhost,
+  getTabList,
   scrollBack,
   scrollForward,
-  ConditionalButtons,
-  calculateConditionalButtons,
-  getTabList,
-  createGhost,
 } from './scrolling-tabs';
-
 import {
-  containerStyles,
-  scrollingContainerStyles,
-  nextButtonStyles,
   backButtonStyles,
+  containerStyles,
+  nextButtonStyles,
+  scrollingContainerStyles,
 } from './styles';
 
 function isTouchDevice() {
@@ -39,6 +39,7 @@ const initialConditionalButtonsState: ConditionalButtons = {
   forward: false,
 };
 
+/* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 export const ScrollingTabList = (props: ScrollingTabListProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [conditionalButtons, setConditionalButtons] =
@@ -123,6 +124,7 @@ export const ScrollingTabList = (props: ScrollingTabListProps) => {
 
       return () => {
         if (scrollingContainer) {
+          // eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
           scrollingContainer.removeEventListener(
             'scroll',
             handleConditionalButtonsChange,

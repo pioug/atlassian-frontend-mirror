@@ -1,6 +1,9 @@
 import { createContext, MutableRefObject, useContext } from 'react';
 
-interface NestedContext {
+/**
+ * @internal
+ */
+export interface NestedContextValue {
   currentStackId: string;
   onNest: (id: string) => void;
   onUnNest: () => void;
@@ -8,16 +11,17 @@ interface NestedContext {
   parentId: string;
   backButton?: React.ReactNode;
   childIds: MutableRefObject<Set<string>>;
+  forceShowTopScrollIndicator: boolean | undefined;
 }
 
 /**
  * @internal
  */
-export const NestedContext = createContext<NestedContext | undefined>(
+export const NestedContext = createContext<NestedContextValue | undefined>(
   undefined,
 );
 
-export const useNestedContext = (): NestedContext => {
+export const useNestedContext = (): NestedContextValue => {
   const context = useContext(NestedContext);
   if (!context) {
     let error = '';

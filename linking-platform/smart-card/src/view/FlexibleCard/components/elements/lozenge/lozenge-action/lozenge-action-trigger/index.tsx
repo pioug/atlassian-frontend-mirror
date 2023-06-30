@@ -11,6 +11,7 @@ import FeatureDiscovery from '../feature-discovery';
 
 const LozengeActionTrigger: FC<LozengeActionTriggerProps> = ({
   appearance,
+  isOpen,
   showFeatureDiscovery,
   testId,
   text,
@@ -37,6 +38,7 @@ const LozengeActionTrigger: FC<LozengeActionTriggerProps> = ({
       type="button"
       {...props}
       css={triggerButtonStyles}
+      data-action-open={isOpen}
       data-testid={`${testId}--trigger`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

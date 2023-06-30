@@ -31,11 +31,10 @@ const LinkPickerCreate = () => {
   const [showPicker, setShowPicker] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  const confluenceForm = createConfluencePageLinkCreatePlugin(
-    CLOUD_ID,
-    undefined,
-    'current',
-  );
+  const confluenceForm = createConfluencePageLinkCreatePlugin({
+    cloudId: CLOUD_ID,
+    pageStatus: 'current',
+  });
 
   const [entityKey, setEntityKey] = useState(confluenceForm.key);
 

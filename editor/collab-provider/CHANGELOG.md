@@ -1,5 +1,16 @@
 # @atlaskit/collab-provider
 
+## 9.4.0
+
+### Minor Changes
+
+- [`606d4ad65fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/606d4ad65fc) - ESS-3682 Add detection that it the editor failed to update, emit analytics as well added an option to
+  enable emitting fatal errors.
+
+### Patch Changes
+
+- [`5eb1273509c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eb1273509c) - ESS-3728: Fix initialized always set to false when reconnecting.
+
 ## 9.3.1
 
 ### Patch Changes

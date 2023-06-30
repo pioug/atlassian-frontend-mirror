@@ -1,80 +1,74 @@
 /** @jsx jsx */
 import {
+  ChangeEvent,
   FormEvent,
   Fragment,
   KeyboardEvent,
+  memo,
   useCallback,
   useLayoutEffect,
   useReducer,
-  ChangeEvent,
-  memo,
 } from 'react';
-import { jsx } from '@emotion/react';
-import { useIntl, FormattedMessage } from 'react-intl-next';
-import { useAnalyticsEvents, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
+import { jsx } from '@emotion/react';
+import { FormattedMessage, useIntl } from 'react-intl-next';
+
+import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
+import { browser } from '@atlaskit/linking-common/user-agent';
+import Spinner from '@atlaskit/spinner/spinner';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 import VisuallyHidden from '@atlaskit/visually-hidden';
-import Spinner from '@atlaskit/spinner/spinner';
 
-import {
-  LinkSearchListItemData,
-  LinkInputType,
-  LinkPickerPlugin,
-} from '../types';
-
-import createEventPayload from '../../common/utils/analytics/analytics.codegen';
-import { ANALYTICS_CHANNEL } from '../../common/constants';
 import {
   useLinkPickerAnalytics,
   withInputFieldTracking,
   withLinkPickerAnalyticsContext,
 } from '../../common/analytics';
-import { normalizeUrl, isSafeUrl } from '@atlaskit/linking-common/url';
-import { browser } from '@atlaskit/linking-common/user-agent';
-
+import { ANALYTICS_CHANNEL } from '../../common/constants';
+import {
+  LinkInputType,
+  LinkPickerPlugin,
+  LinkSearchListItemData,
+  PickerState,
+} from '../../common/types';
+import createEventPayload from '../../common/utils/analytics/analytics.codegen';
+import { handleNavKeyDown } from '../../common/utils/handleNavKeyDown';
+import { useFixHeight } from '../../controllers/use-fix-height';
 import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
-import { useFixHeight } from '../../controllers/use-fix-height';
 
-import {
-  searchMessages,
-  linkMessages,
-  formMessages,
-  linkTextMessages,
-} from './messages';
-import { TextInput, testIds as textFieldTestIds } from './text-input';
-import {
-  rootContainerStyles,
-  searchIconStyles,
-  tabsWrapperStyles,
-  flexColumnStyles,
-  formFooterMargin,
-} from './styled';
 import { Announcer } from './announcer';
-import { ScrollingTabList } from '../scrolling-tabs';
-
-import { LinkSearchList, testIds as listTestIds } from './link-search-list';
+import { FormFooter, testIds as formFooterTestIds } from './form-footer';
 import {
   LinkSearchError,
   testIds as searchErrorTestIds,
 } from './link-search-error';
-import { FormFooter, testIds as formFooterTestIds } from './form-footer';
-import { getDataSource, getScreenReaderText, handleNavKeyDown } from './utils';
-
-import { TrackTabViewed } from './track-tab-viewed';
-import { TrackMount } from './track-mount';
+import { LinkSearchList, testIds as listTestIds } from './link-search-list';
 import { spinnerContainerStyles } from './link-search-list/styled';
-
-export const RECENT_SEARCH_LIST_SIZE = 5;
+import {
+  formMessages,
+  linkMessages,
+  linkTextMessages,
+  searchMessages,
+} from './messages';
+import { ScrollingTabList } from './scrolling-tabs';
+import {
+  flexColumnStyles,
+  formFooterMargin,
+  rootContainerStyles,
+  tabsWrapperStyles,
+} from './styled';
+import { testIds as textFieldTestIds, TextInput } from './text-input';
+import { TrackMount } from './track-mount';
+import { TrackTabViewed } from './track-tab-viewed';
+import { getDataSource, getScreenReaderText } from './utils';
 
 export const testIds = {
   linkPickerRoot: 'link-picker-root',
   linkPicker: 'link-picker',
   urlInputField: 'link-url',
   textInputField: 'link-text',
-  searchIcon: 'link-picker-search-icon',
   ...formFooterTestIds,
   ...searchErrorTestIds,
   ...listTestIds,
@@ -133,17 +127,6 @@ export interface LinkPickerProps {
   /** Hides the link picker display text field if set to true. */
   hideDisplayText?: boolean;
   featureFlags?: Record<string, unknown>;
-}
-
-export interface PickerState {
-  selectedIndex: number;
-  activeIndex: number;
-  url: string;
-  displayText: string;
-  invalidUrl: boolean;
-  activeTab: number;
-  /** When true, even if the selected index is -1, don't hide the recents. */
-  preventHidingRecents: boolean;
 }
 
 const initState: PickerState = {
@@ -474,12 +457,6 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
         browser().safari &&
         getScreenReaderText(items ?? [], selectedIndex, intl);
 
-      const searchIcon = isActivePlugin && (
-        <span css={searchIconStyles} data-testid={testIds.searchIcon}>
-          <EditorSearchIcon size="medium" label={''} />
-        </span>
-      );
-
       const tabList = (
         <TabList>
           {tabs.map(tab => (
@@ -517,7 +494,6 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
             placeholder={intl.formatMessage(messages.linkPlaceholder)}
             value={url}
             autoFocus
-            elemBeforeInput={searchIcon}
             clearLabel={intl.formatMessage(formMessages.clearLink)}
             aria-expanded
             aria-autocomplete="list"

@@ -6,6 +6,7 @@ const domainsToLint: Domains = ['color', 'spacing', 'typography', 'shape'];
 
 const ruleMeta: LintRuleMeta = {
   name: 'ensure-design-token-usage',
+  hasSuggestions: true,
   schema: {
     type: 'array',
     items: {

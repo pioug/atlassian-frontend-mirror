@@ -59,6 +59,7 @@ export const themeIds = [
   'typography',
   'shape',
 ] as const;
+
 export type ThemeIds = (typeof themeIds)[number];
 
 /**
@@ -69,7 +70,15 @@ export const themeOverrideIds = [
   'light-new-input-border',
   'dark-new-input-border',
 ] as const;
+
 export type ThemeOverrideIds = (typeof themeOverrideIds)[number];
+
+export const themeIdsWithOverrides = [
+  ...themeIds,
+  ...themeOverrideIds,
+] as const;
+
+export type ThemeIdsWithOverrides = (typeof themeIdsWithOverrides)[number];
 
 /**
  * Theme to use a base. This will create the theme as

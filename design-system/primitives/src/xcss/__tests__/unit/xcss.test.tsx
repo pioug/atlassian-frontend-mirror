@@ -166,8 +166,6 @@ describe('xcss()', () => {
       top: 0,
     });
 
-    // eslint-disable-next-line no-console
-    expect(console.warn).toBeCalledTimes(3);
     expect(styles).toMatchInlineSnapshot(`
       Object {
         Symbol(UNSAFE_INTERNAL_styles): Object {

@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { renderHook } from '@testing-library/react-hooks';
+
 import {
+  INIT_CONTEXT,
   LinkPickerSessionProvider,
   useLinkPickerSessionId,
-  INIT_CONTEXT,
-} from '.';
+} from './index';
 
 describe('useLinkPickerSessionId', () => {
   it('should return a default value when there is no context', () => {

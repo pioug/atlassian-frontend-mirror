@@ -1,5 +1,6 @@
-import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
+
+import { token } from '@atlaskit/tokens';
 
 const HEIGHT = 120;
 

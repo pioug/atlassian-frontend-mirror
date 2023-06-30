@@ -1,25 +1,26 @@
 /** @jsx jsx */
 import {
+  Fragment,
   KeyboardEvent,
+  MouseEvent,
   MutableRefObject,
   useCallback,
   useRef,
-  Fragment,
-  MouseEvent,
 } from 'react';
 
 import { jsx } from '@emotion/react';
+
 import { ErrorMessage, Field } from '@atlaskit/form';
-import Tooltip from '@atlaskit/tooltip';
-import Textfield, { TextFieldProps } from '@atlaskit/textfield';
 import Selectclear from '@atlaskit/icon/glyph/select-clear';
+import Textfield, { TextFieldProps } from '@atlaskit/textfield';
+import Tooltip from '@atlaskit/tooltip';
 
 import {
   ConditionalSpotlightTargetWrapper,
   ConditionalSpotlightTargetWrapperProps,
-} from '../conditional-spotlight-target-wrapper';
-import { isRedoEvent, isUndoEvent } from '../utils';
+} from './conditional-spotlight-target-wrapper';
 import { clearTextButtonStyles, fieldStyles } from './styled';
+import { isRedoEvent, isUndoEvent } from './utils';
 
 export type TextInputProps = Omit<TextFieldProps, 'name' | 'value'> &
   Pick<ConditionalSpotlightTargetWrapperProps, 'spotlightTargetName'> & {

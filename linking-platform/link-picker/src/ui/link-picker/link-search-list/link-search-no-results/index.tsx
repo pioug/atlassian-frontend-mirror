@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+import { defineMessages, useIntl } from 'react-intl-next';
+
 import EmptyState from '@atlaskit/empty-state';
-import { useIntl, defineMessages } from 'react-intl-next';
 
 import { NoResultsSVG } from './no-results-svg';
 import { emptyStateWrapperStyles } from './styled';

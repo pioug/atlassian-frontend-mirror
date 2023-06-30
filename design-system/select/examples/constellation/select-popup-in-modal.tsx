@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ModalDialog, {
   ModalTransition,
   ModalBody,
 } from '@atlaskit/modal-dialog';
 import Drawer from '@atlaskit/drawer';
-import Button from '@atlaskit/button/standard-button';
-import { RadioGroup } from '@atlaskit/radio';
-import { OptionsPropType } from '@atlaskit/radio/types';
+import Button, { ButtonGroup } from '@atlaskit/button';
 
 import { PopupSelect } from '../../src';
 
@@ -22,10 +21,9 @@ const options = [
 ];
 
 const SelectPopupModalExample = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [type, setType] = React.useState('modal');
+  const [type, setType] = useState<'modal' | 'drawer'>();
 
-  const select = (
+  const popupSelectElement = (
     <PopupSelect
       isSearchable={false}
       options={options}
@@ -39,40 +37,33 @@ const SelectPopupModalExample = () => {
           },
         ],
       }}
-      target={({ ref }) => <Button ref={ref}>Choose</Button>}
+      target={({ isOpen, ...triggerProps }) => (
+        <Button
+          {...triggerProps}
+          isSelected={isOpen}
+          iconAfter={<ChevronDownIcon label="" />}
+        >
+          Open
+        </Button>
+      )}
     />
   );
 
-  const radio_options: OptionsPropType = [
-    { name: 'modal', value: 'modal', label: 'Modal' },
-    { name: 'drawer', value: 'drawer', label: 'Drawer' },
-  ];
-
   return (
     <>
-      <div>
-        <RadioGroup
-          defaultValue={'modal'}
-          options={radio_options}
-          onChange={(e) => setType(e.target.value)}
-          aria-labelledby="radiogroup-label"
-        />
-      </div>
+      <ButtonGroup>
+        <Button onClick={() => setType('modal')}>Open modal</Button>
+        <Button onClick={() => setType('drawer')}>Open drawer</Button>
+      </ButtonGroup>
 
-      <Button appearance="primary" onClick={() => setIsOpen(true)}>
-        Open Select
-      </Button>
-
-      {type === 'drawer' && (
-        <Drawer onClose={() => setIsOpen(false)} isOpen={isOpen}>
-          {select}
-        </Drawer>
-      )}
+      <Drawer onClose={() => setType(undefined)} isOpen={type === 'drawer'}>
+        {popupSelectElement}
+      </Drawer>
 
       <ModalTransition>
-        {type === 'modal' && isOpen && (
-          <ModalDialog onClose={() => setIsOpen(false)}>
-            <ModalBody>{select}</ModalBody>
+        {type === 'modal' && (
+          <ModalDialog onClose={() => setType(undefined)}>
+            <ModalBody>{popupSelectElement}</ModalBody>
           </ModalDialog>
         )}
       </ModalTransition>

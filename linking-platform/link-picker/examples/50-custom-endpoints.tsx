@@ -1,19 +1,18 @@
-import React, { SyntheticEvent, useState, useMemo } from 'react';
+import React, { SyntheticEvent, useMemo, useState } from 'react';
 
 import Button from '@atlaskit/button';
-import Popup from '@atlaskit/popup';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import Popup from '@atlaskit/popup';
 import { token } from '@atlaskit/tokens';
-
 import {
   AtlassianLinkPickerPlugin,
   Scope,
 } from '@atlassian/link-picker-atlassian-plugin';
 import { useForgeSearchProviders } from '@atlassian/link-picker-plugins';
 
-import { LinkPicker, LinkPickerProps } from '../src';
 import { PageHeader, PageWrapper } from '../example-helpers/common';
+import { LinkPicker, LinkPickerProps } from '../src';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 

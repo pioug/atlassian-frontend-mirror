@@ -1,5 +1,9 @@
 import { errorCodeMapper } from '../error-code-mapper';
-import { InternalError, NCS_ERROR_CODE } from '../error-types';
+import {
+  InternalError,
+  NCS_ERROR_CODE,
+  PROVIDER_ERROR_CODE,
+} from '../error-types';
 
 describe('Error code mapper', () => {
   it.each([
@@ -346,6 +350,25 @@ describe('Error code mapper', () => {
         message: 'Collab Provider experienced an unrecoverable error',
         recoverable: true,
         reason: 'CATCHUP_FAILED',
+        status: 500,
+      },
+    ],
+    [
+      {
+        data: {
+          code: 'DOCUMENT_UPDATE_ERROR',
+          meta: {
+            editorVersion: 1,
+            newVersion: 2,
+          },
+          status: 500,
+        },
+        message: 'The provider failed to apply changes to the editor',
+      },
+      {
+        code: PROVIDER_ERROR_CODE.DOCUMENT_UPDATE_ERROR,
+        message: 'The provider failed to apply changes to the editor',
+        recoverable: false,
         status: 500,
       },
     ],

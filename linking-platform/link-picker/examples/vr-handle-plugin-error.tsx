@@ -5,8 +5,8 @@ import {
   UnstableMockLinkPickerPlugin,
 } from '@atlaskit/link-test-helpers/link-picker';
 
-import { LinkPicker } from '../src';
 import { PageWrapper } from '../example-helpers/common';
+import { LinkPicker } from '../src';
 
 const plugins = [
   new MockLinkPickerPromisePlugin({

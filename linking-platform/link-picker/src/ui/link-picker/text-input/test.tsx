@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { browser } from '@atlaskit/linking-common/user-agent';
-import { asMock } from '@atlaskit/link-test-helpers/jest';
-
 import { createEvent, fireEvent, render, screen } from '@testing-library/react';
 
-import { TextInput, TextInputProps, testIds } from './index';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { browser } from '@atlaskit/linking-common/user-agent';
+
+import { testIds, TextInput, TextInputProps } from './index';
 
 jest.mock('@atlaskit/linking-common/user-agent', () => ({
   browser: jest.fn(() => ({

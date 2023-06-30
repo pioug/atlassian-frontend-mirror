@@ -301,7 +301,8 @@ describe('Flexible Card', () => {
       });
 
       await page.waitForSelector('[data-testid="smart-element-icon"]');
-      await page.hover('[data-testid="smart-element-icon"]');
+      await page.waitForSelector('[data-testid="smart-element-link"]');
+      await page.hover('[data-testid="smart-element-link"]');
       await page.waitForSelector(
         '[data-testid="hover-card-open-button-button-wrapper"]',
       );

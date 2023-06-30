@@ -3,13 +3,12 @@ import {
   disableAllTransitions,
   disableScrollBehavior,
   getExampleUrl,
-  pageSelector,
-  waitForTooltip,
-  takeElementScreenShot,
   loadPage,
   LoadPageOptions,
+  pageSelector,
+  takeElementScreenShot,
+  waitForTooltip,
 } from '@atlaskit/visual-regression/helper';
-
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 export function getURL(

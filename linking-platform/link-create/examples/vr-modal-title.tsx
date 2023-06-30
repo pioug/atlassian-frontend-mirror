@@ -16,7 +16,7 @@ mockFetchPage();
 mockFetchSpace();
 
 export default function Create() {
-  const plugins = [createConfluencePageLinkCreatePlugin(CLOUD_ID)];
+  const plugins = [createConfluencePageLinkCreatePlugin({ cloudId: CLOUD_ID })];
   return (
     <IntlProvider locale="en">
       <div style={{ padding: '20px' }}>

@@ -1,5 +1,21 @@
 # @atlaskit/side-navigation
 
+## 1.10.0
+
+### Minor Changes
+
+- [`ee296a14a87`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee296a14a87) - Adds the `showTopScrollIndicator` prop to the nestable navigation content component. This prop should be used only when needed to distinctly separate the side navigation header from the side navigation content.
+
+## 1.9.0
+
+### Minor Changes
+
+- [`0af122e7d0f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0af122e7d0f) - [ux] Prop isList in Section component allows to add `<ul>` and `<li>` elements around the items to better semantic markup if it is a list of items
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.10
 
 ### Patch Changes

@@ -13,7 +13,7 @@ export interface NavigationContentProps {
   children: React.ReactNode;
 
   /**
-   * Forces the top scroll indicator to be shown all the time.
+   * Forces the top scroll indicator to be shown.
    */
   // eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
   showTopScrollIndicator?: boolean;

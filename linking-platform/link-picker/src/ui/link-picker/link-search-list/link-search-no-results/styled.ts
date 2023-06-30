@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+
 import { token } from '@atlaskit/tokens';
 
 export const emptyStateWrapperStyles = css`

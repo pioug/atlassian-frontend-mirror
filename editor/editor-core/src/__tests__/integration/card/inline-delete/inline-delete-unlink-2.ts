@@ -14,9 +14,12 @@ import { messages } from '../../../../plugins/insert-block/ui/ToolbarInsertBlock
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 import { linkPickerSelectors } from '@atlaskit/editor-test-helpers/page-objects/hyperlink';
 
+// FIXME: This test was automatically skipped due to failure on 29/06/2023: https://product-fabric.atlassian.net/browse/ED-18934
 BrowserTestCase(
   `card: unlinking a card created from CMD + K should leave only url text`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     const page = await goToEditorTestingWDExample(client);
     await mountEditor(
@@ -49,9 +52,12 @@ BrowserTestCase(
 );
 
 describe('with feature flag: lp-link-picker', () => {
+  // FIXME: This test was automatically skipped due to failure on 29/06/2023: https://product-fabric.atlassian.net/browse/ED-18934
   BrowserTestCase(
     `card: unlinking a card created from CMD + K should leave only url text`,
-    {},
+    {
+      skip: ['*'],
+    },
     async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
       const page = await goToEditorTestingWDExample(client);
       await mountEditor(

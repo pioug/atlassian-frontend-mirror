@@ -4,7 +4,13 @@ import noop from '@atlaskit/ds-lib/noop';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
-import { DataColorModes, ThemeColorModes, ThemeIds } from './theme-config';
+import {
+  DataColorModes,
+  ThemeColorModes,
+  ThemeIds,
+  ThemeIdsWithOverrides,
+  themeIdsWithOverrides,
+} from './theme-config';
 import { loadAndAppendThemeCss, loadThemeCss } from './utils/theme-loading';
 import { themeObjectToString } from './utils/theme-state-transformer';
 
@@ -51,10 +57,12 @@ const checkNativeListener = function (e: MediaQueryListEvent) {
   element.setAttribute(COLOR_MODE_ATTRIBUTE, e.matches ? 'dark' : 'light');
 };
 
-const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
+const getThemePreferences = (
+  themeState: ThemeState,
+): ThemeIdsWithOverrides[] => {
   const { colorMode, dark, light, shape, spacing, typography } = themeState;
 
-  const themePreferences: ThemeIds[] =
+  const themePreferences: ThemeIdsWithOverrides[] =
     colorMode === 'auto' ? [light, dark] : [themeState[colorMode]];
 
   [shape, spacing, typography].forEach((themeId) => {
@@ -67,7 +75,7 @@ const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
     themePreferences.push(
       `${
         themePreferences.includes('dark') ? 'dark' : 'light'
-      }-new-input-border` as ThemeIds,
+      }-new-input-border`,
     );
   }
 
@@ -96,6 +104,7 @@ const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
  * @param {string} themeState.shape The shape theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
+ * @param {function} themeLoader Callback function used to override the default theme loading functionality.
  *
  * @returns A Promise of an unbind function, that can be used to stop listening for changes to system theme.
  *
@@ -104,14 +113,17 @@ const getThemePreferences = (themeState: ThemeState): ThemeIds[] => {
  * setGlobalTheme({colorMode: 'auto', light: 'light', dark: 'dark', spacing: 'spacing'});
  * ```
  */
-const setGlobalTheme = async ({
-  colorMode = themeStateDefaults['colorMode'],
-  dark = themeStateDefaults['dark'],
-  light = themeStateDefaults['light'],
-  shape = themeStateDefaults['shape'],
-  spacing = themeStateDefaults['spacing'],
-  typography = themeStateDefaults['typography'],
-}: Partial<ThemeState> = {}): Promise<UnbindFn> => {
+const setGlobalTheme = async (
+  {
+    colorMode = themeStateDefaults['colorMode'],
+    dark = themeStateDefaults['dark'],
+    light = themeStateDefaults['light'],
+    shape = themeStateDefaults['shape'],
+    spacing = themeStateDefaults['spacing'],
+    typography = themeStateDefaults['typography'],
+  }: Partial<ThemeState> = {},
+  themeLoader?: (id: ThemeIdsWithOverrides) => void | Promise<void>,
+): Promise<UnbindFn> => {
   const themePreferences = getThemePreferences({
     colorMode,
     dark,
@@ -121,10 +133,10 @@ const setGlobalTheme = async ({
     typography,
   });
 
+  const loadingStrategy = themeLoader ? themeLoader : loadAndAppendThemeCss;
+
   await Promise.all(
-    themePreferences.map(
-      async (themeId) => await loadAndAppendThemeCss(themeId),
-    ),
+    themePreferences.map(async (themeId) => await loadingStrategy(themeId)),
   );
 
   if (colorMode === 'auto' && darkModeMql) {
@@ -156,7 +168,7 @@ const setGlobalTheme = async ({
 };
 
 export interface ThemeStyles {
-  id: ThemeIds;
+  id: ThemeIdsWithOverrides;
   attrs: Record<string, string>;
   css: string;
 }
@@ -176,22 +188,23 @@ export interface ThemeStyles {
  * @returns A Promise of an object array, containing theme IDs, data-attributes to attach to the theme, and the theme CSS.
  * If an error is encountered while loading themes, the themes arrav will be emptv.
  */
-export const getThemeStyles = async ({
-  colorMode = themeStateDefaults['colorMode'],
-  dark = themeStateDefaults['dark'],
-  light = themeStateDefaults['light'],
-  shape = themeStateDefaults['shape'],
-  spacing = themeStateDefaults['spacing'],
-  typography = themeStateDefaults['typography'],
-}: Partial<ThemeState> = {}): Promise<ThemeStyles[]> => {
-  const themePreferences = getThemePreferences({
-    colorMode,
-    dark,
-    light,
-    shape,
-    spacing,
-    typography,
-  });
+export const getThemeStyles = async (
+  preferences?: Partial<ThemeState> | 'all',
+): Promise<ThemeStyles[]> => {
+  let themePreferences: ThemeIdsWithOverrides[] | typeof themeIdsWithOverrides;
+
+  if (preferences === 'all') {
+    themePreferences = themeIdsWithOverrides;
+  } else {
+    themePreferences = getThemePreferences({
+      colorMode: preferences?.colorMode || themeStateDefaults['colorMode'],
+      dark: preferences?.dark || themeStateDefaults['dark'],
+      light: preferences?.light || themeStateDefaults['light'],
+      shape: preferences?.shape || themeStateDefaults['shape'],
+      spacing: preferences?.spacing || themeStateDefaults['spacing'],
+      typography: preferences?.typography || themeStateDefaults['typography'],
+    });
+  }
 
   const results = await Promise.all(
     themePreferences.map(async (themeId): Promise<ThemeStyles | undefined> => {

@@ -2,10 +2,11 @@ import { ParticipantsService } from '../../participants/participants-service';
 import { DocumentService } from '../document-service';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { MetadataService } from '../../metadata/metadata-service';
+import { Config } from '../../types';
 
 jest.mock('../../analytics/analytics-helper');
 
-export const createMockService = () => {
+export const createMockService = (config: Partial<Config> = {}) => {
   let participantsServiceMock = {
     updateLastActive: jest.fn(),
     emitTelepointersFromSteps: jest.fn(),
@@ -31,6 +32,8 @@ export const createMockService = () => {
     getUserIdMock,
     onErrorHandledMock,
     metadataService,
+    config.failedStepLimitBeforeCatchupOnPublish,
+    config.enableErrorOnFailedDocumentApply,
   );
 
   // @ts-expect-error - jest mock class

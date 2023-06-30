@@ -1,16 +1,15 @@
 import React, { SyntheticEvent, useState } from 'react';
 
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
-import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
-
 import {
   LinkPickerPluginsConfiguration,
   useLinkPickerPlugins,
 } from '@atlassian/link-picker-plugins';
 
-import { LinkPicker, LinkPickerProps } from '../src';
 import { PageHeader, PageWrapper } from '../example-helpers/common';
+import { LinkPicker, LinkPickerProps } from '../src';
 
 type OnSubmitPayload = Parameters<LinkPickerProps['onSubmit']>[0];
 

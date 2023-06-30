@@ -4,6 +4,7 @@ import { css, jsx, SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import {
+  ElementName,
   MediaPlacement,
   SmartLinkSize,
   SmartLinkStatus,
@@ -14,7 +15,6 @@ import {
   isFlexibleUiBlock,
   isFlexibleUiPreviewBlock,
   isFlexibleUiTitleBlock,
-  isFlexibleUiFooterBlock,
 } from '../../../../utils/flexible';
 import { RetryOptions } from '../../types';
 import { tokens } from '../../../../utils/token';
@@ -24,7 +24,6 @@ import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/typ
 import { TitleBlockProps } from '../blocks/title-block/types';
 import { HoverCard } from '../../../HoverCard';
 import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
-import { OnActionMenuOpenChangeOptions } from '../blocks/types';
 
 const elevationStyles: SerializedStyles = css`
   border: 1px solid transparent;
@@ -162,7 +161,6 @@ const renderChildren = (
   status?: SmartLinkStatus,
   retry?: RetryOptions,
   onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
-  onActionMenuOpenChange?: (options: OnActionMenuOpenChangeOptions) => void,
 ): React.ReactNode =>
   React.Children.map(children, (child) => {
     // TODO: EDM-6468: Use useFlexibleUiOptionContext for rendering options inside block/element instead
@@ -177,13 +175,6 @@ const renderChildren = (
           size,
           status,
           theme: containerTheme,
-        });
-      } else if (onActionMenuOpenChange && isFlexibleUiFooterBlock(child)) {
-        return React.cloneElement(child, {
-          // @ts-expect-error
-          size,
-          status,
-          onActionMenuOpenChange,
         });
       }
       // @ts-expect-error
@@ -224,7 +215,7 @@ const getLayeredLink = (
 
 /**
  * A container is a hidden component that build the Flexible Smart Link.
- * All of the Flexible UI components are wrapped inside the container.
+ * All the Flexible UI components are wrapped inside the container.
  * It inherits the ui props from Card component and applies the custom styling
  * accordingly.
  * @internal
@@ -250,11 +241,37 @@ const Container: React.FC<ContainerProps> = ({
   const context = useContext(FlexibleUiContext);
   const childrenOptions = getChildrenOptions(children, context);
   const [hoverCardCanOpen, setHoverCardCanOpen] = useState(true);
+  const canShowHoverPreview = showHoverPreview && status === 'resolved';
+  const canShowAuthTooltip = showAuthTooltip && status === 'unauthorized';
 
-  const onActionMenuOpenChange = useCallback(
-    (options: OnActionMenuOpenChangeOptions) =>
-      setHoverCardCanOpen(!options.isOpen),
-    [],
+  const onMouseOver = useCallback(
+    (e) => {
+      // Never show hover card on action or when action dropdown opens.
+      // The code below can be simplified by using :is() and :has()
+      // but the pseudo-class isn't support by Firefox yet.
+      const action =
+        // Any action button group (title/footer block)
+        e.target.closest('.actions-button-group') ||
+        // When action dropdown list is opened on action button group or lozenge action
+        e.target
+          .closest('[data-smart-link-container]')
+          ?.querySelector('[data-action-open="true"]');
+
+      const canOpen =
+        (canShowAuthTooltip && !action) ||
+        // EDM-7060: For hover preview, also hide hover card on all elements
+        // except title element (link title)
+        (canShowHoverPreview &&
+          !action &&
+          !e.target.closest(
+            `[data-smart-element]:not([data-smart-element="${ElementName.Title}"])`,
+          ));
+
+      if (hoverCardCanOpen !== canOpen) {
+        setHoverCardCanOpen(canOpen);
+      }
+    },
+    [canShowAuthTooltip, canShowHoverPreview, hoverCardCanOpen],
   );
 
   const containerContent = (
@@ -269,27 +286,18 @@ const Container: React.FC<ContainerProps> = ({
       )}
       data-smart-link-container
       data-testid={testId}
+      {...(canShowHoverPreview || canShowAuthTooltip
+        ? { onMouseOver }
+        : undefined)}
     >
       {clickableContainer
         ? getLayeredLink(testId, context, children, onClick)
         : null}
-      {renderChildren(
-        children,
-        size,
-        theme,
-        status,
-        retry,
-        onClick,
-        showHoverPreview ? onActionMenuOpenChange : undefined,
-      )}
+      {renderChildren(children, size, theme, status, retry, onClick)}
     </div>
   );
 
-  if (
-    context?.url &&
-    ((showHoverPreview && status === 'resolved') ||
-      (showAuthTooltip && status === 'unauthorized'))
-  ) {
+  if (context?.url && (canShowHoverPreview || canShowAuthTooltip)) {
     return (
       <HoverCard
         url={context?.url}

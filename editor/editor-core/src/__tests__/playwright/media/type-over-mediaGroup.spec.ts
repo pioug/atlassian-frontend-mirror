@@ -2,6 +2,7 @@ import {
   editorTestCase as test,
   EditorNodeContainerModel,
   expect,
+  fixTest,
 } from '@af/editor-libra';
 import {
   doc,
@@ -97,10 +98,13 @@ test.describe('media-group with three media nodes inside', () => {
         editor,
         browserName,
       }) => {
-        test.skip(
-          browserName === 'firefox',
-          'This test does not work when we try to click in the media node (it can be done by setting ProseMirror selection manually)',
-        );
+        fixTest({
+          jiraIssueId: 'UTEST-707',
+          reason:
+            'This test does not work when we try to click in the media node (it can be done by setting ProseMirror selection manually)',
+          condition: browserName === 'firefox',
+        });
+
         const { media: mediaNodes } = EditorNodeContainerModel.from(editor);
         const lastMediaNode = mediaNodes.last();
         await lastMediaNode.click();
@@ -133,37 +137,39 @@ test.describe('media-group with three media nodes inside', () => {
       test.use({
         adf: mediaGroupWithThreeMedia,
       });
-      // TODO:  DTR-1601 There is an actual bug. When there is no paragraph after media group the replace does not work properly
-      // https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1601
-      test.fixme(
-        'TODO: DTR-1601 should replace the last media with the new text',
-        async ({ editor }) => {
-          const { media: mediaNodes } = EditorNodeContainerModel.from(editor);
+      test('TODO: DTR-1601 should replace the last media with the new text', async ({
+        editor,
+      }) => {
+        fixTest({
+          jiraIssueId: 'DTR-1601', // https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1601
+          reason:
+            'Bug: when there is no paragraph after media group, the replace does not work properly',
+        });
+        const { media: mediaNodes } = EditorNodeContainerModel.from(editor);
 
-          await mediaNodes.last().click();
-          await editor.keyboard.type('Hi');
-          await editor.waitForEditorStable();
-          await expect(editor).toMatchDocument(
-            doc(
-              p('Hello{<>}'),
-              mediaGroup(
-                media({
-                  id: expect.any(String),
-                  collection: expect.any(String),
-                  __contextId: expect.any(String),
-                  type: 'file',
-                })(),
-                media({
-                  id: expect.any(String),
-                  collection: expect.any(String),
-                  type: 'file',
-                })(),
-              ),
-              p('Hi'),
+        await mediaNodes.last().click();
+        await editor.keyboard.type('Hi');
+        await editor.waitForEditorStable();
+        await expect(editor).toMatchDocument(
+          doc(
+            p('Hello{<>}'),
+            mediaGroup(
+              media({
+                id: expect.any(String),
+                collection: expect.any(String),
+                __contextId: expect.any(String),
+                type: 'file',
+              })(),
+              media({
+                id: expect.any(String),
+                collection: expect.any(String),
+                type: 'file',
+              })(),
             ),
-          );
-        },
-      );
+            p('Hi'),
+          ),
+        );
+      });
     });
   });
 });

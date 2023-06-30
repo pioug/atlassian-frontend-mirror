@@ -135,6 +135,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.onErrorHandled,
       this.metadataService,
       this.config.failedStepLimitBeforeCatchupOnPublish,
+      this.config.enableErrorOnFailedDocumentApply,
     );
     this.getStatePromise = new Promise((resolve) => {
       this.getStatePromiseResolve = resolve;
@@ -164,12 +165,21 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           else {
             const { document, version, metadata }: InitialDraft =
               this.initialDraft;
-            // Initial document, version, metadata from initial draft
-            this.documentService.updateDocument({
-              doc: document,
-              version,
-              metadata,
-            });
+            try {
+              // Initial document, version, metadata from initial draft
+              this.documentService.updateDocument({
+                doc: document,
+                version,
+                metadata,
+              });
+            } catch (e) {
+              this.analyticsHelper?.sendErrorEvent(
+                e,
+                'Failed to update the document on reconnect, destroying provider',
+              );
+              // Stop events and connections to step us trying to talk to the backend with an invalid state.
+              this.destroy();
+            }
             this.metadataService.updateMetadata(metadata);
           }
           this.isProviderInitialized = true;
@@ -188,13 +198,22 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       })
       .on('init', ({ doc, version, metadata }) => {
         // Initial document and version
-        this.documentService.updateDocument({
-          doc,
-          version,
-          metadata,
-        });
-        this.metadataService.updateMetadata(metadata);
-        this.isProviderInitialized = true;
+        try {
+          this.documentService.updateDocument({
+            doc,
+            version,
+            metadata,
+          });
+          this.metadataService.updateMetadata(metadata);
+          this.isProviderInitialized = true;
+        } catch (e) {
+          this.analyticsHelper?.sendErrorEvent(
+            e,
+            'Failed to update with the init document, destroying provider',
+          );
+          // Stop events and connections to step us trying to talk to the backend with an invalid state.
+          this.destroy();
+        }
       })
       .on('restore', this.documentService.onRestore)
       .on('steps:added', this.documentService.onStepsAdded)

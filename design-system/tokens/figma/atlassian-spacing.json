@@ -6,7 +6,7 @@
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "description": "Equates to `0`. Can be used for resetting default spacing styles."
+        "description": "Equates to `0`. Use for resetting default spacing styles."
       },
       "value": 0
     },
@@ -19,7 +19,7 @@
           "3px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for spacing in compact scenarios. The smallest value in our scale."
+        "description": "Use for small and compact pieces of UI."
       },
       "value": 2
     },
@@ -32,7 +32,7 @@
           "5px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for spacing in compact scenarios."
+        "description": "Use for small and compact pieces of UI"
       },
       "value": 4
     },
@@ -45,7 +45,7 @@
           "7px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for spacing in compact scenarios."
+        "description": "Use for small and compact pieces of UI"
       },
       "value": 6
     },
@@ -58,7 +58,7 @@
           "9px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for gutter spacing."
+        "description": "Use for small and compact pieces of UI"
       },
       "value": 8
     },
@@ -73,7 +73,7 @@
           "14px"
         ],
         "introduced": "0.12.0",
-        "description": "Helpful guidance goes here"
+        "description": "Use for larger and less dense pieces of UI."
       },
       "value": 12
     },
@@ -88,7 +88,7 @@
           "18px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for gutter spacing."
+        "description": "Use for larger and less dense pieces of UI."
       },
       "value": 16
     },
@@ -103,7 +103,7 @@
           "23px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for gutter spacing."
+        "description": "Use for larger and less dense pieces of UI."
       },
       "value": 20
     },
@@ -119,7 +119,7 @@
           "28px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for gutter spacing."
+        "description": "Use for larger and less dense pieces of UI."
       },
       "value": 24
     },
@@ -137,7 +137,7 @@
           "35px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for gutter spacing."
+        "description": "Use for the largest pieces of UI and for layout elements."
       },
       "value": 32
     },
@@ -146,7 +146,7 @@
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "description": "Use for larger layout-specific spacing."
+        "description": "Use for the largest pieces of UI and for layout elements."
       },
       "value": 40
     },
@@ -155,7 +155,7 @@
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "description": "Use for larger layout-specific spacing."
+        "description": "Use for the largest pieces of UI and for layout elements."
       },
       "value": 48
     },
@@ -164,7 +164,7 @@
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "description": "Use for larger layout-specific spacing."
+        "description": "Use for the largest pieces of UI and for layout elements."
       },
       "value": 64
     },
@@ -173,7 +173,7 @@
         "group": "spacing",
         "state": "active",
         "introduced": "0.12.0",
-        "description": "Use for larger layout-specific spacing."
+        "description": "Use for the largest pieces of UI and for layout elements."
       },
       "value": 80
     }

@@ -1,5 +1,19 @@
 # @atlaskit/tokens
 
+## 1.10.1
+
+### Patch Changes
+
+- [`7fb8fb4fbbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7fb8fb4fbbb) - - Fixed an issue where `getCSSCustomProperty` would return the incorrect CSS variable names for space tokens.
+  - Updated space token descriptions.
+
+## 1.10.0
+
+### Minor Changes
+
+- [`31426322355`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31426322355) - - Add a new getAllThemeStyles() function that can be used for generating theme CSS files at build time.
+  - Add an optional callback parameter to setGlobalTheme() that overrides the default theme loading functionality with the callback.
+
 ## 1.9.1
 
 ### Patch Changes

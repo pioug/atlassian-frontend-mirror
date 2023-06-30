@@ -65,67 +65,11 @@ A select that's fully transparent with no indication on interaction or error.
 
 <Example Component={SelectAppearanceNone} packageName="@atlaskit/select" />
 
-## Named exports
-
-To consolidate patterns and improve developer experience,
-select provides some pre-configured components as named exports.
-
-### Popup select
-
-Use `PopupSelect` in scenarios where the trigger needs a custom appearance,
-or must occupy very limited horizontal space.
-
-<Example Component={SelectPopup} packageName="@atlaskit/select" />
-
-### Popup select in modal
-
-When using PopupSelect in a modal, use the offset and preventOverflow [Popper props](https://atlaskit.atlassian.com/packages/design-system/popper) to keep the menu from covering the target in the limited space.
-
-<Example Component={SelectPopupModalExample} packageName="@atlaskit/select" />
-
-### Radio select
-
-Use `RadioSelect` to display the list of options as radio elements.
-
-<Example Component={SelectRadio} packageName="@atlaskit/select" />
-
-### Checkbox select
-
-Use `CheckboxSelect` to display the list of options as checkbox elements.
-Use this when it is imperative to show multiple selected options, but there may not be enough real-estate in the control.
-
-<Example Component={SelectCheckbox} packageName="@atlaskit/select" />
-
-### Country select
-
-Use `CountrySelect` to add a country picker to the dropdown list of options.
-
-<Example Component={SelectCountry} packageName="@atlaskit/select" />
-
-### Async select
-
-Use `AsyncSelect` to load asynchronous data from a remote source either during load or every time the input changes.
-
-<Example Component={SelectAsync} packageName="@atlaskit/select" />
-
-### Creatable select
-
-Use `CreatableSelect` to allow the user to insert an item into the list for selection.
-
-<Example Component={SelectCreatable} packageName="@atlaskit/select" />
-
-### Async creatable
-
-Use `AsyncCreatableSelect` to allow users to create new options asynchronously.
-For example, execute async calls before creating the option.
-
-<Example Component={SelectAsyncCreatable} packageName="@atlaskit/select" />
-
 ## Customization
 
 The following components are customizable and switchable:
 
-### ClearIndicator
+### Clear indicator
 
 The indicator is presented to clear the values from a multi-select. The default component is a cross. The indicator will not render when:
 
@@ -136,13 +80,13 @@ The indicator is presented to clear the values from a multi-select. The default 
 
 <Example Component={SelectIndicatorsClear} packageName="@atlaskit/select" />
 
-### DropdownIndicator
+### Dropdown indicator
 
 The indicator for opening the `Select` is designed to indicate to users that this is a `Select` component. By default, it is a chevron pointed down, but in this example we have replaced it with an emoji.
 
 <Example Component={SelectIndicatorsDropdown} packageName="@atlaskit/select" />
 
-### LoadingIndicator
+### Loading indicator
 
 Loading indicator to be displayed in the Indicators Container when isLoading is true.
 

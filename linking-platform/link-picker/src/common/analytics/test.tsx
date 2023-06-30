@@ -1,13 +1,14 @@
 import React from 'react';
 
-import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 import {
   AnalyticsListener,
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 
 import { ANALYTICS_CHANNEL } from '../constants';
-import { withLinkPickerAnalyticsContext } from '.';
+
+import { withLinkPickerAnalyticsContext } from './index';
 
 describe('withLinkPickerAnalyticsContext', () => {
   const EVENT_PAYLOAD = {

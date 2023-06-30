@@ -2,11 +2,11 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import { getExampleUrl } from '@atlaskit/webdriver-runner/utils/example';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
+import { testIds as _testIds } from '../../ui/link-picker';
 import {
   isElementCompletelyVisible,
   testIdsToSelectors,
 } from '../__helpers/webdriver-helpers';
-import { testIds as _testIds } from '../../ui/link-picker';
 
 /* Url to test the example */
 function getURL(testName: string): string {

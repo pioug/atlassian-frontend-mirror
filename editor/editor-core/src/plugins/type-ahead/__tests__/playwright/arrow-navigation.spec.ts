@@ -170,9 +170,7 @@ test.describe('typeahead: arrow navigation', () => {
         await editor.keyboard.press('ArrowLeft');
         await editor.keyboard.press('ArrowLeft');
 
-        const isPopupInvisible = await editor.typeAhead.popup.isHidden();
-
-        expect(isPopupInvisible).toBe(true);
+        await expect(editor.typeAhead.popup).toBeHidden();
       });
 
       test('it should insert the typeahead query content inside of the document', async ({

@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage-spacing */
 /** @jsx jsx */
-import { forwardRef, Fragment, Ref } from 'react';
+import { Children, forwardRef, Fragment, Ref } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -106,6 +106,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
       isScrollable,
       hasSeparator,
       id,
+      isList = false,
       ...rest
     }: // Type needed on props to extract types with extract react types.
     SectionProps,
@@ -116,6 +117,25 @@ const Section = forwardRef<HTMLElement, SectionProps>(
       'overrides',
       overrides !== undefined,
       '', // TODO: Create DAC post when primitives/xcss are available as alternatives
+    );
+    const content = isList ? (
+      <ul
+        style={{
+          margin: 0,
+          padding: 0,
+        }}
+      >
+        {Children.map(Children.toArray(children), (child, index) => (
+          <li
+            style={{ listStyleType: 'none', margin: 0, padding: 0 }}
+            key={index}
+          >
+            {child}
+          </li>
+        ))}
+      </ul>
+    ) : (
+      children
     );
 
     const childrenMarkup =
@@ -131,10 +151,10 @@ const Section = forwardRef<HTMLElement, SectionProps>(
           >
             {title}
           </HeadingItem>
-          {children}
+          {content}
         </Fragment>
       ) : (
-        children
+        <Fragment>{content}</Fragment>
       );
 
     return (

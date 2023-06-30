@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button';
 import Popup from '@atlaskit/popup';
 
-import { LinkPicker } from '../src';
 import { PageHeader, PageWrapper } from '../example-helpers/common';
+import { LinkPicker } from '../src';
 
 export default function RootErrorBoundary() {
   const [isOpen, setIsOpen] = useState(true);

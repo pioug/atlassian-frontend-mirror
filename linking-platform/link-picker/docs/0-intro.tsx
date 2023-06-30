@@ -1,11 +1,11 @@
 import React from 'react';
 
 import {
+  AtlassianInternalWarning,
   code,
   Example,
   md,
   Props,
-  AtlassianInternalWarning,
 } from '@atlaskit/docs';
 
 export default md`

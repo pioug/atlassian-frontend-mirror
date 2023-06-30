@@ -14,6 +14,7 @@ describe('<NestingItem />', () => {
     onNest: jest.fn(),
     onUnNest: jest.fn(),
     stack: [],
+    forceShowTopScrollIndicator: false,
     parentId: ROOT_ID,
     childIds: jest
       .spyOn(React, 'useRef')

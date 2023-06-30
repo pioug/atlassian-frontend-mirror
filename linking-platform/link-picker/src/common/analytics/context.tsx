@@ -7,10 +7,11 @@ import React, {
 } from 'react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { LinkPickerAnalyticsContextType } from '../utils/analytics/analytics.codegen';
-import { LinkPickerProps } from '../../';
-import { ANALYTICS_CHANNEL } from '../constants';
 import { normalizeUrl } from '@atlaskit/linking-common/url';
+
+import { LinkPickerProps } from '../../index';
+import { ANALYTICS_CHANNEL } from '../constants';
+import { LinkPickerAnalyticsContextType } from '../utils/analytics/analytics.codegen';
 
 type AnalyticsContextAttributesType = LinkPickerAnalyticsContextType;
 

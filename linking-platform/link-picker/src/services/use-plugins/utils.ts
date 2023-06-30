@@ -2,7 +2,7 @@ import {
   LinkPickerPlugin,
   LinkPickerState,
   ResolveResult,
-} from '../../ui/types';
+} from '../../common/types';
 
 export class CancellationError extends Error {}
 

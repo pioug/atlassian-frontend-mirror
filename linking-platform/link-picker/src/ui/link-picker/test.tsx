@@ -1,25 +1,27 @@
 import React from 'react';
 
-import {
-  renderWithIntl as render,
-  asyncAct,
-  ManualPromise,
-} from '@atlaskit/link-test-helpers';
-import {
-  MockLinkPickerGeneratorPlugin,
-  MockLinkPickerPromisePlugin,
-  mockedPluginData,
-  UnstableMockLinkPickerPlugin,
-} from '@atlaskit/link-test-helpers/link-picker';
-import { act, fireEvent } from '@testing-library/react';
-import { screen, waitFor } from '@testing-library/dom';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom/extend-expect';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { screen, waitFor } from '@testing-library/dom';
+import { act, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import {
+  asyncAct,
+  ManualPromise,
+  renderWithIntl as render,
+} from '@atlaskit/link-test-helpers';
+import {
+  mockedPluginData,
+  MockLinkPickerGeneratorPlugin,
+  MockLinkPickerPromisePlugin,
+  UnstableMockLinkPickerPlugin,
+} from '@atlaskit/link-test-helpers/link-picker';
+
 import { messages as resultsListMessages } from './link-search-list';
-import { LinkPicker, testIds, LinkPickerProps } from './index';
+
+import { LinkPicker, LinkPickerProps, testIds } from './index';
 
 jest.mock('date-fns/differenceInCalendarDays', () => {
   return jest.fn().mockImplementation(() => -5);
@@ -152,12 +154,6 @@ describe('<LinkPicker />', () => {
         },
         expect.any(UIAnalyticsEvent),
       );
-    });
-
-    it('should NOT display search icon', async () => {
-      const { testIds } = setupLinkPicker();
-
-      expect(screen.queryByTestId(testIds.searchIcon)).toBeNull();
     });
 
     it('should render a Field (URL field) with correct aria-describedby prop', async () => {
@@ -1041,14 +1037,6 @@ describe('<LinkPicker />', () => {
         },
         expect.any(UIAnalyticsEvent),
       );
-    });
-
-    it('should display search icon', async () => {
-      const { testIds } = setupWithGenericPlugin({
-        url: '',
-      });
-
-      expect(screen.getByTestId(testIds.searchIcon)).toBeInTheDocument();
     });
 
     it('should display a subtitle for recent items', async () => {

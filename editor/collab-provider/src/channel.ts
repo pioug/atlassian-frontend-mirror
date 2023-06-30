@@ -95,15 +95,15 @@ export class Channel extends Emitter<ChannelEvent> {
     const { permissionTokenRefresh, cacheToken } = this.config;
 
     let auth: InitAndAuthData | AuthCallback;
-    const authData: InitAndAuthData = {
-      // The initialized status. If false, BE will send document, otherwise not.
-      initialized: this.initialized,
-      // ESS-1009 Allow to opt-in into 404 response
-      need404: this.config.need404,
-    };
-
     if (permissionTokenRefresh) {
       auth = async (cb: (data: InitAndAuthData) => void) => {
+        // Rebuild authData to ensure values are current
+        const authData: InitAndAuthData = {
+          // The initialized status. If false, BE will send document, otherwise not.
+          initialized: this.initialized,
+          // ESS-1009 Allow to opt-in into 404 response
+          need404: this.config.need404,
+        };
         // use the cached token if caching in enabled and token valid
         if (cacheToken && this.token) {
           authData.token = this.token;
@@ -141,7 +141,12 @@ export class Channel extends Emitter<ChannelEvent> {
         }
       };
     } else {
-      auth = authData;
+      auth = {
+        // The initialized status. If false, BE will send document, otherwise not.
+        initialized: this.initialized,
+        // ESS-1009 Allow to opt-in into 404 response
+        need404: this.config.need404,
+      };
     }
 
     this.socket = createSocket(

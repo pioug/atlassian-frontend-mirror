@@ -2,6 +2,7 @@ import React from 'react';
 
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 
+// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { getDefaultItems } from '../../__tests__/__helpers';
 
 import { LinkSearchList, LinkSearchListProps, testIds } from './index';

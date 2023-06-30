@@ -1,9 +1,10 @@
-import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
-import { B50, N300, N800, N20, N200, B400, B100 } from '@atlaskit/theme/colors';
+
+import { B100, B400, B50, N20, N200, N300, N800 } from '@atlaskit/theme/colors';
+import { fontSize, fontSizeSmall } from '@atlaskit/theme/constants';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { fontSizeSmall, fontSize } from '@atlaskit/theme';
+import { token } from '@atlaskit/tokens';
 
 export const relativeFontSizeToBase16 = (px: number | string) => {
   if (typeof px === 'string') {

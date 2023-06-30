@@ -39,6 +39,12 @@ describe('<LinkItem />', () => {
     expect(getByTestId('link')).toBeDefined();
   });
 
+  // The purpose of this test is to confirm that this functionality still
+  // works as expected. We **do not** want people to use this. You can see
+  // that TS throws that `css` doesn't exist in the allowed props. This is
+  // desired and expected.
+  //
+  // TL;DR: we don't want you to use it (type fail), but if you're already using it, it should work
   it('should override styles without stripping them', () => {
     const hackStyles = css({
       backgroundColor: 'red',

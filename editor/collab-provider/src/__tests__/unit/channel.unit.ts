@@ -1015,6 +1015,57 @@ describe('Channel unit tests', () => {
       // forcing onConnect to run which emits 'connected'
       channel.getSocket()!.emit('connect');
     });
+
+    it('Should update initialized field when tokens are used on reconnect', async () => {
+      // Setup channel with cacheToken disabled, the channel in the before each has cacheToken enabled.
+      const permissionTokenRefresh = jest.fn().mockResolvedValue('token');
+      configuration = {
+        ...testChannelConfig,
+        permissionTokenRefresh,
+        need404: true,
+      };
+      channel = getChannel(configuration);
+
+      // wait for permissionTokenRefresh promise to resolve to set the token in channel
+      await new Promise(process.nextTick);
+
+      // verify authCb is initially called with false and clear mocks.
+      expect((channel.getSocket() as any)?._authCb).toHaveBeenCalledTimes(1);
+      expect((channel.getSocket() as any)?._authCb).toHaveBeenCalledWith({
+        initialized: false, // Not initialized in the beginning
+        need404: true,
+        token: 'token',
+      });
+      (channel.getSocket() as any)?._authCb.mockClear();
+
+      // send initial data, should set channel.initialized to true
+      channel.getSocket()!.emit('data', <InitPayload & { type: 'initial' }>{
+        type: 'initial',
+        doc: '',
+        version: 1234567,
+        userId: '123',
+        metadata: {
+          title: 'a-title',
+        },
+      });
+
+      expect(channel.getInitialized()).toEqual(true);
+
+      // Force a reconnect
+      channel.getSocket()?.close();
+      channel.getSocket()?.connect();
+      // wait for permissionTokenRefresh promise to resolve to set the token in channel
+      await new Promise(process.nextTick);
+      expect((channel.getSocket() as any)?._authCb).toHaveBeenCalledTimes(1);
+      expect((channel.getSocket() as any)?._authCb).toHaveBeenCalledWith({
+        initialized: true, // This variable is now true after initial doc is sent.
+        need404: true,
+        token: 'token',
+      });
+
+      // When re-connecting, the token is cleared
+      expect(channel.getToken()).toBeUndefined();
+    });
   });
 
   it('should handle receiving namespace lock status event from server', (done) => {
@@ -1151,7 +1202,7 @@ describe('Channel unit tests', () => {
     expect(emitSpy).toBeCalledWith('metadata', { test: 'test' });
   });
 
-  it('Should throw an error when trying to emit metedata without having the channel.socket initialised', () => {
+  it('Should throw an error when trying to emit metadata without having the channel.socket initialised', () => {
     const analyticsHelper = new AnalyticsHelper(
       testChannelConfig.documentAri,
       testChannelConfig.analyticsClient,

@@ -1,7 +1,8 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useSearchQuery } from '.';
-import { PickerState } from '../../ui/link-picker';
+import { PickerState } from '../../common/types';
+
+import { useSearchQuery } from './index';
 
 describe('useSearchQuery', () => {
   const state: PickerState = {

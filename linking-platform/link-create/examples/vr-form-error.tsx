@@ -17,7 +17,7 @@ function FormErrors() {
   const [link, setLink] = useState<string | null>();
   const [active, setActive] = useState(false);
 
-  const plugins = [createConfluencePageLinkCreatePlugin(CLOUD_ID)];
+  const plugins = [createConfluencePageLinkCreatePlugin({ cloudId: CLOUD_ID })];
 
   const handleCreate = useCallback((payload: CreatePayload) => {
     setLink(payload.url);

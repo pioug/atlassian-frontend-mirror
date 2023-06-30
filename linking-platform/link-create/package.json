@@ -43,7 +43,7 @@
     "@atlaskit/select": "^16.5.0",
     "@atlaskit/spinner": "^15.4.0",
     "@atlaskit/textfield": "^5.5.0",
-    "@atlaskit/tokens": "^1.9.0",
+    "@atlaskit/tokens": "^1.10.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -58,7 +58,7 @@
     "@atlaskit/popup": "^1.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@atlassian/link-create-confluence": "^8.1.0",
+    "@atlassian/link-create-confluence": "^9.0.0",
     "@atlassian/link-create-presets": "^6.0.0",
     "@atlassian/link-picker-atlassian-plugin": "^34.1.0",
     "@testing-library/react": "^12.1.5",
@@ -101,6 +101,9 @@
       "styling": [
         "static",
         "emotion"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
   },

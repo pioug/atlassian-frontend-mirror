@@ -2,10 +2,10 @@ import React from 'react';
 
 import { act, render, screen } from '@testing-library/react';
 import { defineMessages, IntlProvider, useIntl } from 'react-intl-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ManualPromise } from '@atlaskit/link-test-helpers';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { fetchMessagesForLocale } from './lazy-messages-provider/utils/fetch-messages-for-locale';
 

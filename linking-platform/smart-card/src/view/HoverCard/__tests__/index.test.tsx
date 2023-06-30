@@ -29,7 +29,14 @@ import {
 } from '@atlaskit/analytics-next';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { CardClient } from '@atlaskit/link-provider';
-import { CardProps, Provider, ProviderProps, TitleBlock } from '../../..';
+import {
+  ActionName,
+  CardProps,
+  ElementName,
+  Provider,
+  ProviderProps,
+  TitleBlock,
+} from '../../..';
 import * as analytics from '../../../utils/analytics/analytics';
 import * as useSmartCardActions from '../../../state/actions';
 import { Card } from '../../Card';
@@ -1205,41 +1212,221 @@ describe('HoverCard', () => {
       expect(containerOnClick).not.toHaveBeenCalled();
     });
 
-    it('does not propagate event to parent when clicking inside hover card content on a flexui link', async () => {
-      const containerOnClick = jest.fn();
-      mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
-      mockClient = new (fakeFactory(mockFetch))();
-
-      const { findByTestId } = render(
-        <div onClick={containerOnClick}>
-          <Provider client={mockClient}>
-            <Card
-              appearance="block"
-              showHoverPreview={true}
-              url="https://some.url"
-            >
-              <TitleBlock />
-            </Card>
-          </Provider>
-        </div>,
+    describe('flexible smart links', () => {
+      const triggerTestId = 'hover-card-trigger-wrapper';
+      const appearance = 'block' as const;
+      const noop = () => {};
+      const children = (
+        <TitleBlock
+          actions={[
+            { name: ActionName.EditAction, onClick: noop },
+            { name: ActionName.DeleteAction, onClick: noop },
+            { name: ActionName.CustomAction, onClick: noop, content: 'custom' },
+          ]}
+          metadata={[{ name: ElementName.AuthorGroup }]}
+        />
       );
 
-      const element = await findByTestId('hover-card-trigger-wrapper');
-      jest.useFakeTimers();
-      fireEvent.mouseEnter(element);
-      jest.runAllTimers();
+      const hoverAndVerify = async (
+        {
+          element: trigger,
+          findByTestId,
+          queryByTestId,
+        }: Awaited<ReturnType<typeof setup>>,
+        hoverCardTestId: string,
+        testId: string,
+        expectToBeInTheDocument: boolean,
+      ) => {
+        fireEvent.mouseLeave(trigger);
+        jest.runAllTimers();
 
-      const metadataBlock = await findByTestId(
-        'smart-block-metadata-resolved-view',
-      );
-      fireEvent.click(metadataBlock);
+        const element = await findByTestId(testId);
+        expect(element).toBeInTheDocument();
 
-      const previewButton = await findByTestId(
-        'smart-footer-block-resolved-view',
-      );
-      fireEvent.click(previewButton);
+        fireEvent.mouseEnter(element);
+        fireEvent.mouseOver(element);
+        jest.runAllTimers();
 
-      expect(containerOnClick).not.toHaveBeenCalled();
+        if (expectToBeInTheDocument) {
+          expect(await findByTestId(hoverCardTestId)).toBeInTheDocument();
+        } else {
+          expect(queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
+        }
+      };
+
+      const clickMoreActionAndVerifyNotToBeInDocument = async (
+        {
+          element: trigger,
+          findByTestId,
+          queryByTestId,
+        }: Awaited<ReturnType<typeof setup>>,
+        hoverCardTestId: string,
+        testId: string,
+      ) => {
+        fireEvent.mouseLeave(trigger);
+        jest.runAllTimers();
+
+        const moreButton = await findByTestId('action-group-more-button');
+        fireEvent.click(moreButton);
+
+        const element = await findByTestId(testId);
+        expect(element).toBeInTheDocument();
+
+        fireEvent.mouseEnter(element);
+        fireEvent.mouseOver(element);
+        jest.runAllTimers();
+
+        expect(queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
+      };
+
+      it('does not propagate event to parent when clicking inside hover card content on a flexui link', async () => {
+        const containerOnClick = jest.fn();
+        mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
+        mockClient = new (fakeFactory(mockFetch))();
+
+        const { findByTestId } = render(
+          <div onClick={containerOnClick}>
+            <Provider client={mockClient}>
+              <Card
+                appearance="block"
+                showHoverPreview={true}
+                url="https://some.url"
+              >
+                <TitleBlock />
+              </Card>
+            </Provider>
+          </div>,
+        );
+
+        const element = await findByTestId('hover-card-trigger-wrapper');
+        jest.useFakeTimers();
+        fireEvent.mouseEnter(element);
+        jest.runAllTimers();
+
+        const metadataBlock = await findByTestId(
+          'smart-block-metadata-resolved-view',
+        );
+        fireEvent.click(metadataBlock);
+
+        const previewButton = await findByTestId(
+          'smart-footer-block-resolved-view',
+        );
+        fireEvent.click(previewButton);
+
+        expect(containerOnClick).not.toHaveBeenCalled();
+      });
+
+      it('renders hover card', async () => {
+        const hoverCardTestId = 'hover-card';
+        const renderResult = await setup({
+          extraCardProps: { appearance, children },
+          testId: triggerTestId,
+        });
+        jest.runAllTimers();
+
+        for (const [testId, expectToBeInTheDocument] of [
+          ['smart-element-link', true], // title link
+          ['smart-element-icon', false], // icon (outside element group)
+          ['smart-element-avatar-group', false], // avatar group (metadata inside element group)
+          ['smart-action-edit-action', false], // action
+          ['action-group-more-button', false], // action more button
+        ] as [string, boolean][]) {
+          await hoverAndVerify(
+            renderResult,
+            hoverCardTestId,
+            testId,
+            expectToBeInTheDocument,
+          );
+
+          await clickMoreActionAndVerifyNotToBeInDocument(
+            renderResult,
+            hoverCardTestId,
+            testId,
+          );
+        }
+      });
+
+      it('does not render hover card', async () => {
+        const hoverCardTestId = 'hover-card';
+        const renderResult = await setup({
+          extraCardProps: {
+            appearance,
+            children,
+            showHoverPreview: false,
+            showAuthTooltip: true,
+          },
+          featureFlags: { showAuthTooltip: 'experiment' },
+          testId: 'smart-links-container',
+        });
+        jest.runAllTimers();
+
+        for (const testId of [
+          'smart-element-link',
+          'smart-element-icon',
+          'smart-element-avatar-group',
+          'smart-action-edit-action',
+          'action-group-more-button',
+        ]) {
+          await hoverAndVerify(renderResult, hoverCardTestId, testId, false);
+
+          await clickMoreActionAndVerifyNotToBeInDocument(
+            renderResult,
+            hoverCardTestId,
+            testId,
+          );
+        }
+      });
+
+      it('renders unauthorised hover card', async () => {
+        const hoverCardTestId = 'hover-card-unauthorised-view';
+        const renderResult = await setup({
+          extraCardProps: { appearance, children },
+          mock: mockUnauthorisedResponse,
+          featureFlags: { showAuthTooltip: 'experiment' },
+          testId: triggerTestId,
+        });
+        jest.runAllTimers();
+
+        for (const [testId, expectToBeInTheDocument] of [
+          ['smart-element-link', true], // title link
+          ['smart-element-icon', true], // icon
+          ['smart-block-title-errored-view-message', true], // connect message
+          ['smart-action-edit-action', false], // action
+          ['action-group-more-button', false], // action more button
+        ] as [string, boolean][]) {
+          await hoverAndVerify(
+            renderResult,
+            hoverCardTestId,
+            testId,
+            expectToBeInTheDocument,
+          );
+        }
+      });
+
+      it('does not render unauthorised hover card', async () => {
+        const hoverCardTestId = 'hover-card-unauthorised-view';
+        const renderResult = await setup({
+          extraCardProps: {
+            appearance,
+            children,
+            showHoverPreview: false,
+            showAuthTooltip: false,
+          },
+          mock: mockUnauthorisedResponse,
+          testId: 'smart-links-container',
+        });
+        jest.runAllTimers();
+
+        for (const testId of [
+          'smart-element-link',
+          'smart-element-icon',
+          'smart-block-title-errored-view-message',
+          'smart-action-edit-action',
+          'action-group-more-button',
+        ]) {
+          await hoverAndVerify(renderResult, hoverCardTestId, testId, false);
+        }
+      });
     });
 
     describe('SSR links', () => {

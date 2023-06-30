@@ -191,6 +191,7 @@ export interface NestableNavigationContentProps {
       }) => React.ReactNode;
     };
   };
+  showTopScrollIndicator?: boolean;
   stack?: string[];
   testId?: string;
 }
@@ -244,6 +245,7 @@ export const Section: React_2.ForwardRefExoticComponent<
 export interface SectionProps {
   children: React_2.ReactNode;
   hasSeparator?: boolean;
+  isList?: boolean;
   testId?: string;
   title?: string;
 }

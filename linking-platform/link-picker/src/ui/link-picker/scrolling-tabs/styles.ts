@@ -1,6 +1,7 @@
 import { css, SerializedStyles } from '@emotion/react';
-import { token } from '@atlaskit/tokens';
+
 import { N0, N30 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 export const scrollingContainerStyles: SerializedStyles = css({
   overflowX: 'auto',

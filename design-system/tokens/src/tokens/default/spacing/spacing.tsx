@@ -13,7 +13,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         introduced: '0.12.0',
         description:
-          'Equates to `0`. Can be used for resetting default spacing styles.',
+          'Equates to `0`. Use for resetting default spacing styles.',
       },
     },
     '025': {
@@ -22,8 +22,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['1px', '3px'],
         introduced: '0.12.0',
-        description:
-          'Use for spacing in compact scenarios. The smallest value in our scale.',
+        description: 'Use for small and compact pieces of UI.',
       },
     },
     '050': {
@@ -32,7 +31,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['3px', '5px'],
         introduced: '0.12.0',
-        description: 'Use for spacing in compact scenarios.',
+        description: 'Use for small and compact pieces of UI',
       },
     },
     '075': {
@@ -41,7 +40,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['5px', '7px'],
         introduced: '0.12.0',
-        description: 'Use for spacing in compact scenarios.',
+        description: 'Use for small and compact pieces of UI',
       },
     },
     '100': {
@@ -50,7 +49,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['7px', '9px'],
         introduced: '0.12.0',
-        description: 'Use for gutter spacing.',
+        description: 'Use for small and compact pieces of UI',
       },
     },
     '150': {
@@ -59,7 +58,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['10px', '11px', '13px', '14px'],
         introduced: '0.12.0',
-        description: 'Helpful guidance goes here',
+        description: 'Use for larger and less dense pieces of UI.',
       },
     },
     '200': {
@@ -68,7 +67,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['14px', '15px', '17px', '18px'],
         introduced: '0.12.0',
-        description: 'Use for gutter spacing.',
+        description: 'Use for larger and less dense pieces of UI.',
       },
     },
     '250': {
@@ -77,7 +76,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['19px', '21px', '22px', '23px'],
         introduced: '0.12.0',
-        description: 'Use for gutter spacing.',
+        description: 'Use for larger and less dense pieces of UI.',
       },
     },
     '300': {
@@ -86,7 +85,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['23px', '25px', '26px', '27px', '28px'],
         introduced: '0.12.0',
-        description: 'Use for gutter spacing.',
+        description: 'Use for larger and less dense pieces of UI.',
       },
     },
     '400': {
@@ -95,7 +94,8 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['28px', '29px', '30px', '31px', '33px', '34px', '35px'],
         introduced: '0.12.0',
-        description: 'Use for gutter spacing.',
+        description:
+          'Use for the largest pieces of UI and for layout elements.',
       },
     },
     '500': {
@@ -103,7 +103,8 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         group: 'spacing',
         state: 'active',
         introduced: '0.12.0',
-        description: 'Use for larger layout-specific spacing.',
+        description:
+          'Use for the largest pieces of UI and for layout elements.',
       },
     },
     '600': {
@@ -111,7 +112,8 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         group: 'spacing',
         state: 'active',
         introduced: '0.12.0',
-        description: 'Use for larger layout-specific spacing.',
+        description:
+          'Use for the largest pieces of UI and for layout elements.',
       },
     },
     '800': {
@@ -119,7 +121,8 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         group: 'spacing',
         state: 'active',
         introduced: '0.12.0',
-        description: 'Use for larger layout-specific spacing.',
+        description:
+          'Use for the largest pieces of UI and for layout elements.',
       },
     },
     '1000': {
@@ -127,7 +130,8 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         group: 'spacing',
         state: 'active',
         introduced: '0.12.0',
-        description: 'Use for larger layout-specific spacing.',
+        description:
+          'Use for the largest pieces of UI and for layout elements.',
       },
     },
   },

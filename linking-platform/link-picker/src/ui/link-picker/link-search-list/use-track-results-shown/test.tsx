@@ -7,7 +7,7 @@ import { mockedPluginData } from '@atlaskit/link-test-helpers/link-picker';
 
 import { ANALYTICS_CHANNEL } from '../../../../common/constants';
 
-import { useTrackResultsShown } from '.';
+import { useTrackResultsShown } from './index';
 
 interface HookProps {
   isLoading: Parameters<typeof useTrackResultsShown>[0];

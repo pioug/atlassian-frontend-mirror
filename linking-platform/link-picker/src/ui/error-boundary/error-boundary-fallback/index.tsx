@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-
-import EmptyState from '@atlaskit/empty-state';
 import { defineMessages, useIntl } from 'react-intl-next';
 
+import EmptyState from '@atlaskit/empty-state';
+
 import { GenericErrorSVG } from '../../../common/generic-error-svg';
+// eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { rootContainerStyles } from '../../link-picker/styled';
 
 const messages = defineMessages({

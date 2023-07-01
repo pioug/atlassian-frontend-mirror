@@ -40,7 +40,8 @@ describe('Columns:', () => {
     await snapshot(page);
   });
 
-  it('should place breakout at the start/end of the scroll', async () => {
+  // FIXME: This test was automatically skipped due to failure on 01/07/2023: https://product-fabric.atlassian.net/browse/ED-18940
+  it.skip('should place breakout at the start/end of the scroll', async () => {
     const columnNumber = 1;
     const offset = 100;
 

@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.4.6
+
+### Patch Changes
+
+- [`2ed5220efcc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2ed5220efcc) - DSP-10691: added jest-axe and created accessibility unit tests to ensure basic a11y issues are tested
+
 ## 14.4.5
 
 ### Patch Changes

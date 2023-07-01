@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pagination",
-  "version": "14.4.5",
+  "version": "14.4.6",
   "description": "Pagination allows you to divide large amounts of content into smaller chunks across multiple pages.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -62,6 +62,7 @@
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
     "exenv": "^1.2.2",
+    "jest-axe": "^4.0.0",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "react-router-dom": "^4.2.2",

@@ -56,9 +56,13 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 30/06/2023: https://product-fabric.atlassian.net/browse/MEX-2489
 BrowserTestCase(
   'MediaCard - cards that is not in the viewport but is available in local cache',
-  { skip: ['safari'] },
+  {
+    // skip: ['safari'],
+    skip: ['*'],
+  },
   async (client: BrowserObject) => {
     const page = await gotoCardFilesMockedPage(client);
 

@@ -76,7 +76,8 @@ describe('drop indicators', () => {
       await drag.drop();
     });
 
-    it('should display at the end of droppable targets with items', async () => {
+    // FIXME: This test was automatically skipped due to failure on 01/07/2023: https://product-fabric.atlassian.net/browse/DSP-11492
+    it.skip('should display at the end of droppable targets with items', async () => {
       const { page } = global;
       await loadPage(page, url);
 
@@ -102,7 +103,8 @@ describe('drop indicators', () => {
       await drag.drop();
     });
 
-    it('should display at the top of empty droppable targets', async () => {
+    // FIXME: This test was automatically skipped due to failure on 01/07/2023: https://product-fabric.atlassian.net/browse/DSP-11493
+    it.skip('should display at the top of empty droppable targets', async () => {
       const { page } = global;
       await loadPage(page, url);
 

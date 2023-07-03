@@ -9,6 +9,7 @@ import {
   SmartLinkEventsNext,
 } from '../types';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
+import { DatasourceTableLayout } from '../ui/LayoutButton/types';
 
 export const cardAction = (
   tr: Transaction,
@@ -54,6 +55,35 @@ export const setProvider =
     cardAction(tr, {
       type: 'SET_PROVIDER',
       provider: cardProvider,
+    });
+
+export const setDatasourceTableRef =
+  (datasourceTableRef?: HTMLElement) => (tr: Transaction) =>
+    cardAction(tr, {
+      type: 'SET_DATASOURCE_TABLE_REF',
+      datasourceTableRef,
+    });
+
+export const setCardLayout =
+  (layout: DatasourceTableLayout) => (tr: Transaction) =>
+    cardAction(tr, {
+      type: 'SET_CARD_LAYOUT',
+      layout,
+    });
+
+export const setCardLayoutAndDatasourceTableRef =
+  ({
+    layout,
+    datasourceTableRef,
+  }: {
+    layout: DatasourceTableLayout;
+    datasourceTableRef?: HTMLElement;
+  }) =>
+  (tr: Transaction) =>
+    cardAction(tr, {
+      type: 'SET_CARD_LAYOUT_AND_DATASOURCE_TABLE_REF',
+      layout,
+      datasourceTableRef,
     });
 
 export const showLinkToolbar = (tr: Transaction) =>

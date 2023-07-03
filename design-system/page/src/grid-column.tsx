@@ -62,7 +62,7 @@ const singleColumnWidth = `(${availableWidth} / var(${varColumnsNum}))`;
 
 const gridColumnStyles = css({
   minWidth: `calc(${singleColumnWidth} - var(${varGridSpacing}))`,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   margin: `0 calc(var(${varGridSpacing}) / 2)`,
   flexGrow: 1,
   flexShrink: 0,

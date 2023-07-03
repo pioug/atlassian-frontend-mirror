@@ -43,7 +43,7 @@ const draggingStyles = css({
  * while main remains in place.
  */
 const flyoutStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginLeft: `calc(-1 * var(--${VAR_LEFT_SIDEBAR_FLYOUT}, ${DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}px) + ${COLLAPSED_LEFT_SIDEBAR_WIDTH}px)`,
 });
 

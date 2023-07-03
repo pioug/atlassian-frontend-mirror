@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { checkeredBg } from '../src/image-placer/styles';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const labelStyles = css`
   display: block;
 
@@ -35,7 +35,7 @@ export const layoutStyles = css`
   height: 80vh;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const wrapperStyles = css`
   margin: 10px;
 `;

@@ -11,7 +11,7 @@ export const archiveItemViewerWrapperStyles = css`
   justify-content: center;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const archiveSideBarStyles = css`
   padding: 22px ${token('space.250', '20px')} ${token('space.250', '20px')}
     ${token('space.250', '20px')};
@@ -44,7 +44,7 @@ export const archiveSidebarFolderWrapperStyles = css`
   animation: ${slideDown} 0.3s forwards;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const archiveDownloadButtonWrapperStyles = css`
   padding: ${token('space.100', '8px')} 7px 5px ${token('space.100', '8px')};
   border: none;
@@ -73,7 +73,7 @@ export const sidebarItemWrapperStyles = css`
   width: 85%;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const archiveSidebarFileEntryWrapperStyles = css`
   padding-bottom: 5px;
   display: flex;
@@ -88,7 +88,7 @@ export const archiveLayoutStyles = css`
   height: 100%;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const archiveViewerWrapperStyles = css`
   position: absolute;
   top: 0;
@@ -98,7 +98,7 @@ export const archiveViewerWrapperStyles = css`
   align-items: center;
   display: flex;
 `;
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const separatorStyles = css`
   border-radius: 1px;
   height: 2px;
@@ -113,7 +113,7 @@ export const sidebarHeaderWrapperStyles = css`
   flex-shrink: 0;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const sidebarHeaderIconStyles = css`
   display: flex;
   align-items: center;

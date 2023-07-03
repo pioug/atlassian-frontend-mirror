@@ -58,6 +58,7 @@ describe('resolveAttributes', () => {
       destinationTenantId: null,
       extensionKey: null,
       status: 'not_found',
+      statusDetails: null,
       displayCategory: 'link',
     });
   });
@@ -88,6 +89,7 @@ describe('resolveAttributes', () => {
       destinationTenantId: null,
       extensionKey: null,
       status: 'errored',
+      statusDetails: null,
       displayCategory: 'smartLink',
     });
   });
@@ -123,6 +125,7 @@ describe('resolveAttributes', () => {
         destinationTenantId: 'tenantId',
         extensionKey: 'object-provider',
         status: 'resolved',
+        statusDetails: null,
       });
     });
 
@@ -147,6 +150,7 @@ describe('resolveAttributes', () => {
         destinationTenantId: 'tenantId',
         extensionKey: 'object-provider',
         status: 'resolved',
+        statusDetails: null,
         displayCategory: 'link',
       });
     });

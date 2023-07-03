@@ -26,9 +26,9 @@ const fillScreenStyles = css({
   height: '100vh',
 
   position: 'fixed',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   top: 0,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: 0,
 
   overflowY: 'auto',

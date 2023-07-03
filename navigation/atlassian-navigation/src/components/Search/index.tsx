@@ -34,9 +34,9 @@ const searchInputIconStyles = css({
   width: '20px',
   height: '20px',
   position: 'absolute',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   top: '5px',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: '10px',
   pointerEvents: 'none',
 });

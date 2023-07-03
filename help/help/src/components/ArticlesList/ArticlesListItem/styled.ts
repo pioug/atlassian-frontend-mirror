@@ -66,7 +66,7 @@ export const ArticlesListItemTypeTitle = styled.div`
   padding-bottom: ${token('space.050', '4px')};
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const ArticlesListItemLinkIcon = styled.span`
   align-self: auto;
   padding-inline-start: 5px;

@@ -37,10 +37,10 @@ const mobileStyles = getBooleanFF(
       [UNSAFE_media.below.md]: {
         width: `${MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
         position: 'fixed',
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
         top: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
         bottom: 0,
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
         left: `${LEFT_PANEL_WIDTH}`,
         transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
       },
@@ -70,10 +70,10 @@ const mobileInnerFlyoutStyles = getBooleanFF(
 const fixedInnerStyles = css({
   width: `${LEFT_SIDEBAR_WIDTH}`,
   position: 'fixed',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   top: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
   bottom: 0,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: `${LEFT_PANEL_WIDTH}`,
   transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s`,
 });

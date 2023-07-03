@@ -50,7 +50,7 @@ export const fileInputStyles = css`
   display: none;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const imageUploaderStyles = css`
   display: flex;
   flex-direction: column;
@@ -86,7 +86,7 @@ const getDroppingAnimation = (isDroppingFile: boolean) =>
       `
     : '';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const dragZoneStyles = (props: DragZoneProps) => css`
   width: 200px;
   height: 200px;
@@ -147,7 +147,7 @@ export const selectionBlockerStyles = css`
   user-select: none;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const paddedBreakStyles = css`
   margin-top: 10px !important;
   margin-bottom: 10px;

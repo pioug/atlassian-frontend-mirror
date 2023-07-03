@@ -12,7 +12,7 @@ import InlineEdit from '../src';
 const minRows = 2;
 const textAreaLineHeightFactor = 2.5;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const ReadViewContainer = styled.div`
   line-height: ${(gridSize() * textAreaLineHeightFactor) / fontSize()};
   min-height: ${gridSize() * textAreaLineHeightFactor * minRows}px;

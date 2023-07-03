@@ -42,12 +42,12 @@ type SlotName =
 const serverRenderedStyles = css({
   height: 'auto',
   position: 'absolute',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   top: `calc(${TOP_NAVIGATION_HEIGHT} + ${BANNER_HEIGHT})`,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   right: `calc(${RIGHT_PANEL_WIDTH} + ${RIGHT_SIDEBAR_WIDTH})`,
   bottom: 0,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: `calc(${LEFT_PANEL_WIDTH} + ${LEFT_SIDEBAR_WIDTH})`,
   backgroundColor: token('color.background.neutral.subtle', 'white'),
   transition: 'left 300ms',

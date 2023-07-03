@@ -5,7 +5,7 @@ import { md } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
 import { toAbsolutePath } from './index';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const styles = css`
   code:not([class]) {
     border-radius: 3px;

@@ -21,7 +21,7 @@ const shadowStyles = css({
   position: 'absolute',
   top: 0,
   bottom: 0,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: -1,
   background: token(
     'color.border',
@@ -36,7 +36,7 @@ const shadowStyles = css({
 
 const draggingStyles = css({
   width: 6,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: -6,
   background: token(
     'color.background.neutral.subtle',

@@ -26,7 +26,7 @@ const avatarItemStyles = css({
   maxWidth: '100%',
   paddingLeft: token('space.100', '8px'),
   flex: '1 1 100%',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   lineHeight: '1.4',
 });
 
@@ -113,7 +113,7 @@ const getStyles = (
     isDisabled?: boolean;
   },
 ) =>
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing, @repo/internal/react/no-css-string-literals
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @repo/internal/react/no-css-string-literals
   css`
     align-items: center;
     background-color: ${backgroundColor};

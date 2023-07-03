@@ -52,9 +52,9 @@ const items: Array<RadioOptions> = [
 ];
 
 const tableStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   margin: '1em 0',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: '0.5em',
 
   borderColor: '#ccc',

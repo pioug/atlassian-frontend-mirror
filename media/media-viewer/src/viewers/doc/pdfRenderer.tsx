@@ -15,7 +15,7 @@ import { ZoomLevel } from '../../domain/zoomLevel';
 import { processError } from './processError';
 
 export const pdfViewerClassName = 'pdfViewer';
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage-spacing */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 const globalStyles = css`
   .${pdfViewerClassName} {
     margin-top: ${token('space.800', '64px')};

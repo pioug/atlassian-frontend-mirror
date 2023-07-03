@@ -72,7 +72,7 @@ export const Table = forwardRef<HTMLTableElement, TableProps>(
 );
 
 const captionStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginTop: `${gridSize * 3.5}px`,
   marginBottom: token('space.100', '8px'),
   fontSize: '1.42857143em',

@@ -25,10 +25,10 @@ import type {
 const containerStyles = css({
   display: 'grid',
   width: '100%',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   margin: '0 auto',
   padding: token('space.0', '0px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   gap: `var(${varSpacing})`,
   listStyleType: 'none',
   '&&': {

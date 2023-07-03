@@ -85,7 +85,7 @@ export const listItemContainerInnerStyles = css`
   white-space: nowrap;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const itemIconStyles = css`
   min-width: ${token('space.200', '16px')};
   margin-top: 3px;

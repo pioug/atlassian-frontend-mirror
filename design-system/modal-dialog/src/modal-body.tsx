@@ -21,7 +21,7 @@ const bodyStyles = css({
  * keyline height from header and footer.
  */
 const bodyScrollStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: `${keylineHeight}px ${padding}px`,
 });
 
@@ -30,7 +30,7 @@ const bodyScrollStyles = css({
  * not account for them in this case.
  */
 const viewportScrollStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: `0px ${padding}px`,
 });
 

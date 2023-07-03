@@ -39,7 +39,7 @@ interface HighlightProps {
 const highlightStyles = css({
   display: 'inline-flex',
   boxSizing: 'border-box',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: '1em 2em',
   position: 'relative',
   alignItems: 'space-between',

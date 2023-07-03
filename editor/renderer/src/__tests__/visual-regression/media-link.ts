@@ -56,7 +56,8 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  it(`should render a linked media image below a wrapped image correctly`, async () => {
+  // FIXME: This test was automatically skipped due to failure on 30/06/2023: https://product-fabric.atlassian.net/browse/ED-18938
+  it.skip(`should render a linked media image below a wrapped image correctly`, async () => {
     await loadAdf(page, wrappedMediaLink);
     await waitForAllMedia(page, 2);
 

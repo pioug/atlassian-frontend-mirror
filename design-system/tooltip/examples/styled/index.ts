@@ -29,7 +29,7 @@ interface StyledProps {
   color: Color | string;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const Target = styled.div<StyledProps>`
   background-color: ${(p) =>
     color[p.color] ||
@@ -48,7 +48,7 @@ export const Target = styled.div<StyledProps>`
   user-select: none;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const BigTarget = styled.div<StyledProps>`
   background-color: ${(p) =>
     color[p.color] ||

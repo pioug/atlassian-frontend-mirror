@@ -89,7 +89,7 @@ Object {
             },
           ],
         },
-        "layout": null,
+        "layout": "center",
         "url": null,
         "width": null,
       },

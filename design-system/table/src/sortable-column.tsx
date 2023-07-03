@@ -44,10 +44,10 @@ const sortingMessages = {
 };
 
 const overrideStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   margin: '0 -2px !important',
   gap: token('space.050', '4px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   paddingInline: `2px !important`,
 });
 

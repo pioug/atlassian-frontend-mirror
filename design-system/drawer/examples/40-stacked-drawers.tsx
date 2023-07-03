@@ -13,7 +13,7 @@ interface State {
 }
 
 const spacingStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: '2rem',
 });
 export default class DrawersExample extends Component<{}, State> {

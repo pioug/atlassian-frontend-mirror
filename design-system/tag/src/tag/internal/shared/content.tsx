@@ -24,10 +24,10 @@ interface ContentProps extends SimpleTagProps {
 const baseStyles = css({
   maxWidth: maxTextWidth,
   paddingTop: token('space.025', '2px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   paddingRight: defaultTextPadding,
   paddingBottom: token('space.025', '2px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   paddingLeft: defaultTextPadding,
   fontSize: textFontSize,
   fontWeight: 'normal',
@@ -59,12 +59,12 @@ const linkStyles = css({
 
 const hasAfterStyles = css({
   maxWidth: `${maxTextWidthUnitless - buttonWidthUnitless}px`,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   paddingRight: textPaddingRight,
 });
 
 const hasBeforeStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginLeft: textMarginLeft,
 });
 

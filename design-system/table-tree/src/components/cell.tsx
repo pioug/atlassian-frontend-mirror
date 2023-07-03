@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
 
 import CommonCell from './internal/common-cell';
 import OverflowContainer from './internal/overflow-container';
@@ -23,6 +23,10 @@ export interface CellProps {
    * Class name to apply to cell.
    */
   className?: string;
+  /**
+   * Children content, used when composing table-tree from internal components
+   */
+  children?: ReactNode;
 }
 
 class Cell extends Component<CellProps> {

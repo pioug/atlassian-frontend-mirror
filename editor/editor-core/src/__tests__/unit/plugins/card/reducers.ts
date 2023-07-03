@@ -36,6 +36,8 @@ describe('card', () => {
           cards: [],
           requests: [],
           provider: null,
+          datasourceTableRef: undefined,
+          layout: undefined,
           showLinkingToolbar: false,
         } as CardPluginState);
       });
@@ -55,6 +57,8 @@ describe('card', () => {
             cards: [],
             requests: [item],
             provider: null,
+            datasourceTableRef: undefined,
+            layout: undefined,
             showLinkingToolbar: false,
           } as CardPluginState);
         });
@@ -88,6 +92,51 @@ describe('card', () => {
         const state = reduce(initialState, {
           type: 'SET_PROVIDER',
           provider: cardProvider,
+        });
+
+        expect(state).toEqual(expectedState);
+      });
+
+      it('should set datasource table ref', () => {
+        const div = document.createElement('div');
+
+        const expectedState = expect.objectContaining({
+          datasourceTableRef: div,
+        });
+
+        const state = reduce(initialState, {
+          type: 'SET_DATASOURCE_TABLE_REF',
+          datasourceTableRef: div,
+        });
+
+        expect(state).toEqual(expectedState);
+      });
+
+      it('should set card layout', () => {
+        const expectedState = expect.objectContaining({
+          layout: 'wide',
+        });
+
+        const state = reduce(initialState, {
+          type: 'SET_CARD_LAYOUT',
+          layout: 'wide',
+        });
+
+        expect(state).toEqual(expectedState);
+      });
+
+      it('should set card layout and datasource table ref', () => {
+        const div = document.createElement('div');
+
+        const expectedState = expect.objectContaining({
+          layout: 'wide',
+          datasourceTableRef: div,
+        });
+
+        const state = reduce(initialState, {
+          type: 'SET_CARD_LAYOUT_AND_DATASOURCE_TABLE_REF',
+          layout: 'wide',
+          datasourceTableRef: div,
         });
 
         expect(state).toEqual(expectedState);

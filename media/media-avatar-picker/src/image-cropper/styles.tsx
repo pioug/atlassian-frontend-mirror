@@ -37,7 +37,7 @@ export const imageContainerStyles = css`
 
 export const CONTAINER_PADDING = 28;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const maskStyles = css`
   position: absolute;
   top: ${CONTAINER_PADDING}px;

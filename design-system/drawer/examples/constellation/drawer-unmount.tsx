@@ -10,7 +10,7 @@ import TextArea from '@atlaskit/textarea';
 import Drawer from '../../src';
 
 const CheckboxStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   paddingTop: '16px',
 });
 

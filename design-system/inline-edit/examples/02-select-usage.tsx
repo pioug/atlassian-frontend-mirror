@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../src';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const ReadViewContainer = styled.div`
   display: flex;
   font-size: ${fontSize()}px;

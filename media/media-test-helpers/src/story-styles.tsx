@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const Matrix = styled.table`
   thead {
     td {

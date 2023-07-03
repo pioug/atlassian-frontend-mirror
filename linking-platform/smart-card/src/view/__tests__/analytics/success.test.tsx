@@ -190,6 +190,7 @@ describe('smart-card: success analytics', () => {
           expect(analytics.fireSmartLinkEvent).toBeCalledWith(
             {
               action: 'resolved',
+              actionSubject: 'smartLink',
               attributes: {
                 componentName: 'smart-cards',
                 display: 'inline',
@@ -197,6 +198,7 @@ describe('smart-card: success analytics', () => {
                 extensionKey: 'object-provider',
                 definitionId: 'd1',
               },
+              eventType: 'operational',
             },
             expect.any(Function),
           );

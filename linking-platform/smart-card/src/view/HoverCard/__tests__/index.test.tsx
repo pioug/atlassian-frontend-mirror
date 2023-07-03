@@ -254,12 +254,48 @@ describe('HoverCard', () => {
   });
 
   describe('smart-card', () => {
+    beforeEach(() => {
+      mockGetEntries = jest
+        .fn()
+        .mockImplementation(() => [{ isIntersecting: true }]);
+      mockIntersectionObserverOpts = {
+        disconnect: jest.fn(),
+        getMockEntries: mockGetEntries,
+      };
+      // Gives us access to a mock IntersectionObserver, which we can
+      // use to spoof visibility of a Smart Link.
+      window.IntersectionObserver = MockIntersectionObserverFactory(
+        mockIntersectionObserverOpts,
+      );
+    });
+
     it('renders hover card', async () => {
       const { findByTestId } = await setup();
       jest.runAllTimers();
       const hoverCard = await findByTestId('hover-card');
 
       expect(hoverCard).toBeTruthy();
+    });
+
+    it('should not call loadMetadata if link state is not pending', async () => {
+      let loadMetadataSpy = jest.fn();
+
+      const mockedActions = {
+        authorize: jest.fn(),
+        invoke: jest.fn(),
+        register: jest.fn(),
+        reload: jest.fn(),
+        loadMetadata: loadMetadataSpy,
+      };
+
+      await setup();
+
+      jest
+        .spyOn(useSmartCardActions, 'useSmartCardActions')
+        .mockImplementation(() => mockedActions);
+
+      jest.advanceTimersByTime(100);
+      expect(loadMetadataSpy).toHaveBeenCalledTimes(0);
     });
 
     describe('hover card viewed event has correct data the analytics context', () => {
@@ -541,6 +577,51 @@ describe('HoverCard', () => {
       jest.runAllTimers();
 
       expect(queryByTestId('hover-card')).toBeNull();
+    });
+
+    it('should hide the card if a mouse sends multiple mouse over events but leaves the hover area before the delay elapses', async () => {
+      const { queryByTestId, findByTestId, element } = await setup();
+
+      jest.advanceTimersByTime(100);
+      const titleAndIcon = await findByTestId('inline-card-icon-and-title');
+      fireEvent.mouseOver(titleAndIcon);
+      jest.advanceTimersByTime(199);
+
+      expect(queryByTestId('hover-card')).toBeNull();
+      fireEvent.mouseLeave(element);
+
+      jest.advanceTimersByTime(1);
+
+      expect(queryByTestId('hover-card')).toBeNull();
+    });
+
+    it('should show the card in 300ms the card if a mouse sends multiple mouse over events over children', async () => {
+      const { queryByTestId, findByTestId } = await setup();
+
+      jest.advanceTimersByTime(100);
+      const titleAndIcon = await findByTestId('inline-card-icon-and-title');
+
+      fireEvent.mouseOver(titleAndIcon);
+      fireEvent(
+        titleAndIcon,
+        new MouseEvent('mouseleave', {
+          bubbles: false,
+          cancelable: true,
+        }),
+      );
+      jest.advanceTimersByTime(100);
+
+      fireEvent.mouseOver(titleAndIcon);
+      fireEvent(
+        titleAndIcon,
+        new MouseEvent('mouseleave', {
+          bubbles: false,
+          cancelable: true,
+        }),
+      );
+      jest.advanceTimersByTime(100);
+
+      expect(queryByTestId('hover-card')).not.toBeNull();
     });
 
     it('should hide after pressing escape', async () => {
@@ -2073,91 +2154,161 @@ describe('HoverCard', () => {
 
       serverActionsTest(setupWithStandalone);
     });
-  });
 
-  describe('resolves link after 100ms on hover', () => {
-    let loadMetadataSpy = jest.fn();
+    describe('resolves link after 100ms on hover', () => {
+      let loadMetadataSpy = jest.fn();
 
-    const mockedActions = {
-      authorize: jest.fn(),
-      invoke: jest.fn(),
-      register: jest.fn(),
-      reload: jest.fn(),
-      loadMetadata: loadMetadataSpy,
-    };
+      const mockedActions = {
+        authorize: jest.fn(),
+        invoke: jest.fn(),
+        register: jest.fn(),
+        reload: jest.fn(),
+        loadMetadata: loadMetadataSpy,
+      };
 
-    afterEach(() => {
-      jest.resetAllMocks();
-    });
-
-    it('should not call loadMetadata if link state is not pending', async () => {
-      await setup();
-
-      jest
-        .spyOn(useSmartCardActions, 'useSmartCardActions')
-        .mockImplementation(() => mockedActions);
-
-      jest.advanceTimersByTime(100);
-      expect(loadMetadataSpy).toHaveBeenCalledTimes(0);
-    });
-
-    it('should not call loadMetadata if mouseLeave is fired before the delay runs out', async () => {
-      const component = (
-        <HoverCard url={'test.url'}>
-          <h1>Hover over me!</h1>
-        </HoverCard>
-      );
-
-      const { findByTestId } = await setup({
-        component,
-        testId: 'hover-card-trigger-wrapper',
+      afterEach(() => {
+        jest.resetAllMocks();
       });
 
-      // Delay not completed yet
-      jest.advanceTimersByTime(99);
+      it('should not call loadMetadata if link state is not pending', async () => {
+        await setup();
 
-      expect(loadMetadataSpy).not.toHaveBeenCalled();
+        jest
+          .spyOn(useSmartCardActions, 'useSmartCardActions')
+          .mockImplementation(() => mockedActions);
 
-      // Delay completed
-      const triggerArea = await findByTestId('hover-card-trigger-wrapper');
-      fireEvent.mouseLeave(triggerArea);
+        jest.advanceTimersByTime(100);
+        expect(loadMetadataSpy).toHaveBeenCalledTimes(0);
+      });
 
-      jest.advanceTimersByTime(1);
+      it('should not call loadMetadata if mouseLeave is fired before the delay runs out', async () => {
+        const component = (
+          <HoverCard url={'test.url'}>
+            <h1>Hover over me!</h1>
+          </HoverCard>
+        );
 
-      expect(loadMetadataSpy).not.toHaveBeenCalled();
-    });
+        const { findByTestId } = await setup({
+          component,
+          testId: 'hover-card-trigger-wrapper',
+        });
 
-    it('should call loadMetadata after a delay if link state is pending', async () => {
-      jest
-        .spyOn(useSmartCardActions, 'useSmartCardActions')
-        .mockImplementation(() => mockedActions);
+        // Delay not completed yet
+        jest.advanceTimersByTime(99);
 
-      const { findByTestId } = await render(
-        <IntlProvider locale="en">
-          <Provider>
-            <HoverCard url={'test.url'}>
-              <h1>Hover over me!</h1>
-            </HoverCard>
-          </Provider>
-        </IntlProvider>,
-      );
+        expect(loadMetadataSpy).not.toHaveBeenCalled();
 
-      const triggerArea = await findByTestId('hover-card-trigger-wrapper');
-      expect(triggerArea).toBeDefined();
+        // Delay completed
+        const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+        fireEvent.mouseLeave(triggerArea);
 
-      jest.useFakeTimers();
+        jest.advanceTimersByTime(1);
 
-      fireEvent.mouseOver(triggerArea);
+        expect(loadMetadataSpy).not.toHaveBeenCalled();
+      });
 
-      // Delay not completed yet
-      jest.advanceTimersByTime(99);
+      it('should call loadMetadata if mouseLeave is fired before the delay runs out but then the mouse enters again and waits for 100ms', async () => {
+        jest
+          .spyOn(useSmartCardActions, 'useSmartCardActions')
+          .mockImplementation(() => mockedActions);
 
-      expect(loadMetadataSpy).not.toHaveBeenCalled();
+        const component = (
+          <HoverCard url={'test.url'}>
+            <h1>Hover over me!</h1>
+          </HoverCard>
+        );
 
-      // Delay completed
-      jest.advanceTimersByTime(1);
+        const { findByTestId } = await setup({
+          component,
+          testId: 'hover-card-trigger-wrapper',
+        });
 
-      expect(loadMetadataSpy).toBeCalled();
+        // Hovering on the hover area for the first time and then moving the mouse before the 100 ms elapses
+        jest.advanceTimersByTime(99);
+        expect(loadMetadataSpy).not.toHaveBeenCalled();
+
+        const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+        fireEvent.mouseLeave(triggerArea);
+
+        // Making sure the loadMetadata was not called
+        jest.advanceTimersByTime(1);
+        expect(loadMetadataSpy).not.toHaveBeenCalled();
+
+        // Hover on the hover area for the second time and waiting for 100ms
+        fireEvent.mouseEnter(triggerArea);
+        jest.advanceTimersByTime(100);
+
+        // Making sure the loadMetadata was called
+        expect(loadMetadataSpy).toBeCalled();
+      });
+
+      it('should call loadMetadata after a delay if link state is pending', async () => {
+        jest
+          .spyOn(useSmartCardActions, 'useSmartCardActions')
+          .mockImplementation(() => mockedActions);
+
+        const { findByTestId } = await render(
+          <IntlProvider locale="en">
+            <Provider>
+              <HoverCard url={'test.url'}>
+                <h1>Hover over me!</h1>
+              </HoverCard>
+            </Provider>
+          </IntlProvider>,
+        );
+
+        const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+        expect(triggerArea).toBeDefined();
+
+        jest.useFakeTimers();
+
+        fireEvent.mouseOver(triggerArea);
+
+        // Delay not completed yet
+        jest.advanceTimersByTime(99);
+
+        expect(loadMetadataSpy).not.toHaveBeenCalled();
+
+        // Delay completed
+        jest.advanceTimersByTime(1);
+
+        expect(loadMetadataSpy).toBeCalled();
+      });
+
+      it('should call loadMetadata only once if multiple mouseOver events are sent and if link state is pending', async () => {
+        jest
+          .spyOn(useSmartCardActions, 'useSmartCardActions')
+          .mockImplementation(() => mockedActions);
+
+        const { findByTestId } = await render(
+          <IntlProvider locale="en">
+            <Provider>
+              <HoverCard url={'test.url'}>
+                <h1>Hover over me!</h1>
+              </HoverCard>
+            </Provider>
+          </IntlProvider>,
+        );
+
+        const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+        expect(triggerArea).toBeDefined();
+
+        jest.useFakeTimers();
+
+        // Firing the first mouseOver event
+        fireEvent.mouseOver(triggerArea);
+
+        // Delay not completed yet
+        jest.advanceTimersByTime(1);
+
+        // Firing the second mouseOver event
+        fireEvent.mouseOver(triggerArea);
+
+        // Delay completed
+        jest.advanceTimersByTime(99);
+
+        expect(loadMetadataSpy).toHaveBeenCalledTimes(1);
+      });
     });
   });
 });

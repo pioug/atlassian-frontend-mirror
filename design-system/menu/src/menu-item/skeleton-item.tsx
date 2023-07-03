@@ -39,7 +39,7 @@ const skeletonStyles = css({
     // This is a little bespoke but we need to push everything down 1px
     // because the skeleton content should align to the bottom of the text.
     // Confirm VR test failures before accepting a change.
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     marginTop: 1,
     backgroundColor: skeletonColor,
     borderRadius: skeletonTextBorderRadius,
@@ -78,9 +78,9 @@ const beforeElementStyles = css({
   '::before': {
     width: skeletonItemElemSize,
     height: skeletonItemElemSize,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     marginRight: itemElemSpacing + itemElemSkeletonOffset,
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     marginLeft: itemElemSkeletonOffset,
     flexShrink: 0,
     backgroundColor: skeletonColor,

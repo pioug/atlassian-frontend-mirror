@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 26.7.0
+
+### Minor Changes
+
+- [`c5a897eb81d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a897eb81d) - add statusDetails attribute
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.6.3
+
+### Patch Changes
+
+- [`fc0fa5ca4e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc0fa5ca4e7) - [ux] Fix for a hover card issue introduced in 25.6.17
+
+## 26.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.6.1
 
 ### Patch Changes

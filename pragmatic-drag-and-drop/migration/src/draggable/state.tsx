@@ -21,6 +21,8 @@ import { directionMapping } from '../droppable/drop-indicator/constants';
 import type { DraggableDimensions } from '../hooks/use-captured-dimensions';
 import type { Action } from '../internal-types';
 
+import { keyboardPreviewCrossAxisOffset } from './constants';
+
 type DraggableIdleState = {
   type: 'idle';
   draggingOver: null;
@@ -122,11 +124,8 @@ type GetKeyboardPreviewOffsetData = {
   dropIndicatorRect: DOMRect | null;
 };
 
-const keyboardPreviewOffsetPercentage = 0.2;
-
 const getKeyboardPreviewOffset = {
   initial({
-    draggableDimensions,
     direction,
   }: {
     draggableDimensions: DraggableDimensions;
@@ -147,9 +146,7 @@ const getKeyboardPreviewOffset = {
        * On the cross axis, the drag preview is offset by a fixed percentage
        * of its cross axis length.
        */
-      [crossAxis.name]:
-        keyboardPreviewOffsetPercentage *
-        draggableDimensions.rect[crossAxis.style.length],
+      [crossAxis.name]: keyboardPreviewCrossAxisOffset,
     } as DraggablePreviewOffset;
   },
   home({
@@ -193,9 +190,7 @@ const getKeyboardPreviewOffset = {
        * This is to remain aligned with when it is in the away position.
        */
       [crossAxis.name]:
-        baseOffset[crossAxis.name] +
-        keyboardPreviewOffsetPercentage *
-          draggableDimensions.rect[crossAxis.style.length],
+        baseOffset[crossAxis.name] + keyboardPreviewCrossAxisOffset,
     } as DraggablePreviewOffset;
   },
   away({
@@ -243,9 +238,7 @@ const getKeyboardPreviewOffset = {
        * This allows some of the drop indicator to remain visible.
        */
       [crossAxis.name]:
-        baseOffset[crossAxis.name] +
-        keyboardPreviewOffsetPercentage *
-          draggableDimensions.rect[crossAxis.style.length],
+        baseOffset[crossAxis.name] + keyboardPreviewCrossAxisOffset,
     } as DraggablePreviewOffset;
   },
 };

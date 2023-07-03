@@ -13,6 +13,8 @@ jest.mock('@atlaskit/outbound-auth-flow-client', () => {
     AuthError,
   };
 });
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import '@atlaskit/link-test-helpers/jest';
 
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import * as analyticsEvents from '../../../utils/analytics';
@@ -48,6 +50,127 @@ describe('smart-card: forbidden analytics', () => {
   });
 
   describe('forbidden', () => {
+    describe.each([
+      'FORBIDDEN',
+      'REQUEST_ACCESS',
+      'DIRECT_ACCESS',
+      'ANY_OTHER_VALUE',
+      undefined,
+    ])(
+      'should have status forbidden and statusdetails=%s for analytics',
+      (accessType) => {
+        ffTest(
+          'platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop',
+          async () => {
+            mockFetch.mockReturnValueOnce({
+              ...mocks.forbidden,
+              meta: {
+                ...mocks.forbidden.meta,
+                requestAccess: {
+                  accessType,
+                },
+              },
+            });
+            const mockUrl = 'https://some.url';
+            const analyticsSpy = jest.fn();
+            const { getByTestId } = render(
+              <AnalyticsListener
+                onEvent={analyticsSpy}
+                channel={analyticsEvents.ANALYTICS_CHANNEL}
+              >
+                <IntlProvider locale="en">
+                  <Provider client={mockClient}>
+                    <Card
+                      id="some-id"
+                      testId="forbiddenCard1"
+                      appearance="inline"
+                      url={mockUrl}
+                    />
+                  </Provider>
+                </IntlProvider>
+              </AnalyticsListener>,
+            );
+            const forbiddenLink = await waitFor(() =>
+              getByTestId('forbiddenCard1-forbidden-view'),
+            );
+            expect(forbiddenLink).toBeInTheDocument();
+            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+              payload: {
+                actionSubject: 'smartLink',
+                action: 'unresolved',
+                attributes: {
+                  statusDetails: accessType,
+                  reason: 'forbidden',
+                },
+              },
+            });
+          },
+          async () => {
+            mockFetch.mockReturnValueOnce({
+              ...mocks.forbidden,
+              meta: {
+                ...mocks.forbidden.meta,
+                requestAccess: {
+                  accessType,
+                },
+              },
+            });
+            const mockUrl = 'https://some.url';
+            const analyticsSpy = jest.fn();
+            const { getByTestId } = render(
+              <AnalyticsListener
+                onEvent={analyticsSpy}
+                channel={analyticsEvents.ANALYTICS_CHANNEL}
+              >
+                <IntlProvider locale="en">
+                  <Provider client={mockClient}>
+                    <Card
+                      id="some-id"
+                      testId="forbiddenCard1"
+                      appearance="inline"
+                      url={mockUrl}
+                    />
+                  </Provider>
+                </IntlProvider>
+              </AnalyticsListener>,
+            );
+            const forbiddenLink = await waitFor(() =>
+              getByTestId('forbiddenCard1-forbidden-view'),
+            );
+            expect(forbiddenLink).toBeInTheDocument();
+            expect(analyticsSpy).not.toBeFiredWithAnalyticEventOnce({
+              payload: {
+                actionSubject: 'smartLink',
+                action: 'unresolved',
+                attributes: {
+                  statusDetails: accessType,
+                },
+              },
+            });
+            expect(analyticsEvents.fireSmartLinkEvent).toBeCalledWith(
+              {
+                action: 'unresolved',
+                actionSubject: 'smartLink',
+                attributes: {
+                  componentName: 'smart-cards',
+                  definitionId: 'd1',
+                  display: 'inline',
+                  reason: 'forbidden',
+                  extensionKey: 'object-provider',
+                  id: 'some-id',
+                  statusDetails: accessType,
+                  packageName: '@atlaskit/smart-card',
+                  packageVersion: '999.9.9',
+                },
+                eventType: 'operational',
+              },
+              expect.any(Function),
+            );
+          },
+        );
+      },
+    );
+
     describe('should fire analytics events when attempting to connect with an alternate account succeeds', () => {
       ffTest(
         'platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop',
@@ -156,13 +279,18 @@ describe('smart-card: forbidden analytics', () => {
           expect(analyticsEvents.fireSmartLinkEvent).toBeCalledWith(
             {
               action: 'unresolved',
+              actionSubject: 'smartLink',
               attributes: {
                 componentName: 'smart-cards',
                 display: 'inline',
                 id: expect.any(String),
                 extensionKey: 'object-provider',
                 definitionId: 'd1',
+                reason: 'forbidden',
+                packageName: '@atlaskit/smart-card',
+                packageVersion: '999.9.9',
               },
+              eventType: 'operational',
             },
             expect.any(Function),
           );

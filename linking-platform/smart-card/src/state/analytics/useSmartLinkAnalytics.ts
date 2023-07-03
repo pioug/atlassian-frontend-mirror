@@ -42,6 +42,7 @@ import {
   getExtensionKey,
   getProduct,
   getResourceType,
+  getStatusDetails,
   getSubproduct,
 } from '../helpers';
 import {
@@ -138,6 +139,7 @@ export const useSmartLinkAnalytics = (
   const extractedResourceType = getResourceType(details);
   const extractedSubproduct = getSubproduct(details);
   const extractedProduct = getProduct(details);
+  const extractedStatusDetails = getStatusDetails(details);
 
   const commonAttributes: CommonEventProps = useMemo(
     () => ({
@@ -149,6 +151,7 @@ export const useSmartLinkAnalytics = (
       destinationSubproduct: extractedSubproduct,
       destinationProduct: extractedProduct,
       location: defaultLocation,
+      statusDetails: extractedStatusDetails,
     }),
     [
       defaultId,
@@ -158,6 +161,7 @@ export const useSmartLinkAnalytics = (
       extractedSubproduct,
       extractedProduct,
       defaultLocation,
+      extractedStatusDetails,
     ],
   );
 

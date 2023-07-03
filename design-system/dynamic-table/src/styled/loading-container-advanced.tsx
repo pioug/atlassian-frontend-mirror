@@ -53,7 +53,7 @@ export const SpinnerBackdrop: FC<SpinnerBackdropProps> = ({
 
 const spinnerContainerStyles = css({
   position: 'relative',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   top: 0,
 });
 

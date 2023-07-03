@@ -24,7 +24,7 @@ const StyledContainer = styled.div`
   align-items: center;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const ItemWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
@@ -44,7 +44,7 @@ const ItemWrapper = styled.div`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const OuterBorder = styled.div`
   position: absolute;
   background-color: ${token('color.border', '#ccc')};

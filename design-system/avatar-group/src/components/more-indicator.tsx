@@ -49,7 +49,7 @@ const buttonStyles = css({
   '&&': {
     backgroundColor: token('color.background.neutral', N20),
     color: token('color.text', N500),
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     fontFamily: 'inherit',
     fontWeight: token('font.weight.medium', '500'),
 

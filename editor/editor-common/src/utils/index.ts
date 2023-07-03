@@ -43,6 +43,8 @@ export {
   breakoutConsts,
   calculateBreakoutStyles,
   calcBreakoutWidthPx,
+  getNextBreakoutMode,
+  getTitle,
 } from './breakout';
 
 export {

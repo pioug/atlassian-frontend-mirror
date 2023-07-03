@@ -7,6 +7,7 @@ import {
   NodeSelection,
   TextSelection,
   AllSelection,
+  Selection,
 } from 'prosemirror-state';
 import { insertPoint } from 'prosemirror-transform';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
@@ -19,7 +20,12 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import { ErrorReporter, browser } from '@atlaskit/editor-common/utils';
 import assert from 'assert';
-import { findDomRefAtPos, isNodeSelection } from 'prosemirror-utils';
+import {
+  findDomRefAtPos,
+  isNodeSelection,
+  findSelectedNodeOfType,
+  findParentNodeOfType,
+} from 'prosemirror-utils';
 import { Dispatch } from '../../../event-dispatcher';
 import { ProsemirrorGetPosHandler } from '../../../nodeviews';
 import { insertMediaSingleNode, isMediaSingle } from '../utils/media-single';
@@ -651,8 +657,23 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     this.showDropzone = isActive;
 
     const { dispatch, state } = this.view;
+    const { tr, selection, doc } = state;
+    const { media, mediaGroup } = state.schema.nodes;
+
+    // Workaround for wrong upload position
+    // @see https://product-fabric.atlassian.net/browse/MEX-2457
+    // If the media node is the last selectable item in the current cursor position and it is located within a mediaGroup,
+    // we relocate the cursor to the first child of the mediaGroup.
+    const sel = Selection.findFrom(doc.resolve(selection.$from.pos - 1), -1);
+    if (sel && findSelectedNodeOfType(media)(sel)) {
+      const parent = findParentNodeOfType(mediaGroup)(sel);
+      if (parent) {
+        tr.setSelection(NodeSelection.create(tr.doc, parent.start));
+      }
+    }
+
     // Trigger state change to be able to pick it up in the decorations handler
-    dispatch(state.tr);
+    dispatch(tr);
   };
 
   updateAndDispatch(

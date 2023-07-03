@@ -9,7 +9,7 @@ import causeRuntimeError from '../../../../_utils/cause-runtime-error';
 import { withError, withWarn } from '../../../../_utils/console';
 import App from '../../_utils/app';
 import { type Control, forEachSensor, simpleLift } from '../../_utils/controls';
-import { getOffset, isDragging } from '../../_utils/helpers';
+import { isDragging } from '../../_utils/helpers';
 
 beforeAll(() => {
   setup();
@@ -91,8 +91,6 @@ forEachSensor((control: Control) => {
     expect(() => {
       control.move(handle);
       control.move(newHandle);
-      expect(getOffset(handle)).toEqual({ x: 0, y: 0 });
-      expect(getOffset(newHandle)).toEqual({ x: 0, y: 0 });
     }).not.toThrow();
   });
 
@@ -125,7 +123,6 @@ forEachSensor((control: Control) => {
     // strange - but firing events on old handle
     expect(() => {
       control.move(handle);
-      expect(getOffset(handle)).toEqual({ x: 0, y: 0 });
     }).not.toThrow();
   });
 

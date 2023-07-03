@@ -52,7 +52,7 @@ const browserStyles = {
     WebkitAppearance: 'none', // Hides the slider so that custom slider can be made
     '::-webkit-slider-thumb': {
       ...sliderThumbStyles,
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       marginTop: -(theme.thumb.size - theme.track.height) / 2,
       WebkitAppearance: 'none',
     },

@@ -79,7 +79,7 @@
     "@af/analytics-codegen": "^0.1.0",
     "@atlaskit/docs": "*",
     "@atlaskit/dropdown-menu": "^11.10.0",
-    "@atlaskit/link-analytics": "^8.0.0",
+    "@atlaskit/link-analytics": "^8.1.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^4.1.0",
     "@atlaskit/linking-common": "^3.1.0",

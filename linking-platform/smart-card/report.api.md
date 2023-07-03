@@ -377,6 +377,8 @@ interface CommonEventProps {
   location?: string;
   // (undocumented)
   resourceType?: string;
+  // (undocumented)
+  statusDetails?: string;
 }
 
 // @public (undocumented)

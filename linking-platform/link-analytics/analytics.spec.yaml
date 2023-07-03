@@ -18,6 +18,10 @@ context:
       type: ['pending', 'resolving', 'resolved', 'errored', 'fallback', 'unauthorized', 'forbidden', 'not_found']
       description: The status of the link resolution at the time of the event.
       required: false
+    statusDetails:
+      type: string
+      description: Provides further information of the resolved status. May be different for different status values
+      required: false
     displayCategory:
       type: ['smartLink', 'link']
       description: |

@@ -16,7 +16,7 @@ interface Props {
   isCompact?: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const ReadViewContainer = styled.div<Props>`
   display: flex;
   font-size: ${fontSize()}px;

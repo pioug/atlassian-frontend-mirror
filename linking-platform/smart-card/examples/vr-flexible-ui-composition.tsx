@@ -32,7 +32,7 @@ import {
   response4,
 } from './content/example-responses';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const listStyles = css`
   list-style: none;
   margin-top: 0;
@@ -48,7 +48,7 @@ const listStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const previewStyles = css`
   display: flex;
   flex-wrap: wrap;

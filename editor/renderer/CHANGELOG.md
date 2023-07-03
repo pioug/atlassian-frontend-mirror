@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 108.4.3
+
+### Patch Changes
+
+- [`a390f5a61da`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a390f5a61da) - [ux] The change here enables the datasource table to render based on the layout defined in ADF.
+
 ## 108.4.2
 
 ### Patch Changes

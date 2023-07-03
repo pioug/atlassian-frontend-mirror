@@ -37,7 +37,7 @@ BrowserTestCase(
       { clickInEditor: false },
     );
 
-    await page.click('[class="blockCardView-content-wrap"]');
+    await page.click('.datasourceView-content-wrap');
 
     await page.keys(['ArrowDown', 'Enter']);
 

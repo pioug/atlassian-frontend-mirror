@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage-spacing */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import { Children, forwardRef, Fragment, Ref } from 'react';
 

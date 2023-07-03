@@ -38,7 +38,7 @@ export const contentStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const linkStyles = css`
   ${sharedBlockStyles};
 

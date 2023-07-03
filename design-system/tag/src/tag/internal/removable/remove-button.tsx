@@ -29,7 +29,7 @@ const baseStyles = css({
   margin: token('space.0', '0px'),
   padding: token('space.0', '0px'),
   position: 'absolute',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   right: 0,
   alignItems: 'center',
   justifyContent: 'center',

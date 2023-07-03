@@ -11,6 +11,7 @@ import {
 import { CardOptions } from '@atlaskit/editor-common/card';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { LinkPickerOptions } from '@atlaskit/editor-common/types';
+import { DatasourceTableLayout } from './ui/LayoutButton/types';
 
 export type CardInfo = {
   title?: string;
@@ -116,6 +117,8 @@ export type CardPluginState = {
   smartLinkEventsNext?: SmartLinkEventsNext;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   editorAppearance?: EditorAppearance;
+  datasourceTableRef?: HTMLElement;
+  layout?: DatasourceTableLayout;
 };
 
 export type CardPluginOptions = CardOptions & {
@@ -165,6 +168,22 @@ export type RegisterSmartCardEventsNext = {
   smartLinkEvents: SmartLinkEventsNext;
 };
 
+export type SetDatasourceTableRef = {
+  type: 'SET_DATASOURCE_TABLE_REF';
+  datasourceTableRef?: HTMLElement;
+};
+
+export type SetCardLayout = {
+  type: 'SET_CARD_LAYOUT';
+  layout: DatasourceTableLayout;
+};
+
+export type SetCardLayoutAndDatasourceTableRef = {
+  type: 'SET_CARD_LAYOUT_AND_DATASOURCE_TABLE_REF';
+  layout: DatasourceTableLayout;
+  datasourceTableRef?: HTMLElement;
+};
+
 export type CardPluginAction =
   | SetProvider
   | Queue
@@ -173,7 +192,10 @@ export type CardPluginAction =
   | ShowLinkToolbar
   | HideLinkToolbar
   | RegisterSmartCardEvents
-  | RegisterSmartCardEventsNext;
+  | RegisterSmartCardEventsNext
+  | SetDatasourceTableRef
+  | SetCardLayout
+  | SetCardLayoutAndDatasourceTableRef;
 
 export type CardReplacementInputMethod =
   | INPUT_METHOD.CLIPBOARD

@@ -48,7 +48,7 @@ const resizeControlStyles = css({
   position: 'absolute',
   top: 0,
   bottom: 0,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: '100%',
   outline: 'none',
 });

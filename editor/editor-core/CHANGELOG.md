@@ -1,5 +1,12 @@
 # @atlaskit/editor-core
 
+## 185.5.5
+
+### Patch Changes
+
+- [`072578e8f55`](https://bitbucket.org/atlassian/atlassian-frontend/commits/072578e8f55) - [ux] The change here enables the datasource table to be configured with varying width based on 3 layout modes.
+- [`dd532ad4f99`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd532ad4f99) - [MEX-2457] fix wrong upload position for mediaGroup
+
 ## 185.5.2
 
 ### Patch Changes

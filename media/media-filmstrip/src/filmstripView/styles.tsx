@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { N20, N40, B400, B50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const filmStripViewStyles = css`
   position: relative;
   padding: 3px 0;
@@ -85,7 +85,7 @@ export const arrowLeftWrapperStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const arrowRightWrapperStyles = css`
   ${arrowWrapperStyles};
   right: ${token('space.100', '8px')};

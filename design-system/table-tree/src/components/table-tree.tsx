@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react';
-
-import PropTypes from 'prop-types';
+import React, { Component, createContext } from 'react';
 
 import Cell from './cell';
 import Header from './header';
@@ -9,15 +7,28 @@ import Headers from './headers';
 import Row from './row';
 import Rows from './rows';
 
+type ColumnWidth = string | number;
+
 interface State {
-  columnWidths: number[];
+  columnWidths: ColumnWidth[];
 }
 
-export default class TableTree extends Component<any, State> {
-  static childContextTypes = {
-    tableTree: PropTypes.object.isRequired,
-  };
+type TableTreeContext = {
+  setColumnWidth: (columnIndex: number, width: ColumnWidth) => void;
+  getColumnWidth: (columnIndex: number) => ColumnWidth | null;
+};
 
+/**
+ *
+ * Context provider which maintains the column widths and access methods for use in descendent table cells
+ * Enables composed table-tree implementations to e.g. set width on header cells only
+ */
+export const TableTreeContext = createContext<TableTreeContext>({
+  setColumnWidth: () => {},
+  getColumnWidth: () => null,
+});
+
+export default class TableTree extends Component<any, State> {
   state: State = {
     columnWidths: [],
   };
@@ -29,7 +40,7 @@ export default class TableTree extends Component<any, State> {
     }
   }
 
-  setColumnWidth = (columnIndex: number, width: number) => {
+  setColumnWidth = (columnIndex: number, width: ColumnWidth) => {
     const { columnWidths } = this.state;
     if (width === columnWidths[columnIndex]) {
       return;
@@ -41,16 +52,6 @@ export default class TableTree extends Component<any, State> {
   getColumnWidth = (columnIndex: any) => {
     return (this.state && this.state.columnWidths[columnIndex]) || null;
   };
-
-  getChildContext() {
-    return {
-      tableTree: {
-        columnWidths: this.state.columnWidths,
-        setColumnWidth: this.setColumnWidth,
-        getColumnWidth: this.getColumnWidth,
-      },
-    };
-  }
 
   render() {
     const {
@@ -104,11 +105,18 @@ export default class TableTree extends Component<any, State> {
       );
     }
     return (
-      <div role="treegrid" aria-readonly>
-        {heads}
-        {rows}
-        {this.props.children}
-      </div>
+      <TableTreeContext.Provider
+        value={{
+          setColumnWidth: this.setColumnWidth,
+          getColumnWidth: this.getColumnWidth,
+        }}
+      >
+        <div role="treegrid" aria-readonly>
+          {heads}
+          {rows}
+          {this.props.children}
+        </div>
+      </TableTreeContext.Provider>
     );
   }
 }

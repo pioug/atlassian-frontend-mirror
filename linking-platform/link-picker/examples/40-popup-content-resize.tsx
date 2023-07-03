@@ -56,7 +56,7 @@ function TestContentResize() {
           appearance="primary"
           isSelected={isOpen}
           onClick={handleToggle}
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           style={{ position: 'fixed', bottom: 350 }}
         >
           Toggle

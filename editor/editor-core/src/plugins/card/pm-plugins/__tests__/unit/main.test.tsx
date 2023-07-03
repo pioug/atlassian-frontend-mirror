@@ -40,6 +40,13 @@ import { INPUT_METHOD } from '../../../../analytics/types';
 import { pluginKey } from '../../plugin-key';
 import { createAnalyticsQueue } from '../../analytics/create-analytics-queue';
 import { resolveWithProvider } from '../../util/resolve';
+import { setNodeSelection } from '@atlaskit/editor-common/utils';
+import { getPluginState } from '../../util/state';
+import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '../../../nodeviews/datasource';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 
 const mockAnalyticsQueue = {
   push: jest.fn(),
@@ -193,6 +200,7 @@ describe('resolveWithProvider()', () => {
 describe('datasource', () => {
   const createEditor = createEditorFactory();
   const providerFactory = new ProviderFactory();
+
   const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
@@ -238,9 +246,90 @@ describe('datasource', () => {
     const nodeDOM = editorView.nodeDOM(0);
     expect((nodeDOM as HTMLDivElement).innerHTML).toMatch(
       new RegExp(
-        '<div class="[\\w-]+"><button data-testid="mock-datasource-table-view">Mock Datasource Table View</button></div>',
+        '<div class="[\\w- ]+"><button data-testid="mock-datasource-table-view">Mock Datasource Table View</button></div>',
       ),
     );
+  });
+
+  it('should set datasourceTableRef correctly when datasource table is selected/unselected', async () => {
+    const { editorView } = editor(
+      doc(p('{<>}hello'), datasourceBlockCard(mockAdfAttributes)()),
+    );
+
+    const initalState = getPluginState(editorView.state);
+    expect(initalState?.datasourceTableRef).toBeUndefined();
+
+    setNodeSelection(editorView, 7);
+
+    const datasourceTargetEl = editorView.dom.querySelector(
+      `.${DATASOURCE_INNER_CONTAINER_CLASSNAME}`,
+    );
+    const stateOnSelection = getPluginState(editorView.state);
+    expect(stateOnSelection?.datasourceTableRef).toEqual(datasourceTargetEl);
+
+    setNodeSelection(editorView, 0);
+
+    const stateAfterSelection = getPluginState(editorView.state);
+    expect(stateAfterSelection?.datasourceTableRef).toBeUndefined();
+  });
+
+  it('should call dispatch once per selection and de-selection', async () => {
+    const { editorView } = editor(
+      doc(p('{<>}hello'), datasourceBlockCard(mockAdfAttributes)()),
+    );
+
+    const initalState = getPluginState(editorView.state);
+    expect(initalState?.layout).toEqual('wide');
+
+    const mockDispatch = jest.fn();
+    editorView.dispatch = mockDispatch;
+
+    setNodeSelection(editorView, 7);
+    expect(mockDispatch).toHaveBeenCalledTimes(1);
+
+    mockDispatch.mockReset();
+
+    setNodeSelection(editorView, 0);
+    expect(mockDispatch).toHaveBeenCalledTimes(1);
+  });
+
+  it('should update layout when the datasource layout button is pressed', async () => {
+    const eventDispatcher = new EventDispatcher();
+    let createAnalyticsEvent = jest.fn(
+      () => ({ fire() {} } as UIAnalyticsEvent),
+    );
+
+    const { editorView, contentComponents } = editor(
+      doc(p('hello'), datasourceBlockCard(mockAdfAttributes)()),
+    );
+    const [, , , , layoutButtonComponent] = contentComponents;
+    const wrapper = renderWithIntl(
+      layoutButtonComponent({
+        editorView,
+        editorActions: null as any,
+        eventDispatcher,
+        providerFactory,
+        appearance: 'full-page',
+        disabled: false,
+        containerElement: null,
+        dispatchAnalyticsEvent: createAnalyticsEvent,
+        wrapperElement: null,
+      })!,
+    );
+    const layoutButton = wrapper.getByTestId('datasource-table-layout-button');
+
+    const stateWithLayoutAsWide = getPluginState(editorView.state);
+    expect(stateWithLayoutAsWide?.layout).toEqual('wide');
+
+    layoutButton.click();
+
+    const stateWithLayoutAsFullWidth = getPluginState(editorView.state);
+    expect(stateWithLayoutAsFullWidth?.layout).toEqual('full-width');
+
+    layoutButton.click();
+
+    const stateWithLayoutAsCenter = getPluginState(editorView.state);
+    expect(stateWithLayoutAsCenter?.layout).toEqual('center');
   });
 });
 

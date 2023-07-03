@@ -16,7 +16,7 @@ const cardWrapperStyles = ({
   wrapperDimensions,
   displayInline,
 }: CardViewWrapperProps) =>
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   css`
     ${displayInlineStyles(displayInline)}
     width: ${wrapperDimensions.width};

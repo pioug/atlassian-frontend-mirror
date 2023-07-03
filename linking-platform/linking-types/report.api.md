@@ -16,10 +16,10 @@
 
 ```ts
 // @public (undocumented)
-type Access = 'forbidden' | 'granted' | 'not_found' | 'unauthorized';
+export type Access = 'forbidden' | 'granted' | 'not_found' | 'unauthorized';
 
 // @public (undocumented)
-interface AuthService {
+export interface AuthService {
   // (undocumented)
   displayName: string;
   // (undocumented)
@@ -37,10 +37,9 @@ export interface BooleanType {
 }
 
 // @public (undocumented)
-type DatasourceData = {
+export type DatasourceData = {
   items: DatasourceDataResponseItem[];
   schema?: {
-    defaultProperties: string[];
     properties: DatasourceResponseSchemaProperty[];
   };
   nextPageCursor?: string;
@@ -74,15 +73,15 @@ export interface DatasourceDataResponseItem {
 }
 
 // @public (undocumented)
-type DatasourceDetails = {
+export type DatasourceDetails = {
   ari: string;
   id: string;
   name: string;
   description: string;
   parameters: DatasourceResponseParameter[];
   schema: {
-    properties: DatasourceResponseSchemaProperty[];
     defaultProperties: string[];
+    properties: DatasourceResponseSchemaProperty[];
   };
 };
 
@@ -96,7 +95,7 @@ export interface DatasourceDetailsResponse
   extends DatasourceResponse<DatasourceDetails> {}
 
 // @public (undocumented)
-type DatasourceMeta = {
+export type DatasourceMeta = {
   access: Access;
   visibility: Visibility;
   auth?: AuthService[];
@@ -353,7 +352,7 @@ export interface UserType {
 }
 
 // @public (undocumented)
-type Visibility = 'not_found' | 'other' | 'public' | 'restricted';
+export type Visibility = 'not_found' | 'other' | 'public' | 'restricted';
 
 // (No @packageDocumentation comment for this package)
 ```

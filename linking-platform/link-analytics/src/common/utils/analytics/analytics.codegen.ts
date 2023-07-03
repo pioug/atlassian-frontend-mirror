@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::d44669d488d3d633e0ce1adfd41f2f10>>
+ * @codegen <<SignedSource::977607f096665b18ae3f6a18baf441e1>>
  * @codegenCommand yarn workspace @atlaskit/link-analytics run codegen-analytics
  */
 export type ExternalContextType = {
@@ -21,6 +21,7 @@ export type ResolvedAttributesType = {
     | 'forbidden'
     | 'not_found'
     | null;
+  statusDetails: string | null;
   displayCategory: 'smartLink' | 'link';
   extensionKey: string | null;
   destinationProduct: string | null;
@@ -61,12 +62,21 @@ function createEventPayload<K extends keyof AnalyticsEventAttributes>(
   eventKey: K,
   attributes: AnalyticsEventAttributes[K]
 ) {
-  const event = eventKey.split('.');
+  const [eventType, actionSubject, action, actionSubjectId] =
+    eventKey.split('.');
+  if (eventType === 'screen') {
+    return {
+      eventType,
+      name: actionSubject,
+      action: 'viewed',
+      attributes: attributes,
+    };
+  }
   return {
-    eventType: event[0],
-    actionSubject: event[1],
-    action: event[2],
-    actionSubjectId: event[3],
+    eventType,
+    actionSubject,
+    actionSubjectId,
+    action,
     attributes: attributes,
   };
 }

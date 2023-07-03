@@ -2,7 +2,7 @@ import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
 import { B200 } from '@atlaskit/theme/colors';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const avatarListWrapperStyles = css`
   ul {
     display: flex;

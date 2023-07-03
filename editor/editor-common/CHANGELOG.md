@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 74.11.1
+
+### Patch Changes
+
+- [`c75a15c09dd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c75a15c09dd) - - The change here adds a datasource wrapper css class to be used for datasource table.
+  - Also moves some types and functions from breakout plugin to common to be reused for datasource layout button
+
 ## 74.11.0
 
 ### Minor Changes

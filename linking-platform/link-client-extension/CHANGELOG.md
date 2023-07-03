@@ -1,5 +1,15 @@
 # @atlaskit/link-client-extension
 
+## 1.5.0
+
+### Minor Changes
+
+- [`12411d70076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12411d70076) - export more datasource types in the linking-type index and remove the defaultProperties in the datasourceDataResponse
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.0
 
 ### Minor Changes

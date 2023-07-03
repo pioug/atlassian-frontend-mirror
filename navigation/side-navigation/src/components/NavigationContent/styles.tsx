@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage-spacing */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { N10, N30 } from '@atlaskit/theme/colors';
 import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';

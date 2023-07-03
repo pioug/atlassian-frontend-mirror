@@ -12,9 +12,9 @@ import { keylineHeight, padding } from './internal/constants';
 const footerStyles = css({
   display: 'flex',
 
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   paddingTop: `${padding - keylineHeight}px`,
 
   position: 'relative',

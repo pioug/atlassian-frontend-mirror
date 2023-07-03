@@ -35,9 +35,9 @@ const StackingContextExample = () => (
       <div
         style={{
           position: 'absolute',
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           top: 100,
-          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
           left: 100,
           background: 'aquamarine',
           padding: token('space.300', '24px'),

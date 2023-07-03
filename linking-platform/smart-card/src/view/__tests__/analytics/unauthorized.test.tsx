@@ -466,13 +466,18 @@ describe('smart-card: unauthorized analytics', () => {
           expect(analytics.fireSmartLinkEvent).toBeCalledWith(
             {
               action: 'unresolved',
+              actionSubject: 'smartLink',
               attributes: {
                 componentName: 'smart-cards',
                 display: 'inline',
                 id: expect.any(String),
                 extensionKey: 'object-provider',
                 definitionId: 'd1',
+                packageName: '@atlaskit/smart-card',
+                packageVersion: '999.9.9',
+                reason: 'unauthorized',
               },
+              eventType: 'operational',
             },
             expect.any(Function),
           );

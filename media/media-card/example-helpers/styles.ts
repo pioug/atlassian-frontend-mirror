@@ -7,7 +7,7 @@ export const editableCardOptionsStyles = css`
   max-width: 700px;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const sliderWrapperStyles = css`
   display: flex;
   width: 50%;
@@ -18,7 +18,7 @@ export const sliderWrapperStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const editableCardContentStyles = css`
   /* Not making the wrapper fancier or center elements in order to have a more realistic scenario */
   padding: ${token('space.250', '20px')};
@@ -32,7 +32,7 @@ export const editableCardContentStyles = css`
   box-sizing: border-box;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const optionsWrapperStyles = css`
   display: flex;
 
@@ -42,7 +42,7 @@ export const optionsWrapperStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const cardDimensionsWrapperStyles = css`
   margin: 10px 10px ${token('space.250', '20px')} 10px;
   display: flex;
@@ -62,7 +62,7 @@ export const cardPreviewWrapperStyles = css`
   flex: 1;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const cardWrapperStyles = css`
   border: 1px solid ${token('color.border.bold', 'black')};
   padding: 10px;
@@ -74,13 +74,13 @@ export const cardWrapperStyles = css`
   display: inline-block;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const cardFlowHeaderStyles = css`
   margin: ${token('space.250', '20px')} auto;
   padding: 10px 0;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const externalIdentifierWrapperStyles = css`
   display: flex;
   justify-content: space-around;
@@ -104,7 +104,7 @@ export const unhandledErrorCardWrapperStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const inlineCardVideoWrapperItemStyles = css`
   padding: 10px;
   border: 1px solid ${token('color.border.bold', 'black')};
@@ -124,7 +124,7 @@ export const mediaViewerExampleWrapperStyles = css`
   display: flex;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const mediaInlineWrapperStyles = css`
   display: flex;
   align-items: center;

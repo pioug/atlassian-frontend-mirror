@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, NodeSelection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
@@ -24,7 +24,15 @@ import type {
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import type cardPlugin from '../index';
-import { Datasource } from '../nodeviews/datasource';
+import {
+  DATASOURCE_INNER_CONTAINER_CLASSNAME,
+  Datasource,
+} from '../nodeviews/datasource';
+import {
+  setDatasourceTableRef,
+  setCardLayoutAndDatasourceTableRef,
+} from './actions';
+import { findDomRefAtPos } from 'prosemirror-utils';
 
 export { pluginKey } from './plugin-key';
 
@@ -60,6 +68,8 @@ export const createPlugin =
             smartLinkEventsNext: undefined,
             createAnalyticsEvent,
             editorAppearance,
+            datasourceTableRef: undefined,
+            layout: undefined,
           };
         },
 
@@ -99,6 +109,7 @@ export const createPlugin =
           name,
           provider,
         ) => handleProvider(name, provider, view);
+        const domAtPos = view.domAtPos.bind(view);
         const rafCancellationCallbacks: Function[] = [];
 
         pmPluginFactoryParams.providerFactory.subscribe(
@@ -110,6 +121,45 @@ export const createPlugin =
           update(view: EditorView, prevState: EditorState) {
             const currentState = getPluginState(view.state);
             const oldState = getPluginState(prevState);
+
+            const { state, dispatch } = view;
+            const { selection, tr, schema } = state;
+
+            const isBlockCardSelected =
+              selection instanceof NodeSelection &&
+              selection.node?.type === schema.nodes.blockCard;
+
+            if (isBlockCardSelected) {
+              const datasourceTableRef = (
+                findDomRefAtPos(selection.from, domAtPos) as HTMLElement
+              )?.querySelector(
+                `.${DATASOURCE_INNER_CONTAINER_CLASSNAME}`,
+              ) as HTMLElement;
+
+              const { node } = selection;
+              const isDatasource = !!node?.attrs?.datasource;
+
+              const shouldUpdateTableRef =
+                datasourceTableRef &&
+                currentState?.datasourceTableRef !== datasourceTableRef;
+
+              if (isDatasource && shouldUpdateTableRef) {
+                // since we use the plugin state, which is a shared state, we need to update the datasourceTableRef, layout on each selection
+                const layout = node?.attrs?.layout || 'center';
+
+                // we use cardAction to set the same meta, hence, we will need to combine both layout+datasourceTableRef in one transaction
+                dispatch(
+                  setCardLayoutAndDatasourceTableRef({
+                    datasourceTableRef,
+                    layout,
+                  })(tr),
+                );
+              }
+            } else {
+              if (currentState?.datasourceTableRef) {
+                dispatch(setDatasourceTableRef(undefined)(tr));
+              }
+            }
 
             if (currentState && currentState.provider) {
               // Find requests in this state that weren't in the old one.
@@ -172,20 +222,18 @@ export const createPlugin =
               showServerActions,
             };
             const hasIntlContext = true;
+            const isDatasource = !!node?.attrs?.datasource;
 
-            if (node.attrs.datasource) {
-              return new Datasource(
+            if (isDatasource) {
+              return new Datasource({
                 node,
                 view,
                 getPos,
                 portalProviderAPI,
                 eventDispatcher,
-                undefined,
-                undefined,
-                true,
-                undefined,
                 hasIntlContext,
-              ).init();
+                pluginInjectionApi,
+              }).init();
             }
             return new BlockCard(
               node,

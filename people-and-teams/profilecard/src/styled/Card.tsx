@@ -125,7 +125,7 @@ export const CardContent = styled.div`
   min-height: ${gridSize() * 17}px;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const DetailsGroup = styled.div`
   display: flex;
   flex-direction: column;

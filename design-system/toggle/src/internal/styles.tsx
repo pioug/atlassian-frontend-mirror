@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage-spacing */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { CSSObject } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports

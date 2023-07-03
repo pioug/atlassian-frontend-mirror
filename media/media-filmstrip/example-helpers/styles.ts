@@ -6,7 +6,7 @@ export interface MutableCardContainerProps {
   mutable: boolean;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const filmstripContainerStyles = css`
   border: 1px dotted ${token('color.border', N50A)};
   margin-top: 10px;

@@ -12,7 +12,7 @@ import Tooltip from '@atlaskit/tooltip';
 import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const IconExplorerLink = styled.a`
   &,
   &:hover,

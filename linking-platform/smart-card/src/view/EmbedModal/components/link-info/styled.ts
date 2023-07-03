@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const containerStyles = css`
   align-items: center;
   display: flex;

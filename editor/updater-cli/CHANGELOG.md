@@ -1,5 +1,11 @@
 # @atlaskit/updater-cli
 
+## 2.1.3
+
+### Patch Changes
+
+- [`50cf866a219`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50cf866a219) - bump semver
+
 ## 2.1.2
 
 ### Patch Changes

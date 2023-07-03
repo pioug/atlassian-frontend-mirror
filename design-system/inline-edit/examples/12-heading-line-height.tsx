@@ -41,7 +41,7 @@ const HeadingOne: FC<{ children: string }> = ({ children }) => (
 const textFieldStyles = css({
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   '& > [data-ds--text-field--input]': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     margin: '-11px -4px',
     padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
     fontSize: token('font.size.400', '24px'),

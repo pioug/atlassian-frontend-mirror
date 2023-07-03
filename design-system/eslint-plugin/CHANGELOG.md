@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 7.0.2
+
+### Patch Changes
+
+- [`50cf866a219`](https://bitbucket.org/atlassian/atlassian-frontend/commits/50cf866a219) - bump semver
+
 ## 7.0.1
 
 ### Patch Changes

@@ -24,13 +24,13 @@ import { SkipLinkWrapperProps } from './types';
 const prefersReducedMotionStyles = css(prefersReducedMotion());
 
 const skipLinkStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   margin: 10,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: '0.8rem 1rem',
   position: 'fixed',
   zIndex: -1,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: -999999,
   background: token('elevation.surface.overlay', 'white'),
   border: 'none',

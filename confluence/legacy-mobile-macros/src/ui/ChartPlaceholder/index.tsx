@@ -11,7 +11,7 @@ import { LineChartIcon } from '../../common/ui';
 
 import { chartPlaceholderMessages } from './messages';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const ChartPlaceholderCard = styled.div`
   align-items: flex-start;
   background-color: ${themed({ light: N30, dark: DN30 })};

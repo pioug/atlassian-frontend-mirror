@@ -1,6 +1,6 @@
 import { EditorState } from 'prosemirror-state';
-import { BreakoutMode } from '../commands/set-breakout-mode';
 import { findSupportedNodeForBreakout } from './find-breakout-node';
+import { BreakoutMode } from '@atlaskit/editor-common/types';
 
 /**
  * Get the current mode of the breakout at the selection

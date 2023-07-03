@@ -150,7 +150,7 @@ export const LinkWrapper = styled.div`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const Wrapper = styled.div<WrapperProps>`
   ${(props) => wrapperStyles(props)};
   margin-top: 10px;
@@ -301,7 +301,7 @@ export const Byline = styled.div`
   ${ellipsis('100%')};
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const Description = styled.div`
   margin-top: 7px;
   color: ${token('color.text', colors.N800)};

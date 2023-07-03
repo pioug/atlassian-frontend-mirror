@@ -47,7 +47,7 @@ const isHighlightedStyles = css({
 
 const isHighlightedAndDropdownButtonStyles = css({
   '&:before': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     right: -10,
   },
 });
@@ -59,7 +59,7 @@ const isHighlightedNotDropdownButtonStyles = css({
 });
 
 const isDropdownButtonStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginRight: 18,
 
   '&:after': {

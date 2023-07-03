@@ -28,7 +28,7 @@ type FlagActionsProps = {
 
 const buttonStyles = css({
   '&&, a&&': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     padding: `0 ${token('space.100', '8px')} !important`,
     background: `var(${VAR_BG_COLOR})`,
     color: `var(${VAR_COLOR}) !important`,
@@ -47,7 +47,7 @@ const buttonStyles = css({
 
 const appearanceNormalButtonStyles = css({
   '&&, a&&': {
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     padding: '0 !important',
   },
 });

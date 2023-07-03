@@ -60,6 +60,8 @@ describe('card', () => {
           ],
           provider,
           showLinkingToolbar: false,
+          datasourceTableRef: undefined,
+          layout: undefined,
         });
       });
     });

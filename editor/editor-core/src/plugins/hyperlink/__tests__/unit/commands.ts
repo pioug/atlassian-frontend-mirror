@@ -297,6 +297,8 @@ describe('hyperlink commands', () => {
           },
         ],
         provider: null, // cardProvider would have been set yet
+        datasourceTableRef: undefined,
+        layout: undefined,
         showLinkingToolbar: false,
       });
     });
@@ -325,6 +327,8 @@ describe('hyperlink commands', () => {
           },
         ],
         provider: null, // cardProvider would have been set yet
+        datasourceTableRef: undefined,
+        layout: undefined,
         showLinkingToolbar: false,
       });
       expect(view.state.doc).toEqualDocument(
@@ -353,6 +357,8 @@ describe('hyperlink commands', () => {
         cards: [],
         requests: [],
         provider: null, // cardProvider would have been set yet
+        datasourceTableRef: undefined,
+        layout: undefined,
         showLinkingToolbar: false,
       });
     });

@@ -11,13 +11,13 @@ type ToggleBoxProps = {
 };
 
 const toggleBoxStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: '1rem',
   position: 'fixed',
   zIndex: 1,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   bottom: '1rem',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: '50%',
   backgroundColor: token('color.background.neutral.subtle', 'white'),
   border: `1px solid ${token('color.border', 'lightgray')}`,

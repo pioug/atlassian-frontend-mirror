@@ -20,7 +20,7 @@ const CSS_SIZE_SPACING = '--size-spacing';
 
 const stackLayoutStyles = css({
   display: 'grid',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   gap: `var(${CSS_SIZE_SPACING})`,
   gridAutoFlow: 'column',
 });

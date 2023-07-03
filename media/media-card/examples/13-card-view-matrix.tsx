@@ -34,7 +34,7 @@ const checkboxesContainerStyles = css`
   align-items: center;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const styledTableStyles = css`
   margin: 30px auto 0 auto;
   max-width: 1100px;

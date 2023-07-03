@@ -14,9 +14,9 @@ const listStyles = css({
   // removes default ul styles. Needs !important to override contextual styles in product.
   display: 'flex',
   margin: token('space.0', '0px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginRight: -gutter,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginLeft: -gutter,
   padding: token('space.0', '0px'),
   justifyContent: 'flex-start',

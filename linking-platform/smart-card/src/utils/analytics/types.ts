@@ -18,6 +18,7 @@ export interface CommonEventProps {
   destinationSubproduct?: DestinationSubproduct | string;
   destinationProduct?: DestinationProduct | string;
   location?: string;
+  statusDetails?: string;
 }
 
 export type ResolvedEventProps = CommonEventProps & {

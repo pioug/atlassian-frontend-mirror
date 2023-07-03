@@ -80,6 +80,12 @@ export const smartCardStyles = css`
     }
   }
 
+  .${SmartCardSharedCssClassName.DATASOURCE_CONTAINER}.${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER} {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   .${SmartCardSharedCssClassName.EMBED_CARD_CONTAINER} {
     .${SmartCardSharedCssClassName.LOADER_WRAPPER} > div {
       cursor: pointer;

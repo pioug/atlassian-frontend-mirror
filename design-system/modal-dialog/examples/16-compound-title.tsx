@@ -20,13 +20,13 @@ const headerStyles: React.CSSProperties = {
     'url(https://atlassian.design/react_assets/images/cards/personality.png) center top no-repeat',
   backgroundSize: 'cover',
   borderRadius: '4px 4px 0 0',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   paddingTop: 170,
   position: 'relative',
 };
 
 const titleStyles: React.CSSProperties = {
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   top: 100,
   position: 'absolute',
   padding: `${token('space.025', '2px')} ${token('space.300', '24px')}`,

@@ -21,7 +21,7 @@ const Tick = () => (
   />
 );
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const DivPresence = styled.div`
   align-items: center;
   background-color: ${token(

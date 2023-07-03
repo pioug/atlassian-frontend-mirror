@@ -9,9 +9,9 @@ import { keylineHeight, padding } from './internal/constants';
 const headerStyles = css({
   display: 'flex',
 
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: padding,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   paddingBottom: `${padding - keylineHeight}px`,
 
   position: 'relative',

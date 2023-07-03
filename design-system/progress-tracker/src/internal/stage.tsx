@@ -34,9 +34,9 @@ const listItemStyles = css({
 });
 
 const titleStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginTop: LABEL_TOP_SPACING,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   lineHeight: '16px',
   textAlign: 'center',
   '&.fade-appear': {

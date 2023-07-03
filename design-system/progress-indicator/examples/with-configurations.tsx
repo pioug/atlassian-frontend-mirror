@@ -50,7 +50,7 @@ const headingStyles = css({
 
 const pageStyles = css({
   maxWidth: '840px',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginInline: 'auto',
 });
 

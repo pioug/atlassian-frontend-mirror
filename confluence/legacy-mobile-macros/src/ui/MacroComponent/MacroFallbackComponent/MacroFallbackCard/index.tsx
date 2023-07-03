@@ -28,7 +28,7 @@ const ContentWrapper = styled.span`
   justify-content: space-between;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const Error = styled.span`
   flex-basis: 100%;
   padding-top: 10px;

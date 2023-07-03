@@ -76,6 +76,12 @@ export const getStatus = ({ meta }: JsonLd.Response): CardType => {
   }
 };
 
+export const getStatusDetails = (
+  details?: JsonLd.Response,
+): string | undefined => {
+  return details?.meta?.requestAccess?.accessType;
+};
+
 export const isFinalState = (status: CardType): boolean => {
   return (
     ['unauthorized', 'forbidden', 'errored', 'resolved', 'not_found'].indexOf(

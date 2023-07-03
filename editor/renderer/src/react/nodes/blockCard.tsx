@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 import { Card } from '@atlaskit/smart-card';
-import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
+import { UnsupportedBlock, WidthConsumer } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 import { getPlatform } from '../../utils';
@@ -17,11 +17,14 @@ import {
 } from '@atlaskit/link-datasource';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
+import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 
 //  Temporary, until we add aspect ratio to the datasource table
 const datasourceContainerStyle = css({
   height: '500px',
   overflow: 'auto',
+  marginLeft: '50%',
+  transform: 'translateX(-50%)',
 });
 
 export default function BlockCard(props: {
@@ -32,6 +35,7 @@ export default function BlockCard(props: {
   portal?: HTMLElement;
   rendererAppearance?: RendererAppearance;
   smartLinks?: SmartLinksOptions;
+  layout?: string;
 }) {
   const { url, data, eventHandlers, portal, rendererAppearance, smartLinks } =
     props;
@@ -60,21 +64,31 @@ export default function BlockCard(props: {
       const visibleColumnKeys = tableView.properties?.columns.map(
         ({ key }) => key,
       );
+
+      const { datasource, layout } = props;
+
       return (
         <AnalyticsContext data={analyticsData}>
-          <div css={datasourceContainerStyle}>
-            <CardErrorBoundary
-              unsupportedComponent={UnsupportedBlock}
-              {...cardProps}
-            >
-              <DatasourceTableView
-                datasourceId={props.datasource.id}
-                parameters={props.datasource.parameters}
-                visibleColumnKeys={visibleColumnKeys}
-                onVisibleColumnKeysChange={undefined}
-              />
-            </CardErrorBoundary>
-          </div>
+          <CardErrorBoundary
+            unsupportedComponent={UnsupportedBlock}
+            {...cardProps}
+          >
+            <WidthConsumer>
+              {({ width }) => (
+                <div
+                  css={datasourceContainerStyle}
+                  style={{ width: calcBreakoutWidth(layout, width) }}
+                >
+                  <DatasourceTableView
+                    datasourceId={datasource.id}
+                    parameters={datasource.parameters}
+                    visibleColumnKeys={visibleColumnKeys}
+                    onVisibleColumnKeysChange={undefined}
+                  />
+                </div>
+              )}
+            </WidthConsumer>
+          </CardErrorBoundary>
         </AnalyticsContext>
       );
     }

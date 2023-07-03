@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage-spacing */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 
 import { Provider, Client } from '../../src';

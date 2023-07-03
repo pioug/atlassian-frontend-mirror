@@ -26,10 +26,10 @@ export const TreeRowContainer: FC<
 
 const commonChevronContainerStyles = css({
   display: 'flex',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginLeft: `calc(${indentBase} * -1)`,
   position: 'absolute',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   top: 7,
   alignItems: 'center',
 });
@@ -50,7 +50,7 @@ export const ChevronContainer: FC<ChevronContainerProps> = (
 
 const chevronIconContainerStyles = css({
   position: 'relative',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   top: 1,
 });
 
@@ -66,12 +66,12 @@ export const ChevronIconContainer: FC<ChevronContainerProps> = (
 
 const loadingItemContainerStyles = css({
   width: '100%',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   paddingTop: 5,
 });
 
 const paddingLeftStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   paddingLeft: '50%',
 });
 

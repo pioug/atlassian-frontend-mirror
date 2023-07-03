@@ -24,6 +24,7 @@ export const getResolvedAttributes = (
 
   return {
     status: status ?? null,
+    statusDetails: details?.meta?.requestAccess?.accessType ?? null,
     displayCategory,
     extensionKey: details?.meta?.key ?? null,
     destinationTenantId: details?.meta?.tenantId ?? null,

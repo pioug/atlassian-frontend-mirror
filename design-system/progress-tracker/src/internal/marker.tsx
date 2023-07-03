@@ -18,7 +18,7 @@ const progressMarkerStyles = css({
   width: PROGRESS_BAR_HEIGHT,
   height: PROGRESS_BAR_HEIGHT,
   position: 'absolute',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: '50%',
   backgroundColor: `var(${varBackgroundColor})`,
   borderRadius: PROGRESS_BAR_HEIGHT,

@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 8.0.0
+
+### Major Changes
+
+- [`12411d70076`](https://bitbucket.org/atlassian/atlassian-frontend/commits/12411d70076) - export more datasource types in the linking-type index and remove the defaultProperties in the datasourceDataResponse
+
 ## 7.0.0
 
 ### Major Changes

@@ -19,11 +19,11 @@ const staticData = [
 
 const overflowingBoxStyles = css({
   width: '150px',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginBottom: '-15px',
   position: 'absolute',
   right: token('space.0', '0px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   bottom: '100%',
   background: token('color.background.danger.bold', 'red'),
   border: `5px solid ${token('color.border', '#800')}`,

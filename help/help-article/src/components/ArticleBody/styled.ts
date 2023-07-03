@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import styled from '@emotion/styled';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const ArticleFrame = styled.iframe`
   display: block;
   width: calc(100% + 10px);

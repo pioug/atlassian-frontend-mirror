@@ -30,7 +30,7 @@ export type HeaderWrapperProps = {
 export const headerWrapperStyles = ({
   isArchiveSideBarVisible,
 }: HeaderWrapperProps) =>
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   css`
     position: absolute;
     top: 0;
@@ -107,7 +107,7 @@ export const zoomWrapperStyles = css`
   pointer-events: none;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const zoomControlsWrapperStyles = css`
   width: 100%;
   position: absolute;
@@ -121,7 +121,7 @@ export const zoomControlsWrapperStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const zoomLevelIndicatorStyles = css`
   position: absolute;
   right: ${token('space.300', '24px')};
@@ -130,7 +130,7 @@ export const zoomLevelIndicatorStyles = css`
   pointer-events: all;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const hdIconGroupWrapperStyles = css`
   position: absolute;
   right: 69px;
@@ -151,7 +151,7 @@ export const errorMessageWrapperStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const errorImageStyles = css`
   margin-bottom: 10px;
   user-select: none;
@@ -366,7 +366,7 @@ export const defaultCoverWrapperStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const downloadButtonWrapperStyles = css`
   margin-top: 28px;
   text-align: center;

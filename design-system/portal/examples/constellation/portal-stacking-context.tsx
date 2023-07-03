@@ -35,7 +35,7 @@ const bottomSquareStyles = css({
 
 const topSquarePositionStyles = css({
   top: token('space.0', '0px'),
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   left: '256px',
 });
 

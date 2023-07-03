@@ -37,4 +37,5 @@ export default {
   'fabric.linkPicker.time.message.viewed': '⁣⁢Viewed {time}⁭‌⁡؜‌‍‍⁮؜؜⁠⁪⁪⁪⁬⁫⁪‍‍‌⁬⁣⁤',
   'fabric.linkPicker.unhandledError.description': '⁣⁢Try reloading the page.‌⁪‍⁡⁮⁪⁯⁫⁬‌⁬⁮⁠⁪‍⁠‍⁠⁪⁭⁠⁯؜؜‍⁣⁤',
   'fabric.linkPicker.unhandledError.heading': '⁣⁢Something went wrong!⁭⁮⁬⁪؜⁠‌⁮⁪⁠⁯⁠⁯‍⁬⁬⁭⁬⁫⁭⁠⁡⁠⁣⁤',
+  foo: '⁣⁢Default string⁬⁬⁡⁫‍⁡⁠‍‍⁮⁡⁪‌⁮⁬⁪⁭⁬⁠⁭⁫⁡⁡‌⁠⁣⁤',
 };

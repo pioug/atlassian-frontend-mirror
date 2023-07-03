@@ -17,16 +17,35 @@ import {
   DatasourceTableView,
 } from '@atlaskit/link-datasource';
 
+import { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles';
+import { DatasourceTableLayout } from '../ui/LayoutButton/types';
+import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type cardPlugin from '../index';
+
+export const DATASOURCE_INNER_CONTAINER_CLASSNAME =
+  'datasourceView-content-inner-wrap';
+
 const containerStyles = css({
   height: '500px',
   overflow: 'auto',
 });
 
-interface DatasourceComponentProps extends ReactComponentProps {
+interface DatasourceProps extends ReactComponentProps {
   node: PMNode;
   view: EditorView;
   getPos: getPosHandler;
+  portalProviderAPI: PortalProviderAPI;
+  eventDispatcher: EventDispatcher;
+  hasIntlContext: boolean;
+  pluginInjectionApi: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 }
+
+interface DatasourceComponentProps
+  extends ReactComponentProps,
+    Pick<DatasourceProps, 'node' | 'view' | 'getPos'> {}
 
 export class DatasourceComponent extends React.PureComponent<DatasourceComponentProps> {
   static contextTypes = {
@@ -116,10 +135,68 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
   }
 }
 
-export class Datasource extends ReactNodeView<DatasourceComponentProps> {
+export class Datasource extends ReactNodeView<DatasourceProps> {
+  private tableWidth: number | undefined;
+
+  constructor(props: DatasourceProps) {
+    super(
+      props.node,
+      props.view,
+      props.getPos,
+      props.portalProviderAPI,
+      props.eventDispatcher,
+      props,
+      undefined,
+      true,
+      undefined,
+      props.hasIntlContext,
+    );
+
+    const sharedState =
+      props?.pluginInjectionApi?.dependencies?.width?.sharedState;
+
+    this.tableWidth = sharedState?.currentState()?.width;
+
+    sharedState?.onChange(({ nextSharedState }) => {
+      if (
+        nextSharedState?.width &&
+        this.tableWidth !== nextSharedState?.width
+      ) {
+        this.tableWidth = nextSharedState?.width;
+        this.update(this.node, []); // required to update the width when page is resized.
+      }
+    });
+  }
+
+  createDomRef(): HTMLElement {
+    const domRef = document.createElement('div');
+    domRef.classList.add(SmartCardSharedCssClassName.DATASOURCE_CONTAINER);
+    return domRef;
+  }
+
+  calcTableWidth = (
+    layout: DatasourceTableLayout,
+    containerWidth?: number,
+  ): number | 'inherit' => {
+    if (layout === 'center') {
+      return 'inherit';
+    }
+
+    return calcBreakoutWidthPx(layout, containerWidth);
+  };
+
   render() {
+    const { attrs } = this.node;
+    const calculatedWidth = this.calcTableWidth(attrs.layout, this.tableWidth);
+
     return (
-      <div css={containerStyles}>
+      <div
+        className={DATASOURCE_INNER_CONTAINER_CLASSNAME}
+        css={containerStyles}
+        style={{
+          minWidth: calculatedWidth,
+        }}
+      >
         <DatasourceComponent
           node={this.node}
           view={this.view}

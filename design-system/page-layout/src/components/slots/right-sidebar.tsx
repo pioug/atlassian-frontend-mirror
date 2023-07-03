@@ -34,9 +34,9 @@ const fixedInnerStyles = css({
    */
   width: RIGHT_SIDEBAR_WIDTH,
   position: 'fixed',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   top: `calc(${BANNER_HEIGHT} + ${TOP_NAVIGATION_HEIGHT})`,
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   right: `calc(${RIGHT_PANEL_WIDTH})`,
   bottom: 0,
 });

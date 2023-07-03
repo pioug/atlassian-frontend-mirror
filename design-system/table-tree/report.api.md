@@ -18,145 +18,18 @@
 /// <reference types="react" />
 
 import { Component } from 'react';
-import { Context } from 'react';
-import { ErrorInfo } from 'react';
 import { jsx } from '@emotion/react';
-import PropTypes from 'prop-types';
 import { default as React_2 } from 'react';
-import { ReactInstance } from 'react';
 import { ReactNode } from 'react';
-import { Validator } from 'prop-types';
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import { WithContextProps } from '@atlaskit/analytics-next';
 
 // @public (undocumented)
-export const Cell: {
-  new (props: Readonly<CellProps & CellWithColumnWidthProps>): {
-    UNSAFE_componentWillMount(): void;
-    setColumnWidth(width?: number | string | undefined): void;
-    UNSAFE_componentWillReceiveProps(nextProps: CellWithColumnWidthProps): void;
-    render(): JSX.Element;
-    context: any;
-    setState<K extends never>(
-      state:
-        | ((
-            prevState: Readonly<{}>,
-            props: Readonly<CellProps & CellWithColumnWidthProps>,
-          ) => Pick<{}, K> | null | {})
-        | Pick<{}, K>
-        | null
-        | {},
-      callback?: (() => void) | undefined,
-    ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
-    readonly props: Readonly<CellProps & CellWithColumnWidthProps> &
-      Readonly<{
-        children?: React_2.ReactNode;
-      }>;
-    state: Readonly<{}>;
-    refs: {
-      [key: string]: React_2.ReactInstance;
-    };
-    componentDidMount?(): void;
-    shouldComponentUpdate?(
-      nextProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): boolean;
-    componentWillUnmount?(): void;
-    componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
-    getSnapshotBeforeUpdate?(
-      prevProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      prevState: Readonly<{}>,
-    ): any;
-    componentDidUpdate?(
-      prevProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      prevState: Readonly<{}>,
-      snapshot?: any,
-    ): void;
-    componentWillMount?(): void;
-    componentWillReceiveProps?(
-      nextProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      nextContext: any,
-    ): void;
-    componentWillUpdate?(
-      nextProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): void;
-    UNSAFE_componentWillUpdate?(
-      nextProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): void;
-  };
-  new (props: CellProps & CellWithColumnWidthProps, context?: any): {
-    UNSAFE_componentWillMount(): void;
-    setColumnWidth(width?: number | string | undefined): void;
-    UNSAFE_componentWillReceiveProps(nextProps: CellWithColumnWidthProps): void;
-    render(): JSX.Element;
-    context: any;
-    setState<K extends never>(
-      state:
-        | ((
-            prevState: Readonly<{}>,
-            props: Readonly<CellProps & CellWithColumnWidthProps>,
-          ) => Pick<{}, K> | null | {})
-        | Pick<{}, K>
-        | null
-        | {},
-      callback?: (() => void) | undefined,
-    ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
-    readonly props: Readonly<CellProps & CellWithColumnWidthProps> &
-      Readonly<{
-        children?: React_2.ReactNode;
-      }>;
-    state: Readonly<{}>;
-    refs: {
-      [key: string]: React_2.ReactInstance;
-    };
-    componentDidMount?(): void;
-    shouldComponentUpdate?(
-      nextProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): boolean;
-    componentWillUnmount?(): void;
-    componentDidCatch?(error: Error, errorInfo: React_2.ErrorInfo): void;
-    getSnapshotBeforeUpdate?(
-      prevProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      prevState: Readonly<{}>,
-    ): any;
-    componentDidUpdate?(
-      prevProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      prevState: Readonly<{}>,
-      snapshot?: any,
-    ): void;
-    componentWillMount?(): void;
-    componentWillReceiveProps?(
-      nextProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      nextContext: any,
-    ): void;
-    componentWillUpdate?(
-      nextProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): void;
-    UNSAFE_componentWillUpdate?(
-      nextProps: Readonly<CellProps & CellWithColumnWidthProps>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): void;
-  };
-  contextTypes: {
-    tableTree: Validator<object>;
-  };
-  contextType?: React_2.Context<any> | undefined;
-};
+export const Cell: (props: CellProps & CellWithColumnWidthProps) => JSX.Element;
 
 // @public (undocumented)
 export interface CellProps {
+  children?: ReactNode;
   className?: string;
   indentLevel?: number;
   singleLine?: boolean;
@@ -172,130 +45,10 @@ export interface CellWithColumnWidthProps {
 }
 
 // @public (undocumented)
-export const Header: {
-  new (props: Readonly<any>): {
-    UNSAFE_componentWillMount(): void;
-    setColumnWidth(width?: number | string | undefined): void;
-    UNSAFE_componentWillReceiveProps(nextProps: CellWithColumnWidthProps): void;
-    render(): JSX.Element;
-    context: any;
-    setState<K extends never>(
-      state:
-        | ((
-            prevState: Readonly<{}>,
-            props: Readonly<any>,
-          ) => Pick<{}, K> | null | {})
-        | Pick<{}, K>
-        | null
-        | {},
-      callback?: (() => void) | undefined,
-    ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
-    readonly props: Readonly<any> &
-      Readonly<{
-        children?: ReactNode;
-      }>;
-    state: Readonly<{}>;
-    refs: {
-      [key: string]: ReactInstance;
-    };
-    componentDidMount?(): void;
-    shouldComponentUpdate?(
-      nextProps: Readonly<any>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): boolean;
-    componentWillUnmount?(): void;
-    componentDidCatch?(error: Error, errorInfo: ErrorInfo): void;
-    getSnapshotBeforeUpdate?(
-      prevProps: Readonly<any>,
-      prevState: Readonly<{}>,
-    ): any;
-    componentDidUpdate?(
-      prevProps: Readonly<any>,
-      prevState: Readonly<{}>,
-      snapshot?: any,
-    ): void;
-    componentWillMount?(): void;
-    componentWillReceiveProps?(
-      nextProps: Readonly<any>,
-      nextContext: any,
-    ): void;
-    componentWillUpdate?(
-      nextProps: Readonly<any>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): void;
-    UNSAFE_componentWillUpdate?(
-      nextProps: Readonly<any>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): void;
-  };
-  new (props: any, context?: any): {
-    UNSAFE_componentWillMount(): void;
-    setColumnWidth(width?: number | string | undefined): void;
-    UNSAFE_componentWillReceiveProps(nextProps: CellWithColumnWidthProps): void;
-    render(): JSX.Element;
-    context: any;
-    setState<K extends never>(
-      state:
-        | ((
-            prevState: Readonly<{}>,
-            props: Readonly<any>,
-          ) => Pick<{}, K> | null | {})
-        | Pick<{}, K>
-        | null
-        | {},
-      callback?: (() => void) | undefined,
-    ): void;
-    forceUpdate(callBack?: (() => void) | undefined): void;
-    readonly props: Readonly<any> &
-      Readonly<{
-        children?: ReactNode;
-      }>;
-    state: Readonly<{}>;
-    refs: {
-      [key: string]: ReactInstance;
-    };
-    componentDidMount?(): void;
-    shouldComponentUpdate?(
-      nextProps: Readonly<any>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): boolean;
-    componentWillUnmount?(): void;
-    componentDidCatch?(error: Error, errorInfo: ErrorInfo): void;
-    getSnapshotBeforeUpdate?(
-      prevProps: Readonly<any>,
-      prevState: Readonly<{}>,
-    ): any;
-    componentDidUpdate?(
-      prevProps: Readonly<any>,
-      prevState: Readonly<{}>,
-      snapshot?: any,
-    ): void;
-    componentWillMount?(): void;
-    componentWillReceiveProps?(
-      nextProps: Readonly<any>,
-      nextContext: any,
-    ): void;
-    componentWillUpdate?(
-      nextProps: Readonly<any>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): void;
-    UNSAFE_componentWillUpdate?(
-      nextProps: Readonly<any>,
-      nextState: Readonly<{}>,
-      nextContext: any,
-    ): void;
-  };
-  contextTypes: {
-    tableTree: Validator<object>;
-  };
-  contextType?: Context<any> | undefined;
-};
+type ColumnWidth = number | string;
+
+// @public (undocumented)
+export const Header: (props: any) => JSX.Element;
 
 // @public (undocumented)
 class Headers_2 extends Component<any> {
@@ -332,31 +85,19 @@ export interface RowsProps<T> {
 // @public (undocumented)
 interface State {
   // (undocumented)
-  columnWidths: number[];
+  columnWidths: ColumnWidth[];
 }
 
 // @public (undocumented)
 class TableTree extends Component<any, State> {
   // (undocumented)
-  static childContextTypes: {
-    tableTree: PropTypes.Validator<object>;
-  };
-  // (undocumented)
   componentDidMount(): void;
   // (undocumented)
-  getChildContext(): {
-    tableTree: {
-      columnWidths: number[];
-      setColumnWidth: (columnIndex: number, width: number) => void;
-      getColumnWidth: (columnIndex: any) => null | number;
-    };
-  };
-  // (undocumented)
-  getColumnWidth: (columnIndex: any) => null | number;
+  getColumnWidth: (columnIndex: any) => ColumnWidth | null;
   // (undocumented)
   render(): JSX.Element;
   // (undocumented)
-  setColumnWidth: (columnIndex: number, width: number) => void;
+  setColumnWidth: (columnIndex: number, width: ColumnWidth) => void;
   // (undocumented)
   state: State;
 }

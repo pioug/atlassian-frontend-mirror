@@ -15,14 +15,14 @@ import { token } from '@atlaskit/tokens';
 
 import Tooltip from '../src';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const Toolbar = styled.div`
   background-color: ${token('color.background.neutral', N20)};
   border-radius: ${borderRadius}px;
   display: flex;
   padding: 5px;
 `;
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const Action = styled.button`
   align-items: center;
   border-radius: 3px;

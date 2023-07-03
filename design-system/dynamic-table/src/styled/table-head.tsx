@@ -100,18 +100,18 @@ const baseStyles = css({
       width: 0,
       height: 0,
       position: 'absolute',
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       right: `-${gridSize}px`,
       border: '3px solid transparent',
       content: '""',
     },
     '&::before': {
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       bottom: '8px',
       borderBottom: `3px solid ${arrow.defaultColor}`,
     },
     '&::after': {
-      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+      // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
       bottom: 0,
       borderTop: `3px solid ${arrow.defaultColor}`,
     },

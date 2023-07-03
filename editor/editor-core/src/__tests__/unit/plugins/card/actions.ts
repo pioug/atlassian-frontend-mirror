@@ -63,6 +63,8 @@ describe('card', () => {
           showLinkingToolbar: false,
           events: undefined,
           createAnalyticsEvent,
+          datasourceTableRef: undefined,
+          layout: undefined,
         });
       });
     });
@@ -135,6 +137,8 @@ describe('card', () => {
           cards: [],
           requests: [],
           provider: null,
+          datasourceTableRef: undefined,
+          layout: undefined,
           showLinkingToolbar: false,
           events: undefined,
           createAnalyticsEvent,
@@ -170,6 +174,8 @@ describe('card', () => {
           showLinkingToolbar: false,
           events: undefined,
           createAnalyticsEvent,
+          datasourceTableRef: undefined,
+          layout: undefined,
         });
       });
     });

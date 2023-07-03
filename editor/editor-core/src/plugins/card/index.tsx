@@ -1,6 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { inlineCard, blockCard, embedCard } from '@atlaskit/adf-schema';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
 import { floatingToolbar } from './toolbar';
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
@@ -14,6 +14,9 @@ import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 
 import { EditorSmartCardEventsNext } from './ui/EditorSmartCardEventsNext';
+import LayoutButton from './ui/LayoutButton';
+import { CardPluginState } from './types';
+import { pluginKey } from './pm-plugins/plugin-key';
 
 const cardPlugin: NextEditorPlugin<
   'card',
@@ -27,6 +30,7 @@ const cardPlugin: NextEditorPlugin<
       typeof gridPlugin,
       FloatingToolbarPlugin,
     ];
+    sharedState: CardPluginState | null;
   }
 > = (options, api) => {
   const featureFlags =
@@ -34,6 +38,13 @@ const cardPlugin: NextEditorPlugin<
 
   return {
     name: 'card',
+
+    getSharedState(editorState) {
+      if (!editorState) {
+        return null;
+      }
+      return pluginKey.getState(editorState);
+    },
 
     nodes() {
       const nodes = [
@@ -85,15 +96,28 @@ const cardPlugin: NextEditorPlugin<
       return plugins;
     },
 
-    contentComponent({ editorView }) {
+    contentComponent({
+      editorView,
+      popupsMountPoint,
+      popupsScrollableElement,
+      popupsBoundariesElement,
+    }) {
       const { lpAnalyticsEventsNext } = featureFlags;
+
       return (
-        <Fragment>
+        <>
           <EditorSmartCardEvents editorView={editorView} />
           {lpAnalyticsEventsNext && (
             <EditorSmartCardEventsNext editorView={editorView} />
           )}
-        </Fragment>
+          <LayoutButton
+            api={api}
+            editorView={editorView}
+            mountPoint={popupsMountPoint}
+            scrollableElement={popupsScrollableElement}
+            boundariesElement={popupsBoundariesElement}
+          />
+        </>
       );
     },
 

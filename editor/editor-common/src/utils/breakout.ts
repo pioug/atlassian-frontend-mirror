@@ -8,6 +8,8 @@ import {
   breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
 
+import commonMessages from '../messages';
+import { BreakoutMode } from '../types/breakout';
 import { mapBreakpointToLayoutMaxWidth } from '../ui/BaseTheme';
 import { getBreakpoint } from '../ui/WidthProvider';
 
@@ -162,3 +164,26 @@ export function calcBreakoutWidthPx(
 ) {
   return parsePx(calcBreakoutWidth(mode, widthStateWidth)) as number;
 }
+
+export const getNextBreakoutMode = (
+  currentMode?: BreakoutMode,
+): BreakoutMode => {
+  if (currentMode === 'full-width') {
+    return 'center';
+  } else if (currentMode === 'wide') {
+    return 'full-width';
+  }
+
+  return 'wide';
+};
+
+export const getTitle = (layout?: BreakoutMode) => {
+  switch (layout) {
+    case 'full-width':
+      return commonMessages.layoutFixedWidth;
+    case 'wide':
+      return commonMessages.layoutFullWidth;
+    default:
+      return commonMessages.layoutWide;
+  }
+};

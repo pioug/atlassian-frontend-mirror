@@ -57,10 +57,16 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   const initHideCard = useCallback(() => {
     if (fadeInTimeoutId.current) {
       clearTimeout(fadeInTimeoutId.current);
+      // because fadeInTimeoutId.current is set by mouseOver which triggers multiple times in a hover,
+      // we want to clear out the reference to signify that there's no in-progress fade in event
+      fadeInTimeoutId.current = undefined;
     }
 
     if (resolveTimeOutId.current) {
       clearTimeout(resolveTimeOutId.current);
+      // because resolveTimeOutId.current is set by mouseOver which triggers multiple times in a hover,
+      // we want to clear out the reference to signify that there's no in-progress resolve event
+      resolveTimeOutId.current = undefined;
     }
     fadeOutTimeoutId.current = setTimeout(() => hideCard(), delay);
   }, [hideCard]);
@@ -75,10 +81,16 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 
       if (fadeInTimeoutId.current) {
         clearTimeout(fadeInTimeoutId.current);
+        // because fadeInTimeoutId.current is set by mouseOver which triggers multiple times in a hover,
+        // we want to clear out the reference to signify that there's no in-progress fade in event
+        fadeInTimeoutId.current = undefined;
       }
 
       if (resolveTimeOutId.current) {
         clearTimeout(resolveTimeOutId.current);
+        // because resolveTimeOutId.current is set by mouseOver which triggers multiple times in a hover,
+        // we want to clear out the reference to signify that there's no in-progress resolve event
+        resolveTimeOutId.current = undefined;
       }
     };
   }, []);
@@ -99,14 +111,19 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 
   const initShowCard = useCallback(
     (event) => {
+      // clearing out fadeOutTimeoutId in case it's already counting down to hide the card
       if (fadeOutTimeoutId.current) {
         clearTimeout(fadeOutTimeoutId.current);
       }
 
+      // starting to resolve the hover card if the store doesn't have data about the link yet
       initResolve();
+
       //Set mouse position in the case it's not already set by onMouseMove, as in the case of scrolling
       setMousePosition(event);
-      if (!isOpen) {
+
+      if (!isOpen && !fadeInTimeoutId.current) {
+        // setting a timeout to show a Hover Card after delay runs out
         fadeInTimeoutId.current = setTimeout(() => {
           //If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
           if (parentSpan.current && mousePos.current) {

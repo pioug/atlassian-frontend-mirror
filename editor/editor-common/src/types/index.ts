@@ -177,3 +177,5 @@ export type {
 } from './hyperlink';
 
 export type { SnapPointsProps } from './resizable-media-single';
+
+export type { BreakoutMode } from './breakout';

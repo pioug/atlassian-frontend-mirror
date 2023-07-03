@@ -19,7 +19,7 @@ import Modal, {
 
 const wrapperStyles = css({
   display: 'flex',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginRight: 'auto',
   alignItems: 'center',
   color: token('color.text.subtlest', N200),

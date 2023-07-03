@@ -29,7 +29,7 @@ export const Note = styled.p<{ size?: string }>`
   margin-bottom: ${token('space.200', '16px')};
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const Code = styled.code`
   background-color: ${R50};
   border-radius: 0.2em;
@@ -47,7 +47,7 @@ export const ShrinkWrap = styled(Gap)`
   height: ${token('space.300', '24px')};
   width: ${token('space.300', '24px')};
 `;
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const Heading = styled.div`
   color: ${token('color.text.subtlest', N200)};
   display: flex;

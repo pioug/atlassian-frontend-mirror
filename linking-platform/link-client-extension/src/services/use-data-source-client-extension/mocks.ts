@@ -187,7 +187,6 @@ export const mockDatasourceDataResponseWithSchema: DatasourceDataResponse = {
     ...mockDatasourceDataResponse.data,
     schema: {
       properties: mockDatasourceResponse.data.schema.properties,
-      defaultProperties: mockDatasourceResponse.data.schema.defaultProperties,
     },
   },
 };

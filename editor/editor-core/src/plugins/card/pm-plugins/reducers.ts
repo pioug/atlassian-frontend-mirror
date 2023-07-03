@@ -10,6 +10,9 @@ import {
   HideLinkToolbar,
   RegisterSmartCardEvents,
   RegisterSmartCardEventsNext,
+  SetDatasourceTableRef,
+  SetCardLayout,
+  SetCardLayoutAndDatasourceTableRef,
 } from '../types';
 
 const queue = (state: CardPluginState, action: Queue) => {
@@ -45,6 +48,28 @@ const register = (state: CardPluginState, action: Register) => {
 
 const setProvider = (state: CardPluginState, action: SetProvider) => {
   return { ...state, provider: action.provider };
+};
+
+const setCardLayout = (state: CardPluginState, action: SetCardLayout) => {
+  return { ...state, layout: action.layout };
+};
+
+const setDatasourceTableRef = (
+  state: CardPluginState,
+  action: SetDatasourceTableRef,
+) => {
+  return { ...state, datasourceTableRef: action.datasourceTableRef };
+};
+
+const setCardLayoutDatasourceTableRef = (
+  state: CardPluginState,
+  action: SetCardLayoutAndDatasourceTableRef,
+) => {
+  return {
+    ...state,
+    datasourceTableRef: action.datasourceTableRef,
+    layout: action.layout,
+  };
 };
 
 const registerEvents = (
@@ -88,6 +113,12 @@ export default (
       return registerEvents(state, action);
     case 'REGISTER_EVENTS_NEXT':
       return registerEventsNext(state, action);
+    case 'SET_DATASOURCE_TABLE_REF':
+      return setDatasourceTableRef(state, action);
+    case 'SET_CARD_LAYOUT':
+      return setCardLayout(state, action);
+    case 'SET_CARD_LAYOUT_AND_DATASOURCE_TABLE_REF':
+      return setCardLayoutDatasourceTableRef(state, action);
     case 'SHOW_LINK_TOOLBAR':
     case 'HIDE_LINK_TOOLBAR':
       return setLinkToolbar(state, action);

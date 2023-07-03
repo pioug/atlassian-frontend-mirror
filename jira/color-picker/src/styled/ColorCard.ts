@@ -76,7 +76,7 @@ type ColorCardContentProps = {
 };
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const ColorCardContent = styled.div<ColorCardContentProps>`
   position: absolute;
   top: 1px;
@@ -89,7 +89,7 @@ export const ColorCardContent = styled.div<ColorCardContentProps>`
     ${token('color.background.inverse.subtle', colors.DN600A)};
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const ColorCardContentCheckMark = styled.div`
   margin: 1px;
 `;

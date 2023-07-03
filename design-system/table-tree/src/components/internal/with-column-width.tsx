@@ -1,44 +1,33 @@
-/* eslint-disable react/prop-types */
-import React, { Component } from 'react';
+import React, { useContext, useEffect } from 'react';
 
-import PropTypes from 'prop-types';
+import { TableTreeContext } from '../table-tree';
 
 export interface CellWithColumnWidthProps {
-  width?: number | string;
+  width?: string | number;
   columnIndex?: number;
 }
-
 export default function withColumnWidth<T extends object>(
   Cell: React.ComponentType<T>,
 ) {
-  return class CellWithColumnWidth extends Component<
-    T & CellWithColumnWidthProps
-  > {
-    static contextTypes = {
-      tableTree: PropTypes.object.isRequired,
-    };
+  return (props: T & CellWithColumnWidthProps) => {
+    const { setColumnWidth, getColumnWidth } = useContext(TableTreeContext);
+    const { width, columnIndex, ...other } = props;
 
-    UNSAFE_componentWillMount() {
-      this.setColumnWidth(this.props.width);
-    }
+    useEffect(() => {
+      if (width !== undefined && columnIndex !== undefined) {
+        setColumnWidth(columnIndex, width);
+      }
+    }, [width, columnIndex, setColumnWidth]);
 
-    setColumnWidth(width?: number | string) {
-      if (width !== undefined) {
-        this.context.tableTree.setColumnWidth(this.props.columnIndex, width);
+    let columnWidth;
+    if (width !== null && width !== undefined) {
+      columnWidth = width;
+    } else {
+      if (columnIndex !== undefined) {
+        columnWidth = getColumnWidth(columnIndex);
       }
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps: CellWithColumnWidthProps) {
-      this.setColumnWidth(nextProps.width);
-    }
-
-    render() {
-      const { width, columnIndex, ...other } = this.props;
-      const columnWidth =
-        width !== null && width !== undefined
-          ? width
-          : this.context.tableTree.getColumnWidth(columnIndex);
-      return <Cell width={columnWidth} {...(other as T)} />;
-    }
+    return <Cell width={columnWidth} {...(other as T)} />;
   };
 }

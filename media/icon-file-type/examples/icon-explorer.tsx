@@ -20,12 +20,12 @@ const allIcons = Promise.all(
     .reduce((acc, b) => ({ ...acc, ...b })),
 );
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const IconGridWrapper = styled.div`
   padding: 10px 5px 0;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const IconExplorerGrid = styled.div`
   display: flex;
   flex-direction: row;
@@ -34,7 +34,7 @@ const IconExplorerGrid = styled.div`
   margin-top: 10px;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const NoIcons = styled.div`
   margin-top: 10px;
   padding: 10px;

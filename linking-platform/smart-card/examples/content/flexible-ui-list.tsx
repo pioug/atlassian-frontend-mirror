@@ -15,7 +15,7 @@ import {
 } from '../../src';
 import { response2, response3, response4 } from './example-responses';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const styles = css`
   list-style: none;
   margin-top: 0;

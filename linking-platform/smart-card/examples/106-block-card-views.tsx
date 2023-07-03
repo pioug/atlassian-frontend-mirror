@@ -30,12 +30,12 @@ import {
 import { CollaboratorListProps } from '../src/view/BlockCard/components/CollaboratorList';
 import { mockAnalytics } from '../src/utils/mocks';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const headerCSS = css`
   margin-top: 28px;
   margin-bottom: ${token('space.200', '16px')};
 `;
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const subHeaderCSS = css`
   margin-top: 28px;
   margin-bottom: ${token('space.100', '8px')};

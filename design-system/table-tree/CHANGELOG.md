@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.6.0
+
+### Minor Changes
+
+- [`60b048eae5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b048eae5d) - Replaced legacy context with useContext for handling column widths
+
 ## 9.5.0
 
 ### Minor Changes

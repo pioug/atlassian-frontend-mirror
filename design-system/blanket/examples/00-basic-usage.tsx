@@ -11,9 +11,9 @@ import { token } from '@atlaskit/tokens';
 import Blanket from '../src';
 
 const eventResultStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   margin: '0.5em',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   padding: '0.5em',
   borderColor: token('color.border', '#ccc'),
   borderStyle: 'dashed',

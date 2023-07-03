@@ -11,7 +11,7 @@ interface VRTestCaseOpts {
   children: () => JSX.Element;
 }
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const subHeaderCSS = css`
   margin-top: 28px;
   margin-bottom: ${token('space.100', '8px')};

@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 8.1.0
+
+### Minor Changes
+
+- [`c5a897eb81d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a897eb81d) - add statusDetails attribute
+
 ## 8.0.6
 
 ### Patch Changes

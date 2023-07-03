@@ -12,7 +12,7 @@ export const popupContainerStyles = css`
   overflow: scroll;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const popupHeaderStyles = css`
   border-bottom: 1px solid #ccc;
   margin-bottom: 15px;
@@ -25,13 +25,13 @@ export const popupHeaderStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const previewImageWrapperStyles = css`
   position: relative;
   margin-right: 15px;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const infoWrapperStyles = css`
   position: absolute;
   width: 160px;
@@ -92,7 +92,7 @@ interface ClipboardContainerProps {
 
 export const clipboardContainerStyles = ({
   isWindowFocused,
-}: // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+}: // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 ClipboardContainerProps) => css`
   padding: 10px;
   min-height: 400px;
@@ -100,7 +100,7 @@ ClipboardContainerProps) => css`
   border: ${isWindowFocused ? `1px dashed gray` : `1px dashed transparent`};
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const infoContainerStyles = css`
   position: absolute;
   top: 0;

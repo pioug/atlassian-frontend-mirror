@@ -37,7 +37,7 @@ const blanketStyles = css({
 });
 
 const behindOffsetStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   marginLeft: '144px',
 });
 

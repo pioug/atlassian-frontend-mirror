@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.15.0
+
+### Minor Changes
+
+- [`d71c9cef468`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d71c9cef468) - [ux] The cross axis offset of keyboard drag previews is now a fixed value, instead of being percentage-based.
+
 ## 0.14.1
 
 ### Patch Changes

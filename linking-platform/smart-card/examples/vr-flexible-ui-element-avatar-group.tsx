@@ -11,7 +11,7 @@ import {
   CollaboratorGroup,
 } from '../src/view/FlexibleCard/components/elements';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const containerStyles = css`
   display: flex;
   flex-wrap: wrap;

@@ -27,7 +27,7 @@ export const triggerButtonStyles = css`
   }
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const triggerLozengeStyles = css`
   align-items: center;
   display: flex;

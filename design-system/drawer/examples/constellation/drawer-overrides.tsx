@@ -1,31 +1,31 @@
 /** @jsx jsx */
 import { Fragment, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Drawer from '../../src';
 
-const SidebarOverrideStyles = css({
+const sidebarOverrideStyles = xcss({
   display: 'flex',
-  width: 64,
+  width: '64px',
   height: '100vh',
-  paddingTop: token('space.300', '24px'),
-  paddingBottom: token('space.200', '16px'),
+  paddingTop: 'space.300',
+  paddingBottom: 'space.200',
   alignItems: 'center',
   flexBasis: 'auto',
   flexDirection: 'column',
-  backgroundColor: token('color.background.accent.yellow.subtlest', '#FFF7D6'),
-  color: token('color.text.accent.yellow.bolder', '#533F04'),
+  backgroundColor: 'color.background.accent.yellow.subtlest',
+  color: 'color.text.accent.yellow.bolder',
 });
 
-const ContentOverrideStyles = css({
-  padding: token('space.300', '24px'),
+const contentOverrideStyles = xcss({
+  padding: 'space.300',
   flex: 1,
-  backgroundColor: token('color.background.accent.blue.subtlest', '#E9F2FF'),
-  color: token('color.text.accent.blue.bolder', '#09326C'),
+  backgroundColor: 'color.background.accent.blue.subtlest',
+  color: 'color.text.accent.blue.bolder',
   overflow: 'auto',
 });
 
@@ -39,12 +39,12 @@ const DrawerOverridesExample = () => {
         overrides={{
           Sidebar: {
             component: ({ children }) => (
-              <div css={SidebarOverrideStyles}>{children} Sidebar</div>
+              <Box xcss={sidebarOverrideStyles}>{children} Sidebar</Box>
             ),
           },
           Content: {
             component: ({ children }) => (
-              <div css={ContentOverrideStyles}>{children} Content</div>
+              <Box xcss={contentOverrideStyles}>{children} Content</Box>
             ),
           },
         }}

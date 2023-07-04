@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.2.5
+
+### Patch Changes
+
+- [`7c1c449eb96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c1c449eb96) - Updated space token descriptions.
+
 ## 2.2.4
 
 ### Patch Changes

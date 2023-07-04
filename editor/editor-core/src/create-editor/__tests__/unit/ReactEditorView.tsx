@@ -58,6 +58,7 @@ jest.mock('@atlaskit/editor-common/analytics', () => ({
 }));
 
 import React from 'react';
+import { screen } from '@testing-library/react';
 import { mountWithIntl } from '../../../__tests__/__helpers/enzyme';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { EditorView } from 'prosemirror-view';
@@ -299,10 +300,11 @@ describe('@atlaskit/editor-core', () => {
       jest.useRealTimers();
     });
 
-    it('should prefix assistive label with assistiveLabel and set it in aria-label of render editor ProseMirror div', () => {
+    it('should set and update aria-label of editor ProseMirror div with passed assistiveLabel prop. ', () => {
       const label =
         'Description field: Main content area, start typing to enter text.';
-      const { getByRole } = renderWithIntl(
+
+      const { rerender } = renderWithIntl(
         <ReactEditorView
           {...requiredProps()}
           {...analyticsProps()}
@@ -312,11 +314,58 @@ describe('@atlaskit/editor-core', () => {
         />,
       );
 
-      expect(
-        getByRole('textbox', {
-          name: label,
-        }),
-      ).toBeInTheDocument();
+      expect(screen.getByLabelText(label)).toBeInTheDocument();
+
+      const newLabel = 'Page comment editor';
+      rerender(
+        <ReactEditorView
+          {...requiredProps()}
+          {...analyticsProps()}
+          editorProps={{
+            assistiveLabel: newLabel,
+          }}
+        />,
+      );
+
+      expect(screen.getByLabelText(newLabel)).toBeInTheDocument();
+    });
+
+    it('should not recreate editor if assistiveLabel prop is not changed between re-renders. ', () => {
+      const label =
+        'Description field: Main content area, start typing to enter text.';
+
+      const renderMock = jest.fn((editor) => <div />);
+      const { rerender } = renderWithIntl(
+        <ReactEditorView
+          {...requiredProps()}
+          {...analyticsProps()}
+          editorProps={{
+            assistiveLabel: label,
+          }}
+          render={renderMock}
+        />,
+      );
+
+      expect(renderMock).toHaveBeenCalledTimes(1);
+
+      rerender(
+        <ReactEditorView
+          {...requiredProps()}
+          {...analyticsProps()}
+          onEditorCreated={() => {}}
+          editorProps={{
+            assistiveLabel: label,
+          }}
+          render={renderMock}
+        />,
+      );
+
+      const isNewEditorCreated =
+        renderMock.mock.calls[0][0].editor !==
+        renderMock.mock.calls[1][0].editor;
+
+      expect(renderMock).toHaveBeenCalledTimes(2);
+      expect(isNewEditorCreated).toEqual(false);
     });
 
     it('should render editor ProseMirror div with default aria-label.', () => {

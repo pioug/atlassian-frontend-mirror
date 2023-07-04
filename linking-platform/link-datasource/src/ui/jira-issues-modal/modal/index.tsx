@@ -22,6 +22,7 @@ import {
   getAvailableJiraSites,
   Site,
 } from '../../../services/getAvailableJiraSites';
+import { AccessRequired } from '../../common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { NoResults } from '../../common/error-state/no-results';
 import { EmptyState, IssueLikeDataTableView } from '../../issue-like-table';
@@ -133,9 +134,10 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     jql &&
     `${selectedJiraSite.url}/issues/?jql=${encodeURI(jql)}`;
 
-  const isDisabled =
+  const isInsertDisabled =
     !isParametersSet ||
     status === 'rejected' ||
+    status === 'unauthorized' ||
     status === 'loading' ||
     resolvedWithNoResults;
 
@@ -213,6 +215,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
       onInsert({
         type: 'blockCard',
         attrs: {
+          url: jqlUrl,
           datasource: {
             id: datasourceId,
             parameters: {
@@ -277,7 +280,9 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
 
   const renderCountModeContent = useCallback(() => {
     const url = selectedJiraSite?.url;
-    if (status === 'empty' || !jql || !url) {
+    if (status === 'unauthorized') {
+      return <AccessRequired siteName={selectedJiraSite?.displayName} />;
+    } else if (status === 'empty' || !jql || !url) {
       return (
         <div css={smartLinkContainerStyles}>
           <span
@@ -298,15 +303,17 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
         </div>
       );
     }
-  }, [jql, selectedJiraSite?.url, status]);
+  }, [jql, selectedJiraSite, status]);
 
   const renderIssuesModeContent = useCallback(() => {
     if (status === 'rejected' && jqlUrl) {
       return <ModalLoadingError url={jqlUrl} />;
+    } else if (status === 'unauthorized') {
+      return <AccessRequired siteName={selectedJiraSite?.displayName} />;
     } else if (resolvedWithNoResults) {
       return <NoResults />;
-      // persist the empty state when making the initial /data request which contains the columns
     } else if (status === 'empty' || !columns.length) {
+      // persist the empty state when making the initial /data request which contains the columns
       return <EmptyState testId={`jira-jql-datasource-modal--empty-state`} />;
     }
 
@@ -328,6 +335,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     retrieveUrlForSmartCardRender,
     responseItems.length,
     issueLikeDataTableView,
+    selectedJiraSite?.displayName,
   ]);
 
   return (
@@ -404,7 +412,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
           <Button
             appearance="primary"
             onClick={onInsertPressed}
-            isDisabled={isDisabled}
+            isDisabled={isInsertDisabled}
             testId={'jira-jql-datasource-modal--insert-button'}
           >
             <FormattedMessage {...modalMessages.insertIssuesButtonText} />

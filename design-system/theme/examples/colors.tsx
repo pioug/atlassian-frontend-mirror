@@ -6,7 +6,7 @@ import color from 'color';
 
 import { token } from '@atlaskit/tokens';
 
-import { borderRadius, colors, ThemedValue } from '../src';
+import { colors, ThemedValue } from '../src';
 
 const emptyColor = (): {
   name: string;
@@ -59,7 +59,7 @@ const colorPillStyles = css({
   marginRight: token('space.050', '4px'),
   marginBottom: token('space.050', '4px'),
   padding: token('space.100', '8px'),
-  borderRadius: `${borderRadius()}px`,
+  borderRadius: token('border.radius', '3px'),
   fontSize: '12px',
   fontWeight: 600,
 });

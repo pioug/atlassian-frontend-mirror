@@ -101,6 +101,7 @@ describe('telepointerFromStep', () => {
     lastActive: 1999,
     name: 'Ya Boi',
     avatar: 'www.thelastairbender.com/image.png',
+    email: 'fake.user@email.com',
   };
   const participants: ProviderParticipant[] = [yaBoi];
   const stepWithoutFrom: any = {

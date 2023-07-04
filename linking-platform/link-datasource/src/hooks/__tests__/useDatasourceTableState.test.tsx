@@ -185,6 +185,17 @@ describe('useDatasourceTableState', () => {
       expect(result.current.status).toBe('rejected');
     });
 
+    it('should change status to "unauthorized" on request auth error', async () => {
+      asMock(getDatasourceData).mockResolvedValueOnce({
+        ...mockDatasourceDataResponse,
+        meta: { ...mockDatasourceDataResponse.meta, access: 'unauthorized' },
+      });
+      const { result, waitForNextUpdate } = setup();
+      await waitForNextUpdate();
+
+      expect(result.current.status).toBe('unauthorized');
+    });
+
     it('should populate responseItems with data coming from getDatasourceData', async () => {
       const { result, waitForNextUpdate } = setup();
       await waitForNextUpdate();
@@ -338,6 +349,7 @@ describe('useDatasourceTableState', () => {
   describe('#loadDatasourceDetails', () => {
     it('should update only if new columns are available', async () => {
       asMock(getDatasourceDetails).mockResolvedValue({
+        ...mockDatasourceResponse,
         data: {
           schema: {
             properties: [
@@ -387,6 +399,24 @@ describe('useDatasourceTableState', () => {
         mockDatasourceDataResponseWithSchema?.data.schema?.properties,
       );
     });
+
+    it('should update status to unauthorized on auth errors', async () => {
+      asMock(getDatasourceData).mockResolvedValue({
+        ...mockDatasourceDataResponseWithSchema,
+        meta: {
+          ...mockDatasourceDataResponseWithSchema.meta,
+          access: 'unauthorized',
+        },
+      });
+      const { waitForNextUpdate, result } = setup();
+      await waitForNextUpdate();
+
+      act(() => {
+        result.current.loadDatasourceDetails();
+      });
+
+      expect(result.current.status).toEqual('unauthorized');
+    });
   });
 
   describe('#reset()', () => {
@@ -428,6 +458,7 @@ describe('useDatasourceTableState', () => {
 
     it('should set hasNextPage to true when reset() called', async () => {
       getDatasourceData = jest.fn().mockResolvedValue({
+        meta: mockDatasourceDataResponse.meta,
         data: {
           ...mockDatasourceDataResponse.data,
           nextPageCursor: undefined,

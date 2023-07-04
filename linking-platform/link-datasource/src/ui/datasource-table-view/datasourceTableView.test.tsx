@@ -171,7 +171,7 @@ describe('DatasourceTableView', () => {
   });
 
   describe('when an error on /data request occurs', () => {
-    it('should show an error message', () => {
+    it('should show an error message on request failure', () => {
       const { mockReset } = setup({ status: 'rejected' });
       const { getByRole, getByText } = renderComponent();
 
@@ -179,6 +179,15 @@ describe('DatasourceTableView', () => {
 
       getByRole('button', { name: 'Refresh' }).click();
       expect(mockReset).toHaveBeenCalledTimes(1);
+    });
+
+    it('should show an unauthorized message on 403 response', () => {
+      setup({ status: 'unauthorized' });
+      const { getByText } = renderComponent();
+
+      expect(
+        getByText("You don't have access to this site"),
+      ).toBeInTheDocument();
     });
   });
 });

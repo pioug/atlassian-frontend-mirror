@@ -38,6 +38,30 @@ describe('Annotations: draft/component', () => {
   });
 
   describe('#TextWithAnnotationDraft', () => {
+    describe('when the child is a react node', () => {
+      it('should create the AnnotationMark at the start of the text', () => {
+        const textPosition = {
+          startPos: 20,
+          endPos: 35,
+        };
+        const draftSelection = { from: 1, to: 25 };
+
+        const result = TestRenderer.create(
+          <AnnotationsDraftContext.Provider value={draftSelection}>
+            <TextWithAnnotationDraft {...textPosition}>
+              Martin Luther King
+            </TextWithAnnotationDraft>
+          </AnnotationsDraftContext.Provider>,
+        );
+
+        expect(result.root.children).toHaveLength(2);
+        expect(result.root.children[1]).toEqual('uther King');
+        expect((result.root.children[0] as ReactTestInstance).type).toEqual(
+          AnnotationDraft,
+        );
+      });
+    });
+
     describe.each<[string, Position]>([
       ['before', { from: 1, to: 10 }],
       ['after', { from: 36, to: 100 }],
@@ -112,7 +136,7 @@ describe('Annotations: draft/component', () => {
       });
     });
 
-    describe('when the draft selection is surroding the component', () => {
+    describe('when the draft selection is surrounding the component', () => {
       it('should create the AnnotationMark around the text', () => {
         const textPosition = {
           startPos: 10,

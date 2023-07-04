@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::861a4448ac467155c8290f2b211e99c5>>
+ * @codegen <<SignedSource::57c7e229053412965e492af01b042778>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -14,7 +14,7 @@ html[data-theme~="shape:shape"] {
   --ds-border-radius-circle: 2002rem;
   --ds-border-width: 0.0625rem;
   --ds-border-width-0: 0rem;
-  --ds-border-width-050: 0.0625rem;
-  --ds-border-width-100: 0.125rem;
+  --ds-border-width-indicator: 0.1875rem;
+  --ds-border-width-outline: 0.125rem;
 }
 `;

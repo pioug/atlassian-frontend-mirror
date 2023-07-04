@@ -28,6 +28,7 @@ import { CardType } from '@atlaskit/linking-common';
 import { CardClient as Client } from '@atlaskit/link-provider';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { DatasourceAdf } from '@atlaskit/linking-common';
+import { DatasourceAdfView } from '@atlaskit/linking-common';
 import { EditorCardProvider } from '@atlaskit/link-provider';
 import { editorCardProvider } from '@atlaskit/link-provider';
 import { EmbedCardAdf } from '@atlaskit/linking-common';
@@ -418,6 +419,8 @@ type CustomActionItem = BaseActionItem & {
   );
 
 export { DatasourceAdf };
+
+export { DatasourceAdfView };
 
 // @public (undocumented)
 type DestinationProduct = 'bitbucket' | 'confluence' | 'jira' | 'trello';

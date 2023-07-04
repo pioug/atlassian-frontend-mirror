@@ -14,12 +14,12 @@ import {
   EditorInstanceWithPlugin,
 } from '@atlaskit/editor-test-helpers/create-editor';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-
 import {
   a,
   blockCard,
   blockquote,
   bodiedExtension,
+  clean,
   cleanOne,
   decisionItem,
   decisionList,
@@ -37,12 +37,13 @@ import {
   ul,
   DocBuilder,
   embedCard,
+  datasourceBlockCard,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { EditorView } from 'prosemirror-view';
-import { Fragment, Slice } from 'prosemirror-model';
+import { Fragment, Node, Slice } from 'prosemirror-model';
 
 import { pluginKey } from '../../main';
 import { CardPluginState } from '../../../types';
@@ -60,6 +61,7 @@ import {
   changeSelectedCardToLink,
   setSelectedCardAppearance,
   convertHyperlinkToSmartCard,
+  updateExistingDatasource,
 } from '../../doc';
 import { INPUT_METHOD } from '../../../../analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -70,10 +72,13 @@ import {
 } from '../../../../../__tests__/unit/plugins/card/_helpers';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { asMock } from '@atlaskit/media-test-helpers';
+import type { DatasourceAdf } from '@atlaskit/smart-card';
 
 const atlassianUrl = 'http://www.atlassian.com/';
 const googleUrl = 'http://www.google.com/';
 const localUrl = 'http://localhost:9090/';
+const mockJqlUrl1 = 'http://www.test123.com/issues/?jql=EDM/';
+const mockJqlUrl2 = 'http://www.test123456.com/issues/?jql=EDM/';
 
 function getCardAdfAttrs() {
   return {
@@ -85,6 +90,62 @@ const inlineCardAdf = {
   type: 'inlineCard',
   attrs: getCardAdfAttrs(),
 };
+
+const originalDatasourceAdfAttrs: DatasourceAdf['attrs'] = {
+  url: mockJqlUrl1,
+  datasource: {
+    id: 'datasource-id',
+    parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
+    views: [
+      {
+        type: 'table',
+        properties: { columns: [{ key: 'col1' }, { key: 'col2' }] },
+      },
+    ],
+  },
+};
+
+const originalDatasourceAdf: DatasourceAdf = {
+  type: 'blockCard',
+  attrs: originalDatasourceAdfAttrs,
+};
+
+const getNewDatasourceAdfAttrs = (url: string): DatasourceAdf['attrs'] => {
+  return {
+    url,
+    datasource: {
+      id: 'datasource-id',
+      parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
+      views: [
+        {
+          type: 'table',
+          properties: { columns: [{ key: 'col2' }] },
+        },
+      ],
+    },
+  };
+};
+
+const getNewDatasourceAdf = (url: string): DatasourceAdf => {
+  return {
+    type: 'blockCard',
+    attrs: getNewDatasourceAdfAttrs(url),
+  };
+};
+
+function getJqlCardAdfAttrs() {
+  return {
+    url: mockJqlUrl1,
+  };
+}
+
+const jqlInlineCardAdf = {
+  type: 'inlineCard',
+  attrs: getJqlCardAdfAttrs(),
+};
+
+const datasourceRefsNode = datasourceBlockCard(originalDatasourceAdfAttrs)();
+const datasourceNode = clean(datasourceRefsNode)(defaultSchema) as Node<any>;
 
 describe('card', () => {
   const createEditor = createEditorFactory();
@@ -150,6 +211,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           createAnalyticsEvent,
+          showDatasourceModal: false,
         } as CardPluginState;
         expect(pluginKey.getState(editorView.state)).toEqual(initialState);
 
@@ -199,6 +261,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           createAnalyticsEvent,
+          showDatasourceModal: false,
         } as CardPluginState);
       });
 
@@ -235,6 +298,7 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
+          showDatasourceModal: false,
           createAnalyticsEvent,
         } as CardPluginState);
       });
@@ -287,6 +351,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           createAnalyticsEvent,
+          showDatasourceModal: false,
         } as CardPluginState);
 
         // type something in between the links
@@ -311,6 +376,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           createAnalyticsEvent,
+          showDatasourceModal: false,
         } as CardPluginState);
       });
     });
@@ -376,6 +442,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           createAnalyticsEvent,
+          showDatasourceModal: false,
         } as CardPluginState);
         expect(view.state.doc).toEqualDocument(initialDoc);
         expect(rafSchd).toBeCalled();
@@ -419,6 +486,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           createAnalyticsEvent,
+          showDatasourceModal: false,
         } as CardPluginState);
         expect(view.state.doc).toEqualDocument(initialDoc);
         expect(rafSchd).toBeCalled();
@@ -475,6 +543,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           createAnalyticsEvent,
+          showDatasourceModal: false,
         } as CardPluginState);
       });
 
@@ -646,6 +715,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           createAnalyticsEvent,
+          showDatasourceModal: false,
         } as CardPluginState);
       });
     });
@@ -1248,6 +1318,74 @@ describe('card', () => {
           expect.objectContaining({
             action: 'changedType',
           }),
+        );
+      });
+    });
+
+    describe('updateExistingDatasource()', () => {
+      it('should not update datasource if nothing gets updated', () => {
+        const { editorView } = editor(doc('{<node>}', datasourceRefsNode));
+
+        updateExistingDatasource(
+          editorView.state,
+          datasourceNode,
+          originalDatasourceAdf as any,
+          editorView,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc('{<node>}', datasourceRefsNode),
+        );
+      });
+
+      it('should correctly update datasource if columns gets updated', () => {
+        const { editorView } = editor(doc('{<node>}', datasourceRefsNode));
+
+        updateExistingDatasource(
+          editorView.state,
+          datasourceNode,
+          getNewDatasourceAdf(mockJqlUrl1) as any,
+          editorView,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            '{<node>}',
+            datasourceBlockCard(getNewDatasourceAdfAttrs(mockJqlUrl1))(),
+          ),
+        );
+      });
+
+      it('should correctly update datasource if url gets updated', () => {
+        const { editorView } = editor(doc('{<node>}', datasourceRefsNode));
+
+        updateExistingDatasource(
+          editorView.state,
+          datasourceNode,
+          getNewDatasourceAdf(mockJqlUrl2) as any,
+          editorView,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            '{<node>}',
+            datasourceBlockCard(getNewDatasourceAdfAttrs(mockJqlUrl2))(),
+          ),
+        );
+      });
+
+      it('should correctly update datasource to inline card', () => {
+        const { editorView } = editor(doc('{<node>}', datasourceRefsNode));
+
+        updateExistingDatasource(
+          editorView.state,
+          datasourceNode,
+          jqlInlineCardAdf as any,
+          editorView,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p('{<node>}', inlineCard(getJqlCardAdfAttrs())())),
         );
       });
     });

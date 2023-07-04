@@ -1,17 +1,17 @@
 /** @jsx jsx */
 import { Fragment, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
+import { Box, xcss } from '@atlaskit/primitives';
 import TextArea from '@atlaskit/textarea';
 
 import Drawer from '../../src';
 
-const CheckboxStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  paddingTop: '16px',
+const checkboxStyles = xcss({
+  paddingTop: 'space.200',
 });
 
 const DrawerUnmountExample = () => {
@@ -32,7 +32,7 @@ const DrawerUnmountExample = () => {
       <Button appearance="primary" onClick={() => setOpen(true)}>
         Open drawer
       </Button>
-      <div css={CheckboxStyles}>
+      <Box xcss={checkboxStyles}>
         <Checkbox
           label={
             <Fragment>
@@ -43,7 +43,7 @@ const DrawerUnmountExample = () => {
           }
           onChange={(e) => setShouldUnmount(e.currentTarget.checked)}
         />
-      </div>
+      </Box>
     </Fragment>
   );
 };

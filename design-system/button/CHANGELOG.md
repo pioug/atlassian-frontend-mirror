@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.8.1
+
+### Patch Changes
+
+- [`ba43427b3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba43427b3e8) - Internal changes to account for introduction of shape/radius tokens.
+
 ## 16.8.0
 
 ### Minor Changes

@@ -44,13 +44,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.8.0",
-    "@atlaskit/docs": "*",
-    "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/navigation": "^37.0.0",
-    "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/tokens": "^1.10.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "enzyme": "^3.10.0",

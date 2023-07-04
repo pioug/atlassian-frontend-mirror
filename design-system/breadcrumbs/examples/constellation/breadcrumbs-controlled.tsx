@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { Box } from '@atlaskit/primitives';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
 const BreadcrumbsControlledExample = () => {
   const [isExpanded, setExpanse] = useState(false);
   return (
-    <div>
+    <Box>
       <Breadcrumbs
         isExpanded={isExpanded}
         onExpand={() => setExpanse(!isExpanded)}
@@ -26,7 +27,7 @@ const BreadcrumbsControlledExample = () => {
       <Button appearance="primary" onClick={() => setExpanse(!isExpanded)}>
         Toggle
       </Button>
-    </div>
+    </Box>
   );
 };
 

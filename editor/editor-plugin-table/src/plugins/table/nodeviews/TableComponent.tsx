@@ -52,6 +52,7 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import memoizeOne from 'memoize-one';
 import { OverflowShadowsObserver } from './OverflowShadowsObserver';
 import { TableContainer } from './TableContainer';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const isIE11 = browser.ie_version === 11;
 const NOOP = () => undefined;
@@ -550,7 +551,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       noOfColumnsChanged
     ) {
       // If column has been inserted/deleted avoid multi dispatch
-      if (!hasNumberedColumnChanged && !noOfColumnsChanged) {
+      if (
+        !getBooleanFF('platform.editor.custom-table-width') &&
+        !hasNumberedColumnChanged &&
+        !noOfColumnsChanged
+      ) {
         this.scaleTable({ parentWidth, layoutChanged });
       }
       this.updateParentWidth(parentWidth);

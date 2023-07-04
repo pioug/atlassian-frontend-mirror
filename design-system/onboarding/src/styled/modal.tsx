@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { useGlobalTheme } from '@atlaskit/theme/components';
-import { borderRadius as getBorderRadius } from '@atlaskit/theme/constants';
 import { h600 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -14,8 +13,6 @@ type ModalActionContainerProps = {
   shouldReverseButtonOrder: boolean;
   children: ReactNode;
 };
-
-const borderRadius = getBorderRadius();
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const lightH600Styles = css(h600({ theme: { mode: 'light' } }));
@@ -35,8 +32,8 @@ const modalHeadingStyles = css({
 const modalImageStyles = css({
   width: '100%',
   height: 'auto',
-  borderTopLeftRadius: `${borderRadius}px`,
-  borderTopRightRadius: `${borderRadius}px`,
+  borderTopLeftRadius: token('border.radius', '3px'),
+  borderTopRightRadius: token('border.radius', '3px'),
   '@media (min-width: 320px) and (max-width: 480px)': {
     borderRadius: 0,
   },

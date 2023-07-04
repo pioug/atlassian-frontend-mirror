@@ -26,7 +26,6 @@ import {
   N70,
   R400,
 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { defaultTimes, formatDateTimeZoneIntoIso } from '../internal';
@@ -229,7 +228,7 @@ const baseContainerStyles = css({
   border: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
     ? `1px solid ${token('color.border.input', N100)}`
     : `2px solid ${token('color.border.input', N20)}`,
-  borderRadius: `${borderRadius()}px`,
+  borderRadius: token('border.radius', '3px'),
   transition:
     'background-color 200ms ease-in-out, border-color 200ms ease-in-out',
   '&:hover': {

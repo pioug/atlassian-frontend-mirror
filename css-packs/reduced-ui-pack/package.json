@@ -39,9 +39,7 @@
     "@atlaskit/css-reset": "^6.5.2"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/section-message": "^6.4.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "bolt": "^0.24.10",
     "glob": "^7.1.2",

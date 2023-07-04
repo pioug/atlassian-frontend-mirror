@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 74.12.0
+
+### Minor Changes
+
+- [`a1b70608039`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1b70608039) - [ux] Adds editor toolbar to link datasource component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 74.11.1
 
 ### Patch Changes

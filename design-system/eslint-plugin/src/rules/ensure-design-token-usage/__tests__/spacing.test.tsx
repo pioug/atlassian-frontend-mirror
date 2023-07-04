@@ -31,11 +31,19 @@ export const spacingTests: Tests = {
     },
     {
       options: [{ domains: ['spacing'], applyImport: false }],
+      code: `const styles = css({ borderRadius: token('border.radius', '3px') })`,
+    },
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
       code: `const styles = css({ borderRadius: token('border.radius.100', '3px') })`,
     },
     {
       options: [{ domains: ['spacing'], applyImport: false }],
-      code: `const styles = css({ borderWidth: token('border.width.100', '2px') })`,
+      code: `const styles = css({ borderWidth: token('border.width', '2px') })`,
+    },
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: `const styles = css({ borderWidth: token('border.width', '2px') })`,
     },
     {
       options: [{ domains: ['spacing'], applyImport: false }],
@@ -253,7 +261,7 @@ export const spacingTests: Tests = {
           })`,
       output: `const styles = css({
             // TODO Delete this comment after verifying space token -> previous value \`2\`
-            borderWidth: token('border.width.100', '2px'),
+            borderWidth: token('border.width', '2px'),
           })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
     },
@@ -265,7 +273,19 @@ export const spacingTests: Tests = {
           })`,
       output: `const styles = css({
             // TODO Delete this comment after verifying space token -> previous value \`3\`
-            borderRadius: token('border.radius.100', '3px'),
+            borderRadius: token('border.radius', '3px'),
+          })`,
+      errors: [{ messageId: 'noRawSpacingValues' }],
+    },
+    // percentage border radius
+    {
+      options: [{ applyImport: false, domains: ['shape'] }],
+      code: `const styles = css({
+            borderRadius: '50%',
+          })`,
+      output: `const styles = css({
+            // TODO Delete this comment after verifying space token -> previous value \`'50%'\`
+            borderRadius: token('border.radius.circle', '50%'),
           })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
     },
@@ -277,7 +297,7 @@ export const spacingTests: Tests = {
               })`,
       output: `const styles = css({
                 // TODO Delete this comment after verifying space token -> previous value \`borderRadius()\`
-                borderRadius: token('border.radius.100', '3px'),
+                borderRadius: token('border.radius', '3px'),
               })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
     },
@@ -289,7 +309,7 @@ export const spacingTests: Tests = {
               })`,
       output: `const styles = css({
                 // TODO Delete this comment after verifying space token -> previous value \`\`\${borderRadius()}px\`\`
-                borderRadius: token('border.radius.100', '3px'),
+                borderRadius: token('border.radius', '3px'),
               })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
     },
@@ -366,7 +386,7 @@ export const spacingTests: Tests = {
         },
         {
           message:
-            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<NaN:2%>>',
+            'The use of spacing primitives or tokens is preferred over the direct application of spacing properties.\n\n@meta <<lineHeight:2%>>',
         },
       ],
     },

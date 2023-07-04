@@ -83,9 +83,6 @@ const getThemePreferences = (
   if (
     getBooleanFF('platform.design-system-team.space-and-shape-tokens_q5me6')
   ) {
-    if (!themePreferences.includes('shape')) {
-      themePreferences.push('shape');
-    }
     if (!themePreferences.includes('spacing')) {
       themePreferences.push('spacing');
     }
@@ -257,14 +254,14 @@ export const getThemeHtmlAttrs = ({
     typography,
   };
 
-  // Load shape and spacing by default, currently behind a feature flag
+  // Load spacing by default, currently behind a feature flag
   if (
     getBooleanFF('platform.design-system-team.space-and-shape-tokens_q5me6')
   ) {
     themePreferences = {
       dark,
       light,
-      shape: 'shape',
+      shape,
       spacing: 'spacing',
       typography,
     };

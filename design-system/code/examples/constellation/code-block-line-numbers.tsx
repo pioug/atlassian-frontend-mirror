@@ -2,13 +2,15 @@ import React from 'react';
 
 import { CodeBlock } from '../../src';
 
-const exampleCodeBlock = `// React Component
+const exampleCodeBlock = `
+import { Box } from '@atlaskit/primitives'
+ 
 class HelloMessage extends React.Component {
   render() {
     return (
-      <div>
+      <Box>
         Hello {this.props.name}
-      </div>
+      </Box>
     );
   }
 }

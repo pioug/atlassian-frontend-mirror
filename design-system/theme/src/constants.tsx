@@ -15,7 +15,7 @@ export const THEME_MODES = ['light', 'dark'];
 */
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
- * @deprecated Use `token('border.radius.100', '3px')` instead.
+ * @deprecated Use `token('border.radius', '3px')` instead.
  */
 export const borderRadius = () => 3;
 /**

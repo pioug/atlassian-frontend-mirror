@@ -2,7 +2,7 @@ import { AnalyticsWebClient } from '../../apiTypes';
 import { logDebug } from '../../util/logger';
 
 export interface APSAnalyticsClient {
-  sendEvent(subject: string, action: string, _arguments?: any): void;
+  sendEvent(subject: string, action: string, attributes?: any): void;
 }
 
 export default (
@@ -21,18 +21,18 @@ class DefaultAnalyticsClient implements APSAnalyticsClient {
     this.analyticsWebClient = analyticsWebClient;
   }
 
-  public sendEvent(subject: string, action: string, _arguments?: any) {
+  public sendEvent(subject: string, action: string, attributes?: any) {
     this.analyticsWebClient.sendOperationalEvent({
       source: 'atlaskit/pubsub',
       action,
       actionSubject: subject,
-      arguments: _arguments,
+      attributes: attributes,
     });
   }
 }
 
 class MockAnalyticsClient implements APSAnalyticsClient {
-  sendEvent(subject: string, action: string, _arguments?: any): void {
-    logDebug('[Mock analytics client]', subject, action, _arguments);
+  sendEvent(subject: string, action: string, attributes?: any): void {
+    logDebug('[Mock analytics client]', subject, action, attributes);
   }
 }

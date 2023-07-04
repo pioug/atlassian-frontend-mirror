@@ -1,18 +1,17 @@
 import { css, CSSObject } from '@emotion/react';
 
 import {
-  borderRadius as getBorderRadius,
   fontSize as getFontSize,
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import { Appearance, Spacing } from '../types';
 
 import colors, { ColorGroup, ColorRule } from './colors';
 
-const borderRadius: number = getBorderRadius();
 const gridSize: number = getGridSize();
 const fontSize: number = getFontSize();
 
@@ -126,7 +125,7 @@ export function getCss({
     // 0px margin added to css-reset
     alignItems: 'baseline',
     borderWidth: 0,
-    borderRadius,
+    borderRadius: token('border.radius', '3px'),
     boxSizing: 'border-box',
     display: 'inline-flex',
     fontSize: 'inherit',

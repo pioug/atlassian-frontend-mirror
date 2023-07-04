@@ -1,5 +1,11 @@
 # @atlaskit/inline-dialog
 
+## 13.6.5
+
+### Patch Changes
+
+- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+
 ## 13.6.4
 
 ### Patch Changes

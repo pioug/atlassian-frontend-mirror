@@ -39,7 +39,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.10.0",
+    "@atlaskit/tokens": "^1.11.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -47,9 +47,7 @@
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*",
     "@atlaskit/ds-lib": "^2.2.0",
-    "@atlaskit/section-message": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

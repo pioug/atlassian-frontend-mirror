@@ -1,12 +1,13 @@
 import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { Box } from '@atlaskit/primitives';
 
 import { Radio } from '../../src';
 
 export default function RadioDefaultExample() {
   return (
-    <div>
+    <Box>
       <Radio
         value="default radio"
         label="Default radio"
@@ -24,6 +25,6 @@ export default function RadioDefaultExample() {
         isDisabled={true}
         onChange={noop}
       />
-    </div>
+    </Box>
   );
 }

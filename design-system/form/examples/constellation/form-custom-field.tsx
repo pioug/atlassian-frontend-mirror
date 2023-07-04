@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { Box } from '@atlaskit/primitives';
 
 import Form, { Field, FormFooter } from '../../src';
 
@@ -65,7 +66,7 @@ const FormCustomFieldExample = () => {
           <form {...formProps}>
             <Field name="favorite-color" defaultValue="" label="Favorite color">
               {({ fieldProps }) => (
-                <div data-name={fieldProps.id} data-value={fieldProps.value}>
+                <Box data-name={fieldProps.id} data-value={fieldProps.value}>
                   <p style={{ margin: '10px 0' }}>
                     Selected color:{' '}
                     {fieldProps.value ? (
@@ -80,7 +81,7 @@ const FormCustomFieldExample = () => {
                     colors={['Red', 'Green', 'Orange', 'Blue']}
                     changeHandler={fieldProps.onChange}
                   />
-                </div>
+                </Box>
               )}
             </Field>
             <FormFooter>

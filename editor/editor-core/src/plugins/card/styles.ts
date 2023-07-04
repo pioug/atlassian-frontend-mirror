@@ -5,11 +5,13 @@ import {
   getSelectionStyles,
   akEditorDeleteBorder,
   akEditorDeleteBackground,
+  akEditorRuleBorderRadius,
 } from '@atlaskit/editor-shared-styles';
-import { N20 } from '@atlaskit/theme/colors';
+import { N0, N20, N40 } from '@atlaskit/theme/colors';
 import { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
+import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from './nodeviews/datasource';
 
 export const FLOATING_TOOLBAR_LINKPICKER_CLASSNAME =
   'card-floating-toolbar--link-picker';
@@ -84,6 +86,26 @@ export const smartCardStyles = css`
     max-width: 100%;
     display: flex;
     justify-content: center;
+
+    .${DATASOURCE_INNER_CONTAINER_CLASSNAME} {
+      cursor: pointer;
+      background-color: ${token('color.background.neutral.subtle', N0)};
+      border-radius: ${token('border.radius.100', akEditorRuleBorderRadius)};
+      border: 1px solid ${token('color.border', N40)};
+    }
+
+    &.${akEditorSelectedNodeClassName} {
+      .${DATASOURCE_INNER_CONTAINER_CLASSNAME} {
+        ${getSelectionStyles([SelectionStyle.BoxShadow])}
+      }
+    }
+
+    &.danger {
+      .${DATASOURCE_INNER_CONTAINER_CLASSNAME} {
+        box-shadow: 0 0 0 1px
+          ${token('color.border.danger', akEditorDeleteBorder)};
+      }
+    }
   }
 
   .${SmartCardSharedCssClassName.EMBED_CARD_CONTAINER} {

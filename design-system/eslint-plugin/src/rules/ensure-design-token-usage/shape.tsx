@@ -24,16 +24,20 @@ const borderSizeProperties = [
 export const radiusValueToToken = Object.fromEntries(
   shapeTokens
     .filter((t) => t.name.startsWith('border.radius'))
+    // we prefer using the default (border.radius) over its aliases
+    .filter((t) => !t.name.startsWith('border.radius.100'))
     .map((t) => {
-      const value = t.value === '4px' ? '3px' : t.value;
-      return [value, t.name];
-    }),
+      return [t.value, t.cleanName];
+    })
+    .concat([['3px', 'border.radius']]) // add in an extra entry to resolve 3px to border.radius (normally 4px)
+    .concat([['50%', 'border.radius.circle']]), // add in an extra entry to resolve 50% to border.radius.circle (normally 2002rem)
 );
 
 export const borderWidthValueToToken = Object.fromEntries(
   shapeTokens
     .filter((t) => t.name.startsWith('border.width'))
-    .map((t) => [t.value, t.name]),
+    .map((t) => [t.value, t.cleanName])
+    .concat([['2px', 'border.width']]),
 );
 
 export function isRadiusProperty(propertyName: string) {

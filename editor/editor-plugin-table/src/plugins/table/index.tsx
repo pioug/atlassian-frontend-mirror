@@ -37,6 +37,7 @@ import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 
 import { pluginConfig } from './create-plugin-config';
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
+import { createPlugin as createTableAddWidthPlugin } from './pm-plugins/table-add-width';
 import { createPlugin as createTableSafariDeleteCompositionTextIssueWorkaroundPlugin } from './pm-plugins/safari-delete-composition-text-issue-workaround';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { keymapPlugin } from './pm-plugins/keymap';
@@ -267,6 +268,16 @@ const tablesPlugin: NextEditorPlugin<
         {
           name: 'tableLocalId',
           plugin: ({ dispatch }) => createTableLocalIdPlugin(dispatch),
+        },
+        {
+          name: 'tableAddWidth',
+          plugin: ({ dispatch }) =>
+            getBooleanFF('platform.editor.custom-table-width') && options
+              ? createTableAddWidthPlugin(
+                  dispatch,
+                  options.fullWidthEnabled || false,
+                )
+              : undefined,
         },
 
         {

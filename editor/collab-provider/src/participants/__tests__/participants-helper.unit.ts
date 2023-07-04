@@ -16,6 +16,7 @@ const activeUser: ProviderParticipant = {
   lastActive: baseTime + PARTICIPANT_UPDATE_INTERVAL * 1.5,
   name: 'Mr Kafei',
   avatar: 'www.jamescameron.com/image.png',
+  email: 'fake.user@email.com',
 };
 
 describe('participantForUpdate', () => {
@@ -35,6 +36,7 @@ describe('participantForUpdate', () => {
         // Blank when getUser unavailable
         name: '',
         avatar: '',
+        email: '',
       };
 
       it('should return participant to update', async () => {
@@ -86,6 +88,7 @@ describe('participantForUpdate', () => {
     const expectedParticipant: ProviderParticipant = {
       name: 'bob',
       avatar: '',
+      email: '',
       lastActive: timestamp,
       ...rest,
     };

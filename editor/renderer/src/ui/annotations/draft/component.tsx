@@ -1,10 +1,10 @@
 /** @jsx jsx */
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { InsertDraftPosition, Position } from '../types';
 import { AnnotationsDraftContext } from '../context';
-import { splitText, calcTextSplitOffset } from './text';
+import { splitText, calcTextSplitOffset, findTextString } from './text';
 import { calcInsertDraftPositionOnText } from './position';
 import { dataAttributes } from './dom';
 
@@ -91,7 +91,7 @@ export const applyAnnotationOnText = ({
 type Props = {
   startPos: number;
   endPos: number;
-  children: string;
+  children: ReactNode;
 };
 
 export const TextWithAnnotationDraft: React.FC<Props> = ({
@@ -127,12 +127,16 @@ export const TextWithAnnotationDraft: React.FC<Props> = ({
     );
   }
 
+  const textString = findTextString(children);
+  if (!textString) {
+    return <Fragment>{children}</Fragment>;
+  }
   const offsets = calcTextSplitOffset(
     nextDraftPosition,
     textPosition,
-    children,
+    textString,
   );
-  const texts = splitText(children, offsets);
+  const texts = splitText(textString, offsets);
   if (!texts) {
     return <Fragment>{children}</Fragment>;
   }

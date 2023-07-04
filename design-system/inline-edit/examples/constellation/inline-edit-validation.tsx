@@ -1,10 +1,11 @@
 /** @jsx jsx */
 import { useEffect, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
+import { Box, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
 import { R400 } from '@atlaskit/theme/colors';
 import {
@@ -16,14 +17,27 @@ import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../../src';
 
+const containerStyles = xcss({
+  paddingTop: 'space.100',
+  paddingRight: 'space.100',
+  paddingBottom: 'space.600',
+  width: '50%',
+});
+
+const errorIconContainerStyles = xcss({
+  paddingRight: 'space.075',
+  lineHeight: '100%',
+});
+
 const fontSize = getFontSize();
 const gridSize = getGridSize();
 
-const readViewContainerStyles = css({
+const readViewContainerStyles = xcss({
   display: 'flex',
   maxWidth: '100%',
   minHeight: `${(gridSize * 2.5) / fontSize}em`,
-  padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
+  paddingBlock: 'space.100',
+  paddingInline: 'space.075',
   fontSize: `${fontSize}px`,
   lineHeight: `${(gridSize * 2.5) / fontSize}`,
   wordBreak: `break-word`,
@@ -70,12 +84,7 @@ const InlineEditValidationExample = () => {
   };
 
   return (
-    <div
-      style={{
-        padding: `${token('space.100', '8px')} ${token('space.100', '8px')}`,
-        width: '50%',
-      }}
-    >
+    <Box xcss={containerStyles}>
       <button data-testid="clear-button" onClick={clearInlineEditContent}>
         Click to clear
       </button>
@@ -85,7 +94,7 @@ const InlineEditValidationExample = () => {
         editView={({ errorMessage, ...fieldProps }) => (
           <InlineDialog
             isOpen={fieldProps.isInvalid}
-            content={<div id="error-message">{errorMessage}</div>}
+            content={<Box id="error-message">{errorMessage}</Box>}
             placement="right"
           >
             <TextField
@@ -93,17 +102,12 @@ const InlineEditValidationExample = () => {
               {...fieldProps}
               elemAfterInput={
                 fieldProps.isInvalid && (
-                  <div
-                    style={{
-                      paddingRight: token('space.075', '6px'),
-                      lineHeight: '100%',
-                    }}
-                  >
+                  <Box xcss={errorIconContainerStyles}>
                     <ErrorIcon
                       label="error"
                       primaryColor={token('color.icon.danger', R400)}
                     />
-                  </div>
+                  </Box>
                 )
               }
               autoFocus
@@ -111,14 +115,14 @@ const InlineEditValidationExample = () => {
           </InlineDialog>
         )}
         readView={() => (
-          <div css={readViewContainerStyles} data-testid="read-view">
+          <Box xcss={readViewContainerStyles} data-testid="read-view">
             {editValue || 'Click to enter value'}
-          </div>
+          </Box>
         )}
         onConfirm={(value) => setEditValue(value)}
         validate={validate}
       />
-    </div>
+    </Box>
   );
 };
 

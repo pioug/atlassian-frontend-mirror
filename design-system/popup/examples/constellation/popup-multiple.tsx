@@ -1,16 +1,16 @@
 /** @jsx jsx */
 import { FC, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import { ButtonGroup } from '@atlaskit/button';
 import Button from '@atlaskit/button/standard-button';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Popup from '../../src';
 
-const contentStyles = css({
-  padding: token('space.200', '16px'),
+const contentStyles = xcss({
+  padding: 'space.200',
 });
 
 type PopupExampleProps = {
@@ -24,7 +24,7 @@ const PopupExample: FC<PopupExampleProps> = ({ index }) => {
     <Popup
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
-      content={() => <div css={contentStyles}>Content</div>}
+      content={() => <Box xcss={contentStyles}>Content</Box>}
       trigger={(triggerProps) => (
         <Button
           {...triggerProps}

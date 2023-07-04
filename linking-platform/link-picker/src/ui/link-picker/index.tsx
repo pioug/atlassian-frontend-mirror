@@ -2,7 +2,6 @@
 import {
   ChangeEvent,
   FormEvent,
-  Fragment,
   KeyboardEvent,
   memo,
   useCallback,
@@ -16,8 +15,6 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
-import Spinner from '@atlaskit/spinner/spinner';
-import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -34,34 +31,21 @@ import {
 } from '../../common/types';
 import createEventPayload from '../../common/utils/analytics/analytics.codegen';
 import { handleNavKeyDown } from '../../common/utils/handleNavKeyDown';
-import { useFixHeight } from '../../controllers/use-fix-height';
 import { usePlugins } from '../../services/use-plugins';
 import { useSearchQuery } from '../../services/use-search-query';
 
 import { Announcer } from './announcer';
 import { FormFooter, testIds as formFooterTestIds } from './form-footer';
 import {
-  LinkSearchError,
-  testIds as searchErrorTestIds,
-} from './link-search-error';
-import { LinkSearchList, testIds as listTestIds } from './link-search-list';
-import { spinnerContainerStyles } from './link-search-list/styled';
-import {
   formMessages,
   linkMessages,
   linkTextMessages,
   searchMessages,
 } from './messages';
-import { ScrollingTabList } from './scrolling-tabs';
-import {
-  flexColumnStyles,
-  formFooterMargin,
-  rootContainerStyles,
-  tabsWrapperStyles,
-} from './styled';
+import { SearchResults, testIds as searchTestIds } from './search-results';
+import { formFooterMargin, rootContainerStyles } from './styled';
 import { testIds as textFieldTestIds, TextInput } from './text-input';
 import { TrackMount } from './track-mount';
-import { TrackTabViewed } from './track-tab-viewed';
 import { getDataSource, getScreenReaderText } from './utils';
 
 export const testIds = {
@@ -69,12 +53,9 @@ export const testIds = {
   linkPicker: 'link-picker',
   urlInputField: 'link-url',
   textInputField: 'link-text',
+  ...searchTestIds,
   ...formFooterTestIds,
-  ...searchErrorTestIds,
-  ...listTestIds,
   ...textFieldTestIds,
-  tabList: 'link-picker-tabs',
-  tabItem: 'link-picker-tab',
 } as const;
 
 interface Meta {
@@ -218,8 +199,6 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
         retry,
         pluginAction,
       } = usePlugins(queryState, activeTab, plugins);
-
-      const fixListHeightProps = useFixHeight(isLoadingResults);
 
       const isEditing = !!initUrl;
       const selectedItem: LinkSearchListItemData | undefined =
@@ -457,16 +436,6 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
         browser().safari &&
         getScreenReaderText(items ?? [], selectedIndex, intl);
 
-      const tabList = (
-        <TabList>
-          {tabs.map(tab => (
-            <Tab key={tab.tabTitle} testId={testIds.tabItem}>
-              {tab.tabTitle}
-            </Tab>
-          ))}
-        </TabList>
-      );
-
       return (
         <form
           data-testid={testIds.linkPicker}
@@ -526,52 +495,26 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
               onChange={handleChangeText}
             />
           )}
-          {isLoadingPlugins && !!queryState && (
-            <div css={spinnerContainerStyles}>
-              <Spinner testId={testIds.tabsLoadingIndicator} size="medium" />
-            </div>
-          )}
-          {!isLoadingPlugins && isActivePlugin && !!queryState && (
-            <Fragment>
-              {tabs.length > 0 && (
-                <div css={tabsWrapperStyles}>
-                  <Tabs
-                    id={testIds.tabList}
-                    testId={testIds.tabList}
-                    selected={activeTab}
-                    onChange={handleTabChange}
-                  >
-                    {featureFlags?.scrollingTabs ? (
-                      <ScrollingTabList>{tabList}</ScrollingTabList>
-                    ) : (
-                      tabList
-                    )}
-                  </Tabs>
-                  <TrackTabViewed activePlugin={activePlugin} />
-                </div>
-              )}
-              <div css={flexColumnStyles} {...fixListHeightProps}>
-                {!error && (
-                  <LinkSearchList
-                    id={linkSearchListId}
-                    role="listbox"
-                    items={items}
-                    isLoading={isLoadingResults}
-                    selectedIndex={selectedIndex}
-                    activeIndex={activeIndex}
-                    onSelect={handleSelected}
-                    onChange={handleSearchListOnChange}
-                    onKeyDown={handleKeyDown}
-                    hasSearchTerm={!!queryState?.query.length}
-                    activePlugin={activePlugin}
-                  />
-                )}
-                {error &&
-                  (activePlugin?.errorFallback?.(error, retry) ?? (
-                    <LinkSearchError />
-                  ))}
-              </div>
-            </Fragment>
+          {!!queryState && (
+            <SearchResults
+              activeTab={activeTab}
+              tabs={tabs}
+              activePlugin={activePlugin}
+              isLoadingResults={isLoadingResults}
+              isLoadingPlugins={isLoadingPlugins}
+              linkSearchListId={linkSearchListId}
+              error={error}
+              featureFlags={featureFlags}
+              activeIndex={activeIndex}
+              selectedIndex={selectedIndex}
+              items={items}
+              queryState={queryState}
+              handleKeyDown={handleKeyDown}
+              handleSelected={handleSelected}
+              handleTabChange={handleTabChange}
+              handleSearchListOnChange={handleSearchListOnChange}
+              retry={retry}
+            />
           )}
           <FormFooter
             error={error}

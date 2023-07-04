@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.5.0
+
+### Minor Changes
+
+- [`27f5fbdbb04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27f5fbdbb04) - ESS-3718: add email as a field in ProviderParticipant to support JWM presence/multiplayer bugfix
+
 ## 9.4.0
 
 ### Minor Changes

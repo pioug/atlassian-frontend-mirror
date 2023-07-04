@@ -901,8 +901,8 @@ export interface ShapeTokenSchema {
     width: {
       '[default]': ShapeToken;
       '0': ShapeToken;
-      '050': ShapeToken;
-      '100': ShapeToken;
+      indicator: ShapeToken;
+      outline: ShapeToken;
     };
     radius: {
       '[default]': ShapeToken;

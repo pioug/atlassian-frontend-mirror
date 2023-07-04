@@ -2,7 +2,6 @@
 import { css, jsx } from '@emotion/react';
 
 import { B400, B500, N0, N20 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import Badge from '../src';
@@ -16,7 +15,7 @@ const itemStyles = css({
   alignItems: 'center',
   justifyContent: 'space-between',
   background: 'none',
-  borderRadius: `${borderRadius()}px`,
+  borderRadius: token('border.radius', '3px'),
   color: 'inherit',
   '&:hover': {
     backgroundColor: token('color.background.neutral.hovered', N20),

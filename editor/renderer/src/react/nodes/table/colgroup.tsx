@@ -53,7 +53,10 @@ const fixColumnWidth = (
   // If the tables total width (including no zero widths col or cols without width) is less than the current layout
   // We scale up the columns to meet the minimum of the table layout.
   if (zeroWidthColumnsCount === 0 && scaleDownPercent) {
-    return Math.floor((1 - scaleDownPercent) * columnWidth);
+    return Math.max(
+      Math.floor((1 - scaleDownPercent) * columnWidth),
+      tableCellMinWidth,
+    );
   }
 
   return Math.max(
@@ -80,7 +83,24 @@ export const calcScalePercent = ({
 export const Colgroup = (props: SharedTableProps) => {
   let { columnWidths, layout, isNumberColumnEnabled, renderWidth, tableNode } =
     props;
-  if (!columnWidths || !isTableResized(columnWidths)) {
+
+  if (!columnWidths) {
+    return null;
+  }
+
+  const tableResized = isTableResized(columnWidths);
+  if (getBooleanFF('platform.editor.custom-table-width') && !tableResized) {
+    return (
+      <colgroup>
+        {isNumberColumnEnabled && (
+          <col style={{ width: akEditorTableNumberColumnWidth }} />
+        )}
+        {columnWidths.map((_, idx) => (
+          <col key={idx} style={{ width: `${tableCellMinWidth}px` }} />
+        ))}
+      </colgroup>
+    );
+  } else if (!tableResized) {
     return null;
   }
 

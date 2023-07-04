@@ -34,7 +34,7 @@ const layerContainerStyles = xcss({ position: 'relative' });
 const colorStyles = xcss({ color: 'color.text.inverse' });
 const baseBorderStyles = xcss({
   borderStyle: 'solid',
-  borderWidth: 'border.width.100',
+  borderWidth: 'border.width',
 });
 const elevationStyles = xcss({
   boxShadow: 'elevation.shadow.overlay',

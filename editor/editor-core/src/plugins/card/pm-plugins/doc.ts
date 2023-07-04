@@ -1,3 +1,4 @@
+import isEqual from 'lodash/isEqual';
 import {
   EditorState,
   NodeSelection,
@@ -6,6 +7,7 @@ import {
 } from 'prosemirror-state';
 import { closeHistory } from 'prosemirror-history';
 import { Node, NodeType, Schema } from 'prosemirror-model';
+import { EditorView } from 'prosemirror-view';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -32,14 +34,15 @@ import {
   nodesBetweenChanged,
   processRawValue,
 } from '@atlaskit/editor-common/utils';
-
 import {
   isFromCurrentDomain,
   getLinkCreationAnalyticsEvent,
 } from '@atlaskit/editor-common/utils';
+import type { InlineCardAdf, DatasourceAdfView } from '@atlaskit/smart-card';
+
 import { CardPluginState, CardReplacementInputMethod, Request } from '../types';
 import { appearanceForNodeType, selectedCardAppearance } from '../utils';
-import { queueCards, resolveCard } from './actions';
+import { queueCards, resolveCard, hideDatasourceModal } from './actions';
 import { pluginKey } from './plugin-key';
 import { shouldReplaceLink } from './shouldReplaceLink';
 
@@ -592,4 +595,48 @@ const getLinkNodeType = (
     case 'embed':
       return linkNodes.embedCard;
   }
+};
+
+// Apply an update to a datasource (aka blockCard) node
+export const updateExistingDatasource = (
+  state: EditorState,
+  node: Node<any>,
+  newAdf: DatasourceAdf | InlineCardAdf,
+  view: EditorView,
+) => {
+  const {
+    tr,
+    selection: { from },
+    schema: { nodes: schemaNodes },
+  } = state;
+
+  // datasource to datasource
+  if (
+    newAdf.type === 'blockCard' &&
+    newAdf.attrs.datasource &&
+    node.attrs.datasource
+  ) {
+    const newViews =
+      (newAdf.attrs.datasource.views as DatasourceAdfView[]) ?? [];
+    const oldViews = (node.attrs.datasource.views as DatasourceAdfView[]) ?? [];
+    const newColumnKeys = newViews[0]?.properties?.columns.map(
+      (column) => column.key,
+    );
+    const oldColumnKeys = oldViews[0]?.properties?.columns.map(
+      (column) => column.key,
+    );
+
+    const isColumnChange = !isEqual(oldColumnKeys, newColumnKeys);
+    const isUrlChange = newAdf.attrs?.url !== node.attrs?.url;
+
+    if (isColumnChange || isUrlChange) {
+      tr.setNodeMarkup(from, schemaNodes.blockCard, newAdf.attrs);
+    }
+  } else if (newAdf.type === 'inlineCard') {
+    // datasource to inline
+    tr.setNodeMarkup(from, schemaNodes.inlineCard, newAdf.attrs);
+  }
+
+  hideDatasourceModal(tr);
+  view.dispatch(tr.scrollIntoView());
 };

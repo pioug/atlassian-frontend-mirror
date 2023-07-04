@@ -204,7 +204,8 @@ export type DatasourceTableStatusType =
   | 'empty'
   | 'loading'
   | 'resolved'
-  | 'rejected';
+  | 'rejected'
+  | 'unauthorized';
 
 export type DatasourceDetailsRequest = {
   parameters: DatasourceParameters;

@@ -14,7 +14,11 @@ const borderColors = [
 ] as const;
 
 const borderStyles = ['none', 'solid'] as const;
-const borderWidths = ['border.width.050', 'border.width.100'] as const;
+const borderWidths = [
+  'border.width',
+  'border.width.outline',
+  'border.width.indicator',
+] as const;
 const borderRadii = [
   'border.radius.100',
   'border.radius.200',

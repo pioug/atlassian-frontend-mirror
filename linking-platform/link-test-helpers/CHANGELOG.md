@@ -1,5 +1,12 @@
 # @atlaskit/link-test-helpers
 
+## 4.1.2
+
+### Patch Changes
+
+- [`ba155a0034c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba155a0034c) - [ux] Add restricted access view to modal and table
+- Updated dependencies
+
 ## 4.1.1
 
 ### Patch Changes

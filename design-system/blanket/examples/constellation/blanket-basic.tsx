@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { Box } from '@atlaskit/primitives';
 
 import Blanket from '../../src';
 
@@ -22,7 +23,7 @@ const BlanketBasicExample = () => {
   }, []);
 
   return (
-    <div>
+    <Box>
       <Button
         appearance="default"
         onClick={showBlanketClick}
@@ -36,7 +37,7 @@ const BlanketBasicExample = () => {
         shouldAllowClickThrough={shouldAllowClickThrough}
         testId="basic-blanket"
       />
-    </div>
+    </Box>
   );
 };
 

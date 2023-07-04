@@ -249,7 +249,7 @@ describe('setGlobalTheme', () => {
     ]);
   });
 
-  it('should not load the spacing and shape themes on the page by default when the feature flag is not enabled', async () => {
+  it('should not load the spacing theme on the page by default when the feature flag is not enabled', async () => {
     (getBooleanFF as jest.Mock).mockImplementation(
       (name) => name === 'platform.design-system-team.something-else',
     );
@@ -319,7 +319,7 @@ describe('setGlobalTheme', () => {
     });
   });
 
-  it('should load the spacing and shape themes on the page when the feature flag is enabled', async () => {
+  it('should load the spacing theme on the page when the feature flag is enabled', async () => {
     (getBooleanFF as jest.Mock).mockImplementation(
       (name) =>
         name === 'platform.design-system-team.space-and-shape-tokens_q5me6',
@@ -336,7 +336,7 @@ describe('setGlobalTheme', () => {
       const styleElements = document.querySelectorAll(
         `style[${THEME_DATA_ATTRIBUTE}]`,
       );
-      expect(styleElements).toHaveLength(5);
+      expect(styleElements).toHaveLength(4);
     });
 
     // Validate that the data-theme attributes match the expected values
@@ -348,7 +348,6 @@ describe('setGlobalTheme', () => {
     expect(dataThemes.sort()).toEqual([
       'dark',
       'light',
-      'shape',
       'spacing',
       'typography',
     ]);
@@ -439,7 +438,7 @@ describe('getThemeStyles', () => {
     ]);
   });
 
-  it('returns an array of ThemeStyles that includes `shape` and `spacing` when the feature flag is enabled', async () => {
+  it('returns an array of ThemeStyles that includes `spacing` when the feature flag is enabled', async () => {
     (getBooleanFF as jest.Mock).mockImplementation(
       (name) =>
         name === 'platform.design-system-team.space-and-shape-tokens_q5me6',
@@ -456,7 +455,6 @@ describe('getThemeStyles', () => {
       { id: 'light', attrs: { 'data-theme': 'light' } },
       { id: 'dark', attrs: { 'data-theme': 'dark' } },
       { id: 'typography', attrs: { 'data-theme': 'typography' } },
-      { id: 'shape', attrs: { 'data-theme': 'shape' } },
       { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
     ]);
   });

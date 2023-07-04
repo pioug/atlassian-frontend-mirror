@@ -3,11 +3,13 @@ import React from 'react';
 import { CodeBlock } from '../../src';
 
 const exampleCodeBlock = `class HelloMessage extends React.Component {
+  import { Box } from '@atlaskit/primitives'
+ 
   render() {
     return (
-      <div>
+      <Box>
         Hello {this.props.name}
-      </div>
+      </Box>
     );
   }
 }

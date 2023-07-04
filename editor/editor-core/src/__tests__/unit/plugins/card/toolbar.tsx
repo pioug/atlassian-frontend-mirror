@@ -9,6 +9,7 @@ import {
   p,
   inlineCard,
   blockCard,
+  datasourceBlockCard,
   embedCard,
   DocBuilder,
   expand,
@@ -32,7 +33,10 @@ import {
   FloatingToolbarConfig,
 } from '../../../../plugins/floating-toolbar/types';
 import type { Command } from '@atlaskit/editor-common/types';
+import type { DatasourceAdf } from '@atlaskit/smart-card';
+
 import { getToolbarItems } from '../../../../plugins/floating-toolbar/__tests__/_helpers';
+import { SmallerEditIcon } from '../../../../plugins/card/ui/SmallerEditIcon';
 import * as CardUtils from '../../../../plugins/card/utils';
 import { EditorView } from 'prosemirror-view';
 import { LinkToolbarAppearance } from '../../../../plugins/card/ui/LinkToolbarAppearance';
@@ -61,6 +65,45 @@ const mockPluginInjectionApi: any = {
       actions: mockEditorAnalyticsApi,
     },
   },
+};
+
+const mockJqlUrl = 'http://www.test123.com/issues/?jql=EDM/';
+
+const datasourceWithUrlAdfAttrs: DatasourceAdf['attrs'] = {
+  url: mockJqlUrl,
+  datasource: {
+    id: 'datasource-id',
+    parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
+    views: [
+      {
+        type: 'table',
+        properties: { columns: [{ key: 'col1' }, { key: 'col2' }] },
+      },
+    ],
+  },
+};
+
+const datasourceNoUrlAdfAttrs: DatasourceAdf['attrs'] = {
+  datasource: {
+    id: 'datasource-id',
+    parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
+    views: [
+      {
+        type: 'table',
+        properties: { columns: [{ key: 'col1' }, { key: 'col2' }] },
+      },
+    ],
+  },
+};
+
+const getToolbarButtonByTitle = (
+  toolbar: FloatingToolbarConfig,
+  editorView: EditorView<any>,
+  title: string,
+) => {
+  return getToolbarItems(toolbar!, editorView).find(
+    (item) => item.type === 'button' && item.title === title,
+  ) as FloatingToolbarButton<Command>;
 };
 
 describe('card', () => {
@@ -98,6 +141,9 @@ describe('card', () => {
     const removeTitle = intl.formatMessage(commonMessages.remove);
     const openSettingsTitle = intl.formatMessage(
       linkToolbarMessages.settingsLink,
+    );
+    const editDatasourceTitle = intl.formatMessage(
+      linkToolbarMessages.editDatasource,
     );
 
     describe.each(['true', 'false', undefined])(
@@ -245,6 +291,50 @@ describe('card', () => {
 
           const settingsButton = getSettingsButton(toolbar!, editorView);
           verifySettingsButton(settingsButton, editorView);
+        });
+
+        it('displays toolbar items in correct order for datasource with url', () => {
+          const { editorView } = editor(
+            doc('{<node>}', datasourceBlockCard(datasourceWithUrlAdfAttrs)()),
+          );
+
+          const toolbar = floatingToolbar(
+            {
+              allowBlockCards: true,
+              allowEmbeds: true,
+              allowResizing: true,
+            },
+            featureFlagsMock,
+            undefined,
+            undefined,
+            mockPluginInjectionApi,
+          )(editorView.state, intl, providerFactory);
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          expect(toolbar).toBeDefined();
+          expect(toolbarItems).toHaveLength(5); // 3 buttons and 2 separators
+          expect(toolbarItems).toMatchSnapshot();
+        });
+
+        it('displays toolbar items in correct order for datasource without url', () => {
+          const { editorView } = editor(
+            doc('{<node>}', datasourceBlockCard(datasourceNoUrlAdfAttrs)()),
+          );
+
+          const toolbar = floatingToolbar(
+            {
+              allowBlockCards: true,
+              allowEmbeds: true,
+              allowResizing: true,
+            },
+            featureFlagsMock,
+            undefined,
+            undefined,
+            mockPluginInjectionApi,
+          )(editorView.state, intl, providerFactory);
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+          expect(toolbar).toBeDefined();
+          expect(toolbarItems).toHaveLength(3); // 2 buttons and 1 separator
+          expect(toolbarItems).toMatchSnapshot();
         });
 
         it('displays toolbar items in correct order for embedCard', () => {
@@ -902,6 +992,216 @@ describe('card', () => {
 
       removeButton.onClick(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
+    });
+
+    describe('datasource toolbar', () => {
+      it('has an edit button, open link button, and delete button if is a datasource with url', () => {
+        const { editorView } = editor(
+          doc(
+            p('ab'),
+            '{<node>}',
+            datasourceBlockCard(datasourceWithUrlAdfAttrs)(),
+            p('cd'),
+          ),
+        );
+
+        const toolbar = floatingToolbar({}, featureFlagsMock)(
+          editorView.state,
+          intl,
+          providerFactory,
+        );
+
+        if (!toolbar) {
+          return expect(toolbar).toBeTruthy();
+        }
+
+        const editButton = getToolbarButtonByTitle(
+          toolbar,
+          editorView,
+          editDatasourceTitle,
+        );
+        const visitLinkButton = getToolbarButtonByTitle(
+          toolbar,
+          editorView,
+          visitTitle,
+        );
+        const removeButton = getToolbarButtonByTitle(
+          toolbar,
+          editorView,
+          removeTitle,
+        );
+
+        expect(editButton).toBeDefined();
+        expect(editButton).toMatchObject({
+          icon: SmallerEditIcon,
+        });
+
+        expect(visitLinkButton).toBeDefined();
+        expect(visitLinkButton).toMatchObject({
+          icon: OpenIcon,
+        });
+
+        expect(removeButton).toBeDefined();
+        expect(removeButton).toMatchObject({
+          appearance: 'danger',
+          icon: RemoveIcon,
+        });
+      });
+
+      it('has an edit button and delete button, and no open link button if it is a datasource without a url', () => {
+        const { editorView } = editor(
+          doc(
+            p('ab'),
+            '{<node>}',
+            datasourceBlockCard(datasourceNoUrlAdfAttrs)(),
+            p('cd'),
+          ),
+        );
+
+        const toolbar = floatingToolbar({}, featureFlagsMock)(
+          editorView.state,
+          intl,
+          providerFactory,
+        );
+
+        if (!toolbar) {
+          return expect(toolbar).toBeTruthy();
+        }
+
+        const editButton = getToolbarButtonByTitle(
+          toolbar,
+          editorView,
+          editDatasourceTitle,
+        );
+        const visitLinkButton = getToolbarButtonByTitle(
+          toolbar,
+          editorView,
+          visitTitle,
+        );
+        const removeButton = getToolbarButtonByTitle(
+          toolbar,
+          editorView,
+          removeTitle,
+        );
+
+        expect(editButton).toBeDefined();
+        expect(editButton).toMatchObject({
+          icon: SmallerEditIcon,
+        });
+
+        expect(visitLinkButton).not.toBeDefined();
+
+        expect(removeButton).toBeDefined();
+        expect(removeButton).toMatchObject({
+          appearance: 'danger',
+          icon: RemoveIcon,
+        });
+      });
+
+      it('visits the link in a new tab if datasource has a url', () => {
+        const { editorView } = editor(
+          doc(
+            p('ab'),
+            '{<node>}',
+            datasourceBlockCard(datasourceWithUrlAdfAttrs)(),
+            p('cd'),
+          ),
+        );
+
+        const toolbar = floatingToolbar({}, featureFlagsMock)(
+          editorView.state,
+          intl,
+          providerFactory,
+        );
+
+        if (!toolbar) {
+          return expect(toolbar).toBeTruthy();
+        }
+
+        const visitLinkButton = getToolbarButtonByTitle(
+          toolbar,
+          editorView,
+          visitTitle,
+        );
+
+        visitLinkButton.onClick(editorView.state, editorView.dispatch);
+        expect(open).toBeCalledWith(mockJqlUrl);
+      });
+
+      it('shows modal after edit button is clicked', () => {
+        const { editorView } = editor(
+          doc(
+            p('ab'),
+            '{<node>}',
+            datasourceBlockCard(datasourceWithUrlAdfAttrs)(),
+            p('cd'),
+          ),
+        );
+
+        const toolbar = floatingToolbar({}, featureFlagsMock)(
+          editorView.state,
+          intl,
+          providerFactory,
+        );
+
+        if (!toolbar) {
+          return expect(toolbar).toBeTruthy();
+        }
+
+        const editButton = getToolbarButtonByTitle(
+          toolbar,
+          editorView,
+          editDatasourceTitle,
+        );
+
+        editButton.onClick(editorView.state, editorView.dispatch);
+
+        const toolbarAfterClick = floatingToolbar(
+          {},
+          featureFlagsMock,
+          undefined,
+          undefined,
+          mockPluginInjectionApi,
+        )(editorView.state, intl, providerFactory);
+
+        if (!toolbarAfterClick) {
+          return expect(toolbarAfterClick).toBeTruthy();
+        }
+
+        const modal = getToolbarItems(toolbarAfterClick, editorView).find(
+          (item) => item.type === 'custom',
+        );
+        expect(modal).toBeDefined();
+      });
+
+      it('deletes a datasource block card', () => {
+        const { editorView } = editor(
+          doc(
+            p('ab'),
+            '{<node>}',
+            datasourceBlockCard(datasourceWithUrlAdfAttrs)(),
+            p('cd'),
+          ),
+        );
+
+        const toolbar = floatingToolbar({}, featureFlagsMock)(
+          editorView.state,
+          intl,
+          providerFactory,
+        );
+
+        if (!toolbar) {
+          return expect(toolbar).toBeTruthy();
+        }
+
+        const removeButton = getToolbarButtonByTitle(
+          toolbar,
+          editorView,
+          removeTitle,
+        );
+        removeButton.onClick(editorView.state, editorView.dispatch);
+        expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
+      });
     });
   });
 });

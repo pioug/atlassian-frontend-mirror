@@ -4,11 +4,20 @@ import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import __noop from '@atlaskit/ds-lib/noop';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
-import { token } from '@atlaskit/tokens';
 
 import PageHeader from '../../src';
+
+const selectContainerStyles = xcss({
+  flex: '0 0 200px',
+  marginLeft: 'space.100',
+});
+
+const flexBoxStyles = xcss({
+  flex: '0 0 200px',
+});
 
 const breadcrumbs = (
   <Breadcrumbs onExpand={__noop}>
@@ -24,18 +33,18 @@ const actionsContent = (
   </ButtonGroup>
 );
 const barContent = (
-  <div style={{ display: 'flex' }}>
-    <div style={{ flex: '0 0 200px' }}>
+  <Inline>
+    <Box xcss={flexBoxStyles}>
       <TextField isCompact placeholder="Filter" aria-label="Filter" />
-    </div>
-    <div style={{ flex: '0 0 200px', marginLeft: token('space.100', '8px') }}>
+    </Box>
+    <Box xcss={selectContainerStyles}>
       <Select
         spacing="compact"
         placeholder="Choose an option"
         aria-label="Choose an option"
       />
-    </div>
-  </div>
+    </Box>
+  </Inline>
 );
 
 const PageHeaderComplexExample = () => {

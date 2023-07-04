@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.8.1
+
+### Patch Changes
+
+- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+
 ## 1.8.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c0a40bffb143a2043c80064395011941>>
+ * @codegen <<SignedSource::93b85a1d24e82271f0bc792e089efef5>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -73,7 +73,7 @@ const tokens = [
         "5px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for small and compact pieces of UI"
+      "description": "Use for small and compact pieces of UI."
     },
     "value": "4px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -87,7 +87,7 @@ const tokens = [
           "5px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for small and compact pieces of UI"
+        "description": "Use for small and compact pieces of UI."
       },
       "value": "Space050"
     },
@@ -107,7 +107,7 @@ const tokens = [
         "7px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for small and compact pieces of UI"
+      "description": "Use for small and compact pieces of UI."
     },
     "value": "6px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -121,7 +121,7 @@ const tokens = [
           "7px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for small and compact pieces of UI"
+        "description": "Use for small and compact pieces of UI."
       },
       "value": "Space075"
     },
@@ -141,7 +141,7 @@ const tokens = [
         "9px"
       ],
       "introduced": "0.12.0",
-      "description": "Use for small and compact pieces of UI"
+      "description": "Use for small and compact pieces of UI."
     },
     "value": "8px",
     "filePath": "src/tokens/atlassian-spacing/spacing.tsx",
@@ -155,7 +155,7 @@ const tokens = [
           "9px"
         ],
         "introduced": "0.12.0",
-        "description": "Use for small and compact pieces of UI"
+        "description": "Use for small and compact pieces of UI."
       },
       "value": "Space100"
     },

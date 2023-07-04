@@ -1,13 +1,16 @@
 /** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
+
+import { Box, xcss } from '@atlaskit/primitives';
 
 import TextArea from '../../src';
 
-const wrapperStyles = css({
-  maxWidth: 500,
+const wrapperStyles = xcss({
+  maxWidth: '500px',
 });
+
 export default () => (
-  <div id="resize" css={wrapperStyles}>
+  <Box id="resize" xcss={wrapperStyles}>
     <p>Resize: auto</p>
     <TextArea resize="auto" name="area" testId="autoResizeTextArea" />
     <p>Resize: vertical</p>
@@ -22,5 +25,5 @@ export default () => (
     <TextArea name="area" testId="smartResizeTextArea" />
     <p>Resize: none</p>
     <TextArea resize="none" name="area" testId="noneResizeTextArea" />
-  </div>
+  </Box>
 );

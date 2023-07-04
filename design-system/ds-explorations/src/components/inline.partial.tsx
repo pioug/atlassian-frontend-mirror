@@ -160,11 +160,11 @@ export default Inline;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3fa29a32eb5326d0fbe29f56adb7c4b7>>
+ * @codegen <<SignedSource::253507949de085f00146762f8cd80723>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["columnGap"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::16655ab13ccb56521faa354636af2c8e>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::68f6bde7e6b186964ee53458284bbb90>>
  */
 const columnGapMap = {
   'space.0': css({

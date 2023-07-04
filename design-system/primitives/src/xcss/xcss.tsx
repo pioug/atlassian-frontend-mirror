@@ -8,11 +8,9 @@ import {
 } from '@emotion/serialize';
 import type * as CSS from 'csstype';
 
-import warnOnce from '@atlaskit/ds-lib/warn-once';
-
-import { media } from '../helpers/responsive';
-import { MediaQuery } from '../helpers/responsive/types';
 import { Box, Inline } from '../index';
+import { media } from '../responsive/media-helper';
+import type { MediaQuery } from '../responsive/types';
 
 import {
   backgroundColorMap,
@@ -153,14 +151,6 @@ const transformStyles = (
       }
 
       const tokenValue = tokensMap[key as StyleMapKey][value as TokensMapKey];
-      if (
-        !tokenValue &&
-        typeof process &&
-        process.env.NODE_ENV === 'development'
-      ) {
-        const message = `Invalid token alias: ${key}: ${value}`;
-        warnOnce(message);
-      }
 
       styleObj[key] = tokenValue ?? value;
     },

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::87bc2dd9f7bab2c43fbdcafbd9e9e3ac>>
+ * @codegen <<SignedSource::0c77b46d428791fb0288b991d64320bc>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -351,8 +351,8 @@ const tokens = {
   'border.radius.circle': '--ds-border-radius-circle',
   'border.width': '--ds-border-width',
   'border.width.0': '--ds-border-width-0',
-  'border.width.050': '--ds-border-width-050',
-  'border.width.100': '--ds-border-width-100',
+  'border.width.indicator': '--ds-border-width-indicator',
+  'border.width.outline': '--ds-border-width-outline',
   'space.0': '--ds-space-0',
   'space.025': '--ds-space-025',
   'space.050': '--ds-space-050',
@@ -699,8 +699,8 @@ export type CSSTokenMap = {
   'border.radius.circle': 'var(--ds-border-radius-circle)';
   'border.width': 'var(--ds-border-width)';
   'border.width.0': 'var(--ds-border-width-0)';
-  'border.width.050': 'var(--ds-border-width-050)';
-  'border.width.100': 'var(--ds-border-width-100)';
+  'border.width.indicator': 'var(--ds-border-width-indicator)';
+  'border.width.outline': 'var(--ds-border-width-outline)';
   'space.0': 'var(--ds-space-0)';
   'space.025': 'var(--ds-space-025)';
   'space.050': 'var(--ds-space-050)';

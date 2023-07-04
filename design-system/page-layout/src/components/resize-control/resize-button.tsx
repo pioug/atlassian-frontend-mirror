@@ -44,7 +44,7 @@ const resizeIconButtonStyles = css({
   left: 0,
   backgroundColor: token('elevation.surface.overlay', N0),
   border: 0,
-  borderRadius: '50%',
+  borderRadius: token('border.radius.circle', '50%'),
   /**
    * TODO: https://product-fabric.atlassian.net/browse/DSP-3392
    * This shadow needs further investigation,

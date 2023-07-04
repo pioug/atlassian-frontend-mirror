@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/standard-button';
 import Form, { Field, FieldProps, FormFooter } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 
 import { RadioGroup } from '../../src';
 import { OptionsPropType } from '../../src/types';
@@ -16,7 +17,7 @@ const options: OptionsPropType = [
 
 export default function FormExampleSingleDisabled() {
   return (
-    <div>
+    <Box>
       <Form onSubmit={(data: object) => console.log('form data', data)}>
         {({ formProps }: { formProps: object }) => {
           return (
@@ -43,6 +44,6 @@ export default function FormExampleSingleDisabled() {
           );
         }}
       </Form>
-    </div>
+    </Box>
   );
 }

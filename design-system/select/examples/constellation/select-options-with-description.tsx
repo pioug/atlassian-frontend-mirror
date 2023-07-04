@@ -1,5 +1,13 @@
 import React from 'react';
+
+import { Box, Stack, xcss } from '@atlaskit/primitives';
+
 import Select, { OptionType, FormatOptionLabelMeta } from '../../src';
+
+const optionDescriptionStyles = xcss({
+  fontSize: 12,
+  fontStyle: 'italic',
+});
 
 const formatOptionLabel = (
   option: OptionType,
@@ -7,24 +15,12 @@ const formatOptionLabel = (
 ) => {
   if (context === 'menu') {
     return (
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        <div>{option.label}</div>
+      <Stack>
+        <Box>{option.label}</Box>
         {option.description ? (
-          <div
-            style={{
-              fontSize: 12,
-              fontStyle: 'italic',
-            }}
-          >
-            {option.description}
-          </div>
+          <Box xcss={optionDescriptionStyles}>{option.description}</Box>
         ) : null}
-      </div>
+      </Stack>
     );
   }
   return option.label;

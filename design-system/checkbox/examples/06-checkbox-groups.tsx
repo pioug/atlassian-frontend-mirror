@@ -12,7 +12,7 @@ const resultStyles = css({
   padding: token('space.100', '8px'),
   borderColor: '#ccc',
   borderStyle: 'dashed',
-  borderWidth: '1px',
+  borderWidth: token('border.width', '1px'),
   color: '#ccc',
 });
 

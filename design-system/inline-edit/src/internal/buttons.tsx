@@ -84,7 +84,7 @@ const buttonWrapperBaseStyles = css({
   width: token('space.400', '32px'),
   zIndex: 200,
   backgroundColor: token('elevation.surface.overlay', N0),
-  borderRadius: '3px',
+  borderRadius: token('border.radius', '3px'),
   fontSize: fontSize,
   '&:last-child': {
     marginLeft: token('space.050', '4px'),

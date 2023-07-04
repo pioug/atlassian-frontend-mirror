@@ -581,6 +581,11 @@ export const mockSiteData = [
     url: 'https://test7.atlassian.net',
     displayName: 'testNetworkError',
   },
+  {
+    cloudId: '44444',
+    url: 'https://test7.atlassian.net',
+    displayName: 'testNoAccess',
+  },
 ];
 
 // https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-jql/#api-rest-api-3-jql-autocompletedata-post

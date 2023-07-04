@@ -63,6 +63,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           events: undefined,
           createAnalyticsEvent,
+          showDatasourceModal: false,
           datasourceTableRef: undefined,
           layout: undefined,
         });
@@ -140,6 +141,7 @@ describe('card', () => {
           datasourceTableRef: undefined,
           layout: undefined,
           showLinkingToolbar: false,
+          showDatasourceModal: false,
           events: undefined,
           createAnalyticsEvent,
         });
@@ -172,6 +174,7 @@ describe('card', () => {
           ],
           provider: expect.any(EditorTestCardProvider),
           showLinkingToolbar: false,
+          showDatasourceModal: false,
           events: undefined,
           createAnalyticsEvent,
           datasourceTableRef: undefined,

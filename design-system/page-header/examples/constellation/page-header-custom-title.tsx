@@ -24,7 +24,7 @@ const editViewStyles = css({
   padding: `${token('space.075', '6px')} ${token('space.075', '6px')}`,
 
   border: `2px solid ${N40}`,
-  borderRadius: '3px',
+  borderRadius: token('border.radius', '3px'),
   cursor: 'inherit',
   fontSize: '24px',
   fontWeight: 500,

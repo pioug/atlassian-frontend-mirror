@@ -1,5 +1,11 @@
 # @atlaskit/embedded-confluence
 
+## 2.4.1
+
+### Patch Changes
+
+- [`8039db91ff8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8039db91ff8) - [ux] Update footer url to Confluence homepage if Confluence page is not found
+
 ## 2.4.0
 
 ### Minor Changes

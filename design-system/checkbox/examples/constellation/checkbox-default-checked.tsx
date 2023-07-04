@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { Box } from '@atlaskit/primitives';
+
 import { Checkbox } from '../../src';
 
 const CheckboxDefaultCheckedExample = () => {
   return (
-    <div>
+    <Box>
       Default Checked Checkbox
       <Checkbox
         defaultChecked
@@ -12,7 +14,7 @@ const CheckboxDefaultCheckedExample = () => {
         value="Default Checked Checkbox"
         name="default-checked-checkbox"
       />
-    </div>
+    </Box>
   );
 };
 

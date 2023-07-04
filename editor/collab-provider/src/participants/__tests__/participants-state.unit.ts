@@ -11,6 +11,7 @@ const activeUser: ProviderParticipant = {
   lastActive: 999,
   name: 'Mr Kafei',
   avatar: 'www.jamescameron.com/image.png',
+  email: 'fake.user@email.com',
 };
 
 describe('get functions', () => {

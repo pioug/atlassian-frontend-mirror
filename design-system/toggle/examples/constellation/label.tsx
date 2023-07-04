@@ -2,6 +2,7 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import { Box } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { headingSizes } from '@atlaskit/theme/typography';
@@ -25,9 +26,9 @@ export function Label(
   >,
 ) {
   return (
-    <div>
+    <Box>
       {/* eslint-disable-next-line styled-components-a11y/label-has-associated-control,styled-components-a11y/label-has-for */}
       <LabelElement {...(props as any)} />
-    </div>
+    </Box>
   );
 }

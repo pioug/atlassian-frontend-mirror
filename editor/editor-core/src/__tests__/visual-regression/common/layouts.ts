@@ -7,18 +7,15 @@ import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bo
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
 import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';
-import {
-  waitForFloatingControl,
-  retryUntilStablePosition,
-} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
+import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import * as col1 from './__fixtures__/column1-adf.json';
 import * as col2 from './__fixtures__/column2-adf.json';
-// import * as col3 from './__fixtures__/column3-adf.json';
+import * as col3 from './__fixtures__/column3-adf.json';
 import * as layoutWithAction from './__fixtures__/layout-with-action-adf.json';
 import * as layoutWithDecision from './__fixtures__/layout-with-decision-adf.json';
 import * as layoutWithDecisions from './__fixtures__/layout-with-decisions-adf.json';
-// import * as colLeftSidebar from './__fixtures__/columnLeftSidebar-adf.json';
-// import * as colRightSidebar from './__fixtures__/columnRightSidebar-adf.json';
+import * as colLeftSidebar from './__fixtures__/columnLeftSidebar-adf.json';
+import * as colRightSidebar from './__fixtures__/columnRightSidebar-adf.json';
 import * as col3WithSidebars from './__fixtures__/column3WithSidebars-adf.json';
 import { layoutToolbarTitle } from '../../../plugins/layout/toolbar';
 
@@ -28,12 +25,9 @@ describe('Layouts:', () => {
   const layouts = [
     ['1 column', col1],
     ['2 columns', col2],
-    // FIXME: This test was automatically skipped due to failure on 23/05/2023: https://product-fabric.atlassian.net/browse/ED-17950
-    // ['3 columns', col3],
-    // FIXME: This test was automatically skipped due to failure on 27/06/2023: https://product-fabric.atlassian.net/browse/ED-18925
-    // ['left sidebar', colLeftSidebar],
-    // FIXME: This test was automatically skipped due to failure on 28/05/2023: https://product-fabric.atlassian.net/browse/ED-18105
-    // ['right sidebar', colRightSidebar],
+    ['3 columns', col3],
+    ['left sidebar', colLeftSidebar],
+    ['right sidebar', colRightSidebar],
     ['3 columns with sidebars', col3WithSidebars],
   ];
 
@@ -57,41 +51,39 @@ describe('Layouts:', () => {
       },
     });
 
-  beforeAll(async () => {
+  beforeAll(() => {
     page = global.page;
   });
 
   afterEach(async () => {
     await waitForFloatingControl(page, layoutToolbarTitle);
     await snapshot(page);
+
     // Click away to remove floating control so it gets reset between
     // viewport resizes.
     // This avoids test flakiness from misaligned toolbar anchorage.
-    await page.mouse.move(0, 0);
-    await page.mouse.down();
-    await page.mouse.up();
+    await page.mouse.click(0, 0);
+    // As part if the page reset we need to ensure nothing is selected before the next test runs.
+    await page.evaluate(() => document.getSelection()?.removeAllRanges());
   });
 
   describe.each(layouts)(`%s`, (_name, adf) => {
     it('should correctly render layout on laptop', async () => {
       await initEditor(adf, largeViewport);
-      await retryUntilStablePosition(
-        page,
-        () => page.click(layoutSelectors.column),
-        `[aria-label*="${layoutToolbarTitle}"]`,
-        1000,
-        true,
-      );
+      await page.waitForSelector(layoutSelectors.column);
+      await page.click(layoutSelectors.column);
     });
 
     it('should stack layout on smaller screen', async () => {
       await initEditor(adf, smallViewport);
+      await page.waitForSelector(layoutSelectors.column);
       await page.click(layoutSelectors.column);
     });
   });
 
   it('should actions placeholder not overflow the layout', async () => {
     await initEditor(layoutWithAction, largeViewport);
+    await page.waitForSelector(layoutSelectors.column);
     await page.click(layoutSelectors.column);
   });
 

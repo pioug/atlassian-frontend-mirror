@@ -76,7 +76,7 @@ const radioStyles = css({
       ? '1px'
       : 'calc(2px * 12 / 7)'
   } solid var(--radio-border-color)`,
-  borderRadius: '50%',
+  borderRadius: token('border.radius.circle', '50%'),
   MozAppearance: 'none',
   outline: 'none',
 
@@ -103,7 +103,8 @@ const radioStyles = css({
     height: 'calc(4px * 12 / 7)',
     position: 'absolute',
     background: 'var(--radio-dot-color)',
-    borderRadius: '50%',
+    // TODO Delete this comment after verifying spacing token -> previous value `'50%'`
+    borderRadius: token('border.radius.circle', '50%'),
     content: "''",
     opacity: 'var(--radio-dot-opacity)',
     transition: 'background-color 0.2s ease-in-out, opacity 0.2s ease-in-out',

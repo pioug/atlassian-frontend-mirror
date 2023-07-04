@@ -1,13 +1,11 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { Box } from '@atlaskit/primitives';
 import { N20, N200 } from '@atlaskit/theme/colors';
-import { borderRadius as getBorderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import Tabs, { Tab, TabList, useTabPanel } from '../../src';
-
-const borderRadius = getBorderRadius();
 
 const customPanelStyles = css({
   display: 'flex',
@@ -19,7 +17,7 @@ const customPanelStyles = css({
   flexDirection: 'column',
   flexGrow: 1,
   backgroundColor: token('color.background.neutral', N20),
-  borderRadius: `${borderRadius}px`,
+  borderRadius: token('border.radius', '3px'),
   color: token('color.text.subtlest', N200),
   fontSize: '4em',
   fontWeight: 500,
@@ -41,7 +39,7 @@ const CustomTabPanel = ({
 
   return (
     <div css={customPanelStyles} {...tabPanelAttributes}>
-      <span>{heading}</span>
+      <Box as="span">{heading}</Box>
       <p>{body}</p>
     </div>
   );

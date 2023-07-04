@@ -4,7 +4,8 @@ import Button from '@atlaskit/button/standard-button';
 import Icon from '@atlaskit/icon';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
-import { B300, N800, Y300 } from '@atlaskit/theme/colors';
+import { Box, xcss } from '@atlaskit/primitives';
+import { B300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -20,6 +21,28 @@ import Invision from '../icons/invision';
 import Portfolio from '../icons/portfolio';
 import Slack from '../icons/slack';
 import Tempo from '../icons/tempo';
+
+const menuGroupContainerStyles = xcss({
+  color: 'color.text',
+  backgroundColor: 'elevation.surface.overlay',
+  boxShadow: 'elevation.shadow.overlay',
+  borderRadius: 'border.radius',
+  maxWidth: '320px',
+  marginBlock: 'space.200',
+  marginInline: 'auto',
+});
+
+const iconContainerStyles = xcss({
+  height: 'size.200',
+  width: 'size.200',
+  background: 'linear-gradient(180deg, #4E86EE 0%, #3562C1 100%), #4E86EE',
+  borderRadius: 'border.radius',
+});
+
+const buttonContainerStyles = xcss({
+  display: 'flex',
+  justifyContent: 'center',
+});
 
 const Item = ({
   isLoading,
@@ -60,20 +83,8 @@ export default () => {
   }, [retryLoading]);
 
   return (
-    <div>
-      <div
-        style={{
-          color: token('color.text', N800),
-          backgroundColor: token('elevation.surface.overlay', '#fff'),
-          boxShadow: token(
-            'elevation.shadow.overlay',
-            '0px 4px 8px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
-          ),
-          borderRadius: 4,
-          maxWidth: 320,
-          margin: `${token('space.200', '16px')} auto`,
-        }}
-      >
+    <Box>
+      <Box xcss={menuGroupContainerStyles}>
         <MenuGroup>
           <Section aria-labelledby={isLoading ? '' : 'apps'}>
             <Heading aria-hidden id="apps" isLoading={isLoading}>
@@ -82,21 +93,13 @@ export default () => {
             <Item
               isLoading={isLoading}
               iconBefore={
-                <div
-                  style={{
-                    height: 24,
-                    width: 24,
-                    background:
-                      'linear-gradient(180deg, #4E86EE 0%, #3562C1 100%), #4E86EE',
-                    borderRadius: 3,
-                  }}
-                >
+                <Box xcss={iconContainerStyles}>
                   <Icon
                     glyph={Portfolio}
                     primaryColor={token('color.icon.brand', B300)}
                     label=""
                   />
-                </div>
+                </Box>
               }
               iconAfter={
                 <StarFilledIcon
@@ -138,13 +141,12 @@ export default () => {
             <Item>Manage your apps</Item>
           </Section>
         </MenuGroup>
-      </div>
-
-      <div style={{ textAlign: 'center' }}>
+      </Box>
+      <Box xcss={buttonContainerStyles}>
         <Button testId="toggle-loading" onClick={() => setRetryLoading(true)}>
           Reload
         </Button>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };

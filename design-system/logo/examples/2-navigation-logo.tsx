@@ -56,7 +56,7 @@ const wrapperDivStyles = css({
   alignItems: 'center',
   justifyContent: 'center',
   background: 'var(--background)',
-  borderRadius: '50%',
+  borderRadius: token('border.radius.circle', '50%'),
   color: 'var(--color)',
 });
 

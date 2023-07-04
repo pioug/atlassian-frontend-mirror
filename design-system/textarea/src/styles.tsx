@@ -9,6 +9,7 @@ import {
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize,
 } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { ThemeTokens } from './theme';
 import { TextAreaProps } from './types';
@@ -21,7 +22,6 @@ export interface StyleProps {
   maxHeight: string;
 }
 const grid = gridSize();
-const borderRadius = 3;
 const lineHeightBase = grid * 2.5;
 const lineHeightCompact = grid * 2;
 const compactVerticalPadding = 2;
@@ -192,7 +192,8 @@ const staticStyles = css({
   margin: 0,
   position: 'relative',
   flex: '1 1 100%',
-  borderRadius: borderRadius,
+  borderRadius: token('border.radius', '3px'),
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   borderWidth: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
     ? 1
     : borderWidth,

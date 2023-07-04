@@ -229,6 +229,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
               lastActive: 1680759407071,
               userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
               clientId: 3274991230,
+              email: '',
             },
           ],
         });

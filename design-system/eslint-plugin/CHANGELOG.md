@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 7.0.3
+
+### Patch Changes
+
+- [`81c15e86b18`](https://bitbucket.org/atlassian/atlassian-frontend/commits/81c15e86b18) - Improved autofix for 50% border radius to shape token.
+
 ## 7.0.2
 
 ### Patch Changes

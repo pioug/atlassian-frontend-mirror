@@ -1,5 +1,35 @@
 # @atlaskit/editor-core
 
+## 185.6.3
+
+### Patch Changes
+
+- [`d73305e0246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d73305e0246) - ED-18796 enable FF for table cell optimisation
+
+## 185.6.1
+
+### Patch Changes
+
+- [`a1a0ac82bce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1a0ac82bce) - ED-18861 Update editor wrapper div when assistiveLabel prop change.
+- [`8d460228bf3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d460228bf3) - NONE: fix collabparticipant import
+- Updated dependencies
+
+## 185.6.0
+
+### Minor Changes
+
+- [`a1b70608039`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1b70608039) - [ux] Adds editor toolbar to link datasource component
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.5.7
+
+### Patch Changes
+
+- [`6e54d9fbeea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e54d9fbeea) - Added tableAddWidthPlugin
+
 ## 185.5.5
 
 ### Patch Changes

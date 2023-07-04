@@ -10,7 +10,7 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { ParticipantsService } from '../participants/participants-service';
 import { Channel } from '../channel';
 
-describe('participantsServie integration tests', () => {
+describe('participantsService integration tests', () => {
   let provider: Provider;
   let participantsService: ParticipantsService;
   let channel: Channel;
@@ -201,6 +201,7 @@ describe('participantsServie integration tests', () => {
         name: '',
         sessionId: 'NX5-eFC6rmgE7Y3PAH1D',
         userId: '70121:8fce2c13-5f60-40be-a9f2-956c6f041fbe',
+        email: '',
       });
     });
   });

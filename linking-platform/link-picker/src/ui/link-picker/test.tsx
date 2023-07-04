@@ -19,7 +19,7 @@ import {
   UnstableMockLinkPickerPlugin,
 } from '@atlaskit/link-test-helpers/link-picker';
 
-import { messages as resultsListMessages } from './link-search-list';
+import { messages as resultsListMessages } from './search-results/link-search-list';
 
 import { LinkPicker, LinkPickerProps, testIds } from './index';
 

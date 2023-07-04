@@ -1,9 +1,11 @@
 /** @jsx jsx */
 import { SyntheticEvent, useCallback, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
+import { Box, xcss } from '@atlaskit/primitives';
 import { B50 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { Radio } from '../../src';
 
@@ -51,15 +53,13 @@ const items: Array<RadioOptions> = [
   },
 ];
 
-const tableStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  margin: '1em 0',
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-  padding: '0.5em',
-  borderColor: '#ccc',
+const tableStyles = xcss({
+  marginBlock: 'space.200',
+  padding: 'space.100',
+  borderColor: 'color.border',
   borderStyle: 'dashed',
-  borderWidth: '1px',
-  color: '#ccc',
+  borderWidth: 'border.width',
+  color: 'color.text',
 });
 
 export default function RadioInputExample() {
@@ -73,7 +73,7 @@ export default function RadioInputExample() {
   );
 
   return (
-    <div>
+    <Box>
       <table>
         <thead>
           <tr>
@@ -89,7 +89,10 @@ export default function RadioInputExample() {
               onClick={() => setValue(item.value)}
               key={`${item.value}${item.name}${item.id}`}
               style={{
-                backgroundColor: item.value === value ? B50 : 'transparent',
+                backgroundColor:
+                  item.value === value
+                    ? token('color.background.selected', B50)
+                    : 'transparent',
                 transition: 'background-color 200ms ease-in-out',
               }}
             >
@@ -109,7 +112,7 @@ export default function RadioInputExample() {
           ))}
         </tbody>
       </table>
-      <div css={tableStyles}>currently selected value: {value}</div>
-    </div>
+      <Box xcss={tableStyles}>currently selected value: {value}</Box>
+    </Box>
   );
 }

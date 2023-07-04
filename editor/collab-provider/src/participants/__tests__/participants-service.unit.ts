@@ -20,6 +20,7 @@ const activeUser: ProviderParticipant = {
   lastActive: baseTime,
   name: 'Mr Kafei',
   avatar: 'www.jamescameron.com/image.png',
+  email: 'fake.user@email.com',
 };
 
 const payload: PresencePayload = {

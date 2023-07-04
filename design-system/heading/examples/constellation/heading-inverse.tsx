@@ -1,28 +1,17 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import { Label } from '@atlaskit/form';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
-import { token } from '@atlaskit/tokens';
 
 import Heading from '../../src';
 
-const stackStyles = css({
-  display: 'flex',
-  rowGap: token('space.100', '8px'),
-  flexDirection: 'column',
-});
-
-const toggleContainerStyles = css({
-  padding: token('space.100', '8px'),
-  alignItems: 'center',
-});
-
-const headingContainerStyles = css({
-  padding: token('space.100', '8px'),
-  backgroundColor: token('color.background.neutral.bold', '#42526E'),
+const headingContainerStyles = xcss({
+  padding: 'space.100',
+  backgroundColor: 'color.background.neutral.bold',
 });
 
 export default () => {
@@ -30,20 +19,20 @@ export default () => {
   const color = isInverse ? 'inverse' : undefined;
 
   return (
-    <div css={stackStyles}>
-      <div css={toggleContainerStyles}>
+    <Stack space="space.100">
+      <Inline alignBlock="center">
         <Label htmlFor="colorToggle">Is inverse</Label>
         <Toggle
           id="colorToggle"
           onChange={() => setIsInverse(!isInverse)}
           isChecked={isInverse}
         />
-      </div>
-      <div css={headingContainerStyles}>
+      </Inline>
+      <Box xcss={headingContainerStyles}>
         <Heading color={color} level="h900">
           H900
         </Heading>
-      </div>
-    </div>
+      </Box>
+    </Stack>
   );
 };

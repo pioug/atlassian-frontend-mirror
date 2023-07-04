@@ -1,12 +1,12 @@
 /** @jsx jsx */
 import { Fragment, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import { ButtonGroup } from '@atlaskit/button';
 import Button from '@atlaskit/button/standard-button';
+import { Box, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
-import { token } from '@atlaskit/tokens';
 
 import Popup from '../../src';
 
@@ -17,8 +17,8 @@ const radioValues = [
   { name: 'Button 3', value: '3', label: 'Button 3' },
 ];
 
-const contentStyles = css({
-  padding: token('space.200', '16px'),
+const contentStyles = xcss({
+  padding: 'space.200',
 });
 
 const PopupFocusExample = () => {
@@ -40,7 +40,7 @@ const PopupFocusExample = () => {
         onClose={() => setIsOpen(false)}
         content={({ setInitialFocusRef }) => {
           return (
-            <div css={contentStyles}>
+            <Box xcss={contentStyles}>
               <ButtonGroup>
                 {radioValues.map(
                   ({ value, label }) =>
@@ -58,7 +58,7 @@ const PopupFocusExample = () => {
                     ),
                 )}
               </ButtonGroup>
-            </div>
+            </Box>
           );
         }}
         trigger={(triggerProps) => (

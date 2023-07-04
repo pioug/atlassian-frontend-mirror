@@ -34,7 +34,7 @@
     ".": "./src/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.10.0",
+    "@atlaskit/tokens": "^1.11.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },
@@ -42,11 +42,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.8.0",
-    "@atlaskit/docs": "*",
-    "@atlaskit/progress-indicator": "^9.5.0",
-    "@atlaskit/section-message": "^6.4.0",
-    "@atlaskit/textfield": "^5.5.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",

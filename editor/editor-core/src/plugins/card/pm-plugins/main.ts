@@ -68,6 +68,7 @@ export const createPlugin =
             smartLinkEventsNext: undefined,
             createAnalyticsEvent,
             editorAppearance,
+            showDatasourceModal: false,
             datasourceTableRef: undefined,
             layout: undefined,
           };

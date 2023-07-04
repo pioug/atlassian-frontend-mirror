@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import SuccessIcon from '@atlaskit/icon/glyph/check-circle';
 import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives';
 
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
@@ -22,7 +23,7 @@ const AutoDismissFlagActionsExample = () => {
   };
 
   return (
-    <div>
+    <Box>
       <p style={{ padding: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={addFlag}>
           Add flag
@@ -54,7 +55,7 @@ const AutoDismissFlagActionsExample = () => {
           );
         })}
       </FlagGroup>
-    </div>
+    </Box>
   );
 };
 

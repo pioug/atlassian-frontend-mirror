@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Box } from '@atlaskit/primitives';
 import { B400, B50, N10, N30, N500 } from '@atlaskit/theme/colors';
 import { borderRadius as borderRadiusFn } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -12,7 +13,7 @@ const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
 );
 
 export default () => (
-  <div data-testid="button-items">
+  <Box data-testid="button-items">
     <ButtonItem isSelected>Activate</ButtonItem>
     <ButtonItem isDisabled>Activate</ButtonItem>
     <ButtonItem>Activate</ButtonItem>
@@ -47,7 +48,7 @@ export default () => (
     >
       Activate
     </ButtonItem>
-  </div>
+  </Box>
 );
 
 // Mimics overrides in side-navigation

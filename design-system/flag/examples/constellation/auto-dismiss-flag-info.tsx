@@ -4,6 +4,7 @@ import Button from '@atlaskit/button/standard-button';
 import InfoIcon from '@atlaskit/icon/glyph/info';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives';
 
 import { AutoDismissFlag, FlagGroup } from '../../src';
 
@@ -23,7 +24,7 @@ const AutoDismissFlagInfoExample = () => {
   };
 
   return (
-    <div>
+    <Box>
       <p style={{ padding: token('space.200', '16px') }}>
         <Button appearance="primary" onClick={addFlag}>
           Add flag
@@ -48,7 +49,7 @@ const AutoDismissFlagInfoExample = () => {
           );
         })}
       </FlagGroup>
-    </div>
+    </Box>
   );
 };
 

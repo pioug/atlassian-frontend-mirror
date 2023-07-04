@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 1.7.1
+
+### Patch Changes
+
+- [`7a720ec3e8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a720ec3e8e) - ED-18796 Use setAttrsStep to update colwidth attribute when scaling the table
+
+## 1.7.0
+
+### Minor Changes
+
+- [`cb69e6847ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb69e6847ec) - [ux] The table colgroup will always set the width to the min width when the custom-table-width flag is enabled
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.6.9
+
+### Patch Changes
+
+- [`6e54d9fbeea`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e54d9fbeea) - Added tableAddWidthPlugin
+
 ## 1.6.8
 
 ### Patch Changes

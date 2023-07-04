@@ -1,5 +1,17 @@
 # @atlaskit/progress-indicator
 
+## 9.5.10
+
+### Patch Changes
+
+- [`599bfe90ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/599bfe90ee3) - Internal change to use shape tokens. There is no expected visual change.
+
+## 9.5.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.5.8
 
 ### Patch Changes

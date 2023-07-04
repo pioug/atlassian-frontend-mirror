@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import { Checkbox } from '@atlaskit/checkbox';
+import { Box } from '@atlaskit/primitives';
 
 import Comment, { CommentAction, CommentAuthor, CommentTime } from '../../src';
 import sampleAvatar from '../utils/sample-avatar';
@@ -11,13 +12,13 @@ const CommentDefaultExample = () => {
 
   return (
     <>
-      <div>
+      <Box>
         <Checkbox
           label="Enable saving mode"
           isChecked={saving}
           onChange={(e) => setSaving(e.currentTarget.checked)}
         />
-      </div>
+      </Box>
       <Comment
         isSaving={saving}
         savingText="Saving..."

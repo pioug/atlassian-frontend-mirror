@@ -25,6 +25,8 @@ export function BreakoutSSRInlineScript() {
   return (
     <script
       data-breakout-script-id={id}
+      // To investigate if we can replace this.
+      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: context }}
     ></script>
   );

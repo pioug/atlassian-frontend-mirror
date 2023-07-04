@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
-import { N800 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import { ButtonItem, PopupMenuGroup, Section } from '../../src';
 import Yeti from '../icons/yeti.png';
+
+const containerStyles = xcss({
+  display: 'inline-block',
+  color: 'color.text',
+  backgroundColor: 'elevation.surface.overlay',
+  boxShadow: 'elevation.shadow.overlay',
+  borderRadius: 'border.radius',
+  marginBlock: 'space.200',
+  marginInline: 'auto',
+  minWidth: '320px',
+  maxWidth: '100%',
+});
+
+const buttonContainerStyles = xcss({
+  display: 'flex',
+  justifyContent: 'center',
+});
 
 const ImgIcon = ({ src, alt }: { src: string; alt: string }) => (
   <img alt={alt} src={src} height={24} width={24} style={{ borderRadius: 3 }} />
@@ -42,21 +58,7 @@ export default () => {
 
   return (
     <>
-      <div
-        style={{
-          display: 'inline-block',
-          color: token('color.text', N800),
-          backgroundColor: token('elevation.surface.overlay', '#fff'),
-          boxShadow: token(
-            'elevation.shadow.overlay',
-            '0px 4px 8px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31)',
-          ),
-          borderRadius: 4,
-          margin: `${token('space.200', '16px')} auto`,
-          minWidth: '320px',
-          maxWidth: '100%',
-        }}
-      >
+      <Box xcss={containerStyles}>
         <PopupMenuGroup>
           <Section>
             <ButtonItem
@@ -67,11 +69,11 @@ export default () => {
             </ButtonItem>
           </Section>
         </PopupMenuGroup>
-      </div>
+      </Box>
 
-      <div style={{ textAlign: 'center' }}>
+      <Box xcss={buttonContainerStyles}>
         <Button onClick={() => setTextIndex(0)}>Again</Button>
-      </div>
+      </Box>
     </>
   );
 };

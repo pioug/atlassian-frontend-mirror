@@ -1,5 +1,10 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
+import Button from '@atlaskit/button/standard-button';
+import Form, { Field, FormFooter } from '@atlaskit/form';
+
+import Textfield from '@atlaskit/textfield';
+
 import { Editor, EditorProps } from './../src';
 import EditorContext from './../src/ui/EditorContext';
 import WithEditorActions from './../src/ui/WithEditorActions';
@@ -21,12 +26,14 @@ export type Props = {
 export type State = {
   isExpanded?: boolean;
   defaultValue?: Node | string | Object;
+  assistiveLabel?: string;
 };
 
 export class CommentEditorJiraBento extends React.Component<Props, State> {
   state = {
     isExpanded: false,
     defaultValue: '',
+    assistiveLabel: 'Default: ',
   };
 
   private providers = {
@@ -47,9 +54,45 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
   onFocus = () =>
     this.setState((prevState) => ({ isExpanded: !prevState.isExpanded }));
 
+  onAssitiveLabelInputChange = (assistiveLabel: string) => {
+    this.setState({ assistiveLabel });
+  };
+
   render() {
     return (
       <IntlProvider locale="en">
+        <div>
+          <Form
+            onSubmit={({ assistiveLabel }: { assistiveLabel: string }) =>
+              this.onAssitiveLabelInputChange(assistiveLabel)
+            }
+          >
+            {({ formProps }: any) => (
+              <form
+                {...formProps}
+                style={{
+                  display: 'flex',
+                  padding: '5px',
+                  alignItems: 'center',
+                }}
+              >
+                <Field label="Assistive Label" name="assistiveLabel">
+                  {({ fieldProps }: any) => (
+                    <Textfield
+                      placeholder="Enter assistiveLabel"
+                      {...fieldProps}
+                    />
+                  )}
+                </Field>
+                <FormFooter>
+                  <Button type="submit" appearance="primary">
+                    Save
+                  </Button>
+                </FormFooter>
+              </form>
+            )}
+          </Form>
+        </div>
         <EditorContext>
           <WithEditorActions
             render={(actions) => (
@@ -83,6 +126,7 @@ export class CommentEditorJiraBento extends React.Component<Props, State> {
                     <ToolbarHelp titlePosition="top" title="Help" key="help" />,
                   ]}
                   useStickyToolbar={true}
+                  assistiveLabel={this.state.assistiveLabel}
                 />
               </CollapsedEditor>
             )}

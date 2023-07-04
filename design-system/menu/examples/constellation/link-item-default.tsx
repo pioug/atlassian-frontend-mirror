@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { type MouseEvent, useState } from 'react';
+
+import { Box } from '@atlaskit/primitives';
 
 import { LinkItem, LinkItemProps } from '../../src';
 import koala from '../icons/koala.png';
@@ -27,7 +29,7 @@ export default () => {
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-    <div onClick={(e) => e.preventDefault()}>
+    <Box onClick={(e: MouseEvent) => e.preventDefault()}>
       <LinkItem {...getComputedProps({ href: '#link-item1' })}>
         Customer Feedback
       </LinkItem>
@@ -56,6 +58,6 @@ export default () => {
       >
         Atlassian Design
       </LinkItem>
-    </div>
+    </Box>
   );
 };

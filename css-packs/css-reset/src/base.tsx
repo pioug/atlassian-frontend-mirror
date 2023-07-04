@@ -61,7 +61,7 @@ export default evaluateInner`
     color: ${token('color.link.pressed', colors.B500)};
   }
   a:focus-visible {
-    outline: ${token('border.width.100', '2px')} solid ${token(
+    outline: ${token('border.width.outline', '2px')} solid ${token(
   'color.border.focused',
   colors.B100,
 )};
@@ -69,7 +69,7 @@ export default evaluateInner`
   }
   @supports not selector(*:focus-visible) {
     a:focus {
-      outline: ${token('border.width.100', '2px')} solid ${token(
+      outline: ${token('border.width.outline', '2px')} solid ${token(
   'color.border.focused',
   colors.B100,
 )};

@@ -1,26 +1,33 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
+import { Box, xcss } from '@atlaskit/primitives';
 import TextArea from '@atlaskit/textarea';
 import {
   fontSize as getFontSize,
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../../src';
+
+const containerStyles = xcss({
+  paddingTop: 'space.100',
+  paddingRight: 'space.100',
+  paddingBottom: 'space.600',
+  width: '70%',
+});
 
 const fontSize = getFontSize();
 const gridSize = getGridSize();
 const minRows = 2;
 const textAreaLineHeightFactor = 2.5;
 
-const readViewContainerStyles = css({
+const readViewContainerStyles = xcss({
   minHeight: `${gridSize * textAreaLineHeightFactor * minRows}px`,
-  padding: token('space.075', '6px'),
+  padding: 'space.075',
   lineHeight: `${(gridSize * textAreaLineHeightFactor) / fontSize}`,
   wordBreak: 'break-word',
 });
@@ -29,15 +36,7 @@ const InlineEditCustomTextareaExample = () => {
   const [editValue, setEditValue] = useState('');
 
   return (
-    <div
-      style={{
-        padding: `${token('space.100', '8px')} ${token(
-          'space.100',
-          '8px',
-        )} ${token('space.600', '48px')}`,
-        width: '70%',
-      }}
-    >
+    <Box xcss={containerStyles}>
       <InlineEdit
         defaultValue={editValue}
         label="Inline edit textarea (keeps edit view on blur)"
@@ -46,15 +45,15 @@ const InlineEditCustomTextareaExample = () => {
           <TextArea {...fieldProps} ref={ref} />
         )}
         readView={() => (
-          <div css={readViewContainerStyles}>
+          <Box xcss={readViewContainerStyles}>
             {editValue || 'Click to enter a value'}
-          </div>
+          </Box>
         )}
         onConfirm={setEditValue}
         keepEditViewOpenOnBlur
         readViewFitContainerWidth
       />
-    </div>
+    </Box>
   );
 };
 

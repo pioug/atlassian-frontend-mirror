@@ -17,7 +17,7 @@ const baseStyles = css({
   padding: `${token('space.025', '2px')} ${token('space.075', '6px')}`,
   top: token('space.0', '0px'),
   left: token('space.0', '0px'),
-  borderRadius: token('border.radius.100', '3px'),
+  borderRadius: token('border.radius', '3px'),
   fontSize: token('font.size.075', '12px'),
   lineHeight: 1.3,
   overflowWrap: 'break-word',

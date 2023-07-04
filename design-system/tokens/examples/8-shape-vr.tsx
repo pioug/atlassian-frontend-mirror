@@ -7,7 +7,7 @@ import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { CSSToken, token } from '../src';
 
 const radiusBoxStyles = xcss({
-  borderWidth: 'border.width.100',
+  borderWidth: 'border.width',
   borderColor: 'color.border',
   borderStyle: 'solid',
   width: 'size.400',

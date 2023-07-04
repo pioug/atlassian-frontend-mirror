@@ -13,7 +13,7 @@ import { Code, Highlight, HighlightGroup } from './styled';
 const wrapperStyles = css({
   padding: token('space.500', '40px'),
   backgroundColor: token('elevation.surface.raised', '#f6f6f6'),
-  borderRadius: '4px',
+  borderRadius: token('border.radius', '4px'),
 });
 
 interface State {

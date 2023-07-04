@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Box } from '@atlaskit/primitives';
+
 import TableTree from '../../src';
 
 type Content = { title: string; numbering: string; page: number };
@@ -164,9 +166,9 @@ const items: Item[] = [
   },
 ];
 
-const Title = (props: Content) => <span>{props.title}</span>;
-const Numbering = (props: Content) => <span>{props.numbering}</span>;
-const Page = (props: Content) => <span>{props.page}</span>;
+const Title = (props: Content) => <Box as="span">{props.title}</Box>;
+const Numbering = (props: Content) => <Box as="span">{props.numbering}</Box>;
+const Page = (props: Content) => <Box as="span">{props.page}</Box>;
 
 export default () => (
   <TableTree

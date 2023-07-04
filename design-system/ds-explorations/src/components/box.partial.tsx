@@ -357,11 +357,11 @@ export type Height = keyof typeof heightMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c060d784cb9ea5810ec52da02e1f2aa>>
+ * @codegen <<SignedSource::26bdf3368d6e881f82176d797d99e03f>>
  * @codegenId spacing
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["padding", "paddingBlock", "paddingInline"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::16655ab13ccb56521faa354636af2c8e>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::68f6bde7e6b186964ee53458284bbb90>>
  */
 const paddingMap = {
   'space.0': css({

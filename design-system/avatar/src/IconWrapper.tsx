@@ -22,7 +22,7 @@ const iconWrapperStyles = css({
   height: '100%',
   alignItems: 'center',
   alignContent: 'center',
-  borderRadius: '50%',
+  borderRadius: token('border.radius.circle', '50%'),
   overflow: 'hidden',
 });
 

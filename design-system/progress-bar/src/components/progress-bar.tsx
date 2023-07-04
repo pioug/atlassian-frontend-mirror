@@ -28,7 +28,7 @@ const containerStyles = css({
   height: 6,
   position: 'relative',
   background: token('color.background.neutral', N40A),
-  borderRadius: 3,
+  borderRadius: token('border.radius', '3px'),
   overflow: 'hidden',
 });
 
@@ -63,7 +63,7 @@ const barStyles = css({
   display: 'block',
   height: 6,
   position: 'absolute',
-  borderRadius: 3,
+  borderRadius: token('border.radius', '3px'),
 });
 
 const determinateBarStyles = css({

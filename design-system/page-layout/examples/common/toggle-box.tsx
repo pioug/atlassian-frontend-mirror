@@ -21,7 +21,7 @@ const toggleBoxStyles = css({
   left: '50%',
   backgroundColor: token('color.background.neutral.subtle', 'white'),
   border: `1px solid ${token('color.border', 'lightgray')}`,
-  borderRadius: 3,
+  borderRadius: token('border.radius', '3px'),
   transform: 'translate(-50%)',
 });
 

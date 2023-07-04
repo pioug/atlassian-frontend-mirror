@@ -4,6 +4,7 @@ import { SyntheticEvent, useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { B50 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { Radio } from '../src';
 
@@ -59,7 +60,7 @@ const tableStyles = css({
 
   borderColor: '#ccc',
   borderStyle: 'dashed',
-  borderWidth: '1px',
+  borderWidth: token('border.width', '1px'),
 
   color: '#ccc',
 });

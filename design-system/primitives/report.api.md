@@ -261,8 +261,8 @@ type BorderWidth = keyof typeof borderWidthMap;
 const borderWidthMap: {
   readonly 'border.width': 'var(--ds-border-width)';
   readonly 'border.width.0': 'var(--ds-border-width-0)';
-  readonly 'border.width.050': 'var(--ds-border-width-050)';
-  readonly 'border.width.100': 'var(--ds-border-width-100)';
+  readonly 'border.width.indicator': 'var(--ds-border-width-indicator)';
+  readonly 'border.width.outline': 'var(--ds-border-width-outline)';
 };
 
 // @public

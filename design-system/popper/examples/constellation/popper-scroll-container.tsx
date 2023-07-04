@@ -3,7 +3,6 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/standard-button';
-import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { Manager, Popper, Reference } from '../../src';
@@ -12,7 +11,7 @@ const popupStyles = css({
   maxWidth: '160px',
   padding: token('space.100', '8px'),
   background: token('elevation.surface.overlay', 'white'),
-  borderRadius: `${borderRadius()}px`,
+  borderRadius: token('border.radius', '3px'),
   boxShadow: token('elevation.shadow.raised', '0 2px 3px rgba(0,0,0,0.2)'),
 });
 

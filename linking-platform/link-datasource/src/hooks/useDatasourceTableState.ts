@@ -64,20 +64,33 @@ export const useDatasourceTableState = ({
     if (!parameters) {
       return;
     }
-    const result = await getDatasourceDetails(datasourceId, {
-      parameters,
-    });
 
-    const isColumnNotPresentInCurrentColumnsList = (
-      col: DatasourceResponseSchemaProperty,
-    ) => !columns.find(column => column.key === col.key);
+    try {
+      const {
+        meta: { access },
+        data: { schema },
+      } = await getDatasourceDetails(datasourceId, {
+        parameters,
+      });
 
-    const allColumns = result.data.schema.properties;
-    const newColumns = allColumns.filter(
-      isColumnNotPresentInCurrentColumnsList,
-    );
+      if (access === 'forbidden' || access === 'unauthorized') {
+        setStatus('unauthorized');
+        return;
+      }
 
-    newColumns.length > 0 && setColumns([...columns, ...newColumns]);
+      const isColumnNotPresentInCurrentColumnsList = (
+        col: DatasourceResponseSchemaProperty,
+      ) => !columns.find(column => column.key === col.key);
+
+      const allColumns = schema.properties;
+      const newColumns = allColumns.filter(
+        isColumnNotPresentInCurrentColumnsList,
+      );
+
+      newColumns.length > 0 && setColumns([...columns, ...newColumns]);
+    } catch (e) {
+      setStatus('rejected');
+    }
   }, [columns, datasourceId, getDatasourceDetails, parameters]);
 
   const applySchemaProperties = useCallback(
@@ -125,8 +138,14 @@ export const useDatasourceTableState = ({
 
       try {
         const {
+          meta: { access },
           data: { items, nextPageCursor, totalCount, schema },
         } = await getDatasourceData(datasourceId, datasourceDataRequest);
+
+        if (access === 'forbidden' || access === 'unauthorized') {
+          setStatus('unauthorized');
+          return;
+        }
 
         setTotalCount(totalCount);
         setNextCursor(nextPageCursor);
@@ -148,7 +167,7 @@ export const useDatasourceTableState = ({
         if (isSchemaFromData && schema) {
           applySchemaProperties(schema.properties);
         }
-      } catch (e) {
+      } catch (e: any) {
         setStatus('rejected');
       }
     },

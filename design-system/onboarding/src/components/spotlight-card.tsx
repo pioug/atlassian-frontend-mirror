@@ -9,7 +9,7 @@ import Button, {
 import Heading from '@atlaskit/heading';
 import { N0, N50A, N60A, P300 } from '@atlaskit/theme/colors';
 import { createTheme, ThemeProp } from '@atlaskit/theme/components';
-import { borderRadius, layers } from '@atlaskit/theme/constants';
+import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { DialogActionItem, DialogActionItemContainer } from '../styled/dialog';
@@ -53,7 +53,7 @@ const containerStyles = css({
   height: 'fit-content',
   zIndex: layers.spotlight() + 1,
   background: token('color.background.discovery.bold', P300),
-  borderRadius: `${borderRadius()}px`,
+  borderRadius: token('border.radius', '3px'),
   color: token('color.text.inverse', N0),
   overflow: 'auto',
 });

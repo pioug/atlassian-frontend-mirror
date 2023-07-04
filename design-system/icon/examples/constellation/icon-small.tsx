@@ -1,12 +1,14 @@
 import React from 'react';
 
+import { Box } from '@atlaskit/primitives';
+
 import LikeIcon from '../../glyph/like';
 
 const IconSmallExample = () => {
   return (
-    <div>
+    <Box>
       <LikeIcon size="small" label="" />
-    </div>
+    </Box>
   );
 };
 

@@ -3,6 +3,7 @@ import {
   EditorNodeContainerModel,
   expect,
   fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import {
   doc,
@@ -102,7 +103,7 @@ test.describe('media-group with three media nodes inside', () => {
           jiraIssueId: 'UTEST-707',
           reason:
             'This test does not work when we try to click in the media node (it can be done by setting ProseMirror selection manually)',
-          condition: browserName === 'firefox',
+          condition: browserName === BROWSERS.firefox,
         });
 
         const { media: mediaNodes } = EditorNodeContainerModel.from(editor);

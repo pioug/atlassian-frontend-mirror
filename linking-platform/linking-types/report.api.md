@@ -145,7 +145,8 @@ export type DatasourceTableStatusType =
   | 'empty'
   | 'loading'
   | 'rejected'
-  | 'resolved';
+  | 'resolved'
+  | 'unauthorized';
 
 // @public (undocumented)
 export type DatasourceType =

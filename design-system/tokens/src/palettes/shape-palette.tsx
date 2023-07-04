@@ -26,6 +26,12 @@ const baseSizeTokens = {
       group: 'shape',
     },
   },
+  Size200: {
+    value: 3,
+    attributes: {
+      group: 'shape',
+    },
+  },
 } as const;
 
 const baseRadiusTokens = {

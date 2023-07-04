@@ -3,24 +3,32 @@ import { useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import {
   fontSize as getFontSize,
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../../src';
+
+const wrapperStyles = xcss({
+  padding: 'space.100',
+  fontSize: '24px',
+  fontWeight: 'bold',
+  lineHeight: '24px',
+});
 
 const fontSize = getFontSize();
 const gridSize = getGridSize();
 
-const readViewContainerStyles = css({
+const readViewContainerStyles = xcss({
   display: 'flex',
   maxWidth: '100%',
   minHeight: `${(gridSize * 2.5) / fontSize}em`,
-  padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
+  paddingBlock: 'space.100',
+  paddingInline: 'space.075',
   lineHeight: (gridSize * 2.5) / fontSize,
   wordBreak: 'break-word',
 });
@@ -37,33 +45,26 @@ const textFieldStyles = css({
   },
 });
 
-const wrapperStyles = css({
-  padding: token('space.100', '8px'),
-  fontSize: '24px',
-  fontWeight: 'bold',
-  lineHeight: '24px',
-});
-
 const InlineEditExample = () => {
   const [editValue, setEditValue] = useState('');
 
   return (
-    <div css={wrapperStyles}>
+    <Box xcss={wrapperStyles}>
       <InlineEdit
         defaultValue={editValue}
         editView={({ errorMessage, ...fieldProps }) => (
           <Textfield {...fieldProps} autoFocus css={textFieldStyles} />
         )}
         readView={() => (
-          <div css={readViewContainerStyles} data-testid="read-view">
+          <Box xcss={readViewContainerStyles} data-testid="read-view">
             {editValue || 'Click to enter text'}
-          </div>
+          </Box>
         )}
         onConfirm={(value) => {
           setEditValue(value);
         }}
       />
-    </div>
+    </Box>
   );
 };
 

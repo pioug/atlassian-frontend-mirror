@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "0.14.3",
+  "version": "0.15.2",
   "description": "Primitives are token-backed low-level building blocks.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -99,11 +99,10 @@
     "./box": "./src/components/box.tsx",
     "./stack": "./src/components/stack.tsx",
     "./inline": "./src/components/inline.tsx",
-    "./responsive": "./src/helpers/responsive/index.tsx"
+    "./responsive": "./src/responsive/index.tsx"
   },
   "dependencies": {
-    "@atlaskit/ds-lib": "^2.2.0",
-    "@atlaskit/tokens": "^1.10.0",
+    "@atlaskit/tokens": "^1.11.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "@emotion/serialize": "^1.1.0",
@@ -113,22 +112,8 @@
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "*",
-    "@atlaskit/badge": "*",
-    "@atlaskit/button": "*",
-    "@atlaskit/code": "*",
-    "@atlaskit/docs": "*",
-    "@atlaskit/dropdown-menu": "*",
     "@atlaskit/ds-lib": "*",
-    "@atlaskit/heading": "*",
-    "@atlaskit/icon": "*",
-    "@atlaskit/icon-object": "*",
-    "@atlaskit/logo": "*",
-    "@atlaskit/lozenge": "*",
-    "@atlaskit/radio": "^5.6.0",
-    "@atlaskit/range": "^7.1.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/theme": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/codegen": "^0.1.0",

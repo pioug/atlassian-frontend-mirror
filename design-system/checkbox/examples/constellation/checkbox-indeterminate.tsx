@@ -3,6 +3,7 @@ import { ChangeEvent, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { Checkbox } from '../../src';
@@ -71,7 +72,7 @@ const IndeterminateCheckboxExample = () => {
   };
 
   return (
-    <div>
+    <Box>
       <Checkbox
         isChecked={checkedItems[PARENT_ID]}
         isIndeterminate={getIsParentIndeterminate(checkedItems)}
@@ -104,7 +105,7 @@ const IndeterminateCheckboxExample = () => {
           testId="child-3"
         />
       </div>
-    </div>
+    </Box>
   );
 };
 

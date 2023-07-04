@@ -775,6 +775,87 @@ Array [
 ]
 `;
 
+exports[`card toolbar with settings button flag returning false displays toolbar items in correct order for datasource with url 1`] = `
+Array [
+  Object {
+    "className": "datasource-edit",
+    "icon": [Function],
+    "id": "editor.edit.datasource",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.test123.com/issues/?jql=EDM/",
+    },
+    "onClick": [Function],
+    "title": "Edit search query",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.test123.com/issues/?jql=EDM/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning false displays toolbar items in correct order for datasource without url 1`] = `
+Array [
+  Object {
+    "className": "datasource-edit",
+    "icon": [Function],
+    "id": "editor.edit.datasource",
+    "metadata": Object {
+      "title": null,
+      "url": null,
+    },
+    "onClick": [Function],
+    "title": "Edit search query",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
 exports[`card toolbar with settings button flag returning false displays toolbar items in correct order for embedCard 1`] = `
 Array [
   Object {
@@ -1109,6 +1190,87 @@ Array [
     "id": "editor.link.settings",
     "onClick": [Function],
     "title": "Go to Link Preferences",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning true displays toolbar items in correct order for datasource with url 1`] = `
+Array [
+  Object {
+    "className": "datasource-edit",
+    "icon": [Function],
+    "id": "editor.edit.datasource",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.test123.com/issues/?jql=EDM/",
+    },
+    "onClick": [Function],
+    "title": "Edit search query",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.test123.com/issues/?jql=EDM/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning true displays toolbar items in correct order for datasource without url 1`] = `
+Array [
+  Object {
+    "className": "datasource-edit",
+    "icon": [Function],
+    "id": "editor.edit.datasource",
+    "metadata": Object {
+      "title": null,
+      "url": null,
+    },
+    "onClick": [Function],
+    "title": "Edit search query",
     "type": "button",
   },
   Object {
@@ -1494,6 +1656,87 @@ Array [
     },
     "onClick": [Function],
     "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning undefined displays toolbar items in correct order for datasource with url 1`] = `
+Array [
+  Object {
+    "className": "datasource-edit",
+    "icon": [Function],
+    "id": "editor.edit.datasource",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.test123.com/issues/?jql=EDM/",
+    },
+    "onClick": [Function],
+    "title": "Edit search query",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "className": "hyperlink-open-link",
+    "icon": [Function],
+    "id": "editor.link.openLink",
+    "metadata": Object {
+      "title": null,
+      "url": "http://www.test123.com/issues/?jql=EDM/",
+    },
+    "onClick": [Function],
+    "title": "Open link in a new tab",
+    "type": "button",
+  },
+  Object {
+    "type": "separator",
+  },
+  Object {
+    "appearance": "danger",
+    "focusEditoronEnter": true,
+    "icon": [Function],
+    "id": "editor.link.delete",
+    "onBlur": [Function],
+    "onClick": [Function],
+    "onFocus": [Function],
+    "onMouseEnter": [Function],
+    "onMouseLeave": [Function],
+    "title": "Remove",
+    "type": "button",
+  },
+]
+`;
+
+exports[`card toolbar with settings button flag returning undefined displays toolbar items in correct order for datasource without url 1`] = `
+Array [
+  Object {
+    "className": "datasource-edit",
+    "icon": [Function],
+    "id": "editor.edit.datasource",
+    "metadata": Object {
+      "title": null,
+      "url": null,
+    },
+    "onClick": [Function],
+    "title": "Edit search query",
     "type": "button",
   },
   Object {

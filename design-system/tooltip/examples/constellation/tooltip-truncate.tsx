@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import Tooltip from '../../src';
@@ -47,9 +48,9 @@ const Image = () => {
   const [truncate, setTruncate] = useState(false);
 
   return (
-    <div>
+    <Box>
       <Checkbox onChange={() => setTruncate(!truncate)}>Truncate text</Checkbox>
-      <div style={{ display: 'flex' }}>
+      <Inline>
         <Tooltip content={content} truncate={truncate}>
           {(tooltipProps) => (
             <img
@@ -76,8 +77,8 @@ const Image = () => {
             />
           )}
         </Tooltip>
-      </div>
-    </div>
+      </Inline>
+    </Box>
   );
 };
 

@@ -31,7 +31,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['3px', '5px'],
         introduced: '0.12.0',
-        description: 'Use for small and compact pieces of UI',
+        description: 'Use for small and compact pieces of UI.',
       },
     },
     '075': {
@@ -40,7 +40,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['5px', '7px'],
         introduced: '0.12.0',
-        description: 'Use for small and compact pieces of UI',
+        description: 'Use for small and compact pieces of UI.',
       },
     },
     '100': {
@@ -49,7 +49,7 @@ const spacing: AttributeSchema<SpacingTokenSchema> = {
         state: 'active',
         suggest: ['7px', '9px'],
         introduced: '0.12.0',
-        description: 'Use for small and compact pieces of UI',
+        description: 'Use for small and compact pieces of UI.',
       },
     },
     '150': {

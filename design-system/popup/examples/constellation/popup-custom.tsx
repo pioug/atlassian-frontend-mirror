@@ -1,27 +1,26 @@
 /** @jsx jsx */
 import { forwardRef, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
-import { borderRadius } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Popup, { PopupComponentProps } from '../../src';
 
-const containerStyles = css({
-  padding: token('space.200', '16px'),
-  backgroundColor: token('color.background.brand.bold', '#0C66E4'),
-  borderRadius: borderRadius(),
-  color: token('color.text.inverse', '#FFF'),
+const containerStyles = xcss({
+  padding: 'space.200',
+  backgroundColor: 'color.background.brand.bold',
+  borderRadius: 'border.radius',
+  color: 'color.text.inverse',
 });
 
 const CustomPopupContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
   ({ children, ...props }, ref) => (
-    <div css={containerStyles} {...props} ref={ref}>
+    <Box xcss={containerStyles} {...props} ref={ref}>
       {children}
-    </div>
+    </Box>
   ),
 );
 
@@ -34,7 +33,7 @@ const PopupCustomExample = () => {
       onClose={() => setIsOpen(false)}
       placement="bottom-start"
       popupComponent={CustomPopupContainer}
-      content={() => <div>Customized popup</div>}
+      content={() => <Box>Customized popup</Box>}
       trigger={(triggerProps) => (
         <Button
           {...triggerProps}

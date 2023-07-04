@@ -7,10 +7,11 @@ import { getTabColors, getTabLineColor, getTabPanelFocusColor } from './colors';
 
 const tabLeftRightPadding = token('space.100', '8px');
 const tabTopBottomPadding = token('space.050', '4px');
-const underlineHeight = token('border.width.100', '2px');
+// TODO this should probably be `border.width.indicator`
+const underlineHeight = token('border.width.outline', '2px');
 
 const highContrastFocusStyles: CSSObject = {
-  outline: '1px solid',
+  outline: `${token('border.width', '1px')} solid`,
 };
 
 // Required so the focus ring is visible in high contrast mode
@@ -26,7 +27,7 @@ const highContrastFocusRing = {
 
 const tabFocusStyles = (mode: ThemeModes): CSSObject => ({
   boxShadow: `0 0 0 2px ${getTabPanelFocusColor(mode)} inset`,
-  borderRadius: token('border.radius.100', '3px'),
+  borderRadius: token('border.radius', '3px'),
   outline: 'none',
 });
 
@@ -60,7 +61,7 @@ export const getTabsStyles = (mode: ThemeModes): SerializedStyles =>
 
 const tabLineStyles: CSSObject = {
   content: '""',
-  borderRadius: underlineHeight,
+  borderRadius: token('border.radius.050', '2px'),
   bottom: 0,
   margin: 0,
   position: 'absolute',
@@ -86,7 +87,7 @@ const tabPanelFocusStyles = (mode: ThemeModes): CSSObject => {
   const colors = getTabColors(mode);
   return {
     boxShadow: `0 0 0 2px ${colors.focusBorderColor} inset`,
-    borderRadius: token('border.radius.100', '3px'),
+    borderRadius: token('border.radius', '3px'),
     outline: 'none',
     // Hide TabLine on focus
     '&::after': {

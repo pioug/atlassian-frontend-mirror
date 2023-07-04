@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8b50feb722f3a686c5a45c85ec5545b2>>
+ * @codegen <<SignedSource::475f699859423669fdb3de04f32b3560>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -35,6 +35,10 @@ const tokens = [
     "attributes": {
       "group": "shape",
       "state": "active",
+      "suggest": [
+        "3px",
+        "4px"
+      ],
       "introduced": "1.5.2",
       "description": "The default border radius."
     },
@@ -45,6 +49,10 @@ const tokens = [
       "attributes": {
         "group": "shape",
         "state": "active",
+        "suggest": [
+          "3px",
+          "4px"
+        ],
         "introduced": "1.5.2",
         "description": "The default border radius."
       },
@@ -170,6 +178,9 @@ const tokens = [
     "attributes": {
       "group": "shape",
       "state": "active",
+      "suggest": [
+        "50%"
+      ],
       "introduced": "1.1.0",
       "description": "Used for circular containers, like a rounded button."
     },
@@ -180,6 +191,9 @@ const tokens = [
       "attributes": {
         "group": "shape",
         "state": "active",
+        "suggest": [
+          "50%"
+        ],
         "introduced": "1.1.0",
         "description": "Used for circular containers, like a rounded button."
       },
@@ -197,8 +211,12 @@ const tokens = [
     "attributes": {
       "group": "shape",
       "state": "active",
+      "suggest": [
+        "1px",
+        "2px"
+      ],
       "introduced": "1.5.2",
-      "description": "The default border width."
+      "description": "The default border width. Used for all borders."
     },
     "value": "1px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
@@ -207,8 +225,12 @@ const tokens = [
       "attributes": {
         "group": "shape",
         "state": "active",
+        "suggest": [
+          "1px",
+          "2px"
+        ],
         "introduced": "1.5.2",
-        "description": "The default border width."
+        "description": "The default border width. Used for all borders."
       },
       "value": "Size050"
     },
@@ -225,7 +247,7 @@ const tokens = [
       "group": "shape",
       "state": "experimental",
       "introduced": "1.2.1",
-      "description": "Experimental, description needs to be amended"
+      "description": "Used for zero width borders."
     },
     "value": "0px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
@@ -235,7 +257,7 @@ const tokens = [
         "group": "shape",
         "state": "experimental",
         "introduced": "1.2.1",
-        "description": "Experimental, description needs to be amended"
+        "description": "Used for zero width borders."
       },
       "value": "Size0"
     },
@@ -251,35 +273,35 @@ const tokens = [
     "attributes": {
       "group": "shape",
       "state": "active",
-      "introduced": "1.1.0",
-      "description": "Used for all borders and dividers."
+      "introduced": "1.5.2",
+      "description": "Used for indicators like tab and menu selected states."
     },
-    "value": "1px",
+    "value": "3px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "shape",
         "state": "active",
-        "introduced": "1.1.0",
-        "description": "Used for all borders and dividers."
+        "introduced": "1.5.2",
+        "description": "Used for indicators like tab and menu selected states."
       },
-      "value": "Size050"
+      "value": "Size200"
     },
-    "name": "border.width.050",
+    "name": "border.width.indicator",
     "path": [
       "border",
       "width",
-      "050"
+      "indicator"
     ],
-    "cleanName": "border.width.050"
+    "cleanName": "border.width.indicator"
   },
   {
     "attributes": {
       "group": "shape",
       "state": "active",
-      "introduced": "1.1.0",
-      "description": "Used for bolder dividers and interaction states."
+      "introduced": "1.5.2",
+      "description": "Used for focus, active or selected inputs."
     },
     "value": "2px",
     "filePath": "src/tokens/atlassian-shape/shape.tsx",
@@ -288,18 +310,18 @@ const tokens = [
       "attributes": {
         "group": "shape",
         "state": "active",
-        "introduced": "1.1.0",
-        "description": "Used for bolder dividers and interaction states."
+        "introduced": "1.5.2",
+        "description": "Used for focus, active or selected inputs."
       },
       "value": "Size100"
     },
-    "name": "border.width.100",
+    "name": "border.width.outline",
     "path": [
       "border",
       "width",
-      "100"
+      "outline"
     ],
-    "cleanName": "border.width.100"
+    "cleanName": "border.width.outline"
   }
 ];
 

@@ -11,8 +11,6 @@ import Modal, {
   ModalFooter,
 } from '@atlaskit/modal-dialog';
 import Tooltip from '@atlaskit/tooltip';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 import { N30A } from '@atlaskit/theme/colors';
 
 const iconExplorerLinkStyles = css({
@@ -20,7 +18,7 @@ const iconExplorerLinkStyles = css({
     display: 'block',
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     padding: 10,
-    borderRadius: gridSize() / 2,
+    borderRadius: token('border.radius', '4px'),
     color: 'inherit',
     cursor: 'pointer',
     lineHeight: 0,

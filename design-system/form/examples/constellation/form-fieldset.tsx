@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
+import { Box } from '@atlaskit/primitives';
 
 import Form, { CheckboxField, Fieldset } from '../../src';
 
 const FormFieldsetExample = () => (
-  <div>
+  <Box>
     <Form onSubmit={(data) => console.log(data)}>
       {({ formProps }) => (
         <form {...formProps}>
@@ -40,7 +41,7 @@ const FormFieldsetExample = () => (
         </form>
       )}
     </Form>
-  </div>
+  </Box>
 );
 
 export default FormFieldsetExample;

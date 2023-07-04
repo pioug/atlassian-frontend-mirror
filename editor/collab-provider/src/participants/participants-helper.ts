@@ -5,6 +5,7 @@ export const PARTICIPANT_UPDATE_INTERVAL = 300 * 1000; // 300 seconds
 export type ProviderParticipant = CollabParticipant & {
   userId: string;
   clientId: number | string;
+  email: string;
 };
 
 export type ParticipantsMap = Map<string, ProviderParticipant>;
@@ -13,7 +14,9 @@ export type ParticipantsMap = Map<string, ProviderParticipant>;
 export type GetUserType =
   | ((
       userId: string,
-    ) => Promise<Pick<ProviderParticipant, 'name' | 'avatar' | 'userId'>>)
+    ) => Promise<
+      Pick<ProviderParticipant, 'name' | 'avatar' | 'userId' | 'email'>
+    >)
   | undefined;
 
 export const createParticipantFromPayload = async (
@@ -28,6 +31,7 @@ export const createParticipantFromPayload = async (
   const participant: ProviderParticipant = {
     name: user?.name || '',
     avatar: user?.avatar || '',
+    email: user?.email || '',
     sessionId,
     lastActive: timestamp,
     userId,

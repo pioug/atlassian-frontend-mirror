@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 8.1.0
+
+### Minor Changes
+
+- [`ba155a0034c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba155a0034c) - [ux] Add restricted access view to modal and table
+
 ## 8.0.0
 
 ### Major Changes

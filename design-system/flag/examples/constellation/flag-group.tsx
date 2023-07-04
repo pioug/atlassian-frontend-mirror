@@ -8,6 +8,7 @@ import Info from '@atlaskit/icon/glyph/info';
 import Warning from '@atlaskit/icon/glyph/warning';
 import { G300, P300, R300, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives';
 
 import Flag, { FlagGroup } from '../../src';
 
@@ -92,7 +93,7 @@ const FlagGroupExample = () => {
   );
 
   return (
-    <div>
+    <Box>
       <Button appearance="primary" onClick={addFlag}>
         Add Flag
       </Button>
@@ -113,7 +114,7 @@ const FlagGroupExample = () => {
           />
         ))}
       </FlagGroup>
-    </div>
+    </Box>
   );
 };
 

@@ -6,15 +6,9 @@ import { css, jsx, SerializedStyles } from '@emotion/react';
 import Button from '@atlaskit/button/standard-button';
 import { Field } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
-import {
-  borderRadius as getBorderRadius,
-  // gridSize,
-} from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import Modal, { ModalTransition } from '../src';
-
-const borderRadius = getBorderRadius();
 
 const childStyles = css({
   height: '400px',
@@ -50,8 +44,8 @@ const borderRadiuses = [
 
 const borderRadiusMap: { [key in BorderRadius]: SerializedStyles } = {
   less: css({ borderRadius: 0 }),
-  same: css({ borderRadius }),
-  more: css({ borderRadius: borderRadius * 2 }),
+  same: css({ borderRadius: token('border.radius', '3px') }),
+  more: css({ borderRadius: token('border.radius.200', '6px') }),
 };
 
 export default function ModalWithCustomChild() {

@@ -3,6 +3,7 @@ import React, { SyntheticEvent, useCallback, useState } from 'react';
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { Field, FieldProps, FormFooter } from '@atlaskit/form';
+import { Box } from '@atlaskit/primitives';
 
 import { RadioGroup } from '../../src';
 import { OptionsPropType } from '../../src/types';
@@ -23,7 +24,7 @@ export default function FormExample() {
     [],
   );
   return (
-    <div>
+    <Box>
       <Form onSubmit={(data: object) => console.log('form data', data)}>
         {({ formProps }: { formProps: object }) => {
           return (
@@ -60,6 +61,6 @@ export default function FormExample() {
           );
         }}
       </Form>
-    </div>
+    </Box>
   );
 }

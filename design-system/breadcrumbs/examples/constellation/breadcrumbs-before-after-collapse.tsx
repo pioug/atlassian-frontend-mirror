@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { Box } from '@atlaskit/primitives';
+
 import Breadcrumbs, { BreadcrumbsItem } from '../../src';
 
 const BreadcrumbsBeforeAfterCollapseExample = () => {
   return (
-    <div>
+    <Box>
       <Breadcrumbs itemsBeforeCollapse={3} itemsAfterCollapse={2}>
         <BreadcrumbsItem href="/item" text="Item 1" />
         <BreadcrumbsItem href="/item" text="Item 2" />
@@ -17,7 +19,7 @@ const BreadcrumbsBeforeAfterCollapseExample = () => {
         <BreadcrumbsItem href="/item" text="Item 9" />
         <BreadcrumbsItem href="/item" text="Item 10" />
       </Breadcrumbs>
-    </div>
+    </Box>
   );
 };
 

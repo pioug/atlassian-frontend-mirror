@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ba57ec0a6991ab386479b6c9006397ba>>
+ * @codegen <<SignedSource::b929a0286651ecabd7f635e23b71f002>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -182,6 +182,26 @@ const tokens = [
       "border",
       "width",
       "Size100"
+    ]
+  },
+  {
+    "value": "3px",
+    "attributes": {
+      "group": "shape"
+    },
+    "filePath": "src/palettes/shape-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": 3,
+      "attributes": {
+        "group": "shape"
+      }
+    },
+    "name": "border.width.Size200",
+    "path": [
+      "border",
+      "width",
+      "Size200"
     ]
   }
 ];

@@ -1,4 +1,9 @@
-import { editorTestCase as test, expect } from '@af/editor-libra';
+import {
+  editorTestCase as test,
+  expect,
+  fixTest,
+  BROWSERS,
+} from '@af/editor-libra';
 import { simpleTableAfterParagraph } from './__fixtures__/base-adfs';
 test.use({
   editorProps: {
@@ -11,14 +16,16 @@ test.use({
   adf: simpleTableAfterParagraph,
 });
 
-// TODO: ED-14152 Selection bug on Firefox
-test.skip(
-  ({ browserName }) => browserName === 'firefox',
-  '[Skipped in FireFox due to selection bug ED-14152]',
-);
 test('ED-14152: pressing arrow down above table should move cursor into first row', async ({
   editor,
+  browserName,
 }) => {
+  fixTest({
+    jiraIssueId: 'DTR-155',
+    reason:
+      'Pressing ArrowDown before a table in Firefox does not move the cursor into the table',
+    condition: browserName === BROWSERS.firefox,
+  });
   await editor.selection.set({ anchor: 4, head: 4 });
 
   await editor.keyboard.press('ArrowDown');

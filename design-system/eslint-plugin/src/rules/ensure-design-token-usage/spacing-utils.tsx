@@ -398,15 +398,18 @@ const getValueFromBinaryExpression = (
 };
 
 const emRegex = /(.*\d+)em$/;
+const percentageRegex = /(%$)/;
 
 export const emToPixels = <T extends unknown>(
   value: T,
   fontSize: number | null | undefined,
 ) => {
   if (typeof value === 'string') {
-    const match = value.match(emRegex);
-    if (match && typeof fontSize === 'number') {
-      return Number(match[1]) * fontSize;
+    const emMatch = value.match(emRegex);
+    if (emMatch && typeof fontSize === 'number') {
+      return Number(emMatch[1]) * fontSize;
+    } else if (value.match(percentageRegex)) {
+      return value;
     } else {
       return null;
     }
@@ -424,7 +427,7 @@ export const removePixelSuffix = (value: string | number) => {
   return Number(typeof value === 'string' ? value.replace('px', '') : value);
 };
 
-const invalidSpacingUnitRegex = /(%$)|(\d+rem$)|(vw$)|(vh$)/;
+const invalidSpacingUnitRegex = /(\d+rem$)|(vw$)|(vh$)/;
 
 export const isValidSpacingValue = (
   value: string | number | boolean | RegExp | null | undefined | any[] | bigint,

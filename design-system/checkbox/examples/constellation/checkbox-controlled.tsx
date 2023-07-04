@@ -12,15 +12,13 @@ const CheckboxControlledExample = () => {
   }, []);
 
   return (
-    <div>
-      <Checkbox
-        isChecked={isChecked}
-        onChange={onChange}
-        label={`Controlled checkbox, with props.isChecked: ${onChangeResult}`}
-        value="Controlled Checkbox"
-        name="controlled-checkbox"
-      />
-    </div>
+    <Checkbox
+      isChecked={isChecked}
+      onChange={onChange}
+      label={`Controlled checkbox, with props.isChecked: ${onChangeResult}`}
+      value="Controlled Checkbox"
+      name="controlled-checkbox"
+    />
   );
 };
 

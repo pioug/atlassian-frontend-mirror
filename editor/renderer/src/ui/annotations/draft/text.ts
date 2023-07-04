@@ -1,4 +1,28 @@
+import React from 'react';
 import { TextPosition, Position } from '../types';
+
+export const findTextString = (reactNode: React.ReactNode): string | null => {
+  let result: string | null = null;
+
+  const children = React.Children.toArray(reactNode);
+  for (const childNode of children) {
+    if (result) {
+      break;
+    } else if (typeof childNode === 'string') {
+      result = childNode;
+    } else if (isReactElement(childNode) && childNode.props.children) {
+      result = findTextString(childNode.props.children);
+    }
+  }
+
+  return result;
+};
+
+function isReactElement<P>(
+  child: React.ReactNode,
+): child is React.ReactElement<P> {
+  return !!(child as React.ReactElement<P>).type;
+}
 
 type Offset = {
   startOffset: number;

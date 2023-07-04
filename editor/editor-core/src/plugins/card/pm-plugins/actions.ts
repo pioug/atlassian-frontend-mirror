@@ -91,3 +91,9 @@ export const showLinkToolbar = (tr: Transaction) =>
 
 export const hideLinkToolbar = (tr: Transaction) =>
   cardAction(tr, { type: 'HIDE_LINK_TOOLBAR' });
+
+export const showDatasourceModal = (tr: Transaction) =>
+  cardAction(tr, { type: 'SHOW_DATASOURCE_MODAL' });
+
+export const hideDatasourceModal = (tr: Transaction) =>
+  cardAction(tr, { type: 'HIDE_DATASOURCE_MODAL' });

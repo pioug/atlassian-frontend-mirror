@@ -6,7 +6,7 @@ import type { DisconnectReason } from './disconnected-reason-mapper';
 import type { InternalError } from './errors/error-types';
 import type { ProviderError } from './errors/error-types';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { ProviderParticipant } from './participants/participants-helper';
+import { GetUserType } from './participants/participants-helper';
 import AnalyticsHelper from './analytics/analytics-helper';
 
 // types from editor common
@@ -102,9 +102,7 @@ export interface Config {
   analyticsClient?: AnalyticsWebClient;
   getAnalyticsWebClient?: Promise<AnalyticsWebClient>;
   featureFlags?: { [key: string]: boolean };
-  getUser?(
-    userId: string,
-  ): Promise<Pick<ProviderParticipant, 'avatar' | 'name' | 'userId'>>;
+  getUser?: GetUserType;
   /**
    * If provided, permissionTokenRefresh is called whenever a new JWT token is required.
    */

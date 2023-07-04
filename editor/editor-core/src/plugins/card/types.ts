@@ -117,6 +117,7 @@ export type CardPluginState = {
   smartLinkEventsNext?: SmartLinkEventsNext;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   editorAppearance?: EditorAppearance;
+  showDatasourceModal: boolean;
   datasourceTableRef?: HTMLElement;
   layout?: DatasourceTableLayout;
 };
@@ -158,6 +159,14 @@ export type HideLinkToolbar = {
   type: 'HIDE_LINK_TOOLBAR';
 };
 
+export type ShowDatasourceModal = {
+  type: 'SHOW_DATASOURCE_MODAL';
+};
+
+export type HideDatasourceModal = {
+  type: 'HIDE_DATASOURCE_MODAL';
+};
+
 export type RegisterSmartCardEvents = {
   type: 'REGISTER_EVENTS';
   smartLinkEvents: SmartLinkEvents;
@@ -191,6 +200,8 @@ export type CardPluginAction =
   | Register
   | ShowLinkToolbar
   | HideLinkToolbar
+  | ShowDatasourceModal
+  | HideDatasourceModal
   | RegisterSmartCardEvents
   | RegisterSmartCardEventsNext
   | SetDatasourceTableRef

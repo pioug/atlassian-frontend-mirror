@@ -32,7 +32,7 @@ const Item = ({ isLoading, ...props }: any) => {
       <span
         style={{
           background: token('color.text.inverse', N30),
-          borderRadius: '50%',
+          borderRadius: token('border.radius.circle', '50%'),
           width: 24,
           height: 24,
         }}

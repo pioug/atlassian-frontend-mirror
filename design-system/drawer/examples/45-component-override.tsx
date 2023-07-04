@@ -36,7 +36,7 @@ const iconButtonStyles = css({
   justifyContent: 'center',
   background: 0,
   border: 0,
-  borderRadius: '50%',
+  borderRadius: token('border.radius.circle', '50%'),
   color: 'inherit',
   cursor: 'pointer',
   fontSize: 'inherit',

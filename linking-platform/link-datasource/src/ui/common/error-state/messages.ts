@@ -1,6 +1,24 @@
 import { defineMessages } from 'react-intl-next';
 
 export const loadingErrorMessages = defineMessages({
+  accessInstructions: {
+    id: 'linkDataSource.jira-issues.accessInstructions',
+    description:
+      "Instructions to let the user know they must contact an administrator in order to access this site's content",
+    defaultMessage: 'To request access, contact your admin.',
+  },
+  accessRequired: {
+    id: 'linkDataSource.jira-issues.accessRequired',
+    description:
+      'Message letting user know that they do not have access to this site',
+    defaultMessage: "You don't have access to this site",
+  },
+  accessRequiredWithSite: {
+    id: 'linkDataSource.jira-issues.accessRequiredWithSite',
+    description:
+      'Message letting user know that they do not have access to the site by name',
+    defaultMessage: "You don't have access to {siteName}",
+  },
   checkConnection: {
     id: 'linkDataSource.jira-issues.checkConnection',
     description:
@@ -19,12 +37,6 @@ export const loadingErrorMessages = defineMessages({
     description:
       'Status message letting the user know their query did not have any results',
     defaultMessage: 'No results found',
-  },
-  openInProject: {
-    id: 'linkDataSource.jira-issues.openInProject',
-    description:
-      'Prompt text that allows the user to visit the project page for the selected query',
-    defaultMessage: 'Open in project',
   },
   refresh: {
     id: 'linkDataSource.jira-issues.refresh',

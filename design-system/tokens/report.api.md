@@ -33,8 +33,8 @@ export type ActiveTokens =
   | 'border.radius.400'
   | 'border.radius.circle'
   | 'border.width'
-  | 'border.width.050'
-  | 'border.width.100'
+  | 'border.width.indicator'
+  | 'border.width.outline'
   | 'color.background.accent.blue.bolder'
   | 'color.background.accent.blue.subtle'
   | 'color.background.accent.blue.subtler'
@@ -435,6 +435,12 @@ const baseSizeTokens: {
   };
   readonly Size100: {
     readonly value: 2;
+    readonly attributes: {
+      readonly group: 'shape';
+    };
+  };
+  readonly Size200: {
+    readonly value: 3;
     readonly attributes: {
       readonly group: 'shape';
     };
@@ -843,8 +849,8 @@ type CSSTokenMap = {
   'border.radius.circle': 'var(--ds-border-radius-circle)';
   'border.width': 'var(--ds-border-width)';
   'border.width.0': 'var(--ds-border-width-0)';
-  'border.width.050': 'var(--ds-border-width-050)';
-  'border.width.100': 'var(--ds-border-width-100)';
+  'border.width.indicator': 'var(--ds-border-width-indicator)';
+  'border.width.outline': 'var(--ds-border-width-outline)';
   'space.0': 'var(--ds-space-0)';
   'space.025': 'var(--ds-space-025)';
   'space.050': 'var(--ds-space-050)';
@@ -991,9 +997,9 @@ type InternalTokenIds =
   | 'border.radius.400'
   | 'border.radius.[default]'
   | 'border.radius.circle'
-  | 'border.width.050'
-  | 'border.width.100'
   | 'border.width.[default]'
+  | 'border.width.indicator'
+  | 'border.width.outline'
   | 'color.background.accent.blue.bolder'
   | 'color.background.accent.blue.subtle'
   | 'color.background.accent.blue.subtler'
@@ -1853,8 +1859,8 @@ const tokens: {
   readonly 'border.radius.circle': '--ds-border-radius-circle';
   readonly 'border.width': '--ds-border-width';
   readonly 'border.width.0': '--ds-border-width-0';
-  readonly 'border.width.050': '--ds-border-width-050';
-  readonly 'border.width.100': '--ds-border-width-100';
+  readonly 'border.width.indicator': '--ds-border-width-indicator';
+  readonly 'border.width.outline': '--ds-border-width-outline';
   readonly 'space.0': '--ds-space-0';
   readonly 'space.025': '--ds-space-025';
   readonly 'space.050': '--ds-space-050';

@@ -4,6 +4,7 @@ import {
   fixTest,
   EditorNodeContainerModel,
   EditorMediaInlineModel,
+  BROWSERS,
 } from '@af/editor-libra';
 import { doc, p, mediaInline } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mediaInlineAdf } from './copy-mediaInline.spec.ts-fixtures/adf-mediaInline';
@@ -72,7 +73,7 @@ test.describe('media inline', () => {
     fixTest({
       jiraIssueId: 'UTEST-660',
       reason: 'Copy HTML element does not work on Firefox headless at all.',
-      condition: browserName === 'firefox',
+      condition: browserName === BROWSERS.firefox,
     });
 
     const nodes = EditorNodeContainerModel.from(editor);

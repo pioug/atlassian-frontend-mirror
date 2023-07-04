@@ -138,15 +138,17 @@ const generateDataResponse = ({
   maxItems = 99,
   numberOfLoads = 0,
   includeSchema,
+  isUnauthorized = false,
 }: {
   cloudId: string;
   maxItems?: number;
   numberOfLoads?: number;
   includeSchema: boolean;
+  isUnauthorized?: boolean;
 }): DatasourceDataResponse => ({
   meta: {
     key: 'jira-object-provider',
-    access: 'granted',
+    access: isUnauthorized ? 'unauthorized' : 'granted',
     auth: [],
     definitionId: 'object-resolver-service',
     product: 'jira',
@@ -263,6 +265,15 @@ export const mockDatasourceFetchRequests = (datasourceId?: string | null) => {
             );
           } else if (cloudId === '33333') {
             reject();
+          } else if (cloudId === '44444') {
+            resolve(
+              generateDataResponse({
+                cloudId,
+                numberOfLoads,
+                includeSchema,
+                isUnauthorized: true,
+              }),
+            );
           } else {
             resolve(
               generateDataResponse({ cloudId, numberOfLoads, includeSchema }),

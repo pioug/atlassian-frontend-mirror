@@ -12,7 +12,7 @@ const commonStyles = css({
   width: `var(${varDotsSize})`,
   height: `var(${varDotsSize})`,
   position: 'relative',
-  borderRadius: '50%',
+  borderRadius: token('border.radius.circle', '50%'),
   '&::before': {
     display: 'block',
     width: `calc(var(${varDotsSize}) + var(${varDotsMargin}))`,

@@ -4,6 +4,8 @@ import { CSSProperties, FC } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   AVATAR_RADIUS,
   AVATAR_SIZES,
@@ -48,6 +50,7 @@ const radiusStyles = Object.entries(AVATAR_RADIUS).reduce(
     return {
       ...styles,
       [key]: css({
+        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
         borderRadius: `${size}px`,
       }),
     };
@@ -55,7 +58,7 @@ const radiusStyles = Object.entries(AVATAR_RADIUS).reduce(
   {} as Record<SizeType, SerializedStyles>,
 );
 const defaultRadiusStyles = css({
-  borderRadius: '50%',
+  borderRadius: token('border.radius.circle', '50%'),
 });
 
 const strongOpacityStyles = css({

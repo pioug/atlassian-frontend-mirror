@@ -17,12 +17,17 @@ import {
 } from '@atlaskit/link-datasource';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
+import { token } from '@atlaskit/tokens';
+import { akEditorRuleBorderRadius } from '@atlaskit/editor-shared-styles';
+import { N40 } from '@atlaskit/theme/colors';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 
 //  Temporary, until we add aspect ratio to the datasource table
 const datasourceContainerStyle = css({
   height: '500px',
   overflow: 'auto',
+  borderRadius: `${token('border.radius.100', akEditorRuleBorderRadius)}`,
+  border: `1px solid ${token('color.border', N40)}`,
   marginLeft: '50%',
   transform: 'translateX(-50%)',
 });

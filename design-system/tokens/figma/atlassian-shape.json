@@ -14,6 +14,10 @@
       "attributes": {
         "group": "shape",
         "state": "active",
+        "suggest": [
+          "3px",
+          "4px"
+        ],
         "introduced": "1.5.2",
         "description": "The default border radius."
       },
@@ -59,6 +63,9 @@
       "attributes": {
         "group": "shape",
         "state": "active",
+        "suggest": [
+          "50%"
+        ],
         "introduced": "1.1.0",
         "description": "Used for circular containers, like a rounded button."
       },
@@ -68,8 +75,12 @@
       "attributes": {
         "group": "shape",
         "state": "active",
+        "suggest": [
+          "1px",
+          "2px"
+        ],
         "introduced": "1.5.2",
-        "description": "The default border width."
+        "description": "The default border width. Used for all borders."
       },
       "value": 1
     },
@@ -78,25 +89,25 @@
         "group": "shape",
         "state": "experimental",
         "introduced": "1.2.1",
-        "description": "Experimental, description needs to be amended"
+        "description": "Used for zero width borders."
       },
       "value": 0
     },
-    "Shape/border.width.050": {
+    "Shape/border.width.indicator": {
       "attributes": {
         "group": "shape",
         "state": "active",
-        "introduced": "1.1.0",
-        "description": "Used for all borders and dividers."
+        "introduced": "1.5.2",
+        "description": "Used for indicators like tab and menu selected states."
       },
-      "value": 1
+      "value": 3
     },
-    "Shape/border.width.100": {
+    "Shape/border.width.outline": {
       "attributes": {
         "group": "shape",
         "state": "active",
-        "introduced": "1.1.0",
-        "description": "Used for bolder dividers and interaction states."
+        "introduced": "1.5.2",
+        "description": "Used for focus, active or selected inputs."
       },
       "value": 2
     }

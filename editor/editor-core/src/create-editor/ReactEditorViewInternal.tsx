@@ -358,6 +358,13 @@ export class ReactEditorView<T = {}> extends React.Component<
     if (!this.transactionTracking.enabled) {
       this.pluginPerformanceObserver.disconnect();
     }
+
+    if (
+      nextProps.editorProps.assistiveLabel !==
+      this.props.editorProps.assistiveLabel
+    ) {
+      this.editor = this.createEditor(nextProps.editorProps.assistiveLabel);
+    }
   }
 
   formatFullWidthAppearance = (
@@ -982,20 +989,30 @@ export class ReactEditorView<T = {}> extends React.Component<
     }
   };
 
-  private editor = (
-    <div
-      className={getUAPrefix()}
-      key="ProseMirror"
-      ref={this.handleEditorViewRef}
-      aria-label={
-        this.props.editorProps.assistiveLabel
-          ? this.props.editorProps.assistiveLabel
-          : this.props.intl.formatMessage(editorMessages.editorAssistiveLabel)
-      }
-      role="textbox"
-      id={EDIT_AREA_ID}
-    />
-  );
+  private createEditor = (assistiveLabel?: string) => {
+    return (
+      <div
+        className={getUAPrefix()}
+        key="ProseMirror"
+        ref={this.handleEditorViewRef}
+        aria-label={
+          assistiveLabel ||
+          this.props.intl.formatMessage(editorMessages.editorAssistiveLabel)
+        }
+        // setting aria-multiline to true when not mobile appearance.
+        //  because somehow mobile tests are failing when it set.
+        //  don't know why that is happening.
+        // Created https://product-fabric.atlassian.net/jira/servicedesk/projects/DTR/queues/issue/DTR-1675
+        //  to investigate further.
+        aria-multiline={
+          this.props.editorProps.appearance !== 'mobile' ? true : false
+        }
+        role="textbox"
+        id={EDIT_AREA_ID}
+      />
+    );
+  };
+  private editor = this.createEditor(this.props.editorProps.assistiveLabel);
 
   render() {
     const renderTracking =

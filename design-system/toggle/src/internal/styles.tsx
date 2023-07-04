@@ -4,6 +4,7 @@ import { CSSObject } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { ThemeModes } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
 
 import { Size } from '../types';
 
@@ -110,7 +111,7 @@ export const getStyles = (size: Size, mode: ThemeModes): CSSObject => {
     // slider
     '::before': {
       backgroundColor: colors.handleBackgroundColor,
-      borderRadius: '50%',
+      borderRadius: token('border.radius.circle', '50%'),
       content: '""',
       position: 'absolute',
       transform: 'initial',

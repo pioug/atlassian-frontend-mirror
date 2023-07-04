@@ -4,7 +4,7 @@ import { Component, ImgHTMLAttributes } from 'react';
 import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
-import { borderRadius as getBorderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import {
   Spotlight,
@@ -18,10 +18,12 @@ import logoInverted from './assets/logo-inverted.png';
 import logo from './assets/logo.png';
 import { Code } from './styled';
 
-const borderRadius = getBorderRadius();
-
 const Replacement = (rect: any) => {
-  const style = { borderRadius, overflow: 'hidden', ...rect };
+  const style = {
+    borderRadius: token('border.radius', '3px'),
+    overflow: 'hidden',
+    ...rect,
+  };
 
   return (
     <SpotlightPulse style={style}>
@@ -33,7 +35,7 @@ const Replacement = (rect: any) => {
 const imageStyles = css({
   width: '128px',
   height: '128px',
-  borderRadius: `${borderRadius}px`,
+  borderRadius: token('border.radius', '3px'),
 });
 
 const Image = ({ alt, src }: ImgHTMLAttributes<HTMLImageElement>) => (

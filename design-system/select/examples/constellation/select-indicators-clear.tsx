@@ -1,11 +1,19 @@
 import React, { CSSProperties, FunctionComponent } from 'react';
+
 import { Label } from '@atlaskit/form';
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
+
 import { cities } from '../common/data';
 import Select from '../../src';
 import { OptionType, ClearIndicatorProps } from '../../src/types';
 
+const clearIndicatorStyles = xcss({
+  paddingInline: 'space.050',
+});
+
 const CustomClearText: FunctionComponent = () => <>clear all</>;
+
 const ClearIndicator = (props: ClearIndicatorProps<OptionType, true>) => {
   const {
     children = <CustomClearText />,
@@ -18,7 +26,7 @@ const ClearIndicator = (props: ClearIndicatorProps<OptionType, true>) => {
       ref={ref}
       style={getStyles('clearIndicator', props) as CSSProperties}
     >
-      <div style={{ padding: '0px 5px' }}>{children}</div>
+      <Box xcss={clearIndicatorStyles}>{children}</Box>
     </div>
   );
 };

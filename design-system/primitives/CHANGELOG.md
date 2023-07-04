@@ -1,5 +1,28 @@
 # @atlaskit/primitives
 
+## 0.15.2
+
+### Patch Changes
+
+- [`ab4938b0c32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab4938b0c32) - Remove runtime dev warning for invalid token aliases.
+
+## 0.15.1
+
+### Patch Changes
+
+- [`7c1c449eb96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c1c449eb96) - Updated space token descriptions.
+
+## 0.15.0
+
+### Minor Changes
+
+- [`8b04f3e78bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b04f3e78bd) - Adds basic `<Show>` and `<Hide>` responsive primitive components to make consistent, composable UIs without writing a dozen lines for just one `display: none` css rule.
+
+  Additionally:
+
+  - Adds some further examples, tests, and VRs.
+  - Tweaks some internals around building these reusable media query maps.
+
 ## 0.14.3
 
 ### Patch Changes

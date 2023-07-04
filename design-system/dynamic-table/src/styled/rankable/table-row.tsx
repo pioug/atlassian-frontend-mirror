@@ -21,7 +21,7 @@ const rankingStyles = css({
 
 const rankingItemStyles = css({
   backgroundColor: token('elevation.surface.overlay', N20),
-  borderRadius: '2px',
+  borderRadius: token('border.radius.050', '2px'),
   boxShadow: token(
     'elevation.shadow.overlay',
     `0 20px 32px -8px ${N50A}, 0 0 1px ${N60A}`,
@@ -29,7 +29,7 @@ const rankingItemStyles = css({
 });
 
 const draggableStyles = css({
-  outlineWidth: '2px',
+  outlineWidth: token('border.width', '2px'),
   '&:focus': {
     outlineColor: token('color.border.focused', B100),
     outlineStyle: 'solid',

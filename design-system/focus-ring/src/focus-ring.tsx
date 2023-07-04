@@ -21,7 +21,9 @@ const baseInsetStyles = css({
   outlineColor: token('color.border.focused', '#4C9AFF'),
   outlineOffset: -BORDER_WIDTH,
   outlineStyle: 'solid',
-  outlineWidth: BORDER_WIDTH,
+  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+  // TODO Delete this comment after verifying space token -> previous value `BORDER_WIDTH`
+  outlineWidth: token('border.width', '2px'),
 });
 
 const focusRingStyles = css({

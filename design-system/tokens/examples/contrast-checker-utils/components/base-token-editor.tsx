@@ -99,7 +99,7 @@ const BaseTokenEditor = ({
                   display: 'flex',
                   flexGrow: '1',
                   borderRadius: 'border.radius.200',
-                  borderWidth: 'border.width.100',
+                  borderWidth: 'border.width',
                   borderStyle: 'solid',
                   borderColor: 'color.border',
                   flexBasis: 'min-content',

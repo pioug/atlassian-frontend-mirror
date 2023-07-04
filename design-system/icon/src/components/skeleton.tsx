@@ -2,12 +2,14 @@
 import { css, jsx } from '@emotion/react';
 import { memo } from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import type { SkeletonProps } from '../types';
 import { sizeStyleMap } from './styles';
 
 const skeletonStyles = css({
   display: 'inline-block',
-  borderRadius: '50%',
+  borderRadius: token('border.radius.circle', '50%'),
 });
 
 const subtleOpacityStyles = css({

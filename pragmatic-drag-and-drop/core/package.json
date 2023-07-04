@@ -56,7 +56,7 @@
     "raf-schd": "^4.0.3"
   },
   "devDependencies": {
-    "@atlaskit/tokens": "^1.10.0",
+    "@atlaskit/tokens": "^1.11.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@emotion/react": "^11.7.1",

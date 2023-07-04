@@ -14,6 +14,7 @@ export type {
   BlockCardAdf,
   EmbedCardAdf,
   DatasourceAdf,
+  DatasourceAdfView,
 } from '@atlaskit/linking-common';
 export { APIError } from '@atlaskit/linking-common';
 export { CardClient as Client } from '@atlaskit/link-provider';

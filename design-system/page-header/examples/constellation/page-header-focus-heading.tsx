@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import Button from '@atlaskit/button/standard-button';
 import __noop from '@atlaskit/ds-lib/noop';
+import { Box } from '@atlaskit/primitives';
 
 import PageHeader from '../../src';
 
@@ -27,12 +28,12 @@ const PageHeaderFocusHeadingExample = () => {
   };
 
   return (
-    <div>
+    <Box>
       <Button onClick={onClick}>Focus on heading</Button>
       <PageHeader breadcrumbs={breadcrumbs} innerRef={innerRef}>
         Title describing the content
       </PageHeader>
-    </div>
+    </Box>
   );
 };
 

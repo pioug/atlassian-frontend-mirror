@@ -2,6 +2,7 @@ import React from 'react';
 
 import { B300, G300 } from '@atlaskit/theme/colors';
 import type { SVGProps } from '@atlaskit/icon/types';
+import { Box } from '@atlaskit/primitives';
 
 import SVG from '../../src/entry-points/svg';
 
@@ -18,14 +19,14 @@ const CustomSVGExample = (props: SVGProps) => {
 };
 
 const ExampleContainer = () => (
-  <div>
+  <Box>
     <CustomSVGExample primaryColor={B300} size="small" label="spinner" />
     <CustomSVGExample primaryColor={B300} size="medium" label="spinner" />
     <CustomSVGExample primaryColor={B300} size="large" label="spinner" />
     <CustomSVGExample primaryColor={G300} size="small" label="spinner" />
     <CustomSVGExample primaryColor={G300} size="medium" label="spinner" />
     <CustomSVGExample primaryColor={G300} size="large" label="spinner" />
-  </div>
+  </Box>
 );
 
 export default ExampleContainer;

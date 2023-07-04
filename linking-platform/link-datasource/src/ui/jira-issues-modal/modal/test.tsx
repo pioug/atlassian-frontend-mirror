@@ -189,14 +189,15 @@ describe('JiraIssuesConfigModal', () => {
         cloudId?: string;
         jql?: string;
         columnKeys?: string[];
+        jqlUrl?: string;
       } = {},
     ) => {
       const button = component.getByRole('button', { name: 'Insert issues' });
       button.click();
-
       expect(onInsert).toHaveBeenCalledWith({
         type: 'blockCard',
         attrs: {
+          url: args?.jqlUrl,
           datasource: {
             id: 'some-jira-jql-datasource-id',
             parameters: {
@@ -291,8 +292,10 @@ describe('JiraIssuesConfigModal', () => {
       act(() => {
         availableJiraSiteDropdownItems[0].click();
       });
-
-      assertInsertResult({ cloudId: '12345' });
+      assertInsertResult({
+        cloudId: '12345',
+        jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+      });
     });
   });
 
@@ -338,7 +341,10 @@ describe('JiraIssuesConfigModal', () => {
         });
       });
 
-      assertInsertResult({ cloudId: '12345' });
+      assertInsertResult({
+        cloudId: '12345',
+        jqlUrl: 'https://test1.atlassian.net/issues/?jql=some-query',
+      });
     });
   });
 
@@ -378,7 +384,10 @@ describe('JiraIssuesConfigModal', () => {
         });
       });
 
-      assertInsertResult({ jql: 'different-query' });
+      assertInsertResult({
+        jql: 'different-query',
+        jqlUrl: 'https://hello.atlassian.net/issues/?jql=different-query',
+      });
     });
 
     it('should reset hooks state', async () => {
@@ -725,6 +734,7 @@ describe('JiraIssuesConfigModal', () => {
       expect(onInsert).toHaveBeenCalledWith({
         type: 'blockCard',
         attrs: {
+          url: 'https://hello.atlassian.net/issues/?jql=some-query',
           datasource: {
             id: 'some-jira-jql-datasource-id',
             parameters: {
@@ -777,7 +787,10 @@ describe('JiraIssuesConfigModal', () => {
         visibleColumnKeys: ['myColumn'],
       });
 
-      assertInsertResult({ columnKeys: ['myColumn'] });
+      assertInsertResult({
+        columnKeys: ['myColumn'],
+        jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+      });
     });
   });
 
@@ -789,7 +802,10 @@ describe('JiraIssuesConfigModal', () => {
         getLatestIssueLikeTableProps();
       tableOnVisibleColumnKeysChange!(['someColumn']);
 
-      assertInsertResult({ columnKeys: ['someColumn'] });
+      assertInsertResult({
+        columnKeys: ['someColumn'],
+        jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+      });
     });
   });
 
@@ -805,7 +821,10 @@ describe('JiraIssuesConfigModal', () => {
         expect.anything(),
       );
 
-      assertInsertResult({ columnKeys: ['myColumn', 'otherColumn'] });
+      assertInsertResult({
+        columnKeys: ['myColumn', 'otherColumn'],
+        jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+      });
     });
 
     describe("but hook state hasn't loaded default column keys yet", () => {
@@ -819,7 +838,10 @@ describe('JiraIssuesConfigModal', () => {
 
         renderComponent();
 
-        assertInsertResult({ columnKeys: ['myColumn', 'otherColumn'] });
+        assertInsertResult({
+          columnKeys: ['myColumn', 'otherColumn'],
+          jqlUrl: 'https://hello.atlassian.net/issues/?jql=some-query',
+        });
       });
     });
   });
@@ -867,6 +889,21 @@ describe('JiraIssuesConfigModal', () => {
       });
 
       expect(queryByText('Unable to load results')).not.toBeInTheDocument();
+    });
+
+    it('should show unauthorized error message', async () => {
+      const { getByLabelText, getByRole, getByText } = await setup({
+        hookState: { ...getErrorHookState(), status: 'unauthorized' },
+      });
+
+      // issue view
+      expect(getByText("You don't have access to hello")).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
+
+      // count view
+      fireEvent.click(getByLabelText('Count view'));
+      expect(getByText("You don't have access to hello")).toBeInTheDocument();
+      expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
     });
   });
 });

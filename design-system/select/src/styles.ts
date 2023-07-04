@@ -119,8 +119,8 @@ export default function baseStyles<Option, IsMulti extends boolean>(
         borderWidth: getBooleanFF(
           'platform.design-system-team.border-checkbox_nyoiu',
         )
-          ? token('border.width.050', '1px')
-          : token('border.width.100', '2px'),
+          ? token('border.width', '1px')
+          : token('border.width.outline', '2px'),
         boxShadow: 'none',
         ...(getBooleanFF(
           'platform.design-system-team.border-checkbox_nyoiu',

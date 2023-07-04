@@ -151,7 +151,10 @@ const selectedNotchStyles = css({
     bottom: token('space.150', '12px'),
     left: 0,
     background: token('color.border.selected', 'transparent'),
-    borderRadius: '0 4px 4px 0',
+    borderRadius: `0 ${token('border.radius', '4px')} ${token(
+      'border.radius',
+      '4px',
+    )} 0`,
     content: '""',
   },
 });

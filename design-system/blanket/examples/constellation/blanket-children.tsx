@@ -1,20 +1,18 @@
 /** @jsx jsx */
 import { useCallback, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
-import { N0 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Blanket from '../../src';
 
-const blanketChildStyles = css({
+const blanketChildStyles = xcss({
   width: '50%',
-  margin: token('space.600', '48px'),
-  paddingTop: token('space.300', '24px'),
-  paddingBottom: token('space.300', '24px'),
-  backgroundColor: token('elevation.surface', N0),
+  margin: 'space.600',
+  paddingBlock: 'space.300',
+  backgroundColor: 'elevation.surface',
 });
 
 const BlanketWithChildrenExample = () => {
@@ -32,7 +30,7 @@ const BlanketWithChildrenExample = () => {
   }, []);
 
   return (
-    <div>
+    <Box>
       <Button
         appearance="default"
         onClick={showBlanketClick}
@@ -47,12 +45,12 @@ const BlanketWithChildrenExample = () => {
         shouldAllowClickThrough={shouldAllowClickThrough}
         testId="blanket-with-children"
       >
-        <div css={blanketChildStyles}>
+        <Box xcss={blanketChildStyles}>
           Click "Show blanket" button to open the blanket & click the blanket to
           dismiss it.
-        </div>
+        </Box>
       </Blanket>
-    </div>
+    </Box>
   );
 };
 

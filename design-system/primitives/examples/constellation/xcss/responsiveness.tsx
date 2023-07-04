@@ -13,7 +13,7 @@ const cardStyles = xcss({
   backgroundColor: 'color.background.neutral',
   padding: 'space.200',
   borderColor: 'color.border',
-  borderWidth: 'border.width.100',
+  borderWidth: 'border.width.outline',
   borderStyle: 'solid',
   borderRadius: 'border.radius.050',
   [media.above.xxs]: {

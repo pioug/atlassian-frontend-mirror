@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 0.27.0
+
+### Minor Changes
+
+- [`ba155a0034c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba155a0034c) - [ux] Add restricted access view to modal and table
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.26.0
+
+### Minor Changes
+
+- [`a1b70608039`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1b70608039) - [ux] Adds editor toolbar to link datasource component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.25.2
 
 ### Patch Changes

@@ -11,7 +11,7 @@ const cardStyles = xcss({
   backgroundColor: 'elevation.surface',
   padding: 'space.200',
   borderColor: 'color.border',
-  borderWidth: 'border.width.100',
+  borderWidth: 'border.width',
   borderStyle: 'solid',
   borderRadius: 'border.radius.100',
 });

@@ -1,10 +1,12 @@
 import React from 'react';
 
+import { Box } from '@atlaskit/primitives';
+
 import { Checkbox } from '../../src';
 
 const CheckboxSizesExample = () => {
   return (
-    <div>
+    <Box>
       <Checkbox
         value="Small checkbox"
         label="Small checkbox"
@@ -30,7 +32,7 @@ const CheckboxSizesExample = () => {
         name="checkbox-basic"
         size="xlarge"
       />
-    </div>
+    </Box>
   );
 };
 

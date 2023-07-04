@@ -17,7 +17,7 @@ const eventResultStyles = css({
   padding: '0.5em',
   borderColor: token('color.border', '#ccc'),
   borderStyle: 'dashed',
-  borderWidth: '1px',
+  borderWidth: token('border.width', '1px'),
   color: token('color.text.subtlest', '#ccc'),
 });
 

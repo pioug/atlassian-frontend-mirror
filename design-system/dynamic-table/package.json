@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dynamic-table",
-  "version": "14.11.0",
+  "version": "14.11.1",
   "description": "A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -41,7 +41,7 @@
     "@atlaskit/pagination": "^14.4.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.10.0",
+    "@atlaskit/tokens": "^1.11.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "react-beautiful-dnd": "^12.1.1"
@@ -51,12 +51,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/avatar": "^21.3.0",
-    "@atlaskit/button": "^16.8.0",
-    "@atlaskit/docs": "*",
-    "@atlaskit/dropdown-menu": "^11.10.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/toggle": "^12.6.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

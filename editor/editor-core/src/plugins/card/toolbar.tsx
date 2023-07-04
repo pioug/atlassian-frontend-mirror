@@ -30,9 +30,11 @@ import { pluginKey } from './pm-plugins/main';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { richMediaClassName } from '@atlaskit/editor-common/styles';
 import {
+  editDatasource,
   buildEditLinkToolbar,
   editLink,
   editLinkToolbarConfig,
+  openDatasourceModal,
 } from './ui/EditLinkToolbar';
 
 import {
@@ -65,6 +67,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type cardPlugin from './index';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { SmallerEditIcon } from './ui/SmallerEditIcon';
 
 export const removeCard = (
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
@@ -319,6 +322,8 @@ const generateToolbarItems =
     const currentAppearance = appearanceForNodeType(node.type);
     const { hoverDecoration } =
       pluginInjectionApi?.dependencies?.decorations?.actions ?? {};
+    const isDatasource =
+      currentAppearance === 'block' && node?.attrs?.datasource;
 
     /* mobile builds toolbar natively using toolbarItems */
     if (pluginState.showLinkingToolbar && platform !== 'mobile') {
@@ -331,6 +336,24 @@ const generateToolbarItems =
           pluginInjectionApi,
         }),
       ];
+    } else if (pluginState.showDatasourceModal) {
+      return [
+        openDatasourceModal({
+          state,
+          node,
+          editorAnalyticsApi,
+        }),
+      ];
+      // not showing toolbar in mobile for now since not sure what our plans are for it
+    } else if (isDatasource && platform !== 'mobile') {
+      return getDatasourceButtonGroup(
+        state,
+        metadata,
+        intl,
+        editorAnalyticsApi,
+        node,
+        hoverDecoration,
+      );
     } else {
       const { inlineCard } = state.schema.nodes;
       const toolbarItems: Array<FloatingToolbarItem<Command>> = [
@@ -486,4 +509,59 @@ const getSettingsButtonGroup = (
         { type: 'separator' },
       ]
     : [];
+};
+
+const getDatasourceButtonGroup = (
+  state: EditorState,
+  metadata: { url: string; title: string } | {},
+  intl: IntlShape,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  node: Node<any>,
+  hoverDecoration: any,
+): FloatingToolbarItem<Command>[] => {
+  const toolbarItems: Array<FloatingToolbarItem<Command>> = [
+    {
+      id: 'editor.edit.datasource',
+      type: 'button',
+      icon: SmallerEditIcon,
+      metadata: metadata,
+      className: 'datasource-edit',
+      title: intl.formatMessage(linkToolbarMessages.editDatasource),
+      onClick: editDatasource(editorAnalyticsApi),
+    },
+  ];
+
+  if (node?.attrs?.url) {
+    toolbarItems.push(
+      { type: 'separator' },
+      {
+        id: 'editor.link.openLink',
+        type: 'button',
+        icon: OpenIcon,
+        metadata: metadata,
+        className: 'hyperlink-open-link',
+        title: intl.formatMessage(linkMessages.openLink),
+        onClick: visitCardLink(editorAnalyticsApi),
+      },
+    );
+  }
+
+  toolbarItems.push(
+    { type: 'separator' },
+    {
+      id: 'editor.link.delete',
+      focusEditoronEnter: true,
+      type: 'button',
+      appearance: 'danger',
+      icon: RemoveIcon,
+      onMouseEnter: hoverDecoration?.(node.type, true),
+      onMouseLeave: hoverDecoration?.(node.type, false),
+      onFocus: hoverDecoration?.(node.type, true),
+      onBlur: hoverDecoration?.(node.type, false),
+      title: intl.formatMessage(commonMessages.remove),
+      onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
+    },
+  );
+
+  return toolbarItems;
 };

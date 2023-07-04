@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { EditorView } from 'prosemirror-view';
 import { Node } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { withOuterListeners } from '@atlaskit/editor-common/ui';
@@ -10,7 +11,11 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import HyperlinkToolbar from '../../hyperlink/ui/HyperlinkAddToolbar';
-import { showLinkToolbar, hideLinkToolbar } from '../pm-plugins/actions';
+import {
+  showLinkToolbar,
+  hideLinkToolbar,
+  showDatasourceModal,
+} from '../pm-plugins/actions';
 
 import type {
   Command,
@@ -40,6 +45,7 @@ import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
 import type cardPlugin from '../index';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
+import { DatasourceModal } from './DatasourceModal';
 
 export type EditLinkToolbarProps = {
   view: EditorView;
@@ -228,4 +234,53 @@ export const editLinkToolbarConfig = (
         forcePlacement: true,
       }
     : {};
+};
+
+export const editDatasource =
+  (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    if (dispatch) {
+      const { tr } = state;
+      showDatasourceModal(tr);
+      // editorAnalyticsApi?.attachAnalyticsEvent(
+      //   buildEditLinkPayload(
+      //     type as
+      //       | ACTION_SUBJECT_ID.CARD_INLINE
+      //       | ACTION_SUBJECT_ID.CARD_BLOCK
+      //       | ACTION_SUBJECT_ID.EMBEDS,
+      //   ),
+      // )(tr);
+      dispatch(tr);
+      return true;
+    }
+    return false;
+  };
+
+export const openDatasourceModal = ({
+  state,
+  node,
+  editorAnalyticsApi,
+}: {
+  state: EditorState;
+  node: Node<any>;
+  editorAnalyticsApi?: EditorAnalyticsAPI;
+}): FloatingToolbarItem<Command> => {
+  return {
+    type: 'custom',
+    disableArrowNavigation: true,
+    fallback: [],
+    render: (view) => {
+      if (!view) {
+        return null;
+      }
+      return (
+        <DatasourceModal
+          state={state}
+          view={view}
+          node={node}
+          editorAnalyticsApi={editorAnalyticsApi}
+        />
+      );
+    },
+  };
 };

@@ -29,7 +29,7 @@ const sliderThumbStyles = {
   // adapted from @atlaskit/focus-ring
   outline: `solid 2px var(${VAR_THUMB_BORDER_COLOR})`,
   outlineOffset: '2px',
-  borderRadius: '50%',
+  borderRadius: token('border.radius.circle', '50%'),
   boxShadow: `var(${VAR_THUMB_SHADOW})`,
   cursor: 'pointer', // Different implicit behavior across browsers -> making it explicit.
   transition: `background-color ${theme.transitionDuration} ease-in-out`,

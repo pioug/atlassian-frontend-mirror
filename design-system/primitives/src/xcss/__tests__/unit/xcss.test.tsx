@@ -81,10 +81,10 @@ describe('xcss()', () => {
     const styles = xcss({
       ':hover': {
         display: 'flex',
-        borderWidth: 'border.width.100',
+        borderWidth: 'border.width.outline',
       },
       ':visited': {
-        borderWidth: 'border.width.050',
+        borderWidth: 'border.width',
       },
     });
 
@@ -92,11 +92,11 @@ describe('xcss()', () => {
       Object {
         Symbol(UNSAFE_INTERNAL_styles): Object {
           ":hover": Object {
-            "borderWidth": "var(--ds-border-width-100, 2px)",
+            "borderWidth": "var(--ds-border-width-outline, 2px)",
             "display": "flex",
           },
           ":visited": Object {
-            "borderWidth": "var(--ds-border-width-050, 1px)",
+            "borderWidth": "var(--ds-border-width, 1px)",
           },
         },
       }
@@ -236,21 +236,4 @@ describe('xcss()', () => {
       }
     `);
   });
-
-  // TODO: Uncomment these when dealing with responsiveness
-  // it('allows ', () => {
-  //   const result = xcss({
-  //     padding: 'space.100',
-  //     ':hover': {
-  //       // Are we allowing nested selectors like this?
-  //       'below-md': {
-  //         padding: 'space.100',
-  //       },
-  //     },
-  //   });
-
-  //   const expected = {};
-
-  //   expect(result).toMatchInlineSnapshot()
-  // });
 });

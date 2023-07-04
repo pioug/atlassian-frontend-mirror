@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.5.2
+
+### Patch Changes
+
+- [`f835642fab3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f835642fab3) - Fix analytics events attributes
+
 ## 6.5.1
 
 ### Patch Changes

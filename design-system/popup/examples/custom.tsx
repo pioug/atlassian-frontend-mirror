@@ -6,13 +6,13 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/standard-button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { N700 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import Popup, { PopupComponentProps } from '../src';
 
 const containerStyles = css({
   backgroundColor: N700,
-  borderRadius: borderRadius(),
+  borderRadius: token('border.radius', '3px'),
   ':focus': {
     outline: 'none',
   },

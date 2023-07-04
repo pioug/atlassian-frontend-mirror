@@ -7,6 +7,7 @@ import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
+import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
 import { NoResults } from '../common/error-state/no-results';
 import { IssueLikeDataTableView } from '../issue-like-table';
@@ -56,6 +57,10 @@ export const DatasourceTableView = ({
 
   if (status === 'resolved' && !responseItems.length) {
     return <NoResults onRefresh={reset} />;
+  }
+
+  if (status === 'unauthorized') {
+    return <AccessRequired />;
   }
 
   if (status === 'rejected') {

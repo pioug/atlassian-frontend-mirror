@@ -6,4 +6,4 @@ export {
   UNSAFE_media,
   UNSAFE_BREAKPOINTS_CONFIG,
   type Breakpoint,
-} from './helpers/responsive';
+} from './responsive';

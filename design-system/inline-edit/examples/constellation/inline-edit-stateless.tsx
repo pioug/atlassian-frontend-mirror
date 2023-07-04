@@ -1,26 +1,33 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
+import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import {
   fontSize as getFontSize,
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
   gridSize as getGridSize,
 } from '@atlaskit/theme/constants';
-import { token } from '@atlaskit/tokens';
 
 import InlineEdit from '../../src';
 
 const fontSize = getFontSize();
 const gridSize = getGridSize();
 
-const readViewContainerStyles = css({
+const containerStyles = xcss({
+  paddingTop: 'space.100',
+  paddingRight: 'space.100',
+  paddingBottom: 'space.600',
+});
+
+const readViewContainerStyles = xcss({
   display: 'flex',
   maxWidth: '100%',
   minHeight: `${(gridSize * 2.5) / fontSize}em`,
-  padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
+  paddingBlock: 'space.100',
+  paddingInline: 'space.075',
   fontSize: `${fontSize}px`,
   lineHeight: `${(gridSize * 2.5) / fontSize}`,
   wordBreak: 'break-word',
@@ -31,14 +38,7 @@ const InlineEditStatelessExample = () => {
   const [isEditing, setEditing] = useState(true);
 
   return (
-    <div
-      style={{
-        padding: `${token('space.100', '8px')} ${token(
-          'space.100',
-          '8px',
-        )} ${token('space.600', '48px')}`,
-      }}
-    >
+    <Box xcss={containerStyles}>
       <InlineEdit
         defaultValue={editValue}
         label="Inline edit"
@@ -47,9 +47,9 @@ const InlineEditStatelessExample = () => {
           <Textfield {...fieldProps} autoFocus />
         )}
         readView={() => (
-          <div css={readViewContainerStyles} data-testid="read-view">
+          <Box xcss={readViewContainerStyles} data-testid="read-view">
             {editValue || 'Click to enter value'}
-          </div>
+          </Box>
         )}
         onCancel={() => setEditing(false)}
         onConfirm={(value: string) => {
@@ -58,7 +58,7 @@ const InlineEditStatelessExample = () => {
         }}
         onEdit={() => setEditing(true)}
       />
-    </div>
+    </Box>
   );
 };
 

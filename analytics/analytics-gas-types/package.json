@@ -34,7 +34,6 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "typescript": "~4.9.5"
   },

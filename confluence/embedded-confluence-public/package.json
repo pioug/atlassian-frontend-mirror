@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/embedded-confluence",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "Public release version of Embeddedable Pages for Confluence",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -43,7 +43,6 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",

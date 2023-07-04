@@ -1,7 +1,10 @@
 /** @jsx jsx */
+import type { MouseEvent } from 'react';
+
 import { jsx } from '@emotion/react';
 
 import Icon from '@atlaskit/icon';
+import { Box } from '@atlaskit/primitives';
 import { B100 } from '@atlaskit/theme/colors';
 
 import { CSSFn, CustomItem, CustomItemComponentProps } from '../../src';
@@ -54,7 +57,7 @@ const cssFn: CSSFn = (state) => {
 
 export default () => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-  <div onClick={(e) => e.preventDefault()}>
+  <Box onClick={(e: MouseEvent) => e.preventDefault()}>
     <CustomItem
       href="/navigation-system"
       component={CustomComponent}
@@ -100,5 +103,5 @@ export default () => (
     >
       Navigation System
     </CustomItem>
-  </div>
+  </Box>
 );

@@ -1,5 +1,38 @@
 # @atlaskit/renderer
 
+## 108.6.1
+
+### Patch Changes
+
+- [`a8428f91c64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a8428f91c64) - Block introduction of enzyme tests in editor code.
+
+## 108.6.0
+
+### Minor Changes
+
+- [`cb69e6847ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb69e6847ec) - [ux] The table colgroup will always set the width to the min width when the custom-table-width flag is enabled
+
+### Patch Changes
+
+- [`0c22ffc68ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c22ffc68ac) - Fix issue where attempting to add an inline comment (annotation) on inline code nodes wrapped in bidi warnings would result in the editor crashing
+- Updated dependencies
+
+## 108.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.5.0
+
+### Minor Changes
+
+- [`a1b70608039`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a1b70608039) - [ux] Adds editor toolbar to link datasource component
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.4.3
 
 ### Patch Changes

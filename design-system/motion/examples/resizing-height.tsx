@@ -91,7 +91,10 @@ export default () => {
                 marginBottom: token('space.100', '8px'),
                 padding: token('space.200', '16px'),
                 border: 'none',
-                borderRadius: '3px 3px 0 0',
+                borderRadius: `${token('border.radius', '3px')} ${token(
+                  'border.radius',
+                  '3px',
+                )} 0 0`,
                 color: '#172b4d',
                 fontSize: token('font.size.400', '24px'),
                 ':hover': {

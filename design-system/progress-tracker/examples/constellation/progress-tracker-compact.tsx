@@ -1,6 +1,13 @@
 import React from 'react';
 
+import { Box, xcss } from '@atlaskit/primitives';
+
 import { ProgressTracker, Stages } from '../../src';
+
+const containerStyles = xcss({
+  maxWidth: '300px',
+  margin: 'auto',
+});
 
 const items: Stages = [
   {
@@ -48,7 +55,7 @@ const items: Stages = [
 ];
 
 export default () => (
-  <div style={{ maxWidth: 300, margin: 'auto' }}>
+  <Box xcss={containerStyles}>
     <ProgressTracker items={items} spacing="compact" />
-  </div>
+  </Box>
 );

@@ -110,7 +110,7 @@ export default function CommentWithJiraCardsExample() {
                 quickInsert={true}
                 allowTextColor={true}
                 allowRule={true}
-                allowTables={true}
+                allowTables={{ advanced: true }}
                 allowHelpDialog={true}
                 allowPanel
                 allowStatus

@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { Box } from '@atlaskit/primitives';
 
 import TableTree, {
   Cell,
@@ -38,7 +39,7 @@ export default () => {
   }, []);
 
   return (
-    <div>
+    <Box>
       <Button onClick={loadMore}>Load more</Button>
       <TableTree>
         <Headers>
@@ -62,6 +63,6 @@ export default () => {
           )}
         />
       </TableTree>
-    </div>
+    </Box>
   );
 };

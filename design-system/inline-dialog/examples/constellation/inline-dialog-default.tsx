@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import InlineDialog from '../../src';
+
+const containerStyles = xcss({
+  minHeight: '120px',
+});
 
 interface State {
   dialogOpen: boolean;
 }
 
 const content = (
-  <div>
+  <Box>
     <p>Hello!</p>
-  </div>
+  </Box>
 );
 
 export default class InlineDialogDefaultExample extends Component<{}, State> {
@@ -23,7 +28,7 @@ export default class InlineDialogDefaultExample extends Component<{}, State> {
 
   render() {
     return (
-      <div style={{ minHeight: '120px' }}>
+      <Box xcss={containerStyles}>
         <InlineDialog
           onClose={() => {
             this.setState({ dialogOpen: false });
@@ -39,7 +44,7 @@ export default class InlineDialogDefaultExample extends Component<{}, State> {
             Click me!
           </Button>
         </InlineDialog>
-      </div>
+      </Box>
     );
   }
 }

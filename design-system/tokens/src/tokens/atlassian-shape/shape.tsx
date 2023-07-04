@@ -9,8 +9,8 @@ const shape: ValueSchema<ShapeTokenSchema> = {
     width: {
       '[default]': { value: 'Size050' },
       '0': { value: 'Size0' },
-      '050': { value: 'Size050' },
-      '100': { value: 'Size100' },
+      outline: { value: 'Size100' },
+      indicator: { value: 'Size200' },
     },
     radius: {
       '[default]': { value: 'Radius100' },

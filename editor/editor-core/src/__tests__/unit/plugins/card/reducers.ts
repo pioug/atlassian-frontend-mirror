@@ -39,6 +39,7 @@ describe('card', () => {
           datasourceTableRef: undefined,
           layout: undefined,
           showLinkingToolbar: false,
+          showDatasourceModal: false,
         } as CardPluginState);
       });
     });
@@ -60,6 +61,7 @@ describe('card', () => {
             datasourceTableRef: undefined,
             layout: undefined,
             showLinkingToolbar: false,
+            showDatasourceModal: false,
           } as CardPluginState);
         });
 
@@ -137,6 +139,30 @@ describe('card', () => {
           type: 'SET_CARD_LAYOUT_AND_DATASOURCE_TABLE_REF',
           layout: 'wide',
           datasourceTableRef: div,
+        });
+
+        expect(state).toEqual(expectedState);
+      });
+
+      it('should set showDatasourceModal to true', () => {
+        const expectedState = expect.objectContaining({
+          showDatasourceModal: true,
+        });
+
+        const state = reduce(initialState, {
+          type: 'SHOW_DATASOURCE_MODAL',
+        });
+
+        expect(state).toEqual(expectedState);
+      });
+
+      it('should set showDatasourceModal to false', () => {
+        const expectedState = expect.objectContaining({
+          showDatasourceModal: false,
+        });
+
+        const state = reduce(initialState, {
+          type: 'HIDE_DATASOURCE_MODAL',
         });
 
         expect(state).toEqual(expectedState);

@@ -51,4 +51,9 @@ export const linkToolbarMessages = defineMessages({
     defaultMessage: 'Go to Link Preferences',
     description: 'Go to Link Preferences',
   },
+  editDatasource: {
+    id: 'fabric.editor.edit.datasource',
+    defaultMessage: 'Edit search query',
+    description: 'Datasource toolbar edit button',
+  },
 });

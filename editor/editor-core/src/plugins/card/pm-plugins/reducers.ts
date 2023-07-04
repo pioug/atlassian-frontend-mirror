@@ -8,6 +8,8 @@ import {
   Register,
   ShowLinkToolbar,
   HideLinkToolbar,
+  ShowDatasourceModal,
+  HideDatasourceModal,
   RegisterSmartCardEvents,
   RegisterSmartCardEventsNext,
   SetDatasourceTableRef,
@@ -96,6 +98,16 @@ const setLinkToolbar = (
   };
 };
 
+const setDatasourceModal = (
+  state: CardPluginState,
+  action: ShowDatasourceModal | HideDatasourceModal,
+) => {
+  return {
+    ...state,
+    showDatasourceModal: action.type === 'SHOW_DATASOURCE_MODAL',
+  };
+};
+
 export default (
   state: CardPluginState,
   action: CardPluginAction,
@@ -122,5 +134,8 @@ export default (
     case 'SHOW_LINK_TOOLBAR':
     case 'HIDE_LINK_TOOLBAR':
       return setLinkToolbar(state, action);
+    case 'SHOW_DATASOURCE_MODAL':
+    case 'HIDE_DATASOURCE_MODAL':
+      return setDatasourceModal(state, action);
   }
 };

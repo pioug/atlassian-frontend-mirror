@@ -268,9 +268,7 @@ interface Config {
   // (undocumented)
   getAnalyticsWebClient?: Promise<AnalyticsWebClient>;
   // (undocumented)
-  getUser?(
-    userId: string,
-  ): Promise<Pick<ProviderParticipant, 'avatar' | 'name' | 'userId'>>;
+  getUser?: GetUserType;
   // (undocumented)
   initialDraft?: InitialDraft;
   // (undocumented)
@@ -337,6 +335,15 @@ type FailToSave = {
   recoverable: boolean;
   status?: number;
 };
+
+// @public (undocumented)
+type GetUserType =
+  | ((
+      userId: string,
+    ) => Promise<
+      Pick<ProviderParticipant, 'avatar' | 'email' | 'name' | 'userId'>
+    >)
+  | undefined;
 
 // @public (undocumented)
 interface InitAndAuthData {
@@ -559,6 +566,7 @@ export type ProviderError =
 type ProviderParticipant = CollabParticipant & {
   userId: string;
   clientId: number | string;
+  email: string;
 };
 
 // @public (undocumented)

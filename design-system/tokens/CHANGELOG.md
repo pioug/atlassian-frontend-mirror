@@ -1,5 +1,24 @@
 # @atlaskit/tokens
 
+## 1.11.1
+
+### Patch Changes
+
+- [`7053f18ecc5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7053f18ecc5) - Added suggest metadata to shape tokens to aid future migration suggestions.
+- [`ba43427b3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba43427b3e8) - Internal changes to account for introduction of shape/radius tokens.
+
+## 1.11.0
+
+### Minor Changes
+
+- [`c96e003db64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c96e003db64) - Following on from 1.7.0, shape tokens are no longer being enabled behind a feature flag. Only space tokens will be enabled by default when the feature flag is active.
+
+## 1.10.2
+
+### Patch Changes
+
+- [`7c1c449eb96`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c1c449eb96) - Updated space token descriptions.
+
 ## 1.10.1
 
 ### Patch Changes

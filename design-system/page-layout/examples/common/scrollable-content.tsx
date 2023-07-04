@@ -20,7 +20,7 @@ const itemStyles = css({
     'color.background.accent.orange.subtler',
     'papayawhip',
   ),
-  borderRadius: 3,
+  borderRadius: token('border.radius', '3px'),
 });
 
 const highlightStyles = css({

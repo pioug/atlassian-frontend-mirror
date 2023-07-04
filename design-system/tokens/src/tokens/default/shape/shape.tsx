@@ -7,8 +7,9 @@ const shape: AttributeSchema<ShapeTokenSchema> = {
         attributes: {
           group: 'shape',
           state: 'active',
+          suggest: ['1px', '2px'],
           introduced: '1.5.2',
-          description: 'The default border width.',
+          description: 'The default border width. Used for all borders.',
         },
       },
       '0': {
@@ -16,23 +17,23 @@ const shape: AttributeSchema<ShapeTokenSchema> = {
           group: 'shape',
           state: 'experimental',
           introduced: '1.2.1',
-          description: 'Experimental, description needs to be amended',
+          description: 'Used for zero width borders.',
         },
       },
-      '050': {
+      outline: {
         attributes: {
           group: 'shape',
           state: 'active',
-          introduced: '1.1.0',
-          description: 'Used for all borders and dividers.',
+          introduced: '1.5.2',
+          description: 'Used for focus, active or selected inputs.',
         },
       },
-      '100': {
+      indicator: {
         attributes: {
           group: 'shape',
           state: 'active',
-          introduced: '1.1.0',
-          description: 'Used for bolder dividers and interaction states.',
+          introduced: '1.5.2',
+          description: 'Used for indicators like tab and menu selected states.',
         },
       },
     },
@@ -41,6 +42,7 @@ const shape: AttributeSchema<ShapeTokenSchema> = {
         attributes: {
           group: 'shape',
           state: 'active',
+          suggest: ['3px', '4px'],
           introduced: '1.5.2',
           description: 'The default border radius.',
         },
@@ -89,6 +91,7 @@ const shape: AttributeSchema<ShapeTokenSchema> = {
         attributes: {
           group: 'shape',
           state: 'active',
+          suggest: ['50%'],
           introduced: '1.1.0',
           description: 'Used for circular containers, like a rounded button.',
         },

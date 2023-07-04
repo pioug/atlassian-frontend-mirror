@@ -1,0 +1,51 @@
+---
+title: Responsive
+description: Responsive helpers and primitives to build responsive UIs with
+order: 1
+---
+
+import CSSExample from '../../examples/constellation/responsive/css';
+import XCSSExample from '../../examples/constellation/responsive/xcss';
+import ShowExample from '../../examples/constellation/responsive/show';
+import HideExample from '../../examples/constellation/responsive/hide';
+import ShowHideExample from '../../examples/constellation/responsive/show-hide';
+
+## Responsive `css` or `xcss`
+
+Utilize our media queries exposed in `css`, `styled`, or `xcss` as computed keys to build responsive UIs. Learn more about these media query exports in [usage](/components/primitives/responsive/usage).
+
+### Using with `xcss`
+
+Please use `xcss` whenever possible to ensure consistency and safety with style overrides.  Read more at [xcss](/components/primitives/xcss)
+
+<Example Component={XCSSExample} packageName="@atlaskit/primitives/responsive" />
+
+### Using with `css`
+<Example Component={CSSExample} packageName="@atlaskit/primitives/responsive" />
+
+
+## Responsive primitives
+
+Consider these shortcuts to writing your own custom media queries.  Composing with our primitives will be far quicker and consistent to implement, but may result in excess DOM nodes.
+
+### Show
+
+This allows you to Show the children using CSS `display: …` either above or below a breakpoint.  By default, unless the breakpoint is met, contents are hidden.
+
+Note that this does not skip rendering of your children; the contents are rendered into the DOM at all times, so there is typically little performance savings—primarily that this is not painted.
+
+<Example Component={ShowExample} packageName="@atlaskit/primitives/responsive" />
+
+### Hide
+
+This allows you to Hide the children using CSS `display: none` either above or below a breakpoint.  By default, unless the breakpoint is met, contents are hidden.
+
+When hidden, this does not skip rendering of your children; the contents are rendered into the DOM at all times so there is typically little performance savings—primarily that this is not painted.
+
+<Example Component={HideExample} packageName="@atlaskit/primitives/responsive" />
+
+### Mixing Show and Hide
+
+Prefer using consistent `above` or `below` for readability and consistency.
+
+<Example Component={ShowHideExample} packageName="@atlaskit/primitives/responsive" />

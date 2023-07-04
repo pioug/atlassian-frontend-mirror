@@ -1,42 +1,42 @@
 /** @jsx jsx */
 import { useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
+import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-import { token } from '@atlaskit/tokens';
 
 import Popup from '../../src';
 
-const wrapperStyles = css({
+const wrapperStyles = xcss({
   display: 'grid',
   alignItems: 'center',
-  gap: token('space.200', '16px'),
+  gap: 'space.200',
   gridTemplateColumns: '1fr auto',
 });
 
-const contentStyles = css({
-  maxWidth: 200,
-  padding: token('space.200', '16px'),
+const contentStyles = xcss({
+  maxWidth: '200px',
+  padding: 'space.200',
 });
 
 const PopupDisableAutofocusExample = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div css={wrapperStyles}>
+    <Box xcss={wrapperStyles}>
       <Textfield placeholder="This should stay focused when the popup opens" />
       <Popup
         autoFocus={false}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         content={() => (
-          <div css={contentStyles}>
+          <Box xcss={contentStyles}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut aliquam
             massa ac risus scelerisque, in iaculis magna semper. Phasellus
             sagittis congue elit, non suscipit nulla rhoncus vitae.
-          </div>
+          </Box>
         )}
         trigger={(triggerProps) => (
           <Button
@@ -50,7 +50,7 @@ const PopupDisableAutofocusExample = () => {
         )}
         placement="bottom"
       />
-    </div>
+    </Box>
   );
 };
 

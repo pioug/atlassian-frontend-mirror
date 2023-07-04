@@ -1,13 +1,14 @@
 import React from 'react';
 
 import Button from '@atlaskit/button';
+import { Box } from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
 
 import Form, { FormFooter, RangeField } from '../../src';
 
 const FormRangeFieldExample = () => {
   return (
-    <div>
+    <Box>
       <Form onSubmit={(data) => console.log(data)}>
         {({ formProps }) => (
           <form {...formProps}>
@@ -23,7 +24,7 @@ const FormRangeFieldExample = () => {
           </form>
         )}
       </Form>
-    </div>
+    </Box>
   );
 };
 

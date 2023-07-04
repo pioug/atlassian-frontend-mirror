@@ -300,6 +300,7 @@ describe('hyperlink commands', () => {
         datasourceTableRef: undefined,
         layout: undefined,
         showLinkingToolbar: false,
+        showDatasourceModal: false,
       });
     });
     it('should attempt to queue the url with the card plugin if source is MANUAL and text is non-empty but equal to href, and it is a smart link', () => {
@@ -330,6 +331,7 @@ describe('hyperlink commands', () => {
         datasourceTableRef: undefined,
         layout: undefined,
         showLinkingToolbar: false,
+        showDatasourceModal: false,
       });
       expect(view.state.doc).toEqualDocument(
         doc(
@@ -360,6 +362,7 @@ describe('hyperlink commands', () => {
         datasourceTableRef: undefined,
         layout: undefined,
         showLinkingToolbar: false,
+        showDatasourceModal: false,
       });
     });
     it('should not insert a href which contains XSS', () => {

@@ -1,10 +1,13 @@
 import React, { useCallback, useState } from 'react';
 
 import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
+import { Box, xcss } from '@atlaskit/primitives';
 import Select, { ValueType } from '@atlaskit/select';
 
 import Calendar from '../../src';
 import type { WeekDay } from '../../src/types';
+
+const localeContainerStyles = xcss({ maxWidth: '300px' });
 
 type WeekStartDayOption = {
   value: WeekDay;
@@ -27,7 +30,7 @@ export default () => {
   );
 
   return (
-    <div>
+    <Box>
       <Calendar
         disabled={['2020-12-04']}
         defaultPreviouslySelected={['2020-12-06']}
@@ -38,13 +41,12 @@ export default () => {
         weekStartDay={weekStartDay}
         testId="test"
       />
-      <div style={{ maxWidth: '300px' }}>
+      <Box xcss={localeContainerStyles}>
         <label htmlFor="week-start-day">Locale</label>
         <LocaleSelect onLocaleChange={handleLocaleChange} />
         <label htmlFor="week-start-day">Start of the week</label>
         <Select<WeekStartDayOption>
           inputId="week-start-day"
-          // styles={styles}
           options={[
             { label: 'Sunday', value: 0 },
             { label: 'Monday', value: 1 },
@@ -57,7 +59,7 @@ export default () => {
           placeholder="Choose start day of the week"
           onChange={handleWeekStartDayChange}
         />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };

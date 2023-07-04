@@ -264,6 +264,34 @@ describe('Modal', () => {
     ).toMatchProdImageSnapshot();
   });
 
+  it('should render unauthorized message when a request returns 403', async () => {
+    const siteSelectorTrigger = await page.waitForSelector(
+      jiraModalSiteSelector,
+      {
+        visible: true,
+      },
+    );
+    await siteSelectorTrigger?.click();
+
+    const availableSitesDropdownItems = await page.$$(
+      '[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item"],[data-testid="jira-jql-datasource-modal--site-selector--dropdown-item__selected"]',
+    );
+    await availableSitesDropdownItems[7].click(); // "testNoAccess"
+
+    const basicInput = await page.waitForSelector(jqlEditorBasicInputSelector);
+    basicInput?.type('test');
+    await page.click(jqlEditorBasicSearchButtonSelector);
+
+    expect(
+      await takeElementScreenShot(page, jiraModal),
+    ).toMatchProdImageSnapshot();
+
+    await page.click(countModeToggleSelector);
+    expect(
+      await takeElementScreenShot(page, jiraModal),
+    ).toMatchProdImageSnapshot();
+  });
+
   it('should render smart link when in count mode', async () => {
     await page.evaluate(selector => {
       document.querySelector(selector).click();

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { TextWithAnnotationDraft } from '../../ui/annotations';
 
 type Props = {
   startPos: number;
   endPos: number;
-  children?: string | null;
+  children?: ReactNode | null;
 };
 
 const TextWrapper = (props: Props) => {

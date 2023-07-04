@@ -16,10 +16,7 @@ import {
   N900,
 } from '@atlaskit/theme/colors';
 import { themed, useGlobalTheme } from '@atlaskit/theme/components';
-import {
-  borderRadius as getBorderRadius,
-  layers,
-} from '@atlaskit/theme/constants';
+import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const themedBackground = themed({
@@ -43,8 +40,6 @@ const themedBoxShadow = themed({
   ),
 });
 
-const borderRadius = getBorderRadius();
-
 const CSS_THEME_BACKGROUND = '--theme-background';
 const CSS_THEME_COLOR = '--theme-color';
 const CSS_THEME_BOX_SHADOW = '--theme-box-shadow';
@@ -56,7 +51,7 @@ const containerStyles = css({
   padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
   zIndex: layers.dialog(),
   background: `var(${CSS_THEME_BACKGROUND})`,
-  borderRadius: `${borderRadius}px`,
+  borderRadius: token('border.radius', '3px'),
   boxShadow: `var(${CSS_THEME_BOX_SHADOW})`,
   color: `var(${CSS_THEME_COLOR})`,
   '&:focus': {

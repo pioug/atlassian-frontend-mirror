@@ -1,6 +1,7 @@
 import {
   EditorTableModel,
   EditorNodeContainerModel,
+  EditorPopupModel,
   editorTestCase as test,
   expect,
 } from '@af/editor-libra';
@@ -14,6 +15,9 @@ test.use({
       stickyHeaders: true,
     },
     allowStatus: true,
+    featureFlags: {
+      stickyHeadersOptimization: true,
+    },
   },
   adf: tableWithScoll,
 });
@@ -53,6 +57,56 @@ test.describe('sticky header', () => {
         const stickyHeader = await tableModel.stickyHeader();
         expect(await stickyHeader.isFixedContextButtonHidden()).toBeTruthy();
       });
+    });
+  });
+
+  test.describe('sync width', () => {
+    test('should sync width with table when parent scroll container is resized', async ({
+      editor,
+    }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+
+      const cell = await tableModel.cell(150);
+      await cell.click();
+
+      const layoutModel = await tableModel.layout(editor);
+      await layoutModel.toWide();
+      await layoutModel.toFullWidth();
+
+      await editor.page.setViewportSize({
+        width: 750,
+        height: editor.page.viewportSize()!.height,
+      });
+
+      const tableBox = await nodes.table
+        .locator('table.pm-table-sticky')
+        .boundingBox();
+      const rowBox = await nodes.table.locator('tr.sticky').boundingBox();
+
+      expect(tableBox?.width).toEqual(rowBox?.width);
+    });
+  });
+
+  test.describe('numbered columns', () => {
+    // ED-16817: Adding column from cell options scrolls table back to top as it resets selection to first cell in new column
+    // This causes the sticky header to reset. There were issues with the numbered column syncing with sticky header.
+    test('sticky numbered column header should have top style reset when adding column from cell options', async ({
+      editor,
+    }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+
+      const cell = await tableModel.cell(150);
+      await cell.click();
+
+      const cellOptions = await cell.options(EditorPopupModel.from(editor));
+      await cellOptions.insertColumn();
+
+      const firstNumberedRow = nodes.table.locator(
+        '.pm-table-numbered-column__button:nth-child(1)',
+      );
+      await expect(firstNumberedRow).toHaveCSS('top', 'auto');
     });
   });
 });

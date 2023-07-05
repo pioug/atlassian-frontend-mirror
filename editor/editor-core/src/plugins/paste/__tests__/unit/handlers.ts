@@ -300,7 +300,10 @@ describe('handleRichText', () => {
         0,
         0,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -339,7 +342,10 @@ describe('handleRichText', () => {
         0,
         0,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -371,7 +377,10 @@ describe('handleRichText', () => {
         0,
         0,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -404,7 +413,10 @@ describe('handleRichText', () => {
         0,
         0,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -444,7 +456,10 @@ describe('handleRichText', () => {
         0,
         0,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -484,7 +499,10 @@ describe('handleRichText', () => {
         0,
         0,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -516,7 +534,10 @@ describe('handleRichText', () => {
         0,
         0,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -714,7 +735,10 @@ describe('handleRichText', () => {
         1,
         1,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -754,7 +778,10 @@ describe('handleRichText', () => {
         4,
         4,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -811,7 +838,10 @@ describe('handleRichText', () => {
         /**
          * use handleRichText because pasting tasklist into panel
          */
-        handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+        handleRichText(pasteSlice, undefined)(
+          editorView.state,
+          editorView.dispatch,
+        );
         expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
         expect(() => {
           editorView.state.tr.doc.check();
@@ -886,7 +916,10 @@ describe('handleRichText', () => {
         openStart,
         openEnd,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -917,7 +950,10 @@ describe('handleRichText', () => {
         openStart,
         openEnd,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -948,7 +984,10 @@ describe('handleRichText', () => {
         openStart,
         openEnd,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -991,7 +1030,10 @@ describe('handleRichText', () => {
         7,
         9,
       );
-      handleRichText(pasteSlice)(editorView.state, editorView.dispatch);
+      handleRichText(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {
         editorView.state.tr.doc.check();
@@ -1335,7 +1377,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -1767,7 +1809,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -1795,7 +1837,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -1825,7 +1867,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -1854,7 +1896,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
         openStart,
         openEnd,
       );
-      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -1882,7 +1924,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
         openStart,
         openEnd,
       );
-      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -1912,7 +1954,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
         openStart,
         openEnd,
       );
-      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -1942,7 +1984,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
         openStart,
         openEnd,
       );
-      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -1967,7 +2009,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -1994,7 +2036,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2025,7 +2067,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2056,7 +2098,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2086,7 +2128,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2113,7 +2155,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2144,7 +2186,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2175,7 +2217,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2205,7 +2247,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2230,7 +2272,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2261,7 +2303,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2292,7 +2334,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2318,7 +2360,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2346,7 +2388,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2376,7 +2418,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2406,7 +2448,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
           openStart,
           openEnd,
         );
-        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice)(
+        handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
           editorView.state,
           editorView.dispatch,
         );
@@ -2450,7 +2492,10 @@ describe('handleMarkdown', () => {
         1,
         1,
       );
-      handleMarkdown(pasteSlice)(editorView.state, editorView.dispatch);
+      handleMarkdown(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       const expectedDocument = doc(
         table({ localId: 'local-uuid' })(

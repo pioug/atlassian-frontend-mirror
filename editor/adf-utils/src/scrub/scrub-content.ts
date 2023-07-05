@@ -13,7 +13,7 @@ const BYPASS_ATTR_LIST: { [key: string]: Array<string> } = {
   inlineExtension: ['extensionKey', 'extensionType', 'layout'],
   layoutColumn: ['width'],
   media: ['__fileMimeType', '__fileSize', 'height', 'width', 'type'],
-  mediaSingle: ['layout', 'width'],
+  mediaSingle: ['layout', 'width', 'widthType'],
   orderedList: ['order'],
   panel: ['panelType'],
   status: ['color', 'style'],

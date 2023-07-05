@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "type": "doc",
+  "content": [
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 99,
+        "widthType": "percentage",
+        "layout": "center"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "1234",
+            "collection": "SampleCollection"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -22,15 +22,9 @@ const fireEvent = (
   createAnalyticsEvent: CreateUIAnalyticsEvent,
   client: CardClient,
   store: CardStore,
-  featureFlags: {
-    enableResolveMetadataForLinkAnalytics?: boolean;
-  },
 ): LinkLifecycleEventCallback => {
   return async (details, sourceEvent, attributes = {}) => {
-    const resolvedAttributes =
-      featureFlags.enableResolveMetadataForLinkAnalytics
-        ? await resolveAttributes(details, client, store)
-        : {};
+    const resolvedAttributes = await resolveAttributes(details, client, store);
 
     const mergedAttributes = mergeAttributes(action, details, sourceEvent, {
       ...attributes,

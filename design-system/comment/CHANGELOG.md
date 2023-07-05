@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.8.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.8.8
 
 ### Patch Changes

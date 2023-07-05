@@ -14,10 +14,12 @@ export type BasePrimitiveProps = {
   style?: CSSProperties;
 };
 
+type BoxXCSSArray = Array<BoxXCSSArray | BoxXCSS | false | undefined>;
+
 // Some redeclaration needed until responsive props graduate to the public API
 export type PublicBoxPropsBase = {
   /**
    * Safe subset of styles that can be applied as a classname.
    */
-  xcss?: BoxXCSS | Array<BoxXCSS | false | undefined>;
+  xcss?: BoxXCSS | BoxXCSSArray;
 };

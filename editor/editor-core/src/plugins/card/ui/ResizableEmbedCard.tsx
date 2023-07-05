@@ -31,7 +31,7 @@ import {
   snapTo,
   calcMediaPxWidth,
 } from '@atlaskit/editor-common/ui';
-import { embedSpacingStyles } from './styled';
+import { embedSpacingStyles } from '@atlaskit/editor-common/styles';
 
 type State = {
   offsetLeft: number;

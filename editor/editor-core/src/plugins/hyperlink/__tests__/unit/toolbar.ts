@@ -1,4 +1,6 @@
 import { createIntl } from 'react-intl-next';
+import { replaceRaf } from 'raf-stub';
+
 import {
   a as link,
   doc,
@@ -14,7 +16,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import { getToolbarConfig } from '../../Toolbar';
 import hyperlinkPlugin from '../../';
-import { HyperlinkToolbarAppearance } from '../../HyperlinkToolbarAppearance';
+import { HyperlinkToolbarAppearance } from '../../../card/ui/HyperlinkToolbarAppearance';
 import {
   FloatingToolbarButton,
   FloatingToolbarItem,
@@ -24,10 +26,20 @@ import deprecatedAnalyticsPlugin from '../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import cardPlugin from '../../../card';
+import floatingToolbarPlugin from '../../../floating-toolbar';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+
+replaceRaf();
+const requestAnimationFrame = window.requestAnimationFrame as any;
 
 describe('linking', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
+
+  const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
 
   const editor = (doc: DocBuilder) => {
     createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
@@ -37,9 +49,18 @@ describe('linking', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
-        .add(hyperlinkPlugin),
+        .add(hyperlinkPlugin)
+        .add(widthPlugin)
+        .add(gridPlugin)
+        .add(decorationsPlugin)
+        .add(floatingToolbarPlugin)
+        .add([cardPlugin, { platform: 'web', allowEmbeds: true }]),
     });
   };
+
+  afterEach(() => {
+    requestAnimationFrame.flush();
+  });
 
   describe('#getToolbarConfig', () => {
     let featureFlagsMock = {};
@@ -181,11 +202,29 @@ describe('linking', () => {
         ),
       );
 
-      const toolbarConfig = getToolbarConfig({}, featureFlagsMock, undefined)(
-        editorView.state,
-        intl,
-        providerFactory,
-      );
+      const mockSharedState = {
+        currentState: () => undefined,
+        onChange: () => () => {},
+      };
+      const toolbarConfig = getToolbarConfig({}, featureFlagsMock, {
+        dependencies: {
+          analytics: {
+            actions: { attachAnalyticsEvent },
+            sharedState: mockSharedState,
+          },
+          featureFlags: {
+            sharedState: mockSharedState,
+            // @ts-ignore
+            actions: jest.fn() as any,
+          },
+          card: undefined,
+          hyperlink: {
+            sharedState: mockSharedState,
+            // @ts-ignore
+            actions: jest.fn() as any,
+          },
+        },
+      })(editorView.state, intl, providerFactory);
 
       const items = (toolbarConfig && toolbarConfig.items) || [];
 
@@ -194,7 +233,7 @@ describe('linking', () => {
       );
 
       settingsItem?.onClick(editorView.state, editorView.dispatch);
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'clicked',
         actionSubject: 'button',
         actionSubjectId: 'goToSmartLinkSettings',
@@ -276,6 +315,7 @@ describe('linking', () => {
           ),
         ),
       );
+      requestAnimationFrame.step();
 
       const toolbarConfig = getToolbarConfig(
         {
@@ -302,6 +342,7 @@ describe('linking', () => {
           url: 'https://www.atlassian.com',
           cardOptions: {
             allowEmbeds: true,
+            platform: 'web',
           },
           platform: 'web',
         }),

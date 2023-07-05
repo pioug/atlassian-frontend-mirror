@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 185.8.0
+
+### Minor Changes
+
+- [`68ef7e6146c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ef7e6146c) - Added feature flag for the new media resize experience.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.7.0
+
+### Minor Changes
+
+- [`9fc1422dec1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fc1422dec1) - Make `hyperlink` plugin an explicit dependency of `card` plugin. Move card styles and types into editor-common.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.6.5
+
+### Patch Changes
+
+- [`1622659f976`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1622659f976) - [ux] Render the image border submenu to the left if it goes out of bounds
+- Updated dependencies
+
 ## 185.6.3
 
 ### Patch Changes

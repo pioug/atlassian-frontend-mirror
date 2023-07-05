@@ -254,13 +254,9 @@ function LifecycleAnalytics() {
   );
 }
 
-const FEATURE_FLAGS = {
-  enableResolveMetadataForLinkAnalytics: true,
-};
-
 export default function LifecycleAnalyticsWithProvider() {
   return (
-    <SmartCardProvider featureFlags={FEATURE_FLAGS}>
+    <SmartCardProvider>
       <LifecycleAnalytics />
     </SmartCardProvider>
   );

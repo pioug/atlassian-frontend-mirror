@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/atlassian-navigation",
-  "version": "2.6.11",
+  "version": "2.6.12",
   "description": "A horizontal navigation component for Atlassian products.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
     "@atlaskit/logo": "*",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/popup": "^1.8.0",
-    "@atlaskit/primitives": "^0.15.0",
+    "@atlaskit/primitives": "^0.16.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.11.0",
     "@atlaskit/tooltip": "^17.8.0",
@@ -53,6 +53,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/visual-regression": "*",
     "@atlaskit/analytics-next": "*",
     "@atlaskit/atlassian-notifications": "*",
     "@atlaskit/avatar": "*",
@@ -66,7 +67,6 @@
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.1.1",
-    "@atlassian/gemini-visual-regression": "*",
     "@atlassian/switcher": "*",
     "@atlassian/switcher-test-utils": "*",
     "@testing-library/react": "^12.1.5",

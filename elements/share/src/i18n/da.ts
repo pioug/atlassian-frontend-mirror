@@ -12,7 +12,8 @@ export default {
   'fabric.elements.share.copypubliclink.button.text': 'Kopiér offentligt link',
   'fabric.elements.share.failure.icon.label': 'Fejlikon',
   'fabric.elements.share.failure.message': 'Kan ikke deles',
-  'fabric.elements.share.form.comment.placeholder': 'TIlføj en meddelelse',
+  'fabric.elements.share.form.comment.label': 'Besked (valgfrit)',
+  'fabric.elements.share.form.comment.placeholder': 'Er der noget, de bør vide?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Modtagere vil se navnet på siden og din besked',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Modtagere vil se navnet på sagen og din meddelelse',
   'fabric.elements.share.form.no-permissions': 'Du kan ikke dele.',
@@ -23,16 +24,35 @@ export default {
   'fabric.elements.share.form.share': 'Del',
   'fabric.elements.share.form.title': 'Del',
   'fabric.elements.share.form.user-picker.add-more': 'Indtast mere',
+  'fabric.elements.share.form.user-picker.label.confluence': 'Navne, teams, grupper eller e-mails',
+  'fabric.elements.share.form.user-picker.label.email-disabled-confluence': 'Navne, teams eller grupper',
+  'fabric.elements.share.form.user-picker.label.email-disabled-jira': 'Navne eller teams',
+  'fabric.elements.share.form.user-picker.label.email-only': 'E-mails',
+  'fabric.elements.share.form.user-picker.label.jira': 'Navne, teams eller e-mails',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Vi kunne ikke finde nogen resultater for "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Vi kunne ikke finde nogen resultater for "{inputValue}". Invitér personer via e-mailadresser.',
-  'fabric.elements.share.form.user-picker.placeholder.jira': 'Indtast navn, team eller e-mailadresse',
+  'fabric.elements.share.form.user-picker.placeholder.confluence': 'f.eks. Maria, Team Orange, gruppe et',
+  'fabric.elements.share.form.user-picker.placeholder.email-disabled-jira': 'f.eks. Maria, Team Orange',
+  'fabric.elements.share.form.user-picker.placeholder.email-only': 'f.eks. maria@company.com',
+  'fabric.elements.share.form.user-picker.placeholder.jira': 'f.eks. Maria, Team Orange, maria@company.com',
   'fabric.elements.share.form.user-picker.validation.required':
     'Vælg mindst én bruger, én gruppe, ét team eller én e-mail.',
+  'fabric.elements.share.form.user-picker.validation.required-message.confluence':
+    'Vælg mindst en person, et team, en gruppe eller en e-mail',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-confluence':
+    'Vælg mindst en person, et team eller en gruppe',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-jira':
+    'Vælg mindst en person eller et team',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-only': 'Vælg mindst en e-mail',
+  'fabric.elements.share.form.user-picker.validation.required-message.jira':
+    'Vælg mindst en person, et team eller en e-mail',
   'fabric.elements.share.in.integration.button': 'Del i {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Del side',
   'fabric.elements.share.main.tab.text.jira': 'Del sag',
+  'fabric.elements.share.success.message':
+    '{object, select,blogpost {Blogindlæg delt}board {Tavle delt}calendar {Kalender delt}draft {Udkast delt}filter {Filter delt}issue {Sag delt}summary {Oversigt delt}list {Liste delt}timeline {Tidslinje delt}form {Formular delt}media {Medier delt}page {Side delt}project {Projekt delt}pullrequest {Pullanmodning delt}question {Spørgsmål delt}report {Rapport delt}repository {Lager delt}request {Anmodning delt}roadmap {Tidslinje delt}site {Websted delt}space {Område delt}other {Link delt}}',
   'fabric.elements.share.to.integration.button': 'Del med {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Del ikon',
   'fabric.elements.share.trigger.button.invite.text': 'Invitér',

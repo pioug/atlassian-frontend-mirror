@@ -1,14 +1,9 @@
 import { EditorState, NodeSelection } from 'prosemirror-state';
-import { NodeType, Node, Slice, Fragment } from 'prosemirror-model';
+import { NodeType, Node } from 'prosemirror-model';
 import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import { CardInfo } from './types';
 import { CardPluginState } from './types';
 import { pluginKey } from './pm-plugins/plugin-key';
-import {
-  isSupportedInParent,
-  mapChildren,
-} from '@atlaskit/editor-common/utils';
-import { CardOptions } from '@atlaskit/editor-common/card';
 
 export const appearanceForNodeType = (
   spec: NodeType,
@@ -63,46 +58,4 @@ export const findCardInfo = (state: EditorState) => {
   return pluginState.cards.find(
     (cardInfo) => cardInfo.pos === state.selection.from,
   );
-};
-
-export const transformUnsupportedBlockCardToInline = (
-  slice: Slice,
-  state: EditorState,
-  cardOptions?: CardOptions,
-): Slice => {
-  const { blockCard, inlineCard } = state.schema.nodes;
-  const children = [] as Node[];
-
-  mapChildren(slice.content, (node: Node, i: number, frag: Fragment) => {
-    if (
-      node.type === blockCard &&
-      !isBlockCardSupported(state, frag, cardOptions?.allowBlockCards ?? false)
-    ) {
-      children.push(
-        inlineCard.createChecked(node.attrs, node.content, node.marks),
-      );
-    } else {
-      children.push(node);
-    }
-  });
-
-  return new Slice(
-    Fragment.fromArray(children),
-    slice.openStart,
-    slice.openEnd,
-  );
-};
-/**
- * Function to determine if a block card is supported by the editor
- * @param state
- * @param frag
- * @param allowBlockCards
- * @returns
- */
-const isBlockCardSupported = (
-  state: EditorState,
-  frag: Fragment<any>,
-  allowBlockCards: boolean,
-) => {
-  return allowBlockCards && isSupportedInParent(state, frag);
 };

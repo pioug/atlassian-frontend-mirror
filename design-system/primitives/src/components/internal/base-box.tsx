@@ -29,6 +29,7 @@ export type BaseBoxProps<T extends ElementType = 'div'> = Omit<
 export type As =
   | 'article'
   | 'aside'
+  | 'button'
   | 'dialog'
   | 'div'
   | 'footer'
@@ -46,6 +47,7 @@ type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
    * The DOM element to render as the Box. Defaults to `div`.
    */
   as?: As;
+
   /**
    * The HTML className attribute.
    *
@@ -128,7 +130,7 @@ export type BaseBoxComponent<T extends ElementType = 'div'> = (<
 export const BaseBox: BaseBoxComponent = forwardRef(
   <T extends ElementType = 'div'>(
     {
-      as,
+      as = 'div',
       className,
       children,
       backgroundColor,
@@ -141,11 +143,12 @@ export const BaseBox: BaseBoxComponent = forwardRef(
       paddingInlineEnd,
       style,
       testId,
+      css,
       ...htmlAttributes
     }: BaseBoxProps<T>,
     ref?: React.ComponentPropsWithRef<T>['ref'],
   ) => {
-    const Component = as || 'div';
+    const Component = as;
 
     const node = (
       <Component

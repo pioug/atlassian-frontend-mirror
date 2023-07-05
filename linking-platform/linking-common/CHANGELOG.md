@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 3.2.0
+
+### Minor Changes
+
+- [`30f18a3a297`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30f18a3a297) - Deprecates ff enableResolveMetadataForLinkAnalytics relating to @atlaskit/link-analytics
+
+## 3.1.1
+
+### Patch Changes
+
+- [`cbe49a0d032`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cbe49a0d032) - deprecated `@atlaskit/linking-common/extractors`, use `@atlaskit/link-extractors` instead
+
 ## 3.1.0
 
 ### Minor Changes

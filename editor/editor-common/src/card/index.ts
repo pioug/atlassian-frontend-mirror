@@ -5,3 +5,16 @@ export {
   commandWithMetadata,
 } from './utils';
 export { default as buildLayoutButtons } from './MediaAndEmbedsToolbar';
+export type {
+  OptionConfig,
+  CardPluginActions,
+  QueueCardsFromTransactionAction,
+  HideLinkToolbarAction,
+  ChangeSelectedCardToLink,
+  SetSelectedCardAppearance,
+  CardReplacementInputMethod,
+} from './types';
+export { LinkToolbarButtonGroup } from './LinkToolbarButtonGroup';
+export { getButtonGroupOption } from './link-toolbar-button-group-options';
+export const DATASOURCE_INNER_CONTAINER_CLASSNAME =
+  'datasourceView-content-inner-wrap';

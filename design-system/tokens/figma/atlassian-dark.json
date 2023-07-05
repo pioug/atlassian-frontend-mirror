@@ -14,7 +14,7 @@
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "1.6.0",
+        "introduced": "1.8.0",
         "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#B3DF72"
@@ -23,7 +23,7 @@
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.7.0",
+        "introduced": "1.8.0",
         "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
       },
       "value": "#D3F1A7"
@@ -1787,55 +1787,55 @@
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "For data visualisation only."
       },
-      "value": "#37B4C3"
+      "value": "#82B536"
     },
     "Dark/color.chart.lime.bold.hovered": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "Hovered state of color.chart.lime.bold."
       },
-      "value": "#60C6D2"
+      "value": "#94C748"
     },
     "Dark/color.chart.lime.bolder": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "For data visualisation only."
       },
-      "value": "#60C6D2"
+      "value": "#94C748"
     },
     "Dark/color.chart.lime.bolder.hovered": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "Hovered state of color.chart.lime.bolder."
       },
-      "value": "#8BDBE5"
+      "value": "#B3DF72"
     },
     "Dark/color.chart.lime.boldest": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "For data visualisation only."
       },
-      "value": "#8BDBE5"
+      "value": "#B3DF72"
     },
     "Dark/color.chart.lime.boldest.hovered": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "Hovered state of color.chart.lime.boldest."
       },
-      "value": "#C1F0F5"
+      "value": "#D3F1A7"
     },
     "Dark/color.chart.neutral": {
       "attributes": {

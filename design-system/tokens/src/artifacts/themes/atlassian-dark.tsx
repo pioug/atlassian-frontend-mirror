@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0171fd710aa3b4936cef88004b263fd0>>
+ * @codegen <<SignedSource::f7875b9dcadbda9f45d61b1e4eaa3c10>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -205,12 +205,12 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-chart-categorical-7-hovered: #FFECF8;
   --ds-chart-categorical-8: #FEC57B;
   --ds-chart-categorical-8-hovered: #FFE2BD;
-  --ds-chart-lime-bold: #37B4C3;
-  --ds-chart-lime-bold-hovered: #60C6D2;
-  --ds-chart-lime-bolder: #60C6D2;
-  --ds-chart-lime-bolder-hovered: #8BDBE5;
-  --ds-chart-lime-boldest: #8BDBE5;
-  --ds-chart-lime-boldest-hovered: #C1F0F5;
+  --ds-chart-lime-bold: #82B536;
+  --ds-chart-lime-bold-hovered: #94C748;
+  --ds-chart-lime-bolder: #94C748;
+  --ds-chart-lime-bolder-hovered: #B3DF72;
+  --ds-chart-lime-boldest: #B3DF72;
+  --ds-chart-lime-boldest-hovered: #D3F1A7;
   --ds-chart-neutral: #738496;
   --ds-chart-neutral-hovered: #8C9BAB;
   --ds-chart-red-bold: #E34935;

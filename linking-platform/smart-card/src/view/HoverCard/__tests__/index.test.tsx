@@ -19,7 +19,6 @@ import {
   MockIntersectionObserverFactory,
   MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import React, { ReactElement, useEffect, useState } from 'react';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
@@ -57,6 +56,40 @@ import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
 const mockUrl = 'https://some.url';
+
+const TestCanOpenComponent = ({
+  canOpen: canOpenOption,
+  testId,
+}: {
+  canOpen?: boolean;
+  testId: string;
+}) => {
+  const mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
+  const mockClient = new (fakeFactory(mockFetch))();
+  const [canOpen, setCanOpen] = useState(canOpenOption);
+
+  return (
+    <Provider client={mockClient}>
+      <HoverCard url={mockUrl} id="some-id" canOpen={canOpen}>
+        <div>
+          <div data-testid={testId}>Hover and find out</div>
+          <div
+            data-testid={`${testId}-can-open`}
+            onMouseEnter={() => setCanOpen(true)}
+          >
+            Hover to open
+          </div>
+          <div
+            data-testid={`${testId}-cannot-open`}
+            onMouseEnter={() => setCanOpen(false)}
+          >
+            Hover to hide
+          </div>
+        </div>
+      </HoverCard>
+    </Provider>
+  );
+};
 
 describe('HoverCard', () => {
   const now = new Date('April 1, 2022 00:00:00').getTime();
@@ -119,7 +152,13 @@ describe('HoverCard', () => {
       },
     });
 
-    return { findByTestId, queryByTestId, element, analyticsSpy, dateSpy };
+    return {
+      findByTestId,
+      queryByTestId,
+      element,
+      analyticsSpy,
+      dateSpy,
+    };
   };
 
   const serverActionsTest = (
@@ -298,85 +337,50 @@ describe('HoverCard', () => {
       expect(loadMetadataSpy).toHaveBeenCalledTimes(0);
     });
 
-    describe('hover card viewed event has correct data the analytics context', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.enable-analytics-context',
-        async () => {
-          const { findByTestId, analyticsSpy } = await setup();
-          jest.runAllTimers();
-          await findByTestId('hover-card');
+    it('should fire hover card viewed event with correct data in the analytics context', async () => {
+      const { findByTestId, analyticsSpy } = await setup();
+      jest.runAllTimers();
+      await findByTestId('hover-card');
 
-          expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-            payload: {
-              action: 'viewed',
-              actionSubject: 'hoverCard',
-              attributes: {
-                previewDisplay: 'card',
-                previewInvokeMethod: 'mouse_hover',
-                status: 'resolved',
-              },
-            },
-            context: [
-              {
-                componentName: 'smart-cards',
-              },
-              {
-                attributes: {
-                  display: 'inline',
-                },
-              },
-              {
-                attributes: {
-                  extensionKey: 'confluence-object-provider',
-                  status: 'resolved',
-                },
-              },
-              {
-                attributes: {
-                  display: 'hoverCardPreview',
-                },
-                source: 'smartLinkPreviewHoverCard',
-              },
-              {
-                attributes: {
-                  extensionKey: 'confluence-object-provider',
-                  status: 'resolved',
-                },
-              },
-            ],
-          });
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+        payload: {
+          action: 'viewed',
+          actionSubject: 'hoverCard',
+          attributes: {
+            previewDisplay: 'card',
+            previewInvokeMethod: 'mouse_hover',
+            status: 'resolved',
+          },
         },
-        async () => {
-          const { findByTestId, analyticsSpy } = await setup();
-          jest.runAllTimers();
-          await findByTestId('hover-card');
-
-          expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-            payload: {
-              action: 'viewed',
-              actionSubject: 'hoverCard',
-              attributes: {
-                previewDisplay: 'card',
-                previewInvokeMethod: 'mouse_hover',
-                status: 'resolved',
-              },
+        context: [
+          {
+            componentName: 'smart-cards',
+          },
+          {
+            attributes: {
+              display: 'inline',
             },
-            context: [
-              {
-                componentName: 'smart-cards',
-                packageName: '@atlaskit/smart-card',
-                packageVersion: '999.9.9',
-              },
-              {
-                attributes: {
-                  display: 'hoverCardPreview',
-                },
-                source: 'smartLinkPreviewHoverCard',
-              },
-            ],
-          });
-        },
-      );
+          },
+          {
+            attributes: {
+              extensionKey: 'confluence-object-provider',
+              status: 'resolved',
+            },
+          },
+          {
+            attributes: {
+              display: 'hoverCardPreview',
+            },
+            source: 'smartLinkPreviewHoverCard',
+          },
+          {
+            attributes: {
+              extensionKey: 'confluence-object-provider',
+              status: 'resolved',
+            },
+          },
+        ],
+      });
     });
 
     it('renders hover card blocks', async () => {
@@ -491,7 +495,7 @@ describe('HoverCard', () => {
         const { queryByTestId } = await setup();
 
         // Delay not completed yet
-        jest.advanceTimersByTime(299);
+        jest.advanceTimersByTime(499);
 
         expect(queryByTestId('hover-card')).toBeNull();
 
@@ -595,10 +599,10 @@ describe('HoverCard', () => {
       expect(queryByTestId('hover-card')).toBeNull();
     });
 
-    it('should show the card in 300ms the card if a mouse sends multiple mouse over events over children', async () => {
+    it('should show the card in 500ms the card if a mouse sends multiple mouse over events over children', async () => {
       const { queryByTestId, findByTestId } = await setup();
 
-      jest.advanceTimersByTime(100);
+      jest.advanceTimersByTime(300);
       const titleAndIcon = await findByTestId('inline-card-icon-and-title');
 
       fireEvent.mouseOver(titleAndIcon);
@@ -2070,6 +2074,61 @@ describe('HoverCard', () => {
           },
           analytics.ANALYTICS_CHANNEL,
         );
+      });
+    });
+
+    describe('can open', () => {
+      const testId = 'hover-test-can-open-div';
+      const contentTestId = 'smart-block-title-resolved-view';
+
+      it('shows hover card when canOpen is true', async () => {
+        const { findByTestId } = await setup({
+          testId,
+          component: <TestCanOpenComponent canOpen={true} testId={testId} />,
+        });
+        jest.runAllTimers();
+        const hoverContent = await findByTestId(contentTestId);
+
+        expect(hoverContent).toBeInTheDocument();
+      });
+
+      it('does not show hover card when canOpen is false', async () => {
+        const { queryByTestId } = await setup({
+          testId,
+          component: <TestCanOpenComponent canOpen={false} testId={testId} />,
+        });
+        jest.runAllTimers();
+        const hoverContent = queryByTestId(contentTestId);
+
+        expect(hoverContent).not.toBeInTheDocument();
+      });
+
+      it('show and hide hover card when at canOpen change value', async () => {
+        const { findByTestId, queryByTestId } = await setup({
+          testId,
+          component: <TestCanOpenComponent testId={testId} />,
+        });
+        // Element has not set canOpen value (default)
+        jest.runAllTimers();
+        expect(await findByTestId(contentTestId)).toBeInTheDocument();
+
+        // Element sets to can open
+        const canOpenElement = await findByTestId(`${testId}-can-open`);
+        fireEvent.mouseEnter(canOpenElement);
+        jest.runAllTimers();
+        expect(await findByTestId(contentTestId)).toBeInTheDocument();
+
+        // Element sets to cannot open
+        const cannotOpenElement = await findByTestId(`${testId}-cannot-open`);
+        fireEvent.mouseEnter(cannotOpenElement);
+        jest.runAllTimers();
+        expect(queryByTestId(contentTestId)).not.toBeInTheDocument();
+
+        // Go back to element sets to can open again
+        const canOpenElementAgain = await findByTestId(`${testId}-can-open`);
+        fireEvent.mouseEnter(canOpenElementAgain);
+        jest.runAllTimers();
+        expect(await findByTestId(contentTestId)).toBeInTheDocument();
       });
     });
 

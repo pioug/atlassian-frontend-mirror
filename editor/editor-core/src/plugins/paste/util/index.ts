@@ -4,6 +4,7 @@ import {
   Node as PMNode,
   NodeType,
   Schema,
+  Fragment,
 } from 'prosemirror-model';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
@@ -22,6 +23,11 @@ import {
   isTableSelected,
 } from '@atlaskit/editor-tables/utils';
 import { sortByOrderWithTypeName } from '../../../create-editor/sort-by-order';
+import {
+  isSupportedInParent,
+  mapChildren,
+} from '@atlaskit/editor-common/utils';
+import { CardOptions } from '@atlaskit/editor-common/card';
 
 export function isPastedFromWord(html?: string): boolean {
   return !!html && html.indexOf('urn:schemas-microsoft-com:office:word') >= 0;
@@ -255,4 +261,46 @@ export const addReplaceSelectedTableAnalytics = (
     return tr;
   }
   return state.tr;
+};
+
+export const transformUnsupportedBlockCardToInline = (
+  slice: Slice,
+  state: EditorState,
+  cardOptions?: CardOptions,
+): Slice => {
+  const { blockCard, inlineCard } = state.schema.nodes;
+  const children = [] as PMNode[];
+
+  mapChildren(slice.content, (node: PMNode, i: number, frag: Fragment) => {
+    if (
+      node.type === blockCard &&
+      !isBlockCardSupported(state, frag, cardOptions?.allowBlockCards ?? false)
+    ) {
+      children.push(
+        inlineCard.createChecked(node.attrs, node.content, node.marks),
+      );
+    } else {
+      children.push(node);
+    }
+  });
+
+  return new Slice(
+    Fragment.fromArray(children),
+    slice.openStart,
+    slice.openEnd,
+  );
+};
+/**
+ * Function to determine if a block card is supported by the editor
+ * @param state
+ * @param frag
+ * @param allowBlockCards
+ * @returns
+ */
+const isBlockCardSupported = (
+  state: EditorState,
+  frag: Fragment<any>,
+  allowBlockCards: boolean,
+) => {
+  return allowBlockCards && isSupportedInParent(state, frag);
 };

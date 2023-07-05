@@ -1,5 +1,11 @@
 # @atlaskit/ds-explorations
 
+## 2.2.6
+
+### Patch Changes
+
+- [`27f6081edf2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27f6081edf2) - Regenerates codegen hashes to surface changes to tokens
+
 ## 2.2.5
 
 ### Patch Changes

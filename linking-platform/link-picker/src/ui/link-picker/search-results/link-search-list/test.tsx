@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { fireEvent } from '@testing-library/react';
+
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
@@ -35,6 +37,7 @@ describe('<LinkSearchList />', () => {
       component,
       items: options.items,
       onSelect: options.onSelect,
+      onChange: options.onChange,
     };
   };
 
@@ -92,5 +95,15 @@ describe('<LinkSearchList />', () => {
 
     expect(list.children[0].getAttribute('aria-selected')).toBe('false');
     expect(list.children[1].getAttribute('aria-selected')).toBe('true');
+  });
+
+  it('should select the item when focused', async () => {
+    const { component, onChange, items } = setup();
+    const element = component.getAllByTestId('link-search-list-item');
+
+    fireEvent.focus(element[1]);
+
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange).toHaveBeenCalledWith(items![1].objectId);
   });
 });

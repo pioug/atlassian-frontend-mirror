@@ -24,10 +24,9 @@ import type {
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import type cardPlugin from '../index';
-import {
-  DATASOURCE_INNER_CONTAINER_CLASSNAME,
-  Datasource,
-} from '../nodeviews/datasource';
+import { Datasource } from '../nodeviews/datasource';
+import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
+
 import {
   setDatasourceTableRef,
   setCardLayoutAndDatasourceTableRef,

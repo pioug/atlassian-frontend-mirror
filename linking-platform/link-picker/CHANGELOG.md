@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.25.6
+
+### Patch Changes
+
+- [`21f74cac9b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21f74cac9b6) - EDM-6818: Fixes bug where first item of link picker search results appear selected when there is no current selection and a search result is focused. Focus on link picker search results are now on the item that the user clicks/focuses on.
+
 ## 1.25.5
 
 ### Patch Changes

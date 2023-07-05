@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 74.15.0
+
+### Minor Changes
+
+- [`68ef7e6146c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ef7e6146c) - Added feature flag for the new media resize experience.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 74.14.0
+
+### Minor Changes
+
+- [`9fc1422dec1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9fc1422dec1) - Make `hyperlink` plugin an explicit dependency of `card` plugin. Move card styles and types into editor-common.
+
+## 74.13.0
+
+### Minor Changes
+
+- [`6c1685f4793`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c1685f4793) - [ED-18163] Removed participant count from generic editor-common analytics events
+
 ## 74.12.0
 
 ### Minor Changes

@@ -134,7 +134,7 @@ export type CardBaseActionCreator<T = JsonLd.Response> = (
   ignoreStatusCheck?: boolean,
 ) => CardAction<T>;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export type CardPlatform = JsonLd.Primitives.Platforms;
 
 // @public (undocumented)
@@ -215,7 +215,7 @@ export interface EmbedCardAdf {
   type: 'embedCard';
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 type EmbedIframeUrlType = 'href' | 'interactiveHref';
 
 // @public (undocumented)
@@ -224,14 +224,14 @@ export type EnvironmentsKeys = keyof typeof BaseUrls;
 // @public (undocumented)
 export type ErrorType = 'UnexpectedError' | ServerErrorType;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const extractPreview: (
   jsonLd: JsonLd.Data.BaseData,
   platform?: CardPlatform,
   iframeUrlType?: EmbedIframeUrlType,
 ) => LinkPreview_2 | undefined;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const extractUrlFromLinkJsonLd: (
   link: JsonLd.Primitives.Link | JsonLd.Primitives.Link[],
 ) => string | undefined;
@@ -286,6 +286,7 @@ export interface LinkingPlatformFeatureFlags {
   enableFlexibleBlockCard?: boolean;
   enableImprovedPreviewAction?: boolean;
   enableLinkPickerForgeTabs?: boolean;
+  // @deprecated
   enableResolveMetadataForLinkAnalytics?: boolean;
   showAuthTooltip?: string;
   // (undocumented)
@@ -306,7 +307,7 @@ export interface LinkPreview {
   src?: string;
 }
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 interface LinkPreview_2 {
   // (undocumented)
   aspectRatio?: number;

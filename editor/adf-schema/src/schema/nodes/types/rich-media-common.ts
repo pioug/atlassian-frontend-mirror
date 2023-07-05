@@ -20,3 +20,27 @@ export interface OptionalRichMediaAttributes {
   width?: number;
   layout?: Layout;
 }
+interface DefaultMediaAttributes extends RichMediaAttributes {
+  /**
+   * @stage 0
+   * @description optional widthType attribute for media with percentage layout
+   */
+  widthType?: 'percentage';
+}
+
+/**
+ * @stage 0
+ * @description The widthType attribute is used to support fixed with media single
+ */
+interface FixedLayoutMediaAttributes {
+  /**
+   * @minimum 0
+   */
+  width: number;
+  widthType: 'pixel';
+  layout: Layout;
+}
+
+export type ExtendedMediaAttributes =
+  | DefaultMediaAttributes
+  | FixedLayoutMediaAttributes;

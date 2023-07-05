@@ -42,7 +42,8 @@ import { createAnalyticsQueue } from '../../analytics/create-analytics-queue';
 import { resolveWithProvider } from '../../util/resolve';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
 import { getPluginState } from '../../util/state';
-import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '../../../nodeviews/datasource';
+import { DATASOURCE_INNER_CONTAINER_CLASSNAME } from '@atlaskit/editor-common/styles';
+
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';

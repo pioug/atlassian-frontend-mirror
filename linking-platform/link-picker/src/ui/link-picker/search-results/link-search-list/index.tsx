@@ -143,13 +143,6 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
       [selectedIndex],
     );
 
-    const handleOnFocus = () => {
-      if (items && items.length > 0 && selectedIndex === -1) {
-        const item = items[0];
-        onChange(item.objectId);
-      }
-    };
-
     const handleKeyDown = useCallback(
       (event: KeyboardEvent<HTMLElement>) => {
         let updatedIndex = activeIndex;
@@ -168,13 +161,12 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
           ['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key) &&
           item
         ) {
-          onChange(item.objectId);
           if (itemRefs.current) {
             itemRefs.current[item.objectId]?.focus();
           }
         }
       },
-      [activeIndex, items, onChange, onKeyDown],
+      [activeIndex, items, onKeyDown],
     );
 
     if (items?.length === 0) {
@@ -232,7 +224,7 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
                 item={item}
                 selected={selectedIndex === index}
                 active={activeIndex === index}
-                onFocus={handleOnFocus}
+                onFocus={() => onChange(item.objectId)}
                 onKeyDown={handleKeyDown}
                 onSelect={onSelect}
                 key={item.objectId}

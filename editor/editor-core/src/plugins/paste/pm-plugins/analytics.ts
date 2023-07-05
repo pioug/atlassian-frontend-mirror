@@ -32,11 +32,15 @@ import {
   handlePastePanelOrDecisionContentIntoList,
   handlePasteNonNestableBlockNodesIntoList,
 } from '../handlers';
-import { Command } from '../../../types';
 import { Transaction, Selection } from 'prosemirror-state';
 import { findParentNode } from 'prosemirror-utils';
 import { mapSlice } from '../../../utils/slice';
 import { getLinkDomain } from '@atlaskit/editor-common/utils';
+import type {
+  ExtractInjectionAPI,
+  Command,
+} from '@atlaskit/editor-common/types';
+import type pastePlugin from '../';
 
 type PasteContext = {
   type: PasteType;
@@ -362,12 +366,18 @@ export const handlePasteIntoTaskAndDecisionWithAnalytics = (
   event: ClipboardEvent,
   slice: Slice,
   type: PasteType,
+  pluginInjectionApi: ExtractInjectionAPI<typeof pastePlugin> | undefined,
 ): Command =>
   injectAnalyticsPayloadBeforeCommand(
     createPasteAnalyticsPayloadBySelection(event, slice, {
       type,
     }),
-  )(handlePasteIntoTaskOrDecisionOrPanel(slice));
+  )(
+    handlePasteIntoTaskOrDecisionOrPanel(
+      slice,
+      pluginInjectionApi?.dependencies.card?.actions?.queueCardsFromChangedTr,
+    ),
+  );
 
 export const handlePasteIntoCaptionWithAnalytics = (
   view: EditorView,
@@ -410,34 +420,52 @@ export const handlePastePreservingMarksWithAnalytics = (
   event: ClipboardEvent,
   slice: Slice,
   type: PasteType,
+  pluginInjectionApi: ExtractInjectionAPI<typeof pastePlugin> | undefined,
 ): Command =>
   injectAnalyticsPayloadBeforeCommand(
     createPasteAnalyticsPayloadBySelection(event, slice, {
       type,
     }),
-  )(handlePastePreservingMarks(slice));
+  )(
+    handlePastePreservingMarks(
+      slice,
+      pluginInjectionApi?.dependencies.card?.actions?.queueCardsFromChangedTr,
+    ),
+  );
 
 export const handleMarkdownWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
+  pluginInjectionApi: ExtractInjectionAPI<typeof pastePlugin> | undefined,
 ): Command =>
   injectAnalyticsPayloadBeforeCommand(
     createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.markdown,
     }),
-  )(handleMarkdown(slice));
+  )(
+    handleMarkdown(
+      slice,
+      pluginInjectionApi?.dependencies.card?.actions?.queueCardsFromChangedTr,
+    ),
+  );
 
 export const handleRichTextWithAnalytics = (
   view: EditorView,
   event: ClipboardEvent,
   slice: Slice,
+  pluginInjectionApi: ExtractInjectionAPI<typeof pastePlugin> | undefined,
 ): Command =>
   injectAnalyticsPayloadBeforeCommand(
     createPasteAnalyticsPayloadBySelection(event, slice, {
       type: PasteTypes.richText,
     }),
-  )(handleRichText(slice));
+  )(
+    handleRichText(
+      slice,
+      pluginInjectionApi?.dependencies.card?.actions?.queueCardsFromChangedTr,
+    ),
+  );
 
 function injectAnalyticsPayloadBeforeCommand(
   createPayloadByTransaction: (selection: Selection) => AnalyticsEventPayload,

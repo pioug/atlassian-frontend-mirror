@@ -17,16 +17,16 @@ import {
   DatasourceTableView,
 } from '@atlaskit/link-datasource';
 
-import { SmartCardSharedCssClassName } from '@atlaskit/editor-common/styles';
+import {
+  SmartCardSharedCssClassName,
+  DATASOURCE_INNER_CONTAINER_CLASSNAME,
+} from '@atlaskit/editor-common/styles';
 import { DatasourceTableLayout } from '../ui/LayoutButton/types';
 import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type cardPlugin from '../index';
-
-export const DATASOURCE_INNER_CONTAINER_CLASSNAME =
-  'datasourceView-content-inner-wrap';
 
 const containerStyles = css({
   height: '500px',

@@ -31,7 +31,7 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/media-ui';
-import { messages as cardMessages } from '../../card/messages';
+import { cardMessages } from '@atlaskit/editor-common/messages';
 import { FilePreviewItem } from './filePreviewItem';
 import { downloadMedia, removeMediaGroupNode } from './utils';
 import {

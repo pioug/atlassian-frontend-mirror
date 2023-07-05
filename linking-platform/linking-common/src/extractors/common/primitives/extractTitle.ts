@@ -1,7 +1,9 @@
 import { JsonLd } from 'json-ld-types';
 import { extractContext } from '../context';
 import { extractType } from './extractType';
-
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3340 Internal documentation for deprecation (no external access)} use `@atlaskit/link-extractors` instead
+ */
 export const extractTitle = (
   jsonLd: JsonLd.Data.BaseData,
 ): string | undefined => {

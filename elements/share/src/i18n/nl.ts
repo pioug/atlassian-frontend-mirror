@@ -12,7 +12,8 @@ export default {
   'fabric.elements.share.copypubliclink.button.text': 'Openbare link kopiëren',
   'fabric.elements.share.failure.icon.label': "Pictogram 'Fout'",
   'fabric.elements.share.failure.message': 'Kan niet delen',
-  'fabric.elements.share.form.comment.placeholder': 'Voeg een bericht toe',
+  'fabric.elements.share.form.comment.label': 'Bericht (optioneel)',
+  'fabric.elements.share.form.comment.placeholder': 'Is er iets ze moet weten?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Ontvangers zien de naam van de pagina en je bericht',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Ontvangers zien de naam van de issue en je bericht',
   'fabric.elements.share.form.no-permissions': 'Je kunt niet delen.',
@@ -23,16 +24,35 @@ export default {
   'fabric.elements.share.form.share': 'Delen',
   'fabric.elements.share.form.title': 'Delen',
   'fabric.elements.share.form.user-picker.add-more': 'Meer invoeren',
+  'fabric.elements.share.form.user-picker.label.confluence': 'Namen, teams, groepen of e-mails',
+  'fabric.elements.share.form.user-picker.label.email-disabled-confluence': 'Namen, teams of groepen',
+  'fabric.elements.share.form.user-picker.label.email-disabled-jira': 'Namen of teams',
+  'fabric.elements.share.form.user-picker.label.email-only': 'E-mails',
+  'fabric.elements.share.form.user-picker.label.jira': 'Namen, teams of e-mails',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     "Geen resultaten gevonden voor ''{inputValue}'.",
   'fabric.elements.share.form.user-picker.no-options.generic':
     "Geen resultaten gevonden voor ''{inputValue}'. Nodig personen uit door hun e-mailadres in te voeren.",
-  'fabric.elements.share.form.user-picker.placeholder.jira': 'Voer een naam, team of e-mailadress in',
+  'fabric.elements.share.form.user-picker.placeholder.confluence': 'bijv. Maria, team Oranje, groep-een',
+  'fabric.elements.share.form.user-picker.placeholder.email-disabled-jira': 'bijv. Maria, team Oranje',
+  'fabric.elements.share.form.user-picker.placeholder.email-only': 'bijv. Maria, maria@bedrijf.com',
+  'fabric.elements.share.form.user-picker.placeholder.jira': 'bijv. Maria, team Oranje, maria@bedrijf.com',
   'fabric.elements.share.form.user-picker.validation.required':
     'Selecteer minimaal één gebruiker, groep, team of e-mailadres.',
+  'fabric.elements.share.form.user-picker.validation.required-message.confluence':
+    'Selecteer minimaal één persoon, team, groep of e-mailadres',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-confluence':
+    'Selecteer minimaal één persoon, team of groep',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-jira':
+    'Selecteer minimaal één persoon of team',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-only': 'Selecteer minimaal één e-mailadres',
+  'fabric.elements.share.form.user-picker.validation.required-message.jira':
+    'Selecteer minimaal één persoon, team of e-mailadres',
   'fabric.elements.share.in.integration.button': 'Delen in {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Pagina delen',
   'fabric.elements.share.main.tab.text.jira': 'Issue delen',
+  'fabric.elements.share.success.message':
+    '{object, select,blogpost {Blogpost gedeeld}board {Bord gedeeld}calendar {Agenda gedeeld}draft {Concept gedeeld}filter {Filter gedeeld}issue {Issue gedeeld}summary {Samenvatting gedeeld}list {Lijst gedeeld}timeline {Tijdlijn gedeeld}form {Formulier gedeeld}media {Media gedeeld}page {Pagina gedeeld}project {Project gedeeld}pullrequest {Pull-request gedeeld}question {Vraag gedeeld}report {Rapport gedeeld}repository {Repository gedeeld}request {Aanvraag gedeeld}roadmap {Tijdlijn gedeeld}site {Site gedeeld}space {Space gedeeld}other {Link gedeeld}}',
   'fabric.elements.share.to.integration.button': 'Delen met {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': "Pictogram 'Delen'",
   'fabric.elements.share.trigger.button.invite.text': 'Uitnodigen',

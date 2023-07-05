@@ -387,26 +387,26 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
       lime: {
         bold: {
           '[default]': {
-            value: 'Teal500',
+            value: 'Lime500',
           },
           hovered: {
-            value: 'Teal400',
+            value: 'Lime400',
           },
         },
         bolder: {
           '[default]': {
-            value: 'Teal400',
+            value: 'Lime400',
           },
           hovered: {
-            value: 'Teal300',
+            value: 'Lime300',
           },
         },
         boldest: {
           '[default]': {
-            value: 'Teal300',
+            value: 'Lime300',
           },
           hovered: {
-            value: 'Teal200',
+            value: 'Lime200',
           },
         },
       },

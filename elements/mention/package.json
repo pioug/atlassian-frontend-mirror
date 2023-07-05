@@ -58,8 +58,8 @@
   },
   "devDependencies": {
     "@atlaskit/docs": "^9.1.0",
-    "@atlaskit/editor-core": "^185.6.0",
-    "@atlaskit/editor-test-helpers": "^18.7.0",
+    "@atlaskit/editor-core": "^185.8.0",
+    "@atlaskit/editor-test-helpers": "^18.8.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlaskit/visual-regression": "*",

@@ -12,7 +12,8 @@ export default {
   'fabric.elements.share.copypubliclink.button.text': 'Copia link pubblico',
   'fabric.elements.share.failure.icon.label': 'Icona Errore',
   'fabric.elements.share.failure.message': 'Impossibile effettuare la condivisione',
-  'fabric.elements.share.form.comment.placeholder': 'Aggiungi un messaggio',
+  'fabric.elements.share.form.comment.label': 'Messaggio (opzionale)',
+  'fabric.elements.share.form.comment.placeholder': 'Vuoi comunicare loro qualcosa?',
   'fabric.elements.share.form.info.message.no.invite.confluence':
     'I destinatari vedranno il nome della pagina e il tuo messaggio',
   'fabric.elements.share.form.info.message.no.invite.jira':
@@ -25,15 +26,35 @@ export default {
   'fabric.elements.share.form.share': 'Condividi',
   'fabric.elements.share.form.title': 'Condividi',
   'fabric.elements.share.form.user-picker.add-more': 'Inerisci altri elementi',
+  'fabric.elements.share.form.user-picker.label.confluence': 'Nomi, team, gruppi o indirizzi e-mail',
+  'fabric.elements.share.form.user-picker.label.email-disabled-confluence': 'Nomi, team o gruppi',
+  'fabric.elements.share.form.user-picker.label.email-disabled-jira': 'Nomi o team',
+  'fabric.elements.share.form.user-picker.label.email-only': 'Indirizzi e-mail',
+  'fabric.elements.share.form.user-picker.label.jira': 'Nomi, team o indirizzi e-mail',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly': 'Nessun risultato trovato per “{inputValue}”.',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Nessun risultato trovato per “{inputValue}”. Invita le persone inserendo il loro indirizzo e-mail.',
-  'fabric.elements.share.form.user-picker.placeholder.jira': 'Inserisci nome, team o indirizzo e-mail',
+  'fabric.elements.share.form.user-picker.placeholder.confluence': 'ad esempio Maria, Team Arancione, gruppo uno',
+  'fabric.elements.share.form.user-picker.placeholder.email-disabled-jira': 'ad esempio Maria, Team Arancione',
+  'fabric.elements.share.form.user-picker.placeholder.email-only': 'ad esempio maria@azienda.com',
+  'fabric.elements.share.form.user-picker.placeholder.jira': 'ad esempio Maria, Team Arancione, maria@azienda.com',
   'fabric.elements.share.form.user-picker.validation.required':
     "Seleziona almeno un utente, un gruppo, un team o un'e-mail.",
+  'fabric.elements.share.form.user-picker.validation.required-message.confluence':
+    'Seleziona almeno una persona, un team, un gruppo o un indirizzo e-mail.',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-confluence':
+    'Seleziona almeno una persona, un team o un gruppo',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-jira':
+    'Seleziona almeno una persona o un team.',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-only':
+    'Seleziona almeno un indirizzo e-mail',
+  'fabric.elements.share.form.user-picker.validation.required-message.jira':
+    'Seleziona almeno una persona, un team o un indirizzo e-mail',
   'fabric.elements.share.in.integration.button': 'Condividi in {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Condividi pagina',
   'fabric.elements.share.main.tab.text.jira': 'Condividi ticket',
+  'fabric.elements.share.success.message':
+    '{object, select,blogpost {Post del blog condiviso}board {Board condivisa}calendar {Calendario condiviso}draft {Bozza condivisa}filter {Filtro condiviso}issue {Ticket condiviso}summary {Riepilogo condiviso}list {Elenco condiviso}timeline {Timeline condivisa}form {Modulo condiviso}media {Elemento multimediale condiviso}page {Pagina condiviso}project {Progetto condiviso}pullrequest {Pull request condivisa}question {Domanda condivisa}report {Report condiviso}repository {Repository condiviso}request {Richiesta condivisa}roadmap {Timeline condivisa}site {Sito condiviso}space {Spazio condiviso}other {Link condiviso}}',
   'fabric.elements.share.to.integration.button': 'Condividi in {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Icona Condividi',
   'fabric.elements.share.trigger.button.invite.text': 'Invita',

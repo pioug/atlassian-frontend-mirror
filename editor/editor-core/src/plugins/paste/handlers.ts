@@ -41,7 +41,6 @@ import {
 } from '../../utils';
 import { mapSlice } from '../../utils/slice';
 import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
-import { queueCardsFromChangedTr } from '../card/pm-plugins/doc';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
 import { linkifyContent } from '@atlaskit/editor-common/utils';
@@ -67,6 +66,7 @@ import {
 } from './commands';
 import { getPluginState as getPastePluginState } from './pm-plugins/plugin-factory';
 import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../utils/lists';
+import type { QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
 
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {
@@ -80,7 +80,10 @@ export function handleMention(slice: Slice, schema: Schema): Slice {
   });
 }
 
-export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
+export function handlePasteIntoTaskOrDecisionOrPanel(
+  slice: Slice,
+  queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
+): Command {
   return (state: EditorState, dispatch?: CommandDispatch): boolean => {
     const {
       schema,
@@ -204,7 +207,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(slice: Slice): Command {
       safeInsert(transformedSlice.content)(tr).scrollIntoView();
     }
 
-    queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
+    queueCardsFromChangedTr?.(state, tr, INPUT_METHOD.CLIPBOARD);
     if (dispatch) {
       dispatch(tr);
     }
@@ -509,7 +512,10 @@ export function handlePasteAsPlainText(
   };
 }
 
-export function handlePastePreservingMarks(slice: Slice): Command {
+export function handlePastePreservingMarks(
+  slice: Slice,
+  queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
+): Command {
   return (state: EditorState, dispatch?): boolean => {
     const {
       schema,
@@ -566,7 +572,7 @@ export function handlePastePreservingMarks(slice: Slice): Command {
         .setStoredMarks(selectionMarks)
         .scrollIntoView();
 
-      queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
+      queueCardsFromChangedTr?.(state, tr, INPUT_METHOD.CLIPBOARD);
       if (dispatch) {
         dispatch(tr);
       }
@@ -598,7 +604,7 @@ export function handlePastePreservingMarks(slice: Slice): Command {
         .setStoredMarks(selectionMarks)
         .scrollIntoView();
 
-      queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
+      queueCardsFromChangedTr?.(state, tr, INPUT_METHOD.CLIPBOARD);
       if (dispatch) {
         dispatch(tr);
       }
@@ -657,6 +663,7 @@ function insertAutoMacro(
 export function handleMacroAutoConvert(
   text: string,
   slice: Slice,
+  queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
   cardsOptions?: CardOptions,
   extensionAutoConverter?: ExtensionAutoConvertHandler,
 ): Command {
@@ -716,6 +723,7 @@ export function handleMacroAutoConvert(
             if (dispatch) {
               handleMarkdown(
                 slice,
+                queueCardsFromChangedTr,
                 pastedMacroPositions[trackingFrom],
                 pastedMacroPositions[trackingTo],
               )(view.state, dispatch);
@@ -866,6 +874,7 @@ export function handleExpandPasteInTable(slice: Slice): Command {
 
 export function handleMarkdown(
   markdownSlice: Slice,
+  queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
   from?: number,
   to?: number,
 ): Command {
@@ -883,7 +892,7 @@ export function handleMarkdown(
       TextSelection.near(tr.doc.resolve(pastesFrom + markdownSlice.size), -1),
     );
 
-    queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD);
+    queueCardsFromChangedTr?.(state, tr, INPUT_METHOD.CLIPBOARD);
     if (dispatch) {
       dispatch(tr.scrollIntoView());
     }
@@ -1055,7 +1064,10 @@ export function flattenNestedListInSlice(slice: Slice) {
   return new Slice(contentWithFlattenedList, slice.openEnd, slice.openEnd);
 }
 
-export function handleRichText(slice: Slice): Command {
+export function handleRichText(
+  slice: Slice,
+  queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
+): Command {
   return (state, dispatch) => {
     const { codeBlock, heading, paragraph, panel } = state.schema.nodes;
     const { selection, schema } = state;
@@ -1149,8 +1161,9 @@ export function handleRichText(slice: Slice): Command {
     tr.scrollIntoView();
 
     // queue link cards, ignoring any errors
+    queueCardsFromChangedTr?.(state, tr, INPUT_METHOD.CLIPBOARD);
     if (dispatch) {
-      dispatch(queueCardsFromChangedTr(state, tr, INPUT_METHOD.CLIPBOARD));
+      dispatch(tr);
     }
     return true;
   };

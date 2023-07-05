@@ -22,6 +22,9 @@ export type InvocationContext = {
 };
 
 export type CardAppearance = 'inline' | 'block' | 'embed';
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3340 Internal documentation for deprecation (no external access)} use `@atlaskit/link-extractors` instead
+ */
 export type CardPlatform = JsonLd.Primitives.Platforms;
 export type CardActionType =
   | 'pending'
@@ -45,7 +48,7 @@ export type CardType =
 export type MetadataStatus = 'pending' | 'resolved' | 'errored';
 
 /**
- * @deprecated This has been moved to `@atlaskit/linking-common/extractors`
+ * @deprecated This has been moved to `@atlaskit/link-extractors`
  */
 export interface LinkPreview {
   src?: string;

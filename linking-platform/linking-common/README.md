@@ -7,10 +7,8 @@
 import type {
   InvokePayload,
   CardAppearance,
-  CardPlatform,
   CardType,
   CardActionType,
-  LinkPreview,
   CardAction,
   ServerActionOpts,
   ServerActionPayload,
@@ -18,7 +16,5 @@ import type {
   InlineCardAdf,
   BlockCardAdf,
   EmbedCardAdf,
-} from from '@atlaskit/linking-common'
-
-import { extractUrlFromLinkJsonLd, extractPreview } from '@atlaskit/linking-common';
+} from '@atlaskit/linking-common'
 ```

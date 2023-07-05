@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-create",
-  "version": "0.7.1",
+  "version": "0.8.0",
   "description": "The driver component of meta creation flow",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -58,8 +58,8 @@
     "@atlaskit/popup": "^1.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@atlassian/link-create-confluence": "^9.0.0",
-    "@atlassian/link-create-presets": "^6.0.0",
+    "@atlassian/link-create-confluence": "^10.0.0",
+    "@atlassian/link-create-presets": "^7.0.0",
     "@atlassian/link-picker-atlassian-plugin": "^34.1.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",

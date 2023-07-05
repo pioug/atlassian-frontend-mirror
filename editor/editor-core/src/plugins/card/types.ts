@@ -1,4 +1,4 @@
-import { INPUT_METHOD, ACTION } from '@atlaskit/editor-common/analytics';
+import { ACTION } from '@atlaskit/editor-common/analytics';
 import {
   CardProvider,
   CardAppearance,
@@ -8,7 +8,10 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type {
+  CardOptions,
+  CardReplacementInputMethod,
+} from '@atlaskit/editor-common/card';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import { DatasourceTableLayout } from './ui/LayoutButton/types';
@@ -207,11 +210,3 @@ export type CardPluginAction =
   | SetDatasourceTableRef
   | SetCardLayout
   | SetCardLayoutAndDatasourceTableRef;
-
-export type CardReplacementInputMethod =
-  | INPUT_METHOD.CLIPBOARD
-  | INPUT_METHOD.AUTO_DETECT
-  | INPUT_METHOD.FORMATTING
-  | INPUT_METHOD.MANUAL
-  | INPUT_METHOD.TYPEAHEAD
-  | INPUT_METHOD.FLOATING_TB;

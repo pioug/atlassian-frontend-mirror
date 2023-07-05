@@ -15,6 +15,10 @@ import { useSmartLinkAnalytics } from '../../../state/analytics';
 
 const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
 
+const FADE_IN_DELAY = 500;
+const FADE_OUT_DELAY = 300;
+const RESOLVE_DELAY = 100;
+
 export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   children,
   url,
@@ -25,8 +29,6 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   hidePreviewButton = false,
   showServerActions = false,
 }) => {
-  const delay = 300;
-  const resolveDelay = 100;
   const [isOpen, setIsOpen] = React.useState(false);
   const fadeOutTimeoutId = useRef<ReturnType<typeof setTimeout>>();
   const fadeInTimeoutId = useRef<ReturnType<typeof setTimeout>>();
@@ -42,12 +44,12 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
 
   const setMousePosition = useCallback(
     (event) => {
-      if (isOpen) {
+      if (isOpen && canOpen) {
         return;
       }
       mousePos.current = { x: event.clientX, y: event.clientY };
     },
-    [isOpen],
+    [canOpen, isOpen],
   );
 
   const hideCard = useCallback(() => {
@@ -68,7 +70,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       // we want to clear out the reference to signify that there's no in-progress resolve event
       resolveTimeOutId.current = undefined;
     }
-    fadeOutTimeoutId.current = setTimeout(() => hideCard(), delay);
+    fadeOutTimeoutId.current = setTimeout(() => hideCard(), FADE_OUT_DELAY);
   }, [hideCard]);
 
   // clearing out the timeouts in order to avoid memory leaks
@@ -105,7 +107,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     if (!resolveTimeOutId.current && isLinkUnresolved) {
       resolveTimeOutId.current = setTimeout(() => {
         loadMetadata();
-      }, resolveDelay);
+      }, RESOLVE_DELAY);
     }
   }, [linkState, loadMetadata]);
 
@@ -122,22 +124,23 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       //Set mouse position in the case it's not already set by onMouseMove, as in the case of scrolling
       setMousePosition(event);
 
+      //If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
+      if ((!isOpen || !canOpen) && parentSpan.current && mousePos.current) {
+        const { bottom, left } = parentSpan.current.getBoundingClientRect();
+        popupOffset.current = [
+          mousePos.current.x - left,
+          mousePos.current.y - bottom + CARD_GAP_PX,
+        ];
+      }
+
       if (!isOpen && !fadeInTimeoutId.current) {
         // setting a timeout to show a Hover Card after delay runs out
         fadeInTimeoutId.current = setTimeout(() => {
-          //If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
-          if (parentSpan.current && mousePos.current) {
-            const { bottom, left } = parentSpan.current.getBoundingClientRect();
-            popupOffset.current = [
-              mousePos.current.x - left,
-              mousePos.current.y - bottom + CARD_GAP_PX,
-            ];
-          }
           setIsOpen(true);
-        }, delay);
+        }, FADE_IN_DELAY);
       }
     },
-    [initResolve, isOpen, setMousePosition],
+    [canOpen, initResolve, isOpen, setMousePosition],
   );
 
   const linkActions = useSmartLinkActions({
@@ -163,7 +166,6 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   );
 
   // Stop hover preview content to propagate event to parent.
-
   const onChildClick = useCallback(
     (e) => {
       e.stopPropagation();

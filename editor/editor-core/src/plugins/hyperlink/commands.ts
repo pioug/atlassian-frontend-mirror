@@ -11,7 +11,7 @@ import {
   getLinkCreationAnalyticsEvent,
 } from '@atlaskit/editor-common/utils';
 import { stateKey, LinkAction } from './pm-plugins/main';
-import { EditorState, Selection } from 'prosemirror-state';
+import { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { filter, Predicate } from '../../utils/commands';
 import { Mark, Node, ResolvedPos } from 'prosemirror-model';
 import { addAnalytics, withAnalytics } from '../analytics';
@@ -298,8 +298,12 @@ export function showLinkToolbar(
 export function hideLinkToolbar(): Command {
   return function (state, dispatch) {
     if (dispatch) {
-      dispatch(state.tr.setMeta(stateKey, { type: LinkAction.HIDE_TOOLBAR }));
+      dispatch(hideLinkToolbarSetMeta(state.tr));
     }
     return true;
   };
+}
+
+export function hideLinkToolbarSetMeta(tr: Transaction) {
+  return tr.setMeta(stateKey, { type: LinkAction.HIDE_TOOLBAR });
 }

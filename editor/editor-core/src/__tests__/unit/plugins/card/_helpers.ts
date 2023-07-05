@@ -3,10 +3,9 @@ import { CardAppearance } from '@atlaskit/smart-card';
 import { SmartCardContext } from '@atlaskit/link-provider';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
 import { setProvider } from '../../../../plugins/card/pm-plugins/actions';
-import {
-  CardReplacementInputMethod,
-  Request,
-} from '../../../../plugins/card/types';
+import { Request } from '../../../../plugins/card/types';
+import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
+
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { EditorContext } from '../../../../plugins/card/nodeviews/genericCard';
 

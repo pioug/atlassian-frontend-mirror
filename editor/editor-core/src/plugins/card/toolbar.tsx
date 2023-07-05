@@ -45,9 +45,9 @@ import {
 } from './utils';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
-import { messages } from './messages';
+import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import { LinkPickerOptions } from '@atlaskit/editor-common/types';
-import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from './styles';
+import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from '@atlaskit/editor-common/styles';
 import type {
   FeatureFlags,
   PluginDependenciesAPI,
@@ -453,6 +453,7 @@ const generateToolbarItems =
                 allowBlockCards={allowBlockCards}
                 platform={platform}
                 editorAnalyticsApi={editorAnalyticsApi}
+                cardActions={pluginInjectionApi?.dependencies.card.actions}
               />
             ),
           },

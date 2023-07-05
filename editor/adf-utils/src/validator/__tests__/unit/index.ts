@@ -13,6 +13,60 @@ describe('validate', () => {
     expect(run).toThrowError('doc: required prop missing.');
   });
 
+  /**
+   * the attrs field could be an array, and
+   * the validator will use the required field at the root, see:
+   * packages/editor/adf-utils/src/validator/specs/blockCard.ts
+   * packages/editor/adf-utils/src/validator/specs/inlineCard.ts
+   * packages/editor/adf-utils/src/validator/specs/media.ts
+   */
+  it('should throw when required array attrs are missing', () => {
+    const run = () => {
+      validate({
+        type: 'doc',
+        version: 1,
+        content: [
+          {
+            type: 'blockCard',
+          },
+        ],
+      });
+    };
+    expect(run).toThrowError('blockCard: required prop missing.');
+  });
+
+  /**
+   * the attrs field could be an array, and
+   * the validator will use the required field at the root, see:
+   * MediaSingle node contains an optional array attr validator
+   * packages/editor/adf-utils/src/validator/specs/mediaSingle.ts
+   */
+  it('should no throw when optional array attribute is missing', () => {
+    const run = () => {
+      validate({
+        version: 1,
+        type: 'doc',
+        content: [
+          {
+            type: 'mediaSingle',
+            // Without attrs
+            content: [
+              {
+                type: 'media',
+                attrs: {
+                  type: 'file',
+                  id: '1234',
+                  collection: 'SampleCollection',
+                },
+              },
+            ],
+          },
+        ],
+      });
+    };
+    expect(run).not.toThrow();
+  });
+
   it('should not throw on private redundant attributes', () => {
     const validate = validator(undefined, undefined, {
       allowPrivateAttributes: true,

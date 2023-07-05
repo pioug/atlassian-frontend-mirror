@@ -13,7 +13,6 @@ import {
 } from '../analytics';
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import { analyticsEventKey, startMeasure, stopMeasure } from '../utils';
-import { getParticipantsCount } from '../utils/collab';
 
 import type { NamedPluginKeys, NamedPluginStates, Writeable } from './types';
 
@@ -208,7 +207,6 @@ class WithPluginState<P extends NamedPluginKeys> extends React.Component<
               ++this.callsCount % performanceOptions.samplingRate === 0 &&
               duration > performanceOptions.slowThreshold
             ) {
-              const editorView = this.getEditorView();
               this.dispatchAnalyticsEvent({
                 action: ACTION.WITH_PLUGIN_STATE_CALLED,
                 actionSubject: ACTION_SUBJECT.EDITOR,
@@ -216,9 +214,6 @@ class WithPluginState<P extends NamedPluginKeys> extends React.Component<
                 attributes: {
                   plugin: pluginName,
                   duration,
-                  participants: getParticipantsCount(
-                    editorView && editorView.state,
-                  ),
                 },
               });
             }

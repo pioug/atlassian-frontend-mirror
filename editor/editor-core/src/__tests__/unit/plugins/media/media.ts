@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { processRawValue } from '@atlaskit/editor-common/utils';
 import schema from '@atlaskit/editor-test-helpers/schema';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const getNodeNames = (plugin: EditorPlugin) =>
   plugin.nodes ? plugin.nodes().map((node) => node.name) : [];
@@ -53,8 +54,13 @@ describe(name, () => {
         provider: Promise.resolve() as any,
         allowMediaSingle: true,
       });
-
-      expect(getNode(plugin, 'mediaSingle')!.node).toBe(mediaSingle);
+      expect(getNode(plugin, 'mediaSingle')!.node).toEqual(
+        expect.objectContaining({
+          ...mediaSingle,
+          parseDOM: expect.any(Array),
+          toDOM: expect.any(Function),
+        }),
+      );
     });
 
     it('mediaSingle should be a mediaSingleWithCaption when captions is enabled', () => {
@@ -64,8 +70,92 @@ describe(name, () => {
         featureFlags: { captions: true },
       });
 
-      expect(getNode(plugin, 'mediaSingle')!.node).toBe(mediaSingleWithCaption);
+      expect(getNode(plugin, 'mediaSingle')!.node).toEqual(
+        expect.objectContaining({
+          ...mediaSingleWithCaption,
+          parseDOM: expect.any(Array),
+          toDOM: expect.any(Function),
+        }),
+      );
     });
+
+    ffTest(
+      'platform.editor.media.extended-resize-experience',
+      () => {
+        const plugin = mediaPlugin({
+          provider: Promise.resolve() as any,
+          allowMediaSingle: true,
+        });
+
+        const mediaNodeSpec = getNode(plugin, 'mediaSingle')!.node;
+
+        expect(mediaNodeSpec.attrs).toMatchObject({
+          layout: {
+            default: 'center',
+          },
+          width: {
+            default: null,
+          },
+          widthType: {
+            default: null,
+          },
+        });
+
+        // @ts-ignore
+        const domArr = mediaNodeSpec.toDOM({
+          attrs: {
+            layout: 'center',
+            width: 99,
+            widthType: 'percentage',
+          },
+        });
+        expect(domArr).toMatchObject([
+          'div',
+          {
+            'data-node-type': 'mediaSingle',
+            'data-layout': 'center',
+            'data-width': 99,
+            'data-width-type': 'percentage',
+          },
+          0,
+        ]);
+      },
+      () => {
+        const plugin = mediaPlugin({
+          provider: Promise.resolve() as any,
+          allowMediaSingle: true,
+        });
+
+        const mediaNodeSpec = getNode(plugin, 'mediaSingle')!.node;
+
+        expect(mediaNodeSpec.attrs).toMatchObject({
+          layout: {
+            default: 'center',
+          },
+          width: {
+            default: null,
+          },
+        });
+
+        // @ts-ignore
+        const domArr = mediaNodeSpec.toDOM({
+          attrs: {
+            layout: 'center',
+            width: 99,
+            widthType: 'percentage',
+          },
+        });
+        expect(domArr).toMatchObject([
+          'div',
+          {
+            'data-node-type': 'mediaSingle',
+            'data-layout': 'center',
+            'data-width': 99,
+          },
+          0,
+        ]);
+      },
+    );
   });
 });
 

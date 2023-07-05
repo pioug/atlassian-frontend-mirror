@@ -3,7 +3,7 @@ import {
   useAnalyticsEvents,
   createAndFireEvent,
 } from '@atlaskit/analytics-next';
-import { useFeatureFlag, useSmartLinkContext } from '@atlaskit/link-provider';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 import {
   LinkLifecycleEventCallback,
@@ -42,9 +42,6 @@ export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
     store,
     connections: { client },
   } = useSmartLinkContext();
-  const enableResolveMetadataForLinkAnalytics = !!useFeatureFlag(
-    'enableResolveMetadataForLinkAnalytics',
-  );
 
   return useMemo(() => {
     const factory =
@@ -62,9 +59,7 @@ export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
             const { default: fireEvent } = await import(
               /* webpackChunkName: "@atlaskit-internal_@atlaskit/link-analytics/fire-event" */ './fire-event'
             );
-            fireEvent(action, createAnalyticsEvent, client, store, {
-              enableResolveMetadataForLinkAnalytics,
-            })(...args);
+            fireEvent(action, createAnalyticsEvent, client, store)(...args);
           });
         } catch (error: unknown) {
           createAndFireEvent(ANALYTICS_CHANNEL)(
@@ -81,10 +76,5 @@ export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
       linkUpdated: factory('updated'),
       linkDeleted: factory('deleted'),
     };
-  }, [
-    client,
-    store,
-    createAnalyticsEvent,
-    enableResolveMetadataForLinkAnalytics,
-  ]);
+  }, [client, store, createAnalyticsEvent]);
 };

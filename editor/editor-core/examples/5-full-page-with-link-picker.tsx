@@ -34,7 +34,6 @@ export default () => {
   const featureFlags = useMemo(() => {
     return {
       useLinkPickerAtlassianTabs: true,
-      enableResolveMetadataForLinkAnalytics: true,
     } as const;
   }, []);
 

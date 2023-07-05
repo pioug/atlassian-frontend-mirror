@@ -24,7 +24,7 @@ import {
   endPositionOfParent,
   startPositionOfParent,
 } from '../../../utils/prosemirror/position';
-import { GapCursorSelection } from '../../selection/gap-cursor/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
 

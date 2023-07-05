@@ -1,7 +1,9 @@
 import { JsonLd } from 'json-ld-types';
 import { LinkPerson } from './types';
 import { extractUrlFromIconJsonLd } from '../url';
-
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3340 Internal documentation for deprecation (no external access)} use `@atlaskit/link-extractors` instead
+ */
 export const extractPersonFromJsonLd = (
   person: JsonLd.Primitives.Object | JsonLd.Primitives.Link,
 ): LinkPerson | undefined => {

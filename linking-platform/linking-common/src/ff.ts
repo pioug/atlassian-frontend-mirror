@@ -26,6 +26,7 @@ export interface LinkingPlatformFeatureFlags {
   enableLinkPickerForgeTabs?: boolean;
   /**
    * Enables resolved metadata to be surfaced for link analytics
+   * @deprecated Implementation removed on EDM-5153
    */
   enableResolveMetadataForLinkAnalytics?: boolean;
   /**

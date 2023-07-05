@@ -7,6 +7,7 @@ export { unsupportedContentMessages } from './unsupportedContent';
 export { codeBlockButtonMessages } from './codeBlockButton';
 export { toolbarInsertBlockMessages } from './insert-block';
 export { toolbarMessages as mediaAndEmbedToolbarMessages } from './media-and-embed-toolbar';
+export { messages as cardMessages } from './card';
 
 export default defineMessages({
   layoutFixedWidth: {

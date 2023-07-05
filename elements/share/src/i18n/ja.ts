@@ -12,7 +12,8 @@ export default {
   'fabric.elements.share.copypubliclink.button.text': '公開リンクをコピー',
   'fabric.elements.share.failure.icon.label': 'エラー アイコン',
   'fabric.elements.share.failure.message': '共有できません',
-  'fabric.elements.share.form.comment.placeholder': 'メッセージを追加',
+  'fabric.elements.share.form.comment.label': 'メッセージ (オプション)',
+  'fabric.elements.share.form.comment.placeholder': '共有先のユーザーへのコメントがある場合はここに書き込みます。',
   'fabric.elements.share.form.info.message.no.invite.confluence': '受信者にページの名前とメッセージが表示されます',
   'fabric.elements.share.form.info.message.no.invite.jira': '受信者に課題の名前とメッセージが表示されます',
   'fabric.elements.share.form.no-permissions': '共有できません。',
@@ -23,16 +24,36 @@ export default {
   'fabric.elements.share.form.share': '共有',
   'fabric.elements.share.form.title': '共有',
   'fabric.elements.share.form.user-picker.add-more': 'さらに追加',
+  'fabric.elements.share.form.user-picker.label.confluence': '名前、チーム、グループ、またはメール アドレス',
+  'fabric.elements.share.form.user-picker.label.email-disabled-confluence': '名前、チーム、またはグループ',
+  'fabric.elements.share.form.user-picker.label.email-disabled-jira': '名前またはチーム',
+  'fabric.elements.share.form.user-picker.label.email-only': 'メール アドレス',
+  'fabric.elements.share.form.user-picker.label.jira': '名前、チーム、またはメール アドレス',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     '"{inputValue}" に一致する結果が見つかりませんでした。',
   'fabric.elements.share.form.user-picker.no-options.generic':
     '"{inputValue}" に一致する結果が見つかりませんでした。メール アドレスを使用してユーザーを招待してください。',
-  'fabric.elements.share.form.user-picker.placeholder.jira': '名前、チーム、メールアドレスを入力',
+  'fabric.elements.share.form.user-picker.placeholder.confluence': '例: 佐藤、チーム オレンジ、グループワン',
+  'fabric.elements.share.form.user-picker.placeholder.email-disabled-jira': '例: 佐藤、チーム オレンジ',
+  'fabric.elements.share.form.user-picker.placeholder.email-only': '例: sato@company.com',
+  'fabric.elements.share.form.user-picker.placeholder.jira': '例: 佐藤、チーム オレンジ、sato@company.com',
   'fabric.elements.share.form.user-picker.validation.required':
     'ユーザー、グループ、チーム、メールを少なくとも 1 つ選択してください。',
+  'fabric.elements.share.form.user-picker.validation.required-message.confluence':
+    'ユーザー、チーム、グループ、またはメール アドレスを少なくとも 1 つ選択してください',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-confluence':
+    'ユーザー、チーム、またはグループを少なくとも 1 つ選択してください',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-jira':
+    'ユーザーまたはチームを少なくとも 1 つ選択してください',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-only':
+    'メール アドレスを少なくとも 1 つ選択してください',
+  'fabric.elements.share.form.user-picker.validation.required-message.jira':
+    'ユーザー、チーム、またはメール アドレスを少なくとも 1 つ選択してください',
   'fabric.elements.share.in.integration.button': '{integrationName} で共有',
   'fabric.elements.share.main.tab.text.confluence': 'ページを共有',
   'fabric.elements.share.main.tab.text.jira': '課題を共有',
+  'fabric.elements.share.success.message':
+    '{object, select,blogpost {ブログ投稿が共有されました}board {ボードが共有されました}calendar {カレンダーが共有されました}draft {下書きが共有されました}filter {フィルターが共有されました}issue {課題が共有されました}summary {要約が共有されました}list {リストが共有されました}timeline {タイムラインが共有されました}form {フォームが共有されました}media {メディアが共有されました}page {ページが共有されました}project {プロジェクトが共有されました}pullrequest {プル リクエストが共有されました}question {質問が共有されました}report {レポートが共有されました}repository {リポジトリが共有されました}request {リクエストが共有されました}roadmap {タイムラインが共有されました}site {サイトが共有されました}space {スペースが共有されました}other {リンクが共有されました}}',
   'fabric.elements.share.to.integration.button': '{integrationName} と共有',
   'fabric.elements.share.trigger.button.icon.label': '共有アイコン',
   'fabric.elements.share.trigger.button.invite.text': '招待',

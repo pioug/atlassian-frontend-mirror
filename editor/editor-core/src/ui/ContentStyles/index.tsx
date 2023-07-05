@@ -15,6 +15,8 @@ import {
   textColorStyles,
   resizerStyles,
   gridStyles,
+  smartCardStyles,
+  embedCardStyles,
 } from '@atlaskit/editor-common/styles';
 import { editorFontSize } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -43,9 +45,7 @@ import { ClassNames } from '../../plugins/media/pm-plugins/alt-text/style';
 import { findReplaceStyles } from '../../plugins/find-replace/styles';
 import { taskDecisionStyles } from '../../plugins/tasks-and-decisions/styles';
 import { statusStyles } from '../../plugins/status/styles';
-import { smartCardStyles } from '../../plugins/card/styles';
 import { dateStyles } from '../../plugins/date/styles';
-import { embedCardStyles } from '../../plugins/card/ui/styled';
 import type { FeatureFlags } from '../../types/feature-flags';
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
 

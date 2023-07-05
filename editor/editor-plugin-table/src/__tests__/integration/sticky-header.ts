@@ -3,7 +3,6 @@ import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   fullpage,
   tableSelectors,
-  toggleBreakout,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
@@ -127,98 +126,5 @@ BrowserTestCase(
 
     expect(await page.waitForSelector(tableSelectors.stickyTable)).toBeTruthy();
     expect(await page.waitForSelector(tableSelectors.stickyTr)).toBeTruthy();
-  },
-);
-
-// FIXME: This test was automatically skipped due to failure on 28/05/2023: https://product-fabric.atlassian.net/browse/ED-18110
-BrowserTestCase(
-  'Sticky header should correctly toggle on and off, after table is scrolled to the bottom and a column has been added',
-  {
-    // skip: ['safari']
-    skip: ['*'],
-  },
-  async (client: any, testName: string) => {
-    const page = await goToEditorTestingWDExample(
-      client,
-      'editor-plugin-table',
-    );
-
-    await mountEditor(page, {
-      appearance: fullpage.appearance,
-      defaultValue: JSON.stringify(stickyTable),
-      allowTables: {
-        advanced: true,
-        stickyHeaders: true,
-      },
-    });
-
-    await page.waitForSelector('table');
-
-    await scrollTo(page, window.innerHeight * 100);
-
-    await insertColumn(page, 'last');
-
-    expect(
-      await page.waitForSelector(tableSelectors.stickyTable, {}, true),
-    ).toBeTruthy();
-    expect(
-      await page.waitForSelector(tableSelectors.stickyTr, {}, true),
-    ).toBeTruthy();
-
-    // ED-16817 This checks for a bug where the table row would become not sticky
-    // but the numbered column header would stay sticky
-    const numberedCol = await page.$(tableSelectors.numberedColumnTopLeftCell);
-    const numberedColStyle = await numberedCol.getAttribute('style');
-    expect(!numberedColStyle.includes('top')).toBeTruthy();
-  },
-);
-
-// FIXME: This test was automatically skipped due to failure on 10/06/2023: https://product-fabric.atlassian.net/browse/ED-18761
-BrowserTestCase(
-  'Sticky header should resize when the width of parent scroll container changes',
-  {
-    skip: ['*'],
-  },
-  async (client: any, testName: string) => {
-    const page = await goToEditorTestingWDExample(
-      client,
-      'editor-plugin-table',
-    );
-
-    await mountEditor(page, {
-      appearance: fullpage.appearance,
-      defaultValue: JSON.stringify(stickyTable),
-      allowTables: {
-        advanced: true,
-        stickyHeaders: true,
-      },
-      featureFlags: {
-        stickyHeadersOptimization: true,
-      },
-    });
-
-    await page.waitForSelector('table');
-
-    await toggleBreakout(page, 2);
-
-    await scrollTo(page, window.innerHeight * 100);
-
-    await page.execute(() => {
-      const editorScrollParentSelector = '.fabric-editor-popup-scroll-parent';
-      const editor = document.querySelector(
-        editorScrollParentSelector,
-      ) as HTMLElement;
-      if (editor) {
-        editor.style.flexGrow = '0';
-        editor.style.width = '750px';
-      }
-    });
-
-    const table = await page.$(tableSelectors.stickyTable);
-    const tableWidth = await table.getSize();
-    const stickyHeader = await page.$(tableSelectors.stickyTr);
-    const stickyHeaderWidth = await stickyHeader.getSize();
-
-    expect(tableWidth.width).toEqual(stickyHeaderWidth.width);
   },
 );

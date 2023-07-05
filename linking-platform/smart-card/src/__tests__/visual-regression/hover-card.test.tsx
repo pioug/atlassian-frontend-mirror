@@ -1,4 +1,7 @@
-import { enableTooltips } from '@atlaskit/visual-regression/helper';
+import {
+  enableTooltips,
+  PuppeteerPage,
+} from '@atlaskit/visual-regression/helper';
 import { getURL, setup, takeSnapshot } from '../__utils__/vr-helpers';
 
 describe('Hover Card', () => {
@@ -55,6 +58,16 @@ describe('Hover Card', () => {
     const page = await setup(url);
 
     return page;
+  };
+
+  const waitForHoverPreview = async (page: PuppeteerPage) => {
+    await page.waitForSelector('.smart-links-hover-preview');
+    await page.waitForSelector(
+      '[data-testid="smart-element-icon-icon--wrapper"]',
+    );
+    await page.waitForSelector(
+      '[data-testid="authorgroup-metadata-element--avatar-0--person"]',
+    );
   };
 
   // FIXME: This test was automatically skipped due to failure on 13/04/2023: https://product-fabric.atlassian.net/browse/EDM-6381
@@ -229,5 +242,40 @@ describe('Hover Card', () => {
 
     const image = await takeSnapshot(page, 600, 0);
     expect(image).toMatchProdImageSnapshot();
+  });
+
+  it('renders hover preview following mouse position', async () => {
+    const height = 400;
+    const url = getURL('vr-hover-card-can-open-positioning', 'light');
+    const page = await setup(url);
+
+    await page.setViewport({ width: 800, height });
+
+    // Hover over first child element, hover preview should open on the left
+    const leftSelector = '[data-testid="hover-test-can-open-left"]';
+    await page.waitForSelector(leftSelector);
+    await page.hover(leftSelector);
+    await waitForHoverPreview(page);
+    const image1 = await takeSnapshot(page, height);
+    expect(image1).toMatchProdImageSnapshot(snapshotOptions);
+
+    // Hover over second child element, hover preview should close
+    const centerSelector = '[data-testid="hover-test-cannot-open"]';
+    await page.waitForSelector(centerSelector);
+    await page.hover(centerSelector);
+    await page.waitForSelector('.smart-links-hover-preview', {
+      hidden: true,
+    });
+    const image2 = await takeSnapshot(page, height);
+    expect(image2).toMatchProdImageSnapshot(snapshotOptions);
+
+    // Hover over third child element, hover preview should open on the right
+    const rightSelector = '[data-testid="hover-test-can-open-right"]';
+    await page.waitForSelector(rightSelector);
+    await page.hover(rightSelector);
+    await waitForHoverPreview(page);
+
+    const image3 = await takeSnapshot(page, height);
+    expect(image3).toMatchProdImageSnapshot(snapshotOptions);
   });
 });

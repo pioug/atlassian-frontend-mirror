@@ -1,5 +1,11 @@
 # @atlaskit/editor-json-transformer
 
+## 8.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.9.4
 
 ### Patch Changes

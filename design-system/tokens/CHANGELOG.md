@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 1.11.2
+
+### Patch Changes
+
+- [`5f3a4279435`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f3a4279435) - Fixes invalid default values assigned to shadow tokens in the token-default-values.tsx artifact
+- [`694b79161b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/694b79161b8) - Corrects Lime chart tokens in the dark mode theme so they use the correct base tokens
+
 ## 1.11.1
 
 ### Patch Changes

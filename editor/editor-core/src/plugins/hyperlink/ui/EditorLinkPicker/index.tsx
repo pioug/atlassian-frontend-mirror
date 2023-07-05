@@ -3,9 +3,8 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { EditorView } from 'prosemirror-view';
 import { LinkPicker, LinkPickerProps } from '@atlaskit/link-picker';
 
-import { hideLinkToolbar as cardHideLinkToolbar } from '../../../card/pm-plugins/actions';
-import { hideLinkToolbar } from '../../commands';
-
+import { hideLinkToolbarSetMeta, hideLinkToolbar } from '../../commands';
+import { toolbarKey } from '../../pm-plugins/toolbar-buttons';
 import { useEscapeClickaway } from './useEscapeClickaway';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
@@ -56,8 +55,12 @@ export const EditorLinkPicker = ({
   useEffect(() => () => onCloseRef.current?.(), []);
 
   const onEscape = useCallback(() => {
-    hideLinkToolbar()(view.state, view.dispatch);
-    view.dispatch(cardHideLinkToolbar(view.state.tr));
+    const {
+      state: { tr },
+    } = view;
+    hideLinkToolbarSetMeta(tr);
+    toolbarKey.getState(view.state)?.onEscapeCallback?.(tr);
+    view.dispatch(tr);
     onCancel?.();
   }, [view, onCancel]);
 

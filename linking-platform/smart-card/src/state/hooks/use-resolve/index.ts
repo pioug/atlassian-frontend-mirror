@@ -14,7 +14,6 @@ import {
   CardState,
   MetadataStatus,
 } from '@atlaskit/linking-common';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   ERROR_MESSAGE_FATAL,
   ERROR_MESSAGE_METADATA,
@@ -172,33 +171,20 @@ const useResolve = () => {
         return;
       }
 
-      if (
-        getBooleanFF(
-          'platform.linking-platform.smart-card.enable-analytics-context',
-        )
-      ) {
-        /**
-         * Using unstable_batchedUpdates because this store update happens async and trigers a rerender
-         * more info:
-         * https://github.com/facebook/react/blob/v18.2.0/packages/use-sync-external-store/src/useSyncExternalStoreShimClient.js#L113
-         * https://react-redux.js.org/api/batch
-         */
-        unstable_batchedUpdates(() => {
-          handleResolvedLinkSuccess(
-            resourceUrl,
-            response,
-            isReloading,
-            isMetadataRequest,
-          );
-        });
-      } else {
+      /**
+       * Using unstable_batchedUpdates because this store update happens async and trigers a rerender
+       * more info:
+       * https://github.com/facebook/react/blob/v18.2.0/packages/use-sync-external-store/src/useSyncExternalStoreShimClient.js#L113
+       * https://react-redux.js.org/api/batch
+       */
+      unstable_batchedUpdates(() => {
         handleResolvedLinkSuccess(
           resourceUrl,
           response,
           isReloading,
           isMetadataRequest,
         );
-      }
+      });
     },
     [handleResolvedLinkError, handleResolvedLinkSuccess, hasAuthFlowSupported],
   );

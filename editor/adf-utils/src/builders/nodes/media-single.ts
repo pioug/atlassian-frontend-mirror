@@ -1,7 +1,7 @@
 import {
   MediaSingleDefinition,
   MediaDefinition,
-  RichMediaAttributes as MediaSingleAttributes,
+  ExtendedMediaAttributes as MediaSingleAttributes,
   CaptionDefinition,
 } from '@atlaskit/adf-schema';
 

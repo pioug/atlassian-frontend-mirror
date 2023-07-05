@@ -1301,28 +1301,68 @@
           ]
         },
         "attrs": {
-          "type": "object",
-          "properties": {
-            "width": {
-              "type": "number",
-              "minimum": 0,
-              "maximum": 100
-            },
-            "layout": {
-              "enum": [
-                "wide",
-                "full-width",
-                "center",
-                "wrap-right",
-                "wrap-left",
-                "align-end",
-                "align-start"
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "widthType": {
+                  "enum": [
+                    "percentage"
+                  ]
+                },
+                "width": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                },
+                "layout": {
+                  "enum": [
+                    "wide",
+                    "full-width",
+                    "center",
+                    "wrap-right",
+                    "wrap-left",
+                    "align-end",
+                    "align-start"
+                  ]
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "layout"
               ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "width": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "widthType": {
+                  "enum": [
+                    "pixel"
+                  ]
+                },
+                "layout": {
+                  "enum": [
+                    "wide",
+                    "full-width",
+                    "center",
+                    "wrap-right",
+                    "wrap-left",
+                    "align-end",
+                    "align-start"
+                  ]
+                }
+              },
+              "required": [
+                "width",
+                "widthType",
+                "layout"
+              ],
+              "additionalProperties": false
             }
-          },
-          "additionalProperties": false,
-          "required": [
-            "layout"
           ]
         },
         "marks": {

@@ -5,9 +5,8 @@ import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import {
   media,
   mediaGroup,
-  mediaSingle,
-  mediaSingleWithCaption,
   mediaInline,
+  mediaSingleSpec,
 } from '@atlaskit/adf-schema';
 import { NextEditorPlugin, PMPlugin, PMPluginFactoryParams } from '../../types';
 import { OptionalPlugin } from '@atlaskit/editor-common/types';
@@ -50,6 +49,7 @@ import { MediaPluginState } from './pm-plugins/types';
 import { stateKey } from './pm-plugins/plugin-key';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type editorDisabled from '../editor-disabled';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
@@ -96,7 +96,20 @@ const mediaPlugin: NextEditorPlugin<
         mediaFeatureFlags,
       );
 
-      const mediaSingleNode = captions ? mediaSingleWithCaption : mediaSingle;
+      const mediaSingleOption = getBooleanFF(
+        'platform.editor.media.extended-resize-experience',
+      )
+        ? {
+            withCaption: captions,
+            withExtendedWidthTypes: true,
+          }
+        : {
+            withCaption: captions,
+            withExtendedWidthTypes: false,
+          };
+
+      const mediaSingleNode = mediaSingleSpec(mediaSingleOption);
+
       return [
         { name: 'mediaGroup', node: mediaGroup },
         { name: 'mediaSingle', node: mediaSingleNode },

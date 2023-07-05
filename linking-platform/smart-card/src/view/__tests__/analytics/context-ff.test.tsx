@@ -16,7 +16,6 @@ mockSimpleIntersectionObserver();
 
 /**
  * Test for analytics context with and without feature flags:
- * - platform.linking-platform.smart-card.enable-analytics-context
  * - platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop
  * Remove this file on feature flag cleanup
  */
@@ -37,98 +36,52 @@ describe('smartLink renderSuccess event with `enable context` and `remove dispat
   const mockUrl = 'https://some.url';
 
   ffTest(
-    'platform.linking-platform.smart-card.enable-analytics-context',
-    (ff) => {
-      ffTest(
-        'platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop',
-        async () => {
-          const analyticsSpy = jest.fn();
-          const component = (
-            <AnalyticsListener
-              onEvent={analyticsSpy}
-              channel={ANALYTICS_CHANNEL}
-            >
-              <IntlProvider locale="en">
-                <Provider client={mockClient}>
-                  <Card
-                    id="some-id"
-                    testId="resolvedCard1"
-                    appearance="inline"
-                    url={mockUrl}
-                  />
-                </Provider>
-              </IntlProvider>
-            </AnalyticsListener>
-          );
-          const { findByTestId } = render(component);
+    'platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop',
+    async () => {
+      const analyticsSpy = jest.fn();
+      const component = (
+        <AnalyticsListener onEvent={analyticsSpy} channel={ANALYTICS_CHANNEL}>
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card
+                id="some-id"
+                testId="resolvedCard1"
+                appearance="inline"
+                url={mockUrl}
+              />
+            </Provider>
+          </IntlProvider>
+        </AnalyticsListener>
+      );
+      const { findByTestId } = render(component);
 
-          await findByTestId('resolvedCard1-resolved-view');
+      await findByTestId('resolvedCard1-resolved-view');
 
-          expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'renderSuccess',
+            actionSubject: 'smartLink',
+          },
+          context: [
             {
-              payload: {
-                action: 'renderSuccess',
-                actionSubject: 'smartLink',
-              },
-              context: [
-                {
-                  componentName: 'smart-cards',
-                },
-                {
-                  attributes: {
-                    display: 'inline',
-                    id: 'some-id',
-                  },
-                },
-                // additional context from <SmartLinkAnalyticsContext /> wrapper
-                {
-                  attributes: {
-                    status: 'resolved',
-                  },
-                },
-              ],
+              componentName: 'smart-cards',
             },
-            ANALYTICS_CHANNEL,
-          );
-        },
-        async () => {
-          const analyticsSpy = jest.fn();
-          const { findByTestId } = render(
-            <AnalyticsListener
-              onEvent={analyticsSpy}
-              channel={ANALYTICS_CHANNEL}
-            >
-              <IntlProvider locale="en">
-                <Provider client={mockClient}>
-                  <Card
-                    testId="resolvedCard1"
-                    appearance="inline"
-                    url="https://atlassian.com"
-                  />
-                </Provider>
-              </IntlProvider>
-            </AnalyticsListener>,
-          );
-
-          await findByTestId('resolvedCard1-resolved-view');
-
-          expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
             {
-              payload: {
-                action: 'renderSuccess',
-                actionSubject: 'smartLink',
+              attributes: {
+                display: 'inline',
+                id: 'some-id',
               },
-              context: [
-                {
-                  componentName: 'smart-cards',
-                },
-                // does NOT have additional context due to prop-drilled dispatch handler
-              ],
             },
-            ANALYTICS_CHANNEL,
-          );
+            // additional context from <SmartLinkAnalyticsContext /> wrapper
+            {
+              attributes: {
+                status: 'resolved',
+              },
+            },
+          ],
         },
-        ff,
+        ANALYTICS_CHANNEL,
       );
     },
     async () => {
@@ -149,8 +102,7 @@ describe('smartLink renderSuccess event with `enable context` and `remove dispat
 
       await findByTestId('resolvedCard1-resolved-view');
 
-      // No context wrapper so no resolved attributes
-      expect(analyticsSpy).not.toBeFiredWithAnalyticEventOnce(
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
         {
           payload: {
             action: 'renderSuccess',
@@ -158,10 +110,9 @@ describe('smartLink renderSuccess event with `enable context` and `remove dispat
           },
           context: [
             {
-              attributes: {
-                status: 'resolved',
-              },
+              componentName: 'smart-cards',
             },
+            // does NOT have additional context due to prop-drilled dispatch handler
           ],
         },
         ANALYTICS_CHANNEL,
@@ -170,7 +121,7 @@ describe('smartLink renderSuccess event with `enable context` and `remove dispat
   );
 });
 
-describe('smartLink renderSuccess event for flexible UI with `enable context` and `remove dispatch as prop` feature flags', () => {
+describe('smartLink renderSuccess event for flexible UI with `remove dispatch as prop` feature flags', () => {
   let mockClient: CardClient;
   let mockFetch: jest.Mock;
   let mockPostData: jest.Mock;
@@ -187,108 +138,57 @@ describe('smartLink renderSuccess event for flexible UI with `enable context` an
   const mockUrl = 'https://some.url';
 
   ffTest(
-    'platform.linking-platform.smart-card.enable-analytics-context',
-    (ff) => {
-      ffTest(
-        'platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop',
-        async () => {
-          const analyticsSpy = jest.fn();
-          const component = (
-            <AnalyticsListener
-              onEvent={analyticsSpy}
-              channel={ANALYTICS_CHANNEL}
-            >
-              <IntlProvider locale="en">
-                <Provider client={mockClient}>
-                  <Card
-                    id="some-id"
-                    testId="resolvedCard1"
-                    appearance="inline"
-                    url={mockUrl}
-                  >
-                    <TitleBlock />
-                  </Card>
-                </Provider>
-              </IntlProvider>
-            </AnalyticsListener>
-          );
-          const { findByTestId } = render(component);
+    'platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop',
+    async () => {
+      const analyticsSpy = jest.fn();
+      const component = (
+        <AnalyticsListener onEvent={analyticsSpy} channel={ANALYTICS_CHANNEL}>
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card
+                id="some-id"
+                testId="resolvedCard1"
+                appearance="inline"
+                url={mockUrl}
+              >
+                <TitleBlock />
+              </Card>
+            </Provider>
+          </IntlProvider>
+        </AnalyticsListener>
+      );
+      const { findByTestId } = render(component);
 
-          await findByTestId('smart-block-title-resolved-view');
+      await findByTestId('smart-block-title-resolved-view');
 
-          expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-            {
-              payload: {
-                action: 'renderSuccess',
-                actionSubject: 'smartLink',
-                attributes: {
-                  display: 'flexible',
-                },
-              },
-              context: [
-                {
-                  componentName: 'smart-cards',
-                },
-                {
-                  attributes: {
-                    display: 'flexible',
-                    id: 'some-id',
-                  },
-                },
-                // additional context from <SmartLinkAnalyticsContext /> wrapper
-                {
-                  attributes: {
-                    status: 'resolved',
-                  },
-                },
-              ],
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'renderSuccess',
+            actionSubject: 'smartLink',
+            attributes: {
+              display: 'flexible',
             },
-            ANALYTICS_CHANNEL,
-          );
-        },
-        async () => {
-          const analyticsSpy = jest.fn();
-          const { findByTestId } = render(
-            <AnalyticsListener
-              onEvent={analyticsSpy}
-              channel={ANALYTICS_CHANNEL}
-            >
-              <IntlProvider locale="en">
-                <Provider client={mockClient}>
-                  <Card
-                    testId="resolvedCard1"
-                    appearance="inline"
-                    url="https://atlassian.com"
-                  >
-                    <TitleBlock />
-                  </Card>
-                </Provider>
-              </IntlProvider>
-            </AnalyticsListener>,
-          );
-
-          await findByTestId('smart-block-title-resolved-view');
-
-          expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+          },
+          context: [
             {
-              payload: {
-                action: 'renderSuccess',
-                actionSubject: 'smartLink',
-                attributes: {
-                  display: 'flexible',
-                },
-              },
-              context: [
-                {
-                  componentName: 'smart-cards',
-                },
-                // does NOT have additional context due to prop-drilled dispatch handler
-              ],
+              componentName: 'smart-cards',
             },
-            ANALYTICS_CHANNEL,
-          );
+            {
+              attributes: {
+                display: 'flexible',
+                id: 'some-id',
+              },
+            },
+            // additional context from <SmartLinkAnalyticsContext /> wrapper
+            {
+              attributes: {
+                status: 'resolved',
+              },
+            },
+          ],
         },
-        ff,
+        ANALYTICS_CHANNEL,
       );
     },
     async () => {
@@ -311,25 +211,20 @@ describe('smartLink renderSuccess event for flexible UI with `enable context` an
 
       await findByTestId('smart-block-title-resolved-view');
 
-      // No context wrapper so no resolved attributes
-      expect(analyticsSpy).not.toBeFiredWithAnalyticEventOnce(
+      expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
         {
           payload: {
             action: 'renderSuccess',
             actionSubject: 'smartLink',
             attributes: {
-              display: 'inline',
+              display: 'flexible',
             },
           },
           context: [
             {
               componentName: 'smart-cards',
             },
-            {
-              attributes: {
-                status: 'resolved',
-              },
-            },
+            // does NOT have additional context due to prop-drilled dispatch handler
           ],
         },
         ANALYTICS_CHANNEL,

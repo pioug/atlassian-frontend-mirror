@@ -170,7 +170,7 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '1.6.0',
+              introduced: '1.8.0',
               description:
                 'Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color.',
             },
@@ -179,7 +179,7 @@ const color: AttributeSchema<AccentColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.7.0',
+              introduced: '1.8.0',
               description:
                 'Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color.',
             },

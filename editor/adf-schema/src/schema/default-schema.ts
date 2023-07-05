@@ -1,6 +1,10 @@
 import memoizeOne from 'memoize-one';
 
-import { layoutSectionWithSingleColumn, tableWithCustomWidth } from './nodes';
+import {
+  mediaSingleFull,
+  layoutSectionWithSingleColumn,
+  tableWithCustomWidth,
+} from './nodes';
 import { border } from './marks';
 import { createSchema, SchemaConfig } from './create-schema';
 
@@ -165,6 +169,7 @@ export const getSchemaBasedOnStage = memoizeOne((stage = 'final') => {
     defaultSchemaConfig.customNodeSpecs = {
       layoutSection: layoutSectionWithSingleColumn,
       table: tableWithCustomWidth,
+      mediaSingle: mediaSingleFull,
     };
 
     defaultSchemaConfig.customMarkSpecs = {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dc8db05fe763e65a797963e967232801>>
+ * @codegen <<SignedSource::ef57ce0e826f5bdada61d5bcbbfbcfcb>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -35,7 +35,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "1.6.0",
+      "introduced": "1.8.0",
       "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#B3DF72",
@@ -45,7 +45,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "1.6.0",
+        "introduced": "1.8.0",
         "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
       },
       "value": "Lime300"
@@ -64,7 +64,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.7.0",
+      "introduced": "1.8.0",
       "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#D3F1A7",
@@ -74,7 +74,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.7.0",
+        "introduced": "1.8.0",
         "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
       },
       "value": "Lime200"
@@ -5635,20 +5635,20 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "For data visualisation only."
     },
-    "value": "#37B4C3",
+    "value": "#82B536",
     "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "For data visualisation only."
       },
-      "value": "Teal500"
+      "value": "Lime500"
     },
     "name": "color.chart.lime.bold.[default]",
     "path": [
@@ -5664,20 +5664,20 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "Hovered state of color.chart.lime.bold."
     },
-    "value": "#60C6D2",
+    "value": "#94C748",
     "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "Hovered state of color.chart.lime.bold."
       },
-      "value": "Teal400"
+      "value": "Lime400"
     },
     "name": "color.chart.lime.bold.hovered",
     "path": [
@@ -5693,20 +5693,20 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "For data visualisation only."
     },
-    "value": "#60C6D2",
+    "value": "#94C748",
     "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "For data visualisation only."
       },
-      "value": "Teal400"
+      "value": "Lime400"
     },
     "name": "color.chart.lime.bolder.[default]",
     "path": [
@@ -5722,20 +5722,20 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "Hovered state of color.chart.lime.bolder."
     },
-    "value": "#8BDBE5",
+    "value": "#B3DF72",
     "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "Hovered state of color.chart.lime.bolder."
       },
-      "value": "Teal300"
+      "value": "Lime300"
     },
     "name": "color.chart.lime.bolder.hovered",
     "path": [
@@ -5751,20 +5751,20 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "For data visualisation only."
     },
-    "value": "#8BDBE5",
+    "value": "#B3DF72",
     "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "For data visualisation only."
       },
-      "value": "Teal300"
+      "value": "Lime300"
     },
     "name": "color.chart.lime.boldest.[default]",
     "path": [
@@ -5780,20 +5780,20 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "Hovered state of color.chart.lime.boldest."
     },
-    "value": "#C1F0F5",
+    "value": "#D3F1A7",
     "filePath": "src/tokens/atlassian-dark/color/chart.tsx",
     "isSource": true,
     "original": {
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "Hovered state of color.chart.lime.boldest."
       },
-      "value": "Teal200"
+      "value": "Lime200"
     },
     "name": "color.chart.lime.boldest.hovered",
     "path": [

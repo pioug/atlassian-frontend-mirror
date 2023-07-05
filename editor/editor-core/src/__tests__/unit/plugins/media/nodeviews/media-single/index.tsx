@@ -537,4 +537,31 @@ describe('nodeviews/mediaSingle', () => {
       );
     });
   });
+
+  describe('Should be able to support fixed layout', () => {
+    it('should have widthType attribute when use stage-0 schema', () => {
+      const newNode = mediaSingle({
+        layout: 'center',
+        width: 1800,
+        widthType: 'pixel',
+      })(mediaNode)(getSchemaBasedOnStage('stage0'));
+      expect(newNode.attrs).toEqual({
+        layout: 'center',
+        width: 1800,
+        widthType: 'pixel',
+      });
+    });
+
+    it('should not have widthType attribute when use full schema', () => {
+      const newNode = mediaSingle({
+        layout: 'center',
+        width: 100,
+        widthType: 'percentage',
+      })(mediaNode)(getSchemaBasedOnStage());
+      expect(newNode.attrs).toEqual({
+        layout: 'center',
+        width: 100,
+      });
+    });
+  });
 });

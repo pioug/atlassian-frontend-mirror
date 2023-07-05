@@ -1,8 +1,8 @@
-import { NodeSpec, Node } from 'prosemirror-model';
+import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { MediaDefinition as Media } from './media';
 import { LinkDefinition } from '../marks/link';
 
-import { RichMediaAttributes } from './types/rich-media-common';
+import { ExtendedMediaAttributes } from './types/rich-media-common';
 import { CaptionDefinition as Caption } from './caption';
 
 export type MediaSingleDefinition =
@@ -15,7 +15,7 @@ export type MediaSingleDefinition =
  */
 export interface MediaSingleBaseDefinition {
   type: 'mediaSingle';
-  attrs?: RichMediaAttributes;
+  attrs?: ExtendedMediaAttributes;
   marks?: Array<LinkDefinition>;
 }
 
@@ -59,24 +59,39 @@ export const defaultAttrs = {
   layout: { default: 'center' },
 };
 
-export const mediaSingle: NodeSpec = {
-  inline: false,
-  group: 'block',
-  selectable: true,
-  atom: true,
-  content: 'media|unsupportedBlock+|media unsupportedBlock+',
-  attrs: defaultAttrs,
-  marks: 'unsupportedMark unsupportedNodeAttribute border link',
-  parseDOM: [
-    {
-      tag: 'div[data-node-type="mediaSingle"]',
-      getAttrs: (dom) => ({
-        layout: (dom as HTMLElement).getAttribute('data-layout') || 'center',
-        width: Number((dom as HTMLElement).getAttribute('data-width')) || null,
-      }),
-    },
-  ],
-  toDOM(node: Node) {
+export const mediaSingleSpec = ({
+  withCaption = false,
+  withExtendedWidthTypes = false,
+}: {
+  withCaption?: boolean;
+  withExtendedWidthTypes?: boolean;
+}): NodeSpec => {
+  const content = withCaption
+    ? 'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*'
+    : 'media|unsupportedBlock+|media unsupportedBlock+';
+
+  const atom = !withCaption;
+
+  const getAttrs = (dom: string | Node) => {
+    const domAttrs = {
+      layout: (dom as HTMLElement).getAttribute('data-layout') || 'center',
+      width: Number((dom as HTMLElement).getAttribute('data-width')) || null,
+    };
+
+    if (withExtendedWidthTypes) {
+      const widthType = (dom as HTMLElement).getAttribute('data-width-type');
+      if (widthType) {
+        return {
+          ...domAttrs,
+          widthType,
+        };
+      }
+    }
+
+    return domAttrs;
+  };
+
+  const getAttrsFromNode = (node: PMNode) => {
     const { layout, width } = node.attrs;
     const attrs = {
       'data-node-type': 'mediaSingle',
@@ -91,18 +106,60 @@ export const mediaSingle: NodeSpec = {
           : width.toFixed(2);
     }
 
-    return ['div', attrs, 0];
-  },
+    if (withExtendedWidthTypes && node.attrs.widthType) {
+      const { widthType } = node.attrs;
+      return {
+        ...attrs,
+        'data-width-type': widthType || 'percentage',
+      };
+    }
+
+    return attrs;
+  };
+
+  return {
+    inline: false,
+    group: 'block',
+    selectable: true,
+    atom,
+    content,
+    attrs: withExtendedWidthTypes
+      ? { ...defaultAttrs, widthType: { default: null } }
+      : defaultAttrs,
+    marks: 'unsupportedMark unsupportedNodeAttribute border link',
+    parseDOM: [
+      {
+        tag: 'div[data-node-type="mediaSingle"]',
+        getAttrs,
+      },
+    ],
+    toDOM(node: PMNode) {
+      return ['div', getAttrsFromNode(node), 0];
+    },
+  };
 };
 
-export const mediaSingleWithCaption: NodeSpec = {
-  ...mediaSingle,
-  atom: false,
-  content:
-    'media|unsupportedBlock+|media (caption|unsupportedBlock) unsupportedBlock*',
-};
+export const mediaSingle: NodeSpec = mediaSingleSpec({
+  withCaption: false,
+  withExtendedWidthTypes: false,
+});
 
-export const toJSON = (node: Node) => ({
+export const mediaSingleWithCaption: NodeSpec = mediaSingleSpec({
+  withCaption: true,
+  withExtendedWidthTypes: false,
+});
+
+export const mediaSingleWithWidthType: NodeSpec = mediaSingleSpec({
+  withCaption: false,
+  withExtendedWidthTypes: true,
+});
+
+export const mediaSingleFull: NodeSpec = mediaSingleSpec({
+  withCaption: true,
+  withExtendedWidthTypes: true,
+});
+
+export const toJSON = (node: PMNode) => ({
   attrs: Object.keys(node.attrs).reduce<any>((obj, key) => {
     if (node.attrs[key] !== null) {
       obj[key] = node.attrs[key];

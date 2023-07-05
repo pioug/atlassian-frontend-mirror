@@ -2,7 +2,7 @@
 import { css, jsx } from '@emotion/react';
 
 import { B200, N30A } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import { CSSToken, token } from '@atlaskit/tokens';
 
 const BasicGuidelineStyles = css({
   borderLeft: `1px solid ${token('color.border', N30A)}`,
@@ -10,6 +10,7 @@ const BasicGuidelineStyles = css({
   width: '1px',
   height: '100%',
   zIndex: 0,
+  transform: 'translateX(-50%)',
   opacity: 1,
   transition: 'border-color 0.15s linear, opacity 0.15s linear',
 });
@@ -31,12 +32,12 @@ type Props = {
   active?: boolean;
   show?: boolean;
   style?: 'dashed' | 'solid'; // default solid
-  // color?: string;
-  // TODO: need an active color?
+  color?: CSSToken;
 };
 
 export const Guideline = (props: Props) => {
-  const { position, active, show = true, style } = props;
+  const { position, active, show = true, style, color } = props;
+
   return (
     <div
       css={[
@@ -46,7 +47,10 @@ export const Guideline = (props: Props) => {
         style === 'dashed' && DashedGuidelineStyles,
       ]}
       className="guideline"
-      style={{ left: `${position}px` }}
+      style={{
+        left: `${position}px`,
+        ...(color && { borderColor: `${color}` }),
+      }}
     />
   );
 };

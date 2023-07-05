@@ -95,21 +95,6 @@ export type CreatePayload = {
 };
 
 // @public (undocumented)
-export const FormContextProvider: React_2.FC<{}>;
-
-// @public (undocumented)
-interface FormContextType {
-  // (undocumented)
-  assignValidator: (name: string, validators: Validator[]) => void;
-  // (undocumented)
-  formErrorMessage?: string;
-  // (undocumented)
-  getValidators: () => ValidatorMap;
-  // (undocumented)
-  setFormErrorMessage: (errorMessage?: string) => void;
-}
-
-// @public (undocumented)
 interface Group {
   icon: string;
   key: string;
@@ -174,9 +159,6 @@ type TextFieldProps = Omit<TextFieldProps_2, 'name'> & {
   validationHelpText?: string;
   validators?: Validator[];
 };
-
-// @public (undocumented)
-export const useFormContext: () => FormContextType;
 
 // @public (undocumented)
 export const useLinkCreateCallback: () => LinkCreateCallbackProviderProps;

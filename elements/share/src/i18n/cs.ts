@@ -12,7 +12,8 @@ export default {
   'fabric.elements.share.copypubliclink.button.text': 'Kopírovat veřejný odkaz',
   'fabric.elements.share.failure.icon.label': 'Ikona chyby',
   'fabric.elements.share.failure.message': 'Nelze sdílet',
-  'fabric.elements.share.form.comment.placeholder': 'Přidat zprávu',
+  'fabric.elements.share.form.comment.label': 'Zpráva (volitelná)',
+  'fabric.elements.share.form.comment.placeholder': 'Něco, co by měli vědět?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Příjemci uvidí název stránky a vaši zprávu.',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Příjemci uvidí název požadavku a vaši zprávu.',
   'fabric.elements.share.form.no-permissions': 'Nemáte možnost sdílet.',
@@ -23,16 +24,35 @@ export default {
   'fabric.elements.share.form.share': 'Sdílet',
   'fabric.elements.share.form.title': 'Sdílet',
   'fabric.elements.share.form.user-picker.add-more': 'Zadejte více',
+  'fabric.elements.share.form.user-picker.label.confluence': 'Jména, týmy, skupiny nebo e-maily',
+  'fabric.elements.share.form.user-picker.label.email-disabled-confluence': 'Jména, týmy nebo skupiny',
+  'fabric.elements.share.form.user-picker.label.email-disabled-jira': 'Jména nebo týmy',
+  'fabric.elements.share.form.user-picker.label.email-only': 'E-maily',
+  'fabric.elements.share.form.user-picker.label.jira': 'Jména, týmy nebo e-maily',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Pro „{inputValue}“ se nepodařilo najít žádné výsledky.',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Pro „{inputValue}“ se nepodařilo najít žádné výsledky. Pozvěte lidi pomocí jejich e-mailové adresy.',
-  'fabric.elements.share.form.user-picker.placeholder.jira': 'Zadejte jméno, tým nebo e-mail',
+  'fabric.elements.share.form.user-picker.placeholder.confluence': 'např. Marie, Tým pomeranč, skupina-jedna',
+  'fabric.elements.share.form.user-picker.placeholder.email-disabled-jira': 'např. Marie, Tým pomeranč',
+  'fabric.elements.share.form.user-picker.placeholder.email-only': 'např. marie@spolecnost.cz',
+  'fabric.elements.share.form.user-picker.placeholder.jira': 'např. Marie, Tým pomeranč, marie@spolecnost.cz',
   'fabric.elements.share.form.user-picker.validation.required':
     'Vyberte alespoň jednoho uživatele, skupinu, tým nebo e-mail.',
+  'fabric.elements.share.form.user-picker.validation.required-message.confluence':
+    'Vyberte alespoň jednu osobu, tým, skupinu nebo e-mail',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-confluence':
+    'Vyberte alespoň jednu osobu, tým nebo skupinu',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-jira':
+    'Vyberte alespoň jednu osobu nebo tým',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-only': 'Vyberte alespoň jeden e-mail',
+  'fabric.elements.share.form.user-picker.validation.required-message.jira':
+    'Vyberte alespoň jednu osobu, tým nebo e-mail',
   'fabric.elements.share.in.integration.button': 'Sdílet v: {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Sdílet stránku',
   'fabric.elements.share.main.tab.text.jira': 'Sdílet požadavek',
+  'fabric.elements.share.success.message':
+    '{object, select,blogpost {Příspěvek na blogu byl sdílen}board {Board byl sdílen}calendar {Kalendář byl sdílen}draft {Koncept byl sdílen}filter {Filtr byl sdílen}issue {Požadavek byl sdílen}summary {Souhrn byl sdílen}list {Seznam byl sdílen}timeline {Časová osa byla sdílena}form {Formulář byl sdílen}media {Multimédia byla sdílena}page {Stránka byla sdílena}project {Projekt byl sdílen}pullrequest {Pull request byl sdílen}question {Otázka byla sdílena}report {Sestava byla sdílena}repository {Repozitář byl sdílen}request {Žádost byla sdílena}roadmap {Časová osa byla sdílena}site {Web byl sdílen}space {Prostor byl sdílen}other {Odkaz byl sdílen}}',
   'fabric.elements.share.to.integration.button': 'Sdílet ve službě {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Ikona sdílení',
   'fabric.elements.share.trigger.button.invite.text': 'Pozvat',

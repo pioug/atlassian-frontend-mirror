@@ -8,7 +8,6 @@ import {
   EVENT_TYPE,
 } from '../analytics';
 
-import { getParticipantsCount } from './collab';
 import { startMeasure, stopMeasure } from './performance/measure';
 
 // This was existing logic when converting from ReactNodeView
@@ -62,13 +61,11 @@ export function startMeasureReactNodeViewRendered({
 export function stopMeasureReactNodeViewRendered({
   nodeTypeName,
   dispatchAnalyticsEvent,
-  editorState,
   samplingRate,
   slowThreshold,
 }: {
   nodeTypeName: string;
   dispatchAnalyticsEvent(payload: AnalyticsEventPayload): void;
-  editorState: EditorState;
   // NOTE: the use of sampling rate with a global nodeView counter
   // means that will be unequal weighting given to nodes which are
   // tracked.
@@ -89,7 +86,6 @@ export function stopMeasureReactNodeViewRendered({
         attributes: {
           node: nodeTypeName,
           duration,
-          participants: getParticipantsCount(editorState),
         },
       });
     }

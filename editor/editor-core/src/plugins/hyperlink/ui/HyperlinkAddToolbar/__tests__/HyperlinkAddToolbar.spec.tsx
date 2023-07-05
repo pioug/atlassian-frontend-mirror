@@ -1,4 +1,6 @@
 import React from 'react';
+import { replaceRaf } from 'raf-stub';
+
 import {
   HyperlinkLinkAddToolbarWithIntl,
   Props as HyperlinkAddToolbarProps,
@@ -47,10 +49,16 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { hideLinkToolbar as cardHideLinkToolbar } from '../../../../card/pm-plugins/actions';
+import { hideLinkToolbarSetMeta } from '../../../commands';
 import * as Commands from '../../../commands';
 import PanelTextInput from '../../../../../ui/PanelTextInput';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import cardPlugin from '../../../../card';
+import floatingToolbarPlugin from '../../../../floating-toolbar';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 interface SetupArgumentObject {
   recentItemsPromise?: ReturnType<ActivityProvider['getRecentItems']>;
@@ -91,6 +99,9 @@ jest.mock('date-fns/formatDistanceToNow', () => ({
   default: () => 'just a minute',
 }));
 
+replaceRaf();
+const requestAnimationFrame = window.requestAnimationFrame as any;
+
 class TestingWrapper extends React.Component<Props, {}> {
   render() {
     return <>{this.props.child}</>;
@@ -114,6 +125,7 @@ describe('HyperlinkLinkAddToolbar', () => {
   afterEach(() => {
     jest.clearAllMocks();
     clock.reset();
+    requestAnimationFrame.flush();
   });
 
   const setup = async (options: SetupArgumentObject = {}) => {
@@ -148,7 +160,12 @@ describe('HyperlinkLinkAddToolbar', () => {
         preset: new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
           .add([analyticsPlugin, {}])
-          .add(hyperlinkPlugin),
+          .add(hyperlinkPlugin)
+          .add(widthPlugin)
+          .add(gridPlugin)
+          .add(decorationsPlugin)
+          .add(floatingToolbarPlugin)
+          .add([cardPlugin, { platform: 'web' }]),
       });
     };
 
@@ -720,11 +737,12 @@ describe('HyperlinkLinkAddToolbar', () => {
 
     it('should call card hideLinkToolbar when escape is pressed', async () => {
       const { pressEscapeKeyInputField, editorView } = await setup();
+      requestAnimationFrame.step();
       const dispatchSpy = jest.spyOn(editorView, 'dispatch');
 
       pressEscapeKeyInputField('link-url');
       expect(dispatchSpy).toBeCalledWith(
-        cardHideLinkToolbar(editorView.state.tr),
+        hideLinkToolbarSetMeta(cardHideLinkToolbar(editorView.state.tr)),
       );
     });
 

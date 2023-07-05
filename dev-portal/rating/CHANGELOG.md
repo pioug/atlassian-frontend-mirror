@@ -1,5 +1,11 @@
 # @atlaskit/rating
 
+## 0.3.23
+
+### Patch Changes
+
+- [`deb497cc71b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/deb497cc71b) - Removes caret versions from packages dependant on tokens in order to improve products ability to dedupe versions
+
 ## 0.3.22
 
 ### Patch Changes

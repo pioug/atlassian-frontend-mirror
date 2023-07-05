@@ -12,11 +12,19 @@ import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-
+import {
+  queueCardsFromChangedTr,
+  changeSelectedCardToLink,
+  setSelectedCardAppearance,
+} from './pm-plugins/doc';
+import { hideLinkToolbar } from './pm-plugins/actions';
+import type { CardPluginActions } from '@atlaskit/editor-common/card';
 import { EditorSmartCardEventsNext } from './ui/EditorSmartCardEventsNext';
 import LayoutButton from './ui/LayoutButton';
 import { CardPluginState } from './types';
 import { pluginKey } from './pm-plugins/plugin-key';
+import type hyperlinkPlugin from '../hyperlink';
+import { mountHyperlinkPlugin } from './pm-plugins/mountHyperlink';
 
 const cardPlugin: NextEditorPlugin<
   'card',
@@ -29,8 +37,10 @@ const cardPlugin: NextEditorPlugin<
       typeof decorationsPlugin,
       typeof gridPlugin,
       FloatingToolbarPlugin,
+      typeof hyperlinkPlugin,
     ];
     sharedState: CardPluginState | null;
+    actions: CardPluginActions;
   }
 > = (options, api) => {
   const featureFlags =
@@ -84,6 +94,10 @@ const cardPlugin: NextEditorPlugin<
             api,
           ),
         },
+        {
+          name: 'cardHyperlink',
+          plugin: () => mountHyperlinkPlugin(api, options),
+        },
       ];
 
       plugins.push({
@@ -119,6 +133,13 @@ const cardPlugin: NextEditorPlugin<
           />
         </>
       );
+    },
+
+    actions: {
+      hideLinkToolbar,
+      queueCardsFromChangedTr,
+      changeSelectedCardToLink,
+      setSelectedCardAppearance,
     },
 
     pluginsOptions: {

@@ -12,7 +12,8 @@ export default {
   'fabric.elements.share.copypubliclink.button.text': 'Kopiuj łącze publiczne',
   'fabric.elements.share.failure.icon.label': 'Ikona błędu',
   'fabric.elements.share.failure.message': 'Nie można udostępnić',
-  'fabric.elements.share.form.comment.placeholder': 'Dodaj wiadomość',
+  'fabric.elements.share.form.comment.label': 'Wiadomość (opcjonalnie)',
+  'fabric.elements.share.form.comment.placeholder': 'Czy jest coś, o czym powinni wiedzieć?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Odbiorcy zobaczą nazwę strony i Twój komunikat',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Odbiorcy zobaczą nazwę zgłoszenia i Twój komunikat',
   'fabric.elements.share.form.no-permissions': 'Nie możesz udostępniać.',
@@ -23,15 +24,35 @@ export default {
   'fabric.elements.share.form.share': 'Udostępnij',
   'fabric.elements.share.form.title': 'Udostępnij',
   'fabric.elements.share.form.user-picker.add-more': 'Wprowadź więcej',
+  'fabric.elements.share.form.user-picker.label.confluence': 'Nazwy, zespoły, grupy lub adresy e-mail',
+  'fabric.elements.share.form.user-picker.label.email-disabled-confluence': 'Nazwy, zespoły lub grupy',
+  'fabric.elements.share.form.user-picker.label.email-disabled-jira': 'Nazwy lub zespoły',
+  'fabric.elements.share.form.user-picker.label.email-only': 'Adresy e-mail',
+  'fabric.elements.share.form.user-picker.label.jira': 'Nazwy, zespoły lub adresy e-mail',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly': 'Nie znaleziono wyników dla „{inputValue}”.',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Nie znaleziono wyników dla „{inputValue}”. Zaproś użytkowników, podając adres e-mail.',
-  'fabric.elements.share.form.user-picker.placeholder.jira': 'Wpisz nazwę, zespół lub adres e-mail',
+  'fabric.elements.share.form.user-picker.placeholder.confluence': 'np. Maria, zespół pomarańczowy, grupa 1',
+  'fabric.elements.share.form.user-picker.placeholder.email-disabled-jira': 'np. Maria, zespół pomarańczowy',
+  'fabric.elements.share.form.user-picker.placeholder.email-only': 'np. maria@firma.com',
+  'fabric.elements.share.form.user-picker.placeholder.jira': 'np. Maria, zespół pomarańczowy, maria@firma.com',
   'fabric.elements.share.form.user-picker.validation.required':
     'Wybierz co najmniej jednego użytkownika, jedną grupę albo jeden zespół lub adres e-mail.',
+  'fabric.elements.share.form.user-picker.validation.required-message.confluence':
+    'Wybierz co najmniej jedną osobę, jeden zespół, jedną grupę lub jeden adres e-mail',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-confluence':
+    'Wybierz co najmniej jedną osobę, jeden zespół lub jedną grupę',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-jira':
+    'Wybierz co najmniej jedną osobę lub jeden zespół',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-only':
+    'Wybierz co najmniej jeden adres e-mail',
+  'fabric.elements.share.form.user-picker.validation.required-message.jira':
+    'Wybierz co najmniej jedną osobę, jeden zespół lub jeden adres e-mail',
   'fabric.elements.share.in.integration.button': 'Udostępnij w {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Udostępnij stronę',
   'fabric.elements.share.main.tab.text.jira': 'Udostępnij zgłoszenie',
+  'fabric.elements.share.success.message':
+    '{object, select,blogpost {Udostępniono wpis na blogu}board {Udostępniono tablicę}calendar {Udostępniono kalendarz}draft {Udostępniono wersję roboczą}filter {Udostępniono filtr}issue {Udostępniono zgłoszenie}summary {Udostępniono podsumowanie}list {Udostępniono listę}timeline {Udostępniono oś czasu}form {Udostępniono formularz}media {Udostępniono multimedia}page {Udostępniono stronę}project {Udostępniono projekt}pullrequest {Udostępniono pull request}question {Udostępniono pytanie}report {Udostępniono raport}repository {Udostępniono repozytorium}request {Udostępniono wniosek}roadmap {Udostępniono oś czasu}site {Udostępniono witrynę}space {Udostępniono przestrzeń}other {Udostępniono łącze}}',
   'fabric.elements.share.to.integration.button': 'Udostępnij w {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Ikona udostępniania',
   'fabric.elements.share.trigger.button.invite.text': 'Zaproś',

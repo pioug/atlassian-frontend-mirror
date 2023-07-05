@@ -33,7 +33,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "fetch-mock": "^8.0.0",
     "react-dom": "^16.8.0",

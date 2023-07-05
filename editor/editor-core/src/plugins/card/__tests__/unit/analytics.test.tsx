@@ -51,6 +51,7 @@ import { createDispatch } from '../../../../event-dispatcher';
 import { getPluginState } from '../../pm-plugins/util/state';
 
 replaceRaf();
+const requestAnimationFrame = window.requestAnimationFrame as any;
 
 const asStub = (raf: typeof requestAnimationFrame) => raf as unknown as Stub;
 
@@ -1274,6 +1275,7 @@ describe('Analytics key events', () => {
         const { undo, redo } = await setup({
           doc: doc(p(a({ href: url })('Some li{<>}nk text'))),
         });
+        requestAnimationFrame.step();
 
         const appearanceButton = await screen.findByRole('button', {
           name: toDisplayButtonName(display),

@@ -299,6 +299,10 @@ describe('paste plugins', () => {
     return wrapper;
   };
 
+  afterEach(() => {
+    requestAnimationFrame.flush();
+  });
+
   describe('handlePaste', () => {
     const mediaHtml = (fileMimeType: string) => `
       <div

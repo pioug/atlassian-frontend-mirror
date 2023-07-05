@@ -83,7 +83,10 @@ export type {
 export type { MediaGroupDefinition } from './media-group';
 export {
   mediaSingle,
+  mediaSingleSpec,
   mediaSingleWithCaption,
+  mediaSingleWithWidthType,
+  mediaSingleFull,
   toJSON as mediaSingleToJSON,
 } from './media-single';
 export type { MediaSingleDefinition } from './media-single';
@@ -176,5 +179,6 @@ export { embedCard } from './embed-card';
 export type { EmbedCardDefinition, EmbedCardAttributes } from './embed-card';
 export type {
   RichMediaAttributes,
+  ExtendedMediaAttributes,
   Layout as RichMediaLayout,
 } from './types/rich-media-common';

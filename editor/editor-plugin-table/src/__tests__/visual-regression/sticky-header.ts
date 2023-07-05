@@ -38,11 +38,12 @@ describe('Snapshot Test: Table', () => {
   });
 
   describe('sticky header', () => {
-    // FIXME: This test was automatically skipped due to failure on 21/06/2023: https://product-fabric.atlassian.net/browse/ED-18903
-    it.skip('should align with table cell when active', async () => {
+    it('should align with table cell when active', async () => {
       await initEditor(page, stickyHeaderWithHorizontalScroll);
 
       await clickFirstCell(page, true);
+      // Mouse was inside the table and would cause the column resizer to trigger occasionally
+      await page.mouse.move(0, 0);
 
       // scroll to bottom center to see scroll shadows
       await scrollToElement(page, 'ol > li');

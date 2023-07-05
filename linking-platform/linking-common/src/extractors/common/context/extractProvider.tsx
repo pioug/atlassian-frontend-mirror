@@ -8,13 +8,18 @@ import { JsonLd } from 'json-ld-types';
 import { extractUrlFromIconJsonLd, extractUrlFromLinkJsonLd } from '../url';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3340 Internal documentation for deprecation (no external access)} use `@atlaskit/link-extractors` instead
+ */
 export interface LinkProvider {
   text: string;
   id?: string;
   icon?: React.ReactNode;
   image?: string;
 }
-
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3340 Internal documentation for deprecation (no external access)} use `@atlaskit/link-extractors` instead
+ */
 export const extractProvider = (
   jsonLd: JsonLd.Data.BaseData,
 ): LinkProvider | undefined => {
@@ -39,7 +44,9 @@ export const extractProvider = (
     }
   }
 };
-
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3340 Internal documentation for deprecation (no external access)} use `@atlaskit/link-extractors` instead
+ */
 const extractProviderIcon = (
   icon?: JsonLd.Primitives.Image | JsonLd.Primitives.Link,
   id?: string,
@@ -76,7 +83,9 @@ const extractProviderIcon = (
     return extractUrlFromIconJsonLd(icon);
   }
 };
-
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3340 Internal documentation for deprecation (no external access)} use `@atlaskit/link-extractors` instead
+ */
 const extractProviderImage = (
   image?: JsonLd.Primitives.Image | JsonLd.Primitives.Link,
 ): string | undefined => {

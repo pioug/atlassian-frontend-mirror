@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.5.1
+
+### Patch Changes
+
+- [`74e05b3d5d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74e05b3d5d3) - bump socket.io-client version number
+
 ## 9.5.0
 
 ### Minor Changes

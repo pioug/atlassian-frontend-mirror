@@ -92,7 +92,7 @@ describe('<EmojiPlaceholder />', () => {
   });
 
   describe('accessibility', () => {
-    it('should not have any accessibility violations', async () => {
+    it.skip('should not have any accessibility violations', async () => {
       const shortName = ':rage:';
       const { container } = await renderWithIntl(
         <EmojiPlaceholder

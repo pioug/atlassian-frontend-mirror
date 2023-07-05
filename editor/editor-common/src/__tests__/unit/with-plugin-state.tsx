@@ -14,7 +14,6 @@ import {
 } from '../../event-dispatcher';
 import { SafePlugin } from '../../safe-plugin';
 import { EditorPlugin } from '../../types/editor-plugin';
-import * as collab from '../../utils/collab';
 import {
   EditorActionsPrivateAccess,
   WithPluginState,
@@ -375,10 +374,23 @@ describe('with-plugin-state', () => {
     });
   });
 
-  it('should dispatch analytics event with participants count', () => {
-    const getParticipantsCountSpy = jest
-      .spyOn(collab, 'getParticipantsCount')
-      .mockReturnValue(2);
+  it('should dispatch analytics event', async () => {
+    const analyticsDispatchedPromise = new Promise<void>((resolve) => {
+      eventDispatcher.on('EDITOR_ANALYTICS_EVENT', (event) => {
+        expect(event).toEqual({
+          payload: {
+            action: 'withPluginStateCalled',
+            actionSubject: 'editor',
+            attributes: {
+              duration: expect.any(Number),
+              plugin: 'plugin$2',
+            },
+            eventType: 'operational',
+          },
+        });
+        resolve();
+      });
+    });
 
     const plugin = createPlugin({}, pluginKey);
     const key = (pluginKey as any).key;
@@ -413,19 +425,17 @@ describe('with-plugin-state', () => {
     );
     dispatch(pluginKey, { cheese: '🧀' });
 
-    return setTimeoutPromise(() => {}, 0).then(() => {
-      expect(mark.mock.calls.map((item) => item[0])).toEqual(
-        expect.arrayContaining([
-          `🦉${key}::WithPluginState::start`,
-          `🦉${key}::WithPluginState::end`,
-        ]),
-      );
+    await setTimeoutPromise(() => {}, 0);
 
-      expect(getParticipantsCountSpy).toBeCalledTimes(1);
-      expect(getParticipantsCountSpy).toHaveReturnedWith(2);
+    expect(mark.mock.calls.map((item) => item[0])).toEqual(
+      expect.arrayContaining([
+        `🦉${key}::WithPluginState::start`,
+        `🦉${key}::WithPluginState::end`,
+      ]),
+    );
+    await analyticsDispatchedPromise;
 
-      wrapper.unmount();
-      editorView.destroy();
-    });
+    wrapper.unmount();
+    editorView.destroy();
   });
 });

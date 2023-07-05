@@ -28,6 +28,7 @@ import {
   isPastedFromExcel,
   htmlHasInvalidLinkTags,
   removeDuplicateInvalidLinks,
+  transformUnsupportedBlockCardToInline,
 } from '../util';
 import { linkifyContent } from '@atlaskit/editor-common/utils';
 import { transformSliceNestedExpandToExpand } from '../../expand/utils';
@@ -73,7 +74,6 @@ import {
 } from '../../media/utils/media-common';
 import { upgradeTextToLists, splitParagraphs } from '../../list/transforms';
 import { md } from '@atlaskit/editor-common/paste';
-import { transformUnsupportedBlockCardToInline } from '../../card/utils';
 import { transformSliceToDecisionList } from '../../tasks-and-decisions/utils';
 import {
   containsAnyAnnotations,
@@ -92,14 +92,19 @@ import { extractSliceFromStep } from '../../../utils/step';
 import { pluginKey as stateKey, createPluginState } from './plugin-factory';
 export { pluginKey as stateKey } from './plugin-factory';
 import type { Dispatch } from '../../../event-dispatcher';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import {
+  FeatureFlags,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import { hasParentNodeOfType } from 'prosemirror-utils';
+import type pastePlugin from '../';
 
 export function createPlugin(
   schema: Schema,
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
   dispatch: Dispatch,
   featureFlags: FeatureFlags,
+  pluginInjectionApi: ExtractInjectionAPI<typeof pastePlugin> | undefined,
   cardOptions?: CardOptions,
   sanitizePrivateContent?: boolean,
   providerFactory?: ProviderFactory,
@@ -345,6 +350,8 @@ export function createPlugin(
               handleMacroAutoConvert(
                 text,
                 markdownSlice,
+                pluginInjectionApi?.dependencies.card?.actions
+                  ?.queueCardsFromChangedTr,
                 cardOptions,
                 extensionAutoConverter,
               )(state, dispatch, view)
@@ -393,6 +400,7 @@ export function createPlugin(
             event,
             slice,
             isPlainText ? PasteTypes.plain : PasteTypes.richText,
+            pluginInjectionApi,
           )(state, dispatch)
         ) {
           return true;
@@ -435,6 +443,7 @@ export function createPlugin(
               event,
               markdownSlice,
               PasteTypes.markdown,
+              pluginInjectionApi,
             )(state, dispatch)
           ) {
             return true;
@@ -444,6 +453,7 @@ export function createPlugin(
             view,
             event,
             markdownSlice,
+            pluginInjectionApi,
           )(state, dispatch);
         }
 
@@ -491,6 +501,8 @@ export function createPlugin(
             handleMacroAutoConvert(
               text,
               slice,
+              pluginInjectionApi?.dependencies.card?.actions
+                ?.queueCardsFromChangedTr,
               cardOptions,
               extensionAutoConverter,
             )(state, dispatch, view)
@@ -524,6 +536,7 @@ export function createPlugin(
               event,
               slice,
               PasteTypes.richText,
+              pluginInjectionApi,
             )(state, dispatch)
           ) {
             return true;
@@ -597,6 +610,7 @@ export function createPlugin(
             view,
             event,
             slice,
+            pluginInjectionApi,
           )(state, dispatch);
         }
         return false;

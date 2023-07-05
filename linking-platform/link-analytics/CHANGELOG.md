@@ -1,5 +1,15 @@
 # @atlaskit/link-analytics
 
+## 8.2.0
+
+### Minor Changes
+
+- [`4db1a942f14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4db1a942f14) - Cleans up FF enableResolveMetadataForLinkAnalytics added in 3.0.0 — feature flag is is no longer required to enable "resolved attributes".
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

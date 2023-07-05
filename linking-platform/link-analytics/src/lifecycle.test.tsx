@@ -9,7 +9,7 @@ import { fireEvent, waitFor } from '@testing-library/dom';
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { SmartCardProvider, useFeatureFlag } from '@atlaskit/link-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { LinkPicker, LinkPickerProps } from '@atlaskit/link-picker';
 import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
 
@@ -18,14 +18,6 @@ import { useSmartLinkLifecycleAnalytics } from './lifecycle';
 import { runWhenIdle } from './utils';
 import { fakeFactory, mocks } from './__fixtures__/mocks';
 import { LifecycleAction } from './types';
-
-jest.mock('@atlaskit/link-provider', () => {
-  const originalModule = jest.requireActual('@atlaskit/link-provider');
-  return {
-    ...originalModule,
-    useFeatureFlag: jest.fn(),
-  };
-});
 
 jest.mock('./utils', () => {
   const originalModule = jest.requireActual('./utils');
@@ -42,7 +34,6 @@ const PACKAGE_METADATA = {
 
 describe('useSmartLinkLifecycleAnalytics', () => {
   beforeEach(() => {
-    (useFeatureFlag as jest.Mock).mockReturnValue(false);
     (runWhenIdle as jest.Mock).mockImplementation(cb => {
       cb();
       return 123;
@@ -259,29 +250,26 @@ describe('useSmartLinkLifecycleAnalytics', () => {
       });
     });
 
-    describe('when ff: `enableResolveMetadataForLinkAnalytics` is `true`', () => {
-      it('should return resolved metadata', async () => {
-        (useFeatureFlag as jest.Mock).mockReturnValue(true);
-        const { onEvent, result } = setup();
-        act(() => {
-          result.current[method]({ url: 'test.com', smartLinkId: 'xyz' });
-        });
+    it('should return resolved metadata', async () => {
+      const { onEvent, result } = setup();
+      act(() => {
+        result.current[method]({ url: 'test.com', smartLinkId: 'xyz' });
+      });
 
-        await waitFor(() => {
-          expect(onEvent).toBeFiredWithAnalyticEventOnce(
-            {
-              context: [PACKAGE_METADATA],
-              payload: {
-                ...payload,
-                attributes: {
-                  smartLinkId: 'xyz',
-                  ...expectedResolvedAttributes,
-                },
+      await waitFor(() => {
+        expect(onEvent).toBeFiredWithAnalyticEventOnce(
+          {
+            context: [PACKAGE_METADATA],
+            payload: {
+              ...payload,
+              attributes: {
+                smartLinkId: 'xyz',
+                ...expectedResolvedAttributes,
               },
             },
-            ANALYTICS_CHANNEL,
-          );
-        });
+          },
+          ANALYTICS_CHANNEL,
+        );
       });
     });
   });

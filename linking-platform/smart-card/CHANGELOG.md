@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 26.9.1
+
+### Patch Changes
+
+- [`88cc5a0088c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88cc5a0088c) - [ux] Flexible Smart Links: Hover preview to follow mouse position
+- Updated dependencies
+
+## 26.9.0
+
+### Minor Changes
+
+- [`7811ab546b9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7811ab546b9) - Cleans up FF platform.linking-platform.smart-card.enable-analytics-context introduced in 26.2.2 — resolved attributes now provided to all events fired within Smart Card by default.
+
+## 26.8.1
+
+### Patch Changes
+
+- [`0b148ef0a04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0b148ef0a04) - [ux] Updated fade in delay for hover card to be 500ms
+
 ## 26.8.0
 
 ### Minor Changes

@@ -19,6 +19,7 @@ import layoutPlugin from '../../../../layout';
 import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
 import cardPlugin from '../../../../card';
+import hyperlinkPlugin from '../../../../hyperlink';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
 import editorDisabledPlugin from '../../../../editor-disabled';
 
@@ -49,6 +50,7 @@ describe('delete block content', () => {
       .add(widthPlugin)
       .add(gridPlugin)
       .add(floatingToolbarPlugin)
+      .add(hyperlinkPlugin)
       .add([cardPlugin, { platform: 'web' }])
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(tablesPlugin)

@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 26.0.0
+
+### Major Changes
+
+- [`68ef7e6146c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68ef7e6146c) - [ADF change] added widthType attribute to mediaSingle node, to support fixed width media node.
+
 ## 25.10.1
 
 ### Patch Changes

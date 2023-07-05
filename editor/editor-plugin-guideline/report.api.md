@@ -15,6 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import { CSSToken } from '@atlaskit/tokens';
 import { EditorView } from 'prosemirror-view';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
@@ -32,7 +33,7 @@ export type GuidelineConfig = {
   active?: boolean;
   show?: boolean;
   style?: 'dashed' | 'solid';
-  color?: string;
+  color?: CSSToken;
 };
 
 // @public (undocumented)

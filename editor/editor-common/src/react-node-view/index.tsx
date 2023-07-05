@@ -121,7 +121,6 @@ export default class ReactNodeView<P = ReactComponentProps>
       stopMeasureReactNodeViewRendered({
         nodeTypeName: this.node.type.name,
         dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
-        editorState: this.view.state,
         samplingRate,
         slowThreshold,
       });

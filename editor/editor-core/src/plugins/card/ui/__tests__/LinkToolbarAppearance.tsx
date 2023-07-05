@@ -28,6 +28,19 @@ import {
   mockPreview,
 } from './_utils/mock-card-context';
 import userEvent from '@testing-library/user-event';
+import {
+  queueCardsFromChangedTr,
+  changeSelectedCardToLink,
+  setSelectedCardAppearance,
+} from '../../pm-plugins/doc';
+import { hideLinkToolbar } from '../../pm-plugins/actions';
+
+const cardActions = {
+  queueCardsFromChangedTr,
+  changeSelectedCardToLink,
+  setSelectedCardAppearance,
+  hideLinkToolbar,
+};
 
 describe('LinkToolbarAppearance', () => {
   const createEditor = createEditorFactory();
@@ -70,6 +83,7 @@ describe('LinkToolbarAppearance', () => {
           currentAppearance="inline"
           url="some-url"
           editorAnalyticsApi={undefined}
+          cardActions={cardActions}
           {...props}
         />
       </MockCardContextAdapter>,

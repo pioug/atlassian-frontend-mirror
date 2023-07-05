@@ -7,7 +7,7 @@ describe('cardPlugin', () => {
       const editorPlugin = cardPlugin({ platform: 'web' });
       const pmPlugins = editorPlugin.pmPlugins!();
 
-      expect(pmPlugins.length).toEqual(2);
+      expect(pmPlugins.length).toEqual(3);
       expect(pmPlugins).toEqual(
         expect.arrayContaining([
           { name: 'card', plugin: expect.any(Function) },

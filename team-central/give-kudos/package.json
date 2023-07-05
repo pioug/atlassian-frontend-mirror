@@ -55,8 +55,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*",
-    "@atlaskit/flag": "^15.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/tokens": "^1.11.0",
     "@atlaskit/webdriver-runner": "*",

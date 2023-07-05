@@ -109,7 +109,6 @@ function createNodeView<ExtraComponentProps>({
     stopMeasureReactNodeViewRendered({
       nodeTypeName: currentNode.type.name,
       dispatchAnalyticsEvent,
-      editorState: nodeViewParams.view.state,
       samplingRate,
       slowThreshold,
     });

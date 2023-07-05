@@ -993,10 +993,14 @@ export function validator(
 
     // Required Props
     // For object format based on `optional` property
-    const [, missingProps] = partitionObject(
-      validatorSpec.props,
-      (k, v) => v.optional || isDefined(prevEntity[k]),
-    );
+    const [, missingProps] = partitionObject(validatorSpec.props, (k, v) => {
+      // if the validator is an array, then check
+      // if the `required` field contains the key.
+      const isOptional = Array.isArray(v)
+        ? !validatorSpec.required?.includes(k)
+        : v.optional;
+      return isOptional || isDefined(prevEntity[k]);
+    });
 
     if (missingProps.length) {
       return {

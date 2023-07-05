@@ -16,6 +16,7 @@ import formatterTSGeneratedTypes from './formatters/typescript-token-generated-t
 import formatterTSGeneratedTypesInternal from './formatters/typescript-token-generated-types-internal';
 import formatterTSTokenNames from './formatters/typescript-token-names';
 import formatterTSGeneratedPairings from './formatters/typescript-token-pairings';
+import boxShadowTransform from './transformers/box-shadow';
 import dotSyntax from './transformers/dot-syntax';
 import paletteTransform from './transformers/palette';
 import pixelRemTransform from './transformers/pixel-rem';
@@ -40,6 +41,7 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
   transform: {
     'name/dot': dotSyntax,
     'pixel/rem': pixelRemTransform,
+    'box-shadow/figma': boxShadowTransform(defaultPalette),
     'color/palette': paletteTransform({
       ...defaultPalette,
       ...spacingScale,
@@ -83,7 +85,12 @@ const createGlobalConfig = (schemaInputDir: string): Config => ({
       ],
     },
     ts: {
-      transforms: ['name/dot', 'color/palette', 'pixel/rem'],
+      transforms: [
+        'name/dot',
+        'color/palette',
+        'pixel/rem',
+        'box-shadow/figma',
+      ],
       buildPath: ARTIFACT_OUTPUT_DIR,
       files: [
         {

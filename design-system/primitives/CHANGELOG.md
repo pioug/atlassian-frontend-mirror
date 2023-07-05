@@ -1,5 +1,17 @@
 # @atlaskit/primitives
 
+## 0.16.0
+
+### Minor Changes
+
+- [`fe3ef707163`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fe3ef707163) - Initial Pressable primitive (not ready for production)
+
+## 0.15.3
+
+### Patch Changes
+
+- [`27f6081edf2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/27f6081edf2) - Regenerates codegen hashes to surface changes to tokens
+
 ## 0.15.2
 
 ### Patch Changes

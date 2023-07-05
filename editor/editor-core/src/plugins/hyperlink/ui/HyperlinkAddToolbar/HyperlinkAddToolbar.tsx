@@ -25,7 +25,7 @@ import {
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 
-import { linkToolbarMessages as linkToolbarCommonMessages } from '../../../../messages';
+import { linkToolbarMessages as linkToolbarCommonMessages } from '@atlaskit/editor-common/messages';
 import PanelTextInput from '../../../../ui/PanelTextInput';
 import LinkSearchList from '../../../../ui/LinkSearch/LinkSearchList';
 import {
@@ -49,14 +49,14 @@ import { LinkSearchListItemData } from '../../../../ui/LinkSearch/types';
 import debounce from 'lodash/debounce';
 import { mapContentTypeToIcon, sha1, wordCount } from './utils';
 import { HyperlinkState } from '../../pm-plugins/main';
-import { hideLinkToolbar } from '../../commands';
+import { hideLinkToolbar, hideLinkToolbarSetMeta } from '../../commands';
 import { EditorView } from 'prosemirror-view';
 import type { LinkInputType } from '@atlaskit/editor-common/types';
-import { hideLinkToolbar as cardHideLinkToolbar } from '../../../card/pm-plugins/actions';
 import { visuallyHiddenStyles } from '../../styles';
 import { browser } from '@atlaskit/editor-common/utils';
 import { transformTimeStamp } from '../../../../ui/LinkSearch/transformTimeStamp';
 import Announcer from '../../../../utils/announcer/announcer';
+import { toolbarKey } from '../../pm-plugins/toolbar-buttons';
 
 export const RECENT_SEARCH_LIST_SIZE = 5;
 
@@ -835,9 +835,16 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
     if (keyCode === KEY_CODE_ESCAPE) {
       // escape
       event.preventDefault();
-      hideLinkToolbar()(view.state, view.dispatch);
 
-      view.dispatch(cardHideLinkToolbar(view.state.tr));
+      const {
+        state: { tr },
+        dispatch,
+      } = view;
+      hideLinkToolbarSetMeta(tr);
+      toolbarKey.getState(view.state)?.onEscapeCallback?.(tr);
+
+      dispatch(tr);
+
       return;
     }
 

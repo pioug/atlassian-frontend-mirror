@@ -2004,7 +2004,7 @@ export const tableWithScoll = {
     {
       type: 'table',
       attrs: {
-        isNumberColumnEnabled: false,
+        isNumberColumnEnabled: true,
         layout: 'default',
         localId: '0cd9d47c-a0f4-465d-b125-b4917cf2c72d',
       },

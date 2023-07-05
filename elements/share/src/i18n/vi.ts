@@ -12,7 +12,8 @@ export default {
   'fabric.elements.share.copypubliclink.button.text': 'Sao chép liên kết công khai',
   'fabric.elements.share.failure.icon.label': 'Biểu tượng lỗi',
   'fabric.elements.share.failure.message': 'Không thể chia sẻ',
-  'fabric.elements.share.form.comment.placeholder': 'Thêm thông báo',
+  'fabric.elements.share.form.comment.label': 'Tin nhắn (không bắt buộc)',
+  'fabric.elements.share.form.comment.placeholder': 'Bạn có nội dung gì cần lưu ý người khác không?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Người nhận sẽ thấy tên trang và tin nhắn của bạn',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Người nhận sẽ thấy tên sự cố và tin nhắn của bạn',
   'fabric.elements.share.form.no-permissions': 'Bạn không có khả năng chia sẻ.',
@@ -23,15 +24,34 @@ export default {
   'fabric.elements.share.form.share': 'Chia sẻ',
   'fabric.elements.share.form.title': 'Chia sẻ',
   'fabric.elements.share.form.user-picker.add-more': 'Nhập thêm',
+  'fabric.elements.share.form.user-picker.label.confluence': 'Tên, đội ngũ, nhóm hoặc email',
+  'fabric.elements.share.form.user-picker.label.email-disabled-confluence': 'Tên, đội ngũ hoặc nhóm',
+  'fabric.elements.share.form.user-picker.label.email-disabled-jira': 'Tên hoặc đội ngũ',
+  'fabric.elements.share.form.user-picker.label.email-only': 'Email',
+  'fabric.elements.share.form.user-picker.label.jira': 'Tên, đội ngũ hoặc email',
   'fabric.elements.share.form.user-picker.no-options.existingUserOnly':
     'Chúng tôi không thể tìm thấy bất cứ kết quả nào cho "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Chúng tôi không thể tìm thấy bất cứ kết quả nào cho "{inputValue}". Mời mọi người bằng cách sử dụng địa chỉ email.',
-  'fabric.elements.share.form.user-picker.placeholder.jira': 'Điền tên, nhóm hoặc email',
+  'fabric.elements.share.form.user-picker.placeholder.confluence': 'ví dụ: Maria, Đội ngũ màu cam, nhóm một',
+  'fabric.elements.share.form.user-picker.placeholder.email-disabled-jira': 'ví dụ: Maria, Đội ngũ màu cam',
+  'fabric.elements.share.form.user-picker.placeholder.email-only': 'ví dụ: maria@company.com',
+  'fabric.elements.share.form.user-picker.placeholder.jira': 'ví dụ: Maria, Đội ngũ màu cam, maria@company.com',
   'fabric.elements.share.form.user-picker.validation.required': 'Chọn ít nhất một người dùng, đội, nhóm hoặc email.',
+  'fabric.elements.share.form.user-picker.validation.required-message.confluence':
+    'Chọn ít nhất một người, đội ngũ, nhóm hoặc email',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-confluence':
+    'Chọn ít nhất một người, đội ngũ hoặc nhóm',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-disabled-jira':
+    'Chọn ít nhất một người hoặc đội ngũ',
+  'fabric.elements.share.form.user-picker.validation.required-message.email-only': 'Chọn ít nhất một email',
+  'fabric.elements.share.form.user-picker.validation.required-message.jira':
+    'Chọn ít nhất một người, đội ngũ hoặc email',
   'fabric.elements.share.in.integration.button': 'Chia sẻ trong {integrationName}',
   'fabric.elements.share.main.tab.text.confluence': 'Chia sẻ trang',
   'fabric.elements.share.main.tab.text.jira': 'Chia sẻ vấn đề',
+  'fabric.elements.share.success.message':
+    '{object, select,blogpost {Đã chia sẻ bài đăng trên blog}board {Đã chia sẻ bảng thông tin}calendar {Đã chia sẻ lịch}draft {Đã chia sẻ bản nháp}filter {Đã chia sẻ bộ lọc}issue {Đã chia sẻ vấn đề}summary {Đã chia sẻ bản tóm tắt}list {Đã chia sẻ danh sách}timeline {Đã chia sẻ lịch trình}form {Đã chia sẻ biểu mẫu}media {Đã chia sẻ phương tiện}page {Đã chia sẻ trang}project {Đã chia sẻ dự án}pullrequest {Đã chia sẻ Pull request}question {Đã chia sẻ câu hỏi}report {Đã chia sẻ báo cáo}repository {Đã chia sẻ kho}request {Đã chia sẻ yêu cầu}roadmap {Đã chia sẻ lịch trình}site {Đã chia sẻ trang web}space {Đã chia sẻ không gian}other {Đã chia sẻ liên kết}}',
   'fabric.elements.share.to.integration.button': 'Chia sẻ với {integrationName}',
   'fabric.elements.share.trigger.button.icon.label': 'Biểu tượng chia sẻ',
   'fabric.elements.share.trigger.button.invite.text': 'Mời',

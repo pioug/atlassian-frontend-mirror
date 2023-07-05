@@ -86,7 +86,7 @@ type GuidelineConfig = {
   active?: boolean;
   show?: boolean;
   style?: 'dashed' | 'solid'; // default solid
-  color?: string;
+  color?: CSSToken;
 };
 ```
 

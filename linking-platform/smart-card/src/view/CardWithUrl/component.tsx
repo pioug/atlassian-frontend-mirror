@@ -3,7 +3,6 @@ import { MouseEvent } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 
 import { useFeatureFlag } from '@atlaskit/link-provider';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { CardWithUrlContentProps } from './types';
 import { isSpecialEvent } from '../../utils';
 import * as measure from '../../utils/performance';
@@ -366,25 +365,13 @@ function Component({
 }
 
 export const CardWithUrlContent = (props: CardWithUrlContentProps) => {
-  if (
-    getBooleanFF(
-      'platform.linking-platform.smart-card.enable-analytics-context',
-    )
-  ) {
-    const display = isFlexibleUiCard(props.children)
-      ? CardDisplay.Flexible
-      : props.appearance;
+  const display = isFlexibleUiCard(props.children)
+    ? CardDisplay.Flexible
+    : props.appearance;
 
-    return (
-      <SmartLinkAnalyticsContext
-        url={props.url}
-        id={props.id}
-        display={display}
-      >
-        <Component {...props} />
-      </SmartLinkAnalyticsContext>
-    );
-  }
-
-  return <Component {...props} />;
+  return (
+    <SmartLinkAnalyticsContext url={props.url} id={props.id} display={display}>
+      <Component {...props} />
+    </SmartLinkAnalyticsContext>
+  );
 };

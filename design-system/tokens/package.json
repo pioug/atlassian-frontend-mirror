@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.11.1",
+  "version": "1.11.2",
   "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "license": "Apache-2.0",
@@ -67,7 +67,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/primitives": "^0.15.0",
+    "@atlaskit/primitives": "^0.16.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/spinner": "^15.5.1",
     "@atlaskit/visual-regression": "*",

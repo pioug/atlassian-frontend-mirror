@@ -15,6 +15,7 @@ describe(`${packageName}/schema mediaSingle node`, () => {
           data-node-type="mediaSingle"
           data-layout="wrap-right"
           data-width="32.3"
+          data-width-type="percentage"
         />
         `,
         schema,
@@ -25,6 +26,7 @@ describe(`${packageName}/schema mediaSingle node`, () => {
       expect(mediaSingleNode.type).toEqual(schema.nodes.mediaSingle);
       expect(mediaSingleNode.attrs.layout).toEqual('wrap-right');
       expect(mediaSingleNode.attrs.width).toEqual(32.3);
+      expect(mediaSingleNode.attrs.widthType).toEqual('percentage');
     });
 
     it('defaults to align center', () => {
@@ -42,6 +44,7 @@ describe(`${packageName}/schema mediaSingle node`, () => {
       expect(mediaSingleNode.type).toEqual(schema.nodes.mediaSingle);
       expect(mediaSingleNode.attrs.layout).toEqual('center');
       expect(mediaSingleNode.attrs.width).toBeNull();
+      expect(mediaSingleNode.attrs.widthType).toBeNull();
     });
 
     it('auto creates a media node inside mediaSingle node', () => {
@@ -107,6 +110,24 @@ describe(`${packageName}/schema mediaSingle node`, () => {
 
     expect(layout).toEqual('center');
     expect(width).toEqual('64');
+  });
+
+  it('converts attributes with widthType', () => {
+    const mediaSingleNode = schema.nodes.mediaSingle.create({
+      layout: 'center',
+      width: 640,
+      widthType: 'pixel',
+    });
+
+    const mediaSingleDom = toDOM(mediaSingleNode, schema)
+      .firstChild as HTMLElement;
+    const layout = mediaSingleDom.getAttribute('data-layout');
+    const width = mediaSingleDom.getAttribute('data-width');
+    const widthType = mediaSingleDom.getAttribute('data-width-type');
+
+    expect(layout).toEqual('center');
+    expect(width).toEqual('640');
+    expect(widthType).toEqual('pixel');
   });
 
   it('encodes and decodes wide mediaSingle to the same node', () => {

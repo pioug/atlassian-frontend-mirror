@@ -19,7 +19,6 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import Tooltip from '@atlaskit/tooltip';
 import { Popup } from '@atlaskit/editor-common/ui';
-
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import {
   buttonStyle,
@@ -57,6 +56,16 @@ const ImageBorder = ({
   const [isColorSubmenuOpen, setIsColorSubmenuOpen] = useState(false);
   const [isSizeSubmenuOpen, setIsSizeSubmenuOpen] = useState(false);
 
+  const handleSubMenuRef = (ref: HTMLDivElement | null) => {
+    if (!ref) {
+      return;
+    }
+    const rect = ref.getBoundingClientRect();
+    if (rect.left + rect.width > window.innerWidth) {
+      ref.style.left = `-${rect.width}px`;
+    }
+  };
+
   const borderSizeOptions: { name: string; value: number }[] = [
     {
       name: formatMessage(messages.borderSizeSubtle),
@@ -84,9 +93,9 @@ const ImageBorder = ({
             )}
           />
           {isColorSubmenuOpen && (
-            <div css={contextualSubMenu(0)}>
+            <div css={contextualSubMenu(0)} ref={handleSubMenuRef}>
               <ColorPalette
-                onClick={(color) => {
+                onClick={(color: string) => {
                   setBorder({ color });
                   setIsOpen(!isOpen);
                 }}
@@ -110,7 +119,7 @@ const ImageBorder = ({
         <div className={DropdownMenuSharedCssClassName.SUBMENU}>
           <div css={contextualMenuArrow} />
           {isSizeSubmenuOpen && (
-            <div css={contextualSubMenu(1)}>
+            <div css={contextualSubMenu(1)} ref={handleSubMenuRef}>
               {borderSizeOptions.map(({ name, value }, idx) => (
                 <Tooltip key={idx} content={name}>
                   <span css={buttonWrapperStyle}>

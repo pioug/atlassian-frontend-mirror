@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import EditIcon from '@atlaskit/icon/glyph/edit';
-import { editIconStyles } from './styled';
+import { editIconStyles } from '@atlaskit/editor-common/styles';
+
 export const SmallerEditIcon = () => {
   return (
     <div css={editIconStyles}>

@@ -40,7 +40,9 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { InlineCardAdf, DatasourceAdfView } from '@atlaskit/smart-card';
 
-import { CardPluginState, CardReplacementInputMethod, Request } from '../types';
+import { CardPluginState, Request } from '../types';
+import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
+
 import { appearanceForNodeType, selectedCardAppearance } from '../utils';
 import { queueCards, resolveCard, hideDatasourceModal } from './actions';
 import { pluginKey } from './plugin-key';

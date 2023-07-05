@@ -176,9 +176,7 @@ const baseXcss = <T,>(style?: SafeCSSObject | SafeCSSObject[]) => {
 type ParsedXcss =
   | ReturnType<typeof cssEmotion>
   | ReturnType<typeof cssEmotion>[];
-export const parseXcss = (
-  args: XCSS | Array<XCSS | false | undefined>,
-): ParsedXcss => {
+export const parseXcss = (args: XCSS | XCSSArray): ParsedXcss => {
   if (Array.isArray(args)) {
     return args.map(x => x && parseXcss(x)).filter(Boolean) as ParsedXcss;
   }
@@ -219,6 +217,7 @@ const boxWrapper = (style: any) => xcss<typeof Box>(style);
 const inlineWrapper = (style: any) => xcss<typeof Inline>(style);
 
 type XCSS = ReturnType<typeof boxWrapper> | ReturnType<typeof inlineWrapper>;
+type XCSSArray = Array<XCSS | XCSSArray | false | undefined>;
 
 type AllowedBoxStyles = keyof SafeCSSObject;
 type Spacing =

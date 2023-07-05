@@ -1,4 +1,4 @@
-import { snapshot } from '@atlassian/gemini-visual-regression';
+import { snapshot } from '@af/visual-regression';
 
 import {
   DefaultExample,

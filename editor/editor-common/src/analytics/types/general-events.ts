@@ -242,7 +242,6 @@ type WithPluginStateCalledAEP = OperationalAEP<
   {
     plugin: string;
     duration: number;
-    participants: number;
   },
   undefined
 >;
@@ -254,7 +253,6 @@ type ReactNodeViewRenderedAEP = OperationalAEP<
   {
     node: string;
     duration: number;
-    participants: number;
   },
   undefined
 >;

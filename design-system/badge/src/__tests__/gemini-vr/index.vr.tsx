@@ -1,4 +1,4 @@
-import { snapshot } from '@atlassian/gemini-visual-regression';
+import { snapshot } from '@af/visual-regression';
 
 import BadgeBasic from '../../../examples/0-basic';
 import BadgeCustomization from '../../../examples/4-customization';

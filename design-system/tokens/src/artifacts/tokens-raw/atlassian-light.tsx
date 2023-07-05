@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::20f8ad047dd30f24c669af342c4b2993>>
+ * @codegen <<SignedSource::d67f95200a3e54c2a2adadc78198392e>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -35,7 +35,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "1.6.0",
+      "introduced": "1.8.0",
       "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#4C6B1F",
@@ -45,7 +45,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "1.6.0",
+        "introduced": "1.8.0",
         "description": "Use for lime text on subtlest and subtler lime accent backgrounds when there is no meaning tied to the color."
       },
       "value": "Lime800"
@@ -64,7 +64,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.7.0",
+      "introduced": "1.8.0",
       "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
     },
     "value": "#37471F",
@@ -74,7 +74,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.7.0",
+        "introduced": "1.8.0",
         "description": "Use for lime text on subtle lime accent backgrounds when there is no meaning tied to the color."
       },
       "value": "Lime900"
@@ -5635,7 +5635,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "For data visualisation only."
     },
     "value": "#6A9A23",
@@ -5645,7 +5645,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "For data visualisation only."
       },
       "value": "Lime600"
@@ -5664,7 +5664,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "Hovered state of color.chart.lime.bold."
     },
     "value": "#5B7F24",
@@ -5674,7 +5674,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "Hovered state of color.chart.lime.bold."
       },
       "value": "Lime700"
@@ -5693,7 +5693,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "For data visualisation only."
     },
     "value": "#5B7F24",
@@ -5703,7 +5703,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "For data visualisation only."
       },
       "value": "Lime700"
@@ -5722,7 +5722,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "Hovered state of color.chart.lime.bolder."
     },
     "value": "#4C6B1F",
@@ -5732,7 +5732,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "Hovered state of color.chart.lime.bolder."
       },
       "value": "Lime800"
@@ -5751,7 +5751,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "For data visualisation only."
     },
     "value": "#4C6B1F",
@@ -5761,7 +5761,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "For data visualisation only."
       },
       "value": "Lime800"
@@ -5780,7 +5780,7 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
-      "introduced": "0.13.3",
+      "introduced": "1.8.0",
       "description": "Hovered state of color.chart.lime.boldest."
     },
     "value": "#37471F",
@@ -5790,7 +5790,7 @@ const tokens = [
       "attributes": {
         "group": "paint",
         "state": "active",
-        "introduced": "0.13.3",
+        "introduced": "1.8.0",
         "description": "Hovered state of color.chart.lime.boldest."
       },
       "value": "Lime900"

@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.8.0
+
+### Minor Changes
+
+- [`f3acb380cb2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3acb380cb2) - EDM-7064: remove FormContextProvider export to prevent usage in external packages.
+
 ## 0.7.1
 
 ### Patch Changes

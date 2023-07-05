@@ -40,6 +40,7 @@ import { SmallerEditIcon } from '../../../../plugins/card/ui/SmallerEditIcon';
 import * as CardUtils from '../../../../plugins/card/utils';
 import { EditorView } from 'prosemirror-view';
 import { LinkToolbarAppearance } from '../../../../plugins/card/ui/LinkToolbarAppearance';
+
 import {
   cardContext,
   MockCardContextAdapter,
@@ -63,6 +64,9 @@ const mockPluginInjectionApi: any = {
     },
     analytics: {
       actions: mockEditorAnalyticsApi,
+    },
+    card: {
+      actions: undefined,
     },
   },
 };

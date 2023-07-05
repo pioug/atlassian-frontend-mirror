@@ -11,6 +11,11 @@ import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey, LinkAction } from './pm-plugins/main';
 import fakeCursorToolbarPlugin from './pm-plugins/fake-cursor-for-toolbar';
 import {
+  toolbarButtonsPlugin,
+  prependToolbarButtons,
+  PrependToolbarButtons,
+} from './pm-plugins/toolbar-buttons';
+import {
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
@@ -33,6 +38,16 @@ const hyperlinkPlugin: NextEditorPlugin<
       typeof featureFlagsPlugin,
       OptionalPlugin<typeof analyticsPlugin>,
     ];
+    actions: {
+      /**
+       * Add items to the left of the hyperlink floating toolbar
+       * @param props
+       * -
+       * - items: Retrieve floating toolbar items to add
+       * - onEscapeCallback (optional): To be called when the link picker is escaped.
+       */
+      prependToolbarButtons: PrependToolbarButtons;
+    };
   }
 > = (options = {}, api) => {
   const featureFlags =
@@ -42,6 +57,10 @@ const hyperlinkPlugin: NextEditorPlugin<
 
     marks() {
       return [{ name: 'link', mark: link }];
+    },
+
+    actions: {
+      prependToolbarButtons,
     },
 
     pmPlugins() {
@@ -66,6 +85,11 @@ const hyperlinkPlugin: NextEditorPlugin<
         {
           name: 'hyperlinkKeymap',
           plugin: () => createKeymapPlugin(skipAnalytics),
+        },
+
+        {
+          name: 'hyperlinkToolbarButtons',
+          plugin: toolbarButtonsPlugin,
         },
       ];
     },
@@ -100,11 +124,7 @@ const hyperlinkPlugin: NextEditorPlugin<
           },
         },
       ],
-      floatingToolbar: getToolbarConfig(
-        options,
-        featureFlags,
-        api?.dependencies.analytics?.actions,
-      ),
+      floatingToolbar: getToolbarConfig(options, featureFlags, api),
     },
   };
 };

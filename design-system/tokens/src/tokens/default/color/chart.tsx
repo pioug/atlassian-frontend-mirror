@@ -849,7 +849,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.3',
+              introduced: '1.8.0',
               description: 'For data visualisation only.',
             },
           },
@@ -857,7 +857,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.3',
+              introduced: '1.8.0',
               description: 'Hovered state of color.chart.lime.bold.',
             },
           },
@@ -867,7 +867,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.3',
+              introduced: '1.8.0',
               description: 'For data visualisation only.',
             },
           },
@@ -875,7 +875,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.3',
+              introduced: '1.8.0',
               description: 'Hovered state of color.chart.lime.bolder.',
             },
           },
@@ -885,7 +885,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.3',
+              introduced: '1.8.0',
               description: 'For data visualisation only.',
             },
           },
@@ -893,7 +893,7 @@ const color: AttributeSchema<ChartColorTokenSchema<BaseToken>> = {
             attributes: {
               group: 'paint',
               state: 'active',
-              introduced: '0.13.3',
+              introduced: '1.8.0',
               description: 'Hovered state of color.chart.lime.boldest.',
             },
           },

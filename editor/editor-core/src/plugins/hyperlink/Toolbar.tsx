@@ -35,8 +35,11 @@ import {
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '@atlaskit/editor-common/ui';
-import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
-import { Command, CommandDispatch } from '@atlaskit/editor-common/types';
+import {
+  Command,
+  CommandDispatch,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import {
   ACTION_SUBJECT_ID,
   AnalyticsEventPayload,
@@ -46,11 +49,12 @@ import {
   buildOpenedSettingsPayload,
   LinkType,
 } from '@atlaskit/editor-common/analytics';
-import { addAnalytics } from '../analytics';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { IntlShape } from 'react-intl-next';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type hyperlinkPlugin from './index';
+import { toolbarKey } from './pm-plugins/toolbar-buttons';
 
 /* type guard for edit links */
 function isEditLink(
@@ -63,27 +67,40 @@ const dispatchAnalytics = (
   dispatch: CommandDispatch | undefined,
   state: EditorState<any>,
   analyticsBuilder: (type: LinkType) => AnalyticsEventPayload<void>,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
   if (dispatch) {
-    dispatch(
-      addAnalytics(
-        state,
-        state.tr,
-        analyticsBuilder(ACTION_SUBJECT_ID.HYPERLINK),
-      ),
-    );
+    const { tr } = state;
+    editorAnalyticsApi?.attachAnalyticsEvent(
+      analyticsBuilder(ACTION_SUBJECT_ID.HYPERLINK),
+    )(tr);
+    dispatch(tr);
   }
 };
 
-const visitHyperlink = (): Command => (state, dispatch) => {
-  dispatchAnalytics(dispatch, state, buildVisitedLinkPayload);
-  return true;
-};
+const visitHyperlink =
+  (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    dispatchAnalytics(
+      dispatch,
+      state,
+      buildVisitedLinkPayload,
+      editorAnalyticsApi,
+    );
+    return true;
+  };
 
-const openLinkSettings = (): Command => (state, dispatch) => {
-  dispatchAnalytics(dispatch, state, buildOpenedSettingsPayload);
-  return true;
-};
+const openLinkSettings =
+  (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    dispatchAnalytics(
+      dispatch,
+      state,
+      buildOpenedSettingsPayload,
+      editorAnalyticsApi,
+    );
+    return true;
+  };
 
 function getLinkText(
   activeLinkMark: EditInsertedState,
@@ -109,6 +126,7 @@ const getSettingsButtonGroup = (
   state: EditorState<any>,
   intl: IntlShape,
   featureFlags: FeatureFlags,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): FloatingToolbarItem<Command>[] => {
   const { floatingToolbarLinkSettingsButton } = featureFlags;
   return floatingToolbarLinkSettingsButton === 'true'
@@ -119,7 +137,7 @@ const getSettingsButtonGroup = (
           type: 'button',
           icon: CogIcon,
           title: intl.formatMessage(linkToolbarCommonMessages.settingsLink),
-          onClick: openLinkSettings(),
+          onClick: openLinkSettings(editorAnalyticsApi),
           href: 'https://id.atlassian.com/manage-profile/link-preferences',
           target: '_blank',
         },
@@ -131,11 +149,13 @@ export const getToolbarConfig =
   (
     options: HyperlinkPluginOptions,
     featureFlags: FeatureFlags,
-    editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+    pluginInjectionApi: ExtractInjectionAPI<typeof hyperlinkPlugin> | undefined,
   ): FloatingToolbarHandler =>
   (state, intl, providerFactory) => {
     const { formatMessage } = intl;
     const linkState: HyperlinkState | undefined = stateKey.getState(state);
+    const editorAnalyticsApi =
+      pluginInjectionApi?.dependencies.analytics?.actions;
 
     /**
      * Enable focus trap only if feature flag is enabled AND for the new version of the picker
@@ -194,25 +214,9 @@ export const getToolbarConfig =
             height: 32,
             width: 250,
             items: [
-              {
-                type: 'custom',
-                fallback: [],
-                render: (editorView) => {
-                  return (
-                    <HyperlinkToolbarAppearance
-                      key="link-appearance"
-                      url={link}
-                      intl={intl}
-                      editorView={editorView}
-                      editorState={state}
-                      cardOptions={options?.cardOptions}
-                      providerFactory={providerFactory}
-                      platform={options?.platform}
-                      editorAnalyticsApi={editorAnalyticsApi}
-                    />
-                  );
-                },
-              },
+              ...(toolbarKey
+                .getState(state)
+                ?.items(state, intl, providerFactory, link) ?? []),
               {
                 id: 'editor.link.edit',
                 type: 'button',
@@ -231,7 +235,7 @@ export const getToolbarConfig =
                 disabled: !isValidUrl,
                 target: '_blank',
                 href: isValidUrl ? link : undefined,
-                onClick: visitHyperlink(),
+                onClick: visitHyperlink(editorAnalyticsApi),
                 selected: false,
                 title: labelOpenLink,
                 icon: OpenIcon,
@@ -264,7 +268,12 @@ export const getToolbarConfig =
                   },
                 ],
               },
-              ...getSettingsButtonGroup(state, intl, featureFlags),
+              ...getSettingsButtonGroup(
+                state,
+                intl,
+                featureFlags,
+                editorAnalyticsApi,
+              ),
             ],
             scrollable: true,
           };

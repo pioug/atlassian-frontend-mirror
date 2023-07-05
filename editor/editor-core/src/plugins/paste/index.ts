@@ -1,7 +1,11 @@
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type cardPlugin from '../card';
 
 export type PastePluginOptions = {
   cardOptions?: CardOptions;
@@ -12,7 +16,10 @@ const pastePlugin: NextEditorPlugin<
   'paste',
   {
     pluginConfiguration: PastePluginOptions;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [
+      typeof featureFlagsPlugin,
+      OptionalPlugin<typeof cardPlugin>,
+    ];
   }
 > = ({ cardOptions, sanitizePrivateContent }, api) => {
   const featureFlags =
@@ -35,6 +42,7 @@ const pastePlugin: NextEditorPlugin<
               dispatchAnalyticsEvent,
               dispatch,
               featureFlags,
+              api,
               cardOptions,
               sanitizePrivateContent,
               providerFactory,

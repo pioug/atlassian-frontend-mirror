@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.3.3
+
+### Patch Changes
+
+- [`e118dc7562b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e118dc7562b) - ED-18897 guideline interface to use css tokens.
+
 ## 0.3.2
 
 ### Patch Changes

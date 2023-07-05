@@ -50,6 +50,7 @@ type AllowedBoxStyles = keyof SafeCSSObject;
 type As =
   | 'article'
   | 'aside'
+  | 'button'
   | 'dialog'
   | 'div'
   | 'footer'
@@ -296,6 +297,9 @@ type BoxXCSS = {
   readonly [uniqueSymbol]: BoxStyles;
 };
 
+// @public (undocumented)
+type BoxXCSSArray = Array<BoxXCSS | BoxXCSSArray | false | undefined>;
+
 // @public
 export type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxs';
 
@@ -413,9 +417,27 @@ const media: {
 // @public
 type MediaQuery = (typeof media.above)[Breakpoint];
 
+// @public
+export const Pressable: PressableComponent;
+
+// @public (undocumented)
+type PressableComponent = (
+  props: PressableProps,
+  displayName: string,
+) => ReactElement | null;
+
+// @public (undocumented)
+export type PressableProps = Omit<
+  BaseBoxProps<'button'>,
+  'as' | 'children' | 'disabled' | 'role' | 'style'
+> & {
+  children: ReactNode;
+  isDisabled?: boolean;
+};
+
 // @public (undocumented)
 type PublicBoxPropsBase = {
-  xcss?: Array<BoxXCSS | false | undefined> | BoxXCSS;
+  xcss?: BoxXCSS | BoxXCSSArray;
 };
 
 // @public (undocumented)

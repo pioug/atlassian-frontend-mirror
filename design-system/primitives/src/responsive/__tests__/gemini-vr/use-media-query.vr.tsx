@@ -1,4 +1,4 @@
-import { Device, snapshot } from '@atlassian/gemini-visual-regression';
+import { Device, snapshot } from '@af/visual-regression';
 
 import UseMediaQueryExample from '../../../../examples/50-use-media-query';
 

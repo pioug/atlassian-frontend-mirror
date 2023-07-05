@@ -3,14 +3,23 @@ import { CardPlatform } from '../../../types';
 import { extractPlatformIsSupported } from '../platform/extractPlatformIsSupported';
 import { extractUrlFromLinkJsonLd } from '../url';
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3340 Internal documentation for deprecation (no external access)} use `@atlaskit/link-extractors` instead
+ */
 export interface LinkPreview {
   src?: string;
   content?: string;
   aspectRatio?: number;
 }
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3340 Internal documentation for deprecation (no external access)} use `@atlaskit/link-extractors` instead
+ */
 export type EmbedIframeUrlType = 'href' | 'interactiveHref';
 
+/**
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3340 Internal documentation for deprecation (no external access)} use `@atlaskit/link-extractors` instead
+ */
 export const extractPreview = (
   jsonLd: JsonLd.Data.BaseData,
   platform?: CardPlatform,

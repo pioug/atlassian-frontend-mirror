@@ -496,6 +496,11 @@ export interface DecisionListDefinition {
 export const decisionListSelector: string;
 
 // @public (undocumented)
+interface DefaultMediaAttributes extends RichMediaAttributes {
+  widthType?: 'percentage';
+}
+
+// @public (undocumented)
 export const doc: NodeSpec;
 
 // @public
@@ -597,6 +602,11 @@ type ExpandWithBreakoutDefinition = ExpandBaseDefinition &
   MarksObject<BreakoutMarkDefinition>;
 
 // @public (undocumented)
+export type ExtendedMediaAttributes =
+  | DefaultMediaAttributes
+  | FixedLayoutMediaAttributes;
+
+// @public (undocumented)
 export const extension: NodeSpec;
 
 // @public (undocumented)
@@ -646,6 +656,16 @@ export interface ExternalMediaAttributes {
   url: string;
   // (undocumented)
   width?: number;
+}
+
+// @public
+interface FixedLayoutMediaAttributes {
+  // (undocumented)
+  layout: RichMediaLayout;
+  // (undocumented)
+  width: number;
+  // (undocumented)
+  widthType: 'pixel';
 }
 
 // @public (undocumented)
@@ -1114,7 +1134,7 @@ export const mediaSingle: NodeSpec;
 // @public
 interface MediaSingleBaseDefinition {
   // (undocumented)
-  attrs?: RichMediaAttributes;
+  attrs?: ExtendedMediaAttributes;
   // (undocumented)
   marks?: Array<LinkDefinition>;
   // (undocumented)
@@ -1126,6 +1146,9 @@ export type MediaSingleDefinition =
   | MediaSingleFullDefinition
   | MediaSingleWithCaptionDefinition;
 
+// @public (undocumented)
+export const mediaSingleFull: NodeSpec;
+
 // @public
 interface MediaSingleFullContent {
   content: Array<MediaDefinition>;
@@ -1134,6 +1157,15 @@ interface MediaSingleFullContent {
 // @public
 type MediaSingleFullDefinition = MediaSingleBaseDefinition &
   MediaSingleFullContent;
+
+// @public (undocumented)
+export const mediaSingleSpec: ({
+  withCaption,
+  withExtendedWidthTypes,
+}: {
+  withCaption?: boolean | undefined;
+  withExtendedWidthTypes?: boolean | undefined;
+}) => NodeSpec;
 
 // @public (undocumented)
 export const mediaSingleToJSON: (node: Node_2) => {
@@ -1146,6 +1178,9 @@ export const mediaSingleWithCaption: NodeSpec;
 // @public
 type MediaSingleWithCaptionDefinition = MediaSingleBaseDefinition &
   MediaCaptionContent;
+
+// @public (undocumented)
+export const mediaSingleWithWidthType: NodeSpec;
 
 // @public (undocumented)
 export const mediaToJSON: (node: Node_2) => {

@@ -983,6 +983,28 @@ describe('<LinkPicker />', () => {
       );
     });
 
+    it('should populate url field with item focused url', async () => {
+      const initialResultPromise = Promise.resolve({
+        value: { data: mockedPluginData.slice(0, 3) },
+        done: true,
+      });
+      const plugin = new MockLinkPickerGeneratorPlugin([initialResultPromise]);
+      const { testIds } = setupWithGenericPlugin({
+        url: '',
+        plugins: [plugin],
+      });
+
+      await asyncAct(() => initialResultPromise);
+      const options = await screen.findAllByRole('option');
+      const option = options[2];
+
+      fireEvent.focus(option);
+
+      expect(screen.getByTestId(testIds.urlInputField)).toHaveValue(
+        mockedPluginData[2].url,
+      );
+    });
+
     it('should not submit when URL is invalid and there is no result', async () => {
       const resultPromise = Promise.resolve({
         value: { data: [] },

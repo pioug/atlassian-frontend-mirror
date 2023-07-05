@@ -15,7 +15,7 @@ import Mention from '../../../ui/Mention';
 // eslint-disable-next-line no-console
 let consoleError = console.error;
 
-describe('@atlaskit/editor-core/ui/Mention', () => {
+describe('/ui/Mention', () => {
   beforeEach(() => {
     // eslint-disable-next-line no-console
     console.error = jest.fn();

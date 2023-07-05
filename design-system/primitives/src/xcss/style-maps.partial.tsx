@@ -57,11 +57,11 @@ export type Space = keyof typeof spaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::80db0ba91b44837306516b95e9cf080e>>
+ * @codegen <<SignedSource::65b57f72ff07d4c4245a3eafe8cef786>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "shadow", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::c829bed8504655cd09b971d338d7f3a1>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::efb3dfea27ab3db2fb3756ed9657c5cb>>
  */
 export const borderColorMap = {
   'color.border': token('color.border', '#091e4221'),

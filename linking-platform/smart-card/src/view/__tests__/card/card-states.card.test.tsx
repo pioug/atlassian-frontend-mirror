@@ -9,7 +9,6 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { CardClient, CardProviderStoreOpts } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import '@atlaskit/link-test-helpers/jest';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { Card } from '../../Card';
 import { Provider } from '../../..';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
@@ -362,95 +361,47 @@ describe('smart-card: card states, block', () => {
   });
 
   describe('link clicked', () => {
-    describe('fires `link clicked` analytics event when clicked', () => {
-      ffTest(
-        'platform.linking-platform.smart-card.enable-analytics-context',
-        async () => {
-          window.open = jest.fn();
-          const onEvent = jest.fn();
-          const { getByRole, getByText } = render(
-            <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
-              <IntlProvider locale="en">
-                <Provider client={mockClient}>
-                  <Card appearance="block" url={mockUrl} id="some-id" />
-                </Provider>
-              </IntlProvider>
-            </AnalyticsListener>,
-          );
-          await waitFor(() => getByText('I love cheese'));
+    it('fires `link clicked` analytics event when clicked', async () => {
+      window.open = jest.fn();
+      const onEvent = jest.fn();
+      const { getByRole, getByText } = render(
+        <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
+          <IntlProvider locale="en">
+            <Provider client={mockClient}>
+              <Card appearance="block" url={mockUrl} id="some-id" />
+            </Provider>
+          </IntlProvider>
+        </AnalyticsListener>,
+      );
+      await waitFor(() => getByText('I love cheese'));
 
-          const link = getByRole('link');
-          fireEvent.click(link);
+      const link = getByRole('link');
+      fireEvent.click(link);
 
-          expect(onEvent).toBeFiredWithAnalyticEventOnce(
+      expect(onEvent).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'clicked',
+            actionSubject: 'link',
+          },
+          context: [
             {
-              payload: {
-                action: 'clicked',
-                actionSubject: 'link',
-              },
-              context: [
-                {
-                  componentName: 'smart-cards',
-                },
-                {
-                  attributes: {
-                    display: 'block',
-                    id: 'some-id',
-                  },
-                },
-                {
-                  attributes: {
-                    status: 'resolved',
-                  },
-                },
-              ],
+              componentName: 'smart-cards',
             },
-            ANALYTICS_CHANNEL,
-          );
+            {
+              attributes: {
+                display: 'block',
+                id: 'some-id',
+              },
+            },
+            {
+              attributes: {
+                status: 'resolved',
+              },
+            },
+          ],
         },
-        async () => {
-          window.open = jest.fn();
-          const onEvent = jest.fn();
-          const { getByRole, getByText } = render(
-            <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
-              <IntlProvider locale="en">
-                <Provider client={mockClient}>
-                  <Card appearance="block" url={mockUrl} id="some-id" />
-                </Provider>
-              </IntlProvider>
-            </AnalyticsListener>,
-          );
-          await waitFor(() => getByText('I love cheese'));
-
-          const link = getByRole('link');
-          fireEvent.click(link);
-
-          expect(onEvent).toBeFiredWithAnalyticEventOnce(
-            {
-              payload: {
-                action: 'clicked',
-                actionSubject: 'link',
-              },
-            },
-            ANALYTICS_CHANNEL,
-          );
-          expect(onEvent).not.toBeFiredWithAnalyticEventOnce(
-            {
-              payload: {
-                action: 'clicked',
-                actionSubject: 'link',
-              },
-              context: [
-                {
-                  attributes: {
-                    status: 'resolved',
-                  },
-                },
-              ],
-            },
-            ANALYTICS_CHANNEL,
-          );
-        },
+        ANALYTICS_CHANNEL,
       );
     });
   });

@@ -1,5 +1,7 @@
 import { EditorView } from 'prosemirror-view';
 
+import { CSSToken } from '@atlaskit/tokens';
+
 /*
  * When x is 0, a vertical line is displayed at the center of the editor
  * a negative value will move the line to the left,
@@ -15,7 +17,7 @@ type GuidelineConfig = {
   active?: boolean;
   show?: boolean;
   style?: 'dashed' | 'solid'; // default solid
-  color?: string;
+  color?: CSSToken;
 };
 
 type GuidelinePluginState = {

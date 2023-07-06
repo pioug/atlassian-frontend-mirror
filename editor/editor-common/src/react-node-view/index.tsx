@@ -44,13 +44,13 @@ export default class ReactNodeView<P = ReactComponentProps>
   private _viewShouldUpdate?: shouldUpdate;
   protected eventDispatcher?: EventDispatcher;
   private hasIntlContext: boolean;
-  protected decorations: Decoration[] = [];
+  protected decorations: ReadonlyArray<Decoration> = [];
 
   reactComponentProps: P;
 
   view: EditorView;
   getPos: getPosHandler;
-  contentDOM: Node | undefined;
+  contentDOM: HTMLElement | null | undefined;
   node: PMNode;
 
   constructor(
@@ -166,7 +166,7 @@ export default class ReactNodeView<P = ReactComponentProps>
   }
 
   getContentDOM():
-    | { dom: Node; contentDOM?: Node | null | undefined }
+    | { dom: HTMLElement; contentDOM?: HTMLElement | null | undefined }
     | undefined {
     return undefined;
   }
@@ -196,7 +196,7 @@ export default class ReactNodeView<P = ReactComponentProps>
 
   update(
     node: PMNode,
-    decorations: Array<Decoration>,
+    decorations: ReadonlyArray<Decoration>,
     _innerDecorations?: Array<Decoration>,
     validUpdate: (currentNode: PMNode, newNode: PMNode) => boolean = () => true,
   ) {
@@ -216,7 +216,8 @@ export default class ReactNodeView<P = ReactComponentProps>
 
     // View should not process a re-render if this is false.
     // We dont want to destroy the view, so we return true.
-    if (!this.viewShouldUpdate(node, decorations)) {
+    // TODO: ED-13910 Fix viewShouldUpdate readonly decoration array
+    if (!this.viewShouldUpdate(node, decorations as Decoration[])) {
       this.node = node;
       return true;
     }
@@ -249,7 +250,7 @@ export default class ReactNodeView<P = ReactComponentProps>
   }
 
   get dom() {
-    return this.domRef;
+    return this.domRef as HTMLElement;
   }
 
   destroy() {

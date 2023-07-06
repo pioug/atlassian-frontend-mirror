@@ -65,7 +65,7 @@ export type InlineCommentPluginState = {
   dirtyAnnotations?: boolean;
   mouseData: InlineCommentMouseData;
   draftDecorationSet?: DecorationSet;
-  bookmark?: SelectionBookmark<any>;
+  bookmark?: SelectionBookmark;
 
   // Denotes if annotations are allowed to be create on empty nodes or nodes of whitespace (Confluence spec)
   disallowOnWhitespace: boolean;

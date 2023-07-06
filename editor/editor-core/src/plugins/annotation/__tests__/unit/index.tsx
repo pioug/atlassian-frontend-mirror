@@ -173,7 +173,7 @@ describe('annotation', () => {
 
   describe('component', () => {
     describe('passes selection data to annotation create and view components', () => {
-      let editorView: EditorView<any>;
+      let editorView: EditorView;
       let bookMarkPositions: Refs;
 
       beforeEach(async () => {
@@ -298,7 +298,7 @@ describe('annotation', () => {
     });
 
     describe('view annotation', () => {
-      let editorView: EditorView<any>;
+      let editorView: EditorView;
       let annotationPos: number;
 
       beforeEach(async () => {
@@ -394,7 +394,7 @@ describe('annotation', () => {
 
         it('resolves annotation', () => {
           const pluginState = getPluginState(editorView.state);
-          expect(pluginState.annotations).toStrictEqual({
+          expect(pluginState?.annotations).toStrictEqual({
             first123: true,
           });
         });
@@ -665,7 +665,7 @@ describe('annotation', () => {
 
       // Optimistic creation should create the comment in the state right away.
       const pluginState = getPluginState(editorView.state);
-      expect(Object.keys(pluginState.annotations)).toContain(id);
+      expect(Object.keys(pluginState?.annotations || {})).toContain(id);
     });
 
     it('heading', () => {
@@ -782,12 +782,12 @@ describe('annotation', () => {
 
       // default is on
       let pluginState = getPluginState(editorView.state);
-      expect(pluginState.isVisible).toBe(true);
+      expect(pluginState?.isVisible).toBe(true);
 
       // turn it off
       updateSubscriber.emit('setvisibility', false);
       pluginState = getPluginState(editorView.state);
-      expect(pluginState.isVisible).toBe(false);
+      expect(pluginState?.isVisible).toBe(false);
     });
 
     it('emitter is able to turn it on', () => {
@@ -807,12 +807,12 @@ describe('annotation', () => {
 
       // current state is off
       let pluginState = getPluginState(editorView.state);
-      expect(pluginState.isVisible).toBe(false);
+      expect(pluginState?.isVisible).toBe(false);
 
       // turn it on
       updateSubscriber.emit('setvisibility', true);
       pluginState = getPluginState(editorView.state);
-      expect(pluginState.isVisible).toBe(true);
+      expect(pluginState?.isVisible).toBe(true);
     });
   });
 });

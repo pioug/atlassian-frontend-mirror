@@ -70,12 +70,13 @@ const items: TypeAheadItem[] = [
 describe('type-ahead', () => {
   const TRIGGER = 'X';
   const QUERY = 'Eart';
+  const getNotNullPluginState = (state: EditorState) => getPluginState(state)!;
   const insertItem = (
     editorView: EditorView,
     index: number = 0,
     mode: SelectItemMode = SelectItemMode.SELECTED,
   ) => {
-    const pluginState = getPluginState(editorView.state);
+    const pluginState = getNotNullPluginState(editorView.state);
     insertTypeAheadItem(editorView)({
       item: items[index],
       handler: pluginState.triggerHandler!,
@@ -138,7 +139,7 @@ describe('type-ahead', () => {
     describe('when editor started', () => {
       it('should create an empty decorationSet', () => {
         const { editorView } = editor(doc(p('{<>}')));
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
 
         expect(pluginState.decorationSet).toEqual(DecorationSet.empty);
       });
@@ -149,7 +150,7 @@ describe('type-ahead', () => {
         const { editorView } = editor(doc(p('{<>}')));
         insertText(editorView, TRIGGER);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
 
         expect(pluginState.decorationSet).not.toEqual(DecorationSet.empty);
       });
@@ -163,7 +164,7 @@ describe('type-ahead', () => {
         const tr = closeTypeAhead(editorView.state.tr);
         editorView.dispatch(tr);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
 
         expect(pluginState.decorationElement).toBeNull();
       });
@@ -175,7 +176,7 @@ describe('type-ahead', () => {
         const tr = closeTypeAhead(editorView.state.tr);
         editorView.dispatch(tr);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
 
         expect(pluginState.decorationSet).toEqual(DecorationSet.empty);
       });
@@ -187,11 +188,13 @@ describe('type-ahead', () => {
 
         insertText(editorView, TRIGGER);
 
-        const oldDecorationSet = getPluginState(editorView.state).decorationSet;
+        const oldDecorationSet = getNotNullPluginState(
+          editorView.state,
+        ).decorationSet;
 
         editorView.dispatch(editorView.state.tr.insertText('LOL', 6));
 
-        const nextDecorationSet = getPluginState(
+        const nextDecorationSet = getNotNullPluginState(
           editorView.state,
         ).decorationSet;
         expect(oldDecorationSet).not.toEqual(nextDecorationSet);
@@ -208,7 +211,7 @@ describe('type-ahead', () => {
         tr.setSelection(new TextSelection(tr.doc.resolve(1)));
         editorView.dispatch(tr);
 
-        const nextDecorationSet = getPluginState(
+        const nextDecorationSet = getNotNullPluginState(
           editorView.state,
         ).decorationSet;
         expect(nextDecorationSet).toEqual(DecorationSet.empty);
@@ -226,7 +229,7 @@ describe('type-ahead', () => {
         tr.setSelection(new TextSelection(tr.doc.resolve(1)));
         editorView.dispatch(tr);
 
-        const nextDecorationSet = getPluginState(
+        const nextDecorationSet = getNotNullPluginState(
           editorView.state,
         ).decorationSet;
         expect(nextDecorationSet).toEqual(DecorationSet.empty);
@@ -363,7 +366,7 @@ describe('type-ahead', () => {
         const { editorView } = editor(doc(p('{<>}')));
         insertText(editorView, TRIGGER);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
 
         expect(pluginState.triggerHandler).toEqual(typeAheadHandler);
       });
@@ -377,7 +380,7 @@ describe('type-ahead', () => {
         const tr = closeTypeAhead(editorView.state.tr);
         editorView.dispatch(tr);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
 
         expect(pluginState.triggerHandler).not.toBeDefined();
       });
@@ -421,7 +424,7 @@ describe('type-ahead', () => {
         addInsertInvertedStep(tr);
         editorView.dispatch(tr);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
         expect(pluginState).not.toEqual(
           expect.objectContaining({
             query: QUERY,
@@ -440,7 +443,7 @@ describe('type-ahead', () => {
         addDeleteStep(tr);
         editorView.dispatch(tr);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
         expect(pluginState).toEqual(
           expect.objectContaining({
             query: QUERY,
@@ -460,7 +463,7 @@ describe('type-ahead', () => {
         addInsertInvertedStep(tr);
         editorView.dispatch(tr);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
 
         expect(pluginState).toEqual(
           expect.objectContaining({
@@ -512,7 +515,7 @@ describe('type-ahead', () => {
       });
 
       it('should re-create the plugin state to open the typeahead with selected index set to -1', () => {
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
 
         expect(pluginState).toEqual(
           expect.objectContaining({
@@ -525,7 +528,7 @@ describe('type-ahead', () => {
       });
 
       it('should re-create the decorations', () => {
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
         expect(pluginState.decorationSet).not.toEqual(DecorationSet.empty);
       });
 
@@ -541,7 +544,7 @@ describe('type-ahead', () => {
         });
 
         it('should clean the plugin state to close the typeahead', () => {
-          const pluginState = getPluginState(editorView.state);
+          const pluginState = getNotNullPluginState(editorView.state);
 
           expect(pluginState).toEqual(
             expect.objectContaining({
@@ -574,7 +577,7 @@ describe('type-ahead', () => {
       });
 
       it('should clean the plugin state to close the typeahead', () => {
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
 
         expect(pluginState).toEqual(
           expect.objectContaining({
@@ -598,7 +601,7 @@ describe('type-ahead', () => {
         });
 
         it('should re-create the plugin state to open the typeahead', () => {
-          const pluginState = getPluginState(editorView.state);
+          const pluginState = getNotNullPluginState(editorView.state);
 
           expect(pluginState).toEqual(
             expect.objectContaining({
@@ -666,7 +669,7 @@ describe('type-ahead', () => {
       it('should create an stats object with the TypeAheadStatsModifier interface', () => {
         const { editorView } = editor(doc(p('opa {<>}')));
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
         expect(pluginState.stats).toBeNull();
       });
     });
@@ -676,7 +679,7 @@ describe('type-ahead', () => {
         const { editorView } = editor(doc(p('opa {<>}')));
         insertText(editorView, TRIGGER);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
         expect(pluginState.stats).toBeInstanceOf(StatsModifier);
       });
     });
@@ -711,7 +714,7 @@ describe('type-ahead', () => {
         const { editorView } = editor(doc(p('opa {<>}')));
         insertText(editorView, TRIGGER);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
         const stats = pluginState.stats! as TypeAheadStatsModifier;
         stats.increaseArrowUp();
 
@@ -742,7 +745,7 @@ describe('type-ahead', () => {
         const { editorView } = editor(doc(p('opa {<>}')));
         insertText(editorView, TRIGGER);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getNotNullPluginState(editorView.state);
         const stats = pluginState.stats! as TypeAheadStatsModifier;
         stats.increaseArrowDown();
 
@@ -807,7 +810,7 @@ describe('type-ahead', () => {
       insertText(editorView, TRIGGER);
       insertItem(editorView);
 
-      const pluginState = getPluginState(editorView.state);
+      const pluginState = getNotNullPluginState(editorView.state);
 
       expect(pluginState.triggerHandler).toBeFalsy();
     });

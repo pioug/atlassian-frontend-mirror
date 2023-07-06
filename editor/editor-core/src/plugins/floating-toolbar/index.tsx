@@ -61,7 +61,7 @@ export type ConfigWithNodeInfo = {
 };
 
 export const getRelevantConfig = (
-  selection: Selection<any>,
+  selection: Selection,
   configs: Array<FloatingToolbarConfig>,
 ): ConfigWithNodeInfo | undefined => {
   // node selections always take precedence, see if

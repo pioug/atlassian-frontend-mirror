@@ -450,7 +450,7 @@ export const updateCard =
   };
 
 function cardToLinkWithTransaction(
-  state: EditorState<any>,
+  state: EditorState,
   text: string | undefined,
   href: string | undefined,
 ): Transaction {
@@ -469,7 +469,7 @@ function cardToLinkWithTransaction(
 }
 
 function cardNodeToLinkWithTransaction(
-  state: EditorState<any>,
+  state: EditorState,
   text: string | undefined,
   href: string | undefined,
   node: Node,
@@ -545,7 +545,7 @@ export const setSelectedCardAppearance: (
       }
     : selectedNode.attrs;
   const { from, to } = state.selection;
-  const nodeType = getLinkNodeType(appearance, state.schema.nodes);
+  const nodeType = getLinkNodeType(appearance, state.schema.nodes as LinkNodes);
   const tr = state.tr.setNodeMarkup(from, nodeType, attrs, selectedNode.marks);
 
   // When the selected card is the last element in the doc we add a new paragraph after it for consistent replacement
@@ -602,7 +602,7 @@ const getLinkNodeType = (
 // Apply an update to a datasource (aka blockCard) node
 export const updateExistingDatasource = (
   state: EditorState,
-  node: Node<any>,
+  node: Node,
   newAdf: DatasourceAdf | InlineCardAdf,
   view: EditorView,
 ) => {

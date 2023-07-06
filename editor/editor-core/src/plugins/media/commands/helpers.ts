@@ -60,7 +60,11 @@ export const isMediaNode = (pos: number, state: EditorState) => {
 export const updateAllMediaSingleNodesAttrs =
   (id: string, attrs: object): Command =>
   (state, dispatch) => {
-    const mediaPluginState: MediaPluginState = mediaPluginKey.getState(state);
+    const mediaPluginState = mediaPluginKey.getState(state);
+
+    if (!mediaPluginState) {
+      return false;
+    }
 
     let mediaNodes: MediaNodeWithPosHandler[];
     mediaNodes = findAllMediaSingleNodes(mediaPluginState, id);
@@ -124,7 +128,11 @@ export const updateCurrentMediaNodeAttrs =
 export const updateMediaSingleNodeAttrs =
   (id: string, attrs: object): Command =>
   (state, dispatch) => {
-    const mediaPluginState: MediaPluginState = mediaPluginKey.getState(state);
+    const mediaPluginState = mediaPluginKey.getState(state);
+
+    if (!mediaPluginState) {
+      return false;
+    }
 
     const mediaNodeWithPos = findMediaSingleNode(mediaPluginState, id);
 

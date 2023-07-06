@@ -57,7 +57,7 @@ export function getDefaultLayoutMaxWidth(containerWidth?: number): number {
 }
 
 // Does the current position point at a cell.
-export function pointsAtCell($pos: ResolvedPos<any>) {
+export function pointsAtCell($pos: ResolvedPos) {
   return (
     ($pos.parent.type.spec as NodeSpec & { tableRole: string }).tableRole ===
       'row' && $pos.nodeAfter

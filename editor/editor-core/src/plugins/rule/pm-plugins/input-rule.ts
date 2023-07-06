@@ -34,7 +34,7 @@ export const createHorizontalRule = (
     return null;
   }
 
-  let tr: Transaction<any> | null = null;
+  let tr: Transaction | null = null;
   const { rule } = state.schema.nodes;
   const { newInsertionBehaviour } = featureFlags;
   if (newInsertionBehaviour) {

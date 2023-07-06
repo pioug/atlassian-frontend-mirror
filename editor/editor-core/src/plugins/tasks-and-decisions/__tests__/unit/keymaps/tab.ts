@@ -446,7 +446,9 @@ describe('tasks and decisions - keymaps', () => {
       });
 
       const plugin = keymapPlugin(editorView.state.schema, undefined, true)!;
-      expect(plugin.props.handleKeyDown!(editorView, tab)).toBe(true);
+      expect(plugin.props.handleKeyDown?.call(plugin, editorView, tab)).toBe(
+        true,
+      );
     });
 
     it('eats shift-tabs inside actions', () => {
@@ -456,7 +458,9 @@ describe('tasks and decisions - keymaps', () => {
       });
 
       const plugin = keymapPlugin(editorView.state.schema, undefined, true)!;
-      expect(plugin.props.handleKeyDown!(editorView, shiftTab)).toBe(true);
+      expect(
+        plugin.props.handleKeyDown?.call(plugin, editorView, shiftTab),
+      ).toBe(true);
     });
 
     it('does nothing with tab outside actions', () => {
@@ -466,7 +470,9 @@ describe('tasks and decisions - keymaps', () => {
       });
 
       const plugin = keymapPlugin(editorView.state.schema, undefined, true)!;
-      expect(plugin.props.handleKeyDown!(editorView, tab)).toBe(false);
+      expect(plugin.props.handleKeyDown?.call(plugin, editorView, tab)).toBe(
+        false,
+      );
     });
 
     it('does nothing with shift-tab outside actions', () => {
@@ -476,7 +482,9 @@ describe('tasks and decisions - keymaps', () => {
       });
 
       const plugin = keymapPlugin(editorView.state.schema, undefined, true)!;
-      expect(plugin.props.handleKeyDown!(editorView, shiftTab)).toBe(false);
+      expect(
+        plugin.props.handleKeyDown?.call(plugin, editorView, shiftTab),
+      ).toBe(false);
     });
   });
 });

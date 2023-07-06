@@ -165,7 +165,7 @@ export const insertInlineNodeOrFragment = ({
   }
 
   return tr.setSelection(
-    TextSelection.near(tr.doc.resolve(start + fragment.size)),
+    TextSelection.near(tr.doc.resolve(start + (fragment?.size || 0))),
   );
 };
 

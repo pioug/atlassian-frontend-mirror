@@ -2,6 +2,7 @@ import { ResolvedPos } from 'prosemirror-model';
 import {
   EditorState,
   NodeSelection,
+  Selection,
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
@@ -45,7 +46,7 @@ export function normalizeSelection(
     normalize = TextSelection.create(doc, sel.$from.start(), sel.$from.end());
   }
   if (normalize) {
-    (tr || (tr = state.tr)).setSelection(normalize);
+    (tr || (tr = state.tr)).setSelection(normalize as Selection);
   }
   return tr;
 }

@@ -52,10 +52,12 @@ export const createDate =
 export const deleteDate =
   (): Command =>
   (state, dispatch): boolean => {
-    const { showDatePickerAt }: DatePluginState = pluginKey.getState(state);
-    if (showDatePickerAt === null) {
+    const pluginState = pluginKey.getState(state);
+    if (!pluginState || pluginState.showDatePickerAt === null) {
       return false;
     }
+
+    const { showDatePickerAt } = pluginState;
     const tr = state.tr
       .delete(showDatePickerAt, showDatePickerAt + 1)
       .setMeta(pluginKey, { showDatePickerAt: null, isNew: false });
@@ -69,8 +71,8 @@ export const deleteDate =
 export const focusDateInput =
   () =>
   (state: EditorState, dispatch: CommandDispatch | undefined): boolean => {
-    const { showDatePickerAt }: DatePluginState = pluginKey.getState(state);
-    if (showDatePickerAt === null) {
+    const pluginState = pluginKey.getState(state);
+    if (!pluginState || pluginState.showDatePickerAt === null) {
       return false;
     }
     if (!dispatch) {
@@ -122,7 +124,7 @@ export const insertDate =
       });
     }
 
-    const { showDatePickerAt }: DatePluginState = pluginKey.getState(state);
+    const { showDatePickerAt } = pluginKey.getState(state) || {};
 
     if (!showDatePickerAt) {
       const dateNode = schema.nodes.date.createChecked({ timestamp });
@@ -197,7 +199,7 @@ export const setDatePickerAt =
 export const closeDatePicker =
   (): Command =>
   (state: EditorState, dispatch: CommandDispatch | undefined) => {
-    const { showDatePickerAt }: DatePluginState = pluginKey.getState(state);
+    const { showDatePickerAt } = pluginKey.getState(state) || {};
     if (!dispatch) {
       return false;
     }

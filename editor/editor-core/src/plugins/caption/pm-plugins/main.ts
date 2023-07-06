@@ -42,10 +42,10 @@ export default (
   const analyticsApi = pluginInjectionApi?.dependencies.analytics?.actions;
   return new SafePlugin({
     appendTransaction(
-      transactions: Transaction[],
+      transactions: readonly Transaction[],
       oldState: EditorState,
       newState: EditorState,
-    ): Transaction | void {
+    ) {
       // only run for transactions that change selection
       if (!transactions.find((tr) => tr.selectionSet)) {
         return;

@@ -99,10 +99,8 @@ const onUnResolve =
 
 const onMouseUp =
   (state: EditorState, dispatch: CommandDispatch) => (e: Event) => {
-    const {
-      mouseData: { isSelecting },
-    } = getPluginState(state);
-    if (isSelecting) {
+    const { mouseData } = getPluginState(state) || {};
+    if (mouseData?.isSelecting) {
       updateMouseState({ isSelecting: false })(state, dispatch);
     }
   };
@@ -159,7 +157,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 
       return {
         update(view: EditorView, _prevState: EditorState) {
-          const { dirtyAnnotations } = getPluginState(view.state);
+          const { dirtyAnnotations } = getPluginState(view.state) || {};
           if (!dirtyAnnotations) {
             return;
           }
@@ -197,7 +195,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
       handleDOMEvents: {
         mousedown: (view) => {
           const pluginState = getPluginState(view.state);
-          if (!pluginState.mouseData.isSelecting) {
+          if (!pluginState?.mouseData.isSelecting) {
             hideToolbar(view.state, view.dispatch)();
           }
           return false;
@@ -210,7 +208,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
           annotations,
           selectedAnnotations,
           isVisible,
-        } = getPluginState(state);
+        } = getPluginState(state) || {};
 
         let decorations = draftDecorationSet ?? DecorationSet.empty;
         const focusDecorations: Decoration[] = [];
@@ -219,10 +217,11 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
           node.marks
             .filter((mark) => mark.type === state.schema.marks.annotation)
             .forEach((mark) => {
-              const isSelected = selectedAnnotations.some(
+              const isSelected = !!selectedAnnotations?.some(
                 (selectedAnnotation) => selectedAnnotation.id === mark.attrs.id,
               );
-              const isUnresolved = annotations[mark.attrs.id] === false;
+              const isUnresolved =
+                !!annotations && annotations[mark.attrs.id] === false;
 
               if (isVisible) {
                 focusDecorations.push(

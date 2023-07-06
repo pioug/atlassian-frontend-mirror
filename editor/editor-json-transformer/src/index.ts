@@ -175,7 +175,10 @@ const toJSON = (node: PMNode): JSONNode => {
   return obj;
 };
 
-const canOverrideMark = (mark: PMMark, existingMarks: PMMark[]): boolean => {
+const canOverrideMark = (
+  mark: PMMark,
+  existingMarks: readonly PMMark[],
+): boolean => {
   if (
     existingMarks.some((e) => mark.attrs.originalValue.type === e.type.name)
   ) {

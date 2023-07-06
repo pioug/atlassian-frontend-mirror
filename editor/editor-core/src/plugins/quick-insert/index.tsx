@@ -62,8 +62,7 @@ const quickInsertPlugin: NextEditorPlugin<
       trigger: '/',
       headless: options ? options.headless : undefined,
       getItems({ query, editorState }) {
-        const quickInsertState: QuickInsertPluginState =
-          pluginKey.getState(editorState);
+        const quickInsertState = pluginKey.getState(editorState);
 
         return Promise.resolve(
           searchQuickInsertItems(quickInsertState, options)(query),
@@ -92,17 +91,23 @@ const quickInsertPlugin: NextEditorPlugin<
 export default quickInsertPlugin;
 
 const processItems = (
-  items: Array<QuickInsertHandler>,
+  items: Array<QuickInsertHandler | QuickInsertItem>,
   intl: IntlShape,
   extendedActions?: Record<string, Function>,
 ) => {
-  const reducedItems = items.reduce((acc: Array<QuickInsertItem>, item) => {
-    if (typeof item === 'function') {
-      const quickInsertItems = item(intl);
-      return acc.concat(quickInsertItems);
-    }
-    return acc.concat(item);
-  }, []);
+  const reducedItems = items.reduce(
+    (
+      acc: Array<QuickInsertItem>,
+      item: QuickInsertHandler | QuickInsertItem,
+    ) => {
+      if (typeof item === 'function') {
+        const quickInsertItems = item(intl);
+        return acc.concat(quickInsertItems);
+      }
+      return acc.concat(item);
+    },
+    [],
+  );
   return extendQuickInsertAction(reducedItems, extendedActions);
 };
 

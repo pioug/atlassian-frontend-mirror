@@ -423,10 +423,9 @@ function applyHeaderCells(
       : schema.nodes.tableCell;
 
     const isCellTypeChanged = newType !== cell?.type;
-    const isCellTypeValid = [
-      schema.nodes.tableCell,
-      schema.nodes.tableHeader,
-    ].includes(cell?.type);
+    const isCellTypeValid =
+      !!cell &&
+      [schema.nodes.tableCell, schema.nodes.tableHeader].includes(cell.type);
 
     if (isCellTypeChanged && isCellTypeValid) {
       tr.setNodeMarkup(cellPos, newType, cell?.attrs, cell?.marks);

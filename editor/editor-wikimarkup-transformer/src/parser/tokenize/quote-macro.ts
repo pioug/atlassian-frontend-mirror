@@ -103,6 +103,8 @@ function sanitize(nodes: PMNode[], schema: Schema) {
   return output;
 }
 
+export type Writeable<T> = { -readonly [P in keyof T]: T[P] };
+
 function transformHeading(heading: PMNode, schema: Schema): PMNode {
   const contentBuffer: PMNode[] = [];
   heading.content.forEach((n) => {
@@ -112,6 +114,7 @@ function transformHeading(heading: PMNode, schema: Schema): PMNode {
 
     if (n.type.name === 'text') {
       if (n.text && heading.attrs.level === 1) {
+        // @ts-ignore assigning to readonly prop to transform text
         n.text = n.text.toUpperCase();
       }
       if (heading.attrs.level <= 4 && !hasAnyOfMarks(n, ['strong', 'code'])) {

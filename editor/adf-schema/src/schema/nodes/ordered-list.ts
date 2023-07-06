@@ -1,5 +1,4 @@
 import { NodeSpec } from 'prosemirror-model';
-import { OrderedListDefinition } from './types/list';
 
 export const orderedListSelector = '.ak-ol';
 
@@ -39,7 +38,7 @@ export const orderedListWithOrder: NodeSpec = {
   parseDOM: [
     {
       tag: 'ol',
-      getAttrs: (domNode): OrderedListDefinition['attrs'] | null => {
+      getAttrs: (domNode) => {
         const dom = domNode as HTMLElement;
         let startDOMAttr = dom.getAttribute('start');
         if (startDOMAttr) {

@@ -277,7 +277,7 @@ describe('frozen editor', () => {
           ufo: true,
           inputTracking: { enabled: true, samplingRate: 1 },
         });
-        plugin?.props?.handleTextInput?.(editorView, 0, 1, 'a');
+        (plugin?.props as any).handleTextInput?.(editorView, 0, 1, 'a');
       });
 
       it('starts new typing experience', () => {
@@ -308,7 +308,7 @@ describe('frozen editor', () => {
         const { editorView, plugin } = editor(doc(p('{<>}')), {
           inputTracking: { enabled: true, samplingRate: 1 },
         });
-        plugin?.props?.handleTextInput?.(editorView, 0, 1, 'a');
+        (plugin?.props as any).handleTextInput?.(editorView, 0, 1, 'a');
         expect(mockStore.start).not.toHaveBeenCalled();
       });
     });

@@ -388,12 +388,12 @@ describe('block-type', () => {
 
     setTextSelection(editorView, h1Pos);
     expect(
-      blockTypePluginKey.getState(editorView.state).currentBlockType.name,
+      blockTypePluginKey.getState(editorView.state)?.currentBlockType.name,
     ).toBe('heading1');
 
     setTextSelection(editorView, pPos);
     expect(
-      blockTypePluginKey.getState(editorView.state).currentBlockType.name,
+      blockTypePluginKey.getState(editorView.state)?.currentBlockType.name,
     ).toBe('normal');
   });
 

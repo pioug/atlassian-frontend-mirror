@@ -31,7 +31,7 @@ describe(name, () => {
         { allowInserting: true },
       );
       const pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.allowInserting).toBe(true);
+      expect(pluginState?.allowInserting).toBe(true);
     });
 
     it('should provide the placeholderText node', () => {
@@ -73,7 +73,7 @@ describe(name, () => {
           { allowInserting: false },
         );
         const pluginState = pluginKey.getState(editorView.state);
-        expect(pluginState.allowInserting).toBe(false);
+        expect(pluginState?.allowInserting).toBe(false);
       });
 
       it('should provide the placeholderText node', () => {

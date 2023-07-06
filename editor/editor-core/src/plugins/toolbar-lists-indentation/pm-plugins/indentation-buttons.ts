@@ -31,7 +31,7 @@ export const pluginKey = new PluginKey<IndentationButtons>(
 function getIndentationButtonsState(
   editorState: EditorState,
   allowHeadingAndParagraphIndentation: boolean,
-) {
+): IndentationButtons {
   const state = {
     indentDisabled: true,
     outdentDisabled: true,

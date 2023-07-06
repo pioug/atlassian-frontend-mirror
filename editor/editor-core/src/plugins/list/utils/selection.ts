@@ -77,7 +77,7 @@ export const isInsideListItem = (state: EditorState): boolean => {
   );
 };
 
-export const isInsideTableCell = (state: EditorState<any>): boolean => {
+export const isInsideTableCell = (state: EditorState): boolean => {
   const { tableCell, tableHeader } = state.schema.nodes;
   return !!findParentNodeOfType([tableCell, tableHeader])(state.selection);
 };

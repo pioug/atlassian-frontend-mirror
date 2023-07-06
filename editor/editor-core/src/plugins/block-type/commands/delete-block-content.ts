@@ -4,7 +4,7 @@ import { Command } from '../../../types';
 /**
  * Prevent removing the block when deleting block content
  *
- * @param state EditorState<any>
+ * @param state EditorState
  * @param dispatch CommandDispatch
  * @returns boolean
  */

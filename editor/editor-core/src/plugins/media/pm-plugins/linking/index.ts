@@ -5,6 +5,7 @@ import {
   ReadonlyTransaction,
   NodeSelection,
 } from 'prosemirror-state';
+import { Mark } from 'prosemirror-model';
 import { Dispatch } from '../../../../event-dispatcher';
 import { MediaLinkingActions } from './actions';
 import { MediaLinkingState, InitialState } from './types';
@@ -48,7 +49,7 @@ function onSelectionChanged(tr: ReadonlyTransaction): MediaLinkingState {
     return initialState;
   }
 
-  const mark = node.marks.find((mark) => mark.type.name === 'link');
+  const mark = node.marks.find((mark: Mark) => mark.type.name === 'link');
   if (mark) {
     return {
       ...initialState,

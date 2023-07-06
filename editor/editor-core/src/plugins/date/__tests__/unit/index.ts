@@ -39,7 +39,6 @@ import editorDisabledPlugin from '../../../editor-disabled';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { pluginKey } from '../../pm-plugins/plugin-key';
 import { parseDateType } from '../../utils/formatParse';
-import { DatePluginState } from '../../pm-plugins/types';
 import { DateType } from '../../types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -86,7 +85,7 @@ describe('date plugin', () => {
           view.dispatch,
         );
 
-        const pluginState: DatePluginState = pluginKey.getState(view.state);
+        const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toEqual(showDatePickerAt);
         expect(result).toBe(true);
       });
@@ -123,7 +122,7 @@ describe('date plugin', () => {
         expect(
           view.state.doc.nodeAt(view.state.selection.$from.pos)!.type.name,
         ).toEqual(view.state.schema.nodes.date.name);
-        const pluginState: DatePluginState = pluginKey.getState(view.state);
+        const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toEqual(6);
         expect(pluginState.isNew).toEqual(true);
       });
@@ -223,9 +222,7 @@ describe('date plugin', () => {
         openDatePicker()(view.state, view.dispatch);
 
         // Check node exists before updating
-        const beforeInsertPluginState: DatePluginState = pluginKey.getState(
-          view.state,
-        );
+        const beforeInsertPluginState = pluginKey.getState(view.state)!;
         expect(beforeInsertPluginState.showDatePickerAt).toBeTruthy;
 
         // Update date
@@ -237,7 +234,7 @@ describe('date plugin', () => {
         // Simulate clicking a day in the calendar (note date already exists)
         insertDate(dateObj)(view.state, view.dispatch);
 
-        const newPluginState: DatePluginState = pluginKey.getState(view.state);
+        const newPluginState = pluginKey.getState(view.state)!;
 
         expect(newPluginState.showDatePickerAt).toBe(null);
         expect(newPluginState.isNew).toBe(false);
@@ -270,7 +267,7 @@ describe('date plugin', () => {
         // Don't use dispatch to mimic collab provider
         view.updateState(view.state.apply(documentChangeTr));
 
-        const pluginState: DatePluginState = pluginKey.getState(view.state);
+        const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toEqual(mappedPos);
       });
 
@@ -402,7 +399,7 @@ describe('date plugin', () => {
           false,
         )(view.state, view.dispatch);
 
-        const pluginState = pluginKey.getState(view.state);
+        const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toBeTruthy();
         expect(pluginState.isNew).toBe(false);
         expect(view.state.selection instanceof NodeSelection).toEqual(true);
@@ -421,7 +418,7 @@ describe('date plugin', () => {
           true,
         )(view.state, view.dispatch);
 
-        const pluginState = pluginKey.getState(view.state);
+        const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toBeFalsy();
         expect(pluginState.isNew).toBe(false);
         expect(view.state.selection instanceof NodeSelection).toEqual(false);
@@ -434,8 +431,8 @@ describe('date plugin', () => {
           doc(paragraph('hello{<>}', date(attrs))),
         );
         openDatePicker()(view.state, view.dispatch);
-        const pluginState: DatePluginState = pluginKey.getState(view.state);
-        expect(pluginState.showDatePickerAt).toBeTruthy();
+        const pluginState = pluginKey.getState(view.state);
+        expect(pluginState?.showDatePickerAt).toBeTruthy();
         expect(view.state.selection instanceof NodeSelection).toEqual(true);
       });
 
@@ -444,7 +441,7 @@ describe('date plugin', () => {
           doc(paragraph('hello{<>}', date(attrs))),
         );
         openDatePicker()(view.state, view.dispatch);
-        const pluginState: DatePluginState = pluginKey.getState(view.state);
+        const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toBeTruthy();
         expect(pluginState.isNew).toBe(false);
         expect(view.state.selection instanceof NodeSelection).toEqual(true);
@@ -457,9 +454,7 @@ describe('date plugin', () => {
         expect(
           view.state.doc.nodeAt(view.state.selection.$from.pos)!.type.name,
         ).toEqual(view.state.schema.nodes.date.name);
-        const initialPluginState: DatePluginState = pluginKey.getState(
-          view.state,
-        );
+        const initialPluginState = pluginKey.getState(view.state)!;
         expect(initialPluginState.showDatePickerAt).toEqual(6);
         expect(initialPluginState.isNew).toEqual(true);
         expect(view.state.selection instanceof NodeSelection).toEqual(true);
@@ -473,7 +468,7 @@ describe('date plugin', () => {
         tr.setSelection(NodeSelection.create(tr.doc, sel));
         view.dispatch(tr);
         sendKeyToPm(view, 'Enter');
-        const pluginState: DatePluginState = pluginKey.getState(view.state);
+        const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toBeTruthy();
         expect(view.state.selection instanceof NodeSelection).toEqual(true);
       });
@@ -486,7 +481,7 @@ describe('date plugin', () => {
         );
         openDatePicker()(view.state, view.dispatch);
         closeDatePicker()(view.state, view.dispatch);
-        const newPluginState: DatePluginState = pluginKey.getState(view.state);
+        const newPluginState = pluginKey.getState(view.state)!;
         expect(newPluginState.showDatePickerAt).toBe(null);
         expect(newPluginState.isNew).toBe(false);
         expect(view.state.selection instanceof NodeSelection).toEqual(false);
@@ -500,13 +495,11 @@ describe('date plugin', () => {
         openDatePicker()(view.state, view.dispatch);
 
         // isNew should be true after opening
-        const initialPluginState: DatePluginState = pluginKey.getState(
-          view.state,
-        );
+        const initialPluginState = pluginKey.getState(view.state)!;
         expect(initialPluginState.isNew).toEqual(true);
 
         closeDatePicker()(view.state, view.dispatch);
-        const newPluginState: DatePluginState = pluginKey.getState(view.state);
+        const newPluginState = pluginKey.getState(view.state)!;
         expect(newPluginState.isNew).toBe(false);
       });
 
@@ -548,9 +541,7 @@ describe('date plugin', () => {
           doc(paragraph('{textStart}hello', '{<node>}', date(attrs))),
         );
 
-        const initialPluginState: DatePluginState = pluginKey.getState(
-          view.state,
-        );
+        const initialPluginState = pluginKey.getState(view.state)!;
         expect(initialPluginState.isNew).toBe(false);
 
         view.dispatch(
@@ -558,7 +549,7 @@ describe('date plugin', () => {
             TextSelection.create(view.state.doc, refs.textStart),
           ),
         );
-        const pluginState: DatePluginState = pluginKey.getState(view.state);
+        const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toBeNull();
         expect(pluginState.isNew).toBe(false);
       });
@@ -569,9 +560,7 @@ describe('date plugin', () => {
         );
         insertDate()(view.state, view.dispatch);
 
-        const initialPluginState: DatePluginState = pluginKey.getState(
-          view.state,
-        );
+        const initialPluginState = pluginKey.getState(view.state)!;
         expect(initialPluginState.showDatePickerAt).toBeTruthy();
         expect(initialPluginState.isNew).toBe(true);
 
@@ -580,7 +569,7 @@ describe('date plugin', () => {
             TextSelection.create(view.state.doc, refs.newSelectPos),
           ),
         );
-        const pluginState: DatePluginState = pluginKey.getState(view.state);
+        const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toBeNull();
         expect(pluginState.isNew).toBe(false);
       });
@@ -597,9 +586,7 @@ describe('date plugin', () => {
         );
         insertDate()(view.state, view.dispatch);
 
-        const initialPluginState: DatePluginState = pluginKey.getState(
-          view.state,
-        );
+        const initialPluginState = pluginKey.getState(view.state)!;
         expect(initialPluginState.showDatePickerAt).toBe(refs.insertPoint);
         expect(initialPluginState.isNew).toBe(true);
 
@@ -609,7 +596,7 @@ describe('date plugin', () => {
           ),
         );
         openDatePicker()(view.state, view.dispatch);
-        const pluginState: DatePluginState = pluginKey.getState(view.state);
+        const pluginState = pluginKey.getState(view.state)!;
         expect(pluginState.showDatePickerAt).toBe(refs.originalDateNode);
         expect(pluginState.isNew).toBe(false);
       });
@@ -639,7 +626,7 @@ describe('date plugin', () => {
       expect(editorView.state.doc).toEqualDocument(
         doc(paragraph(date(attrs), ' ')),
       );
-      const pluginState: DatePluginState = pluginKey.getState(editorView.state);
+      const pluginState = pluginKey.getState(editorView.state)!;
       expect(pluginState.showDatePickerAt).toBeTruthy();
       expect(pluginState.isNew).toBe(true);
     });

@@ -24,6 +24,9 @@ export function useQuickInsert(
       const quickInsertPluginState = quickInsertPluginKey.getState(
         bridge.editorView.state,
       );
+      if (!quickInsertPluginState) {
+        return;
+      }
       return processQuickInsertItems(
         quickInsertPluginState.lazyDefaultItems(),
         intl,

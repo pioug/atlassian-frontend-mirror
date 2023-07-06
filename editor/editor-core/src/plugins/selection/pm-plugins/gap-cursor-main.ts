@@ -106,13 +106,13 @@ const plugin = new SafePlugin({
     ) {
       if (view && view.state && view.state.selection instanceof CellSelection) {
         // Do not show GapCursor when there is a CellSection happening
-        return;
+        return null;
       }
 
       if ($anchor.pos === $head.pos && GapCursorSelection.valid($head)) {
         return new GapCursorSelection($head);
       }
-      return;
+      return null;
     },
 
     // there's no space between top level nodes and the wrapping ProseMirror contenteditable area and handleClick won't capture clicks, there's nothing to click on

@@ -32,11 +32,11 @@ import { findAndTrackUnsupportedContentNodes } from './track-unsupported-content
 import { validateADFEntity } from './validate-using-spec';
 
 type ChangedFn = (
-  node: Node<any>,
+  node: Node,
   pos: number,
-  parent: Node<any>,
+  parent: Node | null,
   index: number,
-) => boolean | null | undefined | void;
+) => boolean | void;
 
 export const getStepRange = (
   transaction: Transaction | ReadonlyTransaction,

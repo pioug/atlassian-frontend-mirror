@@ -7,8 +7,8 @@ import { getSendableSelection } from '../actions';
 import { pluginKey } from '../plugin-key';
 
 type Props = {
-  originalTransaction: Transaction;
-  transactions: Transaction[];
+  originalTransaction: Readonly<Transaction>;
+  transactions: readonly Transaction[];
   oldEditorState: EditorState;
   newEditorState: EditorState;
   useNativePlugin: boolean;
@@ -26,7 +26,7 @@ export const sendTransaction =
     const docChangedTransaction = transactions.find((tr) => tr.docChanged);
     const currentPluginState = pluginKey.getState(newEditorState);
 
-    if (!currentPluginState.isReady) {
+    if (!currentPluginState?.isReady) {
       return;
     }
 
@@ -47,12 +47,14 @@ export const sendTransaction =
     }
 
     const prevPluginState = pluginKey.getState(oldEditorState);
-    const { activeParticipants: prevActiveParticipants } = prevPluginState;
+    const { activeParticipants: prevActiveParticipants } =
+      prevPluginState || {};
     const { activeParticipants, sessionId } = currentPluginState;
     const selectionChanged = !oldEditorState.selection.eq(
       newEditorState.selection,
     );
-    const participantsChanged = !prevActiveParticipants.eq(activeParticipants);
+    const participantsChanged =
+      prevActiveParticipants && !prevActiveParticipants.eq(activeParticipants);
     if (
       (sessionId && selectionChanged && !docChangedTransaction) ||
       (sessionId && participantsChanged)

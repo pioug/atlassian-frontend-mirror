@@ -74,7 +74,7 @@ describe('ToolbarUndoRedo', () => {
     tr.insertText('more', 0);
     editorView.dispatch(tr);
 
-    const historyState = historyPluginKey.getState(editorView.state);
+    const historyState = historyPluginKey.getState(editorView.state)!;
 
     const { getByTestId, rerender } = render(
       <ToolbarUndoRedo
@@ -89,7 +89,7 @@ describe('ToolbarUndoRedo', () => {
     const redoButton = getByTestId(redoSelector);
     fireEvent.click(undoButton);
 
-    const newHistoryState = historyPluginKey.getState(editorView.state);
+    const newHistoryState = historyPluginKey.getState(editorView.state)!;
 
     rerender(
       <ToolbarUndoRedo
@@ -110,7 +110,7 @@ describe('ToolbarUndoRedo', () => {
     tr.insertText('more', 0);
     editorView.dispatch(tr);
 
-    const historyState = historyPluginKey.getState(editorView.state);
+    const historyState = historyPluginKey.getState(editorView.state)!;
 
     const { getByTestId, rerender } = render(
       <ToolbarUndoRedo
@@ -125,7 +125,7 @@ describe('ToolbarUndoRedo', () => {
     const redoButton = getByTestId(redoSelector);
 
     fireEvent.click(undoButton);
-    let newHistoryState = historyPluginKey.getState(editorView.state);
+    let newHistoryState = historyPluginKey.getState(editorView.state)!;
 
     // We need to rerender here before firing the redoButton click
     // otherwise the redoButton is still disabled
@@ -139,7 +139,7 @@ describe('ToolbarUndoRedo', () => {
     );
 
     fireEvent.click(redoButton);
-    newHistoryState = historyPluginKey.getState(editorView.state);
+    newHistoryState = historyPluginKey.getState(editorView.state)!;
 
     rerender(
       <ToolbarUndoRedo
@@ -162,7 +162,7 @@ describe('ToolbarUndoRedo', () => {
       tr.insertText('more', 0);
       editorView.dispatch(tr);
 
-      const historyState = historyPluginKey.getState(editorView.state);
+      const historyState = historyPluginKey.getState(editorView.state)!;
       const { getByTestId, rerender } = render(
         <AnalyticsListener onEvent={onEvent} channel={FabricChannel.editor}>
           <ToolbarUndoRedo
@@ -179,7 +179,7 @@ describe('ToolbarUndoRedo', () => {
       fireEvent.click(undoButton);
       onEvent.mockClear();
 
-      let newHistoryState = historyPluginKey.getState(editorView.state);
+      let newHistoryState = historyPluginKey.getState(editorView.state)!;
       rerender(
         <AnalyticsListener onEvent={onEvent} channel={FabricChannel.editor}>
           <ToolbarUndoRedo
@@ -214,7 +214,7 @@ describe('ToolbarUndoRedo', () => {
       tr.insertText('more', 0);
       editorView.dispatch(tr);
 
-      const historyState = historyPluginKey.getState(editorView.state);
+      const historyState = historyPluginKey.getState(editorView.state)!;
       const { getByTestId } = render(
         <AnalyticsListener onEvent={onEvent} channel={FabricChannel.editor}>
           <ToolbarUndoRedo
@@ -248,7 +248,7 @@ describe('ToolbarUndoRedo', () => {
   describe('keyboard shortcuts', () => {
     it('should have ARIA keyshortcuts attribute', () => {
       const { editorView } = editor(doc(p('some text')));
-      const historyState = historyPluginKey.getState(editorView.state);
+      const historyState = historyPluginKey.getState(editorView.state)!;
 
       const { getByTestId } = render(
         <ToolbarUndoRedo

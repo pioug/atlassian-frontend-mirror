@@ -522,8 +522,8 @@ describe('lists', () => {
         ),
       );
       const pluginState = pluginKey.getState(editorView.state);
-
-      expect(pluginState.decorationSet.find()[1].type.attrs).toEqual({
+      // @ts-ignore - allow accessing type for testing
+      expect(pluginState?.decorationSet.find()[1].type.attrs).toEqual({
         'data-child-count': '100+',
       });
     });
@@ -545,7 +545,7 @@ describe('lists', () => {
       );
       const pluginState = pluginKey.getState(editorView.state);
 
-      expect(pluginState.decorationSet.find()[1]).toBeUndefined();
+      expect(pluginState?.decorationSet.find()[1]).toBeUndefined();
     });
   });
 });
@@ -599,7 +599,8 @@ describe('restart numbered lists', () => {
         );
         const { editorView } = editor(listWithXItems);
         const pluginState = pluginKey.getState(editorView.state);
-        expect(pluginState.decorationSet.find()[1].type.attrs).toEqual({
+        // @ts-ignore - allow accessing type for testing
+        expect(pluginState?.decorationSet.find()[1].type.attrs).toEqual({
           style: expectedInlineStyle,
         });
       });

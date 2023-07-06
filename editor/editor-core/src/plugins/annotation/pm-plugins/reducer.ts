@@ -82,7 +82,7 @@ export default (
 function getNewDraftState(
   pluginState: InlineCommentPluginState,
   drafting: boolean,
-  editorState?: EditorState<any>,
+  editorState?: EditorState,
 ) {
   let { draftDecorationSet } = pluginState;
 

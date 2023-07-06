@@ -34,10 +34,10 @@ export const mediaInlineProps: MediaInlineProps = {
     id: '123',
     mediaItemType: 'file',
   } as FileIdentifier,
-  view: new EditorView(undefined, {
+  view: new EditorView(null, {
     state: EditorState.create({ schema: mockSchema }),
   }),
-  node: { attrs: {}, firstChild: { attrs: {} } } as PMNode<any>,
+  node: { attrs: {}, firstChild: { attrs: {} } } as PMNode,
   mediaProvider: createMediaProvider(),
   mediaPluginState: {
     handleMediaNodeMount: jest.fn(),

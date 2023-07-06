@@ -115,7 +115,7 @@ describe('extension context panel', () => {
 
     await flushPromises();
     const pluginState = pluginKey.getState(editorView.state);
-    expect(pluginState.showContextPanel).toBeTruthy();
+    expect(pluginState?.showContextPanel).toBeTruthy();
   });
 
   it('should close the config panel after save if autosave is off', async () => {
@@ -138,7 +138,7 @@ describe('extension context panel', () => {
 
     await flushPromises();
     const pluginState = pluginKey.getState(editorView.state);
-    expect(pluginState.showContextPanel).toBeFalsy();
+    expect(pluginState?.showContextPanel).toBeFalsy();
   });
 
   const testSaving = (type: string, content: BuilderContent[]) => {

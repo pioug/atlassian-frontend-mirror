@@ -170,7 +170,7 @@ export const insertMediaSingleNode = (
       dispatch,
     );
   } else {
-    let tr: Transaction<any> | null = null;
+    let tr: Transaction | null = null;
     if (newInsertionBehaviour) {
       tr = safeInsert(node, state.selection.from)(state.tr);
     }

@@ -93,7 +93,7 @@ function addMark(
     doc.nodesBetween(start, end, (node) => {
       if (node.type === schema.nodes.hardBreak) {
         containsHardBreak = true;
-        return null;
+        return false;
       }
       return !containsHardBreak;
     });

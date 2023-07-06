@@ -78,7 +78,7 @@ describe('text color commands', () => {
       expect(changeColor(testColor2)(state, dispatch));
 
       const updatedPluginState = textColorPluginKey.getState(editorView.state);
-      expect(updatedPluginState.color).toBe(testColor2);
+      expect(updatedPluginState?.color).toBe(testColor2);
     });
 
     it('should expose whether textColor has any color on a range selection', () => {
@@ -89,7 +89,7 @@ describe('text color commands', () => {
       expect(changeColor(testColor1)(state, dispatch));
 
       const updatedPluginState = textColorPluginKey.getState(editorView.state);
-      expect(updatedPluginState.color).toBe(testColor1);
+      expect(updatedPluginState?.color).toBe(testColor1);
     });
 
     it(`shouldn't apply color to a non text node`, () => {

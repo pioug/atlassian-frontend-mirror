@@ -16,7 +16,7 @@ type HandleClick = (
   view: EditorView,
   pos: number,
   event: MouseEvent,
-) => boolean;
+) => boolean | void;
 let handleClick: HandleClick =
   textFormattingCursorPlugin.spec!.props!.handleClick!;
 

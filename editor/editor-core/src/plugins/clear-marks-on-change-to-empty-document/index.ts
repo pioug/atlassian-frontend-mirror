@@ -11,7 +11,7 @@ export function createPlugin(): SafePlugin {
   return new SafePlugin({
     key: pluginKey,
     appendTransaction: (
-      _transactions: Transaction[],
+      _transactions: readonly Transaction[],
       oldState: EditorState,
       newState: EditorState,
     ) => {

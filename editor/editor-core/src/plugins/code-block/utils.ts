@@ -67,7 +67,7 @@ export const transformSingleLineCodeBlockToCodeMark = (
 
 export const findCodeBlock = (
   state: EditorState,
-  selection?: Selection<any> | null,
+  selection?: Selection | null,
 ) => {
   const { codeBlock } = state.schema.nodes;
   return (

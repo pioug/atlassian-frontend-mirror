@@ -141,7 +141,7 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
         const raw = ref.current?.textContent || '';
         const text = cleanedInputContent();
         let stopDefault = false;
-        const { selectedIndex } = getPluginState(editorView.state);
+        const { selectedIndex } = getPluginState(editorView.state) || {};
         setInFocus(true);
 
         switch (key) {

@@ -391,6 +391,7 @@ export function createPlugin(
           selectionParentNode &&
           edgeCaseNodeTypes.includes(selectionParentType)
         ) {
+          // @ts-ignore - [unblock prosemirror bump] assigning to readonly prop
           slice.openStart = 1;
         }
 
@@ -552,6 +553,7 @@ export function createPlugin(
             );
 
             sliceCopy.content.descendants((node) => {
+              // @ts-ignore - [unblock prosemirror bump] assigning to readonly prop
               node.marks = node.marks.filter(
                 (mark) => mark.type.name !== 'breakout',
               );

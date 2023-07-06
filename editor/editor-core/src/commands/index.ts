@@ -236,7 +236,7 @@ export const createToggleBlockMarkOnRange =
     getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
     allowedBlocks?:
       | Array<NodeType>
-      | ((schema: Schema, node: PMNode, parent: PMNode) => boolean),
+      | ((schema: Schema, node: PMNode, parent: PMNode | null) => boolean),
   ) =>
   (from: number, to: number, tr: Transaction, state: EditorState): boolean => {
     let markApplied = false;
@@ -250,7 +250,7 @@ export const createToggleBlockMarkOnRange =
           (Array.isArray(allowedBlocks)
             ? allowedBlocks.indexOf(node.type) > -1
             : allowedBlocks(state.schema, node, parent))) &&
-        parent.type.allowsMarkType(markType)
+        parent?.type.allowsMarkType(markType)
       ) {
         const oldMarks = node.marks.filter((mark) => mark.type === markType);
 
@@ -289,7 +289,7 @@ export const toggleBlockMark =
     getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
     allowedBlocks?:
       | Array<NodeType>
-      | ((schema: Schema, node: PMNode, parent: PMNode) => boolean),
+      | ((schema: Schema, node: PMNode, parent: PMNode | null) => boolean),
   ): Command =>
   (state, dispatch) => {
     let markApplied = false;

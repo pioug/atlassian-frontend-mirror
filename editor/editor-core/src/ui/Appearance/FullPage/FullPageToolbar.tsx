@@ -54,145 +54,145 @@ export interface FullPageToolbarProps {
   featureFlags?: FeatureFlags;
 }
 
-export const EditorToolbar: React.FunctionComponent<
-  FullPageToolbarProps & WrappedComponentProps
-> = React.memo((props) => {
-  const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
+export const EditorToolbar = React.memo(
+  (props: FullPageToolbarProps & WrappedComponentProps) => {
+    const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
 
-  const nonCustomToolbar = (
-    <div css={nonCustomToolbarWrapperStyle}>
-      {props.beforeIcon && (
-        <div css={mainToolbarIconBeforeStyle}>{props.beforeIcon}</div>
-      )}
-      <Toolbar
-        editorView={props.editorView}
-        editorActions={props.editorActions}
-        eventDispatcher={props.eventDispatcher}
-        providerFactory={props.providerFactory}
-        appearance={props.appearance}
-        items={props.primaryToolbarComponents}
-        popupsMountPoint={props.popupsMountPoint}
-        popupsBoundariesElement={props.popupsBoundariesElement}
-        popupsScrollableElement={props.popupsScrollableElement}
-        disabled={props.disabled}
-        dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-        containerElement={props.containerElement}
-        hasMinWidth={props.hasMinWidth}
-        twoLineEditorToolbar={!!props.featureFlags?.twoLineEditorToolbar}
-      />
-    </div>
-  );
-
-  const customToolbar = (
-    <div css={customToolbarWrapperStyle}>
-      {props.featureFlags?.twoLineEditorToolbar &&
-      !!props.customPrimaryToolbarComponents &&
-      'before' in props.customPrimaryToolbarComponents ? (
-        <BeforePrimaryToolbarWrapper
-          beforePrimaryToolbarComponents={
-            props.customPrimaryToolbarComponents.before
-          }
-        />
-      ) : null}
-      {props?.featureFlags?.showAvatarGroupAsPlugin === true &&
-      !props.featureFlags?.twoLineEditorToolbar ? null : (
-        <AvatarsWithPluginState
+    const nonCustomToolbar = (
+      <div css={nonCustomToolbarWrapperStyle}>
+        {props.beforeIcon && (
+          <div css={mainToolbarIconBeforeStyle}>{props.beforeIcon}</div>
+        )}
+        <Toolbar
           editorView={props.editorView}
+          editorActions={props.editorActions}
           eventDispatcher={props.eventDispatcher}
-          inviteToEditComponent={props.collabEdit?.inviteToEditComponent}
-          inviteToEditHandler={props.collabEdit?.inviteToEditHandler}
-          isInviteToEditButtonSelected={
-            props.collabEdit?.isInviteToEditButtonSelected
-          }
-          featureFlags={props.featureFlags || {}}
-        />
-      )}
-      {props.featureFlags?.findReplace &&
-      props.featureFlags?.twoLineEditorToolbar ? (
-        <FindReplaceToolbarButtonWithState
-          popupsBoundariesElement={props.popupsBoundariesElement}
+          providerFactory={props.providerFactory}
+          appearance={props.appearance}
+          items={props.primaryToolbarComponents}
           popupsMountPoint={props.popupsMountPoint}
+          popupsBoundariesElement={props.popupsBoundariesElement}
           popupsScrollableElement={props.popupsScrollableElement}
-          editorView={props.editorView}
-          containerElement={props.containerElement}
+          disabled={props.disabled}
           dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
-          featureFlags={props.featureFlags}
+          containerElement={props.containerElement}
+          hasMinWidth={props.hasMinWidth}
+          twoLineEditorToolbar={!!props.featureFlags?.twoLineEditorToolbar}
         />
-      ) : null}
-      {!!props.customPrimaryToolbarComponents &&
-      'after' in props.customPrimaryToolbarComponents
-        ? props.customPrimaryToolbarComponents.after
-        : props.customPrimaryToolbarComponents}
-    </div>
-  );
+      </div>
+    );
 
-  useEffect(() => {
-    if (props.featureFlags?.twoLineEditorToolbar) {
-      const updateOnResize = () => {
-        setShouldSplitToolbar(
-          window.innerWidth <= MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
-        );
-      };
-      window.addEventListener('resize', updateOnResize);
-      updateOnResize();
-      return () => window.removeEventListener('resize', updateOnResize);
-    }
-  });
+    const customToolbar = (
+      <div css={customToolbarWrapperStyle}>
+        {props.featureFlags?.twoLineEditorToolbar &&
+        !!props.customPrimaryToolbarComponents &&
+        'before' in props.customPrimaryToolbarComponents ? (
+          <BeforePrimaryToolbarWrapper
+            beforePrimaryToolbarComponents={
+              props.customPrimaryToolbarComponents.before
+            }
+          />
+        ) : null}
+        {props?.featureFlags?.showAvatarGroupAsPlugin === true &&
+        !props.featureFlags?.twoLineEditorToolbar ? null : (
+          <AvatarsWithPluginState
+            editorView={props.editorView}
+            eventDispatcher={props.eventDispatcher}
+            inviteToEditComponent={props.collabEdit?.inviteToEditComponent}
+            inviteToEditHandler={props.collabEdit?.inviteToEditHandler}
+            isInviteToEditButtonSelected={
+              props.collabEdit?.isInviteToEditButtonSelected
+            }
+            featureFlags={props.featureFlags || {}}
+          />
+        )}
+        {props.featureFlags?.findReplace &&
+        props.featureFlags?.twoLineEditorToolbar ? (
+          <FindReplaceToolbarButtonWithState
+            popupsBoundariesElement={props.popupsBoundariesElement}
+            popupsMountPoint={props.popupsMountPoint}
+            popupsScrollableElement={props.popupsScrollableElement}
+            editorView={props.editorView}
+            containerElement={props.containerElement}
+            dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
+            featureFlags={props.featureFlags}
+          />
+        ) : null}
+        {!!props.customPrimaryToolbarComponents &&
+        'after' in props.customPrimaryToolbarComponents
+          ? props.customPrimaryToolbarComponents.after
+          : props.customPrimaryToolbarComponents}
+      </div>
+    );
 
-  const isShortcutToFocusToolbar = (event: KeyboardEvent) => {
-    //Alt + F9 to reach first element in this main toolbar
-    return event.altKey && (event.key === 'F9' || event.keyCode === 120);
-  };
+    useEffect(() => {
+      if (props.featureFlags?.twoLineEditorToolbar) {
+        const updateOnResize = () => {
+          setShouldSplitToolbar(
+            window.innerWidth <= MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
+          );
+        };
+        window.addEventListener('resize', updateOnResize);
+        updateOnResize();
+        return () => window.removeEventListener('resize', updateOnResize);
+      }
+    });
 
-  const handleEscape = (event: KeyboardEvent) => {
-    if (!props.editorView?.hasFocus()) {
-      props.editorView?.focus();
-    }
-    event.preventDefault();
-    event.stopPropagation();
-  };
+    const isShortcutToFocusToolbar = (event: KeyboardEvent) => {
+      //Alt + F9 to reach first element in this main toolbar
+      return event.altKey && (event.key === 'F9' || event.keyCode === 120);
+    };
 
-  return (
-    <ContextPanelConsumer>
-      {({ width: contextPanelWidth }) => (
-        <ToolbarArrowKeyNavigationProvider
-          editorView={props.editorView}
-          childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
-          isShortcutToFocusToolbar={isShortcutToFocusToolbar}
-          handleEscape={handleEscape}
-          intl={props.intl}
-        >
-          <div
-            css={mainToolbarStyle(
-              props.showKeyline || contextPanelWidth > 0,
-              !!props.featureFlags?.twoLineEditorToolbar,
-            )}
-            data-testid="ak-editor-main-toolbar"
+    const handleEscape = (event: KeyboardEvent) => {
+      if (!props.editorView?.hasFocus()) {
+        props.editorView?.focus();
+      }
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
+    return (
+      <ContextPanelConsumer>
+        {({ width: contextPanelWidth }) => (
+          <ToolbarArrowKeyNavigationProvider
+            editorView={props.editorView}
+            childComponentSelector={"[data-testid='ak-editor-main-toolbar']"}
+            isShortcutToFocusToolbar={isShortcutToFocusToolbar}
+            handleEscape={handleEscape}
+            intl={props.intl}
           >
             <div
-              css={mainToolbarFirstChildStyle(
+              css={mainToolbarStyle(
+                props.showKeyline || contextPanelWidth > 0,
                 !!props.featureFlags?.twoLineEditorToolbar,
               )}
-              role="toolbar"
-              aria-label={props.intl.formatMessage(messages.toolbarLabel)}
+              data-testid="ak-editor-main-toolbar"
             >
-              {shouldSplitToolbar ? customToolbar : nonCustomToolbar}
+              <div
+                css={mainToolbarFirstChildStyle(
+                  !!props.featureFlags?.twoLineEditorToolbar,
+                )}
+                role="toolbar"
+                aria-label={props.intl.formatMessage(messages.toolbarLabel)}
+              >
+                {shouldSplitToolbar ? customToolbar : nonCustomToolbar}
+              </div>
+              <div
+                css={mainToolbarSecondChildStyle(
+                  !!props.featureFlags?.twoLineEditorToolbar,
+                )}
+                data-testid={'avatar-group-outside-plugin'}
+                role="region"
+                aria-label={props.intl.formatMessage(messages.pageActionsLabel)}
+              >
+                {shouldSplitToolbar ? nonCustomToolbar : customToolbar}
+              </div>
             </div>
-            <div
-              css={mainToolbarSecondChildStyle(
-                !!props.featureFlags?.twoLineEditorToolbar,
-              )}
-              data-testid={'avatar-group-outside-plugin'}
-              role="region"
-              aria-label={props.intl.formatMessage(messages.pageActionsLabel)}
-            >
-              {shouldSplitToolbar ? nonCustomToolbar : customToolbar}
-            </div>
-          </div>
-        </ToolbarArrowKeyNavigationProvider>
-      )}
-    </ContextPanelConsumer>
-  );
-});
+          </ToolbarArrowKeyNavigationProvider>
+        )}
+      </ContextPanelConsumer>
+    );
+  },
+);
 
 export const FullPageToolbar = injectIntl(EditorToolbar);

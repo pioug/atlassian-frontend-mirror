@@ -9,7 +9,7 @@ export type Attrs = { [key: string]: string };
 export interface NodeSerializerOpts {
   node: PMNode;
   attrs: { [key: string]: any };
-  marks: Mark[];
+  marks: readonly Mark[];
   text?: string | null;
   parent?: PMNode;
   context?: MetaDataContext;

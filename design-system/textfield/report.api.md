@@ -155,7 +155,8 @@ export const TextFieldColors: {
 };
 
 // @public (undocumented)
-export interface TextFieldProps extends AllHTMLAttributes<HTMLInputElement> {
+export interface TextFieldProps
+  extends Omit<AllHTMLAttributes<HTMLInputElement>, 'disabled'> {
   appearance?: Appearance;
   className?: string;
   elemAfterInput?: React_2.ReactNode;

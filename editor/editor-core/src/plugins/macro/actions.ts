@@ -141,7 +141,7 @@ export const resolveMacro = (
 
   const { schema } = state;
   const { type, attrs } = getValidNode(macro, schema);
-  let node;
+  let node = null;
 
   if (type === 'extension') {
     node = schema.nodes.extension.create({ ...attrs, ...optionalAttrs });
@@ -154,7 +154,7 @@ export const resolveMacro = (
     node = schema.nodes.inlineExtension.create(attrs);
   }
 
-  return normaliseNestedLayout(state, node);
+  return node && normaliseNestedLayout(state, node);
 };
 
 // gets the macroProvider from the state and tries to autoConvert a given text

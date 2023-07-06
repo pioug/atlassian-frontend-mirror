@@ -1,6 +1,8 @@
 import React, { AllHTMLAttributes, FormEventHandler } from 'react';
 
-export interface TextfieldProps extends AllHTMLAttributes<HTMLInputElement> {
+// We are ensuring `disabled` can't be used since we are using `isDisabled`
+export interface TextfieldProps
+  extends Omit<AllHTMLAttributes<HTMLInputElement>, 'disabled'> {
   /**
    * Affects the visual style of the text field.
    */

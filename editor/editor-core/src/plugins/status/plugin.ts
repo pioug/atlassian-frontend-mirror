@@ -90,7 +90,7 @@ const createPlugin = (
         tr.selection instanceof TextSelection &&
         state.selection instanceof NodeSelection
       ) {
-        const { isNew, showStatusPickerAt } = pluginKey.getState(state);
+        const { isNew, showStatusPickerAt } = pluginKey.getState(state) || {};
         const nodeAtSelection = tr.doc.nodeAt(tr.selection.from);
         // prevent changing node selection to text selection on dom change right after inserting status
         // if newly selected status is selected with status picker opened
@@ -106,7 +106,7 @@ const createPlugin = (
       return true;
     },
     appendTransaction: (
-      transactions: Transaction[],
+      transactions: readonly Transaction[],
       oldEditorState: EditorState,
       newEditorState: EditorState,
     ) => {

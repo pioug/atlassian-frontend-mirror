@@ -53,7 +53,9 @@ describe('find/replace plugin', () => {
   const positionMap =
     (increment = 0) =>
     (decoration: Decoration) => ({
+      // @ts-ignore - allow assign to readonly for testing
       from: (decoration.from += increment),
+      // @ts-ignore - allow assign to readonly for testing
       to: (decoration.to += increment),
     });
 

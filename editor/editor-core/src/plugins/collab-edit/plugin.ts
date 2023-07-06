@@ -45,8 +45,8 @@ export const createPlugin = (
       },
     },
     props: {
-      decorations(this: SafePlugin, state) {
-        return this.getState(state).decorations;
+      decorations(state) {
+        return pluginKey.getState(state)?.decorations;
       },
     },
     filterTransaction(tr, state) {
@@ -59,7 +59,7 @@ export const createPlugin = (
         return true;
       }
 
-      if (!pluginState.isReady && tr.docChanged) {
+      if (!pluginState?.isReady && tr.docChanged) {
         return false;
       }
 

@@ -7,9 +7,9 @@ export const cellSelectionNodesBetween = (
   f: (
     node: Node,
     pos: number,
-    parent: Node,
+    parent: Node | null,
     index: number,
-  ) => boolean | null | undefined | void,
+  ) => void | boolean,
   startPos?: number,
 ) => {
   selection.forEachCell((cell, cellPos) => {

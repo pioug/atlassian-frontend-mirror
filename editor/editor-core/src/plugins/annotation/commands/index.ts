@@ -79,7 +79,7 @@ export const removeInlineCommentNearSelection =
 
 const getDraftCommandAction: (
   drafting: boolean,
-) => (state: Readonly<EditorState<any>>) => InlineCommentAction | false = (
+) => (state: Readonly<EditorState>) => InlineCommentAction | false = (
   drafting: boolean,
 ) => {
   return (editorState: EditorState) => {

@@ -111,6 +111,7 @@ describe('floatingToolbar()', () => {
       await pluginState.setMediaProvider(getFreshMediaProvider());
 
       // manually override type to pass mediaGroup node checking
+      // @ts-ignore - [unblock prosemirror bump] assigning string instead of NodeType object
       editorView.state.schema.nodes.mediaGroup = 'mediaGroup';
       const toolbar = floatingToolbar(
         editorView.state,

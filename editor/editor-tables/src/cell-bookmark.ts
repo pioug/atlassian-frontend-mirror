@@ -1,14 +1,14 @@
 import { Node as PMNode } from 'prosemirror-model';
-import { Selection } from 'prosemirror-state';
-import { Mapping } from 'prosemirror-transform';
+import { Selection, SelectionBookmark } from 'prosemirror-state';
+import { Mappable } from 'prosemirror-transform';
 
 import { SerializedCellSelection } from './types';
 import { inSameTable } from './utils/tables';
 
-export class CellBookmark {
+export class CellBookmark implements SelectionBookmark {
   constructor(public readonly anchor: number, public readonly head: number) {}
 
-  public map(mapping: Mapping): CellBookmark {
+  public map(mapping: Mappable): SelectionBookmark {
     return new CellBookmark(mapping.map(this.anchor), mapping.map(this.head));
   }
 

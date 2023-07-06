@@ -22,7 +22,7 @@ import {
 const createCommandWithAnalytics = (
   actionType: MediaAltTextActionType,
   action: (
-    state: Readonly<EditorState<any>>,
+    state: Readonly<EditorState>,
   ) => false | OpenMediaAltTextMenu | CloseMediaAltTextMenu | UpdateAltText,
   transform?: (tr: Transaction, state: EditorState) => Transaction,
 ) => {

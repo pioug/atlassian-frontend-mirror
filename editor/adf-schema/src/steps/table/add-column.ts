@@ -106,7 +106,7 @@ export class AddColumnStep<S extends Schema = any> extends Step {
    *
    * @param doc Current document
    */
-  apply(doc: ProseMirrorNode<S>): StepResult<S> {
+  apply(doc: ProseMirrorNode): StepResult {
     const { tablePos } = this;
     // Create transform base on the doc
     const tr = new Transform(doc);
@@ -157,7 +157,7 @@ export class AddColumnStep<S extends Schema = any> extends Step {
    * Create a new step with all the position updated
    * @param mapping
    */
-  map(mapping: Mappable): Step<S> | null | undefined {
+  map(mapping: Mappable): Step | null {
     const tablePosResult = mapping.mapResult(this.tablePos);
     if (tablePosResult.deleted) {
       // If table was deleted remove the step
@@ -207,7 +207,7 @@ export class AddColumnStep<S extends Schema = any> extends Step {
    *    return new step inverted
    * @param originalDoc
    */
-  invert(originalDoc: ProseMirrorNode<S>): Step<S> {
+  invert(originalDoc: ProseMirrorNode): Step {
     const stepMap = this.getMap();
 
     // Memoize function to be called only on delete scenarios
@@ -280,7 +280,7 @@ export class AddColumnStep<S extends Schema = any> extends Step {
    * after it. Returns the merged step when possible, null if the
    * steps can't be merged.
    */
-  merge(other: Step<S>): Step<S> | null | undefined {
+  merge(other: Step): Step | null {
     // We cannot merge add column step at the moment
     return null;
   }
@@ -328,7 +328,7 @@ export class AddColumnStep<S extends Schema = any> extends Step {
   static fromJSON<S extends Schema = any>(
     schema: S,
     json: AddColumnStepJson,
-  ): Step<S> {
+  ): Step {
     // TODO: Add validation. Return null if it is invalid. Check in review if this is necessary
     const cells = json.cells.map((cellsJson) => {
       const cell: CellStep = {

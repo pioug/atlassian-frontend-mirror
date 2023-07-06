@@ -11,7 +11,6 @@ import CenterIcon from '@atlaskit/icon/glyph/editor/media-center';
 
 import { Command } from '../../types';
 import commonMessages from '../../messages';
-import { MacroState } from '../macro';
 import {
   ConfirmDialogOptions,
   FloatingToolbarConfig,
@@ -156,7 +155,7 @@ const editButton = (
       testId: 'extension-toolbar-edit-button',
       // Taking the latest `updateExtension` from plugin state to avoid race condition @see ED-8501
       onClick: (state, dispatch, view) => {
-        const macroState: MacroState = macroPluginKey.getState(state);
+        const macroState = macroPluginKey.getState(state);
         const { updateExtension } = getPluginState(state);
 
         editExtension(

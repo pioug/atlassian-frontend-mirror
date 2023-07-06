@@ -41,7 +41,7 @@ export function onItemActivated({
       break;
 
     case 'indent': {
-      const node = indentationButtonsPluginKey.getState(editorView.state).node;
+      const node = indentationButtonsPluginKey.getState(editorView.state)?.node;
       if (node === 'paragraph_heading') {
         indentParagraphOrHeading(INPUT_METHOD.TOOLBAR)(
           editorView.state,
@@ -61,7 +61,7 @@ export function onItemActivated({
       break;
     }
     case 'outdent': {
-      const node = indentationButtonsPluginKey.getState(editorView.state).node;
+      const node = indentationButtonsPluginKey.getState(editorView.state)?.node;
       if (node === 'paragraph_heading') {
         outdentParagraphOrHeading(INPUT_METHOD.TOOLBAR)(
           editorView.state,

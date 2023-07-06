@@ -167,7 +167,7 @@ export const createPlugin = (
     state: state,
     key: pluginKey,
     appendTransaction: (
-      transactions: Transaction[],
+      transactions: readonly Transaction[],
       oldState: EditorState,
       newState: EditorState,
     ) => {

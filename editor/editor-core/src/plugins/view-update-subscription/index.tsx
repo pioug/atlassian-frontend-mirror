@@ -6,7 +6,7 @@ import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 type UpdateArgs = {
   newEditorState: EditorState;
   oldEditorState: EditorState;
-  transactions: Transaction[];
+  transactions: readonly Transaction[];
 };
 export type ViewUpdateSubscription = (args: UpdateArgs) => void;
 type LastUpdateRef = {

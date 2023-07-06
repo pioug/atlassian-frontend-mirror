@@ -90,7 +90,7 @@ describe('annotation emitter', () => {
       updateSubscriber.emit('resolve', 'id-0');
 
       const pluginState = getPluginState(editorView.state);
-      expect(pluginState.annotations).toStrictEqual({
+      expect(pluginState?.annotations).toStrictEqual({
         'id-0': true,
         'id-1': false,
       });
@@ -100,7 +100,7 @@ describe('annotation emitter', () => {
       updateSubscriber.emit('resolve', 'id-3');
 
       const pluginState = getPluginState(editorView.state);
-      expect(pluginState.annotations).toStrictEqual({
+      expect(pluginState?.annotations).toStrictEqual({
         'id-0': false,
         'id-1': false,
         'id-3': true,
@@ -115,7 +115,7 @@ describe('annotation emitter', () => {
       updateSubscriber.emit('unresolve', 'id-0');
 
       const pluginState = getPluginState(editorView.state);
-      expect(pluginState.annotations).toStrictEqual({
+      expect(pluginState?.annotations).toStrictEqual({
         'id-0': false,
         'id-1': true,
       });
@@ -125,7 +125,7 @@ describe('annotation emitter', () => {
       updateSubscriber.emit('unresolve', 'id-3');
 
       const pluginState = getPluginState(editorView.state);
-      expect(pluginState.annotations).toStrictEqual({
+      expect(pluginState?.annotations).toStrictEqual({
         'id-0': false,
         'id-1': false,
         'id-3': false,
@@ -137,7 +137,7 @@ describe('annotation emitter', () => {
     updateSubscriber.emit('create', 'id-3');
 
     const pluginState = getPluginState(editorView.state);
-    expect(pluginState.annotations).toStrictEqual({
+    expect(pluginState?.annotations).toStrictEqual({
       'id-0': false,
       'id-1': false,
       'id-3': false,
@@ -148,7 +148,7 @@ describe('annotation emitter', () => {
     updateSubscriber.emit('delete', 'id-0');
 
     const pluginState = getPluginState(editorView.state);
-    expect(pluginState.annotations).toStrictEqual({
+    expect(pluginState?.annotations).toStrictEqual({
       'id-0': true,
       'id-1': false,
     });

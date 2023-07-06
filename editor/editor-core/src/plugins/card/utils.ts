@@ -54,7 +54,11 @@ export const displayInfoForCard = (node: Node, info?: CardInfo) =>
   mergeCardInfo(titleUrlPairFromNode(node), info);
 
 export const findCardInfo = (state: EditorState) => {
-  const pluginState: CardPluginState = pluginKey.getState(state);
+  const pluginState: CardPluginState | undefined = pluginKey.getState(state);
+  if (!pluginState) {
+    return undefined;
+  }
+
   return pluginState.cards.find(
     (cardInfo) => cardInfo.pos === state.selection.from,
   );

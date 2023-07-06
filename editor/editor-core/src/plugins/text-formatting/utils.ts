@@ -1,4 +1,4 @@
-import { MarkType, Mark as PMMark } from 'prosemirror-model';
+import { MarkType, Mark as PMMark, Mark } from 'prosemirror-model';
 import { EditorState } from 'prosemirror-state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
@@ -43,7 +43,7 @@ export const markActive = (state: EditorState, mark: PMMark): boolean => {
  */
 export const anyMarkActive = (
   state: EditorState,
-  markType: MarkType,
+  markType: Mark | MarkType,
 ): boolean => {
   const { $from, from, to, empty } = state.selection;
   if (empty) {

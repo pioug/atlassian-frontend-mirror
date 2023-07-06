@@ -37,7 +37,7 @@ describe('Quick Insert Commands', () => {
 
       const quickInsertState = pluginKey.getState(editorView.state);
 
-      expect(quickInsertState.isElementBrowserModalOpen).toBe(true);
+      expect(quickInsertState?.isElementBrowserModalOpen).toBe(true);
     });
   });
 
@@ -48,7 +48,7 @@ describe('Quick Insert Commands', () => {
 
       const quickInsertState = pluginKey.getState(editorView.state);
 
-      expect(quickInsertState.isElementBrowserModalOpen).toBe(false);
+      expect(quickInsertState?.isElementBrowserModalOpen).toBe(false);
     });
   });
 

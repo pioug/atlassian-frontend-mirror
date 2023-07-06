@@ -1,4 +1,4 @@
-import type { Plugin } from 'prosemirror-state';
+import type { Plugin, Transaction } from 'prosemirror-state';
 import type { CollabEditProvider } from '@atlaskit/collab-provider';
 import { sendTransaction } from '../../../events/send-transaction';
 import collabEditPlugin from '../../../';
@@ -92,7 +92,7 @@ describe('collab-edit: send-transaction.ts', () => {
       const { state: newEditorState, transactions } =
         oldEditorState.applyTransaction(transaction);
 
-      transactions.push(oldEditorState.tr.insertText('123'));
+      (transactions as Transaction[]).push(oldEditorState.tr.insertText('123'));
 
       sendTransaction({
         originalTransaction: transaction,

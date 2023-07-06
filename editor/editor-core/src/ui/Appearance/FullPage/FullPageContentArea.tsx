@@ -4,7 +4,7 @@ import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import { EditorView } from 'prosemirror-view';
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useImperativeHandle, useRef } from 'react';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import EditorActions from '../../../actions';
@@ -33,7 +33,6 @@ import type { FeatureFlags } from '../../../types/feature-flags';
 
 interface FullPageEditorContentAreaProps {
   appearance: EditorAppearance | undefined;
-  contentArea: HTMLElement | undefined;
   contentComponents: UIComponentFactory[] | undefined;
   pluginHooks: ReactHookFactory[] | undefined;
   contextPanel: ReactComponents | undefined;
@@ -48,20 +47,38 @@ interface FullPageEditorContentAreaProps {
   popupsBoundariesElement: HTMLElement | undefined;
   popupsScrollableElement: HTMLElement | undefined;
   providerFactory: ProviderFactory;
-  scrollContainer: HTMLElement | null;
-  contentAreaRef(ref: HTMLElement | null): void;
-  scrollContainerRef(ref: HTMLElement | null): void;
   wrapperElement: HTMLElement | null;
   featureFlags?: FeatureFlags;
 }
 
 export const CONTENT_AREA_TEST_ID = 'ak-editor-fp-content-area';
 
-const Content: React.FunctionComponent<
+type ScrollContainerRefs = {
+  scrollContainer: HTMLDivElement | null;
+  contentArea: HTMLDivElement | null;
+};
+
+const Content = React.forwardRef<
+  ScrollContainerRefs,
   FullPageEditorContentAreaProps & WrappedComponentProps
-> = React.memo((props) => {
+>((props, ref) => {
   const theme: ThemeProps = useTheme();
   const fullWidthMode = props.appearance === 'full-width';
+  const scrollContainerRef = useRef(null);
+  const contentAreaRef = useRef(null);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      get scrollContainer() {
+        return scrollContainerRef.current;
+      },
+      get contentArea() {
+        return contentAreaRef.current;
+      },
+    }),
+    [],
+  );
 
   return (
     <WidthConsumer>
@@ -76,9 +93,9 @@ const Content: React.FunctionComponent<
               data-testid={CONTENT_AREA_TEST_ID}
             >
               <ScrollContainer
-                ref={props.scrollContainerRef}
                 className="fabric-editor-popup-scroll-parent"
                 featureFlags={props.featureFlags}
+                ref={scrollContainerRef}
               >
                 <ClickAreaBlock
                   editorView={props.editorView}
@@ -94,7 +111,7 @@ const Content: React.FunctionComponent<
                     aria-label={props.intl.formatMessage(
                       messages.editableContentLabel,
                     )}
-                    ref={props.contentAreaRef}
+                    ref={contentAreaRef}
                   >
                     <div
                       css={editorContentGutterStyle}
@@ -102,6 +119,7 @@ const Content: React.FunctionComponent<
                         'ak-editor-content-area',
                         fullWidthMode ? 'fabric-editor--full-width-mode' : '',
                       ].join(' ')}
+                      ref={contentAreaRef}
                     >
                       {props.customContentComponents}
                       <PluginSlot
@@ -112,12 +130,12 @@ const Content: React.FunctionComponent<
                         appearance={props.appearance}
                         items={props.contentComponents}
                         pluginHooks={props.pluginHooks}
-                        contentArea={props.contentArea}
+                        contentArea={contentAreaRef.current ?? undefined}
                         popupsMountPoint={props.popupsMountPoint}
                         popupsBoundariesElement={props.popupsBoundariesElement}
                         popupsScrollableElement={props.popupsScrollableElement}
                         disabled={!!props.disabled}
-                        containerElement={props.scrollContainer}
+                        containerElement={scrollContainerRef.current}
                         dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
                         wrapperElement={props.wrapperElement}
                       />
@@ -137,4 +155,4 @@ const Content: React.FunctionComponent<
   );
 });
 
-export const FullPageContentArea = injectIntl(Content);
+export const FullPageContentArea = injectIntl(Content, { forwardRef: true });

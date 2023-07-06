@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 185.8.2
+
+### Patch Changes
+
+- [`5f6168797f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f6168797f7) - Improve run-time performance of editor on scroll/resizing by using newer APIs for toolbar keyline.
+
 ## 185.8.0
 
 ### Minor Changes

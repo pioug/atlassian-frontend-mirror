@@ -113,12 +113,16 @@ export const createPlugin = (dispatch: Dispatch) =>
             undefined,
             node.attrs,
             node.marks.map((mark) => {
-              if (mark.type === fragment) {
-                mark.attrs.localId = uuid.generate();
-                mark.attrs.name = null;
+              if (mark.type !== fragment) {
+                return mark;
               }
+              const fragmentMark = fragment.create({
+                ...mark.attrs,
+                localId: uuid.generate(),
+                name: null,
+              });
 
-              return mark;
+              return fragmentMark;
             }),
           );
 

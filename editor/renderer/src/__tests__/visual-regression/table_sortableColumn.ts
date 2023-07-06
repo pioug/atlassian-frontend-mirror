@@ -84,8 +84,7 @@ describe('Snapshot Test: Table sorting', () => {
       );
     });
 
-    // FIXME: This test was automatically skipped due to failure on 1/20/2022: https://product-fabric.atlassian.net/browse/ED-14298
-    it.skip('should revert back to original table order on the third click', async () => {
+    it('should revert back to original table order on the third click', async () => {
       await page.click(getSortableColumnSelector(1));
       await waitForSort(page, 1, 'asc');
       await page.click(getSortableColumnSelector(1));
@@ -107,13 +106,12 @@ describe('Snapshot Test: Table sorting', () => {
   });
 
   describe('when there is merged cells', () => {
-    // FIXME: This test was automatically skipped due to failure on 08/06/2023: https://product-fabric.atlassian.net/browse/ED-18312
-    it.skip('should display not allowed message', async () => {
+    it('should display not allowed message', async () => {
       await initRenderer(page, tableWithMergedCells);
-
       await page.waitForSelector(
         `.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`,
       );
+      await waitForDateText(page, 'Aug 23, 2019');
       await page.hover(
         `${getSortableColumnSelector(1)} .${
           StatusClassNames.SORTING_NOT_ALLOWED

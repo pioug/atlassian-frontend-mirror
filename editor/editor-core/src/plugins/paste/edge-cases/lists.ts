@@ -79,6 +79,7 @@ export function insertSliceIntoRangeSelectionInsideList({
     tr.doc.resolve(tr.mapping.map(mapped)),
     -1,
   );
+  // @ts-ignore - [unblock prosemirror bump] assigning to readonly prop
   newSlice.openEnd = newSlice.openStart;
   tr.replaceRange(newSelection.from, newSelection.from, newSlice);
 

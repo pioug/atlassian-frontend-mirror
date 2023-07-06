@@ -90,7 +90,7 @@ function unconfirmedFrom(transform: ProseMirrorTransform) {
   return result;
 }
 
-const collabKey = new PluginKey('collab');
+const collabKey = new PluginKey<CollabState>('collab');
 
 type CollabConfig = {
   /// The starting version number of the collaborative editing.
@@ -114,7 +114,7 @@ export function collab(config: CollabConfig = {}): Plugin {
         : config.clientID,
   };
 
-  return new Plugin({
+  return new Plugin<CollabState>({
     key: collabKey,
 
     state: {
@@ -127,8 +127,9 @@ export function collab(config: CollabConfig = {}): Plugin {
         if (tr.docChanged) {
           return new CollabState(
             collab.version,
-            // @ts-expect-error
-            collab.unconfirmed.concat(unconfirmedFrom(tr)),
+            collab.unconfirmed.concat(
+              unconfirmedFrom(tr as ProseMirrorTransform),
+            ),
           );
         }
         return collab;
@@ -167,7 +168,7 @@ export function receiveTransaction(
   // appropriate. Remaining unconfirmed steps will be rebased over
   // remote steps.
   let collabState = collabKey.getState(state);
-  let version = collabState.version + steps.length;
+  let version = (collabState?.version || 0) + steps.length;
   let ourID: string | number = (collabKey.get(state)!.spec as any).config
     .clientID;
 
@@ -177,7 +178,7 @@ export function receiveTransaction(
   while (ours < clientIDs.length && clientIDs[ours] == ourID) {
     ++ours;
   }
-  let unconfirmed = collabState.unconfirmed.slice(ours);
+  let unconfirmed = collabState?.unconfirmed.slice(ours) || [];
   steps = ours ? steps.slice(ours) : steps;
 
   // If all steps originated with us, we're done.
@@ -232,7 +233,12 @@ export function sendableSteps(state: EditorState): {
   clientID: number | string;
   origins: readonly Transaction[];
 } | null {
-  let collabState = collabKey.getState(state) as CollabState;
+  let collabState = collabKey.getState(state);
+
+  if (!collabState) {
+    return null;
+  }
+
   // eslint-disable-next-line eqeqeq
   if (collabState.unconfirmed.length == 0) {
     return null;
@@ -244,7 +250,7 @@ export function sendableSteps(state: EditorState): {
     get origins() {
       return (
         (this as any)._origins ||
-        ((this as any)._origins = collabState.unconfirmed.map(s => s.origin))
+        ((this as any)._origins = collabState?.unconfirmed.map(s => s.origin))
       );
     },
   };
@@ -253,5 +259,5 @@ export function sendableSteps(state: EditorState): {
 /// Get the version up to which the collab plugin has synced with the
 /// central authority.
 export function getVersion(state: EditorState): number {
-  return collabKey.getState(state).version;
+  return collabKey.getState(state)?.version || 0;
 }

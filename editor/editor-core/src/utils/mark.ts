@@ -3,7 +3,7 @@ import { SelectionRange, EditorState, Transaction } from 'prosemirror-state';
 
 export const isMarkAllowedInRange = (
   doc: Node,
-  ranges: Array<SelectionRange>,
+  ranges: readonly SelectionRange[],
   type: MarkType,
 ): boolean => {
   for (let i = 0; i < ranges.length; i++) {
@@ -25,7 +25,7 @@ export const isMarkAllowedInRange = (
 
 export const isMarkExcluded = (
   type: MarkType,
-  marks?: Array<Mark> | null,
+  marks?: readonly Mark[] | null,
 ): boolean => {
   if (marks) {
     return marks.some((mark) => mark.type !== type && mark.type.excludes(type));
@@ -113,7 +113,7 @@ export const sanitiseMarksInSelection = (
     }
     node.marks.forEach((mark) => {
       if (
-        !parent.type.allowsMarkType(mark.type) ||
+        !parent?.type.allowsMarkType(mark.type) ||
         (newParentType && !newParentType.allowsMarkType(mark.type))
       ) {
         const filteredMarks = node.marks.filter((m) => m.type !== mark.type);

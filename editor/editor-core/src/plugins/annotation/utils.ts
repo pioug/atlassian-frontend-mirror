@@ -51,7 +51,7 @@ export const surroundingMarks = ($pos: ResolvedPos) => {
  * Finds annotation marks, and returns their IDs.
  * @param marks Array of marks to search in
  */
-const filterAnnotationIds = (marks: Array<Mark>): Array<string> => {
+const filterAnnotationIds = (marks: readonly Mark[]): Array<string> => {
   if (!marks.length) {
     return [];
   }
@@ -159,7 +159,7 @@ export const findAnnotationsInSelection = (
   const nodeBefore = $anchor.nodeBefore;
   const anchorAnnotationMarks = (node && node.marks) || [];
 
-  let marks: Mark[] = [];
+  let marks: readonly Mark[] = [];
   if (annotationMark.isInSet(anchorAnnotationMarks)) {
     marks = anchorAnnotationMarks;
   } else if (nodeBefore && annotationMark.isInSet(nodeBefore.marks)) {
@@ -183,9 +183,9 @@ export const findAnnotationsInSelection = (
  */
 export function getSelectionPositions(
   editorState: EditorState,
-  inlineCommentState: InlineCommentPluginState,
+  inlineCommentState?: InlineCommentPluginState | null | undefined,
 ): Selection {
-  const { bookmark } = inlineCommentState;
+  const { bookmark } = inlineCommentState || {};
   // get positions via saved bookmark if it is available
   // this is to make comments box positioned relative to temporary highlight rather then current selection
   if (bookmark) {
@@ -198,9 +198,7 @@ export const inlineCommentPluginKey = new PluginKey<InlineCommentPluginState>(
   'inlineCommentPluginKey',
 );
 
-export const getPluginState = (
-  state: EditorState,
-): InlineCommentPluginState => {
+export const getPluginState = (state: EditorState) => {
   return inlineCommentPluginKey.getState(state);
 };
 
@@ -251,7 +249,7 @@ export const isSelectionValid = (
   state: EditorState,
 ): AnnotationSelectionType => {
   const { selection } = state;
-  const { disallowOnWhitespace } = getPluginState(state);
+  const { disallowOnWhitespace } = getPluginState(state) || {};
 
   if (
     selection.empty ||
@@ -386,7 +384,7 @@ export function annotationExists(
 ): boolean {
   const commentsPluginState = getPluginState(state);
   return (
-    commentsPluginState.annotations &&
+    !!commentsPluginState?.annotations &&
     Object.keys(commentsPluginState.annotations).includes(annotationId)
   );
 }
@@ -442,7 +440,7 @@ export function stripNonExistingAnnotations(slice: Slice, state: EditorState) {
  */
 function stripNonExistingAnnotationsFromNode(node: Node, state: EditorState) {
   if (hasAnnotationMark(node, state)) {
-    node.marks = node.marks.filter((mark) => {
+    (node.marks as Mark[]) = node.marks.filter((mark) => {
       if (mark.type.name === 'annotation') {
         return annotationExists(mark.attrs.id, state);
       }

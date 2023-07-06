@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "0.16.0",
+  "version": "1.0.0",
   "description": "Primitives are token-backed low-level building blocks.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -17,7 +17,7 @@
       "category": "Primitives",
       "name": "Primitives",
       "status": {
-        "type": "alpha"
+        "type": "closed-beta"
       },
       "pages": [
         {
@@ -34,6 +34,15 @@
           "folder": "box",
           "slug": "primitives/box",
           "id": "@atlaskit/primitives/box",
+          "status": {
+            "type": "closed-beta"
+          }
+        },
+        {
+          "title": "Flex",
+          "folder": "flex",
+          "slug": "primitives/flex",
+          "id": "@atlaskit/primitives/flex",
           "status": {
             "type": "closed-beta"
           }

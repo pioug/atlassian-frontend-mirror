@@ -55,3 +55,5 @@ export type SelectionRange = {
 export type CellAttributesWithColSpan = CellAttributes & {
   colspan: number;
 };
+
+export type Writeable<T> = { -readonly [P in keyof T]: T[P] };

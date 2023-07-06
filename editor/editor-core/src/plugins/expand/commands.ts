@@ -142,7 +142,7 @@ export const toggleExpandExpanded =
     return true;
   };
 
-export const createExpandNode = (state: EditorState): PMNode => {
+export const createExpandNode = (state: EditorState): PMNode | null => {
   const { expand, nestedExpand } = state.schema.nodes;
   const expandType = findTable(state.selection) ? nestedExpand : expand;
   return expandType.createAndFill({});
@@ -155,14 +155,14 @@ export const insertExpand: Command = (state, dispatch) => {
     action: ACTION.INSERTED,
     actionSubject: ACTION_SUBJECT.DOCUMENT,
     actionSubjectId:
-      expandNode.type === state.schema.nodes.expand
+      expandNode?.type === state.schema.nodes.expand
         ? ACTION_SUBJECT_ID.EXPAND
         : ACTION_SUBJECT_ID.NESTED_EXPAND,
     attributes: { inputMethod: INPUT_METHOD.INSERT_MENU },
     eventType: EVENT_TYPE.TRACK,
   };
 
-  if (dispatch) {
+  if (dispatch && expandNode) {
     dispatch(
       addAnalytics(
         state,

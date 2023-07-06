@@ -83,12 +83,13 @@ const mutateElementStyle = (
   }
 };
 
-export const toDOM = (view: EditorView, getPos: () => number) => {
+export const toDOM = (view: EditorView, getPos: () => number | undefined) => {
   const selection = view.state.selection as GapCursorSelection;
   const { $from, side } = selection;
   const isRightCursor = side === Side.RIGHT;
   const node = isRightCursor ? $from.nodeBefore : $from.nodeAfter;
   const nodeStart = getPos();
+  // @ts-ignore - [unblock prosemirror bump] nodeStart can be undefined
   const dom = view.nodeDOM(nodeStart);
 
   const element = document.createElement('span');

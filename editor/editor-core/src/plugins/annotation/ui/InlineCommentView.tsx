@@ -71,7 +71,8 @@ export function InlineCommentView({
   const { createComponent: CreateComponent, viewComponent: ViewComponent } =
     inlineCommentProvider;
   const inlineCommentState = getPluginState(state);
-  const { bookmark, selectedAnnotations, annotations } = inlineCommentState;
+  const { bookmark, selectedAnnotations, annotations } =
+    inlineCommentState || {};
 
   const selection = getSelectionPositions(state, inlineCommentState);
   const position = findPosForDOM(selection);
@@ -141,9 +142,10 @@ export function InlineCommentView({
   }
 
   // View Component
-  const activeAnnotations = selectedAnnotations.filter(
-    (mark) => annotations[mark.id] === false,
-  );
+  const activeAnnotations =
+    selectedAnnotations?.filter(
+      (mark) => annotations && annotations[mark.id] === false,
+    ) || [];
   if (!ViewComponent || activeAnnotations.length === 0) {
     return null;
   }

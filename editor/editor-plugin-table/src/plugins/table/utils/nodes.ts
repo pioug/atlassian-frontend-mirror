@@ -60,18 +60,18 @@ export const checkIfNumberColumnEnabled = (selection: Selection): boolean =>
   );
 
 export const isLayoutSupported = (state: EditorState): boolean => {
-  const { permittedLayouts } = pluginKey.getState(state).pluginConfig;
+  const { permittedLayouts } = pluginKey.getState(state)?.pluginConfig || {};
   const { bodiedExtension, layoutSection, expand } = state.schema.nodes;
 
   return (
     !hasParentNodeOfType([expand, layoutSection, bodiedExtension])(
       state.selection,
     ) &&
-    permittedLayouts &&
+    !!permittedLayouts &&
     (permittedLayouts === 'all' ||
       (permittedLayouts.indexOf('default') > -1 &&
         permittedLayouts.indexOf('wide') > -1 &&
-        permittedLayouts.indexOf('full-page') > -1))
+        permittedLayouts.indexOf('full-width') > -1))
   );
 };
 

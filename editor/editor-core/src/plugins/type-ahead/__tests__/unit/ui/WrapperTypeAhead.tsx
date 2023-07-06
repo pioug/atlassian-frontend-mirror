@@ -401,7 +401,7 @@ describe('WrapperTypeAhead', () => {
 
     describe('when the component is mounted for the first time', () => {
       it('should set the selectedIndex to -1', async () => {
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getPluginState(editorView.state)!;
         expect(pluginState.selectedIndex).toBe(-1);
       });
     });
@@ -410,7 +410,7 @@ describe('WrapperTypeAhead', () => {
       it('should set the selectedIndex to the last item', async () => {
         fireKeyDown(inputQuery, ['ArrowUp']);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getPluginState(editorView.state)!;
         expect(pluginState.selectedIndex).toBe(2);
       });
     });
@@ -418,11 +418,11 @@ describe('WrapperTypeAhead', () => {
     describe('when arrow down is pressed at the last item', () => {
       it('should set the selectedIndex to the first item', async () => {
         const originalPluginState = getPluginState(editorView.state);
-        expect(originalPluginState.selectedIndex).toBe(-1);
+        expect(originalPluginState?.selectedIndex).toBe(-1);
 
         fireKeyDown(inputQuery, ['ArrowDown', 'ArrowDown', 'ArrowDown']);
 
-        const pluginState = getPluginState(editorView.state);
+        const pluginState = getPluginState(editorView.state)!;
         expect(pluginState.selectedIndex).toBe(0);
       });
     });
@@ -430,12 +430,12 @@ describe('WrapperTypeAhead', () => {
     describe('when multiple keys happens', () => {
       it('Up and Down should change the selected index in the plugin state', async () => {
         const originalPluginState = getPluginState(editorView.state);
-        expect(originalPluginState.selectedIndex).toBe(-1);
+        expect(originalPluginState?.selectedIndex).toBe(-1);
 
         fireKeyDown(inputQuery, ['ArrowDown', 'ArrowDown', 'ArrowUp']);
 
         const pluginState = getPluginState(editorView.state);
-        expect(pluginState.selectedIndex).toBe(1);
+        expect(pluginState?.selectedIndex).toBe(1);
       });
     });
   });

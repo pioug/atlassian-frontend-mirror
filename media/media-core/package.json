@@ -44,8 +44,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "^9.1.0",
-    "@atlaskit/media-common": "^7.1.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "react-dom": "^16.8.0",
     "typescript": "~4.9.5",

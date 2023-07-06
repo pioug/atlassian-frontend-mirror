@@ -18,9 +18,9 @@ const findTelepointerBySessionId = (
 ) => {
   const decorationList = pluginKey
     .getState(editorView.state)
-    .decorations.find();
+    ?.decorations.find();
 
-  return decorationList.find(
+  return decorationList?.find(
     (deco: any) => deco.type.spec.key === `telepointer-${sessionId}`,
   );
 };
@@ -108,9 +108,12 @@ describe('collab-edit: plugin-state', () => {
     });
 
     const telepointerDeco = findTelepointerBySessionId(editorView, 'fakeId');
-    const addSpy = jest.spyOn(telepointerDeco.type.toDOM.classList, 'add');
+    const addSpy = jest.spyOn(
+      (telepointerDeco as any).type.toDOM.classList,
+      'add',
+    );
     const removeSpy = jest.spyOn(
-      telepointerDeco.type.toDOM.classList,
+      (telepointerDeco as any).type.toDOM.classList,
       'remove',
     );
 

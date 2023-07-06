@@ -99,7 +99,8 @@ describe('blockCard with datasource attrs', () => {
   });
 
   it('should call datasource component with datasouce attrs', async () => {
-    mockBlockPmNode.attrs = {
+    // unblock prosemirror bump
+    (mockBlockPmNode as any).attrs = {
       ...mockBlockPmNode.attrs,
       datasource: datasourceAttributeProperties,
     };

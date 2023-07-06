@@ -55,7 +55,6 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/docs": "^9.1.0",
     "@atlaskit/icon-file-type": "^6.4.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-test-helpers": "^33.0.0",

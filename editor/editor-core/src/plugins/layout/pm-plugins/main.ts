@@ -87,7 +87,7 @@ const getInitialPluginState = (
 };
 
 export default (options: LayoutPluginOptions) =>
-  new SafePlugin({
+  new SafePlugin<LayoutState>({
     key: pluginKey,
     state: {
       init: (_, state): LayoutState => getInitialPluginState(options, state),

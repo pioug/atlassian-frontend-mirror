@@ -114,7 +114,7 @@ export const guidelinePlugin: NextEditorPlugin<
     if (!editorState) {
       return null;
     }
-    return key.getState(editorState);
+    return key.getState(editorState) || null;
   },
   actions: {
     displayGuideline: displayGuideline,

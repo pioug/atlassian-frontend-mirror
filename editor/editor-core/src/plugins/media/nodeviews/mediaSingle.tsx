@@ -538,7 +538,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 
   update(
     node: PMNode,
-    decorations: Decoration[],
+    decorations: readonly Decoration[],
     _innerDecorations?: Decoration[],
     isValidUpdate?: (currentNode: PMNode, newNode: PMNode) => boolean,
   ) {
@@ -591,13 +591,13 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
   ignoreMutation() {
     // DOM has changed; recalculate if we need to re-render
     if (this.dom) {
-      const offsetLeft = this.dom.offsetLeft;
+      const offsetLeft = (this.dom as HTMLElement).offsetLeft;
 
       if (offsetLeft !== this.lastOffsetLeft) {
         this.lastOffsetLeft = offsetLeft;
         this.forceViewUpdate = true;
 
-        this.update(this.node, [], [], () => true);
+        this.update(this.node, [], undefined, () => true);
       }
     }
 

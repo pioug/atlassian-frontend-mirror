@@ -27,7 +27,7 @@ describe('input-tule/handles/createInputEventHandler', () => {
 
   beforeEach(() => {
     initialEditorState = createEditorState(doc(p('before{<>}')));
-    editorView = new EditorView(undefined, {
+    editorView = new EditorView(null, {
       state: initialEditorState,
     });
 
@@ -52,7 +52,7 @@ describe('input-tule/handles/createInputEventHandler', () => {
     let inputHandleResult: boolean;
     beforeEach(() => {
       const newEditorState = createEditorState(doc(code_block()('before{<>}')));
-      editorView = new EditorView(undefined, {
+      editorView = new EditorView(null, {
         state: newEditorState,
       });
 

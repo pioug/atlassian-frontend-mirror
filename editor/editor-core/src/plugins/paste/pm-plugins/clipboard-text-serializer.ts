@@ -14,7 +14,7 @@ import { Slice, Node } from 'prosemirror-model';
 export function clipboardTextSerializer(slice: Slice) {
   let text = '';
   const blockSeparater = '\n\n';
-  slice.content.nodesBetween(0, slice.content.size, (node: Node<any>) => {
+  slice.content.nodesBetween(0, slice.content.size, (node: Node) => {
     if (node.type.isBlock) {
       text += blockSeparater;
     }

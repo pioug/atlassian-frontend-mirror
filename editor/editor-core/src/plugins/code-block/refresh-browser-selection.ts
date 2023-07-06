@@ -19,7 +19,7 @@ const refreshBrowserSelection = () => {
 };
 
 const refreshBrowserSelectionOnChange = (
-  transaction: Transaction,
+  transaction: Readonly<Transaction>,
   editorState: EditorState,
 ) => {
   if (

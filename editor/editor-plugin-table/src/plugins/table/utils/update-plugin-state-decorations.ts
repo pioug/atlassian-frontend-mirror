@@ -7,7 +7,7 @@ import { TableDecorations } from '../types';
 import { updateDecorations } from './decoration';
 
 export const updatePluginStateDecorations = (
-  state: EditorState<any>,
+  state: EditorState,
   decorations: Decoration[],
   key: TableDecorations,
 ): DecorationSet =>

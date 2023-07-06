@@ -15,11 +15,7 @@ import {
 } from 'prosemirror-model';
 import type { EditorView } from 'prosemirror-view';
 import { NodeSelection, Selection } from 'prosemirror-state';
-import {
-  insertMacroFromMacroBrowser,
-  MacroProvider,
-  MacroState,
-} from '../macro';
+import { insertMacroFromMacroBrowser, MacroProvider } from '../macro';
 import { pluginKey as macroPluginKey } from '../macro/plugin-key';
 import { nodeToJSON } from '../../utils';
 import { setEditingContextToContextPanel } from './commands';
@@ -338,9 +334,7 @@ export const createExtensionAPI = (
       let editInLegacy = options.editInLegacyMacroBrowser;
 
       if (!editInLegacy) {
-        const macroState: MacroState = macroPluginKey.getState(
-          editorView.state,
-        );
+        const macroState = macroPluginKey.getState(editorView.state);
 
         editInLegacy = getEditInLegacyMacroBrowser({
           view: options.editorView,

@@ -15,7 +15,7 @@ import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { Editor } from '../../index';
 
 function mountEditorWithAdfDoc({ adfDoc }: { adfDoc: any }) {
-  let editorView: EditorView<any>;
+  let editorView: EditorView;
 
   const taskDecisionProvider = Promise.resolve(getMockTaskDecisionResource());
   const mentionProvider = new Promise<any>((resolve) =>

@@ -49,7 +49,7 @@ const annotationPlugin: NextEditorPlugin<
       if (!editorState) {
         return undefined;
       }
-      return getPluginState(editorState);
+      return getPluginState(editorState) || undefined;
     },
 
     pmPlugins: () => [

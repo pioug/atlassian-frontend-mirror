@@ -163,7 +163,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 
     const selectionMarks = selection.$head.marks();
 
-    const textFormattingState: TextFormattingState =
+    const textFormattingState: TextFormattingState | undefined =
       textFormattingPluginKey.getState(state);
 
     if (
@@ -171,7 +171,7 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
       Array.isArray(selectionMarks) &&
       selectionMarks.length > 0 &&
       hasOnlyNodesOfType(paragraph, text, emoji, mention, hardBreak)(slice) &&
-      (!codeMark.isInSet(selectionMarks) || textFormattingState.codeActive) // for codeMarks let's make sure mark is active
+      (!codeMark.isInSet(selectionMarks) || textFormattingState?.codeActive) // for codeMarks let's make sure mark is active
     ) {
       filters.push(applyTextMarksToSlice(schema, selection.$head.marks()));
     }
@@ -243,7 +243,7 @@ export function handlePasteNonNestableBlockNodesIntoList(
     // These scenarios already get handled elsewhere and don't need to split the list
     let sliceContainsBlockNodesOtherThanThoseAllowedInListItem = false;
     slice.content.forEach((child) => {
-      if (child.isBlock && !listItem.spec.content.includes(child.type.name)) {
+      if (child.isBlock && !listItem.spec.content?.includes(child.type.name)) {
         sliceContainsBlockNodesOtherThanThoseAllowedInListItem = true;
       }
     });
@@ -546,12 +546,12 @@ export function handlePastePreservingMarks(
       return false;
     }
 
-    const textFormattingState: TextFormattingState =
+    const textFormattingState: TextFormattingState | undefined =
       textFormattingPluginKey.getState(state);
 
     // special case for codeMark: will preserve mark only if codeMark is currently active
     // won't preserve mark if cursor is on the edge on the mark (namely inactive)
-    if (codeMark.isInSet(selectionMarks) && !textFormattingState.codeActive) {
+    if (codeMark.isInSet(selectionMarks) && !textFormattingState?.codeActive) {
       return false;
     }
 

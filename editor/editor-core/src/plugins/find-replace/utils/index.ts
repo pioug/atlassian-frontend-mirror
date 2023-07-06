@@ -131,7 +131,7 @@ export const getSelectionForMatch = (
   index: number,
   matches: Match[],
   offset = 0,
-): TextSelection => {
+): Selection => {
   if (matches[index]) {
     return TextSelection.create(doc, matches[index].start + offset);
   }

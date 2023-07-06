@@ -58,7 +58,7 @@ import {
   InlineCommentMap,
   InlineCommentPluginState,
 } from '../../pm-plugins/types';
-import { EditorState } from 'prosemirror-state';
+import { EditorState, TextSelection } from 'prosemirror-state';
 import { Slice, Fragment, Schema } from 'prosemirror-model';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -379,7 +379,7 @@ describe('annotation', () => {
 
       expect(
         hasInvalidWhitespaceNode(
-          editorView.state.selection,
+          editorView.state.selection as TextSelection,
           editorView.state.schema,
         ),
       ).toBe(expected);

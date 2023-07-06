@@ -147,7 +147,7 @@ function createPlugin(
     state: {
       init() {
         return {
-          breakoutNode: null,
+          breakoutNode: undefined,
         };
       },
       apply(tr, pluginState: BreakoutPluginState) {
@@ -236,7 +236,16 @@ const breakoutPlugin: NextEditorPlugin<
         breakoutNode: undefined,
       };
     }
-    return pluginKey.getState(editorState);
+
+    const pluginState = pluginKey.getState(editorState);
+
+    if (!pluginState) {
+      return {
+        breakoutNode: undefined,
+      };
+    }
+
+    return pluginState;
   },
 
   contentComponent({

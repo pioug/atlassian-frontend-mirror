@@ -1,6 +1,5 @@
 import type { Plugin } from 'prosemirror-state';
 import { Transaction, EditorState, PluginKey } from 'prosemirror-state';
-import { Schema } from 'prosemirror-model';
 import { createSchema } from '@atlaskit/adf-schema';
 import { defaultSchemaConfig } from '@atlaskit/adf-schema/schema-default';
 import { InstrumentedPlugin } from '../../performance/instrumented-plugin';
@@ -36,8 +35,8 @@ describe('InstrumentedPlugin.prototype.apply', () => {
     const apply = jest.fn();
     const tr = {} as Transaction;
     const pluginState = {} as any;
-    const oldState = {} as EditorState<Schema<any, any>>;
-    const newState = {} as EditorState<Schema<any, any>>;
+    const oldState = {} as EditorState;
+    const newState = {} as EditorState;
 
     const plugin = new InstrumentedPlugin({
       state: { init: jest.fn(), apply },

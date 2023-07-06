@@ -18,10 +18,10 @@ export const createMediaProvider = async (): Promise<MediaProvider> =>
   ({} as MediaProvider);
 
 export const getMediaSingleProps: () => Partial<MediaSingleNodeProps> = () => ({
-  view: new EditorView(undefined, {
+  view: new EditorView(null, {
     state: EditorState.create({ schema: defaultSchema }),
   }),
-  node: { attrs: {}, firstChild: { attrs: {} } } as PMNode<any>,
+  node: { attrs: {}, firstChild: { attrs: {} } } as PMNode,
   mediaPluginState: { mediaOptions: {} } as MediaPluginState,
   mediaProvider: createMediaProvider(),
   selected: jest.fn(),
@@ -155,7 +155,7 @@ describe('mediaSingle', () => {
           selected: jest.fn().mockReturnValue(true),
           view: {
             state,
-          } as EditorView<any>,
+          } as EditorView,
         }}
       />,
       { wrapper: Providers },

@@ -20,7 +20,6 @@ import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 
 import { ToolTipContent, addLink } from '../../../keymaps';
 import { stateKey } from '../pm-plugins/plugin-key';
-import { MediaClientConfig } from '@atlaskit/media-core';
 import { currentMediaNode } from '../utils/current-media-node';
 
 export interface LinkingToolbarProps {
@@ -56,8 +55,7 @@ export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({
       return;
     }
 
-    const mediaClientConfig: MediaClientConfig =
-      stateKey.getState(editorState)?.mediaClientConfig;
+    const mediaClientConfig = stateKey.getState(editorState)?.mediaClientConfig;
 
     if (!mediaClientConfig) {
       setShowLinkingControls(false);

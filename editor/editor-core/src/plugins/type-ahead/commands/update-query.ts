@@ -6,7 +6,7 @@ export const updateQuery = (query: string): Command => {
   return (state, dispatch) => {
     const pluginState = typeAheadPluginKey.getState(state);
 
-    if (pluginState.query === query) {
+    if (pluginState?.query === query) {
       return false;
     }
 

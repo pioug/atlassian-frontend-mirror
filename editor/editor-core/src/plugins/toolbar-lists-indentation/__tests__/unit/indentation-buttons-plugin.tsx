@@ -38,7 +38,7 @@ describe('Indentation buttons state', () => {
 
   const setupEditor = (doc: DocBuilder) => {
     const { editorView } = editor(doc);
-    const indentationState = pluginKey.getState(editorView.state);
+    const indentationState = pluginKey.getState(editorView.state)!;
     return indentationState;
   };
 

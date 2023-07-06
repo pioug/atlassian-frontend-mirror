@@ -68,13 +68,8 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "^9.1.0",
     "@atlaskit/editor-test-helpers": "^18.8.0",
     "@atlaskit/flag": "^15.2.0",
-    "@atlaskit/section-message": "^6.4.0",
-    "@atlaskit/select": "^16.5.0",
-    "@atlaskit/toggle": "^12.6.0",
-    "@atlaskit/util-data-test": "^17.8.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",

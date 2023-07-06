@@ -1,5 +1,13 @@
 # @atlaskit/textfield
 
+## 5.6.0
+
+### Minor Changes
+
+- [`a90730ddb33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a90730ddb33) - Disallow use of unused prop `disabled`. Disabled textfields should use
+  `isDisabled`. This change includes a codemod for transitioning existing code
+  over to the proper usage.
+
 ## 5.5.2
 
 ### Patch Changes

@@ -45,7 +45,7 @@ describe('mentions: type-ahead', () => {
       await mentionProvider;
 
       const { state: editorState } = editorView;
-      const { typeAheadHandlers } = getPluginState(editorState);
+      const { typeAheadHandlers } = getPluginState(editorState)!;
 
       const mentionGetItems = typeAheadHandlers[0].getItems;
 
@@ -83,7 +83,7 @@ describe('mentions: type-ahead', () => {
       const unsubscribeSpy = jest.spyOn(mentionProviderResolved, 'unsubscribe');
 
       const { state: editorState } = editorView;
-      const { typeAheadHandlers } = getPluginState(editorState);
+      const { typeAheadHandlers } = getPluginState(editorState)!;
 
       const { getItems: mentionGetItems, dismiss: mentionDismiss } =
         typeAheadHandlers[0];

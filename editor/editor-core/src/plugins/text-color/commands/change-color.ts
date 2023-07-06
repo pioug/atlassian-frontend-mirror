@@ -61,14 +61,14 @@ export const changeColor =
       const withColorAnalytics = createWithColorAnalytics(
         color,
         activeColor,
-        pluginState.palette,
+        pluginState?.palette || [],
       );
 
-      if (pluginState.disabled) {
+      if (pluginState?.disabled) {
         return false;
       }
 
-      if (color === pluginState.defaultColor) {
+      if (color === pluginState?.defaultColor) {
         withColorAnalytics(removeColor())(state, dispatch);
         return true;
       }

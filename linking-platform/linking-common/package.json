@@ -51,7 +51,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*",
     "@atlaskit/link-test-helpers": "^4.1.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",

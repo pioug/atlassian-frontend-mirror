@@ -11,7 +11,7 @@ const compositionPluginKey = new PluginKey<CompositionPluginState>(
 );
 
 export const isComposing = (state: EditorState) => {
-  return compositionPluginKey.getState(state).isComposing;
+  return !!compositionPluginKey.getState(state)?.isComposing;
 };
 
 export default () =>

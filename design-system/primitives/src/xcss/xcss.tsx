@@ -1,6 +1,6 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { css as cssEmotion } from '@emotion/react';
-import {
+import type {
   CSSInterpolation,
   CSSObject,
   CSSPropertiesWithMultiValues,
@@ -217,7 +217,7 @@ const boxWrapper = (style: any) => xcss<typeof Box>(style);
 const inlineWrapper = (style: any) => xcss<typeof Inline>(style);
 
 type XCSS = ReturnType<typeof boxWrapper> | ReturnType<typeof inlineWrapper>;
-type XCSSArray = Array<XCSS | XCSSArray | false | undefined>;
+type XCSSArray = Array<XCSS | false | undefined>;
 
 type AllowedBoxStyles = keyof SafeCSSObject;
 type Spacing =
@@ -285,9 +285,11 @@ declare const boxTag: unique symbol;
 export type BoxStyles = SerializedStyles & {
   [boxTag]: true;
 };
-export type BoxXCSS = {
-  readonly [uniqueSymbol]: BoxStyles;
-};
+export type BoxXCSS =
+  | {
+      readonly [uniqueSymbol]: BoxStyles;
+    }
+  | false;
 
 declare const inlineTag: unique symbol;
 export type InlineStyles = SerializedStyles & {

@@ -32,8 +32,8 @@ export function createPlugin(
   return keymap({
     [`${keymaps.submit.common}`]: (
       state: EditorState,
-      _dispatch: CommandDispatch,
-      editorView: EditorView,
+      _dispatch?: CommandDispatch,
+      editorView?: EditorView,
     ) => {
       const mediaState = mediaPluginKey.getState(state);
 
@@ -43,6 +43,10 @@ export function createPlugin(
         !mediaState.allUploadsFinished
       ) {
         return true;
+      }
+
+      if (!editorView) {
+        return false;
       }
 
       eventDispatch(analyticsEventKey, analyticsPayload(state));

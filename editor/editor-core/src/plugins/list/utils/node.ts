@@ -59,50 +59,58 @@ export const joinSiblingLists = ({
   const to = isListNode(rootListNode) ? range.end : tr.doc.content.size;
 
   const joins: number[] = [];
-  doc.nodesBetween(from, to, (node: PMNode, pos: number, parent: PMNode) => {
-    const resolvedPos = doc.resolve(pos);
-    const { nodeBefore, nodeAfter } = resolvedPos;
+  doc.nodesBetween(
+    from,
+    to,
+    (node: PMNode, pos: number, parent: PMNode | null) => {
+      const resolvedPos = doc.resolve(pos);
+      const { nodeBefore, nodeAfter } = resolvedPos;
 
-    if (
-      !nodeBefore ||
-      !nodeAfter ||
-      !isListNode(nodeBefore) ||
-      !isListNode(nodeAfter)
-    ) {
-      return;
-    }
-    const isNestedList = isListItemNode(parent);
-
-    if (!isNestedList && nodeBefore.type !== nodeAfter.type && !forceListType) {
-      return;
-    }
-    const index = resolvedPos.index();
-    const positionPreviousNode = resolvedPos.posAtIndex(index - 1);
-    const positionCurrentNode = resolvedPos.posAtIndex(index);
-
-    // If the previous node is part of the selection, OR
-    // If the previous node is not part of the selection and the previous node has the same list type that we’re converting to
-    const joinBefore =
-      positionPreviousNode >= from || nodeBefore.type === forceListType;
-
-    if (forceListType) {
-      if (joinBefore) {
-        tr.setNodeMarkup(positionPreviousNode, forceListType);
+      if (
+        !nodeBefore ||
+        !nodeAfter ||
+        !isListNode(nodeBefore) ||
+        !isListNode(nodeAfter)
+      ) {
+        return;
       }
-      tr.setNodeMarkup(positionCurrentNode, forceListType);
-    }
+      const isNestedList = isListItemNode(parent);
 
-    if (isNestedList && nodeBefore.type !== nodeAfter.type) {
-      const nodeType =
-        direction === JoinDirection.RIGHT ? nodeAfter.type : nodeBefore.type;
+      if (
+        !isNestedList &&
+        nodeBefore.type !== nodeAfter.type &&
+        !forceListType
+      ) {
+        return;
+      }
+      const index = resolvedPos.index();
+      const positionPreviousNode = resolvedPos.posAtIndex(index - 1);
+      const positionCurrentNode = resolvedPos.posAtIndex(index);
 
-      tr.setNodeMarkup(positionPreviousNode, nodeType);
-    }
+      // If the previous node is part of the selection, OR
+      // If the previous node is not part of the selection and the previous node has the same list type that we’re converting to
+      const joinBefore =
+        positionPreviousNode >= from || nodeBefore.type === forceListType;
 
-    if (joinBefore) {
-      joins.push(pos);
-    }
-  });
+      if (forceListType) {
+        if (joinBefore) {
+          tr.setNodeMarkup(positionPreviousNode, forceListType);
+        }
+        tr.setNodeMarkup(positionCurrentNode, forceListType);
+      }
+
+      if (isNestedList && nodeBefore.type !== nodeAfter.type) {
+        const nodeType =
+          direction === JoinDirection.RIGHT ? nodeAfter.type : nodeBefore.type;
+
+        tr.setNodeMarkup(positionPreviousNode, nodeType);
+      }
+
+      if (joinBefore) {
+        joins.push(pos);
+      }
+    },
+  );
 
   if (selection.empty && rootListNode && isListNode(rootListNode)) {
     const resolvedPos = doc.resolve(range.start + rootListNode.nodeSize);

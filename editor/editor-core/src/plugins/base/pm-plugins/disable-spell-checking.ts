@@ -29,15 +29,14 @@ export default (featureFlags: FeatureFlags) =>
     props: {
       attributes: (editorState: EditorState) => {
         if (!featureFlags) {
-          return;
+          return {};
         }
-
         const browserConfigFeatureFlag: DisableSpellcheckByBrowser | undefined =
           featureFlags.disableSpellcheckByBrowser;
 
         const userCurrentBrowserAndVersion = getCurrentBrowserAndVersion();
         if (!userCurrentBrowserAndVersion || !browserConfigFeatureFlag) {
-          return;
+          return {};
         }
 
         const browserVersionDisableRange =
@@ -47,7 +46,7 @@ export default (featureFlags: FeatureFlags) =>
           !browserVersionDisableRange ||
           !browserEnv[userCurrentBrowserAndVersion.browser]
         ) {
-          return;
+          return {};
         }
 
         const shouldDisableSpellcheck = !!browserVersionDisableRange.maximum
@@ -60,10 +59,10 @@ export default (featureFlags: FeatureFlags) =>
               browserVersionDisableRange.minimum;
 
         if (shouldDisableSpellcheck) {
-          return { spellcheck: 'false' };
+          return { spellcheck: 'false' } as Record<'spellcheck', 'false'>;
         }
 
-        return;
+        return {};
       },
     },
   });

@@ -102,7 +102,7 @@ const datasourceNoUrlAdfAttrs: DatasourceAdf['attrs'] = {
 
 const getToolbarButtonByTitle = (
   toolbar: FloatingToolbarConfig,
-  editorView: EditorView<any>,
+  editorView: EditorView,
   title: string,
 ) => {
   return getToolbarItems(toolbar!, editorView).find(
@@ -155,7 +155,7 @@ describe('card', () => {
       (isLinkSettingsButtonEnabled) => {
         const getSettingsButton = (
           toolbar: FloatingToolbarConfig,
-          editorView: EditorView<any>,
+          editorView: EditorView,
         ) =>
           getToolbarItems(toolbar, editorView).find(
             (item) =>
@@ -164,7 +164,7 @@ describe('card', () => {
 
         const verifySettingsButton = (
           settingsButton: FloatingToolbarButton<Command> | undefined,
-          editorView: EditorView<any>,
+          editorView: EditorView,
         ) => {
           if (isLinkSettingsButtonEnabled === 'true') {
             expect(settingsButton).toBeDefined();

@@ -53,7 +53,7 @@ const cardPlugin: NextEditorPlugin<
       if (!editorState) {
         return null;
       }
-      return pluginKey.getState(editorState);
+      return pluginKey.getState(editorState) || null;
     },
 
     nodes() {

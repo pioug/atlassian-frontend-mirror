@@ -27,11 +27,11 @@ const setTextSelection =
 
 export function keymapPlugin(schema: Schema): SafePlugin | undefined {
   return keymap({
-    Backspace: (state: EditorState, dispatch: CommandDispatch) => {
+    Backspace: (state: EditorState, dispatch?: CommandDispatch) => {
       const $cursor = getCursor(state.selection);
       const { paragraph, codeBlock, listItem, table, layoutColumn } =
         state.schema.nodes;
-      if (!$cursor || $cursor.parent.type !== codeBlock) {
+      if (!$cursor || $cursor.parent.type !== codeBlock || !dispatch) {
         return false;
       }
 

@@ -156,7 +156,10 @@ const makeAlign = (
       !tr.doc.nodeAt(state.selection.to) &&
       (insideTable(state) || isInLayoutColumn(state))
     ) {
-      tr.insert(state.selection.to, paragraph.createAndFill());
+      const emptyParaghraph = paragraph.createAndFill();
+      if (emptyParaghraph) {
+        tr.insert(state.selection.to, emptyParaghraph);
+      }
     }
 
     analyticsApi?.attachAnalyticsEvent({

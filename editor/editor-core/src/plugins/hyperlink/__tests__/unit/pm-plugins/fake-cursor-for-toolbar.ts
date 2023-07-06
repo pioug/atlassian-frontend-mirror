@@ -12,18 +12,17 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { DecorationSet, Decoration } from 'prosemirror-view';
+import { DecorationSet, Decoration, EditorProps } from 'prosemirror-view';
 import { PluginSpec, EditorState } from 'prosemirror-state';
 import { showLinkToolbar } from '../../../commands';
 import hyperlinkPlugin from '../../../index';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
-const init = (fakeCursorForToolbarPlugin.spec as PluginSpec).state!.init;
+const init = (fakeCursorForToolbarPlugin.spec as PluginSpec<any>).state!.init;
 const getDecorations = (state: EditorState) =>
-  (fakeCursorForToolbarPlugin.spec as PluginSpec).props!.decorations!(
-    state,
-  ) as DecorationSet;
+  ((fakeCursorForToolbarPlugin.spec as PluginSpec<any>).props as EditorProps)!
+    .decorations!(state) as DecorationSet;
 
 describe('hyperlink', () => {
   const createEditor = createProsemirrorEditorFactory();

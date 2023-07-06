@@ -214,7 +214,7 @@ export class PluginState {
 
       // Remove any selection decoration within the change range,
       // takes care of the issue when after pasting we end up with a dead selection
-      tr.steps.filter(isReplaceStep).forEach((s) => {
+      tr.steps.filter(isReplaceStep).forEach((s: Step) => {
         const { from, to } = s as any;
         this.decorationSet.find(from, to).forEach((deco: any) => {
           // `type` is private, `from` and `to` are public in latest version

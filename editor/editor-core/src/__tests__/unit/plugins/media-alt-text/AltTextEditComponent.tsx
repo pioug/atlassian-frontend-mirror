@@ -70,7 +70,7 @@ describe('AltTextEditComponent', () => {
     };
 
     function setupWrapper(value: string): {
-      view: EditorView<any>;
+      view: EditorView;
       wrapper: ReactWrapper<WrappedComponentProps, any, any>;
     } {
       const intl = createIntl({ locale: 'en' });

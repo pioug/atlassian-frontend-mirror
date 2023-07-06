@@ -9,7 +9,7 @@ import { mapChildren } from '../utils/slice';
 
 export const findExpand = (
   state: EditorState,
-  selection?: Selection<any> | null,
+  selection?: Selection | null,
 ) => {
   const { expand, nestedExpand } = state.schema.nodes;
   return (

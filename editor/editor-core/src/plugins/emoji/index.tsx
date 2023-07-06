@@ -145,7 +145,7 @@ const emojiPlugin: NextEditorPlugin<
       });
     },
     forceSelect({ query, items, editorState }) {
-      const { asciiMap } = emojiPluginKey.getState(editorState);
+      const { asciiMap } = emojiPluginKey.getState(editorState) || {};
       const normalizedQuery = TRIGGER.concat(query);
 
       // if the query has space at the end
@@ -157,8 +157,7 @@ const emojiPlugin: NextEditorPlugin<
         asciiMap.has(normalizedQuery.trim())
       ) {
         const emoji = asciiMap.get(normalizedQuery.trim());
-
-        return { title: emoji.name, emoji };
+        return { title: emoji?.name || '', emoji };
       }
 
       const matchedItem = isFullShortName(normalizedQuery)

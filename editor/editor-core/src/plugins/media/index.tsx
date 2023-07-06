@@ -80,7 +80,7 @@ const mediaPlugin: NextEditorPlugin<
       if (!editorState) {
         return null;
       }
-      return stateKey.getState(editorState);
+      return stateKey.getState(editorState) || null;
     },
 
     nodes() {
@@ -312,7 +312,7 @@ const mediaPlugin: NextEditorPlugin<
           icon: () => <IconImages />,
           action(insert, state) {
             const pluginState = pluginKey.getState(state);
-            pluginState.showMediaPicker();
+            pluginState?.showMediaPicker();
             const tr = insert('');
             api?.dependencies.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.OPENED,

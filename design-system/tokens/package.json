@@ -67,7 +67,7 @@
   "devDependencies": {
     "@af/accessibility-testing": "*",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/primitives": "^0.16.0",
+    "@atlaskit/primitives": "^1.0.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/spinner": "^15.5.1",
     "@atlaskit/visual-regression": "*",

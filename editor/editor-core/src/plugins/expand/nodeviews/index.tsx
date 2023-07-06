@@ -86,7 +86,7 @@ const toDOM = (node: PmNode, intl?: IntlShape): DOMOutputSpec => [
 export class ExpandNodeView implements NodeView {
   node: PmNode;
   view: EditorView;
-  dom?: HTMLElement;
+  dom: HTMLElement;
   contentDOM?: HTMLElement;
   icon?: HTMLElement | null;
   input?: HTMLInputElement | null;
@@ -468,7 +468,7 @@ export class ExpandNodeView implements NodeView {
     return true;
   }
 
-  update(node: PmNode, _decorations: Array<Decoration>) {
+  update(node: PmNode, _decorations: readonly Decoration[]) {
     if (this.node.type === node.type) {
       if (this.node.attrs.__expanded !== node.attrs.__expanded) {
         // Instead of re-rendering the view on an expand toggle
@@ -517,6 +517,7 @@ export class ExpandNodeView implements NodeView {
       ReactDOM.unmountComponentAtNode(this.icon);
     }
 
+    // @ts-ignore - [unblock prosemirror bump] reset non optional prop to undefined to clear reference
     this.dom = undefined;
     this.contentDOM = undefined;
     this.icon = undefined;

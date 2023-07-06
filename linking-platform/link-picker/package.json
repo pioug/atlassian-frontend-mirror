@@ -57,7 +57,7 @@
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/tabs": "^13.4.0",
-    "@atlaskit/textfield": "^5.5.0",
+    "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.11.0",
     "@atlaskit/tooltip": "^17.8.0",
@@ -78,21 +78,14 @@
   "devDependencies": {
     "@af/analytics-codegen": "^0.1.0",
     "@af/visual-regression": "*",
-    "@atlaskit/docs": "*",
     "@atlaskit/dropdown-menu": "^11.10.0",
-    "@atlaskit/link-analytics": "^8.2.0",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^4.1.0",
     "@atlaskit/linking-common": "^3.2.0",
-    "@atlaskit/popup": "^1.8.0",
-    "@atlaskit/toggle": "^12.6.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@atlassian/feature-flags-test-utils": "*",
-    "@atlassian/link-picker-atlassian-plugin": "^34.1.0",
-    "@atlassian/link-picker-plugins": "^23.0.0",
-    "@atlassian/recent-work-client": "^1.8.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
@@ -128,6 +121,9 @@
       "design-tokens": [
         "color",
         "spacing"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
       ]
     }
   },

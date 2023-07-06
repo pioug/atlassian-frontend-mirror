@@ -172,7 +172,7 @@ export const floatingToolbar = (
   return (state, intl, providerFactory) => {
     const { inlineCard, blockCard, embedCard } = state.schema.nodes;
     const nodeType = [inlineCard, blockCard, embedCard];
-    const pluginState: CardPluginState = pluginKey.getState(state);
+    const pluginState: CardPluginState | undefined = pluginKey.getState(state);
     if (!(state.selection instanceof NodeSelection)) {
       return;
     }
@@ -192,7 +192,7 @@ export const floatingToolbar = (
       : {};
 
     // Applies padding override for when link picker is currently displayed
-    const className = pluginState.showLinkingToolbar
+    const className = pluginState?.showLinkingToolbar
       ? FLOATING_TOOLBAR_LINKPICKER_CLASSNAME
       : undefined;
 
@@ -235,10 +235,10 @@ export const floatingToolbar = (
         linkPickerOptions,
         pluginInjectionApi,
       ),
-      scrollable: pluginState.showLinkingToolbar ? false : true,
-      focusTrap: shouldEnableFocusTrap && pluginState.showLinkingToolbar,
+      scrollable: pluginState?.showLinkingToolbar ? false : true,
+      focusTrap: shouldEnableFocusTrap && pluginState?.showLinkingToolbar,
       ...editLinkToolbarConfig(
-        pluginState.showLinkingToolbar,
+        Boolean(pluginState?.showLinkingToolbar),
         isLinkPickerEnabled,
       ),
     };
@@ -317,7 +317,7 @@ const generateToolbarItems =
       };
     }
 
-    const pluginState: CardPluginState = pluginKey.getState(state);
+    const pluginState: CardPluginState | undefined = pluginKey.getState(state);
 
     const currentAppearance = appearanceForNodeType(node.type);
     const { hoverDecoration } =
@@ -326,7 +326,7 @@ const generateToolbarItems =
       currentAppearance === 'block' && node?.attrs?.datasource;
 
     /* mobile builds toolbar natively using toolbarItems */
-    if (pluginState.showLinkingToolbar && platform !== 'mobile') {
+    if (pluginState?.showLinkingToolbar && platform !== 'mobile') {
       return [
         buildEditLinkToolbar({
           providerFactory,
@@ -336,7 +336,7 @@ const generateToolbarItems =
           pluginInjectionApi,
         }),
       ];
-    } else if (pluginState.showDatasourceModal) {
+    } else if (pluginState?.showDatasourceModal) {
       return [
         openDatasourceModal({
           state,
@@ -468,9 +468,9 @@ const generateToolbarItems =
   };
 
 const getUnlinkButtonGroup = (
-  state: EditorState<any>,
+  state: EditorState,
   intl: IntlShape,
-  node: Node<any>,
+  node: Node,
   inlineCard: any,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
@@ -492,7 +492,7 @@ const getUnlinkButtonGroup = (
 };
 
 const getSettingsButtonGroup = (
-  state: EditorState<any>,
+  state: EditorState,
   featureFlags: FeatureFlags,
   intl: IntlShape,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
@@ -517,7 +517,7 @@ const getDatasourceButtonGroup = (
   metadata: { url: string; title: string } | {},
   intl: IntlShape,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-  node: Node<any>,
+  node: Node,
   hoverDecoration: any,
 ): FloatingToolbarItem<Command>[] => {
   const toolbarItems: Array<FloatingToolbarItem<Command>> = [

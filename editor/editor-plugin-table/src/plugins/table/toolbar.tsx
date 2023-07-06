@@ -45,7 +45,6 @@ import {
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
 import {
-  ColumnResizingPluginState,
   ToolbarMenuConfig,
   ToolbarMenuState,
   ToolbarMenuContext,
@@ -440,8 +439,7 @@ export const getToolbarConfig =
   (state, intl) => {
     const tableObject = findTable(state.selection);
     const pluginState = getPluginState(state);
-    const resizeState: ColumnResizingPluginState | undefined =
-      tableResizingPluginKey.getState(state);
+    const resizeState = tableResizingPluginKey.getState(state);
     if (tableObject && pluginState.editorHasFocus) {
       const nodeType = state.schema.nodes.table;
       const menu = getToolbarMenuConfig(

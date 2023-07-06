@@ -60,7 +60,7 @@ describe('Editor click area handler', () => {
     });
 
   let wrapper: any;
-  let editorView: EditorView<any>;
+  let editorView: EditorView;
 
   beforeEach(() => {
     editorView = editor(doc(p('Hello world'))).editorView;

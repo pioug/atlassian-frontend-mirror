@@ -59,7 +59,6 @@ import { CAPTION_PLACEHOLDER_ID } from '../ui/CaptionPlaceholder';
 import { IntlShape, RawIntlProvider } from 'react-intl-next';
 import { MediaTaskManager } from './mediaTaskManager';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type { MediaDecorationSpec } from '../types';
 
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
@@ -817,7 +816,7 @@ export const createPlugin = (
             (node, pos) => {
               if (node.type === schema.nodes.media) {
                 mediaNodes.push(
-                  Decoration.node<MediaDecorationSpec>(
+                  Decoration.node(
                     pos,
                     pos + node.nodeSize,
                     {},

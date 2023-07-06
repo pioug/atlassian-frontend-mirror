@@ -229,8 +229,15 @@ const buildCodeIcon = buildIcon(IconTypes.code);
 const buildSubscriptIcon = buildIcon(IconTypes.subscript);
 const buildSuperscriptIcon = buildIcon(IconTypes.superscript);
 
-const useTextFormattingPluginState = (editorState: EditorState) =>
-  useMemo(() => textFormattingPluginKey.getState(editorState), [editorState]);
+const useTextFormattingPluginState = (
+  editorState: EditorState,
+): TextFormattingState =>
+  useMemo(() => {
+    const pluginState = textFormattingPluginKey.getState(editorState);
+
+    // TODO: ED-13910 for reasons that goes beyond my knowledge. This is the only way to make the current unit tests happy. Even thought this was wrong before
+    return pluginState!;
+  }, [editorState]);
 
 export const useFormattingIcons = ({
   isToolbarDisabled,

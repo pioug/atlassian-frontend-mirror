@@ -96,8 +96,8 @@ type SerializeMarkProps = {
   parentMark: ParentMarkInfo;
 };
 
-type MarkWithContent = Partial<Mark<any>> & {
-  content: Array<MarkWithContent | Node<any>>;
+type MarkWithContent = Partial<Mark> & {
+  content: Array<MarkWithContent | Node>;
 };
 
 function mergeMarks(marksAndNodes: Array<MarkWithContent | Node>) {
@@ -111,7 +111,7 @@ function mergeMarks(marksAndNodes: Array<MarkWithContent | Node>) {
       Array.isArray(prev.content) &&
       isSameMark(prev as Mark, markOrNode as Mark)
     ) {
-      prev.content = mergeMarks(
+      (prev as MarkWithContent).content = mergeMarks(
         prev.content.concat((markOrNode as MarkWithContent).content),
       );
     } else {

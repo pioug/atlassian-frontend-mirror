@@ -13,7 +13,7 @@ export function unwrapContentFromLayout(
     return isLayoutNode(node) ? node.content : node;
   });
 
-  const nodes = [] as Node[];
+  const nodes: Node[] = [];
   fragment.forEach((i) => nodes.push(i));
   return nodes;
 }

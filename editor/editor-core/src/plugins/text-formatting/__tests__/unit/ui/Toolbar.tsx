@@ -51,7 +51,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
     describe.each(['Bold', 'Italic'])('the %s toolbar button', (buttonName) => {
       it('should render disabled ToolbarButton', () => {
         const editorState = createEditorState(doc(p('A')));
-        const editorView = new EditorView(undefined, { state: editorState });
+        const editorView = new EditorView(null, { state: editorState });
 
         const { getByTestId } = render(
           <ToolbarWrapper>

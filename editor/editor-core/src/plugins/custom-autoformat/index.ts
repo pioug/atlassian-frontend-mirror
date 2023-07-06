@@ -53,14 +53,16 @@ export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
         return false;
       },
       handleKeyDown: keydownHandler({
-        Enter: (_state: EditorState, _dispatch: any, view: EditorView) => {
-          triggerInputRule(
-            view,
-            rules,
-            view.state.selection.from,
-            view.state.selection.to,
-            '',
-          );
+        Enter: (_state: EditorState, _dispatch?: any, view?: EditorView) => {
+          if (view) {
+            triggerInputRule(
+              view,
+              rules,
+              view.state.selection.from,
+              view.state.selection.to,
+              '',
+            );
+          }
           return false;
         },
       }),

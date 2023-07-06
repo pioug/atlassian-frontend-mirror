@@ -12,14 +12,9 @@ export type BasePrimitiveProps = {
    * Inline styles to be applied to the primitive.
    */
   style?: CSSProperties;
-};
 
-type BoxXCSSArray = Array<BoxXCSSArray | BoxXCSS | false | undefined>;
-
-// Some redeclaration needed until responsive props graduate to the public API
-export type PublicBoxPropsBase = {
   /**
-   * Safe subset of styles that can be applied as a classname.
+   * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
    */
-  xcss?: BoxXCSS | BoxXCSSArray;
+  xcss?: BoxXCSS | BoxXCSS[];
 };

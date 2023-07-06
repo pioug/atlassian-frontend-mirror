@@ -4,7 +4,6 @@ import {
   ReadonlyTransaction,
   SafePluginSpec,
 } from 'prosemirror-state';
-import { Schema } from 'prosemirror-model';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 import { EditorView } from 'prosemirror-view';
 import { EditorProps } from '../../types/editor-props';
@@ -19,10 +18,7 @@ type InstrumentedPluginOptions = EditorProps['performanceTracking'] & {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 };
 
-export class InstrumentedPlugin<
-  PluginState,
-  NodeSchema extends Schema<any, any>,
-> extends SafePlugin<PluginState, NodeSchema> {
+export class InstrumentedPlugin<PluginState> extends SafePlugin<PluginState> {
   constructor(
     spec: SafePluginSpec,
     options: InstrumentedPluginOptions = {},
@@ -45,10 +41,10 @@ export class InstrumentedPlugin<
       const originalApply = spec.state.apply.bind(spec.state);
 
       spec.state.apply = (
-        aTr: ReadonlyTransaction<NodeSchema>,
+        aTr: ReadonlyTransaction,
         value: PluginState,
-        oldState: EditorState<NodeSchema>,
-        newState: EditorState<NodeSchema>,
+        oldState: EditorState,
+        newState: EditorState,
       ) => {
         const self = this as any;
         const tr =
@@ -127,11 +123,11 @@ export class InstrumentedPlugin<
     super(spec);
   }
 
-  public static fromPlugin<T, V extends Schema<any, any>>(
-    plugin: SafePlugin<T, V>,
+  public static fromPlugin<T>(
+    plugin: SafePlugin<T>,
     options: InstrumentedPluginOptions,
     transactionTracker?: TransactionTracker,
-  ): InstrumentedPlugin<T, V> {
+  ): InstrumentedPlugin<T> {
     return new InstrumentedPlugin(
       plugin.spec as SafePluginSpec,
       options,

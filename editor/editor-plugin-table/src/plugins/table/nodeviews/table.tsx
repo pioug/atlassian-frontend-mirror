@@ -87,10 +87,13 @@ export default class TableView extends ReactNodeView<Props> {
     const rendered = DOMSerializer.renderSpec(
       document,
       toDOM(this.node, this.reactComponentProps as Props),
-    );
+    ) as {
+      dom: HTMLElement;
+      contentDOM?: HTMLElement;
+    };
 
     if (rendered.dom) {
-      this.table = rendered.dom as HTMLElement;
+      this.table = rendered.dom;
     }
 
     return rendered;

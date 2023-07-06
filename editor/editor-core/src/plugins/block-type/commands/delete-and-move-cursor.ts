@@ -3,7 +3,7 @@ import { Command } from '../../../types';
 
 // We should override default behaviour when selection spans node depths or
 // ends at a node junction
-const shouldMoveCursorAfterDelete = (state: EditorState<any>) => {
+const shouldMoveCursorAfterDelete = (state: EditorState) => {
   const {
     selection: { $from, $to },
   } = state;
@@ -32,7 +32,7 @@ const shouldMoveCursorAfterDelete = (state: EditorState<any>) => {
  * ED-13873 fixes a bug where after deleting a list the cursor would move
  * to the cell to the right. Uses setSelection to position the cursor as expected after deleting.
  *
- * @param state EditorState<any>
+ * @param state EditorState
  * @param dispatch CommandDispatch
  * @returns boolean
  */

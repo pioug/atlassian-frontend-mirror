@@ -262,7 +262,7 @@ export const openDatasourceModal = ({
   editorAnalyticsApi,
 }: {
   state: EditorState;
-  node: Node<any>;
+  node: Node;
   editorAnalyticsApi?: EditorAnalyticsAPI;
 }): FloatingToolbarItem<Command> => {
   return {

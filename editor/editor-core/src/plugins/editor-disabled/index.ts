@@ -61,7 +61,15 @@ const editorDisabledPlugin: NextEditorPlugin<
       };
     }
 
-    return pluginKey.getState(editorState);
+    const pluginState = pluginKey.getState(editorState);
+
+    if (!pluginState) {
+      return {
+        editorDisabled: false,
+      };
+    }
+
+    return pluginState;
   },
 
   pmPlugins: () => [

@@ -40,11 +40,11 @@ describe('toolbar-data', () => {
       const { showConfirmDialog } = commands;
 
       showConfirmDialog(0)(editorView.state, editorView.dispatch);
-      pluginState = toolbarDataPluginKey.getState(editorView.state);
+      pluginState = toolbarDataPluginKey.getState(editorView.state)!;
       expect(pluginState.confirmDialogForItem).toEqual(0);
 
       showConfirmDialog(3)(editorView.state, editorView.dispatch);
-      pluginState = toolbarDataPluginKey.getState(editorView.state);
+      pluginState = toolbarDataPluginKey.getState(editorView.state)!;
       expect(pluginState.confirmDialogForItem).toEqual(3);
     });
 
@@ -54,11 +54,11 @@ describe('toolbar-data', () => {
       const { showConfirmDialog, hideConfirmDialog } = commands;
 
       showConfirmDialog(3)(editorView.state, editorView.dispatch);
-      pluginState = toolbarDataPluginKey.getState(editorView.state);
+      pluginState = toolbarDataPluginKey.getState(editorView.state)!;
       expect(pluginState.confirmDialogForItem).toEqual(3);
 
       hideConfirmDialog()(editorView.state, editorView.dispatch);
-      pluginState = toolbarDataPluginKey.getState(editorView.state);
+      pluginState = toolbarDataPluginKey.getState(editorView.state)!;
       expect(pluginState.confirmDialogForItem).toBeUndefined();
     });
   });

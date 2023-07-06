@@ -12,14 +12,6 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
@@ -78,31 +70,23 @@
   },
   "devDependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
-    "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/css-reset": "^6.5.0",
-    "@atlaskit/docs": "*",
     "@atlaskit/editor-core": "^185.8.0",
     "@atlaskit/editor-test-helpers": "^18.8.0",
     "@atlaskit/inline-edit": "^12.3.3",
     "@atlaskit/link-provider": "^1.6.0",
     "@atlaskit/link-test-helpers": "^4.1.0",
-    "@atlaskit/logo": "^13.14.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/mention": "^22.1.0",
     "@atlaskit/navigation-next": "^9.0.0",
-    "@atlaskit/radio": "^5.6.0",
-    "@atlaskit/range": "^7.1.0",
-    "@atlaskit/textfield": "^5.5.1",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
-    "@types/prosemirror-model": "^1.11.0",
-    "@types/prosemirror-transform": "^1.1.0",
     "@types/react-loadable": "^5.4.1",
     "ajv": "^6.12.6",
     "enzyme": "^3.10.0",

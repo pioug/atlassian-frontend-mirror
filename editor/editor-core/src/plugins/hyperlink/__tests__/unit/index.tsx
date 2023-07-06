@@ -94,7 +94,7 @@ describe('hyperlink', () => {
       const { getConfigWithNodeInfo } =
         floatingToolbarPluginKey.getState(state)!;
 
-      expect(getConfigWithNodeInfo(state).config).toMatchObject({
+      expect(getConfigWithNodeInfo(state)?.config).toMatchObject({
         nodeType: [
           expect.objectContaining({ name: 'text' }),
           expect.objectContaining({ name: 'paragraph' }),
@@ -113,7 +113,7 @@ describe('hyperlink', () => {
       const { getConfigWithNodeInfo } =
         floatingToolbarPluginKey.getState(state)!;
 
-      expect(getConfigWithNodeInfo(state).config).toMatchObject({
+      expect(getConfigWithNodeInfo(state)?.config).toMatchObject({
         nodeType: expect.arrayContaining([
           expect.objectContaining({ name: 'taskItem' }),
           expect.objectContaining({ name: 'decisionItem' }),

@@ -652,7 +652,7 @@ export default class WebBridgeImpl
     if (!tool) {
       return;
     }
-    const query = tool.currentQuery();
+    const query = tool.currentQuery() || '';
 
     switch (type) {
       case 'mention':
@@ -741,7 +741,9 @@ export default class WebBridgeImpl
 
     if (wrapperItem?.type.name !== 'paragraph') {
       const newParagraph = state.schema.nodes.paragraph.createAndFill();
-      tr = tr.insert(position, newParagraph);
+      if (newParagraph) {
+        tr = tr.insert(position, newParagraph);
+      }
       tr = tr.setSelection(selection(tr.doc));
     }
 

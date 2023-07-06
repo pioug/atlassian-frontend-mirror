@@ -109,7 +109,7 @@ describe('ToolbarTextColor', () => {
 
     beforeEach(() => {
       const { editorView } = editor(doc(p('text')));
-      pluginState = pluginKey.getState(editorView.state);
+      pluginState = pluginKey.getState(editorView.state)!;
       mockDispatchAnalytics.mockClear();
       const intl = createIntl({ locale: 'en' });
       const editorRef = {
@@ -253,7 +253,7 @@ describe('ToolbarTextColor', () => {
   describe('inside an invalid node', () => {
     beforeEach(() => {
       const { editorView } = editor(doc(code_block()('text')));
-      const pluginState = pluginKey.getState(editorView.state);
+      const pluginState = pluginKey.getState(editorView.state)!;
       mockDispatchAnalytics.mockClear();
       const intl = createIntl({ locale: 'en' });
 

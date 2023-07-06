@@ -364,8 +364,11 @@ export default class MobileEditorToolbarActions {
     // the delay can take a long time to actually apply.
     // We force ProseMirror into not being in composition mode to make the
     // actions instant.
-    const wasComposing = editorView.composing;
-    editorView.composing = false;
+
+    // with the new prosemirror-view version this will blow up as composing now only has a getter and not supposed to be assigned
+    // to be fixed in DTR-1383
+    // const wasComposing = editorView.composing;
+    // editorView.composing = false;
 
     const items = this.floatingToolbarItems;
     const [parentIndex, optionIndex] = key
@@ -400,8 +403,9 @@ export default class MobileEditorToolbarActions {
         }
         break;
     }
-
-    editorView.composing = wasComposing;
+    // with the new prosemirror-view version this will blow up as composing now only has a getter and not supposed to be assigned
+    // to be fixed in DTR-1383
+    // editorView.composing = wasComposing;
   }
 
   private performButtonClick(

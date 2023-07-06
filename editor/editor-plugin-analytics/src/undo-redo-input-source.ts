@@ -2,12 +2,14 @@ import { Transaction } from 'prosemirror-state';
 
 import { AnalyticsPayload } from '@atlaskit/adf-schema/steps';
 
-const getUndoRedoInputSource = (tr: Transaction): string | null => {
+const getUndoRedoInputSource = (tr: Readonly<Transaction>): string | null => {
   // TODO: Please, do not copy or use this kind of code below
   return tr.getMeta('undoRedoPlugin$') ?? null;
 };
 
-export const generateUndoRedoInputSoucePayload = (tr: Transaction) => {
+export const generateUndoRedoInputSoucePayload = (
+  tr: Readonly<Transaction>,
+) => {
   const undoRedoPluginInputSource = getUndoRedoInputSource(tr);
 
   return <T extends AnalyticsPayload>(payload: T): T => {

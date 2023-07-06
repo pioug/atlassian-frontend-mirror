@@ -1,4 +1,5 @@
 import { NodeType, Node as PMNode, ResolvedPos } from 'prosemirror-model';
+import { Selection } from 'prosemirror-state';
 
 import { CellSelection } from '../cell-selection';
 import { CellAttributes, Command } from '../types';
@@ -113,12 +114,11 @@ export function splitCellWithType(getCellType: GetCellTypeCallback): Command {
         sel instanceof CellSelection &&
         $lastCellPosition instanceof ResolvedPos
       ) {
-        tr.setSelection(
-          new CellSelection(
-            tr.doc.resolve(sel.$anchorCell.pos),
-            $lastCellPosition,
-          ),
+        const cellSelection = new CellSelection(
+          tr.doc.resolve(sel.$anchorCell.pos),
+          $lastCellPosition,
         );
+        tr.setSelection(cellSelection as Selection);
       }
 
       dispatch(tr);

@@ -254,16 +254,15 @@ function getPortalChildren<ExtraComponentProps>({
 type NodeViewProducer = (
   node: PMNode,
   view: EditorView,
-  // TODO:  ED-13910 - Remove the boolean to fix the prosemirror view type
-  getPos: (() => GetPosReturn) | boolean,
-  decorations: Decoration[],
+  getPos: () => GetPosReturn,
+  decorations: readonly Decoration[],
 ) => NodeView;
-type GetPosReturn = number | undefined;
 type NodeViewProducerParameters = Parameters<NodeViewProducer>;
+type GetPosReturn = number | undefined;
 type NodeViewParams = {
   node: Parameters<NodeViewProducer>[0];
   view: Parameters<NodeViewProducer>[1];
-  getPos: Parameters<NodeViewProducer>[2];
+  getPos: () => GetPosReturn;
   decorations: Parameters<NodeViewProducer>[3];
 };
 

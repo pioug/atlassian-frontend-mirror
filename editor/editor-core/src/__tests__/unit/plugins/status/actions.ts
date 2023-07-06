@@ -79,7 +79,7 @@ describe('status plugin: actions', () => {
       );
 
       const pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.showStatusPickerAt).toEqual(selectionFrom);
+      expect(pluginState?.showStatusPickerAt).toEqual(selectionFrom);
     });
 
     it('should keep picker open after updating status', () => {
@@ -106,7 +106,7 @@ describe('status plugin: actions', () => {
       })(editorView.state, editorView.dispatch);
 
       const pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.showStatusPickerAt).toEqual(selectionFrom);
+      expect(pluginState?.showStatusPickerAt).toEqual(selectionFrom);
     });
 
     it('should keep selection when updating status', () => {
@@ -357,7 +357,7 @@ describe('status plugin: actions', () => {
       setStatusPickerAt(selectionFrom)(editorView.state, editorView.dispatch);
 
       const pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.showStatusPickerAt).toEqual(selectionFrom);
+      expect(pluginState?.showStatusPickerAt).toEqual(selectionFrom);
     });
   });
 
@@ -388,7 +388,7 @@ describe('status plugin: actions', () => {
       commitStatusPicker()(editorView);
 
       const pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.showStatusPickerAt).toEqual(null);
+      expect(pluginState?.showStatusPickerAt).toEqual(null);
     });
 
     it('should set focus on editor', () => {
@@ -492,13 +492,13 @@ describe('status plugin: actions', () => {
       const { editorView, typeAheadTool } = editor(doc(p('{<>}')));
 
       let pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.isNew).toEqual(false);
+      expect(pluginState?.isNew).toEqual(false);
 
       // Simulate quick insert
       await typeAheadTool.searchQuickInsert('Status').insert({ index: 0 });
 
       pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.isNew).toEqual(true);
+      expect(pluginState?.isNew).toEqual(true);
 
       updateStatus({
         color: 'green',
@@ -507,7 +507,7 @@ describe('status plugin: actions', () => {
       })(editorView.state, editorView.dispatch);
 
       pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.isNew).toEqual(true);
+      expect(pluginState?.isNew).toEqual(true);
     });
 
     it('focus on input field should not be set when updating', () => {
@@ -528,7 +528,7 @@ describe('status plugin: actions', () => {
       setStatusPickerAt(selectionFrom)(editorView.state, editorView.dispatch);
 
       let pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.isNew).toEqual(false);
+      expect(pluginState?.isNew).toEqual(false);
 
       updateStatus({
         color: 'green',
@@ -536,11 +536,11 @@ describe('status plugin: actions', () => {
         localId: '666',
       })(editorView.state, editorView.dispatch);
       pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.isNew).toEqual(false);
+      expect(pluginState?.isNew).toEqual(false);
 
       commitStatusPicker()(editorView);
       pluginState = pluginKey.getState(editorView.state);
-      expect(pluginState.isNew).toEqual(false);
+      expect(pluginState?.isNew).toEqual(false);
     });
   });
 });

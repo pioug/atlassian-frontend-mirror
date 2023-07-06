@@ -50,7 +50,7 @@ export const catchup = async (opt: CatchupOptions) => {
       });
       opt.updateMetadata(metadata);
       if (unconfirmedSteps?.length) {
-        opt.applyLocalSteps(unconfirmedSteps as Step<any>[]);
+        opt.applyLocalSteps(unconfirmedSteps as Step[]);
       }
     } else {
       // Please, do not use those steps inside of async

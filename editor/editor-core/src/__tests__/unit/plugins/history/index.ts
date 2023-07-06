@@ -13,7 +13,7 @@ describe('History Plugin', () => {
       editorProps: { appearance: 'mobile' },
     });
   const getPluginState = (state: EditorState): HistoryPluginState =>
-    historyPluginKey.getState(state);
+    historyPluginKey.getState(state)!;
   let editorView: EditorView;
 
   beforeEach(() => {

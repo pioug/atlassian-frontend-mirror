@@ -14,8 +14,8 @@ import { EditorState } from 'prosemirror-state';
 import { trackerStore, ViewUpdateSubscription } from '..';
 
 type SubscribeToToolbarAndPickerUpdatesCallbackArgs = {
-  dateState: DatePluginState;
-  statusState: StatusState;
+  dateState?: DatePluginState;
+  statusState?: StatusState;
   toolbarConfig: ConfigWithNodeInfo | null | undefined;
 };
 
@@ -92,8 +92,8 @@ export const subscribeToToolbarAndPickerUpdates: SubscribeToToolbarAndPickerUpda
           // Sometimes the toolbar changes while a picker is open, we dont care about this
           // EG A nested status or date node in a table
           (!isToolbarEqual &&
-            !statusState.showStatusPickerAt &&
-            !dateState.showDatePickerAt)
+            !statusState?.showStatusPickerAt &&
+            !dateState?.showDatePickerAt)
         ) {
           shouldCallback = true;
         }

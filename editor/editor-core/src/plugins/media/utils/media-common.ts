@@ -260,6 +260,7 @@ export const copyOptionalAttrsFromMediaState = (
       const mediaStateKey = key.substring(2);
       const attrValue = mediaState[mediaStateKey as keyof typeof mediaState];
       if (attrValue !== undefined) {
+        // @ts-ignore - [unblock prosemirror bump] assigning to readonly prop
         node.attrs[key] = attrValue;
       }
     });

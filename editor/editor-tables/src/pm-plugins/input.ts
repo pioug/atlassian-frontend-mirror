@@ -126,7 +126,7 @@ function shiftArrow(axis: Axis, dir: Direction): CommandWithView {
   };
 }
 
-function deleteCellSelection(state: EditorState, dispatch: Dispatch): boolean {
+function deleteCellSelection(state: EditorState, dispatch?: Dispatch): boolean {
   const sel = state.selection;
   if (!(sel instanceof CellSelection)) {
     return false;

@@ -4,7 +4,7 @@ import { ACTIONS } from './actions';
 import { pluginKey } from './key';
 
 export const isInsertionTransaction = (
-  transactions: Transaction[],
+  transactions: readonly Transaction[],
   action: ACTIONS,
 ): InsertionTransactionMeta | null => {
   const tr = transactions.find(

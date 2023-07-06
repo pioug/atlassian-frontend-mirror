@@ -1,6 +1,6 @@
 import {
   Fragment,
-  Mark,
+  MarkType,
   Node,
   NodeType,
   ResolvedPos,
@@ -49,7 +49,7 @@ export const normaliseNestedLayout = (
 
     // If its a breakout layout, we can remove the mark
     // Since default isn't a valid breakout mode.
-    const breakoutMark: Mark = doc.type.schema.marks.breakout;
+    const breakoutMark: MarkType = doc.type.schema.marks.breakout;
     if (breakoutMark && breakoutMark.isInSet(node.marks)) {
       const newMarks = breakoutMark.removeFromSet(node.marks);
       return node.type.createChecked(node.attrs, node.content, newMarks);
@@ -59,20 +59,20 @@ export const normaliseNestedLayout = (
   return node;
 };
 
-const isLastChild = ($pos: ResolvedPos<any>, doc: Node<any>): boolean =>
+const isLastChild = ($pos: ResolvedPos, doc: Node): boolean =>
   doc.resolve($pos.after()).node().lastChild === $pos.node();
 
-const isFirstChild = ($pos: ResolvedPos<any>, doc: Node<any>): boolean =>
+const isFirstChild = ($pos: ResolvedPos, doc: Node): boolean =>
   doc.resolve($pos.before()).node().firstChild === $pos.node();
 
-const nodeIsInsideAList = (tr: Transaction<any>) => {
+const nodeIsInsideAList = (tr: Transaction) => {
   const { nodes } = tr.doc.type.schema;
   return hasParentNodeOfType([nodes.orderedList, nodes.bulletList])(
     tr.selection,
   );
 };
 
-const selectionIsInsideAPanel = (tr: Transaction<any>) => {
+const selectionIsInsideAPanel = (tr: Transaction) => {
   const { nodes } = tr.doc.type.schema;
   return hasParentNodeOfType(nodes.panel)(tr.selection);
 };
@@ -313,17 +313,13 @@ export const insertSelectedItem =
     maybeNode?: Node | Object | string | Fragment,
     opts: { selectInlineNode?: boolean } = {},
   ) =>
-  (
-    state: EditorState,
-    tr: Transaction<any>,
-    start: number,
-  ): Transaction<any> => {
+  (state: EditorState, tr: Transaction, start: number): Transaction => {
     if (!maybeNode) {
       return tr;
     }
 
     const isInputFragment = maybeNode instanceof Fragment;
-    let node;
+    let node: Node | Fragment;
     try {
       node =
         maybeNode instanceof Node || isInputFragment
@@ -337,7 +333,7 @@ export const insertSelectedItem =
       return tr;
     }
 
-    if (node.isText) {
+    if (node instanceof Node && node.isText) {
       tr = tr.replaceWith(start, start, node);
 
       /**
@@ -345,7 +341,7 @@ export const insertSelectedItem =
        * Replacing a type ahead query mark with a block node.
        *
        */
-    } else if (node.isBlock) {
+    } else if (node instanceof Node && node.isBlock) {
       /**
        *
        * Rule has unique insertion behaviour
@@ -371,10 +367,10 @@ export const insertSelectedItem =
        * Replacing a type ahead query mark with an inline node.
        *
        */
-    } else if (node.isInline || isInputFragment) {
-      const fragment = isInputFragment
-        ? node
-        : Fragment.fromArray([node, state.schema.text(' ')]);
+    } else if ((node instanceof Node && node.isInline) || isInputFragment) {
+      const fragment: Fragment = isInputFragment
+        ? (node as Fragment)
+        : Fragment.fromArray([node as Node, state.schema.text(' ')]);
 
       tr = tr.replaceWith(start, start, fragment);
 
@@ -402,8 +398,8 @@ export const shouldSplitSelectedNodeOnNodeInsertion = ({
   grandParentNodeType,
   content,
 }: {
-  parentNodeType: NodeType<any>;
-  grandParentNodeType: NodeType<any>;
+  parentNodeType: NodeType;
+  grandParentNodeType: NodeType;
   content: Node;
 }) => {
   if (

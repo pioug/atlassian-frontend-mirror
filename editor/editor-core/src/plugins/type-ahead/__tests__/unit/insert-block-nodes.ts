@@ -65,31 +65,31 @@ afterAll(() => {
 const items: TypeAheadItem[] = [
   {
     title: 'Action item',
-    createNode: (state: EditorState): PMNode => {
+    createNode: (state: EditorState): PMNode | null => {
       return state.schema.nodes.taskList.createAndFill();
     },
   },
   {
     title: 'Decision',
-    createNode: (state: EditorState): PMNode => {
+    createNode: (state: EditorState): PMNode | null => {
       return state.schema.nodes.decisionList.createAndFill();
     },
   },
   {
     title: 'Panel',
-    createNode: (state: EditorState): PMNode => {
+    createNode: (state: EditorState): PMNode | null => {
       return state.schema.nodes.panel.createAndFill();
     },
   },
   {
     title: 'Expand',
-    createNode: (state: EditorState): PMNode => {
+    createNode: (state: EditorState): PMNode | null => {
       return state.schema.nodes.expand.createAndFill();
     },
   },
   {
     title: 'Code snippet',
-    createNode: (state: EditorState): PMNode => {
+    createNode: (state: EditorState): PMNode | null => {
       return state.schema.nodes.codeBlock.createAndFill();
     },
   },
@@ -117,7 +117,7 @@ describe('type-ahead', () => {
   const TRIGGER = '/';
   const QUERY = '';
   const insertItem = (editorView: EditorView, index: number = 0) => {
-    const pluginState = getPluginState(editorView.state);
+    const pluginState = getPluginState(editorView.state)!;
     insertTypeAheadItem(editorView)({
       item: items[index],
       handler: pluginState.triggerHandler!,

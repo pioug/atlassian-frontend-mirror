@@ -129,7 +129,7 @@ describe('subscribe to toolbar and picker updates', () => {
       // at the sametime we set the selection in the table
       const { typeAheadHandlers } = typeAheadPluginKey.getState(
         editorView.state,
-      );
+      )!;
       const { tr } = editorView.state;
       openTypeAheadAtCursor({
         triggerHandler: typeAheadHandlers[0],

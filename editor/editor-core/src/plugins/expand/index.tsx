@@ -83,6 +83,9 @@ const expandPlugin: NextEditorPlugin<
             icon: () => <IconExpand />,
             action(insert, state) {
               const node = createExpandNode(state);
+              if (!node) {
+                return false;
+              }
               const tr = insert(node);
               return addAnalytics(state, tr, {
                 action: ACTION.INSERTED,

@@ -29,7 +29,7 @@ export function useToolbarSubscription(
       subscribeToToolbarAndPickerUpdates(
         editorView,
         ({ dateState, statusState, toolbarConfig }) => {
-          if (dateState.showDatePickerAt) {
+          if (dateState?.showDatePickerAt) {
             const node = editorView.state.doc.nodeAt(
               dateState.showDatePickerAt,
             );
@@ -42,7 +42,7 @@ export function useToolbarSubscription(
               config,
               node,
             );
-          } else if (statusState.showStatusPickerAt) {
+          } else if (statusState?.showStatusPickerAt) {
             const node = editorView.state.doc.nodeAt(
               statusState.showStatusPickerAt,
             );

@@ -54,7 +54,7 @@ interface MediaNodeState {
 }
 
 export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
-  private mediaPluginState: MediaPluginState;
+  private mediaPluginState: MediaPluginState | undefined;
 
   state: MediaNodeState = {};
 
@@ -97,15 +97,15 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 
   componentWillUnmount() {
     const { node } = this.props;
-    this.mediaPluginState.handleMediaNodeUnmount(node);
+    this.mediaPluginState?.handleMediaNodeUnmount(node);
   }
 
   componentDidUpdate(prevProps: Readonly<MediaNodeProps>) {
     if (prevProps.node.attrs.id !== this.props.node.attrs.id) {
-      this.mediaPluginState.handleMediaNodeUnmount(prevProps.node);
+      this.mediaPluginState?.handleMediaNodeUnmount(prevProps.node);
       this.handleNewNode(this.props);
     }
-    this.mediaPluginState.updateElement();
+    this.mediaPluginState?.updateElement();
     this.setViewMediaClientConfig();
   }
 
@@ -238,7 +238,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
   }
 
   private onFullscreenChange = (fullscreen: boolean) => {
-    this.mediaPluginState.updateAndDispatch({
+    this.mediaPluginState?.updateAndDispatch({
       isFullscreen: fullscreen,
     });
   };
@@ -246,7 +246,9 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
   private handleNewNode = (props: MediaNodeProps) => {
     const { node } = props;
 
-    this.mediaPluginState.handleMediaNodeMount(node, () => this.props.getPos());
+    this.mediaPluginState?.handleMediaNodeMount(node, () =>
+      this.props.getPos(),
+    );
   };
 }
 

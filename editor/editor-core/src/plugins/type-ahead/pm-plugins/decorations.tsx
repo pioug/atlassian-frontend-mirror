@@ -69,7 +69,10 @@ export const factoryDecorations = ({
     let shouldFocusCursorInsideQuery = true;
     const deco = Decoration.widget(
       $cursor.pos,
-      (editorView: EditorView, getDecorationPosition: () => number) => {
+      (
+        editorView: EditorView,
+        getDecorationPosition: () => number | undefined,
+      ) => {
         typeaheadComponent.setAttribute('id', decorationId);
         typeaheadComponent.setAttribute('role', 'search');
 
@@ -99,7 +102,7 @@ export const factoryDecorations = ({
             typeof reopenQuery === 'string' && reopenQuery.trim().length > 0;
           const currentQuery = getTypeAheadQuery(editorView.state);
 
-          if (hasReopenQuery || currentQuery.length === 0) {
+          if (hasReopenQuery || currentQuery?.length === 0) {
             const command = inputType === 'historyUndo' ? undo : redo;
             let tr = editorView.state.tr;
             const fakeDispatch = (customTr: Transaction) => {

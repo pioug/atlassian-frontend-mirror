@@ -307,6 +307,7 @@ const extractListItemsRangeFromList = ({
     const order = getOrderFromOrderedListNode(list);
     if (list.type.name === 'orderedList') {
       nextListStartNumber = range.endIndex - 1 + order;
+      // @ts-ignore - [unblock prosemirror bump] assigning to readonly attrs
       nextList.attrs = {
         ...nextList.attrs,
         order: nextListStartNumber,

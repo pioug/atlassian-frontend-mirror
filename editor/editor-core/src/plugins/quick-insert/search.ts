@@ -35,15 +35,15 @@ export function find(
 
 export const searchQuickInsertItems =
   (
-    quickInsertState: QuickInsertPluginState,
+    quickInsertState?: QuickInsertPluginState,
     options?: QuickInsertPluginOptions,
   ) =>
   (query?: string, category?: string): QuickInsertItem[] => {
     const defaultItems =
-      options && options.disableDefaultItems
+      !quickInsertState || (options && options.disableDefaultItems)
         ? []
         : quickInsertState.lazyDefaultItems();
-    const providedItems = quickInsertState.providedItems;
+    const providedItems = quickInsertState?.providedItems;
 
     const items = providedItems
       ? dedupe([...defaultItems, ...providedItems], (item) => item.title)

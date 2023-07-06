@@ -130,7 +130,7 @@ describe('paste util', () => {
       }: {
         testCase: string;
         content: any;
-        newMarks: Mark<any>[];
+        newMarks: Mark[];
         expectedContent: any[];
       }) {
         it(testCase, () => {

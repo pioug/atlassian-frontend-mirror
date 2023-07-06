@@ -24,7 +24,7 @@ type WrapperProps = {
   triggerHandler: TypeAheadHandler;
   editorView: EditorView;
   anchorElement: HTMLElement;
-  getDecorationPosition: () => number;
+  getDecorationPosition: () => number | undefined;
   shouldFocusCursorInsideQuery: boolean;
   onUndoRedo?: (inputType: 'historyUndo' | 'historyRedo') => boolean;
   reopenQuery?: string;
@@ -113,7 +113,7 @@ export const WrapperTypeAhead: React.FC<WrapperProps> = React.memo(
       (mode: SelectItemMode = SelectItemMode.SELECTED) => {
         const { current: view } = editorViewRef;
 
-        const { selectedIndex } = getPluginState(view.state);
+        const { selectedIndex } = getPluginState(view.state)!;
         setClosed(true);
         queueMicrotask(() => {
           onItemInsert({
@@ -137,8 +137,8 @@ export const WrapperTypeAhead: React.FC<WrapperProps> = React.memo(
 
       if (
         query.length === 0 ||
-        query === pluginState.query ||
-        !pluginState.triggerHandler
+        query === pluginState?.query ||
+        !pluginState?.triggerHandler
       ) {
         return;
       }

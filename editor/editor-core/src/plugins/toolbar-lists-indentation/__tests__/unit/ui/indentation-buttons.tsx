@@ -64,7 +64,7 @@ describe('Indentation buttons', () => {
     const { editorView } = editor(doc);
     const { indentDisabled, outdentDisabled } = pluginKey.getState(
       editorView.state,
-    );
+    )!;
     const { getByTestId } = render(
       <IntlProvider locale="en">
         <ToolbarListsIndentation

@@ -17,8 +17,8 @@ describe('isEditorFocused', () => {
 
   it('should set to `true` when a focus event fires', () => {
     const { plugin, editorView } = editor(doc(p('{<>}')));
-    plugin.props.handleDOMEvents!.blur(editorView, event);
-    plugin.props.handleDOMEvents!.focus(editorView, event);
+    (plugin.props.handleDOMEvents as any).blur(editorView, event);
+    (plugin.props.handleDOMEvents as any).focus(editorView, event);
 
     const isEditorFocused = focusStateKey.getState(editorView.state);
     expect(isEditorFocused).toBe(true);
@@ -27,7 +27,7 @@ describe('isEditorFocused', () => {
   it('should set to `false` when a blur event fires', () => {
     const { plugin, editorView } = editor(doc(p('{<>}')));
 
-    plugin.props.handleDOMEvents!.blur(editorView, event);
+    (plugin.props.handleDOMEvents as any).blur(editorView, event);
 
     const isEditorFocused = focusStateKey.getState(editorView.state);
     expect(isEditorFocused).toBe(false);
@@ -37,8 +37,8 @@ describe('isEditorFocused', () => {
     const { plugin, editorView } = editor(doc(p('{<>}')));
 
     jest.spyOn(editorView, 'hasFocus').mockReturnValue(true);
-    plugin.props.handleDOMEvents!.blur(editorView, event);
-    plugin.props.handleDOMEvents!.click(editorView, event);
+    (plugin.props.handleDOMEvents as any).blur(editorView, event);
+    (plugin.props.handleDOMEvents as any).click(editorView, event);
 
     const isEditorFocused = focusStateKey.getState(editorView.state);
     expect(isEditorFocused).toBe(true);

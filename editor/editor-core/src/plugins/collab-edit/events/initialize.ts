@@ -47,7 +47,7 @@ export const initialize =
     let cleanup: Cleanup | undefined;
     const pluginState = pluginKey.getState(view.state);
 
-    if (pluginState.isReady && cleanup) {
+    if (pluginState?.isReady && cleanup) {
       cleanup();
     }
 

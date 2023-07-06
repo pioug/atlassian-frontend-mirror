@@ -44,8 +44,6 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/button": "^16.8.0",
-    "@atlaskit/docs": "*",
     "@atlaskit/navigation": "^37.0.0",
     "@atlaskit/page": "^12.3.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

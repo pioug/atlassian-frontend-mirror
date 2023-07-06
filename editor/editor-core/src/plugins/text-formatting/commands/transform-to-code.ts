@@ -52,9 +52,9 @@ const replaceSmartCharsToAscii = (
 const isNodeTextBlock = (schema: Schema) => {
   const { mention, text, emoji } = schema.nodes;
 
-  return (node: Node, _: any, parent: Node) => {
+  return (node: Node, _: any, parent: Node | null) => {
     if (node.type === mention || node.type === emoji || node.type === text) {
-      return parent.isTextblock;
+      return parent?.isTextblock;
     }
     return;
   };

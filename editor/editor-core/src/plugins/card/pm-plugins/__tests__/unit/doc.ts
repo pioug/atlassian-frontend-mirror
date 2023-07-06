@@ -145,7 +145,7 @@ const jqlInlineCardAdf = {
 };
 
 const datasourceRefsNode = datasourceBlockCard(originalDatasourceAdfAttrs)();
-const datasourceNode = clean(datasourceRefsNode)(defaultSchema) as Node<any>;
+const datasourceNode = clean(datasourceRefsNode)(defaultSchema) as Node;
 
 describe('card', () => {
   const createEditor = createEditorFactory();

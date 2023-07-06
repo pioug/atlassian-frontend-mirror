@@ -4,11 +4,7 @@ import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import { pluginKey as typeAheadPluginKey } from './pm-plugins/key';
 import { updateSelectedIndex } from './commands/update-selected-index';
 import { StatsModifier } from './stats-modifier';
-import type {
-  TypeAheadHandler,
-  TypeAheadItem,
-  TypeAheadPluginState,
-} from './types';
+import type { TypeAheadHandler, TypeAheadItem } from './types';
 import { typeAheadListMessages } from './messages';
 import { IntlShape } from 'react-intl-next';
 
@@ -26,23 +22,20 @@ export const isTypeAheadHandler = (
 
 /** Is a typeahead plugin open? */
 export const isTypeAheadOpen = (editorState: EditorState) => {
-  return (
-    typeAheadPluginKey?.getState(editorState)?.decorationSet?.find().length > 0
-  );
+  return !!typeAheadPluginKey?.getState(editorState)?.decorationSet?.find()
+    .length;
 };
 
-export const getPluginState = (
-  editorState: EditorState,
-): TypeAheadPluginState => {
+export const getPluginState = (editorState: EditorState) => {
   return typeAheadPluginKey.getState(editorState);
 };
 
 export const getTypeAheadHandler = (editorState: EditorState) => {
-  return typeAheadPluginKey.getState(editorState).triggerHandler;
+  return typeAheadPluginKey.getState(editorState)?.triggerHandler;
 };
 
 export const getTypeAheadQuery = (editorState: EditorState) => {
-  return typeAheadPluginKey.getState(editorState).query;
+  return typeAheadPluginKey.getState(editorState)?.query;
 };
 
 export const isTypeAheadAllowed = (state: EditorState) => {

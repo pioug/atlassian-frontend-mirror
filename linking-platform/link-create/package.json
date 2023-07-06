@@ -42,7 +42,7 @@
     "@atlaskit/modal-dialog": "^12.6.0",
     "@atlaskit/select": "^16.5.0",
     "@atlaskit/spinner": "^15.4.0",
-    "@atlaskit/textfield": "^5.5.0",
+    "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/tokens": "^1.11.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
@@ -52,15 +52,9 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/docs": "*",
-    "@atlaskit/link-picker": "^1.25.0",
     "@atlaskit/link-test-helpers": "^4.1.0",
-    "@atlaskit/popup": "^1.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
-    "@atlassian/link-create-confluence": "^10.0.0",
-    "@atlassian/link-create-presets": "^7.0.0",
-    "@atlassian/link-picker-atlassian-plugin": "^34.1.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "fetch-mock": "^8.0.0",

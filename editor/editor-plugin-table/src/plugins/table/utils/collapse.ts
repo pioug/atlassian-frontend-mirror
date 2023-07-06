@@ -1,14 +1,14 @@
-import { NodeType, NodeRange, Schema } from 'prosemirror-model';
+import { NodeType, NodeRange } from 'prosemirror-model';
 import { Transaction, ReadonlyTransaction } from 'prosemirror-state';
 import { findWrapping } from 'prosemirror-transform';
 
 import { findTable } from '@atlaskit/editor-tables/utils';
 
-interface IsTableCollapsibleResult<S extends Schema = any> {
+interface IsTableCollapsibleResult {
   tableIsCollapsible: boolean;
   range?: NodeRange;
   findWrappingRes?:
-    | Array<{ type: NodeType<S>; attrs?: { [key: string]: any } | null }>
+    | Array<{ type: NodeType; attrs?: { [key: string]: any } | null }>
     | null
     | undefined;
 }

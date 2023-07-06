@@ -138,7 +138,7 @@ describe('annotation', () => {
     ))[0] as FloatingToolbarButton<Command>;
     createButton.onClick(editorView.state, editorView.dispatch);
 
-    const pluginState = getPluginState(editorView.state);
+    const pluginState = getPluginState(editorView.state)!;
 
     expect(pluginState.bookmark).toBeTruthy();
     const resolvedBookmark = (<SelectionBookmark>pluginState.bookmark).resolve(

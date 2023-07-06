@@ -7,7 +7,9 @@ import { PluginKey } from 'prosemirror-state';
 
 import { extractSliceFromStep } from '../../../utils/step';
 
-const getEnterKeyboardActionStep = (trs: Transaction[]): Step | null => {
+const getEnterKeyboardActionStep = (
+  trs: readonly Transaction[],
+): Step | null => {
   const firstTr = trs.length === 1 && trs[0];
 
   if (

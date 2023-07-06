@@ -497,7 +497,7 @@ export function keymapPlugin(
     ),
   };
 
-  const defaultHandlers = consumeTabs
+  const defaultHandlers: { [key: string]: Command } = consumeTabs
     ? {
         'Shift-Tab': isInsideTaskOrDecisionItem,
         Tab: isInsideTaskOrDecisionItem,

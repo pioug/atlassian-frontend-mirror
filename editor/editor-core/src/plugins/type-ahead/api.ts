@@ -75,7 +75,7 @@ const close =
       currentQuery &&
       currentQuery.length > 0
     ) {
-      const handler = getTypeAheadHandler(state);
+      const handler = getTypeAheadHandler(state)!;
       const text = handler.trigger.concat(currentQuery);
       tr.replaceSelectionWith(state.schema.text(text));
     }
@@ -210,7 +210,7 @@ const isOpen =
 
 const currentQuery =
   ({ editorView }: CommonProps) =>
-  (): string => {
+  (): string | undefined => {
     return getTypeAheadQuery(editorView.state);
   };
 

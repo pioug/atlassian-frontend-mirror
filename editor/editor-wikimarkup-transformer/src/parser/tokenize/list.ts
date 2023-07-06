@@ -284,6 +284,7 @@ function sanitize(nodes: PMNode[], schema: Schema) {
           const mark = schema.marks.strong.create();
           if (n.type.name === 'text') {
             if (n.text) {
+              // @ts-ignore - [unblock prosemirror bump] allow assign to readonly
               n.text = n.text.toUpperCase();
             }
             if (

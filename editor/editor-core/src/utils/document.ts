@@ -164,11 +164,11 @@ export const isSelectionEndOfParagraph = (state: EditorState): boolean =>
   state.selection.$to.pos === state.doc.resolve(state.selection.$to.pos).end();
 
 export type ChangedFn = (
-  node: Node<any>,
+  node: Node,
   pos: number,
-  parent: Node<any>,
+  parent: Node | null,
   index: number,
-) => boolean | null | undefined | void;
+) => boolean | void;
 
 export function getChangedNodesIn({
   tr,

@@ -2,10 +2,7 @@
 import React, { ReactNode } from 'react';
 
 import { As } from '../src/components/internal/base-box';
-import {
-  BasePrimitiveProps,
-  PublicBoxPropsBase,
-} from '../src/components/types';
+import { BasePrimitiveProps } from '../src/components/types';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace Token {
@@ -81,11 +78,6 @@ export default function Box(
      * Elements to be rendered inside the primitive.
      */
     children?: ReactNode;
-
-    /**
-     * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
-     */
-    xcss?: PublicBoxPropsBase['xcss'];
 
     /**
      * Forwarded ref element.

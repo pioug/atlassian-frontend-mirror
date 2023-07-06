@@ -1,4 +1,4 @@
-import { EditorState, TextSelection, PluginSpec } from 'prosemirror-state';
+import { EditorState, TextSelection } from 'prosemirror-state';
 import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
 import { Node, Slice } from 'prosemirror-model';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -56,7 +56,7 @@ describe('layout', () => {
   describe('plugin', () => {
     describe('#init', () => {
       const initState = (document: RefsNode): LayoutState =>
-        (layoutPlugin.spec as PluginSpec).state!.init({}, toState(document));
+        layoutPlugin.spec.state!.init({}, toState(document));
 
       describe('when selection in layout', () => {
         it('should set pos', () => {
@@ -116,7 +116,7 @@ describe('layout', () => {
             doc(p('{<>}'), buildLayoutForWidths([50, 50], '{layoutPos}')),
           );
           dispatchTransaction(editorView, layoutPos);
-          expect(pluginKey.getState(editorView.state).pos).toEqual(2);
+          expect(pluginKey.getState(editorView.state)?.pos).toEqual(2);
         });
 
         layouts.forEach((layout) => {
@@ -131,9 +131,9 @@ describe('layout', () => {
               refs: { layoutPos },
             } = editor(document);
             dispatchTransaction(editorView, layoutPos);
-            expect(pluginKey.getState(editorView.state).selectedLayout).toEqual(
-              layout.name,
-            );
+            expect(
+              pluginKey.getState(editorView.state)?.selectedLayout,
+            ).toEqual(layout.name);
           });
         });
       });
@@ -151,7 +151,7 @@ describe('layout', () => {
         });
 
         it('should set pos to null', () => {
-          expect(pluginKey.getState(editorView.state).pos).toEqual(null);
+          expect(pluginKey.getState(editorView.state)?.pos).toEqual(null);
         });
       });
     });
@@ -167,8 +167,10 @@ describe('layout', () => {
           ),
         );
 
-        const decorations = (layoutPlugin.spec as PluginSpec).props!
-          .decorations!(editorView.state) as DecorationSet;
+        const decorations = layoutPlugin.spec.props?.decorations?.call(
+          layoutPlugin,
+          editorView.state,
+        ) as DecorationSet;
         expect(decorations.find()).toHaveLength(1);
         expect(decorations.find()).toEqual([
           Decoration.node(0, 10, { class: 'selected' }),
@@ -178,8 +180,10 @@ describe('layout', () => {
       it('should render no decorations when cursor is outside layout', () => {
         const { editorView } = editor(doc(p('{<>}')));
 
-        const decorations = (layoutPlugin.spec as PluginSpec).props!
-          .decorations!(editorView.state) as DecorationSet;
+        const decorations = layoutPlugin.spec.props?.decorations?.call(
+          layoutPlugin,
+          editorView.state,
+        ) as DecorationSet;
         expect(decorations).toBeUndefined();
       });
     });

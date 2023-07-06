@@ -119,7 +119,7 @@ export function hasOnlyNodesOfType(
 
 export function applyTextMarksToSlice(
   schema: Schema,
-  marks?: Mark<any>[],
+  marks?: readonly Mark[],
 ): (slice: Slice) => Slice {
   return (slice: Slice) => {
     const {
@@ -137,6 +137,7 @@ export function applyTextMarksToSlice(
 
     sliceCopy.content.descendants((node, _pos, parent) => {
       if (node.isText && parent && parent.isBlock) {
+        // @ts-ignore - [unblock prosemirror bump] assigning to readonly prop
         node.marks = [
           // remove all marks from pasted slice when applying code mark
           // and exclude all marks that are not allowed to be pasted
@@ -151,8 +152,7 @@ export function applyTextMarksToSlice(
           ...parent.type
             .allowedMarks(marks)
             .filter((mark) => mark.type !== linkMark),
-        ];
-        node.marks.sort(sortByOrderWithTypeName('marks'));
+        ].sort(sortByOrderWithTypeName('marks'));
         return false;
       }
 
@@ -299,7 +299,7 @@ export const transformUnsupportedBlockCardToInline = (
  */
 const isBlockCardSupported = (
   state: EditorState,
-  frag: Fragment<any>,
+  frag: Fragment,
   allowBlockCards: boolean,
 ) => {
   return allowBlockCards && isSupportedInParent(state, frag);

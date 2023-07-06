@@ -153,7 +153,7 @@ class Task extends ReactNodeView<Props> {
     return this.isContentEmpty(this.node) && !!nextNode.content.childCount;
   }
 
-  update(node: PMNode, decorations: Decoration[]) {
+  update(node: PMNode, decorations: readonly Decoration[]) {
     return super.update(
       node,
       decorations,

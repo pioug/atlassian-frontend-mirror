@@ -4,7 +4,7 @@ import {
   getMediaLinkingState,
   mediaLinkingPluginKey,
 } from '../pm-plugins/linking';
-import { Node, MarkType } from 'prosemirror-model';
+import { Node } from 'prosemirror-model';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import { CommandDispatch } from '../../../types/command';
 import { createToggleBlockMarkOnRange } from '../../../commands';
@@ -95,7 +95,7 @@ interface CreateToggleLinkMarkOptions {
   url?: string;
 }
 function getCurrentUrl(state: EditorState): string | undefined {
-  const { link: linkType }: { link: MarkType } = state.schema.marks;
+  const { link: linkType } = state.schema.marks;
   const mediaLinkingState = getMediaLinkingState(state);
   if (!mediaLinkingState || mediaLinkingState.mediaPos === null) {
     return;

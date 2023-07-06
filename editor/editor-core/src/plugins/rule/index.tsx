@@ -61,7 +61,7 @@ const rulePlugin: NextEditorPlugin<
           keyshortcut: '---',
           icon: () => <IconDivider />,
           action(insert, state) {
-            let tr: Transaction<any> | null = insert(
+            let tr: Transaction | null = insert(
               state.schema.nodes.rule.createChecked(),
             );
 

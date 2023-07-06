@@ -72,7 +72,7 @@ describe('clear-formatting', () => {
     });
     const pluginState = clearFormattingPluginKey.getState(
       editor.editorView.state,
-    );
+    )!;
     return { ...editor, pluginState };
   };
 

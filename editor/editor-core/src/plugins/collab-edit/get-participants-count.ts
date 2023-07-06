@@ -7,7 +7,9 @@ export function getParticipantsCount(state?: EditorState): number {
   }
 
   const pluginState = pluginKey.getState(state);
+  // @ts-ignore accessing private property
   return pluginState && pluginState.participants
-    ? pluginState.participants.size()
+    ? // @ts-ignore accessing private property
+      pluginState.participants.size()
     : 1;
 }

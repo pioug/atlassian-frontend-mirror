@@ -68,6 +68,7 @@ export const changeMediaCardToInline: Command = (state, dispatch) => {
   const selectedNode =
     state.selection instanceof NodeSelection && state.selection.node;
 
+  // @ts-ignore - [unblock prosemirror bump] redundant check comparing boolean to media
   if (!selectedNode || !selectedNode.type === media) {
     return false;
   }

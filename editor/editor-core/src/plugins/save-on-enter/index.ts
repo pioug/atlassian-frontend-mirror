@@ -30,10 +30,10 @@ export function createPlugin(
   return keymap({
     Enter(
       state: EditorState,
-      _dispatch: CommandDispatch,
-      editorView: EditorView,
+      _dispatch?: CommandDispatch,
+      editorView?: EditorView,
     ) {
-      if (canSaveOnEnter(editorView)) {
+      if (editorView && canSaveOnEnter(editorView)) {
         eventDispatch(analyticsEventKey, analyticsPayload(state));
         onSave(editorView);
         return true;
@@ -54,7 +54,7 @@ function canSaveOnEnter(editorView: EditorView) {
   );
 }
 
-function isEmptyAtCursor($cursor: ResolvedPos<any>) {
+function isEmptyAtCursor($cursor: ResolvedPos) {
   const { content } = $cursor.parent;
   return !(content && content.size);
 }

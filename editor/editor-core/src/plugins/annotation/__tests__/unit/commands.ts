@@ -372,11 +372,11 @@ describe('commands', () => {
           ),
         ),
       );
-      expect(getPluginState(editorView.state).selectedAnnotations).toEqual([
+      expect(getPluginState(editorView.state)?.selectedAnnotations).toEqual([
         annotationInfo,
       ]);
       closeComponent()(editorView.state, editorView.dispatch);
-      expect(getPluginState(editorView.state).selectedAnnotations).toEqual([]);
+      expect(getPluginState(editorView.state)?.selectedAnnotations).toEqual([]);
     });
   });
 });

@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 1.0.0
+
+### Major Changes
+
+- [`fec62731e2e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fec62731e2e) - This package is now in open beta and is no longer considered experimental. We will be making iterative improvements until GA. While the API is likely to be stable, we reserve the right to make changes if required. This version contains no changes whatsoever.
+
+  P.S. The reason for the change is to aid package deduplication in the product.
+
 ## 0.16.0
 
 ### Minor Changes

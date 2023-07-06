@@ -31,7 +31,7 @@ describe('TransformHooks', () => {
 
     await flushPromises();
     const pluginState = pluginKey.getState(editorView.state);
-    expect(pluginState.showContextPanel).toBeTruthy();
+    expect(pluginState?.showContextPanel).toBeTruthy();
   });
 
   describe('transformBefore', () => {

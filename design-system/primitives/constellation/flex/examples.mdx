@@ -1,0 +1,34 @@
+---
+title: Flex
+description: Flex is a primitive layout component that implements the CSS Flexbox API.
+order: 0
+---
+
+import FlexDirection from '../../examples/constellation/flex/direction';
+import FlexAlignItems from '../../examples/constellation/flex/align-items';
+import FlexJustifyContent from '../../examples/constellation/flex/justify-content';
+import FlexWrap from '../../examples/constellation/flex/wrap';
+
+## Basic
+
+The `Flex` component is designed as a very basic mapping to the CSS Flexbox API.
+It can be used as a less richly-configured `Inline` or `Stack`.
+
+<Example Component={FlexJustifyContent} packageName="@atlaskit/primitives/flex" />
+
+## Align items
+
+<Example Component={FlexAlignItems} packageName="@atlaskit/primitives/flex" />
+
+## Wrap
+
+Flex-prefixed properties in CSS do not have this prefix in the component API.
+For example `flex-wrap` is instead applied as the `wrap` property.
+
+<Example Component={FlexWrap} packageName="@atlaskit/primitives/flex" />
+
+## Direction
+
+Flex direction is applied via the `direction` property.
+
+<Example Component={FlexDirection} packageName="@atlaskit/primitives/flex" />

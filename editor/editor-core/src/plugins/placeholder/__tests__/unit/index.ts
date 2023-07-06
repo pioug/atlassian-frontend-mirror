@@ -143,8 +143,8 @@ describe('placeholder', () => {
       const placeholderShown = '  ' + bracketPlaceholder;
 
       expectPlaceHolderWithText(editorView, placeholderShown);
-
-      plugin!.props.handleDOMEvents!.blur(editorView, event);
+      const handleDOMEvents = plugin!.props.handleDOMEvents!;
+      handleDOMEvents.blur?.call(plugin!, editorView, event);
       expectNoPlaceholder(editorView);
     });
   });

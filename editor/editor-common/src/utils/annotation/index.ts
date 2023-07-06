@@ -32,7 +32,7 @@ export const canApplyAnnotationOnRange = (
       if (
         (node.isInline && !node.isText) ||
         (node.isLeaf && !node.isText) ||
-        (node.isText && !parent.type.allowsMarkType(schema.marks.annotation))
+        (node.isText && !parent?.type.allowsMarkType(schema.marks.annotation))
       ) {
         foundInvalid = true;
         return false;
@@ -57,7 +57,7 @@ export const getAnnotationIdsFromRange = (
     if (!node.marks) {
       return true;
     }
-    node.marks.forEach((mark: Mark<any>) => {
+    node.marks.forEach((mark: Mark) => {
       if (mark.type === schema.marks.annotation && mark.attrs) {
         annotations.add(mark.attrs.id);
       }

@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 
 import Heading from '@atlaskit/heading';
-import { Box, type BoxProps, Inline, Stack, xcss } from '@atlaskit/primitives';
+import {
+  Box,
+  type BoxProps,
+  Flex,
+  Inline,
+  Stack,
+  xcss,
+} from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
 
-const containerStyles = xcss({ display: 'flex' });
 const boxStyles = xcss({
   display: 'block',
   justifyContent: 'start',
@@ -49,7 +55,7 @@ export default function Example() {
           onChange={padding => setPadding(padding)}
         />
 
-        <Box xcss={containerStyles}>
+        <Flex>
           <Box
             backgroundColor="color.background.discovery.bold"
             xcss={boxStyles}
@@ -57,7 +63,7 @@ export default function Example() {
           >
             Content
           </Box>
-        </Box>
+        </Flex>
       </Stack>
 
       <Stack grow="fill">
@@ -79,7 +85,7 @@ export default function Example() {
           onChange={paddingBlock => setPaddingBlock(paddingBlock)}
         />
 
-        <Box xcss={containerStyles}>
+        <Flex>
           <Box
             backgroundColor="color.background.discovery.bold"
             xcss={boxStyles}
@@ -88,7 +94,7 @@ export default function Example() {
           >
             Content
           </Box>
-        </Box>
+        </Flex>
       </Stack>
 
       <Stack grow="fill">
@@ -132,7 +138,7 @@ export default function Example() {
           onChange={paddingBlockEnd => setPaddingBlockEnd(paddingBlockEnd)}
         />
 
-        <Box xcss={containerStyles}>
+        <Flex>
           <Box
             backgroundColor="color.background.discovery.bold"
             xcss={boxStyles}
@@ -143,7 +149,7 @@ export default function Example() {
           >
             Content
           </Box>
-        </Box>
+        </Flex>
       </Stack>
     </Inline>
   );

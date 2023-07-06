@@ -12,13 +12,11 @@ import { jsx } from '@emotion/react';
 import { parseXcss } from '../xcss/xcss';
 
 import { BaseBox, BaseBoxProps } from './internal/base-box';
-import type { PublicBoxPropsBase } from './types';
 
 export type BoxProps<T extends ElementType = 'div'> = Omit<
   BaseBoxProps<T>,
   'className'
-> &
-  PublicBoxPropsBase;
+>;
 
 type BoxComponent<T extends ElementType = 'div'> = (<
   T extends ElementType = 'div',

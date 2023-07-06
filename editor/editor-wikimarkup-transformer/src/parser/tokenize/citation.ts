@@ -22,6 +22,7 @@ export const citation: TokenParser = ({ input, position, schema, context }) => {
     // We don't want to mix `code` mark with others
     if (n.type.name === 'text' && !hasAnyOfMarks(n, ['em', 'code'])) {
       if (index === 0) {
+        // @ts-ignore - [unblock prosemirror bump] allow assign to readonly
         n.text = `${EM_DASH} ${n.text}`;
       }
       return n.mark([...n.marks, mark]);

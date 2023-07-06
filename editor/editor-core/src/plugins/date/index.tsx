@@ -146,11 +146,11 @@ const datePlugin: NextEditorPlugin<
     }
 
     const { showDatePickerAt, isNew, focusDateInput } =
-      datePluginKey.getState(editorState);
+      datePluginKey.getState(editorState) || {};
     return {
       showDatePickerAt,
-      isNew,
-      focusDateInput,
+      isNew: !!isNew,
+      focusDateInput: !!focusDateInput,
     };
   },
 

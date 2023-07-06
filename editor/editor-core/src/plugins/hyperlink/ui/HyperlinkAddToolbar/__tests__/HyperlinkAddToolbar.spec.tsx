@@ -750,12 +750,12 @@ describe('HyperlinkLinkAddToolbar', () => {
       const { pressEscapeKeyInputField, editorView } = await setup();
 
       let pluginState = hyperlinkStateKey.getState(editorView.state);
-      expect(pluginState.activeLinkMark).toBeDefined();
+      expect(pluginState?.activeLinkMark).toBeDefined();
 
       pressEscapeKeyInputField('link-url');
 
       pluginState = hyperlinkStateKey.getState(editorView.state);
-      expect(pluginState.activeLinkMark).toBeUndefined();
+      expect(pluginState?.activeLinkMark).toBeUndefined();
     });
 
     describe('when activity provider returns less then 5 results initially', () => {

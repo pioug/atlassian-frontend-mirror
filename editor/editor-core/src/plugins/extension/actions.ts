@@ -47,7 +47,7 @@ export const buildExtensionNode = <S extends Schema>(
   schema: S,
   attrs: object,
   content?: Fragment,
-  marks?: Mark<S>[],
+  marks?: readonly Mark[],
 ) => {
   switch (type) {
     case 'extension':
@@ -63,8 +63,8 @@ export const performNodeUpdate =
   (
     type: 'inlineExtension' | 'extension' | 'bodiedExtension',
     newAttrs: object,
-    content: Fragment<any>,
-    marks: Mark[],
+    content: Fragment,
+    marks: readonly Mark[],
     shouldScrollIntoView: boolean,
   ): Command =>
   (_state, _dispatch, view) => {
@@ -213,7 +213,7 @@ export const editSelectedExtension = (editorActions: EditorActions) => {
 
 export const editExtension =
   (
-    macroProvider: MacroProvider | null,
+    macroProvider: MacroProvider | null | undefined,
     applyChangeToContextPanel: ApplyChangeHandler | undefined,
     updateExtension?: Promise<UpdateExtension<object> | void>,
   ): Command =>

@@ -183,7 +183,7 @@ describe('hyperlink', () => {
             }),
           );
           let pluginState = hyperlinkStateKey.getState(editorView.state);
-          expect(pluginState.activeLinkMark).toBeDefined();
+          expect(pluginState?.activeLinkMark).toBeDefined();
 
           editorView.dispatch(
             editorView.state.tr.setMeta(hyperlinkStateKey, {
@@ -191,7 +191,7 @@ describe('hyperlink', () => {
             }),
           );
           pluginState = hyperlinkStateKey.getState(editorView.state);
-          expect(pluginState.activeLinkMark).toBeUndefined();
+          expect(pluginState?.activeLinkMark).toBeUndefined();
         });
 
         describe('when selection is across multiple nodes', () => {
@@ -244,7 +244,7 @@ describe('hyperlink', () => {
               doc(p(a({ href: 'https://google.com' })('Li{<>}nk'))),
             );
             let pluginState = hyperlinkStateKey.getState(editorView.state);
-            expect(pluginState.activeLinkMark).toBeDefined();
+            expect(pluginState?.activeLinkMark).toBeDefined();
 
             editorView.dispatch(
               editorView.state.tr.setMeta(hyperlinkStateKey, {
@@ -252,7 +252,7 @@ describe('hyperlink', () => {
               }),
             );
             pluginState = hyperlinkStateKey.getState(editorView.state);
-            expect(pluginState.activeLinkMark).toBeUndefined();
+            expect(pluginState?.activeLinkMark).toBeUndefined();
           });
 
           it('should update toolbar pos/node when document changed externally', () => {
@@ -291,7 +291,7 @@ describe('hyperlink', () => {
             );
 
             let pluginState = hyperlinkStateKey.getState(editorView.state);
-            expect(pluginState.activeLinkMark).toBeDefined();
+            expect(pluginState?.activeLinkMark).toBeDefined();
 
             setTextSelection(editorView, linkPos);
 
@@ -334,12 +334,12 @@ describe('hyperlink', () => {
             );
 
             expect(
-              hyperlinkStateKey.getState(editorView.state).activeLinkMark,
+              hyperlinkStateKey.getState(editorView.state)?.activeLinkMark,
             ).toBeDefined();
             setTextSelection(editorView, pPos);
 
             expect(
-              hyperlinkStateKey.getState(editorView.state).activeLinkMark,
+              hyperlinkStateKey.getState(editorView.state)?.activeLinkMark,
             ).toBeUndefined();
           });
         });

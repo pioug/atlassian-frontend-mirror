@@ -27,6 +27,7 @@ import quickInsert from '../../../quick-insert';
 import mentionsPlugin from '../../../mentions';
 import emojiPlugin from '../../../emoji';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { EditorState } from 'prosemirror-state';
 
 let _queueMicrotask: any;
 beforeAll(() => {
@@ -39,6 +40,7 @@ afterAll(() => {
 
 describe('type-ahead: multiple plugins', () => {
   const createEditor = createProsemirrorEditorFactory();
+  const getNotNullPluginState = (state: EditorState) => getPluginState(state)!;
 
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
@@ -71,7 +73,7 @@ describe('type-ahead: multiple plugins', () => {
   it('should load quick insert, emoji and mention handlers into the plugin state', () => {
     const { editorView } = editor(doc(p('{<>}')));
 
-    const { typeAheadHandlers } = getPluginState(editorView.state);
+    const { typeAheadHandlers } = getNotNullPluginState(editorView.state);
 
     expect(typeAheadHandlers).toEqual(
       expect.arrayContaining([
@@ -91,7 +93,7 @@ describe('type-ahead: multiple plugins', () => {
     };
     beforeEach(() => {
       ({ editorView } = editor(doc(p('{<>}'))));
-      const { typeAheadHandlers } = getPluginState(editorView.state);
+      const { typeAheadHandlers } = getNotNullPluginState(editorView.state);
 
       handlers = {
         quickInsertHandler: typeAheadHandlers.find(
@@ -110,7 +112,7 @@ describe('type-ahead: multiple plugins', () => {
     it('should open the quick insert typeahead', () => {
       insertText(editorView, handlers.quickInsertHandler.trigger);
 
-      const pluginState = getPluginState(editorView.state);
+      const pluginState = getNotNullPluginState(editorView.state);
 
       expect(pluginState.triggerHandler).toEqual(handlers.quickInsertHandler);
     });
@@ -119,7 +121,7 @@ describe('type-ahead: multiple plugins', () => {
       it('should find the mentions item', async () => {
         insertText(editorView, handlers.quickInsertHandler.trigger);
 
-        const { triggerHandler } = getPluginState(editorView.state);
+        const { triggerHandler } = getNotNullPluginState(editorView.state);
 
         const query = 'mention';
         const items = await triggerHandler!.getItems({
@@ -133,7 +135,7 @@ describe('type-ahead: multiple plugins', () => {
       it('should find the emoji item', async () => {
         insertText(editorView, handlers.quickInsertHandler.trigger);
 
-        const { triggerHandler } = getPluginState(editorView.state);
+        const { triggerHandler } = getNotNullPluginState(editorView.state);
 
         const query = 'emoji';
         const items = await triggerHandler!.getItems({
@@ -149,7 +151,7 @@ describe('type-ahead: multiple plugins', () => {
       it('should open the typeahead menu for mentions', async () => {
         insertText(editorView, handlers.quickInsertHandler.trigger);
 
-        const { triggerHandler } = getPluginState(editorView.state);
+        const { triggerHandler } = getNotNullPluginState(editorView.state);
 
         const query = 'mention';
         const items = await triggerHandler!.getItems({
@@ -165,7 +167,7 @@ describe('type-ahead: multiple plugins', () => {
           query,
         });
 
-        const nextPluginState = getPluginState(editorView.state);
+        const nextPluginState = getNotNullPluginState(editorView.state);
         expect(nextPluginState.triggerHandler).toEqual(
           handlers.mentionsHandler,
         );
@@ -176,7 +178,7 @@ describe('type-ahead: multiple plugins', () => {
       it('should open the typeahead menu for mentions', async () => {
         insertText(editorView, handlers.quickInsertHandler.trigger);
 
-        const { triggerHandler } = getPluginState(editorView.state);
+        const { triggerHandler } = getNotNullPluginState(editorView.state);
 
         const query = 'emoji';
         const items = await triggerHandler!.getItems({
@@ -192,7 +194,7 @@ describe('type-ahead: multiple plugins', () => {
           query,
         });
 
-        const nextPluginState = getPluginState(editorView.state);
+        const nextPluginState = getNotNullPluginState(editorView.state);
         expect(nextPluginState.triggerHandler).toEqual(handlers.emojiHandler);
       });
     });

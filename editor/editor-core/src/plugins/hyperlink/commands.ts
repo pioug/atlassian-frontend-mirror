@@ -38,7 +38,7 @@ export function isTextAtPos(pos: number): Predicate {
 export function isLinkAtPos(pos: number): Predicate {
   return (state: EditorState) => {
     const node = state.doc.nodeAt(pos);
-    return !!node && state.schema.marks.link.isInSet(node.marks);
+    return !!node && !!state.schema.marks.link.isInSet(node.marks);
   };
 }
 
@@ -105,7 +105,7 @@ export function updateLink(
     }
     const url = normalizeUrl(href);
 
-    const mark: Mark = state.schema.marks.link.isInSet(node.marks);
+    const mark = state.schema.marks.link.isInSet(node.marks);
     const linkMark = state.schema.marks.link;
 
     const rightBound =
@@ -151,7 +151,7 @@ export function insertLink(
       const normalizedUrl = normalizeUrl(incomingHref);
       // NB: in this context, `currentText` represents text which has been
       // highlighted in the Editor, upon which a link is is being added.
-      const currentText = stateKey.getState(state).activeText;
+      const currentText = stateKey.getState(state)?.activeText;
 
       let markEnd = to;
       const text = displayText || incomingTitle || incomingHref;

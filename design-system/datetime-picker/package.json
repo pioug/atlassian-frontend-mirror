@@ -60,7 +60,7 @@
     "@atlaskit/range": "^7.1.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/ssr": "*",
-    "@atlaskit/textfield": "^5.5.0",
+    "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/toggle": "^12.6.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

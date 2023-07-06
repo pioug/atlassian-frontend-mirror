@@ -50,6 +50,10 @@ function getBreakoutNodeElement(
   selection: Selection,
   editorView: EditorView,
 ): HTMLElement | undefined {
+  if (!pluginState.breakoutNode) {
+    return undefined;
+  }
+
   if (
     selection instanceof NodeSelection &&
     isSupportedNodeForBreakout(selection.node)
@@ -100,6 +104,10 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, {}> {
     const belowOtherPopupsZIndex = layers.layer() - 1;
 
     let pluginState = getPluginState(state);
+
+    if (!pluginState) {
+      return null;
+    }
 
     let element = getBreakoutNodeElement(
       pluginState,

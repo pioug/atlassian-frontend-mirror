@@ -65,7 +65,7 @@ function isEditLink(
 
 const dispatchAnalytics = (
   dispatch: CommandDispatch | undefined,
-  state: EditorState<any>,
+  state: EditorState,
   analyticsBuilder: (type: LinkType) => AnalyticsEventPayload<void>,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
@@ -123,7 +123,7 @@ function getLinkText(
 }
 
 const getSettingsButtonGroup = (
-  state: EditorState<any>,
+  state: EditorState,
   intl: IntlShape,
   featureFlags: FeatureFlags,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,

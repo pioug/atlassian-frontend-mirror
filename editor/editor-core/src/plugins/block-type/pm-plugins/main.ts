@@ -126,10 +126,10 @@ export const createPlugin = (
 
   return new SafePlugin({
     appendTransaction(
-      _transactions: Transaction[],
+      _transactions: readonly Transaction[],
       _oldState: EditorState,
       newState: EditorState,
-    ): Transaction | void {
+    ) {
       if (lastNodeMustBeParagraph) {
         const pos = newState.doc.resolve(newState.doc.content.size - 1);
         const lastNode = pos.node(1);

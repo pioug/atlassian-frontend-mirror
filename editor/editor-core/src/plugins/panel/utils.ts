@@ -9,10 +9,7 @@ import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
 import { DomPanelAtrrs } from './types';
 
-export const findPanel = (
-  state: EditorState,
-  selection?: Selection<any> | null,
-) => {
+export const findPanel = (state: EditorState, selection?: Selection | null) => {
   const { panel } = state.schema.nodes;
   return (
     findSelectedNodeOfType(panel)(selection || state.selection) ||

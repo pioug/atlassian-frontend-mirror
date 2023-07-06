@@ -15,10 +15,25 @@ export const UNSAFE_media = {
      * `above.xxs` is redundant and no media query should be used, but it's included for programatic purposes…
      */
     xxs: `@media all`,
+    /**
+     * Used for mobile viewports.
+     */
     xs: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.min})`,
+    /**
+     * Used for tablet viewports.
+     */
     sm: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.sm.min})`,
+    /**
+     * Used for laptop viewports.
+     */
     md: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.md.min})`,
+    /**
+     * Used for desktop viewports.
+     */
     lg: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.lg.min})`,
+    /**
+     * Used for wide screen desktop viewports.
+     */
     xl: `@media (min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xl.min})`,
   } as const,
   /**

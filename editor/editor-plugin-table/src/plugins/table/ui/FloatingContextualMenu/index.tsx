@@ -31,7 +31,7 @@ import ContextualMenu from './ContextualMenu';
 
 // offset of the contextual menu dropdown
 const calculateOffset = (targetCellRef: HTMLElement, state: EditorState) => {
-  const { tableRef } = pluginKey.getState(state);
+  const { tableRef } = pluginKey.getState(state) || {};
   let top = -contextualMenuTriggerSize;
 
   if (tableRef && targetCellRef) {

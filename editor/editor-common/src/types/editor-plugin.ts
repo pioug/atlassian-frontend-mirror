@@ -30,7 +30,7 @@ export type PluginsOptions = {
 
 type EditorViewStateUpdatedCallbackProps = {
   readonly originalTransaction: Readonly<Transaction>;
-  readonly transactions: Transaction[];
+  readonly transactions: readonly Transaction[];
   readonly oldEditorState: Readonly<EditorState>;
   readonly newEditorState: Readonly<EditorState>;
 };

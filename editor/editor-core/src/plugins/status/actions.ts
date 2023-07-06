@@ -74,7 +74,7 @@ export const updateStatus =
     };
 
     let tr = state.tr;
-    const { showStatusPickerAt } = pluginKey.getState(state);
+    const { showStatusPickerAt } = pluginKey.getState(state) || {};
 
     if (!showStatusPickerAt) {
       // Same behaviour as quick insert (used in createStatus)
@@ -158,7 +158,7 @@ export const removeStatus =
 
 export const commitStatusPicker = () => (editorView: EditorView) => {
   const { state, dispatch } = editorView;
-  const { showStatusPickerAt } = pluginKey.getState(state);
+  const { showStatusPickerAt } = pluginKey.getState(state) || {};
 
   if (!showStatusPickerAt) {
     return;

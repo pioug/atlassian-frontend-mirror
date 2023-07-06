@@ -30,7 +30,6 @@ import { isMediaBlobUrlFromAttrs } from '../../utils/media-common';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type mediaPlugin from '../../index';
-import type { MediaDecorationSpec } from '../../types';
 
 interface MediaNodeWithProvidersProps {
   pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
@@ -47,7 +46,7 @@ const MediaNodeWithProviders = ({
 
 function isMediaDecorationSpec(
   decoration: Decoration,
-): decoration is Decoration<MediaDecorationSpec> {
+): decoration is Decoration {
   return (
     decoration.spec.type !== undefined && decoration.spec.selected !== undefined
   );

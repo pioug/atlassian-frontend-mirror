@@ -15,7 +15,7 @@ import { updateExistingDatasource } from '../pm-plugins/doc';
 type DatasourceModalProps = {
   state: EditorState;
   view: EditorView;
-  node: Node<any>;
+  node: Node;
   editorAnalyticsApi?: EditorAnalyticsAPI;
 };
 

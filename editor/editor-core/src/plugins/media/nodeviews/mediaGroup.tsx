@@ -95,7 +95,7 @@ const hasSelectionChanged = (
 class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
   static displayName = 'MediaGroup';
 
-  private mediaPluginState: MediaPluginState;
+  private mediaPluginState: MediaPluginState | undefined;
   private mediaNodes: PMNode[];
 
   state: MediaGroupState = {
@@ -178,7 +178,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
   };
 
   componentWillUnmount() {
-    this.mediaPluginState.handleMediaGroupUpdate(this.mediaNodes, []);
+    this.mediaPluginState?.handleMediaGroupUpdate(this.mediaNodes, []);
   }
 
   UNSAFE_componentWillReceiveProps(props: MediaGroupProps) {
@@ -194,7 +194,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
       hasSelectionChanged(this.props, nextProps) ||
       this.props.node !== nextProps.node ||
       this.state.viewMediaClientConfig !==
-        this.mediaPluginState.mediaClientConfig
+        this.mediaPluginState?.mediaClientConfig
     ) {
       return true;
     }
@@ -204,7 +204,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 
   updateMediaClientConfig() {
     const { viewMediaClientConfig } = this.state;
-    const { mediaClientConfig } = this.mediaPluginState;
+    const { mediaClientConfig } = this.mediaPluginState || {};
     if (!viewMediaClientConfig && mediaClientConfig) {
       this.setState({
         viewMediaClientConfig: mediaClientConfig,
@@ -237,7 +237,7 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
       }
     });
 
-    this.mediaPluginState.handleMediaGroupUpdate(
+    this.mediaPluginState?.handleMediaGroupUpdate(
       oldMediaNodes,
       this.mediaNodes,
     );
@@ -298,13 +298,14 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
             shouldEnableDownloadButton: mediaOptions.enableDownloadButton,
             actions: [
               {
-                handler: disabled
-                  ? () => {}
-                  : this.mediaPluginState.handleMediaNodeRemoval.bind(
-                      null,
-                      undefined,
-                      getNodePos,
-                    ),
+                handler:
+                  disabled || !this.mediaPluginState
+                    ? () => {}
+                    : this.mediaPluginState.handleMediaNodeRemoval.bind(
+                        null,
+                        undefined,
+                        getNodePos,
+                      ),
                 icon: (
                   <EditorCloseIcon
                     label={this.props.intl.formatMessage(

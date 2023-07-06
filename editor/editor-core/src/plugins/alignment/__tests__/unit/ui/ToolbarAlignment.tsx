@@ -28,7 +28,7 @@ describe('ToolbarAlignment', () => {
 
   beforeEach(() => {
     const { editorView } = editor(doc(p('text')));
-    const pluginState = pluginKey.getState(editorView.state);
+    const pluginState = pluginKey.getState(editorView.state)!;
     toolbarAlignment = mountWithIntl(
       <ToolbarAlignment
         pluginState={pluginState}

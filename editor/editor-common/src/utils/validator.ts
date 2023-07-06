@@ -88,7 +88,7 @@ export const isSubSupType = (type: string): type is 'sub' | 'sup' => {
 /*
  * Sorts mark by the predefined order above
  */
-export const getMarksByOrder = (marks: PMMark[]) => {
+export const getMarksByOrder = (marks: readonly PMMark[]) => {
   return [...marks].sort(
     (a, b) => markOrder.indexOf(a.type.name) - markOrder.indexOf(b.type.name),
   );

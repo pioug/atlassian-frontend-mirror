@@ -38,7 +38,7 @@ export function createBidiWarningsDecorationSetFromDoc({
   codeBidiWarningLabel,
   tooltipEnabled,
 }: {
-  doc: PmNode<any>;
+  doc: PmNode;
   codeBidiWarningLabel: string;
   tooltipEnabled: boolean;
 }) {

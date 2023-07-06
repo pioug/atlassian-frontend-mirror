@@ -59,7 +59,7 @@ export const createPlugin = () => {
     props: {
       decorations: (state) =>
         tableSafariDeleteCompositionTextIssueWorkaroundKey.getState(state)
-          .decorations,
+          ?.decorations,
       handleDOMEvents: {
         beforeinput: (view: EditorView, event: Event): boolean => {
           if ((event as InputEvent)?.inputType !== 'deleteCompositionText') {

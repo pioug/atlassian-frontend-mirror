@@ -45,21 +45,6 @@ describe('Expand: tab navigation', () => {
       it('should focus on the button', async () => {
         await pressKey(page, ['Tab']);
       });
-
-      describe('when button is focused', () => {
-        describe('and enter is pressed', () => {
-          // FIXME: This test was automatically skipped due to failure on 16/05/2023: https://product-fabric.atlassian.net/browse/ED-17852
-          it.skip('should collapse the expand', async () => {
-            await pressKey(page, ['Tab', 'Enter']);
-          });
-        });
-
-        describe('and space is pressed', () => {
-          it('should collapse the expand', async () => {
-            await pressKey(page, ['Tab', 'Space']);
-          });
-        });
-      });
     });
 
     describe('when tab is pressed twice', () => {

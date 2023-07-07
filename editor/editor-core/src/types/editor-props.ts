@@ -84,9 +84,7 @@ export type UseStickyToolbarType =
   | RefObject<HTMLElement>
   | { offsetTop: number };
 
-export interface EditorBaseProps
-  extends EditorPluginFeatureProps,
-    EditorProviderProps {
+interface EditorBaseProps {
   // Note: this comment is replicated in packages/editor/renderer/src/ui/Renderer/types.ts
   // any changes should be made in both locations
   /*

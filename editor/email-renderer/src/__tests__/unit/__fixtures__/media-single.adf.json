@@ -251,6 +251,34 @@
                 }
             }
         ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 33.33,
+        "layout": "full-width"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "id": "media-type-image",
+            "type": "file",
+            "collection": "MediaServicesSample",
+            "width": 491,
+            "height": 489
+          },
+          "marks": [
+            {
+              "type": "border",
+              "attrs": {
+                "color": "#091e4224",
+                "size": 2
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

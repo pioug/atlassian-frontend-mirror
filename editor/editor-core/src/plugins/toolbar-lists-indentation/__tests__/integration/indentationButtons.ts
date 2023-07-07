@@ -31,15 +31,22 @@ describe('Editor toolbar indentation buttons: ', () => {
     selection?: { anchor: number; head: number };
   }): Promise<WebDriverPage> => {
     const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, {
-      appearance: fullpage.appearance,
-      defaultValue: adf,
-      allowTextAlignment: true,
-      allowIndentation: true,
-      featureFlags: {
-        indentationButtonsInTheToolbar: true,
+    await mountEditor(
+      page,
+      {
+        appearance: fullpage.appearance,
+        defaultValue: adf,
+        allowTextAlignment: true,
+        allowIndentation: true,
+        featureFlags: {
+          indentationButtonsInTheToolbar: true,
+        },
       },
-    });
+      undefined,
+      // Prevent occasionally creating a GapCursor which is incompatible with
+      // setProseMirrorTextSelection
+      { clickInEditor: false },
+    );
 
     await page.waitForSelector(buttonSelectors[button]);
     await setProseMirrorTextSelection(page, selection);

@@ -31,6 +31,7 @@ import {
   taskList,
   taskItem,
   bodiedExtension,
+  code_block,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
@@ -70,6 +71,7 @@ import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
 import rulePlugin from '../../../rule';
 import floatingToolbarPlugin from '../../../floating-toolbar';
+import codeBlockPlugin from '../../../code-block';
 
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import deprecatedAnalyticsPlugin from '../../../analytics';
@@ -1787,7 +1789,8 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
       .add(tasksAndDecisionsPlugin)
       .add(panelPlugin)
       .add(emojiPlugin)
-      .add(blockTypePlugin);
+      .add(blockTypePlugin)
+      .add([codeBlockPlugin, {}]);
 
     return createEditor({
       doc,
@@ -1965,6 +1968,136 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
         decisionList({ localId: 'test1' })(
           decisionItem({ localId: 'test2' })('Whole Decision'),
         ),
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+    it('the content of a quote, should not change the document', () => {
+      // Note: the paste contents ends up being handled by a different part of the handler, not this function.
+      const destinationDocument = doc(blockquote(p('Quote {<>}Destination')));
+      // Depth is different when the slice is not transformed.
+      const openStart = 0;
+      const openEnd = 0;
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        openStart,
+        openEnd,
+      );
+      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      const expectedDocument = doc(blockquote(p('Quote Destination')));
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+  });
+  describe('pasting a whole codeblock into', () => {
+    const pasteContent = doc(
+      code_block({ localId: 'test1' })('Whole Codeblock'),
+    );
+    const openStart = 0;
+    const openEnd = 1;
+    it('the content of a panel, should paste it beneath', () => {
+      const destinationDocument = doc(panel()(p('Destination {<>}Panel')));
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        openStart,
+        openEnd,
+      );
+      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      const expectedDocument = doc(
+        panel()(p('Destination Panel')),
+        code_block({ localId: 'test1' })('Whole Codeblock'),
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+    it('the content of an empty panel, should paste it beneath', () => {
+      const destinationDocument = doc(panel()(p('{<>}')));
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        openStart,
+        openEnd,
+      );
+      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      const expectedDocument = doc(
+        panel()(p('')),
+        code_block({ localId: 'test1' })('Whole Codeblock'),
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+    it('the content of a decision, should paste it beneath', () => {
+      const destinationDocument = doc(
+        decisionList({ localId: 'test1' })(
+          decisionItem({ localId: 'test2' })('Destination {<>}Decision'),
+        ),
+      );
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        openStart,
+        openEnd,
+      );
+      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      const expectedDocument = doc(
+        decisionList({ localId: 'test1' })(
+          decisionItem({ localId: 'test2' })('Destination Decision'),
+        ),
+        code_block({ localId: 'test1' })('Whole Codeblock'),
+      );
+      expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
+      expect(() => {
+        editorView.state.tr.doc.check();
+      }).not.toThrow();
+    });
+    it('the content of an action, should paste it beneath', () => {
+      const destinationDocument = doc(
+        taskList({ localId: 'test1' })(
+          taskItem({ localId: 'test2' })('Destination {<>}Action'),
+        ),
+      );
+
+      const { editorView } = editor(destinationDocument);
+      const pasteSlice = new Slice(
+        pasteContent(editorView.state.schema).content,
+        openStart,
+        openEnd,
+      );
+      handlePasteIntoTaskOrDecisionOrPanel(pasteSlice, undefined)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      const expectedDocument = doc(
+        taskList({ localId: 'test1' })(
+          taskItem({ localId: 'test2' })('Destination Action'),
+        ),
+        code_block({ localId: 'test1' })('Whole Codeblock'),
       );
       expect(editorView.state).toEqualDocumentAndSelection(expectedDocument);
       expect(() => {

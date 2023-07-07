@@ -2544,6 +2544,36 @@ exports[`Renderer - EmailSerializer should render media single correctly: html 1
       </div>
     </div>
   </a>
+  <div
+    class="csg-media-single-full-width"
+    style="width: 100%; max-width: 100%;"
+  >
+    <div
+      class="csg-media-lozenge-wrapper"
+      style="margin: 8px 0;"
+    >
+      <div
+        class="csg-media-lozenge"
+        style="line-height: 14px; display: inline-block; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px;"
+      >
+        <span>
+          <img
+            class="csg-media-lozenge-icon"
+            height="14"
+            src="cid:csg-icon-genericAttachment"
+            style="vertical-align: baseline;"
+            width="14"
+          />
+        </span>
+        <span
+          class="csg-media-lozenge-text"
+          style="overflow: hidden; display: inline-block;"
+        >
+          Attached file
+        </span>
+      </div>
+    </div>
+  </div>
 </div>
 `;
 

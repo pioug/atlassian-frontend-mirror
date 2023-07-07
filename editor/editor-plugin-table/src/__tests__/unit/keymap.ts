@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/editor-tables/utils';
 import { PluginKey } from 'prosemirror-state';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -29,10 +28,6 @@ import {
 import { pmNodeBuilder } from '@atlaskit/editor-test-helpers/schema-element-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import {
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
 import { uuid } from '@atlaskit/adf-schema';
 import { uuid as tablesUuid } from '@atlaskit/editor-tables';
 
@@ -42,8 +37,7 @@ import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
 import tasksDecisionsPlugin from '@atlaskit/editor-core/src/plugins/tasks-and-decisions';
 import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
 import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
-import deprecatedAnalyticsPlugin from '@atlaskit/editor-core/src/plugins/analytics';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import listPlugin from '@atlaskit/editor-core/src/plugins/list';
 import blockTypePlugin from '@atlaskit/editor-core/src/plugins/block-type';
 import codeBlockPlugin from '@atlaskit/editor-core/src/plugins/code-block';
@@ -67,6 +61,16 @@ import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
+// We don't need to test if the analytics implementation works (tested elsewhere)
+// We just want to know if the action is called.
+const mockAttachPayload = jest.fn();
+const analyticsPluginFake = () => ({
+  name: 'analytics',
+  actions: {
+    attachAnalyticsEvent: mockAttachPayload.mockImplementation(() => () => {}),
+  },
+});
+
 describe('table keymap', () => {
   beforeAll(() => {
     uuid.setStatic(TABLE_LOCAL_ID);
@@ -78,27 +82,16 @@ describe('table keymap', () => {
     tablesUuid.setStatic(false);
   });
 
-  let editorAnalyticsAPIFake: EditorAnalyticsAPI = {
-    attachAnalyticsEvent: jest.fn().mockReturnValue(jest.fn()),
-  };
-  const createAnalyticsEvent: CreateUIAnalyticsEvent = jest.fn(
-    () => ({ fire() {} } as UIAnalyticsEvent),
-  );
-
   const createEditor = createProsemirrorEditorFactory();
   const preset = new Preset<LightEditorPlugin>()
     .add([featureFlagsPlugin, {}])
-    .add([analyticsPlugin, { createAnalyticsEvent }])
-    .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+    .add([analyticsPluginFake as unknown as typeof analyticsPlugin, {}])
     .add(contentInsertionPlugin)
     .add(decorationsPlugin)
     .add(widthPlugin)
     .add(gridPlugin)
     .add(selectionPlugin)
-    .add([
-      tablePlugin,
-      { tableOptions: {}, editorAnalyticsAPI: editorAnalyticsAPIFake },
-    ])
+    .add([tablePlugin, { tableOptions: {} }])
     .add(expandPlugin)
     .add(tasksDecisionsPlugin)
     .add(panelPlugin)
@@ -604,7 +597,7 @@ describe('table keymap', () => {
     });
 
     it('should dispatch analytics event', () => {
-      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toBeCalledWith({
+      expect(mockAttachPayload).toBeCalledWith({
         action: 'inserted',
         actionSubject: 'document',
         actionSubjectId: 'table',

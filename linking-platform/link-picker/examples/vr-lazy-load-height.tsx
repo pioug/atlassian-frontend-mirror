@@ -3,9 +3,59 @@ import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { MockLinkPickerPromisePlugin } from '@atlaskit/link-test-helpers/link-picker';
+
 import { PageWrapper } from '../example-helpers/common';
 import { LinkPicker } from '../src';
 import { LoaderFallback } from '../src/ui/loader-fallback';
+import { fixedWidthContainerStyles } from '../src/ui/styled';
+
+const defaultPlugins = [
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab1',
+    tabTitle: 'Confluence',
+  }),
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab2',
+    tabTitle: 'Bitbucket',
+  }),
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab3',
+    tabTitle: 'Jira',
+  }),
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab4',
+    tabTitle: 'Github',
+  }),
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab5',
+    tabTitle: 'Drive',
+  }),
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab6',
+    tabTitle: 'Tab long name 3',
+  }),
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab7',
+    tabTitle: 'Tab long name 4',
+  }),
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab8',
+    tabTitle: 'Tab long name 5',
+  }),
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab9',
+    tabTitle: 'Tab long name 6',
+  }),
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab10',
+    tabTitle: 'Tab long name 7',
+  }),
+  new MockLinkPickerPromisePlugin({
+    tabKey: 'tab3',
+    tabTitle: 'tab3',
+  }),
+];
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const borderStyle = css`
@@ -19,6 +69,7 @@ const borderStyle = css`
   }
 
   /** Direct child divs - we don't want borders on every div in the link picker. */
+
   & > div {
     border: 1px solid red;
     /** Put some space between the items */
@@ -44,7 +95,9 @@ export default function LazyLoadHeightExample() {
             onCancel={() => {}}
             hideDisplayText={true}
           />
-          <LoaderFallback hideDisplayText={true}></LoaderFallback>
+          <div css={fixedWidthContainerStyles}>
+            <LoaderFallback hideDisplayText={true}></LoaderFallback>
+          </div>
         </BorderWrapper>
 
         <h1>With display text</h1>
@@ -55,7 +108,45 @@ export default function LazyLoadHeightExample() {
             onCancel={() => {}}
             hideDisplayText={false}
           />
-          <LoaderFallback hideDisplayText={false}></LoaderFallback>
+          <div css={fixedWidthContainerStyles}>
+            <LoaderFallback hideDisplayText={false}></LoaderFallback>
+          </div>
+        </BorderWrapper>
+
+        <h1>Without display text, with plugins</h1>
+        <p>LinkPicker on left, LoaderFallback on right.</p>
+        <BorderWrapper>
+          <LinkPicker
+            plugins={defaultPlugins}
+            onSubmit={() => {}}
+            onCancel={() => {}}
+            hideDisplayText={true}
+            featureFlags={{ scrollingTabs: true }}
+          />
+          <div css={fixedWidthContainerStyles}>
+            <LoaderFallback
+              hideDisplayText={true}
+              isLoadingPlugins={true}
+              plugins={[0]}
+            ></LoaderFallback>
+          </div>
+        </BorderWrapper>
+
+        <h1>With display text, with plugins</h1>
+        <p>LinkPicker on left, LoaderFallback on right.</p>
+        <BorderWrapper>
+          <LinkPicker
+            plugins={defaultPlugins}
+            onSubmit={() => {}}
+            onCancel={() => {}}
+            featureFlags={{ scrollingTabs: true }}
+          />
+          <div css={fixedWidthContainerStyles}>
+            <LoaderFallback
+              isLoadingPlugins={true}
+              plugins={[0]}
+            ></LoaderFallback>
+          </div>
         </BorderWrapper>
       </div>
     </PageWrapper>

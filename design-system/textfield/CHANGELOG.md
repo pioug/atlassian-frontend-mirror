@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 5.6.1
+
+### Patch Changes
+
+- [`3a8d6f61240`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a8d6f61240) - [ux] Adds `text-overflow: ellipsis` to placeholder text.
+
 ## 5.6.0
 
 ### Minor Changes

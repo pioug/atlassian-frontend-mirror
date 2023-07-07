@@ -6,6 +6,12 @@ import { isPerformanceAPIAvailable } from './is-performance-api-available';
  * requestAnimationFrame api).
  */
 export function getDistortedDurationMonitor() {
+  if (typeof document === 'undefined') {
+    return {
+      distortedDuration: false,
+      cleanup() {},
+    };
+  }
   // If an editor is rendered when the document is not visible -- the callback passed to
   // requestAnimationFrame will not fire until the document becomes visible again.
   //

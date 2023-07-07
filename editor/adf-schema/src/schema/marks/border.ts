@@ -16,7 +16,6 @@ export type BorderMarkAttributes = {
 
 /**
  * @name border_mark
- * @stage 0
  * @description This mark adds decoration to an element, and any element decorated with it will also have a border style.
  */
 export interface BorderMarkDefinition {

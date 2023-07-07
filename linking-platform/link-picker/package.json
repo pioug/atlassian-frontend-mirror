@@ -39,6 +39,9 @@
     },
     "platform.linking-platform.link-picker.lazy-intl-messages": {
       "type": "boolean"
+    },
+    "platform.linking-platform.link-picker.fixed-height-search-results": {
+      "type": "boolean"
     }
   },
   "scripts": {

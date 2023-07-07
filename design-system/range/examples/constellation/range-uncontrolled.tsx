@@ -4,7 +4,11 @@ import Range from '../../src';
 
 const RangeUncontrolledExample = () => {
   return (
-    <Range step={1} onChange={(value) => console.log('new value', value)} />
+    <Range
+      aria-label="uncontrolled range"
+      step={1}
+      onChange={(value) => console.log('new value', value)}
+    />
   );
 };
 

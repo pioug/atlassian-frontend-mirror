@@ -19,7 +19,6 @@ import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
@@ -86,8 +85,6 @@ interface TablePluginOptions {
   allowContextualMenu?: boolean;
   // (undocumented)
   breakoutEnabled?: boolean;
-  // (undocumented)
-  editorAnalyticsAPI?: EditorAnalyticsAPI;
   // (undocumented)
   editorSelectionAPI?: EditorSelectionAPI;
   // (undocumented)

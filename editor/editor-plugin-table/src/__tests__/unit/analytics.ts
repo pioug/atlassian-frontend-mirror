@@ -44,9 +44,9 @@ import tablePlugin from '../../plugins/table-plugin';
 import typeAheadPlugin from '@atlaskit/editor-core/src/plugins/type-ahead';
 import quickInsertPlugin from '@atlaskit/editor-core/src/plugins/quick-insert';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const defaultTableDoc = doc(
   table()(
@@ -58,6 +58,16 @@ const defaultTableDoc = doc(
 
 const secondRow: Rect = { left: 0, top: 1, bottom: 2, right: 3 };
 const secondColumn: Rect = { left: 1, top: 0, bottom: 3, right: 2 };
+
+// We don't need to test if the analytics implementation works (tested elsewhere)
+// We just want to know if the action is called.
+const mockAttachPayload = jest.fn();
+const analyticsPluginFake = () => ({
+  name: 'analytics',
+  actions: {
+    attachAnalyticsEvent: mockAttachPayload.mockImplementation(() => () => {}),
+  },
+});
 
 describe('Table analytic events', () => {
   let editorAnalyticsAPIFake: EditorAnalyticsAPI;
@@ -83,15 +93,15 @@ describe('Table analytic events', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
-        .add([analyticsPlugin, {}])
+        .add([
+          analyticsPluginFake as unknown as typeof analyticsPlugin,
+          { createAnalyticsEvent: jest.fn() },
+        ])
         .add(typeAheadPlugin)
         .add(contentInsertionPlugin)
         .add(quickInsertPlugin)
         .add(widthPlugin)
-        .add([
-          tablePlugin,
-          { tableOptions, editorAnalyticsAPI: editorAnalyticsAPIFake },
-        ]),
+        .add([tablePlugin, { tableOptions }]),
       pluginKey,
     });
 
@@ -105,7 +115,7 @@ describe('Table analytic events', () => {
     });
 
     it('should fire v3 analytics', () => {
-      expect(analyticFireMock).toBeCalledWith({
+      expect(mockAttachPayload).toBeCalledWith({
         action: 'inserted',
         actionSubject: 'document',
         actionSubjectId: 'table',
@@ -218,7 +228,7 @@ describe('Table analytic events', () => {
       });
 
       it('should fire v3 analytics', () => {
-        expect(analyticFireMock).toHaveBeenCalledWith({
+        expect(mockAttachPayload).toHaveBeenCalledWith({
           action: 'cleared',
           actionSubject: 'table',
           actionSubjectId: null,
@@ -578,7 +588,7 @@ describe('Table analytic events', () => {
         });
 
         it('should fire v3 analytics', () => {
-          expect(analyticFireMock).toHaveBeenCalledWith({
+          expect(mockAttachPayload).toHaveBeenCalledWith({
             action: 'addedRow',
             actionSubject: 'table',
             actionSubjectId: null,
@@ -608,7 +618,7 @@ describe('Table analytic events', () => {
         });
 
         it('should fire v3 analytics', () => {
-          expect(analyticFireMock).toHaveBeenCalledWith({
+          expect(mockAttachPayload).toHaveBeenCalledWith({
             action: 'addedRow',
             actionSubject: 'table',
             actionSubjectId: null,

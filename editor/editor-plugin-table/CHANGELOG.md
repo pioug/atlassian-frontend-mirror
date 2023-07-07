@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 2.0.0
+
+### Major Changes
+
+- [`bdb840c6eaa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdb840c6eaa) - Remove EditorAnalyticsAPI parameter from tables plugin as it now gets this from `editor-plugin-analytics`. This parameter is unused and the action is just to remove it.
+
+  Fix issue where internal analytics plugin was not being called correctly.
+
+## 1.7.3
+
+### Patch Changes
+
+- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+- Updated dependencies
+
 ## 1.7.2
 
 ### Patch Changes

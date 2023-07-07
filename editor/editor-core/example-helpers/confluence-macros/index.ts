@@ -16,7 +16,6 @@ import { mockFieldResolver } from '../config-panel/confluence-fields-data-provid
 
 import { cqlSerializer, cqlDeserializer } from '../config-panel/cql-helpers';
 
-import { getIconComponent } from './IconImage';
 import EditorActions from '../../src/actions';
 import { editSelectedExtension } from '../../src/extensions';
 
@@ -98,7 +97,13 @@ const safeGetMacroName = (macro: LegacyMacroManifest) =>
 
 const getIcon = (macro: LegacyMacroManifest) => {
   if (macro.icon && macro.icon.location) {
-    return Promise.resolve(() => getIconComponent(macro.icon.location));
+    // IMPORTANT: See https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/36347
+    // In a nutshell: VR tests use example pages, this means example pages should not have external source references.
+    // We don't want VR test to flake due to enetrnal sources going up/down. VR tests should be self contained and only load
+    // content from within localhost.
+    return import(
+      /* webpackChunkName: "@atlaskit-internal_editor-icon-code" */ '@atlaskit/icon/glyph/editor/warning'
+    ).then((mod) => mod.default);
   }
 
   return import(

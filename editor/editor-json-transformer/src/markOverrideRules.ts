@@ -37,6 +37,7 @@ export const markOverrideRuleFor: MarkOverrideRules = (type) => {
     case 'breakout':
     case 'alignment':
     case 'indentation':
+    case 'border':
       return defaultAllowOverrideBehaviour;
     default:
       return defaultDoNotAllowOverrideBehaviour;

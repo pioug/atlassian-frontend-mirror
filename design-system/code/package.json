@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "14.6.4",
+  "version": "14.6.5",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,6 +38,7 @@
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.11.0",
     "@atlaskit/tooltip": "^17.8.0",
+    "@atlaskit/visually-hidden": "^1.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "memoize-one": "^6.0.0",
@@ -47,8 +48,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/docs": "^9.1.0",
-    "@atlaskit/ds-explorations": "^2.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

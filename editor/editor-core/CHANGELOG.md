@@ -1,5 +1,41 @@
 # @atlaskit/editor-core
 
+## 185.9.5
+
+### Patch Changes
+
+- [`dbfd6704c14`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbfd6704c14) - [ux] ED-18061 - Safe insert node selected codeblock in paste handler logic
+- Updated dependencies
+
+## 185.9.2
+
+### Patch Changes
+
+- [`42e5defb430`](https://bitbucket.org/atlassian/atlassian-frontend/commits/42e5defb430) - Fix typing of internal EditorNext react component.
+
+## 185.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.9.0
+
+### Minor Changes
+
+- [`65fe45e0cc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65fe45e0cc0) - Promoted border mark to full schema and add border support for email renderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.8.3
+
+### Patch Changes
+
+- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+- Updated dependencies
+
 ## 185.8.2
 
 ### Patch Changes

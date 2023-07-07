@@ -8,6 +8,7 @@ import {
 } from '../styles/util';
 import { createContentId, IconString } from '../static';
 import { getIconFromMediaType } from '../media-util';
+import { serializeStyle } from '../serialize-style';
 
 const className = createClassName('media');
 const ICON_DIMENSION = 14;
@@ -50,7 +51,7 @@ const imageStyles = `
 `;
 
 const renderImage = (
-  { attrs }: NodeSerializerOpts,
+  { attrs, marks }: NodeSerializerOpts,
   metadata?: MediaMetaDataContextItem,
 ) => {
   let src;
@@ -62,8 +63,19 @@ const renderImage = (
     src = attrs.url;
   }
   if (src) {
+    const borderMark = marks?.find((m) => m.type.name === 'border');
+    const style = borderMark
+      ? serializeStyle({
+          'border-color': borderMark.attrs.color,
+          'border-width': `${borderMark.attrs.size}px`,
+          'border-style': 'solid',
+          'border-radius': `${borderMark.attrs.size * 2}px`,
+        })
+      : undefined;
+
     const img = createTag('img', {
       class: `${className}-img`,
+      style,
       src,
     });
     return createTag('div', { class: `${className}-wrapper` }, img);

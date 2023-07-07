@@ -1,14 +1,19 @@
 import { css } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-const LINK_PICKER_WIDTH_IN_PX = 342;
+import { LINK_PICKER_WIDTH_IN_PX } from '../../common/constants';
 
 /**
  * Half padding on the top as the form field has a `gridSize()` margin top that cannot be overridden
  */
 export const rootContainerStyles = css`
-  width: ${LINK_PICKER_WIDTH_IN_PX}px;
+  width: ${getBooleanFF(
+    'platform.linking-platform.link-picker.fixed-height-search-results',
+  )
+    ? undefined
+    : `${LINK_PICKER_WIDTH_IN_PX}px`};
   padding: ${token('space.100', '8px')} ${token('space.200', '16px')}
     ${token('space.200', '16px')};
   box-sizing: border-box;

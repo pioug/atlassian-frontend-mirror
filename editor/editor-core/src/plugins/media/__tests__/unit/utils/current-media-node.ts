@@ -5,10 +5,7 @@ import {
   media,
   border,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import {
-  defaultSchema,
-  getSchemaBasedOnStage,
-} from '@atlaskit/adf-schema/schema-default';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { EditorState, NodeSelection } from 'prosemirror-state';
 import {
   currentMediaNode,
@@ -36,9 +33,7 @@ const mediaNodeWithBorder = mediaSingle({ layout: 'center' })(
   ),
 );
 
-const stage0MediaDoc = doc(mediaNodeWithBorder)(
-  getSchemaBasedOnStage('stage0'),
-);
+const mediaNodeWithBorderDoc = doc(mediaNodeWithBorder)(defaultSchema);
 
 describe('currentMediaNode', () => {
   it('returns media node when mediaSingle node is selected', async () => {
@@ -93,8 +88,8 @@ describe('currentMediaNodeBorderMark', () => {
   it('returns border mark when mediaSingle node is selected', async () => {
     const borderMark = currentMediaNodeBorderMark(
       EditorState.create({
-        doc: stage0MediaDoc,
-        selection: NodeSelection.create(stage0MediaDoc, 0),
+        doc: mediaNodeWithBorderDoc,
+        selection: NodeSelection.create(mediaNodeWithBorderDoc, 0),
       }),
     );
 

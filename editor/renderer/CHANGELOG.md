@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 108.6.4
+
+### Patch Changes
+
+- [`0d603996f7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d603996f7f) - [ux] TSLA-609 update code block wrap button and copy button to work in dark/light theme by adding back the wrapper element behind the buttons.
+
+## 108.6.3
+
+### Patch Changes
+
+- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+
 ## 108.6.2
 
 ### Patch Changes

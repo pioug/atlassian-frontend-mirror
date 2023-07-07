@@ -99,6 +99,7 @@ describe('Get Schema Based On Stage', () => {
         'dataConsumer',
         'fragment',
         'indentation',
+        'border',
         'unsupportedMark',
         'unsupportedNodeAttribute',
       ]);

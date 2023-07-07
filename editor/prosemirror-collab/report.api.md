@@ -59,7 +59,7 @@ export function receiveTransaction(
   options?: {
     mapSelectionBackward?: boolean;
   },
-): Transaction<any>;
+): Transaction;
 
 // @public (undocumented)
 export function sendableSteps(state: EditorState): null | {

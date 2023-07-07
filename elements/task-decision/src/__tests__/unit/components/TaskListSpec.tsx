@@ -51,7 +51,7 @@ describe('<TaskList/>', () => {
       </TaskList>,
     );
     const divs = component.find('div');
-    expect(divs.length).toEqual(5);
+    expect(divs.length).toEqual(4);
     expect(divs.first().prop('data-task-list-local-id')).toEqual('');
 
     expect(component.find('div[data-task-local-id]').length).toEqual(1);

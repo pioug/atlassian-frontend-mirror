@@ -197,7 +197,10 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
     if (
       ((transformedSliceIsValidNode || selectionIsValidNode) &&
         !(
-          transformedSlice.openStart === 1 && transformedSlice.openEnd === 0
+          (transformedSlice.openStart === 1 &&
+            transformedSlice.openEnd === 0) ||
+          // Whole codeblock node has reverse slice depths.
+          (transformedSlice.openStart === 0 && transformedSlice.openEnd === 1)
         )) ||
       transformedSlice.content.firstChild?.type === paragraph
     ) {

@@ -141,7 +141,7 @@ export interface NodeSerializerOpts {
   // (undocumented)
   context?: MetaDataContext;
   // (undocumented)
-  marks: Mark[];
+  marks: readonly Mark[];
   // (undocumented)
   node: Node_2;
   // (undocumented)

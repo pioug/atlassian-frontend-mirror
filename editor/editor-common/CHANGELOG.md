@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 74.17.0
+
+### Minor Changes
+
+- [`87aac05bf04`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87aac05bf04) - [ED-18895] Create new package to contain editor plugin integration tests to avoid circular dev dependencies between plugins and editor-core
+
+## 74.16.0
+
+### Minor Changes
+
+- [`9a01d73afe2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a01d73afe2) - [ux] ED-17434: Update TaskItem to match @atlaskit/checkbox and update to support design tokens and match spacing from bullet and numbered lists.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 74.15.2
+
+### Patch Changes
+
+- [`3a0a36b5910`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a0a36b5910) - check if document exists before using, for confluence SSR to work
+
+## 74.15.1
+
+### Patch Changes
+
+- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+
 ## 74.15.0
 
 ### Minor Changes

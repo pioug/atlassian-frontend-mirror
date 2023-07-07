@@ -225,6 +225,9 @@ export const inputStyles = (mode: ThemeModes) =>
     '&:invalid': {
       boxShadow: 'none',
     },
+    '&:placeholder-shown': {
+      textOverflow: 'ellipsis',
+    },
     '&::placeholder': {
       color: componentTokens.placeholderTextColor[mode],
       '&:disabled': {

@@ -32,7 +32,6 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 
 import { IconTable } from '@atlaskit/editor-common/icons';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 
 import { pluginConfig } from './create-plugin-config';
@@ -80,7 +79,6 @@ interface TablePluginOptions {
   // TODO these two need to be rethought
   fullWidthEnabled?: boolean;
   wasFullWidthEnabled?: boolean;
-  editorAnalyticsAPI?: EditorAnalyticsAPI;
   editorSelectionAPI?: EditorSelectionAPI;
   getEditorFeatureFlags?: GetEditorFeatureFlags;
 }
@@ -110,6 +108,7 @@ const tablesPlugin: NextEditorPlugin<
     };
     return api?.dependencies.width.sharedState.currentState() ?? defaultState;
   };
+  const editorAnalyticsAPI = api?.dependencies.analytics?.actions;
 
   return {
     name: 'table',
@@ -165,13 +164,8 @@ const tablesPlugin: NextEditorPlugin<
               wasFullWidthEnabled,
               breakoutEnabled,
               tableOptions,
-              editorAnalyticsAPI,
               getEditorFeatureFlags,
-            } =
-              options ||
-              ({
-                editorAnalyticsAPI: api?.dependencies.analytics?.actions,
-              } as TablePluginOptions);
+            } = options || ({} as TablePluginOptions);
             return createPlugin(
               dispatchAnalyticsEvent,
               dispatch,
@@ -191,12 +185,8 @@ const tablesPlugin: NextEditorPlugin<
         {
           name: 'tablePMColResizing',
           plugin: ({ dispatch }) => {
-            const {
-              fullWidthEnabled,
-              tableOptions,
-              editorAnalyticsAPI,
-              getEditorFeatureFlags,
-            } = options || ({} as TablePluginOptions);
+            const { fullWidthEnabled, tableOptions, getEditorFeatureFlags } =
+              options || ({} as TablePluginOptions);
             const { allowColumnResizing } = pluginConfig(tableOptions);
             return allowColumnResizing
               ? createFlexiResizingPlugin(
@@ -217,10 +207,7 @@ const tablesPlugin: NextEditorPlugin<
         {
           name: 'tableKeymap',
           plugin: () =>
-            keymapPlugin(
-              defaultGetEditorContainerWidth,
-              options?.editorAnalyticsAPI,
-            ),
+            keymapPlugin(defaultGetEditorContainerWidth, editorAnalyticsAPI),
         },
         {
           name: 'tableSelectionKeymap',
@@ -239,7 +226,7 @@ const tablesPlugin: NextEditorPlugin<
                 tr: Transaction;
                 reason: string;
               }) => {
-                options?.editorAnalyticsAPI?.attachAnalyticsEvent({
+                editorAnalyticsAPI?.attachAnalyticsEvent({
                   action: TABLE_ACTION.FIXED,
                   actionSubject: ACTION_SUBJECT.TABLE,
                   actionSubjectId: null,
@@ -374,7 +361,7 @@ const tablesPlugin: NextEditorPlugin<
                     !!resizingPluginState && !!resizingPluginState.dragging
                   }
                   stickyHeader={stickyHeader}
-                  editorAnalyticsAPI={options?.editorAnalyticsAPI}
+                  editorAnalyticsAPI={editorAnalyticsAPI}
                 />
               ) : null;
 
@@ -415,7 +402,7 @@ const tablesPlugin: NextEditorPlugin<
                       scrollableElement={popupsScrollableElement}
                       hasStickyHeaders={stickyHeader && stickyHeader.sticky}
                       dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-                      editorAnalyticsAPI={options?.editorAnalyticsAPI}
+                      editorAnalyticsAPI={editorAnalyticsAPI}
                       getEditorContainerWidth={defaultGetEditorContainerWidth}
                     />
                   )}
@@ -426,7 +413,7 @@ const tablesPlugin: NextEditorPlugin<
                     targetCellPosition={targetCellPosition}
                     isOpen={Boolean(isContextualMenuOpen)}
                     pluginConfig={pluginConfig}
-                    editorAnalyticsAPI={options?.editorAnalyticsAPI}
+                    editorAnalyticsAPI={editorAnalyticsAPI}
                     getEditorContainerWidth={defaultGetEditorContainerWidth}
                     getEditorFeatureFlags={
                       options?.getEditorFeatureFlags ||
@@ -445,7 +432,7 @@ const tablesPlugin: NextEditorPlugin<
                       isNumberColumnEnabled={
                         tableNode && tableNode.attrs.isNumberColumnEnabled
                       }
-                      editorAnalyticsAPI={options?.editorAnalyticsAPI}
+                      editorAnalyticsAPI={editorAnalyticsAPI}
                     />
                   )}
                   {LayoutContent}
@@ -473,7 +460,7 @@ const tablesPlugin: NextEditorPlugin<
                 schema: state.schema,
               }),
             );
-            options?.editorAnalyticsAPI?.attachAnalyticsEvent({
+            editorAnalyticsAPI?.attachAnalyticsEvent({
               action: ACTION.INSERTED,
               actionSubject: ACTION_SUBJECT.DOCUMENT,
               actionSubjectId: ACTION_SUBJECT_ID.TABLE,
@@ -486,7 +473,7 @@ const tablesPlugin: NextEditorPlugin<
       ],
       floatingToolbar: getToolbarConfig(
         defaultGetEditorContainerWidth,
-        options?.editorAnalyticsAPI,
+        editorAnalyticsAPI,
         options?.getEditorFeatureFlags || defaultGetEditorFeatureFlags,
         () => editorViewRef.current,
       )(pluginConfig(options?.tableOptions)),

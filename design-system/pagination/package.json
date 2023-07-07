@@ -50,7 +50,6 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
-    "@atlaskit/code": "^14.6.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",

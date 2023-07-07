@@ -1,5 +1,11 @@
 # @atlaskit/task-decision
 
+## 17.7.0
+
+### Minor Changes
+
+- [`8c026385eb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8c026385eb8) - [ux] ED-17434: Update TaskItem to match @atlaskit/checkbox and update to support design tokens and match spacing from bullet and numbered lists.
+
 ## 17.6.4
 
 ### Patch Changes

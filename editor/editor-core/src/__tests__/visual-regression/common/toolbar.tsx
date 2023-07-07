@@ -20,13 +20,16 @@ import {
   ToolbarMenuItem,
   toolbarMenuItemsSelectors as selectors,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
+import { resetMousePosition } from '@atlaskit/editor-test-helpers/page-objects/mouse';
+import {
+  pressKey,
+  pressKeyCombo,
+} from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import {
   animationFrame,
   clickEditableContent,
   scrollToBottom,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
-import { pressKeyCombo } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import * as parapgrahADF from './__fixtures__/paragraph-of-text.adf.json';
 
 import { getElementComputedStyle } from '@atlaskit/editor-test-helpers/vr-utils/get-computed-style';
@@ -298,7 +301,13 @@ describe('Toolbar: IconBefore enabled', () => {
   });
 
   it('should carry the keyline across', async () => {
-    await page.setViewport({ width: 1000, height: 150 });
+    /**
+     * Somewhere from 150px < 200px viewport height,
+     * the keyline style stops updating.
+     * However, browsers don't resize that small unless
+     * developer panel is open so testing at 200px is sufficient.
+     */
+    await page.setViewport({ width: 1000, height: 200 });
 
     const keylineBoxShadowBefore = await getElementComputedStyle(
       page,
@@ -347,8 +356,7 @@ describe('Toolbar: Undo Redo', () => {
     await snapshot(page, undefined, mainToolbarSelector);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 13/04/2023: https://product-fabric.atlassian.net/browse/ED-17491
-  it.skip('should show the Undo button in a active state', async () => {
+  it('should show the Undo button in a active state', async () => {
     await page.waitForSelector(selectors[ToolbarMenuItem.undo]);
     await animationFrame(page);
     // Add a bullet list to the doc so something can be undone and the Undo button become active
@@ -414,6 +422,7 @@ describe('Toolbar: Responsive toolbar', () => {
   };
 
   afterEach(async () => {
+    await resetMousePosition(page);
     await snapshot(page, undefined, mainToolbarSelector);
   });
 

@@ -16,10 +16,12 @@
 
 ```ts
 import { ContentNodeWithPos } from 'prosemirror-utils';
+import { Mappable } from 'prosemirror-transform';
 import { Mapping } from 'prosemirror-transform';
 import { Node as Node_2 } from 'prosemirror-model';
 import { ResolvedPos } from 'prosemirror-model';
 import { Selection as Selection_2 } from 'prosemirror-state';
+import { SelectionBookmark } from 'prosemirror-state';
 import { Slice } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 
@@ -27,14 +29,14 @@ import { Transaction } from 'prosemirror-state';
 type Axis = 'horiz' | 'vert';
 
 // @public (undocumented)
-class CellBookmark {
+class CellBookmark implements SelectionBookmark {
   constructor(anchor: number, head: number);
   // (undocumented)
   readonly anchor: number;
   // (undocumented)
   readonly head: number;
   // (undocumented)
-  map(mapping: Mapping): CellBookmark;
+  map(mapping: Mappable): SelectionBookmark;
   // (undocumented)
   resolve(doc: Node_2): Selection_2;
 }
@@ -74,7 +76,7 @@ export class CellSelection extends Selection_2 {
   // (undocumented)
   map(doc: Node_2, mapping: Mapping): Selection_2;
   // (undocumented)
-  replace(tr: Transaction, content?: Slice<any>): void;
+  replace(tr: Transaction, content?: Slice): void;
   // (undocumented)
   replaceWith(tr: Transaction, node: Node_2): void;
   // (undocumented)

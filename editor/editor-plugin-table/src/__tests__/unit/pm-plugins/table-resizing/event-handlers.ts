@@ -25,7 +25,6 @@ import { TextSelection, NodeSelection, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   akEditorFullPageMaxWidth,
   akEditorDefaultLayoutWidth,
@@ -35,10 +34,17 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
+// We don't need to test if the analytics implementation works (tested elsewhere)
+// We just want to know if the action is called.
+const mockAttachPayload = jest.fn();
+const analyticsPluginFake = () => ({
+  name: 'analytics',
+  actions: {
+    attachAnalyticsEvent: mockAttachPayload.mockImplementation(() => () => {}),
+  },
+});
+
 describe('table-resizing/event-handlers', () => {
-  const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
-    attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
-  };
   let editor: any;
   beforeEach(() => {
     const createEditor = createProsemirrorEditorFactory();
@@ -48,7 +54,7 @@ describe('table-resizing/event-handlers', () => {
         attachTo: document.body,
         preset: new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
-          .add([analyticsPlugin, {}])
+          .add([analyticsPluginFake as unknown as typeof analyticsPlugin, {}])
           .add(contentInsertionPlugin)
           .add(decorationsPlugin)
           .add(widthPlugin)
@@ -56,7 +62,6 @@ describe('table-resizing/event-handlers', () => {
             tablePlugin,
             {
               tableOptions: { allowColumnResizing: true },
-              editorAnalyticsAPI: editorAnalyticsAPIFake,
             },
           ])
           .add(panelPlugin),
@@ -72,7 +77,7 @@ describe('table-resizing/event-handlers', () => {
 
       resizeColumn(view, 12, 150, 250);
 
-      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith(
+      expect(mockAttachPayload).toHaveBeenCalledWith(
         expect.objectContaining({
           action: TABLE_ACTION.ATTEMPTED_TABLE_WIDTH_CHANGE,
           actionSubject: ACTION_SUBJECT.TABLE,

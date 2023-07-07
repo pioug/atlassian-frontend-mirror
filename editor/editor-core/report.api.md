@@ -271,7 +271,7 @@ type BeforeAndAfterToolbarComponents = {
 };
 
 // @public (undocumented)
-export const blockPluginStateKey: PluginKey<BlockTypeState, any>;
+export const blockPluginStateKey: PluginKey<BlockTypeState>;
 
 // @public (undocumented)
 interface BlockType {
@@ -442,7 +442,7 @@ export { createTable };
 // @public (undocumented)
 export const createTypeAheadTools: (editorView: EditorView) => {
   isOpen: () => TypeAheadHandler | false;
-  currentQuery: () => string;
+  currentQuery: () => string | undefined;
   close: (options?: CloseOptions) => boolean;
   openMention: (inputMethod: TypeAheadInputMethod) => boolean;
   searchMention: (query?: string) => {
@@ -526,7 +526,7 @@ export const dateMessages: {
 };
 
 // @public (undocumented)
-export const datePluginKey: PluginKey<DatePluginState, any>;
+export const datePluginKey: PluginKey<DatePluginState>;
 
 // @public (undocumented)
 export type DatePluginState = {
@@ -653,9 +653,7 @@ export class EditorActions<T = any> implements EditorActionsOptions<T> {
 }
 
 // @public (undocumented)
-interface EditorBaseProps
-  extends EditorPluginFeatureProps,
-    EditorProviderProps {
+interface EditorBaseProps {
   // (undocumented)
   appearance?: EditorAppearance;
   // (undocumented)
@@ -816,7 +814,11 @@ class EditorNext extends React_2.Component<EditorNextProps> {
     editorActions: PropTypes.Requireable<object>;
   };
   // (undocumented)
-  static defaultProps: EditorProps;
+  static defaultProps: {
+    appearance: string;
+    disabled: boolean;
+    quickInsert: boolean;
+  };
   // (undocumented)
   static propTypes: {
     preset: ({ preset }: Pick<EditorNextProps, 'preset'>) => Error | null;
@@ -1078,7 +1080,7 @@ interface EditorViewProps {
 // @public (undocumented)
 type EditorViewStateUpdatedCallbackProps = {
   readonly originalTransaction: Readonly<Transaction>;
-  readonly transactions: Transaction[];
+  readonly transactions: readonly Transaction[];
   readonly oldEditorState: Readonly<EditorState>;
   readonly newEditorState: Readonly<EditorState>;
 };
@@ -1156,10 +1158,7 @@ export { FloatingToolbarItem };
 export { FloatingToolbarListPicker };
 
 // @public
-export const floatingToolbarPluginKey: PluginKey<
-  FloatingToolbarPluginState,
-  any
->;
+export const floatingToolbarPluginKey: PluginKey<FloatingToolbarPluginState>;
 
 // @public (undocumented)
 export type FloatingToolbarPluginState = Record<
@@ -1214,7 +1213,7 @@ type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 type HeadingLevelsAndNormalText = HeadingLevels | NormalTextLevel;
 
 // @public
-export const historyPluginKey: PluginKey<HistoryPluginState, any>;
+export const historyPluginKey: PluginKey<HistoryPluginState>;
 
 // @public (undocumented)
 export interface HistoryPluginState {
@@ -1253,7 +1252,7 @@ export interface HyperlinkState {
 }
 
 // @public (undocumented)
-export const hyperlinkStateKey: PluginKey<HyperlinkState, any>;
+export const hyperlinkStateKey: PluginKey<HyperlinkState>;
 
 // @public (undocumented)
 function indentList(inputMethod?: InputMethod): Command;
@@ -1451,7 +1450,7 @@ export interface ListState {
 }
 
 // @public (undocumented)
-export const listStateKey: PluginKey<ListState, any>;
+export const listStateKey: PluginKey<ListState>;
 
 // @public (undocumented)
 interface LongPressSelectionPluginOptions {
@@ -1573,7 +1572,7 @@ export const mediaPlugin: NextEditorPlugin<
 >;
 
 // @public (undocumented)
-export const mediaPluginKey: PluginKey<MediaPluginState, any>;
+export const mediaPluginKey: PluginKey<MediaPluginState>;
 
 // @public (undocumented)
 type MediaPluginOptions = {
@@ -1772,7 +1771,7 @@ interface MentionPluginConfig {
 }
 
 // @public (undocumented)
-export const mentionPluginKey: PluginKey<MentionPluginState, any>;
+export const mentionPluginKey: PluginKey<MentionPluginState>;
 
 // @public (undocumented)
 export type MentionPluginState = {
@@ -1942,7 +1941,7 @@ type PrimaryToolbarComponents =
 
 // @public (undocumented)
 const processItems: (
-  items: Array<QuickInsertHandler>,
+  items: Array<QuickInsertHandler | QuickInsertItem>,
   intl: IntlShape,
   extendedActions?: Record<string, Function>,
 ) => QuickInsertItem[];
@@ -2024,7 +2023,7 @@ type QuickInsertOptions =
     };
 
 // @public (undocumented)
-export const quickInsertPluginKey: PluginKey<QuickInsertPluginState, any>;
+export const quickInsertPluginKey: PluginKey<QuickInsertPluginState>;
 
 // @public (undocumented)
 interface QuickInsertPluginOptions {
@@ -2089,7 +2088,7 @@ class ReactEditorView_2<T = {}> extends React_2.Component<
     >;
   };
   // (undocumented)
-  createEditorState: (options: CreateEditorStateOptions) => EditorState<any>;
+  createEditorState: (options: CreateEditorStateOptions) => EditorState;
   // (undocumented)
   dispatch: Dispatch;
   // (undocumented)
@@ -2111,7 +2110,7 @@ class ReactEditorView_2<T = {}> extends React_2.Component<
   // (undocumented)
   getDirectEditorProps: (state?: EditorState) => DirectEditorProps;
   // (undocumented)
-  getEditorState: () => EditorState<any> | undefined;
+  getEditorState: () => EditorState | undefined;
   // (undocumented)
   getPlugins(
     preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>,
@@ -2186,7 +2185,7 @@ export interface SelectionDataState {
 }
 
 // @public (undocumented)
-export const selectionPluginKey: PluginKey<any, any>;
+export const selectionPluginKey: PluginKey<any>;
 
 // @public (undocumented)
 interface SelectionPluginOptions extends LongPressSelectionPluginOptions {}
@@ -2261,7 +2260,7 @@ export const statusMessages: {
 };
 
 // @public (undocumented)
-export const statusPluginKey: PluginKey<StatusState, any>;
+export const statusPluginKey: PluginKey<StatusState>;
 
 // @public (undocumented)
 export type StatusState = {
@@ -2287,8 +2286,8 @@ export const subscribeToToolbarAndPickerUpdates: SubscribeToToolbarAndPickerUpda
 
 // @public (undocumented)
 type SubscribeToToolbarAndPickerUpdatesCallbackArgs = {
-  dateState: DatePluginState;
-  statusState: StatusState;
+  dateState?: DatePluginState;
+  statusState?: StatusState;
   toolbarConfig: ConfigWithNodeInfo | null | undefined;
 };
 
@@ -2327,7 +2326,7 @@ interface TextColorPluginConfig {
 }
 
 // @public (undocumented)
-export const textColorPluginKey: PluginKey<TextColorPluginState, any>;
+export const textColorPluginKey: PluginKey<TextColorPluginState>;
 
 // @public (undocumented)
 export type TextColorPluginState = {
@@ -2407,7 +2406,7 @@ export interface TextFormattingState {
 }
 
 // @public (undocumented)
-export const textFormattingStateKey: PluginKey<TextFormattingState, any>;
+export const textFormattingStateKey: PluginKey<TextFormattingState>;
 
 // @public (undocumented)
 interface TextSelectionData {
@@ -2549,7 +2548,7 @@ type TypeAheadInputMethod =
 export { TypeAheadItem };
 
 // @public (undocumented)
-export const typeAheadPluginKey: PluginKey<TypeAheadPluginState, any>;
+export const typeAheadPluginKey: PluginKey<TypeAheadPluginState>;
 
 // @public (undocumented)
 type TypeAheadPluginOptions = {

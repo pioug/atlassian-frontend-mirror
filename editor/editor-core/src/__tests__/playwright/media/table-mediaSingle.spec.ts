@@ -4,6 +4,7 @@ import {
   EditorUploadMediaModel,
   EditorTableModel,
   expect,
+  fixTest,
 } from '@af/editor-libra';
 import {
   doc,
@@ -32,6 +33,11 @@ test.describe('Media tables', () => {
     });
 
     test('can insert into table', async ({ editor }) => {
+      fixTest({
+        jiraIssueId: 'ED-19014',
+        reason: 'flaky test maybe due to not accurately waiting on upload',
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 

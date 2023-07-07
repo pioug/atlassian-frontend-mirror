@@ -298,7 +298,7 @@ export const ReactRenderer: (props: RendererProps) => jsx.JSX.Element;
 export class ReactSerializer implements Serializer<JSX.Element> {
   constructor(init: ReactSerializerInit);
   // (undocumented)
-  static buildMarkStructure(content: Node_2[]): Mark<any>[];
+  static buildMarkStructure(content: Node_2[]): Mark[];
   // (undocumented)
   static fromSchema(_: unknown, init: ReactSerializerInit): ReactSerializer;
   // (undocumented)

@@ -386,8 +386,10 @@ export function createPlugin(
           schema.nodes?.taskList,
           schema.nodes?.decisionList,
         ];
+
         if (
           slice.openStart === 0 &&
+          slice.openEnd !== 1 &&
           selectionParentNode &&
           edgeCaseNodeTypes.includes(selectionParentType)
         ) {

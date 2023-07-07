@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.0.1
+
+### Patch Changes
+
+- [`cac98ccfb7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cac98ccfb7d) - Introduces Flex component as common component for Stack, Inline.
+
 ## 1.0.0
 
 ### Major Changes

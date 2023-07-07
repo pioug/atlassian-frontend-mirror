@@ -1,59 +1,17 @@
 /** @jsx jsx */
 
 import { PureComponent } from 'react';
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { Appearance, ContentRef, TaskType, DecisionType } from '../types';
-import { themed } from '@atlaskit/theme/components';
-import { token } from '@atlaskit/tokens';
-import { DN50, N200, N20A } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
+import { gridSize } from '@atlaskit/theme/constants';
 import type { Theme } from '@atlaskit/theme/types';
-
-const contentStyle = css({
-  margin: 0,
-  wordWrap: 'break-word',
-  minWidth: 0,
-  flex: '1 1 auto',
-});
-
-const taskStyles = css({
-  display: 'flex',
-  flexDirection: 'row',
-  padding: '6px 3px',
-  position: 'relative',
-});
-
-const decisionStyles = (theme: Theme) =>
-  css({
-    display: 'flex',
-    flexDirection: 'row',
-    margin: `${token('space.100', '8px')} 0 0 0`,
-    padding: token('space.100', '8px'),
-    paddingLeft: `${token('space.150', '12px')}`,
-    borderRadius: `${borderRadius()}px`,
-    backgroundColor: themed({
-      light: token('color.background.neutral', N20A),
-      dark: token('color.background.neutral', DN50),
-    })({ theme }),
-    position: 'relative',
-
-    '.decision-item': {
-      cursor: 'initial',
-    },
-  });
-
-const placeHolderStyles = (offset: number) =>
-  css({
-    margin: `0 0 0 ${offset}px`,
-    position: 'absolute',
-    color: token('color.text.subtlest', N200),
-    pointerEvents: 'none',
-    textOverflow: 'ellipsis',
-    overflow: 'hidden',
-    whiteSpace: 'nowrap',
-    maxWidth: 'calc(100% - 50px)',
-  });
+import {
+  contentStyles,
+  taskStyles,
+  decisionStyles,
+  placeholderStyles,
+} from './styles';
 
 export interface Props {
   icon: JSX.Element;
@@ -85,7 +43,7 @@ export default class Item extends PureComponent<Props, {}> {
     return (
       <span
         data-component="placeholder"
-        css={placeHolderStyles(offset)}
+        css={placeholderStyles(offset)}
         contentEditable={false}
       >
         {placeholder}
@@ -111,7 +69,7 @@ export default class Item extends PureComponent<Props, {}> {
           {this.renderPlaceholder()}
           <div
             data-component="content"
-            css={contentStyle}
+            css={contentStyles}
             ref={contentRef}
             {...dataAttributes}
           >
@@ -126,7 +84,7 @@ export default class Item extends PureComponent<Props, {}> {
           {this.renderPlaceholder()}
           <div
             data-component="content"
-            css={contentStyle}
+            css={contentStyles}
             ref={contentRef}
             {...dataAttributes}
           >

@@ -457,4 +457,31 @@ describe('link-picker', () => {
       expect(image).toMatchProdImageSnapshot();
     },
   );
+
+  ffTest(
+    'platform.linking-platform.link-picker.fixed-height-search-results',
+    async () => {
+      const url = getURL('root-error-boundary');
+      const page = await setup(url);
+
+      testSelector = '[data-testid="link-picker-root-error-boundary-ui"]';
+      await page.waitForSelector(testSelector);
+      const image = await takeElementScreenShot(page, testSelector);
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
+
+  ffTest(
+    'platform.linking-platform.link-picker.fixed-height-search-results',
+    async () => {
+      const url = getURL('vr-lazy-load-height');
+      const page = await setup(url);
+
+      const image = await takeElementScreenShot(
+        page,
+        '[data-testid="link-picker-lazy-load-height"]',
+      );
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 });

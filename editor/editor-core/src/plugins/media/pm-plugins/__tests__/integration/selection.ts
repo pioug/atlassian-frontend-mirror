@@ -29,15 +29,22 @@ BrowserTestCase(
     _testName: string,
   ) => {
     const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, {
-      defaultValue: JSON.stringify(paragraphMediaAdf),
-      media: {
-        allowMediaSingle: true,
-        featureFlags: {
-          captions: true,
+    await mountEditor(
+      page,
+      {
+        defaultValue: JSON.stringify(paragraphMediaAdf),
+        media: {
+          allowMediaSingle: true,
+          featureFlags: {
+            captions: true,
+          },
         },
       },
-    });
+      undefined,
+      // Prevent occasionally causing incorrect TextSelection
+      // when using setProseMirrorTextSelection
+      { clickInEditor: false },
+    );
     await page.isVisible('[data-testid="media-file-card-view"]');
 
     await waitForNumImages(page, 1);
@@ -85,20 +92,27 @@ BrowserTestCase(
     _testName: string,
   ) => {
     const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, {
-      defaultValue: JSON.stringify(paragraphMediaAdf),
-      media: {
-        allowMediaSingle: true,
-        featureFlags: {
-          captions: true,
+    await mountEditor(
+      page,
+      {
+        defaultValue: JSON.stringify(paragraphMediaAdf),
+        media: {
+          allowMediaSingle: true,
+          featureFlags: {
+            captions: true,
+          },
         },
       },
-    });
+      undefined,
+      // Prevent occasionally causing incorrect TextSelection
+      // when using setProseMirrorTextSelection
+      { clickInEditor: false },
+    );
     await page.isVisible('[data-testid="media-file-card-view"]');
 
     await waitForNumImages(page, 1);
     // Set cursor before the D on END
-    await setProseMirrorTextSelection(page, { anchor: 10, head: 10 });
+    await setProseMirrorTextSelection(page, { anchor: 11, head: 11 });
 
     // First: goes after the E on END
     // Second: goes before the E on END

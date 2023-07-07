@@ -23,5 +23,8 @@ runBlockNodeSelectionTestSuite({
   skipTests: {
     'Extend a selection from end of the document to the start when [block-node] is the first node':
       ['safari', 'chrome'],
+    // Firefox cannot drag-select a task list with placeholder from the end of document if task list is at beginning
+    'Click and drag from the end to start of the document to select [block-node] when [block-node] is the first node':
+      ['firefox'],
   },
 });

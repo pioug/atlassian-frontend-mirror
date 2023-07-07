@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-tables",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "A package that contains common classes and utility functions for editor tables",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -38,7 +38,7 @@
     "prosemirror-view": "1.23.7"
   },
   "devDependencies": {
-    "@atlaskit/editor-test-helpers": "^18.8.0",
+    "@atlaskit/editor-test-helpers": "^18.9.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1"
   },
   "techstack": {

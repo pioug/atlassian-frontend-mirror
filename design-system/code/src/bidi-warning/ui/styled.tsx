@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { Y75 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 const decoration = css({
   // Required as otherwise the following bidi characters cause the span
@@ -50,7 +51,7 @@ export function Decorator({
 }) {
   const bidiCharacterCode = getBidiCharacterCode(bidiCharacter);
   return (
-    <span aria-label={bidiCharacterCode}>
+    <Fragment>
       <span
         css={decoration}
         data-testid={testId}
@@ -58,13 +59,15 @@ export function Decorator({
         // This is set to true so that the content is not read out by
         // screen readers as the content includes angle brackets for
         // visual decoration purposes.
-        // We use a span with the aria-label set to the bidi character  code
-        // above this span for screen readers.
+        // We use a visually hidden `mark` element below for screen readers
         aria-hidden="true"
       >
         {children}
       </span>
-    </span>
+      <VisuallyHidden testId={testId && `${testId}--visually-hidden`}>
+        <mark>{bidiCharacterCode}</mark>
+      </VisuallyHidden>
+    </Fragment>
   );
 }
 

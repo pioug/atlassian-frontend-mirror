@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/schema-backwards-compatibility-tests",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tests to validate ADF schema changes are backwards compatible",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -34,10 +34,10 @@
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^26.0.0",
+    "@atlaskit/adf-schema": "^26.1.0",
     "@atlaskit/adf-utils": "^19.0.0",
-    "@atlaskit/editor-json-transformer": "^8.9.0",
-    "@atlaskit/editor-test-helpers": "^18.8.0",
+    "@atlaskit/editor-json-transformer": "^8.10.0",
+    "@atlaskit/editor-test-helpers": "^18.9.0",
     "@atlassian/adf-sample": "^1.1.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "json-schema-diff-validator": "^0.4.1",

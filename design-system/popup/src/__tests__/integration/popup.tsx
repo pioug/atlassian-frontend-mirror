@@ -5,6 +5,7 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   popupButton1Radio,
   popupContent,
+  popupLinkContent,
   popupTextContent,
   popupTrigger,
 } from '../../../examples/utils/selectors';
@@ -21,9 +22,16 @@ const urlPopupFocusIsOpen = getExampleUrl(
   'setting-focus-isopen',
 );
 
+const urlPopupAutoFocus = getExampleUrl(
+  'design-system',
+  'popup',
+  'popup-disable-autofocus-vr',
+);
+
 /* CSS Selectors */
 const trigger = `#${popupTrigger}`;
 const content = `#${popupContent}`;
+const linkContent = `#${popupLinkContent}`;
 const textContent = `#${popupTextContent}`;
 const button1 = '#button-1';
 const button1Radio = `#${popupButton1Radio}`;
@@ -97,5 +105,21 @@ BrowserTestCase(
     await page.waitForSelector(content);
 
     expect(await page.hasFocus(button1)).toBe(true);
+  },
+);
+
+BrowserTestCase(
+  'it does not focus on the popup when autoFocus is false',
+  {},
+  async (client: any) => {
+    const page = new Page(client);
+
+    await page.goto(urlPopupAutoFocus);
+    await page.click(trigger);
+    await page.waitForSelector(content);
+    await page.waitForSelector(linkContent);
+
+    expect(await page.hasFocus(content)).toBe(false);
+    expect(await page.hasFocus(linkContent)).toBe(false);
   },
 );

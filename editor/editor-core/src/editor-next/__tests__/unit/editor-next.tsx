@@ -40,3 +40,46 @@ describe('EditorNext', () => {
     });
   });
 });
+
+// Check typing of `EditorNext` is as expected
+// eslint-disable-next-line
+function EditorTyping() {
+  // @ts-expect-error no preset prop
+  const test1 = <EditorNext />;
+
+  const test2 = (
+    // @ts-expect-error no allow-* props
+    <EditorNext preset={new EditorPresetBuilder()} allowDate={true} />
+  );
+
+  const test3 = (
+    <EditorNext
+      preset={new EditorPresetBuilder()}
+      // @ts-expect-error no dangerouslyAppendPlugins
+      dangerouslyAppendPlugins={{ __plugins: [] }}
+    />
+  );
+
+  const test4 = (
+    <EditorNext
+      preset={new EditorPresetBuilder()}
+      // @ts-expect-error no allow-* props
+      allowTextAlignment={true}
+    />
+  );
+
+  // eslint-disable-next-line
+  console.log(test1);
+
+  // eslint-disable-next-line
+  console.log(test2);
+
+  // eslint-disable-next-line
+  console.log(test3);
+
+  // eslint-disable-next-line
+  console.log(test4);
+}
+
+// eslint-disable-next-line
+console.log(typeof EditorTyping);

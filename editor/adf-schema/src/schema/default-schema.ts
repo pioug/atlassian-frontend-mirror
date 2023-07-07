@@ -5,7 +5,6 @@ import {
   layoutSectionWithSingleColumn,
   tableWithCustomWidth,
 } from './nodes';
-import { border } from './marks';
 import { createSchema, SchemaConfig } from './create-schema';
 
 type DefaultSchemaNodes =
@@ -71,6 +70,7 @@ type DefaultSchemaMarks =
   | 'alignment'
   | 'indentation'
   | 'annotation'
+  | 'border'
   | 'unsupportedMark'
   | 'unsupportedNodeAttribute'
   | 'typeAheadQuery'
@@ -149,6 +149,7 @@ const getDefaultSchemaConfig = (): SchemaConfig<
       'indentation',
       'annotation',
       'dataConsumer',
+      'border',
       'unsupportedMark',
       'unsupportedNodeAttribute',
       'typeAheadQuery', // https://product-fabric.atlassian.net/browse/ED-10214,
@@ -170,10 +171,6 @@ export const getSchemaBasedOnStage = memoizeOne((stage = 'final') => {
       layoutSection: layoutSectionWithSingleColumn,
       table: tableWithCustomWidth,
       mediaSingle: mediaSingleFull,
-    };
-
-    defaultSchemaConfig.customMarkSpecs = {
-      border,
     };
   }
 

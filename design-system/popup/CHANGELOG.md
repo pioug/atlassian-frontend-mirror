@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.8.2
+
+### Patch Changes
+
+- [`472a62ce219`](https://bitbucket.org/atlassian/atlassian-frontend/commits/472a62ce219) - [ux] Fixes `autoFocus` functionality on upgrade of focus-trap to v7.
+
 ## 1.8.1
 
 ### Patch Changes

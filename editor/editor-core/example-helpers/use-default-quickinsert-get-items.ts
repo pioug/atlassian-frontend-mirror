@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  combineExtensionProviders,
-  ExtensionProvider,
-} from '@atlaskit/editor-common/extensions';
+import { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import {
   QuickInsertItem,
   QuickInsertProvider,
@@ -11,30 +8,11 @@ import {
 import { useStateFromPromise } from '../src/utils/react-hooks/use-state-from-promise';
 import EditorActions from '../src/actions';
 import { extensionProviderToQuickInsertProvider } from '../src/utils/extensions';
-import { getConfluenceMacrosExtensionProvider } from '../example-helpers/confluence-macros';
 import { searchQuickInsertItems } from '../src/plugins/quick-insert/search';
-import { getXProductExtensionProvider } from './fake-x-product-extensions';
+import { getExampleExtensionProviders } from './get-example-extension-providers';
 
 const ACTIONS = {} as EditorActions;
 const EMPTY: any[] = [];
-
-const useDefaultExtensibilityProviders = () => {
-  const [macroProvider] = useStateFromPromise(
-    () => getConfluenceMacrosExtensionProvider(ACTIONS),
-    [],
-  );
-
-  const extensionProvider = React.useMemo(getXProductExtensionProvider, []);
-  return React.useMemo(
-    () =>
-      combineExtensionProviders(
-        macroProvider
-          ? [macroProvider, extensionProvider]
-          : [extensionProvider],
-      ),
-    [macroProvider, extensionProvider],
-  );
-};
 
 const useDefaultQuickInsertProvier = (providers: ExtensionProvider) => {
   const [quickInsertProvider] = useStateFromPromise<QuickInsertProvider>(
@@ -46,7 +24,7 @@ const useDefaultQuickInsertProvier = (providers: ExtensionProvider) => {
 };
 
 export const useDefaultQuickInsertGetItems = () => {
-  const providers = useDefaultExtensibilityProviders();
+  const providers = React.useMemo(() => getExampleExtensionProviders(), []);
   const quickInsertProvider = useDefaultQuickInsertProvier(providers);
 
   const [items] = useStateFromPromise<QuickInsertItem[]>(

@@ -32,8 +32,8 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^26.0.0",
-    "@atlaskit/editor-common": "^74.15.0",
+    "@atlaskit/adf-schema": "^26.1.0",
+    "@atlaskit/editor-common": "^74.17.0",
     "@babel/runtime": "^7.0.0",
     "markdown-it": "^12.3.2",
     "markdown-it-table": "^2.0.4",
@@ -41,7 +41,7 @@
     "prosemirror-model": "1.16.0"
   },
   "devDependencies": {
-    "@atlaskit/editor-test-helpers": "^18.8.0",
+    "@atlaskit/editor-test-helpers": "^18.9.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/react": "^11.7.1",
     "react": "^16.8.0",

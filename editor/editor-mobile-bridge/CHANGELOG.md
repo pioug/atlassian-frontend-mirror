@@ -1,5 +1,54 @@
 # @atlaskit/editor-mobile-bridge
 
+## 185.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.9.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.8.3
+
+### Patch Changes
+
+- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+- Updated dependencies
+
 ## 185.8.2
 
 ### Patch Changes

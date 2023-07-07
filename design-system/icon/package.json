@@ -55,8 +55,6 @@
   "devDependencies": {
     "@af/icon-build-process": "^0.3.0",
     "@atlaskit/ds-lib": "^2.2.0",
-    "@atlaskit/icon-file-type": "^6.4.0",
-    "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -66,6 +64,7 @@
     "@testing-library/react": "^12.1.5",
     "classnames": "^2.2.5",
     "fs-extra": "^4.0.2",
+    "jest-axe": "^4.0.0",
     "jest-emotion": "^10.0.32",
     "jscodeshift": "^0.13.0",
     "lodash": "^4.17.21",

@@ -21,7 +21,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { EditorNextProps } from '../types/editor-props';
 import EditorInternal from './editor-internal';
-import { Context, defaultProps, propTypes } from './utils/editorPropTypes';
+import { Context, propTypes } from './utils/editorPropTypes';
 import trackEditorActions from './utils/trackEditorActions';
 import onEditorCreated from './utils/onEditorCreated';
 import deprecationWarnings from './utils/deprecationWarnings';
@@ -29,7 +29,11 @@ import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from
 import { basePlugin } from '../plugins';
 
 export default class EditorNext extends React.Component<EditorNextProps> {
-  static defaultProps = defaultProps;
+  static defaultProps = {
+    appearance: 'comment',
+    disabled: false,
+    quickInsert: true,
+  };
 
   static contextTypes = {
     editorActions: PropTypes.object,

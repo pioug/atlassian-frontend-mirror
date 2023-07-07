@@ -1,5 +1,11 @@
 ## 1.3.0 (2022-05-30)
 
+## 0.2.5
+
+### Patch Changes
+
+- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+
 ## 0.2.4
 
 ### Patch Changes

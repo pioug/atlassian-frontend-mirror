@@ -1,9 +1,15 @@
 import { css } from '@emotion/react';
 
-import { akEditorTableCellMinWidth } from '@atlaskit/editor-shared-styles';
+import {
+  akEditorLineHeight,
+  akEditorTableCellMinWidth,
+} from '@atlaskit/editor-shared-styles';
+import { token } from '@atlaskit/tokens';
 
 export const TaskDecisionSharedCssClassName = {
   DECISION_CONTAINER: 'decisionItemView-content-wrap',
+  TASK_CONTAINER: 'taskItemView-content-wrap',
+  TASK_ITEM: 'task-item',
 };
 
 export const tasksAndDecisionsStyles = css`
@@ -17,20 +23,41 @@ export const tasksAndDecisionsStyles = css`
     .${TaskDecisionSharedCssClassName.DECISION_CONTAINER} {
       margin-top: 0;
     }
+
+    .${TaskDecisionSharedCssClassName.TASK_CONTAINER} {
+      span[contenteditable='false'] {
+        height: ${akEditorLineHeight}em;
+      }
+    }
+
+    .${TaskDecisionSharedCssClassName.TASK_ITEM} {
+      line-height: ${akEditorLineHeight};
+    }
+  }
+
+  div[data-task-local-id] {
+    span[contenteditable='false'] {
+      height: ${akEditorLineHeight}em;
+    }
+    span[contenteditable='false'] + div {
+      line-height: ${akEditorLineHeight}em;
+    }
   }
 
   div[data-task-list-local-id] {
     margin: 12px 0 0 0;
   }
 
-  // If task list is first in the document then set margin top to zero.
-  div[data-task-list-local-id]:first-child,
-  style:first-child + div[data-task-list-local-id] {
-    margin-top: 0;
+  div[data-task-list-local-id] {
+    // If task item is not first in the list then set margin top to 4px.
+    div + div {
+      margin-top: ${token('space.050', '4px')};
+    }
   }
 
+  // If task list is not first in the document then set margin top to 4px.
   div[data-task-list-local-id] div[data-task-list-local-id] {
-    margin-top: 0px;
+    margin-top: ${token('space.050', '4px')};
     margin-left: 24px;
   }
 `;

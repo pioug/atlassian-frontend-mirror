@@ -186,9 +186,9 @@ describe('Highlight', () => {
         text={javaCodeBlockWithBidiChar}
       />
     );
-    const { getByLabelText } = render(highlight);
+    const { getByText } = render(highlight);
 
-    expect(getByLabelText('U+202e')).toBeInTheDocument();
+    expect(getByText('U+202e')).toBeInTheDocument();
   });
 
   it('should not render a bidi code warning if codeBidiWarnings flag is set to false', () => {

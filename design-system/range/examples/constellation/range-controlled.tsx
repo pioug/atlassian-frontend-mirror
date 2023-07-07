@@ -7,7 +7,12 @@ const RangeControlledExample = () => {
 
   return (
     <>
-      <Range step={1} value={value} onChange={(value) => setValue(value)} />
+      <Range
+        aria-label="controlled range"
+        step={1}
+        value={value}
+        onChange={(value) => setValue(value)}
+      />
       <p>The current value is: {value}</p>
     </>
   );

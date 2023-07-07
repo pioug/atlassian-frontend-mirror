@@ -2,7 +2,6 @@ import {
   getExampleUrl,
   loadPage,
   PuppeteerPage,
-  takeElementScreenShot,
 } from '@atlaskit/visual-regression/helper';
 import {
   ToolbarMenuItem,
@@ -30,8 +29,7 @@ const getElementBrowserPage = async () => {
 };
 
 describe('ModalElementBrowser', () => {
-  // FIXME These tests were flakey in the Puppeteer v10 Upgrade
-  describe.skip('ModalElementBrowser without help link', () => {
+  describe('ModalElementBrowser without help link', () => {
     beforeEach(getElementBrowserPage);
     afterEach(async () => {
       await page.click("[data-testid='ModalElementBrowser__close-button']");
@@ -56,8 +54,7 @@ describe('ModalElementBrowser', () => {
     });
   });
 
-  // FIXME [ED-14687] Tests skipped due to flakyness
-  describe.skip('ModalElementBrowser with help link', () => {
+  describe('ModalElementBrowser with help link', () => {
     beforeEach(async () => {
       url = getExampleUrl(
         'editor',
@@ -69,6 +66,11 @@ describe('ModalElementBrowser', () => {
 
       await loadPage(page, url);
       await clickEditableContent(page);
+
+      await page.waitForSelector(
+        toolbarMenuItemsSelectors[ToolbarMenuItem.insertMenu],
+      );
+      await page.setViewport({ width: 800, height: 600 });
       await page.click(toolbarMenuItemsSelectors[ToolbarMenuItem.insertMenu]);
       await page.waitForSelector(elementBrowserSelectors.elementBrowser);
       await page.click(elementBrowserSelectors.viewMore);
@@ -80,10 +82,18 @@ describe('ModalElementBrowser', () => {
       });
     });
     it('should match ModalElementBrowser with help link snapshot', async () => {
-      const image = await takeElementScreenShot(
-        page,
+      const element = await page.waitForSelector(
         elementBrowserSelectors.modalBrowser,
+        {
+          visible: true,
+        },
       );
+      if (!element) {
+        throw new Error(
+          `Element with selector ${elementBrowserSelectors.modalBrowser} does not exist to take a screenshot of`,
+        );
+      }
+      const image = await element.screenshot({ captureBeyondViewport: false });
       expect(image).toMatchProdImageSnapshot();
     });
   });
@@ -91,12 +101,11 @@ describe('ModalElementBrowser', () => {
 
 describe('InlineElementBrowser', () => {
   beforeEach(getElementBrowserPage);
-  // FIXME: This test was automatically skipped due to failure on 15/06/2023: https://product-fabric.atlassian.net/browse/ED-18802
-  it.skip('should match InlineElementBrowser snapshot', async () => {
-    await shouldMatchSnapshotFor(
-      'InlineElementBrowser__example__open_button',
-      undefined,
-    );
+  it('should match InlineElementBrowser snapshot', async () => {
+    await shouldMatchSnapshotFor('InlineElementBrowser__example__open_button', {
+      width: 800,
+      height: 600,
+    });
     await page.keyboard.press('Escape');
   });
 });
@@ -122,6 +131,6 @@ const shouldMatchSnapshotFor = async (
     await waitForInsertMenuIcons(page);
   }
 
-  const image = await page.screenshot();
+  const image = await page.screenshot({ captureBeyondViewport: false });
   expect(image).toMatchProdImageSnapshot();
 };

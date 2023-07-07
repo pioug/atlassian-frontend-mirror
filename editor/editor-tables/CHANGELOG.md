@@ -1,5 +1,11 @@
 # @atlaskit/editor-tables
 
+## 2.3.6
+
+### Patch Changes
+
+- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+
 ## 2.3.5
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @atlaskit/adf-schema
 
+## 26.1.0
+
+### Minor Changes
+
+- [`65fe45e0cc0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65fe45e0cc0) - Promoted border mark to full schema and add border support for email renderer
+
+## 26.0.1
+
+### Patch Changes
+
+- [`5f5ba16de66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f5ba16de66) - [ED-13910] Fix prosemirror types
+
 ## 26.0.0
 
 ### Major Changes

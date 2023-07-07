@@ -14,6 +14,7 @@ describe('UnsupportedMark Override Rule', () => {
       'breakout',
       'alignment',
       'indentation',
+      'border',
     ];
     marksWhichAllowOverride.forEach((markType) => {
       it(`should return true for ${markType} mark`, () => {

@@ -20,7 +20,7 @@
 import { ComponentPropsWithoutRef } from 'react';
 import type * as CSS_2 from 'csstype';
 import type { CSSProperties } from 'react';
-import { CSSPropertiesWithMultiValues } from '@emotion/serialize';
+import type { CSSPropertiesWithMultiValues } from '@emotion/serialize';
 import { ElementType } from 'react';
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
@@ -29,7 +29,8 @@ import { MemoExoticComponent } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
 import { RefAttributes } from 'react';
-import { SerializedStyles } from '@emotion/serialize';
+import type { SerializedStyles } from '@emotion/serialize';
+import { SerializedStyles as SerializedStyles_2 } from '@emotion/react';
 
 // @public (undocumented)
 type AlignBlock = 'baseline' | 'center' | 'end' | 'start' | 'stretch';
@@ -42,6 +43,17 @@ type AlignInline = 'center' | 'end' | 'start';
 
 // @public (undocumented)
 type AlignInline_2 = 'center' | 'end' | 'start';
+
+// @public (undocumented)
+type AlignItems = keyof typeof alignItemsMap;
+
+// @public (undocumented)
+const alignItemsMap: {
+  readonly start: SerializedStyles_2;
+  readonly center: SerializedStyles_2;
+  readonly baseline: SerializedStyles_2;
+  readonly end: SerializedStyles_2;
+};
 
 // @public (undocumented)
 type AllowedBoxStyles = keyof SafeCSSObject;
@@ -67,7 +79,7 @@ type As =
 type AutoComplete<T extends string> = Omit<string, T> | T;
 
 // @public (undocumented)
-type BackgroundColor = keyof typeof backgroundColorMap;
+export type BackgroundColor = keyof typeof backgroundColorMap;
 
 // @public (undocumented)
 const backgroundColorMap: {
@@ -209,10 +221,11 @@ type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
 type BasePrimitiveProps = {
   testId?: string;
   style?: CSSProperties;
+  xcss?: BoxXCSS | BoxXCSS[];
 };
 
 // @public (undocumented)
-type BorderColor = keyof typeof borderColorMap;
+export type BorderColor = keyof typeof borderColorMap;
 
 // @public
 const borderColorMap: {
@@ -242,7 +255,7 @@ const borderColorMap: {
 };
 
 // @public (undocumented)
-type BorderRadius = keyof typeof borderRadiusMap;
+export type BorderRadius = keyof typeof borderRadiusMap;
 
 // @public (undocumented)
 const borderRadiusMap: {
@@ -256,7 +269,7 @@ const borderRadiusMap: {
 };
 
 // @public (undocumented)
-type BorderWidth = keyof typeof borderWidthMap;
+export type BorderWidth = keyof typeof borderWidthMap;
 
 // @public
 const borderWidthMap: {
@@ -281,8 +294,7 @@ type BoxComponent<T extends ElementType = 'div'> = (<
 export type BoxProps<T extends ElementType = 'div'> = Omit<
   BaseBoxProps<T>,
   'className'
-> &
-  PublicBoxPropsBase;
+>;
 
 // @public (undocumented)
 type BoxStyles = SerializedStyles & {
@@ -293,12 +305,11 @@ type BoxStyles = SerializedStyles & {
 const boxTag: unique symbol;
 
 // @public (undocumented)
-type BoxXCSS = {
-  readonly [uniqueSymbol]: BoxStyles;
-};
-
-// @public (undocumented)
-type BoxXCSSArray = Array<BoxXCSS | BoxXCSSArray | false | undefined>;
+type BoxXCSS =
+  | false
+  | {
+      readonly [uniqueSymbol]: BoxStyles;
+    };
 
 // @public
 export type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxs';
@@ -314,7 +325,7 @@ type CSSPseudos = {
 };
 
 // @public (undocumented)
-type Dimension = keyof typeof dimensionMap;
+export type Dimension = keyof typeof dimensionMap;
 
 // @public
 const dimensionMap: {
@@ -326,6 +337,101 @@ const dimensionMap: {
   readonly 'size.500': '3rem';
   readonly 'size.600': '6rem';
   readonly 'size.1000': '12rem';
+};
+
+// @public (undocumented)
+type Direction = keyof typeof flexDirectionMap;
+
+// @public
+export const Flex: MemoExoticComponent<
+  ForwardRefExoticComponent<
+    Pick<
+      {
+        as?: 'div' | 'ol' | 'span' | 'ul' | undefined;
+        justifyContent?:
+          | 'center'
+          | 'end'
+          | 'space-around'
+          | 'space-between'
+          | 'space-evenly'
+          | 'start'
+          | 'stretch'
+          | undefined;
+        alignItems?: 'baseline' | 'center' | 'end' | 'start' | undefined;
+        gap?:
+          | 'space.0'
+          | 'space.025'
+          | 'space.050'
+          | 'space.075'
+          | 'space.100'
+          | 'space.1000'
+          | 'space.150'
+          | 'space.200'
+          | 'space.250'
+          | 'space.300'
+          | 'space.400'
+          | 'space.500'
+          | 'space.600'
+          | 'space.800'
+          | undefined;
+        rowGap?:
+          | 'space.0'
+          | 'space.025'
+          | 'space.050'
+          | 'space.075'
+          | 'space.100'
+          | 'space.1000'
+          | 'space.150'
+          | 'space.200'
+          | 'space.250'
+          | 'space.300'
+          | 'space.400'
+          | 'space.500'
+          | 'space.600'
+          | 'space.800'
+          | undefined;
+        direction?: 'column' | 'row' | undefined;
+        wrap?: 'nowrap' | 'wrap' | undefined;
+        children: ReactNode;
+        ref?: any;
+      } & BasePrimitiveProps,
+      | 'alignItems'
+      | 'as'
+      | 'children'
+      | 'direction'
+      | 'gap'
+      | 'justifyContent'
+      | 'rowGap'
+      | 'wrap'
+      | keyof BasePrimitiveProps
+    > &
+      RefAttributes<any>
+  >
+>;
+
+// @public (undocumented)
+const flexDirectionMap: {
+  readonly column: SerializedStyles_2;
+  readonly row: SerializedStyles_2;
+};
+
+// @public (undocumented)
+export type FlexProps<T extends ElementType = 'div'> = {
+  as?: 'div' | 'ol' | 'span' | 'ul';
+  justifyContent?: JustifyContent;
+  alignItems?: AlignItems;
+  gap?: Space;
+  rowGap?: Space;
+  direction?: Direction;
+  wrap?: Wrap;
+  children: ReactNode;
+  ref?: React.ComponentPropsWithRef<T>['ref'];
+} & BasePrimitiveProps;
+
+// @public (undocumented)
+const flexWrapMap: {
+  readonly wrap: SerializedStyles_2;
+  readonly nowrap: SerializedStyles_2;
 };
 
 // @public (undocumented)
@@ -387,7 +493,21 @@ type InlineXCSS = {
 };
 
 // @public (undocumented)
-type Layer = keyof typeof layerMap;
+type JustifyContent = keyof typeof justifyContentMap;
+
+// @public (undocumented)
+const justifyContentMap: {
+  readonly start: SerializedStyles_2;
+  readonly center: SerializedStyles_2;
+  readonly end: SerializedStyles_2;
+  readonly 'space-between': SerializedStyles_2;
+  readonly 'space-around': SerializedStyles_2;
+  readonly 'space-evenly': SerializedStyles_2;
+  readonly stretch: SerializedStyles_2;
+};
+
+// @public (undocumented)
+export type Layer = keyof typeof layerMap;
 
 // @public
 const layerMap: {
@@ -436,11 +556,6 @@ export type PressableProps = Omit<
 };
 
 // @public (undocumented)
-type PublicBoxPropsBase = {
-  xcss?: BoxXCSS | BoxXCSSArray;
-};
-
-// @public (undocumented)
 type SafeCSSObject = CSSPseudos &
   TokenisedProps &
   CSSMediaQueries &
@@ -453,7 +568,7 @@ type ScopedSafeCSSObject<T extends keyof SafeCSSObject> = Pick<
 >;
 
 // @public (undocumented)
-type Shadow = keyof typeof shadowMap;
+export type Shadow = keyof typeof shadowMap;
 
 // @public (undocumented)
 const shadowMap: {
@@ -465,7 +580,7 @@ const shadowMap: {
 };
 
 // @public (undocumented)
-type Space = keyof typeof spaceMap;
+export type Space = keyof typeof spaceMap;
 
 // @public
 const spaceMap: {
@@ -710,6 +825,9 @@ export const UNSAFE_media: {
     readonly xl: '@media (min-width: 110rem)';
   };
 };
+
+// @public (undocumented)
+type Wrap = keyof typeof flexWrapMap;
 
 // @public
 export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(

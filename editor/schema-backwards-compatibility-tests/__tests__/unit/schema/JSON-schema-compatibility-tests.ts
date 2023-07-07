@@ -63,6 +63,7 @@ const unsupportedMarks = [
   '__linkGroupDeclaration',
   'confluenceInlineComment',
   'annotation',
+  'border',
   'unsupportedMark',
   'unsupportedNodeAttribute',
   'typeAheadQuery',

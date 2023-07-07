@@ -1,5 +1,11 @@
 # @atlaskit/code
 
+## 14.6.5
+
+### Patch Changes
+
+- [`59b808d6a46`](https://bitbucket.org/atlassian/atlassian-frontend/commits/59b808d6a46) - [ux] Improves the accessibility of the bidirectional character warnings.
+
 ## 14.6.4
 
 ### Patch Changes

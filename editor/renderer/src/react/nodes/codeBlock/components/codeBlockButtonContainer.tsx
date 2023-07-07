@@ -17,6 +17,7 @@ export interface CodeBlockButtonContainerProps {
 const codeBlockButtonsWrapper = css({
   position: 'sticky',
   top: '0px',
+  background: `${token('elevation.surface', N20)}`,
 });
 
 const codeBlockButtonsStyle = css({
@@ -31,16 +32,16 @@ const codeBlockButtonsStyle = css({
   button: {
     height: '32px',
     width: '32px',
-    border: `2px solid ${token('color.border.inverse', N0)}`,
+    border: `2px solid ${token('color.border', N0)}`,
     borderRadius: '4px',
     marginLeft: '4px',
     padding: '2px',
-    background: `${token('color.background.neutral.subtle', N20)}`,
+    background: `${token('elevation.surface.overlay', N20)}`,
     color: `${token('color.icon', 'rgb(66, 82, 110)')}`,
 
     '&:hover': {
       borderWidth: '2px',
-      backgroundColor: `${token('color.background.neutral.hovered', N30)}`,
+      backgroundColor: `${token('elevation.surface.overlay.hovered', N30)}`,
       height: '32px',
       width: '32px',
     },

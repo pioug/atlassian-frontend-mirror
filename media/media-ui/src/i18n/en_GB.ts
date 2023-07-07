@@ -23,6 +23,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Text',
   'fabric.media.archive': 'archive',
   'fabric.media.audio': 'audio',
+  'fabric.media.avatar_picker_back_btn_label': 'Go Back',
   'fabric.media.cancel': 'Cancel',
   'fabric.media.cant_preview_file_type': "We can't preview this file type.",
   'fabric.media.cant_retrieve_files': 'Ouch! We could not retrieve any files',

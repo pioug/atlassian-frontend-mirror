@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.26.0
+
+### Minor Changes
+
+- [`ae65b485bca`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ae65b485bca) - [ux] Better minimum height for link picker error and loading state
+
 ## 1.25.6
 
 ### Patch Changes

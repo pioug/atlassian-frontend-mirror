@@ -34,7 +34,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/link-picker": "^1.25.0",
+    "@atlaskit/link-picker": "^1.26.0",
     "@atlaskit/linking-types": "^8.1.0",
     "@babel/runtime": "^7.0.0",
     "@jest/globals": "^26.4.2",

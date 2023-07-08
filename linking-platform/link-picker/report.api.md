@@ -17,6 +17,7 @@
 ```ts
 /// <reference types="react" />
 
+import { jsx } from '@emotion/react';
 import { MessageDescriptor } from 'react-intl-next';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
@@ -27,7 +28,7 @@ export type LinkInputType = 'manual' | 'typeAhead';
 
 // @public (undocumented)
 export const LinkPicker: React_2.MemoExoticComponent<
-  (props: LinkPickerProps) => JSX.Element
+  (props: LinkPickerProps) => jsx.JSX.Element
 >;
 
 // @public (undocumented)

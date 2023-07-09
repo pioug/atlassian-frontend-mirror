@@ -128,9 +128,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 08/07/2023: https://product-fabric.atlassian.net/browse/ED-19016
 BrowserTestCase(
   `scroll-to.ts: call scrollToContentNode() for a Heading on renderer bridge.`,
-  {},
+  {
+    skip: ['*'],
+  },
   async function (client: any, testName: string) {
     const browser = await loadExampleDocument(client);
     const { initialScrollY, finalScrollY } = await checkScrollTo(

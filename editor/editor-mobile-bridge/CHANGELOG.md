@@ -1,5 +1,39 @@
 # @atlaskit/editor-mobile-bridge
 
+## 185.11.0
+
+### Minor Changes
+
+- [`f21b48e8a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f21b48e8a51) - enabled access to NextEditorPlugin actions for mobile bridge
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.10.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 185.9.5
 
 ### Patch Changes

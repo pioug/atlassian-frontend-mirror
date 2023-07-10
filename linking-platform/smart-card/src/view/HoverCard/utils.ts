@@ -1,6 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 import { ElementName } from '../../constants';
-import { extractType } from '@atlaskit/linking-common/extractors';
+import { extractType } from '@atlaskit/link-extractors';
 import { extractOwnedBy } from '../../extractors/flexible/utils';
 
 export const getSimulatedMetadata = (

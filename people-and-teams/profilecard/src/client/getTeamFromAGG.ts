@@ -63,20 +63,21 @@ const TEAM_FRAGMENT = `
             picture
           }
         }
+      }
 `;
 
 // We alias the team node to always be team
 const GATEWAY_QUERY_V2 = `query TeamCard($teamId: ID!, $siteID: ID!) {
   Team: team {
     team: teamV2(id: $teamId, siteId: $siteId) {
-${TEAM_FRAGMENT}
+      ${TEAM_FRAGMENT}
     }
   }
 }`;
 const GATEWAY_QUERY = `query TeamCard($teamId: ID!) {
   Team: team {
     team(id: $teamId) {
-${TEAM_FRAGMENT}
+      ${TEAM_FRAGMENT}
     }
   }
 }`;

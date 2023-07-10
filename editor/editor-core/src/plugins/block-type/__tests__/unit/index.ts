@@ -35,12 +35,7 @@ import {
   insertBlockTypesWithAnalytics,
 } from '../../commands';
 import { HEADING_1 } from '../../types';
-import {
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
 import deprecatedAnalyticsPlugin, {
-  AnalyticsEventPayload,
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -59,24 +54,21 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('block-type', () => {
   const createEditor = createProsemirrorEditorFactory();
-  let createAnalyticsEvent: CreateUIAnalyticsEvent;
-
+  const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+  const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+    attachAnalyticsEvent,
+  };
   const editor = (doc: DocBuilder) => {
-    createAnalyticsEvent = jest.fn(
-      () =>
-        ({
-          fire() {},
-        } as UIAnalyticsEvent),
-    );
     return createEditor<BlockTypeState, PluginKey>({
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
-        .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+        .add([analyticsPlugin, {}])
+        .add([deprecatedAnalyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add(blockTypePlugin)
@@ -177,7 +169,7 @@ describe('block-type', () => {
   describe('block quote', () => {
     it('should create analytics GAS v3 event', () => {
       const inputMethod = INPUT_METHOD.TOOLBAR;
-      const expectedPayload: AnalyticsEventPayload = {
+      const expectedPayload = {
         action: ACTION.FORMATTED,
         actionSubject: ACTION_SUBJECT.TEXT,
         eventType: EVENT_TYPE.TRACK,
@@ -189,18 +181,26 @@ describe('block-type', () => {
       const { editorView } = editor(doc(p('te{<>}xt')));
       const { state, dispatch } = editorView;
 
-      insertBlockTypesWithAnalytics('blockquote', inputMethod)(state, dispatch);
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+      insertBlockTypesWithAnalytics(
+        'blockquote',
+        inputMethod,
+        mockEditorAnalyticsAPI,
+      )(state, dispatch);
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        expectedPayload,
+        undefined,
+      );
     });
 
     it('should be able to change to block quote', () => {
       const { editorView } = editor(doc(p('te{<>}xt')));
       const { state, dispatch } = editorView;
 
-      insertBlockTypesWithAnalytics('blockquote', INPUT_METHOD.TOOLBAR)(
-        state,
-        dispatch,
-      );
+      insertBlockTypesWithAnalytics(
+        'blockquote',
+        INPUT_METHOD.TOOLBAR,
+        mockEditorAnalyticsAPI,
+      )(state, dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(blockquote(p('text'))));
     });
 
@@ -217,14 +217,19 @@ describe('block-type', () => {
   });
 
   describe('code block', () => {
+    const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+    const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+      attachAnalyticsEvent,
+    };
     it('should be able to insert code block', () => {
       const { editorView } = editor(doc(p('te{<>}xt')));
       const { state, dispatch } = editorView;
 
-      insertBlockTypesWithAnalytics('codeblock', INPUT_METHOD.TOOLBAR)(
-        state,
-        dispatch,
-      );
+      insertBlockTypesWithAnalytics(
+        'codeblock',
+        INPUT_METHOD.TOOLBAR,
+        mockEditorAnalyticsAPI,
+      )(state, dispatch);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p('te'), code_block()('xt')),
@@ -234,18 +239,23 @@ describe('block-type', () => {
     it('should fire analytics event', () => {
       const { editorView } = editor(doc(p('te{<>}xt')));
       const { state, dispatch } = editorView;
-      insertBlockTypesWithAnalytics('codeblock', INPUT_METHOD.TOOLBAR)(
-        state,
-        dispatch,
-      );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'inserted',
-        actionSubject: 'document',
-        eventType: 'track',
-        actionSubjectId: 'codeBlock',
-        attributes: expect.objectContaining({ inputMethod: 'toolbar' }),
-      });
+      insertBlockTypesWithAnalytics(
+        'codeblock',
+        INPUT_METHOD.TOOLBAR,
+        mockEditorAnalyticsAPI,
+      )(state, dispatch);
+
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        {
+          action: 'inserted',
+          actionSubject: 'document',
+          eventType: 'track',
+          actionSubjectId: 'codeBlock',
+          attributes: expect.objectContaining({ inputMethod: 'toolbar' }),
+        },
+        undefined,
+      );
     });
   });
 
@@ -264,32 +274,39 @@ describe('block-type', () => {
     it('should fire analytics event', () => {
       const { editorView } = editor(doc(p('te{<>}xt')));
       const { state, dispatch } = editorView;
-      insertBlockTypesWithAnalytics('panel', INPUT_METHOD.TOOLBAR)(
-        state,
-        dispatch,
+      insertBlockTypesWithAnalytics(
+        'panel',
+        INPUT_METHOD.TOOLBAR,
+        mockEditorAnalyticsAPI,
+      )(state, dispatch);
+
+      expect(attachAnalyticsEvent).toBeCalledWith(
+        {
+          action: 'inserted',
+          actionSubject: 'document',
+          eventType: 'track',
+          actionSubjectId: 'panel',
+          attributes: expect.objectContaining({
+            inputMethod: 'toolbar',
+            panelType: 'info',
+          }),
+        },
+        undefined,
       );
 
-      expect(createAnalyticsEvent).toBeCalledWith({
-        action: 'inserted',
-        actionSubject: 'document',
-        eventType: 'track',
-        actionSubjectId: 'panel',
-        attributes: expect.objectContaining({
-          inputMethod: 'toolbar',
-          panelType: 'info',
-        }),
-      });
-
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
-        action: 'inserted',
-        actionSubject: 'document',
-        eventType: 'track',
-        actionSubjectId: 'panel',
-        attributes: expect.objectContaining({
-          inputMethod: 'toolbar',
-          panelType: 'info',
-        }),
-      });
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        {
+          action: 'inserted',
+          actionSubject: 'document',
+          eventType: 'track',
+          actionSubjectId: 'panel',
+          attributes: expect.objectContaining({
+            inputMethod: 'toolbar',
+            panelType: 'info',
+          }),
+        },
+        undefined,
+      );
     });
   });
 

@@ -13,6 +13,8 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
 import { EditorView } from 'prosemirror-view';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { EditorState } from 'prosemirror-state';
+import { Schema } from 'prosemirror-model';
 
 describe('collab-edit: plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -114,5 +116,57 @@ describe('collab-edit: plugin', () => {
       eventType: EVENT_TYPE.OPERATIONAL,
       attributes: mockAttributes,
     });
+  });
+
+  it('should re-subscribe to provider factory after editor state reconfiguration', () => {
+    const dispatch = jest.fn();
+    const providerFactory = new ProviderFactory();
+    const props = {
+      dispatch,
+      providerFactory,
+    } as any;
+    const subsSpy = jest.spyOn(providerFactory, 'subscribe');
+    const unsubSpy = jest.spyOn(providerFactory, 'unsubscribeAll');
+
+    let editorPlugin = collabEditPlugin({});
+    let collabFactoryPlugin = editorPlugin.pmPlugins!()[0];
+    let plugin = collabFactoryPlugin.plugin(props)!;
+
+    const schema = new Schema({
+      nodes: {
+        doc: { content: 'paragraph+' },
+        paragraph: {
+          content: 'text*',
+          toDOM: () => ['p', 0],
+        },
+        text: {},
+      },
+    });
+
+    const editorState = EditorState.create({
+      plugins: [plugin],
+      schema,
+    });
+
+    const editorView = new EditorView(document.createElement('div'), {
+      state: editorState,
+    });
+
+    editorPlugin = collabEditPlugin({});
+    collabFactoryPlugin = editorPlugin.pmPlugins!()[0];
+    plugin = collabFactoryPlugin.plugin(props)!;
+
+    const newEditorState = EditorState.create({
+      plugins: [plugin],
+      schema,
+    });
+
+    editorView.updateState(newEditorState);
+
+    expect(unsubSpy).toHaveBeenCalledTimes(1);
+    expect(subsSpy).toHaveBeenCalledTimes(2);
+    expect(subsSpy.mock.invocationCallOrder.at(-1)).toBeGreaterThan(
+      unsubSpy.mock.invocationCallOrder.at(-1)!,
+    );
   });
 });

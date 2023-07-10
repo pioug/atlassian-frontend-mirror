@@ -448,7 +448,14 @@ export default function createUniversalPreset(
     })
     .maybeAdd(datePlugin, (plugin, builder) => {
       if (props.allowDate) {
-        return builder.add(plugin);
+        const dateConfig =
+          typeof props.allowDate === 'object' ? props.allowDate : {};
+        return builder.add([
+          plugin,
+          {
+            weekStartDay: dateConfig.weekStartDay,
+          },
+        ]);
       }
 
       return builder;

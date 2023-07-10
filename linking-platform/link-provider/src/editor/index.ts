@@ -14,12 +14,14 @@ import DataLoader from 'dataloader';
 import {
   CardAdf,
   CardAppearance,
-  extractPreview,
   getBaseUrl,
   getResolverUrl,
   EnvironmentsKeys,
   request,
 } from '@atlaskit/linking-common';
+
+import { extractPreview } from '@atlaskit/link-extractors';
+
 import {
   CardProvider,
   LinkAppearance,

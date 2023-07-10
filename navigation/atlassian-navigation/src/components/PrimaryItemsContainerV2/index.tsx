@@ -33,18 +33,15 @@ const smallContainerStyles = css({
 });
 
 const mediumContainerStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [media.above.sm]: {
     display: 'flex',
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [media.above.lg]: {
     display: 'none',
   },
 });
 
 const largeContainerStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [media.above.lg]: {
     display: 'flex',
   },

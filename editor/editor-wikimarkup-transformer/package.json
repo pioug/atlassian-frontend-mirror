@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@atlaskit/activity": "^1.0.1",
-    "@atlaskit/editor-core": "^185.9.0",
+    "@atlaskit/editor-core": "^185.11.0",
     "@atlaskit/editor-test-helpers": "^18.9.0",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

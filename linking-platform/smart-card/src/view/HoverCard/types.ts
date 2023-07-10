@@ -52,7 +52,23 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
   showServerActions?: boolean;
 }
 
-export interface HoverCardComponentProps extends HoverCardProps {
+/**
+ * An internal props that internal smart-card components can use to configure
+ * hover preview behaviour. The prop contains here are suitable for unsafe
+ * or experiment props that will not be or are yet ready to be available on
+ * standalone hover card.
+ */
+export interface HoverCardInternalProps {
+  /**
+   * Allow click event to bubble up from hover preview trigger component.
+   * @see EDM-7187 for further details
+   */
+  allowEventPropagation?: boolean;
+}
+
+export interface HoverCardComponentProps
+  extends HoverCardProps,
+    HoverCardInternalProps {
   analyticsHandler?: AnalyticsHandler;
   analytics?: AnalyticsFacade;
   canOpen?: boolean;

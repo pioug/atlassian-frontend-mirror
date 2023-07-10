@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
 import Calendar from '@atlaskit/calendar';
+import type { WeekDay } from '@atlaskit/calendar/types';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N60A, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -49,6 +50,7 @@ export interface Props {
   closeDatePickerWithAnalytics: ({ date }: { date?: DateType }) => void;
   onTextChanged: (date: DateType) => void;
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
+  weekStartDay?: WeekDay;
 }
 
 export interface State {
@@ -96,6 +98,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
       dispatchAnalyticsEvent,
       isNew,
       autoFocus,
+      weekStartDay,
     } = this.props;
     const timestamp = element!.getAttribute('timestamp');
     if (this.state === null) {
@@ -140,6 +143,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
             year={year}
             selected={selected}
             ref={this.handleRef}
+            weekStartDay={weekStartDay}
           />
         </div>
       </PopupWithListeners>

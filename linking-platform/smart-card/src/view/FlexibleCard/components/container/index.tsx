@@ -301,6 +301,7 @@ const Container: React.FC<ContainerProps> = ({
     return (
       <HoverCard
         url={context?.url}
+        allowEventPropagation={true}
         canOpen={hoverCardCanOpen}
         closeOnChildClick={true}
         hidePreviewButton={hideHoverCardPreviewButton}

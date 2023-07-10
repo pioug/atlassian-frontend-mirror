@@ -13,13 +13,17 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
-import type { SyncUpErrorFunction } from '@atlaskit/collab-provider/types';
+import type {
+  CollabEditProvider,
+  SyncUpErrorFunction,
+} from '@atlaskit/collab-provider/types';
 
 export { PluginState, pluginKey };
 
 export const createPlugin = (
   dispatch: Dispatch,
   providerFactory: ProviderFactory,
+  providerResolver: (value: CollabEditProvider) => void,
   collabProviderCallback: ProviderCallback,
   options: PrivateCollabEditOptions,
   featureFlags: FeatureFlags,
@@ -86,6 +90,16 @@ export const createPlugin = (
         initialize({ view, options, providerFactory, featureFlags }),
         addErrorAnalytics,
       );
+
+      providerFactory &&
+        providerFactory.subscribe(
+          'collabEditProvider',
+          (_name: string, providerPromise?: Promise<CollabEditProvider>) => {
+            if (providerPromise) {
+              providerPromise.then((provider) => providerResolver(provider));
+            }
+          },
+        );
 
       return {
         destroy() {

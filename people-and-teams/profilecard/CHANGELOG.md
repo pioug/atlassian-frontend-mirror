@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.5.2
+
+### Patch Changes
+
+- [`0c6a7acba8d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0c6a7acba8d) - Resolved an issue with the team profile card query having invalid formatting
+
 ## 19.5.1
 
 ### Patch Changes

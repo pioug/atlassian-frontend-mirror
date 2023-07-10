@@ -163,7 +163,11 @@ const blockTypePlugin: NextEditorPlugin<
       {
         name: 'blockTypeKeyMap',
         plugin: ({ schema, featureFlags }) =>
-          keymapPlugin(schema, featureFlags),
+          keymapPlugin(
+            schema,
+            featureFlags,
+            api?.dependencies.analytics?.actions,
+          ),
       },
     ];
   },

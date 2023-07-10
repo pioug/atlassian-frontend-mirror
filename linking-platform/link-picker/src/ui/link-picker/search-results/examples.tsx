@@ -107,7 +107,7 @@ export const ShowingResultsWhileLoadingResults = () => {
   );
 
   return (
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage-spacing
+    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
       {exampleComponents.map((Component, i) => (
         <div key={`item-${i}`}>

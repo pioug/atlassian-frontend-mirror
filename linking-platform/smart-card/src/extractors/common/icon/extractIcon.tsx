@@ -14,7 +14,7 @@ import {
   LinkProvider,
   extractUrlFromIconJsonLd,
   extractTitle,
-} from '@atlaskit/linking-common/extractors';
+} from '@atlaskit/link-extractors';
 import { extractFileFormat } from './extractFileFormat';
 import { extractIconFromDocument } from './extractIconFromDocument';
 import { extractIconFromTask } from './extractIconFromTask';

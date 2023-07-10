@@ -14,7 +14,7 @@ import Text from '../../../FlexibleCard/components/elements/text';
 import { SmartLinkStatus } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
 import { getForbiddenJsonLd } from '../../../../utils/jsonld';
-import { extractProvider } from '@atlaskit/linking-common/extractors';
+import { extractProvider } from '@atlaskit/link-extractors';
 import { extractRequestAccessContext } from '../../../../extractors/common/context';
 
 /**

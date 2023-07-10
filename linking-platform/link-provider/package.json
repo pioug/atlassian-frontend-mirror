@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-provider",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "Contains provider with react context for anything link related and the link http client",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -35,6 +35,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "@atlaskit/link-extractors": "^1.1.0",
     "@atlaskit/linking-common": "^3.2.0",
     "@babel/runtime": "^7.0.0",
     "async-retry": "^1.2.3",

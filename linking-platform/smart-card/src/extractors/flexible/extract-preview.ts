@@ -1,6 +1,6 @@
 import { JsonLd } from 'json-ld-types';
 
-import { extractImage } from '@atlaskit/linking-common/extractors';
+import { extractImage } from '@atlaskit/link-extractors';
 import { MediaType } from '../../constants';
 import { Media } from '../../state/flexible-ui-context/types';
 

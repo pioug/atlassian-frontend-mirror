@@ -19,7 +19,7 @@
 
 import { CardAdf } from '@atlaskit/linking-common';
 import { CardAppearance } from '@atlaskit/linking-common';
-import { CardPlatform } from '@atlaskit/linking-common';
+import { CardPlatform } from '@atlaskit/link-extractors';
 import { CardStore } from '@atlaskit/linking-common';
 import { Context } from 'react';
 import { EnvironmentsKeys } from '@atlaskit/linking-common';
@@ -27,7 +27,7 @@ import { InvocationSearchPayload } from '@atlaskit/linking-common';
 import { InvokePayload } from '@atlaskit/linking-common';
 import { JsonLd } from 'json-ld-types';
 import { LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
-import { LinkPreview } from '@atlaskit/linking-common/extractors';
+import { LinkPreview } from '@atlaskit/link-extractors';
 import { ServerActionOpts } from '@atlaskit/linking-common';
 import { Store } from 'redux';
 

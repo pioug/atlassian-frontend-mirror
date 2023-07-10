@@ -25,8 +25,10 @@ import { pluginKey as dateStateKey } from '../date/pm-plugins/plugin-key';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
 import { pluginKey as macroStateKey } from '../macro/plugin-key';
 import { ToolbarSize } from '../../ui/Toolbar/types';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const toolbarSizeToButtons = (toolbarSize: ToolbarSize) => {
   switch (toolbarSize) {
@@ -58,8 +60,15 @@ export interface InsertBlockOptions {
  * Wrapper over insertBlockTypeWithAnalytics to autobind toolbar input method
  * @param name Block name
  */
-function handleInsertBlockType(name: string) {
-  return insertBlockTypesWithAnalytics(name, INPUT_METHOD.TOOLBAR);
+function handleInsertBlockType(
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+) {
+  return (name: string) =>
+    insertBlockTypesWithAnalytics(
+      name,
+      INPUT_METHOD.TOOLBAR,
+      editorAnalyticsApi,
+    );
 }
 
 const insertBlockPlugin: NextEditorPlugin<
@@ -69,9 +78,10 @@ const insertBlockPlugin: NextEditorPlugin<
     dependencies: [
       typeof featureFlagsPlugin,
       OptionalPlugin<typeof tablesPlugin>,
+      OptionalPlugin<typeof analyticsPlugin>,
     ];
   }
-> = (options = {}, api) => {
+> = (options = {}, api?) => {
   const featureFlags =
     api?.dependencies?.featureFlags?.sharedState.currentState() || {};
   return {
@@ -157,7 +167,9 @@ const insertBlockPlugin: NextEditorPlugin<
                 emojiProvider={providers.emojiProvider}
                 nativeStatusSupported={options.nativeStatusSupported}
                 horizontalRuleEnabled={options.horizontalRuleEnabled}
-                onInsertBlockType={handleInsertBlockType}
+                onInsertBlockType={handleInsertBlockType(
+                  api?.dependencies.analytics?.actions,
+                )}
                 onInsertMacroFromMacroBrowser={insertMacroFromMacroBrowser}
                 macroProvider={macroState.macroProvider}
                 popupsMountPoint={popupsMountPoint}

@@ -25,7 +25,7 @@ import {
   extractPersonUpdatedBy,
   LinkTypeUpdatedBy,
   extractImage,
-} from '@atlaskit/linking-common/extractors';
+} from '@atlaskit/link-extractors';
 import { extractByline } from '../common/byline/extractByline';
 import { extractTitlePrefix } from '../common/title-prefix/extractTitlePrefix';
 import { extractActions } from '../common/actions/extractActions';

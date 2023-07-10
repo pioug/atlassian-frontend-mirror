@@ -1,7 +1,7 @@
 import { CardProviderProps } from '../types';
 
-jest.mock('@atlaskit/linking-common/extractors', () => ({
-  ...jest.requireActual<Object>('@atlaskit/linking-common/extractors'),
+jest.mock('@atlaskit/link-extractors', () => ({
+  ...jest.requireActual<Object>('@atlaskit/link-extractors'),
   extractPreview: () => 'some-link-preview',
 }));
 

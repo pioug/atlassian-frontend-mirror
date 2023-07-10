@@ -10,7 +10,7 @@ import {
   extractPersonCreatedBy,
   extractPersonUpdatedBy,
   LinkTypeUpdatedBy,
-} from '@atlaskit/linking-common/extractors';
+} from '@atlaskit/link-extractors';
 import { LinkLocation } from '../../state/flexible-ui-context/types';
 
 const extractLinkName = (link?: JsonLd.Primitives.Link): string | undefined => {

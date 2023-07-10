@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 26.9.3
+
+### Patch Changes
+
+- [`1e7190077d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e7190077d4) - Move off deprecated @atlaskit/linking-common/extractors to @atlaskit/link-extractors
+- Updated dependencies
+
+## 26.9.2
+
+### Patch Changes
+
+- [`99643bdd534`](https://bitbucket.org/atlassian/atlassian-frontend/commits/99643bdd534) - Fix flexible smart links onclick event not bubble up when hover preview is enabled
+
 ## 26.9.1
 
 ### Patch Changes

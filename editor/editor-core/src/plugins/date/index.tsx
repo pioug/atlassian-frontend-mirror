@@ -27,12 +27,13 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { DateType } from './types';
+import { DatePluginConfig, DateType } from './types';
 import { pluginKey as datePluginKey } from './pm-plugins/plugin-key';
 import type { Props as DatePickerProps } from './ui/DatePicker';
 import { UiComponentFactoryParams } from '@atlaskit/editor-common/types';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { WeekDay } from '@atlaskit/calendar/types';
 
 const DatePicker = Loadable({
   loader: () =>
@@ -51,6 +52,7 @@ function ContentComponent({
   popupsBoundariesElement,
   popupsScrollableElement,
   dependencyApi,
+  weekStartDay,
 }: Pick<
   UiComponentFactoryParams,
   | 'editorView'
@@ -60,10 +62,11 @@ function ContentComponent({
   | 'popupsScrollableElement'
 > & {
   dependencyApi?: ExtractInjectionAPI<typeof datePlugin>;
+} & {
+  weekStartDay?: WeekDay;
 }): JSX.Element | null {
   const { dispatch } = editorView;
   const domAtPos = editorView.domAtPos.bind(editorView);
-
   const { editorDisabledState, dateState } = useSharedPluginState(
     dependencyApi,
     ['date', 'editorDisabled'],
@@ -119,6 +122,7 @@ function ContentComponent({
         editorView.focus();
       }}
       dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+      weekStartDay={weekStartDay}
     />
   );
 }
@@ -126,6 +130,7 @@ function ContentComponent({
 const datePlugin: NextEditorPlugin<
   'date',
   {
+    pluginConfiguration: DatePluginConfig | undefined;
     dependencies: [typeof analyticsPlugin, typeof editorDisabledPlugin];
     sharedState: {
       showDatePickerAt?: number | null;
@@ -133,7 +138,7 @@ const datePlugin: NextEditorPlugin<
       focusDateInput: boolean;
     };
   }
-> = (_, api) => ({
+> = (options = {}, api) => ({
   name: 'date',
 
   getSharedState(editorState) {
@@ -144,7 +149,6 @@ const datePlugin: NextEditorPlugin<
         focusDateInput: false,
       };
     }
-
     const { showDatePickerAt, isNew, focusDateInput } =
       datePluginKey.getState(editorState) || {};
     return {
@@ -192,6 +196,7 @@ const datePlugin: NextEditorPlugin<
         popupsMountPoint={popupsMountPoint}
         popupsBoundariesElement={popupsBoundariesElement}
         popupsScrollableElement={popupsScrollableElement}
+        weekStartDay={options.weekStartDay}
       />
     );
   },

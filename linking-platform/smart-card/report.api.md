@@ -23,7 +23,7 @@ import { BlockCardAdf } from '@atlaskit/linking-common';
 import { CardAdf } from '@atlaskit/linking-common';
 import { CardAppearance } from '@atlaskit/linking-common';
 import { CardContext } from '@atlaskit/link-provider';
-import { CardPlatform } from '@atlaskit/linking-common';
+import { CardPlatform } from '@atlaskit/link-extractors';
 import { CardType } from '@atlaskit/linking-common';
 import { CardClient as Client } from '@atlaskit/link-provider';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';

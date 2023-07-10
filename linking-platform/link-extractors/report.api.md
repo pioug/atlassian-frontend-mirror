@@ -19,7 +19,7 @@ import { JsonLd } from 'json-ld-types';
 import { default as React_2 } from 'react';
 
 // @public (undocumented)
-type CardPlatform = JsonLd.Primitives.Platforms;
+export type CardPlatform = JsonLd.Primitives.Platforms;
 
 // @public (undocumented)
 type EmbedIframeUrlType = 'href' | 'interactiveHref';

@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.17.1
+
+### Patch Changes
+
+- [`1a852e48b42`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a852e48b42) - [ED-17438] Check if parent node is empty paragraph before adding horizontal rule
+
 ## 74.17.0
 
 ### Minor Changes

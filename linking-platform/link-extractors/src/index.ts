@@ -72,3 +72,4 @@ export type {
   LinkTypeUpdatedBy,
   LinkPreview,
 } from './common';
+export type { CardPlatform } from './types';

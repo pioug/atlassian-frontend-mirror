@@ -13,18 +13,20 @@ import {
 } from '../types';
 import { removeBlockMarks } from '../../../utils/mark';
 import { shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
+import { withAnalytics as withAnalyticsDeprecated } from '../../analytics';
 import {
-  withAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { filterChildrenBetween } from '../../../utils';
 import { PanelType } from '@atlaskit/adf-schema';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { transformToCodeBlockAction } from './transform-to-code-block';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export type InputMethod =
   | INPUT_METHOD.TOOLBAR
@@ -121,7 +123,7 @@ function withCurrentHeadingLevel(
 
 export function setNormalTextWithAnalytics(inputMethod: InputMethod): Command {
   return withCurrentHeadingLevel((previousHeadingLevel) =>
-    withAnalytics({
+    withAnalyticsDeprecated({
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
       eventType: EVENT_TYPE.TRACK,
@@ -158,7 +160,7 @@ export const setHeadingWithAnalytics = (
   inputMethod: InputMethod,
 ) => {
   return withCurrentHeadingLevel((previousHeadingLevel) =>
-    withAnalytics({
+    withAnalyticsDeprecated({
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
       eventType: EVENT_TYPE.TRACK,
@@ -198,13 +200,22 @@ export function insertBlockType(name: string): Command {
   };
 }
 
+/**
+ *
+ * @param name - block type name
+ * @param inputMethod - input method
+ * @param editorAnalyticsApi - analytics api, undefined if not available either because it failed to load or wasn't added
+ * otherwise Editor becomes very sad and crashes
+ * @returns - command that inserts block type
+ */
 export const insertBlockTypesWithAnalytics = (
   name: string,
   inputMethod: InputMethod,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
   switch (name) {
     case BLOCK_QUOTE.name:
-      return withAnalytics({
+      return withAnalytics(editorAnalyticsApi, {
         action: ACTION.FORMATTED,
         actionSubject: ACTION_SUBJECT.TEXT,
         eventType: EVENT_TYPE.TRACK,
@@ -214,7 +225,7 @@ export const insertBlockTypesWithAnalytics = (
         },
       })(insertBlockType(name));
     case CODE_BLOCK.name:
-      return withAnalytics({
+      return withAnalytics(editorAnalyticsApi, {
         action: ACTION.INSERTED,
         actionSubject: ACTION_SUBJECT.DOCUMENT,
         actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
@@ -222,7 +233,7 @@ export const insertBlockTypesWithAnalytics = (
         eventType: EVENT_TYPE.TRACK,
       })(insertBlockType(name));
     case PANEL.name:
-      return withAnalytics({
+      return withAnalytics(editorAnalyticsApi, {
         action: ACTION.INSERTED,
         actionSubject: ACTION_SUBJECT.DOCUMENT,
         actionSubjectId: ACTION_SUBJECT_ID.PANEL,

@@ -352,7 +352,14 @@ export const insertSelectedItem =
 
       const selectionInsideAPanel = selectionIsInsideAPanel(tr);
 
-      if (node.type.name === 'rule' && !selectionInsideAPanel) {
+      if (
+        node.type.name === 'rule' &&
+        !selectionInsideAPanel &&
+        // ED-17438 If the selection is not an empty paragraph we want to use pmSafeInsert
+        // This fixes a bug where if a rule was inserted using safeInsert and the selection
+        // was an empty paragraph it would not be inserted
+        !isEmptyParagraph(tr.selection.$from.parent)
+      ) {
         tr = safeInsert(node, tr.selection.from)(tr) ?? tr;
       } else {
         tr = pmSafeInsert(

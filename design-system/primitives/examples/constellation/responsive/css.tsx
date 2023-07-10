@@ -9,16 +9,13 @@ const cardStyles = css({
   borderColor: token('color.border.discovery', 'blue'),
   borderStyle: 'solid',
   borderWidth: token('border.width.0', '0px'),
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [media.above.xs]: {
     padding: token('space.100', '8px'),
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [media.above.sm]: {
     padding: token('space.150', '12px'),
     borderWidth: token('border.width', '1px'),
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
   [media.above.md]: {
     padding: token('space.200', '16px'),
     borderWidth: token('border.width.outline', '2px'),

@@ -563,7 +563,7 @@ export type ProviderError =
   | ProviderDocumentUpdateError;
 
 // @public (undocumented)
-type ProviderParticipant = CollabParticipant & {
+export type ProviderParticipant = CollabParticipant & {
   userId: string;
   clientId: number | string;
   email: string;

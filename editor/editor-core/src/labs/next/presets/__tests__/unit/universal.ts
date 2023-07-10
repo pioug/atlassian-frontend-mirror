@@ -2,6 +2,9 @@ import createUniversalPreset from '../../universal';
 
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import * as table from '@atlaskit/editor-plugin-table';
+import { datePlugin } from '../../../../../plugins';
+import * as date from '../../../../../plugins/date';
+
 // jest.mock('@atlaskit/editor-plugin-table');
 jest.mock('@atlaskit/editor-plugin-table', () => ({
   __esModule: true,
@@ -119,6 +122,49 @@ describe('createUniversalPreset', () => {
         expect.objectContaining({
           fullWidthEnabled: false,
           wasFullWidthEnabled: true,
+        }),
+      );
+    });
+  });
+
+  describe('date', () => {
+    it('should add datePlugin if allowDate is true', () => {
+      jest.spyOn(date, 'default');
+      const preset = createUniversalPreset(
+        'full-page',
+        { paste: {}, allowDate: true },
+        {},
+      );
+      expect(datePlugin).toHaveBeenCalledTimes(0);
+      preset.build();
+      expect(datePlugin).toHaveBeenCalledTimes(1);
+    });
+
+    it('should NOT add datePlugin if allowDate is false', () => {
+      jest.spyOn(date, 'default');
+      const preset = createUniversalPreset(
+        'full-page',
+        { paste: {}, allowDate: false },
+        {},
+      );
+      expect(datePlugin).toHaveBeenCalledTimes(0);
+      preset.build();
+      expect(datePlugin).toHaveBeenCalledTimes(0);
+    });
+
+    it('should add datePlugin if allowDate is is an object with weekStartDay', () => {
+      jest.spyOn(date, 'default');
+      const preset = createUniversalPreset(
+        'full-page',
+        { paste: {}, allowDate: { weekStartDay: 0 } },
+        {},
+      );
+      expect(datePlugin).toHaveBeenCalledTimes(0);
+      preset.build();
+      expect(datePlugin).toHaveBeenCalledTimes(1);
+      expect(datePlugin).toHaveBeenCalledWith(
+        expect.objectContaining({
+          weekStartDay: 0,
         }),
       );
     });

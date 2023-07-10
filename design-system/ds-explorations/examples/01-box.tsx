@@ -153,7 +153,9 @@ export default () => {
               padding="space.400"
               position="absolute"
               UNSAFE_style={{
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 top: index * 64,
+                // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 left: index * 64,
               }}
             >

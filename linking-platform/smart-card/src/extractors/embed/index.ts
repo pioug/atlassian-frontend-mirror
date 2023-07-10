@@ -6,7 +6,7 @@ import {
   extractProvider,
   extractPreview,
   LinkPreview,
-} from '@atlaskit/linking-common/extractors';
+} from '@atlaskit/link-extractors';
 import { extractIsTrusted } from '../common/meta/extractIsTrusted';
 import { extractIsSupportTheming } from '../common/meta/extractIsSupportTheming';
 import { EmbedCardResolvedViewProps } from '../../view/EmbedCard/views/ResolvedView';

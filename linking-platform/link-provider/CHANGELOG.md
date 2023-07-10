@@ -1,5 +1,12 @@
 # @atlaskit/link-provider
 
+## 1.6.6
+
+### Patch Changes
+
+- [`1e7190077d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1e7190077d4) - Move off deprecated @atlaskit/linking-common/extractors to @atlaskit/link-extractors
+- Updated dependencies
+
 ## 1.6.5
 
 ### Patch Changes

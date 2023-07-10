@@ -16,6 +16,7 @@ import {
 import { deleteEmptyParagraphAndMoveBlockUp } from '../../../utils/commands';
 import { INPUT_METHOD } from '../../analytics';
 import { isNodeAWrappingBlockNode } from '../utils';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const backspace = chainCommands(
   cleanUpAtTheStartOfDocument,
@@ -32,6 +33,7 @@ const del = chainCommands(
 export default function keymapPlugin(
   schema: Schema,
   featureFlags: FeatureFlags,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): SafePlugin {
   const list = {};
 
@@ -70,6 +72,7 @@ export default function keymapPlugin(
       insertBlockTypesWithAnalytics(
         blockTypes.BLOCK_QUOTE.name,
         INPUT_METHOD.KEYBOARD,
+        editorAnalyticsApi,
       ),
       list,
     );

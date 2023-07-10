@@ -1,3 +1,5 @@
+import type { WeekDay } from '@atlaskit/calendar/types';
+
 export type DateType = {
   year: number;
   month: number;
@@ -5,3 +7,7 @@ export type DateType = {
 };
 
 export type DateSegment = 'day' | 'month' | 'year';
+
+export interface DatePluginConfig {
+  weekStartDay?: WeekDay;
+}

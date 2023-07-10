@@ -6,8 +6,8 @@ import {
   CardAdf,
   CardAppearance,
   DatasourceAdf,
-  extractPreview,
 } from '@atlaskit/linking-common';
+import { extractPreview } from '@atlaskit/link-extractors';
 import {
   CardProvider,
   LinkAppearance,

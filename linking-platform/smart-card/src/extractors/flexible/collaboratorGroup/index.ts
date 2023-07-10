@@ -3,7 +3,7 @@ import {
   extractMembers,
   extractPersonFromJsonLd,
   LinkPerson,
-} from '@atlaskit/linking-common/extractors';
+} from '@atlaskit/link-extractors';
 
 export type LinkTypeUpdatedBy =
   | JsonLd.Data.Document

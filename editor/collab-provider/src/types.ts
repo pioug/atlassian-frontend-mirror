@@ -8,6 +8,7 @@ import type { ProviderError } from './errors/error-types';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { GetUserType } from './participants/participants-helper';
 import AnalyticsHelper from './analytics/analytics-helper';
+export type { ProviderParticipant } from './participants/participants-helper';
 
 // types from editor common
 

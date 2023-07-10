@@ -45,7 +45,7 @@ import {
 import { RuleConfig } from './types';
 
 const defaultConfig: RuleConfig = {
-  domains: ['color'],
+  domains: ['color', 'spacing'],
   applyImport: true,
   shouldEnforceFallbacks: false,
 };

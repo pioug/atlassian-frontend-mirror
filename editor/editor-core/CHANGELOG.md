@@ -1,5 +1,53 @@
 # @atlaskit/editor-core
 
+## 185.11.0
+
+### Minor Changes
+
+- [`f21b48e8a51`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f21b48e8a51) - enabled access to NextEditorPlugin actions for mobile bridge
+
+## 185.10.3
+
+### Patch Changes
+
+- [`6c6c3491dfa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c6c3491dfa) - Move collab provider subscription into plugin#view methods to avoid race conditions with re-configuring editor state
+
+## 185.10.0
+
+### Minor Changes
+
+- [`41820924223`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41820924223) - [ux] [ED-15876] Add additional value option to `allowDate` editor prop. Previously it could only be a boolean (true or false) but now it can be a boolean OR an object with `weekStartDay` and `WeekDay` (from `@atlaskit/calendar/types`) type as the value.
+
+  Example Usage:
+
+  ```tsx
+  const startOfWeekDay = get(
+    getLocale(locale),
+    'options.weekStartsOn',
+    DEFAULT_WEEK_START_DAY,
+  );
+
+  <Editor
+    editorProps={{
+      allowDate: { weekStartDay: 5 },
+    }}
+  />;
+  ```
+
+  OR
+
+  ```tsx
+  <Editor
+    editorProps={{
+      allowDate: false,
+    }}
+  />
+  ```
+
+  is also still valid.
+
+  This allows the users preferred day for the week to begin in the date calendar picker to be passed in to the editor. Eg. instead of it always defaulting to the week starting on Sunday (0), we could pass in 1 to make it Monday.
+
 ## 185.9.5
 
 ### Patch Changes

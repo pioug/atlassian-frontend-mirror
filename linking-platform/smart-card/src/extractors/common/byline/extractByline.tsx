@@ -12,7 +12,7 @@ import {
   LinkPerson,
   LinkTypeCreated,
   LinkTypeUpdatedBy,
-} from '@atlaskit/linking-common/extractors';
+} from '@atlaskit/link-extractors';
 
 export const extractByline = (
   jsonLd: JsonLd.Data.BaseData,

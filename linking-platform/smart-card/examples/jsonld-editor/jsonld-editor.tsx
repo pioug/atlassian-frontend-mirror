@@ -4,7 +4,7 @@ import { getDefaultResponse, getDefaultUrl } from './utils';
 import {
   extractPreview,
   extractUrlFromLinkJsonLd,
-} from '@atlaskit/linking-common';
+} from '@atlaskit/link-extractors';
 const stringify = (obj: object) => JSON.stringify(obj, null, 2);
 import uuid from 'uuid';
 

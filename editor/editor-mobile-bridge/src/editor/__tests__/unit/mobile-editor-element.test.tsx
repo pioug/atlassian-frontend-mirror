@@ -21,7 +21,7 @@ import * as UseToolbarSubscriptionModule from '../../hooks/use-toolbar-subscript
 import MobileEditorConfiguration from '../../editor-configuration';
 import WebBridgeImpl from '../../native-to-web/implementation';
 import { toNativeBridge } from '../../web-to-native';
-import { Editor } from '@atlaskit/editor-core';
+import { Editor } from '../../editor-wrapper';
 
 jest.mock('../../../query-param-reader');
 jest.mock('../../web-to-native');

@@ -13,7 +13,7 @@ import {
 } from '../../state/hooks/use-invoke/types';
 import { getExtensionKey } from '../../state/helpers';
 import extractServerAction from './extract-server-action';
-import { extractLink } from '@atlaskit/linking-common/extractors';
+import { extractLink } from '@atlaskit/link-extractors';
 import { extractPreviewAction } from './actions/extract-preview-action';
 import { ServerActionOptions } from '../../view/FlexibleCard/types';
 

@@ -10,7 +10,7 @@ import { InlineCardForbiddenView } from './ForbiddenView';
 import { InlineCardResolvedView } from './ResolvedView';
 import { InlineCardResolvingView } from './ResolvingView';
 import { InlineCardUnauthorizedView } from './UnauthorisedView';
-import { extractProvider } from '@atlaskit/linking-common/extractors';
+import { extractProvider } from '@atlaskit/link-extractors';
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { getExtensionKey } from '../../state/helpers';
 

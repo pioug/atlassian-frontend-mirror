@@ -9,7 +9,7 @@ import {
 import { messages } from '../../../../../messages';
 import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
 import { HoverCardUnauthorisedProps } from './types';
-import { extractProvider } from '@atlaskit/linking-common/extractors';
+import { extractProvider } from '@atlaskit/link-extractors';
 import {
   connectButtonStyles,
   mainTextStyles,

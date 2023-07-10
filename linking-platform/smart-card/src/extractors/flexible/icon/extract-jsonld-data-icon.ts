@@ -9,7 +9,7 @@ import extractProviderIcon from './extract-provider-icon';
 import extractUrlIcon from './extract-url-icon';
 import { IconDescriptor } from './types';
 import { extractTaskType } from '../../common/lozenge';
-import { extractTitle } from '@atlaskit/linking-common/extractors';
+import { extractTitle } from '@atlaskit/link-extractors';
 import { extractorPriorityMap as priorityMap } from '../../common/icon/priority';
 import { IconType } from '../../../constants';
 

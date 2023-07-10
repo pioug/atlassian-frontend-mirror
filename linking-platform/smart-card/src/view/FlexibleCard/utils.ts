@@ -8,7 +8,7 @@ import { FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import extractFlexibleUiContext from '../../extractors/flexible';
 import { extractErrorIcon } from '../../extractors/flexible/icon';
 import { handleOnClick } from '../../utils';
-import { extractProvider } from '@atlaskit/linking-common/extractors';
+import { extractProvider } from '@atlaskit/link-extractors';
 import extractProviderIcon from '../../extractors/flexible/icon/extract-provider-icon';
 
 export const getContextByStatus = (

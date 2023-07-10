@@ -8,7 +8,7 @@ import {
   extractLink,
   extractTitle,
   extractProvider,
-} from '@atlaskit/linking-common/extractors';
+} from '@atlaskit/link-extractors';
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
 import { InlineCardResolvedViewProps } from '../../view/InlineCard/ResolvedView';
 

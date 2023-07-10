@@ -79,24 +79,10 @@ const collabEditPlugin: NextEditorPlugin<
         {
           name: 'collab',
           plugin: ({ dispatch, providerFactory }) => {
-            providerFactory &&
-              providerFactory.subscribe(
-                'collabEditProvider',
-                (
-                  _name: string,
-                  providerPromise?: Promise<CollabEditProvider>,
-                ) => {
-                  if (providerPromise) {
-                    providerPromise.then((provider) =>
-                      providerResolver(provider),
-                    );
-                  }
-                },
-              );
-
             return createPlugin(
               dispatch,
               providerFactory,
+              providerResolver,
               executeProviderCode,
               options,
               featureFlags,

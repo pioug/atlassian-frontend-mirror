@@ -1,5 +1,50 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.0.0
+
+### Major Changes
+
+- [`3919464ef44`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3919464ef44) - Removed `ensure-design-token-usage-spacing`. Use `ensure-design-token-usage` instead. See release notes for v7.0.0 for more info.
+
+  `ensure-design-token-usage` now **errors** against spacing properties by default.
+
+  If the `domains` option is provided it will override any defaults, for example the following will ignore defaults and only error for color:
+
+  ```js
+  rules: {
+    '@atlaskit/design-system/ensure-design-token-usage': [
+      'error',
+      {
+        domains: ['color'],
+        shouldEnforceFallbacks: false
+      },
+    ],
+  },
+  ```
+
+  You can use `ensure-design-token-usage/preview` to **warn** about spacing properties until you are ready to set the main rule to error:
+
+  ```js
+  rules: {
+    '@atlaskit/design-system/ensure-design-token-usage/preview': [
+      'warn',
+      {
+        domains: ['spacing'],
+        shouldEnforceFallbacks: false
+      },
+    ],
+    '@atlaskit/design-system/ensure-design-token-usage': [
+      'error',
+      {
+        domains: ['color'],
+        shouldEnforceFallbacks: false
+      },
+    ],
+  },
+  ```
+
+  In many cases `eslint --fix` will automatically apply migrations from hardcoded values and `gridSize` to space tokens.
+
 ## 7.0.3
 
 ### Patch Changes

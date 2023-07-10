@@ -9,7 +9,7 @@ import {
 } from '../../../FlexibleCard/components/blocks';
 import { SmartLinkStatus } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
-import { extractProvider } from '@atlaskit/linking-common/extractors';
+import { extractProvider } from '@atlaskit/link-extractors';
 import { JsonLd } from 'json-ld-types';
 import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
 import { css } from '@emotion/react';

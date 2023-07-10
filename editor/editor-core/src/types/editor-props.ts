@@ -28,6 +28,7 @@ import { AnnotationProviders } from '../plugins/annotation/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
 import { CodeBlockOptions } from '../plugins/code-block/types';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
+import { DatePluginConfig } from '../plugins/date/types';
 import { FindReplaceOptions } from '../plugins/find-replace/types';
 import type { LinkingOptions } from '@atlaskit/editor-common/types';
 import { LayoutPluginOptions } from '../plugins/layout/types';
@@ -379,7 +380,8 @@ export interface EditorPluginFeatureProps {
   allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
 
   // Enable dates. You will most likely need backend ADF storage for this feature.
-  allowDate?: boolean;
+  // Can use true/false to enable/disable default or can pass in DatePluginConfig object to configure weekStartDay
+  allowDate?: boolean | DatePluginConfig;
 
   // Temporary flag to enable layouts while it's under development
   // Use object form to enable breakout for layouts, and to enable the newer layouts - left sidebar & right sidebar

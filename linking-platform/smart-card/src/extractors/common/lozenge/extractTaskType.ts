@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-import { extractUrlFromIconJsonLd } from '@atlaskit/linking-common/extractors';
+import { extractUrlFromIconJsonLd } from '@atlaskit/link-extractors';
 
 export interface LinkTaskType {
   id?: string;

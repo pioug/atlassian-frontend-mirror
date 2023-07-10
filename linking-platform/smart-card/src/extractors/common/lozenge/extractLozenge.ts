@@ -3,7 +3,7 @@ import { LinkLozenge } from './types';
 import { extractState } from './extractState';
 import { extractTag } from './extractTag';
 import { extractTaskStatus } from './extractTaskStatus';
-import { extractType } from '@atlaskit/linking-common/extractors';
+import { extractType } from '@atlaskit/link-extractors';
 import { extractTaskType } from './extractTaskType';
 
 const DOC_TYPES = [

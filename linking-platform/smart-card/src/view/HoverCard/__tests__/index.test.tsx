@@ -51,7 +51,8 @@ import {
   mockUnauthorisedResponse,
 } from './__mocks__/mocks';
 import * as HoverCardComponent from '../components/HoverCardComponent';
-import { HoverCard } from '../../../hoverCard';
+import { HoverCard } from '../index';
+import { HoverCard as StandaloneHoverCard } from '../../../hoverCard';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
@@ -159,6 +160,41 @@ describe('HoverCard', () => {
       analyticsSpy,
       dateSpy,
     };
+  };
+
+  const setupEventPropagationTest = async ({
+    component,
+    mockOnClick = jest.fn(),
+    testId = 'inline-card-resolved-view',
+  }: {
+    component?: React.ReactElement;
+    mockOnClick?: jest.Mock;
+    testId?: string;
+  }) => {
+    mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
+    mockClient = new (fakeFactory(mockFetch))();
+
+    const renderResult = render(
+      <div onClick={mockOnClick}>
+        <Provider client={mockClient}>
+          {component ?? (
+            <Card
+              appearance="inline"
+              url="https://some.url"
+              showHoverPreview={true}
+            />
+          )}
+        </Provider>
+      </div>,
+    );
+    const { findByTestId } = renderResult;
+
+    const element = await findByTestId(testId);
+    jest.useFakeTimers();
+    fireEvent.mouseEnter(element);
+    jest.runAllTimers();
+
+    return { ...renderResult, element };
   };
 
   const serverActionsTest = (
@@ -1263,38 +1299,33 @@ describe('HoverCard', () => {
       );
     });
 
-    it('does not propagate event to parent when clicking inside hover card content', async () => {
-      const containerOnClick = jest.fn();
-      mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
-      mockClient = new (fakeFactory(mockFetch))();
+    describe('event propagation', () => {
+      it('does not propagate event to parent when clicking inside hover card content', async () => {
+        const mockOnClick = jest.fn();
+        const { findByTestId } = await setupEventPropagationTest({
+          mockOnClick,
+        });
 
-      const { findByTestId } = render(
-        <div onClick={containerOnClick}>
-          <Provider client={mockClient}>
-            <Card
-              appearance="inline"
-              url="https://some.url"
-              showHoverPreview={true}
-            />
-          </Provider>
-        </div>,
-      );
+        const content = await findByTestId('smart-links-container');
+        fireEvent.click(content);
 
-      const element = await findByTestId('inline-card-resolved-view');
-      jest.useFakeTimers();
-      fireEvent.mouseEnter(element);
-      jest.runAllTimers();
+        const link = await findByTestId('smart-element-link');
+        fireEvent.click(link);
 
-      const content = await findByTestId('smart-links-container');
-      fireEvent.click(content);
+        const previewButton = await findByTestId('preview-content');
+        fireEvent.click(previewButton);
 
-      const link = await findByTestId('smart-element-link');
-      fireEvent.click(link);
+        expect(mockOnClick).not.toHaveBeenCalled();
+      });
 
-      const previewButton = await findByTestId('preview-content');
-      fireEvent.click(previewButton);
+      it('does not propagate event to parent when clicking on trigger element', async () => {
+        const mockOnClick = jest.fn();
+        const { element } = await setupEventPropagationTest({ mockOnClick });
 
-      expect(containerOnClick).not.toHaveBeenCalled();
+        fireEvent.click(element);
+
+        expect(mockOnClick).not.toHaveBeenCalled();
+      });
     });
 
     describe('flexible smart links', () => {
@@ -1363,43 +1394,6 @@ describe('HoverCard', () => {
 
         expect(queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
       };
-
-      it('does not propagate event to parent when clicking inside hover card content on a flexui link', async () => {
-        const containerOnClick = jest.fn();
-        mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
-        mockClient = new (fakeFactory(mockFetch))();
-
-        const { findByTestId } = render(
-          <div onClick={containerOnClick}>
-            <Provider client={mockClient}>
-              <Card
-                appearance="block"
-                showHoverPreview={true}
-                url="https://some.url"
-              >
-                <TitleBlock />
-              </Card>
-            </Provider>
-          </div>,
-        );
-
-        const element = await findByTestId('hover-card-trigger-wrapper');
-        jest.useFakeTimers();
-        fireEvent.mouseEnter(element);
-        jest.runAllTimers();
-
-        const metadataBlock = await findByTestId(
-          'smart-block-metadata-resolved-view',
-        );
-        fireEvent.click(metadataBlock);
-
-        const previewButton = await findByTestId(
-          'smart-footer-block-resolved-view',
-        );
-        fireEvent.click(previewButton);
-
-        expect(containerOnClick).not.toHaveBeenCalled();
-      });
 
       it('renders hover card', async () => {
         const hoverCardTestId = 'hover-card';
@@ -1511,6 +1505,55 @@ describe('HoverCard', () => {
         ]) {
           await hoverAndVerify(renderResult, hoverCardTestId, testId, false);
         }
+      });
+
+      describe('event propagation', () => {
+        const renderComponent = async (
+          params: Parameters<typeof setupEventPropagationTest>[0],
+        ) => {
+          const testId = 'hover-card-trigger-wrapper';
+          const component = (
+            <Card
+              appearance="block"
+              showHoverPreview={true}
+              url="https://some.url"
+            >
+              <TitleBlock />
+            </Card>
+          );
+
+          return await setupEventPropagationTest({
+            component,
+            testId,
+            ...params,
+          });
+        };
+
+        it('does not propagate event to parent when clicking inside hover card content on a flexui link', async () => {
+          const mockOnClick = jest.fn();
+          const { findByTestId } = await renderComponent({ mockOnClick });
+
+          const metadataBlock = await findByTestId(
+            'smart-block-metadata-resolved-view',
+          );
+          fireEvent.click(metadataBlock);
+
+          const previewButton = await findByTestId(
+            'smart-footer-block-resolved-view',
+          );
+          fireEvent.click(previewButton);
+
+          expect(mockOnClick).not.toHaveBeenCalled();
+        });
+
+        it('propagates event to parent when clicking on trigger element', async () => {
+          const mockOnClick = jest.fn();
+          const { element } = await renderComponent({ mockOnClick });
+
+          fireEvent.click(element);
+
+          expect(mockOnClick).toHaveBeenCalled();
+        });
       });
     });
 
@@ -1850,9 +1893,9 @@ describe('HoverCard', () => {
     it('should render a hover card over a div', async () => {
       const testId = 'hover-test-div';
       const hoverCardComponent = (
-        <HoverCard url={mockUrl}>
+        <StandaloneHoverCard url={mockUrl}>
           <div data-testid={testId}>Hover on me</div>
-        </HoverCard>
+        </StandaloneHoverCard>
       );
       const { findByTestId } = await setup({
         testId,
@@ -1878,9 +1921,9 @@ describe('HoverCard', () => {
     it('should not show the full screen view action if disabled via prop', async () => {
       const testId = 'hover-test-div';
       const hoverCardComponent = (
-        <HoverCard url={mockUrl} hidePreviewButton={true}>
+        <StandaloneHoverCard url={mockUrl} hidePreviewButton={true}>
           <div data-testid={testId}>Hover on me</div>
-        </HoverCard>
+        </StandaloneHoverCard>
       );
       const { findByTestId, queryByTestId } = await setup({
         testId,
@@ -1905,9 +1948,9 @@ describe('HoverCard', () => {
 
       const ComponentWithHoverCard = () => {
         return (
-          <HoverCard url={mockUrl} id={'1234'}>
+          <StandaloneHoverCard url={mockUrl} id={'1234'}>
             <h1 data-testid={testId}>Hover over me!</h1>
-          </HoverCard>
+          </StandaloneHoverCard>
         );
       };
 
@@ -1988,9 +2031,9 @@ describe('HoverCard', () => {
 
       const hoverCardComponent = (
         <Provider client={mockClient}>
-          <HoverCard url={mockUrl} id="some-id">
+          <StandaloneHoverCard url={mockUrl} id="some-id">
             <div data-testid={testId}>Hover on me</div>
-          </HoverCard>
+          </StandaloneHoverCard>
         </Provider>
       );
 
@@ -2132,6 +2175,54 @@ describe('HoverCard', () => {
       });
     });
 
+    describe('event propagation', () => {
+      const renderComponent = async (
+        params: Parameters<typeof setupEventPropagationTest>[0],
+      ) => {
+        const testId = 'hover-test-div';
+        const component = (
+          <IntlProvider locale="en">
+            <StandaloneHoverCard url={mockUrl} id="some-id">
+              <div data-testid={testId}>Hover on me</div>
+            </StandaloneHoverCard>
+          </IntlProvider>
+        );
+
+        return await setupEventPropagationTest({
+          component,
+          testId,
+          ...params,
+        });
+      };
+
+      it('does not propagate event to parent when clicking inside hover card content', async () => {
+        const mockOnClick = jest.fn();
+        const { findByTestId } = await renderComponent({
+          mockOnClick,
+        });
+
+        const content = await findByTestId('smart-links-container');
+        fireEvent.click(content);
+
+        const link = await findByTestId('smart-element-link');
+        fireEvent.click(link);
+
+        const previewButton = await findByTestId('preview-content');
+        fireEvent.click(previewButton);
+
+        expect(mockOnClick).not.toHaveBeenCalled();
+      });
+
+      it('does not propagate event to parent when clicking on trigger element', async () => {
+        const mockOnClick = jest.fn();
+        const { element } = await renderComponent({ mockOnClick });
+
+        fireEvent.click(element);
+
+        expect(mockOnClick).not.toHaveBeenCalled();
+      });
+    });
+
     describe('analytics context', () => {
       const testId = 'hover-card-trigger-wrapper';
       const channel = 'media';
@@ -2149,9 +2240,9 @@ describe('HoverCard', () => {
       };
 
       const component = (
-        <HoverCard url={mockUrl} id="some-id">
+        <StandaloneHoverCard url={mockUrl} id="some-id">
           <DummyComponent />
-        </HoverCard>
+        </StandaloneHoverCard>
       );
 
       it('should fire link viewed event with correct attributes', async () => {
@@ -2199,9 +2290,12 @@ describe('HoverCard', () => {
       const setupWithStandalone = (showServerActions?: boolean) => {
         const testId = 'hover-test-div';
         const component = (
-          <HoverCard showServerActions={showServerActions} url={mockUrl}>
+          <StandaloneHoverCard
+            showServerActions={showServerActions}
+            url={mockUrl}
+          >
             <div data-testid={testId}>Hover on me</div>
-          </HoverCard>
+          </StandaloneHoverCard>
         );
 
         return setup({
@@ -2242,9 +2336,9 @@ describe('HoverCard', () => {
 
       it('should not call loadMetadata if mouseLeave is fired before the delay runs out', async () => {
         const component = (
-          <HoverCard url={'test.url'}>
+          <StandaloneHoverCard url={'test.url'}>
             <h1>Hover over me!</h1>
-          </HoverCard>
+          </StandaloneHoverCard>
         );
 
         const { findByTestId } = await setup({
@@ -2272,9 +2366,9 @@ describe('HoverCard', () => {
           .mockImplementation(() => mockedActions);
 
         const component = (
-          <HoverCard url={'test.url'}>
+          <StandaloneHoverCard url={'test.url'}>
             <h1>Hover over me!</h1>
-          </HoverCard>
+          </StandaloneHoverCard>
         );
 
         const { findByTestId } = await setup({
@@ -2309,9 +2403,9 @@ describe('HoverCard', () => {
         const { findByTestId } = await render(
           <IntlProvider locale="en">
             <Provider>
-              <HoverCard url={'test.url'}>
+              <StandaloneHoverCard url={'test.url'}>
                 <h1>Hover over me!</h1>
-              </HoverCard>
+              </StandaloneHoverCard>
             </Provider>
           </IntlProvider>,
         );
@@ -2342,9 +2436,9 @@ describe('HoverCard', () => {
         const { findByTestId } = await render(
           <IntlProvider locale="en">
             <Provider>
-              <HoverCard url={'test.url'}>
+              <StandaloneHoverCard url={'test.url'}>
                 <h1>Hover over me!</h1>
-              </HoverCard>
+              </StandaloneHoverCard>
             </Provider>
           </IntlProvider>,
         );

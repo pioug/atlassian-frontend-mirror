@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.6.0
+
+### Minor Changes
+
+- [`7ef82ea1810`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7ef82ea1810) - ESS-3718: export ProviderParticipant for JWM
+
 ## 9.5.2
 
 ### Patch Changes

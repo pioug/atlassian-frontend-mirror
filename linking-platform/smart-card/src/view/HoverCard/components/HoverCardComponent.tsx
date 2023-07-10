@@ -28,6 +28,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   closeOnChildClick = false,
   hidePreviewButton = false,
   showServerActions = false,
+  allowEventPropagation = false,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const fadeOutTimeoutId = useRef<ReturnType<typeof setTimeout>>();
@@ -168,12 +169,14 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   // Stop hover preview content to propagate event to parent.
   const onChildClick = useCallback(
     (e) => {
-      e.stopPropagation();
+      if (!allowEventPropagation) {
+        e.stopPropagation();
+      }
       if (closeOnChildClick) {
         hideCard();
       }
     },
-    [closeOnChildClick, hideCard],
+    [allowEventPropagation, closeOnChildClick, hideCard],
   );
 
   const content = useCallback(

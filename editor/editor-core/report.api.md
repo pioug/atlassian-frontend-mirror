@@ -48,6 +48,7 @@ import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { DropdownOptionT } from '@atlaskit/editor-common/types';
 import { EditorActionsOptions } from '@atlaskit/editor-common/types';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
 import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
@@ -164,6 +165,7 @@ import { UploadEndEventPayload } from '@atlaskit/media-picker/types';
 import { UploadErrorEventPayload } from '@atlaskit/media-picker/types';
 import { UploadParams } from '@atlaskit/media-picker/types';
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
+import type { WeekDay } from '@atlaskit/calendar/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { WithIntlProps } from 'react-intl-next';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
@@ -526,6 +528,12 @@ export const dateMessages: {
 };
 
 // @public (undocumented)
+interface DatePluginConfig {
+  // (undocumented)
+  weekStartDay?: WeekDay;
+}
+
+// @public (undocumented)
 export const datePluginKey: PluginKey<DatePluginState>;
 
 // @public (undocumented)
@@ -859,7 +867,7 @@ interface EditorPluginFeatureProps {
   // (undocumented)
   allowConfluenceInlineComment?: boolean;
   // (undocumented)
-  allowDate?: boolean;
+  allowDate?: DatePluginConfig | boolean;
   // (undocumented)
   allowExpand?:
     | boolean
@@ -1304,7 +1312,8 @@ export function insertBlockType(name: string): Command;
 export const insertBlockTypesWithAnalytics: (
   name: string,
   inputMethod: BlockTypeInputMethod,
-) => Command;
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+) => Command_2;
 
 // @public (undocumented)
 export const insertDate: (

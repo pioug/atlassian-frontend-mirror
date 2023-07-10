@@ -96,6 +96,7 @@ import {
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import NativeBridge from '../web-to-native/bridge';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export const defaultSetList: QuickInsertItemId[] = [
   'blockquote',
@@ -183,6 +184,7 @@ export default class WebBridgeImpl
   private editorConfiguration: MobileEditorConfiguration;
   private resetProviders: () => void = () => {};
   private featureFlags: FeatureFlags = {};
+  private editorAnalyticsApi: EditorAnalyticsAPI | undefined = undefined;
 
   constructor(config?: MobileEditorConfiguration) {
     super();
@@ -192,6 +194,10 @@ export default class WebBridgeImpl
 
   setFeatureFlags(featureFlags: FeatureFlags) {
     this.featureFlags = featureFlags;
+  }
+
+  setAnalyticsApi(editorAnalyticsApi: EditorAnalyticsAPI | undefined) {
+    this.editorAnalyticsApi = editorAnalyticsApi;
   }
 
   getEditorConfiguration() {
@@ -569,19 +575,25 @@ export default class WebBridgeImpl
 
     switch (type) {
       case 'blockquote':
-        insertBlockTypesWithAnalytics('blockquote', inputMethod)(
-          state,
-          dispatch,
-        );
+        insertBlockTypesWithAnalytics(
+          'blockquote',
+          inputMethod,
+          this.editorAnalyticsApi,
+        )(state, dispatch);
         return;
       case 'codeblock':
-        insertBlockTypesWithAnalytics('codeblock', inputMethod)(
-          state,
-          dispatch,
-        );
+        insertBlockTypesWithAnalytics(
+          'codeblock',
+          inputMethod,
+          this.editorAnalyticsApi,
+        )(state, dispatch);
         return;
       case 'panel':
-        insertBlockTypesWithAnalytics('panel', inputMethod)(state, dispatch);
+        insertBlockTypesWithAnalytics(
+          'panel',
+          inputMethod,
+          this.editorAnalyticsApi,
+        )(state, dispatch);
         return;
       case 'action':
         insertTaskDecisionCommand(

@@ -2,12 +2,12 @@ import { JsonLd } from 'json-ld-types';
 
 import { PreviewActionData } from '../../../state/flexible-ui-context/types';
 import { extractDownloadUrl } from '../../common/detail';
-import { extractPreview as extractPreviewData } from '@atlaskit/linking-common';
 import {
+  extractPreview as extractPreviewData,
   extractLink,
   extractProvider,
   extractTitle,
-} from '@atlaskit/linking-common/extractors';
+} from '@atlaskit/link-extractors';
 import { extractLinkIcon } from '../icon';
 import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
 

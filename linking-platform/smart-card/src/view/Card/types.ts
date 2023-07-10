@@ -1,9 +1,8 @@
 import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
-import {
-  CardAppearance,
-  CardPlatform,
-  CardState,
-} from '@atlaskit/linking-common';
+import { CardAppearance, CardState } from '@atlaskit/linking-common';
+
+import { CardPlatform } from '@atlaskit/link-extractors';
+
 import { AnalyticsFacade } from '../../state/analytics';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { ErrorCardType, InlinePreloaderStyle, OnErrorCallback } from '../types';

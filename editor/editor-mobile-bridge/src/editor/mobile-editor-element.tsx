@@ -2,13 +2,13 @@ import React from 'react';
 import memoizeOne from 'memoize-one';
 import isEqual from 'lodash/isEqual';
 import {
-  Editor,
   MediaProvider as MediaProviderType,
   EditorProps,
   MentionProvider,
   EditorContext,
   hasVisibleContent,
 } from '@atlaskit/editor-core';
+import { Editor } from './editor-wrapper';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { toNativeBridge } from './web-to-native';

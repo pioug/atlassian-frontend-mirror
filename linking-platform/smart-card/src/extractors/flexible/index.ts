@@ -27,7 +27,7 @@ import {
   extractDateCreated,
   LinkTypeCreated,
   extractLink,
-} from '@atlaskit/linking-common/extractors';
+} from '@atlaskit/link-extractors';
 import extractPriority from './extract-priority';
 import extractProviderIcon from './icon/extract-provider-icon';
 import extractPreview from './extract-preview';

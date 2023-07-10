@@ -40,7 +40,6 @@ export const UNSAFE_buildAboveMediaQueryCSS = (
     (acc, breakpoint) => ({
       ...acc,
       [breakpoint]: css({
-        // eslint-disable-next-line @repo/internal/styles/no-nested-styles
         [media.above[breakpoint]]:
           typeof input === 'function' ? input(breakpoint) : input,
       }),

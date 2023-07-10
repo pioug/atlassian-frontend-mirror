@@ -5,10 +5,12 @@ import { FC, useCallback } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useSmartLinkAnalytics } from '../../state/analytics';
 import { HoverCardComponent } from './components/HoverCardComponent';
-import { HoverCardProps } from './types';
+import { HoverCardInternalProps, HoverCardProps } from './types';
 import { CardDisplay } from '../../constants';
 
-const HoverCardWithErrorBoundary: FC<HoverCardProps> = (props) => {
+const HoverCardWithErrorBoundary: FC<
+  HoverCardProps & HoverCardInternalProps
+> = (props) => {
   const { url, id, children } = props;
 
   const analytics = useSmartLinkAnalytics(url, undefined, id);
@@ -36,6 +38,20 @@ const HoverCardWithoutAnalyticsContext = withAnalyticsEvents()(
   HoverCardWithErrorBoundary,
 );
 
-export const HoverCard = (props: HoverCardProps) => {
+/**
+ * A hover preview component using within smart links,
+ * e.g. inline card's hover preview and auth tooltip, flexible card's hover preview.
+ *
+ * This component contains additional props that smart-card internal components
+ * use to configure hover preview behaviour.
+ */
+export const HoverCard = (props: HoverCardProps & HoverCardInternalProps) => {
   return <HoverCardWithoutAnalyticsContext {...props} />;
 };
+
+/**
+ * A standalone hover preview component
+ */
+export const StandaloneHoverCard = (props: HoverCardProps) => (
+  <HoverCard {...props} />
+);

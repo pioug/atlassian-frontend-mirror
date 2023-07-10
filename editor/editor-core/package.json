@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "185.9.5",
+  "version": "185.11.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -30,6 +30,12 @@
     "releaseModel": "continuous",
     "website": {
       "name": "Editor Core"
+    },
+    "integrationTests": {
+      "additionalBrowsers": [
+        "desktop-firefox",
+        "desktop-webkit"
+      ]
     }
   },
   "dependencies": {
@@ -142,7 +148,7 @@
     "@af/editor-libra": "*",
     "@af/integration-testing": "*",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/collab-provider": "9.5.2",
+    "@atlaskit/collab-provider": "9.6.0",
     "@atlaskit/dropdown-menu": "^11.10.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
     "@atlaskit/editor-plugin-table": "^2.0.0",
@@ -247,14 +253,6 @@
     "platform.design-system-team.border-checkbox_nyoiu": {
       "type": "boolean",
       "referenceOnly": "true"
-    }
-  },
-  "tests": {
-    "integration": {
-      "additionalBrowsers": [
-        "desktop-firefox",
-        "desktop-webkit"
-      ]
     }
   }
 }

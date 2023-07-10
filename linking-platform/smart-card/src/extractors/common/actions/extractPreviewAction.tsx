@@ -3,10 +3,7 @@ import { InvokeClientOpts } from '../../../model/invoke-opts';
 import { CardInnerAppearance, CardPlatform } from '../../../view/Card/types';
 
 import { extractDownloadUrl } from '../detail';
-import {
-  extractPreview,
-  extractProvider,
-} from '@atlaskit/linking-common/extractors';
+import { extractPreview, extractProvider } from '@atlaskit/link-extractors';
 import {
   BlockCardResolvedViewProps,
   PreviewAction,

@@ -4,7 +4,6 @@ import {
   EditorPopupModel,
   editorTestCase as test,
   expect,
-  fixTest,
 } from '@af/editor-libra';
 import { tableWithScoll } from './__fixtures__/base-adfs';
 
@@ -65,11 +64,6 @@ test.describe('sticky header', () => {
     test('should sync width with table when parent scroll container is resized', async ({
       editor,
     }) => {
-      fixTest({
-        jiraIssueId: 'ED-19015',
-        reason: 'TODO: Need to find the cause of flakiness',
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
@@ -84,6 +78,9 @@ test.describe('sticky header', () => {
         width: 750,
         height: editor.page.viewportSize()!.height,
       });
+
+      const stickyModel = await tableModel.stickyHeader();
+      await stickyModel.waitForRowStable();
 
       const tableBox = await nodes.table
         .locator('table.pm-table-sticky')

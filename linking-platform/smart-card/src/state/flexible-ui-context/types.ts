@@ -1,5 +1,5 @@
 import { LinkLozenge } from '../../extractors/common/lozenge/types';
-import { LinkPerson } from '@atlaskit/linking-common/extractors';
+import { LinkPerson } from '@atlaskit/link-extractors';
 import { IconType, MediaType } from '../../constants';
 
 /**

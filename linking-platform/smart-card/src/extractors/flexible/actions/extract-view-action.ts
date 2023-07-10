@@ -1,5 +1,5 @@
 import { JsonLd } from 'json-ld-types';
-import { extractLink } from '@atlaskit/linking-common/extractors';
+import { extractLink } from '@atlaskit/link-extractors';
 import { getActionsFromJsonLd } from '../../common/actions/extractActions';
 import { ViewActionData } from '../../../state/flexible-ui-context/types';
 

@@ -2,14 +2,16 @@ import React from 'react';
 import { fireEvent, RenderResult } from '@testing-library/react';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import DatePicker from '../../../ui/DatePicker';
+import type { WeekDay } from '@atlaskit/calendar/types';
+
+const onTextChanged = jest.fn();
+const onDelete = jest.fn();
+const onSelect = jest.fn();
+const closeDatePicker = jest.fn();
+const closeDatePickerWithAnalytics = jest.fn();
+const dispatchAnalyticsEvent = jest.fn();
 
 describe('DatePicker', () => {
-  const onTextChanged = jest.fn();
-  const onDelete = jest.fn();
-  const onSelect = jest.fn();
-  const closeDatePicker = jest.fn();
-  const closeDatePickerWithAnalytics = jest.fn();
-  const dispatchAnalyticsEvent = jest.fn();
   const element = document.createElement('span');
   let wrapper: RenderResult;
   let input: HTMLElement;
@@ -168,6 +170,55 @@ describe('DatePicker', () => {
 
       // Date is removed
       expect(onDelete).toHaveBeenCalled();
+    });
+  });
+});
+
+describe('DatePicker with weekStartDay', () => {
+  const element = document.createElement('span');
+  let wrapper: RenderResult;
+
+  const mountDatePicker = (weekStartDay?: WeekDay) => {
+    element.setAttribute('timestamp', '1585094400000');
+    document.body.appendChild(element);
+    return renderWithIntl(
+      // This is the actual date picker, not the lozenge
+      <DatePicker
+        isNew={true}
+        element={element}
+        onSelect={onSelect}
+        onTextChanged={onTextChanged}
+        onDelete={onDelete}
+        closeDatePicker={closeDatePicker}
+        closeDatePickerWithAnalytics={closeDatePickerWithAnalytics}
+        dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+        weekStartDay={weekStartDay}
+      />,
+    );
+  };
+
+  afterEach(() => {
+    document.body.removeChild(element);
+    wrapper.unmount();
+  });
+
+  describe('weekStartDay', () => {
+    it('should have Friday as the first day in the calendar if weekStartDay is 5', () => {
+      wrapper = mountDatePicker(5);
+      const result = wrapper.getAllByRole('columnheader')[0];
+      expect(result).toHaveTextContent('Fri');
+    });
+
+    it('should have Monday as the first day in the calendar if weekStartDay is 1', () => {
+      wrapper = mountDatePicker(1);
+      const result = wrapper.getAllByRole('columnheader')[0];
+      expect(result).toHaveTextContent('Mon');
+    });
+
+    it('should have Sunday as the first day in the calendar when weekStartDay is not provided', () => {
+      wrapper = mountDatePicker();
+      const result = wrapper.getAllByRole('columnheader')[0];
+      expect(result).toHaveTextContent('Sun');
     });
   });
 });

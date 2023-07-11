@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.11.3
+
+### Patch Changes
+
+- [`1b40a9ff426`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1b40a9ff426) - update border.input.color to DarkNeutral600
+
 ## 1.11.2
 
 ### Patch Changes

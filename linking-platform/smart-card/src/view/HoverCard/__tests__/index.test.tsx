@@ -1238,18 +1238,12 @@ describe('HoverCard', () => {
     });
 
     describe('auth tooltip feature flag:', () => {
-      const setupWithFF = async (
-        providerFF?: 'experiment' | 'control' | 'off',
-        cardProp?: boolean,
-      ) => {
+      const setupWithFF = async (cardProp?: boolean) => {
         mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
         mockClient = new (fakeFactory(mockFetch))();
 
         const { queryByTestId, findByTestId } = render(
-          <Provider
-            client={mockClient}
-            featureFlags={{ showAuthTooltip: providerFF }}
-          >
+          <Provider client={mockClient}>
             <Card
               appearance="inline"
               url={mockUrl}
@@ -1265,34 +1259,21 @@ describe('HoverCard', () => {
         return { findByTestId, queryByTestId };
       };
 
-      const cases: [
-        'should' | 'should not',
-        'experiment' | 'control' | 'off' | undefined,
-        boolean | undefined,
-      ][] = [
-        ['should not', undefined, undefined],
-        ['should', 'experiment', undefined],
-        ['should not', 'off', undefined],
-        ['should not', 'control', undefined],
-        ['should', undefined, true],
-        ['should', 'experiment', true],
-        ['should not', 'off', true],
-        ['should not', 'control', true],
-        ['should not', undefined, false],
-        ['should', 'experiment', false],
-        ['should not', 'off', false],
-        ['should not', 'control', false],
+      const cases: ['should' | 'should not', boolean | undefined][] = [
+        ['should not', undefined],
+        ['should', true],
+        ['should not', false],
       ];
       test.each(cases)(
-        'auth tooltip %p render when feature flag is %p on provider and prop is %p on card',
-        async (outcome, providerFF, cardProp) => {
+        'auth tooltip %p render when prop is %p on card',
+        async (outcome, cardProp) => {
           if (outcome === 'should') {
-            const { findByTestId } = await setupWithFF(providerFF, cardProp);
+            const { findByTestId } = await setupWithFF(cardProp);
             expect(
               await findByTestId('hover-card-unauthorised-view'),
             ).toBeDefined();
           } else {
-            const { queryByTestId } = await setupWithFF(providerFF, cardProp);
+            const { queryByTestId } = await setupWithFF(cardProp);
             expect(queryByTestId('hover-card-unauthorised-view')).toBeNull();
           }
         },
@@ -1353,13 +1334,14 @@ describe('HoverCard', () => {
         testId: string,
         expectToBeInTheDocument: boolean,
       ) => {
+        fireEvent.mouseMove(trigger);
         fireEvent.mouseLeave(trigger);
         jest.runAllTimers();
 
         const element = await findByTestId(testId);
         expect(element).toBeInTheDocument();
 
-        fireEvent.mouseEnter(element);
+        fireEvent.mouseMove(element);
         fireEvent.mouseOver(element);
         jest.runAllTimers();
 
@@ -1379,6 +1361,7 @@ describe('HoverCard', () => {
         hoverCardTestId: string,
         testId: string,
       ) => {
+        fireEvent.mouseMove(trigger);
         fireEvent.mouseLeave(trigger);
         jest.runAllTimers();
 
@@ -1388,7 +1371,7 @@ describe('HoverCard', () => {
         const element = await findByTestId(testId);
         expect(element).toBeInTheDocument();
 
-        fireEvent.mouseEnter(element);
+        fireEvent.mouseMove(element);
         fireEvent.mouseOver(element);
         jest.runAllTimers();
 
@@ -1434,7 +1417,6 @@ describe('HoverCard', () => {
             showHoverPreview: false,
             showAuthTooltip: true,
           },
-          featureFlags: { showAuthTooltip: 'experiment' },
           testId: 'smart-links-container',
         });
         jest.runAllTimers();
@@ -1461,7 +1443,6 @@ describe('HoverCard', () => {
         const renderResult = await setup({
           extraCardProps: { appearance, children },
           mock: mockUnauthorisedResponse,
-          featureFlags: { showAuthTooltip: 'experiment' },
           testId: triggerTestId,
         });
         jest.runAllTimers();
@@ -1651,7 +1632,6 @@ describe('HoverCard', () => {
       it('renders Unauthorised hover card', async () => {
         const { findByTestId } = await setup({
           mock: mockUnauthorisedResponse,
-          featureFlags: { showAuthTooltip: 'experiment' },
           testId: 'inline-card-unauthorized-view',
         });
         jest.runAllTimers();
@@ -1665,7 +1645,6 @@ describe('HoverCard', () => {
       it('renders Unauthorised hover card for Flexible Cards when "showAuthTooltip" is true', async () => {
         const { findByTestId } = await setup({
           mock: mockUnauthorisedResponse,
-          featureFlags: { showAuthTooltip: 'experiment' },
           testId: 'hover-card-trigger-wrapper',
           extraCardProps: {
             appearance: 'block',
@@ -1680,7 +1659,7 @@ describe('HoverCard', () => {
         expect(unauthorisedHoverCard).toBeTruthy();
       });
 
-      it('does not render a hover card for unauthorised Flexible Card when "showAuthTooltip" is %s', async () => {
+      it('does not render a hover card for unauthorised Flexible Card when "showAuthTooltip" is false', async () => {
         mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
         mockClient = new (fakeFactory(mockFetch))();
         const { queryByTestId } = render(
@@ -1704,7 +1683,6 @@ describe('HoverCard', () => {
 
         const { findByTestId } = await setup({
           mock: mockUnauthorisedResponse,
-          featureFlags: { showAuthTooltip: 'experiment' },
           testId: 'inline-card-unauthorized-view',
         });
         jest.runAllTimers();
@@ -1737,7 +1715,6 @@ describe('HoverCard', () => {
 
         const { queryByTestId, findByTestId, element } = await setup({
           mock: mockUnauthorisedResponse,
-          featureFlags: { showAuthTooltip: 'experiment' },
           testId: 'inline-card-unauthorized-view',
         });
         jest.runAllTimers();

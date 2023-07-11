@@ -1584,7 +1584,9 @@ describe('Provider', () => {
             await expect(
               provider.getFinalAcknowledgedState(),
             ).rejects.toThrowError(
-              new Error("Can't sync up with Collab Service"),
+              new Error(
+                "Can't sync up with Collab Service: unable to send unconfirmed steps and max retry reached",
+              ),
             );
             expect(sendActionEventSpy).toHaveBeenCalledTimes(2);
             expect(sendActionEventSpy).toHaveBeenNthCalledWith(

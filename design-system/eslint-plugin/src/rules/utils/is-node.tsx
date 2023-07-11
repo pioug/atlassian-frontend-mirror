@@ -85,6 +85,11 @@ export const isCssInJsObjectNode = (
   node.callee.object.type === 'Identifier' &&
   cssInJsCallees.includes(node.callee.object.name);
 
+const isXcssCallNode = (node?: Expression | null): node is CallExpression =>
+  node?.type === 'CallExpression' &&
+  node.callee.type === 'Identifier' &&
+  node.callee.name === 'xcss';
+
 export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
   if (node.type === 'VariableDeclarator') {
     if (node.id.type !== 'Identifier') {
@@ -114,6 +119,11 @@ export const isDecendantOfStyleBlock = (node: Rule.Node): boolean => {
     const varName = node.id.name.toLowerCase();
 
     return ['style', 'css', 'theme'].some((el) => varName.includes(el));
+  }
+
+  // xcss contains types for all properties that accept tokens, so ignore xcss for linting as it will report false positives
+  if (isXcssCallNode(node as Expression)) {
+    return false;
   }
 
   if (

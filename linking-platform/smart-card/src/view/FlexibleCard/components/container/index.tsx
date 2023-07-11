@@ -1,10 +1,9 @@
 /** @jsx jsx */
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useContext } from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 
 import {
-  ElementName,
   MediaPlacement,
   SmartLinkSize,
   SmartLinkStatus,
@@ -22,7 +21,7 @@ import { FlexibleUiContext } from '../../../../state/flexible-ui-context';
 import LayeredLink from './layered-link';
 import { FlexibleUiDataContext } from '../../../../state/flexible-ui-context/types';
 import { TitleBlockProps } from '../blocks/title-block/types';
-import { HoverCard } from '../../../HoverCard';
+import HoverCardControl from './hover-card-control';
 import { isFlexUiPreviewPresent } from '../../../../state/flexible-ui-context/utils';
 
 const elevationStyles: SerializedStyles = css`
@@ -240,41 +239,10 @@ const Container: React.FC<ContainerProps> = ({
 }) => {
   const context = useContext(FlexibleUiContext);
   const childrenOptions = getChildrenOptions(children, context);
-  const [hoverCardCanOpen, setHoverCardCanOpen] = useState(true);
   const canShowHoverPreview = showHoverPreview && status === 'resolved';
   const canShowAuthTooltip = showAuthTooltip && status === 'unauthorized';
 
-  const onMouseOver = useCallback(
-    (e) => {
-      // Never show hover card on action or when action dropdown opens.
-      // The code below can be simplified by using :is() and :has()
-      // but the pseudo-class isn't support by Firefox yet.
-      const action =
-        // Any action button group (title/footer block)
-        e.target.closest('.actions-button-group') ||
-        // When action dropdown list is opened on action button group or lozenge action
-        e.target
-          .closest('[data-smart-link-container]')
-          ?.querySelector('[data-action-open="true"]');
-
-      const canOpen =
-        (canShowAuthTooltip && !action) ||
-        // EDM-7060: For hover preview, also hide hover card on all elements
-        // except title element (link title)
-        (canShowHoverPreview &&
-          !action &&
-          !e.target.closest(
-            `[data-smart-element]:not([data-smart-element="${ElementName.Title}"])`,
-          ));
-
-      if (hoverCardCanOpen !== canOpen) {
-        setHoverCardCanOpen(canOpen);
-      }
-    },
-    [canShowAuthTooltip, canShowHoverPreview, hoverCardCanOpen],
-  );
-
-  const containerContent = (
+  const container = (
     <div
       css={getContainerStyles(
         size,
@@ -286,9 +254,6 @@ const Container: React.FC<ContainerProps> = ({
       )}
       data-smart-link-container
       data-testid={testId}
-      {...(canShowHoverPreview || canShowAuthTooltip
-        ? { onMouseOver }
-        : undefined)}
     >
       {clickableContainer
         ? getLayeredLink(testId, context, children, onClick)
@@ -299,23 +264,19 @@ const Container: React.FC<ContainerProps> = ({
 
   if (context?.url && (canShowHoverPreview || canShowAuthTooltip)) {
     return (
-      <HoverCard
-        url={context?.url}
-        allowEventPropagation={true}
-        canOpen={hoverCardCanOpen}
-        closeOnChildClick={true}
-        hidePreviewButton={hideHoverCardPreviewButton}
-        // EDM-6709 extends the internal prop for showServerActions type to be
-        // an object. If we decide to use expose the type for hover preview
-        // remove the Boolean() conversion here.
-        showServerActions={Boolean(showServerActions)}
+      <HoverCardControl
+        hideHoverCardPreviewButton={hideHoverCardPreviewButton}
+        isHoverPreview={canShowHoverPreview}
+        isAuthTooltip={canShowAuthTooltip}
+        showServerActions={showServerActions}
+        url={context.url}
       >
-        {containerContent}
-      </HoverCard>
+        {container}
+      </HoverCardControl>
     );
   }
 
-  return containerContent;
+  return container;
 };
 
 export default Container;

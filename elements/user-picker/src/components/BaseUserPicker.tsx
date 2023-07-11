@@ -46,6 +46,7 @@ export type BaseUserPickerProps = UserPickerProps & {
   styles: any;
   components: any;
   width: string | number;
+  name?: string;
 };
 
 const loadingMessage = () => null;
@@ -555,6 +556,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
       textFieldBackgroundColor,
       ariaLabelledBy,
       ariaLive,
+      name,
     } = this.props;
 
     const {
@@ -570,6 +572,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 
     return (
       <SelectComponent
+        name={name}
         value={value}
         autoFocus={autoFocus !== undefined ? autoFocus : menuIsOpen}
         aria-labelledby={ariaLabelledBy}

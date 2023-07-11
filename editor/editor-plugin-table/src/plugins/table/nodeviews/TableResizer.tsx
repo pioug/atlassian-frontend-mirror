@@ -10,11 +10,11 @@ import {
   previewScaleTable,
   getColgroupChildrenLength,
   COLUMN_MIN_WIDTH,
-  TABLE_MAX_WIDTH,
 } from '../pm-plugins/table-resizing/utils';
 
 interface TableResizerProps {
   width: number;
+  maxWidth: number;
   updateWidth: (width: number) => void;
   editorView: EditorView;
   getPos: () => number | undefined;
@@ -27,6 +27,7 @@ const handles = { right: true };
 export const TableResizer = ({
   children,
   width,
+  maxWidth,
   updateWidth,
   editorView,
   getPos,
@@ -99,7 +100,7 @@ export const TableResizer = ({
       }}
       resizeRatio={2}
       minWidth={minColumnWidth}
-      maxWidth={TABLE_MAX_WIDTH}
+      maxWidth={maxWidth}
     >
       {children}
     </ResizerNext>

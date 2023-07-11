@@ -104,7 +104,9 @@ const getContainerTextBgAndBorderColor = (
     backgroundColor: backgroundColorFocus[appearance][mode],
     borderColor: borderColorFocus[appearance][mode],
     boxShadow: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-      ? `inset 0 0 0 1px ${borderColorFocus[appearance][mode]}`
+      ? `inset 0 0 0 ${token('border.width', '1px')} ${
+          borderColorFocus[appearance][mode]
+        }`
       : undefined,
   },
   '&[data-disabled]': {
@@ -120,14 +122,18 @@ const getContainerTextBgAndBorderColor = (
   '&[data-invalid], &[data-invalid]:hover': {
     borderColor: invalidRules[mode].borderColor,
     boxShadow: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-      ? `inset 0 0 0 1px ${invalidRules[mode].borderColor}`
+      ? `inset 0 0 0 ${token('border.width', '1px')} ${
+          invalidRules[mode].borderColor
+        }`
       : undefined,
   },
   '&[data-invalid]:focus-within': {
     backgroundColor: invalidRules[mode].backgroundColorFocus,
     borderColor: invalidRules[mode].borderColorFocus,
     boxShadow: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-      ? `inset 0 0 0 1px ${invalidRules[mode].borderColorFocus}`
+      ? `inset 0 0 0 ${token('border.width', '1px')} ${
+          invalidRules[mode].borderColorFocus
+        }`
       : undefined,
   },
   '@media screen and (-ms-high-contrast: active)': {
@@ -166,13 +172,13 @@ export const containerStyles = (
     borderWidth: getBooleanFF(
       'platform.design-system-team.border-checkbox_nyoiu',
     )
-      ? 1
+      ? token('border.width', '1px')
       : 2,
     // add 1px padding on both top and bottom to keep the same overall height after border reduced from 2px to 1px under feature flag
     ...(getBooleanFF('platform.design-system-team.border-checkbox_nyoiu') &&
     appearance !== 'none'
       ? // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-        { padding: '1px 0' }
+        { padding: `${token('border.width', '1px')} 0` }
       : {}),
     borderStyle: appearance === 'none' ? 'none' : 'solid',
     boxSizing: 'border-box',

@@ -48,7 +48,19 @@ type AlignInline_2 = 'center' | 'end' | 'start';
 type AlignItems = keyof typeof alignItemsMap;
 
 // @public (undocumented)
+type AlignItems_2 = keyof typeof alignItemsMap_2;
+
+// @public (undocumented)
 const alignItemsMap: {
+  readonly start: SerializedStyles_2;
+  readonly center: SerializedStyles_2;
+  readonly baseline: SerializedStyles_2;
+  readonly end: SerializedStyles_2;
+  readonly stretch: SerializedStyles_2;
+};
+
+// @public (undocumented)
+const alignItemsMap_2: {
   readonly start: SerializedStyles_2;
   readonly center: SerializedStyles_2;
   readonly baseline: SerializedStyles_2;
@@ -77,6 +89,9 @@ type As =
 
 // @public (undocumented)
 type AutoComplete<T extends string> = Omit<string, T> | T;
+
+// @public (undocumented)
+type AutoFlow = keyof typeof gridAutoFlowMap;
 
 // @public (undocumented)
 export type BackgroundColor = keyof typeof backgroundColorMap;
@@ -307,6 +322,7 @@ const boxTag: unique symbol;
 // @public (undocumented)
 type BoxXCSS =
   | false
+  | undefined
   | {
       readonly [uniqueSymbol]: BoxStyles;
     };
@@ -347,7 +363,7 @@ export const Flex: MemoExoticComponent<
   ForwardRefExoticComponent<
     Pick<
       {
-        as?: 'div' | 'ol' | 'span' | 'ul' | undefined;
+        as?: 'div' | 'li' | 'ol' | 'span' | 'ul' | undefined;
         justifyContent?:
           | 'center'
           | 'end'
@@ -357,7 +373,29 @@ export const Flex: MemoExoticComponent<
           | 'start'
           | 'stretch'
           | undefined;
-        alignItems?: 'baseline' | 'center' | 'end' | 'start' | undefined;
+        alignItems?:
+          | 'baseline'
+          | 'center'
+          | 'end'
+          | 'start'
+          | 'stretch'
+          | undefined;
+        columnGap?:
+          | 'space.0'
+          | 'space.025'
+          | 'space.050'
+          | 'space.075'
+          | 'space.100'
+          | 'space.1000'
+          | 'space.150'
+          | 'space.200'
+          | 'space.250'
+          | 'space.300'
+          | 'space.400'
+          | 'space.500'
+          | 'space.600'
+          | 'space.800'
+          | undefined;
         gap?:
           | 'space.0'
           | 'space.025'
@@ -398,6 +436,7 @@ export const Flex: MemoExoticComponent<
       | 'alignItems'
       | 'as'
       | 'children'
+      | 'columnGap'
       | 'direction'
       | 'gap'
       | 'justifyContent'
@@ -417,9 +456,10 @@ const flexDirectionMap: {
 
 // @public (undocumented)
 export type FlexProps<T extends ElementType = 'div'> = {
-  as?: 'div' | 'ol' | 'span' | 'ul';
+  as?: 'div' | 'li' | 'ol' | 'span' | 'ul';
   justifyContent?: JustifyContent;
   alignItems?: AlignItems;
+  columnGap?: Space;
   gap?: Space;
   rowGap?: Space;
   direction?: Direction;
@@ -434,6 +474,125 @@ const flexWrapMap: {
   readonly nowrap: SerializedStyles_2;
 };
 
+// @public
+export const Grid: MemoExoticComponent<
+  ForwardRefExoticComponent<
+    Pick<
+      {
+        as?: 'div' | 'ol' | 'span' | 'ul' | undefined;
+        justifyContent?:
+          | 'center'
+          | 'end'
+          | 'space-around'
+          | 'space-between'
+          | 'space-evenly'
+          | 'start'
+          | 'stretch'
+          | undefined;
+        alignItems?: 'baseline' | 'center' | 'end' | 'start' | undefined;
+        columnGap?:
+          | 'space.0'
+          | 'space.025'
+          | 'space.050'
+          | 'space.075'
+          | 'space.100'
+          | 'space.1000'
+          | 'space.150'
+          | 'space.200'
+          | 'space.250'
+          | 'space.300'
+          | 'space.400'
+          | 'space.500'
+          | 'space.600'
+          | 'space.800'
+          | undefined;
+        gap?:
+          | 'space.0'
+          | 'space.025'
+          | 'space.050'
+          | 'space.075'
+          | 'space.100'
+          | 'space.1000'
+          | 'space.150'
+          | 'space.200'
+          | 'space.250'
+          | 'space.300'
+          | 'space.400'
+          | 'space.500'
+          | 'space.600'
+          | 'space.800'
+          | undefined;
+        rowGap?:
+          | 'space.0'
+          | 'space.025'
+          | 'space.050'
+          | 'space.075'
+          | 'space.100'
+          | 'space.1000'
+          | 'space.150'
+          | 'space.200'
+          | 'space.250'
+          | 'space.300'
+          | 'space.400'
+          | 'space.500'
+          | 'space.600'
+          | 'space.800'
+          | undefined;
+        autoFlow?:
+          | 'column dense'
+          | 'column'
+          | 'dense'
+          | 'row dense'
+          | 'row'
+          | undefined;
+        templateRows?: string | undefined;
+        templateColumns?: string | undefined;
+        templateAreas?: string[] | undefined;
+        children: ReactNode;
+        ref?: any;
+      } & BasePrimitiveProps,
+      | 'alignItems'
+      | 'as'
+      | 'autoFlow'
+      | 'children'
+      | 'columnGap'
+      | 'gap'
+      | 'justifyContent'
+      | 'rowGap'
+      | 'templateAreas'
+      | 'templateColumns'
+      | 'templateRows'
+      | keyof BasePrimitiveProps
+    > &
+      RefAttributes<any>
+  >
+>;
+
+// @public (undocumented)
+const gridAutoFlowMap: {
+  readonly row: SerializedStyles_2;
+  readonly column: SerializedStyles_2;
+  readonly dense: SerializedStyles_2;
+  readonly 'row dense': SerializedStyles_2;
+  readonly 'column dense': SerializedStyles_2;
+};
+
+// @public (undocumented)
+export type GridProps<T extends ElementType = 'div'> = {
+  as?: 'div' | 'ol' | 'span' | 'ul';
+  justifyContent?: JustifyContent_2;
+  alignItems?: AlignItems_2;
+  columnGap?: Space;
+  gap?: Space;
+  rowGap?: Space;
+  autoFlow?: AutoFlow;
+  templateRows?: string;
+  templateColumns?: string;
+  templateAreas?: string[];
+  children: ReactNode;
+  ref?: React.ComponentPropsWithRef<T>['ref'];
+} & BasePrimitiveProps;
+
 // @public (undocumented)
 type Grow = 'fill' | 'hug';
 
@@ -444,7 +603,49 @@ type Grow_2 = 'fill' | 'hug';
 export const Inline: MemoExoticComponent<
   ForwardRefExoticComponent<
     Pick<
-      InlineProps<ElementType<any>>,
+      {
+        as?: 'div' | 'li' | 'ol' | 'span' | 'ul' | undefined;
+        alignBlock?: AlignBlock | undefined;
+        alignInline?: AlignInline | undefined;
+        shouldWrap?: boolean | undefined;
+        spread?: 'space-between' | undefined;
+        grow?: Grow | undefined;
+        space?:
+          | 'space.0'
+          | 'space.025'
+          | 'space.050'
+          | 'space.075'
+          | 'space.100'
+          | 'space.1000'
+          | 'space.150'
+          | 'space.200'
+          | 'space.250'
+          | 'space.300'
+          | 'space.400'
+          | 'space.500'
+          | 'space.600'
+          | 'space.800'
+          | undefined;
+        rowSpace?:
+          | 'space.0'
+          | 'space.025'
+          | 'space.050'
+          | 'space.075'
+          | 'space.100'
+          | 'space.1000'
+          | 'space.150'
+          | 'space.200'
+          | 'space.250'
+          | 'space.300'
+          | 'space.400'
+          | 'space.500'
+          | 'space.600'
+          | 'space.800'
+          | undefined;
+        separator?: string | undefined;
+        children: ReactNode;
+        ref?: any;
+      } & BasePrimitiveProps,
       | 'alignBlock'
       | 'alignInline'
       | 'as'
@@ -455,48 +656,46 @@ export const Inline: MemoExoticComponent<
       | 'shouldWrap'
       | 'space'
       | 'spread'
-      | 'testId'
-      | 'xcss'
+      | keyof BasePrimitiveProps
     > &
       RefAttributes<any>
   >
 >;
 
 // @public (undocumented)
-export interface InlineProps<T extends ElementType = 'div'> {
+export type InlineProps<T extends ElementType = 'div'> = {
+  as?: 'div' | 'li' | 'ol' | 'span' | 'ul';
   alignBlock?: AlignBlock;
   alignInline?: AlignInline;
-  as?: 'div' | 'li' | 'ol' | 'span' | 'ul';
-  children: ReactNode;
+  shouldWrap?: boolean;
+  spread?: Spread;
   grow?: Grow;
-  ref?: React.ComponentPropsWithRef<T>['ref'];
+  space?: Space;
   rowSpace?: Space;
   separator?: string;
-  shouldWrap?: boolean;
-  space?: Space;
-  spread?: Spread;
-  testId?: string;
-  xcss?: Array<InlineXCSS | false | undefined> | InlineXCSS;
-}
-
-// @public (undocumented)
-type InlineStyles = SerializedStyles & {
-  [inlineTag]: true;
-};
-
-// @public (undocumented)
-const inlineTag: unique symbol;
-
-// @public (undocumented)
-type InlineXCSS = {
-  readonly [uniqueSymbol]: InlineStyles;
-};
+  children: ReactNode;
+  ref?: React.ComponentPropsWithRef<T>['ref'];
+} & BasePrimitiveProps;
 
 // @public (undocumented)
 type JustifyContent = keyof typeof justifyContentMap;
 
 // @public (undocumented)
+type JustifyContent_2 = keyof typeof justifyContentMap_2;
+
+// @public (undocumented)
 const justifyContentMap: {
+  readonly start: SerializedStyles_2;
+  readonly center: SerializedStyles_2;
+  readonly end: SerializedStyles_2;
+  readonly 'space-between': SerializedStyles_2;
+  readonly 'space-around': SerializedStyles_2;
+  readonly 'space-evenly': SerializedStyles_2;
+  readonly stretch: SerializedStyles_2;
+};
+
+// @public (undocumented)
+const justifyContentMap_2: {
   readonly start: SerializedStyles_2;
   readonly center: SerializedStyles_2;
   readonly end: SerializedStyles_2;
@@ -523,7 +722,7 @@ const layerMap: {
 };
 
 // @public
-const media: {
+export const media: {
   readonly above: {
     readonly xxs: '@media all';
     readonly xs: '@media (min-width: 30rem)';
@@ -601,6 +800,14 @@ const spaceMap: {
 };
 
 // @public (undocumented)
+type SpaceStyles = SerializedStyles & {
+  [spaceTag]: true;
+};
+
+// @public (undocumented)
+const spaceTag: unique symbol;
+
+// @public (undocumented)
 type Spacing =
   | 'columnGap'
   | 'gap'
@@ -642,7 +849,31 @@ type Spread_2 = 'space-between';
 export const Stack: MemoExoticComponent<
   ForwardRefExoticComponent<
     Pick<
-      StackProps<ElementType<any>>,
+      {
+        as?: 'div' | 'ol' | 'span' | 'ul' | undefined;
+        alignBlock?: AlignBlock_2 | undefined;
+        alignInline?: AlignInline_2 | undefined;
+        spread?: 'space-between' | undefined;
+        grow?: Grow_2 | undefined;
+        space?:
+          | 'space.0'
+          | 'space.025'
+          | 'space.050'
+          | 'space.075'
+          | 'space.100'
+          | 'space.1000'
+          | 'space.150'
+          | 'space.200'
+          | 'space.250'
+          | 'space.300'
+          | 'space.400'
+          | 'space.500'
+          | 'space.600'
+          | 'space.800'
+          | undefined;
+        children: ReactNode;
+        ref?: any;
+      } & BasePrimitiveProps,
       | 'alignBlock'
       | 'alignInline'
       | 'as'
@@ -650,24 +881,23 @@ export const Stack: MemoExoticComponent<
       | 'grow'
       | 'space'
       | 'spread'
-      | 'testId'
+      | keyof BasePrimitiveProps
     > &
       RefAttributes<any>
   >
 >;
 
 // @public (undocumented)
-export interface StackProps<T extends ElementType = 'div'> {
+export type StackProps<T extends ElementType = 'div'> = {
+  as?: 'div' | 'ol' | 'span' | 'ul';
   alignBlock?: AlignBlock_2;
   alignInline?: AlignInline_2;
-  as?: 'div' | 'ol' | 'span' | 'ul';
-  children: ReactNode;
-  grow?: Grow_2;
-  ref?: React.ComponentPropsWithRef<T>['ref'];
-  space?: Space;
   spread?: Spread_2;
-  testId?: string;
-}
+  grow?: Grow_2;
+  space?: Space;
+  children: ReactNode;
+  ref?: React.ComponentPropsWithRef<T>['ref'];
+} & BasePrimitiveProps;
 
 // @public (undocumented)
 type TextColor = keyof typeof textColorMap;
@@ -830,12 +1060,12 @@ export const UNSAFE_media: {
 type Wrap = keyof typeof flexWrapMap;
 
 // @public
-export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
+export function xcss<Primitive extends typeof Box | void = typeof Box>(
   style: Primitive extends typeof Box
     ?
         | ScopedSafeCSSObject<AllowedBoxStyles>
         | ScopedSafeCSSObject<AllowedBoxStyles>[]
-    : Primitive extends typeof Inline
+    : Primitive extends void
     ? ScopedSafeCSSObject<Spacing> | ScopedSafeCSSObject<Spacing>[]
     : never,
 ): {
@@ -846,27 +1076,8 @@ export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
   ) => ReactElement<any, JSXElementConstructor<any> | string> | null) &
     FC<BoxProps<'div'>>
     ? BoxStyles
-    : Primitive extends MemoExoticComponent<
-        ForwardRefExoticComponent<
-          Pick<
-            InlineProps<ElementType<any>>,
-            | 'alignBlock'
-            | 'alignInline'
-            | 'as'
-            | 'children'
-            | 'grow'
-            | 'rowSpace'
-            | 'separator'
-            | 'shouldWrap'
-            | 'space'
-            | 'spread'
-            | 'testId'
-            | 'xcss'
-          > &
-            RefAttributes<any>
-        >
-      >
-    ? InlineStyles
+    : Primitive extends void
+    ? SpaceStyles
     : never;
 };
 

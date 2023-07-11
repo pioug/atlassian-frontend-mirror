@@ -13,7 +13,8 @@ export type FlexProps<T extends ElementType = 'div'> = {
   /**
    * The DOM element to render as the Flex. Defaults to `div`.
    */
-  as?: 'div' | 'span' | 'ul' | 'ol';
+  as?: 'div' | 'span' | 'ul' | 'ol' | 'li';
+
   /**
    * Used to align children along the main axis.
    */
@@ -23,6 +24,12 @@ export type FlexProps<T extends ElementType = 'div'> = {
    * Used to align children along the cross axis.
    */
   alignItems?: AlignItems;
+
+  /**
+   * Represents the space between each child.
+   */
+  columnGap?: Space;
+
   /**
    * Represents the space between each child.
    */
@@ -44,7 +51,7 @@ export type FlexProps<T extends ElementType = 'div'> = {
   wrap?: Wrap;
 
   /**
-   * Elements to be rendered inside the Stack.
+   * Elements to be rendered inside the Flex.
    */
   children: ReactNode;
 
@@ -84,6 +91,7 @@ const alignItemsMap = {
   center: css({ alignItems: 'center' }),
   baseline: css({ alignItems: 'baseline' }),
   end: css({ alignItems: 'end' }),
+  stretch: css({ alignItems: 'stretch' }),
 } as const;
 
 const baseStyles = css({
@@ -115,10 +123,11 @@ const Flex = memo(
   forwardRef(
     <T extends ElementType = 'div'>(
       {
-        as,
+        as: Component = 'div',
         alignItems,
         justifyContent,
         gap,
+        columnGap,
         rowGap,
         children,
         testId,
@@ -128,7 +137,6 @@ const Flex = memo(
       }: FlexProps<T>,
       ref: Ref<any>,
     ) => {
-      const Component = as || 'div';
       const xcssClassName = xcss && parseXcss(xcss);
 
       return (
@@ -136,6 +144,7 @@ const Flex = memo(
           css={[
             baseStyles,
             gap && spaceStylesMap.gap[gap],
+            columnGap && spaceStylesMap.columnGap[columnGap],
             rowGap && spaceStylesMap.rowGap[rowGap],
             alignItems && alignItemsMap[alignItems],
             direction && flexDirectionMap[direction],

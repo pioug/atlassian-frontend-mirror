@@ -76,7 +76,7 @@ export type Request = {
   sourceEvent?: UIAnalyticsEvent | null | undefined;
 };
 
-type Metadata<T = {}> = {
+export type Metadata<T = {}> = {
   url: string;
   display: string;
   isUndo?: boolean;
@@ -87,7 +87,7 @@ type Metadata<T = {}> = {
   nodeContext?: string;
 } & T;
 
-type UpdateMetadata = {
+export type UpdateMetadata = {
   previousDisplay?: string;
 };
 

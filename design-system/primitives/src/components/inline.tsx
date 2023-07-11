@@ -15,10 +15,13 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { type Space, spaceStylesMap } from '../xcss/style-maps.partial';
-import { type InlineXCSS, parseXcss } from '../xcss/xcss';
+import { type Space } from '../xcss/style-maps.partial';
+import { xcss } from '../xcss/xcss';
 
-export interface InlineProps<T extends ElementType = 'div'> {
+import Flex from './flex';
+import { BasePrimitiveProps } from './types';
+
+export type InlineProps<T extends ElementType = 'div'> = {
   /**
    * The DOM element to render as the Inline. Defaults to `div`.
    */
@@ -65,16 +68,6 @@ export interface InlineProps<T extends ElementType = 'div'> {
   separator?: string;
 
   /**
-   * Safe subset of styles that can be applied as a classname.
-   */
-  xcss?: InlineXCSS | Array<InlineXCSS | false | undefined>;
-
-  /**
-   * A unique string that appears as data attribute data-testid in the rendered code, serving as a hook for automated tests.
-   */
-  testId?: string;
-
-  /**
    * Elements to be rendered inside the Inline.
    */
   children: ReactNode;
@@ -83,43 +76,20 @@ export interface InlineProps<T extends ElementType = 'div'> {
    * Forwarded ref element
    */
   ref?: React.ComponentPropsWithRef<T>['ref'];
-}
+} & BasePrimitiveProps;
 
 export type AlignInline = 'start' | 'center' | 'end';
 export type AlignBlock = 'start' | 'center' | 'end' | 'baseline' | 'stretch';
 export type Spread = 'space-between';
 export type Grow = 'hug' | 'fill';
 
-const alignItemsMap = {
-  center: css({ alignItems: 'center' }),
-  baseline: css({ alignItems: 'baseline' }),
-  start: css({ alignItems: 'flex-start' }),
-  end: css({ alignItems: 'flex-end' }),
-  stretch: css({ alignItems: 'stretch' }),
-};
-
-const justifyContentMap = {
-  start: css({ justifyContent: 'flex-start' }),
-  center: css({ justifyContent: 'center' }),
-  end: css({ justifyContent: 'flex-end' }),
-  'space-between': css({ justifyContent: 'space-between' }),
-};
-
 const flexGrowMap = {
-  hug: css({ flexGrow: 0 }),
-  fill: css({
+  hug: xcss({ flexGrow: 0 }),
+  fill: xcss({
     width: '100%',
     flexGrow: 1,
   }),
 };
-
-const flexWrapStyles = css({ flexWrap: 'wrap' });
-
-const baseStyles = css({
-  display: 'flex',
-  boxSizing: 'border-box',
-  flexDirection: 'row',
-});
 
 const separatorStyles = css({
   color: token('color.text.subtle', '#42526E'),
@@ -167,7 +137,6 @@ const Inline = memo(
       }: InlineProps<T>,
       ref: Ref<any>,
     ) => {
-      const Component = as || 'div';
       const separatorComponent =
         typeof separator === 'string' ? (
           <Separator>{separator}</Separator>
@@ -189,26 +158,27 @@ const Inline = memo(
         : rawChildren;
 
       const justifyContent = spread || alignInline;
-      const className = xcss && parseXcss(xcss);
 
       return (
-        <Component
-          css={[
-            // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-            className,
-            baseStyles,
-            space && spaceStylesMap.gap[space],
-            justifyContent && justifyContentMap[justifyContent],
-            grow && flexGrowMap[grow],
-            alignItems && alignItemsMap[alignItems],
-            shouldWrap && flexWrapStyles,
-            rowSpace && spaceStylesMap.rowGap[rowSpace],
-          ]}
-          data-testid={testId}
+        <Flex
+          as={as}
+          alignItems={alignItems}
+          justifyContent={justifyContent}
+          direction="row"
+          gap={space}
+          rowGap={rowSpace}
+          wrap={shouldWrap ? 'wrap' : undefined}
+          xcss={
+            grow
+              ? [flexGrowMap[grow], ...(Array.isArray(xcss) ? xcss : [xcss])]
+              : // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+                xcss
+          }
+          testId={testId}
           ref={ref}
         >
           {children}
-        </Component>
+        </Flex>
       );
     },
   ),

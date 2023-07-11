@@ -6,7 +6,10 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { mediaLinkStyle } from '@atlaskit/editor-common/ui';
+import {
+  mediaLinkStyle,
+  IMAGE_AND_BORDER_ADJUSTMENT,
+} from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { MediaCard, MediaCardProps, MediaProvider } from '../../ui/MediaCard';
@@ -75,6 +78,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
         }}
       >
         <MediaCard
+          expandByPixel={borderMark && IMAGE_AND_BORDER_ADJUSTMENT}
           mediaProvider={mediaProvider}
           contextIdentifierProvider={contextIdentifierProvider}
           {...this.props}
@@ -97,8 +101,8 @@ export default class Media extends PureComponent<MediaProps, {}> {
         data-color={borderColor}
         data-size={borderWidth}
         style={{
-          width: '100%',
-          height: '100%',
+          width: `calc(100% - ${IMAGE_AND_BORDER_ADJUSTMENT}px)`,
+          height: `calc(100% - ${IMAGE_AND_BORDER_ADJUSTMENT}px)`,
           borderColor: paletteColorValue,
           borderWidth: `${borderWidth}px`,
           borderStyle: 'solid',

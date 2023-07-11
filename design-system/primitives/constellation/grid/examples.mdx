@@ -1,0 +1,38 @@
+---
+title: Grid
+description: Grid is a primitive layout component that implements the CSS Grid API.
+order: 0
+---
+
+import GridBasic from '../../examples/constellation/grid/basic';
+import GridGap from '../../examples/constellation/grid/gap';
+import GridTemplate from '../../examples/constellation/grid/template';
+import GridAutoFlow from '../../examples/constellation/grid/auto-flow';
+
+## Basic
+
+The `Grid` component is designed as a very basic mapping to the CSS Grid API.
+It can be used as an alternative to [Flex](/components/primitives/flex), [Inline](/components/primitives/inline) or [Stack](/components/primitives/stack).
+
+<Example Component={GridBasic} packageName="@atlaskit/primitives/grid" />
+
+## Gap properties
+
+Gap properties - `rowGap`, `columnGap` and `gap` only allow token-backed values. This is to aid ergonomics
+and keep the whitespace of the grid harmonious with our spacing system.
+
+<Example Component={GridGap} packageName="@atlaskit/primitives/grid" />
+
+## Template syntax
+
+Grid-prefixed template properties in CSS do not have this prefix in the component API.
+For example `grid-template-*` are instead applied as `templateColumns`, `templateRows` and `templateArea` properties.
+
+<Example Component={GridTemplate} packageName="@atlaskit/primitives/grid" />
+
+## Autoflow syntax
+
+Grid-prefixed properties in CSS do not have this prefix in the component API. `grid-auto-flow` is instead applied via `autoFlow`.
+
+<Example Component={GridAutoFlow} packageName="@atlaskit/primitives/grid" />
+

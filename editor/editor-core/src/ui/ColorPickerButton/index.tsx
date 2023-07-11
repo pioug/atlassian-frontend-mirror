@@ -36,10 +36,15 @@ import {
   EVENT_TYPE,
 } from '../../plugins/analytics/types';
 import { token } from '@atlaskit/tokens';
+import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
 // helps adjusts position of popup
 const colorPickerButtonWrapper = css`
   position: relative;
+`;
+
+const colorPickerExpandContainer = css`
+  margin: 0px -4px;
 `;
 
 // Control the size of color picker buttons and preview
@@ -232,7 +237,7 @@ const ColorPickerButton = (props: Props) => {
       ? props.hexToPaletteColor(props.currentColor)
       : props.currentColor;
   const buttonStyle = css`
-    padding: 6px;
+    padding: 0 10px;
     background-color: ${token('color.background.neutral', 'transparent')};
     ${
       /* If custom props size height, override the button base height property */
@@ -250,6 +255,7 @@ const ColorPickerButton = (props: Props) => {
       width: ${props.size?.width || '14px'};
       height: ${props.size?.height || '14px'};
       padding: 0;
+      margin: 0px 2px;
     }
   `;
 
@@ -269,6 +275,11 @@ const ColorPickerButton = (props: Props) => {
             }
           }}
           css={buttonStyle}
+          iconAfter={
+            <span css={colorPickerExpandContainer}>
+              <ExpandIcon label="" />
+            </span>
+          }
         />
       </Tooltip>
       {renderPopup()}

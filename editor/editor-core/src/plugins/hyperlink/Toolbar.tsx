@@ -349,6 +349,7 @@ export const getToolbarConfig =
                               ),
                               {
                                 action,
+                                inputMethod,
                                 sourceEvent: analytic,
                               },
                             )

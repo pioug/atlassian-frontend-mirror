@@ -12,8 +12,8 @@ const boxStyles = xcss<typeof Box>({
   borderRadius: 'border.radius.050',
 });
 
-const inlineStyles = xcss<typeof Inline>({
-  // @ts-expect-error because `InlineStyles` does not accept `border`
+const spaceStyles = xcss<void>({
+  // @ts-expect-error because `spaceStyles` does not accept `border`
   backgroundColor: 'color.background.inverse.subtle',
   border: '2px solid red',
   padding: 'space.200',
@@ -37,8 +37,8 @@ export default () => (
       <Box
         backgroundColor="color.background.success"
         padding="space.200"
-        // @ts-expect-error because these are `inlineStyles` given to a `Box`
-        xcss={inlineStyles}
+        // @ts-expect-error because these are `spaceStyles` given to a `Box`
+        xcss={spaceStyles}
       />
       <Box
         backgroundColor="color.background.discovery.bold"

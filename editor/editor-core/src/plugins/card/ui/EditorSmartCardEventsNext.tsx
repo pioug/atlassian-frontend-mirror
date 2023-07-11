@@ -7,7 +7,7 @@ import { INPUT_METHOD, ACTION } from '@atlaskit/editor-common/analytics';
 import { AnalyticsContext, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { registerSmartCardEventsNext } from '../pm-plugins/actions';
-import { SmartLinkEventsNext } from '../types';
+import { SmartLinkEventsNext, Metadata, UpdateMetadata } from '../types';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
 import { getPluginState } from '../pm-plugins/util/state';
 
@@ -26,10 +26,10 @@ type LinkEventMetadata = {
  * returns undo/redo instead of instead of what fn(metadata) would have otherwise
  * returned
  */
-const withHistoryMethod = (
-  fn: (metadata: LinkEventMetadata) => string | undefined,
+const withHistoryMethod = <T extends LinkEventMetadata>(
+  fn: (metadata: T) => string | undefined,
 ) => {
-  return (metadata: LinkEventMetadata) => {
+  return (metadata: T) => {
     const { isUndo, isRedo } = metadata;
     if (isUndo) {
       return 'undo';
@@ -41,38 +41,22 @@ const withHistoryMethod = (
   };
 };
 
-const getMethod = withHistoryMethod(
-  ({ inputMethod, sourceEvent }: LinkEventMetadata) => {
-    /**
-     * If sourceEvent is present, don't provide a custom method
-     */
-    if (sourceEvent) {
-      return;
-    }
-
-    switch (inputMethod) {
-      case INPUT_METHOD.CLIPBOARD:
-        return 'editor_paste';
-      case INPUT_METHOD.FLOATING_TB:
-        return 'editor_floatingToolbar';
-      case INPUT_METHOD.AUTO_DETECT:
-      case INPUT_METHOD.FORMATTING:
-        return 'editor_type';
-      default:
-        return 'unknown';
-    }
-  },
-);
+const getMethod = withHistoryMethod(({ inputMethod }: LinkEventMetadata) => {
+  switch (inputMethod) {
+    case INPUT_METHOD.CLIPBOARD:
+      return 'editor_paste';
+    case INPUT_METHOD.FLOATING_TB:
+      return 'editor_floatingToolbar';
+    case INPUT_METHOD.AUTO_DETECT:
+    case INPUT_METHOD.FORMATTING:
+      return 'editor_type';
+    default:
+      return 'unknown';
+  }
+});
 
 const getUpdateType = withHistoryMethod(
-  ({ action, sourceEvent }: LinkEventMetadata) => {
-    /**
-     * If sourceEvent is present, don't provide a custom method
-     */
-    if (sourceEvent) {
-      return;
-    }
-
+  ({ action }: Metadata<UpdateMetadata>) => {
     switch (action) {
       case ACTION.CHANGED_TYPE:
         return 'display_update';
@@ -123,7 +107,8 @@ export const EventsBinding = ({ editorView }: AnalyticsBindingsProps) => {
 
   const events: SmartLinkEventsNext = useMemo(() => {
     return {
-      created: ({ url, display, nodeContext, ...metadata }) => {
+      created: (metadata) => {
+        const { url, display, nodeContext } = metadata;
         const displayCategory = displayCategoryFromDisplay(display);
         const sourceEvent = getSourceEventFromMetadata(metadata);
         const creationMethod = getMethod(metadata);
@@ -134,13 +119,8 @@ export const EventsBinding = ({ editorView }: AnalyticsBindingsProps) => {
           creationMethod,
         });
       },
-      updated: ({
-        url,
-        display,
-        previousDisplay,
-        nodeContext,
-        ...metadata
-      }) => {
+      updated: (metadata) => {
+        const { url, display, previousDisplay, nodeContext } = metadata;
         const displayCategory = displayCategoryFromDisplay(display);
         const sourceEvent = getSourceEventFromMetadata(metadata);
         const updateMethod = getMethod(metadata);
@@ -154,7 +134,8 @@ export const EventsBinding = ({ editorView }: AnalyticsBindingsProps) => {
           updateType,
         });
       },
-      deleted: ({ url, display, nodeContext, ...metadata }) => {
+      deleted: (metadata) => {
+        const { url, display, nodeContext } = metadata;
         const displayCategory = displayCategoryFromDisplay(display);
         const sourceEvent = getSourceEventFromMetadata(metadata);
         const deleteMethod = getMethod(metadata);

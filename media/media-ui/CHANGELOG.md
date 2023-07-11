@@ -1,5 +1,11 @@
 # @atlaskit/media-ui
 
+## 23.2.0
+
+### Minor Changes
+
+- [`f486dbd535c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f486dbd535c) - MEX-2481 Fix minor gap between image and border
+
 ## 23.1.1
 
 ### Patch Changes

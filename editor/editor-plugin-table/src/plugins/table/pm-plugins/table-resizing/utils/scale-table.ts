@@ -5,6 +5,7 @@ import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import type { DomAtPos } from 'prosemirror-utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getTableWidth } from '../../../utils';
 import { getLayoutSize } from '../utils/misc';
@@ -152,7 +153,15 @@ export const previewScaleTable = (
 ) => {
   const { node, start, parentWidth } = options;
 
-  if (!tableRef || !hasTableBeenResized(node)) {
+  if (!tableRef) {
+    return;
+  }
+
+  if (getBooleanFF('platform.editor.custom-table-width') && parentWidth) {
+    tableRef.style.width = `${parentWidth}px`;
+  }
+
+  if (!hasTableBeenResized(node)) {
     return;
   }
 

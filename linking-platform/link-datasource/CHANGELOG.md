@@ -1,5 +1,31 @@
 # @atlaskit/link-datasource
 
+## 0.28.0
+
+### Minor Changes
+
+- [`1c595c5a9d1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1c595c5a9d1) - Added assets modal to link-datasource, which includes the following API additions:
+
+  - datasource ID for assets: `ASSETS_LIST_OF_LINKS_DATASOURCE_ID`
+  - new component: `JSMAssetsConfigModal`
+  - addition of 2 new types: `AssetsDatasourceAdf` and `AssetsDatasourceParameters`
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.27.4
+
+### Patch Changes
+
+- [`45562e99798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45562e99798) - Added cmdbService, useAssetsClient hook and useValidateAqlText hook
+
+## 0.27.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.27.2
 
 ### Patch Changes

@@ -22,6 +22,47 @@ import { DatasourceAdfTableView } from '@atlaskit/linking-common/types';
 import { DatasourceAdfView } from '@atlaskit/linking-common/types';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
 
+// @public (undocumented)
+export const ASSETS_LIST_OF_LINKS_DATASOURCE_ID =
+  '361d618a-3c04-40ad-9b27-3c8ea6927020';
+
+// @public (undocumented)
+interface AssetsConfigModalProps {
+  // (undocumented)
+  datasourceId: string;
+  // (undocumented)
+  onCancel: () => void;
+  // (undocumented)
+  onInsert: (adf: AssetsDatasourceAdf | InlineCardAdf) => void;
+  // (undocumented)
+  parameters?: AssetsDatasourceParameters;
+  // (undocumented)
+  visibleColumnKeys?: string[];
+}
+
+// @public (undocumented)
+export interface AssetsDatasourceAdf extends DatasourceAdf {
+  // (undocumented)
+  attrs: {
+    url?: string;
+    datasource: {
+      id: string;
+      parameters: AssetsDatasourceParameters;
+      views: DatasourceAdfView[];
+    };
+  };
+}
+
+// @public (undocumented)
+export interface AssetsDatasourceParameters {
+  // (undocumented)
+  aql: string;
+  // (undocumented)
+  cloudId: string;
+  // (undocumented)
+  schemaId?: string;
+}
+
 export { DatasourceAdf };
 
 export { DatasourceAdfTableView };
@@ -106,6 +147,11 @@ export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
     };
   };
 }
+
+// @public (undocumented)
+export const JSMAssetsConfigModal: (
+  props: AssetsConfigModalProps,
+) => JSX.Element;
 
 // @public (undocumented)
 type XOR<T1, T2> =

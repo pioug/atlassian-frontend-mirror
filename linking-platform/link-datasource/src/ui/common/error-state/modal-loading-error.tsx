@@ -30,7 +30,7 @@ const errorDescriptionStyles = css({
 });
 
 interface ModalLoadingErrorProps {
-  url: string;
+  url?: string;
 }
 
 export const ModalLoadingError = ({ url }: ModalLoadingErrorProps) => {
@@ -45,10 +45,14 @@ export const ModalLoadingError = ({ url }: ModalLoadingErrorProps) => {
           <FormattedMessage {...loadingErrorMessages.unableToLoadResults} />
         </span>
         <p css={errorDescriptionStyles}>
-          <FormattedMessage
-            {...loadingErrorMessages.checkConnectionWithSource}
-            values={{ a: (chunk: any) => <a href={url}>{chunk}</a> }}
-          />
+          {url ? (
+            <FormattedMessage
+              {...loadingErrorMessages.checkConnectionWithSource}
+              values={{ a: (chunk: any) => <a href={url}>{chunk}</a> }}
+            />
+          ) : (
+            <FormattedMessage {...loadingErrorMessages.checkConnection} />
+          )}
         </p>
       </div>
     </div>

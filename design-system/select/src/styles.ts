@@ -126,7 +126,10 @@ export default function baseStyles<Option, IsMulti extends boolean>(
           'platform.design-system-team.border-checkbox_nyoiu',
         ) && {
           '&:focus-within': {
-            boxShadow: `inset 0 0 0 1px ${borderColor}`,
+            boxShadow: `inset 0 0 0 ${token(
+              'border.width',
+              '1px',
+            )} ${borderColor}`,
           },
         }),
         minHeight: isCompact ? gridSize() * 4 : gridSize() * 5,

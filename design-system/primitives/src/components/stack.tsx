@@ -2,11 +2,15 @@
 /** @jsx jsx */
 import { ElementType, forwardRef, memo, ReactNode, Ref } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
-import { type Space, spaceStylesMap } from '../xcss/style-maps.partial';
+import { type Space } from '../xcss/style-maps.partial';
+import { xcss } from '../xcss/xcss';
 
-export interface StackProps<T extends ElementType = 'div'> {
+import Flex from './flex';
+import type { BasePrimitiveProps } from './types';
+
+export type StackProps<T extends ElementType = 'div'> = {
   /**
    * The DOM element to render as the Stack. Defaults to `div`.
    */
@@ -37,11 +41,6 @@ export interface StackProps<T extends ElementType = 'div'> {
   space?: Space;
 
   /**
-   * A unique string that appears as data attribute data-testid in the rendered code, serving as a hook for automated tests.
-   */
-  testId?: string;
-
-  /**
    * Elements to be rendered inside the Stack.
    */
   children: ReactNode;
@@ -50,44 +49,25 @@ export interface StackProps<T extends ElementType = 'div'> {
    * Forwarded ref element
    */
   ref?: React.ComponentPropsWithRef<T>['ref'];
-}
+} & BasePrimitiveProps;
 
 export type AlignInline = 'start' | 'center' | 'end';
 export type AlignBlock = 'start' | 'center' | 'end';
 export type Spread = 'space-between';
 export type Grow = 'hug' | 'fill';
 
-const justifyContentMap = {
-  start: css({ justifyContent: 'start' }),
-  center: css({ justifyContent: 'center' }),
-  end: css({ justifyContent: 'end' }),
-  'space-between': css({ justifyContent: 'space-between' }),
-};
-
-const alignItemsMap = {
-  start: css({ alignItems: 'start' }),
-  center: css({ alignItems: 'center' }),
-  end: css({ alignItems: 'end' }),
-};
-
 const flexGrowMap = {
-  hug: css({ flexGrow: 0 }),
-  fill: css({
+  hug: xcss({ flexGrow: 0 }),
+  fill: xcss({
     width: '100%',
     flexGrow: 1,
   }),
 };
 
-const baseStyles = css({
-  display: 'flex',
-  boxSizing: 'border-box',
-  flexDirection: 'column',
-});
-
 /**
  * __Stack__
  *
- * Stack is a primitive component based on flexbox that manages the vertical layout of direct children.
+ * Stack is a primitive component based on flexbox that manages the block layout of direct children.
  *
  * @example
  * ```tsx
@@ -110,26 +90,30 @@ const Stack = memo(
         space,
         children,
         testId,
+        xcss,
       }: StackProps<T>,
       ref: Ref<any>,
     ) => {
-      const Component = as || 'div';
       const justifyContent = spread || alignBlock;
 
       return (
-        <Component
-          css={[
-            baseStyles,
-            space && spaceStylesMap.gap[space],
-            alignItems && alignItemsMap[alignItems],
-            grow && flexGrowMap[grow],
-            justifyContent && justifyContentMap[justifyContent],
-          ]}
-          data-testid={testId}
+        <Flex
+          as={as}
+          gap={space}
+          direction="column"
+          alignItems={alignItems}
+          justifyContent={justifyContent}
+          xcss={
+            grow
+              ? [flexGrowMap[grow], ...(Array.isArray(xcss) ? xcss : [xcss])]
+              : // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+                xcss
+          }
+          testId={testId}
           ref={ref}
         >
           {children}
-        </Component>
+        </Flex>
       );
     },
   ),

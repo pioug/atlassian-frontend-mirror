@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 3.3.0
+
+### Minor Changes
+
+- [`ed592463743`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed592463743) - Deprecate showAuthTooltip feature flag from LinkingPlatformFeatureFlags. Control of this feature will now be through Renderer prop 'SmartLinks' or Smart Card Prop 'showAuthTooltip'.
+
 ## 3.2.0
 
 ### Minor Changes

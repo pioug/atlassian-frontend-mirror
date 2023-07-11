@@ -1,5 +1,24 @@
 # @atlaskit/editor-core
 
+## 185.12.1
+
+### Patch Changes
+
+- [`a9bd271beba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9bd271beba) - Fixes link updated linking platform events being dispatched without an updateType
+
+## 185.12.0
+
+### Minor Changes
+
+- [`ad94cd465e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad94cd465e4) - ED-18748: [ux] Adding chevron to floating toolbar cell background
+
+## 185.11.3
+
+### Patch Changes
+
+- [`f486dbd535c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f486dbd535c) - MEX-2481 Fix minor gap between image and border
+- Updated dependencies
+
 ## 185.11.0
 
 ### Minor Changes

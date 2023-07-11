@@ -29,16 +29,22 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import TableComponent from './TableComponent';
 import { Props, TableOptions } from './types';
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 
 type ForwardRef = (node: HTMLElement | null) => void;
 
 const tableAttributes = (node: PmNode) => {
+  const style = getBooleanFF('platform.editor.custom-table-width')
+    ? `width: ${getTableContainerWidth(node)}px`
+    : undefined;
   return {
     'data-number-column': node.attrs.isNumberColumnEnabled,
     'data-layout': node.attrs.layout,
     'data-autosize': node.attrs.__autoSize,
     'data-table-local-id': node.attrs.localId || '',
     'data-table-width': node.attrs.width,
+    style,
   };
 };
 

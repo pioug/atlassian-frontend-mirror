@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.0.2
+
+### Patch Changes
+
+- [`45ff2cd234f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/45ff2cd234f) - Fixes missing type in `Flex` component, adds `Grid` component.
+
 ## 1.0.1
 
 ### Patch Changes

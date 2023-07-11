@@ -63,5 +63,23 @@ describe('Snapshot Test: Media Border Mark', () => {
       });
       await clickMediaInPosition(page, 0);
     });
+
+    [80, 100, 120].forEach((zoomLevel) => {
+      it(`should render media single with border mark without gap between the image and the border at ${zoomLevel}% zoom`, async () => {
+        await page.setViewport({
+          width: 800,
+          height: 700,
+          deviceScaleFactor: zoomLevel / 100,
+        });
+        await waitForMediaToBeLoaded(page);
+        await page.waitForSelector('div[data-mark-type="border"]', {
+          visible: true,
+        });
+        await animationFrame(page);
+        await scrollToMedia(page);
+        await animationFrame(page);
+        await snapshot(page);
+      });
+    });
   });
 });

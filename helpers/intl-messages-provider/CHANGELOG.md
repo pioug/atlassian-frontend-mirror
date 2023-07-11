@@ -1,0 +1,1 @@
+# @atlaskit/intl-messages-provider

@@ -124,13 +124,13 @@ describe('smart-card: unauthorized analytics', () => {
             client={mockClient}
             featureFlags={{
               enableFlexibleBlockCard: true,
-              showAuthTooltip: 'experiment',
             }}
           >
             <Card
               url={mockUrl}
               appearance="inline"
               testId="unauthorized-inline-card"
+              showAuthTooltip={true}
             />
           </Provider>
         </IntlProvider>,
@@ -249,13 +249,13 @@ describe('smart-card: unauthorized analytics', () => {
             client={mockClient}
             featureFlags={{
               enableFlexibleBlockCard: true,
-              showAuthTooltip: 'experiment',
             }}
           >
             <Card
               url={mockUrl}
               appearance="inline"
               testId="unauthorized-inline-card"
+              showAuthTooltip={true}
             />
           </Provider>
         </IntlProvider>,

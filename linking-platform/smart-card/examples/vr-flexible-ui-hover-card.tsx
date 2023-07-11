@@ -25,7 +25,7 @@ export default () => (
         url={'https://product-fabric.atlassian.net/wiki/spaces/EM'}
         showHoverPreview={true}
       >
-        <TitleBlock />
+        <TitleBlock hideTitleTooltip={true} />
         <SnippetBlock />
       </Card>
     </Provider>

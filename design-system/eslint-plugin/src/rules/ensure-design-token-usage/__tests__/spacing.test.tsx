@@ -158,6 +158,13 @@ export const spacingTests: Tests = {
         \`
       `,
     },
+    // xcss should not be linted against
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: `const styles = xcss({
+        padding: 'space.250',
+      });`,
+    },
   ],
   invalid: [
     // just literals

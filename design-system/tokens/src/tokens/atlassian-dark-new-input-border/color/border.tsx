@@ -2,7 +2,7 @@ const color = {
   color: {
     border: {
       input: {
-        value: 'DarkNeutral500',
+        value: 'DarkNeutral600',
       },
     },
   },

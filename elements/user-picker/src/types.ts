@@ -143,6 +143,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   ariaLabelledBy?: string;
   /** Accessibility: Used to set the priority with which screen reader should treat updates to live regions.*/
   ariaLive?: 'polite' | 'off' | 'assertive';
+  /** Name to use for input element. */
+  name?: string;
 };
 
 export type PopupUserPickerProps = UserPickerProps & {

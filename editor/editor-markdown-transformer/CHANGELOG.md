@@ -1,5 +1,11 @@
 # @atlaskit/editor-markdown-transformer
 
+## 5.2.5
+
+### Patch Changes
+
+- [`742d4ba9388`](https://bitbucket.org/atlassian/atlassian-frontend/commits/742d4ba9388) - [ux] ED-18027 Upgrades markdown-it-table@^2.0.6 to prevent empty lists underneath tables from crashing the editor.
+
 ## 5.2.4
 
 ### Patch Changes

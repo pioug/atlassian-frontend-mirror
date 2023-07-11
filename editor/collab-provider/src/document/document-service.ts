@@ -39,6 +39,7 @@ import { StepQueueState } from './step-queue-state';
 import type { InternalError } from '../errors/error-types';
 
 import {
+  CantSyncUpError,
   INTERNAL_ERROR_CODE,
   UpdateDocumentError,
 } from '../errors/error-types';
@@ -549,14 +550,15 @@ export class DocumentService {
               | undefined = this.getUnconfirmedSteps()?.map((step) =>
               getStepUGCFreeDetails(step),
             );
-            this.analyticsHelper?.sendErrorEvent(
-              {
-                unconfirmedStepsInfo: unconfirmedStepsInfoUGCRemoved,
-              },
+            const error: CantSyncUpError = new CantSyncUpError(
               "Can't sync up with Collab Service: unable to send unconfirmed steps and max retry reached",
+              {
+                unconfirmedStepsInfo: unconfirmedStepsInfoUGCRemoved
+                  ? unconfirmedStepsInfoUGCRemoved.toString()
+                  : 'Unable to generate UGC removed step info',
+              },
             );
-
-            throw new Error("Can't sync up with Collab Service");
+            throw error;
           }
         }
 

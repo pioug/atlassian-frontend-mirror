@@ -288,6 +288,7 @@ export interface LinkingPlatformFeatureFlags {
   enableLinkPickerForgeTabs?: boolean;
   // @deprecated
   enableResolveMetadataForLinkAnalytics?: boolean;
+  // @deprecated
   showAuthTooltip?: string;
   // (undocumented)
   showHoverPreview?: boolean;

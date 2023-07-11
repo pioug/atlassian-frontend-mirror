@@ -6,6 +6,7 @@ import { withImageLoader } from '@atlaskit/editor-common/utils';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
+import { IMAGE_AND_BORDER_ADJUSTMENT } from '@atlaskit/editor-common/ui';
 import {
   Card,
   CardDimensions,
@@ -216,6 +217,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
           }}
         >
           <Card
+            expandByPixel={borderMark && IMAGE_AND_BORDER_ADJUSTMENT}
             mediaClientConfig={mediaClientConfig}
             resizeMode="stretchy-fit"
             dimensions={maxDimensions}

@@ -1,20 +1,20 @@
 import type { ProviderError } from '../errors/error-types';
 
 export enum EVENT_ACTION {
-  CONNECTION = 'connection',
-  CATCHUP = 'catchup',
-  DOCUMENT_INIT = 'documentInit',
-  ADD_STEPS = 'addSteps',
-  UPDATE_PARTICIPANTS = 'updateParticipants',
-  COMMIT_UNCONFIRMED_STEPS = 'commitUnconfirmedSteps',
-  REINITIALISE_DOCUMENT = 'reinitialiseDocument',
-  ERROR = 'error',
-  PUBLISH_PAGE = 'publishPage',
-  GET_CURRENT_STATE = 'getCurrentState',
-  INVALIDATE_TOKEN = 'invalidateToken',
-  SEND_STEPS_RETRY = 'sendStepsRetry',
-  CATCHUP_AFTER_MAX_SEND_STEPS_RETRY = 'catchupAfterMaxSendStepsRetry',
-  DROPPED_STEPS = 'droppedStepInCatchup',
+  CONNECTION = 'connection', // https://data-portal.internal.atlassian.com/analytics/registry/43970
+  CATCHUP = 'catchup', // https://data-portal.internal.atlassian.com/analytics/registry/44016
+  DOCUMENT_INIT = 'documentInit', // https://data-portal.internal.atlassian.com/analytics/registry/43971
+  ADD_STEPS = 'addSteps', // https://data-portal.internal.atlassian.com/analytics/registry/43972
+  UPDATE_PARTICIPANTS = 'updateParticipants', // https://data-portal.internal.atlassian.com/analytics/registry/45634
+  COMMIT_UNCONFIRMED_STEPS = 'commitUnconfirmedSteps', // https://data-portal.internal.atlassian.com/analytics/registry/46501
+  REINITIALISE_DOCUMENT = 'reinitialiseDocument', // https://data-portal.internal.atlassian.com/analytics/registry/50231
+  ERROR = 'error', // https://data-portal.internal.atlassian.com/analytics/registry/51790
+  PUBLISH_PAGE = 'publishPage', // https://data-portal.internal.atlassian.com/analytics/registry/50235
+  GET_CURRENT_STATE = 'getCurrentState', // https://data-portal.internal.atlassian.com/analytics/registry/50783
+  INVALIDATE_TOKEN = 'invalidateToken', // https://data-portal.internal.atlassian.com/analytics/registry/50444
+  SEND_STEPS_RETRY = 'sendStepsRetry', // https://data-portal.internal.atlassian.com/analytics/registry/53598
+  CATCHUP_AFTER_MAX_SEND_STEPS_RETRY = 'catchupAfterMaxSendStepsRetry', // https://data-portal.internal.atlassian.com/analytics/registry/53723
+  DROPPED_STEPS = 'droppedStepInCatchup', // https://data-portal.internal.atlassian.com/analytics/registry/53724
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',
@@ -33,6 +33,10 @@ export type DocumentUpdateErrorAttributes = {
   newVersion?: number;
   docHasContent?: boolean;
   isDocContentValid?: boolean;
+};
+
+export type CantSyncUpErrorAttributes = {
+  unconfirmedStepsInfo: string;
 };
 
 export type ErrorAnalyticsEvent = {

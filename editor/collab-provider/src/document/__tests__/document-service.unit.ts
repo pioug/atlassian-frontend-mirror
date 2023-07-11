@@ -1,4 +1,4 @@
-import { UpdateDocumentError } from '../../errors/error-types';
+import { CantSyncUpError, UpdateDocumentError } from '../../errors/error-types';
 
 jest.mock('../catchup', () => {
   return {
@@ -246,7 +246,7 @@ describe('document-service', () => {
       });
 
       it('Throws an error when it retries too many times to save steps', async () => {
-        expect.assertions(7);
+        expect.assertions(6);
         (service.getUnconfirmedSteps as jest.Mock).mockReturnValue([
           proseMirrorStep,
         ]);
@@ -271,23 +271,16 @@ describe('document-service', () => {
           'FAILURE',
           { latency: undefined, numUnconfirmedSteps: 1 },
         );
-        expect(analyticsMock.sendErrorEvent).toBeCalledTimes(2);
+        expect(analyticsMock.sendErrorEvent).toBeCalledTimes(1);
         expect(analyticsMock.sendErrorEvent).toHaveBeenNthCalledWith(
           1,
-          {
-            unconfirmedStepsInfo: [
-              {
-                contentTypes: 'text',
-                type: 'replace',
-                stepSizeInBytes: 87,
-              },
-            ],
-          },
-          "Can't sync up with Collab Service: unable to send unconfirmed steps and max retry reached",
-        );
-        expect(analyticsMock.sendErrorEvent).toHaveBeenNthCalledWith(
-          2,
-          new Error("Can't sync up with Collab Service"),
+          new CantSyncUpError(
+            "Can't sync up with Collab Service: unable to send unconfirmed steps and max retry reached",
+            {
+              unconfirmedStepsInfo:
+                "{ type: 'replace', contentTypes: 'text', stepSizeInBytes: 87 }",
+            },
+          ),
           'Error while committing unconfirmed steps',
         );
       });

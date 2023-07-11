@@ -26,7 +26,7 @@ export default () => (
         showHoverPreview={true}
         ui={{ hideHoverCardPreviewButton: true }}
       >
-        <TitleBlock />
+        <TitleBlock hideTitleTooltip={true} />
         <SnippetBlock />
       </Card>
     </Provider>

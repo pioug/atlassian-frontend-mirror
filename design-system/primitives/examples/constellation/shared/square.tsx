@@ -8,11 +8,14 @@ const blockStyles = xcss({
 });
 
 const Square = ({
+  style = {},
   padding = 'space.200',
 }: {
+  style?: React.CSSProperties;
   padding?: BoxProps['padding'];
 }) => (
   <Box
+    style={style}
     xcss={blockStyles}
     padding={padding}
     backgroundColor="color.background.discovery.bold"

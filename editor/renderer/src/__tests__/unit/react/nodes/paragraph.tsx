@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { render } from '@testing-library/react';
 import Paragraph from '../../../../react/nodes/paragraph';
 import ReactSerializer from '../../../../react';
 
@@ -7,7 +7,7 @@ describe('Renderer - React/Nodes/Paragraph', () => {
   let serialiser = new ReactSerializer({});
 
   it('should wrap content with <p>-tag', () => {
-    const paragraph = shallow(
+    const { container } = render(
       <Paragraph
         marks={[]}
         serializer={serialiser}
@@ -17,11 +17,11 @@ describe('Renderer - React/Nodes/Paragraph', () => {
         This is a paragraph
       </Paragraph>,
     );
-    expect(paragraph.is('p')).toEqual(true);
+    expect(container.querySelector('p')).toBeInTheDocument();
   });
 
   it('should render <br> tags in empty paragraphs', () => {
-    const render = mount(
+    const { container } = render(
       <>
         <Paragraph
           marks={[]}
@@ -46,13 +46,11 @@ describe('Renderer - React/Nodes/Paragraph', () => {
       </>,
     );
 
-    const paragraphs = render.find(Paragraph);
+    const paragraphs = container.querySelectorAll('p');
 
-    expect(paragraphs.at(0).html()).toEqual(
-      '<p data-renderer-start-pos="0">&nbsp;</p>',
-    );
-    expect(paragraphs.at(2).html()).toEqual(
-      '<p data-renderer-start-pos="19">&nbsp;</p>',
-    );
+    expect(paragraphs[0].innerHTML).toEqual('&nbsp;');
+    expect(paragraphs[0]).toHaveAttribute('data-renderer-start-pos', '0');
+    expect(paragraphs[2].innerHTML).toEqual('&nbsp;');
+    expect(paragraphs[2]).toHaveAttribute('data-renderer-start-pos', '19');
   });
 });

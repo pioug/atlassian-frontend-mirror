@@ -93,6 +93,8 @@ test.describe('resizing a table', () => {
   test('should reach maximum width if resizing in 3 column', async ({
     editor,
   }) => {
+    await editor.page.setViewportSize({ width: 2000, height: 1024 });
+    await editor.waitForEditorStable();
     const nodes = EditorNodeContainerModel.from(editor);
     const tableLocator = nodes.table.nth(4);
     const fiveColumn = EditorTableModel.from(tableLocator);

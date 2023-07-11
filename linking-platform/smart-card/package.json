@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.9.3",
+  "version": "26.9.5",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -12,14 +12,6 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
@@ -45,7 +37,7 @@
     "@atlaskit/link-analytics": "^8.2.0",
     "@atlaskit/link-client-extension": "^1.5.0",
     "@atlaskit/link-extractors": "^1.1.0",
-    "@atlaskit/linking-common": "^3.2.0",
+    "@atlaskit/linking-common": "^3.3.0",
     "@atlaskit/linking-types": "^8.1.0",
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/lozenge": "^11.4.0",
@@ -79,6 +71,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
+    "@af/visual-regression": "*",
     "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/css-reset": "^6.5.0",
     "@atlaskit/link-test-helpers": "^4.1.0",
@@ -114,6 +107,22 @@
     "typescript": "~4.9.5",
     "xhr-mock": "^2.4.0"
   },
+  "techstack": {
+    "@repo/internal": {
+      "design-tokens": [
+        "color",
+        "spacing"
+      ]
+    }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
   "af:exports": {
     "./ssr": "./src/ssr.tsx",
     "./in-product": "./src/in-product.ts",
@@ -135,13 +144,5 @@
       "type": "boolean"
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
-  "techstack": {
-    "@repo/internal": {
-      "design-tokens": [
-        "color",
-        "spacing"
-      ]
-    }
-  }
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

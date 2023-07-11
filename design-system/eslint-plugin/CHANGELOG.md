@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.0.1
+
+### Patch Changes
+
+- [`278fb6833be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/278fb6833be) - The `ensure-design-token-usage` rule no longer lints against styles inside `xcss` as it already has type-safety built in for properties that accept tokens.
+
 ## 8.0.0
 
 ### Major Changes

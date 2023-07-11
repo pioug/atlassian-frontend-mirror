@@ -209,7 +209,8 @@ describe('platform feature flags', () => {
       delete globalThis.process.env;
 
       expect(globalThis.process).toBeDefined();
-      expect(globalThis.process.env).toBe(undefined);
+      // We don't want to expose environment variables in case of failure
+      expect(Boolean(process.env)).toBe(false);
 
       // when
       const { getBooleanFF } = loadApi();

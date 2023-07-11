@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 2.0.1
+
+### Patch Changes
+
+- [`802453ec412`](https://bitbucket.org/atlassian/atlassian-frontend/commits/802453ec412) - [ux] update how table respond to external width changes under `platform.editor.custom-table-width` feature flag
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

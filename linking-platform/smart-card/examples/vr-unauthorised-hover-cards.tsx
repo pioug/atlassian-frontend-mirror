@@ -15,7 +15,6 @@ export default () => (
     <Provider
       client={new CustomClient('staging')}
       featureFlags={{
-        showAuthTooltip: 'experiment',
         enableImprovedPreviewAction: true,
       }}
     >

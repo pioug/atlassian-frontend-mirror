@@ -8,7 +8,7 @@ import type {
 } from '@emotion/serialize';
 import type * as CSS from 'csstype';
 
-import { Box, Inline } from '../index';
+import { Box } from '../index';
 import { media } from '../responsive/media-helper';
 import type { MediaQuery } from '../responsive/types';
 
@@ -214,9 +214,9 @@ type ScopedSafeCSSObject<T extends keyof SafeCSSObject> = Pick<
 
 // unused private functions only so we can extract the return type from a generic function
 const boxWrapper = (style: any) => xcss<typeof Box>(style);
-const inlineWrapper = (style: any) => xcss<typeof Inline>(style);
+const spaceWrapper = (style: any) => xcss<void>(style);
 
-type XCSS = ReturnType<typeof boxWrapper> | ReturnType<typeof inlineWrapper>;
+type XCSS = ReturnType<typeof boxWrapper> | ReturnType<typeof spaceWrapper>;
 type XCSSArray = Array<XCSS | false | undefined>;
 
 type AllowedBoxStyles = keyof SafeCSSObject;
@@ -263,38 +263,35 @@ type Spacing =
  * })
  * ```
  */
-export function xcss<Primitive extends typeof Box | typeof Inline = typeof Box>(
+export function xcss<Primitive extends typeof Box | void = typeof Box>(
   style: Primitive extends typeof Box
     ?
         | ScopedSafeCSSObject<AllowedBoxStyles>
         | ScopedSafeCSSObject<AllowedBoxStyles>[]
-    : Primitive extends typeof Inline
+    : Primitive extends void
     ? ScopedSafeCSSObject<Spacing> | ScopedSafeCSSObject<Spacing>[]
     : never,
 ) {
   return baseXcss<
     Primitive extends typeof Box
       ? BoxStyles
-      : Primitive extends typeof Inline
-      ? InlineStyles
+      : Primitive extends void
+      ? SpaceStyles
       : never
   >(style);
 }
 
 declare const boxTag: unique symbol;
+declare const spaceTag: unique symbol;
 export type BoxStyles = SerializedStyles & {
   [boxTag]: true;
+};
+export type SpaceStyles = SerializedStyles & {
+  [spaceTag]: true;
 };
 export type BoxXCSS =
   | {
       readonly [uniqueSymbol]: BoxStyles;
     }
-  | false;
-
-declare const inlineTag: unique symbol;
-export type InlineStyles = SerializedStyles & {
-  [inlineTag]: true;
-};
-export type InlineXCSS = {
-  readonly [uniqueSymbol]: InlineStyles;
-};
+  | false
+  | undefined;

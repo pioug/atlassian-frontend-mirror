@@ -1,0 +1,82 @@
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import type { FC } from 'react';
+
+import { HoverCard } from '../../../../HoverCard';
+import { ElementName } from '../../../../../constants';
+import { HoverCardDelayProps } from './types';
+
+const FLEXIBLE_HOVER_CARD_CAN_OPEN_DELAY = 100;
+
+const HoverCardControl: FC<HoverCardDelayProps> = ({
+  children,
+  hideHoverCardPreviewButton,
+  isHoverPreview,
+  isAuthTooltip,
+  showServerActions,
+  url,
+}) => {
+  const [canOpen, setCanOpen] = useState(true);
+  const mouseStopTimer = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => {
+    return () => {
+      if (mouseStopTimer.current) {
+        clearTimeout(mouseStopTimer.current);
+      }
+    };
+  }, []);
+
+  const onMouseMove = useCallback(
+    (e) => {
+      if (mouseStopTimer.current) {
+        clearTimeout(mouseStopTimer.current);
+      }
+
+      // Never show hover card on action or when action dropdown opens.
+      // The code below can be simplified by using :is() and :has()
+      // but the pseudo-class isn't support by Firefox yet.
+      const action =
+        // Any action button group (title/footer block)
+        e.target.closest('.actions-button-group') ||
+        // When action dropdown list is opened on action button group or lozenge action
+        e.target
+          .closest('[data-smart-link-container]')
+          ?.querySelector('[data-action-open="true"]');
+
+      const canOpenOnElement =
+        (isAuthTooltip && !action) ||
+        // EDM-7060: For hover preview, also hide hover card on all elements
+        // except title element (link title)
+        (isHoverPreview &&
+          !action &&
+          !e.target.closest(
+            `[data-smart-element]:not([data-smart-element="${ElementName.Title}"])`,
+          ));
+
+      mouseStopTimer.current = setTimeout(() => {
+        if (canOpen !== canOpenOnElement) {
+          setCanOpen(Boolean(canOpenOnElement));
+        }
+      }, FLEXIBLE_HOVER_CARD_CAN_OPEN_DELAY);
+    },
+    [isAuthTooltip, isHoverPreview, canOpen],
+  );
+
+  return (
+    <HoverCard
+      allowEventPropagation={true}
+      canOpen={canOpen}
+      closeOnChildClick={true}
+      hidePreviewButton={hideHoverCardPreviewButton}
+      // EDM-6709 extends the internal prop for showServerActions type to be
+      // an object. If we decide to use expose the type for hover preview
+      // remove the Boolean() conversion here.
+      showServerActions={Boolean(showServerActions)}
+      url={url}
+    >
+      <span onMouseMove={onMouseMove}>{children}</span>
+    </HoverCard>
+  );
+};
+
+export default HoverCardControl;

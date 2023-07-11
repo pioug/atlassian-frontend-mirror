@@ -1,8 +1,9 @@
 import React from 'react';
+import { IntlProvider } from 'react-intl-next';
+import { render, fireEvent as reactFireEvent } from '@testing-library/react';
 import { StatusPickerWithoutAnalytcs as StatusPicker } from '../../../../../plugins/status/ui/statusPicker';
 import { FABRIC_CHANNEL } from '../../../../../plugins/status/analytics';
 import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
-import { mountWithIntl } from '../../../../__helpers/enzyme';
 
 const packageName = process.env._PACKAGE_NAME_;
 const packageVersion = process.env._PACKAGE_VERSION_;
@@ -33,6 +34,10 @@ describe('StatusPicker', () => {
   afterEach(() => {
     createAnalyticsEvent.mockReset();
     fireEvent.mockReset();
+
+    createAnalyticsEvent.mockReturnValue({
+      fire: fireEvent,
+    });
     preventDefault.mockReset();
     stopPropagation.mockReset();
     stopImmediatePropagation.mockReset();
@@ -43,7 +48,7 @@ describe('StatusPicker', () => {
   });
 
   const mountStatusPicker = () =>
-    mountWithIntl(
+    render(
       <StatusPicker
         target={document.getElementById('first')}
         closeStatusPicker={closeStatusPicker}
@@ -56,6 +61,11 @@ describe('StatusPicker', () => {
         defaultText="Hello"
         defaultLocalId="12345"
       />,
+      {
+        wrapper: ({ children }) => {
+          return <IntlProvider locale="en">{children}</IntlProvider>;
+        },
+      },
     );
 
   const createPayloadPopupOpened = (
@@ -127,13 +137,20 @@ describe('StatusPicker', () => {
 
     it('should fire statusPopup.closed for previous Status instance and statusPopup.opened for the new Status', () => {
       const wrapper = mountStatusPicker();
-      wrapper.setProps({
-        defaultColor: 'red',
-        defaultText: 'Boo',
-        defaultLocalId: '45678',
-        isNew: false,
-        target: document.getElementById('second'),
-      });
+      wrapper.rerender(
+        <StatusPicker
+          closeStatusPicker={closeStatusPicker}
+          onSelect={onSelect}
+          onTextChanged={onTextChanged}
+          onEnter={onEnter}
+          createAnalyticsEvent={createAnalyticsEvent}
+          defaultColor={'red'}
+          defaultText={'Boo'}
+          defaultLocalId={'45678'}
+          isNew={false}
+          target={document.getElementById('second')}
+        />,
+      );
       wrapper.unmount();
 
       assertAnalyticsPayload(
@@ -154,8 +171,13 @@ describe('StatusPicker', () => {
   describe('StatusPicker callbacks', () => {
     it('should fire props.onEnter callback when Enter is pressed in the input field', () => {
       const wrapper = mountStatusPicker();
-      const input = wrapper.find('input');
-      input.simulate('keypress', { which: 'enter', key: 'Enter', keyCode: 13 });
+      const input = wrapper.getByLabelText('Set a status');
+
+      reactFireEvent.keyPress(input, {
+        which: 'enter',
+        key: 'Enter',
+        keyCode: 13,
+      });
       expect(onEnter).toHaveBeenCalled();
     });
 

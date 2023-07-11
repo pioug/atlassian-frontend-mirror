@@ -1,5 +1,18 @@
 # @atlaskit/smart-card
 
+## 26.9.5
+
+### Patch Changes
+
+- [`7b08013b112`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b08013b112) - Clean up use of showAuthTooltip FF. Switch to being fully reliant on the showAuthTooltip prop.
+- Updated dependencies
+
+## 26.9.4
+
+### Patch Changes
+
+- [`2a4926aa20a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a4926aa20a) - [ux] Flexible Smart Links: Add hover preview show/hide delay when mouse moves inside the card
+
 ## 26.9.3
 
 ### Patch Changes

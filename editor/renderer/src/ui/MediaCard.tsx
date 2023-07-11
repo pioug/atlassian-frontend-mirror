@@ -60,6 +60,8 @@ export interface MediaCardProps {
   featureFlags?: MediaFeatureFlags;
   shouldEnableDownloadButton?: boolean;
   ssr?: MediaSSR;
+  // Expands the width and height of the image. Read more: https://product-fabric.atlassian.net/browse/MEX-2481
+  expandByPixel?: number;
 }
 
 export interface State {
@@ -202,6 +204,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       featureFlags,
       ssr,
       rendererAppearance,
+      expandByPixel,
     } = this.props;
 
     if (imageStatus === 'loading' || !url) {
@@ -219,6 +222,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
         // TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
         // context is not really used when the type is external and we want to render the component asap
         mediaClientConfig={mediaClientConfig!}
+        expandByPixel={expandByPixel}
         alt={alt}
         identifier={identifier}
         dimensions={cardDimensions}
@@ -284,6 +288,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
       featureFlags,
       shouldEnableDownloadButton,
       ssr,
+      expandByPixel,
     } = this.props;
     const isMobile = rendererAppearance === 'mobile';
     const shouldPlayInline =
@@ -337,6 +342,7 @@ export class MediaCardInternal extends Component<MediaCardProps, State> {
         })}
       >
         <Card
+          expandByPixel={expandByPixel}
           identifier={identifier}
           alt={alt}
           contextId={contextId}

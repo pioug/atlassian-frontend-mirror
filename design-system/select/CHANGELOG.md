@@ -1,5 +1,11 @@
 # @atlaskit/select
 
+## 16.5.7
+
+### Patch Changes
+
+- [`919bf219a91`](https://bitbucket.org/atlassian/atlassian-frontend/commits/919bf219a91) - use border token for border width
+
 ## 16.5.6
 
 ### Patch Changes

@@ -1,20 +1,22 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
 import Strong from '../../../../react/marks/strong';
 
 describe('Renderer - React/Marks/Strong', () => {
-  const mark = shallow(
+  const { container } = render(
     <Strong dataAttributes={{ 'data-renderer-mark': true }}>
       This is strong
     </Strong>,
   );
 
+  const strongElement = container.querySelector('strong');
+
   it('should wrap content with <strong>-tag', () => {
-    expect(mark.is('strong')).toEqual(true);
+    expect(strongElement).toBeInTheDocument();
   });
 
   it('should output correct html', () => {
-    expect(mark.html()).toEqual(
+    expect(strongElement?.outerHTML).toEqual(
       '<strong data-renderer-mark="true">This is strong</strong>',
     );
   });

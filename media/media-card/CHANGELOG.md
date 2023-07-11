@@ -1,5 +1,15 @@
 # @atlaskit/media-card
 
+## 76.1.0
+
+### Minor Changes
+
+- [`f486dbd535c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f486dbd535c) - MEX-2481 Fix minor gap between image and border
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 76.0.6
 
 ### Patch Changes

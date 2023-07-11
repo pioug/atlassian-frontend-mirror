@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 5.6.2
+
+### Patch Changes
+
+- [`a01cf0168b8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a01cf0168b8) - update border width with border spacing token
+
 ## 5.6.1
 
 ### Patch Changes

@@ -48,7 +48,6 @@ import {
 import type { TableOptions } from './types';
 import { updateOverflowShadows } from './update-overflow-shadows';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-
 import memoizeOne from 'memoize-one';
 import { OverflowShadowsObserver } from './OverflowShadowsObserver';
 import { TableContainer } from './TableContainer';
@@ -151,7 +150,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
        * We no longer use `containerWidth` as a variable to determine an update for table resizing (avoids unnecessary updates).
        * Instead we use the resize event to only trigger updates when necessary.
        */
-      window.addEventListener('resize', this.handleWindowResizeDebounced);
+      if (!getBooleanFF('platform.editor.custom-table-width')) {
+        window.addEventListener('resize', this.handleWindowResizeDebounced);
+      }
       this.handleTableResizingDebounced();
     }
 
@@ -175,9 +176,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     this.scaleTableDebounced.cancel();
     this.handleTableResizingDebounced.cancel();
     this.handleAutoSizeDebounced.cancel();
-    this.handleWindowResizeDebounced.cancel();
+    if (!getBooleanFF('platform.editor.custom-table-width')) {
+      this.handleWindowResizeDebounced.cancel();
+    }
 
-    if (this.props.allowColumnResizing) {
+    if (
+      !getBooleanFF('platform.editor.custom-table-width') &&
+      this.props.allowColumnResizing
+    ) {
       window.removeEventListener('resize', this.handleWindowResizeDebounced);
     }
 

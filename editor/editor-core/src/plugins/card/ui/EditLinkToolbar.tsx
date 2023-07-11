@@ -9,7 +9,10 @@ import { withOuterListeners } from '@atlaskit/editor-common/ui';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
+import type {
+  LinkInputType,
+  LinkPickerOptions,
+} from '@atlaskit/editor-common/types';
 import HyperlinkToolbar from '../../hyperlink/ui/HyperlinkAddToolbar';
 import {
   showLinkToolbar,
@@ -56,6 +59,7 @@ export type EditLinkToolbarProps = {
   onSubmit?: (
     href: string,
     text?: string,
+    inputMethod?: LinkInputType,
     analytic?: UIAnalyticsEvent | null | undefined,
   ) => void;
   linkPickerOptions?: LinkPickerOptions;
@@ -112,10 +116,10 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
         // via the floating toolbar
         invokeMethod={INPUT_METHOD.FLOATING_TB}
         featureFlags={featureFlags}
-        onSubmit={(href, title, displayText, _, analytic) => {
+        onSubmit={(href, title, displayText, inputMethod, analytic) => {
           this.hideLinkToolbar();
           if (onSubmit) {
-            onSubmit(href, displayText || title, analytic);
+            onSubmit(href, displayText || title, inputMethod, analytic);
           }
         }}
       />
@@ -187,7 +191,7 @@ export const buildEditLinkToolbar = ({
             pluginInjectionApi?.dependencies.floatingToolbar.actions
               ?.forceFocusSelector
           }
-          onSubmit={(newHref, newText, analytic) => {
+          onSubmit={(newHref, newText, inputMethod, analytic) => {
             const urlChanged = newHref !== displayInfo.url;
             const titleChanged = newText !== displayInfo.title;
 
@@ -205,6 +209,7 @@ export const buildEditLinkToolbar = ({
                 ),
                 {
                   action: ACTION.UPDATED,
+                  inputMethod,
                   sourceEvent: analytic,
                 },
               )(view.state, view.dispatch);

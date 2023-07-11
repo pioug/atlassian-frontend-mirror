@@ -14,6 +14,7 @@ import { calcTableWidth } from '@atlaskit/editor-common/styles';
 
 import { TableCssClassName as ClassName } from '../types';
 import { TableResizer } from './TableResizer';
+import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
 
 interface GetMarginLeftOpts {
   lineLength: number;
@@ -35,22 +36,21 @@ const getMarginLeft = ({ lineLength, tableWidth }: GetMarginLeftOpts) => {
 
 type InnerContainerProps = {
   className: string;
-  marginLeft: number | undefined;
-  width: number | 'inherit';
+  style?: {
+    width: number | 'inherit';
+    marginLeft: number | undefined;
+  };
   node: PMNode;
 };
 
 export const InnerContainer = forwardRef<
   HTMLDivElement,
   PropsWithChildren<InnerContainerProps>
->(({ marginLeft, className, width, node, children }, ref) => {
+>(({ className, style, node, children }, ref) => {
   return (
     <div
       ref={ref}
-      style={{
-        width,
-        marginLeft,
-      }}
+      style={style}
       className={className}
       data-number-column={node.attrs.isNumberColumnEnabled}
       data-layout={node.attrs.layout}
@@ -76,6 +76,7 @@ export const ResizableTableContainer = ({
   className,
   node,
   lineLength,
+  containerWidth,
   editorView,
   getPos,
   tableRef,
@@ -89,24 +90,31 @@ export const ResizableTableContainer = ({
         return;
       }
 
-      innerContainerRef.current.style.width = `${width}px`;
-
       const marginLeft = getMarginLeft({
         lineLength,
         tableWidth: width,
       });
 
-      containerRef.current.style.width = `${width}px`;
-      containerRef.current.style.marginLeft = `${marginLeft}px`;
+      if (marginLeft) {
+        containerRef.current.style.marginLeft = `${marginLeft}px`;
+      }
     },
     [lineLength],
   );
 
-  const width = getTableContainerWidth(node);
+  const tableWidth = getTableContainerWidth(node);
+
+  // 76 is currently an accepted padding value considering the spacing for resizer handle
+  const responsiveContainerWidth = containerWidth - 76;
+
+  const width = Math.min(tableWidth, responsiveContainerWidth);
+
   const marginLeft = getMarginLeft({
     lineLength,
     tableWidth: width,
   });
+
+  const maxResizerWidth = Math.min(responsiveContainerWidth, TABLE_MAX_WIDTH);
 
   return (
     <div
@@ -116,6 +124,7 @@ export const ResizableTableContainer = ({
     >
       <TableResizer
         width={width}
+        maxWidth={maxResizerWidth}
         updateWidth={updateWidth}
         editorView={editorView}
         getPos={getPos}
@@ -126,8 +135,6 @@ export const ResizableTableContainer = ({
           ref={innerContainerRef}
           className={className}
           node={node}
-          width={width}
-          marginLeft={0}
         >
           {children}
         </InnerContainer>
@@ -188,11 +195,13 @@ export const TableContainer = ({
     <InnerContainer
       node={node}
       className={className}
-      width={tableWidth}
-      marginLeft={getMarginLeft({
-        lineLength: lineLength!,
-        tableWidth,
-      })}
+      style={{
+        width: tableWidth,
+        marginLeft: getMarginLeft({
+          lineLength: lineLength!,
+          tableWidth,
+        }),
+      }}
     >
       {children}
     </InnerContainer>

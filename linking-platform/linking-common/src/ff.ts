@@ -14,6 +14,7 @@ export interface LinkingPlatformFeatureFlags {
    * This flag determines if an authentication tooltip should appear over an unauthorised smart link when a user
    * hovers over it.
    * The allowed values are: 'control', 'experiment', 'off'
+   * @deprecated Implementation removed in EDM-5087
    */
   showAuthTooltip?: string;
   /**

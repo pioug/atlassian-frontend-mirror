@@ -49,7 +49,7 @@ function Component({
   ui,
   children,
   showHoverPreview,
-  showAuthTooltip: showAuthTooltipProp,
+  showAuthTooltip,
   analyticsEvents,
 }: CardWithUrlContentProps) {
   const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -72,12 +72,6 @@ function Component({
   const services = getServices(state.details);
 
   let isFlexibleUi = useMemo(() => isFlexibleUiCard(children), [children]);
-
-  const showAuthTooltipFeatureFlagValue = useFeatureFlag('showAuthTooltip');
-  const showAuthTooltip =
-    showAuthTooltipFeatureFlagValue !== undefined
-      ? showAuthTooltipFeatureFlagValue === 'experiment'
-      : showAuthTooltipProp;
 
   const enableFlexibleBlockCardFlag = Boolean(
     useFeatureFlag('enableFlexibleBlockCard'),
@@ -273,7 +267,7 @@ function Component({
         renderers={renderers}
         ui={ui}
         showHoverPreview={showHoverPreview}
-        showAuthTooltip={showAuthTooltipProp}
+        showAuthTooltip={showAuthTooltip}
         showServerActions={showServerActions}
         url={url}
         testId={testId}

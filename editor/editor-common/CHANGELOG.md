@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 74.19.0
+
+### Minor Changes
+
+- [`f486dbd535c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f486dbd535c) - MEX-2481 Fix minor gap between image and border
+
+### Patch Changes
+
+- Updated dependencies
+
+## 74.18.0
+
+### Minor Changes
+
+- [`11285b1d77e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11285b1d77e) - ED-18971 Added editor dynamic guideline util and new guideline entry point in editor-common
+
 ## 74.17.1
 
 ### Patch Changes

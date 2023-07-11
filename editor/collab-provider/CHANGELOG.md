@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.6.1
+
+### Patch Changes
+
+- [`979e3ad2b67`](https://bitbucket.org/atlassian/atlassian-frontend/commits/979e3ad2b67) - NO-ISSUE: add data portal links and fix a broken analytics error event
+
 ## 9.6.0
 
 ### Minor Changes

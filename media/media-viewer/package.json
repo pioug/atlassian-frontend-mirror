@@ -42,7 +42,7 @@
     "@atlaskit/icon-file-type": "^6.4.0",
     "@atlaskit/media-client": "^23.1.0",
     "@atlaskit/media-common": "^7.1.0",
-    "@atlaskit/media-ui": "^23.1.0",
+    "@atlaskit/media-ui": "^23.2.0",
     "@atlaskit/side-navigation": "^1.10.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.5.0",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@atlaskit/button": "^16.8.0",
-    "@atlaskit/media-card": "^76.0.0",
+    "@atlaskit/media-card": "^76.1.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",

@@ -3,6 +3,7 @@ export {
   default as MediaSingle,
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
+  IMAGE_AND_BORDER_ADJUSTMENT,
   shouldAddDefaultWrappedWidth,
 } from './MediaSingle';
 export type { Props as MediaSingleProps } from './MediaSingle';

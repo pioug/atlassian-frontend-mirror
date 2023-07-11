@@ -1,5 +1,12 @@
 # @atlaskit/renderer
 
+## 108.6.5
+
+### Patch Changes
+
+- [`f486dbd535c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f486dbd535c) - MEX-2481 Fix minor gap between image and border
+- Updated dependencies
+
 ## 108.6.4
 
 ### Patch Changes

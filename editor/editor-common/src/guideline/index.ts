@@ -1,0 +1,1 @@
+export { generateDynamicGuidelines } from './dynamicGuideline';

@@ -16,6 +16,8 @@ export interface MediaImageProps {
   loading?: 'auto' | 'lazy' | 'eager';
   //An option to force display image with showImage rules bypassed
   forceSyncDisplay?: boolean;
+  // Expands the width and height of the image. Read more: https://product-fabric.atlassian.net/browse/MEX-2481
+  expandByPixel?: number;
 }
 
 export interface MediaImageState {
@@ -306,6 +308,17 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
       ) {
         percentSize = `${Math.ceil((1 / imgRatio) * 100)}%`;
       }
+    }
+
+    /*
+      For images with borders, there may be an intermittent gap between the image and the border due to weird browser behaviour.
+      Part of the solution is to expand the image equally in all directions (width & height) by 1px, and the below calculation is to ensure just that.
+
+      Read more: https://product-fabric.atlassian.net/browse/MEX-2481
+    */
+
+    if (this.props.expandByPixel !== undefined) {
+      percentSize = `calc(${percentSize} + ${this.props.expandByPixel}px)`;
     }
 
     /*

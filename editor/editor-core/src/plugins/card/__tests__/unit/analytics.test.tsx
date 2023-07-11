@@ -517,6 +517,7 @@ describe('Analytics key events', () => {
         urlDetails,
         expect.any(UIAnalyticsEvent),
         {
+          creationMethod: 'unknown',
           display: 'inline',
           nodeContext: 'doc',
         },
@@ -657,7 +658,7 @@ describe('Analytics key events', () => {
           { ...urlDetails, displayCategory: 'link' },
           expect.any(UIAnalyticsEvent),
           {
-            creationMethod: undefined,
+            creationMethod: 'unknown',
             display: 'url',
             nodeContext: 'doc',
           },
@@ -1501,7 +1502,8 @@ describe('Analytics key events', () => {
         linkDetails,
         expect.any(UIAnalyticsEvent),
         {
-          updateType: undefined,
+          updateType: 'link_update',
+          updateMethod: 'unknown',
           display: 'inline',
           previousDisplay: 'inline',
           nodeContext: 'doc',
@@ -1628,8 +1630,8 @@ describe('Analytics key events', () => {
         { url: nextUrl, displayCategory: 'link' },
         expect.any(UIAnalyticsEvent),
         {
-          // does not provide update type, defers to source UIAnalyticEvent
-          updateType: undefined,
+          updateMethod: 'unknown',
+          updateType: 'link_update',
           display: 'url',
           previousDisplay: 'inline',
           nodeContext: 'doc',
@@ -1791,8 +1793,8 @@ describe('Analytics key events', () => {
         { url: nextUrl, displayCategory: 'link' },
         expect.any(UIAnalyticsEvent),
         {
-          // does not provide update type, defers to source UIAnalyticEvent
-          updateType: undefined,
+          updateType: 'link_update',
+          updateMethod: 'unknown',
           display: 'url',
           previousDisplay: 'url',
           nodeContext: 'doc',

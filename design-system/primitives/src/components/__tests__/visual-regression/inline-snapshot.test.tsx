@@ -184,24 +184,4 @@ describe('Inline', () => {
 
     expect(image).toMatchProdImageSnapshot();
   });
-
-  it('should apply styles defined in xcss', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'primitives',
-      'inline-xcss',
-      global.__BASEURL__,
-      'light',
-    );
-    const { page } = global;
-
-    await loadPage(page, url);
-
-    const image = await takeElementScreenShot(
-      page,
-      `[data-testid="inline-example"]`,
-    );
-
-    expect(image).toMatchProdImageSnapshot();
-  });
 });

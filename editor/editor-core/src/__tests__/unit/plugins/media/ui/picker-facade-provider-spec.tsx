@@ -1,6 +1,6 @@
 import * as mocks from './picker-facade-provider-spec.mock';
-import { mount } from 'enzyme';
 import React from 'react';
+import { render } from '@testing-library/react';
 
 import { MediaProvider } from '../../../../../plugins/media/pm-plugins/main';
 import PickerFacadeProvider from '../../../../../plugins/media/ui/MediaPicker/PickerFacadeProvider';
@@ -46,17 +46,14 @@ describe('PickerFacadeProvider', () => {
     (global.console.error as jest.Mock).mockRestore();
     jest.clearAllMocks();
   });
-  it('should initialize PickerFacade properly', (done) => {
-    mount(
+
+  it('should initialize PickerFacade properly', async () => {
+    render(
       <PickerFacadeProvider
         mediaState={pluginState}
         analyticsName="analyticsNameTest"
       >
         {({ mediaClientConfig, config, pickerFacadeInstance }) => {
-          /**
-           * This test cover the basic PickerFacade initialization for any use case of this class.
-           * These are mainly use for any MediaPicker react component.
-           * */
           expect(pickerFacadeInstance).toBe(mocks.picker);
           expect(mediaClientConfig).toBe(dummyMediaClientConfig);
           expect(config).toEqual({
@@ -76,7 +73,6 @@ describe('PickerFacadeProvider', () => {
             provider.uploadParams,
           );
           expect.assertions(8);
-          done();
           return null;
         }}
       </PickerFacadeProvider>,
@@ -84,7 +80,7 @@ describe('PickerFacadeProvider', () => {
   });
 
   it('should call pluginState.options.providerFactory.unsubscribe when component is unmounted', () => {
-    const wrapper = mount(
+    const { unmount } = render(
       <PickerFacadeProvider
         mediaState={pluginState}
         analyticsName="analyticsNameTest"
@@ -92,13 +88,13 @@ describe('PickerFacadeProvider', () => {
         {() => null}
       </PickerFacadeProvider>,
     );
-    wrapper.unmount();
+    unmount();
     expect(pluginState.options.providerFactory.unsubscribe).toBeCalled();
   });
 
   it('should not render children if mediaClientConfig is not defined', () => {
     provider.uploadMediaClientConfig = Promise.resolve() as any;
-    const wrapper = mount(
+    const { container: wrapper } = render(
       <PickerFacadeProvider
         mediaState={pluginState}
         analyticsName="analyticsNameTest"
@@ -117,7 +113,7 @@ describe('PickerFacadeProvider', () => {
 
   it('should not render children if config is not defined', () => {
     provider.uploadParams = undefined;
-    const wrapper = mount(
+    const { container: wrapper } = render(
       <PickerFacadeProvider
         mediaState={pluginState}
         analyticsName="analyticsNameTest"

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Primitives are token-backed low-level building blocks.",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -39,15 +39,6 @@
           }
         },
         {
-          "title": "Flex",
-          "folder": "flex",
-          "slug": "primitives/flex",
-          "id": "@atlaskit/primitives/flex",
-          "status": {
-            "type": "closed-beta"
-          }
-        },
-        {
           "title": "Inline",
           "folder": "inline",
           "slug": "primitives/inline",
@@ -61,6 +52,24 @@
           "folder": "stack",
           "slug": "primitives/stack",
           "id": "@atlaskit/primitives/stack",
+          "status": {
+            "type": "closed-beta"
+          }
+        },
+        {
+          "title": "Flex",
+          "folder": "flex",
+          "slug": "primitives/flex",
+          "id": "@atlaskit/primitives/flex",
+          "status": {
+            "type": "closed-beta"
+          }
+        },
+        {
+          "title": "Grid",
+          "folder": "grid",
+          "slug": "primitives/grid",
+          "id": "@atlaskit/primitives/grid",
           "status": {
             "type": "closed-beta"
           }
@@ -80,7 +89,7 @@
           "slug": "primitives/responsive",
           "id": "@atlaskit/primitives/responsive",
           "status": {
-            "type": "alpha"
+            "type": "closed-beta"
           }
         }
       ]

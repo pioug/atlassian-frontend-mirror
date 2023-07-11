@@ -300,6 +300,13 @@ const colorTests: Tests = {
         {name}
       </span>`,
     },
+    {
+      code: `
+          const containerShadowStyles = xcss({
+            backgroundColor: 'color.background.success',
+          });
+        `,
+    },
   ],
   invalid: [
     {

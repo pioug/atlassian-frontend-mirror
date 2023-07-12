@@ -9,6 +9,7 @@ import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { Provider } from '../';
 import { AcknowledgementResponseTypes } from '../../types';
+import { EVENT_STATUS } from '../../helpers/const';
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 jest.mock('@atlaskit/prosemirror-collab', () => {
@@ -147,11 +148,13 @@ describe('#sendData', () => {
           ackCallback = documentServiceBroadcastSpy.mock.calls[0][2];
           // @ts-ignore emit is a protected function
           jest.spyOn(provider, 'emit').mockImplementation(() => {});
+          jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
         });
 
         afterEach(() => {
           // @ts-ignore
           window.requestAnimationFrame.mockRestore();
+          jest.spyOn(global.Math, 'random').mockRestore();
         });
 
         it('should call onStepsAdded on a successful response', () => {
@@ -187,7 +190,7 @@ describe('#sendData', () => {
                 status: 'ONLINE',
               },
               documentAri: 'ari:cloud:confluence:ABC:page/testpage',
-              eventStatus: 'SUCCESS',
+              eventStatus: EVENT_STATUS.SUCCESS_10x_SAMPLED,
               type: 'ACCEPTED',
               latency: 0,
               stepType: {

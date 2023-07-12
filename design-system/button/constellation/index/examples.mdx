@@ -116,7 +116,9 @@ The `danger` button appears as a final confirmation for a destructive action suc
 
 ### Disabled
 
-Set `isDisabled` to disable a button that isn’t usable. Disabled buttons can cause accessibility problems, so avoid using `isDisabled`, especially for form submissions.
+Set `isDisabled` to disable a button that isn’t usable. Disabled buttons can cause accessibility issues as disabled elements are not in the tab order so wherever possible we recommend avoid using `isDisabled`, especially for form submissions.
+
+You should never put a tooltip on a disabled button. For more information see our [usage guidelines](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
 
 <Example Component={ButtonDisabled} packageName="@atlaskit/button" />
 

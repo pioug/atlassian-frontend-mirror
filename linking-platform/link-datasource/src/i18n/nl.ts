@@ -23,7 +23,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Issueweergave',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} is geselecteerd',
   'linkDataSource.jira-issues.noResultsFound': 'Geen resultaten gevonden',
-  'linkDataSource.jira-issues.openInProject': 'Openen in project',
   'linkDataSource.jira-issues.refresh': 'Vernieuwen',
   'linkDataSource.jira-issues.unableToLoadIssues': 'Issues kunnen niet worden geladen',
   'linkDataSource.jira-issues.unableToLoadResults': 'Resultaten kunnen niet worden geladen',

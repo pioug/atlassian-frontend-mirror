@@ -118,9 +118,13 @@ describe('collab-edit: handlers.ts', () => {
 
       entity.emit('error', {});
       entity.emit('disconnected', {});
-      expect(mockSynchronyEntityAnalyticsMock).toHaveBeenCalledWith('error');
+      expect(mockSynchronyEntityAnalyticsMock).toHaveBeenCalledWith(
+        'error',
+        undefined,
+      );
       expect(mockSynchronyEntityAnalyticsMock).toHaveBeenCalledWith(
         'disconnected',
+        undefined,
       );
       cleanup();
     });

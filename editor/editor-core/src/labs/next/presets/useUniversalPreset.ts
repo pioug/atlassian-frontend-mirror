@@ -1,7 +1,6 @@
 import { useLayoutEffect, useState } from 'react';
 import { EditorProps } from '../../../types/editor-props';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
 import { createPreset } from '../../../create-editor/create-plugins-list';
 import { shouldRecreatePreset } from '../../../create-editor/preset-utils';
@@ -12,7 +11,6 @@ interface PresetProps {
 }
 
 export default function useUniversalPreset({ props }: PresetProps) {
-  const { createAnalyticsEvent } = useAnalyticsEvents();
   const previousEditorProps = usePreviousState(props);
   const [preset, setPreset] = useState<EditorPresetBuilder<any, any>>(() =>
     createPreset(props, previousEditorProps),
@@ -27,7 +25,7 @@ export default function useUniversalPreset({ props }: PresetProps) {
     if (!recreate) {
       return;
     }
-    setPreset(createPreset(props, previousEditorProps, createAnalyticsEvent));
-  }, [props, previousEditorProps, createAnalyticsEvent]);
+    setPreset(createPreset(props, previousEditorProps));
+  }, [props, previousEditorProps]);
   return preset;
 }

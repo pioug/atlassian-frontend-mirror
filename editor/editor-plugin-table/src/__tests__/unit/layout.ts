@@ -4,20 +4,13 @@ import {
   Preset,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { bodiedExtensionData } from '@atlaskit/editor-test-helpers/mock-extension-data';
 
 import {
   doc,
-  p,
   table,
   tr,
-  td,
-  th,
   tdCursor,
   tdEmpty,
-  bodiedExtension,
-  layoutSection,
-  layoutColumn,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -27,13 +20,9 @@ import {
   TablePluginState,
 } from '../../plugins/table/types';
 import { toggleTableLayout } from '../../plugins/table/commands';
-import { isLayoutSupported } from '../../plugins/table/utils';
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import tablePlugin from '../../plugins/table-plugin';
-import expandPlugin from '@atlaskit/editor-core/src/plugins/expand';
-import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
-import layoutPlugin from '@atlaskit/editor-core/src/plugins/layout';
 import { PluginKey } from 'prosemirror-state';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -56,10 +45,7 @@ describe('table toolbar', () => {
     .add(contentInsertionPlugin)
     .add(decorationsPlugin)
     .add(widthPlugin)
-    .add([tablePlugin, { tableOptions }])
-    .add(expandPlugin)
-    .add(extensionPlugin)
-    .add(layoutPlugin);
+    .add([tablePlugin, { tableOptions }]);
 
   const editor = (doc: DocBuilder) => {
     return createEditor<TablePluginState, PluginKey>({
@@ -152,55 +138,6 @@ describe('table toolbar', () => {
       const tableElement = tables[0];
 
       expect(tableElement.getAttribute('data-layout')).toBe('full-width');
-    });
-  });
-
-  describe('#isLayoutSupported', () => {
-    (['default', 'wide', 'full-width'] as TableLayout[]).forEach((layout) => {
-      describe(`when called with "${layout}"`, () => {
-        it('returns true if permittedLayouts="all"', () => {
-          const { editorView } = editor(
-            doc(
-              table()(
-                tr(th()(p('{<>}1')), th()(p('2'))),
-                tr(td()(p('3')), td()(p('4'))),
-              ),
-            ),
-          );
-
-          expect(isLayoutSupported(editorView.state)).toBe(true);
-        });
-        it('returns false if table is nested in bodiedExtension', () => {
-          const { editorView } = editor(
-            doc(
-              bodiedExtension(bodiedExtensionData[0].attrs)(
-                table()(
-                  tr(th()(p('{<>}1')), th()(p('2'))),
-                  tr(td()(p('3')), td()(p('4'))),
-                ),
-              ),
-            ),
-          );
-
-          expect(isLayoutSupported(editorView.state)).toBe(false);
-        });
-        it('returns false if table is nested in Columns', () => {
-          const { editorView } = editor(
-            doc(
-              layoutSection(
-                layoutColumn({ width: 50 })(
-                  table()(
-                    tr(th()(p('{<>}1')), th()(p('2'))),
-                    tr(td()(p('3')), td()(p('4'))),
-                  ),
-                ),
-                layoutColumn({ width: 50 })(p('text')),
-              ),
-            ),
-          );
-          expect(isLayoutSupported(editorView.state)).toBe(false);
-        });
-      });
     });
   });
 });

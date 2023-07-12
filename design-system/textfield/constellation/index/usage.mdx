@@ -12,7 +12,7 @@ Common text input types include: usernames, descriptions, URLs, emails, addresse
 
 ![Text field anatomy](images/text-field-anatomy.png)
 
-1. **Label:** Should indicate what sort of information the field requires and is left-aligned directly above the input area.
+1. **Label:** Must indicate what sort of information the field requires and is left-aligned directly above the input area.
 2. **Placeholder text:** Avoid placeholders when possible. Never use placeholder text to communicate critical information — this is not accessible. Instead, use field labels or helper text to describe the purpose of the field and how to use it. Placeholders can be used for search fields or some short example entries.
 3. **Input area:** This is where people enter text.
 4. **Helper text:** Gives context about a field's input.
@@ -25,6 +25,11 @@ Common text input types include: usernames, descriptions, URLs, emails, addresse
 
 - For helper text provide an example or specific syntax for the input, rather than in the input area, so that it's visible after text has been entered. Only use this where clarification is required, and try not to overuse it.
 - Field label text above the input area should be short and concise.
+
+## Accessibility
+
+- Make sure all fields have a visible label. If you're not using the provided [field label](/components/form/examples#field) component, make sure the label is associated properly to the field for accessibility.
+- Avoid using placeholder text whenever possible. Make sure any critical information is communicated either in the field label or using helper text below the field. Search fields or brief examples are the only exceptions where placeholder text is OK.
 
 ## Server
 

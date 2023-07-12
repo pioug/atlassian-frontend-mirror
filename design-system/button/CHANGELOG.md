@@ -16,13 +16,13 @@
 
 ### Patch Changes
 
-- [`687e9b93266`](https://bitbucket.org/atlassian/atlassian-frontend/commits/687e9b93266) - DUMMY changeset to fix version resolution
+- [`687e9b93266`](https://bitbucket.org/atlassian/atlassian-frontend/commits/687e9b93266) - Updated dependencies
 
 ## 16.7.5
 
 ### Patch Changes
 
-- [`3a14ab26d19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a14ab26d19) - Workaround for product intgegrator
+- [`3a14ab26d19`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a14ab26d19) - Updated dependencies
 
 ## 16.7.4
 
@@ -40,7 +40,7 @@
 
 ### Patch Changes
 
-- [`96b5112590b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96b5112590b) - DUMMY CHANGESET to work around Product Integrator bug
+- [`96b5112590b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/96b5112590b) - Updated dependencies
 
 ## 16.7.1
 
@@ -62,7 +62,7 @@
 
 ### Patch Changes
 
-- [`23a850fe471`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23a850fe471) - DUMMY changeset to fix PI
+- [`23a850fe471`](https://bitbucket.org/atlassian/atlassian-frontend/commits/23a850fe471) - Updated dependencies
 
 ## 16.6.0
 

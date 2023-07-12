@@ -6,5 +6,6 @@ export type HoverCardDelayProps = Pick<
 > & {
   isHoverPreview?: boolean;
   isAuthTooltip?: boolean;
+  testId?: string;
   url: string;
 };

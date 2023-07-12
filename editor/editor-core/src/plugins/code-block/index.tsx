@@ -24,6 +24,11 @@ import refreshBrowserSelectionOnChange from './refresh-browser-selection';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
+// Theres an existing interelationship between these files, where the imported function is being called for code-block
+// Insertions via the drop down menu
+// tslint-ignore-next-line
+import { createInsertCodeBlockTransaction } from '../block-type/commands/block-type';
+
 const codeBlockPlugin: NextEditorPlugin<
   'codeBlock',
   {
@@ -86,8 +91,7 @@ const codeBlockPlugin: NextEditorPlugin<
         keyshortcut: '```',
         icon: () => <IconCode />,
         action(insert, state) {
-          const schema = state.schema;
-          const tr = insert(schema.nodes.codeBlock.createChecked());
+          const tr = createInsertCodeBlockTransaction({ state });
           api?.dependencies.analytics?.actions.attachAnalyticsEvent({
             action: ACTION.INSERTED,
             actionSubject: ACTION_SUBJECT.DOCUMENT,

@@ -11,8 +11,6 @@ import {
 import { TypeAheadItem } from '../../../../type-ahead/types';
 import emojiPlugin, { emojiToTypeaheadItem, memoize } from '../../../';
 import typeAheadPlugin from '../../../../type-ahead';
-import deprecatedAnalyticsPlugin from '../../../../analytics';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { EmojiPluginOptions } from '../../../types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
@@ -24,8 +22,22 @@ describe('EmojiTypeAhead', () => {
       mockSelectItem?: any,
       dispatchAnalyticsEvent?: any,
     ) => {
-      const emojiPluginMonkeyPatched = (options: EmojiPluginOptions) => {
-        const emojiEditorPlugin = emojiPlugin(options);
+      const mockAnalyticsPlugin = () => ({
+        name: 'analytics',
+        actions: {
+          attachAnalyticsEvent: (payload: any) =>
+            jest.fn().mockImplementation(() => {
+              dispatchAnalyticsEvent(payload);
+
+              return () => {};
+            }),
+        },
+      });
+      const emojiPluginMonkeyPatched = (
+        options: EmojiPluginOptions,
+        api: any,
+      ) => {
+        const emojiEditorPlugin = emojiPlugin(options, api);
         return {
           ...emojiEditorPlugin,
           pluginsOptions: {
@@ -57,18 +69,8 @@ describe('EmojiTypeAhead', () => {
         doc: doc(p('{<>}')),
         preset: new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
-          .add([
-            emojiPluginMonkeyPatched,
-            { createAnalyticsEvent: dispatchAnalyticsEvent },
-          ])
-          .add([
-            analyticsPlugin,
-            { createAnalyticsEvent: dispatchAnalyticsEvent },
-          ])
-          .add([
-            deprecatedAnalyticsPlugin,
-            { createAnalyticsEvent: dispatchAnalyticsEvent },
-          ])
+          .add(mockAnalyticsPlugin)
+          .add([emojiPluginMonkeyPatched, {}])
           .add(typeAheadPlugin),
       });
     };

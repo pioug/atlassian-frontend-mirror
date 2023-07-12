@@ -86,8 +86,8 @@ describe('Card', () => {
       ['commit', 260],
       ['file', 260],
       ['project', 430],
-      ['pr', 320],
-      ['repository', 260],
+      // ['pr', 320], Found Flaky. FIXME: https://product-fabric.atlassian.net/browse/EDM-7257
+      // ['repository', 260], Found Flaky. FIXME: https://product-fabric.atlassian.net/browse/EDM-7257
     ]);
     runTest('vr-card-bitbucket', testCases);
   });

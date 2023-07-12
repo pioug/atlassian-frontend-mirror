@@ -39,7 +39,7 @@
     "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/comment": "^10.8.0",
     "@atlaskit/editor-common": "^74.19.0",
-    "@atlaskit/editor-core": "^185.12.0",
+    "@atlaskit/editor-core": "^185.14.0",
     "@atlaskit/reactions": "^22.4.0",
     "@atlaskit/renderer": "^108.6.0",
     "@babel/runtime": "^7.0.0",

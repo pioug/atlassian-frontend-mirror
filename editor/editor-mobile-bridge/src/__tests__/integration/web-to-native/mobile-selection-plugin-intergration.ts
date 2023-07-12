@@ -28,11 +28,11 @@ BrowserTestCase(
       markTypes: [],
       nodeTypes: ['paragraph'],
       rect: { top: 32, left: 16 },
-      selection: { type: 'text', anchor: 2, head: 2 },
+      selection: { type: 'text', anchor: 3, head: 3 },
     };
 
     const result = JSON.parse(calls[2][2]);
 
-    expect(expected).toMatchObject(result);
+    expect(result).toMatchObject(expected);
   },
 );

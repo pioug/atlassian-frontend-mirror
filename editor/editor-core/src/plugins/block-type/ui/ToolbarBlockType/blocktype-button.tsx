@@ -58,7 +58,10 @@ export const BlockTypeButton: React.StatelessComponent<BlockTypeButtonProps> = (
       aria-haspopup
       aria-expanded={props['aria-expanded']}
       iconAfter={
-        <span css={[wrapperStyle, props.isSmall && wrapperSmallStyle]}>
+        <span
+          css={[wrapperStyle, props.isSmall && wrapperSmallStyle]}
+          data-testid="toolbar-block-type-text-styles-icon"
+        >
           {props.isSmall && <TextStyleIcon label={labelTextStyles} />}
           <span css={expandIconWrapperStyle}>
             <ExpandIcon label="" />

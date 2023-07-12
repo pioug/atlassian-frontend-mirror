@@ -21,7 +21,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': '事务视图',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '已选择 {siteName}',
   'linkDataSource.jira-issues.noResultsFound': '未找到结果',
-  'linkDataSource.jira-issues.openInProject': '在项目中打开',
   'linkDataSource.jira-issues.refresh': '刷新',
   'linkDataSource.jira-issues.unableToLoadIssues': '无法加载事务',
   'linkDataSource.jira-issues.unableToLoadResults': '无法加载结果',

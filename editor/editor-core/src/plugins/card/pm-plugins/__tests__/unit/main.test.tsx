@@ -48,6 +48,8 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 
 const mockAnalyticsQueue = {
   push: jest.fn(),
@@ -114,6 +116,7 @@ describe('resolveWithProvider()', () => {
       request,
       options,
       undefined,
+      undefined,
     );
     expect(cardProvider.resolve).toHaveBeenCalledTimes(1);
     expect(cardProvider.resolve).toBeCalledWith(url, 'block', true);
@@ -145,6 +148,7 @@ describe('resolveWithProvider()', () => {
       cardProvider,
       request,
       options,
+      undefined,
       undefined,
     );
     expect(cardProvider.resolve).toHaveBeenCalledTimes(1);
@@ -182,6 +186,7 @@ describe('resolveWithProvider()', () => {
           testCardProvider,
           request,
           options,
+          undefined,
           undefined,
         )) as CardAdf;
 
@@ -303,7 +308,7 @@ describe('datasource', () => {
     const { editorView, contentComponents } = editor(
       doc(p('hello'), datasourceBlockCard(mockAdfAttributes)()),
     );
-    const [, , , , layoutButtonComponent] = contentComponents;
+    const [, , , layoutButtonComponent] = contentComponents;
     const wrapper = renderWithIntl(
       layoutButtonComponent({
         editorView,
@@ -331,6 +336,48 @@ describe('datasource', () => {
 
     const stateWithLayoutAsCenter = getPluginState(editorView.state);
     expect(stateWithLayoutAsCenter?.layout).toEqual('center');
+  });
+
+  describe('when using feature flag', () => {
+    const url = 'https://www.atlassian.com/';
+
+    const mockAdfAttributesWithRealJiraId = {
+      ...mockAdfAttributes,
+      url,
+      datasource: {
+        ...mockAdfAttributes.datasource,
+        id: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+      },
+    };
+
+    ffTest(
+      'platform.linking-platform.datasource-jira_issues',
+      () => {
+        const { editorView } = editor(
+          doc(datasourceBlockCard(mockAdfAttributesWithRealJiraId)()),
+        );
+        const nodeDOM = editorView.nodeDOM(0);
+        expect((nodeDOM as HTMLDivElement).innerHTML).toMatch(
+          new RegExp(
+            '<div class="[\\w- ]+"><button data-testid="mock-datasource-table-view">Mock Datasource Table View</button></div>',
+          ),
+        );
+      },
+      () => {
+        const { editorView } = editor(
+          doc(datasourceBlockCard(mockAdfAttributesWithRealJiraId)()),
+        );
+        const nodeDOM = editorView.nodeDOM(0);
+
+        expect((nodeDOM as HTMLDivElement).innerHTML).toMatch(
+          new RegExp(`href="${url}"`),
+        );
+
+        expect((nodeDOM as HTMLDivElement).innerHTML).not.toMatch(
+          new RegExp(`data-testid="mock-datasource-table-view"`),
+        );
+      },
+    );
   });
 });
 

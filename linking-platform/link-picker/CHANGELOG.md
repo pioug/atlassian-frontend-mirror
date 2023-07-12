@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.27.0
+
+### Minor Changes
+
+- [`fa8b71abb1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa8b71abb1a) - [ux] Add title to link picker results
+
 ## 1.26.0
 
 ### Minor Changes

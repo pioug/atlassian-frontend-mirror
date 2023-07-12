@@ -8,7 +8,9 @@ import type { ProviderError } from './errors/error-types';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { GetUserType } from './participants/participants-helper';
 import AnalyticsHelper from './analytics/analytics-helper';
-export type { ProviderParticipant } from './participants/participants-helper';
+import type { ProviderParticipant } from './participants/participants-helper';
+
+export { ProviderParticipant };
 
 // types from editor common
 
@@ -55,7 +57,7 @@ export interface CollabEventDisconnectedData {
 }
 
 export interface CollabEventPresenceData {
-  joined?: CollabParticipant[];
+  joined?: ProviderParticipant[];
   left?: { sessionId: string }[];
 }
 

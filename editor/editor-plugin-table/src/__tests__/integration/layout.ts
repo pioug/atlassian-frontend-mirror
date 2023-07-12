@@ -22,8 +22,6 @@ import {
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 
-import messages from '@atlaskit/editor-core/src/messages';
-
 BrowserTestCase(
   'Avoid overflow when table scale to wide',
   { skip: ['safari', 'firefox'] },
@@ -175,10 +173,7 @@ BrowserTestCase(
 
     await page.waitForSelector('.extension-container p');
     await page.click('.extension-container p');
-    await changeSelectedNodeLayout(
-      page,
-      messages.layoutFixedWidth.defaultMessage,
-    );
+    await changeSelectedNodeLayout(page, 'Back to center');
     await animationFrame(page);
 
     const doc = await page.$eval(editable, getDocFromElement);

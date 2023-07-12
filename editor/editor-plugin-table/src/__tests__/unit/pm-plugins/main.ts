@@ -16,7 +16,6 @@ import { Selection } from 'prosemirror-state';
 import * as pmUtils from 'prosemirror-utils';
 
 import tablePlugin from '../../../plugins/table';
-import textFormattingPlugin from '@atlaskit/editor-core/src/plugins/text-formatting';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import { setEditorFocus } from '../../../plugins/table/commands/misc';
@@ -43,8 +42,7 @@ describe('tables: main plugin', () => {
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(widthPlugin)
-        .add(tablePlugin)
-        .add(textFormattingPlugin),
+        .add(tablePlugin),
       pluginKey,
     });
   const tablePluginKey = (pluginKey as any).key;

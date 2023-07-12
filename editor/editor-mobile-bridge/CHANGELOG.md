@@ -1,5 +1,40 @@
 # @atlaskit/editor-mobile-bridge
 
+## 185.14.0
+
+### Patch Changes
+
+- [`91c4edcea5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91c4edcea5a) - The analytics plugin (`editor-plugin-analytics`) now creates the `createAnalyticsEvent` if none is supplied and shares it with other plugins internally.
+- Updated dependencies
+
+## 185.13.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.13.0
+
+### Minor Changes
+
+- [`e4557e0d9be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4557e0d9be) - [ED-18160] Switch to using example pages for mobile webdriver tests
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 185.12.1
 
 ### Patch Changes

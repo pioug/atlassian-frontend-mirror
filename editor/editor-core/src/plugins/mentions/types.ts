@@ -1,7 +1,6 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { MentionDescription, MentionProvider } from '@atlaskit/mention';
+import type { MentionDescription, MentionProvider } from '@atlaskit/mention';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 
 export interface TeamInfoAttrAnalytics {
   teamId: String;
@@ -17,7 +16,6 @@ export interface MentionPluginConfig {
 }
 
 export interface MentionPluginOptions extends MentionPluginConfig {
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
   sanitizePrivateContent?: boolean;
   allowZeroWidthSpaceAfter?: boolean;
 }

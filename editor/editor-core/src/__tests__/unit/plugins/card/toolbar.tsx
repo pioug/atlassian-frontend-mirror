@@ -48,6 +48,8 @@ import {
   mockPreview,
 } from '../../../../plugins/card/ui/__tests__/_utils/mock-card-context';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 
 const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
 
@@ -73,8 +75,7 @@ const mockPluginInjectionApi: any = {
 
 const mockJqlUrl = 'http://www.test123.com/issues/?jql=EDM/';
 
-const datasourceWithUrlAdfAttrs: DatasourceAdf['attrs'] = {
-  url: mockJqlUrl,
+const datasourceNoUrlAdfAttrs: DatasourceAdf['attrs'] = {
   datasource: {
     id: 'datasource-id',
     parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
@@ -87,17 +88,16 @@ const datasourceWithUrlAdfAttrs: DatasourceAdf['attrs'] = {
   },
 };
 
-const datasourceNoUrlAdfAttrs: DatasourceAdf['attrs'] = {
+const datasourceAdfAttrsWithRealJiraId: DatasourceAdf['attrs'] = {
   datasource: {
-    id: 'datasource-id',
-    parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
-    views: [
-      {
-        type: 'table',
-        properties: { columns: [{ key: 'col1' }, { key: 'col2' }] },
-      },
-    ],
+    ...datasourceNoUrlAdfAttrs.datasource,
+    id: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
   },
+};
+
+const datasourceWithUrlAdfAttrs: DatasourceAdf['attrs'] = {
+  ...datasourceNoUrlAdfAttrs,
+  url: mockJqlUrl,
 };
 
 const getToolbarButtonByTitle = (
@@ -1205,6 +1205,71 @@ describe('card', () => {
         );
         removeButton.onClick(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
+      });
+
+      describe('when using feature flag', () => {
+        ffTest(
+          'platform.linking-platform.datasource-jira_issues',
+          () => {
+            const { editorView } = editor(
+              doc(
+                p('ab'),
+                '{<node>}',
+                datasourceBlockCard(datasourceAdfAttrsWithRealJiraId)(),
+                p('cd'),
+              ),
+            );
+
+            const toolbar = floatingToolbar({}, featureFlagsMock)(
+              editorView.state,
+              intl,
+              providerFactory,
+            );
+
+            if (!toolbar) {
+              return expect(toolbar).toBeTruthy();
+            }
+
+            const editButton = getToolbarButtonByTitle(
+              toolbar,
+              editorView,
+              editDatasourceTitle,
+            );
+
+            expect(editButton).toBeDefined();
+            expect(editButton).toMatchObject({
+              icon: SmallerEditIcon,
+            });
+          },
+          () => {
+            const { editorView } = editor(
+              doc(
+                p('ab'),
+                '{<node>}',
+                datasourceBlockCard(datasourceAdfAttrsWithRealJiraId)(),
+                p('cd'),
+              ),
+            );
+
+            const toolbar = floatingToolbar({}, featureFlagsMock)(
+              editorView.state,
+              intl,
+              providerFactory,
+            );
+
+            if (!toolbar) {
+              return expect(toolbar).toBeTruthy();
+            }
+
+            const editButton = getToolbarButtonByTitle(
+              toolbar,
+              editorView,
+              'Edit link',
+            );
+
+            expect(editButton).toBeDefined();
+          },
+        );
       });
     });
   });

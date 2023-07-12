@@ -14,7 +14,6 @@ import {
   LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import {
   selectColumn,
   moveCursorBackward,
@@ -39,7 +38,6 @@ describe('table plugin: commands', () => {
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, {}])
     .add(decorationsPlugin)
-    .add(panelPlugin)
     .add(contentInsertionPlugin)
     .add(widthPlugin)
     .add([

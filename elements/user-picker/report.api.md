@@ -264,6 +264,7 @@ export const PopupUserPicker: React_2.ForwardRefExoticComponent<
     | 'menuPortalTarget'
     | 'menuPosition'
     | 'menuShouldBlockScroll'
+    | 'name'
     | 'noBorder'
     | 'noOptionsMessage'
     | 'onBlur'
@@ -432,6 +433,7 @@ const UserPicker: React_2.ForwardRefExoticComponent<
     | 'menuPortalTarget'
     | 'menuPosition'
     | 'menuShouldBlockScroll'
+    | 'name'
     | 'noBorder'
     | 'noOptionsMessage'
     | 'onBlur'
@@ -521,6 +523,7 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   menuShouldBlockScroll?: boolean;
   ariaLabelledBy?: string;
   ariaLive?: 'assertive' | 'off' | 'polite';
+  name?: string;
 };
 
 // @public (undocumented)

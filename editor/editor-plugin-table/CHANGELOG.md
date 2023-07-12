@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.0
+
+### Minor Changes
+
+- [`48ebe1fa732`](https://bitbucket.org/atlassian/atlassian-frontend/commits/48ebe1fa732) - [ED-18895] Moved table integration tests to dedicated editor plugin test package to avoid circular dependencies
+
 ## 2.0.1
 
 ### Patch Changes

@@ -1,7 +1,10 @@
 import { collab } from '@atlaskit/prosemirror-collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { CollabEditProvider } from '@atlaskit/collab-provider';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import { createPlugin, pluginKey } from './plugin';
 import {
   CollabEditOptions,
@@ -13,6 +16,7 @@ import { sendTransaction } from './events/send-transaction';
 import { addSynchronyErrorAnalytics } from './analytics';
 import { nativeCollabProviderPlugin } from './native-collab-provider-plugin';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 export { pluginKey };
 export type { CollabEditOptions };
 
@@ -38,7 +42,10 @@ const collabEditPlugin: NextEditorPlugin<
   'collabEdit',
   {
     pluginConfiguration: PrivateCollabEditOptions;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [
+      typeof featureFlagsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+    ];
   }
 > = (options, api) => {
   const featureFlags =
@@ -86,6 +93,7 @@ const collabEditPlugin: NextEditorPlugin<
               executeProviderCode,
               options,
               featureFlags,
+              api,
             );
           },
         },
@@ -97,6 +105,7 @@ const collabEditPlugin: NextEditorPlugin<
         props.newEditorState,
         props.newEditorState.tr,
         featureFlags,
+        api?.dependencies.analytics?.actions,
       );
 
       executeProviderCode(

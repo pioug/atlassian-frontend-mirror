@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 185.14.0
+
+### Minor Changes
+
+- [`91c4edcea5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91c4edcea5a) - The analytics plugin (`editor-plugin-analytics`) now creates the `createAnalyticsEvent` if none is supplied and shares it with other plugins internally.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.13.1
+
+### Patch Changes
+
+- [`202f8c2ee69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/202f8c2ee69) - The changes here adds support for datasource feature flag for rollout.
+
+## 185.13.0
+
+### Patch Changes
+
+- [`36f667d92e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36f667d92e5) - Add data-testid to ToolbarBlockType
+
+## 185.12.2
+
+### Patch Changes
+
+- [`a20c7920f82`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a20c7920f82) - [ux] ED-15477 Update insertion behaviour for expands, code blocks and panels to make them consistent
+
 ## 185.12.1
 
 ### Patch Changes

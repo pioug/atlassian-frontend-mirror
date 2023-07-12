@@ -1,5 +1,17 @@
 # @atlaskit/datetime-picker
 
+## 12.7.6
+
+### Patch Changes
+
+- [`6d8ce8bb48a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6d8ce8bb48a) - Revert PR using regex that is not supported by Safari 16.4 and below and can crash a session
+
+## 12.7.5
+
+### Patch Changes
+
+- [`22363f962e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22363f962e5) - update border width to use border spacing token
+
 ## 12.7.4
 
 ### Patch Changes

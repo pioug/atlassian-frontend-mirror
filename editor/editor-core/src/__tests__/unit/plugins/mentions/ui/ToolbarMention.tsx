@@ -1,6 +1,6 @@
-import { ReactWrapper } from 'enzyme';
-import { mountWithIntl } from '../../../../__helpers/enzyme';
 import React from 'react';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
@@ -8,35 +8,15 @@ import {
   DocBuilder,
   panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { pluginKey } from '../../../../../plugins/panel/types';
 import ToolbarMention from '../../../../../plugins/mentions/ui/ToolbarMention';
 import { TypeAheadHandler } from '../../../../../plugins/type-ahead/types';
-import { EditorView } from 'prosemirror-view';
-import { createTypeAheadTools } from '../../../../../plugins/type-ahead/api';
 
 // HELPERS
 const testId = 'toolbar-mention-test';
-const getToolbarMention = (editorView: EditorView) => {
-  return mountWithIntl(
-    <ToolbarMention testId={testId} editorView={editorView} />,
-  );
-};
-const clickToolbarMention = (toolbarMention: ReactWrapper) => {
-  return toolbarMention
-    .find(`button[data-testid="${testId}"]`)
-    .first()
-    .simulate('click');
-};
-const checkMentionTypeaheadTriggered = (
-  typeAheadTool: ReturnType<typeof createTypeAheadTools>,
-) => {
-  return expect((typeAheadTool.isOpen() as TypeAheadHandler).trigger).toEqual(
-    '@',
-  );
-};
 
 describe('ToolbarMention', () => {
-  let toolbarMention: ReactWrapper;
   const createEditor = createEditorFactory();
   const editor = (doc: DocBuilder) =>
     createEditor({
@@ -45,51 +25,69 @@ describe('ToolbarMention', () => {
       pluginKey,
     });
 
-  afterEach(() => {
-    if (toolbarMention) {
-      toolbarMention.unmount();
-    }
-  });
-
-  it('should create a typeAheadQuery by clicking on the ToolbarMention icon', () => {
+  it('should create a typeAheadQuery by clicking on the ToolbarMention icon', async () => {
     const { editorView, typeAheadTool } = editor(doc(p('{<>}')));
-    toolbarMention = getToolbarMention(editorView);
+    renderWithIntl(<ToolbarMention testId={testId} editorView={editorView} />);
     expect(typeAheadTool.isOpen()).toBe(false);
-    clickToolbarMention(toolbarMention);
-    checkMentionTypeaheadTriggered(typeAheadTool);
+
+    // click toolbar mention button
+    const toolbarMentionButton = screen.getByTestId(testId);
+    await userEvent.click(toolbarMentionButton);
+
+    // check mention typeahead triggered
+    const typeAheadHandler = typeAheadTool.isOpen() as TypeAheadHandler;
+    expect(typeAheadHandler.trigger).toEqual('@');
   });
 
-  it('should replace text selection range when ToolbarMention icon is clicked', () => {
+  it('should replace text selection range when ToolbarMention icon is clicked', async () => {
     const { editorView, typeAheadTool } = editor(
       doc(p('Admiral of the {<}Black gunwalls.{>}')),
     );
-    toolbarMention = getToolbarMention(editorView);
+    renderWithIntl(<ToolbarMention testId={testId} editorView={editorView} />);
     expect(typeAheadTool.isOpen()).toBe(false);
-    clickToolbarMention(toolbarMention);
-    checkMentionTypeaheadTriggered(typeAheadTool);
+
+    // click toolbar mention button
+    const toolbarMentionButton = screen.getByTestId(testId);
+    await userEvent.click(toolbarMentionButton);
+
+    // check mention typeahead triggered
+    const typeAheadHandler = typeAheadTool.isOpen() as TypeAheadHandler;
+    expect(typeAheadHandler.trigger).toEqual('@');
+
     expect(editorView.state.doc).toEqualDocument(doc(p('Admiral of the ')));
   });
 
-  it('should not change content if cursor selection', () => {
+  it('should not change content if cursor selection', async () => {
     const { editorView, typeAheadTool } = editor(
       doc(p('Admiral of the {<>}Black gunwalls.')),
     );
-    toolbarMention = getToolbarMention(editorView);
+    renderWithIntl(<ToolbarMention testId={testId} editorView={editorView} />);
     expect(typeAheadTool.isOpen()).toBe(false);
-    clickToolbarMention(toolbarMention);
-    checkMentionTypeaheadTriggered(typeAheadTool);
+
+    // click toolbar mention button
+    const toolbarMentionButton = screen.getByTestId(testId);
+    await userEvent.click(toolbarMentionButton);
+
+    // check mention typeahead triggered
+    const typeAheadHandler = typeAheadTool.isOpen() as TypeAheadHandler;
+    expect(typeAheadHandler.trigger).toEqual('@');
+
     expect(editorView.state.doc).toEqualDocument(
       doc(p('Admiral of the Black gunwalls.')),
     );
   });
 
-  it('should not open mention trigger if a node selection', () => {
+  it('should not open mention trigger if a node selection', async () => {
     const { editorView, typeAheadTool } = editor(
       doc('{<node>}', panel()(p('text'))),
     );
-    toolbarMention = getToolbarMention(editorView);
+    renderWithIntl(<ToolbarMention testId={testId} editorView={editorView} />);
     expect(typeAheadTool.isOpen()).toBe(false);
-    clickToolbarMention(toolbarMention);
+
+    // click toolbar mention button
+    const toolbarMentionButton = screen.getByTestId(testId);
+    await userEvent.click(toolbarMentionButton);
+
     expect(typeAheadTool.isOpen()).toBe(false);
     expect(editorView.state.doc).toEqualDocument(doc(panel()(p('text'))));
   });

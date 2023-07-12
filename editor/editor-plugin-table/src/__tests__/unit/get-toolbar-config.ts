@@ -6,8 +6,6 @@ import {
   table,
   tdCursor,
   tdEmpty,
-  dataConsumer,
-  extension,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -21,8 +19,6 @@ import tablePlugin from '../../plugins/table';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { getToolbarConfig } from '../../plugins/table/toolbar';
 import { setTableRef, setEditorFocus } from '../../plugins/table/commands';
-import extensionPlugin from '@atlaskit/editor-core/src/plugins/extension';
-import dataConsumerPlugin from '@atlaskit/editor-core/src/plugins/data-consumer';
 import type {
   FloatingToolbarItem,
   FloatingToolbarButton,
@@ -83,8 +79,6 @@ describe('getToolbarConfig', () => {
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add(widthPlugin)
-        .add(dataConsumerPlugin)
-        .add(extensionPlugin)
         .add(tablePlugin),
     });
 
@@ -120,29 +114,6 @@ describe('getToolbarConfig', () => {
 
       const button = getButton(editorView);
       expect(button.confirmDialog).toBeUndefined();
-    });
-  });
-
-  describe('should add confirmDialog to delete button', () => {
-    it('if localId defined and is referenced', () => {
-      const { editorView } = createEditor(
-        doc(
-          p('text'),
-          table({ localId: 'ILY300' })(tr(tdCursor, tdEmpty)),
-          dataConsumer({ sources: ['ILY300'] })(
-            extension({
-              extensionKey: 'test-key-123',
-              extensionType: 'com.atlassian.extensions.update',
-              parameters: { count: 0 },
-              layout: 'default',
-              localId: 'testId0',
-            })(),
-          ),
-        ),
-      );
-
-      const button = getButton(editorView);
-      expect(typeof button.confirmDialog).toBe('function');
     });
   });
 });

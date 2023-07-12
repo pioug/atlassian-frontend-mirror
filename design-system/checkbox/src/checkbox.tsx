@@ -50,7 +50,7 @@ const checkboxStyles = css({
       strokeWidth: getBooleanFF(
         'platform.design-system-team.border-checkbox_nyoiu',
       )
-        ? 1
+        ? token('border.width', '1px')
         : 2,
       transition: 'stroke 0.2s ease-in-out',
     },

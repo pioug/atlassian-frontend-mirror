@@ -10,7 +10,6 @@ import {
   tr,
   td,
   p,
-  panel,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
@@ -21,9 +20,8 @@ import {
 
 import tablePlugin from '../../../../plugins/table';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
-import { TextSelection, NodeSelection, EditorState } from 'prosemirror-state';
+import { TextSelection, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   akEditorFullPageMaxWidth,
@@ -63,8 +61,7 @@ describe('table-resizing/event-handlers', () => {
             {
               tableOptions: { allowColumnResizing: true },
             },
-          ])
-          .add(panelPlugin),
+          ]),
         pluginKey,
       });
   });
@@ -149,21 +146,6 @@ describe('table-resizing/event-handlers', () => {
 
       expect(currentSelection instanceof TextSelection).toBeTruthy();
       expect(currentSelection.$cursor.pos).toBe(15);
-    });
-
-    it('should restore node selection after replacing the table', async () => {
-      const { editorView: view } = editor(
-        doc(table()(tr(td()(panel()(p(''))), td()(p('2')), td()(p('3'))))),
-      );
-      const _tr = view.state.tr.setSelection(
-        NodeSelection.create(view.state.tr.doc, 3),
-      );
-      view.dispatch(_tr);
-      expect(view.state.tr.selection.node.type.name).toBe('panel');
-
-      resizeColumn(view, 13, 150, 250);
-
-      expect(view.state.tr.selection.node.type.name).toBe('panel');
     });
   });
 });

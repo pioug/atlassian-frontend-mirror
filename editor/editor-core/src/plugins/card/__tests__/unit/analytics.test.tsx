@@ -199,6 +199,7 @@ describe('Analytics key events', () => {
               containerElement={null}
               wrapperElement={null}
               disabled={false}
+              pluginHooks={config.pluginHooks}
             />
           </EditorSharedConfigProvider>
         </EditorContext>

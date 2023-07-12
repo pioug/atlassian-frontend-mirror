@@ -18,6 +18,7 @@ import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { LongPressSelectionPluginOptions } from '../selection/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { createWrapSelectionTransaction } from '../block-type/commands/block-type';
 
 interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
   allowInsertion?: boolean;
@@ -86,7 +87,10 @@ const expandPlugin: NextEditorPlugin<
               if (!node) {
                 return false;
               }
-              const tr = insert(node);
+              const tr = createWrapSelectionTransaction({
+                state,
+                type: state.schema.nodes.expand,
+              });
               return addAnalytics(state, tr, {
                 action: ACTION.INSERTED,
                 actionSubject: ACTION_SUBJECT.DOCUMENT,

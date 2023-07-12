@@ -1438,6 +1438,41 @@ describe('HoverCard', () => {
         }
       });
 
+      it('does not render hover card when hover over action and then leave the flexible card', async () => {
+        const hoverCardTestId = 'hover-card';
+        const renderResult = await setup({
+          extraCardProps: { appearance, children },
+          testId: triggerTestId,
+        });
+        jest.runAllTimers();
+
+        await hoverAndVerify(
+          renderResult,
+          hoverCardTestId,
+          'smart-element-link',
+          true,
+        );
+        await hoverAndVerify(
+          renderResult,
+          hoverCardTestId,
+          'smart-action-edit-action',
+          false,
+        );
+
+        const { findByTestId, queryByTestId } = renderResult;
+        const link = await findByTestId('smart-element-link');
+        fireEvent.mouseMove(link);
+        const wrapper = await findByTestId(
+          'smart-links-container-hover-card-wrapper',
+        );
+        fireEvent.mouseLeave(wrapper);
+
+        // move time forward to when canOpen is change but hideCard isn't triggered yet
+        jest.advanceTimersByTime(101);
+
+        expect(queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
+      });
+
       it('renders unauthorised hover card', async () => {
         const hoverCardTestId = 'hover-card-unauthorised-view';
         const renderResult = await setup({

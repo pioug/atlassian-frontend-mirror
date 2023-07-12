@@ -1,4 +1,6 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { createEditorSelectionAPI } from '../../../selection-api/api';
+import { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   breakoutPlugin,
   collabEditPlugin,
@@ -69,7 +71,6 @@ import {
   EditorPluginFeatureProps,
   EditorProviderProps,
 } from '../../../types/editor-props';
-import { createStubInternalApis } from './create-stub-internal-apis';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 type UniversalPresetProps = EditorPresetProps &
@@ -94,18 +95,14 @@ export default function createUniversalPreset(
   props: UniversalPresetProps,
   featureFlags: FeatureFlags,
   prevAppearance?: EditorAppearance,
-  maybeCreateAnalyticsEvent?: CreateUIAnalyticsEvent,
+  createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): EditorPresetBuilder<any, any> {
   const isMobile = appearance === 'mobile';
   const isComment = appearance === 'comment';
   const isFullPage = fullPageCheck(appearance);
 
   const getEditorFeatureFlags = () => featureFlags;
-  const stubs = createStubInternalApis();
-  const { editorSelectionAPI, stubInternalApisPlugin } = stubs;
-  const createAnalyticsEvent = maybeCreateAnalyticsEvent
-    ? maybeCreateAnalyticsEvent
-    : stubs.createAnalyticsEvent;
+  const editorSelectionAPI: EditorSelectionAPI = createEditorSelectionAPI();
 
   const defaultPreset = createDefaultPreset({ ...props, createAnalyticsEvent });
 
@@ -125,7 +122,6 @@ export default function createUniversalPreset(
   };
 
   const finalPreset = defaultPreset
-    .add(stubInternalApisPlugin)
     .add(dataConsumerMarkPlugin)
     .add(contentInsertionPlugin)
     .maybeAdd(breakoutPlugin, (plugin, builder) => {
@@ -244,7 +240,6 @@ export default function createUniversalPreset(
         return builder.add([
           plugin,
           {
-            createAnalyticsEvent,
             sanitizePrivateContent: props.sanitizePrivateContent,
             insertDisplayName:
               props.mention?.insertDisplayName ??
@@ -259,12 +254,7 @@ export default function createUniversalPreset(
     })
     .maybeAdd(emojiPlugin, (plugin, builder) => {
       if (props.emojiProvider) {
-        return builder.add([
-          plugin,
-          {
-            createAnalyticsEvent,
-          },
-        ]);
+        return builder.add(plugin);
       }
 
       return builder;
@@ -352,7 +342,6 @@ export default function createUniversalPreset(
       if (props.collabEdit || props.collabEditProvider) {
         let collabEditOptions: PrivateCollabEditOptions = {
           sanitizePrivateContent: props.sanitizePrivateContent,
-          createAnalyticsEvent,
         };
 
         if (props.collabEdit) {
@@ -499,7 +488,6 @@ export default function createUniversalPreset(
             ...props.linking?.smartLinks,
             platform: isMobile ? 'mobile' : 'web',
             fullWidthMode,
-            createAnalyticsEvent,
             linkPicker: props.linking?.linkPicker,
             editorAppearance: appearance,
           },

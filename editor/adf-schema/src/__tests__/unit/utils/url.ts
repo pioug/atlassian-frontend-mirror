@@ -14,6 +14,19 @@ describe(`${packageName}/url url utils`, () => {
         'mailto:prettyandsimple@example.com',
         'mailto:prettyandsimple@example.com',
       ],
+      ['tel:1234', 'tel:1234'],
+      ['tel:1234', 'tel:1234'],
+
+      // Examples from https://datatracker.ietf.org/doc/html/rfc3966#section-6
+      ['tel:+1-201-555-0123', 'tel:+1-201-555-0123'],
+      ['tel:+1-201-555-0123', 'tel:+1-201-555-0123'],
+      ['tel:+1(800)555-0123', 'tel:+1(800)555-0123'],
+
+      // adf-schema didn't previously support notes:, even though linking-common does.
+      // This isn't a valid scheme, so we're not adding support
+      ['notes:somenoteurl', ''],
+      ['notes://somenoteurl', 'notes://somenoteurl'],
+
       ['example.com', 'http://example.com'],
       ['http://example.com', 'http://example.com'],
       ['', ''],
@@ -95,13 +108,20 @@ describe(`${packageName}/url url utils`, () => {
       ).toEqual('www.atlassian.com/foo/bar?foo#bar');
     });
 
-    it('should not match non-web schemes', () => {
-      expect(getLinkMatch('#hello')).toEqual(null);
+    it('should not match filepaths', () => {
       expect(getLinkMatch('./index.php')).toEqual(null);
       expect(getLinkMatch('/index.php')).toEqual(null);
+    });
+    it('should not match markdown headings', () => {
+      expect(getLinkMatch('#hello')).toEqual(null);
+      expect(getLinkMatch('# hello')).toEqual(null);
+    });
+    it('should not match javascript', () => {
+      expect(getLinkMatch('javascript:alert(1);')).toEqual(null);
+    });
+    it('should not match app: or tcp: schemes', () => {
       expect(getLinkMatch('app://atlassian.com')).toEqual(null);
       expect(getLinkMatch('tcp://173.123.21.12')).toEqual(null);
-      expect(getLinkMatch('javascript:alert(1);')).toEqual(null);
     });
 
     it('should not match special characters', () => {
@@ -118,7 +138,6 @@ describe(`${packageName}/url url utils`, () => {
         'www.atlassian.com/hello?foo=bar^',
       );
     });
-
     it('should match EMAILs', () => {
       expect(getLinkMatch('prettyandsimple@example.com')).not.toBe(undefined);
       expect(getLinkMatch('very.common@example.com')).not.toBe(undefined);

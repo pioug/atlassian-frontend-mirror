@@ -1,5 +1,11 @@
 # @atlaskit/banner
 
+## 12.1.13
+
+### Patch Changes
+
+- [`7e4085cd951`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e4085cd951) - Allow caret version range in @atlaskit/primitives dependency.
+
 ## 12.1.12
 
 ### Patch Changes

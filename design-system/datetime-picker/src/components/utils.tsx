@@ -56,60 +56,48 @@ const tokensMap: TokensMap = {
 const v1tokens = Object.keys(tokensMap).sort().reverse();
 
 const tokensRegExp = new RegExp(
-  // v1 escape string (unsure the purpose of post-pipe capture group)
-  '(\\[[^\\[]*\\])|(\\\\)?' +
-    // v2 escape string
-    "((?<=').+(?=')|" +
-    // All v1 tokens
-    v1tokens.join('|') +
-    '|.)',
+  '(\\[[^\\[]*\\])|(\\\\)?' + '(' + v1tokens.join('|') + '|.)',
   'g',
 );
 
 type TokensBuffer = {
   formatBuffer: string[];
-  escapedTextBuffer: string[];
+  textBuffer: string[];
 };
 
 export function convertTokens(format: string): string {
   const tokensCaptures = format.match(tokensRegExp);
-  if (!tokensCaptures) {
+  if (tokensCaptures) {
+    return tokensCaptures
+      .reduce(
+        (acc, tokenString, index) => {
+          const v2token = tokensMap[tokenString];
+
+          if (!v2token) {
+            const escapedCaptures = tokenString.match(/^\[(.+)\]$/);
+            if (escapedCaptures) {
+              acc.textBuffer.push(escapedCaptures[1]);
+            } else {
+              acc.textBuffer.push(tokenString);
+            }
+          }
+
+          const endOfString = index === tokensCaptures.length - 1;
+          if (acc.textBuffer.length && (v2token || endOfString)) {
+            acc.formatBuffer.push(`'${acc.textBuffer.join('')}'`);
+            acc.textBuffer = [];
+          }
+
+          if (v2token) {
+            acc.formatBuffer.push(v2token);
+          }
+
+          return acc;
+        },
+        { formatBuffer: [], textBuffer: [] } as TokensBuffer,
+      )
+      .formatBuffer.join('');
+  } else {
     return format;
   }
-
-  return tokensCaptures
-    .reduce(
-      (parsed, tokenString, index) => {
-        const v2token = tokensMap[tokenString];
-
-        if (!v2token) {
-          const escapedCaptures = tokenString.match(/^\[(.+)\]$/);
-          if (escapedCaptures) {
-            parsed.escapedTextBuffer.push(escapedCaptures[1]);
-          } else {
-            parsed.escapedTextBuffer.push(tokenString);
-          }
-        }
-
-        const endOfString = index === tokensCaptures.length - 1;
-        if (parsed.escapedTextBuffer.length && (v2token || endOfString)) {
-          // This allows double parentheses to be rendered correctly
-          // according to date-fns's spec.
-          // https://date-fns.org/v2.29.3/docs/format
-          const filteredEscapedTextBuffer = parsed.escapedTextBuffer
-            .filter((token) => token !== "'")
-            .join('');
-          parsed.formatBuffer.push(`'${filteredEscapedTextBuffer}'`);
-          parsed.escapedTextBuffer = [];
-        }
-
-        if (v2token) {
-          parsed.formatBuffer.push(v2token);
-        }
-
-        return parsed;
-      },
-      { formatBuffer: [], escapedTextBuffer: [] } as TokensBuffer,
-    )
-    .formatBuffer.join('');
 }

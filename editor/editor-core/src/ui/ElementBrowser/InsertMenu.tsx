@@ -61,6 +61,10 @@ const InsertMenu = ({
         getSvgIconForItem({
           name: item.value.name,
         }) || (item.elemBefore as ReactElement),
+      /**
+       * @note This transformed items action is only used when a quick insert item has been
+       * called from the quick insert menu and a search has not been performed.
+       */
       action: () => onInsert({ item }),
       // "insertInsertMenuItem" expects these 2 properties.
       onClick: item.onClick,
@@ -90,6 +94,12 @@ const InsertMenu = ({
     (quickInsertState: QuickInsertPluginState) =>
       (query?: string, category?: string) => {
         let result;
+        /**
+         * @warning The results if there is a query are not the same as the results if there is no query.
+         * For example: If you have a typed panel and then select the panel item then it will call a different action
+         * than is specified on the editor plugins quick insert
+         * @see above transform function for more details.
+         */
         if (query) {
           result = searchQuickInsertItems(quickInsertState, {})(
             query,

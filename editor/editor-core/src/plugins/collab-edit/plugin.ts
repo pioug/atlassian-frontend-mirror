@@ -17,6 +17,8 @@ import type {
   CollabEditProvider,
   SyncUpErrorFunction,
 } from '@atlaskit/collab-provider/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type collabEditPlugin from './index';
 
 export { PluginState, pluginKey };
 
@@ -27,10 +29,8 @@ export const createPlugin = (
   collabProviderCallback: ProviderCallback,
   options: PrivateCollabEditOptions,
   featureFlags: FeatureFlags,
+  pluginInjectionApi: ExtractInjectionAPI<typeof collabEditPlugin> | undefined,
 ) => {
-  const fireAnalyticsCallback = fireAnalyticsEvent(
-    options?.createAnalyticsEvent,
-  );
   return new SafePlugin({
     key: pluginKey,
     state: {
@@ -74,8 +74,13 @@ export const createPlugin = (
         view.state,
         view.state.tr,
         featureFlags,
+        pluginInjectionApi?.dependencies.analytics?.actions,
       );
       const onSyncUpError: SyncUpErrorFunction = (attributes) => {
+        const fireAnalyticsCallback = fireAnalyticsEvent(
+          pluginInjectionApi?.dependencies.analytics?.sharedState.currentState()
+            ?.createAnalyticsEvent ?? undefined,
+        );
         fireAnalyticsCallback({
           payload: {
             action: ACTION.NEW_COLLAB_SYNC_UP_ERROR_NO_STEPS,
@@ -87,7 +92,14 @@ export const createPlugin = (
       };
       options.onSyncUpError = onSyncUpError;
       const cleanup = collabProviderCallback(
-        initialize({ view, options, providerFactory, featureFlags }),
+        initialize({
+          view,
+          options,
+          providerFactory,
+          featureFlags,
+          editorAnalyticsApi:
+            pluginInjectionApi?.dependencies.analytics?.actions,
+        }),
         addErrorAnalytics,
       );
 

@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 9.6.3
+
+### Patch Changes
+
+- [`857daf603b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/857daf603b0) - ESS-3718: change CollabEventPresenceData joined type to ProviderParticipant
+
+## 9.6.2
+
+### Patch Changes
+
+- [`2e7c3cad470`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e7c3cad470) - Reduce stepsAdded analytics events by only sampling 10%
+
 ## 9.6.1
 
 ### Patch Changes

@@ -52,7 +52,13 @@ export type QuickInsertItem = TypeAheadItem & {
   id?: QuickInsertItemId;
   /** indicates if the item will be highlighted where approppriated (plus menu for now) */
   featured?: boolean;
-  /** what to do on insert */
+  /**
+   * What to do on insert
+   *
+   * @note This logic is only called if the item is accessed without a search
+   * If a search occurs -- then a seperate insert action is called
+   * @see packages/editor/editor-core/src/plugins/insert-block/ui/ToolbarInsertBlock/index.tsx for details
+   */
   action: (
     insert: QuickInsertActionInsert,
     state: EditorState,

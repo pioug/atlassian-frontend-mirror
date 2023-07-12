@@ -15,8 +15,6 @@ import {
   td,
   tdEmpty,
   DocBuilder,
-  thEmpty,
-  th,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   tableBackgroundColorNames,
@@ -24,13 +22,9 @@ import {
   uuid,
 } from '@atlaskit/adf-schema';
 import { PluginConfig } from '../../../plugins/table/types';
-import { mergeCells } from '../../../plugins/table/transforms';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import TableCellViews from '../../../plugins/table/nodeviews/tableCell';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import * as domHelpers from '../../../plugins/table/pm-plugins/sticky-headers/nodeviews/dom';
 import tablePlugin from '../../../plugins/table-plugin';
-import undoRedoPlugin from '@atlaskit/editor-core/src/plugins/undo-redo';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -56,8 +50,7 @@ describe('table -> nodeviews -> tableCell.tsx', () => {
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(widthPlugin)
-        .add([tablePlugin, { tableOptions: { advanced: true, ...props } }])
-        .add(undoRedoPlugin),
+        .add([tablePlugin, { tableOptions: { advanced: true, ...props } }]),
       pluginKey,
     });
 
@@ -128,45 +121,5 @@ describe('table -> nodeviews -> tableCell.tsx', () => {
       const cellDomNode = document.querySelector('td')!;
       expect(rgbToHex(cellDomNode.style.backgroundColor!)).toEqual(background);
     });
-
-    it('should preserve the correct rowspan and colspan after merge cells and undo', () => {
-      jest.spyOn(domHelpers, 'getTop').mockImplementation(() => 0);
-
-      const originalDoc = doc(
-        table({ localId: TABLE_LOCAL_ID })(
-          tr(th()(p('{<cell}')), thEmpty, thEmpty),
-          tr(td()(p('{cell>}')), tdEmpty, tdEmpty),
-          tr(tdEmpty, tdEmpty, tdEmpty),
-        ),
-      );
-      const { editorView } = editor(originalDoc, {
-        stickyHeaders: true,
-      });
-      const { state, dispatch } = editorView;
-
-      dispatch(mergeCells(state.tr));
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          table({ localId: TABLE_LOCAL_ID })(
-            tr(th({ rowspan: 2 })(p('')), thEmpty, thEmpty),
-            tr(tdEmpty, tdEmpty),
-            tr(tdEmpty, tdEmpty, tdEmpty),
-          ),
-        ),
-      );
-
-      sendKeyToPm(editorView, 'Mod-z');
-      validateUnmergedDomCells();
-      expect(editorView.state.doc).toEqualDocument(originalDoc);
-    });
-
-    // make sure all colspan/rowspan attributes are removed from cells
-    function validateUnmergedDomCells() {
-      const cells = document.querySelectorAll('table td, table th');
-      Array.from(cells).forEach((cell) => {
-        expect(cell.getAttribute('rowspan')).toBeFalsy();
-        expect(cell.getAttribute('colspan')).toBeFalsy();
-      });
-    }
   });
 });

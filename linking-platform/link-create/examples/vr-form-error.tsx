@@ -1,23 +1,34 @@
 import React, { useCallback, useState } from 'react';
 
-import fetchMock from 'fetch-mock/cjs/client';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
-import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
 
+import { MockPluginForm } from '../example-helpers/mock-plugin-form';
 import LinkCreate from '../src';
 import { CreatePayload } from '../src/common/types';
 
-const CLOUD_ID = 'cloud-id';
-
-fetchMock.restore();
+const ENTITY_KEY = 'object-name';
 
 function FormErrors() {
   const [link, setLink] = useState<string | null>();
   const [active, setActive] = useState(false);
 
-  const plugins = [createConfluencePageLinkCreatePlugin({ cloudId: CLOUD_ID })];
+  const mockPlugin = () => {
+    return {
+      group: {
+        label: 'test',
+        icon: 'test-icon',
+        key: 'mock-plugin',
+      },
+      label: 'label',
+      icon: 'icon',
+      key: ENTITY_KEY,
+      form: <MockPluginForm shouldThrowError={true} />,
+    };
+  };
+
+  const plugins = [mockPlugin()];
 
   const handleCreate = useCallback((payload: CreatePayload) => {
     setLink(payload.url);
@@ -52,7 +63,7 @@ function FormErrors() {
       <LinkCreate
         testId="link-create"
         plugins={plugins}
-        entityKey="confluence-page"
+        entityKey={ENTITY_KEY}
         onCreate={handleCreate}
         onFailure={handleFailure}
         onCancel={handleCancel}

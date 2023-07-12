@@ -111,6 +111,7 @@ export const LinkSearchListItem = forwardRef<
           <div
             data-testid={`${testIds.searchResultItem}-title`}
             css={listItemNameStyles}
+            title={item.name}
           >
             {item.name}
           </div>

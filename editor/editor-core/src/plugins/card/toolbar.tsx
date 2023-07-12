@@ -68,6 +68,7 @@ import {
 import type cardPlugin from './index';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { SmallerEditIcon } from './ui/SmallerEditIcon';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 
 export const removeCard = (
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
@@ -322,8 +323,14 @@ const generateToolbarItems =
     const currentAppearance = appearanceForNodeType(node.type);
     const { hoverDecoration } =
       pluginInjectionApi?.dependencies?.decorations?.actions ?? {};
+
     const isDatasource =
       currentAppearance === 'block' && node?.attrs?.datasource;
+    const shouldRenderDatasourceToolbar =
+      isDatasource &&
+      // not showing toolbar in mobile for now since not sure what our plans are for it
+      platform !== 'mobile' &&
+      canRenderDatasource(node?.attrs?.datasource);
 
     /* mobile builds toolbar natively using toolbarItems */
     if (pluginState?.showLinkingToolbar && platform !== 'mobile') {
@@ -344,8 +351,7 @@ const generateToolbarItems =
           editorAnalyticsApi,
         }),
       ];
-      // not showing toolbar in mobile for now since not sure what our plans are for it
-    } else if (isDatasource && platform !== 'mobile') {
+    } else if (shouldRenderDatasourceToolbar) {
       return getDatasourceButtonGroup(
         state,
         metadata,

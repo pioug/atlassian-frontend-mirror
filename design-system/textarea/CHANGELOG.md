@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 4.7.4
+
+### Patch Changes
+
+- [`964e8db6c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/964e8db6c94) - update border width to use border spacing token
+
 ## 4.7.3
 
 ### Patch Changes

@@ -15,6 +15,7 @@ import { EditorView } from 'prosemirror-view';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { EditorState } from 'prosemirror-state';
 import { Schema } from 'prosemirror-model';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('collab-edit: plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -25,11 +26,11 @@ describe('collab-edit: plugin', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, { createAnalyticsEvent: fireMock }])
         .add([
           collabEditPlugin,
           {
             useNativePlugin: true,
-            createAnalyticsEvent: fireMock,
           },
         ]),
       providerFactory,

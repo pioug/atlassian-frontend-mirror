@@ -22,7 +22,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': '이슈 보기',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} 선택됨',
   'linkDataSource.jira-issues.noResultsFound': '결과 없음',
-  'linkDataSource.jira-issues.openInProject': '프로젝트에서 열기',
   'linkDataSource.jira-issues.refresh': '새로 고침',
   'linkDataSource.jira-issues.unableToLoadIssues': '이슈를 로드할 수 없음',
   'linkDataSource.jira-issues.unableToLoadResults': '결과를 로드할 수 없음',

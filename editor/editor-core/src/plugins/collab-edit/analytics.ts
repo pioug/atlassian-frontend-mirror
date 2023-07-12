@@ -1,19 +1,20 @@
+import { EditorState, Transaction } from 'prosemirror-state';
+import { getDocStructure } from '../../utils/document-logger';
+import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import {
-  addAnalytics,
+  EditorAnalyticsAPI,
   ACTION,
   EVENT_TYPE,
   ACTION_SUBJECT,
   ErrorEventPayload,
-} from '../analytics';
-import { EditorState, Transaction } from 'prosemirror-state';
-import { getDocStructure } from '../../utils/document-logger';
-import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/analytics';
 
 export const addSynchronyErrorAnalytics = (
   state: EditorState,
   tr: Transaction,
   featureFlags: FeatureFlags,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
   return (error: Error) => {
     const browserExtensions = sniffUserBrowserExtensions({
@@ -33,7 +34,8 @@ export const addSynchronyErrorAnalytics = (
       });
     }
 
-    return addAnalytics(state, tr, payload);
+    editorAnalyticsApi?.attachAnalyticsEvent(payload)(tr);
+    return tr;
   };
 };
 
@@ -43,8 +45,11 @@ export const addSynchronyEntityAnalytics = (
   state: EditorState,
   tr: Transaction,
 ) => {
-  return (type: EntityEventType) =>
-    addAnalytics(state, tr, {
+  return (
+    type: EntityEventType,
+    editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  ) => {
+    editorAnalyticsApi?.attachAnalyticsEvent({
       action:
         type === 'error'
           ? ACTION.SYNCHRONY_ENTITY_ERROR
@@ -56,5 +61,7 @@ export const addSynchronyEntityAnalytics = (
         onLine: navigator.onLine,
         visibilityState: document.visibilityState,
       },
-    });
+    })(tr);
+    return tr;
+  };
 };

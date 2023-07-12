@@ -6,6 +6,7 @@ import { EditorState } from 'prosemirror-state';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { Slice } from 'prosemirror-model';
 import { AcknowledgementResponseTypes } from '../../types';
+import { EVENT_STATUS } from '../../helpers/const';
 
 // create editor state
 const { collab: collabPlugin } = jest.requireActual(
@@ -171,11 +172,16 @@ describe('commitStep', () => {
       );
     };
 
-    describe('on successfull response', () => {
+    describe('on successful response', () => {
       beforeEach(() => {
         broadcastMockImplementation({ type: 'SUCCESS', version: 2 });
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.069);
 
         presetCommitStep([fakeStep], 1, 'user1', 'client1');
+      });
+
+      afterEach(() => {
+        jest.spyOn(global.Math, 'random').mockRestore();
       });
 
       it('onStepsAdded called with correct data', async () => {
@@ -196,12 +202,15 @@ describe('commitStep', () => {
 
       it('analytics action event sent', () => {
         expect(actionEventSpy).toBeCalledTimes(1);
-        expect(actionEventSpy).toBeCalledWith('addSteps', 'SUCCESS', {
-          // is this flakey?
-          latency: 0,
-          stepType: { replace: 1 },
-          type: 'ACCEPTED',
-        });
+        expect(actionEventSpy).toBeCalledWith(
+          'addSteps',
+          EVENT_STATUS.SUCCESS_10x_SAMPLED,
+          {
+            latency: 0,
+            stepType: { replace: 1 },
+            type: 'ACCEPTED',
+          },
+        );
       });
 
       it('commit attempt & success event emitted', () => {

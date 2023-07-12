@@ -147,14 +147,12 @@ export function getDefaultPresetOptionsFromEditorProps(
 export default function createPluginsList(
   props: EditorProps,
   prevProps?: EditorProps,
-  createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ): EditorPlugin[] {
   const preset = createUniversalPreset(
     props.appearance,
-    getDefaultPresetOptionsFromEditorProps(props, createAnalyticsEvent),
+    getDefaultPresetOptionsFromEditorProps(props),
     createFeatureFlagsFromProps(props),
     prevProps?.appearance,
-    createAnalyticsEvent,
   );
 
   const excludes = new Set<string>();
@@ -191,17 +189,12 @@ function withDangerouslyAppendPlugins(preset: EditorPresetBuilder<any, any>) {
     return presetWithAppendedPlugins;
   };
 }
-export function createPreset(
-  props: EditorProps,
-  prevProps?: EditorProps,
-  createAnalyticsEvent?: CreateUIAnalyticsEvent,
-) {
+export function createPreset(props: EditorProps, prevProps?: EditorProps) {
   const preset = createUniversalPreset(
     props.appearance,
-    getDefaultPresetOptionsFromEditorProps(props, createAnalyticsEvent),
+    getDefaultPresetOptionsFromEditorProps(props),
     createFeatureFlagsFromProps(props),
     prevProps?.appearance,
-    createAnalyticsEvent,
   );
 
   return withDangerouslyAppendPlugins(preset)(

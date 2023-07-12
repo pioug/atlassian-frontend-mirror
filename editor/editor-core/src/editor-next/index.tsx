@@ -1,18 +1,18 @@
 /** @jsx jsx */
 import { Transformer } from '@atlaskit/editor-common/types';
 import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common/ui';
-// import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
+import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
 import { jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
 import React from 'react';
-// import { name, version } from '../version-wrapper';
+import { name, version } from '../version-wrapper';
 
-// import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
-// import uuid from 'uuid/v4';
+import uuid from 'uuid/v4';
 import EditorActions from '../actions';
 import { EventDispatcher } from '../event-dispatcher';
 import {
@@ -53,7 +53,7 @@ export default class EditorNext extends React.Component<EditorNextProps> {
 
   private editorActions: EditorActions;
   private createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  // private editorSessionId: string;
+  private editorSessionId: string;
   private experienceStore?: ExperienceStore;
   private startTime?: number;
 
@@ -62,7 +62,7 @@ export default class EditorNext extends React.Component<EditorNextProps> {
 
     deprecationWarnings(props);
     this.editorActions = (context || {}).editorActions || new EditorActions();
-    // this.editorSessionId = uuid();
+    this.editorSessionId = uuid();
     this.startTime = performance.now();
     this.onEditorCreated = this.onEditorCreated.bind(this);
     this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
@@ -127,41 +127,34 @@ export default class EditorNext extends React.Component<EditorNextProps> {
   private getExperienceStore = () => this.experienceStore;
 
   render() {
-    // TODO: https://product-fabric.atlassian.net/browse/ED-16979
-    // Move `FabricEditorAnalyticsContext` back into `EditorNext`
-    // This was moved out here to workaround the issue that the analytics
-    // context does not wrap the Preset (and therefore does not pass this context
-    // information to analytics calls within plugins). After this cleanup task ^ we will
-    // not have to generate the `createAnalyticsEvent` outside the Preset
-    // and we can move this back into `EditorNext`.
     return (
-      // <FabricEditorAnalyticsContext
-      //   data={{
-      //     packageName: name,
-      //     packageVersion: version,
-      //     componentName: 'editorCore',
-      //     appearance: getAnalyticsAppearance(this.props.appearance),
-      //     editorSessionId: this.editorSessionId,
-      //   }}
-      // >
-      <WithCreateAnalyticsEvent
-        render={(createAnalyticsEvent) =>
-          (this.createAnalyticsEvent = createAnalyticsEvent) && (
-            <EditorInternal
-              props={this.props}
-              handleAnalyticsEvent={this.handleAnalyticsEvent}
-              createAnalyticsEvent={this.createAnalyticsEvent}
-              preset={this.props.preset}
-              handleSave={this.handleSave}
-              editorActions={this.editorActions}
-              getExperienceStore={this.getExperienceStore}
-              onEditorCreated={this.onEditorCreated}
-              onEditorDestroyed={this.onEditorDestroyed}
-            />
-          )
-        }
-      />
-      // </FabricEditorAnalyticsContext>
+      <FabricEditorAnalyticsContext
+        data={{
+          packageName: name,
+          packageVersion: version,
+          componentName: 'editorCore',
+          appearance: getAnalyticsAppearance(this.props.appearance),
+          editorSessionId: this.editorSessionId,
+        }}
+      >
+        <WithCreateAnalyticsEvent
+          render={(createAnalyticsEvent) =>
+            (this.createAnalyticsEvent = createAnalyticsEvent) && (
+              <EditorInternal
+                props={this.props}
+                handleAnalyticsEvent={this.handleAnalyticsEvent}
+                createAnalyticsEvent={this.createAnalyticsEvent}
+                preset={this.props.preset}
+                handleSave={this.handleSave}
+                editorActions={this.editorActions}
+                getExperienceStore={this.getExperienceStore}
+                onEditorCreated={this.onEditorCreated}
+                onEditorDestroyed={this.onEditorDestroyed}
+              />
+            )
+          }
+        />
+      </FabricEditorAnalyticsContext>
     );
   }
 }

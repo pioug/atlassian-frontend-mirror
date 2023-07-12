@@ -244,4 +244,13 @@ describe('<LinkSearchListItem />', () => {
       'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgMTYgMTYiIGNsYXNzPSJvY3RpY29uIG9jdGljb24taXNzdWUtb3BlbmVkIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PHBhdGggZD0iTTggOS41YTEuNSAxLjUgMCAxMDAtMyAxLjUgMS41IDAgMDAwIDN6Ij48L3BhdGg+PHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNOCAwYTggOCAwIDEwMCAxNkE4IDggMCAwMDggMHpNMS41IDhhNi41IDYuNSAwIDExMTMgMCA2LjUgNi41IDAgMDEtMTMgMHoiPjwvcGF0aD48L3N2Zz4=',
     );
   });
+
+  it('should render results with a `title` attribute equal to the `name` property', () => {
+    const item = {
+      ...defaultItem,
+      name: 'Some Atlassian Page',
+    };
+    render(<LinkSearchListItem {...defaultProps} item={item} />);
+    expect(screen.getByTitle('Some Atlassian Page')).toBeDefined();
+  });
 });

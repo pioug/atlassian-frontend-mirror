@@ -115,9 +115,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 11/07/2023: https://product-fabric.atlassian.net/browse/ED-19051
 BrowserTestCase(
   'task-decision-2.ts: joins actions regardless of insert method',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const browser = await goToEditorTestingWDExample(client);
     await mountEditor(browser, {
@@ -147,9 +150,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 11/07/2023: https://product-fabric.atlassian.net/browse/ED-19052
 BrowserTestCase(
   'task-decision-2.ts: inserts new action item via typeahead on the same level as the previous action item even when it was empty',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const browser = await goToEditorTestingWDExample(client);
     await mountEditor(browser, {

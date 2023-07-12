@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/linking-common": "^3.3.0",
+    "@atlaskit/linking-common": "^3.4.0",
     "@babel/runtime": "^7.0.0",
     "json-ld-types": "3.7.0",
     "lru_map": "^0.4.1",
@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "@af/analytics-codegen": "^0.1.0",
-    "@atlaskit/link-picker": "^1.26.0",
+    "@atlaskit/link-picker": "^1.27.0",
     "@atlaskit/link-test-helpers": "^4.1.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^8.17.1",

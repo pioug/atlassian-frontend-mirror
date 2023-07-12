@@ -47,7 +47,6 @@ describe('card', () => {
         dispatchPasteEvent(editorView, { plain: text });
 
         expect(pluginKey.getState(editorView.state)).toEqual({
-          createAnalyticsEvent: expect.any(Function),
           cards: [],
           requests: [
             {

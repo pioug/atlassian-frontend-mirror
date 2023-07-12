@@ -1,6 +1,9 @@
 import React from 'react';
-import { CustomItem } from '@atlaskit/menu';
-import AkButton from '@atlaskit/button/standard-button';
+import { PluginKey } from 'prosemirror-state';
+import { RenderResult } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import {
   doc,
   p,
@@ -9,14 +12,14 @@ import {
   panel,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import TextStyleIcon from '@atlaskit/icon/glyph/editor/text-style';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
+import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 import { BlockTypeState, pluginKey } from '../../../pm-plugins/main';
 import ToolbarBlockType from '../../../ui/ToolbarBlockType';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
@@ -30,13 +33,10 @@ import {
   HEADING_6,
 } from '../../../types';
 import { setBlockType } from '../../../commands';
-import { ReactWrapper } from 'enzyme';
-import { PluginKey } from 'prosemirror-state';
 import { messages } from '../../../messages';
 import blockTypePlugin from '../../../';
 import panelPlugin from '../../../../panel';
 import codeBlockPlugin from '../../../../code-block';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
 
 describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
@@ -56,28 +56,28 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
   it('should render disabled ToolbarButton if isDisabled property is true', () => {
     const { editorView, pluginState } = editor(doc(p('text')));
     const { state, dispatch } = editorView;
-    const toolbarOption = mountWithIntl(
+    const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setBlockType={(name) => setBlockType(name)(state, dispatch)}
         isDisabled={true}
       />,
     );
-    expect(toolbarOption.find(AkButton).prop('isDisabled')).toBe(true);
+    expect(toolbarOption.getByRole('button')).toHaveAttribute('disabled');
     toolbarOption.unmount();
   });
 
   it('should render disabled ToolbarButton if current selection is blockquote', () => {
     const { editorView, pluginState } = editor(doc(blockquote(p('te{<>}xt'))));
     const { state, dispatch } = editorView;
-    const toolbarOption = mountWithIntl(
+    const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setBlockType={(name) => setBlockType(name)(state, dispatch)}
         isDisabled={true}
       />,
     );
-    expect(toolbarOption.find(AkButton).prop('isDisabled')).toBe(true);
+    expect(toolbarOption.getByRole('button')).toHaveAttribute('disabled');
     toolbarOption.unmount();
   });
 
@@ -85,13 +85,13 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
     const { editorView, pluginState } = editor(doc(panel()(p('te{<>}xt'))));
     const { state, dispatch } = editorView;
 
-    const toolbarOption = mountWithIntl(
+    const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setBlockType={(name) => setBlockType(name)(state, dispatch)}
       />,
     );
-    expect(toolbarOption.find(AkButton).prop('isDisabled')).toBe(false);
+    expect(toolbarOption.getByRole('button')).not.toHaveAttribute('disabled');
     toolbarOption.unmount();
   });
 
@@ -100,17 +100,18 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
       doc(code_block({ language: 'js' })('te{<>}xt')),
     );
     const { state, dispatch } = editorView;
-    const toolbarOption = mountWithIntl(
+    const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setBlockType={(name) => setBlockType(name)(state, dispatch)}
         isDisabled={true}
       />,
     );
-    expect(toolbarOption.find(AkButton).prop('isDisabled')).toBe(true);
+    expect(toolbarOption.getByRole('button')).toHaveAttribute('disabled');
     toolbarOption.unmount();
   });
 
+  // TODO: asserting on a prop, need to convert to VR or something similar
   it('should have spacing of toolbar button set to none if property isReducedSpacing=true', () => {
     const { editorView, pluginState } = editor(doc(p('text')));
     const { state, dispatch } = editorView;
@@ -128,43 +129,43 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
   it('should render icon in dropdown-menu if property isSmall=true', () => {
     const { editorView, pluginState } = editor(doc(p('text')));
     const { state, dispatch } = editorView;
-    const toolbarOption = mountWithIntl(
+    const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setBlockType={(name) => setBlockType(name)(state, dispatch)}
         isSmall={true}
       />,
     );
-    expect(toolbarOption.find(ToolbarButton).find(TextStyleIcon).length).toBe(
-      1,
-    );
+    expect(
+      toolbarOption.getByTestId('toolbar-block-type-text-styles-icon'),
+    ).toBeInTheDocument();
     toolbarOption.unmount();
   });
 
   it('should render current block type in dropdown-menu if property isSmall=false', () => {
     const { editorView, pluginState } = editor(doc(p('text')));
     const { state, dispatch } = editorView;
-    const toolbarOption = mountWithIntl(
+    const toolbarOption = renderWithIntl(
       <ToolbarBlockType
         pluginState={pluginState}
         setBlockType={(name) => setBlockType(name)(state, dispatch)}
       />,
     );
-    expect(toolbarOption.find(ToolbarButton).first().text()).toContain(
+    expect(toolbarOption.getByRole('button').innerText).toContain(
       messages.normal.defaultMessage,
     );
     toolbarOption.unmount();
   });
 
   describe('blockType dropdown items', () => {
-    let toolbarOption: ReactWrapper;
-    beforeEach(() => {
+    let toolbarOption: RenderResult;
+    beforeEach(async () => {
       const { editorView, pluginState } = editor(doc(p('text')));
       const editorRef = {
         current: document.createElement('div'),
       };
       const { state, dispatch } = editorView;
-      toolbarOption = mountWithIntl(
+      toolbarOption = renderWithIntl(
         <ReactEditorViewContext.Provider
           value={{
             editorRef,
@@ -177,7 +178,8 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
           />
         </ReactEditorViewContext.Provider>,
       );
-      toolbarOption.find('button').simulate('click');
+      const button = toolbarOption.getByRole('button');
+      await userEvent.click(button);
     });
 
     afterEach(() => {
@@ -194,15 +196,11 @@ describe('@atlaskit/editor-core/ui/ToolbarBlockType', () => {
       HEADING_6,
     ].forEach((blockType) => {
       it(`should have tagName ${blockType.tagName} present`, () => {
-        expect(
-          toolbarOption
-            .find(CustomItem)
-            .findWhere(
-              (n) =>
-                n.type() === blockType.tagName &&
-                n.text() === blockType.title.defaultMessage,
-            ).length,
-        ).toEqual(1);
+        const dropdown = toolbarOption.getByRole('group');
+        const item = dropdown.querySelector(
+          `[data-testId*='dropdown-item__'] ${blockType.tagName}`,
+        );
+        expect(item).toBeInTheDocument();
       });
     });
   });

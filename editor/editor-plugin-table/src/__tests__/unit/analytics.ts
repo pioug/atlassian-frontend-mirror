@@ -41,8 +41,6 @@ import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { replaceSelectedTable } from '../../plugins/table/transforms';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import tablePlugin from '../../plugins/table-plugin';
-import typeAheadPlugin from '@atlaskit/editor-core/src/plugins/type-ahead';
-import quickInsertPlugin from '@atlaskit/editor-core/src/plugins/quick-insert';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
@@ -97,9 +95,7 @@ describe('Table analytic events', () => {
           analyticsPluginFake as unknown as typeof analyticsPlugin,
           { createAnalyticsEvent: jest.fn() },
         ])
-        .add(typeAheadPlugin)
         .add(contentInsertionPlugin)
-        .add(quickInsertPlugin)
         .add(widthPlugin)
         .add([tablePlugin, { tableOptions }]),
       pluginKey,
@@ -107,23 +103,6 @@ describe('Table analytic events', () => {
 
     return _editor;
   };
-
-  describe('table inserted via quickInsert', () => {
-    beforeEach(async () => {
-      const { typeAheadTool } = editor(doc(p('{<>}')));
-      typeAheadTool.searchQuickInsert('Table').insert({ index: 0 });
-    });
-
-    it('should fire v3 analytics', () => {
-      expect(mockAttachPayload).toBeCalledWith({
-        action: 'inserted',
-        actionSubject: 'document',
-        actionSubjectId: 'table',
-        attributes: expect.objectContaining({ inputMethod: 'quickInsert' }),
-        eventType: 'track',
-      });
-    });
-  });
 
   describe('table deleted', () => {
     beforeEach(() => {

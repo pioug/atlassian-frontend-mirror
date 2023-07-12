@@ -4,10 +4,7 @@ import {
   CardAppearance,
 } from '@atlaskit/editor-common/provider-factory';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
-import {
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type {
   CardOptions,
   CardReplacementInputMethod,
@@ -118,7 +115,6 @@ export type CardPluginState = {
   showLinkingToolbar: boolean;
   smartLinkEvents?: SmartLinkEvents;
   smartLinkEventsNext?: SmartLinkEventsNext;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
   editorAppearance?: EditorAppearance;
   showDatasourceModal: boolean;
   datasourceTableRef?: HTMLElement;
@@ -129,7 +125,6 @@ export type CardPluginOptions = CardOptions & {
   editorAppearance?: EditorAppearance;
   platform: 'mobile' | 'web';
   fullWidthMode?: boolean;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
   linkPicker?: LinkPickerOptions;
 };
 

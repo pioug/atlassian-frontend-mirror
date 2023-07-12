@@ -17,6 +17,7 @@ import type {
   Command,
   NextEditorPlugin,
   PMPluginFactoryParams,
+  OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
@@ -25,16 +26,16 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { IconEmoji } from '../quick-insert/assets';
 import { EmojiNodeView } from './nodeviews/emoji';
 import { TypeAheadHandler, TypeAheadItem } from '../type-ahead/types';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { EmojiPluginOptions, EmojiPluginState } from './types';
 import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-at-cursor';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 export const emojiToTypeaheadItem = (
   emoji: EmojiDescription,
@@ -104,8 +105,9 @@ const emojiPlugin: NextEditorPlugin<
   'emoji',
   {
     pluginConfiguration: EmojiPluginOptions | undefined;
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
   }
-> = (options) => {
+> = (options, api) => {
   const typeAhead: TypeAheadHandler = {
     id: TypeAheadAvailableNodes.EMOJI,
     trigger: TRIGGER,
@@ -179,8 +181,20 @@ const emojiPlugin: NextEditorPlugin<
       ) {
         emojiPluginState.emojiProvider
           .recordSelection(item.emoji)
-          .then(recordSelectionSucceededSli(options))
-          .catch(recordSelectionFailedSli(options));
+          .then(
+            recordSelectionSucceededSli({
+              createAnalyticsEvent:
+                api?.dependencies.analytics?.sharedState.currentState()
+                  ?.createAnalyticsEvent ?? undefined,
+            }),
+          )
+          .catch(
+            recordSelectionFailedSli({
+              createAnalyticsEvent:
+                api?.dependencies.analytics?.sharedState.currentState()
+                  ?.createAnalyticsEvent ?? undefined,
+            }),
+          );
       }
       const emojiNode = state.schema.nodes.emoji.createChecked({
         shortName,
@@ -189,13 +203,15 @@ const emojiPlugin: NextEditorPlugin<
       });
       const space = state.schema.text(' ');
 
-      return addAnalytics(state, insert(Fragment.from([emojiNode, space])), {
+      const tr = insert(Fragment.from([emojiNode, space]));
+      api?.dependencies.analytics?.actions.attachAnalyticsEvent({
         action: ACTION.INSERTED,
         actionSubject: ACTION_SUBJECT.DOCUMENT,
         actionSubjectId: ACTION_SUBJECT_ID.EMOJI,
         attributes: { inputMethod: INPUT_METHOD.TYPEAHEAD },
         eventType: EVENT_TYPE.TRACK,
-      });
+      })(tr);
+      return tr;
     },
   };
   return {
@@ -235,13 +251,16 @@ const emojiPlugin: NextEditorPlugin<
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,
             })(tr);
-            return addAnalytics(state, tr, {
+
+            api?.dependencies.analytics?.actions.attachAnalyticsEvent({
               action: ACTION.INVOKED,
               actionSubject: ACTION_SUBJECT.TYPEAHEAD,
               actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_EMOJI,
               attributes: { inputMethod: INPUT_METHOD.QUICK_INSERT },
               eventType: EVENT_TYPE.UI,
-            });
+            })(tr);
+
+            return tr;
           },
         },
       ],

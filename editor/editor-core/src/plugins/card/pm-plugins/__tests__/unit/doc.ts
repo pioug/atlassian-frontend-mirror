@@ -210,7 +210,6 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
-          createAnalyticsEvent,
           showDatasourceModal: false,
         } as CardPluginState;
         expect(pluginKey.getState(editorView.state)).toEqual(initialState);
@@ -260,7 +259,6 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
-          createAnalyticsEvent,
           showDatasourceModal: false,
         } as CardPluginState);
       });
@@ -299,7 +297,6 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           showDatasourceModal: false,
-          createAnalyticsEvent,
         } as CardPluginState);
       });
 
@@ -350,7 +347,6 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
-          createAnalyticsEvent,
           showDatasourceModal: false,
         } as CardPluginState);
 
@@ -375,7 +371,6 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
-          createAnalyticsEvent,
           showDatasourceModal: false,
         } as CardPluginState);
       });
@@ -441,7 +436,6 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
-          createAnalyticsEvent,
           showDatasourceModal: false,
         } as CardPluginState);
         expect(view.state.doc).toEqualDocument(initialDoc);
@@ -485,7 +479,6 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
-          createAnalyticsEvent,
           showDatasourceModal: false,
         } as CardPluginState);
         expect(view.state.doc).toEqualDocument(initialDoc);
@@ -542,7 +535,6 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
-          createAnalyticsEvent,
           showDatasourceModal: false,
         } as CardPluginState);
       });
@@ -714,7 +706,6 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
-          createAnalyticsEvent,
           showDatasourceModal: false,
         } as CardPluginState);
       });
@@ -760,7 +751,6 @@ describe('card', () => {
             provider: null,
             showLinkingToolbar: false,
             smartLinkEvents: undefined,
-            createAnalyticsEvent,
           }),
         );
       });

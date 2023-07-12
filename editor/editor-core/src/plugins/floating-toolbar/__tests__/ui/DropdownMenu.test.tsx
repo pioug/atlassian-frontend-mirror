@@ -1,10 +1,11 @@
 import React from 'react';
-import Tooltip from '@atlaskit/tooltip';
-import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
-import { ButtonItem } from '@atlaskit/menu';
+import { waitFor, within } from '@testing-library/dom';
+import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import DropdownMenu from '../../ui/DropdownMenu';
 import { DropdownOptionT } from '../../ui/types';
-import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 describe('<DropdownMenu />', () => {
   it('should wrap item inside a <Tooltip /> when tooltip option is present', () => {
@@ -19,8 +20,7 @@ describe('<DropdownMenu />', () => {
         title: 'title without tooltip',
       },
     ];
-
-    const dropdownMenu = mountWithIntl(
+    renderWithIntl(
       <DropdownMenu
         hide={jest.fn()}
         dispatchCommand={jest.fn()}
@@ -28,13 +28,45 @@ describe('<DropdownMenu />', () => {
       />,
     );
 
-    expect(dropdownMenu.find(ButtonItem)).toHaveLength(2);
-    expect(dropdownMenu.find(Tooltip)).toHaveLength(1);
-    expect(dropdownMenu.find(Tooltip).prop('content')).toEqual('tooltip text');
-    expect(dropdownMenu.find(Tooltip).find(ButtonItem)).toHaveLength(1);
-    expect(dropdownMenu.find(Tooltip).find(ButtonItem).text()).toEqual(
-      'item with tooltip',
+    const buttonItems = screen.queryAllByRole('button');
+    expect(buttonItems.length).toBe(2);
+
+    const toolTips = screen.queryAllByRole('presentation');
+    expect(toolTips.length).toBe(1);
+
+    const toolTipButtons = within(toolTips[0]).queryAllByRole('button');
+    expect(toolTipButtons.length).toBe(1);
+
+    expect(toolTipButtons[0].textContent).toBe('item with tooltip');
+  });
+
+  it('should display the tooltip when mouse over', async () => {
+    const dispatchCommand = (command: Function) => {
+      return command();
+    };
+    const items: Array<DropdownOptionT<Function>> = [
+      {
+        onClick: jest.fn(),
+        title: 'item with tooltip',
+        tooltip: 'tooltip text',
+      },
+    ];
+
+    renderWithIntl(
+      <DropdownMenu
+        hide={jest.fn().mockReturnValue(false)}
+        dispatchCommand={dispatchCommand}
+        items={items}
+      />,
     );
+    await flushPromises();
+    expect(screen.queryByText('tooltip text')).not.toBeInTheDocument();
+
+    const button = screen.getByText('item with tooltip');
+    await userEvent.hover(button);
+    await waitFor(async () => {
+      expect(screen.queryByText('tooltip text')).toBeInTheDocument();
+    });
   });
 
   it('should trigger mouse events when mouse interact with the menu item', async () => {
@@ -57,7 +89,7 @@ describe('<DropdownMenu />', () => {
       },
     ];
 
-    const dropdownMenu = mountWithIntl(
+    renderWithIntl(
       <DropdownMenu
         hide={jest.fn().mockReturnValue(false)}
         dispatchCommand={dispatchCommand}
@@ -66,18 +98,13 @@ describe('<DropdownMenu />', () => {
     );
     await flushPromises();
 
-    const menuItem = dropdownMenu.find(
-      `button[data-testid="${menuItemTestId}"]`,
-    );
-    expect(menuItem).toHaveLength(1);
+    const menuItem = screen.getByTestId(menuItemTestId);
 
-    menuItem.simulate('mouseenter');
+    await userEvent.hover(menuItem);
     expect(mockMouseEnter).toHaveBeenCalledTimes(1);
-
-    menuItem.simulate('mouseover');
     expect(mockMouseOver).toHaveBeenCalledTimes(1);
 
-    menuItem.simulate('mouseleave');
+    await userEvent.unhover(menuItem);
     expect(mockMouseLeave).toHaveBeenCalledTimes(1);
   });
 });

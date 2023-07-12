@@ -105,7 +105,7 @@ export default async () => {
     { skipPlatform: ['*'] },
     async (client) => {
       const page = await Page.create(client);
-      await loadRenderer(page, 'allowCaptions=true');
+      await loadRenderer(page, { allowCaptions: true });
       await setADFContent(page, mediaSingleWithCaptionAdf, 'renderer');
       await waitForMedia(page);
       await mobileSnapshot(page);

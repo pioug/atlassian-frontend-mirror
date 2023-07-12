@@ -40,6 +40,7 @@ export const insertItem =
 
     const tr = item.action(insert, state);
 
+    /** @note There is no transaction when called without a search currently (different insert) */
     if (tr && dispatch) {
       dispatch(tr);
     }

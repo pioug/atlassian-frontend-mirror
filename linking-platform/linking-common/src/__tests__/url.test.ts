@@ -73,8 +73,9 @@ describe('normalizeUrl', () => {
     // itms
     'itms:',
     'itms://itunes.com/apps/app',
-    // notes
+    // notes - this URL scheme is not valid but we are not breaking existing behaviour
     'notes:',
+    // notes
     'notes://servername/database/view/documentuniqueid',
     // hipchat
     'hipchat://',

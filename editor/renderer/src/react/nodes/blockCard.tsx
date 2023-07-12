@@ -20,7 +20,10 @@ import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema'
 import { token } from '@atlaskit/tokens';
 import { akEditorRuleBorderRadius } from '@atlaskit/editor-shared-styles';
 import { N40 } from '@atlaskit/theme/colors';
-import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
+import {
+  calcBreakoutWidth,
+  canRenderDatasource,
+} from '@atlaskit/editor-common/utils';
 
 //  Temporary, until we add aspect ratio to the datasource table
 const datasourceContainerStyle = css({
@@ -65,7 +68,8 @@ export default function BlockCard(props: {
   if (props.datasource) {
     const views = props.datasource.views as DatasourceAdfView[];
     const tableView = views.find((view) => view.type === 'table');
-    if (tableView) {
+
+    if (tableView && canRenderDatasource(props.datasource)) {
       const visibleColumnKeys = tableView.properties?.columns.map(
         ({ key }) => key,
       );
@@ -97,6 +101,7 @@ export default function BlockCard(props: {
         </AnalyticsContext>
       );
     }
+
     return null;
   }
 

@@ -1,37 +1,118 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
-import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
-import {
-  mockCreatePage,
-  mockFetchPage,
-  mockFetchSpace,
-} from '@atlassian/link-create-confluence/mocks';
+import { OptionsType } from '@atlaskit/select';
 
-import LinkCreate from '../src';
+import LinkCreate, {
+  AsyncSelect,
+  CreateForm,
+  CreateFormProps,
+  TextField,
+  useLinkCreateCallback,
+  Validator,
+} from '../src';
 import { CreatePayload } from '../src/common/types';
 
-const cloudId = 'cloud-id';
-const baseUrl = 'https://atlassian.com/';
+const ENTITY_KEY = 'object-name';
 
-// Mocks
-mockFetchPage();
-mockFetchSpace();
-mockCreatePage();
+function MockPluginForm() {
+  const { onCreate, onFailure, onCancel } = useLinkCreateCallback();
 
+  type MockOptions = {
+    label: string;
+    value: string;
+  };
+
+  const mockHandleSubmit = async () => {
+    if (onCreate) {
+      await onCreate({
+        url: 'https://atlassian.com/product/new-object-id',
+        objectId: 'new-object-id',
+        objectType: 'object-type',
+        data: {},
+      });
+    }
+  };
+
+  const mockValidator: Validator = useMemo(
+    () => ({
+      isValid: (val: unknown) => !!val,
+      errorMessage: 'Validation Error: You need to provide a value.',
+    }),
+    [],
+  );
+
+  const exampleOptions: OptionsType<MockOptions> = [
+    { label: 'Option 1', value: 'option-1' },
+    { label: 'Option 2', value: 'option-2' },
+  ];
+
+  const mockLoadOptions = async () => {
+    try {
+      return exampleOptions;
+    } catch (error) {
+      if (error instanceof Error) {
+        onFailure && onFailure(error.message);
+      }
+      return [];
+    }
+  };
+
+  return (
+    <div>
+      This is a mocked plugin.
+      <CreateForm<CreateFormProps<FormData>>
+        onSubmit={mockHandleSubmit}
+        onCancel={onCancel}
+      >
+        <TextField
+          name={'textField-name'}
+          label={'Enter some Text'}
+          placeholder={'Type something here...'}
+          validators={[mockValidator]}
+          autoFocus
+          maxLength={255}
+        />
+        <AsyncSelect<MockOptions>
+          isRequired
+          isSearchable
+          name={'asyncSelect-name'}
+          label={'Select an Option'}
+          validators={[mockValidator]}
+          defaultOptions={true}
+          defaultOption={mockLoadOptions}
+          loadOptions={mockLoadOptions}
+        ></AsyncSelect>
+      </CreateForm>
+    </div>
+  );
+}
 function CreateBasic() {
   const [link, setLink] = useState<string | null>();
   const [active, setActive] = useState(false);
 
-  const plugins = [createConfluencePageLinkCreatePlugin({ cloudId, baseUrl })];
+  const mockPlugin = () => {
+    return {
+      group: {
+        label: 'test',
+        icon: 'test-icon',
+        key: 'mock-plugin',
+      },
+      label: 'label',
+      icon: 'icon',
+      key: ENTITY_KEY,
+      form: <MockPluginForm />,
+    };
+  };
+
+  const plugins = [mockPlugin()];
 
   const handleCreate = useCallback(async (payload: CreatePayload) => {
     await new Promise<void>(resolve => {
       setTimeout(() => resolve(), 2000);
     });
-    console.log(payload.data);
     setLink(payload.url);
     setActive(false);
   }, []);
@@ -74,7 +155,7 @@ function CreateBasic() {
         plugins={plugins}
         testId="link-create"
         triggeredFrom="example"
-        entityKey="confluence-page"
+        entityKey={ENTITY_KEY}
         onCreate={handleCreate}
         onFailure={handleFailure}
         onCancel={handleCancel}

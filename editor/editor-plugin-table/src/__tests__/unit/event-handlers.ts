@@ -1,4 +1,3 @@
-import { MediaAttributes } from '@atlaskit/adf-schema';
 import { TextSelection } from 'prosemirror-state';
 import {
   createProsemirrorEditorFactory,
@@ -11,17 +10,13 @@ import {
   td,
   tr,
   tdEmpty,
-  thEmpty,
   tdCursor,
   DocBuilder,
-  media,
-  mediaGroup,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   handleMouseOver,
   handleMouseMove,
-  handleClick,
 } from '../../plugins/table/event-handlers';
 import {
   showInsertColumnButton,
@@ -34,9 +29,6 @@ import {
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import tablePlugin from '../../plugins/table-plugin';
-import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
-import floatingToolbarPlugin from '@atlaskit/editor-core/src/plugins/floating-toolbar';
-import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -168,21 +160,12 @@ describe('table event handlers', () => {
       attachTo: document.body,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
-        .add(editorDisabledPlugin)
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add(widthPlugin)
         .add(gridPlugin)
-        .add(tablePlugin)
-        .add(floatingToolbarPlugin)
-        .add([
-          mediaPlugin,
-          {
-            allowMediaSingle: true,
-            allowMediaGroup: true,
-          },
-        ]),
+        .add(tablePlugin),
       pluginKey,
     });
 
@@ -240,101 +223,6 @@ describe('table event handlers', () => {
         expect(
           handleMouseMove(fakeGetEditorFeatureFlags)(editorView, event as any),
         ).toEqual(false);
-      });
-    });
-  });
-
-  describe('#handleClick', () => {
-    describe('clicking on media group node', () => {
-      describe('when on last cell of middle row', () => {
-        describe('when last element is media group node', () => {
-          it('should insert a new paragraph node', () => {
-            const testCollectionName = 'media-plugin-mock-collection-random-id';
-            const fileId = 'random-id';
-            const mediaAttrs: MediaAttributes = {
-              id: fileId,
-              type: 'file',
-              collection: testCollectionName,
-            };
-            const tableAttrs = { localId: 'table' };
-
-            const { editorView } = editor(
-              doc(
-                table(tableAttrs)(
-                  tr(thEmpty, thEmpty, thEmpty),
-                  tr(tdEmpty, tdEmpty, td()(mediaGroup(media(mediaAttrs)()))),
-                  tr(tdEmpty, tdEmpty, tdEmpty),
-                ),
-              ),
-            );
-
-            const firstCell = editorView.domAtPos(27);
-            const event = {
-              target: firstCell.node,
-            };
-            expect(handleClick(editorView, event as any)).toEqual(true);
-
-            expect(editorView.state.doc).toEqualDocument(
-              doc(
-                table(tableAttrs)(
-                  tr(thEmpty, thEmpty, thEmpty),
-                  tr(
-                    tdEmpty,
-                    tdEmpty,
-                    td()(mediaGroup(media(mediaAttrs)()), p()),
-                  ),
-                  tr(tdEmpty, tdEmpty, tdEmpty),
-                ),
-              ),
-            );
-          });
-        });
-
-        describe('when last element is not media group node', () => {
-          it('should not insert a new paragraph node', () => {
-            const testCollectionName = 'media-plugin-mock-collection-random-id';
-            const fileId = 'random-id';
-            const mediaAttrs: MediaAttributes = {
-              id: fileId,
-              type: 'file',
-              collection: testCollectionName,
-            };
-            const tableAttrs = { localId: 'table' };
-            const { editorView } = editor(
-              doc(
-                table(tableAttrs)(
-                  tr(thEmpty, thEmpty, thEmpty),
-                  tr(
-                    tdEmpty,
-                    tdEmpty,
-                    td()(mediaGroup(media(mediaAttrs)()), p()),
-                  ),
-                  tr(tdEmpty, tdEmpty, tdEmpty),
-                ),
-              ),
-            );
-
-            const firstCell = editorView.domAtPos(27);
-            const event = {
-              target: firstCell.node,
-            };
-            expect(handleClick(editorView, event as any)).toEqual(true);
-
-            expect(editorView.state.doc).toEqualDocument(
-              doc(
-                table(tableAttrs)(
-                  tr(thEmpty, thEmpty, thEmpty),
-                  tr(
-                    tdEmpty,
-                    tdEmpty,
-                    td()(mediaGroup(media(mediaAttrs)()), p()),
-                  ),
-                  tr(tdEmpty, tdEmpty, tdEmpty),
-                ),
-              ),
-            );
-          });
-        });
       });
     });
   });

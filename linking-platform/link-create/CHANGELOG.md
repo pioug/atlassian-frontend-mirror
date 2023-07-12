@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.8.1
+
+### Patch Changes
+
+- [`70b0f95345a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/70b0f95345a) - Add support for i18n
+
 ## 0.8.0
 
 ### Minor Changes

@@ -26,10 +26,9 @@ export default async () => {
     client: any,
     content?: ADFEntity,
     waitForSelector?: string,
-    editorParams?: string,
   ) => {
     const page = await Page.create(client);
-    await loadEditor(page, editorParams);
+    await loadEditor(page);
     if (content) {
       await setADFContent(page, content);
     }
@@ -162,12 +161,7 @@ export default async () => {
     // TODO: https://product-fabric.atlassian.net/browse/ME-1641
     { skipPlatform: ['*'] },
     async (client) => {
-      const page = await setup(
-        client,
-        mediaSingleAdf,
-        undefined,
-        'enableMediaResize=true',
-      );
+      const page = await setup(client, mediaSingleAdf, undefined);
       await waitForAtLeastNumFileCards(page, 1);
       await page.switchToWeb();
 

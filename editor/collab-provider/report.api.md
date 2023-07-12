@@ -141,7 +141,7 @@ export interface CollabEventLocalStepData {
 // @public (undocumented)
 export interface CollabEventPresenceData {
   // (undocumented)
-  joined?: CollabParticipant[];
+  joined?: ProviderParticipant[];
   // (undocumented)
   left?: {
     sessionId: string;

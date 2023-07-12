@@ -2,7 +2,7 @@
 order: 0
 ---
 
-import TextFieldDefault from '../../examples/constellation/text-field-default';
+import TextFieldBasic from '../../examples/constellation/text-field-basic';
 import TextFieldForm from '../../examples/constellation/text-field-form';
 import TextFieldFormNativeValidation from '../../examples/constellation/text-field-form-native-validation';
 import TextFieldFormValidation from '../../examples/constellation/text-field-form-validation';
@@ -13,17 +13,18 @@ import TextFieldAppearanceNone from '../../examples/constellation/text-field-app
 import TextFieldElementsBeforeAndAfter from '../../examples/constellation/text-field-elements-before-and-after';
 import TextFieldOverrideStyles from '../../examples/constellation/text-field-customisation';
 
-## Default
+## Basic
 
-The default form of a text field.
-
-<Example Component={TextFieldDefault} packageName="@atlaskit/textfield" />
-
-## Form
-
-Text field used with the `Form` component.
+A basic text field. You'll usually use text fields as a [form field](/components/form/examples#field), which must include a visible label.
 
 <Example Component={TextFieldForm} packageName="@atlaskit/textfield" />
+
+## Text field outside of a form component
+
+If you use a text field outside of a form component, associate the label to the field properly.
+
+<Example Component={TextFieldBasic} packageName="@atlaskit/textfield" />
+
 
 ## Native validation
 

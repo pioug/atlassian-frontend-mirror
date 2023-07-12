@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 108.6.6
+
+### Patch Changes
+
+- [`202f8c2ee69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/202f8c2ee69) - The changes here adds support for datasource feature flag for rollout.
+
 ## 108.6.5
 
 ### Patch Changes

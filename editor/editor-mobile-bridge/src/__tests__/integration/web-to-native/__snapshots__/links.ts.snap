@@ -11,11 +11,11 @@ Array [
     "url": "",
   },
   Object {
-    "bottom": 53,
+    "bottom": 56,
     "left": 16,
     "right": 16,
     "text": "Atlassian",
-    "top": 34,
+    "top": 35,
     "url": "https://www.google.com",
   },
 ]
@@ -32,11 +32,11 @@ Array [
     "url": "",
   },
   Object {
-    "bottom": 53,
+    "bottom": 56,
     "left": 16,
     "right": 16,
     "text": "Atlassian",
-    "top": 34,
+    "top": 35,
     "url": "https://www.google.com",
   },
   Object {
@@ -112,11 +112,11 @@ Array [
     "url": "",
   },
   Object {
-    "bottom": 53,
+    "bottom": 56,
     "left": 16,
     "right": 16,
     "text": "Atlassian",
-    "top": 34,
+    "top": 35,
     "url": "https://www.google.com",
   },
 ]
@@ -133,11 +133,11 @@ Array [
     "url": "",
   },
   Object {
-    "bottom": 53,
-    "left": 67.859375,
-    "right": 67.859375,
+    "bottom": 56,
+    "left": 75.265625,
+    "right": 75.265625,
     "text": "link",
-    "top": 34,
+    "top": 35,
     "url": "https://www.google.com",
   },
   Object {

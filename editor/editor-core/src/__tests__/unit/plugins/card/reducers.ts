@@ -32,7 +32,6 @@ describe('card', () => {
     describe('#state.init', () => {
       it('creates an empty state', () => {
         expect(initialState).toEqual({
-          createAnalyticsEvent: expect.any(Function),
           cards: [],
           requests: [],
           provider: null,
@@ -54,7 +53,6 @@ describe('card', () => {
               requests: [item],
             }),
           ).toEqual({
-            createAnalyticsEvent: expect.any(Function),
             cards: [],
             requests: [item],
             provider: null,

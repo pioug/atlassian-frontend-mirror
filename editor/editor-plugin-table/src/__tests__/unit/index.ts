@@ -11,7 +11,6 @@ import {
   Preset,
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import randomId from '@atlaskit/editor-test-helpers/random-id';
 
 import {
   doc,
@@ -21,14 +20,10 @@ import {
   tr,
   td,
   th,
-  ul,
-  li,
   tdEmpty,
   tdCursor,
   thCursor,
-  strong,
   mediaGroup,
-  mediaSingle,
   media,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -51,25 +46,16 @@ import {
   checkIfHeaderColumnEnabled,
   checkIfHeaderRowEnabled,
 } from '../../plugins/table/utils';
-import listPlugin from '@atlaskit/editor-core/src/plugins/list';
-import textFormattingPlugin from '@atlaskit/editor-core/src/plugins/text-formatting';
-import deprecatedAnalyticsPlugin from '@atlaskit/editor-core/src/plugins/analytics';
+
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import mediaPlugin from '@atlaskit/editor-core/src/plugins/media';
-import editorDisabledPlugin from '@atlaskit/editor-core/src/plugins/editor-disabled';
-import selectionPlugin from '@atlaskit/editor-core/src/plugins/selection';
-import floatingToolbarPlugin from '@atlaskit/editor-core/src/plugins/floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import { insertMediaAsMediaSingle } from '@atlaskit/editor-core/src/plugins/media/utils/media-single';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import tablePlugin from '../../plugins/table-plugin';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -101,18 +87,10 @@ describe('table plugin', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
-      .add([deprecatedAnalyticsPlugin, {}])
-      .add(editorDisabledPlugin)
-      .add(contentInsertionPlugin)
-      .add(decorationsPlugin)
       .add(widthPlugin)
       .add(gridPlugin)
-      .add([tablePlugin, { tableOptions }])
-      .add(floatingToolbarPlugin)
-      .add([mediaPlugin, { allowMediaSingle: true }])
-      .add(textFormattingPlugin)
-      .add(listPlugin)
-      .add(selectionPlugin);
+      .add(contentInsertionPlugin)
+      .add([tablePlugin, { tableOptions }]);
 
     return createEditor({
       doc,
@@ -134,25 +112,6 @@ describe('table plugin', () => {
           tr(tdEmpty, tdEmpty, tdEmpty),
         );
         expect(editorView.state.doc).toEqualDocument(doc(tableNode));
-      });
-    });
-
-    describe('when selection has a mark', () => {
-      it('it should create a new table and return true', () => {
-        const { editorView } = editor(doc(p(strong('text{<>}'))));
-        expect(createTable()(editorView.state, editorView.dispatch)).toEqual(
-          true,
-        );
-        expect(editorView.state.doc).toEqualDocument(
-          doc(
-            p(strong('text')),
-            table({ localId: TABLE_LOCAL_ID })(
-              tr(thEmpty, thEmpty, thEmpty),
-              tr(tdEmpty, tdEmpty, tdEmpty),
-              tr(tdEmpty, tdEmpty, tdEmpty),
-            ),
-          ),
-        );
       });
     });
   });
@@ -865,63 +824,6 @@ describe('table plugin', () => {
       sendKeyToPm(editorView, 'ArrowUp');
 
       expect(editorView.state.doc).toEqualDocument(docWithTable);
-    });
-  });
-
-  describe('when images is inside lists in table', () => {
-    const testCollectionName = `media-plugin-mock-collection-${randomId()}`;
-    const temporaryFileId = `temporary:${randomId()}`;
-
-    it('inserts image as single', () => {
-      const { editorView } = editor(
-        doc(
-          p('1'),
-          table()(
-            tr(td()(p('2'), ul(li(p('3{<>}'))))),
-            tr(tdEmpty),
-            tr(tdEmpty),
-          ),
-        ),
-      );
-
-      insertMediaAsMediaSingle(
-        editorView,
-        media({
-          id: temporaryFileId,
-          type: 'file',
-          collection: testCollectionName,
-          __fileMimeType: 'image/png',
-        })()(editorView.state.schema),
-        INPUT_METHOD.PICKER_CLOUD,
-      );
-
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p('1'),
-          table({ localId: TABLE_LOCAL_ID })(
-            tr(
-              td()(
-                p('2'),
-                ul(
-                  li(
-                    p('3'),
-                    mediaSingle()(
-                      media({
-                        id: temporaryFileId,
-                        type: 'file',
-                        collection: testCollectionName,
-                        __fileMimeType: 'image/png',
-                      })(),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            tr(tdEmpty),
-            tr(tdEmpty),
-          ),
-        ),
-      );
     });
   });
 

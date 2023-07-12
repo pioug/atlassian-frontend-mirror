@@ -47,10 +47,10 @@ describe('link-create', () => {
     // Wait for Modal
     await page.waitForSelector('[data-testid="link-create--modal"]');
     // click on dropdown
-    await page.click('#space_or_page-uid2');
+    await page.click('#asyncSelect-name-uid2');
     // wait for list
-    await page.waitForSelector('#react-select-2-group-0-heading');
-    //
+    await page.waitForSelector('#react-select-2-option-0');
+
     const image = await page.screenshot({
       clip: { x: 0, y: 0, width: 800, height: 600 },
     });
@@ -59,7 +59,7 @@ describe('link-create', () => {
   });
 
   it('should display an error message when the component throws', async () => {
-    const url = getURL('error-boundary');
+    const url = getURL('vr-error-boundary');
     const page = await setup(url);
 
     // click Create button

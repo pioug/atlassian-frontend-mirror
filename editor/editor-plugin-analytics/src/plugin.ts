@@ -1,3 +1,5 @@
+import { useLayoutEffect } from 'react';
+
 import { Transaction } from 'prosemirror-state';
 
 import {
@@ -5,7 +7,10 @@ import {
   AnalyticsWithChannel,
 } from '@atlaskit/adf-schema/steps';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import {
+  CreateUIAnalyticsEvent,
+  useAnalyticsEvents,
+} from '@atlaskit/analytics-next';
 import {
   ACTION,
   AnalyticsEventPayload,
@@ -42,7 +47,7 @@ function createPlugin(
   options: AnalyticsPluginOptions,
   featureFlags: FeatureFlags,
 ) {
-  if (!options || !options.createAnalyticsEvent) {
+  if (!options) {
     return;
   }
 
@@ -58,11 +63,20 @@ function createPlugin(
         };
       },
       apply: (tr, pluginState, _, state) => {
-        if (pluginState.createAnalyticsEvent !== options.createAnalyticsEvent) {
-          // When the plugin state is reconfigured, the init function isn't called again
+        const { createAnalyticsEvent } = tr.getMeta(analyticsPluginKey) ?? {};
+
+        // When the createAnalyticsEvent is reconfigured
+        if (
+          (options.createAnalyticsEvent &&
+            options.createAnalyticsEvent !==
+              pluginState.createAnalyticsEvent) ||
+          (pluginState.createAnalyticsEvent !== createAnalyticsEvent &&
+            createAnalyticsEvent)
+        ) {
           return {
             ...pluginState,
-            createAnalyticsEvent: options.createAnalyticsEvent,
+            createAnalyticsEvent:
+              options.createAnalyticsEvent ?? createAnalyticsEvent,
           };
         }
 
@@ -162,6 +176,18 @@ const analyticsPlugin: NextEditorPlugin<
 
           return true;
         },
+    },
+
+    usePluginHook({ editorView }) {
+      const { createAnalyticsEvent } = useAnalyticsEvents();
+      useLayoutEffect(() => {
+        const {
+          dispatch,
+          state: { tr },
+        } = editorView;
+        tr.setMeta(analyticsPluginKey, { createAnalyticsEvent });
+        dispatch(tr);
+      }, [createAnalyticsEvent, editorView]);
     },
 
     pmPlugins() {

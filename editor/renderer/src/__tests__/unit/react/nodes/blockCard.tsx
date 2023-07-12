@@ -11,7 +11,11 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { MockCardComponent } from './card.mock';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
-import { DatasourceTableView } from '@atlaskit/link-datasource';
+import {
+  DatasourceTableView,
+  JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+} from '@atlaskit/link-datasource';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/smart-card', () => {
   const originalModule = jest.requireActual('@atlaskit/smart-card');
@@ -163,6 +167,49 @@ describe('Renderer - React/Nodes/BlockCard', () => {
         </Provider>,
       );
       expect(node.isEmptyRender()).toBe(true);
+    });
+
+    describe('when using feature flag', () => {
+      const datasourceAttributePropertiesWithRealJiraId = {
+        ...datasourceAttributeProperties,
+        id: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+      };
+      ffTest(
+        'platform.linking-platform.datasource-jira_issues',
+        () => {
+          node = mount(
+            <Provider client={new Client('staging')}>
+              <BlockCard
+                url={url}
+                datasource={datasourceAttributePropertiesWithRealJiraId}
+                smartLinks={{ showServerActions: true }}
+              />
+            </Provider>,
+          );
+          expect(node.find(DatasourceTableView).prop('datasourceId')).toEqual(
+            'd8b75300-dfda-4519-b6cd-e49abbd50401',
+          );
+          expect(node.find(DatasourceTableView).prop('parameters')).toEqual({
+            cloudId: 'mock-cloud-id',
+            jql: 'JQL=MOCK',
+          });
+          expect(
+            node.find(DatasourceTableView).prop('visibleColumnKeys'),
+          ).toEqual(['column-1', 'column-2']);
+        },
+        () => {
+          node = mount(
+            <Provider client={new Client('staging')}>
+              <BlockCard
+                url={url}
+                datasource={datasourceAttributePropertiesWithRealJiraId}
+                smartLinks={{ showServerActions: true }}
+              />
+            </Provider>,
+          );
+          expect(node.isEmptyRender()).toBe(true);
+        },
+      );
     });
   });
 });

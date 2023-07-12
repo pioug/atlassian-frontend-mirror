@@ -14,7 +14,6 @@ import {
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {
   doc,
   p,
@@ -42,7 +41,6 @@ import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plug
 import { transformSliceToRemoveOpenExpand } from '@atlaskit/editor-common/transforms';
 import { Schema } from 'prosemirror-model';
 import tablePlugin from '../../plugins/table-plugin';
-import undoRedoPlugin from '@atlaskit/editor-core/src/plugins/undo-redo';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -109,8 +107,7 @@ describe('table plugin', () => {
     .add([analyticsPlugin, {}])
     .add(contentInsertionPlugin)
     .add(widthPlugin)
-    .add([tablePlugin, { tableOptions }])
-    .add(undoRedoPlugin);
+    .add([tablePlugin, { tableOptions }]);
 
   const editor = (doc: DocBuilder) => {
     return createEditor<TablePluginState, PluginKey>({
@@ -325,22 +322,6 @@ describe('table plugin', () => {
           ),
         );
       });
-
-      it('should undo copy-paste with 1 undo operation', () => {
-        sendKeyToPm(editorView, 'Mod-z');
-
-        expect(editorView.state).toEqualDocumentAndSelection(
-          doc(
-            p('hello'),
-            table({ localId: TABLE_LOCAL_ID })(
-              tr(th()(p()), th()(p()), th()(p())),
-              tr(td()(p()), td()(p('world')), td()(p())),
-              tr(td()(p()), td()(p()), td()(p())),
-            ),
-            p('{<>}'),
-          ),
-        );
-      });
     });
 
     describe('when copying from text inside a table cell to text outside table and then pasting', () => {
@@ -381,22 +362,6 @@ describe('table plugin', () => {
               tr(td()(p()), td()(p()), td()(p())),
             ),
             p('world{<>}'),
-          ),
-        );
-      });
-
-      it('should undo copy-paste with 1 undo operation', () => {
-        sendKeyToPm(editorView, 'Mod-z');
-
-        expect(editorView.state).toEqualDocumentAndSelection(
-          doc(
-            table({ localId: TABLE_LOCAL_ID })(
-              tr(th()(p()), th()(p()), th()(p())),
-              tr(td()(p()), td()(p('hello')), td()(p('more'))),
-              tr(td()(p()), td()(p()), td()(p())),
-            ),
-            p('world'),
-            p('{<>}'),
           ),
         );
       });

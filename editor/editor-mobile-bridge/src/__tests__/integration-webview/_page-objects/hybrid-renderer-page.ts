@@ -1,4 +1,3 @@
-import URL from 'url';
 import Page, {
   BS_LOCAL_PROXY_DOMAIN,
 } from '@atlaskit/webdriver-runner/wd-app-wrapper';
@@ -18,10 +17,17 @@ export const SELECTORS_WEB = {
  * This function will leave you in the webview context so that you
  * can immediately interact with the renderer bridge methods.
  */
-export async function loadRenderer(page: Page, params = '') {
-  const url = URL.resolve(
-    `http://${BS_LOCAL_PROXY_DOMAIN}:${PORT}`,
-    `renderer.html?${params}`,
-  );
+export async function loadRenderer(
+  page: Page,
+  params?: { [key: string]: string | boolean },
+) {
+  const baseUrl = `http://${BS_LOCAL_PROXY_DOMAIN}:${PORT}`;
+  const queryStrings = new URLSearchParams({
+    groupId: 'editor',
+    packageId: 'editor-mobile-bridge',
+    exampleId: 'renderer',
+    ...(params || {}),
+  });
+  const url = `${baseUrl}/examples.html?${queryStrings.toString()}`;
   await page.loadUrl(url, SELECTORS_WEB.RENDERER);
 }

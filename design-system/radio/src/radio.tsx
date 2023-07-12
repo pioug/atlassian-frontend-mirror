@@ -73,7 +73,7 @@ const radioStyles = css({
     inner circle not be centred at various zoom levels */
   border: `${
     getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-      ? '1px'
+      ? token('border.width', '1px')
       : 'calc(2px * 12 / 7)'
   } solid var(--radio-border-color)`,
   borderRadius: token('border.radius.circle', '50%'),

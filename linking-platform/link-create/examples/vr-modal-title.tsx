@@ -2,21 +2,36 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
 import {
   mockFetchPage,
   mockFetchSpace,
 } from '@atlassian/link-create-confluence/mocks';
 
+import { MockPluginForm } from '../example-helpers/mock-plugin-form';
 import LinkCreate from '../src';
 
-const CLOUD_ID = 'cloud-id';
+const ENTITY_KEY = 'object-name';
 
 mockFetchPage();
 mockFetchSpace();
 
 export default function Create() {
-  const plugins = [createConfluencePageLinkCreatePlugin({ cloudId: CLOUD_ID })];
+  const mockPlugin = () => {
+    return {
+      group: {
+        label: 'test',
+        icon: 'test-icon',
+        key: 'mock-plugin',
+      },
+      label: 'label',
+      icon: 'icon',
+      key: ENTITY_KEY,
+      form: <MockPluginForm />,
+    };
+  };
+
+  const plugins = [mockPlugin()];
+
   return (
     <IntlProvider locale="en">
       <div style={{ padding: '20px' }}>
@@ -24,7 +39,7 @@ export default function Create() {
           active={true}
           plugins={plugins}
           testId="link-create"
-          entityKey="confluence-page"
+          entityKey={ENTITY_KEY}
           modalTitle="Create meeting notes"
         />
       </div>

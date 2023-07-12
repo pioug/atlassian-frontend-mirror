@@ -10,10 +10,12 @@ import { analyticsPluginKey } from './plugin-key';
 import {
   fireAnalyticsEvent,
   getAnalyticsEventsFromTransaction,
-  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type {
+  FeatureFlags,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { PerformanceTracking } from '../../types/performance-tracking';
 import type { analyticsPlugin as newAnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -26,13 +28,16 @@ interface AnalyticsPluginOptions {
 function createPlugin(
   options: AnalyticsPluginOptions,
   featureFlags: FeatureFlags,
-  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  pluginInjectionApi: ExtractInjectionAPI<typeof analyticsPlugin> | undefined,
 ) {
-  if (!options || !options.createAnalyticsEvent) {
+  if (!options) {
     return;
   }
 
   const hasRequiredPerformanceAPIs = isPerformanceAPIAvailable();
+  const getCreateAnalyticsEvent = () =>
+    pluginInjectionApi?.dependencies.analytics?.sharedState.currentState()
+      ?.createAnalyticsEvent;
 
   return new SafePlugin({
     key: analyticsPluginKey,
@@ -40,16 +45,19 @@ function createPlugin(
       init: () => {
         return {
           ...options,
+          createAnalyticsEvent: getCreateAnalyticsEvent(),
           fireAnalytics: fireAnalyticsEvent(options.createAnalyticsEvent),
-          editorAnalyticsApi,
+          editorAnalyticsApi:
+            pluginInjectionApi?.dependencies.analytics?.actions,
         };
       },
       apply: (tr, pluginState, _, state) => {
-        if (pluginState.createAnalyticsEvent !== options.createAnalyticsEvent) {
+        if (pluginState.createAnalyticsEvent !== getCreateAnalyticsEvent()) {
           // When the plugin state is reconfigured, the init function isn't called again
           return {
             ...pluginState,
-            createAnalyticsEvent: options.createAnalyticsEvent,
+            createAnalyticsEvent:
+              options.createAnalyticsEvent ?? getCreateAnalyticsEvent(),
           };
         }
 
@@ -116,12 +124,7 @@ const analyticsPlugin: NextEditorPlugin<
       return [
         {
           name: 'analyticsPlugin',
-          plugin: () =>
-            createPlugin(
-              options,
-              featureFlags,
-              api?.dependencies?.analytics?.actions,
-            ),
+          plugin: () => createPlugin(options, featureFlags, api),
         },
       ];
     },

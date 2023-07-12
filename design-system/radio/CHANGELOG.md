@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 5.6.6
+
+### Patch Changes
+
+- [`2e1fa43ac4b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e1fa43ac4b) - update border width to use border spacing token
+
 ## 5.6.5
 
 ### Patch Changes

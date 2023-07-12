@@ -1,1 +1,2 @@
-export const PORT: string = '9001';
+export const PORT: number =
+  +process.env.ATLASKIT_DEV_PORT! || +process.env.PORT! || 9000;

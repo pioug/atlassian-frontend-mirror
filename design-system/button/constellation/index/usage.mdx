@@ -48,6 +48,18 @@ When a native `<button>` is disabled, it loses browser focus and cannot be focus
 - Button size matters - make sure the size of the button is large enough to interact with on web or other device but not too large so as to be visually overwhelming.
 - Use action verbs or phrases to tell the user what will happen next.
 
+## Do not put tooltips on disabled buttons
+
+We do not support this this as it's not accessible. Disabled buttons are not reachable in the tab order and do not receive hover, focus or click events.
+
+Do not attempt to create workarounds. If you are an Atlassian, Accessibility QA will make you redesign these implementations.
+
+Some questions you should ask if you feel you need a tooltip on a disabled button:
+- Is this information **essential** to the user experience? If so, don’t hide it behind a tooltip. Tooltips aren’t easy to discover and aren’t accessible on mobile. If it isn’t essential, consider whether you need to show it at all.
+- Is this information **actionable**? Being shown things that you can’t use without any actionable next step can be frustrating or confusing. Consider only showing UI that a user is able to interact with, or replacing the disabled button with text that has the same content you were going to put in the tooltip. If you do this, you can make things even more actionable for the user by providing a link to a next step that they can take, or further information.
+
+We know that disabled buttons with tooltips are often used to promote feature discovery. We are working on providing guidance on a core pattern for this use case in the future.
+
 ## Alignment
 
 ### Modal dialogs and focussed tasks
@@ -174,7 +186,7 @@ For elements that are parents of a button you need to bind on the bubble phase (
 
 - Include alternative text using the aria-label prop when using icon buttons.
 - When using an icon alongside text, do not add a label to the icon. Doing so will unnecessarily repeat labels for people using screen readers.
-- Avoid using disabled buttons, especially in forms. Disabled buttons don't explain why the button isn't usable, and they aren't focussable at all for people using keyboard navigation. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed.
+- Avoid using disabled buttons, especially in forms. Disabled buttons don't explain why the button isn't usable, and they aren't focussable at all for people using keyboard navigation. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed. Avoid puting [tooltips on disabled buttons](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
 
 ## Server
 

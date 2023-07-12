@@ -66,18 +66,22 @@ export const commitStep = ({
             steps: stepsWithClientAndUserId,
             version: response.version,
           });
-          analyticsHelper?.sendActionEvent(
-            EVENT_ACTION.ADD_STEPS,
-            EVENT_STATUS.SUCCESS,
-            {
-              type: ADD_STEPS_TYPE.ACCEPTED,
-              latency,
-              stepType: countBy(
-                stepsWithClientAndUserId,
-                (stepWithClientAndUserId) => stepWithClientAndUserId.stepType!,
-              ),
-            },
-          );
+          // Sample only 10% of add steps events to avoid overwhelming the analytics
+          if (Math.random() < 0.1) {
+            analyticsHelper?.sendActionEvent(
+              EVENT_ACTION.ADD_STEPS,
+              EVENT_STATUS.SUCCESS_10x_SAMPLED,
+              {
+                type: ADD_STEPS_TYPE.ACCEPTED,
+                latency,
+                stepType: countBy(
+                  stepsWithClientAndUserId,
+                  (stepWithClientAndUserId) =>
+                    stepWithClientAndUserId.stepType!,
+                ),
+              },
+            );
+          }
           emit('commit-status', {
             status: 'success',
             version: response.version,

@@ -23,7 +23,6 @@ export default {
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Zobrazení požadavků',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'Je vybrán web {siteName}',
   'linkDataSource.jira-issues.noResultsFound': 'Nebyly nalezeny žádné výsledky',
-  'linkDataSource.jira-issues.openInProject': 'Otevřít v projektu',
   'linkDataSource.jira-issues.refresh': 'Obnovit',
   'linkDataSource.jira-issues.unableToLoadIssues': 'Načtení požadavků se nezdařilo',
   'linkDataSource.jira-issues.unableToLoadResults': 'Načtení výsledků se nezdařilo',

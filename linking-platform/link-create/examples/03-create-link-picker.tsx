@@ -4,59 +4,45 @@ import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { LinkPicker } from '@atlaskit/link-picker';
+import { MockLinkPickerPromisePlugin } from '@atlaskit/link-test-helpers/link-picker';
 import Popup from '@atlaskit/popup';
-import { createConfluencePageLinkCreatePlugin } from '@atlassian/link-create-confluence';
-import {
-  mockCreatePage,
-  mockFetchPage,
-  mockFetchSpace,
-} from '@atlassian/link-create-confluence/mocks';
-import {
-  Scope,
-  useAtlassianPlugins,
-} from '@atlassian/link-picker-atlassian-plugin';
 
+import { MockPluginForm } from '../example-helpers/mock-plugin-form';
 import LinkCreate from '../src';
 import { CreatePayload } from '../src/common/types';
 
-// Mocks
-mockFetchPage();
-mockFetchSpace();
-mockCreatePage();
-
-const CLOUD_ID = 'cloud-id';
+const ENTITY_KEY = 'object-name';
 
 const LinkPickerCreate = () => {
   const [link, setLink] = useState<string | null>(null);
   const [showPicker, setShowPicker] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
 
-  const confluenceForm = createConfluencePageLinkCreatePlugin({
-    cloudId: CLOUD_ID,
-    pageStatus: 'current',
-  });
-
-  const [entityKey, setEntityKey] = useState(confluenceForm.key);
-
-  const createPlugins = [confluenceForm];
-  const pickerPlugins = useAtlassianPlugins([
-    {
-      cloudId: CLOUD_ID,
-      tabConfig: {
-        tabKey: 'confluence',
-        tabTitle: 'Confluence',
+  const mockPlugin = () => {
+    return {
+      group: {
+        label: 'test',
+        icon: 'test-icon',
+        key: 'mock-plugin',
       },
-      products: ['confluence'],
-      scope: Scope.ConfluencePageBlog,
+      label: 'label',
+      icon: 'icon',
+      key: ENTITY_KEY,
+      form: <MockPluginForm />,
+    };
+  };
+
+  const createPlugins = [mockPlugin()];
+  const pickerPlugins = [
+    new MockLinkPickerPromisePlugin({
       action: {
         label: 'Create New',
         callback: () => {
-          setEntityKey(confluenceForm.key);
           setShowCreateModal(true);
         },
       },
-    },
-  ]);
+    }),
+  ];
 
   // Event handlers
   const onCancel = () => setShowPicker(false);
@@ -103,7 +89,7 @@ const LinkPickerCreate = () => {
           setShowCreateModal(false);
           setShowPicker(false);
         }}
-        entityKey={entityKey}
+        entityKey={ENTITY_KEY}
         active={showCreateModal}
       />
     </div>

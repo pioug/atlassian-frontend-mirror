@@ -249,6 +249,44 @@ export const insertBlockTypesWithAnalytics = (
 };
 
 /**
+ * This function creates a new transaction that wraps the current selection
+ * in the specified node type if it results in a valid transaction.
+ * If not valid, it performs a safe insert operation.
+ *
+ * Example of when wrapping might not be valid is when attempting to wrap
+ * content that is already inside a panel with another panel
+ */
+export function createWrapSelectionTransaction({
+  state,
+  type,
+  nodeAttributes,
+}: {
+  state: EditorState;
+  type: NodeType;
+  // This should be the node attributes from the ADF schema where prosemirro attributes are specified
+  nodeAttributes?: Record<string, any>;
+}) {
+  let { tr } = state;
+  const { $from, $to } = state.selection;
+  const { alignment, indentation } = state.schema.marks;
+
+  /** Alignment or Indentation is not valid inside block types */
+  const removeAlignTr = removeBlockMarks(state, [alignment, indentation]);
+  tr = removeAlignTr || tr;
+
+  const range = $from.blockRange($to) as any;
+  const wrapping = range && (findWrapping(range, type, nodeAttributes) as any);
+  if (range && wrapping) {
+    tr.wrap(range, wrapping).scrollIntoView();
+  } else {
+    /** We always want to append a block type */
+    safeInsert(type.createAndFill() as PMNode)(tr).scrollIntoView();
+  }
+
+  return tr;
+}
+
+/**
  * Function will add wrapping node.
  * 1. If currently selected blocks can be wrapped in the wrapper type it will wrap them.
  * 2. If current block can not be wrapped inside wrapping block it will create a new block below selection,
@@ -256,22 +294,7 @@ export const insertBlockTypesWithAnalytics = (
  */
 function wrapSelectionIn(type: NodeType): Command {
   return function (state: EditorState, dispatch) {
-    let { tr } = state;
-    const { $from, $to } = state.selection;
-    const { alignment, indentation } = state.schema.marks;
-
-    /** Alignment or Indentation is not valid inside block types */
-    const removeAlignTr = removeBlockMarks(state, [alignment, indentation]);
-    tr = removeAlignTr || tr;
-
-    const range = $from.blockRange($to) as any;
-    const wrapping = range && (findWrapping(range, type) as any);
-    if (range && wrapping) {
-      tr.wrap(range, wrapping).scrollIntoView();
-    } else {
-      /** We always want to append a block type */
-      safeInsert(type.createAndFill() as PMNode)(tr).scrollIntoView();
-    }
+    let tr = createWrapSelectionTransaction({ state, type });
     if (dispatch) {
       dispatch(tr);
     }
@@ -280,40 +303,55 @@ function wrapSelectionIn(type: NodeType): Command {
 }
 
 /**
+ * This function creates a new transaction that inserts a code block,
+ * if there is text selected it will wrap the current selection if not it will
+ * append the codeblock to the end of the document.
+ */
+export function createInsertCodeBlockTransaction({
+  state,
+}: {
+  state: EditorState;
+}) {
+  let { tr } = state;
+  const { from } = state.selection;
+  const { codeBlock } = state.schema.nodes;
+  const grandParentNodeType = state.selection.$from.node(-1)?.type;
+  const parentNodeType = state.selection.$from.parent.type;
+
+  /** We always want to append a codeBlock unless we're inserting into a paragraph
+   * AND it's a valid child of the grandparent node.
+   * Insert the current selection as codeBlock content unless it contains nodes other
+   * than paragraphs and inline.
+   */
+  const canInsertCodeBlock =
+    shouldSplitSelectedNodeOnNodeInsertion({
+      parentNodeType,
+      grandParentNodeType,
+      content: codeBlock.createAndFill() as PMNode,
+    }) && contentAllowedInCodeBlock(state);
+
+  if (canInsertCodeBlock) {
+    tr = transformToCodeBlockAction(state, from);
+  } else {
+    safeInsert(codeBlock.createAndFill() as PMNode)(tr).scrollIntoView();
+  }
+
+  return tr;
+}
+
+/**
  * Function will insert code block at current selection if block is empty or below current selection and set focus on it.
  */
 function insertCodeBlock(): Command {
   return function (state: EditorState, dispatch) {
-    let { tr } = state;
-    const { from } = state.selection;
-    const { codeBlock } = state.schema.nodes;
-    const grandParentNodeType = state.selection.$from.node(-1)?.type;
-    const parentNodeType = state.selection.$from.parent.type;
-
-    /** We always want to append a codeBlock unless we're inserting into a paragraph
-     * AND it's a valid child of the grandparent node.
-     * Insert the current selection as codeBlock content unless it contains nodes other
-     * than paragraphs and inline.
-     */
-    const canInsertCodeBlock =
-      shouldSplitSelectedNodeOnNodeInsertion({
-        parentNodeType,
-        grandParentNodeType,
-        content: codeBlock.createAndFill() as PMNode,
-      }) && contentAllowedInCodeBlock(state);
-
-    if (canInsertCodeBlock) {
-      tr = transformToCodeBlockAction(state, from);
-    } else {
-      safeInsert(codeBlock.createAndFill() as PMNode)(tr).scrollIntoView();
-    }
-
+    let tr = createInsertCodeBlockTransaction({ state });
     if (dispatch) {
       dispatch(tr);
     }
     return true;
   };
 }
+
 /**
  * Check if the current selection contains any nodes that are not permitted
  * as codeBlock child nodes. Note that this allows paragraphs and inline nodes

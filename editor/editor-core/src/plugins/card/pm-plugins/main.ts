@@ -35,6 +35,8 @@ import { findDomRefAtPos } from 'prosemirror-utils';
 
 export { pluginKey } from './plugin-key';
 
+import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+
 export const createPlugin =
   (
     options: CardPluginOptions,
@@ -52,9 +54,15 @@ export const createPlugin =
       allowResizing,
       useAlternativePreloader,
       fullWidthMode,
-      createAnalyticsEvent,
       showServerActions,
     } = options;
+
+    const inlineCardViewProducer = getInlineNodeViewProducer({
+      pmPluginFactoryParams,
+      Component: InlineCardNodeView,
+      extraComponentProps: { useAlternativePreloader, showServerActions },
+    });
+
     return new SafePlugin({
       state: {
         init(): CardPluginState {
@@ -65,7 +73,6 @@ export const createPlugin =
             showLinkingToolbar: false,
             smartLinkEvents: undefined,
             smartLinkEventsNext: undefined,
-            createAnalyticsEvent,
             editorAppearance,
             showDatasourceModal: false,
             datasourceTableRef: undefined,
@@ -183,6 +190,8 @@ export const createPlugin =
                     request,
                     options,
                     pluginInjectionApi?.dependencies.analytics?.actions,
+                    pluginInjectionApi?.dependencies.analytics?.sharedState.currentState()
+                      ?.createAnalyticsEvent ?? undefined,
                   ),
                 );
                 rafCancellationCallbacks.push(invoke.cancel);
@@ -209,12 +218,8 @@ export const createPlugin =
 
       props: {
         nodeViews: {
-          inlineCard: getInlineNodeViewProducer({
-            pmPluginFactoryParams,
-            Component: InlineCardNodeView,
-            extraComponentProps: { useAlternativePreloader, showServerActions },
-          }),
-          blockCard: (node, view, getPos) => {
+          inlineCard: inlineCardViewProducer,
+          blockCard: (node, view, getPos, decorations) => {
             const { portalProviderAPI, eventDispatcher } =
               pmPluginFactoryParams;
             const reactComponentProps: BlockCardNodeViewProps = {
@@ -225,16 +230,21 @@ export const createPlugin =
             const isDatasource = !!node?.attrs?.datasource;
 
             if (isDatasource) {
-              return new Datasource({
-                node,
-                view,
-                getPos,
-                portalProviderAPI,
-                eventDispatcher,
-                hasIntlContext,
-                pluginInjectionApi,
-              }).init();
+              if (canRenderDatasource(node?.attrs?.datasource)) {
+                return new Datasource({
+                  node,
+                  view,
+                  getPos,
+                  portalProviderAPI,
+                  eventDispatcher,
+                  hasIntlContext,
+                  pluginInjectionApi,
+                }).init();
+              } else {
+                return inlineCardViewProducer(node, view, getPos, decorations);
+              }
             }
+
             return new BlockCard(
               node,
               view,

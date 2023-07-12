@@ -40,10 +40,11 @@ const mentionsPlugin: NextEditorPlugin<
   const fireEvent: FireElementsChannelEvent = <T extends AnalyticsEventPayload>(
     payload: T,
   ): void => {
-    if (!options?.createAnalyticsEvent) {
+    const { createAnalyticsEvent } =
+      api?.dependencies.analytics?.sharedState.currentState() ?? {};
+    if (!createAnalyticsEvent) {
       return;
     }
-    const { createAnalyticsEvent } = options;
 
     if (payload.attributes && !payload.attributes.sessionId) {
       payload.attributes.sessionId = sessionId;

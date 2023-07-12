@@ -10,6 +10,7 @@ import { setProvider } from '../actions';
 import { replaceQueuedUrlWithCard, handleFallbackWithAnalytics } from '../doc';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
 // ============================================================================ //
 // ============================== PROVIDER UTILS ============================== //
@@ -22,6 +23,7 @@ export const resolveWithProvider = (
   request: Request,
   options: CardOptions,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
 ) => {
   // When user manually changes appearance from blue link to smart link, we should respect that,
   let shouldForceAppearance =
@@ -32,7 +34,13 @@ export const resolveWithProvider = (
   const handleResolve = provider
     .resolve(request.url, request.appearance, shouldForceAppearance)
     .then(
-      handleResolved(view, request, editorAnalyticsApi, options),
+      handleResolved(
+        view,
+        request,
+        editorAnalyticsApi,
+        createAnalyticsEvent,
+        options,
+      ),
       handleRejected(view, request, editorAnalyticsApi),
     );
 
@@ -60,6 +68,7 @@ const handleResolved =
     view: EditorView,
     request: Request,
     editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+    createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
     options: CardOptions,
   ) =>
   (resolvedCard: CardAdf | DatasourceAdf) => {
@@ -69,6 +78,7 @@ const handleResolved =
       resolvedCard,
       request.analyticsAction,
       editorAnalyticsApi,
+      createAnalyticsEvent,
     )(view.state, view.dispatch);
     return resolvedCard;
   };

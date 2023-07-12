@@ -269,6 +269,7 @@ const Container: React.FC<ContainerProps> = ({
         isHoverPreview={canShowHoverPreview}
         isAuthTooltip={canShowAuthTooltip}
         showServerActions={showServerActions}
+        testId={testId}
         url={context.url}
       >
         {container}

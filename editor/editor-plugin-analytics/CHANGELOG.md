@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-analytics
 
+## 0.1.0
+
+### Minor Changes
+
+- [`91c4edcea5a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91c4edcea5a) - The analytics plugin (`editor-plugin-analytics`) now creates the `createAnalyticsEvent` if none is supplied and shares it with other plugins internally.
+
 ## 0.0.5
 
 ### Patch Changes

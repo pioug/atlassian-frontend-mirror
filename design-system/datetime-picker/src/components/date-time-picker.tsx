@@ -226,7 +226,10 @@ const baseContainerStyles = css({
   display: 'flex',
   backgroundColor: token('color.background.input', N20),
   border: getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-    ? `1px solid ${token('color.border.input', N100)}`
+    ? `${token('border.width', '1px')} solid ${token(
+        'color.border.input',
+        N100,
+      )}`
     : `2px solid ${token('color.border.input', N20)}`,
   borderRadius: token('border.radius', '3px'),
   transition:

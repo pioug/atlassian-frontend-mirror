@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "185.12.1",
+  "version": "185.14.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
-    "@atlaskit/adf-schema": "^26.1.0",
+    "@atlaskit/adf-schema": "^26.2.0",
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-listeners": "^8.7.0",
@@ -59,14 +59,14 @@
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.0",
     "@atlaskit/editor-palette": "1.5.1",
-    "@atlaskit/editor-plugin-analytics": "^0.0.5",
-    "@atlaskit/editor-plugin-content-insertion": "^0.0.5",
+    "@atlaskit/editor-plugin-analytics": "^0.1.0",
+    "@atlaskit/editor-plugin-content-insertion": "^0.0.6",
     "@atlaskit/editor-plugin-context-panel": "^0.1.0",
     "@atlaskit/editor-plugin-decorations": "^0.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
     "@atlaskit/editor-plugin-floating-toolbar": "^0.2.0",
     "@atlaskit/editor-plugin-grid": "^0.1.0",
-    "@atlaskit/editor-plugin-table": "^2.0.0",
+    "@atlaskit/editor-plugin-table": "^2.1.0",
     "@atlaskit/editor-plugin-width": "^0.1.0",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/editor-tables": "^2.3.0",
@@ -77,7 +77,7 @@
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/link-analytics": "^8.2.0",
     "@atlaskit/link-datasource": "^0.28.0",
-    "@atlaskit/link-picker": "^1.26.0",
+    "@atlaskit/link-picker": "^1.27.0",
     "@atlaskit/locale": "^2.5.0",
     "@atlaskit/logo": "^13.14.0",
     "@atlaskit/media-card": "^76.1.0",
@@ -148,10 +148,10 @@
     "@af/editor-libra": "*",
     "@af/integration-testing": "*",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/collab-provider": "9.6.1",
+    "@atlaskit/collab-provider": "9.6.3",
     "@atlaskit/dropdown-menu": "^11.10.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
-    "@atlaskit/editor-plugin-table": "^2.0.0",
+    "@atlaskit/editor-plugin-table": "^2.1.0",
     "@atlaskit/editor-test-helpers": "^18.10.0",
     "@atlaskit/flag": "^15.2.0",
     "@atlaskit/link-provider": "^1.6.0",
@@ -253,6 +253,9 @@
     "platform.design-system-team.border-checkbox_nyoiu": {
       "type": "boolean",
       "referenceOnly": "true"
+    },
+    "platform.linking-platform.datasource-jira_issues": {
+      "type": "boolean"
     }
   }
 }

@@ -64,7 +64,9 @@ const bgAndBorderColorStyles = (
       boxShadow: getBooleanFF(
         'platform.design-system-team.border-checkbox_nyoiu',
       )
-        ? `inset 0 0 0 1px ${props.borderColorFocus}`
+        ? `inset 0 0 0 ${token('border.width', '1px')} ${
+            props.borderColorFocus
+          }`
         : undefined,
     },
     '&:not(:focus)': {
@@ -78,7 +80,9 @@ const bgAndBorderColorStyles = (
       boxShadow: getBooleanFF(
         'platform.design-system-team.border-checkbox_nyoiu',
       )
-        ? `inset 0 0 0 1px ${props.invalidRules.borderColorFocus}`
+        ? `inset 0 0 0 ${token('border.width', '1px')} ${
+            props.invalidRules.borderColorFocus
+          }`
         : undefined,
     },
     // eslint-disable-next-line @repo/internal/styles/no-nested-styles
@@ -88,7 +92,9 @@ const bgAndBorderColorStyles = (
       boxShadow: getBooleanFF(
         'platform.design-system-team.border-checkbox_nyoiu',
       )
-        ? `inset 0 0 0 1px ${props.invalidRules.borderColor}`
+        ? `inset 0 0 0 ${token('border.width', '1px')} ${
+            props.invalidRules.borderColor
+          }`
         : undefined,
     },
     // Disabled background and border styles should not be applied to components that
@@ -129,7 +135,9 @@ const hoverBackgroundAndBorderStyles = (props: ThemeTokens) =>
         boxShadow: getBooleanFF(
           'platform.design-system-team.border-checkbox_nyoiu',
         )
-          ? `inset 0 0 0 1px ${props.invalidRules.borderColor}`
+          ? `inset 0 0 0 ${token('border.width', '1px')} ${
+              props.invalidRules.borderColor
+            }`
           : undefined,
       },
     },

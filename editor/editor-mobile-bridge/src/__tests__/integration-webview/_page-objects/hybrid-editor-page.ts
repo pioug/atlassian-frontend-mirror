@@ -1,8 +1,7 @@
-import URL from 'url';
 import Page, {
   BS_LOCAL_PROXY_DOMAIN,
 } from '@atlaskit/webdriver-runner/wd-app-wrapper';
-import { PORT } from '../../../../build/utils';
+
 import {
   getPanelArialabel as getInfoPanelAriaLabelValue,
   getPanelArialabel as getWarningPanelAriaLabelValue,
@@ -44,6 +43,7 @@ import {
   UNSUPPORTED_INLINE_NODE,
 } from './fragments/lozenge-fragment';
 import { INLINE_UNSUPPORTED_CONTENT_TEXT_ATTR_VALUE } from '../_utils/test-data';
+import { PORT } from '../../../../build/utils';
 
 export const SELECTORS_WEB = {
   EDITOR: '#editor .ProseMirror',
@@ -63,12 +63,14 @@ export const MENTION_VIEW_ELEMENT = '.mentionView-content-wrap';
  * This function will leave you in the webview context so that you
  * can immediately interact with the editor bridge methods.
  */
-export async function loadEditor(page: Page, params = '') {
-  const filename = `editor.html`;
-  const url = URL.resolve(
-    `http://${BS_LOCAL_PROXY_DOMAIN}:${PORT}`,
-    filename + '?' + params,
-  );
+export async function loadEditor(page: Page) {
+  const baseUrl = `http://${BS_LOCAL_PROXY_DOMAIN}:${PORT}`;
+  const queryStrings = new URLSearchParams({
+    groupId: 'editor',
+    packageId: 'editor-mobile-bridge',
+    exampleId: 'editor',
+  });
+  const url = `${baseUrl}/examples.html?${queryStrings.toString()}`;
   await page.loadUrl(url, SELECTORS_WEB.EDITOR);
 
   // Tap the webview to focus the editor and show the onscreen keyboard

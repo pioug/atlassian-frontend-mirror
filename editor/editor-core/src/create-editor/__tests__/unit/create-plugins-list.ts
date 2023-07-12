@@ -332,26 +332,15 @@ describe('createPluginsList', () => {
   });
 
   it('should add analyticsPlugin if allowAnalyticsGASV3 prop is provided', () => {
-    const createAnalyticsEvent = jest.fn();
-    createPluginsList(
-      { allowAnalyticsGASV3: true },
-      undefined,
-      createAnalyticsEvent,
-    );
+    createPluginsList({ allowAnalyticsGASV3: true }, undefined);
     expect(analyticsPlugin).toHaveBeenCalledTimes(1);
     expect(analyticsPlugin).toHaveBeenCalledWith({
-      createAnalyticsEvent,
       performanceTracking: undefined,
     });
   });
 
   it('should no add analyticsPlugin if allowAnalyticsGASV3 prop is false', () => {
-    const createAnalyticsEvent = jest.fn();
-    createPluginsList(
-      { allowAnalyticsGASV3: false },
-      undefined,
-      createAnalyticsEvent,
-    );
+    createPluginsList({ allowAnalyticsGASV3: false }, undefined);
     expect(analyticsPlugin).not.toHaveBeenCalled();
   });
 

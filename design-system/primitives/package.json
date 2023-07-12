@@ -2,13 +2,18 @@
   "name": "@atlaskit/primitives",
   "version": "1.0.2",
   "description": "Primitives are token-backed low-level building blocks.",
-  "author": "Atlassian Pty Ltd",
-  "license": "Apache-2.0",
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "homepage": "https://atlassian.design/components/primitives",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": false,
@@ -98,27 +103,6 @@
   "scripts": {
     "codegen-styles": "ts-node -r tsconfig-paths/register ./scripts/codegen-styles.tsx"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    ".": "./src/index.tsx",
-    "./box": "./src/components/box.tsx",
-    "./stack": "./src/components/stack.tsx",
-    "./inline": "./src/components/inline.tsx",
-    "./responsive": "./src/responsive/index.tsx"
-  },
   "dependencies": {
     "@atlaskit/focus-ring": "^1.3.0",
     "@atlaskit/tokens": "^1.11.0",
@@ -170,6 +154,22 @@
         "spacing"
       ]
     }
+  },
+  "homepage": "https://atlassian.design/components/primitives",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./box": "./src/components/box.tsx",
+    "./stack": "./src/components/stack.tsx",
+    "./inline": "./src/components/inline.tsx",
+    "./responsive": "./src/responsive/index.tsx"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

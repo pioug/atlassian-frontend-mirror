@@ -1,9 +1,6 @@
 import React from 'react';
 import { panel, PanelType, PanelAttributes } from '@atlaskit/adf-schema';
-import {
-  QuickInsertActionInsert,
-  QuickInsertItem,
-} from '@atlaskit/editor-common/provider-factory';
+import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { EditorState } from 'prosemirror-state';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
@@ -30,35 +27,10 @@ import IconCustomPanel from '../quick-insert/assets/custom-panel';
 import { T50 } from '@atlaskit/theme/colors';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
-const insertPanelTypeWithAnalytics = (
-  panelAttributes: PanelAttributes,
-  state: EditorState,
-  insert: QuickInsertActionInsert,
-) => {
-  const tr = insert(insertPanelType(panelAttributes, state));
-  if (tr) {
-    addAnalytics(state, tr, {
-      action: ACTION.INSERTED,
-      actionSubject: ACTION_SUBJECT.DOCUMENT,
-      actionSubjectId: ACTION_SUBJECT_ID.PANEL,
-      attributes: {
-        inputMethod: INPUT_METHOD.QUICK_INSERT,
-        panelType: panelAttributes.panelType,
-      },
-      eventType: EVENT_TYPE.TRACK,
-    });
-  }
-  return tr;
-};
-
-const insertPanelType = (
-  panelAttributes: PanelAttributes,
-  state: EditorState,
-) =>
-  state.schema.nodes.panel.createChecked(
-    panelAttributes,
-    state.schema.nodes.paragraph.createChecked(),
-  );
+// Theres an existing interelationship between these files, where the imported function is being called for panel
+// Insertions via the drop down menu
+// tslint-ignore-next-line
+import { createWrapSelectionTransaction } from '../block-type/commands/block-type';
 
 const panelPlugin: NextEditorPlugin<
   'panel',
@@ -100,11 +72,10 @@ const panelPlugin: NextEditorPlugin<
           priority: 800,
           icon: () => <IconPanel />,
           action(insert, state) {
-            return insertPanelTypeWithAnalytics(
-              { panelType: PanelType.INFO },
+            return createPanelAction({
               state,
-              insert,
-            );
+              attributes: { panelType: PanelType.INFO },
+            });
           },
         },
         {
@@ -114,11 +85,10 @@ const panelPlugin: NextEditorPlugin<
           priority: 1000,
           icon: () => <IconPanelNote />,
           action(insert, state) {
-            return insertPanelTypeWithAnalytics(
-              { panelType: PanelType.NOTE },
+            return createPanelAction({
               state,
-              insert,
-            );
+              attributes: { panelType: PanelType.NOTE },
+            });
           },
         },
         {
@@ -129,11 +99,10 @@ const panelPlugin: NextEditorPlugin<
           priority: 1000,
           icon: () => <IconPanelSuccess />,
           action(insert, state) {
-            return insertPanelTypeWithAnalytics(
-              { panelType: PanelType.SUCCESS },
+            return createPanelAction({
               state,
-              insert,
-            );
+              attributes: { panelType: PanelType.SUCCESS },
+            });
           },
         },
         {
@@ -143,11 +112,10 @@ const panelPlugin: NextEditorPlugin<
           priority: 1000,
           icon: () => <IconPanelWarning />,
           action(insert, state) {
-            return insertPanelTypeWithAnalytics(
-              { panelType: PanelType.WARNING },
+            return createPanelAction({
               state,
-              insert,
-            );
+              attributes: { panelType: PanelType.WARNING },
+            });
           },
         },
         {
@@ -157,11 +125,10 @@ const panelPlugin: NextEditorPlugin<
           priority: 1000,
           icon: () => <IconPanelError />,
           action(insert, state) {
-            return insertPanelTypeWithAnalytics(
-              { panelType: PanelType.ERROR },
+            return createPanelAction({
               state,
-              insert,
-            );
+              attributes: { panelType: PanelType.ERROR },
+            });
           },
         },
       ];
@@ -173,8 +140,9 @@ const panelPlugin: NextEditorPlugin<
           priority: 1000,
           icon: () => <IconCustomPanel />,
           action(insert, state) {
-            return insertPanelTypeWithAnalytics(
-              {
+            return createPanelAction({
+              state,
+              attributes: {
                 panelType: PanelType.CUSTOM,
                 panelIcon: ':rainbow:',
                 panelIconId: '1f308',
@@ -183,9 +151,7 @@ const panelPlugin: NextEditorPlugin<
                 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
                 panelColor: T50,
               },
-              state,
-              insert,
-            );
+            });
           },
         });
       }
@@ -201,5 +167,44 @@ const panelPlugin: NextEditorPlugin<
       ),
   },
 });
+
+/**
+ * Creates panel action and wrap selection transaction with analytics for the panel insertion.
+ *
+ * @example
+ * const tr = createPanelAction({
+ *   state: editorState,
+ *   attributes: { panelType: 'info' },
+ * });
+ * if (tr) {
+ *   applyTransaction(tr);
+ * }
+ */
+function createPanelAction({
+  state,
+  attributes,
+}: {
+  state: EditorState;
+  attributes: PanelAttributes;
+}) {
+  const tr = createWrapSelectionTransaction({
+    state,
+    type: state.schema.nodes.panel,
+    nodeAttributes: attributes,
+  });
+  if (tr) {
+    addAnalytics(state, tr, {
+      action: ACTION.INSERTED,
+      actionSubject: ACTION_SUBJECT.DOCUMENT,
+      actionSubjectId: ACTION_SUBJECT_ID.PANEL,
+      attributes: {
+        inputMethod: INPUT_METHOD.QUICK_INSERT,
+        panelType: attributes.panelType,
+      },
+      eventType: EVENT_TYPE.TRACK,
+    });
+  }
+  return tr;
+}
 
 export default panelPlugin;

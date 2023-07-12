@@ -320,30 +320,30 @@ describe('hyperlink', () => {
 
     // prettier-ignore
     describe.each<[string, (fragment: any) => any]>([
-          ['when first child of document' , (fragment) => doc(fragment)                                              ],
-          ['when inside a panel'          , (fragment) => doc(panel()(fragment))                                     ],
-          ['when inside a table'          , (fragment) => doc(table({ localId: TABLE_LOCAL_ID })(tr(td()(fragment))))],
-        ])('%s', (_description, getDoc) => {
-          it.each([
-            [p('{foo.bar', '{<>}')                       , p('{foo.bar', ' {<>}')                       ],
-            [p('{foo.bar}', '{<>}')                      , p('{foo.bar}', ' {<>}')                      ],
-            [p('LOL', hardBreak(), '{foo.bar}', '{<>}')  , p('LOL', hardBreak(), '{foo.bar}', ' {<>}')  ],
-            [p('==LOL== {foo.bar}', '{<>}')              , p('==LOL== {foo.bar}', ' {<>}')              ],
-            [p('${foo.bar', '{<>}')                      , p('${foo.bar', ' {<>}')                      ],
-            [p('${foo.bar}', '{<>}')                     , p('${foo.bar}', ' {<>}')                     ],
-            [p('LOL', hardBreak(), '${foo.bar}', '{<>}') , p('LOL', hardBreak(), '${foo.bar}', ' {<>}') ],
-            [p('==LOL== ${foo.bar}', '{<>}')             , p('==LOL== ${foo.bar}', ' {<>}')             ],
-          ])(
-            `should not hyperlink foo.bar [case%#]`,
-            (initialContent, expectedContent) => {
-              const { editorView, sel } = editor(getDoc(initialContent));
-              insertText(editorView, ' ', sel, sel);
-              expect(editorView.state.doc).toEqualDocument(
-                getDoc(expectedContent),
-              );
-            },
+      ['when first child of document', (fragment) => doc(fragment)],
+      ['when inside a panel', (fragment) => doc(panel()(fragment))],
+      ['when inside a table', (fragment) => doc(table({ localId: TABLE_LOCAL_ID })(tr(td()(fragment))))],
+    ])('%s', (_description, getDoc) => {
+      it.each([
+        [p('{foo.bar', '{<>}'), p('{foo.bar', ' {<>}')],
+        [p('{foo.bar}', '{<>}'), p('{foo.bar}', ' {<>}')],
+        [p('LOL', hardBreak(), '{foo.bar}', '{<>}'), p('LOL', hardBreak(), '{foo.bar}', ' {<>}')],
+        [p('==LOL== {foo.bar}', '{<>}'), p('==LOL== {foo.bar}', ' {<>}')],
+        [p('${foo.bar', '{<>}'), p('${foo.bar', ' {<>}')],
+        [p('${foo.bar}', '{<>}'), p('${foo.bar}', ' {<>}')],
+        [p('LOL', hardBreak(), '${foo.bar}', '{<>}'), p('LOL', hardBreak(), '${foo.bar}', ' {<>}')],
+        [p('==LOL== ${foo.bar}', '{<>}'), p('==LOL== ${foo.bar}', ' {<>}')],
+      ])(
+        `should not hyperlink foo.bar [case%#]`,
+        (initialContent, expectedContent) => {
+          const { editorView, sel } = editor(getDoc(initialContent));
+          insertText(editorView, ' ', sel, sel);
+          expect(editorView.state.doc).toEqualDocument(
+            getDoc(expectedContent),
           );
-        });
+        },
+      );
+    });
 
     it('should convert only the link in "?https://www.atlassian.com?" to hyperlink', () => {
       const { editorView, sel } = editor(doc(p('{<>}')));

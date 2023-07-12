@@ -1,6 +1,5 @@
 import { EditorState, TextSelection } from 'prosemirror-state';
 import { Node as PMNode, NodeType } from 'prosemirror-model';
-import { safeInsert } from 'prosemirror-utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { Command } from '../../types';
@@ -19,6 +18,7 @@ import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
 
 import { findExpand } from './utils';
 import { createCommand } from './pm-plugins/plugin-factory';
+import { createWrapSelectionTransaction } from '../block-type/commands/block-type';
 
 export const setExpandRef = (ref?: HTMLDivElement | null): Command =>
   createCommand(
@@ -151,6 +151,10 @@ export const createExpandNode = (state: EditorState): PMNode | null => {
 export const insertExpand: Command = (state, dispatch) => {
   const expandNode = createExpandNode(state);
 
+  const tr = createWrapSelectionTransaction({
+    state,
+    type: state.schema.nodes.expand,
+  });
   const payload: AnalyticsEventPayload = {
     action: ACTION.INSERTED,
     actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -163,13 +167,7 @@ export const insertExpand: Command = (state, dispatch) => {
   };
 
   if (dispatch && expandNode) {
-    dispatch(
-      addAnalytics(
-        state,
-        safeInsert(expandNode)(state.tr).scrollIntoView(),
-        payload,
-      ),
-    );
+    dispatch(addAnalytics(state, tr, payload));
   }
 
   return true;

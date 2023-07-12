@@ -740,7 +740,7 @@ export function getEmojiAcName({
   shortName: string;
 }): string;
 
-// @public (undocumented)
+// @public
 export function getLinkMatch(str?: string): Match | null;
 
 // @public (undocumented)
@@ -975,7 +975,7 @@ export interface LinkDefinition {
 // @public (undocumented)
 export const linkify: LinkifyIt.LinkifyIt;
 
-// @public (undocumented)
+// @public
 export const linkifyMatch: (text: string) => Match[];
 
 // @public (undocumented)

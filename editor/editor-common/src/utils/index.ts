@@ -204,3 +204,5 @@ export {
 } from './rich-media-utils';
 
 export { sanitizeNodeForPrivacy } from './filter/privacy-filter';
+
+export { canRenderDatasource } from './datasource';

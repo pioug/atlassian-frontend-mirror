@@ -4,7 +4,6 @@ import type {
   CollabEditProvider,
   SyncUpErrorFunction,
 } from '@atlaskit/collab-provider';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
 export type InviteToEditComponentProps = {
   children: ReactElement<InviteToEditButtonProps>;
@@ -37,7 +36,6 @@ export type CollabEditOptions = {
 
 export type PrivateCollabEditOptions = CollabEditOptions & {
   sanitizePrivateContent?: boolean;
-  createAnalyticsEvent?: CreateUIAnalyticsEvent;
   onSyncUpError?: SyncUpErrorFunction;
 };
 

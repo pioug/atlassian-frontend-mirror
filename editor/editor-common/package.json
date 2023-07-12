@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "74.19.0",
+  "version": "74.19.1",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
-    "@atlaskit/adf-schema": "^26.1.0",
+    "@atlaskit/adf-schema": "^26.2.0",
     "@atlaskit/adf-utils": "^19.0.0",
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
@@ -89,6 +89,7 @@
     "@atlaskit/emoji": "^67.4.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/in-product-testing": "^0.2.0",
+    "@atlaskit/link-datasource": "^0.28.0",
     "@atlaskit/media-card": "^76.1.0",
     "@atlaskit/media-client": "^23.1.0",
     "@atlaskit/media-picker": "^66.1.0",
@@ -181,6 +182,9 @@
       "type": "boolean"
     },
     "platform.design-system-team.focus-trap-upgrade_p2cei": {
+      "type": "boolean"
+    },
+    "platform.linking-platform.datasource-jira_issues": {
       "type": "boolean"
     }
   }

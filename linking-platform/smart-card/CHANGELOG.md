@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.9.6
+
+### Patch Changes
+
+- [`e0a2c926e63`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e0a2c926e63) - [ux] Flexible Smart Links: Fix hover preview shows on mouse leave
+
 ## 26.9.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.19.1
+
+### Patch Changes
+
+- [`202f8c2ee69`](https://bitbucket.org/atlassian/atlassian-frontend/commits/202f8c2ee69) - The changes here adds support for datasource feature flag for rollout.
+
 ## 74.19.0
 
 ### Minor Changes

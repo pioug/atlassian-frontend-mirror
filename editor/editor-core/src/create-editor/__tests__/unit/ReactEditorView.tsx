@@ -111,6 +111,7 @@ import {
 } from '@atlaskit/editor-common/ufo';
 import { createIntl } from 'react-intl-next';
 import { createPreset } from '../../create-plugins-list';
+import PluginSlot from '../../../ui/PluginSlot';
 
 const portalProviderAPI: any = {
   render() {},
@@ -662,6 +663,15 @@ describe('@atlaskit/editor-core', () => {
             {...analyticsProps()}
             editorProps={editorProps}
             preset={createPreset(editorProps)}
+            render={({ editor, view, config: { pluginHooks } }) => {
+              return (
+                <>
+                  {editor}
+                  {/* @ts-ignore We just need the hooks to render for analytics */}
+                  <PluginSlot editorView={view} pluginHooks={pluginHooks} />
+                </>
+              );
+            }}
           />,
         );
         editor = wrapper.instance() as ReactEditorView;

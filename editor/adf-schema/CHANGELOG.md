@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 26.2.0
+
+### Minor Changes
+
+- [`a5877196a3c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5877196a3c) - [ux] EDM-6499 Fix handling of tel and other custom URI links
+
 ## 26.1.0
 
 ### Minor Changes

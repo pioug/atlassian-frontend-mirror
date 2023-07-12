@@ -47,7 +47,7 @@ import { appearanceForNodeType, selectedCardAppearance } from '../utils';
 import { queueCards, resolveCard, hideDatasourceModal } from './actions';
 import { pluginKey } from './plugin-key';
 import { shouldReplaceLink } from './shouldReplaceLink';
-
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 /**
  * Attempt to replace the link into the respective card.
  */
@@ -97,6 +97,7 @@ export const replaceQueuedUrlWithCard =
     cardData: CardAdf | DatasourceAdf,
     analyticsAction?: ACTION,
     editorAnalyticsApi?: EditorAnalyticsAPI,
+    createAnalyticsEvent?: CreateUIAnalyticsEvent,
   ): Command =>
   (editorState, dispatch) => {
     const state = pluginKey.getState(editorState) as
@@ -137,7 +138,7 @@ export const replaceQueuedUrlWithCard =
           state.smartLinkEvents.insertSmartLink(
             domainName,
             'inline',
-            state.createAnalyticsEvent,
+            createAnalyticsEvent,
           );
         }
 

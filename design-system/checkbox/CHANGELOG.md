@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.6.5
+
+### Patch Changes
+
+- [`3958636a718`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3958636a718) - update border width with border spacing token
+
 ## 12.6.4
 
 ### Patch Changes

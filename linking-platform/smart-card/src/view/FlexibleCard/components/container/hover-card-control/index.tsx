@@ -13,6 +13,7 @@ const HoverCardControl: FC<HoverCardDelayProps> = ({
   isHoverPreview,
   isAuthTooltip,
   showServerActions,
+  testId,
   url,
 }) => {
   const [canOpen, setCanOpen] = useState(true);
@@ -24,6 +25,12 @@ const HoverCardControl: FC<HoverCardDelayProps> = ({
         clearTimeout(mouseStopTimer.current);
       }
     };
+  }, []);
+
+  const onMouseLeave = useCallback(() => {
+    if (mouseStopTimer.current) {
+      clearTimeout(mouseStopTimer.current);
+    }
   }, []);
 
   const onMouseMove = useCallback(
@@ -74,7 +81,13 @@ const HoverCardControl: FC<HoverCardDelayProps> = ({
       showServerActions={Boolean(showServerActions)}
       url={url}
     >
-      <span onMouseMove={onMouseMove}>{children}</span>
+      <span
+        onMouseLeave={onMouseLeave}
+        onMouseMove={onMouseMove}
+        data-testid={`${testId}-hover-card-wrapper`}
+      >
+        {children}
+      </span>
     </HoverCard>
   );
 };

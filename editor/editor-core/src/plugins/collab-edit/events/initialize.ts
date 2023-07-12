@@ -10,7 +10,8 @@ import type {
 import { PrivateCollabEditOptions } from '../types';
 import { subscribe, Cleanup } from './handlers';
 import { pluginKey } from '../plugin-key';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const initCollab = (
   collabEditProvider: CollabEditProvider,
@@ -39,10 +40,17 @@ type Props = {
   options: PrivateCollabEditOptions;
   providerFactory: ProviderFactory;
   featureFlags: FeatureFlags;
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined;
 };
 
 export const initialize =
-  ({ options, providerFactory, view, featureFlags }: Props) =>
+  ({
+    options,
+    providerFactory,
+    view,
+    featureFlags,
+    editorAnalyticsApi,
+  }: Props) =>
   (provider: CollabEditProvider) => {
     let cleanup: Cleanup | undefined;
     const pluginState = pluginKey.getState(view.state);
@@ -51,7 +59,14 @@ export const initialize =
       cleanup();
     }
 
-    cleanup = subscribe(view, provider, options, featureFlags, providerFactory);
+    cleanup = subscribe(
+      view,
+      provider,
+      options,
+      featureFlags,
+      providerFactory,
+      editorAnalyticsApi,
+    );
 
     // Initialize provider
     if (options.useNativePlugin) {

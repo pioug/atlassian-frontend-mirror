@@ -1,12 +1,15 @@
 /**
- * This file has been duplicated in packages/editor/adf-schema/src/utils/url.ts
+ * This file has been partially duplicated in packages/editor/adf-schema/src/utils/url.ts
  * Any changes made here should be mirrored there until the duplicate behaviour is resolved
+ * Ticket for dedeplication: https://product-fabric.atlassian.net/browse/EDM-7138
+ * Ticket for fixing linkification of filename-like urls: https://product-fabric.atlassian.net/browse/EDM-7190
  */
 import LinkifyIt from 'linkify-it';
 
 const linkify = LinkifyIt();
 linkify.add('sourcetree:', 'http:');
 linkify.add('jamfselfservice:', 'http:');
+linkify.add('notes:', 'http:');
 
 const tlds =
   'biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф'.split(
@@ -43,7 +46,9 @@ const whitelistedURLPatterns = [
   /^scp:\/\//im,
   /^sftp:\/\//im,
   /^itms:/im,
+  // This is not a valid notes link, but we support this pattern for backwards compatibility
   /^notes:/im,
+  /^notes:\/\//im,
   /^hipchat:\/\//im,
   /^sourcetree:/im,
   /^urn:/im,
@@ -137,6 +142,7 @@ export const isSafeUrl = (url: string): boolean => {
 
 /**
  * Adds protocol to url if needed.
+ * If url is not valid, returns empty string or null.
  */
 export function normalizeUrl(url?: string | null): string | null {
   if (!url) {

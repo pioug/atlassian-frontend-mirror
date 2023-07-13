@@ -16,8 +16,6 @@ const mockEditorCore = {
     toggleBulletList: jest.fn(() => () => {}),
   })),
   insertLinkWithAnalyticsMobileNative: jest.fn(() => () => {}),
-  isTextAtPos: jest.fn((pos) => () => [2, 6].indexOf(pos) !== -1),
-  isLinkAtPos: jest.fn((pos) => () => pos === 6),
   updateLink: jest.fn(() => () => mockCalls.push('updateLink')),
   clearEditorContent: jest.fn(() => {}),
   setKeyboardHeight: jest.fn(() => () => {}),
@@ -26,3 +24,9 @@ const mockEditorCore = {
 };
 
 jest.mock('@atlaskit/editor-core', () => mockEditorCore);
+
+jest.mock('@atlaskit/editor-common/link', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/link'),
+  isLinkAtPos: jest.fn((pos) => () => pos === 6),
+  isTextAtPos: jest.fn((pos) => () => [2, 6].indexOf(pos) !== -1),
+}));

@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.20.0
+
+### Minor Changes
+
+- [`8b891bf3590`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b891bf3590) - This change introduces `editor-plugin-hyperlink` which separates the hyperlink plugin from `editor-core`. In order to enable this change there are now new entry points on `editor-common` (such as `/link`, `/quick-insert`) in order to separate common code. Further `prosemirror-input-rules` now has new exports of `createPlugin` and `createRule` which are used in many plugins in `editor-core`.
+
+## 74.19.2
+
+### Patch Changes
+
+- [`f188d9ea397`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f188d9ea397) - Create reference event for legacy image upload so DataTransfer is not lost
+
 ## 74.19.1
 
 ### Patch Changes

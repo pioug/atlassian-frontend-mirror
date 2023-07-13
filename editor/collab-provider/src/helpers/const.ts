@@ -154,6 +154,7 @@ type DocumentInitSuccessAnalyticsEvent = {
     eventStatus: EVENT_STATUS.SUCCESS;
     latency?: number;
     resetReason?: string; // Record whether document init required a page reset
+    hasTitle: boolean;
   };
 };
 

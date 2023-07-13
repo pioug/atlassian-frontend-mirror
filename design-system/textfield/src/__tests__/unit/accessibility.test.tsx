@@ -1,20 +1,16 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
+
+import {
+  axe,
+  jestAxeConfig,
+  toHaveNoViolations,
+} from '@af/accessibility-testing';
 
 import Textfield from '../../index';
 
 expect.extend(toHaveNoViolations);
-
-const axeRules: JestAxeConfigureOptions = {
-  rules: {
-    // As we're testing on the JSDOM, color-contrast testing can't run.
-    'color-contrast': { enabled: false },
-  },
-  // The types of results fetched are limited for performance reasons
-  resultTypes: ['violations', 'incomplete', 'inapplicable'],
-};
 
 describe('Text field basic accessibility unit tests with jest-axe', () => {
   const defaultProps = {
@@ -29,7 +25,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         <Textfield {...defaultProps} />
       </div>,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -37,7 +33,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
     const { container } = render(
       <Textfield {...defaultProps} aria-label="default text field" />,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -48,7 +44,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         <Textfield {...defaultProps} isRequired />
       </div>,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
 
     expect(results).toHaveNoViolations();
   });
@@ -61,7 +57,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         aria-label="default text field"
       />,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -72,7 +68,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         <Textfield {...defaultProps} isDisabled />
       </div>,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
 
     expect(results).toHaveNoViolations();
   });
@@ -85,7 +81,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         aria-label="default text field"
       />,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -96,7 +92,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         <Textfield {...defaultProps} isInvalid />
       </div>,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
 
     expect(results).toHaveNoViolations();
   });
@@ -105,7 +101,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
     const { container } = render(
       <Textfield {...defaultProps} isInvalid aria-label="default text field" />,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -116,7 +112,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         <Textfield {...defaultProps} isReadOnly />
       </div>,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
 
     expect(results).toHaveNoViolations();
   });
@@ -129,7 +125,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         aria-label="default text field"
       />,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 });

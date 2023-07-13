@@ -1,17 +1,20 @@
-import { INPUT_METHOD } from '../../../analytics/types';
+import {
+  INPUT_METHOD,
+  DispatchAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
 import { EditorView } from 'prosemirror-view';
 import {
   EditorActionsOptions as EditorActions,
   FeatureFlags,
   ExtractInjectionAPI,
+  ImageUploadPluginReferenceEvent,
+  Command,
 } from '@atlaskit/editor-common/types';
-import { Command } from '../../../../types/command';
 import { EmojiProvider } from '@atlaskit/emoji';
 import { BlockType } from '../../../block-type/types';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { MenuItem } from '../../../../ui/DropdownMenu/types';
 import { Node as PMNode } from 'prosemirror-model';
-import { DispatchAnalyticsEvent } from '../../../analytics';
 import { BlockMenuItem } from './create-items';
 import type insertBlockPlugin from '../../index';
 
@@ -30,7 +33,7 @@ export interface Props {
   mediaSupported?: boolean;
   imageUploadSupported?: boolean;
   imageUploadEnabled?: boolean;
-  handleImageUpload?: (event?: Event) => Command;
+  handleImageUpload?: (event?: ImageUploadPluginReferenceEvent) => Command;
   dateEnabled?: boolean;
   horizontalRuleEnabled?: boolean;
   placeholderTextEnabled?: boolean;

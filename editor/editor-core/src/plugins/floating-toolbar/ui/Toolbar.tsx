@@ -28,7 +28,7 @@ import ColorPickerButton from '../../../ui/ColorPickerButton';
 import { backgroundPaletteTooltipMessages } from '../../../ui/ColorPalette';
 import { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { EmojiPickerButton } from './EmojiPickerButton';
-import Announcer from '../../../utils/announcer/announcer';
+import { Announcer } from '@atlaskit/editor-common/ui';
 import { WrappedComponentProps, injectIntl } from 'react-intl-next';
 import messages from './messages';
 import { ThemeProps } from '@atlaskit/theme/types';

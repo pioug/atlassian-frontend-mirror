@@ -7,12 +7,10 @@ import {
   createTable,
   CustomMediaPicker,
   EditorActions,
-  INPUT_METHOD,
   InsertBlockInputMethodToolbar,
   insertBlockTypesWithAnalytics,
   insertLinkWithAnalyticsMobileNative,
   insertTaskDecisionCommand,
-  isLinkAtPos,
   ListInputMethod,
   ListState,
   MentionPluginState,
@@ -37,7 +35,6 @@ import {
   insertExpand,
   QuickInsertItemId,
   getListCommands,
-  isTextAtPos,
   insertDate,
   dateToDateType,
   insertHorizontalRule,
@@ -45,6 +42,8 @@ import {
   createQuickInsertTools,
   hasVisibleContent,
 } from '@atlaskit/editor-core';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { isTextAtPos, isLinkAtPos } from '@atlaskit/editor-common/link';
 import type { LinkInputType as LinkInputMethod } from '@atlaskit/editor-common/types';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { EditorViewWithComposition } from '../../types';

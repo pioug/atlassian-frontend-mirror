@@ -1,18 +1,15 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
 
+import {
+  axe,
+  jestAxeConfig,
+  toHaveNoViolations,
+} from '@af/accessibility-testing';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import Banner from '../../banner';
-
-const axeRules: JestAxeConfigureOptions = {
-  rules: {
-    'color-contrast': { enabled: false },
-  },
-  resultTypes: ['violations', 'incomplete'],
-};
 
 expect.extend(toHaveNoViolations);
 
@@ -25,7 +22,7 @@ describe('a11y', () => {
         Your license is about to expire.
       </Banner>,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -33,7 +30,7 @@ describe('a11y', () => {
     const { container } = render(
       <Banner appearance="warning">Simple warning banner</Banner>,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -41,7 +38,7 @@ describe('a11y', () => {
     const { container } = render(
       <Banner appearance="announcement">Simple announcement banner</Banner>,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -49,7 +46,7 @@ describe('a11y', () => {
     const { container } = render(
       <Banner appearance="error">Simple error banner</Banner>,
     );
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 

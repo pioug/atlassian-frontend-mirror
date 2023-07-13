@@ -495,6 +495,7 @@ describe('Analytics key events', () => {
       const url = 'https://atlassian.com';
       const urlDetails = { url };
       const { editorView, undo, redo } = await setup({});
+      requestAnimationFrame.step();
       sendKeyToPm(editorView, 'Mod-k');
 
       const urlField = await screen.findByTestId('link-url');
@@ -562,6 +563,7 @@ describe('Analytics key events', () => {
       const urlDetails = { url };
 
       const { editorView, undo, redo } = await setup();
+      requestAnimationFrame.step();
       sendKeyToPm(editorView, 'Mod-k');
 
       const urlField = await screen.findByTestId('link-url');

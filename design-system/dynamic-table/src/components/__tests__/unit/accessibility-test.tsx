@@ -1,7 +1,12 @@
 import React from 'react';
 
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
-import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
+
+import {
+  axe,
+  jestAxeConfig,
+  toHaveNoViolations,
+} from '@af/accessibility-testing';
 
 import DynamicTable, {
   DynamicTableStateless as StatelessDynamicTable,
@@ -22,15 +27,6 @@ const testId = 'dynamic--table--test--id';
 
 expect.extend(toHaveNoViolations);
 
-const axeRules: JestAxeConfigureOptions = {
-  rules: {
-    // As we're testing on the JSDOM, color-contrast testing can't run.
-    'color-contrast': { enabled: false },
-  },
-  // The types of results fetched are limited for performance reasons
-  resultTypes: ['violations', 'incomplete', 'inapplicable'],
-};
-
 describe('Dynamic Table Accessibility', () => {
   afterEach(cleanup);
 
@@ -47,7 +43,7 @@ describe('Dynamic Table Accessibility', () => {
       );
 
       const container = screen.getByTestId('dynamic--table--test--id--table');
-      const results = await axe(container, axeRules);
+      const results = await axe(container, jestAxeConfig);
       expect(results).toHaveNoViolations();
     });
 
@@ -65,7 +61,7 @@ describe('Dynamic Table Accessibility', () => {
       const container = screen.getByTestId(
         'dynamic--table--test--id--loading--container--advanced',
       );
-      const results = await axe(container, axeRules);
+      const results = await axe(container, jestAxeConfig);
       expect(results).toHaveNoViolations();
     });
   });
@@ -86,7 +82,7 @@ describe('Dynamic Table Accessibility', () => {
       render(<StatelessDynamicTable {...props} />);
 
       const container = screen.getByTestId('dynamic--table--test--id--table');
-      const results = await axe(container, axeRules);
+      const results = await axe(container, jestAxeConfig);
       expect(results).toHaveNoViolations();
     });
 
@@ -100,7 +96,7 @@ describe('Dynamic Table Accessibility', () => {
       fireEvent.click(sortButtons[0]);
 
       const container = screen.getByTestId('dynamic--table--test--id--table');
-      const results = await axe(container, axeRules);
+      const results = await axe(container, jestAxeConfig);
       expect(results).toHaveNoViolations();
     });
 
@@ -113,7 +109,7 @@ describe('Dynamic Table Accessibility', () => {
       const container = screen.getByTestId(
         'dynamic--table--test--id--loading--container--advanced',
       );
-      const results = await axe(container, axeRules);
+      const results = await axe(container, jestAxeConfig);
       expect(results).toHaveNoViolations();
     });
   });
@@ -129,7 +125,7 @@ describe('Dynamic Table Accessibility', () => {
       const container = screen.getByTestId(
         'dynamic--table--test--id--container',
       );
-      const results = await axe(container, axeRules);
+      const results = await axe(container, jestAxeConfig);
       expect(results).toHaveNoViolations();
     });
   });
@@ -163,7 +159,7 @@ describe('Dynamic Table Accessibility', () => {
       fireEvent.keyDown(cell);
 
       const container = screen.getByTestId('dynamic--table--test--id--tr');
-      const results = await axe(container, axeRules);
+      const results = await axe(container, jestAxeConfig);
       expect(results).toHaveNoViolations();
     });
   });

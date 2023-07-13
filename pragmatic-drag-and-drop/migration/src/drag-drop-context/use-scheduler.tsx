@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-import { rbdInvariant } from './rbd-invariant';
+import { batchUpdatesForReact16 } from '../utils/batch-updates-for-react-16';
 
-type ScheduledFunction = () => void;
+type Callback = () => void;
 
 type Scheduler = {
   /**
    * Queues the provided function to be called asynchronously.
    */
-  schedule(scheduledFunction: ScheduledFunction): void;
+  schedule(callback: Callback): void;
 
   /**
    * Calls the queue of functions synchronously, and cancels the pending timeouts.
@@ -16,45 +16,62 @@ type Scheduler = {
   flush(): void;
 };
 
+type Queue =
+  | { status: 'idle' }
+  | {
+      status: 'pending';
+      timeoutId: ReturnType<typeof setTimeout>;
+      items: Callback[];
+    };
+
+const idleQueue: Queue = { status: 'idle' };
+
 function createScheduler(): Scheduler {
-  type QueueItem = {
+  let queue: Queue = idleQueue;
+
+  const schedule = (callback: Callback) => {
     /**
-     * The `timeoutId` provided by `setTimeout`.
-     *
-     * This uses an opaque type, instead of just `number`, to avoid conflicts
-     * with Node.js type definitions.
+     * If the queue is currently idle (no update scheduled) then
+     * we should call `setTimeout` to schedule an update.
      */
-    id: ReturnType<typeof setTimeout>;
-    scheduledFunction: ScheduledFunction;
-  };
+    if (queue.status === 'idle') {
+      queue = {
+        status: 'pending',
+        timeoutId: setTimeout(flush, 0),
+        items: [],
+      };
+    }
 
-  const queue: QueueItem[] = [];
-
-  const schedule = (scheduledFunction: ScheduledFunction) => {
-    const id = setTimeout(() => {
-      // Takes the first item, removing it from the queue
-      const item = queue.shift();
-      rbdInvariant(item, 'There was an item in the queue');
-      rbdInvariant(
-        item.id === id && item.scheduledFunction === scheduledFunction,
-        'The item is the expected item',
-      );
-
-      // Call the function and remove it from the queue
-      scheduledFunction();
-    }, 0);
-
-    queue.push({ id, scheduledFunction });
+    queue.items.push(callback);
   };
 
   const flush = () => {
-    while (queue.length > 0) {
-      const item = queue.shift();
-      rbdInvariant(item, 'There was an item in the queue');
-
-      clearTimeout(item.id);
-      item.scheduledFunction();
+    if (queue.status === 'idle') {
+      return;
     }
+
+    /**
+     * Clearing the timeout optimistically in case `flush` was called directly.
+     */
+    clearTimeout(queue.timeoutId);
+    /**
+     * A shallow copy is used so that updates which queue further updates
+     * are not batched together. This is to more closely match rbd.
+     */
+    const items = Array.from(queue.items);
+    /**
+     * The queue is made idle so it is ready to schedule further updates.
+     */
+    queue = idleQueue;
+
+    /**
+     * Scheduled callbacks are batched.
+     *
+     * The batching is more evident when the page is running more slowly.
+     */
+    batchUpdatesForReact16(() => {
+      items.forEach(callback => callback());
+    });
   };
 
   return { schedule, flush };

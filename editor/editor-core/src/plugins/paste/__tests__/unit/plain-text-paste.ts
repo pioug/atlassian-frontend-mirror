@@ -19,7 +19,7 @@ import blockTypePlugin from '../../../block-type';
 import textFormattingPlugin from '../../../text-formatting';
 
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import hyperlinkPlugin from '../../../hyperlink/index';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 

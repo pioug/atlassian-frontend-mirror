@@ -1,9 +1,4 @@
-import type {
-  DraggableLocation,
-  DragStart,
-  DragUpdate,
-  DroppableId,
-} from 'react-beautiful-dnd';
+import type { DragStart, DragUpdate, DroppableId } from 'react-beautiful-dnd';
 
 import type { Action } from '../internal-types';
 
@@ -11,30 +6,17 @@ type DroppableState = {
   draggingFromThisWith: string | null;
   draggingOverWith: string | null;
   isDraggingOver: boolean;
-  source: DraggableLocation | null;
-  destination: DraggableLocation | null;
-  targetLocation: DraggableLocation | null;
 };
 
 export type DroppableAction =
   | Action<'DRAG_START', { droppableId: DroppableId; start: DragStart }>
-  | Action<
-      'DRAG_UPDATE',
-      {
-        droppableId: DroppableId;
-        targetLocation: DraggableLocation | null;
-        update: DragUpdate;
-      }
-    >
+  | Action<'DRAG_UPDATE', { droppableId: DroppableId; update: DragUpdate }>
   | Action<'DRAG_CLEAR'>;
 
 export const idleState: DroppableState = {
   draggingFromThisWith: null,
   draggingOverWith: null,
   isDraggingOver: false,
-  source: null,
-  destination: null,
-  targetLocation: null,
 };
 
 export function reducer(
@@ -56,14 +38,11 @@ export function reducer(
       isDraggingOver,
       draggingFromThisWith,
       draggingOverWith,
-      source: start.source,
-      destination: start.source,
-      targetLocation: start.source,
     };
   }
 
   if (action.type === 'DRAG_UPDATE') {
-    const { droppableId, targetLocation, update } = action.payload;
+    const { droppableId, update } = action.payload;
     const { destination = null, draggableId, source } = update;
 
     const isDraggingOver = destination?.droppableId === droppableId;
@@ -77,9 +56,6 @@ export function reducer(
       isDraggingOver,
       draggingFromThisWith,
       draggingOverWith,
-      source: update.source,
-      destination,
-      targetLocation,
     };
   }
 

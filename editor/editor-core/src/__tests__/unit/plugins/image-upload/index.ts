@@ -11,12 +11,24 @@ import {
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { setNodeSelection } from '../../../../utils';
-import {
-  insertExternalImage,
-  startImageUpload,
-} from '../../../../plugins/image-upload/pm-plugins/commands';
-import { ImageUploadProvider } from '@atlaskit/editor-common/provider-factory';
+import { insertExternalImage } from '../../../../plugins/image-upload/pm-plugins/commands';
 import { stateKey as imageUploadPluginKey } from '../../../../plugins/image-upload/pm-plugins/plugin-key';
+
+const createMockDataTransferObjectOffEvent = (overrides: any = {}) => {
+  return {
+    getData: () => '',
+    setData: () => {},
+    clearData: () => {},
+    types: ['Files'],
+    files: [],
+    items: {
+      add: jest.fn(),
+      remove: jest.fn,
+      clear: jest.fn(),
+    },
+    ...overrides,
+  };
+};
 
 describe('image-upload', () => {
   const createEditor = createEditorFactory();
@@ -84,6 +96,12 @@ describe('image-upload', () => {
   });
 
   it('should invoke upload handler after pasting an image', async () => {
+    global.DataTransfer = jest.fn().mockImplementation(() =>
+      createMockDataTransferObjectOffEvent({
+        types: ['Files', 'text/plain', 'text/html', 'image/png'],
+        files: [new File([], 'image.png', { type: 'image/png' })],
+      }),
+    );
     const imageUploadHandler = jest.fn();
     const imageUploadProvider = Promise.resolve(imageUploadHandler);
     const { editorView } = editor(doc(p('{<>}')), imageUploadProvider);
@@ -138,6 +156,10 @@ describe('image-upload', () => {
   });
 
   it('should invoke upload handler after dropping an image', async () => {
+    global.DataTransfer = jest
+      .fn()
+      .mockImplementation(() => createMockDataTransferObjectOffEvent());
+
     const imageUploadHandler = jest.fn();
     const imageUploadProvider = Promise.resolve(imageUploadHandler);
     const { editorView } = editor(doc(p('{<>}')), imageUploadProvider);
@@ -164,37 +186,5 @@ describe('image-upload', () => {
     expect(imageUploadHandler.mock.calls[0][0].dataTransfer.types).toContain(
       'Files',
     );
-  });
-
-  it('should call the provider correctly with startImageUpload command', async () => {
-    const imageUploadHandler: ImageUploadProvider = jest.fn();
-    const imageUploadProvider = Promise.resolve(imageUploadHandler);
-    const { editorView } = editor(doc(p('{<>}')), imageUploadProvider);
-
-    await imageUploadProvider;
-
-    const event = createEvent('custom');
-
-    const started = startImageUpload(event)(
-      editorView.state,
-      editorView.dispatch,
-    );
-    expect(started).toBeTruthy();
-    expect(imageUploadHandler).toHaveBeenCalledTimes(1);
-  });
-
-  it('should insert the external image via command with provider', async () => {
-    const imageUploadHandler: ImageUploadProvider = jest.fn((_e, cb) => {
-      cb({
-        src: testImgSrc,
-      });
-    });
-    const imageUploadProvider = Promise.resolve(imageUploadHandler);
-    const { editorView } = editor(doc(p('{<>}')), imageUploadProvider);
-
-    await imageUploadProvider;
-
-    startImageUpload()(editorView.state, editorView.dispatch);
-    expect(editorView.state.doc).toEqualDocument(doc(testImg()));
   });
 });

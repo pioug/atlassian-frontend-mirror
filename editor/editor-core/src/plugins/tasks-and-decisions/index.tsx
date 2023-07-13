@@ -11,7 +11,7 @@ import { Transaction } from 'prosemirror-state';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '../analytics';
 import { messages as insertBlockMessages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { IconAction, IconDecision } from '../quick-insert/assets';
+import { IconAction, IconDecision } from '@atlaskit/editor-common/quick-insert';
 
 import { insertTaskDecisionAction, getListTypes } from './commands';
 import inputRulePlugin from './pm-plugins/input-rules';

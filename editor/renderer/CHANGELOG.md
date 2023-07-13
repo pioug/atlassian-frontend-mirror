@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 108.6.7
+
+### Patch Changes
+
+- [`caa8dc8e5f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caa8dc8e5f5) - ED-18758:Making the box-shadow used in table with sticky headers consistent in light theme to original
+
 ## 108.6.6
 
 ### Patch Changes

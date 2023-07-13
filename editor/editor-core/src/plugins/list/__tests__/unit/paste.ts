@@ -14,7 +14,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { EditorView } from 'prosemirror-view';
 import pastePlugin from '../../../paste';
-import hyperlinkPlugin from '../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import listPlugin from '../..';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import blockTypePlugin from '../../../block-type';

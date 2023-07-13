@@ -367,9 +367,12 @@ export class DocumentService {
       this.analyticsHelper?.sendActionEvent(
         EVENT_ACTION.REINITIALISE_DOCUMENT,
         EVENT_STATUS.SUCCESS,
-        { numUnconfirmedSteps: unconfirmedSteps?.length },
+        {
+          numUnconfirmedSteps: unconfirmedSteps?.length,
+          hasTitle: !!metadata?.title,
+        },
       );
-    } catch (restoreError: unknown) {
+    } catch (restoreError) {
       this.analyticsHelper?.sendActionEvent(
         EVENT_ACTION.REINITIALISE_DOCUMENT,
         EVENT_STATUS.FAILURE,

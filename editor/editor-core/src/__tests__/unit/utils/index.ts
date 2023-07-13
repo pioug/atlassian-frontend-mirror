@@ -33,8 +33,9 @@ import {
   compose,
   pipe,
   isSelectionInsideLastNodeInDocument,
-  shallowEqual,
 } from '../../../utils';
+import { shallowEqual } from '@atlaskit/editor-common/utils';
+
 import { Node, Schema } from 'prosemirror-model';
 import { closestElement } from '../../../utils/dom';
 

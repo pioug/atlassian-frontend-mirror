@@ -40,6 +40,8 @@ const buttonStyles = css({
  */
 export const PresentationalIndicator = (
   props: HTMLAttributes<HTMLDivElement>,
+  // TODO: Remove role="presentation", since div's have no semantics anyway
+  // (DSP-11587)
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 ) => <div {...props} css={commonStyles} role="presentation" />;
 

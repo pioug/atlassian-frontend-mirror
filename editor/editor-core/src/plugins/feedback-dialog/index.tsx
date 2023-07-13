@@ -1,7 +1,7 @@
 import React from 'react';
 import type { FeedbackInfo } from '../../types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { IconFeedback } from '../quick-insert/assets';
+import { IconFeedback } from '@atlaskit/editor-common/quick-insert';
 import { version as coreVersion } from '../../version-wrapper';
 
 import {

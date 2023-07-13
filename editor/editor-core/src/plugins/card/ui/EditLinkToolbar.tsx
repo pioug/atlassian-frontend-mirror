@@ -13,7 +13,10 @@ import type {
   LinkInputType,
   LinkPickerOptions,
 } from '@atlaskit/editor-common/types';
-import HyperlinkToolbar from '../../hyperlink/ui/HyperlinkAddToolbar';
+import {
+  HyperlinkAddToolbar as HyperlinkToolbar,
+  HyperlinkAddToolbarProps,
+} from '@atlaskit/editor-common/link';
 import {
   showLinkToolbar,
   hideLinkToolbar,
@@ -49,6 +52,7 @@ import { FeatureFlags } from '@atlaskit/editor-common/types';
 import type cardPlugin from '../index';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 import { DatasourceModal } from './DatasourceModal';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
 export type EditLinkToolbarProps = {
   view: EditorView;
@@ -65,8 +69,48 @@ export type EditLinkToolbarProps = {
   linkPickerOptions?: LinkPickerOptions;
   featureFlags: FeatureFlags;
   forceFocusSelector: ForceFocusSelector | undefined;
+  pluginInjectionApi: any;
 };
-const HyperLinkToolbarWithListeners = withOuterListeners(HyperlinkToolbar);
+const HyperLinkToolbarWithListeners = withOuterListeners(
+  HyperlinkAddToolbarWithState,
+);
+
+export function HyperlinkAddToolbarWithState({
+  linkPickerOptions = {},
+  onSubmit,
+  displayText,
+  displayUrl,
+  providerFactory,
+  view,
+  onCancel,
+  invokeMethod,
+  featureFlags,
+  onClose,
+  onEscapeCallback,
+  onClickAwayCallback,
+  pluginInjectionApi,
+}: HyperlinkAddToolbarProps & { pluginInjectionApi: any }) {
+  const { hyperlinkState } = useSharedPluginState(pluginInjectionApi, [
+    'hyperlink',
+  ]);
+  return (
+    <HyperlinkToolbar
+      linkPickerOptions={linkPickerOptions}
+      onSubmit={onSubmit}
+      displayText={displayText}
+      displayUrl={displayUrl}
+      providerFactory={providerFactory}
+      view={view}
+      onCancel={onCancel}
+      invokeMethod={invokeMethod}
+      featureFlags={featureFlags}
+      onClose={onClose}
+      onEscapeCallback={onEscapeCallback}
+      onClickAwayCallback={onClickAwayCallback}
+      hyperlinkPluginState={hyperlinkState}
+    />
+  );
+}
 
 export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
   componentDidUpdate(prevProps: EditLinkToolbarProps) {
@@ -102,10 +146,12 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
       view,
       featureFlags,
       onSubmit,
+      pluginInjectionApi,
     } = this.props;
 
     return (
       <HyperLinkToolbarWithListeners
+        pluginInjectionApi={pluginInjectionApi}
         view={view}
         linkPickerOptions={linkPickerOptions}
         providerFactory={providerFactory}
@@ -121,6 +167,31 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
           if (onSubmit) {
             onSubmit(href, displayText || title, inputMethod, analytic);
           }
+        }}
+        onEscapeCallback={(state, dispatch) => {
+          const { tr } = state;
+          pluginInjectionApi?.dependencies.hyperlink.actions.hideLinkToolbar(
+            tr,
+          );
+          hideLinkToolbar(tr);
+
+          if (dispatch) {
+            dispatch(tr);
+            return true;
+          }
+          return false;
+        }}
+        onClickAwayCallback={(state, dispatch) => {
+          const { tr } = state;
+          pluginInjectionApi?.dependencies.hyperlink.actions.hideLinkToolbar(
+            tr,
+          );
+
+          if (dispatch) {
+            dispatch(tr);
+            return true;
+          }
+          return false;
         }}
       />
     );
@@ -179,6 +250,7 @@ export const buildEditLinkToolbar = ({
 
       return (
         <EditLinkToolbar
+          pluginInjectionApi={pluginInjectionApi}
           key={idx}
           view={view}
           linkPickerOptions={linkPicker}

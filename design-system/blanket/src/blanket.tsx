@@ -97,6 +97,7 @@ const Blanket = memo(
     }, []);
 
     return (
+      // TODO: Remove role="presentation", since div's have no semantics anyway (DSP-11587)
       <div
         role="presentation"
         css={[

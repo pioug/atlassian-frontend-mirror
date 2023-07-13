@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/flag",
-  "version": "15.2.14",
+  "version": "15.2.15",
   "description": "A flag is used for confirmations, alerts, and acknowledgments that require minimal user interaction, often displayed using a flag group.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -61,6 +61,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/visual-regression": "*",
@@ -68,7 +69,6 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@emotion/jest": "^11.8.0",
     "@testing-library/react": "^12.1.5",
-    "jest-axe": "^4.0.0",
     "jest-emotion": "^10.0.32",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "^0.16.0",

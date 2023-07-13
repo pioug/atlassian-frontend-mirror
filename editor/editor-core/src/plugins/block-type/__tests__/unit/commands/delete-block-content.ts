@@ -19,7 +19,7 @@ import layoutPlugin from '../../../../layout';
 import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
 import cardPlugin from '../../../../card';
-import hyperlinkPlugin from '../../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
 import editorDisabledPlugin from '../../../../editor-disabled';
 

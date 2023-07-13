@@ -16,6 +16,8 @@ export default class LabelExample extends PureComponent {
             <Textfield id="input-id-example" />
           </FieldBase>
         </Label>
+        {/* TODO: Remove extraneous control or give appropriate control (DSP-11465) */}
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
         <Label label="Inline edit label" appearance="inline-edit" />
       </div>
     );

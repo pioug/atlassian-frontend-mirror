@@ -1,10 +1,8 @@
 import { MarkType, Schema } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import {
-  createPlugin,
-  createRule,
-  ruleWithAnalytics,
-} from '../../../utils/input-rules';
+import { ruleWithAnalytics } from '../../../utils/input-rules';
+import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
+
 import {
   leafNodeReplacementCharacter,
   InputRuleWrapper,
@@ -16,8 +14,8 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../analytics';
-import { FeatureFlags } from '../../../types/feature-flags';
+} from '@atlaskit/editor-common/analytics';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 import { transformSmartCharsMentionsAndEmojis } from '../commands/transform-to-code';
 
 enum ValidAutoformatChars {

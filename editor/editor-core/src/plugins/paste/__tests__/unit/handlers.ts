@@ -53,7 +53,7 @@ import {
   handleMarkdown,
 } from '../../handlers';
 import pastePlugin from '../../index';
-import hyperlinkPlugin from '../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import textFormattingPlugin from '../../../text-formatting';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';

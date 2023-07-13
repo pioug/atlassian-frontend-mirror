@@ -94,12 +94,12 @@ export type DraggableAction =
    *
    * This loosely corresponds to an `onDragUpdate` from `react-beautiful-dnd`.
    */
-  | Action<'UPDATE_POINTER_DRAG', { update: DragUpdate }>
-  | Action<'UPDATE_KEYBOARD_DRAG', UpdateKeyboardPayload>
+  | Action<'UPDATE_DRAG', { update: DragUpdate }>
   /**
    * Updates the preview based on pointer location
    */
   | Action<'UPDATE_POINTER_PREVIEW', { pointerLocation: PointerLocation }>
+  | Action<'UPDATE_KEYBOARD_PREVIEW', UpdateKeyboardPayload>
   | Action<'DROP'>
   /**
    * These events are specifically for draggables that `shouldRenderCloneWhileDragging`.
@@ -309,20 +309,6 @@ function startDrag(
   return nextState;
 }
 
-function updateDrag(
-  state: DraggableState,
-  { update }: { update: DragUpdate },
-): DraggableDraggingState {
-  rbdInvariant(state.type === 'dragging', 'The draggable is dragging.');
-
-  const draggingOver = update.destination
-    ? update.destination.droppableId
-    : null;
-
-  const nextState: DraggableDraggingState = { ...state, draggingOver };
-  return nextState;
-}
-
 export function reducer(
   state: DraggableState,
   action: DraggableAction,
@@ -345,13 +331,21 @@ export function reducer(
     });
   }
 
-  if (action.type === 'UPDATE_POINTER_DRAG') {
-    return updateDrag(state, action.payload);
-  }
+  if (action.type === 'UPDATE_DRAG') {
+    rbdInvariant(state.type === 'dragging', 'The draggable is dragging.');
 
-  if (action.type === 'UPDATE_KEYBOARD_DRAG') {
-    const nextState = updateDrag(state, action.payload);
-    return updateKeyboardPreview(nextState, action.payload);
+    const { update } = action.payload;
+    const draggingOver = update.destination
+      ? update.destination.droppableId
+      : null;
+
+    if (draggingOver === state.draggingOver) {
+      // Save on an unnecessary rerender
+      return state;
+    }
+
+    const nextState: DraggableDraggingState = { ...state, draggingOver };
+    return nextState;
   }
 
   if (action.type === 'UPDATE_POINTER_PREVIEW') {
@@ -371,6 +365,15 @@ export function reducer(
       },
     };
 
+    return nextState;
+  }
+
+  if (action.type === 'UPDATE_KEYBOARD_PREVIEW') {
+    rbdInvariant(state.type === 'dragging', 'The draggable is dragging.');
+    if (state.type !== 'dragging') {
+      return state;
+    }
+    const nextState = updateKeyboardPreview(state, action.payload);
     return nextState;
   }
 

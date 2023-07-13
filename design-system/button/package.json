@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "16.8.1",
+  "version": "16.8.2",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -59,6 +59,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@af/integration-testing": "*",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/ssr": "*",
@@ -69,7 +70,6 @@
     "@types/react-router-dom": "^4.3.1",
     "ast-types": "^0.13.3",
     "bind-event-listener": "^2.1.1",
-    "jest-axe": "^4.0.0",
     "jest-emotion": "^10.0.32",
     "jest-in-case": "^1.0.2",
     "jscodeshift": "^0.13.0",

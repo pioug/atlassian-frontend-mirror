@@ -1,5 +1,11 @@
 # @atlaskit/linking-types
 
+## 8.2.0
+
+### Minor Changes
+
+- [`3c0719a11f7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c0719a11f7) - added richtext type
+
 ## 8.1.0
 
 ### Minor Changes

@@ -1,7 +1,7 @@
 import { EditorState, PluginKey } from 'prosemirror-state';
 import { hasParentNodeOfType } from 'prosemirror-utils';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { shallowEqual } from '../../../utils';
+import { shallowEqual } from '@atlaskit/editor-common/utils';
 import { Dispatch } from '../../../event-dispatcher';
 
 import {

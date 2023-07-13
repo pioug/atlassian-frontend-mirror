@@ -51,10 +51,11 @@ import ToolbarInsertBlock, {
   ToolbarInsertBlock as BaseToolbarInsertBlock,
 } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock';
 import { MediaProvider } from '../../../../../plugins/media';
-import {
-  stateKey as hyperlinkPluginKey,
-  LinkAction,
-} from '../../../../../plugins/hyperlink/pm-plugins/main';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { stateKey as hyperlinkPluginKey } from '@atlaskit/editor-plugin-hyperlink/src/pm-plugins/main';
+import { LinkAction } from '@atlaskit/editor-common/link';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+
 import {
   INPUT_METHOD,
   DispatchAnalyticsEvent,
@@ -149,6 +150,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   const createEditor = createProsemirrorEditorFactory();
 
   let editorView: EditorView;
+  let pluginInjectionAPI: any;
   let pluginState: any;
   let toolbarOption: ToolbarOptionWrapper;
   let baseToolbarOption: ReactWrapper<
@@ -186,6 +188,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         .add(taskDecisionPlugin)
         .add([typeAheadPlugin, { createAnalyticsEvent }])
         .add(mentionsPlugin)
+        .add(hyperlinkPlugin)
         .add([quickInsertPlugin, { disableDefaultItems: true }]),
       providerFactory,
     });
@@ -216,7 +219,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     dispatchAnalyticsSpy = jest.fn();
-    ({ editorView, pluginState } = editor(doc(p('text'))));
+    ({ editorView, pluginState, pluginInjectionAPI } = editor(doc(p('text'))));
     dispatchSpy = jest.spyOn(editorView, 'dispatch');
   });
 
@@ -718,7 +721,10 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
 
       describe('click link option', () => {
         beforeEach(() => {
-          buildToolbarForMenu({ linkSupported: true });
+          buildToolbarForMenu({
+            linkSupported: true,
+            pluginInjectionApi: pluginInjectionAPI.api(),
+          });
           menu.clickButton(messages.link.defaultMessage, toolbarOption);
         });
 

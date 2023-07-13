@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
@@ -128,6 +129,11 @@ describe('ak-field-base', () => {
     describe('onClick prop', () => {
       it('should fire handler when the span is clicked', async () => {
         const handler = jest.fn();
+        // Labels generally shouldn't have click handlers, as it's a
+        // noninteractive element. This is left as legacy because of the way this
+        // component is structured and the age of the package.
+        // TODO: Determine if this functionality should be deprecated/removed (DSP-11467)
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
         render(<Label label={testLabel} testId={testId} onClick={handler} />);
 
         await user.click(screen.getByText(testLabel));

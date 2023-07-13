@@ -16,7 +16,7 @@ import {
 import { EditorView } from 'prosemirror-view';
 
 import blockTypePlugin from '../../../../block-type';
-import hyperlinkPlugin from '../../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
 import cardPlugin from '../../../../card';

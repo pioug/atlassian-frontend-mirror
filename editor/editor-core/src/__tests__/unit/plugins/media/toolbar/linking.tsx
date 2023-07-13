@@ -67,7 +67,7 @@ import {
 import safeUnmount from '../../../../__helpers/safeUnmount';
 import { getToolbarItems } from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
 import { MediaFloatingToolbarOptions } from '../../../../../plugins/media/types';
-import PanelTextInput from '../../../../../ui/PanelTextInput';
+import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 interface LinkingActions {

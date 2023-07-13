@@ -4,6 +4,7 @@ import { blockquote, hardBreak, heading } from '@atlaskit/adf-schema';
 import {
   NextEditorPlugin,
   OptionalPlugin,
+  HeadingLevels,
 } from '@atlaskit/editor-common/types';
 import { createPlugin, pluginKey } from './pm-plugins/main';
 import keymapPlugin from './pm-plugins/keymap';
@@ -11,7 +12,7 @@ import inputRulePlugin from './pm-plugins/input-rule';
 import ToolbarBlockType from './ui/ToolbarBlockType';
 import WithPluginState from '../../ui/WithPluginState';
 import { setBlockTypeWithAnalytics } from './commands';
-import { BlockTypeNode, BlockTypePluginOptions, HeadingLevels } from './types';
+import { BlockTypeNode, BlockTypePluginOptions } from './types';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -20,7 +21,7 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import * as keymaps from '../../keymaps';
-import { IconHeading, IconQuote } from '../quick-insert/assets';
+import { IconHeading, IconQuote } from '@atlaskit/editor-common/quick-insert';
 import {
   QuickInsertActionInsert,
   QuickInsertItem,

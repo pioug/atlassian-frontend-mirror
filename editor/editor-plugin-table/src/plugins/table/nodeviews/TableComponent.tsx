@@ -43,6 +43,7 @@ import {
   containsHeaderRow,
   tablesHaveDifferentColumnWidths,
   tablesHaveDifferentNoOfColumns,
+  isTableNested,
 } from '../utils';
 
 import type { TableOptions } from './types';
@@ -387,6 +388,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         )
       : NOOP;
 
+    const isNested = isTableNested(view.state, getPos());
+
     return (
       <TableContainer
         className={classnames(ClassName.TABLE_CONTAINER, {
@@ -403,6 +406,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         containerWidth={containerWidth}
         isFullWidthModeEnabled={options?.isFullWidthModeEnabled}
         isBreakoutEnabled={options?.isBreakoutEnabled}
+        isNested={isNested}
       >
         {stickyHeadersOptimization && (
           <div
@@ -523,6 +527,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const node = getNode();
     const prevAttrs = prevNode.attrs;
 
+    const isNested = isTableNested(this.props.view.state, this.props.getPos());
     // We only consider a layout change valid if it's done outside of an autoSize.
     const layoutChanged =
       prevAttrs.layout !== node.attrs.layout &&
@@ -556,12 +561,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       layoutSize !== this.layoutSize ||
       noOfColumnsChanged
     ) {
-      // If column has been inserted/deleted avoid multi dispatch
-      if (
-        !getBooleanFF('platform.editor.custom-table-width') &&
+      const shouldScaleTable =
+        (!getBooleanFF('platform.editor.custom-table-width') ||
+          (getBooleanFF('platform.editor.custom-table-width') && isNested)) &&
         !hasNumberedColumnChanged &&
-        !noOfColumnsChanged
-      ) {
+        !noOfColumnsChanged;
+
+      // If column has been inserted/deleted avoid multi dispatch
+      if (shouldScaleTable) {
         this.scaleTable({ parentWidth, layoutChanged });
       }
       this.updateParentWidth(parentWidth);

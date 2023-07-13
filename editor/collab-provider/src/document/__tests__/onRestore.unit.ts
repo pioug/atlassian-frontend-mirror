@@ -73,7 +73,7 @@ describe('DocumentService onRestore', () => {
         expect(sendActionEventSpy).toBeCalledWith(
           'reinitialiseDocument',
           'SUCCESS',
-          { numUnconfirmedSteps: 0 },
+          { hasTitle: true, numUnconfirmedSteps: 0 },
         );
       });
 
@@ -94,7 +94,7 @@ describe('DocumentService onRestore', () => {
         expect(sendActionEventSpy).toBeCalledWith(
           'reinitialiseDocument',
           'SUCCESS',
-          { numUnconfirmedSteps: 2 },
+          { hasTitle: true, numUnconfirmedSteps: 2 },
         );
       });
 

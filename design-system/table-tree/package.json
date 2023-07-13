@@ -12,17 +12,8 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
-  "homepage": "https://atlassian.design/components/table-tree/",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
@@ -30,9 +21,6 @@
       "name": "Table tree",
       "category": "Components"
     }
-  },
-  "af:exports": {
-    ".": "./src/index.tsx"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
@@ -49,6 +37,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/visual-regression": "*",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -87,6 +76,18 @@
       ],
       "deprecation": "no-deprecated-imports"
     }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "homepage": "https://atlassian.design/components/table-tree/",
+  "af:exports": {
+    ".": "./src/index.tsx"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

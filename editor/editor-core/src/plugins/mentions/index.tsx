@@ -18,7 +18,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { IconMention } from '../quick-insert/assets';
+import { IconMention } from '@atlaskit/editor-common/quick-insert';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { MentionPluginOptions, FireElementsChannelEvent } from './types';
 import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-at-cursor';

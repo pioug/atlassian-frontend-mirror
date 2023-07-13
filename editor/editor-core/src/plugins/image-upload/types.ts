@@ -1,3 +1,5 @@
+import { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
+
 export type {
   InsertedImageProperties,
   ImageUploadProvider as ImageUploadHandler,
@@ -5,7 +7,7 @@ export type {
 
 export type ImageUploadPluginAction = {
   name: 'START_UPLOAD';
-  event?: Event;
+  event?: ImageUploadPluginReferenceEvent;
 };
 
 export type ImageUploadPluginState = {
@@ -13,6 +15,6 @@ export type ImageUploadPluginState = {
   enabled: boolean;
   hidden: boolean;
   activeUpload?: {
-    event?: Event;
+    event?: ImageUploadPluginReferenceEvent;
   };
 };

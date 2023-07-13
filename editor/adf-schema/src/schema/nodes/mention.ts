@@ -78,7 +78,9 @@ export const toJSON = (node: PMNode) => ({
     if (isOptional(key) && !node.attrs[key]) {
       return obj;
     }
-    obj[key] = node.attrs[key];
-    return obj;
+    return {
+      ...obj,
+      [key]: node.attrs[key],
+    };
   }, {}),
 });

@@ -93,7 +93,9 @@ export const toJSON = (node: PMNode) => ({
   attrs: Object.keys(node.attrs)
     .filter((key) => !key.startsWith('__'))
     .reduce<typeof node.attrs>((obj, key) => {
-      obj[key] = node.attrs[key];
-      return obj;
+      return {
+        ...obj,
+        [key]: node.attrs[key],
+      };
     }, {}),
 });

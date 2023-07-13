@@ -24,7 +24,7 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { PastePluginOptions } from '../../../index';
 
-import hyperlinkPlugin from '../../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import pastePlugin from '../../../index';
 import blockTypePlugin from '../../../../block-type';

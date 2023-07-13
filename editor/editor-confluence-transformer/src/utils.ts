@@ -16,8 +16,8 @@ import { Macro } from './types';
 export function marksFromStyle(
   schema: Schema,
   style: CSSStyleDeclaration,
-): Mark[] {
-  let marks: Mark[] = [];
+): ReadonlyArray<Mark> {
+  let marks: ReadonlyArray<Mark> = [];
 
   styles: for (let i = 0; i < style.length; i++) {
     const name = style.item(i);
@@ -56,7 +56,10 @@ export function marksFromStyle(
 /**
  * Create a fragment by adding a set of marks to each node.
  */
-export function addMarks(fragment: Fragment, marks: Mark[]): Fragment {
+export function addMarks(
+  fragment: Fragment,
+  marks: Mark[] | ReadonlyArray<Mark>,
+): Fragment {
   let result = fragment;
   for (let i = 0; i < fragment.childCount; i++) {
     const child = result.child(i);

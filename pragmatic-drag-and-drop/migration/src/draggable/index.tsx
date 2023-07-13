@@ -377,41 +377,62 @@ export function Draggable({
             return;
           }
 
-          if (update.mode === 'FLUID') {
-            return dispatch({
-              type: 'UPDATE_POINTER_DRAG',
-              payload: { update },
-            });
-          }
+          dispatch({
+            type: 'UPDATE_DRAG',
+            payload: { update },
+          });
 
           if (update.mode === 'SNAP') {
             /**
-             * The placeholder might not exist if its associated
-             * draggable unmounts in a virtual list.
+             * Updating the position in a microtask to resolve timing issues.
+             *
+             * When doing cross-axis dragging, the drop indicator in the new
+             * droppable will mount and update in a `onPendingDragUpdate` too.
+             *
+             * The microtask ensures that the indicator will have updated by
+             * the time this runs, so the preview will have the correct
+             * location of the indicator.
              */
-            const placeholder = findPlaceholder(contextId);
-            const placeholderRect = placeholder
-              ? placeholder.getBoundingClientRect()
-              : null;
+            queueMicrotask(() => {
+              /**
+               * Because this update occurs in a microtask, we need to check
+               * that the drag is still happening.
+               *
+               * If it has ended we should not try to update the preview.
+               */
+              const dragState = getDragState();
+              if (!dragState.isDragging) {
+                return;
+              }
 
-            /**
-             * The drop indicator might not exist if the current target
-             * is null
-             */
-            const dropIndicator = findDropIndicator();
-            const dropIndicatorRect = dropIndicator
-              ? dropIndicator.getBoundingClientRect()
-              : null;
+              /**
+               * The placeholder might not exist if its associated
+               * draggable unmounts in a virtual list.
+               */
+              const placeholder = findPlaceholder(contextId);
+              const placeholderRect = placeholder
+                ? placeholder.getBoundingClientRect()
+                : null;
 
-            return dispatch({
-              type: 'UPDATE_KEYBOARD_DRAG',
-              payload: {
-                update,
-                draggableDimensions,
-                droppable,
-                placeholderRect,
-                dropIndicatorRect,
-              },
+              /**
+               * The drop indicator might not exist if the current target
+               * is null
+               */
+              const dropIndicator = findDropIndicator();
+              const dropIndicatorRect = dropIndicator
+                ? dropIndicator.getBoundingClientRect()
+                : null;
+
+              dispatch({
+                type: 'UPDATE_KEYBOARD_PREVIEW',
+                payload: {
+                  update,
+                  draggableDimensions,
+                  droppable,
+                  placeholderRect,
+                  dropIndicatorRect,
+                },
+              });
             });
           }
         },

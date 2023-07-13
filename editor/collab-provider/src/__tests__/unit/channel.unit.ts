@@ -148,6 +148,7 @@ describe('Channel unit tests', () => {
     });
     expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
     expect(sendActionEventSpy).toHaveBeenCalledWith('documentInit', 'SUCCESS', {
+      hasTitle: true,
       latency: undefined,
       resetReason: undefined,
     });

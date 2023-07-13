@@ -136,7 +136,6 @@ export function collab(config: CollabConfig = {}): Plugin {
       },
     },
 
-    // @ts-expect-error
     config: conf,
 
     // This is used to notify the history plugin to not merge steps,

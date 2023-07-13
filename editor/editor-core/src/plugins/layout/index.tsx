@@ -8,7 +8,7 @@ import { FloatingToolbarConfig } from '../floating-toolbar/types';
 import { default as createLayoutPlugin } from './pm-plugins/main';
 import { buildToolbar } from './toolbar';
 import { createDefaultLayoutSection } from './actions';
-import { IconLayout } from '../quick-insert/assets';
+import { IconLayout } from '@atlaskit/editor-common/quick-insert';
 import {
   ACTION,
   ACTION_SUBJECT,

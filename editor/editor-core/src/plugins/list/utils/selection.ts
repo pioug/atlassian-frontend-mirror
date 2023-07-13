@@ -17,7 +17,7 @@ import {
   findParentNodeOfType,
   hasParentNodeOfType,
 } from 'prosemirror-utils';
-import { GapCursorSelection } from '../../selection/gap-cursor-selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import {
   isListItemNode,
   isListNode,

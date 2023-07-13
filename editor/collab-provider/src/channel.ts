@@ -364,6 +364,8 @@ export class Channel extends Emitter<ChannelEvent> {
 
     if (data.type === 'initial') {
       if (!this.initialized) {
+        const { doc, version, userId, metadata }: InitPayload = data;
+
         const measure = stopMeasure(
           MEASURE_NAME.DOCUMENT_INIT,
           this.analyticsHelper,
@@ -374,11 +376,11 @@ export class Channel extends Emitter<ChannelEvent> {
           EVENT_STATUS.SUCCESS,
           {
             latency: measure?.duration,
-            resetReason: data?.resetReason,
+            resetReason: data.resetReason,
+            hasTitle: !!data.metadata?.title,
           },
         );
 
-        const { doc, version, userId, metadata }: InitPayload = data;
         this.initialized = true;
         this.emit('init', {
           doc,

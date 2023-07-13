@@ -138,3 +138,14 @@ function getTableWidths(node: PmNode): number[] {
 
   return tableWidths;
 }
+
+export const isTableNested = (state: EditorState, tablePos = 0): boolean => {
+  const parent = state.doc.resolve(tablePos).parent;
+  const nodeTypes = state.schema.nodes;
+
+  return (
+    parent.type === nodeTypes.layoutColumn ||
+    parent.type === nodeTypes.expand ||
+    parent.type === nodeTypes.bodiedExtension
+  );
+};

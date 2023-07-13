@@ -28,7 +28,7 @@ import {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { HeadingLevels } from '../../../types';
+import type { HeadingLevels } from '@atlaskit/editor-common/types';
 import { EditorView } from 'prosemirror-view';
 import blockTypePlugin from '../../..';
 import deprecatedAnalyticsPlugin from '../../../../analytics';
@@ -38,7 +38,7 @@ import indentationPlugin from '../../../../indentation';
 import quickInsertPlugin from '../../../../quick-insert';
 import typeAheadPlugin from '../../../../type-ahead';
 import codeBlockPlugin from '../../../../code-block';
-import hyperlinkPlugin from '../../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import textFormattingPlugin from '../../../../text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

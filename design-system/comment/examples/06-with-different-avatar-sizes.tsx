@@ -5,7 +5,7 @@ import Stack from '@atlaskit/primitives/stack';
 
 import Comment, { CommentAction, CommentAuthor, CommentTime } from '../src';
 
-import avatarImg from './utils/sample-avatar';
+import avatarImg from './images/avatar_400x400.jpg';
 
 const getSampleText = () =>
   `Cookie macaroon liquorice. Marshmallow donut lemon drops candy canes marshmallow topping chocolate cake. Croissant pastry soufflé waffle cake fruitcake. Brownie oat cake sugar plum.`;

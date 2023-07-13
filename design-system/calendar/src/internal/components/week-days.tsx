@@ -25,6 +25,9 @@ const WeekDays = memo<WeekDaysProps>(function WeekDays({
   testId,
 }) {
   return (
+    // TODO: Determine if there is a better way to render the button (should be
+    // fixed with introduction of keyboard accessibility of Calendar in
+    // DSP-9939) (DSP-11588)
     <Box role="rowgroup" testId={testId && `${testId}--month`}>
       {weeks.map((week, i) => (
         <WeekdayGrid key={i} testId={testId && `${testId}--week`}>

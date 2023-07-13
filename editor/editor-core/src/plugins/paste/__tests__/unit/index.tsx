@@ -100,7 +100,7 @@ import pastePlugin from '../../index';
 import mediaPlugin from '../../../media';
 import { PluginConfig as TablePluginConfig } from '@atlaskit/editor-plugin-table/types';
 import blockTypePlugin from '../../../block-type';
-import hyperlinkPlugin from '../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
 import textFormattingPlugin from '../../../text-formatting';

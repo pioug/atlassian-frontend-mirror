@@ -346,7 +346,7 @@ describe('Collab Provider Integration Tests - Confluence', () => {
         provider.getCurrentState(),
       ).rejects.toThrowErrorMatchingInlineSnapshot(`"fake error"`);
 
-      expect(analyticsHelperSpy).toHaveBeenCalledTimes(1);
+      expect(analyticsHelperSpy).toHaveBeenCalledTimes(2);
       expect(analyticsHelperSpy).toHaveBeenCalledWith(
         new Error('fake error'),
         'Error while returning ADF version of current draft document',
@@ -396,8 +396,6 @@ describe('Collab Provider Integration Tests - Confluence', () => {
       await expect(
         provider.getFinalAcknowledgedState(),
       ).rejects.toThrowErrorMatchingInlineSnapshot(`"fake error"`);
-
-      // todo: find out why this isnt working?
 
       expect(analyticsHelperSpy).toHaveBeenCalledTimes(2);
       expect(analyticsHelperSpy).toHaveBeenCalledWith(

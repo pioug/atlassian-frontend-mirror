@@ -388,8 +388,10 @@ export const tableToJSON = (node: PmNode) => ({
   attrs: Object.keys(node.attrs)
     .filter((key) => shouldIncludeAttribute(key, node.attrs[key]))
     .reduce<typeof node.attrs>((obj, key) => {
-      obj[key] = node.attrs[key];
-      return obj;
+      return {
+        ...obj,
+        [key]: node.attrs[key],
+      };
     }, {}),
 });
 

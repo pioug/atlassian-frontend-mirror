@@ -54,8 +54,19 @@ describe('virtual lists', () => {
       await cardA0.focus();
       await cardA0.press('Space');
 
-      // Move down 8 times
-      for (let i = 0; i < 8; i++) {
+      /**
+       * Move down to the bottom of the list.
+       *
+       * NOTE: Previously this only went down 8, which seemed to land
+       * around the exact threshold where `react-window` unmounts the Draggable.
+       *
+       * This led to flakiness, as the Draggable would unmount but then remount
+       * immediately after.
+       *
+       * Moving to the bottom seems to result in the Draggable staying
+       * consistently unmounted, so no flakiness!
+       */
+      for (let i = 0; i < 9; i++) {
         await page.keyboard.press('ArrowDown');
       }
 
@@ -66,8 +77,8 @@ describe('virtual lists', () => {
       // The draggable should have unmounted now
       expect(isConnected).toBe(false);
 
-      // Move up 7 times
-      for (let i = 0; i < 7; i++) {
+      // Move back up so the Draggable remounts
+      for (let i = 0; i < 8; i++) {
         await page.keyboard.press('ArrowUp');
       }
 

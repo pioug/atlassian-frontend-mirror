@@ -1,10 +1,11 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import React from 'react';
+
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Image from '../../src';
 import Cat from '../images/cat.png';
 
-const containerStyles = css({
+const containerStyles = xcss({
   display: 'flex',
   height: '100%',
   alignItems: 'center',
@@ -13,9 +14,9 @@ const containerStyles = css({
 
 const ImageDefaultExample = () => {
   return (
-    <div css={containerStyles}>
+    <Box xcss={containerStyles}>
       <Image src={Cat} alt="Simple example" testId="image" />
-    </div>
+    </Box>
   );
 };
 

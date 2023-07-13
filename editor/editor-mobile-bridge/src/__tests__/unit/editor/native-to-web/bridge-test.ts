@@ -3,13 +3,12 @@ import {
   INPUT_METHOD,
   getListCommands,
   insertLinkWithAnalyticsMobileNative,
-  isLinkAtPos,
-  isTextAtPos,
   clearEditorContent,
   setKeyboardHeight,
   updateLink,
   QuickInsertActionInsert,
 } from '@atlaskit/editor-core';
+import { isLinkAtPos, isTextAtPos } from '@atlaskit/editor-common/link';
 import WebBridgeImpl from '../../../../editor/native-to-web';
 import { defaultPadding } from '../../../../web-bridge';
 

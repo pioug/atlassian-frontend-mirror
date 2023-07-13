@@ -8,7 +8,7 @@ import {
 import { isListNode, joinSiblingLists } from '../utils/node';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import { findFirstParentListNode } from '../utils/find';
-import { GapCursorSelection } from '../../selection/gap-cursor-selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 
 export function convertListType({
   tr,

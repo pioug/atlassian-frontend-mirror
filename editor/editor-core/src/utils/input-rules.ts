@@ -1,19 +1,14 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Node as PMNode, NodeType } from 'prosemirror-model';
-import { Mark as PMMark } from 'prosemirror-model';
-import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { canJoin, findWrapping } from 'prosemirror-transform';
-import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import {
-  createInputRulePlugin,
   InputRuleHandler,
   InputRuleWrapper,
-  OnInputEvent,
+  createRule,
 } from '@atlaskit/prosemirror-input-rules';
 import { addAnalytics } from '../plugins/analytics';
 import { AnalyticsEventPayload } from '../plugins/analytics/types';
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics';
-import { closeHistory } from 'prosemirror-history';
 
 type GetPayload =
   | AnalyticsEventPayload
@@ -45,60 +40,6 @@ export const ruleWithAnalytics = (getPayload: GetPayload) => {
       onHandlerApply,
     };
   };
-};
-
-export const createRule = (
-  match: RegExp,
-  handler: InputRuleHandler,
-): InputRuleWrapper => {
-  return {
-    match,
-    handler,
-    onHandlerApply: (state, tr) => {
-      closeHistory(tr);
-    },
-  };
-};
-
-type Options = {
-  isBlockNodeRule?: boolean;
-  allowInsertTextOnDocument?: boolean;
-};
-export const createPlugin = (
-  pluginName: string,
-  rules: Array<InputRuleWrapper>,
-  options: Options = {},
-): SafePlugin => {
-  const { isBlockNodeRule = false, allowInsertTextOnDocument = true } = options;
-
-  const onInputEvent: OnInputEvent = ({ state, from, to }) => {
-    const unsupportedMarks = isBlockNodeRule
-      ? ['code', 'link', 'typeAheadQuery']
-      : ['code'];
-
-    const $from = state.selection.$from;
-
-    if (
-      $from.parent.type.spec.code ||
-      (!(state.selection instanceof TextSelection) &&
-        !(state.selection instanceof GapCursorSelection)) ||
-      hasUnsupportedMarks(state, from, to, unsupportedMarks) ||
-      (isBlockNodeRule &&
-        isCursorInsideUnsupportedMarks(state, unsupportedMarks))
-    ) {
-      return false;
-    }
-
-    return true;
-  };
-
-  return createInputRulePlugin(pluginName, rules, {
-    allowInsertTextOnDocument,
-    onInputEvent,
-    onBeforeRegexMatch: (tr) => {
-      closeHistory(tr);
-    },
-  });
 };
 
 type WrappingTextRuleProps = {
@@ -231,36 +172,4 @@ export const createJoinNodesRule = (
     getAttrs: {},
     joinPredicate: (_, node) => node.type === nodeType,
   });
-};
-
-const hasUnsupportedMarks = (
-  state: EditorState,
-  start: number,
-  end: number,
-  marksNameUnsupported: string[],
-) => {
-  const isUnsupportedMark = (node: PMMark) =>
-    (marksNameUnsupported || []).includes(node.type.name);
-
-  const $from = state.doc.resolve(start);
-  const $to = state.doc.resolve(end);
-  const marksInSelection =
-    start === end ? $from.marks() : $from.marksAcross($to);
-
-  return (marksInSelection || []).some(isUnsupportedMark);
-};
-
-const isCursorInsideUnsupportedMarks = (
-  state: EditorState,
-  marksNameUnsupported: string[],
-): boolean => {
-  const { selection } = state;
-  if (!(selection instanceof TextSelection)) {
-    return false;
-  }
-  const { $cursor } = selection;
-  const isUnsupportedMark = (node: PMMark) =>
-    marksNameUnsupported.includes(node.type.name);
-
-  return Boolean($cursor?.nodeBefore?.marks?.some(isUnsupportedMark));
 };

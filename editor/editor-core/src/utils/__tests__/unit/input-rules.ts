@@ -22,7 +22,7 @@ import editorDisabledPlugin from '../../../plugins/editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 
-import hyperlinkPlugin from '../../../plugins/hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import alignmentPlugin from '../../../plugins/alignment';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

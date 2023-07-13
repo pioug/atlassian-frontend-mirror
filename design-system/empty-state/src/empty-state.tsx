@@ -8,7 +8,7 @@ import {
   Container,
   Description,
   Header,
-  Image,
+  Image as HeaderImage,
   SpinnerContainer,
 } from './styled';
 import type { EmptyStateProps } from './types';
@@ -69,7 +69,7 @@ const EmptyState = ({
   return (
     <Container testId={testId} width={width || size || 'wide'}>
       {imageUrl ? (
-        <Image
+        <HeaderImage
           src={imageUrl}
           maxWidth={maxImageWidth}
           maxHeight={maxImageHeight}

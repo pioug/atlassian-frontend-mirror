@@ -2,7 +2,7 @@
 import { jsx } from '@emotion/react';
 import React, { Component, MouseEvent } from 'react';
 import { Node as PMNode } from 'prosemirror-model';
-import { EditorView, Decoration } from 'prosemirror-view';
+import { DecorationSource, EditorView, Decoration } from 'prosemirror-view';
 import {
   RichMediaLayout as MediaSingleLayout,
   MediaADFAttrs,
@@ -539,7 +539,7 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
   update(
     node: PMNode,
     decorations: readonly Decoration[],
-    _innerDecorations?: Decoration[],
+    _innerDecorations?: DecorationSource,
     isValidUpdate?: (currentNode: PMNode, newNode: PMNode) => boolean,
   ) {
     if (!isValidUpdate) {

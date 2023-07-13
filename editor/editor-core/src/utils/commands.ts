@@ -14,25 +14,12 @@ import {
   Fragment,
 } from 'prosemirror-model';
 import { transformSmartCharsMentionsAndEmojis } from '../plugins/text-formatting/commands/transform-to-code';
-import { GapCursorSelection } from '../plugins/selection/gap-cursor-selection';
-import { Command, HigherOrderCommand } from '../types/command';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import type {
+  Command,
+  HigherOrderCommand,
+} from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-
-type Predicate = (state: EditorState, view?: EditorView) => boolean;
-
-const filter = (predicates: Predicate[] | Predicate, cmd: Command): Command => {
-  return function (state, dispatch, view): boolean {
-    if (!Array.isArray(predicates)) {
-      predicates = [predicates];
-    }
-
-    if (predicates.some((pred) => !pred(state, view))) {
-      return false;
-    }
-
-    return cmd(state, dispatch, view) || false;
-  };
-};
 
 const isEmptySelectionAtStart = (state: EditorState): boolean => {
   const { empty, $from } = state.selection;
@@ -395,7 +382,6 @@ const deleteEmptyParagraphAndMoveBlockUp = (
 };
 
 export {
-  filter,
   isEmptySelectionAtStart,
   isEmptySelectionAtEnd,
   isFirstChildOfParent,
@@ -409,9 +395,4 @@ export {
   insertContentDeleteRange,
   selectNode,
   deleteEmptyParagraphAndMoveBlockUp,
-};
-export type {
-  // https://github.com/typescript-eslint/typescript-eslint/issues/131
-  // eslint-disable-next-line no-undef
-  Predicate,
 };

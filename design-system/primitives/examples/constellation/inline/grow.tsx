@@ -1,31 +1,30 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import React from 'react';
 
 import { Code } from '@atlaskit/code';
-import { Inline, Stack } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-const containerStyles = css({
+const containerStyles = xcss({
   display: 'flex',
 });
-const boxStyles = css({
-  padding: token('space.100', '8px'),
+
+const boxStyles = xcss({
+  padding: 'space.100',
   flexGrow: 1,
-  backgroundColor: token('color.background.discovery', '#EAE6FF'),
+  backgroundColor: 'color.background.discovery',
 });
 
 export default function Example() {
   return (
     <Stack space="space.200">
       {(['hug', 'fill'] as const).map(growValue => (
-        <div css={containerStyles}>
+        <Box xcss={containerStyles}>
           <Inline grow={growValue}>
-            <div css={boxStyles}>
+            <Box xcss={boxStyles}>
               Wrapping <Code>Inline</Code> is set to{' '}
               <Code>grow="{growValue}"</Code>
-            </div>
+            </Box>
           </Inline>
-        </div>
+        </Box>
       ))}
     </Stack>
   );

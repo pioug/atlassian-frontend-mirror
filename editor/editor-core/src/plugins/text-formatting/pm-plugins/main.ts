@@ -5,7 +5,7 @@ import { EditorView } from 'prosemirror-view';
 
 import { Dispatch } from '../../../event-dispatcher';
 import * as keymaps from '../../../keymaps';
-import { shallowEqual } from '../../../utils';
+import { shallowEqual } from '@atlaskit/editor-common/utils';
 import { createInlineCodeFromTextInputWithAnalytics } from '../commands/text-formatting';
 // eslint-disable-next-line no-duplicate-imports
 import * as commands from '../commands/text-formatting';

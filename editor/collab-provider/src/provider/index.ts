@@ -10,6 +10,7 @@ import type {
   Metadata,
   ResolvedEditorState,
   InitialDraft,
+  CollabInitPayload,
 } from '../types';
 
 import { createLogger } from '../helpers/utils';
@@ -86,17 +87,50 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    */
   private readonly emitCallback: (evt: keyof CollabEvents, data: any) => void =
     (evt, data) => {
-      // When the provider is initialized early, we want the editor state promise to resolve before emitting events
+      // When the provider is initialized early, we want to ensure the editor state exists after setup is called before emitting events
       // to ensure that it is ready to listen to the events fired by NCS
       if (this.isPreinitializing) {
-        this.getStatePromise.then(() => this.emit(evt, data));
+        this.onSetupPromise.then(() => this.emit(evt, data));
       } else {
         this.emit(evt, data);
       }
     };
 
-  private getStatePromise: Promise<void>;
-  getStatePromiseResolve!: (value: void | PromiseLike<void>) => void;
+  private onSetupPromise: Promise<void>;
+  // resolves once setup is called with a defined getState param
+  resolveOnSetupPromise!: (value: void | PromiseLike<void>) => void;
+
+  /**
+   * Wrapper to update document and metadata.
+   * Catches and logs any errors thrown by document service's updateDocument and updateMetadata methods and destroys the provider in case of errors.
+   * Passing the document, metadata, version (either from the initial draft or from collab service)
+   */
+  private readonly updateDocumentAndMetadata: ({
+    doc,
+    version,
+    metadata,
+  }: CollabInitPayload) => void = ({
+    doc,
+    version,
+    metadata,
+  }: CollabInitPayload) => {
+    try {
+      this.documentService.updateDocument({
+        doc,
+        version,
+        metadata,
+      });
+      this.metadataService.updateMetadata(metadata);
+      this.isProviderInitialized = true;
+    } catch (e) {
+      this.analyticsHelper?.sendErrorEvent(
+        e,
+        'Failed to update with the init document, destroying provider',
+      );
+      // Stop events and connections to step us trying to talk to the backend with an invalid state.
+      this.destroy();
+    }
+  };
 
   constructor(config: Config) {
     super();
@@ -137,8 +171,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.config.failedStepLimitBeforeCatchupOnPublish,
       this.config.enableErrorOnFailedDocumentApply,
     );
-    this.getStatePromise = new Promise((resolve) => {
-      this.getStatePromiseResolve = resolve;
+    this.onSetupPromise = new Promise((resolve) => {
+      this.resolveOnSetupPromise = resolve;
     });
     this.namespaceService = new NamespaceService();
   }
@@ -165,24 +199,24 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           else {
             const { document, version, metadata }: InitialDraft =
               this.initialDraft;
-            try {
-              // Initial document, version, metadata from initial draft
-              this.documentService.updateDocument({
+            if (this.isPreinitializing) {
+              // When the provider is initialized early, we wait until setup is called with a defined getState before the document is updated to ensure that the editor state exists
+              // The `isPreinitializing` check is an extra precaution behind a FF - if the state is already resolved, onSetupPromise will resolve immediately
+              this.onSetupPromise.then(() => {
+                this.updateDocumentAndMetadata({
+                  doc: document,
+                  version,
+                  metadata,
+                });
+              });
+            } else {
+              this.updateDocumentAndMetadata({
                 doc: document,
                 version,
                 metadata,
               });
-            } catch (e) {
-              this.analyticsHelper?.sendErrorEvent(
-                e,
-                'Failed to update the document on reconnect, destroying provider',
-              );
-              // Stop events and connections to step us trying to talk to the backend with an invalid state.
-              this.destroy();
             }
-            this.metadataService.updateMetadata(metadata);
           }
-          this.isProviderInitialized = true;
         }
         // If already initialized, `connected` means reconnected
         if (
@@ -198,22 +232,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       })
       .on('init', ({ doc, version, metadata }) => {
         // Initial document and version
-        try {
-          this.documentService.updateDocument({
-            doc,
-            version,
-            metadata,
-          });
-          this.metadataService.updateMetadata(metadata);
-          this.isProviderInitialized = true;
-        } catch (e) {
-          this.analyticsHelper?.sendErrorEvent(
-            e,
-            'Failed to update with the init document, destroying provider',
-          );
-          // Stop events and connections to step us trying to talk to the backend with an invalid state.
-          this.destroy();
-        }
+        this.updateDocumentAndMetadata({ doc, version, metadata });
       })
       .on('restore', this.documentService.onRestore)
       .on('steps:added', this.documentService.onStepsAdded)
@@ -278,17 +297,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   }): this {
     this.checkForCookies();
     try {
-      // if setup is called with no state and the initial draft is already provided
+      // if setup is called with no getState and the initial draft is already provided
       // set a flag to mark early provider setup
       if (!getState && this.initialDraft) {
         this.isPreinitializing = true;
       }
 
       if (getState) {
-        // if provider has already been initialized earlier, resolve the state once it is available
-        if (this.isPreinitializing) {
-          this.getStatePromiseResolve();
-        }
         const collabPlugin = getState().plugins.find(
           (p: any) => p.key === 'collab$',
         );
@@ -304,6 +319,12 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
           onSyncUpError,
           clientId: this.clientId,
         });
+
+        // if provider has already been initialized earlier, resolve the setup promise once setup has been called with
+        // a defined getState (ie editor state is ready) AND after documentService sets the editor state
+        if (this.isPreinitializing) {
+          this.resolveOnSetupPromise();
+        }
       }
 
       if (!this.isChannelInitialized) {
@@ -552,7 +573,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
    */
   getCurrentState = async (): Promise<ResolvedEditorState> => {
     try {
-      return this.documentService.getCurrentState();
+      return await this.documentService.getCurrentState();
     } catch (error) {
       this.analyticsHelper?.sendErrorEvent(
         error,

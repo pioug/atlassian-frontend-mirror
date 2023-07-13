@@ -1,7 +1,4 @@
-/** @jsx jsx */
-import { useState } from 'react';
-
-import { jsx } from '@emotion/react';
+import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';

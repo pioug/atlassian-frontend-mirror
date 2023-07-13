@@ -1,9 +1,11 @@
 import { InsertedImageProperties } from '@atlaskit/editor-common/provider-factory';
 import { safeInsert } from 'prosemirror-utils';
 import { createExternalMediaNode } from '../utils';
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
+import type { ImageUploadPluginState } from '../types';
 import { startUpload } from './actions';
 import { stateKey } from './plugin-key';
+import { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
 
 export const insertExternalImage: (
   options: InsertedImageProperties,
@@ -17,7 +19,6 @@ export const insertExternalImage: (
   if (!mediaNode) {
     return false;
   }
-
   if (dispatch) {
     dispatch(
       safeInsert(mediaNode, state.selection.$to.pos)(state.tr).scrollIntoView(),
@@ -26,15 +27,17 @@ export const insertExternalImage: (
   return true;
 };
 
-export const startImageUpload: (event?: Event) => Command =
-  (event) => (state, dispatch) => {
-    const pluginState = stateKey.getState(state);
-    if (!pluginState?.enabled) {
-      return false;
-    }
+export const startImageUpload: (
+  event?: ImageUploadPluginReferenceEvent,
+) => Command = (event) => (state, dispatch) => {
+  const pluginState: ImageUploadPluginState | undefined =
+    stateKey.getState(state);
+  if (pluginState && !pluginState.enabled) {
+    return false;
+  }
 
-    if (dispatch) {
-      dispatch(startUpload(event)(state.tr));
-    }
-    return true;
-  };
+  if (dispatch) {
+    dispatch(startUpload(event)(state.tr));
+  }
+  return true;
+};

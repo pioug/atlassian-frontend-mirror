@@ -1,11 +1,15 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
 
+import {
+  axe,
+  jestAxeConfig,
+  toHaveNoViolations,
+} from '@af/accessibility-testing';
 import Avatar from '@atlaskit/avatar';
 
-import avatarImg from '../../../../examples/utils/sample-avatar';
+import avatarImg from '../../../../examples/images/avatar_400x400.jpg';
 import CommentAction from '../../../../src/components/action-item';
 import CommentAuthor from '../../../../src/components/author';
 import CommentEdited from '../../../../src/components/edited';
@@ -15,15 +19,6 @@ import Footer from '../../footer';
 import Header from '../../header';
 
 expect.extend(toHaveNoViolations);
-
-const axeRules: JestAxeConfigureOptions = {
-  rules: {
-    // As we're testing on the JSDOM, color-contrast testing can't run.
-    'color-contrast': { enabled: false },
-  },
-  // The types of results fetched are limited for performance reasons
-  resultTypes: ['violations', 'incomplete', 'inapplicable'],
-};
 
 const actions = [
   <CommentAction>Reply</CommentAction>,
@@ -49,7 +44,7 @@ it('Basic Comment should not fail aXe audit', async () => {
       actions={actions}
     />,
   );
-  const results = await axe(container, axeRules);
+  const results = await axe(container, jestAxeConfig);
   expect(results).toHaveNoViolations();
 });
 
@@ -64,7 +59,7 @@ it('Basic Header should not fail aXe audit', async () => {
       headingLevel="3"
     />,
   );
-  const results = await axe(container, axeRules);
+  const results = await axe(container, jestAxeConfig);
   expect(results).toHaveNoViolations();
 });
 
@@ -72,6 +67,6 @@ it('Basic Footer should not fail aXe audit', async () => {
   const { container } = render(
     <Footer actions={actions} errorIconLabel={''} isSaving={true} />,
   );
-  const results = await axe(container, axeRules);
+  const results = await axe(container, jestAxeConfig);
   expect(results).toHaveNoViolations();
 });

@@ -22,6 +22,8 @@ export type {
   Link,
   LinkType,
   NumberType,
+  RichText,
+  RichTextType,
   Status,
   StatusType,
   StringType,

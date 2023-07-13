@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 
 import type {
+  DroppableId,
   DroppableProps,
   DroppableProvided,
   DroppableStateSnapshot,
@@ -149,37 +150,63 @@ export function Droppable({
 
   const monitorForLifecycle = useMonitorForLifecycle();
   useEffect(() => {
+    function isEventRelevant(data: {
+      destination: { droppableId: DroppableId } | undefined | null;
+      type: string;
+    }) {
+      /**
+       * If the draggable is of a different type to this droppable,
+       * then we can ignore it.
+       */
+      const isSameType = data.type === type;
+
+      const isOverAfterUpdate = data.destination?.droppableId === droppableId;
+      const isDragEnter = !isDraggingOver && isOverAfterUpdate;
+      const isDragLeave = isDraggingOver && !isOverAfterUpdate;
+      /**
+       * A droppable will only have a meaningful state update if the user is entering or exiting it.
+       */
+      const isDragEnterOrLeave = isDragEnter || isDragLeave;
+
+      return isSameType && isDragEnterOrLeave;
+    }
+
     return monitorForLifecycle({
       onPendingDragStart({ start }) {
+        if (!isEventRelevant({ destination: start.source, type: start.type })) {
+          return;
+        }
+
         dispatch({ type: 'DRAG_START', payload: { droppableId, start } });
       },
-      onPendingDragUpdate({ targetLocation, update }) {
+      onPendingDragUpdate({ update }) {
+        if (!isEventRelevant(update)) {
+          return;
+        }
+
         dispatch({
           type: 'DRAG_UPDATE',
-          payload: { droppableId, targetLocation, update },
+          payload: { droppableId, update },
         });
       },
       onBeforeDragEnd() {
+        /**
+         * This is safe to call optimistically as it uses a stable idle state.
+         *
+         * If the droppable is already idle, it will not rerender.
+         */
         dispatch({ type: 'DRAG_CLEAR' });
       },
     });
-  }, [droppableId, monitorForLifecycle]);
+  }, [droppableId, isDraggingOver, monitorForLifecycle, type]);
 
   const dropIndicator = useMemo(() => {
-    if (!isDraggingOver || !state.source) {
+    if (!isDraggingOver) {
       return null;
     }
 
-    return (
-      <DropIndicator
-        direction={direction}
-        mode={mode}
-        source={state.source}
-        destination={state.destination}
-        targetLocation={state.targetLocation}
-      />
-    );
-  }, [direction, isDraggingOver, mode, state]);
+    return <DropIndicator direction={direction} mode={mode} />;
+  }, [direction, isDraggingOver, mode]);
 
   const provided: DroppableProvided = useMemo(
     () => ({

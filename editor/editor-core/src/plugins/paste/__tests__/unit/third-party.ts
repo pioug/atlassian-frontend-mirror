@@ -25,7 +25,7 @@ import pastePlugin from '../../index';
 import textColorPlugin from '../../../text-color';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import blockTypePlugin from '../../../block-type';
-import hyperlinkPlugin from '../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { textFormattingPlugin } from '../../../index';
 import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';

@@ -9,7 +9,7 @@ import { toggleStrong } from '../../../text-formatting/commands/text-formatting'
 import pastePlugin from '../../index';
 import blockTypePlugin from '../../../block-type';
 import { textFormattingPlugin } from '../../../index';
-import hyperlinkPlugin from '../../../hyperlink/index';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,

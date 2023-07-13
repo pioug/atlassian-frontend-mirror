@@ -21,7 +21,7 @@ import {
 import betterTypeHistoryPlugin from '../../';
 import blockTypePlugin from '../../../block-type';
 import panelPlugin from '../../../panel';
-import hyperlinkPlugin from '../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import pastePlugin from '../../../paste';
 import codeBlockPlugin from '../../../code-block';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';

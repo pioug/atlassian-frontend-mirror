@@ -225,9 +225,9 @@ describe('Provider', () => {
           provider as any,
           'initializeChannel',
         );
-        const getStatePromiseResolveSpy = jest.spyOn(
+        const resolveOnSetupPromiseSpy = jest.spyOn(
           provider as any,
-          'getStatePromiseResolve',
+          'resolveOnSetupPromise',
         );
         provider.setup({ getState: mockEditorState });
         expect(documentSetupSpy).toHaveBeenCalledTimes(1);
@@ -237,7 +237,7 @@ describe('Provider', () => {
           onSyncUpError: undefined,
         });
         expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
-        expect(getStatePromiseResolveSpy).toHaveBeenCalledTimes(0);
+        expect(resolveOnSetupPromiseSpy).toHaveBeenCalledTimes(0);
         done();
       });
 
@@ -255,16 +255,16 @@ describe('Provider', () => {
           provider as any,
           'initializeChannel',
         );
-        const getStatePromiseResolveSpy = jest.spyOn(
+        const resolveOnSetupPromiseSpy = jest.spyOn(
           provider as any,
-          'getStatePromiseResolve',
+          'resolveOnSetupPromise',
         );
         provider.setup({
           getState: undefined,
         });
         expect(documentSetupSpy).toHaveBeenCalledTimes(0);
         expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
-        expect(getStatePromiseResolveSpy).toHaveBeenCalledTimes(0);
+        expect(resolveOnSetupPromiseSpy).toHaveBeenCalledTimes(0);
         done();
       });
 
@@ -282,9 +282,9 @@ describe('Provider', () => {
           provider as any,
           'initializeChannel',
         );
-        const getStatePromiseResolveSpy = jest.spyOn(
+        const resolveOnSetupPromiseSpy = jest.spyOn(
           provider as any,
-          'getStatePromiseResolve',
+          'resolveOnSetupPromise',
         );
 
         // early set up
@@ -297,7 +297,7 @@ describe('Provider', () => {
         });
         expect(documentSetupSpy).toHaveBeenCalledTimes(1);
         expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
-        expect(getStatePromiseResolveSpy).toHaveBeenCalledTimes(1);
+        expect(resolveOnSetupPromiseSpy).toHaveBeenCalledTimes(1);
         done();
       });
     });
@@ -453,6 +453,7 @@ describe('Provider', () => {
         'reinitialiseDocument',
         'SUCCESS',
         {
+          hasTitle: false,
           numUnconfirmedSteps: 2,
         },
       );
@@ -1289,7 +1290,7 @@ describe('Provider', () => {
           );
 
           expect(error).toEqual(adfConverterError);
-          expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+          expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
           expect(sendErrorEventSpy).toHaveBeenCalledWith(
             adfConverterError,
             'Error while returning ADF version of current draft document',
@@ -1318,7 +1319,7 @@ describe('Provider', () => {
           await provider.getCurrentState();
         } catch (error) {
           expect(error).toEqual(fakeProseMirrorCollabError);
-          expect(sendErrorEventSpy).toHaveBeenCalledTimes(1);
+          expect(sendErrorEventSpy).toHaveBeenCalledTimes(2);
           expect(sendErrorEventSpy).toHaveBeenCalledWith(
             fakeProseMirrorCollabError,
             'Error while returning ADF version of current draft document',

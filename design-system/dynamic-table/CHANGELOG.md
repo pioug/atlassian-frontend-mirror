@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.11.2
+
+### Patch Changes
+
+- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+
 ## 14.11.1
 
 ### Patch Changes

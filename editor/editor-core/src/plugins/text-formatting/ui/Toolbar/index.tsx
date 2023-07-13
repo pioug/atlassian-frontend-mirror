@@ -29,7 +29,7 @@ import { MoreButton } from './more-button';
 import { FormattingTextDropdownMenu } from './dropdown-menu';
 import { toolbarMessages } from './toolbar-messages';
 import { compareItemsArrays, isArrayContainsContent } from '../../utils';
-import Announcer from '../../../../utils/announcer/announcer';
+import { Announcer } from '@atlaskit/editor-common/ui';
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
 
 export type ToolbarFormattingProps = {

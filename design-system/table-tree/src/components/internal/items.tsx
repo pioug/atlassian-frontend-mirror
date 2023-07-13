@@ -72,6 +72,8 @@ export default class Items<Item> extends Component<ItemsProps<Item>, State> {
       ? ({ 'aria-busy': true, 'aria-live': 'polite' } as const)
       : {};
     return (
+      // TODO: Determine whether a more appropriate role exists here
+      // (DSP-11588)
       <div role="rowgroup" {...busyAttrs}>
         {isLoaderShown ? this.renderLoader() : this.renderItems()}
       </div>

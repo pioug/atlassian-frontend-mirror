@@ -19,7 +19,6 @@ import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/action
 import { insertLayoutColumnsWithAnalytics } from '../../../layout/actions';
 import { insertTaskDecisionCommand } from '../../../tasks-and-decisions/commands';
 import { insertExpand } from '../../../expand/commands';
-import { showLinkToolbar } from '../../../hyperlink/commands';
 import { createTypeAheadTools } from '../../../type-ahead/api';
 import { updateStatusWithAnalytics } from '../../../status/actions';
 import {
@@ -338,8 +337,12 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private toggleLinkPanel = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { editorView } = this.props;
-    showLinkToolbar(inputMethod)(editorView.state, editorView.dispatch);
+    const { editorView, pluginInjectionApi } = this.props;
+    const { state, dispatch } = editorView;
+
+    pluginInjectionApi?.dependencies?.hyperlink?.actions.showLinkToolbar(
+      inputMethod,
+    )(state, dispatch);
     return true;
   };
 

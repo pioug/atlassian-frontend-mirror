@@ -51,7 +51,7 @@ const Item = ({ isLoading, ...props }: any) => {
   return <ButtonItem iconBefore={icon}>{content}</ButtonItem>;
 };
 
-const Heading = ({ isLoading }: any) => {
+const HeadingWithLoadState = ({ isLoading }: any) => {
   if (isLoading) {
     return <SkeletonHeadingItem />;
   }
@@ -59,6 +59,92 @@ const Heading = ({ isLoading }: any) => {
   return <HeadingItem>Heading</HeadingItem>;
 };
 
+const MainComponent = ({ isLoading }: { isLoading: boolean }) => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+      }}
+    >
+      <div
+        style={{
+          width: '200px',
+          border: `1px solid ${token('color.border', '#EFEFEF')}`,
+          margin: '10px auto',
+          // TODO Delete this comment after verifying space token -> previous value `'4px'`
+          borderRadius: token('border.radius', '4px'),
+          alignSelf: 'flex-start',
+        }}
+      >
+        <MenuGroup maxHeight={300} testId="left-menu">
+          <Section>
+            <HeadingWithLoadState isLoading={isLoading} />
+            {Array(3)
+              .fill(undefined)
+              .map((_, index) => (
+                <Item isLoading={isLoading} key={index} hasAvatar />
+              ))}
+          </Section>
+          <Section hasSeparator>
+            <HeadingWithLoadState isLoading={isLoading} />
+            {Array(1)
+              .fill(undefined)
+              .map((_, index) => (
+                <Item isLoading={isLoading} key={index} hasIcon />
+              ))}
+          </Section>
+        </MenuGroup>
+      </div>
+      <div
+        style={{
+          width: '200px',
+          border: `1px solid ${token('color.border', '#EFEFEF')}`,
+          margin: '10px auto',
+          // TODO Delete this comment after verifying space token -> previous value `'4px'`
+          borderRadius: token('border.radius', '4px'),
+        }}
+      >
+        <MenuGroup maxHeight={300} testId="right-menu">
+          <Section>
+            <HeadingWithLoadState isLoading={isLoading} />
+          </Section>
+          <Section isScrollable hasSeparator>
+            {Array(5)
+              .fill(undefined)
+              .map((_, index) => (
+                <Item isLoading={isLoading} key={index} hasIcon />
+              ))}
+          </Section>
+          <Section hasSeparator>
+            {Array(2)
+              .fill(undefined)
+              .map((_, index) => (
+                <Item isLoading={isLoading} key={index} />
+              ))}
+          </Section>
+        </MenuGroup>
+      </div>
+    </div>
+  );
+};
+
+export const SkeletonItemLoaded = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  return (
+    <div>
+      <ButtonGroup>
+        <Button
+          testId="toggle-loading"
+          onClick={() => setIsLoading((prev) => !prev)}
+        >
+          Set {isLoading ? 'Loaded' : 'Loading'}
+        </Button>
+      </ButtonGroup>
+      <MainComponent isLoading={isLoading} />
+    </div>
+  );
+};
 export default () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -72,68 +158,7 @@ export default () => {
           Set {isLoading ? 'Loaded' : 'Loading'}
         </Button>
       </ButtonGroup>
-      <div
-        style={{
-          display: 'flex',
-        }}
-      >
-        <div
-          style={{
-            width: '200px',
-            border: `1px solid ${token('color.border', '#EFEFEF')}`,
-            margin: '10px auto',
-            borderRadius: '4px',
-            alignSelf: 'flex-start',
-          }}
-        >
-          <MenuGroup maxHeight={300} testId="left-menu">
-            <Section>
-              <Heading isLoading={isLoading} />
-              {Array(3)
-                .fill(undefined)
-                .map((_, index) => (
-                  <Item isLoading={isLoading} key={index} hasAvatar />
-                ))}
-            </Section>
-            <Section hasSeparator>
-              <Heading isLoading={isLoading} />
-              {Array(1)
-                .fill(undefined)
-                .map((_, index) => (
-                  <Item isLoading={isLoading} key={index} hasIcon />
-                ))}
-            </Section>
-          </MenuGroup>
-        </div>
-        <div
-          style={{
-            width: '200px',
-            border: `1px solid ${token('color.border', '#EFEFEF')}`,
-            margin: '10px auto',
-            borderRadius: '4px',
-          }}
-        >
-          <MenuGroup maxHeight={300} testId="right-menu">
-            <Section>
-              <Heading isLoading={isLoading} />
-            </Section>
-            <Section isScrollable hasSeparator>
-              {Array(5)
-                .fill(undefined)
-                .map((_, index) => (
-                  <Item isLoading={isLoading} key={index} hasIcon />
-                ))}
-            </Section>
-            <Section hasSeparator>
-              {Array(2)
-                .fill(undefined)
-                .map((_, index) => (
-                  <Item isLoading={isLoading} key={index} />
-                ))}
-            </Section>
-          </MenuGroup>
-        </div>
-      </div>
+      <MainComponent isLoading={isLoading} />
     </div>
   );
 };

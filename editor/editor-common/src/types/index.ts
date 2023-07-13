@@ -39,7 +39,12 @@ export type {
   TypeAheadHandler,
 } from './type-ahead';
 
-export type { CommandDispatch, Command, HigherOrderCommand } from './command';
+export type {
+  CommandDispatch,
+  Command,
+  HigherOrderCommand,
+  Predicate,
+} from './command';
 export type {
   FeatureFlags,
   FeatureFlagKey,
@@ -179,3 +184,16 @@ export type {
 export type { SnapPointsProps } from './resizable-media-single';
 
 export type { BreakoutMode } from './breakout';
+
+export type {
+  ImageUploadPluginReferenceEventBase,
+  ImageUploadPluginReferenceEventDragEvent,
+  ImageUploadPluginReferenceEventClipboardEvent,
+  ImageUploadPluginReferenceEvent,
+} from './image-upload-reference-event';
+
+export type {
+  HeadingLevels,
+  NormalTextLevel,
+  HeadingLevelsAndNormalText,
+} from './block-type';

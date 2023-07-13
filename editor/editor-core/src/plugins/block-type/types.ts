@@ -10,6 +10,7 @@ import { AllowedBlockTypes } from '../../types/allowed-block-types';
 import { MessageDescriptor } from '../../types/i18n';
 import { NodeSpec } from 'prosemirror-model';
 import { messages } from './messages';
+import { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 
 export const NORMAL_TEXT: BlockType = {
   name: 'normal',
@@ -135,10 +136,6 @@ export interface BlockType {
   tagName?: string;
   level?: HeadingLevelsAndNormalText;
 }
-
-export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
-export type NormalTextLevel = 0;
-export type HeadingLevelsAndNormalText = HeadingLevels | NormalTextLevel;
 
 export interface BlockTypeNode {
   name: AllowedBlockTypes;

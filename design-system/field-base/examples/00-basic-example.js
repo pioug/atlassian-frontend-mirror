@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* TODO: Make all examples use simple but accessible implementations (DSP-11464) */
+
 import React, { PureComponent } from 'react';
 import Textfield from '@atlaskit/textfield';
 

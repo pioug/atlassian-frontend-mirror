@@ -30,6 +30,8 @@ export default function Example() {
       <MenuGroup maxWidth={300}>
         <Section>
           <ButtonItem isSelected>Button</ButtonItem>
+          {/* TODO: Links should go to an actual anchor or link (DSP-11466) */}
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <LinkItem href="#" onClick={(e) => e.preventDefault()} isSelected>
             Link
           </LinkItem>
@@ -51,6 +53,7 @@ export default function Example() {
             <ButtonItem description="Secondary text" isSelected>
               Primary text
             </ButtonItem>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem href="#" onClick={(e) => e.preventDefault()} isSelected>
               Link
             </LinkItem>

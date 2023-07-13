@@ -5305,3 +5305,535 @@ export const simpleTableWithWidthAttribute = {
     },
   ],
 };
+
+export const nestedTables = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'expand',
+      attrs: {
+        title: '',
+      },
+      content: [
+        {
+          type: 'table',
+          attrs: {
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: '99d2e710-67ab-43bb-8211-08b9954cb813',
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+    {
+      type: 'layoutSection',
+      content: [
+        {
+          type: 'layoutColumn',
+          attrs: {
+            width: 50,
+          },
+          content: [
+            {
+              type: 'table',
+              attrs: {
+                isNumberColumnEnabled: false,
+                layout: 'default',
+                localId: '78b6f60c-0b9e-4396-918b-971f162fa208',
+              },
+              content: [
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'layoutColumn',
+          attrs: {
+            width: 50,
+          },
+          content: [
+            {
+              type: 'paragraph',
+              content: [],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'bodiedExtension',
+      attrs: {
+        extensionType: 'com.atlassian.confluence.macro.core',
+        extensionKey: 'bodied-eh',
+        parameters: {
+          macroParams: {},
+          macroMetadata: {
+            placeholder: [
+              {
+                data: {
+                  url: '',
+                },
+                type: 'icon',
+              },
+            ],
+          },
+        },
+        layout: 'default',
+        localId: 'testId',
+      },
+      content: [
+        {
+          type: 'table',
+          attrs: {
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: 'c9a9aa81-8f46-4aa4-849e-3a4638a08848',
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'table',
+      attrs: {
+        isNumberColumnEnabled: false,
+        layout: 'default',
+        localId: '6078a2a1-c248-4b6e-828e-b53ff07a0ebf',
+      },
+      content: [
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableHeader',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'tableRow',
+          content: [
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+            {
+              type: 'tableCell',
+              attrs: {},
+              content: [
+                {
+                  type: 'paragraph',
+                  content: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      content: [],
+    },
+  ],
+};

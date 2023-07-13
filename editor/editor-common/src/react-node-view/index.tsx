@@ -1,7 +1,12 @@
 import React from 'react';
 
 import { Node as PMNode } from 'prosemirror-model';
-import { Decoration, EditorView, NodeView } from 'prosemirror-view';
+import {
+  Decoration,
+  DecorationSource,
+  EditorView,
+  NodeView,
+} from 'prosemirror-view';
 
 import {
   ACTION_SUBJECT,
@@ -197,7 +202,7 @@ export default class ReactNodeView<P = ReactComponentProps>
   update(
     node: PMNode,
     decorations: ReadonlyArray<Decoration>,
-    _innerDecorations?: Array<Decoration>,
+    _innerDecorations?: DecorationSource,
     validUpdate: (currentNode: PMNode, newNode: PMNode) => boolean = () => true,
   ) {
     // @see https://github.com/ProseMirror/prosemirror/issues/648

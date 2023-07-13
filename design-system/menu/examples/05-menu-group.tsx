@@ -44,12 +44,15 @@ export default () => {
           maxHeight={1000}
         >
           <Section title="Actions">
+            {/* TODO: Links should go to an actual anchor or link (DSP-11466) */}
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<EditorSearchIcon label="Search Icon" />}
               href="#"
             >
               Search your items
             </LinkItem>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<EditFilledIcon label="Editor Icon" />}
               href="#"
@@ -57,6 +60,7 @@ export default () => {
             >
               Add new item (disabled)
             </LinkItem>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<StarFilledIcon label="Star icon" />}
               iconAfter={<ArrowRightIcon label="" />}
@@ -65,6 +69,7 @@ export default () => {
             >
               Starred items
             </LinkItem>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconAfter={<ArrowRightIcon label="" />}
               iconBefore={<Archive24Icon label="Quote icon" />}
@@ -75,12 +80,14 @@ export default () => {
             </LinkItem>
           </Section>
           <Section title="More actions">
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<EditorSearchIcon label="Search Icon" />}
               href="#"
             >
               Edit your items
             </LinkItem>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<TrashIcon label="Delete Icon" />}
               href="#"
@@ -88,6 +95,7 @@ export default () => {
             >
               Delete item (disabled)
             </LinkItem>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<StarIcon label="Star icon" />}
               iconAfter={<ArrowRightIcon label="" />}
@@ -96,6 +104,7 @@ export default () => {
             >
               Unstarred items
             </LinkItem>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconAfter={<ArrowRightIcon label="" />}
               iconBefore={<PresenceActiveIcon label="Active icon" />}
@@ -104,6 +113,7 @@ export default () => {
             >
               Active items
             </LinkItem>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               isDisabled={true}
               iconAfter={<ArrowRightIcon label="" />}
@@ -253,6 +263,7 @@ export default () => {
             </ButtonItem>
           </Section>
           <Section hasSeparator>
+            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem href="#">View all projects</LinkItem>
             <ButtonItem onClick={() => {}}>Create project</ButtonItem>
           </Section>

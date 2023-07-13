@@ -12,7 +12,7 @@ import {
   INPUT_METHOD,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { IconCode } from '../quick-insert/assets';
+import { IconCode } from '@atlaskit/editor-common/quick-insert';
 import {
   PMPluginFactoryParams,
   NextEditorPlugin,

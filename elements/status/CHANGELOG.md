@@ -1,5 +1,11 @@
 # @atlaskit/status
 
+## 1.3.5
+
+### Patch Changes
+
+- [`932b50814f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/932b50814f6) - ED-18001: update android style overrides to vertically align status node
+
 ## 1.3.4
 
 ### Patch Changes

@@ -38,7 +38,7 @@ import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-re
 import blockTypePlugin from '../../../block-type';
 import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
-import hyperlinkPlugin from '../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import listPlugin from '../../../list';
 import textFormattingPlugin from '../../../text-formatting';

@@ -12,11 +12,12 @@ import { uuid } from '@atlaskit/adf-schema';
 
 import { Command } from '../../../types';
 import {
-  filter,
   isEmptySelectionAtStart,
   deleteEmptyParagraphAndMoveBlockUp,
   isEmptySelectionAtEnd,
 } from '../../../utils/commands';
+import { filterCommands as filter } from '@atlaskit/editor-common/utils';
+
 import {
   ACTION,
   ACTION_SUBJECT,

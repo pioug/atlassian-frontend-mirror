@@ -1,4 +1,7 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { css, jsx } from '@emotion/react';
 
 import { media } from '@atlaskit/primitives/responsive';

@@ -4,7 +4,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState, Transaction } from 'prosemirror-state';
 import { FeatureFlags } from '../../../types/feature-flags';
 
-import { createRule, createPlugin } from '../../../utils/input-rules';
+import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { safeInsert } from '@atlaskit/editor-common/insert';
 import { hasParentNodeOfType } from 'prosemirror-utils';

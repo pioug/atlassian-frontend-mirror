@@ -91,8 +91,10 @@ export const toJSON = (mark: Mark) => {
           mark.attrs[key] !== null,
       )
       .reduce<typeof mark.attrs>((acc, key) => {
-        acc[key] = mark.attrs[key];
-        return acc;
+        return {
+          ...acc,
+          [key]: mark.attrs[key],
+        };
       }, {}),
   };
 };

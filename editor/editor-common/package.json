@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "74.19.1",
+  "version": "74.20.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -70,7 +70,9 @@
     "./resizer": "./src/resizer/index.ts",
     "./editor-analytics": "./src/editor-analytics/index.ts",
     "./selection-based-node-view": "./src/selection-based-node-view/index.ts",
-    "./guideline": "./src/guideline/index.ts"
+    "./guideline": "./src/guideline/index.ts",
+    "./quick-insert": "./src/quick-insert/index.ts",
+    "./link": "./src/link/index.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
@@ -83,13 +85,15 @@
     "@atlaskit/button": "^16.8.0",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/codemod-utils": "^4.2.0",
-    "@atlaskit/collab-provider": "^9.6.0",
+    "@atlaskit/collab-provider": "^9.7.0",
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/emoji": "^67.4.0",
     "@atlaskit/icon": "^21.12.0",
+    "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/in-product-testing": "^0.2.0",
     "@atlaskit/link-datasource": "^0.28.0",
+    "@atlaskit/link-picker": "^1.25.0",
     "@atlaskit/media-card": "^76.1.0",
     "@atlaskit/media-client": "^23.1.0",
     "@atlaskit/media-picker": "^66.1.0",
@@ -98,6 +102,7 @@
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/profilecard": "^19.5.0",
     "@atlaskit/smart-user-picker": "^6.1.0",
+    "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/task-decision": "^17.7.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.11.0",
@@ -126,7 +131,8 @@
     "prosemirror-view": "1.23.7",
     "raf-schd": "^4.0.3",
     "re-resizable": "6.0.0",
-    "react-loadable": "^5.1.0"
+    "react-loadable": "^5.1.0",
+    "rusha": "^0.8.13"
   },
   "peerDependencies": {
     "@atlaskit/media-core": "^34.1.2",
@@ -145,9 +151,11 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@sentry/types": "^6.18.2",
+    "@testing-library/dom": "^8.17.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/user-event": "^14.4.3",
     "@types/raf-schd": "^4.0.1",
     "enzyme": "^3.10.0",
     "raf-stub": "^2.0.1",

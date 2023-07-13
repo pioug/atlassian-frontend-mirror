@@ -148,6 +148,7 @@ class Row extends Component<any, any> {
     }
     return (
       <Fragment>
+        {/* TODO: Determine whether proper `tr` elements can be used instead of roles (DSP-11588) */}
         <TreeRowContainer
           role="row"
           css={

@@ -5,7 +5,7 @@ import {
   WrappedComponentProps,
 } from 'react-intl-next';
 
-import PanelTextInput from '../../../../ui/PanelTextInput';
+import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import FloatingToolbar, {
   handlePositionCalculatedWith,
   getOffsetParent,

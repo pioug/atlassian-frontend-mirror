@@ -6,7 +6,7 @@ import {
   EVENT_TYPE,
   ACTION,
   INPUT_METHOD,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { addAnalytics } from '../../analytics/utils';
 import { AnalyticsEventPayload } from '../../analytics/types';
 import {

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
 
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import Toggle from '../../toggle';

@@ -15,7 +15,7 @@ import {
   INPUT_METHOD,
 } from '../analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { IconStatus } from '../quick-insert/assets';
+import { IconStatus } from '@atlaskit/editor-common/quick-insert';
 
 import { commitStatusPicker, createStatus, updateStatus } from './actions';
 import { keymapPlugin } from './keymap';

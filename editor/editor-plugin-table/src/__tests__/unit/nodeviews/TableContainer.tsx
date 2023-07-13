@@ -68,6 +68,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
           editorView={{} as any}
           getPos={() => 1}
           tableRef={{} as any}
+          isNested={false}
         />,
       );
 
@@ -104,6 +105,65 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
     describe('when allowResizing is false', () => {
       buildTest(false, {
         ffTrue: false,
+      });
+    });
+  });
+
+  describe('show correct continaer for nested tables', () => {
+    const buildContainer = (allowResizing: boolean) => {
+      const node = createNode();
+
+      const { container } = render(
+        <TableContainer
+          containerWidth={{
+            width: 1800,
+            lineLength: 720,
+          }}
+          node={node}
+          isFullWidthModeEnabled={allowResizing}
+          isBreakoutEnabled={allowResizing}
+          className={''}
+          editorView={{} as any}
+          getPos={() => 1}
+          tableRef={{} as any}
+          isNested={true}
+        />,
+      );
+
+      return container;
+    };
+
+    const buildTest = (
+      allowResizing: boolean,
+      expected?: { ffTrue?: boolean; ffFalse?: boolean },
+    ) => {
+      ffTest(
+        'platform.editor.custom-table-width',
+        async () => {
+          const container = buildContainer(allowResizing);
+
+          expect(!!container.querySelector('.resizer-item')).toBe(
+            expected?.ffTrue ?? true,
+          );
+        },
+        async () => {
+          const container = buildContainer(allowResizing);
+
+          expect(!!container.querySelector('.resizer-item')).toBe(
+            expected?.ffFalse ?? false,
+          );
+        },
+      );
+    };
+
+    describe('when allowResizing is true', () => {
+      buildTest(true, { ffTrue: false, ffFalse: false });
+    });
+
+    describe('when allowResizing is false', () => {
+      buildTest(false, {
+        ffTrue: false,
+        ffFalse: false,
       });
     });
   });

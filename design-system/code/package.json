@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/code",
-  "version": "14.6.5",
+  "version": "14.6.6",
   "description": "Code highlights short strings of code snippets inline with body text.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -40,6 +40,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
@@ -50,7 +51,6 @@
     "@types/jscodeshift": "^0.11.0",
     "@types/refractor": "^3.0.2",
     "color-contrast-checker": "^1.5.0",
-    "jest-axe": "^4.0.0",
     "jscodeshift": "^0.13.0",
     "prismjs": "^1.25.0",
     "react-dom": "^16.8.0",

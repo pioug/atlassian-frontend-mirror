@@ -57,7 +57,7 @@ const fixedTableDivStaticStyles = (
   border-top: ${tableStickyPadding}px solid
     ${token('elevation.surface', 'white')};
   background: ${token('elevation.surface.overlay', 'white')};
-  box-shadow: ${token('elevation.shadow.overflow', `0 6px 4px -4px ${N40A}`)};
+  box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)};
 
   div[data-expanded='false'] & {
     display: none;

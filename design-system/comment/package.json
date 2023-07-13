@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/comment",
-  "version": "10.8.11",
+  "version": "10.8.12",
   "description": "A comment displays discussions and user feedback.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -12,17 +12,8 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
-  "homepage": "https://atlassian.design/components/comment",
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
@@ -47,6 +38,8 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
+    "@af/visual-regression": "*",
     "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
@@ -55,7 +48,6 @@
     "@emotion/jest": "^11.8.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
-    "jest-axe": "^4.0.0",
     "react-dom": "^16.8.0",
     "typescript": "~4.9.5"
   },
@@ -87,6 +79,15 @@
       "deprecation": "no-deprecated-imports"
     }
   },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "homepage": "https://atlassian.design/components/comment",
   "af:exports": {
     "./types": "./src/types.tsx",
     ".": "./src/index.tsx"

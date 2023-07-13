@@ -1,7 +1,12 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
+
+import {
+  axe,
+  jestAxeConfig,
+  toHaveNoViolations,
+} from '@af/accessibility-testing';
 
 import BasicCodeBlockExample from '../../../examples/00-basic';
 import BasicInlineCodeExample from '../../../examples/01-inline-code-basic';
@@ -9,15 +14,6 @@ import CodeBlockHighlightingExample from '../../../examples/14-code-block-highli
 import { CodeBlock } from '../../index';
 
 expect.extend(toHaveNoViolations);
-
-const axeRules: JestAxeConfigureOptions = {
-  rules: {
-    // As we're testing on the JSDOM, color-contrast testing can't run.
-    'color-contrast': { enabled: false },
-  },
-  // The types of results fetched are limited for performance reasons
-  resultTypes: ['violations', 'incomplete', 'inapplicable'],
-};
 
 describe('CodeBlock Accessibility jest-axe', () => {
   const props = {
@@ -34,13 +30,13 @@ describe('CodeBlock Accessibility jest-axe', () => {
 
   it('CodeBlock should not fail an aXe audit', async () => {
     const { container } = render(<CodeBlock {...props} />);
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
   it('CodeBlock example using highlighting and bidi highlighting should not fail aXe audit', async () => {
     const { container } = render(<BasicCodeBlockExample />);
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
 
     expect(results).toHaveNoViolations();
   });
@@ -49,7 +45,7 @@ describe('CodeBlock Accessibility jest-axe', () => {
 describe('Code Accessibility jest-axe', () => {
   it('Inline Code example should not fail aXe audit', async () => {
     const { container } = render(<BasicInlineCodeExample />);
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
 
     expect(results).toHaveNoViolations();
   });
@@ -57,7 +53,7 @@ describe('Code Accessibility jest-axe', () => {
 
 it('CodeBlock highlighting lines example should not fail aXe audit', async () => {
   const { container } = render(<CodeBlockHighlightingExample />);
-  const results = await axe(container, axeRules);
+  const results = await axe(container, jestAxeConfig);
 
   expect(results).toHaveNoViolations();
 });

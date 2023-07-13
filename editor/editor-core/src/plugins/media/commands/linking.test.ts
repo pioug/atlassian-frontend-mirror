@@ -16,7 +16,8 @@ import {
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
-import hyperlinkPlugin from '../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';

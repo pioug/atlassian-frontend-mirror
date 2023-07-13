@@ -3,7 +3,7 @@ import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import pastePlugin, { PastePluginOptions } from '../../../plugins/paste';
 import blockTypePlugin from '../../../plugins/block-type';
 import clearMarksOnChangeToEmptyDocumentPlugin from '../../../plugins/clear-marks-on-change-to-empty-document';
-import hyperlinkPlugin from '../../../plugins/hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import textFormattingPlugin from '../../../plugins/text-formatting';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import unsupportedContentPlugin from '../../../plugins/unsupported-content';

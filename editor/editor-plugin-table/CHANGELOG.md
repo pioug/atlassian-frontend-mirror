@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-table
 
+## 2.1.4
+
+### Patch Changes
+
+- [`8b891bf3590`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b891bf3590) - This change introduces `editor-plugin-hyperlink` which separates the hyperlink plugin from `editor-core`. In order to enable this change there are now new entry points on `editor-common` (such as `/link`, `/quick-insert`) in order to separate common code. Further `prosemirror-input-rules` now has new exports of `createPlugin` and `createRule` which are used in many plugins in `editor-core`.
+- Updated dependencies
+
+## 2.1.3
+
+### Patch Changes
+
+- [`caa8dc8e5f5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/caa8dc8e5f5) - ED-18758:Making the box-shadow used in table with sticky headers consistent in light theme to original
+
+## 2.1.2
+
+### Patch Changes
+
+- [`b8d84a1ffcd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b8d84a1ffcd) - [ux] ED-17632 disable table resizer when nested
+
 ## 2.1.1
 
 ### Patch Changes

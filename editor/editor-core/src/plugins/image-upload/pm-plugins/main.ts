@@ -1,19 +1,20 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState, ReadonlyTransaction } from 'prosemirror-state';
 
-import { isPastedFile } from '../../../utils/clipboard';
-import { isDroppedFile } from '../../../utils/drag-drop';
+import { isClipboardEvent, isPastedFile } from '../../../utils/clipboard';
+import { isDragEvent, isDroppedFile } from '../../../utils/drag-drop';
 
 import { canInsertMedia, isMediaSelected } from '../utils';
 import { ImageUploadPluginAction, ImageUploadPluginState } from '../types';
 import { EditorView } from 'prosemirror-view';
 import { insertExternalImage, startImageUpload } from './commands';
-import { PMPluginFactoryParams } from '../../../types';
+import type { PMPluginFactoryParams } from '../../../types';
 import {
   ImageUploadProvider,
   Providers,
 } from '@atlaskit/editor-common/provider-factory';
 import { stateKey } from './plugin-key';
+import { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
 
 /**
  * Microsoft Office includes a screenshot image when copying text content.
@@ -53,21 +54,71 @@ const hasScreenshotImageFromMSOffice = (ev?: Event): boolean => {
   return isImagePNG && textPlain && isOfficeXMLNamespace;
 };
 
+type UploadHandlerReference = { current: ImageUploadProvider | null };
 type DOMHandlerPredicate = (e: Event) => boolean;
+
+const createReferenceEventFromEvent = (
+  event: Event,
+): ImageUploadPluginReferenceEvent | null => {
+  if (!isDragEvent(event) && !isClipboardEvent(event)) {
+    return null;
+  }
+
+  // Get files list and early exit if files is undefined
+  const files = isDragEvent(event)
+    ? event.dataTransfer?.files
+    : event.clipboardData?.files;
+  if (!files) {
+    return null;
+  }
+
+  // Convert filelist into an array
+  const filesArray = Array.from(files);
+
+  // Creating a new DataTransfer object should remove any mutation that could be possible from the original event
+  const dataTransfer = filesArray.reduce((acc, value) => {
+    acc.items.add(value);
+    return acc;
+  }, new DataTransfer());
+
+  return {
+    type: isDragEvent(event) ? 'drop' : 'paste',
+    ...(isDragEvent(event) && {
+      dataTransfer,
+    }),
+    ...(isClipboardEvent(event) && {
+      clipboardData: dataTransfer,
+    }),
+  };
+};
+
 const createDOMHandler =
-  (pred: DOMHandlerPredicate, eventName: string) =>
+  (
+    pred: DOMHandlerPredicate,
+    _eventName: string,
+    uploadHandlerReference: UploadHandlerReference,
+  ) =>
   (view: EditorView, event: Event) => {
     if (!pred(event)) {
       return false;
     }
 
     const shouldUpload = !hasScreenshotImageFromMSOffice(event);
+    const referenceEvent = createReferenceEventFromEvent(event);
 
-    if (shouldUpload) {
+    if (shouldUpload && referenceEvent) {
       event.preventDefault();
       event.stopPropagation();
 
-      startImageUpload(event)(view.state, view.dispatch);
+      // Insert external image into document
+      if (uploadHandlerReference.current) {
+        uploadHandlerReference.current(referenceEvent, (options) => {
+          insertExternalImage(options)(view.state, view.dispatch);
+        });
+      }
+
+      // Start image upload
+      startImageUpload(referenceEvent)(view.state, view.dispatch);
     }
 
     return shouldUpload;
@@ -91,7 +142,9 @@ export const createPlugin = ({
   dispatch,
   providerFactory,
 }: PMPluginFactoryParams) => {
-  let uploadHandler: ImageUploadProvider | undefined;
+  let uploadHandlerReference: UploadHandlerReference = {
+    current: null,
+  };
 
   return new SafePlugin({
     state: {
@@ -137,48 +190,34 @@ export const createPlugin = ({
         }
 
         try {
-          uploadHandler = await provider;
+          const imageUploadProvider = await provider;
+          uploadHandlerReference.current = imageUploadProvider;
         } catch (e) {
-          uploadHandler = undefined;
+          uploadHandlerReference.current = null;
         }
       };
 
       providerFactory.subscribe('imageUploadProvider', handleProvider);
 
       return {
-        update(view, prevState) {
-          const { state: editorState } = view;
-          const currentState: ImageUploadPluginState =
-            stateKey.getState(editorState)!;
-
-          // if we've add a new upload to the state, execute the uploadHandler
-          const oldState: ImageUploadPluginState =
-            stateKey.getState(prevState)!;
-
-          if (
-            currentState.activeUpload !== oldState.activeUpload &&
-            currentState.activeUpload &&
-            uploadHandler
-          ) {
-            const { event } = currentState.activeUpload;
-
-            if (!event || !hasScreenshotImageFromMSOffice(event)) {
-              uploadHandler(event, (options) =>
-                insertExternalImage(options)(view.state, view.dispatch),
-              );
-            }
-          }
-        },
-
         destroy() {
+          uploadHandlerReference.current = null;
           providerFactory.unsubscribe('imageUploadProvider', handleProvider);
         },
       };
     },
     props: {
       handleDOMEvents: {
-        drop: createDOMHandler(isDroppedFile, 'atlassian.editor.image.drop'),
-        paste: createDOMHandler(isPastedFile, 'atlassian.editor.image.paste'),
+        drop: createDOMHandler(
+          isDroppedFile,
+          'atlassian.editor.image.drop',
+          uploadHandlerReference,
+        ),
+        paste: createDOMHandler(
+          isPastedFile,
+          'atlassian.editor.image.paste',
+          uploadHandlerReference,
+        ),
       },
     },
   });

@@ -2,7 +2,7 @@ import { keymap } from 'prosemirror-keymap';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import * as keymaps from '../../../keymaps';
-import { INPUT_METHOD } from '../../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { clearFormattingWithAnalytics } from '../commands/clear-formatting';
 
 export function keymapPlugin(): SafePlugin {

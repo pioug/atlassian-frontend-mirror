@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/role-has-required-aria-props */
+/* TODO: Use proper items and aria-attributes for tests (DSP-11469) */
+
 import React from 'react';
 
 import { render } from '@testing-library/react';

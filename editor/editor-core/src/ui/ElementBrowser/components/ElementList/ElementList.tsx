@@ -27,8 +27,8 @@ import {
   EVENT_TYPE,
   fireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
+import { IconFallback } from '@atlaskit/editor-common/quick-insert';
 
-import IconFallback from '../../../../plugins/quick-insert/assets/fallback';
 import { itemIcon } from '../../../../plugins/type-ahead/ui/TypeAheadListItem';
 import { shortcutStyle } from '../../../styles';
 import { ELEMENT_LIST_PADDING, SCROLLBAR_WIDTH } from '../../constants';

@@ -1,7 +1,7 @@
 import { render, RenderResult, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { browser } from '@atlaskit/editor-common/utils';
-import PanelTextInput from '../../../ui/PanelTextInput';
+import { PanelTextInput } from '@atlaskit/editor-common/ui';
 
 const noop = () => {};
 

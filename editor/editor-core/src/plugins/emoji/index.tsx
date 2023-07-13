@@ -29,7 +29,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { IconEmoji } from '../quick-insert/assets';
+import { IconEmoji } from '@atlaskit/editor-common/quick-insert';
 import { EmojiNodeView } from './nodeviews/emoji';
 import { TypeAheadHandler, TypeAheadItem } from '../type-ahead/types';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';

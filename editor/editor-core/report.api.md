@@ -87,11 +87,16 @@ import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
 import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
+import { InsertStatus as HyperlinkInsertStatus } from '@atlaskit/editor-common/link';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
+import { HyperlinkState } from '@atlaskit/editor-common/link';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { InputTracking } from '@atlaskit/editor-common/types';
 import { IntlShape } from 'react-intl-next';
+import { isLinkAtPos } from '@atlaskit/editor-common/link';
+import { isTextAtPos } from '@atlaskit/editor-common/link';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
 import { lightModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
@@ -584,13 +589,6 @@ type DefaultPresetPluginOptions = {
 export const deleteDate: () => Command;
 
 export { DropdownOptionT };
-
-// @public (undocumented)
-type EditInsertedState = {
-  type: HyperlinkInsertStatus.EDIT_INSERTED_TOOLBAR;
-  node: Node_2;
-  pos: number;
-};
 
 // @public (undocumented)
 export class Editor extends React_2.Component<EditorProps> {
@@ -1093,13 +1091,6 @@ type EditorViewStateUpdatedCallbackProps = {
   readonly newEditorState: Readonly<EditorState>;
 };
 
-// @public (undocumented)
-type EditState = {
-  type: HyperlinkInsertStatus.EDIT_LINK_TOOLBAR;
-  node: Node_2;
-  pos: number;
-};
-
 export { EmojiResource };
 
 export { EVENT_TYPE };
@@ -1214,12 +1205,6 @@ type getPosHandlerNode = () => number | undefined;
 // @public
 export function hasVisibleContent(node: Node_2): boolean;
 
-// @public (undocumented)
-type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
-
-// @public (undocumented)
-type HeadingLevelsAndNormalText = HeadingLevels | NormalTextLevel;
-
 // @public
 export const historyPluginKey: PluginKey<HistoryPluginState>;
 
@@ -1231,36 +1216,12 @@ export interface HistoryPluginState {
   canUndo: boolean;
 }
 
-// @public (undocumented)
-export enum HyperlinkInsertStatus {
-  // (undocumented)
-  EDIT_INSERTED_TOOLBAR = 'EDIT_INSERTED',
-  // (undocumented)
-  EDIT_LINK_TOOLBAR = 'EDIT',
-  // (undocumented)
-  INSERT_LINK_TOOLBAR = 'INSERT',
-}
+export { HyperlinkInsertStatus };
 
-// @public (undocumented)
-export interface HyperlinkState {
-  // (undocumented)
-  activeLinkMark?: LinkToolbarState;
-  // (undocumented)
-  activeText?: string;
-  // (undocumented)
-  canInsertLink: boolean;
-  // (undocumented)
-  editorAppearance?: EditorAppearance;
-  // (undocumented)
-  inputMethod?: INPUT_METHOD;
-  // (undocumented)
-  searchSessionId?: string;
-  // (undocumented)
-  timesViewed: number;
-}
+export { HyperlinkState };
 
-// @public (undocumented)
-export const hyperlinkStateKey: PluginKey<HyperlinkState>;
+// @public @deprecated (undocumented)
+export const hyperlinkStateKey: PluginKey<any>;
 
 // @public (undocumented)
 function indentList(inputMethod?: InputMethod): Command;
@@ -1344,7 +1305,7 @@ type InsertItemProps = {
   sourceListItem: TypeAheadItem_2[];
 };
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export function insertLink(
   from: number,
   to: number,
@@ -1355,7 +1316,7 @@ export function insertLink(
   sourceEvent?: UIAnalyticsEvent | null | undefined,
 ): Command_2;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const insertLinkWithAnalytics: (
   inputMethod: LinkInputType,
   from: number,
@@ -1367,7 +1328,7 @@ export const insertLinkWithAnalytics: (
   sourceEvent?: UIAnalyticsEvent | null | undefined,
 ) => Command_2;
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export const insertLinkWithAnalyticsMobileNative: (
   inputMethod: LinkInputType,
   from: number,
@@ -1386,13 +1347,6 @@ export const insertMediaSingleNode: (
   alignLeftOnInsert?: boolean,
   newInsertionBehaviour?: boolean,
 ) => boolean;
-
-// @public (undocumented)
-type InsertState = {
-  type: HyperlinkInsertStatus.INSERT_LINK_TOOLBAR;
-  from: number;
-  to: number;
-};
 
 // @public (undocumented)
 export const insertTaskDecisionCommand: (
@@ -1417,11 +1371,9 @@ type InviteToEditComponentProps = {
   children: ReactElement<InviteToEditButtonProps>;
 };
 
-// @public (undocumented)
-export function isLinkAtPos(pos: number): Predicate;
+export { isLinkAtPos };
 
-// @public (undocumented)
-export function isTextAtPos(pos: number): Predicate;
+export { isTextAtPos };
 
 // @public (undocumented)
 interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
@@ -1434,9 +1386,6 @@ interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
 }
 
 export { lightModeStatusColorPalette };
-
-// @public (undocumented)
-type LinkToolbarState = EditInsertedState | EditState | InsertState | undefined;
 
 // @public (undocumented)
 type Listener = (data: any) => void;
@@ -1833,12 +1782,9 @@ interface NodeSelectionData {
 }
 
 // @public (undocumented)
-type NormalTextLevel = 0;
-
-// @public (undocumented)
 type OnEditorViewStateUpdated = (props: {
   readonly originalTransaction: Readonly<Transaction>;
-  readonly transactions: Transaction[];
+  readonly transactions: ReadonlyArray<Transaction>;
   readonly oldEditorState: Readonly<EditorState>;
   readonly newEditorState: Readonly<EditorState>;
 }) => void;
@@ -1935,9 +1881,6 @@ export { PortalProvider };
 export { PortalProviderAPI };
 
 export { PortalRenderer };
-
-// @public (undocumented)
-type Predicate = (state: EditorState, view?: EditorView) => boolean;
 
 export { PresenceProvider };
 
@@ -2588,7 +2531,7 @@ interface TypeAheadStatsSerializable extends TypeAheadStats {
 // @public (undocumented)
 export type UpdateEvent = 'create' | 'delete' | 'resolve' | 'unresolve';
 
-// @public (undocumented)
+// @public @deprecated (undocumented)
 export function updateLink(
   href: string,
   text: string,

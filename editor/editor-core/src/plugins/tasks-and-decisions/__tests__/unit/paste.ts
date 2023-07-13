@@ -8,7 +8,7 @@ import {
 
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { pluginKey } from '../../../../plugins/card/pm-plugins/main';
-import hyperlinkPlugin from '../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import tasksAndDecisionsPlugin from '../..';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 

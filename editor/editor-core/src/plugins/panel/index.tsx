@@ -20,10 +20,10 @@ import {
   IconPanelSuccess,
   IconPanelWarning,
   IconPanelError,
-} from '../quick-insert/assets';
+} from '@atlaskit/editor-common/quick-insert';
 import { messages } from '../block-type/messages';
 import { PanelPluginOptions } from './types';
-import IconCustomPanel from '../quick-insert/assets/custom-panel';
+import { IconCustomPanel } from '@atlaskit/editor-common/quick-insert';
 import { T50 } from '@atlaskit/theme/colors';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 

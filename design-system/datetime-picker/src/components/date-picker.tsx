@@ -689,6 +689,8 @@ class DatePicker extends Component<DatePickerProps, State> {
     };
 
     return (
+      // TODO: Remove role="presentation", since div's have no semantics anyway
+      // (DSP-11587)
       <div
         {...innerProps}
         role="presentation"

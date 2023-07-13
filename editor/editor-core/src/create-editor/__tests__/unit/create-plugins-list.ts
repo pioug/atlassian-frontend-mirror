@@ -1,5 +1,5 @@
 jest.mock('../../../plugins');
-jest.mock('../../../plugins/hyperlink');
+jest.mock('@atlaskit/editor-plugin-hyperlink');
 jest.mock('../../../plugins/placeholder');
 jest.mock('../../../plugins/selection');
 jest.mock('../../../plugins/code-block');
@@ -29,7 +29,7 @@ import {
 } from '../../../plugins';
 
 import cardPlugin from '../../../plugins/card';
-import hyperlinkPlugin from '../../../plugins/hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import placeholderPlugin from '../../../plugins/placeholder';
 import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';

@@ -9,7 +9,8 @@ const MessageContent = (
   <div>
     <h4>It is so great to use data-testid</h4>
     <span>
-      Visit{' '}
+      Visit {/* TODO: Use descriptive text for link (DSP-11466) */}
+      {/* eslint-disable-next-line jsx-a11y/anchor-ambiguous-text */}
       <a href="https://developer.atlassian.com/cloud/framework/atlassian-frontend/development/testing">
         here
       </a>{' '}

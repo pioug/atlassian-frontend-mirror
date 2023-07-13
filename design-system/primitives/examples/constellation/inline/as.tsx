@@ -8,7 +8,8 @@ const listItemStyles = xcss({ listStyle: 'none' });
 
 const InlineLink = () => (
   <Box as="li" xcss={listItemStyles}>
-    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+    {/* TODO: Use descriptive text for link and proper target (DSP-11466) */}
+    {/* eslint-disable-next-line jsx-a11y/anchor-ambiguous-text, jsx-a11y/anchor-is-valid */}
     <a href="#">Link</a>
   </Box>
 );

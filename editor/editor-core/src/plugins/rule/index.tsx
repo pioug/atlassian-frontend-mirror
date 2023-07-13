@@ -14,7 +14,7 @@ import {
   INPUT_METHOD,
 } from '../analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { IconDivider } from '../quick-insert/assets';
+import { IconDivider } from '@atlaskit/editor-common/quick-insert';
 
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';

@@ -6,7 +6,7 @@ import Box from '@atlaskit/primitives/box';
 
 import Comment, { CommentAction, CommentAuthor } from '../src';
 
-import avatarImg from './utils/sample-avatar';
+import avatarImg from './images/avatar_400x400.jpg';
 
 const ExampleComment: FC<{ isHighlighted?: boolean; children?: ReactNode }> = ({
   children,

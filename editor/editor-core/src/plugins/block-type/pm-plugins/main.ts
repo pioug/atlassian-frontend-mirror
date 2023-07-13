@@ -19,15 +19,18 @@ import {
   TEXT_BLOCK_TYPES,
   WRAPPER_BLOCK_TYPES,
   HEADINGS_BY_LEVEL,
+} from '../types';
+import {
   HeadingLevels,
   HeadingLevelsAndNormalText,
-} from '../types';
+} from '@atlaskit/editor-common/types';
+
 import { areBlockTypesDisabled } from '../../../utils';
 import {
   setHeadingWithAnalytics,
   setNormalTextWithAnalytics,
 } from '../commands';
-import { INPUT_METHOD } from '../../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { HEADING_KEYS } from '../../../keymaps/consts';
 
 export type BlockTypeState = {

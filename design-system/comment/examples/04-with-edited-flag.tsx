@@ -5,7 +5,7 @@ import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 
 import Comment, { CommentAction, CommentAuthor, CommentEdited } from '../src';
 
-import avatarImg from './utils/sample-avatar';
+import avatarImg from './images/avatar_400x400.jpg';
 
 // hard coded for example to show how it looks with time
 const getCommentEditTime = () => 'just now';

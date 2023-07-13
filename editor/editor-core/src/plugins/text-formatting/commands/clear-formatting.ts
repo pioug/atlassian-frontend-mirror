@@ -9,10 +9,10 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
+import { addAnalytics } from '../../analytics';
 
 export const FORMATTING_NODE_TYPES = ['heading', 'codeBlock', 'blockquote'];
 export const FORMATTING_MARK_TYPES = [

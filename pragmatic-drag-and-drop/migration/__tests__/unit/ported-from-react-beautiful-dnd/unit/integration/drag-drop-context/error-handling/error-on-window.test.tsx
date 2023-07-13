@@ -3,10 +3,11 @@
 
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 
 import { RbdInvariant } from '../../../../../../../src/drag-drop-context/rbd-invariant';
 import { setElementFromPoint } from '../../../../../_util';
+import { withError, withoutError, withWarn } from '../../../../_utils/console';
 import App from '../../_utils/app';
 import { keyboard, mouse, simpleLift } from '../../_utils/controls';
 import { isDragging } from '../../_utils/helpers';
@@ -22,12 +23,6 @@ function getRuntimeError(): Event {
     cancelable: true,
   });
 }
-
-const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
-
-afterEach(() => {
-  consoleError.mockReset();
-});
 
 function getRbdErrorEvent(): Event {
   return new window.ErrorEvent('error', {
@@ -47,24 +42,37 @@ cases.forEach(({ id, control }) => {
     control.lift(getByTestId('0'));
     expect(isDragging(getByTestId('0'))).toBe(true);
     const event: Event = getRbdErrorEvent();
-    window.dispatchEvent(event);
+
+    withWarn(() => {
+      withError(() => {
+        act(() => {
+          window.dispatchEvent(event);
+        });
+      });
+    });
+
     // drag aborted
     expect(isDragging(getByTestId('0'))).toBe(false);
     // error event prevented
     expect(event.defaultPrevented).toBe(true);
   });
 
-  it(`should abort any active drag (non-rbd error) (${id})`, () => {
+  it(`should abort any active drag (non-rbd error) (${id})`, async () => {
     const { getByTestId } = render(<App />);
     setElementFromPoint(getByTestId('0'));
     simpleLift(control, getByTestId('0'));
     expect(isDragging(getByTestId('0'))).toBe(true);
     const event: Event = getRuntimeError();
 
-    window.dispatchEvent(event);
-
-    expect(consoleError).toHaveBeenCalled();
-    // expect(consoleWarn).toHaveBeenCalled();
+    // not logging the raw error
+    withoutError(() => {
+      // logging that the drag was aborted
+      withWarn(() => {
+        act(() => {
+          window.dispatchEvent(event);
+        });
+      });
+    });
 
     // drag aborted
     expect(isDragging(getByTestId('0'))).toBe(false);

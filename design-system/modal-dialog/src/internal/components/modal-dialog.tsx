@@ -131,6 +131,7 @@ const ModalDialog = (props: ModalDialogProps) => {
           <FadeIn entranceDirection="bottom" onFinish={onMotionFinish}>
             {(bottomFadeInProps) => (
               <FocusRing>
+                {/* TODO: Use `dialog` element instead of overriding section semantics (DSP-11588) */}
                 <section
                   {...bottomFadeInProps}
                   aria-label={label}

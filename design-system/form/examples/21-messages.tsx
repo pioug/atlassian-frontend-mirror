@@ -28,6 +28,8 @@ export default function MessagesExample() {
           This message contains <strong>strong</strong> text.
         </HelperMessage>
         <ErrorMessage testId="error--long">
+          {/* TODO: Use descriptive text for link (DSP-11466) */}
+          {/* eslint-disable-next-line jsx-a11y/anchor-ambiguous-text */}
           This message contains <a href="//">a link</a>.
         </ErrorMessage>
         <ValidMessage testId="valid--long">

@@ -1,8 +1,12 @@
 import React from 'react';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
 
+import {
+  axe,
+  JestAxeConfigureOptions,
+  toHaveNoViolations,
+} from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import BasicExample from '../../../examples/basic';

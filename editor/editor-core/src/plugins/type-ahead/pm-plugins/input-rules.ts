@@ -2,11 +2,11 @@ import { Schema } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
-import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
+import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { openTypeAheadAtCursor } from '../transforms/open-typeahead-at-cursor';
 
-import { INPUT_METHOD } from '../../analytics';
-import { createRule, createPlugin } from '../../../utils/input-rules';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 import { TypeAheadHandler } from '../types';
 import type { FeatureFlags } from '../../../types/feature-flags';
 

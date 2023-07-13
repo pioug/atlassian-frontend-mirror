@@ -5,7 +5,7 @@ import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 
 import Comment from '../src';
 
-import avatarImg from './utils/sample-avatar';
+import avatarImg from './images/avatar_400x400.jpg';
 
 export default () => (
   <Comment

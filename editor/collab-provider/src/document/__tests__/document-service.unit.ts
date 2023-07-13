@@ -636,7 +636,7 @@ describe('document-service', () => {
             expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(
               'reinitialiseDocument',
               'SUCCESS',
-              { numUnconfirmedSteps: unconfirmedSteps.length },
+              { hasTitle: true, numUnconfirmedSteps: unconfirmedSteps.length },
             );
           });
 
@@ -661,7 +661,7 @@ describe('document-service', () => {
             expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(
               'reinitialiseDocument',
               'SUCCESS',
-              { numUnconfirmedSteps: unconfirmedSteps.length },
+              { hasTitle: true, numUnconfirmedSteps: unconfirmedSteps.length },
             );
           });
 

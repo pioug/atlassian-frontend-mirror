@@ -100,6 +100,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
         {componentName}
       </h3>
       <ModalBody>
+        {/* TODO: Remove role="presentation", since div's have no semantics anyway (DSP-11587) */}
         <div
           onClick={() => inputEl && inputEl.current!.select()}
           role="presentation"

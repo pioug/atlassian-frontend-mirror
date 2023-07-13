@@ -23,7 +23,8 @@ import { EditorSmartCardEventsNext } from './ui/EditorSmartCardEventsNext';
 import LayoutButton from './ui/LayoutButton';
 import { CardPluginState } from './types';
 import { pluginKey } from './pm-plugins/plugin-key';
-import type hyperlinkPlugin from '../hyperlink';
+import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
+
 import { mountHyperlinkPlugin } from './pm-plugins/mountHyperlink';
 
 const cardPlugin: NextEditorPlugin<

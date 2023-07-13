@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey, EditorState } from 'prosemirror-state';
 import { keydownHandler } from 'prosemirror-keymap';
-import { filter } from '../../../utils/commands';
+import { filterCommands as filter } from '@atlaskit/editor-common/utils';
 import { Command } from '../../../types';
 import { isSelectionEndOfParagraph } from '../../../utils';
 

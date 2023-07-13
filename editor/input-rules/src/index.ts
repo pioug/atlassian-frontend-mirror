@@ -17,3 +17,5 @@ export type {
   OnInputEvent,
   OnHandlerApply,
 };
+
+export { createRule, createPlugin } from './utils';

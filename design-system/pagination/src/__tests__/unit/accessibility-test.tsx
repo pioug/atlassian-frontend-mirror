@@ -7,22 +7,17 @@ import {
   RenderResult,
   screen,
 } from '@testing-library/react';
-import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
 
+import {
+  axe,
+  jestAxeConfig,
+  toHaveNoViolations,
+} from '@af/accessibility-testing';
 import Button from '@atlaskit/button/standard-button';
 
 import Pagination, { PaginationPropTypes } from '../../index';
 
 expect.extend(toHaveNoViolations);
-
-const axeRules: JestAxeConfigureOptions = {
-  rules: {
-    // As we're testing on the JSDOM, color-contrast testing can't run.
-    'color-contrast': { enabled: false },
-  },
-  // The types of results fetched are limited for performance reasons
-  resultTypes: ['violations', 'incomplete', 'inapplicable'],
-};
 
 function assertPageButtonRendering(
   renderResult: RenderResult,
@@ -112,7 +107,7 @@ describe('Pagination Accessibility', () => {
     setup();
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -124,7 +119,7 @@ describe('Pagination Accessibility', () => {
     });
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -134,7 +129,7 @@ describe('Pagination Accessibility', () => {
     fireEvent.click(renderResult.getByTestId('pagination--page-9'));
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -155,7 +150,7 @@ describe('Pagination Accessibility', () => {
     });
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 
@@ -165,7 +160,7 @@ describe('Pagination Accessibility', () => {
     });
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container, axeRules);
+    const results = await axe(container, jestAxeConfig);
     expect(results).toHaveNoViolations();
   });
 });

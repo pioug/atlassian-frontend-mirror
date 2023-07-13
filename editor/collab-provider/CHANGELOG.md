@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 9.7.0
+
+### Minor Changes
+
+- [`3265cccb965`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3265cccb965) - resolving editor state before updating document/metadata during early provider initialization
+
+## 9.6.4
+
+### Patch Changes
+
+- [`b7cd15f159b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b7cd15f159b) - ESS-3572 Fix getFinalAcknowledgedState and getCurrentState error handlers not catching errors. Add logs to track the title metadata property
+
 ## 9.6.3
 
 ### Patch Changes

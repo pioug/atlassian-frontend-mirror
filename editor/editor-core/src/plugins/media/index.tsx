@@ -35,7 +35,7 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
-import { IconImages } from '../quick-insert/assets';
+import { IconImages } from '@atlaskit/editor-common/quick-insert';
 import WithPluginState from '../../ui/WithPluginState';
 import { MediaPickerComponents } from './ui/MediaPicker';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';

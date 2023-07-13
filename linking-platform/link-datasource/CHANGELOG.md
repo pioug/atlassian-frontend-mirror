@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 0.28.3
+
+### Patch Changes
+
+- [`af0b27d2dcf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af0b27d2dcf) - Upgrade JQL editor dependencies.
+
+## 0.28.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.28.1
+
+### Patch Changes
+
+- [`d311f1a30e1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d311f1a30e1) - Fix issue where table doesn't update after edit in the modal
+
 ## 0.28.0
 
 ### Minor Changes

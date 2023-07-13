@@ -51,7 +51,8 @@ const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
         style={styleWithZIndex}
         data-testid={testId ? `${testId}--wrapper` : undefined}
       >
-        {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */}
+        {/* Re: non-interactive element interactions: Because we are creating a tooltip, we *need* these mouse handlers. */}
+        {/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
         <div
           role="tooltip"
           className={className}

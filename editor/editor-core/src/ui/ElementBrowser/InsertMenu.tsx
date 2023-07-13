@@ -25,7 +25,7 @@ import {
   IconPanel,
   IconQuote,
   IconStatus,
-} from '../../plugins/quick-insert/assets';
+} from '@atlaskit/editor-common/quick-insert';
 
 import { QuickInsertPluginState } from '../../plugins/quick-insert/types';
 import withOuterListeners from '../with-outer-listeners';

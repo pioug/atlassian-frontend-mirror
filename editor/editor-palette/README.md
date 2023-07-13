@@ -55,3 +55,21 @@ The exact output of this function is an implementation detail and should only be
 content to the user, on a client with a matching major version of `@atlaskit/tokens`.
 - **DO NOT**: store the output of these functions in any user-generated content or back-end.
 - **DO**: store the ADF hex color, and use these utilities at render time to display the themed version of the color
+
+#### hexToEditorBorderPaletteColor
+
+This takes an adf hex color and returns a matching border palette color.
+
+```ts
+import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
+
+const cssValue = hexToEditorBorderPaletteColor('#091E4224');
+//     ^? const cssValue: 'var(--ds-border, #091E4224)'
+<span style={{borderColor: cssValue}} />
+```
+
+The names of tokens can change over time, and the values of tokens will differ between themes.
+The exact output of this function is an implementation detail and should only be used when rendering
+content to the user, on a client with a matching major version of `@atlaskit/tokens`.
+- **DO NOT**: store the output of these functions in any user-generated content or back-end.
+- **DO**: store the ADF hex color, and use these utilities at render time to display the themed version of the color

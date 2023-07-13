@@ -5,7 +5,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import { Box } from '@atlaskit/primitives';
 
 import Comment, { CommentAction, CommentAuthor, CommentTime } from '../../src';
-import sampleAvatar from '../utils/sample-avatar';
+import sampleAvatar from '../images/avatar_400x400.jpg';
 
 const CommentDefaultExample = () => {
   const [saving, setSaving] = useState(true);

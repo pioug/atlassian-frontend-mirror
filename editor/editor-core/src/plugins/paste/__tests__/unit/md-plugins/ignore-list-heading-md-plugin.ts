@@ -15,7 +15,7 @@ import {
 import pastePlugin from '../../..';
 import basePlugin from '../../../../base';
 import blockTypePlugin from '../../../../block-type';
-import hyperlinkPlugin from '../../../../hyperlink/index';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import listPlugin from '../../../../list';
 import textFormattingPlugin from '../../../../text-formatting';
 

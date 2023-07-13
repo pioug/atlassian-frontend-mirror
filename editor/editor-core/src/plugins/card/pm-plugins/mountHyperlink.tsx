@@ -42,6 +42,9 @@ export const mountHyperlinkPlugin = (
             ],
             onEscapeCallback:
               pluginInjectionApi?.dependencies.card.actions.hideLinkToolbar,
+            onInsertLinkCallback:
+              pluginInjectionApi?.dependencies.card.actions
+                .queueCardsFromChangedTr,
             view: editorView,
           },
         );

@@ -14,6 +14,8 @@ const containerStyles = css({
 export default class Headers extends Component<any> {
   render() {
     return (
+      // TODO: Determine whether proper `tr` elements can be used instead of
+      // roles (DSP-11588)
       <div css={containerStyles} role="row">
         {Children.map(this.props.children, (header, index) =>
           // eslint-disable-next-line react/no-array-index-key

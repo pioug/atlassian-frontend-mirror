@@ -18,7 +18,9 @@ describe('<LinkItem />', () => {
   it('should callback on click', () => {
     const callback = jest.fn();
     const { getByTestId } = render(
-      <LinkItem onClick={callback} testId="target">
+      // TODO: Links should go to an actual anchor or link (DSP-11466). The no-static rule can be removed when fixed
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions
+      <LinkItem href="#yeah" onClick={callback} testId="target">
         Hello world
       </LinkItem>,
     );
@@ -33,6 +35,7 @@ describe('<LinkItem />', () => {
   // This test can be deleted.
   it('should take a data-testid directly', () => {
     const { getByTestId } = render(
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <LinkItem data-testid="link">Hello world</LinkItem>,
     );
 
@@ -51,7 +54,7 @@ describe('<LinkItem />', () => {
     });
 
     const { getByTestId } = render(
-      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, jsx-a11y/anchor-is-valid
       <LinkItem css={hackStyles} testId="link">
         Hello world
       </LinkItem>,
@@ -68,6 +71,7 @@ describe('<LinkItem />', () => {
     el.focus();
     expect(el).toBe(document.activeElement);
     const { getByTestId } = render(
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <LinkItem testId="target">Hello world</LinkItem>,
     );
 
@@ -81,6 +85,7 @@ describe('<LinkItem />', () => {
 
   it('should persist focus if it was focused during mouse down', () => {
     const { getByTestId } = render(
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <LinkItem href="#" testId="target">
         Hello world
       </LinkItem>,
@@ -92,30 +97,38 @@ describe('<LinkItem />', () => {
     expect(getByTestId('target') === document.activeElement).toBe(true);
   });
 
-  it('should callback to user supplied mouse down prop', () => {
-    const onMouseDown = jest.fn();
-    const { getByTestId } = render(
-      <LinkItem onMouseDown={onMouseDown} testId="target">
-        Hello world
-      </LinkItem>,
-    );
+  describe('LinkItem used as a button (for legacy purposes only, do not do this!)', () => {
+    // These are examples of a LinkItem being used as a button. If you need a
+    // LinkItem to do anything other than *link* to another page, you should
+    // be using a ButtonItem.
+    // TODO: Ensure LinkItems are not used as buttons (DSP-11468)
+    it('should callback to user supplied mouse down prop', () => {
+      const onMouseDown = jest.fn();
+      const { getByTestId } = render(
+        // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions
+        <LinkItem onMouseDown={onMouseDown} testId="target">
+          Hello world
+        </LinkItem>,
+      );
 
-    fireEvent.mouseDown(getByTestId('target'));
+      fireEvent.mouseDown(getByTestId('target'));
 
-    expect(onMouseDown).toHaveBeenCalled();
-  });
+      expect(onMouseDown).toHaveBeenCalled();
+    });
 
-  it('should not callback on click when disabled', () => {
-    const callback = jest.fn();
-    const { getByTestId } = render(
-      <LinkItem isDisabled onClick={callback} testId="target">
-        Hello world
-      </LinkItem>,
-    );
+    it('should not callback on click when disabled', () => {
+      const callback = jest.fn();
+      const { getByTestId } = render(
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid
+        <LinkItem isDisabled onClick={callback} testId="target">
+          Hello world
+        </LinkItem>,
+      );
 
-    fireEvent.click(getByTestId('target'));
+      fireEvent.click(getByTestId('target'));
 
-    expect(callback).not.toHaveBeenCalled();
+      expect(callback).not.toHaveBeenCalled();
+    });
   });
 
   it('should respect the cssFn prop', () => {
@@ -127,6 +140,7 @@ describe('<LinkItem />', () => {
       borderRadius: '5px',
     });
     const { container } = render(
+      // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid
       <LinkItem
         // eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
         cssFn={customCss}
@@ -149,6 +163,7 @@ describe('<LinkItem />', () => {
     const dragStartEvent = jest.fn((e) => e.defaultPrevented);
     const { getByTestId } = render(
       <div onDragStart={dragStartEvent}>
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <LinkItem testId="target">Hello world</LinkItem>
       </div>,
     );
@@ -162,6 +177,7 @@ describe('<LinkItem />', () => {
 
   it('should have "aria-current=page" when link item is selected', () => {
     const { getByTestId } = render(
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <LinkItem href="#" isSelected testId="target">
         Hello world
       </LinkItem>,

@@ -25,6 +25,7 @@ import type {
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 
 import type { CleanupFn } from '../internal-types';
+import { batchUpdatesForReact16 } from '../utils/batch-updates-for-react-16';
 
 import type { DroppableRegistryEntry } from './droppable-registry';
 import { rbdInvariant } from './rbd-invariant';
@@ -96,9 +97,11 @@ function createLifecycleManager(): LifecycleManager {
   };
 
   const dispatch: Dispatch = (event, data) => {
-    for (const responder of registry[event]) {
-      responder(data);
-    }
+    batchUpdatesForReact16(() => {
+      for (const responder of registry[event]) {
+        responder(data);
+      }
+    });
   };
 
   return { addResponder, dispatch };

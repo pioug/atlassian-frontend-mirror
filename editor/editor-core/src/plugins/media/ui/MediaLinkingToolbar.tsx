@@ -7,7 +7,7 @@ import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 // Common Translations will live here
 import { IntlShape, WrappedComponentProps } from 'react-intl-next';
-import PanelTextInput from '../../../ui/PanelTextInput';
+import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 import Separator from '../../floating-toolbar/ui/Separator';
@@ -15,13 +15,11 @@ import {
   container,
   containerWithProvider,
   inputWrapper,
-} from '../../../ui/LinkSearch/ToolbarComponents';
-import RecentSearch from '../../../ui/LinkSearch';
-import {
+  RecentSearch,
   ChildProps,
   RecentSearchInputTypes,
   RecentSearchSubmitOptions,
-} from '../../../ui/LinkSearch/types';
+} from '@atlaskit/editor-common/link';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 
 import { normalizeUrl } from '@atlaskit/editor-common/utils';

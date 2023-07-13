@@ -22,6 +22,8 @@ interface WeekDayGridProps extends React.HTMLAttributes<HTMLElement> {
  *
  */
 const WeekDayGrid = ({ testId, children }: WeekDayGridProps) => (
+  // TODO: Determine if there is a better way to render the row (should be
+  // fixed with introduction of keyboard accessibility of Calendar in DSP-9939) (DSP-11588)
   <Box testId={testId} xcss={gridStyles} role="row">
     {children}
   </Box>

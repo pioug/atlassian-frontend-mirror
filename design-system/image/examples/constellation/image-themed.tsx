@@ -1,11 +1,16 @@
-/** @jsx jsx */
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { css, jsx } from '@emotion/react';
+
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Image from '../../src';
 import Dark from '../images/dark-mode-cat.png';
 import Light from '../images/light-mode-cat.png';
 
-const containerStyles = css({
+const containerStyles = xcss({
   display: 'flex',
   height: '100%',
   alignItems: 'center',
@@ -19,7 +24,7 @@ const imageStyles = css({
 
 const ImageThemedExample = () => {
   return (
-    <div css={containerStyles}>
+    <Box xcss={containerStyles}>
       <Image
         css={imageStyles}
         src={Light}
@@ -27,7 +32,7 @@ const ImageThemedExample = () => {
         alt="Theming in action"
         testId="image"
       />
-    </div>
+    </Box>
   );
 };
 

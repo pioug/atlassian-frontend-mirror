@@ -623,7 +623,7 @@ export class ReactEditorView<T = {}> extends React.Component<
     newEditorState,
   }: {
     originalTransaction: Transaction;
-    transactions: Transaction[];
+    transactions: ReadonlyArray<Transaction>;
     oldEditorState: EditorState;
     newEditorState: EditorState;
   }) => {

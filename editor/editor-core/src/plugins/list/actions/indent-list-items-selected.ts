@@ -8,7 +8,7 @@ import { Fragment, Slice, NodeRange, NodeType } from 'prosemirror-model';
 import { isListItemNode, isListNode } from '../utils/node';
 import { findFirstParentListItemNode } from '../utils/find';
 import { normalizeListItemsSelection } from '../utils/selection';
-import { GapCursorSelection } from '../../selection/gap-cursor-selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 
 export const indentListItemsSelected = (tr: Transaction) => {
   const originalSelection = tr.selection;

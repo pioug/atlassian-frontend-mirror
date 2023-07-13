@@ -9,7 +9,7 @@ import { messages } from '../messages';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
-import PanelTextInput from '../../../../../ui/PanelTextInput';
+import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import * as keymaps from '../../../../../keymaps';
 import { ToolTipContent } from '../../../../../keymaps';
 import { closeMediaAltTextMenu, updateAltText } from '../commands';

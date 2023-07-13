@@ -151,6 +151,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
                 wrapper?.appendChild(node);
               }
             }}
+            getPos={jest.fn()}
           />
           <TableComponent
             view={editorView}
@@ -169,6 +170,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
                 wrapper?.appendChild(node);
               }
             }}
+            getPos={jest.fn()}
           />
           ,
         </div>,
@@ -216,6 +218,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
               wrapper?.appendChild(node);
             }
           }}
+          getPos={jest.fn()}
         />,
       );
       expect(clearHoverSelectionSpy).toBeCalledTimes(1);
@@ -311,6 +314,7 @@ describe('table -> nodeviews -> TableComponent.tsx', () => {
             }
           }}
           getEditorFeatureFlags={getEditorFeatureFlags}
+          getPos={jest.fn()}
           {...props}
         />,
       );

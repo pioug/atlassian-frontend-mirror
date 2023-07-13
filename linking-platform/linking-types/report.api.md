@@ -156,6 +156,7 @@ export type DatasourceType =
   | IconType
   | LinkType
   | NumberType
+  | RichTextType
   | StatusType
   | StringType
   | TagType
@@ -258,6 +259,22 @@ export interface NumberType {
   type: 'number';
   // (undocumented)
   value: number;
+}
+
+// @public (undocumented)
+export interface RichText {
+  // (undocumented)
+  text: string;
+  // (undocumented)
+  type: 'adf';
+}
+
+// @public (undocumented)
+export interface RichTextType {
+  // (undocumented)
+  type: 'richtext';
+  // (undocumented)
+  value: RichText;
 }
 
 // @public

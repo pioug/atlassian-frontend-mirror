@@ -1,3 +1,5 @@
+import type { ImageUploadPluginReferenceEvent } from '../types';
+
 export type InsertedImageProperties = {
   src?: string;
   alt?: string;
@@ -5,6 +7,6 @@ export type InsertedImageProperties = {
 };
 
 export type ImageUploadProvider = (
-  e: Event | undefined,
+  e: ImageUploadPluginReferenceEvent | undefined,
   insertImageFn: (props: InsertedImageProperties) => void,
 ) => void;

@@ -155,6 +155,7 @@ describe('@atlaskit/tabs', () => {
             tabIndex: 0,
           }}
         >
+          {/* TODO: Remove role="presentation", since div's have no semantics anyway (DSP-11587) */}
           <div role="presentation">
             <Tab>Label 1</Tab>
           </div>

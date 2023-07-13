@@ -22,7 +22,7 @@ import indentationPlugin from '../../../../indentation';
 import quickInsertPlugin from '../../../../quick-insert';
 import typeAheadPlugin from '../../../../type-ahead';
 import codeBlockPlugin from '../../../../code-block';
-import hyperlinkPlugin from '../../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import textFormattingPlugin from '../../../../text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import listPlugin from '../../../../list';

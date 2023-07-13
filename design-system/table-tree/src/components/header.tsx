@@ -21,6 +21,8 @@ class Header extends Component<any> {
   render() {
     const { props } = this;
     return (
+      // TODO: Determine whether proper `th` elements can be used instead of
+      // roles (DSP-11588)
       <ColumnCell
         css={headerStyles}
         role="columnheader"

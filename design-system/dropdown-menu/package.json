@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/dropdown-menu",
-  "version": "11.10.4",
+  "version": "11.10.5",
   "description": "A dropdown menu displays a list of actions or options to a user.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -52,6 +52,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -59,7 +60,6 @@
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
-    "jest-axe": "^4.0.0",
     "jscodeshift": "^0.13.0",
     "raf-stub": "^2.0.1",
     "react-dom": "^16.8.0",

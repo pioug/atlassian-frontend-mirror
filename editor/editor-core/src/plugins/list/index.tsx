@@ -19,7 +19,7 @@ import {
   ACTION_SUBJECT_ID,
 } from '../analytics';
 import { tooltip, toggleBulletList, toggleOrderedList } from '../../keymaps';
-import { IconList, IconListNumber } from '../quick-insert/assets';
+import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 import type { ListPluginOptions } from './types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 

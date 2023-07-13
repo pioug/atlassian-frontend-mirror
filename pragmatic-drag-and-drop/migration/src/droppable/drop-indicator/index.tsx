@@ -1,12 +1,6 @@
 /** @jsx jsx */
 
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
 import type {
@@ -31,9 +25,6 @@ import type { IndicatorSizeAndOffset } from './types';
 type DropIndicatorProps = {
   direction: Direction;
   mode: DroppableMode;
-  source: DraggableLocation;
-  destination: DraggableLocation | null;
-  targetLocation: DraggableLocation | null;
 };
 
 const scrollMarginTop = lineThickness + 2 * lineOffset;
@@ -164,7 +155,14 @@ export const DropIndicator = ({ direction, mode }: DropIndicatorProps) => {
     [contextId, direction, mode],
   );
 
-  useEffect(() => {
+  /**
+   * This is in a `useLayoutEffect` for immediacy.
+   *
+   * When mounting (cross-axis movement) the indicator should update into
+   * its correct position right away, so that the drag preview can be placed
+   * correctly.
+   */
+  useLayoutEffect(() => {
     const dragState = getDragState();
     if (!dragState.isDragging) {
       return;

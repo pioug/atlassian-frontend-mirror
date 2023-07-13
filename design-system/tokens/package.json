@@ -1,52 +1,31 @@
 {
   "name": "@atlaskit/tokens",
   "version": "1.11.3",
-  "author": "Atlassian Pty Ltd",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
-  "license": "Apache-2.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "atlassian": {
-    "team": "Design System Team",
-    "releaseModel": "continuous",
-    "productPushConsumption": [
-      "jira"
-    ],
-    "website": {
-      "name": "Design tokens",
-      "category": "Libraries"
-    }
-  },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": [
     "**/*.css"
   ],
   "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    ".": "./src/index.tsx",
-    "./figma/atlassian-light.json": "./figma/atlassian-light.json",
-    "./figma/atlassian-dark.json": "./figma/atlassian-dark.json",
-    "./palettes-raw": "./src/entry-points/palettes-raw.tsx",
-    "./tokens-raw": "./src/entry-points/tokens-raw.tsx",
-    "./token-ids": "./src/entry-points/token-ids.tsx",
-    "./token-names": "./src/entry-points/token-names.tsx",
-    "./token-order": "./src/entry-points/token-order.tsx",
-    "./token-default-values": "./src/entry-points/token-default-values.tsx",
-    "./rename-mapping": "./src/entry-points/rename-mapping.tsx",
-    "./babel-plugin": "./src/entry-points/babel-plugin.tsx"
+  "atlassian": {
+    "team": "Design System Team",
+    "productPushConsumption": [
+      "jira"
+    ],
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Design tokens",
+      "category": "Libraries"
+    }
   },
   "scripts": {
     "ak-postbuild": "(cd $(npx repo-root) && yarn build @atlassian/codegen -d cjs,esm,es2019) && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
@@ -66,6 +45,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
+    "@af/visual-regression": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/codegen": "^0.1.0",
@@ -109,6 +89,27 @@
         "emotion"
       ]
     }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./figma/atlassian-light.json": "./figma/atlassian-light.json",
+    "./figma/atlassian-dark.json": "./figma/atlassian-dark.json",
+    "./palettes-raw": "./src/entry-points/palettes-raw.tsx",
+    "./tokens-raw": "./src/entry-points/tokens-raw.tsx",
+    "./token-ids": "./src/entry-points/token-ids.tsx",
+    "./token-names": "./src/entry-points/token-names.tsx",
+    "./token-order": "./src/entry-points/token-order.tsx",
+    "./token-default-values": "./src/entry-points/token-default-values.tsx",
+    "./rename-mapping": "./src/entry-points/rename-mapping.tsx",
+    "./babel-plugin": "./src/entry-points/babel-plugin.tsx"
   },
   "platform-feature-flags": {
     "platform.design-system-team.border-checkbox_nyoiu": {

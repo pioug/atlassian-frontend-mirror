@@ -1,5 +1,11 @@
 # @atlaskit/editor-json-transformer
 
+## 8.10.1
+
+### Patch Changes
+
+- [`700074a0830`](https://bitbucket.org/atlassian/atlassian-frontend/commits/700074a0830) - [ux] ED-18027 Upgrades editor-markdown-transformer to latest version.
+
 ## 8.10.0
 
 ### Minor Changes

@@ -12,8 +12,9 @@ import {
   findCutBefore,
   isEmptySelectionAtStart,
   isFirstChildOfParent,
-  filter,
 } from '../../../utils/commands';
+import { filterCommands as filter } from '@atlaskit/editor-common/utils';
+
 import { sanitiseMarksInSelection } from '../../../utils';
 import {
   liftFollowingList,

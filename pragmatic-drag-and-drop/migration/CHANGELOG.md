@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration
 
+## 0.16.0
+
+### Minor Changes
+
+- [`d25fd8a9056`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d25fd8a9056) - React updates are now batched for React 16. Other optimizations have also been made to reduce the number of re-renders that occur.
+
 ## 0.15.0
 
 ### Minor Changes

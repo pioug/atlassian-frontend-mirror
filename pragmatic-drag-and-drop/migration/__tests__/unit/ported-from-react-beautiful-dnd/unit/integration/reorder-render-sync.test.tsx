@@ -3,7 +3,7 @@
 
 import React, { memo, useCallback, useState } from 'react';
 
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import type {
   DraggableProvided,
   DroppableProvided,
@@ -123,7 +123,7 @@ const cases = [
 ] as const;
 
 cases.forEach(({ id, control }) => {
-  it(`should call the onBeforeDragStart before connected components are updated, and onDragStart after (${id})`, () => {
+  it(`should call the onBeforeDragStart before connected components are updated, and onDragStart after (${id})`, async () => {
     jest.useFakeTimers();
     const clearRenderMocks = () => {
       first.onRender.mockClear();
@@ -161,15 +161,29 @@ cases.forEach(({ id, control }) => {
 
     // Move down
     if (control === keyboard) {
-      fireEvent.keyDown(handle, { key: 'ArrowDown' });
+      await act(async () => {
+        fireEvent.keyDown(handle, { key: 'ArrowDown' });
+        /**
+         * The keyboard update will fire synchronously.
+         *
+         * The keyboard drag preview will update after a microtask.
+         */
+        await 'microtask';
+      });
     } else if (control === mouse) {
       extractClosestEdge.mockReturnValue('bottom');
-      fireEvent.dragEnter(getAllByTestId('drag-handle')[1]);
+      act(() => {
+        fireEvent.dragOver(getAllByTestId('drag-handle')[1]);
+        /**
+         * Stepping an animation frame to trigger the update from pdnd core.
+         *
+         * The mouse drag preview will update synchronously after receiving
+         * the update.
+         */
+        // @ts-expect-error
+        requestAnimationFrame.step();
+      });
     }
-
-    // flushing keyboard movement
-    // @ts-expect-error
-    requestAnimationFrame.step();
 
     // item1: moving down
     // item2: moving up

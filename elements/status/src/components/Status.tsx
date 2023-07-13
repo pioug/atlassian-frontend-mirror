@@ -38,6 +38,7 @@ const inlineBlockStyles = css({
   '& > *': {
     display: 'inline-block !important',
     lineHeight: '16px',
+    verticalAlign: 'middle',
   },
 });
 

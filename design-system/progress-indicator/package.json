@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/progress-indicator",
-  "version": "9.5.12",
+  "version": "9.5.13",
   "description": "A progress indicator shows the user where they are along the steps of a journey.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -46,13 +46,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "@types/jscodeshift": "^0.11.0",
-    "jest-axe": "^4.0.0",
     "jscodeshift": "^0.13.0",
     "react-dom": "^16.8.0",
     "react-lorem-component": "^0.13.0",

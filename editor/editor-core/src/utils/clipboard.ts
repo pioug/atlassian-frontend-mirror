@@ -9,6 +9,10 @@ export function checkClipboardTypes(
   return isDOMStringList(type) ? type.contains(item) : type.indexOf(item) > -1;
 }
 
+// Typeguard Function
+export const isClipboardEvent = (event: Event): event is ClipboardEvent =>
+  'clipboardData' in event;
+
 export function isPastedFile(rawEvent: Event) {
   const { clipboardData } = rawEvent as ClipboardEvent;
   if (!clipboardData) {

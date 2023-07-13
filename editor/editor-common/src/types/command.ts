@@ -8,3 +8,5 @@ export type Command = (
   view?: EditorView,
 ) => boolean;
 export type HigherOrderCommand = (command: Command) => Command;
+
+export type Predicate = (state: EditorState, view?: EditorView) => boolean;

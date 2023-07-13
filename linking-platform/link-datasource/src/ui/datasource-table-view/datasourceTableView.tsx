@@ -45,6 +45,11 @@ export const DatasourceTableView = ({
     fieldKeys: visibleColumnKeys,
   });
 
+  // Need this to make sure that the datasource in the editor gets updated new info if any edits are made in the modal
+  useEffect(() => {
+    reset();
+  }, [reset, parameters]);
+
   useEffect(() => {
     if (
       onVisibleColumnKeysChange &&

@@ -1,9 +1,10 @@
 import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { Schema } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { createPlugin } from '../../../../utils/input-rules';
+import { createPlugin } from '@atlaskit/prosemirror-input-rules';
+
 import { createRuleForListType } from './create-list-input-rule';
-import { FeatureFlags } from '../../../../types/feature-flags';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export default function inputRulePlugin(
   schema: Schema,

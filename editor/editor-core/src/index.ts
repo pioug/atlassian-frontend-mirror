@@ -59,11 +59,8 @@ export { changeColor } from './plugins/text-color/commands/change-color';
 export { insertHorizontalRule } from './plugins/rule/commands';
 export { blockPluginStateKey } from './plugins';
 export type { BlockTypeState } from './plugins';
-export {
-  InsertStatus as HyperlinkInsertStatus,
-  stateKey as hyperlinkStateKey,
-} from './plugins/hyperlink/pm-plugins/main';
-export type { HyperlinkState } from './plugins/hyperlink/pm-plugins/main';
+export type { HyperlinkState } from '@atlaskit/editor-common/link';
+export { InsertStatus as HyperlinkInsertStatus } from '@atlaskit/editor-common/link';
 export { pluginKey as listStateKey } from './plugins/list/pm-plugins/main';
 export type { ListState } from './plugins/list/types';
 export type { InputMethod as ListInputMethod } from './plugins/list/commands';
@@ -125,10 +122,22 @@ export {
   insertLink,
   insertLinkWithAnalyticsMobileNative,
   insertLinkWithAnalytics,
-  isTextAtPos,
-  isLinkAtPos,
   updateLink,
-} from './plugins/hyperlink/commands';
+  stateKey as hyperlinkStateKey,
+} from './plugins/deprecated-hyperlink/commands';
+
+export {
+  /**
+   * @deprecated
+   * Please use the export from '@atlaskit/editor-common/link`
+   */
+  isTextAtPos,
+  /**
+   * @deprecated
+   * Please use the export from '@atlaskit/editor-common/link`
+   */
+  isLinkAtPos,
+} from '@atlaskit/editor-common/link';
 export { historyPluginKey } from './plugins/history';
 export {
   INPUT_METHOD,
@@ -136,8 +145,8 @@ export {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-} from './plugins/analytics';
-export type { AnalyticsEventPayload } from './plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
+export type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 export {
   setKeyboardHeight,
   setMobilePaddingTop,

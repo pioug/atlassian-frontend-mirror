@@ -29,7 +29,7 @@ import {
   LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import pastePlugin from '../../index';
-import hyperlinkPlugin from '../../../hyperlink';
+import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';

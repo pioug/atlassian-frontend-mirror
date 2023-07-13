@@ -8,7 +8,7 @@ import Comment, {
   CommentEdited,
   CommentTime,
 } from '../../src';
-import sampleAvatar from '../utils/sample-avatar';
+import sampleAvatar from '../images/avatar_400x400.jpg';
 
 const CommentFullExample = () => {
   return (

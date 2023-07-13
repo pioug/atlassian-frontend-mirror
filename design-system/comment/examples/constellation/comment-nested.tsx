@@ -3,7 +3,7 @@ import React from 'react';
 import Avatar from '@atlaskit/avatar';
 
 import Comment, { CommentAction, CommentAuthor, CommentTime } from '../../src';
-import sampleAvatar from '../utils/sample-avatar';
+import sampleAvatar from '../images/avatar_400x400.jpg';
 
 const CommentNestedExample = () => {
   return (

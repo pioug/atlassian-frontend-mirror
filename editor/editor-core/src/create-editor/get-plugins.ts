@@ -38,7 +38,7 @@ export type LightPMPlugin = {
 
 export type OnEditorViewStateUpdated = (props: {
   readonly originalTransaction: Readonly<Transaction>;
-  readonly transactions: Transaction[];
+  readonly transactions: ReadonlyArray<Transaction>;
   readonly oldEditorState: Readonly<EditorState>;
   readonly newEditorState: Readonly<EditorState>;
 }) => void;

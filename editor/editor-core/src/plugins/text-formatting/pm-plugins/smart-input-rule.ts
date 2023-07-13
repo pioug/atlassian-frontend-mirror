@@ -1,12 +1,10 @@
 import { Selection, Transaction } from 'prosemirror-state';
 import { FeatureFlags } from '../../../types/feature-flags';
 
-import {
-  createPlugin,
-  createRule,
-  ruleWithAnalytics,
-} from '../../../utils/input-rules';
-import {
+import { ruleWithAnalytics } from '../../../utils/input-rules';
+import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
+
+import type {
   InputRuleWrapper,
   InputRuleHandler,
 } from '@atlaskit/prosemirror-input-rules';
@@ -17,7 +15,7 @@ import {
   EVENT_TYPE,
   PUNC,
   SYMBOL,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 
 /**
  * Creates an InputRuleHandler that will match on a regular expression of the

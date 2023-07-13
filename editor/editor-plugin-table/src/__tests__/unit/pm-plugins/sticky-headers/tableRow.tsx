@@ -427,6 +427,7 @@ describe('TableRowNodeView', () => {
                   }
                 }
           }
+          getPos={jest.fn()}
         />,
       );
     }

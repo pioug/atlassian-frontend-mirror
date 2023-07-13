@@ -27,6 +27,19 @@ export function createInputRulePlugin(
 ): SafePlugin;
 
 // @public (undocumented)
+export const createPlugin: (
+  pluginName: string,
+  rules: Array<InputRuleWrapper>,
+  options?: Options_2,
+) => SafePlugin;
+
+// @public (undocumented)
+export const createRule: (
+  match: RegExp,
+  handler: InputRuleHandler,
+) => InputRuleWrapper;
+
+// @public (undocumented)
 export type InputRuleHandler = (
   state: EditorState,
   matchResult: RegExpExecArray,
@@ -72,6 +85,12 @@ type Options = {
   allowInsertTextOnDocument?: boolean;
   onInputEvent?: OnInputEvent;
   onBeforeRegexMatch?: OnBeforeRegexMatch;
+};
+
+// @public (undocumented)
+type Options_2 = {
+  isBlockNodeRule?: boolean;
+  allowInsertTextOnDocument?: boolean;
 };
 
 // @public (undocumented)

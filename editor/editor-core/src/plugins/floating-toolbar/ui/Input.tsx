@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
-import { panelTextInput } from '../../../ui/PanelTextInput/styles';
+import { panelTextInput } from '@atlaskit/editor-common/ui';
 
 export interface Props {
   mountPoint?: HTMLElement;

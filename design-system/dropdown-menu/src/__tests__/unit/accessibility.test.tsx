@@ -1,7 +1,12 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { axe, JestAxeConfigureOptions, toHaveNoViolations } from 'jest-axe';
+
+import {
+  axe,
+  jestAxeConfig,
+  toHaveNoViolations,
+} from '@af/accessibility-testing';
 
 import DropdownMenu, {
   DropdownItem,
@@ -13,15 +18,6 @@ import DropdownMenu, {
 } from '../../index';
 
 expect.extend(toHaveNoViolations);
-
-const axeRules: JestAxeConfigureOptions = {
-  rules: {
-    // As we're testing on the JSDOM, color-contrast testing can't run.
-    'color-contrast': { enabled: false },
-  },
-  // The types of results fetched are limited for performance reasons
-  resultTypes: ['violations', 'incomplete', 'inapplicable'],
-};
 
 it('Basic DropdownMenu should not fail aXe audit', async () => {
   const { container } = render(
@@ -36,7 +32,7 @@ it('Basic DropdownMenu should not fail aXe audit', async () => {
       </DropdownItemGroup>
     </DropdownMenu>,
   );
-  const results = await axe(container, axeRules);
+  const results = await axe(container, jestAxeConfig);
 
   expect(results).toHaveNoViolations();
 });
@@ -53,7 +49,7 @@ it('Checkbox DropdownMenu should not fail aXe audit', async () => {
       </DropdownItemCheckboxGroup>
     </DropdownMenu>,
   );
-  const results = await axe(container, axeRules);
+  const results = await axe(container, jestAxeConfig);
 
   expect(results).toHaveNoViolations();
 });
@@ -70,7 +66,7 @@ it('Radio DropdownMenu should not fail aXe audit', async () => {
       </DropdownItemRadioGroup>
     </DropdownMenu>,
   );
-  const results = await axe(container, axeRules);
+  const results = await axe(container, jestAxeConfig);
 
   expect(results).toHaveNoViolations();
 });

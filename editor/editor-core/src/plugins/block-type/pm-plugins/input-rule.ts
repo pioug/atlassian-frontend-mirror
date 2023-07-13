@@ -1,12 +1,11 @@
 import { Schema, NodeType } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
-  createRule,
-  createPlugin,
   createJoinNodesRule,
   createWrappingTextBlockRule,
   ruleWithAnalytics,
 } from '../../../utils/input-rules';
+import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 import { FeatureFlags } from '../../../types/feature-flags';
 
 import {
@@ -25,9 +24,9 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 
-import { HeadingLevelsAndNormalText } from '../types';
+import { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 
 const MAX_HEADING_LEVEL = 6;
 

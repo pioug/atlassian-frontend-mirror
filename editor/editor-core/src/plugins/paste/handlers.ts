@@ -56,8 +56,11 @@ import {
   applyTextMarksToSlice,
   hasOnlyNodesOfType,
 } from './util';
-import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
-import { canLinkBeCreatedInRange } from '../hyperlink/pm-plugins/main';
+import {
+  isListItemNode,
+  isListNode,
+  canLinkBeCreatedInRange,
+} from '@atlaskit/editor-common/utils';
 
 import { insertSliceForLists } from './edge-cases';
 import {

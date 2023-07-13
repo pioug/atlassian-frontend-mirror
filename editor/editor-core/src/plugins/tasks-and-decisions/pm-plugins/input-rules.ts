@@ -5,7 +5,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { EditorState, NodeSelection, TextSelection } from 'prosemirror-state';
 import { canInsert } from 'prosemirror-utils';
 
-import { createRule, createPlugin } from '../../../utils/input-rules';
+import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { INPUT_METHOD } from '../../analytics';
 import {

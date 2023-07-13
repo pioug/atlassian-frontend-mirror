@@ -106,16 +106,17 @@ export interface IconType {
 
 export type DatasourceType =
   | BooleanType
-  | NumberType
-  | StringType
-  | IconType
-  | StatusType
-  | DateType
-  | TimeType
   | DateTimeType
+  | DateType
+  | IconType
+  | LinkType
+  | NumberType
+  | RichTextType
+  | StatusType
+  | StringType
   | TagType
-  | UserType
-  | LinkType;
+  | TimeType
+  | UserType;
 
 export interface DatasourceResponseSchemaProperty {
   key: string;
@@ -210,3 +211,13 @@ export type DatasourceTableStatusType =
 export type DatasourceDetailsRequest = {
   parameters: DatasourceParameters;
 };
+
+export interface RichText {
+  type: 'adf';
+  text: string;
+}
+
+export interface RichTextType {
+  type: 'richtext';
+  value: RichText;
+}

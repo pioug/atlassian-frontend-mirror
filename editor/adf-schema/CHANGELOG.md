@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 26.2.1
+
+### Patch Changes
+
+- [`036351ec788`](https://bitbucket.org/atlassian/atlassian-frontend/commits/036351ec788) - [ED-18768] Make attrs reduce a readonly object
+
 ## 26.2.0
 
 ### Minor Changes

@@ -304,10 +304,7 @@ export const tableStyles = (
 
       margin-top: 2px;
 
-      box-shadow: ${token(
-        'elevation.shadow.overflow',
-        `0 6px 4px -4px ${N40A}`,
-      )};
+      box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)};
       margin-left: -1px;
 
       &.no-pointer-events {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/radio",
-  "version": "5.6.6",
+  "version": "5.6.7",
   "description": "A radio input allows users to select only one option from a number of choices. Radio is generally displayed in a radio group.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -52,13 +52,13 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "*",
     "@testing-library/react": "^12.1.5",
-    "jest-axe": "^4.0.0",
     "react-dom": "^16.8.0",
     "storybook-addon-performance": "^0.16.0",
     "typescript": "~4.9.5"

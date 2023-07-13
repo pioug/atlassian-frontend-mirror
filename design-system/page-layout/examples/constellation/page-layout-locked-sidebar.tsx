@@ -80,6 +80,8 @@ const App = () => {
             </NavigationHeader>
             <NestableNavigationContent initialStack={[]}>
               <Section>
+                {/* TODO: Links should go to an actual anchor or link (DSP-11466). */}
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <LinkItem iconAfter={<Menu />}>Popup</LinkItem>
               </Section>
             </NestableNavigationContent>

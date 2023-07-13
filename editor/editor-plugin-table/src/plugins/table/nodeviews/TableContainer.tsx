@@ -155,6 +155,7 @@ type TableContainerProps = {
   editorView: EditorView;
   getPos: () => number | undefined;
   tableRef: HTMLTableElement;
+  isNested: boolean;
 };
 
 export const TableContainer = ({
@@ -167,10 +168,12 @@ export const TableContainer = ({
   editorView,
   getPos,
   tableRef,
+  isNested,
 }: PropsWithChildren<TableContainerProps>) => {
   if (
     (isFullWidthModeEnabled || isBreakoutEnabled) &&
-    getBooleanFF('platform.editor.custom-table-width')
+    getBooleanFF('platform.editor.custom-table-width') &&
+    !isNested
   ) {
     return (
       <ResizableTableContainer

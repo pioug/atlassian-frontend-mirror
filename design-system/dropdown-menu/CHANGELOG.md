@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.10.5
+
+### Patch Changes
+
+- [`4ae083a7e66`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ae083a7e66) - Use `@af/accessibility-testing` for default jest-axe config and jest-axe import in accessibility testing.
+
 ## 11.10.4
 
 ### Patch Changes

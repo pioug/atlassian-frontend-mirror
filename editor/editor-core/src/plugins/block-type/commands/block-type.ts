@@ -9,8 +9,9 @@ import {
   PANEL,
   HEADINGS_BY_NAME,
   NORMAL_TEXT,
-  HeadingLevelsAndNormalText,
 } from '../types';
+import { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
+
 import { removeBlockMarks } from '../../../utils/mark';
 import { shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
 import { withAnalytics as withAnalyticsDeprecated } from '../../analytics';

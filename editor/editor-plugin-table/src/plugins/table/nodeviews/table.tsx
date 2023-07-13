@@ -31,13 +31,23 @@ import { Props, TableOptions } from './types';
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { isTableNested } from '../utils';
 
 type ForwardRef = (node: HTMLElement | null) => void;
 
-const tableAttributes = (node: PmNode) => {
-  const style = getBooleanFF('platform.editor.custom-table-width')
+const tableAttributes = (
+  node: PmNode,
+  state: EditorState,
+  pos: number | undefined,
+) => {
+  const shouldHaveInlineWidth =
+    getBooleanFF('platform.editor.custom-table-width') &&
+    !isTableNested(state, pos);
+
+  let style = shouldHaveInlineWidth
     ? `width: ${getTableContainerWidth(node)}px`
     : undefined;
+
   return {
     'data-number-column': node.attrs.isNumberColumnEnabled,
     'data-layout': node.attrs.layout,
@@ -57,7 +67,7 @@ const toDOM = (node: PmNode, props: Props) => {
 
   return [
     'table',
-    tableAttributes(node),
+    tableAttributes(node, props.view.state, props.getPos()),
     colgroup,
     ['tbody', 0],
   ] as DOMOutputSpec;
@@ -110,7 +120,7 @@ export default class TableView extends ReactNodeView<Props> {
       return;
     }
 
-    const attrs = tableAttributes(node);
+    const attrs = tableAttributes(node, this.view.state, this.getPos());
     (Object.keys(attrs) as Array<keyof typeof attrs>).forEach((attr) => {
       this.table!.setAttribute(attr, attrs[attr]);
     });

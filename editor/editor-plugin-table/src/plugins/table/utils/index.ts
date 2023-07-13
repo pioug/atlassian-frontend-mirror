@@ -25,6 +25,7 @@ export {
   getTableWidth,
   tablesHaveDifferentColumnWidths,
   tablesHaveDifferentNoOfColumns,
+  isTableNested,
 } from './nodes';
 export {
   unwrapContentFromTable,

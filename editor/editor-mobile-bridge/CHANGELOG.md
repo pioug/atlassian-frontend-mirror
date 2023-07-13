@@ -1,5 +1,36 @@
 # @atlaskit/editor-mobile-bridge
 
+## 185.15.0
+
+### Patch Changes
+
+- [`8b891bf3590`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b891bf3590) - This change introduces `editor-plugin-hyperlink` which separates the hyperlink plugin from `editor-core`. In order to enable this change there are now new entry points on `editor-common` (such as `/link`, `/quick-insert`) in order to separate common code. Further `prosemirror-input-rules` now has new exports of `createPlugin` and `createRule` which are used in many plugins in `editor-core`.
+- Updated dependencies
+
+## 185.14.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.14.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.14.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 185.14.0
 
 ### Patch Changes

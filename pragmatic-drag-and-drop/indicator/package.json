@@ -2,6 +2,17 @@
   "name": "@atlaskit/pragmatic-drag-and-drop-react-indicator",
   "version": "0.14.4",
   "description": "A react addon for @atlaskit/pragmatic-drag-and-drop which will draw drop indicators (eg lines)",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "author": "Atlassian Pty Ltd",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": true,
@@ -14,30 +25,6 @@
       }
     }
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.ts",
-  "af:exports": {
-    ".": "./src/index.ts",
-    "./box": "./src/box.tsx",
-    "./types": "./src/types.ts",
-    "./experimental/tree-item": "./src/experimental/tree-item.tsx"
-  },
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^0.19.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.11.0",
@@ -49,6 +36,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/visual-regression": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/react": "^12.1.5",
@@ -79,6 +67,20 @@
         "static"
       ]
     }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./box": "./src/box.tsx",
+    "./types": "./src/types.ts",
+    "./experimental/tree-item": "./src/experimental/tree-item.tsx"
   },
   "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"

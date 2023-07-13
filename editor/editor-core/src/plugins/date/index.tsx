@@ -17,7 +17,7 @@ import createDatePlugin from './pm-plugins/main';
 import keymap from './pm-plugins/keymap';
 
 import type editorDisabledPlugin from '../editor-disabled';
-import { IconDate } from '../quick-insert/assets';
+import { IconDate } from '@atlaskit/editor-common/quick-insert';
 
 import {
   ACTION,

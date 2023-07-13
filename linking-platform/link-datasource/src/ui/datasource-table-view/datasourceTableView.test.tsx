@@ -158,15 +158,43 @@ describe('DatasourceTableView', () => {
     expect(getByTestId('table-footer')).toBeInTheDocument();
   });
 
+  it('should call reset() when parameters change', () => {
+    const { mockReset } = setup();
+    const { rerender } = renderComponent();
+
+    expect(mockReset).toBeCalledTimes(1);
+
+    const newParameters = {
+      cloudId: 'new-cloud-id',
+      jql: 'some-jql-query',
+    };
+
+    rerender(
+      <IntlProvider locale="en">
+        <DatasourceTableView
+          datasourceId={'some-datasource-id'}
+          parameters={newParameters}
+          visibleColumnKeys={['visible-column-1', 'visible-column-2']}
+          onVisibleColumnKeysChange={jest.fn()}
+        />
+      </IntlProvider>,
+    );
+
+    expect(mockReset).toBeCalledTimes(2);
+  });
+
   describe('when results are not returned', () => {
     it('should show no results if no responseItems are returned', () => {
       const { mockReset } = setup({ responseItems: [] });
       const { getByRole, getByText } = renderComponent();
 
+      // initial load will run reset
+      expect(mockReset).toHaveBeenCalledTimes(1);
+
       expect(getByText('No results found')).toBeInTheDocument();
 
       getByRole('button', { name: 'Refresh' }).click();
-      expect(mockReset).toHaveBeenCalledTimes(1);
+      expect(mockReset).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -175,10 +203,13 @@ describe('DatasourceTableView', () => {
       const { mockReset } = setup({ status: 'rejected' });
       const { getByRole, getByText } = renderComponent();
 
+      // initial load will run reset
+      expect(mockReset).toHaveBeenCalledTimes(1);
+
       expect(getByText('Unable to load issues')).toBeInTheDocument();
 
       getByRole('button', { name: 'Refresh' }).click();
-      expect(mockReset).toHaveBeenCalledTimes(1);
+      expect(mockReset).toHaveBeenCalledTimes(2);
     });
 
     it('should show an unauthorized message on 403 response', () => {

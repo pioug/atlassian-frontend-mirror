@@ -8,7 +8,7 @@ import { ThemeProps } from '@atlaskit/theme/types';
 import { ButtonItem } from '@atlaskit/menu';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
-import IconFallback from '../../quick-insert/assets/fallback';
+import { IconFallback } from '@atlaskit/editor-common/quick-insert';
 import { shortcutStyle } from '../../../ui/styles';
 import type { TypeAheadItem } from '../types';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';

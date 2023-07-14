@@ -11,7 +11,6 @@ export default () => {
   const getContent = () => (isChecked ? uncheckedText : checkedText);
   return (
     <div>
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="Some_ID">Allow pull requests</label>
       <Tooltip content={getContent()} position="right">
         <Toggle

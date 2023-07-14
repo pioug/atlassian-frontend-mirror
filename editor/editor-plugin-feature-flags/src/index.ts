@@ -1,8 +1,7 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { PluginKey } from 'prosemirror-state';
 
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { FeatureFlags, NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 const pluginKey = new PluginKey('featureFlags');
 const featureFlagsPlugin: NextEditorPlugin<

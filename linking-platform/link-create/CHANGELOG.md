@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.8.2
+
+### Patch Changes
+
+- [`90ad796d91c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/90ad796d91c) - Fix fetching hyphened locales to underscores
+
 ## 0.8.1
 
 ### Patch Changes

@@ -1,16 +1,14 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
-import Heading from '@atlaskit/heading';
+import Heading, { HeadingContextProvider } from '@atlaskit/heading';
 import { JiraServiceManagementLogo } from '@atlaskit/logo';
-import Inline from '@atlaskit/primitives/inline';
+import { Box, Inline, Stack } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
   UNSAFE_BREAKPOINTS_CONFIG,
   UNSAFE_buildAboveMediaQueryCSS,
 } from '@atlaskit/primitives/responsive';
-import Stack from '@atlaskit/primitives/stack';
 import Textfield from '@atlaskit/textfield';
 import { useThemeObserver } from '@atlaskit/tokens';
 
@@ -28,6 +26,7 @@ const responsiveWidthSearchStyles = css({
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const dynamicSizedVerticalPaddingStyles = Object.values(
   UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
+    justifyContent: 'center',
     paddingBlock: `calc(${UNSAFE_BREAKPOINTS_CONFIG[breakpoint].gridMargin} * 2)`,
   })),
 );
@@ -35,14 +34,13 @@ const dynamicSizedVerticalPaddingStyles = Object.values(
 const JSMGrid = () => {
   const { colorMode: theme } = useThemeObserver();
   return (
-    <div>
+    <HeadingContextProvider>
       <Box
-        UNSAFE_style={{
+        style={{
           background:
             'linear-gradient(180deg, #0C2759 0%, rgba(12, 39, 89, 0) 77.57%), url(./img/jsm.png)',
           backgroundSize: 'cover, 1440px',
         }}
-        display="block"
       >
         {/* Nav */}
         <Box paddingBlock="space.300" paddingInline="space.400">
@@ -51,19 +49,11 @@ const JSMGrid = () => {
           />
         </Box>
         {/* Search */}
-        <Box
-          justifyContent="center"
-          alignItems="center"
-          paddingBlock="space.1000"
-          UNSAFE_style={{ paddingBottom: 144 }}
-        >
+        <Box paddingBlock="space.1000" style={{ paddingBlockEnd: 144 }}>
           <Grid maxWidth="wide">
             <GridItem start={{ md: 3 }} span={{ md: 8 }}>
               <Stack space="space.200" alignInline="center">
-                <Heading
-                  level="h700"
-                  color={theme === 'light' ? 'inverse' : 'default'}
-                >
+                <Heading level="h700" color="inverse">
                   Welcome to the Internal Help Center
                 </Heading>
                 <Textfield
@@ -76,7 +66,7 @@ const JSMGrid = () => {
           </Grid>
         </Box>
       </Box>
-      <Box css={dynamicSizedVerticalPaddingStyles} justifyContent="center">
+      <div css={dynamicSizedVerticalPaddingStyles}>
         <Stack space="space.800">
           <Grid maxWidth="wide">
             <GridItem span={{ sm: 6, md: 4 }}>
@@ -110,31 +100,55 @@ const JSMGrid = () => {
               </Inline>
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <JSMCard iconColor="information.bold" title="Onboarding" />
+              <JSMCard
+                iconColor="color.background.information.bold"
+                title="Onboarding"
+              />
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <JSMCard iconColor="brand.bold" title="HR Service Desk" />
+              <JSMCard
+                iconColor="color.background.brand.bold"
+                title="HR Service Desk"
+              />
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <JSMCard title="Travel Service desk" iconColor="information" />
+              <JSMCard
+                title="Travel Service desk"
+                iconColor="color.background.information"
+              />
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <JSMCard iconColor="danger.bold" title="SWAGs" />
+              <JSMCard iconColor="color.background.danger.bold" title="SWAGs" />
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <JSMCard iconColor="warning.bold" title="IT Support" />
+              <JSMCard
+                iconColor="color.background.warning.bold"
+                title="IT Support"
+              />
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <JSMCard title="IT Operations" iconColor="discovery" />
+              <JSMCard
+                title="IT Operations"
+                iconColor="color.background.discovery"
+              />
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <JSMCard iconColor="discovery.bold" title="Sales Ops" />
+              <JSMCard
+                iconColor="color.background.discovery.bold"
+                title="Sales Ops"
+              />
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <JSMCard title="Customer Support" iconColor="neutral.bold" />
+              <JSMCard
+                title="Customer Support"
+                iconColor="color.background.neutral.bold"
+              />
             </GridItem>
             <GridItem span={{ sm: 6, md: 4 }}>
-              <JSMCard title="Financial Month End" iconColor="danger" />
+              <JSMCard
+                title="Financial Month End"
+                iconColor="color.background.danger"
+              />
             </GridItem>
           </Grid>
           <Grid maxWidth="wide">
@@ -156,8 +170,8 @@ const JSMGrid = () => {
             </GridItem>
           </Grid>
         </Stack>
-      </Box>
-    </div>
+      </div>
+    </HeadingContextProvider>
   );
 };
 

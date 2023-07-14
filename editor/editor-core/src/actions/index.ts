@@ -1,31 +1,31 @@
 import { Node } from 'prosemirror-model';
+import { NodeSelection, TextSelection } from 'prosemirror-state';
+import { findParentNode, safeInsert } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
 
+import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { ResolvedEditorState } from '@atlaskit/collab-provider';
 import {
   ContextUpdateHandler,
   EditorActionsOptions,
   ReplaceRawValue,
 } from '@atlaskit/editor-common/types';
-
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import type { ResolvedEditorState } from '@atlaskit/collab-provider';
 import type { FeatureFlags, Transformer } from '@atlaskit/editor-common/types';
-import { analyticsEventKey } from '@atlaskit/editor-common/utils';
-import { NodeSelection, TextSelection } from 'prosemirror-state';
-import { findParentNode, safeInsert } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
+import {
+  analyticsEventKey,
+  isEmptyDocument,
+  processRawValue,
+} from '@atlaskit/editor-common/utils';
+
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import { getCollabProvider } from '../plugins/collab-edit/native-collab-provider-plugin';
 import { findNodePosWithLocalId } from '../plugins/extension/utils';
 import { toJSON } from '../utils';
 import {
-  getEditorValueWithMedia,
   __temporaryFixForConfigPanel,
+  getEditorValueWithMedia,
 } from '../utils/action';
 import deprecationWarnings from '../utils/deprecation-warnings';
-import {
-  isEmptyDocument,
-  processRawValue,
-} from '@atlaskit/editor-common/utils';
 import { processRawFragmentValue } from '../utils/document';
 import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
 

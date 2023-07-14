@@ -198,7 +198,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     );
   }
 
-  componentDidUpdate(prevProps: ComponentProps) {
+  componentDidUpdate() {
     const { view, getNode, isMediaFullscreen, allowColumnResizing } =
       this.props;
     const { isInDanger } = getPluginState(view.state);
@@ -268,7 +268,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       );
 
       updateOverflowShadows(this.props.getEditorFeatureFlags)(
-        this.props.view.state,
         this.wrapper,
         this.table,
         rightShadows,

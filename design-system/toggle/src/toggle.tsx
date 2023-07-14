@@ -98,8 +98,7 @@ const Toggle = memo(
     const toggleStyles = useMemo(() => getStyles(size, mode), [size, mode]);
 
     return (
-      // https://product-fabric.atlassian.net/browse/DST-1969
-      // eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for
+      // This may be useless? DSP-11744
       // @ts-ignore
       <label {...controlProps} css={toggleStyles}>
         <input

@@ -1,15 +1,12 @@
-/** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import React, { FC, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
-import Inline from '@atlaskit/primitives/inline';
-import { token } from '@atlaskit/tokens';
-
-const overlayStyles = css({
-  inset: 0,
-  left: token('space.400', '32px'),
+const overlayStyles = xcss({
+  display: 'flex',
+  position: 'absolute',
+  inset: 'space.0',
+  left: 'space.400',
 });
 
 /**
@@ -21,11 +18,11 @@ export const BulkActionOverlay: FC<{ children: ReactNode }> = ({
   children,
 }) => (
   <Box
+    // @ts-expect-error should box support table elements?
     as="th"
-    position="absolute"
     paddingInline="space.100"
     backgroundColor="elevation.surface"
-    css={overlayStyles}
+    xcss={overlayStyles}
   >
     <Inline space="space.300" alignBlock="center">
       {children}

@@ -58,12 +58,16 @@ export const themeStringToObject = (
  * // returns 'dark:dark light:legacy-light spacing:spacing'
  * ```
  */
-export const themeObjectToString = (themeState: Partial<ThemeState>): string =>
-  Object.entries(themeState).reduce<string>(
+export const themeObjectToString = (
+  themeState: Partial<ThemeState>,
+): string => {
+  return Object.entries(themeState).reduce<string>(
     (themeString, [kind, id]) =>
       (kind === 'colorMode' || isThemeKind(kind)) &&
+      typeof id === 'string' &&
       (isThemeIds(id) || isColorMode(id))
         ? themeString + `${themeString ? ' ' : ''}` + `${kind}:${id}`
         : themeString,
     '',
   );
+};

@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 185.16.0
+
+### Minor Changes
+
+- [`5e03045b1a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5e03045b1a0) - Adds support in /jira command to insert jira datasource table
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.15.4
+
+### Patch Changes
+
+- [`9b75434a668`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b75434a668) - Fixing import order in editor-core and feature flags plugin.
+
+## 185.15.2
+
+### Patch Changes
+
+- [`776a88442e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/776a88442e4) - [ux] When on mobile, the datasources will fallback to inline smartcard views.
+
 ## 185.15.0
 
 ### Minor Changes

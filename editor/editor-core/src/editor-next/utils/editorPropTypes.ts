@@ -1,6 +1,6 @@
 import type { IntlShape } from 'react-intl-next';
-import EditorActions from '../../actions';
 
+import EditorActions from '../../actions';
 import { EditorProps } from '../../types/editor-props';
 
 export type Context = {

@@ -3,8 +3,9 @@ import commonMessages, {
   linkMessages,
   linkToolbarMessages,
 } from '@atlaskit/editor-common/messages';
-import { messages as statusMessages } from './plugins/status/nodeviews/messages';
+
 import { messages as dateMessages } from './plugins/date/nodeviews/messages';
+import { messages as statusMessages } from './plugins/status/nodeviews/messages';
 
 export { linkMessages };
 export { statusMessages };

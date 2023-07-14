@@ -1,10 +1,12 @@
 import themeImportMap from '../artifacts/theme-import-map';
-import { THEME_DATA_ATTRIBUTE } from '../constants';
+import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
 import { ThemeIdsWithOverrides } from '../theme-config';
 
 export const loadAndAppendThemeCss = async (themeId: ThemeIdsWithOverrides) => {
   if (
-    document.head.querySelector(`style[${THEME_DATA_ATTRIBUTE}="${themeId}"]`)
+    document.head.querySelector(
+      `style[${THEME_DATA_ATTRIBUTE}="${themeId}"]:not([${CUSTOM_THEME_ATTRIBUTE}])`,
+    )
   ) {
     return;
   }

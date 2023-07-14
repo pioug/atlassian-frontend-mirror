@@ -619,13 +619,15 @@ export const updateExistingDatasource = (
     newAdf.attrs.datasource &&
     node.attrs.datasource
   ) {
-    const newViews =
+    const [newViews] =
       (newAdf.attrs.datasource.views as DatasourceAdfView[]) ?? [];
-    const oldViews = (node.attrs.datasource.views as DatasourceAdfView[]) ?? [];
-    const newColumnKeys = newViews[0]?.properties?.columns.map(
+    const [oldViews] =
+      (node.attrs.datasource.views as DatasourceAdfView[]) ?? [];
+
+    const newColumnKeys = newViews?.properties?.columns.map(
       (column) => column.key,
     );
-    const oldColumnKeys = oldViews[0]?.properties?.columns.map(
+    const oldColumnKeys = oldViews?.properties?.columns.map(
       (column) => column.key,
     );
 
@@ -639,6 +641,30 @@ export const updateExistingDatasource = (
     // datasource to inline
     tr.setNodeMarkup(from, schemaNodes.inlineCard, newAdf.attrs);
   }
+
+  hideDatasourceModal(tr);
+  view.dispatch(tr.scrollIntoView());
+};
+
+export const insertDatasource = (
+  state: EditorState,
+  adf: DatasourceAdf | InlineCardAdf,
+  view: EditorView,
+) => {
+  const {
+    tr,
+    selection: { from },
+    schema: { nodes: schemaNodes },
+  } = state;
+
+  const { attrs, type } = adf;
+
+  const schemaNode =
+    type === 'inlineCard' ? schemaNodes.inlineCard : schemaNodes.blockCard;
+  const newNode = schemaNode.createChecked(attrs);
+  // in future, if we decide to do datasource insertion from the main toolbar, we should probably consider editor-plugin-content-insertion instead of tr.insert
+  // this will allow us to deal with insertions from multiple paths in a more consistent way
+  newNode && tr.insert(from, newNode);
 
   hideDatasourceModal(tr);
   view.dispatch(tr.scrollIntoView());

@@ -32,16 +32,16 @@ describe('table utilities', () => {
 
   describe('pctWidthsForRow', () => {
     it('returns nothing for an empty table and empty row', () => {
-      expect(colWidthsForRow(colgroup, createRow(0))).toEqual('');
+      expect(colWidthsForRow(createRow(0))).toEqual('');
     });
 
     describe('unresized table/no colgroup', () => {
       it('returns 100% for single cell', () => {
-        expect(colWidthsForRow(colgroup, createRow(1))).toEqual('100%');
+        expect(colWidthsForRow(createRow(1))).toEqual('100%');
       });
 
       it('returns split 50% for two cells', () => {
-        expect(colWidthsForRow(colgroup, createRow(2))).toEqual('50% 50%');
+        expect(colWidthsForRow(createRow(2))).toEqual('50% 50%');
       });
 
       it('works for merged cells', () => {
@@ -54,7 +54,7 @@ describe('table utilities', () => {
         // giving 4 visual rows, and only 2 in DOM
 
         // colgroup is still empty
-        expect(colWidthsForRow(colgroup, rowWithColspan)).toEqual('75% 25%');
+        expect(colWidthsForRow(rowWithColspan)).toEqual('75% 25%');
       });
     });
   });

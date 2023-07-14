@@ -103,6 +103,7 @@ export default function Label({
   const { mode } = useGlobalTheme();
 
   return (
+    // TODO: Labels should not have click handlers (DSP-11750)
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <label
       css={[

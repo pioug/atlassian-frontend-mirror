@@ -1,83 +1,80 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/react';
+import React from 'react';
 
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import Grid, { GridContainer, GridItem } from '../src';
 
-const itemProps: BoxProps = {
+const itemStyles = xcss({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   backgroundColor: 'elevation.surface.raised',
   borderColor: 'color.border',
+  // @ts-expect-error
   borderWidth: '3px',
   borderStyle: 'solid',
   height: 'size.600',
   padding: 'space.200',
-} as const;
+});
 
 const NestedGrid = () => {
   return (
-    <div>
-      {/* set maxWidth and hasInlinePadding on GridContainer instead of Grid */}
-      <GridContainer maxWidth={undefined} hasInlinePadding={true}>
-        <Grid>
-          <GridItem span={{ xxs: 4 }}>
-            <Box {...itemProps}>
-              <p style={{ textAlign: 'center' }}>span 4</p>
-            </Box>
-          </GridItem>
-          <GridItem span={{ xxs: 4 }}>
-            <Box {...itemProps}>
-              <p style={{ textAlign: 'center' }}>span 4</p>
-            </Box>
-          </GridItem>
-          <GridItem span={{ xxs: 4 }}>
-            <Box {...itemProps}>
-              <p style={{ textAlign: 'center' }}>span 4</p>
-            </Box>
-          </GridItem>
-        </Grid>
+    /* set maxWidth and hasInlinePadding on GridContainer instead of Grid */
+    <GridContainer maxWidth={undefined} hasInlinePadding={true}>
+      <Grid>
+        <GridItem span={{ xxs: 4 }}>
+          <Box xcss={itemStyles}>
+            <p style={{ textAlign: 'center' }}>span 4</p>
+          </Box>
+        </GridItem>
+        <GridItem span={{ xxs: 4 }}>
+          <Box xcss={itemStyles}>
+            <p style={{ textAlign: 'center' }}>span 4</p>
+          </Box>
+        </GridItem>
+        <GridItem span={{ xxs: 4 }}>
+          <Box xcss={itemStyles}>
+            <p style={{ textAlign: 'center' }}>span 4</p>
+          </Box>
+        </GridItem>
+      </Grid>
 
-        <Grid>
-          <GridItem span={{ xxs: 4 }}>
-            <Box {...itemProps}>
-              <p style={{ textAlign: 'center' }}>span 4</p>
-            </Box>
-          </GridItem>
-          <GridItem span={{ xxs: 8 }}>
-            <Box {...itemProps}>
-              <p style={{ textAlign: 'center' }}>span 8</p>
-            </Box>
-          </GridItem>
-          <GridItem span={{ xxs: 4 }}>
-            <Box {...itemProps}>
-              <p style={{ textAlign: 'center' }}>span 4</p>
-            </Box>
-          </GridItem>
-        </Grid>
+      <Grid>
+        <GridItem span={{ xxs: 4 }}>
+          <Box xcss={itemStyles}>
+            <p style={{ textAlign: 'center' }}>span 4</p>
+          </Box>
+        </GridItem>
+        <GridItem span={{ xxs: 8 }}>
+          <Box xcss={itemStyles}>
+            <p style={{ textAlign: 'center' }}>span 8</p>
+          </Box>
+        </GridItem>
+        <GridItem span={{ xxs: 4 }}>
+          <Box xcss={itemStyles}>
+            <p style={{ textAlign: 'center' }}>span 4</p>
+          </Box>
+        </GridItem>
+      </Grid>
 
-        <Grid>
-          <GridItem span={{ xxs: 4 }}>
-            <Box {...itemProps}>
-              <p style={{ textAlign: 'center' }}>span 4</p>
-            </Box>
-          </GridItem>
-          <GridItem span={{ xxs: 8 }}>
-            <Box {...itemProps}>
-              <p style={{ textAlign: 'center' }}>span 8</p>
-            </Box>
-          </GridItem>
-          <GridItem span={{ xxs: 4 }}>
-            <Box {...itemProps}>
-              <p style={{ textAlign: 'center' }}>span 4</p>
-            </Box>
-          </GridItem>
-        </Grid>
-      </GridContainer>
-    </div>
+      <Grid>
+        <GridItem span={{ xxs: 4 }}>
+          <Box xcss={itemStyles}>
+            <p style={{ textAlign: 'center' }}>span 4</p>
+          </Box>
+        </GridItem>
+        <GridItem span={{ xxs: 8 }}>
+          <Box xcss={itemStyles}>
+            <p style={{ textAlign: 'center' }}>span 8</p>
+          </Box>
+        </GridItem>
+        <GridItem span={{ xxs: 4 }}>
+          <Box xcss={itemStyles}>
+            <p style={{ textAlign: 'center' }}>span 4</p>
+          </Box>
+        </GridItem>
+      </Grid>
+    </GridContainer>
   );
 };
 

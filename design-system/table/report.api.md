@@ -17,26 +17,18 @@
 ```ts
 /// <reference types="react" />
 
-import { BoxProps } from '@atlaskit/ds-explorations/box';
+import { BoxProps } from '@atlaskit/primitives';
 import { FC } from 'react';
 import { jsx } from '@emotion/react';
 import { MemoExoticComponent } from 'react';
 import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
-import { SerializedStyles } from '@emotion/react';
-
-// @public (undocumented)
-const alignMap: {
-  readonly text: SerializedStyles;
-  readonly number: SerializedStyles;
-  readonly icon: SerializedStyles;
-};
 
 // @public (undocumented)
 type BaseCellProps = {
   width?: string;
-  align?: keyof typeof alignMap;
+  align?: 'icon' | 'number' | 'text';
   as?: 'td' | 'th';
   scope?: 'col' | 'row';
   testId?: string;
@@ -44,7 +36,7 @@ type BaseCellProps = {
   colSpan?: number;
 } & Pick<
   BoxProps,
-  'backgroundColor' | 'className' | 'paddingBlock' | 'paddingInline'
+  'backgroundColor' | 'paddingBlock' | 'paddingInline' | 'xcss'
 >;
 
 // @public (undocumented)

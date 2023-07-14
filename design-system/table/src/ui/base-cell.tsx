@@ -1,10 +1,6 @@
-/* eslint-disable @atlassian/tangerine/import/entry-points */
-/** @jsx jsx */
-import { forwardRef, ReactNode } from 'react';
+import React, { forwardRef, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
-
-import Box, { BoxProps } from '@atlaskit/ds-explorations/box';
+import { Box, BoxProps, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 export type BaseCellProps = {
@@ -15,7 +11,7 @@ export type BaseCellProps = {
   /**
    * Horizontal alignment of content.
    */
-  align?: keyof typeof alignMap;
+  align?: 'icon' | 'text' | 'number';
   /**
    * Whether the cell should render as a `td` or `th` element.
    */
@@ -41,7 +37,7 @@ export type BaseCellProps = {
   colSpan?: number;
 } & Pick<
   BoxProps,
-  'paddingBlock' | 'paddingInline' | 'backgroundColor' | 'className'
+  'paddingBlock' | 'paddingInline' | 'backgroundColor' | 'xcss'
 >;
 
 /**
@@ -51,31 +47,27 @@ export type SortDirection = 'ascending' | 'descending' | 'none' | 'other';
 
 type InternalBaseCellProps = BaseCellProps & { sortDirection?: SortDirection };
 
-const baseResetStyles = css({
+const baseResetStyles = xcss({
   display: 'table-cell',
   verticalAlign: 'middle',
-  '&:first-of-type': {
+  ':first-of-type': {
     paddingLeft: token('space.100', '8px'),
   },
-  '&:last-of-type': {
+  ':last-of-type': {
     paddingRight: token('space.100', '8px'),
   },
 });
 
-const alignLeftStyles = css({
-  textAlign: 'left',
-});
-const alignCenterStyles = css({
-  textAlign: 'center',
-});
-const alignRightStyles = css({
-  textAlign: 'right',
-});
-
-const alignMap = {
-  text: alignLeftStyles,
-  number: alignRightStyles,
-  icon: alignCenterStyles,
+const alignMapStyles = {
+  text: xcss({
+    textAlign: 'left',
+  }),
+  icon: xcss({
+    textAlign: 'center',
+  }),
+  number: xcss({
+    textAlign: 'right',
+  }),
 } as const;
 
 /**
@@ -97,23 +89,27 @@ export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
       backgroundColor,
       scope,
       width,
-      className,
+      xcss,
       sortDirection,
       colSpan,
     },
     ref,
   ) => (
     <Box
-      css={[baseResetStyles, alignMap[align]]}
+      xcss={[
+        baseResetStyles,
+        alignMapStyles[align],
+        ...(Array.isArray(xcss) ? xcss : [xcss]),
+      ]}
       ref={ref}
       scope={scope}
       backgroundColor={backgroundColor}
       paddingBlock={paddingBlock}
       paddingInline={paddingInline}
+      // @ts-expect-error
       as={as}
       testId={testId}
-      className={className}
-      UNSAFE_style={width ? { width } : undefined}
+      style={width ? { width } : undefined}
       aria-sort={sortDirection}
       colSpan={colSpan}
     >

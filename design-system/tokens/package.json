@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/tokens",
-  "version": "1.11.3",
+  "version": "1.12.0",
   "description": "Design tokens are the single source of truth to name and store design decisions.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -57,9 +57,7 @@
     "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
-    "@types/chroma-js": "^2.4.0",
     "@types/chrome": "^0.0.171",
-    "chroma-js": "^2.4.2",
     "color-blend": "^4.0.0",
     "copy-webpack-plugin": "^6.4.0",
     "echarts": "^5.4.1",

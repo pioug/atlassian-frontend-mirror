@@ -2,6 +2,7 @@
 import { Ref, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import styled from '@emotion/styled';
 import invariant from 'tiny-invariant';
 
 import { Skeleton } from '@atlaskit/linking-common';
@@ -29,10 +30,16 @@ const tableHeadStyles = css({
   borderTop: '2px solid transparent',
 });
 
-const columnPickerHeaderStyles = css({
-  width: '40px', // TODO use some variable for that?
-  paddingBlock: token('space.100', '8px'),
-});
+const ColumnPickerHeader = styled.td`
+  width: 40px;
+  padding-block: ${token('space.100', '8px')};
+  position: sticky;
+  right: 0px;
+  background-color: ${token('elevation.surface', '#FFF')};
+  &:last-child {
+    padding-right: ${token('space.100', '8px')};
+  }
+`;
 
 const truncatedCellStyles = css({
   overflow: 'hidden',
@@ -381,7 +388,7 @@ export const IssueLikeDataTableView = ({
               }
             })}
             {onVisibleColumnKeysChange && (
-              <th css={columnPickerHeaderStyles}>
+              <ColumnPickerHeader>
                 <ColumnPicker
                   columns={hasFullSchema ? orderedColumns : []}
                   selectedColumnKeys={hasFullSchema ? visibleColumnKeys : []}
@@ -389,7 +396,7 @@ export const IssueLikeDataTableView = ({
                   onSelectedColumnKeysChange={onSelectedColumnKeysChange}
                   onOpen={handlePickerOpen}
                 />
-              </th>
+              </ColumnPickerHeader>
             )}
           </tr>
         </thead>

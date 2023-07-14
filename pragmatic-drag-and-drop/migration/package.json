@@ -38,7 +38,7 @@
     "@atlaskit/pragmatic-drag-and-drop-autoscroll": "^0.5.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.11.0",
     "@atlaskit/pragmatic-drag-and-drop-live-region": "^0.5.0",
-    "@atlaskit/tokens": "^1.11.0",
+    "@atlaskit/tokens": "^1.12.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1",
@@ -51,7 +51,7 @@
   "devDependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/motion": "^1.4.0",
-    "@atlaskit/tokens": "^1.11.0",
+    "@atlaskit/tokens": "^1.12.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^8.17.1",

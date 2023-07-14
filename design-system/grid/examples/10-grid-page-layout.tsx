@@ -1,9 +1,9 @@
+/* eslint-disable @repo/internal/styles/no-nested-styles */
 /** @jsx jsx */
 import { useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import Box from '@atlaskit/ds-explorations/box';
 import {
   Content,
   LeftSidebarWithoutResize,
@@ -12,10 +12,11 @@ import {
   RightPanel,
   TopNavigation,
 } from '@atlaskit/page-layout';
+import { Box, xcss } from '@atlaskit/primitives';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import {
+  media,
   UNSAFE_BREAKPOINTS_CONFIG,
-  UNSAFE_buildAboveMediaQueryCSS,
 } from '@atlaskit/primitives/responsive';
 import Stack from '@atlaskit/primitives/stack';
 
@@ -23,12 +24,28 @@ import { GridProps } from '../src';
 
 import GridCards from './01-grid-cards';
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const dynamicSizedVerticalPaddingStyles = Object.values(
-  UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
-    paddingBlock: UNSAFE_BREAKPOINTS_CONFIG[breakpoint].gridMargin,
-  })),
-);
+const dynamicSizedVerticalPaddingStyles = xcss({
+  [media.above.sm]: {
+    // @ts-expect-error
+    paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.sm.gridMargin,
+  },
+  [media.above.md]: {
+    // @ts-expect-error
+    paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.md.gridMargin,
+  },
+  [media.above.lg]: {
+    // @ts-expect-error
+    paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.lg.gridMargin,
+  },
+  [media.above.xs]: {
+    // @ts-expect-error
+    paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.xs.gridMargin,
+  },
+  [media.above.xl]: {
+    // @ts-expect-error
+    paddingBlock: UNSAFE_BREAKPOINTS_CONFIG.xl.gridMargin,
+  },
+});
 
 export default () => {
   const [maxWidth, setWidth] = useState<GridProps['maxWidth']>(undefined);
@@ -78,7 +95,7 @@ export default () => {
         </LeftSidebarWithoutResize>
 
         <Main testId="main" id="main" skipLinkTitle="Main Content">
-          <Box display="block" css={dynamicSizedVerticalPaddingStyles}>
+          <Box xcss={dynamicSizedVerticalPaddingStyles}>
             <GridCards maxWidth={maxWidth} />
           </Box>
         </Main>

@@ -38,7 +38,6 @@ const Layout = (props: { children: ReactNode }) => (
 );
 
 const H2 = (props: { children: ReactNode }) => (
-  // eslint-disable-next-line jsx-a11y/heading-has-content
   <h2
     css={{
       marginBottom: token('space.100', '8px'),

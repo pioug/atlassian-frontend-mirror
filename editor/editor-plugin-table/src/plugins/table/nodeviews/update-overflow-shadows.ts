@@ -1,4 +1,3 @@
-import { EditorState } from 'prosemirror-state';
 import { TableCssClassName as ClassName } from '../types';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 export const updateShadowListForStickyStyles = (
@@ -25,7 +24,6 @@ export const updateShadowListForStickyStyles = (
 export const updateOverflowShadows =
   (getEditorFeatureFlags: GetEditorFeatureFlags) =>
   (
-    editorState: EditorState,
     wrapper?: HTMLElement | null,
     table?: HTMLElement | null,
     rightShadows?: NodeListOf<HTMLElement> | null,

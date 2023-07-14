@@ -1,4 +1,5 @@
 import { Providers } from '@atlaskit/editor-common/provider-factory';
+
 import { EditorProps } from '../../types/editor-props';
 
 type Complete<T> = {

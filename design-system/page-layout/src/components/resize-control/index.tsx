@@ -432,6 +432,7 @@ const ResizeControl = ({
     maxAriaWidth,
   );
 
+  // TODO: Investigate use of separator role on button (GrabArea) element (DSP-11752)
   /* eslint-disable jsx-a11y/role-supports-aria-props */
   return (
     <Fragment>

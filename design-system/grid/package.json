@@ -12,14 +12,6 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
@@ -33,9 +25,6 @@
       }
     }
   },
-  "af:exports": {
-    ".": "./src/index.tsx"
-  },
   "dependencies": {
     "@atlaskit/primitives": "^1.0.0",
     "@babel/runtime": "^7.0.0",
@@ -46,6 +35,7 @@
     "react": "^16.8.0 || ^17.0.0"
   },
   "devDependencies": {
+    "@af/visual-regression": "*",
     "@atlaskit/primitives": "^1.0.0",
     "@atlaskit/table": "*",
     "@atlaskit/visual-regression": "*",
@@ -69,6 +59,17 @@
       "analytics": "analytics-next",
       "deprecation": "no-deprecated-imports"
     }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx"
   },
   "homepage": "https://atlassian.design/components/grid/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

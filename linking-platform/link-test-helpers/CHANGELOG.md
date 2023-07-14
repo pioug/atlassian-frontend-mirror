@@ -1,5 +1,17 @@
 # @atlaskit/link-test-helpers
 
+## 4.1.4
+
+### Patch Changes
+
+- [`b5eb462a7b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5eb462a7b0) - Update /data response to be in line with real backend response.
+
+## 4.1.3
+
+### Patch Changes
+
+- [`776a88442e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/776a88442e4) - [ux] When on mobile, the datasources will fallback to inline smartcard views.
+
 ## 4.1.2
 
 ### Patch Changes

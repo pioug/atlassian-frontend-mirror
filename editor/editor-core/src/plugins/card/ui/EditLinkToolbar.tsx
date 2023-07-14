@@ -1,10 +1,12 @@
 import React from 'react';
 
 import { Node } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import {
+  DatasourceAdf,
+  ProviderFactory,
+} from '@atlaskit/editor-common/provider-factory';
 import { withOuterListeners } from '@atlaskit/editor-common/ui';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -51,8 +53,8 @@ import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import { FeatureFlags } from '@atlaskit/editor-common/types';
 import type cardPlugin from '../index';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
-import { DatasourceModal } from './DatasourceModal';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 
 export type EditLinkToolbarProps = {
   view: EditorView;
@@ -314,11 +316,17 @@ export const editLinkToolbarConfig = (
 };
 
 export const editDatasource =
-  (editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+  (node: Node, editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
   (state, dispatch) => {
-    if (dispatch) {
+    const modalType =
+      (node.attrs as DatasourceAdf['attrs'])?.datasource.id ===
+      JIRA_LIST_OF_LINKS_DATASOURCE_ID
+        ? 'jira'
+        : undefined;
+
+    if (dispatch && modalType) {
       const { tr } = state;
-      showDatasourceModal(tr);
+      showDatasourceModal(modalType)(tr);
       // editorAnalyticsApi?.attachAnalyticsEvent(
       //   buildEditLinkPayload(
       //     type as
@@ -332,32 +340,3 @@ export const editDatasource =
     }
     return false;
   };
-
-export const openDatasourceModal = ({
-  state,
-  node,
-  editorAnalyticsApi,
-}: {
-  state: EditorState;
-  node: Node;
-  editorAnalyticsApi?: EditorAnalyticsAPI;
-}): FloatingToolbarItem<Command> => {
-  return {
-    type: 'custom',
-    disableArrowNavigation: true,
-    fallback: [],
-    render: (view) => {
-      if (!view) {
-        return null;
-      }
-      return (
-        <DatasourceModal
-          state={state}
-          view={view}
-          node={node}
-          editorAnalyticsApi={editorAnalyticsApi}
-        />
-      );
-    },
-  };
-};

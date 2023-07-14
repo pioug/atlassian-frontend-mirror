@@ -1,4 +1,4 @@
-import { EditorProps, EditorNextProps } from '../../types/editor-props';
+import { EditorNextProps, EditorProps } from '../../types/editor-props';
 import { nextMajorVersion } from '../../version-wrapper';
 
 export default function deprecationWarnings(

@@ -54,7 +54,7 @@ class LayoutButton extends React.Component<Props & WrappedComponentProps, any> {
   private stickyButtonRef = createRef<HTMLDivElement>();
 
   private resizeObserver: ResizeObserver = new ResizeObserver((entries) => {
-    entries.forEach((entry) => {
+    entries.forEach(() => {
       const resizeButton = this.stickyButtonRef.current;
       const tableWrapper = this.props.targetRef;
       if (resizeButton && tableWrapper) {

@@ -1,9 +1,9 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
 import React from 'react';
 
-import { defaultProps } from './editor-next/utils/editorPropTypes';
+import { jsx } from '@emotion/react';
 
+import { defaultProps } from './editor-next/utils/editorPropTypes';
 import { EditorProps } from './types/editor-props';
 
 export type {

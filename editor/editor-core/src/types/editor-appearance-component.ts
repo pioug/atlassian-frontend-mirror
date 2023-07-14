@@ -1,23 +1,27 @@
-import { EditorView } from 'prosemirror-view';
 import { RefObject } from 'react';
+import { ReactElement } from 'react';
+
+import { EditorView } from 'prosemirror-view';
+
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { EventDispatcher } from '../event-dispatcher';
+import type { ReactHookFactory } from '@atlaskit/editor-common/types';
+
 import EditorActions from '../actions';
-import { UIComponentFactory } from '../types/ui-components';
+import { EventDispatcher } from '../event-dispatcher';
+import { CollabEditOptions } from '../plugins/collab-edit/types';
 import {
-  ReactComponents,
   PrimaryToolbarComponents,
+  ReactComponents,
   UseStickyToolbarType,
 } from '../types/editor-props';
-import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
-import { CollabEditOptions } from '../plugins/collab-edit/types';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { EditorAppearance } from './editor-appearance';
+import { UIComponentFactory } from '../types/ui-components';
 import { MenuItem } from '../ui/DropdownMenu/types';
-import { ReactElement } from 'react';
+import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
+
+import { EditorAppearance } from './editor-appearance';
 import { FeatureFlags } from './feature-flags';
-import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 
 export interface EditorAppearanceComponentProps {
   appearance?: EditorAppearance;

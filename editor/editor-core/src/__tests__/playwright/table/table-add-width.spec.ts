@@ -51,6 +51,13 @@ test.describe('Load an existing table with width attr equal null in full-width a
     await expect(editor).toMatchDocument(
       expectedDocuments.fullWidthAppearanceLayoutDefault,
     );
+
+    await test.step('undo should not remove width', async () => {
+      await editor.undo();
+      await expect(editor).toMatchDocument(
+        expectedDocuments.fullWidthAppearanceLayoutDefault,
+      );
+    });
   });
 });
 
@@ -71,6 +78,13 @@ test.describe('Load an existing table layout wide width null in fixed-width appe
     await expect(editor).toMatchDocument(
       expectedDocuments.fixedWidthAppearanceLayoutWide,
     );
+
+    await test.step('undo should not remove width', async () => {
+      await editor.undo();
+      await expect(editor).toMatchDocument(
+        expectedDocuments.fixedWidthAppearanceLayoutWide,
+      );
+    });
   });
 });
 
@@ -92,5 +106,12 @@ test.describe('Load an existing table layout full-width width null in fixed-widt
     await expect(editor).toMatchDocument(
       expectedDocuments.fixedWidthAppearanceLayoutFullWidth,
     );
+
+    await test.step('undo should not remove width', async () => {
+      await editor.undo();
+      await expect(editor).toMatchDocument(
+        expectedDocuments.fixedWidthAppearanceLayoutFullWidth,
+      );
+    });
   });
 });

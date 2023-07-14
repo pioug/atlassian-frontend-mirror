@@ -2,13 +2,14 @@
 import { useEffect } from 'react';
 
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-
+import { ACTION } from '@atlaskit/editor-common/analytics';
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { clearMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
-import { ACTION } from '@atlaskit/editor-common/analytics';
-import { EditorProps, EditorNextProps } from '../../types/editor-props';
+
+import { EditorNextProps, EditorProps } from '../../types/editor-props';
 import measurements from '../../utils/performance/measure-enum';
 import sendDurationAnalytics from '../utils/sendDurationAnalytics';
+
 import useEditorConstructor from './useEditorMeasuresConstructor';
 
 /**

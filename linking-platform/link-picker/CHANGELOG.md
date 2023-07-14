@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.27.1
+
+### Patch Changes
+
+- [`3bebfdcc3ae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3bebfdcc3ae) - [ux] Fix pt-BR messages
+
 ## 1.27.0
 
 ### Minor Changes

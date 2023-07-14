@@ -2,44 +2,30 @@
   "name": "@atlaskit/ds-explorations",
   "version": "2.2.6",
   "description": "An experimental package for exploration and validation of spacing / typography foundations.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "sideEffects": false,
+  "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
     "inPublicMirror": false,
     "releaseModel": "continuous"
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
-  },
-  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
   "scripts": {
     "ak-postbuild": "cd ../../../ && yarn build @atlassian/codegen -d cjs,esm,es2019 && yarn build @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",
     "codegen-styles": "ts-node --project ../../../tsconfig.node.json ./scripts/codegen-styles",
     "prepare": "yarn ak-postbuild"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "module:es2019": "dist/es2019/index.js",
-  "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
-  "sideEffects": false,
-  "atlaskit:src": "src/index.tsx",
-  "af:exports": {
-    ".": "./src/index.tsx",
-    "./box": "./src/components/box.partial.tsx",
-    "./text": "./src/components/text.partial.tsx",
-    "./stack": "./src/components/stack.partial.tsx",
-    "./inline": "./src/components/inline.partial.tsx"
-  },
   "dependencies": {
-    "@atlaskit/tokens": "^1.11.0",
+    "@atlaskit/tokens": "^1.12.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "tiny-invariant": "^1.2.0"
@@ -48,6 +34,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/visual-regression": "*",
     "@atlaskit/ds-lib": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -76,6 +63,21 @@
       "analytics": "analytics-next",
       "deprecation": "no-deprecated-imports"
     }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./box": "./src/components/box.partial.tsx",
+    "./text": "./src/components/text.partial.tsx",
+    "./stack": "./src/components/stack.partial.tsx",
+    "./inline": "./src/components/inline.partial.tsx"
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "homepage": "https://atlaskit.atlassian.com"

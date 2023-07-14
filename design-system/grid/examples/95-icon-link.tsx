@@ -1,22 +1,18 @@
-/** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
-import { jsx } from '@emotion/react';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
-import Inline from '@atlaskit/primitives/inline';
+const iconStyles = xcss({
+  borderRadius: 'border.radius',
+  flexShrink: 0,
+  width: 'size.200',
+  height: 'size.200',
+});
 
-const IconLink: FC<{ children: ReactNode }> = ({ children }) => {
+const IconLink = ({ children }: { children: ReactNode }) => {
   return (
     <Inline space="space.100" alignBlock="center">
-      <Box
-        display="block"
-        borderRadius="normal"
-        backgroundColor="neutral"
-        UNSAFE_style={{ flexShrink: 0 }}
-        width="size.200"
-        height="size.200"
-      />
+      <Box backgroundColor="color.background.neutral" xcss={iconStyles} />
       {children}
     </Inline>
   );

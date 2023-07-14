@@ -119,8 +119,8 @@ export const ColumnPicker = ({
           isSelected={isOpen}
           iconBefore={
             <div>
-              <BoardIcon label="board" size="small" />
-              <ChevronDownIcon label="down" size="small" />
+              <BoardIcon label="board" size="medium" />
+              <ChevronDownIcon label="down" size="medium" />
             </div>
           }
           spacing="compact"

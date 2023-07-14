@@ -1,5 +1,19 @@
 # @atlaskit/tokens
 
+## 1.12.0
+
+### Minor Changes
+
+- [`beba2779d31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/beba2779d31) - Add experimental support for custom theming via the `UNSAFE_themeOptions` field in `themeState`.
+
+  This option is supported in the following functions:
+
+  - `setGlobalTheme()`: optionally generates and loads customized themes based on the options provided, and sets the `data-custom-theme` attribute on page's HTML tag.
+  - `getThemeStyles()`: returns additional style objects for constructing custom theme `<style>` tags.
+  - `getThemeHtmlAttrs()`: now supports the `data-custom-theme` attribute.
+
+  Custom themes are generated at runtime based on the options provided. The theme generation logic is lazy-loaded only when `UNSAFE_themeOptions` is set.
+
 ## 1.11.3
 
 ### Patch Changes

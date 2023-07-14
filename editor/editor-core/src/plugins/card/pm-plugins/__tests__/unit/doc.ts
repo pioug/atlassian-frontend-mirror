@@ -62,6 +62,7 @@ import {
   setSelectedCardAppearance,
   convertHyperlinkToSmartCard,
   updateExistingDatasource,
+  insertDatasource,
 } from '../../doc';
 import { INPUT_METHOD } from '../../../../analytics';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -211,6 +212,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         } as CardPluginState;
         expect(pluginKey.getState(editorView.state)).toEqual(initialState);
 
@@ -260,6 +262,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         } as CardPluginState);
       });
 
@@ -297,6 +300,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         } as CardPluginState);
       });
 
@@ -348,6 +352,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         } as CardPluginState);
 
         // type something in between the links
@@ -372,6 +377,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         } as CardPluginState);
       });
     });
@@ -437,6 +443,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         } as CardPluginState);
         expect(view.state.doc).toEqualDocument(initialDoc);
         expect(rafSchd).toBeCalled();
@@ -480,6 +487,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         } as CardPluginState);
         expect(view.state.doc).toEqualDocument(initialDoc);
         expect(rafSchd).toBeCalled();
@@ -536,6 +544,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         } as CardPluginState);
       });
 
@@ -707,6 +716,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           smartLinkEvents: undefined,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         } as CardPluginState);
       });
     });
@@ -1376,6 +1386,32 @@ describe('card', () => {
 
         expect(editorView.state.doc).toEqualDocument(
           doc(p('{<node>}', inlineCard(getJqlCardAdfAttrs())())),
+        );
+      });
+    });
+
+    describe('insertDatasource()', () => {
+      it('should insert datasource when adf type is "blockCard"', () => {
+        const { editorView } = editor(doc(p()));
+
+        insertDatasource(
+          editorView.state,
+          originalDatasourceAdf as any,
+          editorView,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p(), datasourceRefsNode),
+        );
+      });
+
+      it('should insert a smart card when adf type is "inlineCard"', () => {
+        const { editorView } = editor(doc(p()));
+
+        insertDatasource(editorView.state, inlineCardAdf as any, editorView);
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(p(inlineCard(getCardAdfAttrs())())),
         );
       });
     });

@@ -16,6 +16,8 @@ import {
   DatasourceTableView,
 } from '@atlaskit/link-datasource';
 
+import { InlineCard } from './';
+
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
 import { token } from '@atlaskit/tokens';
 import { akEditorRuleBorderRadius } from '@atlaskit/editor-shared-styles';
@@ -65,11 +67,21 @@ export default function BlockCard(props: {
     location: 'renderer',
   };
 
+  const onError = ({ err }: { err?: Error }) => {
+    if (err) {
+      throw err;
+    }
+  };
+
   if (props.datasource) {
+    if (platform === 'mobile') {
+      return <InlineCard {...props} />;
+    }
+
     const views = props.datasource.views as DatasourceAdfView[];
     const tableView = views.find((view) => view.type === 'table');
 
-    if (tableView && canRenderDatasource(props.datasource)) {
+    if (tableView && canRenderDatasource(props.datasource.id)) {
       const visibleColumnKeys = tableView.properties?.columns.map(
         ({ key }) => key,
       );
@@ -104,12 +116,6 @@ export default function BlockCard(props: {
 
     return null;
   }
-
-  const onError = ({ err }: { err?: Error }) => {
-    if (err) {
-      throw err;
-    }
-  };
 
   return (
     <AnalyticsContext data={analyticsData}>

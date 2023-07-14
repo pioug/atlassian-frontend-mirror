@@ -1,0 +1,57 @@
+{
+  "name": "@atlaskit/codemod-cli",
+  "version": "0.13.3",
+  "description": "A cli for distributing codemods for atlassian-frontend components and services",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "atlaskit:src": "src/index.ts",
+  "atlassian": {
+    "team": "Design System Team",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous"
+  },
+  "scripts": {
+    "prestart": "cd ../../ && yarn build @atlaskit/codemod-utils",
+    "start": "./bin/codemod-cli.js"
+  },
+  "bin": {
+    "codemod-cli": "./bin/codemod-cli.js"
+  },
+  "dependencies": {
+    "@atlaskit/tokens": "^1.12.0",
+    "@babel/runtime": "^7.0.0",
+    "@codeshift/utils": "^0.2.4",
+    "@types/jscodeshift": "^0.11.0",
+    "chalk": "^4.1.2",
+    "enquirer": "^2.3.4",
+    "glob": "^7.1.2",
+    "jscodeshift": "^0.13.0",
+    "meow": "^8.1.1",
+    "postcss": "^8.4.7",
+    "postcss-less": "^6.0.0",
+    "projector-spawn": "^1.0.1",
+    "semver": "^7.5.2",
+    "simple-git": "^3.16.0"
+  },
+  "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "~4.9.5"
+  },
+  "homepage": "https://atlaskit.atlassian.com/packages/monorepo-tooling/codemod-cli",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+}

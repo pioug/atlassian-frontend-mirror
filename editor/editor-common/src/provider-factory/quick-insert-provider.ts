@@ -39,7 +39,8 @@ export type QuickInsertItemId =
   | 'custompanel'
   | 'layout'
   | 'expand'
-  | 'placeholderText';
+  | 'placeholderText'
+  | 'datasource';
 
 export type QuickInsertItem = TypeAheadItem & {
   /** other names used to find the item */

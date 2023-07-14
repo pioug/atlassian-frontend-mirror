@@ -1,78 +1,43 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
 import { render } from '@testing-library/react';
-import type { DatasourceAdf } from '@atlaskit/smart-card';
 
 import { DatasourceModal } from '../DatasourceModal';
+import { DatasourceModalType } from '@atlaskit/editor-common/types';
 
-const mockEditorState = {} as EditorState;
 const mockEditorView = {
   state: {},
   dispatch: jest.fn(),
 } as unknown as EditorView;
 
-const mockJiraDatasourceNode: DatasourceAdf = {
-  type: 'blockCard',
-  attrs: {
-    datasource: {
-      id: 'datasource-id',
-      parameters: { jql: 'EDM=jql', cloudId: 'cloud-id' },
-      views: [
-        {
-          type: 'table',
-          properties: { columns: [{ key: 'col1' }, { key: 'col2' }] },
-        },
-      ],
-    },
-  },
-};
-
-const mockDatasourceNode: DatasourceAdf = {
-  type: 'blockCard',
-  attrs: {
-    datasource: {
-      id: 'datasource-id',
-      parameters: { cloudId: 'cloud-id' },
-      views: [
-        {
-          type: 'table',
-          properties: { columns: [{ key: 'col1' }, { key: 'col2' }] },
-        },
-      ],
-    },
-  },
-};
-
 describe('DatasourceModal', () => {
-  it('should render jira modal if node has JQL in it', async () => {
-    const { getByTestId } = render(
+  const modalTypes: DatasourceModalType[] = ['jira'];
+
+  const setup = (modalType?: DatasourceModalType) =>
+    render(
       <IntlProvider locale="en">
-        <DatasourceModal
-          state={mockEditorState}
-          view={mockEditorView}
-          node={mockJiraDatasourceNode as any}
-        />
+        <DatasourceModal modalType={modalType} view={mockEditorView} />
       </IntlProvider>,
     );
 
-    const jiraModal = getByTestId('jira-config-modal');
-    expect(jiraModal).toBeInTheDocument();
-  });
+  it.each(modalTypes)(
+    'should render the correct modal when modalType is %s',
+    (modalType) => {
+      const { getByTestId } = setup(modalType);
 
-  it('should not render jira modal if node does not have JQL in it', async () => {
-    const { queryByTestId } = render(
-      <IntlProvider locale="en">
-        <DatasourceModal
-          state={mockEditorState}
-          view={mockEditorView}
-          node={mockDatasourceNode as any}
-        />
-      </IntlProvider>,
-    );
+      const jiraModal = getByTestId(`${modalType}-config-modal`);
+      expect(jiraModal).toBeInTheDocument();
+    },
+  );
 
-    const jiraModal = queryByTestId('jira-config-modal');
-    expect(jiraModal).not.toBeInTheDocument();
-  });
+  it.each(modalTypes)(
+    'should not render %s modal when modalType is undefined',
+    (modalType) => {
+      const { queryByTestId } = setup();
+
+      const jiraModal = queryByTestId(`${modalType}-config-modal`);
+      expect(jiraModal).not.toBeInTheDocument();
+    },
+  );
 });

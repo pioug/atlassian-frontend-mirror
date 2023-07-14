@@ -1,11 +1,12 @@
-import { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
+import { DatasourceModalType } from '../types';
+
 const getDatasourceType = (
-  datasource: DatasourceAttributeProperties,
-): 'jira' | undefined => {
-  switch (datasource.id) {
+  datasourceId: string,
+): DatasourceModalType | undefined => {
+  switch (datasourceId) {
     case JIRA_LIST_OF_LINKS_DATASOURCE_ID:
       return 'jira';
 
@@ -15,10 +16,10 @@ const getDatasourceType = (
 };
 
 export const canRenderDatasource = (
-  datasource: DatasourceAttributeProperties,
+  datasourceId: string,
   defaultValue: boolean = true,
 ): boolean => {
-  const datasourceType = getDatasourceType(datasource);
+  const datasourceType = getDatasourceType(datasourceId);
 
   switch (datasourceType) {
     case 'jira':

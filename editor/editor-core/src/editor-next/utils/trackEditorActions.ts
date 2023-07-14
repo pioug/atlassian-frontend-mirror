@@ -1,10 +1,11 @@
-import EditorActions from '../../actions';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   FireAnalyticsCallback,
 } from '@atlaskit/editor-common/analytics';
+
+import EditorActions from '../../actions';
 import { PerformanceTracking } from '../../types/performance-tracking';
 
 /**

@@ -40,7 +40,7 @@ export const hoverMergedCells = () =>
         node: table.node.nodeAt(pos)!,
       }));
 
-      const decorations = createCellHoverDecoration(mergedCells, 'warning');
+      const decorations = createCellHoverDecoration(mergedCells);
 
       return {
         type: 'HOVER_CELLS',

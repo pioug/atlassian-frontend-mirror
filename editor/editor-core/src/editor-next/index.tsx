@@ -1,32 +1,34 @@
 /** @jsx jsx */
-import { Transformer } from '@atlaskit/editor-common/types';
-import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common/ui';
-import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
+import React from 'react';
+
 import { jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { EditorView } from 'prosemirror-view';
-import React from 'react';
-import { name, version } from '../version-wrapper';
+import uuid from 'uuid/v4';
 
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ExperienceStore } from '@atlaskit/editor-common/ufo';
-import uuid from 'uuid/v4';
-import EditorActions from '../actions';
-import { EventDispatcher } from '../event-dispatcher';
 import {
   FireAnalyticsCallback,
   fireAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import { EditorNextProps } from '../types/editor-props';
-import EditorInternal from './editor-internal';
-import { Context, propTypes } from './utils/editorPropTypes';
-import trackEditorActions from './utils/trackEditorActions';
-import onEditorCreated from './utils/onEditorCreated';
-import deprecationWarnings from './utils/deprecationWarnings';
+import { Transformer } from '@atlaskit/editor-common/types';
+import { ExperienceStore } from '@atlaskit/editor-common/ufo';
+import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common/ui';
+import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
+
+import EditorActions from '../actions';
 import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
+import { EventDispatcher } from '../event-dispatcher';
 import { basePlugin } from '../plugins';
+import { EditorNextProps } from '../types/editor-props';
+import { name, version } from '../version-wrapper';
+
+import EditorInternal from './editor-internal';
+import deprecationWarnings from './utils/deprecationWarnings';
+import { Context, propTypes } from './utils/editorPropTypes';
+import onEditorCreated from './utils/onEditorCreated';
+import trackEditorActions from './utils/trackEditorActions';
 
 export default class EditorNext extends React.Component<EditorNextProps> {
   static defaultProps = {

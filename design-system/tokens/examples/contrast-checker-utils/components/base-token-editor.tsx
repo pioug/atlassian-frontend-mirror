@@ -2,7 +2,6 @@
 import { Fragment, useCallback, useState } from 'react';
 
 import { jsx } from '@emotion/react';
-import chroma from 'chroma-js';
 
 import Button from '@atlaskit/button';
 import CheckIcon from '@atlaskit/icon/glyph/check';
@@ -13,6 +12,7 @@ import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
 import palettesRaw from '../../../src/entry-points/palettes-raw';
+import { getAlpha, getContrastRatio } from '../../../src/utils/color-utils';
 import { isHex } from '../utils/search-params';
 import { BaseTokens } from '../utils/types';
 
@@ -30,8 +30,8 @@ export const baseTokens: Record<string, string> = palettesRaw
     {},
   );
 
-const white = chroma('white');
-const black = chroma('black');
+const white = '#ffffff';
+const black = '#000000';
 
 /**
  * Generates a foreground color for a given background. Returns standard
@@ -41,14 +41,14 @@ const black = chroma('black');
  * @returns A hex color that can be used as a foreground
  */
 function generateColorPair(bg: string) {
-  if (chroma(bg).alpha() < 1) {
+  if (getAlpha(bg) < 1) {
     return token('color.text', 'black');
   }
-  const contrastWithWhite = chroma.contrast(bg, white);
+  const contrastWithWhite = getContrastRatio(bg, white);
   if (contrastWithWhite >= 4.5) {
-    return white.hex();
+    return white;
   } else {
-    return black.hex();
+    return black;
   }
 }
 
@@ -56,7 +56,7 @@ const groupedBaseTokens = palettesRaw
   .filter((base) => base.attributes.category !== 'opacity')
   .reduce((acc, baseToken) => {
     const category =
-      chroma(baseToken.value).alpha() < 1
+      typeof baseToken.value === 'string' && getAlpha(baseToken.value) < 1
         ? 'alpha'
         : baseToken.attributes.category;
     acc[category] = [

@@ -97,7 +97,6 @@ describe('Toggle component', () => {
     it('should not have violations when have paired label', async () => {
       const { container } = render(
         <>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
           <label htmlFor="toggle">Toggle</label>
           <Toggle id="toggle" />
         </>,

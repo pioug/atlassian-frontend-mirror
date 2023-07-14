@@ -1,22 +1,24 @@
-import type { EditorView } from 'prosemirror-view';
-import { Transaction, EditorState } from 'prosemirror-state';
-import { Node as PMNode, Fragment, Schema } from 'prosemirror-model';
-import {
-  InsertTypeAheadStep,
-  InsertTypeAheadStages,
-} from '@atlaskit/adf-schema/steps';
 import { closeHistory } from 'prosemirror-history';
-import { pluginKey } from '../pm-plugins/key';
-import { insertBlockNode, insertInlineNodeOrFragment } from '../insert-utils';
-import { StatsModifier } from '../stats-modifier';
+import { Fragment, Node as PMNode, Schema } from 'prosemirror-model';
+import { EditorState, Transaction } from 'prosemirror-state';
+import type { EditorView } from 'prosemirror-view';
+
+import {
+  InsertTypeAheadStages,
+  InsertTypeAheadStep,
+} from '@atlaskit/adf-schema/steps';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+
+import { insertBlockNode, insertInlineNodeOrFragment } from '../insert-utils';
+import { ACTIONS } from '../pm-plugins/actions';
+import { pluginKey } from '../pm-plugins/key';
+import { StatsModifier } from '../stats-modifier';
+import { closeTypeAhead } from '../transforms/close-type-ahead';
 import type {
   TypeAheadHandler,
-  TypeAheadItem,
   TypeAheadInsert,
+  TypeAheadItem,
 } from '../types';
-import { ACTIONS } from '../pm-plugins/actions';
-import { closeTypeAhead } from '../transforms/close-type-ahead';
 import { getPluginState } from '../utils';
 
 const validateNode = ({

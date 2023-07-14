@@ -1,7 +1,9 @@
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import {
+  ProviderFactory,
+  Providers,
+} from '@atlaskit/editor-common/provider-factory';
 
-import { Providers } from '@atlaskit/editor-common/provider-factory';
 import { QuickInsertProvider } from '../../plugins/quick-insert/types';
 
 /**

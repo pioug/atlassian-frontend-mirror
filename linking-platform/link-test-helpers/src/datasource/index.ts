@@ -1,4 +1,5 @@
 import fetchMock from 'fetch-mock/cjs/client';
+import { defaults } from 'json-ld-types';
 
 import {
   DatasourceDataResponse,
@@ -25,6 +26,11 @@ interface FetchMockRequestDetails {
   headers: object;
   method: string;
 }
+
+interface ResolveBatchRequest
+  extends Array<{
+    resourceUrl: string;
+  }> {}
 
 const columns: DatasourceResponseSchemaProperty[] = [
   {
@@ -133,6 +139,42 @@ const detailsResponse: DatasourceDetailsResponse = {
   },
 };
 
+const resolveJqlSuccess = {
+  body: {
+    meta: defaults.meta.granted,
+    data: {
+      '@context': {
+        '@vocab': 'https://www.w3.org/ns/activitystreams#',
+        atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
+        schema: 'http://schema.org/',
+      },
+      generator: {
+        '@type': 'Application',
+        '@id': 'https://www.atlassian.com/#Jira',
+        name: 'Jira',
+      },
+      '@type': ['Document', 'Object'],
+      url: 'https://a4t-moro.jira-dev.com/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC',
+      name: '0 Issues',
+      summary: "JQL Query: 'created >= -30d order by created DESC'",
+    },
+    datasources: [
+      {
+        key: 'datasource-jira-issues',
+        parameters: {
+          jql: 'created >= -30d order by created DESC',
+          cloudId: 'c97a19dd-05c1-4fe4-a742-3ef82dfdf1e7',
+        },
+        id: 'd8b75300-dfda-4519-b6cd-e49abbd50401',
+        ari: 'ari:cloud:linking-platform::datasource/d8b75300-dfda-4519-b6cd-e49abbd50401',
+        description: 'For extracting a list of Jira issues using JQL',
+        name: 'Jira issues',
+      },
+    ],
+  },
+  status: 200,
+};
+
 const generateDataResponse = ({
   cloudId = '',
   maxItems = 99,
@@ -145,77 +187,88 @@ const generateDataResponse = ({
   numberOfLoads?: number;
   includeSchema: boolean;
   isUnauthorized?: boolean;
-}): DatasourceDataResponse => ({
-  meta: {
-    key: 'jira-object-provider',
-    access: isUnauthorized ? 'unauthorized' : 'granted',
-    auth: [],
-    definitionId: 'object-resolver-service',
-    product: 'jira',
-    visibility: 'restricted',
-  },
-  data: {
-    items: mockJiraData.data
-      .slice(0, maxItems)
-      .map((item): DatasourceDataResponseItem => {
-        return {
-          // Fake identifier attribute that is a primitive value.
-          // Adding number of pages to make all issueNumbers unique
-          id: {
-            data: item.issueNumber + numberOfLoads,
-          },
-          type: {
-            data: { source: item.type.source, label: item.type.label },
-          },
-          key: {
-            data: {
-              url: item.link,
-              text: item.issueNumber + numberOfLoads,
-              style: {
-                appearance: 'key',
+}): DatasourceDataResponse => {
+  const schema = {
+    properties: detailsResponse.data.schema.properties.filter(({ key }) => {
+      return initialVisibleColumnKeys.includes(key);
+    }),
+  };
+
+  return {
+    meta: {
+      key: 'jira-object-provider',
+      access: isUnauthorized ? 'unauthorized' : 'granted',
+      auth: [],
+      definitionId: 'object-resolver-service',
+      product: 'jira',
+      visibility: 'restricted',
+    },
+    data: {
+      items: mockJiraData.data
+        .slice(0, maxItems)
+        .map((item): DatasourceDataResponseItem => {
+          return {
+            // Fake identifier attribute that is a primitive value.
+            // Adding number of pages to make all issueNumbers unique
+            id: {
+              data: item.issueNumber + numberOfLoads,
+            },
+            type: {
+              data: { source: item.type.source, label: item.type.label },
+            },
+            key: {
+              data: {
+                url: item.link,
+                text: item.issueNumber + numberOfLoads,
+                style: {
+                  appearance: 'key',
+                },
               },
             },
-          },
-          summary: {
-            data: { url: item.link, text: `[${cloudId}] ${item.summary}` },
-          },
-          assignee: {
-            data: {
-              displayName: item.assignee?.displayName,
-              avatarSource: item.assignee?.source,
+            summary: {
+              data: { url: item.link, text: `[${cloudId}] ${item.summary}` },
             },
-          },
-          priority: {
-            data: { source: item.priority.source, label: item.priority.label },
-          },
-          status: {
-            data: {
-              text: item.status.text,
-              style: {
-                appearance: item?.status?.status,
+            assignee: {
+              data: {
+                displayName: item.assignee?.displayName,
+                avatarSource: item.assignee?.source,
               },
-            } as StatusType['value'],
-          },
-          created: {
-            data: item.created,
-          },
-          due: {
-            data: item.due,
-          },
-          ...(item.labels?.length && {
-            labels: {
-              data: item.labels.map(label => ({ text: label })),
             },
-          }),
-        };
-      }),
-    totalCount:
-      maxItems === 0 || maxItems === 1 ? maxItems : mockJiraData.totalIssues,
-    nextPageCursor:
-      numberOfLoads < 4 && maxItems > 1 ? 'c3RhcnRBdD01' : undefined,
-    ...(includeSchema && { schema: detailsResponse.data.schema }),
-  },
-});
+            priority: {
+              data: {
+                source: item.priority.source,
+                label: item.priority.label,
+              },
+            },
+            status: {
+              data: {
+                text: item.status.text,
+                style: {
+                  appearance: item?.status?.status,
+                },
+              } as StatusType['value'],
+            },
+            created: {
+              data: item.created,
+            },
+            due: {
+              data: item.due,
+            },
+            ...(item.labels?.length && {
+              labels: {
+                data: item.labels.map(label => ({ text: label })),
+              },
+            }),
+          };
+        }),
+      totalCount:
+        maxItems === 0 || maxItems === 1 ? maxItems : mockJiraData.totalIssues,
+      nextPageCursor:
+        numberOfLoads < 4 && maxItems > 1 ? 'c3RhcnRBdD01' : undefined,
+      ...(includeSchema && { schema }),
+    },
+  };
+};
 
 let numberOfLoads = 0;
 
@@ -229,6 +282,27 @@ export const mockDatasourceFetchRequests = (datasourceId?: string | null) => {
     new RegExp(`object-resolver/datasource/${datasourceMatcher}/fetch/details`),
     async () => {
       return new Promise(resolve => resolve(detailsResponse));
+    },
+  );
+
+  // Mock JUST jql=... requests. Kind of related to mocking datasources.
+  fetchMock.post(
+    new RegExp(`object-resolver/resolve/batch`),
+    async (url: string, request: FetchMockRequestDetails) => {
+      const requestJson = JSON.parse(request.body) as ResolveBatchRequest;
+      if (requestJson.length === 1) {
+        const isJqlRequest = new URL(
+          requestJson[0].resourceUrl,
+        ).search.includes('jql=');
+        if (isJqlRequest) {
+          return Promise.resolve([resolveJqlSuccess]);
+        }
+      }
+      return fetchMock.realFetch(url, {
+        method: 'POST',
+        headers: request.headers,
+        body: request.body,
+      });
     },
   );
 

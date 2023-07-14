@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 108.6.10
+
+### Patch Changes
+
+- [`76e2f35ef70`](https://bitbucket.org/atlassian/atlassian-frontend/commits/76e2f35ef70) - Updated `canRenderDatasource` to use object args.
+- Updated dependencies
+
+## 108.6.9
+
+### Patch Changes
+
+- [`4d66cb26fcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d66cb26fcb) - Bump jsdom to ^17.0.0
+- Updated dependencies
+
+## 108.6.8
+
+### Patch Changes
+
+- [`776a88442e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/776a88442e4) - [ux] When on mobile, the datasources will fallback to inline smartcard views.
+
 ## 108.6.7
 
 ### Patch Changes

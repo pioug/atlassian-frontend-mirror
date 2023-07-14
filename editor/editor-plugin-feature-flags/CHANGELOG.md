@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-feature-flags
 
+## 0.1.5
+
+### Patch Changes
+
+- [`9b75434a668`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b75434a668) - Fixing import order in editor-core and feature flags plugin.
+
 ## 0.1.4
 
 ### Patch Changes

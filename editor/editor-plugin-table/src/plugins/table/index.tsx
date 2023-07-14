@@ -66,7 +66,7 @@ import type {
   GetEditorFeatureFlags,
   NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
-import { EditorState, Transaction } from 'prosemirror-state';
+import { Transaction } from 'prosemirror-state';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -218,11 +218,9 @@ const tablesPlugin: NextEditorPlugin<
           plugin: () =>
             tableEditing({
               reportFixedTable: ({
-                state,
                 tr,
                 reason,
               }: {
-                state: EditorState;
                 tr: Transaction;
                 reason: string;
               }) => {
@@ -258,12 +256,9 @@ const tablesPlugin: NextEditorPlugin<
         },
         {
           name: 'tableAddWidth',
-          plugin: ({ dispatch }) =>
+          plugin: () =>
             getBooleanFF('platform.editor.custom-table-width') && options
-              ? createTableAddWidthPlugin(
-                  dispatch,
-                  options.fullWidthEnabled || false,
-                )
+              ? createTableAddWidthPlugin(options.fullWidthEnabled || false)
               : undefined,
         },
 

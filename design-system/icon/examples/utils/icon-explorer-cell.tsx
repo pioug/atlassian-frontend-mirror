@@ -122,6 +122,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
   return (
     <div>
       <Tooltip content={componentName}>
+        {/* TODO: This should be converted to a button (DSP-11749) */}
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */}
         <a css={iconExplorerLinkStyles} onClick={openModal}>
           <Icon label={componentName} size="medium" />

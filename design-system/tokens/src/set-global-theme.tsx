@@ -3,7 +3,12 @@ import { bind, UnbindFn } from 'bind-event-listener';
 import noop from '@atlaskit/ds-lib/noop';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
+import {
+  COLOR_MODE_ATTRIBUTE,
+  CUSTOM_THEME_ATTRIBUTE,
+  THEME_DATA_ATTRIBUTE,
+} from './constants';
+import { CustomBrandSchema } from './custom-theme';
 import {
   DataColorModes,
   ThemeColorModes,
@@ -11,6 +16,9 @@ import {
   ThemeIdsWithOverrides,
   themeIdsWithOverrides,
 } from './theme-config';
+import { isValidBrandHex } from './utils/color-utils';
+import { findMissingCustomStyleElements } from './utils/custom-theme-loading-utils';
+import { hash } from './utils/hash';
 import { loadAndAppendThemeCss, loadThemeCss } from './utils/theme-loading';
 import { themeObjectToString } from './utils/theme-state-transformer';
 
@@ -21,6 +29,7 @@ export interface ThemeState {
   shape?: Extract<ThemeIds, 'shape'>;
   spacing?: Extract<ThemeIds, 'spacing'>;
   typography?: Extract<ThemeIds, 'typography'>;
+  UNSAFE_themeOptions?: CustomBrandSchema;
 }
 
 // Represents theme state once mounted to the page (auto is hidden from observers)
@@ -38,13 +47,14 @@ const darkModeMql =
 
 let unbindThemeChangeListener: UnbindFn = noop;
 
-const themeStateDefaults: ThemeState = {
+export const themeStateDefaults: ThemeState = {
   colorMode: 'auto',
   dark: 'dark',
   light: 'light',
   shape: undefined,
   spacing: undefined,
   typography: undefined,
+  UNSAFE_themeOptions: undefined,
 };
 
 /**
@@ -101,6 +111,7 @@ const getThemePreferences = (
  * @param {string} themeState.shape The shape theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
+ * @param {Object} themeState.UNSAFE_themeOptions The custom branding options to be used for custom theme generation
  * @param {function} themeLoader Callback function used to override the default theme loading functionality.
  *
  * @returns A Promise of an unbind function, that can be used to stop listening for changes to system theme.
@@ -118,6 +129,7 @@ const setGlobalTheme = async (
     shape = themeStateDefaults['shape'],
     spacing = themeStateDefaults['spacing'],
     typography = themeStateDefaults['typography'],
+    UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
   }: Partial<ThemeState> = {},
   themeLoader?: (id: ThemeIdsWithOverrides) => void | Promise<void>,
 ): Promise<UnbindFn> => {
@@ -132,9 +144,39 @@ const setGlobalTheme = async (
 
   const loadingStrategy = themeLoader ? themeLoader : loadAndAppendThemeCss;
 
-  await Promise.all(
-    themePreferences.map(async (themeId) => await loadingStrategy(themeId)),
-  );
+  await Promise.all([
+    ...themePreferences.map(async (themeId) => await loadingStrategy(themeId)),
+    (async () => {
+      if (
+        !themeLoader &&
+        UNSAFE_themeOptions &&
+        isValidBrandHex(UNSAFE_themeOptions?.brandColor)
+      ) {
+        const mode = colorMode || themeStateDefaults['colorMode'];
+        const attrOfMissingCustomStyles = findMissingCustomStyleElements(
+          UNSAFE_themeOptions,
+          mode,
+        );
+
+        if (attrOfMissingCustomStyles.length === 0) {
+          return false;
+        }
+
+        const { loadAndAppendCustomThemeCss } = await import(
+          /* webpackChunkName: "@atlaskit-internal_atlassian-custom-theme" */
+          './custom-theme'
+        );
+        await loadAndAppendCustomThemeCss({
+          colorMode:
+            attrOfMissingCustomStyles.length === 2
+              ? 'auto'
+              : // only load the missing custom theme styles
+                attrOfMissingCustomStyles[0],
+          UNSAFE_themeOptions,
+        });
+      }
+    })(),
+  ]);
 
   if (colorMode === 'auto' && darkModeMql) {
     colorMode = darkModeMql.matches ? 'dark' : 'light';
@@ -155,6 +197,7 @@ const setGlobalTheme = async (
     shape,
     spacing,
     typography,
+    UNSAFE_themeOptions: themeLoader ? undefined : UNSAFE_themeOptions,
   });
 
   Object.entries(themeAttributes).forEach(([key, value]) => {
@@ -181,9 +224,10 @@ export interface ThemeStyles {
  * @param {string} themeState.shape The shape theme to be applied.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
+ * @param {Object} themeState.UNSAFE_themeOptions The custom branding options to be used for custom theme generation
  *
  * @returns A Promise of an object array, containing theme IDs, data-attributes to attach to the theme, and the theme CSS.
- * If an error is encountered while loading themes, the themes arrav will be emptv.
+ * If an error is encountered while loading themes, the themes array will be empty.
  */
 export const getThemeStyles = async (
   preferences?: Partial<ThemeState> | 'all',
@@ -203,26 +247,54 @@ export const getThemeStyles = async (
     });
   }
 
-  const results = await Promise.all(
-    themePreferences.map(async (themeId): Promise<ThemeStyles | undefined> => {
-      try {
-        const css = await loadThemeCss(themeId);
+  const results = await Promise.all([
+    ...themePreferences.map(
+      async (themeId): Promise<ThemeStyles | undefined> => {
+        try {
+          const css = await loadThemeCss(themeId);
 
-        return {
-          id: themeId,
-          attrs: { 'data-theme': themeId },
-          css,
-        };
-      } catch {
-        // Return an empty string if there's an error loading it.
-        return undefined;
+          return {
+            id: themeId,
+            attrs: { 'data-theme': themeId },
+            css,
+          };
+        } catch {
+          // Return undefined if there's an error loading it, will be filtered out later.
+          return undefined;
+        }
+      },
+    ),
+    // Add custom themes if they're present
+    (async () => {
+      if (
+        preferences !== 'all' &&
+        preferences?.UNSAFE_themeOptions &&
+        isValidBrandHex(preferences?.UNSAFE_themeOptions?.brandColor)
+      ) {
+        try {
+          const { getCustomThemeStyles } = await import(
+            /* webpackChunkName: "@atlaskit-internal_atlassian-custom-theme" */
+            './custom-theme'
+          );
+
+          const customThemeStyles = await getCustomThemeStyles({
+            colorMode:
+              preferences?.colorMode || themeStateDefaults['colorMode'],
+            UNSAFE_themeOptions: preferences?.UNSAFE_themeOptions,
+          });
+
+          return customThemeStyles;
+        } catch {
+          // Return undefined if there's an error loading it, will be filtered out later.
+          return undefined;
+        }
       }
-    }),
-  );
+    })(),
+  ]);
 
-  return results.filter<ThemeStyles>(
-    (theme): theme is ThemeStyles => theme !== undefined,
-  );
+  return results
+    .flat()
+    .filter<ThemeStyles>((theme): theme is ThemeStyles => theme !== undefined);
 };
 
 /**
@@ -235,6 +307,7 @@ export const getThemeStyles = async (
  * @param {string} themeState.light The color theme to be applied when the color mode resolves to 'light'.
  * @param {string} themeState.spacing The spacing theme to be applied.
  * @param {string} themeState.typography The typography theme to be applied.
+ * @param {Object} themeState.UNSAFE_themeOptions The custom branding options to be used for custom theme generation
  *
  * @returns {Object} Object of HTML attributes to be applied to the document root
  */
@@ -245,6 +318,7 @@ export const getThemeHtmlAttrs = ({
   shape = themeStateDefaults['shape'],
   spacing = themeStateDefaults['spacing'],
   typography = themeStateDefaults['typography'],
+  UNSAFE_themeOptions = themeStateDefaults['UNSAFE_themeOptions'],
 }: Partial<ThemeState> = {}): Record<string, string> => {
   let themePreferences: Partial<ThemeState> = {
     dark,
@@ -269,11 +343,19 @@ export const getThemeHtmlAttrs = ({
 
   const themeAttribute = themeObjectToString(themePreferences);
 
-  return {
+  const result: Record<string, string> = {
     [THEME_DATA_ATTRIBUTE]: themeAttribute,
     [COLOR_MODE_ATTRIBUTE]:
       colorMode === 'auto' ? (defaultColorMode as string) : colorMode,
   };
+
+  if (UNSAFE_themeOptions && isValidBrandHex(UNSAFE_themeOptions.brandColor)) {
+    const optionString = JSON.stringify(UNSAFE_themeOptions);
+    const uniqueId = hash(optionString);
+    result[CUSTOM_THEME_ATTRIBUTE] = uniqueId;
+  }
+
+  return result;
 };
 
 /**

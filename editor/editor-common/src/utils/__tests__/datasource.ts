@@ -21,7 +21,7 @@ const mockDatasourceParametersWithRealJiraId = {
 
 describe('canRenderDatasource()', () => {
   it('should return true when datasource id is not the real one', () => {
-    const returnValue = canRenderDatasource(mockDatasourceParameters);
+    const returnValue = canRenderDatasource(mockDatasourceParameters.id);
 
     expect(returnValue).toEqual(true);
   });
@@ -30,7 +30,7 @@ describe('canRenderDatasource()', () => {
     'should return default value "%s" when it is passed and when datasource id is not the real one',
     (defaultValue) => {
       const returnValue = canRenderDatasource(
-        mockDatasourceParameters,
+        mockDatasourceParameters.id,
         defaultValue,
       );
 
@@ -38,19 +38,19 @@ describe('canRenderDatasource()', () => {
     },
   );
 
-  describe('when using feature flag', () => {
+  describe('when using a real datasource id along with feature flag', () => {
     ffTest(
       'platform.linking-platform.datasource-jira_issues',
       () => {
         const returnValue = canRenderDatasource(
-          mockDatasourceParametersWithRealJiraId,
+          mockDatasourceParametersWithRealJiraId.id,
         );
 
         expect(returnValue).toEqual(true);
       },
       () => {
         const returnValue = canRenderDatasource(
-          mockDatasourceParametersWithRealJiraId,
+          mockDatasourceParametersWithRealJiraId.id,
         );
 
         expect(returnValue).toEqual(false);

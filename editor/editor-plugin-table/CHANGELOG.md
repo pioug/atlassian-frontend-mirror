@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.1.5
+
+### Patch Changes
+
+- [`c133c710360`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c133c710360) - Fix typing errors
+
 ## 2.1.4
 
 ### Patch Changes

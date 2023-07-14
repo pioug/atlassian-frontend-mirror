@@ -24,7 +24,7 @@ const deleteColumnsCustomStep =
     // Delete the columns
     let mapStart = tr.mapping.maps.length;
     const originalDoc = tr.doc;
-    const deletedColumns = [];
+    const deletedColumns: number[] = [];
     for (let i = rect.left; i < rect.right; i++) {
       const step = AddColumnStep.create(originalDoc, table.pos, i, true);
       deletedColumns.push(i);

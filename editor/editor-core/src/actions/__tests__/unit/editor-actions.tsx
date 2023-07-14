@@ -1,13 +1,11 @@
 import React from 'react';
-import { Node } from 'prosemirror-model';
-import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { EditorActions, MacroAttributes, MacroProvider } from '../../../index';
-import Editor from '../../../editor';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { Transformer } from '@atlaskit/editor-common/types';
-import { render } from '@testing-library/react';
 
+import { render } from '@testing-library/react';
+import { Node } from 'prosemirror-model';
+
+import { Transformer } from '@atlaskit/editor-common/types';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   bodiedExtension,
   doc,
@@ -15,12 +13,16 @@ import {
   extension,
   fragmentMark,
   p,
+  table,
   taskItem,
   taskList,
-  table,
-  tr,
   td,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+
+import Editor from '../../../editor';
+import { EditorActions, MacroAttributes, MacroProvider } from '../../../index';
 
 describe('Editor Actions', () => {
   const transformer = new JSONTransformer();

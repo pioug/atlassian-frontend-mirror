@@ -4,7 +4,7 @@ import type { FC } from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { token } from '@atlaskit/tokens';
 
 import { TH, THProps } from './ui/th';
 
@@ -28,9 +28,16 @@ const HeadCell: FC<THProps> = ({
       backgroundColor={backgroundColor}
     >
       {children && (
-        <Text color="color.text" fontWeight="medium">
+        // migrate to <Text />
+        <span
+          style={{
+            color: token('color.text', '#172B4D'),
+            /* @ts-ignore migrate to Text */
+            fontWeight: token('font.weight.medium', '500'),
+          }}
+        >
           {children}
-        </Text>
+        </span>
       )}
     </TH>
   );

@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.2.7
+
+### Patch Changes
+
+- [`93f5f1a9839`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93f5f1a9839) - [ED-18161] Move transformer tests to their dedicated transformers packages to avoid circular dependencies
+
 ## 11.2.6
 
 ### Patch Changes

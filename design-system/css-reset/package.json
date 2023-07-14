@@ -1,0 +1,87 @@
+{
+  "name": "@atlaskit/css-reset",
+  "version": "6.5.3",
+  "description": "A base stylesheet for the Atlassian Design System.",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "dist/bundle.css",
+  "module": "dist/bundle.css",
+  "module:es2019": "dist/bundle.css",
+  "types": "dist/types/index.d.ts",
+  "atlaskit:src": "src/index.tsx",
+  "atlassian": {
+    "team": "Design System Team",
+    "productPushConsumption": [
+      "jira"
+    ],
+    "releaseModel": "continuous",
+    "website": {
+      "name": "CSS reset",
+      "category": "Libraries"
+    }
+  },
+  "scripts": {
+    "build-css": "ts-node --compiler-options='{ \"module\": \"CommonJS\" }' -P ./tsconfig.json build/js-to-css.tsx",
+    "ak-postbuild": "yarn build-css"
+  },
+  "dependencies": {
+    "@atlaskit/theme": "^12.5.0",
+    "@atlaskit/tokens": "^1.12.0",
+    "@babel/runtime": "^7.0.0",
+    "fbjs": "^3.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@af/visual-regression": "*",
+    "@atlaskit/section-message": "^6.4.0",
+    "@atlaskit/visual-regression": "*",
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
+    "mkdirp": "^0.5.1",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^3.9.0",
+    "typescript": "~4.9.5"
+  },
+  "keywords": [
+    "atlaskit",
+    "css",
+    "ui"
+  ],
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": "atlassian-conventions"
+    },
+    "@repo/internal": {
+      "design-system": "v1",
+      "ui-components": "lite-mode",
+      "design-tokens": [
+        "color",
+        "spacing"
+      ],
+      "deprecation": "no-deprecated-imports"
+    }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./base": "./src/base.tsx",
+    "./browser-fixes": "./src/browser-fixes.tsx",
+    "./reset": "./src/reset.tsx",
+    "./tables": "./src/tables.tsx",
+    "./utils": "./src/utils.tsx"
+  },
+  "homepage": "https://atlassian.design/components/css-reset",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+}

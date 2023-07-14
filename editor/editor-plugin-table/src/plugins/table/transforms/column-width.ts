@@ -207,7 +207,7 @@ export const rescaleColumns =
       const widths: Array<number> = new Array(noOfColumns).fill(
         tableCellMinWidth,
       );
-      const cols = widths.map((width, index) => ({
+      const cols = widths.map((_, index) => ({
         width: tableCellMinWidth,
         minWidth: tableCellMinWidth,
         index,

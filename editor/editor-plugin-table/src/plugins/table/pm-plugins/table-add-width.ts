@@ -2,7 +2,6 @@
  * A plugin for scan the document, add width value to table's width attribute when necessary
  *
  */
-import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   akEditorFullWidthLayoutWidth,
@@ -17,7 +16,7 @@ type __ReplaceStep = ReplaceStep & {
   from: number;
 };
 
-const createPlugin = (dispatch: Dispatch, fullWidthEnabled: boolean) =>
+const createPlugin = (fullWidthEnabled: boolean) =>
   new SafePlugin({
     appendTransaction: (transactions, _oldState, newState) => {
       // When document first load in Confluence, initially it is an empty document
@@ -58,7 +57,7 @@ const createPlugin = (dispatch: Dispatch, fullWidthEnabled: boolean) =>
       const tr = newState.tr;
       const { table } = newState.schema.nodes;
 
-      newState.doc.forEach((node, offset, index) => {
+      newState.doc.forEach((node, offset) => {
         if (node.type === table) {
           const width = node.attrs.width;
           const layout = node.attrs.layout;

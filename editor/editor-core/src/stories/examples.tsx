@@ -1,6 +1,7 @@
 import React from 'react';
+
+import { boolean, object, radios, withKnobs } from '@storybook/addon-knobs';
 import { IntlProvider } from 'react-intl-next';
-import { withKnobs, boolean, radios, object } from '@storybook/addon-knobs';
 
 import Editor, { EditorProps } from '../editor';
 import EditorContext from '../ui/EditorContext';

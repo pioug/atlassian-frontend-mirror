@@ -1,0 +1,6 @@
+{
+    "dependencies": {
+      "@atlaskit/dep3": "foo"
+    }
+  }
+  

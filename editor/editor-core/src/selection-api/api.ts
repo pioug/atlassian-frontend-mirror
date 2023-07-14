@@ -1,8 +1,10 @@
+import type { EditorState, Selection, Transaction } from 'prosemirror-state';
+
 import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
-import type { Transaction, Selection, EditorState } from 'prosemirror-state';
-import type { SelectionPluginState } from '../plugins/selection/types';
+
 import { setSelectionRelativeToNode as setSelectionRelativeToNodeOriginalCommand } from '../plugins/selection/commands';
 import { getPluginState as getSelectionPluginState } from '../plugins/selection/plugin-factory';
+import type { SelectionPluginState } from '../plugins/selection/types';
 
 export type EditorSelectionAPI = {
   setSelectionRelativeToNode: (props: {

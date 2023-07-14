@@ -185,6 +185,8 @@ export type { SnapPointsProps } from './resizable-media-single';
 
 export type { BreakoutMode } from './breakout';
 
+export type { DatasourceModalType } from './datasource';
+
 export type {
   ImageUploadPluginReferenceEventBase,
   ImageUploadPluginReferenceEventDragEvent,

@@ -34,7 +34,6 @@ import {
   buildEditLinkToolbar,
   editLink,
   editLinkToolbarConfig,
-  openDatasourceModal,
 } from './ui/EditLinkToolbar';
 
 import {
@@ -330,7 +329,7 @@ const generateToolbarItems =
       isDatasource &&
       // not showing toolbar in mobile for now since not sure what our plans are for it
       platform !== 'mobile' &&
-      canRenderDatasource(node?.attrs?.datasource);
+      canRenderDatasource(node?.attrs?.datasource?.id);
 
     /* mobile builds toolbar natively using toolbarItems */
     if (pluginState?.showLinkingToolbar && platform !== 'mobile') {
@@ -341,14 +340,6 @@ const generateToolbarItems =
           node,
           featureFlags,
           pluginInjectionApi,
-        }),
-      ];
-    } else if (pluginState?.showDatasourceModal) {
-      return [
-        openDatasourceModal({
-          state,
-          node,
-          editorAnalyticsApi,
         }),
       ];
     } else if (shouldRenderDatasourceToolbar) {
@@ -534,7 +525,7 @@ const getDatasourceButtonGroup = (
       metadata: metadata,
       className: 'datasource-edit',
       title: intl.formatMessage(linkToolbarMessages.editDatasource),
-      onClick: editDatasource(editorAnalyticsApi),
+      onClick: editDatasource(node, editorAnalyticsApi),
     },
   ];
 

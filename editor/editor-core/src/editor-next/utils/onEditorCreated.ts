@@ -1,14 +1,16 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
-
-import { Transformer } from '@atlaskit/editor-common/types';
-import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
 import { EditorView } from 'prosemirror-view';
+
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ACTION } from '@atlaskit/editor-common/analytics';
+import { Transformer } from '@atlaskit/editor-common/types';
+import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
+import { startMeasure, stopMeasure } from '@atlaskit/editor-common/utils';
+
 import EditorActions from '../../actions';
 import { EventDispatcher } from '../../event-dispatcher';
-import { ACTION } from '@atlaskit/editor-common/analytics';
-import { EditorProps, EditorNextProps } from '../../types/editor-props';
+import { EditorNextProps, EditorProps } from '../../types/editor-props';
 import measurements from '../../utils/performance/measure-enum';
+
 import sendDurationAnalytics from './sendDurationAnalytics';
 
 export default function onEditorCreated(

@@ -1,10 +1,13 @@
 import React from 'react';
-import EditorNext from '../../index';
-import createUniversalPreset from '../../../labs/next/presets/universal';
+
 import { render } from '@testing-library/react';
-import { basePlugin } from '../../../plugins';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+
+import createUniversalPreset from '../../../labs/next/presets/universal';
+import { basePlugin } from '../../../plugins';
+import EditorNext from '../../index';
 
 describe('EditorNext', () => {
   describe('render with presets passed in', () => {

@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.7.7
+
+### Patch Changes
+
+- [`ba50169844e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba50169844e) - Remove lookahead and lookbehind in format util to support browsers without that functionality.
+
 ## 12.7.6
 
 ### Patch Changes

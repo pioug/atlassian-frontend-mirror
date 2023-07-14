@@ -167,16 +167,27 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   );
 
   // Stop hover preview content to propagate event to parent.
-  const onChildClick = useCallback(
-    (e) => {
+  const handleChildClick = useCallback(
+    (e, closeOnClick) => {
       if (!allowEventPropagation) {
         e.stopPropagation();
       }
-      if (closeOnChildClick) {
+
+      if (closeOnClick) {
         hideCard();
       }
     },
-    [allowEventPropagation, closeOnChildClick, hideCard],
+    [allowEventPropagation, hideCard],
+  );
+
+  const onContextMenuClick = useCallback(
+    (e) => handleChildClick(e, true),
+    [handleChildClick],
+  );
+
+  const onChildClick = useCallback(
+    (e) => handleChildClick(e, closeOnChildClick),
+    [closeOnChildClick, handleChildClick],
   );
 
   const content = useCallback(
@@ -184,6 +195,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       const hoverCardContentProps = {
         onMouseEnter: initShowCard,
         onMouseLeave: initHideCard,
+        onWheel: initHideCard,
         cardActions: filteredActions,
         cardState: linkState,
         onActionClick,
@@ -227,13 +239,21 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
           onMouseLeave={initHideCard}
           onMouseMove={setMousePosition}
           onClick={onChildClick}
+          onContextMenu={onContextMenuClick}
           data-testid="hover-card-trigger-wrapper"
         >
           {children}
         </span>
       </span>
     ),
-    [children, initHideCard, initShowCard, onChildClick, setMousePosition],
+    [
+      children,
+      initHideCard,
+      initShowCard,
+      onChildClick,
+      onContextMenuClick,
+      setMousePosition,
+    ],
   );
 
   return (

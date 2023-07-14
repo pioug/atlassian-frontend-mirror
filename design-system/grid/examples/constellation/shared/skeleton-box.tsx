@@ -1,18 +1,19 @@
-import React, { FC, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
-import Box from '@atlaskit/ds-explorations/box';
+import { Box, xcss } from '@atlaskit/primitives';
 
-export const SkeletonBox: FC<{ children: ReactNode }> = ({ children }) => (
-  <Box
-    display="flex"
-    alignItems="center"
-    justifyContent="center"
-    backgroundColor="discovery"
-    borderColor="discovery"
-    borderWidth="1px"
-    borderStyle="solid"
-    height="size.400"
-  >
+const skeletonStyles = xcss({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderColor: 'color.border.discovery',
+  borderWidth: 'border.width',
+  borderStyle: 'solid',
+  height: 'size.400',
+});
+
+export const SkeletonBox = ({ children }: { children: ReactNode }) => (
+  <Box backgroundColor="color.background.discovery" xcss={skeletonStyles}>
     {children}
   </Box>
 );

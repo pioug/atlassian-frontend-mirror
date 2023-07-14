@@ -5,7 +5,7 @@ import { LinkAction } from '../../state/hooks-external/useSmartLinkActions';
 import { CardState } from '@atlaskit/linking-common';
 import { AnalyticsHandler } from '../../utils/types';
 import { CardProviderRenderers } from '@atlaskit/link-provider';
-import { ReactElement, MouseEventHandler } from 'react';
+import { MouseEventHandler, ReactElement } from 'react';
 import { JsonLd } from 'json-ld-types';
 
 export interface HoverCardProps extends WithAnalyticsEventsProps {
@@ -95,6 +95,7 @@ export type HoverCardContentProps = {
   url: string;
   onMouseEnter?: MouseEventHandler;
   onMouseLeave?: MouseEventHandler;
+  onWheel?: EventListenerOrEventListenerObject;
   showServerActions?: boolean;
 };
 

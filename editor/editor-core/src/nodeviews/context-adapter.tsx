@@ -1,11 +1,13 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
-import { SmartCardContext } from '@atlaskit/link-provider';
-import type { CardContext as CardContextType } from '@atlaskit/link-provider';
+
 import {
   default as AnalyticsReactContext,
   AnalyticsReactContextInterface,
 } from '@atlaskit/analytics-next-stable-react-context';
+import { SmartCardContext } from '@atlaskit/link-provider';
+import type { CardContext as CardContextType } from '@atlaskit/link-provider';
 
 function useContextMemoized<T>(reactContext: React.Context<T>) {
   const value = React.useContext(reactContext);

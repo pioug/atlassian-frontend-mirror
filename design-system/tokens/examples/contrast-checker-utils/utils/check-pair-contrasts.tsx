@@ -1,4 +1,3 @@
-import chroma from 'chroma-js';
 import { normal } from 'color-blend';
 import flatten from 'lodash/flatten';
 import groupBy from 'lodash/groupBy';
@@ -7,6 +6,7 @@ import generatedPairs from '../../../src/artifacts/generated-pairs';
 import rawTokensDark from '../../../src/artifacts/tokens-raw/atlassian-dark';
 import rawTokensDarkIteration from '../../../src/artifacts/tokens-raw/atlassian-dark-iteration';
 import rawTokensLight from '../../../src/artifacts/tokens-raw/atlassian-light';
+import { getContrastRatio, hexToRgbA } from '../../../src/utils/color-utils';
 
 const groupedTokens: { [key: string]: typeof rawTokensDark } = {};
 ['text', 'link', 'icon', 'border', 'background', 'surface', 'chart'].forEach(
@@ -160,17 +160,17 @@ export default function checkThemePairContrasts(
         const backgroundValue: string = layeredToken
           ? RGBAToString(
               normal(
-                ArrayToRGBA(chroma(backgroundMetadata.value as string).rgba()),
-                ArrayToRGBA(
-                  chroma(layeredTokenMetadata?.value as string).rgba(),
-                ),
+                // @ts-ignore
+                ArrayToRGBA(hexToRgbA(backgroundMetadata.value)),
+                // @ts-ignore
+                ArrayToRGBA(hexToRgbA(layeredTokenMetadata.value)),
               ),
             )
           : (backgroundMetadata.value as string);
 
         var contrast = 0;
         try {
-          contrast = chroma.contrast(
+          contrast = getContrastRatio(
             foregroundMetadata.value as string,
             backgroundValue,
           );

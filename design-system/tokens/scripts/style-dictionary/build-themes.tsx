@@ -20,6 +20,7 @@ import formatterCSSVariables from './formatters/css-variables';
 import formatterCSSVariablesAsModule from './formatters/css-variables-as-module';
 import formatterFigma from './formatters/figma';
 import formatterRaw from './formatters/raw';
+import formatterTSTokenValueForContrastCheck from './formatters/typescript-token-value-for-contrast-check';
 import boxShadowTransform from './transformers/box-shadow';
 import dotSyntax from './transformers/dot-syntax';
 import numberPixelTransform from './transformers/number-pixel';
@@ -65,7 +66,7 @@ const createThemeConfig = (
   baseThemes: string[],
   palette: ReturnType<typeof getPalette>,
 ): Config => {
-  return {
+  const config: Config = {
     parsers: [
       {
         pattern: /\.tsx$/,
@@ -79,6 +80,8 @@ const createThemeConfig = (
       'css/themed-variables-as-module': formatterCSSVariablesAsModule as any,
       'figma/figma-sync': formatterFigma as any,
       raw: formatterRaw as any,
+      'typescript/generate-token-value-for-contrast-check':
+        formatterTSTokenValueForContrastCheck as any,
     },
     transform: {
       'name/dot': dotSyntax,
@@ -149,6 +152,26 @@ const createThemeConfig = (
       },
     },
   };
+
+  if (themeName === 'atlassian-light' || themeName === 'atlassian-dark') {
+    config.platforms.ts = {
+      transforms: [
+        'name/dot',
+        'color/palette',
+        'pixel/rem',
+        'box-shadow/figma',
+      ],
+      buildPath: ARTIFACT_OUTPUT_DIR,
+      files: [
+        {
+          format: 'typescript/generate-token-value-for-contrast-check',
+          destination: `${themeName}-token-value-for-contrast-check.tsx`,
+        },
+      ],
+    };
+  }
+
+  return config;
 };
 
 export default function build(styleDictionary: Core) {

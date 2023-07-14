@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.28.4
+
+### Patch Changes
+
+- [`ab94c1bd7c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab94c1bd7c5) - [ux] Sticky column picker
+
 ## 0.28.3
 
 ### Patch Changes

@@ -170,7 +170,7 @@ export const copyPreviousRow =
     );
 
     let cells = [] as PMNode[];
-    let fixRowspans = [];
+    let fixRowspans: { pos: number; node: PMNode }[] = [];
     for (let i = 0; i < cellsPositionsInOriginalRow.length; ) {
       const pos = cellsPositionsInOriginalRow[i];
       const documentCellPos = pos + table.start;

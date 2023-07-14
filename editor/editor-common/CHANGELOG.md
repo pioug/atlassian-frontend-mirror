@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 74.21.0
+
+### Minor Changes
+
+- [`680a4437157`](https://bitbucket.org/atlassian/atlassian-frontend/commits/680a4437157) - - Adds support for datasource quick insert
+  - Export type `DatasourceModalType`
+
 ## 74.20.0
 
 ### Minor Changes

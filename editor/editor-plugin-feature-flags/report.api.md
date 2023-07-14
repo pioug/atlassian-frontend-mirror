@@ -15,7 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import { FeatureFlags } from '@atlaskit/editor-common/types';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 // @public (undocumented)

@@ -1,5 +1,11 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 8.1.5
+
+### Patch Changes
+
+- [`93f5f1a9839`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93f5f1a9839) - [ED-18161] Move transformer tests to their dedicated transformers packages to avoid circular dependencies
+
 ## 8.1.4
 
 ### Patch Changes

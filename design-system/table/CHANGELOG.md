@@ -1,5 +1,11 @@
 # @atlaskit/table
 
+## 0.4.13
+
+### Patch Changes
+
+- [`a981691b65e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a981691b65e) - Updated internal dependencies.
+
 ## 0.4.12
 
 ### Patch Changes

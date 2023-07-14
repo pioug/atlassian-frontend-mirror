@@ -70,6 +70,7 @@ export default () => (
         padding: token('space.200', '16px'),
       }}
     >
+      {/* TODO: Make emoji accessible (DSP-11751) */}
       {/* eslint-disable-next-line jsx-a11y/accessible-emoji */}
       <b>Scroll across and down ↘️ to see the popper</b>
       <br />

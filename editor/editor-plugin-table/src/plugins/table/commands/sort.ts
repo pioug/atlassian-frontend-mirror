@@ -21,24 +21,24 @@ import {
   TableSortOrder as SortOrder,
 } from '@atlaskit/adf-schema/steps';
 
-function createGetInlineCardTextFromStore(state: EditorState) {
-  return (attrs: CardAttributes): string | null => {
-    const { data } = attrs as DataType;
-    if (data && ((data as any).name || (data as any).title)) {
-      return (data as any).name || (data as any).title;
-    }
+const createGetInlineCardTextFromStore = (
+  attrs: CardAttributes,
+): string | null => {
+  const { data } = attrs as DataType;
+  if (data && ((data as any).name || (data as any).title)) {
+    return (data as any).name || (data as any).title;
+  }
 
-    const { url: cardUrl } = attrs as UrlType;
-    return cardUrl;
-  };
-}
+  const { url: cardUrl } = attrs as UrlType;
+  return cardUrl;
+};
 
 export const sortByColumn = (
   columnIndex: number,
   order: SortOrder = SortOrder.DESC,
 ): Command =>
   createCommand(
-    (state) => ({
+    () => ({
       type: 'SORT_TABLE',
       data: {
         ordering: {
@@ -70,7 +70,7 @@ export const sortByColumn = (
       }
       const compareNodesInOrder = createCompareNodes(
         {
-          getInlineCardTextFromStore: createGetInlineCardTextFromStore(state),
+          getInlineCardTextFromStore: createGetInlineCardTextFromStore,
         },
         order,
       );

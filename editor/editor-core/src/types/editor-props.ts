@@ -1,52 +1,53 @@
+import { ReactElement, RefObject } from 'react';
+
 import { Node, Schema } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
-import { ReactElement, RefObject } from 'react';
-import EditorActions from '../actions';
 
+import { ActivityProvider } from '@atlaskit/activity-provider';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import type {
   ExtensionHandlers,
   ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
   ContextIdentifierProvider,
   Providers,
   SearchProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import type {
-  Transformer,
   AllEditorPresetPluginTypes,
+  Transformer,
 } from '@atlaskit/editor-common/types';
+import type { LinkingOptions } from '@atlaskit/editor-common/types';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
-
-import { ActivityProvider } from '@atlaskit/activity-provider';
+import { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import { TaskDecisionProvider } from '@atlaskit/task-decision';
 
-import { CardOptions } from '@atlaskit/editor-common/card';
-import { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
+import EditorActions from '../actions';
 import { AnnotationProviders } from '../plugins/annotation/types';
 import { BlockTypePluginOptions } from '../plugins/block-type/types';
 import { CodeBlockOptions } from '../plugins/code-block/types';
 import { CollabEditOptions } from '../plugins/collab-edit/types';
 import { DatePluginConfig } from '../plugins/date/types';
 import { FindReplaceOptions } from '../plugins/find-replace/types';
-import type { LinkingOptions } from '@atlaskit/editor-common/types';
 import { LayoutPluginOptions } from '../plugins/layout/types';
 import { MediaOptions, MediaState } from '../plugins/media/types';
+import { MentionPluginConfig } from '../plugins/mentions/types';
+import { PanelPluginConfig } from '../plugins/panel/types';
 import { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
 import { QuickInsertOptions } from '../plugins/quick-insert/types';
 import { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
 import { TextFormattingOptions } from '../plugins/text-formatting/types';
 import { MenuItem } from '../ui/DropdownMenu/types';
-import { MentionPluginConfig } from './../plugins/mentions/types';
-import { PanelPluginConfig } from './../plugins/panel/types';
+
 import { EditorAppearance } from './editor-appearance';
 import { EditorOnChangeHandler } from './editor-onchange';
 import { EditorPlugin } from './editor-plugin';
 import { EmptyStateHandler } from './empty-state-handler';
 import { ExtensionConfig } from './extension-config';
 import { PerformanceTracking } from './performance-tracking';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 

@@ -1,20 +1,17 @@
-/** @jsx jsx */
-import { FC, ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
-import { jsx } from '@emotion/react';
+import { Box, xcss } from '@atlaskit/primitives';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+const cardStyles = xcss({
+  borderColor: 'color.border',
+  borderWidth: 'border.width',
+  borderRadius: 'border.radius.200',
+  borderStyle: 'solid',
+});
 
-const Card: FC<{ children: ReactNode }> = ({ children }) => {
+const Card = ({ children }: { children: ReactNode }) => {
   return (
-    <Box
-      display="block"
-      padding="space.300"
-      borderColor="color.border"
-      borderWidth="1px"
-      borderRadius="badge"
-      borderStyle="solid"
-    >
+    <Box xcss={cardStyles} padding="space.300">
       {children}
     </Box>
   );

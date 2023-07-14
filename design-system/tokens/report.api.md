@@ -536,6 +536,9 @@ const baseSpacingTokens: {
 };
 
 // @public (undocumented)
+type CSSColor = HEX;
+
+// @public (undocumented)
 export type CSSToken = CSSTokenMap[keyof CSSTokenMap];
 
 // @public (undocumented)
@@ -888,6 +891,12 @@ type CSSTokenMap = {
 };
 
 // @public (undocumented)
+export interface CustomBrandSchema {
+  // (undocumented)
+  brandColor: CSSColor;
+}
+
+// @public (undocumented)
 type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
 
 // @public (undocumented)
@@ -960,6 +969,7 @@ export const getThemeHtmlAttrs: ({
   shape,
   spacing,
   typography,
+  UNSAFE_themeOptions,
 }?: Partial<ThemeState>) => Record<string, string>;
 
 // @public
@@ -987,6 +997,9 @@ export type Groups =
   | 'shape'
   | 'spacing'
   | 'typography';
+
+// @public (undocumented)
+type HEX = `#${string}`;
 
 // @public
 type InternalTokenIds =
@@ -1357,7 +1370,15 @@ type Replacement = InternalTokenIds | InternalTokenIds[];
 
 // @public
 export const setGlobalTheme: (
-  { colorMode, dark, light, shape, spacing, typography }?: Partial<ThemeState>,
+  {
+    colorMode,
+    dark,
+    light,
+    shape,
+    spacing,
+    typography,
+    UNSAFE_themeOptions,
+  }?: Partial<ThemeState>,
   themeLoader?:
     | ((id: ThemeIdsWithOverrides) => Promise<void> | void)
     | undefined,
@@ -1511,6 +1532,8 @@ export interface ThemeState {
   spacing?: Extract<ThemeIds, 'spacing'>;
   // (undocumented)
   typography?: Extract<ThemeIds, 'typography'>;
+  // (undocumented)
+  UNSAFE_themeOptions?: CustomBrandSchema;
 }
 
 // @public

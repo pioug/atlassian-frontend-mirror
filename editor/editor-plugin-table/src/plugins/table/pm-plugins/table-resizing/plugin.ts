@@ -52,7 +52,7 @@ export function createPlugin(
           const resizeHandlePos =
             // we're setting `resizeHandlePos` via command in unit tests
             getPluginState(state).resizeHandlePos ||
-            getResizeCellPos(view, event as MouseEvent, lastColumnResizable);
+            getResizeCellPos(view, event as MouseEvent);
 
           const { dragging } = getPluginState(state);
           if (resizeHandlePos !== null && !dragging) {

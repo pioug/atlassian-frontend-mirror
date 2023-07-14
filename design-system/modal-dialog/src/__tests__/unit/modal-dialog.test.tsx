@@ -452,6 +452,7 @@ describe('focus lock', () => {
     expect(getByTestId('input-field-outside-modal')).not.toHaveFocus();
   });
 
+  // TODO: Ensure modals can't have *anything* focusing outside of it (DSP-11753)
   it('Input field outside modal dialog has focus when data-atlas-extension attribute exists and autofocus is turned on', () => {
     const { getByTestId } = render(
       <div>

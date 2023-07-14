@@ -26,6 +26,12 @@ import { pluginKey } from './pm-plugins/plugin-key';
 import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 
 import { mountHyperlinkPlugin } from './pm-plugins/mountHyperlink';
+import { showDatasourceModal } from './pm-plugins/actions';
+import DatasourceModalWithState from './ui/DatasourceModal/ModalWithState';
+import { messages } from './messages';
+import { IconDatasourceJiraIssue } from '@atlaskit/editor-common/quick-insert';
+import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 
 const cardPlugin: NextEditorPlugin<
   'card',
@@ -132,6 +138,7 @@ const cardPlugin: NextEditorPlugin<
             scrollableElement={popupsScrollableElement}
             boundariesElement={popupsBoundariesElement}
           />
+          <DatasourceModalWithState api={api} editorView={editorView} />
         </>
       );
     },
@@ -151,6 +158,28 @@ const cardPlugin: NextEditorPlugin<
         options.linkPicker,
         api,
       ),
+      quickInsert: ({ formatMessage }) => {
+        if (canRenderDatasource(JIRA_LIST_OF_LINKS_DATASOURCE_ID)) {
+          return [
+            {
+              id: 'datasource',
+              title: formatMessage(messages.datasourceJiraIssue),
+              description: formatMessage(
+                messages.datasourceJiraIssueDescription,
+              ),
+              keywords: ['jira'],
+              icon: () => <IconDatasourceJiraIssue />,
+              action(insert) {
+                const tr = insert(undefined);
+                showDatasourceModal('jira')(tr);
+                return tr;
+              },
+            },
+          ];
+        }
+
+        return [];
+      },
     },
   };
 };

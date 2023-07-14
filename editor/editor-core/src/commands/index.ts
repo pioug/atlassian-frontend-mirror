@@ -1,8 +1,8 @@
 import {
   Fragment,
-  Node as PMNode,
-  NodeType,
   MarkType,
+  NodeType,
+  Node as PMNode,
   Schema,
 } from 'prosemirror-model';
 import {
@@ -12,17 +12,19 @@ import {
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
+
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { canMoveDown, canMoveUp } from '../utils';
-import { Command } from '../types';
+
+import { AlignmentState } from '../plugins/alignment/pm-plugins/types';
 import {
-  withAnalytics,
-  EVENT_TYPE,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
+  EVENT_TYPE,
+  withAnalytics,
 } from '../plugins/analytics';
-import { AlignmentState } from '../plugins/alignment/pm-plugins/types';
+import { Command } from '../types';
+import { canMoveDown, canMoveUp } from '../utils';
 
 export function preventDefault(): Command {
   return function () {

@@ -75,6 +75,7 @@ export const createPlugin =
             smartLinkEventsNext: undefined,
             editorAppearance,
             showDatasourceModal: false,
+            datasourceModalType: undefined,
             datasourceTableRef: undefined,
             layout: undefined,
           };
@@ -230,7 +231,10 @@ export const createPlugin =
             const isDatasource = !!node?.attrs?.datasource;
 
             if (isDatasource) {
-              if (canRenderDatasource(node?.attrs?.datasource)) {
+              if (
+                platform !== 'mobile' &&
+                canRenderDatasource(node?.attrs?.datasource?.id)
+              ) {
                 return new Datasource({
                   node,
                   view,

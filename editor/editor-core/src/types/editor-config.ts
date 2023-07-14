@@ -1,11 +1,14 @@
-import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
-import { Transaction, EditorState } from 'prosemirror-state';
-import { PMPlugin } from './pm-plugin';
-import { MarkConfig, NodeConfig } from './pm-config';
+import { EditorState, Transaction } from 'prosemirror-state';
+
 import type {
-  UIComponentFactory,
   ReactHookFactory,
+  UIComponentFactory,
 } from '@atlaskit/editor-common/types';
+
+import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
+
+import { MarkConfig, NodeConfig } from './pm-config';
+import { PMPlugin } from './pm-plugin';
 
 type EditorViewStateUpdatedCallbackProps = {
   readonly originalTransaction: Readonly<Transaction>;

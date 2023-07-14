@@ -60,6 +60,7 @@ describe('card', () => {
           provider,
           showLinkingToolbar: false,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
           datasourceTableRef: undefined,
           layout: undefined,
         });

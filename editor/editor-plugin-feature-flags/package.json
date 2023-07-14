@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-feature-flags",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Feature flags plugin for @atlaskit/editor-core",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.20.0",
+    "@atlaskit/editor-common": "^74.21.0",
     "@babel/runtime": "^7.0.0",
     "prosemirror-state": "1.3.4"
   },
@@ -40,11 +40,19 @@
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-level"
+      ]
+    },
     "@repo/internal": {
+      "deprecation": "no-deprecated-imports",
       "design-tokens": [
         "color"
       ],
-      "deprecation": "no-deprecated-imports",
       "styling": [
         "emotion"
       ]

@@ -5,6 +5,8 @@ import {
 } from '../__helpers/testing-example-helpers';
 import datasourceAdf from './__fixtures__/datasource-adf.json';
 
+const selector = '[data-testid="datasource-table-view"]';
+
 BrowserTestCase(
   `Can see a rendered datasource table`,
   { skip: ['firefox', 'safari'] },
@@ -12,9 +14,7 @@ BrowserTestCase(
     const page = await goToRendererTestingExample(client);
     await mountRenderer(page, { withRendererActions: true }, datasourceAdf);
 
-    const found = await page.waitForSelector(
-      '[data-testid="datasource-table-view"]',
-    );
+    const found = await page.waitForSelector(selector);
     expect(found).toBe(true);
   },
 );

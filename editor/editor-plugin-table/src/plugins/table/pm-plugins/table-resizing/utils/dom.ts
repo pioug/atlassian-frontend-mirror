@@ -65,7 +65,6 @@ export const updateControls =
     );
 
     updateOverflowShadows(getEditorFeatureFlags)(
-      state,
       wrapper,
       tableRef,
       rightShadows,
@@ -85,7 +84,6 @@ export const isClickNear = (
 export const getResizeCellPos = (
   view: EditorView,
   event: MouseEvent,
-  lastColumnResizable: boolean,
 ): number | null => {
   const target = event.target as HTMLElement;
 
@@ -124,7 +122,7 @@ export const applyColWidthsToStickyRow = (
   headerRow: HTMLTableRowElement,
 ) => {
   // sync column widths for the sticky row
-  const newCols = colWidthsForRow(colGroup, headerRow);
+  const newCols = colWidthsForRow(headerRow);
 
   if (newCols) {
     headerRow.style.gridTemplateColumns = newCols;

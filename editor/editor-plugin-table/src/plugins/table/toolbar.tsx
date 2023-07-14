@@ -464,7 +464,6 @@ export const getToolbarConfig =
         state,
         menu,
         intl,
-        getEditorContainerWidth,
         editorAnalyticsAPI,
         tableCellOptionsInFloatingToolbar,
       );
@@ -614,7 +613,6 @@ const getColorPicker = (
   state: EditorState,
   menu: FloatingToolbarItem<Command>,
   { formatMessage }: ToolbarMenuContext,
-  getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined,
   tableCellOptionsInFloatingToolbar?: boolean,
 ): Array<FloatingToolbarItem<Command>> => {

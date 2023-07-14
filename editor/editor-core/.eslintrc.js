@@ -20,6 +20,8 @@ module.exports = {
       },
     ],
     'react/no-danger': 'error',
+    'no-duplicate-imports': 'off',
+    '@typescript-eslint/no-duplicate-imports': 'warn',
   },
   overrides: [
     {

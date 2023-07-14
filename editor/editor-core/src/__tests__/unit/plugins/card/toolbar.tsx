@@ -1132,52 +1132,6 @@ describe('card', () => {
         expect(open).toBeCalledWith(mockJqlUrl);
       });
 
-      it('shows modal after edit button is clicked', () => {
-        const { editorView } = editor(
-          doc(
-            p('ab'),
-            '{<node>}',
-            datasourceBlockCard(datasourceWithUrlAdfAttrs)(),
-            p('cd'),
-          ),
-        );
-
-        const toolbar = floatingToolbar({}, featureFlagsMock)(
-          editorView.state,
-          intl,
-          providerFactory,
-        );
-
-        if (!toolbar) {
-          return expect(toolbar).toBeTruthy();
-        }
-
-        const editButton = getToolbarButtonByTitle(
-          toolbar,
-          editorView,
-          editDatasourceTitle,
-        );
-
-        editButton.onClick(editorView.state, editorView.dispatch);
-
-        const toolbarAfterClick = floatingToolbar(
-          {},
-          featureFlagsMock,
-          undefined,
-          undefined,
-          mockPluginInjectionApi,
-        )(editorView.state, intl, providerFactory);
-
-        if (!toolbarAfterClick) {
-          return expect(toolbarAfterClick).toBeTruthy();
-        }
-
-        const modal = getToolbarItems(toolbarAfterClick, editorView).find(
-          (item) => item.type === 'custom',
-        );
-        expect(modal).toBeDefined();
-      });
-
       it('deletes a datasource block card', () => {
         const { editorView } = editor(
           doc(
@@ -1205,6 +1159,94 @@ describe('card', () => {
         );
         removeButton.onClick(editorView.state, editorView.dispatch);
         expect(editorView.state.doc).toEqualDocument(doc(p('ab'), p('cd')));
+      });
+
+      describe('shows modal after edit button is clicked when the feature flag is ON', () => {
+        ffTest(
+          'platform.linking-platform.datasource-jira_issues',
+          () => {
+            const { editorView, pluginState } = editor(
+              doc(
+                p('ab'),
+                '{<node>}',
+                datasourceBlockCard(datasourceAdfAttrsWithRealJiraId)(),
+                p('cd'),
+              ),
+            );
+
+            const toolbar = floatingToolbar({}, featureFlagsMock)(
+              editorView.state,
+              intl,
+              providerFactory,
+            );
+
+            if (!toolbar) {
+              return expect(toolbar).toBeTruthy();
+            }
+
+            expect(pluginState.datasourceModalType).toBeUndefined();
+            expect(pluginState.showDatasourceModal).toEqual(false);
+
+            const editButton = getToolbarButtonByTitle(
+              toolbar,
+              editorView,
+              editDatasourceTitle,
+            );
+
+            editButton.onClick(editorView.state, editorView.dispatch);
+
+            const toolbarAfterClick = floatingToolbar(
+              {},
+              featureFlagsMock,
+              undefined,
+              undefined,
+              mockPluginInjectionApi,
+            )(editorView.state, intl, providerFactory);
+
+            if (!toolbarAfterClick) {
+              return expect(toolbarAfterClick).toBeTruthy();
+            }
+
+            const pluginStateAfterClick = pluginKey.getState(editorView.state);
+            expect(pluginStateAfterClick?.datasourceModalType).toEqual('jira');
+            expect(pluginStateAfterClick?.showDatasourceModal).toEqual(true);
+          },
+          () => {
+            const { editorView, pluginState } = editor(
+              doc(
+                p('ab'),
+                '{<node>}',
+                datasourceBlockCard(datasourceAdfAttrsWithRealJiraId)(),
+                p('cd'),
+              ),
+            );
+
+            const toolbar = floatingToolbar({}, featureFlagsMock)(
+              editorView.state,
+              intl,
+              providerFactory,
+            );
+
+            if (!toolbar) {
+              return expect(toolbar).toBeTruthy();
+            }
+
+            expect(pluginState.datasourceModalType).toBeUndefined();
+            expect(pluginState.showDatasourceModal).toEqual(false);
+
+            const editButton = getToolbarButtonByTitle(
+              toolbar,
+              editorView,
+              'Edit link',
+            );
+
+            editButton.onClick(editorView.state, editorView.dispatch);
+
+            const pluginStateAfterClick = pluginKey.getState(editorView.state);
+            expect(pluginStateAfterClick?.datasourceModalType).toBeUndefined();
+            expect(pluginStateAfterClick?.showDatasourceModal).toEqual(false);
+          },
+        );
       });
 
       describe('when using feature flag', () => {

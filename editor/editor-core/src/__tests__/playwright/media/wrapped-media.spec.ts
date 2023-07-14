@@ -44,12 +44,6 @@ test.describe('wrapped media', () => {
     test('should set the selection after the wrapped media', async ({
       editor,
     }) => {
-      fixTest({
-        jiraIssueId: 'ED-19013',
-        reason:
-          'waits in test are inaccurate so sometimes table cell has 3 children instead of 4',
-      });
-
       const nodes = EditorNodeContainerModel.from(editor);
       const firstMedia = nodes.media.first();
 
@@ -71,12 +65,6 @@ test.describe('wrapped media', () => {
       test('should insert the content right after the wrapper media', async ({
         editor,
       }) => {
-        fixTest({
-          jiraIssueId: 'ED-19013',
-          reason:
-            'waits in test are inaccurate so sometimes table cell has 3 children instead of 4',
-        });
-
         const nodes = EditorNodeContainerModel.from(editor);
         const firstMedia = nodes.media.first();
 

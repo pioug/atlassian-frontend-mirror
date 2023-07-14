@@ -48,6 +48,7 @@ const PopupContent: FC = () => {
         )}
         offset={[0, 12]}
         trigger={(triggerProps) => (
+          // TODO: Use a button instead of an a (DSP-11749)
           // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
           <a
             id="popup-trigger"

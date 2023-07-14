@@ -52,7 +52,10 @@ import {
 } from './__mocks__/mocks';
 import * as HoverCardComponent from '../components/HoverCardComponent';
 import { HoverCard } from '../index';
-import { HoverCard as StandaloneHoverCard } from '../../../hoverCard';
+import {
+  HoverCard as StandaloneHoverCard,
+  HoverCardProps,
+} from '../../../hoverCard';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
@@ -160,6 +163,29 @@ describe('HoverCard', () => {
       analyticsSpy,
       dateSpy,
     };
+  };
+
+  const commonTests = (setupComponent: () => ReturnType<typeof setup>) => {
+    it('should close hover card when a user right clicks on child', async () => {
+      const { element, findByTestId, queryByTestId } = await setupComponent();
+
+      expect(await findByTestId('hover-card')).toBeDefined();
+      fireEvent.contextMenu(element);
+
+      expect(queryByTestId('hover-card')).toBeNull();
+    });
+
+    it('should hide a hover card when user try to scroll (wheel)', async () => {
+      const testId = 'hover-card-content';
+      const { findByTestId, queryByTestId } = await setupComponent();
+      jest.runAllTimers();
+
+      const content = await findByTestId(testId);
+      fireEvent.wheel(content);
+      jest.runAllTimers();
+
+      expect(queryByTestId(testId)).not.toBeInTheDocument();
+    });
   };
 
   const setupEventPropagationTest = async ({
@@ -308,21 +334,6 @@ describe('HoverCard', () => {
     });
   };
 
-  beforeEach(() => {
-    mockGetEntries = jest
-      .fn()
-      .mockImplementation(() => [{ isIntersecting: true }]);
-    mockIntersectionObserverOpts = {
-      disconnect: jest.fn(),
-      getMockEntries: mockGetEntries,
-    };
-    // Gives us access to a mock IntersectionObserver, which we can
-    // use to spoof visibility of a Smart Link.
-    window.IntersectionObserver = MockIntersectionObserverFactory(
-      mockIntersectionObserverOpts,
-    );
-  });
-
   afterEach(() => {
     jest.useRealTimers();
     jest.restoreAllMocks();
@@ -343,6 +354,8 @@ describe('HoverCard', () => {
         mockIntersectionObserverOpts,
       );
     });
+
+    commonTests(() => setup());
 
     it('renders hover card', async () => {
       const { findByTestId } = await setup();
@@ -1378,6 +1391,16 @@ describe('HoverCard', () => {
         expect(queryByTestId(hoverCardTestId)).not.toBeInTheDocument();
       };
 
+      const setupComponent = () =>
+        setup({
+          extraCardProps: {
+            appearance: 'block',
+            children: <TitleBlock />,
+          },
+          testId: 'hover-card-trigger-wrapper',
+        });
+      commonTests(setupComponent);
+
       it('renders hover card', async () => {
         const hoverCardTestId = 'hover-card';
         const renderResult = await setup({
@@ -1902,17 +1925,25 @@ describe('HoverCard', () => {
   });
 
   describe('standalone hover card', () => {
-    it('should render a hover card over a div', async () => {
-      const testId = 'hover-test-div';
+    const childTestId = 'hover-test-div';
+
+    const standaloneSetUp = async (props?: Partial<HoverCardProps>) => {
       const hoverCardComponent = (
-        <StandaloneHoverCard url={mockUrl}>
-          <div data-testid={testId}>Hover on me</div>
+        <StandaloneHoverCard url={mockUrl} {...props}>
+          <div data-testid={childTestId}>Hover on me</div>
         </StandaloneHoverCard>
       );
-      const { findByTestId } = await setup({
-        testId,
+
+      return await setup({
+        testId: childTestId,
         component: hoverCardComponent,
       });
+    };
+
+    commonTests(standaloneSetUp);
+
+    it('should render a hover card over a div', async () => {
+      const { findByTestId } = await standaloneSetUp();
       jest.runAllTimers();
       const titleBlock = await findByTestId('smart-block-title-resolved-view');
       await findByTestId('smart-block-metadata-resolved-view');
@@ -1931,15 +1962,8 @@ describe('HoverCard', () => {
     });
 
     it('should not show the full screen view action if disabled via prop', async () => {
-      const testId = 'hover-test-div';
-      const hoverCardComponent = (
-        <StandaloneHoverCard url={mockUrl} hidePreviewButton={true}>
-          <div data-testid={testId}>Hover on me</div>
-        </StandaloneHoverCard>
-      );
-      const { findByTestId, queryByTestId } = await setup({
-        testId,
-        component: hoverCardComponent,
+      const { findByTestId, queryByTestId } = await standaloneSetUp({
+        hidePreviewButton: true,
       });
       jest.runAllTimers();
       const footerBlock = await findByTestId(
@@ -2335,17 +2359,6 @@ describe('HoverCard', () => {
         jest.resetAllMocks();
       });
 
-      it('should not call loadMetadata if link state is not pending', async () => {
-        await setup();
-
-        jest
-          .spyOn(useSmartCardActions, 'useSmartCardActions')
-          .mockImplementation(() => mockedActions);
-
-        jest.advanceTimersByTime(100);
-        expect(loadMetadataSpy).toHaveBeenCalledTimes(0);
-      });
-
       it('should not call loadMetadata if mouseLeave is fired before the delay runs out', async () => {
         const component = (
           <StandaloneHoverCard url={'test.url'}>
@@ -2473,6 +2486,48 @@ describe('HoverCard', () => {
         jest.advanceTimersByTime(99);
 
         expect(loadMetadataSpy).toHaveBeenCalledTimes(1);
+      });
+    });
+
+    describe('with closeOnChildClick', () => {
+      const testId = 'hover-test-div';
+      const mockFetch = jest.fn(() => Promise.resolve(mockConfluenceResponse));
+      const mockClient = new (fakeFactory(mockFetch))();
+
+      const getHoverCard = (closeOnChildClick: boolean) => (
+        <Provider client={mockClient}>
+          <StandaloneHoverCard
+            url={mockUrl}
+            id="some-id"
+            closeOnChildClick={closeOnChildClick}
+          >
+            <div data-testid={testId}>Hover on me</div>
+          </StandaloneHoverCard>
+        </Provider>
+      );
+
+      it('should close hoverCard when a user clicks on a child when closeOnChildClick is true', async () => {
+        const { findByTestId, queryByTestId } = await setup({
+          component: getHoverCard(true),
+          testId: testId,
+        });
+
+        expect(await findByTestId('hover-card')).toBeDefined();
+        fireEvent.click(await findByTestId(testId));
+
+        expect(queryByTestId('hover-card')).toBeNull();
+      });
+
+      it('should not close hoverCard when a user clicks on a child when closeOnChildClick is false', async () => {
+        const { findByTestId } = await setup({
+          component: getHoverCard(false),
+          testId: testId,
+        });
+
+        expect(await findByTestId('hover-card')).toBeDefined();
+        fireEvent.click(await findByTestId(testId));
+
+        expect(await findByTestId('hover-card')).toBeDefined();
       });
     });
   });

@@ -9,7 +9,6 @@ export default function Example() {
 
   return (
     <>
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control,jsx-a11y/label-has-for */}
       <label htmlFor="toggle-tooltip">Allow pull requests</label>
 
       <Tooltip

@@ -1,9 +1,9 @@
-import chroma from 'chroma-js';
 import prettier from 'prettier';
 import type { Format, TransformedToken } from 'style-dictionary';
 
 import { createSignedArtifact } from '@atlassian/codegen';
 
+import { getAlpha } from '../../../src/utils/color-utils';
 import { getTokenId } from '../../../src/utils/token-ids';
 import sortTokens from '../sort-tokens';
 
@@ -155,8 +155,8 @@ function classifyTokenPair(
   const isTransparent =
     typeof backgroundToken.value === 'string' &&
     typeof foregroundToken.value === 'string' &&
-    (chroma(backgroundToken?.value).alpha() < 1 ||
-      chroma(foregroundToken?.value).alpha() < 1);
+    (getAlpha(backgroundToken?.value) < 1 ||
+      getAlpha(foregroundToken?.value) < 1);
 
   const isIncludedPairing = !!includePairings.find((value) => {
     return (

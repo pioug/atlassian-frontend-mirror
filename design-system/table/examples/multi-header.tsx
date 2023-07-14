@@ -18,7 +18,7 @@ const CompositionExample = () => {
       <TBody>
         {presidents.map(row => (
           <Row key={row.id}>
-            <HeadCell backgroundColor="neutral" scope="row">
+            <HeadCell backgroundColor="color.background.neutral" scope="row">
               {row.name}
             </HeadCell>
             <Cell>{row.party}</Cell>

@@ -19,6 +19,7 @@ export type {
   SpacingToken,
   ShapeToken,
 } from './types';
+export type { CustomBrandSchema } from './custom-theme';
 export { default as themeConfig } from './theme-config';
 export { useThemeObserver } from './use-theme-observer';
 export { ThemeMutationObserver } from './theme-mutation-observer';

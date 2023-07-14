@@ -156,7 +156,7 @@ const createPlugin = (dispatch: Dispatch) =>
             continue;
           }
 
-          step.slice.content.descendants((node, pos) => {
+          step.slice.content.descendants((node) => {
             if (node.type === table) {
               addedTableNodes.add(node);
             }

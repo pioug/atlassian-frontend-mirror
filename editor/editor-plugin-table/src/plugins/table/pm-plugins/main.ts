@@ -343,7 +343,7 @@ export const createPlugin = (
         const maybeTr = closestElement(domRef as HTMLElement | undefined, 'tr');
         return maybeTr ? maybeTr.classList.contains('sticky') : false;
       },
-      handleTextInput: ({ state, dispatch }, from, to, text) => {
+      handleTextInput: ({ state, dispatch }, _from, _to, text) => {
         const tr = replaceSelectedTable(
           state,
           text,

@@ -17,7 +17,7 @@
       {
         "type": "blockCard",
         "attrs": {
-            "url": "https://gojira.com",
+            "url": "https://product-fabric.atlassian.net/issues/?jql=created%20%3E%3D%20-30d%20order%20by%20created%20DESC",
             "datasource": {
                 "id": "some-datasource-id",
                 "parameters": {
@@ -29,14 +29,10 @@
                     "type": "table",
                     "properties": {
                         "columns": [
-                          {"key": "type"},
-                          {"key":  "issue"},
                           {"key":  "summary"},
                           {"key":  "assignee"},
                           {"key":  "priority"},
-                          {"key":  "labels"},
-                          {"key":  "status"},
-                          {"key":  "created"}
+                          {"key":  "labels"}
                         ]
                       }
                     }

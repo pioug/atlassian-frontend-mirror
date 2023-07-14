@@ -40,10 +40,7 @@ export const findControlsHoverDecoration = (
 ): Decoration[] =>
   filterDecorationByKey(TableDecorations.ALL_CONTROLS_HOVER, decorationSet);
 
-export const createCellHoverDecoration = (
-  cells: Cell[],
-  type: 'warning',
-): Decoration[] =>
+export const createCellHoverDecoration = (cells: Cell[]): Decoration[] =>
   cells.map((cell) =>
     Decoration.node(
       cell.pos,

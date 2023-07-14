@@ -1,40 +1,42 @@
 /** @jsx jsx */
-import type {
-  Transformer,
-  AllEditorPresetPluginTypes,
-} from '@atlaskit/editor-common/types';
-import { BaseTheme, WidthProvider } from '@atlaskit/editor-common/ui';
-import { jsx, css } from '@emotion/react';
-import { EditorView } from 'prosemirror-view';
 import { Fragment } from 'react';
 
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { css, jsx } from '@emotion/react';
+import { EditorView } from 'prosemirror-view';
 
-import { ExperienceStore } from '@atlaskit/editor-common/ufo';
-import EditorActions from '../actions';
-import { getUiComponent } from '../create-editor';
-import ReactEditorView from '../create-editor/ReactEditorViewNext';
-import ErrorBoundary from '../create-editor/ErrorBoundary';
-import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
-import { EventDispatcher } from '../event-dispatcher';
-import { ContextAdapter } from '../nodeviews/context-adapter';
+import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
   ACTION_SUBJECT,
   FireAnalyticsCallback,
 } from '@atlaskit/editor-common/analytics';
-import { EditorProps, EditorNextProps } from '../types/editor-props';
-import EditorContext from '../ui/EditorContext';
 import {
   PortalProviderWithThemeProviders,
   PortalRenderer,
 } from '@atlaskit/editor-common/portal-provider';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type {
+  AllEditorPresetPluginTypes,
+  Transformer,
+} from '@atlaskit/editor-common/types';
+import { ExperienceStore } from '@atlaskit/editor-common/ufo';
+import { BaseTheme, WidthProvider } from '@atlaskit/editor-common/ui';
+
+import EditorActions from '../actions';
+import { getUiComponent } from '../create-editor';
+import ErrorBoundary from '../create-editor/ErrorBoundary';
+import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
+import ReactEditorView from '../create-editor/ReactEditorViewNext';
+import { EventDispatcher } from '../event-dispatcher';
+import { ContextAdapter } from '../nodeviews/context-adapter';
+import { EditorNextProps, EditorProps } from '../types/editor-props';
+import EditorContext from '../ui/EditorContext';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
-import { getBaseFontSize } from './utils/getBaseFontSize';
+
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
 import useProviderFactory from './hooks/useProviderFactory';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { getBaseFontSize } from './utils/getBaseFontSize';
 
 interface Props<PropsType> {
   props: PropsType;

@@ -1,10 +1,12 @@
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { renderHook } from '@testing-library/react-hooks';
-import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import * as utils from '@atlaskit/editor-common/utils';
-import useMeasureEditorMountTime from '../../useMeasureEditorMountTime';
-import measurements from '../../../../utils/performance/measure-enum';
+
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
+import * as utils from '@atlaskit/editor-common/utils';
+import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+
+import measurements from '../../../../utils/performance/measure-enum';
+import useMeasureEditorMountTime from '../../useMeasureEditorMountTime';
 
 const mockStopMeasureDuration = 1234;
 jest.mock('@atlaskit/editor-common/utils', () => ({

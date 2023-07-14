@@ -261,3 +261,13 @@ export const IconExpand = Loadable({
     >,
   loading: () => null,
 });
+
+export const IconDatasourceJiraIssue = Loadable({
+  loader: () =>
+    import(
+      /* webpackChunkName: "@atlaskit-internal_editor-icon-datasource-jira-issue" */ './datasource-jira-issue'
+    ).then((module) => module.default) as Promise<
+      React.ComponentType<IconProps>
+    >,
+  loading: () => null,
+});

@@ -1,15 +1,12 @@
-/** @jsx jsx */
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
-
-import { token } from '@atlaskit/tokens';
+import { xcss } from '@atlaskit/primitives';
 
 import { BaseCell } from './base-cell';
 
-const spacingStyles = css({
-  width: 24,
-  padding: token('space.0', '0px'),
+const spacingStyles = xcss({
+  width: 'size.200',
+  padding: 'space.0',
 });
 
 type ExpandableCellProps = {
@@ -24,7 +21,7 @@ type ExpandableCellProps = {
  */
 export const ExpandableCell = ({ children, as }: ExpandableCellProps) => {
   return (
-    <BaseCell as={as} css={spacingStyles}>
+    <BaseCell as={as} xcss={spacingStyles}>
       {children}
     </BaseCell>
   );

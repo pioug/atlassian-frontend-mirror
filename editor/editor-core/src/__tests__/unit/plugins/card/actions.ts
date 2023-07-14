@@ -63,6 +63,7 @@ describe('card', () => {
           showLinkingToolbar: false,
           events: undefined,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
           datasourceTableRef: undefined,
           layout: undefined,
         });
@@ -141,6 +142,7 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
           events: undefined,
         });
       });
@@ -173,6 +175,7 @@ describe('card', () => {
           provider: expect.any(EditorTestCardProvider),
           showLinkingToolbar: false,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
           events: undefined,
           datasourceTableRef: undefined,
           layout: undefined,

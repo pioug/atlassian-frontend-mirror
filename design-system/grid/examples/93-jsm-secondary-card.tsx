@@ -1,35 +1,29 @@
-/** @jsx jsx */
-import { FC } from 'react';
+import React from 'react';
 
-import { jsx } from '@emotion/react';
-
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
-import Inline from '@atlaskit/primitives/inline';
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
 import Card from './94-card';
 
-const SecondaryCard: FC = () => {
+const boxStyles = xcss({
+  flexShrink: 0,
+  marginBlock: 'space.025',
+  width: 'size.100',
+  height: 'size.100',
+});
+
+const SecondaryCard = () => {
   return (
     <Card>
       <Inline space="space.200">
-        <Box
-          UNSAFE_style={{ flexShrink: 0, marginBlock: 2 }}
-          width="size.100"
-          height="size.100"
-          backgroundColor="neutral"
-        />
+        <Box xcss={boxStyles} backgroundColor="color.background.neutral" />
         <Stack space="space.050">
-          <Text lineHeight="lineHeight.100">
+          <span>
             <a href="#id">Kudos in Kudos</a>
-          </Text>
-          <Text>
+          </span>
+          <span>
             Did a coworker do something you really appreciated or inspire you
             by...
-          </Text>
+          </span>
         </Stack>
       </Inline>
     </Card>

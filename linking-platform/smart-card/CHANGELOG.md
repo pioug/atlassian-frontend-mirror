@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 26.9.8
+
+### Patch Changes
+
+- [`4d66cb26fcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4d66cb26fcb) - Bump jsdom to ^17.0.0
+- [`2a6ebbbfdf1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a6ebbbfdf1) - [ux] Hover Preview: Hide hover preview on scrolling (wheel event)
+- Updated dependencies
+
+## 26.9.7
+
+### Patch Changes
+
+- [`68880de5ecb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68880de5ecb) - [ux] Closing hover card on right click (open of context menu)
+
 ## 26.9.6
 
 ### Patch Changes

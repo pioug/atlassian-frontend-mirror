@@ -208,7 +208,7 @@ export const insertRowButtonWrapper = css`
   `)}
 `;
 
-export const columnControlsLineMarker = (props: ThemeProps) => css`
+export const columnControlsLineMarker = () => css`
   .${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}
     table
     tr:first-of-type

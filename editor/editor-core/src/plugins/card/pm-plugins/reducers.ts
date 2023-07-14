@@ -98,13 +98,23 @@ const setLinkToolbar = (
   };
 };
 
-const setDatasourceModal = (
+const showDatasourceModal = (
   state: CardPluginState,
   action: ShowDatasourceModal | HideDatasourceModal,
 ) => {
   return {
     ...state,
-    showDatasourceModal: action.type === 'SHOW_DATASOURCE_MODAL',
+    showDatasourceModal: true,
+    datasourceModalType:
+      action.type === 'SHOW_DATASOURCE_MODAL' ? action.modalType : undefined,
+  };
+};
+
+const hideDatasourceModal = (state: CardPluginState) => {
+  return {
+    ...state,
+    showDatasourceModal: false,
+    datasourceModalType: undefined,
   };
 };
 
@@ -135,7 +145,8 @@ export default (
     case 'HIDE_LINK_TOOLBAR':
       return setLinkToolbar(state, action);
     case 'SHOW_DATASOURCE_MODAL':
+      return showDatasourceModal(state, action);
     case 'HIDE_DATASOURCE_MODAL':
-      return setDatasourceModal(state, action);
+      return hideDatasourceModal(state);
   }
 };

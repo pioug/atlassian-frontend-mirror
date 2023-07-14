@@ -39,6 +39,7 @@ describe('card', () => {
           layout: undefined,
           showLinkingToolbar: false,
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         } as CardPluginState);
       });
     });
@@ -60,6 +61,7 @@ describe('card', () => {
             layout: undefined,
             showLinkingToolbar: false,
             showDatasourceModal: false,
+            datasourceModalType: undefined,
           } as CardPluginState);
         });
 
@@ -142,21 +144,24 @@ describe('card', () => {
         expect(state).toEqual(expectedState);
       });
 
-      it('should set showDatasourceModal to true', () => {
+      it('should set datasourceModalType as "jira" and showDatasourceModal as true when requested to show modal', () => {
         const expectedState = expect.objectContaining({
+          datasourceModalType: 'jira',
           showDatasourceModal: true,
         });
 
         const state = reduce(initialState, {
           type: 'SHOW_DATASOURCE_MODAL',
+          modalType: 'jira',
         });
 
         expect(state).toEqual(expectedState);
       });
 
-      it('should set showDatasourceModal to false', () => {
+      it('should set datasourceModalType to undefined and showDatasourceModal as false when requested to hide the modal', () => {
         const expectedState = expect.objectContaining({
           showDatasourceModal: false,
+          datasourceModalType: undefined,
         });
 
         const state = reduce(initialState, {

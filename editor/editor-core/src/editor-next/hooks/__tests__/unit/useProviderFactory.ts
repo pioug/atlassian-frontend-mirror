@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
-import * as handleProvidersUtils from '../../../utils/handleProviders';
-import EditorActions from '../../../../actions';
 
+import EditorActions from '../../../../actions';
+import * as handleProvidersUtils from '../../../utils/handleProviders';
 import useProviderFactory from '../../useProviderFactory';
 
 describe('useProviderFactory', () => {

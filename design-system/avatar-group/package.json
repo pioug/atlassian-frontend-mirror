@@ -12,14 +12,6 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
@@ -30,16 +22,13 @@
       "category": "Components"
     }
   },
-  "af:exports": {
-    ".": "./src/index.tsx"
-  },
   "dependencies": {
     "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/ds-lib": "^2.1.0",
     "@atlaskit/menu": "^1.9.0",
     "@atlaskit/popup": "^1.8.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.11.0",
+    "@atlaskit/tokens": "^1.12.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -50,6 +39,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
+    "@af/visual-regression": "*",
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
@@ -87,6 +77,17 @@
         "static"
       ]
     }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx"
   },
   "homepage": "https://atlassian.design/components/avatar-group/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

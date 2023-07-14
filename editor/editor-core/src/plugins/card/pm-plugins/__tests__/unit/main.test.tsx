@@ -50,6 +50,7 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
+import { EditorAppearance } from '../../../../../types/editor-appearance';
 
 const mockAnalyticsQueue = {
   push: jest.fn(),
@@ -207,13 +208,17 @@ describe('datasource', () => {
   const createEditor = createEditorFactory();
   const providerFactory = new ProviderFactory();
 
-  const editor = (doc: DocBuilder) => {
+  const editor = (
+    doc: DocBuilder,
+    appearance: EditorAppearance = 'full-page',
+  ) => {
     return createEditor({
       doc,
       providerFactory,
       editorProps: {
         allowPanel: true,
         smartLinks: {},
+        appearance,
       },
       pluginKey,
     });
@@ -221,6 +226,26 @@ describe('datasource', () => {
 
   const mockAdfAttributes: DatasourceAttributes = {
     layout: 'wide',
+    datasource: {
+      id: 'mock-datasource-id',
+      parameters: {
+        cloudId: 'mock-cloud-id',
+        jql: 'JQL=MOCK',
+      },
+      views: [
+        {
+          type: 'table',
+          properties: {
+            columns: [{ key: 'column-1' }, { key: 'column-2' }],
+          },
+        },
+      ],
+    },
+  };
+
+  const mockAdfAttributesWithUrl: DatasourceAttributes = {
+    layout: 'wide',
+    url: 'https://mono.jira-dev.com/?jql=something',
     datasource: {
       id: 'mock-datasource-id',
       parameters: {
@@ -254,6 +279,46 @@ describe('datasource', () => {
       new RegExp(
         '<div class="[\\w- ]+"><button data-testid="mock-datasource-table-view">Mock Datasource Table View</button></div>',
       ),
+    );
+  });
+
+  it('should fallback to the inline card on platform="mobile" when datasource is provided with url', async () => {
+    const { editorView } = editor(
+      doc(datasourceBlockCard(mockAdfAttributesWithUrl)()),
+      'mobile',
+    );
+    expect(editorView.state.doc.content.childCount).toBe(1);
+    expect(editorView.state.doc.content.firstChild?.attrs).toEqual({
+      data: null,
+      url: null,
+      width: null,
+      ...mockAdfAttributesWithUrl,
+    });
+    const nodeDOM = editorView.nodeDOM(0);
+    expect((nodeDOM as HTMLDivElement).innerHTML).toEqual(
+      '<span aria-hidden="true" class="zeroWidthSpaceContainer"><span class="inlineNodeViewAddZeroWidthSpace"></span>​</span><span class="card"><span class="loader-wrapper"><span><a href="https://mono.jira-dev.com/?jql=something" data-testid="lazy-render-placeholder" class="smart-link-loading-placeholder css-1tp69om">https://mono.jira-dev.com/?jql=something</a></span></span></span><span aria-hidden="true" class="inlineNodeViewAddZeroWidthSpace"></span>',
+    );
+    expect((nodeDOM as HTMLDivElement).textContent).toContain(
+      'https://mono.jira-dev.com/?jql=something',
+    );
+  });
+
+  it(`should fallback to the inline card on platform="mobile"
+    which fails to UnsupportedContent when datasource is provided without url`, async () => {
+    const { editorView } = editor(
+      doc(datasourceBlockCard(mockAdfAttributes)()),
+      'mobile',
+    );
+    expect(editorView.state.doc.content.childCount).toBe(1);
+    expect(editorView.state.doc.content.firstChild?.attrs).toEqual({
+      data: null,
+      url: null,
+      width: null,
+      ...mockAdfAttributes,
+    });
+    const nodeDOM = editorView.nodeDOM(0);
+    expect((nodeDOM as HTMLDivElement).textContent).toMatch(
+      /Unsupported content/,
     );
   });
 
@@ -336,6 +401,53 @@ describe('datasource', () => {
 
     const stateWithLayoutAsCenter = getPluginState(editorView.state);
     expect(stateWithLayoutAsCenter?.layout).toEqual('center');
+  });
+
+  describe('should be able to quick insert based on the FF state', () => {
+    ffTest(
+      'platform.linking-platform.datasource-jira_issues',
+      async () => {
+        const { editorView, typeAheadTool, pluginState } = editor(
+          doc(p('{<>}')),
+        );
+        expect(pluginState?.datasourceModalType).toBeUndefined();
+        expect(pluginState?.showDatasourceModal).toEqual(false);
+
+        const insertItems = await typeAheadTool.searchQuickInsert('jira');
+        const [jiraQuickInsertItem] = (await insertItems.result()) || [];
+
+        expect(jiraQuickInsertItem).toEqual(
+          expect.objectContaining({
+            title: 'Jira Issues',
+            description:
+              'Insert issues from Jira Cloud with enhanced search, filtering, and configuration',
+          }),
+        );
+
+        await typeAheadTool.searchQuickInsert('jira')?.insert({ index: 0 });
+
+        const pluginStateAfterQuickInsert = getPluginState(editorView.state);
+        expect(pluginStateAfterQuickInsert?.datasourceModalType).toEqual(
+          'jira',
+        );
+        expect(pluginStateAfterQuickInsert?.showDatasourceModal).toEqual(true);
+      },
+      async () => {
+        const { editorView, typeAheadTool, pluginState } = editor(
+          doc(p('{<>}')),
+        );
+        expect(pluginState?.datasourceModalType).toBeUndefined();
+        expect(pluginState?.showDatasourceModal).toEqual(false);
+
+        await typeAheadTool.searchQuickInsert('jira')?.insert({ index: 0 });
+
+        const pluginStateAfterQuickInsert = getPluginState(editorView.state);
+        expect(
+          pluginStateAfterQuickInsert?.datasourceModalType,
+        ).toBeUndefined();
+        expect(pluginStateAfterQuickInsert?.showDatasourceModal).toEqual(false);
+      },
+    );
   });
 
   describe('when using feature flag', () => {

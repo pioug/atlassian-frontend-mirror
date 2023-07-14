@@ -1,27 +1,26 @@
-import { BrowserTestCase, Browser } from '@atlaskit/webdriver-runner/runner';
-import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+import {
+  expectToMatchSelection,
+  fullpage,
+  SelectionMatch,
+  setProseMirrorTextSelection,
+} from '@atlaskit/editor-test-helpers/integration/helpers';
+import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { Browser, BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 
 import {
-  fullpage,
-  expectToMatchSelection,
-  setProseMirrorTextSelection,
-  SelectionMatch,
-} from '@atlaskit/editor-test-helpers/integration/helpers';
-import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
-
-import {
-  keyboardSelectLineFromLineEnd,
-  clickAndDragSelectLineFromLineEnd,
-  keyboardSelectLineFromLineStart,
-  buildAdfTrailingSpaces,
-  buildAdfNoTrailingSpaces,
   buildAdfMultiline,
   buildAdfMultipleNodesAcrossLines,
+  buildAdfNoTrailingSpaces,
+  buildAdfTrailingSpaces,
+  clickAndDragSelectLineFromLineEnd,
   holdShiftInChrome,
+  keyboardSelectLineFromLineEnd,
+  keyboardSelectLineFromLineStart,
 } from '../__helpers/_getInlineNodeViewProducer';
 
 const testNames = [

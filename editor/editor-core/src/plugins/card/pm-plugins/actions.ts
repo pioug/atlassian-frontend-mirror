@@ -10,6 +10,7 @@ import {
 } from '../types';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 import { DatasourceTableLayout } from '../ui/LayoutButton/types';
+import { DatasourceModalType } from '@atlaskit/editor-common/types';
 
 export const cardAction = (
   tr: Transaction,
@@ -92,8 +93,12 @@ export const showLinkToolbar = (tr: Transaction) =>
 export const hideLinkToolbar = (tr: Transaction) =>
   cardAction(tr, { type: 'HIDE_LINK_TOOLBAR' });
 
-export const showDatasourceModal = (tr: Transaction) =>
-  cardAction(tr, { type: 'SHOW_DATASOURCE_MODAL' });
+export const showDatasourceModal =
+  (modalType: DatasourceModalType) => (tr: Transaction) =>
+    cardAction(tr, {
+      type: 'SHOW_DATASOURCE_MODAL',
+      modalType,
+    });
 
 export const hideDatasourceModal = (tr: Transaction) =>
   cardAction(tr, { type: 'HIDE_DATASOURCE_MODAL' });

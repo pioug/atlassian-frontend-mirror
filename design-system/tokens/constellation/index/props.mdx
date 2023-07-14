@@ -1,3 +1,5 @@
+import SectionMessage from '@atlaskit/section-message';
+
 import TokenPropsTable from '../../examples/constellation/token-props-table';
 
 ## API
@@ -23,8 +25,9 @@ const buttonStyles = {
 ### setGlobalTheme(themeState, themeLoader);
 
 Use the `setGlobalTheme` method to switch themes globally at runtime. It:
-- updates the `data-theme` and `data-color-mode` attributes on your page's HTML tag.
-- dynamically loads in the CSS required to support each selected themes, and adds it to a series of `<style>` tag in your page's document head.
+- updates the `data-theme` and `data-color-mode` attributes on your page's HTML tag, and `data-custom-theme` if theme options are provided.
+- dynamically loads in the CSS required to support each selected theme, and adds it to a series of `<style>` tag in your page's document head.
+- optionally generates and loads customized themes based on the options provided.
 - optionally overrides default theme loading behavior if a `themeLoader` function has been provided. E.g. when appending `<style>` elements isn't possible.
 
 The `themeState` object includes the following properties:
@@ -34,6 +37,7 @@ The `themeState` object includes the following properties:
 - **light:** The color theme to be shown when a "light" theme is requested by the user (or triggered by OS setting).
 - **spacing:** The spacing theme to be shown.
 - **typography:** The typography theme to be shown.
+- **UNSAFE_themeOptions:** Options for customizing the loaded themes, such as a custom brand color.
 
 <TokenPropsTable
   propName={'themeState'}
@@ -44,6 +48,7 @@ The `themeState` object includes the following properties:
   dark?: ThemeIds,
   spacing?: ThemeIds,
   typography?: ThemeIds,
+  UNSAFE_themeOptions?: CustomThemeSchema // { brandColor: HexColor }
 }`}
   defaultValue={'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'}
 />
@@ -74,12 +79,51 @@ const App = () => {
   });
 
   return (
-    <div style={{backgroundColor: token('elevation.surface')}}>...</div>
+    <div style={{ backgroundColor: token('elevation.surface') }}>...</div>
   );
 };
 ```
 
-#### Example usage with a custom theme loader
+#### Example usage with custom theme options
+<SectionMessage title="Custom theming is in alpha." appearance="warning">
+  <p>
+    Custom theming is in alpha, the UNSAFE_themeOptions API is subject to change or removal in minor or patch releases.
+    For Atlassians, please reach out to <a href="https://atlassian.slack.com/archives/CFJ9DU39U">Design System Team</a> to learn more.
+  </p>
+</SectionMessage>
+
+When `UNSAFE_themeOptions` is set in ThemeState, custom themes will be generated at runtime based on the options provided. The available options for the `UNSAFE_themeOptions` prop are defined below:
+
+- **brandColor:** sets a custom brand color that replaces the Atlassian blue. Affects `brand`, `selected` and `link` color tokens
+
+<TokenPropsTable
+  propName={'UNSAFE_themeOptions'}
+  description={'The schema for defining custom themes'}
+  typing={`{
+   brandColor: HexColor
+}`}
+/>
+
+The theme generation logic is lazy-loaded only when `UNSAFE_themeOptions` is set.
+
+```tsx
+import { token, setGlobalTheme } from '@atlaskit/tokens';
+
+const App = () => {
+  setGlobalTheme({
+    colorMode: 'auto',
+    UNSAFE_themeOptions: {
+      brandColor: '#64329A'
+    }
+  });
+
+  return (
+    <div style={{ backgroundColor: token('elevation.surface') }}>...</div>
+  );
+};
+```
+
+#### Example usage with a theme loader
 
 The `themeLoader` parameter takes a synchronous function, which will be called with the `themeId` for each theme that needs to be loaded onto the page based for the provided `ThemeState`. If `colorMode` is set to ‘light’, the theme set in `ThemeState.dark` will not be loaded, and visa versa.
 
@@ -337,6 +381,8 @@ if the user has automatic theme switching turned off, and is in light mode, dark
 
 When passing the string "all" as an argument to `getThemeStyles`, it will return objects for all possible themes instead of just the ones associated with a `themeState`.
 
+When `UNSAFE_themeOptions` is set in `themeState`, additional objects will be returned for constructing custom theme `<style>` tags.
+
 If an error is encountered while loading a specific theme, the theme styles for that theme will be
 missing from the returned array, and will only be visible to the user on app hydration.
 
@@ -349,6 +395,7 @@ missing from the returned array, and will only be visible to the user on app hyd
   dark?: ThemeIds,
   spacing?: ThemeIds,
   typography?: ThemeIds,
+  UNSAFE_themeOptions?: { brandColor: HexColor }
 }`}
   defaultValue={'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'}
 />
@@ -381,6 +428,7 @@ used when configuring SSR.
   dark?: ThemeIds,
   spacing?: ThemeIds,
   typography?: ThemeIds,
+  UNSAFE_themeOptions?: { brandColor: HexColor }
 }`}
   defaultValue={'{ colorMode: "auto", dark: "dark", light: "light", spacing: "spacing", typography: "typography" }'}
 />

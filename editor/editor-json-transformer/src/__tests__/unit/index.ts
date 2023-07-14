@@ -2,14 +2,10 @@
 import type { Node as PMNode } from 'prosemirror-model';
 
 import { uuid } from '@atlaskit/adf-schema';
-import { bitbucketSchema } from '@atlaskit/adf-schema/schema-bitbucket';
 import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
 import * as AdfSchemaDefault from '@atlaskit/adf-schema/schema-default';
-import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
-import { BitbucketTransformer } from '@atlaskit/editor-bitbucket-transformer';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ConfluenceTransformer } from '@atlaskit/editor-confluence-transformer';
-import { JIRATransformer } from '@atlaskit/editor-jira-transformer';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line no-duplicate-imports
@@ -59,7 +55,6 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line no-duplicate-imports
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import { WikiMarkupTransformer } from '@atlaskit/editor-wikimarkup-transformer';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
 import { JSONTransformer, SchemaStage } from '../../index';
@@ -127,11 +122,6 @@ describe('JSONTransformer:', () => {
       content: [],
     };
 
-    it('should create a standard empty adf for empty Bitbucket', () => {
-      const bitbucketTransformer = new BitbucketTransformer(bitbucketSchema);
-      expect(toJSON(bitbucketTransformer.parse(''))).toEqual(standardEmptyAdf);
-    });
-
     it('should create a standard empty adf for empty Confluence', () => {
       const confluenceTransformer = new ConfluenceTransformer(confluenceSchema);
 
@@ -140,26 +130,10 @@ describe('JSONTransformer:', () => {
       );
     });
 
-    it('should create a standard empty adf for empty JIRA', () => {
-      const schema = createJIRASchema({
-        allowBlockQuote: true,
-        allowLists: true,
-      });
-      const jiraTransformer = new JIRATransformer(schema);
-
-      expect(toJSON(jiraTransformer.parse(''))).toEqual(standardEmptyAdf);
-    });
-
     it('should create a standard empty adf for empty Markdown', () => {
       const markdownTransformer = new MarkdownTransformer();
 
       expect(toJSON(markdownTransformer.parse(''))).toEqual(standardEmptyAdf);
-    });
-
-    it('should create a standard empty adf for empty WikiMarkup', () => {
-      const wikiMarkupTransformer = new WikiMarkupTransformer();
-
-      expect(toJSON(wikiMarkupTransformer.parse(''))).toEqual(standardEmptyAdf);
     });
 
     it('should have an empty content attribute for a header with no content', () => {

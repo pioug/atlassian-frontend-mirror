@@ -185,7 +185,7 @@ export const tableStyles = (
 
   .ProseMirror {
     ${tableSharedStyle(props)};
-    ${columnControlsLineMarker(props)};
+    ${columnControlsLineMarker()};
     ${hoveredDeleteButton};
     ${hoveredCell};
     ${hoveredWarningCell};

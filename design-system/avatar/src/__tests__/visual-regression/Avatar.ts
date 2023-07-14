@@ -24,16 +24,6 @@ describe('Avatar', () => {
     await page.setViewport({ width: 500, height: 500 });
   });
 
-  it('should match production example', async () => {
-    await loadPage(page, url);
-    await page.waitForSelector(
-      'div[data-testid="avatar"] span[role="img"] svg',
-      { visible: true },
-    );
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('should render a tooltip on hover', async () => {
     await loadPage(page, url, {
       reloadSameUrl: true,

@@ -4,8 +4,8 @@ import { FC, ReactNode } from 'react';
 import { jsx } from '@emotion/react';
 
 import Checkbox from '@atlaskit/checkbox';
-import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import Inline from '@atlaskit/primitives/inline';
+import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { useSelection } from './hooks/selection-provider';
@@ -41,9 +41,15 @@ const THead: FC<THeadProps> = ({ actions, children }) => {
         {children}
         {isSelectable && isChecked && (
           <Primitives.BulkActionOverlay>
-            <Text color="color.text" fontWeight="medium">
+            <span
+              style={{
+                color: token('color.text', '#172B4D'),
+                /* @ts-ignore migrate to Text */
+                fontWeight: token('font.weight.medium', '500'),
+              }}
+            >
               {state.checked.length} selected
-            </Text>
+            </span>
             {actions && (
               <Inline alignBlock="stretch" space="space.100">
                 {actions(state.checked)}

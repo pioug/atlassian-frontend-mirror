@@ -1,5 +1,6 @@
 export const THEME_DATA_ATTRIBUTE = 'data-theme';
 export const COLOR_MODE_ATTRIBUTE = 'data-color-mode';
+export const CUSTOM_THEME_ATTRIBUTE = 'data-custom-theme';
 export const DEFAULT_THEME = 'light';
 export const CSS_PREFIX = 'ds';
 export const CSS_VAR_FULL = ['opacity', 'font', 'space', 'border'];

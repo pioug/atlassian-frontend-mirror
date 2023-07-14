@@ -12,30 +12,9 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/patterns/forms",
-  "af:exports": {
-    "./CheckboxField": "./src/entry-points/checkbox-field.tsx",
-    "./Field": "./src/entry-points/field.tsx",
-    "./Fieldset": "./src/entry-points/fieldset.tsx",
-    "./FormFooter": "./src/entry-points/form-footer.tsx",
-    "./FormHeader": "./src/entry-points/form-header.tsx",
-    "./FormSection": "./src/entry-points/form-section.tsx",
-    "./Form": "./src/entry-points/form.tsx",
-    "./Messages": "./src/entry-points/messages.tsx",
-    "./RangeField": "./src/entry-points/range-field.tsx",
-    "./Label": "./src/entry-points/label.tsx",
-    ".": "./src/index.tsx"
-  },
   "atlassian": {
     "team": "Design System Team",
     "releaseModel": "continuous",
@@ -44,11 +23,10 @@
       "category": "Components"
     }
   },
-  "homepage": "https://atlassian.design/components/form/",
   "dependencies": {
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.11.0",
+    "@atlaskit/tokens": "^1.12.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "final-form": "^4.20.1",
@@ -61,6 +39,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/visual-regression": "*",
     "@atlaskit/button": "^16.8.0",
     "@atlaskit/checkbox": "^12.6.0",
     "@atlaskit/ds-lib": "^2.2.0",
@@ -109,5 +88,27 @@
       "deprecation": "no-deprecated-imports"
     }
   },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    "./CheckboxField": "./src/entry-points/checkbox-field.tsx",
+    "./Field": "./src/entry-points/field.tsx",
+    "./Fieldset": "./src/entry-points/fieldset.tsx",
+    "./FormFooter": "./src/entry-points/form-footer.tsx",
+    "./FormHeader": "./src/entry-points/form-header.tsx",
+    "./FormSection": "./src/entry-points/form-section.tsx",
+    "./Form": "./src/entry-points/form.tsx",
+    "./Messages": "./src/entry-points/messages.tsx",
+    "./RangeField": "./src/entry-points/range-field.tsx",
+    "./Label": "./src/entry-points/label.tsx",
+    ".": "./src/index.tsx"
+  },
+  "homepage": "https://atlassian.design/components/form/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

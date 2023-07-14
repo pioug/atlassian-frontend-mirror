@@ -3,9 +3,15 @@ import { waitFor } from '@testing-library/dom';
 import __noop from '@atlaskit/ds-lib/noop';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../../constants';
+import {
+  COLOR_MODE_ATTRIBUTE,
+  CUSTOM_THEME_ATTRIBUTE,
+  THEME_DATA_ATTRIBUTE,
+} from '../../constants';
+import { CustomBrandSchema } from '../../custom-theme';
 // This import is just to get types
 import * as setGlobalThemeTypes from '../../set-global-theme';
+import { hash } from '../../utils/hash';
 
 type ThemeStyles = setGlobalThemeTypes.ThemeStyles;
 
@@ -18,6 +24,12 @@ const matchMediaObject = {
   removeEventListener: jest.fn(),
   dispatchEvent: jest.fn(),
 };
+
+const UNSAFE_themeOptions: CustomBrandSchema = {
+  brandColor: '#ff0000',
+};
+
+const customStyleHashId = hash(JSON.stringify(UNSAFE_themeOptions));
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -82,6 +94,28 @@ describe('setGlobalTheme', () => {
       'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
     );
     expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+  });
+
+  it('should set the correct custom theme attribute and color mode when customTheme specified', async () => {
+    await setGlobalTheme({
+      light: 'legacy-light',
+      dark: 'legacy-dark',
+      shape: 'shape',
+      spacing: 'spacing',
+      typography: 'typography',
+      colorMode: 'light',
+      UNSAFE_themeOptions,
+    });
+    const htmlElement = document.getElementsByTagName('html')[0];
+    expect(htmlElement).toHaveAttribute(
+      THEME_DATA_ATTRIBUTE,
+      'dark:legacy-dark light:legacy-light shape:shape spacing:spacing typography:typography',
+    );
+    expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+    expect(htmlElement).toHaveAttribute(
+      CUSTOM_THEME_ATTRIBUTE,
+      customStyleHashId,
+    );
   });
 
   it('should set the default themes and color mode when they are not specified', async () => {
@@ -152,6 +186,45 @@ describe('setGlobalTheme', () => {
       'shape',
       'spacing',
       'typography',
+    ]);
+  });
+
+  it('should load custom theme CSS on the page when specified', async () => {
+    // prompt a duplication of
+    await setGlobalTheme({
+      dark: 'dark',
+      light: 'light',
+      UNSAFE_themeOptions,
+    });
+
+    // Wait for styles to be added to the page
+    await waitFor(() => {
+      const styleElements = document.querySelectorAll(
+        `style[${THEME_DATA_ATTRIBUTE}]`,
+      );
+      expect(styleElements).toHaveLength(4);
+
+      const customStyleElements = document.querySelectorAll(
+        `style[${CUSTOM_THEME_ATTRIBUTE}]`,
+      );
+      expect(customStyleElements).toHaveLength(2);
+    });
+
+    const styleElements = document.querySelectorAll('style');
+
+    const dataThemes = Array.from(styleElements).map((el) => {
+      return (
+        (el.hasAttribute(CUSTOM_THEME_ATTRIBUTE) ? 'custom-' : '') +
+        el.getAttribute(THEME_DATA_ATTRIBUTE)
+      );
+    });
+
+    // Validate that the custom style elements come after other style element
+    expect(dataThemes).toEqual([
+      'light',
+      'dark',
+      'custom-light',
+      'custom-dark',
     ]);
   });
 
@@ -376,6 +449,62 @@ describe('setGlobalTheme', () => {
       expect(styleElements.length).toBe(0);
     });
   });
+
+  it('should not load custom theme if provided brand color is invalid', async () => {
+    document
+      .getElementsByTagName('html')[0]
+      .removeAttribute(CUSTOM_THEME_ATTRIBUTE);
+
+    await setGlobalTheme({
+      colorMode: 'light',
+      UNSAFE_themeOptions: {
+        brandColor: '#ff00',
+      },
+    });
+
+    await setGlobalTheme({
+      colorMode: 'light',
+      UNSAFE_themeOptions: {
+        // @ts-ignore
+        brandColor: '',
+      },
+    });
+
+    await setGlobalTheme({
+      colorMode: 'light',
+      // @ts-ignore
+      UNSAFE_themeOptions: {},
+    });
+
+    const customStyleElements = document.querySelectorAll(
+      `style[${CUSTOM_THEME_ATTRIBUTE}]`,
+    );
+    expect(customStyleElements).toHaveLength(0);
+
+    const htmlElement = document.getElementsByTagName('html')[0];
+    expect(htmlElement).not.toHaveAttribute(CUSTOM_THEME_ATTRIBUTE);
+  });
+
+  it('should not load custom styles if a theme loader is provided', async () => {
+    const beforeHtmlElement = document.getElementsByTagName('html')[0];
+    beforeHtmlElement.removeAttribute(CUSTOM_THEME_ATTRIBUTE);
+    const themeLoaderMock = jest.fn();
+
+    await setGlobalTheme(
+      {
+        colorMode: 'light',
+        UNSAFE_themeOptions,
+      },
+      themeLoaderMock,
+    );
+    const customStyleElements = document.querySelectorAll(
+      `style[${CUSTOM_THEME_ATTRIBUTE}]`,
+    );
+    expect(customStyleElements).toHaveLength(0);
+
+    const htmlElement = document.getElementsByTagName('html')[0];
+    expect(htmlElement).not.toHaveAttribute(CUSTOM_THEME_ATTRIBUTE);
+  });
 });
 
 describe('getThemeStyles', () => {
@@ -405,6 +534,52 @@ describe('getThemeStyles', () => {
     // Check that CSS is defined for each result
     results.forEach((result) => {
       expect(result.css).toBeDefined();
+    });
+
+    expect(getThemeData(results)).toEqual([
+      { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
+    ]);
+  });
+  it('returns an array of ThemeStyles that includes custom themes when theme options provided', async () => {
+    let results = await getThemeStyles({
+      colorMode: 'auto',
+      dark: 'dark',
+      light: 'light',
+      UNSAFE_themeOptions,
+      spacing: 'spacing',
+      typography: 'typography',
+    });
+    // Check that CSS is defined for each result
+    results.forEach((result) => {
+      expect(result.css).toBeDefined();
+    });
+
+    expect(getThemeData(results)).toEqual([
+      { id: 'light', attrs: { 'data-theme': 'light' } },
+      { id: 'dark', attrs: { 'data-theme': 'dark' } },
+      { id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+      { id: 'typography', attrs: { 'data-theme': 'typography' } },
+      {
+        id: 'light',
+        attrs: {
+          'data-theme': 'light',
+          'data-custom-theme': customStyleHashId,
+        },
+      },
+      {
+        id: 'dark',
+        attrs: { 'data-theme': 'dark', 'data-custom-theme': customStyleHashId },
+      },
+    ]);
+  });
+
+  it('returns an array of ThemeStyles that does not include custom themes when brand color is invalid', async () => {
+    let results = await getThemeStyles({
+      colorMode: 'auto',
+      UNSAFE_themeOptions: {
+        brandColor: '#ff00',
+      },
     });
 
     expect(getThemeData(results)).toEqual([
@@ -540,6 +715,7 @@ describe('getThemeHtmlAttrs', () => {
       light: 'light',
       spacing: 'spacing',
       typography: 'typography',
+      UNSAFE_themeOptions,
     });
 
     expect(result).toHaveProperty(
@@ -549,6 +725,7 @@ describe('getThemeHtmlAttrs', () => {
 
     // SSR doesn't check the media query
     expect(result).toHaveProperty(COLOR_MODE_ATTRIBUTE, 'light');
+    expect(result).toHaveProperty(CUSTOM_THEME_ATTRIBUTE, customStyleHashId);
   });
 });
 

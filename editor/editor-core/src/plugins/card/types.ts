@@ -12,6 +12,7 @@ import type {
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import { DatasourceTableLayout } from './ui/LayoutButton/types';
+import { DatasourceModalType } from '@atlaskit/editor-common/types';
 
 export type CardInfo = {
   title?: string;
@@ -117,6 +118,7 @@ export type CardPluginState = {
   smartLinkEventsNext?: SmartLinkEventsNext;
   editorAppearance?: EditorAppearance;
   showDatasourceModal: boolean;
+  datasourceModalType?: DatasourceModalType;
   datasourceTableRef?: HTMLElement;
   layout?: DatasourceTableLayout;
 };
@@ -159,6 +161,7 @@ export type HideLinkToolbar = {
 
 export type ShowDatasourceModal = {
   type: 'SHOW_DATASOURCE_MODAL';
+  modalType: DatasourceModalType;
 };
 
 export type HideDatasourceModal = {

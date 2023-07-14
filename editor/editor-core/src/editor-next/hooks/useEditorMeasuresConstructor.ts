@@ -1,10 +1,10 @@
 /** @jsx jsx */
 
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-
 import { useConstructor } from '@atlaskit/editor-common/hooks';
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { measureTTI, startMeasure } from '@atlaskit/editor-common/utils';
+
 import { EditorProps } from '../../types/editor-props';
 import { PerformanceTracking } from '../../types/performance-tracking';
 import measurements from '../../utils/performance/measure-enum';

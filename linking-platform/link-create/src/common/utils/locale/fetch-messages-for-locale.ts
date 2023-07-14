@@ -7,7 +7,10 @@ export const fetchMessagesForLocale = async (
 ): Promise<I18NMessages | undefined> => {
   try {
     const messages = await import(
-      /* webpackChunkName: "@atlaskit-internal_@atlassian/link-create-confluence-i18n-[request]" */ `../../../i18n/${locale}`
+      /* webpackChunkName: "@atlaskit-internal_@atlassian/link-create-confluence-i18n-[request]" */ `../../../i18n/${locale.replace(
+        '-',
+        '_',
+      )}`
     );
     return messages.default;
   } catch (e) {

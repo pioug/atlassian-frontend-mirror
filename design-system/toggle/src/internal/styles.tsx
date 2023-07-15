@@ -1,5 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-import { CSSObject } from '@emotion/react';
+import { css, SerializedStyles } from '@emotion/react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
@@ -33,10 +33,12 @@ const borderWidth = 2;
 const paddingUnitless = globalGridSize / 4;
 const transition = 'transform 0.2s ease';
 
-export const getStyles = (size: Size, mode: ThemeModes): CSSObject => {
+export const getStyles = (size: Size, mode: ThemeModes): SerializedStyles => {
   const colors = getColors(mode);
 
-  return {
+  // TODO: Use tokens and reorganize to alphasemantic ordering (DSP-11769 DSP-11770)
+  /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview,@repo/internal/styles/consistent-style-ordering */
+  return css({
     boxSizing: 'content-box',
     display: 'inline-block',
     padding: borderWidth,
@@ -167,5 +169,5 @@ export const getStyles = (size: Size, mode: ThemeModes): CSSObject => {
         outline: '1px solid',
       },
     },
-  };
+  });
 };

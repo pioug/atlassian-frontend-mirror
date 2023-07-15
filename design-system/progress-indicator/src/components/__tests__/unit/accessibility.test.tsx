@@ -2,11 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 
 import ProgressIndicator from '../../progress-dots';
 
@@ -20,6 +16,6 @@ it('Basic ProgressIndicator should not fail aXe audit', async () => {
       size="default"
     />,
   );
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
   expect(results).toHaveNoViolations();
 });

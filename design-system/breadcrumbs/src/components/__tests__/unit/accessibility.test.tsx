@@ -2,11 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 
 import BasicBreadcrumbsExample from '../../../../examples/0-basic';
 import LongBreadcrumbsExample from '../../../../examples/1-long';
@@ -16,18 +12,18 @@ expect.extend(toHaveNoViolations);
 
 it('Basic Breadcrumbs example should not fail aXe audit', async () => {
   const { container } = render(<BasicBreadcrumbsExample />);
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
   expect(results).toHaveNoViolations();
 });
 
 it('Long (with ellipsis truncation) Breadcrumbs example should not fail aXe audit', async () => {
   const { container } = render(<LongBreadcrumbsExample />);
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
   expect(results).toHaveNoViolations();
 });
 
 it('With onClick and no href Breadcrumbs example should not fail aXe audit', async () => {
   const { container } = render(<WithOnClickNoHrefBreadcrumbsExample />);
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
   expect(results).toHaveNoViolations();
 });

@@ -2,11 +2,7 @@ import React, { ComponentProps } from 'react';
 
 import { render } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 
 import ProgressBar from '../../components/progress-bar';
 import SuccessProgressBar from '../../components/success-progress-bar';
@@ -26,7 +22,7 @@ describe('ProgressBar', () => {
       <ProgressBar {...defaultProps} appearance="default" />,
     );
 
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
@@ -36,7 +32,7 @@ describe('ProgressBar', () => {
       <ProgressBar {...defaultProps} appearance="inverse" />,
     );
 
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
@@ -46,7 +42,7 @@ describe('ProgressBar', () => {
       <ProgressBar {...defaultProps} appearance="success" />,
     );
 
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
@@ -54,7 +50,7 @@ describe('ProgressBar', () => {
   it('passes basic aXe audit on the indeterminate state', async () => {
     const wrapper = render(<ProgressBar {...defaultProps} isIndeterminate />);
 
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
@@ -70,7 +66,7 @@ describe('SuccessProgressBar', () => {
   it('passes basic aXe audit on the initial rendered (success) state', async () => {
     const wrapper = render(<SuccessProgressBar {...defaultProps} />);
 
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
@@ -80,7 +76,7 @@ describe('SuccessProgressBar', () => {
       <SuccessProgressBar {...defaultProps} isIndeterminate />,
     );
 
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
@@ -90,7 +86,7 @@ describe('SuccessProgressBar', () => {
       <SuccessProgressBar {...defaultProps} value={0.5} />,
     );
 
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
@@ -106,7 +102,7 @@ describe('TransparentProgressBar', () => {
   it('passes basic aXe audit on the initial rendered (inverse) state', async () => {
     const wrapper = render(<TransparentProgressBar {...defaultProps} />);
 
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
@@ -116,7 +112,7 @@ describe('TransparentProgressBar', () => {
       <TransparentProgressBar {...defaultProps} isIndeterminate />,
     );
 
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });

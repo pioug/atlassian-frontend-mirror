@@ -2,11 +2,7 @@ import React from 'react';
 
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 
 import DynamicTable, {
   DynamicTableStateless as StatelessDynamicTable,
@@ -43,7 +39,7 @@ describe('Dynamic Table Accessibility', () => {
       );
 
       const container = screen.getByTestId('dynamic--table--test--id--table');
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
 
@@ -61,7 +57,7 @@ describe('Dynamic Table Accessibility', () => {
       const container = screen.getByTestId(
         'dynamic--table--test--id--loading--container--advanced',
       );
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
   });
@@ -82,7 +78,7 @@ describe('Dynamic Table Accessibility', () => {
       render(<StatelessDynamicTable {...props} />);
 
       const container = screen.getByTestId('dynamic--table--test--id--table');
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
 
@@ -96,7 +92,7 @@ describe('Dynamic Table Accessibility', () => {
       fireEvent.click(sortButtons[0]);
 
       const container = screen.getByTestId('dynamic--table--test--id--table');
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
 
@@ -109,7 +105,7 @@ describe('Dynamic Table Accessibility', () => {
       const container = screen.getByTestId(
         'dynamic--table--test--id--loading--container--advanced',
       );
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
   });
@@ -125,7 +121,7 @@ describe('Dynamic Table Accessibility', () => {
       const container = screen.getByTestId(
         'dynamic--table--test--id--container',
       );
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
   });
@@ -159,7 +155,7 @@ describe('Dynamic Table Accessibility', () => {
       fireEvent.keyDown(cell);
 
       const container = screen.getByTestId('dynamic--table--test--id--tr');
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
   });

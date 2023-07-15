@@ -8,11 +8,7 @@ import {
   screen,
 } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/standard-button';
 
 import Pagination, { PaginationPropTypes } from '../../index';
@@ -107,7 +103,7 @@ describe('Pagination Accessibility', () => {
     setup();
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container, jestAxeConfig);
+    const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
@@ -119,7 +115,7 @@ describe('Pagination Accessibility', () => {
     });
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container, jestAxeConfig);
+    const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
@@ -129,7 +125,7 @@ describe('Pagination Accessibility', () => {
     fireEvent.click(renderResult.getByTestId('pagination--page-9'));
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container, jestAxeConfig);
+    const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
@@ -150,7 +146,7 @@ describe('Pagination Accessibility', () => {
     });
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container, jestAxeConfig);
+    const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 
@@ -160,7 +156,7 @@ describe('Pagination Accessibility', () => {
     });
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container, jestAxeConfig);
+    const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
 });

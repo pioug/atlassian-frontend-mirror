@@ -2,11 +2,7 @@
 import { jsx } from '@emotion/react';
 import { render } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 
 import ButtonGroup from '../../button-group';
 import CustomThemeButton from '../../custom-theme-button';
@@ -19,21 +15,21 @@ describe('Button component accessibility', () => {
   describe('Button', () => {
     it('should not fail an aXe audit', async () => {
       const { container } = render(<Button>Save</Button>);
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
 
     it('should not fail an aXe audit when isDisabled is true', async () => {
       const { container } = render(<Button isDisabled>Save</Button>);
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
 
     it('should not fail an aXe audit when isSelected is true', async () => {
       const { container } = render(<Button isSelected>Save</Button>);
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -42,7 +38,7 @@ describe('Button component accessibility', () => {
   describe('LoadingButton', () => {
     it('should not fail an aXe audit', async () => {
       const { container } = render(<LoadingButton>Save</LoadingButton>);
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -51,7 +47,7 @@ describe('Button component accessibility', () => {
       const { container } = render(
         <LoadingButton isLoading>Save</LoadingButton>,
       );
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -94,7 +90,7 @@ describe('Button component accessibility', () => {
   describe('CustomThemeButton', () => {
     it('should not fail an aXe audit', async () => {
       const { container } = render(<CustomThemeButton>Save</CustomThemeButton>);
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -103,7 +99,7 @@ describe('Button component accessibility', () => {
       const { container } = render(
         <CustomThemeButton isLoading>Save</CustomThemeButton>,
       );
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -153,7 +149,7 @@ describe('Button component accessibility', () => {
         </ButtonGroup>,
       );
 
-      const results = await axe(screen.container, jestAxeConfig);
+      const results = await axe(screen.container);
 
       expect(results).toHaveNoViolations();
     });

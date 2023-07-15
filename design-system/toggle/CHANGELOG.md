@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.6.8
+
+### Patch Changes
+
+- [`617f98ed199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/617f98ed199) - Use correct typing for emotion styles
+
 ## 12.6.7
 
 ### Patch Changes

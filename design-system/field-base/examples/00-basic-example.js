@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* TODO: Make all examples use simple but accessible implementations (DSP-11464) */
-
 import React, { PureComponent } from 'react';
 import Textfield from '@atlaskit/textfield';
 
@@ -27,9 +24,12 @@ export default class BasicExample extends PureComponent {
   render() {
     return (
       <div>
-        <Label label="With onBlur & onFocus event handlers" />
+        <Label
+          htmlFor="example-1"
+          label="With onBlur & onFocus event handlers"
+        />
         <FieldBase onBlur={this.onBlur} onFocus={this.onFocus}>
-          <Textfield />
+          <Textfield id="example-1" />
         </FieldBase>
         <div
           style={{
@@ -43,37 +43,40 @@ export default class BasicExample extends PureComponent {
         >
           {this.state.eventResult}
         </div>
-        <Label label="With isDisabled" />
+        <Label label="With isDisabled" htmlFor="example-2" />
         <FieldBase isDisabled>
-          <Textfield />
+          <Textfield id="example-2" />
         </FieldBase>
-        <Label label="With isInvalid" />
+        <Label label="With isInvalid" htmlFor="example-3" />
         <FieldBase isInvalid invalidMessage="This is an invalid field message">
-          <Textfield />
+          <Textfield id="example-3" />
         </FieldBase>
-        <Label label="With isCompact" />
+        <Label label="With isCompact" htmlFor="example-4" />
         <FieldBase isCompact>
-          <Textfield />
+          <Textfield id="example-4" />
         </FieldBase>
-        <Label label="With isLoading" />
+        <Label label="With isLoading" htmlFor="example-5" />
         <FieldBase isLoading>
-          <Textfield />
+          <Textfield id="example-5" />
         </FieldBase>
-        <Label label="With isRequired, maxWidth(100) & isPaddingDisabled" />
+        <Label
+          label="With isRequired, maxWidth(100) & isPaddingDisabled"
+          htmlFor="example-6"
+        />
         <FieldBase isRequired maxWidth={100} isPaddingDisabled>
-          <Textfield />
+          <Textfield id="example-6" />
         </FieldBase>
-        <Label label="With appearance none" />
+        <Label label="With appearance none" htmlFor="example-7" />
         <FieldBase appearance="none">
-          <Textfield />
+          <Textfield id="example-7" />
         </FieldBase>
-        <Label label="With appearance subtle" />
+        <Label label="With appearance subtle" htmlFor="example-8" />
         <FieldBase appearance="subtle">
-          <Textfield />
+          <Textfield id="example-8" />
         </FieldBase>
-        <Label label="With isFitContainerWidthEnabled" />
+        <Label label="With isFitContainerWidthEnabled" htmlFor="example-9" />
         <FieldBase isFitContainerWidthEnabled>
-          <Textfield />
+          <Textfield id="example-9" />
         </FieldBase>
       </div>
     );

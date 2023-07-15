@@ -1,5 +1,12 @@
 # @atlaskit/field-base
 
+## 15.2.3
+
+### Patch Changes
+
+- [`924716e8251`](https://bitbucket.org/atlassian/atlassian-frontend/commits/924716e8251) - Update label example to have associated input to inline label.
+- [`f8d7219dfe7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f8d7219dfe7) - Update examples to appropriately associate labels with controls.
+
 ## 15.2.2
 
 ### Patch Changes

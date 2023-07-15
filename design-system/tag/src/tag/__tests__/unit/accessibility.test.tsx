@@ -2,11 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 import Avatar from '@atlaskit/avatar';
 
 import RemovableTag from '../../removable-tag';
@@ -18,21 +14,21 @@ describe('Tag component accessibility', () => {
   describe('Simple Tag', () => {
     it('should not fail an aXe audit', async () => {
       const { container } = render(<Tag text="Testing" />);
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
 
     it('should not fail an aXe audit when rounded', async () => {
       const { container } = render(<Tag text="Testing" appearance="rounded" />);
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
 
     it('should not fail an aXe audit when containing an href', async () => {
       const { container } = render(<Tag text="Testing" href="/test" />);
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -45,7 +41,7 @@ describe('Tag component accessibility', () => {
         />,
       );
 
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -56,7 +52,7 @@ describe('Tag component accessibility', () => {
       const { container } = render(
         <RemovableTag text="Testing" removeButtonLabel="Remove" />,
       );
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -69,7 +65,7 @@ describe('Tag component accessibility', () => {
           appearance="rounded"
         />,
       );
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -78,7 +74,7 @@ describe('Tag component accessibility', () => {
       const { container } = render(
         <RemovableTag text="Testing" removeButtonLabel="Remove" href="/test" />,
       );
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -92,7 +88,7 @@ describe('Tag component accessibility', () => {
         />,
       );
 
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });
@@ -107,7 +103,7 @@ describe('Tag component accessibility', () => {
         />,
       );
 
-      const results = await axe(container, jestAxeConfig);
+      const results = await axe(container);
 
       expect(results).toHaveNoViolations();
     });

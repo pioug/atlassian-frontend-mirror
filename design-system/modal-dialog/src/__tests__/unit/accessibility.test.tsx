@@ -3,11 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import Lorem from 'react-lorem-component';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 import Button from '@atlaskit/button';
 
 import {
@@ -47,6 +43,6 @@ it('Basic Modal should not fail aXe audit', async () => {
       </ModalTransition>
     </div>,
   );
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
   expect(results).toHaveNoViolations();
 });

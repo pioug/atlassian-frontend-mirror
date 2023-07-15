@@ -2,11 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 
 import DropdownMenu, {
   DropdownItem,
@@ -32,7 +28,7 @@ it('Basic DropdownMenu should not fail aXe audit', async () => {
       </DropdownItemGroup>
     </DropdownMenu>,
   );
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });
@@ -49,7 +45,7 @@ it('Checkbox DropdownMenu should not fail aXe audit', async () => {
       </DropdownItemCheckboxGroup>
     </DropdownMenu>,
   );
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });
@@ -66,7 +62,7 @@ it('Radio DropdownMenu should not fail aXe audit', async () => {
       </DropdownItemRadioGroup>
     </DropdownMenu>,
   );
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });

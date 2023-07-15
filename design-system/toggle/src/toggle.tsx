@@ -98,8 +98,6 @@ const Toggle = memo(
     const toggleStyles = useMemo(() => getStyles(size, mode), [size, mode]);
 
     return (
-      // This may be useless? DSP-11744
-      // @ts-ignore
       <label {...controlProps} css={toggleStyles}>
         <input
           ref={ref}

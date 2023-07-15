@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 185.16.1
+
+### Patch Changes
+
+- [`75520758a9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75520758a9d) - Fix layout not persisting on edits of datasource
+
 ## 185.16.0
 
 ### Minor Changes

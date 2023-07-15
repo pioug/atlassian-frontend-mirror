@@ -635,7 +635,10 @@ export const updateExistingDatasource = (
     const isUrlChange = newAdf.attrs?.url !== node.attrs?.url;
 
     if (isColumnChange || isUrlChange) {
-      tr.setNodeMarkup(from, schemaNodes.blockCard, newAdf.attrs);
+      tr.setNodeMarkup(from, schemaNodes.blockCard, {
+        ...node.attrs,
+        ...newAdf.attrs,
+      });
     }
   } else if (newAdf.type === 'inlineCard') {
     // datasource to inline

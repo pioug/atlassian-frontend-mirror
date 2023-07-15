@@ -52,7 +52,7 @@
     "wait-for-expect": "^1.2.0"
   },
   "optionalDependencies": {
-    "@atlassian/embedded-confluence-common": "^1.31.0",
+    "@atlassian/embedded-confluence-common": "^1.31.2",
     "@atlassian/experience-tracker": "^2.2.0"
   },
   "browser": "dist/embedded-confluence-bundle.js",

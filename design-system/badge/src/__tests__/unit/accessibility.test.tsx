@@ -2,11 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 
 import Badge from '../../../src';
 
@@ -16,14 +12,14 @@ expect.extend(toHaveNoViolations);
 
 it('Basic badge should not fail basic aXe audit', async () => {
   const { container } = render(<Badge>{123}</Badge>);
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });
 
 it('Primary badge should not fail basic aXe audit', async () => {
   const { container } = render(<Badge appearance="primary">{123}</Badge>);
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });
@@ -32,28 +28,28 @@ it('Primary inverted badge should not fail basic aXe audit', async () => {
   const { container } = render(
     <Badge appearance="primaryInverted">{123}</Badge>,
   );
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });
 
 it('Important badge should not fail basic aXe audit', async () => {
   const { container } = render(<Badge appearance="important">{123}</Badge>);
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });
 
 it('Added badge should not fail basic aXe audit', async () => {
   const { container } = render(<Badge appearance="added">+100</Badge>);
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });
 
 it('Removed badge should not fail basic aXe audit', async () => {
   const { container } = render(<Badge appearance="removed">+100</Badge>);
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });
@@ -66,7 +62,7 @@ it('Badge with max value should not fail an aXe audit', async () => {
       {1000}
     </Badge>,
   );
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });
@@ -77,7 +73,7 @@ it('Disabled badge should not fail an aXe audit', async () => {
       {1000}
     </Badge>,
   );
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
 
   expect(results).toHaveNoViolations();
 });

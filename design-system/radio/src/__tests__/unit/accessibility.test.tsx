@@ -2,11 +2,7 @@ import React, { ComponentProps } from 'react';
 
 import { render } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 
 import Radio from '../../radio';
 import RadioGroup from '../../radio-group';
@@ -28,42 +24,42 @@ describe('Radio', () => {
 
   it('passes basic aXe audit on the initial rendered state', async () => {
     const wrapper = render(<Radio {...defaultProps} />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
 
   it('passes basic aXe audit on the checked state', async () => {
     const wrapper = render(<Radio {...defaultProps} isChecked />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
 
   it('passes basic aXe audit on the disabled state', async () => {
     const wrapper = render(<Radio {...defaultProps} isDisabled />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
 
   it('passes basic aXe audit on the invalid state', async () => {
     const wrapper = render(<Radio {...defaultProps} isInvalid />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
 
   it('passes basic aXe audit on the required state', async () => {
     const wrapper = render(<Radio {...defaultProps} isRequired />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
 
   it('passes basic aXe audit on the required state', async () => {
     const wrapper = render(<Radio {...defaultProps} isRequired />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
@@ -98,35 +94,35 @@ describe('RadioGroup', () => {
 
   it('passes basic aXe audit on the initial rendered state', async () => {
     const wrapper = render(<RadioGroup {...defaultProps} />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
 
   it('passes basic aXe audit on the disabled state', async () => {
     const wrapper = render(<RadioGroup {...defaultProps} isDisabled />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
 
   it('passes basic aXe audit on the invalid state', async () => {
     const wrapper = render(<RadioGroup {...defaultProps} isInvalid />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
 
   it('passes basic aXe audit on the required state', async () => {
     const wrapper = render(<RadioGroup {...defaultProps} isRequired />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });
 
   it('passes basic aXe audit on the required state', async () => {
     const wrapper = render(<RadioGroup {...defaultProps} isRequired />);
-    const results = await axe(wrapper.container, jestAxeConfig);
+    const results = await axe(wrapper.container);
 
     expect(results).toHaveNoViolations();
   });

@@ -73,7 +73,9 @@ import {
 } from '../../../../../__tests__/unit/plugins/card/_helpers';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { asMock } from '@atlaskit/media-test-helpers';
-import type { DatasourceAdf } from '@atlaskit/smart-card';
+import type { DatasourceAdf, InlineCardAdf } from '@atlaskit/smart-card';
+import { DatasourceAttributes } from '@atlaskit/adf-schema/schema';
+import { DatasourceTableLayout } from '../../../ui/LayoutButton/types';
 
 const atlassianUrl = 'http://www.atlassian.com/';
 const googleUrl = 'http://www.google.com/';
@@ -111,7 +113,15 @@ const originalDatasourceAdf: DatasourceAdf = {
   attrs: originalDatasourceAdfAttrs,
 };
 
-const getNewDatasourceAdfAttrs = (url: string): DatasourceAdf['attrs'] => {
+const originalDatasourceWideAdfAttrs: DatasourceAttributes = {
+  ...originalDatasourceAdfAttrs,
+  layout: 'wide',
+};
+
+const getNewDatasourceAdfAttrs = (
+  url: string,
+  layout?: DatasourceTableLayout,
+): DatasourceAttributes => {
   return {
     url,
     datasource: {
@@ -124,13 +134,17 @@ const getNewDatasourceAdfAttrs = (url: string): DatasourceAdf['attrs'] => {
         },
       ],
     },
+    ...(layout ? { layout } : {}),
   };
 };
 
-const getNewDatasourceAdf = (url: string): DatasourceAdf => {
+const getNewDatasourceAdf = (
+  url: string,
+  layout?: DatasourceTableLayout,
+): DatasourceAdf => {
   return {
     type: 'blockCard',
-    attrs: getNewDatasourceAdfAttrs(url),
+    attrs: getNewDatasourceAdfAttrs(url, layout) as DatasourceAdf['attrs'],
   };
 };
 
@@ -140,13 +154,18 @@ function getJqlCardAdfAttrs() {
   };
 }
 
-const jqlInlineCardAdf = {
+const jqlInlineCardAdf: InlineCardAdf = {
   type: 'inlineCard',
   attrs: getJqlCardAdfAttrs(),
 };
 
 const datasourceRefsNode = datasourceBlockCard(originalDatasourceAdfAttrs)();
 const datasourceNode = clean(datasourceRefsNode)(defaultSchema) as Node;
+
+const wideDatasourceRefsNode = datasourceBlockCard(
+  originalDatasourceWideAdfAttrs,
+)();
+const wideDatasourceNode = clean(wideDatasourceRefsNode)(defaultSchema) as Node;
 
 describe('card', () => {
   const createEditor = createEditorFactory();
@@ -1329,7 +1348,7 @@ describe('card', () => {
         updateExistingDatasource(
           editorView.state,
           datasourceNode,
-          originalDatasourceAdf as any,
+          originalDatasourceAdf,
           editorView,
         );
 
@@ -1344,7 +1363,7 @@ describe('card', () => {
         updateExistingDatasource(
           editorView.state,
           datasourceNode,
-          getNewDatasourceAdf(mockJqlUrl1) as any,
+          getNewDatasourceAdf(mockJqlUrl1),
           editorView,
         );
 
@@ -1356,13 +1375,32 @@ describe('card', () => {
         );
       });
 
+      it('should correctly update wide layout datasource if columns gets updated and keep the wide layout', () => {
+        const { editorView } = editor(doc('{<node>}', wideDatasourceRefsNode));
+        updateExistingDatasource(
+          editorView.state,
+          wideDatasourceNode,
+          getNewDatasourceAdf(mockJqlUrl1),
+          editorView,
+        );
+
+        expect(editorView.state.doc).toEqualDocument(
+          doc(
+            '{<node>}',
+            datasourceBlockCard(
+              getNewDatasourceAdfAttrs(mockJqlUrl1, 'wide'),
+            )(),
+          ),
+        );
+      });
+
       it('should correctly update datasource if url gets updated', () => {
         const { editorView } = editor(doc('{<node>}', datasourceRefsNode));
 
         updateExistingDatasource(
           editorView.state,
           datasourceNode,
-          getNewDatasourceAdf(mockJqlUrl2) as any,
+          getNewDatasourceAdf(mockJqlUrl2),
           editorView,
         );
 
@@ -1380,7 +1418,7 @@ describe('card', () => {
         updateExistingDatasource(
           editorView.state,
           datasourceNode,
-          jqlInlineCardAdf as any,
+          jqlInlineCardAdf,
           editorView,
         );
 

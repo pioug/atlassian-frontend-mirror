@@ -2,11 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 
 import Heading from '../../src/heading';
 
@@ -18,6 +14,6 @@ it('Basic Heading should not fail aXe audit', async () => {
       inverse
     </Heading>,
   );
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
   expect(results).toHaveNoViolations();
 });

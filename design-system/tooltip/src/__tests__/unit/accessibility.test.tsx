@@ -2,11 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import {
-  axe,
-  jestAxeConfig,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, toHaveNoViolations } from '@af/accessibility-testing';
 import Button from '@atlaskit/button';
 
 import Tooltip from '../../Tooltip';
@@ -19,6 +15,6 @@ it('Basic Tooltip should not fail aXe audit', async () => {
       {(tooltipProps) => <Button {...tooltipProps}>Hover Over Me</Button>}
     </Tooltip>,
   );
-  const results = await axe(container, jestAxeConfig);
+  const results = await axe(container);
   expect(results).toHaveNoViolations();
 });

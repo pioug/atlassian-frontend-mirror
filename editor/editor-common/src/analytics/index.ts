@@ -75,6 +75,7 @@ export type {
   MediaAltTextActionType,
   MediaEventPayload,
   MediaLinkAEP,
+  MediaResizeTrackAction,
   NodeCount,
   NodeEventPayload,
   OperationalAEP,

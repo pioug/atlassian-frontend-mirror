@@ -19,7 +19,7 @@ import blockTypePlugin from '../../../../block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
-import cardPlugin from '../../../../card';
+import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';

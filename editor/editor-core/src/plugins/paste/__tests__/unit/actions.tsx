@@ -48,6 +48,7 @@ import listPlugin from '../../../list';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import extensionPlugin from '../../../extension';
 import editorDisabledPlugin from '../../../editor-disabled';
@@ -92,6 +93,7 @@ describe('action paste handler', () => {
         .add(blockTypePlugin)
         .add(captionPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
         .add([

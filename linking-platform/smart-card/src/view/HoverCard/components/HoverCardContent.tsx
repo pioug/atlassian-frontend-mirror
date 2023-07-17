@@ -1,9 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
-
 import { CardState } from '../../../state/types';
 import { JsonLd } from 'json-ld-types';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
@@ -14,10 +12,7 @@ import {
   SmartLinkSize,
 } from '../../../constants';
 import { extractMetadata } from '../../../extractors/hover/extractMetadata';
-import {
-  AnalyticsFacade,
-  useSmartLinkAnalytics,
-} from '../../../state/analytics';
+import { useSmartLinkAnalytics } from '../../../state/analytics';
 import { getExtensionKey } from '../../../state/helpers';
 import { isSpecialEvent } from '../../../utils';
 import { TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
@@ -43,26 +38,6 @@ import { useSmartCardState } from '../../../state/store';
 import { useFeatureFlag } from '@atlaskit/link-provider';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
-
-export const getOpenAction = (
-  url: string,
-  analytics: AnalyticsFacade,
-  onActionClick?: (actionId: string) => void,
-): ActionItem =>
-  ({
-    name: ActionName.CustomAction,
-    icon: <ShortcutIcon label="open in new tab" size="medium" />,
-    iconPosition: 'before',
-    onClick: () => {
-      if (onActionClick) {
-        onActionClick('open-content');
-      }
-      window.open(url, '_blank');
-      analytics.ui.hoverCardOpenLinkClickedEvent({ previewDisplay: 'card' });
-    },
-    tooltipMessage: <FormattedMessage {...messages.open_link_in_a_new_tab} />,
-    testId: 'hover-card-open-button',
-  } as CustomActionItem);
 
 export const getCopyAction = (url: string): ActionItem =>
   ({
@@ -172,10 +147,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
     [createAnalyticsEvent, cardState.status, analytics.ui, id],
   );
 
-  const titleActions = useMemo(
-    () => [getCopyAction(url), getOpenAction(url, analytics, onActionClick)],
-    [url, analytics, onActionClick],
-  );
+  const titleActions = useMemo(() => [getCopyAction(url)], [url]);
 
   const data = cardState.details?.data as JsonLd.Data.BaseData;
   const { subtitle } = extractMetadata(

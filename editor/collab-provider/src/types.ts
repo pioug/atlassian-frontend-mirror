@@ -1,49 +1,45 @@
 import type { Step } from 'prosemirror-transform';
-import type { EditorState, Transaction } from 'prosemirror-state';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Manager } from 'socket.io-client';
-import type { DisconnectReason } from './disconnected-reason-mapper';
 import type { InternalError } from './errors/error-types';
-import type { ProviderError } from './errors/error-types';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { GetUserType } from './participants/participants-helper';
 import AnalyticsHelper from './analytics/analytics-helper';
-import type { ProviderParticipant } from './participants/participants-helper';
+import type {
+  CollabInitPayload,
+  StepJson,
+  CollabSendableSelection,
+  Metadata,
+} from '@atlaskit/editor-common/collab';
 
-export { ProviderParticipant };
-
-// types from editor common
-
-export interface CollabParticipant {
-  lastActive: number;
-  sessionId: string;
-  avatar: string;
-  name: string;
-  cursorPos?: number;
-}
-
-export interface CollabEventInitData {
-  doc?: any;
-  json?: any;
-  version?: number;
-  sid?: string;
-  reserveCursor?: boolean;
-}
-
-export interface CollabEventRemoteData {
-  json?: any;
-  newState?: EditorState;
-  userIds?: (number | string)[];
-}
-
-export interface CollabEventConnectionData {
-  sid: string;
-  initial: boolean;
-}
-
-export interface CollabEventConnectingData {
-  initial: boolean;
-}
+// Re-export values for the /types entry point to this package
+export type {
+  CollabParticipant,
+  CollabEventInitData,
+  CollabEventRemoteData,
+  CollabEventConnectionData,
+  CollabEventConnectingData,
+  CollabEventPresenceData,
+  ResolvedEditorState,
+  CollabConnectedPayload,
+  CollabConnectingPayload,
+  CollabDisconnectedPayload,
+  CollabInitPayload,
+  CollabDataPayload,
+  CollabTelepointerPayload,
+  CollabPresencePayload,
+  CollabMetadataPayload,
+  CollabLocalStepsPayload,
+  CollabCommitStatusEventPayload,
+  CollabEvents,
+  Metadata,
+  StepJson,
+  CollabEventTelepointerData,
+  CollabSendableSelection,
+  CollabEditProvider,
+  NewCollabSyncUpErrorAttributes,
+  SyncUpErrorFunction,
+} from '@atlaskit/editor-common/collab';
 
 export interface CollabEventDisconnectedData {
   sid: string;
@@ -56,20 +52,9 @@ export interface CollabEventDisconnectedData {
     | 'UNKNOWN_DISCONNECT';
 }
 
-export interface CollabEventPresenceData {
-  joined?: ProviderParticipant[];
-  left?: { sessionId: string }[];
-}
-
 export interface CollabEventLocalStepData {
   steps: Array<Step>;
 }
-
-export type ResolvedEditorState<T = any> = {
-  content: JSONDocNode | T;
-  title: string | null;
-  stepVersion: number;
-};
 
 // types from editor common end
 
@@ -161,58 +146,7 @@ export interface Lifecycle {
   on(event: LifecycleEvents, handler: EventHandler): void;
 }
 
-export type CollabConnectedPayload = CollabEventConnectionData;
-export type CollabConnectingPayload = CollabEventConnectingData;
-
-export interface CollabDisconnectedPayload {
-  reason: DisconnectReason;
-  sid: string;
-}
-
-export interface CollabInitPayload extends CollabEventInitData {
-  doc: any;
-  version: number;
-  metadata?: Metadata;
-  reserveCursor?: boolean;
-}
-
-export interface CollabDataPayload extends CollabEventRemoteData {
-  version: number;
-  json: StepJson[];
-  userIds: (number | string)[];
-}
-
-export type CollabTelepointerPayload = CollabEventTelepointerData;
-export type CollabPresencePayload = CollabEventPresenceData;
-export type CollabMetadataPayload = Metadata;
-export type CollabLocalStepsPayload = {
-  steps: readonly Step[];
-};
-export type CollabCommitStatusEventPayload = {
-  status: 'attempt' | 'success' | 'failure';
-  version: number;
-};
-
-export interface CollabEvents {
-  'metadata:changed': CollabMetadataPayload;
-  init: CollabInitPayload;
-  connected: CollabConnectedPayload;
-  disconnected: CollabDisconnectedPayload;
-  data: CollabDataPayload;
-  telepointer: CollabTelepointerPayload;
-  presence: CollabPresencePayload;
-  'local-steps': CollabLocalStepsPayload;
-  error: ProviderError;
-  entity: any;
-  connecting: CollabConnectingPayload;
-  'commit-status': CollabCommitStatusEventPayload;
-}
-
 // Channel
-export interface Metadata {
-  [key: string]: string | number | boolean;
-}
-
 export type InitPayload = {
   doc: any;
   version: number;
@@ -244,36 +178,6 @@ export type PresencePayload = PresenceData & {
 
 export type TelepointerPayload = PresencePayload & {
   selection: CollabSendableSelection;
-};
-
-type MarkJson = {
-  type: string;
-  attrs: { [key: string]: any };
-};
-
-type NodeJson = {
-  type: string;
-  attrs: { [key: string]: any };
-  content: NodeJson[];
-  marks: MarkJson[];
-  text?: string;
-};
-
-type SliceJson = {
-  content: NodeJson[];
-  openStart: number;
-  openEnd: number;
-};
-
-export type StepJson = {
-  stepType?: string; // Likely required
-  from?: number;
-  to?: number;
-  slice?: SliceJson;
-  clientId: number | string;
-  userId: string;
-  createdAt?: number; // Potentially required?
-  structure?: boolean;
 };
 
 export enum AcknowledgementResponseTypes {
@@ -365,52 +269,3 @@ export type ProductInformation = {
   product: string;
   subProduct?: string;
 };
-
-export interface CollabEventTelepointerData {
-  type: 'telepointer';
-  selection: CollabSendableSelection;
-  sessionId: string;
-}
-
-export interface CollabSendableSelection {
-  type: 'textSelection' | 'nodeSelection';
-  // JWM does some weird serialisation stuff:
-  // eg. {"type":"nodeSelection","head":"{\"nodeId\":\"project:10002:view/list/node/summary-10000\"}"}
-  anchor?: number | string;
-  head?: number | string;
-}
-
-export interface CollabEditProvider<
-  Events extends CollabEvents = CollabEvents,
-> {
-  initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: depecrate this
-
-  setup(props: {
-    getState?: () => EditorState;
-    onSyncUpError?: SyncUpErrorFunction;
-  }): this;
-
-  send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
-
-  on(evt: keyof Events, handler: (...args: any) => void): this;
-
-  off(evt: keyof Events, handler: (...args: any) => void): this;
-
-  unsubscribeAll(evt: keyof Events): this;
-
-  sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
-
-  getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
-}
-
-export type NewCollabSyncUpErrorAttributes = {
-  lengthOfUnconfirmedSteps?: number;
-  tries: number;
-  maxRetries: number;
-  clientId?: number | string;
-  version: number;
-};
-
-export type SyncUpErrorFunction = (
-  attributes: NewCollabSyncUpErrorAttributes,
-) => void;

@@ -121,7 +121,6 @@ describe('<ResizableMediaSingle />', () => {
     >(
       <ResizableMediaSingle
         updateSize={jest.fn()}
-        displayGrid={jest.fn()}
         getPos={jest.fn().mockReturnValue(0)}
         view={editorView}
         lineLength={362}
@@ -133,6 +132,7 @@ describe('<ResizableMediaSingle />', () => {
         selected={true}
         dispatchAnalyticsEvent={jest.fn()}
         viewMediaClientConfig={mediaClientConfig}
+        pluginInjectionApi={undefined}
       >
         <div></div>
       </ResizableMediaSingle>,

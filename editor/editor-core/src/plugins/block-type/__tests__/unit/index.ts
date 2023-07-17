@@ -54,6 +54,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('block-type', () => {
@@ -74,6 +75,7 @@ describe('block-type', () => {
         .add(blockTypePlugin)
         .add(panelPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tablesPlugin),
       pluginKey: blockTypePluginKey,

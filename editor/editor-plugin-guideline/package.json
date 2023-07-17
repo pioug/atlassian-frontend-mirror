@@ -23,7 +23,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.21.0",
+    "@atlaskit/editor-common": "^74.22.0",
     "@atlaskit/editor-plugin-width": "^0.1.0",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/theme": "^12.5.0",

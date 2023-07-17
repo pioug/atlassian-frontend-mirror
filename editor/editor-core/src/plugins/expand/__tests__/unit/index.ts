@@ -31,6 +31,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('expand actions', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -50,6 +51,7 @@ describe('expand actions', () => {
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(tablesPlugin),
     });
   };

@@ -43,6 +43,7 @@ import {
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { INPUT_METHOD } from '../../../../plugins/analytics';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -245,11 +246,17 @@ describe('clear-formatting', () => {
       ].forEach(({ formattingName, nodeType }) => {
         it(`should create analytics with ${formattingName} format cleared`, () => {
           const { editorView } = editor(doc(p(nodeType('t{<}ex{>}t'))));
+          const mockEditorAnalyticsApi: EditorAnalyticsAPI = {
+            attachAnalyticsEvent: (payload) => {
+              createAnalyticsEvent(payload);
+              return () => true;
+            },
+          };
 
-          clearFormattingWithAnalytics(inputMethodToolbar)(
-            editorView.state,
-            editorView.dispatch,
-          );
+          clearFormattingWithAnalytics(
+            inputMethodToolbar,
+            mockEditorAnalyticsApi,
+          )(editorView.state, editorView.dispatch);
 
           expect(createAnalyticsEvent).toHaveBeenCalledWith(
             createClearFormattingPayloadWithAttributes({
@@ -271,11 +278,16 @@ describe('clear-formatting', () => {
       ].forEach(({ level, nodeType }) => {
         it(`should create analytics for heading format cleared, if has heading level ${level}`, () => {
           const { editorView } = editor(doc(nodeType('t{<}ex{>}t')));
-
-          clearFormattingWithAnalytics(inputMethodToolbar)(
-            editorView.state,
-            editorView.dispatch,
-          );
+          const mockEditorAnalyticsApi: EditorAnalyticsAPI = {
+            attachAnalyticsEvent: (payload) => {
+              createAnalyticsEvent(payload);
+              return () => true;
+            },
+          };
+          clearFormattingWithAnalytics(
+            inputMethodToolbar,
+            mockEditorAnalyticsApi,
+          )(editorView.state, editorView.dispatch);
 
           expect(createAnalyticsEvent).toHaveBeenCalledWith(
             createClearFormattingPayloadWithAttributes({
@@ -291,10 +303,17 @@ describe('clear-formatting', () => {
           doc(code_block({ language: 'java' })('t{<}ex{>}t')),
         );
 
-        clearFormattingWithAnalytics(inputMethodToolbar)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        const mockEditorAnalyticsApi: EditorAnalyticsAPI = {
+          attachAnalyticsEvent: (payload) => {
+            createAnalyticsEvent(payload);
+            return () => true;
+          },
+        };
+
+        clearFormattingWithAnalytics(
+          inputMethodToolbar,
+          mockEditorAnalyticsApi,
+        )(editorView.state, editorView.dispatch);
 
         expect(createAnalyticsEvent).toHaveBeenCalledWith(
           createClearFormattingPayloadWithAttributes({
@@ -307,10 +326,17 @@ describe('clear-formatting', () => {
       it(`should create analytics for block quote format cleared`, () => {
         const { editorView } = editor(doc(blockquote(p('t{<}ex{>}t'))));
 
-        clearFormattingWithAnalytics(inputMethodToolbar)(
-          editorView.state,
-          editorView.dispatch,
-        );
+        const mockEditorAnalyticsApi: EditorAnalyticsAPI = {
+          attachAnalyticsEvent: (payload) => {
+            createAnalyticsEvent(payload);
+            return () => true;
+          },
+        };
+
+        clearFormattingWithAnalytics(
+          inputMethodToolbar,
+          mockEditorAnalyticsApi,
+        )(editorView.state, editorView.dispatch);
 
         expect(createAnalyticsEvent).toHaveBeenCalledWith(
           createClearFormattingPayloadWithAttributes({

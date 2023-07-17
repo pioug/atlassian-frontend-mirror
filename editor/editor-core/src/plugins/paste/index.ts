@@ -5,7 +5,7 @@ import {
 import { createPlugin } from './pm-plugins/main';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import type cardPlugin from '../card';
+import type { cardPlugin } from '@atlaskit/editor-plugin-card';
 
 export type PastePluginOptions = {
   cardOptions?: CardOptions;

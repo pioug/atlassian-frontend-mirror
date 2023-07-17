@@ -23,6 +23,7 @@ import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { TextSelection, EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import {
   akEditorFullPageMaxWidth,
   akEditorDefaultLayoutWidth,
@@ -56,6 +57,7 @@ describe('table-resizing/event-handlers', () => {
           .add(contentInsertionPlugin)
           .add(decorationsPlugin)
           .add(widthPlugin)
+          .add(guidelinePlugin)
           .add([
             tablePlugin,
             {

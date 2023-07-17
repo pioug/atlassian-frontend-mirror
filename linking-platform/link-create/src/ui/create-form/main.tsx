@@ -45,9 +45,11 @@ export interface CreateFormProps<FormData> {
   hideFooter?: boolean;
 }
 
+export const TEST_ID = 'link-create-form';
+
 export const CreateForm = <FormData extends Record<string, any> = {}>({
   children,
-  testId,
+  testId = TEST_ID,
   onSubmit,
   onCancel,
   isLoading,
@@ -90,7 +92,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
       {({ formProps, submitting }) => (
         <form
           {...formProps}
-          name="confluence-creation-form"
+          name="link-create-form"
           data-testid={testId}
           css={formStyles}
         >
@@ -98,7 +100,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
           {!hideFooter && (
             <FormFooter>
               {formErrorMessage && (
-                <div css={errorStyles} data-testid="link-create-form-error">
+                <div css={errorStyles} data-testid={`${testId}-error`}>
                   <ErrorIcon
                     label={formErrorMessage}
                     primaryColor={token('color.icon.danger', '#E34935')}
@@ -111,7 +113,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
                   type="button"
                   appearance="subtle"
                   onClick={handleCancel}
-                  testId={'close-button'}
+                  testId={`${testId}-button-cancel`}
                 >
                   {intl.formatMessage(messages.close)}
                 </Button>
@@ -119,7 +121,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
                   type="submit"
                   appearance="primary"
                   isLoading={submitting}
-                  testId={'create-button'}
+                  testId={`${testId}-button-submit`}
                 >
                   {intl.formatMessage(messages.create)}
                 </LoadingButton>

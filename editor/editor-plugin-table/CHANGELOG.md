@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 2.2.0
+
+### Minor Changes
+
+- [`464745a92e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/464745a92e6) - [ux] Updated the Editor Table plugin to use the new guidelines plugin when custom-table-widths FF is enabled
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.7
+
+### Patch Changes
+
+- [`018b27d3392`](https://bitbucket.org/atlassian/atlassian-frontend/commits/018b27d3392) - [ux] Makes new table resize handle sticky and of variable height based on the table height.
+
+## 2.1.6
+
+### Patch Changes
+
+- [`32ca42e82c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32ca42e82c3) - Extracted internal editor card plugin to new package `editor-plugin-card`.
+
 ## 2.1.5
 
 ### Patch Changes

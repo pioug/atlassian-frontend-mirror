@@ -44,6 +44,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('date plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -64,6 +65,7 @@ describe('date plugin', () => {
         .add(typeAheadPlugin)
         .add(quickInsertPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tablesPlugin),
     });

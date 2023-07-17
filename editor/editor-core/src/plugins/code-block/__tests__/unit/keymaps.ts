@@ -31,6 +31,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('codeBlock - keymaps', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -49,6 +50,7 @@ describe('codeBlock - keymaps', () => {
         .add(basePlugin)
         .add(listPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add([
           tablesPlugin,
           {

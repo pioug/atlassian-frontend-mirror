@@ -1,9 +1,6 @@
 import { errorCodeMapper } from '../error-code-mapper';
-import {
-  InternalError,
-  NCS_ERROR_CODE,
-  PROVIDER_ERROR_CODE,
-} from '../error-types';
+import { InternalError, NCS_ERROR_CODE } from '../error-types';
+import { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';
 
 describe('Error code mapper', () => {
   it.each([

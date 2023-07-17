@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/editor-common/provider-factory';
 //import analyticsPlugin from '../../../plugins/analytics';
 //import basePlugin from '../../../plugins/base';
-//import cardPlugin from '../../../plugins/card';
+//import { cardPlugin } from '@atlaskit/editor-plugin-card';
 //import datePlugin from '../../../plugins/date';
 //import emojiPlugin from '../../../plugins/emoji';
 //import extensionPlugin from '../../../plugins/extension';

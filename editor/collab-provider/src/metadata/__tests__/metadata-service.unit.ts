@@ -3,7 +3,7 @@ import { EditorState } from 'prosemirror-state';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Provider } from '../../';
-import type { Metadata } from '../../types';
+import type { Metadata } from '@atlaskit/editor-common/collab';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 

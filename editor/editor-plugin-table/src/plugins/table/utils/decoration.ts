@@ -1,4 +1,5 @@
 import { Node as PmNode } from 'prosemirror-model';
+// @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
 import { Selection, Transaction, ReadonlyTransaction } from 'prosemirror-state';
 import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
 import { ContentNodeWithPos } from 'prosemirror-utils';

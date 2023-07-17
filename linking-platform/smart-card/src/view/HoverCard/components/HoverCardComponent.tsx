@@ -48,7 +48,19 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       if (isOpen && canOpen) {
         return;
       }
-      mousePos.current = { x: event.clientX, y: event.clientY };
+      mousePos.current = {
+        x: event.clientX,
+        y: event.clientY,
+      };
+
+      //If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
+      if ((!isOpen || !canOpen) && parentSpan.current && mousePos.current) {
+        const { bottom, left } = parentSpan.current.getBoundingClientRect();
+        popupOffset.current = [
+          mousePos.current.x - left + CARD_GAP_PX,
+          mousePos.current.y - bottom + CARD_GAP_PX,
+        ];
+      }
     },
     [canOpen, isOpen],
   );
@@ -125,15 +137,6 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       //Set mouse position in the case it's not already set by onMouseMove, as in the case of scrolling
       setMousePosition(event);
 
-      //If these are undefined then popupOffset is undefined and we fallback to default bottom-start placement
-      if ((!isOpen || !canOpen) && parentSpan.current && mousePos.current) {
-        const { bottom, left } = parentSpan.current.getBoundingClientRect();
-        popupOffset.current = [
-          mousePos.current.x - left,
-          mousePos.current.y - bottom + CARD_GAP_PX,
-        ];
-      }
-
       if (!isOpen && !fadeInTimeoutId.current) {
         // setting a timeout to show a Hover Card after delay runs out
         fadeInTimeoutId.current = setTimeout(() => {
@@ -141,7 +144,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
         }, FADE_IN_DELAY);
       }
     },
-    [canOpen, initResolve, isOpen, setMousePosition],
+    [initResolve, isOpen, setMousePosition],
   );
 
   const linkActions = useSmartLinkActions({

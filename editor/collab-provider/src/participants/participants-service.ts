@@ -4,14 +4,16 @@ import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { telepointerFromStep } from './telepointers-helper';
 import type {
   CollabEventDisconnectedData,
-  CollabEventPresenceData,
-  CollabTelepointerPayload,
   ChannelEvent,
   PresenceData,
   PresencePayload,
-  StepJson,
   TelepointerPayload,
 } from '../types';
+import {
+  CollabEventPresenceData,
+  CollabTelepointerPayload,
+  StepJson,
+} from '@atlaskit/editor-common/collab';
 import {
   createParticipantFromPayload as enrichParticipant,
   GetUserType,

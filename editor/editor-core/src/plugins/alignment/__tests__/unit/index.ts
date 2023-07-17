@@ -36,6 +36,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 const alignmentPreset = new Preset<LightEditorPlugin>()
   .add([featureFlagsPlugin, {}])
@@ -44,6 +45,7 @@ const alignmentPreset = new Preset<LightEditorPlugin>()
   .add(decorationsPlugin)
   .add(alignmentPlugin)
   .add(widthPlugin)
+  .add(guidelinePlugin)
   .add(tablesPlugin)
   .add(listPlugin)
   .add([codeBlockPlugin, { appearance: 'full-page' }])

@@ -43,7 +43,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@atlaskit/editor-common": "^74.21.0",
+    "@atlaskit/editor-common": "^74.22.0",
     "@atlaskit/editor-confluence-transformer": "^8.2.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-test-helpers": "^18.10.0",

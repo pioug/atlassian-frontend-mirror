@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.9.0
+
+### Minor Changes
+
+- [`c209f670761`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c209f670761) - Improved testIds
+
 ## 0.8.2
 
 ### Patch Changes

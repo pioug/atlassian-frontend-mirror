@@ -1,4 +1,4 @@
-import { EditorState, TextSelection } from 'prosemirror-state';
+import { EditorState, Selection } from 'prosemirror-state';
 import { Node as PMNode, NodeType } from 'prosemirror-model';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
@@ -180,7 +180,7 @@ export const focusTitle =
       const dom = editorView.domAtPos(pos);
       const expandWrapper = dom.node.parentElement;
       if (expandWrapper) {
-        setSelectionInsideExpand(state, dispatch, editorView);
+        setSelectionInsideExpand(pos)(state, dispatch, editorView);
         const input = expandWrapper.querySelector('input');
         if (input) {
           input.focus();
@@ -192,18 +192,23 @@ export const focusTitle =
   };
 
 // Used to clear any node or cell selection when expand title is focused
-export const setSelectionInsideExpand: Command = (
-  state,
-  dispatch,
-  editorView,
-) => {
-  const { tr, doc, selection } = state;
+export const setSelectionInsideExpand =
+  (expandPos: number): Command =>
+  (state, dispatch, editorView) => {
+    if (editorView) {
+      if (!editorView.hasFocus()) {
+        editorView.focus();
+      }
 
-  if (editorView && !editorView.hasFocus()) {
-    editorView.focus();
-  }
-  if (dispatch) {
-    dispatch(tr.setSelection(TextSelection.create(doc, selection.from)));
-  }
-  return true;
-};
+      const sel = Selection.findFrom(
+        editorView.state.doc.resolve(expandPos),
+        1,
+        true,
+      );
+      if (sel && dispatch) {
+        dispatch(editorView.state.tr.setSelection(sel));
+      }
+      return true;
+    }
+    return false;
+  };

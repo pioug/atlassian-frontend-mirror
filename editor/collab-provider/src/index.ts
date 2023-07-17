@@ -1,30 +1,32 @@
 export { Provider } from './provider';
 export type {
-  CollabParticipant,
-  CollabEventInitData,
-  CollabEventRemoteData,
-  CollabEventConnectionData,
-  CollabEventConnectingData,
   CollabEventDisconnectedData,
-  CollabEventPresenceData,
-  CollabEventTelepointerData,
   CollabEventLocalStepData,
+  Socket,
+} from './types';
+export type {
+  NewCollabSyncUpErrorAttributes,
   ResolvedEditorState,
+  CollabMetadataPayload,
+  CollabEventInitData,
+  CollabInitPayload,
+  CollabEventConnectionData,
   CollabConnectedPayload,
   CollabDisconnectedPayload,
-  CollabInitPayload,
   CollabDataPayload,
   CollabTelepointerPayload,
   CollabPresencePayload,
-  CollabMetadataPayload,
   CollabLocalStepsPayload,
-  CollabEvents,
+  CollabEventRemoteData,
+  CollabEventPresenceData,
+  CollabEventConnectingData,
+  CollabEventTelepointerData,
   CollabSendableSelection,
-  CollabEditProvider,
+  CollabParticipant,
+  CollabEvents,
   SyncUpErrorFunction,
-  NewCollabSyncUpErrorAttributes,
-  Socket,
+  CollabEditProvider,
+  ProviderError,
   ProviderParticipant,
-} from './types';
-export type { ProviderError } from './errors/error-types';
-export { PROVIDER_ERROR_CODE } from './errors/error-types';
+} from '@atlaskit/editor-common/collab';
+export { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';

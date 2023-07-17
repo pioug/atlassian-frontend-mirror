@@ -1,7 +1,5 @@
-import type {
-  ParticipantsMap,
-  ProviderParticipant,
-} from '../participants-helper';
+import type { ParticipantsMap } from '../participants-helper';
+import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import { ParticipantsState } from '../participants-state';
 
 const activeUser: ProviderParticipant = {

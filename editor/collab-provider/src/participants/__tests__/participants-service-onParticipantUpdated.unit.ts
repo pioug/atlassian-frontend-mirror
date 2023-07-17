@@ -1,6 +1,7 @@
 import { PresencePayload } from '../../types';
 import AnalyticsHelper from '../../analytics/analytics-helper';
-import { ParticipantsMap, ProviderParticipant } from '../participants-helper';
+import { ParticipantsMap } from '../participants-helper';
+import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import { ParticipantsService } from '../participants-service';
 import { ParticipantsState } from '../participants-state';
 

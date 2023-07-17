@@ -1,3 +1,4 @@
+// @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
 import { ReadonlyTransaction } from 'prosemirror-state';
 
 import { pluginFactory } from '@atlaskit/editor-common/utils';

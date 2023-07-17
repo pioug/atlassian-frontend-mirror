@@ -38,6 +38,7 @@ import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import editorDisabledPlugin from '../../../../editor-disabled';
 import listPlugin from '../../../../list';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import tasksAndDecisionsPlugin from '../../../../tasks-and-decisions';
 import { default as textFormattingPlugin } from '../../../../text-formatting';
@@ -71,6 +72,7 @@ describe('paste paragraph edge cases', () => {
         .add(tasksAndDecisionsPlugin)
         .add(textFormattingPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(tablesPlugin)
         .add(layoutPlugin)
         .add(gridPlugin)

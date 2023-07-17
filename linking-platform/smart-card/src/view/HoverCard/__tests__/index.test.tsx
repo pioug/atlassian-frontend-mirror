@@ -777,30 +777,6 @@ describe('HoverCard', () => {
       },
     );
 
-    it('should render open action', async () => {
-      const { findByTestId } = await setup();
-      jest.runAllTimers();
-      const openButton = await findByTestId('hover-card-open-button');
-
-      expect(openButton).toBeTruthy();
-    });
-
-    it('should show tooltip on hover card open button', async () => {
-      const mockOpen = jest.fn();
-      // @ts-ignore
-      global.open = mockOpen;
-      const { findByTestId } = await setup();
-      jest.runAllTimers();
-
-      const content = await findByTestId('smart-block-title-resolved-view');
-      const openButton = await findByTestId('hover-card-open-button');
-      fireEvent.mouseOver(openButton);
-      const tooltip = await findByTestId('hover-card-open-button-tooltip');
-
-      expect(content).toBeTruthy();
-      expect(tooltip.textContent).toBe('Open link in a new tab');
-    });
-
     it('should show tooltip on copy link button', async () => {
       const { findByTestId } = await setup();
       jest.runAllTimers();
@@ -812,22 +788,6 @@ describe('HoverCard', () => {
 
       expect(content).toBeTruthy();
       expect(tooltip.textContent).toBe('Copy link');
-    });
-
-    it('should open url in a new tab after clicking open button', async () => {
-      const mockOpen = jest.fn();
-      // @ts-ignore
-      global.open = mockOpen;
-      const { findByTestId } = await setup();
-      jest.runAllTimers();
-
-      const content = await findByTestId('smart-block-title-resolved-view');
-      const openButton = await findByTestId('hover-card-open-button');
-      fireEvent.click(openButton);
-
-      expect(open).toHaveBeenCalledWith('https://some.url', '_blank');
-      expect(content).toBeTruthy();
-      mockOpen.mockRestore();
     });
 
     it('should not show a hover card for an errored link', async () => {
@@ -1050,36 +1010,6 @@ describe('HoverCard', () => {
           },
           analytics.ANALYTICS_CHANNEL,
         );
-      });
-
-      it('should fire clicked event when open button is clicked', async () => {
-        const spy = jest.spyOn(analytics, 'uiHoverCardOpenLinkClickedEvent');
-
-        const { findByTestId } = await setup();
-        jest.runAllTimers();
-        // wait for card to be resolved
-        await findByTestId('smart-block-title-resolved-view');
-        const openButton = await findByTestId('hover-card-open-button');
-        fireEvent.click(openButton);
-
-        expect(analytics.uiHoverCardOpenLinkClickedEvent).toHaveBeenCalledTimes(
-          1,
-        );
-        expect(spy.mock.results[0].value).toEqual({
-          action: 'clicked',
-          actionSubject: 'button',
-          actionSubjectId: 'shortcutGoToLink',
-          attributes: {
-            componentName: 'smart-cards',
-            definitionId: 'd1',
-            id: expect.any(String),
-            extensionKey: 'confluence-object-provider',
-            packageName: '@atlaskit/smart-card',
-            packageVersion: '999.9.9',
-            previewDisplay: 'card',
-          },
-          eventType: 'ui',
-        });
       });
 
       it('should fire clicked event and close event when preview button is clicked', async () => {

@@ -11,6 +11,8 @@ import { useFormContext } from '../../../controllers/form-context';
 
 import { TextFieldProps } from './types';
 
+export const TEST_ID = 'link-create-text-field';
+
 /**
  * A text field utilising the Atlaskit Textfield and Field objects from `@atlaskit/form`.
  * Validation is handled by the form as it is on form submission. Any errors returned by
@@ -21,6 +23,7 @@ import { TextFieldProps } from './types';
 export function TextField({
   label,
   name,
+  testId = TEST_ID,
   validationHelpText,
   validators,
   defaultValue,
@@ -42,6 +45,7 @@ export function TextField({
      * `value` will be populated again in `fieldProps` which cause the TextField to be changed
      * to a controlled component and raise a warning from React.
      */
+
     <Field
       name={name}
       label={label}
@@ -55,14 +59,17 @@ export function TextField({
             <AkTextfield
               {...fieldProps}
               {...restProps}
+              testId={testId}
               isInvalid={isInvalid}
               isRequired={false} // Remove the default browser validation
             />
             {!error && validationHelpText && (
-              <HelperMessage>{validationHelpText}</HelperMessage>
+              <HelperMessage testId={`${testId}-helper-message`}>
+                {validationHelpText}
+              </HelperMessage>
             )}
             {error && isInvalid && (
-              <ErrorMessage testId={`${restProps.testId}-error-message`}>
+              <ErrorMessage testId={`${testId}-error-message`}>
                 {error}
               </ErrorMessage>
             )}

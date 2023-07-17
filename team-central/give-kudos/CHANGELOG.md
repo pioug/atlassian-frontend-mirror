@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 2.0.0
+
+### Major Changes
+
+- [`4ebab06438a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4ebab06438a) - [ux] Added types for the flag event listener. Added new flags for jira kudos success and failure.
+
 ## 1.1.3
 
 ### Patch Changes

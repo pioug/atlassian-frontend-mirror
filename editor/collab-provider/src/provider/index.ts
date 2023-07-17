@@ -2,21 +2,21 @@ import type { EditorState, Transaction } from 'prosemirror-state';
 import type { Step as ProseMirrorStep } from 'prosemirror-transform';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
+import type { Config, InitialDraft } from '../types';
 import type {
   CollabEditProvider,
   CollabEvents,
   CollabTelepointerPayload,
-  Config,
-  Metadata,
   ResolvedEditorState,
-  InitialDraft,
+  Metadata,
   CollabInitPayload,
-} from '../types';
+  SyncUpErrorFunction,
+} from '@atlaskit/editor-common/collab';
 
 import { createLogger } from '../helpers/utils';
 import AnalyticsHelper from '../analytics/analytics-helper';
 
-import type { SyncUpErrorFunction, PresenceData } from '../types';
+import type { PresenceData } from '../types';
 
 import { telepointerCallback } from '../participants/telepointers-helper';
 import {

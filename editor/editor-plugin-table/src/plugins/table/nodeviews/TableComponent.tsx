@@ -36,6 +36,7 @@ import {
   TableCssClassName as ClassName,
   ColumnResizingPluginState,
   ShadowEvent,
+  PluginInjectionAPI,
 } from '../types';
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import TableFloatingControls from '../ui/TableFloatingControls';
@@ -74,6 +75,7 @@ export interface ComponentProps {
   ordering: TableColumnOrdering;
   tableResizingPluginState?: ColumnResizingPluginState;
   getEditorFeatureFlags: GetEditorFeatureFlags;
+  pluginInjectionApi?: PluginInjectionAPI;
 }
 
 interface TableState {
@@ -326,6 +328,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       containerWidth,
       options,
       getPos,
+      pluginInjectionApi,
     } = this.props;
     const { isLoading, showBeforeShadow, showAfterShadow } = this.state;
     const node = getNode();
@@ -406,6 +409,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         isFullWidthModeEnabled={options?.isFullWidthModeEnabled}
         isBreakoutEnabled={options?.isBreakoutEnabled}
         isNested={isNested}
+        pluginInjectionApi={pluginInjectionApi}
       >
         {stickyHeadersOptimization && (
           <div

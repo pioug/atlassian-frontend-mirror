@@ -1,5 +1,41 @@
 # @atlaskit/editor-core
 
+## 185.17.0
+
+### Minor Changes
+
+- [`464745a92e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/464745a92e6) - [ux] Updated the Editor Table plugin to use the new guidelines plugin when custom-table-widths FF is enabled
+
+### Patch Changes
+
+- Updated dependencies
+
+## 185.16.7
+
+### Patch Changes
+
+- [`1d3e0468d4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d3e0468d4c) - Adds a new analytics event to be implemented later
+
+## 185.16.6
+
+### Patch Changes
+
+- [`1901ebeafcb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1901ebeafcb) - [ux] Fix expand title selection bug
+
+## 185.16.5
+
+### Patch Changes
+
+- [`32ca42e82c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32ca42e82c3) - Extracted internal editor card plugin to new package `editor-plugin-card`.
+- [`ac863be242b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac863be242b) - change props of ResizableMediaSingle with removing displayGrid and adding pluginInjectionApi
+- Updated dependencies
+
+## 185.16.3
+
+### Patch Changes
+
+- [`6e113937892`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6e113937892) - switched use of analytics plugin to new EditorAnalyticsAPI for text-formatting pluginModified file
+
 ## 185.16.1
 
 ### Patch Changes

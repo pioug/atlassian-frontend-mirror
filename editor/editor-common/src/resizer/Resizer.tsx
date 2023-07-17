@@ -45,7 +45,14 @@ export type ResizerProps = {
   handleComponent?: HandleComponent;
 
   handleHeightSize?: HandleHeightSizeType;
+  handleMarginTop?: number;
 
+  // The snap property is used to specify absolute pixel values that resizing should snap to.
+  // x and y are both optional, allowing you to only include the axis you want to define. Defaults to null.
+  snap?: { x?: Array<number>; y?: Array<number> };
+  // The snapGap property is used to specify the minimum gap required in order to move to the next snapping target.
+  // Defaults to 0 which means that snap targets are always used.
+  snapGap?: number;
   // This is the method that should be used by the resizer when positioning the handles
   handleAlignmentMethod?: HandleAlignmentMethod;
   // Ratio that will scale the delta by
@@ -149,15 +156,21 @@ export default function ResizerNext(
     }),
   };
 
+  const marginTop = Number.isFinite(props?.handleMarginTop)
+    ? `${props.handleMarginTop}px`
+    : `unset`;
+
   const handleStyles: HandleStyles = {
     left: {
       width: '24px',
       left: `-${innerPadding}px`,
+      marginTop,
       zIndex: resizerHandleZIndex,
       pointerEvents: 'auto',
     },
     right: {
       width: '24px',
+      marginTop,
       right: `-${innerPadding}px`,
       zIndex: resizerHandleZIndex,
       pointerEvents: 'auto',

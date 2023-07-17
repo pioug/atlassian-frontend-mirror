@@ -95,7 +95,7 @@ import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import emojiPlugin from '../../../emoji';
 import mentionsPlugin from '../../../mentions';
-import cardPlugin from '../../../card';
+import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import pastePlugin from '../../index';
 import mediaPlugin from '../../../media';
 import { PluginConfig as TablePluginConfig } from '@atlaskit/editor-plugin-table/types';
@@ -108,7 +108,8 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import layoutPlugin from '../../../layout';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import { setupProvider } from '../../../../__tests__/unit/plugins/card/_helpers';
+// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
+import { setupProvider } from '../../../../../../editor-plugin-card/src/__tests__/unit/_helpers';
 import { InlineCommentAnnotationProvider } from '../../../annotation/types';
 import annotationPlugin from '../../../annotation';
 import {

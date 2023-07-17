@@ -5,11 +5,13 @@ import {
   AcknowledgementResponseTypes,
   AddStepAcknowledgementPayload,
   ChannelEvent,
+  StepsPayload,
+} from '../types';
+import type {
   CollabCommitStatusEventPayload,
   CollabEvents,
   StepJson,
-  StepsPayload,
-} from '../types';
+} from '@atlaskit/editor-common/collab';
 import type { Step as ProseMirrorStep } from 'prosemirror-transform';
 import { NCS_ERROR_CODE } from '../errors/error-types';
 import AnalyticsHelper from '../analytics/analytics-helper';

@@ -159,7 +159,10 @@ export class ExpandNodeView implements NodeView {
     if (this.input) {
       const { state, dispatch } = this.view;
       setSelectionRelativeToNode(RelativeSelectionPos.Start)(state, dispatch);
-      setSelectionInsideExpand(state, dispatch, this.view);
+      const pos = this.getPos();
+      if (typeof pos === 'number') {
+        setSelectionInsideExpand(pos)(state, dispatch, this.view);
+      }
       this.input.focus();
     }
   };

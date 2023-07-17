@@ -32,6 +32,7 @@ import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { isTableNested } from '../utils';
+import { PluginInjectionAPI } from '../types';
 
 type ForwardRef = (node: HTMLElement | null) => void;
 
@@ -187,6 +188,7 @@ export default class TableView extends ReactNodeView<Props> {
               containerWidth={containerWidth!}
               contentDOM={forwardRef}
               getEditorFeatureFlags={props.getEditorFeatureFlags}
+              pluginInjectionApi={props.pluginInjectionApi}
             />
           );
         }}
@@ -280,6 +282,7 @@ export const createTableView = (
   options: TableOptions,
   getEditorContainerWidth: GetEditorContainerWidth,
   getEditorFeatureFlags: GetEditorFeatureFlags,
+  pluginInjectionApi?: PluginInjectionAPI,
 ): NodeView => {
   const { pluginConfig } = getPluginState(view.state);
   const { allowColumnResizing } = getPluginConfig(pluginConfig);
@@ -298,5 +301,6 @@ export const createTableView = (
     getEditorContainerWidth,
     getEditorFeatureFlags,
     hasIntlContext,
+    pluginInjectionApi,
   }).init();
 };

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { jsx } from '@emotion/react';
 import { EditorState } from 'prosemirror-state';
 import { shortcutStyle } from '../../../../../ui/styles';
@@ -15,10 +15,11 @@ import {
 } from '../../../../../keymaps';
 import { IconHookProps, MenuIconItem } from '../types';
 import { INPUT_METHOD } from '../../../../analytics/types/enums';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
-const clearFormattingToolbar = clearFormattingWithAnalytics(
-  INPUT_METHOD.TOOLBAR,
-);
+interface ClearIconHookProps extends IconHookProps {
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+}
 
 const useClearFormattingPluginState = (
   editorState: EditorState,
@@ -32,12 +33,22 @@ const useClearFormattingPluginState = (
 export const useClearIcon = ({
   intl,
   editorState,
-}: IconHookProps): MenuIconItem | null => {
+  editorAnalyticsAPI,
+}: ClearIconHookProps): MenuIconItem | null => {
   const pluginState = useClearFormattingPluginState(editorState);
   const isPluginAvailable = Boolean(pluginState);
   const formattingIsPresent = Boolean(pluginState?.formattingIsPresent);
   const clearFormattingLabel = intl.formatMessage(
     toolbarMessages.clearFormatting,
+  );
+
+  const clearFormattingToolbar = useCallback(
+    (state, dispatch) =>
+      clearFormattingWithAnalytics(INPUT_METHOD.TOOLBAR, editorAnalyticsAPI)(
+        state,
+        dispatch,
+      ),
+    [editorAnalyticsAPI],
   );
 
   return useMemo(() => {
@@ -61,5 +72,10 @@ export const useClearIcon = ({
         ? tooltip(clearFormattingKeymap, String(clearFormattingLabel))
         : String(clearFormattingLabel),
     };
-  }, [clearFormattingLabel, isPluginAvailable, formattingIsPresent]);
+  }, [
+    isPluginAvailable,
+    clearFormattingToolbar,
+    clearFormattingLabel,
+    formattingIsPresent,
+  ]);
 };

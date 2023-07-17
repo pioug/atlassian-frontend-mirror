@@ -13,10 +13,7 @@ import {
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import type {
-  ExtractInjectionAPI,
-  GridType,
-} from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
   MediaSingle,
   DEFAULT_IMAGE_HEIGHT,
@@ -57,7 +54,6 @@ import CaptionPlaceholder from '../ui/CaptionPlaceholder';
 import { NodeSelection } from 'prosemirror-state';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
 import type mediaPlugin from '../index';
-import type { Highlights } from '@atlaskit/editor-plugin-grid';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 
 export interface MediaSingleNodeState {
@@ -353,7 +349,6 @@ export default class MediaSingleNode extends Component<
         view={this.props.view}
         getPos={getPos}
         updateSize={this.updateSize}
-        displayGrid={this.displayGrid}
         gridSize={12}
         viewMediaClientConfig={this.state.viewMediaClientConfig}
         allowBreakoutSnapPoints={
@@ -361,6 +356,7 @@ export default class MediaSingleNode extends Component<
         }
         selected={isSelected}
         dispatchAnalyticsEvent={this.props.dispatchAnalyticsEvent}
+        pluginInjectionApi={this.props.pluginInjectionApi}
       >
         {MediaChildren}
       </ResizableMediaSingle>
@@ -368,20 +364,6 @@ export default class MediaSingleNode extends Component<
       <MediaSingle {...mediaSingleProps}>{MediaChildren}</MediaSingle>
     );
   }
-
-  private displayGrid = (
-    visible: boolean,
-    gridType: GridType,
-    highlight: number[] | string[],
-  ) => {
-    const { pluginInjectionApi, view } = this.props;
-
-    pluginInjectionApi?.dependencies?.grid?.actions?.displayGrid(view)({
-      visible,
-      gridType,
-      highlight: highlight as Highlights,
-    });
-  };
 
   private clickPlaceholder = () => {
     const { view, getPos, node } = this.props;

@@ -1,5 +1,6 @@
 import AnalyticsHelper from '../../analytics/analytics-helper';
-import { StepJson, StepsPayload } from '../../types';
+import { StepsPayload } from '../../types';
+import type { StepJson } from '@atlaskit/editor-common/collab';
 import { DocumentService } from '../document-service';
 import { createMockService } from './document-service.mock';
 

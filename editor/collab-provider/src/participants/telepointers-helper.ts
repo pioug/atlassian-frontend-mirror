@@ -8,11 +8,13 @@ import type { CustomData } from '@atlaskit/ufo';
 import type {
   AcknowledgementErrorPayload,
   AcknowledgementPayload,
+} from '../types';
+import type {
   CollabTelepointerPayload,
   StepJson,
-} from '../types';
+  ProviderParticipant,
+} from '@atlaskit/editor-common/collab';
 import { AcknowledgementResponseTypes } from '../types';
-import { ProviderParticipant } from './participants-helper';
 
 const logger = createLogger('Telepointer', 'green');
 

@@ -14,6 +14,8 @@ import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type tablePlugin from './index';
 
 export const RESIZE_HANDLE_AREA_DECORATION_GAP = 30;
 export type RowInsertPosition = 'TOP' | 'BOTTOM';
@@ -26,6 +28,8 @@ export interface InsertRowOptions {
   index: number;
   moveCursorToInsertedRow: boolean;
 }
+
+export type PluginInjectionAPI = ExtractInjectionAPI<typeof tablePlugin>;
 
 export type InsertRowMethods =
   | INPUT_METHOD.CONTEXT_MENU
@@ -59,12 +63,7 @@ export interface PluginConfig {
   allowDistributeColumns?: boolean;
 }
 
-export interface ColumnResizingPluginState {
-  resizeHandlePos: number | null;
-  dragging: { startX: number; startWidth: number } | null;
-  lastClick: { x: number; y: number; time: number } | null;
-  lastColumnResizable?: boolean;
-}
+export type { ColumnResizingPluginState } from '@atlaskit/editor-common/types';
 
 /*
  * This type represents the start and end from a cell in a column,

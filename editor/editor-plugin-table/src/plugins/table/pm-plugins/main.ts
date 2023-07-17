@@ -80,6 +80,7 @@ import type {
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import type { getPosHandler } from '@atlaskit/editor-common/types';
+import type { PluginInjectionAPI } from '../types';
 
 let isBreakoutEnabled: boolean | undefined;
 let isFullWidthModeEnabled: boolean | undefined;
@@ -97,6 +98,7 @@ export const createPlugin = (
   fullWidthModeEnabled?: boolean,
   previousFullWidthModeEnabled?: boolean,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
+  pluginInjectionApi?: PluginInjectionAPI,
 ) => {
   isBreakoutEnabled = breakoutEnabled;
   isFullWidthModeEnabled = fullWidthModeEnabled;
@@ -374,6 +376,7 @@ export const createPlugin = (
             },
             getEditorContainerWidth,
             getEditorFeatureFlags,
+            pluginInjectionApi,
           ),
       },
 

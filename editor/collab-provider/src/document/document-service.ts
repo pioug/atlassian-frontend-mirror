@@ -1,19 +1,19 @@
 import AnalyticsHelper from '../analytics/analytics-helper';
 import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
-import {
-  CatchupResponse,
-  ChannelEvent,
-  CollabEvents,
-  CollabInitPayload,
+import { CatchupResponse, ChannelEvent, StepsPayload } from '../types';
+import type {
+  SyncUpErrorFunction,
   ResolvedEditorState,
-  StepJson,
-  StepsPayload,
-} from '../types';
+} from '@atlaskit/editor-common/collab';
 import type { Step as ProseMirrorStep } from 'prosemirror-transform';
 import type { MetadataService } from '../metadata/metadata-service';
 
 import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
-import { SyncUpErrorFunction } from '../types';
+import type {
+  CollabEvents,
+  CollabInitPayload,
+  StepJson,
+} from '@atlaskit/editor-common/collab';
 
 import type { EditorState, Transaction } from 'prosemirror-state';
 import type { Node as PMNode } from 'prosemirror-model';

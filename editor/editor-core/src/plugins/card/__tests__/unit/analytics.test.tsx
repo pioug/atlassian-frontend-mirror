@@ -48,7 +48,8 @@ import EditorActions from '../../../../actions';
 import { EditorSharedConfigProvider } from '../../../../labs/next/internal/context/shared-config';
 import { EditorProps } from '../../../../types';
 import { createDispatch } from '../../../../event-dispatcher';
-import { getPluginState } from '../../pm-plugins/util/state';
+// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
+import { getPluginState } from '../../../../../../editor-plugin-card/src/pm-plugins/util/state';
 
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as any;

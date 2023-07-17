@@ -70,7 +70,9 @@ export function HyperlinkAddToolbar({
   onEscapeCallback,
   onClickAwayCallback,
   hyperlinkPluginState,
-}: HyperlinkAddToolbarProps & { hyperlinkPluginState: HyperlinkState }) {
+}: HyperlinkAddToolbarProps & {
+  hyperlinkPluginState: HyperlinkState | undefined;
+}) {
   return (
     <WithProviders
       providers={['activityProvider', 'searchProvider']}

@@ -1,6 +1,6 @@
 import { Provider } from './provider';
 import { io, Socket } from 'socket.io-client';
-import {
+import type {
   Config,
   ProductInformation,
   InitAndAuthData,

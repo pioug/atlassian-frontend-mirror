@@ -40,6 +40,7 @@ import quickInsertPlugin from '../../../../../plugins/quick-insert';
 import taskDecisionPlugin from '../../../../../plugins/tasks-and-decisions';
 import mentionsPlugin from '../../../../../plugins/mentions';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 import { pluginKey as blockTypePluginKey } from '../../../../../plugins/block-type/pm-plugins/main';
 import {
@@ -177,6 +178,7 @@ describe('@atlaskit/editor-core/ui/ToolbarInsertBlock', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add(layoutPlugin)

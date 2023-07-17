@@ -27,6 +27,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -38,6 +39,7 @@ describe('toEqualDocumentAndSelection matches', () => {
     .add(contentInsertionPlugin)
     .add(rulePlugin)
     .add(widthPlugin)
+    .add(guidelinePlugin)
     .add(tablesPlugin);
 
   const editor = (doc: DocBuilder) =>

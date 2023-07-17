@@ -18,12 +18,13 @@ import codeBlockPlugin from '../../../../code-block';
 import layoutPlugin from '../../../../layout';
 import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
-import cardPlugin from '../../../../card';
+import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
 import editorDisabledPlugin from '../../../../editor-disabled';
 
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import basePLugin from '../../../../base';
 import { deleteBlockContent } from '../../../commands';
@@ -48,6 +49,7 @@ describe('delete block content', () => {
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(layoutPlugin)
       .add(widthPlugin)
+      .add(guidelinePlugin)
       .add(gridPlugin)
       .add(floatingToolbarPlugin)
       .add(hyperlinkPlugin)

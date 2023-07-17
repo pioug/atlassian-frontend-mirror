@@ -37,6 +37,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 function mockExtension(localId?: string) {
   return extension({
@@ -94,6 +95,7 @@ describe('fragment plugin', () => {
       .add(contentInsertionPlugin)
       .add(decorationsPlugin)
       .add(widthPlugin)
+      .add(guidelinePlugin)
       .add(fragmentMarkPlugin)
       .add([tablesPlugin, { tableOptions: {} }])
       .add(contextPanelPlugin)

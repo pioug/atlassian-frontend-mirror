@@ -36,6 +36,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('selection analytics', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -48,6 +49,7 @@ describe('selection analytics', () => {
     .add(rulePlugin)
     .add(layoutPlugin)
     .add(widthPlugin)
+    .add(guidelinePlugin)
     .add(tablesPlugin);
 
   const editor = (doc: DocBuilder) =>

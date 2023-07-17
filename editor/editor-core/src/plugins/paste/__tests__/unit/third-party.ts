@@ -34,6 +34,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('paste plugin: third-party', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -54,6 +55,7 @@ describe('paste plugin: third-party', () => {
         .add(listPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add([
           tablesPlugin,
           {

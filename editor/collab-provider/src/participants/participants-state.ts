@@ -1,4 +1,5 @@
-import { ParticipantsMap, ProviderParticipant } from './participants-helper';
+import { ParticipantsMap } from './participants-helper';
+import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 
 export class ParticipantsState {
   private participants: ParticipantsMap;

@@ -1,4 +1,5 @@
-import { CollabTelepointerPayload, Config, PresencePayload } from '../types';
+import { Config, PresencePayload } from '../types';
+import type { CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import { createSocketIOCollabProvider } from '../socket-io-provider';
 import { collab } from '@atlaskit/prosemirror-collab';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';

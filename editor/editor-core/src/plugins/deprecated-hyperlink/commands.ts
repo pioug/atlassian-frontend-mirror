@@ -14,7 +14,8 @@ import { ACTION } from '@atlaskit/editor-common/analytics';
 import type { Command, LinkInputType } from '@atlaskit/editor-common/types';
 import { Node, ResolvedPos } from 'prosemirror-model';
 import { withAnalytics } from '../analytics';
-import { queueCardsFromChangedTr } from '../card/pm-plugins/doc';
+
+import { queueCardsFromChangedTr } from '../deprecated-card/doc';
 
 import { PluginKey, EditorState } from 'prosemirror-state';
 // TODO: ED-17836 This workaround is used since we extracted the hyperlink plugin.

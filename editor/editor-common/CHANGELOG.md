@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 74.22.0
+
+### Minor Changes
+
+- [`464745a92e6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/464745a92e6) - [ux] Updated the Editor Table plugin to use the new guidelines plugin when custom-table-widths FF is enabled
+
+## 74.21.4
+
+### Patch Changes
+
+- [`1d3e0468d4c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1d3e0468d4c) - Adds a new analytics event to be implemented later
+
+## 74.21.3
+
+### Patch Changes
+
+- [`018b27d3392`](https://bitbucket.org/atlassian/atlassian-frontend/commits/018b27d3392) - Adds new prop handleMarginTop on ResizerNext component to center resize handle on tables
+
+## 74.21.2
+
+### Patch Changes
+
+- [`32ca42e82c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32ca42e82c3) - Extracted internal editor card plugin to new package `editor-plugin-card`.
+
+## 74.21.1
+
+### Patch Changes
+
+- [`14224c3f8a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14224c3f8a4) - [ED-18162] Move the collab provider types to the editor common package to avoid circular dependencies
+
 ## 74.21.0
 
 ### Minor Changes

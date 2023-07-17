@@ -1,12 +1,7 @@
-import type { CollabParticipant, PresencePayload } from '../types';
+import type { PresencePayload } from '../types';
+import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 
 export const PARTICIPANT_UPDATE_INTERVAL = 300 * 1000; // 300 seconds
-
-export type ProviderParticipant = CollabParticipant & {
-  userId: string;
-  clientId: number | string;
-  email: string;
-};
 
 export type ParticipantsMap = Map<string, ProviderParticipant>;
 

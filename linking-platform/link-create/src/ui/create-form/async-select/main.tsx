@@ -11,6 +11,7 @@ import { useFormContext } from '../../../controllers/form-context';
 
 import { AsyncSelectProps } from './types';
 
+export const TEST_ID = 'link-create-async-select';
 /**
  * An async select utilising the Atlaskit AsyncSelect and Field objects from `@atlaskit/form`.
  * Validation is handled by the form as it is on form submission. Any errors returned by
@@ -22,7 +23,7 @@ export function AsyncSelect<T = OptionType>({
   name,
   validationHelpText,
   isRequired,
-  testId,
+  testId = TEST_ID,
   validators,
   defaultValue,
   ...rest
@@ -53,7 +54,9 @@ export function AsyncSelect<T = OptionType>({
                 isInvalid={isInvalid}
               />
               {!error && validationHelpText && (
-                <HelperMessage>{validationHelpText}</HelperMessage>
+                <HelperMessage testId={`${testId}-helper-message`}>
+                  {validationHelpText}
+                </HelperMessage>
               )}
               {isInvalid && (
                 <ErrorMessage testId={`${testId}-error-message`}>

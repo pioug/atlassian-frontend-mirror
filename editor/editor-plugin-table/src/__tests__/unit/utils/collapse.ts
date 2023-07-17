@@ -13,6 +13,7 @@ import {
 
 import tablePlugin from '../../../plugins/table';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 import { isTableCollapsible } from '../../../plugins/table/utils/collapse';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -28,6 +29,7 @@ describe('collapse', () => {
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
       .add(widthPlugin)
+      .add(guidelinePlugin)
       .add(tablePlugin);
 
     return createEditor({ doc, preset });

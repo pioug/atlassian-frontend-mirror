@@ -7,6 +7,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { PluginInjectionAPI } from '../types';
 
 export type TableOptions = {
   isBreakoutEnabled?: boolean;
@@ -27,4 +28,5 @@ export interface Props {
   getEditorContainerWidth: GetEditorContainerWidth;
   getEditorFeatureFlags: GetEditorFeatureFlags;
   hasIntlContext: boolean;
+  pluginInjectionApi?: PluginInjectionAPI;
 }

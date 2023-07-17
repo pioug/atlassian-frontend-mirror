@@ -31,6 +31,7 @@ import { toolbarMessages } from './toolbar-messages';
 import { compareItemsArrays, isArrayContainsContent } from '../../utils';
 import { Announcer } from '@atlaskit/editor-common/ui';
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export type ToolbarFormattingProps = {
   editorView: EditorView;
@@ -41,6 +42,7 @@ export type ToolbarFormattingProps = {
   popupsMountPoint?: HTMLElement;
   popupsBoundariesElement?: HTMLElement;
   popupsScrollableElement?: HTMLElement;
+  editorAnalyticsAPI?: EditorAnalyticsAPI;
 };
 const ToolbarFormatting: React.FC<
   ToolbarFormattingProps & WrappedComponentProps
@@ -54,6 +56,7 @@ const ToolbarFormatting: React.FC<
   isReducedSpacing,
   isToolbarDisabled,
   intl,
+  editorAnalyticsAPI,
 }) => {
   const editorState = useMemo(() => editorView.state, [editorView.state]);
   const [message, setMessage] = useState('');
@@ -66,6 +69,7 @@ const ToolbarFormatting: React.FC<
   const clearIcon = useClearIcon({
     editorState,
     intl,
+    editorAnalyticsAPI,
   });
 
   const menuIconTypeList = useResponsiveIconTypeMenu({
@@ -219,6 +223,7 @@ class Toolbar extends React.PureComponent<
       isToolbarDisabled,
       shouldUseResponsiveToolbar,
       intl,
+      editorAnalyticsAPI,
     } = this.props;
 
     return (
@@ -231,6 +236,7 @@ class Toolbar extends React.PureComponent<
         isToolbarDisabled={isToolbarDisabled}
         shouldUseResponsiveToolbar={shouldUseResponsiveToolbar}
         intl={intl}
+        editorAnalyticsAPI={editorAnalyticsAPI}
       />
     );
   }

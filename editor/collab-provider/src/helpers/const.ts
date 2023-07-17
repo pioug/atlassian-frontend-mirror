@@ -1,4 +1,4 @@
-import type { ProviderError } from '../errors/error-types';
+import type { ProviderError } from '@atlaskit/editor-common/collab';
 
 export enum EVENT_ACTION {
   CONNECTION = 'connection', // https://data-portal.internal.atlassian.com/analytics/registry/43970

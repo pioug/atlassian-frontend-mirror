@@ -11,8 +11,8 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
+  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
-import { addAnalytics } from '../../analytics';
 
 export const FORMATTING_NODE_TYPES = ['heading', 'codeBlock', 'blockquote'];
 export const FORMATTING_MARK_TYPES = [
@@ -37,8 +37,9 @@ const formatTypes: Record<string, string> = {
 
 export function clearFormattingWithAnalytics(
   inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): Command {
-  return clearFormatting(inputMethod);
+  return clearFormatting(inputMethod, editorAnalyticsAPI);
 }
 
 function clearNodeFormattingOnSelection(
@@ -74,6 +75,7 @@ function clearNodeFormattingOnSelection(
 
 export function clearFormatting(
   inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ): Command {
   return function (state, dispatch): boolean {
     const { tr } = state;
@@ -147,7 +149,7 @@ export function clearFormatting(
     tr.setStoredMarks([]);
 
     if (formattingCleared.length && inputMethod) {
-      addAnalytics(state, tr, {
+      editorAnalyticsAPI?.attachAnalyticsEvent({
         action: ACTION.FORMATTED,
         eventType: EVENT_TYPE.TRACK,
         actionSubject: ACTION_SUBJECT.TEXT,
@@ -156,7 +158,7 @@ export function clearFormatting(
           inputMethod,
           formattingCleared,
         },
-      });
+      })(tr);
     }
 
     if (dispatch) {

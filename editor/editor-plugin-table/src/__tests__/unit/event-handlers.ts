@@ -30,6 +30,7 @@ import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import tablePlugin from '../../plugins/table-plugin';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -46,6 +47,7 @@ describe('table plugin: decorations', () => {
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(tablePlugin),
       pluginKey,
     });
@@ -164,6 +166,7 @@ describe('table event handlers', () => {
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(gridPlugin)
         .add(tablePlugin),
       pluginKey,

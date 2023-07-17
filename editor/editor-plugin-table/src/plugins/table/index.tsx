@@ -71,6 +71,7 @@ import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 interface TablePluginOptions {
   tableOptions: PluginConfig;
@@ -98,6 +99,7 @@ const tablesPlugin: NextEditorPlugin<
       typeof analyticsPlugin,
       typeof contentInsertionPlugin,
       typeof widthPlugin,
+      typeof guidelinePlugin,
     ];
   }
 > = (options?: TablePluginOptions, api?) => {
@@ -172,13 +174,13 @@ const tablesPlugin: NextEditorPlugin<
               portalProviderAPI,
               eventDispatcher,
               pluginConfig(tableOptions),
-
               defaultGetEditorContainerWidth,
               getEditorFeatureFlags || defaultGetEditorFeatureFlags,
               breakoutEnabled,
               fullWidthEnabled,
               wasFullWidthEnabled,
               editorAnalyticsAPI,
+              api,
             );
           },
         },

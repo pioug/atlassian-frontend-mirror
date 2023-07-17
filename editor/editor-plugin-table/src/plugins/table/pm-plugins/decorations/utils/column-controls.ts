@@ -1,3 +1,4 @@
+// @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
 import { ReadonlyTransaction, Transaction } from 'prosemirror-state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findTable } from '@atlaskit/editor-tables/utils';

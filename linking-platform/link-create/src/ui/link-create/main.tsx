@@ -27,6 +27,8 @@ import { ErrorBoundary } from './error-boundary';
 import { messages } from './messages';
 import TrackMount from './track-mount';
 
+export const TEST_ID = 'link-create';
+
 const LinkCreateContent = ({ plugins, entityKey }: LinkCreateProps) => {
   const chosenOne = plugins.find(plugin => plugin.key === entityKey);
 
@@ -39,7 +41,7 @@ const LinkCreateContent = ({ plugins, entityKey }: LinkCreateProps) => {
 
 const LinkCreate = withLinkCreateFormContext(
   ({
-    testId,
+    testId = TEST_ID,
     onCreate,
     onFailure,
     onCancel,
@@ -97,7 +99,7 @@ const LinkCreateWithModal = ({
     <ModalTransition>
       {!!active && (
         <Modal
-          testId={createProps.testId && `${createProps.testId}--modal`}
+          testId="link-create-modal"
           onClose={createProps.onCancel}
           shouldScrollInViewport={true}
           onOpenComplete={onOpenComplete}

@@ -23,7 +23,7 @@ import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import messages from '../../messages';
-import { GiveKudosDrawerProps } from '../../types';
+import { FlagEvent, FlagEventType, GiveKudosDrawerProps } from '../../types';
 
 const iframeStyles = css({
   border: 0,
@@ -31,7 +31,7 @@ const iframeStyles = css({
 
 const sidebarDivStyles = css({
   position: 'absolute',
-  margin: '16px 0 0 16px',
+  margin: `${token('space.200', '16px')} 0 0 ${token('space.200', '16px')}`,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -91,27 +91,28 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
   const closeWarningModal = () => {
     setIsCloseConfirmModalOpen(false);
   };
-  const messageListener = useCallback(
-    event => {
-      if (!props.isOpen) {
-        return;
-      }
 
-      if (String(event.data).startsWith('kudos-created-')) {
-        const uuid = String(event.data).replace(/^(kudos-created-)/, '');
-
+  const createFlagWithJsonStringifiedInput = useCallback(
+    (flagEvent: FlagEvent) => {
+      if (flagEvent.eventType === FlagEventType.KUDOS_CREATED) {
         closeDrawer();
         sendAnalytic('created', {});
+
+        if (!flagEvent.kudosUuid) {
+          return;
+        }
         addFlag &&
           addFlag({
             title: <FormattedMessage {...messages.kudosCreatedFlag} />,
-            id: `kudosCreatedFlag-${uuid}`,
+            id: `kudosCreatedFlag-${flagEvent.kudosUuid}`,
             description: (
               <FormattedMessage
                 {...messages.kudosCreatedDescriptionFlag}
                 values={{
                   a: (s: string) => (
-                    <a href={`${teamCentralBaseUrl}/people/kudos/${uuid}`}>
+                    <a
+                      href={`${teamCentralBaseUrl}/people/kudos/${flagEvent.kudosUuid}`}
+                    >
                       {s}
                     </a>
                   ),
@@ -125,13 +126,136 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
               />
             ),
           });
-      } else if (event.data === 'dirty') {
+      } else if (flagEvent.eventType === FlagEventType.JIRA_KUDOS_CREATED) {
+        closeDrawer();
+        sendAnalytic('created', {});
+        if (!flagEvent.kudosUuid || !flagEvent.jiraKudosUrl) {
+          return;
+        }
+
+        addFlag &&
+          addFlag({
+            title: <FormattedMessage {...messages.JiraKudosCreatedFlag} />,
+            id: `kudosCreatedFlag-${flagEvent.kudosUuid}`,
+            description: (
+              <FormattedMessage {...messages.JiraKudosCreatedDescriptionFlag} />
+            ),
+            icon: (
+              <SuccessIcon
+                label="success"
+                primaryColor={token('color.icon.success', G300)}
+              />
+            ),
+            actions: [
+              {
+                content: 'Track gift request',
+                href: flagEvent.jiraKudosUrl,
+              },
+              {
+                content: 'View kudos',
+                href: `${teamCentralBaseUrl}/people/kudos/${flagEvent.kudosUuid}`,
+              },
+            ],
+          });
+      } else if (flagEvent.eventType === FlagEventType.JIRA_KUDOS_FAILED) {
+        closeDrawer();
+        sendAnalytic('created', {});
+        if (!flagEvent.kudosUuid || !flagEvent.jiraKudosFormUrl) {
+          return;
+        }
+        addFlag &&
+          addFlag({
+            title: (
+              <FormattedMessage {...messages.JiraKudosCreationFailedFlag} />
+            ),
+            id: `jiraKudosCreationFailedFlag-${flagEvent.kudosUuid}`,
+            description: (
+              <FormattedMessage
+                {...messages.JiraKudosCreationFailedDescriptionFlag}
+                values={{
+                  a: (s: string) => (
+                    <a href={flagEvent.jiraKudosFormUrl}>{s}</a>
+                  ),
+                }}
+              />
+            ),
+            type: 'warning',
+            actions: [
+              {
+                content: 'Visit go/kudos',
+                href: flagEvent.jiraKudosFormUrl,
+              },
+              {
+                content: 'View kudos',
+                href: `${teamCentralBaseUrl}/people/kudos/${flagEvent.kudosUuid}`,
+              },
+            ],
+          });
+      } else if (flagEvent.eventType === FlagEventType.DIRTY) {
         setIsDirty(true);
-      } else if (event.data === 'close') {
+      } else if (flagEvent.eventType === FlagEventType.CLOSE) {
         closeDrawer();
       }
     },
-    [props.isOpen, addFlag, teamCentralBaseUrl, sendAnalytic, closeDrawer],
+    [addFlag, closeDrawer, sendAnalytic, teamCentralBaseUrl],
+  );
+
+  const messageListener = useCallback(
+    event => {
+      if (!props.isOpen) {
+        return;
+      }
+
+      if (
+        String(event.data).startsWith('kudos-created-') ||
+        event.data === 'dirty' ||
+        event.data === 'close'
+      ) {
+        if (String(event.data).startsWith('kudos-created-')) {
+          const uuid = String(event.data).replace(/^(kudos-created-)/, '');
+
+          closeDrawer();
+          sendAnalytic('created', {});
+          addFlag &&
+            addFlag({
+              title: <FormattedMessage {...messages.kudosCreatedFlag} />,
+              id: `kudosCreatedFlag-${uuid}`,
+              description: (
+                <FormattedMessage
+                  {...messages.kudosCreatedDescriptionFlag}
+                  values={{
+                    a: (s: string) => (
+                      <a href={`${teamCentralBaseUrl}/people/kudos/${uuid}`}>
+                        {s}
+                      </a>
+                    ),
+                  }}
+                />
+              ),
+              icon: (
+                <SuccessIcon
+                  label="success"
+                  primaryColor={token('color.icon.success', G300)}
+                />
+              ),
+            });
+        } else if (event.data === 'dirty') {
+          setIsDirty(true);
+        } else if (event.data === 'close') {
+          closeDrawer();
+        }
+      } else {
+        createFlagWithJsonStringifiedInput(JSON.parse(event.data));
+      }
+    },
+    [
+      props.isOpen,
+      closeDrawer,
+      sendAnalytic,
+      addFlag,
+      teamCentralBaseUrl,
+      createFlagWithJsonStringifiedInput,
+    ],
   );
 
   useEffect(() => {

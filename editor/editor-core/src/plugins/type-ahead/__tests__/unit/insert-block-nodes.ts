@@ -52,6 +52,7 @@ import type {
 import { insertTypeAheadItem } from '../../commands/insert-type-ahead-item';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 let _queueMicrotask: any;
 beforeAll(() => {
@@ -167,6 +168,7 @@ describe('type-ahead', () => {
       .add(panelPlugin)
       .add(expandPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
+      .add(guidelinePlugin)
       .add(tablesPlugin)
       .add(layoutPlugin);
 

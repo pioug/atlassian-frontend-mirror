@@ -29,6 +29,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('RowControls', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -61,6 +62,7 @@ describe('RowControls', () => {
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(tablePlugin),
       pluginKey,
     });

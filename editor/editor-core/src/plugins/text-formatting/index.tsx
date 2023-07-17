@@ -9,7 +9,10 @@ import {
   underline,
 } from '@atlaskit/adf-schema';
 
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  NextEditorPlugin,
+  OptionalPlugin,
+} from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 
 import {
@@ -28,13 +31,15 @@ import keymapPlugin from './pm-plugins/keymap';
 import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
 import { TextFormattingOptions } from './types';
 import Toolbar from './ui/Toolbar';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const textFormatting: NextEditorPlugin<
   'textFormatting',
   {
     pluginConfiguration: TextFormattingOptions | undefined;
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
   }
-> = (options = {}) => ({
+> = (options = {}, api) => ({
   name: 'textFormatting',
 
   marks() {
@@ -82,7 +87,8 @@ const textFormatting: NextEditorPlugin<
       },
       {
         name: 'textFormattingClearKeymap',
-        plugin: () => clearFormattingKeymapPlugin(),
+        plugin: () =>
+          clearFormattingKeymapPlugin(api?.dependencies.analytics?.actions),
       },
       {
         name: 'textFormattingKeymap',
@@ -118,6 +124,7 @@ const textFormatting: NextEditorPlugin<
               shouldUseResponsiveToolbar={Boolean(
                 options.responsiveToolbarMenu,
               )}
+              editorAnalyticsAPI={api?.dependencies.analytics?.actions}
             />
           );
         }}

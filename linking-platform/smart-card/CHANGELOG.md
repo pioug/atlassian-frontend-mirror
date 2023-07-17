@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.9.10
+
+### Patch Changes
+
+- [`74c892f10de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74c892f10de) - [ux] Hover card will open closer to the mouse position, but with a slight offset of 10px to the right and to the top.
+
+## 26.9.9
+
+### Patch Changes
+
+- [`4e254433494`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e254433494) - [ux] Remove 'open in new tab' button in Hover Cards
+
 ## 26.9.8
 
 ### Patch Changes

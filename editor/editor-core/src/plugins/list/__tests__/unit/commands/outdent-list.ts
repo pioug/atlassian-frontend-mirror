@@ -31,6 +31,7 @@ import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('lists plugin -> commands -> outdentList', () => {
   const createProseMirrorEditor = createProsemirrorEditorFactory();
@@ -47,6 +48,7 @@ describe('lists plugin -> commands -> outdentList', () => {
       .add(contentInsertionPlugin)
       .add([listPlugin, featureFlags])
       .add(widthPlugin)
+      .add(guidelinePlugin)
       .add(tablesPlugin)
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
 

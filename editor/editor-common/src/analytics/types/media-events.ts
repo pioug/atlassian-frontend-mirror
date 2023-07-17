@@ -1,3 +1,5 @@
+import type { WidthTypes } from '../../guideline/types';
+
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import type { TrackAEP, UIAEP } from './utils';
 
@@ -52,6 +54,22 @@ type MediaUIAction = UIAEP<
   undefined
 >;
 
+type MediaResizeAttributes = {
+  size?: number;
+  widthType: WidthTypes;
+  layout: string;
+  snapType: 'default' | 'temporary' | 'relative' | 'none';
+  parentNode?: string;
+};
+
+export type MediaResizeTrackAction = UIAEP<
+  ACTION.EDITED,
+  ACTION_SUBJECT.MEDIA_SINGLE,
+  ACTION_SUBJECT_ID.RESIZED,
+  MediaResizeAttributes,
+  undefined
+>;
+
 type MediaSwitchType =
   | ACTION_SUBJECT_ID.MEDIA_INLINE
   | ACTION_SUBJECT_ID.MEDIA_GROUP;
@@ -75,6 +93,7 @@ export type MediaEventPayload =
   | MediaLinkAEP
   | MediaAltTextAction
   | MediaUIAction
+  | MediaResizeTrackAction
   | MediaBorderTrackAction
   | CaptionTrackAction
   | ChangeMediaAEP;

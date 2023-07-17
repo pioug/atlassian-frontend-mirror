@@ -33,7 +33,6 @@ export { default as textColorPlugin } from './text-color';
 export { default as textFormattingPlugin } from './text-formatting';
 export { default as typeAheadPlugin } from './type-ahead';
 export { default as unsupportedContentPlugin } from './unsupported-content';
-export { default as cardPlugin } from './card';
 export { default as floatingToolbarPlugin } from './floating-toolbar';
 export { default as statusPlugin } from './status';
 export { default as breakoutPlugin } from './breakout';

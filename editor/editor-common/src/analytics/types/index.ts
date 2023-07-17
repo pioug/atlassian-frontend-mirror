@@ -63,6 +63,7 @@ export type {
   MediaEventPayload,
   MediaLinkAEP,
   CaptionTrackAction,
+  MediaResizeTrackAction,
 } from './media-events';
 export type { DispatchAnalyticsEvent } from './dispatch-analytics-event';
 export {

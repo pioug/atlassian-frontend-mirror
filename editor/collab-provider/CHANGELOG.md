@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.7.1
+
+### Patch Changes
+
+- [`14224c3f8a4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14224c3f8a4) - [ED-18162] Move the collab provider types to the editor common package to avoid circular dependencies
+
 ## 9.7.0
 
 ### Minor Changes

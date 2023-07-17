@@ -66,6 +66,7 @@ import captionPlugin from '../../../caption';
 import mediaPlugin from '../../../media';
 import editorDisabledPlugin from '../../../editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
@@ -262,6 +263,7 @@ describe('handleRichText', () => {
         .add(blockTypePlugin)
         .add(listPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(tablesPlugin)
         .add(rulePlugin)
         .add(textFormattingPlugin)
@@ -862,6 +864,7 @@ describe('handleRichText', () => {
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add([pastePlugin, {}])
         .add(contextPanelPlugin)
         .add(tablesPlugin)
@@ -1364,6 +1367,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
             .add(panelPlugin)
             .add(emojiPlugin)
             .add(widthPlugin)
+            .add(guidelinePlugin)
             .add(tablesPlugin)
             .add(listPlugin);
 
@@ -1688,6 +1692,7 @@ describe('handleExpand', () => {
             .add(decorationsPlugin)
             .add([pastePlugin, {}])
             .add(widthPlugin)
+            .add(guidelinePlugin)
             .add(tablesPlugin)
             .add(expandPlugin)
             .add(layoutPlugin);
@@ -2606,6 +2611,7 @@ describe('handleMarkdown', () => {
           .add(contentInsertionPlugin)
           .add([pastePlugin, {}])
           .add(widthPlugin)
+          .add(guidelinePlugin)
           .add(tablesPlugin)
           .add(listPlugin);
 

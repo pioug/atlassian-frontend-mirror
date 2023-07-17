@@ -8,7 +8,6 @@ import type {
   InitPayload,
   CatchupResponse,
   PresencePayload,
-  Metadata,
   NamespaceStatus,
   AuthCallback,
   BroadcastIncomingPayload,
@@ -41,6 +40,7 @@ import {
   NotInitializedError,
   INTERNAL_ERROR_CODE,
 } from './errors/error-types';
+import type { Metadata } from '@atlaskit/editor-common/collab';
 
 const logger = createLogger('Channel', 'green');
 

@@ -44,6 +44,7 @@ import tablePlugin from '../../plugins/table-plugin';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 const defaultTableDoc = doc(
@@ -97,6 +98,7 @@ describe('Table analytic events', () => {
         ])
         .add(contentInsertionPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add([tablePlugin, { tableOptions }]),
       pluginKey,
     });

@@ -13,15 +13,17 @@ import { Channel } from '../../channel';
 import {
   Config,
   InitPayload,
-  Metadata,
   PresencePayload,
   StepsPayload,
   ProductInformation,
   NamespaceStatus,
   InitAndAuthData,
   AuthCallback,
-  CollabSendableSelection,
 } from '../../types';
+import type {
+  Metadata,
+  CollabSendableSelection,
+} from '@atlaskit/editor-common/collab';
 import * as Performance from '../../analytics/performance';
 import { createSocketIOSocket } from '../../socket-io-provider';
 import { io, Socket } from 'socket.io-client';

@@ -1,0 +1,8 @@
+{
+  "name": "package-foo-not-found",
+  "version": "1.0.0",
+  "main": "dist/cjs/index.js",
+  "peerDependencies": {
+    "package-not-bar": "^1.0.0"
+  }
+}

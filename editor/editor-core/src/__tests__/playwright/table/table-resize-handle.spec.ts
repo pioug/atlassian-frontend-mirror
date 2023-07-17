@@ -1,0 +1,124 @@
+import sampleSchema from '@atlaskit/editor-test-helpers/schema';
+import {
+  EditorNodeContainerModel,
+  EditorTableModel,
+  editorTestCase as test,
+  expect,
+} from '@af/editor-libra';
+import {
+  simpleTable,
+  simpleTableWithOneRow,
+  simpleTableWithOneRowWithText,
+  simpleTableWithTwoRows,
+} from './__fixtures__/base-adfs';
+import { createSquareTable } from './__fixtures__/resize-documents';
+
+const tableWithFiftyRows = createSquareTable({
+  lines: 50,
+  columnWidths: [255, 255, 255],
+  hasHeader: true,
+})(sampleSchema).toJSON();
+
+test.use({
+  editorProps: {
+    appearance: 'full-page',
+    allowTables: {
+      advanced: true,
+    },
+  },
+  adf: simpleTable,
+  platformFeatureFlags: { 'platform.editor.custom-table-width': true },
+});
+
+const RESIZE_HANDLE_HEIGHT = {
+  MIN: '43px',
+  MEDIUM: '64px',
+  MAX: '96px',
+};
+
+test.describe('resize handle height should depend on table height', () => {
+  test.describe('when table has three rows', () => {
+    test('resize handle height should be minimum', async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+      const resizerModel = tableModel.resizer();
+      await tableModel.hoverBody();
+      expect(await resizerModel.handleHeight()).toBe(RESIZE_HANDLE_HEIGHT.MAX);
+    });
+  });
+
+  test.describe('when table has two rows', () => {
+    test.use({
+      adf: simpleTableWithTwoRows,
+    });
+
+    test('resize handle height should be medium', async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+      const resizerModel = tableModel.resizer();
+      await tableModel.hoverBody();
+      expect(await resizerModel.handleHeight()).toBe(
+        RESIZE_HANDLE_HEIGHT.MEDIUM,
+      );
+    });
+  });
+
+  test.describe('when table has one empty row', () => {
+    test.use({
+      adf: simpleTableWithOneRow,
+    });
+
+    test('resize handle height should be minimum', async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+      const resizerModel = tableModel.resizer();
+      await tableModel.hoverBody();
+      expect(await resizerModel.handleHeight()).toBe(RESIZE_HANDLE_HEIGHT.MIN);
+    });
+  });
+
+  test.describe('when table has one row with two lines of text', () => {
+    test.use({
+      adf: simpleTableWithOneRowWithText,
+    });
+
+    test('resize handle height should be medium', async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+      const resizerModel = tableModel.resizer();
+      await tableModel.hoverBody();
+      expect(await resizerModel.handleHeight()).toBe(
+        RESIZE_HANDLE_HEIGHT.MEDIUM,
+      );
+    });
+  });
+});
+
+test.describe('resize handle should be visible on hover', () => {
+  test.use({
+    adf: tableWithFiftyRows,
+  });
+
+  test('when a page with a large table', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const resizerModel = tableModel.resizer();
+
+    await test.step('is loaded', async () => {
+      await tableModel.hoverBody();
+      expect(await resizerModel.waitForHandleToBeVisible()).toBeTruthy();
+    });
+
+    await test.step('is scrolled down', async () => {
+      await editor.page.mouse.wheel(0, 2000);
+      await tableModel.hoverBody();
+      expect(await resizerModel.waitForHandleToBeVisible()).toBeTruthy();
+    });
+
+    await test.step('is scrolled up', async () => {
+      await editor.page.mouse.wheel(0, -4000);
+      await tableModel.hoverBody();
+      expect(await resizerModel.waitForHandleToBeVisible()).toBeTruthy();
+    });
+  });
+});

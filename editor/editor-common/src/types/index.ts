@@ -199,3 +199,5 @@ export type {
   NormalTextLevel,
   HeadingLevelsAndNormalText,
 } from './block-type';
+
+export type { ColumnResizingPluginState } from './tables';

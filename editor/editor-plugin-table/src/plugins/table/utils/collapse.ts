@@ -1,4 +1,5 @@
 import { NodeType, NodeRange } from 'prosemirror-model';
+// @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
 import { Transaction, ReadonlyTransaction } from 'prosemirror-state';
 import { findWrapping } from 'prosemirror-transform';
 

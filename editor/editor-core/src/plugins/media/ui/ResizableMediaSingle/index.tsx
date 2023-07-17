@@ -16,7 +16,9 @@ import {
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { wrapperStyle } from './styled';
 import { Props, EnabledHandles } from './types';
-import { SnapPointsProps } from '@atlaskit/editor-common/types';
+import { GridType, SnapPointsProps } from '@atlaskit/editor-common/types';
+import type { Highlights } from '@atlaskit/editor-plugin-grid';
+
 import {
   Resizer,
   calcMediaPxWidth,
@@ -67,6 +69,20 @@ export default class ResizableMediaSingle extends React.Component<
 
     return true;
   }
+
+  private displayGrid = (
+    visible: boolean,
+    gridType: GridType,
+    highlight: number[] | string[],
+  ) => {
+    const { pluginInjectionApi, view } = this.props;
+
+    pluginInjectionApi?.dependencies?.grid?.actions?.displayGrid(view)({
+      visible,
+      gridType,
+      highlight: highlight as Highlights,
+    });
+  };
 
   get wrappedLayout() {
     return wrappedLayouts.indexOf(this.props.layout) > -1;
@@ -370,6 +386,7 @@ export default class ResizableMediaSingle extends React.Component<
       >
         <Resizer
           {...this.props}
+          displayGrid={this.displayGrid}
           ratio={ratio}
           width={initialWidth}
           selected={selected}

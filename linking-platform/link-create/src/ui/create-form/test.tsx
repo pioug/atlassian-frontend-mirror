@@ -60,21 +60,21 @@ describe('<CreateForm />', () => {
   it('should submit the form the form when Create button is clicked', async () => {
     const { getByTestId } = setUpCreateForm();
 
-    await userEvent.click(getByTestId('create-button'));
+    await userEvent.click(getByTestId('link-create-form-button-submit'));
     expect(handleSubmitMock).toBeCalled();
   });
 
   it('should cancel the form the form when Create button is clicked', async () => {
     const { getByTestId } = setUpCreateForm();
 
-    await userEvent.click(getByTestId('close-button'));
+    await userEvent.click(getByTestId('link-create-form-button-cancel'));
     expect(handleCancelMock).toBeCalled();
   });
 
   it('should hide the footer buttons when the prop is passed', async () => {
     const { queryByTestId } = setUpCreateForm(undefined, { hideFooter: true });
-    expect(queryByTestId('cancel-button')).toBeNull();
-    expect(queryByTestId('create-button')).toBeNull();
+    expect(queryByTestId('link-create-form-button-cancel')).toBeNull();
+    expect(queryByTestId('link-create-form-button-submit')).toBeNull();
   });
 
   it('should display a form loader when isLoading props is provided', async () => {
@@ -113,7 +113,7 @@ describe('<CreateForm />', () => {
         />,
       );
 
-      await userEvent.click(getByTestId('create-button'));
+      await userEvent.click(getByTestId('link-create-form-button-submit'));
       expect(getByText('Something goes wrong')).toBeTruthy();
     });
 
@@ -134,7 +134,7 @@ describe('<CreateForm />', () => {
         />,
       );
 
-      await userEvent.click(getByTestId('create-button'));
+      await userEvent.click(getByTestId('link-create-form-button-submit'));
       expect(
         queryByTestId(`${textFieldTestId}-error-message`),
       ).toBeInTheDocument();
@@ -175,7 +175,7 @@ describe('<CreateForm />', () => {
         />,
       );
 
-      await userEvent.click(getByTestId('create-button'));
+      await userEvent.click(getByTestId('link-create-form-button-submit'));
       expect(getByText('Something goes wrong')).toBeTruthy();
     });
   });

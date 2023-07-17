@@ -1,0 +1,5 @@
+{
+  "name": "package-bar",
+  "version": "1.2.3",
+  "main": "dist/cjs/index.js"
+}

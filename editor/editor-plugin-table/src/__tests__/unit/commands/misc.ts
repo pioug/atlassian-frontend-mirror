@@ -31,6 +31,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('table plugin: commands', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -40,6 +41,7 @@ describe('table plugin: commands', () => {
     .add(decorationsPlugin)
     .add(contentInsertionPlugin)
     .add(widthPlugin)
+    .add(guidelinePlugin)
     .add([
       tablePlugin,
       {

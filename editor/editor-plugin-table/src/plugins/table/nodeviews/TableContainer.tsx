@@ -11,17 +11,13 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
+import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
 
-import { TableCssClassName as ClassName } from '../types';
+import { PluginInjectionAPI, TableCssClassName as ClassName } from '../types';
 import { TableResizer } from './TableResizer';
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
 
-interface GetMarginLeftOpts {
-  lineLength: number;
-  tableWidth: number | 'inherit';
-}
-
-const getMarginLeft = ({ lineLength, tableWidth }: GetMarginLeftOpts) => {
+const getMarginLeft = (lineLength: number, tableWidth: number | 'inherit') => {
   let marginLeft;
   if (tableWidth !== 'inherit' && lineLength) {
     const containerWidth = tableWidth;
@@ -69,6 +65,7 @@ type ResizableTableContainerProps = {
   editorView: EditorView;
   getPos: () => number | undefined;
   tableRef: HTMLTableElement;
+  pluginInjectionApi?: PluginInjectionAPI;
 };
 
 export const ResizableTableContainer = ({
@@ -80,9 +77,11 @@ export const ResizableTableContainer = ({
   editorView,
   getPos,
   tableRef,
+  pluginInjectionApi,
 }: PropsWithChildren<ResizableTableContainerProps>) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const innerContainerRef = useRef<HTMLDivElement | null>(null);
+  const marginLeftRef = useRef<number | undefined>(0);
 
   const updateWidth = useCallback(
     (width: number) => {
@@ -90,16 +89,28 @@ export const ResizableTableContainer = ({
         return;
       }
 
-      const marginLeft = getMarginLeft({
-        lineLength,
-        tableWidth: width,
-      });
+      const marginLeft = getMarginLeft(lineLength, width);
 
-      if (marginLeft) {
-        containerRef.current.style.marginLeft = `${marginLeft}px`;
+      if (marginLeftRef.current !== marginLeft) {
+        marginLeftRef.current = marginLeft;
+
+        if (Number.isFinite(marginLeft)) {
+          containerRef.current.style.marginLeft = `${marginLeft}px`;
+        }
       }
     },
     [lineLength],
+  );
+
+  const displayGuideline = useCallback(
+    (guidelines: GuidelineConfig[]) => {
+      return (
+        pluginInjectionApi?.dependencies?.guideline?.actions?.displayGuideline(
+          editorView,
+        )({ guidelines }) ?? false
+      );
+    },
+    [pluginInjectionApi, editorView],
   );
 
   const tableWidth = getTableContainerWidth(node);
@@ -109,16 +120,13 @@ export const ResizableTableContainer = ({
 
   const width = Math.min(tableWidth, responsiveContainerWidth);
 
-  const marginLeft = getMarginLeft({
-    lineLength,
-    tableWidth: width,
-  });
+  marginLeftRef.current = getMarginLeft(lineLength, width);
 
   const maxResizerWidth = Math.min(responsiveContainerWidth, TABLE_MAX_WIDTH);
 
   return (
     <div
-      style={{ marginLeft, width }}
+      style={{ marginLeft: marginLeftRef.current, width }}
       className={ClassName.TABLE_RESIZER_CONTAINER}
       ref={containerRef}
     >
@@ -130,6 +138,7 @@ export const ResizableTableContainer = ({
         getPos={getPos}
         node={node}
         tableRef={tableRef}
+        displayGuideline={displayGuideline}
       >
         <InnerContainer
           ref={innerContainerRef}
@@ -156,6 +165,7 @@ type TableContainerProps = {
   getPos: () => number | undefined;
   tableRef: HTMLTableElement;
   isNested: boolean;
+  pluginInjectionApi?: PluginInjectionAPI;
 };
 
 export const TableContainer = ({
@@ -169,6 +179,7 @@ export const TableContainer = ({
   getPos,
   tableRef,
   isNested,
+  pluginInjectionApi,
 }: PropsWithChildren<TableContainerProps>) => {
   if (
     (isFullWidthModeEnabled || isBreakoutEnabled) &&
@@ -184,6 +195,7 @@ export const TableContainer = ({
         editorView={editorView}
         getPos={getPos}
         tableRef={tableRef}
+        pluginInjectionApi={pluginInjectionApi}
       >
         {children}
       </ResizableTableContainer>
@@ -200,10 +212,7 @@ export const TableContainer = ({
       className={className}
       style={{
         width: tableWidth,
-        marginLeft: getMarginLeft({
-          lineLength: lineLength!,
-          tableWidth,
-        }),
+        marginLeft: getMarginLeft(lineLength!, tableWidth),
       }}
     >
       {children}

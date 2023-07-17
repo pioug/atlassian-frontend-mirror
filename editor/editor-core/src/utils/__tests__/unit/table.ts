@@ -18,6 +18,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 const editorFactory = (doc: DocBuilder) => {
   const editor = createProsemirrorEditorFactory()({
@@ -27,6 +28,7 @@ const editorFactory = (doc: DocBuilder) => {
       .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
       .add(widthPlugin)
+      .add(guidelinePlugin)
       .add(tablesPlugin),
   });
   const { state } = editor.editorView;

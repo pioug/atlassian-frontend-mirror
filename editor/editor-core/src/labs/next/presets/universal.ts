@@ -47,9 +47,11 @@ import {
   copyButtonPlugin,
   borderPlugin,
 } from '../../../plugins';
+
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import cardPlugin from '../../../plugins/card';
+import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
@@ -177,6 +179,12 @@ export default function createUniversalPreset(
         ]);
       }
 
+      return builder;
+    })
+    .maybeAdd(guidelinePlugin, (plugin, builder) => {
+      if (props.media || props.allowTables) {
+        return builder.add(plugin);
+      }
       return builder;
     })
     .maybeAdd(gridPlugin, (plugin, builder) => {

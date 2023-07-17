@@ -1,5 +1,9 @@
-import { InternalError, NCS_ERROR_CODE, ProviderError } from './error-types';
-import { INTERNAL_ERROR_CODE, PROVIDER_ERROR_CODE } from './error-types';
+import { InternalError, NCS_ERROR_CODE } from './error-types';
+import { INTERNAL_ERROR_CODE } from './error-types';
+import {
+  ProviderError,
+  PROVIDER_ERROR_CODE,
+} from '@atlaskit/editor-common/collab';
 
 /*
  * Maps internal collab provider errors to an emitted error format

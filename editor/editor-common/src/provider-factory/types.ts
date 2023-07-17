@@ -1,9 +1,9 @@
 import { ActivityProvider } from '@atlaskit/activity-provider';
-import type { CollabEditProvider } from '@atlaskit/collab-provider';
 import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { MentionProvider } from '@atlaskit/mention/types';
 import { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
+import type { CollabEditProvider } from '../collab';
 import { ExtensionProvider } from '../extensions/types';
 
 import { AutoformattingProvider } from './autoformatting-provider';

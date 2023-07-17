@@ -49,6 +49,7 @@ import {
 
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
@@ -88,6 +89,7 @@ describe('table plugin', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(widthPlugin)
+      .add(guidelinePlugin)
       .add(gridPlugin)
       .add(contentInsertionPlugin)
       .add([tablePlugin, { tableOptions }]);

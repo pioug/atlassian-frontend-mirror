@@ -3,9 +3,24 @@ export enum KudosType {
   TEAM = 'team',
 }
 
+export enum FlagEventType {
+  KUDOS_CREATED = 'kudos-created',
+  JIRA_KUDOS_CREATED = 'jira-kudos-created',
+  JIRA_KUDOS_FAILED = 'jira-kudos-failed',
+  DIRTY = 'dirty',
+  CLOSE = 'close',
+}
+
 export interface KudosRecipient {
   type: KudosType;
   recipientId: string;
+}
+
+export interface FlagEvent {
+  eventType: FlagEventType;
+  kudosUuid?: string;
+  jiraKudosUrl?: string;
+  jiraKudosFormUrl?: string;
 }
 
 export interface GiveKudosDrawerProps {

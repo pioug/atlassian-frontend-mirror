@@ -6,7 +6,7 @@ jest.mock('../../../plugins/code-block');
 jest.mock('../../../plugins/fake-text-cursor');
 jest.mock('../../../plugins/submit-editor');
 jest.mock('../../../plugins/quick-insert');
-jest.mock('../../../plugins/card');
+jest.mock('@atlaskit/editor-plugin-card');
 jest.mock('@atlaskit/editor-plugin-table');
 jest.mock('@atlaskit/editor-plugin-context-panel');
 
@@ -28,7 +28,7 @@ import {
   helpDialogPlugin,
 } from '../../../plugins';
 
-import cardPlugin from '../../../plugins/card';
+import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import placeholderPlugin from '../../../plugins/placeholder';
 import selectionPlugin from '../../../plugins/selection';

@@ -1,4 +1,4 @@
-import type { ProviderParticipant } from '../participants-helper';
+import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import {
   createParticipantFromPayload,
   PARTICIPANT_UPDATE_INTERVAL,

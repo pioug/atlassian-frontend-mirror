@@ -122,7 +122,13 @@ export interface MediaSingleWrapperProps {
   fullWidthMode?: boolean;
   isResized?: boolean;
   layout: MediaSingleLayout;
+  /**
+   * @private
+   * @deprecated Use {@link MediaSingleWrapperProps.mediaSingleWidth} instead.
+   * Cleanup ticket: https://product-fabric.atlassian.net/browse/ED-19076
+   */
   pctWidth?: number;
+  mediaSingleWidth?: number;
   width?: number;
   innerRef?: ((elem: HTMLDivElement) => void) | RefObject<HTMLDivElement>;
 }
@@ -137,6 +143,7 @@ export const MediaSingleDimensionHelper = ({
   isResized,
   layout,
   pctWidth,
+  mediaSingleWidth,
   width,
 }: MediaSingleWrapperProps) => css`
   /* For nested rich media items, set max-width to 100% */
@@ -146,7 +153,7 @@ export const MediaSingleDimensionHelper = ({
     max-width: 100%;
   }
 
-  width: ${pctWidth
+  width: ${mediaSingleWidth || pctWidth
     ? calcResizedWidth(layout, width || 0, containerWidth)
     : calcLegacyWidth(
         layout,

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { axe, toHaveNoViolations } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing';
 
 import exampleImage from '../../../examples/img/example-image.png';
 import EmptyState from '../../empty-state';
@@ -10,8 +10,6 @@ import Description from '../../styled/description';
 import EmptyStateHeader from '../../styled/header';
 import HeaderImage from '../../styled/image';
 import SpinnerContainer from '../../styled/spinner-container';
-
-expect.extend(toHaveNoViolations);
 
 const props = {
   maxWidth: 500,
@@ -26,8 +24,7 @@ const props = {
 
 it('Basic EmptyState should not fail aXe audit', async () => {
   const { container } = render(<EmptyState {...props} />);
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
+  await axe(container);
 });
 
 it('Basic Image should not fail aXe audit', async () => {
@@ -38,26 +35,22 @@ it('Basic Image should not fail aXe audit', async () => {
       src={props.imageUrl}
     />,
   );
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
+  await axe(container);
 });
 
 it('Basic SpinnerContainer should not fail aXe audit', async () => {
   const { container } = render(<SpinnerContainer />);
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
+  await axe(container);
 });
 
 it('Basic Header should not fail aXe audit', async () => {
   const { container } = render(
     <EmptyStateHeader>{props.header}</EmptyStateHeader>,
   );
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
+  await axe(container);
 });
 
 it('Basic Description should not fail aXe audit', async () => {
   const { container } = render(<Description>{props.description}</Description>);
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
+  await axe(container);
 });

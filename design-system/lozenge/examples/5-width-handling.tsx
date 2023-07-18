@@ -1,14 +1,26 @@
 import React from 'react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
-import Stack from '@atlaskit/primitives/stack';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 import { N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Lozenge from '../src';
+
+const fixedWidthStyles = xcss({
+  width: '400px',
+  border: `solid 1px ${token('color.border', N30A)}`,
+});
+
+const fixedContainerStyles = xcss({
+  overflow: 'hidden',
+  width: '125px',
+});
+
+const percentageWidthStyles = xcss({
+  width: '20%',
+  overflow: 'hidden',
+});
 
 export default () => (
   <Stack space="space.100" testId="test-container">
@@ -31,13 +43,7 @@ export default () => (
         100px maxwidth truncates
       </Lozenge>
     </Text>
-    <Box
-      display="block"
-      UNSAFE_style={{
-        width: '400px',
-        border: `solid 1px ${token('color.border', N30A)}`,
-      }}
-    >
+    <Box xcss={fixedWidthStyles}>
       <Stack space="space.100" testId="test-container">
         <Text>
           <Text fontWeight="medium" as="p">
@@ -95,7 +101,7 @@ export default () => (
     </Text>
 
     <Text fontWeight="medium">Constrained by container size</Text>
-    <Box UNSAFE_style={{ width: 125, overflow: 'hidden' }}>
+    <Box xcss={fixedContainerStyles}>
       <Lozenge
         appearance="success"
         testId="lozenge-truncated-by-container-size"
@@ -107,7 +113,7 @@ export default () => (
     <Text fontWeight="medium">
       In a % width context truncates at lowest of % and maxWidth
     </Text>
-    <Box UNSAFE_style={{ width: '20%', overflow: 'hidden' }}>
+    <Box xcss={percentageWidthStyles}>
       <Lozenge appearance="success" testId="lozenge-truncated-by-container-pc">
         very very very wide text which truncates
       </Lozenge>

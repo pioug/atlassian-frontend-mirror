@@ -1,7 +1,7 @@
 import '@babel/polyfill';
 import { tempPolyfills } from './polyfills';
 tempPolyfills();
-import React, { useCallback, useRef, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import MobileEditor from './mobile-editor-element';
 import { IS_DEV } from '../utils';
@@ -32,7 +32,6 @@ export const App: React.FC<AppProps> = (props) => {
 const Editor: React.FC<AppProps> = (props) => {
   const bridge = getBridge();
   const editorConfiguration = useEditorConfiguration(bridge);
-  const content = useRef('');
 
   const {
     providers: {
@@ -51,16 +50,16 @@ const Editor: React.FC<AppProps> = (props) => {
   }, [bridge, resetProviders]);
 
   const onLocaleChanged = useCallback(() => {
-    bridge.setContent(content.current);
-  }, [bridge]);
-
-  const onWillLocaleChange = useCallback(() => {
-    content.current = bridge.getContent();
+    bridge.restoreContent();
   }, [bridge]);
 
   const appearanceMode = editorConfiguration.getEditorAppearance();
   const locale = editorConfiguration.getLocale();
   const remountKey = useRemountKey(appearanceMode, locale);
+
+  useEffect(() => {
+    bridge.restoreContent();
+  }, [bridge, remountKey]);
 
   return (
     <ErrorBoundary>
@@ -73,7 +72,6 @@ const Editor: React.FC<AppProps> = (props) => {
         locale={locale}
         editorConfiguration={editorConfiguration}
         onLocaleChanged={onLocaleChanged}
-        onWillLocaleChange={onWillLocaleChange}
         mentionProvider={mentionProvider}
         emojiProvider={emojiProvider}
         mediaProvider={mediaProvider}

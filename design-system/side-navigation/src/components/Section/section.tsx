@@ -31,7 +31,8 @@ export interface SectionProps {
   testId?: string;
 
   /**
-   * Specifically adds <ul> and <li> elements around the items for better semantic markup if it is a list of items
+   * Adds `<ul>` and `<li>` tags around the items for better semantic markup in a list of items.
+   *
    */
   isList?: boolean;
 }

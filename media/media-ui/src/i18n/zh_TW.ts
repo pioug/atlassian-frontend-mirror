@@ -23,6 +23,7 @@ export default {
   'fabric.media.annotate.tool.text': '文字',
   'fabric.media.archive': '封存',
   'fabric.media.audio': '音訊',
+  'fabric.media.avatar_picker_back_btn_label': '返回',
   'fabric.media.cancel': '取消',
   'fabric.media.cant_preview_file_type': '我們無法預覽此檔案類型。',
   'fabric.media.cant_retrieve_files': '唉呦！我們無法擷取任何檔案',

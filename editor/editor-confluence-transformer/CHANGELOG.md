@@ -1,5 +1,11 @@
 # @atlaskit/editor-cq-transformer
 
+## 8.2.6
+
+### Patch Changes
+
+- [`1bfa8537fae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bfa8537fae) - [ED-18163] Removed last circular dependencies by moving transformer tests to their related transformers and removing an unused dependency
+
 ## 8.2.5
 
 ### Patch Changes

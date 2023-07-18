@@ -3,7 +3,6 @@ import {
   Identifier,
   ImportDeclaration,
   isNodeOfType,
-  node as nodeFn,
   property,
   Property,
 } from 'eslint-codemod-utils';
@@ -20,7 +19,6 @@ import {
   isCalc,
   isValidSpacingValue,
   isZero,
-  replacementComment,
   splitShorthandValues,
 } from './spacing-utils';
 import type { RuleConfig } from './types';
@@ -100,12 +98,6 @@ export const lintObjectForSpacing = (
             ? [insertTokensImport(fixer)]
             : []
         ).concat([
-          fixer.insertTextBefore(
-            node,
-            `${replacementComment} \`${nodeFn(node.value)}\`\n${' '.padStart(
-              node.loc?.start.column || 0,
-            )}`,
-          ),
           fixer.replaceText(
             node,
             property({

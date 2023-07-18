@@ -2,12 +2,10 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { axe, toHaveNoViolations } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 
 import Banner from '../../banner';
-
-expect.extend(toHaveNoViolations);
 
 describe('a11y', () => {
   it('Default banner with icon should not fail an aXe audit', async () => {
@@ -18,32 +16,28 @@ describe('a11y', () => {
         Your license is about to expire.
       </Banner>,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Warning banner should not fail an aXe audit', async () => {
     const { container } = render(
       <Banner appearance="warning">Simple warning banner</Banner>,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Announcement banner should not fail an aXe audit', async () => {
     const { container } = render(
       <Banner appearance="announcement">Simple announcement banner</Banner>,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Error banner should not fail an aXe audit', async () => {
     const { container } = render(
       <Banner appearance="error">Simple error banner</Banner>,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('should have role=alert by default', () => {

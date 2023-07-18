@@ -23,6 +23,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Testo',
   'fabric.media.archive': 'archivia',
   'fabric.media.audio': 'audio',
+  'fabric.media.avatar_picker_back_btn_label': 'Indietro',
   'fabric.media.cancel': 'Annulla',
   'fabric.media.cant_preview_file_type': 'Impossibile effettuare l’anteprima di questo tipo di file.',
   'fabric.media.cant_retrieve_files': 'Errore. Non è stato possibile recuperare alcun file',

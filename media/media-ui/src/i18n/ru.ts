@@ -23,6 +23,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Текст',
   'fabric.media.archive': 'архивировать',
   'fabric.media.audio': 'аудио',
+  'fabric.media.avatar_picker_back_btn_label': 'Назад',
   'fabric.media.cancel': 'Отменить',
   'fabric.media.cant_preview_file_type': 'Предварительный просмотр файлов такого типа невозможен.',
   'fabric.media.cant_retrieve_files': 'К сожалению, не удалось получить файлы',

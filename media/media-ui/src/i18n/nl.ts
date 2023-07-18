@@ -24,6 +24,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Tekst',
   'fabric.media.archive': 'archiveren',
   'fabric.media.audio': 'audio',
+  'fabric.media.avatar_picker_back_btn_label': 'Terug',
   'fabric.media.cancel': 'Annuleren',
   'fabric.media.cant_preview_file_type': 'Dit bestandstype kunnen we niet voorvertonen.',
   'fabric.media.cant_retrieve_files': 'Oei! We konden geen bestanden ophalen',

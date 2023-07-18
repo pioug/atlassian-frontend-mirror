@@ -24,8 +24,12 @@ import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import {
   HideLinkToolbar,
   hideLinkToolbarSetMeta,
-  showLinkToolbar,
+  InsertLink,
+  insertLinkWithAnalytics,
   ShowLinkToolbar,
+  showLinkToolbar,
+  UpdateLink,
+  updateLink,
 } from './commands';
 import fakeCursorToolbarPlugin from './pm-plugins/fake-cursor-for-toolbar';
 import { createInputRulePlugin } from './pm-plugins/input-rule';
@@ -69,6 +73,8 @@ export const hyperlinkPlugin: NextEditorPlugin<
        */
       showLinkToolbar: ShowLinkToolbar;
       hideLinkToolbar: HideLinkToolbar;
+      insertLink: InsertLink;
+      updateLink: UpdateLink;
     };
     sharedState: HyperlinkState | undefined;
   }
@@ -87,6 +93,28 @@ export const hyperlinkPlugin: NextEditorPlugin<
       showLinkToolbar: (inputMethod = INPUT_METHOD.TOOLBAR) =>
         showLinkToolbar(inputMethod, api?.dependencies.analytics?.actions),
       hideLinkToolbar: hideLinkToolbarSetMeta,
+      insertLink: (
+        inputMethod,
+        from,
+        to,
+        href,
+        title,
+        displayText,
+        cardsAvailable = false,
+        sourceEvent = undefined,
+      ) =>
+        insertLinkWithAnalytics(
+          inputMethod,
+          from,
+          to,
+          href,
+          api?.dependencies.analytics?.actions,
+          title,
+          displayText,
+          cardsAvailable,
+          sourceEvent,
+        ),
+      updateLink: updateLink,
     },
 
     getSharedState(editorState) {

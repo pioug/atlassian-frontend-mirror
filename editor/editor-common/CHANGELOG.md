@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.23.0
+
+### Minor Changes
+
+- [`5f028fb62a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f028fb62a1) - ED-19038 added mediaSingle.widthType support to renderer.
+
 ## 74.22.0
 
 ### Minor Changes

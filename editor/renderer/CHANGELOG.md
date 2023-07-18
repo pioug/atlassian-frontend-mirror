@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 108.7.1
+
+### Patch Changes
+
+- [`4fe49c40988`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4fe49c40988) - [ux] ED-18966 fix default table in renderer full-width appearance mode
+
+## 108.7.0
+
+### Minor Changes
+
+- [`5f028fb62a1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f028fb62a1) - ED-19038 added mediaSingle.widthType support to renderer.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.6.11
+
+### Patch Changes
+
+- [`a46a10e8368`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a46a10e8368) - align table sticky header for custom table widths
+
 ## 108.6.10
 
 ### Patch Changes

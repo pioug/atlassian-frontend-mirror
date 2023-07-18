@@ -1,0 +1,31 @@
+---
+title: Show
+description: Show is a responsive primitive that displays children at specified breakpoints
+order: 1
+---
+
+import ShowExample from '../../../examples/constellation/responsive/show';
+import ShowHideExample from '../../../examples/constellation/responsive/show-hide';
+
+import { CodeDocsHeader } from '@af/design-system-docs-ui';
+
+<CodeDocsHeader
+  name="@atlaskit/primitives"
+  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+  directoryName="primitives"
+/>
+
+
+### Show
+
+This allows you to Show the children using CSS `display: …` either above or below a breakpoint.  By default, unless the breakpoint is met, contents are hidden.
+
+Note that this does not skip rendering of your children; the contents are rendered into the DOM at all times, so there is typically little performance savings—primarily that this is not painted.
+
+<Example Component={ShowExample} packageName="@atlaskit/primitives/responsive" />
+
+### Mixing Show and Hide
+
+Prefer using consistent `above` or `below` for readability and consistency.
+
+<Example Component={ShowHideExample} packageName="@atlaskit/primitives/responsive" />

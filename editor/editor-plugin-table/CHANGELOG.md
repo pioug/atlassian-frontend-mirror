@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 2.3.0
+
+### Minor Changes
+
+- [`464c9736dff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/464c9736dff) - [ux] [ED-17626] Remove table controls during table width resizing
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.0
 
 ### Minor Changes

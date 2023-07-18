@@ -14,8 +14,7 @@ import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
-import { EditorProps } from '../Editor';
-import { EditorProps as AllEditorProps } from '../../../types/editor-props';
+import { EditorProps } from '../../../types/editor-props';
 import { EditorPresetProps } from './types';
 import clipboardPlugin from '../../../plugins/clipboard';
 import { analyticsPlugin as deprecatedAnalyticsPlugin } from '../../../plugins';
@@ -59,7 +58,7 @@ export type DefaultPresetPluginOptions = {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   typeAhead?: TypeAheadPluginOptions;
   allowAnalyticsGASV3?: boolean;
-  performanceTracking?: AllEditorProps['performanceTracking'];
+  performanceTracking?: EditorProps['performanceTracking'];
 };
 
 /**

@@ -34,9 +34,8 @@ import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import {
   TableCssClassName as ClassName,
-  ColumnResizingPluginState,
-  ShadowEvent,
   PluginInjectionAPI,
+  ShadowEvent,
 } from '../types';
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import TableFloatingControls from '../ui/TableFloatingControls';
@@ -73,7 +72,7 @@ export interface ComponentProps {
   isMediaFullscreen?: boolean;
   tableActive: boolean;
   ordering: TableColumnOrdering;
-  tableResizingPluginState?: ColumnResizingPluginState;
+  isResizing?: boolean;
   getEditorFeatureFlags: GetEditorFeatureFlags;
   pluginInjectionApi?: PluginInjectionAPI;
 }
@@ -319,7 +318,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     const {
       view,
       getNode,
-      tableResizingPluginState,
+      isResizing,
       allowControls = true,
       isHeaderRowEnabled,
       ordering,
@@ -343,8 +342,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     } = this.props.getEditorFeatureFlags();
 
     const tableRef = this.table || undefined;
-    const isResizing =
-      !!tableResizingPluginState && !!tableResizingPluginState.dragging;
     const headerRow = tableRef
       ? tableRef.querySelector<HTMLTableRowElement>('tr[data-header-row]')
       : undefined;

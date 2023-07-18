@@ -1,6 +1,6 @@
 import React from 'react';
 import { expand, nestedExpand } from '@atlaskit/adf-schema';
-import { NextEditorPlugin, EditorProps } from '../../types';
+import type { NextEditorPlugin, EditorProps } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import { expandKeymap } from './pm-plugins/keymap';
 import { IconExpand } from '@atlaskit/editor-common/quick-insert';
@@ -15,7 +15,7 @@ import {
 import { getToolbarConfig } from './toolbar';
 import { createExpandNode } from './commands';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { LongPressSelectionPluginOptions } from '../selection/types';
+import type { LongPressSelectionPluginOptions } from '../selection/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { createWrapSelectionTransaction } from '../block-type/commands/block-type';
@@ -89,7 +89,7 @@ const expandPlugin: NextEditorPlugin<
               }
               const tr = createWrapSelectionTransaction({
                 state,
-                type: state.schema.nodes.expand,
+                type: node.type,
               });
               return addAnalytics(state, tr, {
                 action: ACTION.INSERTED,

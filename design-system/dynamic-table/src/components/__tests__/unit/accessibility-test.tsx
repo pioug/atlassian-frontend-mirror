@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 
-import { axe, toHaveNoViolations } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing';
 
 import DynamicTable, {
   DynamicTableStateless as StatelessDynamicTable,
@@ -21,8 +21,6 @@ import {
 
 const testId = 'dynamic--table--test--id';
 
-expect.extend(toHaveNoViolations);
-
 describe('Dynamic Table Accessibility', () => {
   afterEach(cleanup);
 
@@ -39,8 +37,7 @@ describe('Dynamic Table Accessibility', () => {
       );
 
       const container = screen.getByTestId('dynamic--table--test--id--table');
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await axe(container);
     });
 
     it('stateful with pagination should pass basic aXe audit', async () => {
@@ -57,8 +54,7 @@ describe('Dynamic Table Accessibility', () => {
       const container = screen.getByTestId(
         'dynamic--table--test--id--loading--container--advanced',
       );
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await axe(container);
     });
   });
 
@@ -78,8 +74,7 @@ describe('Dynamic Table Accessibility', () => {
       render(<StatelessDynamicTable {...props} />);
 
       const container = screen.getByTestId('dynamic--table--test--id--table');
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await axe(container);
     });
 
     it('when changed from ASC to DESC, should pass basic aXe audit', async () => {
@@ -92,8 +87,7 @@ describe('Dynamic Table Accessibility', () => {
       fireEvent.click(sortButtons[0]);
 
       const container = screen.getByTestId('dynamic--table--test--id--table');
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await axe(container);
     });
 
     it('with pagination, should pass basic aXe audit', async () => {
@@ -105,8 +99,7 @@ describe('Dynamic Table Accessibility', () => {
       const container = screen.getByTestId(
         'dynamic--table--test--id--loading--container--advanced',
       );
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await axe(container);
     });
   });
 
@@ -121,8 +114,7 @@ describe('Dynamic Table Accessibility', () => {
       const container = screen.getByTestId(
         'dynamic--table--test--id--container',
       );
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await axe(container);
     });
   });
 
@@ -155,8 +147,7 @@ describe('Dynamic Table Accessibility', () => {
       fireEvent.keyDown(cell);
 
       const container = screen.getByTestId('dynamic--table--test--id--tr');
-      const results = await axe(container);
-      expect(results).toHaveNoViolations();
+      await axe(container);
     });
   });
 });

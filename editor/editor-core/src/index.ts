@@ -59,8 +59,6 @@ export { changeColor } from './plugins/text-color/commands/change-color';
 export { insertHorizontalRule } from './plugins/rule/commands';
 export { blockPluginStateKey } from './plugins';
 export type { BlockTypeState } from './plugins';
-export type { HyperlinkState } from '@atlaskit/editor-common/link';
-export { InsertStatus as HyperlinkInsertStatus } from '@atlaskit/editor-common/link';
 export { pluginKey as listStateKey } from './plugins/list/pm-plugins/main';
 export type { ListState } from './plugins/list/types';
 export type { InputMethod as ListInputMethod } from './plugins/list/commands';
@@ -118,26 +116,6 @@ export {
 } from './plugins/quick-insert';
 export type { QuickInsertPluginState } from './plugins/quick-insert';
 export type { TypeAheadItem } from './plugins/type-ahead/types';
-export {
-  insertLink,
-  insertLinkWithAnalyticsMobileNative,
-  insertLinkWithAnalytics,
-  updateLink,
-  stateKey as hyperlinkStateKey,
-} from './plugins/deprecated-hyperlink/commands';
-
-export {
-  /**
-   * @deprecated
-   * Please use the export from '@atlaskit/editor-common/link`
-   */
-  isTextAtPos,
-  /**
-   * @deprecated
-   * Please use the export from '@atlaskit/editor-common/link`
-   */
-  isLinkAtPos,
-} from '@atlaskit/editor-common/link';
 export { historyPluginKey } from './plugins/history';
 export {
   INPUT_METHOD,

@@ -1,3 +1,41 @@
+/**
+ * These imports are written out explicitly because they
+ * need to be statically analyzable to be uploaded to CodeSandbox correctly.
+ */
+import Alexander from './images/Alexander.svg';
+import Aliza from './images/Aliza.svg';
+import Alvin from './images/Alvin.svg';
+import Angie from './images/Angie.svg';
+import Arjun from './images/Arjun.svg';
+import Blair from './images/Blair.svg';
+import Claudia from './images/Claudia.svg';
+import Colin from './images/Colin.svg';
+import Ed from './images/Ed.svg';
+import Effie from './images/Effie.svg';
+import Eliot from './images/Eliot.svg';
+import Fabian from './images/Fabian.svg';
+import Gael from './images/Gael.svg';
+import Gerard from './images/Gerard.svg';
+import Hasan from './images/Hasan.svg';
+import Helena from './images/Helena.svg';
+import Ivan from './images/Ivan.svg';
+import Katina from './images/Katina.svg';
+import Lara from './images/Lara.svg';
+import Leo from './images/Leo.svg';
+import Lydia from './images/Lydia.svg';
+import Maribel from './images/Maribel.svg';
+import Milo from './images/Milo.svg';
+import Myra from './images/Myra.svg';
+import Narul from './images/Narul.svg';
+import Norah from './images/Norah.svg';
+import Oliver from './images/Oliver.svg';
+import Rahul from './images/Rahul.svg';
+import Renato from './images/Renato.svg';
+import Steve from './images/Steve.svg';
+import Tanya from './images/Tanya.svg';
+import Tori from './images/Tori.svg';
+import Vania from './images/Vania.svg';
+
 export type Item = {
   name: string;
   role: string;
@@ -5,12 +43,49 @@ export type Item = {
   itemId: string;
 };
 
-function loadAvatar(name: string) {
-  /**
-   * URL loader is explicitly specified to avoid loading SVGs being loaded
-   * as React components.
-   */
-  return require(`!url-loader!./images/${name}.svg`);
+const avatarMap: Record<string, string> = {
+  Alexander,
+  Aliza,
+  Alvin,
+  Angie,
+  Arjun,
+  Blair,
+  Claudia,
+  Colin,
+  Ed,
+  Effie,
+  Eliot,
+  Fabian,
+  Gael,
+  Gerard,
+  Hasan,
+  Helena,
+  Ivan,
+  Katina,
+  Lara,
+  Leo,
+  Lydia,
+  Maribel,
+  Milo,
+  Myra,
+  Narul,
+  Norah,
+  Oliver,
+  Rahul,
+  Renato,
+  Steve,
+  Tanya,
+  Tori,
+  Vania,
+};
+
+function getItem({ name, role }: { name: string; role: string }): Item {
+  return {
+    name,
+    role,
+    avatarUrl: avatarMap[name],
+    itemId: name,
+  };
 }
 
 export const confluenceTeam: Item[] = [
@@ -26,13 +101,7 @@ export const confluenceTeam: Item[] = [
   { name: 'Angie', role: 'Senior Engineer' },
   { name: 'Colin', role: 'Software Engineer' },
   { name: 'Fabian', role: 'Senior Designer' },
-].map(person => {
-  return {
-    ...person,
-    avatarUrl: loadAvatar(person.name),
-    itemId: person.name,
-  };
-});
+].map(getItem);
 
 export const jiraTeam: Item[] = [
   { name: 'Helena', role: 'Design Researcher' },
@@ -43,13 +112,7 @@ export const jiraTeam: Item[] = [
   { name: 'Alvin', role: 'Senior Engineer' },
   { name: 'Claudia', role: 'Senior Engineer' },
   { name: 'Eliot', role: 'Lead Designer' },
-].map(person => {
-  return {
-    ...person,
-    avatarUrl: loadAvatar(person.name),
-    itemId: person.name,
-  };
-});
+].map(getItem);
 
 export const trelloTeam: Item[] = [
   { name: 'Hasan', role: 'Designer' },
@@ -62,13 +125,7 @@ export const trelloTeam: Item[] = [
   { name: 'Effie', role: 'Senior Engineer' },
   { name: 'Gerard', role: 'Design Manager' },
   { name: 'Katina', role: 'Program Manager' },
-].map(person => {
-  return {
-    ...person,
-    avatarUrl: loadAvatar(person.name),
-    itemId: person.name,
-  };
-});
+].map(getItem);
 
 export type ColumnType = {
   title: string;

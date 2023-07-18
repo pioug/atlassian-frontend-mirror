@@ -12,31 +12,18 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "continuous",
     "productPushConsumption": [
       "jira"
     ],
+    "releaseModel": "continuous",
     "website": {
       "name": "Popper",
       "category": "Libraries"
     }
-  },
-  "af:exports": {
-    ".": "./src/index.tsx",
-    "./Popper": "./src/popper.tsx",
-    "./in-product": "./src/in-product.tsx"
   },
   "dependencies": {
     "@atlaskit/in-product-testing": "^0.2.0",
@@ -48,6 +35,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/visual-regression": "*",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -87,6 +75,19 @@
         "emotion"
       ]
     }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./Popper": "./src/popper.tsx",
+    "./in-product": "./src/in-product.tsx"
   },
   "homepage": "https://atlassian.design/components/popper",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

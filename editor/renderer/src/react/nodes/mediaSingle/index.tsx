@@ -11,7 +11,11 @@ import {
   MediaSingle as UIMediaSingle,
   WidthConsumer,
 } from '@atlaskit/editor-common/ui';
-import type { EventHandlers, Breakpoints } from '@atlaskit/editor-common/ui';
+import type {
+  EventHandlers,
+  Breakpoints,
+  MediaSingleWidthType,
+} from '@atlaskit/editor-common/ui';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import {
   akEditorFullWidthLayoutWidth,
@@ -28,6 +32,7 @@ export interface Props {
   layout: MediaSingleLayout;
   eventHandlers?: EventHandlers;
   width?: number;
+  widthType?: MediaSingleWidthType;
   isInsideOfBlockNode?: boolean;
   rendererAppearance: RendererAppearance;
   fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
@@ -81,7 +86,8 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
     isInsideOfBlockNode,
     layout,
     children,
-    width: pctWidth,
+    width: widthAttr,
+    widthType,
   } = props;
   const isCaptionsFlaggedOn = getMediaFeatureFlag('captions', featureFlags);
   const [externalImageDimensions, setExternalImageDimensions] = React.useState({
@@ -205,7 +211,10 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
         height={height}
         lineLength={isInsideOfBlockNode ? containerWidth : lineLength}
         containerWidth={containerWidth}
-        pctWidth={pctWidth}
+        size={{
+          width: widthAttr,
+          widthType,
+        }}
         fullWidthMode={isFullWidth}
       >
         <Fragment>{mediaComponent}</Fragment>

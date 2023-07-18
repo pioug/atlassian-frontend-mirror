@@ -15,6 +15,7 @@ import {
 
 import { calcPxFromPct, wrappedLayouts } from './grid';
 import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
+import type { MediaSingleSize, MediaSingleWidthType } from './types';
 
 export const DEFAULT_IMAGE_WIDTH = 250;
 export const DEFAULT_IMAGE_HEIGHT = 200;
@@ -24,6 +25,7 @@ export const DEFAULT_IMAGE_HEIGHT = 200;
     Read more: https://product-fabric.atlassian.net/browse/MEX-2481
 */
 export const IMAGE_AND_BORDER_ADJUSTMENT = 2;
+
 export interface Props {
   children: React.ReactNode;
   layout: MediaSingleLayout;
@@ -33,7 +35,13 @@ export interface Props {
   containerWidth?: number;
   isLoading?: boolean;
   className?: string;
+  /**
+   * @private
+   * @deprecated Use {@link Props.size.width} instead.
+   * Cleanup ticket: https://product-fabric.atlassian.net/browse/ED-19076
+   */
   pctWidth?: number;
+  size?: MediaSingleSize;
   nodeType?: string;
   fullWidthMode?: boolean;
   hasFallbackContainer?: boolean;
@@ -53,6 +61,8 @@ export const shouldAddDefaultWrappedWidth = (
   );
 };
 
+export type { MediaSingleWidthType, MediaSingleSize };
+
 export default function MediaSingle({
   layout,
   width,
@@ -60,6 +70,7 @@ export default function MediaSingle({
   containerWidth = width,
   isLoading = false,
   pctWidth,
+  size,
   className,
   children: propsChildren,
   nodeType = 'mediaSingle',
@@ -68,18 +79,30 @@ export default function MediaSingle({
   hasFallbackContainer = true,
   handleMediaSingleRef,
 }: Props) {
+  const isPixelWidth = size?.widthType === 'pixel';
+
+  let mediaSingleWidth = size?.width || pctWidth;
+
   const children = React.Children.toArray<React.ReactNode>(propsChildren);
-  if (!pctWidth && shouldAddDefaultWrappedWidth(layout, width, lineLength)) {
-    pctWidth = 50;
+  if (
+    !mediaSingleWidth &&
+    shouldAddDefaultWrappedWidth(layout, width, lineLength)
+  ) {
+    mediaSingleWidth = isPixelWidth ? lineLength / 2 : 50;
   }
   // When width is not set we have an absolute height for a given embed.
   // When both width and height are set we use them to determine ratio and use that to define
   // embed height in relation to whatever width of an dom element is in runtime
   const isHeightOnly = width === undefined;
-  if (pctWidth) {
-    const pxWidth = Math.ceil(
-      calcPxFromPct(pctWidth / 100, lineLength || containerWidth || 0),
-    );
+  if (mediaSingleWidth) {
+    const pxWidth = isPixelWidth
+      ? mediaSingleWidth
+      : Math.ceil(
+          calcPxFromPct(
+            mediaSingleWidth / 100,
+            lineLength || containerWidth || 0,
+          ),
+        );
     if (isHeightOnly) {
       width = pxWidth - akEditorMediaResizeHandlerPaddingWide;
     } else if (width !== undefined) {
@@ -87,7 +110,7 @@ export default function MediaSingle({
       width = pxWidth;
     }
   } else if (isHeightOnly) {
-    // No pctWidth can be found on already existing pages with existing embeds
+    // No mediaSingleWidth can be found on already existing pages with existing embeds
 
     // It's ok to use Embed specific width, because width can be not set only in embed card.
     // This value will be used only in the case of non `wide` and non `full-width` cases inside MediaSingleDimensionHelper.
@@ -124,11 +147,12 @@ export default function MediaSingle({
         width,
         layout,
         containerWidth,
-        pctWidth,
+        mediaSingleWidth,
         fullWidthMode,
       })}
       data-layout={layout}
-      data-width={pctWidth}
+      data-width={mediaSingleWidth}
+      data-width-type={size?.widthType || 'percentage'}
       data-node-type={nodeType}
       className={classnames(
         'rich-media-item mediaSingleView-content-wrap',

@@ -12,46 +12,18 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
-    "releaseModel": "continuous",
     "productPushConsumption": [
       "jira"
     ],
+    "releaseModel": "continuous",
     "website": {
       "name": "Logo",
       "category": "Components"
     }
-  },
-  "af:exports": {
-    "./atlassian-icon": "./src/atlassian-logo/icon.tsx",
-    "./bitbucket-icon": "./src/bitbucket-logo/icon.tsx",
-    "./confluence-icon": "./src/confluence-logo/icon.tsx",
-    "./hipchat-icon": "./src/hipchat-logo/icon.tsx",
-    "./jira-icon": "./src/jira-logo/icon.tsx",
-    "./jira-core-icon": "./src/jira-core-logo/icon.tsx",
-    "./jra-service-desk-icon": "./src/jira-service-desk-logo/icon.tsx",
-    "./jira-service-desk-icon": "./src/jira-service-desk-logo/icon.tsx",
-    "./jira-service-management-icon": "./src/jira-service-management-logo/icon.tsx",
-    "./jira-software-icon": "./src/jira-software-logo/icon.tsx",
-    "./ops-genie-icon": "./src/opsgenie-logo/old-icon.tsx",
-    "./statuspage-icon": "./src/statuspage-logo/icon.tsx",
-    "./stride-icon": "./src/stride-logo/icon.tsx",
-    "./trello-icon": "./src/trello-logo/icon.tsx",
-    "./atlas-icon": "./src/atlas-logo/icon.tsx",
-    "./constants": "./src/constants.tsx",
-    "./Wrapper": "./src/wrapper.tsx",
-    ".": "./src/index.tsx"
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^2.2.0",
@@ -66,6 +38,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
+    "@af/visual-regression": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
@@ -95,6 +68,34 @@
       ],
       "deprecation": "no-deprecated-imports"
     }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    "./atlassian-icon": "./src/atlassian-logo/icon.tsx",
+    "./bitbucket-icon": "./src/bitbucket-logo/icon.tsx",
+    "./confluence-icon": "./src/confluence-logo/icon.tsx",
+    "./hipchat-icon": "./src/hipchat-logo/icon.tsx",
+    "./jira-icon": "./src/jira-logo/icon.tsx",
+    "./jira-core-icon": "./src/jira-core-logo/icon.tsx",
+    "./jra-service-desk-icon": "./src/jira-service-desk-logo/icon.tsx",
+    "./jira-service-desk-icon": "./src/jira-service-desk-logo/icon.tsx",
+    "./jira-service-management-icon": "./src/jira-service-management-logo/icon.tsx",
+    "./jira-software-icon": "./src/jira-software-logo/icon.tsx",
+    "./ops-genie-icon": "./src/opsgenie-logo/old-icon.tsx",
+    "./statuspage-icon": "./src/statuspage-logo/icon.tsx",
+    "./stride-icon": "./src/stride-logo/icon.tsx",
+    "./trello-icon": "./src/trello-logo/icon.tsx",
+    "./atlas-icon": "./src/atlas-logo/icon.tsx",
+    "./constants": "./src/constants.tsx",
+    "./Wrapper": "./src/wrapper.tsx",
+    ".": "./src/index.tsx"
   },
   "homepage": "https://atlassian.design/components/logo/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

@@ -70,7 +70,7 @@ import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { ExtensionType } from '@atlaskit/editor-common/provider-factory';
 import { FC } from 'react';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
+import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { FloatingToolbarButton } from '@atlaskit/editor-common/types';
 import { FloatingToolbarColorPicker } from '@atlaskit/editor-common/types';
 import { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
@@ -88,20 +88,15 @@ import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
 import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
-import { InsertStatus as HyperlinkInsertStatus } from '@atlaskit/editor-common/link';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
-import { HyperlinkState } from '@atlaskit/editor-common/link';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { InputTracking } from '@atlaskit/editor-common/types';
 import { IntlShape } from 'react-intl-next';
-import { isLinkAtPos } from '@atlaskit/editor-common/link';
-import { isTextAtPos } from '@atlaskit/editor-common/link';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
 import { lightModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { LinkingOptions } from '@atlaskit/editor-common/types';
-import type { LinkInputType } from '@atlaskit/editor-common/types';
 import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { MarkConfig } from '@atlaskit/editor-common/types';
@@ -164,7 +159,6 @@ import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { TypeAheadItem as TypeAheadItem_2 } from '@atlaskit/editor-common/provider-factory';
 import type { TypeAheadStats } from '@atlaskit/editor-common/types';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { UIComponentFactory } from '@atlaskit/editor-common/types';
 import { UploadEndEventPayload } from '@atlaskit/media-picker/types';
 import { UploadErrorEventPayload } from '@atlaskit/media-picker/types';
@@ -572,7 +566,7 @@ type DefaultPresetPluginOptions = {
   blockType?: BlockTypePluginOptions;
   placeholder?: PlaceholderPluginOptions;
   textFormatting?: TextFormattingOptions;
-  submitEditor?: EditorProps_2['onSave'];
+  submitEditor?: EditorProps['onSave'];
   annotationProviders?: AnnotationProviders;
   quickInsert?: QuickInsertPluginOptions;
   codeBlock?: CodeBlockOptions;
@@ -958,30 +952,6 @@ export interface EditorProps
 }
 
 // @public (undocumented)
-type EditorProps_2 = {
-  plugins?: Array<EditorPlugin>;
-  transformer?: (schema: Schema) => Transformer_2<any>;
-  children?: React.ReactChild;
-  defaultValue?: object | string;
-  popupsMountPoint?: HTMLElement;
-  popupsBoundariesElement?: HTMLElement;
-  popupsScrollableElement?: HTMLElement;
-  disabled?: boolean;
-  placeholder?: string;
-  onAnalyticsEvent?: FireAnalyticsCallback;
-  onChange?: (
-    value: any,
-    meta: {
-      source: 'local' | 'remote';
-    },
-  ) => void;
-  onSave?: (value: any) => void;
-  onCancel?: (value: any) => void;
-  onMount?: (actions: EditorActions) => void;
-  onDestroy?: () => void;
-};
-
-// @public (undocumented)
 interface EditorProviderProps {
   // (undocumented)
   activityProvider?: Promise<ActivityProvider>;
@@ -1216,13 +1186,6 @@ export interface HistoryPluginState {
   canUndo: boolean;
 }
 
-export { HyperlinkInsertStatus };
-
-export { HyperlinkState };
-
-// @public @deprecated (undocumented)
-export const hyperlinkStateKey: PluginKey<any>;
-
 // @public (undocumented)
 function indentList(inputMethod?: InputMethod): Command;
 
@@ -1305,39 +1268,6 @@ type InsertItemProps = {
   sourceListItem: TypeAheadItem_2[];
 };
 
-// @public @deprecated (undocumented)
-export function insertLink(
-  from: number,
-  to: number,
-  incomingHref: string,
-  incomingTitle?: string,
-  displayText?: string,
-  source?: LinkInputType,
-  sourceEvent?: UIAnalyticsEvent | null | undefined,
-): Command_2;
-
-// @public @deprecated (undocumented)
-export const insertLinkWithAnalytics: (
-  inputMethod: LinkInputType,
-  from: number,
-  to: number,
-  href: string,
-  title?: string,
-  displayText?: string,
-  cardsAvailable?: boolean,
-  sourceEvent?: UIAnalyticsEvent | null | undefined,
-) => Command_2;
-
-// @public @deprecated (undocumented)
-export const insertLinkWithAnalyticsMobileNative: (
-  inputMethod: LinkInputType,
-  from: number,
-  to: number,
-  href: string,
-  title?: string,
-  displayText?: string,
-) => Command;
-
 // @public (undocumented)
 export const insertMediaSingleNode: (
   view: EditorView,
@@ -1370,10 +1300,6 @@ type InviteToEditButtonProps = {
 type InviteToEditComponentProps = {
   children: ReactElement<InviteToEditButtonProps>;
 };
-
-export { isLinkAtPos };
-
-export { isTextAtPos };
 
 // @public (undocumented)
 interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
@@ -2530,14 +2456,6 @@ interface TypeAheadStatsSerializable extends TypeAheadStats {
 
 // @public (undocumented)
 export type UpdateEvent = 'create' | 'delete' | 'resolve' | 'unresolve';
-
-// @public @deprecated (undocumented)
-export function updateLink(
-  href: string,
-  text: string,
-  pos: number,
-  to?: number,
-): Command_2;
 
 // @public (undocumented)
 export const updateStatus: (status?: StatusType) => Command;

@@ -9,7 +9,6 @@ import {
   EditorActions,
   InsertBlockInputMethodToolbar,
   insertBlockTypesWithAnalytics,
-  insertLinkWithAnalyticsMobileNative,
   insertTaskDecisionCommand,
   ListInputMethod,
   ListState,
@@ -31,7 +30,6 @@ import {
   toggleSuperscriptWithAnalytics,
   toggleUnderlineWithAnalytics,
   updateStatusWithAnalytics,
-  updateLink,
   insertExpand,
   QuickInsertItemId,
   getListCommands,
@@ -44,7 +42,10 @@ import {
 } from '@atlaskit/editor-core';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { isTextAtPos, isLinkAtPos } from '@atlaskit/editor-common/link';
-import type { LinkInputType as LinkInputMethod } from '@atlaskit/editor-common/types';
+import type {
+  LinkInputType as LinkInputMethod,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { EditorViewWithComposition } from '../../types';
 import {
@@ -95,7 +96,8 @@ import {
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import NativeBridge from '../web-to-native/bridge';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { mobileApiPlugin } from '../plugins/mobileApiPlugin';
 
 export const defaultSetList: QuickInsertItemId[] = [
   'blockquote',
@@ -184,6 +186,10 @@ export default class WebBridgeImpl
   private resetProviders: () => void = () => {};
   private featureFlags: FeatureFlags = {};
   private editorAnalyticsApi: EditorAnalyticsAPI | undefined = undefined;
+  private storedContent: String | undefined;
+  private pluginInjectionApi:
+    | ExtractInjectionAPI<typeof mobileApiPlugin>
+    | undefined = undefined;
 
   constructor(config?: MobileEditorConfiguration) {
     super();
@@ -195,8 +201,12 @@ export default class WebBridgeImpl
     this.featureFlags = featureFlags;
   }
 
-  setAnalyticsApi(editorAnalyticsApi: EditorAnalyticsAPI | undefined) {
-    this.editorAnalyticsApi = editorAnalyticsApi;
+  setPluginInjectionApi(
+    pluginInjectionApi: ExtractInjectionAPI<typeof mobileApiPlugin> | undefined,
+  ) {
+    this.pluginInjectionApi = pluginInjectionApi;
+    this.editorAnalyticsApi =
+      pluginInjectionApi?.dependencies.analytics?.actions;
   }
 
   getEditorConfiguration() {
@@ -359,12 +369,20 @@ export default class WebBridgeImpl
   }
 
   setContent(content: string) {
+    this.storedContent = content;
     this.replaceContent(content);
   }
 
   async setContentPayload(uuid: string) {
     const content = await this.fetchPayload('content', uuid);
+    this.storedContent = content as string;
     this.replaceContent(content);
+  }
+
+  restoreContent() {
+    if (!!this.storedContent) {
+      this.replaceContent(this.storedContent);
+    }
   }
 
   replaceContent(content: any) {
@@ -410,6 +428,8 @@ export default class WebBridgeImpl
   }
 
   clearContent() {
+    this.storedContent = undefined;
+
     if (this.editorView) {
       const { state, dispatch } = this.editorView;
       clearEditorContent(state, dispatch);
@@ -538,7 +558,7 @@ export default class WebBridgeImpl
       (!isLinkAtPos(from)(state) && from === to) ||
       !isTextAtPos(from)(state)
     ) {
-      insertLinkWithAnalyticsMobileNative(
+      this.pluginInjectionApi?.dependencies.hyperlink.actions.insertLink(
         inputMethod,
         from,
         to,
@@ -557,7 +577,12 @@ export default class WebBridgeImpl
         }
       : { leftBound: from, rightBound: to };
 
-    return updateLink(url, text || url, leftBound, rightBound)(state, dispatch);
+    return this.pluginInjectionApi?.dependencies.hyperlink.actions.updateLink(
+      url,
+      text || url,
+      leftBound,
+      rightBound,
+    )(state, dispatch);
   }
 
   insertBlockType(

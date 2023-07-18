@@ -15,8 +15,6 @@ const mockEditorCore = {
     toggleOrderedList: jest.fn(() => () => {}),
     toggleBulletList: jest.fn(() => () => {}),
   })),
-  insertLinkWithAnalyticsMobileNative: jest.fn(() => () => {}),
-  updateLink: jest.fn(() => () => mockCalls.push('updateLink')),
   clearEditorContent: jest.fn(() => {}),
   setKeyboardHeight: jest.fn(() => () => {}),
   insertMentionQuery: jest.fn(() => () => {}),

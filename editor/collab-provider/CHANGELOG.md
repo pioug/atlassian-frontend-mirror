@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.7.2
+
+### Patch Changes
+
+- [`f9735e0690e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9735e0690e) - Using socket.onAnyOutgoing to measure and send message metrics
+
 ## 9.7.1
 
 ### Patch Changes

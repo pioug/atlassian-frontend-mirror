@@ -10,6 +10,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { DecorationSet } from 'prosemirror-view';
 
 import { pluginKey as tablePluginKey } from '../plugin-key';
+import { pluginKey as tableWidthPluginKey } from '../table-width';
 
 import {
   buildColumnControlsDecorations,
@@ -25,8 +26,20 @@ export const handleDocOrSelectionChanged = (
   tr: Transaction | ReadonlyTransaction,
   decorationSet: DecorationSet,
   oldState: EditorState,
+  newState: EditorState,
 ): DecorationSet => {
-  if (tr.docChanged || tr.selection instanceof CellSelection) {
+  const isResizing = tableWidthPluginKey.getState(newState)?.resizing;
+  const wasResizing = tableWidthPluginKey.getState(oldState)?.resizing;
+  const changedResizing = isResizing !== wasResizing;
+
+  // Remove column controls when resizing
+  if (isResizing) {
+    return DecorationSet.empty;
+  } else if (
+    tr.docChanged ||
+    tr.selection instanceof CellSelection ||
+    changedResizing
+  ) {
     return buildColumnControlsDecorations({
       decorationSet,
       tr,
@@ -53,16 +66,25 @@ export const createPlugin = () => {
     state: {
       init: () => DecorationSet.empty,
 
-      apply: (tr, decorationSet, oldState) => {
+      apply: (tr, decorationSet, oldState, newState) => {
         let pluginState = decorationSet;
         const meta = tr.getMeta(tablePluginKey);
         if (meta && meta.data && meta.data.decorationSet) {
           pluginState = meta.data.decorationSet;
         }
 
-        if (tr.docChanged || tr.selectionSet) {
+        if (
+          tr.docChanged ||
+          tr.selectionSet ||
+          tr.getMeta(tableWidthPluginKey)
+        ) {
           pluginState = pluginState.map(tr.mapping, tr.doc);
-          return handleDocOrSelectionChanged(tr, pluginState, oldState);
+          return handleDocOrSelectionChanged(
+            tr,
+            pluginState,
+            oldState,
+            newState,
+          );
         }
 
         return pluginState;

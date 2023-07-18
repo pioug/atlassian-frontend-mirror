@@ -36,7 +36,10 @@ import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 
 import { pluginConfig } from './create-plugin-config';
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
-import { createPlugin as createTableAddWidthPlugin } from './pm-plugins/table-add-width';
+import {
+  pluginKey as tableWidthPluginKey,
+  createPlugin as createTableWidthPlugin,
+} from './pm-plugins/table-width';
 import { createPlugin as createTableSafariDeleteCompositionTextIssueWorkaroundPlugin } from './pm-plugins/safari-delete-composition-text-issue-workaround';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { keymapPlugin } from './pm-plugins/keymap';
@@ -257,10 +260,13 @@ const tablesPlugin: NextEditorPlugin<
           plugin: ({ dispatch }) => createTableLocalIdPlugin(dispatch),
         },
         {
-          name: 'tableAddWidth',
-          plugin: () =>
-            getBooleanFF('platform.editor.custom-table-width') && options
-              ? createTableAddWidthPlugin(options.fullWidthEnabled || false)
+          name: 'tableWidth',
+          plugin: ({ dispatch }) =>
+            getBooleanFF('platform.editor.custom-table-width')
+              ? createTableWidthPlugin(
+                  dispatch,
+                  options?.fullWidthEnabled ?? false,
+                )
               : undefined,
         },
 
@@ -311,6 +317,7 @@ const tablesPlugin: NextEditorPlugin<
           <WithPluginState
             plugins={{
               tablePluginState: pluginKey,
+              tableWidthPluginState: tableWidthPluginKey,
               tableResizingPluginState: tableResizingPluginKey,
               stickyHeadersState: stickyHeadersPluginKey,
             }}
@@ -318,9 +325,13 @@ const tablesPlugin: NextEditorPlugin<
               tableResizingPluginState: resizingPluginState,
               stickyHeadersState,
               tablePluginState,
+              tableWidthPluginState,
             }) => {
               const { state } = editorView;
-              const isDragging = resizingPluginState?.dragging;
+              const isColumnResizing = resizingPluginState?.dragging;
+              const isTableResizing = tableWidthPluginState?.resizing;
+              const isResizing = isColumnResizing || isTableResizing;
+
               const {
                 tableNode,
                 tablePos,
@@ -366,7 +377,7 @@ const tablesPlugin: NextEditorPlugin<
                 <>
                   {targetCellPosition &&
                     tableRef &&
-                    !isDragging &&
+                    !isResizing &&
                     options &&
                     options.allowContextualMenu && (
                       <FloatingContextualButton
@@ -403,21 +414,23 @@ const tablesPlugin: NextEditorPlugin<
                       getEditorContainerWidth={defaultGetEditorContainerWidth}
                     />
                   )}
-                  <FloatingContextualMenu
-                    editorView={editorView}
-                    mountPoint={popupsMountPoint}
-                    boundariesElement={popupsBoundariesElement}
-                    targetCellPosition={targetCellPosition}
-                    isOpen={Boolean(isContextualMenuOpen)}
-                    pluginConfig={pluginConfig}
-                    editorAnalyticsAPI={editorAnalyticsAPI}
-                    getEditorContainerWidth={defaultGetEditorContainerWidth}
-                    getEditorFeatureFlags={
-                      options?.getEditorFeatureFlags ||
-                      defaultGetEditorFeatureFlags
-                    }
-                  />
-                  {allowControls && (
+                  {options?.allowContextualMenu && (
+                    <FloatingContextualMenu
+                      editorView={editorView}
+                      mountPoint={popupsMountPoint}
+                      boundariesElement={popupsBoundariesElement}
+                      targetCellPosition={targetCellPosition}
+                      isOpen={Boolean(isContextualMenuOpen) && !isResizing}
+                      pluginConfig={pluginConfig}
+                      editorAnalyticsAPI={editorAnalyticsAPI}
+                      getEditorContainerWidth={defaultGetEditorContainerWidth}
+                      getEditorFeatureFlags={
+                        options?.getEditorFeatureFlags ||
+                        defaultGetEditorFeatureFlags
+                      }
+                    />
+                  )}
+                  {allowControls && !isResizing && (
                     <FloatingDeleteButton
                       editorView={editorView}
                       selection={editorView.state.selection}

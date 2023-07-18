@@ -11,9 +11,6 @@ import {
   ListState,
   textColorPluginKey,
   TextColorPluginState,
-  hyperlinkStateKey,
-  HyperlinkState,
-  HyperlinkInsertStatus,
   historyPluginKey,
   HistoryPluginState,
   SelectionDataState,
@@ -24,7 +21,6 @@ import { valueOf as valueOfListState } from '../web-to-native/listState';
 import { valueOf as valueOfMarkState } from '../web-to-native/markState';
 import WebBridgeImpl from '../native-to-web';
 import { toNativeBridge } from '../web-to-native';
-import { hasValue } from '../../utils';
 import { createPromise } from '../../cross-platform-promise';
 import EditorConfiguration from '../editor-configuration';
 import { getSelectionObserverEnabled } from '../../query-param-reader';
@@ -123,54 +119,6 @@ export const configFactory = (
         });
       },
       sendInitialState: true,
-    }),
-    createListenerConfig<HyperlinkState>({
-      bridge: 'linkBridge',
-      pluginKey: hyperlinkStateKey,
-      updater: (pluginState, view) => {
-        const { activeText, activeLinkMark, canInsertLink } = pluginState;
-        const message = {
-          text: '',
-          url: '',
-          top: -1,
-          right: -1,
-          bottom: -1,
-          left: -1,
-        };
-
-        if (view && activeLinkMark && !!(activeLinkMark as any).node) {
-          const coords = view.coordsAtPos((activeLinkMark as any).pos);
-          message.top = coords.top;
-          message.right = coords.right;
-          message.bottom = coords.bottom;
-          message.left = coords.left;
-        }
-
-        if (
-          activeLinkMark &&
-          activeLinkMark.type === HyperlinkInsertStatus.EDIT_LINK_TOOLBAR
-        ) {
-          const linkType = activeLinkMark.node.type.schema.marks.link;
-          const linkText = activeLinkMark.node.textContent;
-
-          message.text = linkText || '';
-          message.url =
-            activeLinkMark.node.marks
-              .filter((mark) => mark.type === linkType)
-              .map((link) => link.attrs.href)
-              .pop() || '';
-        }
-
-        if (
-          canInsertLink &&
-          message.text.length === 0 &&
-          hasValue(activeText)
-        ) {
-          message.text = activeText!;
-        }
-
-        toNativeBridge.call('linkBridge', 'currentSelection', message);
-      },
     }),
     createListenerConfig<HistoryPluginState>({
       bridge: 'undoRedoBridge',

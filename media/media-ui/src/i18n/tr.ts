@@ -24,6 +24,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Metin',
   'fabric.media.archive': 'arşiv',
   'fabric.media.audio': 'ses',
+  'fabric.media.avatar_picker_back_btn_label': 'Geri Dön',
   'fabric.media.cancel': 'İptal',
   'fabric.media.cant_preview_file_type': 'Bu dosya türünün önizlemesi yapılamıyor.',
   'fabric.media.cant_retrieve_files': 'Bir sorunla karşılaştık! Dosyalar alınamadı',

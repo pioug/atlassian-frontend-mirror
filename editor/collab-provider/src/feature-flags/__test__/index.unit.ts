@@ -6,10 +6,13 @@ import {
 describe('Feature flags', () => {
   it('getProductSpecificFeatureFlags', () => {
     const result = getProductSpecificFeatureFlags(
-      { testFF: true },
+      { testFF: true, socketMessageMetricsFF: true },
       'confluence',
     );
-    expect(result).toEqual(['confluence.fe.collab.provider.testFF']);
+    expect(result).toEqual([
+      'confluence.fe.collab.provider.testFF',
+      'confluence.fe.collab.provider.socketMessageMetricsFF',
+    ]);
   });
 
   it('getCollabProviderFeatureFlag return true', () => {

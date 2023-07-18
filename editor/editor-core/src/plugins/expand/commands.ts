@@ -1,11 +1,12 @@
-import { EditorState, Selection } from 'prosemirror-state';
-import { Node as PMNode, NodeType } from 'prosemirror-model';
+import type { EditorState } from 'prosemirror-state';
+import { Selection } from 'prosemirror-state';
+import type { Node as PMNode, NodeType } from 'prosemirror-model';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
-import { Command } from '../../types';
+import type { Command } from '../../types';
+import type { AnalyticsEventPayload } from '../analytics';
 import {
   addAnalytics,
-  AnalyticsEventPayload,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
@@ -142,6 +143,7 @@ export const toggleExpandExpanded =
     return true;
   };
 
+// Creates either an expand or a nestedExpand node based on the current selection
 export const createExpandNode = (state: EditorState): PMNode | null => {
   const { expand, nestedExpand } = state.schema.nodes;
   const expandType = findTable(state.selection) ? nestedExpand : expand;

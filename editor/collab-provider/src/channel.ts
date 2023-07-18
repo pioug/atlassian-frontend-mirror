@@ -40,6 +40,8 @@ import {
   NotInitializedError,
   INTERNAL_ERROR_CODE,
 } from './errors/error-types';
+import { SocketMessageMetrics } from './helpers/socket-message-metrics';
+import { getCollabProviderFeatureFlag } from './feature-flags';
 import type { Metadata } from '@atlaskit/editor-common/collab';
 
 const logger = createLogger('Channel', 'green');
@@ -54,6 +56,7 @@ export class Channel extends Emitter<ChannelEvent> {
   private initExperience?: UFOExperience;
   private token?: string;
   private network: Network | null = null;
+  private socketMessageMetrics?: SocketMessageMetrics;
 
   constructor(config: Config, analyticsHelper: AnalyticsHelper) {
     super();
@@ -155,6 +158,13 @@ export class Channel extends Emitter<ChannelEvent> {
       this.config.productInfo,
     ) as Socket;
 
+    if (this.socket && this.analyticsHelper) {
+      this.socketMessageMetrics = new SocketMessageMetrics(
+        this.socket,
+        this.analyticsHelper,
+      );
+    }
+
     // Due to https://github.com/socketio/socket.io-client/issues/1473,
     // reconnect no longer fired on the socket.
     // We should use `connect` for better cross platform compatibility(Mobile/Web).
@@ -205,6 +215,16 @@ export class Channel extends Emitter<ChannelEvent> {
     });
 
     this.socket.on('disconnect', async (reason: string) => {
+      if (
+        getCollabProviderFeatureFlag(
+          'socketMessageMetricsFF',
+          this.config.featureFlags,
+        ) &&
+        this.socketMessageMetrics
+      ) {
+        this.socketMessageMetrics.closeSocketMessageMetrics();
+      }
+
       this.connected = false;
       logger(`disconnect reason: ${reason}`);
       this.emit('disconnect', { reason });
@@ -334,6 +354,16 @@ export class Channel extends Emitter<ChannelEvent> {
   };
 
   private onConnect = () => {
+    if (
+      getCollabProviderFeatureFlag(
+        'socketMessageMetricsFF',
+        this.config.featureFlags,
+      ) &&
+      this.socketMessageMetrics
+    ) {
+      this.socketMessageMetrics.setupSocketMessageMetrics();
+    }
+
     this.connected = true;
     logger('Connected.', this.socket!.id);
     const measure = stopMeasure(

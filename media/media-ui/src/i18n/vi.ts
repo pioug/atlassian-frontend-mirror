@@ -23,6 +23,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Văn bản',
   'fabric.media.archive': 'lưu trữ',
   'fabric.media.audio': 'âm thanh',
+  'fabric.media.avatar_picker_back_btn_label': 'Quay lại',
   'fabric.media.cancel': 'Hủy',
   'fabric.media.cant_preview_file_type': 'Chúng tôi không thể xem trước loại tệp này.',
   'fabric.media.cant_retrieve_files': 'Ôi! Chúng tôi không thể truy xuất bất kỳ tệp nào',

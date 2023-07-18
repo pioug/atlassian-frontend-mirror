@@ -2,11 +2,7 @@ import React from 'react';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
 
-import {
-  axe,
-  JestAxeConfigureOptions,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { axe, JestAxeConfigureOptions } from '@af/accessibility-testing';
 import __noop from '@atlaskit/ds-lib/noop';
 
 import BasicExample from '../../../examples/basic';
@@ -14,8 +10,6 @@ import BasicWithActionsExample from '../../../examples/basic-with-actions';
 import MultiHeaderExample from '../../../examples/multi-header';
 import RowExample from '../../../examples/row';
 import Table, { Cell, Row, SortableColumn, TBody, THead } from '../../index';
-
-expect.extend(toHaveNoViolations);
 
 const axeRules = ({
   enableFormFieldMultipleLabels,
@@ -70,8 +64,6 @@ it('Row example should not fail an aXe audit', async () => {
     axeRules({ enableFormFieldMultipleLabels: true }),
   );
 
-  expect(results).toHaveNoViolations();
-
   // Only tests we explicitly skip can be incomplete
   expect(results.incomplete).toHaveLength(0);
   cleanup();
@@ -84,7 +76,6 @@ it('Multi-header example should not fail an aXe audit', async () => {
     axeRules({ enableFormFieldMultipleLabels: true }),
   );
 
-  expect(results).toHaveNoViolations();
   // Only tests we explicitly skip can be incomplete
   expect(results.incomplete).toHaveLength(0);
   cleanup();

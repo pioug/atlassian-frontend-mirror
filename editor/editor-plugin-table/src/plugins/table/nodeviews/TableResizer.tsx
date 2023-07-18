@@ -23,6 +23,7 @@ import {
   getColgroupChildrenLength,
   COLUMN_MIN_WIDTH,
 } from '../pm-plugins/table-resizing/utils';
+import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import { defaultGuidelines, defaultGuidelineWidths } from '../utils/guidelines';
 import { findClosestSnap } from '../utils/snapping';
 import { TABLE_SNAP_GAP, TABLE_HIGHLIGHT_GAP } from '../ui/consts';
@@ -105,9 +106,15 @@ export const TableResizer = ({
   );
 
   const handleResizeStart = useCallback(() => {
+    const {
+      dispatch,
+      state: { tr },
+    } = editorView;
+    dispatch(tr.setMeta(tableWidthPluginKey, { resizing: true }));
+
     setSnappingEnabled(displayGuideline(defaultGuidelines));
     return width;
-  }, [width, displayGuideline]);
+  }, [width, displayGuideline, editorView]);
 
   const handleResizeStop = useCallback<HandleResize>(
     (originalState, delta) => {
@@ -115,26 +122,26 @@ export const TableResizer = ({
       const { state, dispatch } = editorView;
       const pos = getPos();
 
-      if (typeof pos !== 'number') {
-        return;
+      let tr = state.tr.setMeta(tableWidthPluginKey, { resizing: false });
+
+      if (typeof pos === 'number') {
+        tr = tr.setNodeMarkup(pos, undefined, {
+          ...node.attrs,
+          width: newWidth,
+        });
+
+        const newNode = tr.doc.nodeAt(pos)!;
+        tr = scaleTable(
+          tableRef,
+          {
+            node: newNode,
+            prevNode: node,
+            start: pos + 1,
+            parentWidth: newWidth,
+          },
+          editorView.domAtPos.bind(editorView),
+        )(tr);
       }
-
-      let tr = state.tr.setNodeMarkup(pos, undefined, {
-        ...node.attrs,
-        width: newWidth,
-      });
-
-      const newNode = tr.doc.nodeAt(pos)!;
-      tr = scaleTable(
-        tableRef,
-        {
-          node: newNode,
-          prevNode: node,
-          start: pos + 1,
-          parentWidth: newWidth,
-        },
-        editorView.domAtPos.bind(editorView),
-      )(tr);
 
       dispatch(tr);
 

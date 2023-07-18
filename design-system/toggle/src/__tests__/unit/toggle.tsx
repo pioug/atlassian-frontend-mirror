@@ -2,15 +2,13 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { axe, toHaveNoViolations } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import Toggle from '../../toggle';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
-expect.extend(toHaveNoViolations);
 
 describe('Toggle component', () => {
   it('should be able to switch', () => {
@@ -89,9 +87,7 @@ describe('Toggle component', () => {
   describe('axe violations', () => {
     it('should not have violations when have label', async () => {
       const { container } = render(<Toggle label="Toggle" />);
-      const result = await axe(container);
-
-      expect(result).toHaveNoViolations();
+      await axe(container);
     });
 
     it('should not have violations when have paired label', async () => {
@@ -102,16 +98,7 @@ describe('Toggle component', () => {
         </>,
       );
 
-      const result = await axe(container);
-      expect(result).toHaveNoViolations();
-    });
-
-    it('should have axe violations when received empty label', async () => {
-      const { container } = render(<Toggle label="" />);
-      const result = await axe(container);
-
-      // there is a only toHaveNoViolations provided by jest-axe, so double negation is used here
-      expect(result).not.toHaveNoViolations();
+      await axe(container);
     });
   });
 

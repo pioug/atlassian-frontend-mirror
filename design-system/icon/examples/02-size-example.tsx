@@ -46,8 +46,8 @@ const demoIcons = [
 
 const sizes: Size[] = ['small', 'medium', 'large', 'xlarge'];
 
-const IconSizeExample = () => {
-  const [size, setSize] = useState<Size>('medium');
+const IconSizeExample = ({ defaultSize = 'medium' }: { defaultSize: Size }) => {
+  const [size, setSize] = useState<Size>(defaultSize);
 
   return (
     <div>
@@ -75,5 +75,10 @@ const IconSizeExample = () => {
     </div>
   );
 };
+
+export const IconSizeSmall = () => <IconSizeExample defaultSize="small" />;
+export const IconSizeMedium = () => <IconSizeExample defaultSize="medium" />;
+export const IconSizeLarge = () => <IconSizeExample defaultSize="large" />;
+export const IconSizeXLarge = () => <IconSizeExample defaultSize="xlarge" />;
 
 export default IconSizeExample;

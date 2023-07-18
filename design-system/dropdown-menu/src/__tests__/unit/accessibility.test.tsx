@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { axe, toHaveNoViolations } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing';
 
 import DropdownMenu, {
   DropdownItem,
@@ -12,8 +12,6 @@ import DropdownMenu, {
   DropdownItemRadio,
   DropdownItemRadioGroup,
 } from '../../index';
-
-expect.extend(toHaveNoViolations);
 
 it('Basic DropdownMenu should not fail aXe audit', async () => {
   const { container } = render(
@@ -28,9 +26,7 @@ it('Basic DropdownMenu should not fail aXe audit', async () => {
       </DropdownItemGroup>
     </DropdownMenu>,
   );
-  const results = await axe(container);
-
-  expect(results).toHaveNoViolations();
+  await axe(container);
 });
 
 it('Checkbox DropdownMenu should not fail aXe audit', async () => {
@@ -45,9 +41,7 @@ it('Checkbox DropdownMenu should not fail aXe audit', async () => {
       </DropdownItemCheckboxGroup>
     </DropdownMenu>,
   );
-  const results = await axe(container);
-
-  expect(results).toHaveNoViolations();
+  await axe(container);
 });
 
 it('Radio DropdownMenu should not fail aXe audit', async () => {
@@ -62,7 +56,5 @@ it('Radio DropdownMenu should not fail aXe audit', async () => {
       </DropdownItemRadioGroup>
     </DropdownMenu>,
   );
-  const results = await axe(container);
-
-  expect(results).toHaveNoViolations();
+  await axe(container);
 });

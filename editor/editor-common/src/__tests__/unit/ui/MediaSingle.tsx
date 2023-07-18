@@ -182,6 +182,47 @@ describe('mediaSingle', () => {
     });
   });
 
+  describe('when size is set', () => {
+    describe('when there percent width is given', () => {
+      it('should pass correct ratio and width', () => {
+        const { mediaWrapperProps, mediaSingleWrapper } = setup({
+          lineLength: 596,
+          width: 600,
+          height: 200,
+          size: {
+            width: 360,
+            widthType: 'pixel',
+          },
+        });
+
+        expect(mediaWrapperProps.paddingBottom).toEqual('33.333%');
+        expect(mediaSingleWrapper).toHaveStyleRule('width', '360px');
+        expect(mediaSingleWrapper.props()).toMatchObject({
+          'data-width': 360,
+          'data-width-type': 'pixel',
+        });
+      });
+
+      it('should pass correct ratio and width without widthType', () => {
+        const { mediaWrapperProps, mediaSingleWrapper } = setup({
+          lineLength: 760,
+          width: 600,
+          height: 200,
+          size: {
+            width: 40,
+          },
+        });
+
+        expect(mediaWrapperProps.paddingBottom).toEqual('33.333%');
+        expect(mediaSingleWrapper).toHaveStyleRule('width', '290px');
+        expect(mediaSingleWrapper.props()).toMatchObject({
+          'data-width': 40,
+          'data-width-type': 'percentage',
+        });
+      });
+    });
+  });
+
   it('should treat first child as media and wrap in MediaWrapper', () => {
     const media = <div>media</div>;
     const caption = <div>caption</div>;

@@ -2,10 +2,8 @@ import * as mocks from './bridge-test.mock';
 import {
   INPUT_METHOD,
   getListCommands,
-  insertLinkWithAnalyticsMobileNative,
   clearEditorContent,
   setKeyboardHeight,
-  updateLink,
   QuickInsertActionInsert,
 } from '@atlaskit/editor-core';
 import { isLinkAtPos, isTextAtPos } from '@atlaskit/editor-common/link';
@@ -142,21 +140,31 @@ describe('lists should work', () => {
 
 describe('links should work', () => {
   const bridge: any = new WebBridgeImpl();
+  const mockUpdateLink = jest.fn();
+  const mockInsertLink = jest.fn();
 
   beforeEach(() => {
     mocks.mockCalls.length = 0;
     bridge.editorView = {};
+    bridge.setPluginInjectionApi({
+      dependencies: {
+        hyperlink: {
+          actions: {
+            updateLink: mockUpdateLink.mockImplementation(() => () => {}),
+            insertLink: mockInsertLink.mockImplementation(() => () => {}),
+          },
+        },
+      },
+    });
   });
 
   afterEach(() => {
     bridge.editorView = undefined;
 
-    (
-      insertLinkWithAnalyticsMobileNative as Function as jest.Mock<{}>
-    ).mockClear();
+    mockInsertLink.mockClear();
     (isLinkAtPos as Function as jest.Mock<{}>).mockClear();
     (isTextAtPos as Function as jest.Mock<{}>).mockClear();
-    (updateLink as Function as jest.Mock<{}>).mockClear();
+    mockUpdateLink.mockClear();
   });
 
   it('should call insertLinkWithAnalytics when not on text node', () => {
@@ -172,7 +180,7 @@ describe('links should work', () => {
     bridge.onLinkUpdate('text', 'url', INPUT_METHOD.KEYBOARD);
 
     expect(isLinkAtPos).toHaveBeenCalledWith(1);
-    expect(insertLinkWithAnalyticsMobileNative).toHaveBeenCalledWith(
+    expect(mockInsertLink).toHaveBeenCalledWith(
       INPUT_METHOD.KEYBOARD,
       1,
       3,
@@ -194,7 +202,7 @@ describe('links should work', () => {
     bridge.onLinkUpdate('text', 'url');
 
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(updateLink).toHaveBeenCalledWith('url', 'text', 2, undefined);
+    expect(mockUpdateLink).toHaveBeenCalledWith('url', 'text', 2, undefined);
   });
 
   it('should call updateLink when on selected text node', () => {
@@ -210,7 +218,7 @@ describe('links should work', () => {
     bridge.onLinkUpdate('text', 'url');
 
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(updateLink).toHaveBeenCalledWith('url', 'text', 2, 4);
+    expect(mockUpdateLink).toHaveBeenCalledWith('url', 'text', 2, 4);
   });
 
   it('should call updateLink when providing url only', () => {
@@ -225,7 +233,7 @@ describe('links should work', () => {
     bridge.onLinkUpdate('', 'url');
 
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(updateLink).toHaveBeenCalledWith('url', 'url', 2, undefined);
+    expect(mockUpdateLink).toHaveBeenCalledWith('url', 'url', 2, undefined);
   });
 
   it('should call updateLink when providing url only + selection', () => {
@@ -241,7 +249,7 @@ describe('links should work', () => {
     bridge.onLinkUpdate('', 'url');
 
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(updateLink).toHaveBeenCalledWith('url', 'url', 2, 4);
+    expect(mockUpdateLink).toHaveBeenCalledWith('url', 'url', 2, 4);
   });
 
   it('should call updateLink using full link when on a link', () => {
@@ -260,7 +268,7 @@ describe('links should work', () => {
 
     expect(isLinkAtPos).toHaveBeenCalledWith(6);
     expect(bridge.editorView.state.doc.resolve).toHaveBeenCalledWith(6);
-    expect(updateLink).toHaveBeenCalledWith('href', 'link', 5, undefined);
+    expect(mockUpdateLink).toHaveBeenCalledWith('href', 'link', 5, undefined);
   });
 
   it('should call updateLink when providing no url', () => {
@@ -275,7 +283,7 @@ describe('links should work', () => {
     bridge.onLinkUpdate('text', '');
 
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(updateLink).toHaveBeenCalledWith('', 'text', 2, undefined);
+    expect(mockUpdateLink).toHaveBeenCalledWith('', 'text', 2, undefined);
   });
 
   it('should call updateLink when providing no url + selection', () => {
@@ -291,7 +299,7 @@ describe('links should work', () => {
     bridge.onLinkUpdate('text', '');
 
     expect(isLinkAtPos).toHaveBeenCalledWith(2);
-    expect(updateLink).toHaveBeenCalledWith('', 'text', 2, 4);
+    expect(mockUpdateLink).toHaveBeenCalledWith('', 'text', 2, 4);
   });
 });
 

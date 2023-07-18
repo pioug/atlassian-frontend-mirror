@@ -79,6 +79,13 @@ export function setLinkHref(
   });
 }
 
+export type UpdateLink = (
+  href: string,
+  text: string,
+  pos: number,
+  to?: number,
+) => Command;
+
 export function updateLink(
   href: string,
   text: string,
@@ -204,6 +211,17 @@ export function insertLink(
   };
 }
 
+export type InsertLink = (
+  inputMethod: LinkInputType,
+  from: number,
+  to: number,
+  href: string,
+  title?: string,
+  displayText?: string,
+  cardsAvailable?: boolean,
+  sourceEvent?: UIAnalyticsEvent | null | undefined,
+) => Command;
+
 export const insertLinkWithAnalytics = (
   inputMethod: LinkInputType,
   from: number,
@@ -231,21 +249,6 @@ export const insertLinkWithAnalytics = (
     editorAnalyticsApi,
     getLinkCreationAnalyticsEvent(inputMethod, href),
   )(insertLink(from, to, href, title, displayText, inputMethod, sourceEvent));
-};
-
-export const insertLinkWithAnalyticsMobileNative = (
-  inputMethod: LinkInputType,
-  from: number,
-  to: number,
-  href: string,
-  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-  title?: string,
-  displayText?: string,
-) => {
-  return withAnalytics(
-    editorAnalyticsApi,
-    getLinkCreationAnalyticsEvent(inputMethod, href),
-  )(insertLink(from, to, href, title, displayText, inputMethod));
 };
 
 export function removeLink(

@@ -1,11 +1,6 @@
-import {
-  checkColorContrast,
-  toHaveNoViolations,
-} from '@af/accessibility-testing';
+import { checkColorContrast } from '@af/accessibility-testing';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { getExampleUrl, loadPage } from '@atlaskit/visual-regression/helper';
-
-expect.extend(toHaveNoViolations);
 
 describe('Tokens should pass color contrast checks', () => {
   it('for light mode', async () => {
@@ -42,7 +37,6 @@ describe('Tokens should pass color contrast checks', () => {
     results.violations[0].nodes = adjustedResults;
 
     expect(results.incomplete.length).toEqual(0);
-    expect(results).toHaveNoViolations();
   });
 
   // FIXME: This test was automatically skipped due to failure on 11/04/2023: https://product-fabric.atlassian.net/browse/DSP-9837
@@ -86,6 +80,5 @@ describe('Tokens should pass color contrast checks', () => {
     results.violations[0].nodes = adjustedResults;
 
     expect(results.incomplete.length).toEqual(0);
-    expect(results).toHaveNoViolations();
   });
 });

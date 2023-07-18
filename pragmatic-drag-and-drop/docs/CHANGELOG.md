@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-docs
 
+## 0.5.4
+
+### Patch Changes
+
+- [`d3fbfaa793e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3fbfaa793e) - Updated board example
+
 ## 0.5.3
 
 ### Patch Changes

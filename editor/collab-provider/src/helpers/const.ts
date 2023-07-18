@@ -15,6 +15,7 @@ export enum EVENT_ACTION {
   SEND_STEPS_RETRY = 'sendStepsRetry', // https://data-portal.internal.atlassian.com/analytics/registry/53598
   CATCHUP_AFTER_MAX_SEND_STEPS_RETRY = 'catchupAfterMaxSendStepsRetry', // https://data-portal.internal.atlassian.com/analytics/registry/53723
   DROPPED_STEPS = 'droppedStepInCatchup', // https://data-portal.internal.atlassian.com/analytics/registry/53724
+  WEBSOCKET_MESSAGE_VOLUME_METRIC = 'websocketMessageVolumeMetric', // https://data-portal.internal.atlassian.com/analytics/registry/53596
 }
 export enum EVENT_STATUS {
   SUCCESS = 'SUCCESS',
@@ -240,6 +241,16 @@ type CatchupAfterMaxSendStepsRetryAnalyticsEvent = {
   };
 };
 
+type WebsocketMessageVolumeMetricEvent = {
+  eventAction: EVENT_ACTION.WEBSOCKET_MESSAGE_VOLUME_METRIC;
+  attributes: {
+    documentAri?: string;
+    eventStatus: EVENT_STATUS.INFO;
+    messageCount: number;
+    messageSize: number;
+  };
+};
+
 export type ActionAnalyticsEvent =
   | AddStepsSuccessAnalyticsEvent
   | AddStepsFailureAnalyticsEvent
@@ -260,7 +271,8 @@ export type ActionAnalyticsEvent =
   | InvalidateTokenAnalyticsEvent
   | SendStepsRetryAnalyticsEvent
   | CatchupAfterMaxSendStepsRetryAnalyticsEvent
-  | CatchUpDroppedStepsEvent;
+  | CatchUpDroppedStepsEvent
+  | WebsocketMessageVolumeMetricEvent;
 
 export const ACK_MAX_TRY = 60;
 

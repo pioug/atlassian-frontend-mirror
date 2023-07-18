@@ -2,12 +2,15 @@
 import React from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
+import { Node as PMNode } from 'prosemirror-model';
+
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { TableLayout } from '@atlaskit/adf-schema';
 import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { Table } from './table';
 import { recursivelyInjectProps } from '../../utils/inject-props';
@@ -34,6 +37,13 @@ const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
   `,
 };
 
+let stickyHeaderZIndex: number;
+if (getBooleanFF('platform.editor.custom-table-width')) {
+  stickyHeaderZIndex = 13;
+} else {
+  stickyHeaderZIndex = akEditorStickyHeaderZIndex;
+}
+
 // TODO: Quality ticket: https://product-fabric.atlassian.net/browse/DSP-4123
 const fixedTableDivStaticStyles = (
   top: number | undefined,
@@ -41,7 +51,7 @@ const fixedTableDivStaticStyles = (
 ) => css`
   ${typeof top === 'number' && `top: ${top}px;`}
   width: ${width}px;
-  z-index: ${akEditorStickyHeaderZIndex};
+  z-index: ${stickyHeaderZIndex};
   &
     .${TableSharedCssClassName.TABLE_CONTAINER},
     &
@@ -64,9 +74,9 @@ const fixedTableDivStaticStyles = (
   }
 
   &
-    .${TableSharedCssClassName.TABLE_CONTAINER}.right-shadow::after,
+    .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.right-shadow::after,
     &
-    .${TableSharedCssClassName.TABLE_CONTAINER}.left-shadow::before {
+    .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.left-shadow::before {
     top: 0px;
     height: 100%;
   }
@@ -102,6 +112,7 @@ export type StickyTableProps = {
   layout: TableLayout;
   columnWidths?: number[];
   renderWidth: number;
+  tableNode?: PMNode;
 } & OverflowShadowProps;
 
 export const StickyTable = ({
@@ -118,22 +129,32 @@ export const StickyTable = ({
   columnWidths,
   renderWidth,
   rowHeight,
+  tableNode,
 }: StickyTableProps) => {
+  let styles;
+  /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+  if (getBooleanFF('platform.editor.custom-table-width')) {
+    styles = css({
+      top: mode === 'pin-bottom' ? top : undefined,
+      position: 'relative',
+    });
+  } else {
+    styles = css({
+      left: left && left < 0 ? left : undefined,
+      top: mode === 'pin-bottom' ? top : undefined,
+      position: 'relative',
+    });
+  }
+  /* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
   return (
-    <div
-      css={{
-        left: left && left < 0 ? left : undefined,
-        top: mode === 'pin-bottom' ? top : undefined,
-        position: 'relative',
-      }}
-    >
+    <div css={styles}>
       <FixedTableDiv
         top={mode === 'stick' ? top : undefined}
         mode={rowHeight > 300 ? 'none' : mode}
         wrapperWidth={wrapperWidth}
       >
         <div
-          className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
+          className={`${TableSharedCssClassName.TABLE_CONTAINER} is-sticky ${
             shadowClassNames || ''
           }`}
           data-layout={layout}
@@ -153,6 +174,7 @@ export const StickyTable = ({
               layout={layout}
               isNumberColumnEnabled={isNumberColumnEnabled}
               renderWidth={renderWidth}
+              tableNode={tableNode}
             >
               {
                 /**

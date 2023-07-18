@@ -24,6 +24,7 @@ import { pluginConfig as getPluginConfig } from '../create-plugin-config';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing';
+import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import { generateColgroup } from '../pm-plugins/table-resizing/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import TableComponent from './TableComponent';
@@ -157,6 +158,7 @@ export default class TableView extends ReactNodeView<Props> {
         plugins={{
           pluginState: pluginKey,
           tableResizingPluginState: tableResizingPluginKey,
+          tableWidthPluginState: tableWidthPluginKey,
           widthPlugin: fakePluginKey,
           mediaState: fakeMediaPluginKey,
         }}
@@ -164,12 +166,20 @@ export default class TableView extends ReactNodeView<Props> {
         render={(pluginStates) => {
           const {
             tableResizingPluginState,
+            tableWidthPluginState,
             pluginState,
             // containerWidth,
             mediaState,
           } = pluginStates;
-          const tableActive = props.getPos() === pluginState!.tablePos;
           const containerWidth = props.getEditorContainerWidth();
+
+          const isTableResizing = tableWidthPluginState?.resizing;
+          const isResizing = Boolean(
+            tableResizingPluginState?.dragging || isTableResizing,
+          );
+          const tableActive =
+            props.getPos() === pluginState!.tablePos && !isTableResizing;
+
           return (
             <TableComponent
               view={props.view}
@@ -183,7 +193,7 @@ export default class TableView extends ReactNodeView<Props> {
               isHeaderColumnEnabled={pluginState!.isHeaderColumnEnabled}
               tableActive={tableActive}
               ordering={pluginState!.ordering as TableColumnOrdering}
-              tableResizingPluginState={tableResizingPluginState}
+              isResizing={isResizing}
               getNode={this.getNode}
               containerWidth={containerWidth!}
               contentDOM={forwardRef}

@@ -34,7 +34,7 @@ const BasicExample = () => {
           initialStack={[]}
           testId="nestable-navigation-content"
         >
-          <Section>
+          <Section isList>
             <NestingItem
               id="2"
               testId="filter-nesting-item"
@@ -45,12 +45,12 @@ const BasicExample = () => {
               <Section>
                 <ButtonItem>Search issues</ButtonItem>
               </Section>
-              <Section title="Starred">
+              <Section title="Starred" isList>
                 <ButtonItem>Everything me</ButtonItem>
                 <ButtonItem>My open issues</ButtonItem>
                 <ButtonItem>Reported by me</ButtonItem>
               </Section>
-              <Section hasSeparator title="Other">
+              <Section hasSeparator title="Other" isList>
                 <ButtonItem>All issues</ButtonItem>
                 <ButtonItem>Open issues</ButtonItem>
                 <ButtonItem>Created recently</ButtonItem>
@@ -66,7 +66,7 @@ const BasicExample = () => {
               title="Queues view"
               iconBefore={<QueueIcon label="" />}
             >
-              <Section title="Queues">
+              <Section title="Queues" isList>
                 <ButtonItem>Untriaged</ButtonItem>
                 <ButtonItem>My feature work</ButtonItem>
                 <ButtonItem>My bugfix work</ButtonItem>

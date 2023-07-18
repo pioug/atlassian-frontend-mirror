@@ -4,9 +4,11 @@ import Select from '../../src';
 
 const SelectSingleClearable = () => (
   <>
-    <Label htmlFor="single-select-example">What city do you live in?</Label>
+    <Label htmlFor="single-select-example-clearable">
+      What city do you live in?
+    </Label>
     <Select
-      inputId="single-select-example"
+      inputId="single-select-example-clearable"
       className="single-select"
       classNamePrefix="react-select"
       isClearable={true}

@@ -23,6 +23,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Text',
   'fabric.media.archive': 'archivovat',
   'fabric.media.audio': 'zvuk',
+  'fabric.media.avatar_picker_back_btn_label': 'Přejít zpět',
   'fabric.media.cancel': 'Zrušit',
   'fabric.media.cant_preview_file_type': 'Nemůžeme zobrazit náhled tohoto typu souboru.',
   'fabric.media.cant_retrieve_files': 'Jejda! Nepodařilo se nám načíst žádné soubory.',

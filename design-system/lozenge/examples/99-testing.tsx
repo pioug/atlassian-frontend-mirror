@@ -1,10 +1,7 @@
 import React from 'react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
-import Stack from '@atlaskit/primitives/stack';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Box, Stack } from '@atlaskit/primitives';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 
 import Lozenge from '../src';

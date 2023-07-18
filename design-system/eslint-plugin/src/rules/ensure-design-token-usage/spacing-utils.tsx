@@ -33,9 +33,6 @@ import {
   typographyValueToToken,
 } from './typography';
 
-export const replacementComment =
-  '// TODO Delete this comment after verifying space token -> previous value';
-
 const properties = [
   'padding',
   'paddingBlock',

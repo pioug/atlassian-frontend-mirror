@@ -24,6 +24,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Texte',
   'fabric.media.archive': 'archiver',
   'fabric.media.audio': 'audio',
+  'fabric.media.avatar_picker_back_btn_label': 'Retour',
   'fabric.media.cancel': 'Annuler',
   'fabric.media.cant_preview_file_type': 'Aucun aperçu disponible pour ce type de fichiers.',
   'fabric.media.cant_retrieve_files': 'Désolés, impossible de récupérer le moindre fichier',

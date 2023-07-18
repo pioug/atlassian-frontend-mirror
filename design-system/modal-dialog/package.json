@@ -12,26 +12,7 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
-  "af:exports": {
-    ".": "./src/index.tsx",
-    "./types": "./src/types.tsx",
-    "./hooks": "./src/hooks.tsx",
-    "./modal-dialog": "./src/modal-wrapper.tsx",
-    "./modal-header": "./src/modal-header.tsx",
-    "./modal-title": "./src/modal-title.tsx",
-    "./modal-body": "./src/modal-body.tsx",
-    "./modal-footer": "./src/modal-footer.tsx",
-    "./modal-transition": "./src/modal-transition.tsx"
-  },
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
     "team": "Design System Team",
@@ -68,6 +49,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
+    "@af/visual-regression": "*",
     "@atlaskit/button": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/visual-regression": "*",
@@ -111,6 +93,25 @@
         "emotion"
       ]
     }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx",
+    "./types": "./src/types.tsx",
+    "./hooks": "./src/hooks.tsx",
+    "./modal-dialog": "./src/modal-wrapper.tsx",
+    "./modal-header": "./src/modal-header.tsx",
+    "./modal-title": "./src/modal-title.tsx",
+    "./modal-body": "./src/modal-body.tsx",
+    "./modal-footer": "./src/modal-footer.tsx",
+    "./modal-transition": "./src/modal-transition.tsx"
   },
   "homepage": "https://atlassian.design/components/modal-dialog/",
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"

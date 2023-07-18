@@ -44,6 +44,7 @@ import {
 } from './commands-with-analytics';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
+import { pluginKey as tableWidthPluginKey } from './pm-plugins/table-width';
 import {
   ToolbarMenuConfig,
   ToolbarMenuState,
@@ -440,7 +441,12 @@ export const getToolbarConfig =
     const tableObject = findTable(state.selection);
     const pluginState = getPluginState(state);
     const resizeState = tableResizingPluginKey.getState(state);
-    if (tableObject && pluginState.editorHasFocus) {
+    const tableWidthState = tableWidthPluginKey.getState(state);
+
+    // We don't want to show floating toolbar while resizing the table
+    const isWidthResizing = tableWidthState?.resizing;
+
+    if (tableObject && pluginState.editorHasFocus && !isWidthResizing) {
       const nodeType = state.schema.nodes.table;
       const menu = getToolbarMenuConfig(
         config,

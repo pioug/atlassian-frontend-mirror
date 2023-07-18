@@ -7,6 +7,7 @@ import {
 
 const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
   testFF: false,
+  socketMessageMetricsFF: false,
 };
 
 /**
@@ -15,6 +16,8 @@ const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
 const productKeys: ProductKeys = {
   confluence: {
     testFF: 'confluence.fe.collab.provider.testFF',
+    socketMessageMetricsFF:
+      'confluence.fe.collab.provider.socketMessageMetricsFF',
   },
 };
 

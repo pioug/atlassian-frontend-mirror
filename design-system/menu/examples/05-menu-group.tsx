@@ -161,6 +161,7 @@ export default () => {
               Martha Graham on the Hidden Danger of Comparing Yourself to Others
             </ButtonItem>
             <ButtonItem
+              testId="favourite-articles-button-item"
               iconBefore={<Blog24Icon label="Quote icon" />}
               description="Actress Nichelle Nichols helped shape the Civil Rights Movement without realizing it. Read this article to learn how you can live a meaningful life."
             >

@@ -23,6 +23,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Teksti',
   'fabric.media.archive': 'arkistoi',
   'fabric.media.audio': 'ääni',
+  'fabric.media.avatar_picker_back_btn_label': 'Siirry takaisin',
   'fabric.media.cancel': 'Peruuta',
   'fabric.media.cant_preview_file_type': 'Tätä tiedostotyyppiä ei voi esikatsella.',
   'fabric.media.cant_retrieve_files': 'Voi ei! Emme voineet noutaa yhtään tiedostoa',

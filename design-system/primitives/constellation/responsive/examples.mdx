@@ -35,26 +35,6 @@ Please use `xcss` whenever possible to ensure consistency and safety with style 
 
 ## Responsive primitives
 
-Consider these shortcuts to writing your own custom media queries.  Composing with our primitives will be far quicker and consistent to implement, but may result in excess DOM nodes.
-
-### Show
-
-This allows you to Show the children using CSS `display: …` either above or below a breakpoint.  By default, unless the breakpoint is met, contents are hidden.
-
-Note that this does not skip rendering of your children; the contents are rendered into the DOM at all times, so there is typically little performance savings—primarily that this is not painted.
-
-<Example Component={ShowExample} packageName="@atlaskit/primitives/responsive" />
-
-### Hide
-
-This allows you to Hide the children using CSS `display: none` either above or below a breakpoint.  By default, unless the breakpoint is met, contents are hidden.
-
-When hidden, this does not skip rendering of your children; the contents are rendered into the DOM at all times so there is typically little performance savings—primarily that this is not painted.
-
-<Example Component={HideExample} packageName="@atlaskit/primitives/responsive" />
-
-### Mixing Show and Hide
-
-Prefer using consistent `above` or `below` for readability and consistency.
-
-<Example Component={ShowHideExample} packageName="@atlaskit/primitives/responsive" />
+Consider these shortcuts to writing your own custom media queries. Composing with our primitives will be far quicker and consistent to implement, but may result in excess DOM nodes.
+* [Show](/components/primitives/responsive/show)
+* [Hide](/components/primitives/responsive/hide)

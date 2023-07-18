@@ -19,20 +19,4 @@ describe('icon custom glyph used incorrectly', () => {
 
     await expect(iconWithInvalidUsage).toMatchVisually(iconWithValidUsage);
   });
-
-  it('should match the custom glyph snapshots', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'icon',
-      'invalid-custom-glyphs',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-
-    await loadPage(page, url);
-
-    const element = await page.$('#custom');
-    const image = await element?.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
 });

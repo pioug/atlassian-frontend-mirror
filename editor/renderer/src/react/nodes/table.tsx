@@ -20,6 +20,7 @@ import { SortOrder } from '@atlaskit/editor-common/types';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 import {
   RendererAppearance,
@@ -345,8 +346,20 @@ export class TableContainer extends React.Component<
     let tableWidth: number | 'inherit';
     let left: number | undefined;
 
+    const calcDefaultLayoutWidthByAppearance = (
+      tableNode: PMNode,
+      rendererAppearance: RendererAppearance,
+    ) => {
+      return rendererAppearance === 'full-width' && !tableNode.attrs.width
+        ? Math.min(akEditorFullWidthLayoutWidth, renderWidth)
+        : Math.min(getTableContainerWidth(tableNode), renderWidth);
+    };
+
     if (getBooleanFF('platform.editor.custom-table-width') && tableNode) {
-      tableWidth = Math.min(getTableContainerWidth(tableNode), renderWidth);
+      tableWidth = calcDefaultLayoutWidthByAppearance(
+        tableNode,
+        rendererAppearance,
+      );
     } else {
       tableWidth = calcTableWidth(layout, renderWidth, false);
     }
@@ -369,25 +382,27 @@ export class TableContainer extends React.Component<
 
     return (
       <>
-        {stickyHeaders && tableCanBeSticky(tableNode, children) && (
-          <StickyTable
-            isNumberColumnEnabled={isNumberColumnEnabled}
-            tableWidth={tableWidth}
-            layout={layout}
-            renderWidth={renderWidth}
-            handleRef={this.props.handleRef}
-            shadowClassNames={this.props.shadowClassNames}
-            top={this.stickyTop}
-            left={left}
-            mode={stickyMode}
-            innerRef={this.stickyWrapperRef}
-            wrapperWidth={wrapperWidth}
-            columnWidths={columnWidths}
-            rowHeight={this.headerRowHeight}
-          >
-            {[children && children[0]]}
-          </StickyTable>
-        )}
+        {!getBooleanFF('platform.editor.custom-table-width') &&
+          stickyHeaders &&
+          tableCanBeSticky(tableNode, children) && (
+            <StickyTable
+              isNumberColumnEnabled={isNumberColumnEnabled}
+              tableWidth={tableWidth}
+              layout={layout}
+              renderWidth={renderWidth}
+              handleRef={this.props.handleRef}
+              shadowClassNames={this.props.shadowClassNames}
+              top={this.stickyTop}
+              left={left}
+              mode={stickyMode}
+              innerRef={this.stickyWrapperRef}
+              wrapperWidth={wrapperWidth}
+              columnWidths={columnWidths}
+              rowHeight={this.headerRowHeight}
+            >
+              {[children && children[0]]}
+            </StickyTable>
+          )}
         <div
           className={`${TableSharedCssClassName.TABLE_CONTAINER} ${
             this.props.shadowClassNames || ''
@@ -396,9 +411,30 @@ export class TableContainer extends React.Component<
           ref={this.props.handleRef}
           style={{
             width: tableWidth,
-            left,
+            left, // eslint-disable-line @atlaskit/design-system/ensure-design-token-usage
           }}
         >
+          {getBooleanFF('platform.editor.custom-table-width') &&
+            stickyHeaders &&
+            tableCanBeSticky(tableNode, children) && (
+              <StickyTable
+                isNumberColumnEnabled={isNumberColumnEnabled}
+                tableWidth={tableWidth}
+                layout={layout}
+                renderWidth={renderWidth}
+                handleRef={this.props.handleRef}
+                shadowClassNames={this.props.shadowClassNames}
+                top={this.stickyTop}
+                mode={stickyMode}
+                innerRef={this.stickyWrapperRef}
+                wrapperWidth={wrapperWidth}
+                columnWidths={columnWidths}
+                rowHeight={this.headerRowHeight}
+                tableNode={tableNode}
+              >
+                {[children && children[0]]}
+              </StickyTable>
+            )}
           <div
             className={TableSharedCssClassName.TABLE_NODE_WRAPPER}
             ref={this.wrapperRef}

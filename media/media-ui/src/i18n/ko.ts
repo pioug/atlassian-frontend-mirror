@@ -23,6 +23,7 @@ export default {
   'fabric.media.annotate.tool.text': '텍스트',
   'fabric.media.archive': '보관',
   'fabric.media.audio': '오디오',
+  'fabric.media.avatar_picker_back_btn_label': '돌아가기',
   'fabric.media.cancel': '취소',
   'fabric.media.cant_preview_file_type': '이 파일 유형은 미리 볼 수 없습니다.',
   'fabric.media.cant_retrieve_files': '죄송합니다. 파일을 가져올 수 없습니다.',

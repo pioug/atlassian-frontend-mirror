@@ -181,21 +181,13 @@ export const spacingTests: Tests = {
         marginBlockEnd:'8px',
       })`,
       output: `const styles = css({
-        // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
         paddingInlineStart: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
         paddingInlineEnd: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
         paddingBlockStart: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
         paddingBlockEnd: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
         marginInlineStart: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
         marginInlineEnd: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
         marginBlockStart: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
         marginBlockEnd: token('space.100', '8px'),
       })`,
       errors: [
@@ -220,17 +212,11 @@ export const spacingTests: Tests = {
       })`,
       options: [{ domains: ['spacing', 'typography'], applyImport: false }],
       output: `const styles = css({
-        // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
         padding: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`'12px'\`
         margin: token('space.150', '12px'),
-        // TODO Delete this comment after verifying space token -> previous value \`400\`
         fontWeight: token('font.weight.regular', '400'),
-        // TODO Delete this comment after verifying space token -> previous value \`\`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`\`
         fontFamily: token('font.family.sans', \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`),
-        // TODO Delete this comment after verifying space token -> previous value \`'20px'\`
         fontSize: token('font.size.300', '20px'),
-        // TODO Delete this comment after verifying space token -> previous value \`'24px'\`
         lineHeight: token('font.lineHeight.300', '24px'),
       })`,
       errors: [
@@ -250,9 +236,7 @@ export const spacingTests: Tests = {
         margin: '12px',
       })`,
       output: `const styles = css({
-        // TODO Delete this comment after verifying space token -> previous value \`8\`
         padding: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`'12px'\`
         margin: token('space.150', '12px'),
       })`,
       errors: [
@@ -267,7 +251,6 @@ export const spacingTests: Tests = {
             borderWidth: 2,
           })`,
       output: `const styles = css({
-            // TODO Delete this comment after verifying space token -> previous value \`2\`
             borderWidth: token('border.width', '2px'),
           })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
@@ -279,7 +262,6 @@ export const spacingTests: Tests = {
             borderRadius: 3,
           })`,
       output: `const styles = css({
-            // TODO Delete this comment after verifying space token -> previous value \`3\`
             borderRadius: token('border.radius', '3px'),
           })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
@@ -291,7 +273,6 @@ export const spacingTests: Tests = {
             borderRadius: '50%',
           })`,
       output: `const styles = css({
-            // TODO Delete this comment after verifying space token -> previous value \`'50%'\`
             borderRadius: token('border.radius.circle', '50%'),
           })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
@@ -303,7 +284,6 @@ export const spacingTests: Tests = {
                 borderRadius: borderRadius(),
               })`,
       output: `const styles = css({
-                // TODO Delete this comment after verifying space token -> previous value \`borderRadius()\`
                 borderRadius: token('border.radius', '3px'),
               })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
@@ -315,7 +295,6 @@ export const spacingTests: Tests = {
                 borderRadius: \`\${borderRadius()}px\`,
               })`,
       output: `const styles = css({
-                // TODO Delete this comment after verifying space token -> previous value \`\`\${borderRadius()}px\`\`
                 borderRadius: token('border.radius', '3px'),
               })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
@@ -327,7 +306,6 @@ export const spacingTests: Tests = {
         padding: 8,
       })`,
       output: `import { token } from '@atlaskit/tokens'\nconst styles = styled2.div({
-        // TODO Delete this comment after verifying space token -> previous value \`8\`
         padding: token('space.100', '8px'),
       })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
@@ -338,7 +316,6 @@ export const spacingTests: Tests = {
         padding: 8,
       })`,
       output: `import { token } from '@atlaskit/tokens'\nconst styles = styled.div({
-        // TODO Delete this comment after verifying space token -> previous value \`8\`
         padding: token('space.100', '8px'),
       })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
@@ -351,7 +328,6 @@ export const spacingTests: Tests = {
         margin: '12px 5px',
       })`,
       output: `const styles = styled.div({
-        // TODO Delete this comment after verifying space token -> previous value \`8\`
         padding: token('space.100', '8px'),
         margin: \`\${token('space.150', '12px')} 5px\`,
       })`,
@@ -403,7 +379,6 @@ export const spacingTests: Tests = {
         padding: gridSize(),
       })`,
       output: `const styles = css({
-        // TODO Delete this comment after verifying space token -> previous value \`gridSize()\`
         padding: token('space.100', '8px'),
       })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
@@ -415,7 +390,6 @@ export const spacingTests: Tests = {
       })`,
       options: [{ domains: ['spacing', 'typography'], applyImport: false }],
       output: `const styles = css({
-        // TODO Delete this comment after verifying space token -> previous value \`fontSize()\`
         fontSize: token('font.size.100', '14px'),
       })`,
       errors: [{ messageId: 'noRawSpacingValues' }],
@@ -429,7 +403,6 @@ export const spacingTests: Tests = {
       options: [{ domains: ['spacing', 'typography'], applyImport: false }],
       output: `const styles = css({
         fontSize: 8,
-        // TODO Delete this comment after verifying space token -> previous value \`'1em'\`
         padding: token('space.100', '8px'), // should be 8
       })`,
       errors: [
@@ -463,8 +436,7 @@ export const spacingTests: Tests = {
             [media.sm.above]: { padding: '8px' },
           })`,
       output: `const styles = css({
-            [media.sm.above]: { // TODO Delete this comment after verifying space token -> previous value \`'8px'\`
-                                padding: token('space.100', '8px') },
+            [media.sm.above]: { padding: token('space.100', '8px') },
           })`,
       errors: [
         {
@@ -483,13 +455,9 @@ export const spacingTests: Tests = {
         marginBottom: \`\${gridSize() * 10}px\`,
       })`,
       output: `const styles = css({
-        // TODO Delete this comment after verifying space token -> previous value \`gridSize()\`
         padding: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`gridSize() * 5\`
         margin: token('space.500', '40px'),
-        // TODO Delete this comment after verifying space token -> previous value \`\`\${gridSize()}px\`\`
         gap: token('space.100', '8px'),
-        // TODO Delete this comment after verifying space token -> previous value \`\`\${gridSize() * 10}px\`\`
         marginBottom: token('space.1000', '80px'),
       })`,
       errors: [
@@ -648,7 +616,6 @@ export const spacingTests: Tests = {
         padding,
       });`,
       output: `const padding = 8;\nconst styles = css({
-        // TODO Delete this comment after verifying space token -> previous value \`padding\`
         padding: token('space.100', '8px'),
       });`,
       errors: [
@@ -665,7 +632,6 @@ export const spacingTests: Tests = {
         padding: someValue,
       });`,
       output: `const someValue = 8;\nconst styles = css({
-        // TODO Delete this comment after verifying space token -> previous value \`someValue\`
         padding: token('space.100', '8px'),
       });`,
       errors: [
@@ -683,7 +649,6 @@ export const spacingTests: Tests = {
       });`,
       // No fix
       // output: `const someValue = gridSize();\nconst styles = css({
-      //   // TODO Delete this comment after verifying space token -> previous value \`- someValue\`
       //   padding: token('', '-8px'),
       // });`,
       errors: [
@@ -710,7 +675,7 @@ export const spacingTests: Tests = {
     {
       options: [{ domains: ['spacing'], applyImport: false }],
       code: 'const cssTemplateLiteral = css`width: 50%; padding: 16px 24px;`;',
-      output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 16px 24px\`\nconst cssTemplateLiteral = css\`width: 50%; padding: \${token('space.200', '16px')} \${token('space.300', '24px')};\`;`,
+      output: `const cssTemplateLiteral = css\`width: 50%; padding: \${token('space.200', '16px')} \${token('space.300', '24px')};\`;`,
       errors: [
         {
           message:
@@ -730,7 +695,7 @@ export const spacingTests: Tests = {
     {
       code: 'const cssTemplateLiteral = css`width: 50%; font-weight: 400;`;',
       options: [{ domains: ['typography'], applyImport: false }],
-      output: `// TODO Delete this comment after verifying space token -> previous value \`font-weight: 400\`\nconst cssTemplateLiteral = css\`width: 50%; font-weight: \${token('font.weight.regular', '400')};\`;`,
+      output: `const cssTemplateLiteral = css\`width: 50%; font-weight: \${token('font.weight.regular', '400')};\`;`,
       errors: [
         {
           message:
@@ -746,7 +711,7 @@ export const spacingTests: Tests = {
     {
       code: 'const cssTemplateLiteral = css`width: 50%; line-height: 24px;`;',
       options: [{ domains: ['typography'], applyImport: false }],
-      output: `// TODO Delete this comment after verifying space token -> previous value \`line-height: 24px\`\nconst cssTemplateLiteral = css\`width: 50%; line-height: \${token('font.lineHeight.300', '24px')};\`;`,
+      output: `const cssTemplateLiteral = css\`width: 50%; line-height: \${token('font.lineHeight.300', '24px')};\`;`,
       errors: [
         {
           message:
@@ -767,7 +732,7 @@ export const spacingTests: Tests = {
     `,
       options: [{ domains: ['typography'], applyImport: false }],
       output: `
-    // TODO Delete this comment after verifying space token -> previous value \`font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`\nconst cssTemplateLiteral = css\`
+    const cssTemplateLiteral = css\`
       width: 50%;
       font-family: \${token('font.family.sans', \`-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif\`)};\`;
     `,
@@ -785,7 +750,7 @@ export const spacingTests: Tests = {
     {
       options: [{ domains: ['spacing'], applyImport: false }],
       code: 'const cssTemplateLiteral = css`width: 50%; div { padding: 16px 24px; }`;',
-      output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 16px 24px\`\nconst cssTemplateLiteral = css\`width: 50%; div { padding: \${token('space.200', '16px')} \${token('space.300', '24px')}; }\`;`,
+      output: `const cssTemplateLiteral = css\`width: 50%; div { padding: \${token('space.200', '16px')} \${token('space.300', '24px')}; }\`;`,
       errors: [
         {
           message:
@@ -805,10 +770,7 @@ export const spacingTests: Tests = {
     {
       options: [{ domains: ['spacing'], applyImport: false }],
       code: 'const styledTemplateLiteral = styled.p`width: 50%; padding: 12px; margin: 4px; gap: 2px`;',
-      output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 12px\`
-// TODO Delete this comment after verifying space token -> previous value \`margin: 4px\`
-// TODO Delete this comment after verifying space token -> previous value \`gap: 2px\`
-const styledTemplateLiteral = styled.p\`width: 50%; padding: \${token('space.150', '12px')}; margin: \${token('space.050', '4px')}; gap: \${token('space.025', '2px')}\`;`,
+      output: `const styledTemplateLiteral = styled.p\`width: 50%; padding: \${token('space.150', '12px')}; margin: \${token('space.050', '4px')}; gap: \${token('space.025', '2px')}\`;`,
       errors: [
         {
           message:
@@ -831,7 +793,7 @@ const styledTemplateLiteral = styled.p\`width: 50%; padding: \${token('space.150
     {
       options: [{ domains: ['spacing'], applyImport: false }],
       code: 'const styledTemplateLiteral = styled.p`width: 50%; padding: 12px 8px 10px 9px;`;',
-      output: `// TODO Delete this comment after verifying space token -> previous value \`padding: 12px 8px\`\nconst styledTemplateLiteral = styled.p\`width: 50%; padding: \${token('space.150', '12px')} \${token('space.100', '8px')} 10px 9px;\`;`,
+      output: `const styledTemplateLiteral = styled.p\`width: 50%; padding: \${token('space.150', '12px')} \${token('space.100', '8px')} 10px 9px;\`;`,
       errors: [
         {
           message:
@@ -860,7 +822,7 @@ const styledTemplateLiteral = styled.p\`width: 50%; padding: \${token('space.150
     //   code: `const value = gridSize();
     //   const styledTemplateLiteral = styled.p\`color: red; padding: \${value}px;\`;`,
     //   output: `const value = gridSize();
-    //   // TODO Delete this comment after verifying space token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.100', '8px')};\`;`,
+    //   const styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.100', '8px')};\`;`,
     //   errors: [
     //     {
     //       message:
@@ -895,7 +857,7 @@ const styledTemplateLiteral = styled.p\`width: 50%; padding: \${token('space.150
     // callExpression in template
     // {
     //   code: `const styledTemplateLiteral = styled.p\`color: red; padding: \${gridSize()}px; margin: 4px; gap: 2px\`;`,
-    //   output: `// TODO Delete this comment after verifying space token -> previous value \`8px\`\nconst styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.100', '8px')}; margin: 4px; gap: 2px\`;`,
+    //   output: `const styledTemplateLiteral = styled.p\`color: red; padding: \${token('space.100', '8px')}; margin: 4px; gap: 2px\`;`,
     //   errors: [
     //     {
     //       message:
@@ -940,7 +902,6 @@ styled.div\`
 \`
       `,
       output: `
-// TODO Delete this comment after verifying space token -> previous value \`padding-left: 16px\`
 styled.div\`
   padding: 0px;
   .subitem {
@@ -970,7 +931,6 @@ styled.div\`
 \`
       `,
       output: `
-// TODO Delete this comment after verifying space token -> previous value \`padding-left: 16px\`
 styled.div\`
   padding: \${token('space.0', '0px')};
   .subitem {
@@ -1000,7 +960,6 @@ styled.div\`
 \`
       `,
       output: `
-// TODO Delete this comment after verifying space token -> previous value \`padding: 16px\`
 styled.div\`
   padding: \${token('space.0', '0px')};
   .subitem {
@@ -1030,7 +989,6 @@ styled.div\`
 \`
       `,
       output: `
-// TODO Delete this comment after verifying space token -> previous value \`padding: 16px\`
 styled.div\`
   padding: \${token('space.0', '0px')};
   .subitem {
@@ -1058,7 +1016,6 @@ styled.div\`
   padding: \${gridSize() /2}px \${gridSize() * 2}px \${gridSize()*2}px \${gridSize()/ 2}px;
 \``,
       output: `
-// TODO Delete this comment after verifying space token -> previous value \`padding: 4px 16px 16px 4px\`
 styled.div\`
   display: flex;
   align-items: center;
@@ -1095,7 +1052,6 @@ styled.div\`
   font-size: \${fontSize()}px;
 \``,
       output: `
-// TODO Delete this comment after verifying space token -> previous value \`font-size: 14px\`
 styled.div\`
   display: flex;
   font-size: \${token('font.size.100', '14px')};
@@ -1119,7 +1075,6 @@ styled.div\`
   padding: 1em;
 \``,
       output: `
-// TODO Delete this comment after verifying space token -> previous value \`padding: 1em\`
 styled.div\`
   font-size: 8;
   padding: \${token('space.100', '8px')};
@@ -1143,8 +1098,6 @@ styled.div\`
   padding-block: 8px 16px;
 \``,
       output: `
-// TODO Delete this comment after verifying space token -> previous value \`padding-inline: 8px 16px\`
-// TODO Delete this comment after verifying space token -> previous value \`padding-block: 8px 16px\`
 styled.div\`
   padding-inline: \${token('space.100', '8px')} \${token('space.200', '16px')};
   padding-block: \${token('space.100', '8px')} \${token('space.200', '16px')};
@@ -1181,7 +1134,6 @@ styled(Flex)\`
   padding: 1em;
 \``,
       output: `
-// TODO Delete this comment after verifying space token -> previous value \`padding: 1em\`
 styled(Flex)\`
   font-size: 8;
   padding: \${token('space.100', '8px')};
@@ -1208,7 +1160,6 @@ const someStyles = {
       output: `
 const someStyles = {
   padding: \`\${token('space.100', '8px')} \${token('space.050', '4px')}\`,
-  // TODO Delete this comment after verifying space token -> previous value \`2\`
   margin: token('space.025', '2px'),
 }`,
       errors: [
@@ -1240,7 +1191,6 @@ const someStyles = {
 <MyComponent
   stuff={{
     padding: \`\${token('space.100', '8px')} \${token('space.050', '4px')}\`,
-    // TODO Delete this comment after verifying space token -> previous value \`2\`
     margin: token('space.025', '2px')
   }}
 />`,
@@ -1273,7 +1223,6 @@ const someStyles = {
 <MyComponent
   stuff={css({
     padding: \`\${token('space.100', '8px')} \${token('space.050', '4px')}\`,
-    // TODO Delete this comment after verifying space token -> previous value \`2\`
     margin: token('space.025', '2px')
   })}
 />`,
@@ -1331,7 +1280,6 @@ export const stickyLineExtraLengthLeft = gridSize;
 export const stickyHeaderBreadcrumbsZIndex = layers.card - 1;
 
 const extraTopOffset = -1; // without '-1px' - part of underlying page/text is shown sometimes on top of header on scroll
-// TODO Delete this comment after verifying space token -> previous value \`padding-left: 8px\`
 export const StickyWrapper = styled.div\`
     @supports (position: sticky) or (position: -webkit-sticky) {
         position: sticky;

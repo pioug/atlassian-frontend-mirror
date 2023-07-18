@@ -26,7 +26,6 @@ import { lintObjectForSpacing } from './spacing';
 import {
   convertHyphenatedNameToCamelCase,
   emToPixels,
-  findParentNodeForLine,
   getDomainsForProperty,
   getFontSizeFromNode,
   getFontSizeValueInScope,
@@ -39,7 +38,6 @@ import {
   isValidSpacingValue,
   isZero,
   processCssNode,
-  replacementComment,
   splitShorthandValues,
 } from './spacing-utils';
 import { RuleConfig } from './types';
@@ -172,7 +170,6 @@ const createWithConfig: (
             // if we can't get a processed css we bail
             return;
           }
-          const parentNode = findParentNodeForLine(node);
           const globalFontSize = getFontSizeValueInScope(processedCssLines);
           const textForSource = context.getSourceCode().getText(node.quasi);
           const allReplacedValues: string[][] = [];
@@ -306,14 +303,6 @@ const createWithConfig: (
           if (completeSource !== textForSource) {
             // means we found some replacement values, we'll give the option to fix them
 
-            const replacementComments = `${allReplacedValues
-              .map((replacedProperties) => {
-                const [propertyName] = replacedProperties;
-                const replacedValues = replacedProperties.slice(1).join(' ');
-                return `${replacementComment} \`${propertyName}: ${replacedValues}\``;
-              })
-              .join('\n')}\n`;
-
             context.report({
               node,
               messageId: 'autofixesPossible',
@@ -322,10 +311,7 @@ const createWithConfig: (
                   !tokenNode && config.applyImport
                     ? [insertTokensImport(fixer)]
                     : []
-                ).concat([
-                  fixer.insertTextBefore(parentNode, replacementComments),
-                  fixer.replaceText(node.quasi, completeSource),
-                ]);
+                ).concat([fixer.replaceText(node.quasi, completeSource)]);
               },
             });
           }

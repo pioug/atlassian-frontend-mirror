@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 import React, { Fragment } from 'react';
@@ -704,6 +705,7 @@ const Renderer = (props: ExampleRendererProps) => {
             extensionHandlers={extensionHandlers}
             document={document}
             appearance={getAppearance()}
+            stickyHeaders={{ offsetTop: 0 }}
             media={{
               featureFlags: mediaFeatureFlags,
             }}

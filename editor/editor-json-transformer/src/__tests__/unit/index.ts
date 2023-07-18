@@ -4,9 +4,6 @@ import type { Node as PMNode } from 'prosemirror-model';
 import { uuid } from '@atlaskit/adf-schema';
 import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';
 import * as AdfSchemaDefault from '@atlaskit/adf-schema/schema-default';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { ConfluenceTransformer } from '@atlaskit/editor-confluence-transformer';
-import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line no-duplicate-imports
 import type { Options } from '@atlaskit/editor-test-helpers/create-editor';
@@ -55,7 +52,6 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line no-duplicate-imports
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
 import { JSONTransformer, SchemaStage } from '../../index';
 // eslint-disable-next-line no-duplicate-imports
@@ -68,7 +64,6 @@ jest.mock('../../sanitize/sanitize-node');
 const transformer = new JSONTransformer();
 const toJSON = (node: PMNode) => transformer.encode(node);
 const parseJSON = (node: JSONDocNode) => transformer.parse(node);
-const emojiProvider = getTestEmojiResource();
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('JSONTransformer:', () => {
@@ -113,28 +108,7 @@ describe('JSONTransformer:', () => {
           },
           ...(options?.editorProps || {}),
         },
-        providerFactory: ProviderFactory.create({ emojiProvider }),
       });
-
-    const standardEmptyAdf: JSONDocNode = {
-      type: 'doc',
-      version: 1,
-      content: [],
-    };
-
-    it('should create a standard empty adf for empty Confluence', () => {
-      const confluenceTransformer = new ConfluenceTransformer(confluenceSchema);
-
-      expect(toJSON(confluenceTransformer.parse('<p />'))).toEqual(
-        standardEmptyAdf,
-      );
-    });
-
-    it('should create a standard empty adf for empty Markdown', () => {
-      const markdownTransformer = new MarkdownTransformer();
-
-      expect(toJSON(markdownTransformer.parse(''))).toEqual(standardEmptyAdf);
-    });
 
     it('should have an empty content attribute for a header with no content', () => {
       const { editorView } = editor(doc(h1()));

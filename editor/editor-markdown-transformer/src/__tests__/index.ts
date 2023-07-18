@@ -1,5 +1,4 @@
 import { MarkdownTransformer } from '../index';
-
 import {
   doc,
   blockquote,
@@ -16,6 +15,12 @@ import {
   td,
   ol,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { Node as PMNode } from 'prosemirror-model';
+
+const transformer = new JSONTransformer();
+const toJSON = (node: PMNode) => transformer.encode(node);
 
 describe('MarkdownTransformer', () => {
   const transformer = new MarkdownTransformer();
@@ -170,6 +175,20 @@ ${CODE_FENCE}`;
       expect(transformer.parse(md)).toEqualDocument(
         doc(p(`-3. One\n-2. Two\n-1. Three`)),
       );
+    });
+  });
+
+  describe('Transforming', () => {
+    it('should create a standard empty adf for empty Markdown', () => {
+      const standardEmptyAdf: JSONDocNode = {
+        type: 'doc',
+        version: 1,
+        content: [],
+      };
+
+      const markdownTransformer = new MarkdownTransformer();
+
+      expect(toJSON(markdownTransformer.parse(''))).toEqual(standardEmptyAdf);
     });
   });
 });

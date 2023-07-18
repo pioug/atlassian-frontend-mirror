@@ -13,7 +13,7 @@ export default {
   'fabric.elements.share.failure.icon.label': 'Fel-ikon',
   'fabric.elements.share.failure.message': 'Det gick inte att dela',
   'fabric.elements.share.form.comment.label': 'Meddelande (valfritt)',
-  'fabric.elements.share.form.comment.placeholder': 'Lägg till ett meddelande',
+  'fabric.elements.share.form.comment.placeholder': 'Finns det något de behöver veta?',
   'fabric.elements.share.form.info.message.no.invite.confluence': 'Mottagare ser namnet på sidan och ditt meddelande',
   'fabric.elements.share.form.info.message.no.invite.jira': 'Mottagare ser namnet på ärendet och ditt meddelande',
   'fabric.elements.share.form.no-permissions': 'Du har inte möjlighet att dela.',
@@ -33,6 +33,7 @@ export default {
     'Vi hittade inte några resultat för "{inputValue}".',
   'fabric.elements.share.form.user-picker.no-options.generic':
     'Vi hittade inte några resultat för "{inputValue}". Bjud in personer genom att använda e-postadresser.',
+  'fabric.elements.share.form.user-picker.placeholder.confluence': 't.ex. Maria, Team Orange, grupp-ett',
   'fabric.elements.share.form.user-picker.placeholder.email-disabled-jira': 't.ex. Maria, Team Orange',
   'fabric.elements.share.form.user-picker.placeholder.email-only': 't.ex. maria@företag.se',
   'fabric.elements.share.form.user-picker.placeholder.jira': 't.ex. Maria, Team Orange, maria@företag.se',

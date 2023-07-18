@@ -23,6 +23,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Szöveg',
   'fabric.media.archive': 'archiválás',
   'fabric.media.audio': 'hang',
+  'fabric.media.avatar_picker_back_btn_label': 'Vissza',
   'fabric.media.cancel': 'Mégse',
   'fabric.media.cant_preview_file_type': 'Ehhez a fájltípushoz nem tudunk előnézetet létrehozni.',
   'fabric.media.cant_retrieve_files': 'Jaj! Nem sikerült lekérni egyetlen fájlt sem.',

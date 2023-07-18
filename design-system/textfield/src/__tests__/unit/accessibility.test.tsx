@@ -2,11 +2,9 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import { axe, toHaveNoViolations } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing';
 
 import Textfield from '../../index';
-
-expect.extend(toHaveNoViolations);
 
 describe('Text field basic accessibility unit tests with jest-axe', () => {
   const defaultProps = {
@@ -21,16 +19,14 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         <Textfield {...defaultProps} />
       </div>,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Text field with aria-label should not fail an aXe audit', async () => {
     const { container } = render(
       <Textfield {...defaultProps} aria-label="default text field" />,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Required Text field should not fail an aXe audit', async () => {
@@ -40,9 +36,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         <Textfield {...defaultProps} isRequired />
       </div>,
     );
-    const results = await axe(container);
-
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Required text field with aria-label should not fail an aXe audit', async () => {
@@ -53,8 +47,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         aria-label="default text field"
       />,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Disabled Text field should not fail an aXe audit', async () => {
@@ -64,9 +57,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         <Textfield {...defaultProps} isDisabled />
       </div>,
     );
-    const results = await axe(container);
-
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Disabled text field with aria-label should not fail an aXe audit', async () => {
@@ -77,8 +68,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         aria-label="default text field"
       />,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Invalid Text field should not fail an aXe audit', async () => {
@@ -88,17 +78,14 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         <Textfield {...defaultProps} isInvalid />
       </div>,
     );
-    const results = await axe(container);
-
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Invalid text field with aria-label should not fail an aXe audit', async () => {
     const { container } = render(
       <Textfield {...defaultProps} isInvalid aria-label="default text field" />,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Read only Text field should not fail an aXe audit', async () => {
@@ -108,9 +95,7 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         <Textfield {...defaultProps} isReadOnly />
       </div>,
     );
-    const results = await axe(container);
-
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Read only text field with aria-label should not fail an aXe audit', async () => {
@@ -121,7 +106,6 @@ describe('Text field basic accessibility unit tests with jest-axe', () => {
         aria-label="default text field"
       />,
     );
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 });

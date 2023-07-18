@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import CheckIcon from '@atlaskit/icon/glyph/check';
-import { CustomItemComponentProps } from '@atlaskit/menu';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
-const CustomComponent = ({ children, ...props }: CustomItemComponentProps) => {
-  // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-  return <a {...props}>{children}</a>;
-};
+// CustomComponent should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
+const CustomComponent = forwardRef(
+  ({ children, ...props }, ref: React.Ref<HTMLAnchorElement>) => (
+    <a {...props} ref={ref}>
+      {children}
+    </a>
+  ),
+);
 
 export default () => (
   <DropdownMenu trigger="Filter cities">

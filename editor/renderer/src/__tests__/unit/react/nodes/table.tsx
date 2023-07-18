@@ -12,6 +12,7 @@ import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
 import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStorage';
 import { SortOrder } from '@atlaskit/editor-common/types';
+import { RendererAppearance } from '../../../../ui/Renderer/types';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -881,16 +882,35 @@ describe('Renderer - React/Nodes/Table', () => {
       });
     };
 
+    const createDefaultTable = () => {
+      return schema.nodeFromJSON({
+        ...table(
+          tr([
+            th()(p('Header content 1')),
+            th()(p('Header content 2')),
+            th()(p('Header content 3')),
+          ]),
+          tr([
+            td()(p('Body content 1')),
+            td()(p('Body content 2')),
+            td()(p('Body content 3')),
+          ]),
+        ),
+        attrs: { layout: 'default' },
+      });
+    };
+
     const mountTable = (
       node: PMNode,
       rendererWidth: number,
       columnWidths?: number[],
+      appearance: RendererAppearance = 'full-page',
     ) => {
       return mountWithIntl(
         <Table
           layout={node.attrs.layout}
           renderWidth={rendererWidth}
-          rendererAppearance="full-page"
+          rendererAppearance={appearance}
           isNumberColumnEnabled={false}
           tableNode={node}
           columnWidths={columnWidths}
@@ -943,6 +963,80 @@ describe('Renderer - React/Nodes/Table', () => {
 
           expect(tableContainer.prop('style')!.width).toBe(960);
           expect(tableContainer.prop('style')!.left).toBe(-100);
+        },
+      );
+    });
+
+    describe('default table should be full width in full-width mode', () => {
+      const tableNode = createDefaultTable();
+      const rendererWidth = 1800;
+
+      ffTest(
+        'platform.editor.custom-table-width',
+        () => {
+          const wrap = mountTable(
+            tableNode,
+            rendererWidth,
+            undefined,
+            'full-width',
+          );
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          expect(tableContainer.prop('style')!.width).toBe(1800);
+        },
+        () => {
+          const wrap = mountTable(
+            tableNode,
+            rendererWidth,
+            undefined,
+            'full-width',
+          );
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          expect(tableContainer.prop('style')!.width).toBe('inherit');
+        },
+      );
+    });
+
+    describe('default table should be responsively full width in full-width mode', () => {
+      const tableNode = createDefaultTable();
+      const rendererWidth = 900;
+
+      ffTest(
+        'platform.editor.custom-table-width',
+        () => {
+          const wrap = mountTable(
+            tableNode,
+            rendererWidth,
+            undefined,
+            'full-width',
+          );
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          expect(tableContainer.prop('style')!.width).toBe(900);
+        },
+        () => {
+          const wrap = mountTable(
+            tableNode,
+            rendererWidth,
+            undefined,
+            'full-width',
+          );
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          expect(tableContainer.prop('style')!.width).toBe('inherit');
         },
       );
     });

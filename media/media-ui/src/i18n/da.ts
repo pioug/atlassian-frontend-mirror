@@ -24,6 +24,7 @@ export default {
   'fabric.media.annotate.tool.text': 'Tekst',
   'fabric.media.archive': 'arkivér',
   'fabric.media.audio': 'lyd',
+  'fabric.media.avatar_picker_back_btn_label': 'Gå tilbage',
   'fabric.media.cancel': 'Annullér',
   'fabric.media.cant_preview_file_type': 'Vi kan ikke vise denne filtype.',
   'fabric.media.cant_retrieve_files': 'Ups! Vi kunne ikke finde nogen filer',

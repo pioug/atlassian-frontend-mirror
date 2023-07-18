@@ -428,6 +428,31 @@ describe('setContent', () => {
   });
 });
 
+describe('restoreContent', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should call replaceContent twice', () => {
+    const content =
+      '{"version":1,"type":"doc","content":[{"type":"paragraph","content":[]}]}';
+    const bridge: WebBridgeImpl = new WebBridgeImpl();
+    const editorView = {
+      state: {
+        doc: {},
+      },
+      focus: () => {},
+    } as EditorViewWithComposition;
+    bridge.editorView = editorView;
+    let replaceContentSpy = jest.spyOn(bridge, 'replaceContent');
+    bridge.setContent(content);
+    bridge.restoreContent();
+    expect(replaceContentSpy).toHaveBeenNthCalledWith(1, content);
+    expect(replaceContentSpy).toHaveBeenNthCalledWith(2, content);
+    expect(replaceContentSpy).toHaveBeenCalledTimes(2);
+  });
+});
+
 describe('replaceContent', () => {
   let toNativeBridge: jest.Mocked<NativeBridge>;
   const content =

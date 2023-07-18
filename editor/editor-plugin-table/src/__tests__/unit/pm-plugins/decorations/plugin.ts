@@ -22,6 +22,7 @@ import {
   handleDocOrSelectionChanged,
 } from '../../../../plugins/table/pm-plugins/decorations/plugin';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
+import { pluginKey as tableWidthPluginKey } from '../../../../plugins/table/pm-plugins/table-width';
 import { TableDecorations } from '../../../../plugins/table/types';
 import tablePlugin from '../../../../plugins/table';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -29,6 +30,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('decorations plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -84,11 +86,13 @@ describe('decorations plugin', () => {
         editorView.state.tr,
         pluginState,
         editorView.state,
+        editorView.state,
       );
 
       const newState = handleDocOrSelectionChanged(
         editorView.state.tr,
         oldState,
+        editorView.state,
         editorView.state,
       );
 
@@ -107,6 +111,7 @@ describe('decorations plugin', () => {
         editorView.state.tr,
         DecorationSet.empty,
         editorView.state,
+        state,
       );
 
       const { tr: transaction } = state;
@@ -116,6 +121,7 @@ describe('decorations plugin', () => {
         transaction,
         nextPluginState,
         editorView.state,
+        state,
       );
       const expectedDecorationSet = newState;
       const decorations = expectedDecorationSet.find(
@@ -138,14 +144,74 @@ describe('decorations plugin', () => {
         editorView.state.tr,
         DecorationSet.empty,
         editorView.state,
+        editorView.state,
       );
 
       const newPluginState = handleDocOrSelectionChanged(
         editorView.state.tr,
         oldPluginState,
         editorView.state,
+        editorView.state,
       );
       expect(oldPluginState).toEqual(newPluginState);
+    });
+  });
+
+  describe('table width resizing', () => {
+    describe('should remove column controls when resizing starts and add back when it ends', () => {
+      ffTest(
+        'platform.editor.custom-table-width',
+        () => {
+          const { editorView } = editor(
+            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+          );
+
+          const startTransaction = editorView.state.tr.setMeta(
+            tableWidthPluginKey,
+            {
+              resizing: true,
+            },
+          );
+          editorView.dispatch(startTransaction);
+          const startDecorationSet = getDecorations(editorView.state);
+          expect(startDecorationSet).toEqual(DecorationSet.empty);
+
+          const endTransaction = editorView.state.tr.setMeta(
+            tableWidthPluginKey,
+            {
+              resizing: false,
+            },
+          );
+          editorView.dispatch(endTransaction);
+          const endDecorationSet = getDecorations(editorView.state);
+          expect(endDecorationSet).not.toEqual(DecorationSet.empty);
+        },
+        () => {
+          const { editorView } = editor(
+            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+          );
+
+          const startTransaction = editorView.state.tr.setMeta(
+            tableWidthPluginKey,
+            {
+              resizing: true,
+            },
+          );
+          editorView.dispatch(startTransaction);
+          const startDecorationSet = getDecorations(editorView.state);
+          expect(startDecorationSet).not.toEqual(DecorationSet.empty);
+
+          const endTransaction = editorView.state.tr.setMeta(
+            tableWidthPluginKey,
+            {
+              resizing: false,
+            },
+          );
+          editorView.dispatch(endTransaction);
+          const endDecorationSet = getDecorations(editorView.state);
+          expect(endDecorationSet).not.toEqual(DecorationSet.empty);
+        },
+      );
     });
   });
 });

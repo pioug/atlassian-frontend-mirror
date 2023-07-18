@@ -25,11 +25,13 @@ import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import type { HyperlinkState } from '@atlaskit/editor-common/link';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { IntlShape } from 'react-intl-next';
+import type { LinkInputType } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
 import { Transaction } from 'prosemirror-state';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 // @public (undocumented)
 type GetToolbarItems = (
@@ -55,6 +57,8 @@ export const hyperlinkPlugin: NextEditorPlugin<
       prependToolbarButtons: PrependToolbarButtons;
       showLinkToolbar: ShowLinkToolbar;
       hideLinkToolbar: HideLinkToolbar;
+      insertLink: InsertLink;
+      updateLink: UpdateLink;
     };
     sharedState: HyperlinkState | undefined;
   }
@@ -75,6 +79,18 @@ type InputMethod =
   | INPUT_METHOD.TOOLBAR;
 
 // @public (undocumented)
+export type InsertLink = (
+  inputMethod: LinkInputType,
+  from: number,
+  to: number,
+  href: string,
+  title?: string,
+  displayText?: string,
+  cardsAvailable?: boolean,
+  sourceEvent?: UIAnalyticsEvent | null | undefined,
+) => Command;
+
+// @public (undocumented)
 export type PrependToolbarButtons = (props: PrependToolbarButtonsProps) => void;
 
 // @public (undocumented)
@@ -85,6 +101,14 @@ interface PrependToolbarButtonsProps extends HyperlinkToolbarItemsState {
 
 // @public (undocumented)
 export type ShowLinkToolbar = (inputMethod: InputMethod) => Command;
+
+// @public (undocumented)
+export type UpdateLink = (
+  href: string,
+  text: string,
+  pos: number,
+  to?: number,
+) => Command;
 
 // (No @packageDocumentation comment for this package)
 ```

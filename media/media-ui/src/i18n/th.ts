@@ -24,6 +24,7 @@ export default {
   'fabric.media.annotate.tool.text': 'ข้อความ',
   'fabric.media.archive': 'เก็บ',
   'fabric.media.audio': 'เสียง',
+  'fabric.media.avatar_picker_back_btn_label': 'ย้อนกลับ',
   'fabric.media.cancel': 'ยกเลิก',
   'fabric.media.cant_preview_file_type': 'เราไม่สามารถแสดงตัวอย่างประเภทไฟล์นี้ได้',
   'fabric.media.cant_retrieve_files': 'โอ๊ะ! เราไม่สามารถกู้ไฟล์ใด ๆ คืนมาได้',

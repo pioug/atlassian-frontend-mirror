@@ -36,6 +36,7 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
           component={component}
           iconBefore={elemBefore}
           iconAfter={elemAfter}
+          ref={mergeRefs([ref, itemRef])}
           shouldTitleWrap={shouldTitleWrap}
           shouldDescriptionWrap={shouldDescriptionWrap}
           {...rest}

@@ -1,6 +1,8 @@
 import {
   EditorNodeContainerModel,
   EditorTableModel,
+  EditorPopupModel,
+  EditorFloatingToolbarModel,
   editorTestCase as test,
   expect,
 } from '@af/editor-libra';
@@ -67,6 +69,46 @@ test.describe('resizing a table', () => {
     expect(await resizerModel.containerWidth()).toBe(560);
     expect(await resizerModel.containerMarginLeft()).toBe('100px');
     expect(await tableModel.containerWidth()).toBe(560);
+  });
+
+  test('should hide the table controls when resizing and show them when finishing', async ({
+    editor,
+  }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const resizerModel = tableModel.resizer();
+    const floatingToolbarModel = EditorFloatingToolbarModel.from(
+      editor,
+      tableModel,
+    );
+    const rowControlModel = await tableModel.rowControls({ index: 1 });
+    const columnControlModel = await tableModel.columnControls({ index: 1 });
+
+    const cell = await tableModel.cell(1);
+    await cell.click();
+    const cellOptions = await cell.options(EditorPopupModel.from(editor));
+
+    await resizerModel.resizeAndHold({
+      mouse: editor.page.mouse,
+      moveDistance: 5,
+    });
+
+    // Expect all controls to be hidden
+    expect(await rowControlModel.isHidden()).toBeTruthy();
+    expect(await rowControlModel.isCornerControlHidden()).toBeTruthy();
+    expect(await columnControlModel.isHidden()).toBeTruthy();
+    expect(await cell.isCellOptionsHidden()).toBeTruthy();
+    expect(await cellOptions.isVisible()).toBeFalsy();
+    expect(await floatingToolbarModel.isVisible()).toBeFalsy();
+
+    await editor.page.mouse.up();
+
+    expect(await rowControlModel.isVisible()).toBeTruthy();
+    expect(await rowControlModel.isCornerControlVisible()).toBeTruthy();
+    expect(await columnControlModel.isVisible()).toBeTruthy();
+    expect(await cell.isCellOptionsVisible()).toBeTruthy();
+    expect(await cellOptions.isVisible()).toBeTruthy();
+    expect(await floatingToolbarModel.isVisible()).toBeTruthy();
   });
 
   test('should resize to correct width and snap to closest guideline', async ({

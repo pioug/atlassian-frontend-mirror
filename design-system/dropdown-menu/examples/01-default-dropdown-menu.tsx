@@ -1,6 +1,15 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
+
+// CustomComponent should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
+const CustomComponent = forwardRef(
+  ({ children, ...props }, ref: React.Ref<HTMLButtonElement>) => (
+    <button {...props} type="button" ref={ref}>
+      {children}
+    </button>
+  ),
+);
 
 export default () => (
   <DropdownMenu
@@ -9,7 +18,7 @@ export default () => (
     testId="dropdown"
   >
     <DropdownItemGroup>
-      <DropdownItem>Move</DropdownItem>
+      <DropdownItem component={CustomComponent}>Move</DropdownItem>
       <DropdownItem>Clone</DropdownItem>
       <DropdownItem>Delete</DropdownItem>
     </DropdownItemGroup>

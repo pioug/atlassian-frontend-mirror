@@ -192,6 +192,7 @@ export interface DropdownItemProps {
 
   /**
    * Custom component to render as an item.
+   * Should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   component?: CustomItemProps['component'];

@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.0.2
+
+### Patch Changes
+
+- [`05a00999956`](https://bitbucket.org/atlassian/atlassian-frontend/commits/05a00999956) - `TODO` comments are no longer added when applying a spacing fix from `ensure-design-token-usage`.
+
 ## 8.0.1
 
 ### Patch Changes

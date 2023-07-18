@@ -8,12 +8,10 @@ import {
   screen,
 } from '@testing-library/react';
 
-import { axe, toHaveNoViolations } from '@af/accessibility-testing';
+import { axe } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/standard-button';
 
 import Pagination, { PaginationPropTypes } from '../../index';
-
-expect.extend(toHaveNoViolations);
 
 function assertPageButtonRendering(
   renderResult: RenderResult,
@@ -103,8 +101,7 @@ describe('Pagination Accessibility', () => {
     setup();
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('With previous button disabled, should pass basic aXe audit', async () => {
@@ -115,8 +112,7 @@ describe('Pagination Accessibility', () => {
     });
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('With next button disabled, should pass basic aXe audit', async () => {
@@ -125,8 +121,7 @@ describe('Pagination Accessibility', () => {
     fireEvent.click(renderResult.getByTestId('pagination--page-9'));
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Basic ellipsis should pass basic aXe audit', async () => {
@@ -146,8 +141,7 @@ describe('Pagination Accessibility', () => {
     });
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 
   it('Custom ellipsis should pass basic aXe audit', async () => {
@@ -156,7 +150,6 @@ describe('Pagination Accessibility', () => {
     });
 
     const container = screen.getByTestId('pagination');
-    const results = await axe(container);
-    expect(results).toHaveNoViolations();
+    await axe(container);
   });
 });

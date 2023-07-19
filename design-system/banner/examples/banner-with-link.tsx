@@ -8,8 +8,6 @@ const Icon = <ErrorIcon label="" secondaryColor="inherit" />;
 
 export default () => (
   <Banner icon={Icon} appearance="error">
-    {/* TODO: Use descriptive text for link (DSP-11466) */}
-    {/* eslint-disable-next-line jsx-a11y/anchor-ambiguous-text */}
-    This is an error banner with a <a href="http://atlassian.com">link</a>
+    This is an error banner from <a href="http://atlassian.com">Atlassian</a>
   </Banner>
 );

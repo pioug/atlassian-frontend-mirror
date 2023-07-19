@@ -16,6 +16,8 @@ import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
 import { PluginInjectionAPI, TableCssClassName as ClassName } from '../types';
 import { TableResizer } from './TableResizer';
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
+import classNames from 'classnames';
+import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 
 const getMarginLeft = (lineLength: number, tableWidth: number | 'inherit') => {
   let marginLeft;
@@ -209,7 +211,9 @@ export const TableContainer = ({
   return (
     <InnerContainer
       node={node}
-      className={className}
+      className={classNames(className, {
+        'less-padding': editorWidth < akEditorMobileBreakoutPoint,
+      })}
       style={{
         width: tableWidth,
         marginLeft: getMarginLeft(lineLength!, tableWidth),

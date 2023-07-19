@@ -1,5 +1,17 @@
 # @atlaskit/link-client-extension
 
+## 1.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.5.1
+
+### Patch Changes
+
+- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+
 ## 1.5.0
 
 ### Minor Changes

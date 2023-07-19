@@ -30,7 +30,7 @@
   "scripts": {
     "ak-postbuild": "(cd $(npx repo-root) && yarn build @atlassian/codegen -d cjs,esm,es2019) && yarn workspace @atlaskit/tokens codegen-tokens && yarn workspace @atlaskit/tokens check-clean-git",
     "check-clean-git": "git diff --exit-code -- packages/design-system/tokens/ || (echo 'tokens are out of date, run yarn build tokens' && false)",
-    "codegen-tokens": "ts-node --project $(npx repo-root)/tsconfig.node.json ./scripts/style-dictionary/build"
+    "codegen-tokens": "ts-node --project $(npx repo-root)/tsconfig.node.json ./scripts/style-dictionary/build && cd $(npx repo-root)/packages/design-system/primitives && yarn codegen-styles"
   },
   "dependencies": {
     "@atlaskit/ds-lib": "^2.2.0",

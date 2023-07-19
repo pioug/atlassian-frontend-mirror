@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 108.7.2
+
+### Patch Changes
+
+- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+
 ## 108.7.1
 
 ### Patch Changes

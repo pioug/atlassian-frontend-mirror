@@ -113,6 +113,37 @@ export default function LazyLoadHeightExample() {
           </div>
         </BorderWrapper>
 
+        <h1>Without display text, with one plugin</h1>
+        <p>LinkPicker on left, LoaderFallback on right.</p>
+        <BorderWrapper>
+          <LinkPicker
+            plugins={defaultPlugins.slice(0, 1)}
+            onSubmit={() => {}}
+            onCancel={() => {}}
+            hideDisplayText={true}
+          />
+          <div css={fixedWidthContainerStyles}>
+            <LoaderFallback
+              hideDisplayText={true}
+              plugins={defaultPlugins.slice(0, 1)}
+            ></LoaderFallback>
+          </div>
+        </BorderWrapper>
+
+        <h1>With display text, with one plugin</h1>
+        <p>LinkPicker on left, LoaderFallback on right.</p>
+        <BorderWrapper>
+          <LinkPicker
+            plugins={defaultPlugins.slice(0, 1)}
+            onSubmit={() => {}}
+            onCancel={() => {}}
+          />
+          <div css={fixedWidthContainerStyles}>
+            <LoaderFallback
+              plugins={defaultPlugins.slice(0, 1)}
+            ></LoaderFallback>
+          </div>
+        </BorderWrapper>
         <h1>Without display text, with plugins</h1>
         <p>LinkPicker on left, LoaderFallback on right.</p>
         <BorderWrapper>
@@ -127,7 +158,7 @@ export default function LazyLoadHeightExample() {
             <LoaderFallback
               hideDisplayText={true}
               isLoadingPlugins={true}
-              plugins={[0]}
+              plugins={defaultPlugins}
             ></LoaderFallback>
           </div>
         </BorderWrapper>
@@ -144,7 +175,7 @@ export default function LazyLoadHeightExample() {
           <div css={fixedWidthContainerStyles}>
             <LoaderFallback
               isLoadingPlugins={true}
-              plugins={[0]}
+              plugins={defaultPlugins}
             ></LoaderFallback>
           </div>
         </BorderWrapper>

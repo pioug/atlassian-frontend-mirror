@@ -1,5 +1,17 @@
 # @atlaskit/editor-card-provider
 
+## 3.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.1.2
+
+### Patch Changes
+
+- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+
 ## 3.1.1
 
 ### Patch Changes

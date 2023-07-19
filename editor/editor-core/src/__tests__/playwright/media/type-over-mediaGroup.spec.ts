@@ -106,6 +106,12 @@ test.describe('media-group with three media nodes inside', () => {
           condition: browserName === BROWSERS.firefox,
         });
 
+        fixTest({
+          jiraIssueId: 'ED-19138',
+          reason:
+            'This test does not work when we try to click in the media node (it can be done by setting ProseMirror selection manually)',
+        });
+
         const { media: mediaNodes } = EditorNodeContainerModel.from(editor);
         const lastMediaNode = mediaNodes.last();
         await lastMediaNode.click();

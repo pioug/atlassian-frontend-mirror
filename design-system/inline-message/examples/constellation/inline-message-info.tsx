@@ -13,9 +13,7 @@ const InlineMessageInfoExample = () => {
         you do best.
       </p>
       <p>
-        {/* TODO: Use descriptive text for link and proper target (DSP-11466) */}
-        {/* eslint-disable-next-line jsx-a11y/anchor-ambiguous-text, jsx-a11y/anchor-is-valid */}
-        <a href="#">Learn more</a>
+        <a href="http://www.atlassian.com">Learn more about Atlassian</a>
       </p>
     </InlineMessage>
   );

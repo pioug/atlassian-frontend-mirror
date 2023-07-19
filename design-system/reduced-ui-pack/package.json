@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/reduced-ui-pack",
-  "version": "18.0.3",
+  "version": "18.0.4",
   "description": "CSS classes which provide styling for a reduced number of Atlaskit components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -25,13 +25,15 @@
     "ak-postbuild": "mkdir -p dist && cp src/bundle.css dist/bundle.css && cp src/icons-sprite.svg dist/icons-sprite.svg",
     "update": "yarn build-css && yarn run sprite",
     "sprite": "node ./bin/buildSprite.js",
-    "build-css": "ts-node --transpile-only --project ./tsconfig.build.json build/js-to-css.js"
+    "build-css": "ts-node --transpile-only --project ./tsconfig.build.json build/js-to-css.js",
+    "postinstall": "npx enforce-peer-dependencies --internal-packages"
   },
   "files": [
     "dist/bundle.css",
     "dist/icons-sprite.svg"
   ],
   "dependencies": {
+    "@atlaskit/enforce-peer-dependencies": "^1.0.1",
     "@atlaskit/theme": "^12.5.0",
     "fbjs": "^3.0.0"
   },

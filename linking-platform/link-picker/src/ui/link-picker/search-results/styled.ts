@@ -13,6 +13,7 @@ export const spinnerContainerStyles = css`
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
   flex-grow: 1;
 `;
 

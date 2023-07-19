@@ -31,12 +31,13 @@ const ExampleFooter = () => {
       component={Container}
       description={
         <Fragment>
-          {/* TODO: Give proper link (DSP-11466) */}
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <a css={linkStyles}>Give feedback</a> {' ∙ '}
-          {/* TODO: Use descriptive text for link and give proper link (DSP-11466) */}
-          {/* eslint-disable-next-line jsx-a11y/anchor-ambiguous-text, jsx-a11y/anchor-is-valid */}
-          <a css={linkStyles}>Learn more</a>
+          <a href="https://www.atlassian.com/company/contact" css={linkStyles}>
+            Give feedback
+          </a>
+          {' ∙ '}
+          <a href="http://www.atlassian.com" css={linkStyles}>
+            Learn more
+          </a>
         </Fragment>
       }
     >

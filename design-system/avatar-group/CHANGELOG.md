@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 9.3.6
+
+### Patch Changes
+
+- [`71b58da4e00`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71b58da4e00) - set focus to the first avatar when popup is open
+
 ## 9.3.5
 
 ### Patch Changes

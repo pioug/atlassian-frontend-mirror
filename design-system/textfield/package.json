@@ -12,14 +12,6 @@
   "module": "dist/esm/index.js",
   "module:es2019": "dist/es2019/index.js",
   "types": "dist/types/index.d.ts",
-  "typesVersions": {
-    ">=4.5 <4.9": {
-      "*": [
-        "dist/types-ts4.5/*",
-        "dist/types-ts4.5/index.d.ts"
-      ]
-    }
-  },
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
@@ -29,9 +21,6 @@
       "name": "Text field",
       "category": "Components"
     }
-  },
-  "af:exports": {
-    ".": "./src/index.tsx"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
@@ -46,6 +35,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
+    "@af/visual-regression": "*",
     "@atlaskit/codemod-utils": "^4.2.3",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",
@@ -85,6 +75,17 @@
       "design-system": "v1",
       "deprecation": "no-deprecated-imports"
     }
+  },
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "af:exports": {
+    ".": "./src/index.tsx"
   },
   "platform-feature-flags": {
     "platform.design-system-team.border-checkbox_nyoiu": {

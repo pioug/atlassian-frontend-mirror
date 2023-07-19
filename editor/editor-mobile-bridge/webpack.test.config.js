@@ -1,11 +1,15 @@
 /* eslint import/no-extraneous-dependencies: 0*/
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { getThemeStyles } = require('@atlaskit/tokens');
+const generate = require('generate-file-webpack-plugin');
 const {
   createBaseEditorMobileBridgeWebpackConfig,
 } = require('./build/webpack_base_config');
 
 module.exports = async function createWebpackConfig(_, args) {
+  const themeStyles = await getThemeStyles();
+
   return createBaseEditorMobileBridgeWebpackConfig(args, {
     entry: {
       editorTestSetup: path.join(
@@ -38,6 +42,12 @@ module.exports = async function createWebpackConfig(_, args) {
         chunksSortMode: 'manual',
         filename: 'renderer.html',
       }),
+      ...themeStyles.map(({ id, css }) =>
+        generate({
+          file: `themes/atlaskit-tokens_${id}.css`,
+          content: css,
+        }),
+      ),
     ],
     devServer: {
       static: {

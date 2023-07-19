@@ -1,5 +1,30 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.1.1
+
+### Patch Changes
+
+- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+- Updated dependencies
+
+## 187.1.0
+
+### Minor Changes
+
+- [`af518541914`](https://bitbucket.org/atlassian/atlassian-frontend/commits/af518541914) - Integrates the new Design Tokens API into Editor-mobile-bridge behind a feature flag `?enableTokenThemes=true` and updates static colors in the css-reset to use tokens.
+
 ## 187.0.0
 
 ### Patch Changes

@@ -6,6 +6,7 @@ import { typography } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 export const listContainerStyles = css`
+  width: 100%;
   padding-top: 0;
   min-height: 80px;
   margin-top: ${token('space.200', '16px')};
@@ -16,12 +17,9 @@ export const listContainerStyles = css`
 `;
 
 export const spinnerContainerStyles = css`
-  text-align: center;
-  min-height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const listStyles = css`

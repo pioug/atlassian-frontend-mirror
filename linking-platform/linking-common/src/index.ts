@@ -3,10 +3,8 @@ export type {
   InvocationContext,
   InvocationSearchPayload,
   CardAppearance,
-  CardPlatform,
   CardType,
   CardActionType,
-  LinkPreview,
   CardAction,
   ServerActionOpts,
   ServerActionPayload,
@@ -25,7 +23,6 @@ export type {
   DatasourceAdf,
 } from './types';
 
-export { extractUrlFromLinkJsonLd, extractPreview } from './extractors';
 export {
   ACTION_ERROR,
   ACTION_ERROR_FALLBACK,

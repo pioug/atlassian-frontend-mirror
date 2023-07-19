@@ -4,6 +4,8 @@ import {
   EditorPopupModel,
   editorTestCase as test,
   expect,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import { tableWithScoll } from './__fixtures__/base-adfs';
 
@@ -63,7 +65,14 @@ test.describe('sticky header', () => {
   test.describe('sync width', () => {
     test('should sync width with table when parent scroll container is resized', async ({
       editor,
+      browserName,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-19015',
+        reason:
+          'Test timeout of 30000ms exceeded. locator.hover: Target closed',
+        condition: browserName === BROWSERS.webkit,
+      });
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 

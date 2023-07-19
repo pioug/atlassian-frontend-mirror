@@ -44,82 +44,72 @@ export default () => {
           maxHeight={1000}
         >
           <Section title="Actions">
-            {/* TODO: Links should go to an actual anchor or link (DSP-11466) */}
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<EditorSearchIcon label="Search Icon" />}
-              href="#"
+              href="#search"
             >
               Search your items
             </LinkItem>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<EditFilledIcon label="Editor Icon" />}
-              href="#"
+              href="#add-new-item"
               isDisabled
             >
               Add new item (disabled)
             </LinkItem>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<StarFilledIcon label="Star icon" />}
               iconAfter={<ArrowRightIcon label="" />}
               description="You have 24 starred items."
-              href="#"
+              href="#starred"
             >
               Starred items
             </LinkItem>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconAfter={<ArrowRightIcon label="" />}
               iconBefore={<Archive24Icon label="Quote icon" />}
               description="You have 16 archived items."
-              href="#"
+              href="#archived"
             >
               Archived items
             </LinkItem>
           </Section>
           <Section title="More actions">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<EditorSearchIcon label="Search Icon" />}
-              href="#"
+              href="#edit"
             >
               Edit your items
             </LinkItem>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<TrashIcon label="Delete Icon" />}
-              href="#"
+              href="#delete"
               isDisabled
             >
               Delete item (disabled)
             </LinkItem>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconBefore={<StarIcon label="Star icon" />}
               iconAfter={<ArrowRightIcon label="" />}
               description="You have 24 unstarred items."
-              href="#"
+              href="#unstarred"
             >
               Unstarred items
             </LinkItem>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               iconAfter={<ArrowRightIcon label="" />}
               iconBefore={<PresenceActiveIcon label="Active icon" />}
               description="You have 16 archived items."
-              href="#"
+              href="#archive"
             >
               Active items
             </LinkItem>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <LinkItem
               isDisabled={true}
               iconAfter={<ArrowRightIcon label="" />}
               iconBefore={<PresenceActiveIcon label="Active icon" />}
               description="You have 4 archived items."
-              href="#"
+              href="#active"
             >
               Active items (disabled)
             </LinkItem>
@@ -264,8 +254,7 @@ export default () => {
             </ButtonItem>
           </Section>
           <Section hasSeparator>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <LinkItem href="#">View all projects</LinkItem>
+            <LinkItem href="#view-all">View all projects</LinkItem>
             <ButtonItem onClick={() => {}}>Create project</ButtonItem>
           </Section>
         </PopupMenuGroup>

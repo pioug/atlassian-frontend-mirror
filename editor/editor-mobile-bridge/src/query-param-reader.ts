@@ -1,26 +1,13 @@
 export const getQueryParams = () => new URLSearchParams(window.location.search);
 
-export const getModeValue = (): 'dark' | 'light' => {
-  const params = getQueryParams();
-  const input: unknown = params.get('mode');
-  switch (input) {
-    case 'dark':
-    case 'light':
-      return input;
-    case null:
-      return 'light';
-    default:
-      throw new Error(
-        `Could not determine mode for input ${JSON.stringify(input)}`,
-      );
-  }
-};
-
 export const getAllowCollabProvider = (): boolean =>
   getQueryParams().get('allowCollabProvider') === 'true';
 
 export const getEnableLightDarkTheming = (): boolean =>
   getQueryParams().get('enableLightDarkTheming') === 'true';
+
+export const getEnableTokenThemes = (): boolean =>
+  getQueryParams().get('enableTokenThemes') === 'true';
 
 export const getEnableLegacyMobileMacros = (): boolean =>
   getQueryParams().get('enableLegacyMobileMacros') === 'true';

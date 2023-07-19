@@ -2,6 +2,8 @@ import type { ElementType, ReactNode } from 'react';
 
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
 import type { AvatarPropTypes } from '@atlaskit/avatar';
+import { MenuGroupProps } from '@atlaskit/menu';
+import { ContentProps } from '@atlaskit/popup';
 
 import type { AvatarGroupItemProps } from './avatar-group-item';
 
@@ -40,3 +42,7 @@ export type onAvatarClickHandler = (
 export type FocusableElement = HTMLAnchorElement | HTMLButtonElement;
 
 export type Action = 'next' | 'prev' | 'first' | 'last';
+
+export interface PopupAvatarGroupProps extends MenuGroupProps {
+  setInitialFocusRef?: ContentProps['setInitialFocusRef'];
+}

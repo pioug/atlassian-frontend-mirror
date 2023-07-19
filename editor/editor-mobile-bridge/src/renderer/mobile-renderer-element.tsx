@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { AnnotationProviders } from '@atlaskit/editor-common/types';
 import {
   ExtensionHandlers,
@@ -19,6 +19,7 @@ import {
   getAllowCaptions,
   getRestartNumberedLists,
   getListNumberContinuity,
+  getEnableTokenThemes,
 } from '../query-param-reader';
 import { rendererAnalyticsClient } from './renderer-analytics-client';
 import { useRendererContent } from './hooks/use-set-renderer-content';
@@ -38,6 +39,7 @@ import { geti18NMessages } from './renderer-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
 import RendererBridgeImplementation from './native-to-web/implementation';
 import type { DocNode } from '@atlaskit/adf-schema';
+import { setGlobalTheme } from '@atlaskit/tokens';
 
 export interface MobileRendererProps extends RendererProps {
   cardClient: CardClient;
@@ -120,6 +122,13 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
   useRendererDestroyed();
   useRendererReflowDetected(rendererBridge);
 
+  useEffect(() => {
+    const setTheme = async () => await setGlobalTheme({ colorMode: 'auto' });
+    if (getEnableTokenThemes()) {
+      setTheme();
+    }
+  }, []);
+
   return (
     <ReactRenderer
       innerRef={innerRef}
@@ -188,10 +197,9 @@ const withFabricAnalytics =
     );
   };
 
-const ThemedBasicRenderer = withSystemTheme(
-  BasicRenderer,
-  getEnableLightDarkTheming(),
-);
+const ThemedBasicRenderer = getEnableTokenThemes()
+  ? BasicRenderer
+  : withSystemTheme(BasicRenderer, getEnableLightDarkTheming());
 
 const MobileRenderer = withFabricAnalytics(withSmartCard(ThemedBasicRenderer));
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-filmstrip",
-  "version": "47.0.7",
+  "version": "47.0.8",
   "description": "Includes components that show media cards as a filmstrip",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -35,6 +35,7 @@
     }
   },
   "dependencies": {
+    "@atlaskit/enforce-peer-dependencies": "^1.0.1",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/media-card": "^76.1.0",
     "@atlaskit/media-client": "^23.1.0",
@@ -70,5 +71,8 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "scripts": {
+    "postinstall": "npx enforce-peer-dependencies --internal-packages"
+  }
 }

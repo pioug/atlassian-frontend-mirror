@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/linking-common",
-  "version": "3.4.0",
+  "version": "4.0.0",
   "description": "Contains utils and interfaces shared across different LP components",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,6 @@
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.3",
-    "@atlaskit/logo": "^13.14.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.12.0",
     "@babel/runtime": "^7.0.0",
@@ -64,7 +63,6 @@
   },
   "af:exports": {
     "./types": "./src/types.ts",
-    "./extractors": "./src/extractors/index.ts",
     "./url": "./src/url.ts",
     "./user-agent": "./src/user-agent/index.ts",
     "./utils": "./src/utils/index.ts",

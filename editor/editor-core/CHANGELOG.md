@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 187.1.3
+
+### Patch Changes
+
+- [`6f9db080133`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f9db080133) - flaky test reporter
+
+## 187.1.1
+
+### Patch Changes
+
+- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+
 ## 187.0.0
 
 ### Major Changes

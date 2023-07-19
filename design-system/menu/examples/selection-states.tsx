@@ -30,18 +30,20 @@ export default function Example() {
       <MenuGroup maxWidth={300}>
         <Section>
           <ButtonItem isSelected>Button</ButtonItem>
-          {/* TODO: Links should go to an actual anchor or link (DSP-11466) */}
-          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-          <LinkItem href="#" onClick={(e) => e.preventDefault()} isSelected>
-            Link
+          <LinkItem
+            href="http://www.atlassian.com"
+            onClick={(e) => e.preventDefault()}
+            isSelected
+          >
+            Link to Atlassian
           </LinkItem>
           <CustomItem
             component={Link}
             onClick={(e) => e.preventDefault()}
-            href="#"
+            href="http://www.atlassian.com"
             isSelected
           >
-            Custom
+            Custom (Link to Atlassian)
           </CustomItem>
         </Section>
       </MenuGroup>
@@ -53,17 +55,20 @@ export default function Example() {
             <ButtonItem description="Secondary text" isSelected>
               Primary text
             </ButtonItem>
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <LinkItem href="#" onClick={(e) => e.preventDefault()} isSelected>
-              Link
+            <LinkItem
+              href="http://www.atlassian.com"
+              onClick={(e) => e.preventDefault()}
+              isSelected
+            >
+              Link to Atlassian
             </LinkItem>
             <CustomItem
               component={Link}
               onClick={(e) => e.preventDefault()}
-              href="#"
+              href="http://www.atlassian.com"
               isSelected
             >
-              Custom
+              Custom (Link to Atlassian)
             </CustomItem>
           </Section>
         </SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>

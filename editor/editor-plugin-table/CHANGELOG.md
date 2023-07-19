@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.3.1
+
+### Patch Changes
+
+- [`a9c98fc8503`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a9c98fc8503) - [ED-19028] Remove less-padding class when using table width resizer
+
 ## 2.3.0
 
 ### Minor Changes

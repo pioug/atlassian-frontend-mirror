@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.0.0
+
+### Major Changes
+
+- [`582f0121f72`](https://bitbucket.org/atlassian/atlassian-frontend/commits/582f0121f72) - Deleted deprecated extractors from @atlaskit/linking-common - use @atlaskit/link-extractors instead, it has all the same exports. No other breaking changes - if you don't have any imports from extractors then you can safely upgrade
+
 ## 3.4.0
 
 ### Minor Changes

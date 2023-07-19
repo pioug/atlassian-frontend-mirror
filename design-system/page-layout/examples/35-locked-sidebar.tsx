@@ -5,7 +5,12 @@ import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button';
 import MoreIcon from '@atlaskit/icon/glyph/more';
-import { ButtonItem, LinkItem, PopupMenuGroup, Section } from '@atlaskit/menu';
+import {
+  ButtonItem,
+  CustomItem,
+  PopupMenuGroup,
+  Section,
+} from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import {
   Header,
@@ -81,9 +86,12 @@ const App = () => {
             </NavigationHeader>
             <NestableNavigationContent initialStack={[]}>
               <Section>
-                {/* TODO: Links should go to an actual anchor or link (DSP-11466). */}
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <LinkItem iconAfter={<Menu />}>Popup</LinkItem>
+                <CustomItem
+                  iconAfter={<Menu />}
+                  component={({ children }) => <div>{children}</div>}
+                >
+                  Popup
+                </CustomItem>
               </Section>
             </NestableNavigationContent>
           </SideNavigation>

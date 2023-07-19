@@ -6,10 +6,8 @@ const MessageContent = (
   <div>
     <span>Authenticate heading</span>
     <span>
-      {/* TODO: Use descriptive text for link (DSP-11466) */}
-      {/* eslint-disable-next-line jsx-a11y/anchor-ambiguous-text */}
-      Authenticate <a href="https://atlaskit.atlassian.com/">here</a> to see
-      more information
+      <a href="http://www.atlassian.com">Authenticate</a> to see more
+      information
     </span>
   </div>
 );

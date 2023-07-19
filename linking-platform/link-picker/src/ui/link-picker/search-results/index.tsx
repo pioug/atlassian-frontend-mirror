@@ -18,11 +18,8 @@ import {
 } from './link-search-error';
 import { LinkSearchList, testIds as listTestIds } from './link-search-list';
 import { ScrollingTabList } from './scrolling-tabs';
-import {
-  flexColumnStyles,
-  spinnerContainerStyles,
-  tabsWrapperStyles,
-} from './styled';
+import { SearchResultsContainer } from './search-results-container';
+import { spinnerContainerStyles, tabsWrapperStyles } from './styled';
 import { TrackTabViewed } from './track-tab-viewed';
 
 export const testIds = {
@@ -86,8 +83,12 @@ export const SearchResults = ({
       ))}
     </TabList>
   );
+
   return (
-    <Fragment>
+    <SearchResultsContainer
+      hasTabs={!!tabs.length || isLoadingPlugins}
+      {...fixListHeightProps}
+    >
       {isLoadingPlugins && !!queryState && (
         <div css={spinnerContainerStyles}>
           <Spinner testId={testIds.tabsLoadingIndicator} size="medium" />
@@ -112,29 +113,27 @@ export const SearchResults = ({
               <TrackTabViewed activePlugin={activePlugin} />
             </div>
           )}
-          <div css={flexColumnStyles} {...fixListHeightProps}>
-            {!error && (
-              <LinkSearchList
-                id={linkSearchListId}
-                role="listbox"
-                items={items}
-                isLoading={isLoadingResults}
-                selectedIndex={selectedIndex}
-                activeIndex={activeIndex}
-                onSelect={handleSelected}
-                onChange={handleSearchListOnChange}
-                onKeyDown={handleKeyDown}
-                hasSearchTerm={!!queryState?.query.length}
-                activePlugin={activePlugin}
-              />
-            )}
-            {error &&
-              (activePlugin?.errorFallback?.(error, retry) ?? (
-                <LinkSearchError />
-              ))}
-          </div>
+          {!error && (
+            <LinkSearchList
+              id={linkSearchListId}
+              role="listbox"
+              items={items}
+              isLoading={isLoadingResults}
+              selectedIndex={selectedIndex}
+              activeIndex={activeIndex}
+              onSelect={handleSelected}
+              onChange={handleSearchListOnChange}
+              onKeyDown={handleKeyDown}
+              hasSearchTerm={!!queryState?.query.length}
+              activePlugin={activePlugin}
+            />
+          )}
+          {error &&
+            (activePlugin?.errorFallback?.(error, retry) ?? (
+              <LinkSearchError />
+            ))}
         </Fragment>
       )}
-    </Fragment>
+    </SearchResultsContainer>
   );
 };

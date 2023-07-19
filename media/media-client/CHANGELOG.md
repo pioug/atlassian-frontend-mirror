@@ -1,5 +1,11 @@
 # @atlaskit/media-client
 
+## 23.1.1
+
+### Patch Changes
+
+- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+
 ## 23.1.0
 
 ### Minor Changes

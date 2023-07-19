@@ -1,5 +1,11 @@
 # @atlaskit/media-table
 
+## 15.0.6
+
+### Patch Changes
+
+- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+
 ## 15.0.5
 
 ### Patch Changes

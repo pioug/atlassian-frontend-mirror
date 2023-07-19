@@ -1,10 +1,20 @@
 /** @jsx jsx */
-import { ElementType, MouseEventHandler, useCallback, useState } from 'react';
+import {
+  ElementType,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 
 import { jsx } from '@emotion/react';
+import { bind, UnbindFn } from 'bind-event-listener';
 
 import Avatar, { SizeType } from '@atlaskit/avatar';
-import { PopupMenuGroup, Section } from '@atlaskit/menu';
+import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
+import noop from '@atlaskit/ds-lib/noop';
+import useFocus from '@atlaskit/ds-lib/use-focus-event';
+import { Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 import Tooltip, { PositionType } from '@atlaskit/tooltip';
@@ -12,6 +22,7 @@ import Tooltip, { PositionType } from '@atlaskit/tooltip';
 import AvatarGroupItem from './avatar-group-item';
 import Grid from './grid';
 import FocusManager from './internal/components/focus-manager';
+import PopupAvatarGroup from './internal/components/popup-avatar-group';
 import MoreIndicator from './more-indicator';
 import Stack from './stack';
 import {
@@ -184,8 +195,66 @@ const AvatarGroup = ({
   label = 'avatar group',
   tooltipPosition = 'bottom',
 }: AvatarGroupProps) => {
+  const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const onClose = useCallback(() => setIsOpen(false), []);
+
+  const handleTriggerClicked = useCallback((event) => {
+    const { clientX, clientY, type } = event;
+    // Hitting enter/space is registered as a click with both clientX and clientY === 0
+    if (type === 'keydown' || clientX === 0 || clientY === 0) {
+      setTriggeredUsingKeyboard(true);
+    }
+    setIsOpen((isOpen) => !isOpen);
+  }, []);
+
+  const { isFocused, bindFocus } = useFocus();
+
+  // When a trigger is focused, we want to open the popup
+  // the user presses the DownArrow
+  useEffect(() => {
+    // Set initial value if popup is closed
+    if (!isOpen) {
+      setTriggeredUsingKeyboard(false);
+    }
+
+    // Only need to listen for keydown when focused
+    if (!isFocused) {
+      return noop;
+    }
+
+    // Being safe: we don't want to open the popup if it is already open
+    // Note: This shouldn't happen as the trigger should not be able to get focus
+    if (isOpen) {
+      return noop;
+    }
+
+    bind(window, {
+      type: 'keydown',
+      listener: function openOnKeyDown(e: KeyboardEvent) {
+        if (e.key === KEY_DOWN) {
+          // prevent page scroll
+          e.preventDefault();
+          handleTriggerClicked(e);
+        }
+      },
+    });
+
+    const unbind: UnbindFn = () => {
+      bind(window, {
+        type: 'keydown',
+        listener: function openOnKeyDown(e: KeyboardEvent) {
+          if (e.key === KEY_DOWN) {
+            // prevent page scroll
+            e.preventDefault();
+            handleTriggerClicked(e);
+          }
+        },
+      });
+    };
+
+    return unbind;
+  }, [isFocused, isOpen, handleTriggerClicked]);
 
   function renderMoreDropdown(max: number, total: number) {
     if (total <= max) {
@@ -238,12 +307,15 @@ const AvatarGroup = ({
         rootBoundary={rootBoundary}
         shouldFlip
         zIndex={layers.modal()}
-        content={() => (
+        content={({ setInitialFocusRef }) => (
           <FocusManager>
-            <PopupMenuGroup
+            <PopupAvatarGroup
               onClick={(e) => e.stopPropagation()}
               minWidth={250}
               maxHeight={300}
+              setInitialFocusRef={
+                isTriggeredUsingKeyboard ? setInitialFocusRef : undefined
+              }
             >
               <Section>
                 {data.slice(max).map((avatar, index) =>
@@ -262,13 +334,14 @@ const AvatarGroup = ({
                   ),
                 )}
               </Section>
-            </PopupMenuGroup>
+            </PopupAvatarGroup>
           </FocusManager>
         )}
         trigger={(triggerProps) =>
           renderMoreButton({
             ...triggerProps,
-            onClick: () => setIsOpen(!isOpen),
+            ...bindFocus,
+            onClick: handleTriggerClicked,
           })
         }
         testId={testId && `${testId}--overflow-menu`}

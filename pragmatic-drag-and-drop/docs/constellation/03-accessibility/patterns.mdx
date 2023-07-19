@@ -4,33 +4,74 @@ title: Accessibility
 description: Accessible design lets people of all abilities interact with, understand, and navigate our products.
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+
 Alternative flows can be implemented in a variety of ways.
 
 For reference, we've collected some patterns for alternative flows. These are not expected to be implemented exactly as shown and can be adapted where necessary.
 
-## Inline buttons
+## Action buttons
 
-<!-- ![Something](images/inline-buttons.png) -->
+<SectionMessage>
 
-Buttons can be placed inside draggable items, providing directional input.
+This is the pattern we recommend for most use cases.
 
-## Dropdown menus
+</SectionMessage>
 
-Each menu item corresponds to a list that can be moved to. These options are presented in the same order that the lists are displayed to the user.
-	
-Menu items can provide directional input.
+Each `draggable` item is given an `...` action menu which contains all possible actions for the entity (eg "move issue to in progress", "reorder item below next item", "delete card" and so on).
 
-Items can be added to provide shortcuts like ‘move to top’.
+```ts
+import Button from '@atlaskit/button';
+import DropdownMenu, {
+  DropdownItem,
+  DropdownItemGroup,
+} from '@atlaskit/dropdown-menu';
+import MoreIcon from '@atlaskit/icon/glyph/more';
+import Tooltip from '@atlaskit/tooltip';
 
-## Toggles
-	
-Toggles can be used to show or hide edit controls.
-
-This pattern can be combined with other patterns.
+export function CardExample() {
+  return (
+    <DropdownMenu
+      trigger={({ triggerRef, ...triggerProps }) => (
+        <Tooltip content="Card actions" position="left">
+          <Button
+            ref={triggerRef}
+            {...triggerProps}
+            iconBefore={<MoreIcon label="Card actions" size="small" />}
+            spacing="compact"
+          />
+        </Tooltip>
+      )}
+    >
+      <DropdownItemGroup>
+        <DropdownItem isDisabled={isFirstRow} onClick={moveUp}>
+          Move up
+        </DropdownItem>
+        <DropdownItem isDisabled={isLastRow} onClick={moveDown}>
+          Move down
+        </DropdownItem>
+      </DropdownItemGroup>
+    </DropdownMenu>
+  );
+}
+```
 
 ## Modal dialogs
 
-Modals can be used when a form is needed.
+Modals are an alternative to the `DropDownMenu` approach. Rather than your action button triggering a `DropDownMenu`, your action button can trigger a `Modal`. A `Modal` can be used to to power more complex interactions. For example:
+
+- Interactions that require user input
+- Interactions that require multiple choices to be made
+
+## Inline buttons
+
+Buttons can be placed inside draggable items, providing directional input. This is useful for free movement experiences such as diagrams and drawing.
+
+## Toggles
+
+Toggles can be used to show or hide edit controls.
+
+This pattern can be combined with other patterns.
 
 ## Select and move
 

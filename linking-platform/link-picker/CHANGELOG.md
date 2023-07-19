@@ -1,5 +1,12 @@
 # @atlaskit/link-picker
 
+## 1.27.2
+
+### Patch Changes
+
+- [`fa3c0d93eae`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa3c0d93eae) - Improves fixed height display of link picker when 'platform.linking-platform.link-picker.fixed-height-search-results' is enabled.
+- Updated dependencies
+
 ## 1.27.1
 
 ### Patch Changes

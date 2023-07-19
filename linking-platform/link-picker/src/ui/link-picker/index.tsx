@@ -495,7 +495,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
               onChange={handleChangeText}
             />
           )}
-          {!!queryState && (
+          {!!queryState && (isLoadingPlugins || isActivePlugin) && (
             <SearchResults
               activeTab={activeTab}
               tabs={tabs}

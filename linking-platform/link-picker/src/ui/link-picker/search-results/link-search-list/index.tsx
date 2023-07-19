@@ -18,6 +18,7 @@ import {
   LinkPickerPlugin,
   LinkSearchListItemData,
 } from '../../../../common/types';
+import { MinHeightContainer } from '../../../../common/ui/min-height-container';
 import { handleNavKeyDown } from '../../../../common/utils/handleNavKeyDown';
 
 import {
@@ -239,12 +240,21 @@ export const LinkSearchList = forwardRef<HTMLDivElement, LinkSearchListProps>(
 
     if (isLoading) {
       loadingContent = (
-        <div css={spinnerContainerStyles}>
+        <MinHeightContainer
+          minHeight={
+            getBooleanFF(
+              'platform.linking-platform.link-picker.fixed-height-search-results',
+            )
+              ? '50px'
+              : '80px'
+          }
+          css={spinnerContainerStyles}
+        >
           <Spinner
             testId={testIds.searchResultLoadingIndicator}
             size="medium"
           />
-        </div>
+        </MinHeightContainer>
       );
     }
 

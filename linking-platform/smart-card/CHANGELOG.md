@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.9.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.9.11
+
+### Patch Changes
+
+- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+
 ## 26.9.10
 
 ### Patch Changes

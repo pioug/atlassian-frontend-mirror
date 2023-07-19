@@ -1,5 +1,11 @@
 # @atlaskit/reduced-ui-pack
 
+## 18.0.4
+
+### Patch Changes
+
+- [`3fb20c4aeba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb20c4aeba) - Add postinstall check to enforce internal peer dependencies
+
 ## 18.0.3
 
 ### Patch Changes

@@ -134,9 +134,6 @@ export type CardBaseActionCreator<T = JsonLd.Response> = (
   ignoreStatusCheck?: boolean,
 ) => CardAction<T>;
 
-// @public @deprecated (undocumented)
-export type CardPlatform = JsonLd.Primitives.Platforms;
-
 // @public (undocumented)
 export interface CardState {
   // (undocumented)
@@ -215,26 +212,11 @@ export interface EmbedCardAdf {
   type: 'embedCard';
 }
 
-// @public @deprecated (undocumented)
-type EmbedIframeUrlType = 'href' | 'interactiveHref';
-
 // @public (undocumented)
 export type EnvironmentsKeys = keyof typeof BaseUrls;
 
 // @public (undocumented)
 export type ErrorType = 'UnexpectedError' | ServerErrorType;
-
-// @public @deprecated (undocumented)
-export const extractPreview: (
-  jsonLd: JsonLd.Data.BaseData,
-  platform?: CardPlatform,
-  iframeUrlType?: EmbedIframeUrlType,
-) => LinkPreview_2 | undefined;
-
-// @public @deprecated (undocumented)
-export const extractUrlFromLinkJsonLd: (
-  link: JsonLd.Primitives.Link | JsonLd.Primitives.Link[],
-) => string | undefined;
 
 // @public (undocumented)
 export const getBaseUrl: (envKey?: keyof typeof BaseUrls) => string;
@@ -296,26 +278,6 @@ export interface LinkingPlatformFeatureFlags {
   // (undocumented)
   useLinkPickerScrollingTabs?: boolean;
   useLozengeAction?: string;
-}
-
-// @public @deprecated (undocumented)
-export interface LinkPreview {
-  // (undocumented)
-  aspectRatio?: number;
-  // (undocumented)
-  content?: string;
-  // (undocumented)
-  src?: string;
-}
-
-// @public @deprecated (undocumented)
-interface LinkPreview_2 {
-  // (undocumented)
-  aspectRatio?: number;
-  // (undocumented)
-  content?: string;
-  // (undocumented)
-  src?: string;
 }
 
 // @public (undocumented)

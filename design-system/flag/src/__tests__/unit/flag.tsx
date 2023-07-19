@@ -42,11 +42,7 @@ describe('Flag', () => {
         generateFlag({
           description: (
             <Text testId="description-jsx">
-              Check this
-              {/* TODO: Use descriptive text for link (DSP-11466) */}
-              {/* eslint-disable-next-line jsx-a11y/anchor-ambiguous-text */}
-              <a href="https://google.com">link</a>
-              out
+              <a href="https://atlassian.com">Atlassian</a>
             </Text>
           ),
           testId: 'flag-test',

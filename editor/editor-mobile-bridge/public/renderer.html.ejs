@@ -10,6 +10,8 @@
   Required for enabling dark mode via strategy: https://issuetracker.google.com/issues/158022504#comment3
   -->
   <meta name="color-scheme" content="light dark">
+  <link data-theme="light" rel="stylesheet" href="themes/atlaskit-tokens_light.css" />
+  <link data-theme="dark" rel="stylesheet" href="themes/atlaskit-tokens_dark.css" />
   <style>
     /*
       ED-10813: Temporary disablement of heading link buttons (copy link to clipboard)
@@ -23,6 +25,31 @@
     */
     .heading-anchor-wrapper {
       display: none !important;
+    }
+  </style>
+  <style>
+    /*
+      ED-10813: Temporary disablement of heading link buttons (copy link to clipboard)
+      until the full UX flow is supported on mobile.
+
+      Confluence enables the `?allowHeadingAnchorLinks=true` to support scrolling to headings
+      nested inside an expand node, but this feature flag also opts into displaying the new
+      copy link UI/UX which isn't functional on mobile yet.
+
+      For now we remove it from the DOM via CSS to avoid impact to customers.
+    */
+    .heading-anchor-wrapper {
+      display: none !important;
+    }
+  </style>
+  <style>
+    /*
+      Forces black to improve battery life for OLED mobile screens
+    */
+    @media (prefers-color-scheme: dark) {
+      html[data-color-mode="dark"] {
+        background: #000;
+      }
     }
   </style>
   <style>
@@ -91,7 +118,7 @@
     }
 
     body {
-      color: #172B4D;
+      color: var(--ds-text, #172B4D);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
       font-style: normal;
       font-weight: 400;
@@ -118,21 +145,21 @@
     }
 
     a {
-      color: #0052CC;
+      color: var(--ds-link, #0052CC);
       text-decoration: none;
     }
 
     a:hover {
-      color: #0065FF;
+      color: var(--ds-link, #0065FF);
       text-decoration: underline;
     }
 
     a:active {
-      color: #0747A6;
+      color: var(--ds-link-pressed, #0747A6);
     }
 
     a:focus {
-      outline: 2px solid #4C9AFF;
+      outline: 2px solid var(--ds-border-focused, #4C9AFF);
       outline-offset: 2px;
     }
 
@@ -182,7 +209,7 @@
     }
 
     h6 {
-      color: #5E6C84;
+      color: var(--ds-text-subtlest, #5E6C84);
       font-size: 0.85714286em;
       font-weight: 600;
       line-height: 1.33333333;
@@ -276,7 +303,7 @@
     }
 
     small {
-      color: #5E6C84;
+      color: var(--ds-text-subtlest, #5E6C84);
       font-size: 0.85714286em;
       font-weight: normal;
       line-height: 1.33333333;
@@ -301,7 +328,7 @@
     }
 
     abbr {
-      border-bottom: 1px #ccc dotted;
+      border-bottom: 1px var(--ds-border, #ccc) dotted;
       cursor: help;
     }
 
@@ -313,7 +340,7 @@
     thead,
     tbody,
     tfoot {
-      border-bottom: 2px solid #DFE1E6;
+      border-bottom: 2px solid var(--ds-border, #DFE1E6);
     }
 
     td,

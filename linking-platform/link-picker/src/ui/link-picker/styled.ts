@@ -20,17 +20,6 @@ export const rootContainerStyles = css`
   line-height: initial;
 `;
 
-export const tabsWrapperStyles = css`
-  margin-top: ${token('space.150', '12px')};
-  margin-left: calc(-1 * ${token('space.100', '8px')});
-  margin-right: calc(-1 * ${token('space.100', '8px')});
-`;
-
-export const flexColumnStyles = css`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const formFooterMargin = css`
   margin-top: ${token('space.200', '16px')};
 `;

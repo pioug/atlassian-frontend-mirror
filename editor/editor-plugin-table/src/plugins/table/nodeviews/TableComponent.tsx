@@ -8,10 +8,7 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { tableMarginSides } from '@atlaskit/editor-common/styles';
 import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
-import {
-  akEditorMobileBreakoutPoint,
-  akEditorTableToolbarSize as tableToolbarSize,
-} from '@atlaskit/editor-shared-styles';
+import { akEditorTableToolbarSize as tableToolbarSize } from '@atlaskit/editor-shared-styles';
 
 import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
@@ -396,7 +393,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           [ClassName.TABLE_STICKY]: this.state.stickyHeader && hasHeaderRow,
           [ClassName.HOVERED_DELETE_BUTTON]: isInDanger,
           [ClassName.TABLE_SELECTED]: isTableSelected(view.state.selection),
-          'less-padding': containerWidth.width < akEditorMobileBreakoutPoint,
         })}
         editorView={view}
         getPos={getPos}

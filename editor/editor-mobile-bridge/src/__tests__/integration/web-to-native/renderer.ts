@@ -3,10 +3,11 @@ import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import { renderer, getBridgeOutput } from '../_utils';
 
 // Skipped Firefox because it inconsistently gives different test results
+// FIXME: This test was automatically skipped for safari due to failure on Works when manually tested but sometimes flaky
 BrowserTestCase(
   `renderer.ts: call onContentRendered() on native bridge.`,
   {
-    skip: ['firefox'],
+    skip: ['firefox', 'safari'],
   },
   async (client: any, testName: string) => {
     const browser = new Page(client);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import memoizeOne from 'memoize-one';
 import isEqual from 'lodash/isEqual';
 import {
@@ -34,6 +34,7 @@ import { geti18NMessages } from './editor-localisation-provider';
 import { withSystemTheme } from '../WithSystemTheme';
 import {
   getEnableLightDarkTheming,
+  getEnableTokenThemes,
   getAllowCaptions,
   getMediaImageResize,
   getAllowMediaInline,
@@ -46,6 +47,7 @@ import EditorConfiguration from './editor-configuration';
 import { useToolbarSubscription } from './hooks/use-toolbar-subscription';
 import { useTypeAheadSubscription } from './hooks/use-type-ahead-subscription';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import { setGlobalTheme } from '@atlaskit/tokens';
 
 export interface MobileEditorProps extends EditorProps {
   createCollabProvider: (bridge: WebBridgeImpl) => Promise<CollabProvider>;
@@ -257,6 +259,13 @@ export function MobileEditor(props: MobileEditorProps) {
 }
 
 const MobileEditorWithBridge: React.FC<MobileEditorProps> = (props) => {
+  useEffect(() => {
+    const setTheme = async () => await setGlobalTheme({ colorMode: 'auto' });
+    if (getEnableTokenThemes()) {
+      setTheme();
+    }
+  }, []);
+
   return <MobileEditor {...props} />;
 };
 
@@ -265,7 +274,6 @@ const MobileEditorWithIntlProvider = withIntlProvider(
   geti18NMessages,
 );
 
-export default withSystemTheme(
-  MobileEditorWithIntlProvider,
-  getEnableLightDarkTheming(),
-);
+export default getEnableTokenThemes()
+  ? MobileEditorWithIntlProvider
+  : withSystemTheme(MobileEditorWithIntlProvider, getEnableLightDarkTheming());

@@ -1,6 +1,6 @@
+import { Command } from '@atlaskit/editor-common/types';
 import { splitCellWithType } from '@atlaskit/editor-tables/utils';
 
-import { Command } from '@atlaskit/editor-common/types';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { TablePluginState } from '../types';
 

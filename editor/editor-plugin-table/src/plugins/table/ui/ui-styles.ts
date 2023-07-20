@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+
 import {
   tableCellBorderWidth,
   tableMarginTop,
@@ -10,40 +11,41 @@ import {
   akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles';
 import {
-  N40A,
   B300,
-  N300,
-  R300,
-  N20A,
-  N60A,
   N0,
-  Y50,
+  N20A,
+  N300,
+  N40A,
+  N60A,
+  R300,
   Y200,
+  Y50,
 } from '@atlaskit/theme/colors';
-import {
-  tableBorderColor,
-  tableToolbarSelectedColor,
-  tableHeaderCellBackgroundColor,
-  tableBorderSelectedColor,
-  tableCellDeleteColor,
-  tableBorderDeleteColor,
-  tableToolbarDeleteColor,
-  lineMarkerSize,
-  columnControlsDecorationHeight,
-  columnControlsZIndex,
-  columnControlsSelectedZIndex,
-  resizeHandlerAreaWidth,
-  resizeLineWidth,
-  resizeHandlerZIndex,
-  tableToolbarSize,
-  tableInsertColumnButtonSize,
-  tableDeleteButtonSize,
-} from './consts';
-
-import { TableCssClassName as ClassName } from '../types';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
+
+import { TableCssClassName as ClassName } from '../types';
+
+import {
+  columnControlsDecorationHeight,
+  columnControlsSelectedZIndex,
+  columnControlsZIndex,
+  lineMarkerSize,
+  resizeHandlerAreaWidth,
+  resizeHandlerZIndex,
+  resizeLineWidth,
+  tableBorderColor,
+  tableBorderDeleteColor,
+  tableBorderSelectedColor,
+  tableCellDeleteColor,
+  tableDeleteButtonSize,
+  tableHeaderCellBackgroundColor,
+  tableInsertColumnButtonSize,
+  tableToolbarDeleteColor,
+  tableToolbarSelectedColor,
+  tableToolbarSize,
+} from './consts';
 
 const InsertLine = (cssString?: string) => css`
   .${ClassName.CONTROLS_INSERT_LINE} {

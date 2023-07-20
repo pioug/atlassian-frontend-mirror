@@ -1,23 +1,23 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
-  editable,
-  getDocFromElement,
-  fullpage,
   doubleClickResizeHandle,
+  editable,
+  fullpage,
+  getDocFromElement,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   clickFirstCell,
   selectTable,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
-  tableWithUnevenColumns,
-  tableWithUnevenColumnsInOverflow,
-} from './__fixtures__/even-columns';
-
-import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+
+import {
+  tableWithUnevenColumns,
+  tableWithUnevenColumnsInOverflow,
+} from './__fixtures__/even-columns';
 
 // moveTo in doubleClickResizeHandle does not work for safari
 BrowserTestCase(

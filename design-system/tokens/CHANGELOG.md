@@ -1,5 +1,27 @@
 # @atlaskit/tokens
 
+## 1.13.1
+
+### Patch Changes
+
+- [`74f7af9882b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74f7af9882b) - [ux] correct fallback color of token color.border.focused to meet contrast requirement
+
+## 1.13.0
+
+### Minor Changes
+
+- [`bc512702bdc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc512702bdc) - Introduces new brand background tokens.
+
+  - `color.background.brand.subtlest` - Use for the background of elements used to reinforce our brand, but with less emphasis.
+  - `color.background.brand.subtlest.hovered` - Hovered state of color.background.brand.subtlest.
+  - `color.background.brand.subtlest.pressed` - Pressed state of color.background.brand.subtlest.
+
+  - `color.background.brand.boldest` - Use for the background of elements used to reinforce our brand, that need to stand out a lot.
+  - `color.background.brand.boldest.hovered` - Hovered state of color.background.brand.boldest.
+  - `color.background.brand.boldest.pressed` - Pressed state of color.background.brand.boldest.
+
+  Updates custom color generation system with new brand background tokens.
+
 ## 1.12.0
 
 ### Minor Changes

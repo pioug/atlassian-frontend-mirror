@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
-import { Checkbox } from '@atlaskit/checkbox';
 import Grid, { GridItem } from '@atlaskit/grid';
 import Heading from '@atlaskit/heading';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
@@ -138,8 +137,7 @@ export default function ContrastChecker() {
 
   // Set base theme on initial load
   const [baseThemeType, setBaseThemeType] = useState(initialColorMode);
-  const [isDarkIterationSelected, setIsDarkIterationSelected] =
-    useState<boolean>(false);
+
   setGlobalTheme({
     colorMode: baseThemeType,
     spacing: 'spacing',
@@ -147,12 +145,7 @@ export default function ContrastChecker() {
   });
 
   if (customTheme) {
-    setSearchParams(
-      customTheme,
-      customBaseTokens,
-      baseThemeType,
-      isDarkIterationSelected,
-    );
+    setSearchParams(customTheme, customBaseTokens, baseThemeType);
   }
 
   // Parse query params and set the custom theme based on that
@@ -161,7 +154,6 @@ export default function ContrastChecker() {
     setCustomTheme(queryParams.theme);
     setCustomBaseTokens(queryParams.baseTokens);
     setBaseThemeType(queryParams.colorMode);
-    setIsDarkIterationSelected(queryParams.isDarkIterationSelected);
   }, []);
 
   return (
@@ -176,17 +168,6 @@ export default function ContrastChecker() {
                   value={baseThemeType}
                   onChange={setBaseThemeType}
                 />
-                {baseThemeType === 'dark' && (
-                  <Checkbox
-                    value="dark_iteration"
-                    label="Dark iteration enabled"
-                    isChecked={isDarkIterationSelected}
-                    onChange={(e) =>
-                      setIsDarkIterationSelected(e.target.checked)
-                    }
-                    name="dark_iteration"
-                  />
-                )}
               </Stack>
             </Box>
           </Inline>
@@ -248,7 +229,6 @@ export default function ContrastChecker() {
           customTheme={customTheme}
           customBaseTokens={customBaseTokens}
           baseThemeType={baseThemeType}
-          isDarkIterationSelected={isDarkIterationSelected}
         />
       </GridItem>
       <GridItem>

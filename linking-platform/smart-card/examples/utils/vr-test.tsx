@@ -19,23 +19,29 @@ const horizontalWrapperStyles = css`
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-const testWrapperStyles = css`
+const getTestWrapperStyles = (height?: number) => css`
   padding: 30px;
   background-color: ${exampleTokens.backgroundColor};
+  ${height ? `height: ${height}px` : ''}
 `;
 
 export type VRTestWrapperOptions = {
   title: string;
   children: React.ReactNode;
+  height?: number;
 };
 
 // Mocking Date.now for tests to be consistent
 Date.now = () => new Date('2022-01-25T16:44:00.000+1000').getTime();
 
-export const VRTestWrapper = ({ title, children }: VRTestWrapperOptions) => (
+export const VRTestWrapper = ({
+  title,
+  children,
+  height,
+}: VRTestWrapperOptions) => (
   <IntlProvider locale={'en'}>
     <Page>
-      <div css={testWrapperStyles}>
+      <div css={getTestWrapperStyles(height)}>
         <Global
           styles={css`
             // For VR testing purposes we are overriding the animation timing

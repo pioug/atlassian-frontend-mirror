@@ -1,5 +1,10 @@
 import path from 'path';
 import { main, PeerDependencyError } from '../src/index';
+import { getFeature } from '@atlassian/repo-feature-flags';
+
+jest.mock('@atlassian/repo-feature-flags');
+
+const mockGetFeature = getFeature as jest.Mock;
 
 const mockResolver = jest.fn((packageName: string) =>
   path.resolve(__dirname, `../__fixtures__/${packageName}`),
@@ -15,20 +20,21 @@ function checkPackage(packageName: string) {
 describe('enforce peer dependencies', () => {
   beforeAll(() => {
     jest.spyOn(console, 'log').mockImplementation(() => {});
+    mockGetFeature.mockResolvedValue(true);
   });
 
-  it('should throw error when having incompatible versions of peer dependencies', () => {
+  it('should throw error when having incompatible versions of peer dependencies', async () => {
     checkPackage('package-foo-incompatible-version');
-    expect(() => main(mockResolver)).toThrow(PeerDependencyError);
+    await expect(main(mockResolver)).rejects.toThrow(PeerDependencyError);
   });
 
-  it('should throw error when any peer dependency is not found', () => {
+  it('should throw error when any peer dependency is not found', async () => {
     checkPackage('package-foo-not-found');
-    expect(() => main()).toThrow(PeerDependencyError);
+    await expect(main()).rejects.toThrow(PeerDependencyError);
   });
 
-  it('should pass when all peer dependencies are compatible', () => {
+  it('should pass when all peer dependencies are compatible', async () => {
     checkPackage('package-foo-success');
-    expect(() => main(mockResolver)).not.toThrow();
+    await expect(main(mockResolver)).resolves.toBeUndefined();
   });
 });

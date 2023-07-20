@@ -1,25 +1,25 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorState, Selection, Transaction } from 'prosemirror-state';
+
+import { CardAttributes, DataType, UrlType } from '@atlaskit/adf-schema';
+import {
+  TableSortOrder as SortOrder,
+  TableSortStep,
+} from '@atlaskit/adf-schema/steps';
+import { Command } from '@atlaskit/editor-common/types';
+import { createCompareNodes } from '@atlaskit/editor-common/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { findCellRectClosestToPos } from '@atlaskit/editor-tables/utils';
 import {
   convertArrayOfRowsToTableNode,
   convertTableNodeToArrayOfRows,
+  findCellRectClosestToPos,
   findTable,
   getSelectionRect,
   isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 
-import { CardAttributes, UrlType, DataType } from '@atlaskit/adf-schema';
-import { createCompareNodes } from '@atlaskit/editor-common/utils';
-
-import { Command } from '@atlaskit/editor-common/types';
 import { createCommand, getPluginState } from '../pm-plugins/plugin-factory';
 import { TablePluginState } from '../types';
-import {
-  TableSortStep,
-  TableSortOrder as SortOrder,
-} from '@atlaskit/adf-schema/steps';
 
 const createGetInlineCardTextFromStore = (
   attrs: CardAttributes,

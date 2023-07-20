@@ -1,6 +1,8 @@
-import { createCommand } from '../pm-plugins/plugin-factory';
 import { Node as PMNode } from 'prosemirror-model';
+
 import { removeConnectedNodes } from '@atlaskit/editor-common/utils';
+
+import { createCommand } from '../pm-plugins/plugin-factory';
 
 export const removeDescendantNodes = (sourceNode: PMNode) =>
   createCommand(

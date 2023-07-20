@@ -1,8 +1,15 @@
-import {
-  getToolbarMenuConfig,
-  getToolbarCellOptionsConfig,
-} from '../../plugins/table/toolbar';
-import { ToolbarMenuConfig, ToolbarMenuState } from '../../plugins/table/types';
+import type {
+  Command,
+  DropdownOptionT,
+  FloatingToolbarDropdown,
+} from '@atlaskit/editor-common/types';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { Rect } from '@atlaskit/editor-tables/table-map';
+import { splitCell } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -14,28 +21,22 @@ import {
   tr as row,
   table,
   td,
-  tr,
   tdEmpty,
-  thEmpty,
   th,
+  thEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import type {
-  Command,
-  DropdownOptionT,
-  FloatingToolbarDropdown,
-} from '@atlaskit/editor-common/types';
-import { splitCell } from '@atlaskit/editor-tables/utils';
-import { canMergeCells } from '../../plugins/table/transforms';
-import { Rect } from '@atlaskit/editor-tables/table-map';
+
 import tablePlugin from '../../plugins/table';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { getMergedCellsPositions } from '../../plugins/table/utils';
 import { getNewResizeStateFromSelectedColumns } from '../../plugins/table/pm-plugins/table-resizing/utils/resize-state';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import {
+  getToolbarCellOptionsConfig,
+  getToolbarMenuConfig,
+} from '../../plugins/table/toolbar';
+import { canMergeCells } from '../../plugins/table/transforms';
+import { ToolbarMenuConfig, ToolbarMenuState } from '../../plugins/table/types';
+import { getMergedCellsPositions } from '../../plugins/table/utils';
 
 jest.mock('@atlaskit/editor-tables/utils');
 jest.mock('../../plugins/table/transforms');

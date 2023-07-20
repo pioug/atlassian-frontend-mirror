@@ -153,9 +153,13 @@ export const createExpandNode = (state: EditorState): PMNode | null => {
 export const insertExpand: Command = (state, dispatch) => {
   const expandNode = createExpandNode(state);
 
+  if (!expandNode) {
+    return false;
+  }
+
   const tr = createWrapSelectionTransaction({
     state,
-    type: state.schema.nodes.expand,
+    type: expandNode.type,
   });
   const payload: AnalyticsEventPayload = {
     action: ACTION.INSERTED,

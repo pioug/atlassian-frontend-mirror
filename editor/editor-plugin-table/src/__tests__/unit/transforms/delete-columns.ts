@@ -1,31 +1,33 @@
+import { PluginKey } from 'prosemirror-state';
+
+import { uuid } from '@atlaskit/adf-schema';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { Rect } from '@atlaskit/editor-tables/table-map';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
-  tr,
   td,
   tdCursor,
   tdEmpty,
-  DocBuilder,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { uuid } from '@atlaskit/adf-schema';
-import { TablePluginState } from '../../../plugins/table/types';
-import { deleteColumns } from '../../../plugins/table/transforms';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import { PluginKey } from 'prosemirror-state';
+
 import tablePlugin from '../../../plugins/table-plugin';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import { deleteColumns } from '../../../plugins/table/transforms';
+import { TablePluginState } from '../../../plugins/table/types';
 
 const colsToRect = (cols: Array<number>, noOfRows: number): Rect => ({
   left: Math.min(...cols),

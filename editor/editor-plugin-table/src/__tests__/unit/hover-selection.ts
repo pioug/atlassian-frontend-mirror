@@ -1,4 +1,11 @@
+import { PluginKey } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
+
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   getCellsInColumn,
   getCellsInRow,
@@ -6,36 +13,30 @@ import {
 } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
-  tr,
-  tdEmpty,
   tdCursor,
-  DocBuilder,
+  tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { selectColumns } from '@atlaskit/editor-test-helpers/table';
 
+import tablePlugin from '../../plugins/table-plugin';
 import {
   clearHoverSelection,
   hoverColumns,
   hoverRows,
   hoverTable,
 } from '../../plugins/table/commands';
-import { TableDecorations, TablePluginState } from '../../plugins/table/types';
-import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { getDecorations } from '../../plugins/table/pm-plugins/decorations/plugin';
-import tablePlugin from '../../plugins/table-plugin';
-import { PluginKey } from 'prosemirror-state';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
+import { TableDecorations, TablePluginState } from '../../plugins/table/types';
 
 describe('table hover selection plugin', () => {
   const createEditor = createProsemirrorEditorFactory();

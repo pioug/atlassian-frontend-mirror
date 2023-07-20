@@ -1,9 +1,9 @@
-import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
 import { createFixedGuidelinesFromLengths } from '@atlaskit/editor-common/guideline';
+import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
 import {
   akEditorDefaultLayoutWidth,
-  akEditorWideLayoutWidth,
   akEditorFullWidthLayoutWidth,
+  akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
 export const defaultGuidelineWidths = [

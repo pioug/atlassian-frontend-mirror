@@ -1,4 +1,6 @@
 /** @jsx jsx */
+
+import { token } from '@atlaskit/tokens';
 import React, {
   useMemo,
   useRef,
@@ -221,11 +223,13 @@ const TypeAheadListComponent = React.memo(
             case 'ArrowDown':
               selectNextItem();
               event.preventDefault();
+              event.stopPropagation();
               break;
 
             case 'ArrowUp':
               selectPreviousItem();
               event.preventDefault();
+              event.stopPropagation();
               break;
 
             // TODO DTR-1401: why is this calling item click when hitting tab? fix this in DTR-1401
@@ -337,7 +341,8 @@ const TypeAheadListComponent = React.memo(
             role="listbox"
             css={css`
               button {
-                padding: 12px 12px 11px;
+                padding: ${token('space.150', '12px')}
+                  ${token('space.150', '12px')} 11px;
                 span:last-child span:last-child {
                   white-space: normal;
                 }

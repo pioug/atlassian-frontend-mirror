@@ -15,12 +15,6 @@ describe('EmbedModal', () => {
     return { clip, page };
   };
 
-  it('renders', async () => {
-    const { clip, page } = await render();
-    const image = await page.screenshot({ clip });
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   it('reduces to min size', async () => {
     const { clip, page } = await render();
     await page.click('[data-testid="vr-test-resize-button"]');

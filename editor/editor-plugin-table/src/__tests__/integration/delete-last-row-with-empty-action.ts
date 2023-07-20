@@ -1,16 +1,16 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-
 import {
   editable,
-  getDocFromElement,
   fullpage,
+  getDocFromElement,
   quickInsert,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+
+import { TableCssClassName as ClassName } from '../../plugins/table/types';
 
 BrowserTestCase(
   'delete-last-row.ts: Delete last table row with empty action',

@@ -1,21 +1,21 @@
 import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import {
   tableCellBorderWidth,
   tableMarginTop,
 } from '@atlaskit/editor-common/styles';
-
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import {
   closestElement,
   containsClassName,
   parsePx,
 } from '@atlaskit/editor-common/utils';
+
 import { updateOverflowShadows } from '../../../nodeviews/update-overflow-shadows';
 import { TableCssClassName as ClassName } from '../../../types';
-import { getRowHeights } from '../../../utils/row-controls';
 import { colWidthsForRow } from '../../../utils/column-controls';
+import { getRowHeights } from '../../../utils/row-controls';
 import { getPluginState as getMainPluginState } from '../../plugin-factory';
 
 export const updateControls =

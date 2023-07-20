@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "2.3.1",
+  "version": "2.5.0",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^26.2.0",
-    "@atlaskit/editor-common": "^74.23.0",
+    "@atlaskit/editor-common": "^74.24.0",
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-plugin-analytics": "^0.1.0",
     "@atlaskit/editor-plugin-content-insertion": "^0.0.6",
@@ -37,7 +37,7 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/platform-feature-flags": "^0.2.1",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.12.0",
+    "@atlaskit/tokens": "^1.13.0",
     "@atlaskit/tooltip": "^17.8.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
@@ -62,7 +62,7 @@
   "devDependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/editor-plugin-decorations": "^0.1.0",
-    "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
+    "@atlaskit/editor-plugin-feature-flags": "^0.1.3",
     "@atlaskit/editor-plugin-grid": "^0.1.0",
     "@atlaskit/editor-plugin-guideline": "^0.3.4",
     "@atlaskit/editor-plugin-hyperlink": "^0.2.0",
@@ -87,6 +87,14 @@
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
     "@repo/internal": {
       "design-tokens": [
         "color"

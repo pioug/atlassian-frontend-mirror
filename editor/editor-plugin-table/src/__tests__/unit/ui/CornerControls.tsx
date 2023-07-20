@@ -1,6 +1,13 @@
 import React from 'react';
+
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
@@ -9,21 +16,16 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
-  table,
-  tr,
-  thEmpty,
   DocBuilder,
+  table,
+  thEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { CornerControls } from '../../../plugins/table/ui/TableFloatingControls/CornerControls';
+import tablePlugin from '../../../plugins/table-plugin';
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import tablePlugin from '../../../plugins/table-plugin';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { CornerControls } from '../../../plugins/table/ui/TableFloatingControls/CornerControls';
 
 describe('CornerControls', () => {
   const createEditor = createProsemirrorEditorFactory();

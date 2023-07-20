@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.7.8
+
+### Patch Changes
+
+- [`6a33c4fd6b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a33c4fd6b6) - Removes unnecessary aria attribute from grab area in left sidebar.
+
 ## 1.7.7
 
 ### Patch Changes

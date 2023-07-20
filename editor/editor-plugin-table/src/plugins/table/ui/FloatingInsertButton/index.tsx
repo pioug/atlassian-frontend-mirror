@@ -1,17 +1,27 @@
 import React from 'react';
 
 import { Node as PmNode } from 'prosemirror-model';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findDomRefAtPos } from 'prosemirror-utils';
-import { findTable } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  AnalyticsEventPayload,
+  CONTENT_COMPONENT,
+  DispatchAnalyticsEvent,
+  EVENT_TYPE,
+  INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
-
 import { closestElement } from '@atlaskit/editor-common/utils';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { findTable } from '@atlaskit/editor-tables/utils';
+
 import {
   insertColumnWithAnalytics,
   insertRowWithAnalytics,
@@ -21,12 +31,6 @@ import { checkIfNumberColumnEnabled } from '../../utils';
 
 import getPopupOptions from './getPopupOptions';
 import InsertButton from './InsertButton';
-import {
-  DispatchAnalyticsEvent,
-  AnalyticsEventPayload,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 export interface Props {
   editorView: EditorView;
@@ -44,12 +48,6 @@ export interface Props {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   editorAnalyticsAPI?: EditorAnalyticsAPI;
 }
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-  CONTENT_COMPONENT,
-} from '@atlaskit/editor-common/analytics';
 
 export class FloatingInsertButton extends React.Component<
   Props & WrappedComponentProps,

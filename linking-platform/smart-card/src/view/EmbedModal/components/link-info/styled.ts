@@ -15,7 +15,14 @@ export const containerStyles = css`
 `;
 
 const iconSize = '24px';
+// EDM-7328: CSS Specificity
+// An embed modal icon css for img, span, svg has specificity weight of 0-1-1.
+// Specify flex ui icon selector to increase specificity weight to 0-2-1.
 export const iconCss = css`
+  &,
+  [data-smart-element-icon] img,
+  [data-smart-element-icon] span,
+  [data-smart-element-icon] svg,
   img,
   span,
   svg {

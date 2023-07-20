@@ -16,7 +16,6 @@ export const resizerHandleStickyClassName = 'resizer-handle-sticky';
 // akEditorSelectedNodeClassName from '@atlaskit/editor-shared-styles';
 const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
-export const resizerHandlePadding = 13;
 export const resizerHandleZIndex = 99;
 
 export const resizerHandlerSmallClassName = 'resizer-handler-small';

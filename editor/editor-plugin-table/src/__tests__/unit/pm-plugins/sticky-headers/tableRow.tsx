@@ -1,5 +1,17 @@
-import { EditorView } from 'prosemirror-view';
+import React from 'react';
+
+import { render, screen } from '@testing-library/react';
 import { Node as ProseMirrorNode } from 'prosemirror-model';
+import { EditorView } from 'prosemirror-view';
+import createStub, { Stub } from 'raf-stub';
+
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -7,17 +19,23 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   table,
   tdEmpty,
   thEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TableRowNodeView } from '../../../../plugins/table/pm-plugins/sticky-headers';
+
 import tablePlugin from '../../../../plugins/table';
+import TableComponent from '../../../../plugins/table/nodeviews/TableComponent';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import createStub, { Stub } from 'raf-stub';
+import { TableRowNodeView } from '../../../../plugins/table/pm-plugins/sticky-headers';
+import { updateStickyState } from '../../../../plugins/table/pm-plugins/sticky-headers/commands';
+import { TableCssClassName } from '../../../../plugins/table/types';
+import {
+  stickyRowOffsetTop,
+  tableScrollbarOffset,
+} from '../../../../plugins/table/ui/consts';
 
 jest.mock(
   '../../../../plugins/table/pm-plugins/sticky-headers/commands',
@@ -32,22 +50,6 @@ jest.mock('@atlaskit/editor-common/ui', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/ui'),
   findOverflowScrollParent: jest.fn(() => jest.fn()),
 }));
-
-import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-import { updateStickyState } from '../../../../plugins/table/pm-plugins/sticky-headers/commands';
-import { TableCssClassName } from '../../../../plugins/table/types';
-import TableComponent from '../../../../plugins/table/nodeviews/TableComponent';
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import {
-  stickyRowOffsetTop,
-  tableScrollbarOffset,
-} from '../../../../plugins/table/ui/consts';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('TableRowNodeView', () => {
   let tableRowNodeView: TableRowNodeView;

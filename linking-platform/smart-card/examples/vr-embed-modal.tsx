@@ -8,7 +8,7 @@ import EmbedModal from '../src/view/EmbedModal';
 import './utils/embed-modal-override.css';
 
 export default () => (
-  <VRTestWrapper title="Embed Modal">
+  <VRTestWrapper title="Embed Modal" height={650}>
     <IntlProvider locale="en">
       <EmbedModal
         analytics={mockAnalytics}

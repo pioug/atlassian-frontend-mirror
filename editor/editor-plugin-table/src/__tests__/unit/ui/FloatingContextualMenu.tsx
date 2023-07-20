@@ -1,7 +1,14 @@
 import React from 'react';
+
 import { render, screen } from '@testing-library/react';
 import { EditorView } from 'prosemirror-view';
 import { IntlProvider } from 'react-intl-next';
+
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -17,14 +24,9 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+import tablePlugin from '../../../plugins/table-plugin';
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import FloatingContextualMenu from '../../../plugins/table/ui/FloatingContextualMenu';
-import tablePlugin from '../../../plugins/table-plugin';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('FloatingContextualMenu', () => {
   const createEditor = createProsemirrorEditorFactory();

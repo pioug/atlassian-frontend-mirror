@@ -1,8 +1,20 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
+import { Node as PMNode } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
+import { findParentDomRefOfType } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
 import { defineMessages } from 'react-intl-next';
 
-import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
+import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import {
+  addColumnAfter,
+  addRowAfter,
+  backspace,
+  tooltip,
+} from '@atlaskit/editor-common/keymaps';
 import commonMessages from '@atlaskit/editor-common/messages';
 import type {
   Command,
@@ -12,90 +24,75 @@ import type {
   FloatingToolbarDropdown,
   FloatingToolbarHandler,
   FloatingToolbarItem,
+  GetEditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
-
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-
 import {
-  clearHoverSelection,
-  hoverTable,
-  hoverColumns,
-  hoverRows,
-  removeDescendantNodes,
-  hoverMergedCells,
-} from './commands';
+  cellBackgroundColorPalette,
+  DEFAULT_BORDER_COLOR,
+} from '@atlaskit/editor-common/ui-color';
 import {
-  deleteTableWithAnalytics,
-  toggleHeaderColumnWithAnalytics,
-  toggleHeaderRowWithAnalytics,
-  toggleNumberColumnWithAnalytics,
-  insertRowWithAnalytics,
-  deleteRowsWithAnalytics,
-  mergeCellsWithAnalytics,
-  splitCellWithAnalytics,
-  deleteColumnsWithAnalytics,
-  emptyMultipleCellsWithAnalytics,
-  insertColumnWithAnalytics,
-  wrapTableInExpandWithAnalytics,
-  sortColumnWithAnalytics,
-  setColorWithAnalytics,
-  distributeColumnsWidthsWithAnalytics,
-} from './commands-with-analytics';
-import { getPluginState } from './pm-plugins/plugin-factory';
-import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
-import { pluginKey as tableWidthPluginKey } from './pm-plugins/table-width';
-import {
-  ToolbarMenuConfig,
-  ToolbarMenuState,
-  ToolbarMenuContext,
-  PluginConfig,
-  TableCssClassName,
-} from './types';
-import {
-  getMergedCellsPositions,
-  getSelectedColumnIndexes,
-  getSelectedRowIndexes,
-} from './utils';
-import {
-  isReferencedSource,
+  closestElement,
   getChildrenInfo,
   getNodeName,
+  isReferencedSource,
 } from '@atlaskit/editor-common/utils';
-
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import { Rect } from '@atlaskit/editor-tables/table-map';
 import {
   findCellRectClosestToPos,
   findTable,
   getSelectionRect,
   isSelectionType,
+  splitCell,
 } from '@atlaskit/editor-tables/utils';
-import { EditorState } from 'prosemirror-state';
-import { canMergeCells } from './transforms';
-import { splitCell } from '@atlaskit/editor-tables/utils';
-import tableMessages from './ui/messages';
-import { messages as ContextualMenuMessages } from './ui/FloatingContextualMenu/ContextualMenu';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
-import { Rect } from '@atlaskit/editor-tables/table-map';
-import { findParentDomRefOfType } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
-import { closestElement } from '@atlaskit/editor-common/utils';
 import {
-  addColumnAfter,
-  addRowAfter,
-  tooltip,
-  backspace,
-} from '@atlaskit/editor-common/keymaps';
+  clearHoverSelection,
+  hoverColumns,
+  hoverMergedCells,
+  hoverRows,
+  hoverTable,
+  removeDescendantNodes,
+} from './commands';
+import {
+  deleteColumnsWithAnalytics,
+  deleteRowsWithAnalytics,
+  deleteTableWithAnalytics,
+  distributeColumnsWidthsWithAnalytics,
+  emptyMultipleCellsWithAnalytics,
+  insertColumnWithAnalytics,
+  insertRowWithAnalytics,
+  mergeCellsWithAnalytics,
+  setColorWithAnalytics,
+  sortColumnWithAnalytics,
+  splitCellWithAnalytics,
+  toggleHeaderColumnWithAnalytics,
+  toggleHeaderRowWithAnalytics,
+  toggleNumberColumnWithAnalytics,
+  wrapTableInExpandWithAnalytics,
+} from './commands-with-analytics';
+import { getPluginState } from './pm-plugins/plugin-factory';
+import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
 import { getNewResizeStateFromSelectedColumns } from './pm-plugins/table-resizing/utils/resize-state';
-import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import { pluginKey as tableWidthPluginKey } from './pm-plugins/table-width';
+import { canMergeCells } from './transforms';
 import {
-  cellBackgroundColorPalette,
-  DEFAULT_BORDER_COLOR,
-} from '@atlaskit/editor-common/ui-color';
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+  PluginConfig,
+  TableCssClassName,
+  ToolbarMenuConfig,
+  ToolbarMenuContext,
+  ToolbarMenuState,
+} from './types';
+import { messages as ContextualMenuMessages } from './ui/FloatingContextualMenu/ContextualMenu';
+import tableMessages from './ui/messages';
+import {
+  getMergedCellsPositions,
+  getSelectedColumnIndexes,
+  getSelectedRowIndexes,
+} from './utils';
 
 export const messages = defineMessages({
   tableOptions: {

@@ -18,7 +18,7 @@
 /// <reference types="node" />
 
 // @public (undocumented)
-export function main(resolver?: NodeJS.RequireResolve): void;
+export function main(resolver?: NodeJS.RequireResolve): Promise<void>;
 
 // @public (undocumented)
 export class PeerDependencyError extends Error {}

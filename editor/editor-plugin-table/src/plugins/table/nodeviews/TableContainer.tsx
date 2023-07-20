@@ -1,23 +1,24 @@
 import React, {
+  forwardRef,
   PropsWithChildren,
   useCallback,
   useRef,
-  forwardRef,
 } from 'react';
+
+import classNames from 'classnames';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
+import { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
-
-import { PluginInjectionAPI, TableCssClassName as ClassName } from '../types';
-import { TableResizer } from './TableResizer';
-import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
-import classNames from 'classnames';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
+
+import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';
+import { TableCssClassName as ClassName, PluginInjectionAPI } from '../types';
+
+import { TableResizer } from './TableResizer';
 
 const getMarginLeft = (lineLength: number, tableWidth: number | 'inherit') => {
   let marginLeft;
@@ -82,12 +83,11 @@ export const ResizableTableContainer = ({
   pluginInjectionApi,
 }: PropsWithChildren<ResizableTableContainerProps>) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const innerContainerRef = useRef<HTMLDivElement | null>(null);
   const marginLeftRef = useRef<number | undefined>(0);
 
   const updateWidth = useCallback(
     (width: number) => {
-      if (!containerRef.current || !innerContainerRef.current) {
+      if (!containerRef.current) {
         return;
       }
 
@@ -142,11 +142,7 @@ export const ResizableTableContainer = ({
         tableRef={tableRef}
         displayGuideline={displayGuideline}
       >
-        <InnerContainer
-          ref={innerContainerRef}
-          className={className}
-          node={node}
-        >
+        <InnerContainer className={className} node={node}>
           {children}
         </InnerContainer>
       </TableResizer>
@@ -158,10 +154,7 @@ type TableContainerProps = {
   node: PMNode;
   className: string;
   containerWidth: EditorContainerWidth;
-  // TODO: passing through both isFullWidthModeEnabled and isBreakoutEnabled to support custom table widths and
-  //  exiting breakout behaviour. In the future these values will be removed and replaced
-  // with a single table plugin option - requires changes to editor-core
-  isFullWidthModeEnabled: boolean | undefined;
+  isTableResizingEnabled: boolean | undefined;
   isBreakoutEnabled: boolean | undefined;
   editorView: EditorView;
   getPos: () => number | undefined;
@@ -175,7 +168,7 @@ export const TableContainer = ({
   node,
   className,
   containerWidth: { lineLength, width: editorWidth },
-  isFullWidthModeEnabled,
+  isTableResizingEnabled,
   isBreakoutEnabled,
   editorView,
   getPos,
@@ -183,11 +176,7 @@ export const TableContainer = ({
   isNested,
   pluginInjectionApi,
 }: PropsWithChildren<TableContainerProps>) => {
-  if (
-    (isFullWidthModeEnabled || isBreakoutEnabled) &&
-    getBooleanFF('platform.editor.custom-table-width') &&
-    !isNested
-  ) {
+  if (isTableResizingEnabled && !isNested) {
     return (
       <ResizableTableContainer
         className={className}

@@ -1,8 +1,11 @@
 import React, { SyntheticEvent } from 'react';
 
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import {
+  injectIntl,
+  MessageDescriptor,
+  WrappedComponentProps,
+} from 'react-intl-next';
 
-import { MessageDescriptor } from 'react-intl-next';
 import { TableCssClassName as ClassName } from '../../types';
 
 export interface ButtonProps {

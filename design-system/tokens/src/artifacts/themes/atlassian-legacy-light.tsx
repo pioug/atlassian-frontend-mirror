@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b26866f21e474d3a67f6b1454ba31352>>
+ * @codegen <<SignedSource::6c33e244168e3fd752767b58505680ca>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -76,7 +76,7 @@ html[data-color-mode="dark"][data-theme~="dark:legacy-light"] {
   --ds-border-accent-magenta: #CD519D;
   --ds-border-accent-gray: #5E6C84;
   --ds-border-disabled: #FAFBFC;
-  --ds-border-focused: #4C9AFF;
+  --ds-border-focused: #2684FF;
   --ds-border-input: #FAFBFC;
   --ds-border-inverse: #FFFFFF;
   --ds-border-selected: #0052CC;
@@ -149,9 +149,15 @@ html[data-color-mode="dark"][data-theme~="dark:legacy-light"] {
   --ds-background-selected-bold: #0052CC;
   --ds-background-selected-bold-hovered: #2684FF;
   --ds-background-selected-bold-pressed: #0052CC;
+  --ds-background-brand-subtlest: #B3D4FF;
+  --ds-background-brand-subtlest-hovered: #DEEBFF;
+  --ds-background-brand-subtlest-pressed: #4C9AFF;
   --ds-background-brand-bold: #0052CC;
   --ds-background-brand-bold-hovered: #0065FF;
   --ds-background-brand-bold-pressed: #0747A6;
+  --ds-background-brand-boldest: #0747A6;
+  --ds-background-brand-boldest-hovered: #0052CC;
+  --ds-background-brand-boldest-pressed: #0747A6;
   --ds-background-danger: #FFEBE6;
   --ds-background-danger-hovered: #FFBDAD;
   --ds-background-danger-pressed: #FF8F73;

@@ -41,11 +41,16 @@ import {
 } from './table/sticky';
 import { Table } from './table/table';
 import { SharedTableProps } from './table/types';
+import { isFullWidthOrFullPageAppearance } from '../utils/appearance';
 
 type TableArrayMapped = {
   rowNodes: Array<PMNode | null>;
   rowReact: React.ReactElement;
 };
+
+export const isTableResizingEnabled = (appearance: RendererAppearance) =>
+  getBooleanFF('platform.editor.custom-table-width') &&
+  isFullWidthOrFullPageAppearance(appearance);
 
 const orderChildren = (
   children: React.ReactElement[],
@@ -355,7 +360,7 @@ export class TableContainer extends React.Component<
         : Math.min(getTableContainerWidth(tableNode), renderWidth);
     };
 
-    if (getBooleanFF('platform.editor.custom-table-width') && tableNode) {
+    if (isTableResizingEnabled(rendererAppearance) && tableNode) {
       tableWidth = calcDefaultLayoutWidthByAppearance(
         tableNode,
         rendererAppearance,
@@ -399,6 +404,7 @@ export class TableContainer extends React.Component<
               wrapperWidth={wrapperWidth}
               columnWidths={columnWidths}
               rowHeight={this.headerRowHeight}
+              rendererAppearance={rendererAppearance}
             >
               {[children && children[0]]}
             </StickyTable>
@@ -431,6 +437,7 @@ export class TableContainer extends React.Component<
                 columnWidths={columnWidths}
                 rowHeight={this.headerRowHeight}
                 tableNode={tableNode}
+                rendererAppearance={rendererAppearance}
               >
                 {[children && children[0]]}
               </StickyTable>
@@ -447,6 +454,7 @@ export class TableContainer extends React.Component<
               isNumberColumnEnabled={isNumberColumnEnabled}
               renderWidth={renderWidth}
               tableNode={tableNode}
+              rendererAppearance={rendererAppearance}
             >
               {this.grabFirstRowRef(children)}
             </Table>

@@ -238,6 +238,18 @@ exports[`@atlaskit/primitives bg styles are generated correctly 1`] = `
     'color.background.selected.bold.pressed',
     '#0052CC',
   ),
+  'color.background.brand.subtlest': token(
+    'color.background.brand.subtlest',
+    '#B3D4FF',
+  ),
+  'color.background.brand.subtlest.hovered': token(
+    'color.background.brand.subtlest.hovered',
+    '#DEEBFF',
+  ),
+  'color.background.brand.subtlest.pressed': token(
+    'color.background.brand.subtlest.pressed',
+    '#4C9AFF',
+  ),
   'color.background.brand.bold': token(
     'color.background.brand.bold',
     '#0052CC',
@@ -248,6 +260,18 @@ exports[`@atlaskit/primitives bg styles are generated correctly 1`] = `
   ),
   'color.background.brand.bold.pressed': token(
     'color.background.brand.bold.pressed',
+    '#0747A6',
+  ),
+  'color.background.brand.boldest': token(
+    'color.background.brand.boldest',
+    '#0747A6',
+  ),
+  'color.background.brand.boldest.hovered': token(
+    'color.background.brand.boldest.hovered',
+    '#0052CC',
+  ),
+  'color.background.brand.boldest.pressed': token(
+    'color.background.brand.boldest.pressed',
     '#0747A6',
   ),
   'color.background.danger': token('color.background.danger', '#FFEBE6'),
@@ -406,7 +430,7 @@ exports[`@atlaskit/primitives border styles are generated correctly 1`] = `
   ),
   'color.border.accent.gray': token('color.border.accent.gray', '#5E6C84'),
   'color.border.disabled': token('color.border.disabled', '#FAFBFC'),
-  'color.border.focused': token('color.border.focused', '#4C9AFF'),
+  'color.border.focused': token('color.border.focused', '#2684FF'),
   'color.border.input': token('color.border.input', '#FAFBFC'),
   'color.border.inverse': token('color.border.inverse', '#FFFFFF'),
   'color.border.selected': token('color.border.selected', '#0052CC'),

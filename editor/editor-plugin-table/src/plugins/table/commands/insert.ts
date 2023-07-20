@@ -1,5 +1,11 @@
 // #region Imports
 import { Selection, Transaction } from 'prosemirror-state';
+import { safeInsert } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+
+import { AddColumnStep } from '@atlaskit/adf-schema/steps';
+import { Command } from '@atlaskit/editor-common/types';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   addColumnAt as addColumnAtPMUtils,
@@ -8,16 +14,11 @@ import {
   findTable,
   selectedRect,
 } from '@atlaskit/editor-tables/utils';
-import { safeInsert } from 'prosemirror-utils';
 
-import { AddColumnStep } from '@atlaskit/adf-schema/steps';
-
-import { Command } from '@atlaskit/editor-common/types';
+import { rescaleColumns } from '../transforms/column-width';
 import { checkIfHeaderRowEnabled, copyPreviousRow } from '../utils';
 import { getAllowAddColumnCustomStep } from '../utils/get-allow-add-column-custom-step';
-import { rescaleColumns } from '../transforms/column-width';
-import { EditorView } from 'prosemirror-view';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+
 // #endregion
 
 function addColumnAtCustomStep(column: number) {

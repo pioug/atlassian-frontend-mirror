@@ -1,37 +1,38 @@
-import {
-  createProsemirrorEditorFactory,
-  LightEditorPlugin,
-  Preset,
-} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { setResizeHandlePos } from '../../../../plugins/table/pm-plugins/table-resizing/commands';
-import {
-  doc,
-  table,
-  tr,
-  td,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { EditorState, TextSelection } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
   TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import {
+  akEditorDefaultLayoutWidth,
+  akEditorFullPageMaxWidth,
+} from '@atlaskit/editor-shared-styles/consts';
+import {
+  createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import {
+  doc,
+  DocBuilder,
+  p,
+  table,
+  td,
+  tr,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 
 import tablePlugin from '../../../../plugins/table';
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
-import { TextSelection, EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import {
-  akEditorFullPageMaxWidth,
-  akEditorDefaultLayoutWidth,
-} from '@atlaskit/editor-shared-styles/consts';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { setResizeHandlePos } from '../../../../plugins/table/pm-plugins/table-resizing/commands';
 
 // We don't need to test if the analytics implementation works (tested elsewhere)
 // We just want to know if the action is called.

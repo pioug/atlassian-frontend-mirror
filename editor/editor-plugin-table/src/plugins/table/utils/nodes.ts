@@ -1,7 +1,8 @@
 import { Node as PmNode } from 'prosemirror-model';
 import { EditorState, Selection } from 'prosemirror-state';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { hasParentNodeOfType } from 'prosemirror-utils';
+
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { pluginKey } from '../pm-plugins/plugin-key';

@@ -1,17 +1,22 @@
 import React, { CSSProperties } from 'react';
+
 import classnames from 'classnames';
+import memoizeOne from 'memoize-one';
 import { Node as PmNode } from 'prosemirror-model';
-import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
-import { findTable } from '@atlaskit/editor-tables/utils';
 
+import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
 import { tableMarginSides } from '@atlaskit/editor-common/styles';
+import type {
+  EditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
 import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
 import { akEditorTableToolbarSize as tableToolbarSize } from '@atlaskit/editor-shared-styles';
-
-import type { EditorContainerWidth } from '@atlaskit/editor-common/types';
-import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
+import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { autoSizeTable, clearHoverSelection } from '../commands';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -27,29 +32,23 @@ import {
   scaleTable,
 } from '../pm-plugins/table-resizing/utils';
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
-
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import {
   TableCssClassName as ClassName,
   PluginInjectionAPI,
   ShadowEvent,
 } from '../types';
-import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import TableFloatingControls from '../ui/TableFloatingControls';
 import {
   containsHeaderRow,
+  isTableNested,
   tablesHaveDifferentColumnWidths,
   tablesHaveDifferentNoOfColumns,
-  isTableNested,
 } from '../utils';
 
-import type { TableOptions } from './types';
-import { updateOverflowShadows } from './update-overflow-shadows';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import memoizeOne from 'memoize-one';
 import { OverflowShadowsObserver } from './OverflowShadowsObserver';
 import { TableContainer } from './TableContainer';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import type { TableOptions } from './types';
+import { updateOverflowShadows } from './update-overflow-shadows';
 
 const isIE11 = browser.ie_version === 11;
 const NOOP = () => undefined;
@@ -139,7 +138,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }
 
   componentDidMount() {
-    const { allowColumnResizing, eventDispatcher } = this.props;
+    const { allowColumnResizing, eventDispatcher, options } = this.props;
     if (allowColumnResizing && this.wrapper && !isIE11) {
       this.wrapper.addEventListener('scroll', this.handleScrollDebounced);
     }
@@ -149,7 +148,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
        * We no longer use `containerWidth` as a variable to determine an update for table resizing (avoids unnecessary updates).
        * Instead we use the resize event to only trigger updates when necessary.
        */
-      if (!getBooleanFF('platform.editor.custom-table-width')) {
+      if (!options?.isTableResizingEnabled) {
         window.addEventListener('resize', this.handleWindowResizeDebounced);
       }
       this.handleTableResizingDebounced();
@@ -167,6 +166,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   }
 
   componentWillUnmount() {
+    const { allowColumnResizing, eventDispatcher, options } = this.props;
     if (this.wrapper && !isIE11) {
       this.wrapper.removeEventListener('scroll', this.handleScrollDebounced);
     }
@@ -175,14 +175,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
     this.scaleTableDebounced.cancel();
     this.handleTableResizingDebounced.cancel();
     this.handleAutoSizeDebounced.cancel();
-    if (!getBooleanFF('platform.editor.custom-table-width')) {
+    if (!options?.isTableResizingEnabled) {
       this.handleWindowResizeDebounced.cancel();
     }
 
-    if (
-      !getBooleanFF('platform.editor.custom-table-width') &&
-      this.props.allowColumnResizing
-    ) {
+    if (!options?.isTableResizingEnabled && allowColumnResizing) {
       window.removeEventListener('resize', this.handleWindowResizeDebounced);
     }
 
@@ -190,7 +187,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       this.overflowShadowsObserver.dispose();
     }
 
-    this.props.eventDispatcher.off(
+    eventDispatcher.off(
       (stickyHeadersPluginKey as any).key,
       this.onStickyState,
     );
@@ -399,10 +396,10 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         node={node}
         tableRef={tableRef!}
         containerWidth={containerWidth}
-        isFullWidthModeEnabled={options?.isFullWidthModeEnabled}
         isBreakoutEnabled={options?.isBreakoutEnabled}
         isNested={isNested}
         pluginInjectionApi={pluginInjectionApi}
+        isTableResizingEnabled={options?.isTableResizingEnabled}
       >
         {stickyHeadersOptimization && (
           <div
@@ -558,8 +555,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       noOfColumnsChanged
     ) {
       const shouldScaleTable =
-        (!getBooleanFF('platform.editor.custom-table-width') ||
-          (getBooleanFF('platform.editor.custom-table-width') && isNested)) &&
+        (!options?.isTableResizingEnabled ||
+          (options?.isTableResizingEnabled && isNested)) &&
         !hasNumberedColumnChanged &&
         !noOfColumnsChanged;
 

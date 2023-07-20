@@ -1,32 +1,33 @@
 import React, {
   PropsWithChildren,
   useCallback,
-  useRef,
   useMemo,
+  useRef,
   useState,
 } from 'react';
-import { EditorView } from 'prosemirror-view';
+
 import { Node as PMNode } from 'prosemirror-model';
+import { EditorView } from 'prosemirror-view';
 import rafSchd from 'raf-schd';
 
+import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import {
   HandleHeightSizeType,
   HandleResize,
   ResizerNext,
 } from '@atlaskit/editor-common/resizer';
-import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
 
 import {
-  scaleTable,
-  previewScaleTable,
-  getColgroupChildrenLength,
   COLUMN_MIN_WIDTH,
+  getColgroupChildrenLength,
+  previewScaleTable,
+  scaleTable,
 } from '../pm-plugins/table-resizing/utils';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
+import { TABLE_HIGHLIGHT_GAP, TABLE_SNAP_GAP } from '../ui/consts';
 import { defaultGuidelines, defaultGuidelineWidths } from '../utils/guidelines';
 import { findClosestSnap } from '../utils/snapping';
-import { TABLE_SNAP_GAP, TABLE_HIGHLIGHT_GAP } from '../ui/consts';
 
 interface TableResizerProps {
   width: number;
@@ -198,6 +199,7 @@ export const TableResizer = ({
       maxWidth={maxWidth}
       snapGap={TABLE_SNAP_GAP}
       snap={guidelineSnaps}
+      handlePositioning="adjacent"
     >
       {children}
     </ResizerNext>

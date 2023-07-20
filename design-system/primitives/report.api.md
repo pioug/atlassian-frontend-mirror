@@ -160,9 +160,15 @@ const backgroundColorMap: {
   readonly 'color.background.selected.bold': 'var(--ds-background-selected-bold)';
   readonly 'color.background.selected.bold.hovered': 'var(--ds-background-selected-bold-hovered)';
   readonly 'color.background.selected.bold.pressed': 'var(--ds-background-selected-bold-pressed)';
+  readonly 'color.background.brand.subtlest': 'var(--ds-background-brand-subtlest)';
+  readonly 'color.background.brand.subtlest.hovered': 'var(--ds-background-brand-subtlest-hovered)';
+  readonly 'color.background.brand.subtlest.pressed': 'var(--ds-background-brand-subtlest-pressed)';
   readonly 'color.background.brand.bold': 'var(--ds-background-brand-bold)';
   readonly 'color.background.brand.bold.hovered': 'var(--ds-background-brand-bold-hovered)';
   readonly 'color.background.brand.bold.pressed': 'var(--ds-background-brand-bold-pressed)';
+  readonly 'color.background.brand.boldest': 'var(--ds-background-brand-boldest)';
+  readonly 'color.background.brand.boldest.hovered': 'var(--ds-background-brand-boldest-hovered)';
+  readonly 'color.background.brand.boldest.pressed': 'var(--ds-background-brand-boldest-pressed)';
   readonly 'color.background.danger': 'var(--ds-background-danger)';
   readonly 'color.background.danger.hovered': 'var(--ds-background-danger-hovered)';
   readonly 'color.background.danger.pressed': 'var(--ds-background-danger-pressed)';

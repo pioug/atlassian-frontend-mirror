@@ -25,11 +25,11 @@ export type I18NMessages =
   | Record<string, string>;
 
 // @public (undocumented)
-export const IntlMessagesProvider: ({
+export function IntlMessagesProvider({
   loaderFn,
   children,
   defaultMessages,
-}: IntlMessagesProviderProps) => JSX.Element;
+}: IntlMessagesProviderProps): JSX.Element;
 
 // @public (undocumented)
 export type IntlMessagesProviderProps = {

@@ -1,5 +1,6 @@
-import { ColumnState } from './column-state';
 import { ContentNodeWithPos } from 'prosemirror-utils';
+
+import { ColumnState } from './column-state';
 
 export interface ResizeState {
   cols: ColumnState[];

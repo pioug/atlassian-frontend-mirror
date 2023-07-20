@@ -47,10 +47,20 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
         },
       },
       brand: {
+        subtlest: {
+          '[default]': { value: 'Blue1000' },
+          hovered: { value: 'Blue900' },
+          pressed: { value: 'Blue800' },
+        },
         bold: {
           '[default]': { value: 'Blue400' },
           hovered: { value: 'Blue300' },
           pressed: { value: 'Blue200' },
+        },
+        boldest: {
+          '[default]': { value: 'Blue100' },
+          hovered: { value: 'Blue200' },
+          pressed: { value: 'Blue300' },
         },
       },
       selected: {

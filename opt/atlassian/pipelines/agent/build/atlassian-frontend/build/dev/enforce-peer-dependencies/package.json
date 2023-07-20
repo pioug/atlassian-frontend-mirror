@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/enforce-peer-dependencies",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Enforce the version of peer dependnecies",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {
@@ -18,6 +18,7 @@
   "types": "dist/types/index.d.ts",
   "sideEffects": false,
   "dependencies": {
+    "@atlassian/repo-feature-flags": "*",
     "@babel/runtime": "^7.0.0",
     "semver": "^7.5.2",
     "yargs": "^15.3.1"

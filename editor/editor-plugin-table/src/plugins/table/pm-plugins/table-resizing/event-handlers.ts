@@ -1,12 +1,22 @@
-import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 
 import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
-
+import {
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  TABLE_ACTION,
+} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { getParentNodeWidth } from '@atlaskit/editor-common/node-width';
+import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+
 import { updateColumnWidths } from '../../transforms';
 import { getSelectedColumnIndexes, updateResizeHandles } from '../../utils';
 
@@ -20,17 +30,6 @@ import {
   resizeColumn,
   updateControls,
 } from './utils';
-
-import {
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-  TABLE_ACTION,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import type {
-  GetEditorContainerWidth,
-  GetEditorFeatureFlags,
-} from '@atlaskit/editor-common/types';
 
 export const handleMouseDown = (
   view: EditorView,

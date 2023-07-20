@@ -1,24 +1,23 @@
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   table,
   tdEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import tablePlugin from '../../../plugins/table';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-
 import { isTableCollapsible } from '../../../plugins/table/utils/collapse';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 describe('collapse', () => {
   const createEditor = createProsemirrorEditorFactory();

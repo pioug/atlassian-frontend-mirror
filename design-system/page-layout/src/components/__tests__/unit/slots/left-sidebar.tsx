@@ -1710,6 +1710,9 @@ describe('Left sidebar', () => {
         </PageLayout>,
       );
 
+      const resizeButton: HTMLElement = getByTestId(
+        'left-sidebar-resize-button',
+      );
       const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
 
       expect(handle.hasAttribute('role')).toEqual(true);
@@ -1717,7 +1720,7 @@ describe('Left sidebar', () => {
       expect(handle.hasAttribute('aria-valuenow')).toEqual(true);
       expect(handle.hasAttribute('aria-valuemin')).toEqual(true);
       expect(handle.hasAttribute('aria-valuemax')).toEqual(true);
-      expect(handle.hasAttribute('aria-expanded')).toEqual(true);
+      expect(resizeButton.hasAttribute('aria-expanded')).toEqual(true);
     });
 
     it('should change step by 10px on arrow left-top/right-bottom push', () => {
@@ -1913,12 +1916,17 @@ describe('Left sidebar', () => {
         </PageLayout>,
       );
 
+      const resizeButton: HTMLElement = getByTestId(
+        'left-sidebar-resize-button',
+      );
       const handle: HTMLElement = getByTestId('left-sidebar-grab-area');
+
+      expect(resizeButton.getAttribute('aria-expanded')).toEqual('true');
 
       fireEvent.focus(handle);
       fireEvent.keyDown(handle, { keyCode: 32, key: ' ' });
 
-      expect(handle.getAttribute('aria-expanded')).toEqual('false');
+      expect(resizeButton.getAttribute('aria-expanded')).toEqual('false');
     });
 
     it('should make the grab area non-interactive when left sidebar is collapsed', () => {

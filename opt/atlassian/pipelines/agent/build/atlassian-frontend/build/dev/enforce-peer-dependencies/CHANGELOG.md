@@ -1,5 +1,11 @@
 # @atlaskit/enforce-peer-dependencies
 
+## 1.0.2
+
+### Patch Changes
+
+- [`c36b4aa9925`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c36b4aa9925) - Skip checking prerelease versions
+
 ## 1.0.1
 
 ### Patch Changes

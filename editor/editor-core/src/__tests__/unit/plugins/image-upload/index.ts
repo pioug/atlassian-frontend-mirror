@@ -8,8 +8,8 @@ import {
   mediaSingle,
   p,
   code_block,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { setNodeSelection } from '../../../../utils';
 import { insertExternalImage } from '../../../../plugins/image-upload/pm-plugins/commands';
 import { stateKey as imageUploadPluginKey } from '../../../../plugins/image-upload/pm-plugins/plugin-key';

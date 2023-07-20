@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
+
 import { B75, DN0, DN60, N0, N20, N30A, N700 } from '@atlaskit/theme/colors';
-import { borderRadius } from '@atlaskit/theme/constants';
-import { contextualMenuTriggerSize } from '../consts';
-import { token } from '@atlaskit/tokens';
 import { themed } from '@atlaskit/theme/components';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
+
+import { contextualMenuTriggerSize } from '../consts';
 
 export const tableFloatingCellButtonStyles = (props: ThemeProps) => css`
   > div {

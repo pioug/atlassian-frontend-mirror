@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 0.9.1
+
+### Patch Changes
+
+- [`84b33e5a4b6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84b33e5a4b6) - EDM-6544: minor internal refactors with no expected functional change
+
 ## 0.9.0
 
 ### Minor Changes

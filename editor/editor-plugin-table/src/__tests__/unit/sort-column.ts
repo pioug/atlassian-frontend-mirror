@@ -1,32 +1,34 @@
+import { PluginKey } from 'prosemirror-state';
+
+import { uuid } from '@atlaskit/adf-schema';
+import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
-  tr,
   td,
   th,
-  DocBuilder,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import tablePlugin from '../../plugins/table-plugin';
+import { sortByColumn } from '../../plugins/table/commands';
+import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import {
   PermittedLayoutsDescriptor,
   TablePluginState,
 } from '../../plugins/table/types';
-import { uuid } from '@atlaskit/adf-schema';
-import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
-import { sortByColumn } from '../../plugins/table/commands';
-import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import tablePlugin from '../../plugins/table-plugin';
-import { PluginKey } from 'prosemirror-state';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

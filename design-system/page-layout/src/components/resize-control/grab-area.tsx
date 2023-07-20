@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ComponentProps } from 'react';
+import { ComponentProps, FocusEvent, KeyboardEvent, MouseEvent } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -12,8 +12,15 @@ import {
 } from '../../common/constants';
 
 export type GrabAreaProps = {
-  testId?: string;
+  isDisabled: boolean;
   isLeftSidebarCollapsed: boolean;
+  label: string;
+  leftSidebarPercentageExpanded: number;
+  onBlur: (event: FocusEvent) => void;
+  onFocus: (event: FocusEvent) => void;
+  onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
+  onMouseDown: (event: MouseEvent<HTMLButtonElement>) => void;
+  testId?: string;
 } & ComponentProps<'button'>;
 
 /**
@@ -63,17 +70,38 @@ const lineStyles = css({
 
 const grabAreaLineSelector = { [GRAB_AREA_LINE_SELECTOR]: true };
 const grabAreaSelector = { [GRAB_AREA_SELECTOR]: true };
-// TODO: Consider allowing this to be controlled using arrow keys
+
 const GrabArea = ({
   testId,
+  isDisabled,
   isLeftSidebarCollapsed,
+  label,
+  leftSidebarPercentageExpanded,
+  onKeyDown,
+  onMouseDown,
+  onBlur,
+  onFocus,
   ...rest
 }: GrabAreaProps) => (
   <button
     {...grabAreaSelector}
+    aria-label={label}
     data-testid={testId}
+    disabled={isDisabled}
     type="button"
+    // The separator role is applied to a button to utilize the native
+    // interactive and disabled functionality on the resize separator. While a
+    // range input would be more semantically accurate, it does not affect
+    // usability.
+    role="separator"
     css={[grabAreaStyles, isLeftSidebarCollapsed && grabAreaCollapsedStyles]}
+    aria-valuenow={leftSidebarPercentageExpanded}
+    aria-valuemin={0}
+    aria-valuemax={100}
+    onKeyDown={onKeyDown}
+    onMouseDown={onMouseDown}
+    onFocus={onFocus}
+    onBlur={onBlur}
     // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
     {...rest}
   >

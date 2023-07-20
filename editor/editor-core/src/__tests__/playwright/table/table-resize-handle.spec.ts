@@ -122,3 +122,25 @@ test.describe('resize handle should be visible on hover', () => {
     });
   });
 });
+
+test.describe('resize handle should not overlap the table', () => {
+  test('when table has three rows', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const resizerModel = tableModel.resizer();
+    await tableModel.hoverBody();
+
+    const handle = await resizerModel.handleBoundingBox();
+    const container = await resizerModel.containerBoundingBox();
+
+    expect(handle).toBeDefined();
+    expect(container).toBeDefined();
+    expect(handle?.x ?? 0).toBeGreaterThan(0);
+    expect(container?.x ?? 0).toBeGreaterThan(0);
+    expect(container?.width ?? 0).toBeGreaterThan(0);
+
+    // This is the real test -- If the handle is less then the container x + w then the handle is overlapping the edge of the table
+    // and for table we must ensure that handles are adjacent to the tables.
+    expect(container!.x + container!.width).toBeLessThanOrEqual(handle!.x);
+  });
+});

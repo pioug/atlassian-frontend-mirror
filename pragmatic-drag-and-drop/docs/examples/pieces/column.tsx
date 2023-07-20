@@ -137,7 +137,7 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
       <div css={scrollContainerStyles}>
         <div css={cardListStyles} ref={cardListRef}>
           {column.items.map(item => (
-            <Card item={item} key={item.itemId} />
+            <Card item={item} key={item.userId} />
           ))}
         </div>
       </div>

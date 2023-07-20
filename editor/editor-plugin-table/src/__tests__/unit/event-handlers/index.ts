@@ -1,27 +1,29 @@
+import { PluginKey } from 'prosemirror-state';
+
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
-  table,
-  tr,
-  tdEmpty,
-  tdCursor,
   DocBuilder,
+  table,
+  tdCursor,
+  tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState } from '../../../plugins/table/types';
-import { whenTableInFocus } from '../../../plugins/table/event-handlers';
-import { setDragging } from '../../../plugins/table/pm-plugins/table-resizing/commands';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+
 import tablePlugin from '../../../plugins/table-plugin';
-import { PluginKey } from 'prosemirror-state';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { whenTableInFocus } from '../../../plugins/table/event-handlers';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import { setDragging } from '../../../plugins/table/pm-plugins/table-resizing/commands';
+import { TablePluginState } from '../../../plugins/table/types';
 
 describe('event-handlers', () => {
   let editor: any;

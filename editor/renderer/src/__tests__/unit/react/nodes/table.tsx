@@ -11,8 +11,8 @@ import Table, { TableProcessor } from '../../../../react/nodes/table';
 import { TableCell, TableHeader } from '../../../../react/nodes/tableCell';
 import TableRow from '../../../../react/nodes/tableRow';
 import { Context as SmartCardStorageContext } from '../../../../ui/SmartCardStorage';
+import type { RendererAppearance } from '../../../../ui/Renderer/types';
 import { SortOrder } from '@atlaskit/editor-common/types';
-import { RendererAppearance } from '../../../../ui/Renderer/types';
 import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -27,11 +27,13 @@ const mountBasicTable = ({
   isNumberColumnEnabled = true,
   renderWidth = akEditorDefaultLayoutWidth,
   layout = 'default',
+  rendererAppearance = 'full-page',
 }: {
   columnWidths?: number[];
   isNumberColumnEnabled?: boolean;
   renderWidth?: number;
   layout?: TableLayout;
+  rendererAppearance?: RendererAppearance;
 } = {}) => {
   return mountWithIntl(
     <Table
@@ -39,6 +41,7 @@ const mountBasicTable = ({
       isNumberColumnEnabled={isNumberColumnEnabled}
       columnWidths={columnWidths}
       renderWidth={renderWidth}
+      rendererAppearance={rendererAppearance}
     >
       <TableRow>
         <TableCell />
@@ -95,6 +98,7 @@ describe('Renderer - React/Nodes/Table', () => {
             layout="default"
             isNumberColumnEnabled={true}
             renderWidth={renderWidth}
+            rendererAppearance="full-page"
           >
             <TableRow>
               <TableHeader />
@@ -125,6 +129,7 @@ describe('Renderer - React/Nodes/Table', () => {
             layout="default"
             isNumberColumnEnabled={true}
             renderWidth={renderWidth}
+            rendererAppearance="full-page"
           >
             <TableRow>
               <TableCell />
@@ -155,6 +160,7 @@ describe('Renderer - React/Nodes/Table', () => {
           isNumberColumnEnabled={true}
           columnWidths={columnWidths}
           renderWidth={renderWidth}
+          rendererAppearance="full-page"
         >
           <TableRow>
             <TableCell />
@@ -191,6 +197,7 @@ describe('Renderer - React/Nodes/Table', () => {
           isNumberColumnEnabled={false}
           columnWidths={columnWidths}
           renderWidth={renderWidth}
+          rendererAppearance="full-page"
         >
           <TableRow>
             <TableCell />
@@ -223,6 +230,7 @@ describe('Renderer - React/Nodes/Table', () => {
             isNumberColumnEnabled={true}
             columnWidths={columnWidths}
             renderWidth={renderWidth}
+            rendererAppearance="full-page"
           >
             <TableRow>
               <TableCell />
@@ -263,6 +271,7 @@ describe('Renderer - React/Nodes/Table', () => {
             isNumberColumnEnabled={true}
             columnWidths={columnWidths}
             renderWidth={renderWidth}
+            rendererAppearance="full-page"
           >
             <TableRow>
               <TableCell />
@@ -304,6 +313,7 @@ describe('Renderer - React/Nodes/Table', () => {
           isNumberColumnEnabled={false}
           columnWidths={columnWidths}
           renderWidth={544}
+          rendererAppearance="full-page"
         >
           <TableRow>
             <TableCell />
@@ -333,6 +343,7 @@ describe('Renderer - React/Nodes/Table', () => {
           isNumberColumnEnabled={false}
           columnWidths={columnWidths}
           renderWidth={408}
+          rendererAppearance="full-page"
         >
           <TableRow>
             <TableCell />
@@ -396,6 +407,7 @@ describe('Renderer - React/Nodes/Table', () => {
           allowColumnSorting={true}
           tableNode={tableFromSchema}
           isNumberColumnEnabled={false}
+          rendererAppearance="full-page"
         >
           <TableRow>
             <TableHeader />
@@ -436,6 +448,7 @@ describe('Renderer - React/Nodes/Table', () => {
             allowColumnSorting={true}
             tableNode={tableFromSchema}
             isNumberColumnEnabled={false}
+            rendererAppearance="full-page"
           >
             <TableRow>
               <TableCell />
@@ -474,6 +487,7 @@ describe('Renderer - React/Nodes/Table', () => {
             allowColumnSorting={true}
             tableNode={tableFromSchema}
             isNumberColumnEnabled={false}
+            rendererAppearance="full-page"
           >
             <TableRow>
               <TableHeader />
@@ -508,6 +522,7 @@ describe('Renderer - React/Nodes/Table', () => {
             renderWidth={renderWidth}
             allowColumnSorting={true}
             isNumberColumnEnabled={false}
+            rendererAppearance="full-page"
           >
             <TableRow>
               <TableHeader />
@@ -609,6 +624,7 @@ describe('Renderer - React/Nodes/Table', () => {
                 allowColumnSorting={true}
                 tableNode={tableFromSchema}
                 isNumberColumnEnabled={false}
+                rendererAppearance="full-page"
               >
                 <TableRowWithOriginalPos originalIndex={1}>
                   <TableHeader />
@@ -684,6 +700,7 @@ describe('Renderer - React/Nodes/Table', () => {
         allowColumnSorting={true}
         isNumberColumnEnabled={false}
         tableNode={tableFromSchema}
+        rendererAppearance="full-page"
       >
         {initialTableState.map((row, rowIndex) => {
           if (rowIndex === 0) {

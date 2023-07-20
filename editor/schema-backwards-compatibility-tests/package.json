@@ -10,7 +10,7 @@
   "atlassian": {
     "team": "Editor",
     "inPublicMirror": false,
-    "releaseModel": "scheduled"
+    "releaseModel": "continuous"
   },
   "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
   "main": "dist/cjs/index.js",

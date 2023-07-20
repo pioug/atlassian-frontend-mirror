@@ -1,27 +1,26 @@
-import { NodeSpec, ResolvedPos } from 'prosemirror-model';
+import { NodeSpec, Node as PMNode, ResolvedPos } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
 import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
+import {
+  getParentNodeWidth,
+  layoutToWidth,
+} from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import {
   getBreakpoint,
   mapBreakpointToLayoutMaxWidth,
 } from '@atlaskit/editor-common/ui';
+import { containsClassName } from '@atlaskit/editor-common/utils';
 import {
   akEditorFullWidthLayoutWidth,
   akEditorGutterPadding,
   akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles';
 
-import { containsClassName } from '@atlaskit/editor-common/utils';
 import { TableOptions } from '../../../nodeviews/types';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import {
-  getParentNodeWidth,
-  layoutToWidth,
-} from '@atlaskit/editor-common/node-width';
 
 // Translates named layouts in number values.
 export function getLayoutSize(

@@ -1,12 +1,13 @@
 import { keymap } from 'prosemirror-keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 
 import {
   bindKeymapWithCommand,
-  moveRight,
   moveLeft,
+  moveRight,
 } from '@atlaskit/editor-common/keymaps';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+
 import { arrowLeftFromTable, arrowRightFromTable } from '../commands/selection';
 
 export function tableSelectionKeymapPlugin(

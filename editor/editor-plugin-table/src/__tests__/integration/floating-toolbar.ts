@@ -14,10 +14,12 @@ import {
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+
 import { TableCssClassName } from '../../plugins/table/types';
+
 import basicTable from './__fixtures__/basic-table';
-import { documentWithMergedCells } from './__fixtures__/merged-rows-and-cols-document';
 import basicTableWithMergedCell from './__fixtures__/basic-table-with-merged-cell';
+import { documentWithMergedCells } from './__fixtures__/merged-rows-and-cols-document';
 
 BrowserTestCase(
   'should floating toolbar context menu sit above other context menu layers',

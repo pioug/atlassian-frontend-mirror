@@ -1,3 +1,10 @@
+import { uuid } from '@atlaskit/adf-schema';
+import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -11,15 +18,9 @@ import {
   th,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { sortByColumn } from '../../../plugins/table/commands/sort';
-import { uuid } from '@atlaskit/adf-schema';
-import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
+
 import tablePlugin from '../../../plugins/table-plugin';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { sortByColumn } from '../../../plugins/table/commands/sort';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

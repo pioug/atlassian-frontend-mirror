@@ -1,51 +1,57 @@
 import {
+  Fragment,
+  Node as ProsemirrorNode,
+  Schema,
+  Slice,
+} from 'prosemirror-model';
+import { PluginKey, TextSelection, Transaction } from 'prosemirror-state';
+// @ts-ignore
+import { __serializeForClipboard, EditorView } from 'prosemirror-view';
+
+import { uuid } from '@atlaskit/adf-schema';
+import { transformSliceToRemoveOpenExpand } from '@atlaskit/editor-common/transforms';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import {
   getCellsInTable,
   selectColumn,
   selectTable,
 } from '@atlaskit/editor-tables/utils';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { Node as ProsemirrorNode, Fragment, Slice } from 'prosemirror-model';
-import { PluginKey, TextSelection, Transaction } from 'prosemirror-state';
-// @ts-ignore
-import { EditorView, __serializeForClipboard } from 'prosemirror-view';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import {
+  br,
+  code_block,
   doc,
+  DocBuilder,
+  expand,
   p,
+  panel,
   table,
-  tr,
   td,
   th,
-  code_block,
-  br,
-  expand,
-  panel,
-  DocBuilder,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import { uuid } from '@atlaskit/adf-schema';
-import { TablePluginState, PluginConfig } from '../../plugins/table/types';
+
+import tablePlugin from '../../plugins/table-plugin';
+import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
+import { PluginConfig, TablePluginState } from '../../plugins/table/types';
 import {
-  unwrapContentFromTable,
   removeTableFromFirstChild,
   removeTableFromLastChild,
-  transformSliceToRemoveOpenTable,
   transformSliceToFixHardBreakProblemOnCopyFromCell,
+  transformSliceToRemoveOpenTable,
+  unwrapContentFromTable,
 } from '../../plugins/table/utils/paste';
-import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { transformSliceToRemoveOpenExpand } from '@atlaskit/editor-common/transforms';
-import { Schema } from 'prosemirror-model';
-import tablePlugin from '../../plugins/table-plugin';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 const array = (...args: any): Node[] => args.map((i: any) => i(defaultSchema));

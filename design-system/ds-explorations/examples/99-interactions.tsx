@@ -11,6 +11,7 @@ import WarningIcon from '@atlaskit/icon/glyph/warning';
 import Inline from '@atlaskit/primitives/inline';
 import Stack from '@atlaskit/primitives/stack';
 import Textfield from '@atlaskit/textfield';
+import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -29,7 +30,7 @@ const fieldsetStyles = css({
   },
   ':focus, :focus-within': {
     backgroundColor: token('color.background.input', '#FAFBFC'),
-    borderColor: token('color.border.focused', 'blue'),
+    borderColor: token('color.border.focused', B200),
   },
 });
 

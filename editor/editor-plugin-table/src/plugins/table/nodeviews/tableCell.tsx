@@ -1,15 +1,17 @@
-import uuid from 'uuid';
-import { Node, DOMSerializer } from 'prosemirror-model';
+import { DOMSerializer, Node } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { getPosHandler } from '@atlaskit/editor-common/types';
+import uuid from 'uuid';
 
 import {
-  getCellDomAttrs,
-  getCellAttrs,
   CellDomAttrs,
+  getCellAttrs,
+  getCellDomAttrs,
 } from '@atlaskit/adf-schema';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type {
+  GetEditorFeatureFlags,
+  getPosHandler,
+} from '@atlaskit/editor-common/types';
 
 const DEFAULT_COL_SPAN = 1;
 const DEFAULT_ROW_SPAN = 1;

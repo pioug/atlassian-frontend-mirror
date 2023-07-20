@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.6.14
+
+### Patch Changes
+
+- [`9b8eb462cf4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b8eb462cf4) - [ux] update color.border.focused fallback to B200
+
 ## 2.6.13
 
 ### Patch Changes

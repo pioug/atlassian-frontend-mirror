@@ -1,4 +1,5 @@
 import { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
+import type { ImageUploadProvider } from '@atlaskit/editor-common/provider-factory';
 
 export type {
   InsertedImageProperties,
@@ -18,3 +19,5 @@ export type ImageUploadPluginState = {
     event?: ImageUploadPluginReferenceEvent;
   };
 };
+
+export type UploadHandlerReference = { current: ImageUploadProvider | null };

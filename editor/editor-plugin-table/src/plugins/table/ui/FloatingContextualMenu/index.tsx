@@ -1,17 +1,21 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-
 import { EditorState } from 'prosemirror-state';
 import { findDomRefAtPos } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+} from '@atlaskit/editor-common/types';
+import { Popup } from '@atlaskit/editor-common/ui';
+import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 import {
   findCellRectClosestToPos,
   getSelectionRect,
   isSelectionType,
 } from '@atlaskit/editor-tables/utils';
-import { EditorView } from 'prosemirror-view';
-
-import { Popup } from '@atlaskit/editor-common/ui';
-import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
 
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import { pluginKey } from '../../pm-plugins/plugin-key';
@@ -20,14 +24,9 @@ import {
   contextualMenuDropdownWidth,
   contextualMenuTriggerSize,
 } from '../consts';
-import { tablePopupStyles } from './styles';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
-import type {
-  GetEditorContainerWidth,
-  GetEditorFeatureFlags,
-} from '@atlaskit/editor-common/types';
 import ContextualMenu from './ContextualMenu';
+import { tablePopupStyles } from './styles';
 
 // offset of the contextual menu dropdown
 const calculateOffset = (targetCellRef: HTMLElement, state: EditorState) => {

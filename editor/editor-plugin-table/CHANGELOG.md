@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 2.5.0
+
+### Minor Changes
+
+- [`22a59977bb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22a59977bb3) - [ux] Updated ResizerNext to allow handle style overrides. Updated the table resizer to space and align the resizer handle according the the design specifications
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.0
+
+### Minor Changes
+
+- [`e7ed90bad7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ed90bad7c) - Remove platform feature flag calls to editor-core and pass through a new option instead for custom table widths project, allowing for simpler clean up and reference
+
 ## 2.3.1
 
 ### Patch Changes

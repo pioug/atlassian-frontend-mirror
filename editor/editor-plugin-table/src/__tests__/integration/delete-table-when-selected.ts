@@ -1,22 +1,21 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-
 import {
-  editable,
-  getDocFromElement,
-  fullpage,
   clipboardInput,
-  copyAsPlaintextButton,
   copyAsHTMLButton,
+  copyAsPlaintextButton,
+  editable,
+  fullpage,
+  getDocFromElement,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+import {
+  clickFirstCell,
+  tableSelectors,
+  waitForNoTable,
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import {
-  tableSelectors,
-  clickFirstCell,
-  waitForNoTable,
-} from '@atlaskit/editor-test-helpers/page-objects/table';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import basicTableAdf from './__fixtures__/basic-table';
 

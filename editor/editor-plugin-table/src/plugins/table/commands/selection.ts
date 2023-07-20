@@ -1,17 +1,18 @@
-import { TextSelection, Selection } from 'prosemirror-state';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
-import { ResolvedPos, Node as PmNode } from 'prosemirror-model';
-import type { Command } from '@atlaskit/editor-common/types';
+import { Node as PmNode, ResolvedPos } from 'prosemirror-model';
+import { Selection, TextSelection } from 'prosemirror-state';
+
 import {
-  RelativeSelectionPos,
-  GapCursorSelection,
-  Side,
-  isSelectionAtStartOfNode,
-  isSelectionAtEndOfNode,
   EditorSelectionAPI,
+  GapCursorSelection,
+  isSelectionAtEndOfNode,
+  isSelectionAtStartOfNode,
+  RelativeSelectionPos,
+  Side,
 } from '@atlaskit/editor-common/selection';
+import type { Command } from '@atlaskit/editor-common/types';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
 export enum TableSelectionDirection {
   TopToBottom = 'TopToBottom',

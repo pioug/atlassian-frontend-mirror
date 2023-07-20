@@ -1,11 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { createPortal } from 'react-dom';
+
 import rafSchedule from 'raf-schd';
+import { createPortal } from 'react-dom';
 
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+
 import { RowStickyState } from '../../pm-plugins/sticky-headers';
-import { insertColumnButtonOffset } from '../common-styles';
 import { TableCssClassName as ClassName } from '../../types';
+import { insertColumnButtonOffset } from '../common-styles';
 
 export const BUTTON_WIDTH = 20;
 

@@ -1,12 +1,13 @@
 import { Selection } from 'prosemirror-state';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
+
 import type {
   AnalyticsEventPayload,
   AnalyticsEventPayloadCallback,
   EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 import { HigherOrderCommand } from '@atlaskit/editor-common/types';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
 export function getSelectedTableInfo(selection: Selection) {
   let map;

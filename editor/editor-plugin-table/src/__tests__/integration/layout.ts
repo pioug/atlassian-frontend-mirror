@@ -1,26 +1,23 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-
 import {
-  editable,
-  getDocFromElement,
-  fullpage,
-  changeSelectedNodeLayout,
   animationFrame,
+  changeSelectedNodeLayout,
+  editable,
+  fullpage,
+  getDocFromElement,
   toggleBreakout,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-
 import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
+import {
+  goToEditorTestingWDExample,
+  mountEditor,
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import {
   defaultTableInOverflow,
   defaultTableResizedTable,
   nestedTables,
 } from './__fixtures__/layout-documents';
-
-import {
-  goToEditorTestingWDExample,
-  mountEditor,
-} from '@atlaskit/editor-test-helpers/testing-example-page';
 
 BrowserTestCase(
   'Avoid overflow when table scale to wide',

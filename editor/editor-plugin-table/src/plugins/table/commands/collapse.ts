@@ -1,4 +1,5 @@
 import { Command } from '@atlaskit/editor-common/types';
+
 import { collapseSelectedTable } from '../utils/collapse';
 
 export const wrapTableInExpand: Command = (state, dispatch) => {

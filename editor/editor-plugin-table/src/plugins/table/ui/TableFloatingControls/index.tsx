@@ -3,18 +3,17 @@ import React, { Component } from 'react';
 import { Selection } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
 
-import { browser } from '@atlaskit/editor-common/utils';
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import { browser } from '@atlaskit/editor-common/utils';
 
 import { hoverRows, selectRow } from '../../commands';
 import { RowStickyState } from '../../pm-plugins/sticky-headers';
-
 import { isSelectionUpdated } from '../../utils';
 
 import { CornerControls } from './CornerControls';
 import NumberColumn from './NumberColumn';
 import { RowControls } from './RowControls';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
 export interface Props {
   editorView: EditorView;

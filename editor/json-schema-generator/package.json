@@ -1,0 +1,39 @@
+{
+  "name": "@atlaskit/json-schema-generator",
+  "version": "3.3.3",
+  "description": "A CLI tool for generating JSON Schema from typescript",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "main": "bin.js",
+  "atlassian": {
+    "team": "Editor",
+    "deprecatedAutoEntryPoints": true,
+    "releaseModel": "continuous"
+  },
+  "files": [
+    "src",
+    "bin.js"
+  ],
+  "bin": {
+    "json-schema-generator": "bin.js"
+  },
+  "dependencies": {
+    "@types/json5": "^0.0.30",
+    "@types/mkdirp": "^0.5.2",
+    "@types/prettier": "^2.7.2",
+    "json5": "^2.2.2",
+    "meow": "^8.1.1",
+    "mkdirp": "^0.5.1",
+    "prettier": "^2.8.0",
+    "ts-node": "^10.9.1",
+    "typescript": "~4.9.5"
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
+  "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1"
+  }
+}

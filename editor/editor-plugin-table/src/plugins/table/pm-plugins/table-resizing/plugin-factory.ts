@@ -2,6 +2,7 @@
 import { ReadonlyTransaction } from 'prosemirror-state';
 
 import { pluginFactory } from '@atlaskit/editor-common/utils';
+
 import { ColumnResizingPluginState } from '../../types';
 
 import { pluginKey } from './plugin-key';

@@ -1,22 +1,20 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import sleep from '@atlaskit/editor-test-helpers/sleep';
-
 import {
   editable,
-  getDocFromElement,
   fullpage,
+  getDocFromElement,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-
-import {
-  autoSizeToDefaultLayout,
-  autoSizeToWideLayout,
-  autoSizeToFullWidthLayout,
-} from './__fixtures__/auto-size-documents';
-
+import sleep from '@atlaskit/editor-test-helpers/sleep';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+
+import {
+  autoSizeToDefaultLayout,
+  autoSizeToFullWidthLayout,
+  autoSizeToWideLayout,
+} from './__fixtures__/auto-size-documents';
 
 async function loadAndRetrieveDocument(
   page: any,

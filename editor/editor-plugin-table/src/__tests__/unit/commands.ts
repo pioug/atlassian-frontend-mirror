@@ -1,12 +1,20 @@
 import { Fragment, Slice } from 'prosemirror-model';
 import { TextSelection } from 'prosemirror-state';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findParentNodeOfType } from 'prosemirror-utils';
-import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 
 import { uuid } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -14,19 +22,19 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   panelNote,
   table,
   td,
   tdCursor,
   tdEmpty,
-  thCursor,
   th,
+  thCursor,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import tablePlugin from '../../plugins/table';
 import {
   addBoldInEmptyHeaderCells,
   selectColumn,
@@ -43,15 +51,6 @@ import { splitCell } from '../../plugins/table/commands/split-cell';
 import { handleCut } from '../../plugins/table/event-handlers';
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import tablePlugin from '../../plugins/table';
-
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

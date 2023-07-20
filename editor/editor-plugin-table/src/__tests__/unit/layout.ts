@@ -1,35 +1,35 @@
+import { PluginKey } from 'prosemirror-state';
+
+import { TableLayout } from '@atlaskit/adf-schema';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-
 import {
   doc,
+  DocBuilder,
   table,
-  tr,
   tdCursor,
   tdEmpty,
-  DocBuilder,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { TableLayout } from '@atlaskit/adf-schema';
+import tablePlugin from '../../plugins/table-plugin';
+import { toggleTableLayout } from '../../plugins/table/commands';
+import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import {
   PermittedLayoutsDescriptor,
   TablePluginState,
 } from '../../plugins/table/types';
-import { toggleTableLayout } from '../../plugins/table/commands';
-import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
-import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import tablePlugin from '../../plugins/table-plugin';
-import { PluginKey } from 'prosemirror-state';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('table toolbar', () => {
   const tableOptions = {

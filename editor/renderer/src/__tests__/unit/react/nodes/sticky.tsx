@@ -9,6 +9,7 @@ import { p, table, th, tr } from '@atlaskit/adf-utils/builders';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import Heading, { HeadingLevels } from '../../../../react/nodes/heading';
 import ReactSerializer from '../../../../react';
+import { RendererAppearance } from '../../../../ui/Renderer/types';
 
 const renderWidth = akEditorDefaultLayoutWidth;
 let serialiser = new ReactSerializer({});
@@ -37,6 +38,7 @@ const tableProps = {
   renderWidth,
   tableNode: tableFromSchema,
   isNumberColumnEnabled: true,
+  rendererAppearance: 'full-page' as RendererAppearance,
 };
 
 describe('Renderer - React/Nodes/Sticky', () => {

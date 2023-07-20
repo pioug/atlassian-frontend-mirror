@@ -5,6 +5,22 @@ import {
   TextSelection,
   Transaction,
 } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  TABLE_ACTION,
+} from '@atlaskit/editor-common/analytics';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import {
+  browser,
+  closestElement,
+  isElementInTableCell,
+  isLastItemMediaGroup,
+  setNodeSelection,
+} from '@atlaskit/editor-common/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
@@ -14,22 +30,6 @@ import {
   getSelectionRect,
   removeTable,
 } from '@atlaskit/editor-tables/utils';
-import { EditorView } from 'prosemirror-view';
-
-import { browser } from '@atlaskit/editor-common/utils';
-
-import {
-  isElementInTableCell,
-  isLastItemMediaGroup,
-  setNodeSelection,
-} from '@atlaskit/editor-common/utils';
-import { closestElement } from '@atlaskit/editor-common/utils';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import {
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-  TABLE_ACTION,
-} from '@atlaskit/editor-common/analytics';
 
 import {
   addResizeHandleDecorations,
@@ -47,26 +47,25 @@ import { getPluginState } from './pm-plugins/plugin-factory';
 import { getPluginState as getResizePluginState } from './pm-plugins/table-resizing/plugin-factory';
 import { deleteColumns, deleteRows } from './transforms';
 import {
-  RESIZE_HANDLE_AREA_DECORATION_GAP,
   ElementContentRects,
+  RESIZE_HANDLE_AREA_DECORATION_GAP,
 } from './types';
 import {
   getColumnOrRowIndex,
   getMousePositionHorizontalRelativeByElement,
   getMousePositionVerticalRelativeByElement,
   getSelectedCellInfo,
+  hasResizeHandler,
   isCell,
   isColumnControlsDecorations,
   isCornerButton,
   isInsertRowButton,
   isResizeHandleDecoration,
   isRowControlsButton,
-  isTableControlsButton,
   isTableContainerOrWrapper,
-  hasResizeHandler,
+  isTableControlsButton,
 } from './utils';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
 const isFocusingCalendar = (event: Event) =>
   event instanceof FocusEvent &&

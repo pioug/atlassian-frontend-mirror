@@ -1,10 +1,9 @@
+import {
+  Dispatch,
+  EventDispatcher,
+} from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-
-import {
-  EventDispatcher,
-  Dispatch,
-} from '@atlaskit/editor-common/event-dispatcher';
 
 import { TableRowNodeView } from './nodeviews/tableRow';
 import { pluginKey } from './plugin-key';

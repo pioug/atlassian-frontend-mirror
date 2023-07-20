@@ -1,9 +1,9 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Selection, Transaction } from 'prosemirror-state';
-import { TableMap, Rect } from '@atlaskit/editor-tables/table-map';
-import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
+import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
+import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { mergeEmptyColumns } from './merge';
 

@@ -1,22 +1,22 @@
 import React, { createRef } from 'react';
 
 import classnames from 'classnames';
+import { findDomRefAtPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { TableLayout } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import commonMessages from '@atlaskit/editor-common/messages';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { PopupPosition } from '@atlaskit/editor-common/ui';
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 
-import commonMessages from '@atlaskit/editor-common/messages';
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { toggleTableLayoutWithAnalytics } from '../../commands-with-analytics';
-import { TableCssClassName as ClassName } from '../../types';
 import { RowStickyState } from '../../pm-plugins/sticky-headers';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { TableCssClassName as ClassName } from '../../types';
 
 export interface Props {
   editorView: EditorView;

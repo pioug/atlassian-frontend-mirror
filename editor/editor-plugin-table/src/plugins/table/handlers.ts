@@ -1,22 +1,21 @@
 // #region Imports
+import { NodeType } from 'prosemirror-model';
 // @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
-import { Transaction, ReadonlyTransaction } from 'prosemirror-state';
+import { ReadonlyTransaction, Transaction } from 'prosemirror-state';
 import { ContentNodeWithPos, findParentNodeOfType } from 'prosemirror-utils';
-import { findTable } from '@atlaskit/editor-tables/utils';
 
+import { TableColumnOrdering, TableSortStep } from '@atlaskit/adf-schema/steps';
 import { isTextInput } from '@atlaskit/editor-common/utils';
-import { isTableCollapsible } from './utils/collapse';
+import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { defaultTableSelection } from './pm-plugins/default-table-selection';
 import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing';
 import { TablePluginState } from './types';
-import { TableColumnOrdering, TableSortStep } from '@atlaskit/adf-schema/steps';
-import { NodeType } from 'prosemirror-model';
-// #endregion
+import { isTableCollapsible } from './utils/collapse';
 import {
-  checkIfNumberColumnEnabled,
   checkIfHeaderColumnEnabled,
   checkIfHeaderRowEnabled,
+  checkIfNumberColumnEnabled,
 } from './utils/nodes';
 
 const nextTableSorting = (

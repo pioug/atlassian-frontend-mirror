@@ -1,36 +1,33 @@
 // #region Imports
 import { Node as PMNode, Schema, Slice } from 'prosemirror-model';
 import { TextSelection, Transaction } from 'prosemirror-state';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { ContentNodeWithPos } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+
+import { CellAttributes } from '@atlaskit/adf-schema';
+import { Command } from '@atlaskit/editor-common/types';
 import {
-  selectionCell,
+  closestElement,
+  isParagraph,
+  isTextSelection,
+  mapSlice,
+} from '@atlaskit/editor-common/utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import {
   findCellClosestToPos,
   findTable,
   getCellsInColumn,
   getCellsInRow,
   getSelectionRect,
   isSelectionType,
+  isTableSelected,
   removeTable,
   selectColumn as selectColumnTransform,
+  selectionCell,
   selectRow as selectRowTransform,
   setCellAttrs,
-  isTableSelected,
 } from '@atlaskit/editor-tables/utils';
-import { ContentNodeWithPos } from 'prosemirror-utils';
-
-import { EditorView } from 'prosemirror-view';
-
-import { CellAttributes } from '@atlaskit/adf-schema';
-
-import { Command } from '@atlaskit/editor-common/types';
-
-import {
-  isParagraph,
-  isTextSelection,
-  closestElement,
-  mapSlice,
-} from '@atlaskit/editor-common/utils';
 
 import { getDecorations } from '../pm-plugins/decorations/plugin';
 import { buildColumnResizingDecorations } from '../pm-plugins/decorations/utils';
@@ -42,9 +39,9 @@ import {
   createColumnSelectedDecoration,
 } from '../utils/decoration';
 import {
-  checkIfNumberColumnEnabled,
   checkIfHeaderColumnEnabled,
   checkIfHeaderRowEnabled,
+  checkIfNumberColumnEnabled,
   isIsolating,
 } from '../utils/nodes';
 import { updatePluginStateDecorations } from '../utils/update-plugin-state-decorations';

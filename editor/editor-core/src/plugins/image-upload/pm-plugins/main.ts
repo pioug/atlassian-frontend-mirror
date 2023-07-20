@@ -5,14 +5,15 @@ import { isClipboardEvent, isPastedFile } from '../../../utils/clipboard';
 import { isDragEvent, isDroppedFile } from '../../../utils/drag-drop';
 
 import { canInsertMedia, isMediaSelected } from '../utils';
-import { ImageUploadPluginAction, ImageUploadPluginState } from '../types';
+import {
+  ImageUploadPluginAction,
+  ImageUploadPluginState,
+  UploadHandlerReference,
+} from '../types';
 import { EditorView } from 'prosemirror-view';
 import { insertExternalImage, startImageUpload } from './commands';
 import type { PMPluginFactoryParams } from '../../../types';
-import {
-  ImageUploadProvider,
-  Providers,
-} from '@atlaskit/editor-common/provider-factory';
+import { Providers } from '@atlaskit/editor-common/provider-factory';
 import { stateKey } from './plugin-key';
 import { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
 
@@ -54,7 +55,6 @@ const hasScreenshotImageFromMSOffice = (ev?: Event): boolean => {
   return isImagePNG && textPlain && isOfficeXMLNamespace;
 };
 
-type UploadHandlerReference = { current: ImageUploadProvider | null };
 type DOMHandlerPredicate = (e: Event) => boolean;
 
 const createReferenceEventFromEvent = (
@@ -138,87 +138,83 @@ const getNewActiveUpload = (
   return pluginState.activeUpload;
 };
 
-export const createPlugin = ({
-  dispatch,
-  providerFactory,
-}: PMPluginFactoryParams) => {
-  let uploadHandlerReference: UploadHandlerReference = {
-    current: null,
-  };
+export const createPlugin =
+  (uploadHandlerReference: UploadHandlerReference) =>
+  ({ dispatch, providerFactory }: PMPluginFactoryParams) => {
+    return new SafePlugin({
+      state: {
+        init(_config, state: EditorState): ImageUploadPluginState {
+          return {
+            active: false,
+            enabled: canInsertMedia(state),
+            hidden:
+              !state.schema.nodes.media || !state.schema.nodes.mediaSingle,
+          };
+        },
+        apply(tr, pluginState: ImageUploadPluginState, _oldState, newState) {
+          const newActive = isMediaSelected(newState);
+          const newEnabled = canInsertMedia(newState);
+          const newActiveUpload = getNewActiveUpload(tr, pluginState);
 
-  return new SafePlugin({
-    state: {
-      init(_config, state: EditorState): ImageUploadPluginState {
+          if (
+            newActive !== pluginState.active ||
+            newEnabled !== pluginState.enabled ||
+            newActiveUpload !== pluginState.activeUpload
+          ) {
+            const newPluginState = {
+              ...pluginState,
+              active: newActive,
+              enabled: newEnabled,
+              activeUpload: newActiveUpload,
+            };
+
+            dispatch(stateKey, newPluginState);
+            return newPluginState;
+          }
+
+          return pluginState;
+        },
+      },
+      key: stateKey,
+      view: () => {
+        const handleProvider = async (
+          name: string,
+          provider?: Providers['imageUploadProvider'],
+        ) => {
+          if (name !== 'imageUploadProvider' || !provider) {
+            return;
+          }
+
+          try {
+            const imageUploadProvider = await provider;
+            uploadHandlerReference.current = imageUploadProvider;
+          } catch (e) {
+            uploadHandlerReference.current = null;
+          }
+        };
+
+        providerFactory.subscribe('imageUploadProvider', handleProvider);
+
         return {
-          active: false,
-          enabled: canInsertMedia(state),
-          hidden: !state.schema.nodes.media || !state.schema.nodes.mediaSingle,
+          destroy() {
+            uploadHandlerReference.current = null;
+            providerFactory.unsubscribe('imageUploadProvider', handleProvider);
+          },
         };
       },
-      apply(tr, pluginState: ImageUploadPluginState, _oldState, newState) {
-        const newActive = isMediaSelected(newState);
-        const newEnabled = canInsertMedia(newState);
-        const newActiveUpload = getNewActiveUpload(tr, pluginState);
-
-        if (
-          newActive !== pluginState.active ||
-          newEnabled !== pluginState.enabled ||
-          newActiveUpload !== pluginState.activeUpload
-        ) {
-          const newPluginState = {
-            ...pluginState,
-            active: newActive,
-            enabled: newEnabled,
-            activeUpload: newActiveUpload,
-          };
-
-          dispatch(stateKey, newPluginState);
-          return newPluginState;
-        }
-
-        return pluginState;
-      },
-    },
-    key: stateKey,
-    view: () => {
-      const handleProvider = async (
-        name: string,
-        provider?: Providers['imageUploadProvider'],
-      ) => {
-        if (name !== 'imageUploadProvider' || !provider) {
-          return;
-        }
-
-        try {
-          const imageUploadProvider = await provider;
-          uploadHandlerReference.current = imageUploadProvider;
-        } catch (e) {
-          uploadHandlerReference.current = null;
-        }
-      };
-
-      providerFactory.subscribe('imageUploadProvider', handleProvider);
-
-      return {
-        destroy() {
-          uploadHandlerReference.current = null;
-          providerFactory.unsubscribe('imageUploadProvider', handleProvider);
+      props: {
+        handleDOMEvents: {
+          drop: createDOMHandler(
+            isDroppedFile,
+            'atlassian.editor.image.drop',
+            uploadHandlerReference,
+          ),
+          paste: createDOMHandler(
+            isPastedFile,
+            'atlassian.editor.image.paste',
+            uploadHandlerReference,
+          ),
         },
-      };
-    },
-    props: {
-      handleDOMEvents: {
-        drop: createDOMHandler(
-          isDroppedFile,
-          'atlassian.editor.image.drop',
-          uploadHandlerReference,
-        ),
-        paste: createDOMHandler(
-          isPastedFile,
-          'atlassian.editor.image.paste',
-          uploadHandlerReference,
-        ),
       },
-    },
-  });
-};
+    });
+  };

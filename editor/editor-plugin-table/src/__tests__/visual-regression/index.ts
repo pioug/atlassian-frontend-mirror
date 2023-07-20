@@ -1,14 +1,15 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
-import {
-  snapshot,
-  initFullPageEditorWithAdf,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import tableWith100ListItemsADF from './__fixtures__/table-with-100-numbered-list-items.json';
 import {
   scrollToBottom,
   scrollToElement,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
+import {
+  initFullPageEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import tableWith100ListItemsADF from './__fixtures__/table-with-100-numbered-list-items.json';
 
 async function initEditor(page: PuppeteerPage, adf: Object) {
   await initFullPageEditorWithAdf(

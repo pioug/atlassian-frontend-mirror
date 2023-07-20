@@ -1,11 +1,7 @@
 import React from 'react';
 
+import { Transaction } from 'prosemirror-state';
 import type { EditorView } from 'prosemirror-view';
-
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { browser } from '@atlaskit/editor-common/utils';
-import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
-import { createTable } from '@atlaskit/editor-tables/utils';
 
 import {
   table,
@@ -14,11 +10,6 @@ import {
   tableRow,
   tableWithCustomWidth,
 } from '@atlaskit/adf-schema';
-
-import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
-
-import type { EditorPlugin, Command } from '@atlaskit/editor-common/types';
-import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -28,33 +19,49 @@ import {
   INPUT_METHOD,
   TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-
+import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { IconTable } from '@atlaskit/editor-common/icons';
-
+import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import type {
+  Command,
+  EditorPlugin,
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+  NextEditorPlugin,
+} from '@atlaskit/editor-common/types';
+import { browser } from '@atlaskit/editor-common/utils';
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
+import { createTable } from '@atlaskit/editor-tables/utils';
 
 import { pluginConfig } from './create-plugin-config';
-import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
-import {
-  pluginKey as tableWidthPluginKey,
-  createPlugin as createTableWidthPlugin,
-} from './pm-plugins/table-width';
-import { createPlugin as createTableSafariDeleteCompositionTextIssueWorkaroundPlugin } from './pm-plugins/safari-delete-composition-text-issue-workaround';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
 import { keymapPlugin } from './pm-plugins/keymap';
-import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey } from './pm-plugins/plugin-key';
+import { createPlugin as createTableSafariDeleteCompositionTextIssueWorkaroundPlugin } from './pm-plugins/safari-delete-composition-text-issue-workaround';
 import {
   createPlugin as createStickyHeadersPlugin,
   findStickyHeaderForTable,
   pluginKey as stickyHeadersPluginKey,
 } from './pm-plugins/sticky-headers';
+import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
 import {
   createPlugin as createFlexiResizingPlugin,
   pluginKey as tableResizingPluginKey,
 } from './pm-plugins/table-resizing';
+import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
+import {
+  createPlugin as createTableWidthPlugin,
+  pluginKey as tableWidthPluginKey,
+} from './pm-plugins/table-width';
 import { getToolbarConfig } from './toolbar';
 import { ColumnResizingPluginState, PluginConfig } from './types';
 import FloatingContextualButton from './ui/FloatingContextualButton';
@@ -63,21 +70,12 @@ import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import LayoutButton from './ui/LayoutButton';
 import { isLayoutSupported } from './utils';
-import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import type {
-  GetEditorContainerWidth,
-  GetEditorFeatureFlags,
-  NextEditorPlugin,
-} from '@atlaskit/editor-common/types';
-import { Transaction } from 'prosemirror-state';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 interface TablePluginOptions {
   tableOptions: PluginConfig;
+  // experimental custom table resizing experience, set inside editor-core behind a feature flag
+  // will eventually replace breakoutEnabled
+  tableResizingEnabled?: boolean;
   breakoutEnabled?: boolean;
   allowContextualMenu?: boolean;
   // TODO these two need to be rethought
@@ -142,7 +140,7 @@ const tablesPlugin: NextEditorPlugin<
     },
 
     nodes() {
-      const tableNode = getBooleanFF('platform.editor.custom-table-width')
+      const tableNode = options?.tableResizingEnabled
         ? tableWithCustomWidth
         : table;
 
@@ -167,6 +165,7 @@ const tablesPlugin: NextEditorPlugin<
             const {
               fullWidthEnabled,
               wasFullWidthEnabled,
+              tableResizingEnabled,
               breakoutEnabled,
               tableOptions,
               getEditorFeatureFlags,
@@ -181,6 +180,7 @@ const tablesPlugin: NextEditorPlugin<
               getEditorFeatureFlags || defaultGetEditorFeatureFlags,
               breakoutEnabled,
               fullWidthEnabled,
+              tableResizingEnabled,
               wasFullWidthEnabled,
               editorAnalyticsAPI,
               api,
@@ -262,7 +262,7 @@ const tablesPlugin: NextEditorPlugin<
         {
           name: 'tableWidth',
           plugin: ({ dispatch }) =>
-            getBooleanFF('platform.editor.custom-table-width')
+            options?.tableResizingEnabled
               ? createTableWidthPlugin(
                   dispatch,
                   options?.fullWidthEnabled ?? false,
@@ -353,25 +353,25 @@ const tablesPlugin: NextEditorPlugin<
                 ? findStickyHeaderForTable(stickyHeadersState, tablePos)
                 : undefined;
 
-              const LayoutContent = getBooleanFF(
-                'platform.editor.custom-table-width',
-              ) ? null : isLayoutSupported(state) &&
+              const LayoutContent =
                 options &&
+                !options.tableResizingEnabled &&
+                isLayoutSupported(state) &&
                 options.breakoutEnabled ? (
-                <LayoutButton
-                  editorView={editorView}
-                  mountPoint={popupsMountPoint}
-                  boundariesElement={popupsBoundariesElement}
-                  scrollableElement={popupsScrollableElement}
-                  targetRef={tableWrapperTarget!}
-                  layout={layout}
-                  isResizing={
-                    !!resizingPluginState && !!resizingPluginState.dragging
-                  }
-                  stickyHeader={stickyHeader}
-                  editorAnalyticsAPI={editorAnalyticsAPI}
-                />
-              ) : null;
+                  <LayoutButton
+                    editorView={editorView}
+                    mountPoint={popupsMountPoint}
+                    boundariesElement={popupsBoundariesElement}
+                    scrollableElement={popupsScrollableElement}
+                    targetRef={tableWrapperTarget!}
+                    layout={layout}
+                    isResizing={
+                      !!resizingPluginState && !!resizingPluginState.dragging
+                    }
+                    stickyHeader={stickyHeader}
+                    editorAnalyticsAPI={editorAnalyticsAPI}
+                  />
+                ) : null;
 
               return (
                 <>

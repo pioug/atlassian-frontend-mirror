@@ -70,11 +70,11 @@ export default InteractionSurface;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b11e88d30e0364eaa7a660c740b296b6>>
+ * @codegen <<SignedSource::6705bcce4bc1f3f6b944ca61e2f7afcf>>
  * @codegenId interactions
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["background"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::efb3dfea27ab3db2fb3756ed9657c5cb>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d09e7cd13e24113267155813747b3bd4>>
  */
 const backgroundActiveColorMap = {
   input: css({
@@ -106,9 +106,19 @@ const backgroundActiveColorMap = {
       backgroundColor: token('color.background.selected.bold.pressed'),
     },
   }),
+  'brand.subtlest': css({
+    ':active': {
+      backgroundColor: token('color.background.brand.subtlest.pressed'),
+    },
+  }),
   'brand.bold': css({
     ':active': {
       backgroundColor: token('color.background.brand.bold.pressed'),
+    },
+  }),
+  'brand.boldest': css({
+    ':active': {
+      backgroundColor: token('color.background.brand.boldest.pressed'),
     },
   }),
   danger: css({
@@ -194,8 +204,18 @@ const backgroundHoverColorMap = {
       backgroundColor: token('color.background.selected.bold.hovered'),
     },
   }),
+  'brand.subtlest': css({
+    ':hover': {
+      backgroundColor: token('color.background.brand.subtlest.hovered'),
+    },
+  }),
   'brand.bold': css({
     ':hover': { backgroundColor: token('color.background.brand.bold.hovered') },
+  }),
+  'brand.boldest': css({
+    ':hover': {
+      backgroundColor: token('color.background.brand.boldest.hovered'),
+    },
   }),
   danger: css({
     ':hover': { backgroundColor: token('color.background.danger.hovered') },

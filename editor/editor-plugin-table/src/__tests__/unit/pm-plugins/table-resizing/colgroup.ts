@@ -1,16 +1,17 @@
 import {
   p,
   table,
-  tr,
   td,
   th,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import { isMinCellWidthTable } from '../../../../plugins/table/pm-plugins/table-resizing/utils/colgroup';
+
 import {
   generateColgroup,
   getColgroupChildrenLength,
 } from '../../../../plugins/table/pm-plugins/table-resizing/utils';
+import { isMinCellWidthTable } from '../../../../plugins/table/pm-plugins/table-resizing/utils/colgroup';
 
 describe('table-resizing/colgroup', () => {
   describe('#generateColgroup', () => {

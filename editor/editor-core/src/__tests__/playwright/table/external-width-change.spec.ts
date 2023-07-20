@@ -24,6 +24,7 @@ const adfs: Record<string, any> = {
   width: simpleTableWithWidthAttribute,
   'no width': simpleTable,
 };
+
 for (const key in adfs) {
   test.describe(`viewport change when there is ${key} attribute on table`, () => {
     test.use({

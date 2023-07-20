@@ -1,30 +1,31 @@
 import { PluginKey } from 'prosemirror-state';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
-  table,
-  tr,
-  td,
-  tdEmpty,
-  tdCursor,
-  p,
   DocBuilder,
+  p,
+  table,
+  td,
+  tdCursor,
+  tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import tablePlugin from '../../../plugins/table/index';
+
+import tablePlugin from '../../../plugins/table';
+import { goToNextCell } from '../../../plugins/table/commands/go-to-next-cell';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { TablePluginState } from '../../../plugins/table/types';
-import { goToNextCell } from '../../../plugins/table/commands/go-to-next-cell';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

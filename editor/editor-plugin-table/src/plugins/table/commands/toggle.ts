@@ -1,11 +1,10 @@
 //#region Imports
 import { Transaction } from 'prosemirror-state';
-import { toggleHeader } from '@atlaskit/editor-tables/utils';
-import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { TableLayout } from '@atlaskit/adf-schema';
-
 import { Command } from '@atlaskit/editor-common/types';
+import { findTable, toggleHeader } from '@atlaskit/editor-tables/utils';
+
 import { createCommand } from '../pm-plugins/plugin-factory';
 //#endregion
 

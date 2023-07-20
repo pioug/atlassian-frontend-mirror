@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0c77b46d428791fb0288b991d64320bc>>
+ * @codegen <<SignedSource::ee9558f71e21d57dd7abb1686236b1ed>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -176,9 +176,19 @@ const tokens = {
     '--ds-background-selected-bold-hovered',
   'color.background.selected.bold.pressed':
     '--ds-background-selected-bold-pressed',
+  'color.background.brand.subtlest': '--ds-background-brand-subtlest',
+  'color.background.brand.subtlest.hovered':
+    '--ds-background-brand-subtlest-hovered',
+  'color.background.brand.subtlest.pressed':
+    '--ds-background-brand-subtlest-pressed',
   'color.background.brand.bold': '--ds-background-brand-bold',
   'color.background.brand.bold.hovered': '--ds-background-brand-bold-hovered',
   'color.background.brand.bold.pressed': '--ds-background-brand-bold-pressed',
+  'color.background.brand.boldest': '--ds-background-brand-boldest',
+  'color.background.brand.boldest.hovered':
+    '--ds-background-brand-boldest-hovered',
+  'color.background.brand.boldest.pressed':
+    '--ds-background-brand-boldest-pressed',
   'color.background.danger': '--ds-background-danger',
   'color.background.danger.hovered': '--ds-background-danger-hovered',
   'color.background.danger.pressed': '--ds-background-danger-pressed',
@@ -532,9 +542,15 @@ export type CSSTokenMap = {
   'color.background.selected.bold': 'var(--ds-background-selected-bold)';
   'color.background.selected.bold.hovered': 'var(--ds-background-selected-bold-hovered)';
   'color.background.selected.bold.pressed': 'var(--ds-background-selected-bold-pressed)';
+  'color.background.brand.subtlest': 'var(--ds-background-brand-subtlest)';
+  'color.background.brand.subtlest.hovered': 'var(--ds-background-brand-subtlest-hovered)';
+  'color.background.brand.subtlest.pressed': 'var(--ds-background-brand-subtlest-pressed)';
   'color.background.brand.bold': 'var(--ds-background-brand-bold)';
   'color.background.brand.bold.hovered': 'var(--ds-background-brand-bold-hovered)';
   'color.background.brand.bold.pressed': 'var(--ds-background-brand-bold-pressed)';
+  'color.background.brand.boldest': 'var(--ds-background-brand-boldest)';
+  'color.background.brand.boldest.hovered': 'var(--ds-background-brand-boldest-hovered)';
+  'color.background.brand.boldest.pressed': 'var(--ds-background-brand-boldest-pressed)';
   'color.background.danger': 'var(--ds-background-danger)';
   'color.background.danger.hovered': 'var(--ds-background-danger-hovered)';
   'color.background.danger.pressed': 'var(--ds-background-danger-pressed)';

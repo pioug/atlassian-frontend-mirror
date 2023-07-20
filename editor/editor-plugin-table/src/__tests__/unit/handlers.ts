@@ -1,28 +1,29 @@
 import { PluginKey, TextSelection } from 'prosemirror-state';
 
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
-  table,
-  tr,
-  tdEmpty,
-  tdCursor,
   DocBuilder,
+  table,
+  tdCursor,
+  tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState } from '../../plugins/table/types';
-import { handleDocOrSelectionChanged } from '../../plugins/table/handlers';
-import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { defaultTableSelection } from '../../plugins/table/pm-plugins/default-table-selection';
+
 import tablePlugin from '../../plugins/table-plugin';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { handleDocOrSelectionChanged } from '../../plugins/table/handlers';
+import { defaultTableSelection } from '../../plugins/table/pm-plugins/default-table-selection';
+import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
+import { TablePluginState } from '../../plugins/table/types';
 
 describe('table action handlers', () => {
   let editor: any;

@@ -1,15 +1,7 @@
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { Rect } from '@atlaskit/editor-tables/table-map';
-import {
-  findCellClosestToPos,
-  findCellRectClosestToPos,
-  getSelectionRect,
-} from '@atlaskit/editor-tables/utils';
 import { Selection } from 'prosemirror-state';
 
 import { tableBackgroundColorPalette, TableLayout } from '@atlaskit/adf-schema';
-
-import type { Command } from '@atlaskit/editor-common/types';
+import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -21,14 +13,25 @@ import type {
   AnalyticsEventPayload,
   EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
+import type {
+  Command,
+  GetEditorContainerWidth,
+} from '@atlaskit/editor-common/types';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { Rect } from '@atlaskit/editor-tables/table-map';
+import {
+  findCellClosestToPos,
+  findCellRectClosestToPos,
+  getSelectionRect,
+} from '@atlaskit/editor-tables/utils';
 
 import { clearMultipleCells } from './commands/clear';
 import { wrapTableInExpand } from './commands/collapse';
 import { insertColumn, insertRow } from './commands/insert';
 import {
   deleteTable,
-  setMultipleCellAttrs,
   deleteTableIfSelected,
+  setMultipleCellAttrs,
 } from './commands/misc';
 import { sortByColumn } from './commands/sort';
 import { splitCell } from './commands/split-cell';
@@ -39,12 +42,11 @@ import {
   toggleNumberColumn,
   toggleTableLayout,
 } from './commands/toggle';
-import { distributeColumnsWidths } from './pm-plugins/table-resizing/commands';
 import { getPluginState } from './pm-plugins/plugin-factory';
+import { distributeColumnsWidths } from './pm-plugins/table-resizing/commands';
+import { ResizeStateWithAnalytics } from './pm-plugins/table-resizing/utils';
 import { deleteColumns, deleteRows, mergeCells } from './transforms';
 import { InsertRowMethods, InsertRowOptions, RowInsertPosition } from './types';
-
-import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import {
   checkIfNumberColumnEnabled,
   getSelectedCellInfo,
@@ -52,8 +54,6 @@ import {
 } from './utils';
 import { withEditorAnalyticsAPI } from './utils/analytics';
 import { getAllowAddColumnCustomStep } from './utils/get-allow-add-column-custom-step';
-import { ResizeStateWithAnalytics } from './pm-plugins/table-resizing/utils';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 
 const TABLE_BREAKOUT_NAME_MAPPING = {
   default: TABLE_BREAKOUT.NORMAL,

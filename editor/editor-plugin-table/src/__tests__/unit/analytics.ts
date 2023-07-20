@@ -1,3 +1,10 @@
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 import {
   createProsemirrorEditorFactory,
@@ -6,46 +13,39 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
-  tr,
-  thEmpty,
-  tdEmpty,
-  tdCursor,
   td,
-  DocBuilder,
+  tdCursor,
+  tdEmpty,
+  thEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { B50 } from '@atlaskit/theme/colors';
 
-import { PluginConfig } from '../../plugins/table/types';
+import tablePlugin from '../../plugins/table-plugin';
 import {
+  deleteColumnsWithAnalytics,
+  deleteRowsWithAnalytics,
+  deleteTableIfSelectedWithAnalytics,
   deleteTableWithAnalytics,
   emptyMultipleCellsWithAnalytics,
+  insertColumnWithAnalytics,
+  insertRowWithAnalytics,
   mergeCellsWithAnalytics,
-  splitCellWithAnalytics,
   setColorWithAnalytics,
-  toggleHeaderRowWithAnalytics,
+  splitCellWithAnalytics,
   toggleHeaderColumnWithAnalytics,
+  toggleHeaderRowWithAnalytics,
   toggleNumberColumnWithAnalytics,
   toggleTableLayoutWithAnalytics,
-  insertRowWithAnalytics,
-  insertColumnWithAnalytics,
-  deleteRowsWithAnalytics,
-  deleteColumnsWithAnalytics,
-  deleteTableIfSelectedWithAnalytics,
 } from '../../plugins/table/commands-with-analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { handleCut } from '../../plugins/table/event-handlers';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { replaceSelectedTable } from '../../plugins/table/transforms';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import tablePlugin from '../../plugins/table-plugin';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { PluginConfig } from '../../plugins/table/types';
 
 const defaultTableDoc = doc(
   table()(

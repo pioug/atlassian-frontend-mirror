@@ -1,17 +1,18 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import isEqual from 'lodash/isEqual';
+
 import { fullpage } from '@atlaskit/editor-test-helpers/integration/helpers';
+import {
+  multiCellTableSelectionBottomRightToFirstCell,
+  multiCellTableSelectionBottomRightToMiddleTopCell,
+  multiCellTableSelectionTopLeftToBottomRight,
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import tableWithTextAndEmptyRow from './__fixtures__/table-with-text-and-empty-row';
-import {
-  multiCellTableSelectionTopLeftToBottomRight,
-  multiCellTableSelectionBottomRightToFirstCell,
-  multiCellTableSelectionBottomRightToMiddleTopCell,
-} from '@atlaskit/editor-test-helpers/page-objects/table';
-import isEqual from 'lodash/isEqual';
 
 BrowserTestCase(
   'multi cell table selection should correctly highlight entire table selection',

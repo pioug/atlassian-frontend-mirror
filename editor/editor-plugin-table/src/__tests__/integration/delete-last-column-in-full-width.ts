@@ -1,16 +1,16 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-
 import {
   editable,
-  getDocFromElement,
   fullpage,
+  getDocFromElement,
   quickInsert,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+
+import { TableCssClassName as ClassName } from '../../plugins/table/types';
 
 // ED-6231
 BrowserTestCase(

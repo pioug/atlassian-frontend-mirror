@@ -4,6 +4,7 @@ import { Fragment, MouseEvent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { PRODUCT_HOME_BREAKPOINT } from '../../common/constants';
@@ -77,7 +78,7 @@ const productHomeButtonStyles = css({
   '&:focus-visible': {
     backgroundColor: `var(${VAR_PRODUCT_HOME_BACKGROUND_COLOR_FOCUS})`,
     color: `var(${VAR_PRODUCT_HOME_COLOR_FOCUS})`,
-    outline: `2px solid ${token('color.border.focused', '#4C9AFF')}`,
+    outline: `2px solid ${token('color.border.focused', B200)}`,
   },
 
   // eslint-disable-next-line @repo/internal/styles/no-nested-styles

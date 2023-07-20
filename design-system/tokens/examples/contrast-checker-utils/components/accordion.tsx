@@ -66,7 +66,7 @@ export default function Accordion({
           >
             <Box
               xcss={xcss({
-                display: 'inlineFlex',
+                display: 'inline-flex',
                 alignItems: 'center',
                 gap: 'space.050',
               })}

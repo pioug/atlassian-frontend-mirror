@@ -10,14 +10,13 @@
  * TODO: https://product-fabric.atlassian.net/browse/ED-12714
  *
  */
-import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, PluginKey } from 'prosemirror-state';
 import { Node as ProsemirrorNode } from 'prosemirror-model';
+import { EditorState, PluginKey } from 'prosemirror-state';
 import rafSchedule from 'raf-schd';
 
 import { uuid } from '@atlaskit/adf-schema';
-
+import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { stepHasSlice } from '@atlaskit/editor-common/utils';
 
 interface TableLocalIdPluginState {

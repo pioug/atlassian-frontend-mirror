@@ -1,15 +1,16 @@
 // #region Constants
-import {
-  findTable,
-  goToNextCell as baseGotoNextCell,
-} from '@atlaskit/editor-tables/utils';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { Direction } from '@atlaskit/editor-tables/types';
 import { findParentNodeOfType } from 'prosemirror-utils';
 
-import { Command } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { Command } from '@atlaskit/editor-common/types';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { Direction } from '@atlaskit/editor-tables/types';
+import {
+  goToNextCell as baseGotoNextCell,
+  findTable,
+} from '@atlaskit/editor-tables/utils';
+
 import { insertRowWithAnalytics } from '../commands-with-analytics';
 
 const TAB_FORWARD_DIRECTION = 1;

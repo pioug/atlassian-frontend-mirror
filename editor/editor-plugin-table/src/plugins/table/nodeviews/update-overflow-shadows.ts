@@ -1,5 +1,7 @@
-import { TableCssClassName as ClassName } from '../types';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+
+import { TableCssClassName as ClassName } from '../types';
+
 export const updateShadowListForStickyStyles = (
   heightStyle: string,
 

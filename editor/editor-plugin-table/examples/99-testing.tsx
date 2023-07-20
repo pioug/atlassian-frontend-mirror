@@ -1,22 +1,23 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl-next';
-import Button from '@atlaskit/button/standard-button';
-import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
-import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
-import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
-import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-import { SmartCardProvider } from '@atlaskit/link-provider';
 
+import { IntlProvider } from 'react-intl-next';
+
+import Button from '@atlaskit/button/standard-button';
 import {
   createEditorExampleForTests,
   mapProvidersToProps,
 } from '@atlaskit/editor-core/example-helpers/create-editor-example-for-tests';
-import { Editor, ContextPanel } from '@atlaskit/editor-core/src';
-import { SaveAndCancelButtons } from '@atlaskit/editor-core/examples/5-full-page';
-import { TitleInput } from '@atlaskit/editor-core/example-helpers/PageElements';
 import { getDefaultLinkPickerOptions } from '@atlaskit/editor-core/example-helpers/link-picker';
+import { TitleInput } from '@atlaskit/editor-core/example-helpers/PageElements';
+import { SaveAndCancelButtons } from '@atlaskit/editor-core/examples/5-full-page';
+import { ContextPanel, Editor } from '@atlaskit/editor-core/src';
 import { CollabEditOptions } from '@atlaskit/editor-core/src/plugins/collab-edit';
+import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
+import { SmartCardProvider } from '@atlaskit/link-provider';
+import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
+import { cardClient } from '@atlaskit/media-integration-test-helpers/card-client';
+import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
+import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 
 export default function EditorExampleForIntegrationTests({ clipboard = true }) {
   return createEditorExampleForTests<any>(

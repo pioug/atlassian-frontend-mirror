@@ -432,8 +432,6 @@ const ResizeControl = ({
     maxAriaWidth,
   );
 
-  // TODO: Investigate use of separator role on button (GrabArea) element (DSP-11752)
-  /* eslint-disable jsx-a11y/role-supports-aria-props */
   return (
     <Fragment>
       <div
@@ -447,19 +445,15 @@ const ResizeControl = ({
         <Shadow testId={testId && `${testId}-shadow`} />
         {!mobileMediaQuery?.matches && (
           <GrabArea
-            role="separator"
-            aria-label={resizeGrabAreaLabel}
-            aria-valuenow={leftSidebarPercentageExpanded}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-expanded={!isLeftSidebarCollapsed}
+            isDisabled={isLeftSidebarCollapsed}
+            isLeftSidebarCollapsed={isLeftSidebarCollapsed}
+            label={resizeGrabAreaLabel}
+            leftSidebarPercentageExpanded={leftSidebarPercentageExpanded}
+            onBlur={onBlur}
+            onFocus={onFocus}
             onKeyDown={onKeyDown}
             onMouseDown={onMouseDown}
-            onFocus={onFocus}
-            onBlur={onBlur}
             testId={testId && `${testId}-grab-area`}
-            isLeftSidebarCollapsed={isLeftSidebarCollapsed}
-            disabled={isLeftSidebarCollapsed}
           />
         )}
         {resizeButton.render(ResizeButton, {
@@ -476,7 +470,6 @@ const ResizeControl = ({
       ) : null}
     </Fragment>
   );
-  /* eslint-enable jsx-a11y/role-supports-aria-props */
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

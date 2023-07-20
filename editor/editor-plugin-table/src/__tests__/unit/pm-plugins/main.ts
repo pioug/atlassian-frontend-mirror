@@ -1,3 +1,13 @@
+import { undo } from 'prosemirror-history';
+import { NodeType } from 'prosemirror-model';
+import { Selection } from 'prosemirror-state';
+import * as pmUtils from 'prosemirror-utils';
+
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -5,33 +15,24 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
   tdCursor,
   tdEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Selection } from 'prosemirror-state';
-import * as pmUtils from 'prosemirror-utils';
 
 import tablePlugin from '../../../plugins/table';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
-import { setEditorFocus } from '../../../plugins/table/commands/misc';
-import * as miscCommands from '../../../plugins/table/commands/misc';
-import { NodeType } from 'prosemirror-model';
-import { undo } from 'prosemirror-history';
 import {
   toggleHeaderColumn,
   toggleHeaderRow,
   toggleNumberColumn,
 } from '../../../plugins/table/commands';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { setEditorFocus } from '../../../plugins/table/commands/misc';
+import * as miscCommands from '../../../plugins/table/commands/misc';
+import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 
 describe('tables: main plugin', () => {
   const createEditor = createProsemirrorEditorFactory();

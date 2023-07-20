@@ -5,6 +5,7 @@ import { PreviewFunctionProps } from '../FlexibleCard/components/actions/action/
 import { PreviewActionData } from '../../state/flexible-ui-context/types';
 import Icon from '../FlexibleCard/components/elements/icon';
 import { AnalyticsFacade } from '../../state/analytics';
+import { SmartLinkSize } from '../../constants';
 
 type PreviewModalProps = {
   analytics?: AnalyticsFacade;
@@ -22,7 +23,10 @@ export const openPreviewModal = ({
   title,
   url,
 }: PreviewModalProps) => {
-  const EmbedIcon = { icon: <Icon {...linkIcon} />, isFlexibleUi: true };
+  const EmbedIcon = {
+    icon: <Icon {...linkIcon} size={SmartLinkSize.Large} />,
+    isFlexibleUi: true,
+  };
 
   return previewFunction({
     popupMountPointId: 'twp-editor-preview-iframe',

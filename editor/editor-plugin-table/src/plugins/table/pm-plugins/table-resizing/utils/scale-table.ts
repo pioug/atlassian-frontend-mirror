@@ -1,12 +1,11 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
+import type { DomAtPos } from 'prosemirror-utils';
 
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
-import type { DomAtPos } from 'prosemirror-utils';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
+import { updateColumnWidths } from '../../../transforms';
 import { getTableWidth } from '../../../utils';
 import { getLayoutSize } from '../utils/misc';
 import { reduceSpace } from '../utils/resize-logic';
@@ -17,8 +16,8 @@ import {
   updateColgroup,
 } from '../utils/resize-state';
 import { ResizeState } from '../utils/types';
+
 import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';
-import { updateColumnWidths } from '../../../transforms';
 
 export interface ScaleOptions {
   node: PMNode;
@@ -157,7 +156,7 @@ export const previewScaleTable = (
     return;
   }
 
-  if (getBooleanFF('platform.editor.custom-table-width') && parentWidth) {
+  if (parentWidth) {
     tableRef.style.width = `${parentWidth}px`;
   }
 

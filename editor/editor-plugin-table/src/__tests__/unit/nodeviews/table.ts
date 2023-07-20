@@ -1,4 +1,12 @@
 import { Node as PMNode } from 'prosemirror-model';
+import { EditorView } from 'prosemirror-view';
+
+import { TableAttributes } from '@atlaskit/adf-schema';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -6,26 +14,20 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
-  tr,
   td,
-  tdEmpty,
   tdCursor,
-  DocBuilder,
+  tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TableAttributes } from '@atlaskit/adf-schema';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import tablePlugin from '../../../plugins/table';
-import TableView from '../../../plugins/table/nodeviews/table';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import { EditorView } from 'prosemirror-view';
+
+import tablePlugin from '../../../plugins/table';
 import { hoverRows } from '../../../plugins/table/commands';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import TableView from '../../../plugins/table/nodeviews/table';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 
 describe('table -> nodeviews -> table.tsx', () => {
   const createEditor = createProsemirrorEditorFactory();

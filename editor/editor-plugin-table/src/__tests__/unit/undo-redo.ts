@@ -1,3 +1,12 @@
+import clone from 'lodash/clone';
+import { redo, undo } from 'prosemirror-history';
+import { EditorView } from 'prosemirror-view';
+
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -5,30 +14,23 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
-  tr,
-  th,
-  DocBuilder,
-  thEmpty,
   td,
   tdCursor,
   tdEmpty,
+  th,
+  thEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { EditorView } from 'prosemirror-view';
-import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import { redo, undo } from 'prosemirror-history';
+import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+
+import tablePlugin from '../../plugins/table';
 import { insertColumn } from '../../plugins/table/commands';
+import { pluginKey as tablePluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { deleteColumns } from '../../plugins/table/transforms';
 import { colsToRect } from '../../plugins/table/utils/table';
-import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import clone from 'lodash/clone';
-import tablePlugin from '../../plugins/table';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

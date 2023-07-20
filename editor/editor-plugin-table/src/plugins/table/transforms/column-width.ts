@@ -1,31 +1,31 @@
 import { Node as PMNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { ContentNodeWithPos } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
+import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import {
+  tableCellMinWidth,
+  tableNewColumnMinWidth,
+} from '@atlaskit/editor-common/styles';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import {
   hasTableBeenResized,
   ResizeState,
 } from '../pm-plugins/table-resizing/utils';
-
-import { ContentNodeWithPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
+import { isMinCellWidthTable } from '../pm-plugins/table-resizing/utils/colgroup';
+import { getTableMaxWidth } from '../pm-plugins/table-resizing/utils/misc';
 import {
   getResizeState,
   normaliseTableLayout,
 } from '../pm-plugins/table-resizing/utils/resize-state';
-import { getTableMaxWidth } from '../pm-plugins/table-resizing/utils/misc';
-import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { scaleTableTo } from '../pm-plugins/table-resizing/utils/scale-table';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import { isMinCellWidthTable } from '../pm-plugins/table-resizing/utils/colgroup';
 import { insertColumnButtonOffset } from '../ui/common-styles';
-
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const updateColumnWidths =
   (resizeState: ResizeState, table: PMNode, start: number) =>

@@ -1,50 +1,52 @@
 import React from 'react';
+
 import {
   DOMOutputSpec,
   DOMSerializer,
   Node as PmNode,
 } from 'prosemirror-model';
+import { EditorState, PluginKey } from 'prosemirror-state';
 import { EditorView, NodeView } from 'prosemirror-view';
-import { PluginKey, EditorState } from 'prosemirror-state';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import type {
-  getPosHandler,
-  getPosHandlerNode,
-} from '@atlaskit/editor-common/types';
 
-import ReactNodeView from '@atlaskit/editor-common/react-node-view';
+import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
+  getPosHandler,
+  getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 import { pluginConfig as getPluginConfig } from '../create-plugin-config';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing';
-import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import { generateColgroup } from '../pm-plugins/table-resizing/utils';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
+import { PluginInjectionAPI } from '../types';
+import { isTableNested } from '../utils';
+
 import TableComponent from './TableComponent';
 import { Props, TableOptions } from './types';
-import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { isTableNested } from '../utils';
-import { PluginInjectionAPI } from '../types';
 
 type ForwardRef = (node: HTMLElement | null) => void;
 
 const tableAttributes = (
   node: PmNode,
+  options: Props['options'],
   state: EditorState,
   pos: number | undefined,
 ) => {
+  // provide a width for tables when custom table width is supported
+  // this is to ensure 'responsive' tables (colgroup widths are undefined) become fixed to
+  // support screen size adjustments
   const shouldHaveInlineWidth =
-    getBooleanFF('platform.editor.custom-table-width') &&
-    !isTableNested(state, pos);
+    options?.isTableResizingEnabled && !isTableNested(state, pos);
 
   let style = shouldHaveInlineWidth
     ? `width: ${getTableContainerWidth(node)}px`
@@ -69,7 +71,7 @@ const toDOM = (node: PmNode, props: Props) => {
 
   return [
     'table',
-    tableAttributes(node, props.view.state, props.getPos()),
+    tableAttributes(node, props.options, props.view.state, props.getPos()),
     colgroup,
     ['tbody', 0],
   ] as DOMOutputSpec;
@@ -122,7 +124,12 @@ export default class TableView extends ReactNodeView<Props> {
       return;
     }
 
-    const attrs = tableAttributes(node, this.view.state, this.getPos());
+    const attrs = tableAttributes(
+      node,
+      (this.reactComponentProps as Props).options,
+      this.view.state,
+      this.getPos(),
+    );
     (Object.keys(attrs) as Array<keyof typeof attrs>).forEach((attr) => {
       this.table!.setAttribute(attr, attrs[attr]);
     });

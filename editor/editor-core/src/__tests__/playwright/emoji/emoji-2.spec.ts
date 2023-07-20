@@ -26,12 +26,12 @@ test.describe('emoji-2', () => {
 
   test('should be able to use emoji inside blockquote', async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const emojiNode = EditorEmojiModel.from(nodes.emoji);
+    const emojiNode = EditorEmojiModel.from(nodes.emoji, editor);
 
     await editor.keyboard.type('> ');
     await editor.keyboard.type('some text ');
-    await editor.keyboard.type(':a:');
-    await emojiNode.isVisible('a');
+    await emojiNode.insert({ shortName: 'a' });
+
     await expect(editor).toMatchDocument(
       doc(
         blockquote(
@@ -47,10 +47,9 @@ test.describe('emoji-2', () => {
 
   test('should be able to use emoji inside bulletList', async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const emojiNode = EditorEmojiModel.from(nodes.emoji);
+    const emojiNode = EditorEmojiModel.from(nodes.emoji, editor);
     await editor.keyboard.type('* ');
-    await editor.keyboard.type(':smile:');
-    await emojiNode.isVisible('smile');
+    await emojiNode.insert({ shortName: 'smile' });
 
     await expect(editor).toMatchDocument(
       doc(
@@ -65,10 +64,10 @@ test.describe('emoji-2', () => {
 
   test('should be able to use emoji inside orderedList', async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const emojiNode = EditorEmojiModel.from(nodes.emoji);
+    const emojiNode = EditorEmojiModel.from(nodes.emoji, editor);
+
     await editor.keyboard.type('1. ');
-    await editor.keyboard.type(':a:');
-    await emojiNode.isVisible('a');
+    await emojiNode.insert({ shortName: 'a' });
 
     await expect(editor).toMatchDocument(
       doc(
@@ -79,11 +78,10 @@ test.describe('emoji-2', () => {
 
   test('should be able remove emoji on backspace', async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const emojiNode = EditorEmojiModel.from(nodes.emoji);
+    const emojiNode = EditorEmojiModel.from(nodes.emoji, editor);
 
     await editor.keyboard.type('this ');
-    await editor.keyboard.type(':joy:');
-    await emojiNode.isVisible('joy');
+    await emojiNode.insert({ shortName: 'joy' });
 
     await expect(editor).toMatchDocument(
       doc(
@@ -94,6 +92,7 @@ test.describe('emoji-2', () => {
         ),
       ),
     );
+
     await editor.keyboard.press('Backspace');
     await editor.keyboard.press('Backspace');
 
@@ -104,12 +103,11 @@ test.describe('emoji-2', () => {
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const emojiModel = EditorEmojiModel.from(nodes.emoji);
+    const emojiModel = EditorEmojiModel.from(nodes.emoji, editor);
 
     await editor.keyboard.type('<> ');
     await editor.keyboard.type('this ');
-
-    await emojiModel.insertEmojiFromToolbar('smile', editor);
+    await emojiModel.insertFromToolbar({ shortName: 'smile' });
 
     await expect(editor).toMatchDocument(
       doc(
@@ -128,11 +126,10 @@ test.describe('emoji-2', () => {
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const emojiNode = EditorEmojiModel.from(nodes.emoji);
+    const emojiNode = EditorEmojiModel.from(nodes.emoji, editor);
 
     await editor.keyboard.type('this ');
-    await editor.keyboard.type(':smile:');
-    await emojiNode.isVisible('smile');
+    await emojiNode.insert({ shortName: 'smile' });
 
     const toolbar = EditorMainToolbarModel.from(editor);
     await toolbar.clickAt('Decision');
@@ -163,11 +160,10 @@ test.describe('emoji-2: with restartNumberedLists', () => {
     editor,
   }) => {
     const nodes = EditorNodeContainerModel.from(editor);
-    const emojiNode = EditorEmojiModel.from(nodes.emoji);
+    const emojiNode = EditorEmojiModel.from(nodes.emoji, editor);
 
     await editor.keyboard.type('3. ');
-    await editor.keyboard.type(':a:');
-    await emojiNode.isVisible('a');
+    await emojiNode.insert({ shortName: 'a' });
 
     await expect(editor).toMatchDocument(
       doc(

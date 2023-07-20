@@ -1,15 +1,16 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
-  fullpage,
-  setProseMirrorTextSelection,
-  expectToMatchSelection,
   editable,
+  expectToMatchSelection,
+  fullpage,
   getDocFromElement,
+  setProseMirrorTextSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+
 import {
   emptyParagraphUnderneathTable,
   emptyParagraphUnderneathTableAtEnd,

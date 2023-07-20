@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d67f95200a3e54c2a2adadc78198392e>>
+ * @codegen <<SignedSource::c96324369c8a09e129803eff1f33d1e8>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -4025,6 +4025,93 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "1.13.0",
+      "description": "Use for the background of elements used to reinforce our brand, but with less emphasis."
+    },
+    "value": "#E9F2FF",
+    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Use for the background of elements used to reinforce our brand, but with less emphasis."
+      },
+      "value": "Blue100"
+    },
+    "name": "color.background.brand.subtlest.[default]",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "subtlest",
+      "[default]"
+    ],
+    "cleanName": "color.background.brand.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.13.0",
+      "description": "Hovered state of color.background.brand.subtlest."
+    },
+    "value": "#CCE0FF",
+    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Hovered state of color.background.brand.subtlest."
+      },
+      "value": "Blue200"
+    },
+    "name": "color.background.brand.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.brand.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.13.0",
+      "description": "Pressed state of color.background.brand.subtlest"
+    },
+    "value": "#85B8FF",
+    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Pressed state of color.background.brand.subtlest"
+      },
+      "value": "Blue300"
+    },
+    "name": "color.background.brand.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.brand.subtlest.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "introduced": "0.6.0",
       "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
     },
@@ -4055,7 +4142,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Hovered state of color.background.brand.bold"
+      "description": "Hovered state of color.background.brand.bold."
     },
     "value": "#0055CC",
     "filePath": "src/tokens/atlassian-light/color/background.tsx",
@@ -4065,7 +4152,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Hovered state of color.background.brand.bold"
+        "description": "Hovered state of color.background.brand.bold."
       },
       "value": "Blue800"
     },
@@ -4084,7 +4171,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Pressed state of color.background.brand.bold"
+      "description": "Pressed state of color.background.brand.bold."
     },
     "value": "#09326C",
     "filePath": "src/tokens/atlassian-light/color/background.tsx",
@@ -4094,7 +4181,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Pressed state of color.background.brand.bold"
+        "description": "Pressed state of color.background.brand.bold."
       },
       "value": "Blue900"
     },
@@ -4107,6 +4194,93 @@ const tokens = [
       "pressed"
     ],
     "cleanName": "color.background.brand.bold.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.13.0",
+      "description": "Use for the background of elements used to reinforce our brand, that need to stand out a lot."
+    },
+    "value": "#092957",
+    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Use for the background of elements used to reinforce our brand, that need to stand out a lot."
+      },
+      "value": "Blue1000"
+    },
+    "name": "color.background.brand.boldest.[default]",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.background.brand.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.13.0",
+      "description": "Hovered state of color.background.brand.boldest."
+    },
+    "value": "#09326C",
+    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Hovered state of color.background.brand.boldest."
+      },
+      "value": "Blue900"
+    },
+    "name": "color.background.brand.boldest.hovered",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.background.brand.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.13.0",
+      "description": "Pressed state of color.background.brand.boldest."
+    },
+    "value": "#0055CC",
+    "filePath": "src/tokens/atlassian-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Pressed state of color.background.brand.boldest."
+      },
+      "value": "Blue800"
+    },
+    "name": "color.background.brand.boldest.pressed",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "boldest",
+      "pressed"
+    ],
+    "cleanName": "color.background.brand.boldest.pressed"
   },
   {
     "attributes": {

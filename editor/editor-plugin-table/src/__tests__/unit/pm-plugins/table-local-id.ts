@@ -1,32 +1,31 @@
-import { selectTable } from '@atlaskit/editor-tables/utils';
-import { TextSelection, NodeSelection } from 'prosemirror-state';
+import { NodeSelection, TextSelection } from 'prosemirror-state';
 // @ts-ignore
 import { __serializeForClipboard } from 'prosemirror-view';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { replaceRaf } from 'raf-stub';
 
-import { handleCut } from '../../../plugins/table/event-handlers';
-
+import { uuid } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { CellSelection } from '@atlaskit/editor-tables';
+import { selectTable } from '@atlaskit/editor-tables/utils';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import {
   doc,
-  p,
+  DocBuilder,
   expand,
   layoutColumn,
   layoutSection,
+  p,
   table,
-  tr,
   td,
   th,
-  DocBuilder,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { TablePluginState, PluginConfig } from '../../../plugins/table/types';
-import { pluginKey as tablePluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import { CellSelection } from '@atlaskit/editor-tables';
+import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { uuid } from '@atlaskit/adf-schema';
+import { handleCut } from '../../../plugins/table/event-handlers';
+import { pluginKey as tablePluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import { PluginConfig, TablePluginState } from '../../../plugins/table/types';
 
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as any;

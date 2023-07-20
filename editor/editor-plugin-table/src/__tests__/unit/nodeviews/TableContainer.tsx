@@ -1,28 +1,28 @@
 import React from 'react';
+
 import { render } from '@testing-library/react';
 
+import { TableAttributes } from '@atlaskit/adf-schema';
+import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { findTable } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 import {
   doc,
+  DocBuilder,
   p,
   table,
-  tr,
   td,
   tdEmpty,
-  DocBuilder,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { findTable } from '@atlaskit/editor-tables/utils';
 
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import tablePlugin from '../../../plugins/table-plugin';
 import {
   ResizableTableContainer,
   TableContainer,
 } from '../../../plugins/table/nodeviews/TableContainer';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { TablePluginState } from '../../../plugins/table/types';
-import tablePlugin from '../../../plugins/table-plugin';
-import { TableAttributes } from '@atlaskit/adf-schema';
-import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 describe('table -> nodeviews -> TableContainer.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
@@ -52,7 +52,10 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
   };
 
   describe('show correct container for FF and options', () => {
-    const buildContainer = (allowResizing: boolean) => {
+    const buildContainer = (
+      isTableResizingEnabled: boolean,
+      isBreakoutEnabled: boolean = true,
+    ) => {
       const node = createNode();
 
       const { container } = render(
@@ -62,8 +65,8 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
             lineLength: 720,
           }}
           node={node}
-          isFullWidthModeEnabled={allowResizing}
-          isBreakoutEnabled={allowResizing}
+          isTableResizingEnabled={isTableResizingEnabled}
+          isBreakoutEnabled={isBreakoutEnabled}
           className={''}
           editorView={{} as any}
           getPos={() => 1}
@@ -75,42 +78,22 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       return container;
     };
 
-    const buildTest = (
-      allowResizing: boolean,
-      expected?: { ffTrue?: boolean; ffFalse?: boolean },
-    ) => {
-      ffTest(
-        'platform.editor.custom-table-width',
-        async () => {
-          const container = buildContainer(allowResizing);
-
-          expect(!!container.querySelector('.resizer-item')).toBe(
-            expected?.ffTrue ?? true,
-          );
-        },
-        async () => {
-          const container = buildContainer(allowResizing);
-
-          expect(!!container.querySelector('.resizer-item')).toBe(
-            expected?.ffFalse ?? false,
-          );
-        },
-      );
-    };
-
-    describe('when allowResizing is true', () => {
-      buildTest(true);
+    test('when isTableResizingEnabled is true', () => {
+      const container = buildContainer(true);
+      expect(!!container.querySelector('.resizer-item')).toBeTruthy();
     });
 
-    describe('when allowResizing is false', () => {
-      buildTest(false, {
-        ffTrue: false,
-      });
+    test('when isTableResizingEnabled is false', () => {
+      const container = buildContainer(false);
+      expect(!!container.querySelector('.resizer-item')).toBeFalsy();
     });
   });
 
-  describe('show correct continaer for nested tables', () => {
-    const buildContainer = (allowResizing: boolean) => {
+  describe('when table is nested', () => {
+    const buildContainer = (
+      isTableResizingEnabled: boolean,
+      isBreakoutEnabled: boolean = true,
+    ) => {
       const node = createNode();
 
       const { container } = render(
@@ -120,8 +103,8 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
             lineLength: 720,
           }}
           node={node}
-          isFullWidthModeEnabled={allowResizing}
-          isBreakoutEnabled={allowResizing}
+          isTableResizingEnabled={isTableResizingEnabled}
+          isBreakoutEnabled={isBreakoutEnabled}
           className={''}
           editorView={{} as any}
           getPos={() => 1}
@@ -133,38 +116,14 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       return container;
     };
 
-    const buildTest = (
-      allowResizing: boolean,
-      expected?: { ffTrue?: boolean; ffFalse?: boolean },
-    ) => {
-      ffTest(
-        'platform.editor.custom-table-width',
-        async () => {
-          const container = buildContainer(allowResizing);
-
-          expect(!!container.querySelector('.resizer-item')).toBe(
-            expected?.ffTrue ?? true,
-          );
-        },
-        async () => {
-          const container = buildContainer(allowResizing);
-
-          expect(!!container.querySelector('.resizer-item')).toBe(
-            expected?.ffFalse ?? false,
-          );
-        },
-      );
-    };
-
-    describe('when allowResizing is true', () => {
-      buildTest(true, { ffTrue: false, ffFalse: false });
+    test('when isTableResizingEnabled is true - should not render resizer', () => {
+      const container = buildContainer(true);
+      expect(!!container.querySelector('.resizer-item')).toBeFalsy();
     });
 
-    describe('when allowResizing is false', () => {
-      buildTest(false, {
-        ffTrue: false,
-        ffFalse: false,
-      });
+    test('when isTableResizingEnabled is false - should not render resizer', () => {
+      const container = buildContainer(false);
+      expect(!!container.querySelector('.resizer-item')).toBeFalsy();
     });
   });
 
@@ -187,38 +146,12 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       return container;
     };
 
-    describe('when width attribute is not set', () => {
-      ffTest('platform.editor.custom-table-width', () => {
-        const container = buildContainer({ layout: 'wide' });
+    test('when width attribute is not set', () => {
+      const container = buildContainer({ layout: 'wide' });
 
-        const style = window.getComputedStyle(container.firstChild as Element);
-        expect(style.width).toBe(`${akEditorWideLayoutWidth}px`);
-        expect(style.marginLeft).toBe('-120px');
-      });
-    });
-
-    describe('when width attribute is set', () => {
-      ffTest(
-        'platform.editor.custom-table-width',
-        () => {
-          const container = buildContainer({ width: 860 });
-
-          const style = window.getComputedStyle(
-            container.firstChild as Element,
-          );
-          expect(style.width).toBe(`860px`);
-          expect(style.marginLeft).toBe('-70px');
-        }, // fallback to layout because width can't be an attribute in schema
-        () => {
-          const container = buildContainer({ width: 860 });
-
-          const style = window.getComputedStyle(
-            container.firstChild as Element,
-          );
-          expect(style.width).toBe(`760px`);
-          expect(style.marginLeft).toBe('-20px');
-        },
-      );
+      const style = window.getComputedStyle(container.firstChild as Element);
+      expect(style.width).toBe(`${akEditorWideLayoutWidth}px`);
+      expect(style.marginLeft).toBe('-120px');
     });
   });
 });

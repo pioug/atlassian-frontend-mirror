@@ -1,50 +1,49 @@
 /** @jsx jsx */
 import { Component } from 'react';
+
 import { jsx } from '@emotion/react';
-import { Rect } from '@atlaskit/editor-tables/table-map';
-import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import { splitCell } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
 import {
   defineMessages,
-  WrappedComponentProps,
   injectIntl,
+  WrappedComponentProps,
 } from 'react-intl-next';
 
+type DropdownItem = MenuItem & {
+  value: {
+    name: string;
+  };
+};
+
+import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   addColumnAfter,
   addRowAfter,
   backspace,
   tooltip,
 } from '@atlaskit/editor-common/keymaps';
-import {
-  ColorPalette,
-  backgroundPaletteTooltipMessages,
-  cellBackgroundColorPalette,
-} from '@atlaskit/editor-common/ui-color';
 import { DropdownMenuSharedCssClassName } from '@atlaskit/editor-common/styles';
-
-import {
-  ArrowKeyNavigationType,
-  DropdownMenu,
-} from '@atlaskit/editor-common/ui-menu';
-
-import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { cellColourPreviewStyles } from './styles';
-import { closestElement } from '@atlaskit/editor-common/utils';
-
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
-
+import {
+  backgroundPaletteTooltipMessages,
+  cellBackgroundColorPalette,
+  ColorPalette,
+} from '@atlaskit/editor-common/ui-color';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
-type DropdownItem = MenuItem & {
-  value: {
-    name: string;
-  };
-};
+import {
+  ArrowKeyNavigationType,
+  DropdownMenu,
+} from '@atlaskit/editor-common/ui-menu';
+import { closestElement } from '@atlaskit/editor-common/utils';
+import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
+import { Rect } from '@atlaskit/editor-tables/table-map';
+import { splitCell } from '@atlaskit/editor-tables/utils';
 
 import {
   clearHoverSelection,
@@ -56,6 +55,7 @@ import {
 import {
   deleteColumnsWithAnalytics,
   deleteRowsWithAnalytics,
+  distributeColumnsWidthsWithAnalytics,
   emptyMultipleCellsWithAnalytics,
   insertColumnWithAnalytics,
   insertRowWithAnalytics,
@@ -63,21 +63,20 @@ import {
   setColorWithAnalytics,
   sortColumnWithAnalytics,
   splitCellWithAnalytics,
-  distributeColumnsWidthsWithAnalytics,
 } from '../../commands-with-analytics';
 import { getPluginState } from '../../pm-plugins/plugin-factory';
+import { getNewResizeStateFromSelectedColumns } from '../../pm-plugins/table-resizing/utils/resize-state';
 import { canMergeCells } from '../../transforms';
 import { TableCssClassName as ClassName } from '../../types';
-import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import {
   getMergedCellsPositions,
   getSelectedColumnIndexes,
   getSelectedRowIndexes,
 } from '../../utils';
-import tableMessages from '../messages';
 import { contextualMenuDropdownWidth } from '../consts';
-import { getNewResizeStateFromSelectedColumns } from '../../pm-plugins/table-resizing/utils/resize-state';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import tableMessages from '../messages';
+
+import { cellColourPreviewStyles } from './styles';
 
 export const messages = defineMessages({
   cellBackground: {

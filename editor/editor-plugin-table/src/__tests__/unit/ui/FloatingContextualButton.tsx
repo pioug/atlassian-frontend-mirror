@@ -1,9 +1,17 @@
+import React from 'react';
+
+import { render, screen } from '@testing-library/react';
 import * as prosemirrorUtils from 'prosemirror-utils';
 import type { ContentNodeWithPos } from 'prosemirror-utils';
-import { render, screen } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
 import { EditorView } from 'prosemirror-view';
-import React from 'react';
+import { IntlProvider } from 'react-intl-next';
+
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -11,23 +19,18 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   table,
   tdCursor,
   tdEmpty,
   thEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+
+import tablePlugin from '../../../plugins/table-plugin';
 import FloatingContextualButton, {
   Props as FloatingContextualButtonProps,
 } from '../../../plugins/table/ui/FloatingContextualButton';
-import tablePlugin from '../../../plugins/table-plugin';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 const createEditor = createProsemirrorEditorFactory();
 let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));

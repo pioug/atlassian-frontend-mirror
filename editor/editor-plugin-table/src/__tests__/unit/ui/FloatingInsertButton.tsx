@@ -1,41 +1,43 @@
+import React from 'react';
+
+import { render, screen } from '@testing-library/react';
+import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
+import * as prosemirrorUtils from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+import { createIntl, IntlProvider } from 'react-intl-next';
+
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  CONTENT_COMPONENT,
+  EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
+  DocBuilder,
   table,
   tdCursor,
   tdEmpty,
   thEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { render, screen } from '@testing-library/react';
 import {
   selectCell,
   selectColumns,
   selectRows,
 } from '@atlaskit/editor-test-helpers/table';
-import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-import React from 'react';
+
+import tablePlugin from '../../../plugins/table-plugin';
+import { setEditorFocus, setTableRef } from '../../../plugins/table/commands';
+import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { TablePluginState } from '../../../plugins/table/types';
 import {
   FloatingInsertButton,
   Props as FloatingInsertButtonProps,
 } from '../../../plugins/table/ui/FloatingInsertButton';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import tablePlugin from '../../../plugins/table-plugin';
-import * as prosemirrorUtils from 'prosemirror-utils';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-  CONTENT_COMPONENT,
-} from '@atlaskit/editor-common/analytics';
-import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
-import { createIntl } from 'react-intl-next';
-import { setTableRef, setEditorFocus } from '../../../plugins/table/commands';
-import { IntlProvider } from 'react-intl-next';
 
 const getEditorContainerWidth = () => ({ width: 500 });
 const createEditor = createEditorFactory<TablePluginState>();

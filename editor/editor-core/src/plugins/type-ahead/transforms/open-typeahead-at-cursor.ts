@@ -1,9 +1,9 @@
-import { Transaction, TextSelection } from 'prosemirror-state';
+import type { Transaction } from 'prosemirror-state';
+import { TextSelection } from 'prosemirror-state';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { pluginKey } from '../pm-plugins/key';
 import { ACTIONS } from '../pm-plugins/actions';
 import type { TypeAheadHandler, TypeAheadInputMethod } from '../types';
-import { browser } from '@atlaskit/editor-common/utils';
 
 type Props = {
   triggerHandler: TypeAheadHandler;
@@ -68,12 +68,16 @@ export const openTypeAheadAtCursor =
 
       // ME-2375 remove the superfluous '@' inserted before decoration
       // by composition (https://github.com/ProseMirror/prosemirror/issues/903)
+      //
+      // Update:
+      // Now also handles any use case with superfluous typeahead triggers (ie. '@', ':', '/')
+      // being inserted due to composition by checking if we have the trigger
+      // directly before the typeahead. This should not happen unless it has
+      // been eroneously added because we require whitespace/newline for typeahead.
       if (
-        browser.chrome &&
-        browser.android &&
-        cursorPos > 2 &&
+        cursorPos >= 2 &&
         !!selection?.$head?.parent?.textContent &&
-        selection.$head.parent.textContent.endsWith?.('@')
+        selection.$head.parent.textContent.endsWith?.(triggerHandler.trigger)
       ) {
         tr.delete(cursorPos - 1, cursorPos);
       }

@@ -1,38 +1,38 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
 import { PluginKey } from 'prosemirror-state';
+
+import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
 import {
   editable,
-  getDocFromElement,
   fullpage,
+  getDocFromElement,
   resizeColumn,
   selectColumns,
   updateEditorProps,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-
 import {
-  insertColumn,
   clickFirstCell,
+  insertColumn,
   selectTable,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
-
-import {
-  tableWithRowSpan,
-  tableWithRowSpanAndColSpan,
-  twoColFullWidthTableWithContent,
-  tableInsideColumns,
-  resizedTableWithStackedColumns,
-  tableForBulkResize,
-  tableForBulkResize3Cols,
-  tableForBulkResizeWithNumberCol,
-} from './__fixtures__/resize-documents';
-import { tableWithMinWidthColumnsDocument } from './__fixtures__/table-with-min-width-columns-document';
-import { pluginKey as tableResizingPluginKey } from '../../plugins/table/pm-plugins/table-resizing';
-
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+
+import { pluginKey as tableResizingPluginKey } from '../../plugins/table/pm-plugins/table-resizing';
+
+import {
+  resizedTableWithStackedColumns,
+  tableForBulkResize,
+  tableForBulkResize3Cols,
+  tableForBulkResizeWithNumberCol,
+  tableInsideColumns,
+  tableWithRowSpan,
+  tableWithRowSpanAndColSpan,
+  twoColFullWidthTableWithContent,
+} from './__fixtures__/resize-documents';
+import { tableWithMinWidthColumnsDocument } from './__fixtures__/table-with-min-width-columns-document';
 
 BrowserTestCase(
   'Can resize normally with a rowspan in the non last column.',

@@ -1,7 +1,11 @@
+import { uuid } from '@atlaskit/adf-schema';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
-import { uuid } from '@atlaskit/adf-schema';
-
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -9,21 +13,17 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
-  p,
-  table,
-  tr as row,
-  th,
-  td,
   DocBuilder,
+  p,
+  tr as row,
+  table,
+  td,
+  th,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { copyPreviousRow } from '../../../plugins/table/utils/row-controls';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+
 import tablePlugin from '../../../plugins/table-plugin';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import { copyPreviousRow } from '../../../plugins/table/utils/row-controls';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

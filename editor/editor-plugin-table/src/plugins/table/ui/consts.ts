@@ -1,15 +1,4 @@
 import {
-  B200,
-  B300,
-  N20,
-  R400,
-  R75,
-  DN400,
-  N200,
-  DN30,
-  N0,
-} from '@atlaskit/theme/colors';
-import {
   tableCellBorderWidth,
   tableMarginTop,
 } from '@atlaskit/editor-common/styles';
@@ -22,11 +11,21 @@ import {
   akEditorUnitZIndex,
   akRichMediaResizeZIndex,
 } from '@atlaskit/editor-shared-styles';
+import {
+  B200,
+  B300,
+  DN30,
+  DN400,
+  N0,
+  N20,
+  N200,
+  R400,
+  R75,
+} from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
 import { token } from '@atlaskit/tokens';
 
 import { RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
-
-import { themed } from '@atlaskit/theme/components';
 
 /**
  * Basic colors added to prevent content overflow in table cells.

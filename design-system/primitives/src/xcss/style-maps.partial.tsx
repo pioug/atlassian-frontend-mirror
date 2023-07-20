@@ -57,11 +57,11 @@ export type Space = keyof typeof spaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::65b57f72ff07d4c4245a3eafe8cef786>>
+ * @codegen <<SignedSource::58f7acf912c1f55cbaa7a5be887f1b44>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "shadow", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::efb3dfea27ab3db2fb3756ed9657c5cb>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d09e7cd13e24113267155813747b3bd4>>
  */
 export const borderColorMap = {
   'color.border': token('color.border', '#091e4221'),
@@ -79,7 +79,7 @@ export const borderColorMap = {
   ),
   'color.border.accent.gray': token('color.border.accent.gray', '#5E6C84'),
   'color.border.disabled': token('color.border.disabled', '#FAFBFC'),
-  'color.border.focused': token('color.border.focused', '#4C9AFF'),
+  'color.border.focused': token('color.border.focused', '#2684FF'),
   'color.border.input': token('color.border.input', '#FAFBFC'),
   'color.border.inverse': token('color.border.inverse', '#FFFFFF'),
   'color.border.selected': token('color.border.selected', '#0052CC'),
@@ -331,6 +331,18 @@ export const backgroundColorMap = {
     'color.background.selected.bold.pressed',
     '#0052CC',
   ),
+  'color.background.brand.subtlest': token(
+    'color.background.brand.subtlest',
+    '#B3D4FF',
+  ),
+  'color.background.brand.subtlest.hovered': token(
+    'color.background.brand.subtlest.hovered',
+    '#DEEBFF',
+  ),
+  'color.background.brand.subtlest.pressed': token(
+    'color.background.brand.subtlest.pressed',
+    '#4C9AFF',
+  ),
   'color.background.brand.bold': token(
     'color.background.brand.bold',
     '#0052CC',
@@ -341,6 +353,18 @@ export const backgroundColorMap = {
   ),
   'color.background.brand.bold.pressed': token(
     'color.background.brand.bold.pressed',
+    '#0747A6',
+  ),
+  'color.background.brand.boldest': token(
+    'color.background.brand.boldest',
+    '#0747A6',
+  ),
+  'color.background.brand.boldest.hovered': token(
+    'color.background.brand.boldest.hovered',
+    '#0052CC',
+  ),
+  'color.background.brand.boldest.pressed': token(
+    'color.background.brand.boldest.pressed',
     '#0747A6',
   ),
   'color.background.danger': token('color.background.danger', '#FFEBE6'),

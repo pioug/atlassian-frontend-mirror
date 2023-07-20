@@ -2,6 +2,7 @@ import {
   closestElement,
   containsClassName,
 } from '@atlaskit/editor-common/utils';
+
 import { TableCssClassName as ClassName, ElementContentRects } from '../types';
 import { tableToolbarSize } from '../ui/consts';
 

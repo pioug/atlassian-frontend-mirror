@@ -14,9 +14,7 @@ import rawTokensDark from '../../../src/artifacts/tokens-raw/atlassian-dark';
 import rawTokensLight from '../../../src/artifacts/tokens-raw/atlassian-light';
 import checkThemePairContrasts, {
   darkResults,
-  darkResultsWithOverrides,
   lightResults,
-  rawTokensDarkWithOverrides,
 } from '../utils/check-pair-contrasts';
 import { downloadResultsAsCSV } from '../utils/csv-generator';
 import { ColorMode, Theme, TokenName } from '../utils/types';
@@ -128,29 +126,19 @@ const Results = ({
   customTheme,
   customBaseTokens,
   baseThemeType,
-  isDarkIterationSelected,
 }: {
   customTheme: Theme;
   customBaseTokens: typeof baseTokens;
   baseThemeType: ColorMode;
-  isDarkIterationSelected: boolean;
 }) => {
   const [includeTransparencies, setIncludeTransparencies] =
     useState<boolean>(false);
   const [includeInteractions, setIncludeInteractions] = useState<boolean>(true);
 
   const baseRawTokens =
-    baseThemeType === 'light'
-      ? rawTokensLight
-      : isDarkIterationSelected
-      ? rawTokensDarkWithOverrides
-      : rawTokensDark;
+    baseThemeType === 'light' ? rawTokensLight : rawTokensDark;
   const resultsBaseTheme =
-    baseThemeType === 'light'
-      ? lightResults
-      : isDarkIterationSelected
-      ? darkResultsWithOverrides
-      : darkResults;
+    baseThemeType === 'light' ? lightResults : darkResults;
 
   // Generate custom theme from input
   const rawTokensCustom = useMemo(() => {
@@ -276,10 +264,7 @@ const Results = ({
               customTheme.length > 0
                 ? checkThemePairContrasts(rawTokensCustom, 'custom', true)
                 : undefined;
-            downloadResultsAsCSV(
-              fullCustomResults?.fullResults,
-              isDarkIterationSelected,
-            );
+            downloadResultsAsCSV(fullCustomResults?.fullResults);
           }}
         >
           Download CSV

@@ -25,7 +25,7 @@ export const formatter: Format['formatter'] = ({ dictionary }) => {
 
   dictionary.allTokens.forEach((token) => {
     const tokenName = getTokenId(token.path);
-    if (tokenName in tokens) {
+    if (tokenName in tokens || tokenName === 'color.text.inverse') {
       tokens[tokenName] = token.value;
     }
   });

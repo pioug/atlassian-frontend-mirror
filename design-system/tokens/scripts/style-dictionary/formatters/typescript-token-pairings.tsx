@@ -37,6 +37,14 @@ function classifyTokenPair(
   foregroundToken: ContrastTokenMetadata,
   backgroundToken: ContrastTokenMetadata,
 ) {
+  // Special case: background.brand.subtlest should be paired with text.brand
+  if (
+    foregroundToken.name === 'color.text.brand' &&
+    backgroundToken.name === 'color.background.brand.subtlest'
+  ) {
+    return true;
+  }
+
   // Other backgrounds (brand, accent.blue, etc...) are matched with foregrounds that have the same modifier
   const hasMatchingRole = !!(
     foregroundToken.role === backgroundToken.role ||
@@ -48,7 +56,7 @@ function classifyTokenPair(
   // Other backgrounds (brand, accent.blue, etc...) are matched with foregrounds that have the same modifier
   const hasStandardBackground =
     backgroundToken.type === 'background' &&
-    (!['bold', 'bolder', 'subtle', 'inverse'].includes(
+    (!['bold', 'bolder', 'boldest', 'subtle', 'inverse'].includes(
       backgroundToken.emphasis,
     ) ||
       (['subtle', 'inverse'].includes(backgroundToken.emphasis) &&
@@ -73,7 +81,7 @@ function classifyTokenPair(
   // Bold backgrounds are matched with inverse foregrounds, ignoring warnings
   const isBoldPair = !!(
     backgroundToken.type === 'background' &&
-    ['bold', 'bolder'].includes(backgroundToken.emphasis) &&
+    ['bold', 'bolder', 'boldest'].includes(backgroundToken.emphasis) &&
     ['text', 'icon', 'border'].includes(foregroundToken.type) &&
     foregroundToken.emphasis === 'inverse' &&
     hasMatchingRole &&
@@ -122,7 +130,7 @@ function classifyTokenPair(
     backgroundToken.type === 'surface' &&
     !isInteractiveOverlay(backgroundToken) &&
     foregroundToken.type === 'background' &&
-    ['bold', 'bolder'].includes(foregroundToken.emphasis)
+    ['bold', 'bolder', 'boldest'].includes(foregroundToken.emphasis)
   );
 
   // Bold backgrounds need contrast against subtle backgrounds
@@ -130,8 +138,8 @@ function classifyTokenPair(
     backgroundToken.type === 'background' &&
     foregroundToken.type === 'background' &&
     foregroundToken.role === backgroundToken.role &&
-    ['bold', 'bolder'].includes(foregroundToken.emphasis) &&
-    !['bold', 'bolder', 'subtle'].includes(backgroundToken.emphasis)
+    ['bold', 'bolder', 'boldest'].includes(foregroundToken.emphasis) &&
+    !['bold', 'bolder', 'boldest', 'subtle'].includes(backgroundToken.emphasis)
   );
 
   if (
@@ -336,7 +344,7 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({
 
     if (
       backgroundMetadata.type === 'background' &&
-      ['bolder', 'bold'].includes(backgroundMetadata.emphasis)
+      ['bold', 'bolder', 'boldest'].includes(backgroundMetadata.emphasis)
     ) {
       layeredTokens.push('color.background.inverse.subtle');
     }

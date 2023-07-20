@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0b9efb6f5e343e1cbb90bf2ead8a25da>>
+ * @codegen <<SignedSource::309519b3d309ba66f31d019788cc5ef0>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -1938,7 +1938,7 @@ const tokens = [
       "introduced": "0.6.0",
       "description": "Use for focus rings of elements in a focus state."
     },
-    "value": "#4C9AFF",
+    "value": "#2684FF",
     "filePath": "src/tokens/atlassian-legacy-light/color/border.tsx",
     "isSource": true,
     "original": {
@@ -1948,7 +1948,7 @@ const tokens = [
         "introduced": "0.6.0",
         "description": "Use for focus rings of elements in a focus state."
       },
-      "value": "B100"
+      "value": "B200"
     },
     "name": "color.border.focused",
     "path": [
@@ -4025,6 +4025,93 @@ const tokens = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "1.13.0",
+      "description": "Use for the background of elements used to reinforce our brand, but with less emphasis."
+    },
+    "value": "#B3D4FF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Use for the background of elements used to reinforce our brand, but with less emphasis."
+      },
+      "value": "B75"
+    },
+    "name": "color.background.brand.subtlest.[default]",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "subtlest",
+      "[default]"
+    ],
+    "cleanName": "color.background.brand.subtlest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.13.0",
+      "description": "Hovered state of color.background.brand.subtlest."
+    },
+    "value": "#DEEBFF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Hovered state of color.background.brand.subtlest."
+      },
+      "value": "B50"
+    },
+    "name": "color.background.brand.subtlest.hovered",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "subtlest",
+      "hovered"
+    ],
+    "cleanName": "color.background.brand.subtlest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.13.0",
+      "description": "Pressed state of color.background.brand.subtlest"
+    },
+    "value": "#4C9AFF",
+    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Pressed state of color.background.brand.subtlest"
+      },
+      "value": "B100"
+    },
+    "name": "color.background.brand.subtlest.pressed",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "subtlest",
+      "pressed"
+    ],
+    "cleanName": "color.background.brand.subtlest.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "introduced": "0.6.0",
       "description": "Use for the background of elements used to reinforce our brand, but with more emphasis."
     },
@@ -4055,7 +4142,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Hovered state of color.background.brand.bold"
+      "description": "Hovered state of color.background.brand.bold."
     },
     "value": "#0065FF",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
@@ -4065,7 +4152,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Hovered state of color.background.brand.bold"
+        "description": "Hovered state of color.background.brand.bold."
       },
       "value": "B300"
     },
@@ -4084,7 +4171,7 @@ const tokens = [
       "group": "paint",
       "state": "active",
       "introduced": "0.6.0",
-      "description": "Pressed state of color.background.brand.bold"
+      "description": "Pressed state of color.background.brand.bold."
     },
     "value": "#0747A6",
     "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
@@ -4094,7 +4181,7 @@ const tokens = [
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Pressed state of color.background.brand.bold"
+        "description": "Pressed state of color.background.brand.bold."
       },
       "value": "B500"
     },
@@ -4107,6 +4194,93 @@ const tokens = [
       "pressed"
     ],
     "cleanName": "color.background.brand.bold.pressed"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.13.0",
+      "description": "Use for the background of elements used to reinforce our brand, that need to stand out a lot."
+    },
+    "value": "#0747A6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Use for the background of elements used to reinforce our brand, that need to stand out a lot."
+      },
+      "value": "B500"
+    },
+    "name": "color.background.brand.boldest.[default]",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "boldest",
+      "[default]"
+    ],
+    "cleanName": "color.background.brand.boldest"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.13.0",
+      "description": "Hovered state of color.background.brand.boldest."
+    },
+    "value": "#0052CC",
+    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Hovered state of color.background.brand.boldest."
+      },
+      "value": "B400"
+    },
+    "name": "color.background.brand.boldest.hovered",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "boldest",
+      "hovered"
+    ],
+    "cleanName": "color.background.brand.boldest.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "1.13.0",
+      "description": "Pressed state of color.background.brand.boldest."
+    },
+    "value": "#0747A6",
+    "filePath": "src/tokens/atlassian-legacy-light/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Pressed state of color.background.brand.boldest."
+      },
+      "value": "B500"
+    },
+    "name": "color.background.brand.boldest.pressed",
+    "path": [
+      "color",
+      "background",
+      "brand",
+      "boldest",
+      "pressed"
+    ],
+    "cleanName": "color.background.brand.boldest.pressed"
   },
   {
     "attributes": {

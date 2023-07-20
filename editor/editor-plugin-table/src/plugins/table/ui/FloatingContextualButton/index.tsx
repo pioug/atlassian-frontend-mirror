@@ -1,33 +1,34 @@
 /** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/react';
 
+import { jsx } from '@emotion/react';
+import { Node as PMNode } from 'prosemirror-model';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { TableLayout } from '@atlaskit/adf-schema';
+import {
+  ACTION_SUBJECT,
+  DispatchAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
+import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { Popup } from '@atlaskit/editor-common/ui';
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
-
-import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { ThemeProps } from '@atlaskit/theme/types';
 
 import { toggleContextualMenu } from '../../commands';
 import { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 import messages from '../../ui/messages';
-import FixedButton from './FixedButton';
 
-import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import FixedButton from './FixedButton';
 import {
-  tableFloatingCellButtonStyles,
   tableFloatingCellButtonSelectedStyles,
+  tableFloatingCellButtonStyles,
 } from './styles';
-import { Node as PMNode } from 'prosemirror-model';
-import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
-import { ThemeProps } from '@atlaskit/theme/types';
 
 export interface Props {
   editorView: EditorView;

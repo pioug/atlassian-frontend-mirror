@@ -24,7 +24,7 @@ describe('generateColors', () => {
       '#05872d',
       '#007224',
       '#004c15',
-      '#00370d',
+      '#003c0f',
     ];
     expect(colors).toEqual(expectedColors);
   });
@@ -35,8 +35,8 @@ describe('generateTokenMap', () => {
     const lightTokenMap = generateTokenMap(brandColor, 'light').light!;
     const darkTokenMap = generateTokenMap(brandColor, 'dark').dark!;
 
-    expect(Object.entries(lightTokenMap).length).toEqual(19);
-    expect(Object.entries(darkTokenMap).length).toEqual(19);
+    expect(Object.entries(lightTokenMap).length).toEqual(25);
+    expect(Object.entries(darkTokenMap).length).toEqual(25);
 
     Object.entries(lightTokenMap!).forEach(([tokenName, index]) => {
       const darkIndex = darkTokenMap![tokenName as Token] as number;

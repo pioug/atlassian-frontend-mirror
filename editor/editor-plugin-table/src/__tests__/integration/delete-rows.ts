@@ -1,20 +1,22 @@
 import { createIntl } from 'react-intl-next';
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import {
   editable,
-  getDocFromElement,
   fullpage,
+  getDocFromElement,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { documentWithMergedCells } from './__fixtures__/merged-rows-and-cols-document';
-import { nestedInExtension } from './__fixtures__/nested-in-extension';
-import { TableCssClassName as ClassName } from '../../plugins/table/types';
+import { deleteRow } from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+
+import { TableCssClassName as ClassName } from '../../plugins/table/types';
 import messages from '../../plugins/table/ui/messages';
-import { deleteRow } from '@atlaskit/editor-test-helpers/page-objects/table';
+
+import { documentWithMergedCells } from './__fixtures__/merged-rows-and-cols-document';
+import { nestedInExtension } from './__fixtures__/nested-in-extension';
 
 BrowserTestCase(
   'Should delete merged rows from contextual menu and append missing cells to the table',

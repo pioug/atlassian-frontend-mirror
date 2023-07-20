@@ -1,22 +1,23 @@
-import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   fullpage,
   resizeColumn,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
-  goToEditorTestingWDExample,
-  mountEditor,
-} from '@atlaskit/editor-test-helpers/testing-example-page';
-import {
   insertColumn,
   insertTable,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
+import {
+  goToEditorTestingWDExample,
+  mountEditor,
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
+
 import basicTableAdf from './__fixtures__/basic-table';
+import { emptyLayout } from './__fixtures__/empty-layout';
 import nestedInExpand from './__fixtures__/nested-in-expand';
 import { nestedInExtension } from './__fixtures__/nested-in-extension';
 import { table as tableInsideLayout } from './__fixtures__/table-inside-layout';
-import { emptyLayout } from './__fixtures__/empty-layout';
 
 // TODO - Add wider screen size here once editor-common fix is made ED-16647
 const screenWidths = [1920];

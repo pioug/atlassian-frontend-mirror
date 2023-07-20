@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.24.0
+
+### Minor Changes
+
+- [`22a59977bb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22a59977bb3) - [ux] Updated ResizerNext to allow handle style overrides. Updated the table resizer to space and align the resizer handle according the the design specifications
+
 ## 74.23.1
 
 ### Patch Changes

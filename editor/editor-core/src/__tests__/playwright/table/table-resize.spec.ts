@@ -10,6 +10,7 @@ import {
 import {
   simpleTableWithOneParagraphAfter,
   nestedTables,
+  tableWithWidthAttributeAndLayout,
 } from './__fixtures__/base-adfs';
 
 test.use({
@@ -164,6 +165,28 @@ test.describe('resizing a table', () => {
     // NOTE: the widths are not committed until after the mouse up has occured.
     expect(await resizerModel.containerWidth()).toBe(760);
     expect(await tableModel.containerWidth()).toBe(760);
+  });
+});
+
+test.describe('rendering table width', () => {
+  test.use({
+    editorProps: {
+      appearance: 'full-page',
+      allowTables: {
+        advanced: true,
+      },
+    },
+    adf: tableWithWidthAttributeAndLayout,
+    platformFeatureFlags: { 'platform.editor.custom-table-width': true },
+  });
+
+  test('should use width attribute over layout attribute to render table', async ({
+    editor,
+  }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+
+    expect(await tableModel.containerWidth()).toBe(1200);
   });
 });
 

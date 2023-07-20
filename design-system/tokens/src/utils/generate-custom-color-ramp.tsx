@@ -1,5 +1,5 @@
+import rawTokensDark from '../artifacts/atlassian-dark-token-value-for-contrast-check';
 import tokens from '../artifacts/token-names';
-import rawTokensDark from '../artifacts/tokens-raw/atlassian-dark';
 import { CSSColor } from '../custom-theme';
 import { ThemeColorModes } from '../theme-config';
 
@@ -17,10 +17,10 @@ import { additionalContrastChecker } from './custom-theme-token-contrast-check';
 import { argbFromRgba, Contrast, Hct, rgbaFromArgb } from './hct-color-utils';
 
 const lowLuminanceContrastRatios = [
-  1.12, 1.33, 2.03, 2.73, 3.33, 4.27, 5.2, 6.62, 12.46, 15.98,
+  1.12, 1.33, 2.03, 2.73, 3.33, 4.27, 5.2, 6.62, 12.46, 14.25,
 ];
 const highLuminanceContrastRatios = [
-  1.08, 1.24, 1.55, 1.99, 2.45, 3.34, 4.64, 6.1, 10.19, 13.43,
+  1.08, 1.24, 1.55, 1.99, 2.45, 3.34, 4.64, 6.1, 10.19, 12.6,
 ];
 type Token = keyof typeof tokens;
 type TokenMap = { [key in Token]?: number };
@@ -144,9 +144,15 @@ export const generateTokenMap = (
     customThemeTokenMapLight = {
       'color.text.brand': closestColorIndex,
       'color.icon.brand': closestColorIndex,
+      'color.background.brand.subtlest': 0,
+      'color.background.brand.subtlest.hovered': 1,
+      'color.background.brand.subtlest.pressed': 2,
       'color.background.brand.bold': closestColorIndex,
       'color.background.brand.bold.hovered': brandBoldSelectedHoveredIndex,
       'color.background.brand.bold.pressed': brandBoldSelectedPressedIndex,
+      'color.background.brand.boldest': 9,
+      'color.background.brand.boldest.hovered': 8,
+      'color.background.brand.boldest.pressed': 7,
       'color.border.brand': closestColorIndex,
       'color.text.selected': closestColorIndex,
       'color.icon.selected': closestColorIndex,
@@ -164,9 +170,15 @@ export const generateTokenMap = (
     };
   } else {
     customThemeTokenMapLight = {
+      'color.background.brand.subtlest': 0,
+      'color.background.brand.subtlest.hovered': 1,
+      'color.background.brand.subtlest.pressed': 2,
       'color.background.brand.bold': 6,
       'color.background.brand.bold.hovered': 7,
       'color.background.brand.bold.pressed': 8,
+      'color.background.brand.boldest': 9,
+      'color.background.brand.boldest.hovered': 8,
+      'color.background.brand.boldest.pressed': 7,
       'color.border.brand': 6,
       'color.background.selected.bold': 6,
       'color.background.selected.bold.hovered': 7,
@@ -202,9 +214,7 @@ export const generateTokenMap = (
    * in dark mode, shift color.background.brand.bold to the brand color
    */
   if (inputContrast < 4.5) {
-    const inverseTextColor = rawTokensDark.find(
-      (token) => token.cleanName === 'color.text.inverse',
-    )?.value;
+    const inverseTextColor = rawTokensDark['color.text.inverse'];
 
     if (
       getContrastRatio(inverseTextColor as string, brandColor) >= 4.5 &&

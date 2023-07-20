@@ -1,7 +1,9 @@
 import path from 'path';
 import yargs from 'yargs';
 import semverSatisfies from 'semver/functions/satisfies';
+import semverPrerelease from 'semver/functions/prerelease';
 import { PackageJson } from './types';
+import { getFeature } from '@atlassian/repo-feature-flags';
 
 export class PeerDependencyError extends Error {}
 
@@ -29,13 +31,18 @@ function verboseLog(text: string) {
 function getPeerDependencies(packageJson: PackageJson) {
   return Object.entries(packageJson.peerDependencies || {})
     .filter(([name]) => (internalPackages ? isInternalPackage(name) : true))
-    .map(([name, value]) => ({ name, range: getVersionRange(value) }));
+    .map(([name, value]) => ({ name, range: getVersionRange(value) }))
+    .filter(({ range }) => !isPreRelease(range));
 }
 
 function isInternalPackage(name: string) {
   return ['@atlaskit', '@atlassian', '@atlassiansox'].some(scope =>
     name.includes(scope),
   );
+}
+
+function isPreRelease(version: string) {
+  return !!semverPrerelease(version);
 }
 
 function getVersionRange(value: string) {
@@ -71,13 +78,27 @@ function getInstalledVersion(
 
 // We have to inject resolver here so that we can mock it in tests
 // because jest doesn't allow mocking require.resolve atm.
-export function main(resolver = require.resolve) {
+export async function main(resolver = require.resolve) {
   try {
+    if (!(await getFeature('peer-dependency-enforcement_operational', false))) {
+      verboseLog(
+        `Feature flag peer-dependency-enforcement_operational is turned off. Skipping the check`,
+      );
+      return;
+    }
+
     const packageJsonPath =
       process.env.npm_package_json ||
       path.resolve(process.cwd(), 'package.json');
     const currentPackageJson = require(packageJsonPath);
-    const currentPackageName = currentPackageJson.name;
+    const { name: currentPackageName, version: currentPackageVersion } =
+      currentPackageJson;
+    if (isPreRelease(currentPackageVersion)) {
+      verboseLog(
+        `Skip checking peer dependencies of package ${currentPackageName} since it's at a pre-release version ${currentPackageVersion}`,
+      );
+      return;
+    }
     verboseLog(`Checking peer dependencies of package ${currentPackageName}`);
     const peerDependencies = getPeerDependencies(currentPackageJson);
     verboseLog(`Listed peer dependencies: ${JSON.stringify(peerDependencies)}`);

@@ -1,8 +1,10 @@
 import { MockIntersectionObserver } from '@atlaskit/editor-test-helpers/mock-intersection-observer';
 
 import { OverflowShadowsObserver } from '../../../plugins/table/nodeviews/OverflowShadowsObserver';
-import { TableCssClassName as className } from '../../../plugins/table/types';
-import { ShadowEvent } from '../../../plugins/table/types';
+import {
+  TableCssClassName as className,
+  ShadowEvent,
+} from '../../../plugins/table/types';
 
 describe('OverflowShadowsObserver', () => {
   let table: HTMLTableElement;

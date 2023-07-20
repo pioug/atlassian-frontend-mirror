@@ -1,31 +1,31 @@
-import { keymap } from 'prosemirror-keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { chainCommands } from 'prosemirror-commands';
+import { keymap } from 'prosemirror-keymap';
 
-import * as keymaps from '@atlaskit/editor-common/keymaps';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
+  EditorAnalyticsAPI,
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import * as keymaps from '@atlaskit/editor-common/keymaps';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+
 import {
-  triggerUnlessTableHeader,
   createTable,
   goToNextCell,
   moveCursorBackward,
+  triggerUnlessTableHeader,
 } from '../commands';
 import {
   addRowAroundSelection,
-  emptyMultipleCellsWithAnalytics,
   deleteTableIfSelectedWithAnalytics,
+  emptyMultipleCellsWithAnalytics,
 } from '../commands-with-analytics';
 import { addColumnAfter, addColumnBefore } from '../commands/insert';
-
 import { withEditorAnalyticsAPI } from '../utils/analytics';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const createTableWithAnalytics = (
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,

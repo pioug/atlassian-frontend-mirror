@@ -4,7 +4,6 @@ import { fontFamily, fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 import { ThemeProps } from '@atlaskit/theme/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { token } from '@atlaskit/tokens';
 
@@ -54,6 +53,7 @@ import { RendererAppearance } from './types';
 import { HeadingAnchorWrapperClassName } from '../../react/nodes/heading-anchor';
 import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { getLightWeightCodeBlockStylesForRootRendererStyleSheet } from '../../react/nodes/codeBlock/components/lightWeightCodeBlock';
+import { isTableResizingEnabled } from '../../react/nodes/table';
 
 export const FullPagePadding = 32;
 
@@ -92,6 +92,7 @@ export const headingSizes: { [key: string]: { [key: string]: number } } = {
 };
 
 const headingAnchorStyle = (headingTag: string) =>
+  // TODO Delete this comment after verifying space token -> previous value `margin-left: 6px`
   css`
     /**
      * The copy link button doesn't reserve space in the DOM so that
@@ -101,7 +102,7 @@ const headingAnchorStyle = (headingTag: string) =>
       position: absolute;
       height: ${headingSizes[headingTag].lineHeight}em;
 
-      margin-left: 6px;
+      margin-left: ${token('space.075', '6px')};
 
       button {
         padding-left: 0;
@@ -142,6 +143,7 @@ const alignedHeadingAnchorStyle = ({
   if (!allowNestedHeaderLinks) {
     return '';
   }
+  // TODO Delete this comment after verifying space token -> previous value `margin: 6px`
   return css`
     .fabric-editor-block-mark[data-align] > {
       h1,
@@ -193,7 +195,7 @@ const alignedHeadingAnchorStyle = ({
         }
       }
       .${HeadingAnchorWrapperClassName} {
-        margin: 0 6px 0 0;
+        margin: 0 ${token('space.075', '6px')} 0 0;
       }
 
       @media (hover: hover) and (pointer: fine) {
@@ -335,7 +337,7 @@ const fullWidthStyles = ({ appearance }: RendererWrapperProps) => {
       width: 100% !important;
     }
 
-    ${getBooleanFF('platform.editor.custom-table-width')
+    ${isTableResizingEnabled(appearance)
       ? ''
       : `
       .pm-table-container {

@@ -629,7 +629,7 @@
         "introduced": "0.6.0",
         "description": "Use for focus rings of elements in a focus state."
       },
-      "value": "#4C9AFF"
+      "value": "#2684FF"
     },
     "Legacy light/color.border.input": {
       "attributes": {
@@ -1279,6 +1279,33 @@
       },
       "value": "#0052CC"
     },
+    "Legacy light/color.background.brand.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Use for the background of elements used to reinforce our brand, but with less emphasis."
+      },
+      "value": "#B3D4FF"
+    },
+    "Legacy light/color.background.brand.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Hovered state of color.background.brand.subtlest."
+      },
+      "value": "#DEEBFF"
+    },
+    "Legacy light/color.background.brand.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Pressed state of color.background.brand.subtlest"
+      },
+      "value": "#4C9AFF"
+    },
     "Legacy light/color.background.brand.bold": {
       "attributes": {
         "group": "paint",
@@ -1293,7 +1320,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Hovered state of color.background.brand.bold"
+        "description": "Hovered state of color.background.brand.bold."
       },
       "value": "#0065FF"
     },
@@ -1302,7 +1329,34 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Pressed state of color.background.brand.bold"
+        "description": "Pressed state of color.background.brand.bold."
+      },
+      "value": "#0747A6"
+    },
+    "Legacy light/color.background.brand.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Use for the background of elements used to reinforce our brand, that need to stand out a lot."
+      },
+      "value": "#0747A6"
+    },
+    "Legacy light/color.background.brand.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Hovered state of color.background.brand.boldest."
+      },
+      "value": "#0052CC"
+    },
+    "Legacy light/color.background.brand.boldest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Pressed state of color.background.brand.boldest."
       },
       "value": "#0747A6"
     },

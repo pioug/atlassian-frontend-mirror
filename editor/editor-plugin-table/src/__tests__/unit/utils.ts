@@ -1,38 +1,40 @@
+import { PluginKey } from 'prosemirror-state';
+
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
-  tr,
   td,
   tdCursor,
   tdEmpty,
-  DocBuilder,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import tablePlugin from '../../plugins/table';
+import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { TablePluginState } from '../../plugins/table/types';
 import {
+  getColumnClassNames,
+  getColumnDeleteButtonParams,
+  getRowClassNames,
+  getRowDeleteButtonParams,
   getRowHeights,
+  getRowsParams,
   isColumnDeleteButtonVisible,
   isRowDeleteButtonVisible,
-  getColumnDeleteButtonParams,
-  getRowDeleteButtonParams,
-  getRowsParams,
-  getColumnClassNames,
-  getRowClassNames,
 } from '../../plugins/table/utils';
 import { getColumnsWidths } from '../../plugins/table/utils/column-controls';
-import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import tablePlugin from '../../plugins/table';
-import { PluginKey } from 'prosemirror-state';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('table plugin: utils', () => {
   const createEditor = createProsemirrorEditorFactory();

@@ -263,7 +263,17 @@ export interface BackgroundColorTokenSchema<BaseToken> {
         };
       };
       brand: {
+        subtlest: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
+        };
         bold: {
+          '[default]': PaintToken<BaseToken>;
+          hovered: PaintToken<BaseToken>;
+          pressed: PaintToken<BaseToken>;
+        };
+        boldest: {
           '[default]': PaintToken<BaseToken>;
           hovered: PaintToken<BaseToken>;
           pressed: PaintToken<BaseToken>;

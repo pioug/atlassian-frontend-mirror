@@ -5,66 +5,65 @@ import {
   tableSharedStyle,
 } from '@atlaskit/editor-common/styles';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import { fontSize } from '@atlaskit/theme/constants';
-import { N40A, B300, N300, N20A, N0, R500 } from '@atlaskit/theme/colors';
 import {
-  SelectionStyle,
-  getSelectionStyles,
+  akEditorSelectedNodeClassName,
   akEditorSmallZIndex,
-  akEditorTableNumberColumnWidth,
   akEditorStickyHeaderZIndex,
+  akEditorTableNumberColumnWidth,
   akEditorTableToolbarSize,
   akEditorUnitZIndex,
-  akEditorSelectedNodeClassName,
+  getSelectionStyles,
   relativeFontSizeToBase16,
+  SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
+import { B300, N0, N20A, N300, N40A, R500 } from '@atlaskit/theme/colors';
+import { fontSize } from '@atlaskit/theme/constants';
+import { ThemeProps } from '@atlaskit/theme/types';
+import { token } from '@atlaskit/tokens';
+
 import { TableCssClassName as ClassName } from '../types';
 
 import {
-  tableCellBackgroundColor,
-  tableHeaderCellBackgroundColor,
-  tableBorderColor,
-  tableCellSelectedColor,
-  tableToolbarSelectedColor,
-  tableBorderSelectedColor,
-  tableCellDeleteColor,
-  tableBorderDeleteColor,
-  tableToolbarDeleteColor,
-  tableBorderRadiusSize,
-  tablePadding,
-  tableScrollbarOffset,
+  columnControlsDecorationHeight,
   resizeHandlerAreaWidth,
   resizeLineWidth,
-  tableToolbarSize,
-  tableInsertColumnButtonSize,
-  tableControlsSpacing,
-  tableTextColor,
-  stickyRowZIndex,
-  columnControlsDecorationHeight,
-  stickyRowOffsetTop,
   stickyHeaderBorderBottomWidth,
+  stickyRowOffsetTop,
+  stickyRowZIndex,
+  tableBorderColor,
+  tableBorderDeleteColor,
+  tableBorderRadiusSize,
+  tableBorderSelectedColor,
+  tableCellBackgroundColor,
+  tableCellDeleteColor,
+  tableCellSelectedColor,
+  tableControlsSpacing,
+  tableHeaderCellBackgroundColor,
+  tableInsertColumnButtonSize,
+  tablePadding,
+  tableScrollbarOffset,
+  tableTextColor,
+  tableToolbarDeleteColor,
+  tableToolbarSelectedColor,
+  tableToolbarSize,
 } from './consts';
-
 import {
-  HeaderButton,
-  HeaderButtonHover,
-  HeaderButtonDanger,
-  insertColumnButtonWrapper,
-  insertRowButtonWrapper,
+  columnControlsDecoration,
   columnControlsLineMarker,
   DeleteButton,
-  OverflowShadow,
-  columnControlsDecoration,
-  hoveredDeleteButton,
+  HeaderButton,
+  HeaderButtonDanger,
+  HeaderButtonHover,
   hoveredCell,
+  hoveredDeleteButton,
   hoveredWarningCell,
-  resizeHandle,
+  insertColumnButtonWrapper,
   InsertMarker,
+  insertRowButtonWrapper,
+  OverflowShadow,
+  resizeHandle,
 } from './ui-styles';
-import { ThemeProps } from '@atlaskit/theme/types';
-import { token } from '@atlaskit/tokens';
 
 const cornerControlHeight = tableToolbarSize + 1;
 

@@ -1,12 +1,13 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import {
-  snapshot,
-  initEditorWithAdf,
-  Appearance,
-} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import stickyHeaderWithHorizontalScroll from './__fixtures__/sticky-header-with-horizontal-scroll.json';
 import { scrollToElement } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
+import {
+  Appearance,
+  initEditorWithAdf,
+  snapshot,
+} from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+
+import stickyHeaderWithHorizontalScroll from './__fixtures__/sticky-header-with-horizontal-scroll.json';
 
 const initEditor = async (page: PuppeteerPage, adf: any) => {
   await initEditorWithAdf(

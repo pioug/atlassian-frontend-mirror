@@ -10,10 +10,11 @@ import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { TableLayout } from '@atlaskit/adf-schema';
 import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { Table } from './table';
 import { recursivelyInjectProps } from '../../utils/inject-props';
+import { RendererAppearance } from '../../../ui/Renderer/types';
+import { isTableResizingEnabled } from '../table';
 
 export type StickyMode = 'none' | 'stick' | 'pin-bottom';
 
@@ -23,6 +24,7 @@ interface FixedProps {
   top?: number;
   wrapperWidth: number;
   mode: StickyMode;
+  rendererAppearance: RendererAppearance;
 }
 
 const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
@@ -37,55 +39,58 @@ const modeSpecficStyles: Record<StickyMode, SerializedStyles> = {
   `,
 };
 
-let stickyHeaderZIndex: number;
-if (getBooleanFF('platform.editor.custom-table-width')) {
-  stickyHeaderZIndex = 13;
-} else {
-  stickyHeaderZIndex = akEditorStickyHeaderZIndex;
-}
-
 // TODO: Quality ticket: https://product-fabric.atlassian.net/browse/DSP-4123
 const fixedTableDivStaticStyles = (
   top: number | undefined,
   width: number,
-) => css`
-  ${typeof top === 'number' && `top: ${top}px;`}
-  width: ${width}px;
-  z-index: ${stickyHeaderZIndex};
-  &
-    .${TableSharedCssClassName.TABLE_CONTAINER},
+  rendererAppearance: RendererAppearance,
+) => {
+  let stickyHeaderZIndex: number;
+  if (isTableResizingEnabled(rendererAppearance)) {
+    stickyHeaderZIndex = 13;
+  } else {
+    stickyHeaderZIndex = akEditorStickyHeaderZIndex;
+  }
+
+  return css`
+    ${typeof top === 'number' && `top: ${top}px;`}
+    width: ${width}px;
+    z-index: ${stickyHeaderZIndex};
     &
-    .${TableSharedCssClassName.TABLE_STICKY_WRAPPER}
-    > table {
-    margin-top: 0;
-    margin-bottom: 0;
-    tr {
-      background: ${token('elevation.surface', 'white')};
+      .${TableSharedCssClassName.TABLE_CONTAINER},
+      &
+      .${TableSharedCssClassName.TABLE_STICKY_WRAPPER}
+      > table {
+      margin-top: 0;
+      margin-bottom: 0;
+      tr {
+        background: ${token('elevation.surface', 'white')};
+      }
     }
-  }
 
-  border-top: ${tableStickyPadding}px solid
-    ${token('elevation.surface', 'white')};
-  background: ${token('elevation.surface.overlay', 'white')};
-  box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)};
+    border-top: ${tableStickyPadding}px solid
+      ${token('elevation.surface', 'white')};
+    background: ${token('elevation.surface.overlay', 'white')};
+    box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)};
 
-  div[data-expanded='false'] & {
-    display: none;
-  }
+    div[data-expanded='false'] & {
+      display: none;
+    }
 
-  &
-    .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.right-shadow::after,
     &
-    .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.left-shadow::before {
-    top: 0px;
-    height: 100%;
-  }
-`;
+      .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.right-shadow::after,
+      &
+      .${TableSharedCssClassName.TABLE_CONTAINER}.is-sticky.left-shadow::before {
+      top: 0px;
+      height: 100%;
+    }
+  `;
+};
 
 export const FixedTableDiv: React.FC<FixedProps> = (props) => {
-  const { top, wrapperWidth, mode } = props;
+  const { top, wrapperWidth, mode, rendererAppearance } = props;
   const fixedTableCss = [
-    fixedTableDivStaticStyles(top, wrapperWidth),
+    fixedTableDivStaticStyles(top, wrapperWidth, rendererAppearance),
     modeSpecficStyles?.[mode],
   ];
 
@@ -113,6 +118,7 @@ export type StickyTableProps = {
   columnWidths?: number[];
   renderWidth: number;
   tableNode?: PMNode;
+  rendererAppearance: RendererAppearance;
 } & OverflowShadowProps;
 
 export const StickyTable = ({
@@ -130,10 +136,11 @@ export const StickyTable = ({
   renderWidth,
   rowHeight,
   tableNode,
+  rendererAppearance,
 }: StickyTableProps) => {
   let styles;
   /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-  if (getBooleanFF('platform.editor.custom-table-width')) {
+  if (isTableResizingEnabled(rendererAppearance)) {
     styles = css({
       top: mode === 'pin-bottom' ? top : undefined,
       position: 'relative',
@@ -152,6 +159,7 @@ export const StickyTable = ({
         top={mode === 'stick' ? top : undefined}
         mode={rowHeight > 300 ? 'none' : mode}
         wrapperWidth={wrapperWidth}
+        rendererAppearance={rendererAppearance}
       >
         <div
           className={`${TableSharedCssClassName.TABLE_CONTAINER} is-sticky ${
@@ -175,6 +183,7 @@ export const StickyTable = ({
               isNumberColumnEnabled={isNumberColumnEnabled}
               renderWidth={renderWidth}
               tableNode={tableNode}
+              rendererAppearance={rendererAppearance}
             >
               {
                 /**

@@ -1,7 +1,10 @@
 import React from 'react';
+
+import { cleanup, render, screen } from '@testing-library/react';
 import { createPortal } from 'react-dom';
-import { render, screen, cleanup } from '@testing-library/react';
+
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+
 import FixedButton, {
   BUTTON_WIDTH,
   calcLeftPos,

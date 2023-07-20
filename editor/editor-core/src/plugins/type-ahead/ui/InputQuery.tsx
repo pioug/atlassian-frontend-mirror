@@ -21,7 +21,8 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../constants';
 import { AssistiveText } from './AssistiveText';
 import { typeAheadListMessages } from '../messages';
-import { IntlShape, useIntl } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
+import { useIntl } from 'react-intl-next';
 import { token } from '@atlaskit/tokens';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 
@@ -185,8 +186,9 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
             // event.isComposing can't be used alone as this also included a virtual keyboard under a keyboardless device, therefore, it seems the best practice would be intercepting the event as below.
             // Some suggested the other workaround maybe listen on`keypress` instead of `keydown`
             if (
-              !event.isComposing ||
-              (event.which !== 229 && event.keyCode !== 229)
+              !event.isComposing &&
+              event.which !== 229 &&
+              event.keyCode !== 229
             ) {
               if (selectedIndex === -1) {
                 if (useBetterTypeaheadNavigation) {

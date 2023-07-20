@@ -1,13 +1,14 @@
 // #region Imports
 import { Selection } from 'prosemirror-state';
+
+import { Command } from '@atlaskit/editor-common/types';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
-  findCellClosestToPos,
   emptyCell,
+  findCellClosestToPos,
   isSelectionType,
 } from '@atlaskit/editor-tables/utils';
 
-import { Command } from '@atlaskit/editor-common/types';
 // #endregion
 
 // #region Commands

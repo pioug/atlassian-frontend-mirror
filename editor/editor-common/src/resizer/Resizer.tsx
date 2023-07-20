@@ -3,9 +3,10 @@ import React, { PropsWithChildren, useRef, useState } from 'react';
 import classnames from 'classnames';
 import { HandleComponent, Resizable, ResizeDirection } from 're-resizable';
 
+import { token } from '@atlaskit/tokens';
+
 import {
   resizerHandleLeftClassName,
-  resizerHandlePadding,
   resizerHandlerClassName,
   resizerHandleRightClassName,
   resizerHandleStickyClassName,
@@ -18,6 +19,7 @@ import {
   EnabledHandles,
   HandleAlignmentMethod,
   HandleHeightSizeType,
+  HandlePositioning,
   HandleResize,
   HandleStyles,
 } from './types';
@@ -41,9 +43,11 @@ export type ResizerProps = {
   className?: string;
   minWidth?: number;
   maxWidth?: number;
+
   handleWrapperStyle?: React.CSSProperties;
   handleComponent?: HandleComponent;
-
+  handleStyles?: HandleStyles;
+  handlePositioning?: HandlePositioning;
   handleHeightSize?: HandleHeightSizeType;
   handleMarginTop?: number;
 
@@ -75,8 +79,10 @@ export default function ResizerNext(
     handleResizeStop,
     handleHeightSize = 'medium',
     handleAlignmentMethod = 'center',
+    handlePositioning = 'overlap',
+    handleStyles,
     resizeRatio = 1,
-    innerPadding = resizerHandlePadding,
+    innerPadding,
     ...otherProps
   } = props;
 
@@ -156,24 +162,38 @@ export default function ResizerNext(
     }),
   };
 
-  const marginTop = Number.isFinite(props?.handleMarginTop)
-    ? `${props.handleMarginTop}px`
-    : `unset`;
+  const baseHandleStyles: React.CSSProperties = {
+    width:
+      handlePositioning === 'adjacent'
+        ? token('space.250', '20px')
+        : token('space.300', '24px'),
+    // eslint-disable-next-line
+    marginTop: Number.isFinite(props?.handleMarginTop)
+      ? `${props.handleMarginTop}px`
+      : undefined,
+    zIndex: resizerHandleZIndex,
+    pointerEvents: 'auto',
+    alignItems: handlePositioning === 'adjacent' ? 'center' : undefined,
+  };
 
-  const handleStyles: HandleStyles = {
+  const offset = Number.isFinite(innerPadding)
+    ? `-${innerPadding}px`
+    : handlePositioning === 'adjacent'
+    ? `calc(${baseHandleStyles.width} * -1)`
+    : `calc(${baseHandleStyles.width} * -0.5)`;
+
+  const nextHandleStyles: HandleStyles = {
     left: {
-      width: '24px',
-      left: `-${innerPadding}px`,
-      marginTop,
-      zIndex: resizerHandleZIndex,
-      pointerEvents: 'auto',
+      ...baseHandleStyles,
+      // eslint-disable-next-line
+      left: offset,
+      ...handleStyles?.left,
     },
     right: {
-      width: '24px',
-      marginTop,
-      right: `-${innerPadding}px`,
-      zIndex: resizerHandleZIndex,
-      pointerEvents: 'auto',
+      ...baseHandleStyles,
+      // eslint-disable-next-line
+      right: offset,
+      ...handleStyles?.right,
     },
   };
 
@@ -190,7 +210,7 @@ export default function ResizerNext(
       }}
       className={resizerClassName}
       handleClasses={handles}
-      handleStyles={handleStyles}
+      handleStyles={nextHandleStyles}
       onResizeStart={onResizeStart}
       onResize={onResize}
       onResizeStop={onResizeStop}

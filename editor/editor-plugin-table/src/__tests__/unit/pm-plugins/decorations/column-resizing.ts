@@ -1,9 +1,13 @@
 import { PluginKey } from 'prosemirror-state';
 import { ContentNodeWithPos } from 'prosemirror-utils';
-import { getCellsInColumn } from '@atlaskit/editor-tables/utils';
-
 import { DecorationSet, EditorView } from 'prosemirror-view';
 
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { getCellsInColumn } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -11,13 +15,13 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
   td,
   tdCursor,
   tdEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import tablePlugin from '../../../../plugins/table';
@@ -32,11 +36,6 @@ import {
   TableDecorations,
   TablePluginState,
 } from '../../../../plugins/table/types';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('tables: column resizing decorations', () => {
   const createEditor = createProsemirrorEditorFactory();

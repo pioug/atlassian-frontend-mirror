@@ -1,5 +1,15 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import React from 'react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+
+import { setTextSelection } from '@atlaskit/editor-common/utils';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { getSelectionRect, selectRow } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -7,6 +17,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
   td,
@@ -14,22 +25,14 @@ import {
   tdEmpty,
   thEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { selectRows } from '@atlaskit/editor-test-helpers/table';
-import { getSelectionRect, selectRow } from '@atlaskit/editor-tables/utils';
-import React from 'react';
-import { setTextSelection } from '@atlaskit/editor-common/utils';
+
+import tablePlugin from '../../../plugins/table-plugin';
 import { hoverRows } from '../../../plugins/table/commands';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import TableFloatingControls from '../../../plugins/table/ui/TableFloatingControls';
 import { RowControls } from '../../../plugins/table/ui/TableFloatingControls/RowControls';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import tablePlugin from '../../../plugins/table-plugin';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('RowControls', () => {
   const createEditor = createProsemirrorEditorFactory();

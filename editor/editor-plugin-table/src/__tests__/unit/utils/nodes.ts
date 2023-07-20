@@ -1,3 +1,8 @@
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
@@ -6,23 +11,19 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   p,
   table,
-  tr,
-  th,
-  tdEmpty,
   tdCursor,
+  tdEmpty,
+  th,
   thEmpty,
-  DocBuilder,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { containsHeaderColumn } from '../../../plugins/table/utils/nodes';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+
 import tablePlugin from '../../../plugins/table-plugin';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import { containsHeaderColumn } from '../../../plugins/table/utils/nodes';
 
 describe('table merging logic', () => {
   const createEditor = createProsemirrorEditorFactory();

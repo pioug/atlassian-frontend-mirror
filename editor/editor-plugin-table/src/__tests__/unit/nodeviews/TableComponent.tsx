@@ -1,41 +1,42 @@
 import React from 'react';
-import { replaceRaf } from 'raf-stub';
-import { TextSelection } from 'prosemirror-state';
 
-import { Command } from '@atlaskit/editor-common/types';
 import { render } from '@testing-library/react';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { TextSelection } from 'prosemirror-state';
+import { replaceRaf } from 'raf-stub';
+
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import { Command } from '@atlaskit/editor-common/types';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/src/utils/select-nodes';
-import tablePlugin from '../../../plugins/table-plugin';
-import {
-  doc,
-  p,
-  table,
-  tr,
-  td,
-  tdEmpty,
-  tdCursor,
-  DocBuilder,
-  thEmpty,
-} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   findTable,
   findTableClosestToPos,
   selectTable,
 } from '@atlaskit/editor-tables/utils';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import {
+  doc,
+  DocBuilder,
+  p,
+  table,
+  td,
+  tdCursor,
+  tdEmpty,
+  thEmpty,
+  tr,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+
+import tablePlugin from '../../../plugins/table-plugin';
+import * as commands from '../../../plugins/table/commands';
+import {
+  hoverTable,
+  toggleNumberColumn,
+} from '../../../plugins/table/commands';
+import TableComponent from '../../../plugins/table/nodeviews/TableComponent';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import {
   TableCssClassName as ClassName,
   TablePluginState,
 } from '../../../plugins/table/types';
-import TableComponent from '../../../plugins/table/nodeviews/TableComponent';
-
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import * as commands from '../../../plugins/table/commands';
-import {
-  toggleNumberColumn,
-  hoverTable,
-} from '../../../plugins/table/commands';
 
 jest.mock('../../../plugins/table/utils/nodes', () =>
   Object.assign({}, jest.requireActual('../../../plugins/table/utils/nodes'), {

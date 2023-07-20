@@ -47,7 +47,9 @@ const backgroundColorMap: {
   readonly 'neutral.bold': SerializedStyles;
   readonly selected: SerializedStyles;
   readonly 'selected.bold': SerializedStyles;
+  readonly 'brand.subtlest': SerializedStyles;
   readonly 'brand.bold': SerializedStyles;
+  readonly 'brand.boldest': SerializedStyles;
   readonly danger: SerializedStyles;
   readonly 'danger.bold': SerializedStyles;
   readonly warning: SerializedStyles;
@@ -76,7 +78,9 @@ const backgroundHoverColorMap: {
   'neutral.bold': SerializedStyles;
   selected: SerializedStyles;
   'selected.bold': SerializedStyles;
+  'brand.subtlest': SerializedStyles;
   'brand.bold': SerializedStyles;
+  'brand.boldest': SerializedStyles;
   danger: SerializedStyles;
   'danger.bold': SerializedStyles;
   warning: SerializedStyles;

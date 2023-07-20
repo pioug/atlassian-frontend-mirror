@@ -1,20 +1,12 @@
-import {
-  darkResults,
-  darkResultsWithOverrides,
-  lightResults,
-} from './check-pair-contrasts';
+import { darkResults, lightResults } from './check-pair-contrasts';
 
 export const downloadResultsAsCSV = (
   customResults?: typeof lightResults.fullResults,
-  isDarkIterationSelected?: boolean,
 ) => {
   const fullResults = [
     ...Object.values(customResults || {}),
     ...Object.values(lightResults.fullResults),
-    ...Object.values(
-      (isDarkIterationSelected ? darkResultsWithOverrides : darkResults)
-        .fullResults,
-    ),
+    ...Object.values(darkResults.fullResults),
   ];
 
   const headings = Object.keys(fullResults[0]);

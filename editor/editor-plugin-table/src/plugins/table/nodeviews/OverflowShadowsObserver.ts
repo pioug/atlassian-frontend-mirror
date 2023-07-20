@@ -1,5 +1,6 @@
-import { ShadowEvent, TableCssClassName as ClassName } from '../types';
+import { TableCssClassName as ClassName, ShadowEvent } from '../types';
 import { tableInsertColumnButtonSize } from '../ui/consts';
+
 import { updateShadowListForStickyStyles } from './update-overflow-shadows';
 
 export class OverflowShadowsObserver {

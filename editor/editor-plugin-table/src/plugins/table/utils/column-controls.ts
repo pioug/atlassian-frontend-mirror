@@ -1,7 +1,10 @@
 import { Selection } from 'prosemirror-state';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findDomRefAtPos } from 'prosemirror-utils';
+import { EditorView } from 'prosemirror-view';
+
+import { maphElem } from '@atlaskit/editor-common/utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   findTable,
   getCellsInColumn,
@@ -9,10 +12,6 @@ import {
   isColumnSelected,
   isTableSelected,
 } from '@atlaskit/editor-tables/utils';
-
-import { EditorView } from 'prosemirror-view';
-
-import { maphElem } from '@atlaskit/editor-common/utils';
 
 import { TableCssClassName as ClassName } from '../types';
 import { tableDeleteButtonSize } from '../ui/consts';

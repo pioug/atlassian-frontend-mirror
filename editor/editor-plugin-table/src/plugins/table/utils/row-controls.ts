@@ -1,8 +1,10 @@
 import { Node as PMNode, Schema } from 'prosemirror-model';
 import { Selection, Transaction } from 'prosemirror-state';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { safeInsert } from 'prosemirror-utils';
+
+import { parsePx } from '@atlaskit/editor-common/utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   findTable,
   getSelectionRect,
@@ -10,7 +12,6 @@ import {
   isTableSelected,
 } from '@atlaskit/editor-tables/utils';
 
-import { parsePx } from '@atlaskit/editor-common/utils';
 import { TableCssClassName as ClassName } from '../types';
 import { tableDeleteButtonSize } from '../ui/consts';
 

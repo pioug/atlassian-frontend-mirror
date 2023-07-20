@@ -1,5 +1,6 @@
 import { DecorationSet } from 'prosemirror-view';
 
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   doc,
   table,
@@ -7,7 +8,6 @@ import {
   tdEmpty,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 
 import { buildColumnControlsDecorations } from '../../../../plugins/table/pm-plugins/decorations/utils';
 import { TableDecorations } from '../../../../plugins/table/types';

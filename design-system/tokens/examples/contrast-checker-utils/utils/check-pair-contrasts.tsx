@@ -1,10 +1,7 @@
 import { normal } from 'color-blend';
-import flatten from 'lodash/flatten';
-import groupBy from 'lodash/groupBy';
 
 import generatedPairs from '../../../src/artifacts/generated-pairs';
 import rawTokensDark from '../../../src/artifacts/tokens-raw/atlassian-dark';
-import rawTokensDarkIteration from '../../../src/artifacts/tokens-raw/atlassian-dark-iteration';
 import rawTokensLight from '../../../src/artifacts/tokens-raw/atlassian-light';
 import { getContrastRatio, hexToRgbA } from '../../../src/utils/color-utils';
 
@@ -220,15 +217,3 @@ export default function checkThemePairContrasts(
 export const lightResults = checkThemePairContrasts(rawTokensLight, 'light');
 
 export const darkResults = checkThemePairContrasts(rawTokensDark, 'dark');
-
-export const rawTokensDarkWithOverrides = flatten(
-  Object.values({
-    ...groupBy(rawTokensDark, (token) => token.name),
-    ...groupBy(rawTokensDarkIteration, (token) => token.name),
-  }),
-);
-
-export const darkResultsWithOverrides = checkThemePairContrasts(
-  rawTokensDarkWithOverrides,
-  'dark',
-);

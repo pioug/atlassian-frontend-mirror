@@ -1,28 +1,30 @@
+import { PluginKey } from 'prosemirror-state';
+
+import { uuid } from '@atlaskit/adf-schema';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
-  DocBuilder,
   doc,
+  DocBuilder,
   p,
   table,
-  tr,
   td,
   tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { uuid } from '@atlaskit/adf-schema';
-import { TablePluginState } from '../../../plugins/table/types';
-import { mergeCells } from '../../../plugins/table/transforms';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+
 import tablePlugin from '../../../plugins/table-plugin';
-import { PluginKey } from 'prosemirror-state';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
+import { mergeCells } from '../../../plugins/table/transforms';
+import { TablePluginState } from '../../../plugins/table/types';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

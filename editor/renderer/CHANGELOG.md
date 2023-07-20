@@ -1,5 +1,11 @@
 # @atlaskit/renderer
 
+## 108.7.3
+
+### Patch Changes
+
+- [`e7ed90bad7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ed90bad7c) - Use renderer appearance to use custom width
+
 ## 108.7.2
 
 ### Patch Changes

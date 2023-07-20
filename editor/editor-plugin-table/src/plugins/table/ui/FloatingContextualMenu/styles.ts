@@ -1,10 +1,12 @@
 import { css } from '@emotion/react';
+
 import { tableBackgroundBorderColor } from '@atlaskit/adf-schema';
 import { N60A, N90 } from '@atlaskit/theme/colors';
-import { contextualMenuDropdownWidth } from '../consts';
-import { TableCssClassName as ClassName } from '../../types';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
+
+import { TableCssClassName as ClassName } from '../../types';
+import { contextualMenuDropdownWidth } from '../consts';
 
 export const cellColourPreviewStyles = (selectedColor: string) => css`
   &::before {
@@ -12,6 +14,8 @@ export const cellColourPreviewStyles = (selectedColor: string) => css`
   }
 `;
 
+// TODO Delete this comment after verifying space token -> previous value `padding: 8px`
+// TODO Delete this comment after verifying space token -> previous value `margin-left: 4px`
 export const tablePopupStyles = css`
   .${ClassName.CONTEXTUAL_SUBMENU} {
     border-radius: ${borderRadius()}px;
@@ -24,7 +28,7 @@ export const tablePopupStyles = css`
     position: absolute;
     top: 0;
     left: ${contextualMenuDropdownWidth}px;
-    padding: 8px;
+    padding: ${token('space.100', '8px')};
 
     > div {
       padding: 0;
@@ -45,7 +49,7 @@ export const tablePopupStyles = css`
 
     &::after {
       content: '›';
-      margin-left: 4px;
+      margin-left: ${token('space.050', '4px')};
       line-height: 20px;
       color: ${token('color.icon', N90)};
     }

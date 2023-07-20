@@ -1,27 +1,51 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { Node as ProseMirrorNode } from 'prosemirror-model';
 import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
 import {
   findParentDomRefOfType,
   findParentNodeOfType,
 } from 'prosemirror-utils';
-import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { findTable } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
-import { browser } from '@atlaskit/editor-common/utils';
 
+import {
+  ACTION,
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
+import type {
+  DispatchAnalyticsEvent,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
+import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type {
   Dispatch,
   EventDispatcher,
 } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-
-import { closestElement } from '@atlaskit/editor-common/utils';
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import {
+  transformSliceToRemoveOpenBodiedExtension,
+  transformSliceToRemoveOpenExpand,
+  transformSliceToRemoveOpenLayoutNodes,
+} from '@atlaskit/editor-common/transforms';
+import type {
+  GetEditorContainerWidth,
+  GetEditorFeatureFlags,
+  getPosHandler,
+} from '@atlaskit/editor-common/types';
+import { browser, closestElement } from '@atlaskit/editor-common/utils';
+import { findTable } from '@atlaskit/editor-tables/utils';
 
 import {
   addBoldInEmptyHeaderCells,
   clearHoverSelection,
   setTableRef,
 } from '../commands';
+import {
+  transformSliceRemoveCellBackgroundColor,
+  transformSliceToAddTableHeaders,
+  transformSliceToRemoveColumnsWidths,
+} from '../commands/misc';
 import {
   handleBlur,
   handleClick,
@@ -36,13 +60,15 @@ import {
   whenTableInFocus,
 } from '../event-handlers';
 import { createTableView } from '../nodeviews/table';
+import TableCellNodeView from '../nodeviews/tableCell';
 import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
 import { fixTables, replaceSelectedTable } from '../transforms';
 import {
   TableCssClassName as ClassName,
-  PluginConfig,
   ElementContentRects,
   InvalidNodeAttr,
+  PluginConfig,
+  PluginInjectionAPI,
 } from '../types';
 import {
   findControlsHoverDecoration,
@@ -51,40 +77,16 @@ import {
   transformSliceToRemoveOpenTable,
   updateResizeHandles,
 } from '../utils';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-  INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { isHeaderRowRequired } from '../utils/paste';
 
 import { defaultTableSelection } from './default-table-selection';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
-import TableCellNodeView from '../nodeviews/tableCell';
-
-import {
-  transformSliceRemoveCellBackgroundColor,
-  transformSliceToRemoveColumnsWidths,
-  transformSliceToAddTableHeaders,
-} from '../commands/misc';
-import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { transformSliceToRemoveOpenLayoutNodes } from '@atlaskit/editor-common/transforms';
-import { transformSliceToRemoveOpenExpand } from '@atlaskit/editor-common/transforms';
-import { transformSliceToRemoveOpenBodiedExtension } from '@atlaskit/editor-common/transforms';
-import { insideTable } from '@atlaskit/editor-common/core-utils';
-import { isHeaderRowRequired } from '../utils/paste';
-import type {
-  GetEditorContainerWidth,
-  GetEditorFeatureFlags,
-} from '@atlaskit/editor-common/types';
-import type { getPosHandler } from '@atlaskit/editor-common/types';
-import type { PluginInjectionAPI } from '../types';
 
 let isBreakoutEnabled: boolean | undefined;
 let isFullWidthModeEnabled: boolean | undefined;
 let wasFullWidthModeEnabled: boolean | undefined;
+let isTableResizingEnabled: boolean | undefined;
 
 export const createPlugin = (
   dispatchAnalyticsEvent: DispatchAnalyticsEvent,
@@ -96,6 +98,7 @@ export const createPlugin = (
   getEditorFeatureFlags: GetEditorFeatureFlags,
   breakoutEnabled?: boolean,
   fullWidthModeEnabled?: boolean,
+  tableResizingEnabled?: boolean,
   previousFullWidthModeEnabled?: boolean,
   editorAnalyticsAPI?: EditorAnalyticsAPI,
   pluginInjectionApi?: PluginInjectionAPI,
@@ -103,6 +106,7 @@ export const createPlugin = (
   isBreakoutEnabled = breakoutEnabled;
   isFullWidthModeEnabled = fullWidthModeEnabled;
   wasFullWidthModeEnabled = previousFullWidthModeEnabled;
+  isTableResizingEnabled = tableResizingEnabled;
 
   const state = createPluginState(dispatch, {
     pluginConfig,
@@ -373,6 +377,7 @@ export const createPlugin = (
               isBreakoutEnabled,
               isFullWidthModeEnabled,
               wasFullWidthModeEnabled,
+              isTableResizingEnabled,
             },
             getEditorContainerWidth,
             getEditorFeatureFlags,

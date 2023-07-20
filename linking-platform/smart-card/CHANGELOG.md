@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.9.13
+
+### Patch Changes
+
+- [`68956c0d353`](https://bitbucket.org/atlassian/atlassian-frontend/commits/68956c0d353) - Embed Modal: Fix icon alignment when triggered from flexible and block card component
+
 ## 26.9.12
 
 ### Patch Changes

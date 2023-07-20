@@ -33,7 +33,7 @@
   "dependencies": {
     "@atlaskit/adf-schema": "^26.1.0",
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/editor-common": "^74.23.0",
+    "@atlaskit/editor-common": "^74.24.0",
     "@atlaskit/editor-plugin-analytics": "^0.1.0",
     "@atlaskit/editor-plugin-decorations": "^0.1.0",
     "@atlaskit/editor-plugin-feature-flags": "^0.1.0",
@@ -48,7 +48,7 @@
     "@atlaskit/link-datasource": "^0.28.0",
     "@atlaskit/smart-card": "^26.9.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.11.0",
+    "@atlaskit/tokens": "^1.13.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "lodash": "^4.17.21",

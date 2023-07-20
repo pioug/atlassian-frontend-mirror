@@ -1,18 +1,20 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
-  editable,
   animationFrame,
-  getDocFromElement,
+  editable,
   fullpage,
+  getDocFromElement,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { insertRow } from '@atlaskit/editor-test-helpers/page-objects/table';
-import { table as tableInsideLayout } from './__fixtures__/table-inside-layout';
+import {
+  clickFirstCell,
+  insertRow,
+} from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
-import { clickFirstCell } from '@atlaskit/editor-test-helpers/page-objects/table';
+import { table as tableInsideLayout } from './__fixtures__/table-inside-layout';
 
 BrowserTestCase(
   'Should scale remaining columns when adding a new column preventing from going to overflow',

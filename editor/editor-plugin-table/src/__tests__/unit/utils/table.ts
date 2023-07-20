@@ -1,15 +1,16 @@
+import { getCellsInRow } from '@atlaskit/editor-tables/utils';
+import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   doc,
   p,
+  tr as row,
   table,
   td,
-  th,
-  tr as row,
   tdEmpty,
+  th,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { getCellsInRow } from '@atlaskit/editor-tables/utils';
+
 import { getMergedCellsPositions } from '../../../plugins/table/utils';
-import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 
 describe('table utils', () => {
   describe('#getMergedCellsPositions', () => {

@@ -1,5 +1,3 @@
-import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
   fullpage,
   tableSelectors,
@@ -8,6 +6,9 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
+
 import stickyTable from './__fixtures__/large-table-with-sticky-header';
 
 const scrollTo = async (page: WebdriverPage, height: number) => {

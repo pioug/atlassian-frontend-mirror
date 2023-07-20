@@ -6,11 +6,11 @@ import { useMessages } from '../services/use-messages';
 
 import { IntlMessagesProviderProps } from './types';
 
-export const IntlMessagesProvider = ({
+export default function IntlMessagesProvider({
   loaderFn,
   children,
   defaultMessages,
-}: IntlMessagesProviderProps) => {
+}: IntlMessagesProviderProps) {
   const intl = useIntl();
   const messages = useMessages(intl.locale, loaderFn, defaultMessages);
 
@@ -33,4 +33,4 @@ export const IntlMessagesProvider = ({
       {children}
     </IntlProvider>
   );
-};
+}

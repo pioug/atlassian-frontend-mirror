@@ -1,62 +1,61 @@
 import { TextSelection } from 'prosemirror-state';
-import { TableMap } from '@atlaskit/editor-tables/table-map';
+
+import { uuid } from '@atlaskit/adf-schema';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { setNodeSelection } from '@atlaskit/editor-common/utils';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { uuid as tablesUuid } from '@atlaskit/editor-tables';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
-  selectRow,
   selectColumn,
+  selectRow,
   selectTable,
 } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
-  Preset,
   LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-
 import {
   doc,
-  p,
-  thEmpty,
-  table,
-  tr,
-  td,
-  th,
-  tdEmpty,
-  tdCursor,
-  thCursor,
-  mediaGroup,
-  media,
   DocBuilder,
+  media,
+  mediaGroup,
+  p,
+  table,
+  td,
+  tdCursor,
+  tdEmpty,
+  th,
+  thCursor,
+  thEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { PluginConfig } from '../../plugins/table/types';
+
+import tablePlugin from '../../plugins/table-plugin';
 import {
   createTable,
-  setEditorFocus,
-  toggleHeaderRow,
-  toggleHeaderColumn,
   insertColumn,
   insertRow,
+  setEditorFocus,
+  toggleHeaderColumn,
+  toggleHeaderRow,
 } from '../../plugins/table/commands';
-import { setNodeSelection } from '@atlaskit/editor-common/utils';
-import { uuid } from '@atlaskit/adf-schema';
-import { uuid as tablesUuid } from '@atlaskit/editor-tables';
-import {
-  checkIfNumberColumnEnabled,
-  checkIfHeaderColumnEnabled,
-  checkIfHeaderRowEnabled,
-} from '../../plugins/table/utils';
-
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { getPluginState } from '../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
-import tablePlugin from '../../plugins/table-plugin';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { PluginConfig } from '../../plugins/table/types';
+import {
+  checkIfHeaderColumnEnabled,
+  checkIfHeaderRowEnabled,
+  checkIfNumberColumnEnabled,
+} from '../../plugins/table/utils';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

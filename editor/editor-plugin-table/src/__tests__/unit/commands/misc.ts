@@ -1,22 +1,31 @@
 import { PluginKey } from 'prosemirror-state';
+
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { isColumnSelected } from '@atlaskit/editor-tables/utils';
 import {
-  doc,
-  table,
-  tdEmpty,
-  tr,
-  DocBuilder,
-  p,
-  td,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-import {
-  Preset,
-  LightEditorPlugin,
   createProsemirrorEditorFactory,
+  LightEditorPlugin,
+  Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
-  selectColumn,
+  doc,
+  DocBuilder,
+  p,
+  table,
+  td,
+  tdEmpty,
+  tr,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+
+import tablePlugin from '../../../plugins/table';
+import {
   moveCursorBackward,
+  selectColumn,
 } from '../../../plugins/table/commands';
 import { getDecorations } from '../../../plugins/table/pm-plugins/decorations/plugin';
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
@@ -25,13 +34,6 @@ import {
   TableDecorations,
   TablePluginState,
 } from '../../../plugins/table/types';
-import tablePlugin from '../../../plugins/table';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('table plugin: commands', () => {
   const createEditor = createProsemirrorEditorFactory();

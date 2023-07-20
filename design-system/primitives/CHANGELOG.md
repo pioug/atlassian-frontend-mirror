@@ -1,5 +1,18 @@
 # @atlaskit/primitives
 
+## 1.0.4
+
+### Patch Changes
+
+- [`74f7af9882b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/74f7af9882b) - [ux] correct fallback color of token color.border.focused to meet contrast requirement
+
+## 1.0.3
+
+### Patch Changes
+
+- [`298df94426c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/298df94426c) - Regenerates codegen'd artifacts as a result of introducting new brand background design tokens.
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

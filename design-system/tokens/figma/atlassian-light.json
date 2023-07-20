@@ -1279,6 +1279,33 @@
       },
       "value": "#09326C"
     },
+    "Light/color.background.brand.subtlest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Use for the background of elements used to reinforce our brand, but with less emphasis."
+      },
+      "value": "#E9F2FF"
+    },
+    "Light/color.background.brand.subtlest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Hovered state of color.background.brand.subtlest."
+      },
+      "value": "#CCE0FF"
+    },
+    "Light/color.background.brand.subtlest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Pressed state of color.background.brand.subtlest"
+      },
+      "value": "#85B8FF"
+    },
     "Light/color.background.brand.bold": {
       "attributes": {
         "group": "paint",
@@ -1293,7 +1320,7 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Hovered state of color.background.brand.bold"
+        "description": "Hovered state of color.background.brand.bold."
       },
       "value": "#0055CC"
     },
@@ -1302,9 +1329,36 @@
         "group": "paint",
         "state": "active",
         "introduced": "0.6.0",
-        "description": "Pressed state of color.background.brand.bold"
+        "description": "Pressed state of color.background.brand.bold."
       },
       "value": "#09326C"
+    },
+    "Light/color.background.brand.boldest": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Use for the background of elements used to reinforce our brand, that need to stand out a lot."
+      },
+      "value": "#092957"
+    },
+    "Light/color.background.brand.boldest.hovered": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Hovered state of color.background.brand.boldest."
+      },
+      "value": "#09326C"
+    },
+    "Light/color.background.brand.boldest.pressed": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "1.13.0",
+        "description": "Pressed state of color.background.brand.boldest."
+      },
+      "value": "#0055CC"
     },
     "Light/color.background.danger": {
       "attributes": {

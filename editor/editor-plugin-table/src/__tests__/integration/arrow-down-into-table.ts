@@ -1,13 +1,14 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 import {
+  expectToMatchSelection,
   fullpage,
   setProseMirrorTextSelection,
-  expectToMatchSelection,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+
 import { documentWithParagraphAndTable } from './__fixtures__/paragraph-and-table-adf';
 
 const testArrowDown =

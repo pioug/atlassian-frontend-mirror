@@ -1,4 +1,12 @@
 import { TextSelection } from 'prosemirror-state';
+
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -6,36 +14,28 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
-  table,
-  td,
-  tr,
-  tdEmpty,
-  tdCursor,
   DocBuilder,
   p,
+  table,
+  td,
+  tdCursor,
+  tdEmpty,
+  tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+
+import tablePlugin from '../../plugins/table-plugin';
 import {
-  handleMouseOver,
-  handleMouseMove,
-} from '../../plugins/table/event-handlers';
-import {
-  showInsertColumnButton,
   addResizeHandleDecorations,
+  showInsertColumnButton,
 } from '../../plugins/table/commands';
 import {
-  handleMouseOut,
   handleMouseDown,
+  handleMouseMove,
+  handleMouseOut,
+  handleMouseOver,
 } from '../../plugins/table/event-handlers';
 import { pluginKey } from '../../plugins/table/pm-plugins/plugin-key';
 import { TableCssClassName as ClassName } from '../../plugins/table/types';
-import tablePlugin from '../../plugins/table-plugin';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('table plugin: decorations', () => {
   const createEditor = createProsemirrorEditorFactory();

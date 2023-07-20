@@ -24,7 +24,7 @@ import { scrollJustEnoughIntoView } from '@atlaskit/pragmatic-drag-and-drop/util
 // eslint-disable-next-line no-restricted-imports
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import { Item } from '../data/people';
+import { Person } from '../data/people';
 import { cardGap } from '../util/constants';
 
 type DraggableState = 'idle' | 'generate-preview' | 'dragging';
@@ -41,9 +41,9 @@ const draggingStyles = xcss({
   opacity: 0.6,
 });
 
-export const Card = memo(function Card({ item }: { item: Item }) {
+export const Card = memo(function Card({ item }: { item: Person }) {
   const ref = useRef<HTMLDivElement | null>(null);
-  const { avatarUrl, itemId, name, role } = item;
+  const { avatarUrl, userId, name, role } = item;
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
   const [state, setState] = useState<DraggableState>('idle');
 
@@ -53,7 +53,7 @@ export const Card = memo(function Card({ item }: { item: Item }) {
     return combine(
       draggable({
         element: ref.current,
-        getInitialData: () => ({ type: 'card', itemId: itemId }),
+        getInitialData: () => ({ type: 'card', itemId: userId }),
         onGenerateDragPreview: ({ source }) => {
           scrollJustEnoughIntoView({ element: source.element });
           setState('generate-preview');
@@ -70,7 +70,7 @@ export const Card = memo(function Card({ item }: { item: Item }) {
         canDrop: args => args.source.data.type === 'card',
         getIsSticky: () => true,
         getData: ({ input, element }) => {
-          const data = { type: 'card', itemId: itemId };
+          const data = { type: 'card', itemId: userId };
 
           return attachClosestEdge(data, {
             input,
@@ -79,12 +79,12 @@ export const Card = memo(function Card({ item }: { item: Item }) {
           });
         },
         onDragEnter: args => {
-          if (args.source.data.itemId !== itemId) {
+          if (args.source.data.itemId !== userId) {
             setClosestEdge(extractClosestEdge(args.self.data));
           }
         },
         onDrag: args => {
-          if (args.source.data.itemId !== itemId) {
+          if (args.source.data.itemId !== userId) {
             setClosestEdge(extractClosestEdge(args.self.data));
           }
         },
@@ -96,12 +96,12 @@ export const Card = memo(function Card({ item }: { item: Item }) {
         },
       }),
     );
-  }, [itemId]);
+  }, [userId]);
 
   return (
     <Box
       ref={ref}
-      testId={`item-${itemId}`}
+      testId={`item-${userId}`}
       backgroundColor="elevation.surface"
       padding="space.100"
       xcss={[containerStyles, state === 'dragging' && draggingStyles]}

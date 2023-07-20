@@ -1,10 +1,10 @@
 import { Fragment, Node as PMNode } from 'prosemirror-model';
 import { Selection, Transaction } from 'prosemirror-state';
-import { TableMap, Rect } from '@atlaskit/editor-tables/table-map';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
 import { CellAttributes } from '@atlaskit/adf-schema';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
+import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
 // re-creates table node with merged cells
 export function mergeCells(tr: Transaction): Transaction {

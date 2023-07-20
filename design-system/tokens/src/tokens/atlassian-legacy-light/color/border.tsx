@@ -7,7 +7,7 @@ const color: ValueSchema<BorderColorTokenSchema<BaseToken>> = {
       '[default]': { value: 'N40A' },
       bold: { value: 'N600' },
       inverse: { value: 'N0' },
-      focused: { value: 'B100' },
+      focused: { value: 'B200' },
       input: { value: 'N10' },
       disabled: { value: 'N10' },
       brand: { value: 'B400' },

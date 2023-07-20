@@ -1,29 +1,32 @@
+import React from 'react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
+import { EditorView } from 'prosemirror-view';
+import { IntlProvider } from 'react-intl-next';
+
+import { getCellsInColumn, selectTable } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
+  DocBuilder,
   table,
   tdCursor,
   tdEmpty,
   thEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { selectColumns, selectRows } from '@atlaskit/editor-test-helpers/table';
-import { selectTable, getCellsInColumn } from '@atlaskit/editor-tables/utils';
-import { EditorView } from 'prosemirror-view';
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { IntlProvider } from 'react-intl-next';
+
+import tablePlugin from '../../../plugins/table-plugin';
+import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import {
-  TablePluginState,
   TableCssClassName,
+  TablePluginState,
 } from '../../../plugins/table/types';
 import FloatingDeleteButton, {
   Props as FloatingDeleteButtonProps,
 } from '../../../plugins/table/ui/FloatingDeleteButton';
 import * as tableColumnControlsUtils from '../../../plugins/table/utils/column-controls';
-import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
-import tablePlugin from '../../../plugins/table-plugin';
 
 describe('Floating Delete Button', () => {
   const createEditor = createEditorFactory<TablePluginState>();

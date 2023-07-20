@@ -12,10 +12,9 @@ import {
   akEditorTableLegacyCellMinWidth,
   akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-
 import { SharedTableProps } from './types';
+import { isTableResizingEnabled } from '../table';
 
 // we allow scaling down column widths by no more than 30%
 // this intends to reduce unwanted scrolling in the Renderer in these scenarios:
@@ -81,15 +80,21 @@ export const calcScalePercent = ({
 };
 
 export const Colgroup = (props: SharedTableProps) => {
-  let { columnWidths, layout, isNumberColumnEnabled, renderWidth, tableNode } =
-    props;
+  let {
+    columnWidths,
+    layout,
+    isNumberColumnEnabled,
+    renderWidth,
+    tableNode,
+    rendererAppearance,
+  } = props;
 
   if (!columnWidths) {
     return null;
   }
 
   const tableResized = isTableResized(columnWidths);
-  if (getBooleanFF('platform.editor.custom-table-width') && !tableResized) {
+  if (isTableResizingEnabled(rendererAppearance) && !tableResized) {
     return (
       <colgroup>
         {isNumberColumnEnabled && (
@@ -105,7 +110,7 @@ export const Colgroup = (props: SharedTableProps) => {
   }
 
   let tableContainerWidth: number;
-  if (getBooleanFF('platform.editor.custom-table-width') && tableNode) {
+  if (isTableResizingEnabled(rendererAppearance) && tableNode) {
     tableContainerWidth = getTableContainerWidth(tableNode);
   } else {
     tableContainerWidth = getTableLayoutWidth(layout);

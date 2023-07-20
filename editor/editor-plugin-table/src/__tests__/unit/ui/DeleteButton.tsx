@@ -1,6 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+
+import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+
 import DeleteButton from '../../../plugins/table/ui/FloatingDeleteButton/DeleteButton';
 import tableMessages from '../../../plugins/table/ui/messages';
 

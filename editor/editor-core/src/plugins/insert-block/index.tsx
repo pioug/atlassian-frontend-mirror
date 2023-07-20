@@ -15,6 +15,7 @@ import {
 import { stateKey as mediaStateKey } from '../media/pm-plugins/plugin-key';
 import type { MediaPluginState } from '../media/pm-plugins/types';
 
+import type { ImageUploadPlugin } from '../image-upload';
 import { isTypeAheadAllowed } from '../type-ahead/utils';
 import { mentionPluginKey } from '../mentions/pm-plugins/key';
 import type { MentionPluginState } from '../mentions/types';
@@ -28,10 +29,7 @@ import WithPluginState from '../../ui/WithPluginState';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { pluginKey as typeAheadPluginKey } from '../type-ahead/pm-plugins/key';
 import { insertBlockTypesWithAnalytics } from '../block-type/commands';
-import { startImageUpload } from '../image-upload/pm-plugins/commands';
 import { INPUT_METHOD } from '../analytics';
-import { stateKey as imageUploadStateKey } from '../image-upload/pm-plugins/plugin-key';
-import type { ImageUploadPluginState } from '../image-upload/types';
 import type datePlugin from '../date';
 import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin-key';
 import type { PluginState as PlaceholderTextPluginState } from '../placeholder-text/types';
@@ -96,6 +94,7 @@ const insertBlockPlugin: NextEditorPlugin<
       OptionalPlugin<typeof hyperlinkPlugin>,
       OptionalPlugin<typeof datePlugin>,
       OptionalPlugin<typeof analyticsPlugin>,
+      OptionalPlugin<ImageUploadPlugin>,
     ];
   }
 > = (options = {}, api?) => {
@@ -129,7 +128,6 @@ const insertBlockPlugin: NextEditorPlugin<
               mentionState: mentionPluginKey,
               macroState: macroStateKey,
               emojiState: emojiPluginKey,
-              imageUpload: imageUploadStateKey,
               placeholderTextState: placeholderTextStateKey,
               layoutState: layoutStateKey,
             }}
@@ -139,7 +137,6 @@ const insertBlockPlugin: NextEditorPlugin<
               mediaState,
               macroState = {} as MacroState,
               emojiState,
-              imageUpload,
               placeholderTextState,
               layoutState,
             }) => (
@@ -162,7 +159,6 @@ const insertBlockPlugin: NextEditorPlugin<
                 mediaState={mediaState}
                 macroState={macroState}
                 emojiState={emojiState}
-                imageUpload={imageUpload}
                 placeholderTextState={placeholderTextState}
                 layoutState={layoutState}
                 providers={providers}
@@ -200,7 +196,6 @@ interface ToolbarInsertBlockWithInjectionApiProps
   mediaState: MediaPluginState | undefined;
   macroState: MacroState;
   emojiState: EmojiPluginState | undefined;
-  imageUpload: ImageUploadPluginState | undefined;
   placeholderTextState: PlaceholderTextPluginState | undefined;
   layoutState: LayoutState | undefined;
 }
@@ -225,15 +220,14 @@ function ToolbarInsertBlockWithInjectionApi({
   mediaState,
   macroState,
   emojiState,
-  imageUpload,
   placeholderTextState,
   layoutState,
   featureFlags,
 }: ToolbarInsertBlockWithInjectionApiProps) {
   const buttons = toolbarSizeToButtons(toolbarSize);
-  const { dateState, hyperlinkState } = useSharedPluginState(
+  const { dateState, hyperlinkState, imageUploadState } = useSharedPluginState(
     pluginInjectionApi,
-    ['hyperlink', 'date'],
+    ['hyperlink', 'date', 'imageUpload'],
   );
 
   return (
@@ -257,9 +251,11 @@ function ToolbarInsertBlockWithInjectionApi({
       mediaUploadsEnabled={mediaState && mediaState.allowsUploads}
       onShowMediaPicker={mediaState && mediaState.showMediaPicker}
       mediaSupported={!!mediaState}
-      imageUploadSupported={!!imageUpload}
-      imageUploadEnabled={imageUpload && imageUpload.enabled}
-      handleImageUpload={startImageUpload}
+      imageUploadSupported={!!pluginInjectionApi?.dependencies.imageUpload}
+      imageUploadEnabled={imageUploadState?.enabled}
+      handleImageUpload={
+        pluginInjectionApi?.dependencies.imageUpload?.actions.startUpload
+      }
       availableWrapperBlockTypes={
         blockTypeState && blockTypeState.availableWrapperBlockTypes
       }

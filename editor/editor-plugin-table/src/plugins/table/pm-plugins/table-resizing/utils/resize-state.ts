@@ -1,24 +1,26 @@
 import { Node as PMNode } from 'prosemirror-model';
+import { EditorState } from 'prosemirror-state';
 
+import { TableLayout } from '@atlaskit/adf-schema';
 import {
   tableCellMinWidth,
   tableNewColumnMinWidth,
 } from '@atlaskit/editor-common/styles';
+import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import { Rect } from '@atlaskit/editor-tables/table-map';
-import { TableLayout } from '@atlaskit/adf-schema';
+
+import { getSelectedTableInfo } from '../../../utils';
+
 import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';
 import {
+  ColumnState,
   getCellsRefsInColumn,
   getColumnStateFromDOM,
-  ColumnState,
 } from './column-state';
 import { syncStickyRowToTable } from './dom';
-import { ResizeState, ResizeStateWithAnalytics } from './types';
 import { getTableMaxWidth } from './misc';
-import { EditorState } from 'prosemirror-state';
-import { getSelectedTableInfo } from '../../../utils';
-import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { ResizeState, ResizeStateWithAnalytics } from './types';
 
 export const getResizeState = ({
   minWidth,

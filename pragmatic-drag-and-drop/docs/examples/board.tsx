@@ -9,7 +9,7 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/el
 import { monitorForFiles } from '@atlaskit/pragmatic-drag-and-drop/adapter/file';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 
-import { ColumnMap, ColumnType, getInitialData, Item } from './data/people';
+import { ColumnMap, ColumnType, getInitialData, Person } from './data/people';
 import Board from './pieces/board';
 import { Column } from './pieces/column';
 
@@ -80,9 +80,9 @@ export default function BoardExample() {
             invariant(typeof sourceId === 'string');
             const sourceColumn = data.columnMap[sourceId];
             const itemIndex = sourceColumn.items.findIndex(
-              item => item.itemId === itemId,
+              item => item.userId === itemId,
             );
-            const item: Item = sourceColumn.items[itemIndex];
+            const item: Person = sourceColumn.items[itemIndex];
 
             if (location.current.dropTargets.length === 1) {
               const [destinationColumnRecord] = location.current.dropTargets;
@@ -110,7 +110,7 @@ export default function BoardExample() {
                 setData({ ...data, columnMap: updatedMap });
                 console.log('moving card to end position in same column', {
                   startIndex: itemIndex,
-                  destinationIndex: updated.findIndex(i => i.itemId === itemId),
+                  destinationIndex: updated.findIndex(i => i.userId === itemId),
                   edge: null,
                 });
                 return;
@@ -121,7 +121,7 @@ export default function BoardExample() {
                 ...data.columnMap,
                 [sourceColumn.columnId]: {
                   ...sourceColumn,
-                  items: sourceColumn.items.filter(i => i.itemId !== itemId),
+                  items: sourceColumn.items.filter(i => i.userId !== itemId),
                 },
                 [destinationColumn.columnId]: {
                   ...destinationColumn,
@@ -134,7 +134,7 @@ export default function BoardExample() {
                 startIndex: itemIndex,
                 destinationIndex: updatedMap[
                   destinationColumn.columnId
-                ].items.findIndex(i => i.itemId === itemId),
+                ].items.findIndex(i => i.userId === itemId),
                 edge: null,
               });
               return;
@@ -149,7 +149,7 @@ export default function BoardExample() {
               const destinationColumn = data.columnMap[destinationColumnId];
 
               const indexOfTarget = destinationColumn.items.findIndex(
-                item => item.itemId === destinationCardRecord.data.itemId,
+                item => item.userId === destinationCardRecord.data.itemId,
               );
               const closestEdgeOfTarget: Edge | null = extractClosestEdge(
                 destinationCardRecord.data,
@@ -174,7 +174,7 @@ export default function BoardExample() {
                 };
                 console.log('dropping relative to card in the same column', {
                   startIndex: itemIndex,
-                  destinationIndex: updated.findIndex(i => i.itemId === itemId),
+                  destinationIndex: updated.findIndex(i => i.userId === itemId),
                   closestEdgeOfTarget,
                 });
                 setData({ ...data, columnMap: updatedMap });
@@ -187,7 +187,7 @@ export default function BoardExample() {
                 ...sourceColumn,
                 items: sourceColumn.items.filter(i => i !== item),
               };
-              const updated: Item[] = Array.from(destinationColumn.items);
+              const updated: Person[] = Array.from(destinationColumn.items);
               const destinationIndex =
                 closestEdgeOfTarget === 'bottom'
                   ? indexOfTarget + 1

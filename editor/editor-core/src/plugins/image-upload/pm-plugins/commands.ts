@@ -1,11 +1,11 @@
-import { InsertedImageProperties } from '@atlaskit/editor-common/provider-factory';
+import type { InsertedImageProperties } from '@atlaskit/editor-common/provider-factory';
 import { safeInsert } from 'prosemirror-utils';
 import { createExternalMediaNode } from '../utils';
 import type { Command } from '../../../types';
 import type { ImageUploadPluginState } from '../types';
 import { startUpload } from './actions';
 import { stateKey } from './plugin-key';
-import { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
+import type { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
 
 export const insertExternalImage: (
   options: InsertedImageProperties,

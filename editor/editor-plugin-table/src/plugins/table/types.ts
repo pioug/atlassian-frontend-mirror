@@ -1,6 +1,5 @@
 import { Node as PmNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
-import { Rect } from '@atlaskit/editor-tables/table-map';
 import { DecorationSet } from 'prosemirror-view';
 import { IntlShape } from 'react-intl-next';
 
@@ -10,11 +9,12 @@ import {
   TableLayout,
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
-import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
-
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { Rect } from '@atlaskit/editor-tables/table-map';
+
 import type tablePlugin from './index';
 
 export const RESIZE_HANDLE_AREA_DECORATION_GAP = 30;

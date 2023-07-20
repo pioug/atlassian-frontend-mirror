@@ -1,5 +1,5 @@
 import { createEditorSelectionAPI } from '../../../selection-api/api';
-import { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   breakoutPlugin,
@@ -54,26 +54,28 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
 import { isFullPage as fullPageCheck } from '../../../utils/is-full-page';
-import { PrivateCollabEditOptions } from '../../../plugins/collab-edit/types';
+import type { PrivateCollabEditOptions } from '../../../plugins/collab-edit/types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import { createDefaultPreset, DefaultPresetPluginOptions } from './default';
-import { EditorPresetProps } from './types';
+import type { DefaultPresetPluginOptions } from './default';
+import { createDefaultPreset } from './default';
+import type { EditorPresetProps } from './types';
 import { shouldForceTracking } from '@atlaskit/editor-common/utils';
-import {
+import type {
   BeforeAndAfterToolbarComponents,
   EditorSharedPropsWithPlugins,
   PrimaryToolbarComponents,
 } from '../../../types/editor-props';
-import { FeatureFlags } from '../../../types/feature-flags';
-import {
+import type { FeatureFlags } from '../../../types/feature-flags';
+import type {
   EditorPluginFeatureProps,
   EditorProviderProps,
 } from '../../../types/editor-props';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 type UniversalPresetProps = EditorPresetProps &
   DefaultPresetPluginOptions &
@@ -273,10 +275,16 @@ export default function createUniversalPreset(
           !props.allowTables || typeof props.allowTables === 'boolean'
             ? {}
             : props.allowTables;
+
         return builder.add([
           plugin,
           {
             tableOptions,
+            // tableResizingEnabled will replace breakoutEnabled once FF is 100% rolled out,
+            // logic below is to help codemod during cleanup
+            tableResizingEnabled:
+              getBooleanFF('platform.editor.custom-table-width') &&
+              ['full-page', 'full-width'].includes(appearance || ''),
             breakoutEnabled: appearance === 'full-page',
             allowContextualMenu: !isMobile,
             fullWidthEnabled: appearance === 'full-width',

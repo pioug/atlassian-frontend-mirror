@@ -2,12 +2,13 @@ import { Node as PMNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import { ContentNodeWithPos } from 'prosemirror-utils';
 
-import { isTableSelected } from '@atlaskit/editor-tables/utils';
 import type { Command } from '@atlaskit/editor-common/types';
+import { isTableSelected } from '@atlaskit/editor-tables/utils';
+
+import { updateColumnWidths } from '../../transforms';
 
 import { createCommand, getPluginState } from './plugin-factory';
 import { evenAllColumnsWidths, isClickNear, ResizeState } from './utils';
-import { updateColumnWidths } from '../../transforms';
 
 export const evenColumns =
   ({

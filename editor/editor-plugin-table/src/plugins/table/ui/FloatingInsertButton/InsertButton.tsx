@@ -1,17 +1,16 @@
 import React, { SyntheticEvent } from 'react';
 
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
+import * as keymaps from '@atlaskit/editor-common/keymaps';
 import { tableMarginTop } from '@atlaskit/editor-common/styles';
+import { closestElement } from '@atlaskit/editor-common/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import Tooltip from '@atlaskit/tooltip';
 
-import * as keymaps from '@atlaskit/editor-common/keymaps';
-
-import { closestElement } from '@atlaskit/editor-common/utils';
 import { TableCssClassName as ClassName } from '../../types';
-import tableMessages from '../messages';
 import { tableToolbarSize } from '../consts';
+import tableMessages from '../messages';
 
 export interface ButtonProps {
   type: 'row' | 'column';

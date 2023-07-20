@@ -510,11 +510,11 @@ export type PaddingInline = keyof typeof paddingInlineMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::891786734c508bdcd4316dff89e481c4>>
+ * @codegen <<SignedSource::026413c83379004fc928a2632ae022c9>>
  * @codegenId colors
  * @codegenCommand yarn codegen-styles
  * @codegenParams ["border", "background", "shadow"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::efb3dfea27ab3db2fb3756ed9657c5cb>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::d09e7cd13e24113267155813747b3bd4>>
  */
 const borderColorMap = {
   'color.border': css({
@@ -524,7 +524,7 @@ const borderColorMap = {
     borderColor: token('color.border.disabled', '#FAFBFC'),
   }),
   focused: css({
-    borderColor: token('color.border.focused', '#4C9AFF'),
+    borderColor: token('color.border.focused', '#2684FF'),
   }),
   input: css({
     borderColor: token('color.border.input', '#FAFBFC'),
@@ -585,8 +585,14 @@ const backgroundColorMap = {
   'selected.bold': css({
     backgroundColor: token('color.background.selected.bold', '#0052CC'),
   }),
+  'brand.subtlest': css({
+    backgroundColor: token('color.background.brand.subtlest', '#B3D4FF'),
+  }),
   'brand.bold': css({
     backgroundColor: token('color.background.brand.bold', '#0052CC'),
+  }),
+  'brand.boldest': css({
+    backgroundColor: token('color.background.brand.boldest', '#0747A6'),
   }),
   danger: css({
     backgroundColor: token('color.background.danger', '#FFEBE6'),

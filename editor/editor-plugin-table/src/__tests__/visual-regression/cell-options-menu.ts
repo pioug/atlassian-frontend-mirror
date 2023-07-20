@@ -1,9 +1,9 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { insertTable } from '@atlaskit/editor-test-helpers/page-objects/table';
 import {
-  snapshot,
   initFullPageEditorWithAdf,
+  snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 const firstCellSelector = 'table tbody th p';
 const cellOptionsSelector = '[aria-label="Cell options"]';

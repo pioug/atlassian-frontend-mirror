@@ -1,17 +1,16 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
-
-import {
-  goToEditorTestingWDExample,
-  mountEditor,
-} from '@atlaskit/editor-test-helpers/testing-example-page';
-
 import {
   fullpage,
   resizeColumn,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
+import {
+  goToEditorTestingWDExample,
+  mountEditor,
+} from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
+import WebdriverPage from '@atlaskit/webdriver-runner/wd-wrapper';
 
 import { TableCssClassName as className } from '../../plugins/table/types';
+
 import basicTable from './__fixtures__/basic-table';
 
 const checkShadows = async (page: WebdriverPage, side?: 'left' | 'right') => {

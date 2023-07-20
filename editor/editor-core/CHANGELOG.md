@@ -1,5 +1,46 @@
 # @atlaskit/editor-core
 
+## 187.2.4
+
+### Patch Changes
+
+- [`30f2b96479f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30f2b96479f) - Update image upload plugin to use optional plugin upload interface
+
+## 187.2.3
+
+### Patch Changes
+
+- [`a70c938c3de`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a70c938c3de) - fix issue where wrong expand node type was being inserted into tables (insert menu)
+
+## 187.2.2
+
+### Patch Changes
+
+- [`0e45d910987`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0e45d910987) - [ED-18083] Moved panel gap cursor tests to Libra
+- Updated dependencies
+
+## 187.2.1
+
+### Patch Changes
+
+- [`f4f06674b2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4f06674b2f) - Fix additional typeahead character being added to editor when using composition.
+
+## 187.2.0
+
+### Minor Changes
+
+- [`e7ed90bad7c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e7ed90bad7c) - Remove platform feature flag calls to editor-core and pass through a new option instead for custom table widths project, allowing for simpler clean up and reference
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.1.4
+
+### Patch Changes
+
+- [`b00f47b4576`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b00f47b4576) - [ED-18035] stop keydown propogation for typeaheadlist
+
 ## 187.1.3
 
 ### Patch Changes

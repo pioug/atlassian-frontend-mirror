@@ -95,6 +95,8 @@ interface TablePluginOptions {
   // (undocumented)
   tableOptions: PluginConfig;
   // (undocumented)
+  tableResizingEnabled?: boolean;
+  // (undocumented)
   wasFullWidthEnabled?: boolean;
 }
 

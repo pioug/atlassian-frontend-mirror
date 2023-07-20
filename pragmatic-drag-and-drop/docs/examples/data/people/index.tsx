@@ -36,11 +36,11 @@ import Tanya from './images/Tanya.svg';
 import Tori from './images/Tori.svg';
 import Vania from './images/Vania.svg';
 
-export type Item = {
+export type Person = {
+  userId: string;
   name: string;
   role: string;
   avatarUrl: string;
-  itemId: string;
 };
 
 const avatarMap: Record<string, string> = {
@@ -79,58 +79,49 @@ const avatarMap: Record<string, string> = {
   Vania,
 };
 
-function getItem({ name, role }: { name: string; role: string }): Item {
+const names: string[] = Object.keys(avatarMap);
+
+const roles: string[] = [
+  'Engineer',
+  'Senior Engineer',
+  'Principal Engineer',
+  'Engineering Manager',
+  'Designer',
+  'Senior Designer',
+  'Lead Designer',
+  'Design Manager',
+  'Content Designer',
+  'Product Manager',
+  'Program Manager',
+];
+
+let count: number = 0;
+
+/**
+ * Note: this does not use randomness so that it is stable for VR tests
+ */
+export function getPerson(): Person {
+  count++;
+  // use the next name
+  const name = names[count % names.length];
+  // use the next role
+  const role = roles[count % roles.length];
   return {
+    userId: `id:${count}`,
     name,
     role,
     avatarUrl: avatarMap[name],
-    itemId: name,
   };
 }
 
-export const confluenceTeam: Item[] = [
-  { name: 'Alexander', role: 'Product Manager' },
-  { name: 'Arjun', role: 'Software Engineer' },
-  { name: 'Ed', role: 'Software Engineer' },
-  { name: 'Gael', role: 'Engineering Manager' },
-  { name: 'Ivan', role: 'Content Designer' },
-  { name: 'Lydia', role: 'Design Manager' },
-  { name: 'Narul', role: 'Product Manager' },
-  { name: 'Renato', role: 'Principal Engineer' },
-  { name: 'Vania', role: 'Lead Designer' },
-  { name: 'Angie', role: 'Senior Engineer' },
-  { name: 'Colin', role: 'Software Engineer' },
-  { name: 'Fabian', role: 'Senior Designer' },
-].map(getItem);
-
-export const jiraTeam: Item[] = [
-  { name: 'Helena', role: 'Design Researcher' },
-  { name: 'Leo', role: 'Content Designer' },
-  { name: 'Myra', role: 'Engineering Manager' },
-  { name: 'Rahul', role: 'Product Manager' },
-  { name: 'Tori', role: 'Senior Designer' },
-  { name: 'Alvin', role: 'Senior Engineer' },
-  { name: 'Claudia', role: 'Senior Engineer' },
-  { name: 'Eliot', role: 'Lead Designer' },
-].map(getItem);
-
-export const trelloTeam: Item[] = [
-  { name: 'Hasan', role: 'Designer' },
-  { name: 'Lara', role: 'Design Researcher' },
-  { name: 'Milo', role: 'Product Manager' },
-  { name: 'Oliver', role: 'Senior Designer' },
-  { name: 'Tanya', role: 'Engineering Manager' },
-  { name: 'Aliza', role: 'Design Manager' },
-  { name: 'Blair', role: 'Program Manager' },
-  { name: 'Effie', role: 'Senior Engineer' },
-  { name: 'Gerard', role: 'Design Manager' },
-  { name: 'Katina', role: 'Program Manager' },
-].map(getItem);
+export function getPeople({ amount }: { amount: number }): Person[] {
+  return Array.from({ length: amount }, getPerson);
+}
 
 export type ColumnType = {
   title: string;
   columnId: string;
-  items: Item[];
+  items: Person[];
 };
 export type ColumnMap = { [columnId: string]: ColumnType };
 
@@ -139,17 +130,17 @@ export function getInitialData() {
     confluence: {
       title: 'Confluence',
       columnId: 'confluence',
-      items: confluenceTeam,
+      items: getPeople({ amount: 10 }),
     },
     jira: {
       title: 'Jira',
       columnId: 'jira',
-      items: jiraTeam,
+      items: getPeople({ amount: 10 }),
     },
     trello: {
       title: 'Trello',
       columnId: 'trello',
-      items: trelloTeam,
+      items: getPeople({ amount: 10 }),
     },
   };
 

@@ -14,7 +14,6 @@ export const getSearchParams = (): {
   theme: Theme;
   baseTokens: BaseTokens;
   colorMode: ColorMode;
-  isDarkIterationSelected: boolean;
 } => {
   const urlSearchParams = params;
   const paramEntries = Object.fromEntries(urlSearchParams.entries());
@@ -53,7 +52,6 @@ export const getSearchParams = (): {
       : 'light',
     baseTokens: filteredBaseTokens,
     theme: filteredTheme,
-    isDarkIterationSelected: paramEntries.isDarkIterationSelected === 'true',
   };
 };
 
@@ -62,7 +60,6 @@ export const setSearchParams = (
   theme: { name: string; value: string }[],
   baseTokens: BaseTokens,
   colorMode: ColorMode,
-  isDarkIterationSelected: boolean,
 ) => {
   let objectTheme: { [index: string]: string } = {};
   theme.forEach((value: { name: string; value: string }) => {
@@ -71,10 +68,7 @@ export const setSearchParams = (
   url.searchParams.set('colorMode', colorMode);
   url.searchParams.set('customTheme', JSON.stringify(objectTheme));
   url.searchParams.set('baseTokens', JSON.stringify(baseTokens));
-  url.searchParams.set(
-    'isDarkIterationSelected',
-    isDarkIterationSelected.toString(),
-  );
+
   // set window query params to the newly generated URL
   window.history.replaceState({}, '', url.toString());
 };

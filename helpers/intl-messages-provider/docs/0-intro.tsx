@@ -30,21 +30,20 @@ export default md`
       }
   `}
 
-  ## Examples
+  ${(
+    <Props
+      heading="Props"
+      props={require('!!extract-react-types-loader!../src/ui')}
+    />
+  )}
 
+  ## Examples
   ${(
     <Example
       packageName="@atlaskit/intl-messages-provider"
       Component={require('../examples/basic').default}
       title="Basic example"
       source={require('!!raw-loader!../examples/basic')}
-    />
-  )}
-
-  ${(
-    <Props
-      heading="IntlMessagesProvider Props"
-      props={require('!!extract-react-types-loader!../src')}
     />
   )}
 `;

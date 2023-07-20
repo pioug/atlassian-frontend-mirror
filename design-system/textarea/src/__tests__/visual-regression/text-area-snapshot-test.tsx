@@ -55,7 +55,7 @@ describe('TextArea', () => {
       const imageOnFocus = await takeElementScreenShot(page, 'div#smart');
       expect(imageOnFocus).toMatchProdImageSnapshot();
 
-      await page.click('p');
+      await page.click('#smart');
 
       const imageOnBlur = await takeElementScreenShot(page, 'div#smart');
       expect(imageOnBlur).toMatchProdImageSnapshot();

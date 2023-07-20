@@ -1,16 +1,15 @@
-import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-
 import {
   editable,
-  getDocFromElement,
   fullpage,
-  quickInsert,
+  getDocFromElement,
   insertBlockMenuItem,
+  quickInsert,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
 import {
-  mountEditor,
   goToEditorTestingWDExample,
+  mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 const calendar = '[aria-label="calendar"]';
 const nextDate = 'button[aria-selected=true] + button';

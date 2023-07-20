@@ -3,7 +3,7 @@
  *
  * Token names mapped to their values, used for contrast checking when generating custom themes
  *
- * @codegen <<SignedSource::b59877585fad151840dbf6c212c56e34>>
+ * @codegen <<SignedSource::068e846d4121ab9afc08e7a1f99dbb5e>>
  * @codegenCommand yarn build tokens
  */
 const tokenValues = {
@@ -13,6 +13,7 @@ const tokenValues = {
   'color.background.selected': '#E9F2FF',
   'color.border.brand': '#0C66E4',
   'color.chart.brand': '#1D7AFC',
+  'color.text.inverse': '#FFFFFF',
 } as const;
 
 export default tokenValues;

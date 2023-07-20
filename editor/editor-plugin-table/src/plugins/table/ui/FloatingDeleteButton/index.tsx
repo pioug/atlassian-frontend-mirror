@@ -1,19 +1,20 @@
 import React, { Component, SyntheticEvent } from 'react';
 
 import { Selection } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
+import { createPortal } from 'react-dom';
+
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { Popup } from '@atlaskit/editor-common/ui';
+import { closestElement } from '@atlaskit/editor-common/utils';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
   getSelectionRect,
   isTableSelected,
 } from '@atlaskit/editor-tables/utils';
-import { EditorView } from 'prosemirror-view';
-import { createPortal } from 'react-dom';
 
-import { Popup } from '@atlaskit/editor-common/ui';
-import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
-
-import { closestElement } from '@atlaskit/editor-common/utils';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';
 import {
   deleteColumnsWithAnalytics,
@@ -28,13 +29,12 @@ import {
   getRowDeleteButtonParams,
   getRowHeights,
 } from '../../utils';
-import tableMessages from '../messages';
 import { stickyRowZIndex } from '../consts';
+import tableMessages from '../messages';
 
 import DeleteButton from './DeleteButton';
 import getPopupOptions from './getPopUpOptions';
 import { CellSelectionType } from './types';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export interface Props {
   editorView: EditorView;

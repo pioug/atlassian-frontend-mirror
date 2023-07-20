@@ -1,11 +1,13 @@
+import debounce from 'lodash/debounce';
+import throttle from 'lodash/throttle';
 import { Node as PmNode } from 'prosemirror-model';
 import { EditorView, NodeView } from 'prosemirror-view';
 
-import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
-
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { mapChildren } from '@atlaskit/editor-common/utils';
+
 import {
   TableCssClassName as ClassName,
   TableCssClassName,
@@ -23,11 +25,8 @@ import {
   updateStickyMargins as updateTableMargin,
 } from '../../table-resizing/utils/dom';
 import { updateStickyState } from '../commands';
-import { getTop, getTree, TableDOMElements } from './dom';
-import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
-import debounce from 'lodash/debounce';
-import throttle from 'lodash/throttle';
+import { getTop, getTree, TableDOMElements } from './dom';
 
 // limit scroll event calls
 const HEADER_ROW_SCROLL_THROTTLE_TIMEOUT = 200;

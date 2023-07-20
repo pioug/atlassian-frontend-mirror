@@ -81,8 +81,9 @@ describe('board', () => {
 
     await page.waitForSelector('[draggable="true"]');
 
-    const dragHandle = await getItem(page, 'Gael');
-    const dropTarget = await getItem(page, 'Alexander');
+    // Both ids correspond to elements in the first swimlane
+    const dragHandle = await getItem(page, 'id:1');
+    const dropTarget = await getItem(page, 'id:5');
 
     invariant(dragHandle);
     invariant(dropTarget);
@@ -101,8 +102,10 @@ describe('board', () => {
 
     await page.waitForSelector('[draggable="true"]');
 
-    const dragHandle = await getItem(page, 'Alexander');
-    const dropTarget = await getItem(page, 'Helena');
+    // Corresponds to an element in the first swimlane
+    const dragHandle = await getItem(page, 'id:5');
+    // Corresponds to an element in the third swimlane
+    const dropTarget = await getItem(page, 'id:23');
 
     invariant(dragHandle);
     invariant(dropTarget);

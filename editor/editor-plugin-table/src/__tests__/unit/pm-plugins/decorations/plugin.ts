@@ -1,7 +1,12 @@
 import { Selection } from 'prosemirror-state';
-import { addColumnAt } from '@atlaskit/editor-tables/utils';
 import { DecorationSet } from 'prosemirror-view';
 
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { addColumnAt } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -9,13 +14,14 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   doc,
+  DocBuilder,
   table,
   tdCursor,
   tdEmpty,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
+import tablePlugin from '../../../../plugins/table';
 import { selectColumn } from '../../../../plugins/table/commands';
 import {
   getDecorations,
@@ -24,13 +30,6 @@ import {
 import { pluginKey } from '../../../../plugins/table/pm-plugins/plugin-key';
 import { pluginKey as tableWidthPluginKey } from '../../../../plugins/table/pm-plugins/table-width';
 import { TableDecorations } from '../../../../plugins/table/types';
-import tablePlugin from '../../../../plugins/table';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
-import { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('decorations plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -158,60 +157,49 @@ describe('decorations plugin', () => {
   });
 
   describe('table width resizing', () => {
-    describe('should remove column controls when resizing starts and add back when it ends', () => {
-      ffTest(
-        'platform.editor.custom-table-width',
-        () => {
-          const { editorView } = editor(
-            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
-          );
-
-          const startTransaction = editorView.state.tr.setMeta(
-            tableWidthPluginKey,
+    const editor = (doc: DocBuilder) =>
+      createEditor({
+        doc,
+        attachTo: document.body,
+        preset: new Preset<LightEditorPlugin>()
+          .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, {}])
+          .add(contentInsertionPlugin)
+          .add(widthPlugin)
+          .add(guidelinePlugin)
+          .add([
+            tablePlugin,
             {
-              resizing: true,
+              tableResizingEnabled: true,
+              tableOptions: {
+                advanced: true,
+              },
             },
-          );
-          editorView.dispatch(startTransaction);
-          const startDecorationSet = getDecorations(editorView.state);
-          expect(startDecorationSet).toEqual(DecorationSet.empty);
+          ]),
+        pluginKey,
+      });
 
-          const endTransaction = editorView.state.tr.setMeta(
-            tableWidthPluginKey,
-            {
-              resizing: false,
-            },
-          );
-          editorView.dispatch(endTransaction);
-          const endDecorationSet = getDecorations(editorView.state);
-          expect(endDecorationSet).not.toEqual(DecorationSet.empty);
-        },
-        () => {
-          const { editorView } = editor(
-            doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
-          );
+    it('should remove column controls when resizing starts and add back when it ends when customTableWidth is enabled', () => {
+      const { editorView } = editor(
+        doc(table()(tr(tdCursor, tdEmpty), tr(tdEmpty, tdEmpty))),
+      );
 
-          const startTransaction = editorView.state.tr.setMeta(
-            tableWidthPluginKey,
-            {
-              resizing: true,
-            },
-          );
-          editorView.dispatch(startTransaction);
-          const startDecorationSet = getDecorations(editorView.state);
-          expect(startDecorationSet).not.toEqual(DecorationSet.empty);
-
-          const endTransaction = editorView.state.tr.setMeta(
-            tableWidthPluginKey,
-            {
-              resizing: false,
-            },
-          );
-          editorView.dispatch(endTransaction);
-          const endDecorationSet = getDecorations(editorView.state);
-          expect(endDecorationSet).not.toEqual(DecorationSet.empty);
+      const startTransaction = editorView.state.tr.setMeta(
+        tableWidthPluginKey,
+        {
+          resizing: true,
         },
       );
+      editorView.dispatch(startTransaction);
+      const startDecorationSet = getDecorations(editorView.state);
+      expect(startDecorationSet).toEqual(DecorationSet.empty);
+
+      const endTransaction = editorView.state.tr.setMeta(tableWidthPluginKey, {
+        resizing: false,
+      });
+      editorView.dispatch(endTransaction);
+      const endDecorationSet = getDecorations(editorView.state);
+      expect(endDecorationSet).not.toEqual(DecorationSet.empty);
     });
   });
 });

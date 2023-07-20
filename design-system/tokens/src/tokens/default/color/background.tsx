@@ -186,6 +186,33 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
         },
       },
       brand: {
+        subtlest: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.13.0',
+              description:
+                'Use for the background of elements used to reinforce our brand, but with less emphasis.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.13.0',
+              description: 'Hovered state of color.background.brand.subtlest.',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.13.0',
+              description: 'Pressed state of color.background.brand.subtlest',
+            },
+          },
+        },
         bold: {
           '[default]': {
             attributes: {
@@ -201,7 +228,7 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
               group: 'paint',
               state: 'active',
               introduced: '0.6.0',
-              description: 'Hovered state of color.background.brand.bold',
+              description: 'Hovered state of color.background.brand.bold.',
             },
           },
           pressed: {
@@ -209,7 +236,34 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
               group: 'paint',
               state: 'active',
               introduced: '0.6.0',
-              description: 'Pressed state of color.background.brand.bold',
+              description: 'Pressed state of color.background.brand.bold.',
+            },
+          },
+        },
+        boldest: {
+          '[default]': {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.13.0',
+              description:
+                'Use for the background of elements used to reinforce our brand, that need to stand out a lot.',
+            },
+          },
+          hovered: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.13.0',
+              description: 'Hovered state of color.background.brand.boldest.',
+            },
+          },
+          pressed: {
+            attributes: {
+              group: 'paint',
+              state: 'active',
+              introduced: '1.13.0',
+              description: 'Pressed state of color.background.brand.boldest.',
             },
           },
         },

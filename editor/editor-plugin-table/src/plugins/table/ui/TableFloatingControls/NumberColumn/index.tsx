@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
 import { Selection } from 'prosemirror-state';
-import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import { EditorView } from 'prosemirror-view';
+
+import { isRowSelected } from '@atlaskit/editor-tables/utils';
 
 import { clearHoverSelection } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';

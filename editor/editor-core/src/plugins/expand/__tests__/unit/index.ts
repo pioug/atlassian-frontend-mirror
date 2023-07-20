@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   expand,
@@ -6,14 +7,13 @@ import {
   tr,
   td,
   p,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
-  LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   deleteExpand,
   insertExpand,
@@ -281,6 +281,29 @@ describe('expand actions', () => {
         }),
         eventType: 'track',
       });
+    });
+
+    it('should be used inside a table when inserted from insert menu', () => {
+      const { editorView } = editor(
+        doc(table({ localId: 'test-id' })(tr(td({})(p('{<>}'))))),
+      );
+
+      insertExpand(editorView.state, editorView.dispatch);
+      expect(editorView.state.doc).toEqualDocument(
+        doc(table({ localId: 'test-id' })(tr(td()(nestedExpand()(p()))))),
+      );
+    });
+
+    it('should be used inside a table when inserted from quick insert', async () => {
+      const { editorView, typeAheadTool } = editor(
+        doc(table({ localId: 'test-id' })(tr(td({})(p('{<>}'))))),
+      );
+
+      await typeAheadTool.searchQuickInsert('expand')?.insert({ index: 0 });
+
+      expect(editorView.state.doc).toEqualDocument(
+        doc(table({ localId: 'test-id' })(tr(td()(nestedExpand()(p()))))),
+      );
     });
   });
 });

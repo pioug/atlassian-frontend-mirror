@@ -18,21 +18,21 @@ import { CreateProps } from './types';
 const wrapperStyles = css({
   display: 'flex',
   alignItems: 'center',
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& [data-hide-on-smallscreens]': {
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     [`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
       display: 'none !important',
     },
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& [data-hide-on-largescreens]': {
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     [`@media (min-width: ${CREATE_BREAKPOINT}px)`]: {
       display: 'none !important',
     },
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&&': {
     marginLeft: token('space.150', '12px'),
   },

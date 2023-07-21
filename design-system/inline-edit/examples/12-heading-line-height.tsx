@@ -39,7 +39,7 @@ const HeadingOne: FC<{ children: string }> = ({ children }) => (
 );
 
 const textFieldStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > [data-ds--text-field--input]': {
     // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
     margin: '-11px -4px',

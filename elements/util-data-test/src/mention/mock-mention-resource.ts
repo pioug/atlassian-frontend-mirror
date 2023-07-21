@@ -10,12 +10,12 @@ import {
   MentionNameStatus,
   SLI_EVENT_TYPE,
   MentionProvider,
-} from '@atlaskit/mention/resource';
+} from '../../../mention/src/resource';
 import {
   InviteExperimentCohort,
   InviteFlow,
   UserRole,
-} from '@atlaskit/mention';
+} from '../../../mention/src';
 import debug from '../logger';
 import { mentionTestResult } from './mention-test-data';
 import { HttpError } from './utils';

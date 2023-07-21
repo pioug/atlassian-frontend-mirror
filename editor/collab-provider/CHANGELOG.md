@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.7.3
+
+### Patch Changes
+
+- [`04fa8eb5246`](https://bitbucket.org/atlassian/atlassian-frontend/commits/04fa8eb5246) - Added rate limiting options to collab provider
+
 ## 9.7.2
 
 ### Patch Changes

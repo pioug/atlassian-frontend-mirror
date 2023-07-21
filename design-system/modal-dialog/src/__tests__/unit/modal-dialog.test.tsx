@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 
 import noop from '@atlaskit/ds-lib/noop';
 import Portal from '@atlaskit/portal';
+import { UNSAFE_BREAKPOINTS_CONFIG } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
 
 import { width } from '../../internal/constants';
@@ -109,7 +110,7 @@ describe('<ModalDialog />', () => {
         'height',
         'var(--modal-dialog-height)',
         {
-          media: '(min-width: 480px)',
+          media: `(min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.min})`,
         },
       );
     });
@@ -177,7 +178,7 @@ describe('<ModalDialog />', () => {
         'width',
         'var(--modal-dialog-width)',
         {
-          media: '(min-width: 480px)',
+          media: `(min-width: ${UNSAFE_BREAKPOINTS_CONFIG.xs.min})`,
         },
       );
     });

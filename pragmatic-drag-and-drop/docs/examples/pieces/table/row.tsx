@@ -28,8 +28,12 @@ import { TableContext } from './table-context';
 import type { Item } from './types';
 
 const rowStyles = css({
-  position: 'relative', // needed for our drop indicator
-  ':hover': {
+  // Needed for our drop indicator
+  position: 'relative',
+  // Disabling hover styles while dragging
+  // Hover styles can be triggered while dragging due to auto scrolling
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+  'body:not(.is-dragging) &:hover': {
     background: token('color.background.input.hovered', 'red'),
   },
 });

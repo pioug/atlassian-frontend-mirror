@@ -24,7 +24,7 @@ const searchInputContainerStyles = css({
   marginRight: token('space.100', '8px'),
   marginLeft: token('space.250', '20px'),
   position: 'relative',
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
     display: 'none !important',
   },
@@ -65,7 +65,7 @@ const searchInputStyles = css({
 });
 
 const searchIconStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (min-width: ${CREATE_BREAKPOINT}px)`]: {
     display: 'none !important',
   },

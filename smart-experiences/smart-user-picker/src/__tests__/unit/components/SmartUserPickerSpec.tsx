@@ -130,7 +130,7 @@ const mockConfluenceGuestUserOptions: OptionData[] = [
     type: 'user',
     lozenge: {
       text: 'GUEST',
-      appearance: 'new',
+      appearance: 'default',
     },
   },
 ];
@@ -143,7 +143,7 @@ const mockConfluenceGuestUserAndGroupOptions: OptionData[] = [
     type: 'user',
     lozenge: {
       text: 'GUEST',
-      appearance: 'new',
+      appearance: 'default',
     },
   },
   {
@@ -152,7 +152,7 @@ const mockConfluenceGuestUserAndGroupOptions: OptionData[] = [
     name: 'Group with Guests',
     lozenge: {
       text: 'GUEST',
-      appearance: 'new',
+      appearance: 'default',
     },
   },
 ];
@@ -538,7 +538,7 @@ describe('SmartUserPicker', () => {
         type: 'user',
         lozenge: {
           text: 'GUEST',
-          appearance: 'new',
+          appearance: 'default',
         },
       },
       {
@@ -547,7 +547,7 @@ describe('SmartUserPicker', () => {
         name: 'Group with Guests',
         lozenge: {
           text: 'GUEST',
-          appearance: 'new',
+          appearance: 'default',
         },
       },
     ];

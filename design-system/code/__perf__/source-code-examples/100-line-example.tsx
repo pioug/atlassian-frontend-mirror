@@ -11,7 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 // Applies styles to nested links within banner messages.
 const nestedLinkStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   'a, a:visited, a:hover, a:focus, a:active': {
     color: 'currentColor',
     textDecoration: 'underline',

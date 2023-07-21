@@ -1,19 +1,8 @@
 import { closeHistory } from 'prosemirror-history';
-import {
-  Fragment,
-  Mark,
-  MarkType,
-  Node as PMNode,
-  Schema,
-  Slice,
-} from 'prosemirror-model';
-import {
-  EditorState,
-  Selection,
-  TextSelection,
-  Transaction,
-  NodeSelection,
-} from 'prosemirror-state';
+import { Fragment, Node as PMNode, Slice } from 'prosemirror-model';
+import type { Mark, MarkType, Schema } from 'prosemirror-model';
+import { TextSelection, NodeSelection } from 'prosemirror-state';
+import type { EditorState, Selection, Transaction } from 'prosemirror-state';
 import {
   canInsert,
   findParentNodeOfType,
@@ -21,15 +10,19 @@ import {
   hasParentNodeOfType,
   safeInsert,
 } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 import uuid from 'uuid/v4';
 
-import { MentionAttributes } from '@atlaskit/adf-schema';
-import { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
-import { CardAdf, DatasourceAdf, CardAppearance } from '@atlaskit/smart-card';
+import type { MentionAttributes } from '@atlaskit/adf-schema';
+import type { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
+import type {
+  CardAdf,
+  DatasourceAdf,
+  CardAppearance,
+} from '@atlaskit/smart-card';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
 
-import { Command, CommandDispatch } from '../../types';
+import type { Command, CommandDispatch } from '../../types';
 import {
   compose,
   insideTable,
@@ -40,16 +33,15 @@ import {
   isInListItem,
 } from '../../utils';
 import { mapSlice } from '../../utils/slice';
-import { InputMethodInsertMedia, INPUT_METHOD } from '../analytics';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { InputMethodInsertMedia } from '../analytics';
+import { INPUT_METHOD } from '../analytics';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
 import { linkifyContent } from '@atlaskit/editor-common/utils';
 import { runMacroAutoConvert } from '../macro';
 import { insertMediaAsMediaSingle } from '../media/utils/media-single';
-import {
-  pluginKey as textFormattingPluginKey,
-  TextFormattingState,
-} from '../text-formatting/pm-plugins/main';
+import type { TextFormattingState } from '../text-formatting/pm-plugins/main';
+import { pluginKey as textFormattingPluginKey } from '../text-formatting/pm-plugins/main';
 
 import {
   addReplaceSelectedTableAnalytics,
@@ -873,7 +865,6 @@ export function handleExpandPasteInTable(slice: Slice): Command {
       }
       return true;
     }
-
     return false;
   };
 }
@@ -1112,6 +1103,7 @@ export function handleRichText(
       selection.$to.node().type.validContent(slice.content) ||
       (textNodes.includes(selection.$to.node().type) &&
         selectionParent.type.validContent(slice.content));
+
     let panelParentOverCurrentSelection = findParentNodeOfType(panel)(
       tr.selection,
     );
@@ -1126,6 +1118,18 @@ export function handleRichText(
       insertSliceForLists({ tr, slice, schema });
     } else if (noNeedForSafeInsert) {
       tr.replaceSelection(slice);
+      // when cursor is inside a table cell, and slice.content.lastChild is a panel, expand, or decisionList
+      // need to make sure the cursor position is is right after the panel, expand, or decisionList
+      // still in the same table cell, see issue: https://product-fabric.atlassian.net/browse/ED-17862
+      const shouldUpdateCursorPosAfterPaste = [
+        'panel',
+        'nestedExpand',
+        'decisionList',
+      ].includes(slice.content.lastChild?.type?.name || '');
+      if (insideTableCell(state) && shouldUpdateCursorPosAfterPaste) {
+        const nextPos = tr.doc.resolve(tr.mapping.map(selection.$from.pos));
+        tr.setSelection(new GapCursorSelection(nextPos, Side.RIGHT));
+      }
     } else {
       // need to scan the slice if there's a block node or list items inside it
       let doesBlockNodeExist = false;

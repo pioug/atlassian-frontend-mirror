@@ -1,4 +1,4 @@
-/* eslint-disable @repo/internal/styles/no-nested-styles */
+/* eslint-disable @atlaskit/design-system/no-nested-styles */
 /** @jsx jsx */
 import { useState } from 'react';
 

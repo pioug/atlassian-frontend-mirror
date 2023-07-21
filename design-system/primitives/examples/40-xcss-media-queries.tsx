@@ -1,6 +1,7 @@
+/* eslint-disable @atlaskit/design-system/no-nested-styles */
 import React from 'react';
 
-import { Box, Inline, Stack, xcss } from '../src';
+import { Box, Inline, media, Stack, xcss } from '../src';
 
 const aboveStyles = xcss({
   '@media all': {
@@ -8,27 +9,27 @@ const aboveStyles = xcss({
       content: '"all"',
     },
   },
-  '@media (min-width: 30rem)': {
+  [media.above.xs]: {
     ':after': {
       content: '"(min-width: 30rem)"',
     },
   },
-  '@media (min-width: 48rem)': {
+  [media.above.sm]: {
     ':after': {
       content: '"(min-width: 48rem)"',
     },
   },
-  '@media (min-width: 64rem)': {
+  [media.above.md]: {
     ':after': {
       content: '"(min-width: 64rem)"',
     },
   },
-  '@media (min-width: 90rem)': {
+  [media.above.lg]: {
     ':after': {
       content: '"(min-width: 90rem)"',
     },
   },
-  '@media (min-width: 110rem)': {
+  [media.above.xl]: {
     ':after': {
       content: '"(min-width: 110rem)"',
     },

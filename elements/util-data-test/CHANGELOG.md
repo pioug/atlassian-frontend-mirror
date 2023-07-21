@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 17.8.4
+
+### Patch Changes
+
+- [`339015fe986`](https://bitbucket.org/atlassian/atlassian-frontend/commits/339015fe986) - NO-ISSUE Remove circular dependency by turning imports into relative imports in test utility package
+
 ## 17.8.3
 
 ### Patch Changes

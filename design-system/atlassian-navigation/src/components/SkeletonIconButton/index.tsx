@@ -22,11 +22,11 @@ const skeletonIconButtonStyles = css({
   '&:only-of-type': {
     marginRight: 0,
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > span': {
     lineHeight: 'normal',
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > img': {
     width: 24,
     height: 24,

@@ -1,4 +1,4 @@
-import { AbstractPresenceResource } from '@atlaskit/mention/resource';
+import { AbstractPresenceResource } from '../../../mention/src/resource';
 
 export class MockPresenceResource extends AbstractPresenceResource {
   private minTimeout: number;

@@ -70,7 +70,7 @@ const browserStyles = {
       backgroundImage: `linear-gradient(var(${VAR_TRACK_FOREGROUND_COLOR}), var(${VAR_TRACK_FOREGROUND_COLOR}))`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: `var(${VAR_TRACK_FOREGROUND_WIDTH}) 100%`,
-      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
       '[dir="rtl"] &': {
         backgroundPosition: 'right',
       },

@@ -24,7 +24,7 @@ const FONT_SIZE: Record<SizeType, string> = {
 };
 
 const buttonActiveStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&&': {
     backgroundColor: token('color.background.selected', B50),
     boxShadow: `0 0 0 ${BORDER_WIDTH}px ${token(
@@ -45,7 +45,7 @@ const buttonActiveStyles = css({
 });
 
 const buttonStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&&': {
     backgroundColor: token('color.background.neutral', N20),
     color: token('color.text', N500),

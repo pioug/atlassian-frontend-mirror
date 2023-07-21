@@ -14,14 +14,15 @@ This plugin contains rules that should be used when working with the [Atlassian 
 | Rule                                                                               | Description                                                                                     | Recommended | Fixable | Suggestions |
 | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------- | ------- | ----------- |
 | <a href="#consistent-css-prop-usage">consistent-css-prop-usage</a>                 | Ensures consistency with CSS and xCSS prop usages                                               | Yes         | Yes     |             |
-| <a href="#ensure-design-token-usage">ensure-design-token-usage</a>                 | Enforces usage of design tokens rather than hard-coded values.                                  | Yes         | Yes     |             |
-| <a href="#ensure-design-token-usage-preview">ensure-design-token-usage/preview</a> | Enforces usage of pre-release design tokens rather than hard-coded values.                      |             | Yes     |             |
+| <a href="#ensure-design-token-usage">ensure-design-token-usage</a>                 | Enforces usage of design tokens rather than hard-coded values.                                  | Yes         | Yes     | Yes         |
+| <a href="#ensure-design-token-usage-preview">ensure-design-token-usage/preview</a> | Enforces usage of pre-release design tokens rather than hard-coded values.                      |             | Yes     | Yes         |
 | <a href="#icon-label">icon-label</a>                                               | Enforces accessible usage of icon labels when composed with Atlassian Design System components. | Yes         | Yes     |             |
 | <a href="#no-banned-imports">no-banned-imports</a>                                 | Disallow importing banned modules.                                                              | Yes         |         |             |
 | <a href="#no-deprecated-apis">no-deprecated-apis</a>                               | Disallow using deprecated APIs.                                                                 | Yes         |         |             |
 | <a href="#no-deprecated-design-token-usage">no-deprecated-design-token-usage</a>   | Disallow using deprecated design tokens.                                                        | Yes         | Yes     |             |
 | <a href="#no-deprecated-imports">no-deprecated-imports</a>                         | Disallow importing deprecated modules.                                                          | Yes         |         |             |
 | <a href="#no-margin">no-margin</a>                                                 | Disallow using the margin CSS property.                                                         |             |         |             |
+| <a href="#no-nested-styles">no-nested-styles</a>                                   | Disallows use of nested styles in `css` functions.                                              | Yes         |         |             |
 | <a href="#no-unsafe-design-token-usage">no-unsafe-design-token-usage</a>           | Enforces design token usage is statically and locally analyzable.                               | Yes         | Yes     |             |
 | <a href="#use-primitives">use-primitives</a>                                       | Encourage the usage of primitives components.                                                   |             | Yes     | Yes         |
 | <a href="#use-visually-hidden">use-visually-hidden</a>                             | Enforce usage of the visually hidden component.                                                 | Yes         | Yes     |             |
@@ -449,6 +450,54 @@ css({ margin: '10px' });
 
 ```tsx
 css({ gap: token('spacing.100') });
+```
+
+## no-nested-styles
+
+Disallows using nested styles. Nested styles can change unexpectedly when child markup changes and result in duplicates when extracting to CSS.
+
+<h3>Examples</h3>
+
+This rule checks for nested styles inside `css` objects.
+This rule has no options.
+
+#### Incorrect
+
+```js
+css({
+  div: {
+    color: 'red',
+  },
+});
+```
+
+```js
+css({
+  '@media (min-width: 480px)': {
+    color: 'red',
+  },
+});
+```
+
+#### Correct
+
+```js
+css({
+  color: 'red',
+  ':hover': {
+    color: 'black',
+  },
+});
+```
+
+```js
+import { media } from '@atlaskit/primitives';
+
+css({
+  [media.above.xs]: {
+    color: 'red',
+  },
+});
 ```
 
 ## no-unsafe-design-token-usage

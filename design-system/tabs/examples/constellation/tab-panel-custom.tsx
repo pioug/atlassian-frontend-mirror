@@ -22,7 +22,7 @@ const customPanelStyles = css({
   fontSize: '4em',
   fontWeight: 500,
   /* Override the padding provided in Tabs */
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&&': {
     padding: token('space.400', '32px'),
   },

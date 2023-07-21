@@ -1,5 +1,11 @@
 # @atlaskit/enforce-peer-dependencies
 
+## 1.0.3
+
+### Patch Changes
+
+- [`10671385a57`](https://bitbucket.org/atlassian/atlassian-frontend/commits/10671385a57) - Fix prerelease peer deps check for transitive dependencies
+
 ## 1.0.2
 
 ### Patch Changes

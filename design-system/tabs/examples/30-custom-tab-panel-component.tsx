@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 import Tabs, { Tab, TabList, useTabPanel } from '../src';
 
 const customPanelStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&&': {
     padding: token('space.250', '20px'),
     flexDirection: 'column',

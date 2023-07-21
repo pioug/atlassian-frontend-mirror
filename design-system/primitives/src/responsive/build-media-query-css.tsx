@@ -87,7 +87,7 @@ export const UNSAFE_buildBelowMediaQueryCSS = (
     return {
       ...acc,
       [breakpoint]: css({
-        // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+        // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
         [UNSAFE_media.below[breakpoint]]:
           typeof input === 'function' ? input(breakpoint) : input,
       }),

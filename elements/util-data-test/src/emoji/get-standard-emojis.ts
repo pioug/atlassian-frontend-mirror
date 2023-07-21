@@ -1,5 +1,5 @@
 import memoizeOne from 'memoize-one';
-import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
+import { denormaliseEmojiServiceResponse } from '../../../emoji/src/utils';
 import { getStandardEmojiData } from './get-standard-emoji-data';
 
 export const getStandardEmojis = memoizeOne(() => {

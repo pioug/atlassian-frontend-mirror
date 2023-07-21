@@ -2,7 +2,7 @@ import type {
   EmojiUpload,
   EmojiDescription,
   User,
-} from '@atlaskit/emoji/types';
+} from '../../../emoji/src/types';
 
 export interface PromiseBuilder<R> {
   (result: R, context: string): Promise<R>;

@@ -1,9 +1,9 @@
-import { EmojiRepository } from '@atlaskit/emoji/resource';
-import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji/utils';
+import { EmojiRepository } from '../../../emoji/src/resource';
+import { denormaliseEmojiServiceResponse } from '../../../emoji/src/utils';
 import type {
   EmojiProvider,
   EmojiServiceResponse,
-} from '@atlaskit/emoji/types';
+} from '../../../emoji/src/types';
 
 import { MockEmojiResource } from './mock-emoji-resource';
 import { MockEmojiResourceConfig } from './types';

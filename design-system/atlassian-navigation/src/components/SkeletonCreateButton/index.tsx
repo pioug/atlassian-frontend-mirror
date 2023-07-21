@@ -22,7 +22,7 @@ const skeletonCreateButtonStyles = css({
     border: 0,
     outline: 0,
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&&': {
     marginLeft: token('space.150', '12px'),
   },

@@ -34,6 +34,8 @@ const modalImageStyles = css({
   height: 'auto',
   borderTopLeftRadius: token('border.radius', '3px'),
   borderTopRightRadius: token('border.radius', '3px'),
+  // TODO: Use new breakpoints
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '@media (min-width: 320px) and (max-width: 480px)': {
     borderRadius: 0,
   },

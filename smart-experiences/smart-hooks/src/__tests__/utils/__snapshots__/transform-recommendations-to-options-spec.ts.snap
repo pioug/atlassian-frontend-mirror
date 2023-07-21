@@ -32,7 +32,7 @@ Array [
     "email": "user@atlassian.com",
     "id": "id-user",
     "lozenge": Object {
-      "appearance": "new",
+      "appearance": "default",
       "text": "GUEST",
       "tooltip": "Guests can only access certain spaces and have limited access to user info.",
     },

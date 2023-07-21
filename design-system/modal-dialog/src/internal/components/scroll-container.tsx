@@ -11,6 +11,7 @@ import noop from '@atlaskit/ds-lib/noop';
 import useLazyCallback from '@atlaskit/ds-lib/use-lazy-callback';
 import useStateRef from '@atlaskit/ds-lib/use-state-ref';
 import FocusRing from '@atlaskit/focus-ring';
+import { media } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { keylineColor, keylineHeight } from '../constants';
@@ -23,7 +24,7 @@ const baseStyles = css({
   flexGrow: 1,
   overflowX: 'hidden',
   overflowY: 'auto',
-  '@media (min-width: 480px)': {
+  [media.above.xs]: {
     height: 'unset',
     overflowY: 'auto',
   },

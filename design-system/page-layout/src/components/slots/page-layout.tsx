@@ -54,7 +54,7 @@ const gridStylesMobile = getBooleanFF(
   'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
 )
   ? css({
-      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
       [UNSAFE_media.below.md]: {
         gridTemplateAreas: gridTemplateAreasMobile,
         gridTemplateColumns: `${LEFT_PANEL_WIDTH} minmax(0, 1fr)`,

@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/ensure-design-token-usage/preview */
 /** @jsx jsx */
 import { Children, forwardRef, Fragment, Ref } from 'react';
 
@@ -39,7 +39,7 @@ const sectionStyles = css({
     height: sectionPaddingTopBottom,
     content: '""',
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& [data-ds--menu--heading-item]': {
     marginTop: itemHeadingTopMargin,
     marginBottom: itemHeadingBottomMargin,
@@ -47,7 +47,7 @@ const sectionStyles = css({
       marginTop: itemHeadingTopMargin - sectionPaddingTopBottom,
     },
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& [data-ds--menu--skeleton-heading-item]': {
     marginTop: skeletonHeadingTopMargin,
     marginBottom: skeletonHeadingBottomMargin,
@@ -82,7 +82,7 @@ const separatorStyles = css({
 
 const noSeparatorStyles = css({
   // this is to ensure that adjacent sections without separators don't get additional margins.
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '[data-section] + &': {
     marginTop: -6,
   },

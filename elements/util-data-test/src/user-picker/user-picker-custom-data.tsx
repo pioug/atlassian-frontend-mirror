@@ -1,5 +1,5 @@
 import React from 'react';
-import { Custom } from '@atlaskit/user-picker';
+import { Custom } from '../../../user-picker/src';
 import ChevronRight from './ChevronRight';
 
 export const userPickerCustomData: Custom[] = [

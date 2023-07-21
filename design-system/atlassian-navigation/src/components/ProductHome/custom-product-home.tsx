@@ -30,7 +30,7 @@ const productLogoStyles = css({
   // Ensure anything passed into
   // productHome is aligned correctly
   display: 'flex',
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
     display: 'none',
   },
@@ -44,7 +44,7 @@ const productIconStyles = css({
   // Ensure anything passed into
   // productHome is aligned correctly
   display: 'flex',
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
     display: 'none',
   },
@@ -81,15 +81,15 @@ const productHomeButtonStyles = css({
     outline: `2px solid ${token('color.border.focused', B200)}`,
   },
 
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   'div&': {
     pointerEvents: 'none',
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
     margin: `0 ${token('space.100', '8px')}`,
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
     margin: `0 ${token('space.200', '16px')}`,
   },
@@ -104,7 +104,7 @@ const siteTitleStyles = css({
 });
 
 const hideSiteTitleStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
     display: 'none',
   },

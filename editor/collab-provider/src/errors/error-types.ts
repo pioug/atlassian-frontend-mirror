@@ -34,6 +34,7 @@ export enum NCS_ERROR_CODE {
   INVALID_ACTIVATION_ID = 'INVALID_ACTIVATION_ID',
   INVALID_DOCUMENT_ARI = 'INVALID_DOCUMENT_ARI',
   INVALID_CLOUD_ID = 'INVALID_CLOUD_ID',
+  RATE_LIMIT_ERROR = 'RATE_LIMIT_ERROR',
 }
 
 // TODO: Import emitted error codes from NCS
@@ -277,6 +278,24 @@ export type InternalDocumentUpdateFailure = {
 };
 
 /**
+ * The client is trying to send too many messages or messages that are too large. This not expected to be a standard
+ * operating condition and should only ever indicate a frontend bug.
+ */
+export type RateLimitError = {
+  message: string;
+  data: {
+    code: NCS_ERROR_CODE.RATE_LIMIT_ERROR;
+    meta: {
+      rateLimitType: number;
+      maxStepSize: number;
+      stepSizeCounter: number;
+      stepCounter: number;
+    };
+    status: 500;
+  };
+};
+
+/**
  * A union of all possible internal errors, that are mapped to another error if being emitted to the editor.
  */
 export type InternalError =
@@ -289,7 +308,8 @@ export type InternalError =
   | ConnectionError
   | ReconnectionNetworkError
   | DocumentNotFoundError
-  | InternalDocumentUpdateFailure;
+  | InternalDocumentUpdateFailure
+  | RateLimitError;
 
 /*
  * This is what a generic ProviderError type would look like:

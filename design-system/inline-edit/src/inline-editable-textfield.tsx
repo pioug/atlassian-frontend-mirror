@@ -1,4 +1,6 @@
 /** @jsx jsx */
+import { useCallback, useRef } from 'react';
+
 import { css, jsx } from '@emotion/react';
 
 import ErrorIcon from '@atlaskit/icon/glyph/error';
@@ -30,12 +32,29 @@ const compactStyles = css({
   padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
 });
 
+const noop = () => {};
+
 const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
-  const { isCompact = false, defaultValue, placeholder, testId } = props;
+  const {
+    isCompact = false,
+    defaultValue,
+    placeholder,
+    testId,
+    onCancel: providedOnCancel = noop,
+  } = props;
+  const textFieldRef = useRef<HTMLInputElement>();
+
+  const onCancel = useCallback(() => {
+    if (textFieldRef.current) {
+      textFieldRef.current.value = defaultValue || '';
+    }
+    providedOnCancel();
+  }, [defaultValue, providedOnCancel]);
 
   return (
     <InlineEdit
       {...props}
+      onCancel={onCancel}
       defaultValue={defaultValue}
       editView={({ errorMessage, isInvalid, ...props }) => (
         <InlineDialog
@@ -45,6 +64,7 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
         >
           <Textfield
             {...props}
+            ref={textFieldRef}
             elemAfterInput={
               isInvalid && (
                 <div css={errorIconContainerStyles}>

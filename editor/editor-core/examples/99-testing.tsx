@@ -17,6 +17,41 @@ import { TitleInput } from '../example-helpers/PageElements';
 import { getDefaultLinkPickerOptions } from '../example-helpers/link-picker';
 import { CollabEditOptions } from '../src/plugins/collab-edit';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import { EditorProps } from '../src/types/editor-props';
+
+const EditorTitle: React.FC<{ setDisabled: (arg: boolean) => void }> = ({
+  setDisabled,
+}) => {
+  const onFocus = React.useCallback(() => {
+    setDisabled(true);
+  }, [setDisabled]);
+  const onBlur = React.useCallback(() => {
+    setDisabled(false);
+  }, [setDisabled]);
+
+  return (
+    <TitleInput
+      onFocus={onFocus}
+      onBlur={onBlur}
+      placeholder="Give this page a title..."
+    />
+  );
+};
+const EditorWithTitleFocusBehavior: React.FC<EditorProps> = (props) => {
+  const [disabled, setDisabled] = React.useState(false);
+
+  const contentComponents = React.useMemo(() => {
+    return <EditorTitle setDisabled={setDisabled} />;
+  }, []);
+
+  return (
+    <Editor
+      {...props}
+      disabled={disabled}
+      contentComponents={contentComponents}
+    />
+  );
+};
 
 export default function EditorExampleForIntegrationTests({ clipboard = true }) {
   return createEditorExampleForTests<any>(
@@ -100,6 +135,21 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
       };
       const createEditor = (sessionId?: string) => {
         const collabEdit = sessionId ? createCollabEdit(sessionId) : undefined;
+
+        if (nonSerializableProps.withTitleFocusHandler) {
+          return (
+            <EditorWithTitleFocusBehavior
+              {...mapProvidersToProps(nonSerializableProps.providers, props)}
+              {...nonSerializableProps.providers}
+              insertMenuItems={customInsertMenuItems}
+              extensionHandlers={nonSerializableProps.extensionHandlers}
+              onEditorReady={onMount}
+              onChange={onChange}
+              onDestroy={onDestroy}
+              collabEdit={collabEdit}
+            />
+          );
+        }
 
         return (
           <Editor

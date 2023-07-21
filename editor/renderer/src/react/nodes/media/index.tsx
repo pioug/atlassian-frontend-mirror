@@ -6,18 +6,19 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import {
-  mediaLinkStyle,
-  IMAGE_AND_BORDER_ADJUSTMENT,
-} from '@atlaskit/editor-common/ui';
+import { IMAGE_AND_BORDER_ADJUSTMENT } from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { MediaCard, MediaCardProps, MediaProvider } from '../../ui/MediaCard';
+import {
+  MediaCard,
+  MediaCardProps,
+  MediaProvider,
+} from '../../../ui/MediaCard';
 import { LinkDefinition, BorderMarkDefinition } from '@atlaskit/adf-schema';
 import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 
-import { getEventHandler } from '../../utils';
+import { getEventHandler } from '../../../utils';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -25,7 +26,12 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 
-import { AnalyticsEventPayload, MODE, PLATFORM } from '../../analytics/events';
+import {
+  AnalyticsEventPayload,
+  MODE,
+  PLATFORM,
+} from '../../../analytics/events';
+import { linkStyle, borderStyle } from './styles';
 
 export type MediaProps = MediaCardProps & {
   providers?: ProviderFactory;
@@ -100,14 +106,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
         data-mark-type="border"
         data-color={borderColor}
         data-size={borderWidth}
-        style={{
-          width: `calc(100% - ${IMAGE_AND_BORDER_ADJUSTMENT}px)`,
-          height: `calc(100% - ${IMAGE_AND_BORDER_ADJUSTMENT}px)`,
-          borderColor: paletteColorValue,
-          borderWidth: `${borderWidth}px`,
-          borderStyle: 'solid',
-          borderRadius: `${borderWidth * 2}px`,
-        }}
+        css={borderStyle(!!linkHref, paletteColorValue, borderWidth)}
       >
         {mediaComponent}
       </div>
@@ -121,7 +120,7 @@ export default class Media extends PureComponent<MediaProps, {}> {
         rel="noreferrer noopener"
         onClick={this.handleMediaLinkClick}
         data-block-link={linkHref}
-        css={mediaLinkStyle}
+        css={linkStyle(!!borderMark)}
       >
         {mediaComponentWithBorder}
       </a>

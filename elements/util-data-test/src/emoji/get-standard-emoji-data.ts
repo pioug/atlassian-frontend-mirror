@@ -1,4 +1,4 @@
-import { EmojiServiceResponse } from '@atlaskit/emoji/types';
+import { EmojiServiceResponse } from '../../../emoji/src/types';
 
 // TODO: load this data via http instead
 export const getStandardEmojiData = (): EmojiServiceResponse =>

@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { EditorState, Selection, Transaction, Plugin } from 'prosemirror-state';
-import { DirectEditorProps, EditorView } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
-import { WrappedComponentProps } from 'react-intl-next';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { Transaction, Plugin } from 'prosemirror-state';
+import { EditorState, Selection, TextSelection } from 'prosemirror-state';
+import type { DirectEditorProps } from 'prosemirror-view';
+import { EditorView } from 'prosemirror-view';
+import type { Node as PMNode } from 'prosemirror-model';
+import type { WrappedComponentProps } from 'react-intl-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { editorMessages } from './messages';
 
+import type { ErrorReporter, SEVERITY } from '@atlaskit/editor-common/utils';
 import {
   browser,
-  ErrorReporter,
   getAnalyticsEventSeverity,
   getResponseEndTime,
   measureRender,
@@ -24,12 +26,13 @@ import {
   EditorExperience,
   RELIABILITY_INTERVAL,
 } from '@atlaskit/editor-common/ufo';
-import {
+import type {
   Transformer,
   AllEditorPresetPluginTypes,
 } from '@atlaskit/editor-common/types';
 
-import { createDispatch, Dispatch, EventDispatcher } from '../event-dispatcher';
+import type { Dispatch } from '../event-dispatcher';
+import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import { processRawValue } from '@atlaskit/editor-common/utils';
 import { freezeUnsafeTransactionProperties } from '../utils/performance/safer-transactions';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
@@ -41,9 +44,6 @@ import {
 import {
   ACTION,
   ACTION_SUBJECT,
-  AnalyticsDispatch,
-  AnalyticsEventPayload,
-  DispatchAnalyticsEvent,
   EVENT_TYPE,
   fireAnalyticsEvent,
   FULL_WIDTH_MODE,
@@ -52,7 +52,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
-import {
+import type {
   EditorAppearance,
   EditorConfig,
   EditorReactContext,
@@ -60,22 +60,23 @@ import {
   EditorProps,
 } from '../types';
 import type { EditorNextProps } from '../types/editor-props';
-import { FeatureFlags } from '../types/feature-flags';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { FeatureFlags } from '../types/feature-flags';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
 import {
   createErrorReporter,
   createPMPlugins,
   processPluginsList,
 } from './create-editor';
-import { getDocStructure, SimplifiedNode } from '../utils/document-logger';
+import type { SimplifiedNode } from '../utils/document-logger';
+import { getDocStructure } from '../utils/document-logger';
 import { isFullPage } from '../utils/is-full-page';
 import measurements from '../utils/performance/measure-enum';
 import { getNodesCount } from '../utils/document';
-import { analyticsEventKey, SEVERITY } from '@atlaskit/editor-common/utils';
+import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 import { createSchema } from './create-schema';
 import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
-import { PluginPerformanceReportData } from '@atlaskit/editor-common/analytics';
+import type { PluginPerformanceReportData } from '@atlaskit/editor-common/analytics';
 import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
 import { countNodes } from '../utils/count-nodes';
 import { TransactionTracker } from '../utils/performance/track-transactions';
@@ -92,13 +93,16 @@ import {
   DEFAULT_SAMPLING_RATE_VALID_TRANSACTIONS,
 } from './consts';
 import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identifier';
-import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
-import { UfoSessionCompletePayloadAEP } from '@atlaskit/editor-common/analytics';
+import type {
+  FireAnalyticsCallback,
+  AnalyticsDispatch,
+  AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+} from '@atlaskit/editor-common/analytics';
+import type { UfoSessionCompletePayloadAEP } from '@atlaskit/editor-common/analytics';
 import ReactEditorViewContext from './ReactEditorViewContext';
-import {
-  EditorPresetBuilder,
-  EditorPluginInjectionAPI,
-} from '@atlaskit/editor-common/preset';
+import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
 
 export interface EditorViewProps {
   editorProps: EditorProps | EditorNextProps;
@@ -138,6 +142,35 @@ function handleEditorFocus(view: EditorView): number | undefined {
   }
 
   return window.setTimeout(() => {
+    if (view.hasFocus()) {
+      return;
+    }
+    if (!window.getSelection) {
+      view.focus();
+      return;
+    }
+    const domSelection = window.getSelection();
+    if (!domSelection || domSelection.rangeCount === 0) {
+      view.focus();
+      return;
+    }
+    const range = domSelection.getRangeAt(0);
+    // if selection is outside editor focus and exit
+    if (range.startContainer.contains(view.dom)) {
+      view.focus();
+      return;
+    }
+    // set cursor/selection and focus
+    const anchor = view.posAtDOM(range.startContainer, range.startOffset);
+    const head = view.posAtDOM(range.endContainer, range.endOffset);
+    // if anchor or head < 0 focus and exit
+    if (anchor < 0 || head < 0) {
+      view.focus();
+      return;
+    }
+    const selection = TextSelection.create(view.state.doc, anchor, head);
+    const tr = view.state.tr.setSelection(selection);
+    view.dispatch(tr);
     view.focus();
   }, 0);
 }

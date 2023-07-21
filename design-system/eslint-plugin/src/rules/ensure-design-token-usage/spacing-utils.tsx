@@ -1,4 +1,4 @@
-import type { Rule, Scope } from 'eslint';
+import type { Rule } from 'eslint';
 import {
   callExpression,
   CallExpression,
@@ -14,6 +14,7 @@ import {
 
 import { spacing as spacingScale } from '@atlaskit/tokens/tokens-raw';
 
+import { findIdentifierInParentScope } from '../utils/find-in-parent';
 import { isColorCssPropertyName } from '../utils/is-color';
 
 import {
@@ -79,30 +80,6 @@ export type ProcessedCSSLines = [string, string][];
 const spacingValueToToken = Object.fromEntries(
   spacingScale.map((token) => [token.value, token.name]),
 );
-
-export function findIdentifierInParentScope({
-  scope,
-  identifierName,
-}: {
-  scope: Scope.Scope;
-  identifierName: string;
-}): Scope.Variable | null {
-  let traversingScope: Scope.Scope | null = scope;
-
-  while (traversingScope && traversingScope.type !== 'global') {
-    const matchedVariable = traversingScope.variables.find(
-      (variable) => variable.name === identifierName,
-    );
-
-    if (matchedVariable) {
-      return matchedVariable;
-    }
-
-    traversingScope = traversingScope.upper;
-  }
-
-  return null;
-}
 
 export function insertTokensImport(fixer: Rule.RuleFixer) {
   return insertAtStartOfFile(

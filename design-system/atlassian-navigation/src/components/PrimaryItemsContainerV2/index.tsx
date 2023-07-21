@@ -26,7 +26,7 @@ const basePrimaryContainerStyles = css({
 });
 
 const smallContainerStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [UNSAFE_media.below.sm]: {
     display: 'flex',
   },

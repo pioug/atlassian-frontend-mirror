@@ -33,6 +33,7 @@ export const configs: {
       '@atlaskit/design-system/no-deprecated-design-token-usage': string;
       '@atlaskit/design-system/no-deprecated-imports': string;
       '@atlaskit/design-system/no-margin': string;
+      '@atlaskit/design-system/no-nested-styles': string;
       '@atlaskit/design-system/no-unsafe-design-token-usage': string;
       '@atlaskit/design-system/use-primitives': string;
       '@atlaskit/design-system/use-visually-hidden': string;
@@ -48,6 +49,7 @@ export const configs: {
       '@atlaskit/design-system/no-deprecated-apis': string;
       '@atlaskit/design-system/no-deprecated-design-token-usage': string;
       '@atlaskit/design-system/no-deprecated-imports': string;
+      '@atlaskit/design-system/no-nested-styles': string;
       '@atlaskit/design-system/no-unsafe-design-token-usage': string;
       '@atlaskit/design-system/use-visually-hidden': string;
     };
@@ -116,6 +118,7 @@ export const rules: {
     RuleListener
   >;
   'no-margin': Rule.RuleModule;
+  'no-nested-styles': Rule.RuleModule;
   'no-unsafe-design-token-usage': Rule.RuleModule;
   'use-primitives': Rule.RuleModule;
   'use-visually-hidden': Rule.RuleModule;

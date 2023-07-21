@@ -20,7 +20,7 @@ const skeletonStyles = css({
 });
 
 const mobileStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (max-width: ${CREATE_BREAKPOINT - 1}px)`]: {
     display: 'none !important',
   },

@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 187.2.7
+
+### Patch Changes
+
+- [`022b25d8eed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/022b25d8eed) - ED-17862: Fixed cusor position after pasting panel decisions in the same table cell."
+
+## 187.2.5
+
+### Patch Changes
+
+- [`9663c3a9616`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9663c3a9616) - [ux] fix editor first focus
+
 ## 187.2.4
 
 ### Patch Changes

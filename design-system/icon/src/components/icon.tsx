@@ -31,7 +31,7 @@ const iconStyles = css({
   display: 'inline-block',
   flexShrink: 0,
   lineHeight: 1,
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '> svg': {
     ...commonSVGStyles,
     maxWidth: '100%',
@@ -46,7 +46,7 @@ const iconStyles = css({
  */
 const baseHcmStyles = css({
   '@media screen and (forced-colors: active)': {
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '> svg': {
       filter: 'grayscale(1)',
       '--icon-primary-color': 'CanvasText', // foreground
@@ -56,7 +56,7 @@ const baseHcmStyles = css({
 });
 const primaryEqualsSecondaryHcmStyles = css({
   '@media screen and (forced-colors: active)': {
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '> svg': {
       // if the primaryColor is the same as the secondaryColor we
       // set the --icon-primary-color to Canvas
@@ -67,7 +67,7 @@ const primaryEqualsSecondaryHcmStyles = css({
 });
 const secondaryTransparentHcmStyles = css({
   '@media screen and (forced-colors: active)': {
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '> svg': {
       '--icon-secondary-color': 'transparent', // background
     },

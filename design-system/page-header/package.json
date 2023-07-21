@@ -36,6 +36,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/breadcrumbs": "^11.10.0",
     "@atlaskit/ds-lib": "^2.2.0",

@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.6.4
+
+### Patch Changes
+
+- [`c673c7246cf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c673c7246cf) - Internal change to improve how media queries are applied. There is no expected behaviour change.
+
 ## 12.6.3
 
 ### Patch Changes

@@ -144,6 +144,13 @@ interface Config {
   permissionTokenRefresh?: () => Promise<null | string>;
   // (undocumented)
   productInfo?: ProductInformation;
+  rateLimitMaxStepSize?: number;
+  // (undocumented)
+  rateLimitStepCount?: number;
+  // (undocumented)
+  rateLimitTotalStepSize?: number;
+  // (undocumented)
+  rateLimitType?: number;
   // (undocumented)
   storage?: Storage_2;
   throwOnNotConnected?: boolean;

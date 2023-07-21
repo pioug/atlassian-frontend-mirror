@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.1.0
+
+### Minor Changes
+
+- [`4f9c29b2f9f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f9c29b2f9f) - Added the `no-nested-styles` rule which disallows usage of nested styles. The `no-nested-styles` rule also disallows media queries that contain min-width or max-width. The Atlassian Design System `media` object should be used instead. Other forms of media queries are still allowed.
+
 ## 8.0.2
 
 ### Patch Changes

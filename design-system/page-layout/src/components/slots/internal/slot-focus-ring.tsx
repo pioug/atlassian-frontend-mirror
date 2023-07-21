@@ -14,7 +14,7 @@ type SlotFocusRingProps = {
 const focusStyles = css({
   ':focus': {
     outline: 'none',
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '> div': {
       boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused', B100)}`,
       outline: 'none',
@@ -29,7 +29,7 @@ const focusStyles = css({
 const sidebarFocusStyles = css({
   ':focus': {
     outline: 'none',
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '> div > div': {
       boxShadow: `0px 0px 0px 2px inset ${token('color.border.focused', B100)}`,
       outline: 'none',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Team } from '@atlaskit/user-picker';
+import { Team } from '../../../user-picker/src';
 import ChevronRight from './ChevronRight';
 
 export const userPickerTeamData: Team[] = [

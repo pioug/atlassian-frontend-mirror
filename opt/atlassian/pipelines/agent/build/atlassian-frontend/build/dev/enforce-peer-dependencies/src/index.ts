@@ -108,12 +108,17 @@ export async function main(resolver = require.resolve) {
         ...dep,
         installedVersion: getInstalledVersion(dep.name, resolver),
       }))
-      .filter(
-        ({ installedVersion, range }) =>
-          !semverSatisfies(installedVersion, range, {
-            includePrerelease: true,
-          }),
-      );
+      .filter(({ installedVersion, range, name }) => {
+        if (isPreRelease(installedVersion)) {
+          verboseLog(
+            `Skip checking the peer dependency ${name} since it resolves to a prerelease ${installedVersion}`,
+          );
+          return false;
+        }
+        return !semverSatisfies(installedVersion, range, {
+          includePrerelease: true,
+        });
+      });
     if (unmetPeerDependencies.length > 0) {
       throw new PeerDependencyError(
         `Package ${currentPackageName} has incompatible versions for its peer dependencies: ${unmetPeerDependencies.map(

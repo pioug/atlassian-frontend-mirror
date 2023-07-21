@@ -30,6 +30,7 @@ import type {
   CatchUpFailedError,
   ConnectionError,
   DocumentNotFoundError,
+  RateLimitError,
   ReconnectionError,
   ReconnectionNetworkError,
   TokenPermissionError,
@@ -39,6 +40,7 @@ import {
   NotConnectedError,
   NotInitializedError,
   INTERNAL_ERROR_CODE,
+  NCS_ERROR_CODE,
 } from './errors/error-types';
 import { SocketMessageMetrics } from './helpers/socket-message-metrics';
 import { getCollabProviderFeatureFlag } from './feature-flags';
@@ -47,16 +49,26 @@ import type { Metadata } from '@atlaskit/editor-common/collab';
 const logger = createLogger('Channel', 'green');
 
 export class Channel extends Emitter<ChannelEvent> {
+  private readonly RATE_LIMIT_TYPE_NONE = 0;
+  private readonly RATE_LIMIT_TYPE_SOFT = 1;
+  private readonly RATE_LIMIT_TYPE_HARD = 2;
+
   private connected: boolean = false;
-  private config: Config;
+  private readonly config: Config;
   private socket: Socket | null = null;
   private reconnectHelper?: ReconnectHelper | null = null;
   private initialized: boolean = false;
-  private analyticsHelper?: AnalyticsHelper;
+  private readonly analyticsHelper?: AnalyticsHelper;
   private initExperience?: UFOExperience;
   private token?: string;
   private network: Network | null = null;
   private socketMessageMetrics?: SocketMessageMetrics;
+
+  private readonly rateLimitWindowDurationMs: number = 60000;
+  private rateLimitWindowStartMs: number = 0;
+  private stepCounter: number = 0;
+  private stepSizeCounter: number = 0;
+  private maxStepSize: number = 0;
 
   constructor(config: Config, analyticsHelper: AnalyticsHelper) {
     super();
@@ -261,6 +273,9 @@ export class Channel extends Emitter<ChannelEvent> {
       'permission:invalidateToken',
       this.handlePermissionInvalidateToken,
     );
+    this.socket.onAnyOutgoing((event, ...args) =>
+      this.onAnyOutgoingHandler(Date.now(), args),
+    );
 
     // To trigger reconnection when browser comes back online
     if (!this.network) {
@@ -275,6 +290,80 @@ export class Channel extends Emitter<ChannelEvent> {
     this.socket.io.on('reconnect_error', this.onReconnectError);
   }
 
+  onAnyOutgoingHandler(currentTimeMs: number, args: any[]) {
+    const rateLimitType =
+      this.config.rateLimitType || this.RATE_LIMIT_TYPE_NONE;
+    if (rateLimitType === this.RATE_LIMIT_TYPE_NONE) {
+      return;
+    }
+
+    const stepLimit = this.config.rateLimitStepCount || 0;
+    const stepSizeLimit = this.config.rateLimitTotalStepSize || 0;
+    const maxStepSizeLimit = this.config.rateLimitMaxStepSize || 0;
+
+    for (const arg of args) {
+      if (arg.type === 'steps:commit') {
+        if (
+          currentTimeMs - this.rateLimitWindowStartMs >
+          this.rateLimitWindowDurationMs
+        ) {
+          // Start a new window
+          this.rateLimitWindowStartMs = currentTimeMs;
+          this.stepCounter = 0;
+          this.stepSizeCounter = 0;
+          this.maxStepSize = 0;
+        }
+
+        this.stepCounter += arg.steps.length;
+        for (const step of arg.steps) {
+          const stepSize = JSON.stringify(step).length;
+          this.stepSizeCounter += stepSize;
+          if (stepSize > this.maxStepSize) {
+            this.maxStepSize = stepSize;
+          }
+        }
+
+        if (this.isLimitExceeded(stepLimit, stepSizeLimit, maxStepSizeLimit)) {
+          const rateLimitError: RateLimitError = {
+            message: 'Rate limited',
+            data: {
+              code: NCS_ERROR_CODE.RATE_LIMIT_ERROR,
+              status: 500,
+              meta: {
+                rateLimitType,
+                maxStepSize: this.maxStepSize,
+                stepSizeCounter: this.stepSizeCounter,
+                stepCounter: this.stepCounter,
+              },
+            },
+          };
+
+          if (rateLimitType === this.RATE_LIMIT_TYPE_HARD) {
+            this.emit('error', rateLimitError);
+            throw new Error();
+          } else if (rateLimitType === this.RATE_LIMIT_TYPE_SOFT) {
+            this.analyticsHelper?.sendErrorEvent(
+              rateLimitError,
+              'Rate limited',
+            );
+          }
+        }
+      }
+    }
+  }
+
+  private isLimitExceeded(
+    stepLimit: number,
+    stepSizeLimit: number,
+    maxStepSizeLimit: number,
+  ) {
+    return (
+      (stepLimit > 0 && this.stepCounter > stepLimit) ||
+      (stepSizeLimit > 0 && this.stepSizeCounter > stepSizeLimit) ||
+      (maxStepSizeLimit > 0 && this.maxStepSize > maxStepSizeLimit)
+    );
+  }
+
   private handlePermissionInvalidateToken = (data: { reason: string }) => {
     logger('Received permission invalidate event ', data);
     this.analyticsHelper?.sendActionEvent(
@@ -284,7 +373,7 @@ export class Channel extends Emitter<ChannelEvent> {
         reason: data.reason,
         // Potentially incorrect when value of token changes between connecting and connect.
         // See: https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/29905#comment-375308874
-        usedCachedToken: this.token ? true : false,
+        usedCachedToken: !!this.token,
       },
     );
     this.unsetToken();
@@ -303,7 +392,7 @@ export class Channel extends Emitter<ChannelEvent> {
         latency: measure?.duration,
         // Potentially incorrect when value of token changes between connecting and connect.
         // See: https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/29905#comment-375308874
-        usedCachedToken: this.token ? true : false,
+        usedCachedToken: !!this.token,
       },
     );
     this.analyticsHelper?.sendErrorEvent(
@@ -378,7 +467,7 @@ export class Channel extends Emitter<ChannelEvent> {
         latency: measure?.duration,
         // Potentially incorrect when value of token changes between connecting and connect.
         // See: https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/29905#comment-375308874
-        usedCachedToken: this.token ? true : false,
+        usedCachedToken: !!this.token,
       },
     );
     this.emit('connected', {

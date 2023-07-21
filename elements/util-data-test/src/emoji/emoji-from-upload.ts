@@ -1,5 +1,5 @@
 import uuid from 'uuid';
-import { EmojiUpload } from '@atlaskit/emoji/types';
+import type { EmojiUpload } from '../../../emoji/src/types';
 import { customCategory, customType } from '../emoji-constants';
 import { loggedUser } from './logged-user';
 

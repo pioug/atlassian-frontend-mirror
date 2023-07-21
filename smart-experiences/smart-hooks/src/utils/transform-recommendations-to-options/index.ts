@@ -53,7 +53,7 @@ const getLozenzeProperties = (
     return {
       text: intl.formatMessage(messages.guestLozengeText),
       tooltip: intl.formatMessage(lozengeTooltipMessage),
-      appearance: 'new',
+      appearance: 'default',
     };
   }
 

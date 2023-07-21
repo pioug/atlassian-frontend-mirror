@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.2.4",
+  "version": "187.2.7",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -147,7 +147,7 @@
     "@af/editor-libra": "*",
     "@af/integration-testing": "*",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/collab-provider": "9.7.2",
+    "@atlaskit/collab-provider": "9.7.3",
     "@atlaskit/dropdown-menu": "^11.10.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
     "@atlaskit/editor-plugin-table": "^2.5.0",

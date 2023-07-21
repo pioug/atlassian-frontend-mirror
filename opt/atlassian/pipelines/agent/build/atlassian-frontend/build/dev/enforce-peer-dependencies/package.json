@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/enforce-peer-dependencies",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Enforce the version of peer dependnecies",
   "author": "Atlassian Pty Ltd",
   "publishConfig": {

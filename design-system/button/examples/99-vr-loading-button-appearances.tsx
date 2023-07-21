@@ -23,7 +23,7 @@ const appearances: Appearance[] = [
  * freeze the spinner, avoiding potential for VR test flakiness.
  */
 const animationStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   'svg, span': {
     animationDuration: '0s',
     animationTimingFunction: 'step-end',

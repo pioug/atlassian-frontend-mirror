@@ -55,15 +55,15 @@ const productHomeButtonStyles = css({
     boxShadow: `var(${VAR_PRODUCT_HOME_BOX_SHADOW_HOVER})`,
     color: `var(${VAR_PRODUCT_HOME_COLOR_HOVER})`,
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   'div&': {
     pointerEvents: 'none',
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
     margin: `0 ${token('space.100', '8px')}`,
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
     margin: `0 ${token('space.200', '16px')}`,
   },
@@ -76,11 +76,11 @@ const productLogoStyles = css({
   height: 24,
   maxHeight: 28,
   opacity: 0.15,
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > *': {
     maxHeight: 24,
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
     display: 'none',
   },
@@ -92,11 +92,11 @@ const productIconStyles = css({
   height: 28,
   borderRadius: token('border.radius.circle', '50%'),
   opacity: 0.15,
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > *': {
     maxHeight: 24,
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (min-width: ${PRODUCT_HOME_BREAKPOINT}px)`]: {
     display: 'none',
   },

@@ -35,7 +35,7 @@ const nestedAvatarStyles = Object.entries(AVATAR_SIZES).reduce(
     return {
       ...styles,
       [key]: css({
-        // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+        // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
         '& svg': {
           width: `${size}px`,
           height: `${size}px`,

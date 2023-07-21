@@ -25,7 +25,7 @@ const buttonBaseStyles = css({
 });
 
 const buttonHighlightedStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&& > *': {
     color: `var(${VAR_BUTTON_SELECTED_COLOR})`,
   },

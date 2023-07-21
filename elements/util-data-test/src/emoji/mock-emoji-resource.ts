@@ -1,13 +1,13 @@
 import {
   UploadingEmojiProvider,
   EmojiRepository,
-} from '@atlaskit/emoji/resource';
+} from '../../../emoji/src/resource';
 import {
   EmojiDescription,
   EmojiId,
   EmojiUpload,
   OptionalEmojiDescriptionWithVariations,
-} from '@atlaskit/emoji/types';
+} from '../../../emoji/src/types';
 import { emojiFromUpload } from './emoji-from-upload';
 import { MockNonUploadingEmojiResource } from './mock-non-uploading-emoji-resource';
 import { MockEmojiResourceConfig, UploadDetail } from './types';

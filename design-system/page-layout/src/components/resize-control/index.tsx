@@ -59,7 +59,7 @@ const showResizeButtonStyles = css({
 
 // @ts-expect-error adding `!important` to style rules is currently a type error
 const globalResizingStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '*': {
     // Setting the cursor to be `ew-resize` on all elements so that even if the user
     // pointer slips off the resize handle, the cursor will still be the resize cursor
@@ -73,7 +73,7 @@ const globalResizingStyles = css({
     //   - The current selection will resume after resizing
     userSelect: 'none !important',
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   iframe: {
     // Disabling pointer events on iframes when resizing
     // as iframes will swallower user events when the user is over them

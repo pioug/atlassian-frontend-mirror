@@ -86,17 +86,17 @@ const rootStyles = css({
     outline: '1px solid',
   },
   '&:hover': {
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '[data-ds--inline-message--icon]': {
       // Legacy style
       color: 'var(--icon-accent-color)',
     },
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '[data-ds--inline-message--button]': {
       textDecoration: 'underline',
     },
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '[data-ds--inline-message--button]': {
     '&:active [data-ds--inline-message--secondary-text]': {
       color: token('color.text.subtle', `var(${VAR_SECONDARY_TEXT_COLOR})`),

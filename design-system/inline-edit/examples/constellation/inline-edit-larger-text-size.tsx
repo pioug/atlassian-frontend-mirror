@@ -37,7 +37,7 @@ const textFieldStyles = css({
   fontSize: 'inherit',
   fontWeight: 'inherit',
   lineHeight: 'inherit',
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > [data-ds--text-field--input]': {
     fontSize: 'inherit',
     fontWeight: 'inherit',

@@ -53,7 +53,7 @@ export const getTabsStyles = (mode: ThemeModes): SerializedStyles =>
     '& [role="tabpanel"]': getTabPanelStyles(mode),
     // The hidden attribute doesn't work on flex elements
     // Change display to be none
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '& > [hidden]': {
       display: 'none',
     },

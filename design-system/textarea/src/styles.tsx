@@ -73,7 +73,7 @@ const bgAndBorderColorStyles = (
       backgroundColor: props.backgroundColor,
       borderColor: props.borderColor,
     },
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '&[data-invalid]:focus': {
       backgroundColor: props.invalidRules.backgroundColorFocus,
       borderColor: props.invalidRules.borderColorFocus,
@@ -85,7 +85,7 @@ const bgAndBorderColorStyles = (
           }`
         : undefined,
     },
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '&[data-invalid]:not(:focus)': {
       backgroundColor: props.invalidRules.backgroundColor,
       borderColor: props.invalidRules.borderColor,
@@ -128,7 +128,7 @@ const hoverBackgroundAndBorderStyles = (props: ThemeTokens) =>
       '&:disabled': {
         backgroundColor: props.disabledRules.backgroundColorHover,
       },
-      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
       '&[data-invalid]': {
         backgroundColor: props.invalidRules.backgroundColorHover,
         borderColor: props.invalidRules.borderColor,
@@ -175,7 +175,7 @@ const borderPaddingAndHeightStyles = (
   const horizontalPaddingWithoutBorderWidth = horizontalPadding - borderWidth;
   const borderHeight = borderWidth;
   return css({
-    // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+    // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
     '&[data-compact]': {
       minHeight: borderBoxMinHeightCompact(minimumRows, borderHeight),
       // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage

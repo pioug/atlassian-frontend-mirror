@@ -25,7 +25,7 @@ const containerStyles = css({
   flexBasis: 0,
   flexGrow: 1,
   flexShrink: 0,
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > *': {
     margin: `0 ${token('space.050', '4px')}`,
     flexShrink: 0,

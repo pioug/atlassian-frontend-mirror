@@ -107,7 +107,7 @@ export const errorCodeMapper = (
       return {
         code: PROVIDER_ERROR_CODE.INTERNAL_SERVICE_ERROR,
         message: 'Collab Provider experienced an unrecoverable error',
-        recoverable: false,
+        recoverable: true,
         reason: error.data?.code,
         status: 500,
       };
@@ -118,6 +118,12 @@ export const errorCodeMapper = (
         recoverable: true,
         reason: error.data?.code,
         status: 500,
+      };
+    case NCS_ERROR_CODE.RATE_LIMIT_ERROR:
+      return {
+        code: PROVIDER_ERROR_CODE.FAIL_TO_SAVE,
+        message: 'Document rate limit',
+        recoverable: false,
       };
     default:
       return;

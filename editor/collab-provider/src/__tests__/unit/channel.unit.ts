@@ -1131,6 +1131,7 @@ describe('Channel unit tests', () => {
           .mockImplementation((eventName, callback) =>
             events.set(eventName, callback),
           ),
+        onAnyOutgoing: jest.fn().mockImplementation((event, ...args) => null),
         io: { on: jest.fn() },
       }));
       getChannel({
@@ -1259,6 +1260,179 @@ describe('Channel unit tests', () => {
         userId: 'userId',
       }),
     ).toThrowError(expect.any(NotInitializedError));
+  });
+
+  it('Should not rate limit if off', () => {
+    const analyticsHelper = new AnalyticsHelper(
+      testChannelConfig.documentAri,
+      testChannelConfig.analyticsClient,
+    );
+    const channel = new Channel(
+      {
+        ...testChannelConfig,
+        rateLimitType: 0,
+        rateLimitMaxStepSize: 1000000,
+        rateLimitTotalStepSize: 1000000,
+        rateLimitStepCount: 1,
+      },
+      analyticsHelper,
+    );
+    expect(() =>
+      channel.onAnyOutgoingHandler(0, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont really care what this is just that its jsonifiable'],
+        },
+      ]),
+    ).not.toThrowError();
+    expect(() =>
+      channel.onAnyOutgoingHandler(0, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont really care what this is just that its jsonifiable'],
+        },
+      ]),
+    ).not.toThrowError();
+  });
+
+  it('Should rate limit frequent messages', () => {
+    const analyticsHelper = new AnalyticsHelper(
+      testChannelConfig.documentAri,
+      testChannelConfig.analyticsClient,
+    );
+    const channel = new Channel(
+      {
+        ...testChannelConfig,
+        rateLimitType: 2,
+        rateLimitMaxStepSize: 1000000,
+        rateLimitTotalStepSize: 1000000,
+        rateLimitStepCount: 1,
+      },
+      analyticsHelper,
+    );
+    expect(() =>
+      channel.onAnyOutgoingHandler(0, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont really care what this is just that its jsonifiable'],
+        },
+      ]),
+    ).not.toThrowError();
+    expect(() =>
+      channel.onAnyOutgoingHandler(0, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont really care what this is just that its jsonifiable'],
+        },
+      ]),
+    ).toThrowError();
+  });
+
+  it('Should rate limit large messages', () => {
+    const analyticsHelper = new AnalyticsHelper(
+      testChannelConfig.documentAri,
+      testChannelConfig.analyticsClient,
+    );
+    const channel = new Channel(
+      {
+        ...testChannelConfig,
+        rateLimitType: 2,
+        rateLimitMaxStepSize: 10,
+        rateLimitTotalStepSize: 1000000,
+        rateLimitStepCount: 10000,
+      },
+      analyticsHelper,
+    );
+    expect(() =>
+      channel.onAnyOutgoingHandler(0, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont'],
+        },
+      ]),
+    ).not.toThrowError();
+    expect(() =>
+      channel.onAnyOutgoingHandler(0, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont really care what this is just that its jsonifiable'],
+        },
+      ]),
+    ).toThrowError();
+  });
+
+  it('Should rate limit message bandwidth', () => {
+    const analyticsHelper = new AnalyticsHelper(
+      testChannelConfig.documentAri,
+      testChannelConfig.analyticsClient,
+    );
+    const channel = new Channel(
+      {
+        ...testChannelConfig,
+        rateLimitType: 2,
+        rateLimitMaxStepSize: 1000000,
+        rateLimitTotalStepSize: 10,
+        rateLimitStepCount: 10000,
+      },
+      analyticsHelper,
+    );
+    expect(() =>
+      channel.onAnyOutgoingHandler(0, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont'],
+        },
+      ]),
+    ).not.toThrowError();
+    expect(() =>
+      channel.onAnyOutgoingHandler(0, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont'],
+        },
+      ]),
+    ).toThrowError();
+  });
+
+  it('Should rate limit message bandwidth over multiple windows', () => {
+    const analyticsHelper = new AnalyticsHelper(
+      testChannelConfig.documentAri,
+      testChannelConfig.analyticsClient,
+    );
+    const channel = new Channel(
+      {
+        ...testChannelConfig,
+        rateLimitType: 2,
+        rateLimitMaxStepSize: 1000000,
+        rateLimitTotalStepSize: 10,
+        rateLimitStepCount: 10000,
+      },
+      analyticsHelper,
+    );
+    expect(() =>
+      channel.onAnyOutgoingHandler(0, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont'],
+        },
+      ]),
+    ).not.toThrowError();
+    expect(() =>
+      channel.onAnyOutgoingHandler(60001, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont'],
+        },
+      ]),
+    ).not.toThrowError();
+    expect(() =>
+      channel.onAnyOutgoingHandler(90000, [
+        {
+          type: 'steps:commit',
+          steps: ['we dont'],
+        },
+      ]),
+    ).toThrowError();
   });
 
   describe('Network', () => {

@@ -1,0 +1,45 @@
+Disallows using nested styles. Nested styles can change unexpectedly when child markup changes and result in duplicates when extracting to CSS.
+
+## Examples
+
+This rule checks for nested styles inside `css` objects.
+This rule has no options.
+
+### Incorrect
+
+```js
+css({
+  div: {
+    color: 'red',
+  },
+});
+```
+
+```js
+css({
+  '@media (min-width: 480px)': {
+    color: 'red',
+  },
+});
+```
+
+### Correct
+
+```js
+css({
+  color: 'red',
+  ':hover': {
+    color: 'black',
+  },
+});
+```
+
+```js
+import { media } from '@atlaskit/primitives';
+
+css({
+  [media.above.xs]: {
+    color: 'red',
+  },
+});
+```

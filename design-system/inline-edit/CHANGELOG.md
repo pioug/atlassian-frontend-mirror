@@ -1,5 +1,11 @@
 # @atlaskit/inline-edit
 
+## 12.3.5
+
+### Patch Changes
+
+- [`7257459df07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7257459df07) - Fixed a regression: onCancel in InlinedEditableTextfield now resets the editable input to the defaultValue
+
 ## 12.3.4
 
 ### Patch Changes

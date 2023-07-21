@@ -290,8 +290,14 @@ describe('MediaSingle', () => {
     it('renders media with border correctly', () => {
       const border = mediaSingle.find('div[data-mark-type="border"]');
       expect(border).toHaveLength(1);
-      expect(border.prop('style')).toHaveProperty('borderWidth', '3px');
-      expect(border.prop('style')).toHaveProperty('borderRadius', '6px');
+      expect(getComputedStyle(border.getDOMNode())).toHaveProperty(
+        'borderWidth',
+        '3px',
+      );
+      expect(getComputedStyle(border.getDOMNode())).toHaveProperty(
+        'borderRadius',
+        '6px',
+      );
     });
   });
 });

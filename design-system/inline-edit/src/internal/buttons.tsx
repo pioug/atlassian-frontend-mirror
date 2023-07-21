@@ -40,15 +40,15 @@ const buttonWrapperElevationDarkStyles = css({
     `0 4px 8px -2px ${DN50A}, 0 0 1px ${DN60A}`,
   ),
   // These buttons are floating, so they need an override to overlay interaction states
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > button': {
     backgroundColor: token('elevation.surface.overlay', DN70),
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > button:hover': {
     backgroundColor: token('elevation.surface.overlay.hovered', DN60),
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > button:active': {
     backgroundColor: token('elevation.surface.overlay.pressed', B75),
     color: token('color.text', B400),
@@ -61,15 +61,15 @@ const buttonWrapperElevationLightStyles = css({
     `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
   ),
   // These buttons are floating, so they need an override to overlay interaction states
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > button': {
     backgroundColor: token('elevation.surface.overlay', N20A),
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > button:hover': {
     backgroundColor: token('elevation.surface.overlay.hovered', N30A),
   },
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > button:active': {
     backgroundColor: token(
       'elevation.surface.overlay.pressed',

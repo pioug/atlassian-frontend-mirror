@@ -75,6 +75,8 @@ const baseStyles = css({
   position: 'absolute',
   bottom: 0,
   transition: `transform ${flagAnimationTime}ms ease-in-out`,
+  // TODO: Use new breakpoints
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '@media (max-width: 560px)': {
     width: '100vw',
   },
@@ -100,7 +102,7 @@ const baseStyles = css({
 // Transform needed to push up while 1st flag is leaving
 // Exiting time should match the exiting time of motion so is halved
 const dismissAllowedStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&& + *': {
     transform: `translate(0, 0)`,
     transitionDuration: `${flagAnimationTime / 2}ms`,
@@ -112,6 +114,8 @@ const flagGroupContainerStyles = css({
   zIndex: 'flag',
   bottom: token('space.600', '48px'),
   left: token('space.1000', '80px'),
+  // TODO: Use new breakpoints
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '@media (max-width: 560px)': {
     bottom: 0,
     left: 0,

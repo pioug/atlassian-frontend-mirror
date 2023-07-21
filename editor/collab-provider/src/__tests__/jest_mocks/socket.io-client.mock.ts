@@ -117,6 +117,7 @@ export const mockIo = {
         .mockImplementation((eventName, callback) =>
           events.set(eventName, callback),
         ),
+      onAnyOutgoing: jest.fn().mockImplementation((event, ...args) => null),
       emit: jest.fn().mockImplementation((event: string, ...args: any[]) => {
         const handler = events.get(event);
         if (handler) {

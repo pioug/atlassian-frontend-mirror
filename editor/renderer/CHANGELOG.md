@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 108.7.5
+
+### Patch Changes
+
+- [`3e0e943a837`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3e0e943a837) - [ux] Fix size issue for image with border in renderer
+
+## 108.7.4
+
+### Patch Changes
+
+- [`5057217ab16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5057217ab16) - [ux] Fix border cutoff on renderer for linked images
+
 ## 108.7.3
 
 ### Patch Changes

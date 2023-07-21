@@ -1,6 +1,8 @@
 import { Slice } from 'prosemirror-model';
-import { TextSelection, EditorState } from 'prosemirror-state';
-import { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { EditorState } from 'prosemirror-state';
+import { TextSelection } from 'prosemirror-state';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -24,7 +26,6 @@ import {
   nestedExpand,
   expand,
   emoji,
-  DocBuilder,
   mediaSingle,
   media,
   blockquote,
@@ -32,13 +33,15 @@ import {
   taskItem,
   bodiedExtension,
   code_block,
+  thEmpty,
+  tdEmpty,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { toJSON } from '../../../../utils';
 import {
@@ -547,6 +550,259 @@ describe('handleRichText', () => {
         editorView.state.tr.doc.check();
       }).not.toThrow();
     });
+  });
+
+  describe('pasting panel, expand, and decisionList into a table cell', () => {
+    const createEditor = createProsemirrorEditorFactory();
+    const editor = (doc: any) => {
+      const preset = new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
+        .add(contentInsertionPlugin)
+        .add(decorationsPlugin)
+        .add([pastePlugin, {}])
+        .add(panelPlugin)
+        .add(blockTypePlugin)
+        .add(listPlugin)
+        .add(widthPlugin)
+        .add(guidelinePlugin)
+        .add(tablesPlugin)
+        .add(rulePlugin)
+        .add(textFormattingPlugin)
+        .add(expandPlugin)
+        .add(layoutPlugin)
+        .add(tasksAndDecisionsPlugin);
+
+      return createEditor({
+        doc,
+        preset,
+      });
+    };
+
+    // should paste the second panel immediately after the first panel in the same table cell
+    const case0: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+      'destination is a table cell',
+      'paste content is a panel',
+      // Destination
+      // prettier-ignore
+      doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(thEmpty, thEmpty, thEmpty),
+          tr(
+            td({})((p('{<>}'))),
+            tdEmpty,
+            tdEmpty,
+          ),
+        ),
+      ),
+      // Pasted Content
+      doc('{<}', panel()(p('panel to paste{>}'))),
+      // Expected Document
+      // prettier-ignore
+      doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(thEmpty, thEmpty, thEmpty),
+          tr(
+            td({})(
+              panel()(p('panel to paste')),
+              panel()(p('panel to paste')),
+            ),
+            tdEmpty,
+            tdEmpty,
+          ),
+        ),
+      ),
+    ];
+
+    // should paste the second decisionList immediately after the first decisionList in the same table cell
+    const case1: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+      'destination is a table cell',
+      'paste content is an decisionlist',
+      // Destination
+      // prettier-ignore
+      doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(thEmpty, thEmpty, thEmpty),
+          tr(
+            td({})((p('{<>}'))),
+            tdEmpty,
+            tdEmpty,
+          ),
+        ),
+      ),
+      // Pasted Content
+      doc(
+        '{<}',
+        decisionList({ localId: 'local-uuid' })(
+          decisionItem({ localId: 'local-uuid' })('decision to paste{>}'),
+        ),
+      ),
+
+      // Expected Document
+      // prettier-ignore
+      doc(
+        table({
+          isNumberColumnEnabled: false,
+          layout: 'default',
+          localId: 'local-uuid',
+        })(
+          tr(thEmpty, thEmpty, thEmpty),
+          tr(
+            td({})(
+              decisionList({ localId: 'local-uuid' })(
+                decisionItem({ localId: 'local-uuid' })('decision to paste'),
+              ),
+              decisionList({ localId: 'local-uuid' })(
+                decisionItem({ localId: 'local-uuid' })('decision to paste'),
+              )
+            ),
+            tdEmpty,
+            tdEmpty,
+          ),
+        ),
+      ),
+    ];
+
+    // should paste the second expand immediately after the first expand in the same table cell
+    const case2: [string, string, DocBuilder, DocBuilder, DocBuilder] = [
+      'destination is a table cell',
+      'paste content is an expand',
+      // Destination
+      // prettier-ignore
+      doc(
+            table({
+              isNumberColumnEnabled: false,
+              layout: 'default',
+              localId: 'local-uuid',
+            })(
+              tr(thEmpty, thEmpty, thEmpty),
+              tr(
+                td({})((p('{<>}'))),
+                tdEmpty,
+                tdEmpty,
+              ),
+            ),
+          ),
+      // Pasted Content
+      doc('{<}', expand()(p('expand to paste{>}'))),
+
+      // Expected Document
+      // prettier-ignore
+      doc(
+            table({
+              isNumberColumnEnabled: false,
+              layout: 'default',
+              localId: 'local-uuid',
+            })(
+              tr(thEmpty, thEmpty, thEmpty),
+              tr(
+                td({})(
+                  nestedExpand()(p('expand to paste')),
+                  nestedExpand()(p('expand to paste')),
+                ),
+                tdEmpty,
+                tdEmpty,
+              ),
+            ),
+          ),
+    ];
+
+    describe.each<[string, string, DocBuilder, DocBuilder, DocBuilder]>([
+      case0,
+      case1,
+    ])(
+      '[case%#] when %s and %s',
+      (
+        _scenarioDest,
+        _scenarioContent,
+        destinationDocument,
+        pasteContent,
+        expectedDocument,
+      ) => {
+        // eslint-disable-next-line jest/no-focused-tests
+        it('should match the expected document and selection', () => {
+          const { editorView } = editor(destinationDocument);
+          const pasteSlice = new Slice(
+            pasteContent(editorView.state.schema).content,
+            0,
+            0,
+          );
+
+          // paste the first time should insert the content into the table cell
+          handleRichText(pasteSlice, undefined)(
+            editorView.state,
+            editorView.dispatch,
+          );
+
+          //paste the second time should insert the same content immediately after the first content, in the same table cell
+          handleRichText(pasteSlice, undefined)(
+            editorView.state,
+            editorView.dispatch,
+          );
+
+          expect(editorView.state).toEqualDocumentAndSelection(
+            expectedDocument,
+          );
+          expect(() => {
+            editorView.state.tr.doc.check();
+          }).not.toThrow();
+        });
+      },
+    );
+
+    describe.each<[string, string, DocBuilder, DocBuilder, DocBuilder]>([
+      case2,
+    ])(
+      '[case%#] when %s and %s',
+      (
+        _scenarioDest,
+        _scenarioContent,
+        destinationDocument,
+        pasteContent,
+        expectedDocument,
+      ) => {
+        // eslint-disable-next-line jest/no-focused-tests
+        it('should match the expected document and selection', () => {
+          const { editorView } = editor(destinationDocument);
+          const pasteSlice = new Slice(
+            pasteContent(editorView.state.schema).content,
+            0,
+            0,
+          );
+
+          // paste the first time should insert the content into the table cell
+          handleExpandPasteInTable(pasteSlice)(
+            editorView.state,
+            editorView.dispatch,
+          );
+
+          // paste the second time should insert the same content immediately after the first content, in the same table cell
+          handleExpandPasteInTable(pasteSlice)(
+            editorView.state,
+            editorView.dispatch,
+          );
+
+          expect(editorView.state).toEqualDocumentAndSelection(
+            expectedDocument,
+          );
+          expect(() => {
+            editorView.state.tr.doc.check();
+          }).not.toThrow();
+        });
+      },
+    );
   });
 
   describe('pasting into a table', () => {

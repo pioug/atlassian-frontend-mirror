@@ -139,7 +139,7 @@ describe('xcss()', () => {
     const keyVariable = ':hover';
 
     const styles = xcss({
-      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
       [keyVariable]: {
         gap: 'space.200',
       },

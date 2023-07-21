@@ -13,7 +13,7 @@ const baseStyles = css({
   inset: 0,
   borderRadius: 'inherit',
   cursor: 'pointer',
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '~ *': {
     position: 'relative',
     pointerEvents: 'none',

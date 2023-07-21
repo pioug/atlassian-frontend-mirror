@@ -1,5 +1,5 @@
 import { findIndex, objectKeyToString, toggleTaskState } from './utils';
-import {
+import type {
   BaseItem,
   DecisionState,
   Handler,
@@ -8,7 +8,7 @@ import {
   RecentUpdatesId,
   TaskDecisionProvider,
   TaskState,
-} from '@atlaskit/task-decision';
+} from '../../../task-decision/src';
 
 export interface MockTaskDecisionResourceConfig {
   hasMore?: boolean;

@@ -53,7 +53,7 @@ const actionStyles = css({
   paddingLeft: token('space.400', '32px'),
   flex: '0 0 auto',
   whiteSpace: 'nowrap',
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '>': {
     textAlign: 'right',
   },

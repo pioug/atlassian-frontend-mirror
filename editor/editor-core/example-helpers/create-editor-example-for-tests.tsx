@@ -125,6 +125,7 @@ function createEditorWindowBindings<T extends EditorProps>(
           extensionHandlers,
           withContextPanel: options.withContextPanel,
           withLinkPickerOptions: options.withLinkPickerOptions,
+          withTitleFocusHandler: options.withTitleFocusHandler,
         }}
         lifeCycleHandlers={{
           onMount(actions: any) {
@@ -487,6 +488,7 @@ type EditorExampleComponentProps<T> = {
     extensionHandlers?: ExtensionHandlers;
     withContextPanel?: boolean;
     withLinkPickerOptions?: boolean;
+    withTitleFocusHandler?: boolean;
   };
   lifeCycleHandlers: {
     onChange?: any;
@@ -516,4 +518,5 @@ export type MountEditorOptions = {
   withCollab?: boolean;
   withLinkPickerOptions?: boolean;
   withConfluenceMacrosExtensionProvider?: boolean;
+  withTitleFocusHandler?: boolean;
 };

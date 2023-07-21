@@ -33,7 +33,7 @@ const mobileStyles = getBooleanFF(
   'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
 )
   ? css({
-      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
       [UNSAFE_media.below.md]: {
         width: `${MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
         position: 'fixed',
@@ -52,7 +52,7 @@ const mobileInnerFlyoutStyles = getBooleanFF(
   'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
 )
   ? css({
-      // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
       [UNSAFE_media.below.md]: {
         width: `min(90vw, ${MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH}px)`,
         maxWidth: MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH,

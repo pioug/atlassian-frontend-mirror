@@ -16,7 +16,7 @@ const baseWrapperStyles = css({
   lineHeight: 1,
   userSelect: 'none',
   whiteSpace: 'normal',
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '> svg': {
     height: '100%',
     fill: 'inherit',
@@ -24,7 +24,7 @@ const baseWrapperStyles = css({
 });
 
 const stopColorStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   stop: {
     stopColor: 'currentColor',
   },

@@ -23,7 +23,7 @@ const containerStyles = css({
   alignItems: 'center',
   justifyContent: 'space-between',
   flexShrink: 0,
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '[data-color-mode="light"] &, [data-color-mode="dark"] &': {
     // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
     borderBottom: `1px solid ${token('color.border')}`,
@@ -57,7 +57,7 @@ const leftStyles = css({
   height: 'inherit',
   alignItems: 'center',
   flexGrow: 1,
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > *': {
     flexShrink: 0,
   },
@@ -67,7 +67,7 @@ const rightStyles = css({
   display: 'flex',
   alignItems: 'center',
   flexShrink: 0,
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '& > *': {
     marginRight: token('space.050', '4px'),
     flexShrink: 0,

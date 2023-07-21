@@ -54,7 +54,7 @@ const serverRenderedStyles = css({
 });
 
 const draggingStyles = css({
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`[data-is-sidebar-dragging] &`]: {
     transition: 'none',
   },

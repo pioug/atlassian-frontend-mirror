@@ -116,6 +116,16 @@ export interface Config {
    * throwing a non-recoverable error if it's detected.
    */
   enableErrorOnFailedDocumentApply?: boolean;
+
+  /**
+   * Configure the client side circuit breaker in the event that abnormal behaviour causes the client to flood
+   * NCS with too many steps or too large a volume of data. This can result in either a soft fail or a hard (fatal) fail
+   * depending on the configured rate limit type.
+   */
+  rateLimitMaxStepSize?: number;
+  rateLimitStepCount?: number;
+  rateLimitTotalStepSize?: number;
+  rateLimitType?: number;
 }
 
 export interface InitAndAuthData {

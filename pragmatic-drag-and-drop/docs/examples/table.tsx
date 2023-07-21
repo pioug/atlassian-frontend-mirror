@@ -38,7 +38,7 @@ const tableStyles = css({
 
   // Adding a bit more space to the first column for consistency and to give room
   // for the drop indicator
-  /* eslint-disable-next-line @repo/internal/styles/no-nested-styles */
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   'th:first-of-type, td:first-of-type': {
     paddingLeft: 8,
   },
@@ -122,6 +122,9 @@ export default function Table() {
             behavior: 'container-only',
           });
         }
+
+        // using this class to disable hover styles while dragging
+        document.body.classList.add('is-dragging');
       },
       onDrag({ location }) {
         // It is safe to call `updateInput` optimistically,
@@ -129,6 +132,8 @@ export default function Table() {
         autoScroller.updateInput({ input: location.current.input });
       },
       onDrop({ location, source }) {
+        document.body.classList.remove('is-dragging');
+
         // It is safe to call `stop` optimistically,
         // if the `autoScroller` has not been started it will noop.
         autoScroller.stop();

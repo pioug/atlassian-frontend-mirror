@@ -1,22 +1,18 @@
-import {
-  Schema,
-  Slice,
-  Node,
-  Fragment,
-  Node as PMNode,
-} from 'prosemirror-model';
+import type { Schema, Node, Node as PMNode } from 'prosemirror-model';
+import { Slice, Fragment } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { Transaction } from 'prosemirror-state';
+import type { Transaction } from 'prosemirror-state';
 import uuid from 'uuid';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
-import { addLinkMetadata, CardOptions } from '@atlaskit/editor-common/card';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { CardOptions } from '@atlaskit/editor-common/card';
+import { addLinkMetadata } from '@atlaskit/editor-common/card';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { mapChildren } from '../../../utils/slice';
-import {
+import type {
   ExtensionProvider,
-  getExtensionAutoConvertersFromProvider,
   ExtensionAutoConvertHandler,
 } from '@atlaskit/editor-common/extensions';
+import { getExtensionAutoConvertersFromProvider } from '@atlaskit/editor-common/extensions';
 
 import * as clipboard from '../../../utils/clipboard';
 import { transformSliceForMedia } from '../../media/utils/media-single';
@@ -59,10 +55,10 @@ import {
   handlePastePanelOrDecisionIntoListWithAnalytics,
   handlePasteNonNestableBlockNodesIntoListWithAnalytics,
 } from './analytics';
+import type { DispatchAnalyticsEvent } from '../../analytics';
 import {
   ACTION,
   analyticsPluginKey,
-  DispatchAnalyticsEvent,
   INPUT_METHOD,
   PasteTypes,
 } from '../../analytics';
@@ -92,7 +88,7 @@ import { extractSliceFromStep } from '../../../utils/step';
 import { pluginKey as stateKey, createPluginState } from './plugin-factory';
 export { pluginKey as stateKey } from './plugin-factory';
 import type { Dispatch } from '../../../event-dispatcher';
-import {
+import type {
   FeatureFlags,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';

@@ -6,6 +6,7 @@ import { css, jsx } from '@emotion/react';
 
 import { easeInOut } from '@atlaskit/motion/curves';
 import { mediumDurationMs } from '@atlaskit/motion/durations';
+import { media } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
 
 import { gutter, verticalOffset } from '../constants';
@@ -29,14 +30,14 @@ const positionerStyles = css({
 const viewportScrollStyles = css({
   height: 'auto',
   position: 'relative',
-  '@media (min-width: 480px)': {
+  [media.above.xs]: {
     margin: `${gutter}px auto`,
     pointerEvents: 'none',
   },
 });
 
 const bodyScrollStyles = css({
-  '@media (min-width: 480px)': {
+  [media.above.xs]: {
     maxWidth: maxWidthDimensions,
     maxHeight: maxHeightDimensions,
 

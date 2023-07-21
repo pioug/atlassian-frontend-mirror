@@ -299,6 +299,8 @@ export class ExampleEditorComponent extends React.Component<
     if (this.props.onExampleEditorReady) {
       this.props.onExampleEditorReady(editorActions, timeTaken);
     }
+
+    (window as any).__editorView = editorActions._privateGetEditorView();
   };
 
   onCopyLinkWithContent = async () => {

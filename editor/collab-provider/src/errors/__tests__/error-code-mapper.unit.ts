@@ -296,7 +296,7 @@ describe('Error code mapper', () => {
       {
         code: 'INTERNAL_SERVICE_ERROR',
         message: 'Collab Provider experienced an unrecoverable error',
-        recoverable: false,
+        recoverable: true,
         reason: 'NAMESPACE_NOT_FOUND',
         status: 500,
       },
@@ -312,7 +312,7 @@ describe('Error code mapper', () => {
       {
         code: 'INTERNAL_SERVICE_ERROR',
         message: 'Collab Provider experienced an unrecoverable error',
-        recoverable: false,
+        recoverable: true,
         reason: 'ERROR_MAPPING_ERROR',
         status: 500,
       },
@@ -329,7 +329,7 @@ describe('Error code mapper', () => {
       {
         code: 'INTERNAL_SERVICE_ERROR',
         message: 'Collab Provider experienced an unrecoverable error',
-        recoverable: false,
+        recoverable: true,
         reason: 'EMPTY_BROADCAST',
         status: 500,
       },

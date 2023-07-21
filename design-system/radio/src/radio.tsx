@@ -36,7 +36,7 @@ const labelStyles = css({
   position: 'relative',
   alignItems: 'flex-start',
   fontFamily: fontFamily,
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&[data-disabled]': {
     color: token('color.text.disabled', N80),
     cursor: 'not-allowed',
@@ -139,7 +139,7 @@ const radioStyles = css({
     '--radio-border-color': 'var(--local-border-focus)',
   },
 
-  // eslint-disable-next-line @repo/internal/styles/no-nested-styles
+  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   '&[data-invalid], &:checked[data-invalid]': {
     '--radio-border-color': 'var(--local-invalid)',
   },

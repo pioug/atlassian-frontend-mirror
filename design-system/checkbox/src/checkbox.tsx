@@ -20,7 +20,7 @@ import { token } from '@atlaskit/tokens';
 import { CheckboxIcon, Label, LabelText, RequiredIndicator } from './internal';
 import type { CheckboxProps } from './types';
 
-/* eslint-disable @repo/internal/styles/no-nested-styles */
+/* eslint-disable @atlaskit/design-system/no-nested-styles */
 const checkboxStyles = css({
   width: '100%',
   height: '100%',
@@ -128,7 +128,7 @@ const checkboxStyles = css({
       },
   },
 });
-/* eslint-enable @repo/internal/styles/no-nested-styles */
+/* eslint-enable @atlaskit/design-system/no-nested-styles */
 
 /**
  * __Checkbox__

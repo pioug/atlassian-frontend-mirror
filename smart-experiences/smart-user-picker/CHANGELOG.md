@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 6.1.4
+
+### Patch Changes
+
+- [`78f0d4b929c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78f0d4b929c) - [ux] Color of guest lozenges in the smartUserPicker changed from purple ('new') to grey ('default')
+
 ## 6.1.3
 
 ### Patch Changes

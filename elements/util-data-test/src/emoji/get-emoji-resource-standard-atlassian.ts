@@ -1,5 +1,5 @@
-import { EmojiRepository } from '@atlaskit/emoji/resource';
-import { EmojiDescription } from '@atlaskit/emoji/types';
+import { EmojiRepository } from '../../../emoji/src/resource';
+import { EmojiDescription } from '../../../emoji/src/types';
 import { getAtlassianEmojis } from './get-atlassian-emojis';
 import { getStandardEmojis } from './get-standard-emojis';
 import { mockEmojiResourceFactory } from './mock-emoji-resource-factory';

@@ -10,13 +10,12 @@ import { CardErrorBoundary } from './fallback';
 import { RendererAppearance } from '../../ui/Renderer/types';
 import { getCardClickHandler } from '../utils/getCardClickHandler';
 import { SmartLinksOptions } from '../../types/smartLinksOptions';
+import InlineCard from './inlineCard';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import {
   DatasourceAdfView,
   DatasourceTableView,
 } from '@atlaskit/link-datasource';
-
-import { InlineCard } from './';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
 import { token } from '@atlaskit/tokens';
@@ -80,8 +79,10 @@ export default function BlockCard(props: {
 
     const views = props.datasource.views as DatasourceAdfView[];
     const tableView = views.find((view) => view.type === 'table');
+    const shouldRenderDatasource =
+      tableView && canRenderDatasource(props.datasource.id);
 
-    if (tableView && canRenderDatasource(props.datasource.id)) {
+    if (shouldRenderDatasource) {
       const visibleColumnKeys = tableView.properties?.columns.map(
         ({ key }) => key,
       );
@@ -114,7 +115,7 @@ export default function BlockCard(props: {
       );
     }
 
-    return null;
+    return <InlineCard data={data} url={url} />;
   }
 
   return (

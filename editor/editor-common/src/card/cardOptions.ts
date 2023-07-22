@@ -4,6 +4,7 @@ export interface CardOptions {
   provider?: Providers['cardProvider'];
   resolveBeforeMacros?: string[];
   allowBlockCards?: boolean;
+  allowDatasource?: boolean;
   allowEmbeds?: boolean;
   allowResizing?: boolean;
   showServerActions?: boolean;

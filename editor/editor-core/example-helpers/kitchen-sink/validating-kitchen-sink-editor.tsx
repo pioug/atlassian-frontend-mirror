@@ -166,6 +166,7 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             allowBlockCards: true,
             allowEmbeds: true,
           }}
+          linking={{ smartLinks: { allowDatasource: true } }}
           allowExpand={{ allowInsertion: true }}
           allowStatus={true}
           allowNestedTasks

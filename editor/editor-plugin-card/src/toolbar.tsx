@@ -332,6 +332,7 @@ const generateToolbarItems =
       isDatasource &&
       // not showing toolbar in mobile for now since not sure what our plans are for it
       platform !== 'mobile' &&
+      cardOptions.allowDatasource &&
       canRenderDatasource(node?.attrs?.datasource?.id);
 
     /* mobile builds toolbar natively using toolbarItems */

@@ -87,6 +87,7 @@ export const cardPlugin: NextEditorPlugin<
       const useAlternativePreloader = options.useAlternativePreloader ?? true;
       const allowWrapping = options.allowWrapping ?? true;
       const allowAlignment = options.allowAlignment ?? true;
+      const allowDatasource = options.allowDatasource ?? false;
 
       const plugins = [
         {
@@ -99,6 +100,7 @@ export const cardPlugin: NextEditorPlugin<
               useAlternativePreloader,
               allowWrapping,
               allowAlignment,
+              allowDatasource,
             },
             api,
           ),
@@ -161,7 +163,10 @@ export const cardPlugin: NextEditorPlugin<
         api,
       ),
       quickInsert: ({ formatMessage }) => {
-        if (canRenderDatasource(JIRA_LIST_OF_LINKS_DATASOURCE_ID)) {
+        if (
+          options.allowDatasource &&
+          canRenderDatasource(JIRA_LIST_OF_LINKS_DATASOURCE_ID)
+        ) {
           return [
             {
               id: 'datasource',

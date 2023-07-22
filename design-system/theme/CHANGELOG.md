@@ -1,5 +1,11 @@
 # @atlaskit/theme
 
+## 12.5.5
+
+### Patch Changes
+
+- [`69648c31426`](https://bitbucket.org/atlassian/atlassian-frontend/commits/69648c31426) - correct border.focused fallback to B200 to meet contrast requirement
+
 ## 12.5.4
 
 ### Patch Changes

@@ -38,4 +38,5 @@ runBlockNodeSelectionTestSuite({
     'Extend selection right two characters to select [block-node] from line above with shift + arrow right':
       ['safari'],
   },
+  editorPackage: 'editor-plugin-card',
 });

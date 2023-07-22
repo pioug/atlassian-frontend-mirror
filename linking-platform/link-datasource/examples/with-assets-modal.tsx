@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import { CodeBlock } from '@atlaskit/code';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { mockAssetsClientFetchRequests } from '@atlaskit/link-test-helpers/assets';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { InlineCardAdf } from '@atlaskit/linking-common';
 
@@ -17,13 +18,16 @@ import {
 import JSMAssetsConfigModal from '../src/ui/assets-modal';
 
 mockDatasourceFetchRequests(ASSETS_LIST_OF_LINKS_DATASOURCE_ID);
+mockAssetsClientFetchRequests();
 
 export default () => {
   const [generatedAdf, setGeneratedAdf] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(true);
-  const [parameters, setParameters] = useState<
-    AssetsDatasourceParameters | undefined
-  >(undefined);
+  const [parameters, setParameters] = useState<AssetsDatasourceParameters>({
+    aql: 'dummy aql',
+    cloudId: '',
+    schemaId: '1',
+  });
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<
     string[] | undefined
   >(undefined);
@@ -36,7 +40,7 @@ export default () => {
         adf.attrs.datasource.views[0].properties?.columns.map(c => c.key),
       );
     }
-    setGeneratedAdf(JSON.stringify(adf));
+    setGeneratedAdf(JSON.stringify(adf, null, 2));
     closeModal();
   };
   return (

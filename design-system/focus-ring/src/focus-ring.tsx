@@ -12,13 +12,13 @@ const BORDER_WIDTH = 2;
 const baseFocusOutsideStyles = css({
   outline: `${BORDER_WIDTH}px solid ${token(
     'color.border.focused',
-    '#4C9AFF',
+    '#2684FF',
   )}`,
   outlineOffset: BORDER_WIDTH,
 });
 
 const baseInsetStyles = css({
-  outlineColor: token('color.border.focused', '#4C9AFF'),
+  outlineColor: token('color.border.focused', '#2684FF'),
   outlineOffset: -BORDER_WIDTH,
   outlineStyle: 'solid',
   // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage

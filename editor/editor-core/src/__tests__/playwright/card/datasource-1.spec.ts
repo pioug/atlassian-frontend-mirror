@@ -16,6 +16,7 @@ test.use({
     allowTextAlignment: true,
     smartLinks: {
       allowBlockCards: true,
+      allowDatasource: true,
     },
   },
   platformFeatureFlags: {

@@ -478,6 +478,37 @@ describe('Left sidebar', () => {
       expect(getByTestId('tooltip').textContent).toBe('Expand');
     });
 
+    describe('GrabArea', () => {
+      const testId = 'left-sidebar';
+
+      it('should have proper role and aria attributes', () => {
+        const label = 'test';
+        const { getByTestId } = render(
+          <PageLayout testId="grid">
+            <Content>
+              <LeftSidebar
+                testId={testId}
+                width={300}
+                resizeGrabAreaLabel={label}
+              >
+                LeftSidebar
+              </LeftSidebar>
+              <Main testId="content">Main</Main>
+            </Content>
+          </PageLayout>,
+        );
+
+        const grabArea = getByTestId(`${testId}-grab-area`);
+
+        expect(grabArea).toHaveAttribute('aria-label', label);
+        expect(grabArea).toHaveAttribute('aria-orientation', 'vertical');
+        expect(grabArea).toHaveAttribute('aria-valuenow');
+        expect(grabArea).toHaveAttribute('aria-valuemin', '0');
+        expect(grabArea).toHaveAttribute('aria-valuemax', '100');
+        expect(grabArea).toHaveAttribute('role', 'separator');
+      });
+    });
+
     // Investigate why the test fails but works fine in the browser
     it('should collapse the LeftSidebar when GrabArea is clicked in expanded state', () => {
       const { getByTestId } = render(

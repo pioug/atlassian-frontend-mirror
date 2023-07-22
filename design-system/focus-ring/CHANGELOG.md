@@ -1,5 +1,11 @@
 # @atlaskit/focus-ring
 
+## 1.3.4
+
+### Patch Changes
+
+- [`ce22a54e852`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ce22a54e852) - [ux] update focus ring outline border.focused fallback to B200 to meet contrast
+
 ## 1.3.3
 
 ### Patch Changes

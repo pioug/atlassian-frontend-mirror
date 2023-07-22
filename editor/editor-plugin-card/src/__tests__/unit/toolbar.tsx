@@ -135,13 +135,13 @@ describe('card', () => {
       doc,
       providerFactory,
       editorProps: {
-        smartLinks: smartLinksOptions
-          ? smartLinksOptions
-          : {
-              allowBlockCards: true,
-              allowEmbeds: true,
-              allowResizing: true,
-            },
+        smartLinks: {
+          allowBlockCards: true,
+          allowEmbeds: true,
+          allowResizing: true,
+          allowDatasource: true,
+          ...smartLinksOptions,
+        },
         allowExpand: true,
         allowAnalyticsGASV3: true,
       },
@@ -311,6 +311,30 @@ describe('card', () => {
           verifySettingsButton(settingsButton, editorView);
         });
 
+        it('displays inlineCard toolbar if allowDatasource is false', () => {
+          const { editorView } = editor(
+            doc('{<node>}', datasourceBlockCard(datasourceWithUrlAdfAttrs)()),
+          );
+
+          const toolbar = floatingToolbar(
+            {
+              allowBlockCards: true,
+              allowEmbeds: true,
+              allowResizing: true,
+              allowDatasource: false,
+            },
+            featureFlagsMock,
+            undefined,
+            undefined,
+            mockPluginInjectionApi,
+          )(editorView.state, intl, providerFactory);
+          const toolbarItems = getToolbarItems(toolbar!, editorView);
+
+          expect(
+            (toolbarItems[2] as FloatingToolbarButton<Command>).id,
+          ).toEqual('editor.link.edit');
+        });
+
         it('displays toolbar items in correct order for datasource with url', () => {
           const { editorView } = editor(
             doc('{<node>}', datasourceBlockCard(datasourceWithUrlAdfAttrs)()),
@@ -321,6 +345,7 @@ describe('card', () => {
               allowBlockCards: true,
               allowEmbeds: true,
               allowResizing: true,
+              allowDatasource: true,
             },
             featureFlagsMock,
             undefined,
@@ -343,6 +368,7 @@ describe('card', () => {
               allowBlockCards: true,
               allowEmbeds: true,
               allowResizing: true,
+              allowDatasource: true,
             },
             featureFlagsMock,
             undefined,
@@ -1005,11 +1031,10 @@ describe('card', () => {
           ),
         );
 
-        const toolbar = floatingToolbar({}, featureFlagsMock)(
-          editorView.state,
-          intl,
-          providerFactory,
-        );
+        const toolbar = floatingToolbar(
+          { allowDatasource: true },
+          featureFlagsMock,
+        )(editorView.state, intl, providerFactory);
 
         if (!toolbar) {
           return expect(toolbar).toBeTruthy();
@@ -1058,11 +1083,10 @@ describe('card', () => {
           ),
         );
 
-        const toolbar = floatingToolbar({}, featureFlagsMock)(
-          editorView.state,
-          intl,
-          providerFactory,
-        );
+        const toolbar = floatingToolbar(
+          { allowDatasource: true },
+          featureFlagsMock,
+        )(editorView.state, intl, providerFactory);
 
         if (!toolbar) {
           return expect(toolbar).toBeTruthy();
@@ -1108,11 +1132,10 @@ describe('card', () => {
           ),
         );
 
-        const toolbar = floatingToolbar({}, featureFlagsMock)(
-          editorView.state,
-          intl,
-          providerFactory,
-        );
+        const toolbar = floatingToolbar(
+          { allowDatasource: true },
+          featureFlagsMock,
+        )(editorView.state, intl, providerFactory);
 
         if (!toolbar) {
           return expect(toolbar).toBeTruthy();
@@ -1138,11 +1161,10 @@ describe('card', () => {
           ),
         );
 
-        const toolbar = floatingToolbar({}, featureFlagsMock)(
-          editorView.state,
-          intl,
-          providerFactory,
-        );
+        const toolbar = floatingToolbar(
+          { allowDatasource: true },
+          featureFlagsMock,
+        )(editorView.state, intl, providerFactory);
 
         if (!toolbar) {
           return expect(toolbar).toBeTruthy();
@@ -1170,11 +1192,10 @@ describe('card', () => {
               ),
             );
 
-            const toolbar = floatingToolbar({}, featureFlagsMock)(
-              editorView.state,
-              intl,
-              providerFactory,
-            );
+            const toolbar = floatingToolbar(
+              { allowDatasource: true },
+              featureFlagsMock,
+            )(editorView.state, intl, providerFactory);
 
             if (!toolbar) {
               return expect(toolbar).toBeTruthy();
@@ -1258,11 +1279,10 @@ describe('card', () => {
               ),
             );
 
-            const toolbar = floatingToolbar({}, featureFlagsMock)(
-              editorView.state,
-              intl,
-              providerFactory,
-            );
+            const toolbar = floatingToolbar(
+              { allowDatasource: true },
+              featureFlagsMock,
+            )(editorView.state, intl, providerFactory);
 
             if (!toolbar) {
               return expect(toolbar).toBeTruthy();

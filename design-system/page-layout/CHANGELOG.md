@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.7.9
+
+### Patch Changes
+
+- [`55c42f7ce9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/55c42f7ce9d) - [ux] Add proper orientation to grab area.
+
 ## 1.7.8
 
 ### Patch Changes

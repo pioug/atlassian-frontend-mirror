@@ -256,10 +256,10 @@ export const linkActive = themed({
 });
 /**
  * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-386 Internal documentation for deprecation (no external access)}
- * @deprecated use `token('color.border.focused')` instead.
+ * @deprecated use `token('color.border.focused', B200)` instead.
  */
 export const linkOutline = themed({
-  light: token('color.border.focused', B100),
+  light: token('color.border.focused', B200),
   dark: token('color.border.focused', B200),
 });
 /**

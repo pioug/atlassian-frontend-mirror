@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@atlaskit/adf-schema": "^26.2.0",
-    "@atlaskit/editor-common": "^74.24.0",
+    "@atlaskit/editor-common": "^74.25.0",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@babel/runtime": "^7.0.0",
     "collapse-whitespace": "^1.1.6",

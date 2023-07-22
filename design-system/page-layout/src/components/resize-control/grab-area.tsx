@@ -95,6 +95,7 @@ const GrabArea = ({
     // usability.
     role="separator"
     css={[grabAreaStyles, isLeftSidebarCollapsed && grabAreaCollapsedStyles]}
+    aria-orientation="vertical"
     aria-valuenow={leftSidebarPercentageExpanded}
     aria-valuemin={0}
     aria-valuemax={100}

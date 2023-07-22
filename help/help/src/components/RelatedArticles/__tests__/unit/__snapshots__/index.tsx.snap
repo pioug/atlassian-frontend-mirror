@@ -138,13 +138,13 @@ exports[`RelatedArticles Should match snapshot 1`] = `
 }
 
 .emotion-21:focus-visible {
-  outline: 2px solid var(--ds-border-focused, #4C9AFF);
+  outline: 2px solid var(--ds-border-focused, #2684FF);
   outline-offset: 2px;
 }
 
 @supports not selector(*:focus-visible) {
   .emotion-21:focus {
-    outline: 2px solid var(--ds-border-focused, #4C9AFF);
+    outline: 2px solid var(--ds-border-focused, #2684FF);
     outline-offset: 2px;
   }
 }

@@ -6,6 +6,7 @@ import { mount, ReactWrapper } from 'enzyme';
 import { Card, Provider, Client } from '@atlaskit/smart-card';
 
 import BlockCard from '../../../../react/nodes/blockCard';
+import InlineCard from '../../../../react/nodes/inlineCard';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { MockCardComponent } from './card.mock';
@@ -146,7 +147,7 @@ describe('Renderer - React/Nodes/BlockCard', () => {
       ]);
     });
 
-    it('should render null if datasource is provided with JQL but NOT a table view', () => {
+    it('should render inlineCard if jira issue datasource is provided with JQL but NOT a table view', () => {
       const notRenderableDatasource = {
         ...datasourceAttributeProperties,
         views: [
@@ -166,7 +167,9 @@ describe('Renderer - React/Nodes/BlockCard', () => {
           />
         </Provider>,
       );
-      expect(node.isEmptyRender()).toBe(true);
+
+      expect(node.find(InlineCard).length).toBe(1);
+      expect(node.find(InlineCard).prop('url')).toEqual(url);
     });
 
     describe('when using feature flag', () => {
@@ -207,7 +210,9 @@ describe('Renderer - React/Nodes/BlockCard', () => {
               />
             </Provider>,
           );
-          expect(node.isEmptyRender()).toBe(true);
+
+          expect(node.find(InlineCard).length).toBe(1);
+          expect(node.find(InlineCard).prop('url')).toEqual(url);
         },
       );
     });

@@ -6,6 +6,10 @@ import { IntlProvider } from 'react-intl-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import {
+  AssetsClientState,
+  useAssetsClient,
+} from '../../../../hooks/useAssetsClient';
+import {
   DatasourceTableState,
   useDatasourceTableState,
 } from '../../../../hooks/useDatasourceTableState';
@@ -13,41 +17,57 @@ import { AssetsDatasourceParameters } from '../../types';
 import { AssetsConfigModal } from '../index'; // Using async one to test lazy integration at the same time
 
 jest.mock('../../../../hooks/useDatasourceTableState');
+jest.mock('../../../../hooks/useAssetsClient');
 
 describe('AssetsConfigModal', () => {
   const getDefaultParameters: () => AssetsDatasourceParameters = () => ({
-    cloudId: '67899',
+    cloudId: '',
     aql: 'some-query',
+    schemaId: '123',
   });
 
-  const getDefaultHookState: () => DatasourceTableState = () => ({
-    reset: jest.fn(),
-    status: 'resolved',
-    onNextPage: jest.fn(),
-    loadDatasourceDetails: jest.fn(),
-    hasNextPage: false,
+  const getDefaultDataSourceTableHookState: () => DatasourceTableState =
+    () => ({
+      reset: jest.fn(),
+      status: 'resolved',
+      onNextPage: jest.fn(),
+      loadDatasourceDetails: jest.fn(),
+      hasNextPage: false,
+      responseItems: [
+        {
+          myColumn: { data: 'some-value' },
+          otherColumn: { data: 'other-column-value' },
+          myId: { data: 'some-id1' },
+        },
+        {
+          myColumn: { data: 'other-value' },
+          otherColumn: { data: 'other-column-other-value' },
+          myId: { data: 'some-id2' },
+        },
+      ],
+      columns: [
+        { key: 'myColumn', title: 'My Column', type: 'string' },
+        { key: 'otherColumn', title: 'My Other Column', type: 'string' },
+        { key: 'myId', title: 'ID', type: 'string', isIdentity: true },
+      ],
+      defaultVisibleColumnKeys: ['myDefaultColumn', 'otherDefaultColumn'],
+      totalCount: 3,
+    });
+
+  const getSingleAssetHookState: () => DatasourceTableState = () => ({
+    ...getDefaultDataSourceTableHookState(),
     responseItems: [
       {
-        myColumn: { data: 'some-value' },
-        otherColumn: { data: 'other-column-value' },
-        myId: { data: 'some-id1' },
-      },
-      {
-        myColumn: { data: 'other-value' },
-        otherColumn: { data: 'other-column-other-value' },
-        myId: { data: 'some-id2' },
+        key: {
+          data: {
+            url: 'hello.com',
+          },
+        },
       },
     ],
-    columns: [
-      { key: 'myColumn', title: 'My Column', type: 'string' },
-      { key: 'otherColumn', title: 'My Other Column', type: 'string' },
-      { key: 'myId', title: 'ID', type: 'string', isIdentity: true },
-    ],
-    defaultVisibleColumnKeys: ['myColumn', 'otherColumn'],
-    totalCount: 3,
   });
 
-  const getEmptyHookState: () => DatasourceTableState = () => ({
+  const getEmptyDatasourceTableHookState: () => DatasourceTableState = () => ({
     columns: [],
     status: 'empty',
     responseItems: [],
@@ -58,7 +78,7 @@ describe('AssetsConfigModal', () => {
     reset: jest.fn(),
     totalCount: undefined,
   });
-  const getErrorHookState: () => DatasourceTableState = () => ({
+  const getErrorDatasourceTableHookState: () => DatasourceTableState = () => ({
     columns: [],
     status: 'rejected',
     responseItems: [],
@@ -69,30 +89,45 @@ describe('AssetsConfigModal', () => {
     reset: jest.fn(),
     totalCount: undefined,
   });
-  const getLoadingHookState: () => DatasourceTableState = () => ({
-    columns: [],
-    status: 'loading',
-    responseItems: [],
-    hasNextPage: true,
-    defaultVisibleColumnKeys: [],
-    onNextPage: jest.fn(),
-    loadDatasourceDetails: jest.fn(),
-    reset: jest.fn(),
+  const getLoadingDatasourceTableHookState: () => DatasourceTableState =
+    () => ({
+      columns: [],
+      status: 'loading',
+      responseItems: [],
+      hasNextPage: true,
+      defaultVisibleColumnKeys: [],
+      onNextPage: jest.fn(),
+      loadDatasourceDetails: jest.fn(),
+      reset: jest.fn(),
+    });
+
+  const getDefaultAssetsClientState: () => AssetsClientState = () => ({
+    workspaceId: 'workspaceId',
+  });
+
+  const getEmptyAssetsClientState: () => AssetsClientState = () => ({
+    workspaceId: undefined,
   });
 
   const setup = async (
     args: {
       parameters?: AssetsDatasourceParameters;
-      hookState?: DatasourceTableState;
+      datasourceTableHookState?: DatasourceTableState;
+      assetsClientHookState?: AssetsClientState;
       visibleColumnKeys?: string[];
       dontWaitForSitesToLoad?: boolean;
     } = {},
   ) => {
     asMock(useDatasourceTableState).mockReturnValue(
-      args.hookState || getDefaultHookState(),
+      args.datasourceTableHookState || getDefaultDataSourceTableHookState(),
     );
+    asMock(useAssetsClient).mockReturnValue(
+      args.assetsClientHookState || getDefaultAssetsClientState(),
+    );
+
     const onCancel = jest.fn();
     const onInsert = jest.fn();
+
     let renderFunction = render;
     const renderComponent = () =>
       renderFunction(
@@ -117,6 +152,7 @@ describe('AssetsConfigModal', () => {
     return {
       ...renderComponent(),
       onCancel,
+      onInsert,
     };
   };
 
@@ -133,7 +169,7 @@ describe('AssetsConfigModal', () => {
   describe('when there is no parameters yet', () => {
     it('should display EmptyState', async () => {
       const { queryByTestId } = await setup({
-        hookState: getEmptyHookState(),
+        datasourceTableHookState: getEmptyDatasourceTableHookState(),
         parameters: undefined,
       });
       expect(
@@ -145,7 +181,7 @@ describe('AssetsConfigModal', () => {
       const { getByRole } = await setup({
         visibleColumnKeys: undefined,
         parameters: { cloudId: '', aql: '' },
-        hookState: getEmptyHookState(),
+        datasourceTableHookState: getEmptyDatasourceTableHookState(),
       });
       expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
     });
@@ -156,7 +192,142 @@ describe('AssetsConfigModal', () => {
       const { getByRole } = await setup({
         visibleColumnKeys: undefined,
         parameters: { cloudId: 'abc123', aql: 'cool' },
-        hookState: getLoadingHookState(),
+        datasourceTableHookState: getLoadingDatasourceTableHookState(),
+      });
+      expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+    });
+  });
+
+  describe('when isDisabled is false', () => {
+    describe('and user clicks button', () => {
+      it('should insert inlineCard adf when 1 asset is returned and valid url is available', async () => {
+        const datasourceTableHookState = getSingleAssetHookState();
+        const { getByRole, onInsert } = await setup({
+          datasourceTableHookState,
+        });
+        const insertButton = getByRole('button', { name: 'Insert objects' });
+
+        expect(insertButton).toBeEnabled();
+        insertButton.click();
+
+        expect(onInsert).toHaveBeenCalledWith({
+          type: 'inlineCard',
+          attrs: {
+            url: 'hello.com',
+          },
+        });
+      });
+      it('should insert blockCard adf when no valid url is available', async () => {
+        const datasourceTableHookState = getSingleAssetHookState();
+        datasourceTableHookState.responseItems = [
+          {
+            key: {
+              data: '',
+            },
+          },
+        ];
+        const { getByRole, onInsert } = await setup({
+          datasourceTableHookState,
+        });
+        const insertButton = getByRole('button', { name: 'Insert objects' });
+
+        expect(insertButton).toBeEnabled();
+        insertButton.click();
+
+        expect(onInsert).toHaveBeenCalledWith(
+          expect.objectContaining({
+            type: 'blockCard',
+          }),
+        );
+      });
+      it('should insert blockCard adf when response does not have a "key" prop', async () => {
+        const datasourceTableHookState = getSingleAssetHookState();
+        datasourceTableHookState.responseItems = [{}];
+        const { getByRole, onInsert } = await setup({
+          datasourceTableHookState,
+        });
+        const insertButton = getByRole('button', { name: 'Insert objects' });
+
+        expect(insertButton).toBeEnabled();
+        insertButton.click();
+
+        expect(onInsert).toHaveBeenCalledWith(
+          expect.objectContaining({
+            type: 'blockCard',
+          }),
+        );
+      });
+      it('should insert blockCard adf when more than 1 asset is returned', async () => {
+        const { getByRole, onInsert } = await setup({});
+        const insertButton = getByRole('button', { name: 'Insert objects' });
+
+        expect(insertButton).toBeEnabled();
+        insertButton.click();
+
+        expect(onInsert).toHaveBeenCalledWith({
+          type: 'blockCard',
+          attrs: {
+            datasource: {
+              id: 'some-assets-datasource-id',
+              parameters: {
+                cloudId: '',
+                aql: 'some-query',
+                schemaId: '123',
+              },
+              views: [
+                {
+                  type: 'table',
+                  properties: {
+                    columns: [{ key: 'myColumn' }],
+                  },
+                },
+              ],
+            },
+          },
+        });
+      });
+
+      it('should insert blockCard adf with default column keys when visibleColumnKeys is undefined', async () => {
+        const { getByRole, onInsert } = await setup({
+          visibleColumnKeys: undefined,
+        });
+        const insertButton = getByRole('button', { name: 'Insert objects' });
+
+        expect(insertButton).toBeEnabled();
+        insertButton.click();
+
+        expect(onInsert).toHaveBeenCalledWith({
+          type: 'blockCard',
+          attrs: {
+            datasource: {
+              id: 'some-assets-datasource-id',
+              parameters: {
+                cloudId: '',
+                aql: 'some-query',
+                schemaId: '123',
+              },
+              views: [
+                {
+                  type: 'table',
+                  properties: {
+                    columns: [
+                      { key: 'myDefaultColumn' },
+                      { key: 'otherDefaultColumn' },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        });
+      });
+    });
+  });
+
+  describe('when workspaceId is undefined', () => {
+    it('should disable insert button', async () => {
+      const { getByRole } = await setup({
+        assetsClientHookState: getEmptyAssetsClientState(),
       });
       expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
     });
@@ -165,17 +336,20 @@ describe('AssetsConfigModal', () => {
   describe('when no assets are returned', () => {
     it('should show no results screen in assets view mode', async () => {
       const { getByRole, getByText } = await setup({
-        hookState: { ...getDefaultHookState(), responseItems: [] },
+        datasourceTableHookState: {
+          ...getDefaultDataSourceTableHookState(),
+          responseItems: [],
+        },
       });
       expect(getByText('No results found')).toBeInTheDocument();
-      expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+      expect(getByRole('button', { name: 'Insert objects' })).toBeEnabled();
     });
   });
 
   describe('when an error occurs on data request', () => {
     it('should show network error message', async () => {
       const { getByRole, getByText } = await setup({
-        hookState: { ...getErrorHookState() },
+        datasourceTableHookState: { ...getErrorDatasourceTableHookState() },
       });
       expect(getByText('Unable to load results')).toBeInTheDocument();
       expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();

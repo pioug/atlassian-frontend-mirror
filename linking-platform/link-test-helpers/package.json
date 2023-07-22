@@ -31,6 +31,7 @@
     "./link-picker": "./src/link-picker/index.ts",
     "./jest": "./src/jest/index.ts",
     "./datasource": "./src/datasource/index.ts",
+    "./assets": "./src/datasource/assets/index.ts",
     ".": "./src/index.ts"
   },
   "dependencies": {

@@ -5,7 +5,6 @@ import {
   EditorFloatingToolbarModel,
   editorTestCase as test,
   expect,
-  fixTest,
 } from '@af/editor-libra';
 import {
   simpleTableWithOneParagraphAfter,
@@ -135,11 +134,6 @@ test.describe('resizing a table', () => {
   test("should resize to the closest guideline and back to it's original size correctly", async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-19137',
-      reason:
-        'Margin Left is being received as -10px and -80px but expected 0px, ideally it should ensure no margin applied',
-    });
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();

@@ -35,6 +35,7 @@ BrowserTestCase(
         smartLinks: {
           provider: cardProviderPromise,
           allowBlockCards: true,
+          allowDatasource: true,
         },
       },
       undefined,

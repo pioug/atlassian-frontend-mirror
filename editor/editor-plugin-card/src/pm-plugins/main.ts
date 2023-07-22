@@ -231,6 +231,7 @@ export const createPlugin =
 
             if (isDatasource) {
               if (
+                options.allowDatasource &&
                 platform !== 'mobile' &&
                 canRenderDatasource(node?.attrs?.datasource?.id)
               ) {

@@ -3,9 +3,15 @@ import { useEffect, useState } from 'react';
 import { fetchObjectSchemas, getWorkspaceId } from '../services/cmdbService';
 import { ObjectSchema } from '../types/assets/types';
 
+export interface AssetsClientState {
+  workspaceId?: string;
+  objectSchemas?: ObjectSchema[];
+  error?: Error;
+}
+
 // TODO: Pass in localhost:3000 for testing locally - remember to remove this code after
 // You must also have a proxy server running to forward requests from http://localhost:3000 to a JSM premium url
-export const useAssetsClient = (hostname?: string) => {
+export const useAssetsClient = (hostname?: string): AssetsClientState => {
   const [objectSchemas, setObjectSchemas] = useState<ObjectSchema[]>();
   const [workspaceId, setWorkspaceId] = useState<string>();
   const [error, setError] = useState<Error | undefined>();

@@ -1,7 +1,7 @@
 import deprecationWarning from '@atlaskit/ds-lib/deprecation-warning';
 import { token } from '@atlaskit/tokens';
 
-import { B100, N30A, skeleton as skeletonColor } from './colors';
+import { B200, N30A, skeleton as skeletonColor } from './colors';
 import type { Layers } from './types';
 
 export const CHANNEL = '__ATLASKIT_THEME__';
@@ -36,7 +36,7 @@ export const codeFontFamily = () =>
  * Please use `@atlaskit/focus-ring` instead.
  */
 export const focusRing = (
-  color: string = token('color.border.focused', B100),
+  color: string = token('color.border.focused', B200),
   outlineWidth: number = gridSize() / 4,
 ) => {
   deprecationWarning(

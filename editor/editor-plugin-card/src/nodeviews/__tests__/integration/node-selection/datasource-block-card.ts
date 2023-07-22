@@ -9,6 +9,7 @@ runBlockNodeSelectionTestSuite({
     smartLinks: {
       allowBlockCards: true,
       allowEmbeds: true,
+      allowDatasource: true,
     },
   },
   adfNode: {
@@ -55,4 +56,5 @@ runBlockNodeSelectionTestSuite({
       'firefox',
     ],
   },
+  editorPackage: 'editor-plugin-card',
 });

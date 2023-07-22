@@ -1,26 +1,9 @@
 import React from 'react';
 
-jest.mock('@atlaskit/link-datasource', () => ({
-  DatasourceTableView: ({
-    onVisibleColumnKeysChange,
-  }: {
-    onVisibleColumnKeysChange: (columnKeys: string[]) => void;
-  }) => {
-    return (
-      <button
-        data-testid="mock-datasource-table-view"
-        onClick={() => onVisibleColumnKeysChange(['mock-new-column'])}
-      >
-        Mock Datasource Table View
-      </button>
-    );
-  },
-  __esModule: true,
-}));
-
 import { DatasourceAttributes } from '@atlaskit/adf-schema/schema';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { CardOptions } from '@atlaskit/editor-common/card';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
   CardAdf,
@@ -42,6 +25,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
+import { CardProps } from '@atlaskit/smart-card';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { Request } from '../../../types';
@@ -55,6 +39,47 @@ const mockAnalyticsQueue = {
   flush: jest.fn(),
   canDispatch: jest.fn(() => true),
 };
+
+jest.mock('@atlaskit/link-datasource', () => ({
+  DatasourceTableView: ({
+    onVisibleColumnKeysChange,
+  }: {
+    onVisibleColumnKeysChange: (columnKeys: string[]) => void;
+  }) => {
+    return (
+      <button
+        data-testid="mock-datasource-table-view"
+        onClick={() => onVisibleColumnKeysChange(['mock-new-column'])}
+      >
+        Mock Datasource Table View
+      </button>
+    );
+  },
+  __esModule: true,
+}));
+
+jest.mock('@atlaskit/smart-card', () => {
+  const React = require('react');
+  return {
+    ...jest.requireActual<Object>('@atlaskit/smart-card'),
+    Card: class Card extends React.Component<CardProps> {
+      render() {
+        this.props.onResolve({
+          title: 'my-title',
+          url: 'https://my.url.com',
+        });
+        return (
+          <div
+            className="smart-card-mock"
+            data-isinline={this.props.appearance === 'inline'}
+          >
+            Smart Card Mock
+          </div>
+        );
+      }
+    },
+  };
+});
 
 jest.mock('../../analytics/create-analytics-queue', () => ({
   createAnalyticsQueue: jest.fn(() => mockAnalyticsQueue),
@@ -209,6 +234,7 @@ describe('datasource', () => {
   const editor = (
     doc: DocBuilder,
     appearance: EditorAppearance = 'full-page',
+    cardPropsOverride?: Partial<CardOptions>,
   ) => {
     return createEditor({
       doc,
@@ -216,6 +242,9 @@ describe('datasource', () => {
       editorProps: {
         allowPanel: true,
         smartLinks: {},
+        linking: {
+          smartLinks: { allowDatasource: true, ...cardPropsOverride },
+        },
         appearance,
       },
       pluginKey,
@@ -280,6 +309,33 @@ describe('datasource', () => {
     );
   });
 
+  it('should render inlineCard if allowDatasource prop is false', async () => {
+    const url = 'https://hello.atlassian.com/?jql=testing';
+    const { editorView } = editor(
+      doc(
+        datasourceBlockCard({
+          ...mockAdfAttributes,
+          url,
+        })(),
+      ),
+      'full-page',
+      {
+        allowDatasource: false,
+      },
+    );
+    expect(editorView.state.doc.content.childCount).toBe(1);
+    expect(editorView.state.doc.content.firstChild?.attrs).toEqual({
+      data: null,
+      width: null,
+      ...mockAdfAttributes,
+      url,
+    });
+    const nodeDOM = editorView.nodeDOM(0);
+    expect((nodeDOM as HTMLDivElement).innerHTML).toContain(
+      '<div class="smart-card-mock" data-isinline="true">Smart Card Mock</div>',
+    );
+  });
+
   it('should fallback to the inline card on platform="mobile" when datasource is provided with url', async () => {
     const { editorView } = editor(
       doc(datasourceBlockCard(mockAdfAttributesWithUrl)()),
@@ -293,11 +349,8 @@ describe('datasource', () => {
       ...mockAdfAttributesWithUrl,
     });
     const nodeDOM = editorView.nodeDOM(0);
-    expect((nodeDOM as HTMLDivElement).innerHTML).toEqual(
-      '<span aria-hidden="true" class="zeroWidthSpaceContainer"><span class="inlineNodeViewAddZeroWidthSpace"></span>​</span><span class="card"><span class="loader-wrapper"><span><a href="https://mono.jira-dev.com/?jql=something" data-testid="lazy-render-placeholder" class="smart-link-loading-placeholder css-1tp69om">https://mono.jira-dev.com/?jql=something</a></span></span></span><span aria-hidden="true" class="inlineNodeViewAddZeroWidthSpace"></span>',
-    );
-    expect((nodeDOM as HTMLDivElement).textContent).toContain(
-      'https://mono.jira-dev.com/?jql=something',
+    expect((nodeDOM as HTMLDivElement).innerHTML).toContain(
+      '<div class="smart-card-mock" data-isinline="true">Smart Card Mock</div>',
     );
   });
 
@@ -315,8 +368,8 @@ describe('datasource', () => {
       ...mockAdfAttributes,
     });
     const nodeDOM = editorView.nodeDOM(0);
-    expect((nodeDOM as HTMLDivElement).textContent).toMatch(
-      /Unsupported content/,
+    expect((nodeDOM as HTMLDivElement).innerHTML).toContain(
+      '<div class="smart-card-mock" data-isinline="true">Smart Card Mock</div>',
     );
   });
 
@@ -479,8 +532,8 @@ describe('datasource', () => {
         );
         const nodeDOM = editorView.nodeDOM(0);
 
-        expect((nodeDOM as HTMLDivElement).innerHTML).toMatch(
-          new RegExp(`href="${url}"`),
+        expect((nodeDOM as HTMLDivElement).innerHTML).toContain(
+          '<div class="smart-card-mock" data-isinline="true">Smart Card Mock</div>',
         );
 
         expect((nodeDOM as HTMLDivElement).innerHTML).not.toMatch(

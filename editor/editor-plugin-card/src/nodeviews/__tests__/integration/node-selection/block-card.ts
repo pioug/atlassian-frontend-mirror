@@ -33,4 +33,5 @@ runBlockNodeSelectionTestSuite({
       'firefox',
     ],
   },
+  editorPackage: 'editor-plugin-card',
 });

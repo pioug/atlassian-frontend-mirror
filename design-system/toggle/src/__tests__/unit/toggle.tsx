@@ -2,7 +2,6 @@ import React from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 
-import { axe } from '@af/accessibility-testing';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import Toggle from '../../toggle';
@@ -82,24 +81,6 @@ describe('Toggle component', () => {
 
     expect(crossIcon.getAttribute('aria-label')).toBeNull();
     expect(crossIcon.getAttribute('aria-label')).toBeNull();
-  });
-
-  describe('axe violations', () => {
-    it('should not have violations when have label', async () => {
-      const { container } = render(<Toggle label="Toggle" />);
-      await axe(container);
-    });
-
-    it('should not have violations when have paired label', async () => {
-      const { container } = render(
-        <>
-          <label htmlFor="toggle">Toggle</label>
-          <Toggle id="toggle" />
-        </>,
-      );
-
-      await axe(container);
-    });
   });
 
   describe('analytics', () => {

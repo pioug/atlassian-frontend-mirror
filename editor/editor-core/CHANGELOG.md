@@ -1,5 +1,15 @@
 # @atlaskit/editor-core
 
+## 187.3.0
+
+### Minor Changes
+
+- [`6bacee18c2d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6bacee18c2d) - [ux] Add new allowDatasource prop for enabling datasource in editor and add inlineCard fallback render for blockCard with datasource
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.2.7
 
 ### Patch Changes

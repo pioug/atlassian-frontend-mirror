@@ -52,14 +52,20 @@ const updateCardType = (
   resolvedCard: CardAdf | DatasourceAdf,
   options: CardOptions,
 ) => {
+  const isDatasource =
+    resolvedCard.type === 'blockCard' && 'datasource' in resolvedCard.attrs;
+
   if (
     (resolvedCard?.type === 'blockCard' && !options.allowBlockCards) ||
-    (resolvedCard?.type === 'embedCard' && !options.allowEmbeds)
+    (resolvedCard?.type === 'embedCard' && !options.allowEmbeds) ||
+    (isDatasource && !options.allowDatasource)
   ) {
     // clean out the 'layout' attr from an embedCard type that should be transformed into the inlineCard type.
     if (resolvedCard.type === 'embedCard') {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       delete (resolvedCard as any).attrs.layout;
+    } else if (isDatasource) {
+      delete (resolvedCard.attrs as Partial<DatasourceAdf['attrs']>).datasource;
     }
     (resolvedCard as CardAdf).type = 'inlineCard';
   }

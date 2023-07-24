@@ -53,7 +53,7 @@
   "devDependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
     "@atlaskit/editor-test-helpers": "^18.9.0",
-    "@atlaskit/link-test-helpers": "^4.1.0",
+    "@atlaskit/link-test-helpers": "^4.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/util-data-test": "^17.8.0",

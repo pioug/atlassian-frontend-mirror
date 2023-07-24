@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/primitives",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Primitives are token-backed low-level building blocks.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -77,6 +77,15 @@
           "id": "@atlaskit/primitives/grid",
           "status": {
             "type": "closed-beta"
+          }
+        },
+        {
+          "title": "Bleed",
+          "folder": "bleed",
+          "slug": "primitives/bleed",
+          "id": "@atlaskit/primitives/bleed",
+          "status": {
+            "type": "alpha"
           }
         },
         {

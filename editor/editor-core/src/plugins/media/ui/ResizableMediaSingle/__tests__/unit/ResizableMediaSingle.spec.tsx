@@ -1,14 +1,13 @@
 import * as ProseMirrorUtils from 'prosemirror-utils';
-jest
-  .spyOn(ProseMirrorUtils, 'findParentNodeOfTypeClosestToPos')
-  .mockReturnValue({} as any);
 import React from 'react';
 import { shallow } from 'enzyme';
+import type {
+  LightEditorPlugin,
+  CreatePMEditorOptions,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
-  CreatePMEditorOptions,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
@@ -20,6 +19,21 @@ import {
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+
+jest.mock('prosemirror-utils', () => {
+  // Unblock prosemirror bump:
+  // Workaround to enable spy on prosemirror-utils cjs bundle
+  const originalModule = jest.requireActual('prosemirror-utils');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+  };
+});
+jest
+  .spyOn(ProseMirrorUtils, 'findParentNodeOfTypeClosestToPos')
+  .mockReturnValue({} as any);
+
 /**
  * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
  *
@@ -42,11 +56,8 @@ import {
   nextTick,
 } from '@atlaskit/media-test-helpers';
 import ResizableMediaSingle, { calcOffsetLeft } from '../../index';
-import {
-  Resizer,
-  ResizerProps,
-  ResizerState,
-} from '@atlaskit/editor-common/ui';
+import type { ResizerProps, ResizerState } from '@atlaskit/editor-common/ui';
+import { Resizer } from '@atlaskit/editor-common/ui';
 import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
 import floatingToolbarPlugin from '../../../../../../plugins/floating-toolbar';
@@ -55,7 +66,7 @@ import editorDisabledPlugin from '../../../../../../plugins/editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core';
 
 describe('<ResizableMediaSingle />', () => {
   const getMediaClient = () => {

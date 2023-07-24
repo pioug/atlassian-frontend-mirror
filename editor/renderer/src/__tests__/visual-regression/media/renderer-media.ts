@@ -20,9 +20,9 @@ import mediaGroupAdf from './__fixtures__/renderer-mediaGroup.adf.json';
 
 import { waitForAllMedia } from '../../__helpers/page-objects/_media';
 import { selectors as rendererSelectors } from '../../__helpers/page-objects/_renderer';
-import { MediaOptions } from '@atlaskit/editor-core';
 import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { RendererAppearance } from '../../../ui/Renderer/types';
+import type { RendererAppearance } from '../../../ui/Renderer/types';
+import type { MediaOptions } from '../../../types/mediaOptions';
 import { BoundingBox } from 'puppeteer';
 
 const devices = [

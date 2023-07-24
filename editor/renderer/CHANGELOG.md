@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 108.8.3
+
+### Patch Changes
+
+- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+
+## 108.8.2
+
+### Patch Changes
+
+- [`7639c62cc20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7639c62cc20) - [ED-18776] Use local media types to avoid circular dependencies in renderer
+
+## 108.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.8.0
 
 ### Minor Changes

@@ -5,9 +5,7 @@ import { jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
-import { xcss } from '@atlaskit/primitives';
-import Box from '@atlaskit/primitives/box';
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 import GlobalTheme from '@atlaskit/theme/components';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 

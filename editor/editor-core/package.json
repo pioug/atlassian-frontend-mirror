@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.3.0",
+  "version": "187.3.6",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -75,7 +75,6 @@
     "@atlaskit/editor-tables": "^2.3.0",
     "@atlaskit/emoji": "^67.4.0",
     "@atlaskit/empty-state": "^7.6.0",
-    "@atlaskit/enforce-peer-dependencies": "^1.0.1",
     "@atlaskit/form": "^8.11.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/locale": "^2.5.0",
@@ -157,7 +156,7 @@
     "@atlaskit/inline-dialog": "^13.6.0",
     "@atlaskit/link-analytics": "^8.2.0",
     "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/link-test-helpers": "^4.1.0",
+    "@atlaskit/link-test-helpers": "^4.2.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
@@ -259,8 +258,5 @@
       "type": "boolean",
       "referenceOnly": "true"
     }
-  },
-  "scripts": {
-    "postinstall": "npx enforce-peer-dependencies --internal-packages"
   }
 }

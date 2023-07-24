@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/renderer",
-  "version": "108.8.0",
+  "version": "108.8.3",
   "description": "Renderer component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,9 +36,8 @@
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-shared-styles": "^2.4.0",
     "@atlaskit/emoji": "^67.4.0",
-    "@atlaskit/enforce-peer-dependencies": "^1.0.1",
     "@atlaskit/icon": "^21.12.0",
-    "@atlaskit/link-datasource": "^0.28.0",
+    "@atlaskit/link-datasource": "^0.29.0",
     "@atlaskit/media-card": "^76.1.0",
     "@atlaskit/media-client": "^23.1.0",
     "@atlaskit/media-common": "^7.1.0",
@@ -73,10 +72,9 @@
     "@af/visual-regression": "*",
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/css-reset": "^6.5.0",
-    "@atlaskit/editor-core": "^187.3.0",
     "@atlaskit/editor-test-helpers": "^18.10.0",
     "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/link-test-helpers": "^4.1.0",
+    "@atlaskit/link-test-helpers": "^4.2.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
@@ -123,8 +121,5 @@
     "platform.editor.custom-table-width": {
       "type": "boolean"
     }
-  },
-  "scripts": {
-    "postinstall": "npx enforce-peer-dependencies --internal-packages"
   }
 }

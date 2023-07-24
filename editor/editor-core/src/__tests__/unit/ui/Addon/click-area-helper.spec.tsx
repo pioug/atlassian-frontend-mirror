@@ -1,19 +1,15 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  p,
-  panel,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { closestElement } from '@atlaskit/editor-common/utils';
 
 import {
   clickAreaClickHandler,
   checkForModal,
 } from '../../../../ui/Addon/click-area-helper';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 import {
   GapCursorSelection,
   Side,
@@ -276,7 +272,7 @@ describe('checkForModal', () => {
   });
 });
 
-describe('when click is coming from a button', () => {
+describe('when click coming from', () => {
   const createEditor = createEditorFactory();
   const editor = (doc: DocBuilder) =>
     createEditor({
@@ -284,37 +280,76 @@ describe('when click is coming from a button', () => {
       editorProps: { allowPanel: true },
     });
 
-  const Editor = (props: any) => (
-    <div onClick={props.handleClick}>
-      <div className="akEditor">
-        <div className="ak-editor-content-area">
-          <button id="fake-button">Button </button>
-          <div className="child-ak-editor-content-area"></div>
-        </div>
-      </div>
-      <div className="outside-ak-editor-content-area"></div>
-    </div>
-  );
-
   const DummyComponent = (props: any) => {
-    return <Editor handleClick={props.handleClick} />;
+    return <props.Editor handleClick={props.handleClick} />;
   };
 
-  it('should not focus on editor', () => {
-    const editorView = editor(doc(panel()(p('{<>}')))).editorView;
-    const focusSpy = jest.spyOn(editorView, 'focus');
-
-    const wrapper = mount(
-      <DummyComponent
-        handleClick={(event: React.MouseEvent<any>) => {
-          clickAreaClickHandler(editorView, event);
-        }}
-        renderInsideModal
-      />,
+  describe('a button', () => {
+    const Editor = (props: any) => (
+      <div onClick={props.handleClick}>
+        <div className="akEditor">
+          <div className="ak-editor-content-area">
+            <button id="fake-button">Button </button>
+            <div className="child-ak-editor-content-area"></div>
+          </div>
+        </div>
+        <div className="outside-ak-editor-content-area"></div>
+      </div>
     );
 
-    wrapper.find('#fake-button').simulate('click', { clientY: -10 });
+    it('should not focus on editor', () => {
+      const editorView = editor(doc(panel()(p('{<>}')))).editorView;
+      const focusSpy = jest.spyOn(editorView, 'focus');
 
-    expect(focusSpy).not.toHaveBeenCalled();
+      const wrapper = mount(
+        <DummyComponent
+          handleClick={(event: React.MouseEvent<any>) => {
+            clickAreaClickHandler(editorView, event);
+          }}
+          Editor={Editor}
+        />,
+      );
+
+      wrapper.find('#fake-button').simulate('click', { clientY: -10 });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('within #column-picker-popup', () => {
+    const Editor = (props: any) => (
+      <div onClick={props.handleClick}>
+        <div className="akEditor">
+          <div className="ak-editor-content-area">
+            <div className="child-ak-editor-content-area"></div>
+          </div>
+        </div>
+        <div className="outside-ak-editor-content-area">
+          <div id="column-picker-popup">
+            <div id="something-inside-column-picker"></div>
+          </div>
+        </div>
+      </div>
+    );
+
+    it('should not focus on editor', () => {
+      const editorView = editor(doc(panel()(p('{<>}')))).editorView;
+      const focusSpy = jest.spyOn(editorView, 'focus');
+
+      const wrapper = mount(
+        <DummyComponent
+          handleClick={(event: React.MouseEvent<any>) => {
+            clickAreaClickHandler(editorView, event);
+          }}
+          Editor={Editor}
+        />,
+      );
+
+      wrapper
+        .find('#something-inside-column-picker')
+        .simulate('click', { clientY: -10 });
+
+      expect(focusSpy).not.toHaveBeenCalled();
+    });
   });
 });

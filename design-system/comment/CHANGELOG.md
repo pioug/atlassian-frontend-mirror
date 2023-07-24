@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.8.13
+
+### Patch Changes
+
+- [`3fadbb8bf73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fadbb8bf73) - Internal changes.
+
 ## 10.8.12
 
 ### Patch Changes

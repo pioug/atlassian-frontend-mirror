@@ -94,6 +94,10 @@ const rule = createLintRule({
                 desc: `Convert to Inline`,
                 fix: primitiveFixer(node, 'Inline', context),
               },
+              {
+                desc: `Convert to Flex`,
+                fix: primitiveFixer(node, 'Flex', context),
+              },
             ],
           });
         }
@@ -108,6 +112,10 @@ const rule = createLintRule({
               {
                 desc: `Convert to Stack`,
                 fix: primitiveFixer(node, 'Stack', context),
+              },
+              {
+                desc: `Convert to Flex`,
+                fix: primitiveFixer(node, 'Flex', context),
               },
             ],
           });

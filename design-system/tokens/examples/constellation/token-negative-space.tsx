@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
 
+import { Bleed } from '@atlaskit/primitives';
 import { N0, N300A, N30A, N60A } from '@atlaskit/theme/colors';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
@@ -31,14 +32,15 @@ const containerStyles = css({
 const dividerStyles = css({
   border: 'none',
   borderBottom: `1px solid ${token('color.border', N300A)}`,
-  marginInline: `calc(-1 * ${token('space.200', '16px')})`,
 });
 
 const TokensNegativeSpace = () => {
   return (
     <div css={containerStyles}>
       <p>A container with an inset</p>
-      <hr css={dividerStyles}></hr>
+      <Bleed inline="space.200">
+        <hr css={dividerStyles}></hr>
+      </Bleed>
     </div>
   );
 };

@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.25.2
+
+### Patch Changes
+
+- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+
+## 74.25.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 74.25.0
 
 ### Minor Changes

@@ -1,18 +1,16 @@
 /** @jsx jsx */
 import { forwardRef, Ref } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
 import ChevronIcon from '@atlaskit/icon/glyph/chevron-down';
-import { token } from '@atlaskit/tokens';
+import { Bleed, xcss } from '@atlaskit/primitives';
 
 import { PrimaryButton } from '../PrimaryButton';
 
 import { PrimaryDropdownButtonProps } from './types';
 
-const chevronIconStyles = css({
-  marginRight: `calc(-1 * ${token('space.100', '8px')})`,
-  marginLeft: `calc(-1 * ${token('space.100', '8px')})`,
+const chevronIconStyles = xcss({
   opacity: 0.51,
 });
 
@@ -32,9 +30,9 @@ export const PrimaryDropdownButton = forwardRef<
   return (
     <PrimaryButton
       iconAfter={
-        <span css={chevronIconStyles}>
+        <Bleed xcss={chevronIconStyles} inline="space.100">
           <ChevronIcon label="" />
-        </span>
+        </Bleed>
       }
       ref={ref}
       {...props}

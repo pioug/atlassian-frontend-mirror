@@ -32,6 +32,16 @@ const renderColumnPicker = (
 };
 
 describe('Column picker', () => {
+  it('should have specific html element id', async () => {
+    const { getByTestId } = renderColumnPicker([], [], false);
+
+    // open popup
+    const triggerButton = getByTestId('column-picker-trigger-button');
+    fireEvent.click(triggerButton);
+
+    expect(document.getElementById('column-picker-popup')).not.toBeNull();
+  });
+
   it('popup button should be disabled if table is loading', async () => {
     const columns: DatasourceResponseSchemaProperty[] = [
       {

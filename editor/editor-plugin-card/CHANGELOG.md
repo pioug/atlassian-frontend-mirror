@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 0.2.2
+
+### Patch Changes
+
+- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.0
 
 ### Minor Changes

@@ -62,8 +62,9 @@ export default function handleFocus(refs: Array<FocusableElement>) {
 
     switch (action) {
       case 'next':
+        // Always cancelling the event to prevent scrolling
+        e.preventDefault();
         if (currentFocusedIdx < refs.length - 1) {
-          e.preventDefault();
           const nextFocusableElement = getNextFocusableElement(
             refs,
             currentFocusedIdx,
@@ -74,8 +75,9 @@ export default function handleFocus(refs: Array<FocusableElement>) {
         break;
 
       case 'prev':
+        // Always cancelling the event to prevent scrolling
+        e.preventDefault();
         if (currentFocusedIdx > 0) {
-          e.preventDefault();
           const prevFocusableElement = getPrevFocusableElement(
             refs,
             currentFocusedIdx,

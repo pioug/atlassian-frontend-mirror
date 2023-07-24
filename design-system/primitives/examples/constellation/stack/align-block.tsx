@@ -2,7 +2,8 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
-import { Radio } from '@atlaskit/radio';
+
+import Block from '../shared/block';
 
 const containerStyles = xcss({
   display: 'flex',
@@ -21,9 +22,9 @@ export default function Example() {
             }}
           >
             <Stack space="space.050" alignBlock="start">
-              <Radio value="radio" label="Radio" />
-              <Radio value="radio" label="Radio" />
-              <Radio value="radio" label="Radio" />
+              <Block />
+              <Block />
+              <Block />
             </Stack>
           </Box>
         </Stack>
@@ -36,9 +37,9 @@ export default function Example() {
             }}
           >
             <Stack space="space.050" alignBlock="center">
-              <Radio value="radio" label="Radio" />
-              <Radio value="radio" label="Radio" />
-              <Radio value="radio" label="Radio" />
+              <Block />
+              <Block />
+              <Block />
             </Stack>
           </Box>
         </Stack>
@@ -51,9 +52,9 @@ export default function Example() {
             }}
           >
             <Stack space="space.050" alignBlock="end">
-              <Radio value="radio" label="Radio" />
-              <Radio value="radio" label="Radio" />
-              <Radio value="radio" label="Radio" />
+              <Block />
+              <Block />
+              <Block />
             </Stack>
           </Box>
         </Stack>

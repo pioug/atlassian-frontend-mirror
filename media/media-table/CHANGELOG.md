@@ -1,5 +1,11 @@
 # @atlaskit/media-table
 
+## 15.0.7
+
+### Patch Changes
+
+- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+
 ## 15.0.6
 
 ### Patch Changes

@@ -317,7 +317,7 @@ export const mockDatasourceFetchRequests = (datasourceId?: string | null) => {
         includeSchema,
       } = requestBody;
       return new Promise((resolve, reject) => {
-        const delay = numberOfLoads++ * 1000;
+        const delay = numberOfLoads * 1000;
         setTimeout(() => {
           if (cloudId === '11111') {
             resolve(
@@ -353,6 +353,7 @@ export const mockDatasourceFetchRequests = (datasourceId?: string | null) => {
               generateDataResponse({ cloudId, numberOfLoads, includeSchema }),
             );
           }
+          numberOfLoads += 1;
         }, delay);
       });
     },

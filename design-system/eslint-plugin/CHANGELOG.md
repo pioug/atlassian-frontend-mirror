@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.2.0
+
+### Minor Changes
+
+- [`a5c9f63d2a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a5c9f63d2a8) - Add improved behavior for suggestions for `use-primitives` rule.
+
 ## 8.1.0
 
 ### Minor Changes

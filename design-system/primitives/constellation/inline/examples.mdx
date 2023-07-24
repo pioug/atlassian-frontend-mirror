@@ -4,7 +4,7 @@ description: Inline is a primitive component based on flexbox that manages the h
 order: 0
 ---
 
-import InlineBasic from '../../examples/constellation/inline/basic';
+import Basic from '../../examples/constellation/inline/basic';
 import InlineSpaceBasic from '../../examples/constellation/inline/space-basic';
 import InlineSpaceWrap from '../../examples/constellation/inline/space-wrap';
 import InlineAlignBlock from '../../examples/constellation/inline/align-block';
@@ -14,6 +14,7 @@ import InlineWrap from '../../examples/constellation/inline/wrap';
 import InlineSeparator from '../../examples/constellation/inline/separator';
 import InlineGrow from '../../examples/constellation/inline/grow';
 import InlineAs from '../../examples/constellation/inline/as';
+import InlinePracticalUseCase from '../../examples/constellation/inline/practical-use-case';
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
@@ -23,12 +24,13 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
   directoryName="primitives"
 />
 
+
 ## Basic
 
 Inline is an abstraction to efficiently lay-out a group of elements horizontally.
 Use the given props to configure display behaviour using scalable recommendations from the Atlassian Design System.
 
-<Example Component={InlineBasic} packageName="@atlaskit/primitives/inline" />
+<Example Component={Basic} packageName="@atlaskit/primitives/inline" />
 
 ## Space
 
@@ -89,3 +91,7 @@ To control that the `grow` prop can be used with the values:
 It's possible to control the rendered HTML element with the `as` prop.
 
 <Example Component={InlineAs} packageName="@atlaskit/primitives/inline" />
+
+## Practical Use Case
+
+<Example Component={InlinePracticalUseCase} packageName="@atlaskit/primitives/inline" />

@@ -81,7 +81,7 @@ export const ColumnPicker = ({
   };
 
   const handleOpen = useCallback(() => {
-    onOpen && void onOpen();
+    onOpen && onOpen();
     void sortSelectedColumnsTop();
   }, [onOpen, sortSelectedColumnsTop]);
 
@@ -106,6 +106,7 @@ export const ColumnPicker = ({
       onOpen={handleOpen}
       closeMenuOnSelect={false}
       hideSelectedOptions={false}
+      id={'column-picker-popup'}
       isMulti
       isOptionDisabled={handleIsOptionDisabled}
       placeholder={intl.formatMessage(columnPickerMessages.search)}

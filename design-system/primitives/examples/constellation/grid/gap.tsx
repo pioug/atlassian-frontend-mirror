@@ -2,25 +2,28 @@ import React from 'react';
 
 import { Grid } from '@atlaskit/primitives';
 
-import Square from '../shared/square';
+import Block from '../shared/block';
 
 export default function Basic() {
   return (
     <Grid gap="space.200" alignItems="center">
-      <Grid testId="grid-basic" gap="space.100">
-        <Square />
-        <Square />
-        <Square />
+      <Grid templateColumns="1fr 1fr" testId="grid-basic" gap="space.100">
+        <Block />
+        <Block />
+        <Block />
+        <Block />
       </Grid>
-      <Grid testId="grid-basic" gap="space.200">
-        <Square />
-        <Square />
-        <Square />
+      <Grid templateColumns="1fr 1fr" testId="grid-basic" gap="space.200">
+        <Block />
+        <Block />
+        <Block />
+        <Block />
       </Grid>
-      <Grid testId="grid-basic" gap="space.400">
-        <Square />
-        <Square />
-        <Square />
+      <Grid templateColumns="1fr 1fr" testId="grid-basic" gap="space.400">
+        <Block />
+        <Block />
+        <Block />
+        <Block />
       </Grid>
     </Grid>
   );

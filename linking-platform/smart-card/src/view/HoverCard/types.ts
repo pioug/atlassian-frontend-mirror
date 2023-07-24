@@ -95,7 +95,6 @@ export type HoverCardContentProps = {
   url: string;
   onMouseEnter?: MouseEventHandler;
   onMouseLeave?: MouseEventHandler;
-  onWheel?: EventListenerOrEventListenerObject;
   showServerActions?: boolean;
 };
 

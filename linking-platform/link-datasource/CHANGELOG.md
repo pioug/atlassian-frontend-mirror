@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 0.29.1
+
+### Patch Changes
+
+- [`f10d32545d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f10d32545d2) - Fix bug where clicking anything in column picker inside Datasource table triggers editor focus toggling
+
+## 0.29.0
+
+### Minor Changes
+
+- [`dd0db85e7b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd0db85e7b7) - [ux] Added onInsertPressed method to insert ADF into doc and updated helper test mocks
+
 ## 0.28.5
 
 ### Patch Changes

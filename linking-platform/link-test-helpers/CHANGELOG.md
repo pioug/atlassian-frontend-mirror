@@ -1,5 +1,17 @@
 # @atlaskit/link-test-helpers
 
+## 4.2.1
+
+### Patch Changes
+
+- [`d76d056a63a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d76d056a63a) - Fix problem where React key violation is thrown in console when datasources are displayed with mocked data
+
+## 4.2.0
+
+### Minor Changes
+
+- [`dd0db85e7b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dd0db85e7b7) - [ux] Added onInsertPressed method to insert ADF into doc and updated helper test mocks
+
 ## 4.1.4
 
 ### Patch Changes

@@ -39,6 +39,17 @@ import {
   Props as FloatingInsertButtonProps,
 } from '../../../plugins/table/ui/FloatingInsertButton';
 
+jest.mock('prosemirror-utils', () => {
+  // Unblock prosemirror bump:
+  // Workaround to enable spy on prosemirror-utils cjs bundle
+  const originalModule = jest.requireActual('prosemirror-utils');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+  };
+});
+
 const getEditorContainerWidth = () => ({ width: 500 });
 const createEditor = createEditorFactory<TablePluginState>();
 const createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));

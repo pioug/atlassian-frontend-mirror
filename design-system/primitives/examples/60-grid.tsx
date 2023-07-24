@@ -9,7 +9,7 @@ const customBorderStyles = xcss({
   borderRadius: 'border.radius',
 });
 
-const Square = ({ style }: any) => (
+const Block = ({ style }: any) => (
   <Box
     xcss={customBorderStyles}
     style={style}
@@ -27,12 +27,12 @@ export default function Basic() {
         columnGap="space.400"
         templateColumns="1fr 100px 1fr"
       >
-        <Square />
-        <Square />
-        <Square />
-        <Square />
-        <Square />
-        <Square />
+        <Block />
+        <Block />
+        <Block />
+        <Block />
+        <Block />
+        <Block />
       </Grid>
       <Grid
         testId="grid-basic"
@@ -40,9 +40,9 @@ export default function Basic() {
         columnGap="space.400"
         templateRows="200px 100px 200px"
       >
-        <Square />
-        <Square />
-        <Square />
+        <Block />
+        <Block />
+        <Block />
       </Grid>
       <Grid
         testId="grid-basic"
@@ -53,10 +53,10 @@ export default function Basic() {
           'footer footer',
         ]}
       >
-        <Square style={{ gridArea: 'navigation' }} />
-        <Square style={{ gridArea: 'sidenav' }} />
-        <Square style={{ gridArea: 'content' }} />
-        <Square style={{ gridArea: 'footer' }} />
+        <Block style={{ gridArea: 'navigation' }} />
+        <Block style={{ gridArea: 'sidenav' }} />
+        <Block style={{ gridArea: 'content' }} />
+        <Block style={{ gridArea: 'footer' }} />
       </Grid>
     </Grid>
   );

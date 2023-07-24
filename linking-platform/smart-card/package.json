@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.9.13",
+  "version": "26.9.15",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -28,7 +28,6 @@
     "@atlaskit/avatar-group": "^9.3.0",
     "@atlaskit/button": "^16.8.0",
     "@atlaskit/dropdown-menu": "^11.10.0",
-    "@atlaskit/enforce-peer-dependencies": "^1.0.1",
     "@atlaskit/frontend-utilities": "^2.7.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-file-type": "^6.4.0",
@@ -75,7 +74,7 @@
     "@af/visual-regression": "*",
     "@atlaskit/avatar": "^21.3.0",
     "@atlaskit/css-reset": "^6.5.0",
-    "@atlaskit/link-test-helpers": "^4.1.0",
+    "@atlaskit/link-test-helpers": "^4.2.0",
     "@atlaskit/lozenge": "^11.4.0",
     "@atlaskit/media-integration-test-helpers": "^3.0.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
@@ -145,8 +144,5 @@
       "type": "boolean"
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
-  "scripts": {
-    "postinstall": "npx enforce-peer-dependencies --internal-packages"
-  }
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

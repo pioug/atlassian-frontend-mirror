@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.9.15
+
+### Patch Changes
+
+- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+
+## 26.9.14
+
+### Patch Changes
+
+- [`08c372c1547`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c372c1547) - [ux] Revert of functionality added in 26.9.8
+
 ## 26.9.13
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-card",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Card plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -42,10 +42,9 @@
     "@atlaskit/editor-plugin-hyperlink": "^0.2.0",
     "@atlaskit/editor-plugin-width": "^0.1.0",
     "@atlaskit/editor-shared-styles": "^2.4.0",
-    "@atlaskit/enforce-peer-dependencies": "^1.0.1",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/link-analytics": "^8.2.0",
-    "@atlaskit/link-datasource": "^0.28.0",
+    "@atlaskit/link-datasource": "^0.29.0",
     "@atlaskit/smart-card": "^26.9.0",
     "@atlaskit/theme": "^12.5.0",
     "@atlaskit/tokens": "^1.13.0",
@@ -70,7 +69,7 @@
   "devDependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
     "@atlaskit/editor-test-helpers": "^18.9.0",
-    "@atlaskit/link-test-helpers": "^4.1.0",
+    "@atlaskit/link-test-helpers": "^4.2.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/ssr": "*",
     "@atlaskit/util-data-test": "^17.8.0",
@@ -123,8 +122,5 @@
     "platform.linking-platform.datasource-jira_issues": {
       "type": "boolean"
     }
-  },
-  "scripts": {
-    "postinstall": "npx enforce-peer-dependencies --internal-packages"
   }
 }

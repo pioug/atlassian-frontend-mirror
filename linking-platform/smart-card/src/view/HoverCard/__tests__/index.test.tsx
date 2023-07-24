@@ -174,18 +174,6 @@ describe('HoverCard', () => {
 
       expect(queryByTestId('hover-card')).toBeNull();
     });
-
-    it('should hide a hover card when user try to scroll (wheel)', async () => {
-      const testId = 'hover-card-content';
-      const { findByTestId, queryByTestId } = await setupComponent();
-      jest.runAllTimers();
-
-      const content = await findByTestId(testId);
-      fireEvent.wheel(content);
-      jest.runAllTimers();
-
-      expect(queryByTestId(testId)).not.toBeInTheDocument();
-    });
   };
 
   const setupEventPropagationTest = async ({

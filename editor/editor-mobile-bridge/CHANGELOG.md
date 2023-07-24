@@ -1,5 +1,36 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.3.6
+
+### Patch Changes
+
+- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+- Updated dependencies
+
+## 187.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.3.1
 
 ### Patch Changes

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@atlaskit/primitives';
 
-import Square from '../shared/square';
+import Block from '../shared/block';
 
 export default function Basic() {
   return (
@@ -13,12 +13,12 @@ export default function Basic() {
         columnGap="space.400"
         templateColumns="1fr 100px 1fr"
       >
-        <Square />
-        <Square />
-        <Square />
-        <Square />
-        <Square />
-        <Square />
+        <Block />
+        <Block />
+        <Block />
+        <Block />
+        <Block />
+        <Block />
       </Grid>
       <Grid
         testId="grid-basic"
@@ -26,8 +26,8 @@ export default function Basic() {
         columnGap="space.400"
         templateRows="3rem 2rem"
       >
-        <Square />
-        <Square />
+        <Block />
+        <Block />
       </Grid>
       <Grid
         testId="grid-basic"
@@ -38,10 +38,10 @@ export default function Basic() {
           'footer footer',
         ]}
       >
-        <Square style={{ gridArea: 'navigation' }} />
-        <Square style={{ gridArea: 'sidenav' }} />
-        <Square style={{ gridArea: 'content' }} />
-        <Square style={{ gridArea: 'footer' }} />
+        <Block style={{ gridArea: 'navigation' }} />
+        <Block style={{ gridArea: 'sidenav' }} />
+        <Block style={{ gridArea: 'content' }} />
+        <Block style={{ gridArea: 'footer' }} />
       </Grid>
     </Grid>
   );

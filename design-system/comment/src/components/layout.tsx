@@ -1,47 +1,43 @@
 /** @jsx jsx */
 import { FC, ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Grid, Stack, xcss } from '@atlaskit/primitives';
 import { N20A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import AvatarSlot from './slots/avatar-slot';
 import ContentSlot from './slots/content-slot';
 
-const inlineCommentStyles = css({
+const inlineCommentStyles = xcss({
   gridTemplateAreas: `
   "avatar-area comment-area"
   "nested-comments-area nested-comments-area"`,
 });
 
-const containerStyles = css({
-  display: 'grid',
+const containerStyles = xcss({
   position: 'relative',
-  gap: token('space.100', '8px'),
+  gridTemplateColumns: 'auto 1fr',
   gridTemplateAreas: `"avatar-area comment-area" \
     ". nested-comments-area"`,
-  gridTemplateColumns: 'auto 1fr',
-});
-
-const gridTemplateNoChildrenStyles = css({
-  gridTemplateAreas: `"avatar-area comment-area"`,
 });
 
 // if the background is appied on Box and tokens are not switched on it breaks.
 // This can be safely removed (and applied on Box) when tokens are on by default
-const highlightOverlayStyles = css({
-  padding: token('space.100', '8px'),
+const highlightOverlayStyles = xcss({
+  padding: 'space.100',
   position: 'absolute',
+  // @ts-expect-error needs negative tokens
   inset: `calc(-1 * ${token('space.100', '8px')})`,
+  // @ts-expect-error needs background-color to be on new theme
   backgroundColor: token('color.background.neutral', N20A),
   gridArea: '1 / 1 / 2 / 3',
   pointerEvents: 'none',
 });
 
-const stackOverrideStyles = css({
-  paddingTop: token('space.300', '24px'),
+const stackOverrideStyles = xcss({
+  paddingTop: 'space.300',
   gridArea: 'nested-comments-area',
 });
 
@@ -92,29 +88,30 @@ const Layout: FC<CommentLayoutProps> = ({
   testId,
   avatar,
 }) => (
-  <div
-    css={[
+  <Grid
+    gap="space.100"
+    templateAreas={!children ? ['avatar-area comment-area'] : undefined}
+    xcss={[
       containerStyles,
       shouldRenderNestedCommentsInline && inlineCommentStyles,
-      !children && gridTemplateNoChildrenStyles,
     ]}
-    data-testid={testId}
+    testId={testId}
     id={id}
   >
     {avatar && <AvatarSlot>{avatar}</AvatarSlot>}
     {content && <ContentSlot>{content}</ContentSlot>}
     {children && (
-      <span css={stackOverrideStyles}>
-        <Stack space="space.400">{children}</Stack>
-      </span>
+      <Stack xcss={stackOverrideStyles} space="space.400">
+        {children}
+      </Stack>
     )}
     {highlighted && (
-      <div
-        css={highlightOverlayStyles}
-        data-testid={testId && `${testId}-highlighted`}
+      <Box
+        xcss={highlightOverlayStyles}
+        testId={testId && `${testId}-highlighted`}
       />
     )}
-  </div>
+  </Grid>
 );
 
 Layout.displayName = 'CommentLayout';

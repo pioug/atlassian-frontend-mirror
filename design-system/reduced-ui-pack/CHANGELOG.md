@@ -1,5 +1,11 @@
 # @atlaskit/reduced-ui-pack
 
+## 18.0.5
+
+### Patch Changes
+
+- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+
 ## 18.0.4
 
 ### Patch Changes

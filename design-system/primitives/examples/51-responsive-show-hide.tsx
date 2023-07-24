@@ -3,13 +3,14 @@ import { Fragment } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { Box } from '../src';
 import { UNSAFE_BREAKPOINTS_ORDERED_LIST } from '../src/responsive/constants';
 import { Hide } from '../src/responsive/hide';
 import { Show } from '../src/responsive/show';
 
 export default () => {
   return (
-    <div>
+    <Box>
       <h4>
         <code>{'<Show>'}</code>:
       </h4>
@@ -45,6 +46,6 @@ export default () => {
           </Fragment>
         );
       })}
-    </div>
+    </Box>
   );
 };

@@ -4,7 +4,7 @@ import Button from '@atlaskit/button';
 import Heading from '@atlaskit/heading';
 import { Box, Flex, Stack } from '@atlaskit/primitives';
 
-import Square from '../shared/square';
+import Block from '../shared/block';
 
 export default function Example() {
   const [direction, setDirection] = useState<'row' | 'column'>('row');
@@ -23,9 +23,9 @@ export default function Example() {
       <Stack space="space.100">
         <Heading level="h400">Flex direction</Heading>
         <Flex gap="space.100" direction={direction}>
-          <Square />
-          <Square />
-          <Square />
+          <Block />
+          <Block />
+          <Block />
         </Flex>
       </Stack>
     </Stack>

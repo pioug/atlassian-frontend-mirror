@@ -1,11 +1,16 @@
-import { mount, ReactWrapper } from 'enzyme';
-import { EditorView } from 'prosemirror-view';
+import { render } from '@testing-library/react';
+import type { RenderResult } from '@testing-library/react';
+import type { EditorView } from 'prosemirror-view';
 import { TextSelection, Selection } from 'prosemirror-state';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import * as prosemirrorUtils from 'prosemirror-utils';
 
+import type {
+  Refs,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   annotation,
   code_block,
@@ -14,21 +19,17 @@ import {
   p,
   panel,
   hardBreak,
-  Refs,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { EventDispatcher } from '../../../../event-dispatcher';
-import { inlineCommentProvider, nullComponent, selectorById } from '../_utils';
+import { getState } from '../_utils';
 import {
   removeInlineCommentNearSelection,
   setInlineCommentDraftState,
 } from '../../commands';
-import { InlineCommentPluginState } from '../../pm-plugins/types';
-import annotationPlugin, {
-  InlineCommentAnnotationProvider,
-  AnnotationUpdateEmitter,
-} from '../..';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { InlineCommentPluginState } from '../../pm-plugins/types';
+import type { InlineCommentAnnotationProvider } from '../..';
+import annotationPlugin, { AnnotationUpdateEmitter } from '../..';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -37,18 +38,37 @@ import {
   CONTENT_COMPONENT,
 } from '../../../analytics/types/enums';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import { AnnotationTestIds } from '../../types';
 import { RESOLVE_METHOD } from '../../../analytics/types/inline-comment-events';
 import * as commands from '../../commands/index';
 import { inlineCommentPluginKey, getPluginState } from '../../utils';
 import { getAnnotationViewClassname } from '../../nodeviews';
 
+jest.mock('prosemirror-utils', () => {
+  // Unblock prosemirror bump:
+  // Workaround to enable spy on prosemirror-utils cjs bundle
+  const originalModule = jest.requireActual('prosemirror-utils');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+  };
+});
+
 describe('annotation', () => {
   const createEditor = createEditorFactory();
   const eventDispatcher = new EventDispatcher();
   const providerFactory = new ProviderFactory();
-  let contentComponent: ReactWrapper;
+  let contentComponent: RenderResult;
   let createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
+  let inlineCommentProviderFake: InlineCommentAnnotationProvider;
+
+  beforeEach(() => {
+    inlineCommentProviderFake = {
+      getState,
+      createComponent: jest.fn().mockReturnValue(null),
+      viewComponent: jest.fn().mockReturnValue(null),
+    };
+  });
 
   const editor = (
     doc: DocBuilder,
@@ -61,15 +81,15 @@ describe('annotation', () => {
         allowPanel: true,
         allowAnalyticsGASV3: true,
         annotationProviders: {
-          inlineComment: inlineCommentOptions || inlineCommentProvider,
+          inlineComment: inlineCommentOptions || inlineCommentProviderFake,
         },
       },
       createAnalyticsEvent,
     });
 
-  function mountContentComponent(editorView: EditorView) {
-    return mount(
-      annotationPlugin({ inlineComment: inlineCommentProvider })
+  function mount(editorView: EditorView): RenderResult {
+    return render(
+      annotationPlugin({ inlineComment: inlineCommentProviderFake })
         .contentComponent!({
         editorView,
         editorActions: null as any,
@@ -108,7 +128,7 @@ describe('annotation', () => {
   afterEach(() => {
     createAnalyticsEvent.mockClear();
     jest.restoreAllMocks();
-    if (contentComponent && contentComponent.length) {
+    if (contentComponent) {
       contentComponent.unmount();
     }
   });
@@ -199,25 +219,25 @@ describe('annotation', () => {
       });
 
       it('passes dom based on current selection if there is no bookmarked selection', async () => {
-        contentComponent = mountContentComponent(editorView);
+        contentComponent = mount(editorView);
 
-        const viewComponent = contentComponent.find(nullComponent);
-        const domElement = viewComponent.prop('dom');
-        expect(domElement).toBeTruthy();
+        expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalled();
+
+        const { dom: domElement } = (
+          inlineCommentProviderFake.viewComponent as jest.Mock
+        ).mock.calls[0][0];
         expect(domElement.innerText).toBe('hello');
       });
 
       it('passes dom and textSelection based on bookmarked selection if it is available', () => {
         mockPluginStateWithBookmark(editorView, bookMarkPositions);
 
-        contentComponent = mountContentComponent(editorView);
+        contentComponent = mount(editorView);
 
-        const createComponent = contentComponent.find(nullComponent);
-        const textSelection = createComponent.prop('textSelection');
+        const { textSelection, dom: domElement } = (
+          inlineCommentProviderFake.createComponent as jest.Mock
+        ).mock.calls[0][0];
         expect(textSelection).toBe('world');
-
-        const domElement = createComponent.prop('dom');
-        expect(domElement).toBeTruthy();
         expect(domElement.innerText).toBe('world');
       });
     });
@@ -229,10 +249,11 @@ describe('annotation', () => {
 
       mockPluginStateWithBookmark(editorView, refs);
 
-      contentComponent = mountContentComponent(editorView);
+      contentComponent = mount(editorView);
 
-      const createComponent = contentComponent.find(nullComponent);
-      const textSelection = createComponent.prop('textSelection');
+      const { textSelection } = (
+        inlineCommentProviderFake.createComponent as jest.Mock
+      ).mock.calls[0][0];
       expect(textSelection).toBe('helloworld');
     });
 
@@ -260,7 +281,7 @@ describe('annotation', () => {
 
         // Let the getState promise resolve
         await flushPromises();
-        contentComponent = mountContentComponent(editorView);
+        contentComponent = mount(editorView);
       });
 
       it('sends error analytics event', () => {
@@ -288,12 +309,9 @@ describe('annotation', () => {
       });
 
       it("doesn't render", () => {
-        const saveSelector = selectorById(AnnotationTestIds.componentSave);
-        expect(saveSelector).toBeTruthy();
-        const saveButton = contentComponent.find(saveSelector);
-        expect(saveButton.length).toBe(0);
-        const viewComponent = contentComponent.find(nullComponent);
-        expect(viewComponent.length).toBe(0);
+        expect(
+          inlineCommentProviderFake.createComponent,
+        ).not.toHaveBeenCalled();
       });
     });
 
@@ -318,14 +336,14 @@ describe('annotation', () => {
 
         // Let the getState promise resolve
         await flushPromises();
-        contentComponent = mountContentComponent(editorView);
+        contentComponent = mount(editorView);
       });
 
       it('renders correctly', () => {
-        expect(selectorById(AnnotationTestIds.componentSave)).toBeTruthy();
-        const viewComponent = contentComponent.find(nullComponent);
-        expect(viewComponent).toBeTruthy();
-        expect(viewComponent.prop('annotations')).toEqual([
+        const { annotations } = (
+          inlineCommentProviderFake.viewComponent as jest.Mock
+        ).mock.calls[0][0];
+        expect(annotations).toEqual([
           { type: 'inlineComment', id: 'first123' },
         ]);
       });
@@ -344,52 +362,82 @@ describe('annotation', () => {
 
       describe('is closed as expected', () => {
         it('via onClose callback', async () => {
-          const viewComponent = contentComponent.find(nullComponent);
-          expect(viewComponent.exists()).toBeTruthy();
-          viewComponent.prop('onClose')();
+          const { onClose } = (
+            inlineCommentProviderFake.viewComponent as jest.Mock
+          ).mock.calls[0][0];
+
+          expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalledTimes(
+            1,
+          );
+          onClose();
           // force rerender
-          contentComponent.setProps(contentComponent.props());
-          expect(contentComponent.find(nullComponent).exists()).toBeFalsy();
+          mount(editorView);
+
+          expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalledTimes(
+            1,
+          );
         });
 
         it('when selection moved away from annotation', () => {
-          expect(contentComponent.find(nullComponent)).toBeTruthy();
+          expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalledTimes(
+            1,
+          );
+
           const { state } = editorView;
           editorView.dispatch(
             state.tr.setSelection(Selection.atEnd(state.doc)),
           );
-          contentComponent.setProps(contentComponent.props());
-          expect(contentComponent.find(nullComponent).exists()).toBeFalsy();
+          // force rerender
+          mount(editorView);
+
+          expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalledTimes(
+            1,
+          );
         });
 
         it('when annotation is deleted', async () => {
-          const viewComponent = contentComponent.find(nullComponent);
-          expect(viewComponent.exists()).toBeTruthy();
-          viewComponent.prop('onDelete')('first123');
+          expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalledTimes(
+            1,
+          );
+          const { onDelete } = (
+            inlineCommentProviderFake.viewComponent as jest.Mock
+          ).mock.calls[0][0];
+
+          onDelete('first123');
+
           // rerender to let onDelete update hidden state
-          contentComponent.setProps(contentComponent.props());
+          mount(editorView);
           // rerender after hidden state updated
-          contentComponent.setProps(contentComponent.props());
-          expect(contentComponent.find(nullComponent).exists()).toBeFalsy();
+          mount(editorView);
+
+          expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalledTimes(
+            1,
+          );
         });
 
         it('not closed when clicking same annotation', () => {
-          expect(contentComponent.find(nullComponent)).toBeTruthy();
+          expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalledTimes(
+            1,
+          );
           const { state } = editorView;
           editorView.dispatch(
             state.tr.setSelection(
               Selection.near(state.doc.resolve(annotationPos)),
             ),
           );
-          contentComponent.setProps(contentComponent.props());
-          expect(contentComponent.find(nullComponent).exists()).toBeTruthy();
+          mount(editorView);
+          expect(inlineCommentProviderFake.viewComponent).toHaveBeenCalledTimes(
+            2,
+          );
         });
       });
 
       describe('onResolve', () => {
         beforeEach(() => {
-          const viewComponent = contentComponent.find(nullComponent);
-          viewComponent.prop('onResolve')('first123');
+          const { onResolve } = (
+            inlineCommentProviderFake.viewComponent as jest.Mock
+          ).mock.calls[0][0];
+          onResolve('first123');
         });
 
         it('resolves annotation', () => {
@@ -436,7 +484,7 @@ describe('annotation', () => {
     });
 
     describe('view nested annotations', () => {
-      let editorView: EditorView, contentComponent: ReactWrapper;
+      let editorView: EditorView;
       beforeEach(async () => {
         const editorData = editor(
           doc(
@@ -466,7 +514,7 @@ describe('annotation', () => {
         // Let the getState promise resolve
         await flushPromises();
 
-        contentComponent = mountContentComponent(editorView);
+        contentComponent = mount(editorView);
       });
 
       it('sends view annotation analytics event with correct overlap value', async () => {
@@ -491,9 +539,10 @@ describe('annotation', () => {
         expect(innerNode.marks[1].attrs.id).toEqual('second');
 
         // since outer text also has 'first' mark id, we expect 'second' to appear first
-        expect(
-          contentComponent.find(nullComponent).prop('annotations'),
-        ).toEqual([
+        const { annotations } = (
+          inlineCommentProviderFake.viewComponent as jest.Mock
+        ).mock.calls[0][0];
+        expect(annotations).toEqual([
           { type: 'inlineComment', id: 'second' },
           { type: 'inlineComment', id: 'first' },
         ]);
@@ -610,10 +659,11 @@ describe('annotation', () => {
         const id = 'annotation-id-123';
         const previousToPos = editorView.state.selection.$to.pos;
 
-        contentComponent = mountContentComponent(editorView);
+        contentComponent = mount(editorView);
 
-        const createComponent = contentComponent.find(nullComponent);
-        const onCreate = createComponent.prop('onCreate');
+        const { onCreate } = (
+          inlineCommentProviderFake.createComponent as jest.Mock
+        ).mock.calls[0][0];
         onCreate(id);
 
         expect(editorView.state.doc).toEqualDocument(
@@ -637,10 +687,11 @@ describe('annotation', () => {
         const previousFromPos = editorView.state.selection.$from.pos;
         const previousToPos = editorView.state.selection.$to.pos;
 
-        contentComponent = mountContentComponent(editorView);
+        contentComponent = mount(editorView);
 
-        const createComponent = contentComponent.find(nullComponent);
-        const onClose = createComponent.prop('onClose');
+        const { onClose } = (
+          inlineCommentProviderFake.createComponent as jest.Mock
+        ).mock.calls[0][0];
         onClose();
 
         expect(editorView.state.doc).toEqualDocument(
@@ -763,8 +814,8 @@ describe('annotation', () => {
   describe('toggle visibility', () => {
     const updateSubscriber = new AnnotationUpdateEmitter();
 
-    const inlineCommentProviderWithToggle = {
-      ...inlineCommentProvider,
+    const inlineCommentProviderFakeWithToggle = {
+      ...inlineCommentProviderFake,
       updateSubscriber,
     };
 
@@ -777,7 +828,7 @@ describe('annotation', () => {
             ' of the{>}{end} seven seas',
           ),
         ),
-        inlineCommentProviderWithToggle,
+        inlineCommentProviderFakeWithToggle,
       );
 
       // default is on
@@ -799,7 +850,7 @@ describe('annotation', () => {
             ' of the{>}{end} seven seas',
           ),
         ),
-        inlineCommentProviderWithToggle,
+        inlineCommentProviderFakeWithToggle,
       );
 
       const { dispatch, state } = editorView;

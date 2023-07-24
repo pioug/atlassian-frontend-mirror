@@ -17,4 +17,9 @@ export type BasePrimitiveProps = {
    * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
    */
   xcss?: BoxXCSS | BoxXCSS[];
+
+  /**
+   * Accessible role
+   */
+  role?: string;
 };

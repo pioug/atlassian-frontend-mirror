@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-client",
-  "version": "23.1.1",
+  "version": "23.1.2",
   "description": "Media API Web Client Library",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -36,7 +36,6 @@
   },
   "dependencies": {
     "@atlaskit/chunkinator": "^4.2.0",
-    "@atlaskit/enforce-peer-dependencies": "^1.0.1",
     "@atlaskit/media-common": "^7.1.0",
     "@babel/runtime": "^7.0.0",
     "dataloader": "^2.0.0",
@@ -84,8 +83,5 @@
       ]
     }
   },
-  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
-  "scripts": {
-    "postinstall": "npx enforce-peer-dependencies --internal-packages"
-  }
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1"
 }

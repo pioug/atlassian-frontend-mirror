@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import Square from '../shared/square';
+import Block from '../shared/block';
 
 const flexContainerStyles = xcss({
   display: 'flex',
@@ -17,9 +17,9 @@ export default function Example() {
         "start" (default)
         <VisualContainer>
           <Inline space="space.050" alignBlock="start">
-            <Square />
-            <Square />
-            <Square padding="space.300" />
+            <Block />
+            <Block />
+            <Block padding="space.300" />
           </Inline>
         </VisualContainer>
       </Stack>
@@ -27,9 +27,9 @@ export default function Example() {
         "center"
         <VisualContainer>
           <Inline space="space.050" alignBlock="center">
-            <Square />
-            <Square />
-            <Square padding="space.300" />
+            <Block />
+            <Block />
+            <Block padding="space.300" />
           </Inline>
         </VisualContainer>
       </Stack>
@@ -37,9 +37,9 @@ export default function Example() {
         "end"
         <VisualContainer>
           <Inline space="space.050" alignBlock="end">
-            <Square />
-            <Square />
-            <Square padding="space.300" />
+            <Block />
+            <Block />
+            <Block padding="space.300" />
           </Inline>
         </VisualContainer>
       </Stack>
@@ -47,9 +47,9 @@ export default function Example() {
         "baseline"
         <VisualContainer>
           <Inline space="space.050" alignBlock="baseline">
-            <Square />
-            <Square />
-            <Square padding="space.300" />
+            <Block />
+            <Block />
+            <Block padding="space.300" />
           </Inline>
         </VisualContainer>
       </Stack>
@@ -57,9 +57,9 @@ export default function Example() {
         "stretch"
         <VisualContainer>
           <Inline space="space.050" alignBlock="stretch">
-            <Square />
-            <Square />
-            <Square padding="space.300" />
+            <Block />
+            <Block />
+            <Block padding="space.300" />
           </Inline>
         </VisualContainer>
       </Stack>

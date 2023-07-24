@@ -1,0 +1,46 @@
+---
+title: Bleed
+description: Bleed is a primitive layout component that controls negative whitespace.
+order: 0
+---
+
+import BleedDefault from '../../examples/constellation/bleed/default';
+import BleedBlock from '../../examples/constellation/bleed/block';
+import BleedInline from '../../examples/constellation/bleed/inline';
+import BleedAll from '../../examples/constellation/bleed/all';
+
+import { CodeDocsHeader } from '@af/design-system-docs-ui';
+
+<CodeDocsHeader
+  name="@atlaskit/primitives"
+  repository="https://bitbucket.org/atlassian/atlassian-frontend-mirror"
+  directoryName="primitives"
+/>
+
+## Using Bleed
+
+Bleed is a component that allows its children to break the boundaries of its container. This is useful for content
+that wants to negate the padding or whitespace applied by its parent in a controlled manner. For example in the below grid layout, the middle
+item bleeds across the inline and block axes to overlap the gap set by the grid.
+
+<Example Component={BleedAll} packageName="@atlaskit/primitives/bleed" />
+
+## Bleed and no bleed
+
+Bleed might be utilised to create a stacking effect with a group of avatars. Here each avatar is laid out with the `Inline` parent
+container. Without a bleed, each avatar would sit directly adjacent to its sibling. With `Bleed` we can negate the whitespace and force
+each avatar to overlap its direct sibling and create our desired stack.
+
+<Example Component={BleedDefault} packageName="@atlaskit/primitives/bleed" />
+
+## Block whitespace
+
+Bleed can be controlled on the block axis (vertical) with the `block` property. The values of this property are tied to our spacing scale.
+
+<Example Component={BleedBlock} packageName="@atlaskit/primitives/bleed" />
+
+## Inline whitespace
+
+Bleed can also be controlled on the inline axis (horizontal) with the `inline` property. The values of this property are tied to our spacing scale.
+
+<Example Component={BleedInline} packageName="@atlaskit/primitives/bleed" />

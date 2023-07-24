@@ -1,5 +1,11 @@
 # @atlaskit/link-client-extension
 
+## 1.5.3
+
+### Patch Changes
+
+- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+
 ## 1.5.2
 
 ### Patch Changes

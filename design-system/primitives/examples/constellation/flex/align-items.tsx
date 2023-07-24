@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { Box, Flex, Stack, xcss } from '@atlaskit/primitives';
 
-import Square from '../shared/square';
+import Block from '../shared/block';
 
 const flexContainerStyles = xcss({
   display: 'flex',
@@ -17,9 +17,9 @@ export default function Example() {
         "start" (default)
         <VisualContainer>
           <Flex gap="space.050" alignItems="start">
-            <Square />
-            <Square />
-            <Square padding="space.300" />
+            <Block />
+            <Block />
+            <Block padding="space.300" />
           </Flex>
         </VisualContainer>
       </Stack>
@@ -27,9 +27,9 @@ export default function Example() {
         "center"
         <VisualContainer>
           <Flex gap="space.050" alignItems="center">
-            <Square />
-            <Square />
-            <Square padding="space.300" />
+            <Block />
+            <Block />
+            <Block padding="space.300" />
           </Flex>
         </VisualContainer>
       </Stack>
@@ -37,9 +37,9 @@ export default function Example() {
         "end"
         <VisualContainer>
           <Flex gap="space.050" alignItems="end">
-            <Square />
-            <Square />
-            <Square padding="space.300" />
+            <Block />
+            <Block />
+            <Block padding="space.300" />
           </Flex>
         </VisualContainer>
       </Stack>
@@ -47,9 +47,9 @@ export default function Example() {
         "baseline"
         <VisualContainer>
           <Flex gap="space.050" alignItems="baseline">
-            <Square />
-            <Square />
-            <Square padding="space.300" />
+            <Block />
+            <Block />
+            <Block padding="space.300" />
           </Flex>
         </VisualContainer>
       </Stack>

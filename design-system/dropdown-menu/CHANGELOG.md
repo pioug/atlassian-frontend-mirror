@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.10.7
+
+### Patch Changes
+
+- [`4b99836860e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b99836860e) - Using arrow keys to move between items will no longer cause scrolling when at the top/bottom of the list.
+
 ## 11.10.6
 
 ### Patch Changes

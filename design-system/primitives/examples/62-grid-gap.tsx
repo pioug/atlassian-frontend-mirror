@@ -9,7 +9,7 @@ const customBorderStyles = xcss({
   borderRadius: 'border.radius',
 });
 
-const Square = ({ style }: any) => (
+const Block = ({ style }: any) => (
   <Box
     xcss={customBorderStyles}
     style={style}
@@ -22,19 +22,19 @@ export default function Basic() {
   return (
     <Grid gap="space.200" alignItems="center">
       <Grid testId="grid-basic" gap="space.100">
-        <Square />
-        <Square />
-        <Square />
+        <Block />
+        <Block />
+        <Block />
       </Grid>
       <Grid testId="grid-basic" gap="space.200">
-        <Square />
-        <Square />
-        <Square />
+        <Block />
+        <Block />
+        <Block />
       </Grid>
       <Grid testId="grid-basic" gap="space.400">
-        <Square />
-        <Square />
-        <Square />
+        <Block />
+        <Block />
+        <Block />
       </Grid>
     </Grid>
   );

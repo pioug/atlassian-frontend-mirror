@@ -34,6 +34,17 @@ import * as miscCommands from '../../../plugins/table/commands/misc';
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 
+jest.mock('prosemirror-utils', () => {
+  // Unblock prosemirror bump:
+  // Workaround to enable spy on prosemirror-utils cjs bundle
+  const originalModule = jest.requireActual('prosemirror-utils');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+  };
+});
+
 describe('tables: main plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: DocBuilder) =>

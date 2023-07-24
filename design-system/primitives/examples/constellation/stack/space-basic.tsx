@@ -1,33 +1,19 @@
 import React from 'react';
 
-import Lozenge from '@atlaskit/lozenge';
-import { Box, Inline, Stack } from '@atlaskit/primitives';
+import { Inline, Stack } from '@atlaskit/primitives';
+
+import Block from '../shared/block';
 
 export default function Example() {
   return (
     <Inline space="space.500">
-      <Stack>
-        <Box>
-          <Lozenge>To do</Lozenge>
-        </Box>
-        <Box>
-          <Lozenge appearance="moved">Moved</Lozenge>
-        </Box>
-        <Box>
-          <Lozenge appearance="success">Done</Lozenge>
-        </Box>
-      </Stack>
-      <Stack space="space.200">
-        <Box>
-          <Lozenge>To do</Lozenge>
-        </Box>
-        <Box>
-          <Lozenge appearance="moved">Moved</Lozenge>
-        </Box>
-        <Box>
-          <Lozenge appearance="success">Done</Lozenge>
-        </Box>
-      </Stack>
+      {(['space.100', 'space.200'] as const).map(space => (
+        <Stack key={space} space={space}>
+          <Block />
+          <Block />
+          <Block />
+        </Stack>
+      ))}
     </Inline>
   );
 }

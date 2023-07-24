@@ -1,4 +1,3 @@
-/* eslint-disable @repo/internal/styles/no-exported-styles */
 /** @jsx jsx */
 import { ElementType, forwardRef, memo, ReactNode, Ref } from 'react';
 
@@ -21,9 +20,19 @@ export type GridProps<T extends ElementType = 'div'> = {
   justifyContent?: JustifyContent;
 
   /**
+   * Used to align the grid along the inline axis.
+   */
+  justifyItems?: JustifyItems;
+
+  /**
    * Used to align children along the block axis.
    */
   alignItems?: AlignItems;
+
+  /**
+   * Used to align the grid along the block axis.
+   */
+  alignContent?: AlignContent;
 
   /**
    * Represents the space between each column.
@@ -68,13 +77,20 @@ export type GridProps<T extends ElementType = 'div'> = {
   children: ReactNode;
 
   /**
+   * HTML id attrubute
+   */
+  id?: string;
+
+  /**
    * Forwarded ref element
    */
   ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
 
-export type JustifyContent = keyof typeof justifyContentMap;
-export type AlignItems = keyof typeof alignItemsMap;
+type JustifyContent = keyof typeof justifyContentMap;
+type JustifyItems = keyof typeof justifyItemsMap;
+type AlignItems = keyof typeof alignItemsMap;
+type AlignContent = keyof typeof alignContentMap;
 
 const justifyContentMap = {
   start: css({ justifyContent: 'start' }),
@@ -84,6 +100,23 @@ const justifyContentMap = {
   'space-around': css({ justifyContent: 'space-around' }),
   'space-evenly': css({ justifyContent: 'space-evenly' }),
   stretch: css({ justifyContent: 'stretch' }),
+} as const;
+
+const justifyItemsMap = {
+  start: css({ justifyItems: 'start' }),
+  center: css({ justifyItems: 'center' }),
+  end: css({ justifyItems: 'end' }),
+  stretch: css({ justifyItems: 'stretch' }),
+} as const;
+
+const alignContentMap = {
+  start: css({ alignContent: 'start' }),
+  center: css({ alignContent: 'center' }),
+  end: css({ alignContent: 'end' }),
+  'space-between': css({ alignContent: 'space-between' }),
+  'space-around': css({ alignContent: 'space-around' }),
+  'space-evenly': css({ alignContent: 'space-evenly' }),
+  stretch: css({ alignContent: 'stretch' }),
 } as const;
 
 const alignItemsMap = {
@@ -134,11 +167,14 @@ const Grid = memo(
       {
         as,
         alignItems,
+        alignContent,
         justifyContent,
         gap,
         columnGap,
         rowGap,
         children,
+        id,
+        role,
         testId,
         autoFlow,
         templateAreas: gridTemplateAreas,
@@ -166,6 +202,8 @@ const Grid = memo(
 
       return (
         <Component
+          id={id}
+          role={role}
           style={style}
           css={[
             baseStyles,
@@ -173,6 +211,7 @@ const Grid = memo(
             columnGap && spaceStylesMap.columnGap[columnGap],
             rowGap && spaceStylesMap.rowGap[rowGap],
             alignItems && alignItemsMap[alignItems],
+            alignContent && alignContentMap[alignContent],
             justifyContent && justifyContentMap[justifyContent],
             autoFlow && gridAutoFlowMap[autoFlow],
             // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage

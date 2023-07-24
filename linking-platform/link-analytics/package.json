@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-analytics",
-  "version": "8.2.2",
+  "version": "8.2.3",
   "description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -31,12 +31,10 @@
     }
   },
   "scripts": {
-    "codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-analytics run codegen-analytics'",
-    "postinstall": "npx enforce-peer-dependencies --internal-packages"
+    "codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-analytics run codegen-analytics'"
   },
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
-    "@atlaskit/enforce-peer-dependencies": "^1.0.1",
     "@atlaskit/linking-common": "^4.0.0",
     "@babel/runtime": "^7.0.0",
     "json-ld-types": "3.7.0",
@@ -50,7 +48,7 @@
   "devDependencies": {
     "@af/analytics-codegen": "^0.1.0",
     "@atlaskit/link-picker": "^1.27.0",
-    "@atlaskit/link-test-helpers": "^4.1.0",
+    "@atlaskit/link-test-helpers": "^4.2.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",

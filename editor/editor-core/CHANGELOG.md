@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 187.3.6
+
+### Patch Changes
+
+- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+
+## 187.3.5
+
+### Patch Changes
+
+- [`f10d32545d2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f10d32545d2) - Fix bug where clicking anything in column picker inside Datasource table triggers editor focus toggling
+
+## 187.3.4
+
+### Patch Changes
+
+- [`dbc45526d36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbc45526d36) - ED-18879 prevent cursor from appearing at incorrect position after IME composition
+
 ## 187.3.0
 
 ### Minor Changes

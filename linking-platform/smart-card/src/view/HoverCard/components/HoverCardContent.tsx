@@ -60,7 +60,6 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   url,
   onMouseEnter,
   onMouseLeave,
-  onWheel,
   showServerActions,
 }) => {
   const useLozengeAction = useFeatureFlag('useLozengeAction') as string;
@@ -77,8 +76,6 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
 
   const statusRef = useRef(linkStatus);
   const analyticsRef = useRef(analytics);
-
-  const wrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     /**
@@ -115,21 +112,6 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
       });
     };
   }, []);
-
-  useEffect(() => {
-    let wrapperRefValue: HTMLDivElement | null = null;
-    if (wrapperRef.current && onWheel) {
-      // Detect wheel even on hover card content to close hover card
-      // Add event listener through ref because we want it to execute only once.
-      wrapperRef.current.addEventListener('wheel', onWheel, { once: true });
-      wrapperRefValue = wrapperRef.current;
-    }
-    return () => {
-      if (wrapperRefValue && onWheel) {
-        wrapperRefValue.removeEventListener('wheel', onWheel);
-      }
-    };
-  }, [onWheel]);
 
   const onClick = useCallback(
     (event: React.MouseEvent) => {
@@ -225,13 +207,11 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   const cardView = getCardView(cardState);
   return cardView ? (
     <div
-      data-testid="hover-card-content"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={onClickStopPropagation}
       className={hoverCardClassName}
       css={HoverCardContainer}
-      ref={wrapperRef}
     >
       {cardView}
     </div>

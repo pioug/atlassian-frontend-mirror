@@ -11,15 +11,26 @@ import {
 } from '../../utils';
 import { EditorState, NodeSelection } from 'prosemirror-state';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
-  DocBuilder,
   p,
   table,
   td,
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+
+jest.mock('prosemirror-utils', () => {
+  // Unblock prosemirror bump:
+  // Workaround to enable spy on prosemirror-utils cjs bundle
+  const originalModule = jest.requireActual('prosemirror-utils');
+
+  return {
+    __esModule: true,
+    ...originalModule,
+  };
+});
 
 describe('getSelectedDomElement', () => {
   const root = document.createElement('div');

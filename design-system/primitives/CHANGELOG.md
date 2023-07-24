@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.0.5
+
+### Patch Changes
+
+- [`3fadbb8bf73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fadbb8bf73) - Internal changes.
+
 ## 1.0.4
 
 ### Patch Changes

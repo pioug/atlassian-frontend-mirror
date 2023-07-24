@@ -14,7 +14,11 @@ import Range from '@atlaskit/range';
 const boxStyles = xcss({
   display: 'block',
   justifyContent: 'start',
-  color: 'color.text.inverse',
+  color: 'color.text',
+  borderColor: 'color.border.discovery',
+  borderStyle: 'solid',
+  borderRadius: 'border.radius',
+  borderWidth: 'border.width.outline',
 });
 
 const spacingValues: BoxProps['padding'][] = [
@@ -47,7 +51,7 @@ export default function Example() {
     <Inline space="space.200">
       <Stack grow="fill">
         <Heading level="h600">padding</Heading>
-        <div>{spacingValues[padding]}</div>
+        <Box>{spacingValues[padding]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
@@ -57,7 +61,7 @@ export default function Example() {
 
         <Flex>
           <Box
-            backgroundColor="color.background.discovery.bold"
+            backgroundColor="color.background.discovery"
             xcss={boxStyles}
             padding={spacingValues[padding]}
           >
@@ -68,7 +72,7 @@ export default function Example() {
 
       <Stack grow="fill">
         <Heading level="h600">paddingInline</Heading>
-        <div>{spacingValues[paddingInline]}</div>
+        <Box>{spacingValues[paddingInline]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
@@ -77,7 +81,7 @@ export default function Example() {
         />
 
         <Heading level="h600">paddingBlock</Heading>
-        <div>{spacingValues[paddingBlock]}</div>
+        <Box>{spacingValues[paddingBlock]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
@@ -87,7 +91,7 @@ export default function Example() {
 
         <Flex>
           <Box
-            backgroundColor="color.background.discovery.bold"
+            backgroundColor="color.background.discovery"
             xcss={boxStyles}
             paddingInline={spacingValues[paddingInline]}
             paddingBlock={spacingValues[paddingBlock]}
@@ -99,7 +103,7 @@ export default function Example() {
 
       <Stack grow="fill">
         <Heading level="h600">paddingInlineStart</Heading>
-        <div>{spacingValues[paddingInlineStart]}</div>
+        <Box>{spacingValues[paddingInlineStart]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
@@ -110,7 +114,7 @@ export default function Example() {
         />
 
         <Heading level="h600">paddingInlineEnd</Heading>
-        <div>{spacingValues[paddingInlineEnd]}</div>
+        <Box>{spacingValues[paddingInlineEnd]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
@@ -119,7 +123,7 @@ export default function Example() {
         />
 
         <Heading level="h600">paddingBlockStart</Heading>
-        <div>{spacingValues[paddingBlockStart]}</div>
+        <Box>{spacingValues[paddingBlockStart]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
@@ -130,7 +134,7 @@ export default function Example() {
         />
 
         <Heading level="h600">paddingBlockEnd</Heading>
-        <div>{spacingValues[paddingBlockEnd]}</div>
+        <Box>{spacingValues[paddingBlockEnd]}</Box>
         <Range
           max={spacingValues.length - 1}
           step={1}
@@ -140,7 +144,7 @@ export default function Example() {
 
         <Flex>
           <Box
-            backgroundColor="color.background.discovery.bold"
+            backgroundColor="color.background.discovery"
             xcss={boxStyles}
             paddingBlockStart={spacingValues[paddingBlockStart]}
             paddingBlockEnd={spacingValues[paddingBlockEnd]}

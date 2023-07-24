@@ -1,35 +1,17 @@
 import React from 'react';
 
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Inline, Stack } from '@atlaskit/primitives';
 
-const blockStyles = xcss({
-  display: 'flex',
-  textAlign: 'center',
-  borderRadius: 'border.radius.050',
-  justifyContent: 'center',
-  color: 'color.text.inverse',
-});
+import Block from '../shared/block';
 
 export default function Example() {
   return (
     <Inline space="space.200">
       <Stack space="space.100" grow="hug">
-        <Box
-          xcss={blockStyles}
-          backgroundColor="color.background.discovery.bold"
-          padding="space.200"
-        >
-          This content is hugged
-        </Box>
+        <Block>This content is hugged</Block>
       </Stack>
       <Stack space="space.100" grow="fill">
-        <Box
-          xcss={blockStyles}
-          backgroundColor="color.background.discovery.bold"
-          padding="space.200"
-        >
-          Available space is filled
-        </Box>
+        <Block>Available space is filled</Block>
       </Stack>
     </Inline>
   );

@@ -2,6 +2,10 @@ import React from 'react';
 
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 
+const listStyles = xcss({
+  paddingInlineStart: 'space.0',
+});
+
 const boxStyles = xcss({
   color: 'color.text.inverse',
   backgroundColor: 'color.background.success.bold',
@@ -25,7 +29,7 @@ const boxStyles = xcss({
 
 export default function Example() {
   return (
-    <Stack as="ul">
+    <Stack as="ul" xcss={listStyles}>
       <Box xcss={boxStyles} as="li">
         Hover over me
       </Box>

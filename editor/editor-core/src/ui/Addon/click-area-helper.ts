@@ -1,4 +1,4 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 import { closestElement } from '../../utils/dom';
 import {
   setSelectionTopLevelBlocks,
@@ -100,6 +100,9 @@ const clickAreaClickHandler = (
   const isBetweenContentAreaAndEditableContent =
     isTargetInsideContentArea && !isTargetInsideEditableArea;
 
+  // Column Picker dropdown in Datasources table
+  const isDatasourcePopupClicked = !!target?.closest('#column-picker-popup');
+
   const edgeCaseScenario1 =
     (isBetweenContentAreaAndEditableContent || !isEventComingFromContentArea) &&
     !isEditorFocused;
@@ -121,6 +124,7 @@ const clickAreaClickHandler = (
 
   const isClickOutsideEditor =
     edgeCases &&
+    !isDatasourcePopupClicked &&
     !isEventComingFromInlineCommentPopup &&
     !isButtonClicked &&
     !isInputClicked &&

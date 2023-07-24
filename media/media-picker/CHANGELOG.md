@@ -1,5 +1,11 @@
 # @atlaskit/media-picker
 
+## 66.1.3
+
+### Patch Changes
+
+- [`b9355830504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9355830504) - Opt out of peer dependency enforcement
+
 ## 66.1.2
 
 ### Patch Changes

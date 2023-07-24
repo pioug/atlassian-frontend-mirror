@@ -24,6 +24,7 @@ import type { CSSPropertiesWithMultiValues } from '@emotion/serialize';
 import { ElementType } from 'react';
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
+import { jsx } from '@emotion/react';
 import { JSXElementConstructor } from 'react';
 import { MemoExoticComponent } from 'react';
 import { ReactElement } from 'react';
@@ -37,6 +38,20 @@ type AlignBlock = 'baseline' | 'center' | 'end' | 'start' | 'stretch';
 
 // @public (undocumented)
 type AlignBlock_2 = 'center' | 'end' | 'start';
+
+// @public (undocumented)
+type AlignContent = keyof typeof alignContentMap;
+
+// @public (undocumented)
+const alignContentMap: {
+  readonly start: SerializedStyles_2;
+  readonly center: SerializedStyles_2;
+  readonly end: SerializedStyles_2;
+  readonly 'space-between': SerializedStyles_2;
+  readonly 'space-around': SerializedStyles_2;
+  readonly 'space-evenly': SerializedStyles_2;
+  readonly stretch: SerializedStyles_2;
+};
 
 // @public (undocumented)
 type AlignInline = 'center' | 'end' | 'start';
@@ -243,7 +258,28 @@ type BasePrimitiveProps = {
   testId?: string;
   style?: CSSProperties;
   xcss?: BoxXCSS | BoxXCSS[];
+  role?: string;
 };
+
+// @public
+export const Bleed: MemoExoticComponent<
+  ({
+    children,
+    testId,
+    inline,
+    block,
+    all,
+    xcss,
+  }: BleedProps) => jsx.JSX.Element
+>;
+
+// @public (undocumented)
+export type BleedProps = {
+  children: ReactNode;
+  all?: Space_2;
+  inline?: Space_2;
+  block?: Space_2;
+} & BasePrimitiveProps;
 
 // @public (undocumented)
 export type BorderColor = keyof typeof borderColorMap;
@@ -495,7 +531,17 @@ export const Grid: MemoExoticComponent<
           | 'start'
           | 'stretch'
           | undefined;
+        justifyItems?: 'center' | 'end' | 'start' | 'stretch' | undefined;
         alignItems?: 'baseline' | 'center' | 'end' | 'start' | undefined;
+        alignContent?:
+          | 'center'
+          | 'end'
+          | 'space-around'
+          | 'space-between'
+          | 'space-evenly'
+          | 'start'
+          | 'stretch'
+          | undefined;
         columnGap?:
           | 'space.0'
           | 'space.025'
@@ -555,15 +601,19 @@ export const Grid: MemoExoticComponent<
         templateColumns?: string | undefined;
         templateAreas?: string[] | undefined;
         children: ReactNode;
+        id?: string | undefined;
         ref?: any;
       } & BasePrimitiveProps,
+      | 'alignContent'
       | 'alignItems'
       | 'as'
       | 'autoFlow'
       | 'children'
       | 'columnGap'
       | 'gap'
+      | 'id'
       | 'justifyContent'
+      | 'justifyItems'
       | 'rowGap'
       | 'templateAreas'
       | 'templateColumns'
@@ -587,7 +637,9 @@ const gridAutoFlowMap: {
 export type GridProps<T extends ElementType = 'div'> = {
   as?: 'div' | 'ol' | 'span' | 'ul';
   justifyContent?: JustifyContent_2;
+  justifyItems?: JustifyItems;
   alignItems?: AlignItems_2;
+  alignContent?: AlignContent;
   columnGap?: Space;
   gap?: Space;
   rowGap?: Space;
@@ -596,6 +648,7 @@ export type GridProps<T extends ElementType = 'div'> = {
   templateColumns?: string;
   templateAreas?: string[];
   children: ReactNode;
+  id?: string;
   ref?: React.ComponentPropsWithRef<T>['ref'];
 } & BasePrimitiveProps;
 
@@ -712,6 +765,17 @@ const justifyContentMap_2: {
 };
 
 // @public (undocumented)
+type JustifyItems = keyof typeof justifyItemsMap;
+
+// @public (undocumented)
+const justifyItemsMap: {
+  readonly start: SerializedStyles_2;
+  readonly center: SerializedStyles_2;
+  readonly end: SerializedStyles_2;
+  readonly stretch: SerializedStyles_2;
+};
+
+// @public (undocumented)
 export type Layer = keyof typeof layerMap;
 
 // @public
@@ -786,6 +850,14 @@ const shadowMap: {
 
 // @public (undocumented)
 export type Space = keyof typeof spaceMap;
+
+// @public (undocumented)
+type Space_2 =
+  | 'space.025'
+  | 'space.050'
+  | 'space.100'
+  | 'space.150'
+  | 'space.200';
 
 // @public
 const spaceMap: {

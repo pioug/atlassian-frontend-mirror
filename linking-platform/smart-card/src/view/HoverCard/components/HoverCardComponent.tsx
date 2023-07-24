@@ -198,7 +198,6 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       const hoverCardContentProps = {
         onMouseEnter: initShowCard,
         onMouseLeave: initHideCard,
-        onWheel: initHideCard,
         cardActions: filteredActions,
         cardState: linkState,
         onActionClick,

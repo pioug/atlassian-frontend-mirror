@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 import { unstable_batchedUpdates } from 'react-dom';
 import { JsonLd } from 'json-ld-types';
 import { addMetadataToExperience } from '../../analytics';
-import { getStatus } from '../../helpers';
 import {
   ACTION_ERROR,
   ACTION_ERROR_FALLBACK,
@@ -13,6 +12,7 @@ import {
   cardAction,
   CardState,
   MetadataStatus,
+  getStatus,
 } from '@atlaskit/linking-common';
 import {
   ERROR_MESSAGE_FATAL,

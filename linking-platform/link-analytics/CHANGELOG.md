@@ -1,5 +1,12 @@
 # @atlaskit/link-analytics
 
+## 8.2.4
+
+### Patch Changes
+
+- [`2811ef86faf`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2811ef86faf) - Update to use 'getStatus' from '@atlaskit/linking-common'
+- Updated dependencies
+
 ## 8.2.3
 
 ### Patch Changes

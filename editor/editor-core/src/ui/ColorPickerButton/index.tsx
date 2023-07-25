@@ -14,7 +14,7 @@ import {
 import { getSelectedRowAndColumnFromPalette } from '@atlaskit/editor-common/ui-color';
 import Button from '@atlaskit/button';
 import Tooltip from '@atlaskit/tooltip';
-import { DN50, N0, N60A } from '@atlaskit/theme/colors';
+import { DN50, N0, N60A, N30A } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
@@ -236,9 +236,12 @@ const ColorPickerButton = (props: Props) => {
     props.currentColor && props.hexToPaletteColor
       ? props.hexToPaletteColor(props.currentColor)
       : props.currentColor;
-  const buttonStyle = css`
+  const buttonStyle = (theme: ThemeProps) => css`
     padding: 0 10px;
-    background-color: ${token('color.background.neutral', 'transparent')};
+    background-color: ${token(
+      'color.background.neutral.subtle',
+      'transparent',
+    )};
     ${
       /* If custom props size height, override the button base height property */
       !!props.size?.height && `height: inherit;`
@@ -256,6 +259,12 @@ const ColorPickerButton = (props: Props) => {
       height: ${props.size?.height || '14px'};
       padding: 0;
       margin: 0px 2px;
+    }
+    &:hover {
+      background: ${themed({
+        light: token('color.background.neutral.subtle.hovered', N30A),
+        dark: token('color.background.neutral.subtle.hovered', N30A),
+      })(theme)};
     }
   `;
 

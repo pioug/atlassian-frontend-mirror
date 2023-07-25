@@ -198,6 +198,12 @@ export const akEditorTableBorderSelected = '#0065FF';
 export const akEditorTableCellBackgroundOpacity = 0.5;
 
 // @public (undocumented)
+export const akEditorTableCellBlanketDeleted = 'rgba(255, 235, 230, 0.3)';
+
+// @public (undocumented)
+export const akEditorTableCellBlanketSelected = 'rgba(179, 212, 255, 0.3)';
+
+// @public (undocumented)
 export const akEditorTableCellDelete = '#FFEBE6';
 
 // @public (undocumented)

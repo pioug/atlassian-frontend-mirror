@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.7.10
+
+### Patch Changes
+
+- [`6263a07010c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6263a07010c) - Still behind a feature flag, reduces the breakpoint at which the new mobile functionality for our left sidebar "flyout mode" in mobile is applied (reduced from ~1024px to ~768px).
+
 ## 1.7.9
 
 ### Patch Changes

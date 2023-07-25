@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-autoscroll';
+import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 

@@ -1,5 +1,15 @@
 # @atlaskit/dropdown-menu
 
+## 11.11.0
+
+### Minor Changes
+
+- [`3920dcfd848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3920dcfd848) - This removes the feature flag made for upgrading the `focus-trap` dependency and keeps `focus-trap` at it's original version.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.10.7
 
 ### Patch Changes

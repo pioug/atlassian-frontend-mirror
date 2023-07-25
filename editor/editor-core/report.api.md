@@ -2306,7 +2306,9 @@ function toggleBulletList(
 export const toggleCode: () => Command;
 
 // @public (undocumented)
-export const toggleCodeWithAnalytics: ({
+export const toggleCodeWithAnalytics: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => ({
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
@@ -2316,7 +2318,9 @@ export const toggleCodeWithAnalytics: ({
 export const toggleEm: () => Command;
 
 // @public (undocumented)
-export const toggleEmWithAnalytics: ({
+export const toggleEmWithAnalytics: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => ({
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
@@ -2332,7 +2336,9 @@ function toggleOrderedList(
 export const toggleStrike: () => Command;
 
 // @public (undocumented)
-export const toggleStrikeWithAnalytics: ({
+export const toggleStrikeWithAnalytics: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => ({
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
@@ -2342,7 +2348,9 @@ export const toggleStrikeWithAnalytics: ({
 export const toggleStrong: () => Command;
 
 // @public (undocumented)
-export const toggleStrongWithAnalytics: ({
+export const toggleStrongWithAnalytics: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => ({
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
@@ -2352,7 +2360,9 @@ export const toggleStrongWithAnalytics: ({
 export const toggleSubscript: () => Command;
 
 // @public (undocumented)
-export const toggleSubscriptWithAnalytics: ({
+export const toggleSubscriptWithAnalytics: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => ({
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
@@ -2362,7 +2372,9 @@ export const toggleSubscriptWithAnalytics: ({
 export const toggleSuperscript: () => Command;
 
 // @public (undocumented)
-export const toggleSuperscriptWithAnalytics: ({
+export const toggleSuperscriptWithAnalytics: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => ({
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
@@ -2372,7 +2384,9 @@ export const toggleSuperscriptWithAnalytics: ({
 export const toggleUnderline: () => Command;
 
 // @public (undocumented)
-export const toggleUnderlineWithAnalytics: ({
+export const toggleUnderlineWithAnalytics: (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => ({
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;

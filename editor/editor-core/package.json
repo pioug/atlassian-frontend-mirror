@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.3.6",
+  "version": "187.4.5",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.7.0",
-    "@atlaskit/editor-common": "^74.25.0",
+    "@atlaskit/editor-common": "^74.26.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
@@ -147,7 +147,7 @@
     "@af/integration-testing": "*",
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/collab-provider": "9.7.3",
-    "@atlaskit/dropdown-menu": "^11.10.0",
+    "@atlaskit/dropdown-menu": "^11.11.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
     "@atlaskit/editor-plugin-table": "^2.5.0",
     "@atlaskit/editor-test-helpers": "^18.10.0",

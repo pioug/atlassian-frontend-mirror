@@ -85,7 +85,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
     'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
   )
     ? // eslint-disable-next-line react-hooks/rules-of-hooks -- With the feature flag, this does not apply as it should be static.
-      useMediaQuery('below.md')
+      useMediaQuery('below.sm')
     : null;
 
   const isOpen = mobileMediaQuery?.matches

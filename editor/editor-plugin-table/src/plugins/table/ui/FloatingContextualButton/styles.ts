@@ -24,7 +24,7 @@ export const tableFloatingCellButtonStyles = (props: ThemeProps) => css`
     })(props)};
     flex-direction: column;
     margin: 2px;
-    outline: 2px solid ${token('color.border', N0)};
+    outline: 2px solid ${token('elevation.surface', N0)};
     border-radius: 1px;
     padding: 0;
     height: calc(100% - 4px);

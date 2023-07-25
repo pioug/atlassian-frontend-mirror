@@ -7,6 +7,8 @@
  */
 //
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Cancel',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Insert objects',
   'linkDataSource.column-picker.search': 'Search for fields',
   'linkDataSource.jira-issues.accessInstructions': 'To request access, contact your admin.',
   'linkDataSource.jira-issues.accessRequired': "You don't have access to this site",

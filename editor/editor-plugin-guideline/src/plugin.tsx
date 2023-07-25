@@ -12,7 +12,7 @@ import {
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles';
 
-import { GuidelineContainer } from './guildelineContainer';
+import { GuidelineContainer } from './guidelineContainer';
 import {
   DisplayGuideline,
   GuidelinePluginOptions,

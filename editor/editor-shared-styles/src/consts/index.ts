@@ -88,4 +88,6 @@ export {
   akEditorMobileMaxWidth,
   getTableCellBackgroundDarkModeColors,
   ATLASSIAN_NAVIGATION_HEIGHT,
+  akEditorTableCellBlanketSelected,
+  akEditorTableCellBlanketDeleted,
 } from './consts';

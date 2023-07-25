@@ -6,7 +6,7 @@ import {
 } from 'prosemirror-state';
 import { AddMarkStep, RemoveMarkStep } from 'prosemirror-transform';
 
-import { LinkMetaStep } from '@atlaskit/adf-schema/steps';
+import { LinkMetaStep, TableSortStep } from '@atlaskit/adf-schema/steps';
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import { getLinkMetadataFromTransaction } from '@atlaskit/editor-common/card';
 import { isLinkMark, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
@@ -350,7 +350,9 @@ export function eventsFromTransaction(
      */
     const isRemote: unknown = tr.getMeta('isRemote');
     const isReplaceDocument: unknown = tr.getMeta('replaceDocument');
-    if (isRemote || isReplaceDocument) {
+    const isTableSort = tr.steps.find(step => step instanceof TableSortStep);
+
+    if (isRemote || isReplaceDocument || isTableSort) {
       return events;
     }
 

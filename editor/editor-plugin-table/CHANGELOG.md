@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-table
 
+## 2.5.3
+
+### Patch Changes
+
+- [`e8885f55db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8885f55db6) - Fixed type issue
+
+## 2.5.2
+
+### Patch Changes
+
+- [`8b77d484c89`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b77d484c89) - Change snap gap for tables guideline to 9px
+
+## 2.5.1
+
+### Patch Changes
+
+- [`e64541c6fda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e64541c6fda) - [ux] [ED-18759] Updated table border, handlebar controls, blanket, icon, icon background and table cell options button colour tokens on light and dark theme for table selection and table deletion. Borders for Table Floating Contextual Button & Floating toolbar color palette button on dark & light theme are also updated.
+
 ## 2.5.0
 
 ### Minor Changes

@@ -1,5 +1,48 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.4.0
+
+### Patch Changes
+
+- [`315332d1509`](https://bitbucket.org/atlassian/atlassian-frontend/commits/315332d1509) - Converts the existing withAnalytics events within the text-formatting to use the new EditorAnalyticsAPI instead
+- Updated dependencies
+
 ## 187.3.6
 
 ### Patch Changes

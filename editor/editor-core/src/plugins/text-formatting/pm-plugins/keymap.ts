@@ -3,16 +3,22 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import * as keymaps from '../../../keymaps';
 import { keymap } from '../../../utils/keymap';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import {
+  INPUT_METHOD,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import * as commands from '../commands/text-formatting';
 
-export default function keymapPlugin(schema: Schema): SafePlugin {
+export default function keymapPlugin(
+  schema: Schema,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): SafePlugin {
   const list = {};
 
   if (schema.marks.strong) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleBold.common!,
-      commands.toggleStrongWithAnalytics({
+      commands.toggleStrongWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -22,7 +28,9 @@ export default function keymapPlugin(schema: Schema): SafePlugin {
   if (schema.marks.em) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleItalic.common!,
-      commands.toggleEmWithAnalytics({ inputMethod: INPUT_METHOD.SHORTCUT }),
+      commands.toggleEmWithAnalytics(editorAnalyticsAPI)({
+        inputMethod: INPUT_METHOD.SHORTCUT,
+      }),
       list,
     );
   }
@@ -30,7 +38,7 @@ export default function keymapPlugin(schema: Schema): SafePlugin {
   if (schema.marks.code) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleCode.common!,
-      commands.toggleCodeWithAnalytics({
+      commands.toggleCodeWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -40,7 +48,7 @@ export default function keymapPlugin(schema: Schema): SafePlugin {
   if (schema.marks.strike) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleStrikethrough.common!,
-      commands.toggleStrikeWithAnalytics({
+      commands.toggleStrikeWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -50,7 +58,7 @@ export default function keymapPlugin(schema: Schema): SafePlugin {
   if (schema.marks.subsup) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleSubscript.common!,
-      commands.toggleSubscriptWithAnalytics({
+      commands.toggleSubscriptWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -60,7 +68,7 @@ export default function keymapPlugin(schema: Schema): SafePlugin {
   if (schema.marks.subsup) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleSuperscript.common!,
-      commands.toggleSuperscriptWithAnalytics({
+      commands.toggleSuperscriptWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -70,7 +78,7 @@ export default function keymapPlugin(schema: Schema): SafePlugin {
   if (schema.marks.underline) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleUnderline.common!,
-      commands.toggleUnderlineWithAnalytics({
+      commands.toggleUnderlineWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,

@@ -340,7 +340,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
   )
     ? // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
-      useMediaQuery('below.md')
+      useMediaQuery('below.sm')
     : null;
 
   const openMobileFlyout = getBooleanFF(
@@ -389,7 +389,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
     )
   ) {
     // eslint-disable-next-line react-hooks/rules-of-hooks -- Does not apply to being feature flagged.
-    useMediaQuery('below.md', (event) => {
+    useMediaQuery('below.sm', (event) => {
       setLeftSidebarState((current) => {
         if (event.matches && !current.isLeftSidebarCollapsed) {
           // Sidebar was previously open when resizing downwards, convert the sidebar being open to a flyout being open

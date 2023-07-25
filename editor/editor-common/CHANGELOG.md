@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.26.1
+
+### Patch Changes
+
+- [`e8885f55db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8885f55db6) - ED-18969 implement relative guides support
+
+## 74.26.0
+
+### Minor Changes
+
+- [`3920dcfd848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3920dcfd848) - This removes the feature flag made for upgrading the `focus-trap` dependency and keeps `focus-trap` at it's original version.
+
 ## 74.25.2
 
 ### Patch Changes

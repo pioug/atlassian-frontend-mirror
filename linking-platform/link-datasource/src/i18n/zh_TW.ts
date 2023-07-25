@@ -7,7 +7,12 @@
  */
 //Chinese (Traditional)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': '取消',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': '插入物件',
   'linkDataSource.column-picker.search': '搜尋欄位',
+  'linkDataSource.jira-issues.accessInstructions': '若要要求存取權，請連絡您的管理員。',
+  'linkDataSource.jira-issues.accessRequired': '您無法存取此網站',
+  'linkDataSource.jira-issues.accessRequiredWithSite': '您無法存取 {siteName}',
   'linkDataSource.jira-issues.checkConnection': '請檢查您的連線並重新整理，或稍後再試一次。',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     '請檢查您的連線並重新整理，或者<a>在 Jira 中開啟此查詢</a>加以檢閱。',

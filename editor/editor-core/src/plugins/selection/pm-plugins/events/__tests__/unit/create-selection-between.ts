@@ -4,6 +4,7 @@ import {
   doc,
   p,
   panel,
+  blockCard,
   layoutSection,
   layoutColumn,
   table,
@@ -234,6 +235,78 @@ describe('#onCreateSelectionBetween', () => {
         it('should return null', () => {
           const result = onCreateSelectionBetween(fakeView, $anchor, $head);
           expect(result).toBeNull();
+        });
+      });
+    });
+  });
+
+  describe('when head is targeting an empty paragraph on root', () => {
+    const cases = [
+      {
+        description: 'from a top to bottom',
+        docBuilder: doc(
+          // prettier-ignore
+          p('{anchor}'),
+          blockCard({
+            url: 'https://www.youtube.com/watch?v=b1kbLwvqugk',
+          })(),
+          p('{head}'),
+        ),
+      },
+    ];
+
+    describe.each(cases)('', ({ description, docBuilder }) => {
+      describe(description, () => {
+        const fakeDoc = docBuilder(sampleSchema);
+
+        const fakeView: any = { state: { doc: fakeDoc } };
+        const $anchor = fakeDoc.resolve(fakeDoc.refs.anchor);
+        const $head = fakeDoc.resolve(fakeDoc.refs.head);
+
+        it('should return null', () => {
+          const result = onCreateSelectionBetween(fakeView, $anchor, $head);
+          expect(result).toBeNull();
+        });
+      });
+    });
+  });
+
+  describe('when head is targeting a position right after a selectable node', () => {
+    const cases = [
+      {
+        description: 'from a paragraph to a block card',
+        docBuilder: doc(
+          // prettier-ignore
+          p(''),
+          '{nextHeadNodePosition}',
+          blockCard({
+            url: 'https://www.youtube.com/watch?v=b1kbLwvqugk',
+          })(),
+          '{head}',
+          p('{anchor}'),
+        ),
+      },
+    ];
+
+    describe.each(cases)('', ({ description, docBuilder }) => {
+      describe(description, () => {
+        const fakeDoc = docBuilder(sampleSchema);
+
+        const fakeView: any = { state: { doc: fakeDoc } };
+        const $anchor = fakeDoc.resolve(fakeDoc.refs.anchor);
+        const $head = fakeDoc.resolve(fakeDoc.refs.head);
+
+        it('should set TextSelection head to blockCard', () => {
+          const { anchor, nextHeadNodePosition } = fakeDoc.refs;
+          const result = onCreateSelectionBetween(fakeView, $anchor, $head);
+
+          expect(result!.toJSON()).toEqual(
+            expect.objectContaining({
+              type: 'text',
+              anchor: anchor,
+              head: nextHeadNodePosition,
+            }),
+          );
         });
       });
     });

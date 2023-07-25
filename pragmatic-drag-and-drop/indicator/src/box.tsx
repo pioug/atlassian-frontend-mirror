@@ -1,3 +1,8 @@
+/**
+ * Spacing tokens don't make a lot of sense for this specific use case,
+ * so disabling the linting rule.
+ */
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /** @jsx jsx */
 
 import type { CSSProperties } from 'react';
@@ -5,65 +10,116 @@ import type { CSSProperties } from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
 import type { Edge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/types';
+import { token } from '@atlaskit/tokens';
 
+import type { DropIndicatorProps } from './box-without-terminal';
 import { line } from './constants';
 
-export type DropIndicatorProps = {
-  /**
-   * The `edge` to draw a drop indicator on.
-   *
-   * `edge` is required as for the best possible performance
-   * outcome you should only render this component when it needs to do something
-   *
-   * @example {closestEdge && <DropIndicator edge={closestEdge} />}
-   */
-  edge: Edge;
-  /**
-   * `gap` allows you to position the drop indicator further away from the drop target.
-   * `gap` should be the distance between your drop targets
-   * a drop indicator will be rendered halfway between the drop targets
-   * (the drop indicator will be offset by half of the `gap`)
-   *
-   * `gap` should be a valid CSS length.
-   * @example "8px"
-   * @example "var(--gap)"
-   */
-  gap?: string;
-};
+export type { DropIndicatorProps };
+
+const terminalSize = 8;
 
 const lineStyles = css({
   display: 'block',
   position: 'absolute',
   zIndex: 1,
-  background: line.backgroundColor,
-  content: '""',
+  // Blocking pointer events to prevent the line from triggering drag events
+  // Dragging over the line should count as dragging over the element behind it
   pointerEvents: 'none',
+  background: line.backgroundColor,
+
+  // Terminal
+  '::before': {
+    content: '""',
+    width: terminalSize,
+    height: terminalSize,
+    boxSizing: 'border-box',
+    position: 'absolute',
+    border: `${line.thickness}px solid ${token(
+      'color.border.selected',
+      '#0c66e4',
+    )}`,
+    borderRadius: '50%',
+  },
 });
+
+/**
+ * By default, the edge of the terminal will be aligned to the edge of the line.
+ *
+ * Offsetting the terminal by half its size aligns the middle of the terminal
+ * with the edge of the line.
+ *
+ * We must offset by half the line width in the opposite direction so that the
+ * middle of the terminal aligns with the middle of the line.
+ *
+ * That is,
+ *
+ * offset = - (terminalSize / 2) + (line.thickness / 2)
+ *
+ * which simplifies to the following value.
+ */
+const offsetToAlignTerminalWithLine = (line.thickness - terminalSize) / 2;
+
+/**
+ * We inset the line by half the terminal size,
+ * so that the terminal only half sticks out past the item.
+ */
+const lineOffset = terminalSize / 2;
+
+type Orientation = 'horizontal' | 'vertical';
+
+const orientationStyles: Record<Orientation, SerializedStyles> = {
+  horizontal: css({
+    height: line.thickness,
+    left: lineOffset,
+    right: 0,
+    '::before': {
+      // Horizontal indicators have the terminal on the left
+      left: -terminalSize,
+    },
+  }),
+  vertical: css({
+    width: line.thickness,
+    top: lineOffset,
+    bottom: 0,
+    '::before': {
+      // Vertical indicators have the terminal at the top
+      top: -terminalSize,
+    },
+  }),
+};
+
+const edgeToOrientationMap: Record<Edge, Orientation> = {
+  top: 'horizontal',
+  bottom: 'horizontal',
+  left: 'vertical',
+  right: 'vertical',
+};
 
 const edgeStyles: Record<Edge, SerializedStyles> = {
   top: css({
-    height: line.thickness,
     top: 'var(--local-line-offset)',
-    right: 0,
-    left: 0,
+    '::before': {
+      top: offsetToAlignTerminalWithLine,
+    },
   }),
   right: css({
-    width: line.thickness,
-    top: 0,
     right: 'var(--local-line-offset)',
-    bottom: 0,
+    '::before': {
+      right: offsetToAlignTerminalWithLine,
+    },
   }),
   bottom: css({
-    height: line.thickness,
-    right: 0,
     bottom: 'var(--local-line-offset)',
-    left: 0,
+    '::before': {
+      bottom: offsetToAlignTerminalWithLine,
+    },
   }),
   left: css({
-    width: line.thickness,
-    top: 0,
-    bottom: 0,
     left: 'var(--local-line-offset)',
+    '::before': {
+      left: offsetToAlignTerminalWithLine,
+    },
   }),
 };
 
@@ -79,9 +135,11 @@ export function DropIndicator({ edge, gap = '0px' }: DropIndicatorProps) {
    */
   const lineOffset = `calc(-0.5 * (${gap} + ${line.thickness}px))`;
 
+  const orientation = edgeToOrientationMap[edge];
+
   return (
     <div
-      css={[lineStyles, edge && edgeStyles[edge]]}
+      css={[lineStyles, orientationStyles[orientation], edgeStyles[edge]]}
       style={{ '--local-line-offset': lineOffset } as CSSProperties}
     />
   );

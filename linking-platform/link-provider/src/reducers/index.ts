@@ -12,9 +12,9 @@ import {
   CardActionType,
   ACTION_RELOADING,
   CardAction,
+  getStatus,
 } from '@atlaskit/linking-common';
 import { CardReducer } from '../types';
-import { getStatus } from '../helpers';
 import { AnyAction } from 'redux';
 
 const isCardAction = (action: AnyAction): action is CardAction => {

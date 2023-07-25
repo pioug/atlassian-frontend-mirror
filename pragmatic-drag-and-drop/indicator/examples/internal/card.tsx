@@ -1,17 +1,20 @@
 /** @jsx jsx */
 
-import type { ReactNode } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { DropIndicator, DropIndicatorProps } from '../../src/box';
-
-type CardProps = { children: ReactNode } & Pick<
+import {
+  DropIndicator as defaultDropIndicator,
   DropIndicatorProps,
-  'edge' | 'gap'
->;
+} from '../../src/box';
+
+type CardProps = {
+  children: ReactNode;
+  DropIndicator?: (props: DropIndicatorProps) => ReactElement | null;
+} & Pick<DropIndicatorProps, 'edge' | 'gap'>;
 
 const cardStyles = css({
   display: 'grid',
@@ -27,7 +30,12 @@ const cardStyles = css({
   position: 'relative',
 });
 
-const Card = ({ children, edge, gap }: CardProps) => {
+const Card = ({
+  children,
+  edge,
+  gap,
+  DropIndicator = defaultDropIndicator,
+}: CardProps) => {
   return (
     <div css={cardStyles} data-testid="card">
       <strong>{children}</strong>

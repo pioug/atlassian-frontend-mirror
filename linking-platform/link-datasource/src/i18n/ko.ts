@@ -7,7 +7,12 @@
  */
 //Korean
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': '취소',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': '개체 삽입',
   'linkDataSource.column-picker.search': '필드 검색',
+  'linkDataSource.jira-issues.accessInstructions': '액세스를 요청하려면 관리자에게 문의하세요.',
+  'linkDataSource.jira-issues.accessRequired': '이 사이트에 대한 액세스 권한이 없습니다',
+  'linkDataSource.jira-issues.accessRequiredWithSite': '{siteName}에 대한 액세스 권한이 없습니다',
   'linkDataSource.jira-issues.checkConnection': '연결을 확인하고 새로 고치거나 나중에 다시 시도하세요.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     '연결을 확인하고 새로 고치거나 <a>Jira에서 이 쿼리를 열어</a> 검토하세요.',
@@ -19,6 +24,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '이슈 삽입',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira 이슈 삽입',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '{siteName}의 Jira 이슈 삽입',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {이슈}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': '이슈 보기',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} 선택됨',
   'linkDataSource.jira-issues.noResultsFound': '결과 없음',
@@ -30,6 +36,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': '할당되지 않음',
   'linkDataSource.table-footer.date_formatter.under_one_minute': '방금 동기화',
   'linkDataSource.table-footer.date_formatter.under_over_minute': '{date}에 동기화',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, other {이슈}}',
   'linkDataSource.table-footer.loading': '로드 중...',
   'linkDataSource.table-footer.refresh': '새로 고침',
 };

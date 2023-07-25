@@ -7,7 +7,12 @@
  */
 //Turkish (Turkey)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'İptal',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Nesne ekle',
   'linkDataSource.column-picker.search': 'Alan arayın',
+  'linkDataSource.jira-issues.accessInstructions': 'Erişim talep etmek için yöneticinizle iletişime geçin.',
+  'linkDataSource.jira-issues.accessRequired': 'Bu siteye erişiminiz yok',
+  'linkDataSource.jira-issues.accessRequiredWithSite': '{siteName} sitesine erişiminiz yok',
   'linkDataSource.jira-issues.checkConnection':
     'Bağlantınızı kontrol edip sayfayı yenileyin veya daha sonra tekrar deneyin.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -20,6 +25,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Konu ekle',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira konuları ekleyin',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '{siteName} sitesinden Jira konuları ekleyin',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {konu} other {konu}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Konu görünümü',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} seçildi',
   'linkDataSource.jira-issues.noResultsFound': 'Sonuç bulunamadı',
@@ -31,6 +37,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Atanmamış',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Az önce senkronize edildi',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Son senkronizasyon: {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {konu} other {konu}}',
   'linkDataSource.table-footer.loading': 'Yükleniyor...',
   'linkDataSource.table-footer.refresh': 'Yenile',
 };

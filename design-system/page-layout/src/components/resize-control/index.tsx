@@ -109,7 +109,7 @@ const ResizeControl = ({
     'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
   )
     ? // eslint-disable-next-line react-hooks/rules-of-hooks -- With the feature flag, this does not apply as it should be static.
-      useMediaQuery('below.md')
+      useMediaQuery('below.sm')
     : null;
 
   // Used in some cases to ensure function references don't have to change

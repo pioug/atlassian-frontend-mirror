@@ -42,7 +42,7 @@ export const RENDER_REACTIONPICKERPANEL_TESTID = 'reactionPickerPanel-testid';
 /**
  * Emoji Picker Controller Id for Accessibility Labels
  */
-export const PICKER_CONTROL_ID = 'emoji-picker';
+const PICKER_CONTROL_ID = 'emoji-picker';
 
 const popperModifiers: PopperProps<{}>['modifiers'] = [
   /**

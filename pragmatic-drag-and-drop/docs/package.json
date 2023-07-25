@@ -41,7 +41,7 @@
   "devDependencies": {
     "@atlaskit/icon": "^21.11.0",
     "@atlaskit/pragmatic-drag-and-drop": "^0.19.0",
-    "@atlaskit/pragmatic-drag-and-drop-autoscroll": "^0.5.0",
+    "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^0.6.0",
     "@atlaskit/theme": "^12.4.0",
     "@atlaskit/tokens": "^1.13.0",
     "@atlaskit/visual-regression": "*",

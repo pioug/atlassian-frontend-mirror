@@ -1,23 +1,31 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-
 import { InlineCardResolvedView } from '../src/view/InlineCard';
+import { InlineCardResolvedView as RedesignedInlineCardResolvedView } from '../src/view/RedesignedInlineCard/ResolvedView';
 import { VRTestCase } from './utils/common';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-export default () => (
-  <VRTestCase title="Inline card text wrap">
-    {() => (
-      <div style={{ maxWidth: '50px' }}>
-        <InlineCardResolvedView
-          isSelected={false}
-          icon={'broken-url'}
-          title="hyphens - CSS: Cascading Style Sheets | MDN"
-          lozenge={{
-            text: 'in progress',
-            appearance: 'inprogress',
-          }}
-        />
-      </div>
-    )}
-  </VRTestCase>
-);
+export default () => {
+  const ResolvedView = getBooleanFF(
+    'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+  )
+    ? RedesignedInlineCardResolvedView
+    : InlineCardResolvedView;
+  return (
+    <VRTestCase title="Inline card text wrap">
+      {() => (
+        <div style={{ maxWidth: '50px' }}>
+          <ResolvedView
+            isSelected={false}
+            icon={'broken-url'}
+            title="hyphens - CSS: Cascading Style Sheets | MDN"
+            lozenge={{
+              text: 'in progress',
+              appearance: 'inprogress',
+            }}
+          />
+        </div>
+      )}
+    </VRTestCase>
+  );
+};

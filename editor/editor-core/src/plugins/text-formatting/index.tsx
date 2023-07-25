@@ -63,7 +63,8 @@ const textFormatting: NextEditorPlugin<
     return [
       {
         name: 'textFormatting',
-        plugin: ({ dispatch }) => textFormattingPlugin(dispatch),
+        plugin: ({ dispatch }) =>
+          textFormattingPlugin(dispatch, api?.dependencies.analytics?.actions),
       },
       {
         name: 'textFormattingCursor',
@@ -92,7 +93,8 @@ const textFormatting: NextEditorPlugin<
       },
       {
         name: 'textFormattingKeymap',
-        plugin: ({ schema }) => keymapPlugin(schema),
+        plugin: ({ schema }) =>
+          keymapPlugin(schema, api?.dependencies.analytics?.actions),
       },
     ];
   },

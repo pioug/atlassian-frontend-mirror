@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.4.4
+
+### Patch Changes
+
+- [`e64541c6fda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e64541c6fda) - [ux] [ED-18759] Updated table border, handlebar controls, blanket, icon, icon background and table cell options button colour tokens on light and dark theme for table selection and table deletion. Borders for Table Floating Contextual Button & Floating toolbar color palette button on dark & light theme are also updated.
+
 ## 2.4.3
 
 ### Patch Changes

@@ -10,17 +10,7 @@ import {
   akEditorTableNumberColumnWidth,
   akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles';
-import {
-  B300,
-  N0,
-  N20A,
-  N300,
-  N40A,
-  N60A,
-  R300,
-  Y200,
-  Y50,
-} from '@atlaskit/theme/colors';
+import { B300, N0, N300, N40A, N60A, Y200, Y50 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
@@ -39,6 +29,10 @@ import {
   tableBorderDeleteColor,
   tableBorderSelectedColor,
   tableCellDeleteColor,
+  tableCellHoverDeleteIconBackground,
+  tableCellHoverDeleteIconColor,
+  tableCellSelectedDeleteIconBackground,
+  tableCellSelectedDeleteIconColor,
   tableDeleteButtonSize,
   tableHeaderCellBackgroundColor,
   tableInsertColumnButtonSize,
@@ -47,9 +41,9 @@ import {
   tableToolbarSize,
 } from './consts';
 
-const InsertLine = (cssString?: string) => css`
+const InsertLine = (props: ThemeProps, cssString?: string) => css`
   .${ClassName.CONTROLS_INSERT_LINE} {
-    background: ${tableBorderSelectedColor};
+    background: ${tableBorderSelectedColor(props)};
     display: none;
     position: absolute;
     z-index: ${akEditorUnitZIndex};
@@ -122,33 +116,24 @@ export const HeaderButton = (props: ThemeProps, cssString?: string) => css`
 
   .active .${ClassName.CONTROLS_BUTTON} {
     color: ${token('color.icon.inverse', N0)};
-    background-color: ${token(
-      'color.background.selected',
-      tableToolbarSelectedColor,
-    )};
-    border-color: ${tableBorderSelectedColor};
+    background-color: ${tableToolbarSelectedColor(props)};
+    border-color: ${tableBorderSelectedColor(props)};
   }
 `;
 
-export const HeaderButtonHover = () => css`
+export const HeaderButtonHover = (props: ThemeProps) => css`
   .${ClassName.CONTROLS_BUTTON}:hover {
     color: ${token('color.icon.inverse', N0)};
-    background-color: ${token(
-      'color.background.selected',
-      tableToolbarSelectedColor,
-    )};
-    border-color: ${tableBorderSelectedColor};
+    background-color: ${tableToolbarSelectedColor(props)};
+    border-color: ${tableBorderSelectedColor(props)};
     cursor: pointer;
   }
 `;
 
-export const HeaderButtonDanger = () => css`
+export const HeaderButtonDanger = (props: ThemeProps) => css`
   .${ClassName.HOVERED_CELL_IN_DANGER} .${ClassName.CONTROLS_BUTTON} {
-    background-color: ${token(
-      'color.background.danger',
-      tableToolbarDeleteColor,
-    )};
-    border-color: ${tableBorderDeleteColor};
+    background-color: ${tableToolbarDeleteColor(props)};
+    border-color: ${tableBorderDeleteColor(props)};
     position: relative;
     z-index: ${akEditorUnitZIndex};
   }
@@ -191,23 +176,29 @@ const InsertButtonHover = () => css`
   }
 `;
 
-export const insertColumnButtonWrapper = css`
+export const insertColumnButtonWrapper = (props: ThemeProps) => css`
   ${InsertButton()}
   ${InsertButtonHover()}
-  ${InsertLine(`
+  ${InsertLine(
+    props,
+    `
     width: 2px;
     left: 9px;
-  `)}
+  `,
+  )}
 `;
 
-export const insertRowButtonWrapper = css`
+export const insertRowButtonWrapper = (props: ThemeProps) => css`
   ${InsertButton()}
   ${InsertButtonHover()}
-  ${InsertLine(`
+  ${InsertLine(
+    props,
+    `
     height: 2px;
     top: -11px;
     left: ${tableInsertColumnButtonSize - 1}px;
-  `)}
+  `,
+  )}
 `;
 
 export const columnControlsLineMarker = () => css`
@@ -223,7 +214,7 @@ export const columnControlsLineMarker = () => css`
   }
 `;
 
-export const DeleteButton = css`
+export const DeleteButton = (props: ThemeProps) => css`
   .${ClassName.CONTROLS_DELETE_BUTTON_WRAP},
     .${ClassName.CONTROLS_DELETE_BUTTON} {
     height: ${tableDeleteButtonSize}px;
@@ -232,15 +223,15 @@ export const DeleteButton = css`
   .${ClassName.CONTROLS_DELETE_BUTTON_WRAP} {
     .${ClassName.CONTROLS_DELETE_BUTTON} {
       ${Button(`
-        background: ${token('color.background.neutral', N20A)};
-        color: ${token('color.icon', N300)};
+        background: ${tableCellSelectedDeleteIconBackground(props)};
+        color: ${tableCellSelectedDeleteIconColor(props)};
       `)}
     }
   }
 
   .${ClassName.CONTROLS_DELETE_BUTTON}:hover {
-    background: ${token('color.background.danger.bold', R300)};
-    color: ${token('color.icon.inverse', 'white')};
+    background: ${tableCellHoverDeleteIconBackground(props)};
+    color: ${tableCellHoverDeleteIconColor(props)};
     cursor: pointer;
   }
 `;
@@ -312,13 +303,10 @@ const columnHeaderButton = (props: ThemeProps, cssString?: string) => css`
   ${cssString}
 `;
 
-const columnHeaderButtonSelected = css`
+const columnHeaderButtonSelected = (props: ThemeProps) => css`
   color: ${token('color.text.inverse', N0)};
-  background-color: ${token(
-    'color.background.selected',
-    tableToolbarSelectedColor,
-  )};
-  border-color: ${tableBorderSelectedColor};
+  background-color: ${tableToolbarSelectedColor(props)};
+  border-color: ${tableBorderSelectedColor(props)};
   z-index: ${columnControlsSelectedZIndex};
 `;
 
@@ -392,16 +380,13 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
       &.${ClassName.HOVERED_COLUMN},
       &.${ClassName.HOVERED_TABLE} {
       .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-        ${columnHeaderButtonSelected};
+        ${columnHeaderButtonSelected(props)};
       }
 
       &.${ClassName.HOVERED_CELL_IN_DANGER}
         .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-        background-color: ${token(
-          'color.background.danger',
-          tableToolbarDeleteColor,
-        )};
-        border: 1px solid ${tableBorderDeleteColor};
+        background-color: ${tableToolbarDeleteColor(props)};
+        border: 1px solid ${tableBorderDeleteColor(props)};
         border-bottom: none;
         z-index: ${akEditorUnitZIndex * 100};
       }
@@ -417,30 +402,30 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
     tr:first-of-type
     th.${ClassName.TABLE_HEADER_CELL} {
     .${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
-      ${columnHeaderButtonSelected};
+      ${columnHeaderButtonSelected(props)};
     }
   }
 `;
 
-export const hoveredDeleteButton = css`
+export const hoveredDeleteButton = (props: ThemeProps) => css`
   .${ClassName.TABLE_CONTAINER}.${ClassName.HOVERED_DELETE_BUTTON} {
     .${ClassName.SELECTED_CELL},
       .${ClassName.COLUMN_SELECTED},
       .${ClassName.HOVERED_CELL} {
-      border: 1px solid ${tableBorderDeleteColor};
+      border: 1px solid ${tableBorderDeleteColor(props)};
     }
     .${ClassName.SELECTED_CELL}::after {
-      background: ${tableCellDeleteColor};
+      background: ${tableCellDeleteColor(props)};
     }
   }
 `;
 
-export const hoveredCell = css`
+export const hoveredCell = (props: ThemeProps) => css`
   :not(.${ClassName.IS_RESIZING})
     .${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
     .${ClassName.HOVERED_CELL} {
       position: relative;
-      border: 1px solid ${tableBorderSelectedColor};
+      border: 1px solid ${tableBorderSelectedColor(props)};
     }
   }
 `;
@@ -458,7 +443,7 @@ export const hoveredWarningCell = css`
   }
 `;
 
-export const resizeHandle = css`
+export const resizeHandle = (props: ThemeProps) => css`
   .${ClassName.TABLE_CONTAINER} {
     .${ClassName.RESIZE_HANDLE_DECORATION} {
       background-color: transparent;
@@ -478,7 +463,7 @@ export const resizeHandle = css`
       top: -1px;
       width: ${resizeLineWidth}px;
       height: calc(100% + 2px);
-      background-color: ${tableBorderSelectedColor};
+      background-color: ${tableBorderSelectedColor(props)};
       z-index: ${columnControlsZIndex * 2};
     }
 
@@ -488,7 +473,7 @@ export const resizeHandle = css`
       position: absolute;
       width: ${resizeLineWidth}px;
       height: calc(100% + ${tableToolbarSize + tableCellBorderWidth}px);
-      background-color: ${tableBorderSelectedColor};
+      background-color: ${tableBorderSelectedColor(props)};
       z-index: ${columnControlsZIndex * 2};
       top: -${tableToolbarSize + tableCellBorderWidth}px;
     }
@@ -500,7 +485,7 @@ export const resizeHandle = css`
       top: -1px;
       width: ${resizeLineWidth}px;
       height: calc(100% + 2px);
-      background-color: ${tableBorderSelectedColor};
+      background-color: ${tableBorderSelectedColor(props)};
       z-index: ${columnControlsZIndex * 2};
     }
 
@@ -510,7 +495,7 @@ export const resizeHandle = css`
       position: absolute;
       width: ${resizeLineWidth}px;
       height: calc(100% + ${tableToolbarSize + tableCellBorderWidth}px);
-      background-color: ${tableBorderSelectedColor};
+      background-color: ${tableBorderSelectedColor(props)};
       z-index: ${columnControlsZIndex * 2};
       top: -${tableToolbarSize + tableCellBorderWidth}px;
     }

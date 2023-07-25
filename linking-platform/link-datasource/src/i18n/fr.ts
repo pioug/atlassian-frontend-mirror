@@ -7,7 +7,12 @@
  */
 //French (France)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Annuler',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Insérer des objets',
   'linkDataSource.column-picker.search': 'Rechercher des champs',
+  'linkDataSource.jira-issues.accessInstructions': "Pour demander l'accès, contactez votre administrateur.",
+  'linkDataSource.jira-issues.accessRequired': "Vous n'avez pas accès à ce site",
+  'linkDataSource.jira-issues.accessRequiredWithSite': "Vous n'avez pas accès à {siteName}",
   'linkDataSource.jira-issues.checkConnection': 'Vérifiez votre connexion et actualisez, ou réessayez plus tard.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     'Vérifiez votre connexion et actualisez, ou <a>ouvrez cette requête dans Jira</a> pour revue.',
@@ -20,6 +25,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Insérer des tickets Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites':
     'Insérer des tickets Jira à partir de {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {ticket} other {tickets}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Vue Ticket',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} est sélectionné',
   'linkDataSource.jira-issues.noResultsFound': 'Résultat introuvable',
@@ -31,6 +37,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Non assigné',
   'linkDataSource.table-footer.date_formatter.under_one_minute': "Synchronisé à l'instant",
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synchronisé le {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {ticket} other {tickets}}',
   'linkDataSource.table-footer.loading': 'Chargement…',
   'linkDataSource.table-footer.refresh': 'Actualiser',
 };

@@ -19,6 +19,9 @@ import {
 import { useSmartLink } from '../../state';
 import { BlockCard } from '../BlockCard';
 import { InlineCard } from '../InlineCard';
+import { InlineCard as RedesignedInlineCard } from '../RedesignedInlineCard';
+import { InlineCardProps } from '../InlineCard/types';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { InvokeClientOpts, InvokeServerOpts } from '../../model/invoke-opts';
 import { EmbedCard } from '../EmbedCard';
 import { isFlexibleUiCard } from '../../utils/flexible';
@@ -287,24 +290,29 @@ function Component({
 
   switch (appearance) {
     case 'inline':
-      return (
-        <InlineCard
-          analytics={analytics}
-          id={id}
-          url={url}
-          renderers={renderers}
-          cardState={state}
-          handleAuthorize={(services.length && handleAuthorize) || undefined}
-          handleFrameClick={handleClickWrapper}
-          isSelected={isSelected}
-          onResolve={onResolve}
-          onError={onError}
-          testId={testId}
-          inlinePreloaderStyle={inlinePreloaderStyle}
-          showHoverPreview={showHoverPreview}
-          showAuthTooltip={showAuthTooltip}
-          showServerActions={showServerActions}
-        />
+      const inlineProps: InlineCardProps = {
+        analytics: analytics,
+        id: id,
+        url: url,
+        renderers: renderers,
+        cardState: state,
+        handleAuthorize: (services.length && handleAuthorize) || undefined,
+        handleFrameClick: handleClickWrapper,
+        isSelected: isSelected,
+        onResolve: onResolve,
+        onError: onError,
+        testId: testId,
+        inlinePreloaderStyle: inlinePreloaderStyle,
+        showHoverPreview: showHoverPreview,
+        showAuthTooltip: showAuthTooltip,
+        showServerActions: showServerActions,
+      };
+      return getBooleanFF(
+        'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+      ) ? (
+        <RedesignedInlineCard {...inlineProps} />
+      ) : (
+        <InlineCard {...inlineProps} />
       );
     case 'block':
       return (

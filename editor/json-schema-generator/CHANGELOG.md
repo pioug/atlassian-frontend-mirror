@@ -1,5 +1,11 @@
 # @atlaskit/json-schema-generator
 
+## 3.3.4
+
+### Patch Changes
+
+- [`bd1126bb798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bd1126bb798) - Change transpilation to static for json-schema-generator
+
 ## 3.3.3
 
 ### Patch Changes

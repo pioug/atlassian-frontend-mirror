@@ -7,7 +7,12 @@
  */
 //Chinese (Simplified)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': '取消',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': '插入对象',
   'linkDataSource.column-picker.search': '搜索字段',
+  'linkDataSource.jira-issues.accessInstructions': '要申请访问权限，请联系您的管理员。',
+  'linkDataSource.jira-issues.accessRequired': '您无权访问此站点',
+  'linkDataSource.jira-issues.accessRequiredWithSite': '您无权访问 {siteName}',
   'linkDataSource.jira-issues.checkConnection': '请检查连接并刷新，或稍后重试。',
   'linkDataSource.jira-issues.checkConnectionWithSource': '请检查连接并刷新，或<a>在 Jira 中打开此查询</a>以进行查看。',
   'linkDataSource.jira-issues.configmodal.basicModeText': '基本',
@@ -18,6 +23,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '插入事务',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': '插入 Jira 事务',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '插入 {siteName} 中的 Jira 事务',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {个事务}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': '事务视图',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '已选择 {siteName}',
   'linkDataSource.jira-issues.noResultsFound': '未找到结果',
@@ -29,6 +35,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': '未分配',
   'linkDataSource.table-footer.date_formatter.under_one_minute': '刚才已同步',
   'linkDataSource.table-footer.date_formatter.under_over_minute': '已于 {date}同步',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, other {个事务}}',
   'linkDataSource.table-footer.loading': '正在加载...',
   'linkDataSource.table-footer.refresh': '刷新',
 };

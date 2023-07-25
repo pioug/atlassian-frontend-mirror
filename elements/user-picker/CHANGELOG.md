@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.5.0
+
+### Minor Changes
+
+- [`eaf4a174f64`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eaf4a174f64) - Added optional onOpen callback
+
 ## 10.4.0
 
 ### Minor Changes

@@ -36,11 +36,13 @@ each avatar to overlap its direct sibling and create our desired stack.
 ## Block whitespace
 
 Bleed can be controlled on the block axis (vertical) with the `block` property. The values of this property are tied to our spacing scale.
+Note, in the context of a flex container bleed will collapse the whitespace around its child element.
 
 <Example Component={BleedBlock} packageName="@atlaskit/primitives/bleed" />
 
 ## Inline whitespace
 
 Bleed can also be controlled on the inline axis (horizontal) with the `inline` property. The values of this property are tied to our spacing scale.
+Note, in the context of a flex container bleed will collapse the whitespace around its child element.
 
 <Example Component={BleedInline} packageName="@atlaskit/primitives/bleed" />

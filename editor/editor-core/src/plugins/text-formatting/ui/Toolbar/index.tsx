@@ -65,6 +65,7 @@ const ToolbarFormatting: React.FC<
     editorState,
     intl,
     isToolbarDisabled,
+    editorAnalyticsAPI,
   });
   const clearIcon = useClearIcon({
     editorState,

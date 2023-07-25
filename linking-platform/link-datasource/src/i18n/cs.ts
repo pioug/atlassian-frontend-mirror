@@ -7,7 +7,12 @@
  */
 //Czech
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Zrušit',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Vložit objekty',
   'linkDataSource.column-picker.search': 'Vyhledat pole',
+  'linkDataSource.jira-issues.accessInstructions': 'Chcete-li požádat o přístup, obraťte se na správce.',
+  'linkDataSource.jira-issues.accessRequired': 'K tomuto webu nemáte přístup',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'K webu {siteName} nemáte přístup',
   'linkDataSource.jira-issues.checkConnection':
     'Zkontrolujte připojení a obnovte stránku nebo to zkuste znovu později.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -20,6 +25,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vložit požadavky',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Vložit požadavky Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Vložit požadavky Jira z webu {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue':
+    '{totalCount, plural, one {požadavek} few {požadavky} many {požadavku} other {požadavků}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Zobrazení požadavků',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'Je vybrán web {siteName}',
   'linkDataSource.jira-issues.noResultsFound': 'Nebyly nalezeny žádné výsledky',
@@ -31,6 +38,8 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Nepřiřazeno',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Synchronizováno právě teď',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synchronizováno {date}',
+  'linkDataSource.table-footer.issue':
+    '{issueCount, plural, one {požadavek} few {požadavky} many {požadavku} other {požadavků}}',
   'linkDataSource.table-footer.loading': 'Načítání…',
   'linkDataSource.table-footer.refresh': 'Obnovit',
 };

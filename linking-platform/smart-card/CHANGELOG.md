@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 26.9.18
+
+### Patch Changes
+
+- [`bfab8038b9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfab8038b9c) - [ux] Fix for Block card avatar misalignment in Cofnluence renderer caused by a less specific css rule on our end
+
+## 26.9.17
+
+### Patch Changes
+
+- [`936fc621c48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/936fc621c48) - [ux] Design refresh for the Inline Smart Links.
+
+## 26.9.16
+
+### Patch Changes
+
+- [`a4ff4c2f918`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a4ff4c2f918) - Update to use 'getStatus' from '@atlaskit/linking-common'
+- Updated dependencies
+
 ## 26.9.15
 
 ### Patch Changes

@@ -33,6 +33,7 @@ import deprecatedAnalyticsPlugin, {
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import Toolbar from '../../../ui/Toolbar';
 import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('@atlaskit/editor-core/ui/Toolbar', () => {
   const editorRef = {
@@ -344,6 +345,12 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
     ])(
       'should dispatch analytics event when %s toolbar button is clicked',
       (buttonName, actionSubjectId) => {
+        const attachAnalyticsEvent = jest
+          .fn()
+          .mockImplementation(() => () => {});
+        const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+          attachAnalyticsEvent,
+        };
         const { editorView } = editor(doc(p('text')));
         const { getByTestId } = render(
           <ToolbarWrapper>
@@ -354,6 +361,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
               shouldUseResponsiveToolbar={false}
               editorView={editorView}
               editorState={editorView.state}
+              editorAnalyticsAPI={mockEditorAnalyticsAPI}
             />
           </ToolbarWrapper>,
         );
@@ -369,7 +377,10 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
           }),
         };
 
-        expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+        expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+          expectedPayload,
+          undefined,
+        );
       },
     );
 
@@ -382,6 +393,12 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
     ])(
       'should dispatch analytics event when %s is clicked',
       (buttonName, actionSubjectId) => {
+        const attachAnalyticsEvent = jest
+          .fn()
+          .mockImplementation(() => () => {});
+        const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+          attachAnalyticsEvent,
+        };
         const { editorView } = editor(doc(p('{<}text{>}')));
         const { getByLabelText, getByRole } = render(
           <ToolbarWrapper>
@@ -392,6 +409,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
               shouldUseResponsiveToolbar={false}
               editorView={editorView}
               editorState={editorView.state}
+              editorAnalyticsAPI={mockEditorAnalyticsAPI}
             />
           </ToolbarWrapper>,
         );
@@ -415,7 +433,10 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
           }),
         };
 
-        expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+        expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+          expectedPayload,
+          undefined,
+        );
       },
     );
 

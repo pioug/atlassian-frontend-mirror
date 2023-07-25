@@ -34,7 +34,7 @@
     "@atlaskit/media-client": "^23.1.0",
     "@atlaskit/media-common": "^7.1.0",
     "@atlaskit/media-ui": "^23.2.0",
-    "@atlaskit/popup": "^1.8.0",
+    "@atlaskit/popup": "^1.9.0",
     "@atlaskit/tabs": "^13.4.0",
     "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/tokens": "^1.13.0",

@@ -9,7 +9,6 @@ import { AKIconWrapper } from '../Icon';
 import { messages } from '../../../messages';
 import { FormattedMessage } from 'react-intl-next';
 import { IconStyledButton, LowercaseAppearance } from '../styled';
-
 export interface InlineCardErroredViewProps {
   /** The url to display */
   url: string;

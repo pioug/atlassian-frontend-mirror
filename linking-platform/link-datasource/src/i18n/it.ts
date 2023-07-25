@@ -7,7 +7,12 @@
  */
 //Italian (Italy)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Annulla',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Inserisci oggetti',
   'linkDataSource.column-picker.search': 'Cerca campi',
+  'linkDataSource.jira-issues.accessInstructions': "Per richiedere l'accesso, contatta l'amministratore.",
+  'linkDataSource.jira-issues.accessRequired': 'Non hai accesso a questo sito',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'Non hai accesso a {siteName}',
   'linkDataSource.jira-issues.checkConnection': 'Verifica la tua connessione, quindi aggiorna o riprova più tardi.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     'Verifica la tua connessione, quindi aggiorna o <a>apri questa query in Jira</a> per riesaminarla.',
@@ -19,6 +24,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Inserisci ticket',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Inserisci ticket Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Inserisci ticket Jira da {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {ticket} other {ticket}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Visualizzazione ticket',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'È selezionato {siteName}',
   'linkDataSource.jira-issues.noResultsFound': 'Nessun risultato trovato',
@@ -30,6 +36,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Non assegnato',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Sincronizzato proprio ora',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Sincronizzato il {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {ticket} other {ticket}}',
   'linkDataSource.table-footer.loading': 'Caricamento in corso...',
   'linkDataSource.table-footer.refresh': 'Aggiorna',
 };

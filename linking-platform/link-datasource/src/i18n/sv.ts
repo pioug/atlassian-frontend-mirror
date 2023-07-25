@@ -7,7 +7,12 @@
  */
 //Swedish
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Avbryt',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Infoga objekt',
   'linkDataSource.column-picker.search': 'Sök efter fält',
+  'linkDataSource.jira-issues.accessInstructions': 'Kontakta din administratör för att begära åtkomst.',
+  'linkDataSource.jira-issues.accessRequired': 'Du har inte tillgång till den här webbplatsen',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'Du har inte tillgång till {siteName}',
   'linkDataSource.jira-issues.checkConnection': 'Kontrollera din anslutning och uppdatera, eller försök igen senare.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     'Kontrollera din anslutning och uppdatera, eller <a>öppna den här frågan i Jira</a> för att granska.',
@@ -19,6 +24,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Infoga ärende',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Infoga Jira-ärenden',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Infoga Jira-ärenden från {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {ärende} other {ärenden}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Ärendevyn',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} är vald',
   'linkDataSource.jira-issues.noResultsFound': 'Inga resultat hittades',
@@ -30,6 +36,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Ej tilldelad',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Synkroniserades just nu',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synkroniserades {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {ärende} other {ärenden}}',
   'linkDataSource.table-footer.loading': 'Läser in ...',
   'linkDataSource.table-footer.refresh': 'Uppdatera',
 };

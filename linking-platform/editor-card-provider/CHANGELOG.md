@@ -1,5 +1,12 @@
 # @atlaskit/editor-card-provider
 
+## 3.1.5
+
+### Patch Changes
+
+- [`83f06b6e7f6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/83f06b6e7f6) - Update to use 'getStatus' from '@atlaskit/linking-common'
+- Updated dependencies
+
 ## 3.1.4
 
 ### Patch Changes

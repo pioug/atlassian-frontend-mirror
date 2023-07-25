@@ -1,9 +1,11 @@
 import React from 'react';
 
+import type { Edge } from '../src/types';
+
 import Card from './internal/card';
 import Layout from './internal/layout';
 
-const edges = ['bottom', 'left', 'right', 'top'] as const;
+const edges: Edge[] = ['bottom', 'left', 'right', 'top'];
 
 export default function ClosestEdgeExample() {
   return (

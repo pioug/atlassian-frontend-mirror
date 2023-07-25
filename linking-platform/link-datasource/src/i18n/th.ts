@@ -7,7 +7,12 @@
  */
 //Thai (Thailand)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'ยกเลิก',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'แทรกเรื่อง',
   'linkDataSource.column-picker.search': 'ค้นหาฟิลด์',
+  'linkDataSource.jira-issues.accessInstructions': 'หากต้องการส่งคำขอการเข้าถึง โปรดติดต่อผู้ดูแลของคุณ',
+  'linkDataSource.jira-issues.accessRequired': 'คุณไม่มีสิทธิ์การเข้าถึงเว็บไซต์นี้',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'คุณไม่มีสิทธิ์การเข้าถึง {siteName}',
   'linkDataSource.jira-issues.checkConnection': 'ตรวจสอบการเชื่อมต่อของคุณและรีเฟรช หรือลองอีกครั้งในภายหลัง',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     'ตรวจสอบการเชื่อมต่อของคุณและรีเฟรช หรือ <a>เปิดคำถามนี้ใน Jira</a> เพื่อตรวจสอบ',
@@ -19,6 +24,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'แทรกปัญหา',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'แทรกปัญหา Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'แทรกปัญหา Jira จาก {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {ปัญหา}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'มุมมองของปัญหา',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'เลือก {siteName} แล้ว',
   'linkDataSource.jira-issues.noResultsFound': 'ไม่พบผลลัพธ์',
@@ -30,6 +36,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'ยังไม่ได้มอบหมาย',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'เพิ่งซิงค์',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'ซิงค์เมื่อ {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, other {ปัญหา}}',
   'linkDataSource.table-footer.loading': 'กำลังโหลด...',
   'linkDataSource.table-footer.refresh': 'รีเฟรช',
 };

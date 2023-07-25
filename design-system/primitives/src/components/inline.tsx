@@ -106,8 +106,7 @@ const Separator: FC<{ children: string }> = ({ children }) => (
 /**
  * __Inline__
  *
- * Inline is a primitive component based on flexbox that manages the horizontal layout of direct children.
- *
+ * Inline is a primitive component based on CSS Flexbox that manages the horizontal layout of direct children.
  *
  * @example
  * ```tsx

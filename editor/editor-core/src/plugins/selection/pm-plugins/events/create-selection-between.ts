@@ -16,6 +16,18 @@ function findEmptySelectableParentNodePosition(
     if (isValidPosition($pos)) {
       return $pos;
     }
+
+    // We can not use `$pos.before()` because ProseMirror throws an error when depth is zero.
+    const currentPosIndex = $pos.index();
+    if (currentPosIndex === 0) {
+      return null;
+    }
+    const previousIndex = currentPosIndex - 1;
+    const $previousPos = $pos.doc.resolve($pos.posAtIndex(previousIndex));
+    if (isValidPosition($previousPos)) {
+      return $previousPos;
+    }
+
     return null;
   }
 
@@ -84,6 +96,15 @@ export const onCreateSelectionBetween = (
   $head: ResolvedPos,
 ): TextSelection | null => {
   if ($anchor.pos === $head.pos) {
+    return null;
+  }
+
+  if ($anchor.depth === $head.depth && $anchor.sameParent($head)) {
+    return null;
+  }
+
+  // If the head is targeting a paragraph on root, then let ProseMirror handle the text selection
+  if ($head.depth === 1 && $head.parent?.type.name === 'paragraph') {
     return null;
   }
 

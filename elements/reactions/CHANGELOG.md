@@ -1,5 +1,11 @@
 # @atlaskit/reactions
 
+## 22.5.0
+
+### Minor Changes
+
+- [`3920dcfd848`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3920dcfd848) - This removes the feature flag made for upgrading the `focus-trap` dependency and keeps `focus-trap` at it's original version.
+
 ## 22.4.0
 
 ### Minor Changes

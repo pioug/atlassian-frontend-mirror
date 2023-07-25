@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.3.5
+
+### Patch Changes
+
+- [`e8885f55db6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8885f55db6) - ED-18969 implement relative guides support
+
 ## 0.3.4
 
 ### Patch Changes

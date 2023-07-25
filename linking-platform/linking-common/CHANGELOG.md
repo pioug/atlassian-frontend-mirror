@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.1.0
+
+### Minor Changes
+
+- [`d7c13ff481e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d7c13ff481e) - Added 'getStatus' that calculates a Smart Link status based on accessType, access & visibility
+
 ## 4.0.0
 
 ### Major Changes

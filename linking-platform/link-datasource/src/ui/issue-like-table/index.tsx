@@ -10,9 +10,9 @@ import {
   DatasourceResponseSchemaProperty,
   DatasourceType,
 } from '@atlaskit/linking-types/datasource';
-import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-autoscroll';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
+import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { token } from '@atlaskit/tokens';

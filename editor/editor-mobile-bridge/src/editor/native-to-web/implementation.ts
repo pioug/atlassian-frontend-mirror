@@ -259,7 +259,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleStrongWithAnalytics({ inputMethod })(
+      toggleStrongWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -270,7 +270,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleEmWithAnalytics({ inputMethod })(
+      toggleEmWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -281,7 +281,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleUnderlineWithAnalytics({ inputMethod })(
+      toggleUnderlineWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -292,7 +292,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleCodeWithAnalytics({ inputMethod })(
+      toggleCodeWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -303,7 +303,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleStrikeWithAnalytics({ inputMethod })(
+      toggleStrikeWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -314,7 +314,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleSuperscriptWithAnalytics({ inputMethod })(
+      toggleSuperscriptWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -325,7 +325,7 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleSubscriptWithAnalytics({ inputMethod })(
+      toggleSubscriptWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
         this.editorView.state,
         this.editorView.dispatch,
       );

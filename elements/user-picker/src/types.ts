@@ -75,6 +75,8 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   onBlur?: OnPicker;
   /** Callback for when the value/s in the picker is cleared. */
   onClear?: OnPicker;
+  /** Callback that is triggered when popup picker is opened */
+  onOpen?: OnPicker;
   /** Callback that is triggered when popup picker is closed */
   onClose?: OnPicker;
   /** Appearance of the user picker. */

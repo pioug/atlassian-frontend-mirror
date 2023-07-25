@@ -15,26 +15,13 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { CSSToken } from '@atlaskit/tokens';
-import { EditorView } from 'prosemirror-view';
+import { DisplayGuideline } from '@atlaskit/editor-common/guideline';
+import { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import { GuidelinePluginState } from '@atlaskit/editor-common/guideline';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 
-// @public (undocumented)
-type DisplayGrid = (props: Required<GuidelinePluginState>) => boolean;
-
-// @public (undocumented)
-type DisplayGuideline = (view: EditorView) => DisplayGrid;
-
-// @public (undocumented)
-export type GuidelineConfig = {
-  key: string;
-  position: Position;
-  active?: boolean;
-  show?: boolean;
-  style?: 'dashed' | 'solid';
-  color?: CSSToken;
-};
+export { GuidelineConfig };
 
 // @public (undocumented)
 export const guidelinePlugin: NextEditorPlugin<
@@ -47,16 +34,6 @@ export const guidelinePlugin: NextEditorPlugin<
     };
   }
 >;
-
-// @public (undocumented)
-type GuidelinePluginState = {
-  guidelines: GuidelineConfig[];
-};
-
-// @public (undocumented)
-type Position = {
-  x: number;
-};
 
 // (No @packageDocumentation comment for this package)
 ```

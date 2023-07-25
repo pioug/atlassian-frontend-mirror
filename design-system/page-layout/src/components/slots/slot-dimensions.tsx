@@ -16,6 +16,6 @@ export default ({ variableName, value, mobileValue }: SlotDimensionsProps) => (
       'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
     ) &&
       mobileValue &&
-      `${UNSAFE_media.below.md} { :root{--${variableName}:${mobileValue}px;} }`}
+      `${UNSAFE_media.below.sm} { :root{--${variableName}:${mobileValue}px;} }`}
   </style>
 );

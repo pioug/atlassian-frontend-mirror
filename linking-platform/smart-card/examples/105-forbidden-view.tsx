@@ -3,8 +3,10 @@ import Page, { Grid, GridColumn } from '@atlaskit/page';
 import { Label } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 import { InlineCardForbiddenView } from '../src/view/InlineCard/ForbiddenView';
-import { IntlProvider } from 'react-intl-next';
+import { InlineCardForbiddenView as RedesignedInlineCardForbiddenView } from '../src/view/RedesignedInlineCard/ForbiddenView';
 
+import { IntlProvider } from 'react-intl-next';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 class Example extends React.Component {
   state = {
     url: 'https://product-fabric.atlassian.net/browse/MSW-524',
@@ -15,6 +17,12 @@ class Example extends React.Component {
   };
 
   render() {
+    const ForbiddenView = getBooleanFF(
+      'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+    )
+      ? RedesignedInlineCardForbiddenView
+      : InlineCardForbiddenView;
+
     return (
       <IntlProvider locale={'en'}>
         <Page>
@@ -31,7 +39,7 @@ class Example extends React.Component {
           </Grid>
           <Grid>
             <GridColumn>
-              <InlineCardForbiddenView
+              <ForbiddenView
                 url={this.state.url}
                 onClick={() => alert('This will have zero effect...')}
                 onAuthorise={() => alert('Trying hard...')}
@@ -45,7 +53,7 @@ class Example extends React.Component {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Praesent in finibus augue. Etiam ut leo justo. Proin consequat
                 lacus id leo{' '}
-                <InlineCardForbiddenView
+                <ForbiddenView
                   url={this.state.url}
                   onClick={() => alert('This will have zero effect...')}
                   onAuthorise={() => alert('Trying hard...')}

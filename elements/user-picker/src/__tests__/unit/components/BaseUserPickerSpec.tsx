@@ -392,6 +392,16 @@ describe('BaseUserPicker', () => {
     expect(onBlur).toHaveBeenCalledWith('random-session-id');
   });
 
+  it('should call onOpen handler', () => {
+    const onOpen = jest.fn();
+
+    const { getByRole } = render(getBasePickerWithoutAnalytics({ onOpen }));
+
+    const input = getByRole('combobox');
+    input.focus();
+    expect(onOpen).toHaveBeenCalledWith('random-session-id');
+  });
+
   it('should call onClose handler', () => {
     const onClose = jest.fn();
 

@@ -7,7 +7,12 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Скасувати',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Вставити об’єкти',
   'linkDataSource.column-picker.search': 'Пошук полів',
+  'linkDataSource.jira-issues.accessInstructions': 'Щоб запитати доступ, зверніться до адміністратора.',
+  'linkDataSource.jira-issues.accessRequired': 'У вас немає доступу до цього сайту',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'У вас немає доступу до сайту {siteName}',
   'linkDataSource.jira-issues.checkConnection': 'Перевірте з’єднання та оновіть сторінку або повторіть спробу пізніше.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     'Перевірте з’єднання та оновіть сторінку або <a>перегляньте цей запит у Jira</a>.',
@@ -19,6 +24,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставити завдання',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставте завдання Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставити завдання Jira з {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue':
+    '{totalCount, plural, one {завдання} few {завдання} many {завдань} other {завдання}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Подання завдань',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'Вибрано сайт {siteName}',
   'linkDataSource.jira-issues.noResultsFound': 'Немає результатів',
@@ -30,6 +37,8 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Не призначено',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Синхронізовано щойно',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Синхронізація: {date}',
+  'linkDataSource.table-footer.issue':
+    '{issueCount, plural, one {завдання} few {завдання} many {завдань} other {завдання}}',
   'linkDataSource.table-footer.loading': 'Завантаження…',
   'linkDataSource.table-footer.refresh': 'Оновити',
 };

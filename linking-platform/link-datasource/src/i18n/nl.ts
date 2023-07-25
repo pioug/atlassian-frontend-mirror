@@ -7,7 +7,12 @@
  */
 //Dutch (Netherlands)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Annuleren',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Objecten invoegen',
   'linkDataSource.column-picker.search': 'Zoek naar velden',
+  'linkDataSource.jira-issues.accessInstructions': 'Neem contact op met je beheerder om toegang aan te vragen.',
+  'linkDataSource.jira-issues.accessRequired': 'Je hebt geen toegang tot deze site',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'Je hebt geen toegang tot {siteName}',
   'linkDataSource.jira-issues.checkConnection':
     'Controleer je verbinding en vernieuw de pagina of probeer het later nogmaals.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -20,6 +25,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Issues invoegen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-issues invoegen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-issues invoegen vanaf {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {issue} other {issues}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Issueweergave',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} is geselecteerd',
   'linkDataSource.jira-issues.noResultsFound': 'Geen resultaten gevonden',
@@ -31,6 +37,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Niet-toegewezen',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Zojuist gesynchroniseerd',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Gesynchroniseerd op {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {issue} other {issues}}',
   'linkDataSource.table-footer.loading': 'Laden...',
   'linkDataSource.table-footer.refresh': 'Vernieuwen',
 };

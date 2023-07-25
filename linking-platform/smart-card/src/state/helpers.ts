@@ -59,23 +59,6 @@ export const isAccessible = ({ meta: { access } }: JsonLd.Response) =>
 export const isVisible = ({ meta: { visibility } }: JsonLd.Response) =>
   visibility === 'restricted' || visibility === 'public';
 
-// Be aware, this is a copy of a function in link-provider/src/helpers
-export const getStatus = ({ meta }: JsonLd.Response): CardType => {
-  const { access, visibility } = meta;
-  switch (access) {
-    case 'forbidden':
-      if (visibility === 'not_found') {
-        return 'not_found';
-      } else {
-        return 'forbidden';
-      }
-    case 'unauthorized':
-      return 'unauthorized';
-    default:
-      return 'resolved';
-  }
-};
-
 export const getStatusDetails = (
   details?: JsonLd.Response,
 ): string | undefined => {

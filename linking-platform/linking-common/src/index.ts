@@ -43,6 +43,7 @@ export { getUrl } from './store';
 export type { LinkingPlatformFeatureFlags } from './ff';
 
 export { promiseDebounce } from './utils/promise-debounce';
+export { getStatus } from './utils/get-status';
 
 export { getBaseUrl, getResolverUrl, BaseUrls } from './environments';
 

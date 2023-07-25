@@ -7,7 +7,12 @@
  */
 //German (Germany)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Abbrechen',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Objekte einfügen',
   'linkDataSource.column-picker.search': 'Nach Feldern suchen',
+  'linkDataSource.jira-issues.accessInstructions': 'Wenden Sie sich an Ihren Administrator, um Zugriff anzufordern.',
+  'linkDataSource.jira-issues.accessRequired': 'Sie haben keinen Zugriff auf diese Site.',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'Sie haben keinen Zugriff auf {siteName}.',
   'linkDataSource.jira-issues.checkConnection':
     'Überprüfen Sie Ihre Verbindung und aktualisieren Sie dann die Seite oder versuchen Sie es später erneut.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -20,6 +25,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-Vorgänge einfügen',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-Vorgänge von {siteName} einfügen',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {Vorgang} other {Vorgänge}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Vorgangsansicht',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} ist ausgewählt',
   'linkDataSource.jira-issues.noResultsFound': 'Keine Ergebnisse gefunden',
@@ -31,6 +37,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Nicht zugewiesen',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Gerade synchronisiert',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synchronisiert am {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {Vorgang} other {Vorgänge}}',
   'linkDataSource.table-footer.loading': 'Wird geladen …',
   'linkDataSource.table-footer.refresh': 'Aktualisieren',
 };

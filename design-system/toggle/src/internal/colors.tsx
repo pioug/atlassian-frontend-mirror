@@ -1,6 +1,6 @@
 import {
   B100,
-  B75,
+  B200,
   DN0,
   DN30,
   DN400,
@@ -55,7 +55,7 @@ const colorMap = {
     ),
     backgroundColorUncheckedDisabled: token('color.background.disabled', N20),
 
-    borderColorFocus: token('color.border.focused', B100),
+    borderColorFocus: token('color.border.focused', B200),
 
     iconColorChecked: token('color.icon.inverse', N0),
     iconColorDisabled: token('color.icon.disabled', N70),
@@ -80,7 +80,7 @@ const colorMap = {
     ),
     backgroundColorUncheckedDisabled: token('color.background.disabled', DN70),
 
-    borderColorFocus: token('color.border.focused', B75),
+    borderColorFocus: token('color.border.focused', B100),
 
     iconColorChecked: token('color.icon.inverse', DN30),
     iconColorDisabled: token('color.icon.disabled', DN30),

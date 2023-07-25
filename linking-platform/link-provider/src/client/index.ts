@@ -13,6 +13,7 @@ import {
   getResolverUrl,
   request,
   NetworkError,
+  getStatus,
 } from '@atlaskit/linking-common';
 import { CardClient as CardClientInterface } from './types';
 import {
@@ -24,7 +25,6 @@ import {
   SearchProviderInfoResponse,
 } from './types/responses';
 import { InvokeRequest } from './types/requests';
-import { getStatus } from '../helpers';
 import { LRUMap } from 'lru_map';
 
 const MAX_BATCH_SIZE = 50;

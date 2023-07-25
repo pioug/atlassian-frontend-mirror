@@ -5,6 +5,9 @@ import {
 import {
   akEditorTableBorder,
   akEditorTableBorderDark,
+  akEditorTableBorderSelected,
+  akEditorTableCellBlanketDeleted,
+  akEditorTableCellBlanketSelected,
   akEditorTableToolbar,
   akEditorTableToolbarDark,
   akEditorTableToolbarSize,
@@ -13,12 +16,14 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import {
   B200,
-  B300,
   DN30,
   DN400,
   N0,
   N20,
   N200,
+  N20A,
+  N300,
+  R300,
   R400,
   R75,
 } from '@atlaskit/theme/colors';
@@ -58,24 +63,46 @@ export const tableFloatingControlsColor = token(
   N20,
 );
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4461
-export const tableCellSelectedColor = token(
-  'color.blanket.selected',
-  'rgba(179, 212, 255, 0.3)',
-);
-export const tableToolbarSelectedColor = token(
-  'color.background.selected.bold',
-  B200,
-);
-export const tableBorderSelectedColor = token('color.border.selected', B300);
-export const tableCellDeleteColor = token(
-  'color.blanket.danger',
-  'rgba(255, 235, 230, 0.3)',
-);
-export const tableBorderDeleteColor = token('color.border.danger', R400);
-export const tableToolbarDeleteColor = token(
-  'color.background.danger.bold',
-  R75,
-);
+export const tableCellSelectedColor = themed({
+  light: token('color.blanket.selected', akEditorTableCellBlanketSelected),
+  dark: token('color.blanket.selected', akEditorTableCellBlanketSelected),
+});
+export const tableToolbarSelectedColor = themed({
+  light: token('color.background.selected.pressed', B200),
+  dark: token('color.background.selected.pressed', B200),
+});
+export const tableBorderSelectedColor = themed({
+  light: token('color.border.focused', akEditorTableBorderSelected),
+  dark: token('color.border.focused', akEditorTableBorderSelected),
+});
+export const tableCellSelectedDeleteIconColor = themed({
+  light: token('color.icon.subtle', N300),
+  dark: token('color.icon.subtle', N300),
+});
+export const tableCellSelectedDeleteIconBackground = themed({
+  light: token('color.background.accent.gray.subtlest', N20A),
+  dark: token('color.background.accent.gray.subtlest', N20A),
+});
+export const tableCellDeleteColor = themed({
+  light: token('color.blanket.danger', akEditorTableCellBlanketDeleted),
+  dark: token('color.blanket.danger', akEditorTableCellBlanketDeleted),
+});
+export const tableBorderDeleteColor = themed({
+  light: token('color.border.danger', R400),
+  dark: token('color.border.danger', R400),
+});
+export const tableToolbarDeleteColor = themed({
+  light: token('color.background.danger.pressed', R75),
+  dark: token('color.background.danger.pressed', R75),
+});
+export const tableCellHoverDeleteIconColor = themed({
+  light: token('color.icon.inverse', 'white'),
+  dark: token('color.icon.inverse', 'white'),
+});
+export const tableCellHoverDeleteIconBackground = themed({
+  light: token('color.background.danger.bold', R300),
+  dark: token('color.background.danger.bold', R300),
+});
 export const tableBorderRadiusSize = 3;
 export const tablePadding = 8;
 export const tableScrollbarOffset = 15;
@@ -104,5 +131,5 @@ export const stickyRowZIndex = resizeHandlerZIndex + 2;
 export const stickyRowOffsetTop = 8;
 export const stickyHeaderBorderBottomWidth = 1;
 
-export const TABLE_SNAP_GAP = 5;
+export const TABLE_SNAP_GAP = 9;
 export const TABLE_HIGHLIGHT_GAP = 10;

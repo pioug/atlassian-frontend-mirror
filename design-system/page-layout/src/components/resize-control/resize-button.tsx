@@ -29,7 +29,7 @@ const mobileStyles = getBooleanFF(
 )
   ? css({
       // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.md]: {
+      [UNSAFE_media.below.sm]: {
         opacity: 1,
       },
     })

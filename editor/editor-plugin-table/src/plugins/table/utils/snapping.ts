@@ -1,4 +1,7 @@
-import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
+import {
+  type GuidelineConfig,
+  isVerticalPosition,
+} from '@atlaskit/editor-common/guideline';
 
 /**
  * Returns keys of guidelines that are closest to the table and withthin the snapGap
@@ -23,7 +26,10 @@ export const findClosestSnap = (
       // NOTE: The snap points are based on the guidelines, however their formatted as a length value whereas the guidelines
       // are point based. The point base x coords are calculated by halving the lengths. This means we can convert the
       // point base position to length by simply multiplying by 2.
-      if (Math.round(Math.abs(guideline.position.x) * 2) === snappingWidth) {
+      if (
+        isVerticalPosition(guideline.position) &&
+        Math.round(Math.abs(guideline.position.x) * 2) === snappingWidth
+      ) {
         acc.push(guideline.key);
       }
       return acc;

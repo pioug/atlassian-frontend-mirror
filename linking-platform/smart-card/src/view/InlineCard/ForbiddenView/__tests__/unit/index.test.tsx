@@ -99,7 +99,9 @@ describe('Forbidden view', () => {
   });
 
   it('should show correct text if request access type is DIRECT_ACCESS', async () => {
-    const requestAccessContext = { callToActionMessageKey: 'click_to_join' };
+    const requestAccessContext = {
+      callToActionMessageKey: 'click_to_join',
+    };
     render(
       <IntlProvider locale={'en'}>
         <InlineCardForbiddenView

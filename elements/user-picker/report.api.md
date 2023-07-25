@@ -273,6 +273,7 @@ export const PopupUserPicker: React_2.ForwardRefExoticComponent<
     | 'onClose'
     | 'onFocus'
     | 'onInputChange'
+    | 'onOpen'
     | 'onSelection'
     | 'open'
     | 'options'
@@ -442,6 +443,7 @@ const UserPicker: React_2.ForwardRefExoticComponent<
     | 'onClose'
     | 'onFocus'
     | 'onInputChange'
+    | 'onOpen'
     | 'onSelection'
     | 'open'
     | 'options'
@@ -494,6 +496,7 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
   onFocus?: OnPicker;
   onBlur?: OnPicker;
   onClear?: OnPicker;
+  onOpen?: OnPicker;
   onClose?: OnPicker;
   appearance?: Appearance;
   subtle?: boolean;

@@ -4,6 +4,8 @@ import { Label } from '@atlaskit/form';
 import TextField from '@atlaskit/textfield';
 import { IntlProvider } from 'react-intl-next';
 import { InlineCardErroredView } from '../src/view/InlineCard/ErroredView';
+import { InlineCardErroredView as RedesignedInlineCardErroredView } from '../src/view/RedesignedInlineCard/ErroredView';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 class Example extends React.Component {
   state = {
@@ -15,6 +17,12 @@ class Example extends React.Component {
   };
 
   render() {
+    const ErroredView = getBooleanFF(
+      'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+    )
+      ? RedesignedInlineCardErroredView
+      : InlineCardErroredView;
+
     return (
       <IntlProvider locale={'en'}>
         <Page>
@@ -31,7 +39,7 @@ class Example extends React.Component {
           </Grid>
           <Grid>
             <GridColumn>
-              <InlineCardErroredView
+              <ErroredView
                 url={this.state.url}
                 message="Something went wrong here"
                 onClick={() => alert('This will have zero effect...')}
@@ -46,7 +54,7 @@ class Example extends React.Component {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Praesent in finibus augue. Etiam ut leo justo. Proin consequat
                 lacus id leo{' '}
-                <InlineCardErroredView
+                <ErroredView
                   url={this.state.url}
                   message="Something went wrong here"
                   onClick={() => alert('This will have zero effect...')}

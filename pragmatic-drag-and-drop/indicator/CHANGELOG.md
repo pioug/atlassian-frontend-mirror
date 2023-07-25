@@ -1,5 +1,13 @@
 # @atlaskit/pragmatic-drag-and-drop-react-indicator
 
+## 0.15.0
+
+### Minor Changes
+
+- [`975218de587`](https://bitbucket.org/atlassian/atlassian-frontend/commits/975218de587) - Adds a terminal to the `DropIndicator` in the `/box` entrypoint. We now recommend most consumers use lines with terminals.
+
+  A new entrypoint `/box-without-terminal` has been added, which contains the old appearance.
+
 ## 0.14.4
 
 ### Patch Changes

@@ -7,7 +7,12 @@
  */
 //Russian
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Отмена',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Вставить объекты',
   'linkDataSource.column-picker.search': 'Поиск полей',
+  'linkDataSource.jira-issues.accessInstructions': 'Чтобы запросить доступ, обратитесь к администратору.',
+  'linkDataSource.jira-issues.accessRequired': 'У вас нет доступа к этому сайту',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'У вас нет доступа к сайту {siteName}',
   'linkDataSource.jira-issues.checkConnection':
     'Проверьте подключение к Интернету и обновите страницу или повторите попытку позже.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
@@ -20,6 +25,8 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Вставить задачи',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Вставка задач Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Вставка задач Jira с сайта {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue':
+    '{totalCount, plural, one {задача} few {задачи} many {задач} other {задачи}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Представление задач',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'Выбран сайт {siteName}',
   'linkDataSource.jira-issues.noResultsFound': 'Ничего не найдено',
@@ -31,6 +38,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Не назначено',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Синхронизировано только что',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Синхронизировано {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {задача} few {задачи} many {задач} other {задачи}}',
   'linkDataSource.table-footer.loading': 'Загрузка…',
   'linkDataSource.table-footer.refresh': 'Обновить',
 };

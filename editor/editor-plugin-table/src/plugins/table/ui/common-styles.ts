@@ -185,10 +185,10 @@ export const tableStyles = (
   .ProseMirror {
     ${tableSharedStyle(props)};
     ${columnControlsLineMarker()};
-    ${hoveredDeleteButton};
-    ${hoveredCell};
+    ${hoveredDeleteButton(props)};
+    ${hoveredCell(props)};
     ${hoveredWarningCell};
-    ${resizeHandle};
+    ${resizeHandle(props)};
     ${rangeSelectionStyles};
 
     .${ClassName.LAST_ITEM_IN_CELL} {
@@ -223,15 +223,15 @@ export const tableStyles = (
     }
 
     .${ClassName.CONTROLS_FLOATING_BUTTON_COLUMN} {
-      ${insertColumnButtonWrapper}
+      ${insertColumnButtonWrapper(props)}
     }
 
     .${ClassName.CONTROLS_FLOATING_BUTTON_ROW} {
-      ${insertRowButtonWrapper}
+      ${insertRowButtonWrapper(props)}
     }
 
     /* Delete button */
-    ${DeleteButton}
+    ${DeleteButton(props)}
     /* Ends Delete button */
 
     /* sticky styles */
@@ -485,11 +485,8 @@ export const tableStyles = (
       }
     }
     .active .${ClassName.CONTROLS_CORNER_BUTTON} {
-      border-color: ${tableBorderSelectedColor};
-      background: ${token(
-        'color.background.selected',
-        tableToolbarSelectedColor,
-      )};
+      border-color: ${tableBorderSelectedColor(props)};
+      background: ${tableToolbarSelectedColor(props)};
     }
 
     .${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
@@ -502,18 +499,15 @@ export const tableStyles = (
     }
 
     :not(.${ClassName.IS_RESIZING}) .${ClassName.CONTROLS_CORNER_BUTTON}:hover {
-      border-color: ${tableBorderSelectedColor};
-      background: ${token(
-        'color.background.selected',
-        tableToolbarSelectedColor,
-      )};
+      border-color: ${tableBorderSelectedColor(props)};
+      background: ${tableToolbarSelectedColor(props)};
       cursor: pointer;
     }
 
     :not(.${ClassName.IS_RESIZING})
       .${ClassName.CONTROLS_CORNER_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER} {
-      border-color: ${tableBorderDeleteColor};
-      background: ${token('color.background.danger', tableToolbarDeleteColor)};
+      border-color: ${tableBorderDeleteColor(props)};
+      background: ${tableToolbarDeleteColor(props)};
     }
 
     /* Row controls */
@@ -572,8 +566,8 @@ export const tableStyles = (
     }
 
     :not(.${ClassName.IS_RESIZING}) .${ClassName.ROW_CONTROLS} {
-      ${HeaderButtonHover()}
-      ${HeaderButtonDanger()}
+      ${HeaderButtonHover(props)}
+      ${HeaderButtonDanger(props)}
     }
 
     /* Numbered column */
@@ -618,12 +612,9 @@ export const tableStyles = (
         }
 
         .${ClassName.NUMBERED_COLUMN_BUTTON}.active {
-          border-bottom: 1px solid ${tableBorderSelectedColor};
-          border-color: ${tableBorderSelectedColor};
-          background-color: ${token(
-            'color.background.selected',
-            tableToolbarSelectedColor,
-          )};
+          border-bottom: 1px solid ${tableBorderSelectedColor(props)};
+          border-color: ${tableBorderSelectedColor(props)};
+          background-color: ${tableToolbarSelectedColor(props)};
           position: relative;
           z-index: ${akEditorUnitZIndex};
           color: ${token('color.text.selected', N0)};
@@ -635,22 +626,16 @@ export const tableStyles = (
         cursor: pointer;
       }
       .${ClassName.NUMBERED_COLUMN_BUTTON}:hover {
-        border-bottom: 1px solid ${tableBorderSelectedColor};
-        border-color: ${tableBorderSelectedColor};
-        background-color: ${token(
-          'color.background.selected',
-          tableToolbarSelectedColor,
-        )};
+        border-bottom: 1px solid ${tableBorderSelectedColor(props)};
+        border-color: ${tableBorderSelectedColor(props)};
+        background-color: ${tableToolbarSelectedColor(props)};
         position: relative;
         z-index: ${akEditorUnitZIndex};
         color: ${token('color.text.selected', N0)};
       }
       .${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER} {
-        background-color: ${token(
-          'color.background.danger',
-          tableToolbarDeleteColor,
-        )};
-        border: 1px solid ${tableBorderDeleteColor};
+        background-color: ${tableToolbarDeleteColor(props)};
+        border: 1px solid ${tableBorderDeleteColor(props)};
         border-left: 0;
         color: ${token('color.text.danger', R500)};
         position: relative;
@@ -711,15 +696,15 @@ export const tableStyles = (
         pointer-events: none;
       }
       .${ClassName.SELECTED_CELL} {
-        border: 1px solid ${tableBorderSelectedColor};
+        border: 1px solid ${tableBorderSelectedColor(props)};
       }
       .${ClassName.SELECTED_CELL}::after {
-        background: ${tableCellSelectedColor};
+        background: ${tableCellSelectedColor(props)};
         z-index: ${akEditorSmallZIndex};
       }
       th.${ClassName.HOVERED_CELL_IN_DANGER}::after,
         td.${ClassName.HOVERED_CELL_IN_DANGER}::after {
-        background: ${tableCellDeleteColor};
+        background: ${tableCellDeleteColor(props)};
         z-index: ${akEditorUnitZIndex * 100};
       }
       // ED-15246: Trello card is visible through a border of a table border
@@ -727,7 +712,7 @@ export const tableStyles = (
         &::after {
           height: 100%;
           width: 100%;
-          border: 1px solid ${tableBorderSelectedColor};
+          border: 1px solid ${tableBorderSelectedColor(props)};
           content: '';
           position: absolute;
           left: -1px;
@@ -738,7 +723,7 @@ export const tableStyles = (
           pointer-events: none;
         }
         &.${ClassName.HOVERED_CELL_IN_DANGER}::after {
-          border: 1px solid ${tableBorderDeleteColor};
+          border: 1px solid ${tableBorderDeleteColor(props)};
           z-index: ${akEditorUnitZIndex * 100};
         }
       }

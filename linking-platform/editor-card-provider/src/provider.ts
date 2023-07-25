@@ -6,6 +6,7 @@ import {
   CardAdf,
   CardAppearance,
   DatasourceAdf,
+  getStatus,
 } from '@atlaskit/linking-common';
 import { extractPreview } from '@atlaskit/link-extractors';
 import {
@@ -18,7 +19,6 @@ import {
 import { Transformer } from './transformer';
 
 import { EnvironmentsKeys, getBaseUrl, getResolverUrl } from './environments';
-import { getStatus } from './utils';
 import { CardClient } from '@atlaskit/link-provider';
 import { JsonLd } from 'json-ld-types';
 import { JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';

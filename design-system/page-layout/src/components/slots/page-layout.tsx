@@ -55,7 +55,7 @@ const gridStylesMobile = getBooleanFF(
 )
   ? css({
       // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.md]: {
+      [UNSAFE_media.below.sm]: {
         gridTemplateAreas: gridTemplateAreasMobile,
         gridTemplateColumns: `${LEFT_PANEL_WIDTH} minmax(0, 1fr)`,
       },

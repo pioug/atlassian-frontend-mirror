@@ -7,7 +7,12 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Hủy',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Chèn đối tượng',
   'linkDataSource.column-picker.search': 'Tìm kiếm trường',
+  'linkDataSource.jira-issues.accessInstructions': 'Hãy liên hệ với quản trị viên để yêu cầu quyền truy cập.',
+  'linkDataSource.jira-issues.accessRequired': 'Bạn không có quyền truy cập vào trang web này',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'Bạn không có quyền truy cập vào {siteName}',
   'linkDataSource.jira-issues.checkConnection': 'Kiểm tra kết nối của bạn rồi làm mới hoặc thử lại sau.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     'Kiểm tra kết nối của bạn rồi làm mới hoặc <a>mở truy vấn này trong Jira</a> để xem xét.',
@@ -19,6 +24,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Chèn vấn đề',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Chèn vấn đề Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Chèn vấn đề Jira từ {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {vấn đề}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Trình xem Vấn đề',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': 'Đã chọn {siteName}',
   'linkDataSource.jira-issues.noResultsFound': 'Không tìm thấy kết quả',
@@ -30,6 +36,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Chưa được chỉ định',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Vừa mới đồng bộ',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Đã đồng bộ trong {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, other {vấn đề}}',
   'linkDataSource.table-footer.loading': 'Đang tải...',
   'linkDataSource.table-footer.refresh': 'Làm mới',
 };

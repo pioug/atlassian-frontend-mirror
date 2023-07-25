@@ -7,7 +7,12 @@
  */
 //Japanese
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'キャンセル',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'オブジェクトを挿入',
   'linkDataSource.column-picker.search': 'フィールドを検索',
+  'linkDataSource.jira-issues.accessInstructions': 'アクセスをリクエストするには、管理者にお問い合わせください。',
+  'linkDataSource.jira-issues.accessRequired': 'このサイトへのアクセス権がありません',
+  'linkDataSource.jira-issues.accessRequiredWithSite': '{siteName} へのアクセス権がありません',
   'linkDataSource.jira-issues.checkConnection': '接続を確認して更新するか、後でもう一度お試しください。',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     '接続を確認して更新するか、<a>Jira でこのクエリを開いて</a>ご確認ください。',
@@ -19,6 +24,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': '課題を挿入',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira 課題を挿入する',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': '{siteName} から Jira 課題を挿入する',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, other {課題}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': '課題ビュー',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} を選択済み',
   'linkDataSource.jira-issues.noResultsFound': '結果が見つかりません',
@@ -30,6 +36,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': '未割り当て',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'たった今、同期しました',
   'linkDataSource.table-footer.date_formatter.under_over_minute': '{date} に同期しました',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, other {課題}}',
   'linkDataSource.table-footer.loading': '読み込み中...',
   'linkDataSource.table-footer.refresh': '更新',
 };

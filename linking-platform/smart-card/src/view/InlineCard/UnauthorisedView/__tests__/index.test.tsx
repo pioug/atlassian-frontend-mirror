@@ -35,6 +35,7 @@ describe('Unauthorised View', () => {
 
   it('should show correct text if action is available', () => {
     const testUrl = 'http://unauthorised-test/';
+
     const { container } = render(
       <IntlProvider locale="en">
         <InlineCardUnauthorizedView

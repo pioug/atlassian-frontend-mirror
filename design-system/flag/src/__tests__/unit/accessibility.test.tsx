@@ -8,38 +8,38 @@ import { B300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Flag, { FlagGroup } from '../../index';
+import FlagsProviderExample from '../../../examples/constellation/flags-provider-show-flag';
 
-describe('FlagGroup Accessibility jest-axe', () => {
-  const flags = [
-    {
-      description:
-        'Marzipan croissant pie. Jelly beans gingerbread caramels brownie icing.',
-      id: '1',
-      key: '1',
-      title: 'New version published',
-      icon: (
-        <InfoIcon
-          primaryColor={token('color.icon.information', B300)}
-          label="Info"
-        />
-      ),
-    },
-    {
-      description:
-        'Scott Farquhar published a new version of this page. Refresh to see the changes.',
-      id: '2',
-      key: '2',
-      title: 'New version published',
-      icon: (
-        <InfoIcon
-          primaryColor={token('color.icon.information', B300)}
-          label="Info"
-        />
-      ),
-    },
-  ];
-
-  it('FlagGroup should not fail an aXe audit', async () => {
+describe('Accessibility jest-axe', () => {
+  it('FlagGroup', async () => {
+    const flags = [
+      {
+        description:
+          'Marzipan croissant pie. Jelly beans gingerbread caramels brownie icing.',
+        id: '1',
+        key: '1',
+        title: 'New version published',
+        icon: (
+          <InfoIcon
+            primaryColor={token('color.icon.information', B300)}
+            label="Info"
+          />
+        ),
+      },
+      {
+        description:
+          'Scott Farquhar published a new version of this page. Refresh to see the changes.',
+        id: '2',
+        key: '2',
+        title: 'New version published',
+        icon: (
+          <InfoIcon
+            primaryColor={token('color.icon.information', B300)}
+            label="Info"
+          />
+        ),
+      },
+    ];
     const { container } = render(
       <FlagGroup>
         {flags.map((flag) => (
@@ -47,6 +47,12 @@ describe('FlagGroup Accessibility jest-axe', () => {
         ))}
       </FlagGroup>,
     );
+
+    await axe(container);
+  });
+
+  it('FlagsProvider', async () => {
+    const { container } = render(<FlagsProviderExample />);
 
     await axe(container);
   });

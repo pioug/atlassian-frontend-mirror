@@ -1,66 +1,453 @@
 import React from 'react';
 
-import {
-  act,
-  createEvent,
-  fireEvent,
-  render,
-  RenderResult,
-  waitFor,
-} from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
+import { replaceRaf, Stub } from 'raf-stub';
 
-import Example, {
-  testId,
-} from '../../../examples/98-testing-ddm-keyboard-navigation';
+import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
 
-const triggerTestId = `${testId}--trigger`;
-const dropdownMenuTestId = `${testId}--content`;
+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../../index';
 
-async function openDropdownMenu({ getByTestId, getAllByRole }: RenderResult) {
-  const trigger = getByTestId(triggerTestId);
-  trigger.focus();
+describe('dropdown menu keyboard navigation', () => {
+  // requestAnimationFrame is replaced by raf-stub
+  replaceRaf();
+  const requestAnimationFrame = window.requestAnimationFrame as unknown as Stub;
 
-  await act(async () => {
-    fireEvent.click(trigger);
-    await waitFor(() => getByTestId(dropdownMenuTestId));
+  afterAll(() => {
+    requestAnimationFrame.reset();
   });
 
-  const menuItems = getAllByRole('menuitem');
-  return menuItems;
-}
-
-describe('Dropdown menu keyboard navigation', () => {
-  it('should cancel the event when pressing UP on the first item', async () => {
-    const renderResult = render(<Example />);
-    const menuItems = await openDropdownMenu(renderResult);
-    const firstMenuItem = menuItems[0];
-
-    // Ensure the first item has focus
-    firstMenuItem.focus();
-
-    // Press up arrow
-    const keydownEvent = createEvent.keyDown(firstMenuItem, { key: 'ArrowUp' });
-    dispatchEvent(keydownEvent);
-
-    // The event should have been cancelled to prevent scrolling
-    expect(keydownEvent.defaultPrevented).toBe(true);
-  });
-
-  it('should cancel the event when pressing DOWN on the last item', async () => {
-    const renderResult = render(<Example />);
-    const menuItems = await openDropdownMenu(renderResult);
-    const lastMenuItem = menuItems[menuItems.length - 1];
-
-    // Ensure the last item has focus
-    lastMenuItem.focus();
-
-    // Press down arrow
-    const keydownEvent = createEvent.keyDown(lastMenuItem, {
-      key: 'ArrowDown',
+  function openDropdownWithClick(element: HTMLElement) {
+    // JSDOM sets clientX and clientY to 0,0
+    // for all click events. This breaks the if condition
+    // used inside dropdown menu to diffrenciate mouse clicks
+    // from the "clicks" triggered by the keyboard
+    // when Enter or Space is pressed.
+    act(() => {
+      fireEvent.click(element, {
+        clientX: 1,
+        clientY: 1,
+      });
     });
-    dispatchEvent(keydownEvent);
 
-    // The event should have been cancelled to prevent scrolling
-    expect(keydownEvent.defaultPrevented).toBe(true);
+    requestAnimationFrame.step();
+  }
+
+  function openDropdownWithKeydown(element: HTMLElement) {
+    act(() => {
+      fireEvent.focus(element);
+    });
+    requestAnimationFrame.step();
+
+    act(() => {
+      fireEvent.keyDown(element, {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+    });
+    requestAnimationFrame.flush();
+  }
+
+  it('should NOT open the menu when DOWN arrow is pressed while the trigger is NOT focused', () => {
+    const triggerText = 'click me to open';
+
+    const { getByTestId, queryByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+    });
+
+    expect(queryByTestId('dropdown--content')).not.toBeInTheDocument();
+  });
+
+  it('should open the menu when DOWN arrow is pressed while the trigger is focused', () => {
+    const triggerText = 'click me to open';
+
+    const { queryByTestId, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+    openDropdownWithKeydown(getByTestId('dropdown--trigger'));
+
+    expect(queryByTestId('dropdown--content')).toBeInTheDocument();
+  });
+
+  describe('with open menu', () => {
+    it('should focus the first element by default when accessed using a keyboard', () => {
+      const triggerText = 'click me to open';
+
+      const { getByText, getByTestId } = render(
+        <DropdownMenu trigger={triggerText} testId="dropdown">
+          <DropdownItemGroup>
+            <DropdownItem>Move</DropdownItem>
+            <DropdownItem>Clone</DropdownItem>
+            <DropdownItem>Delete</DropdownItem>
+          </DropdownItemGroup>
+        </DropdownMenu>,
+      );
+
+      openDropdownWithKeydown(getByTestId('dropdown--trigger'));
+      expect(getByText('Move')).toBeInTheDocument();
+
+      requestAnimationFrame.step();
+
+      expect(getByText('Move').closest('button')).toHaveFocus();
+    });
+
+    it('should focus the content wrapper when clicked with a mouse', () => {
+      const triggerText = 'click me to open';
+
+      const { getByText, getByTestId } = render(
+        <DropdownMenu trigger={triggerText} testId="dropdown">
+          <DropdownItemGroup>
+            <DropdownItem>Move</DropdownItem>
+            <DropdownItem>Clone</DropdownItem>
+            <DropdownItem>Delete</DropdownItem>
+          </DropdownItemGroup>
+        </DropdownMenu>,
+      );
+
+      openDropdownWithClick(getByTestId('dropdown--trigger'));
+
+      expect(getByText('Move')).toBeInTheDocument();
+      requestAnimationFrame.step();
+
+      expect(getByTestId('dropdown--content')).toHaveFocus();
+    });
+
+    it('should focus the next element on pressing the DOWN arrow', () => {
+      const triggerText = 'click me to open';
+
+      const { getByText, getByTestId } = render(
+        <DropdownMenu trigger={triggerText} testId="dropdown">
+          <DropdownItemGroup>
+            <DropdownItem>Move</DropdownItem>
+            <DropdownItem>Clone</DropdownItem>
+            <DropdownItem>Delete</DropdownItem>
+          </DropdownItemGroup>
+        </DropdownMenu>,
+      );
+      openDropdownWithClick(getByTestId('dropdown--trigger'));
+
+      act(() => {
+        fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+          key: KEY_DOWN,
+          code: KEY_DOWN,
+        });
+      });
+
+      act(() => {
+        fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+          key: KEY_DOWN,
+          code: KEY_DOWN,
+        });
+      });
+
+      requestAnimationFrame.step();
+
+      expect(getByText('Clone').closest('button')).toHaveFocus();
+    });
+  });
+
+  it('should focus the previous element on pressing the UP arrow', () => {
+    const triggerText = 'click me to open';
+
+    const { getByText, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+    openDropdownWithClick(getByTestId('dropdown--trigger'));
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+    });
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_UP,
+        code: KEY_UP,
+      });
+    });
+    requestAnimationFrame.step();
+
+    expect(getByText('Move').closest('button')).toHaveFocus();
+  });
+
+  it('should skip over disabled items while keyboard navigating', () => {
+    const triggerText = 'click me to open';
+
+    const { getByText, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem isDisabled>First</DropdownItem>
+          <DropdownItem>Second</DropdownItem>
+          <DropdownItem isDisabled={true}>Skip this</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+          <DropdownItem>Second Last</DropdownItem>
+          <DropdownItem isDisabled>Last</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+    openDropdownWithClick(getByTestId('dropdown--trigger'));
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+    });
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+    });
+
+    requestAnimationFrame.step();
+
+    expect(getByText('Delete').closest('button')).toHaveFocus();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_UP,
+        code: KEY_UP,
+      });
+    });
+    requestAnimationFrame.step();
+
+    expect(getByText('Second').closest('button')).toHaveFocus();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_END,
+        code: KEY_END,
+      });
+    });
+    requestAnimationFrame.step();
+
+    expect(getByText('Second Last').closest('button')).toHaveFocus();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_HOME,
+        code: KEY_HOME,
+      });
+    });
+    requestAnimationFrame.step();
+
+    expect(getByText('Second').closest('button')).toHaveFocus();
+  });
+
+  it('should focus the first element on pressing the HOME arrow', () => {
+    const triggerText = 'click me to open';
+
+    const { getByText, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+    openDropdownWithClick(getByTestId('dropdown--trigger'));
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+    });
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_HOME,
+        code: KEY_HOME,
+      });
+    });
+    requestAnimationFrame.step();
+
+    expect(getByText('Move').closest('button')).toHaveFocus();
+  });
+
+  it('should focus the last element on pressing the END arrow', () => {
+    const triggerText = 'click me to open';
+
+    const { getByText, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+    openDropdownWithClick(getByTestId('dropdown--trigger'));
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+    });
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_END,
+        code: KEY_END,
+      });
+    });
+
+    requestAnimationFrame.step();
+
+    expect(getByText('Delete').closest('button')).toHaveFocus();
+  });
+
+  it('should not let the focus loop to the last element', () => {
+    const triggerText = 'click me to open';
+
+    const { getByText, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+
+    // Open the menu and bring focus to the first element be focused
+    openDropdownWithKeydown(getByTestId('dropdown--trigger'));
+
+    expect(getByText('Move').closest('button')).toHaveFocus();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_UP,
+        code: KEY_UP,
+      });
+    });
+    requestAnimationFrame.step();
+
+    // Assert that the focus hasn't looped over to the last element
+    expect(getByText('Move').closest('button')).toHaveFocus();
+  });
+
+  it('should not let the focus loop on the first element', () => {
+    const triggerText = 'click me to open';
+
+    const { getByText, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+
+    // Open menu and assert first element is focused
+    openDropdownWithKeydown(getByTestId('dropdown--trigger'));
+    expect(getByText('Move').closest('button')).toHaveFocus();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_UP,
+        code: KEY_UP,
+      });
+    });
+    requestAnimationFrame.step();
+
+    // Assert that the focus hasn't looped over to the last element
+    expect(getByText('Move').closest('button')).toHaveFocus();
+  });
+
+  it('should not let the focus loop to the first element', () => {
+    const triggerText = 'click me to open';
+
+    const { getByText, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+    // Open menu and assert first element is focused
+    openDropdownWithKeydown(getByTestId('dropdown--trigger'));
+    expect(getByText('Move').closest('button')).toHaveFocus();
+
+    // Bring the focus to the last element
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_END,
+        code: KEY_END,
+      });
+    });
+    requestAnimationFrame.step();
+
+    act(() => {
+      fireEvent.keyDown(getByTestId('dropdown--trigger'), {
+        key: KEY_DOWN,
+        code: KEY_DOWN,
+      });
+    });
+
+    // Assert that the focus hasn't looped over to the first element
+    expect(getByText('Delete').closest('button')).toHaveFocus();
+  });
+
+  it('should not allow the dropdown to reopen if the trigger is activated again', () => {
+    const onOpenChange = jest.fn();
+    const { getByTestId, queryByTestId } = render(
+      <DropdownMenu testId="dropdown" onOpenChange={onOpenChange}>
+        <DropdownItemGroup>
+          <DropdownItem>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+
+    openDropdownWithKeydown(getByTestId('dropdown--trigger'));
+    expect(queryByTestId('dropdown--content')).toBeInTheDocument();
+    expect(onOpenChange).toHaveBeenCalledWith({
+      isOpen: true,
+      event: expect.any(KeyboardEvent),
+    });
+    expect(onOpenChange).toHaveBeenCalledTimes(1);
+
+    onOpenChange.mockClear();
+
+    // this should not be possible to do as focus should not be able
+    // to go back to the trigger when the menu is open, but checking here to be safe
+    openDropdownWithKeydown(getByTestId('dropdown--trigger'));
+    expect(queryByTestId('dropdown--content')).toBeInTheDocument();
+    expect(onOpenChange).not.toHaveBeenCalled();
   });
 });

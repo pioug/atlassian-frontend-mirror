@@ -1,5 +1,19 @@
 # @atlaskit/link-datasource
 
+## 0.29.3
+
+### Patch Changes
+
+- [`3fb6a7558db`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3fb6a7558db) - Updating internal dependency
+- Updated dependencies
+
+## 0.29.2
+
+### Patch Changes
+
+- [`2a91b8a2cb3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2a91b8a2cb3) - Update imports from `@atlaskit/pragmatic-drag-and-drop-react-indicator` to use the new `/box-without-terminal` entrypoint. There should be no other changes, the entrypoint has been renamed.
+- Updated dependencies
+
 ## 0.29.1
 
 ### Patch Changes

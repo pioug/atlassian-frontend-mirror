@@ -29,7 +29,8 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
   ACTION_SUBJECT_ID,
-} from '../../../../plugins/analytics';
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 
 describe('text-formatting', () => {
   const createEditor = createEditorFactory<TextFormattingState>();
@@ -330,6 +331,10 @@ describe('text-formatting', () => {
 
   describe('code', () => {
     it('should dispatch analytics event', () => {
+      const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+      const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+        attachAnalyticsEvent,
+      };
       const inputMethod = INPUT_METHOD.TOOLBAR;
       const expectedPayload: AnalyticsEventPayload = {
         action: ACTION.FORMATTED,
@@ -343,12 +348,15 @@ describe('text-formatting', () => {
 
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleCodeWithAnalytics({ inputMethod })(
+      commands.toggleCodeWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
         editorView.state,
         editorView.dispatch,
       );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        expectedPayload,
+        undefined,
+      );
     });
 
     it('should be able to toggle code on a character', () => {
@@ -458,7 +466,12 @@ describe('text-formatting', () => {
 
   describe('em', () => {
     it('should dispatch analytics event', () => {
+      const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+      const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+        attachAnalyticsEvent,
+      };
       const inputMethod = INPUT_METHOD.TOOLBAR;
+
       const expectedPayload: AnalyticsEventPayload = {
         action: ACTION.FORMATTED,
         actionSubject: ACTION_SUBJECT.TEXT,
@@ -471,12 +484,15 @@ describe('text-formatting', () => {
 
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleEmWithAnalytics({ inputMethod })(
+      commands.toggleEmWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
         editorView.state,
         editorView.dispatch,
       );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        expectedPayload,
+        undefined,
+      );
     });
 
     it('should be able to toggle em on a character', () => {
@@ -510,6 +526,10 @@ describe('text-formatting', () => {
 
   describe('strong', () => {
     it('should dispatch analytics event', () => {
+      const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+      const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+        attachAnalyticsEvent,
+      };
       const inputMethod = INPUT_METHOD.TOOLBAR;
       const expectedPayload: AnalyticsEventPayload = {
         action: ACTION.FORMATTED,
@@ -523,12 +543,14 @@ describe('text-formatting', () => {
 
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleStrongWithAnalytics({ inputMethod })(
-        editorView.state,
-        editorView.dispatch,
-      );
+      commands.toggleStrongWithAnalytics(mockEditorAnalyticsAPI)({
+        inputMethod,
+      })(editorView.state, editorView.dispatch);
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        expectedPayload,
+        undefined,
+      );
     });
 
     it('should be able to toggle strong on a character', () => {
@@ -562,6 +584,10 @@ describe('text-formatting', () => {
 
   describe('underline', () => {
     it('should dispatch analytics event', () => {
+      const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+      const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+        attachAnalyticsEvent,
+      };
       const inputMethod = INPUT_METHOD.TOOLBAR;
       const expectedPayload: AnalyticsEventPayload = {
         action: ACTION.FORMATTED,
@@ -574,12 +600,14 @@ describe('text-formatting', () => {
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleUnderlineWithAnalytics({ inputMethod })(
-        editorView.state,
-        editorView.dispatch,
-      );
+      commands.toggleUnderlineWithAnalytics(mockEditorAnalyticsAPI)({
+        inputMethod,
+      })(editorView.state, editorView.dispatch);
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        expectedPayload,
+        undefined,
+      );
     });
 
     it('should be able to toggle underline on a character', () => {
@@ -615,6 +643,10 @@ describe('text-formatting', () => {
 
   describe('strike', () => {
     it('should dispatch analytics event', () => {
+      const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+      const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+        attachAnalyticsEvent,
+      };
       const inputMethod = INPUT_METHOD.TOOLBAR;
       const expectedPayload: AnalyticsEventPayload = {
         action: ACTION.FORMATTED,
@@ -627,12 +659,14 @@ describe('text-formatting', () => {
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleStrikeWithAnalytics({ inputMethod })(
-        editorView.state,
-        editorView.dispatch,
-      );
+      commands.toggleStrikeWithAnalytics(mockEditorAnalyticsAPI)({
+        inputMethod,
+      })(editorView.state, editorView.dispatch);
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        expectedPayload,
+        undefined,
+      );
     });
 
     it('should be able to toggle strike on a character', () => {
@@ -666,6 +700,10 @@ describe('text-formatting', () => {
 
   describe('subscript', () => {
     it('should dispatch analytics event', () => {
+      const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+      const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+        attachAnalyticsEvent,
+      };
       const inputMethod = INPUT_METHOD.TOOLBAR;
       const expectedPayload: AnalyticsEventPayload = {
         action: ACTION.FORMATTED,
@@ -678,12 +716,14 @@ describe('text-formatting', () => {
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleSubscriptWithAnalytics({ inputMethod })(
-        editorView.state,
-        editorView.dispatch,
-      );
+      commands.toggleSubscriptWithAnalytics(mockEditorAnalyticsAPI)({
+        inputMethod,
+      })(editorView.state, editorView.dispatch);
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        expectedPayload,
+        undefined,
+      );
     });
 
     it('should be able to toggle subscript on a character', () => {
@@ -737,6 +777,10 @@ describe('text-formatting', () => {
 
   describe('superscript', () => {
     it('should dispatch analytics event', () => {
+      const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+      const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+        attachAnalyticsEvent,
+      };
       const inputMethod = INPUT_METHOD.TOOLBAR;
       const expectedPayload: AnalyticsEventPayload = {
         action: ACTION.FORMATTED,
@@ -749,12 +793,14 @@ describe('text-formatting', () => {
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleSuperscriptWithAnalytics({ inputMethod })(
-        editorView.state,
-        editorView.dispatch,
-      );
+      commands.toggleSuperscriptWithAnalytics(mockEditorAnalyticsAPI)({
+        inputMethod,
+      })(editorView.state, editorView.dispatch);
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        expectedPayload,
+        undefined,
+      );
     });
 
     it('should be able to toggle superscript on a character', () => {
@@ -815,6 +861,10 @@ describe('text-formatting', () => {
 
   describe('code', () => {
     it('should dispatch analytics event', () => {
+      const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+      const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+        attachAnalyticsEvent,
+      };
       const inputMethod = INPUT_METHOD.TOOLBAR;
       const expectedPayload: AnalyticsEventPayload = {
         action: ACTION.FORMATTED,
@@ -827,12 +877,15 @@ describe('text-formatting', () => {
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleCodeWithAnalytics({ inputMethod })(
+      commands.toggleCodeWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
         editorView.state,
         editorView.dispatch,
       );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+        expectedPayload,
+        undefined,
+      );
     });
 
     describe('when the cursor is right after the code mark', () => {

@@ -7,7 +7,12 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Avbryt',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Sett inn objekter',
   'linkDataSource.column-picker.search': 'Søk etter felt',
+  'linkDataSource.jira-issues.accessInstructions': 'Kontakt administratoren for å be om tilgang.',
+  'linkDataSource.jira-issues.accessRequired': 'Du har ikke tilgang til dette nettstedet',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'Du har ikke tilgang til {siteName}',
   'linkDataSource.jira-issues.checkConnection': 'Sjekk tilkoblingen og oppdater, eller prøv på nytt senere.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     'Sjekk tilkoblingen og oppdater, eller <a>åpne denne spørringen i Jira</a> for å gjennomgå.',
@@ -19,6 +24,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Sett inn saker',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Sett inn Jira-saker',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Sett inn Jira-saker fra {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {sak} other {saker}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Saksvisning',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} er valgt',
   'linkDataSource.jira-issues.noResultsFound': 'Finner ingen resultater',
@@ -30,6 +36,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Ikke tilordnet',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Synkronisert akkurat nå',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synkronisert {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {sak} other {saker}}',
   'linkDataSource.table-footer.loading': 'Laster inn …',
   'linkDataSource.table-footer.refresh': 'Oppdater',
 };

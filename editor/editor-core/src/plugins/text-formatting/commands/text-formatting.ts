@@ -7,9 +7,10 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-  withAnalytics,
-} from '../../analytics';
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import { hasCode, markActive } from '../utils';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 
 export const moveRight = (): Command => {
   return (state, dispatch) => {
@@ -160,20 +161,18 @@ export const toggleEm = (): Command => {
   };
 };
 
-export const toggleEmWithAnalytics = ({
-  inputMethod,
-}: {
-  inputMethod: InputMethodBasic;
-}): Command =>
-  withAnalytics({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_ITALIC,
-    attributes: {
-      inputMethod,
-    },
-  })(toggleEm());
+export const toggleEmWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  ({ inputMethod }: { inputMethod: InputMethodBasic }): Command =>
+    withAnalytics(editorAnalyticsAPI, {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_ITALIC,
+      attributes: {
+        inputMethod,
+      },
+    })(toggleEm());
 
 export const toggleStrike = (): Command => {
   return (state, dispatch) => {
@@ -185,20 +184,18 @@ export const toggleStrike = (): Command => {
   };
 };
 
-export const toggleStrikeWithAnalytics = ({
-  inputMethod,
-}: {
-  inputMethod: InputMethodBasic;
-}): Command =>
-  withAnalytics({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRIKE,
-    attributes: {
-      inputMethod,
-    },
-  })(toggleStrike());
+export const toggleStrikeWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  ({ inputMethod }: { inputMethod: InputMethodBasic }): Command =>
+    withAnalytics(editorAnalyticsAPI, {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRIKE,
+      attributes: {
+        inputMethod,
+      },
+    })(toggleStrike());
 
 export const toggleStrong = (): Command => {
   return (state, dispatch) => {
@@ -210,20 +207,18 @@ export const toggleStrong = (): Command => {
   };
 };
 
-export const toggleStrongWithAnalytics = ({
-  inputMethod,
-}: {
-  inputMethod: InputMethodBasic;
-}): Command =>
-  withAnalytics({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRONG,
-    attributes: {
-      inputMethod,
-    },
-  })(toggleStrong());
+export const toggleStrongWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  ({ inputMethod }: { inputMethod: InputMethodBasic }): Command =>
+    withAnalytics(editorAnalyticsAPI, {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRONG,
+      attributes: {
+        inputMethod,
+      },
+    })(toggleStrong());
 
 export const toggleUnderline = (): Command => {
   return (state, dispatch) => {
@@ -235,20 +230,18 @@ export const toggleUnderline = (): Command => {
   };
 };
 
-export const toggleUnderlineWithAnalytics = ({
-  inputMethod,
-}: {
-  inputMethod: InputMethodBasic;
-}): Command =>
-  withAnalytics({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_UNDERLINE,
-    attributes: {
-      inputMethod,
-    },
-  })(toggleUnderline());
+export const toggleUnderlineWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  ({ inputMethod }: { inputMethod: InputMethodBasic }): Command =>
+    withAnalytics(editorAnalyticsAPI, {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_UNDERLINE,
+      attributes: {
+        inputMethod,
+      },
+    })(toggleUnderline());
 
 export const toggleSuperscript = (): Command => {
   return (state, dispatch) => {
@@ -260,20 +253,18 @@ export const toggleSuperscript = (): Command => {
   };
 };
 
-export const toggleSuperscriptWithAnalytics = ({
-  inputMethod,
-}: {
-  inputMethod: InputMethodBasic;
-}): Command =>
-  withAnalytics({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_SUPER,
-    attributes: {
-      inputMethod,
-    },
-  })(toggleSuperscript());
+export const toggleSuperscriptWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  ({ inputMethod }: { inputMethod: InputMethodBasic }): Command =>
+    withAnalytics(editorAnalyticsAPI, {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_SUPER,
+      attributes: {
+        inputMethod,
+      },
+    })(toggleSuperscript());
 
 export const toggleSubscript = (): Command => {
   return (state, dispatch) => {
@@ -285,20 +276,18 @@ export const toggleSubscript = (): Command => {
   };
 };
 
-export const toggleSubscriptWithAnalytics = ({
-  inputMethod,
-}: {
-  inputMethod: InputMethodBasic;
-}): Command =>
-  withAnalytics({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_SUB,
-    attributes: {
-      inputMethod,
-    },
-  })(toggleSubscript());
+export const toggleSubscriptWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  ({ inputMethod }: { inputMethod: InputMethodBasic }): Command =>
+    withAnalytics(editorAnalyticsAPI, {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_SUB,
+      attributes: {
+        inputMethod,
+      },
+    })(toggleSubscript());
 
 export const toggleCode = (): Command => {
   return (state, dispatch) => {
@@ -311,20 +300,18 @@ export const toggleCode = (): Command => {
   };
 };
 
-export const toggleCodeWithAnalytics = ({
-  inputMethod,
-}: {
-  inputMethod: InputMethodBasic;
-}): Command =>
-  withAnalytics({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
-    attributes: {
-      inputMethod,
-    },
-  })(toggleCode());
+export const toggleCodeWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  ({ inputMethod }: { inputMethod: InputMethodBasic }): Command =>
+    withAnalytics(editorAnalyticsAPI, {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
+      attributes: {
+        inputMethod,
+      },
+    })(toggleCode());
 
 const createInlineCodeFromTextInput = (
   from: number,
@@ -363,18 +350,16 @@ const createInlineCodeFromTextInput = (
   };
 };
 
-export const createInlineCodeFromTextInputWithAnalytics = (
-  from: number,
-  to: number,
-  text: string,
-): Command => {
-  return withAnalytics({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
-    attributes: {
-      inputMethod: INPUT_METHOD.FORMATTING,
-    },
-  })(createInlineCodeFromTextInput(from, to, text));
-};
+export const createInlineCodeFromTextInputWithAnalytics =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (from: number, to: number, text: string): Command => {
+    return withAnalytics(editorAnalyticsAPI, {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
+      attributes: {
+        inputMethod: INPUT_METHOD.FORMATTING,
+      },
+    })(createInlineCodeFromTextInput(from, to, text));
+  };

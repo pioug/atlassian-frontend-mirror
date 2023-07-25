@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.6.9
+
+### Patch Changes
+
+- [`ad86a5a28ac`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ad86a5a28ac) - [ux] correct fallback color of focused border in light and dark mode
+
 ## 12.6.8
 
 ### Patch Changes

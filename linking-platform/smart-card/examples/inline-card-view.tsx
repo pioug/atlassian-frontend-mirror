@@ -8,8 +8,40 @@ import {
   InlineCardForbiddenView,
   InlineCardUnauthorizedView,
 } from '../src/view/InlineCard';
+import {
+  InlineCardResolvedView as RedesignedInlineCardResolvedView,
+  InlineCardResolvingView as RedesignedInlineCardResolvingView,
+  InlineCardErroredView as RedesignedInlineCardErroredView,
+  InlineCardForbiddenView as RedesignedInlineCardForbiddenView,
+  InlineCardUnauthorizedView as RedesignedInlineCardInlineCardForbiddenView,
+} from '../src/view/RedesignedInlineCard';
 import { IntlProvider } from 'react-intl-next';
 import { mockAnalytics } from '../src/utils/mocks';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
+const [
+  ResolvedView,
+  ResolvingView,
+  ErroredView,
+  ForbiddenView,
+  UnauthorizedView,
+] = getBooleanFF(
+  'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+)
+  ? [
+      RedesignedInlineCardResolvedView,
+      RedesignedInlineCardResolvingView,
+      RedesignedInlineCardErroredView,
+      RedesignedInlineCardForbiddenView,
+      RedesignedInlineCardInlineCardForbiddenView,
+    ]
+  : [
+      InlineCardResolvedView,
+      InlineCardResolvingView,
+      InlineCardErroredView,
+      InlineCardForbiddenView,
+      InlineCardUnauthorizedView,
+    ];
 
 interface Lozenge {
   text: string;
@@ -38,6 +70,14 @@ class Example extends React.Component {
   };
 
   render() {
+    const requestAccessContext = {
+      callToActionMessageKey: 'click_to_join',
+      action: {
+        promise: () => new Promise((resolve) => resolve(alert('Joined!'))),
+        id: 'click_to_join',
+        text: 'Join to preview',
+      },
+    };
     return (
       <IntlProvider locale={'en'}>
         <Page>
@@ -55,7 +95,7 @@ class Example extends React.Component {
             <GridColumn>
               <h4>Unauthorised view</h4>
               Labore sunt adipisicing esse magna.
-              <InlineCardUnauthorizedView
+              <UnauthorizedView
                 isSelected={this.state.isSelected}
                 icon={icon}
                 onClick={() => {}}
@@ -67,16 +107,15 @@ class Example extends React.Component {
               />
               <h4>ResolvingView</h4>
               Labore sunt adipisicing esse magna.
-              <InlineCardResolvingView
+              <ResolvingView
                 inlinePreloaderStyle="on-left-with-skeleton"
                 isSelected={this.state.isSelected}
                 url={url}
                 onClick={onClick}
               />
+              <h4>Forbidden View</h4>
               Labore sunt adipisicing esse magna.
-              <h4>No Permissions View</h4>
-              Labore sunt adipisicing esse magna.
-              <InlineCardForbiddenView
+              <ForbiddenView
                 isSelected={this.state.isSelected}
                 url={url}
                 onClick={() => {
@@ -86,9 +125,17 @@ class Example extends React.Component {
                   alert('Okay, what else have we got...');
                 }}
               />
+              <h4>Forbidden View with request access context message</h4>
+              Labore sunt adipisicing esse magna.
+              <ForbiddenView
+                isSelected={this.state.isSelected}
+                url={url}
+                requestAccessContext={requestAccessContext as any}
+                context="Jira"
+              />
               <h4>Errored View</h4>
               Labore sunt adipisicing esse magna.
-              <InlineCardErroredView
+              <ErroredView
                 isSelected={this.state.isSelected}
                 message="Ooops, something went wrong!"
                 url={url}
@@ -97,10 +144,9 @@ class Example extends React.Component {
                   alert('Trying really hard!');
                 }}
               />
-              Labore sunt adipisicing esse magna.
               <h4>Resolved view</h4>
               Labore sunt adipisicing esse magna.
-              <InlineCardResolvedView
+              <ResolvedView
                 isSelected={this.state.isSelected}
                 icon={icon}
                 title={title}

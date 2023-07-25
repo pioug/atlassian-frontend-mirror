@@ -34,7 +34,7 @@ const mobileStyles = getBooleanFF(
 )
   ? css({
       // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.md]: {
+      [UNSAFE_media.below.sm]: {
         width: `${MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH}px`,
         position: 'fixed',
         // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
@@ -53,7 +53,7 @@ const mobileInnerFlyoutStyles = getBooleanFF(
 )
   ? css({
       // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.md]: {
+      [UNSAFE_media.below.sm]: {
         width: `min(90vw, ${MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH}px)`,
         maxWidth: MAX_MOBILE_SIDEBAR_FLYOUT_WIDTH,
         transition: `width ${TRANSITION_DURATION}ms ${easeOut} 0s, box-shadow ${TRANSITION_DURATION}ms ${easeOut} 0s`,

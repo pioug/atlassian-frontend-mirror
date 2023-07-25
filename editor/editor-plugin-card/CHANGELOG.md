@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.2.3
+
+### Patch Changes
+
+- [`e86c43db633`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e86c43db633) - Updates card plugin to skip finding changed links for analytics for transactions with TableSortStep
+
 ## 0.2.2
 
 ### Patch Changes

@@ -12,12 +12,14 @@ import * as commands from '../commands/text-formatting';
 import { anyMarkActive } from '../utils';
 import { TextFormattingState } from '../types';
 import { pluginKey } from './plugin-key';
+import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export { pluginKey };
 export type { TextFormattingState };
 
 const getTextFormattingState = (
   editorState: EditorState,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): TextFormattingState => {
   const { em, code, strike, strong, subsup, underline } =
     editorState.schema.marks;
@@ -64,11 +66,14 @@ const getTextFormattingState = (
   return state;
 };
 
-export const plugin = (dispatch: Dispatch) =>
+export const plugin = (
+  dispatch: Dispatch,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) =>
   new SafePlugin({
     state: {
       init(_config, state: EditorState): TextFormattingState {
-        return getTextFormattingState(state);
+        return getTextFormattingState(state, editorAnalyticsAPI);
       },
       apply(
         _tr,
@@ -76,7 +81,7 @@ export const plugin = (dispatch: Dispatch) =>
         _oldState,
         newState,
       ): TextFormattingState {
-        const state = getTextFormattingState(newState);
+        const state = getTextFormattingState(newState, editorAnalyticsAPI);
         if (!shallowEqual(pluginState, state)) {
           dispatch(pluginKey, state);
           return state;
@@ -112,7 +117,7 @@ export const plugin = (dispatch: Dispatch) =>
         } = state;
 
         if (parentNodeType.allowsMarkType(schema.marks.code)) {
-          return createInlineCodeFromTextInputWithAnalytics(
+          return createInlineCodeFromTextInputWithAnalytics(editorAnalyticsAPI)(
             from,
             to,
             text,

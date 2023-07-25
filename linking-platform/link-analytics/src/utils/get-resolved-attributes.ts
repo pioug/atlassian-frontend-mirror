@@ -1,10 +1,9 @@
 import { JsonLd } from 'json-ld-types';
 
-import { CardType } from '@atlaskit/linking-common';
+import { CardType, getStatus } from '@atlaskit/linking-common';
 
 import { ResolvedAttributesType } from '../common/utils/analytics/analytics.codegen';
 import { getDisplayCategory } from './get-display-category';
-import { getStatus } from './get-status';
 import { LinkDetails } from '../types';
 
 /**

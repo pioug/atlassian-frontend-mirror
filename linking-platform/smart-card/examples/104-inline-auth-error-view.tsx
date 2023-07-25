@@ -5,6 +5,8 @@ import TextField from '@atlaskit/textfield';
 import { IntlProvider } from 'react-intl-next';
 import { InlineCardUnauthorizedView } from '../src/view/InlineCard/UnauthorisedView';
 import { mockAnalytics } from '../src/utils/mocks';
+import { InlineCardUnauthorizedView as RedesignedInlineCardUnauthorisedView } from '../src/view/RedesignedInlineCard/UnauthorisedView';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 class Example extends React.Component {
   state = {
@@ -16,6 +18,12 @@ class Example extends React.Component {
   };
 
   render() {
+    const UnauthorizedView = getBooleanFF(
+      'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+    )
+      ? RedesignedInlineCardUnauthorisedView
+      : InlineCardUnauthorizedView;
+
     return (
       <IntlProvider locale={'en'}>
         <Page>
@@ -32,7 +40,7 @@ class Example extends React.Component {
           </Grid>
           <Grid>
             <GridColumn>
-              <InlineCardUnauthorizedView
+              <UnauthorizedView
                 url={this.state.url}
                 onClick={() => alert('This will have zero effect...')}
                 analytics={mockAnalytics}
@@ -46,7 +54,7 @@ class Example extends React.Component {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                 Praesent in finibus augue. Etiam ut leo justo. Proin consequat
                 lacus id leo{' '}
-                <InlineCardUnauthorizedView
+                <UnauthorizedView
                   url={this.state.url}
                   analytics={mockAnalytics}
                 />{' '}

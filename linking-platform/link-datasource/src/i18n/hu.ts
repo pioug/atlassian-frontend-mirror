@@ -7,7 +7,12 @@
  */
 //Hungarian
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Mégse',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Objektumok beszúrása',
   'linkDataSource.column-picker.search': 'Mezők keresése',
+  'linkDataSource.jira-issues.accessInstructions': 'Hozzáférés igényléséhez fordulj az adminisztrátorodhoz.',
+  'linkDataSource.jira-issues.accessRequired': 'Nincs hozzáférésed a webhelyhez',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'Nincs hozzáférésed a következőhöz: {siteName}',
   'linkDataSource.jira-issues.checkConnection': 'Ellenőrizd a kapcsolatot, majd frissíts, vagy próbáld újra később.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     'Ellenőrizd a kapcsolatot, majd frissíts, vagy <a>nyisd meg ezt a lekérdezést a Jirában</a>, és ellenőrizd.',
@@ -19,6 +24,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Ügyek beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Jira-ügyek beszúrása',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Jira-ügyek beszúrása innen: {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {ügy} other {ügy}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Ügynézet',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} kiválasztva',
   'linkDataSource.jira-issues.noResultsFound': 'Nincs találat',
@@ -30,6 +36,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Nincs hozzárendelve',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Most lett szinkronizálva',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Szinkronizálás ideje: {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {ügy} other {ügy}}',
   'linkDataSource.table-footer.loading': 'Betöltés…',
   'linkDataSource.table-footer.refresh': 'Frissítés',
 };

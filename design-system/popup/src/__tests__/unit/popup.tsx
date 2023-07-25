@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { Dispatch, forwardRef, SetStateAction, useRef } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
 import { replaceRaf } from 'raf-stub';
@@ -6,7 +6,7 @@ import { replaceRaf } from 'raf-stub';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { Popup } from '../../popup';
-import { PopupComponentProps, TriggerProps } from '../../types';
+import { ContentProps, PopupComponentProps, TriggerProps } from '../../types';
 
 // override requestAnimationFrame letting us execute it when we need
 replaceRaf();
@@ -327,6 +327,74 @@ describe('Popup', () => {
     fireEvent.click(getByText('x'));
 
     expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not focus the content when the popup is open', () => {
+    const { getByText } = render(
+      <Popup {...defaultProps} content={() => <div>content</div>} isOpen />,
+    );
+
+    expect(getByText('content')).not.toHaveFocus();
+  });
+
+  it('does not focus the content when the popup is opened', () => {
+    const content = () => <div>content</div>;
+    const { getByText, rerender } = render(
+      <Popup {...defaultProps} content={content} isOpen={false} />,
+    );
+    rerender(<Popup {...defaultProps} content={content} isOpen />);
+
+    expect(getByText('content')).not.toHaveFocus();
+  });
+
+  it('focuses the specified element inside of the content when the popup is open', () => {
+    const { getByText } = render(
+      <Popup
+        {...defaultProps}
+        content={({ setInitialFocusRef }) => (
+          <button
+            type="button"
+            ref={
+              setInitialFocusRef as Dispatch<SetStateAction<HTMLElement | null>>
+            }
+          >
+            focused content
+          </button>
+        )}
+        isOpen
+      />,
+    );
+
+    //@ts-ignore
+    requestAnimationFrame.step();
+    //@ts-ignore
+    requestAnimationFrame.step();
+
+    expect(getByText('focused content')).toHaveFocus();
+  });
+
+  it('focuses the specified element inside of the content when the popup is opened', () => {
+    const content = ({ setInitialFocusRef }: ContentProps) => (
+      <button
+        type="button"
+        ref={setInitialFocusRef as Dispatch<SetStateAction<HTMLElement | null>>}
+      >
+        focused content
+      </button>
+    );
+
+    const { getByText, rerender } = render(
+      <Popup {...defaultProps} content={content} isOpen={false} />,
+    );
+
+    rerender(<Popup {...defaultProps} content={content} isOpen />);
+
+    //@ts-ignore
+    requestAnimationFrame.step();
+    //@ts-ignore
+    requestAnimationFrame.step();
+
+    expect(getByText('focused content')).toHaveFocus();
   });
 
   it('popup stays open if propagation is stopped on an event before it reaches window', async () => {

@@ -7,7 +7,12 @@
  */
 //Portuguese (Brazil)
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Cancelar',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Inserir objeto',
   'linkDataSource.column-picker.search': 'Pesquisar campos',
+  'linkDataSource.jira-issues.accessInstructions': 'Para solicitar acesso, entre em contato com o administrador.',
+  'linkDataSource.jira-issues.accessRequired': 'Você não tem acesso a este site',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'Você não tem acesso a {siteName}',
   'linkDataSource.jira-issues.checkConnection': 'Verifique a conexão e atualize, ou tente de novo mais tarde.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     'Verifique a conexão e atualize, ou <a>abra essa consulta no Jira</a> para revisar.',
@@ -19,6 +24,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Inserir itens',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Inserir itens no Jira',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Insira itens do Jira de {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {item} other {itens}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Visualização do item',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} está selecionado',
   'linkDataSource.jira-issues.noResultsFound': 'Nenhum resultado foi encontrado',
@@ -30,6 +36,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Sem responsável',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Sincronizado agora',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Sincronizado em {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {item} other {itens}}',
   'linkDataSource.table-footer.loading': 'Carregando...',
   'linkDataSource.table-footer.refresh': 'Atualizar',
 };

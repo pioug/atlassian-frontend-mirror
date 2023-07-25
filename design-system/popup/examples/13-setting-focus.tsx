@@ -9,17 +9,10 @@ import { token } from '@atlaskit/tokens';
 
 import Popup from '../src';
 
-import {
-  popupButton1Radio,
-  popupContent,
-  popupTextContent,
-  popupTrigger,
-} from './utils/selectors';
-
 const radioValues = [
   { name: 'None', value: '-1', label: 'None' },
   { name: 'Button 0', value: '0', label: 'Button 0' },
-  { name: 'Button 1', value: '1', label: 'Button 1', id: popupButton1Radio },
+  { name: 'Button 1', value: '1', label: 'Button 1' },
   { name: 'Button 2', value: '2', label: 'Button 2' },
 ];
 
@@ -52,10 +45,9 @@ const PopupContent: FC<PopupProps> = ({
   };
 
   return (
-    <div id={popupContent} css={sizedContentStyles}>
-      <p id={popupTextContent}>Content</p>
+    <div id="popup-content" css={sizedContentStyles}>
       {Array.from({ length: 3 }, (_, index) => (
-        <Button id={`button-${index}`} key={index} ref={getRef(index)}>
+        <Button key={index} ref={getRef(index)}>
           Button {index}
         </Button>
       ))}
@@ -88,7 +80,7 @@ export default () => {
         )}
         trigger={(triggerProps) => (
           <Button
-            id={popupTrigger}
+            id="popup-trigger"
             {...triggerProps}
             onClick={() => setIsOpen(!isOpen)}
           >

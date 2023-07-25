@@ -47,7 +47,7 @@ const mobileStyles = getBooleanFF(
 )
   ? css({
       // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.md]: {
+      [UNSAFE_media.below.sm]: {
         width: MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH,
         cursor: 'pointer',
         opacity: 1,
@@ -67,7 +67,7 @@ const mobileFlyoutStyles = getBooleanFF(
 )
   ? css({
       // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-      [UNSAFE_media.below.md]: {
+      [UNSAFE_media.below.sm]: {
         cursor: 'revert',
       },
     })

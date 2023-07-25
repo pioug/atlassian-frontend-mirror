@@ -19,19 +19,18 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
   directoryName="primitives"
 />
 
-Primitive components are a new type of component for layouts and placement of elements.
-They act as building blocks to compose different parts of the user experience,
+Primitives are a new type of component for layouts and the placement of elements.
+They act as simple building blocks to compose different parts of the user experience,
 from the smallest design decisions (for example, the spacing around an icon) to larger layout decisions (for example, how a page is structured).
 
-Primitives are designed to work hand in hand with design tokens,
-to provide opinionated solutions for common low-level design decisions that engineers often have to make.
-They are designed to reduce cognitive overhead for engineers by providing guardrails around what is recommended within our design system.
-
-A primitive component is a pre-built solution in that they will only accept values that are valid in the Atlassian Design System, and help to implement common layout patterns. This reduces the need to look up documentation and write custom CSS.
+Primitives are a combination of design tokens that go a step further.
+These are component-like abstractions powered by design tokens that add a layer of ergonomics and accessibility. Tokens are great at describing the what of a design decision;
+primitives make it easier to reason about the when and how. This reduces cognitive overhead and prevents accidents or mistakes.
 
 ## Available Primitives
 
-Each primitive is designed to have a single responsibility, and it should be immediately clear where each primitive should be used. However, they are also flexible enough that they should be able to be used to compose complex designs not otherwise covered in the Design Systems.
+Each primitive is designed to have a single responsibility, and it should be immediately clear where and when each primitive should be used.
+However, they are also flexible enough that they should be able to be used together to compose complex designs not otherwise implemented directly in the Design Systems.
 
 Currently, three core primitive components are available - Box, Inline and Stack. A large amount of layout problems can be reduced to laying out content:
 - in a container (see [box](/components/primitives/box))
@@ -41,7 +40,7 @@ Currently, three core primitive components are available - Box, Inline and Stack
 Additional layouts not well-expressed by these core primitives can also be composed using:
 - CSS Flexbox (see [flex](/components/primitives/flex))
 - CSS Grid (see [grid](/components/primitives/grid))
-- Divider (see [divider](/components/primitives/divider))
+- Bleed (see [bleed](/components/primitives/bleed))
 
 ## Installation
 
@@ -52,15 +51,13 @@ $ yarn add @atlaskit/primitives
 
 ## Using Primitives
 
-Use primitives for general layout styles for components.
+Use primitives for composing layouts.
 Primitives are not currently available in Figma, so the first step in implementing primitive components is identifying where they might fit in a given design.
 This involves breaking down a design into its core layout components to as granular level as is useful.
 
-<SectionMessage appearance="warning">
-Primitives should be avoided where absolute DOM control is required or very specific styling values are needed, however, this approach is more likely to produce visual elements that fail to adhere to the guidelines of the Atlassian Design System.
-</SectionMessage>
-
-You might like to think first about breaking down a page into `Box` containers, identifying larger pieces of a design that function in a similar manner or fulfill a singular purpose in a layout and grouping them together under a Box.
+You might like to think first about breaking down a page into `Box` containers,
+identifying larger pieces of a design that function in a similar manner or fulfill a singular purpose
+in a layout and grouping them together under a Box.
 
 <Image src={boxUsageExample} />
 

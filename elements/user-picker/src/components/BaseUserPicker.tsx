@@ -361,6 +361,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
   };
 
   private handleOpen = () => {
+    callCallback(this.props.onOpen, this.getSessionId());
     this.setState({
       menuIsOpen: true,
     });

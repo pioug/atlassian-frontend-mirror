@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 187.4.5
+
+### Patch Changes
+
+- [`eba71a21f88`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eba71a21f88) - [ED-19204] Let ProseMirror handle selections targeting empty paragraphs on root
+
+## 187.4.2
+
+### Patch Changes
+
+- [`e64541c6fda`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e64541c6fda) - [ux] [ED-18759] Updated table border, handlebar controls, blanket, icon, icon background and table cell options button colour tokens on light and dark theme for table selection and table deletion. Borders for Table Floating Contextual Button & Floating toolbar color palette button on dark & light theme are also updated.
+
+## 187.4.0
+
+### Minor Changes
+
+- [`315332d1509`](https://bitbucket.org/atlassian/atlassian-frontend/commits/315332d1509) - Converts the existing withAnalytics events within the text-formatting to use the new EditorAnalyticsAPI instead
+
 ## 187.3.6
 
 ### Patch Changes

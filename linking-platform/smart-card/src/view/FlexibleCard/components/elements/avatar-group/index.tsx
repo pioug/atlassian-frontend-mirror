@@ -9,11 +9,12 @@ import { AvatarGroupProps } from './types';
 const MAX_COUNT = 4;
 
 const getStyles = (size: SmartLinkSize) => {
-  // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
   const styles = css`
     display: inline-flex;
+    ul,
     ul {
-      margin-right: 8px;
+      margin-right: 0.5rem;
+      margin-top: 0;
     }
   `;
   switch (size) {

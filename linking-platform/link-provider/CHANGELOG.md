@@ -1,5 +1,12 @@
 # @atlaskit/link-provider
 
+## 1.6.8
+
+### Patch Changes
+
+- [`8d5c196ba3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d5c196ba3b) - Update to use 'getStatus' from '@atlaskit/linking-common'
+- Updated dependencies
+
 ## 1.6.7
 
 ### Patch Changes

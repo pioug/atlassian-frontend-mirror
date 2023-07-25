@@ -7,7 +7,12 @@
  */
 //Finnish
 export default {
+  'linkDataSource.assets.configmodal.cancelButtonText': 'Peruuta',
+  'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Lisää kohteet',
   'linkDataSource.column-picker.search': 'Hae kenttiä',
+  'linkDataSource.jira-issues.accessInstructions': 'Pyydä pääsyä ottamalla yhteys ylläpitäjään.',
+  'linkDataSource.jira-issues.accessRequired': 'Sinulla ei ole pääsyä tähän sivustoon',
+  'linkDataSource.jira-issues.accessRequiredWithSite': 'Sinulla ei ole pääsyä sivustoon {siteName}',
   'linkDataSource.jira-issues.checkConnection': 'Tarkista yhteys ja päivitä sivu tai yritä myöhemmin uudelleen.',
   'linkDataSource.jira-issues.checkConnectionWithSource':
     'Tarkista yhteys ja päivitä sivu tai <a>avaa tämä kysely Jirassa</a> tarkastelua varten.',
@@ -19,6 +24,7 @@ export default {
   'linkDataSource.jira-issues.configmodal.insertIssuesButtonText': 'Lisää asiat',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitle': 'Lisää Jira-asioita',
   'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites': 'Lisää Jira-asioita sivulta {siteName}',
+  'linkDataSource.jira-issues.configmodal.issue': '{totalCount, plural, one {asia} other {asiaa}}',
   'linkDataSource.jira-issues.configmodal.issueViewModeLabel': 'Asianäkymä',
   'linkDataSource.jira-issues.configmodal.selectedJiraSiteLabel': '{siteName} on valittu',
   'linkDataSource.jira-issues.noResultsFound': 'Tuloksia ei löytynyt',
@@ -30,6 +36,7 @@ export default {
   'linkDataSource.render-type.user.default.display.name': 'Määräämätön',
   'linkDataSource.table-footer.date_formatter.under_one_minute': 'Synkronoitu juuri nyt',
   'linkDataSource.table-footer.date_formatter.under_over_minute': 'Synkronoitu {date}',
+  'linkDataSource.table-footer.issue': '{issueCount, plural, one {asia} other {asiaa}}',
   'linkDataSource.table-footer.loading': 'Ladataan...',
   'linkDataSource.table-footer.refresh': 'Päivitä',
 };

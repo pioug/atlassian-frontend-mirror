@@ -18,6 +18,7 @@ import {
   getResolverUrl,
   EnvironmentsKeys,
   request,
+  getStatus,
 } from '@atlaskit/linking-common';
 
 import { extractPreview } from '@atlaskit/link-extractors';
@@ -33,7 +34,6 @@ import { Transformer } from './transformer';
 
 import CardClient from '../client';
 import { JsonLd } from 'json-ld-types';
-import { getStatus } from '../helpers';
 
 const BATCH_WAIT_TIME = 50;
 

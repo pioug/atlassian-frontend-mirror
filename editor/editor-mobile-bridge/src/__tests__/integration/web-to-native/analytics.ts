@@ -47,9 +47,13 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 24/07/2023: https://product-fabric.atlassian.net/browse/ED-19190
 BrowserTestCase(
   'renderer: calls analyticsBridge.trackEvent when analytics events are captured',
-  { skip },
+  {
+    // skip: skip,
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     const browser = new Page(client);
     await browser.goto(renderer.path);

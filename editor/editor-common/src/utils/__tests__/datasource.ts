@@ -1,4 +1,7 @@
-import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
+import {
+  ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+} from '@atlaskit/link-datasource';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { canRenderDatasource } from '../datasource';
@@ -17,6 +20,10 @@ const mockDatasourceParameters = {
 const mockDatasourceParametersWithRealJiraId = {
   ...mockDatasourceParameters,
   id: JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+};
+const mockDatasourceParametersWithRealAssetsId = {
+  ...mockDatasourceParameters,
+  id: ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
 };
 
 describe('canRenderDatasource()', () => {
@@ -51,6 +58,24 @@ describe('canRenderDatasource()', () => {
       () => {
         const returnValue = canRenderDatasource(
           mockDatasourceParametersWithRealJiraId.id,
+        );
+
+        expect(returnValue).toEqual(false);
+      },
+    );
+
+    ffTest(
+      'platform.linking-platform.datasource-assets_objects',
+      () => {
+        const returnValue = canRenderDatasource(
+          mockDatasourceParametersWithRealAssetsId.id,
+        );
+
+        expect(returnValue).toEqual(true);
+      },
+      () => {
+        const returnValue = canRenderDatasource(
+          mockDatasourceParametersWithRealAssetsId.id,
         );
 
         expect(returnValue).toEqual(false);

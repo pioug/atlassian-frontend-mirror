@@ -36,7 +36,7 @@
   },
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Fundamentals",
     "releaseModel": "continuous",
     "website": {
       "name": "Motion",

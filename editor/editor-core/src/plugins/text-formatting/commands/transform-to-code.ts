@@ -1,6 +1,5 @@
-import { Node, Schema } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-
+import type { Node, Schema } from 'prosemirror-model';
+import type { Transaction } from 'prosemirror-state';
 import { filterChildrenBetween } from '../../../utils';
 
 const SMART_TO_ASCII = {

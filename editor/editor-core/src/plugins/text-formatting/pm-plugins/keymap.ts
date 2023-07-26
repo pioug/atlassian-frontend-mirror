@@ -1,12 +1,10 @@
-import { Schema } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Schema } from 'prosemirror-model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
-import * as keymaps from '../../../keymaps';
-import { keymap } from '../../../utils/keymap';
-import {
-  INPUT_METHOD,
-  EditorAnalyticsAPI,
-} from '@atlaskit/editor-common/analytics';
+import * as keymaps from '@atlaskit/editor-common/keymaps';
+import { keymap } from 'prosemirror-keymap';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import * as commands from '../commands/text-formatting';
 
 export default function keymapPlugin(
@@ -85,5 +83,5 @@ export default function keymapPlugin(
     );
   }
 
-  return keymap(list);
+  return keymap(list) as SafePlugin;
 }

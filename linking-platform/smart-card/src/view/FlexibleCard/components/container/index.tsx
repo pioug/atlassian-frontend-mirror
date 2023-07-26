@@ -240,7 +240,8 @@ const Container: React.FC<ContainerProps> = ({
   const context = useContext(FlexibleUiContext);
   const childrenOptions = getChildrenOptions(children, context);
   const canShowHoverPreview = showHoverPreview && status === 'resolved';
-  const canShowAuthTooltip = showAuthTooltip && status === 'unauthorized';
+  const canShowAuthTooltip =
+    showAuthTooltip && status === 'unauthorized' && retry !== undefined;
 
   const container = (
     <div

@@ -1,13 +1,14 @@
-import { Selection, TextSelection } from 'prosemirror-state';
-import { Command } from '../../../types';
+import type { TextSelection } from 'prosemirror-state';
+import { Selection } from 'prosemirror-state';
+import type { Command } from '@atlaskit/editor-common/types';
 import { applyMarkOnRange, toggleMark } from '../../../utils/commands';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 import { hasCode, markActive } from '../utils';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';

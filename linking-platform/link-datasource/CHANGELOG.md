@@ -1,5 +1,18 @@
 # @atlaskit/link-datasource
 
+## 0.29.5
+
+### Patch Changes
+
+- [`2cb283138ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cb283138ce) - Added Search Functionality to Assets Config Modal and added endpoints for Assets fetch mocks
+- Updated dependencies
+
+## 0.29.4
+
+### Patch Changes
+
+- [`21822300038`](https://bitbucket.org/atlassian/atlassian-frontend/commits/21822300038) - Export AssetsConfigModal component from this package
+
 ## 0.29.3
 
 ### Patch Changes

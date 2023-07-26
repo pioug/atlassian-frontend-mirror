@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { ToolbarSize } from '../../../../../ui/Toolbar/types';
-import { MenuIconItem } from '../types';
+import type { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { MenuIconItem } from '../types';
 import {
   ResponsiveCustomButtonToolbar,
   ResponsiveCustomMenu,

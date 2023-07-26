@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.1.1
+
+### Patch Changes
+
+- [`dc546d1044a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dc546d1044a) - Update failure handler in link-create API to take Error instead of string, and fire analytics on failure
+
 ## 4.1.0
 
 ### Minor Changes

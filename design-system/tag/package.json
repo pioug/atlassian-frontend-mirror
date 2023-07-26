@@ -24,7 +24,7 @@
   "atlaskit:src": "src/index.tsx",
   "homepage": "https://atlassian.design/components/tag/",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Fundamentals",
     "releaseModel": "continuous",
     "website": {
       "name": "Tag",

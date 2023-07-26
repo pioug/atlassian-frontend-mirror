@@ -1,10 +1,13 @@
-import { MarkType, Schema } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { MarkType, Schema } from 'prosemirror-model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ruleWithAnalytics } from '../../../utils/input-rules';
-import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
-
 import {
+  createRule,
+  createPlugin,
   leafNodeReplacementCharacter,
+} from '@atlaskit/prosemirror-input-rules';
+
+import type {
   InputRuleWrapper,
   InputRuleHandler,
 } from '@atlaskit/prosemirror-input-rules';
@@ -15,7 +18,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { transformSmartCharsMentionsAndEmojis } from '../commands/transform-to-code';
 
 enum ValidAutoformatChars {

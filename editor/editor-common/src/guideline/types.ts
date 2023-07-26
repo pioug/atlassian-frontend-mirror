@@ -32,11 +32,10 @@ export type GuidelineConfig = {
   position: Position;
   active?: boolean;
   show?: boolean;
-  style?: 'dashed' | 'solid'; // default solid
-  color?: CSSToken;
   styles?: {
-    // TODO move style and color here
     capStyle?: 'line';
+    lineStyle?: 'dashed' | 'solid'; // default solid
+    color?: CSSToken;
   };
 };
 

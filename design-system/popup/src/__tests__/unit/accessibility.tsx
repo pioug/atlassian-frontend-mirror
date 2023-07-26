@@ -1,18 +1,23 @@
 import React from 'react';
 
-import { cleanup, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
+import Button from '@atlaskit/button';
 
-import PopupExample from '../../../examples/10-popup';
+import Popup from '../../index';
 
-// As we're testing on the JSDOM, color-contrast testing can't run.
-// The types of results fetched are limited for performance reasons
-it('popup should not fail an aXe audit', async () => {
-  const { container } = render(<PopupExample />);
-  const results = await axe(container);
-
-  // Only tests we explicitly skip can be incomplete
-  expect(results.incomplete).toHaveLength(0);
-  cleanup();
+it('Popup should not fail an aXe audit', async () => {
+  const { container } = render(
+    <Popup
+      isOpen={true}
+      content={() => <div>Content</div>}
+      trigger={(triggerProps) => (
+        <Button {...triggerProps} appearance="primary">
+          Close
+        </Button>
+      )}
+    />,
+  );
+  await axe(container);
 });

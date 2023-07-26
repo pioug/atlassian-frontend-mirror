@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import rafSchedule from 'raf-schd';
 import { createPortal } from 'react-dom';
 
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 
 import { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
@@ -155,7 +155,7 @@ export const FixedButton = ({
         style={{
           position: 'fixed',
           top: stickyHeader.top + stickyHeader.padding + offset * 2,
-          zIndex: akEditorFloatingPanelZIndex,
+          zIndex: akEditorTableCellOnStickyHeaderZIndex,
           left: calcLeftPos({
             buttonWidth: BUTTON_WIDTH,
             cellRectLeft: targetCellRect.left,

@@ -1,5 +1,5 @@
-import { MarkType, Mark as PMMark, Mark } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
+import type { MarkType, Mark as PMMark, Mark } from 'prosemirror-model';
+import type { EditorState } from 'prosemirror-state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import {
@@ -7,7 +7,7 @@ import {
   FORMATTING_NODE_TYPES,
 } from './commands/clear-formatting';
 
-import { MenuIconItem } from './ui/Toolbar/types';
+import type { MenuIconItem } from './ui/Toolbar/types';
 
 export const hasCode = (state: EditorState, pos: number): boolean => {
   const { code } = state.schema.marks;

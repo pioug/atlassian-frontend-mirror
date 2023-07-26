@@ -6,12 +6,15 @@ import type { Schema } from 'prosemirror-model';
 import type { EditorState } from 'prosemirror-state';
 import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
 import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
-import { shortcutStyle } from '../../../../../ui/styles';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { toolbarMessages } from '../toolbar-messages';
 import * as commands from '../../../commands/text-formatting';
-import { TOOLBAR_ACTION_SUBJECT_ID } from '../../../../../plugins/analytics/types/toolbar-button';
+import {
+  TOOLBAR_ACTION_SUBJECT_ID,
+  INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { pluginKey as textFormattingPluginKey } from '../../../pm-plugins/plugin-key';
-import type { Keymap } from '../../../../../keymaps';
+import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import {
   toggleCode,
   toggleStrikethrough,
@@ -23,8 +26,7 @@ import {
   toggleSuperscript,
   ToolTipContent,
 } from '../../../../../keymaps';
-import type { Command } from '../../../../../types/command';
-import { INPUT_METHOD } from '../../../../analytics/types/enums';
+import type { Command } from '@atlaskit/editor-common/types';
 import type { TextFormattingState } from '../../../pm-plugins/main';
 import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';
 import { IconTypes } from '../types';

@@ -17,13 +17,14 @@ export interface Props {
 export interface State {}
 
 export default class CollapsedEditor extends React.Component<Props, State> {
-  editorComponent?: Editor | EditorNext;
+  editorComponent?: Editor;
   previouslyExpanded?: boolean;
+  functionalEditor?: boolean;
 
   componentDidUpdate() {
     if (
       this.props.isExpanded &&
-      this.editorComponent &&
+      (this.editorComponent || this.functionalEditor) &&
       (!this.previouslyExpanded || this.previouslyExpanded === undefined)
     ) {
       this.props.onExpand?.();
@@ -48,6 +49,8 @@ export default class CollapsedEditor extends React.Component<Props, State> {
       throw new Error('Expected child to be of type `Editor`');
     }
 
+    this.functionalEditor = child.type === EditorNext;
+
     if (!this.props.isExpanded) {
       return (
         <IntlProviderIfMissingWrapper>
@@ -59,6 +62,10 @@ export default class CollapsedEditor extends React.Component<Props, State> {
       );
     }
 
+    // Let's avoid ref logic for functional Editor
+    if (this.functionalEditor) {
+      return child;
+    }
     return React.cloneElement(child, {
       ref: (editorComponent: Editor) =>
         this.handleEditorRef(editorComponent, (child as any).ref),

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/page-layout",
-  "version": "1.7.10",
+  "version": "1.7.11",
   "description": "A collection of components which let you compose an application's page layout.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Pyxis",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.3.6
+
+### Patch Changes
+
+- [`3d065399b07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d065399b07) - ED-18969 refactor guideline plugin interface.
+
 ## 0.3.5
 
 ### Patch Changes

@@ -13,23 +13,25 @@ import {
 } from '../src';
 import JSMAssetsConfigModal from '../src/ui/assets-modal';
 
-mockDatasourceFetchRequests(ASSETS_LIST_OF_LINKS_DATASOURCE_ID);
-mockAssetsClientFetchRequests();
 const mockParameters: AssetsDatasourceParameters = {
   aql: 'dummy aql',
   cloudId: '',
   schemaId: '1',
 };
-export default () => (
-  <IntlProvider locale="en">
-    <SmartCardProvider client={new SmartLinkClient()}>
-      <JSMAssetsConfigModal
-        datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
-        visibleColumnKeys={undefined}
-        parameters={mockParameters}
-        onCancel={() => {}}
-        onInsert={() => {}}
-      />
-    </SmartCardProvider>
-  </IntlProvider>
-);
+export default () => {
+  mockDatasourceFetchRequests(ASSETS_LIST_OF_LINKS_DATASOURCE_ID);
+  mockAssetsClientFetchRequests();
+  return (
+    <IntlProvider locale="en">
+      <SmartCardProvider client={new SmartLinkClient()}>
+        <JSMAssetsConfigModal
+          datasourceId={ASSETS_LIST_OF_LINKS_DATASOURCE_ID}
+          visibleColumnKeys={undefined}
+          parameters={mockParameters}
+          onCancel={() => {}}
+          onInsert={() => {}}
+        />
+      </SmartCardProvider>
+    </IntlProvider>
+  );
+};

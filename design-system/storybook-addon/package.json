@@ -7,7 +7,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Fundamentals",
     "releaseModel": "continuous",
     "website": {
       "name": "Storybook addon",

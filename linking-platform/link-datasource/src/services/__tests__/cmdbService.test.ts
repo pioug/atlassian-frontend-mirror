@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import {
+  fetchObjectSchema,
   fetchObjectSchemas,
   getWorkspaceId,
   validateAql,
@@ -12,9 +13,10 @@ describe('cmdbService', () => {
   });
 
   const workspaceId = 'workspaceId';
+  const schemaId = 'schemaId';
 
   describe('getWorkspaceId', () => {
-    const mockResponseWithHostname = {
+    const mockResponse = {
       results: [
         {
           id: '5',
@@ -22,32 +24,18 @@ describe('cmdbService', () => {
       ],
     };
 
-    const mockResponseWithoutHostname = {
-      results: [
-        {
-          id: '1',
-        },
-      ],
-    };
+    it('should return workspaceId', async () => {
+      const mock = fetchMock.get({
+        url: '/rest/servicedesk/cmdb/latest/workspace',
+        response: mockResponse,
+      });
 
-    it.each([
-      ['randomHostname', mockResponseWithHostname],
-      [undefined, mockResponseWithoutHostname],
-    ])(
-      'should return correct response when hostname is %s',
-      async (hostname, expectedMockResponse) => {
-        const mock = fetchMock.get({
-          url: `${hostname || ''}/rest/servicedesk/cmdb/latest/workspace`,
-          response: expectedMockResponse,
-        });
+      const response = await getWorkspaceId();
 
-        const response = await getWorkspaceId(hostname);
-
-        expect(mock.calls()).toHaveLength(1);
-        expect(mock.done()).toBe(true);
-        expect(response).toEqual(expectedMockResponse.results[0].id);
-      },
-    );
+      expect(mock.calls()).toHaveLength(1);
+      expect(mock.done()).toBe(true);
+      expect(response).toEqual(mockResponse.results[0].id);
+    });
 
     it('should throw error if response results is empty', async () => {
       const mockResponse = {
@@ -67,24 +55,22 @@ describe('cmdbService', () => {
   });
 
   describe('validateAql', () => {
-    const mockResponseWithHostname = {
+    const mockResponseIsValid = {
       isValid: true,
     };
 
-    const mockResponseWithoutHostname = {
+    const mockResponseInvalid = {
       isValid: false,
     };
 
     it.each([
-      ['randomHostname', { qlQuery: 'valid aql' }, mockResponseWithHostname],
-      [undefined, { qlQuery: 'invalidAql' }, mockResponseWithoutHostname],
+      [{ qlQuery: 'valid aql' }, mockResponseIsValid],
+      [{ qlQuery: 'invalidAql' }, mockResponseInvalid],
     ])(
-      'should return correct response when hostname is %s and data is %o',
-      async (hostname = undefined, aql, expectedMockResponse) => {
+      'should return correct isValid boolean when data is %o',
+      async (aql, expectedMockResponse) => {
         const mock = fetchMock.post({
-          url: `${
-            hostname || ''
-          }/gateway/api/jsm/assets/workspace/${workspaceId}/v1/aql/validate`,
+          url: `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/aql/validate`,
           response: expectedMockResponse,
           body: {
             qlQuery: aql.qlQuery,
@@ -92,7 +78,7 @@ describe('cmdbService', () => {
           },
         });
 
-        const response = await validateAql(workspaceId, aql, hostname);
+        const response = await validateAql(workspaceId, aql);
 
         expect(mock.calls()).toHaveLength(1);
         expect(mock.done()).toBe(true);
@@ -101,39 +87,59 @@ describe('cmdbService', () => {
     );
   });
 
+  describe('fetchObjectSchema', () => {
+    it('should return an object schema', async () => {
+      const mockResponseObjectSchema = {
+        id: schemaId,
+        name: 'objSchema1',
+      };
+      const mock = fetchMock.get({
+        url: `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/objectschema/${schemaId}`,
+        response: mockResponseObjectSchema,
+      });
+
+      const response = await fetchObjectSchema(workspaceId, schemaId);
+
+      expect(mock.calls()).toHaveLength(1);
+      expect(mock.done()).toBe(true);
+      expect(response).toEqual(mockResponseObjectSchema);
+    });
+  });
+
   describe('fetchObjectSchemas', () => {
-    const mockResponseWithHostname = {
+    const mockResponseWithQuery = {
       values: [
         {
-          id: '1',
-          name: 'objSchema1',
+          id: '3',
+          name: 'schemaQuery',
         },
       ],
     };
 
-    const mockResponseWithoutHostname = {
+    const mockResponseWithoutQuery = {
       values: [
         {
-          id: '2',
-          name: 'objSchema2',
+          id: '4',
+          name: 'objSchema4',
         },
       ],
     };
 
     it.each([
-      ['randomHostname', mockResponseWithHostname],
-      [undefined, mockResponseWithoutHostname],
+      ['schemaQuery', mockResponseWithQuery],
+      ['', mockResponseWithoutQuery],
+      [undefined, mockResponseWithoutQuery],
     ])(
-      'should return correct response when hostname is %s',
-      async (hostname = undefined, expectedMockResponse) => {
+      'should call endpoint with correct params and return an array of object schemas when query is %s',
+      async (query, expectedMockResponse) => {
         const mock = fetchMock.get({
-          url: `${
-            hostname || ''
-          }/gateway/api/jsm/assets/workspace/${workspaceId}/v1/objectschema/list?maxResults=100`,
+          url: `/gateway/api/jsm/assets/workspace/${workspaceId}/v1/objectschema/list?maxResults=20&includeCounts=false${
+            query ? `&query=${query}` : ''
+          }`,
           response: expectedMockResponse,
         });
 
-        const response = await fetchObjectSchemas(workspaceId, hostname);
+        const response = await fetchObjectSchemas(workspaceId, query);
 
         expect(mock.calls()).toHaveLength(1);
         expect(mock.done()).toBe(true);

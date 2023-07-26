@@ -2,17 +2,19 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 import ReactDOM from 'react-dom';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
-import { EmojiId } from '@atlaskit/emoji/types';
+import type { EmojiId } from '@atlaskit/emoji/types';
 import { Popup } from '@atlaskit/editor-common/ui';
-import ToolbarButton, { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
+import type { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
+import ToolbarButton from '../../../../ui/ToolbarButton';
 import {
   separatorStyles,
   buttonGroupStyle,
   wrapperStyle,
-} from '../../../../ui/styles';
+} from '@atlaskit/editor-common/styles';
 import { insertDate } from '../../../date/actions';
 import { openElementBrowserModal } from '../../../quick-insert/commands';
 import { showPlaceholderFloatingToolbar } from '../../../placeholder-text/actions';
@@ -29,10 +31,10 @@ import {
   INPUT_METHOD,
 } from '../../../analytics';
 import { insertEmoji } from '../../../emoji/commands/insert-emoji';
-import { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
-import { OnInsert } from '../../../../ui/ElementBrowser/types';
+import type { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
+import type { OnInsert } from '../../../../ui/ElementBrowser/types';
 import { messages } from './messages';
-import { Props, State, TOOLBAR_MENU_TYPE } from './types';
+import type { Props, State, TOOLBAR_MENU_TYPE } from './types';
 import { createItems } from './create-items';
 import { BlockInsertMenu } from './block-insert-menu';
 import { insertHorizontalRule } from '../../../rule/commands';

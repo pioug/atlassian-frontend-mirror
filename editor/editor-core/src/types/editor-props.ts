@@ -1,15 +1,15 @@
-import { ReactElement, RefObject } from 'react';
+import type { ReactElement, RefObject } from 'react';
 
-import { Node, Schema } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
+import type { Node, Schema } from 'prosemirror-model';
+import type { EditorView } from 'prosemirror-view';
 
-import { ActivityProvider } from '@atlaskit/activity-provider';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { ActivityProvider } from '@atlaskit/activity-provider';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 import type {
   ExtensionHandlers,
   ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
   ContextIdentifierProvider,
   Providers,
@@ -21,33 +21,33 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { LinkingOptions } from '@atlaskit/editor-common/types';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
-import { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
-import { MentionProvider } from '@atlaskit/mention/resource';
-import { TaskDecisionProvider } from '@atlaskit/task-decision';
+import type { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
+import type { MentionProvider } from '@atlaskit/mention/resource';
+import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 
-import EditorActions from '../actions';
-import { AnnotationProviders } from '../plugins/annotation/types';
-import { BlockTypePluginOptions } from '../plugins/block-type/types';
-import { CodeBlockOptions } from '../plugins/code-block/types';
-import { CollabEditOptions } from '../plugins/collab-edit/types';
-import { DatePluginConfig } from '../plugins/date/types';
-import { FindReplaceOptions } from '../plugins/find-replace/types';
-import { LayoutPluginOptions } from '../plugins/layout/types';
-import { MediaOptions, MediaState } from '../plugins/media/types';
-import { MentionPluginConfig } from '../plugins/mentions/types';
-import { PanelPluginConfig } from '../plugins/panel/types';
-import { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
-import { QuickInsertOptions } from '../plugins/quick-insert/types';
-import { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
-import { TextFormattingOptions } from '../plugins/text-formatting/types';
-import { MenuItem } from '../ui/DropdownMenu/types';
+import type EditorActions from '../actions';
+import type { AnnotationProviders } from '../plugins/annotation/types';
+import type { BlockTypePluginOptions } from '../plugins/block-type/types';
+import type { CodeBlockOptions } from '../plugins/code-block/types';
+import type { CollabEditOptions } from '../plugins/collab-edit/types';
+import type { DatePluginConfig } from '../plugins/date/types';
+import type { FindReplaceOptions } from '../plugins/find-replace/types';
+import type { LayoutPluginOptions } from '../plugins/layout/types';
+import type { MediaOptions, MediaState } from '../plugins/media/types';
+import type { MentionPluginConfig } from '../plugins/mentions/types';
+import type { PanelPluginConfig } from '../plugins/panel/types';
+import type { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
+import type { QuickInsertOptions } from '../plugins/quick-insert/types';
+import type { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
+import type { TextFormattingOptions } from '../plugins/text-formatting/types';
+import type { MenuItem } from '../ui/DropdownMenu/types';
 
-import { EditorAppearance } from './editor-appearance';
-import { EditorOnChangeHandler } from './editor-onchange';
-import { EditorPlugin } from './editor-plugin';
-import { EmptyStateHandler } from './empty-state-handler';
-import { ExtensionConfig } from './extension-config';
-import { PerformanceTracking } from './performance-tracking';
+import type { EditorAppearance } from './editor-appearance';
+import type { EditorOnChangeHandler } from './editor-onchange';
+import type { EditorPlugin } from './editor-plugin';
+import type { EmptyStateHandler } from './empty-state-handler';
+import type { ExtensionConfig } from './extension-config';
+import type { PerformanceTracking } from './performance-tracking';
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
@@ -271,9 +271,6 @@ export interface EditorSharedPropsWithPlugins {
   // Enable undo/redo buttons within the editor.
   allowUndoRedoButtons?: boolean;
 
-  // Enables text colour. Ew are you sure you want to enable this?
-  allowTextColor?: boolean | TextColorPluginConfig;
-
   // Enables tables. You can enable individual table features like table header rows and cell background colour.
   // You will most likely need backend ADF storage for the advanced table features.
   allowTables?: boolean | TablesPluginConfig;
@@ -462,4 +459,7 @@ export interface EditorPluginFeatureProps {
 
   // Set to provide your extensions handlers.
   extensionHandlers?: ExtensionHandlers;
+
+  // Enables text colour. Ew are you sure you want to enable this?
+  allowTextColor?: boolean | TextColorPluginConfig;
 }

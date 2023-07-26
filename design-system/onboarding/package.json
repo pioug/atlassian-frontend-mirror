@@ -24,7 +24,7 @@
   "atlaskit:src": "src/index.tsx",
   "homepage": "https://atlassian.design/components/onboarding/",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Maker Experience",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

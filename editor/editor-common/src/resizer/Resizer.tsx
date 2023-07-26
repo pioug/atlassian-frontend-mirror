@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useRef, useState } from 'react';
+import React, { PropsWithChildren, useMemo, useRef, useState } from 'react';
 
 import classnames from 'classnames';
 import { HandleComponent, Resizable, ResizeDirection } from 're-resizable';
@@ -21,7 +21,9 @@ import {
   HandleHeightSizeType,
   HandlePositioning,
   HandleResize,
+  HandleResizeStart,
   HandleStyles,
+  Snap,
 } from './types';
 
 export type ResizerProps = {
@@ -30,7 +32,7 @@ export type ResizerProps = {
   // initial width for now as Resizer is using defaultSize.
   width: number;
   // Resizer lifecycle callbacks:
-  handleResizeStart: () => void;
+  handleResizeStart: HandleResizeStart;
   handleResize: HandleResize;
   handleResizeStop: HandleResize;
   // positions handles closer or further away from the resizable element default: 13px.
@@ -53,7 +55,7 @@ export type ResizerProps = {
 
   // The snap property is used to specify absolute pixel values that resizing should snap to.
   // x and y are both optional, allowing you to only include the axis you want to define. Defaults to null.
-  snap?: { x?: Array<number>; y?: Array<number> };
+  snap?: Snap;
   // The snapGap property is used to specify the minimum gap required in order to move to the next snapping target.
   // Defaults to 0 which means that snap targets are always used.
   snapGap?: number;
@@ -83,6 +85,7 @@ export default function ResizerNext(
     handleStyles,
     resizeRatio = 1,
     innerPadding,
+    snap,
     ...otherProps
   } = props;
 
@@ -201,6 +204,14 @@ export default function ResizerNext(
     'is-resizing': isResizing,
   });
 
+  // snapGap is usually a constant, if snap.x?.length is 0 and snapGap has a value resizer cannot be resized
+  const snapGap = useMemo(() => {
+    if (!snap || (snap.x?.length === 0 && snap.x?.length === 0)) {
+      return undefined;
+    }
+    return props.snapGap;
+  }, [snap, props.snapGap]);
+
   return (
     <Resizable
       ref={resizable}
@@ -215,6 +226,8 @@ export default function ResizerNext(
       onResize={onResize}
       onResizeStop={onResizeStop}
       resizeRatio={resizeRatio}
+      snapGap={snapGap}
+      snap={snap}
       {...otherProps}
     >
       {children}

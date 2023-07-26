@@ -3,6 +3,8 @@ export { default as avatar1 } from './avatar-1.svg';
 export { default as avatar2 } from './avatar-2.svg';
 export { default as avatar3 } from './avatar-3.svg';
 
+export { default as imageUnauthorised } from './unauthorized.svg';
+
 // Link images
 export { default as image1 } from './rectangle.svg';
 export const image2 =

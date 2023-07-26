@@ -17,7 +17,7 @@
   ],
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Fundamentals",
     "productPushConsumption": [
       "jira"
     ],

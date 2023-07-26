@@ -3,8 +3,7 @@ import React from 'react';
 
 import { jsx } from '@emotion/react';
 
-import { defaultProps } from './editor-next/utils/editorPropTypes';
-import { EditorProps } from './types/editor-props';
+import type { EditorProps } from './types/editor-props';
 
 export type {
   AllowedBlockTypes,
@@ -49,7 +48,14 @@ const EditorNextWrapper = ({ props }: WrapperProps) => {
 };
 
 export default class Editor extends React.Component<EditorProps> {
-  static defaultProps = defaultProps;
+  static defaultProps: EditorProps = {
+    appearance: 'comment',
+    disabled: false,
+    extensionHandlers: {},
+    allowHelpDialog: true,
+    allowNewInsertionBehaviour: true,
+    quickInsert: true,
+  };
 
   render() {
     return <EditorNextWrapper props={this.props} />;

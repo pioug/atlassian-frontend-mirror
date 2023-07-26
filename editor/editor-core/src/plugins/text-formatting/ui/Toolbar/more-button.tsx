@@ -4,8 +4,8 @@ import { jsx } from '@emotion/react';
 
 import MoreIcon from '@atlaskit/icon/glyph/editor/more';
 
-import { triggerWrapperStyles } from '../../../../ui/styles';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import { triggerWrapperStyles } from '@atlaskit/editor-common/styles';
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 
 type MoreButtonProps = {
   label: string;
@@ -16,6 +16,7 @@ type MoreButtonProps = {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   onKeyDown?: (event: React.KeyboardEvent) => void;
 };
+
 export const MoreButton: React.FC<MoreButtonProps> = React.memo(
   ({
     label,

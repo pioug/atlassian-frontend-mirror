@@ -28,7 +28,7 @@
     ".": "./src/index.tsx"
   },
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Pyxis",
     "releaseModel": "continuous",
     "website": {
       "name": "Pagination",

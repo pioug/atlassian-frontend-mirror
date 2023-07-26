@@ -41,6 +41,7 @@ const mockAnalyticsQueue = {
 };
 
 jest.mock('@atlaskit/link-datasource', () => ({
+  ...jest.requireActual('@atlaskit/link-datasource'),
   DatasourceTableView: ({
     onVisibleColumnKeysChange,
   }: {
@@ -491,6 +492,51 @@ describe('datasource', () => {
         expect(pluginState?.showDatasourceModal).toEqual(false);
 
         await typeAheadTool.searchQuickInsert('jira')?.insert({ index: 0 });
+
+        const pluginStateAfterQuickInsert = getPluginState(editorView.state);
+        expect(
+          pluginStateAfterQuickInsert?.datasourceModalType,
+        ).toBeUndefined();
+        expect(pluginStateAfterQuickInsert?.showDatasourceModal).toEqual(false);
+      },
+    );
+
+    ffTest(
+      'platform.linking-platform.datasource-assets_objects',
+      async () => {
+        const { editorView, typeAheadTool, pluginState } = editor(
+          doc(p('{<>}')),
+        );
+        expect(pluginState?.datasourceModalType).toBeUndefined();
+        expect(pluginState?.showDatasourceModal).toEqual(false);
+
+        const insertItems = typeAheadTool.searchQuickInsert('assets');
+        const [assetsQuickInsertItem] = (await insertItems.result()) || [];
+
+        expect(assetsQuickInsertItem).toEqual(
+          expect.objectContaining({
+            title: 'Assets',
+            description:
+              'Insert objects from Assets in Jira Service Management with search and filtering',
+          }),
+        );
+
+        await typeAheadTool.searchQuickInsert('assets')?.insert({ index: 0 });
+
+        const pluginStateAfterQuickInsert = getPluginState(editorView.state);
+        expect(pluginStateAfterQuickInsert?.datasourceModalType).toEqual(
+          'assets',
+        );
+        expect(pluginStateAfterQuickInsert?.showDatasourceModal).toEqual(true);
+      },
+      async () => {
+        const { editorView, typeAheadTool, pluginState } = editor(
+          doc(p('{<>}')),
+        );
+        expect(pluginState?.datasourceModalType).toBeUndefined();
+        expect(pluginState?.showDatasourceModal).toEqual(false);
+
+        await typeAheadTool.searchQuickInsert('assets')?.insert({ index: 0 });
 
         const pluginStateAfterQuickInsert = getPluginState(editorView.state);
         expect(

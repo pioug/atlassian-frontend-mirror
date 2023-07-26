@@ -61,10 +61,10 @@ const LinkCreate = withLinkCreateFormContext(
     );
 
     const handleFailure = useCallback(
-      (errorMessage: string) => {
+      (error: Error) => {
         // Set the form error message
-        setFormErrorMessage(errorMessage);
-        onFailure && onFailure(errorMessage);
+        setFormErrorMessage(error.message);
+        onFailure && onFailure(error);
       },
       [onFailure, setFormErrorMessage],
     );

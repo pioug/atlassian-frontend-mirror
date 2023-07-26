@@ -25,6 +25,7 @@ const CardExample: React.FC<{
           <Card
             appearance="inline"
             url={url}
+            showAuthTooltip={true}
             showHoverPreview={true}
             showServerActions={true}
           />

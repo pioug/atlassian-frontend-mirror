@@ -2,7 +2,11 @@ import React from 'react';
 
 import { blockCard, embedCard, inlineCard } from '@atlaskit/adf-schema';
 import type { CardPluginActions } from '@atlaskit/editor-common/card';
-import { IconDatasourceJiraIssue } from '@atlaskit/editor-common/quick-insert';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import {
+  IconDatasourceAssetsObjects,
+  IconDatasourceJiraIssue,
+} from '@atlaskit/editor-common/quick-insert';
 import type {
   NextEditorPlugin,
   OptionalPlugin,
@@ -15,7 +19,10 @@ import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-too
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
+import {
+  ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+} from '@atlaskit/link-datasource';
 
 import { messages } from './messages';
 import { hideLinkToolbar, showDatasourceModal } from './pm-plugins/actions';
@@ -163,29 +170,44 @@ export const cardPlugin: NextEditorPlugin<
         api,
       ),
       quickInsert: ({ formatMessage }) => {
-        if (
-          options.allowDatasource &&
-          canRenderDatasource(JIRA_LIST_OF_LINKS_DATASOURCE_ID)
-        ) {
-          return [
-            {
-              id: 'datasource',
-              title: formatMessage(messages.datasourceJiraIssue),
-              description: formatMessage(
-                messages.datasourceJiraIssueDescription,
-              ),
-              keywords: ['jira'],
-              icon: () => <IconDatasourceJiraIssue />,
-              action(insert) {
-                const tr = insert(undefined);
-                showDatasourceModal('jira')(tr);
-                return tr;
-              },
-            },
-          ];
+        const quickInsertArray: Array<QuickInsertItem> = [];
+        if (!options.allowDatasource) {
+          return quickInsertArray;
         }
 
-        return [];
+        if (canRenderDatasource(JIRA_LIST_OF_LINKS_DATASOURCE_ID)) {
+          quickInsertArray.push({
+            id: 'datasource',
+            title: formatMessage(messages.datasourceJiraIssue),
+            description: formatMessage(messages.datasourceJiraIssueDescription),
+            keywords: ['jira'],
+            icon: () => <IconDatasourceJiraIssue />,
+            action(insert) {
+              const tr = insert(undefined);
+              showDatasourceModal('jira')(tr);
+              return tr;
+            },
+          });
+        }
+
+        if (canRenderDatasource(ASSETS_LIST_OF_LINKS_DATASOURCE_ID)) {
+          quickInsertArray.push({
+            id: 'datasource',
+            title: formatMessage(messages.datasourceAssetsObjects),
+            description: formatMessage(
+              messages.datasourceAssetsObjectsDescription,
+            ),
+            keywords: ['assets'],
+            icon: () => <IconDatasourceAssetsObjects />,
+            action(insert) {
+              const tr = insert(undefined);
+              showDatasourceModal('assets')(tr);
+              return tr;
+            },
+          });
+        }
+
+        return quickInsertArray;
       },
     },
   };

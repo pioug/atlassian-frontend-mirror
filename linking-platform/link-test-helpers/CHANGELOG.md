@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 4.2.2
+
+### Patch Changes
+
+- [`2cb283138ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2cb283138ce) - Added Search Functionality to Assets Config Modal and added endpoints for Assets fetch mocks
+
 ## 4.2.1
 
 ### Patch Changes

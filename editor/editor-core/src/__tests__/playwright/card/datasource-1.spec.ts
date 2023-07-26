@@ -21,6 +21,7 @@ test.use({
   },
   platformFeatureFlags: {
     'platform.linking-platform.datasource-jira_issues': true,
+    'platform.linking-platform.datasource-assets_objects': true,
   },
 });
 
@@ -73,6 +74,8 @@ const modalInputTestId = `${datasourceTestIdPrefix}basic-search-input`;
 const modalSearchButtonTestId = `${datasourceTestIdPrefix}basic-search-button`;
 const modalInsertButtonTestId = `${datasourceTestIdPrefix}insert-button`;
 
+const assetModalTestId = 'asset-datasource-modal';
+
 test.describe('blockCard:datasource', () => {
   test('should insert datasource from the /jira command', async ({
     editor,
@@ -103,5 +106,12 @@ test.describe('blockCard:datasource', () => {
     await expect(editor).toMatchDocument(
       doc(p(), expectedDatasourceBlockCard()),
     );
+  });
+
+  test('should pop modal from the /assets command', async ({ editor }) => {
+    await editor.keyboard.type('/assets');
+    await editor.keyboard.press('Enter');
+
+    await expect(await editor.page.getByTestId(assetModalTestId)).toBeVisible();
   });
 });

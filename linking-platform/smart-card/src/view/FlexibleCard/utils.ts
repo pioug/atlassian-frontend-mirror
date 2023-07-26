@@ -77,11 +77,13 @@ export const getRetryOptions = (
       const onClick = retry ? handleOnClick(retry) : undefined;
       return { descriptor, onClick, values };
     case SmartLinkStatus.Unauthorized:
-      return {
-        descriptor: messages.connect_link_account_card_name,
-        onClick: onAuthorize ? handleOnClick(onAuthorize) : undefined,
-        values,
-      };
+      return onAuthorize
+        ? {
+            descriptor: messages.connect_link_account_card_name,
+            onClick: handleOnClick(onAuthorize),
+            values,
+          }
+        : undefined;
     case SmartLinkStatus.NotFound:
       return { descriptor: messages.cannot_find_link };
   }

@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.7.11
+
+### Patch Changes
+
+- [`edb659b9f7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/edb659b9f7b) - Reverts changes that added aria-hidden to key interactive navigational elements
+
 ## 1.7.10
 
 ### Patch Changes

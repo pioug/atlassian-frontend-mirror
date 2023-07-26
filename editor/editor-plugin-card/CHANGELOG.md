@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.2.4
+
+### Patch Changes
+
+- [`6255c2ad1c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6255c2ad1c9) - [ux] Adds ability to open Assets datasource dialog using the slash command in the editor, behind a feature flag
+
 ## 0.2.3
 
 ### Patch Changes

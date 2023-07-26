@@ -9,6 +9,7 @@ import {
   akEditorSelectedNodeClassName,
   akEditorSmallZIndex,
   akEditorStickyHeaderZIndex,
+  akEditorTableCellOnStickyHeaderZIndex,
   akEditorTableNumberColumnWidth,
   akEditorTableToolbarSize,
   akEditorUnitZIndex,
@@ -30,7 +31,6 @@ import {
   resizeLineWidth,
   stickyHeaderBorderBottomWidth,
   stickyRowOffsetTop,
-  stickyRowZIndex,
   tableBorderColor,
   tableBorderDeleteColor,
   tableBorderRadiusSize,
@@ -289,8 +289,8 @@ export const tableStyles = (
       position: fixed;
       display: grid;
 
-      /* to keep it above cell selection */
-      z-index: ${stickyRowZIndex};
+      /* to keep it above cell selection but below date and other nodes popups that are inside sticky header */
+      z-index: ${akEditorTableCellOnStickyHeaderZIndex - 5};
 
       overflow-y: visible;
       overflow-x: hidden;
@@ -314,7 +314,8 @@ export const tableStyles = (
     .${ClassName.TABLE_STICKY} .${ClassName.TABLE_STICKY_SHADOW} {
       left: unset;
       position: fixed;
-      z-index: ${stickyRowZIndex + 1};
+      /* needs to be above sticky header row and below date and other nodes popups that are inside sticky header */
+      z-index: ${akEditorTableCellOnStickyHeaderZIndex};
     }
 
     .${ClassName.WITH_CONTROLS}.${ClassName.TABLE_STICKY}

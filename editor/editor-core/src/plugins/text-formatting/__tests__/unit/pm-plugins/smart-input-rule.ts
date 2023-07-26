@@ -1,27 +1,28 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 import { TextSelection } from 'prosemirror-state';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type {
+  DocBuilder,
+  Refs,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
-  DocBuilder,
   subsup,
   strike,
   textColor,
   status,
   em,
   strong,
-  Refs,
   code,
   emoji,
   blockquote,
   panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import base from '../../../../base';
 import textFormatting from '../../..';
 import blockType from '../../../../block-type';
 import textColorPlugin from '../../../../text-color';
@@ -57,11 +58,7 @@ describe('text-formatting input rules', () => {
   const editor = (doc: DocBuilder) => {
     const editor = createEditor({
       doc,
-      preset: new Preset<LightEditorPlugin>()
-        .add([featureFlagsPlugin, {}])
-        .add(base)
-        .add(textFormatting)
-        .add(blockType),
+      preset: new Preset<LightEditorPlugin>().add(textFormatting),
     });
 
     return editor;
@@ -85,10 +82,9 @@ describe('text-formatting input rules', () => {
         doc,
         preset: new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
-          .add(base)
-          .add(decorationsPlugin)
           .add(textFormatting)
           .add(blockType)
+          .add(decorationsPlugin)
           .add(textColorPlugin)
           .add([statusPlugin, { menuDisabled: true }])
           .add(emojiPlugin)

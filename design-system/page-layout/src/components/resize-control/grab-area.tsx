@@ -88,6 +88,7 @@ const GrabArea = ({
     aria-label={label}
     data-testid={testId}
     disabled={isDisabled}
+    aria-hidden={isLeftSidebarCollapsed}
     type="button"
     // The separator role is applied to a button to utilize the native
     // interactive and disabled functionality on the resize separator. While a

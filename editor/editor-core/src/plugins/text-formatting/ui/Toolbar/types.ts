@@ -1,8 +1,8 @@
-import { EditorState } from 'prosemirror-state';
-import { WrappedComponentProps } from 'react-intl-next';
-import { Command } from '../../../../types/command';
-import { MenuItem } from '../../../../ui/DropdownMenu/types';
-import { TOOLBAR_ACTION_SUBJECT_ID } from '../../../../plugins/analytics/types/toolbar-button';
+import type { EditorState } from 'prosemirror-state';
+import type { WrappedComponentProps } from 'react-intl-next';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 
 export enum IconTypes {
   strong = 'strong',

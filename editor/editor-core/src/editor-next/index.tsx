@@ -1,162 +1,169 @@
 /** @jsx jsx */
-import React from 'react';
+import { useRef } from 'react';
 
 import { jsx } from '@emotion/react';
-import PropTypes from 'prop-types';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 import uuid from 'uuid/v4';
 
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
+import { ACTION, fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { Transformer } from '@atlaskit/editor-common/types';
+import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
 import {
-  FireAnalyticsCallback,
-  fireAnalyticsEvent,
-} from '@atlaskit/editor-common/analytics';
-import { Transformer } from '@atlaskit/editor-common/types';
-import { ExperienceStore } from '@atlaskit/editor-common/ufo';
-import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common/ui';
-import { getAnalyticsAppearance } from '@atlaskit/editor-common/utils';
+  getAnalyticsAppearance,
+  startMeasure,
+  stopMeasure,
+} from '@atlaskit/editor-common/utils';
+import { basePlugin } from '../plugins';
 
 import EditorActions from '../actions';
 import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
-import { EventDispatcher } from '../event-dispatcher';
-import { basePlugin } from '../plugins';
-import { EditorNextProps } from '../types/editor-props';
+import type { EventDispatcher } from '../event-dispatcher';
+import type { EditorNextProps } from '../types/editor-props';
 import { name, version } from '../version-wrapper';
 
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useConstructor } from '@atlaskit/editor-common/hooks';
+import { useEditorContext } from '../ui/EditorContext';
+import measurements from '../utils/performance/measure-enum';
 import EditorInternal from './editor-internal';
 import deprecationWarnings from './utils/deprecationWarnings';
-import { Context, propTypes } from './utils/editorPropTypes';
-import onEditorCreated from './utils/onEditorCreated';
+import sendDurationAnalytics from './utils/sendDurationAnalytics';
 import trackEditorActions from './utils/trackEditorActions';
 
-export default class EditorNext extends React.Component<EditorNextProps> {
-  static defaultProps = {
+export function Editor(passedProps: EditorNextProps) {
+  const defaultProps: Partial<EditorNextProps> = {
     appearance: 'comment',
     disabled: false,
     quickInsert: true,
   };
 
-  static contextTypes = {
-    editorActions: PropTypes.object,
-  };
+  const props = { ...defaultProps, ...passedProps };
 
-  static propTypes = {
-    ...propTypes(
-      'minHeight only supports editor appearance chromeless and comment for EditorNext',
-    ),
-    preset: ({ preset }: Pick<EditorNextProps, 'preset'>) => {
-      if (!preset.has(basePlugin)) {
-        return new Error('Presets must contain the base plugin');
-      }
-      return null;
-    },
-  };
+  const editorContext = useEditorContext();
+  const editorActions = useRef(
+    editorContext?.editorActions ?? new EditorActions(),
+  );
+  const startTime = useRef(performance.now());
+  const { createAnalyticsEvent } = useAnalyticsEvents();
+  const experienceStore = useRef<ExperienceStore | undefined>();
 
-  private editorActions: EditorActions;
-  private createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  private editorSessionId: string;
-  private experienceStore?: ExperienceStore;
-  private startTime?: number;
+  const handleAnalyticsEvent: FireAnalyticsCallback = (data) =>
+    fireAnalyticsEvent(createAnalyticsEvent)(data);
 
-  constructor(props: EditorNextProps, context: Context) {
-    super(props);
-
+  useConstructor(() => {
     deprecationWarnings(props);
-    this.editorActions = (context || {}).editorActions || new EditorActions();
-    this.editorSessionId = uuid();
-    this.startTime = performance.now();
-    this.onEditorCreated = this.onEditorCreated.bind(this);
-    this.onEditorDestroyed = this.onEditorDestroyed.bind(this);
-    this.getExperienceStore = this.getExperienceStore.bind(this);
-    trackEditorActions(this.editorActions, props.performanceTracking, (value) =>
-      this.handleAnalyticsEvent(value),
+    trackEditorActions(
+      editorActions.current,
+      props.performanceTracking,
+      (value) => handleAnalyticsEvent(value),
     );
-  }
+  });
 
-  private onEditorCreated(instance: {
+  const getExperienceStore = () => experienceStore.current;
+
+  const onEditorCreated = (instance: {
     view: EditorView;
     eventDispatcher: EventDispatcher;
     transformer?: Transformer<string>;
-  }) {
-    onEditorCreated(
-      instance,
-      this.props,
-      (experienceStore) => (this.experienceStore = experienceStore),
-      this.getExperienceStore,
-      () => this.createAnalyticsEvent,
-      this.editorActions,
-      this.startTime,
-      (view, dispatcher, transformerForActions) =>
-        this.registerEditorForActions(view, dispatcher, transformerForActions),
+  }) => {
+    editorActions.current._privateRegisterEditor(
+      instance.view,
+      instance.eventDispatcher,
+      instance.transformer,
+      () => createFeatureFlagsFromProps(props),
     );
-  }
 
-  private onEditorDestroyed(_instance: {
-    view: EditorView;
-    transformer?: Transformer<string>;
-  }) {
-    this.unregisterEditorFromActions();
-    this.props.onDestroy?.();
-  }
+    if (props.featureFlags?.ufo) {
+      experienceStore.current = ExperienceStore.getInstance(instance.view);
+      experienceStore.current?.start(
+        EditorExperience.loadEditor,
+        startTime.current,
+      );
+    }
 
-  private handleSave = (view: EditorView): void => this.props.onSave?.(view);
-
-  private handleAnalyticsEvent: FireAnalyticsCallback = (data) =>
-    fireAnalyticsEvent(this.createAnalyticsEvent)(data);
-
-  private registerEditorForActions(
-    editorView: EditorView,
-    eventDispatcher: EventDispatcher,
-    contentTransformer?: Transformer<string>,
-  ) {
-    this.editorActions._privateRegisterEditor(
-      editorView,
-      eventDispatcher,
-      contentTransformer,
-      this.getFeatureFlags,
-    );
-  }
-
-  private getFeatureFlags = () => {
-    return createFeatureFlagsFromProps(this.props);
+    if (props.onEditorReady) {
+      const measureEditorReady =
+        props?.performanceTracking?.onEditorReadyCallbackTracking?.enabled ||
+        props.featureFlags?.ufo;
+      measureEditorReady && startMeasure(measurements.ON_EDITOR_READY_CALLBACK);
+      props.onEditorReady(editorActions.current);
+      measureEditorReady &&
+        stopMeasure(
+          measurements.ON_EDITOR_READY_CALLBACK,
+          sendDurationAnalytics(
+            ACTION.ON_EDITOR_READY_CALLBACK,
+            props,
+            getExperienceStore,
+            createAnalyticsEvent,
+          ),
+        );
+    }
   };
 
-  private unregisterEditorFromActions() {
-    this.editorActions._privateUnregisterEditor();
-  }
+  const onEditorDestroyed = (_instance: {
+    view: EditorView;
+    transformer?: Transformer<string>;
+  }) => {
+    editorActions.current._privateUnregisterEditor();
+    props.onDestroy?.();
+  };
 
-  private getExperienceStore = () => this.experienceStore;
-
-  render() {
-    return (
-      <FabricEditorAnalyticsContext
-        data={{
-          packageName: name,
-          packageVersion: version,
-          componentName: 'editorCore',
-          appearance: getAnalyticsAppearance(this.props.appearance),
-          editorSessionId: this.editorSessionId,
-        }}
-      >
-        <WithCreateAnalyticsEvent
-          render={(createAnalyticsEvent) =>
-            (this.createAnalyticsEvent = createAnalyticsEvent) && (
-              <EditorInternal
-                props={this.props}
-                handleAnalyticsEvent={this.handleAnalyticsEvent}
-                createAnalyticsEvent={this.createAnalyticsEvent}
-                preset={this.props.preset}
-                handleSave={this.handleSave}
-                editorActions={this.editorActions}
-                getExperienceStore={this.getExperienceStore}
-                onEditorCreated={this.onEditorCreated}
-                onEditorDestroyed={this.onEditorDestroyed}
-              />
-            )
-          }
-        />
-      </FabricEditorAnalyticsContext>
-    );
-  }
+  return (
+    <EditorInternal
+      props={props}
+      handleAnalyticsEvent={handleAnalyticsEvent}
+      createAnalyticsEvent={createAnalyticsEvent}
+      preset={props.preset}
+      handleSave={(view) => props.onSave?.(view)}
+      editorActions={editorActions.current}
+      getExperienceStore={getExperienceStore}
+      onEditorCreated={onEditorCreated}
+      onEditorDestroyed={onEditorDestroyed}
+    />
+  );
 }
+
+export default function EditorNext(props: EditorNextProps) {
+  const editorSessionId = useRef(uuid());
+
+  return (
+    <FabricEditorAnalyticsContext
+      data={{
+        packageName: name,
+        packageVersion: version,
+        componentName: 'editorCore',
+        appearance: getAnalyticsAppearance(props.appearance),
+        editorSessionId: editorSessionId.current,
+      }}
+    >
+      <Editor {...props} />
+    </FabricEditorAnalyticsContext>
+  );
+}
+
+EditorNext.propTypes = {
+  minHeight: ({
+    appearance,
+    minHeight,
+  }: Pick<EditorNextProps, 'appearance' | 'minHeight'>) => {
+    if (
+      minHeight &&
+      appearance &&
+      !['comment', 'chromeless'].includes(appearance)
+    ) {
+      return new Error(
+        'minHeight only supports editor appearance chromeless and comment for Editor',
+      );
+    }
+    return null;
+  },
+
+  preset: ({ preset }: Pick<EditorNextProps, 'preset'>) => {
+    if (!preset.has(basePlugin)) {
+      return new Error('Presets must contain the base plugin');
+    }
+    return null;
+  },
+};

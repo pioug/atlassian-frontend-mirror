@@ -1,5 +1,7 @@
 import React, { useMemo } from 'react';
 
+import { OptionsType } from '@atlaskit/select';
+
 import {
   AsyncSelect,
   CreateForm,
@@ -7,8 +9,7 @@ import {
   TextField,
   useLinkCreateCallback,
   Validator,
-} from '@atlaskit/link-create';
-import { OptionsType } from '@atlaskit/select';
+} from '../src';
 
 interface pluginProps {
   shouldThrowError?: boolean;
@@ -54,7 +55,7 @@ export function MockPluginForm({ shouldThrowError }: pluginProps) {
       return exampleOptions;
     } catch (error) {
       if (error instanceof Error) {
-        onFailure && onFailure(error.message);
+        onFailure && onFailure(error);
       }
       return [];
     }

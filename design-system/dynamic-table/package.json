@@ -24,7 +24,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Maker Experience",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "productPushConsumption": [

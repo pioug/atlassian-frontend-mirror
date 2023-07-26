@@ -41,6 +41,13 @@ interface AssetsConfigModalProps {
 }
 
 // @public (undocumented)
+const AssetsConfigModalWithWrappers: (
+  props: AssetsConfigModalProps,
+) => JSX.Element;
+export { AssetsConfigModalWithWrappers as AssetsConfigModal };
+export { AssetsConfigModalWithWrappers as JSMAssetsConfigModal };
+
+// @public (undocumented)
 export interface AssetsDatasourceAdf extends DatasourceAdf {
   // (undocumented)
   attrs: {
@@ -147,11 +154,6 @@ export interface JiraIssuesDatasourceAdf extends DatasourceAdf {
     };
   };
 }
-
-// @public (undocumented)
-export const JSMAssetsConfigModal: (
-  props: AssetsConfigModalProps,
-) => JSX.Element;
 
 // @public (undocumented)
 type XOR<T1, T2> =

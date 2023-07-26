@@ -305,4 +305,122 @@ describe('Resizer', () => {
       container.querySelectorAll(`.${resizerHandlerClassName.small}`).length,
     ).toBe(1);
   });
+  it('should only resize to snap points when default snapGap is defined', () => {
+    const mockHandleResizeMockWithSnapping = jest.fn();
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResizeMockWithSnapping}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        snap={{ x: [100, 200] }}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    const handleRight = container.querySelector(
+      `.${resizerHandleRightClassName}`,
+    );
+    const resizable = container.querySelector(`.${resizerItemClassName}`);
+
+    if (handleRight && resizable) {
+      fireEvent.mouseDown(handleRight, { clientX: 0 });
+      expect(mockHandleResizeStart).toHaveBeenCalledTimes(1);
+
+      fireEvent.mouseMove(handleRight, { clientX: 50 });
+      fireEvent.mouseMove(handleRight, { clientX: 100 });
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenCalledTimes(2);
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenNthCalledWith(
+        1,
+        expect.any(Object),
+        { width: 100, height: 10 },
+      );
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenNthCalledWith(
+        2,
+        expect.any(Object),
+        { width: 100, height: 10 },
+      );
+    }
+  });
+  it('should only resize to snap points when it is within the threshhold defined by snapGap', () => {
+    const mockHandleResizeMockWithSnapping = jest.fn();
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResizeMockWithSnapping}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        snap={{ x: [100, 200] }}
+        snapGap={5}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    const handleRight = container.querySelector(
+      `.${resizerHandleRightClassName}`,
+    );
+    const resizable = container.querySelector(`.${resizerItemClassName}`);
+
+    if (handleRight && resizable) {
+      fireEvent.mouseDown(handleRight, { clientX: 0 });
+      expect(mockHandleResizeStart).toHaveBeenCalledTimes(1);
+
+      fireEvent.mouseMove(handleRight, { clientX: 94 });
+      fireEvent.mouseMove(handleRight, { clientX: 96 });
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenCalledTimes(2);
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenNthCalledWith(
+        1,
+        expect.any(Object),
+        { width: 94, height: 10 },
+      );
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenNthCalledWith(
+        2,
+        expect.any(Object),
+        { width: 100, height: 10 },
+      );
+    }
+  });
+  it('should not restrict resizing when snap gap is defined, but there are not snap points', () => {
+    const mockHandleResizeMockWithSnapping = jest.fn();
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResizeMockWithSnapping}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        snapGap={5}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    const handleRight = container.querySelector(
+      `.${resizerHandleRightClassName}`,
+    );
+    const resizable = container.querySelector(`.${resizerItemClassName}`);
+
+    if (handleRight && resizable) {
+      fireEvent.mouseDown(handleRight, { clientX: 0 });
+      expect(mockHandleResizeStart).toHaveBeenCalledTimes(1);
+
+      fireEvent.mouseMove(handleRight, { clientX: 94 });
+      fireEvent.mouseMove(handleRight, { clientX: 96 });
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenCalledTimes(2);
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenNthCalledWith(
+        1,
+        expect.any(Object),
+        { width: 94, height: 10 },
+      );
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenNthCalledWith(
+        2,
+        expect.any(Object),
+        { width: 96, height: 10 },
+      );
+    }
+  });
 });

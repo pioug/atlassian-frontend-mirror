@@ -1,4 +1,4 @@
-import { ToolbarSize } from '../../../../ui/Toolbar/types';
+import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { IconTypes } from './types';
 
 export const DefaultButtonsToolbar: IconTypes[] = [

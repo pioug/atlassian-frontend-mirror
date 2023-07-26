@@ -2,16 +2,17 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { jsx } from '@emotion/react';
 
-import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { EditorView } from 'prosemirror-view';
+import type { EditorState } from 'prosemirror-state';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import {
   separatorStyles,
-  wrapperStyle,
   buttonGroupStyle,
-} from '../../../../ui/styles';
-import { ToolbarSize } from '../../../../ui/Toolbar/types';
+  wrapperStyle,
+} from '@atlaskit/editor-common/styles';
+import type { ToolbarSize } from '@atlaskit/editor-common/types';
 
 import {
   useFormattingIcons,
@@ -23,7 +24,7 @@ import {
   useResponsiveToolbarButtons,
   useResponsiveIconTypeMenu,
 } from './hooks/responsive-toolbar-buttons';
-import { MenuIconItem } from './types';
+import type { MenuIconItem } from './types';
 import { SingleToolbarButtons } from './single-toolbar-buttons';
 import { MoreButton } from './more-button';
 import { FormattingTextDropdownMenu } from './dropdown-menu';
@@ -31,7 +32,7 @@ import { toolbarMessages } from './toolbar-messages';
 import { compareItemsArrays, isArrayContainsContent } from '../../utils';
 import { Announcer } from '@atlaskit/editor-common/ui';
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export type ToolbarFormattingProps = {
   editorView: EditorView;

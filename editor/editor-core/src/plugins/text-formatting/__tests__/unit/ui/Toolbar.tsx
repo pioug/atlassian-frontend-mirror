@@ -4,13 +4,13 @@ import { EditorView } from 'prosemirror-view';
 
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { render, fireEvent, within } from '@testing-library/react';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
-  DocBuilder,
   doc,
   p,
   strike,
@@ -20,20 +20,20 @@ import {
   underline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import textFormattingPlugin from '../../../';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type {
+  UIAnalyticsEvent,
+  CreateUIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-
 import codeBlockPlugin from '../../../../../plugins/code-block';
-import deprecatedAnalyticsPlugin, {
-  ACTION_SUBJECT_ID,
-} from '../../../../../plugins/analytics';
+import deprecatedAnalyticsPlugin from '../../../../../plugins/analytics';
+import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import Toolbar from '../../../ui/Toolbar';
-import ReactEditorViewContext from '../../../../../create-editor/ReactEditorViewContext';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('@atlaskit/editor-core/ui/Toolbar', () => {
   const editorRef = {

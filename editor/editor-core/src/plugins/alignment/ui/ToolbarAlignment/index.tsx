@@ -1,14 +1,19 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ToolbarButton from '../../../../ui/ToolbarButton';
-import Dropdown, { OpenChangedEvent } from '../../../../ui/Dropdown';
+import type { OpenChangedEvent } from '../../../../ui/Dropdown';
+import Dropdown from '../../../../ui/Dropdown';
 import Alignment from '../../../../ui/Alignment';
-import { AlignmentPluginState, AlignmentState } from '../../pm-plugins/types';
+import type {
+  AlignmentPluginState,
+  AlignmentState,
+} from '../../pm-plugins/types';
 import { expandIconWrapper, triggerWrapper, wrapper } from './styles';
-import { separatorStyles } from '../../../../ui/styles';
+import { separatorStyles } from '@atlaskit/editor-common/styles';
 
 import { IconMap } from './icon-map';
 import { messages } from './messages';

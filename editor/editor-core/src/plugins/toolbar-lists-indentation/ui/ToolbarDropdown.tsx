@@ -11,18 +11,14 @@ import {
   outdent as toggleOutdentKeymap,
   tooltip,
 } from '../../../keymaps';
-import { DropdownItem } from '../../block-type/ui/ToolbarBlockType';
+import type { DropdownItem } from '../../block-type/ui/ToolbarBlockType';
 import DropdownMenu from '../../../ui/DropdownMenu';
 import ToolbarButton from '../../../ui/ToolbarButton';
-import {
-  wrapperStyle,
-  expandIconWrapperStyle,
-  shortcutStyle,
-  separatorStyles,
-} from '../../../ui/styles';
+import { expandIconWrapperStyle, shortcutStyle } from '../../../ui/styles';
+import { wrapperStyle, separatorStyles } from '@atlaskit/editor-common/styles';
 import { messages as listMessages } from '../../list/messages';
 import { messages as indentationMessages } from '../../indentation/messages';
-import { ButtonName, ToolbarProps } from '../types';
+import type { ButtonName, ToolbarProps } from '../types';
 
 export type DropdownProps = ToolbarProps & {
   popupsMountPoint?: HTMLElement;

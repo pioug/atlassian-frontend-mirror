@@ -13,7 +13,8 @@ import {
   CardClient as SmartCardClient,
   SmartCardProvider,
 } from '@atlaskit/link-provider';
-import { forceBaseUrl } from '@atlaskit/link-test-helpers/datasource';
+import { forceCmdbBaseUrl } from '@atlaskit/link-test-helpers/assets';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Card } from '@atlaskit/smart-card';
 
@@ -23,14 +24,15 @@ import {
   AssetsDatasourceParameters,
 } from '../src';
 
-forceBaseUrl('https://jsm-cmdb-dev1.jira-dev.com');
-
 const tableContainerStyles = css({
   width: '700px',
   height: '400px',
   overflow: 'scroll',
 });
 export default () => {
+  mockDatasourceFetchRequests(ASSETS_LIST_OF_LINKS_DATASOURCE_ID);
+  // Change the below url to http://localhost:3000 when running locally with a proxy
+  forceCmdbBaseUrl('https://jsm-cmdb-dev1.jira-dev.com');
   const [generatedAdf, setGeneratedAdf] = useState<
     InlineCardAdf | AssetsDatasourceAdf | null
   >(null);

@@ -34,6 +34,26 @@ export type VRTestWrapperOptions = {
 // Mocking Date.now for tests to be consistent
 Date.now = () => new Date('2022-01-25T16:44:00.000+1000').getTime();
 
+export const global = (
+  <Global
+    styles={css`
+      // For VR testing purposes we are overriding the animation timing
+      // for both the fade-in and the rotating animations. This will
+      // freeze animation avoiding potential for VR test flakiness.
+      * {
+        animation-timing-function: step-end !important;
+        animation-duration: 0s !important;
+        transition-timing-function: step-end !important;
+        transition-duration: 0s !important;
+      }
+    `}
+  />
+);
+
+/**
+ * Test wrapper used with deprecated vr tests (puppeteer)
+ * @deprecated Use ./vr-test-wrapper.tsx for gemini vr tests
+ */
 export const VRTestWrapper = ({
   title,
   children,
@@ -42,19 +62,7 @@ export const VRTestWrapper = ({
   <IntlProvider locale={'en'}>
     <Page>
       <div css={getTestWrapperStyles(height)}>
-        <Global
-          styles={css`
-            // For VR testing purposes we are overriding the animation timing
-            // for both the fade-in and the rotating animations. This will
-            // freeze animation avoiding potential for VR test flakiness.
-            * {
-              animation-timing-function: step-end !important;
-              animation-duration: 0s !important;
-              transition-timing-function: step-end !important;
-              transition-duration: 0s !important;
-            }
-          `}
-        />
+        {global}
         <SectionMessage title="Visual regression test">
           <p>Following example is used in visual regression tests.</p>
         </SectionMessage>

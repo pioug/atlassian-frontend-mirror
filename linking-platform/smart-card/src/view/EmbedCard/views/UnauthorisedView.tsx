@@ -63,12 +63,16 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
         title="connect_link_account_card_name"
         description="connect_unauthorised_account_description"
         context={context && context.text}
-        button={{
-          appearance: 'primary',
-          text: 'connect_unauthorised_account_action',
-          testId: 'connect-account',
-        }}
-        onClick={handleOnAuthorizeClick}
+        button={
+          onAuthorise
+            ? {
+                appearance: 'primary',
+                text: 'connect_unauthorised_account_action',
+                testId: 'connect-account',
+              }
+            : undefined
+        }
+        onClick={onAuthorise ? handleOnAuthorizeClick : undefined}
         testId={testId}
       >
         <UnauthorisedViewContent

@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.10.0
+
+### Minor Changes
+
+- [`fa12a765333`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa12a765333) - Cleansup a FF introduced in 26.3.5 (platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop) providing default display attribute now prefers analytics context instead of passing a dispatch function as prop.
+
+## 26.9.19
+
+### Patch Changes
+
+- [`928615c211b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/928615c211b) - Fix connect button appear when user cannot not connect (no auth flow)
+
 ## 26.9.18
 
 ### Patch Changes

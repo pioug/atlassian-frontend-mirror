@@ -25,7 +25,11 @@ const baseData: JsonLd.Response['data'] = {
   },
 };
 
-const setup = (cardState: CardState, url: string) => {
+const setup = (
+  cardState: CardState,
+  url: string,
+  props?: Partial<EmbedCardProps>,
+) => {
   const handleFrameClickMock = jest.fn();
   const onResolveMock: JestFunction<Required<EmbedCardProps>['onResolve']> =
     jest.fn();
@@ -33,7 +37,7 @@ const setup = (cardState: CardState, url: string) => {
 
   setGlobalTheme({ colorMode: 'dark' });
 
-  const { getByTestId, getByText, queryByTestId } = renderWithIntl(
+  const renderResult = renderWithIntl(
     <EmbedCard
       url={url}
       cardState={cardState}
@@ -47,10 +51,11 @@ const setup = (cardState: CardState, url: string) => {
       handleInvoke={jest.fn()}
       onResolve={onResolveMock}
       ref={ref}
+      {...props}
     />,
   );
 
-  const iframeEl = queryByTestId(
+  const iframeEl = renderResult.queryByTestId(
     'embed-card-resolved-view-frame',
   ) as HTMLIFrameElement;
   if (iframeEl) {
@@ -58,8 +63,7 @@ const setup = (cardState: CardState, url: string) => {
   }
 
   return {
-    getByTestId,
-    getByText,
+    ...renderResult,
     handleFrameClickMock,
     iframeEl,
     onResolveMock,
@@ -294,6 +298,24 @@ describe('EmbedCard view component', () => {
       expect(anchor.getAttribute('href')).toBe(
         CONTENT_URL_SECURITY_AND_PERMISSIONS,
       );
+    });
+
+    it('renders connect button', () => {
+      const cardState = getUnauthorizedCardState(undefined);
+      const { getByTestId } = setup(cardState, expectedUrl);
+
+      const button = getByTestId('button-connect-account');
+      expect(button).toBeInTheDocument();
+    });
+
+    it('does not render connect button without an onClick callback', () => {
+      const cardState = getUnauthorizedCardState(undefined);
+      const { queryByTestId } = setup(cardState, expectedUrl, {
+        handleAuthorize: undefined,
+      });
+
+      const button = queryByTestId('button-connect-account');
+      expect(button).not.toBeInTheDocument();
     });
   });
 });

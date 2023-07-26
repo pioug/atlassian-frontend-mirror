@@ -3,7 +3,7 @@ import React from 'react';
 import { cleanup, render, screen } from '@testing-library/react';
 import { createPortal } from 'react-dom';
 
-import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
+import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 
 import FixedButton, {
   BUTTON_WIDTH,
@@ -169,7 +169,7 @@ describe('<FixedButton />', () => {
         </FixedButton>,
       );
       expect(container.firstChild?.firstChild).toHaveStyle(
-        `z-index: ${akEditorFloatingPanelZIndex}`,
+        `z-index: ${akEditorTableCellOnStickyHeaderZIndex}`,
       );
     });
   });

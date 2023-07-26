@@ -1,18 +1,20 @@
-import { Node, NodeType } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
+import type { Node, NodeType } from 'prosemirror-model';
+import type { EditorState, Transaction } from 'prosemirror-state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { liftTarget } from 'prosemirror-transform';
 
-import { Command } from '../../../types';
-import { cellSelectionNodesBetween } from '../../../utils/cell-selection';
+import type { Command } from '@atlaskit/editor-common/types';
+import type {
+  INPUT_METHOD,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-  INPUT_METHOD,
-  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
+import { cellSelectionNodesBetween } from '../utils/cell-selection';
 
 export const FORMATTING_NODE_TYPES = ['heading', 'codeBlock', 'blockquote'];
 export const FORMATTING_MARK_TYPES = [

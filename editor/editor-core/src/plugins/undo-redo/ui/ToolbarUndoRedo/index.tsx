@@ -1,8 +1,9 @@
 /** @jsx jsx */
 import { PureComponent } from 'react';
 import { jsx } from '@emotion/react';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
-import { EditorView } from 'prosemirror-view';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+import type { EditorView } from 'prosemirror-view';
 import UndoIcon from '@atlaskit/icon/glyph/undo';
 import RedoIcon from '@atlaskit/icon/glyph/redo';
 
@@ -12,13 +13,16 @@ import {
   ToolTipContent,
   tooltip,
 } from '../../../../keymaps';
-import { buttonGroupStyle, separatorStyles } from '../../../../ui/styles';
+import {
+  separatorStyles,
+  buttonGroupStyle,
+} from '@atlaskit/editor-common/styles';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { messages } from '../../messages';
-import { HistoryPluginState } from '../../../history/types';
+import type { HistoryPluginState } from '../../../history/types';
 import { createTypeAheadTools } from '../../../type-ahead/api';
 import { undoFromToolbar, redoFromToolbar } from '../../commands';
-import { Command } from '../../../../types/command';
+import type { Command } from '../../../../types/command';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 
 export interface Props {

@@ -1,48 +1,59 @@
 import { useEffect, useState } from 'react';
 
-import { fetchObjectSchemas, getWorkspaceId } from '../services/cmdbService';
+import { fetchObjectSchema, getWorkspaceId } from '../services/cmdbService';
 import { ObjectSchema } from '../types/assets/types';
+import { AssetsDatasourceParameters } from '../ui/assets-modal/types';
 
-export interface AssetsClientState {
-  workspaceId?: string;
-  objectSchemas?: ObjectSchema[];
-  error?: Error;
-}
+export type UseAssetsClientState = {
+  workspaceId: string | undefined;
+  workspaceError: Error | undefined;
+  objectSchema: ObjectSchema | undefined;
+  assetsClientLoading: boolean;
+};
 
-// TODO: Pass in localhost:3000 for testing locally - remember to remove this code after
-// You must also have a proxy server running to forward requests from http://localhost:3000 to a JSM premium url
-export const useAssetsClient = (hostname?: string): AssetsClientState => {
-  const [objectSchemas, setObjectSchemas] = useState<ObjectSchema[]>();
-  const [workspaceId, setWorkspaceId] = useState<string>();
+export const useAssetsClient = (
+  initialParameters?: AssetsDatasourceParameters,
+): UseAssetsClientState => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [workspaceId, setWorkspaceId] = useState<string | undefined>();
+  const [objectSchema, setObjectSchema] = useState<ObjectSchema | undefined>();
   const [error, setError] = useState<Error | undefined>();
 
   useEffect(() => {
     (async () => {
+      setLoading(true);
+      setError(undefined);
       try {
-        const workspaceId = await getWorkspaceId(hostname);
-
-        const objectSchemasResponse = await fetchObjectSchemas(
-          workspaceId,
-          hostname,
-        );
-
+        const workspaceId = await getWorkspaceId();
         setWorkspaceId(workspaceId);
-        setObjectSchemas(objectSchemasResponse.values);
+        // Check schema from initial parameters still exists and fetch name for schema select
+        if (initialParameters?.schemaId) {
+          try {
+            const fetchedObjectSchema = await fetchObjectSchema(
+              workspaceId,
+              initialParameters?.schemaId,
+            );
+            setObjectSchema(fetchedObjectSchema);
+          } catch {
+            // Could update this to check if status is 404 and set objectSchemaError
+          }
+        }
       } catch (err) {
         if (err instanceof Error) {
           setError(err);
         } else {
           setError(new Error('Unexpected error occured'));
-          // eslint-disable-next-line no-console
-          console.error(err);
         }
+      } finally {
+        setLoading(false);
       }
     })();
-  }, [hostname]);
+  }, [initialParameters]);
 
   return {
     workspaceId,
-    objectSchemas,
-    error,
+    workspaceError: error,
+    objectSchema,
+    assetsClientLoading: loading,
   };
 };

@@ -3,6 +3,7 @@ import InlineCardDefaultIcon from '../../../examples/vr-inline-card-default-icon
 import InlineCardLozenge from '../../../examples/vr-inline-card-lozenge';
 import InlineCardTextWrap from '../../../examples/vr-inline-card-text-wrap';
 import InlineCardUnresolvedViews from '../../../examples/vr-inline-card-unresolved-views';
+import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth';
 
 snapshot(InlineCardDefaultIcon, {
   ignoredLogs: [
@@ -75,3 +76,5 @@ snapshot(InlineCardUnresolvedViews, {
     { state: 'hovered', selector: { byTestId: 'button-connect-account' } },
   ],
 });
+
+snapshot(InlineCardUnauthorisedNoAuth);

@@ -108,7 +108,7 @@ export const LinkCreateCallbackProvider: React_2.FC<LinkCreateCallbackProviderPr
 interface LinkCreateCallbackProviderProps {
   onCancel?: () => void;
   onCreate?: (result: CreatePayload) => Promise<void> | void;
-  onFailure?: (errorMessage: string) => void;
+  onFailure?: (error: Error) => void;
 }
 
 // @public (undocumented)

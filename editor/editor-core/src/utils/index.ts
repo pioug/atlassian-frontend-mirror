@@ -1,5 +1,5 @@
 import { toggleMark } from 'prosemirror-commands';
-import {
+import type {
   Mark as PMMark,
   MarkType,
   Node,
@@ -8,17 +8,10 @@ import {
   Schema,
   Slice,
 } from 'prosemirror-model';
-import {
-  EditorState,
-  NodeSelection,
-  Selection,
-  TextSelection,
-} from 'prosemirror-state';
-import {
-  JSONDocNode,
-  JSONNode,
-  JSONTransformer,
-} from '@atlaskit/editor-json-transformer';
+import type { EditorState, Selection } from 'prosemirror-state';
+import { NodeSelection, TextSelection } from 'prosemirror-state';
+import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
 import { hasParentNodeOfType } from 'prosemirror-utils';
 import { isNodeEmpty } from './document';

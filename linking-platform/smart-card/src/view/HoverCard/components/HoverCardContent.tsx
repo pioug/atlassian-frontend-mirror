@@ -13,7 +13,7 @@ import {
 } from '../../../constants';
 import { extractMetadata } from '../../../extractors/hover/extractMetadata';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
-import { getExtensionKey } from '../../../state/helpers';
+import { getExtensionKey, getServices } from '../../../state/helpers';
 import { isSpecialEvent } from '../../../utils';
 import { TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
 import {
@@ -73,6 +73,8 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
   );
   const linkState = useSmartCardState(url);
   const linkStatus = linkState.status ?? 'pending';
+
+  const services = getServices(linkState.details);
 
   const statusRef = useRef(linkStatus);
   const analyticsRef = useRef(analytics);
@@ -174,7 +176,7 @@ const HoverCardContent: React.FC<HoverCardContentProps> = ({
       );
     }
 
-    if (cardState.status === 'unauthorized') {
+    if (cardState.status === 'unauthorized' && services?.length) {
       return (
         <HoverCardUnauthorisedView
           analytics={analytics}

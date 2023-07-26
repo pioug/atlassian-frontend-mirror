@@ -1,4 +1,5 @@
 export { default as JiraIssuesConfigModal } from './ui/jira-issues-modal';
+export { default as AssetsConfigModal } from './ui/assets-modal';
 export { default as DatasourceTableView } from './ui/datasource-table-view';
 export { default as JSMAssetsConfigModal } from './ui/assets-modal';
 export type {

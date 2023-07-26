@@ -46,7 +46,13 @@ const JsonldEditor: React.FC<{
     // Check if json has embed
     const data = response?.data as JsonLd.Data.BaseData;
     const preview = extractPreview(data, 'web'); // Hardcode it to 'web' for now.
-    setIsEmbedSupported(Boolean(preview));
+    setIsEmbedSupported(
+      Boolean(
+        preview ||
+          response?.meta?.access === 'unauthorized' ||
+          response?.meta?.access === 'forbidden',
+      ),
+    );
   }, []);
 
   const updateJson = useCallback(

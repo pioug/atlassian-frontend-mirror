@@ -14,7 +14,7 @@ const mockEditorView = {
 } as unknown as EditorView;
 
 describe('DatasourceModal', () => {
-  const modalTypes: DatasourceModalType[] = ['jira'];
+  const modalTypes: DatasourceModalType[] = ['jira', 'assets'];
 
   const setup = (modalType?: DatasourceModalType) =>
     render(

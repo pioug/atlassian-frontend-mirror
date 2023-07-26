@@ -28,17 +28,22 @@ const mockEditorView = {
 } as unknown as EditorView;
 
 describe('ModalWithState', () => {
-  it('should render DatasourceModal when datasourceModalType is defined', () => {
-    const { getByTestId } = render(
-      <ModalWithState
-        editorView={mockEditorView}
-        api={getMockAPI('jira', true)}
-      />,
-    );
+  const modalTypes: DatasourceModalType[] = ['jira', 'assets'];
 
-    const jiraModal = getByTestId(`jira-config-modal`);
-    expect(jiraModal).toBeInTheDocument();
-  });
+  it.each(modalTypes)(
+    'should render DatasourceModal when datasourceModalType is defined',
+    modalType => {
+      const { getByTestId } = render(
+        <ModalWithState
+          editorView={mockEditorView}
+          api={getMockAPI(modalType, true)}
+        />,
+      );
+
+      const modal = getByTestId(`${modalType}-config-modal`);
+      expect(modal).toBeInTheDocument();
+    },
+  );
 
   it('should not render DatasourceModal when datasourceModalType is undefined', () => {
     const { container } = render(

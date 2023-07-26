@@ -75,19 +75,21 @@ const horizontalCapStyles = css({
 });
 
 export const Guideline = (props: Omit<GuidelineConfig, 'key'>) => {
-  const { position, active, show = true, style, color, styles } = props;
+  const { position, active, show = true, styles = {} } = props;
   const isVerticalPos = isVerticalPosition(position);
+
+  const { lineStyle, color, capStyle } = styles;
 
   return (
     <div
       css={[
         basicGuidelineStyles,
         isVerticalPos ? verticalStyles : horizontalStyles,
-        styles?.capStyle === 'line' &&
+        capStyle === 'line' &&
           (isVerticalPos ? horizontalCapStyles : verticalCapStyles),
         active && activeGuidelineStyles,
         !show && hiddenGuidelineStyles,
-        style === 'dashed' && dashedGuidelineStyles,
+        lineStyle === 'dashed' && dashedGuidelineStyles,
       ]}
       style={{
         ...(color && { borderColor: `${color}` }),

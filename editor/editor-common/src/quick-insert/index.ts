@@ -24,4 +24,5 @@ export {
   IconCustomPanel,
   IconFallback,
   IconDatasourceJiraIssue,
+  IconDatasourceAssetsObjects,
 } from './assets';

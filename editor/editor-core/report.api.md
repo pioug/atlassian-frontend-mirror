@@ -22,7 +22,7 @@ import { AbstractMentionResource } from '@atlaskit/mention/resource';
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
-import { ActivityProvider } from '@atlaskit/activity-provider';
+import type { ActivityProvider } from '@atlaskit/activity-provider';
 import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
@@ -52,7 +52,7 @@ import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
 import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { EditorReactContext } from '@atlaskit/editor-common/types';
 import { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
 import { EditorState } from 'prosemirror-state';
@@ -119,7 +119,7 @@ import { NodeView } from 'prosemirror-view';
 import { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { PerformanceTracking } from '@atlaskit/editor-common/types';
-import { PluginConfig } from '@atlaskit/editor-plugin-table/types';
+import type { PluginConfig } from '@atlaskit/editor-plugin-table/types';
 import { PluginKey } from 'prosemirror-state';
 import { PMPlugin } from '@atlaskit/editor-common/types';
 import { PortalProvider } from '@atlaskit/editor-common/portal-provider';
@@ -139,17 +139,17 @@ import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
-import { RefObject } from 'react';
+import type { RefObject } from 'react';
 import { ReplaceRawValue } from '@atlaskit/editor-common/types';
 import type { ResolvedEditorState } from '@atlaskit/collab-provider';
 import { RichMediaLayout } from '@atlaskit/adf-schema';
-import { Schema } from 'prosemirror-model';
+import type { Schema } from 'prosemirror-model';
 import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { SelectOption } from '@atlaskit/editor-common/types';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
 import type { SEVERITY } from '@atlaskit/editor-common/utils';
-import { TaskDecisionProvider } from '@atlaskit/task-decision';
+import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';
 import { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import { Transaction } from 'prosemirror-state';
@@ -378,13 +378,15 @@ export class CollapsedEditor extends React_2.Component<Props, State> {
   // (undocumented)
   componentDidUpdate(): void;
   // (undocumented)
-  editorComponent?: Editor | EditorNext;
+  editorComponent?: Editor;
+  // (undocumented)
+  functionalEditor?: boolean;
   // (undocumented)
   handleEditorRef: (editorRef?: Editor, editorRefCallback?: any) => void;
   // (undocumented)
   previouslyExpanded?: boolean;
   // (undocumented)
-  render(): JSX.Element;
+  render(): any;
 }
 
 // @public (undocumented)
@@ -405,12 +407,6 @@ type ConfigWithNodeInfo = {
   config: FloatingToolbarConfig | undefined;
   pos: number;
   node: Node_2;
-};
-
-// @public (undocumented)
-type Context = {
-  editorActions?: EditorActions;
-  intl: IntlShape;
 };
 
 // @public (undocumented)
@@ -807,31 +803,6 @@ export interface EditorInstance {
 }
 
 // @public (undocumented)
-class EditorNext extends React_2.Component<EditorNextProps> {
-  constructor(props: EditorNextProps, context: Context);
-  // (undocumented)
-  static contextTypes: {
-    editorActions: PropTypes.Requireable<object>;
-  };
-  // (undocumented)
-  static defaultProps: {
-    appearance: string;
-    disabled: boolean;
-    quickInsert: boolean;
-  };
-  // (undocumented)
-  static propTypes: {
-    preset: ({ preset }: Pick<EditorNextProps, 'preset'>) => Error | null;
-    minHeight: ({
-      appearance,
-      minHeight,
-    }: Pick<EditorProps, 'appearance' | 'minHeight'>) => Error | null;
-  };
-  // (undocumented)
-  render(): jsx.JSX.Element;
-}
-
-// @public (undocumented)
 interface EditorNextProps
   extends EditorBaseProps,
     EditorSharedPropsWithPlugins,
@@ -899,6 +870,8 @@ interface EditorPluginFeatureProps {
   allowTemplatePlaceholders?: PlaceholderTextOptions | boolean;
   // (undocumented)
   allowTextAlignment?: boolean;
+  // (undocumented)
+  allowTextColor?: TextColorPluginConfig | boolean;
   autoScrollIntoView?: boolean;
   // (undocumented)
   elementBrowser?: {
@@ -983,8 +956,6 @@ interface EditorSharedPropsWithPlugins {
   allowAnalyticsGASV3?: boolean;
   // (undocumented)
   allowTables?: PluginConfig | boolean;
-  // (undocumented)
-  allowTextColor?: TextColorPluginConfig | boolean;
   // (undocumented)
   allowUndoRedoButtons?: boolean;
   // (undocumented)
@@ -2303,7 +2274,7 @@ function toggleBulletList(
 ): boolean;
 
 // @public (undocumented)
-export const toggleCode: () => Command;
+export const toggleCode: () => Command_2;
 
 // @public (undocumented)
 export const toggleCodeWithAnalytics: (
@@ -2312,10 +2283,10 @@ export const toggleCodeWithAnalytics: (
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
-}) => Command;
+}) => Command_2;
 
 // @public (undocumented)
-export const toggleEm: () => Command;
+export const toggleEm: () => Command_2;
 
 // @public (undocumented)
 export const toggleEmWithAnalytics: (
@@ -2324,7 +2295,7 @@ export const toggleEmWithAnalytics: (
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
-}) => Command;
+}) => Command_2;
 
 // @public (undocumented)
 function toggleOrderedList(
@@ -2333,7 +2304,7 @@ function toggleOrderedList(
 ): boolean;
 
 // @public (undocumented)
-export const toggleStrike: () => Command;
+export const toggleStrike: () => Command_2;
 
 // @public (undocumented)
 export const toggleStrikeWithAnalytics: (
@@ -2342,10 +2313,10 @@ export const toggleStrikeWithAnalytics: (
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
-}) => Command;
+}) => Command_2;
 
 // @public (undocumented)
-export const toggleStrong: () => Command;
+export const toggleStrong: () => Command_2;
 
 // @public (undocumented)
 export const toggleStrongWithAnalytics: (
@@ -2354,10 +2325,10 @@ export const toggleStrongWithAnalytics: (
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
-}) => Command;
+}) => Command_2;
 
 // @public (undocumented)
-export const toggleSubscript: () => Command;
+export const toggleSubscript: () => Command_2;
 
 // @public (undocumented)
 export const toggleSubscriptWithAnalytics: (
@@ -2366,10 +2337,10 @@ export const toggleSubscriptWithAnalytics: (
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
-}) => Command;
+}) => Command_2;
 
 // @public (undocumented)
-export const toggleSuperscript: () => Command;
+export const toggleSuperscript: () => Command_2;
 
 // @public (undocumented)
 export const toggleSuperscriptWithAnalytics: (
@@ -2378,10 +2349,10 @@ export const toggleSuperscriptWithAnalytics: (
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
-}) => Command;
+}) => Command_2;
 
 // @public (undocumented)
-export const toggleUnderline: () => Command;
+export const toggleUnderline: () => Command_2;
 
 // @public (undocumented)
 export const toggleUnderlineWithAnalytics: (
@@ -2390,7 +2361,7 @@ export const toggleUnderlineWithAnalytics: (
   inputMethod,
 }: {
   inputMethod: TextFormattingInputMethodBasic;
-}) => Command;
+}) => Command_2;
 
 // @public (undocumented)
 export class ToolbarFeedback extends PureComponent<Props_3, State_2> {

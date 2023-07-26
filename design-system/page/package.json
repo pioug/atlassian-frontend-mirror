@@ -24,7 +24,7 @@
   "atlaskit:src": "src/index.tsx",
   "atlaskit:designLink": "https://atlassian.design/foundations/grid",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Pyxis",
     "releaseModel": "continuous",
     "website": {
       "name": "Page",

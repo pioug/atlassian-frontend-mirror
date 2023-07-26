@@ -1,4 +1,7 @@
-import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
+import {
+  ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  JIRA_LIST_OF_LINKS_DATASOURCE_ID,
+} from '@atlaskit/link-datasource';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { DatasourceModalType } from '../types';
@@ -9,7 +12,8 @@ const getDatasourceType = (
   switch (datasourceId) {
     case JIRA_LIST_OF_LINKS_DATASOURCE_ID:
       return 'jira';
-
+    case ASSETS_LIST_OF_LINKS_DATASOURCE_ID:
+      return 'assets';
     default:
       return undefined;
   }
@@ -27,7 +31,11 @@ export const canRenderDatasource = (
         return true;
       }
       return false;
-
+    case 'assets':
+      if (getBooleanFF('platform.linking-platform.datasource-assets_objects')) {
+        return true;
+      }
+      return false;
     default:
       return defaultValue;
   }

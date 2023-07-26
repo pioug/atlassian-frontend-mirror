@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-table
 
+## 2.5.4
+
+### Patch Changes
+
+- [`b6758f1ecff`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b6758f1ecff) - [ux] Fixes positioning of popups inside table cell
+- Updated dependencies
+
 ## 2.5.3
 
 ### Patch Changes

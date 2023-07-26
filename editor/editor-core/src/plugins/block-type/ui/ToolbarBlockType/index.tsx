@@ -1,23 +1,24 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 
 import DropdownMenu from '../../../../ui/DropdownMenu';
-import { separatorStyles, wrapperStyle } from '../../../../ui/styles';
-import { BlockTypeState } from '../../pm-plugins/main';
-import { BlockType } from '../../types';
+import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
+import type { BlockTypeState } from '../../pm-plugins/main';
+import type { BlockType } from '../../types';
 import {
   blockTypeMenuItemStyle,
   keyboardShortcut,
   keyboardShortcutSelect,
 } from './styled';
 import { tooltip, findKeymapByDescription } from '../../../../keymaps';
-import { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { BlockTypeButton } from './blocktype-button';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 
 export type DropdownItem = MenuItem & {
   value: BlockType;

@@ -217,11 +217,23 @@ describe('getRetryOptions', () => {
   });
 
   it('returns retry option for Unauthorized status', () => {
-    const retry = getRetryOptions(url, SmartLinkStatus.Unauthorized);
+    const retry = getRetryOptions(
+      url,
+      SmartLinkStatus.Unauthorized,
+      undefined,
+      () => {},
+    );
 
     expect(retry).toEqual({
       descriptor: messages.connect_link_account_card_name,
+      onClick: expect.any(Function),
     });
+  });
+
+  it('does not return retry option for Unauthorized status when onAuthorize is not defined', () => {
+    const retry = getRetryOptions(url, SmartLinkStatus.Unauthorized);
+
+    expect(retry).toBeUndefined();
   });
 
   it('returns retry option for NotFound status', () => {

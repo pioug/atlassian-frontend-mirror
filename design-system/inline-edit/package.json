@@ -24,7 +24,7 @@
   "atlaskit:src": "src/index.ts",
   "homepage": "https://atlassian.design/components/inline-edit/",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Maker Experience",
     "releaseModel": "continuous",
     "website": {
       "name": "Inline edit",
@@ -48,6 +48,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@atlaskit/datetime-picker": "^12.7.0",
     "@atlaskit/docs": "*",
     "@atlaskit/section-message": "^6.4.0",

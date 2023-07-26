@@ -2,35 +2,32 @@
 import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  FireAnalyticsCallback,
-} from '@atlaskit/editor-common/analytics';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
+import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import {
   PortalProviderWithThemeProviders,
   PortalRenderer,
 } from '@atlaskit/editor-common/portal-provider';
-import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
   AllEditorPresetPluginTypes,
   Transformer,
 } from '@atlaskit/editor-common/types';
-import { ExperienceStore } from '@atlaskit/editor-common/ufo';
+import type { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { BaseTheme, WidthProvider } from '@atlaskit/editor-common/ui';
 
-import EditorActions from '../actions';
+import type EditorActions from '../actions';
 import { getUiComponent } from '../create-editor';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
 import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
 import ReactEditorView from '../create-editor/ReactEditorViewNext';
-import { EventDispatcher } from '../event-dispatcher';
+import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
-import { EditorNextProps, EditorProps } from '../types/editor-props';
+import type { EditorNextProps, EditorProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 

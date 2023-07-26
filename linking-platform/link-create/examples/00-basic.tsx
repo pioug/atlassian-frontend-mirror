@@ -8,7 +8,6 @@ import { OptionsType } from '@atlaskit/select';
 import LinkCreate, {
   AsyncSelect,
   CreateForm,
-  CreateFormProps,
   TextField,
   useLinkCreateCallback,
   Validator,
@@ -54,7 +53,7 @@ function MockPluginForm() {
       return exampleOptions;
     } catch (error) {
       if (error instanceof Error) {
-        onFailure && onFailure(error.message);
+        onFailure && onFailure(error);
       }
       return [];
     }
@@ -63,10 +62,7 @@ function MockPluginForm() {
   return (
     <div>
       This is a mocked plugin.
-      <CreateForm<CreateFormProps<FormData>>
-        onSubmit={mockHandleSubmit}
-        onCancel={onCancel}
-      >
+      <CreateForm<FormData> onSubmit={mockHandleSubmit} onCancel={onCancel}>
         <TextField
           name={'textField-name'}
           label={'Enter some Text'}

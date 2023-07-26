@@ -72,3 +72,9 @@ export {
   embedSpacingStyles,
   editIconStyles,
 } from './shared/embedCard';
+export {
+  buttonGroupStyle,
+  separatorStyles,
+  wrapperStyle,
+  triggerWrapperStyles,
+} from './shared/plugins';

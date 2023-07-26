@@ -25,7 +25,7 @@
   "dependencies": {
     "@atlaskit/editor-common": "^74.26.0",
     "@atlaskit/editor-plugin-width": "^0.1.0",
-    "@atlaskit/editor-shared-styles": "^2.4.0",
+    "@atlaskit/editor-shared-styles": "^2.5.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "classnames": "^2.2.5",

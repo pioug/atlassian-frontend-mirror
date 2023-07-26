@@ -2,12 +2,9 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 
-import { EditorView } from 'prosemirror-view';
-import {
-  defineMessages,
-  WrappedComponentProps,
-  injectIntl,
-} from 'react-intl-next';
+import type { EditorView } from 'prosemirror-view';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { defineMessages, injectIntl } from 'react-intl-next';
 
 import { getSelectedRowAndColumnFromPalette } from '@atlaskit/editor-common/ui-color';
 import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu';
@@ -19,29 +16,31 @@ import ColorPalette, {
   textPaletteTooltipMessages,
 } from '../../../../ui/ColorPalette';
 import Dropdown from '../../../../ui/Dropdown';
+import { expandIconWrapperStyle } from '../../../../ui/styles';
 import {
-  expandIconWrapperStyle,
   wrapperStyle,
   separatorStyles,
   triggerWrapperStyles,
-} from '../../../../ui/styles';
+} from '@atlaskit/editor-common/styles';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
+import type {
+  AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+} from '../../../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
-  DispatchAnalyticsEvent,
   EVENT_TYPE,
 } from '../../../analytics';
-import {
+import type {
   TextColorSelectedAEP,
   TextColorShowPaletteToggleAEP,
   TextColorSelectedAttr,
   TextColorShowPaletteToggleAttr,
 } from '../../../analytics/types/experimental-events';
 import * as commands from '../../commands/change-color';
-import { TextColorPluginState } from '../../pm-plugins/main';
+import type { TextColorPluginState } from '../../pm-plugins/main';
 
 import { EditorTextColorIcon } from './icon';
 import {
@@ -49,7 +48,7 @@ import {
   textColorIconBar,
   textColorIconWrapper,
 } from './styles';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 const EXPERIMENT_NAME: string = 'editor.toolbarTextColor.moreColors';
 const EXPERIMENT_GROUP_CONTROL: string = 'control';

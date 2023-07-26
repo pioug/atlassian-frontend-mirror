@@ -6,8 +6,8 @@ import { IntlProvider } from 'react-intl-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
 import {
-  AssetsClientState,
   useAssetsClient,
+  UseAssetsClientState,
 } from '../../../../hooks/useAssetsClient';
 import {
   DatasourceTableState,
@@ -101,19 +101,32 @@ describe('AssetsConfigModal', () => {
       reset: jest.fn(),
     });
 
-  const getDefaultAssetsClientState: () => AssetsClientState = () => ({
+  const getAssetsClientDefaultHookState: () => UseAssetsClientState = () => ({
     workspaceId: 'workspaceId',
+    workspaceError: undefined,
+    objectSchema: undefined,
+    assetsClientLoading: false,
   });
 
-  const getEmptyAssetsClientState: () => AssetsClientState = () => ({
+  const getAssetsClientLoadingHookState: () => UseAssetsClientState = () => ({
     workspaceId: undefined,
+    workspaceError: undefined,
+    objectSchema: undefined,
+    assetsClientLoading: true,
+  });
+
+  const getAssetsClientErrorHookState: () => UseAssetsClientState = () => ({
+    workspaceId: undefined,
+    workspaceError: new Error('workspaceError'),
+    objectSchema: undefined,
+    assetsClientLoading: false,
   });
 
   const setup = async (
     args: {
       parameters?: AssetsDatasourceParameters;
       datasourceTableHookState?: DatasourceTableState;
-      assetsClientHookState?: AssetsClientState;
+      assetsClientHookState?: UseAssetsClientState;
       visibleColumnKeys?: string[];
       dontWaitForSitesToLoad?: boolean;
     } = {},
@@ -122,7 +135,7 @@ describe('AssetsConfigModal', () => {
       args.datasourceTableHookState || getDefaultDataSourceTableHookState(),
     );
     asMock(useAssetsClient).mockReturnValue(
-      args.assetsClientHookState || getDefaultAssetsClientState(),
+      args.assetsClientHookState || getAssetsClientDefaultHookState(),
     );
 
     const onCancel = jest.fn();
@@ -166,6 +179,25 @@ describe('AssetsConfigModal', () => {
     expect(onCancel).toHaveBeenCalledTimes(1);
   });
 
+  it('should show loading skeletons and disable insert button when fetching workspace and initial data', async () => {
+    const { getByRole, getByTestId } = await setup({
+      assetsClientHookState: getAssetsClientLoadingHookState(),
+    });
+    expect(
+      getByTestId('assets-datasource-modal--search-container-skeleton'),
+    ).toBeInTheDocument();
+    expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
+  });
+
+  it('should show error when workspace fetch fails', async () => {
+    const { getByTestId } = await setup({
+      assetsClientHookState: getAssetsClientErrorHookState(),
+    });
+    expect(
+      getByTestId('jira-jql-datasource-modal--loading-error'),
+    ).toBeInTheDocument();
+  });
+
   describe('when there is no parameters yet', () => {
     it('should display EmptyState', async () => {
       const { queryByTestId } = await setup({
@@ -187,7 +219,7 @@ describe('AssetsConfigModal', () => {
     });
   });
 
-  describe('when status is `loading` and parameters provided', () => {
+  describe('when datasource table status is `loading` and parameters provided', () => {
     it('should disable insert button', async () => {
       const { getByRole } = await setup({
         visibleColumnKeys: undefined,
@@ -321,15 +353,6 @@ describe('AssetsConfigModal', () => {
           },
         });
       });
-    });
-  });
-
-  describe('when workspaceId is undefined', () => {
-    it('should disable insert button', async () => {
-      const { getByRole } = await setup({
-        assetsClientHookState: getEmptyAssetsClientState(),
-      });
-      expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
     });
   });
 

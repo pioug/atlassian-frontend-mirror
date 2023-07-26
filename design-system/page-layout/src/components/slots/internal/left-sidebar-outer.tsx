@@ -140,7 +140,7 @@ const LeftSidebarOuter = (
          * On mobile, the `onClick` handler controls the toggled flyout behaviour.
          * This is not intended to be how you use this with a keyboard, there is a ResizeButton for this intentionally instead.
          */
-        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+        // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
         <div
           css={[
             // mobile breakpoint styles
@@ -162,7 +162,6 @@ const LeftSidebarOuter = (
           onMouseLeave={onMouseLeave}
           onClick={onClick}
           ref={ref}
-          aria-hidden="true"
           {...selector}
         >
           {children}

@@ -13,7 +13,7 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import WithPluginState from '../../ui/WithPluginState';
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 
 import {
   plugin as textFormattingPlugin,
@@ -29,7 +29,7 @@ import textFormattingCursorPlugin from './pm-plugins/cursor';
 import textFormattingInputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
 import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
-import { TextFormattingOptions } from './types';
+import type { TextFormattingOptions } from './types';
 import Toolbar from './ui/Toolbar';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 

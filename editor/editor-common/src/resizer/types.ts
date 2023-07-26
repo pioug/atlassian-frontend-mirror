@@ -5,10 +5,21 @@ export type Dimensions = {
   height: number;
 };
 
+export type Position = {
+  x: number;
+  y: number;
+};
+export type Snap = {
+  x?: Array<number>;
+  y?: Array<number>;
+};
+
 export type HandleResize = (
-  newWidth: { x: number; y: number } & Dimensions,
+  newWidth: Position & Dimensions,
   delta: Dimensions,
 ) => void;
+
+export type HandleResizeStart = () => void;
 
 export type HandleStyles = {
   right?: React.CSSProperties;

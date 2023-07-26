@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { EditorState } from 'prosemirror-state';
 import { findDomRefAtPos } from 'prosemirror-utils';
 import { EditorView } from 'prosemirror-view';
 
@@ -10,7 +9,10 @@ import type {
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
-import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles';
+import {
+  akEditorFloatingDialogZIndex,
+  akEditorFloatingOverlapPanelZIndex,
+} from '@atlaskit/editor-shared-styles';
 import {
   findCellRectClosestToPos,
   getSelectionRect,
@@ -18,7 +20,6 @@ import {
 } from '@atlaskit/editor-tables/utils';
 
 import { getPluginState } from '../../pm-plugins/plugin-factory';
-import { pluginKey } from '../../pm-plugins/plugin-key';
 import { PluginConfig } from '../../types';
 import {
   contextualMenuDropdownWidth,
@@ -27,22 +28,6 @@ import {
 
 import ContextualMenu from './ContextualMenu';
 import { tablePopupStyles } from './styles';
-
-// offset of the contextual menu dropdown
-const calculateOffset = (targetCellRef: HTMLElement, state: EditorState) => {
-  const { tableRef } = pluginKey.getState(state) || {};
-  let top = -contextualMenuTriggerSize;
-
-  if (tableRef && targetCellRef) {
-    const targetOffset = targetCellRef.getBoundingClientRect();
-    const tableOffset = tableRef.getBoundingClientRect();
-    let topDiff = targetOffset.top - tableOffset.top;
-    if (topDiff < 200) {
-      top -= topDiff + 2;
-    }
-  }
-  return [contextualMenuTriggerSize / 2, top];
-};
 
 export interface Props {
   editorView: EditorView;
@@ -92,6 +77,10 @@ const FloatingContextualMenu = ({
     return null;
   }
 
+  const parentSticky =
+    targetCellRef.parentElement &&
+    targetCellRef.parentElement.className.indexOf('sticky') > -1;
+
   return (
     <Popup
       alignX="right"
@@ -104,7 +93,11 @@ const FloatingContextualMenu = ({
       fitWidth={contextualMenuDropdownWidth}
       // z-index value below is to ensure that this menu is above other floating menu
       // in table, but below floating dialogs like typeaheads, pickers, etc.
-      zIndex={akEditorFloatingOverlapPanelZIndex}
+      zIndex={
+        parentSticky
+          ? akEditorFloatingDialogZIndex
+          : akEditorFloatingOverlapPanelZIndex
+      }
       forcePlacement={true}
       offset={[-7, 0]}
       stick={true}
@@ -112,10 +105,7 @@ const FloatingContextualMenu = ({
       <div css={tablePopupStyles}>
         <ContextualMenu
           editorView={editorView}
-          offset={calculateOffset(
-            targetCellRef as HTMLElement,
-            editorView.state,
-          )}
+          offset={[contextualMenuTriggerSize / 2, -contextualMenuTriggerSize]}
           isOpen={isOpen}
           targetCellPosition={targetCellPosition}
           allowColumnSorting={pluginConfig && pluginConfig.allowColumnSorting}

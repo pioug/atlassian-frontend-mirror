@@ -210,6 +210,9 @@ export const akEditorTableCellDelete = '#FFEBE6';
 export const akEditorTableCellMinWidth = 48;
 
 // @public (undocumented)
+export const akEditorTableCellOnStickyHeaderZIndex: number;
+
+// @public (undocumented)
 export const akEditorTableCellSelected = '#B3D4FF';
 
 // @public (undocumented)

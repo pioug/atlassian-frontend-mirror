@@ -435,8 +435,15 @@ const LeftSidebar = (props: LeftSidebarProps) => {
         getBooleanFF(
           'platform.design-system-team.responsive-page-layout-left-sidebar_p8r7g',
         ) && (
+          /**
+           * On desktop, the `onClick` handlers controls the temporary flyout behavior.
+           * This is an intentionally mouse-only experience, it may even be disruptive with keyboard navigation.
+           *
+           * On mobile, the `onClick` handler controls the toggled flyout behaviour.
+           * This is not intended to be how you use this with a keyboard, there is a ResizeButton for this intentionally instead.
+           */
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
           <div
-            aria-hidden="true"
             css={[hiddenBackdropStyles, isFlyoutOpen && openBackdropStyles]}
             onClick={closeMobileFlyout}
           />
@@ -466,6 +473,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
             hasCollapsedState={
               !notFirstRun.current && collapsedState === 'collapsed'
             }
+            testId={testId && `${testId}-resize-children-wrapper`}
           >
             {children}
           </ResizableChildrenWrapper>

@@ -11,4 +11,10 @@ export const modalMessages = defineMessages({
     description: 'Button text to insert the displayed content',
     defaultMessage: 'Insert objects',
   },
+  insertObjectsTitle: {
+    id: 'linkDataSource.assets.configmodal.insertObjectsTitle',
+    description:
+      'Title for the Assets Objects Datasource config modal which prefixes a select picker',
+    defaultMessage: 'Insert objects from',
+  },
 });

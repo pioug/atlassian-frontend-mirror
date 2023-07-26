@@ -23,8 +23,6 @@ import {
   JiraIssuesDatasourceAdf,
 } from '../src/ui/jira-issues-modal/types';
 
-forceBaseUrl('https://jdog.jira-dev.com');
-
 const tableContainerStyles = css({
   width: '700px',
   height: '400px',
@@ -32,6 +30,7 @@ const tableContainerStyles = css({
 });
 
 export default () => {
+  forceBaseUrl('https://jdog.jira-dev.com');
   const [generatedAdf, setGeneratedAdf] = useState<
     InlineCardAdf | JiraIssuesDatasourceAdf | null
   >(null);

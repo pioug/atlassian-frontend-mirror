@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Fundamentals",
     "productPushConsumption": [
       "jira"
     ],
@@ -35,6 +35,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",

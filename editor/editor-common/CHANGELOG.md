@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 74.26.5
+
+### Patch Changes
+
+- [`3d065399b07`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3d065399b07) - ED-18969 refactor guideline plugin interface.
+
+## 74.26.4
+
+### Patch Changes
+
+- [`33cec4ba4f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cec4ba4f0) - [ED-19203] Extract common logic, styles, and types to editor-common
+
+## 74.26.3
+
+### Patch Changes
+
+- [`d3851530199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3851530199) - Update snapping logic, tests and examples
+- Updated dependencies
+
+## 74.26.2
+
+### Patch Changes
+
+- [`6255c2ad1c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6255c2ad1c9) - [ux] Adds ability to open Assets datasource dialog using the slash command in the editor, behind a feature flag
+
 ## 74.26.1
 
 ### Patch Changes

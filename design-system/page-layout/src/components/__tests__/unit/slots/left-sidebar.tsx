@@ -1932,6 +1932,76 @@ describe('Left sidebar', () => {
       expect(getDimension('leftSidebarWidth')).toEqual(`${maxWidth}px`);
     });
 
+    it('should make the left sidebar hidden and noninteractive to assistive technologies when left sidebar is collapsed', () => {
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: true,
+          gridState: {},
+        }),
+      );
+
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getByTestId('left-sidebar-grab-area')).toHaveAttribute('disabled');
+      expect(
+        getByTestId('left-sidebar-grab-area').getAttribute('aria-hidden'),
+      ).toBe('true');
+      expect(
+        getByTestId('left-sidebar-resize-children-wrapper').getAttribute(
+          'aria-hidden',
+        ),
+      ).toBe('true');
+    });
+
+    it('should make the left sidebar visible and interactive to assistive technologies when left sidebar is expanded', () => {
+      localStorage.setItem(
+        'DS_PAGE_LAYOUT_UI_STATE',
+        JSON.stringify({
+          isLeftSidebarCollapsed: false,
+          gridState: {},
+        }),
+      );
+
+      const { getByTestId } = render(
+        <PageLayout testId="grid">
+          <Content>
+            <LeftSidebar
+              testId="left-sidebar"
+              width={DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}
+            >
+              LeftSidebar
+            </LeftSidebar>
+            <Main testId="content">Main</Main>
+          </Content>
+        </PageLayout>,
+      );
+
+      expect(getByTestId('left-sidebar-grab-area')).not.toHaveAttribute(
+        'disabled',
+      );
+      expect(
+        getByTestId('left-sidebar-grab-area').getAttribute('aria-hidden'),
+      ).toBe('false');
+      expect(
+        getByTestId('left-sidebar-resize-children-wrapper').getAttribute(
+          'aria-hidden',
+        ),
+      ).toBe('false');
+    });
+
     it('should collapse navbar on line Enter, Space or Click (that the same)', () => {
       const { getByTestId } = render(
         <PageLayout testId="grid">
@@ -1958,60 +2028,6 @@ describe('Left sidebar', () => {
       fireEvent.keyDown(handle, { keyCode: 32, key: ' ' });
 
       expect(resizeButton.getAttribute('aria-expanded')).toEqual('false');
-    });
-
-    it('should make the grab area non-interactive when left sidebar is collapsed', () => {
-      localStorage.setItem(
-        'DS_PAGE_LAYOUT_UI_STATE',
-        JSON.stringify({
-          isLeftSidebarCollapsed: true,
-          gridState: {},
-        }),
-      );
-
-      const { getByTestId } = render(
-        <PageLayout testId="grid">
-          <Content>
-            <LeftSidebar
-              testId="left-sidebar"
-              width={DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}
-            >
-              LeftSidebar
-            </LeftSidebar>
-            <Main testId="content">Main</Main>
-          </Content>
-        </PageLayout>,
-      );
-
-      expect(getByTestId('left-sidebar-grab-area')).toHaveAttribute('disabled');
-    });
-
-    it('should make the grab area interactive when left sidebar is expanded', () => {
-      localStorage.setItem(
-        'DS_PAGE_LAYOUT_UI_STATE',
-        JSON.stringify({
-          isLeftSidebarCollapsed: false,
-          gridState: {},
-        }),
-      );
-
-      const { getByTestId } = render(
-        <PageLayout testId="grid">
-          <Content>
-            <LeftSidebar
-              testId="left-sidebar"
-              width={DEFAULT_LEFT_SIDEBAR_FLYOUT_WIDTH}
-            >
-              LeftSidebar
-            </LeftSidebar>
-            <Main testId="content">Main</Main>
-          </Content>
-        </PageLayout>,
-      );
-
-      expect(getByTestId('left-sidebar-grab-area')).not.toHaveAttribute(
-        'disabled',
-      );
     });
   });
 

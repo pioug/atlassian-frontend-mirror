@@ -85,15 +85,19 @@ type GuidelineConfig = {
   ...
   active?: boolean;
   show?: boolean;
-  style?: 'dashed' | 'solid'; // default solid
-  color?: CSSToken;
+  styles: {
+    lineStyle?: 'dashed' | 'solid'; // default solid
+    color?: CSSToken;
+    capStyle?: 'line'
+  }
 };
 ```
 
 - `active` default `false`, equivalent to the `highlight` state in the `grid` plugin.
-- `style` default `solid`, and we also support `dashed`
 - `show` default `true` and you can also hide a guideline, could be useful when you need animations.
-- `color`: default `undefined` you can override the color of a guideline with a valid `css` color
+- `styles.color`: default `undefined` you can override the color of a guideline with a valid `css` color
+- `styles.lineStyle` default `solid`, and we also support `dashed`
+- `styles.capStyle` default undefined, and support `line`
 
 ## TODO
 - [ ] Add unit/vr tests

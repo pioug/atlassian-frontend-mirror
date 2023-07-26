@@ -1,16 +1,16 @@
 import { toggleMark } from 'prosemirror-commands';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { EditorState } from 'prosemirror-state';
+import type { EditorView } from 'prosemirror-view';
 
-import { Dispatch } from '../../../event-dispatcher';
-import * as keymaps from '../../../keymaps';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import * as keymaps from '@atlaskit/editor-common/keymaps';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 import { createInlineCodeFromTextInputWithAnalytics } from '../commands/text-formatting';
 // eslint-disable-next-line no-duplicate-imports
 import * as commands from '../commands/text-formatting';
 import { anyMarkActive } from '../utils';
-import { TextFormattingState } from '../types';
+import type { TextFormattingState } from '../types';
 import { pluginKey } from './plugin-key';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 

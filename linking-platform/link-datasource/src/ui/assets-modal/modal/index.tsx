@@ -16,6 +16,9 @@ import Modal, {
 
 import { useAssetsClient } from '../../../hooks/useAssetsClient';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
+import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
+import { AssetsSearchContainer } from '../search-container';
+import { AssetsSearchContainerLoading } from '../search-container/loading-state';
 import {
   AssetsConfigModalProps,
   AssetsDatasourceAdf,
@@ -26,6 +29,12 @@ import { modalMessages } from './messages';
 import { RenderAssetsContent } from './render-assets-content';
 import { ModalContentContainer } from './styled';
 
+const AssetsModalTitle = (
+  <ModalTitle>
+    <FormattedMessage {...modalMessages.insertObjectsTitle} />
+  </ModalTitle>
+);
+
 export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
   const {
     datasourceId,
@@ -34,18 +43,22 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     onInsert,
     visibleColumnKeys: initialVisibleColumnKeys,
   } = props;
-  const [aql] = useState(initialParameters?.aql);
-  const [schemaId] = useState(initialParameters?.schemaId);
+  const [aql, setAql] = useState(initialParameters?.aql);
+  const [schemaId, setSchemaId] = useState(initialParameters?.schemaId);
   const [visibleColumnKeys, setVisibleColumnKeys] = useState(
     initialVisibleColumnKeys,
   );
 
-  const { workspaceId } = useAssetsClient();
-  const parameters: AssetsDatasourceParameters = useMemo<any | undefined>(
+  // If a workspaceError occurs this is a critical error
+  const { workspaceId, workspaceError, objectSchema, assetsClientLoading } =
+    useAssetsClient(initialParameters);
+
+  const parameters = useMemo<AssetsDatasourceParameters>(
     () => ({
       aql: aql || '',
       schemaId: schemaId || '',
-      workspaceId: '' /* TODO FLY-1240: Add workspace Id */,
+      workspaceId: '',
+      cloudId: '',
     }),
     [aql, schemaId],
   );
@@ -68,8 +81,9 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     status === 'rejected' ||
     status === 'loading' ||
     status === 'empty' ||
+    !!workspaceError ||
+    assetsClientLoading ||
     !aql ||
-    !workspaceId ||
     !schemaId;
 
   const retrieveUrlForSmartCardRender = useCallback(() => {
@@ -79,7 +93,7 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
   }, [responseItems]);
 
   const onInsertPressed = useCallback(() => {
-    if (!aql) {
+    if (!aql || !schemaId) {
       return;
     }
 
@@ -124,6 +138,36 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     visibleColumnKeys,
   ]);
 
+  const handleOnSearch = useCallback((aql: string, schemaId: string) => {
+    setAql(aql);
+    setSchemaId(schemaId);
+  }, []);
+
+  const renderModalTitleContent = useCallback(() => {
+    if (workspaceError) {
+      return undefined;
+    } else {
+      if (!workspaceId || assetsClientLoading) {
+        return <AssetsSearchContainerLoading modalTitle={AssetsModalTitle} />;
+      }
+      return (
+        <AssetsSearchContainer
+          workspaceId={workspaceId}
+          initialSearchData={{ aql, objectSchema }}
+          onSearch={handleOnSearch}
+          modalTitle={AssetsModalTitle}
+        />
+      );
+    }
+  }, [
+    aql,
+    assetsClientLoading,
+    handleOnSearch,
+    objectSchema,
+    workspaceError,
+    workspaceId,
+  ]);
+
   return (
     <ModalTransition>
       <Modal
@@ -132,15 +176,17 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
         width="x-large"
         shouldScrollInViewport={true}
       >
-        <ModalHeader>
-          <ModalTitle></ModalTitle>
-        </ModalHeader>
+        <ModalHeader>{renderModalTitleContent()}</ModalHeader>
         <ModalBody>
           <ModalContentContainer>
-            <RenderAssetsContent
-              status={status}
-              responseItems={responseItems}
-            />
+            {workspaceError ? (
+              <ModalLoadingError />
+            ) : (
+              <RenderAssetsContent
+                status={status}
+                responseItems={responseItems}
+              />
+            )}
           </ModalContentContainer>
         </ModalBody>
         <ModalFooter>

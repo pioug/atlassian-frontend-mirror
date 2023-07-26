@@ -1,13 +1,13 @@
 import type { Node as PMNode, NodeType } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
+import type { EditorState, Transaction } from 'prosemirror-state';
 import { canJoin, findWrapping } from 'prosemirror-transform';
-import {
+import type {
   InputRuleHandler,
   InputRuleWrapper,
-  createRule,
 } from '@atlaskit/prosemirror-input-rules';
+import { createRule } from '@atlaskit/prosemirror-input-rules';
 import { addAnalytics } from '../plugins/analytics';
-import { AnalyticsEventPayload } from '../plugins/analytics/types';
+import type { AnalyticsEventPayload } from '../plugins/analytics/types';
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics';
 
 type GetPayload =
@@ -16,6 +16,7 @@ type GetPayload =
       state: EditorState,
       matchResult: RegExpExecArray,
     ) => AnalyticsEventPayload);
+
 export const ruleWithAnalytics = (getPayload: GetPayload) => {
   return (originalRule: InputRuleWrapper): InputRuleWrapper => {
     const onHandlerApply = (

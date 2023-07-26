@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.0.6
+
+### Patch Changes
+
+- [`aa8ec75ace3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa8ec75ace3) - Simplify types for `Show` and `Hide` components. There should be no difference in behavior.
+
 ## 1.0.5
 
 ### Patch Changes

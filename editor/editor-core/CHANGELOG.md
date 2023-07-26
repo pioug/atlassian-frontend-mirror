@@ -1,5 +1,37 @@
 # @atlaskit/editor-core
 
+## 187.5.0
+
+### Minor Changes
+
+- [`164ab991f40`](https://bitbucket.org/atlassian/atlassian-frontend/commits/164ab991f40) - Updating the composable editor (@atlaskit/editor-core/composable-editor) to a functional component.
+
+## 187.4.11
+
+### Patch Changes
+
+- [`8f01c8d69d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8f01c8d69d7) - ED-18946 fixed leaking debounce function on assistive text unmount
+- Updated dependencies
+
+## 187.4.10
+
+### Patch Changes
+
+- [`33cec4ba4f0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/33cec4ba4f0) - [ED-19203] Extract common logic, styles, and types to editor-common
+
+## 187.4.8
+
+### Patch Changes
+
+- [`d3851530199`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3851530199) - Update snapping logic, tests and examples
+- Updated dependencies
+
+## 187.4.7
+
+### Patch Changes
+
+- [`6255c2ad1c9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6255c2ad1c9) - [ux] Adds ability to open Assets datasource dialog using the slash command in the editor, behind a feature flag
+
 ## 187.4.5
 
 ### Patch Changes

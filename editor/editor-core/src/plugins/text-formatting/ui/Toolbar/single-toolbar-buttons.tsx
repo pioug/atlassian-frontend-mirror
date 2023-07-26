@@ -1,13 +1,13 @@
 /** @jsx jsx */
 import React, { useCallback } from 'react';
 import { jsx } from '@emotion/react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 
-import { buttonGroupStyle } from '../../../../ui/styles';
-import ToolbarButton from '../../../../ui/ToolbarButton';
-import { Command } from '../../../../types/command';
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 
-import { MenuIconItem } from './types';
+import type { Command } from '@atlaskit/editor-common/types';
+import type { MenuIconItem } from './types';
+import { buttonGroupStyle } from '@atlaskit/editor-common/styles';
 
 export const SingleToolbarButtons: React.FC<{
   items: MenuIconItem[];

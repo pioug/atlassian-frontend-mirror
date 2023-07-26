@@ -16,7 +16,7 @@
   "atlaskit:src": "src/index.tsx",
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/patterns/forms",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Fundamentals",
     "releaseModel": "continuous",
     "website": {
       "name": "Form",
@@ -39,6 +39,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/button": "^16.8.0",
     "@atlaskit/checkbox": "^12.6.0",
@@ -53,6 +54,7 @@
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.4.3",
     "@types/final-form-focus": "^1.1.1",
+    "jest-in-case": "^1.0.2",
     "react-dom": "^16.8.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",

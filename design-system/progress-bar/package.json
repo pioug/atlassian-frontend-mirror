@@ -15,7 +15,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "team": "Design System Team",
+    "team": "Design System Fundamentals",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

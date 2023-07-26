@@ -66,7 +66,9 @@ class AssistveTextComponent extends React.Component<
     }, statusDebounceMillis);
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.debounceStatusUpdate.cancel();
+  }
 
   componentWillReceiveProps() {
     this.setState(({ bump }) => ({ bump: !bump, debounced: false }));

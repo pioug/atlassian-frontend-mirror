@@ -1,21 +1,19 @@
 /** @jsx jsx */
 import { useCallback, useMemo } from 'react';
 import { jsx } from '@emotion/react';
-import { EditorState } from 'prosemirror-state';
-import { shortcutStyle } from '../../../../../ui/styles';
+import type { EditorState } from 'prosemirror-state';
+import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { toolbarMessages } from '../toolbar-messages';
 import { clearFormattingWithAnalytics } from '../../../commands/clear-formatting';
-import {
-  pluginKey as clearFormattingPluginKey,
-  ClearFormattingState,
-} from '../../../pm-plugins/clear-formatting';
+import type { ClearFormattingState } from '../../../pm-plugins/clear-formatting';
+import { pluginKey as clearFormattingPluginKey } from '../../../pm-plugins/clear-formatting';
 import {
   clearFormatting as clearFormattingKeymap,
   tooltip,
-} from '../../../../../keymaps';
-import { IconHookProps, MenuIconItem } from '../types';
-import { INPUT_METHOD } from '../../../../analytics/types/enums';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+} from '@atlaskit/editor-common/keymaps';
+import type { IconHookProps, MenuIconItem } from '../types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 interface ClearIconHookProps extends IconHookProps {
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined;

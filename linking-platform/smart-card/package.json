@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.9.18",
+  "version": "26.10.0",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -134,9 +134,6 @@
     ".": "./src/index.ts"
   },
   "platform-feature-flags": {
-    "platform.linking-platform.smart-card.remove-dispatch-analytics-as-prop": {
-      "type": "boolean"
-    },
     "platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab": {
       "type": "boolean"
     },

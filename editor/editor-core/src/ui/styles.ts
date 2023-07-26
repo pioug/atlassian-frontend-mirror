@@ -1,60 +1,16 @@
 import { css } from '@emotion/react';
-import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 export { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 export { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 
-export const buttonGroupStyle = css`
-  display: inline-flex;
-  align-items: center;
-
-  & > div {
-    display: flex;
-  }
-`;
-
-// This style is copied to packages/editor/editor-plugin-ai/src/ui/components/AtlassianIntelligenceToolbarButton/styles.tsx
-// If you make change here, change in above file as well.
-export const separatorStyles = css`
-  background: ${token('color.border', N30)};
-  width: 1px;
-  height: 24px;
-  display: inline-block;
-  margin: 0 8px;
-  user-select: none;
-`;
-
-// This style is copied to packages/editor/editor-plugin-ai/src/ui/components/AtlassianIntelligenceToolbarButton/styles.tsx
-// If you make change here, change in above file as well.
-export const wrapperStyle = css`
-  display: flex;
-  align-items: center;
-
-  > div,
-  > span {
-    display: flex;
-  }
-
-  > div > div {
-    display: flex;
-  }
-
-  margin-left: 0;
-  min-width: auto;
-`;
-
 export const wrapperSmallStyle = css`
-  margin-left: 4px;
+  margin-left: ${token('space.050', '4px')};
   min-width: 40px;
 `;
 
 export const expandIconWrapperStyle = css`
   margin-left: -8px;
-`;
-
-export const triggerWrapperStyles = css`
-  display: flex;
 `;
 
 export const buttonContentStyle = css`
@@ -64,11 +20,11 @@ export const buttonContentStyle = css`
   overflow: hidden;
   justify-content: center;
   flex-direction: column;
-  padding: 6px;
+  padding: ${token('space.075', '6px')};
 `;
 
 export const buttonContentReducedSpacingStyle = css`
-  padding: 8px;
+  padding: ${token('space.100', '8px')};
 `;
 
 export const clickSelectWrapperStyle = css`

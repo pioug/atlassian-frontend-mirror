@@ -13,6 +13,7 @@ type ResizableChildrenWrapperProps = {
   isFlyoutOpen?: boolean;
   isLeftSidebarCollapsed?: boolean;
   hasCollapsedState?: boolean;
+  testId?: string;
 };
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
@@ -49,6 +50,7 @@ const ResizableChildrenWrapper = ({
   isLeftSidebarCollapsed = false,
   hasCollapsedState = false,
   isFlyoutOpen = false,
+  testId,
 }: ResizableChildrenWrapperProps) => {
   const isCollapsing = useIsSidebarCollapsing();
   const isCollapsed = isLeftSidebarCollapsed || hasCollapsedState;
@@ -61,6 +63,8 @@ const ResizableChildrenWrapper = ({
         isHidden && hideLeftSidebarContentsStyles,
         prefersReducedMotionStyles,
       ]}
+      aria-hidden={isHidden}
+      data-testid={testId}
     >
       <div css={fixedChildrenWrapperStyles}>{children}</div>
     </div>

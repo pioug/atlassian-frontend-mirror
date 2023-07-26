@@ -80,6 +80,9 @@ export const akEditorMenuZIndex = layers.blanket();
 export const akEditorFloatingPanelZIndex = layers.layer();
 // z-index used for pickers (date, emoji, mentions) and type-aheads, hyperlinks
 export const akEditorFloatingDialogZIndex = akEditorMenuZIndex + 10;
+// z-index used for table cell menu options button on a sticky header
+export const akEditorTableCellOnStickyHeaderZIndex =
+  akEditorFloatingDialogZIndex - 5;
 // z-index used for floating toolbars table cell menu which are above block toolbars
 export const akEditorFloatingOverlapPanelZIndex =
   akEditorFloatingPanelZIndex + 5;

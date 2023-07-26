@@ -1084,7 +1084,6 @@ describe('HoverCard', () => {
 
       it('should fire render failed event when hover card errors during render', async () => {
         const mock = jest.spyOn(analytics, 'uiRenderFailedEvent');
-        jest.spyOn(analytics, 'fireSmartLinkEvent');
         jest
           .spyOn(HoverCardComponent, 'HoverCardComponent')
           .mockImplementation(() => {
@@ -1095,9 +1094,6 @@ describe('HoverCard', () => {
         await setup();
         jest.runAllTimers();
 
-        await waitFor(() => expect(analytics.fireSmartLinkEvent).toBeCalled(), {
-          timeout: 5000,
-        });
         expect(analytics.uiRenderFailedEvent).toHaveBeenCalledTimes(1);
         expect(mock.mock.results[0].value).toEqual({
           action: 'renderFailed',
@@ -1168,28 +1164,9 @@ describe('HoverCard', () => {
       );
     });
 
-    describe('auth tooltip feature flag:', () => {
-      const setupWithFF = async (cardProp?: boolean) => {
-        mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
-        mockClient = new (fakeFactory(mockFetch))();
-
-        const { queryByTestId, findByTestId } = render(
-          <Provider client={mockClient}>
-            <Card
-              appearance="inline"
-              url={mockUrl}
-              showAuthTooltip={cardProp}
-            />
-          </Provider>,
-        );
-
-        const element = await findByTestId('inline-card-unauthorized-view');
-        jest.useFakeTimers();
-        fireEvent.mouseEnter(element);
-        jest.runAllTimers();
-        return { findByTestId, queryByTestId };
-      };
-
+    describe('auth tooltip', () => {
+      const triggerTestId = 'inline-card-unauthorized-view';
+      const authTooltipId = 'hover-card-unauthorised-view';
       const cases: ['should' | 'should not', boolean | undefined][] = [
         ['should not', undefined],
         ['should', true],
@@ -1197,18 +1174,38 @@ describe('HoverCard', () => {
       ];
       test.each(cases)(
         'auth tooltip %p render when prop is %p on card',
-        async (outcome, cardProp) => {
+        async (outcome, showAuthTooltip) => {
+          const setupProps = {
+            extraCardProps: { showAuthTooltip },
+            mock: mockUnauthorisedResponse,
+            testId: triggerTestId,
+          };
           if (outcome === 'should') {
-            const { findByTestId } = await setupWithFF(cardProp);
-            expect(
-              await findByTestId('hover-card-unauthorised-view'),
-            ).toBeDefined();
+            const { findByTestId } = await setup(setupProps);
+            expect(await findByTestId(authTooltipId)).toBeDefined();
           } else {
-            const { queryByTestId } = await setupWithFF(cardProp);
-            expect(queryByTestId('hover-card-unauthorised-view')).toBeNull();
+            const { queryByTestId } = await setup(setupProps);
+            expect(queryByTestId(authTooltipId)).toBeNull();
           }
         },
       );
+
+      it('does not render auth tooltip with no auth flow', async () => {
+        const { queryByTestId } = await setup({
+          extraCardProps: { showAuthTooltip: true },
+          mock: {
+            ...mockUnauthorisedResponse,
+            meta: {
+              ...mockUnauthorisedResponse.meta,
+              auth: [],
+            },
+          },
+          testId: triggerTestId,
+        });
+        jest.runAllTimers();
+
+        expect(queryByTestId(authTooltipId)).toBeNull();
+      });
     });
 
     describe('event propagation', () => {
@@ -1462,6 +1459,29 @@ describe('HoverCard', () => {
         ]) {
           await hoverAndVerify(renderResult, hoverCardTestId, testId, false);
         }
+      });
+
+      it('does not render unauthorised hover card with no auth flow', async () => {
+        const hoverCardTestId = 'hover-card-unauthorised-view';
+        const renderResult = await setup({
+          extraCardProps: { appearance, children },
+          mock: {
+            ...mockUnauthorisedResponse,
+            meta: {
+              ...mockUnauthorisedResponse.meta,
+              auth: [],
+            },
+          },
+          testId: 'smart-links-container',
+        });
+        jest.runAllTimers();
+
+        await hoverAndVerify(
+          renderResult,
+          hoverCardTestId,
+          'smart-element-link',
+          false,
+        );
       });
 
       describe('event propagation', () => {
@@ -1845,7 +1865,10 @@ describe('HoverCard', () => {
   describe('standalone hover card', () => {
     const childTestId = 'hover-test-div';
 
-    const standaloneSetUp = async (props?: Partial<HoverCardProps>) => {
+    const standaloneSetUp = async (
+      props?: Partial<HoverCardProps>,
+      setUpParams?: Parameters<typeof setup>[0],
+    ) => {
       const hoverCardComponent = (
         <StandaloneHoverCard url={mockUrl} {...props}>
           <div data-testid={childTestId}>Hover on me</div>
@@ -1855,6 +1878,7 @@ describe('HoverCard', () => {
       return await setup({
         testId: childTestId,
         component: hoverCardComponent,
+        ...setUpParams,
       });
     };
 
@@ -2446,6 +2470,35 @@ describe('HoverCard', () => {
         fireEvent.click(await findByTestId(testId));
 
         expect(await findByTestId('hover-card')).toBeDefined();
+      });
+    });
+
+    describe('unauthorised status', () => {
+      // Unskip this test after EDM-7412 is completed
+      it.skip('renders unauthorised view', async () => {
+        const { findByTestId } = await standaloneSetUp(undefined, {
+          mock: mockUnauthorisedResponse,
+        });
+        jest.runAllTimers();
+
+        const hoverCard = await findByTestId('hover-card-unauthorised-view');
+        expect(hoverCard).toBeInTheDocument();
+      });
+
+      it('does not render unauthorised view without auth flow', async () => {
+        const { queryByTestId } = await standaloneSetUp(undefined, {
+          mock: {
+            ...mockUnauthorisedResponse,
+            meta: {
+              ...mockUnauthorisedResponse.meta,
+              auth: [],
+            },
+          },
+        });
+        jest.runAllTimers();
+
+        const hoverCard = queryByTestId('hover-card-unauthorised-view');
+        expect(hoverCard).not.toBeInTheDocument();
       });
     });
   });

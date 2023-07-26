@@ -1,12 +1,8 @@
-import {
-  EditorState,
-  TextSelection,
-  NodeSelection,
-  Transaction,
-} from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { EditorState, Transaction } from 'prosemirror-state';
+import { TextSelection, NodeSelection } from 'prosemirror-state';
+import type { EditorView } from 'prosemirror-view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import {
+import type {
   ResolvedPos,
   MarkType,
   Mark,

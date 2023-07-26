@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo, useState } from 'react';
 
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from 'prosemirror-view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import DropdownMenu from '../../../../ui/DropdownMenu';
 import { useMenuState } from './hooks/menu-state';
 import { MoreButton } from './more-button';
 
-import { MenuIconItem } from './types';
+import type { MenuIconItem } from './types';
 
 type DropdownMenuProps = {
   editorView: EditorView;

@@ -9,75 +9,99 @@ import { useValidateAqlText } from '../useValidateAqlText';
 jest.mock('../../services/cmdbService');
 
 describe('useValidateAqlText', () => {
-  const hostname = 'hostname';
   const workspaceId = 'workspaceId';
+  const aqlText = 'hello';
+
+  const mockValidateAql = asMock(validateAql);
+  const mockAqlValidateResponse = {
+    isValid: true,
+    errorMessages: [''],
+    errors: {},
+  };
 
   beforeEach(() => {
     jest.resetAllMocks();
   });
 
-  it.each([
-    [workspaceId, hostname],
-    [workspaceId, undefined],
-  ])(
-    'should return initial state when hostname is %s and workspaceId is %s',
-    (workspaceId, hostname?) => {
-      const { result } = renderHook(() =>
-        useValidateAqlText(workspaceId, hostname),
-      );
-      expect(result.current.isLoading).toEqual(false);
-      expect(result.current.validateAqlText).toEqual(expect.any(Function));
+  it('should return initial state on mount', async () => {
+    const { result } = renderHook(() => useValidateAqlText(workspaceId));
+    expect(result.current.isValidAqlText).toEqual(false);
+    expect(result.current.validateAqlTextError).toEqual(undefined);
+    expect(result.current.validateAqlTextLoading).toEqual(false);
+    expect(result.current.validateAqlText).toEqual(expect.any(Function));
+  });
+
+  it.each([true, false])(
+    'should return correct boolean when validateAql response is "%s"',
+    async expectedIsValid => {
+      mockValidateAql.mockResolvedValue({
+        ...mockAqlValidateResponse,
+        isValid: expectedIsValid,
+      });
+      const { result } = renderHook(() => useValidateAqlText(workspaceId));
+      const validateAqlText = result.current.validateAqlText;
+      let validateAqlTextResponse: boolean = !expectedIsValid;
+      await act(async () => {
+        validateAqlTextResponse = await validateAqlText(aqlText);
+      });
+      expect(mockValidateAql).toBeCalledWith(workspaceId, { qlQuery: aqlText });
+      expect(validateAqlTextResponse).toBe(expectedIsValid);
+      expect(result.current.isValidAqlText).toEqual(expectedIsValid);
+      expect(result.current.validateAqlTextError).toEqual(undefined);
     },
   );
 
-  describe('validateAqlText', () => {
-    it.each([true, false])(
-      'should return correctly if validateAql isValid is "%s"',
-      async expectedIsValid => {
-        asMock(validateAql).mockResolvedValue({ isValid: expectedIsValid });
-        const { result } = renderHook(() =>
-          useValidateAqlText(workspaceId, 'hostname'),
-        );
-        const validateAqlText = result.current.validateAqlText;
-        let actualIsValid: boolean = !expectedIsValid;
-        await act(async () => {
-          actualIsValid = await validateAqlText('hello');
-        });
-        expect(validateAql).toBeCalledWith(
-          workspaceId,
-          { qlQuery: 'hello' },
-          'hostname',
-        );
-        expect(actualIsValid).toBe(expectedIsValid);
-      },
+  it('should return false and an error when validateAql rejects', async () => {
+    const mockError = new Error();
+    mockValidateAql.mockRejectedValue(mockError);
+    const { result } = renderHook(() => useValidateAqlText(workspaceId));
+    const validateAqlText = result.current.validateAqlText;
+    let validateAqlTextResponse: boolean | undefined;
+    await act(async () => {
+      validateAqlTextResponse = await validateAqlText(aqlText);
+    });
+    expect(validateAqlTextResponse).toBe(false);
+    expect(result.current.isValidAqlText).toBe(false);
+    expect(result.current.validateAqlTextError).toBe(mockError);
+  });
+
+  it('should return false and an error when validateAql rejects with a non error type', async () => {
+    const mockError = { error: 'fake error message' };
+    mockValidateAql.mockRejectedValue(mockError);
+    const { result } = renderHook(() => useValidateAqlText(workspaceId));
+    const validateAqlText = result.current.validateAqlText;
+    let validateAqlTextResponse: boolean | undefined;
+    await act(async () => {
+      validateAqlTextResponse = await validateAqlText(aqlText);
+    });
+    expect(validateAqlTextResponse).toBe(false);
+    expect(result.current.isValidAqlText).toBe(false);
+    expect(result.current.validateAqlTextError?.message).toEqual(
+      `Unexpected error occured`,
+    );
+  });
+
+  it('should correctly set validateAqlTextLoading when validateAql is called', async () => {
+    let validateAqlResolveFn: (
+      value: AqlValidateResponse | PromiseLike<AqlValidateResponse>,
+    ) => void = () => {};
+    const deferredPromise = new Promise(
+      resolve => (validateAqlResolveFn = resolve),
+    );
+    mockValidateAql.mockReturnValue(deferredPromise);
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useValidateAqlText(workspaceId),
     );
 
-    it('should correctly set isLoading when method is called', async () => {
-      let validateAqlResolveFn: (
-        value: AqlValidateResponse | PromiseLike<AqlValidateResponse>,
-      ) => void = () => {};
-      const deferredPromise = new Promise(
-        resolve => (validateAqlResolveFn = resolve),
-      );
-      asMock(validateAql).mockReturnValue(deferredPromise);
-      const { result, waitForNextUpdate } = renderHook(() =>
-        useValidateAqlText(workspaceId, 'hostname'),
-      );
-
-      const validateAqlText = result.current.validateAqlText;
-      act(() => {
-        validateAqlText('hello');
-      });
-      expect(result.current.isLoading).toBe(true);
-      act(() => {
-        validateAqlResolveFn({
-          isValid: true,
-          errorMessages: [''],
-          errors: {},
-        });
-      });
-      await waitForNextUpdate();
-      expect(result.current.isLoading).toBe(false);
+    const validateAqlText = result.current.validateAqlText;
+    act(() => {
+      validateAqlText(aqlText);
     });
+    expect(result.current.validateAqlTextLoading).toBe(true);
+    act(() => {
+      validateAqlResolveFn(mockAqlValidateResponse);
+    });
+    await waitForNextUpdate();
+    expect(result.current.validateAqlTextLoading).toBe(false);
   });
 });

@@ -36,7 +36,7 @@ const CreatePluginForm = () => {
       <Button
         testId="error-button"
         appearance="primary"
-        onClick={() => onFailure && onFailure('An error just happened')}
+        onClick={() => onFailure && onFailure(Error('An error just happened'))}
       >
         Trigger an error
       </Button>

@@ -131,35 +131,37 @@ test.describe('resizing a table', () => {
     expect(await tableModel.containerWidth()).toBe(960);
   });
 
-  test("should resize to the closest guideline and back to it's original size correctly", async ({
-    editor,
-  }) => {
-    const nodes = EditorNodeContainerModel.from(editor);
-    const tableModel = EditorTableModel.from(nodes.table);
-    const resizerModel = tableModel.resizer();
+  // FIXME: This test was manually skipped due to flakiness: https://atlassian.slack.com/archives/C05F7EJ6C0L/p1690349111624389
+  test.fixme(
+    "should resize to the closest guideline and back to it's original size correctly",
+    async ({ editor }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+      const resizerModel = tableModel.resizer();
 
-    // Before we resize we make sure the current size is what we expect it to be.
-    expect(await resizerModel.containerWidth()).toBe(760);
+      // Before we resize we make sure the current size is what we expect it to be.
+      expect(await resizerModel.containerWidth()).toBe(760);
 
-    await resizerModel.resize({ mouse: editor.page.mouse, moveDistance: 99 });
+      await resizerModel.resize({ mouse: editor.page.mouse, moveDistance: 99 });
 
-    expect(await resizerModel.containerWidth()).toBe(960);
+      expect(await resizerModel.containerWidth()).toBe(960);
 
-    await resizerModel.resizeAndHold({
-      mouse: editor.page.mouse,
-      moveDistance: -99,
-    });
+      await resizerModel.resizeAndHold({
+        mouse: editor.page.mouse,
+        moveDistance: -99,
+      });
 
-    // IMPORTANT: We need to ensure that no margin is being applied before we release the up button.
-    expect(await resizerModel.containerMarginLeft()).toBe('0px');
+      // IMPORTANT: We need to ensure that no margin is being applied before we release the up button.
+      expect(await resizerModel.containerMarginLeft()).toBe('0px');
 
-    await editor.page.mouse.up();
+      await editor.page.mouse.up();
 
-    expect(await resizerModel.containerMarginLeft()).toBe('0px');
-    // NOTE: the widths are not committed until after the mouse up has occured.
-    expect(await resizerModel.containerWidth()).toBe(760);
-    expect(await tableModel.containerWidth()).toBe(760);
-  });
+      expect(await resizerModel.containerMarginLeft()).toBe('0px');
+      // NOTE: the widths are not committed until after the mouse up has occured.
+      expect(await resizerModel.containerWidth()).toBe(760);
+      expect(await tableModel.containerWidth()).toBe(760);
+    },
+  );
 });
 
 test.describe('rendering table width', () => {

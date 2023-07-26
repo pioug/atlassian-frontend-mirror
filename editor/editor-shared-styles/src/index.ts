@@ -56,6 +56,7 @@ export {
   akEditorTableCellBackgroundOpacity,
   akEditorTableCellDelete,
   akEditorTableCellMinWidth,
+  akEditorTableCellOnStickyHeaderZIndex,
   akEditorTableCellSelected,
   akEditorTableFloatingControls,
   akEditorTableLegacyCellMinWidth,

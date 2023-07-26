@@ -1,5 +1,12 @@
 # @atlaskit/editor-shared-styles
 
+## 2.5.0
+
+### Minor Changes
+
+- [`638784fa9d5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/638784fa9d5) - force dependency bump
+- [`df488d9b806`](https://bitbucket.org/atlassian/atlassian-frontend/commits/df488d9b806) - [ux] Adds a new constant with a zIndex that is used for table sticky header and table cells that are in the sticky header
+
 ## 2.4.4
 
 ### Patch Changes

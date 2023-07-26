@@ -16,8 +16,11 @@ import {
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../ui/ToolbarButton';
 import { messages } from '../../list/messages';
 import { messages as indentationMessages } from '../../indentation/messages';
-import { ButtonName, ToolbarProps } from '../types';
-import { buttonGroupStyle, separatorStyles } from '../../../ui/styles';
+import type { ButtonName, ToolbarProps } from '../types';
+import {
+  separatorStyles,
+  buttonGroupStyle,
+} from '@atlaskit/editor-common/styles';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 import { useEffect, useRef } from 'react';
 

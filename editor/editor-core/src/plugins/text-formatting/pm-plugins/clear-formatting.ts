@@ -1,7 +1,8 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, PluginKey } from 'prosemirror-state';
+import * as safePlugin from '@atlaskit/editor-common/safe-plugin';
+import type { EditorState } from 'prosemirror-state';
+import { PluginKey } from 'prosemirror-state';
 
-import { Dispatch } from '../../../event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { checkFormattingIsPresent } from '../utils';
 
 export interface ClearFormattingState {
@@ -13,7 +14,7 @@ export const pluginKey = new PluginKey<ClearFormattingState>(
 );
 
 export const plugin = (dispatch: Dispatch) =>
-  new SafePlugin({
+  new safePlugin.SafePlugin({
     state: {
       init(_config, state: EditorState) {
         return { formattingIsPresent: checkFormattingIsPresent(state) };

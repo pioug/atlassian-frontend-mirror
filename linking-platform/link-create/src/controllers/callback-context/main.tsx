@@ -15,7 +15,7 @@ interface LinkCreateCallbackProviderProps {
   /**
    * This callback for any errors
    */
-  onFailure?: (errorMessage: string) => void;
+  onFailure?: (error: Error) => void;
 
   /**
    * This callback for when the form was manually discarded by user
@@ -48,7 +48,14 @@ const LinkCreateCallbackProvider: React.FC<LinkCreateCallbackProviderProps> = ({
           await onCreate(result);
         }
       },
-      onFailure,
+      onFailure: async (error: Error) => {
+        createAnalyticsEvent(
+          createEventPayload('track.object.createFailed.linkCreate', {
+            failureType: error.name,
+          }),
+        ).fire(ANALYTICS_CHANNEL);
+        onFailure && onFailure(error);
+      },
       onCancel,
     }),
     [onFailure, onCancel, createAnalyticsEvent, onCreate],

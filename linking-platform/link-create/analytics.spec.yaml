@@ -83,3 +83,12 @@ events:
         objectType:
           type: string
           description: the type of created content
+
+  - object createFailed (linkCreate):
+      type: track
+      description: fired when the object creation fails
+      attributes:
+        <<: *PackageMetaDataContext
+        failureType:
+          type: string
+          description: the name of the failure

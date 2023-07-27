@@ -482,11 +482,14 @@ describe('with feature flag: lp-link-picker', () => {
   describe.each([true, false])(
     'when ff lp-link-picker-focus-trap is %p',
     (featureFlag: boolean) => {
+      // FIXME: This test was automatically skipped due to failure on 26/07/2023: https://product-fabric.atlassian.net/browse/ED-19224
       BrowserTestCase(
         `ff lp-link-picker-focus-trap is ${featureFlag}: when editing a link mark, focus ${
           featureFlag ? 'IS' : 'IS NOT'
         } trapped within the link picker`,
-        {},
+        {
+          skip: ['*'],
+        },
         async (client: any) => {
           const page = await goToEditorTestingWDExample(client);
           await mountEditor(

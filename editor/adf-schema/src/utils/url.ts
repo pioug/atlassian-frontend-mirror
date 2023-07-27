@@ -86,6 +86,9 @@ const urlWithoutSpacesValidator: LinkifyIt.Rule = {
 // We're not validating the phone number or separators - but if there's a space it definitely isn't a valid `tel:` URI
 linkify.add('tel:', urlWithoutSpacesValidator);
 
+// https://datatracker.ietf.org/doc/html/rfc8089
+linkify.add('file:', urlWithoutSpacesValidator);
+
 linkify.add('notes:', 'http:');
 
 const tlds =

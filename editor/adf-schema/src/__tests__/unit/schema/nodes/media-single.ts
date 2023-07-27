@@ -3,8 +3,24 @@ import {
   toDOM,
   fromHTML,
 } from '@atlaskit/editor-test-helpers/adf-schema';
+import { createSchema } from '../../../../schema';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
+
+function makeSchema() {
+  return createSchema({
+    nodes: [
+      'doc',
+      'paragraph',
+      'text',
+      'mediaSingle',
+      'media',
+      'caption',
+      'unsupportedBlock',
+    ],
+    marks: ['border', 'link', 'unsupportedMark', 'unsupportedNodeAttribute'],
+  });
+}
 
 describe(`${packageName}/schema mediaSingle node`, () => {
   describe('parse html', () => {
@@ -63,6 +79,68 @@ describe(`${packageName}/schema mediaSingle node`, () => {
 
       expect(mediaSingleNode.childCount).toEqual(1);
       expect(mediaSingleNode.child(0)).toEqual(schema.nodes.media.create());
+    });
+
+    it('should discard widthType if widthType is supported', () => {
+      const customSchema = makeSchema();
+      const doc = fromHTML(
+        `
+        <div
+          data-node-type="mediaSingle"
+          data-layout="wrap-right"
+          data-width="32.3"
+          data-width-type="percentage"
+        />
+        `,
+        customSchema,
+      );
+
+      const mediaSingleNode = doc.firstChild!;
+      expect(mediaSingleNode.type).toEqual(customSchema.nodes.mediaSingle);
+      expect(mediaSingleNode.attrs.layout).toEqual('wrap-right');
+      expect(mediaSingleNode.attrs.width).toEqual(32.3);
+      expect(mediaSingleNode.attrs.widthType).toBeFalsy();
+    });
+
+    it('should discard width attributes if widthType is provided but not supported', () => {
+      const customSchema = makeSchema();
+      const doc = fromHTML(
+        `
+        <div
+          data-node-type="mediaSingle"
+          data-layout="wrap-right"
+          data-width="32.3"
+          data-width-type="pixel"
+        />
+        `,
+        customSchema,
+      );
+
+      const mediaSingleNode = doc.firstChild!;
+      expect(mediaSingleNode.type).toEqual(customSchema.nodes.mediaSingle);
+      expect(mediaSingleNode.attrs.layout).toEqual('wrap-right');
+      expect(mediaSingleNode.attrs.width).toBeFalsy();
+      expect(mediaSingleNode.attrs.widthType).toBeFalsy();
+    });
+
+    it('should keep width attributes if widthType supported', () => {
+      const doc = fromHTML(
+        `
+        <div
+          data-node-type="mediaSingle"
+          data-layout="wrap-right"
+          data-width="32.3"
+          data-width-type="pixel"
+        />
+        `,
+        schema,
+      );
+
+      const mediaSingleNode = doc.firstChild!;
+      expect(mediaSingleNode.type).toEqual(schema.nodes.mediaSingle);
+      expect(mediaSingleNode.attrs.layout).toEqual('wrap-right');
+      expect(mediaSingleNode.attrs.width).toEqual(32.3);
+      expect(mediaSingleNode.attrs.widthType).toEqual('pixel');
     });
   });
 

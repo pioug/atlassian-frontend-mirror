@@ -48,7 +48,7 @@
   "devDependencies": {
     "@af/analytics-codegen": "^0.1.0",
     "@atlaskit/link-picker": "^1.27.0",
-    "@atlaskit/link-test-helpers": "^4.2.0",
+    "@atlaskit/link-test-helpers": "^5.0.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/react": "^12.1.5",

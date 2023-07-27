@@ -37,6 +37,7 @@ export const TonePreviewButton = forwardRef<HTMLButtonElement, Props>(
         aria-controls="emoji-picker-tone-selector"
         style={{ overflow: 'hidden' }}
         data-testid={tonePreviewTestId}
+        type="button"
       >
         <Emoji
           emoji={emoji}

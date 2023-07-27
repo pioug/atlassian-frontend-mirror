@@ -15,20 +15,23 @@ async function waitForCheckboxes(page: PuppeteerPage) {
 }
 
 describe('Snapshot Test', () => {
-  ffTest('platform.design-system-team.border-checkbox_nyoiu', async () => {
-    const url = getExampleUrl(
-      'design-system',
-      'checkbox',
-      'basic-usage',
-      global.__BASEURL__,
-    );
-    const { page } = global;
-    await loadPage(page, url);
-    await waitForCheckboxes(page);
+  ffTest(
+    'platform.design-system-team.update-border-radio-checkbox_7askv',
+    async () => {
+      const url = getExampleUrl(
+        'design-system',
+        'checkbox',
+        'basic-usage',
+        global.__BASEURL__,
+      );
+      const { page } = global;
+      await loadPage(page, url);
+      await waitForCheckboxes(page);
 
-    const image = await page.screenshot();
-    expect(image).toMatchProdImageSnapshot();
-  });
+      const image = await page.screenshot();
+      expect(image).toMatchProdImageSnapshot();
+    },
+  );
 
   it('Basic usage example should match production example', async () => {
     const url = getExampleUrl(

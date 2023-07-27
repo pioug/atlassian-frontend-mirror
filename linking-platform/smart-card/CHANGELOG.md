@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.11.0
+
+### Minor Changes
+
+- [`fdfe07831c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fdfe07831c7) - - Deprecate standalone hover card `onAuthorize` prop (no implementation)
+  - Hide auth tooltip on unauthenticated inline link with no auth flow (new design, behind feature flag)
+
 ## 26.10.0
 
 ### Minor Changes

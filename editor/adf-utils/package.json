@@ -41,7 +41,7 @@
     "generate:spec": "rm -rf ./src/validator/specs/ && ../json-schema-generator/bin.js --outDir=./src/validator/specs/ --mode=Spec --stage=0 ./src/validator/entry.ts"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^26.2.0",
+    "@atlaskit/adf-schema": "^26.3.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@babel/runtime": "^7.0.0"
   },

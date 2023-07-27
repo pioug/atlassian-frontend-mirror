@@ -1,0 +1,5 @@
+export {
+  MEDIA_SINGLE_MIN_PIXEL_WIDTH,
+  MEDIA_SINGLE_SNAP_GAP,
+  MEDIA_SINGLE_HIGHLIGHT_GAP,
+} from './constants';

@@ -2,6 +2,7 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import createEvent from '@atlaskit/editor-test-helpers/create-event';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   caption,
   doc,
@@ -12,18 +13,19 @@ import {
   extension,
   unsupportedBlock,
   code_block,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
   insertMediaSingleNode,
   insertMediaAsMediaSingle,
 } from '../../../../plugins/media/utils/media-single';
-import { MediaState } from '../../../../plugins/media/pm-plugins/main';
+import type { MediaState } from '../../../../plugins/media/pm-plugins/main';
 import {
   temporaryFileId,
   testCollectionName,
   temporaryMediaWithDimensions,
+  temporaryMediaWithoutDimensions,
   temporaryMedia,
 } from './_utils';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -995,6 +997,481 @@ describe('media-single', () => {
           ),
         );
       });
+    });
+  });
+
+  describe('Media single insertion with extended resize experience', () => {
+    const widthPluginState = (
+      lineLength: number = 760,
+      width: number = 1800,
+    ) => ({ lineLength, width });
+
+    describe('it should have width and widthType defined', () => {
+      describe('when all widths are defined and media width is smaller than 24px', () => {
+        ffTest(
+          'platform.editor.media.extended-resize-experience',
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              createMediaState(temporaryFileId, 15, 15),
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+              widthPluginState(),
+            );
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                  width: 24,
+                  widthType: 'pixel',
+                })(temporaryMediaWithDimensions(15, 15)),
+                p(),
+              ),
+            );
+          },
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              createMediaState(temporaryFileId, 15, 15),
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+              widthPluginState(),
+            );
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                })(temporaryMediaWithDimensions(15, 15)),
+                p(),
+              ),
+            );
+          },
+        );
+      });
+
+      describe('when all widths are defined and media width is small', () => {
+        ffTest(
+          'platform.editor.media.extended-resize-experience',
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              createMediaState(temporaryFileId),
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+              widthPluginState(),
+            );
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                  width: 256,
+                  widthType: 'pixel',
+                })(temporaryMediaWithDimensions()),
+                p(),
+              ),
+            );
+          },
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              createMediaState(temporaryFileId),
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+              widthPluginState(),
+            );
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                })(temporaryMediaWithDimensions()),
+                p(),
+              ),
+            );
+          },
+        );
+      });
+
+      describe('when all widths are defined and media width is big', () => {
+        ffTest(
+          'platform.editor.media.extended-resize-experience',
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              createMediaState(temporaryFileId, 2000, 2100),
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+              widthPluginState(),
+            );
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                  width: 760,
+                  widthType: 'pixel',
+                })(temporaryMediaWithDimensions(2000, 2100)),
+                p(),
+              ),
+            );
+          },
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              createMediaState(temporaryFileId, 2000, 2100),
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+              widthPluginState(),
+            );
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                })(temporaryMediaWithDimensions(2000, 2100)),
+                p(),
+              ),
+            );
+          },
+        );
+      });
+
+      describe('when media dimension is undefined', () => {
+        const mediState: MediaState = {
+          id: temporaryFileId,
+          status: 'preview',
+        };
+        describe('and editor widths are defined', () => {
+          ffTest(
+            'platform.editor.media.extended-resize-experience',
+            () => {
+              const { editorView } = editor(doc(p('')));
+
+              insertMediaSingleNode(
+                editorView,
+                mediState,
+                INPUT_METHOD.PICKER_CLOUD,
+                testCollectionName,
+                false,
+                false,
+                widthPluginState(),
+              );
+              expect(editorView.state.doc).toEqualDocument(
+                doc(
+                  mediaSingle({
+                    layout: 'center',
+                    width: 250,
+                    widthType: 'pixel',
+                  })(temporaryMediaWithoutDimensions()),
+                  p(),
+                ),
+              );
+            },
+            () => {
+              const { editorView } = editor(doc(p('')));
+
+              insertMediaSingleNode(
+                editorView,
+                mediState,
+                INPUT_METHOD.PICKER_CLOUD,
+                testCollectionName,
+                false,
+                false,
+                widthPluginState(),
+              );
+
+              expect(editorView.state.doc).toEqualDocument(
+                doc(
+                  mediaSingle({
+                    layout: 'center',
+                  })(temporaryMediaWithoutDimensions()),
+                  p(),
+                ),
+              );
+            },
+          );
+        });
+
+        describe('and editor content width is undefined', () => {
+          ffTest(
+            'platform.editor.media.extended-resize-experience',
+            () => {
+              const { editorView } = editor(doc(p('')));
+
+              insertMediaSingleNode(
+                editorView,
+                mediState,
+                INPUT_METHOD.PICKER_CLOUD,
+                testCollectionName,
+                false,
+                false,
+                { lineLength: undefined, width: 900 },
+              );
+              expect(editorView.state.doc).toEqualDocument(
+                doc(
+                  mediaSingle({
+                    layout: 'center',
+                    width: 250,
+                    widthType: 'pixel',
+                  })(temporaryMediaWithoutDimensions()),
+                  p(),
+                ),
+              );
+            },
+            () => {
+              const { editorView } = editor(doc(p('')));
+
+              insertMediaSingleNode(
+                editorView,
+                mediState,
+                INPUT_METHOD.PICKER_CLOUD,
+                testCollectionName,
+                false,
+                false,
+                { lineLength: undefined, width: 900 },
+              );
+
+              expect(editorView.state.doc).toEqualDocument(
+                doc(
+                  mediaSingle({
+                    layout: 'center',
+                  })(temporaryMediaWithoutDimensions()),
+                  p(),
+                ),
+              );
+            },
+          );
+        });
+      });
+
+      describe('when width plugin is not available', () => {
+        ffTest(
+          'platform.editor.media.extended-resize-experience',
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              createMediaState(temporaryFileId),
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+            );
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                  width: 256,
+                  widthType: 'pixel',
+                })(temporaryMediaWithDimensions()),
+                p(),
+              ),
+            );
+          },
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              createMediaState(temporaryFileId),
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+            );
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                })(temporaryMediaWithDimensions()),
+                p(),
+              ),
+            );
+          },
+        );
+      });
+
+      describe('when both media dimension and editor width are unavailable', () => {
+        const mediState: MediaState = {
+          id: temporaryFileId,
+          status: 'preview',
+        };
+        ffTest(
+          'platform.editor.media.extended-resize-experience',
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              mediState,
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+              widthPluginState(0, 0),
+            );
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                  width: 250,
+                  widthType: 'pixel',
+                })(temporaryMediaWithoutDimensions()),
+                p(),
+              ),
+            );
+          },
+          () => {
+            const { editorView } = editor(doc(p('')));
+
+            insertMediaSingleNode(
+              editorView,
+              mediState,
+              INPUT_METHOD.PICKER_CLOUD,
+              testCollectionName,
+              false,
+              false,
+              widthPluginState(0, 0),
+            );
+
+            expect(editorView.state.doc).toEqualDocument(
+              doc(
+                mediaSingle({
+                  layout: 'center',
+                })(temporaryMediaWithoutDimensions()),
+                p(),
+              ),
+            );
+          },
+        );
+      });
+    });
+  });
+
+  describe('paste mediaSingle with widthType', () => {
+    const createClipboardContent = (
+      width?: number,
+      widthType?: string,
+      layout?: string,
+    ) => {
+      return {
+        html: `<meta charset='utf-8'>
+              <div data-node-type="mediaSingle"
+                   data-layout="${layout}"
+                   data-width="${width}"
+                   data-width-type="${widthType}"
+                   data-pm-slice="0 0 []">
+                <div data-id="test_id"
+                  data-node-type="media"
+                  data-type="file"
+                  data-collection="MediaServicesSample"
+                  data-width="179"
+                  data-height="390"
+                  data-alt=""
+                  title="Attachment"
+                  data-file-name="image-test.png"
+                  data-file-size="31700"
+                  data-file-mime-type="image/png"
+                  data-context-id="DUMMY-OBJECT-ID">
+                </div>
+              </div>`,
+        types: ['text/html'],
+      };
+    };
+
+    describe('paste pixel widthType', () => {
+      ffTest(
+        'platform.editor.media.extended-resize-experience',
+        () => {
+          const { editorView } = editor(doc(p('')));
+          const event = createEvent('paste');
+
+          const clipboardData = createClipboardContent(120, 'pixel', 'center');
+
+          dispatchPasteEvent(editorView, clipboardData, undefined, event);
+          expect(editorView.state.doc.firstChild?.attrs).toMatchObject({
+            width: 120,
+            layout: 'center',
+            widthType: 'pixel',
+          });
+        },
+        () => {
+          const { editorView } = editor(doc(p('')));
+          const event = createEvent('paste');
+
+          const clipboardData = createClipboardContent(120, 'pixel', 'center');
+
+          dispatchPasteEvent(editorView, clipboardData, undefined, event);
+          expect(editorView.state.doc.firstChild?.attrs).toMatchObject({
+            layout: 'center',
+          });
+        },
+      );
+    });
+
+    describe('paste percentage widthType', () => {
+      ffTest(
+        'platform.editor.media.extended-resize-experience',
+        () => {
+          const { editorView } = editor(doc(p('')));
+          const event = createEvent('paste');
+
+          const clipboardData = createClipboardContent(
+            80,
+            'percentage',
+            'center',
+          );
+
+          dispatchPasteEvent(editorView, clipboardData, undefined, event);
+          expect(editorView.state.doc.firstChild?.attrs).toMatchObject({
+            width: 80,
+            layout: 'center',
+            widthType: 'percentage',
+          });
+        },
+        () => {
+          const { editorView } = editor(doc(p('')));
+          const event = createEvent('paste');
+
+          const clipboardData = createClipboardContent(
+            80,
+            'percentage',
+            'center',
+          );
+
+          dispatchPasteEvent(editorView, clipboardData, undefined, event);
+          expect(editorView.state.doc.firstChild?.attrs).toEqual({
+            width: 80,
+            layout: 'center',
+          });
+        },
+      );
     });
   });
 });

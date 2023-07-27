@@ -90,7 +90,7 @@ import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
+import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
 import { InputTracking } from '@atlaskit/editor-common/types';
 import { IntlShape } from 'react-intl-next';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
@@ -116,7 +116,7 @@ import { Node as Node_2 } from 'prosemirror-model';
 import { NodeConfig } from '@atlaskit/editor-common/types';
 import { NodeType } from 'prosemirror-model';
 import { NodeView } from 'prosemirror-view';
-import { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { PerformanceTracking } from '@atlaskit/editor-common/types';
 import type { PluginConfig } from '@atlaskit/editor-plugin-table/types';
@@ -166,6 +166,7 @@ import { UploadParams } from '@atlaskit/media-picker/types';
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import { WithIntlProps } from 'react-intl-next';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import { WrappedComponentProps } from 'react-intl-next';
@@ -1247,6 +1248,7 @@ export const insertMediaSingleNode: (
   collection?: string,
   alignLeftOnInsert?: boolean,
   newInsertionBehaviour?: boolean,
+  widthPluginState?: WidthPluginState | undefined,
 ) => boolean;
 
 // @public (undocumented)
@@ -1633,6 +1635,7 @@ export type MentionPluginState = {
   mentionProvider?: MentionProvider_2;
   contextIdentifierProvider?: ContextIdentifierProvider;
   mentions?: Array<MentionDescription>;
+  canInsertMention?: boolean;
 };
 
 export { MentionProvider };

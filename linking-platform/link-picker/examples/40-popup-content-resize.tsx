@@ -1,13 +1,13 @@
 import React, { Fragment, useCallback, useRef, useState } from 'react';
 
 import Button from '@atlaskit/button';
-import { MockLinkPickerPromisePlugin } from '@atlaskit/link-test-helpers/link-picker';
 import Popup from '@atlaskit/popup';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 
 import { PageHeader, PageWrapper } from '../example-helpers/common';
 import { LinkPicker, LinkPickerState } from '../src';
+import { MockLinkPickerPromisePlugin } from '../src/__tests__/__helpers/mock-plugins';
 
 /**
  * Plugin that returns a set of results with same length as the query string

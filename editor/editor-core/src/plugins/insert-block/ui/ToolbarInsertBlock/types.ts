@@ -1,21 +1,21 @@
-import {
+import type {
   INPUT_METHOD,
   DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import { EditorView } from 'prosemirror-view';
-import {
+import type { EditorView } from 'prosemirror-view';
+import type {
   EditorActionsOptions as EditorActions,
   FeatureFlags,
   ExtractInjectionAPI,
   ImageUploadPluginReferenceEvent,
   Command,
 } from '@atlaskit/editor-common/types';
-import { EmojiProvider } from '@atlaskit/emoji';
-import { BlockType } from '../../../block-type/types';
-import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
-import { MenuItem } from '../../../../ui/DropdownMenu/types';
-import { Node as PMNode } from 'prosemirror-model';
-import { BlockMenuItem } from './create-items';
+import type { EmojiProvider } from '@atlaskit/emoji';
+import type { BlockType } from '../../../block-type/types';
+import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
+import type { MenuItem } from '../../../../ui/DropdownMenu/types';
+import type { Node as PMNode } from 'prosemirror-model';
+import type { BlockMenuItem } from './create-items';
 import type insertBlockPlugin from '../../index';
 
 export interface Props {
@@ -63,6 +63,7 @@ export interface Props {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   featureFlags: FeatureFlags;
   pluginInjectionApi?: ExtractInjectionAPI<typeof insertBlockPlugin>;
+  mentionsDisabled?: boolean;
 }
 
 export interface State {

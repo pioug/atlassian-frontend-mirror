@@ -9,14 +9,15 @@ import {
   temporaryMediaAttrs,
   temporaryMedia,
 } from '@atlaskit/editor-test-helpers/media-provider';
-import { media, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { media } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/plugin-key';
-import { EditorProps } from '../../../../types';
-import { EditorView } from 'prosemirror-view';
+import type { EditorProps } from '../../../../types';
+import type { EditorView } from 'prosemirror-view';
 import { insertMediaGroupNode } from '../../../../plugins/media/utils/media-files';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { MediaPluginState } from '../../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../../../../plugins/media/pm-plugins/types';
 export {
   getFreshMediaProvider,
   temporaryMediaGroup,
@@ -32,6 +33,12 @@ export const temporaryMediaWithDimensions = (width = 256, height = 128) => {
     ...temporaryMediaAttrs,
     width,
     height,
+  })();
+};
+
+export const temporaryMediaWithoutDimensions = () => {
+  return media({
+    ...temporaryMediaAttrs,
   })();
 };
 

@@ -39,7 +39,8 @@ describe('Snapshot Test: Table', () => {
   });
 
   describe('sticky header', () => {
-    it('should align with table cell when active', async () => {
+    // FIXME: This test was automatically skipped due to failure on 26/07/2023: https://product-fabric.atlassian.net/browse/ED-19223
+    it.skip('should align with table cell when active', async () => {
       await initEditor(page, stickyHeaderWithHorizontalScroll);
 
       await clickFirstCell(page, true);

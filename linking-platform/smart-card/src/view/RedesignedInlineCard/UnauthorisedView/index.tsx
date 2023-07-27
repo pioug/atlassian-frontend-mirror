@@ -88,6 +88,7 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
     const {
       url,
       icon,
+      onAuthorise,
       onClick,
       isSelected,
       testId = 'inline-card-unauthorized-view',
@@ -106,14 +107,9 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
         {this.renderActionButton()}
       </Frame>
     );
-
-    if (showAuthTooltip) {
+    if (onAuthorise && showAuthTooltip) {
       return (
-        <HoverCard
-          url={url}
-          onAuthorize={this.props.onAuthorise}
-          id={this.props.id}
-        >
+        <HoverCard url={url} id={this.props.id}>
           {inlineCardUnauthenticatedView}
         </HoverCard>
       );

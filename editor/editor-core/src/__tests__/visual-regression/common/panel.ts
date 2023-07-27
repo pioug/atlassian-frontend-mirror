@@ -6,7 +6,7 @@ import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bo
 import * as panel from './__fixtures__/panel-adf.json';
 import * as basicPanel from './__fixtures__/basic-panel-adf.json';
 import * as customPanel from './__fixtures__/custom-panel-adf.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   waitForFloatingControl,
   retryUntilStablePosition,
@@ -107,8 +107,10 @@ describe('Panel:', () => {
 describe('custom panels', () => {
   let page: PuppeteerPage;
   let adfContent: Object;
+  let selector: string | undefined;
 
   beforeEach(async () => {
+    selector = undefined;
     await initFullPageEditorWithAdf(
       page,
       adfContent,
@@ -129,7 +131,7 @@ describe('custom panels', () => {
 
   afterEach(async () => {
     await waitForEmojisToLoad(page);
-    await snapshot(page);
+    await snapshot(page, undefined, selector);
   });
 
   beforeAll(() => {
@@ -249,8 +251,7 @@ describe('custom panels', () => {
     await page.click(`${PanelSharedSelectors.emojiPopup} input`);
   });
 
-  // FIXME: This test was automatically skipped due to failure on 6/6/2023: https://product-fabric.atlassian.net/browse/ED-18241
-  it.skip('with a duplicate short name, should be able select yellow warning emoji', async () => {
+  it('with a duplicate short name, should be able select yellow warning emoji', async () => {
     await page.click(`.${PanelSharedCssClassName.icon}`);
     await page.click(`${PanelSharedSelectors.warningButton}`);
     await page.click(`${PanelSharedSelectors.emojiIcon}`);
@@ -273,6 +274,8 @@ describe('custom panels', () => {
       visible: true,
     });
     await page.click(`${PanelSharedSelectors.title}`);
+
+    selector = '.ak-editor-panel';
   });
 });
 

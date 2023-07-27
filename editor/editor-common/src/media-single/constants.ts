@@ -1,0 +1,3 @@
+export const MEDIA_SINGLE_MIN_PIXEL_WIDTH = 24;
+export const MEDIA_SINGLE_SNAP_GAP = 3;
+export const MEDIA_SINGLE_HIGHLIGHT_GAP = 10;

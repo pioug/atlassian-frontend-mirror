@@ -63,7 +63,7 @@ export default evaluateInner`
   a:focus-visible {
     outline: ${token('border.width.outline', '2px')} solid ${token(
   'color.border.focused',
-  colors.B100,
+  colors.B200,
 )};
     outline-offset: ${token('space.025', '2px')};
   }

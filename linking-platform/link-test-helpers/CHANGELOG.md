@@ -1,5 +1,15 @@
 # @atlaskit/link-test-helpers
 
+## 5.0.0
+
+### Major Changes
+
+- [`dadcc574c94`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dadcc574c94) - Removed and moved to @atlaskit/link-picker
+
+  - MockLinkPickerPromisePlugin
+  - MockLinkPickerGeneratorPlugin
+  - UnstableMockLinkPickerPlugin
+
 ## 4.2.2
 
 ### Patch Changes

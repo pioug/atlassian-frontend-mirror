@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.6.7
+
+### Patch Changes
+
+- [`9cc3b8d1902`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9cc3b8d1902) - chore(checkbox): use new feature flag for border contrast
+
 ## 12.6.6
 
 ### Patch Changes

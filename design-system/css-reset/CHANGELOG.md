@@ -1,5 +1,11 @@
 # @atlaskit/css-reset
 
+## 6.5.4
+
+### Patch Changes
+
+- [`461d74c2e9d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/461d74c2e9d) - change color because of insufficient color contrast for focus indicator
+
 ## 6.5.3
 
 ### Patch Changes

@@ -114,13 +114,19 @@ const productIconStyles = css({
 
 const siteTitleStyles = css({
   display: 'flex',
+  // Overridden in PFF styles applied below; consolidate in FF cleanup
   marginRight: token('space.050', '4px'),
   marginLeft: token('space.050', '4px'),
   paddingRight: token('space.200', '16px'),
   alignItems: 'center',
 });
 
-const hideSiteTitleStyles = css({
+// When cleaning up feature flag, these styles can be moved into the above block
+const featureFlaggedSiteTitleStyles = css({
+  // Under the FF, we've made the site title handle it's spacing, with the
+  // PrimaryItemsContainer not needing to worry about its paddingInlineStart.
+  // This makes it cleaner for the title styles to appear and disappear with mq's
+  marginRight: token('space.100', '8px'),
   // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
   [`@media (max-width: ${PRODUCT_HOME_BREAKPOINT - 0.1}px)`]: {
     display: 'none',
@@ -226,7 +232,7 @@ const ProductHome = ({
             siteTitleStyles,
             getBooleanFF(
               'platform.design-system-team.navigation-v2-no-jank_5yhbd',
-            ) && hideSiteTitleStyles,
+            ) && featureFlaggedSiteTitleStyles,
           ]}
           data-testid={testId && `${testId}-site-title`}
         >

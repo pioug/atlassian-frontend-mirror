@@ -7,6 +7,7 @@ import {
 } from '@af/editor-libra';
 import { doc, p, a } from '@atlaskit/editor-test-helpers/doc-builder';
 import { emptyDocument } from './__fixtures__/adf-documents';
+import { BROWSERS } from '@af/integration-testing';
 
 test.describe('hyperlink toolbar', () => {
   test.use({
@@ -63,12 +64,42 @@ test.describe('hyperlink toolbar', () => {
     await expect(editor).toHaveDocument(doc(p('Click Me'), p()));
   });
 
-  test('inserts a link when tabbing through hyperlink toolbar', async ({
+  test('inserts a link when tabbing through hyperlink toolbar [SAFARI]', async ({
     editor,
+    browserName,
   }) => {
     fixTest({
       jiraIssueId: 'DTR-1554',
       reason: 'Clear button is not selectable on Safari by Tab',
+      condition: browserName !== BROWSERS.webkit,
+    });
+    const smartLinkToolbarModel = EditorLinkFloatingToolbarModel.from(editor);
+
+    await smartLinkToolbarModel.openViaKeyboardShortcut();
+
+    await editor.keyboard.type('www.atlassian.com');
+    await editor.keyboard.press('Alt+Tab'); // To clear link button
+    await editor.keyboard.press('Alt+Tab'); // To label field
+    await editor.keyboard.type('Hello world!');
+    await editor.keyboard.press('Alt+Tab'); // To clear text button
+    await editor.keyboard.press('Alt+Tab'); // Submit
+
+    const smartLinkModel = EditorLinkModel.from(editor);
+    await smartLinkModel.isVisibleByText('Hello world!');
+
+    await expect(editor).toHaveDocument(
+      doc(p(a({ href: 'http://www.atlassian.com' })('Hello world!'))),
+    );
+  });
+
+  test('inserts a link when tabbing through hyperlink toolbar', async ({
+    editor,
+    browserName,
+  }) => {
+    fixTest({
+      jiraIssueId: 'DTR-1554',
+      reason: 'Clear button is not selectable on Safari by Tab',
+      condition: browserName === BROWSERS.webkit,
     });
     const smartLinkToolbarModel = EditorLinkFloatingToolbarModel.from(editor);
 

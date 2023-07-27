@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_Box as Box } from '@atlaskit/ds-explorations';
+import { Box } from '@atlaskit/primitives';
 
 const SSRTestingExample = () => {
   return (

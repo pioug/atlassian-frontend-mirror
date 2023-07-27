@@ -1,20 +1,21 @@
 import React from 'react';
 import { PluginKey, NodeSelection } from 'prosemirror-state';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import {
   media,
   mediaGroup,
   mediaInline,
   mediaSingleSpec,
 } from '@atlaskit/adf-schema';
-import { NextEditorPlugin, PMPlugin, PMPluginFactoryParams } from '../../types';
-import { OptionalPlugin } from '@atlaskit/editor-common/types';
-import {
-  stateKey as pluginKey,
-  createPlugin,
-  MediaState,
-} from './pm-plugins/main';
+import type {
+  NextEditorPlugin,
+  PMPlugin,
+  PMPluginFactoryParams,
+} from '../../types';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { MediaState } from './pm-plugins/main';
+import { stateKey as pluginKey, createPlugin } from './pm-plugins/main';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { createPlugin as createMediaAltTextPlugin } from './pm-plugins/alt-text';
 import keymapMediaAltTextPlugin from './pm-plugins/alt-text/keymap';
@@ -25,7 +26,7 @@ import linkingPlugin from './pm-plugins/linking';
 import ToolbarMedia from './ui/ToolbarMedia';
 import { ReactMediaGroupNode } from './nodeviews/mediaGroup';
 import { ReactMediaSingleNode } from './nodeviews/mediaSingle';
-import { CustomMediaPicker, MediaOptions } from './types';
+import type { CustomMediaPicker, MediaOptions } from './types';
 import { floatingToolbar } from './toolbar';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import {
@@ -45,7 +46,7 @@ import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import { MediaPluginState } from './pm-plugins/types';
+import type { MediaPluginState } from './pm-plugins/types';
 import { stateKey } from './pm-plugins/plugin-key';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 import type editorDisabled from '../editor-disabled';
@@ -194,6 +195,7 @@ const mediaPlugin: NextEditorPlugin<
               dispatch,
               options,
               featureFlags.newInsertionBehaviour,
+              api,
             );
           },
         },

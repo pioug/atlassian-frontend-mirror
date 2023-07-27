@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 
 import CodeBlock from '@atlaskit/code/block';
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
-import Stack from '@atlaskit/primitives/stack';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Box, Stack, xcss } from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
 
 import SectionMessage, { SectionMessageAction } from '../src';
@@ -17,7 +14,7 @@ const Example = () => {
     <Stack space="space.0">
       <Text>SectionMessage expands to fill the space available to it.</Text>
       <Range min={100} max={800} onChange={setWidth} step={1} value={width} />
-      <Box UNSAFE_style={{ maxWidth: `${width}px` }}>
+      <Box xcss={xcss({ maxWidth: `${width}px` })}>
         <SectionMessage
           title="The Modern Prometheus"
           actions={[

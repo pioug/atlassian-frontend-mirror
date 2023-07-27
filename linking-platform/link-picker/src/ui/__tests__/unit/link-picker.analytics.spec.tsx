@@ -17,7 +17,6 @@ import {
 import {
   mockedPluginData,
   MockLinkPickerPlugin,
-  MockLinkPickerPromisePlugin,
 } from '@atlaskit/link-test-helpers/link-picker';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
@@ -25,6 +24,7 @@ import { ANALYTICS_CHANNEL } from '../../../common/constants';
 import { LinkPicker, LinkPickerProps } from '../../../index';
 import { PACKAGE_DATA as ROOT_CONTEXT } from '../../index';
 import { testIds } from '../../link-picker';
+import { MockLinkPickerPromisePlugin } from '../../../__tests__/__helpers/mock-plugins';
 
 const mockUfoStart = jest.fn();
 const mockUfoSuccess = jest.fn();

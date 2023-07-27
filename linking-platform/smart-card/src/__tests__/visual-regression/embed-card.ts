@@ -4,17 +4,6 @@ const sleep = (time: number) => new Promise((r) => setTimeout(r, time));
 
 // Skipped in ED-17195
 describe.skip('Embed Card', () => {
-  it('shows unresolved views', async () => {
-    const url = getURL('vr-embed-card-unresolved-views');
-    const page = await setup(url);
-    await page.waitForSelector(
-      '[data-testid="embed-card-forbidden-view-unresolved-image"]',
-    );
-
-    const image = await takeSnapshot(page, 2050);
-    expect(image).toMatchProdImageSnapshot();
-  });
-
   describe('frame', () => {
     // FIXME: This test was automatically skipped due to failure on 22/02/2023: https://product-fabric.atlassian.net/browse/EDM-5959
     it.skip('should render as a link when there is an href', async () => {

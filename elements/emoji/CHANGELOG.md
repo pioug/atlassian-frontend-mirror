@@ -1,5 +1,11 @@
 # @atlaskit/emoji
 
+## 67.4.7
+
+### Patch Changes
+
+- [`540428b9e6d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/540428b9e6d) - [ED-17394] Add button type to skin tone selector to prevent it triggering create ticket form
+
 ## 67.4.6
 
 ### Patch Changes

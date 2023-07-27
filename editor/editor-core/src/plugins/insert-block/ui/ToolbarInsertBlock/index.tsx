@@ -76,6 +76,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
       imageUploadSupported: props.imageUploadSupported,
       imageUploadEnabled: props.imageUploadEnabled,
       mentionsSupported: props.mentionsSupported,
+      mentionsDisabled: props.mentionsDisabled,
       actionSupported: props.actionSupported,
       decisionSupported: props.decisionSupported,
       linkSupported: props.linkSupported,
@@ -349,9 +350,14 @@ export class ToolbarInsertBlock extends React.PureComponent<
   };
 
   private insertMention = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-    const { editorView } = this.props;
+    const { editorView, pluginInjectionApi } = this.props;
     if (!editorView) {
       return true;
+    }
+    const pluginState =
+      pluginInjectionApi?.dependencies.mention?.sharedState.currentState();
+    if (pluginState && pluginState.canInsertMention === false) {
+      return false;
     }
     createTypeAheadTools(editorView).openMention(inputMethod);
 

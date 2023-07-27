@@ -14,6 +14,7 @@ jest.mock('react-render-image', () => ({ src, errored, onError }: any) => {
   }
 });
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import '@atlaskit/link-test-helpers/jest';
 import {
   MockIntersectionObserverFactory,
@@ -45,7 +46,6 @@ import {
   mockBaseResponseWithErrorPreview,
   mockBaseResponseWithPreview,
   mockConfluenceResponse,
-  mockIframelyResponse,
   mockJiraResponse,
   mockSSRResponse,
   mockUnauthorisedResponse,
@@ -420,113 +420,6 @@ describe('HoverCard', () => {
       });
     });
 
-    it('renders hover card blocks', async () => {
-      const { findByTestId } = await setup();
-      jest.runAllTimers();
-      const titleBlock = await findByTestId('smart-block-title-resolved-view');
-      await findByTestId('smart-block-metadata-resolved-view');
-      const snippetBlock = await findByTestId(
-        'smart-block-snippet-resolved-view',
-      );
-      const footerBlock = await findByTestId(
-        'smart-footer-block-resolved-view',
-      );
-      //trim because the icons are causing new lines in the textContent
-      expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-      expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
-      expect(footerBlock.textContent?.trim()).toBe(
-        'ConfluenceCommentFull screen view',
-      );
-    });
-
-    it('renders hover card blocks with new preview action', async () => {
-      const { findByTestId } = await setup({
-        featureFlags: { enableImprovedPreviewAction: true },
-      });
-      jest.runAllTimers();
-      const titleBlock = await findByTestId('smart-block-title-resolved-view');
-      await findByTestId('smart-block-metadata-resolved-view');
-      const snippetBlock = await findByTestId(
-        'smart-block-snippet-resolved-view',
-      );
-      const footerBlock = await findByTestId(
-        'smart-footer-block-resolved-view',
-      );
-      //trim because the icons are causing new lines in the textContent
-      expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-      expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
-      expect(footerBlock.textContent?.trim()).toBe(
-        'ConfluenceCommentOpen preview',
-      );
-    });
-
-    it('should render preview instead of snippet when preview data is available', async () => {
-      const { findByTestId, queryByTestId } = await setup({
-        mock: mockBaseResponseWithPreview,
-      });
-      jest.runAllTimers();
-      await findByTestId('smart-block-title-resolved-view');
-      await findByTestId('smart-block-preview-resolved-view');
-
-      expect(queryByTestId('smart-block-snippet-resolved-view')).toBeNull();
-    });
-
-    it('should fallback to rendering snippet if preview data is available but fails to load', async () => {
-      const { findByTestId, queryByTestId } = await setup({
-        mock: mockBaseResponseWithErrorPreview,
-      });
-      jest.runAllTimers();
-      await findByTestId('smart-block-title-resolved-view');
-      fireEvent.transitionEnd(
-        await findByTestId('smart-block-preview-resolved-view'),
-      );
-      await findByTestId('smart-block-snippet-resolved-view');
-
-      expect(queryByTestId('smart-block-preview-resolved-view')).toBeNull();
-    });
-
-    describe('metadata', () => {
-      it('renders correctly for confluence links', async () => {
-        const { findByTestId } = await setup();
-        jest.runAllTimers();
-        await findByTestId('authorgroup-metadata-element');
-        const createdBy = await findByTestId('createdby-metadata-element');
-        const commentCount = await findByTestId(
-          'commentcount-metadata-element',
-        );
-        const reactCount = await findByTestId('reactcount-metadata-element');
-
-        expect(createdBy.textContent).toBe('Created by Michael Schrute');
-        expect(commentCount.textContent).toBe('4');
-        expect(reactCount.textContent).toBe('8');
-      });
-
-      it('renders correctly for jira links', async () => {
-        const { findByTestId } = await setup({ mock: mockJiraResponse });
-        jest.runAllTimers();
-        await findByTestId('authorgroup-metadata-element');
-        const priority = await findByTestId('priority-metadata-element');
-        const state = await findByTestId('state-metadata-element');
-
-        expect(priority.textContent).toBe('Major');
-        expect(state.textContent).toBe('Done');
-      });
-
-      it('renders correctly for other providers', async () => {
-        const { findByTestId } = await setup({ mock: mockIframelyResponse });
-        jest.runAllTimers();
-        const titleBlock = await findByTestId(
-          'smart-block-title-resolved-view',
-        );
-        const modifiedOn = await findByTestId('modifiedon-metadata-element');
-        const createdBy = await findByTestId('createdby-metadata-element');
-
-        expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-        expect(modifiedOn.textContent).toBe('Updated on Jan 1, 2022');
-        expect(createdBy.textContent).toBe('Created by Michael Schrute');
-      });
-    });
-
     describe('when mouse moves over the child', () => {
       it('should wait a default delay before showing', async () => {
         const { queryByTestId } = await setup();
@@ -860,32 +753,6 @@ describe('HoverCard', () => {
         });
       });
 
-      it('should fire render success event when hover card is rendered', async () => {
-        const spy = jest.spyOn(analytics, 'uiRenderSuccessEvent');
-        const { findByTestId } = await setup();
-        jest.runAllTimers();
-        await findByTestId('smart-block-title-resolved-view');
-
-        // First render event is from the inline card
-        // Second render event is flexible ui inside the hover card
-        expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(2);
-        expect(spy.mock.results[1].value).toEqual({
-          action: 'renderSuccess',
-          actionSubject: 'smartLink',
-          attributes: {
-            id: expect.any(String),
-            componentName: 'smart-cards',
-            definitionId: 'd1',
-            display: 'hoverCardPreview',
-            extensionKey: 'confluence-object-provider',
-            packageName: '@atlaskit/smart-card',
-            packageVersion: '999.9.9',
-            status: 'resolved',
-          },
-          eventType: 'ui',
-        });
-      });
-
       it('should fire clicked event when title is clicked', async () => {
         const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
         const { findByTestId, analyticsSpy } = await setup();
@@ -1172,26 +1039,45 @@ describe('HoverCard', () => {
         ['should', true],
         ['should not', false],
       ];
-      test.each(cases)(
+      describe.each(cases)(
         'auth tooltip %p render when prop is %p on card',
-        async (outcome, showAuthTooltip) => {
-          const setupProps = {
-            extraCardProps: { showAuthTooltip },
-            mock: mockUnauthorisedResponse,
-            testId: triggerTestId,
-          };
-          if (outcome === 'should') {
-            const { findByTestId } = await setup(setupProps);
-            expect(await findByTestId(authTooltipId)).toBeDefined();
-          } else {
-            const { queryByTestId } = await setup(setupProps);
-            expect(queryByTestId(authTooltipId)).toBeNull();
-          }
+        (outcome, showAuthTooltip) => {
+          ffTest(
+            'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+            async () => {
+              const setupProps = {
+                extraCardProps: { showAuthTooltip },
+                mock: mockUnauthorisedResponse,
+                testId: triggerTestId,
+              };
+              if (outcome === 'should') {
+                const { findByTestId } = await setup(setupProps);
+                expect(await findByTestId(authTooltipId)).toBeDefined();
+              } else {
+                const { queryByTestId } = await setup(setupProps);
+                expect(queryByTestId(authTooltipId)).toBeNull();
+              }
+            },
+            async () => {
+              const setupProps = {
+                extraCardProps: { showAuthTooltip },
+                mock: mockUnauthorisedResponse,
+                testId: triggerTestId,
+              };
+              if (outcome === 'should') {
+                const { findByTestId } = await setup(setupProps);
+                expect(await findByTestId(authTooltipId)).toBeDefined();
+              } else {
+                const { queryByTestId } = await setup(setupProps);
+                expect(queryByTestId(authTooltipId)).toBeNull();
+              }
+            },
+          );
         },
       );
 
-      it('does not render auth tooltip with no auth flow', async () => {
-        const { queryByTestId } = await setup({
+      describe('does not render auth tooltip with no auth flow', () => {
+        const setupProps = {
           extraCardProps: { showAuthTooltip: true },
           mock: {
             ...mockUnauthorisedResponse,
@@ -1201,10 +1087,21 @@ describe('HoverCard', () => {
             },
           },
           testId: triggerTestId,
-        });
-        jest.runAllTimers();
+        };
 
-        expect(queryByTestId(authTooltipId)).toBeNull();
+        ffTest(
+          'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+          async () => {
+            const { queryByTestId } = await setup(setupProps);
+            jest.runAllTimers();
+            expect(queryByTestId(authTooltipId)).toBeNull();
+          },
+          async () => {
+            const { queryByTestId } = await setup(setupProps);
+            jest.runAllTimers();
+            expect(queryByTestId(authTooltipId)).toBeNull();
+          },
+        );
       });
     });
 

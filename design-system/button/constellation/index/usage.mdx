@@ -50,7 +50,7 @@ When a native `<button>` is disabled, it loses browser focus and cannot be focus
 
 ## Do not put tooltips on disabled buttons
 
-We do not support this this as it's not accessible. Disabled buttons are not reachable in the tab order and do not receive hover, focus or click events.
+We do not support this as it’s not accessible. Disabled buttons are not reachable in the tab order and do not receive hover, focus or click events.
 
 Do not attempt to create workarounds. If you are an Atlassian, Accessibility QA will make you redesign these implementations.
 
@@ -186,7 +186,7 @@ For elements that are parents of a button you need to bind on the bubble phase (
 
 - Include alternative text using the aria-label prop when using icon buttons.
 - When using an icon alongside text, do not add a label to the icon. Doing so will unnecessarily repeat labels for people using screen readers.
-- Avoid using disabled buttons, especially in forms. Disabled buttons don't explain why the button isn't usable, and they aren't focussable at all for people using keyboard navigation. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed. Avoid puting [tooltips on disabled buttons](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
+- Avoid using disabled buttons, especially in forms. Disabled buttons don't explain why the button isn't usable, and they aren't focusable at all for people using keyboard navigation. Instead, keep the button pressable, and use validation and errors to explain what needs to be done to proceed. Avoid putting [tooltips on disabled buttons](/components/button/usage#do-not-put-tooltips-on-disabled-buttons).
 
 ## Server
 

@@ -659,6 +659,7 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
                   type="button"
                   css={clearText}
                   onClick={this.handleClearText}
+                  tabIndex={0}
                 >
                   <CrossCircleIcon label={formatClearLinkText} />
                 </button>

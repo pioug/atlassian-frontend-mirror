@@ -41,6 +41,11 @@ interface FixedLayoutMediaAttributes {
   layout: Layout;
 }
 
+export enum WidthType {
+  PIXEL = 'pixel',
+  PERCENTAGE = 'percentage',
+}
+
 export type ExtendedMediaAttributes =
   | DefaultMediaAttributes
   | FixedLayoutMediaAttributes;

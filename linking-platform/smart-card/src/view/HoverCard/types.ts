@@ -26,6 +26,7 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 
   /**
    * Function to be called when user is authorized to view a link.
+   * @deprecated See EDM-7411
    */
   onAuthorize?: () => void;
 

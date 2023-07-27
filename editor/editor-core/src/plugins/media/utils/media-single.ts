@@ -1,25 +1,31 @@
-import { Node as PMNode, Schema, Fragment, Slice } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
+import type { Node as PMNode, Schema } from 'prosemirror-model';
+import { Fragment, Slice } from 'prosemirror-model';
+import type { EditorView } from 'prosemirror-view';
 import {
   safeInsert as pmSafeInsert,
   hasParentNodeOfType,
 } from 'prosemirror-utils';
-import { EditorState, Selection, Transaction } from 'prosemirror-state';
+import type { EditorState, Selection, Transaction } from 'prosemirror-state';
 import { checkNodeDown } from '../../../utils';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { MEDIA_SINGLE_MIN_PIXEL_WIDTH } from '@atlaskit/editor-common/media-single';
 
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
-import { MediaState } from '../types';
-import { Command } from '../../../types';
+import type { MediaState } from '../types';
+import type { Command } from '../../../types';
 import { mapSlice } from '../../../utils/slice';
 import { addAnalytics } from '../../analytics';
+
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
+import type {
+  InputMethodInsertMedia,
+  InsertEventPayload,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-  InputMethodInsertMedia,
-  InsertEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import {
   safeInsert,
@@ -29,6 +35,9 @@ import {
 import { isImage } from './is-image';
 import { atTheBeginningOfBlock } from '../../../utils/prosemirror/position';
 import { getRandomHex } from '@atlaskit/media-common';
+import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/ui';
 
 export interface MediaSingleState extends MediaState {
   dimensions: { width: number; height: number };
@@ -134,6 +143,7 @@ export const insertMediaSingleNode = (
   collection?: string,
   alignLeftOnInsert?: boolean,
   newInsertionBehaviour?: boolean,
+  widthPluginState?: WidthPluginState | undefined,
 ): boolean => {
   if (collection === undefined) {
     return false;
@@ -142,9 +152,17 @@ export const insertMediaSingleNode = (
   const { state, dispatch } = view;
   const grandParentNodeType = state.selection.$from.node(-1)?.type;
   const parentNodeType = state.selection.$from.parent.type;
+
+  // add undefined as fallback as we don't want media single width to have upper limit as 0
+  // if widthPluginState.width is 0, default 760 will be used
+  const contentWidth =
+    widthPluginState?.lineLength || widthPluginState?.width || undefined;
+
   const node = createMediaSingleNode(
     state.schema,
     collection,
+    contentWidth,
+    undefined,
     alignLeftOnInsert,
   )(mediaState as MediaSingleState);
 
@@ -196,7 +214,13 @@ export const insertMediaSingleNode = (
 };
 
 export const createMediaSingleNode =
-  (schema: Schema, collection: string, alignLeftOnInsert?: boolean) =>
+  (
+    schema: Schema,
+    collection: string,
+    maxWidth: number = akEditorDefaultLayoutWidth,
+    minWidth: number = MEDIA_SINGLE_MIN_PIXEL_WIDTH,
+    alignLeftOnInsert?: boolean,
+  ) =>
   (mediaState: MediaSingleState) => {
     const { id, dimensions, contextId, scaleFactor = 1 } = mediaState;
     const { width, height } = dimensions || {
@@ -205,19 +229,35 @@ export const createMediaSingleNode =
     };
     const { media, mediaSingle } = schema.nodes;
 
+    const scaledWidth = width && Math.round(width / scaleFactor);
     const mediaNode = media.create({
       id,
       type: 'file',
       collection,
       contextId,
-      width: width && Math.round(width / scaleFactor),
+      width: scaledWidth,
       height: height && Math.round(height / scaleFactor),
     });
 
     const mediaSingleAttrs = alignLeftOnInsert ? { layout: 'align-start' } : {};
 
+    const extendedMediaSingleAttrs = getBooleanFF(
+      'platform.editor.media.extended-resize-experience',
+    )
+      ? {
+          ...mediaSingleAttrs,
+          // constrain initial width between max width (editor content width) and min width (default to 24)
+          width: Math.max(
+            Math.min(scaledWidth || DEFAULT_IMAGE_WIDTH, maxWidth),
+            minWidth,
+          ),
+          // TODO: change to use enum
+          widthType: 'pixel',
+        }
+      : mediaSingleAttrs;
+
     copyOptionalAttrsFromMediaState(mediaState, mediaNode);
-    return mediaSingle.createChecked(mediaSingleAttrs, mediaNode);
+    return mediaSingle.createChecked(extendedMediaSingleAttrs, mediaNode);
   };
 
 export function transformSliceForMedia(slice: Slice, schema: Schema) {

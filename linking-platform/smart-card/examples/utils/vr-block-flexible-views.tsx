@@ -1,34 +1,14 @@
 import React from 'react';
-import { JsonLd } from 'json-ld-types';
 
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { Card } from '../../src';
-import { mocks } from './common';
 import type { CardAppearance } from '@atlaskit/linking-common';
-
-class ErroredClient extends CardClient {
-  fetchData(url: string): Promise<JsonLd.Response> {
-    return Promise.reject(`Can't resolve from ${url}`);
-  }
-}
-
-class ForbiddenClient extends CardClient {
-  fetchData(): Promise<JsonLd.Response> {
-    return Promise.resolve(mocks.forbidden);
-  }
-}
-
-class NotFoundClient extends CardClient {
-  fetchData(): Promise<JsonLd.Response> {
-    return Promise.resolve(mocks.notFound);
-  }
-}
-
-class UnAuthClient extends CardClient {
-  fetchData(): Promise<JsonLd.Response> {
-    return Promise.resolve(mocks.unauthorized);
-  }
-}
+import {
+  ErroredClient,
+  ForbiddenClient,
+  NotFoundClient,
+  UnAuthClient,
+} from './custom-client';
 
 export const renderCard = (client: CardClient, appearance: CardAppearance) => (
   <SmartCardProvider

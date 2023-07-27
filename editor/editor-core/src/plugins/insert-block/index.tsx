@@ -1,5 +1,5 @@
 import React from 'react';
-import {
+import type {
   NextEditorPlugin,
   OptionalPlugin,
   ToolbarUiComponentFactoryParams,
@@ -8,21 +8,18 @@ import {
 } from '@atlaskit/editor-common/types';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import {
-  pluginKey as blockTypeStateKey,
-  BlockTypeState,
-} from '../block-type/pm-plugins/main';
+import type { BlockTypeState } from '../block-type/pm-plugins/main';
+import { pluginKey as blockTypeStateKey } from '../block-type/pm-plugins/main';
 import { stateKey as mediaStateKey } from '../media/pm-plugins/plugin-key';
 import type { MediaPluginState } from '../media/pm-plugins/types';
 
 import type { ImageUploadPlugin } from '../image-upload';
 import { isTypeAheadAllowed } from '../type-ahead/utils';
-import { mentionPluginKey } from '../mentions/pm-plugins/key';
-import type { MentionPluginState } from '../mentions/types';
 
 import { pluginKey as layoutStateKey } from '../layout';
 import type { LayoutState } from '../layout/pm-plugins/types';
-import { MacroState, insertMacroFromMacroBrowser } from '../macro';
+import type { MacroState } from '../macro';
+import { insertMacroFromMacroBrowser } from '../macro';
 import { emojiPluginKey } from '../emoji';
 import type { EmojiPluginState } from '../emoji/types';
 import WithPluginState from '../../ui/WithPluginState';
@@ -35,13 +32,14 @@ import { pluginKey as placeholderTextStateKey } from '../placeholder-text/plugin
 import type { PluginState as PlaceholderTextPluginState } from '../placeholder-text/types';
 import { pluginKey as macroStateKey } from '../macro/plugin-key';
 import { ToolbarSize } from '../../ui/Toolbar/types';
-import { tablesPlugin } from '@atlaskit/editor-plugin-table';
+import type { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type mentionsPlugin from '../mentions';
 
 const toolbarSizeToButtons = (toolbarSize: ToolbarSize) => {
   switch (toolbarSize) {
@@ -95,6 +93,7 @@ const insertBlockPlugin: NextEditorPlugin<
       OptionalPlugin<typeof datePlugin>,
       OptionalPlugin<typeof analyticsPlugin>,
       OptionalPlugin<ImageUploadPlugin>,
+      OptionalPlugin<typeof mentionsPlugin>,
     ];
   }
 > = (options = {}, api?) => {
@@ -125,14 +124,12 @@ const insertBlockPlugin: NextEditorPlugin<
               typeAheadState: typeAheadPluginKey,
               blockTypeState: blockTypeStateKey,
               mediaState: mediaStateKey,
-              mentionState: mentionPluginKey,
               macroState: macroStateKey,
               emojiState: emojiPluginKey,
               placeholderTextState: placeholderTextStateKey,
               layoutState: layoutStateKey,
             }}
             render={({
-              mentionState,
               blockTypeState,
               mediaState,
               macroState = {} as MacroState,
@@ -154,7 +151,6 @@ const insertBlockPlugin: NextEditorPlugin<
                 isToolbarReducedSpacing={isToolbarReducedSpacing}
                 isLastItem={isLastItem}
                 featureFlags={featureFlags}
-                mentionState={mentionState}
                 blockTypeState={blockTypeState}
                 mediaState={mediaState}
                 macroState={macroState}
@@ -191,7 +187,6 @@ interface ToolbarInsertBlockWithInjectionApiProps
   featureFlags: FeatureFlags;
   // As part of Scalability project we are removing plugin keys
   // As we do this these props below will disappear
-  mentionState: MentionPluginState | undefined;
   blockTypeState: BlockTypeState | undefined;
   mediaState: MediaPluginState | undefined;
   macroState: MacroState;
@@ -215,7 +210,6 @@ function ToolbarInsertBlockWithInjectionApi({
   providers,
   pluginInjectionApi,
   options,
-  mentionState,
   blockTypeState,
   mediaState,
   macroState,
@@ -225,10 +219,13 @@ function ToolbarInsertBlockWithInjectionApi({
   featureFlags,
 }: ToolbarInsertBlockWithInjectionApiProps) {
   const buttons = toolbarSizeToButtons(toolbarSize);
-  const { dateState, hyperlinkState, imageUploadState } = useSharedPluginState(
-    pluginInjectionApi,
-    ['hyperlink', 'date', 'imageUpload'],
-  );
+  const { dateState, hyperlinkState, imageUploadState, mentionState } =
+    useSharedPluginState(pluginInjectionApi, [
+      'hyperlink',
+      'date',
+      'imageUpload',
+      'mention',
+    ]);
 
   return (
     <ToolbarInsertBlock
@@ -241,6 +238,7 @@ function ToolbarInsertBlockWithInjectionApi({
       tableSupported={!!editorView.state.schema.nodes.table}
       actionSupported={!!editorView.state.schema.nodes.taskItem}
       mentionsSupported={!!(mentionState && mentionState.mentionProvider)}
+      mentionsDisabled={!!(mentionState && !mentionState.canInsertMention)}
       decisionSupported={!!editorView.state.schema.nodes.decisionItem}
       dateEnabled={!!dateState}
       placeholderTextEnabled={

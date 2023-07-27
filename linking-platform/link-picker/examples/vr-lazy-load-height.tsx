@@ -3,10 +3,9 @@ import { ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { MockLinkPickerPromisePlugin } from '@atlaskit/link-test-helpers/link-picker';
-
 import { PageWrapper } from '../example-helpers/common';
 import { LinkPicker } from '../src';
+import { MockLinkPickerPromisePlugin } from '../src/__tests__/__helpers/mock-plugins';
 import { LoaderFallback } from '../src/ui/loader-fallback';
 import { fixedWidthContainerStyles } from '../src/ui/styled';
 

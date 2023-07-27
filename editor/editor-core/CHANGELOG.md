@@ -1,5 +1,33 @@
 # @atlaskit/editor-core
 
+## 187.6.1
+
+### Patch Changes
+
+- [`65f1e2bf9fc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/65f1e2bf9fc) - [ux] ED-18212 Disable toolbar mention when cursor is inside a codeblock
+
+## 187.6.0
+
+### Minor Changes
+
+- [`91410d6064c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91410d6064c) - [ux] NOISSUE Fix linkify of file links on space
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.5.6
+
+### Patch Changes
+
+- [`6b6ec9afee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6b6ec9afee3) - [ED-19157] Support setting image width based on editor size for newly inserted images behind feature flag
+
+## 187.5.5
+
+### Patch Changes
+
+- [`01237de37e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01237de37e7) - [ED-17901] Update clear button on input to have tabindex and update tests to test for both chrome / firefox and safari
+
 ## 187.5.0
 
 ### Minor Changes

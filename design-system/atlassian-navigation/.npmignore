@@ -3,3 +3,5 @@ examples/
 examples/shared/
 index.ts
 constellation/
+docs/
+__perf__/

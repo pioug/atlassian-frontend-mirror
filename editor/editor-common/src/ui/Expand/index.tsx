@@ -251,8 +251,6 @@ const titleContainerStyles = (props: ThemeProps) => css`
   })(props)};
   overflow: hidden;
   cursor: pointer;
-  // Prevent browser selection being inside the title container
-  user-select: none;
 
   &:focus {
     outline: 0;

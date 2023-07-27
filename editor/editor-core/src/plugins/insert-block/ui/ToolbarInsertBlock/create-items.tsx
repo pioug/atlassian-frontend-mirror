@@ -1,18 +1,18 @@
 import React from 'react';
-import { WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
 import memoize from 'lodash/memoize';
 import memoizeOne from 'memoize-one';
-import { Schema } from 'prosemirror-model';
+import type { Schema } from 'prosemirror-model';
 
-import { EmojiProvider } from '@atlaskit/emoji/resource';
+import type { EmojiProvider } from '@atlaskit/emoji/resource';
 
 import { messages } from './messages';
 import { messages as blockTypeMessages } from '../../../block-type/messages';
 
-import { BlockType } from '../../../block-type/types';
+import type { BlockType } from '../../../block-type/types';
 import { ToolTipContent } from '../../../../keymaps';
-import { MenuItem } from '../../../../ui/DropdownMenu/types';
-import { MacroProvider } from '../../../macro';
+import type { MenuItem } from '../../../../ui/DropdownMenu/types';
+import type { MacroProvider } from '../../../macro';
 import { sortItems } from './sort-items';
 import {
   action,
@@ -44,6 +44,7 @@ export interface CreateItemsConfig {
   imageUploadSupported?: boolean;
   imageUploadEnabled?: boolean;
   mentionsSupported?: boolean;
+  mentionsDisabled?: boolean;
   availableWrapperBlockTypes?: BlockType[];
   actionSupported?: boolean;
   decisionSupported?: boolean;
@@ -103,6 +104,7 @@ const createInsertBlockItems = (
     imageUploadSupported,
     imageUploadEnabled,
     mentionsSupported,
+    mentionsDisabled,
     availableWrapperBlockTypes,
     actionSupported,
     decisionSupported,
@@ -171,7 +173,7 @@ const createInsertBlockItems = (
       mention({
         content: formatMessage(messages.mention),
         tooltipDescription: formatMessage(messages.mentionDescription),
-        disabled: !isTypeAheadAllowed,
+        disabled: !isTypeAheadAllowed || !!mentionsDisabled,
         'aria-haspopup': 'listbox',
       }),
     );

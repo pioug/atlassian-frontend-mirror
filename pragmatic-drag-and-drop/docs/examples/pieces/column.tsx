@@ -1,7 +1,8 @@
 /** @jsx jsx */
-import { memo, useEffect, useRef, useState } from 'react';
+import { Fragment, memo, useEffect, useRef, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx, SerializedStyles } from '@emotion/react';
+import { createPortal } from 'react-dom';
 import invariant from 'tiny-invariant';
 
 import Heading from '@atlaskit/heading';
@@ -17,7 +18,9 @@ import {
   draggable,
   dropTargetForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { centerUnderPointer } from '@atlaskit/pragmatic-drag-and-drop/util/center-under-pointer';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
 import { ColumnType } from '../data/people';
@@ -58,17 +61,52 @@ const columnHeaderStyles = css({
   userSelect: 'none',
 });
 
-const isDraggingOverColumnStyles = css({
-  background: token('color.background.selected.hovered', '#CCE0FF'),
-});
+type State =
+  | { type: 'idle' }
+  | { type: 'is-card-over' }
+  | { type: 'generate-safari-column-preview'; container: HTMLElement }
+  | { type: 'generate-column-preview' }
+  | { type: 'is-column-over'; closestEdge: Edge | null };
+
+// preventing re-renders
+const idle: State = { type: 'idle' };
+const isCardOver: State = { type: 'is-card-over' };
+
+const stateStyles: { [key in State['type']]: SerializedStyles | undefined } = {
+  idle: undefined,
+  'is-column-over': undefined,
+  'is-card-over': css({
+    background: token('color.background.selected.hovered', '#CCE0FF'),
+  }),
+  /**
+   * **Browser bug workaround**
+   *
+   * _Problem_
+   * When generating a drag preview for an element
+   * that has an inner scroll container, the preview can include content
+   * vertically before or after the element
+   *
+   * _Fix_
+   * We make the column a new stacking context when the preview is being generated.
+   * We are not making a new stacking context at all times, as this _can_ mess up
+   * other layering components inside of your card
+   *
+   * _Fix: Safari_
+   * We have not found a great workaround yet. So for now we are just rendering
+   * a custom drag preview
+   */
+  'generate-column-preview': css({
+    isolation: 'isolate',
+  }),
+  'generate-safari-column-preview': undefined,
+};
 
 export const Column = memo(function Column({ column }: { column: ColumnType }) {
   const columnId = column.columnId;
   const columnRef = useRef<HTMLDivElement | null>(null);
   const headerRef = useRef<HTMLDivElement | null>(null);
   const cardListRef = useRef<HTMLDivElement | null>(null);
-  const [isDraggingOver, setIsDraggingOver] = useState<boolean>(false);
-  const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
+  const [state, setState] = useState<State>(idle);
 
   useEffect(() => {
     invariant(columnRef.current);
@@ -79,16 +117,37 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
         element: columnRef.current,
         dragHandle: headerRef.current,
         getInitialData: () => ({ columnId, type: 'column' }),
+        onGenerateDragPreview: ({ nativeSetDragImage }) => {
+          const isSafari: boolean =
+            navigator.userAgent.includes('AppleWebKit') &&
+            !navigator.userAgent.includes('Chrome');
+
+          if (!isSafari) {
+            setState({ type: 'generate-column-preview' });
+            return;
+          }
+          setCustomNativeDragPreview({
+            getOffset: centerUnderPointer,
+            render: ({ container }) => {
+              setState({ type: 'generate-safari-column-preview', container });
+              return () => setState(idle);
+            },
+            nativeSetDragImage,
+          });
+        },
+        onDragStart: () => {
+          setState(idle);
+        },
       }),
       dropTargetForElements({
         element: cardListRef.current,
         getData: () => ({ columnId }),
         canDrop: args => args.source.data.type === 'card',
         getIsSticky: () => true,
-        onDragEnter: () => setIsDraggingOver(true),
-        onDragLeave: () => setIsDraggingOver(false),
-        onDragStart: () => setIsDraggingOver(true),
-        onDrop: () => setIsDraggingOver(false),
+        onDragEnter: () => setState(isCardOver),
+        onDragLeave: () => setState(idle),
+        onDragStart: () => setState(isCardOver),
+        onDrop: () => setState(idle),
       }),
       dropTargetForElements({
         element: columnRef.current,
@@ -105,45 +164,81 @@ export const Column = memo(function Column({ column }: { column: ColumnType }) {
           });
         },
         onDragEnter: args => {
-          setClosestEdge(extractClosestEdge(args.self.data));
+          setState({
+            type: 'is-column-over',
+            closestEdge: extractClosestEdge(args.self.data),
+          });
         },
         onDrag: args => {
-          setClosestEdge(extractClosestEdge(args.self.data));
+          // skip react re-render if edge is not changing
+          setState(current => {
+            const closestEdge: Edge | null = extractClosestEdge(args.self.data);
+            if (
+              current.type === 'is-column-over' &&
+              current.closestEdge === closestEdge
+            ) {
+              return current;
+            }
+            return {
+              type: 'is-column-over',
+              closestEdge,
+            };
+          });
         },
         onDragLeave: () => {
-          setClosestEdge(null);
+          setState(idle);
         },
         onDrop: () => {
-          setClosestEdge(null);
+          setState(idle);
         },
       }),
     );
   }, [columnId]);
 
   return (
-    <div
-      css={[columnStyles, isDraggingOver && isDraggingOverColumnStyles]}
-      ref={columnRef}
-    >
-      <div
-        css={columnHeaderStyles}
-        ref={headerRef}
-        data-testid={`column-${columnId}--header`}
-      >
-        <Heading level="h300" as="span">
-          {column.title}
-        </Heading>
-      </div>
-      <div css={scrollContainerStyles}>
-        <div css={cardListStyles} ref={cardListRef}>
-          {column.items.map(item => (
-            <Card item={item} key={item.userId} />
-          ))}
+    <Fragment>
+      <div css={[columnStyles, stateStyles[state.type]]} ref={columnRef}>
+        <div
+          css={columnHeaderStyles}
+          ref={headerRef}
+          data-testid={`column-${columnId}--header`}
+        >
+          <Heading level="h300" as="span">
+            {column.title}
+          </Heading>
         </div>
+        <div css={scrollContainerStyles}>
+          <div css={cardListStyles} ref={cardListRef}>
+            {column.items.map(item => (
+              <Card item={item} key={item.userId} />
+            ))}
+          </div>
+        </div>
+        {state.type === 'is-column-over' && state.closestEdge && (
+          <DropIndicator edge={state.closestEdge} gap={`${columnGap}px`} />
+        )}
       </div>
-      {closestEdge && (
-        <DropIndicator edge={closestEdge} gap={`${columnGap}px`} />
-      )}
-    </div>
+      {state.type === 'generate-safari-column-preview'
+        ? createPortal(<SafariColumnPreview column={column} />, state.container)
+        : null}
+    </Fragment>
   );
 });
+
+const previewStyles = css({
+  '--grid': '8px',
+  width: 250,
+  background: token('elevation.surface.sunken', '#F7F8F9'),
+  borderRadius: 'calc(var(--grid) * 2)',
+  padding: 'calc(var(--grid) * 2)',
+});
+
+function SafariColumnPreview({ column }: { column: ColumnType }) {
+  return (
+    <div css={[columnHeaderStyles, previewStyles]}>
+      <Heading level="h300" as="span">
+        {column.title}
+      </Heading>
+    </div>
+  );
+}

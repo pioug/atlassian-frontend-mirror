@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 74.26.8
+
+### Patch Changes
+
+- [`01237de37e7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/01237de37e7) - [ED-17901] Update clear button on input to have tabindex and update tests to test for both chrome / firefox and safari
+
+## 74.26.7
+
+### Patch Changes
+
+- [`e4ae2b4792a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4ae2b4792a) - Added media-single constants
+
+## 74.26.6
+
+### Patch Changes
+
+- [`5f0b47a1443`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f0b47a1443) - [ux] Enable text selection for expand macro button since disabling causes selection bug on triple click
+
 ## 74.26.5
 
 ### Patch Changes

@@ -1,10 +1,10 @@
 import React, { Fragment, useMemo } from 'react';
 
-import { MockLinkPickerPromisePlugin } from '@atlaskit/link-test-helpers/link-picker';
 import { token } from '@atlaskit/tokens';
 
 import { PageWrapper } from '../example-helpers/common';
 import { LinkPicker } from '../src';
+import { MockLinkPickerPromisePlugin } from '../src/__tests__/__helpers/mock-plugins';
 
 const link = {
   url: '',

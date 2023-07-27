@@ -13,17 +13,17 @@ const CSSResetSimpleTablesExample = () => {
         </thead>
         <tbody>
           <tr>
-            <td>Apple</td>
+            <th scope="row">Apple</th>
             <td>3</td>
             <td>$5.42</td>
           </tr>
           <tr>
-            <td>Orange</td>
+            <th scope="row">Orange</th>
             <td>6</td>
             <td>$4.60</td>
           </tr>
           <tr>
-            <td>Banana</td>
+            <th scope="row">Banana</th>
             <td>12</td>
             <td>$3.79</td>
           </tr>

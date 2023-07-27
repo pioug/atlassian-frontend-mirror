@@ -24,18 +24,16 @@ import { token } from '@atlaskit/tokens';
 const theme = {
   light: {
     borderColor: {
-      rest: token(
-        'color.border.input',
-        getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-          ? N100
-          : N40,
-      ),
-      hovered: token(
-        'color.border.input',
-        getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-          ? N100
-          : N40,
-      ),
+      rest: getBooleanFF(
+        'platform.design-system-team.update-border-radio-checkbox_7askv',
+      )
+        ? token('color.border.bold', N100)
+        : token('color.border.input', N40),
+      hovered: getBooleanFF(
+        'platform.design-system-team.update-border-radio-checkbox_7askv',
+      )
+        ? token('color.border.bold', N100)
+        : token('color.border.input', N40),
       disabled: token('color.background.disabled', N20),
       checked: token('color.background.selected.bold', B400),
       active: token('color.border', B50),
@@ -60,12 +58,11 @@ const theme = {
   },
   dark: {
     borderColor: {
-      rest: token(
-        'color.border.input',
-        getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-          ? DN200
-          : DN80,
-      ),
+      rest: getBooleanFF(
+        'platform.design-system-team.update-border-radio-checkbox_7askv',
+      )
+        ? token('color.border.bold', DN200)
+        : token('color.border.input', DN80),
       hovered: token('color.border.input', DN200),
       disabled: token('color.background.disabled', DN10),
       checked: token('color.background.selected.bold', B400),

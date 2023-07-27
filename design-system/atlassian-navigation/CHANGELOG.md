@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.6.16
+
+### Patch Changes
+
+- [`aa737a93ee3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aa737a93ee3) - Bug fix for primary items container behind the "platform.design-system-team.navigation-v2-no-jank_5yhbd" feature flag.
+
 ## 2.6.15
 
 ### Patch Changes

@@ -1,10 +1,10 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { SafeStateField } from 'prosemirror-state';
+import type { EditorState, SafeStateField } from 'prosemirror-state';
+import type { MentionProvider } from '@atlaskit/mention/resource';
 import {
   SLI_EVENT_TYPE,
   SMART_EVENT_TYPE,
   buildSliPayload,
-  MentionProvider,
 } from '@atlaskit/mention/resource';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
@@ -12,6 +12,7 @@ import { MentionNodeView } from '../nodeviews/mention';
 import { mentionPluginKey } from './key';
 import type { Command, PMPluginFactoryParams } from '../../../types';
 import type { MentionPluginOptions, MentionPluginState } from '../types';
+import { canMentionBeCreatedInRange } from './utils';
 
 const ACTIONS = {
   SET_PROVIDER: 'SET_PROVIDER',
@@ -69,35 +70,63 @@ export function createMentionPlugin(
   return new SafePlugin({
     key: mentionPluginKey,
     state: {
-      init() {
-        return {};
+      init(_, state: EditorState): MentionPluginState {
+        const canInsertMention = canMentionBeCreatedInRange(
+          state.selection.from,
+          state.selection.to,
+        )(state);
+        return {
+          canInsertMention,
+        };
       },
-      apply(tr, pluginState) {
+      apply(
+        tr,
+        pluginState: MentionPluginState,
+        oldState,
+        newState,
+      ): MentionPluginState {
         const { action, params } = tr.getMeta(mentionPluginKey) || {
           action: null,
           params: null,
         };
-
+        let hasNewPluginState = false;
         let newPluginState = pluginState;
+
+        const hasPositionChanged =
+          oldState.selection.from !== newState.selection.from ||
+          oldState.selection.to !== newState.selection.to;
+
+        if (tr.docChanged || (tr.selectionSet && hasPositionChanged)) {
+          newPluginState = {
+            ...pluginState,
+            canInsertMention: canMentionBeCreatedInRange(
+              newState.selection.from,
+              newState.selection.to,
+            )(newState),
+          };
+          hasNewPluginState = true;
+        }
 
         switch (action) {
           case ACTIONS.SET_PROVIDER:
             newPluginState = {
-              ...pluginState,
+              ...newPluginState,
               mentionProvider: params.provider,
             };
-            pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
-
-            return newPluginState;
+            hasNewPluginState = true;
+            break;
           case ACTIONS.SET_CONTEXT:
             newPluginState = {
-              ...pluginState,
+              ...newPluginState,
               contextIdentifierProvider: params.context,
             };
-            pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
-            return newPluginState;
+            hasNewPluginState = true;
+            break;
         }
 
+        if (hasNewPluginState) {
+          pmPluginFactoryParams.dispatch(mentionPluginKey, newPluginState);
+        }
         return newPluginState;
       },
     } as SafeStateField<MentionPluginState>,

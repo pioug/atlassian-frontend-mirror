@@ -240,6 +240,8 @@ const Container: React.FC<ContainerProps> = ({
   const context = useContext(FlexibleUiContext);
   const childrenOptions = getChildrenOptions(children, context);
   const canShowHoverPreview = showHoverPreview && status === 'resolved';
+  // `retry` object contains action that can be performed on
+  // unresolved link (unauthorized, forbidden, not found, etc.)
   const canShowAuthTooltip =
     showAuthTooltip && status === 'unauthorized' && retry !== undefined;
 

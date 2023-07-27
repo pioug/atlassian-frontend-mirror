@@ -2,8 +2,9 @@ import { NodeSpec, Node as PMNode } from 'prosemirror-model';
 import { MediaDefinition as Media } from './media';
 import { LinkDefinition } from '../marks/link';
 
-import { ExtendedMediaAttributes } from './types/rich-media-common';
+import { ExtendedMediaAttributes, WidthType } from './types/rich-media-common';
 import { CaptionDefinition as Caption } from './caption';
+import { isDOMElement } from '../../utils/parseDOM';
 
 export type MediaSingleDefinition =
   | MediaSingleFullDefinition
@@ -73,22 +74,24 @@ export const mediaSingleSpec = ({
   const atom = !withCaption;
 
   const getAttrs = (dom: string | Node) => {
-    const domAttrs = {
-      layout: (dom as HTMLElement).getAttribute('data-layout') || 'center',
-      width: Number((dom as HTMLElement).getAttribute('data-width')) || null,
-    };
-
-    if (withExtendedWidthTypes) {
-      const widthType = (dom as HTMLElement).getAttribute('data-width-type');
-      if (widthType) {
-        return {
-          ...domAttrs,
-          widthType,
-        };
-      }
+    if (!isDOMElement(dom)) {
+      // this should never happen
+      return { layout: 'center' };
     }
 
-    return domAttrs;
+    const layout = dom.getAttribute('data-layout') || 'center';
+    const width = Number(dom.getAttribute('data-width')) || null;
+    const widthType = dom.getAttribute('data-width-type');
+
+    if (withExtendedWidthTypes) {
+      return { layout, width, widthType };
+    } else if (widthType === WidthType.PIXEL) {
+      // if editor does not support widthType attribute.
+      // We ignore width and widthType together.
+      return { layout };
+    } else {
+      return { layout, width };
+    }
   };
 
   const getAttrsFromNode = (node: PMNode) => {
@@ -110,7 +113,7 @@ export const mediaSingleSpec = ({
       const { widthType } = node.attrs;
       return {
         ...attrs,
-        'data-width-type': widthType || 'percentage',
+        'data-width-type': widthType || WidthType.PERCENTAGE,
       };
     }
 

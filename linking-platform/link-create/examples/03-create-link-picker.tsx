@@ -4,7 +4,6 @@ import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { LinkPicker } from '@atlaskit/link-picker';
-import { MockLinkPickerPromisePlugin } from '@atlaskit/link-test-helpers/link-picker';
 import Popup from '@atlaskit/popup';
 
 import { MockPluginForm } from '../example-helpers/mock-plugin-form';
@@ -34,14 +33,18 @@ const LinkPickerCreate = () => {
 
   const createPlugins = [mockPlugin()];
   const pickerPlugins = [
-    new MockLinkPickerPromisePlugin({
+    {
+      resolve: () =>
+        Promise.resolve({
+          data: [],
+        }),
       action: {
         label: 'Create New',
         callback: () => {
           setShowCreateModal(true);
         },
       },
-    }),
+    },
   ];
 
   // Event handlers

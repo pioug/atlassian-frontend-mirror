@@ -1,38 +1,40 @@
-/** @jsx jsx */
-import React, { memo, ReactNode, useCallback, useMemo, useState } from 'react';
-
-import { css, jsx } from '@emotion/react';
+import React, {
+  memo,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import Popup from '@atlaskit/popup';
 import { TriggerProps } from '@atlaskit/popup/types';
-import { media, UNSAFE_media } from '@atlaskit/primitives/responsive';
-import { token } from '@atlaskit/tokens';
+import { Inline, xcss } from '@atlaskit/primitives';
+import {
+  media,
+  UNSAFE_useMediaQuery as useMediaQuery,
+} from '@atlaskit/primitives/responsive';
 
 import { OverflowProvider } from '../../controllers/overflow';
 import { NavigationTheme } from '../../theme';
 import { PrimaryDropdownButton } from '../PrimaryDropdownButton';
 import { PrimaryItemsContainerProps } from '../PrimaryItemsContainer/types';
 
-const parentContainerStyles = css({
-  display: 'flex',
-  width: '100%',
+const sharedContainerStyles = xcss({
   height: '100%',
+  alignItems: 'stretch',
+  paddingInlineEnd: 'space.050',
+  gap: 'space.100',
 });
 
-const basePrimaryContainerStyles = css({
-  display: 'none',
-  minWidth: 0,
-  gap: token('space.100', '8px'),
-});
-
-const smallContainerStyles = css({
-  // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-  [UNSAFE_media.below.sm]: {
-    display: 'flex',
+const smallContainerStyles = xcss({
+  [media.above.sm]: {
+    display: 'none',
   },
 });
 
-const mediumContainerStyles = css({
+const mediumContainerStyles = xcss({
+  display: 'none',
   [media.above.sm]: {
     display: 'flex',
   },
@@ -41,7 +43,8 @@ const mediumContainerStyles = css({
   },
 });
 
-const largeContainerStyles = css({
+const largeContainerStyles = xcss({
+  display: 'none',
   [media.above.lg]: {
     display: 'flex',
   },
@@ -52,7 +55,7 @@ const MoreItemsPopup = ({
   testId,
   items,
 }: {
-  items: ReactNode[];
+  items?: ReactNode[];
   moreLabel: ReactNode;
   testId?: string;
 }) => {
@@ -115,6 +118,25 @@ export const PrimaryItemsContainer = memo(
     theme,
     testId,
   }: PrimaryItemsContainerProps & { theme: NavigationTheme }) => {
+    // We render a CSS media query based nav at first to handle SSR, then use
+    // our useMediaQuery hook once we are hydrated so there is only one set of nav items
+    const [isClient, setIsClient] = useState(false);
+    useEffect(() => {
+      setIsClient(true);
+    }, []);
+
+    // Setting up our media queries to use once app is hydrated
+    const mqSm = useMediaQuery('above.sm', (event) =>
+      setIsAboveSm(event.matches),
+    );
+    const [isAboveSm, setIsAboveSm] = useState(mqSm?.matches);
+
+    const mqLg = useMediaQuery('above.lg', (event) =>
+      setIsAboveLg(event.matches),
+    );
+    const [isAboveLg, setIsAboveLg] = useState(mqLg?.matches);
+
+    // Filter out any falsy items passed in
     const filteredItems = useMemo(
       () => React.Children.toArray(items).filter((item) => !!item),
       [items],
@@ -129,9 +151,14 @@ export const PrimaryItemsContainer = memo(
     const mediumMaxItems = 3;
     const largeMaxItems = 8;
 
+    // We re-use this in both the CSS media query nav that loads in for SSR,
+    // and the JS/hook media query nav that is used once hydrated
     const navItems = useMemo(() => {
       return {
-        // For small screens, we're currently putting all items in the overflow
+        small: {
+          navBarItems: [],
+          overflowItems: filteredItems,
+        },
         medium: {
           navBarItems: filteredItems.slice(0, mediumMaxItems),
           overflowItems: filteredItems.slice(
@@ -149,46 +176,58 @@ export const PrimaryItemsContainer = memo(
       };
     }, [filteredItems]);
 
+    const hydratedNavItems = useMemo(() => {
+      if (isAboveLg) {
+        return navItems.large;
+      }
+      if (isAboveSm && !isAboveLg) {
+        return navItems.medium;
+      }
+      return navItems.small;
+    }, [isAboveLg, isAboveSm, navItems.large, navItems.medium, navItems.small]);
+
     return (
-      <div
-        css={parentContainerStyles}
-        data-testid={testId && `${testId}-primary-actions`}
-      >
-        <div css={[basePrimaryContainerStyles, smallContainerStyles]}>
-          {filteredItems.length > smallMaxItems && (
-            <MoreItemsPopup
-              // NOTE: Would be nice to have a different label for small screens
-              // with i18n support (eg. swapping from 'More' to 'Menu' like
-              // Atlas does). Instead of opting for adding a new label prop right
-              // now I'm holding off until DSTRFC-016 lands.
-              moreLabel={moreLabel}
-              items={filteredItems}
-              testId={testId}
-            />
-          )}
-        </div>
-        <div css={[basePrimaryContainerStyles, mediumContainerStyles]}>
-          {navItems.medium.navBarItems}
-          {navItems.medium.overflowItems.length > 0 && (
-            <MoreItemsPopup
-              moreLabel={moreLabel}
-              items={navItems.medium.overflowItems}
-              testId={testId}
-            />
-          )}
-        </div>
-        <div css={[basePrimaryContainerStyles, largeContainerStyles]}>
-          {navItems.large.navBarItems}
-          {navItems.large.overflowItems.length > 0 && (
-            <MoreItemsPopup
-              moreLabel={moreLabel}
-              items={navItems.large.overflowItems}
-              testId={testId}
-            />
-          )}
-        </div>
+      <>
+        {isClient ? (
+          <>
+            <Inline
+              testId={testId && `${testId}-primary-actions`}
+              xcss={sharedContainerStyles}
+            >
+              {hydratedNavItems.navBarItems}
+              {hydratedNavItems.overflowItems.length > 0 && (
+                <MoreItemsPopup
+                  moreLabel={moreLabel}
+                  items={hydratedNavItems.overflowItems}
+                  testId={testId}
+                />
+              )}
+            </Inline>
+          </>
+        ) : (
+          <>
+            <Inline xcss={[sharedContainerStyles, smallContainerStyles]}>
+              {filteredItems.length > smallMaxItems && (
+                // We don't need to pass items into popup, it won't be interactive (SSR only)
+                <MoreItemsPopup moreLabel={moreLabel} testId={testId} />
+              )}
+            </Inline>
+            <Inline xcss={[sharedContainerStyles, mediumContainerStyles]}>
+              {navItems.medium.navBarItems}
+              {navItems.medium.overflowItems.length > 0 && (
+                <MoreItemsPopup moreLabel={moreLabel} testId={testId} />
+              )}
+            </Inline>
+            <Inline xcss={[sharedContainerStyles, largeContainerStyles]}>
+              {navItems.large.navBarItems}
+              {navItems.large.overflowItems.length > 0 && (
+                <MoreItemsPopup moreLabel={moreLabel} testId={testId} />
+              )}
+            </Inline>
+          </>
+        )}
         {Create && <Create />}
-      </div>
+      </>
     );
   },
 );

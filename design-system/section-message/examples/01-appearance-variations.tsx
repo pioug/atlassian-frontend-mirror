@@ -1,15 +1,12 @@
 import React from 'react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
-import Stack from '@atlaskit/primitives/stack';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Box, Stack } from '@atlaskit/primitives';
 
 import SectionMessage, { SectionMessageAction } from '../src';
 
 const Example = () => (
-  <Box testId="appearance-example" display="block" padding="space.100">
+  <Box testId="appearance-example" padding="space.100">
     <Stack space="space.200">
       <SectionMessage appearance="information" title="More">
         <Stack space="space.100">

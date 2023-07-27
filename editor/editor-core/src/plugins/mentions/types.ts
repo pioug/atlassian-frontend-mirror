@@ -24,6 +24,7 @@ export type MentionPluginState = {
   mentionProvider?: MentionProvider;
   contextIdentifierProvider?: ContextIdentifierProvider;
   mentions?: Array<MentionDescription>;
+  canInsertMention?: boolean;
 };
 
 export type FireElementsChannelEvent = <T extends AnalyticsEventPayload>(

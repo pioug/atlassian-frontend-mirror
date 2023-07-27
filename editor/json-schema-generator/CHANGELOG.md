@@ -1,5 +1,11 @@
 # @atlaskit/json-schema-generator
 
+## 3.3.5
+
+### Patch Changes
+
+- [`7b00632e7a8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b00632e7a8) - npm ignore files, fix ts-node dep, add logic to determine if in monorepo
+
 ## 3.3.4
 
 ### Patch Changes

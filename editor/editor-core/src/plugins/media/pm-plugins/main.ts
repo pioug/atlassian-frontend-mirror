@@ -1,24 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Node as PMNode, Schema } from 'prosemirror-model';
+import type { Node as PMNode, Schema } from 'prosemirror-model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorState } from 'prosemirror-state';
 import {
-  EditorState,
   NodeSelection,
   TextSelection,
   AllSelection,
   Selection,
 } from 'prosemirror-state';
 import { insertPoint } from 'prosemirror-transform';
-import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import { UploadParams } from '@atlaskit/media-picker/types';
+import type { EditorView } from 'prosemirror-view';
+import { Decoration, DecorationSet } from 'prosemirror-view';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { UploadParams } from '@atlaskit/media-picker/types';
 import type {
   ContextIdentifierProvider,
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { ErrorReporter, browser } from '@atlaskit/editor-common/utils';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import assert from 'assert';
 import {
   findDomRefAtPos,
@@ -26,12 +29,13 @@ import {
   findSelectedNodeOfType,
   findParentNodeOfType,
 } from 'prosemirror-utils';
-import { Dispatch } from '../../../event-dispatcher';
-import { ProsemirrorGetPosHandler } from '../../../nodeviews';
+import type { Dispatch } from '../../../event-dispatcher';
+import type { ProsemirrorGetPosHandler } from '../../../nodeviews';
 import { insertMediaSingleNode, isMediaSingle } from '../utils/media-single';
-import { MediaPluginOptions } from '../media-plugin-options';
-import DropPlaceholder, { PlaceholderType } from '../ui/Media/DropPlaceholder';
-import { MediaOptions, MediaState, MediaStateStatus } from '../types';
+import type { MediaPluginOptions } from '../media-plugin-options';
+import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
+import DropPlaceholder from '../ui/Media/DropPlaceholder';
+import type { MediaOptions, MediaState, MediaStateStatus } from '../types';
 import {
   insertMediaGroupNode,
   insertMediaInlineNode,
@@ -45,20 +49,24 @@ import {
 import * as helpers from '../commands/helpers';
 import { updateMediaSingleNodeAttrs } from '../commands/helpers';
 import { stateKey } from './plugin-key';
-import PickerFacade, {
+import type {
   MediaStateEventListener,
   MediaStateEventSubscriber,
   PickerFacadeConfig,
 } from '../picker-facade';
-import { INPUT_METHOD, InputMethodInsertMedia } from '../../analytics/types';
-import { MediaNodeWithPosHandler, MediaPluginState } from './types';
+import PickerFacade from '../picker-facade';
+import type { InputMethodInsertMedia } from '../../analytics/types';
+import { INPUT_METHOD } from '../../analytics/types';
+import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
 import { isInEmptyLine } from '../../../utils/document';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { isInListItem } from '../../../utils';
 import { CAPTION_PLACEHOLDER_ID } from '../ui/CaptionPlaceholder';
-import { IntlShape, RawIntlProvider } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
+import { RawIntlProvider } from 'react-intl-next';
 import { MediaTaskManager } from './mediaTaskManager';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import type mediaPlugin from '../index';
 
 export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
@@ -131,6 +139,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   showEditingDialog?: boolean;
   mediaOptions?: MediaOptions;
   dispatch?: Dispatch;
+  widthPluginState?: WidthPluginState | undefined;
 
   constructor(
     state: EditorState,
@@ -138,11 +147,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     mediaOptions?: MediaOptions,
     newInsertionBehaviour?: boolean,
     dispatch?: Dispatch,
+    pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
   ) {
     this.options = options;
     this.mediaOptions = mediaOptions;
     this.newInsertionBehaviour = newInsertionBehaviour;
     this.dispatch = dispatch;
+    this.widthPluginState =
+      pluginInjectionApi?.dependencies?.width?.sharedState.currentState();
     this.waitForMediaUpload =
       options.waitForMediaUpload === undefined
         ? true
@@ -344,6 +356,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         collection,
         this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
         this.newInsertionBehaviour,
+        this.widthPluginState,
       );
     } else if (
       getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags) &&
@@ -706,6 +719,7 @@ export const createPlugin = (
   dispatch?: Dispatch,
   mediaOptions?: MediaOptions,
   newInsertionBehaviour?: boolean,
+  pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
 ) => {
   const intl = getIntl();
 
@@ -723,6 +737,7 @@ export const createPlugin = (
           mediaOptions,
           newInsertionBehaviour,
           dispatch,
+          pluginInjectionApi,
         );
       },
       apply(tr, pluginState: MediaPluginState) {

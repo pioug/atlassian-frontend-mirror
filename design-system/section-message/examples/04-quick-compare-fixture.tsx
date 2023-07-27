@@ -1,10 +1,7 @@
 import React from 'react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
-import Stack from '@atlaskit/primitives/stack';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Box, Stack } from '@atlaskit/primitives';
 
 import SectionMessage, { SectionMessageAction } from '../src';
 
@@ -51,7 +48,7 @@ const Example = () => (
       This example has been constructed for ease-of-reference and comparison in
       developing section message. It is not a suggested implementation.
     </Text>
-    <Box display="block" padding="space.100">
+    <Box padding="space.100">
       <Stack space="space.200">
         <SomeParts body title actions />
         <SomeParts body title />

@@ -1,51 +1,56 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import React, { Component, MouseEvent } from 'react';
-import { Node as PMNode } from 'prosemirror-model';
-import { DecorationSource, EditorView, Decoration } from 'prosemirror-view';
-import {
+import type { MouseEvent } from 'react';
+import React, { Component } from 'react';
+import type { Node as PMNode } from 'prosemirror-model';
+import type {
+  DecorationSource,
+  EditorView,
+  Decoration,
+} from 'prosemirror-view';
+import type {
   RichMediaLayout as MediaSingleLayout,
   MediaADFAttrs,
   RichMediaAttributes,
 } from '@atlaskit/adf-schema';
-import {
-  WithProviders,
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
+import type {
+  ContextIdentifierProvider,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
   MediaSingle,
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/ui';
-import { browser } from '@atlaskit/editor-common/utils';
-import { CardEvent } from '@atlaskit/media-card';
-import { isNodeSelectedOrInRange } from '../../../utils/nodes';
-import { MediaClientConfig } from '@atlaskit/media-core';
-
 import {
+  browser,
+  floatingLayouts,
+  isRichMediaInsideOfBlockNode,
+} from '@atlaskit/editor-common/utils';
+import type { CardEvent } from '@atlaskit/media-card';
+import { isNodeSelectedOrInRange } from '../../../utils/nodes';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+
+import type {
   getPosHandler,
   getPosHandlerNode,
   ForwardRef,
 } from '../../../nodeviews/';
 import { setNodeSelection, setTextSelection } from '../../../utils';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
-import { EventDispatcher } from '../../../event-dispatcher';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { EventDispatcher } from '../../../event-dispatcher';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
-import { MediaOptions } from '../types';
+import type { MediaOptions } from '../types';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
-import { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
+import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { figureWrapper, MediaSingleNodeSelector } from './styles';
-import {
-  floatingLayouts,
-  isRichMediaInsideOfBlockNode,
-} from '@atlaskit/editor-common/utils';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';

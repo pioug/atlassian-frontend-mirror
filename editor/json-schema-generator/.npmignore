@@ -1,3 +1,5 @@
 src/
 example-helpers/
 examples/
+tsconfig.json
+build/

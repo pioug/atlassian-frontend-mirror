@@ -2,16 +2,18 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
-  DocBuilder,
   panel,
+  code_block,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { pluginKey } from '../../../../../plugins/panel/types';
 import ToolbarMention from '../../../../../plugins/mentions/ui/ToolbarMention';
-import { TypeAheadHandler } from '../../../../../plugins/type-ahead/types';
+import type { TypeAheadHandler } from '../../../../../plugins/type-ahead/types';
+import { canMentionBeCreatedInRange } from '../../../../../plugins/mentions/pm-plugins/utils';
 
 // HELPERS
 const testId = 'toolbar-mention-test';
@@ -90,5 +92,27 @@ describe('ToolbarMention', () => {
 
     expect(typeAheadTool.isOpen()).toBe(false);
     expect(editorView.state.doc).toEqualDocument(doc(panel()(p('text'))));
+  });
+
+  it('should disable ToolbarMention icon if the selection is inside codeblock', async () => {
+    const { editorView, typeAheadTool, sel } = editor(
+      doc(code_block()('Hello {<>} world')),
+    );
+    const canInsertMention = canMentionBeCreatedInRange(
+      sel,
+      sel,
+    )(editorView.state);
+    renderWithIntl(
+      <ToolbarMention
+        testId={testId}
+        editorView={editorView}
+        isDisabled={!canInsertMention}
+      />,
+    );
+    expect(typeAheadTool.isOpen()).toBe(false);
+
+    // check if toolbar mention button is disabled;
+    const toolbarMentionButton = screen.getByTestId(testId);
+    expect(toolbarMentionButton).toBeDisabled();
   });
 });

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button';
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
+import { Box } from '@atlaskit/primitives';
 import { AtlaskitThemeProvider } from '@atlaskit/theme/components';
 import type { ThemeModes } from '@atlaskit/theme/types';
 

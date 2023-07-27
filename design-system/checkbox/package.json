@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/checkbox",
-  "version": "12.6.6",
+  "version": "12.6.7",
   "description": "A checkbox is an input control that allows a user to select one or more options from a number of choices.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -86,7 +86,7 @@
     }
   },
   "platform-feature-flags": {
-    "platform.design-system-team.border-checkbox_nyoiu": {
+    "platform.design-system-team.update-border-radio-checkbox_7askv": {
       "type": "boolean"
     }
   },

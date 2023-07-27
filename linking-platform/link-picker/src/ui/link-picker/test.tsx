@@ -12,12 +12,13 @@ import {
   ManualPromise,
   renderWithIntl as render,
 } from '@atlaskit/link-test-helpers';
+
+import mockedPluginData from '../../__tests__/__helpers/mock-plugin-data';
 import {
-  mockedPluginData,
   MockLinkPickerGeneratorPlugin,
   MockLinkPickerPromisePlugin,
   UnstableMockLinkPickerPlugin,
-} from '@atlaskit/link-test-helpers/link-picker';
+} from '../../__tests__/__helpers/mock-plugins';
 
 import { messages as resultsListMessages } from './search-results/link-search-list';
 
@@ -609,9 +610,9 @@ describe('<LinkPicker />', () => {
         screen.getByTestId(testIds.searchResultLoadingIndicator),
       ).toBeInTheDocument();
 
-      await user.type(screen.getByTestId(testIds.urlInputField), 'atlas'),
-        // Each character typing would trigger a resolve
-        expect(resolve).toHaveBeenCalledTimes(6);
+      await user.type(screen.getByTestId(testIds.urlInputField), 'atlas');
+      // Each character typing would trigger a resolve
+      expect(resolve).toHaveBeenCalledTimes(6);
       expect(
         await screen.findByTestId(testIds.searchResultList),
       ).toBeInTheDocument();
@@ -789,8 +790,8 @@ describe('<LinkPicker />', () => {
 
       expect(resolve).toHaveBeenCalledTimes(1);
 
-      await user.type(screen.getByTestId(testIds.urlInputField), 'w'),
-        expect(resolve).toHaveBeenCalledTimes(2);
+      await user.type(screen.getByTestId(testIds.urlInputField), 'w');
+      expect(resolve).toHaveBeenCalledTimes(2);
 
       // We release the first result
       await asyncAct(() =>

@@ -1,5 +1,17 @@
 # @atlaskit/adf-schema
 
+## 26.3.0
+
+### Minor Changes
+
+- [`91410d6064c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/91410d6064c) - [ux] NOISSUE Fix linkify of file links on space
+
+## 26.2.2
+
+### Patch Changes
+
+- [`56e6ce31c75`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56e6ce31c75) - ED-19040 improve handle paste media
+
 ## 26.2.1
 
 ### Patch Changes

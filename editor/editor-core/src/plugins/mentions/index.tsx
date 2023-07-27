@@ -1,10 +1,10 @@
 import React from 'react';
 import uuid from 'uuid';
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next';
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { ELEMENTS_CHANNEL } from '@atlaskit/mention/resource';
 import { mention } from '@atlaskit/adf-schema';
-
-import {
+import type { EditorState } from 'prosemirror-state';
+import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
@@ -20,7 +20,11 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { IconMention } from '@atlaskit/editor-common/quick-insert';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { MentionPluginOptions, FireElementsChannelEvent } from './types';
+import type {
+  MentionPluginOptions,
+  FireElementsChannelEvent,
+  MentionPluginState,
+} from './types';
 import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-at-cursor';
 import { createTypeAheadConfig } from './type-ahead';
 import { mentionPluginKey } from './pm-plugins/key';
@@ -29,11 +33,21 @@ import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 export { mentionPluginKey };
 
+const getSharedState = (
+  editorState: EditorState | undefined,
+): MentionPluginState | undefined => {
+  if (!editorState) {
+    return undefined;
+  }
+  return mentionPluginKey.getState(editorState);
+};
+
 const mentionsPlugin: NextEditorPlugin<
   'mention',
   {
     pluginConfiguration: MentionPluginOptions | undefined;
     dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    sharedState: MentionPluginState | undefined;
   }
 > = (options?, api?) => {
   let sessionId = uuid();
@@ -95,6 +109,8 @@ const mentionsPlugin: NextEditorPlugin<
       );
     },
 
+    getSharedState,
+
     pluginsOptions: {
       quickInsert: ({ formatMessage }) => [
         {
@@ -107,6 +123,10 @@ const mentionsPlugin: NextEditorPlugin<
           icon: () => <IconMention />,
           action(insert, state) {
             const tr = insert(undefined);
+            const pluginState = getSharedState(state);
+            if (pluginState && pluginState.canInsertMention === false) {
+              return false;
+            }
             openTypeAheadAtCursor({
               triggerHandler: typeAhead,
               inputMethod: INPUT_METHOD.QUICK_INSERT,

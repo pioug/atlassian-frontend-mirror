@@ -1,12 +1,11 @@
 import React from 'react';
 
+import { PageWrapper } from '../example-helpers/common';
+import { LinkPicker } from '../src';
 import {
   MockLinkPickerPromisePlugin,
   UnstableMockLinkPickerPlugin,
-} from '@atlaskit/link-test-helpers/link-picker';
-
-import { PageWrapper } from '../example-helpers/common';
-import { LinkPicker } from '../src';
+} from '../src/__tests__/__helpers/mock-plugins';
 
 const plugins = [
   new MockLinkPickerPromisePlugin({

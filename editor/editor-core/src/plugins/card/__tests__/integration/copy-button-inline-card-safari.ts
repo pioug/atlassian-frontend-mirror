@@ -1,5 +1,5 @@
 import { _getCopyButtonTestSuite } from '../../../copy-button/__tests__/integration/_getCopyButtonTestSuite';
-import { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 import * as inlineCardAdf from '../../../../__tests__/integration/card/_fixtures_/inline-card-selection.adf.json';
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 
@@ -24,5 +24,7 @@ _getCopyButtonTestSuite({
    * so safari test is handled here: copy-button-inline-card-safari.ts
    * chrome and firefox tests are handled in: copy-button-inline-card.ts
    */
-  skip: ['chrome', 'firefox'],
+  skipTests: {
+    'Copy block with floating toolbar copy button': ['chrome', 'firefox'],
+  },
 });

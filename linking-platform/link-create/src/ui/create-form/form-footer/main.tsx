@@ -4,11 +4,16 @@ import { useIntl } from 'react-intl-next';
 
 import Button, { ButtonGroup } from '@atlaskit/button';
 import LoadingButton from '@atlaskit/button/loading-button';
-import { FormFooter } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from './messages';
+
+const formFooterWrapperStyles = css({
+  display: 'flex',
+  marginTop: token('space.300', '24px'),
+  justifyContent: 'flex-end',
+});
 
 const errorStyles = css({
   display: 'flex',
@@ -31,7 +36,7 @@ export function CreateFormFooter({
 }: CreateFormFooterProps) {
   const intl = useIntl();
   return (
-    <FormFooter>
+    <footer data-testid={`${testId}-footer`} css={formFooterWrapperStyles}>
       {formErrorMessage && (
         <div css={errorStyles} data-testid={`${testId}-error`}>
           <ErrorIcon
@@ -59,6 +64,6 @@ export function CreateFormFooter({
           {intl.formatMessage(messages.create)}
         </LoadingButton>
       </ButtonGroup>
-    </FormFooter>
+    </footer>
   );
 }

@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import {
   loadEditor,
@@ -9,8 +13,19 @@ import { INSERT_BLOCK_TYPE } from '../../_utils/bridge-methods';
 import { CODE_BLOCK_NODE } from '../../_utils/test-data';
 import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/lib/appium/keyboard/common-osk';
 
-export default async () => {
-  MobileTestCase(
+type TestName =
+  | 'Code Block: Users can insert a code block via the bridge'
+  | 'Code Block: Users can create a new line in the middle of an existing line';
+
+const codeBlockTests: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
+  DynamicMobileTestCase(
     'Code Block: Users can insert a code block via the bridge',
     {},
     async (client: any, testName: string) => {
@@ -25,7 +40,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Code Block: Users can create a new line in the middle of an existing line',
     {},
     async (client: any, testName: string) => {
@@ -48,3 +63,5 @@ export default async () => {
     },
   );
 };
+
+export default codeBlockTests;

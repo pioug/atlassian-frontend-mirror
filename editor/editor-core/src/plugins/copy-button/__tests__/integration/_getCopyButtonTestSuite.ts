@@ -1,5 +1,13 @@
-import { Browser, BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import type {
+  Browser,
+  DynamicBrowserTestSuite,
+  DynamicBrowserTestSuiteOptions,
+} from '@atlaskit/webdriver-runner/runner';
+import {
+  getDynamicBrowserTestCase,
+  BrowserTestCase,
+} from '@atlaskit/webdriver-runner/runner';
+import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 
 import {
   editable,
@@ -15,6 +23,17 @@ import {
 
 const copyButtonSelector = 'button[aria-label="Copy"]';
 
+type TestName = 'Copy block with floating toolbar copy button';
+
+interface CopyButtonTestSuiteOptions
+  extends DynamicBrowserTestSuiteOptions<TestName> {
+  nodeName: string;
+  editorOptions: any;
+  nodeSelector: string;
+  customBeforeEach?: (page: WebDriverPage) => Promise<void>;
+  skipTests?: { [key in TestName]?: Browser[] };
+}
+
 /**
  * Tests using this function may fail locally when run yarn test:webdriver , when chrome is on version 111
  * Please see why here: https://hello.atlassian.net/wiki/spaces/~584690366/pages/2508624906/ED-16975
@@ -25,23 +44,25 @@ const copyButtonSelector = 'button[aria-label="Copy"]';
  * and ClipboardApi in Chrome (version 111)converted the host name of the ‘href’ attribute of the html node into all lower case
  * For example: from <a href="https://inlineCardTestUrl/longName">some text</a> to <a href="https://inlinecardtesturl/longName">some text</a>
  */
-export async function _getCopyButtonTestSuite({
+export const _getCopyButtonTestSuite: DynamicBrowserTestSuite<
+  TestName,
+  CopyButtonTestSuiteOptions
+> = async ({
   nodeName,
   editorOptions,
   nodeSelector,
   customBeforeEach,
-  skip,
-}: {
-  nodeName: string;
-  editorOptions: any;
-  nodeSelector: string;
-  customBeforeEach?: (page: WebDriverPage) => Promise<void>;
-  skip?: Browser[] | undefined;
-}) {
+  skipTests = {},
+}) => {
+  const DynamicBrowserTestCase = getDynamicBrowserTestCase<TestName>({
+    TestCase: BrowserTestCase,
+    skipTests,
+  });
+
   describe(`Floating toolbar copy button: [${nodeName}]: `, () => {
-    BrowserTestCase(
+    DynamicBrowserTestCase(
       'Copy block with floating toolbar copy button',
-      { skip },
+      {},
       async (client: any, testName: string) => {
         const page = await goToEditorTestingWDExample(client);
         await mountEditor(page, {
@@ -113,4 +134,4 @@ export async function _getCopyButtonTestSuite({
       },
     );
   });
-}
+};

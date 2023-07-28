@@ -3,6 +3,14 @@ import { normalizeUrl } from '@atlaskit/linking-common/url';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
 
+const toUrl = (url: string, base?: string): URL | undefined => {
+  try {
+    return new URL(url, base);
+  } catch {
+    return undefined;
+  }
+};
+
 export const useLinkWarningModal = () => {
   const [unsafeLinkText, setUnsafeLinkText] = useState<string | null>(null);
   const [url, setUrl] = useState<string | null>(null);
@@ -47,9 +55,9 @@ export const useLinkWarningModal = () => {
     }
 
     const anchorLinkRegex = new RegExp(/^#/im);
-    const isAnchorLink = anchorLinkRegex.test(linkText);
-
-    if (isAnchorLink) {
+    const isLinkTextAnchorLink = anchorLinkRegex.test(linkText);
+    const isAnchorLink = anchorLinkRegex.test(href);
+    if (isAnchorLink || isLinkTextAnchorLink) {
       return true;
     }
 
@@ -59,8 +67,11 @@ export const useLinkWarningModal = () => {
       return true;
     }
 
-    const hrefUrl = new URL(href, window.location.origin);
-    const linkTextUrl = new URL(normalisedUrlFromLinkText, hrefUrl.origin);
+    const hrefUrl = toUrl(href, window.location.origin);
+    const linkTextUrl = toUrl(normalisedUrlFromLinkText, hrefUrl?.origin);
+    if (!hrefUrl || !linkTextUrl) {
+      return true;
+    }
 
     const httpProtocols = ['http:', 'https:'];
 

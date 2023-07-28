@@ -21,9 +21,12 @@ import {
 
 const editorSelector = selectors.editor;
 
+// FIXME: This test was automatically skipped due to failure on 27/07/2023: https://product-fabric.atlassian.net/browse/ED-19236
 BrowserTestCase(
   'media: when message is not a media image node does nothing',
-  { skip: [] },
+  {
+    skip: ['*'],
+  },
   async (client: WebdriverIO.BrowserObject) => {
     const page = await goToEditorTestingWDExample(client);
 

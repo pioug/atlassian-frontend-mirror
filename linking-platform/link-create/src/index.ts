@@ -10,8 +10,10 @@ export {
   default,
   TextField,
   CreateForm,
+  Select,
   AsyncSelect,
   CreateFormLoader,
+  FormSpy,
 } from './ui/index';
 
 export {

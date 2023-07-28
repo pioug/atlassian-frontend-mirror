@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.0.0
+
+### Major Changes
+
+- [`687749df97a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/687749df97a) - Refactor form components to use react-final-form
+
 ## 0.10.0
 
 ### Minor Changes

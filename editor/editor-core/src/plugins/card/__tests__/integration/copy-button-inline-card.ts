@@ -1,5 +1,5 @@
 import { _getCopyButtonTestSuite } from '../../../copy-button/__tests__/integration/_getCopyButtonTestSuite';
-import { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type { default as WebDriverPage } from '@atlaskit/webdriver-runner/wd-wrapper';
 import * as inlineCardAdf from '../../../../__tests__/integration/card/_fixtures_/inline-card-selection.adf.json';
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
 
@@ -25,5 +25,5 @@ _getCopyButtonTestSuite({
    */
   // FIXME: This test was automatically skipped due to failure on 25/05/2023: https://product-fabric.atlassian.net/browse/ED-18073
   // skip: ['safari'],
-  skip: ['*'],
+  skipTests: { 'Copy block with floating toolbar copy button': ['*'] },
 });

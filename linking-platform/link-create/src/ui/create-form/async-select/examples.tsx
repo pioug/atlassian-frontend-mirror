@@ -1,6 +1,10 @@
 import React from 'react';
 
+import { Form } from 'react-final-form';
+
 import { AsyncSelect } from '@atlaskit/link-create';
+
+import { FormContextProvider } from '../../../controllers/form-context';
 
 import { AsyncSelectProps } from './types';
 
@@ -9,13 +13,19 @@ const createExample = (
 ): React.ComponentType => {
   return function Example() {
     return (
-      <div>
-        <AsyncSelect
-          name={'exampleAsyncSelectProps'}
-          label={'Async Select'}
-          {...props}
-        />
-      </div>
+      <FormContextProvider>
+        <Form onSubmit={() => {}}>
+          {() => (
+            <form>
+              <AsyncSelect
+                name={'exampleAsyncSelectProps'}
+                label={'Async Select'}
+                {...props}
+              />
+            </form>
+          )}
+        </Form>
+      </FormContextProvider>
     );
   };
 };

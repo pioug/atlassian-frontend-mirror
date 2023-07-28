@@ -7,4 +7,5 @@ export const selectors = {
   lightWeightCodeBlock: `.${LightWeightCodeBlockCssClassName.CONTAINER}`,
   designSystemCodeBlock: CodeBlockSharedCssClassName.DS_CODEBLOCK,
   wrapButton: '.wrap-code',
+  languageJavaScript: '.language-javascript',
 };

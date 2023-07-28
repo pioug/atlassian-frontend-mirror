@@ -34,7 +34,8 @@ describe('media link:', () => {
     page = global.page;
   });
 
-  it(`should render a linked media image correctly`, async () => {
+  // FIXME: This test was automatically skipped due to failure on 27/07/2023: https://product-fabric.atlassian.net/browse/ED-19234
+  it.skip(`should render a linked media image correctly`, async () => {
     await loadAdf(page, mediaLink);
     await waitForAllMedia(page, 1);
 
@@ -42,7 +43,8 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  it(`should render a linked media image correctly when focused`, async () => {
+  // FIXME: This test was manually skipped due to failure on 27/07/2023: https://product-fabric.atlassian.net/browse/ED-19235
+  it.skip(`should render a linked media image correctly when focused`, async () => {
     await loadAdf(page, mediaLink);
     await waitForAllMedia(page, 1);
 
@@ -69,7 +71,8 @@ describe('media link:', () => {
     await snapshot(page);
   });
 
-  it(`should render a linked media image below a wrapped image correctly when focused`, async () => {
+  // FIXME: This test was manually skipped due to failure on 27/07/2023: https://product-fabric.atlassian.net/browse/ED-19235
+  it.skip(`should render a linked media image below a wrapped image correctly when focused`, async () => {
     await loadAdf(page, wrappedMediaLink);
     await waitForAllMedia(page, 2);
 

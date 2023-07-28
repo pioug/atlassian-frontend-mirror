@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 
 import { setADFContent } from '../../_utils/afe-app-helpers';
@@ -15,8 +19,19 @@ import {
   INLINE_UNSUPPORTED_CONTENT,
 } from '../../_utils/test-data';
 
-export default async () => {
-  MobileTestCase(
+type TestName =
+  | "Unsupported Content - Block node: Users can see a Lozenge with error message and a '?' with tooltip when the page contains unsupported content"
+  | "Unsupported Content - Inline node: Users can see a Lozenge with text and a '?' with tooltip when the page contains unsupported content";
+
+const unsupportedContentEditorTestSuite: DynamicMobileTestSuite<
+  TestName
+> = async ({ skipTests }) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
+  DynamicMobileTestCase(
     `Unsupported Content - Block node: Users can see a Lozenge with error message and a '?' with tooltip when the page contains unsupported content`,
     {},
     async (client: any, testName: string) => {
@@ -31,7 +46,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     `Unsupported Content - Inline node: Users can see a Lozenge with text and a '?' with tooltip when the page contains unsupported content`,
     {},
     async (client: any, testName: string) => {
@@ -46,3 +61,5 @@ export default async () => {
     },
   );
 };
+
+export default unsupportedContentEditorTestSuite;

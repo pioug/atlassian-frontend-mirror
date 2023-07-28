@@ -3,7 +3,7 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import { VRTestWrapper } from './utils/vr-test';
-import BlockCardViewTest, { renderCard } from './utils/vr-block-flexible-views';
+import { renderCard } from './utils/vr-block-flexible-views';
 import FlexibleResolvedView from '../src/view/BlockCard/views/flexible/FlexibleResolvedView';
 import { CardClient } from '@atlaskit/link-provider';
 import { minimumResponse, unicornResponse } from './content/example-responses';
@@ -31,8 +31,6 @@ export default () => {
 
   return (
     <VRTestWrapper title="Block card Flexible views">
-      <BlockCardViewTest appearance="block" />
-
       <h4>Resolved (minimal data)</h4>
       {renderCard(new MinimumResolvedCustomClient(), 'block')}
 

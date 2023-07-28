@@ -1,6 +1,10 @@
 import React from 'react';
 
+import { Form } from 'react-final-form';
+
 import { TextField } from '@atlaskit/link-create';
+
+import { FormContextProvider } from '../../../controllers/form-context';
 
 import { TextFieldProps } from './types';
 
@@ -9,9 +13,15 @@ const createExample = (
 ): React.ComponentType => {
   return function Example() {
     return (
-      <div>
-        <TextField name={'exampleTextField'} {...props} />
-      </div>
+      <FormContextProvider>
+        <Form onSubmit={() => {}}>
+          {() => (
+            <form>
+              <TextField name={'exampleTextField'} {...props} />
+            </form>
+          )}
+        </Form>
+      </FormContextProvider>
     );
   };
 };

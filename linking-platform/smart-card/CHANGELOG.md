@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.11.1
+
+### Patch Changes
+
+- [`b37a26be833`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b37a26be833) - Prevent LinkUrl from throwing error on validation
+
 ## 26.11.0
 
 ### Minor Changes

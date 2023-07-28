@@ -4,18 +4,20 @@ title: Accessibility
 description: Accessible drag and drop design lets people of all abilities interact with, understand, and navigate our products.
 ---
 
-Drag and drop interactions rely on pointer-only only gestures that aren't operable for all people. For this reason, drag and drop interactions must have alternative flows that are keyboard and screen-reader operable.
+import SectionMessage from '@atlaskit/section-message';
 
-People for whom gesture-based input is not possible include:
-
-- Keyboard users
-- Desktop screen reader users
-- Mobile screen reader users (iOS and Android)
-- Voice Control users
+Drag and drop interactions rely on pointer-only only gestures that not everybody can operate. For all drag and drop interactions powered by Pragmatic drag and drop we encourage the use of alternative mechanisms that provide a straightforward way for users of assistive technologies to achieve the same outcomes as a drag and drop interaction ("alternative flows").
 
 Alternative flows should allow users to complete tasks without using dragging gestures. The structure of alternative flows do not have to mirror drag and drop flows, as long as they enable users to achieve the same outcomes.
 
-Pragmatic drag and drop does not bake in accessibility controls as there is no one size fits all pattern that works well for all situations. We provide you with guidance and a toolchain to help you wire up highly accessible, and low cost, alternative flows.
+Pragmatic drag and drop does not bake in accessibility controls as there is no one size fits all pattern that works well for all situations. We provide you with guidance and a toolchain to help you quickly wire up highly accessible, and low cost, alternative flows.
+
+<SectionMessage>
+
+Our approach of leveraging alternative flows for assistive technologies satisfies [Web Content Accessibility Guidelines (WCAG) 2.2 - 2.5.7 Dragging Movements](https://www.w3.org/TR/WCAG22/#dragging-movements)
+
+</SectionMessage>
+
 
 ## Accessibility with alternative flows
 

@@ -9,6 +9,7 @@ import classNames from 'classnames';
 import { Node as PMNode } from 'prosemirror-model';
 import { EditorView } from 'prosemirror-view';
 
+import { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
 import { EditorContainerWidth } from '@atlaskit/editor-common/types';
@@ -115,15 +116,20 @@ export const ResizableTableContainer = ({
     [pluginInjectionApi, editorView],
   );
 
-  const tableWidth = getTableContainerWidth(node);
+  const attachAnalyticsEvent = useCallback(
+    (payload: TableEventPayload) => {
+      return pluginInjectionApi?.dependencies?.analytics.actions.attachAnalyticsEvent(
+        payload,
+      );
+    },
+    [pluginInjectionApi],
+  );
 
+  const tableWidth = getTableContainerWidth(node);
   // 76 is currently an accepted padding value considering the spacing for resizer handle
   const responsiveContainerWidth = containerWidth - 76;
-
   const width = Math.min(tableWidth, responsiveContainerWidth);
-
   marginLeftRef.current = getMarginLeft(lineLength, width);
-
   const maxResizerWidth = Math.min(responsiveContainerWidth, TABLE_MAX_WIDTH);
 
   return (
@@ -141,6 +147,7 @@ export const ResizableTableContainer = ({
         node={node}
         tableRef={tableRef}
         displayGuideline={displayGuideline}
+        attachAnalyticsEvent={attachAnalyticsEvent}
       >
         <InnerContainer className={className} node={node}>
           {children}

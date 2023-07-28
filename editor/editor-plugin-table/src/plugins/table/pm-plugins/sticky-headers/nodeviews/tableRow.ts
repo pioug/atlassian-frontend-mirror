@@ -41,28 +41,6 @@ const anyChildCellMergedAcrossRow = (node: PmNode) =>
   );
 
 /**
- * Compare two table row nodes and return true if the two table rows have a
- * different number of table cells or if table cell row spans are different
- */
-const rowHasDifferentMergedCells = (prevNode: PmNode, incomingNode: PmNode) => {
-  const incomingNodeChildrenRowSpan = mapChildren(
-    prevNode,
-    (child) => child.attrs.rowspan || 0,
-  );
-  const currentNodeChildrenRowSpan = mapChildren(
-    incomingNode,
-    (child) => child.attrs.rowspan || 0,
-  );
-
-  return (
-    incomingNodeChildrenRowSpan.length !== currentNodeChildrenRowSpan.length ||
-    currentNodeChildrenRowSpan.some(
-      (child, index) => child !== incomingNodeChildrenRowSpan[index],
-    )
-  );
-};
-
-/**
  * Check if a given node is a header row with this definition:
  *  - all children are tableHeader cells
  *  - no table cells have been have merged with other table row cells
@@ -427,10 +405,6 @@ export class TableRowNodeView implements NodeView {
     const newNodeIsHeaderRow = supportedHeaderRow(node);
     if (this.isHeaderRow !== newNodeIsHeaderRow) {
       return false; // re-create nodeview
-    }
-
-    if (rowHasDifferentMergedCells(this.node, node)) {
-      return false;
     }
 
     // node is different but no need to re-create nodeview

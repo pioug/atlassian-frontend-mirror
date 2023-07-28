@@ -1,10 +1,26 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/lib/appium/keyboard/common-osk';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import { getADFContent } from '../../_utils/afe-app-helpers';
 import { loadEditor } from '../../_page-objects/hybrid-editor-page';
 
-export default async () => {
+type TestName =
+  | 'Composition: Typing via the Software Keyboard'
+  | 'Composition: Text Replacement on Software Keyboard (iOS)'
+  | 'Composition: Auto Completion on Software Keyboard';
+
+const compositionTests: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
   /**
    * As a Rich Text Editor, one of the biggest differences between
    * text input on desktop and handheld devices is that text insertion
@@ -37,7 +53,7 @@ export default async () => {
   /**
    * This is testing generic compositional input cross platform.
    */
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Composition: Typing via the Software Keyboard',
     {
       versions: ['DEFAULT', 'android 11'],
@@ -63,7 +79,7 @@ export default async () => {
    *
    * @see https://support.apple.com/en-us/HT207525
    */
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Composition: Text Replacement on Software Keyboard (iOS)',
     { skipPlatform: ['android'] },
     async (client: any, testName: string) => {
@@ -89,7 +105,7 @@ export default async () => {
    * and it even changes over time based on learned behaviour from
    * the usr.
    */
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Composition: Auto Completion on Software Keyboard',
     {},
     async (client: any, testName: string) => {
@@ -117,3 +133,5 @@ export default async () => {
     },
   );
 };
+
+export default compositionTests;

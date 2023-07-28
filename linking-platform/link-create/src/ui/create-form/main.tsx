@@ -2,9 +2,9 @@
 import { ReactNode, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import { Form } from 'react-final-form';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import Form from '@atlaskit/form';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -32,6 +32,7 @@ export interface CreateFormProps<FormData> {
   onCancel?: () => void;
   isLoading?: boolean;
   hideFooter?: boolean;
+  initialValues?: FormData;
 }
 export const TEST_ID = 'link-create-form';
 
@@ -42,6 +43,7 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
   onCancel,
   isLoading,
   hideFooter,
+  initialValues,
 }: CreateFormProps<FormData>) => {
   const { createAnalyticsEvent } = useAnalyticsEvents();
   const { getValidators, formErrorMessage } = useFormContext();
@@ -75,25 +77,39 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
   }
 
   return (
-    <Form<FormData> onSubmit={handleSubmit}>
-      {({ formProps, submitting }) => (
-        <form
-          {...formProps}
-          name="link-create-form"
-          data-testid={testId}
-          css={formStyles}
-        >
-          <div>{children}</div>
-          {!hideFooter && (
-            <CreateFormFooter
-              formErrorMessage={formErrorMessage}
-              handleCancel={handleCancel}
-              submitting={submitting}
-              testId={testId}
-            />
-          )}
-        </form>
-      )}
+    <Form<FormData>
+      onSubmit={handleSubmit}
+      initialValues={initialValues}
+      mutators={{
+        setField: <K extends keyof FormData>(
+          args: [K, FormData[K]],
+          state: any,
+          tools: any,
+        ) => {
+          tools.changeValue(state, args[0], () => args[1]);
+        },
+      }}
+    >
+      {({ submitting, ...formProps }) => {
+        return (
+          <form
+            onSubmit={formProps.handleSubmit}
+            name="link-create-form"
+            data-testid={testId}
+            css={formStyles}
+          >
+            <div>{children}</div>
+            {!hideFooter && (
+              <CreateFormFooter
+                formErrorMessage={formErrorMessage}
+                handleCancel={handleCancel}
+                submitting={submitting}
+                testId={testId}
+              />
+            )}
+          </form>
+        );
+      }}
     </Form>
   );
 };

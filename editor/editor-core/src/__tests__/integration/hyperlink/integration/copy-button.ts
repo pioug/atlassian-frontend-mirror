@@ -12,5 +12,5 @@ _getCopyButtonTestSuite({
   // This test is not testing code which is expected to have divergent
   // behaviour across browsers -- so skipping safari should not reduce
   // greatly confidence.
-  skip: ['safari'],
+  skipTests: { 'Copy block with floating toolbar copy button': ['safari'] },
 });

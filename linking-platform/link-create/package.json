@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-create",
-  "version": "0.10.0",
+  "version": "1.0.0",
   "description": "The driver component of meta creation flow",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -46,7 +46,10 @@
     "@atlaskit/textfield": "^5.6.0",
     "@atlaskit/tokens": "^1.13.0",
     "@babel/runtime": "^7.0.0",
-    "@emotion/react": "^11.7.1"
+    "@emotion/react": "^11.7.1",
+    "debounce-promise": "^3.1.2",
+    "final-form": "^4.20.1",
+    "react-final-form": "^6.5.3"
   },
   "peerDependencies": {
     "react": "^16.8.0",

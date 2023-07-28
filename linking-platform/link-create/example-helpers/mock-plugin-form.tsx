@@ -1,7 +1,5 @@
 import React, { useMemo } from 'react';
 
-import { OptionsType } from '@atlaskit/select';
-
 import {
   AsyncSelect,
   CreateForm,
@@ -42,7 +40,7 @@ export function MockPluginForm({ shouldThrowError }: pluginProps) {
     [],
   );
 
-  const exampleOptions: OptionsType<MockOptions> = [
+  const exampleOptions = [
     { label: 'Option 1', value: 'option-1' },
     { label: 'Option 2', value: 'option-2' },
   ];

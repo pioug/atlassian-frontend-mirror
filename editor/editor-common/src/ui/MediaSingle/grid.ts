@@ -6,10 +6,8 @@ import {
   breakoutWideScaleRatio,
 } from '@atlaskit/editor-shared-styles';
 
+import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
 import { EditorContainerWidth } from '../../types';
-
-const handleMargin = 12;
-const gutterSize = handleMargin * 2;
 
 const validWidthModes: MediaSingleLayout[] = [
   'center',
@@ -27,8 +25,8 @@ export function calcPxFromColumns(
   lineLength: number,
   gridSize: number,
 ): number {
-  const maxWidth = lineLength + gutterSize;
-  return (maxWidth / gridSize) * columns - gutterSize;
+  const maxWidth = lineLength + MEDIA_SINGLE_GUTTER_SIZE;
+  return (maxWidth / gridSize) * columns - MEDIA_SINGLE_GUTTER_SIZE;
 }
 
 export function calcColumnsFromPx(
@@ -36,18 +34,18 @@ export function calcColumnsFromPx(
   lineLength: number,
   gridSize: number,
 ): number {
-  const maxWidth = lineLength + gutterSize;
-  return ((width + gutterSize) * gridSize) / maxWidth;
+  const maxWidth = lineLength + MEDIA_SINGLE_GUTTER_SIZE;
+  return ((width + MEDIA_SINGLE_GUTTER_SIZE) * gridSize) / maxWidth;
 }
 
 export function calcPxFromPct(pct: number, lineLength: number): number {
-  const maxWidth = lineLength + gutterSize;
-  return maxWidth * pct - gutterSize;
+  const maxWidth = lineLength + MEDIA_SINGLE_GUTTER_SIZE;
+  return maxWidth * pct - MEDIA_SINGLE_GUTTER_SIZE;
 }
 
 export function calcPctFromPx(width: number, lineLength: number): number {
-  const maxWidth = lineLength + gutterSize;
-  return (width + gutterSize) / maxWidth;
+  const maxWidth = lineLength + MEDIA_SINGLE_GUTTER_SIZE;
+  return (width + MEDIA_SINGLE_GUTTER_SIZE) / maxWidth;
 }
 
 export const wrappedLayouts: MediaSingleLayout[] = [

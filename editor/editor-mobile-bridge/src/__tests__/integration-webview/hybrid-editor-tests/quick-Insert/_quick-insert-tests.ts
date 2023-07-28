@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import {
   loadEditor,
@@ -33,8 +37,27 @@ import {
   MENTION_QUICK_INSERT,
 } from '../../_utils/quick-inserts';
 
-export default async () => {
-  MobileTestCase(
+type TestName =
+  | 'Quick Insert - Action Item: Users can add an action item by typing "/action" and pressing enter'
+  | 'Quick Insert - Action Item: Users can add and see localized action item by typing "/" and pressing enter'
+  | 'Quick Insert - Panel: Users can add an info panel by typing "/info" and pressing enter'
+  | 'Quick Insert - Panel: Users can add an warning panel by typing "/warning" and pressing enter'
+  | 'Quick Insert - Panel: Users can add an error panel by typing "/error" and pressing enter'
+  | 'Quick Insert - Mention: Users can add an mention by typing "/mention" and pressing enter'
+  | 'Quick Insert - Decision: Users can add a decision panel and a decision description'
+  | 'Quick Insert - Decision: Users can add and see a localized decision panel by typing "/" and pressing enter'
+  | 'Quick Insert - Block Quote: Users can add a block quote by typing ">" and pressing space'
+  | 'Quick Insert - Code Block: Users can add a code block by typing "```"';
+
+const quickInsertEditorTestSuite: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
+  DynamicMobileTestCase(
     'Quick Insert - Action Item: Users can add an action item by typing "/action" and pressing enter',
     {},
     async (client: any, testName: string) => {
@@ -49,7 +72,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Quick Insert - Action Item: Users can add and see localized action item by typing "/" and pressing enter',
     {},
     async (client: any, testName: string) => {
@@ -68,7 +91,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Quick Insert - Panel: Users can add an info panel by typing "/info" and pressing enter',
     {},
     async (client: any, testName: string) => {
@@ -82,7 +105,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Quick Insert - Panel: Users can add an warning panel by typing "/warning" and pressing enter',
     {},
     async (client: any, testName: string) => {
@@ -96,7 +119,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Quick Insert - Panel: Users can add an error panel by typing "/error" and pressing enter',
     {},
     async (client: any, testName: string) => {
@@ -110,7 +133,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Quick Insert - Mention: Users can add an mention by typing "/mention" and pressing enter',
     // Re-skipped due to failures again - See https://product-fabric.atlassian.net/browse/ED-18178
     { skipPlatform: ['*'] },
@@ -126,7 +149,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Quick Insert - Decision: Users can add a decision panel and a decision description',
     {},
     async (client: any, testName: string) => {
@@ -146,7 +169,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Quick Insert - Decision: Users can add and see a localized decision panel by typing "/" and pressing enter',
     {},
     async (client: any, testName: string) => {
@@ -168,7 +191,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Quick Insert - Block Quote: Users can add a block quote by typing ">" and pressing space',
     // Re-skipped due to failures again - See https://product-fabric.atlassian.net/browse/ED-18178
     { skipPlatform: ['*'] },
@@ -186,7 +209,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Quick Insert - Code Block: Users can add a code block by typing "```"',
     /**
      * In iOS the '`'(Back Tick) is an extra key that shows up only upon long pressing a '''(Single quote).
@@ -206,3 +229,5 @@ export default async () => {
     },
   );
 };
+
+export default quickInsertEditorTestSuite;

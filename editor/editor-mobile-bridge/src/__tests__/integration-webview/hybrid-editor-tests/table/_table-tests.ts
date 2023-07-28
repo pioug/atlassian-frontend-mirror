@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import {
   loadEditor,
@@ -9,8 +13,19 @@ import { INSERT_BLOCK_TYPE } from '../../_utils/bridge-methods';
 import { TABLE_NODE } from '../../_utils/test-data';
 import { mobileSnapshot } from '../../_utils/snapshot';
 
-export default async () => {
-  MobileTestCase(
+type TestName =
+  | 'Table: Users can add text to table header'
+  | 'Table: inserting text in table header will not affect the width of column';
+
+const emojiEditorTests: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
+  DynamicMobileTestCase(
     'Table: Users can add text to table header',
     {},
     async (client: any, testName: string) => {
@@ -24,7 +39,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Table: inserting text in table header will not affect the width of column',
     {},
     async (client) => {
@@ -39,3 +54,5 @@ export default async () => {
     },
   );
 };
+
+export default emojiEditorTests;

@@ -23,8 +23,7 @@ describe('Snapshot Test: CodeBlock', () => {
       await snapshot(page, undefined, selectors.codeBlock);
     });
 
-    // FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18088
-    test.skip('should render copy-to-clipboard button correctly on hover when enabled', async () => {
+    test('should render copy-to-clipboard button correctly on hover when enabled', async () => {
       await initRendererWithADF(page, {
         appearance: 'full-page',
         rendererProps: { allowCopyToClipboard: true },
@@ -34,9 +33,10 @@ describe('Snapshot Test: CodeBlock', () => {
       // Syntax highlighting is dependent on external libraries which are loaded asynchronously.
       // We were not waiting for these libraries explicitly, so sometime when these libraries are not loaded, tests were failing.
       // So, we have added waitForNetworkIdle , to wait till network becomes ideal.
-      //Also added waitForTimeout(50) to wait for 50ms in order to wait till syntax highlighting is done after libs are loaded.
+      // Also added waitForTimeout(50) to wait for 50ms in order to wait till syntax highlighting is done after libs are loaded.
       await page.waitForNetworkIdle();
       await page.waitForTimeout(50);
+
       await page.hover(selectors.codeBlock);
       await page.waitForSelector(
         `${selectors.codeBlock} ${selectors.copyToClipboardButton}`,
@@ -54,6 +54,10 @@ describe('Snapshot Test: CodeBlock', () => {
             .Tooltip { display: none; }
           `,
       });
+
+      // Flaky test was again observed in https://product-fabric.atlassian.net/browse/ED-18088
+      // So waiting for syntax highlighting to enable before taking the screenshot
+      await page.waitForSelector(`${selectors.languageJavaScript}`);
       await animationFrame(page);
       await animationFrame(page);
     });

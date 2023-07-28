@@ -2,8 +2,9 @@ import { Node as PMNode } from 'prosemirror-model';
 import { EditorState, NodeSelection } from 'prosemirror-state';
 import { findChildren } from 'prosemirror-utils';
 
+import { getMediaSinglePixelWidth } from '../media-single';
+
 import { MEDIA_DYNAMIC_GUIDELINE_PREFIX } from './constants';
-import { WidthTypes } from './types';
 
 export const generateDynamicGuidelines = (
   state: EditorState,
@@ -31,10 +32,11 @@ export const generateDynamicGuidelines = (
 
       const { layout, width, widthType } = node.attrs;
 
-      const pixelWidth =
-        !widthType || widthType === WidthTypes.PERCENTAGE
-          ? (width / 100) * editorWidth
-          : width;
+      const pixelWidth = getMediaSinglePixelWidth(
+        width,
+        editorWidth,
+        widthType,
+      );
 
       const commonStyles = {
         style: 'dashed',

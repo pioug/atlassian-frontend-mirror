@@ -106,6 +106,13 @@ test.describe('sticky header', () => {
     test('sticky numbered column header should have top style reset when adding column from cell options', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-19256, ED-19267, ED-19278',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19256',
+        browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 

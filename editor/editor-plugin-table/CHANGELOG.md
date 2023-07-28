@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 2.6.0
+
+### Minor Changes
+
+- [`0ae6f70038a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae6f70038a) - [ED-17635] Add analytics event for table width resizing
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.5
+
+### Patch Changes
+
+- [`d55db921de3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d55db921de3) - improve performance when adding a new column in table
+
 ## 2.5.4
 
 ### Patch Changes

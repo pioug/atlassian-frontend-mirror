@@ -47,7 +47,7 @@ describe('link-create', () => {
     // Wait for Modal
     await page.waitForSelector('[data-testid="link-create-modal"]');
     // click on dropdown
-    await page.click('#asyncSelect-name-uid2');
+    await page.click('#link-create-field-asyncSelect-name');
     // wait for list
     await page.waitForSelector('#react-select-2-option-0');
 

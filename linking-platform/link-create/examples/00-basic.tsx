@@ -3,7 +3,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
-import { OptionsType } from '@atlaskit/select';
 
 import LinkCreate, {
   AsyncSelect,
@@ -43,7 +42,7 @@ function MockPluginForm() {
     [],
   );
 
-  const exampleOptions: OptionsType<MockOptions> = [
+  const exampleOptions = [
     { label: 'Option 1', value: 'option-1' },
     { label: 'Option 2', value: 'option-2' },
   ];

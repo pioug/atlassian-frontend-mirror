@@ -95,7 +95,6 @@ const spacingMapStyles = {
   }),
   compact: css({
     minHeight: 32,
-    maxHeight: 32,
     // 4 * 2 (8) + icon (24) === 32
     paddingBlock: token('space.050', '4px'),
     paddingInline: token('space.150', '12px'),

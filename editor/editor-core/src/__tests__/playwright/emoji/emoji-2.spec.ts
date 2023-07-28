@@ -4,6 +4,8 @@ import {
   EditorNodeContainerModel,
   EditorMainToolbarModel,
   EditorEmojiModel,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import {
   doc,
@@ -102,6 +104,13 @@ test.describe('emoji-2', () => {
   test('should be able to select emoji by clicking inside decisions', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-19277',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19277',
+      browsers: [BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const emojiModel = EditorEmojiModel.from(nodes.emoji, editor);
 

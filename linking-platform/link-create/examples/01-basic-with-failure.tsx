@@ -3,7 +3,6 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
-import { OptionsType } from '@atlaskit/select';
 
 import LinkCreate, {
   AsyncSelect,
@@ -49,13 +48,13 @@ function MockPluginForm() {
     [],
   );
 
-  const exampleOptions: OptionsType<MockOptions> = [
+  const exampleOptions = [
     { label: 'Option 1', value: 'option-1' },
     { label: 'Option 2', value: 'option-2' },
     { label: 'Option 3 (which will fail)', value: 'option-3' },
   ];
 
-  const mockLoadOptions = async () => {
+  const mockLoadOptions = async (inputValue: string) => {
     try {
       return exampleOptions;
     } catch (error) {

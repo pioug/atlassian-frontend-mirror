@@ -18,35 +18,43 @@
 /// <reference types="react" />
 
 import { AsyncSelectProps as AsyncSelectProps_2 } from '@atlaskit/select';
+import { GroupType } from '@atlaskit/select';
 import { jsx } from '@emotion/react';
 import { MemoExoticComponent } from 'react';
 import { ModalDialogProps } from '@atlaskit/modal-dialog';
 import { OptionType } from '@atlaskit/select';
 import { default as React_2 } from 'react';
 import { ReactNode } from 'react';
+import { SelectProps as SelectProps_2 } from '@atlaskit/select';
 import { SpinnerProps } from '@atlaskit/spinner';
 import { TextFieldProps as TextFieldProps_2 } from '@atlaskit/textfield';
 
 // @public
 export function AsyncSelect<T = OptionType>({
-  label,
+  id,
   name,
-  validationHelpText,
+  label,
   isRequired,
-  testId,
   validators,
-  defaultValue,
-  ...rest
+  validationHelpText,
+  testId,
+  defaultOption: propsDefaultValue,
+  loadOptions,
+  ...restProps
 }: AsyncSelectProps<T>): jsx.JSX.Element;
 
 // @public (undocumented)
-type AsyncSelectProps<T = OptionType> = AsyncSelectProps_2<T> & {
+type AsyncSelectProps<T = OptionType> = Omit<
+  AsyncSelectProps_2<T>,
+  'loadOptions'
+> & {
   name: string;
   label: string;
   validationHelpText?: string;
   testId?: string;
   isRequired?: boolean;
   validators?: Validator[];
+  loadOptions?: (inputValue: string) => Promise<GroupType<T>[] | T[]>;
 };
 
 // @public (undocumented)
@@ -63,6 +71,7 @@ export const CreateForm: <FormData_1 extends Record<string, any> = {}>({
   onCancel,
   isLoading,
   hideFooter,
+  initialValues,
 }: CreateFormProps<FormData_1>) => jsx.JSX.Element;
 
 // @public (undocumented)
@@ -76,6 +85,8 @@ export interface CreateFormProps<FormData> {
   children: ReactNode;
   // (undocumented)
   hideFooter?: boolean;
+  // (undocumented)
+  initialValues?: FormData;
   // (undocumented)
   isLoading?: boolean;
   // (undocumented)
@@ -92,6 +103,16 @@ export type CreatePayload = {
   objectId: string;
   objectType: string;
   data?: Record<string, unknown>;
+};
+
+// @public
+export const FormSpy: <T extends Record<string, unknown>>({
+  children,
+}: FormSpyProps<T>) => JSX.Element;
+
+// @public (undocumented)
+type FormSpyProps<T> = {
+  children: ({ values }: { values: T }) => React_2.ReactNode;
 };
 
 // @public (undocumented)
@@ -142,14 +163,36 @@ export interface LinkCreateWithModalProps
 }
 
 // @public
-export function TextField({
-  label,
+export function Select<T = OptionType>({
+  id,
   name,
-  testId,
-  validationHelpText,
-  validators,
-  defaultValue,
+  label,
   isRequired,
+  validators,
+  validationHelpText,
+  testId,
+  ...restProps
+}: SelectProps<T>): jsx.JSX.Element;
+
+// @public (undocumented)
+type SelectProps<T = OptionType> = SelectProps_2<T> & {
+  name: string;
+  label: string;
+  validationHelpText?: string;
+  testId?: string;
+  isRequired?: boolean;
+  validators?: Validator[];
+};
+
+// @public
+export function TextField({
+  id,
+  name,
+  label,
+  isRequired,
+  validators,
+  validationHelpText,
+  testId,
   ...restProps
 }: TextFieldProps): jsx.JSX.Element;
 

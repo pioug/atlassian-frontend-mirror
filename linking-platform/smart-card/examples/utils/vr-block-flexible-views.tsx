@@ -23,6 +23,10 @@ export const renderCard = (client: CardClient, appearance: CardAppearance) => (
   </SmartCardProvider>
 );
 
+/**
+ * Unresolved view used with deprecated vr tests (puppeteer)
+ * @deprecated
+ */
 const UnresolvedViewTest: React.FC<{ appearance: CardAppearance }> = ({
   appearance,
 }) => {

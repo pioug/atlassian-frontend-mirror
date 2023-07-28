@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 // import { setADFContent } from '../_utils/afe-app-helpers';
 import { loadRenderer } from '../_page-objects/hybrid-renderer-page';
@@ -7,7 +11,18 @@ import fontSizeAdf from '../__fixtures__/font-size.adf.json';
 // import { mobileSnapshot } from '../_utils/snapshot';
 import { validateFontSizeOverride } from '../_utils/afe-app-helpers';
 
-export default async () => {
+type TestName =
+  | 'Renderer Text: Validate font size change at runtime'
+  | 'Renderer Text: Validate font size larger than 34px is set to max font size of 34px.';
+
+const basicRendererTests: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
   // TODO: Test is inconsistent.
   // MobileTestCase(
   //   'Renderer Text: Load ADF with different text nodes displayed',
@@ -20,7 +35,7 @@ export default async () => {
   //   },
   // );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Renderer Text: Validate font size change at runtime',
     {},
     async (client) => {
@@ -36,7 +51,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Renderer Text: Validate font size larger than 34px is set to max font size of 34px.',
     {},
     async (client) => {
@@ -52,3 +67,5 @@ export default async () => {
     },
   );
 };
+
+export default basicRendererTests;

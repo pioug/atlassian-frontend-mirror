@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 74.27.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 74.27.1
+
+### Patch Changes
+
+- [`dbf78a2ac7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dbf78a2ac7f) - Added snapping utils and tests to editor-common
+
+## 74.27.0
+
+### Minor Changes
+
+- [`0ae6f70038a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ae6f70038a) - [ED-17635] Add analytics event for table width resizing
+
+## 74.26.9
+
+### Patch Changes
+
+- [`3b01ce33502`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3b01ce33502) - add getMediaSinglePixelWidth to support legacy and new media resize experience
+
 ## 74.26.8
 
 ### Patch Changes

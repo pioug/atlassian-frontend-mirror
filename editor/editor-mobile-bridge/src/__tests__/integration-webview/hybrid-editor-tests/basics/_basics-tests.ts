@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  getDynamicMobileTestCase,
+  DynamicMobileTestSuite,
+  MobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import {
   focusOnWebView,
@@ -15,19 +19,34 @@ import { ENABLE_QUICK_INSERT } from '../../_utils/configurations';
 import basicAdf from '../../__fixtures__/basic-content.adf.json';
 import { callNativeBridge } from '../../../integration/_utils';
 
-export default async () => {
+type TestName =
+  | 'Editor Text: Load ADF with different text nodes displayed'
+  | 'Editor Text: Validate font size change at runtime'
+  | 'Editor Text: Validate font size larger than 34px is set to max font size of 34px.'
+  | 'Clickable Area: Mobile does not scroll when clicking in clickable area'
+  | 'Validate cursor is at the same position after config loads';
+
+const basicEditorTestSuite: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
   // TODO: ED-13890 - Fix inconsistent test snapshot diff
-  //MobileTestCase(
-  //  'Editor Text: Load ADF with different text nodes displayed',
-  //  {},
-  //  async (client) => {
-  //    const page = await Page.create(client);
-  //    await loadEditor(page);
-  //    await setADFContent(page, basicAdf);
-  //    await mobileSnapshot(page);
-  //  },
-  //);
-  MobileTestCase(
+  DynamicMobileTestCase(
+    'Editor Text: Load ADF with different text nodes displayed',
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await Page.create(client);
+      await loadEditor(page);
+      await setADFContent(page, basicAdf);
+      await mobileSnapshot(page);
+    },
+  );
+
+  DynamicMobileTestCase(
     'Editor Text: Validate font size change at runtime',
     {},
     async (client) => {
@@ -36,7 +55,7 @@ export default async () => {
       await validateFontSizeOverride(page, fontSizeAdf, '.ProseMirror', '24');
     },
   );
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Editor Text: Validate font size larger than 34px is set to max font size of 34px.',
     {},
     async (client) => {
@@ -45,7 +64,7 @@ export default async () => {
       await validateFontSizeOverride(page, fontSizeAdf, '.ProseMirror', '35');
     },
   );
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Clickable Area: Mobile does not scroll when clicking in clickable area',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -60,7 +79,7 @@ export default async () => {
       await mobileSnapshot(page);
     },
   );
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Validate cursor is at the same position after config loads',
     {},
     async (client: any) => {
@@ -95,3 +114,5 @@ export default async () => {
     },
   );
 };
+
+export default basicEditorTestSuite;

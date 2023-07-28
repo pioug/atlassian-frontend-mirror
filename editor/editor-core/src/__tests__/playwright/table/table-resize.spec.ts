@@ -5,6 +5,8 @@ import {
   EditorFloatingToolbarModel,
   editorTestCase as test,
   expect,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import {
   simpleTableWithOneParagraphAfter,
@@ -47,6 +49,13 @@ test.describe('resizing a table', () => {
   test('should resize to correct width and centre when dragging handle larger', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-19263, ED-19273, ED-19284',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19263',
+      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();
@@ -61,6 +70,13 @@ test.describe('resizing a table', () => {
   test('should resize to correct width and centre when dragging handle smaller', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-19264, ED-19274, ED-19285',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19264',
+      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();
@@ -75,6 +91,13 @@ test.describe('resizing a table', () => {
   test('should hide the table controls when resizing and show them when finishing', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-19265, ED-19275, ED-19286',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19265',
+      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();
@@ -115,6 +138,13 @@ test.describe('resizing a table', () => {
   test('should resize to correct width and snap to closest guideline', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-19266, ED-19276, ED-19287',
+      reason:
+        'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19266',
+      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();

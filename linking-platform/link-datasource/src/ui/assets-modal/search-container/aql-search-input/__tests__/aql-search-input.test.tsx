@@ -46,9 +46,16 @@ describe('AqlSearchInput', () => {
   const renderDefaultAqlSearchInput = async () => {
     let renderFunction = render;
     const renderComponent = () =>
-      renderFunction(<AqlSearchInput workspaceId={workspaceId} value={''} />, {
-        wrapper: formWrapper,
-      });
+      renderFunction(
+        <AqlSearchInput
+          isSearching={false}
+          workspaceId={workspaceId}
+          value={''}
+        />,
+        {
+          wrapper: formWrapper,
+        },
+      );
     return {
       ...renderComponent(),
     };

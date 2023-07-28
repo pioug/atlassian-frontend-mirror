@@ -26,6 +26,7 @@ describe('AssetsSearchContainer', () => {
     const { container, getByPlaceholderText } = await render(
       <IntlProvider locale="en">
         <AssetsSearchContainer
+          isSearching={false}
           onSearch={mockOnSearch}
           initialSearchData={{
             aql: undefined,
@@ -45,6 +46,7 @@ describe('AssetsSearchContainer', () => {
     const { container, getByDisplayValue } = await render(
       <IntlProvider locale="en">
         <AssetsSearchContainer
+          isSearching={false}
           onSearch={mockOnSearch}
           initialSearchData={{
             aql: validAqlQuery,
@@ -65,6 +67,7 @@ describe('AssetsSearchContainer', () => {
     const { findByTestId } = await render(
       <IntlProvider locale="en">
         <AssetsSearchContainer
+          isSearching={false}
           onSearch={mockOnSearch}
           initialSearchData={{
             aql: validAqlQuery,
@@ -84,6 +87,7 @@ describe('AssetsSearchContainer', () => {
     const { findByTestId } = await render(
       <IntlProvider locale="en">
         <AssetsSearchContainer
+          isSearching={false}
           onSearch={mockOnSearch}
           initialSearchData={{
             aql: validAqlQuery,

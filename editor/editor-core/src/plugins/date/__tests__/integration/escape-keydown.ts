@@ -30,5 +30,7 @@ const adf = {
 runEscapeKeydownSuite({
   adf,
   openMenu: clickOnDate,
-  skip: ['*'], // Skipped in ED-17195
+  skipTests: {
+    'escape keydown event should not bubble to document when menu open': ['*'],
+  }, // Skipped in ED-17195
 });

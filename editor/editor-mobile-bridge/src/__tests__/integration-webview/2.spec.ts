@@ -13,10 +13,10 @@ import mediaEditorTests from './hybrid-editor-tests/media/_media-tests';
 import emojiEditorTests from './hybrid-editor-tests/emoji/_emoji-tests';
 import tableEditorTests from './hybrid-editor-tests/table/_table-tests';
 
-mediaRendererTests();
-smartLinkRendererTests();
+mediaRendererTests({});
+smartLinkRendererTests({});
 // mediaGroupTests(); Fix in MEX-1042
-basicRendererTests();
-mediaEditorTests();
-emojiEditorTests();
-tableEditorTests();
+basicRendererTests({});
+mediaEditorTests({});
+emojiEditorTests({});
+tableEditorTests({});

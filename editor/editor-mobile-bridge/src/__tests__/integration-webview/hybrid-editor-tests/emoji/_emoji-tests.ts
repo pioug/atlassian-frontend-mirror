@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import {
   loadEditor,
@@ -7,8 +11,19 @@ import {
 import { SPECIAL_KEYS } from '@atlaskit/webdriver-runner/lib/appium/keyboard/common-osk';
 import { ANGRY_EMOJI, SLIGHT_SMILE_EMOJI } from '../../_utils/emoji';
 
-export default async () => {
-  MobileTestCase(
+type TestName =
+  | 'Emoji: Users should be able to see emoji if an emoji name is typed in full'
+  | 'Emoji: Users should see smile emoji if :) typed';
+
+const tableEditorTests: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
+  DynamicMobileTestCase(
     'Emoji: Users should be able to see emoji if an emoji name is typed in full',
     {},
     async (client: any, testName: string) => {
@@ -21,7 +36,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Emoji: Users should see smile emoji if :) typed',
     {},
     async (client: any, testName: string) => {
@@ -35,3 +50,5 @@ export default async () => {
     },
   );
 };
+
+export default tableEditorTests;

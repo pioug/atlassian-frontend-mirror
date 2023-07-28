@@ -117,7 +117,7 @@ describe('<CreateForm />', () => {
       expect(getByText('Something goes wrong')).toBeTruthy();
     });
 
-    it('should hide error message when after user makes changes', async () => {
+    it('should hide error message after user makes changes', async () => {
       const textFieldTestId = 'link-create-text-field';
 
       const validator: Validator = {
@@ -125,7 +125,7 @@ describe('<CreateForm />', () => {
         errorMessage: 'Something goes wrong',
       };
 
-      const { getByTestId, queryByTestId } = setUpCreateForm(
+      const { getByLabelText, getByTestId, queryByTestId } = setUpCreateForm(
         <TextField
           name="title"
           label="Title"
@@ -139,7 +139,7 @@ describe('<CreateForm />', () => {
         queryByTestId(`${textFieldTestId}-error-message`),
       ).toBeInTheDocument();
 
-      await userEvent.type(getByTestId(textFieldTestId), 'test');
+      await userEvent.type(getByLabelText(/title/i), 'test');
 
       expect(
         queryByTestId(`${textFieldTestId}-error-message`),

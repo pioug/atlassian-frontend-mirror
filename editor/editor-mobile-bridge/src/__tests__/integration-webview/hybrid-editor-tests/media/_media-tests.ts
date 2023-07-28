@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import { setADFContent } from '../../_utils/afe-app-helpers';
 import { loadEditor } from '../../_page-objects/hybrid-editor-page';
@@ -21,7 +25,27 @@ import {
 } from '../../_utils/media';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
-export default async () => {
+type TestName =
+  | 'Media: user can remove mediaSingle node'
+  | 'Media: Upload media'
+  | 'Media in Layouts: 2 column'
+  | 'Media in Layouts: 3 columns'
+  | 'Media: Load and delete MediaGroup'
+  | 'Media inside expand'
+  | 'Media: Load ADF with a MediaSingle node'
+  | 'Media: Load ADF with media inside a table'
+  | 'Media: Resize a MediaSingle node'
+  | 'Media: failed processing'
+  | 'Media: error';
+
+const mediaEditorTests: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
   const setup = async (
     client: any,
     content?: ADFEntity,
@@ -40,7 +64,7 @@ export default async () => {
     return page;
   };
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Media: user can remove mediaSingle node',
     // This test is really not behaving correctly on android.
     // Tested on device and works fine.
@@ -66,7 +90,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Media: Upload media',
     // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
     { skipPlatform: ['*'] },
@@ -77,7 +101,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Media in Layouts: 2 column',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -90,7 +114,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Media in Layouts: 3 columns',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -103,7 +127,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Media: Load and delete MediaGroup',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -127,7 +151,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Media inside expand',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -136,7 +160,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Media: Load ADF with a MediaSingle node',
     // TODO: https://product-fabric.atlassian.net/browse/ME-1641
     { skipPlatform: ['*'] },
@@ -146,7 +170,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Media: Load ADF with media inside a table',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -155,7 +179,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Media: Resize a MediaSingle node',
     // TODO: Enable ios resizing test https://product-fabric.atlassian.net/browse/EDM-1845
     // TODO: https://product-fabric.atlassian.net/browse/ME-1641
@@ -174,7 +198,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Media: failed processing',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -187,12 +211,18 @@ export default async () => {
     },
   );
 
-  MobileTestCase('Media: error', { skipPlatform: ['*'] }, async (client) => {
-    const page = await setup(
-      client,
-      mediaSingleEmptyFileAdf,
-      mediaCardSelector('error'),
-    );
-    await mobileSnapshot(page);
-  });
+  DynamicMobileTestCase(
+    'Media: error',
+    { skipPlatform: ['*'] },
+    async (client) => {
+      const page = await setup(
+        client,
+        mediaSingleEmptyFileAdf,
+        mediaCardSelector('error'),
+      );
+      await mobileSnapshot(page);
+    },
+  );
 };
+
+export default mediaEditorTests;

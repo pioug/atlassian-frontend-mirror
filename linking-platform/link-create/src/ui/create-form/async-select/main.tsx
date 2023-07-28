@@ -1,72 +1,128 @@
 /** @jsx jsx */
-import { Fragment, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
+import debounce from 'debounce-promise';
+import { useForm } from 'react-final-form';
 
-import { ErrorMessage, Field, HelperMessage } from '@atlaskit/form';
-import { AsyncSelect as AkAsyncSelect, OptionType } from '@atlaskit/select';
+import {
+  AsyncSelect as AkAsyncSelect,
+  GroupType,
+  OptionType,
+} from '@atlaskit/select';
 
-import { validateSubmitErrors } from '../../../common/utils/form';
-import { useFormContext } from '../../../controllers/form-context';
+import { CreateField } from '../../../controllers/create-field';
 
 import { AsyncSelectProps } from './types';
 
 export const TEST_ID = 'link-create-async-select';
+
 /**
- * An async select utilising the Atlaskit AsyncSelect and Field objects from `@atlaskit/form`.
- * Validation is handled by the form as it is on form submission. Any errors returned by
- * the handleSubmit function passed to the form <Form> that have a key matching the `name`
- * of this text field are shown above the field.
+ * An async select utilising the Atlaskit AsyncSelect and Field components from
+ * `@atlaskit/form`.  Validation is handled by the form on form submission. Any
+ * errors returned by the handleSubmit function passed to the form <Form> that
+ * have a key matching the `name` of this field are shown below the field.
  */
 export function AsyncSelect<T = OptionType>({
-  label,
+  id,
   name,
-  validationHelpText,
+  label,
   isRequired,
-  testId = TEST_ID,
   validators,
-  defaultValue,
-  ...rest
+  validationHelpText,
+  testId = TEST_ID,
+  defaultOption: propsDefaultValue,
+  loadOptions,
+  ...restProps
 }: AsyncSelectProps<T>) {
-  const { assignValidator } = useFormContext();
+  const { mutators } = useForm();
+
+  const [defaultValue, setDefaultValue] =
+    useState<typeof propsDefaultValue>(propsDefaultValue);
+  const [isLoadingDefaultOptions, setIsLoadingDefaultOptions] = useState(false);
+
+  const [defaultOptions, setDefaultOptions] = useState<T[] | GroupType<T>[]>(
+    [],
+  );
 
   useEffect(() => {
-    if (validators) {
-      assignValidator(name, validators);
+    let current = true;
+
+    const fetch = async (query: string = '') => {
+      if (!loadOptions) {
+        return;
+      }
+      try {
+        /**
+         * If we are fetching default options, clear the
+         * value the user has set
+         */
+        mutators.setField(name, null);
+        setIsLoadingDefaultOptions(true);
+        setDefaultOptions([]);
+        const options = await loadOptions(query);
+        if (current) {
+          setDefaultOptions(options);
+          setIsLoadingDefaultOptions(false);
+        }
+      } catch (err) {
+        if (current) {
+          setIsLoadingDefaultOptions(false);
+        }
+      }
+    };
+
+    fetch();
+
+    return () => {
+      current = false;
+    };
+  }, [
+    loadOptions,
+    setIsLoadingDefaultOptions,
+    setDefaultOptions,
+    mutators,
+    name,
+  ]);
+
+  useEffect(() => {
+    /**
+     * Mutate the form state to set a default value for this field
+     * if `defaultOption` is a prop and we have not set a value for it yet
+     */
+    if (!defaultValue && propsDefaultValue) {
+      setDefaultValue(propsDefaultValue);
+      mutators.setField(name, propsDefaultValue);
     }
-  }, [name, validators, assignValidator]);
+  }, [defaultValue, propsDefaultValue, name, mutators]);
+
+  const debouncedLoadOptions = useMemo(
+    () => (loadOptions ? debounce(loadOptions, 300) : undefined),
+    [loadOptions],
+  );
 
   return (
-    <div data-testid={testId}>
-      <Field<any, HTMLSelectElement>
-        name={name}
-        label={label}
-        isRequired={isRequired}
-        defaultValue={defaultValue}
-      >
-        {({ fieldProps, meta, error }) => {
-          const isInvalid = validateSubmitErrors(meta);
-          return (
-            <Fragment>
-              <AkAsyncSelect<T>
-                {...fieldProps}
-                {...rest}
-                isInvalid={isInvalid}
-              />
-              {!error && validationHelpText && (
-                <HelperMessage testId={`${testId}-helper-message`}>
-                  {validationHelpText}
-                </HelperMessage>
-              )}
-              {isInvalid && (
-                <ErrorMessage testId={`${testId}-error-message`}>
-                  {error}
-                </ErrorMessage>
-              )}
-            </Fragment>
-          );
-        }}
-      </Field>
-    </div>
+    <CreateField
+      id={id}
+      name={name}
+      label={label}
+      isRequired={isRequired}
+      validators={validators}
+      validationHelpText={validationHelpText}
+      testId={testId}
+    >
+      {({ fieldId, ...fieldProps }) => {
+        return (
+          <AkAsyncSelect<T>
+            inputId={fieldId}
+            {...fieldProps}
+            {...restProps}
+            loadOptions={debouncedLoadOptions}
+            defaultOptions={defaultOptions}
+            isLoading={isLoadingDefaultOptions}
+          />
+        );
+      }}
+    </CreateField>
   );
 }

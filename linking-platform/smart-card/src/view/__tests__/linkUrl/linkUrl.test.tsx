@@ -283,14 +283,14 @@ describe('LinkUrl', () => {
   });
 
   describe('link clicked', () => {
-    const setup = (props?: ComponentProps<typeof LinkUrl>) => {
+    const setup = (props?: ComponentProps<typeof LinkUrl>, text?: string) => {
       const user = userEvent.setup();
       const onEvent = jest.fn();
 
       const { getByTestId, getByRole } = render(
         <AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
           <LinkUrl href="https://some.url" checkSafety={true} {...props}>
-            https://another.url
+            {text ?? 'https://another.url'}
           </LinkUrl>
         </AnalyticsListener>,
       );
@@ -300,6 +300,7 @@ describe('LinkUrl', () => {
       return {
         user,
         onEvent,
+        getByRole,
         getByTestId,
         component,
       };
@@ -470,6 +471,43 @@ describe('LinkUrl', () => {
       });
     });
 
+    it('should call `onClick` and fire `link clicked` event when link is an anchor', async () => {
+      const onClick = jest.fn();
+      const user = userEvent.setup();
+      const { getByRole, onEvent } = setup(
+        { href: '#anchor', onClick },
+        'https://some.url/#anchor',
+      );
+
+      const component = getByRole('link');
+      await user.click(component);
+
+      expect(onClick).toHaveBeenCalled();
+      expect(onEvent).toBeFiredWithAnalyticEventOnce({
+        payload: {
+          action: 'clicked',
+          actionSubject: 'link',
+          eventType: 'ui',
+          attributes: {
+            clickType: 'left',
+            clickOutcome: 'clickThrough',
+            defaultPrevented: false,
+            keysHeld: [],
+          },
+        },
+        context: [
+          {
+            componentName: 'linkUrl',
+          },
+          {
+            attributes: {
+              display: 'url',
+            },
+          },
+        ],
+      });
+    });
+
     it('should call `onClick` and fire `link clicked` event when check link safety is off', async () => {
       const onClick = jest.fn();
       const { component, onEvent, user } = setup({
@@ -596,6 +634,19 @@ describe('LinkUrl', () => {
           },
         ],
       });
+    });
+
+    it('should not throw when link cannot be converted to url', async () => {
+      const href = 'slack://';
+      const onClick = jest.fn();
+      const user = userEvent.setup();
+
+      const { getByRole } = setup({ href, onClick }, href);
+
+      const component = getByRole('link');
+
+      await expect(user.click(component)).resolves.not.toThrow();
+      expect(onClick).toHaveBeenCalled();
     });
   });
 });

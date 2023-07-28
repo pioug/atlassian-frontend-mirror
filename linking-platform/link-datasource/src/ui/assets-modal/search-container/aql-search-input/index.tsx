@@ -4,7 +4,7 @@ import { useCallback, useRef } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
-import Button from '@atlaskit/button';
+import { LoadingButton } from '@atlaskit/button';
 import { Field } from '@atlaskit/form';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
@@ -37,6 +37,7 @@ export interface AqlSearchInputProps {
   value: string;
   workspaceId: string;
   testId?: string;
+  isSearching: boolean;
 }
 
 const searchButtonStyles = css({
@@ -88,6 +89,7 @@ export const AqlSearchInput = ({
   value,
   workspaceId,
   testId = 'assets-datasource-modal--aql-search-input',
+  isSearching,
 }: AqlSearchInputProps) => {
   const { formatMessage } = useIntl();
   const timeout = useRef<Function>();
@@ -150,7 +152,7 @@ export const AqlSearchInput = ({
               </span>
             }
             elemAfterInput={
-              <Button
+              <LoadingButton
                 appearance="primary"
                 css={searchButtonStyles}
                 iconBefore={
@@ -159,6 +161,7 @@ export const AqlSearchInput = ({
                     size="medium"
                   />
                 }
+                isLoading={isSearching}
                 spacing="none"
                 testId="assets-datasource-modal--aql-search-button"
                 type="submit"

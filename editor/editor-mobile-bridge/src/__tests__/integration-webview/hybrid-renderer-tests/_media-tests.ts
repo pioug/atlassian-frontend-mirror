@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import { setADFContent } from '../_utils/afe-app-helpers';
 import { loadRenderer } from '../_page-objects/hybrid-renderer-page';
@@ -12,8 +16,25 @@ import mediaSingleWithCaptionAdf from '../__fixtures__/media-single-caption.adf.
 import { mobileSnapshot } from '../_utils/snapshot';
 import { waitForMedia } from '../_utils/media';
 
-export default async () => {
-  MobileTestCase(
+type TestName =
+  | 'Renderer Media: Load ADF with a MediaGroup node'
+  | 'Renderer Media: Load ADF with a MediaSingle node'
+  | 'Renderer Media in Layouts: 2 column'
+  | 'Renderer Media in Layouts: 3 columns'
+  | 'Renderer Media inside expand'
+  | 'Renderer Media: MediaSingle video file'
+  | 'Renderer Media: Load ADF with a MediaSingle with caption node'
+  | 'Renderer Media: Should not render caption when caption is turned off';
+
+const mediaRendererTests: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
+  DynamicMobileTestCase(
     'Renderer Media: Load ADF with a MediaGroup node',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -25,7 +46,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Renderer Media: Load ADF with a MediaSingle node',
     // TODO: https://product-fabric.atlassian.net/browse/MEX-1842
     { skipPlatform: ['*'] },
@@ -37,7 +58,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Renderer Media in Layouts: 2 column',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -55,7 +76,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Renderer Media in Layouts: 3 columns',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -71,7 +92,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Renderer Media inside expand',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -85,7 +106,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Renderer Media: MediaSingle video file',
     { skipPlatform: ['*'] },
     async (client) => {
@@ -99,7 +120,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Renderer Media: Load ADF with a MediaSingle with caption node',
     // TODO: https://product-fabric.atlassian.net/browse/ME-1641
     { skipPlatform: ['*'] },
@@ -112,7 +133,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'Renderer Media: Should not render caption when caption is turned off',
     // TODO: https://product-fabric.atlassian.net/browse/ME-1641
     { skipPlatform: ['*'] },
@@ -125,3 +146,5 @@ export default async () => {
     },
   );
 };
+
+export default mediaRendererTests;

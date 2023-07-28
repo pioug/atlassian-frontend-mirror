@@ -13,7 +13,10 @@ import {
   DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
 
-import { calcPxFromPct, wrappedLayouts } from './grid';
+import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
+import { getMediaSinglePixelWidth } from '../../media-single/utils';
+
+import { wrappedLayouts } from './grid';
 import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
 import type { MediaSingleSize, MediaSingleWidthType } from './types';
 
@@ -75,7 +78,7 @@ export default function MediaSingle({
   children: propsChildren,
   nodeType = 'mediaSingle',
   fullWidthMode,
-  lineLength,
+  lineLength: editorWidth,
   hasFallbackContainer = true,
   handleMediaSingleRef,
 }: Props) {
@@ -86,23 +89,22 @@ export default function MediaSingle({
   const children = React.Children.toArray<React.ReactNode>(propsChildren);
   if (
     !mediaSingleWidth &&
-    shouldAddDefaultWrappedWidth(layout, width, lineLength)
+    shouldAddDefaultWrappedWidth(layout, width, editorWidth)
   ) {
-    mediaSingleWidth = isPixelWidth ? lineLength / 2 : 50;
+    // if width is not available, set to half of editor width
+    mediaSingleWidth = isPixelWidth ? editorWidth / 2 : 50;
   }
   // When width is not set we have an absolute height for a given embed.
   // When both width and height are set we use them to determine ratio and use that to define
   // embed height in relation to whatever width of an dom element is in runtime
   const isHeightOnly = width === undefined;
   if (mediaSingleWidth) {
-    const pxWidth = isPixelWidth
-      ? mediaSingleWidth
-      : Math.ceil(
-          calcPxFromPct(
-            mediaSingleWidth / 100,
-            lineLength || containerWidth || 0,
-          ),
-        );
+    const pxWidth = getMediaSinglePixelWidth(
+      mediaSingleWidth,
+      editorWidth,
+      size?.widthType,
+      MEDIA_SINGLE_GUTTER_SIZE,
+    );
     if (isHeightOnly) {
       width = pxWidth - akEditorMediaResizeHandlerPaddingWide;
     } else if (width !== undefined) {

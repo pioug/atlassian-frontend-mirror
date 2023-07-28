@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
@@ -27,8 +27,12 @@ import {
 
 import { modalMessages } from './messages';
 import { RenderAssetsContent } from './render-assets-content';
-import { ModalContentContainer } from './styled';
 
+const modalBodyWrapperStyles = css({
+  display: 'grid',
+  height: '420px',
+  overflow: 'auto',
+});
 const AssetsModalTitle = (
   <ModalTitle>
     <FormattedMessage {...modalMessages.insertObjectsTitle} />
@@ -57,16 +61,34 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     () => ({
       aql: aql || '',
       schemaId: schemaId || '',
-      workspaceId: '',
+      workspaceId: workspaceId || '',
       cloudId: '',
     }),
-    [aql, schemaId],
+    [aql, schemaId, workspaceId],
   );
-  const { status, responseItems, defaultVisibleColumnKeys } =
-    useDatasourceTableState({
-      datasourceId,
-      parameters,
-    });
+
+  const isParametersSet = !!(aql && workspaceId && schemaId);
+  const {
+    status,
+    onNextPage,
+    responseItems,
+    reset,
+    loadDatasourceDetails,
+    hasNextPage,
+    columns,
+    defaultVisibleColumnKeys,
+  } = useDatasourceTableState({
+    datasourceId,
+    parameters: isParametersSet ? parameters : undefined,
+    fieldKeys: visibleColumnKeys,
+  });
+
+  const onVisibleColumnKeysChange = useCallback(
+    (visibleColumnKeys: string[]) => {
+      setVisibleColumnKeys(visibleColumnKeys);
+    },
+    [],
+  );
 
   useEffect(() => {
     const newVisibleColumnKeys =
@@ -78,6 +100,7 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
   }, [initialVisibleColumnKeys, defaultVisibleColumnKeys]);
 
   const isDisabled =
+    !!workspaceError ||
     status === 'rejected' ||
     status === 'loading' ||
     status === 'empty' ||
@@ -138,10 +161,14 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     visibleColumnKeys,
   ]);
 
-  const handleOnSearch = useCallback((aql: string, schemaId: string) => {
-    setAql(aql);
-    setSchemaId(schemaId);
-  }, []);
+  const handleOnSearch = useCallback(
+    (aql: string, schemaId: string) => {
+      reset();
+      setAql(aql);
+      setSchemaId(schemaId);
+    },
+    [reset],
+  );
 
   const renderModalTitleContent = useCallback(() => {
     if (workspaceError) {
@@ -156,6 +183,7 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
           initialSearchData={{ aql, objectSchema }}
           onSearch={handleOnSearch}
           modalTitle={AssetsModalTitle}
+          isSearching={status === 'loading'}
         />
       );
     }
@@ -164,6 +192,7 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     assetsClientLoading,
     handleOnSearch,
     objectSchema,
+    status,
     workspaceError,
     workspaceId,
   ]);
@@ -175,22 +204,37 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
         onClose={onCancel}
         width="x-large"
         shouldScrollInViewport={true}
+        shouldCloseOnOverlayClick={false}
       >
         <ModalHeader>{renderModalTitleContent()}</ModalHeader>
         <ModalBody>
-          <ModalContentContainer>
+          <div css={modalBodyWrapperStyles}>
             {workspaceError ? (
               <ModalLoadingError />
             ) : (
               <RenderAssetsContent
                 status={status}
                 responseItems={responseItems}
+                visibleColumnKeys={visibleColumnKeys}
+                onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+                datasourceId={datasourceId}
+                aql={aql}
+                schemaId={schemaId}
+                onNextPage={onNextPage}
+                hasNextPage={hasNextPage}
+                loadDatasourceDetails={loadDatasourceDetails}
+                columns={columns}
+                defaultVisibleColumnKeys={defaultVisibleColumnKeys}
               />
             )}
-          </ModalContentContainer>
+          </div>
         </ModalBody>
         <ModalFooter>
-          <Button appearance="default" onClick={onCancel}>
+          <Button
+            appearance="default"
+            onClick={onCancel}
+            testId={'asset-datasource-modal--cancel-button'}
+          >
             <FormattedMessage {...modalMessages.cancelButtonText} />
           </Button>
           <Button

@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  getDynamicMobileTestCase,
+  DynamicMobileTestSuite,
+  MobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import {
   loadEditor,
@@ -12,8 +16,17 @@ import { callNativeBridge } from '../../../integration/_utils';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import { Node } from 'prosemirror-model';
 
-export default async () => {
-  MobileTestCase(
+type TestName = 'Placeholder - editing';
+
+const placeholderTestSuite: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
+  DynamicMobileTestCase(
     'Placeholder - editing',
     {},
     async (client: any, testName: string) => {
@@ -39,3 +52,5 @@ export default async () => {
     },
   );
 };
+
+export default placeholderTestSuite;

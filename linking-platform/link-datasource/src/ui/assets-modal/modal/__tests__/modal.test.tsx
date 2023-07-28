@@ -199,13 +199,13 @@ describe('AssetsConfigModal', () => {
   });
 
   describe('when there is no parameters yet', () => {
-    it('should display EmptyState', async () => {
+    it('should display initial state', async () => {
       const { queryByTestId } = await setup({
         datasourceTableHookState: getEmptyDatasourceTableHookState(),
         parameters: undefined,
       });
       expect(
-        queryByTestId('assets-aql-datasource-modal--empty-state'),
+        queryByTestId('assets-aql-datasource-modal--initial-state-view'),
       ).toBeTruthy();
     });
 

@@ -1,4 +1,5 @@
-import { BrowserTestCase, Browser } from '@atlaskit/webdriver-runner/runner';
+import type { Browser } from '@atlaskit/webdriver-runner/runner';
+import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
 
 import { Node as PMNode } from 'prosemirror-model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
@@ -15,7 +16,7 @@ import {
   goToEditorTestingWDExample,
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { clickFirstParagraph } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
   textAndStatusAtFirstParagraph,
@@ -176,7 +177,7 @@ describe('typeahead: editor focus', () => {
       await quickInsert(page, '', false);
     },
     adf: undefined,
-    skip: [],
+    skipTests: {},
     expectPropagationOnEsc: [false, true],
   });
 

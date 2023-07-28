@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import {
   lightModeStatusColorPalette,
@@ -318,8 +322,25 @@ const getDate = (page: Page, today?: boolean) => {
 
 const defaultColor: PaletteColor = lightModeStatusColorPalette[0];
 
-export default async () => {
-  MobileTestCase(
+type TestName =
+  | 'adaptive toolbar: passes through toolbar on status select'
+  | 'adaptive toolbar: passes through toolbar on date select'
+  | 'adaptive toolbar: passes through toolbar on panel select'
+  | 'adaptive toolbar: passes through toolbar on table select'
+  | 'adaptive toolbar: passes through toolbar on nested status in toolbar'
+  | 'adaptive toolbar: passes through toolbar on panel to status'
+  | 'adaptive toolbar: passes through toolbar on date to status'
+  | 'adaptive toolbar: hides toolbar when click off node';
+
+const toolbarEditorTestSuite: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
+  DynamicMobileTestCase(
     `adaptive toolbar: passes through toolbar on status select`,
     {},
     async (client: any, testName: string) => {
@@ -377,7 +398,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     `adaptive toolbar: passes through toolbar on date select`,
     {},
     async (client: any, testName: string) => {
@@ -405,7 +426,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     `adaptive toolbar: passes through toolbar on panel select`,
     {},
     async (client: any, testName: string) => {
@@ -435,7 +456,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     `adaptive toolbar: passes through toolbar on table select`,
     {},
     async (client: any, testName: string) => {
@@ -471,7 +492,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     'adaptive toolbar: passes through toolbar on nested status in toolbar',
     {},
     async (client: any) => {
@@ -495,7 +516,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     `adaptive toolbar: passes through toolbar on panel to status`,
     // Skipping because of https://product-fabric.atlassian.net/browse/ME-1581
     { skipPlatform: ['*'] },
@@ -529,7 +550,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     `adaptive toolbar: passes through toolbar on date to status`,
     // Skipping because of https://product-fabric.atlassian.net/browse/ME-1581
     { skipPlatform: ['*'] },
@@ -561,7 +582,7 @@ export default async () => {
     },
   );
 
-  MobileTestCase(
+  DynamicMobileTestCase(
     `adaptive toolbar: hides toolbar when click off node`,
     { skipPlatform: ['ios'] },
     async (client: any, testName: string) => {
@@ -582,3 +603,5 @@ export default async () => {
     },
   );
 };
+
+export default toolbarEditorTestSuite;

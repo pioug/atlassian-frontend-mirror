@@ -91,7 +91,7 @@ runEscapeKeydownSuite({
     await emojiSearch(page, 'smile');
   },
   adf: undefined,
-  skip: [],
+  skipTests: {},
   expectPropagationOnEsc: [false, true],
 });
 

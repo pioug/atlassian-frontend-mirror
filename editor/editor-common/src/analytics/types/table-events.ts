@@ -26,6 +26,7 @@ export enum TABLE_ACTION {
   ATTEMPTED_TABLE_WIDTH_CHANGE = 'attemptedTableWidthChange',
   DISTRIBUTED_COLUMNS_WIDTHS = 'distributedColumnsWidths',
   FIXED = 'fixed',
+  RESIZED = 'resized',
 }
 
 export enum TABLE_BREAKOUT {
@@ -63,6 +64,13 @@ type AttemptedResizeInfo = {
   duration: number;
   delta: number;
 };
+
+type ResizedInfo = {
+  prevWidth: number | null;
+  newWidth: number;
+  totalTableWidth: number | null;
+  nodeSize: number;
+} & TotalRowAndColCount;
 
 //#region Analytic Event Payloads
 type TableDeleteAEP = TableAEP<
@@ -207,6 +215,8 @@ type TableFixedAEP = TableAEP<
   undefined
 >;
 
+type TableResizedAEP = TableAEP<TABLE_ACTION.RESIZED, ResizedInfo, undefined>;
+
 //#endregion
 
 export type TableEventPayload =
@@ -224,4 +234,5 @@ export type TableEventPayload =
   | TableAttemptedResizeAEP
   | TableDistributeColumnsWidthsAEP
   | TableCollapsedAEP
-  | TableFixedAEP;
+  | TableFixedAEP
+  | TableResizedAEP;

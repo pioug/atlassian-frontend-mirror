@@ -1,5 +1,11 @@
 # @atlaskit/menu
 
+## 1.9.6
+
+### Patch Changes
+
+- [`71c51a488d7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/71c51a488d7) - Removes max-height constraint on compact density.
+
 ## 1.9.5
 
 ### Patch Changes

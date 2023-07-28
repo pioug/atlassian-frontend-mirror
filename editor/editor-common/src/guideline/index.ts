@@ -5,6 +5,7 @@ export {
   createGuidesFromLengths,
 } from './fixedGuideline';
 export { getGuidelinesWithHighlights } from './updateGuideline';
+export { MEDIA_DYNAMIC_GUIDELINE_PREFIX } from './constants';
 export type {
   WidthTypes,
   Position,

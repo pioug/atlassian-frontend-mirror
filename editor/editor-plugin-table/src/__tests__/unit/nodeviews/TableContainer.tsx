@@ -1,8 +1,13 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import { TableAttributes } from '@atlaskit/adf-schema';
+import {
+  ACTION_SUBJECT,
+  EVENT_TYPE,
+  TABLE_ACTION,
+} from '@atlaskit/editor-common/analytics';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -43,12 +48,12 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
     });
   };
   const createNode = (attrs?: TableAttributes) => {
-    const { editorView: view } = editor(
-      doc(p('text'), table(attrs)(tr(td()(p('{<>}text')), tdEmpty, tdEmpty))),
+    const { editorView } = editor(
+      doc(table(attrs)(tr(td()(p('{<>}text')), tdEmpty, tdEmpty))),
     );
-    const resolvedTable = findTable(view.state.selection);
+    const resolvedTable = findTable(editorView.state.selection);
 
-    return resolvedTable!.node;
+    return { editorView, node: resolvedTable!.node };
   };
 
   describe('show correct container for FF and options', () => {
@@ -56,7 +61,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       isTableResizingEnabled: boolean,
       isBreakoutEnabled: boolean = true,
     ) => {
-      const node = createNode();
+      const { node, editorView } = createNode();
 
       const { container } = render(
         <TableContainer
@@ -68,7 +73,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
           isTableResizingEnabled={isTableResizingEnabled}
           isBreakoutEnabled={isBreakoutEnabled}
           className={''}
-          editorView={{} as any}
+          editorView={editorView}
           getPos={() => 1}
           tableRef={{} as any}
           isNested={false}
@@ -94,7 +99,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       isTableResizingEnabled: boolean,
       isBreakoutEnabled: boolean = true,
     ) => {
-      const node = createNode();
+      const { node, editorView } = createNode();
 
       const { container } = render(
         <TableContainer
@@ -106,7 +111,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
           isTableResizingEnabled={isTableResizingEnabled}
           isBreakoutEnabled={isBreakoutEnabled}
           className={''}
-          editorView={{} as any}
+          editorView={editorView}
           getPos={() => 1}
           tableRef={{} as any}
           isNested={true}
@@ -129,7 +134,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
 
   describe('sets width and margin correctly for resizable container', () => {
     const buildContainer = (attrs: TableAttributes) => {
-      const node = createNode(attrs);
+      const { node, editorView } = createNode(attrs);
 
       const { container } = render(
         <ResizableTableContainer
@@ -137,7 +142,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
           lineLength={720}
           node={node}
           className={''}
-          editorView={{} as any}
+          editorView={editorView}
           getPos={() => 1}
           tableRef={{} as any}
         />,
@@ -152,6 +157,64 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       const style = window.getComputedStyle(container.firstChild as Element);
       expect(style.width).toBe(`${akEditorWideLayoutWidth}px`);
       expect(style.marginLeft).toBe('-120px');
+    });
+  });
+
+  describe('analytics', () => {
+    const buildContainer = (attrs: TableAttributes) => {
+      const { node, editorView } = createNode(attrs);
+      const analyticsMock = jest.fn();
+
+      const { container } = render(
+        <ResizableTableContainer
+          containerWidth={1800}
+          lineLength={720}
+          node={node}
+          className={''}
+          editorView={editorView}
+          getPos={() => 0}
+          tableRef={
+            {
+              querySelector: () => null,
+              insertBefore: () => {},
+              style: {},
+            } as any
+          }
+          pluginInjectionApi={
+            {
+              dependencies: {
+                analytics: { actions: { attachAnalyticsEvent: analyticsMock } },
+              },
+            } as any
+          }
+        />,
+      );
+
+      return { container, analyticsMock };
+    };
+
+    test('fires when resizing is finished', async () => {
+      const { container, analyticsMock } = buildContainer({ layout: 'wide' });
+
+      fireEvent.mouseDown(container.querySelector('.resizer-handle-right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle-right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle-right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle-right')!);
+      fireEvent.mouseUp(container.querySelector('.resizer-handle-right')!);
+
+      expect(analyticsMock).toHaveBeenLastCalledWith({
+        action: TABLE_ACTION.RESIZED,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          width: undefined, // Can't get the events right to trigger re-resizeable
+          prevWidth: null,
+          nodeSize: 20,
+          totalTableWidth: null,
+          totalRowCount: 1,
+          totalColumnCount: 3,
+        },
+      });
     });
   });
 });

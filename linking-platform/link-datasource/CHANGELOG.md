@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.30.0
+
+### Minor Changes
+
+- [`d8d641d500b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8d641d500b) - [ux] Add issueLikeDataTableView in assets modal
+
 ## 0.29.5
 
 ### Patch Changes

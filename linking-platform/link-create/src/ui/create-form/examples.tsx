@@ -30,7 +30,6 @@ const createAsyncSelectExample = (
           <AsyncSelect
             name={'asyncselect'}
             label={'This is an async select component'}
-            loadOptions={() => {}}
           />
         </CreateForm>
       </div>
@@ -49,7 +48,6 @@ const createMultiChildrenExample = (
           <AsyncSelect
             name={'asyncselect'}
             label={'This is an async select component'}
-            loadOptions={() => {}}
           />
         </CreateForm>
       </div>

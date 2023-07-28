@@ -1,4 +1,8 @@
-import { MobileTestCase } from '@atlaskit/webdriver-runner/runner';
+import {
+  MobileTestCase,
+  DynamicMobileTestSuite,
+  getDynamicMobileTestCase,
+} from '@atlaskit/webdriver-runner/runner';
 import Page from '@atlaskit/webdriver-runner/wd-app-wrapper';
 import {
   loadEditor,
@@ -6,8 +10,17 @@ import {
 } from '../../_page-objects/hybrid-editor-page';
 import { callNativeBridge } from '../../../integration/_utils';
 
-export default async () => {
-  MobileTestCase(
+type TestName = 'Type Ahead: Users can insert a mention via the bridge';
+
+const typeAheadEditorTestSuite: DynamicMobileTestSuite<TestName> = async ({
+  skipTests,
+}) => {
+  const DynamicMobileTestCase = getDynamicMobileTestCase({
+    TestCase: MobileTestCase,
+    skipTests,
+  });
+
+  DynamicMobileTestCase(
     'Type Ahead: Users can insert a mention via the bridge',
     {},
     async (client: any, testName: string) => {
@@ -40,3 +53,5 @@ export default async () => {
     },
   );
 };
+
+export default typeAheadEditorTestSuite;

@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-const PREFIX = 'ds--dropdown--';
+export const PREFIX = 'ds--dropdown--';
 const generateRandomString = () =>
   // This string is used only on client side usually triggered after a user interaction.
   // Therefore, so there is no risk of mismatch

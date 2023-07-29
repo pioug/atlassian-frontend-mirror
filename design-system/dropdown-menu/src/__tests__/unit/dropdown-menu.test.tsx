@@ -94,6 +94,63 @@ describe('dropdown menu', () => {
     });
   });
 
+  describe('nested dropdown', () => {
+    const NestedDropdownItem = ({ level = 1 }) => {
+      return (
+        <DropdownItem
+          component={({ children }) => {
+            return (
+              <DropdownMenu
+                placement="right-start"
+                trigger="nested"
+                testId={`nested-${level}`}
+              >
+                {children}
+              </DropdownMenu>
+            );
+          }}
+        >
+          <DropdownItemGroup>
+            <NestedDropdownItem level={level + 1} />
+            <DropdownItem>One of many items</DropdownItem>
+          </DropdownItemGroup>
+        </DropdownItem>
+      );
+    };
+    it('should render nested dropdown on the page', async () => {
+      const { getByTestId, queryByTestId } = render(
+        <DropdownMenu trigger="nested" testId="nested-0">
+          <DropdownItemGroup>
+            <NestedDropdownItem />
+            <DropdownItem>One of many items</DropdownItem>
+            <DropdownItem>One of many items</DropdownItem>
+          </DropdownItemGroup>
+        </DropdownMenu>,
+      );
+      let level = 0;
+      while (level < 5) {
+        // test nested dropdown can be opened correctly
+        const nestedTrigger = getByTestId(`nested-${level}--trigger`);
+        expect(nestedTrigger).toBeInTheDocument();
+        act(() => {
+          nestedTrigger.focus();
+          fireEvent.click(nestedTrigger);
+        });
+        level += 1;
+      }
+      act(() => {
+        // close the dropdown by pressing Escape
+        fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' });
+      });
+      while (level > 0) {
+        // test if all nested dropdown are closed
+        const nestedTrigger = queryByTestId(`nested-${level}--trigger`);
+        expect(nestedTrigger).not.toBeInTheDocument();
+        level -= 1;
+      }
+    });
+  });
+
   describe('customised trigger', () => {
     it('render custom button on the page', () => {
       const triggerText = 'click me to open';

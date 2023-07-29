@@ -1,4 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 
 import { bind } from 'bind-event-listener';
 
@@ -16,13 +23,12 @@ import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
 import FocusManager from './internal/components/focus-manager';
 import MenuWrapper from './internal/components/menu-wrapper';
 import SelectionStore from './internal/context/selection-store';
-import useGeneratedId from './internal/utils/use-generated-id';
+import useGeneratedId, { PREFIX } from './internal/utils/use-generated-id';
 import type { DropdownMenuProps, Placement } from './types';
 
 const gridSize = gridSizeFn();
 
 const MAX_HEIGHT = `calc(100vh - ${gridSize * 2}px)`;
-
 type mainAxes = 'top' | 'bottom' | 'left' | 'right' | 'auto';
 type crossAxes = 'start' | 'end';
 const opposites = {
@@ -72,6 +78,7 @@ const getFallbackPlacements = (
     ] as Placement[];
   }
 };
+const NestedContext = createContext(false);
 
 /**
  * __Dropdown menu__
@@ -104,6 +111,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
     isOpen,
     () => defaultOpen,
   );
+  const isNested = useContext(NestedContext);
 
   const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
   const fallbackPlacements = useMemo(
@@ -119,7 +127,6 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
     // https://product-fabric.atlassian.net/browse/DSP-4692
     (event) => {
       const newValue = !isLocalOpen;
-
       const { clientX, clientY, type } = event;
       if (type === 'keydown') {
         setTriggeredUsingKeyboard(true);
@@ -137,8 +144,17 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
 
   const handleOnClose = useCallback(
     (event) => {
+      if (
+        event.key !== 'Escape' &&
+        event.target.closest(`[id^=${PREFIX}] [aria-haspopup]`)
+      ) {
+        // Check if it is within dropdown and it is a trigger button
+        // if it is a nested dropdown, clicking trigger won't close the dropdown
+        return;
+      }
       const newValue = false;
       setLocalIsOpen(newValue);
+
       onOpenChange({ isOpen: newValue, event });
     },
     [onOpenChange, setLocalIsOpen],
@@ -180,7 +196,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
         id={isLocalOpen ? id : undefined}
         shouldFlip={shouldFlip}
         isOpen={isLocalOpen}
-        onClose={handleOnClose}
+        onClose={isNested ? undefined : handleOnClose} // only outmost parent needs onCloseHandler
         zIndex={zIndex}
         placement={placement}
         fallbackPlacements={fallbackPlacements}
@@ -239,7 +255,14 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
                   : undefined
               }
             >
-              {children}
+              {/* only render one provider for all nested dropdown */}
+              {isNested ? (
+                children
+              ) : (
+                <NestedContext.Provider value={true}>
+                  {children}
+                </NestedContext.Provider>
+              )}
             </MenuWrapper>
           </FocusManager>
         )}

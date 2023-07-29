@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.11.1
+
+### Patch Changes
+
+- [`fd493dc2358`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd493dc2358) - [ux] support nested dropdown menu
+
 ## 11.11.0
 
 ### Minor Changes

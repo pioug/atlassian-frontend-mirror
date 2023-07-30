@@ -384,7 +384,7 @@ describe('Resizer', () => {
       );
     }
   });
-  it('should not restrict resizing when snap gap is defined, but there are not snap points', () => {
+  it('should not restrict resizing when snap gap is defined, but there are not snap points on x', () => {
     const mockHandleResizeMockWithSnapping = jest.fn();
     const { container } = render(
       <ResizerNext
@@ -393,6 +393,47 @@ describe('Resizer', () => {
         handleResize={mockHandleResizeMockWithSnapping}
         handleResizeStop={mockHandleResizeStop}
         width={initialWidth}
+        snap={{ x: [] }}
+        snapGap={5}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    const handleRight = container.querySelector(
+      `.${resizerHandleRightClassName}`,
+    );
+    const resizable = container.querySelector(`.${resizerItemClassName}`);
+
+    if (handleRight && resizable) {
+      fireEvent.mouseDown(handleRight, { clientX: 0 });
+      expect(mockHandleResizeStart).toHaveBeenCalledTimes(1);
+
+      fireEvent.mouseMove(handleRight, { clientX: 94 });
+      fireEvent.mouseMove(handleRight, { clientX: 96 });
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenCalledTimes(2);
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenNthCalledWith(
+        1,
+        expect.any(Object),
+        { width: 94, height: 10 },
+      );
+      expect(mockHandleResizeMockWithSnapping).toHaveBeenNthCalledWith(
+        2,
+        expect.any(Object),
+        { width: 96, height: 10 },
+      );
+    }
+  });
+  it('should not restrict resizing when snap gap is defined, but there are not snap points on y', () => {
+    const mockHandleResizeMockWithSnapping = jest.fn();
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResizeMockWithSnapping}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        snap={{ y: [] }}
         snapGap={5}
       >
         <div>resizable div</div>

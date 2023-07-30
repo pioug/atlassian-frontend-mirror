@@ -206,7 +206,7 @@ export default function ResizerNext(
 
   // snapGap is usually a constant, if snap.x?.length is 0 and snapGap has a value resizer cannot be resized
   const snapGap = useMemo(() => {
-    if (!snap || (snap.x?.length === 0 && snap.x?.length === 0)) {
+    if (!snap || (snap.x?.length === 0 && snap.y?.length === 0)) {
       return undefined;
     }
     return props.snapGap;

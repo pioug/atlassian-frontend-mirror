@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.27.3
+
+### Patch Changes
+
+- [`f16e946ce4d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f16e946ce4d) - Update type exports and fix a bug with snapGap
+
 ## 74.27.2
 
 ### Patch Changes

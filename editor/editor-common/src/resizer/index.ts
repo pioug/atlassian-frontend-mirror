@@ -6,4 +6,5 @@ export type {
   Position,
   Snap,
   HandleResizeStart,
+  Dimensions,
 } from './types';

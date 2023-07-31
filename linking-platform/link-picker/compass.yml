@@ -21,7 +21,7 @@ links:
     url: 'https://product-fabric.atlassian.net/jira/software/c/projects/EDM/boards/893'
   - name: ''
     type: ON_CALL
-    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/98927e5e-f400-41a3-bdd1-b580c9b1d78b'
+    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b9c8b313-dd6d-4a41-8eeb-d7a9df55be9d'
   - name: ''
     type: DASHBOARD
     url: 'https://atlassian.signalfx.com/#/dashboard/EXwrMgYAwAA?groupId=EXwtbIrA4AA&configId=EXwrNLcA4AA'

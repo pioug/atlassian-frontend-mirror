@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button';
+import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import { Box, Flex, Stack } from '@atlaskit/primitives';
 
@@ -14,14 +15,18 @@ export default function Example() {
       <Box>
         <Button
           onClick={() =>
-            setDirection(old => (old === 'row' ? 'column' : 'row'))
+            setDirection(oldDirection =>
+              oldDirection === 'row' ? 'column' : 'row',
+            )
           }
         >
           Change direction to "{direction === 'row' ? 'column' : 'row'}"
         </Button>
       </Box>
       <Stack space="space.100">
-        <Heading level="h400">Flex direction</Heading>
+        <Heading level="h400">
+          Flex direction <Code>{direction}</Code>
+        </Heading>
         <Flex gap="space.100" direction={direction}>
           <Block />
           <Block />

@@ -14,10 +14,8 @@ import {
   ManualPromise,
   renderWithIntl as render,
 } from '@atlaskit/link-test-helpers';
-import {
-  mockedPluginData,
-  MockLinkPickerPlugin,
-} from '@atlaskit/link-test-helpers/link-picker';
+import { MockLinkPickerPlugin } from '../../../__tests__/__helpers/mock-plugins';
+import mockedPluginData from '../../../__tests__/__helpers/mock-plugin-data';
 import { ConcurrentExperience } from '@atlaskit/ufo';
 
 import { ANALYTICS_CHANNEL } from '../../../common/constants';

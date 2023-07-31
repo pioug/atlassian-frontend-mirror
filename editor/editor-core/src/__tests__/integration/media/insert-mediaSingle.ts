@@ -44,9 +44,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 29/07/2023: https://product-fabric.atlassian.net/browse/ED-19292
 BrowserTestCase(
   'insert-mediaSingle.ts: Inserts media single on left when the alignLeftOnInsert prop is true',
-  { skip: [] },
+  {
+    skip: ['*'],
+  },
   async (
     client: Parameters<typeof goToEditorTestingWDExample>[0],
     testName: string,

@@ -43,7 +43,7 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 
 import { Editor } from './../src';
-import {
+import type {
   EditorProps,
   // EditorPlugin,
 } from './../src/editor';
@@ -55,8 +55,8 @@ import { copy } from '../example-helpers/copy';
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import { DevTools } from '../example-helpers/DevTools';
 import { TitleInput } from '../example-helpers/PageElements';
-import { EditorActions } from './../src';
-import { PanelPluginConfig } from '../src/plugins/panel/types';
+import type { EditorActions } from './../src';
+import type { PanelPluginConfig } from '../src/plugins/panel/types';
 import {
   NORMAL_SEVERITY_THRESHOLD as BROWSER_FREEZE_NORMAL_SEVERITY_THRESHOLD,
   DEGRADED_SEVERITY_THRESHOLD as BROWSER_FREEZE_DEGRADED_SEVERITY_THRESHOLD,
@@ -70,7 +70,7 @@ import {
   DEFAULT_MODE,
   LOCALSTORAGE_defaultMode,
 } from '../example-helpers/example-constants';
-import {
+import type {
   ExampleProps,
   EditorState,
   ExampleRendererProps,
@@ -82,7 +82,7 @@ import {
   isMediaMockOptedIn,
   mediaMock,
 } from '@atlaskit/media-test-helpers/media-mock';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
 
 // const tableOptions = {
 //   advanced: true,
@@ -611,7 +611,7 @@ export class ExampleEditorComponent extends React.Component<
     }
   };
 
-  private handleTitleOnFocus = () => this.setState({ disabled: true });
+  private handleTitleOnFocus = () => this.setState({ disabled: false });
   private handleTitleOnBlur = () => this.setState({ disabled: false });
   private handleTitleRef = (ref?: HTMLElement) => {
     if (ref) {

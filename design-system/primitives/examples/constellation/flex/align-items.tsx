@@ -12,7 +12,7 @@ const flexContainerStyles = xcss({
 
 export default function Example() {
   return (
-    <Flex justifyContent="space-between">
+    <Flex justifyContent="space-between" wrap="wrap">
       <Stack alignInline="center">
         "start" (default)
         <VisualContainer>

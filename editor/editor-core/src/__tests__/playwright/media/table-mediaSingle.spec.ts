@@ -4,6 +4,8 @@ import {
   EditorUploadMediaModel,
   EditorTableModel,
   expect,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import {
   doc,
@@ -32,6 +34,13 @@ test.describe('Media tables', () => {
     });
 
     test('can insert into table', async ({ editor }) => {
+      fixTest({
+        jiraIssueId: 'ED-19291',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 29/07/2023: https://product-fabric.atlassian.net/browse/ED-19291',
+        browsers: [BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
@@ -72,6 +81,13 @@ test.describe('Media tables', () => {
     });
 
     test('can insert into table', async ({ editor }) => {
+      fixTest({
+        jiraIssueId: 'ED-19291',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 29/07/2023: https://product-fabric.atlassian.net/browse/ED-19291',
+        browsers: [BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 

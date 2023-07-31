@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.0.7
+
+### Patch Changes
+
+- [`6070ef412be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6070ef412be) - Box now accepts any HTML element for its `as` prop. Fixed issue where types may be incorrect depending on element used for the `as` prop.
+
 ## 1.0.6
 
 ### Patch Changes

@@ -6,8 +6,8 @@ import { HandleComponent, Resizable, ResizeDirection } from 're-resizable';
 import { token } from '@atlaskit/tokens';
 
 import {
+  resizerHandleClassName,
   resizerHandleLeftClassName,
-  resizerHandlerClassName,
   resizerHandleRightClassName,
   resizerHandleStickyClassName,
   resizerHandleZIndex,
@@ -51,6 +51,7 @@ export type ResizerProps = {
   handleStyles?: HandleStyles;
   handlePositioning?: HandlePositioning;
   handleHeightSize?: HandleHeightSizeType;
+  // top offset for resize handle
   handleMarginTop?: number;
 
   // The snap property is used to specify absolute pixel values that resizing should snap to.
@@ -63,6 +64,8 @@ export type ResizerProps = {
   handleAlignmentMethod?: HandleAlignmentMethod;
   // Ratio that will scale the delta by
   resizeRatio?: number;
+  // control visibility of resize handle, by default handle is only visible on hover of element resizing
+  isHandleVisible?: boolean;
 };
 
 export default function ResizerNext(
@@ -86,6 +89,9 @@ export default function ResizerNext(
     resizeRatio = 1,
     innerPadding,
     snap,
+    snapGap,
+    handleMarginTop,
+    isHandleVisible = false,
     ...otherProps
   } = props;
 
@@ -153,12 +159,12 @@ export default function ResizerNext(
   );
 
   const handles = {
-    left: classnames(resizerHandlerClassName[handleHeightSize], {
+    left: classnames(resizerHandleClassName[handleHeightSize], {
       [`${handleClassName}-left`]: !!handleClassName,
       [resizerHandleLeftClassName]: !handleClassName,
       [resizerHandleStickyClassName]: handleAlignmentMethod === 'sticky',
     }),
-    right: classnames(resizerHandlerClassName[handleHeightSize], {
+    right: classnames(resizerHandleClassName[handleHeightSize], {
       [`${handleClassName}-right`]: !!handleClassName,
       [resizerHandleRightClassName]: !handleClassName,
       [resizerHandleStickyClassName]: handleAlignmentMethod === 'sticky',
@@ -171,8 +177,8 @@ export default function ResizerNext(
         ? token('space.250', '20px')
         : token('space.300', '24px'),
     // eslint-disable-next-line
-    marginTop: Number.isFinite(props?.handleMarginTop)
-      ? `${props.handleMarginTop}px`
+    marginTop: Number.isFinite(handleMarginTop)
+      ? `${handleMarginTop}px`
       : undefined,
     zIndex: resizerHandleZIndex,
     pointerEvents: 'auto',
@@ -202,15 +208,16 @@ export default function ResizerNext(
 
   const resizerClassName = classnames(className, resizerItemClassName, {
     'is-resizing': isResizing,
+    'display-handle': isHandleVisible,
   });
 
   // snapGap is usually a constant, if snap.x?.length is 0 and snapGap has a value resizer cannot be resized
-  const snapGap = useMemo(() => {
+  const snapGapActual = useMemo(() => {
     if (!snap || (snap.x?.length === 0 && snap.y?.length === 0)) {
       return undefined;
     }
-    return props.snapGap;
-  }, [snap, props.snapGap]);
+    return snapGap;
+  }, [snap, snapGap]);
 
   return (
     <Resizable
@@ -226,7 +233,7 @@ export default function ResizerNext(
       onResize={onResize}
       onResizeStop={onResizeStop}
       resizeRatio={resizeRatio}
-      snapGap={snapGap}
+      snapGap={snapGapActual}
       snap={snap}
       {...otherProps}
     >

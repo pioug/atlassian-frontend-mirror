@@ -1,14 +1,18 @@
 import React from 'react';
-import { EditorState, NodeSelection } from 'prosemirror-state';
+import type { EditorState } from 'prosemirror-state';
+import { NodeSelection } from 'prosemirror-state';
 import { findParentNodeOfType, removeSelectedNode } from 'prosemirror-utils';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import DownloadIcon from '@atlaskit/icon/glyph/download';
 import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
-import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import type {
+  GetEditorFeatureFlags,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import commonMessages from '../../../messages';
-import { Command } from '../../../types';
-import {
+import type { Command } from '../../../types';
+import type {
   FloatingToolbarConfig,
   FloatingToolbarItem,
 } from '../../../plugins/floating-toolbar/types';
@@ -17,11 +21,12 @@ import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations
 import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
 import { buildLayoutButtons } from '@atlaskit/editor-common/card';
 
-import { MediaLinkingState, getMediaLinkingState } from '../pm-plugins/linking';
+import type { MediaLinkingState } from '../pm-plugins/linking';
+import { getMediaLinkingState } from '../pm-plugins/linking';
 import { getPluginState as getMediaAltTextPluginState } from '../pm-plugins/alt-text';
 import { altTextButton, getAltTextToolbar } from './alt-text';
-import { MediaFloatingToolbarOptions } from '../types';
-import { MediaPluginState } from '../pm-plugins/types';
+import type { MediaFloatingToolbarOptions } from '../types';
+import type { MediaPluginState } from '../pm-plugins/types';
 import { showLinkingToolbar } from '../commands/linking';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import {
@@ -49,7 +54,6 @@ import ImageBorderItem from '../ui/ImageBorder';
 import { currentMediaNodeBorderMark } from '../utils/current-media-node';
 import { shouldShowImageBorder } from './imageBorder';
 import type mediaPlugin from '../index';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {

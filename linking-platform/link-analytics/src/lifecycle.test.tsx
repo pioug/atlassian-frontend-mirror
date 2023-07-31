@@ -11,13 +11,13 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { LinkPicker, LinkPickerProps } from '@atlaskit/link-picker';
-import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
 
 import { ANALYTICS_CHANNEL } from './consts';
 import { useSmartLinkLifecycleAnalytics } from './lifecycle';
 import { runWhenIdle } from './utils';
 import { fakeFactory, mocks } from './__fixtures__/mocks';
 import { LifecycleAction } from './types';
+import { icon } from '@atlaskit/link-test-helpers/images';
 
 jest.mock('./utils', () => {
   const originalModule = jest.requireActual('./utils');
@@ -302,7 +302,29 @@ describe('useSmartLinkLifecycleAnalytics', () => {
           },
           [callbacks, link],
         );
-        const plugins = [new MockLinkPickerPlugin()];
+
+        const plugins = [
+          {
+            resolve: () =>
+              Promise.resolve({
+                data: [
+                  {
+                    objectId:
+                      'ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/20505',
+                    url: 'https://product-fabric.atlassian.net/browse/FAB-1520',
+                    name: "FAB-1520 UI: Poor man's search",
+                    container: 'Fabric',
+                    icon,
+                    iconAlt: 'test',
+                    lastViewedDate: new Date('2016-11-25T05:21:01.112Z'),
+                    meta: {
+                      source: 'recent-work',
+                    },
+                  },
+                ],
+              }),
+          },
+        ];
         return (
           <LinkPicker
             plugins={plugins}

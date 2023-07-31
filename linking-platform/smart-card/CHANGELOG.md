@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.12.0
+
+### Minor Changes
+
+- [`5eea09cd864`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5eea09cd864) - Standalone Hover Preview: Add zIndex prop to pass to DS Popup
+
 ## 26.11.1
 
 ### Patch Changes

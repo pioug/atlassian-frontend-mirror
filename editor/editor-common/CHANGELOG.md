@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.29.0
+
+### Minor Changes
+
+- [`e83596269e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e83596269e5) - Add isResizing support into media plugin
+
+## 74.28.0
+
+### Minor Changes
+
+- [`39e6af5fa1d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39e6af5fa1d) - Add a new 'isHandleVisible' prop to allow handle visibility to be toggled externally
+
 ## 74.27.3
 
 ### Patch Changes

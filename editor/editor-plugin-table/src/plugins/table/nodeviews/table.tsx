@@ -20,6 +20,7 @@ import type {
   getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
+import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 import { pluginConfig as getPluginConfig } from '../create-plugin-config';
@@ -49,7 +50,11 @@ const tableAttributes = (
     options?.isTableResizingEnabled && !isTableNested(state, pos);
 
   let style = shouldHaveInlineWidth
-    ? `width: ${getTableContainerWidth(node)}px`
+    ? `width: ${
+        node.attrs.isNumberColumnEnabled
+          ? getTableContainerWidth(node) - akEditorTableNumberColumnWidth
+          : getTableContainerWidth(node)
+      }px`
     : undefined;
 
   return {

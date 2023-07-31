@@ -1,14 +1,17 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { MediaOptions, MediaState } from '../types';
-import { MediaPluginOptions } from '../media-plugin-options';
-import { EditorView } from 'prosemirror-view';
-import PickerFacade, { MediaStateEventSubscriber } from '../picker-facade';
-import { Dispatch } from '../../../event-dispatcher';
-import { ProsemirrorGetPosHandler } from '../../../nodeviews/types';
+import type { Node as PMNode } from 'prosemirror-model';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type {
+  ContextIdentifierProvider,
+  MediaProvider,
+} from '@atlaskit/editor-common/provider-factory';
+import type { MediaOptions, MediaState } from '../types';
+import type { MediaPluginOptions } from '../media-plugin-options';
+import type { EditorView } from 'prosemirror-view';
+import type { MediaStateEventSubscriber } from '../picker-facade';
+import type PickerFacade from '../picker-facade';
+import type { Dispatch } from '../../../event-dispatcher';
+import type { ProsemirrorGetPosHandler } from '../../../nodeviews/types';
 
 export interface MediaNodeWithPosHandler {
   node: PMNode;
@@ -34,6 +37,7 @@ export interface MediaPluginState {
   editingMediaSinglePos?: number;
   showEditingDialog?: boolean;
   mediaOptions?: MediaOptions;
+  isResizing: boolean;
   dispatch?: Dispatch;
   onContextIdentifierProvider: (
     _name: string,
@@ -76,6 +80,7 @@ export interface MediaPluginState {
   handleDrag: (dragState: 'enter' | 'leave') => void;
 
   updateElement(): void;
+  setIsResizing(isResizing: boolean): void;
 
   setView(view: EditorView): void;
 

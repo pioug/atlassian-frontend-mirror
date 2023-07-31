@@ -36,7 +36,7 @@ export type BaseCellProps = {
    */
   colSpan?: number;
 } & Pick<
-  BoxProps,
+  BoxProps<any>,
   'paddingBlock' | 'paddingInline' | 'backgroundColor' | 'xcss'
 >;
 
@@ -106,7 +106,6 @@ export const BaseCell = forwardRef<HTMLTableCellElement, InternalBaseCellProps>(
       backgroundColor={backgroundColor}
       paddingBlock={paddingBlock}
       paddingInline={paddingInline}
-      // @ts-expect-error
       as={as}
       testId={testId}
       style={width ? { width } : undefined}

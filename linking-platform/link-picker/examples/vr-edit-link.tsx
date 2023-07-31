@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
-
 import { PageWrapper } from '../example-helpers/common';
 import { LinkPicker } from '../src';
+import { MockLinkPickerPlugin } from '../src/__tests__/__helpers/mock-plugins';
 
 const plugins = [new MockLinkPickerPlugin()];
 

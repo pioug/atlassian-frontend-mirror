@@ -104,7 +104,7 @@ import { MediaClientConfig } from '@atlaskit/media-core';
 import { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MediaFeatureFlags as MediaFeatureFlags_2 } from '@atlaskit/media-common/mediaFeatureFlags';
 import { MediaFile } from '@atlaskit/media-picker/types';
-import { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
+import type { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
 import type { MentionDescription } from '@atlaskit/mention';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import type { MentionProvider as MentionProvider_2 } from '@atlaskit/mention';
@@ -142,7 +142,7 @@ import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 import type { RefObject } from 'react';
 import { ReplaceRawValue } from '@atlaskit/editor-common/types';
 import type { ResolvedEditorState } from '@atlaskit/collab-provider';
-import { RichMediaLayout } from '@atlaskit/adf-schema';
+import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import type { Schema } from 'prosemirror-model';
 import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
@@ -1496,6 +1496,8 @@ interface MediaPluginState {
   // (undocumented)
   isFullscreen: boolean;
   // (undocumented)
+  isResizing: boolean;
+  // (undocumented)
   layout: RichMediaLayout;
   // (undocumented)
   mediaClientConfig?: MediaClientConfig;
@@ -1526,6 +1528,8 @@ interface MediaPluginState {
   selectedMediaContainerNode: () => Node_2 | undefined;
   // (undocumented)
   setBrowseFn: (browseFn: () => void) => void;
+  // (undocumented)
+  setIsResizing(isResizing: boolean): void;
   // (undocumented)
   setMediaProvider: (mediaProvider?: Promise<MediaProvider_2>) => Promise<void>;
   // (undocumented)

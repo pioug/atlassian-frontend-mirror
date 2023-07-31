@@ -51,6 +51,12 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
    * Determines whether to show available server actions.
    */
   showServerActions?: boolean;
+
+  /**
+   * Z-index that the hover card should be displayed in.
+   * This is passed to the portal component.
+   */
+  zIndex?: number;
 }
 
 /**

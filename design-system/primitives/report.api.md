@@ -18,6 +18,7 @@
 /// <reference types="react" />
 
 import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithRef } from 'react';
 import type * as CSS_2 from 'csstype';
 import type { CSSProperties } from 'react';
 import type { CSSPropertiesWithMultiValues } from '@emotion/serialize';
@@ -84,23 +85,6 @@ const alignItemsMap_2: {
 
 // @public (undocumented)
 type AllowedBoxStyles = keyof SafeCSSObject;
-
-// @public (undocumented)
-type As =
-  | 'article'
-  | 'aside'
-  | 'button'
-  | 'dialog'
-  | 'div'
-  | 'footer'
-  | 'header'
-  | 'li'
-  | 'main'
-  | 'nav'
-  | 'ol'
-  | 'section'
-  | 'span'
-  | 'ul';
 
 // @public (undocumented)
 type AutoComplete<T extends string> = Omit<string, T> | T;
@@ -230,17 +214,17 @@ const backgroundColorMap: {
 };
 
 // @public (undocumented)
-type BaseBoxProps<T extends ElementType = 'div'> = Omit<
+type BaseBoxProps<T extends ElementType> = Omit<
   ComponentPropsWithoutRef<T>,
   'as' | 'className'
 > &
   BasePrimitiveProps &
-  BaseBoxPropsFoundation<T>;
+  BaseBoxPropsFoundation<T> &
+  ClassName;
 
 // @public (undocumented)
-type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
-  as?: As;
-  className?: string;
+type BaseBoxPropsFoundation<T extends ElementType> = {
+  as?: T;
   children?: ReactNode;
   backgroundColor?: BackgroundColor;
   padding?: Space;
@@ -250,7 +234,7 @@ type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
   paddingInline?: Space;
   paddingInlineStart?: Space;
   paddingInlineEnd?: Space;
-  ref?: React.ComponentPropsWithRef<T>['ref'];
+  ref?: ComponentPropsWithRef<T>['ref'];
 };
 
 // @public (undocumented)
@@ -340,18 +324,18 @@ const borderWidthMap: {
 export const Box: BoxComponent;
 
 // @public (undocumented)
-type BoxComponent<T extends ElementType = 'div'> = (<
-  T extends ElementType = 'div',
->(
+type BoxComponent<T extends ElementType = 'div'> = (<T extends ElementType>(
   props: BoxProps<T>,
 ) => ReactElement | null) &
   FC<BoxProps<T>>;
 
 // @public (undocumented)
-export type BoxProps<T extends ElementType = 'div'> = Omit<
-  BaseBoxProps<T>,
-  'className'
->;
+export type BoxProps<T extends ElementType> = Omit<
+  ComponentPropsWithoutRef<T>,
+  'as' | 'className'
+> &
+  BasePrimitiveProps &
+  BaseBoxPropsFoundation<T>;
 
 // @public (undocumented)
 type BoxStyles = SerializedStyles & {
@@ -371,6 +355,11 @@ type BoxXCSS =
 
 // @public
 export type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxs';
+
+// @public (undocumented)
+type ClassName = {
+  className?: string;
+};
 
 // @public (undocumented)
 type CSSMediaQueries = {
@@ -1147,9 +1136,7 @@ export function xcss<Primitive extends typeof Box | void = typeof Box>(
     ? ScopedSafeCSSObject<Spacing> | ScopedSafeCSSObject<Spacing>[]
     : never,
 ): {
-  readonly [uniqueSymbol]: Primitive extends (<
-    T extends ElementType<any> = 'div',
-  >(
+  readonly [uniqueSymbol]: Primitive extends (<T extends ElementType<any>>(
     props: BoxProps<T>,
   ) => ReactElement<any, JSXElementConstructor<any> | string> | null) &
     FC<BoxProps<'div'>>

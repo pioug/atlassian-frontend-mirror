@@ -29,6 +29,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   hidePreviewButton = false,
   showServerActions = false,
   allowEventPropagation = false,
+  zIndex = HOVER_CARD_Z_INDEX,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const fadeOutTimeoutId = useRef<ReturnType<typeof setTimeout>>();
@@ -268,7 +269,7 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       autoFocus={false}
       content={content}
       trigger={trigger}
-      zIndex={HOVER_CARD_Z_INDEX}
+      zIndex={zIndex}
     />
   );
 };

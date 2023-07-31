@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button';
+import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import { Box, Flex, Stack } from '@atlaskit/primitives';
 
@@ -25,7 +26,9 @@ export default function Example() {
         </Button>
       </Box>
       <Stack space="space.100">
-        <Heading level="h400">Justify content</Heading>
+        <Heading level="h400">
+          Justify content <Code>{alignmentValues[alignmentIndex]}</Code>
+        </Heading>
         <Flex gap="space.100" justifyContent={alignmentValues[alignmentIndex]}>
           <Block />
           <Block />

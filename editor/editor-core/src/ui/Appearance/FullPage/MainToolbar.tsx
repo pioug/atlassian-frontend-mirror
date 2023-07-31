@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import {
-  akEditorMenuZIndex,
+  akEditorFloatingDialogZIndex,
   akEditorSwoopCubicBezier,
   akEditorToolbarKeylineHeight,
   akEditorMobileMaxWidth,
@@ -30,7 +30,7 @@ const mainToolbar = css`
   align-items: center;
   box-shadow: none;
   transition: box-shadow 200ms ${akEditorSwoopCubicBezier};
-  z-index: ${akEditorMenuZIndex};
+  z-index: ${akEditorFloatingDialogZIndex};
   display: flex;
   height: ${toolbarLineHeight}px;
   flex-shrink: 0;

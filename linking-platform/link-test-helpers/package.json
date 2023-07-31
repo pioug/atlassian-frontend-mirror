@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-test-helpers",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "Collection of test helpers used in linking platform examples and specs",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -28,14 +28,13 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "af:exports": {
-    "./link-picker": "./src/link-picker/index.ts",
     "./jest": "./src/jest/index.ts",
     "./datasource": "./src/datasource/index.ts",
     "./assets": "./src/datasource/assets/index.ts",
+    "./images": "./src/images/index.ts",
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/link-picker": "^1.27.0",
     "@atlaskit/linking-types": "^8.2.0",
     "@babel/runtime": "^7.0.0",
     "@jest/globals": "^26.4.2",

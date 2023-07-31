@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import Heading from '@atlaskit/heading';
 import {
   Box,
-  type BoxProps,
   Flex,
   Inline,
+  type Space,
   Stack,
   xcss,
 } from '@atlaskit/primitives';
@@ -21,7 +21,7 @@ const boxStyles = xcss({
   borderWidth: 'border.width.outline',
 });
 
-const spacingValues: BoxProps['padding'][] = [
+const spacingValues: Space[] = [
   'space.0',
   'space.025',
   'space.050',

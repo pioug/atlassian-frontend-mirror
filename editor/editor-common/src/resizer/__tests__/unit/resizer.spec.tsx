@@ -3,8 +3,8 @@ import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
 
 import {
+  resizerHandleClassName,
   resizerHandleLeftClassName,
-  resizerHandlerClassName,
   resizerHandleRightClassName,
   resizerItemClassName,
 } from '../../../styles/shared/resizer';
@@ -253,10 +253,10 @@ describe('Resizer', () => {
       </ResizerNext>,
     );
     expect(
-      container.querySelector(`.${resizerHandlerClassName.medium}`),
+      container.querySelector(`.${resizerHandleClassName.medium}`),
     ).toBeInTheDocument();
     expect(
-      container.querySelectorAll(`.${resizerHandlerClassName.medium}`).length,
+      container.querySelectorAll(`.${resizerHandleClassName.medium}`).length,
     ).toBe(2);
   });
 
@@ -276,10 +276,10 @@ describe('Resizer', () => {
       </ResizerNext>,
     );
     expect(
-      container.querySelector(`.${resizerHandlerClassName.large}`),
+      container.querySelector(`.${resizerHandleClassName.large}`),
     ).toBeInTheDocument();
     expect(
-      container.querySelectorAll(`.${resizerHandlerClassName.large}`).length,
+      container.querySelectorAll(`.${resizerHandleClassName.large}`).length,
     ).toBe(2);
   });
 
@@ -299,12 +299,13 @@ describe('Resizer', () => {
       </ResizerNext>,
     );
     expect(
-      container.querySelector(`.${resizerHandlerClassName.small}`),
+      container.querySelector(`.${resizerHandleClassName.small}`),
     ).toBeInTheDocument();
     expect(
-      container.querySelectorAll(`.${resizerHandlerClassName.small}`).length,
+      container.querySelectorAll(`.${resizerHandleClassName.small}`).length,
     ).toBe(1);
   });
+
   it('should only resize to snap points when default snapGap is defined', () => {
     const mockHandleResizeMockWithSnapping = jest.fn();
     const { container } = render(
@@ -344,7 +345,8 @@ describe('Resizer', () => {
       );
     }
   });
-  it('should only resize to snap points when it is within the threshhold defined by snapGap', () => {
+
+  it('should only resize to snap points when it is within the threshold defined by snapGap', () => {
     const mockHandleResizeMockWithSnapping = jest.fn();
     const { container } = render(
       <ResizerNext
@@ -463,5 +465,39 @@ describe('Resizer', () => {
         { width: 96, height: 10 },
       );
     }
+  });
+
+  it('should apply correct class name to display handle when isHandleVisible is true', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        isHandleVisible={true}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    expect(container.querySelector('.display-handle')).toBeInTheDocument();
+  });
+
+  it('should not apply class name to display handle when isHandleVisible is false', () => {
+    const { container } = render(
+      <ResizerNext
+        enable={{ left: true, right: true }}
+        handleResizeStart={mockHandleResizeStart}
+        handleResize={mockHandleResize}
+        handleResizeStop={mockHandleResizeStop}
+        width={initialWidth}
+        isHandleVisible={false}
+      >
+        <div>resizable div</div>
+      </ResizerNext>,
+    );
+
+    expect(container.querySelector('.display-handle')).not.toBeInTheDocument();
   });
 });

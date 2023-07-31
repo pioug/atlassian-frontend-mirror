@@ -1,0 +1,80 @@
+{
+  "name": "@atlaskit/editor-prosemirror",
+  "version": "1.0.1",
+  "description": "Package to group all prosemirror libraries in a single place ",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Editor: Lego",
+    "inPublicMirror": false,
+    "releaseModel": "continuous",
+    "singleton": true
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    "./commands": "./src/commands.ts",
+    "./dropcursor": "./src/dropcursor.ts",
+    "./history": "./src/history.ts",
+    "./keymap": "./src/history.ts",
+    "./markdown": "./src/markdown.ts",
+    "./model": "./src/model.ts",
+    "./state": "./src/state.ts",
+    "./transform": "./src/transform.ts",
+    "./utils": "./src/utils.ts",
+    "./view": "./src/view.ts"
+  },
+  "dependencies": {
+    "@atlaskit/codemod-utils": "^4.2.0",
+    "@babel/runtime": "^7.0.0",
+    "prosemirror-commands": "1.1.11",
+    "prosemirror-dropcursor": "1.3.5",
+    "prosemirror-history": "^1.1.3",
+    "prosemirror-keymap": "1.1.4",
+    "prosemirror-markdown": "^1.4.2",
+    "prosemirror-model": "1.16.0",
+    "prosemirror-state": "1.3.4",
+    "prosemirror-transform": "1.3.2",
+    "prosemirror-utils": "^1.0.0-0",
+    "prosemirror-view": "1.23.7"
+  },
+  "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "typescript": "~4.9.5"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "deprecation": [
+        "no-deprecated-imports"
+      ],
+      "imports": [
+        "import-no-extraneous-disable-for-examples-and-docs"
+      ]
+    }
+  },
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

@@ -112,7 +112,8 @@ interface BaseProps {
   /**
    * Defines a list of placements to try.
    * When no space is available on the preferred placement,
-   * the modifier will test the ones provided in the list, and use the first useful one.
+   * the modifier will test the ones provided in the list, and use the first suitable one.
+   * If no fallback placements are suitable, it reverts back to the original placement.
    */
   fallbackPlacements?: Placement[];
 

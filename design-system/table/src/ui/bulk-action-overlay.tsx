@@ -18,7 +18,6 @@ export const BulkActionOverlay: FC<{ children: ReactNode }> = ({
   children,
 }) => (
   <Box
-    // @ts-expect-error should box support table elements?
     as="th"
     paddingInline="space.100"
     backgroundColor="elevation.surface"

@@ -1,7 +1,6 @@
 // TODO: Switch from ERT to ts-morph when this is completed and has reasonable adoption: https://product-fabric.atlassian.net/browse/DSP-10364
-import React, { ReactNode } from 'react';
+import React, { ElementType, ReactNode } from 'react';
 
-import { As } from '../src/components/internal/base-box';
 import { BasePrimitiveProps } from '../src/components/types';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -31,7 +30,7 @@ export default function Box(
     /**
      * The DOM element to render as the Box. Defaults to `div`.
      */
-    as?: As;
+    as?: ElementType;
 
     /**
      * Tokens representing CSS shorthand for `paddingBlock` and `paddingInline` together.
@@ -82,6 +81,6 @@ export default function Box(
     /**
      * Forwarded ref element.
      */
-    ref?: React.ComponentPropsWithRef<As>['ref'];
+    ref?: React.ComponentPropsWithRef<ElementType>['ref'];
   } & BasePrimitiveProps,
 ) {}

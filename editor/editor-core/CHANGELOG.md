@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 187.7.0
+
+### Minor Changes
+
+- [`e83596269e5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e83596269e5) - Add isResizing support into media plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.6.10
+
+### Patch Changes
+
+- [`fa2209eee80`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa2209eee80) - [ux] Fixes z-index full page editor main toolbar
+- [`9b64591559a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9b64591559a) - [ux] ED-19163 Expand should only wrap selected text if added inline
+
 ## 187.6.1
 
 ### Patch Changes

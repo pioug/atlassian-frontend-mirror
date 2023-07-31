@@ -1,4 +1,4 @@
-import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
+import { MockLinkPickerPlugin } from './mock-plugin';
 
 export const getDefaultLinkPickerOptions = () => ({
   plugins: [new MockLinkPickerPlugin()],

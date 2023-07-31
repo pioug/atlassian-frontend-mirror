@@ -72,6 +72,7 @@ export type { MediaState, MediaProvider, MediaStateStatus };
 export { stateKey } from './plugin-key';
 
 export const MEDIA_CONTENT_WRAP_CLASS_NAME = 'media-content-wrap';
+export const MEDIA_PLUGIN_IS_RESIZING_KEY = 'mediaSinglePlugin.isResizing';
 
 const createDropPlaceholder = (intl: IntlShape, allowDropLine?: boolean) => {
   const dropPlaceholder = document.createElement('div');
@@ -117,6 +118,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   options: MediaPluginOptions;
   mediaProvider?: MediaProvider;
   newInsertionBehaviour?: boolean;
+  isResizing: boolean = false;
 
   private view!: EditorView;
   private destroyed = false;
@@ -271,6 +273,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   };
 
   getMediaOptions = () => this.options;
+
+  setIsResizing(isResizing: boolean) {
+    this.isResizing = isResizing;
+  }
 
   updateElement(): void {
     let newElement;
@@ -741,6 +747,12 @@ export const createPlugin = (
         );
       },
       apply(tr, pluginState: MediaPluginState) {
+        const isResizing = tr.getMeta(MEDIA_PLUGIN_IS_RESIZING_KEY);
+
+        if (isResizing !== undefined) {
+          pluginState.setIsResizing(isResizing);
+        }
+
         // remap editing media single position if we're in collab
         if (typeof pluginState.editingMediaSinglePos === 'number') {
           pluginState.editingMediaSinglePos = tr.mapping.map(

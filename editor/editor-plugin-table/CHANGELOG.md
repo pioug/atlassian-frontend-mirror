@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 2.6.2
+
+### Patch Changes
+
+- [`bc9f806f84a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc9f806f84a) - Toggle handle visibility of resizer if current table is selected
+- Updated dependencies
+
+## 2.6.1
+
+### Patch Changes
+
+- [`84516fbd72d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/84516fbd72d) - [ux] ED-19068: fix numbered columns scroll bar issue
+
 ## 2.6.0
 
 ### Minor Changes

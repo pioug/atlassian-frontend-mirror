@@ -3,7 +3,7 @@
 import React, { memo } from 'react';
 
 import Text, { TextProps } from '@atlaskit/ds-explorations/text';
-import { Box, BoxProps, xcss } from '@atlaskit/primitives';
+import { BackgroundColor, Box, xcss } from '@atlaskit/primitives';
 
 import { formatValue } from './internal/utils';
 import type { BadgeProps, ThemeAppearance } from './types';
@@ -61,7 +61,7 @@ Badge.displayName = 'Badge';
 
 export default Badge;
 
-const backgroundColors: Record<ThemeAppearance, BoxProps['backgroundColor']> = {
+const backgroundColors: Record<ThemeAppearance, BackgroundColor> = {
   added: 'color.background.success',
   default: 'color.background.neutral',
   important: 'color.background.danger.bold',

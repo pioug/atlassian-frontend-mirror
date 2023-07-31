@@ -2,9 +2,16 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 
-import { Box, type BoxProps, Inline, Stack, xcss } from '../src';
+import {
+  type BackgroundColor,
+  Box,
+  Inline,
+  type Space,
+  Stack,
+  xcss,
+} from '../src';
 
-const spacingValues: BoxProps['padding'][] = [
+const spacingValues: Space[] = [
   'space.0',
   'space.025',
   'space.050',
@@ -21,7 +28,7 @@ const spacingValues: BoxProps['padding'][] = [
   'space.1000',
 ];
 
-const backgroundColors: BoxProps['backgroundColor'][] = [
+const backgroundColors: BackgroundColor[] = [
   'color.background.discovery.bold',
   'color.background.success.bold',
   'color.background.warning.bold',

@@ -5,27 +5,24 @@ import {
   findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
 } from 'prosemirror-utils';
-import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { MediaClientConfig } from '@atlaskit/media-core';
 import { getMediaClient } from '@atlaskit/media-client';
 import {
   calcPctFromPx,
   calcColumnsFromPx,
   wrappedLayouts,
-} from '@atlaskit/editor-common/ui';
-import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
-import { wrapperStyle } from './styled';
-import { Props, EnabledHandles } from './types';
-import { GridType, SnapPointsProps } from '@atlaskit/editor-common/types';
-import type { Highlights } from '@atlaskit/editor-plugin-grid';
-
-import {
   Resizer,
   calcMediaPxWidth,
   snapTo,
   handleSides,
   imageAlignmentMap,
 } from '@atlaskit/editor-common/ui';
+import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
+import { wrapperStyle } from './styled';
+import type { Props, EnabledHandles } from './types';
+import type { GridType, SnapPointsProps } from '@atlaskit/editor-common/types';
+import type { Highlights } from '@atlaskit/editor-plugin-grid';
 import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
 
 type State = {

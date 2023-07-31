@@ -1,11 +1,6 @@
 import React, { ReactNode } from 'react';
 
-import {
-  BackgroundColor,
-  Box,
-  type BoxProps,
-  xcss,
-} from '@atlaskit/primitives';
+import { BackgroundColor, Box, type Space, xcss } from '@atlaskit/primitives';
 
 const blockStyles = xcss({
   display: 'flex',
@@ -24,7 +19,7 @@ const Block = ({
   children,
 }: {
   style?: React.CSSProperties;
-  padding?: BoxProps['padding'];
+  padding?: Space;
   backgroundColor?: BackgroundColor;
   children?: ReactNode;
 }) => (

@@ -28,7 +28,7 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.27.0",
+    "@atlaskit/editor-common": "^74.29.0",
     "@babel/runtime": "^7.0.0",
     "prosemirror-history": "^1.1.3",
     "prosemirror-model": "1.16.0",

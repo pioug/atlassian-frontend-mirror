@@ -1,5 +1,13 @@
 # @atlaskit/link-test-helpers
 
+## 6.0.0
+
+### Major Changes
+
+- [`adf48a24a25`](https://bitbucket.org/atlassian/atlassian-frontend/commits/adf48a24a25) - Removed MockLinkPickerPlugin, this is no longer exported
+
+  New images entrypoint now supports newly exported icon.
+
 ## 5.0.0
 
 ### Major Changes

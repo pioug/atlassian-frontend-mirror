@@ -105,7 +105,6 @@ export default class Resizer extends React.Component<
       width,
       snapPoints,
     } = this.props;
-
     // prevent creating a drag event on Firefox
     event.preventDefault();
 

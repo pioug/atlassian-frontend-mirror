@@ -2050,6 +2050,28 @@ describe('HoverCard', () => {
       });
     });
 
+    describe('z-index', () => {
+      it('renders with defaults z-index', async () => {
+        const { findByTestId } = await standaloneSetUp();
+        jest.runAllTimers();
+
+        const hoverCard = await findByTestId('hover-card');
+        const portal = hoverCard.closest('.atlaskit-portal');
+        expect(portal).toHaveStyle('z-index: 510');
+      });
+
+      it('renders with provided z-index', async () => {
+        const { findByTestId } = await standaloneSetUp({
+          zIndex: 10,
+        });
+        jest.runAllTimers();
+
+        const hoverCard = await findByTestId('hover-card');
+        const portal = hoverCard.closest('.atlaskit-portal');
+        expect(portal).toHaveStyle('z-index: 10');
+      });
+    });
+
     describe('event propagation', () => {
       const renderComponent = async (
         params: Parameters<typeof setupEventPropagationTest>[0],

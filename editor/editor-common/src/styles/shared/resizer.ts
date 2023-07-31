@@ -18,14 +18,14 @@ const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 
 export const resizerHandleZIndex = 99;
 
-export const resizerHandlerSmallClassName = 'resizer-handler-small';
-export const resizerHandlerMediumClassName = 'resizer-handler-medium';
-export const resizerHandlerLargeClassName = 'resizer-handler-large';
+export const resizerHandleSmallClassName = 'resizer-handle-small';
+export const resizerHandleMediumClassName = 'resizer-handle-medium';
+export const resizerHandleLargeClassName = 'resizer-handle-large';
 
-export const resizerHandlerClassName = {
-  small: resizerHandlerSmallClassName,
-  medium: resizerHandlerMediumClassName,
-  large: resizerHandlerLargeClassName,
+export const resizerHandleClassName = {
+  small: resizerHandleSmallClassName,
+  medium: resizerHandleMediumClassName,
+  large: resizerHandleLargeClassName,
 };
 
 export const resizerStyles = css`
@@ -57,6 +57,8 @@ export const resizerStyles = css`
   .${resizerItemClassName}:hover
     .${resizerHandleLeftClassName},
     .${resizerItemClassName}:hover
+    .${resizerHandleRightClassName},
+    .${resizerItemClassName}.display-handle
     .${resizerHandleRightClassName} {
     visibility: visible;
   }
@@ -64,6 +66,8 @@ export const resizerStyles = css`
   .${resizerItemClassName}:hover
     .${resizerHandleLeftClassName}::after,
     .${resizerItemClassName}:hover
+    .${resizerHandleRightClassName}::after,
+    .${resizerItemClassName}.display-handle
     .${resizerHandleRightClassName}::after {
     background: ${token('color.border', N60)};
   }
@@ -83,18 +87,18 @@ export const resizerStyles = css`
     background: ${token('color.border.focused', B200)};
   }
 
-  .${resizerHandleRightClassName}.${resizerHandlerClassName.medium}::after,
-    .${resizerHandleLeftClassName}.${resizerHandlerClassName.medium}::after {
+  .${resizerHandleRightClassName}.${resizerHandleClassName.medium}::after,
+    .${resizerHandleLeftClassName}.${resizerHandleClassName.medium}::after {
     height: 64px;
   }
 
-  .${resizerHandleRightClassName}.${resizerHandlerClassName.small}::after,
-    .${resizerHandleLeftClassName}.${resizerHandlerClassName.small}::after {
+  .${resizerHandleRightClassName}.${resizerHandleClassName.small}::after,
+    .${resizerHandleLeftClassName}.${resizerHandleClassName.small}::after {
     height: 43px;
   }
 
-  .${resizerHandleRightClassName}.${resizerHandlerClassName.large}::after,
-    .${resizerHandleLeftClassName}.${resizerHandlerClassName.large}::after {
+  .${resizerHandleRightClassName}.${resizerHandleClassName.large}::after,
+    .${resizerHandleLeftClassName}.${resizerHandleClassName.large}::after {
     height: 96px;
   }
 

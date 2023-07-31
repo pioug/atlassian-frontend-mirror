@@ -3,7 +3,6 @@ import {
   EditorNodeContainerModel,
   EditorFloatingToolbarModel,
   EditorEmbedCardModel,
-  EditorHyperlinkModel,
   expect,
 } from '@af/editor-libra';
 import { embedCardAdf } from './embed-1.spec.ts-fixtures/adf';
@@ -31,7 +30,6 @@ test.describe('card', () => {
       editor,
       embedCardModel,
     );
-    const hyperlinkModel = EditorHyperlinkModel.from(floatingToolbarModel);
 
     // wait for embed card to be ready in doc
     await embedCardModel.waitForStable();
@@ -39,7 +37,7 @@ test.describe('card', () => {
 
     // edit the links url
     await floatingToolbarModel.editLink();
-    await hyperlinkModel.clearLink();
+    await floatingToolbarModel.clearLink();
     await editor.keyboard.type(
       'https://product-fabric.atlassian.net/wiki/spaces/E/overview',
     );

@@ -11,7 +11,11 @@
   "atlaskit:src": "src/index.js",
   "author": "Atlassian Pty Ltd",
   "atlassian": {
-    "team": "UIP: Dev Life Cycle"
+    "team": "UIP: Dev Life Cycle",
+    "releaseModel": "continuous"
+  },
+  "af:exports": {
+    ".": "./src/index.js"
   },
   "repository": "https://bitbucket.org/atlassian/atlaskit-mk-2",
   "dependencies": {

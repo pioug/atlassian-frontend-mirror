@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import {
+  ComponentPropsWithoutRef,
   ComponentPropsWithRef,
   ElementType,
   FC,
@@ -11,16 +12,20 @@ import { jsx } from '@emotion/react';
 
 import { parseXcss } from '../xcss/xcss';
 
-import { BaseBox, BaseBoxProps } from './internal/base-box';
+import { BaseBox, BaseBoxPropsFoundation } from './internal/base-box';
+import { BasePrimitiveProps } from './types';
 
-export type BoxProps<T extends ElementType = 'div'> = Omit<
-  BaseBoxProps<T>,
-  'className'
->;
+// Ideally we'd just Omit className from BaseBoxProps however that isn't working as expected
+// So, we're reconstructing the type: this should be the same as BaseBoxProps minus className
+// TODO: Merge Box and BaseBox so there is only one component. There's probably no need for BaseBox anymore.
+export type BoxProps<T extends ElementType> = Omit<
+  ComponentPropsWithoutRef<T>,
+  'as' | 'className'
+> &
+  BasePrimitiveProps &
+  BaseBoxPropsFoundation<T>;
 
-type BoxComponent<T extends ElementType = 'div'> = (<
-  T extends ElementType = 'div',
->(
+type BoxComponent<T extends ElementType = 'div'> = (<T extends ElementType>(
   props: BoxProps<T>,
 ) => ReactElement | null) &
   FC<BoxProps<T>>;
@@ -55,7 +60,7 @@ const Box: BoxComponent = forwardRef(
     }: BoxProps<T>,
     ref?: ComponentPropsWithRef<T>['ref'],
   ) => {
-    const { className: spreadClass, ...safeHtmlAttributes } = htmlAttributes;
+    const { ...safeHtmlAttributes } = htmlAttributes;
     const className = xcss && parseXcss(xcss);
     return (
       <BaseBox

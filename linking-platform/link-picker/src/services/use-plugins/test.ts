@@ -1,10 +1,10 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { ManualPromise } from '@atlaskit/link-test-helpers';
-import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
 
 import {
   MockLinkPickerGeneratorPlugin,
+  MockLinkPickerPlugin,
   MockLinkPickerPromisePlugin,
   UnstableMockLinkPickerPlugin,
 } from '../../__tests__/__helpers/mock-plugins';

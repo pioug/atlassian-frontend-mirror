@@ -1,5 +1,11 @@
 # @atlaskit/progress-indicator
 
+## 9.5.14
+
+### Patch Changes
+
+- [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
+
 ## 9.5.13
 
 ### Patch Changes

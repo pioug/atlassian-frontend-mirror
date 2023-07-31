@@ -4,7 +4,7 @@ import React, { CSSProperties, forwardRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { Box, BoxProps, Inline, xcss } from '@atlaskit/primitives';
+import { BackgroundColor, Box, Inline, xcss } from '@atlaskit/primitives';
 import { N0, N500, N700, R400, Y300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -24,7 +24,7 @@ const textStyles = css({
   },
 });
 
-const backgroundColors: Record<Appearance, BoxProps['backgroundColor']> = {
+const backgroundColors: Record<Appearance, BackgroundColor> = {
   warning: 'color.background.warning.bold',
   error: 'color.background.danger.bold',
   announcement: 'color.background.neutral.bold',

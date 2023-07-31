@@ -8,8 +8,11 @@ import React, {
 import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import Popup, { PopupProps } from '@atlaskit/popup';
-import { LinkPicker, LinkPickerProps } from '@atlaskit/link-picker';
-import { MockLinkPickerPlugin } from '@atlaskit/link-test-helpers/link-picker';
+import {
+  LinkPicker,
+  LinkPickerProps,
+  LinkSearchListItemData,
+} from '@atlaskit/link-picker';
 import {
   createAndFireEvent,
   useAnalyticsEvents,
@@ -28,6 +31,28 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 const OBJECT_RESOLVER_SERVICE_ENDPOINT = 'glob:*/gateway/api/object-resolver/*';
 
 import { useSmartLinkLifecycleAnalytics } from '../src';
+import { icon } from '@atlaskit/link-test-helpers/images';
+
+const linkPickerResults: LinkSearchListItemData[] = [
+  {
+    objectId: '1',
+    url: 'https://product-fabric.atlassian.net/browse/FAB-1520',
+    name: "FAB-1520 UI: Poor man's search",
+    container: 'Fabric',
+    icon,
+    iconAlt: 'test',
+    lastViewedDate: new Date('2016-11-25T05:21:01.112Z'),
+  },
+  {
+    objectId: '2',
+    url: 'https://product-fabric.atlassian.net/browse/FAB-1558',
+    name: 'FAB-1558 Investigate the 25% empty experience problem',
+    container: 'Fabric',
+    icon,
+    iconAlt: 'test',
+    lastViewedDate: new Date('2016-11-24T23:55:20.712Z'),
+  },
+];
 
 export const generateResolvedLink = (resourceUrl: string) => ({
   status: 200,
@@ -177,7 +202,11 @@ function LifecycleAnalytics() {
     [setLinks, createAnalyticsEvent, linkAnalytics],
   );
 
-  const plugins = useRef([new MockLinkPickerPlugin()]);
+  const plugins = useRef([
+    {
+      resolve: () => Promise.resolve({ data: linkPickerResults }),
+    },
+  ]);
 
   return (
     <div className="example" style={{ padding: 50 }}>

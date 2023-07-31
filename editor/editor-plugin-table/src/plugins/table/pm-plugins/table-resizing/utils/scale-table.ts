@@ -2,6 +2,7 @@ import { Node as PMNode } from 'prosemirror-model';
 import { Transaction } from 'prosemirror-state';
 import type { DomAtPos } from 'prosemirror-utils';
 
+import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
@@ -29,6 +30,7 @@ export interface ScaleOptions {
   layoutChanged?: boolean;
   isBreakoutEnabled?: boolean;
   isFullWidthModeEnabled?: boolean;
+  isTableResizingEnabled?: boolean;
 }
 
 // Base function to trigger the actual scale on a table node.
@@ -51,24 +53,27 @@ export const scale = (
     start,
     isBreakoutEnabled,
     layoutChanged,
+    isTableResizingEnabled,
   } = options;
 
-  const maxSize = getLayoutSize(node.attrs.layout, containerWidth, {
-    isBreakoutEnabled,
-  });
+  const maxSize = isTableResizingEnabled
+    ? getTableContainerWidth(node)
+    : getLayoutSize(node.attrs.layout, containerWidth, {
+        isBreakoutEnabled,
+      });
+
   const prevTableWidth = getTableWidth(prevNode);
-  const previousMaxSize = getLayoutSize(
-    prevNode.attrs.layout,
-    previousContainerWidth,
-    {
-      isBreakoutEnabled,
-    },
-  );
+  const previousMaxSize = isTableResizingEnabled
+    ? getTableContainerWidth(node)
+    : getLayoutSize(prevNode.attrs.layout, previousContainerWidth, {
+        isBreakoutEnabled,
+      });
 
   let newWidth = maxSize;
 
   // adjust table width if layout is updated
   const hasOverflow = prevTableWidth > previousMaxSize;
+
   if (layoutChanged && hasOverflow) {
     // No keep overflow if the old content can be in the new size
     const canFitInNewSize = prevTableWidth < maxSize;
@@ -157,7 +162,11 @@ export const previewScaleTable = (
   }
 
   if (parentWidth) {
-    tableRef.style.width = `${parentWidth}px`;
+    const isNumberColumnEnabled = node.attrs.isNumberColumnEnabled;
+    const width = isNumberColumnEnabled
+      ? parentWidth - akEditorTableNumberColumnWidth
+      : parentWidth;
+    tableRef.style.width = `${width}px`;
   }
 
   if (!hasTableBeenResized(node)) {
@@ -186,12 +195,12 @@ export const scaleTable =
     }
 
     const { node, start, parentWidth, layoutChanged } = options;
-
     // If a table has not been resized yet, columns should be auto.
     if (hasTableBeenResized(node) === false) {
       // If its not a re-sized table, we still want to re-create cols
       // To force reflow of columns upon delete.
       insertColgroupFromNode(tableRef, node);
+      tr.setMeta('scrollIntoView', false);
       return tr;
     }
 

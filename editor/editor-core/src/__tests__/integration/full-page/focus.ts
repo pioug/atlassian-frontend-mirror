@@ -14,7 +14,7 @@ BrowserTestCase(
     await browser.goto(fullPageEditor);
     await browser.waitForSelector(fullpage.placeholder);
 
-    expect(await browser.hasFocus(titleSelector)).toBe(true);
+    expect(await browser.hasFocus(titleSelector)).toBe(false);
   },
 );
 

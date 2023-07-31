@@ -35,7 +35,7 @@ type BaseCellProps = {
   children?: ReactNode;
   colSpan?: number;
 } & Pick<
-  BoxProps,
+  BoxProps<any>,
   'backgroundColor' | 'paddingBlock' | 'paddingInline' | 'xcss'
 >;
 

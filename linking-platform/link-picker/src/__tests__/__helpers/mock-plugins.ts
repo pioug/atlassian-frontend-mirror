@@ -121,3 +121,30 @@ export class MockLinkPickerGeneratorPlugin implements LinkPickerPlugin {
     return this.asyncGenerator;
   }
 }
+
+export class MockLinkPickerPlugin implements LinkPickerPlugin {
+  private loadResults(query: string): Promise<LinkSearchListItemData[]> {
+    if (!query) {
+      return Promise.resolve(mockPluginData);
+    }
+
+    const filtered = mockPluginData.filter(({ name }) =>
+      name.toLowerCase().includes(query.toLowerCase()),
+    );
+
+    return Promise.resolve(filtered);
+  }
+
+  getInitialResults(query: string): Promise<LinkSearchListItemData[]> {
+    return this.loadResults(query);
+  }
+
+  fetchUpdatedResults(query: string): Promise<LinkSearchListItemData[]> {
+    return this.loadResults(query);
+  }
+
+  async *resolve({ query }: LinkPickerState) {
+    yield { data: await this.getInitialResults(query) };
+    return { data: await this.fetchUpdatedResults(query) };
+  }
+}

@@ -53,15 +53,15 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
     );
     const resolvedTable = findTable(editorView.state.selection);
 
-    return { editorView, node: resolvedTable!.node };
+    return { table: resolvedTable!.node, editorView };
   };
 
-  describe('show correct container for FF and options', () => {
+  describe('show correct table container', () => {
     const buildContainer = (
       isTableResizingEnabled: boolean,
       isBreakoutEnabled: boolean = true,
     ) => {
-      const { node, editorView } = createNode();
+      const { table, editorView } = createNode();
 
       const { container } = render(
         <TableContainer
@@ -69,7 +69,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
             width: 1800,
             lineLength: 720,
           }}
-          node={node}
+          node={table}
           isTableResizingEnabled={isTableResizingEnabled}
           isBreakoutEnabled={isBreakoutEnabled}
           className={''}
@@ -83,12 +83,12 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       return container;
     };
 
-    test('when isTableResizingEnabled is true', () => {
+    test('should wrap table in resizer when isTableResizingEnabled is true', () => {
       const container = buildContainer(true);
       expect(!!container.querySelector('.resizer-item')).toBeTruthy();
     });
 
-    test('when isTableResizingEnabled is false', () => {
+    test('should not wrap table in resizer when isTableResizingEnabled is false', () => {
       const container = buildContainer(false);
       expect(!!container.querySelector('.resizer-item')).toBeFalsy();
     });
@@ -99,7 +99,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       isTableResizingEnabled: boolean,
       isBreakoutEnabled: boolean = true,
     ) => {
-      const { node, editorView } = createNode();
+      const { table, editorView } = createNode();
 
       const { container } = render(
         <TableContainer
@@ -107,7 +107,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
             width: 1800,
             lineLength: 720,
           }}
-          node={node}
+          node={table}
           isTableResizingEnabled={isTableResizingEnabled}
           isBreakoutEnabled={isBreakoutEnabled}
           className={''}
@@ -121,12 +121,12 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       return container;
     };
 
-    test('when isTableResizingEnabled is true - should not render resizer', () => {
+    test('should not render resizer when isTableResizingEnabled is true', () => {
       const container = buildContainer(true);
       expect(!!container.querySelector('.resizer-item')).toBeFalsy();
     });
 
-    test('when isTableResizingEnabled is false - should not render resizer', () => {
+    test('should not render resizer when isTableResizingEnabled is false', () => {
       const container = buildContainer(false);
       expect(!!container.querySelector('.resizer-item')).toBeFalsy();
     });
@@ -134,13 +134,13 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
 
   describe('sets width and margin correctly for resizable container', () => {
     const buildContainer = (attrs: TableAttributes) => {
-      const { node, editorView } = createNode(attrs);
+      const { table, editorView } = createNode(attrs);
 
       const { container } = render(
         <ResizableTableContainer
           containerWidth={1800}
           lineLength={720}
-          node={node}
+          node={table}
           className={''}
           editorView={editorView}
           getPos={() => 1}
@@ -162,14 +162,14 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
 
   describe('analytics', () => {
     const buildContainer = (attrs: TableAttributes) => {
-      const { node, editorView } = createNode(attrs);
+      const { table, editorView } = createNode(attrs);
       const analyticsMock = jest.fn();
 
       const { container } = render(
         <ResizableTableContainer
           containerWidth={1800}
           lineLength={720}
-          node={node}
+          node={table}
           className={''}
           editorView={editorView}
           getPos={() => 0}

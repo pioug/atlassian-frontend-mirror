@@ -25,6 +25,7 @@ import {
 } from '@atlaskit/editor-common/resizer';
 import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
 import { TableMap } from '@atlaskit/editor-tables';
+import { findTable } from '@atlaskit/editor-tables/utils';
 
 import {
   COLUMN_MIN_WIDTH,
@@ -38,7 +39,6 @@ import { TABLE_HIGHLIGHT_GAP, TABLE_SNAP_GAP } from '../ui/consts';
 import { getTableWidth } from '../utils';
 import { defaultGuidelines, defaultGuidelineWidths } from '../utils/guidelines';
 import { findClosestSnap } from '../utils/snapping';
-
 interface TableResizerProps {
   width: number;
   maxWidth: number;
@@ -79,24 +79,7 @@ const generateResizedPayload = (props: {
   };
 };
 
-export const TableResizer = ({
-  children,
-  width,
-  maxWidth,
-  updateWidth,
-  editorView,
-  getPos,
-  node,
-  tableRef,
-  displayGuideline,
-  attachAnalyticsEvent,
-}: PropsWithChildren<TableResizerProps>) => {
-  const currentColumnCount = getColgroupChildrenLength(node);
-  const minColumnWidth =
-    currentColumnCount <= 3
-      ? currentColumnCount * COLUMN_MIN_WIDTH
-      : 3 * COLUMN_MIN_WIDTH;
-
+const getResizerHandleHeight = (tableRef: HTMLTableElement) => {
   const tableHeight = tableRef?.clientHeight;
   let handleHeightSize: HandleHeightSizeType | undefined = 'small';
   /*
@@ -113,8 +96,37 @@ export const TableResizer = ({
   } else if (tableHeight && tableHeight >= 96) {
     handleHeightSize = 'large';
   }
+
+  return handleHeightSize;
+};
+
+const getResizerMinWidth = (node: PMNode) => {
+  const currentColumnCount = getColgroupChildrenLength(node);
+  const minColumnWidth =
+    currentColumnCount <= 3
+      ? currentColumnCount * COLUMN_MIN_WIDTH
+      : 3 * COLUMN_MIN_WIDTH;
+
+  return minColumnWidth;
+};
+
+export const TableResizer = ({
+  children,
+  width,
+  maxWidth,
+  updateWidth,
+  editorView,
+  getPos,
+  node,
+  tableRef,
+  displayGuideline,
+  attachAnalyticsEvent,
+}: PropsWithChildren<TableResizerProps>) => {
   const currentGap = useRef(0);
   const [snappingEnabled, setSnappingEnabled] = useState(false);
+
+  const resizerMinWidth = getResizerMinWidth(node);
+  const handleHeightSize = getResizerHandleHeight(tableRef);
 
   const updateActiveGuidelines = useCallback(
     ({ gap, keys }: { gap: number; keys: string[] }) => {
@@ -152,8 +164,7 @@ export const TableResizer = ({
     dispatch(tr.setMeta(tableWidthPluginKey, { resizing: true }));
 
     setSnappingEnabled(displayGuideline(defaultGuidelines));
-    return width;
-  }, [width, displayGuideline, editorView]);
+  }, [displayGuideline, editorView]);
 
   const handleResizeStop = useCallback<HandleResize>(
     (originalState, delta) => {
@@ -258,11 +269,12 @@ export const TableResizer = ({
       handleResize={scheduleResize}
       handleResizeStop={handleResizeStop}
       resizeRatio={2}
-      minWidth={minColumnWidth}
+      minWidth={resizerMinWidth}
       maxWidth={maxWidth}
       snapGap={TABLE_SNAP_GAP}
       snap={guidelineSnaps}
       handlePositioning="adjacent"
+      isHandleVisible={findTable(editorView.state?.selection)?.pos === getPos()}
     >
       {children}
     </ResizerNext>

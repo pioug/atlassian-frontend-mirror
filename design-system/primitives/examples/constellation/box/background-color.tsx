@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 
 import DropdownMenu, { DropdownItem } from '@atlaskit/dropdown-menu';
-import { Box, type BoxProps, Inline, Stack, xcss } from '@atlaskit/primitives';
+import {
+  type BackgroundColor,
+  Box,
+  Inline,
+  Stack,
+  xcss,
+} from '@atlaskit/primitives';
 
 const boxStyles = xcss({
   borderStyle: 'solid',
@@ -59,9 +65,7 @@ export default function Example() {
       <Inline alignBlock="center" space="space.100">
         <Box
           padding="space.400"
-          backgroundColor={
-            colorMap[color].background as BoxProps['backgroundColor']
-          }
+          backgroundColor={colorMap[color].background as BackgroundColor}
           xcss={[boxStyles, borderColorStylesMap[color]]}
         />
         {color}

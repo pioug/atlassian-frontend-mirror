@@ -3,8 +3,8 @@ import React from 'react';
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { mockedPluginData } from '@atlaskit/link-test-helpers/link-picker';
 
+import mockedPluginData from '../../../../../__tests__/__helpers/mock-plugin-data';
 import { ANALYTICS_CHANNEL } from '../../../../../common/constants';
 
 import { useTrackResultsShown } from './index';

@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.6.17
+
+### Patch Changes
+
+- [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
+
 ## 2.6.16
 
 ### Patch Changes

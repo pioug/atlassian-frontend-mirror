@@ -1,5 +1,11 @@
 # @atlaskit/lozenge
 
+## 11.4.3
+
+### Patch Changes
+
+- [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
+
 ## 11.4.2
 
 ### Patch Changes

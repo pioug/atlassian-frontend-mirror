@@ -1,16 +1,22 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React, { forwardRef } from 'react';
 
-import {
-  UNSAFE_Box as Box,
-  UNSAFE_Text as Text,
-} from '@atlaskit/ds-explorations';
+import { UNSAFE_Text as Text } from '@atlaskit/ds-explorations';
 import Heading from '@atlaskit/heading';
-import Inline from '@atlaskit/primitives/inline';
-import Stack from '@atlaskit/primitives/stack';
+import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { getAppearanceIconStyles } from './internal/appearance-icon';
 import type { SectionMessageProps } from './types';
+
+const sectionMessageStyles = xcss({
+  wordBreak: 'break-word',
+  borderRadius: 'border.radius',
+});
+
+const bleedStyles = xcss({
+  display: 'flex',
+  marginBlock: `calc(-1 * ${token('space.025', '2px')})`,
+});
 
 /**
  * __Section message__
@@ -43,19 +49,12 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
         as="section"
         backgroundColor={appearanceMap[appearance]}
         padding="space.200"
-        borderRadius="normal"
         testId={testId}
         ref={ref}
-        UNSAFE_style={{
-          wordBreak: 'break-word',
-        }}
+        xcss={sectionMessageStyles}
       >
         <Inline space="space.200" alignBlock="stretch">
-          <Box
-            UNSAFE_style={{
-              margin: '-2px 0',
-            }}
-          >
+          <Box xcss={bleedStyles}>
             <Icon
               size="medium"
               primaryColor={primaryColor}
@@ -88,11 +87,11 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(
 );
 
 const appearanceMap = {
-  information: 'information',
-  warning: 'warning',
-  error: 'danger',
-  success: 'success',
-  discovery: 'discovery',
+  information: 'color.background.information',
+  warning: 'color.background.warning',
+  error: 'color.background.danger',
+  success: 'color.background.success',
+  discovery: 'color.background.discovery',
 } as const;
 
 SectionMessage.displayName = 'SectionMessage';

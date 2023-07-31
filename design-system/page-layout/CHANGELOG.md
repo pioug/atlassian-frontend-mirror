@@ -1,5 +1,11 @@
 # @atlaskit/page-layout
 
+## 1.7.12
+
+### Patch Changes
+
+- [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
+
 ## 1.7.11
 
 ### Patch Changes

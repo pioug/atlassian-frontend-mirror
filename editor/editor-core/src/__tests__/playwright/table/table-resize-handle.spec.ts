@@ -10,6 +10,7 @@ import {
   simpleTableWithOneRow,
   simpleTableWithOneRowWithText,
   simpleTableWithTwoRows,
+  tablesWithDifferentColumns,
 } from './__fixtures__/base-adfs';
 import { createSquareTable } from './__fixtures__/resize-documents';
 
@@ -119,6 +120,41 @@ test.describe('resize handle should be visible on hover', () => {
       await editor.page.mouse.wheel(0, -4000);
       await tableModel.hoverBody();
       expect(await resizerModel.waitForHandleToBeVisible()).toBeTruthy();
+    });
+  });
+});
+
+test.describe('resize handle should be visible when table is selected', () => {
+  test.use({
+    adf: tablesWithDifferentColumns,
+  });
+
+  test('with a page with multiple tables', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const firstTableModel = EditorTableModel.from(nodes.table.nth(0));
+    const secondTableModel = EditorTableModel.from(nodes.table.nth(1));
+
+    const firstTableResizerModel = firstTableModel.resizer();
+    const secondTableResizerModel = secondTableModel.resizer();
+
+    await test.step('only first table is selected', async () => {
+      await firstTableModel.selectTable();
+      expect(
+        await firstTableResizerModel.waitForHandleToBeVisible(),
+      ).toBeTruthy();
+      expect(
+        await secondTableResizerModel.waitForHandleToBeHidden(),
+      ).toBeTruthy();
+    });
+
+    await test.step('second table is selected', async () => {
+      await secondTableModel.selectTable();
+      expect(
+        await firstTableResizerModel.waitForHandleToBeHidden(),
+      ).toBeTruthy();
+      expect(
+        await secondTableResizerModel.waitForHandleToBeVisible(),
+      ).toBeTruthy();
     });
   });
 });

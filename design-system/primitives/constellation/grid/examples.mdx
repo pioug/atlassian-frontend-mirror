@@ -7,6 +7,8 @@ order: 0
 import GridBasic from '../../examples/constellation/grid/basic';
 import GridGap from '../../examples/constellation/grid/gap';
 import GridTemplate from '../../examples/constellation/grid/template';
+import GridTemplateArea from '../../examples/constellation/grid/template-area';
+import GridTemplateRow from '../../examples/constellation/grid/template-row';
 import GridAutoFlow from '../../examples/constellation/grid/auto-flow';
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
@@ -36,7 +38,23 @@ and keep the whitespace of the grid harmonious with our spacing system.
 Grid-prefixed template properties in CSS do not have this prefix in the component API.
 For example `grid-template-*` are instead applied as `templateColumns`, `templateRows` and `templateArea` properties.
 
+### Template columns
+
+Template columns enables grid to declare the way columns are applied in the template.
+
 <Example Component={GridTemplate} packageName="@atlaskit/primitives/grid" />
+
+### Template rows
+
+Template rows enables grid to declare the way row are applied in the template.
+
+<Example Component={GridTemplateRow} packageName="@atlaskit/primitives/grid" />
+
+### Template areas
+
+Template areas enables grid to declare the grid areas are applied in the template.
+
+<Example Component={GridTemplateArea} packageName="@atlaskit/primitives/grid" />
 
 ## Autoflow syntax
 

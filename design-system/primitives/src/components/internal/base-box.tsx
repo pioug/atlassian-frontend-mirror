@@ -2,6 +2,7 @@
 /** @jsx jsx */
 import {
   ComponentPropsWithoutRef,
+  ComponentPropsWithRef,
   ElementType,
   FC,
   forwardRef,
@@ -19,35 +20,15 @@ import {
 } from '../../xcss/style-maps.partial';
 import type { BasePrimitiveProps } from '../types';
 
-export type BaseBoxProps<T extends ElementType = 'div'> = Omit<
+export type BaseBoxProps<T extends ElementType> = Omit<
   ComponentPropsWithoutRef<T>,
   'as' | 'className'
 > &
   BasePrimitiveProps &
-  BaseBoxPropsFoundation<T>;
+  BaseBoxPropsFoundation<T> &
+  ClassName;
 
-export type As =
-  | 'article'
-  | 'aside'
-  | 'button'
-  | 'dialog'
-  | 'div'
-  | 'footer'
-  | 'header'
-  | 'li'
-  | 'main'
-  | 'nav'
-  | 'ol'
-  | 'section'
-  | 'span'
-  | 'ul';
-
-type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
-  /**
-   * The DOM element to render as the Box. Defaults to `div`.
-   */
-  as?: As;
-
+type ClassName = {
   /**
    * The HTML className attribute.
    *
@@ -60,6 +41,13 @@ type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
    * @see `@atlaskit/eslint-plugin-design-system`
    */
   className?: string;
+};
+
+export type BaseBoxPropsFoundation<T extends ElementType> = {
+  /**
+   * The DOM element to render as the Box. Defaults to `div`.
+   */
+  as?: T;
   /**
    * Elements to be rendered inside the Box.
    */
@@ -108,12 +96,12 @@ type BaseBoxPropsFoundation<T extends ElementType = 'div'> = {
   /**
    * Forwarded ref element
    */
-  ref?: React.ComponentPropsWithRef<T>['ref'];
+  ref?: ComponentPropsWithRef<T>['ref'];
 };
 
 // Without this type annotation on Box we don't get autocomplete for props due to forwardRef types
 export type BaseBoxComponent<T extends ElementType = 'div'> = (<
-  T extends ElementType = 'div',
+  T extends ElementType,
 >(
   props: BaseBoxProps<T>,
 ) => ReactElement | null) &
@@ -130,7 +118,7 @@ export type BaseBoxComponent<T extends ElementType = 'div'> = (<
 export const BaseBox: BaseBoxComponent = forwardRef(
   <T extends ElementType = 'div'>(
     {
-      as = 'div',
+      as,
       className,
       children,
       backgroundColor,
@@ -143,12 +131,11 @@ export const BaseBox: BaseBoxComponent = forwardRef(
       paddingInlineEnd,
       style,
       testId,
-      css,
       ...htmlAttributes
     }: BaseBoxProps<T>,
-    ref?: React.ComponentPropsWithRef<T>['ref'],
+    ref?: ComponentPropsWithRef<T>['ref'],
   ) => {
-    const Component = as;
+    const Component = as || 'div';
 
     const node = (
       <Component

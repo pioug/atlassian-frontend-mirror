@@ -31,6 +31,7 @@ import {
   insertColgroupFromNode as recreateResizeColsByNode,
   scaleTable,
 } from '../pm-plugins/table-resizing/utils';
+import { hasTableBeenResized } from '../pm-plugins/table-resizing/utils/colgroup';
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
 import {
   TableCssClassName as ClassName,
@@ -562,8 +563,24 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
       // If column has been inserted/deleted avoid multi dispatch
       if (shouldScaleTable) {
-        this.scaleTable({ parentWidth, layoutChanged });
+        this.scaleTable({
+          parentWidth,
+          layoutChanged,
+          isTableResizingEnabled: options?.isTableResizingEnabled,
+        });
       }
+
+      // only when table resizing is enabled and toggle numbered column to run scaleTable
+      if (options?.isTableResizingEnabled && hasNumberedColumnChanged) {
+        if (!hasTableBeenResized(prevNode)) {
+          this.scaleTable({
+            parentWidth,
+            layoutChanged,
+            isTableResizingEnabled: options?.isTableResizingEnabled,
+          });
+        }
+      }
+
       this.updateParentWidth(parentWidth);
     }
 
@@ -575,6 +592,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private scaleTable = (scaleOptions: {
     layoutChanged: boolean;
     parentWidth?: number;
+    isTableResizingEnabled?: boolean;
   }) => {
     const { view, getNode, getPos, containerWidth, options } = this.props;
     const node = getNode();

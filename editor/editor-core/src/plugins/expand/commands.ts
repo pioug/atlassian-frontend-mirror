@@ -20,6 +20,7 @@ import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
 import { findExpand } from './utils';
 import { createCommand } from './pm-plugins/plugin-factory';
 import { createWrapSelectionTransaction } from '../block-type/commands/block-type';
+import { safeInsert } from 'prosemirror-utils';
 
 export const setExpandRef = (ref?: HTMLDivElement | null): Command =>
   createCommand(
@@ -157,10 +158,12 @@ export const insertExpand: Command = (state, dispatch) => {
     return false;
   }
 
-  const tr = createWrapSelectionTransaction({
-    state,
-    type: expandNode.type,
-  });
+  const tr = state.selection.empty
+    ? safeInsert(expandNode)(state.tr).scrollIntoView()
+    : createWrapSelectionTransaction({
+        state,
+        type: expandNode.type,
+      });
   const payload: AnalyticsEventPayload = {
     action: ACTION.INSERTED,
     actionSubject: ACTION_SUBJECT.DOCUMENT,

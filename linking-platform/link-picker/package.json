@@ -83,7 +83,7 @@
     "@af/visual-regression": "*",
     "@atlaskit/dropdown-menu": "^11.11.0",
     "@atlaskit/link-provider": "^1.6.0",
-    "@atlaskit/link-test-helpers": "^5.0.0",
+    "@atlaskit/link-test-helpers": "^6.0.0",
     "@atlaskit/linking-common": "^4.1.0",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

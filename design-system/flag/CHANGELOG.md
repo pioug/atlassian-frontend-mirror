@@ -1,5 +1,12 @@
 # @atlaskit/flag
 
+## 15.2.16
+
+### Patch Changes
+
+- [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
+- [`95401cac781`](https://bitbucket.org/atlassian/atlassian-frontend/commits/95401cac781) - Internal change to component composition. There is no expected change.
+
 ## 15.2.15
 
 ### Patch Changes

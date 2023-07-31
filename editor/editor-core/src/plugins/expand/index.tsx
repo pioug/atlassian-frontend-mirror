@@ -87,10 +87,12 @@ const expandPlugin: NextEditorPlugin<
               if (!node) {
                 return false;
               }
-              const tr = createWrapSelectionTransaction({
-                state,
-                type: node.type,
-              });
+              const tr = state.selection.empty
+                ? insert(node)
+                : createWrapSelectionTransaction({
+                    state,
+                    type: node.type,
+                  });
               return addAnalytics(state, tr, {
                 action: ACTION.INSERTED,
                 actionSubject: ACTION_SUBJECT.DOCUMENT,

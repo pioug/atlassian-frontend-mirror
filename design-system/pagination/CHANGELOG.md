@@ -1,5 +1,11 @@
 # @atlaskit/pagination
 
+## 14.4.11
+
+### Patch Changes
+
+- [`1ed303de3e8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1ed303de3e8) - Updated dependencies
+
 ## 14.4.10
 
 ### Patch Changes

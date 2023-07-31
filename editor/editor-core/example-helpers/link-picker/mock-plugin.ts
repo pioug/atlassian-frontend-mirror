@@ -1,9 +1,8 @@
-import {
+import type {
   LinkPickerPlugin,
   LinkPickerState,
   LinkSearchListItemData,
 } from '@atlaskit/link-picker';
-
 import pluginData from './mock-plugin-data';
 
 export class MockLinkPickerPlugin implements LinkPickerPlugin {

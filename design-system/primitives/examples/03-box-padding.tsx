@@ -2,9 +2,9 @@ import React from 'react';
 
 import Heading from '@atlaskit/heading';
 
-import { Box, type BoxProps, Inline, Stack } from '../src';
+import { Box, Inline, Space, Stack } from '../src';
 
-const spacingValues: BoxProps['padding'][] = [
+const spacingValues: Space[] = [
   'space.0',
   'space.025',
   'space.050',

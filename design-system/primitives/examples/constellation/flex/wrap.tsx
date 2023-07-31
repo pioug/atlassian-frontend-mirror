@@ -1,13 +1,14 @@
 import React from 'react';
 
-import Badge from '@atlaskit/badge';
 import { Flex } from '@atlaskit/primitives';
+
+import Square from '../shared/block';
 
 export default function Example() {
   return (
     <Flex gap="space.100" wrap="wrap">
-      {[...Array(42).keys()].map(i => (
-        <Badge key={i}>{i + 1}</Badge>
+      {[...Array(20).keys()].map(i => (
+        <Square key={i} />
       ))}
     </Flex>
   );

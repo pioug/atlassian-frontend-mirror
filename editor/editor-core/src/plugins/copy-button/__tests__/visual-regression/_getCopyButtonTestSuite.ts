@@ -1,5 +1,6 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
-import { EditorProps } from '../../../../types/editor-props';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { EditorProps } from '../../../../types/editor-props';
+import { waitForMediaToBeLoaded } from '@atlaskit/editor-test-helpers/page-objects/media';
 
 import {
   snapshot,
@@ -50,6 +51,9 @@ export async function _getCopyButtonTestSuite({
       await page.click(nodeSelector);
       await page.waitForSelector(copyButtonSelector);
       await page.hover(copyButtonSelector);
+      if (nodeName === 'Media') {
+        await waitForMediaToBeLoaded(page);
+      }
     });
   });
 }

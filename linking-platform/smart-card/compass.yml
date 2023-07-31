@@ -14,8 +14,8 @@ links:
     type: CHAT_CHANNEL
     url: 'https://atlassian.slack.com/app_redirect?channel=linking-platform'
   - name: ''
-    type: ON_CALL
-    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/98927e5e-f400-41a3-bdd1-b580c9b1d78b'
+    type: ON_CALL 
+    url: 'https://atlassian.app.opsgenie.com/settings/schedule/detail/b9c8b313-dd6d-4a41-8eeb-d7a9df55be9d'
   - name: ''
     type: DOCUMENT
     url: 'https://hello.atlassian.net/wiki/spaces/TWPLP/overview'

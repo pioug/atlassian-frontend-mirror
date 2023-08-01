@@ -1,4 +1,4 @@
-import { Node as ProseMirrorNode } from 'prosemirror-model';
+import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { TableRect, TableMap } from '@atlaskit/editor-tables/table-map';
 
 /**

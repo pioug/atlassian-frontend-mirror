@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 0.30.3
+
+### Patch Changes
+
+- [`d046b840b27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d046b840b27) - fix typo in initialStateViewMessages.learnMoreLink
+
+## 0.30.2
+
+### Patch Changes
+
+- [`e74ae7f06d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e74ae7f06d4) - Update dependency json-ld-types@3.8.0
+
+## 0.30.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.30.0
 
 ### Minor Changes

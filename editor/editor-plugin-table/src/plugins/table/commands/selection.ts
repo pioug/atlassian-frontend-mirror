@@ -1,6 +1,3 @@
-import { Node as PmNode, ResolvedPos } from 'prosemirror-model';
-import { Selection, TextSelection } from 'prosemirror-state';
-
 import {
   EditorSelectionAPI,
   GapCursorSelection,
@@ -10,6 +7,11 @@ import {
   Side,
 } from '@atlaskit/editor-common/selection';
 import type { Command } from '@atlaskit/editor-common/types';
+import {
+  Node as PmNode,
+  ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
+import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';

@@ -28,7 +28,7 @@ import codeBlockTypePlugin from '../../../../code-block';
 import statusInlineBlockTypePlugin from '../../../../status';
 import panelBlockTypePlugin from '../../../../panel';
 import textFormattingPlugin from '../../../../text-formatting';
-import deprecatedAnalyticsPlugin, {
+import {
   LIST_TEXT_SCENARIOS,
   ACTION,
   ACTION_SUBJECT,
@@ -36,7 +36,8 @@ import deprecatedAnalyticsPlugin, {
   EVENT_TYPE,
   INPUT_METHOD,
   DELETE_DIRECTION,
-} from '../../../../analytics';
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -52,6 +53,7 @@ describe('join-list-item-forward', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, { createAnalyticsEvent }])
       .add(listPlugin)
       .add(basePlugins)
       .add(decorationsPlugin)
@@ -59,9 +61,7 @@ describe('join-list-item-forward', () => {
       .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelBlockTypePlugin)
       .add([statusInlineBlockTypePlugin, { menuDisabled: false }])
-      .add(textFormattingPlugin)
-      .add([analyticsPlugin, { createAnalyticsEvent }])
-      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
+      .add(textFormattingPlugin);
 
     return createEditor({
       doc,
@@ -602,10 +602,20 @@ describe('join-list-item-forward', () => {
         const {
           editorView: { state, dispatch },
         } = editor(documentNode);
-        const result = joinListItemForward(state, dispatch);
+
+        const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
+          attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
+        };
+
+        const result = joinListItemForward(editorAnalyticsAPIFake)(
+          state,
+          dispatch,
+        );
 
         expect(result).toBe(true);
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
           action: ACTION.LIST_ITEM_JOINED,
           actionSubject: ACTION_SUBJECT.LIST,
           actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
@@ -624,7 +634,7 @@ describe('join-list-item-forward', () => {
     it('should ignore when there is no next node', () => {
       const unchangedDoc = doc(ul(li(p('a{<>}'))));
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = joinListItemForward(
+      const commandReturn = joinListItemForward(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -635,7 +645,7 @@ describe('join-list-item-forward', () => {
     it('should ignore when next node is not in a paragraph', () => {
       const unchangedDoc = doc(ul(li(p('a{<>}')), li(code_block()('b'))));
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = joinListItemForward(
+      const commandReturn = joinListItemForward(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -646,7 +656,7 @@ describe('join-list-item-forward', () => {
     it('should ignore when selection is not the last child of its parent', () => {
       const unchangedDoc = doc(ul(li(p('a{<>}'), p('b')), li(p('c'))));
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = joinListItemForward(
+      const commandReturn = joinListItemForward(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -657,7 +667,7 @@ describe('join-list-item-forward', () => {
     it('should ignore when selection is not empty and at the end', () => {
       const unchangedDoc = doc(ul(li(p('a{<>}b')), li(p('c'))));
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = joinListItemForward(
+      const commandReturn = joinListItemForward(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -672,7 +682,7 @@ describe('join-list-item-forward', () => {
         code_block()('d'),
       );
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = joinListItemForward(
+      const commandReturn = joinListItemForward(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -685,7 +695,7 @@ describe('join-list-item-forward', () => {
         ul(li(p('a'), p('b{<>}')), li(code_block()('c'), code_block()('d'))),
       );
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = joinListItemForward(
+      const commandReturn = joinListItemForward(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -709,7 +719,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = joinListItemForward(
+      const commandReturn = joinListItemForward(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -725,7 +735,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = joinListItemForward(
+      const commandReturn = joinListItemForward(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -742,7 +752,7 @@ describe('join-list-item-forward', () => {
 
       const { editorView } = editor(initialDoc);
 
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
 
       expect(editorView.state.doc).toEqualDocument(expectedDoc);
     });
@@ -757,7 +767,7 @@ describe('join-list-item-forward', () => {
 
       const { editorView } = editor(initialDoc);
 
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
 
       expect(editorView.state.doc).toEqualDocument(expectedDoc);
     });
@@ -768,7 +778,7 @@ describe('join-list-item-forward', () => {
       const initialDoc = doc(ul(li(p('{<>}')), li(p(''))));
       const expectedDoc = doc(ul(li(p('{<>}'))));
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -787,7 +797,7 @@ describe('join-list-item-forward', () => {
         p('g'),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -797,7 +807,7 @@ describe('join-list-item-forward', () => {
       const initialDoc = doc(ul(li(p('{<>}'), ul(li(p(''))))));
       const expectedDoc = doc(ul(li(p('{<>}'))));
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -814,7 +824,7 @@ describe('join-list-item-forward', () => {
         p('e'),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -842,7 +852,7 @@ describe('join-list-item-forward', () => {
         p('g'),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -870,7 +880,7 @@ describe('join-list-item-forward', () => {
         p('g'),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -902,7 +912,7 @@ describe('join-list-item-forward', () => {
         p('i'),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -912,7 +922,7 @@ describe('join-list-item-forward', () => {
       const initialDoc = doc(ul(li(p(''), ul(li(p('{<>}')))), li(p(''))));
       const expectedDoc = doc(ul(li(p(''), ul(li(p(''))))));
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -932,7 +942,7 @@ describe('join-list-item-forward', () => {
         p('f'),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -945,6 +955,7 @@ describe('join-list-item-forward', () => {
         ),
         p('h'),
       );
+      const { editorView } = editor(initialDoc);
       const expectedDoc = doc(
         ul(
           li(
@@ -958,8 +969,7 @@ describe('join-list-item-forward', () => {
         ),
         p('h'),
       );
-      const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -999,7 +1009,7 @@ describe('join-list-item-forward', () => {
         p('j'),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1018,8 +1028,13 @@ describe('join-list-item-forward', () => {
           )
         )
       );
-      const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      const { editorView, pluginInjectionAPI } = editor(initialDoc);
+      // deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
+      deleteKeyCommand(
+        pluginInjectionAPI.api().dependencies.analytics?.actions as
+          | EditorAnalyticsAPI
+          | undefined,
+      )(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1046,8 +1061,12 @@ describe('join-list-item-forward', () => {
           )
         ),
       );
-      const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      const { editorView, pluginInjectionAPI } = editor(initialDoc);
+      deleteKeyCommand(
+        pluginInjectionAPI.api().dependencies?.analytics?.actions as
+          | EditorAnalyticsAPI
+          | undefined,
+      )(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1065,7 +1084,7 @@ describe('join-list-item-forward', () => {
         )
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1094,7 +1113,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1107,7 +1126,7 @@ describe('join-list-item-forward', () => {
         p('some text {<>}A')
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1125,7 +1144,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1146,7 +1165,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1181,7 +1200,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1205,7 +1224,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1230,7 +1249,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1255,7 +1274,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1273,7 +1292,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1294,7 +1313,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1316,7 +1335,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1336,7 +1355,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1356,7 +1375,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1377,7 +1396,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1396,7 +1415,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1418,7 +1437,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -1441,7 +1460,7 @@ describe('join-list-item-forward', () => {
         ),
       );
       const { editorView } = editor(initialDoc);
-      deleteKeyCommand(editorView.state, editorView.dispatch);
+      deleteKeyCommand(undefined)(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });

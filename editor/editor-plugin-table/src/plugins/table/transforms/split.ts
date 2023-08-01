@@ -1,7 +1,6 @@
-import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-
 import { CellAttributes } from '@atlaskit/adf-schema';
+import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 
 /**

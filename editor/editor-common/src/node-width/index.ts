@@ -1,8 +1,7 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorState, PluginKey } from 'prosemirror-state';
-import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
-
 import { TableLayout } from '@atlaskit/adf-schema';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import {
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,

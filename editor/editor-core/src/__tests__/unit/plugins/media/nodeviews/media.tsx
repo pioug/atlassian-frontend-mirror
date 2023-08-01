@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { NumericalCardDimensions } from '@atlaskit/media-card';
-import { EditorView } from 'prosemirror-view';
+import type { NumericalCardDimensions } from '@atlaskit/media-card';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { media, border } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   defaultSchema,
@@ -9,17 +9,17 @@ import {
 } from '@atlaskit/adf-schema/schema-default';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { browser } from '@atlaskit/editor-common/utils';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import Media from '../../../../../plugins/media/nodeviews/mediaNodeView/media';
 import { stateKey as mediaStateKey } from '../../../../../plugins/media/pm-plugins/main';
-import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
-import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { ProsemirrorGetPosHandler } from '../../../../../nodeviews/types';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { ProsemirrorGetPosHandler } from '../../../../../nodeviews/types';
 import { ReactMediaNode } from '../../../../../plugins/media/nodeviews/mediaNodeView';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import { MediaOptions } from '../../../../../plugins/media/types';
-import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { MediaOptions } from '../../../../../plugins/media/types';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 
 const getMockWidthInjectionApi: any = (width: number) => ({
   dependencies: {

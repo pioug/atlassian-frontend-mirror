@@ -17,6 +17,6 @@ export const initialStateViewMessages = defineMessages({
     id: 'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink',
     description:
       'The link that displays under the search description to help people know more about AQL',
-    defaultMessage: 'Learn more about seaching with AQL.',
+    defaultMessage: 'Learn more about searching with AQL.',
   },
 });

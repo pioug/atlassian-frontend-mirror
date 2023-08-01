@@ -1,0 +1,322 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateDefaultGuidelines should generate default inner grids 1`] = `
+Array [
+  Object {
+    "key": "grid_0",
+    "position": Object {
+      "x": -400,
+    },
+  },
+  Object {
+    "key": "grid_1",
+    "position": Object {
+      "x": -333.33333333333337,
+    },
+  },
+  Object {
+    "key": "grid_2",
+    "position": Object {
+      "x": -266.66666666666663,
+    },
+  },
+  Object {
+    "key": "grid_3",
+    "position": Object {
+      "x": -200,
+    },
+  },
+  Object {
+    "key": "grid_4",
+    "position": Object {
+      "x": -133.33333333333331,
+    },
+  },
+  Object {
+    "key": "grid_5",
+    "position": Object {
+      "x": -66.66666666666666,
+    },
+  },
+  Object {
+    "key": "grid_6",
+    "position": Object {
+      "x": 0,
+    },
+  },
+  Object {
+    "key": "grid_7",
+    "position": Object {
+      "x": 66.66666666666666,
+    },
+  },
+  Object {
+    "key": "grid_8",
+    "position": Object {
+      "x": 133.33333333333331,
+    },
+  },
+  Object {
+    "key": "grid_9",
+    "position": Object {
+      "x": 200,
+    },
+  },
+  Object {
+    "key": "grid_10",
+    "position": Object {
+      "x": 266.66666666666663,
+    },
+  },
+  Object {
+    "key": "grid_11",
+    "position": Object {
+      "x": 333.33333333333337,
+    },
+  },
+  Object {
+    "key": "grid_12",
+    "position": Object {
+      "x": 400,
+    },
+  },
+  Object {
+    "key": "wide_left",
+    "position": Object {
+      "x": -532,
+    },
+  },
+  Object {
+    "key": "wide_right",
+    "position": Object {
+      "x": 532,
+    },
+  },
+  Object {
+    "key": "full_width_left",
+    "position": Object {
+      "x": -418,
+    },
+  },
+  Object {
+    "key": "full_width_right",
+    "position": Object {
+      "x": 418,
+    },
+  },
+]
+`;
+
+exports[`generateDefaultGuidelines should generate full-width guidelines when fullWidthMode is not active 1`] = `
+Array [
+  Object {
+    "key": "grid_0",
+    "position": Object {
+      "x": -450,
+    },
+  },
+  Object {
+    "key": "grid_1",
+    "position": Object {
+      "x": -375,
+    },
+  },
+  Object {
+    "key": "grid_2",
+    "position": Object {
+      "x": -300,
+    },
+  },
+  Object {
+    "key": "grid_3",
+    "position": Object {
+      "x": -225,
+    },
+  },
+  Object {
+    "key": "grid_4",
+    "position": Object {
+      "x": -150,
+    },
+  },
+  Object {
+    "key": "grid_5",
+    "position": Object {
+      "x": -75,
+    },
+  },
+  Object {
+    "key": "grid_6",
+    "position": Object {
+      "x": 0,
+    },
+  },
+  Object {
+    "key": "grid_7",
+    "position": Object {
+      "x": 75,
+    },
+  },
+  Object {
+    "key": "grid_8",
+    "position": Object {
+      "x": 150,
+    },
+  },
+  Object {
+    "key": "grid_9",
+    "position": Object {
+      "x": 225,
+    },
+  },
+  Object {
+    "key": "grid_10",
+    "position": Object {
+      "x": 300,
+    },
+  },
+  Object {
+    "key": "grid_11",
+    "position": Object {
+      "x": 375,
+    },
+  },
+  Object {
+    "key": "grid_12",
+    "position": Object {
+      "x": 450,
+    },
+  },
+  Object {
+    "key": "wide_left",
+    "position": Object {
+      "x": -598.5,
+    },
+  },
+  Object {
+    "key": "wide_right",
+    "position": Object {
+      "x": 598.5,
+    },
+  },
+  Object {
+    "key": "full_width_left",
+    "position": Object {
+      "x": -668,
+    },
+  },
+  Object {
+    "key": "full_width_right",
+    "position": Object {
+      "x": 668,
+    },
+  },
+]
+`;
+
+exports[`generateDefaultGuidelines should generate wide guidelines when fullWidthMode is not active 1`] = `
+Array [
+  Object {
+    "key": "grid_0",
+    "position": Object {
+      "x": -550,
+    },
+  },
+  Object {
+    "key": "grid_1",
+    "position": Object {
+      "x": -458.33333333333337,
+    },
+  },
+  Object {
+    "key": "grid_2",
+    "position": Object {
+      "x": -366.66666666666663,
+    },
+  },
+  Object {
+    "key": "grid_3",
+    "position": Object {
+      "x": -275,
+    },
+  },
+  Object {
+    "key": "grid_4",
+    "position": Object {
+      "x": -183.33333333333331,
+    },
+  },
+  Object {
+    "key": "grid_5",
+    "position": Object {
+      "x": -91.66666666666666,
+    },
+  },
+  Object {
+    "key": "grid_6",
+    "position": Object {
+      "x": 0,
+    },
+  },
+  Object {
+    "key": "grid_7",
+    "position": Object {
+      "x": 91.66666666666666,
+    },
+  },
+  Object {
+    "key": "grid_8",
+    "position": Object {
+      "x": 183.33333333333331,
+    },
+  },
+  Object {
+    "key": "grid_9",
+    "position": Object {
+      "x": 275,
+    },
+  },
+  Object {
+    "key": "grid_10",
+    "position": Object {
+      "x": 366.66666666666663,
+    },
+  },
+  Object {
+    "key": "grid_11",
+    "position": Object {
+      "x": 458.33333333333337,
+    },
+  },
+  Object {
+    "key": "grid_12",
+    "position": Object {
+      "x": 550,
+    },
+  },
+  Object {
+    "key": "wide_left",
+    "position": Object {
+      "x": -731.5,
+    },
+  },
+  Object {
+    "key": "wide_right",
+    "position": Object {
+      "x": 731.5,
+    },
+  },
+  Object {
+    "key": "full_width_left",
+    "position": Object {
+      "x": -518,
+    },
+  },
+  Object {
+    "key": "full_width_right",
+    "position": Object {
+      "x": 518,
+    },
+  },
+]
+`;

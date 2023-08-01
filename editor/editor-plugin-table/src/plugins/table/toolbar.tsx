@@ -1,9 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { findParentDomRefOfType } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
 import { defineMessages } from 'react-intl-next';
 
 import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
@@ -37,6 +33,10 @@ import {
   getNodeName,
   isReferencedSource,
 } from '@atlaskit/editor-common/utils';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { findParentDomRefOfType } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { Rect } from '@atlaskit/editor-tables/table-map';

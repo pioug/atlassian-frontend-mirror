@@ -1,12 +1,11 @@
-import { Node as PmNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
-
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
+import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { PluginInjectionAPI } from '../types';
 

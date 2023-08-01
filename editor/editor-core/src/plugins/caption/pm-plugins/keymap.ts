@@ -1,9 +1,9 @@
-import { keymap } from 'prosemirror-keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { Selection } from 'prosemirror-state';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
 import * as keymaps from '../../../keymaps';
-import { findParentNodeOfType } from 'prosemirror-utils';
-import { Command } from '../../../types';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { Command } from '../../../types';
 import { createNewParagraphBelow } from '../../../commands';
 import { GapCursorSelection } from '../../selection/gap-cursor/selection';
 

@@ -1,6 +1,6 @@
-import { Node } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { canJoin } from 'prosemirror-transform';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { canJoin } from '@atlaskit/editor-prosemirror/transform';
 
 /**
  * Checks whether two adjacent nodes can be joined. If so, the document

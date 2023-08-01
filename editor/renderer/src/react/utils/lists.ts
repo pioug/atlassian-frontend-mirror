@@ -1,4 +1,4 @@
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 
 export function getListIndentLevel(path: Node[]) {
   let count = 1;

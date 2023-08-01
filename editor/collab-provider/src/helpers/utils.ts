@@ -1,5 +1,5 @@
 import type { ProductInformation } from '../types';
-import type { Step as ProseMirrorStep } from 'prosemirror-transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 
 export const createLogger =
   (prefix: string, color: string = 'blue') =>

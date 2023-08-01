@@ -1,13 +1,8 @@
-import {
-  p,
-  ul,
-  li,
-  doc,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { p, ul, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { autoJoinTr } from '../../prosemirror/autojoin';
 import { wrapInList } from '../../../plugins/list/actions/wrap-and-join-lists';
 

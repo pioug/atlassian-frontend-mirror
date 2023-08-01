@@ -1,6 +1,6 @@
-import { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { InsertionTransactionMeta } from '../types';
-import { ACTIONS } from './actions';
+import type { ACTIONS } from './actions';
 import { pluginKey } from './key';
 
 export const isInsertionTransaction = (

@@ -1,8 +1,8 @@
 import CopyIcon from '@atlaskit/icon/glyph/copy';
-import { EditorState } from 'prosemirror-state';
-import { Command } from '../../../src/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Command } from '../../../src/types';
 import commonMessages from '../../messages';
-import {
+import type {
   FloatingToolbarButton,
   FloatingToolbarItem,
   FloatingToolbarSeparator,
@@ -17,7 +17,7 @@ import {
   removeMarkVisualFeedbackForCopyButtonCommand,
 } from './commands';
 import { copyButtonPluginKey } from './pm-plugins/plugin-key';
-import { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 
 function isSeparator(item: any): item is FloatingToolbarSeparator {
   return item?.type === 'separator';

@@ -5,13 +5,12 @@ import {
   bulletList,
   listItem,
 } from '@atlaskit/adf-schema';
-import { NextEditorPlugin } from '../../types';
+import type { NextEditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymapPlugin from './pm-plugins/keymap';
 import { messages } from './messages';
 import {
-  addAnalytics,
   ACTION,
   EVENT_TYPE,
   INPUT_METHOD,
@@ -22,6 +21,8 @@ import { tooltip, toggleBulletList, toggleOrderedList } from '../../keymaps';
 import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 import type { ListPluginOptions } from './types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 
 /*
   Toolbar buttons to bullet and ordered list can be found in
@@ -31,11 +32,15 @@ const listPlugin: NextEditorPlugin<
   'list',
   {
     pluginConfiguration: ListPluginOptions | undefined;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [
+      typeof featureFlagsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+    ];
   }
 > = (options, api) => {
   const featureFlags =
     api?.dependencies.featureFlags.sharedState.currentState() || {};
+  const editorAnalyticsAPI = api?.dependencies.analytics?.actions;
 
   return {
     name: 'list',
@@ -64,7 +69,11 @@ const listPlugin: NextEditorPlugin<
           plugin: ({ schema, featureFlags }) =>
             inputRulePlugin(schema, featureFlags),
         },
-        { name: 'listKeymap', plugin: () => keymapPlugin(featureFlags) },
+        {
+          name: 'listKeymap',
+          plugin: () =>
+            keymapPlugin(featureFlags, api?.dependencies.analytics?.actions),
+        },
       ];
     },
 
@@ -89,7 +98,7 @@ const listPlugin: NextEditorPlugin<
               ),
             );
 
-            return addAnalytics(state, tr, {
+            editorAnalyticsAPI?.attachAnalyticsEvent({
               action: ACTION.INSERTED,
               actionSubject: ACTION_SUBJECT.LIST,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
@@ -97,7 +106,9 @@ const listPlugin: NextEditorPlugin<
               attributes: {
                 inputMethod: INPUT_METHOD.QUICK_INSERT,
               },
-            });
+            })(tr);
+
+            return tr;
           },
         },
         {
@@ -119,7 +130,7 @@ const listPlugin: NextEditorPlugin<
               ),
             );
 
-            return addAnalytics(state, tr, {
+            editorAnalyticsAPI?.attachAnalyticsEvent({
               action: ACTION.INSERTED,
               actionSubject: ACTION_SUBJECT.LIST,
               actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
@@ -127,7 +138,9 @@ const listPlugin: NextEditorPlugin<
               attributes: {
                 inputMethod: INPUT_METHOD.QUICK_INSERT,
               },
-            });
+            })(tr);
+
+            return tr;
           },
         },
       ],

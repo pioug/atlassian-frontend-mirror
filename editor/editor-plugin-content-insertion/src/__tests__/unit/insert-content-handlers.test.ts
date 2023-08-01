@@ -1,8 +1,7 @@
 jest.mock('../../plugin/insert-node-helpers', () => ({
   insertProseMirrorContent: jest.fn(),
 }));
-import { Node as PMNode } from 'prosemirror-model';
-
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { text } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 

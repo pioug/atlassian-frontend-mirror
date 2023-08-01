@@ -1,4 +1,4 @@
-import { NodeType, Schema } from 'prosemirror-model';
+import { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 
 export type TableNodeCache = {
   [key: string]: NodeType;

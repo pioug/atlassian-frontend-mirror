@@ -2,9 +2,9 @@
 import React, { useCallback, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { Node as PMNode } from 'prosemirror-model';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import QuestionsIcon from '@atlaskit/icon/glyph/question-circle';
 import { N30, N50 } from '@atlaskit/theme/colors';

@@ -4,8 +4,9 @@ import React, {
   StatelessComponent,
 } from 'react';
 
-import { EditorView } from 'prosemirror-view';
 import ReactDOM from 'react-dom';
+
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import ReactEditorViewContext from './ReactEditorViewContext';
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import { EditorView, NodeView } from 'prosemirror-view';
-import { Node as PmNode } from 'prosemirror-model';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
-import { EditorAppearance } from '../../../types/editor-appearance';
-import {
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '../../../types/editor-appearance';
+import type {
   ForwardRef,
   getPosHandler,
   ProsemirrorGetPosHandler,
@@ -14,8 +14,8 @@ import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
 import Extension from '../ui/Extension';
 import ExtensionNodeWrapper from '../ui/Extension/ExtensionNodeWrapper';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import { EventDispatcher } from '../../../event-dispatcher';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { EventDispatcher } from '../../../event-dispatcher';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 
 interface ExtensionNodeViewOptions {

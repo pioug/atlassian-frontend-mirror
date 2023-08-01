@@ -1,12 +1,12 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
   Step,
   StepResult,
   StepMap,
   ReplaceStep,
   Mappable,
-} from 'prosemirror-transform';
-import { Slice } from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/transform';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
 
 export const analyticsStepType = 'atlaskit-analytics';
 export const analyticsInvertStepType = 'atlaskit-analytics-invert';

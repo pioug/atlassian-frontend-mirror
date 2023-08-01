@@ -1,6 +1,5 @@
-import { PluginKey, TextSelection } from 'prosemirror-state';
-
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { TEXT_INPUT_RULE_TRANSACTION_KEY } from './constants';
 import { createInputEventHandler } from './handler';

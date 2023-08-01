@@ -1,13 +1,17 @@
-import { EmojiProvider } from '@atlaskit/emoji/resource';
-import { EmojiDescription } from '@atlaskit/emoji/types';
-import { Schema, Node } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, Transaction, PluginKey } from 'prosemirror-state';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { EmojiProvider } from '@atlaskit/emoji/resource';
+import type { EmojiDescription } from '@atlaskit/emoji/types';
+import type { Schema, Node } from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
-import { FeatureFlags } from '../../../types/feature-flags';
+import type { FeatureFlags } from '../../../types/feature-flags';
 import {
   addAnalytics,
   ACTION,

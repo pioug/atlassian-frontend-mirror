@@ -1,7 +1,7 @@
 import { ContentLink } from './link-parser';
 import { Token } from '../index';
 import { Context } from '../../../interfaces';
-import { Node as PMNode, Schema } from 'prosemirror-model';
+import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { mentionLinkResolver } from './mention-link';
 import { attachmentLinkResolver } from './attachment-link';
 import { urlLinkResolver } from './url-link';

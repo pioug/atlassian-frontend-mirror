@@ -2,7 +2,7 @@ import { createSchema } from '../../../../schema/create-schema';
 import { toDOM, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
 import { extension } from '../../../../../src';
 import { dataConsumer } from '../../../../../src';
-import { Schema } from 'prosemirror-model';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 

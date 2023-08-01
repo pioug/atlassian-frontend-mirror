@@ -1,5 +1,4 @@
-import { EditorState, Transaction } from 'prosemirror-state';
-
+import { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
   p,
   RefsNode,

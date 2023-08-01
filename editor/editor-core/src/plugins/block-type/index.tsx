@@ -1,7 +1,7 @@
 import React from 'react';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import { blockquote, hardBreak, heading } from '@atlaskit/adf-schema';
-import {
+import type {
   NextEditorPlugin,
   OptionalPlugin,
   HeadingLevels,
@@ -12,7 +12,7 @@ import inputRulePlugin from './pm-plugins/input-rule';
 import ToolbarBlockType from './ui/ToolbarBlockType';
 import WithPluginState from '../../ui/WithPluginState';
 import { setBlockTypeWithAnalytics } from './commands';
-import { BlockTypeNode, BlockTypePluginOptions } from './types';
+import type { BlockTypeNode, BlockTypePluginOptions } from './types';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -22,12 +22,12 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import * as keymaps from '../../keymaps';
 import { IconHeading, IconQuote } from '@atlaskit/editor-common/quick-insert';
-import {
+import type {
   QuickInsertActionInsert,
   QuickInsertItem,
   QuickInsertItemId,
 } from '@atlaskit/editor-common/provider-factory';
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { messages } from './messages';
 import { ToolbarSize } from '../../ui/Toolbar/types';
 

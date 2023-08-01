@@ -1,11 +1,14 @@
-import type { Plugin } from 'prosemirror-state';
+import type { Plugin } from '@atlaskit/editor-prosemirror/state';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import collabEditPlugin from '../../';
 
-import { EditorState } from 'prosemirror-state';
-import { Schema } from 'prosemirror-model';
-import { PMPlugin, PMPluginFactoryParams } from '../../../../types/pm-plugin';
-import { EditorView } from 'prosemirror-view';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
+  PMPlugin,
+  PMPluginFactoryParams,
+} from '../../../../types/pm-plugin';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 describe('collab-edit: index.ts', () => {
   const schema = new Schema({

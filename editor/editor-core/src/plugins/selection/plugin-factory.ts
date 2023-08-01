@@ -1,11 +1,13 @@
-import { ReadonlyTransaction, NodeSelection } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import { pluginFactory } from '../../utils/plugin-state-factory';
 
 import { reducer } from './reducer';
-import { selectionPluginKey, SelectionPluginState } from './types';
+import type { SelectionPluginState } from './types';
+import { selectionPluginKey } from './types';
 import { getDecorations, isSelectableContainerNode } from './utils';
 
 const handleDocChanged = (

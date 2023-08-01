@@ -60,7 +60,8 @@ const Box: BoxComponent = forwardRef(
     }: BoxProps<T>,
     ref?: ComponentPropsWithRef<T>['ref'],
   ) => {
-    const { ...safeHtmlAttributes } = htmlAttributes;
+    // This is to remove className from safeHtmlAttributes
+    const { className: _spreadClass, ...safeHtmlAttributes } = htmlAttributes;
     const className = xcss && parseXcss(xcss);
     return (
       <BaseBox

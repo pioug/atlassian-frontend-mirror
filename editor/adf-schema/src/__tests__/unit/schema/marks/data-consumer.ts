@@ -1,6 +1,6 @@
 import { createSchema } from '../../../../schema/create-schema';
 import { toHTML, fromHTML } from '@atlaskit/editor-test-helpers/adf-schema';
-import { Schema } from 'prosemirror-model';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 

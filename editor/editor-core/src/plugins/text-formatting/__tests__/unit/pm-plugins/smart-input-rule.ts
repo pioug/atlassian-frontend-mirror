@@ -1,5 +1,5 @@
-import type { EditorView } from 'prosemirror-view';
-import { TextSelection } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,

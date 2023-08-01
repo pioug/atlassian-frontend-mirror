@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import WithPluginState from '../../../../ui/WithPluginState';
 import { pluginKey } from '../../plugin-key';
-import { QuickInsertPluginState } from '../../types';
+import type { QuickInsertPluginState } from '../../types';
 import { searchQuickInsertItems } from '../../search';
 
 import ModalElementBrowser from '../../../../ui/ElementBrowser/ModalElementBrowser';

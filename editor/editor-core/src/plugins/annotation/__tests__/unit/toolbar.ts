@@ -1,5 +1,6 @@
 import { getPluginState, inlineCommentPluginKey } from './../../utils';
 import { createIntl } from 'react-intl-next';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   emoji,
@@ -7,13 +8,12 @@ import {
   p,
   taskItem,
   taskList,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import annotationPlugin from '../..';
@@ -22,13 +22,14 @@ import blockTypePlugin from '../../../block-type';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { buildToolbar } from '../../toolbar';
 import { inlineCommentProvider } from '../_utils';
-import {
+import type {
   FloatingToolbarConfig,
   FloatingToolbarButton,
 } from '../../../floating-toolbar/types';
 import type { Command } from '@atlaskit/editor-common/types';
-import { SelectionBookmark, AllSelection } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
+import type { SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
+import { AllSelection } from '@atlaskit/editor-prosemirror/state';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 
 const annotationPreset = new Preset<LightEditorPlugin>()

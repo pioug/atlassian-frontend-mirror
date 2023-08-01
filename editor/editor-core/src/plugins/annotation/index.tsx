@@ -4,11 +4,11 @@ import type {
   NextEditorPlugin,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
-import type { EditorView } from 'prosemirror-view';
-import { FloatingToolbarConfig } from '../floating-toolbar/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { FloatingToolbarConfig } from '../floating-toolbar/types';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { inlineCommentPlugin } from './pm-plugins/inline-comment';
-import {
+import type {
   AnnotationProviders,
   InlineCommentAnnotationProvider,
   AnnotationInfo,
@@ -18,7 +18,8 @@ import {
   InlineCommentViewComponentProps,
   AnnotationTypeProvider,
 } from './types';
-import { UpdateEvent, AnnotationUpdateEmitter } from './update-provider';
+import type { UpdateEvent } from './update-provider';
+import { AnnotationUpdateEmitter } from './update-provider';
 import { getPluginState } from './utils';
 import { buildToolbar } from './toolbar';
 import { InlineCommentView } from './ui/InlineCommentView';

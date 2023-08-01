@@ -1,12 +1,12 @@
-import { Node, NodeType, Schema } from 'prosemirror-model';
-import { EditorState, NodeSelection } from 'prosemirror-state';
-import { hasParentNodeOfType } from 'prosemirror-utils';
 import { IntlShape } from 'react-intl-next';
 
 import {
   RichMediaLayout as MediaSingleLayout,
   RichMediaAttributes,
 } from '@atlaskit/adf-schema';
+import { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { DEFAULT_EMBED_CARD_WIDTH } from '@atlaskit/editor-shared-styles';
 import EditorAlignImageCenter from '@atlaskit/icon/glyph/editor/align-image-center';
 import EditorAlignImageLeft from '@atlaskit/icon/glyph/editor/align-image-left';

@@ -1,4 +1,4 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 interface Transformer<T> {
   encode(node: PMNode): T;

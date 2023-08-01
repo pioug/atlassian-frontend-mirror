@@ -1,8 +1,11 @@
-import { EditorState, TextSelection } from 'prosemirror-state';
-import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { createCommand, getPluginState } from './plugin';
-import { FindReplaceActionTypes, FindReplaceAction } from './actions';
-import { Match } from './types';
+import type { FindReplaceAction } from './actions';
+import { FindReplaceActionTypes } from './actions';
+import type { Match } from './types';
 import {
   findMatches,
   findSearchIndex,

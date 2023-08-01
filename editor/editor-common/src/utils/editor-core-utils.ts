@@ -1,13 +1,17 @@
-import { Node, NodeType, Slice } from 'prosemirror-model';
+import { Node, NodeType, Slice } from '@atlaskit/editor-prosemirror/model';
 import {
   EditorState,
   NodeSelection,
   Selection,
   TextSelection,
-} from 'prosemirror-state';
-import { ReplaceAroundStep, ReplaceStep, Step } from 'prosemirror-transform';
-import { hasParentNodeOfType } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  ReplaceAroundStep,
+  ReplaceStep,
+  Step,
+} from '@atlaskit/editor-prosemirror/transform';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { closest } from './dom';
 

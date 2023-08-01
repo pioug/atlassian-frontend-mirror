@@ -1,22 +1,24 @@
-import { findWrapping } from 'prosemirror-transform';
-import {
+import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
+import type {
   Node as PMNode,
   ResolvedPos,
   NodeType,
   NodeRange,
-} from 'prosemirror-model';
-import {
+} from '@atlaskit/editor-prosemirror/model';
+import type {
   EditorState,
-  Selection,
   Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  Selection,
   TextSelection,
   NodeSelection,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeClosestToPos,
   findParentNodeOfType,
   hasParentNodeOfType,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import {
   isListItemNode,

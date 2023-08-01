@@ -1,27 +1,27 @@
-import { RefObject } from 'react';
-import { ReactElement } from 'react';
+import type { RefObject } from 'react';
+import type { ReactElement } from 'react';
 
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 
-import EditorActions from '../actions';
-import { EventDispatcher } from '../event-dispatcher';
-import { CollabEditOptions } from '../plugins/collab-edit/types';
-import {
+import type EditorActions from '../actions';
+import type { EventDispatcher } from '../event-dispatcher';
+import type { CollabEditOptions } from '../plugins/collab-edit/types';
+import type {
   PrimaryToolbarComponents,
   ReactComponents,
   UseStickyToolbarType,
 } from '../types/editor-props';
-import { UIComponentFactory } from '../types/ui-components';
-import { MenuItem } from '../ui/DropdownMenu/types';
-import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
+import type { UIComponentFactory } from '../types/ui-components';
+import type { MenuItem } from '../ui/DropdownMenu/types';
+import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 
-import { EditorAppearance } from './editor-appearance';
-import { FeatureFlags } from './feature-flags';
+import type { EditorAppearance } from './editor-appearance';
+import type { FeatureFlags } from './feature-flags';
 
 export interface EditorAppearanceComponentProps {
   appearance?: EditorAppearance;

@@ -1,8 +1,3 @@
-import { keymap } from 'prosemirror-keymap';
-import { EditorState, NodeSelection } from 'prosemirror-state';
-import { findChildren, flatten } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-
 import {
   bindKeymapWithCommand,
   moveDown,
@@ -11,6 +6,10 @@ import {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command, FeatureFlags } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { findChildren, flatten } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 const lookupPixel = 10;
 

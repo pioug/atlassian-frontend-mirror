@@ -1,20 +1,17 @@
-jest.mock('prosemirror-utils', () => ({
-  ...jest.requireActual<any>('prosemirror-utils'),
+jest.mock('@atlaskit/editor-prosemirror/utils', () => ({
+  ...jest.requireActual<any>('@atlaskit/editor-prosemirror/utils'),
   findDomRefAtPos: jest.fn().mockReturnValue({ childNodes: [] }),
 }));
-import { findDomRefAtPos } from 'prosemirror-utils';
-import {
-  media,
-  mediaGroup,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-import { MediaAttributes } from '@atlaskit/adf-schema';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { media, mediaGroup } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { MediaAttributes } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { MediaPluginStateImplementation, stateKey } from '../../main';
-import { MediaPluginState } from '../../types';
-import { MediaPluginOptions } from '../../../media-plugin-options';
+import type { MediaPluginState } from '../../types';
+import type { MediaPluginOptions } from '../../../media-plugin-options';
 import {
   getFreshMediaProvider,
   temporaryFileId,

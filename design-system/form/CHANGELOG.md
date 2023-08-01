@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.11.9
+
+### Patch Changes
+
+- [`85935c8cde4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/85935c8cde4) - [ux] Denoting live region of form messages using aria-live attribute instead of alert role.
+
 ## 8.11.8
 
 ### Patch Changes

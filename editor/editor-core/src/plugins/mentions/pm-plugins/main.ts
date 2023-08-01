@@ -1,5 +1,8 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorState, SafeStateField } from 'prosemirror-state';
+import type {
+  EditorState,
+  SafeStateField,
+} from '@atlaskit/editor-prosemirror/state';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import {
   SLI_EVENT_TYPE,

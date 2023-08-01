@@ -1,5 +1,4 @@
-import { DecorationSet } from 'prosemirror-view';
-
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   doc,

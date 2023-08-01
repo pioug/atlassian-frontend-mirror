@@ -1,16 +1,16 @@
-import { EditorState } from 'prosemirror-state';
-import { RESOLVE_METHOD } from './../../analytics/types/inline-comment-events';
-import { Command } from '../../../types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { RESOLVE_METHOD } from './../../analytics/types/inline-comment-events';
+import type { Command } from '../../../types';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createCommand } from '../pm-plugins/plugin-factory';
 import { INPUT_METHOD } from '../../analytics';
 import { isSelectionValid, getPluginState } from '../utils';
-import {
+import type {
   InlineCommentAction,
-  ACTIONS,
   InlineCommentMap,
   InlineCommentMouseData,
 } from '../pm-plugins/types';
+import { ACTIONS } from '../pm-plugins/types';
 
 import transform from './transform';
 import { AnnotationSelectionType } from '../types';

@@ -4,7 +4,7 @@ import {
   ReactTestInstance,
 } from 'react-test-renderer';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ReactSerializer } from '../../../index';
 import { emojiList } from './__fixtures__/emoji';
 import Emoji from '../../../react/nodes/emoji';

@@ -4,7 +4,7 @@ import {
   Mark,
   NodeType,
   Schema,
-} from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/model';
 import { default as encodeCxhtml } from './encode-cxhtml';
 import { children } from './utils';
 

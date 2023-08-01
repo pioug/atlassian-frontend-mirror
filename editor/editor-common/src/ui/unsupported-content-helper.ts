@@ -1,5 +1,6 @@
-import { Node as PMNode } from 'prosemirror-model';
 import { IntlShape } from 'react-intl-next';
+
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export function getUnsupportedContent(
   message: any,

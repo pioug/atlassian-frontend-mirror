@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.0.1
+
+### Patch Changes
+
+- [`e74ae7f06d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e74ae7f06d4) - Update dependency json-ld-types@3.8.0
+
 ## 6.0.0
 
 ### Major Changes

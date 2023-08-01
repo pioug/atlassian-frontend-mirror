@@ -1,12 +1,12 @@
-import { Fragment, Node } from 'prosemirror-model';
+import type { Fragment, Node } from '@atlaskit/editor-prosemirror/model';
 
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { QuickInsertItem } from '@atlaskit/editor-common/src/provider-factory/quick-insert-provider';
+import type { QuickInsertItem } from '@atlaskit/editor-common/src/provider-factory/quick-insert-provider';
 
 import { insertSelectedItem } from '@atlaskit/editor-common/insert';
 
-import { Command } from '../../types';
+import type { Command } from '../../types';
 import { pluginKey } from './plugin-key';
 
 export const openElementBrowserModal = (): Command => (state, dispatch) => {

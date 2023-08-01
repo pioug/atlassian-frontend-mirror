@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { wrappedLayouts } from '@atlaskit/editor-common/ui';
@@ -8,6 +8,11 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 
+import type {
+  Refs,
+  RefsNode,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   h1,
@@ -25,9 +30,6 @@ import {
   tdCursor,
   tdEmpty,
   code_block,
-  Refs,
-  RefsNode,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import sleep from '@atlaskit/editor-test-helpers/sleep';
@@ -44,7 +46,7 @@ import {
 import { Side } from '../../../selection/gap-cursor-selection';
 import { insertMediaAsMediaSingle } from '../../../../plugins/media/utils/media-single';
 import { alignAttributes } from '@atlaskit/editor-common/utils';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   temporaryMedia,
   temporaryMediaGroup,
@@ -52,27 +54,29 @@ import {
   testCollectionName,
   temporaryFileId,
 } from '../../../../__tests__/unit/plugins/media/_utils';
-import {
+import type {
   MediaAttributes,
   RichMediaAttributes as MediaSingleAttributes,
   MediaADFAttrs,
   RichMediaLayout,
 } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { CardEvent, CardOnClickCallback } from '@atlaskit/media-card';
-import { FileDetails } from '@atlaskit/media-client';
-import { Schema } from '@atlaskit/editor-test-helpers/schema';
-import { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/create-editor';
+import type { CardEvent, CardOnClickCallback } from '@atlaskit/media-card';
+import type { FileDetails } from '@atlaskit/media-client';
+import type { Schema } from '@atlaskit/editor-test-helpers/schema';
+import type { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/create-editor';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ReactWrapper, mount } from 'enzyme';
 import { ClipboardWrapper } from '../../../../plugins/media/ui/MediaPicker/ClipboardWrapper';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import MediaItem, {
-  MediaNodeProps,
-  MediaNode,
-} from '../../nodeviews/mediaNodeView/media';
+import type { MediaNodeProps } from '../../nodeviews/mediaNodeView/media';
+import MediaItem, { MediaNode } from '../../nodeviews/mediaNodeView/media';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { TextSelection, NodeSelection } from 'prosemirror-state';
-import { MediaPluginState } from '../../pm-plugins/types';
+import {
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { MediaPluginState } from '../../pm-plugins/types';
 
 const pdfFile = {
   id: `${randomId()}`,

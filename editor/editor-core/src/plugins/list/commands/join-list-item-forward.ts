@@ -6,65 +6,67 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
   DELETE_DIRECTION,
-  addAnalytics,
-} from '../../analytics';
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import { Command } from '../../../types';
-import { findParentNodeOfType } from 'prosemirror-utils';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { calcJoinListScenario } from '../actions/join-list-items-forward';
 
-export const joinListItemForward: Command = (state, dispatch) => {
-  const {
-    tr,
-    selection: { $head },
-  } = state;
-  const walkNode = walkNextNode($head);
+export const joinListItemForward =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    const {
+      tr,
+      selection: { $head },
+    } = state;
+    const walkNode = walkNextNode($head);
 
-  if (!isEmptySelectionAtEnd(state)) {
-    return false;
-  }
+    if (!isEmptySelectionAtEnd(state)) {
+      return false;
+    }
 
-  const scenarios = calcJoinListScenario(walkNode, $head);
+    const scenarios = calcJoinListScenario(walkNode, $head);
 
-  if (!scenarios) {
-    return false;
-  }
-  const [scenario, action] = scenarios;
+    if (!scenarios) {
+      return false;
+    }
+    const [scenario, action] = scenarios;
 
-  const result = action({
-    tr,
-    $next: walkNode.$pos,
-    $head: $head,
-  });
+    const result = action({
+      tr,
+      $next: walkNode.$pos,
+      $head: $head,
+    });
 
-  if (!result) {
-    return false;
-  }
+    if (!result) {
+      return false;
+    }
 
-  const { bulletList, orderedList } = state.schema.nodes;
-  const listParent = findParentNodeOfType([bulletList, orderedList])(
-    tr.selection,
-  );
+    const { bulletList, orderedList } = state.schema.nodes;
+    const listParent = findParentNodeOfType([bulletList, orderedList])(
+      tr.selection,
+    );
 
-  let actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_BULLET;
-  if (listParent && listParent.node.type === orderedList) {
-    actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
-  }
+    let actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_BULLET;
+    if (listParent && listParent.node.type === orderedList) {
+      actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
+    }
 
-  addAnalytics(state, tr, {
-    action: ACTION.LIST_ITEM_JOINED,
-    actionSubject: ACTION_SUBJECT.LIST,
-    actionSubjectId,
-    eventType: EVENT_TYPE.TRACK,
-    attributes: {
-      inputMethod: INPUT_METHOD.KEYBOARD,
-      direction: DELETE_DIRECTION.FORWARD,
-      scenario,
-    },
-  });
+    editorAnalyticsAPI?.attachAnalyticsEvent({
+      action: ACTION.LIST_ITEM_JOINED,
+      actionSubject: ACTION_SUBJECT.LIST,
+      actionSubjectId,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: {
+        inputMethod: INPUT_METHOD.KEYBOARD,
+        direction: DELETE_DIRECTION.FORWARD,
+        scenario,
+      },
+    })(tr);
 
-  if (dispatch) {
-    dispatch(tr);
-  }
+    if (dispatch) {
+      dispatch(tr);
+    }
 
-  return true;
-};
+    return true;
+  };

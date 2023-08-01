@@ -1,5 +1,8 @@
 import { browser } from '@atlaskit/editor-common/utils';
-import { EditorState, Transaction } from 'prosemirror-state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { pluginKey } from './plugin-key';
 
 // Workaround for a firefox issue where dom selection is off sync

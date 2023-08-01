@@ -1,11 +1,14 @@
-import { Node as ProseMirrorNode, Schema } from 'prosemirror-model';
+import {
+  Node as ProseMirrorNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import {
   Mappable,
   Step,
   StepMap,
   StepResult,
   Transform,
-} from 'prosemirror-transform';
+} from '@atlaskit/editor-prosemirror/transform';
 import { TableRect } from '@atlaskit/editor-tables/table-map';
 
 import { Cell, cellsAtColumn } from './utils/cells-at-column';

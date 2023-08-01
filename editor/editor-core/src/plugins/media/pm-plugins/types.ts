@@ -1,4 +1,4 @@
-import type { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type {
@@ -7,7 +7,7 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type { MediaOptions, MediaState } from '../types';
 import type { MediaPluginOptions } from '../media-plugin-options';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MediaStateEventSubscriber } from '../picker-facade';
 import type PickerFacade from '../picker-facade';
 import type { Dispatch } from '../../../event-dispatcher';

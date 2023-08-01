@@ -1,18 +1,16 @@
-import { NodeSelection } from 'prosemirror-state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
-import {
-  createEditorFactory,
-  EditorInstanceWithPlugin,
-} from '@atlaskit/editor-test-helpers/create-editor';
+import type { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
   media,
   mediaSingle,
   mediaGroup,
-  RefsNode,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Schema } from '@atlaskit/editor-test-helpers/schema';
+import type { Schema } from '@atlaskit/editor-test-helpers/schema';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';

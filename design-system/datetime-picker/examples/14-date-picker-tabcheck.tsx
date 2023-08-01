@@ -44,6 +44,7 @@ export default () => {
           placeholder: 'e.g. 31/Dec/18',
         }}
         onChange={console.log}
+        testId="datepicker-1"
       />
       <Label htmlFor="text2"> third field</Label>
       <input id="text2" type="text" />

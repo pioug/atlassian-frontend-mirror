@@ -1,28 +1,23 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import {
-  p,
-  ul,
-  li,
-  doc,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { p, ul, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   undo as pmHistoryUndo,
   redo as pmHistoryRedo,
-} from 'prosemirror-history';
+} from '@atlaskit/editor-prosemirror/history';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import undoPlugin from '../../..';
 import panelPlugin from '../../../../panel';
-import deprecatedAnalyticsPlugin, {
+import {
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
-} from '../../../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import listPlugin from '../../../../list';
 import { pluginKey as undoPluginKey } from '../../../pm-plugins/plugin-key';
@@ -41,10 +36,9 @@ describe('change input method from undo/redo events', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add(decorationsPlugin)
+        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(listPlugin)
         .add(panelPlugin)
-        .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(undoPlugin),
       pluginKey: undoPluginKey,
     });

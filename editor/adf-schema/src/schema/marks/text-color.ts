@@ -1,4 +1,4 @@
-import { Mark, MarkSpec } from 'prosemirror-model';
+import { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
 
 import { hexToEditorTextPaletteColor } from '@atlaskit/editor-palette';
 

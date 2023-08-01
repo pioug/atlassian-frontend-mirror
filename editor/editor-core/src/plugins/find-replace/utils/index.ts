@@ -1,12 +1,17 @@
-import { Fragment, Node as PmNode, Slice } from 'prosemirror-model';
-import { Decoration, DecorationSet } from 'prosemirror-view';
-import {
-  TextSelection,
+import type {
+  Fragment,
+  Node as PmNode,
+  Slice,
+} from '@atlaskit/editor-prosemirror/model';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import type {
   ReadonlyTransaction,
   Selection,
-} from 'prosemirror-state';
-import { Step } from 'prosemirror-transform';
-import { Match, TextGrouping } from '../types';
+} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Match, TextGrouping } from '../types';
 import { selectedSearchMatchClass, searchMatchClass } from '../styles';
 
 export function getSelectedText(selection: TextSelection): string {

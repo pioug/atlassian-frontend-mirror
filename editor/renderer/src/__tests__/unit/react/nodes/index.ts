@@ -1,5 +1,5 @@
 import * as sinon from 'sinon';
-import { Fragment } from 'prosemirror-model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import {
   mergeTextNodes,
   isText,

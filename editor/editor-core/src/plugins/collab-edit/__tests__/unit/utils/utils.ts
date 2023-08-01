@@ -1,16 +1,17 @@
-import { EditorView } from 'prosemirror-view';
-import { ReadonlyTransaction } from 'prosemirror-state';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { PrivateCollabEditOptions } from '../../../types';
+import type { PrivateCollabEditOptions } from '../../../types';
 import collabEditPlugin from '../../../index';
 import deprecatedAnalyticsPlugin from '../../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -19,9 +20,9 @@ import {
   getPositionOfTelepointer,
   scrollToCollabCursor,
 } from '../../../utils';
-import { CollabParticipant } from '@atlaskit/collab-provider';
+import type { CollabParticipant } from '@atlaskit/collab-provider';
 import { getValidPos } from '../../../plugin-state';
-import { Decoration, DecorationSet } from 'prosemirror-view';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const initializeCollab = (view: EditorView) =>

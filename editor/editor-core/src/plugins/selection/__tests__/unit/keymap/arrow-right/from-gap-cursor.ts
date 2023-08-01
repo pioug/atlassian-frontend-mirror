@@ -1,4 +1,4 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
   doc,

@@ -35,9 +35,9 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import cloneDeep from 'lodash/cloneDeep';
-import { EditorView } from 'prosemirror-view';
 
 import { DatasourceAttributeProperties } from '@atlaskit/adf-schema/schema';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   datasourceBlockCard,
   RefsNode,

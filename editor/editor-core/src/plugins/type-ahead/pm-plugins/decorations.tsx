@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import uuid from 'uuid';
-import {
+import type {
   ReadonlyTransaction,
   Transaction,
-  TextSelection,
-} from 'prosemirror-state';
-import { EditorView, DecorationSet, Decoration } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
 import { B400 } from '@atlaskit/theme/colors';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { IntlProvider, IntlShape } from 'react-intl-next';
-import { redo, undo } from 'prosemirror-history';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { IntlShape } from 'react-intl-next';
+import { IntlProvider } from 'react-intl-next';
+import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 
 import {
   TYPE_AHEAD_DECORATION_KEY,

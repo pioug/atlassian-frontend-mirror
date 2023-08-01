@@ -1,9 +1,9 @@
-import { EditorView } from 'prosemirror-view';
 import { replaceRaf, Stub } from 'raf-stub';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { EditorTestCardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';

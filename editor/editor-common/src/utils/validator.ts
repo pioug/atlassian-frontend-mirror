@@ -1,5 +1,3 @@
-import type { Mark as PMMark, Schema } from 'prosemirror-model';
-
 import {
   CellAttributes,
   inlineNodes,
@@ -8,6 +6,10 @@ import {
   generateUuid as uuid,
 } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import type {
+  Mark as PMMark,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 
 export const ADFStages = {
   FINAL: 'final',

@@ -1,20 +1,20 @@
-import { keymap } from 'prosemirror-keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { Dispatch } from '../../event-dispatcher';
+import type { Dispatch } from '../../event-dispatcher';
 import type { EditorProps } from '../../types/editor-props';
 import type {
   NextEditorPlugin,
   CommandDispatch,
 } from '@atlaskit/editor-common/types';
 import * as keymaps from '../../keymaps';
+import type { AnalyticsEventPayload } from '../../plugins/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../plugins/analytics';

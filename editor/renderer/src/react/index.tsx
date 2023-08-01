@@ -1,6 +1,11 @@
 import React from 'react';
 import { ComponentType } from 'react';
-import { Fragment, Mark, MarkType, Node } from 'prosemirror-model';
+import {
+  Fragment,
+  Mark,
+  MarkType,
+  Node,
+} from '@atlaskit/editor-prosemirror/model';
 import { Serializer } from '../';
 import {
   RendererAppearance,
@@ -28,7 +33,7 @@ import { getMarksByOrder, isSameMark } from '@atlaskit/editor-common/validator';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
 import { getText } from '../utils';
-import { findChildrenByType } from 'prosemirror-utils';
+import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import {
   RendererContext,
   NodeMeta,

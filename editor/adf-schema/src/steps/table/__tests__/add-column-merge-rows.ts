@@ -7,9 +7,9 @@ import {
   p,
   Refs,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { EditorState } from 'prosemirror-state';
-import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { Step } from 'prosemirror-transform';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import { Step } from '@atlaskit/editor-prosemirror/transform';
 import {
   createCellColorA,
   createCellColorB,

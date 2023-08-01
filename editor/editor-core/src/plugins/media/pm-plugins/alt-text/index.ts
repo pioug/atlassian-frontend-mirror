@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from 'prosemirror-state';
-import { PMPluginFactoryParams } from '../../../../types';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { PMPluginFactoryParams } from '../../../../types';
 import { pluginFactory } from '../../../../utils/plugin-state-factory';
 import reducer from './reducer';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';

@@ -2,16 +2,13 @@ import { name } from '../../../version-wrapper';
 import { mount } from 'enzyme';
 import React from 'react';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import WithPluginState from '../../../ui/WithPluginState';
-import { EditorPlugin } from '../../../types/editor-plugin';
-import {
-  EventDispatcher,
-  createDispatch,
-  Dispatch,
-} from '../../../event-dispatcher';
+import type { EditorPlugin } from '../../../types/editor-plugin';
+import type { Dispatch } from '../../../event-dispatcher';
+import { EventDispatcher, createDispatch } from '../../../event-dispatcher';
 import EditorActions from '../../../actions';
 import EditorContext from '../../../ui/EditorContext';
 

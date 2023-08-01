@@ -1,10 +1,14 @@
 // This file defines a number of helpers for wiring up user input to
 // table-related functionality.
 
-import { keydownHandler } from 'prosemirror-keymap';
-import { ResolvedPos, Slice } from 'prosemirror-model';
-import { EditorState, Selection, TextSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
+import { ResolvedPos, Slice } from '@atlaskit/editor-prosemirror/model';
+import {
+  EditorState,
+  Selection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { CellSelection } from '../cell-selection';
 import { Axis, CommandWithView, Direction, Dispatch } from '../types';

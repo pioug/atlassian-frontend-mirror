@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import { EditorView } from 'prosemirror-view';
-
 let mockFindOverflowScrollParent = jest.fn();
 let mockRafSchedule = jest.fn().mockImplementation((cb: any) => cb());
 jest.mock('raf-schd', () => (cb: any) => () => mockRafSchedule(cb));
@@ -28,6 +26,7 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
   withImageLoader: jest.fn(),
 }));
 import { browser } from '@atlaskit/editor-common/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { Card } from '@atlaskit/smart-card';

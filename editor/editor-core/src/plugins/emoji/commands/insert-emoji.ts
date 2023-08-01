@@ -1,10 +1,10 @@
-import { EmojiId } from '@atlaskit/emoji';
-import { safeInsert } from 'prosemirror-utils';
-import { Fragment } from 'prosemirror-model';
-import { Selection } from 'prosemirror-state';
-import { Command } from '../../../types';
+import type { EmojiId } from '@atlaskit/emoji';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Command } from '../../../types';
+import type { INPUT_METHOD } from '../../analytics';
 import {
-  INPUT_METHOD,
   addAnalytics,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,

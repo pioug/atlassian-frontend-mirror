@@ -1,10 +1,12 @@
 import { selectTable } from '@atlaskit/editor-tables/utils';
-import { TextSelection, NodeSelection } from 'prosemirror-state';
-// @ts-expect-error We're importing internals, of course we expect an error
-import { __serializeForClipboard } from 'prosemirror-view';
+import {
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import { __serializeForClipboard } from '@atlaskit/editor-prosemirror/view';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
@@ -17,6 +19,7 @@ import { handleCut } from '@atlaskit/editor-plugin-table/src/plugins/table/event
 import fragmentMarkPlugin from '../../../index';
 import { pluginKey as fragmentMarkPluginKey } from '../../../plugin-key';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -28,7 +31,6 @@ import {
   td,
   th,
   fragmentMark,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { CellSelection } from '@atlaskit/editor-tables';
 

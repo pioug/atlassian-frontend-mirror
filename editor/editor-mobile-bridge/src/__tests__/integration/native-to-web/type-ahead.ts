@@ -1,5 +1,5 @@
 import { Browser, BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {

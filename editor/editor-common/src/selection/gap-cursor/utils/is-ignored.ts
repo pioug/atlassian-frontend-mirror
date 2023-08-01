@@ -1,4 +1,4 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 // we don't show gap cursor for those nodes
 const IGNORED_NODES = [

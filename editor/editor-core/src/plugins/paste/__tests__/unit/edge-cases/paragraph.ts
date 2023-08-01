@@ -1,9 +1,10 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
-  LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   h1,
@@ -23,12 +24,11 @@ import {
   layoutColumn,
   panel,
   strong,
-  DocBuilder,
   mediaSingle,
   code_block as codeBlock,
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import codeBlockPlugin from '../../../../code-block';
 import mediaPlugin from '../../../../media';

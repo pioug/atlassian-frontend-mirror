@@ -1,10 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import type { Transaction, Plugin } from 'prosemirror-state';
-import { EditorState, Selection, TextSelection } from 'prosemirror-state';
-import type { DirectEditorProps } from 'prosemirror-view';
-import { EditorView } from 'prosemirror-view';
-import type { Node as PMNode } from 'prosemirror-model';
+import type { Transaction, Plugin } from '@atlaskit/editor-prosemirror/state';
+import {
+  EditorState,
+  Selection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { WrappedComponentProps } from 'react-intl-next';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

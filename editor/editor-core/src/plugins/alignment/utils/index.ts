@@ -1,7 +1,7 @@
-import { findParentNodeOfType } from 'prosemirror-utils';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { EditorState } from 'prosemirror-state';
-import { AlignmentState } from '../pm-plugins/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { AlignmentState } from '../pm-plugins/types';
 
 export const getActiveAlignment = (
   state: EditorState,

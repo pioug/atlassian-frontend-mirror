@@ -1,10 +1,10 @@
-import { keymap } from 'prosemirror-keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../keymaps';
 import { arrow, deleteNode } from '../gap-cursor/actions';
 import { Direction } from '../gap-cursor/direction';
 import { GapCursorSelection } from '../gap-cursor/selection';
-import { createParagraphNear } from 'prosemirror-commands';
+import { createParagraphNear } from '@atlaskit/editor-prosemirror/commands';
 
 export default function keymapPlugin(): SafePlugin {
   const map = {};

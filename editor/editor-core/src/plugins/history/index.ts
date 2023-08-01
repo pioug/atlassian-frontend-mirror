@@ -1,12 +1,12 @@
 import { pluginFactory } from '../../utils/plugin-state-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from 'prosemirror-state';
-import { Dispatch } from '../../event-dispatcher';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { Dispatch } from '../../event-dispatcher';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import reducer from './reducer';
 import { HistoryActionTypes } from './actions';
 import { getPmHistoryPluginState } from './utils';
-import { HistoryPluginState } from './types';
+import type { HistoryPluginState } from './types';
 
 /**
  * Plugin that keeps track of whether undo and redo are currently available

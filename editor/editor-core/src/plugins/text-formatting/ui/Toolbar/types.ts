@@ -1,4 +1,4 @@
-import type { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { WrappedComponentProps } from 'react-intl-next';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';

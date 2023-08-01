@@ -6,7 +6,7 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 jest.mock('../../web-to-native/index');
 jest.mock('@atlaskit/editor-core');
-jest.mock('prosemirror-state');
+jest.mock('@atlaskit/editor-prosemirror/state');
 jest.useFakeTimers();
 
 describe('Notify editing capabilities to the native bridge', () => {

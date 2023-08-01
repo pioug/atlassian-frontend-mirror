@@ -1,6 +1,10 @@
-import { PluginKey, EditorState, Transaction } from 'prosemirror-state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-import { CustomAutoformatState, CustomAutoformatAction } from './types';
+import type { CustomAutoformatState, CustomAutoformatAction } from './types';
 
 export const pluginKey = new PluginKey('customAutoformatPlugin');
 

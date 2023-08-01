@@ -1,8 +1,8 @@
-import { EditorView } from 'prosemirror-view';
-import { Transaction } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { BlockMenuItem } from '../../plugins/insert-block/ui/ToolbarInsertBlock/create-items';
-import { MenuItem } from '../DropdownMenu/types';
+import type { BlockMenuItem } from '../../plugins/insert-block/ui/ToolbarInsertBlock/create-items';
+import type { MenuItem } from '../DropdownMenu/types';
 
 type SimpleEventHandler<T> = (event?: T) => void;
 

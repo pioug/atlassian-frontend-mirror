@@ -1,13 +1,18 @@
-import { EditorState, Transaction } from 'prosemirror-state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { getDocStructure } from '../../utils/document-logger';
 import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import {
+import type {
   EditorAnalyticsAPI,
+  ErrorEventPayload,
+} from '@atlaskit/editor-common/analytics';
+import {
   ACTION,
   EVENT_TYPE,
   ACTION_SUBJECT,
-  ErrorEventPayload,
 } from '@atlaskit/editor-common/analytics';
 
 export const addSynchronyErrorAnalytics = (

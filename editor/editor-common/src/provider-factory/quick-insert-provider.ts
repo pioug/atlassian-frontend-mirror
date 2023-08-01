@@ -1,5 +1,8 @@
-import type { Node } from 'prosemirror-model';
-import type { EditorState, Transaction } from 'prosemirror-state';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import type { TypeAheadItem } from '../types/type-ahead';
 

@@ -2,7 +2,10 @@ import type {
   CollabEditProvider,
   CollabTelepointerPayload,
 } from '@atlaskit/collab-provider';
-import { Transaction, EditorState } from 'prosemirror-state';
+import type {
+  Transaction,
+  EditorState,
+} from '@atlaskit/editor-prosemirror/state';
 import { getSendableSelection } from '../actions';
 import { pluginKey } from '../plugin-key';
 

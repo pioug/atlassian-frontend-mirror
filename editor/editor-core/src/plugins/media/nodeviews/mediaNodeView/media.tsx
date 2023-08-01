@@ -7,29 +7,28 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { MEDIA_CONTEXT } from '@atlaskit/analytics-namespaced-context';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import { IMAGE_AND_BORDER_ADJUSTMENT } from '@atlaskit/editor-common/ui';
-import {
-  Card,
+import type {
   CardDimensions,
   CardEvent,
-  CardLoading,
   CardOnClickCallback,
   NumericalCardDimensions,
 } from '@atlaskit/media-card';
-import { Identifier } from '@atlaskit/media-client';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { Node as PMNode } from 'prosemirror-model';
+import { Card, CardLoading } from '@atlaskit/media-card';
+import type { Identifier } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import React, { Component } from 'react';
-import {
+import type {
   ProsemirrorGetPosHandler,
   ReactNodeProps,
 } from '../../../../nodeviews';
 import { setNodeSelection, setTextSelection } from '../../../../utils';
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
-import { MediaPluginState } from '../../pm-plugins/types';
+import type { MediaPluginState } from '../../pm-plugins/types';
 import { MediaCardWrapper } from '../styles';
-import { MediaOptions } from '../../types';
+import type { MediaOptions } from '../../types';
 
 // This is being used by DropPlaceholder now
 export const MEDIA_HEIGHT = 125;

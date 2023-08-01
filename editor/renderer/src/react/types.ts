@@ -1,5 +1,9 @@
 import { PropsWithChildren } from 'react';
-import { Node as PMNode, NodeType, Schema } from 'prosemirror-model';
+import {
+  Node as PMNode,
+  NodeType,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';

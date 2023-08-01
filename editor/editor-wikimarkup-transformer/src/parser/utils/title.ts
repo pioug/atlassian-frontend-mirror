@@ -1,4 +1,4 @@
-import { Node as PMNode, Schema } from 'prosemirror-model';
+import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 /**
  * This will return ADF to replace the titles in some macro
  * For example

@@ -1,7 +1,3 @@
-import { NodeSpec, Node as PMNode, ResolvedPos } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
 import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
 import {
   getParentNodeWidth,
@@ -15,10 +11,18 @@ import {
 } from '@atlaskit/editor-common/ui';
 import { containsClassName } from '@atlaskit/editor-common/utils';
 import {
+  NodeSpec,
+  Node as PMNode,
+  ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import {
   akEditorFullWidthLayoutWidth,
   akEditorGutterPadding,
   akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { TableOptions } from '../../../nodeviews/types';
 
@@ -116,7 +120,15 @@ export const getTableMaxWidth = ({
   const containerWidth = getEditorContainerWidth();
   const parentWidth = getParentNodeWidth(tableStart, state, containerWidth);
 
-  let maxWidth = parentWidth || getLayoutSize(layout, containerWidth.width, {});
+  let maxWidth;
+  if (getBooleanFF('platform.editor.custom-table-width')) {
+    maxWidth =
+      parentWidth ||
+      table.attrs.width ||
+      getLayoutSize(layout, containerWidth.width, {});
+  } else {
+    maxWidth = parentWidth || getLayoutSize(layout, containerWidth.width, {});
+  }
 
   if (table.attrs.isNumberColumnEnabled) {
     maxWidth -= akEditorTableNumberColumnWidth;

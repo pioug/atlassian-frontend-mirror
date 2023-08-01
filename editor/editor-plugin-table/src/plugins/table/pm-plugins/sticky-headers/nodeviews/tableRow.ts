@@ -1,12 +1,12 @@
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
-import { Node as PmNode } from 'prosemirror-model';
-import { EditorView, NodeView } from 'prosemirror-view';
 
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import { mapChildren } from '@atlaskit/editor-common/utils';
+import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
 import {
   TableCssClassName as ClassName,

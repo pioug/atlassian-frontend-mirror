@@ -4,7 +4,7 @@ import {
   fromHTML,
   textWithMarks,
 } from '@atlaskit/editor-test-helpers/adf-schema';
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 
 const href = 'http://atlassian.com';
 const href2 = 'http://atlassian.com/test';

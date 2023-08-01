@@ -1,18 +1,21 @@
-import { keymap } from 'prosemirror-keymap';
-import {
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type {
   ResolvedPos,
   Node as PMNode,
   Schema,
   NodeType,
-} from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { Selection, Transaction } from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import {
   setTextSelection,
   findParentNodeOfType,
   hasParentNodeOfType,
-} from 'prosemirror-utils';
-import { Command } from '../../../types';
+} from '@atlaskit/editor-prosemirror/utils';
+import type { Command } from '../../../types';
 import { isEmptyNode } from '../../../utils';
 
 function findParentNode(

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/button",
-  "version": "16.8.2",
+  "version": "16.8.3",
   "description": "A button triggers an event or action. They let users know what will happen next.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -23,7 +23,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.tsx",
   "atlassian": {
-    "team": "Design System Maker Experience",
+    "team": "Design System Team",
     "releaseModel": "continuous",
     "website": {
       "name": "Button",

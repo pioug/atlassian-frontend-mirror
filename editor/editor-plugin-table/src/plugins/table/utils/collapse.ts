@@ -1,8 +1,10 @@
-import { NodeRange, NodeType } from 'prosemirror-model';
+import { NodeRange, NodeType } from '@atlaskit/editor-prosemirror/model';
 // @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
-import { ReadonlyTransaction, Transaction } from 'prosemirror-state';
-import { findWrapping } from 'prosemirror-transform';
-
+import {
+  ReadonlyTransaction,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 interface IsTableCollapsibleResult {

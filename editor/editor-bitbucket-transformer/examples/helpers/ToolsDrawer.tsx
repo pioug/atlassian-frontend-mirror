@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MentionResource, MentionProvider } from '@atlaskit/editor-core';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';

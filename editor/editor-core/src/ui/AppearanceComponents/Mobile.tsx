@@ -1,17 +1,15 @@
 /** @jsx jsx */
 import React, { useCallback, forwardRef } from 'react';
 import { css, jsx } from '@emotion/react';
-import {
-  pluginKey as maxContentSizePluginKey,
-  MaxContentSizePluginState,
-} from '../../plugins/max-content-size';
-import { MobileDimensionsPluginState } from '../../plugins/mobile-dimensions/types';
+import type { MaxContentSizePluginState } from '../../plugins/max-content-size';
+import { pluginKey as maxContentSizePluginKey } from '../../plugins/max-content-size';
+import type { MobileDimensionsPluginState } from '../../plugins/mobile-dimensions/types';
 import { mobileDimensionsPluginKey } from '../../plugins/mobile-dimensions/plugin-factory';
 import WithPluginState from '../WithPluginState';
 import WithFlash from '../WithFlash';
 import { createEditorContentStyle } from '../ContentStyles';
 import { ClickAreaMobile as ClickArea } from '../Addon';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { FeatureFlags } from '../../types/feature-flags';
 
 const mobileEditor = css`

@@ -1,28 +1,29 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { DecorationSet, EditorView } from 'prosemirror-view';
-import { TextSelection, Transaction, EditorState } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type {
+  Transaction,
+  EditorState,
+} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import {
-  DocBuilder,
-  doc,
-  p,
-  panel,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import { undo, redo } from 'prosemirror-history';
+import { undo, redo } from '@atlaskit/editor-prosemirror/history';
 import {
   InsertTypeAheadStep,
   InsertTypeAheadStages,
 } from '@atlaskit/adf-schema/steps';
 import typeAheadPlugin from '../..';
-import { EditorPlugin } from '../../../../types/editor-plugin';
+import type { EditorPlugin } from '../../../../types/editor-plugin';
 import { getPluginState, isTypeAheadOpen } from '../../utils';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';

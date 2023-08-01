@@ -1,4 +1,4 @@
-import { NodeSpec, MarkSpec, Schema } from 'prosemirror-model';
+import { NodeSpec, MarkSpec, Schema } from '@atlaskit/editor-prosemirror/model';
 import { COLOR, FONT_STYLE, SEARCH_QUERY, LINK } from './groups';
 
 import {

@@ -1,8 +1,12 @@
-import { Fragment, Node as PMNode, Schema, Slice } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { flatten } from 'prosemirror-utils';
-
 import { flatmap, mapSlice } from '@atlaskit/editor-common/utils';
+import {
+  Fragment,
+  Node as PMNode,
+  Schema,
+  Slice,
+} from '@atlaskit/editor-prosemirror/model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { flatten } from '@atlaskit/editor-prosemirror/utils';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 

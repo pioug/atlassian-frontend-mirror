@@ -1,6 +1,10 @@
-import { Node as PMNode, ResolvedPos, Slice } from 'prosemirror-model';
-import { Selection } from 'prosemirror-state';
-import { Mapping } from 'prosemirror-transform';
+import {
+  Node as PMNode,
+  ResolvedPos,
+  Slice,
+} from '@atlaskit/editor-prosemirror/model';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { Mapping } from '@atlaskit/editor-prosemirror/transform';
 
 import { isValidTargetNode } from './utils/is-valid-target-node';
 

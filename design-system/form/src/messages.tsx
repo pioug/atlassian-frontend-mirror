@@ -112,7 +112,7 @@ const Message = ({
       ]}
       data-testid={testId}
       id={fieldId}
-      role="alert"
+      aria-live="polite"
     >
       {icon && <IconWrapper>{icon}</IconWrapper>}
       {content}

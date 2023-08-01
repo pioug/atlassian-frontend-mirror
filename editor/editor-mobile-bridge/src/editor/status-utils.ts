@@ -13,8 +13,8 @@ import {
   statusMessages,
   removeStatus,
 } from '@atlaskit/editor-core';
-import { EditorState } from 'prosemirror-state';
-import { NodeType } from 'prosemirror-model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeType } from '@atlaskit/editor-prosemirror/model';
 import EditorConfiguration from './editor-configuration';
 import { ThemeModes } from '@atlaskit/theme/types';
 import { IntlShape } from 'react-intl-next';

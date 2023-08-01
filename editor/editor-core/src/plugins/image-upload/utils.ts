@@ -1,5 +1,6 @@
-import { EditorState, NodeSelection } from 'prosemirror-state';
-import { Schema, Node } from 'prosemirror-model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Schema, Node } from '@atlaskit/editor-prosemirror/model';
 
 export const isMediaSelected = (state: EditorState): boolean => {
   const { media } = state.schema.nodes;

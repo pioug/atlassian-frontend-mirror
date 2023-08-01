@@ -1,6 +1,9 @@
-import { ReadonlyTransaction, Selection } from 'prosemirror-state';
-import { Decoration, DecorationSet } from 'prosemirror-view';
-import { Step, ReplaceStep } from 'prosemirror-transform';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { browser } from '@atlaskit/editor-common/utils';
 
 import type {
@@ -10,7 +13,8 @@ import type {
   CollabTelepointerPayload,
 } from '@atlaskit/collab-provider';
 
-import { Participants, ReadOnlyParticipants } from './participants';
+import type { ReadOnlyParticipants } from './participants';
+import { Participants } from './participants';
 import {
   findPointers,
   createTelepointers,

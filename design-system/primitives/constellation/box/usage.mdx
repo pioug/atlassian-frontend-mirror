@@ -4,12 +4,10 @@ description: A box is a primitive component that acts as a generic container, an
 order: 2
 ---
 
-Use box to compose layouts with the valid spacing and background colors. A `Box` is a generic container with convenient and managed access to design tokens, and built-in guidance for the best practices of the Atlassian Design System.
+A `Box` is a generic container with convenient and managed access to design tokens, and built-in guidance for the best practices of the Atlassian Design System.
+Use a `Box` to compose layouts and add styling to child elements through visual props, including spacing and color through design tokens.
 
-A `Box` is primarily a containment element, with visual props that affect the whitespace available to child elements. 
-
-
-## Use `Box`
+## `Box` styling
 Display behavior is set by using the available props or using `xcss`. Makers can make design decisions for `Box` by setting:
 
 - `padding`
@@ -21,10 +19,10 @@ Display behavior is set by using the available props or using `xcss`. Makers can
 - `paddingBlockEnd`
 - `backgroundColor`
 
-To identify usages of `Box` in a given design, look for where a UI element (could be as small as the parent of a button or as a big as the wrapper of an entire section) will receive some visual styles applied to a container.
-
+## Using `Box`
+To identify usages of `Box` in a given design, look for where a UI element will receive some visual styles applied to a container. `Box` can be used on a range of sizes of elements, from buttons to section wrappers.
 `Box`, being generic in nature, can be "over-used", so it’s important to consider situations where more specific and expressive primitives could be used, for example: `Inline` and `Stack` to manage horizontal and vertical layouts, respectively.
 
-Related
+## Related
 - [Learn more about the Inline primitive](/components/primitives/inline/usage)
 - [Learn more about the Stack primitive](/components/primitives/stack/usage)

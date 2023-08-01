@@ -1,4 +1,4 @@
-import { Fragment } from 'prosemirror-model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
 export interface Serializer<T> {
   serializeFragment(

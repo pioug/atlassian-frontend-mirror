@@ -1,4 +1,4 @@
-import { MarkSpec } from 'prosemirror-model';
+import { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette';
 import { N300A, N600, N1000 } from '../../utils/colors';
 

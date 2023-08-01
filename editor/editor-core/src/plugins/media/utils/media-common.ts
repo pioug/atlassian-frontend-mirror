@@ -1,15 +1,24 @@
-import { deleteSelection, splitBlock } from 'prosemirror-commands';
-import { Node as PMNode, ResolvedPos, Slice, Schema } from 'prosemirror-model';
-import { EditorState, NodeSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import { findPositionOfNodeBefore } from 'prosemirror-utils';
+import {
+  deleteSelection,
+  splitBlock,
+} from '@atlaskit/editor-prosemirror/commands';
+import type {
+  Node as PMNode,
+  ResolvedPos,
+  Slice,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import {
   createParagraphNear,
   createNewParagraphBelow,
 } from '../../../commands';
 import { isTemporary } from '../../../utils';
-import { ProsemirrorGetPosHandler } from '../../../nodeviews';
-import { MediaState } from '../types';
+import type { ProsemirrorGetPosHandler } from '../../../nodeviews';
+import type { MediaState } from '../types';
 import { mapSlice } from '../../../utils/slice';
 import {
   walkUpTreeUntil,
@@ -25,7 +34,7 @@ import {
   startPositionOfParent,
 } from '../../../utils/prosemirror/position';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
 
 export const isMediaBlobUrlFromAttrs = (attrs: MediaADFAttrs): boolean => {

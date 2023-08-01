@@ -1,4 +1,4 @@
-import { DecorationSet } from 'prosemirror-view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { DecorationTransformer } from './types';
 

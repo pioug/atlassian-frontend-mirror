@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { IntlShape } from 'react-intl-next';
-import { EditorView, NodeView, Decoration } from 'prosemirror-view';
-import { Selection, NodeSelection } from 'prosemirror-state';
+import type { IntlShape } from 'react-intl-next';
+import type {
+  EditorView,
+  NodeView,
+  Decoration,
+} from '@atlaskit/editor-prosemirror/view';
+import { Selection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { ExpandIconButton } from '../ui/ExpandIconButton';
 import { keyName } from 'w3c-keyname';
-import {
+import type {
   Node as PmNode,
-  DOMSerializer,
   DOMOutputSpec,
-} from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 
-import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
+import type { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
 import { isEmptyNode } from '../../../utils';
 import {
   updateExpandTitle,
@@ -29,7 +33,7 @@ import { closestElement } from '../../../utils/dom';
 import { RelativeSelectionPos } from '../../selection/types';
 import { setSelectionRelativeToNode } from '../../selection/commands';
 import { getPluginState as getSelectionPluginState } from '../../selection/plugin-factory';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 function buildExpandClassName(type: string, expanded: boolean) {
   return `${expandClassNames.prefix} ${expandClassNames.type(type)} ${

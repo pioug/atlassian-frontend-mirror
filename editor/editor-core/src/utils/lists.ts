@@ -1,4 +1,4 @@
-import { Selection } from 'prosemirror-state';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findRootParentListNode } from '../plugins/list/utils/find';
 
 export const doesSelectionWhichStartsOrEndsInListContainEntireList = (

@@ -1,7 +1,8 @@
 import { RESOLVE_METHOD } from './../../analytics/types/inline-comment-events';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState } from 'prosemirror-state';
-import { EditorView, Decoration, DecorationSet } from 'prosemirror-view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { AnnotationNodeView, getAnnotationViewClassname } from '../nodeviews';
 import {
@@ -10,13 +11,13 @@ import {
   clearDirtyMark,
   setInlineCommentsVisibility,
 } from '../commands';
-import { InlineCommentAnnotationProvider } from '../types';
-import {
+import type { InlineCommentAnnotationProvider } from '../types';
+import type {
   InlineCommentPluginState,
   InlineCommentMap,
   InlineCommentPluginOptions,
 } from './types';
-import { CommandDispatch } from '../../../types';
+import type { CommandDispatch } from '../../../types';
 import {
   getAllAnnotations,
   inlineCommentPluginKey,

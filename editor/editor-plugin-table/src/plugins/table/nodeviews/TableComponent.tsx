@@ -2,8 +2,6 @@ import React, { CSSProperties } from 'react';
 
 import classnames from 'classnames';
 import memoizeOne from 'memoize-one';
-import { Node as PmNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
@@ -15,6 +13,8 @@ import type {
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
+import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableToolbarSize as tableToolbarSize } from '@atlaskit/editor-shared-styles';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 

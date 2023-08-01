@@ -1,26 +1,27 @@
 import React from 'react';
-import { PluginKey } from 'prosemirror-state';
-import { RenderResult } from '@testing-library/react';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { RenderResult } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
   code_block,
   blockquote,
   panel,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
-import { BlockTypeState, pluginKey } from '../../../pm-plugins/main';
+import type { BlockTypeState } from '../../../pm-plugins/main';
+import { pluginKey } from '../../../pm-plugins/main';
 import ToolbarBlockType from '../../../ui/ToolbarBlockType';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 import {

@@ -1,11 +1,11 @@
-import { safeInsert } from 'prosemirror-utils';
-import { NodeSelection } from 'prosemirror-state';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { uuid } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Fragment, Slice } from 'prosemirror-model';
-import { ReplaceStep } from 'prosemirror-transform';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 const createEditor = createEditorFactory();
 

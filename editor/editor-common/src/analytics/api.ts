@@ -1,4 +1,4 @@
-import type { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { AnalyticsEventPayload } from './types';
 

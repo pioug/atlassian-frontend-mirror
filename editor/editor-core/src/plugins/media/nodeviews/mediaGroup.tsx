@@ -1,20 +1,19 @@
-import {
-  ProviderFactory,
-  WithProviders,
-} from '@atlaskit/editor-common/provider-factory';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
   ContextIdentifierProvider,
   MediaProvider,
+  ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
-import { Identifier } from '@atlaskit/media-client';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { Filmstrip, FilmstripItem } from '@atlaskit/media-filmstrip';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView, NodeView } from 'prosemirror-view';
+import type { Identifier } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { FilmstripItem } from '@atlaskit/media-filmstrip';
+import { Filmstrip } from '@atlaskit/media-filmstrip';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import React from 'react';
-import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import {
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type {
   ForwardRef,
   getPosHandler,
   getPosHandlerNode,
@@ -22,17 +21,18 @@ import {
 } from '../../../nodeviews/';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
 import { setNodeSelection } from '../../../utils';
 import { isNodeSelectedOrInRange, SelectedState } from '../../../utils/nodes';
-import { EditorDisabledPluginState } from '../../editor-disabled';
+import type { EditorDisabledPluginState } from '../../editor-disabled';
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
-import { MediaPluginState } from '../pm-plugins/types';
+import type { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
-import { MediaOptions } from '../types';
+import type { MediaOptions } from '../types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import { messages } from './messages';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type mediaPlugin from '../index';

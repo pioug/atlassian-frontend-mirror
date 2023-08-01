@@ -1,4 +1,4 @@
-import {
+import type {
   ExtensionAPI,
   TransformBefore,
   TransformAfter,
@@ -6,16 +6,16 @@ import {
 import { validator } from '@atlaskit/adf-utils/validator';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
-import {
+import type {
   Node as PMNode,
   NodeType,
-  Fragment,
-  Mark,
   Schema as PMSchema,
-} from 'prosemirror-model';
-import type { EditorView } from 'prosemirror-view';
-import { NodeSelection, Selection } from 'prosemirror-state';
-import { insertMacroFromMacroBrowser, MacroProvider } from '../macro';
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Mark } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import type { MacroProvider } from '../macro';
+import { insertMacroFromMacroBrowser } from '../macro';
 import { pluginKey as macroPluginKey } from '../macro/plugin-key';
 import { nodeToJSON } from '../../utils';
 import { setEditingContextToContextPanel } from './commands';
@@ -25,6 +25,7 @@ import {
   getNodeTypesReferenced,
   getSelectedExtension,
 } from './utils';
+import type { AnalyticsEventPayload } from '../analytics';
 import {
   addAnalytics,
   ACTION,
@@ -32,9 +33,9 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-  AnalyticsEventPayload,
 } from '../analytics';
-import { NodeWithPos, setTextSelection } from 'prosemirror-utils';
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
 interface EditInLegacyMacroBrowserArgs {

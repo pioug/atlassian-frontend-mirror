@@ -1,15 +1,16 @@
 /** @jsx jsx */
+import { token } from '@atlaskit/tokens';
 import React, { useState, useEffect, Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
-import { IntlShape } from 'react-intl-next';
-import { EditorState } from 'prosemirror-state';
+import type { IntlShape } from 'react-intl-next';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import LinkIcon from '@atlaskit/icon/glyph/editor/link';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 
 import { checkMediaType } from '../utils/check-media-type';
-import { MediaLinkingState } from '../pm-plugins/linking';
+import type { MediaLinkingState } from '../pm-plugins/linking';
 
 import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/ui';
 
@@ -35,7 +36,7 @@ export interface LinkingToolbarProps {
 const wrapper = css`
   display: flex;
   align-items: center;
-  margin-right: 4px;
+  margin-right: ${token('space.050', '4px')};
 `;
 
 export const LinkToolbarAppearance: React.FC<LinkingToolbarProps> = ({

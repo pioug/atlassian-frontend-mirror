@@ -4,9 +4,9 @@ import { replaceRaf } from 'raf-stub';
 
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
-  LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
@@ -14,8 +14,9 @@ import {
   macroProvider,
   MockMacroProvider,
 } from '@atlaskit/editor-test-helpers/mock-macro-provider';
-import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code_block,
   strong,
@@ -50,7 +51,6 @@ import {
   a,
   inlineCard,
   annotation,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   createFakeExtensionManifest,
@@ -64,21 +64,22 @@ import {
 } from '@atlaskit/editor-common/extensions';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
-import { CardOptions } from '@atlaskit/editor-common/card';
-import { EmojiProvider } from '@atlaskit/emoji';
+import type { CardOptions } from '@atlaskit/editor-common/card';
+import type { EmojiProvider } from '@atlaskit/emoji';
 import { getEmojiResourceWithStandardAndAtlassianEmojis } from '@atlaskit/util-data-test/get-emoji-resource-standard-atlassian';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
-import { TextSelection, Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { uuid, AnnotationTypes } from '@atlaskit/adf-schema';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import macroPlugin, { setMacroProvider } from '../../../macro';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import deprecatedAnalyticsPlugin, {
   ACTION_SUBJECT_ID,
 } from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { PastePluginOptions } from '../../index';
+import type { PastePluginOptions } from '../../index';
 
 import {
   GapCursorSelection,
@@ -88,7 +89,7 @@ import {
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 // @ts-ignore
-import { __serializeForClipboard } from 'prosemirror-view';
+import { __serializeForClipboard } from '@atlaskit/editor-prosemirror/view';
 import extensionPlugin from '../../../extension';
 import panelPlugin from '../../../panel';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
@@ -98,7 +99,7 @@ import mentionsPlugin from '../../../mentions';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import pastePlugin from '../../index';
 import mediaPlugin from '../../../media';
-import { PluginConfig as TablePluginConfig } from '@atlaskit/editor-plugin-table/types';
+import type { PluginConfig as TablePluginConfig } from '@atlaskit/editor-plugin-table/types';
 import blockTypePlugin from '../../../block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import listPlugin from '../../../list';
@@ -110,15 +111,15 @@ import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import { setupProvider } from '../../../../../../editor-plugin-card/src/__tests__/unit/_helpers';
-import { InlineCommentAnnotationProvider } from '../../../annotation/types';
+import type { InlineCommentAnnotationProvider } from '../../../annotation/types';
 import annotationPlugin from '../../../annotation';
-import {
+import type {
   InlineCommentPluginState,
   InlineCommentMap,
 } from '../../../annotation/pm-plugins/types';
 import { inlineCommentPluginKey } from '../../../annotation/utils';
 import { handlePasteLinkOnSelectedText } from '../../handlers';
-import { Slice } from 'prosemirror-model';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
 import { measureRender as measureRenderMocked } from '@atlaskit/editor-common/utils';
 import { createPasteMeasurePayload as createPasteMeasurePayloadMocked } from '../../pm-plugins/analytics';
 import unsupportedContentPlugin from '../../../unsupported-content';

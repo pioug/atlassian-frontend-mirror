@@ -1,9 +1,9 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
-import { OnInsert } from '../../../../ui/ElementBrowser/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { OnInsert } from '../../../../ui/ElementBrowser/types';
 import { BlockInsertElementBrowser } from './block-insert-element-browser';
 import { BlockInsertMenuLegacy } from './block-insert-menu-legacy';
-import { BlockMenuItem } from './create-items';
+import type { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
 
 export interface BlockInsertMenuProps {

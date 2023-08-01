@@ -1,5 +1,3 @@
-import { EditorView } from 'prosemirror-view';
-
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
   FloatingToolbarButton,
@@ -12,6 +10,7 @@ import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

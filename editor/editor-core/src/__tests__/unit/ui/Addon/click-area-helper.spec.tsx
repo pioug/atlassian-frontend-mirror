@@ -9,7 +9,7 @@ import {
   clickAreaClickHandler,
   checkForModal,
 } from '../../../../ui/Addon/click-area-helper';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   GapCursorSelection,
   Side,

@@ -1,4 +1,4 @@
-import { StepMap, Step } from 'prosemirror-transform';
+import type { StepMap, Step } from '@atlaskit/editor-prosemirror/transform';
 
 export interface PmHistoryItem {
   map: StepMap;

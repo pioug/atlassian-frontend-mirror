@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code_block,
   doc,
@@ -6,17 +7,16 @@ import {
   p,
   ul,
   hardBreak,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { EditorView } from 'prosemirror-view';
-import {
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listTypePlugin from '../..';
@@ -25,7 +25,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import basePlugins from '../../../base';
 import blockType from '../../../block-type';
 import codeBlockTypePlugin from '../../../code-block';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
@@ -41,12 +41,12 @@ describe('inputrules', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, featureFlags])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([listTypePlugin, featureFlags])
         .add(basePlugins)
         .add(decorationsPlugin)
         .add(blockType)
         .add([codeBlockTypePlugin, { appearance: 'full-page' }])
-        .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
       featureFlags,
     });

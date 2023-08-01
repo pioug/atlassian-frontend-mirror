@@ -1,6 +1,3 @@
-import { EditorState, NodeSelection } from 'prosemirror-state';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
 import { ProviderHandler } from '@atlaskit/editor-common/provider-factory';
@@ -12,6 +9,9 @@ import type {
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { cardPlugin } from '../index';
 import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';

@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { defineMessages, injectIntl } from 'react-intl-next';
 

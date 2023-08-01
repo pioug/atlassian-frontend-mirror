@@ -1,5 +1,4 @@
-import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
-
+import type { GuidelineConfig } from '../../types';
 import { getGuidelinesWithHighlights } from '../../updateGuideline';
 
 const guidelineConfig = (

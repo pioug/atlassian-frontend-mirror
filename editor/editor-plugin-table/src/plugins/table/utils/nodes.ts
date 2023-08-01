@@ -1,7 +1,6 @@
-import { Node as PmNode } from 'prosemirror-model';
-import { EditorState, Selection } from 'prosemirror-state';
-import { hasParentNodeOfType } from 'prosemirror-utils';
-
+import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 

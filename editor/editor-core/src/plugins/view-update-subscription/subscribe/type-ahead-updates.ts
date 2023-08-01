@@ -1,5 +1,6 @@
-import { EditorView } from 'prosemirror-view';
-import { trackerStore, ViewUpdateSubscription } from '..';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ViewUpdateSubscription } from '..';
+import { trackerStore } from '..';
 import { pluginKey as typeAheadPluginKey } from '../../type-ahead/pm-plugins/key';
 import type { TypeAheadPluginState } from '../../type-ahead/types';
 

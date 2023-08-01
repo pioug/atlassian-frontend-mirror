@@ -1,4 +1,8 @@
-import { Node as PMNode, ResolvedPos, Schema } from 'prosemirror-model';
+import type {
+  Node as PMNode,
+  ResolvedPos,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { Side } from './selection';
 import { UnsupportedSharedCssClassName } from '../../unsupported-content/styles';

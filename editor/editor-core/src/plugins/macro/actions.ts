@@ -1,21 +1,21 @@
 import assert from 'assert';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
-  EditorState,
   Selection,
   NodeSelection,
   TextSelection,
-} from 'prosemirror-state';
-import { Node as PmNode } from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/state';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import {
   safeInsert,
   replaceSelectedNode,
   findSelectedNodeOfType,
   replaceParentNodeOfType,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 
 import { getValidNode } from '@atlaskit/editor-common/validator';
-import {
+import type {
   Providers,
   MacroProvider,
   MacroAttributes,
@@ -31,11 +31,11 @@ import {
   EVENT_TYPE,
   addAnalytics,
 } from '../analytics';
-import {
+import type {
   ExtensionType,
   SelectionJson,
-  TARGET_SELECTION_SOURCE,
 } from '../analytics/types/extension-events';
+import { TARGET_SELECTION_SOURCE } from '../analytics/types/extension-events';
 import { pluginKey } from './plugin-key';
 
 export const insertMacroFromMacroBrowser =

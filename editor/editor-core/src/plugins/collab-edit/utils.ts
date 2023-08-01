@@ -1,21 +1,22 @@
-import { EditorState, Selection, TextSelection } from 'prosemirror-state';
-import { EditorView, Decoration, DecorationSet } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type {
+  EditorView,
+  DecorationSet,
+} from '@atlaskit/editor-prosemirror/view';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import * as themeColors from '@atlaskit/theme/colors';
 
 import { hexToRgba } from '@atlaskit/adf-schema';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/utils';
 import { addAnalytics } from '../analytics/utils';
-import {
-  AnalyticsEventPayload,
-  EVENT_TYPE,
-  ACTION,
-  ACTION_SUBJECT,
-} from '../analytics/types';
+import type { AnalyticsEventPayload } from '../analytics/types';
+import { EVENT_TYPE, ACTION, ACTION_SUBJECT } from '../analytics/types';
 
 import type { CollabParticipant } from '@atlaskit/collab-provider';
 
-import { CollabEditOptions } from './types';
+import type { CollabEditOptions } from './types';
 
 export interface Color {
   solid: string;

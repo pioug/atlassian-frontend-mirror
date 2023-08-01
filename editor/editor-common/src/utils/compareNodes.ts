@@ -1,5 +1,3 @@
-import { Mark, Node as PMNode } from 'prosemirror-model';
-
 import {
   CardAttributes,
   DateDefinition,
@@ -7,6 +5,7 @@ import {
   StatusDefinition,
   UrlType,
 } from '@atlaskit/adf-schema';
+import { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { SortOrder } from '../types';
 

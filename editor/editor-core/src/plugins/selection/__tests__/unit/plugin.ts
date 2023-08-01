@@ -1,24 +1,26 @@
-import { NodeSelection, TextSelection, PluginKey } from 'prosemirror-state';
-import { Decoration, EditorView } from 'prosemirror-view';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
 
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import {
-  doc,
-  hr,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, hr, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 
 import rulePlugin from '../../../rule';
 import selectionPlugin from '../../index';
 import { getPluginState } from '../../plugin-factory';
-import { selectionPluginKey, SelectionPluginState } from '../../types';
+import type { SelectionPluginState } from '../../types';
+import { selectionPluginKey } from '../../types';
 import {
   setNodeSelection,
   setTextSelection,

@@ -1,8 +1,6 @@
-import { EditorView } from 'prosemirror-view';
-import {
-  getExtensionModuleNode,
-  ExtensionProvider,
-} from '@atlaskit/editor-common/extensions';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import { getExtensionModuleNode } from '@atlaskit/editor-common/extensions';
 import { updateState } from '../commands';
 import { getSelectedExtension } from '../utils';
 

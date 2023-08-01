@@ -1,4 +1,4 @@
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { pluginKey } from '../plugin-key';
 
 export type CodeBlockState = {

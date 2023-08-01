@@ -1,4 +1,4 @@
-import { Decoration, DecorationSet } from 'prosemirror-view';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { TableDecorations } from '../../../types';
 import {

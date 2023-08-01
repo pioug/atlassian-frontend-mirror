@@ -1,13 +1,14 @@
 import React from 'react';
-import { PluginKey } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import AttachmentIcon from '@atlaskit/icon/glyph/editor/attachment';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import WithPluginState from '../../../../ui/WithPluginState';
-import { EventDispatcher } from '../../../../event-dispatcher';
-import { MediaPluginState } from '../../pm-plugins/types';
+import type { EventDispatcher } from '../../../../event-dispatcher';
+import type { MediaPluginState } from '../../pm-plugins/types';
 import { toolbarMediaMessages } from './toolbar-media-messages';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 export interface Props<T extends MediaPluginState> {
   editorView: EditorView;

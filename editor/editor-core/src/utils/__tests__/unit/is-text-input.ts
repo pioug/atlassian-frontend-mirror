@@ -1,4 +1,4 @@
-import { TextSelection } from 'prosemirror-state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   doc,

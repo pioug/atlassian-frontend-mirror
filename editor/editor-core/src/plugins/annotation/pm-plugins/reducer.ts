@@ -1,11 +1,8 @@
-import {
-  InlineCommentAction,
-  InlineCommentPluginState,
-  ACTIONS,
-} from './types';
-import { DecorationSet } from 'prosemirror-view';
+import type { InlineCommentAction, InlineCommentPluginState } from './types';
+import { ACTIONS } from './types';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { addDraftDecoration } from '../utils';
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export default (
   pluginState: InlineCommentPluginState,

@@ -23,12 +23,13 @@ import {
   ITEM_PADDING,
   TypeAheadListItem,
 } from './TypeAheadListItem';
-import { WrappedComponentProps, injectIntl, useIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, useIntl } from 'react-intl-next';
 import { typeAheadListMessages } from '../messages';
 import type { TypeAheadHandler, TypeAheadItem } from '../types';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../utils';
 import { updateSelectedIndex } from '../commands/update-selected-index';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { AssistiveText } from './AssistiveText';
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../constants';
 

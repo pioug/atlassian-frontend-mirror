@@ -1,4 +1,4 @@
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 // Gets a plain text representation of the nodes in the current selection
 export const contentInSelection = ({

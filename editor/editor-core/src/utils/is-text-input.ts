@@ -1,6 +1,9 @@
-import { Transaction, ReadonlyTransaction } from 'prosemirror-state';
-import { ReplaceStep } from 'prosemirror-transform';
-import { Slice } from 'prosemirror-model';
+import type {
+  Transaction,
+  ReadonlyTransaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
 
 interface DetailedReplaceStep extends ReplaceStep {
   from: number;

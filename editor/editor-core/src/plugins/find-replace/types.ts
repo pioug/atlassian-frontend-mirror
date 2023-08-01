@@ -1,5 +1,5 @@
-import { DecorationSet } from 'prosemirror-view';
-import { PluginKey } from 'prosemirror-state';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 export interface FindReplacePluginState {
   /** Whether find/replace is active, i.e. displayed */

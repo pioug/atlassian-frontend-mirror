@@ -1,5 +1,5 @@
 import { useLayoutEffect, useCallback, useRef } from 'react';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { closeTypeAhead } from '../../transforms/close-type-ahead';
 import { setSelectionBeforeQuery } from '../../transforms/set-selection-before-query';

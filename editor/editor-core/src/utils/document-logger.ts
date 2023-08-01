@@ -1,4 +1,7 @@
-import { Node as PMNode, Fragment } from 'prosemirror-model';
+import type {
+  Node as PMNode,
+  Fragment,
+} from '@atlaskit/editor-prosemirror/model';
 
 import type { SimplifiedNode } from '@atlaskit/editor-common/analytics';
 export type { SimplifiedNode };

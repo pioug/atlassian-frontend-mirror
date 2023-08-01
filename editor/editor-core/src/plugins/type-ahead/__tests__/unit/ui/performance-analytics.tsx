@@ -1,11 +1,13 @@
 import React from 'react';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import { EditorView, DecorationSet } from 'prosemirror-view';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { render, act, cleanup } from '@testing-library/react';

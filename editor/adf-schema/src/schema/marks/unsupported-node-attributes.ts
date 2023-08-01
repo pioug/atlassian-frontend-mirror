@@ -1,4 +1,4 @@
-import { MarkSpec } from 'prosemirror-model';
+import { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 
 export const unsupportedNodeAttribute: MarkSpec = {
   toDOM() {

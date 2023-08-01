@@ -1,16 +1,13 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import { EditorView } from 'prosemirror-view';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { setGapCursorSelection } from '../../../../utils';
 import { Side } from '../../../../plugins/selection/gap-cursor-selection';
 
-import {
-  blockNodes,
-  leafBlockNodes,
-  BlockNodesKeys,
-  LeafBlockNodesKeys,
-} from './_gap-cursor-utils';
+import type { BlockNodesKeys, LeafBlockNodesKeys } from './_gap-cursor-utils';
+import { blockNodes, leafBlockNodes } from './_gap-cursor-utils';
 import { gapCursorPluginKey } from '../../pm-plugins/gap-cursor-plugin-key';
 
 const deleteContentBackward = (view: EditorView) => {

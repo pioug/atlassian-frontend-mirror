@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useCallback, useMemo } from 'react';
 import { jsx } from '@emotion/react';
-import type { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { toolbarMessages } from '../toolbar-messages';
 import { clearFormattingWithAnalytics } from '../../../commands/clear-formatting';

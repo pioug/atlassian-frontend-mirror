@@ -1,4 +1,4 @@
-import { MarkSpec, Mark } from 'prosemirror-model';
+import { MarkSpec, Mark } from '@atlaskit/editor-prosemirror/model';
 import { FONT_STYLE } from '../groups';
 
 export interface SubSupAttributes {

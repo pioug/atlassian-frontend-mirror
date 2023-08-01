@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 187.8.0
+
+### Minor Changes
+
+- [`9bc531568ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9bc531568ad) - [ED-19216] Remove current analytics in list plugin
+
+## 187.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.7.1
+
+### Patch Changes
+
+- [`b0277c41c33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0277c41c33) - ED-19064: Fixed border issue when selecting and deleting header column, and fixed border issue of the column control decoration."
+
 ## 187.7.0
 
 ### Minor Changes

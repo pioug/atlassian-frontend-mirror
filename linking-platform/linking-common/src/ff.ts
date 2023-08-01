@@ -42,4 +42,9 @@ export interface LinkingPlatformFeatureFlags {
    * See https://product-fabric.atlassian.net/browse/EDM-6632
    */
   enableImprovedPreviewAction?: boolean;
+
+  /**
+   * Enables firing of analytics tracking events when data is fetched for Hover Cards
+   */
+  enableHoverCardResolutionTracking?: boolean;
 }

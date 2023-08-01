@@ -11,8 +11,8 @@ import {
   getAnnotationIdsFromRange,
 } from '@atlaskit/editor-common/utils';
 import { AnnotationTypes, AnnotationId } from '@atlaskit/adf-schema';
-import { Node, Schema, Mark } from 'prosemirror-model';
-import { Step, RemoveMarkStep } from 'prosemirror-transform';
+import { Node, Schema, Mark } from '@atlaskit/editor-prosemirror/model';
+import { Step, RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import { createAnnotationStep, getPosFromRange } from '../steps';
 import {
   AnalyticsEventPayload,

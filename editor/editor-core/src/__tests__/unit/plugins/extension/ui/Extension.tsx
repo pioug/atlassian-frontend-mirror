@@ -13,7 +13,7 @@ import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/exten
 import Extension from '../../../../../plugins/extension/ui/Extension';
 import ExtensionComponent from '../../../../../plugins/extension/ui/Extension/ExtensionComponent';
 import Loadable from 'react-loadable';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 const macroProviderPromise = Promise.resolve(macroProvider);
 const providerFactory = ProviderFactory.create({

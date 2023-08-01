@@ -1,6 +1,3 @@
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
 import {
   tableCellBorderWidth,
   tableMarginTop,
@@ -11,6 +8,8 @@ import {
   containsClassName,
   parsePx,
 } from '@atlaskit/editor-common/utils';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { updateOverflowShadows } from '../../../nodeviews/update-overflow-shadows';
 import { TableCssClassName as ClassName } from '../../../types';

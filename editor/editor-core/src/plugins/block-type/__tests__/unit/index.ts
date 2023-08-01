@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockquote,
   code_block,
@@ -10,24 +11,21 @@ import {
   h5,
   h6,
   p,
-  DocBuilder,
   table,
   tr,
   td,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { browser } from '@atlaskit/editor-common/utils';
-import {
-  pluginKey as blockTypePluginKey,
-  BlockTypeState,
-} from '../../pm-plugins/main';
+import type { BlockTypeState } from '../../pm-plugins/main';
+import { pluginKey as blockTypePluginKey } from '../../pm-plugins/main';
 import { setTextSelection } from '../../../../utils';
 import {
   setBlockType,
@@ -44,7 +42,7 @@ import deprecatedAnalyticsPlugin, {
 } from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
-import { PluginKey } from 'prosemirror-state';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import blockTypePlugin from '../../';
 import panelPlugin from '../../../panel';
 import codeBlockPlugin from '../../../code-block';
@@ -55,7 +53,7 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('block-type', () => {
   const createEditor = createProsemirrorEditorFactory();

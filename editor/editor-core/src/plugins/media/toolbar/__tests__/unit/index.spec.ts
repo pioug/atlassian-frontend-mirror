@@ -1,5 +1,5 @@
-jest.mock('prosemirror-utils', () => ({
-  ...jest.requireActual<any>('prosemirror-utils'),
+jest.mock('@atlaskit/editor-prosemirror/utils', () => ({
+  ...jest.requireActual<any>('@atlaskit/editor-prosemirror/utils'),
   findParentNodeOfType: jest
     .fn()
     .mockReturnValue(() => ({ node: { type: 'mediaGroup' } })),
@@ -19,18 +19,18 @@ import { getMediaClient } from '@atlaskit/media-client';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   media,
   mediaGroup,
-  DocBuilder,
   mediaInline,
   doc,
   p,
   mediaSingle,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { MediaAttributes } from '@atlaskit/adf-schema';
+import type { MediaAttributes } from '@atlaskit/adf-schema';
 import { createIntl } from 'react-intl-next';
-import { MediaOptions } from '../../../../../plugins/media/types';
+import type { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../index';
 import * as utils from '../../utils';
@@ -44,7 +44,7 @@ import {
   getToolbarItems,
   findToolbarBtn,
 } from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
-import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 const mockInjectionAPI: any = {
   dependencies: {

@@ -1,11 +1,12 @@
 import React from 'react';
-import { EditorState } from 'prosemirror-state';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { IntlShape } from 'react-intl-next';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { IntlShape } from 'react-intl-next';
 
-import { FloatingToolbarConfig } from '../../floating-toolbar/types';
+import type { FloatingToolbarConfig } from '../../floating-toolbar/types';
 import { hideLinkingToolbar, setUrlToMedia, unlink } from '../commands/linking';
-import { getMediaLinkingState, MediaLinkingState } from '../pm-plugins/linking';
+import type { MediaLinkingState } from '../pm-plugins/linking';
+import { getMediaLinkingState } from '../pm-plugins/linking';
 
 import MediaLinkingToolbar from '../ui/MediaLinkingToolbar';
 import {
@@ -14,7 +15,7 @@ import {
 } from '@atlaskit/editor-common/ui';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import { MediaToolbarBaseConfig } from '../types';
+import type { MediaToolbarBaseConfig } from '../types';
 import type mediaPlugin from '../index';
 
 const FORCE_FOCUS_SELECTOR =

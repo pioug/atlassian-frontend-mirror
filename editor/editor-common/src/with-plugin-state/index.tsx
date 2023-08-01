@@ -1,8 +1,12 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import type { EditorState, PluginKey } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+
+import type {
+  EditorState,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
   ACTION,

@@ -1,4 +1,4 @@
-import { NodeSpec, Node } from 'prosemirror-model';
+import { NodeSpec, Node } from '@atlaskit/editor-prosemirror/model';
 
 export const image: NodeSpec = {
   group: 'inline',

@@ -1,4 +1,4 @@
-import { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { pluginKey } from '../pm-plugins/key';
 import { ACTIONS } from '../pm-plugins/actions';
 

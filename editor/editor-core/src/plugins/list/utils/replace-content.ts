@@ -1,5 +1,9 @@
-import { ResolvedPos } from 'prosemirror-model';
-import { ReplaceAroundStep, ReplaceStep, Step } from 'prosemirror-transform';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import {
+  ReplaceAroundStep,
+  ReplaceStep,
+} from '@atlaskit/editor-prosemirror/transform';
 
 type Params = {
   insertPosition: number;

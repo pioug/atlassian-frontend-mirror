@@ -1,15 +1,17 @@
 /** @jsx jsx */
 import { jsx, useTheme } from '@emotion/react';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
-import { EditorView } from 'prosemirror-view';
-import React, { ReactElement, useImperativeHandle, useRef } from 'react';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ReactElement } from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
-import EditorActions from '../../../actions';
-import { EventDispatcher } from '../../../event-dispatcher';
-import {
+import type EditorActions from '../../../actions';
+import type { EventDispatcher } from '../../../event-dispatcher';
+import type {
   ReactComponents,
   EditorAppearance,
   UIComponentFactory,
@@ -25,9 +27,9 @@ import {
   editorContentGutterStyle,
   positionedOverEditorStyle,
 } from './StyledComponents';
-import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import messages from './messages';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 import type { FeatureFlags } from '../../../types/feature-flags';
 

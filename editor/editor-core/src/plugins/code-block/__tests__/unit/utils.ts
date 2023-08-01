@@ -1,4 +1,5 @@
-import { Fragment, Node, Slice } from 'prosemirror-model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import {
   p,
   clean,

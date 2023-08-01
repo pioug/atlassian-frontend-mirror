@@ -1,8 +1,12 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey, EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { browser as browserEnv } from '@atlaskit/editor-common/utils';
-import { DisableSpellcheckByBrowser, Browsers } from '../../../types/browser';
+import type {
+  DisableSpellcheckByBrowser,
+  Browsers,
+} from '../../../types/browser';
 
 function getCurrentBrowserAndVersion():
   | {

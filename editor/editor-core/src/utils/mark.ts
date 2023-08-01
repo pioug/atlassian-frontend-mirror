@@ -1,5 +1,14 @@
-import { Node, Mark, MarkType, NodeType } from 'prosemirror-model';
-import { SelectionRange, EditorState, Transaction } from 'prosemirror-state';
+import type {
+  Node,
+  Mark,
+  MarkType,
+  NodeType,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  SelectionRange,
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 export const isMarkAllowedInRange = (
   doc: Node,

@@ -1,4 +1,4 @@
-import type { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { bitbucketSchema } from '@atlaskit/adf-schema/schema-bitbucket';
 import { BitbucketTransformer } from '../..';

@@ -1,4 +1,4 @@
-import { NodeSpec } from 'prosemirror-model';
+import { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name hardBreak_node

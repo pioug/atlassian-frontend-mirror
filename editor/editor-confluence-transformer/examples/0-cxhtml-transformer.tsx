@@ -32,7 +32,7 @@ import {
   DATE,
 } from '../example-helpers/cxhtml-test-data';
 import { ConfluenceTransformer } from '../src';
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 
 export const content = css`
   padding: 0 20px;

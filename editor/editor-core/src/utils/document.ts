@@ -1,18 +1,26 @@
-import { Node, Fragment, Schema, ResolvedPos } from 'prosemirror-model';
-import {
+import type {
+  Node,
+  Schema,
+  ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type {
   Transaction,
   ReadonlyTransaction,
   EditorState,
   TextSelection,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
 
-import { ContentNodeWithPos } from 'prosemirror-utils';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import { Transformer, ReplaceRawValue } from '@atlaskit/editor-common/types';
-import { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
+import type {
+  Transformer,
+  ReplaceRawValue,
+} from '@atlaskit/editor-common/types';
+import type { DispatchAnalyticsEvent } from '../plugins/analytics/types/dispatch-analytics-event';
 import { getBreakoutMode } from './node-width';
-import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import {
   processRawValue,
   hasDocAsParent,

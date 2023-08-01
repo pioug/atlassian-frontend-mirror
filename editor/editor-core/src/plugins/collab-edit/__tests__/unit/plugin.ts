@@ -1,20 +1,21 @@
 import type { CollabEditProvider } from '@atlaskit/collab-provider';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 // Editor plugins
 import collabEditPlugin from '../../';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../../../analytics';
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { EditorState } from 'prosemirror-state';
-import { Schema } from 'prosemirror-model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('collab-edit: plugin', () => {

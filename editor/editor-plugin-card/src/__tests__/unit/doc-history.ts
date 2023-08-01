@@ -1,5 +1,4 @@
-jest.mock('prosemirror-history');
-import { closeHistory } from 'prosemirror-history';
+jest.mock('@atlaskit/editor-prosemirror/history');
 jest.mock('raf-schd', () =>
   jest.fn().mockImplementation((fn: any) => {
     const fnRunner = (...args: any) => fn(...args);
@@ -12,6 +11,7 @@ import rafSchd from 'raf-schd';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   a,

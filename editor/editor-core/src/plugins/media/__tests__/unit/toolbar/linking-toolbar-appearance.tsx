@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 
-import { MediaType } from '@atlaskit/media-client';
+import type { MediaType } from '@atlaskit/media-client';
 
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
@@ -21,21 +21,19 @@ jest.mock('../../../pm-plugins/plugin-key', () => ({
   },
 }));
 
-import {
-  LinkToolbarAppearance,
-  LinkingToolbarProps,
-} from '../../../toolbar/linking-toolbar-appearance';
+import type { LinkingToolbarProps } from '../../../toolbar/linking-toolbar-appearance';
+import { LinkToolbarAppearance } from '../../../toolbar/linking-toolbar-appearance';
 import { createIntl } from 'react-intl-next';
-import { EditorState, NodeSelection } from 'prosemirror-state';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 const waitForStateUpdate = async () => {
   // We need to wait for the end of the event loop to see the state update
   await Promise.resolve({});
 };
 
-import { MediaLinkingState } from '../../../pm-plugins/linking';
+import type { MediaLinkingState } from '../../../pm-plugins/linking';
 
-import { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   mediaSingle,

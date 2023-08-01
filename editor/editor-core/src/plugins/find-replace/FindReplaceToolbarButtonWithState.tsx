@@ -1,7 +1,7 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findReplacePluginKey } from './types';
-import { Command } from '../../types';
+import type { Command } from '../../types';
 import WithPluginState from '../../ui/WithPluginState';
 import {
   cancelSearchWithAnalytics,
@@ -14,8 +14,9 @@ import {
 } from './commands-with-analytics';
 import { blur, toggleMatchCase } from './commands';
 import FindReplaceToolbarButton from './ui/FindReplaceToolbarButton';
-import { TRIGGER_METHOD, DispatchAnalyticsEvent } from '../analytics';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { DispatchAnalyticsEvent } from '../analytics';
+import { TRIGGER_METHOD } from '../analytics';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export type FindReplaceToolbarButtonWithStateProps = {
   popupsBoundariesElement?: HTMLElement;

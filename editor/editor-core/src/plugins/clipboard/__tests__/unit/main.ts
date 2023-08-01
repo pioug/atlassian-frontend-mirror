@@ -1,12 +1,15 @@
-import { PluginKey } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { clipboardPluginKey } from './../../plugin-key';
-import {
-  createProsemirrorEditorFactory,
+import type {
   LightEditorPlugin,
-  Preset,
   DispatchAnalyticsEvent,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   hr,
@@ -15,7 +18,6 @@ import {
   tr,
   th,
   td,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import rulePlugin from '../../../rule';
 import layoutPlugin from '../../../layout';
@@ -30,9 +32,9 @@ import {
   setCellSelection,
 } from '../../../../utils/selection';
 // @ts-ignore
-import { __serializeForClipboard } from 'prosemirror-view';
+import { __serializeForClipboard } from '@atlaskit/editor-prosemirror/view';
 import { selectRow } from '@atlaskit/editor-tables/src/utils';
-import { TableAttributes } from '@atlaskit/adf-schema';
+import type { TableAttributes } from '@atlaskit/adf-schema';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';

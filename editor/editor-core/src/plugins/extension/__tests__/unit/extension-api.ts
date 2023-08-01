@@ -1,7 +1,7 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   bodiedExtension,
   doc,
-  DocBuilder,
   fragmentMark,
   p,
   table,
@@ -11,11 +11,11 @@ import {
   taskItem,
   extension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { NodeSelection } from 'prosemirror-state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
+import type { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createExtensionAPI } from '../../extension-api';
 import {
   ACTION_SUBJECT,
@@ -24,7 +24,7 @@ import {
   INPUT_METHOD,
   ACTION_SUBJECT_ID,
 } from '../../../analytics';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';

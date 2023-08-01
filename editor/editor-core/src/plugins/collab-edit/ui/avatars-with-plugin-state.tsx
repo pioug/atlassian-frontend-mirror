@@ -1,14 +1,16 @@
 import React from 'react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import { EditorView } from 'prosemirror-view';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import WithPluginState from '../../../ui/WithPluginState';
-import { EventDispatcher } from '../../../event-dispatcher';
-import { pluginKey as collabEditPluginKey, PluginState } from '../plugin';
+import type { EventDispatcher } from '../../../event-dispatcher';
+import type { PluginState } from '../plugin';
+import { pluginKey as collabEditPluginKey } from '../plugin';
 import messages from '../../../messages';
-import { CollabInviteToEditProps } from '../types';
+import type { CollabInviteToEditProps } from '../types';
 import { Avatars } from './avatars';
 import { InviteToEditButton } from './invite-to-edit';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export type AvatarsWithPluginStateProps = {
   editorView?: EditorView;

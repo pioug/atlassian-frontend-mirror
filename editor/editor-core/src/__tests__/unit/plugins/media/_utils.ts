@@ -14,7 +14,7 @@ import { media } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { stateKey as mediaPluginKey } from '../../../../plugins/media/pm-plugins/plugin-key';
 import type { EditorProps } from '../../../../types';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { insertMediaGroupNode } from '../../../../plugins/media/utils/media-files';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaPluginState } from '../../../../plugins/media/pm-plugins/types';

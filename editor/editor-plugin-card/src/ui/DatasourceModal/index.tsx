@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react';
 
-import { NodeSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { DatasourceModalType } from '@atlaskit/editor-common/types';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
   AssetsConfigModal,

@@ -32,13 +32,12 @@
     }
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^26.3.0",
+    "@atlaskit/adf-schema": "^26.4.0",
     "@atlaskit/editor-common": "^74.29.0",
+    "@atlaskit/editor-prosemirror": "1.0.2",
     "@babel/runtime": "^7.0.0",
     "markdown-it": "^12.3.2",
-    "markdown-it-table": "^2.0.6",
-    "prosemirror-markdown": "^1.4.2",
-    "prosemirror-model": "1.16.0"
+    "markdown-it-table": "^2.0.6"
   },
   "devDependencies": {
     "@atlaskit/editor-json-transformer": "^8.10.0",

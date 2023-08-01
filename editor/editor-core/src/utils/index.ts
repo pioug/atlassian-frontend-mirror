@@ -1,4 +1,4 @@
-import { toggleMark } from 'prosemirror-commands';
+import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 import type {
   Mark as PMMark,
   MarkType,
@@ -7,13 +7,19 @@ import type {
   ResolvedPos,
   Schema,
   Slice,
-} from 'prosemirror-model';
-import type { EditorState, Selection } from 'prosemirror-state';
-import { NodeSelection, TextSelection } from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
-import { hasParentNodeOfType } from 'prosemirror-utils';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { isNodeEmpty } from './document';
 import { atTheBeginningOfDoc, atTheEndOfDoc } from './prosemirror/position';
 import { isMediaNode } from '@atlaskit/editor-common/utils';

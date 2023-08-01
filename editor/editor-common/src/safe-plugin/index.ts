@@ -1,4 +1,8 @@
-import { Plugin, PluginSpec, SafePluginSpec } from 'prosemirror-state';
+import {
+  Plugin,
+  PluginSpec,
+  SafePluginSpec,
+} from '@atlaskit/editor-prosemirror/state';
 
 export class SafePlugin<T = any> extends Plugin<T> {
   // This variable isn't (and shouldn't) be used anywhere. Its purpose is

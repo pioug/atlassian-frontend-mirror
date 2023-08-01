@@ -1,8 +1,8 @@
-import { MarkSpec } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
-import {
+import type {
   EditorConfig,
   EditorPlugin,
   PluginsOptions,

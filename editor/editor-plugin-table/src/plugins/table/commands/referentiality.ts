@@ -1,6 +1,5 @@
-import { Node as PMNode } from 'prosemirror-model';
-
 import { removeConnectedNodes } from '@atlaskit/editor-common/utils';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { createCommand } from '../pm-plugins/plugin-factory';
 

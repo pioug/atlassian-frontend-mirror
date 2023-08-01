@@ -1,7 +1,10 @@
-import type { Node, NodeType } from 'prosemirror-model';
-import type { EditorState, Transaction } from 'prosemirror-state';
+import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { liftTarget } from 'prosemirror-transform';
+import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 
 import type { Command } from '@atlaskit/editor-common/types';
 import type {

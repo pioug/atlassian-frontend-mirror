@@ -1,4 +1,4 @@
-import { NodeSpec, DOMOutputSpec } from 'prosemirror-model';
+import { NodeSpec, DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @name rule_node

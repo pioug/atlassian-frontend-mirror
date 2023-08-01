@@ -1,17 +1,18 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { pluginKey as datePluginKey } from '../../date/pm-plugins/plugin-key';
-import { DatePluginState } from '../../date/pm-plugins/types';
-import {
-  pluginKey as floatingToolbarPluginKey,
+import type { DatePluginState } from '../../date/pm-plugins/types';
+import type {
   FloatingToolbarPluginState,
   ConfigWithNodeInfo,
 } from '../../floating-toolbar';
-import { StatusState } from '../../status/types';
+import { pluginKey as floatingToolbarPluginKey } from '../../floating-toolbar';
+import type { StatusState } from '../../status/types';
 import { pluginKey as statusPluginKey } from '../../status/plugin-key';
 import { areSameItems } from '../../floating-toolbar/ui/Toolbar';
 import { isTypeAheadOpen } from '../../type-ahead/utils';
-import { EditorState } from 'prosemirror-state';
-import { trackerStore, ViewUpdateSubscription } from '..';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { ViewUpdateSubscription } from '..';
+import { trackerStore } from '..';
 
 type SubscribeToToolbarAndPickerUpdatesCallbackArgs = {
   dateState?: DatePluginState;

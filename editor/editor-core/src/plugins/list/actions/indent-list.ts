@@ -1,6 +1,7 @@
-import { ReplaceAroundStep } from 'prosemirror-transform';
-import { Transaction } from 'prosemirror-state';
-import { Node, Fragment, Slice } from 'prosemirror-model';
+import { ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 
 // adapted from https://github.com/ProseMirror/prosemirror-schema-list/blob/master/src/schema-list.js#L206:L231
 export const indentList = (tr: Transaction) => {

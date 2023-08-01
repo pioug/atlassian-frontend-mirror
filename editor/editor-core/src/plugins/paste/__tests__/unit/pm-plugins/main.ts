@@ -1,28 +1,28 @@
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
-  LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   em,
   doc,
   annotation,
   p,
-  DocBuilder,
   layoutSection,
   layoutColumn,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import {
+import type {
   InlineCommentPluginState,
   InlineCommentMap,
 } from '../../../../annotation/pm-plugins/types';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { PastePluginOptions } from '../../../index';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { PastePluginOptions } from '../../../index';
 
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -30,12 +30,12 @@ import pastePlugin from '../../../index';
 import blockTypePlugin from '../../../../block-type';
 import textFormattingPlugin from '../../../../text-formatting';
 import layoutPlugin from '../../../../layout';
-import { InlineCommentAnnotationProvider } from '../../../../annotation/types';
+import type { InlineCommentAnnotationProvider } from '../../../../annotation/types';
 import annotationPlugin from '../../../../annotation';
 import { inlineCommentPluginKey } from '../../../../annotation/utils';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { undo, redo } from 'prosemirror-history';
+import { undo, redo } from '@atlaskit/editor-prosemirror/history';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('paste: handlePaste', () => {

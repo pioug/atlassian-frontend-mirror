@@ -1,9 +1,8 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import type { DomAtPos } from 'prosemirror-utils';
-
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import { updateColumnWidths } from '../../../transforms';

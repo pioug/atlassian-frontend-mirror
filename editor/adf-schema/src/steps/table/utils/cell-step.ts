@@ -1,7 +1,7 @@
-import { Node as ProseMirrorNode } from 'prosemirror-model';
+import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { Cell } from './cells-at-column';
 import { CellStep } from '../types';
-import { Transform, StepMap } from 'prosemirror-transform';
+import { Transform, StepMap } from '@atlaskit/editor-prosemirror/transform';
 import { TableRect } from '@atlaskit/editor-tables/table-map';
 import { addColSpan, removeColSpan } from '@atlaskit/editor-tables/utils';
 import { CellAttributesWithColSpan } from '@atlaskit/editor-tables/types';

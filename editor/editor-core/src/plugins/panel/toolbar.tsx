@@ -1,12 +1,12 @@
-import {
+import type {
   FloatingToolbarColorPicker,
   FloatingToolbarConfig,
   FloatingToolbarEmojiPicker,
   FloatingToolbarItem,
   FloatingToolbarButton,
 } from './../floating-toolbar/types';
-import { EmojiInfo, PanelPluginOptions } from './types';
-import { IntlShape } from 'react-intl-next';
+import type { EmojiInfo, PanelPluginOptions } from './types';
+import type { IntlShape } from 'react-intl-next';
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import NoteIcon from '@atlaskit/icon/glyph/editor/note';
@@ -18,31 +18,29 @@ import RemoveEmojiIcon from '@atlaskit/icon/glyph/editor/remove-emoji';
 import commonMessages from '../../messages';
 import { removePanel, changePanelType } from './actions';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
-import { EditorState } from 'prosemirror-state';
-import { NodeType } from 'prosemirror-model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 
-import { Command } from '../../types';
+import type { Command } from '../../types';
 import { panelBackgroundPalette } from '../../ui/ColorPalette/Palettes/panelBackgroundPalette';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
 import { findPanel } from './utils';
-import { EditorView } from 'prosemirror-view';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import {
-  DEFAULT_BORDER_COLOR,
-  PaletteColor,
-} from '../../ui/ColorPalette/Palettes';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import type { PaletteColor } from '../../ui/ColorPalette/Palettes';
+import { DEFAULT_BORDER_COLOR } from '../../ui/ColorPalette/Palettes';
 import { PanelType } from '@atlaskit/adf-schema';
+import type { AnalyticsEventPayload } from '../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
   withAnalytics,
 } from '../analytics';
 import { messages } from './message';
-import { EmojiId } from '@atlaskit/emoji/types';
+import type { EmojiId } from '@atlaskit/emoji/types';
 
 export const panelIconMap: {
   [key in Exclude<PanelType, PanelType.CUSTOM>]: EmojiInfo;

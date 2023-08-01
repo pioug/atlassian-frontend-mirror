@@ -17,7 +17,9 @@ const IMPORTANT_MESSAGE_END = `${BOLD_END}${RED_END}`;
 function fetchLastPublishedJSONSchema(): Promise<string> {
   return new Promise((resolve, reject) => {
     exec(
-      `git show origin/master:packages/editor/adf-schema/json-schema/v1/full.json`,
+      // Use relative path because the packages folder is not at the root
+      // if the test is run in FFE shadow builds.
+      `git show origin/master:./packages/editor/adf-schema/json-schema/v1/full.json`,
       { maxBuffer: 512000 },
       (error, stdout, stderr) => {
         if (error || stderr) {

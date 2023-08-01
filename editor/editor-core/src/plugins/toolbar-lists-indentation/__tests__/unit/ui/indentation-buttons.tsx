@@ -2,10 +2,10 @@ import React from 'react';
 import { uuid } from '@atlaskit/adf-schema';
 import { IntlProvider } from 'react-intl-next';
 import { render, fireEvent } from '@testing-library/react';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
-  DocBuilder,
   h1,
   indentation,
   ul,
@@ -17,9 +17,9 @@ import { pluginKey } from '../../../pm-plugins/indentation-buttons';
 import ToolbarListsIndentation from '../../../ui';
 import toolbarListsIndentationPlugin from '../../../';
 import indentationPlugin from '../../../../indentation';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import basePlugin from '../../../../base';
@@ -28,6 +28,7 @@ import blockTypePlugin from '../../../../block-type';
 import listPlugin from '../../../../list';
 import tasksAndDecisionsPlugin from '../../../../tasks-and-decisions';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('Indentation buttons', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -36,6 +37,7 @@ describe('Indentation buttons', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
         .add(basePlugin)
         .add(textFormattingPlugin)
         .add(listPlugin)

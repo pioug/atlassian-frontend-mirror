@@ -1,6 +1,6 @@
-import { Schema } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { NodeWithPos } from 'prosemirror-utils';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { cloneTr } from './clone-tr';
 import { tableNodeTypes } from './table-node-types';

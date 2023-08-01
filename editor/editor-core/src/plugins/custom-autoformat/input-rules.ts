@@ -1,5 +1,5 @@
-import { EditorView } from 'prosemirror-view';
-import { AutoformatReplacement } from '@atlaskit/editor-common/provider-factory';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { AutoformatReplacement } from '@atlaskit/editor-common/provider-factory';
 
 export type InputRuleHander = (
   view: EditorView,

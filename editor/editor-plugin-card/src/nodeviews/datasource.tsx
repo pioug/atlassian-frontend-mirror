@@ -3,8 +3,6 @@ import React from 'react';
 
 import { css, jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
@@ -18,6 +16,8 @@ import {
 } from '@atlaskit/editor-common/styles';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   DatasourceAdf,
   DatasourceAdfView,

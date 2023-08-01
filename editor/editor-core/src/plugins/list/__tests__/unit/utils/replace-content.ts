@@ -9,7 +9,7 @@ import {
   code_block,
   //  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { ReplaceStep } from 'prosemirror-transform';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 import { moveTargetIntoList } from '../../../utils/replace-content';
 

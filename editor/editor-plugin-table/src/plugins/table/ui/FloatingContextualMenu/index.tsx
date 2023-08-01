@@ -1,7 +1,5 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
@@ -9,6 +7,8 @@ import type {
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorFloatingDialogZIndex,
   akEditorFloatingOverlapPanelZIndex,

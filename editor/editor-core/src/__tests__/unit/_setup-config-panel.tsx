@@ -1,27 +1,26 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { IntlProvider } from 'react-intl-next';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
+import type {
   BuilderContent,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-  combineExtensionProviders,
+import type {
   TransformBefore,
   TransformAfter,
   UpdateExtension,
 } from '@atlaskit/editor-common/extensions';
-import {
-  createFakeExtensionProvider,
-  NodeConfig,
-} from '@atlaskit/editor-test-helpers/extensions';
+import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
+import type { NodeConfig } from '@atlaskit/editor-test-helpers/extensions';
+import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 
-import { EditorProps } from '../../types';
+import type { EditorProps } from '../../types';
 import { pluginKey } from '../../plugins/extension/plugin-key';
 import {
   flushPromises,
@@ -30,7 +29,7 @@ import {
 import { setEditingContextToContextPanel } from '../../plugins/extension/commands';
 import { getContextPanel } from '../../plugins/extension/context-panel';
 import { EditorActions, EditorContext } from '../..';
-import { PublicProps } from '../../ui/ConfigPanel/ConfigPanelFieldsLoader';
+import type { PublicProps } from '../../ui/ConfigPanel/ConfigPanelFieldsLoader';
 
 const defaultTransformBefore: TransformBefore = (parameters) =>
   parameters && parameters.macroParams;

@@ -1,11 +1,10 @@
-import { Selection } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
-
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { addColumnAt } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,

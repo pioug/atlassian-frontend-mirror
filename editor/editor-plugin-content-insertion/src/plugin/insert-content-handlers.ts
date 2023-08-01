@@ -1,5 +1,5 @@
-import { Fragment, Node as PMNode } from 'prosemirror-model';
-import type { Transaction } from 'prosemirror-state';
+import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { InsertNodeConfig } from '../types';
 

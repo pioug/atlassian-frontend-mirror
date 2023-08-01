@@ -1,4 +1,4 @@
-import { EditorState } from 'prosemirror-state';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 

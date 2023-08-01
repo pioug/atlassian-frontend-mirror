@@ -1,9 +1,7 @@
-import {
-  createProsemirrorEditorFactory,
-  DispatchAnalyticsEvent,
-} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { doc, p as paragraph } from '@atlaskit/editor-test-helpers/doc-builder';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 describe('filter steps', () => {
   const createEditor = createProsemirrorEditorFactory();

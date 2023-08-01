@@ -1,34 +1,40 @@
-import { ResolvedPos, Mark, Node, Slice, Schema } from 'prosemirror-model';
-import {
+import type {
+  ResolvedPos,
+  Mark,
+  Node,
+  Slice,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
   EditorState,
   Selection,
+} from '@atlaskit/editor-prosemirror/state';
+import {
   PluginKey,
   TextSelection,
   AllSelection,
-} from 'prosemirror-state';
-import { Decoration } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/state';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
 import {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
 } from '@atlaskit/editor-common/utils';
-import {
-  AnnotationMarkAttributes,
-  AnnotationTypes,
-} from '@atlaskit/adf-schema';
-import { AnnotationInfo, AnnotationSelectionType } from './types';
+import type { AnnotationMarkAttributes } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { AnnotationInfo } from './types';
+import { AnnotationSelectionType } from './types';
 import { isText, isParagraph, sum } from '../../utils';
-import { InlineCommentPluginState } from './pm-plugins/types';
+import type { InlineCommentPluginState } from './pm-plugins/types';
+import type { INPUT_METHOD, AnalyticsEventPayload } from '../analytics';
 import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   ACTION,
-  INPUT_METHOD,
-  AnalyticsEventPayload,
 } from '../analytics';
-import { AnalyticsEventPayloadCallback } from '../analytics/utils';
-import { AnnotationAEPAttributes } from '../analytics/types/inline-comment-events';
+import type { AnalyticsEventPayloadCallback } from '../analytics/utils';
+import type { AnnotationAEPAttributes } from '../analytics/types/inline-comment-events';
 /**
  * Finds the marks in the nodes to the left and right.
  * @param $pos Position to center search around

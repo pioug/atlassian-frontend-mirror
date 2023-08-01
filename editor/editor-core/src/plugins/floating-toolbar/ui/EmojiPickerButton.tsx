@@ -2,14 +2,15 @@
 import { css, jsx } from '@emotion/react';
 import React from 'react';
 import Button from '@atlaskit/button';
-import { EditorView } from 'prosemirror-view';
-import {
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
+import type {
+  Providers,
   ProviderFactory,
-  WithProviders,
 } from '@atlaskit/editor-common/provider-factory';
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { Popup } from '@atlaskit/editor-common/ui';
-import { EmojiPicker, EmojiId } from '@atlaskit/emoji';
+import type { EmojiId } from '@atlaskit/emoji';
+import { EmojiPicker } from '@atlaskit/emoji';
 import Tooltip from '@atlaskit/tooltip';
 import EditorEmojiAddIcon from './EditorEmojiAddIcon';
 import withOuterListeners from '../../../ui/with-outer-listeners';

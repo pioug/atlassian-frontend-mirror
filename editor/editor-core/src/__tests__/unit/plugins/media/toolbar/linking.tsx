@@ -5,7 +5,7 @@ jest.mock('../../../../../plugins/media/utils/check-media-type', () => ({
   checkMediaType: jest.fn(),
 }));
 
-import { ActivityItem } from '@atlaskit/activity-provider';
+import type { ActivityItem } from '@atlaskit/activity-provider';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ErrorMessage } from '@atlaskit/editor-common/ui';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
@@ -14,6 +14,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { mountWithIntl } from '../../../../__helpers/enzyme';
 import { render, fireEvent } from '@testing-library/react';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   a,
   doc,
@@ -28,36 +29,32 @@ import {
   layoutSection,
   media,
   mediaSingle,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { ReactWrapper } from 'enzyme';
-import { EditorView } from 'prosemirror-view';
-import { ReactElement } from 'react';
+import type { ReactWrapper } from 'enzyme';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ReactElement } from 'react';
 import { createIntl, IntlProvider } from 'react-intl-next';
 import {
   linkMessages,
   linkToolbarMessages,
 } from '@atlaskit/editor-common/messages';
 import { INPUT_METHOD } from '../../../../../plugins/analytics';
-import {
+import type {
   FloatingToolbarConfig,
   FloatingToolbarCustom,
   FloatingToolbarItem,
 } from '../../../../../plugins/floating-toolbar/types';
-import { MediaOptions } from '../../../../../plugins/media/types';
-import {
-  getMediaLinkingState,
-  MediaLinkingState,
-} from '../../../../../plugins/media/pm-plugins/linking';
+import type { MediaOptions } from '../../../../../plugins/media/types';
+import type { MediaLinkingState } from '../../../../../plugins/media/pm-plugins/linking';
+import { getMediaLinkingState } from '../../../../../plugins/media/pm-plugins/linking';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../../../../plugins/media/toolbar';
-import { LinkingToolbarProps } from '../../../../../plugins/media/toolbar/linking-toolbar-appearance';
+import type { LinkingToolbarProps } from '../../../../../plugins/media/toolbar/linking-toolbar-appearance';
 
-import LinkAddToolbar, {
-  Props as LinkAddToolbarProps,
-} from '../../../../../plugins/media/ui/MediaLinkingToolbar';
-import { Command } from '../../../../../types';
+import type { Props as LinkAddToolbarProps } from '../../../../../plugins/media/ui/MediaLinkingToolbar';
+import LinkAddToolbar from '../../../../../plugins/media/ui/MediaLinkingToolbar';
+import type { Command } from '../../../../../types';
 import { setNodeSelection } from '../../../../../utils';
 import {
   getFreshMediaProvider,
@@ -66,9 +63,9 @@ import {
 } from '../_utils';
 import safeUnmount from '../../../../__helpers/safeUnmount';
 import { getToolbarItems } from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
-import { MediaFloatingToolbarOptions } from '../../../../../plugins/media/types';
+import type { MediaFloatingToolbarOptions } from '../../../../../plugins/media/types';
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
-import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 interface LinkingActions {
   [key: string]: React.MouseEventHandler | undefined;

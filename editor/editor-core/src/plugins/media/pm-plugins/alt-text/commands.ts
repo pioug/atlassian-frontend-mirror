@@ -10,10 +10,13 @@ import {
   ACTION_SUBJECT_ID,
   ACTION,
 } from '../../../analytics';
-import { EditorState, Transaction } from 'prosemirror-state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
-import { MediaAltTextActionType } from '../../../analytics/types/media-events';
-import {
+import type { MediaAltTextActionType } from '../../../analytics/types/media-events';
+import type {
   OpenMediaAltTextMenu,
   CloseMediaAltTextMenu,
   UpdateAltText,

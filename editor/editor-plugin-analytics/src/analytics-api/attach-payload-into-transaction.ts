@@ -1,11 +1,13 @@
-import type { Selection, Transaction } from 'prosemirror-state';
-
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import {
   ACTION,
   AnalyticsEventPayload,
   TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
+import type {
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import { getStateContext } from './editor-state-context';
 import { mapActionSubjectIdToAttributes } from './map-attributes';

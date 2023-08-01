@@ -1,8 +1,7 @@
-import { Node as PMNode, Schema } from 'prosemirror-model';
-import { Selection, Transaction } from 'prosemirror-state';
-import { safeInsert } from 'prosemirror-utils';
-
 import { parsePx } from '@atlaskit/editor-common/utils';
+import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {

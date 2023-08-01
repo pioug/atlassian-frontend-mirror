@@ -5,22 +5,25 @@ import {
   NodeType,
   ResolvedPos,
   Slice,
-} from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/model';
 import {
   EditorState,
   NodeSelection,
   Selection,
   TextSelection,
   Transaction,
-} from 'prosemirror-state';
-import { ReplaceAroundStep, ReplaceStep } from 'prosemirror-transform';
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  ReplaceAroundStep,
+  ReplaceStep,
+} from '@atlaskit/editor-prosemirror/transform';
 import {
   canInsert,
   findParentNodeOfType,
   hasParentNodeOfType,
   isNodeSelection,
   safeInsert as pmSafeInsert,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 
 import { GapCursorSelection, Side } from '../selection';
 import { isEmptyParagraph, isListItemNode } from '../utils';

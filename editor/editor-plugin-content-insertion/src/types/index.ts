@@ -1,9 +1,13 @@
-import type { Fragment, Node as PMNode, Schema } from 'prosemirror-model';
-import type { EditorState } from 'prosemirror-state';
-
-// import type { DefaultSchemaNodes } from '@atlaskit/adf-schema/schema-default';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { CommandDispatch } from '@atlaskit/editor-common/types';
+import type {
+  Fragment,
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+
+// import type { DefaultSchemaNodes } from '@atlaskit/adf-schema/schema-default';
 
 export type InsertNodeConfig = {
   node: PMNode | Fragment;

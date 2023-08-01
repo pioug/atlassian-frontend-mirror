@@ -1,21 +1,21 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   caption,
   doc,
   media,
   mediaSingle,
   p,
-  RefsNode,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Schema } from 'prosemirror-model';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { setNodeSelection, setTextSelection } from '../../../utils';
-import { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import captionNodeView from '.';
-import { EditorView } from 'prosemirror-view';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
-import { EventDispatcher } from '../../../event-dispatcher';
+import type { EventDispatcher } from '../../../event-dispatcher';
 import { screen } from '@testing-library/react';
 
 const createEditorTestingLibrary = createEditorFactory();

@@ -3,27 +3,29 @@ jest.mock('../../../../plugins/media/pm-plugins/alt-text/commands', () => ({
   updateAltText: jest.fn(() => jest.fn()),
 }));
 
-jest.mock('prosemirror-history', () => ({
+jest.mock('@atlaskit/editor-prosemirror/history', () => ({
   undo: jest.fn(() => () => {}),
   redo: jest.fn(() => () => {}),
 }));
 
 import React from 'react';
 import { mountWithIntl } from '../../../__helpers/enzyme';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { AltTextEditComponentState } from '../../../../plugins/media/pm-plugins/alt-text/ui/AltTextEdit';
 import AltTextEdit, {
   AltTextEditComponent,
-  AltTextEditComponentState,
   MAX_ALT_TEXT_LENGTH,
 } from '../../../../plugins/media/pm-plugins/alt-text/ui/AltTextEdit';
-import { createIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { createIntl } from 'react-intl-next';
 import {
   EVENT_TYPE,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
 } from '../../../../plugins/analytics';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import { ErrorMessage } from '@atlaskit/editor-common/ui';

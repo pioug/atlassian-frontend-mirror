@@ -69,6 +69,7 @@ import {
 } from '../../utils/analytics/types';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import {
+  trackHoverCardResolutionStarted,
   TrackQuickActionFailureReason,
   TrackQuickActionType,
   trackSmartLinkQuickActionFailed,
@@ -1041,6 +1042,20 @@ export const useSmartLinkAnalytics = (
         dispatchAnalytics(
           applyCommonAttributes(
             trackSmartLinkQuickActionFailed({ ...commonAttributes, ...props }),
+            commonAttributes,
+          ),
+        ),
+
+      /**
+       * Fires a track event when we call loadMetadata() to get information for a hover card
+       */
+      hoverCardResolutionStarted: () =>
+        dispatchAnalytics(
+          applyCommonAttributes(
+            trackHoverCardResolutionStarted({
+              display: 'hoverCardPreview',
+              ...commonAttributes,
+            }),
             commonAttributes,
           ),
         ),

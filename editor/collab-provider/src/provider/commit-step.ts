@@ -12,7 +12,7 @@ import type {
   CollabEvents,
   StepJson,
 } from '@atlaskit/editor-common/collab';
-import type { Step as ProseMirrorStep } from 'prosemirror-transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { NCS_ERROR_CODE } from '../errors/error-types';
 import AnalyticsHelper from '../analytics/analytics-helper';
 import type { InternalError } from '../errors/error-types';

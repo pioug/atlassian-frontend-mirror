@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import type { Node as PMNode, Schema } from 'prosemirror-model';
+import type {
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   NodeSelection,
   TextSelection,
   AllSelection,
   Selection,
-} from 'prosemirror-state';
-import { insertPoint } from 'prosemirror-transform';
-import type { EditorView } from 'prosemirror-view';
-import { Decoration, DecorationSet } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/state';
+import { insertPoint } from '@atlaskit/editor-prosemirror/transform';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { UploadParams } from '@atlaskit/media-picker/types';
@@ -28,7 +31,7 @@ import {
   isNodeSelection,
   findSelectedNodeOfType,
   findParentNodeOfType,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 import type { Dispatch } from '../../../event-dispatcher';
 import type { ProsemirrorGetPosHandler } from '../../../nodeviews';
 import { insertMediaSingleNode, isMediaSingle } from '../utils/media-single';

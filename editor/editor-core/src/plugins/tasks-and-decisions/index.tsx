@@ -6,8 +6,11 @@ import {
   taskItem,
   taskList,
 } from '@atlaskit/adf-schema';
-import { Node as PMNode, Schema } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
+import type {
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '../analytics';
 import { messages as insertBlockMessages } from '../insert-block/ui/ToolbarInsertBlock/messages';
@@ -17,7 +20,7 @@ import { insertTaskDecisionAction, getListTypes } from './commands';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
-import { TaskDecisionListType, TaskDecisionPluginOptions } from './types';
+import type { TaskDecisionListType, TaskDecisionPluginOptions } from './types';
 import ToolbarDecision from './ui/ToolbarDecision';
 import ToolbarTask from './ui/ToolbarTask';
 

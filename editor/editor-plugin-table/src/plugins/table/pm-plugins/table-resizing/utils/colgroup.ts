@@ -1,7 +1,9 @@
-import { DOMSerializer, Node as PmNode } from 'prosemirror-model';
-
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { getFragmentBackingArray } from '@atlaskit/editor-common/utils';
+import {
+  DOMSerializer,
+  Node as PmNode,
+} from '@atlaskit/editor-prosemirror/model';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 

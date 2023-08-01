@@ -2,12 +2,12 @@
 import { jsx } from '@emotion/react';
 import type { MouseEvent } from 'react';
 import React, { Component } from 'react';
-import type { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type {
   DecorationSource,
   EditorView,
   Decoration,
-} from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/view';
 import type {
   RichMediaLayout as MediaSingleLayout,
   MediaADFAttrs,
@@ -48,7 +48,7 @@ import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
 import type { MediaSingleNodeProps, MediaSingleNodeViewProps } from './types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
+import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { figureWrapper, MediaSingleNodeSelector } from './styles';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
@@ -56,7 +56,7 @@ import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import CaptionPlaceholder from '../ui/CaptionPlaceholder';
-import { NodeSelection } from 'prosemirror-state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
 import type mediaPlugin from '../index';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';

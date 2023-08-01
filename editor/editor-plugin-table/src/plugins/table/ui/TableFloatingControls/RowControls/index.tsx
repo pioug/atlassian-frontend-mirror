@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import { EditorView } from 'prosemirror-view';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { defineMessages, injectIntl } from 'react-intl-next';
+
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { clearHoverSelection } from '../../../commands';
 import { TableCssClassName as ClassName } from '../../../types';

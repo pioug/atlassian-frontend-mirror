@@ -1,9 +1,8 @@
-import { EditorView } from 'prosemirror-view';
-import {
-  createEditorFactory,
-  TypeAheadTool,
-} from '@atlaskit/editor-test-helpers/create-editor';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { TypeAheadTool } from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -15,7 +14,6 @@ import {
   li,
   code_block,
   mediaSingle,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';

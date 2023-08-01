@@ -1,9 +1,5 @@
 import React from 'react';
 
-import { Node } from 'prosemirror-model';
-import { NodeSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
@@ -39,6 +35,9 @@ import {
   withOuterListeners,
 } from '@atlaskit/editor-common/ui';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
+import { Node } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
 
 import type { cardPlugin } from '../plugin';

@@ -1,7 +1,9 @@
-import { EditorView, Decoration, DecorationSet } from 'prosemirror-view';
-import { PluginKey } from 'prosemirror-state';
+import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import createStub from 'raf-stub';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   insertText,
   deleteText,

@@ -1,16 +1,25 @@
-import { autoJoin, chainCommands } from 'prosemirror-commands';
-import { keymap } from 'prosemirror-keymap';
-import { Fragment, Node, ResolvedPos, Schema, Slice } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
+import { autoJoin, chainCommands } from '@atlaskit/editor-prosemirror/commands';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type {
+  Node,
+  ResolvedPos,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
   findParentNodeOfTypeClosestToPos,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 
 import { uuid } from '@atlaskit/adf-schema';
 
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 import {
   isEmptySelectionAtStart,
   deleteEmptyParagraphAndMoveBlockUp,
@@ -18,11 +27,11 @@ import {
 } from '../../../utils/commands';
 import { filterCommands as filter } from '@atlaskit/editor-common/utils';
 
+import type { AnalyticsEventPayload } from '../../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
   EVENT_TYPE,
   INDENT_DIRECTION,
   INDENT_TYPE,
@@ -30,7 +39,7 @@ import {
   withAnalytics,
 } from '../../analytics';
 import { insertTaskDecisionWithAnalytics } from '../commands';
-import { TaskDecisionListType } from '../types';
+import type { TaskDecisionListType } from '../types';
 
 import { joinAtCut, liftSelection, wrapSelectionInTaskList } from './commands';
 import {

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-card
 
+## 0.3.0
+
+### Minor Changes
+
+- [`632edbf1930`](https://bitbucket.org/atlassian/atlassian-frontend/commits/632edbf1930) - Updates card plugin floating toolbar to fire an analytic event when viewed.
+
 ## 0.2.5
 
 ### Patch Changes

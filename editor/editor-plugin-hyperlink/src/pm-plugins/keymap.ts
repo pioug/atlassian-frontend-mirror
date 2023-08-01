@@ -1,11 +1,7 @@
-import { keymap } from 'prosemirror-keymap';
-import { EditorState } from 'prosemirror-state';
-
-import { getLinkMatch, Match } from '@atlaskit/adf-schema';
-import {
-  EditorAnalyticsAPI,
-  INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+import type { Match } from '@atlaskit/adf-schema';
+import { getLinkMatch } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   addLink,
   bindKeymapWithCommand,
@@ -14,13 +10,15 @@ import {
   insertNewLine,
 } from '@atlaskit/editor-common/keymaps';
 import type { HyperlinkState } from '@atlaskit/editor-common/link';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command } from '@atlaskit/editor-common/types';
 import {
   findFilepaths,
   getLinkCreationAnalyticsEvent,
   isLinkInMatches,
 } from '@atlaskit/editor-common/utils';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import { hideLinkToolbar, showLinkToolbar } from '../commands';
 import { stateKey } from '../pm-plugins/main';

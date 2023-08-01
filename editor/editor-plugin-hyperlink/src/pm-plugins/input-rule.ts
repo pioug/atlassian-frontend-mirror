@@ -1,13 +1,8 @@
-import { Schema } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-
-import { Match } from '@atlaskit/adf-schema';
-import {
-  EditorAnalyticsAPI,
-  INPUT_METHOD,
-} from '@atlaskit/editor-common/analytics';
+import type { Match } from '@atlaskit/adf-schema';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import {
   findFilepaths,
@@ -16,6 +11,8 @@ import {
   LinkMatcher,
   normalizeUrl,
 } from '@atlaskit/editor-common/utils';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
 import { createPlugin, createRule } from '@atlaskit/prosemirror-input-rules';
 

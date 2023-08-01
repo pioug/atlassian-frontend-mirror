@@ -1,4 +1,4 @@
-import { DecorationSet } from 'prosemirror-view';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export type CodeBidiWarningPluginState = {
   decorationSet: DecorationSet;

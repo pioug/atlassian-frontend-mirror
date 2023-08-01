@@ -1,6 +1,5 @@
-import { Fragment, Node, Slice } from 'prosemirror-model';
-import { Transform } from 'prosemirror-transform';
-
+import { Fragment, Node, Slice } from '@atlaskit/editor-prosemirror/model';
+import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import {
   blockquote,
   code,

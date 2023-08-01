@@ -1,4 +1,8 @@
-import { NodeType, Node as PMNode, Schema } from 'prosemirror-model';
+import {
+  NodeType,
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 
 import { tableNodeTypes } from './table-node-types';
 import { uuid } from './uuid';

@@ -1,9 +1,10 @@
+import type { WalkNode } from '../../../utils/commands';
 import {
   insertContentDeleteRange,
   isEmptySelectionAtStart,
   walkPrevNode,
-  WalkNode,
 } from '../../../utils/commands';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -12,13 +13,14 @@ import {
   INPUT_METHOD,
   DELETE_DIRECTION,
   LIST_TEXT_SCENARIOS,
-  addAnalytics,
-} from '../../analytics';
-import { Command } from '../../../types';
-import { ResolvedPos } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { findParentNodeOfType } from 'prosemirror-utils';
-import { CommandDispatch } from '../../../types';
+} from '@atlaskit/editor-common/analytics';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { CommandDispatch } from '../../../types';
 import { isListNode, isParagraphNode } from '@atlaskit/editor-common/utils';
 
 import { isPosInsideList, isPosInsideParagraph } from '../utils/selection';
@@ -370,50 +372,52 @@ export const calcJoinListScenario = (
   return false;
 };
 
-export const listBackspace: Command = (state, dispatch) => {
-  const {
-    tr,
-    selection: { $head },
-  } = state;
-  const walkNode = walkPrevNode($head);
+export const listBackspace =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (state: EditorState, dispatch?: CommandDispatch) => {
+    const {
+      tr,
+      selection: { $head },
+    } = state;
+    const walkNode = walkPrevNode($head);
 
-  if (!isEmptySelectionAtStart(state)) {
-    return false;
-  }
+    if (!isEmptySelectionAtStart(state)) {
+      return false;
+    }
 
-  const scenario = calcJoinListScenario(walkNode, $head, tr);
+    const scenario = calcJoinListScenario(walkNode, $head, tr);
 
-  if (!scenario) {
-    return false;
-  }
+    if (!scenario) {
+      return false;
+    }
 
-  const { bulletList, orderedList } = state.schema.nodes;
-  const listParent = findParentNodeOfType([bulletList, orderedList])(
-    tr.selection,
-  );
+    const { bulletList, orderedList } = state.schema.nodes;
+    const listParent = findParentNodeOfType([bulletList, orderedList])(
+      tr.selection,
+    );
 
-  let actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_BULLET;
-  if (listParent && listParent.node.type === orderedList) {
-    actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
-  }
+    let actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_BULLET;
+    if (listParent && listParent.node.type === orderedList) {
+      actionSubjectId = ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
+    }
 
-  addAnalytics(state, tr, {
-    action: ACTION.LIST_ITEM_JOINED,
-    actionSubject: ACTION_SUBJECT.LIST,
-    actionSubjectId,
-    eventType: EVENT_TYPE.TRACK,
-    attributes: {
-      inputMethod: INPUT_METHOD.KEYBOARD,
-      direction: DELETE_DIRECTION.BACKWARD,
-      scenario: scenario[0],
-    },
-  });
+    editorAnalyticsAPI?.attachAnalyticsEvent({
+      action: ACTION.LIST_ITEM_JOINED,
+      actionSubject: ACTION_SUBJECT.LIST,
+      actionSubjectId,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: {
+        inputMethod: INPUT_METHOD.KEYBOARD,
+        direction: DELETE_DIRECTION.BACKWARD,
+        scenario: scenario[0],
+      },
+    })(tr);
 
-  return BACKSPACE_COMMANDS[scenario[0]](
-    tr,
-    dispatch,
-    walkNode.$pos,
-    $head,
-    scenario[1],
-  );
-};
+    return BACKSPACE_COMMANDS[scenario[0]](
+      tr,
+      dispatch,
+      walkNode.$pos,
+      $head,
+      scenario[1],
+    );
+  };

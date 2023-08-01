@@ -1,4 +1,4 @@
-import { Selection } from 'prosemirror-state';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
 
 import { Rect, TableMap } from '../table-map';
 

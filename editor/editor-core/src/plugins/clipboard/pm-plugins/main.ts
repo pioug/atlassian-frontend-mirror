@@ -1,10 +1,11 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, TextSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import { PMPluginFactoryParams } from '../../../types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { PMPluginFactoryParams } from '../../../types';
 import { clipboardPluginKey } from '../plugin-key';
-import { DispatchAnalyticsEvent } from '../../analytics/types/dispatch-analytics-event';
-import { AnalyticsEventPayload } from '../../../plugins/analytics';
+import type { DispatchAnalyticsEvent } from '../../analytics/types/dispatch-analytics-event';
+import type { AnalyticsEventPayload } from '../../../plugins/analytics';
 import {
   getNodeSelectionAnalyticsPayload,
   getAllSelectionAnalyticsPayload,
@@ -17,15 +18,15 @@ import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
 } from '../../analytics/types/enums';
-import {
+import type {
   SelectNodeAEP,
   SelectRangeAEP,
   SelectCellAEP,
 } from '../../analytics/types/selection-events';
-import { DOMSerializer } from 'prosemirror-model';
-import { findParentNodeOfType } from 'prosemirror-utils';
-import { Fragment } from 'prosemirror-model';
-import type { NodeType, Schema } from 'prosemirror-model';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 
 export const createPlugin = ({
   dispatchAnalyticsEvent,

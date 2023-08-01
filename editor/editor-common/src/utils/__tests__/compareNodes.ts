@@ -1,5 +1,4 @@
-import { Node as PMNode } from 'prosemirror-model';
-
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { a, text } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 

@@ -1,8 +1,8 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import React from 'react';
 import uuid from 'uuid';
 
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { ExperienceStore } from '@atlaskit/editor-common/ufo';
 import { IntlErrorBoundary } from '@atlaskit/editor-common/ui';
@@ -10,15 +10,13 @@ import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils'
 import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
 import type { CustomData } from '@atlaskit/ufo/types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import {
-  ACTION,
-  ACTION_SUBJECT,
+import type {
   ErrorEventAttributes,
   ErrorEventPayload,
-  EVENT_TYPE,
 } from '../plugins/analytics';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../plugins/analytics';
 import { editorAnalyticsChannel } from '../plugins/analytics/consts';
-import { FeatureFlags } from '../types/feature-flags';
+import type { FeatureFlags } from '../types/feature-flags';
 import { getDocStructure } from '../utils/document-logger';
 import { WithEditorView } from './WithEditorView';
 import { isOutdatedBrowser } from '@atlaskit/editor-common/utils';

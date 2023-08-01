@@ -1,5 +1,5 @@
 import { MetadataService } from '../metadata-service';
-import { EditorState } from 'prosemirror-state';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Provider } from '../../';

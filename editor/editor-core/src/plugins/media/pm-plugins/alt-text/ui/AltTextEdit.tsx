@@ -1,30 +1,32 @@
 /** @jsx jsx */
-import React, { KeyboardEvent } from 'react';
+import type { KeyboardEvent } from 'react';
+import React from 'react';
 import { css, jsx } from '@emotion/react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { N100, N30, R400, N80 } from '@atlaskit/theme/colors';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import { messages } from '../messages';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import * as keymaps from '../../../../../keymaps';
 import { ToolTipContent } from '../../../../../keymaps';
 import { closeMediaAltTextMenu, updateAltText } from '../commands';
-import {
-  withAnalyticsEvents,
-  WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
+import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import type {
+  MediaAltTextActionType,
+  FireAnalyticsCallback,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   fireAnalyticsEvent,
   ACTION,
-  MediaAltTextActionType,
-  FireAnalyticsCallback,
 } from '@atlaskit/editor-common/analytics';
 import { RECENT_SEARCH_WIDTH_IN_PX } from '@atlaskit/editor-common/ui';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
@@ -38,7 +40,7 @@ export const MAX_ALT_TEXT_LENGTH = 510; // double tweet length
 const supportText = css`
   color: ${token('color.text.subtlest', N100)};
   font-size: ${relativeFontSizeToBase16(12)};
-  padding: 12px 40px;
+  padding: ${token('space.150', '12px')} ${token('space.500', '40px')};
   line-height: 20px;
   border-top: 1px solid ${token('color.border', N30)};
   margin: 0;
@@ -62,8 +64,9 @@ const inputWrapper = css`
 const validationWrapper = css`
   display: flex;
   line-height: 0;
-  padding: 12px 24px 12px 0;
-  margin: 0 12px 0 40px;
+  padding: ${token('space.150', '12px')} ${token('space.300', '24px')}
+    ${token('space.150', '12px')} 0;
+  margin: 0 ${token('space.150', '12px')} 0 ${token('space.500', '40px')};
   border-top: 1px solid ${token('color.border.danger', R400)};
   align-items: start;
   flex-direction: column;
@@ -71,7 +74,7 @@ const validationWrapper = css`
 
 const buttonWrapper = css`
   display: flex;
-  padding: 4px 8px;
+  padding: ${token('space.050', '4px')} ${token('space.100', '8px')};
 `;
 
 const clearText = css`

@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 const transformer = new JSONTransformer();
 const toJSON = (node: PMNode) => transformer.encode(node);

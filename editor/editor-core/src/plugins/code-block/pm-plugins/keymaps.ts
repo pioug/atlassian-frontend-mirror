@@ -1,13 +1,17 @@
-import { keymap } from 'prosemirror-keymap';
-import { ResolvedPos, Schema } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, Transaction, Selection } from 'prosemirror-state';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 import { getCursor, isEmptyNode, pipe } from '../../../utils';
-import { CommandDispatch } from '../../../types';
+import type { CommandDispatch } from '../../../types';
 
 const deleteCurrentItem =
   ($from: ResolvedPos) =>

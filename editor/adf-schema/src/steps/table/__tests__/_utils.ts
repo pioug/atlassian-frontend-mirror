@@ -1,6 +1,10 @@
-import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { EditorState, Plugin, Transaction } from 'prosemirror-state';
-import { history, undo } from 'prosemirror-history';
+import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import {
+  EditorState,
+  Plugin,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { history, undo } from '@atlaskit/editor-prosemirror/history';
 import {
   DocBuilder,
   p,

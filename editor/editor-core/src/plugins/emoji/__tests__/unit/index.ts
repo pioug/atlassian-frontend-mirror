@@ -1,4 +1,4 @@
-import { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
   evilburnsEmoji,
@@ -6,6 +6,7 @@ import {
 } from '@atlaskit/util-data-test/emoji-samples';
 import { emoji as emojiNode } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockquote,
   br,
@@ -14,14 +15,13 @@ import {
   li,
   p,
   ul,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import emojiPlugin, { emojiPluginKey } from '../../';
 import { insertEmoji } from '../../commands/insert-emoji';
 import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../analytics';

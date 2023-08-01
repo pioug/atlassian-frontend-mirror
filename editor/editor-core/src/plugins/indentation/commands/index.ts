@@ -1,8 +1,12 @@
-import { Node as PmNode, Schema } from 'prosemirror-model';
-import { IndentationMarkAttributes } from '@atlaskit/adf-schema';
+import type {
+  Node as PmNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type { IndentationMarkAttributes } from '@atlaskit/adf-schema';
 import { toggleBlockMark } from '../../../commands';
-import { Command } from '../../../types/command';
-import { createAnalyticsDispatch, IndentationInputMethod } from './utils';
+import type { Command } from '../../../types/command';
+import type { IndentationInputMethod } from './utils';
+import { createAnalyticsDispatch } from './utils';
 import { INDENT_DIRECTION, INPUT_METHOD } from '../../analytics';
 import getAttrsWithChangesRecorder from '../../../utils/getAttrsWithChangesRecorder';
 

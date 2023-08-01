@@ -264,7 +264,7 @@ describe('Unsupported Content', () => {
         [
           object,
           string,
-          (import('prosemirror-model').Node | undefined)?,
+          (import('@atlaskit/editor-prosemirror/model').Node | undefined)?,
           IntlShape?,
         ]
       >;
@@ -576,7 +576,7 @@ describe('Unsupported Content', () => {
         [
           object,
           string,
-          (import('prosemirror-model').Node | undefined)?,
+          (import('@atlaskit/editor-prosemirror/model').Node | undefined)?,
           IntlShape?,
         ]
       >;

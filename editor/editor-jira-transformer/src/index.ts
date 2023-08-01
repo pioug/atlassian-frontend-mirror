@@ -1,4 +1,8 @@
-import { Fragment, Node as PMNode, Schema } from 'prosemirror-model';
+import {
+  Fragment,
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 
 import parseHtml from './parse-html';
 import fixDoc from './fix-doc';

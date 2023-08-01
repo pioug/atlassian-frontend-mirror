@@ -1,4 +1,4 @@
-import { NodeSpec, Node as PMNode } from 'prosemirror-model';
+import { NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { RichMediaAttributes } from './types/rich-media-common';
 
 export interface EmbedCardAttributes extends RichMediaAttributes {

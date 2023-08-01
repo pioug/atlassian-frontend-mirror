@@ -1,5 +1,5 @@
-import { DecorationSet } from 'prosemirror-view';
-import { Match } from './types';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { Match } from './types';
 
 export enum FindReplaceActionTypes {
   ACTIVATE = 'ACTIVATE',

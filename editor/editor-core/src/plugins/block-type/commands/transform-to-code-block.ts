@@ -1,6 +1,11 @@
-import { EditorState, Transaction, TextSelection } from 'prosemirror-state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { mapSlice } from '../../../utils/slice';
-import { Fragment, NodeType } from 'prosemirror-model';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { timestampToString } from '@atlaskit/editor-common/utils';
 
 export function transformToCodeBlockAction(

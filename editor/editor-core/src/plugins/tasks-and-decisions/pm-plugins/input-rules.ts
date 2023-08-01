@@ -1,9 +1,13 @@
-import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
-import { FeatureFlags } from '../../../types/feature-flags';
-import { Node, Schema } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, NodeSelection, TextSelection } from 'prosemirror-state';
-import { canInsert } from 'prosemirror-utils';
+import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
+import type { FeatureFlags } from '../../../types/feature-flags';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 
 import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
@@ -13,7 +17,7 @@ import {
   insertTaskDecisionAction,
   getListTypes,
 } from '../commands';
-import { AddItemTransactionCreator, TaskDecisionListType } from '../types';
+import type { AddItemTransactionCreator, TaskDecisionListType } from '../types';
 
 const createListRule = (regex: RegExp, listType: TaskDecisionListType) => {
   return createRule(

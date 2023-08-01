@@ -1,4 +1,7 @@
-import { Node as PMNode, ResolvedPos } from 'prosemirror-model';
+import {
+  Node as PMNode,
+  ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
 
 import { Axis } from './types';
 

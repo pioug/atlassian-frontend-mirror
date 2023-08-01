@@ -7,11 +7,11 @@
  *
  */
 import React from 'react';
-import { NextEditorPlugin } from '../../types/editor-plugin';
+import type { NextEditorPlugin } from '../../types/editor-plugin';
 
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
   TypeAheadHandler,
   PopupMountPointReference,
@@ -28,15 +28,15 @@ import { getPluginState } from './utils';
 import { useItemInsert } from './ui/hooks/use-item-insert';
 import { updateSelectedIndex } from './commands/update-selected-index';
 import { StatsModifier } from './stats-modifier';
+import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
   EVENT_TYPE,
   fireAnalyticsEvent,
-  FireAnalyticsCallback,
 } from '@atlaskit/editor-common/analytics';
-import { CloseSelectionOptions } from './constants';
+import type { CloseSelectionOptions } from './constants';
 
 export type TypeAheadPluginOptions = {
   isMobile?: boolean;

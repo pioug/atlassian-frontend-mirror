@@ -1,15 +1,10 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import {
-  injectIntl,
-  defineMessages,
-  FormattedMessage,
-  IntlShape,
-  WrappedComponentProps,
-} from 'react-intl-next';
-import { Schema } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
+import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { injectIntl, defineMessages, FormattedMessage } from 'react-intl-next';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { browser } from '@atlaskit/editor-common/utils';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import AkModalDialog, {

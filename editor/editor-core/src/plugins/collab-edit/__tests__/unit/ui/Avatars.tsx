@@ -1,18 +1,20 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
-import { PluginKey } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createMockCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
-import { PluginState, pluginKey } from '../../../plugin';
+import type { PluginState } from '../../../plugin';
+import { pluginKey } from '../../../plugin';
 
 import AvatarsWithPluginState from '../../../ui';
 import ToolbarButton from '../../../../../ui/ToolbarButton';

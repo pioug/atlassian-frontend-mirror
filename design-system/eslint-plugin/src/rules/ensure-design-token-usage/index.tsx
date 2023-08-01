@@ -234,6 +234,10 @@ const createWithConfig: (
                     originalValues[index],
                   ])
                   .map(([numericOrNanValue, pxValue, originalValue]) => {
+                    if (!originalValue) {
+                      return originalValue;
+                    }
+
                     if (isTokenValueString(originalValue)) {
                       // if the value is already valid, nothing to report or replace
                       return originalValue;

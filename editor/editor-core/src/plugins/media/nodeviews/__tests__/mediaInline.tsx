@@ -1,21 +1,22 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { createSchema, MediaAttributes } from '@atlaskit/adf-schema';
+import type { MediaAttributes } from '@atlaskit/adf-schema';
+import { createSchema } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { mediaInline } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
-import { MediaProvider } from '../../pm-plugins/main';
+import type { MediaProvider } from '../../pm-plugins/main';
+import type { MediaInlineProps } from '../mediaInline';
 import {
   MediaInline,
   MediaInlineNodeView,
-  MediaInlineProps,
   handleNewNode,
 } from '../mediaInline';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
-import { Node as PMNode } from 'prosemirror-model';
-import { MediaPluginState } from '../../pm-plugins/types';
-import { FileIdentifier } from '@atlaskit/media-client';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { MediaPluginState } from '../../pm-plugins/types';
+import type { FileIdentifier } from '@atlaskit/media-client';
 import React from 'react';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';

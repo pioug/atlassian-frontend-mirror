@@ -1,4 +1,4 @@
-import { Schema, Slice } from 'prosemirror-model';
+import { Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 
 import { mapFragment } from '../utils/slice';
 

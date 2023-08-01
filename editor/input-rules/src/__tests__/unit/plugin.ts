@@ -1,7 +1,6 @@
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { doc, DocBuilder, p } from '@atlaskit/editor-test-helpers/doc-builder';
 

@@ -1,16 +1,17 @@
-import { EditorView } from 'prosemirror-view';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { MentionProvider } from '@atlaskit/mention/resource';
+import type { MentionProvider } from '@atlaskit/mention/resource';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import { applyRemoteSteps } from '../../actions';
-import { PrivateCollabEditOptions } from '../../types';
+import type { PrivateCollabEditOptions } from '../../types';
 import collabEditPlugin from '../../index';
 import mentionsPlugin from '../../../mentions';
 import unsupportedContentPlugin from '../../../unsupported-content';

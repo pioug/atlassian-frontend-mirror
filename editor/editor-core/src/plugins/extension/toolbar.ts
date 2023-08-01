@@ -1,7 +1,8 @@
-import { defineMessages, IntlShape } from 'react-intl-next';
-import { hasParentNodeOfType } from 'prosemirror-utils';
-import { EditorState } from 'prosemirror-state';
-import { Node as PMNode } from 'prosemirror-model';
+import type { IntlShape } from 'react-intl-next';
+import { defineMessages } from 'react-intl-next';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import EditIcon from '@atlaskit/icon/glyph/editor/edit';
@@ -9,9 +10,9 @@ import FullWidthIcon from '@atlaskit/icon/glyph/editor/media-full-width';
 import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import CenterIcon from '@atlaskit/icon/glyph/editor/media-center';
 
-import { Command } from '../../types';
+import type { Command } from '../../types';
 import commonMessages from '../../messages';
-import {
+import type {
   ConfirmDialogOptions,
   FloatingToolbarConfig,
   FloatingToolbarHandler,
@@ -19,7 +20,7 @@ import {
 } from '../floating-toolbar/types';
 import { editExtension } from './actions';
 import { getPluginState } from './pm-plugins/main';
-import { ExtensionState } from './types';
+import type { ExtensionState } from './types';
 import { getSelectedExtension } from './utils';
 import {
   updateExtensionLayout,

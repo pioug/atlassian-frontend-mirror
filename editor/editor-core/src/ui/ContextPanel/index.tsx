@@ -15,9 +15,9 @@ import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import WithPluginState from '../WithPluginState';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import WithEditorActions from '../WithEditorActions';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getChildBreakoutModes } from '../../utils/document';
-import { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
 import { token } from '@atlaskit/tokens';
 import type EditorActions from '../../actions';
 import { WidthContext } from '@atlaskit/editor-common/ui';
@@ -80,7 +80,7 @@ export const panel = css`
 export const content = css`
   transition: width 600ms ${akEditorSwoopCubicBezier};
   box-sizing: border-box;
-  padding: 16px 16px 0px;
+  padding: ${token('space.200', '16px')} ${token('space.200', '16px')} 0px;
   width: ${akEditorContextPanelWidth}px;
   height: 100%;
   overflow-y: auto;
@@ -231,7 +231,10 @@ export class SwappableContentArea extends React.PureComponent<
 // It might be that we need to inject the pluginInjectionApi
 // via context so that we can use it in this file (similar to
 // WithEditorActions). To be investigated further.
-import { PluginKey, EditorState } from 'prosemirror-state';
+import type {
+  PluginKey,
+  EditorState,
+} from '@atlaskit/editor-prosemirror/state';
 // @ts-ignore
 const widthPluginKey = {
   key: 'widthPlugin$',

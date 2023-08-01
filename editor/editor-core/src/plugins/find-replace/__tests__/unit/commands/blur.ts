@@ -1,5 +1,6 @@
-import { EditorView } from 'prosemirror-view';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { activate, blur } from '../../../commands';
 import { editor } from '../_utils';
 import { getPluginState } from '../../../plugin';

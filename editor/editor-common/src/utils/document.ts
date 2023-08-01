@@ -1,11 +1,3 @@
-import { Node, ResolvedPos, Schema } from 'prosemirror-model';
-import type {
-  EditorState,
-  ReadonlyTransaction,
-  TextSelection,
-  Transaction,
-} from 'prosemirror-state';
-
 import {
   transformDedupeMarks,
   transformIndentationMarks,
@@ -16,6 +8,13 @@ import {
 } from '@atlaskit/adf-utils/transforms';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { Node, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  ReadonlyTransaction,
+  TextSelection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import {
   ACTION,

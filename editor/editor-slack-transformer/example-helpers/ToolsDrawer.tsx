@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { jsx } from '@emotion/react';
 
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { ActivityProvider } from '@atlaskit/activity';
 import { MockActivityResource } from '@atlaskit/activity/dist/es5/support';

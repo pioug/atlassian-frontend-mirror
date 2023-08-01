@@ -1,6 +1,6 @@
-import { Selection } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
-import { RelativeSelectionPos } from './types';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { RelativeSelectionPos } from './types';
 
 export enum SelectionActionTypes {
   SET_DECORATIONS = 'SET_DECORATIONS',

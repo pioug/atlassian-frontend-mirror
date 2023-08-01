@@ -1,5 +1,5 @@
-import * as pmUtils from 'prosemirror-utils';
-import { Node as PMNode, Mark } from 'prosemirror-model';
+import * as pmUtils from '@atlaskit/editor-prosemirror/utils';
+import { Node as PMNode, Mark } from '@atlaskit/editor-prosemirror/model';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 
 import {
@@ -9,7 +9,7 @@ import {
   findExtensionWithLocalId,
   findNodePosWithLocalId,
 } from '../../utils';
-import { EditorState, NodeSelection } from 'prosemirror-state';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
@@ -21,10 +21,12 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
-jest.mock('prosemirror-utils', () => {
+jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:
   // Workaround to enable spy on prosemirror-utils cjs bundle
-  const originalModule = jest.requireActual('prosemirror-utils');
+  const originalModule = jest.requireActual(
+    '@atlaskit/editor-prosemirror/utils',
+  );
 
   return {
     __esModule: true,

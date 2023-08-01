@@ -1,5 +1,9 @@
-import type { EditorState, Selection, Transaction } from 'prosemirror-state';
-import type { DecorationSet } from 'prosemirror-view';
+import type {
+  EditorState,
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export enum RelativeSelectionPos {
   Before = 'Before',

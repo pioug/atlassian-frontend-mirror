@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 import createStub, { Stub } from 'raf-stub';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -12,6 +10,8 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

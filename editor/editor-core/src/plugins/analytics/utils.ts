@@ -1,10 +1,13 @@
-import { EditorState, Transaction } from 'prosemirror-state';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { editorAnalyticsChannel } from './consts';
-import { AnalyticsEventPayload } from './types';
+import type { AnalyticsEventPayload } from './types';
 import { analyticsPluginKey } from './plugin-key';
-import { HigherOrderCommand } from '../../types/command';
+import type { HigherOrderCommand } from '../../types/command';
 
 function getCreateUIAnalyticsEvent(
   editorState: EditorState,

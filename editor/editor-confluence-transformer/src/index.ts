@@ -1,4 +1,4 @@
-import { Node as PMNode, Schema } from 'prosemirror-model';
+import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Transformer } from '@atlaskit/editor-common/types';
 import parse from './parse';
 import encode from './encode';

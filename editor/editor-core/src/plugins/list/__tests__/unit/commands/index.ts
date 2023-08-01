@@ -1,4 +1,5 @@
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   ol,
@@ -16,7 +17,6 @@ import {
   code_block,
   indentation,
   alignment,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   enterKeyCommand,
@@ -24,21 +24,19 @@ import {
   indentList,
   toggleList,
 } from '../../../commands';
-import deprecatedAnalyticsPlugin, {
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import {
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listPlugin from '../../..';
@@ -64,9 +62,8 @@ describe('lists plugin -> commands', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
-      .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
-      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
+      .add(listPlugin)
       .add(decorationsPlugin)
       .add(widthPlugin)
       .add(blockTypePlugin)
@@ -95,7 +92,7 @@ describe('lists plugin -> commands', () => {
           ol()(li(p('text')), li(p('{<>}', hardBreak(), date({ timestamp })))),
         ),
       );
-      enterKeyCommand({})(editorView.state, editorView.dispatch);
+      enterKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           ol()(
@@ -109,7 +106,7 @@ describe('lists plugin -> commands', () => {
 
     it("should outdent a list when list item doesn't have visible content", () => {
       const { editorView } = editor(doc(ol()(li(p('text')), li(p('{<>} ')))));
-      enterKeyCommand({})(editorView.state, editorView.dispatch);
+      enterKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(ol()(li(p('text'))), p(' ')),
       );
@@ -121,7 +118,10 @@ describe('lists plugin -> commands', () => {
       it('should not outdent a list', () => {
         const { editorView } = editor(doc(ol()(li(code_block()('{<>}text')))));
 
-        backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+        backspaceKeyCommand(undefined)({})(
+          editorView.state,
+          editorView.dispatch,
+        );
 
         expect(editorView.state.doc).toEqualDocument(
           doc(ol()(li(code_block()('text')))),
@@ -135,7 +135,10 @@ describe('lists plugin -> commands', () => {
           doc(ol()(li('{<gap|>}', code_block()('text')))),
         );
 
-        backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+        backspaceKeyCommand(undefined)({})(
+          editorView.state,
+          editorView.dispatch,
+        );
         expect(editorView.state.doc).toEqualDocument(doc(code_block()('text')));
       });
     });
@@ -146,7 +149,10 @@ describe('lists plugin -> commands', () => {
           doc(ol()(li(p('text'))), '{<gap|>}', code_block()('code')),
         );
 
-        backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+        backspaceKeyCommand(undefined)({})(
+          editorView.state,
+          editorView.dispatch,
+        );
         expect(editorView.state.doc).toEqualDocument(
           doc(ol()(li(p('text')), li(code_block()('code')))),
         );
@@ -167,7 +173,9 @@ describe('lists plugin -> commands', () => {
         ),
       );
 
-      expect(indentList(INPUT_METHOD.KEYBOARD)(state, dispatch)).toBeFalsy();
+      expect(
+        indentList(undefined)(INPUT_METHOD.KEYBOARD)(state, dispatch),
+      ).toBeFalsy();
     });
 
     it('should not apply the change it it causes the indentation to go past the maximum', () => {
@@ -196,7 +204,9 @@ describe('lists plugin -> commands', () => {
         ),
       );
 
-      expect(indentList(INPUT_METHOD.KEYBOARD)(state, dispatch)).toBeTruthy();
+      expect(
+        indentList(undefined)(INPUT_METHOD.KEYBOARD)(state, dispatch),
+      ).toBeTruthy();
     });
 
     it('should indent otherwise', () => {
@@ -210,18 +220,26 @@ describe('lists plugin -> commands', () => {
         ),
       );
 
-      expect(indentList(INPUT_METHOD.KEYBOARD)(state, dispatch)).toBeTruthy();
+      expect(
+        indentList(undefined)(INPUT_METHOD.KEYBOARD)(state, dispatch),
+      ).toBeTruthy();
     });
 
     it('should add analytics', () => {
-      createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
       const {
         editorView: { state, dispatch },
       } = editor(doc(ol()(li(p('A')), li(p('B')))));
 
-      indentList(INPUT_METHOD.KEYBOARD)(state, dispatch);
+      const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
+        attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
+      };
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD)(
+        state,
+        dispatch,
+      );
+
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: ACTION.INDENTED,
         actionSubject: ACTION_SUBJECT.LIST,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
@@ -272,7 +290,7 @@ describe('lists plugin -> commands', () => {
       ])('%s', (_name, { listType, content, expected }) => {
         const { editorView } = editor(content);
 
-        toggleList(INPUT_METHOD.TOOLBAR, listType)(
+        toggleList(undefined)(INPUT_METHOD.TOOLBAR, listType)(
           editorView.state,
           editorView.dispatch,
         );
@@ -349,7 +367,7 @@ describe('lists plugin -> commands', () => {
       ])('%s', (_name, { listType, content, expected }) => {
         const { editorView } = editor(content);
 
-        toggleList(INPUT_METHOD.TOOLBAR, listType)(
+        toggleList(undefined)(INPUT_METHOD.TOOLBAR, listType)(
           editorView.state,
           editorView.dispatch,
         );
@@ -361,7 +379,7 @@ describe('lists plugin -> commands', () => {
     it('should be able to toggle ol to ul inside a panel', () => {
       const { editorView } = editor(doc(panel()(ol()(li(p('text{<>}'))))));
 
-      toggleList(INPUT_METHOD.TOOLBAR, 'bulletList')(
+      toggleList(undefined)(INPUT_METHOD.TOOLBAR, 'bulletList')(
         editorView.state,
         editorView.dispatch,
       );
@@ -374,7 +392,7 @@ describe('lists plugin -> commands', () => {
     it('should be able to toggle ul to ol inside a panel', () => {
       const { editorView } = editor(doc(panel()(ul(li(p('text{<>}'))))));
 
-      toggleList(INPUT_METHOD.TOOLBAR, 'orderedList')(
+      toggleList(undefined)(INPUT_METHOD.TOOLBAR, 'orderedList')(
         editorView.state,
         editorView.dispatch,
       );
@@ -391,7 +409,10 @@ describe('lists plugin -> commands', () => {
 
       const { state, dispatch } = editorView;
 
-      toggleList(INPUT_METHOD.TOOLBAR, 'bulletList')(state, dispatch);
+      toggleList(undefined)(INPUT_METHOD.TOOLBAR, 'bulletList')(
+        state,
+        dispatch,
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc('{expandPos}', breakout({ mode: 'wide' })(expand()(ul(li(p()))))),
@@ -412,7 +433,10 @@ describe('lists plugin -> commands', () => {
 
       const { state, dispatch } = editorView;
 
-      toggleList(INPUT_METHOD.TOOLBAR, 'bulletList')(state, dispatch);
+      toggleList(undefined)(INPUT_METHOD.TOOLBAR, 'bulletList')(
+        state,
+        dispatch,
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -446,7 +470,10 @@ describe('lists plugin -> commands', () => {
 
       const { state, dispatch } = editorView;
 
-      toggleList(INPUT_METHOD.TOOLBAR, 'orderedList')(state, dispatch);
+      toggleList(undefined)(INPUT_METHOD.TOOLBAR, 'orderedList')(
+        state,
+        dispatch,
+      );
 
       // prettier-ignore
       expect(editorView.state.doc).toEqualDocument(
@@ -486,7 +513,10 @@ describe('lists plugin -> commands', () => {
 
       const { state, dispatch } = editorView;
 
-      toggleList(INPUT_METHOD.TOOLBAR, 'bulletList')(state, dispatch);
+      toggleList(undefined)(INPUT_METHOD.TOOLBAR, 'bulletList')(
+        state,
+        dispatch,
+      );
 
       // prettier-ignore
       expect(editorView.state.doc).toEqualDocument(

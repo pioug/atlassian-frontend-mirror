@@ -1,8 +1,9 @@
-/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /** @jsx jsx */
+import { token } from '@atlaskit/tokens';
+/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { jsx } from '@emotion/react';
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
@@ -64,11 +65,13 @@ export default class ToolsDrawer extends React.Component<any, State> {
       };
       return (
         <div>
-          <div style={{ color: '#ccc', marginBottom: '8px' }}>
+          <div
+            style={{ color: '#ccc', marginBottom: token('space.100', '8px') }}
+          >
             &lt;Renderer&gt;
           </div>
           <ReactRenderer {...props} />
-          <div style={{ color: '#ccc', marginTop: '8px' }}>
+          <div style={{ color: '#ccc', marginTop: token('space.100', '8px') }}>
             &lt;/Renderer&gt;
           </div>
         </div>

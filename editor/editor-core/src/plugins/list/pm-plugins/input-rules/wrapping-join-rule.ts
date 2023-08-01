@@ -1,11 +1,14 @@
-import type { Node as PMNode, NodeType } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { canJoin, findWrapping } from 'prosemirror-transform';
-import {
+import type {
+  Node as PMNode,
+  NodeType,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
+import type {
   InputRuleHandler,
   InputRuleWrapper,
 } from '@atlaskit/prosemirror-input-rules';
-import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
+import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { createRule } from '@atlaskit/prosemirror-input-rules';

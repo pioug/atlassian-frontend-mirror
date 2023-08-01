@@ -1,8 +1,11 @@
 import React from 'react';
-import { keymap } from 'prosemirror-keymap';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, ReadonlyTransaction } from 'prosemirror-state';
-import {
+import type {
+  EditorState,
+  ReadonlyTransaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';

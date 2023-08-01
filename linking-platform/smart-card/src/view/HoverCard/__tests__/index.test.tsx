@@ -2348,6 +2348,66 @@ describe('HoverCard', () => {
 
         expect(loadMetadataSpy).toHaveBeenCalledTimes(1);
       });
+
+      it('should fire "hoverCard resolved" event when loadMetadata() is called and the FF is on', async () => {
+        jest
+          .spyOn(useSmartCardActions, 'useSmartCardActions')
+          .mockImplementation(() => mockedActions);
+
+        const { findByTestId, analyticsSpy } = await standaloneSetUp(
+          undefined,
+          {
+            featureFlags: {
+              enableHoverCardResolutionTracking: true,
+            },
+          },
+        );
+
+        const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+        expect(triggerArea).toBeDefined();
+
+        jest.useFakeTimers();
+
+        fireEvent.mouseOver(triggerArea);
+        jest.advanceTimersByTime(100);
+
+        expect(loadMetadataSpy).toHaveBeenCalled();
+        expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+          {
+            payload: {
+              action: 'resolved',
+              actionSubject: 'hoverCard',
+            },
+          },
+          analytics.ANALYTICS_CHANNEL,
+        );
+      });
+
+      it('should not fire "hoverCard resolved" event when loadMetadata() is called and the FF is off', async () => {
+        jest
+          .spyOn(useSmartCardActions, 'useSmartCardActions')
+          .mockImplementation(() => mockedActions);
+
+        const { findByTestId, analyticsSpy } = await standaloneSetUp(
+          undefined,
+          {
+            featureFlags: {
+              enableHoverCardResolutionTracking: false,
+            },
+          },
+        );
+
+        const triggerArea = await findByTestId('hover-card-trigger-wrapper');
+        expect(triggerArea).toBeDefined();
+
+        jest.useFakeTimers();
+
+        fireEvent.mouseOver(triggerArea);
+        jest.advanceTimersByTime(100);
+
+        expect(loadMetadataSpy).toHaveBeenCalled();
+        expect(analyticsSpy).not.toHaveBeenCalled();
+      });
     });
 
     describe('with closeOnChildClick', () => {

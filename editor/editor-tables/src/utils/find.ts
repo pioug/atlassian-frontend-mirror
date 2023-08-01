@@ -1,10 +1,13 @@
-import { Node as PMNode, ResolvedPos } from 'prosemirror-model';
-import { Selection } from 'prosemirror-state';
+import {
+  Node as PMNode,
+  ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
 import {
   ContentNodeWithPos,
   findParentNode,
   findParentNodeClosestToPos,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 
 import { Rect, TableMap } from '../table-map';
 

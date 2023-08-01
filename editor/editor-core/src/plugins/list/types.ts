@@ -1,4 +1,4 @@
-import { DecorationSet } from 'prosemirror-view';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export const MAX_NESTED_LIST_INDENTATION = 6;

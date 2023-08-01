@@ -16,9 +16,9 @@ import {
   Node as PMNode,
   Schema,
   Slice,
-} from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
-import { Transform } from 'prosemirror-transform';
+} from '@atlaskit/editor-prosemirror/model';
+import { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { Transform } from '@atlaskit/editor-prosemirror/transform';
 
 import { CellSelection } from '../cell-selection';
 import { Rect, TableMap } from '../table-map';

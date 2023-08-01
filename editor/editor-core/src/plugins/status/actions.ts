@@ -1,15 +1,14 @@
-import { Fragment } from 'prosemirror-model';
-import {
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type {
   EditorState,
-  NodeSelection,
-  Selection,
   Transaction,
-} from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { uuid } from '@atlaskit/adf-schema';
 
-import { Command } from '../../types';
+import type { Command } from '../../types';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -17,11 +16,11 @@ import {
   EVENT_TYPE,
   withAnalytics,
 } from '../analytics';
-import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+import type { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 
 import { pluginKey } from './plugin-key';
-import { StatusType } from './types';
-import { canInsert } from 'prosemirror-utils';
+import type { StatusType } from './types';
+import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 
 export const DEFAULT_STATUS: StatusType = {
   text: '',

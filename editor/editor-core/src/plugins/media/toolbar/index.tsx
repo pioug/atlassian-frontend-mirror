@@ -1,7 +1,10 @@
 import React from 'react';
-import type { EditorState } from 'prosemirror-state';
-import { NodeSelection } from 'prosemirror-state';
-import { findParentNodeOfType, removeSelectedNode } from 'prosemirror-utils';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import {
+  findParentNodeOfType,
+  removeSelectedNode,
+} from '@atlaskit/editor-prosemirror/utils';
 import type { IntlShape } from 'react-intl-next';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import DownloadIcon from '@atlaskit/icon/glyph/download';

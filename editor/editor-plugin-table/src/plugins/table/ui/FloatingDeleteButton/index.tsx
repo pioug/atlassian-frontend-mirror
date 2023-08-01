@@ -1,13 +1,13 @@
 import React, { Component, SyntheticEvent } from 'react';
 
-import { Selection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
 import { createPortal } from 'react-dom';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { closestElement } from '@atlaskit/editor-common/utils';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {

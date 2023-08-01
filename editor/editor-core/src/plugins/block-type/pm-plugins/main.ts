@@ -1,8 +1,13 @@
-import { Node, Schema } from 'prosemirror-model';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { browser } from '@atlaskit/editor-common/utils';
+import type { BlockType } from '../types';
 import {
   NORMAL_TEXT,
   HEADING_1,
@@ -15,12 +20,11 @@ import {
   CODE_BLOCK,
   PANEL,
   OTHER,
-  BlockType,
   TEXT_BLOCK_TYPES,
   WRAPPER_BLOCK_TYPES,
   HEADINGS_BY_LEVEL,
 } from '../types';
-import {
+import type {
   HeadingLevels,
   HeadingLevelsAndNormalText,
 } from '@atlaskit/editor-common/types';

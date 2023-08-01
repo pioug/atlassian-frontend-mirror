@@ -1,11 +1,14 @@
-import {
-  Fragment,
+import type {
   Node as PMNode,
   ResolvedPos,
   Schema,
-  Slice,
-} from 'prosemirror-model';
-import { NodeSelection, Selection, TextSelection } from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import {
+  NodeSelection,
+  Selection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 
 // If slice is decisionItem, wrap it inside a decisionList. This prevents an
 // additional newline from being pasted along with the selected decision item.

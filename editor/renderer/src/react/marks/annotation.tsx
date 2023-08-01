@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/adf-schema';
 import { MarkProps, AnnotationMarkMeta } from '../types';
 import { AnnotationMark } from '../../ui/annotations';
-import { Mark } from 'prosemirror-model';
+import { Mark } from '@atlaskit/editor-prosemirror/model';
 
 export const isAnnotationMark = (mark: Mark): boolean => {
   return mark && mark.type && mark.type.name === 'annotation';

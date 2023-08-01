@@ -2,15 +2,17 @@
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 
-import { EditorView } from 'prosemirror-view';
-import { injectIntl, IntlShape } from 'react-intl-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { IntlShape } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
-import { Color, Status, StatusStyle } from '@atlaskit/status/element';
+import type { Color, StatusStyle } from '@atlaskit/status/element';
+import { Status } from '@atlaskit/status/element';
 
-import { EventDispatcher } from '../../../event-dispatcher';
+import type { EventDispatcher } from '../../../event-dispatcher';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 
-import { StatusPluginOptions } from '../types';
+import type { StatusPluginOptions } from '../types';
 import { messages } from './messages';
 
 const styledStatus = css`

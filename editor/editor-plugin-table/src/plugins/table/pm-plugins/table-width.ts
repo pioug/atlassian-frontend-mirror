@@ -3,12 +3,12 @@
  * Has login to scan the document, add width value to table's width attribute when necessary
  * Also holds resizing state to hide / show table controls
  */
-import { PluginKey } from 'prosemirror-state';
-import { ReplaceStep } from 'prosemirror-transform';
 
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import {
   akEditorFullWidthLayoutWidth,
   akEditorWideLayoutWidth,

@@ -1,5 +1,5 @@
-import { keymap } from 'prosemirror-keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { getPluginState } from './main';
 import * as keymaps from '../../../keymaps';
 import { clearEditingContext } from '../commands';

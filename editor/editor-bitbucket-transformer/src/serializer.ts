@@ -4,8 +4,8 @@
 import {
   MarkdownSerializer as PMMarkdownSerializer,
   MarkdownSerializerState as PMMarkdownSerializerState,
-} from 'prosemirror-markdown';
-import type { Mark, Node as PMNode } from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/markdown';
+import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { escapeMarkdown, stringRepeat } from './util';
 import tableNodes from './tableSerializer';
 import { getOrderFromOrderedListNode } from '@atlaskit/editor-common/utils';

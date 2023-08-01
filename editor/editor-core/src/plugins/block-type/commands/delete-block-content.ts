@@ -1,5 +1,5 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { Command } from '../../../types';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Command } from '../../../types';
 
 /**
  * Prevent removing the block when deleting block content

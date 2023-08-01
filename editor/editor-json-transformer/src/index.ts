@@ -1,5 +1,4 @@
 import isEqual from 'lodash/isEqual';
-import type { Mark as PMMark, Node as PMNode } from 'prosemirror-model';
 
 import {
   codeBlockToJSON,
@@ -15,6 +14,10 @@ import {
   toJSONTableHeader,
 } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
+import type {
+  Mark as PMMark,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 
 import { markOverrideRuleFor } from './markOverrideRules';
 import { sanitizeNode } from './sanitize/sanitize-node';

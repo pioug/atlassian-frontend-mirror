@@ -1,21 +1,21 @@
-import { EditorView } from 'prosemirror-view';
-import {
-  createEditorFactory,
-  Options as CreateEditorOptions,
-} from '@atlaskit/editor-test-helpers/create-editor';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Options as CreateEditorOptions } from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type {
+  Refs,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   mediaSingle,
   media,
   p,
-  Refs,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { getFreshMediaProvider } from '../media/_utils';
 import { pluginKey as mediaEditorPluginKey } from '../../../../plugins/media/pm-plugins/media-editor-plugin-factory';
 
-import { MediaEditorState } from '../../../../plugins/media/types';
+import type { MediaEditorState } from '../../../../plugins/media/types';
 import {
   openMediaAltTextMenu,
   closeMediaAltTextMenu,
@@ -28,7 +28,7 @@ import {
 } from '../../../../plugins/selection/gap-cursor-selection';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 
-import { PluginKey } from 'prosemirror-state';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 describe('media alt text', () => {
   const createEditor = createEditorFactory<MediaEditorState>();

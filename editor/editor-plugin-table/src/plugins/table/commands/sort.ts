@@ -1,6 +1,3 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorState, Selection, Transaction } from 'prosemirror-state';
-
 import { CardAttributes, DataType, UrlType } from '@atlaskit/adf-schema';
 import {
   TableSortOrder as SortOrder,
@@ -8,6 +5,12 @@ import {
 } from '@atlaskit/adf-schema/steps';
 import { Command } from '@atlaskit/editor-common/types';
 import { createCompareNodes } from '@atlaskit/editor-common/utils';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import {
+  EditorState,
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   convertArrayOfRowsToTableNode,

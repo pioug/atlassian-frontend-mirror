@@ -1,4 +1,4 @@
-import { MarkSpec, Mark } from 'prosemirror-model';
+import { MarkSpec, Mark } from '@atlaskit/editor-prosemirror/model';
 import { LINK } from '../groups';
 import { isRootRelative, isSafeUrl, normalizeUrl } from '../../utils/url';
 

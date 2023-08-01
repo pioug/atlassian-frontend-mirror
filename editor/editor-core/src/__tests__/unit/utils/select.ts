@@ -1,10 +1,11 @@
-import { NodeSelection } from 'prosemirror-state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -12,7 +13,6 @@ import {
   table,
   tr,
   td,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 

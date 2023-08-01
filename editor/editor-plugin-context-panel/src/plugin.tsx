@@ -1,10 +1,9 @@
 import React from 'react';
 
-import { PluginKey } from 'prosemirror-state';
-
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import { applyChange } from './transforms';
 import { ContextPanelHandler } from './types';

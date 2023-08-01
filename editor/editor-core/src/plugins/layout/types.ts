@@ -1,5 +1,5 @@
-import { Slice } from 'prosemirror-model';
-import { LongPressSelectionPluginOptions } from '../selection/types';
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { LongPressSelectionPluginOptions } from '../selection/types';
 
 export interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
   allowBreakout?: boolean;

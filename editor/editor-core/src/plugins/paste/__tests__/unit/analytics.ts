@@ -1,4 +1,4 @@
-import { Slice } from 'prosemirror-model';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
 import {
   doc,
   nestedExpand,

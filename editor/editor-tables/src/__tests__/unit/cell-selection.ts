@@ -1,11 +1,10 @@
-import { Node as PMNode, Slice } from 'prosemirror-model';
+import { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import {
   EditorState,
   NodeSelection,
   Selection,
   Transaction,
-} from 'prosemirror-state';
-
+} from '@atlaskit/editor-prosemirror/state';
 import { p, table, td, tr } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 

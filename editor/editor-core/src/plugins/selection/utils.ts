@@ -1,22 +1,27 @@
-import {
-  NodeSelection,
+import type {
   Transaction,
   ReadonlyTransaction,
+  EditorState,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  NodeSelection,
   TextSelection,
   Selection,
   AllSelection,
-  EditorState,
-} from 'prosemirror-state';
-import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
-import { Node as PmNode, ResolvedPos } from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type {
+  Node as PmNode,
+  ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { selectedRect } from '@atlaskit/editor-tables/utils';
-import {
-  flatten,
+import type {
   ContentNodeWithPos,
   NodeWithPos,
-  findParentNode,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
+import { flatten, findParentNode } from '@atlaskit/editor-prosemirror/utils';
 
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles';
 
@@ -27,8 +32,8 @@ import {
 
 import { selectNode } from '../../utils/commands';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import type { AnalyticsEventPayload } from '../analytics';
 import {
-  AnalyticsEventPayload,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,

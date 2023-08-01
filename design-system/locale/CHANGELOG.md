@@ -1,5 +1,11 @@
 # @atlaskit/locale
 
+## 2.5.2
+
+### Patch Changes
+
+- [`fc22bf58d47`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fc22bf58d47) - id prop added to LocaleSelect to provide better association abilities.
+
 ## 2.5.1
 
 ### Patch Changes

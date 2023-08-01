@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { EditorView } from 'prosemirror-view';
-
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { cardPlugin } from '../../plugin';
 

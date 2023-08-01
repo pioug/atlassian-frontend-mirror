@@ -12,3 +12,5 @@ export type {
 } from './steps/analytics';
 export { LinkMetaStep } from './steps/link-meta-step';
 export type { LinkStepMetadata } from './steps/link-meta-step';
+export { OverrideDocumentStep } from './steps/override-document-step';
+export type { OverrideDocumentStepJSON } from './steps/override-document-step';

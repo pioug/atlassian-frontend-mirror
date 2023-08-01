@@ -1,17 +1,22 @@
-import { IndentationMarkAttributes } from '@atlaskit/adf-schema';
+import type { IndentationMarkAttributes } from '@atlaskit/adf-schema';
+import type {
+  INDENT_DIRECTION,
+  INPUT_METHOD,
+  FormatEventPayload,
+} from '../../analytics';
 import {
   addAnalytics,
   INDENT_TYPE,
-  INDENT_DIRECTION,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  INPUT_METHOD,
   EVENT_TYPE,
-  FormatEventPayload,
 } from '../../analytics';
-import { EditorState, Transaction } from 'prosemirror-state';
-import { GetAttrsChange } from '../../../utils/getAttrsWithChangesRecorder';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { GetAttrsChange } from '../../../utils/getAttrsWithChangesRecorder';
 
 // Analytics GAS v3 Utils
 export type PrevAttributes = IndentationMarkAttributes | undefined;

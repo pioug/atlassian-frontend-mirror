@@ -2,9 +2,6 @@
 import React from 'react';
 
 import { jsx } from '@emotion/react';
-import { Node as PMNode } from 'prosemirror-model';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { TableLayout } from '@atlaskit/adf-schema';
@@ -15,6 +12,9 @@ import {
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSmallZIndex } from '@atlaskit/editor-shared-styles';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import { ThemeProps } from '@atlaskit/theme/types';

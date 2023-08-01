@@ -1,28 +1,26 @@
-import { Node } from 'prosemirror-model';
-import {
-  EditorState,
-  PluginKey,
-  ReadonlyTransaction,
-  Selection,
-  TextSelection,
-  Transaction,
-} from 'prosemirror-state';
 import uuid from 'uuid';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
-import {
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type {
   HyperlinkState,
-  InsertStatus,
-  LinkAction,
   LinkToolbarState,
 } from '@atlaskit/editor-common/link';
+import { InsertStatus, LinkAction } from '@atlaskit/editor-common/link';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import {
   canLinkBeCreatedInRange,
   shallowEqual,
 } from '@atlaskit/editor-common/utils';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type {
+  EditorState,
+  ReadonlyTransaction,
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 const isSelectionInsideLink = (state: EditorState | Transaction) =>
   !!state.doc.type.schema.marks.link.isInSet(state.selection.$from.marks());

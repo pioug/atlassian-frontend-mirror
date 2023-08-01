@@ -1,6 +1,10 @@
-import { Node as PMNode, NodeType, Fragment } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type {
+  Node as PMNode,
+  NodeType,
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   setNodeSelection,
   setTextSelection,
@@ -12,7 +16,7 @@ import {
   isInLayoutColumn,
   isSupportedInParent,
 } from '@atlaskit/editor-common/utils';
-import { MediaState } from '../types';
+import type { MediaState } from '../types';
 import {
   posOfPrecedingMediaGroup,
   posOfMediaGroupNearby,
@@ -21,12 +25,12 @@ import {
   isInsidePotentialEmptyParagraph,
   copyOptionalAttrsFromMediaState,
 } from './media-common';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import {
   canInsert,
   safeInsert,
   hasParentNode,
-  ContentNodeWithPos,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 import {
   atTheBeginningOfBlock,
   atTheEndOfBlock,
@@ -34,13 +38,15 @@ import {
   endPositionOfParent,
   startPositionOfParent,
 } from '../../../utils/prosemirror/position';
-import {
+import type {
   InsertEventPayload,
+  InputMethodInsertMedia,
+} from '@atlaskit/editor-common/analytics';
+import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-  InputMethodInsertMedia,
 } from '@atlaskit/editor-common/analytics';
 import { addAnalytics } from '../../analytics';
 

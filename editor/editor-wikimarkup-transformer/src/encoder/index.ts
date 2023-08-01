@@ -1,4 +1,4 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { blockquote } from './nodes/blockquote';
 import { bulletList } from './nodes/bullet-list';

@@ -1,15 +1,13 @@
 /** @jsx jsx */
 import React from 'react';
 import { css, jsx } from '@emotion/react';
-import { EditorView } from 'prosemirror-view';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { EditorAppearance, UIComponentFactory } from '../../types';
-import { EventDispatcher } from '../../event-dispatcher';
-import EditorActions from '../../actions';
-import {
-  DispatchAnalyticsEvent,
-  ACTION_SUBJECT,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { EditorAppearance, UIComponentFactory } from '../../types';
+import type { EventDispatcher } from '../../event-dispatcher';
+import type EditorActions from '../../actions';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { whichTransitionEvent } from '../../utils';
 import { ErrorBoundary } from '../ErrorBoundary';
 import { MountPluginHooks } from './mount-plugin-hooks';

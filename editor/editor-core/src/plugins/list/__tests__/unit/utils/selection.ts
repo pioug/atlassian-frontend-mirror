@@ -1,14 +1,17 @@
-import { TextSelection, Selection } from 'prosemirror-state';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
+import type {
+  RefsNode,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   p,
   ul,
   li,
   doc,
   code_block,
-  RefsNode,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { normalizeListItemsSelection } from '../../../utils/selection';
 

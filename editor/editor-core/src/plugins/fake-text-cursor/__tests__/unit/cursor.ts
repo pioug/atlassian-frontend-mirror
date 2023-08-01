@@ -1,15 +1,13 @@
-import { TextSelection, Selection } from 'prosemirror-state';
-import { DecorationSet, EditorView } from 'prosemirror-view';
-import { Slice } from 'prosemirror-model';
-import {
-  doc,
-  p as paragraph,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { TextSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p as paragraph } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   addFakeTextCursor,

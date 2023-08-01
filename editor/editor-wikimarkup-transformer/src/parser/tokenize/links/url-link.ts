@@ -4,7 +4,7 @@ import { Context } from '../../../interfaces';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { parseString } from '../../text';
 import { hasAnyOfMarks } from '../../utils/text';
-import { Node as PMNode, Schema } from 'prosemirror-model';
+import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
 export function urlLinkResolver(
   link: ContentLink,

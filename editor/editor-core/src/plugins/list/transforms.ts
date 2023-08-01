@@ -1,20 +1,20 @@
-import {
-  Fragment,
-  NodeRange,
-  Slice,
+import type {
   Schema,
   Node,
   NodeType,
   Mark,
-} from 'prosemirror-model';
-import {
-  EditorState,
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment, NodeRange, Slice } from '@atlaskit/editor-prosemirror/model';
+import type {
   Transaction,
-  TextSelection,
   Selection,
-} from 'prosemirror-state';
-import { liftTarget, ReplaceAroundStep } from 'prosemirror-transform';
-import { autoJoin } from 'prosemirror-commands';
+} from '@atlaskit/editor-prosemirror/state';
+import { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import {
+  liftTarget,
+  ReplaceAroundStep,
+} from '@atlaskit/editor-prosemirror/transform';
+import { autoJoin } from '@atlaskit/editor-prosemirror/commands';
 import { isListNode } from '@atlaskit/editor-common/utils';
 
 import { mapSlice, mapChildren } from '../../utils/slice';

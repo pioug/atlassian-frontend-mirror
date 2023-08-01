@@ -1,6 +1,6 @@
 import * as safePlugin from '@atlaskit/editor-common/safe-plugin';
-import type { EditorState } from 'prosemirror-state';
-import { PluginKey } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { checkFormattingIsPresent } from '../utils';

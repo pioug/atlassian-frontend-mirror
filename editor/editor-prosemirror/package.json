@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-prosemirror",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Package to group all prosemirror libraries in a single place ",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -32,7 +32,7 @@
     "./commands": "./src/commands.ts",
     "./dropcursor": "./src/dropcursor.ts",
     "./history": "./src/history.ts",
-    "./keymap": "./src/history.ts",
+    "./keymap": "./src/keymap.ts",
     "./markdown": "./src/markdown.ts",
     "./model": "./src/model.ts",
     "./state": "./src/state.ts",

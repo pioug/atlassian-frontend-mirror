@@ -1,4 +1,4 @@
-import { ContentNodeWithPos } from 'prosemirror-utils';
+import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { ColumnState } from './column-state';
 

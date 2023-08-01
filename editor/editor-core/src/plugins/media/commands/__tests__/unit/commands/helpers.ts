@@ -6,9 +6,10 @@ import {
 } from '../../../helpers';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { stateKey as mediaPluginKey } from '../../../../pm-plugins/plugin-key';
-import { MediaPluginState } from '../../../../pm-plugins/types';
+import type { MediaPluginState } from '../../../../pm-plugins/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -16,7 +17,6 @@ import {
   mediaInline,
   mediaSingle,
   mediaGroup,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import {
@@ -24,9 +24,9 @@ import {
   temporaryFileId,
   testCollectionName,
 } from '../../../../../../__tests__/unit/plugins/media/_utils';
-import { EditorState, NodeSelection } from 'prosemirror-state';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { CommandDispatch } from '@atlaskit/editor-common/types';
+import type { CommandDispatch } from '@atlaskit/editor-common/types';
 
 describe('media -> commands -> helpers.ts', () => {
   const mediaProvider = getFreshMediaProvider();

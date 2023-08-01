@@ -18,7 +18,7 @@ import {
   Node as PMNode,
   Schema,
   NodeType,
-} from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/model';
 
 import { mapImageToEmoji } from './emojiHelper';
 

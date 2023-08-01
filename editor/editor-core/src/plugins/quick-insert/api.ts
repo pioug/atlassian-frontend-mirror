@@ -1,6 +1,6 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { pluginKey as quickInsertPluginKey } from './plugin-key';
-import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { searchQuickInsertItems } from './search';
 import type { QuickInsertPluginOptions } from './types';
 

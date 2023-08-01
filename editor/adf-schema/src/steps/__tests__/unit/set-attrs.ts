@@ -1,4 +1,4 @@
-import { Transform } from 'prosemirror-transform';
+import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import { doc, panel, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 import { SetAttrsStep } from '../../set-attrs';

@@ -1,7 +1,6 @@
-import { Transaction } from 'prosemirror-state';
-
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { DatasourceModalType } from '@atlaskit/editor-common/types';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 
 import {

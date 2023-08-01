@@ -1,17 +1,17 @@
-import { EmojiDescription } from '@atlaskit/emoji';
-import { EditorState } from 'prosemirror-state';
+import type { EmojiDescription } from '@atlaskit/emoji';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { doc, emoji, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 // Editor plugins
-import { TypeAheadItem } from '../../../../type-ahead/types';
+import type { TypeAheadItem } from '../../../../type-ahead/types';
 import emojiPlugin, { emojiToTypeaheadItem, memoize } from '../../../';
 import typeAheadPlugin from '../../../../type-ahead';
-import { EmojiPluginOptions } from '../../../types';
+import type { EmojiPluginOptions } from '../../../types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('EmojiTypeAhead', () => {

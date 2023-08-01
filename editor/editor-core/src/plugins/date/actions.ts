@@ -1,14 +1,13 @@
-import {
+import type {
   EditorState,
   Transaction,
-  NodeSelection,
-  Selection,
-} from 'prosemirror-state';
-import { Fragment } from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { todayTimestampInUTC } from '@atlaskit/editor-common/utils';
-import { Command, CommandDispatch } from '../../types';
-import { DateType } from './types';
-import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+import type { Command, CommandDispatch } from '../../types';
+import type { DateType } from './types';
+import type { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 import { pluginKey } from './pm-plugins/plugin-key';
 
 import {
@@ -21,8 +20,8 @@ import {
   INPUT_METHOD,
 } from '../analytics';
 import { isToday } from './utils/internal';
-import { DatePluginState } from './pm-plugins/types';
-import { canInsert } from 'prosemirror-utils';
+import type { DatePluginState } from './pm-plugins/types';
+import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 
 export const createDate =
   (isQuickInsertAction?: boolean) =>

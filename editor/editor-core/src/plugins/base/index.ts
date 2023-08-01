@@ -1,9 +1,9 @@
-import { baseKeymap } from 'prosemirror-commands';
-import { history } from 'prosemirror-history';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
+import { history } from '@atlaskit/editor-prosemirror/history';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { browser } from '@atlaskit/editor-common/utils';
 import { doc, paragraph, text } from '@atlaskit/adf-schema';
-import { NextEditorPlugin, PMPluginFactory } from '../../types';
+import type { NextEditorPlugin, PMPluginFactory } from '../../types';
 import filterStepsPlugin from './pm-plugins/filter-steps';
 import focusHandlerPlugin from './pm-plugins/focus-handler';
 import fixChrome88SelectionPlugin from './pm-plugins/fix-chrome-88-selection';
@@ -12,12 +12,11 @@ import contextIdentifierPlugin from './pm-plugins/context-identifier';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
 import betterTypeHistoryPlugin from './pm-plugins/better-type-history';
-import scrollGutter, {
-  ScrollGutterPluginOptions,
-} from './pm-plugins/scroll-gutter';
+import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter';
+import scrollGutter from './pm-plugins/scroll-gutter';
 import { keymap } from '../../utils/keymap';
 import frozenEditor from './pm-plugins/frozen-editor';
-import {
+import type {
   InputTracking,
   BrowserFreezetracking,
 } from '../../types/performance-tracking';

@@ -1,9 +1,17 @@
-import { Fragment, Node as PMNode, Schema, Slice } from 'prosemirror-model';
-import type { EditorState, Selection } from 'prosemirror-state';
+import {
+  Fragment,
+  Node as PMNode,
+  Schema,
+  Slice,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
   findSelectedNodeOfType,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 
 import { mapChildren } from '../utils/slice';
 

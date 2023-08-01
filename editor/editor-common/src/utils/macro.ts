@@ -1,4 +1,4 @@
-import { Node as PmNode } from 'prosemirror-model';
+import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
 export interface Params {
   node: PmNode;

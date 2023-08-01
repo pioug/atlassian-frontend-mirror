@@ -1,11 +1,10 @@
 // #region Imports
-import { Selection, Transaction } from 'prosemirror-state';
-import { safeInsert } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-
 import { AddColumnStep } from '@atlaskit/adf-schema/steps';
 import { Command } from '@atlaskit/editor-common/types';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   addColumnAt as addColumnAtPMUtils,

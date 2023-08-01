@@ -1,6 +1,3 @@
-import { chainCommands } from 'prosemirror-commands';
-import { keymap } from 'prosemirror-keymap';
-
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -12,6 +9,8 @@ import {
 import * as keymaps from '@atlaskit/editor-common/keymaps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
 import {
   createTable,

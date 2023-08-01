@@ -1,7 +1,6 @@
 // #region Imports
-import { Selection } from 'prosemirror-state';
-
 import { Command } from '@atlaskit/editor-common/types';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
   emptyCell,

@@ -1,12 +1,12 @@
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import { pluginKey as typeAheadPluginKey } from './pm-plugins/key';
 import { updateSelectedIndex } from './commands/update-selected-index';
 import { StatsModifier } from './stats-modifier';
 import type { TypeAheadHandler, TypeAheadItem } from './types';
 import { typeAheadListMessages } from './messages';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
 export const isTypeAheadHandler = (
   handler: any,

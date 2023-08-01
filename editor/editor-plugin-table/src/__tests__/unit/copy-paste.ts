@@ -1,12 +1,4 @@
-import {
-  Fragment,
-  Node as ProsemirrorNode,
-  Schema,
-  Slice,
-} from 'prosemirror-model';
-import { PluginKey, TextSelection, Transaction } from 'prosemirror-state';
 // @ts-ignore
-import { __serializeForClipboard, EditorView } from 'prosemirror-view';
 
 import { uuid } from '@atlaskit/adf-schema';
 import { transformSliceToRemoveOpenExpand } from '@atlaskit/editor-common/transforms';
@@ -15,6 +7,21 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import {
+  Fragment,
+  Node as ProsemirrorNode,
+  Schema,
+  Slice,
+} from '@atlaskit/editor-prosemirror/model';
+import {
+  PluginKey,
+  TextSelection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  __serializeForClipboard,
+  EditorView,
+} from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import {
   getCellsInTable,

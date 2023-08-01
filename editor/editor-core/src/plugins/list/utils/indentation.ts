@@ -1,5 +1,5 @@
-import { ResolvedPos } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { numberNestedLists } from './selection';
 import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 

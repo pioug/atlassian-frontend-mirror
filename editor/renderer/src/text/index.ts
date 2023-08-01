@@ -1,4 +1,4 @@
-import { Fragment, Schema } from 'prosemirror-model';
+import { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { Serializer } from '../serializer';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';

@@ -1,4 +1,4 @@
-import { Schema } from 'prosemirror-model';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ADFStage } from '@atlaskit/editor-common/validator';

@@ -8,11 +8,11 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { fireEvent } from '@testing-library/react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import React from 'react';
-import { Command, FloatingToolbarDropdown } from '../../types';
+import type { Command, FloatingToolbarDropdown } from '../../types';
 import Toolbar from '../../ui/Toolbar';
-import { DropdownOptions } from '../../ui/types';
+import type { DropdownOptions } from '../../ui/types';
 import ReactEditorViewContext from '../../../../create-editor/ReactEditorViewContext';
 
 describe('Dropdown', () => {

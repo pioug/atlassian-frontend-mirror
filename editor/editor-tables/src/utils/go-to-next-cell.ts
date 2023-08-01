@@ -1,5 +1,5 @@
-import { ResolvedPos } from 'prosemirror-model';
-import { TextSelection } from 'prosemirror-state';
+import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { Command, Direction } from '../types';
 

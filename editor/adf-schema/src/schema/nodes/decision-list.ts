@@ -1,4 +1,4 @@
-import { Node, NodeSpec } from 'prosemirror-model';
+import { Node, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { DecisionItemDefinition as DecisionItemNode } from './decision-item';
 import { uuid } from '../../utils/uuid';
 

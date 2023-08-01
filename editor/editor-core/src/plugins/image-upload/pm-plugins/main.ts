@@ -1,21 +1,24 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, ReadonlyTransaction } from 'prosemirror-state';
+import type {
+  EditorState,
+  ReadonlyTransaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import { isClipboardEvent, isPastedFile } from '../../../utils/clipboard';
 import { isDragEvent, isDroppedFile } from '../../../utils/drag-drop';
 
 import { canInsertMedia, isMediaSelected } from '../utils';
-import {
+import type {
   ImageUploadPluginAction,
   ImageUploadPluginState,
   UploadHandlerReference,
 } from '../types';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { insertExternalImage, startImageUpload } from './commands';
 import type { PMPluginFactoryParams } from '../../../types';
-import { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { stateKey } from './plugin-key';
-import { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
+import type { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
 
 /**
  * Microsoft Office includes a screenshot image when copying text content.

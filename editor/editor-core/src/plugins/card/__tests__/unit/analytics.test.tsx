@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import userEvent from '@testing-library/user-event';
 import { fireEvent, screen } from '@testing-library/react';
-import { replaceRaf, Stub } from 'raf-stub';
+import type { Stub } from 'raf-stub';
+import { replaceRaf } from 'raf-stub';
 
 import '@atlaskit/link-test-helpers/jest';
 
@@ -38,11 +39,11 @@ import {
   DefaultExtensionProvider,
   combineExtensionProviders,
 } from '@atlaskit/editor-common/extensions';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
   a,
-  DocBuilder,
   inlineCard,
   blockCard,
   embedCard,
@@ -52,7 +53,7 @@ import { ContextAdapter } from '../../../../nodeviews/context-adapter';
 import PluginSlot from '../../../../ui/PluginSlot';
 import EditorContext from '../../../../ui/EditorContext';
 import EditorActions from '../../../../actions';
-import { EditorProps } from '../../../../types';
+import type { EditorProps } from '../../../../types';
 import { createDispatch } from '../../../../event-dispatcher';
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import { getPluginState } from '../../../../../../editor-plugin-card/src/pm-plugins/util/state';
@@ -117,6 +118,19 @@ export class EditorSharedConfigProvider extends React.Component<
 }
 
 describe('Analytics key events', () => {
+  const toDisplayButtonName = (display: string) => {
+    switch (display) {
+      case 'url':
+        return 'URL';
+      case 'inline':
+        return 'Inline';
+      case 'block':
+        return 'Card';
+      case 'embed':
+        return 'Embed';
+    }
+  };
+
   (useSmartLinkLifecycleAnalytics as jest.Mock).mockImplementation(() => {
     return {
       linkCreated: mockLinkCreated,
@@ -249,7 +263,11 @@ describe('Analytics key events', () => {
                   'https://atlassian.com': {
                     status: 'resolved',
                     details: {
-                      meta: { access: 'granted', visibility: 'restricted' },
+                      meta: {
+                        access: 'granted',
+                        visibility: 'restricted',
+                        key: 'atlassian-provider',
+                      },
                       data: jsonLd('https://atlassian.com'),
                     },
                   },
@@ -397,6 +415,97 @@ describe('Analytics key events', () => {
         },
       });
     });
+  });
+
+  describe('toolbar viewed', () => {
+    const url = 'https://atlassian.com';
+    describe.each([
+      [
+        'url',
+        {
+          displayCategory: 'link',
+          docBuilder: [p(a({ href: url })('Some li{<>}nk text'))],
+        },
+      ],
+      [
+        'inline',
+        {
+          displayCategory: 'smartLink',
+          docBuilder: [p('{<node>}', inlineCard({ url })())],
+        },
+      ],
+      [
+        'block',
+        {
+          displayCategory: 'smartLink',
+          docBuilder: ['{<node>}', blockCard({ url })()],
+        },
+      ],
+      [
+        'embed',
+        {
+          displayCategory: 'smartLink',
+          docBuilder: ['{<node>}', embedCard({ url, layout: 'full-width' })()],
+        },
+      ],
+    ])(
+      'should fire toolbar viewed event when the floating toolbar is displayed for link of display %s',
+      (display, { displayCategory, docBuilder }) => {
+        ffTest(
+          'platform.linking-platform.editor.toolbar-viewed-event',
+          async () => {
+            const { analyticsSpy } = await setup({
+              doc: doc(...docBuilder),
+            });
+
+            requestAnimationFrame.step();
+
+            await screen.findByRole('button', {
+              name: toDisplayButtonName(display),
+            });
+
+            expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
+              payload: {
+                action: 'viewed',
+                actionSubject: 'inlineDialog',
+                actionSubjectId: 'editLinkToolbar',
+                eventType: 'ui',
+                attributes: {
+                  extensionKey: 'atlassian-provider',
+                  display,
+                  displayCategory,
+                },
+              },
+            });
+          },
+          async () => {
+            const { analyticsSpy } = await setup({
+              doc: doc(...docBuilder),
+            });
+
+            requestAnimationFrame.step();
+
+            await screen.findByRole('button', {
+              name: toDisplayButtonName(display),
+            });
+
+            expect(analyticsSpy).not.toBeFiredWithAnalyticEventOnce({
+              payload: {
+                action: 'viewed',
+                actionSubject: 'inlineDialog',
+                actionSubjectId: 'editLinkToolbar',
+                eventType: 'ui',
+                attributes: {
+                  extensionKey: 'atlassian-provider',
+                  display,
+                  displayCategory,
+                },
+              },
+            });
+          },
+        );
+      },
+    );
   });
 
   describe('link created', () => {
@@ -1292,18 +1401,6 @@ describe('Analytics key events', () => {
   describe('link updated', () => {
     const url = 'https://atlassian.com';
     const linkDetails = { url };
-    const toDisplayButtonName = (display: string) => {
-      switch (display) {
-        case 'url':
-          return 'URL';
-        case 'inline':
-          return 'Inline';
-        case 'block':
-          return 'Card';
-        case 'embed':
-          return 'Embed';
-      }
-    };
 
     it.each([
       ['url', 'inline'],

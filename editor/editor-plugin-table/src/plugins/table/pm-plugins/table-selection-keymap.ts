@@ -1,5 +1,3 @@
-import { keymap } from 'prosemirror-keymap';
-
 import {
   bindKeymapWithCommand,
   moveLeft,
@@ -7,6 +5,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
 import { arrowLeftFromTable, arrowRightFromTable } from '../commands/selection';
 

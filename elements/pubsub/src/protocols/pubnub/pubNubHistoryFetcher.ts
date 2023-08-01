@@ -1,23 +1,24 @@
 import * as PubNub from 'pubnub';
-import {
-  FetchMessagesResponse,
-  FetchMessagesStatus,
-  MessageEvent,
-} from 'pubnub';
+import { FetchMessagesResponse } from 'pubnub';
 import { logError } from '../../util/logger';
 
 const MAX_CHANNELS_PER_FETCH_CALL = 500;
 const MAX_MESSAGES_IN_CHANNEL_PER_FETCH_CALL = 25;
 
+export interface MessageHandlerCallback {
+  timetoken: any;
+  message: any;
+}
+
 export default class HistoryFetcher {
   private pubNubClient: PubNub;
 
-  private messageHandler: (data: MessageEvent) => void;
+  private messageHandler: (data: MessageHandlerCallback) => void;
   private tooMuchHistoryHandler: () => void;
 
   constructor(config: {
     pubNubClient: PubNub;
-    messageHandler: (data: MessageEvent) => void;
+    messageHandler: (data: MessageHandlerCallback) => void;
     tooMuchHistoryHandler: () => void;
   }) {
     this.pubNubClient = config.pubNubClient;
@@ -41,7 +42,7 @@ export default class HistoryFetcher {
   }
 
   private historyFetched = (
-    status: FetchMessagesStatus,
+    status: PubNub.PubnubStatus,
     response: FetchMessagesResponse,
   ) => {
     if (status.error) {
@@ -55,7 +56,7 @@ export default class HistoryFetcher {
 
     const channelsWithMoreMessages: {
       channelName: string;
-      timeToken: string;
+      timeToken: any;
     }[] = [];
     for (let channel in response.channels) {
       const messages = response.channels[channel];

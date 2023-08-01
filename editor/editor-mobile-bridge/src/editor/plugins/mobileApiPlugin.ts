@@ -6,7 +6,7 @@ import {
 } from '@atlaskit/editor-common/types';
 import WebBridgeImpl from '../native-to-web';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';

@@ -1,5 +1,3 @@
-import { EditorView } from 'prosemirror-view';
-
 import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
 import {
   ACTION_SUBJECT,
@@ -13,6 +11,7 @@ import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';

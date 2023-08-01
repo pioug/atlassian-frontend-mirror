@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { EventDispatcher } from '../event-dispatcher';
 import ReactNodeView, {

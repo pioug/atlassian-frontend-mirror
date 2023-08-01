@@ -1,13 +1,17 @@
-import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
-import { Fragment, Schema, Slice } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, Transaction } from 'prosemirror-state';
-import { FeatureFlags } from '../../../types/feature-flags';
+import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { FeatureFlags } from '../../../types/feature-flags';
 
 import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import { safeInsert } from '@atlaskit/editor-common/insert';
-import { hasParentNodeOfType } from 'prosemirror-utils';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
 import {
   ACTION,

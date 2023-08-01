@@ -1,5 +1,3 @@
-import type { Schema } from 'prosemirror-model';
-
 import * as defaultSchema from '@atlaskit/adf-schema';
 import type {
   EditorPlugin,
@@ -7,6 +5,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import {
   createProsemirrorEditorFactory,
   Preset,

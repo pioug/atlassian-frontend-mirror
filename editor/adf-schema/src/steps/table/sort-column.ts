@@ -1,5 +1,10 @@
-import { Node as PMNode, Slice } from 'prosemirror-model';
-import { ReplaceStep, Step, StepMap, StepResult } from 'prosemirror-transform';
+import { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
+import {
+  ReplaceStep,
+  Step,
+  StepMap,
+  StepResult,
+} from '@atlaskit/editor-prosemirror/transform';
 
 import { TableColumnOrdering } from './types';
 

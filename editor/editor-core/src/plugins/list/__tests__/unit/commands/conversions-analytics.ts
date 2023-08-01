@@ -1,45 +1,37 @@
-import {
-  doc,
-  li,
-  p,
-  ul,
-  ol,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, li, p, ul, ol } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
-import deprecatedAnalyticsPlugin, {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../../../analytics';
+} from '@atlaskit/editor-common/analytics';
+import deprecatedAnalyticsPlugin from '../../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { toggleOrderedList, toggleBulletList } from '../../../commands/index';
+import { toggleOrderedList, toggleBulletList } from '../../../commands';
 import listPlugin from '../../..';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 describe('list-conversion', () => {
   const createEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-
-  beforeEach(() => {
-    createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-  });
+  const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
+    attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
+  };
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
-      .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add(listPlugin)
       .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
 
     return createEditor({
@@ -199,9 +191,12 @@ describe('list-conversion', () => {
   ])('list-conversion', (scenario, documentNode, expectedAttributes) => {
     it(`analytics ul to ol ${scenario}`, () => {
       const { editorView } = editor(documentNode);
-      toggleOrderedList(editorView, INPUT_METHOD.KEYBOARD);
+      toggleOrderedList(editorAnalyticsAPIFake)(
+        editorView,
+        INPUT_METHOD.KEYBOARD,
+      );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
         action: ACTION.CONVERTED,
         actionSubject: ACTION_SUBJECT.LIST,
         actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER,
@@ -231,9 +226,9 @@ describe('list-conversion', () => {
         ),
       ),
     );
-    toggleBulletList(editorView, INPUT_METHOD.KEYBOARD);
+    toggleBulletList(editorAnalyticsAPIFake)(editorView, INPUT_METHOD.KEYBOARD);
 
-    expect(createAnalyticsEvent).toHaveBeenCalledWith({
+    expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
       action: ACTION.CONVERTED,
       actionSubject: ACTION_SUBJECT.LIST,
       actionSubjectId: ACTION_SUBJECT_ID.FORMAT_LIST_BULLET,
@@ -259,9 +254,9 @@ describe('list-conversion', () => {
         ),
       ),
     );
-    toggleBulletList(editorView, INPUT_METHOD.KEYBOARD);
+    toggleBulletList(editorAnalyticsAPIFake)(editorView, INPUT_METHOD.KEYBOARD);
 
-    expect(createAnalyticsEvent).toHaveBeenCalledWith({
+    expect(editorAnalyticsAPIFake.attachAnalyticsEvent).toHaveBeenCalledWith({
       action: ACTION.CONVERTED,
       actionSubject: ACTION_SUBJECT.LIST,
       actionSubjectId: ACTION_SUBJECT_ID.TEXT,

@@ -27,9 +27,10 @@ import {
   getDefaultMediaClientConfig,
   fakeMediaClient,
 } from '@atlaskit/media-test-helpers/fakeMediaClient';
-import { FileState, getMediaClient } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-client';
+import { getMediaClient } from '@atlaskit/media-client';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
-import { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { checkMediaType } from '../../../utils/check-media-type';
 

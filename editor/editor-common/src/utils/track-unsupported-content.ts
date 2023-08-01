@@ -1,4 +1,7 @@
-import type { Node as PMNode, Schema } from 'prosemirror-model';
+import type {
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 
 import {
   ACTION,

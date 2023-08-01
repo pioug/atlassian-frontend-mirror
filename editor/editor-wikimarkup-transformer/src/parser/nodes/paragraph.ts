@@ -1,4 +1,4 @@
-import { Node as PMNode, Schema } from 'prosemirror-model';
+import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 
 export function createEmptyParagraphNode(schema: Schema): PMNode {
   const { paragraph } = schema.nodes;

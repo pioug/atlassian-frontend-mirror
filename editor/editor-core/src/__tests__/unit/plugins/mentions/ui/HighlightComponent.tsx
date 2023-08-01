@@ -1,8 +1,8 @@
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import React from 'react';
 
 import mentionsPlugin from '../../../../../plugins/mentions';
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 const CustomHighlightComponent = () => <div>HighlightComponent</div>;
 

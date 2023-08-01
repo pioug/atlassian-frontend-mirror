@@ -1,4 +1,4 @@
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { SelectionData } from '@atlaskit/editor-core';
 import { AnnotationMarkStates } from '@atlaskit/adf-schema';
 import { ResolveResponse } from '@atlaskit/smart-card';

@@ -1,4 +1,5 @@
-import { Slice, Mark, Node } from 'prosemirror-model';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import { Slice, Node } from '@atlaskit/editor-prosemirror/model';
 import {
   doc,
   emoji,

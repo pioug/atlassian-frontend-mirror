@@ -1,6 +1,6 @@
 import React from 'react';
 import Loadable from 'react-loadable';
-import { Fragment, Node, Mark } from 'prosemirror-model';
+import { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';
 
 import Blockquote from './blockquote';
 import BodiedExtension, {

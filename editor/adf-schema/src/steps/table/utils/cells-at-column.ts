@@ -1,6 +1,6 @@
 import { TableRect } from '@atlaskit/editor-tables/table-map';
 import { columnIsHeader, tableNodeTypes } from '@atlaskit/editor-tables/utils';
-import { NodeType, Node as PMNode } from 'prosemirror-model';
+import { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { CellAttributes } from '../../../schema/nodes/tableNodes';
 import { getCellIndex, hasMergedColumns, isRootRow } from './table-map';
 

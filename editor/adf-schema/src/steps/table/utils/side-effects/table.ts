@@ -1,5 +1,12 @@
-import { Node as ProseMirrorNode, Schema } from 'prosemirror-model';
-import { Mappable, StepMap, Transform } from 'prosemirror-transform';
+import {
+  Node as ProseMirrorNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import {
+  Mappable,
+  StepMap,
+  Transform,
+} from '@atlaskit/editor-prosemirror/transform';
 import { TableRect } from '@atlaskit/editor-tables/table-map';
 import { TableSideEffect, TableSideEffectJSON } from './types';
 

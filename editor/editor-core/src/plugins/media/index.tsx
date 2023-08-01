@@ -1,5 +1,5 @@
 import React from 'react';
-import { PluginKey, NodeSelection } from 'prosemirror-state';
+import { PluginKey, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import {

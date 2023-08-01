@@ -1,26 +1,24 @@
 import React from 'react';
-import { ReactWrapper } from 'enzyme';
-import { TextSelection, NodeSelection } from 'prosemirror-state';
+import type { ReactWrapper } from 'enzyme';
+import {
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { mountWithIntl } from '../../../../__helpers/enzyme';
-import {
-  doc,
-  p,
-  status,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, status } from '@atlaskit/editor-test-helpers/doc-builder';
 import { Status } from '@atlaskit/status/element';
-import {
-  ContainerProps,
-  IntlStatusContainerView,
-} from '../../../../../plugins/status/nodeviews/status';
+import type { ContainerProps } from '../../../../../plugins/status/nodeviews/status';
+import { IntlStatusContainerView } from '../../../../../plugins/status/nodeviews/status';
 import { messages } from '../../../../../plugins/status/nodeviews/messages';
-import { pluginKey, StatusType } from '../../../../../plugins/status/plugin';
+import type { StatusType } from '../../../../../plugins/status/plugin';
+import { pluginKey } from '../../../../../plugins/status/plugin';
 import * as Actions from '../../../../../plugins/status/actions';
 // @ts-ignore
-import { __serializeForClipboard } from 'prosemirror-view';
-import { EditorInstance } from '../../../../../types';
+import { __serializeForClipboard } from '@atlaskit/editor-prosemirror/view';
+import type { EditorInstance } from '../../../../../types';
 
 describe('Status - NodeView', () => {
   const testStatus: StatusType = {

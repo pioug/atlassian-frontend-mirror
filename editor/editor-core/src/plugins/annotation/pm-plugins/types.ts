@@ -1,11 +1,14 @@
-import { DecorationSet } from 'prosemirror-view';
-import { EditorState, SelectionBookmark } from 'prosemirror-state';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import {
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type {
+  EditorState,
+  SelectionBookmark,
+} from '@atlaskit/editor-prosemirror/state';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type {
   Dispatch,
   EventDispatcher,
 } from '@atlaskit/editor-common/event-dispatcher';
-import { InlineCommentAnnotationProvider, AnnotationInfo } from '../types';
+import type { InlineCommentAnnotationProvider, AnnotationInfo } from '../types';
 
 export enum ACTIONS {
   UPDATE_INLINE_COMMENT_STATE,

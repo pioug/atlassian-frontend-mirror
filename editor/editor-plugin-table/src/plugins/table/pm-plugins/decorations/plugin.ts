@@ -1,13 +1,12 @@
+import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   EditorState,
   PluginKey,
   // @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
   ReadonlyTransaction,
   Transaction,
-} from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
-
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+} from '@atlaskit/editor-prosemirror/state';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import { pluginKey as tablePluginKey } from '../plugin-key';

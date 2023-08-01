@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { TextSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 type PosAtDOM = (node: Node) => number | null;
 

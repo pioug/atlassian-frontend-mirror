@@ -1,4 +1,4 @@
-import { Schema } from 'prosemirror-model';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Token, TokenType } from './';
 import { Context } from '../../interfaces';
 import { linkFormat } from './links/link-format';

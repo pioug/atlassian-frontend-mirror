@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.7.8
+
+### Patch Changes
+
+- [`e8bb91da805`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e8bb91da805) - [ux] Ensure menu doesn't close when focus moves within it. Makes future keyboard accessibility possible.
+
 ## 12.7.7
 
 ### Patch Changes

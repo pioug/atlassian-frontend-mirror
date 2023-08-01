@@ -1,21 +1,28 @@
+import type {
+  AnalyticsEventPayload,
+  PASTE_ACTION_SUBJECT_ID,
+  PasteType,
+  PasteSource,
+  PasteContent,
+} from '../../analytics';
 import {
   ACTION,
   INPUT_METHOD,
   EVENT_TYPE,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
   addAnalytics,
-  PASTE_ACTION_SUBJECT_ID,
-  PasteType,
-  PasteSource,
-  PasteContent,
   PasteTypes,
   PasteContents,
   withAnalytics,
 } from '../../analytics';
-import { EditorView } from 'prosemirror-view';
-import { Slice, Node, Fragment, Schema } from 'prosemirror-model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
+  Slice,
+  Node,
+  Fragment,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import { getPasteSource } from '../util';
 import {
   handlePasteAsPlainText,
@@ -32,8 +39,11 @@ import {
   handlePastePanelOrDecisionContentIntoList,
   handlePasteNonNestableBlockNodesIntoList,
 } from '../handlers';
-import { Transaction, Selection } from 'prosemirror-state';
-import { findParentNode } from 'prosemirror-utils';
+import type {
+  Transaction,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
+import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { mapSlice } from '../../../utils/slice';
 import { getLinkDomain } from '@atlaskit/editor-common/utils';
 import type {

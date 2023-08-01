@@ -1,8 +1,8 @@
-import { EditorState } from 'prosemirror-state';
-import { Decoration, DecorationSet } from 'prosemirror-view';
-
-import { HyperlinkState, InsertStatus } from '@atlaskit/editor-common/link';
+import type { HyperlinkState } from '@atlaskit/editor-common/link';
+import { InsertStatus } from '@atlaskit/editor-common/link';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { fakeCursorForToolbarPluginKey } from './fake-curor-for-toolbar-plugin-key';
 import { stateKey as hyperlinkStateKey } from './main';

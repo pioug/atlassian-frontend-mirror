@@ -1,6 +1,7 @@
+import { token } from '@atlaskit/tokens';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { md, code } from '@atlaskit/docs';
 import { N20, N30 } from '@atlaskit/theme/colors';
@@ -194,8 +195,8 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
       >
         <div
           style={{
-            margin: '8px',
-            padding: '8px',
+            margin: token('space.100', '8px'),
+            padding: token('space.100', '8px'),
             backgroundColor: N20,
             border: `1px solid ${N30}`,
             flex: 1,
@@ -207,7 +208,7 @@ class SplitExample extends React.Component<{ initialAdf: object }> {
           style={{
             flex: 2,
             overflow: 'auto',
-            margin: '8px',
+            margin: token('space.100', '8px'),
           }}
         >
           <p>Paragraph node's content:</p>
@@ -234,8 +235,8 @@ These denote a comment thread about the given text, and are denoted by a yellow 
 ${(
   <div
     style={{
-      margin: '8px',
-      padding: '8px',
+      margin: token('space.100', '8px'),
+      padding: token('space.100', '8px'),
       backgroundColor: N20,
       border: `1px solid ${N30}`,
     }}

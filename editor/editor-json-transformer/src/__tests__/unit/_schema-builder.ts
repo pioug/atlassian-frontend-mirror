@@ -1,6 +1,6 @@
-import type { Schema } from 'prosemirror-model';
-
 import { createSchema } from '@atlaskit/adf-schema';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+
 export const schema: Schema = createSchema({
   nodes: [
     'doc',

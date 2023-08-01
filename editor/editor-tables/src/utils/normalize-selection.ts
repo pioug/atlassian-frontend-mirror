@@ -1,11 +1,11 @@
-import { ResolvedPos } from 'prosemirror-model';
+import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
   EditorState,
   NodeSelection,
   Selection,
   TextSelection,
   Transaction,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
 
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';

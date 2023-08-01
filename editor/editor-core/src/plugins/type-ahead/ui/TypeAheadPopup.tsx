@@ -8,8 +8,11 @@ import React, {
   useRef,
 } from 'react';
 import { css, jsx } from '@emotion/react';
-import { EditorView, DecorationSet } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
+import type {
+  EditorView,
+  DecorationSet,
+} from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import rafSchedule from 'raf-schd';
 
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
@@ -17,11 +20,11 @@ import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N0, N60A, N50A } from '@atlaskit/theme/colors';
+import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
-  FireAnalyticsCallback,
 } from '@atlaskit/editor-common/analytics';
 import {
   CloseSelectionOptions,

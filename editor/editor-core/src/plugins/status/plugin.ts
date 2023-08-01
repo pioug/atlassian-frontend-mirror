@@ -1,9 +1,11 @@
-import {
+import type {
   EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import {
   NodeSelection,
   TextSelection,
-  Transaction,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
@@ -11,7 +13,7 @@ import type { PMPluginFactoryParams } from '../../types';
 
 import { StatusNodeView } from './nodeviews/status';
 import { pluginKey } from './plugin-key';
-import { StatusPluginOptions, StatusState } from './types';
+import type { StatusPluginOptions, StatusState } from './types';
 import { isEmptyStatus, mayGetStatusAtSelection } from './utils';
 
 export { pluginKey, pluginKeyName } from './plugin-key';

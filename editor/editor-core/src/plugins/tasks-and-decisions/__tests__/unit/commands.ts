@@ -1,8 +1,9 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { uuid } from '@atlaskit/adf-schema';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockquote,
   br,
@@ -15,7 +16,6 @@ import {
   panel,
   taskItem,
   taskList,
-  DocBuilder,
   table,
   tr,
   td,
@@ -24,7 +24,7 @@ import { compareSelection } from '@atlaskit/editor-test-helpers/selection';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 
 import { insertTaskDecisionCommand } from '../../../../plugins/tasks-and-decisions/commands';
-import { TaskDecisionListType } from '../../../../plugins/tasks-and-decisions/types';
+import type { TaskDecisionListType } from '../../../../plugins/tasks-and-decisions/types';
 import { selectNode } from '../../../../utils/commands';
 
 describe('tasks and decisions - commands', () => {

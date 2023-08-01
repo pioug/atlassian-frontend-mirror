@@ -5,8 +5,6 @@ jest.mock('raf-schd', () =>
     return fnRunner;
   }),
 );
-import { Fragment, Node, Slice } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 import rafSchd from 'raf-schd';
 
 jest.mock('../../shouldReplaceLink');
@@ -18,6 +16,8 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
+import { Fragment, Node, Slice } from '@atlaskit/editor-prosemirror/model';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import {
   createEditorFactory,

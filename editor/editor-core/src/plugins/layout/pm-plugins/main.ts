@@ -1,14 +1,15 @@
-import { Node } from 'prosemirror-model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, TextSelection, Selection } from 'prosemirror-state';
-import { Decoration, DecorationSet } from 'prosemirror-view';
-import { keydownHandler } from 'prosemirror-keymap';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import {
   findParentNodeOfType,
   findSelectedNodeOfType,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 import { filterCommands as filter } from '@atlaskit/editor-common/utils';
-import { Command } from '../../../types/command';
+import type { Command } from '../../../types/command';
 import { createSelectionClickHandler } from '../../selection/utils';
 import {
   fixColumnSizes,
@@ -16,8 +17,8 @@ import {
   getSelectedLayout,
 } from '../actions';
 import { pluginKey } from './plugin-key';
-import { Change, LayoutState } from './types';
-import { LayoutPluginOptions } from '../types';
+import type { Change, LayoutState } from './types';
+import type { LayoutPluginOptions } from '../types';
 
 export const DEFAULT_LAYOUT = 'two_equal';
 

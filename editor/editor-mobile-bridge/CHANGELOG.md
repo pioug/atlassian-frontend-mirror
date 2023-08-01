@@ -1,5 +1,36 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.8.0
+
+### Patch Changes
+
+- [`9bc531568ad`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9bc531568ad) - [ED-19216] Remove current analytics in list plugin
+- Updated dependencies
+
+## 187.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.7.0
 
 ### Patch Changes

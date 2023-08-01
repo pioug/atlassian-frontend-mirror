@@ -1,5 +1,8 @@
-import type { EditorState, Transaction } from 'prosemirror-state';
-import type { Step as ProseMirrorStep } from 'prosemirror-transform';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
 import type { Config, InitialDraft } from '../types';

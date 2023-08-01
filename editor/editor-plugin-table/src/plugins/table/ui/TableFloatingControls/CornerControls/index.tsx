@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
 import classnames from 'classnames';
-import { EditorView } from 'prosemirror-view';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { defineMessages, injectIntl } from 'react-intl-next';
 
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   findTable,

@@ -1,6 +1,7 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getBreakoutModeFromTargetNode, isLeftCursor } from '../utils';
-import { GapCursorSelection, Side } from '../selection';
+import type { GapCursorSelection } from '../selection';
+import { Side } from '../selection';
 
 /**
  * We have a couple of nodes that require us to compute style

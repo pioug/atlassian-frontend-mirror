@@ -1,9 +1,9 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { historyPluginKey } from '../../../../plugins/history';
-import { HistoryPluginState } from '../../../../plugins/history/types';
+import type { HistoryPluginState } from '../../../../plugins/history/types';
 
 describe('History Plugin', () => {
   const createEditor = createEditorFactory();

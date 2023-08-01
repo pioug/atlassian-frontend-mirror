@@ -3,10 +3,14 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { B300, N300, N20A } from '@atlaskit/theme/colors';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import { EditorView } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
-import { findParentDomRefOfType, findDomRefAtPos } from 'prosemirror-utils';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import {
+  findParentDomRefOfType,
+  findDomRefAtPos,
+} from '@atlaskit/editor-prosemirror/utils';
 import { Popup } from '@atlaskit/editor-common/ui';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
@@ -17,12 +21,13 @@ import { removeBreakout } from '../commands/remove-breakout';
 import { BreakoutCssClassName } from '../constants';
 import { isBreakoutMarkAllowed } from '../utils/is-breakout-mark-allowed';
 import { getPluginState } from '../plugin-key';
-import { NodeSelection, Selection } from 'prosemirror-state';
-import { BreakoutPluginState } from '../types';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { BreakoutPluginState } from '../types';
 import { isSupportedNodeForBreakout } from '../utils/is-supported-node';
 import { token } from '@atlaskit/tokens';
 import { layers } from '@atlaskit/theme/constants';
-import { BreakoutMode } from '@atlaskit/editor-common/types';
+import type { BreakoutMode } from '@atlaskit/editor-common/types';
 import { getNextBreakoutMode, getTitle } from '@atlaskit/editor-common/utils';
 
 const toolbarButtonWrapper = css`

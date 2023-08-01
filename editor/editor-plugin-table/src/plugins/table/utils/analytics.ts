@@ -1,11 +1,10 @@
-import { Selection } from 'prosemirror-state';
-
 import type {
   AnalyticsEventPayload,
   AnalyticsEventPayloadCallback,
   EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 import { HigherOrderCommand } from '@atlaskit/editor-common/types';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 

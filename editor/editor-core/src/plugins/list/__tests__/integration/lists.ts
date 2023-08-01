@@ -1,6 +1,6 @@
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
 import {
   getDocFromElement,
   fullpage,

@@ -1,9 +1,8 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
 import { TableLayout } from '@atlaskit/adf-schema';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorDefaultLayoutWidth,
   akEditorWideLayoutWidth,

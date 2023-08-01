@@ -42,18 +42,16 @@ const radioThemeColors = {
     dotDisabled: token('color.icon.disabled', N70),
     dotActive: token('color.icon.inverse', B400),
 
-    border: token(
-      'color.border.input',
-      getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-        ? N100
-        : N40,
-    ),
-    borderHover: token(
-      'color.border.input',
-      getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-        ? N100
-        : N40,
-    ),
+    border: getBooleanFF(
+      'platform.design-system-team.update-border-radio-checkbox_7askv',
+    )
+      ? token('color.border.bold', N100)
+      : token('color.border.input', N40),
+    borderHover: getBooleanFF(
+      'platform.design-system-team.update-border-radio-checkbox_7askv',
+    )
+      ? token('color.border.bold', N100)
+      : token('color.border.input', N40),
     borderDisabled: token('color.border.disabled', N20),
     borderFocus: token('color.border.focused', B100),
   },
@@ -76,12 +74,11 @@ const radioThemeColors = {
     dotDisabled: token('color.icon.disabled', DN90),
     dotActive: token('color.icon.inverse', DN10),
 
-    border: token(
-      'color.border.input',
-      getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
-        ? DN200
-        : DN80,
-    ),
+    border: getBooleanFF(
+      'platform.design-system-team.update-border-radio-checkbox_7askv',
+    )
+      ? token('color.border.bold', DN200)
+      : token('color.border.input', DN80),
     borderHover: token('color.border.input', DN200),
     borderDisabled: token('color.border.disabled', DN10),
     borderFocus: token('color.border.focused', B75),

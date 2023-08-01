@@ -1,4 +1,4 @@
-import * as ProseMirrorUtils from 'prosemirror-utils';
+import * as ProseMirrorUtils from '@atlaskit/editor-prosemirror/utils';
 import React from 'react';
 import { shallow } from 'enzyme';
 import type {
@@ -20,10 +20,12 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
-jest.mock('prosemirror-utils', () => {
+jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:
   // Workaround to enable spy on prosemirror-utils cjs bundle
-  const originalModule = jest.requireActual('prosemirror-utils');
+  const originalModule = jest.requireActual(
+    '@atlaskit/editor-prosemirror/utils',
+  );
 
   return {
     __esModule: true,

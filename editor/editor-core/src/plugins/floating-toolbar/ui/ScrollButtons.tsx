@@ -1,8 +1,8 @@
 /** @jsx jsx */
 import React, { useEffect, useState, useRef } from 'react';
 import { css, jsx } from '@emotion/react';
-import { Node } from 'prosemirror-model';
-import { IntlShape } from 'react-intl-next';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { IntlShape } from 'react-intl-next';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';

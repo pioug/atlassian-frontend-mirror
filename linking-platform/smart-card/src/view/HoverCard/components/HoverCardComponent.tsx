@@ -12,6 +12,7 @@ import { CardDisplay } from '../../../constants';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
+import { useFeatureFlag } from '@atlaskit/link-provider';
 
 const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
 
@@ -43,6 +44,9 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
   const linkState = useLinkState(url);
   const analytics = useSmartLinkAnalytics(url, undefined, id);
   const { loadMetadata } = useSmartCardActions(id, url, analytics);
+  const enableHoverCardResolutionTracking = useFeatureFlag(
+    'enableHoverCardResolutionTracking',
+  );
 
   const setMousePosition = useCallback(
     (event) => {
@@ -121,9 +125,19 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
     if (!resolveTimeOutId.current && isLinkUnresolved) {
       resolveTimeOutId.current = setTimeout(() => {
         loadMetadata();
+
+        if (enableHoverCardResolutionTracking) {
+          analytics.track.hoverCardResolutionStarted();
+        }
       }, RESOLVE_DELAY);
     }
-  }, [linkState, loadMetadata]);
+  }, [
+    analytics.track,
+    enableHoverCardResolutionTracking,
+    linkState.metadataStatus,
+    linkState.status,
+    loadMetadata,
+  ]);
 
   const initShowCard = useCallback(
     (event) => {

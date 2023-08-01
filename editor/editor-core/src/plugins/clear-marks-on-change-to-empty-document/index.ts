@@ -1,6 +1,10 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey, EditorState, Transaction } from 'prosemirror-state';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
 
 export const pluginKey = new PluginKey(

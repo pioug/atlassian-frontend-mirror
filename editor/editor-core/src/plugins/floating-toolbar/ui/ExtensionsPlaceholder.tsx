@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Loadable from 'react-loadable';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
   ExtensionProvider,
   ExtensionToolbarButton,
   ExtensionManifest,
 } from '@atlaskit/editor-common/extensions';
-import { ExtensionAPI } from '@atlaskit/editor-common/extensions';
+import type { ExtensionAPI } from '@atlaskit/editor-common/extensions';
 import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common/extensions';
 import ButtonGroup from '@atlaskit/button/button-group';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';

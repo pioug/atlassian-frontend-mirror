@@ -1,4 +1,4 @@
-import type { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '../analytics';
 import type { HigherOrderCommand } from '../types';

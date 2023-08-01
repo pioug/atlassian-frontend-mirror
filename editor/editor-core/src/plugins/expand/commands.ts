@@ -1,6 +1,9 @@
-import type { EditorState } from 'prosemirror-state';
-import { Selection } from 'prosemirror-state';
-import type { Node as PMNode, NodeType } from 'prosemirror-model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import type {
+  Node as PMNode,
+  NodeType,
+} from '@atlaskit/editor-prosemirror/model';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import type { Command } from '../../types';
@@ -20,7 +23,7 @@ import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
 import { findExpand } from './utils';
 import { createCommand } from './pm-plugins/plugin-factory';
 import { createWrapSelectionTransaction } from '../block-type/commands/block-type';
-import { safeInsert } from 'prosemirror-utils';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
 export const setExpandRef = (ref?: HTMLDivElement | null): Command =>
   createCommand(

@@ -1,8 +1,9 @@
-import { EditorState, PluginKey } from 'prosemirror-state';
-import { hasParentNodeOfType } from 'prosemirror-utils';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
-import { Dispatch } from '../../../event-dispatcher';
+import type { Dispatch } from '../../../event-dispatcher';
 
 import {
   getListItemAttributes,

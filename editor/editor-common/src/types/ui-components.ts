@@ -1,6 +1,6 @@
 import type React from 'react';
 
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
 import type { EventDispatcher } from '../event-dispatcher';

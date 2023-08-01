@@ -59,7 +59,7 @@ import { Channel } from '../../channel';
 import { MAX_STEP_REJECTED_ERROR } from '../';
 import { throttledCommitStep } from '../commit-step';
 import { ACK_MAX_TRY } from '../../helpers/const';
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Provider } from '../';
 // @ts-ignore only used for mock
 import ProseMirrorCollab from '@atlaskit/prosemirror-collab';

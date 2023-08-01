@@ -63,11 +63,22 @@ class PubSubEventComponent extends Component<{}, State> {
 
   toggleProtocol = (protocol: ProtocolName) => {
     const protocols = this.state.protocols;
+    let newProtocols: ProtocolName[];
+
     if (this.usesProtocol(protocol)) {
-      this.setState({ protocols: protocols.filter((p) => p !== protocol) });
+      newProtocols = protocols.filter((p) => p !== protocol);
     } else {
-      this.setState({ protocols: [...protocols, protocol] });
+      newProtocols = [...protocols, protocol];
     }
+
+    this.setState({
+      protocols: newProtocols,
+      client: this.initClient(
+        this.state.fpsUrl,
+        this.state.apsUrl,
+        newProtocols,
+      ),
+    });
   };
 
   usesProtocol = (protocol: ProtocolName) =>
@@ -97,12 +108,10 @@ class PubSubEventComponent extends Component<{}, State> {
 
   onUrlChange = (e: React.FormEvent<HTMLInputElement>) => {
     const newUrl = e.currentTarget.value;
-    this.setState({
-      fpsUrl: e.currentTarget.value,
-    });
 
-    this.state.client.leave([this.state.channelInput]).then((_) => {
-      this.initClient(newUrl, this.state.apsUrl, this.state.protocols);
+    this.setState({
+      fpsUrl: newUrl,
+      client: this.initClient(newUrl, this.state.apsUrl, this.state.protocols),
     });
   };
 

@@ -1,6 +1,8 @@
 import { createIntl } from 'react-intl-next';
-import { PluginKey, NodeSelection } from 'prosemirror-state';
-import { isNodeSelection } from 'prosemirror-utils';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { isNodeSelection } from '@atlaskit/editor-prosemirror/utils';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code_block,
   doc,
@@ -8,17 +10,16 @@ import {
   table,
   tr,
   td,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { CodeBlockState } from '../../pm-plugins/main-state';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CodeBlockState } from '../../pm-plugins/main-state';
 import { pluginKey as codeBlockPluginKey } from '../../plugin-key';
 import {
   removeCodeBlock,

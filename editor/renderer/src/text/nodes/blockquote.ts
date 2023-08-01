@@ -1,4 +1,4 @@
-import { Node as PMNode, Schema } from 'prosemirror-model';
+import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { NodeReducer, reduce } from './';
 
 const blockquote: NodeReducer = (node: PMNode, schema: Schema) => {

@@ -1,17 +1,13 @@
 import React from 'react';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
-import {
-  doc,
-  p,
-  DocBuilder,
-  indentation,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, indentation } from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from '../../../../list/pm-plugins/main';
 import { messages as listMessages } from '../../../../list/messages';
 import { messages as indentationMessages } from '../../../../indentation/messages';
@@ -25,11 +21,10 @@ import indentationPlugin from '../../../../indentation';
 import blockTypePlugin from '../../../../block-type';
 import listPlugin from '../../../../list';
 import textFormattingPlugin from '../../../../text-formatting';
-import ToolbarListsIndentation, {
-  Props as ToolbarListsIndentationProps,
-} from '../../../ui';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { ReactWrapper } from 'enzyme';
+import type { Props as ToolbarListsIndentationProps } from '../../../ui';
+import ToolbarListsIndentation from '../../../ui';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { ReactWrapper } from 'enzyme';
 
 import { render } from '@testing-library/react';
 import { Toolbar } from '../../../ui/Toolbar';
@@ -50,6 +45,19 @@ describe('ToolbarListsIndentation', () => {
   const createEditor = createProsemirrorEditorFactory();
   let ToolbarListsIndentationWrapper: ReactWrapper;
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
+  const mockDispatchAnalyticsEvent = jest.fn();
+  const mockAnalyticsPlugin = () => {
+    return {
+      name: 'analytics',
+      actions: {
+        attachAnalyticsEvent: (payload: any) => {
+          mockDispatchAnalyticsEvent(payload);
+          return () => {};
+        },
+      },
+    };
+  };
+  createAnalyticsEvent = createAnalyticsEventMock();
 
   afterEach(() => {
     if (ToolbarListsIndentationWrapper) {
@@ -61,7 +69,6 @@ describe('ToolbarListsIndentation', () => {
   });
 
   const editor = ({ doc }: { doc: DocBuilder }) => {
-    createAnalyticsEvent = createAnalyticsEventMock();
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
@@ -92,6 +99,7 @@ describe('ToolbarListsIndentation', () => {
     const ToolbarListsIndentationWrapper = mountWithIntl(
       <ToolbarListsIndentation
         editorView={editorWrapper.editorView}
+        editorAnalyticsAPI={mockAnalyticsPlugin().actions as any}
         featureFlags={{}}
         {...toolbarProps}
       />,
@@ -143,7 +151,7 @@ describe('ToolbarListsIndentation', () => {
         listMessages.unorderedList.defaultMessage,
       );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
         action: 'inserted',
         actionSubject: 'list',
         eventType: 'track',
@@ -160,7 +168,7 @@ describe('ToolbarListsIndentation', () => {
         listMessages.orderedList.defaultMessage,
       );
 
-      expect(createAnalyticsEvent).toHaveBeenCalledWith({
+      expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
         action: 'inserted',
         actionSubject: 'list',
         eventType: 'track',

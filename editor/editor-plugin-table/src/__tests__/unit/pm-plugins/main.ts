@@ -1,13 +1,12 @@
-import { undo } from 'prosemirror-history';
-import { NodeType } from 'prosemirror-model';
-import { Selection } from 'prosemirror-state';
-import * as pmUtils from 'prosemirror-utils';
-
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { undo } from '@atlaskit/editor-prosemirror/history';
+import { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import * as pmUtils from '@atlaskit/editor-prosemirror/utils';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -34,10 +33,12 @@ import * as miscCommands from '../../../plugins/table/commands/misc';
 import { getPluginState } from '../../../plugins/table/pm-plugins/plugin-factory';
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 
-jest.mock('prosemirror-utils', () => {
+jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:
   // Workaround to enable spy on prosemirror-utils cjs bundle
-  const originalModule = jest.requireActual('prosemirror-utils');
+  const originalModule = jest.requireActual(
+    '@atlaskit/editor-prosemirror/utils',
+  );
 
   return {
     __esModule: true,

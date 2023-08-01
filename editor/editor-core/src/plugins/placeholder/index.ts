@@ -1,8 +1,9 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { browser } from '@atlaskit/editor-common/utils';
-import { PluginKey, EditorState } from 'prosemirror-state';
-import { DecorationSet, Decoration } from 'prosemirror-view';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { isEmptyDocument, bracketTyped } from '@atlaskit/editor-common/utils';
 
 export const pluginKey = new PluginKey('placeholderPlugin');

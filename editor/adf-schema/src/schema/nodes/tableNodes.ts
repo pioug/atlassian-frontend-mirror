@@ -1,4 +1,4 @@
-import { Node as PmNode, NodeSpec } from 'prosemirror-model';
+import { Node as PmNode, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { CellAttributes } from '@atlaskit/editor-tables/types';
 import { hexToEditorBackgroundPaletteRawValue } from '@atlaskit/editor-palette';
 import {

@@ -1,4 +1,4 @@
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 
 export const isLayoutNode = (node: Node) => node.type.name === 'layoutSection';
 

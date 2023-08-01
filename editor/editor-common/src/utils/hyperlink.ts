@@ -1,15 +1,14 @@
 // File has been copied to packages/editor/editor-plugin-ai/src/provider/markdown-transformer/utils/hyperlink.ts
 // If changes are made to this file, please make the same update in the linked file.
 
-import { Node, Schema, Slice } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-
 import {
   isSafeUrl,
   linkify,
   Match,
   normalizeUrl as normaliseLinkHref,
 } from '@atlaskit/adf-schema';
+import { Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import {
   ACTION,

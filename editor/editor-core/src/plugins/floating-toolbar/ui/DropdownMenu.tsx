@@ -5,14 +5,16 @@ import { Component } from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize } from '@atlaskit/theme/constants';
 import { B400 } from '@atlaskit/theme/colors';
-import { ButtonItem, ButtonItemProps } from '@atlaskit/menu';
+import type { ButtonItemProps } from '@atlaskit/menu';
+import { ButtonItem } from '@atlaskit/menu';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';
-import { DropdownOptionT } from './types';
-import { injectIntl, WrappedComponentProps, IntlShape } from 'react-intl-next';
+import type { DropdownOptionT } from './types';
+import type { WrappedComponentProps, IntlShape } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import messages from './messages';
 import { token } from '@atlaskit/tokens';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export const menuItemDimensions = {
   width: 175,
@@ -22,7 +24,7 @@ export const menuItemDimensions = {
 const spacer = css`
   display: flex;
   flex: 1;
-  padding: 8px;
+  padding: ${token('space.100', '8px')};
 `;
 
 const menuContainer = css`
@@ -31,7 +33,7 @@ const menuContainer = css`
   // temporary solution to retain spacing defined by @atlaskit/Item
   & button {
     min-height: ${token('space.400', '32px')};
-    padding: 8px 8px 7px;
+    padding: ${token('space.100', '8px')} ${token('space.100', '8px')} 7px;
 
     & > [data-item-elem-before] {
       margin-right: ${token('space.050', '4px')};

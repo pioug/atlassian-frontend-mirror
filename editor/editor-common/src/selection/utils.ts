@@ -1,5 +1,5 @@
-import { ResolvedPos } from 'prosemirror-model';
-import { ContentNodeWithPos } from 'prosemirror-utils';
+import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 export const isSelectionAtStartOfNode = (
   $pos: ResolvedPos,

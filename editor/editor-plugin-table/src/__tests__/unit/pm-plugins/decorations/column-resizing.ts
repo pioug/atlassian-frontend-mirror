@@ -1,12 +1,11 @@
-import { PluginKey } from 'prosemirror-state';
-import { ContentNodeWithPos } from 'prosemirror-utils';
-import { DecorationSet, EditorView } from 'prosemirror-view';
-
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getCellsInColumn } from '@atlaskit/editor-tables/utils';
 import {
   createProsemirrorEditorFactory,

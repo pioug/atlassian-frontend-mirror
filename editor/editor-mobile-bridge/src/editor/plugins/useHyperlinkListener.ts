@@ -1,4 +1,4 @@
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { HyperlinkState } from '@atlaskit/editor-common/link';
 import { toNativeBridge } from '../web-to-native';
 import { hasValue } from '../../utils';

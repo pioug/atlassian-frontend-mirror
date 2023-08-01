@@ -1,6 +1,3 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-
 import { TableLayout } from '@atlaskit/adf-schema';
 import {
   tableCellMinWidth,
@@ -8,6 +5,8 @@ import {
 } from '@atlaskit/editor-common/styles';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 
 import { getSelectedTableInfo } from '../../../utils';

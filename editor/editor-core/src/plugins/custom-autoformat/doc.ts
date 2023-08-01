@@ -1,11 +1,11 @@
-import { closeHistory } from 'prosemirror-history';
-import { EditorView } from 'prosemirror-view';
+import { closeHistory } from '@atlaskit/editor-prosemirror/history';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { processRawValue } from '@atlaskit/editor-common/utils';
-import { CustomAutoformatState } from './types';
-import { InputRuleHander } from './input-rules';
+import type { CustomAutoformatState } from './types';
+import type { InputRuleHander } from './input-rules';
 import { autoformatAction } from './utils';
-import { AutoformatHandler } from '@atlaskit/editor-common/provider-factory';
+import type { AutoformatHandler } from '@atlaskit/editor-common/provider-factory';
 
 export const buildHandler = (
   _regex: string,

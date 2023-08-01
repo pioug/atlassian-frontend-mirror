@@ -1,5 +1,6 @@
-import { ResolvedPos } from 'prosemirror-model';
-import { EditorState, NodeSelection } from 'prosemirror-state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { GapCursorSelection } from '../../plugins/selection/gap-cursor/selection';
 
 export function atTheEndOfDoc(state: EditorState): boolean {

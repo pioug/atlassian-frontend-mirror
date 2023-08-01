@@ -1,7 +1,8 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, TextSelection } from 'prosemirror-state';
-import { keydownHandler } from 'prosemirror-keymap';
-import { setTextSelection } from 'prosemirror-utils';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
+import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import { getCursor } from '../../../utils';
 import { filterCommands as filter } from '@atlaskit/editor-common/utils';
 import {
@@ -29,7 +30,7 @@ import {
   indent,
   insertNewlineWithIndent,
 } from '../ide-ux/commands';
-import { CommandDispatch } from '../../../types';
+import type { CommandDispatch } from '../../../types';
 import { isComposing } from '../../base/pm-plugins/composition';
 
 export default new SafePlugin({

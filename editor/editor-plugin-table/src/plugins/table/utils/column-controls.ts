@@ -1,8 +1,7 @@
-import { Selection } from 'prosemirror-state';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-
 import { maphElem } from '@atlaskit/editor-common/utils';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {

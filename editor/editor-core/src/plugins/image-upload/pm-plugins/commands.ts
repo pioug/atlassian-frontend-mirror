@@ -1,5 +1,5 @@
 import type { InsertedImageProperties } from '@atlaskit/editor-common/provider-factory';
-import { safeInsert } from 'prosemirror-utils';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { createExternalMediaNode } from '../utils';
 import type { Command } from '../../../types';
 import type { ImageUploadPluginState } from '../types';

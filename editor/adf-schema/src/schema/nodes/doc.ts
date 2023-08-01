@@ -1,4 +1,4 @@
-import { NodeSpec } from 'prosemirror-model';
+import { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { CodeBlockWithMarksDefinition as CodeBlockWithMarks } from './code-block';
 import { ExpandWithBreakoutDefinition as ExpandWithBreakout } from './expand';
 import { LayoutSectionDefinition as LayoutSection } from './layout-section';

@@ -1,5 +1,5 @@
 import { createSchema } from './create-schema';
-import { Schema } from 'prosemirror-model';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * @deprecated [ED-15676] We have stopped supporting product specific schemas. Use `@atlaskit/adf-schema/schema-default` instead.

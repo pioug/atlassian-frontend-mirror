@@ -15,7 +15,7 @@ import { ProvidersContext } from '../../../context';
 import { useLoadAnnotations } from '../../use-load-annotations';
 import { RendererContext } from '../../../../RendererActionsContext';
 import RendererActions from '../../../../../actions/index';
-import { Mark } from 'prosemirror-model';
+import { Mark } from '@atlaskit/editor-prosemirror/model';
 
 let container: HTMLElement | null;
 beforeEach(() => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Schema } from 'prosemirror-model';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -20,15 +20,19 @@ import {
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import { Editor } from '../../src';
-import { EditorAppearance, EditorPlugin, EditorProps } from '../../src/types';
-import { EditorActions } from '../../src';
+import type {
+  EditorAppearance,
+  EditorPlugin,
+  EditorProps,
+} from '../../src/types';
+import type { EditorActions } from '../../src';
 
 import {
   mediaProvider,
   getProviders,
   quickInsertProvider,
 } from '../../examples/5-full-page';
-import { Error } from '../ErrorReport';
+import type { Error } from '../ErrorReport';
 import { validationErrorHandler } from '@atlaskit/editor-common/utils';
 
 // import { tablesPlugin } from '@atlaskit/editor-plugin-table';

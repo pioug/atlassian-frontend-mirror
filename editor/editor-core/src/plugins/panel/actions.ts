@@ -3,12 +3,12 @@ import {
   findSelectedNodeOfType,
   removeSelectedNode,
   findParentNodeOfType,
-} from 'prosemirror-utils';
-import { NodeSelection } from 'prosemirror-state';
-import { PanelType } from '@atlaskit/adf-schema';
-import { Command } from '../../types';
+} from '@atlaskit/editor-prosemirror/utils';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { PanelType } from '@atlaskit/adf-schema';
+import type { Command } from '../../types';
+import type { AnalyticsEventPayload } from '../analytics';
 import {
-  AnalyticsEventPayload,
   ACTION,
   ACTION_SUBJECT,
   INPUT_METHOD,
@@ -16,7 +16,7 @@ import {
   addAnalytics,
 } from '../analytics';
 import { findPanel } from './utils';
-import { PanelOptions } from './pm-plugins/main';
+import type { PanelOptions } from './pm-plugins/main';
 import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/panel';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };

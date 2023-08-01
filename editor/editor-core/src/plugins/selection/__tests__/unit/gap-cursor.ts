@@ -1,5 +1,7 @@
-import { TextSelection, PluginKey } from 'prosemirror-state';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -10,7 +12,6 @@ import {
   tdCursor,
   h1,
   code_block,
-  DocBuilder,
   mediaSingle,
   media,
   panelNote,
@@ -25,21 +26,23 @@ import {
   Side,
 } from '../../../selection/gap-cursor-selection';
 
+import type {
+  BlockNodesKeys,
+  LeafBlockNodesKeys,
+  BlockContainerNodesKeys,
+} from './_gap-cursor-utils';
 import {
   blockNodes,
   leafBlockNodes,
-  BlockNodesKeys,
-  LeafBlockNodesKeys,
   blockContainerNodes,
-  BlockContainerNodesKeys,
 } from './_gap-cursor-utils';
 
 import { uuid } from '@atlaskit/adf-schema';
 import { gapCursorPluginKey } from '../../pm-plugins/gap-cursor-plugin-key';
 import createStub from 'raf-stub';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import mediaPlugin from '../../../media';

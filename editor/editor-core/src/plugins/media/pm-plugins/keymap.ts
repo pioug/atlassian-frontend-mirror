@@ -1,18 +1,15 @@
-import { keymap } from 'prosemirror-keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { NodeSelection } from 'prosemirror-state';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import * as keymaps from '../../../keymaps';
 import { stateKey } from '../pm-plugins/plugin-key';
-import { Command } from '../../../types';
-import { MediaPluginState } from './types';
+import type { Command } from '../../../types';
+import type { MediaPluginState } from './types';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
-import {
-  GapCursorSelection,
-  Side,
-  EditorSelectionAPI,
-} from '@atlaskit/editor-common/selection';
-import { MediaOptions } from '../types';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
+import type { MediaOptions } from '../types';
 import {
   insertAndSelectCaptionFromMediaSinglePos,
   selectCaptionFromMediaSinglePos,

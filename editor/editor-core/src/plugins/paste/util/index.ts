@@ -1,23 +1,28 @@
-import {
-  Slice,
-  Mark,
+import type {
   Node as PMNode,
   NodeType,
   Schema,
-  Fragment,
-} from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/model';
+import { Slice, Mark, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { isMediaBlobUrl } from '@atlaskit/media-client';
-import { EditorState, Selection, Transaction } from 'prosemirror-state';
+import type {
+  EditorState,
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { PasteSource } from '../../analytics';
 import {
   ACTION_SUBJECT,
   addAnalytics,
   EVENT_TYPE,
   INPUT_METHOD,
-  PasteSource,
   TABLE_ACTION,
 } from '../../analytics';
-import { TextSelection, NodeSelection } from 'prosemirror-state';
-import { findParentNodeOfType } from 'prosemirror-utils';
+import {
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import {
   getSelectedTableInfo,
   isTableSelected,
@@ -27,7 +32,7 @@ import {
   isSupportedInParent,
   mapChildren,
 } from '@atlaskit/editor-common/utils';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 
 export function isPastedFromWord(html?: string): boolean {
   return !!html && html.indexOf('urn:schemas-microsoft-com:office:word') >= 0;

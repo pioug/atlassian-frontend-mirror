@@ -1,11 +1,12 @@
 import React from 'react';
 import { PureComponent } from 'react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import MentionIcon from '@atlaskit/icon/glyph/editor/mention';
 import ToolbarButton, { TOOLBAR_BUTTON } from '../../../../ui/ToolbarButton';
 import { INPUT_METHOD } from '../../../analytics';
 import { createTypeAheadTools } from '../../../type-ahead/api';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import { messages } from '../../messages';
 
 interface Props {

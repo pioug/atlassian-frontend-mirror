@@ -2,9 +2,9 @@
 import React from 'react';
 
 import { css, jsx } from '@emotion/react';
-import { EditorView } from 'prosemirror-view';
 
 import { Editor } from '@atlaskit/editor-core';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { JSONTransformer } from '../src';

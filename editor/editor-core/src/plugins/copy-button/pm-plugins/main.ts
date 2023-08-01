@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { MarkType } from 'prosemirror-model';
-import { ReadonlyTransaction } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
+import type { MarkType } from '@atlaskit/editor-prosemirror/model';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { copyButtonPluginKey } from './plugin-key';
 
 type CopyButtonPluginState = {

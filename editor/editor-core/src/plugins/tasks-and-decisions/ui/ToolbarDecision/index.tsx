@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 
-import { EditorView } from 'prosemirror-view';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
 

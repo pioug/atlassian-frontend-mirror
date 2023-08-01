@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { EditorView } from 'prosemirror-view';
 
 import { DatasourceModalType } from '@atlaskit/editor-common/types';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import ModalWithState from '../DatasourceModal/ModalWithState';
 

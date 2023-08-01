@@ -1,11 +1,11 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { OnEditorViewStateUpdated } from '../create-editor/get-plugins';
-import { EventDispatcher } from '../event-dispatcher';
-import { MenuItem } from '../ui/DropdownMenu/types';
-import { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
+import type { OnEditorViewStateUpdated } from '../create-editor/get-plugins';
+import type { EventDispatcher } from '../event-dispatcher';
+import type { MenuItem } from '../ui/DropdownMenu/types';
+import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 
-import { UIComponentFactory } from './ui-components';
+import type { UIComponentFactory } from './ui-components';
 
 export interface EditorInstance {
   editorView: EditorView;

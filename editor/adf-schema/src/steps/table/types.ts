@@ -1,4 +1,4 @@
-import { Node as ProseMirrorNode } from 'prosemirror-model';
+import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { SideEffects, SideEffectsJSON } from './utils/side-effects/types';
 import { SortOrder } from './constants';
 

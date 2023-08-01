@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { EditorView } from 'prosemirror-view';
 import { createIntl } from 'react-intl-next';
 
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -16,6 +15,7 @@ import type {
   FloatingToolbarButton,
   FloatingToolbarConfig,
 } from '@atlaskit/editor-common/types';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {

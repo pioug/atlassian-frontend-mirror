@@ -1,8 +1,11 @@
-import type { MarkType, Node, NodeType } from 'prosemirror-model';
-
 import * as v1schema from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type {
+  MarkType,
+  Node,
+  NodeType,
+} from '@atlaskit/editor-prosemirror/model';
 import { initialize } from '@atlaskit/editor-test-helpers/ajv';
 import {
   bodiedExtension,

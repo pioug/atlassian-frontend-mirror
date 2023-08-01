@@ -1,13 +1,13 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
   panel,
-  DocBuilder,
   placeholder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
@@ -18,8 +18,8 @@ import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 import { openTypeAheadAtCursor } from '../../../transforms/open-typeahead-at-cursor';
 import { INPUT_METHOD } from '../../../../analytics/types/enums';
-import { TypeAheadHandler } from '../../../types';
-import { Transaction } from 'prosemirror-state';
+import type { TypeAheadHandler } from '../../../types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 describe('typeahead -> transforms -> openTypeAheadAtCursor', () => {
   const fakeTriggerHandler: TypeAheadHandler = {

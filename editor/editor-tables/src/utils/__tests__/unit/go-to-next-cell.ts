@@ -1,5 +1,8 @@
-import { EditorState, Selection, TextSelection } from 'prosemirror-state';
-
+import {
+  EditorState,
+  Selection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import {
   doc,
   p,

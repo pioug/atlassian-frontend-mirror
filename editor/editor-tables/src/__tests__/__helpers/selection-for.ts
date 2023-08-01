@@ -1,5 +1,8 @@
-import { NodeSelection, Selection, TextSelection } from 'prosemirror-state';
-
+import {
+  NodeSelection,
+  Selection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { CellSelection } from '../../cell-selection';

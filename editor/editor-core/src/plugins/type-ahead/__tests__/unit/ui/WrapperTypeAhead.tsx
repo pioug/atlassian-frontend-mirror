@@ -1,12 +1,13 @@
 import React from 'react';
 import { render, act, fireEvent, cleanup } from '@testing-library/react';
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import type { QuickInsertActionInsert } from '../../../../quick-insert/types';
@@ -16,8 +17,8 @@ import type { TypeAheadHandler } from '../../../types';
 import { WrapperTypeAhead } from '../../../ui/WrapperTypeAhead';
 import { getPluginState } from '../../../utils';
 import typeAheadPlugin from '../../../';
-import { redo, undo } from 'prosemirror-history';
-import { EditorView } from 'prosemirror-view';
+import { redo, undo } from '@atlaskit/editor-prosemirror/history';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { IntlProvider } from 'react-intl-next';
 
 let _queueMicrotask: any;

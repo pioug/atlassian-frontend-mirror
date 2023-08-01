@@ -1,13 +1,17 @@
-import { DOMOutputSpec } from 'prosemirror-model';
-import { EditorState, Selection } from 'prosemirror-state';
+import type { DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import {
   findSelectedNodeOfType,
   findParentNodeOfType,
-} from 'prosemirror-utils';
-import { PanelType, PanelAttributes } from '@atlaskit/adf-schema';
+} from '@atlaskit/editor-prosemirror/utils';
+import type { PanelAttributes } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
-import { DomPanelAtrrs } from './types';
+import type { DomPanelAtrrs } from './types';
 
 export const findPanel = (state: EditorState, selection?: Selection | null) => {
   const { panel } = state.schema.nodes;

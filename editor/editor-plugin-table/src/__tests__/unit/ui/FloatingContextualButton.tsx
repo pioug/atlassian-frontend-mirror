@@ -1,9 +1,6 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import * as prosemirrorUtils from 'prosemirror-utils';
-import type { ContentNodeWithPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
 import { IntlProvider } from 'react-intl-next';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -12,6 +9,9 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -32,10 +32,12 @@ import FloatingContextualButton, {
   Props as FloatingContextualButtonProps,
 } from '../../../plugins/table/ui/FloatingContextualButton';
 
-jest.mock('prosemirror-utils', () => {
+jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:
   // Workaround to enable spy on prosemirror-utils cjs bundle
-  const originalModule = jest.requireActual('prosemirror-utils');
+  const originalModule = jest.requireActual(
+    '@atlaskit/editor-prosemirror/utils',
+  );
 
   return {
     __esModule: true,

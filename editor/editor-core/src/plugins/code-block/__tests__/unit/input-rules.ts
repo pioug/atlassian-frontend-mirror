@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   li,
@@ -6,12 +7,11 @@ import {
   code_block,
   panel,
   hardBreak,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import blockTypePlugin from '../../../block-type';
@@ -21,6 +21,7 @@ import textFormattingPlugin from '../../../text-formatting';
 import listPlugin from '../../../list';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('inputrules', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -30,6 +31,7 @@ describe('inputrules', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
         .add(blockTypePlugin)
         .add(decorationsPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])

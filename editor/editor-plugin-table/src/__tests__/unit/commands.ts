@@ -1,8 +1,3 @@
-import { Fragment, Slice } from 'prosemirror-model';
-import { TextSelection } from 'prosemirror-state';
-import { findParentNodeOfType } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-
 import { uuid } from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -13,6 +8,10 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import {

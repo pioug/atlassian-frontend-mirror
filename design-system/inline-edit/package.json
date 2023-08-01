@@ -24,7 +24,7 @@
   "atlaskit:src": "src/index.ts",
   "homepage": "https://atlassian.design/components/inline-edit/",
   "atlassian": {
-    "team": "Design System Maker Experience",
+    "team": "Design System Team",
     "releaseModel": "continuous",
     "website": {
       "name": "Inline edit",

@@ -1,7 +1,10 @@
-import { EditorState, Transaction } from 'prosemirror-state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 import { getListItemAttributes } from './selection';
-import {
+import type {
   RestartListsAttributesForListOutdented,
   CommonListAnalyticsAttributes,
 } from '@atlaskit/editor-common/analytics';

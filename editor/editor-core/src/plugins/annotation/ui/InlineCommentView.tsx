@@ -1,9 +1,10 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
-import { Selection } from 'prosemirror-state';
-import { findDomRefAtPos } from 'prosemirror-utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { AnnotationViewWrapper } from './AnnotationViewWrapper';
-import { AnnotationProviders, AnnotationTestIds } from '../types';
+import type { AnnotationProviders } from '../types';
+import { AnnotationTestIds } from '../types';
 import {
   getAnnotationViewKey,
   getSelectionPositions,
@@ -23,15 +24,13 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
 } from '../../analytics';
-import {
+import type {
   AnalyticsEventPayload,
   DispatchAnalyticsEvent,
-  CONTENT_COMPONENT,
 } from '../../analytics/types';
-import {
-  RESOLVE_METHOD,
-  AnnotationAEP,
-} from '../../analytics/types/inline-comment-events';
+import { CONTENT_COMPONENT } from '../../analytics/types';
+import type { AnnotationAEP } from '../../analytics/types/inline-comment-events';
+import { RESOLVE_METHOD } from '../../analytics/types/inline-comment-events';
 
 const findPosForDOM = (sel: Selection) => {
   const { $from, from } = sel;

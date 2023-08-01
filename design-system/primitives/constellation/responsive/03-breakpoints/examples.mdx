@@ -19,33 +19,3 @@ Media queries can be applied through the `media` object.
 
 
 <MediaQueriesTable />
-
-When used with `xcss`, be aware that a media query can't contain another media query to prevent arbitrary nesting. Additionally, pseudo-selectors can't contain media queries. To use media queries and pseudos, the media query must contain the pseudo.
-
-```
-import { xcss } from '@atlaskit/primitives';
-import { media } from '@atlaskit/primitives/responsive';
-
-const someStyles = xcss({
-  // This is okay, since media queries can contain pseudos
-  [media.above.md]: {
-    ':hover': {
-      backgroundColor: 'color.background.primary.hovered'
-    }
-  },
-
-  // This is not okay, since pseudos can't contain media queries
-  ':hover': {
-    [media.above.md]: {
-      backgroundColor: 'color.background.primary.hovered'
-    }
-  },
-
-  // This is not okay, since media queries can't contain media queries
-  [media.above.md]: {
-    [media.above.xs]: {
-      backgroundColor: 'color.background.primary.hovered'
-    }
-  },
-});
-```

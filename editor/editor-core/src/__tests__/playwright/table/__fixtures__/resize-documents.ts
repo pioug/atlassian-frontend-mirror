@@ -1662,14 +1662,328 @@ export const tableWithMinWidthColumnsDocument = {
   ],
 };
 
+export const tableNestedInExpandDefaultWidth = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [],
+    },
+    {
+      type: 'expand',
+      attrs: {
+        title: '',
+      },
+      content: [
+        {
+          type: 'table',
+          attrs: {
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: '8d7486b8-777f-4dc8-b709-0675990a949b',
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    colwidth: [148],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    colwidth: [243],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    colwidth: [338],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [148],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [243],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [338],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [148],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [243],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [338],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+export const tableNestedInExpandFullWidth = {
+  version: 1,
+  type: 'doc',
+  content: [
+    {
+      type: 'paragraph',
+      content: [],
+    },
+    {
+      type: 'expand',
+      attrs: {
+        title: '',
+      },
+      content: [
+        {
+          type: 'table',
+          attrs: {
+            isNumberColumnEnabled: false,
+            layout: 'default',
+            localId: '8d7486b8-777f-4dc8-b709-0675990a949b',
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    colwidth: [159],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    colwidth: [368],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  attrs: {
+                    colwidth: [477],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [159],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [368],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [477],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [159],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [368],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {
+                    colwidth: [477],
+                  },
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      marks: [
+        {
+          type: 'breakout',
+          attrs: {
+            mode: 'full-width',
+          },
+        },
+      ],
+    },
+  ],
+};
+
 export const createSquareTable = ({
   lines,
   columnWidths,
   hasHeader,
+  tableWidth,
 }: {
   lines: number;
   columnWidths: Array<number>;
   hasHeader?: boolean;
+  tableWidth?: number;
 }) => {
   const tableContent = Array.from({ length: lines }).map((_, index) => {
     const addTableHeader = index === 0 && hasHeader;
@@ -1682,5 +1996,11 @@ export const createSquareTable = ({
     return tr(...tableRowContent);
   });
 
-  return doc(table({ localId: 'localId' })(...tableContent));
+  if (tableWidth && tableWidth > 0) {
+    return doc(
+      table({ localId: 'localId', width: tableWidth })(...tableContent),
+    );
+  } else {
+    return doc(table({ localId: 'localId' })(...tableContent));
+  }
 };

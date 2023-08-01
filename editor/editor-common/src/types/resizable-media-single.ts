@@ -1,4 +1,4 @@
-import { ResolvedPos } from 'prosemirror-model';
+import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 
 export interface SnapPointsProps {
   $pos?: ResolvedPos | null;

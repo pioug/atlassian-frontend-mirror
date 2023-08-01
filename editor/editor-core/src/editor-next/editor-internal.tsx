@@ -2,7 +2,7 @@
 import { Fragment } from 'react';
 
 import { css, jsx } from '@emotion/react';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';

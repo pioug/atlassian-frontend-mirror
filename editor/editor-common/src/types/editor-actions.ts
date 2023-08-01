@@ -1,7 +1,6 @@
-import type { Node } from 'prosemirror-model';
-import type { EditorView } from 'prosemirror-view';
-
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { ResolvedEditorState } from '../collab';
 import type { EventDispatcher } from '../event-dispatcher';

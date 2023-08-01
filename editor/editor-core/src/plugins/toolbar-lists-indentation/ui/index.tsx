@@ -1,11 +1,12 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { onItemActivated } from './onItemActivated';
 
 import { ToolbarDropdown } from './ToolbarDropdown';
 import { Toolbar } from './Toolbar';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export interface Props {
   editorView: EditorView;
@@ -23,6 +24,7 @@ export interface Props {
   showIndentationButtons?: boolean;
   indentDisabled?: boolean;
   outdentDisabled?: boolean;
+  editorAnalyticsAPI?: EditorAnalyticsAPI;
 }
 
 export default function ToolbarListsIndentation(props: Props) {
@@ -41,6 +43,7 @@ export default function ToolbarListsIndentation(props: Props) {
     indentDisabled,
     outdentDisabled,
     featureFlags,
+    editorAnalyticsAPI,
   } = props;
 
   if (isSmall) {
@@ -59,7 +62,7 @@ export default function ToolbarListsIndentation(props: Props) {
         indentDisabled={indentDisabled}
         outdentDisabled={outdentDisabled}
         disabled={disabled}
-        onItemActivated={onItemActivated}
+        onItemActivated={onItemActivated(editorAnalyticsAPI)}
         featureFlags={featureFlags}
       />
     );
@@ -77,7 +80,7 @@ export default function ToolbarListsIndentation(props: Props) {
       indentDisabled={indentDisabled}
       outdentDisabled={outdentDisabled}
       disabled={disabled}
-      onItemActivated={onItemActivated}
+      onItemActivated={onItemActivated(editorAnalyticsAPI)}
       featureFlags={featureFlags}
     />
   );

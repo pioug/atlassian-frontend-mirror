@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TypeAheadItem, TypeAheadHandler } from '../../types';
 import { updateListItem } from '../../commands/update-list-items';
 

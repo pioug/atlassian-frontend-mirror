@@ -1,5 +1,5 @@
-import { Schema } from 'prosemirror-model';
-import { AddMarkStep } from 'prosemirror-transform';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
+import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
 function getStartPos(element: HTMLElement) {
   return parseInt(element.dataset.rendererStartPos || '-1', 10);

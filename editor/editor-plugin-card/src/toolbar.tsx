@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { Node, NodeType } from 'prosemirror-model';
-import { EditorState, NodeSelection } from 'prosemirror-state';
-import { findDomRefAtPos, removeSelectedNode } from 'prosemirror-utils';
 import { IntlShape } from 'react-intl-next';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
@@ -46,10 +43,17 @@ import type {
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import {
+  findDomRefAtPos,
+  removeSelectedNode,
+} from '@atlaskit/editor-prosemirror/utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { CardPlatform } from '@atlaskit/smart-card';
 
 import { changeSelectedCardToText } from './pm-plugins/doc';
@@ -63,6 +67,7 @@ import {
 } from './ui/EditLinkToolbar';
 import { LinkToolbarAppearance } from './ui/LinkToolbarAppearance';
 import { SmallerEditIcon } from './ui/SmallerEditIcon';
+import { ToolbarViewedEvent } from './ui/ToolbarViewedEvent';
 import {
   appearanceForNodeType,
   displayInfoForCard,
@@ -294,6 +299,34 @@ const withToolbarMetadata = (command: Command) =>
     inputMethod: INPUT_METHOD.FLOATING_TB,
   });
 
+const getToolbarViewedItem = (
+  url: string | undefined,
+  display: string,
+): FloatingToolbarItem<never>[] => {
+  if (!url) {
+    return [];
+  }
+
+  if (getBooleanFF('platform.linking-platform.editor.toolbar-viewed-event')) {
+    return [
+      {
+        type: 'custom',
+        fallback: [],
+        render: editorView => (
+          <ToolbarViewedEvent
+            key="edit.link.menu.viewed"
+            url={url}
+            display={display}
+            editorView={editorView}
+          />
+        ),
+      },
+    ];
+  }
+
+  return [];
+};
+
 const generateToolbarItems =
   (
     state: EditorState,
@@ -439,6 +472,7 @@ const generateToolbarItems =
       // For url appearance, please see HyperlinkToolbarAppearanceProps
       if (currentAppearance) {
         toolbarItems.unshift(
+          ...getToolbarViewedItem(url, currentAppearance),
           {
             type: 'custom',
             fallback: [],

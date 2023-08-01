@@ -1,6 +1,6 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 jest.mock('@atlaskit/editor-common/utils', () => ({
@@ -11,14 +11,11 @@ jest.mock('@atlaskit/editor-common/utils', () => ({
 }));
 import codeBlockPlugin from '../..';
 
-import {
-  doc,
-  code_block,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, code_block } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { pluginKey } from '../../plugin-key';
-import { Slice } from 'prosemirror-model';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 

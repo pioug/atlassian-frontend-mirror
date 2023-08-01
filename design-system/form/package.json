@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/form",
-  "version": "8.11.8",
+  "version": "8.11.9",
   "description": "A form allows users to input information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -16,7 +16,7 @@
   "atlaskit:src": "src/index.tsx",
   "atlaskit:designLink": "https://atlassian.design/guidelines/product/patterns/forms",
   "atlassian": {
-    "team": "Design System Fundamentals",
+    "team": "Design System Team",
     "releaseModel": "continuous",
     "website": {
       "name": "Form",

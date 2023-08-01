@@ -1,8 +1,8 @@
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import { FloatingToolbarConfig } from '../types';
+import type { FloatingToolbarConfig } from '../types';
 import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
-import { AllSelection } from 'prosemirror-state';
-import { Node } from 'prosemirror-model';
+import { AllSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { getRelevantConfig } from '../index';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 

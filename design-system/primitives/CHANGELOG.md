@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.0.8
+
+### Patch Changes
+
+- [`8986cf1ed16`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8986cf1ed16) - Reverts a change that allowed className to be applied to Box.
+
 ## 1.0.7
 
 ### Patch Changes

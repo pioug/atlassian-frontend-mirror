@@ -1,14 +1,21 @@
-import { EditorState, TextSelection } from 'prosemirror-state';
-import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
-import { Node, Slice } from 'prosemirror-model';
+import { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type {
+  DecorationSet,
+  EditorView,
+} from '@atlaskit/editor-prosemirror/view';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type {
+  RefsNode,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   layoutSection,
   layoutColumn,
   doc,
   p,
-  RefsNode,
-  DocBuilder,
   unsupportedBlock,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
@@ -16,13 +23,13 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { default as createLayoutPlugin } from '../../main';
 import { forceSectionToPresetLayout } from '../../../actions';
 import { layouts, buildLayoutForWidths } from '../../../__tests__/unit/_utils';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { pluginKey } from '../../plugin-key';
-import { LayoutState } from '../../types';
-import { PresetLayout } from '../../../types';
+import type { LayoutState } from '../../types';
+import type { PresetLayout } from '../../../types';
 
 describe('layout', () => {
   let createAnalyticsEvent: CreateUIAnalyticsEvent;

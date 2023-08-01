@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 26.4.0
+
+### Minor Changes
+
+- [`1bab0faa2c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1bab0faa2c8) - Add a new custom ProseMirror step OverrideDocumentStep for easy document replacing.
+
 ## 26.3.0
 
 ### Minor Changes

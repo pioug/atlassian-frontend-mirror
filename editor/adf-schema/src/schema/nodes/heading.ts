@@ -1,4 +1,4 @@
-import { NodeSpec } from 'prosemirror-model';
+import { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { AlignmentMarkDefinition, IndentationMarkDefinition } from '../marks';
 import { MarksObject, NoMark } from './types/mark';
 import { Inline } from './types/inline-content';

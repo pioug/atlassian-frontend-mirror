@@ -1,10 +1,13 @@
-import { Node, NodeType } from 'prosemirror-model';
-import { EditorState, NodeSelection, PluginKey } from 'prosemirror-state';
-import { findParentNodeOfType } from 'prosemirror-utils';
-import { Decoration, DecorationSet } from 'prosemirror-view';
-
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command } from '@atlaskit/editor-common/types';
+import { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
+import {
+  EditorState,
+  NodeSelection,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 export const decorationStateKey = new PluginKey('decorationPlugin');
 

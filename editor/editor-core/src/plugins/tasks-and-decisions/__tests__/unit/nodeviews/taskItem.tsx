@@ -2,11 +2,11 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { doc, p, taskItem } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { taskItemNodeViewFactory } from '../../../nodeviews/taskItem';
 import { screen, render, fireEvent } from '@testing-library/react';
-import { EditorView, NodeView } from 'prosemirror-view';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { IntlProvider } from 'react-intl-next';
 import React from 'react';
 

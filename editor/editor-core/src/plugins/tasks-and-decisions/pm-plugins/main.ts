@@ -1,14 +1,14 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { NodeSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { uuid } from '@atlaskit/adf-schema';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 
-import { Dispatch, EventDispatcher } from '../../../event-dispatcher';
-import { Command } from '../../../types';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { Dispatch, EventDispatcher } from '../../../event-dispatcher';
+import type { Command } from '../../../types';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import { nodesBetweenChanged, SetAttrsStep } from '../../../utils';
 import { createSelectionClickHandler } from '../../selection/utils';
 import { decisionItemNodeView } from '../nodeviews/decisionItem';

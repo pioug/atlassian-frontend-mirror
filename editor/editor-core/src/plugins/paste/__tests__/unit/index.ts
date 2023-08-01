@@ -1,16 +1,17 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
-  LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { toggleStrong } from '../../../text-formatting/commands/text-formatting';
 import pastePlugin from '../../index';
 import blockTypePlugin from '../../../block-type';
 import { textFormattingPlugin } from '../../../index';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -19,7 +20,6 @@ import {
   taskItem,
   decisionList,
   decisionItem,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

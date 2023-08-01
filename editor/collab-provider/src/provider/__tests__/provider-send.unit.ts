@@ -2,9 +2,9 @@ import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { Slice } from 'prosemirror-model';
-import { Step, ReplaceStep } from 'prosemirror-transform';
-import { EditorState } from 'prosemirror-state';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
+import { Step, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import type { Provider } from '../';

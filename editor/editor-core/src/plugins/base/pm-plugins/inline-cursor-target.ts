@@ -1,7 +1,9 @@
-import { DecorationSet, Decoration, EditorView } from 'prosemirror-view';
-import { Node } from 'prosemirror-model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey, EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { ZERO_WIDTH_SPACE, browser } from '@atlaskit/editor-common/utils';
 import { isTextSelection } from '../../../utils';
 

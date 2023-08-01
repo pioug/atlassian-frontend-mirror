@@ -23,7 +23,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.ts",
   "atlassian": {
-    "team": "Design System Maker Experience",
+    "team": "Design System Team",
     "releaseModel": "continuous",
     "website": {
       "name": "Tooltip",

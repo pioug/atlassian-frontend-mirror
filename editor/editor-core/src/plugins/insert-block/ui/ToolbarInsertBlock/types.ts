@@ -2,7 +2,7 @@ import type {
   INPUT_METHOD,
   DispatchAnalyticsEvent,
 } from '@atlaskit/editor-common/analytics';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
   EditorActionsOptions as EditorActions,
   FeatureFlags,
@@ -14,7 +14,7 @@ import type { EmojiProvider } from '@atlaskit/emoji';
 import type { BlockType } from '../../../block-type/types';
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type { MenuItem } from '../../../../ui/DropdownMenu/types';
-import type { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { BlockMenuItem } from './create-items';
 import type insertBlockPlugin from '../../index';
 

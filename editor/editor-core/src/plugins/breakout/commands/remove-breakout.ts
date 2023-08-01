@@ -1,6 +1,6 @@
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 import { findSupportedNodeForBreakout } from '../utils/find-breakout-node';
-import { NodeSelection } from 'prosemirror-state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 export function removeBreakout(): Command {
   return (state, dispatch) => {

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
-import { Node as PmNode } from 'prosemirror-model';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import EditorFileIcon from '@atlaskit/icon/glyph/editor/file';
 import { getExtensionLozengeData } from '@atlaskit/editor-common/utils';
 import {

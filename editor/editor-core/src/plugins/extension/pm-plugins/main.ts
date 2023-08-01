@@ -1,7 +1,7 @@
-import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import {
+import type {
   ExtensionHandlers,
   ExtensionProvider,
   UpdateExtension,
@@ -9,15 +9,15 @@ import {
   ExtensionHandler,
 } from '@atlaskit/editor-common/extensions';
 
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { EditorAppearance } from '../../../types/editor-appearance';
-import {
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { EditorAppearance } from '../../../types/editor-appearance';
+import type {
   Dispatch,
   EventDispatcher,
 } from '@atlaskit/editor-common/event-dispatcher';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
 import { createSelectionClickHandler } from '../../selection/utils';
 import ExtensionNodeView from '../nodeviews/extension';

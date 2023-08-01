@@ -35,7 +35,7 @@ import { throttledCommitStep } from '../../provider/commit-step';
 import { createMockService } from './document-service.mock';
 import step from '../../helpers/__tests__/__fixtures__/clean-step-for-empty-doc.json';
 import emptyDoc from '../../helpers/__tests__/__fixtures__/empty-document.json';
-import { Step as ProseMirrorStep } from 'prosemirror-transform';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 
 const proseMirrorStep = ProseMirrorStep.fromJSON(

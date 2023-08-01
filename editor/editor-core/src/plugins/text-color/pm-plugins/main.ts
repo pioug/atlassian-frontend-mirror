@@ -1,9 +1,10 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, PluginKey } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-import { Dispatch } from '../../../event-dispatcher';
+import type { Dispatch } from '../../../event-dispatcher';
 import { textColorPalette } from '../../../ui/ColorPalette/Palettes/textColorPalette';
-import { PaletteColor } from '../../../ui/ColorPalette/Palettes/type';
+import type { PaletteColor } from '../../../ui/ColorPalette/Palettes/type';
 import { DEFAULT_BORDER_COLOR } from '../../../ui/ColorPalette/Palettes/common';
 import { DEFAULT_COLOR, getActiveColor } from '../utils/color';
 import { getDisabledState } from '../utils/disabled';

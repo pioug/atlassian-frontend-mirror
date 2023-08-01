@@ -1,4 +1,4 @@
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findSupportedNodeForBreakout } from './find-breakout-node';
 
 /**

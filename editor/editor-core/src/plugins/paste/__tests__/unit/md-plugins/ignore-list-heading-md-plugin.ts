@@ -1,14 +1,9 @@
-import {
-  doc,
-  p,
-  ul,
-  li,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, ul, li } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 // Editor Plugins
@@ -21,6 +16,7 @@ import textFormattingPlugin from '../../../../text-formatting';
 
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('Paste Markdown Plugins', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -30,6 +26,7 @@ describe('Paste Markdown Plugins', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
         .add(hyperlinkPlugin)
         .add([pastePlugin, {}])
         .add([listPlugin])

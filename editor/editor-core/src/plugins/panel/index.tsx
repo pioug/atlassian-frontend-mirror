@@ -1,8 +1,9 @@
 import React from 'react';
-import { panel, PanelType, PanelAttributes } from '@atlaskit/adf-schema';
-import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-import { EditorState } from 'prosemirror-state';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { PanelAttributes } from '@atlaskit/adf-schema';
+import { panel, PanelType } from '@atlaskit/adf-schema';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
 import keymap from './pm-plugins/keymaps';
@@ -22,10 +23,10 @@ import {
   IconPanelError,
 } from '@atlaskit/editor-common/quick-insert';
 import { messages } from '../block-type/messages';
-import { PanelPluginOptions } from './types';
+import type { PanelPluginOptions } from './types';
 import { IconCustomPanel } from '@atlaskit/editor-common/quick-insert';
 import { T50 } from '@atlaskit/theme/colors';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 // Theres an existing interelationship between these files, where the imported function is being called for panel
 // Insertions via the drop down menu

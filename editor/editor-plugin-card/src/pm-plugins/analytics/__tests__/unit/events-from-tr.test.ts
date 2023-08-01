@@ -1,7 +1,6 @@
-import { Fragment, Slice } from 'prosemirror-model';
-
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   a,

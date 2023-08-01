@@ -1,12 +1,17 @@
-import { ResolvedPos, Fragment, Slice, NodeType } from 'prosemirror-model';
-import { Transaction, NodeSelection, TextSelection } from 'prosemirror-state';
-import { StepResult } from 'prosemirror-transform';
-import { EditorView } from 'prosemirror-view';
-import * as baseCommand from 'prosemirror-commands';
+import type { ResolvedPos, NodeType } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
-  hasParentNodeOfType,
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { StepResult } from '@atlaskit/editor-prosemirror/transform';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import * as baseCommand from '@atlaskit/editor-prosemirror/commands';
+import {
   findPositionOfNodeBefore,
-} from 'prosemirror-utils';
+  hasParentNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
 import { hasVisibleContent } from '../../../utils/document';
 import {
   findCutBefore,
@@ -21,7 +26,7 @@ import {
   liftTextSelectionList,
   liftNodeSelectionList,
 } from '../transforms';
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 import {
   ACTION,
@@ -29,8 +34,8 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-  addAnalytics,
-} from '../../analytics';
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
   isInsideListItem,
   canJoinToPreviousListItem,
@@ -51,6 +56,7 @@ export { outdentList, indentList };
 export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
 export const enterKeyCommand =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (featureFlags: FeatureFlags): Command =>
   (state, dispatch): boolean => {
     const { selection } = state;
@@ -63,10 +69,10 @@ export const enterKeyCommand =
         /** Check if the wrapper has any visible content */
         const wrapperHasContent = hasVisibleContent(wrapper);
         if (!wrapperHasContent) {
-          return outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
-            state,
-            dispatch,
-          );
+          return outdentList(editorAnalyticsAPI)(
+            INPUT_METHOD.KEYBOARD,
+            featureFlags,
+          )(state, dispatch);
         } else if (!hasParentNodeOfType(codeBlock)(selection)) {
           return splitListItem(listItem)(state, dispatch);
         }
@@ -76,10 +82,11 @@ export const enterKeyCommand =
   };
 
 export const backspaceKeyCommand =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (featureFlags: FeatureFlags): Command =>
   (state, dispatch) => {
     return baseCommand.chainCommands(
-      listBackspace,
+      listBackspace(editorAnalyticsAPI),
       // if we're at the start of a list item, we need to either backspace
       // directly to an empty list item above, or outdent this node
       filter(
@@ -92,7 +99,7 @@ export const backspaceKeyCommand =
         ],
         baseCommand.chainCommands(
           deletePreviousEmptyListItem,
-          outdentList(INPUT_METHOD.KEYBOARD, featureFlags),
+          outdentList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, featureFlags),
         ),
       ),
 
@@ -105,7 +112,9 @@ export const backspaceKeyCommand =
     )(state, dispatch);
   };
 
-export const deleteKeyCommand: Command = joinListItemForward;
+export const deleteKeyCommand = (
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) => joinListItemForward(editorAnalyticsAPI);
 
 // Get the depth of the nearest ancestor list
 export const rootListDepth = (
@@ -149,117 +158,126 @@ function untoggleSelectedList(tr: Transaction) {
   return liftTextSelectionList(selection, tr);
 }
 
-export function toggleList(
-  inputMethod: InputMethod,
-  listType: 'bulletList' | 'orderedList',
-): Command {
-  return function (state, dispatch) {
-    let tr = state.tr;
-    const listInsideSelection = selectionContainsList(tr);
-    const listNodeType: NodeType = state.schema.nodes[listType];
+export const toggleList =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    inputMethod: InputMethod,
+    listType: 'bulletList' | 'orderedList',
+  ): Command => {
+    return function (state, dispatch) {
+      let tr = state.tr;
+      const listInsideSelection = selectionContainsList(tr);
+      const listNodeType: NodeType = state.schema.nodes[listType];
 
-    const actionSubjectId =
-      listType === 'bulletList'
-        ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
-        : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
-
-    if (listInsideSelection) {
-      const { selection } = state;
-
-      // for gap cursor or node selection - list is expected 1 level up (listItem -> list)
-      // for text selection - list is expected 2 levels up (paragraph -> listItem -> list)
-      const positionDiff =
-        selection instanceof GapCursorSelection ||
-        selection instanceof NodeSelection
-          ? 1
-          : 2;
-      const fromNode = selection.$from.node(
-        selection.$from.depth - positionDiff,
-      );
-      const toNode = selection.$to.node(selection.$to.depth - positionDiff);
-
-      const transformedFrom =
-        listInsideSelection.type.name === 'bulletList'
+      const actionSubjectId =
+        listType === 'bulletList'
           ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
           : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
-      if (fromNode?.type.name === listType && toNode?.type.name === listType) {
-        let tr = state.tr;
-        untoggleSelectedList(tr);
-        addAnalytics(state, tr, {
+      if (listInsideSelection) {
+        const { selection } = state;
+
+        // for gap cursor or node selection - list is expected 1 level up (listItem -> list)
+        // for text selection - list is expected 2 levels up (paragraph -> listItem -> list)
+        const positionDiff =
+          selection instanceof GapCursorSelection ||
+          selection instanceof NodeSelection
+            ? 1
+            : 2;
+        const fromNode = selection.$from.node(
+          selection.$from.depth - positionDiff,
+        );
+        const toNode = selection.$to.node(selection.$to.depth - positionDiff);
+
+        const transformedFrom =
+          listInsideSelection.type.name === 'bulletList'
+            ? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
+            : ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
+
+        if (
+          fromNode?.type.name === listType &&
+          toNode?.type.name === listType
+        ) {
+          let tr = state.tr;
+          untoggleSelectedList(tr);
+          editorAnalyticsAPI?.attachAnalyticsEvent({
+            action: ACTION.CONVERTED,
+            actionSubject: ACTION_SUBJECT.LIST,
+            actionSubjectId: ACTION_SUBJECT_ID.TEXT,
+            eventType: EVENT_TYPE.TRACK,
+            attributes: {
+              ...getCommonListAnalyticsAttributes(state),
+              transformedFrom,
+              inputMethod,
+            },
+          })(tr);
+          if (dispatch) {
+            dispatch(tr);
+          }
+          return true;
+        }
+
+        convertListType({ tr, nextListNodeType: listNodeType });
+        editorAnalyticsAPI?.attachAnalyticsEvent({
           action: ACTION.CONVERTED,
           actionSubject: ACTION_SUBJECT.LIST,
-          actionSubjectId: ACTION_SUBJECT_ID.TEXT,
+          actionSubjectId,
           eventType: EVENT_TYPE.TRACK,
           attributes: {
             ...getCommonListAnalyticsAttributes(state),
             transformedFrom,
             inputMethod,
           },
-        });
-        if (dispatch) {
-          dispatch(tr);
-        }
-        return true;
+        })(tr);
+      } else {
+        // Need to have this before wrapInList so the wrapping is done with valid content
+        // For example, if trying to convert centre or right aligned paragraphs to lists
+        sanitiseMarksInSelection(tr, listNodeType);
+
+        wrapInListAndJoin(listNodeType, tr);
+
+        editorAnalyticsAPI?.attachAnalyticsEvent({
+          action: ACTION.INSERTED,
+          actionSubject: ACTION_SUBJECT.LIST,
+          actionSubjectId,
+          eventType: EVENT_TYPE.TRACK,
+          attributes: {
+            inputMethod,
+          },
+        })(tr);
       }
 
-      convertListType({ tr, nextListNodeType: listNodeType });
-      addAnalytics(state, tr, {
-        action: ACTION.CONVERTED,
-        actionSubject: ACTION_SUBJECT.LIST,
-        actionSubjectId,
-        eventType: EVENT_TYPE.TRACK,
-        attributes: {
-          ...getCommonListAnalyticsAttributes(state),
-          transformedFrom,
-          inputMethod,
-        },
-      });
-    } else {
-      // Need to have this before wrapInList so the wrapping is done with valid content
-      // For example, if trying to convert centre or right aligned paragraphs to lists
-      sanitiseMarksInSelection(tr, listNodeType);
+      // If document wasn't changed, return false from the command to indicate that the
+      // editing action failed
+      if (!tr.docChanged) {
+        return false;
+      }
 
-      wrapInListAndJoin(listNodeType, tr);
+      if (dispatch) {
+        dispatch(tr);
+      }
 
-      addAnalytics(state, tr, {
-        action: ACTION.INSERTED,
-        actionSubject: ACTION_SUBJECT.LIST,
-        actionSubjectId,
-        eventType: EVENT_TYPE.TRACK,
-        attributes: {
-          inputMethod,
-        },
-      });
-    }
-
-    // If document wasn't changed, return false from the command to indicate that the
-    // editing action failed
-    if (!tr.docChanged) {
-      return false;
-    }
-
-    if (dispatch) {
-      dispatch(tr);
-    }
-
-    return true;
+      return true;
+    };
   };
-}
 
-export function toggleBulletList(
-  view: EditorView,
-  inputMethod: InputMethod = INPUT_METHOD.TOOLBAR,
-) {
-  return toggleList(inputMethod, 'bulletList')(view.state, view.dispatch);
-}
+export const toggleBulletList =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (view: EditorView, inputMethod: InputMethod = INPUT_METHOD.TOOLBAR) => {
+    return toggleList(editorAnalyticsAPI)(inputMethod, 'bulletList')(
+      view.state,
+      view.dispatch,
+    );
+  };
 
-export function toggleOrderedList(
-  view: EditorView,
-  inputMethod: InputMethod = INPUT_METHOD.TOOLBAR,
-) {
-  return toggleList(inputMethod, 'orderedList')(view.state, view.dispatch);
-}
+export const toggleOrderedList =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (view: EditorView, inputMethod: InputMethod = INPUT_METHOD.TOOLBAR) => {
+    return toggleList(editorAnalyticsAPI)(inputMethod, 'orderedList')(
+      view.state,
+      view.dispatch,
+    );
+  };
 
 /**
  * Implementation taken and modified for our needs from PM

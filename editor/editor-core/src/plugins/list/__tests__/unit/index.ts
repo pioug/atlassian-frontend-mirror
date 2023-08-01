@@ -101,27 +101,27 @@ describe('lists', () => {
     it('should allow toggling between normal text and ordered list', () => {
       const { editorView } = editor(doc(p('t{a}ex{b}t')));
 
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(doc(ol()(li(p('text')))));
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
     it('should allow toggling between normal text and bullet list', () => {
       const { editorView } = editor(doc(p('t{<}ex{>}t')));
 
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(doc(ul(li(p('text')))));
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
     it('should allow toggling between ordered and bullet list', () => {
       const { editorView } = editor(doc(ol()(li(p('t{<}ex{>}t')))));
 
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(doc(ul(li(p('text')))));
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -148,14 +148,14 @@ describe('lists', () => {
         ),
       );
 
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(expectedOutput);
     });
 
     it('should retain text selection when toggling a list', () => {
       const { editorView } = editor(doc(p('hello{<>}')));
 
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       // If the text is not selected, pressing enter will
       // create a new paragraph. If it is selected the
       // 'hello' text will be removed
@@ -193,7 +193,7 @@ describe('lists', () => {
         ),
       );
 
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(expectedOutput);
     });
 
@@ -202,7 +202,7 @@ describe('lists', () => {
         doc(ol()(li(p('{<}One')), li(p('Two')), li(p()), li(p('Three{>}')))),
       );
 
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(
         doc(p('One'), p('Two'), p(), p('Three')),
       );
@@ -225,7 +225,7 @@ describe('lists', () => {
         ),
       );
 
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(
         // prettier-ignore
         doc(
@@ -253,7 +253,7 @@ describe('lists', () => {
         ),
       );
 
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           table({ localId: TABLE_LOCAL_ID })(
@@ -270,7 +270,7 @@ describe('lists', () => {
         doc(ol()(li(p('text'), ol()(li(p('text{<>}')))), li(p('text')))),
       );
 
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(ol()(li(p('text'))), p('text{<>}'), ol()(li(p('text')))),
@@ -282,7 +282,7 @@ describe('lists', () => {
         doc(ol()(li(p('text'), ol()(li(p('{<>}')))), li(p('text')))),
       );
 
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(ol()(li(p('text'))), p('{<>}'), ol()(li(p('text')))),
@@ -294,7 +294,7 @@ describe('lists', () => {
         doc(ol()(li(p('te{<}xt'), ol()(li(p('text{>}')))), li(p('text')))),
       );
 
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p('te{<}xt'), p('text{>}'), ol()(li(p('text')))),
@@ -309,7 +309,7 @@ describe('lists', () => {
         ),
       );
 
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p('te{<}xt'), p('text'), p('te{>}xt'), ol()(li(p('text')))),
@@ -326,7 +326,7 @@ describe('lists', () => {
         ),
       );
 
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -347,7 +347,7 @@ describe('lists', () => {
         ),
       );
 
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -558,6 +558,7 @@ describe('restart numbered lists', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, { restartNumberedLists: true }])
+      .add([analyticsPlugin, {}])
       .add([listPlugin, { restartNumberedLists: true }]);
 
     return createEditor({

@@ -1,16 +1,16 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Caption } from '@atlaskit/editor-common/ui';
 
-import {
+import type {
   getPosHandler,
   getPosHandlerNode,
   ForwardRef,
 } from '../../../nodeviews/';
 import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type captionPlugin from '../index';
 

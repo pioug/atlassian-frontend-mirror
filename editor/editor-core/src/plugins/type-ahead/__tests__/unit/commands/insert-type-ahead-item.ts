@@ -1,16 +1,17 @@
 import { insertTypeAheadItem } from '../../../commands/insert-type-ahead-item';
-import { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import typeAheadPlugin from '../../../';
-import { EditorView } from 'prosemirror-view';
-import { TypeAheadHandler } from '../../../types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { TypeAheadHandler } from '../../../types';
 
 describe('typeahead plugin -> commands -> insert-type-ahead-item', () => {
   let editor: any;

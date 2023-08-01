@@ -1,5 +1,4 @@
-import { Transaction } from 'prosemirror-state';
-
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 

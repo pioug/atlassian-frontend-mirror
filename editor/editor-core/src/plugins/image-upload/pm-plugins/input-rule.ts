@@ -1,8 +1,8 @@
-import { Schema } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 import { createExternalMediaNode } from '../utils';
-import { FeatureFlags } from '../../../types/feature-flags';
+import type { FeatureFlags } from '../../../types/feature-flags';
 
 export function inputRulePlugin(
   schema: Schema,

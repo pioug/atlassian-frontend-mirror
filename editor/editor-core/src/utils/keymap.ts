@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { keydownHandler } from 'prosemirror-keymap';
+import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { base, keyName } from 'w3c-keyname';
 
 /**

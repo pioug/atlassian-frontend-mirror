@@ -29,13 +29,8 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0",
-    "prosemirror-keymap": "1.1.4",
-    "prosemirror-model": "1.16.0",
-    "prosemirror-state": "1.3.4",
-    "prosemirror-transform": "1.3.2",
-    "prosemirror-utils": "^1.0.0-0",
-    "prosemirror-view": "1.23.7"
+    "@atlaskit/editor-prosemirror": "1.0.2",
+    "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {
     "@atlaskit/editor-test-helpers": "^18.10.0",

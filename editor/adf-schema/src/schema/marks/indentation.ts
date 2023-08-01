@@ -1,4 +1,4 @@
-import { MarkSpec } from 'prosemirror-model';
+import { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 import { ALIGNMENT, INDENTATION } from '../groups';
 
 export interface IndentationMarkAttributes {

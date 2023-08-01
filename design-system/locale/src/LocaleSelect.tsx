@@ -7,6 +7,7 @@ export type Locale = {
 };
 
 export type LocaleSelectProps = {
+  id?: string;
   locales: Locale[];
   defaultLocale: Locale;
   onLocaleChange: (locale: Locale) => void;
@@ -49,10 +50,11 @@ export default class LocaleSelect extends Component<LocaleSelectProps> {
   };
 
   render() {
-    const { locales, defaultLocale, onLocaleChange } = this.props;
+    const { locales, defaultLocale, onLocaleChange, id } = this.props;
 
     return (
       <Select<Locale>
+        inputId={id}
         options={locales}
         defaultValue={defaultLocale}
         onChange={(locale) => onLocaleChange(locale as Locale)}

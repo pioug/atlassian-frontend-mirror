@@ -1,5 +1,5 @@
 import React from 'react';
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 import { orderedListSelector } from '@atlaskit/adf-schema';
 import { getOrderedListInlineStyles } from '@atlaskit/editor-common/styles';
 

@@ -319,6 +319,20 @@ export const trackSmartLinkQuickActionFailed = ({
   },
 });
 
+export const trackHoverCardResolutionStarted = ({
+  display,
+  ...attributes
+}: UiAuthEventProps): AnalyticsPayload => ({
+  action: 'resolved',
+  actionSubject: 'hoverCard',
+  eventType: 'track',
+  attributes: {
+    ...context,
+    ...attributes,
+    display,
+  },
+});
+
 export const uiAuthEvent = ({
   definitionId,
   extensionKey,

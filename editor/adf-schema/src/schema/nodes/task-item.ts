@@ -1,4 +1,4 @@
-import { Node, NodeSpec } from 'prosemirror-model';
+import { Node, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { uuid } from '../../utils/uuid';
 import { Inline } from './types/inline-content';
 

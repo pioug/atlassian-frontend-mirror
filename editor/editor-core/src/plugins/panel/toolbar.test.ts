@@ -2,42 +2,39 @@ import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { getToolbarItems, panelIconMap } from './toolbar';
-import { IntlShape, MessageDescriptor, createIntl } from 'react-intl-next';
+import type { IntlShape, MessageDescriptor } from 'react-intl-next';
+import { createIntl } from 'react-intl-next';
 import * as actions from '../panel/actions';
-import { PanelOptions } from './pm-plugins/main';
-import {
+import type { PanelOptions } from './pm-plugins/main';
+import type {
   FloatingToolbarButton,
   FloatingToolbarColorPicker,
   FloatingToolbarEmojiPicker,
 } from '../floating-toolbar/types';
 import { DEFAULT_BORDER_COLOR } from '../../ui/ColorPalette/Palettes';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import panelPlugin from '.';
-import {
-  doc,
-  DocBuilder,
-  p,
-  panel,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, panel } from '@atlaskit/editor-test-helpers/doc-builder';
 import { PanelType } from '@atlaskit/adf-schema';
 import deprecatedAnalyticsPlugin from '../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnalyticsEventPayload } from '../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
 } from '../analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { emojiPluginKey } from '../emoji';
 import { G75 } from '@atlaskit/theme/colors';
-import { EmojiId } from '@atlaskit/emoji';
+import type { EmojiId } from '@atlaskit/emoji';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 const dummyFormatMessage = (messageDescriptor: MessageDescriptor) =>

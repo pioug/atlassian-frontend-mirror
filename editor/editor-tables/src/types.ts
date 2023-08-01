@@ -1,6 +1,6 @@
-import { Fragment, ResolvedPos } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { Fragment, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 // copied CellAttributes from adf-schema to avoid dependency cycles
 export interface CellAttributes {

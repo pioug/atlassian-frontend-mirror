@@ -1,4 +1,4 @@
-import { NodeSpec } from 'prosemirror-model';
+import { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { InlineFormattedText, InlineCode } from './types/inline-content';
 import { HardBreakDefinition as HardBreak } from './hard-break';
 import { MentionDefinition as Mention } from './mention';

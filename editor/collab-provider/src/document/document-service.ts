@@ -5,7 +5,7 @@ import type {
   SyncUpErrorFunction,
   ResolvedEditorState,
 } from '@atlaskit/editor-common/collab';
-import type { Step as ProseMirrorStep } from 'prosemirror-transform';
+import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import type { MetadataService } from '../metadata/metadata-service';
 
 import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
@@ -15,8 +15,11 @@ import type {
   StepJson,
 } from '@atlaskit/editor-common/collab';
 
-import type { EditorState, Transaction } from 'prosemirror-state';
-import type { Node as PMNode } from 'prosemirror-model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import {
   UGCFreeStepDetails,

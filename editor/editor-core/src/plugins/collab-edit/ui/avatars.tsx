@@ -1,16 +1,16 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import AvatarGroup from '@atlaskit/avatar-group';
 
 import { avatarContainer } from './styles';
-import { ReadOnlyParticipants } from '../participants';
+import type { ReadOnlyParticipants } from '../participants';
 import toAvatar from './to-avatar';
 import type { CollabParticipant } from '@atlaskit/collab-provider';
 import { scrollToCollabCursor } from '../utils';
-import { AnalyticsEvent } from '@atlaskit/analytics-next';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { AnalyticsEvent } from '@atlaskit/analytics-next';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export interface AvatarsProps {
   sessionId?: string;

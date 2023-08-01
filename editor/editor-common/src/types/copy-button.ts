@@ -1,6 +1,7 @@
-import type { MarkType, NodeType } from 'prosemirror-model';
-import type { EditorState } from 'prosemirror-state';
 import type { IntlShape } from 'react-intl-next';
+
+import type { MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import { Command } from './command';
 

@@ -11,7 +11,11 @@ import {
   akEditorFullPageMaxWidth,
   akEditorTableNumberColumnWidth,
 } from '@atlaskit/editor-shared-styles/consts';
-import { Fragment, Node as PMNode, Schema } from 'prosemirror-model';
+import {
+  Fragment,
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import parseCxhtml from './parse-cxhtml';
 import { AC_XMLNS, default as encodeCxhtml } from './encode-cxhtml';
 import {

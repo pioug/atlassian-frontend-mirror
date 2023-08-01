@@ -3,7 +3,7 @@ import uuid from 'uuid';
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { ELEMENTS_CHANNEL } from '@atlaskit/mention/resource';
 import { mention } from '@atlaskit/adf-schema';
-import type { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type {
   NextEditorPlugin,
   OptionalPlugin,

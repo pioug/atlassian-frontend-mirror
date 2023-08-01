@@ -1,12 +1,3 @@
-import { Node as PmNode } from 'prosemirror-model';
-import {
-  EditorState,
-  Selection,
-  TextSelection,
-  Transaction,
-} from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION_SUBJECT,
@@ -21,6 +12,14 @@ import {
   isLastItemMediaGroup,
   setNodeSelection,
 } from '@atlaskit/editor-common/utils';
+import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import {
+  EditorState,
+  Selection,
+  TextSelection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {

@@ -1,8 +1,6 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -15,6 +13,8 @@ import {
 } from '@atlaskit/editor-common/react-node-view';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { SmartCardContext } from '@atlaskit/link-provider';
 import { APIError, CardPlatform } from '@atlaskit/smart-card';
 

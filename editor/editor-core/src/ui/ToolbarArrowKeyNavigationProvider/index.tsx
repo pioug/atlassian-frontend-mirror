@@ -2,12 +2,13 @@
 /* eslint-disable no-console */
 import { jsx } from '@emotion/react';
 import { centeredToolbarContainer } from '../styles';
-import { EditorAppearance } from '../../types';
-import { EditorView } from 'prosemirror-view';
-import React, { ReactNode, useCallback, useLayoutEffect, useRef } from 'react';
-import { UseStickyToolbarType } from '../../types/editor-props';
+import type { EditorAppearance } from '../../types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { ReactNode } from 'react';
+import React, { useCallback, useLayoutEffect, useRef } from 'react';
+import type { UseStickyToolbarType } from '../../types/editor-props';
 import { EDIT_AREA_ID } from '../../create-editor/ReactEditorViewInternal';
-import { IntlShape } from 'react-intl-next/src/types';
+import type { IntlShape } from 'react-intl-next/src/types';
 import messages from '../Appearance/FullPage/messages';
 
 export interface KeyDownHandlerContext {

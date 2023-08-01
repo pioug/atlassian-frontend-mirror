@@ -1,7 +1,11 @@
-import { closeHistory } from 'prosemirror-history';
-import { Fragment, Node as PMNode, Schema } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
-import type { EditorView } from 'prosemirror-view';
+import { closeHistory } from '@atlaskit/editor-prosemirror/history';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
   InsertTypeAheadStages,

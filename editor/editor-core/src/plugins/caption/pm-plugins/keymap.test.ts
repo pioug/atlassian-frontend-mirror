@@ -1,17 +1,20 @@
 import { sendKeyToPm } from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   caption,
   doc,
   media,
   mediaSingle,
   p,
-  RefsNode,
   panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Schema } from 'prosemirror-model';
-import { NodeSelection, TextSelection } from 'prosemirror-state';
-import { findParentNodeOfType } from 'prosemirror-utils';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { GapCursorSelection } from '../../selection/gap-cursor/selection';
 
 const createEditorTestingLibrary = createEditorFactory();

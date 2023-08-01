@@ -1,22 +1,14 @@
-import {
-  doc,
-  ul,
-  ol,
-  li,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
-import {
-  UIAnalyticsEvent,
-  CreateUIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, ul, ol, li, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { indentList } from '../../../commands/indent-list';
-import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../../analytics';
+import { indentList } from '../../../commands';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import listPlugin from '../../..';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -24,17 +16,15 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 describe('lists plugin -> commands -> outdentList', () => {
   const createProseMirrorEditor = createProsemirrorEditorFactory();
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
-
-  beforeEach(() => {
-    createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-  });
+  const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
+    attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
+  };
 
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
-      .add(listPlugin)
       .add([analyticsPlugin, { createAnalyticsEvent }])
-      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
+      .add(listPlugin);
 
     return createProseMirrorEditor({
       doc,
@@ -83,7 +73,7 @@ describe('lists plugin -> commands -> outdentList', () => {
 
       it('should return true', () => {
         const { editorView } = editor(document);
-        const result = indentList(INPUT_METHOD.KEYBOARD)(
+        const result = indentList(undefined)(INPUT_METHOD.KEYBOARD)(
           editorView.state,
           editorView.dispatch,
         );
@@ -92,11 +82,13 @@ describe('lists plugin -> commands -> outdentList', () => {
 
       it('should not call analytics', () => {
         const { editorView } = editor(document);
-        indentList(INPUT_METHOD.KEYBOARD)(
+        indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD)(
           editorView.state,
           editorView.dispatch,
         );
-        expect(createAnalyticsEvent).not.toHaveBeenCalled();
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).not.toHaveBeenCalled();
       });
     });
 
@@ -115,7 +107,7 @@ describe('lists plugin -> commands -> outdentList', () => {
 
       it('should return true', () => {
         const { editorView } = editor(document);
-        const result = indentList(INPUT_METHOD.KEYBOARD)(
+        const result = indentList(undefined)(INPUT_METHOD.KEYBOARD)(
           editorView.state,
           editorView.dispatch,
         );
@@ -124,11 +116,13 @@ describe('lists plugin -> commands -> outdentList', () => {
 
       it('should not call analytics', () => {
         const { editorView } = editor(document);
-        indentList(INPUT_METHOD.KEYBOARD)(
+        indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD)(
           editorView.state,
           editorView.dispatch,
         );
-        expect(createAnalyticsEvent).not.toHaveBeenCalled();
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).not.toHaveBeenCalled();
       });
     });
 
@@ -147,7 +141,7 @@ describe('lists plugin -> commands -> outdentList', () => {
 
       it('should return true', () => {
         const { editorView } = editor(document);
-        const result = indentList(INPUT_METHOD.KEYBOARD)(
+        const result = indentList(undefined)(INPUT_METHOD.KEYBOARD)(
           editorView.state,
           editorView.dispatch,
         );
@@ -156,11 +150,13 @@ describe('lists plugin -> commands -> outdentList', () => {
 
       it('should not call analytics', () => {
         const { editorView } = editor(document);
-        indentList(INPUT_METHOD.KEYBOARD)(
+        indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD)(
           editorView.state,
           editorView.dispatch,
         );
-        expect(createAnalyticsEvent).not.toHaveBeenCalled();
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).not.toHaveBeenCalled();
       });
     });
 
@@ -180,11 +176,13 @@ describe('lists plugin -> commands -> outdentList', () => {
 
       it('should call indent analytics', () => {
         const { editorView } = editor(document);
-        indentList(INPUT_METHOD.KEYBOARD)(
+        indentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD)(
           editorView.state,
           editorView.dispatch,
         );
-        expect(createAnalyticsEvent).toHaveBeenCalledWith({
+        expect(
+          editorAnalyticsAPIFake.attachAnalyticsEvent,
+        ).toHaveBeenCalledWith({
           action: 'indented',
           actionSubject: 'list',
           actionSubjectId: 'bulletedList',

@@ -1,4 +1,4 @@
-import { Node, NodeSpec } from 'prosemirror-model';
+import { Node, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { TaskItemDefinition as TaskItemNode } from './task-item';
 import { uuid } from '../../utils/uuid';
 

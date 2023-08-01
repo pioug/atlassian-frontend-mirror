@@ -1,10 +1,10 @@
-import { Transaction, TextSelection } from 'prosemirror-state';
-import { NodeType, NodeRange } from 'prosemirror-model';
-import { findWrapping } from 'prosemirror-transform';
-import {
-  ContentNodeWithPos,
-  findParentNodeClosestToPos,
-} from 'prosemirror-utils';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { NodeRange } from '@atlaskit/editor-prosemirror/model';
+import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { isListNode, joinSiblingLists } from '../utils/node';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import { findFirstParentListNode } from '../utils/find';

@@ -4,7 +4,7 @@
  * `Presets` - if the generics get too unwieldy, we may redesign how presets
  * are put together - but for now `Builder` & `Preset` aim to beinterchangeable.
  */
-import type { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { EditorPlugin } from './editor-plugin';
 

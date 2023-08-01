@@ -1,7 +1,6 @@
-import { Node, NodeType } from 'prosemirror-model';
-import { EditorState, NodeSelection } from 'prosemirror-state';
-
 import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
+import { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { pluginKey } from './pm-plugins/plugin-key';
 import type { CardInfo, CardPluginState } from './types';

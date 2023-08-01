@@ -1,13 +1,14 @@
-import { EditorState, TextSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import { Command } from '../../types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Command } from '../../types';
+import type { TRIGGER_METHOD } from '../analytics';
 import {
   withAnalytics,
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   INPUT_METHOD,
-  TRIGGER_METHOD,
 } from '../analytics';
 import {
   activate,

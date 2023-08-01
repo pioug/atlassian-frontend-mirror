@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { rule } from '@atlaskit/adf-schema';
 
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import {
   ACTION,
   ACTION_SUBJECT,

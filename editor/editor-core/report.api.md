@@ -1129,10 +1129,21 @@ export function getDefaultPresetOptionsFromEditorProps(
 
 // @public (undocumented)
 export const getListCommands: () => {
-  indentList: typeof indentList;
-  outdentList: typeof outdentList;
-  toggleOrderedList: typeof toggleOrderedList;
-  toggleBulletList: typeof toggleBulletList;
+  indentList: (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  ) => (inputMethod?: INPUT_METHOD | INPUT_METHOD) => Command;
+  outdentList: (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  ) => (
+    inputMethod: (INPUT_METHOD | INPUT_METHOD) | undefined,
+    featureFlags: EditorFeatureFlags,
+  ) => Command;
+  toggleOrderedList: (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  ) => (view: EditorView, inputMethod?: ListInputMethod) => boolean;
+  toggleBulletList: (
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  ) => (view: EditorView, inputMethod?: ListInputMethod) => boolean;
 };
 
 // @public (undocumented)
@@ -1157,9 +1168,6 @@ export interface HistoryPluginState {
   // (undocumented)
   canUndo: boolean;
 }
-
-// @public (undocumented)
-function indentList(inputMethod?: InputMethod): Command;
 
 // @public (undocumented)
 export type InlineCommentAnnotationProvider = AnnotationTypeProvider<
@@ -1189,12 +1197,6 @@ export type InlineCommentViewComponentProps = AnnotationComponentProps & {
 };
 
 export { INPUT_METHOD };
-
-// @public (undocumented)
-type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
-
-// @public (undocumented)
-type InputMethod_2 = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
 
 // @public (undocumented)
 export type InsertBlockInputMethodToolbar =
@@ -1695,12 +1697,6 @@ type OnEditorViewStateUpdated = (props: {
 
 // @public (undocumented)
 export const openDatePicker: () => Command;
-
-// @public (undocumented)
-function outdentList(
-  inputMethod: InputMethod_2 | undefined,
-  featureFlags: EditorFeatureFlags,
-): Command;
 
 export { PaletteColor };
 
@@ -2275,12 +2271,6 @@ interface TextSelectionData {
 }
 
 // @public (undocumented)
-function toggleBulletList(
-  view: EditorView,
-  inputMethod?: ListInputMethod,
-): boolean;
-
-// @public (undocumented)
 export const toggleCode: () => Command_2;
 
 // @public (undocumented)
@@ -2303,12 +2293,6 @@ export const toggleEmWithAnalytics: (
 }: {
   inputMethod: TextFormattingInputMethodBasic;
 }) => Command_2;
-
-// @public (undocumented)
-function toggleOrderedList(
-  view: EditorView,
-  inputMethod?: ListInputMethod,
-): boolean;
 
 // @public (undocumented)
 export const toggleStrike: () => Command_2;

@@ -1,4 +1,4 @@
-import { NodeSpec } from 'prosemirror-model';
+import { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { LinkDefinition } from '../marks/link';
 import { createMediaSpec, defaultAttrs, MediaBaseAttributes } from './media';
 

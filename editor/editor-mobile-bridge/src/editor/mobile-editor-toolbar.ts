@@ -1,5 +1,5 @@
 import { toNativeBridge } from './web-to-native/index';
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   Command,
   DropdownOptionT,
@@ -14,9 +14,9 @@ import {
   FloatingToolbarListPicker,
   SelectOption,
 } from '@atlaskit/editor-core';
-import { Node, NodeType } from 'prosemirror-model';
+import { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { EmojiId } from '@atlaskit/emoji';
-import { Selection } from 'prosemirror-state';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
 
 export type MobileEditorToolbarItem = FloatingToolbarItem<Command> & {
   key?: string;

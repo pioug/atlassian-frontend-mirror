@@ -1,13 +1,13 @@
-import { PluginKey } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import panelPlugin from '../../../panel';
 import layoutPlugin from '../../../layout';
@@ -15,7 +15,8 @@ import datePlugin from '../../../date';
 import tasksDecisionsPlugin from '../../../tasks-and-decisions';
 import editorDisabledPlugin from '../../../editor-disabled';
 import selectionPlugin from '../../index';
-import { selectionPluginKey, SelectionPluginState } from '../../types';
+import type { SelectionPluginState } from '../../types';
+import { selectionPluginKey } from '../../types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

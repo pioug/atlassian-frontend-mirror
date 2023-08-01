@@ -1,18 +1,20 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { doc, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import {
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc } from '@atlaskit/editor-test-helpers/doc-builder';
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { MessageDescriptor, createIntl } from 'react-intl-next';
+import type { MessageDescriptor } from 'react-intl-next';
+import { createIntl } from 'react-intl-next';
 import { buildToolbar } from '../../toolbar';
 import { toolbarMessages } from '../../toolbar-messages';
-import { EditorView } from 'prosemirror-view';
-import {
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
   FloatingToolbarConfig,
   FloatingToolbarItem,
 } from '../../../floating-toolbar/types';
-import { Command } from '../../../../types';
+import type { Command } from '../../../../types';
 import commonMessages from '../../../../messages';
 import { buildLayoutForWidths } from './_utils';
 import { LAYOUT_TYPE } from '../../../analytics/types/node-events';

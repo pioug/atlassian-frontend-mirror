@@ -1,4 +1,4 @@
-import type { Node as PmNode } from 'prosemirror-model';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
 export function calcTableColumnWidths(node: PmNode): number[] {
   let tableColumnWidths: Array<number> = [];

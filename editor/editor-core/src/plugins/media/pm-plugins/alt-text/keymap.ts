@@ -1,6 +1,6 @@
-import { keymap } from 'prosemirror-keymap';
-import { Schema } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../../keymaps';
 import { openMediaAltTextMenu, closeMediaAltTextMenu } from './commands';
 

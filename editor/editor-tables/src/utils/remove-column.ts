@@ -1,6 +1,9 @@
-import { Node as PMNode, ResolvedPos } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { setTextSelection } from 'prosemirror-utils';
+import {
+  Node as PMNode,
+  ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 
 import { TableContext, TableMap } from '../table-map';
 

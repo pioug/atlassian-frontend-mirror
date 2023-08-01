@@ -1,6 +1,6 @@
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { render, fireEvent, within } from '@testing-library/react';

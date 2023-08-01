@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 import * as fs from 'fs';
 import * as path from 'path';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';

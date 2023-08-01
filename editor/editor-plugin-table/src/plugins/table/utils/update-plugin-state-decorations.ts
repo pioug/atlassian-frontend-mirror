@@ -1,5 +1,5 @@
-import { EditorState } from 'prosemirror-state';
-import { Decoration, DecorationSet } from 'prosemirror-view';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { getDecorations } from '../pm-plugins/decorations/plugin';
 import { TableDecorations } from '../types';

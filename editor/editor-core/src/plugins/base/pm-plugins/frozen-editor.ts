@@ -1,24 +1,27 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey, EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { SEVERITY } from '@atlaskit/editor-common/utils';
 import {
   isPerformanceObserverAvailable,
   isPerformanceAPIAvailable,
   getAnalyticsEventSeverity,
-  SEVERITY,
 } from '@atlaskit/editor-common/utils';
 import { EditorExperience, ExperienceStore } from '@atlaskit/editor-common/ufo';
+import type {
+  DispatchAnalyticsEvent,
+  AnalyticsEventPayload,
+} from '../../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   BROWSER_FREEZE_INTERACTION_TYPE,
   EVENT_TYPE,
-  DispatchAnalyticsEvent,
-  AnalyticsEventPayload,
 } from '../../analytics';
 import { getParticipantsCount } from '../../collab-edit/get-participants-count';
 import { countNodes } from '../../../utils/count-nodes';
-import {
+import type {
   InputTracking,
   BrowserFreezetracking,
 } from '../../../types/performance-tracking';

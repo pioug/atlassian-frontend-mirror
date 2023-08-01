@@ -27,7 +27,7 @@
     "./types": "./src/types.tsx"
   },
   "atlassian": {
-    "team": "Design System Maker Experience",
+    "team": "Design System Team",
     "releaseModel": "continuous",
     "website": {
       "name": "Popup",

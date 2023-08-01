@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 
-import { EditorView } from 'prosemirror-view';
-
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { useSmartLinkEvents } from '@atlaskit/smart-card';
 
 import { registerSmartCardEvents } from '../pm-plugins/actions';

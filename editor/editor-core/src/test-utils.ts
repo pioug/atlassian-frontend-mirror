@@ -1,11 +1,10 @@
-import { Schema } from 'prosemirror-model';
-import { Plugin, TextSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Plugin } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import {
-  type EditorPluginInjectionAPI,
-  EditorPresetBuilder,
-} from '@atlaskit/editor-common/preset';
+import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import type {
   AllEditorPresetPluginTypes,
   ReactHookFactory,
@@ -13,7 +12,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 
 import { createSchema } from './create-editor/create-schema';
-import {
+import type {
   LightEditorPlugin,
   LightPMPlugin,
   LightPMPluginFactoryParams,
@@ -22,7 +21,7 @@ import {
 import { sortByOrder } from './create-editor/sort-by-order';
 import { analyticsPluginKey } from './plugins/analytics/plugin-key';
 import basePlugin from './plugins/base';
-import { MarkConfig, NodeConfig } from './types/pm-config';
+import type { MarkConfig, NodeConfig } from './types/pm-config';
 
 export { createTypeAheadTools } from './plugins/type-ahead/api';
 export type { LightEditorPlugin } from './create-editor/get-plugins';

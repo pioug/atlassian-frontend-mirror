@@ -2,7 +2,7 @@
 import React from 'react';
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';

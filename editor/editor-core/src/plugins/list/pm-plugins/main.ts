@@ -1,13 +1,18 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ReadonlyTransaction, PluginKey, EditorState } from 'prosemirror-state';
-import { DecorationSet, Decoration, EditorView } from 'prosemirror-view';
-import { Node } from 'prosemirror-model';
-import { findParentNodeOfType } from 'prosemirror-utils';
+import type {
+  ReadonlyTransaction,
+  EditorState,
+} from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { isWrappingPossible } from '../utils/selection';
 import { isListNode } from '../utils/node';
-import { Dispatch } from '../../../event-dispatcher';
+import type { Dispatch } from '../../../event-dispatcher';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
-import { ListState } from '../types';
+import type { ListState } from '../types';
 import { setGapCursorSelection } from '../../../utils';
 import { Side } from '@atlaskit/editor-common/selection';
 

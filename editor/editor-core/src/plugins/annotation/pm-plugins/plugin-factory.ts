@@ -1,7 +1,7 @@
-import { ReadonlyTransaction } from 'prosemirror-state';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 import { findAnnotationsInSelection, inlineCommentPluginKey } from '../utils';
-import { InlineCommentPluginState } from './types';
+import type { InlineCommentPluginState } from './types';
 
 import reducer from './reducer';
 

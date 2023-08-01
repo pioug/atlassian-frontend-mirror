@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { N30, N50 } from '@atlaskit/theme/colors';
@@ -16,9 +16,9 @@ const wrapperNode = css`
   cursor: default;
   display: inline-flex;
   font-size: ${relativeFontSizeToBase16(13)};
-  margin: 0 2px;
+  margin: 0 ${token('space.025', '2px')};
   min-height: 24px;
-  padding: 0 4px;
+  padding: 0 ${token('space.050', '4px')};
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;

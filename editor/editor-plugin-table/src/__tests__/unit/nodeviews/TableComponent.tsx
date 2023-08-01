@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { TextSelection } from 'prosemirror-state';
 import { replaceRaf } from 'raf-stub';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { Command } from '@atlaskit/editor-common/types';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { selectTableClosestToPos } from '@atlaskit/editor-tables/src/utils/select-nodes';
 import {
   findTable,

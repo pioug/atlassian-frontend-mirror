@@ -7,7 +7,7 @@ import RendererDemo from './helper/RendererDemo';
 import { validDocument as storyDataDocument } from './helper/story-data';
 import { RendererActionsContext } from '../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../src/ui/RendererActionsContext/WithRendererActions';
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';

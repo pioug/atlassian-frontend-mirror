@@ -1,4 +1,4 @@
-import { Schema, Node as PMNode } from 'prosemirror-model';
+import { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Token, TokenParser } from '.';
 import { Context } from '../../interfaces';
 import { commonMacro } from './common-macro';

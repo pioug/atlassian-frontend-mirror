@@ -1,5 +1,5 @@
-import { Fragment, Slice } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';

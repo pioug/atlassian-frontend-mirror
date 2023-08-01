@@ -1,4 +1,4 @@
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 export type { SelectionPluginState } from '@atlaskit/editor-common/selection';
 

@@ -1,16 +1,16 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorView } from 'prosemirror-view';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import { Dispatch } from '../../../event-dispatcher';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import type { Dispatch } from '../../../event-dispatcher';
 import { createSelectionClickHandler } from '../../selection/utils';
 import ExpandNodeView from '../nodeviews';
 import { setExpandRef } from '../commands';
 import { findExpand } from '../utils';
 import { expandClassNames } from '../ui/class-names';
 import { getPluginState, createPluginState, pluginKey } from './plugin-factory';
-import { EditorProps } from '../../../types';
-import { IntlShape } from 'react-intl-next';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { EditorProps } from '../../../types';
+import type { IntlShape } from 'react-intl-next';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export function containsClass(
   element: Element | null,

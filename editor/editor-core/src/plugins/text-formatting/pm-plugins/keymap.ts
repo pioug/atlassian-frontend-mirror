@@ -1,8 +1,8 @@
-import type { Schema } from 'prosemirror-model';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import * as keymaps from '@atlaskit/editor-common/keymaps';
-import { keymap } from 'prosemirror-keymap';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import * as commands from '../commands/text-formatting';

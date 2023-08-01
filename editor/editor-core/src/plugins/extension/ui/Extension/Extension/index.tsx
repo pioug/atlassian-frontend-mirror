@@ -1,8 +1,9 @@
 /** @jsx jsx */
-import React, { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
+import React from 'react';
 import { jsx } from '@emotion/react';
-import { Node as PmNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
   ExtensionProvider,
   ReferenceEntity,
@@ -20,12 +21,12 @@ import {
 import { overlay } from '../styles';
 import ExtensionLozenge from '../Lozenge';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
-import { ProsemirrorGetPosHandler } from '../../../../../nodeviews';
-import { EditorAppearance } from '../../../../../types/editor-appearance';
+import type { ProsemirrorGetPosHandler } from '../../../../../nodeviews';
+import type { EditorAppearance } from '../../../../../types/editor-appearance';
 import classnames from 'classnames';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
+import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
 
 export interface Props {
   node: PmNode;
@@ -168,7 +169,10 @@ const ExtensionWithSharedState = (props: Props & OverflowShadowProps) => {
 };
 
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
-import { PluginKey, EditorState } from 'prosemirror-state';
+import type {
+  PluginKey,
+  EditorState,
+} from '@atlaskit/editor-prosemirror/state';
 // TODO: ED-17836 This code is here because Confluence injects
 // the `editor-referentiality` plugin via `dangerouslyAppendPlugins`
 // which cannot access the `pluginInjectionApi`. When we move

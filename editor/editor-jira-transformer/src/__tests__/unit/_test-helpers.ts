@@ -1,4 +1,4 @@
-import { Node, Schema } from 'prosemirror-model';
+import { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { JIRATransformer, JIRACustomEncoders, MediaContextInfo } from '../../';
 

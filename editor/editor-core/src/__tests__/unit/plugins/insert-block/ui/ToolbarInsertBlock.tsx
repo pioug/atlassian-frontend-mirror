@@ -1,19 +1,21 @@
 import React from 'react';
-import { WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ReactWrapper, mount } from 'enzyme';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -21,7 +23,6 @@ import {
   decisionItem,
   taskList,
   taskItem,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -51,22 +52,20 @@ import {
 import ToolbarInsertBlock, {
   ToolbarInsertBlock as BaseToolbarInsertBlock,
 } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock';
-import { MediaProvider } from '../../../../../plugins/media';
+import type { MediaProvider } from '../../../../../plugins/media';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { stateKey as hyperlinkPluginKey } from '@atlaskit/editor-plugin-hyperlink/src/pm-plugins/main';
 import { LinkAction } from '@atlaskit/editor-common/link';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 
-import {
-  INPUT_METHOD,
-  DispatchAnalyticsEvent,
-} from '../../../../../plugins/analytics';
+import type { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
+import { INPUT_METHOD } from '../../../../../plugins/analytics';
 
 import { messages } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { messages as blockTypeMessages } from '../../../../../plugins/block-type/messages';
-import { Props as ToolbarInsertBlockProps } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/types';
+import type { Props as ToolbarInsertBlockProps } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/types';
 
-import { MenuItem } from '../../../../../ui/DropdownMenu/types';
+import type { MenuItem } from '../../../../../ui/DropdownMenu/types';
 import DropdownMenu from '../../../../../ui/DropdownMenu';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 

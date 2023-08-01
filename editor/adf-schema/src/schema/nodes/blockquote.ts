@@ -1,4 +1,4 @@
-import { NodeSpec } from 'prosemirror-model';
+import { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { ParagraphDefinition as Paragraph } from './paragraph';
 
 /**

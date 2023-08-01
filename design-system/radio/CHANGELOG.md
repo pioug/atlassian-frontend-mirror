@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 5.6.8
+
+### Patch Changes
+
+- [`931210a5b65`](https://bitbucket.org/atlassian/atlassian-frontend/commits/931210a5b65) - use new feature flag for border contrast update
+
 ## 5.6.7
 
 ### Patch Changes

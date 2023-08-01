@@ -1,7 +1,5 @@
 import { useLayoutEffect } from 'react';
 
-import { Transaction } from 'prosemirror-state';
-
 import {
   AnalyticsStep,
   AnalyticsWithChannel,
@@ -30,6 +28,7 @@ import {
   measureRender,
 } from '@atlaskit/editor-common/utils';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import {
   createAttachPayloadIntoTransaction,

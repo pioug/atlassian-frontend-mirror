@@ -1,5 +1,5 @@
 import { BrowserTestCase } from '@atlaskit/webdriver-runner/runner';
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 
 import {
@@ -15,7 +15,7 @@ import {
   mountEditor,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { selectors } from '@atlaskit/editor-test-helpers/page-objects/editor';
-import { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import type { WebDriverPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { spaceAtEnd } from './__fixtures__/base-adfs';
 import { doc, p, h1, h5 } from '@atlaskit/editor-test-helpers/doc-builder';
 

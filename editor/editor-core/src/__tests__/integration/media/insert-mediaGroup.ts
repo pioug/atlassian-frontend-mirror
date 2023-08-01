@@ -9,7 +9,7 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
 import { waitForNumFileCards } from './_utils';
 

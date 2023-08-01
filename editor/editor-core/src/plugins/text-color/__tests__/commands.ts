@@ -1,10 +1,11 @@
-import { PluginKey } from 'prosemirror-state';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   hardBreak,
@@ -13,7 +14,6 @@ import {
   td,
   textColor,
   tr,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import blockTypePlugin from '../../block-type';
@@ -23,10 +23,8 @@ import { changeColor } from '../commands/change-color';
 import { toggleColor } from '../commands/toggle-color';
 import textColorPlugin from '../index';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import {
-  pluginKey as textColorPluginKey,
-  TextColorPluginState,
-} from '../pm-plugins/main';
+import type { TextColorPluginState } from '../pm-plugins/main';
+import { pluginKey as textColorPluginKey } from '../pm-plugins/main';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

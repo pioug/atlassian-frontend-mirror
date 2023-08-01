@@ -1,5 +1,5 @@
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 /**
  * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
  *
@@ -15,20 +15,19 @@ jest.mock('@atlaskit/media-client', () => ({
   ...jest.requireActual<Object>('@atlaskit/media-client'),
 }));
 import * as MediaClientModule from '@atlaskit/media-client';
-import { FileState, getMediaClient } from '@atlaskit/media-client';
+import type { FileState } from '@atlaskit/media-client';
+import { getMediaClient } from '@atlaskit/media-client';
 import {
   asMock,
   asMockReturnValue,
   fakeMediaClient,
   getDefaultMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
-import { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaClientConfig } from '@atlaskit/media-core';
 import * as commands from '../../../../../plugins/media/commands/helpers';
-import {
-  MediaNodeUpdater,
-  MediaNodeUpdaterProps,
-} from '../../../../../plugins/media/nodeviews/mediaNodeUpdater';
-import { MediaProvider } from '../../../../../plugins/media/pm-plugins/main';
+import type { MediaNodeUpdaterProps } from '../../../../../plugins/media/nodeviews/mediaNodeUpdater';
+import { MediaNodeUpdater } from '../../../../../plugins/media/nodeviews/mediaNodeUpdater';
+import type { MediaProvider } from '../../../../../plugins/media/pm-plugins/main';
 import {
   replaceExternalMedia,
   updateAllMediaSingleNodesAttrs,

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { EditorView } from 'prosemirror-view';
-
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { LinkPickerProps } from '@atlaskit/link-picker';
 
 import { INPUT_METHOD } from '../../../analytics';

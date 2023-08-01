@@ -1,4 +1,4 @@
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { closestElement } from '../../utils/dom';
 import {
   setSelectionTopLevelBlocks,

@@ -1,5 +1,11 @@
 # @atlaskit/pubsub
 
+## 6.5.3
+
+### Patch Changes
+
+- [`72a7210af1c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72a7210af1c) - Bump the version of the PubNub library to the latest one
+
 ## 6.5.2
 
 ### Patch Changes

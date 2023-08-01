@@ -1,10 +1,10 @@
-import type { DecorationSet } from 'prosemirror-view';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import {
+import type {
   EditorState,
   Transaction,
   ReadonlyTransaction,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
 
 import type { INPUT_METHOD } from '../analytics/types/enums';
 import type { CloseSelectionOptions } from './constants';

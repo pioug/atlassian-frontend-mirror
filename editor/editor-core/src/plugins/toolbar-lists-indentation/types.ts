@@ -1,4 +1,4 @@
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { onItemActivated } from './ui/onItemActivated';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
@@ -18,5 +18,5 @@ export interface ToolbarProps {
   showIndentationButtons?: boolean;
   indentDisabled?: boolean;
   outdentDisabled?: boolean;
-  onItemActivated: typeof onItemActivated;
+  onItemActivated: ReturnType<typeof onItemActivated>;
 }

@@ -1,7 +1,17 @@
 import { JsonLd } from 'json-ld-types';
 import { CardClient } from '@atlaskit/link-provider';
-import { mocks } from './common';
+import { mocks, overrideEmbedContent } from './common';
 import { iconGoogleDrive } from '../images';
+import { AtlasProject } from '../../examples-helpers/_jsonLDExamples';
+import { Client } from '@atlaskit/smart-card';
+
+export class ResolvedClient extends Client {
+  fetchData(url: string) {
+    const response = { ...AtlasProject };
+    response.data.preview.href = overrideEmbedContent;
+    return Promise.resolve(response as JsonLd.Response);
+  }
+}
 
 export class ErroredClient extends CardClient {
   fetchData(url: string): Promise<JsonLd.Response> {

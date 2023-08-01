@@ -1,4 +1,4 @@
-import { Schema } from 'prosemirror-model';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 import getMediaGroupNodeView from '../nodes/mediaGroup';
 import { Token } from './';
 

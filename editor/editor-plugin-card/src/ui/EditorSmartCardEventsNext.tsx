@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo } from 'react';
 
 import PropTypes from 'prop-types';
-import { EditorView } from 'prosemirror-view';
 
-import { AnalyticsContext, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { getAnalyticsEditorAppearance } from '@atlaskit/editor-common/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 
 import { registerSmartCardEventsNext } from '../pm-plugins/actions';
-import { getPluginState } from '../pm-plugins/util/state';
 import { Metadata, SmartLinkEventsNext, UpdateMetadata } from '../types';
+
+import { EditorAnalyticsContext } from './EditorAnalyticsContext';
 
 type AnalyticsBindingsProps = { editorView: EditorView };
 
@@ -179,25 +179,11 @@ export class EditorSmartCardEventsNext extends React.PureComponent<AnalyticsBind
       return null;
     }
 
-    const editorAppearance = getPluginState(
-      this.props.editorView.state,
-    )?.editorAppearance;
-    const analyticsEditorAppearance =
-      getAnalyticsEditorAppearance(editorAppearance);
-
-    const analyticsData = {
-      attributes: {
-        location: analyticsEditorAppearance,
-      },
-      // Below is added for the future implementation of Linking Platform namespaced analytic context
-      location: analyticsEditorAppearance,
-    };
-
     return (
       <cardContext.Provider value={cardContext.value}>
-        <AnalyticsContext data={analyticsData}>
+        <EditorAnalyticsContext editorView={this.props.editorView}>
           <EventsBinding {...this.props} />
-        </AnalyticsContext>
+        </EditorAnalyticsContext>
       </cardContext.Provider>
     );
   }

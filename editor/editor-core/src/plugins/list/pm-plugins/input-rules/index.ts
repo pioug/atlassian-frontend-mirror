@@ -1,6 +1,6 @@
-import { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
-import { Schema } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { createRuleForListType } from './create-list-input-rule';

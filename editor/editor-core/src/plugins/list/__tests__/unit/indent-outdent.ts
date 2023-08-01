@@ -1,23 +1,24 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   ol,
   li,
   p,
   code_block,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listPlugin from '../..';
 import codeBlockPlugin from '../../../code-block';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { undo } from 'prosemirror-history';
+import { undo } from '@atlaskit/editor-prosemirror/history';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('lists plugin -> indent and outdent', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -25,6 +26,7 @@ describe('lists plugin -> indent and outdent', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
       .add(decorationsPlugin)
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }]);
@@ -271,6 +273,7 @@ describe('lists plugin -> indent and outdent with restartNumberedLists', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, { restartNumberedLists: true }])
+      .add([analyticsPlugin, {}])
       .add([listPlugin, { restartNumberedLists: true }]);
 
     return createEditor({

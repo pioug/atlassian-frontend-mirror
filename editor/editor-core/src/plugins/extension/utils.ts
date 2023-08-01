@@ -1,13 +1,12 @@
-import { Schema, Mark } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { Node as PMNode } from 'prosemirror-model';
+import type { Schema, Mark } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { NodeWithPos, DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import {
   findParentNodeOfType,
   findSelectedNodeOfType,
   findDomRefAtPos,
-  NodeWithPos,
-  DomAtPos,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 import { closestElement } from '../../utils/dom';
 import { findNodePosByLocalIds } from '../../utils/nodes-by-localIds';
 

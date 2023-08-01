@@ -1,4 +1,8 @@
-import { Mark as PMMark, Node as PMNode, Schema } from 'prosemirror-model';
+import {
+  Mark as PMMark,
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 
 export function createTextNode(
   input: string,

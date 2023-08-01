@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Decoration, DecorationSet } from 'prosemirror-view';
-import { Node as PmNode } from 'prosemirror-model';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
 import CodeBidiWarning from '@atlaskit/code/bidi-warning';
 import codeBidiWarningDecorator from '@atlaskit/code/bidi-warning-decorator';

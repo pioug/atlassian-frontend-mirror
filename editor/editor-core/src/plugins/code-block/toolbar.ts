@@ -1,8 +1,8 @@
 import { defineMessages } from 'react-intl-next';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CopyIcon from '@atlaskit/icon/glyph/copy';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import {
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import type {
   FloatingToolbarHandler,
   FloatingToolbarButton,
   FloatingToolbarSeparator,
@@ -16,15 +16,15 @@ import {
 } from './actions';
 import commonMessages from '../../messages';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages';
-import { CodeBlockState } from './pm-plugins/main-state';
+import type { CodeBlockState } from './pm-plugins/main-state';
 import {
   provideVisualFeedbackForCopyButton,
   removeVisualFeedbackForCopyButton,
 } from './pm-plugins/codeBlockCopySelectionPlugin';
-import { Command } from '../../types';
-import { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
+import type { Command } from '../../types';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { pluginKey } from './plugin-key';
-import { SelectOption } from '../floating-toolbar/ui/Select';
+import type { SelectOption } from '../floating-toolbar/ui/Select';
 import {
   createLanguageList,
   getLanguageIdentifier,

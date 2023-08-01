@@ -1,7 +1,11 @@
-import { keymap } from 'prosemirror-keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { Selection, TextSelection, NodeSelection } from 'prosemirror-state';
-import { Node as PMNode } from 'prosemirror-model';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import {
+  Selection,
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import * as keymaps from '../../../keymaps';
 import { GapCursorSelection, Side } from '../../selection/gap-cursor-selection';
 import { findExpand } from '../utils';

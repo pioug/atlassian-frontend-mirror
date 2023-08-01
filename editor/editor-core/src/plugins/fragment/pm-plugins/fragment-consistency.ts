@@ -8,12 +8,16 @@
  * - packages/editor/editor-core/src/plugins/table/pm-plugins/table-local-id.ts
  */
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from 'prosemirror-state';
-import { NodeType, Schema, Node as ProsemirrorNode } from 'prosemirror-model';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type {
+  NodeType,
+  Schema,
+  Node as ProsemirrorNode,
+} from '@atlaskit/editor-prosemirror/model';
 
 import { uuid } from '@atlaskit/adf-schema';
 
-import { Dispatch } from '../../../event-dispatcher';
+import type { Dispatch } from '../../../event-dispatcher';
 import { getChangedNodes } from '../../../utils/document';
 
 const pluginKey = new PluginKey('fragmentMarkConsistencyPlugin');

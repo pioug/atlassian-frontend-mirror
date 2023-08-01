@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
-import { Selection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
 
 import { clearHoverSelection } from '../../../commands';

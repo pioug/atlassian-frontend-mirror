@@ -1,5 +1,5 @@
 import type { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type { Node } from 'prosemirror-model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 export const cellSelectionNodesBetween = (
   selection: CellSelection,

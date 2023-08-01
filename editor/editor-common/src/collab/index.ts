@@ -1,7 +1,9 @@
-import type { EditorState, Transaction } from 'prosemirror-state';
-import type { Step } from 'prosemirror-transform';
-
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
 // Format of the payload returned by the call-back function passed to the collab provider
 // that gets called when syncing with the back-end service fails

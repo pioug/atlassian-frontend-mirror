@@ -2,7 +2,7 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import memoize from 'lodash/memoize';
 import memoizeOne from 'memoize-one';
-import type { Schema } from 'prosemirror-model';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 import type { EmojiProvider } from '@atlaskit/emoji/resource';
 

@@ -1,29 +1,27 @@
 import React from 'react';
 
-import { Mark } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
-import { isSafeUrl, LinkAttributes } from '@atlaskit/adf-schema';
+import type { LinkAttributes } from '@atlaskit/adf-schema';
+import { isSafeUrl } from '@atlaskit/adf-schema';
 import {
   ACTION,
   ACTION_SUBJECT_ID,
-  AnalyticsEventPayload,
   buildOpenedSettingsPayload,
   buildVisitedLinkPayload,
   INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
+import type {
+  AnalyticsEventPayload,
+  EditorAnalyticsAPI,
   LinkType,
 } from '@atlaskit/editor-common/analytics';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { commandWithMetadata } from '@atlaskit/editor-common/card';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import {
-  HyperlinkAddToolbar,
-  HyperlinkAddToolbarProps,
-} from '@atlaskit/editor-common/link';
+import { HyperlinkAddToolbar } from '@atlaskit/editor-common/link';
 import type {
   EditInsertedState,
+  HyperlinkAddToolbarProps,
   HyperlinkState,
   InsertState,
 } from '@atlaskit/editor-common/link';
@@ -47,6 +45,9 @@ import {
   RECENT_SEARCH_WIDTH_IN_PX,
 } from '@atlaskit/editor-common/ui';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
+import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 import OpenIcon from '@atlaskit/icon/glyph/shortcut';

@@ -1,6 +1,9 @@
-import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
+import {
+  EditorState,
+  PluginKey,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { code_block, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 

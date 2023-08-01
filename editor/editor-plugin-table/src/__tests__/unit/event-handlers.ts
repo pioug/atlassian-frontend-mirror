@@ -1,5 +1,3 @@
-import { TextSelection } from 'prosemirror-state';
-
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -7,6 +5,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

@@ -1,9 +1,18 @@
-import { closeHistory, history, redo, undo } from 'prosemirror-history';
-import { Node, Slice } from 'prosemirror-model';
-import { EditorState, Plugin, Selection, Transaction } from 'prosemirror-state';
-import { ReplaceStep, Step } from 'prosemirror-transform';
-
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
+import {
+  closeHistory,
+  history,
+  redo,
+  undo,
+} from '@atlaskit/editor-prosemirror/history';
+import { Node, Slice } from '@atlaskit/editor-prosemirror/model';
+import {
+  EditorState,
+  Plugin,
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { ReplaceStep, Step } from '@atlaskit/editor-prosemirror/transform';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
 

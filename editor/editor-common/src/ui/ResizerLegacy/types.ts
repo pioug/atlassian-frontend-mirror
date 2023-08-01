@@ -1,6 +1,5 @@
-import { EditorView } from 'prosemirror-view';
-
 import { RichMediaLayout } from '@atlaskit/adf-schema';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MediaClientConfig } from '@atlaskit/media-core';
 
 import type { DispatchAnalyticsEvent } from '../../analytics';

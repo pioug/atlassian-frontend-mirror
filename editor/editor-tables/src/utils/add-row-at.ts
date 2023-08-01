@@ -1,6 +1,9 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { ContentNodeWithPos, safeInsert } from 'prosemirror-utils';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import {
+  ContentNodeWithPos,
+  safeInsert,
+} from '@atlaskit/editor-prosemirror/utils';
 
 import { TableMap } from '../table-map';
 

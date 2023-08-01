@@ -1,13 +1,4 @@
 import isEqual from 'lodash/isEqual';
-import { closeHistory } from 'prosemirror-history';
-import { Node, NodeType, Schema } from 'prosemirror-model';
-import {
-  EditorState,
-  NodeSelection,
-  TextSelection,
-  Transaction,
-} from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
 
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import type {
@@ -41,6 +32,15 @@ import {
   nodesBetweenChanged,
   processRawValue,
 } from '@atlaskit/editor-common/utils';
+import { closeHistory } from '@atlaskit/editor-prosemirror/history';
+import { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
+import {
+  EditorState,
+  NodeSelection,
+  TextSelection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DatasourceAdfView, InlineCardAdf } from '@atlaskit/smart-card';
 
 import { CardPluginState, Request } from '../types';

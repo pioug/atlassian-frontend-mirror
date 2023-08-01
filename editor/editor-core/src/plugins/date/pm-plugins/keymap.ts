@@ -1,6 +1,6 @@
-import { keymap } from 'prosemirror-keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { NodeSelection } from 'prosemirror-state';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { closeDatePicker, openDatePicker, focusDateInput } from '../actions';
 import * as keymaps from '../../../keymaps';
 import { getPluginState } from './main';

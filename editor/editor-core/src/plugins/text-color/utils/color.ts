@@ -1,5 +1,8 @@
-import { Mark, MarkType } from 'prosemirror-model';
-import { EditorState, TextSelection } from 'prosemirror-state';
+import type { Mark, MarkType } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 
 import { N800 } from '@atlaskit/theme/colors';
 

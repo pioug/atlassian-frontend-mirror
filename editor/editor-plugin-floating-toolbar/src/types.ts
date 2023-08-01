@@ -1,5 +1,3 @@
-import type { EditorView } from 'prosemirror-view';
-
 import type {
   NextEditorPlugin,
   OptionalPlugin,
@@ -7,6 +5,7 @@ import type {
 import type { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export type ForceFocusSelector = (
   selector: string | null,

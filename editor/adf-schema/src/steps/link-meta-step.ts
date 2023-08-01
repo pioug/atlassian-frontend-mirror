@@ -1,11 +1,15 @@
-import { Node as PMNode, Schema, Slice } from 'prosemirror-model';
+import {
+  Node as PMNode,
+  Schema,
+  Slice,
+} from '@atlaskit/editor-prosemirror/model';
 import {
   ReplaceStep,
   Step,
   StepMap,
   StepResult,
   Mappable,
-} from 'prosemirror-transform';
+} from '@atlaskit/editor-prosemirror/transform';
 
 export const stepType = 'editor-linking-meta';
 export const invertStepType = 'editor-linking-meta-invert';

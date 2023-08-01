@@ -1,10 +1,11 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
-  LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { MediaADFAttrs } from '@atlaskit/adf-schema';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   bodiedExtension,
@@ -20,7 +21,6 @@ import {
   nestedExpand,
   p,
   date,
-  DocBuilder,
   layoutSection,
   layoutColumn,
   panel,
@@ -31,7 +31,7 @@ import {
   li,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { uuid } from '@atlaskit/adf-schema';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import pastePlugin from '../../index';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import statusPlugin from '../../../status';

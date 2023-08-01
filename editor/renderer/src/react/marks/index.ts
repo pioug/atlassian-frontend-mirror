@@ -1,5 +1,5 @@
 import { ComponentType } from 'react';
-import { Mark } from 'prosemirror-model';
+import { Mark } from '@atlaskit/editor-prosemirror/model';
 import Code from './code';
 import Em from './em';
 import Link from './link';

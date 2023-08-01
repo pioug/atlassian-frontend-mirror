@@ -1,5 +1,6 @@
-import React, { ComponentType, FunctionComponent } from 'react';
-import { EditorView } from 'prosemirror-view';
+import type { ComponentType, FunctionComponent } from 'react';
+import React from 'react';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { useEditorContext } from '../ui/EditorContext';
 
 export interface WithEditorViewInternalProps {

@@ -1,16 +1,17 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-import { keydownHandler } from 'prosemirror-keymap';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 
-import { NextEditorPlugin, PMPluginFactoryParams } from '../../types';
-import { CustomAutoformatState, CustomAutoformatAction } from './types';
+import type { NextEditorPlugin, PMPluginFactoryParams } from '../../types';
+import type { CustomAutoformatState, CustomAutoformatAction } from './types';
 
 import reducers from './reducers';
-import { triggerInputRule, InputRule } from './input-rules';
+import type { InputRule } from './input-rules';
+import { triggerInputRule } from './input-rules';
 import { completeReplacements, buildHandler } from './doc';
 import { getPluginState, pluginKey } from './utils';
-import { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
 
 export const createPMPlugin = ({ providerFactory }: PMPluginFactoryParams) => {
   const rules: Array<InputRule> = [];

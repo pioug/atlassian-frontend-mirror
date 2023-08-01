@@ -75,7 +75,7 @@ describe('lists plugin -> converting lists', () => {
     const expectedOutput = doc(panel()(ul(li(p('text')))));
     const { editorView } = editor(doc(panel()(p('te{<>}xt'))));
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -101,7 +101,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -127,7 +127,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -152,7 +152,7 @@ describe('lists plugin -> converting lists', () => {
         p('Four{>}')),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -180,7 +180,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -210,7 +210,7 @@ describe('lists plugin -> converting lists', () => {
       )
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -236,7 +236,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -262,7 +262,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -288,7 +288,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -314,7 +314,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -344,7 +344,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -374,7 +374,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -404,7 +404,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -434,7 +434,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -460,7 +460,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -486,7 +486,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -516,7 +516,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -548,7 +548,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -576,7 +576,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -620,7 +620,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -646,7 +646,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -692,7 +692,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -714,7 +714,7 @@ describe('lists plugin -> converting lists', () => {
       )
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -736,7 +736,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -745,7 +745,7 @@ describe('lists plugin -> converting lists', () => {
       doc(table()(tr(td()(p('')), td()(p('One{<>}'))))),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
         table({ localId: TABLE_LOCAL_ID })(
@@ -787,7 +787,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -821,7 +821,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -861,7 +861,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -901,7 +901,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -939,7 +939,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -983,7 +983,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -1023,7 +1023,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -1057,7 +1057,7 @@ describe('lists plugin -> converting lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutput);
   });
 
@@ -1068,7 +1068,7 @@ describe('lists plugin -> converting lists', () => {
         doc('{pos}', code_block({})('some code')),
       );
       setGapCursorSelection(editorView, refs.pos, Side.LEFT);
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(expectedOutput);
     });
 
@@ -1078,7 +1078,7 @@ describe('lists plugin -> converting lists', () => {
         doc('{pos}', code_block({})('some code')),
       );
       setGapCursorSelection(editorView, refs.pos, Side.LEFT);
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(expectedOutput);
     });
 
@@ -1088,7 +1088,7 @@ describe('lists plugin -> converting lists', () => {
         doc(ul(li('{pos}', code_block({})('some code')))),
       );
       setGapCursorSelection(editorView, refs.pos, Side.LEFT);
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(expectedOutput);
     });
 
@@ -1098,7 +1098,7 @@ describe('lists plugin -> converting lists', () => {
         doc(ol()(li('{pos}', code_block({})('some code')))),
       );
       setGapCursorSelection(editorView, refs.pos, Side.LEFT);
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(expectedOutput);
     });
   });
@@ -1110,7 +1110,7 @@ describe('lists plugin -> converting lists', () => {
         doc(code_block({})('some {pos}code')),
       );
       setNodeSelection(editorView, refs.pos);
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(expectedOutput);
     });
 
@@ -1120,7 +1120,7 @@ describe('lists plugin -> converting lists', () => {
         doc(code_block({})('some {pos}code')),
       );
       setNodeSelection(editorView, refs.pos);
-      toggleOrderedList(editorView);
+      toggleOrderedList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(expectedOutput);
     });
 
@@ -1130,7 +1130,7 @@ describe('lists plugin -> converting lists', () => {
         doc(ol()(li(code_block({})('some {pos}code')))),
       );
       setNodeSelection(editorView, refs.pos);
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(expectedOutput);
     });
 
@@ -1140,7 +1140,7 @@ describe('lists plugin -> converting lists', () => {
         doc(ol()(li(code_block({})('some {pos}code')))),
       );
       setNodeSelection(editorView, refs.pos);
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(expectedOutput);
     });
   });

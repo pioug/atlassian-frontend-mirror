@@ -1,5 +1,5 @@
 import { isListNode } from '../utils/node';
-import { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 type MergeNextListAtPositionProps = {
   listPosition: number;

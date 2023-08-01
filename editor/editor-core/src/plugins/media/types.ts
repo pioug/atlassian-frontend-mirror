@@ -1,14 +1,14 @@
-import { EditorView } from 'prosemirror-view';
-import { NodeType } from 'prosemirror-model';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { Providers } from '@atlaskit/editor-common/provider-factory';
-import { FileIdentifier } from '@atlaskit/media-client';
-import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { UploadParams, MediaFile } from '@atlaskit/media-picker/types';
-import { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
-import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
-import { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { FileIdentifier } from '@atlaskit/media-client';
+import type { MediaClientConfig } from '@atlaskit/media-core';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { UploadParams, MediaFile } from '@atlaskit/media-picker/types';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import type { PlaceholderTextOptions } from '../../plugins/placeholder-text/types';
 
 export type MediaStateStatus =
   | 'unknown'

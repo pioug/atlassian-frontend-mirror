@@ -4,11 +4,11 @@ import {
   removeSelectedNode,
   removeParentNodeOfType,
   isNodeSelection,
-} from 'prosemirror-utils';
-import { NodeSelection } from 'prosemirror-state';
-import { Command } from '../../types';
+} from '@atlaskit/editor-prosemirror/utils';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Command } from '../../types';
 import { pluginKey } from './plugin-key';
-import { CodeBlockState } from './pm-plugins/main-state';
+import type { CodeBlockState } from './pm-plugins/main-state';
 import { copySelectionPluginKey } from './pm-plugins/codeBlockCopySelectionPlugin';
 import { ACTIONS } from './pm-plugins/actions';
 import { copyToClipboard } from '../../utils/clipboard';

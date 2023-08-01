@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 
-import { Transformer } from '@atlaskit/editor-common/types';
+import type { Transformer } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
@@ -22,7 +22,8 @@ import {
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 
 import Editor from '../../../editor';
-import { EditorActions, MacroAttributes, MacroProvider } from '../../../index';
+import type { MacroAttributes, MacroProvider } from '../../../index';
+import { EditorActions } from '../../../index';
 
 describe('Editor Actions', () => {
   const transformer = new JSONTransformer();

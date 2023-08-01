@@ -1,12 +1,6 @@
-import { Schema } from 'prosemirror-model';
-import {
-  doc,
-  p,
-  ul,
-  ol,
-  li,
-  RefsNode,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, ul, ol, li } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { indentList } from '../../../actions/indent-list';
 

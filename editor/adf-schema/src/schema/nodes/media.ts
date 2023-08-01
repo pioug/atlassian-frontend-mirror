@@ -1,4 +1,8 @@
-import { NodeSpec, Node as PMNode, ParseRule } from 'prosemirror-model';
+import {
+  NodeSpec,
+  Node as PMNode,
+  ParseRule,
+} from '@atlaskit/editor-prosemirror/model';
 import { N30 } from '../../utils/colors';
 import { BorderMarkDefinition } from '../marks/border';
 import { LinkDefinition } from '../marks/link';

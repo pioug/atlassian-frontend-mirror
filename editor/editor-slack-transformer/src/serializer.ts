@@ -1,8 +1,8 @@
 import {
   MarkdownSerializer as PMMarkdownSerializer,
   MarkdownSerializerState as PMMarkdownSerializerState,
-} from 'prosemirror-markdown';
-import { Node as PMNode } from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/markdown';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { escapeMarkdown } from './util';
 

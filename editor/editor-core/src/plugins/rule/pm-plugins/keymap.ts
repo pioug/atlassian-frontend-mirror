@@ -1,10 +1,10 @@
-import { keymap } from 'prosemirror-keymap';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import * as keymaps from '../../../keymaps';
 import { INPUT_METHOD } from '../../analytics';
 import { insertHorizontalRule } from '../commands';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export function keymapPlugin(featureFlags: FeatureFlags): SafePlugin {
   const list = {};

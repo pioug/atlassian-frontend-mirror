@@ -1,6 +1,5 @@
-import { Fragment, Node as PMNode } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-
+import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   p,
   RefsNode,

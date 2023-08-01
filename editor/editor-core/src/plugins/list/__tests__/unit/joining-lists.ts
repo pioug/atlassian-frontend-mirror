@@ -14,6 +14,7 @@ import {
 import listPlugin from '../..';
 import { toggleOrderedList, toggleBulletList } from '../../commands';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('lists plugin -> joining lists', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -21,6 +22,7 @@ describe('lists plugin -> joining lists', () => {
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
       .add(listPlugin);
 
     return createEditor({
@@ -70,7 +72,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutputForPreviousList);
   });
 
@@ -84,7 +86,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     ); // When selection starts on previous (empty) node
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutputForPreviousList);
   });
 
@@ -98,7 +100,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ol()(li(p('One')), li(p('Two')), li(p('Three'))),
@@ -118,7 +120,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     ); // When selection starts on previous (empty) node
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ul(
@@ -143,7 +145,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(expectedOutputForNextList);
   });
 
@@ -157,7 +159,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ol()(
@@ -182,7 +184,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
         p('One'),
@@ -202,7 +204,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ul(li(p('One')), li(p('Two')), li(p('Three'))),
@@ -221,7 +223,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(
       expectedOutputForPreviousAndNextList,
     );
@@ -237,7 +239,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleOrderedList(editorView);
+    toggleOrderedList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ol()(li(p('One')), li(p('Two')), li(p('Three')), li(p('Four{>}'))),
@@ -256,7 +258,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ol()(li(p('One')), li(p('Two'))),
@@ -276,7 +278,7 @@ describe('lists plugin -> joining lists', () => {
       ),
     );
 
-    toggleBulletList(editorView);
+    toggleBulletList(undefined)(editorView);
     expect(editorView.state.doc).toEqualDocument(
       doc(
         ul(li(p('One')), li(p('Two')), li(p('Three')), li(p('Four'))),

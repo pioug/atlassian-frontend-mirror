@@ -1,4 +1,4 @@
-import { MarkSpec } from 'prosemirror-model';
+import { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 import { SEARCH_QUERY } from '../groups';
 import { B400 } from '../../utils/colors';
 

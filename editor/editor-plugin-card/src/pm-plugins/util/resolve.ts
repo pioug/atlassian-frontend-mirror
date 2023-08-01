@@ -1,5 +1,3 @@
-import { EditorView } from 'prosemirror-view';
-
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { CardOptions } from '@atlaskit/editor-common/card';
@@ -8,6 +6,7 @@ import {
   CardProvider,
   DatasourceAdf,
 } from '@atlaskit/editor-common/provider-factory';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { Request } from '../../types';
 import { setProvider } from '../actions';

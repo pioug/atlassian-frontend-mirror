@@ -1,5 +1,17 @@
 # @atlaskit/linking-common
 
+## 4.2.0
+
+### Minor Changes
+
+- [`fa496530f1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fa496530f1a) - Added a new FF "enableHoverCardResolutionTracking" to smart link feature flags
+
+## 4.1.2
+
+### Patch Changes
+
+- [`e74ae7f06d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e74ae7f06d4) - Update dependency json-ld-types@3.8.0
+
 ## 4.1.1
 
 ### Patch Changes

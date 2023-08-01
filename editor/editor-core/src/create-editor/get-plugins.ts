@@ -1,18 +1,21 @@
-import { Schema } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
-import { IntlShape } from 'react-intl-next';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { IntlShape } from 'react-intl-next';
 
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   ReactHookFactory,
   UIComponentFactory,
 } from '@atlaskit/editor-common/types';
 
-import { Dispatch, EventDispatcher } from '../event-dispatcher';
-import { EditorReactContext } from '../types/editor-react-context';
-import { FeatureFlags } from '../types/feature-flags';
-import { MarkConfig, NodeConfig } from '../types/pm-config';
+import type { Dispatch, EventDispatcher } from '../event-dispatcher';
+import type { EditorReactContext } from '../types/editor-react-context';
+import type { FeatureFlags } from '../types/feature-flags';
+import type { MarkConfig, NodeConfig } from '../types/pm-config';
 
 export type LightPMPluginFactoryParams = {
   // We can type this safe, we already remove the real code from this types

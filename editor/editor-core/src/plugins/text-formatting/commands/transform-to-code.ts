@@ -1,5 +1,5 @@
-import type { Node, Schema } from 'prosemirror-model';
-import type { Transaction } from 'prosemirror-state';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { filterChildrenBetween } from '../../../utils';
 
 const SMART_TO_ASCII = {

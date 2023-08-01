@@ -1,26 +1,31 @@
-import { EditorView } from 'prosemirror-view';
-import { Schema, Node as PmNode, Fragment, Mark } from 'prosemirror-model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
+  Schema,
+  Node as PmNode,
+  Fragment,
+  Mark,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
-  EditorState,
   Selection,
   NodeSelection,
   TextSelection,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
 import {
   replaceSelectedNode,
   findSelectedNodeOfType,
   replaceParentNodeOfType,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 
-import {
+import type {
   UpdateExtension,
   ExtensionAPI,
 } from '@atlaskit/editor-common/extensions';
-import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
+import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 export { transformSliceToRemoveOpenBodiedExtension } from '@atlaskit/editor-common/transforms';
 
-import { Command, CommandDispatch } from '../../types';
-import EditorActions from '../../actions';
+import type { Command, CommandDispatch } from '../../types';
+import type EditorActions from '../../actions';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -28,11 +33,11 @@ import {
   EVENT_TYPE,
   addAnalytics,
 } from '../analytics';
-import {
+import type {
   ExtensionType,
   SelectionJson,
-  TARGET_SELECTION_SOURCE,
 } from '../analytics/types/extension-events';
+import { TARGET_SELECTION_SOURCE } from '../analytics/types/extension-events';
 
 import { findExtensionWithLocalId } from './utils';
 import { getPluginState } from './pm-plugins/main';

@@ -1,4 +1,4 @@
-import { Mark, Node } from 'prosemirror-model';
+import { Mark, Node } from '@atlaskit/editor-prosemirror/model';
 
 export type Link =
   | {

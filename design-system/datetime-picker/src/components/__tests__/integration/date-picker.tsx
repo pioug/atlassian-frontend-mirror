@@ -14,11 +14,11 @@ const urlDatePickerTabCheck = getExampleUrl(
 );
 /* Css used for the test */
 const datePicker = '[data-testid="datepicker-1--container"]';
-const menu = `[aria-label="calendar"]`;
+const calendar = `[aria-label='calendar']`;
+const previousMonthButton = 'button[data-testid$="previous-month"]';
 const date = '[role=gridcell]:nth-child(6)';
 const input = 'input#react-select-datepicker-1-input';
 const toggle = 'label[for="toggle"]';
-const calendar = `[aria-label='calendar']`;
 
 const value = `${datePicker} > div`;
 
@@ -31,7 +31,7 @@ BrowserTestCase(
     await page.goto(urlDateTimePicker);
     await page.click(datePicker);
 
-    await page.waitForSelector(menu);
+    await page.waitForSelector(calendar);
     await page.click(date);
 
     await page.waitForSelector(input);
@@ -70,7 +70,7 @@ BrowserTestCase(
 
     await page.goto(urlDateTimePicker);
     await page.click(datePicker);
-    await page.waitForSelector(menu);
+    await page.waitForSelector(calendar);
     await page.click(date);
 
     const previousDate = await page.getText(value);
@@ -101,15 +101,15 @@ BrowserTestCase(
 
     /* Clicking on the disabled date picker does not open it */
     await page.click(datePicker);
-    expect(await page.waitForSelector(menu, {}, true)).toBe(true);
+    expect(await page.waitForSelector(calendar, {}, true)).toBe(true);
 
     /* Un-disabling the date picker after its been clicked does not open it */
     await page.click(toggle);
-    expect(await page.waitForSelector(menu, {}, true)).toBe(true);
+    expect(await page.waitForSelector(calendar, {}, true)).toBe(true);
 
     /* After un-disabling the date picker can be opened by clicking */
     await page.click(datePicker);
-    expect(await page.waitForSelector(menu)).toBe(true);
+    expect(await page.waitForSelector(calendar)).toBe(true);
   },
 );
 
@@ -136,5 +136,42 @@ BrowserTestCase(
 
     await page.keys('Tab');
     expect(await page.hasFocus('input#text4')).toBe(true);
+  },
+);
+
+BrowserTestCase(
+  'When DatePicker is focused & another element is focused outside of DatePicker, the calendar should close',
+  {},
+  async (client: any) => {
+    const page = new Page(client);
+    await page.goto(urlDatePickerTabCheck);
+
+    await page.click('input#text1');
+    await page.keys('Tab');
+
+    expect(await page.waitForSelector(calendar)).toBe(true);
+
+    await page.execute("document.querySelector('input#text1').focus()");
+    // Calendar should not exist
+    expect(await page.waitForSelector(calendar, undefined, true)).toBe(true);
+  },
+);
+
+BrowserTestCase(
+  'When DatePicker is focused & another element is focused inside of DatePicker, the calendar should not close',
+  {},
+  async (client: any) => {
+    const page = new Page(client);
+    await page.goto(urlDatePickerTabCheck);
+
+    await page.click('input#text1');
+    await page.keys('Tab');
+
+    expect(await page.waitForSelector(calendar)).toBe(true);
+
+    await page.execute(
+      `document.querySelector('${previousMonthButton}').focus()`,
+    );
+    expect(await page.waitForSelector(calendar)).toBe(true);
   },
 );

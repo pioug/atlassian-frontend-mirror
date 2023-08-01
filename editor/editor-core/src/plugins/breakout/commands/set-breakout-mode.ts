@@ -1,7 +1,7 @@
-import { BreakoutMode } from '@atlaskit/editor-common/types';
-import { Command } from '../../../types';
+import type { BreakoutMode } from '@atlaskit/editor-common/types';
+import type { Command } from '../../../types';
 import { findSupportedNodeForBreakout } from '../utils/find-breakout-node';
-import { NodeSelection } from 'prosemirror-state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 export function setBreakoutMode(mode: BreakoutMode): Command {
   return (state, dispatch) => {

@@ -1,7 +1,7 @@
-import { NodeView, EditorView } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
-import { Selection } from 'prosemirror-state';
-import { getPosHandler } from '../../nodeviews';
+import type { NodeView, EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { getPosHandler } from '../../nodeviews';
 import { browser, ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 
 type PmMutationRecord =

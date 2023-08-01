@@ -1,7 +1,11 @@
-import type { Schema, Node, Node as PMNode } from 'prosemirror-model';
-import { Slice, Fragment } from 'prosemirror-model';
+import type {
+  Schema,
+  Node,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import uuid from 'uuid';
 import { MarkdownTransformer } from '@atlaskit/editor-markdown-transformer';
 import type { CardOptions } from '@atlaskit/editor-common/card';
@@ -92,7 +96,7 @@ import type {
   FeatureFlags,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
-import { hasParentNodeOfType } from 'prosemirror-utils';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type pastePlugin from '../';
 
 export function createPlugin(

@@ -1,11 +1,11 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type {
   EditorState,
   ReadonlyTransaction,
   Transaction,
-} from 'prosemirror-state';
-import { Decoration, DecorationSet } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/state';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { getSelectedNodeOrNodeParentByNodeType } from '../../copy-button/utils';
 
 export const copySelectionPluginKey = new PluginKey(

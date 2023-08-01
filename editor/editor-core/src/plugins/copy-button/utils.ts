@@ -1,10 +1,14 @@
-import { NodeType } from 'prosemirror-model';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import {
   findSelectedNodeOfType,
   findParentNodeOfType,
-} from 'prosemirror-utils';
-import { DOMSerializer, Schema, Node as PMNode } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/utils';
+import type {
+  Schema,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 export function getSelectedNodeOrNodeParentByNodeType({
   nodeType,

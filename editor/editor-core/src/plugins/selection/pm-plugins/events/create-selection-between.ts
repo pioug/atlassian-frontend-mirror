@@ -1,6 +1,12 @@
-import { NodeSelection, TextSelection } from 'prosemirror-state';
-import type { ResolvedPos, Node as PMNode } from 'prosemirror-model';
-import type { EditorView } from 'prosemirror-view';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type {
+  ResolvedPos,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 function findEmptySelectableParentNodePosition(
   $pos: ResolvedPos,

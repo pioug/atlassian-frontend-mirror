@@ -1,4 +1,5 @@
-import { PluginKey } from 'prosemirror-state';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -11,11 +12,10 @@ import {
   tr,
   ul,
   li,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { pluginKey as alignmentPluginKey } from '../../pm-plugins/main';
@@ -30,7 +30,7 @@ import panelPlugin from '../../../panel';
 import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
 import blockTypePlugin from '../../../block-type';
-import { AlignmentPluginState } from '../../pm-plugins/types';
+import type { AlignmentPluginState } from '../../pm-plugins/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -139,7 +139,7 @@ describe('alignment', () => {
       const { editorView } = editor(
         doc(alignmentMark({ align: 'end' })(p('{<>}hello'))),
       );
-      toggleBulletList(editorView);
+      toggleBulletList(undefined)(editorView);
       expect(editorView.state.doc).toEqualDocument(doc(ul(li(p('hello')))));
     });
   });

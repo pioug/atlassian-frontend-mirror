@@ -1,4 +1,4 @@
-import { Mark } from 'prosemirror-model';
+import { Mark } from '@atlaskit/editor-prosemirror/model';
 import { markSerializers } from './mark-serializers';
 
 export const applyMarks = (marks: readonly Mark[], text: string): string => {

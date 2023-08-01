@@ -1,10 +1,12 @@
 import React from 'react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
-import { EditorView } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   table,
@@ -13,10 +15,9 @@ import {
   tdEmpty,
   bodiedExtension,
   p,
-  RefsNode,
   inlineExtension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Schema } from '@atlaskit/editor-test-helpers/schema';
+import type { Schema } from '@atlaskit/editor-test-helpers/schema';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import { ExtensionsPlaceholder } from '../../ui/ExtensionsPlaceholder';
 import { createTestExtensionProvider } from '../_helpers';

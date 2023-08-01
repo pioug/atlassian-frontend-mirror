@@ -1,4 +1,4 @@
-import { Mark, MarkSpec } from 'prosemirror-model';
+import { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
 import { isDOMElement } from '../../utils/parseDOM';
 
 /**

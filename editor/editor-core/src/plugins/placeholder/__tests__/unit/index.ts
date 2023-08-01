@@ -1,12 +1,13 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import { EditorView } from 'prosemirror-view';
-import { TextSelection } from 'prosemirror-state';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { focusStateKey } from '../../../base/pm-plugins/focus-handler';
 import createEvent from '@atlaskit/editor-test-helpers/create-event';
 import placeholderPlugin, { placeholderTestId } from '../../';

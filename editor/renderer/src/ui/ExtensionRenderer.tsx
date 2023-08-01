@@ -13,7 +13,7 @@ import {
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
-import { Mark as PMMark } from 'prosemirror-model';
+import { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 
 export interface Props {
   type: 'extension' | 'inlineExtension' | 'bodiedExtension';

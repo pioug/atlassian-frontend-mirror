@@ -1,8 +1,8 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from 'prosemirror-state';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import { Dispatch } from '../../event-dispatcher';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import type { Dispatch } from '../../event-dispatcher';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { contentInSelection } from './content-in-selection';
 
 export const selectionPluginKey = new PluginKey('mobile-selection');

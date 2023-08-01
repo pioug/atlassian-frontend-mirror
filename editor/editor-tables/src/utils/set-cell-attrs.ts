@@ -1,5 +1,5 @@
-import { Transaction } from 'prosemirror-state';
-import { NodeWithPos } from 'prosemirror-utils';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { CellAttributes } from '../types';
 

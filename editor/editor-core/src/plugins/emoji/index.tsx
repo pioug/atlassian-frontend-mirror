@@ -1,12 +1,15 @@
 import React from 'react';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, PluginKey, SafeStateField } from 'prosemirror-state';
+import type {
+  EditorState,
+  SafeStateField,
+} from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { emoji } from '@atlaskit/adf-schema';
-import { Fragment } from 'prosemirror-model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
+import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
 import {
-  EmojiDescription,
-  EmojiProvider,
   EmojiTypeAheadItem,
   SearchSort,
   recordSelectionSucceededSli,
@@ -31,9 +34,9 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { IconEmoji } from '@atlaskit/editor-common/quick-insert';
 import { EmojiNodeView } from './nodeviews/emoji';
-import { TypeAheadHandler, TypeAheadItem } from '../type-ahead/types';
+import type { TypeAheadHandler, TypeAheadItem } from '../type-ahead/types';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { EmojiPluginOptions, EmojiPluginState } from './types';
+import type { EmojiPluginOptions, EmojiPluginState } from './types';
 import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-at-cursor';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 

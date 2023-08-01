@@ -1,6 +1,6 @@
 import { ContentLink } from './link-parser';
 import getMediaGroupNodeView from '../../nodes/mediaGroup';
-import { Schema, Node as PMNode } from 'prosemirror-model';
+import { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Context } from '../../../interfaces';
 
 export function attachmentLinkResolver(

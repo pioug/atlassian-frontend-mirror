@@ -27,10 +27,17 @@ function getSpinnerAppearance({
 }
 
 export default function LoadingSpinner({
+  appearance,
+  isDisabled,
+  isSelected,
   spacing = 'default',
-  ...rest
 }: LoadingSpinnerProps) {
   const size: Size = spacing === 'default' ? 'medium' : 'small';
 
-  return <Spinner size={size} appearance={getSpinnerAppearance(rest)} />;
+  return (
+    <Spinner
+      size={size}
+      appearance={getSpinnerAppearance({ appearance, isDisabled, isSelected })}
+    />
+  );
 }

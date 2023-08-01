@@ -17,7 +17,7 @@ import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
 import { shadowObserverClassNames } from '@atlaskit/editor-common/ui';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ReactWrapper } from 'enzyme';
 
 const schema = getSchemaBasedOnStage('stage0');

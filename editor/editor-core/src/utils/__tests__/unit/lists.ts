@@ -1,7 +1,7 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { doc, p, ol, li } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
@@ -13,12 +13,14 @@ import {
 import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../lists';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
   const createEditor = createProsemirrorEditorFactory();
   const editor = (doc: any) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, {}])
       .add([pastePlugin, {}])
       .add(decorationsPlugin)
       .add(listPlugin)

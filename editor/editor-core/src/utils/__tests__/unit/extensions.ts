@@ -1,15 +1,15 @@
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type {
   ExtensionManifest,
   ExtensionModule,
   ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 
 import { extensionProviderToQuickInsertProvider } from '../../extensions';
-import EditorActions from '../../../actions';
+import type EditorActions from '../../../actions';
 
 function replaceCustomQuickInsertModules(
   manifest: ExtensionManifest,

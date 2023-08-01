@@ -1,6 +1,9 @@
-import { Slice, Schema } from 'prosemirror-model';
-import { TextSelection, Transaction } from 'prosemirror-state';
-import { findParentNodeOfType } from 'prosemirror-utils';
+import type { Slice, Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
+  TextSelection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import {
   insertSliceIntoRangeSelectionInsideList,
   insertSliceInsideOfPanelNodeSelected,

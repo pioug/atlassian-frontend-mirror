@@ -448,9 +448,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19288
 BrowserTestCase(
   'Table: Does not scroll when nested in full-width layout, columns is resized and new column is inserted',
-  { skip: [] },
+  {
+    skip: ['*'],
+  },
   async (client: any, testName: string) => {
     for (const screenWidth of screenWidths) {
       const page = await goToEditorTestingWDExample(

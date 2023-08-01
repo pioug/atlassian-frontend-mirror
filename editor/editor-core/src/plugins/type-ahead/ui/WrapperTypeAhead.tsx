@@ -6,13 +6,13 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { TypeAheadHandler, TypeAheadInputMethod } from '../types';
 
-import { CloseSelectionOptions } from '../constants';
+import type { CloseSelectionOptions } from '../constants';
 import { moveSelectedIndex, getPluginState } from '../utils';
 import { updateQuery } from '../commands/update-query';
 import { InputQuery } from './InputQuery';

@@ -1,13 +1,15 @@
-import { Transaction, TextSelection } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 // @ts-ignore
-import { __serializeForClipboard } from 'prosemirror-view';
+import { __serializeForClipboard } from '@atlaskit/editor-prosemirror/view';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   p,
   doc,
@@ -16,7 +18,6 @@ import {
   decisionList,
   decisionItem,
   placeholder,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import betterTypeHistoryPlugin from '../../';
 import blockTypePlugin from '../../../block-type';

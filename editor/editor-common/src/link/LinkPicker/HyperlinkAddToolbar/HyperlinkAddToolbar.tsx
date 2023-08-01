@@ -3,7 +3,6 @@ import React, { KeyboardEvent, PureComponent, RefObject } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import debounce from 'lodash/debounce';
-import { EditorView } from 'prosemirror-view';
 import {
   defineMessages,
   injectIntl,
@@ -16,6 +15,7 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Page16Icon from '@atlaskit/icon-object/glyph/page/16';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import EditorAlignLeftIcon from '@atlaskit/icon/glyph/editor/align-left';

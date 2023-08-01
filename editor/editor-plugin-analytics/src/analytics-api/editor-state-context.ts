@@ -1,6 +1,3 @@
-import { NodeSelection, Selection } from 'prosemirror-state';
-import { findParentNode } from 'prosemirror-utils';
-
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -8,6 +5,8 @@ import {
   SELECTION_POSITION,
   SELECTION_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 export function getSelectionType(selection: Selection): {

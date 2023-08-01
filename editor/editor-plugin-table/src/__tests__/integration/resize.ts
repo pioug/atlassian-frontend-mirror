@@ -1,6 +1,5 @@
-import { PluginKey } from 'prosemirror-state';
-
 import { tableNewColumnMinWidth } from '@atlaskit/editor-common/styles';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import {
   editable,
   fullpage,

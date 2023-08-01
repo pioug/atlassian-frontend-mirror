@@ -1,19 +1,17 @@
-import { NodeSelection } from 'prosemirror-state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { getFreshMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
-  createEditorFactory,
-  EditorInstanceWithPlugin,
-} from '@atlaskit/editor-test-helpers/create-editor';
+import type { EditorInstanceWithPlugin } from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   media,
   mediaGroup,
-  RefsNode,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { Schema } from '@atlaskit/editor-test-helpers/schema';
+import type { Schema } from '@atlaskit/editor-test-helpers/schema';
 
 describe('media scroll', () => {
   let editor: (

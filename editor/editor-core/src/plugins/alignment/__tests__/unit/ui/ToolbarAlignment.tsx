@@ -1,17 +1,18 @@
 import React from 'react';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { ReactWrapper } from 'enzyme';
+import type { ReactWrapper } from 'enzyme';
 import { pluginKey } from '../../../pm-plugins/main';
 import ToolbarAlignment, {
   AlignmentToolbar as BaseToolbarAlignment,
 } from '../../../ui/ToolbarAlignment';
-import { PluginKey } from 'prosemirror-state';
-import { AlignmentPluginState } from '../../../pm-plugins/types';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { AlignmentPluginState } from '../../../pm-plugins/types';
 import alignmentPlugin from '../../../';
 import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 

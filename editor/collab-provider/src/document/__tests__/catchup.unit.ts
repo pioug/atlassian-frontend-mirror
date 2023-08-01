@@ -1,6 +1,6 @@
 import { catchup, rebaseSteps } from '../catchup';
 import { CatchupOptions } from '../../types';
-import { StepMap } from 'prosemirror-transform';
+import { StepMap } from '@atlaskit/editor-prosemirror/transform';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 
 describe('Catchup ', () => {

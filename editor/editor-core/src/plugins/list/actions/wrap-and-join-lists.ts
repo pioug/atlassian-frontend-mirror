@@ -1,10 +1,11 @@
-import { Fragment, Slice, NodeType, NodeRange } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice, NodeRange } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
   ReplaceAroundStep,
   findWrapping,
   canSplit,
-} from 'prosemirror-transform';
+} from '@atlaskit/editor-prosemirror/transform';
 import { autoJoinTr } from '../../../utils/prosemirror/autojoin';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 import { isWrappingPossible } from '../utils/selection';

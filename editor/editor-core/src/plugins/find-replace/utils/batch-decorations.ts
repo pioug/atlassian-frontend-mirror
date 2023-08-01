@@ -1,4 +1,4 @@
-import { EditorView, Decoration } from 'prosemirror-view';
+import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 import { createDecorations, findDecorationFromMatch } from './index';
 import { getPluginState } from '../plugin';
 

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { EditorView } from 'prosemirror-view';
 import { IntlProvider } from 'react-intl-next';
 
 import { DatasourceModalType } from '@atlaskit/editor-common/types';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { DatasourceModal } from '../DatasourceModal';
 

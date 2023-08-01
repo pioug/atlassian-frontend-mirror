@@ -1,7 +1,7 @@
-import { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { pluginKey as undoPluginKey } from './pm-plugins/plugin-key';
-import { HigherOrderCommand } from '../../types/command';
-import { InputSource } from './enums';
+import type { HigherOrderCommand } from '../../types/command';
+import type { InputSource } from './enums';
 
 type AttachInputMeta = (inputSource: InputSource) => HigherOrderCommand;
 export const attachInputMeta: AttachInputMeta =

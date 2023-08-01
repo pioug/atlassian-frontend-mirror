@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 import { browser } from '@atlaskit/editor-common/utils';
 import { getPluginState } from '../utils';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
   CloseSelectionOptions,

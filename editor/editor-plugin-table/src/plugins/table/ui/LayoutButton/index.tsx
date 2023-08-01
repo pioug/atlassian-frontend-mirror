@@ -1,8 +1,6 @@
 import React, { createRef } from 'react';
 
 import classnames from 'classnames';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import { TableLayout } from '@atlaskit/adf-schema';
@@ -11,6 +9,8 @@ import commonMessages from '@atlaskit/editor-common/messages';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { PopupPosition } from '@atlaskit/editor-common/ui';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CollapseIcon from '@atlaskit/icon/glyph/editor/collapse';
 import ExpandIcon from '@atlaskit/icon/glyph/editor/expand';
 

@@ -1,4 +1,5 @@
-import { TextSelection, Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 export const setSelectionBeforeQuery =
   (rawText: string) => (tr: Transaction) => {

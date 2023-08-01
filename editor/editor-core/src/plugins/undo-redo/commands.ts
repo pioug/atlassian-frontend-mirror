@@ -1,4 +1,4 @@
-import { redo, undo } from 'prosemirror-history';
+import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import { attachInputMeta } from './attach-input-meta';
 import { InputSource } from './enums';
 

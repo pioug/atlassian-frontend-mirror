@@ -1,6 +1,6 @@
-import { IntlShape } from 'react-intl-next';
-import { EditorState } from 'prosemirror-state';
-import { findDomRefAtPos } from 'prosemirror-utils';
+import type { IntlShape } from 'react-intl-next';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import EditorLayoutSingleIcon from '@atlaskit/icon/glyph/editor/layout-single';
 import LayoutTwoEqualIcon from '@atlaskit/icon/glyph/editor/layout-two-equal';
 import LayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three-equal';
@@ -11,9 +11,9 @@ import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
 import { toolbarMessages } from './toolbar-messages';
 import commonMessages from '../../messages';
-import { MessageDescriptor } from '../../types/i18n';
-import { Command } from '../../types';
-import {
+import type { MessageDescriptor } from '../../types/i18n';
+import type { Command } from '../../types';
+import type {
   FloatingToolbarConfig,
   FloatingToolbarItem,
   FloatingToolbarSeparator,
@@ -26,7 +26,7 @@ import {
   getPresetLayout,
 } from './actions';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
-import { PresetLayout } from './types';
+import type { PresetLayout } from './types';
 
 type PresetLayoutButtonItem = {
   id?: string;

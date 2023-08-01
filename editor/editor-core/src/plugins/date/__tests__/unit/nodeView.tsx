@@ -1,18 +1,19 @@
 import React from 'react';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ReactWrapper } from 'enzyme';
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   date,
   p as paragraph,
   taskList,
   taskItem,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { uuid } from '@atlaskit/adf-schema';

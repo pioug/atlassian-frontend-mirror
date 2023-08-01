@@ -1,4 +1,4 @@
-import { NodeSpec, Node as PMNode } from 'prosemirror-model';
+import { NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { BreakoutMarkDefinition } from '../marks';
 import { MarksObject, NoMark } from './types/mark';
 import { NonNestableBlockContent } from './types/non-nestable-block-content';

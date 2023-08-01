@@ -1,4 +1,5 @@
-import { Slice, Fragment } from 'prosemirror-model';
+import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -16,7 +17,6 @@ import {
   tr,
   td,
   hardBreak,
-  DocBuilder,
   taskList,
   taskItem,
   decisionList,

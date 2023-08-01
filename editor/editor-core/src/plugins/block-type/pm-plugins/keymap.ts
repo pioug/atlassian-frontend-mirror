@@ -1,12 +1,12 @@
-import { redo, undo } from 'prosemirror-history';
-import { Schema } from 'prosemirror-model';
-import { chainCommands } from 'prosemirror-commands';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { redo, undo } from '@atlaskit/editor-prosemirror/history';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../keymaps';
 import * as commands from '../../../commands';
 import * as blockTypes from '../types';
 import { keymap } from '../../../utils/keymap';
-import { FeatureFlags } from '../../../types/feature-flags';
+import type { FeatureFlags } from '../../../types/feature-flags';
 import {
   cleanUpAtTheStartOfDocument,
   deleteAndMoveCursor,
@@ -16,7 +16,7 @@ import {
 import { deleteEmptyParagraphAndMoveBlockUp } from '../../../utils/commands';
 import { INPUT_METHOD } from '../../analytics';
 import { isNodeAWrappingBlockNode } from '../utils';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const backspace = chainCommands(
   cleanUpAtTheStartOfDocument,

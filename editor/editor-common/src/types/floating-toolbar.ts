@@ -1,10 +1,10 @@
 import type React from 'react';
 
-import { Node, NodeType } from 'prosemirror-model';
-import type { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
 import { IntlShape } from 'react-intl-next';
 
+import { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji/types';
 
 import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';

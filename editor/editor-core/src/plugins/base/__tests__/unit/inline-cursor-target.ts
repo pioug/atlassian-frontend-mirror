@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -6,21 +7,21 @@ import {
   tr,
   td,
   tdEmpty,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import {
-  InlineCursorTargetState,
-  inlineCursorTargetStateKey,
-} from '../../pm-plugins/inline-cursor-target';
+import type { InlineCursorTargetState } from '../../pm-plugins/inline-cursor-target';
+import { inlineCursorTargetStateKey } from '../../pm-plugins/inline-cursor-target';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { EditorState, PluginKey } from 'prosemirror-state';
+import type {
+  EditorState,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
 import basePlugin from '../../';
 import emojiPlugin from '../../../emoji';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';

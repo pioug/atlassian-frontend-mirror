@@ -1,5 +1,6 @@
-import { EditorState, Selection, TextSelection } from 'prosemirror-state';
-import { Command } from '../../../types';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import type { Command } from '../../../types';
 
 // We should override default behaviour when selection spans node depths or
 // ends at a node junction

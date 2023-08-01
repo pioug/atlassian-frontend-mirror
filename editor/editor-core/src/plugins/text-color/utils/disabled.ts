@@ -1,7 +1,10 @@
-import { EditorState, TextSelection } from 'prosemirror-state';
+import type {
+  EditorState,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
 
 import { isMarkAllowedInRange, isMarkExcluded } from '../../../utils/mark';
-import { ResolvedPos } from 'prosemirror-model';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 
 const hasLinkMark = ($pos: ResolvedPos): boolean => {
   const {

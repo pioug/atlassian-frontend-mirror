@@ -1,9 +1,8 @@
-import { EditorState } from 'prosemirror-state';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
   findSelectedNodeOfType,
-} from 'prosemirror-utils';
-
+} from '@atlaskit/editor-prosemirror/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   dataConsumer,

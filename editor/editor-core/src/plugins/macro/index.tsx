@@ -1,17 +1,17 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorView } from 'prosemirror-view';
-import {
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
   ProviderFactory,
   Providers,
 } from '@atlaskit/editor-common/provider-factory';
 import { setMacroProvider } from './actions';
-import { Dispatch } from '../../event-dispatcher';
-import {
+import type { Dispatch } from '../../event-dispatcher';
+import type {
   NextEditorPlugin,
   PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { pluginKey } from './plugin-key';
-import { MacroState } from './types';
+import type { MacroState } from './types';
 
 export type {
   MacroProvider,

@@ -1,5 +1,5 @@
 import step from './__fixtures__/clean-step-for-empty-doc.json';
-import { Step as ProseMirrorStep } from 'prosemirror-transform';
+import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { getStepUGCFreeDetails } from '../utils';
 

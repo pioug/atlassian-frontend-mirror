@@ -1,17 +1,18 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, NodeSelection, TextSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { Dispatch } from '../../../event-dispatcher';
-import { DispatchAnalyticsEvent } from '../../analytics';
+import type { Dispatch } from '../../../event-dispatcher';
+import type { DispatchAnalyticsEvent } from '../../analytics';
 
 import { SelectionActionTypes } from '../actions';
 import { createPluginState, getPluginState } from '../plugin-factory';
-import {
-  selectionPluginKey,
-  SelectionPluginOptions,
-  SelectionPluginState,
-} from '../types';
+import type { SelectionPluginOptions, SelectionPluginState } from '../types';
+import { selectionPluginKey } from '../types';
 import {
   getAllSelectionAnalyticsPayload,
   getCellSelectionAnalyticsPayload,

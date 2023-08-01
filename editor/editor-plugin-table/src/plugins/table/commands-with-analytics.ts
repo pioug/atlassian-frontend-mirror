@@ -1,5 +1,3 @@
-import { Selection } from 'prosemirror-state';
-
 import { tableBackgroundColorPalette, TableLayout } from '@atlaskit/adf-schema';
 import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import {
@@ -17,6 +15,7 @@ import type {
   Command,
   GetEditorContainerWidth,
 } from '@atlaskit/editor-common/types';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 import {

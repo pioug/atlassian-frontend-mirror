@@ -1,14 +1,16 @@
 /** @jsx jsx */
-import React, { Component, ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import React, { Component } from 'react';
 import { css, jsx } from '@emotion/react';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 
-import UiDropdown, { OpenChangedEvent } from '../../../ui/Dropdown';
+import type { OpenChangedEvent } from '../../../ui/Dropdown';
+import UiDropdown from '../../../ui/Dropdown';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
-import { DropdownOptions, DropdownOptionT } from './types';
-import { EditorView } from 'prosemirror-view';
+import type { DropdownOptions, DropdownOptionT } from './types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 const dropdownExpandContainer = css`
   margin: 0px -4px;

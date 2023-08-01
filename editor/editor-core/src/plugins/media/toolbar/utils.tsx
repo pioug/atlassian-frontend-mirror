@@ -1,12 +1,12 @@
-import { MediaBaseAttributes } from '@atlaskit/adf-schema';
+import type { MediaBaseAttributes } from '@atlaskit/adf-schema';
 import { getMediaClient } from '@atlaskit/media-client';
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
   removeParentNodeOfType,
   removeSelectedNode,
-} from 'prosemirror-utils';
-import { MediaPluginState } from '../pm-plugins/types';
+} from '@atlaskit/editor-prosemirror/utils';
+import type { MediaPluginState } from '../pm-plugins/types';
 
 export const getSelectedMediaContainerNodeAttrs = (
   mediaPluginState: MediaPluginState,

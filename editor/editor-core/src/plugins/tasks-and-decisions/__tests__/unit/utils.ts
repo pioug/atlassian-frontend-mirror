@@ -1,4 +1,4 @@
-import { Fragment, Slice } from 'prosemirror-model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import {

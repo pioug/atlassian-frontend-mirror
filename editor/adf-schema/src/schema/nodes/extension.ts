@@ -1,4 +1,4 @@
-import { Node as PMNode, NodeSpec } from 'prosemirror-model';
+import { Node as PMNode, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { ExtensionAttributes } from './types/extensions';
 import { getExtensionAttrs } from '../../utils/extensions';
 import { MarksObject } from './types/mark';

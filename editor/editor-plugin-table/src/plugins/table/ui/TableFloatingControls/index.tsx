@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-import { Selection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { browser } from '@atlaskit/editor-common/utils';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { hoverRows, selectRow } from '../../commands';
 import { RowStickyState } from '../../pm-plugins/sticky-headers';

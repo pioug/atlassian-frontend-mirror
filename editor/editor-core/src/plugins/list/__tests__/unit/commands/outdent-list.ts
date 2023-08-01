@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   ul,
@@ -9,20 +10,16 @@ import {
   td,
   thEmpty,
   tdEmpty,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
-import {
-  UIAnalyticsEvent,
-  CreateUIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { outdentList } from '../../../commands/outdent-list';
-import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../../analytics';
+import { outdentList } from '../../../commands';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import listPlugin from '../../..';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
@@ -35,22 +32,15 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 
 describe('lists plugin -> commands -> outdentList', () => {
   const createProseMirrorEditor = createProsemirrorEditorFactory();
-  let createAnalyticsEvent: CreateUIAnalyticsEvent;
-
-  beforeEach(() => {
-    createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
-  });
-
   const editor = (doc: DocBuilder, featureFlags: FeatureFlags = {}) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, featureFlags])
-      .add([analyticsPlugin, { createAnalyticsEvent }])
+      .add([analyticsPlugin, {}])
       .add(contentInsertionPlugin)
       .add([listPlugin, featureFlags])
       .add(widthPlugin)
       .add(guidelinePlugin)
-      .add(tablesPlugin)
-      .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]);
+      .add(tablesPlugin);
 
     return createProseMirrorEditor({
       doc,
@@ -59,6 +49,9 @@ describe('lists plugin -> commands -> outdentList', () => {
   };
 
   describe('#outdentList', () => {
+    const editorAnalyticsAPIFake: EditorAnalyticsAPI = {
+      attachAnalyticsEvent: jest.fn().mockReturnValue(() => jest.fn()),
+    };
     describe('when outdent from a nested list item', () => {
       it('should keep the list item at the right level', () => {
         // prettier-ignore
@@ -85,7 +78,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD, {})(
+        outdentList(undefined)(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -119,7 +112,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD, {})(
+        outdentList(undefined)(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -151,7 +144,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD, {})(
+        outdentList(undefined)(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -183,7 +176,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD, {})(
+        outdentList(undefined)(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -225,7 +218,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD, {})(
+        outdentList(undefined)(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -267,7 +260,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         );
         const { editorView } = editor(document);
 
-        outdentList(INPUT_METHOD.KEYBOARD, {})(
+        outdentList(undefined)(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -317,7 +310,7 @@ describe('lists plugin -> commands -> outdentList', () => {
         const { selStart, selEnd } = refs;
         setTextSelection(editorView, selStart, selEnd);
 
-        const result = outdentList(INPUT_METHOD.KEYBOARD, {})(
+        const result = outdentList(undefined)(INPUT_METHOD.KEYBOARD, {})(
           editorView.state,
           editorView.dispatch,
         );
@@ -370,11 +363,13 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document);
-          outdentList(INPUT_METHOD.KEYBOARD, {})(
+          outdentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD, {})(
             editorView.state,
             editorView.dispatch,
           );
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
             action: 'outdented',
             actionSubject: 'list',
             actionSubjectId: 'numberedList',
@@ -394,11 +389,13 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document);
-          outdentList(INPUT_METHOD.KEYBOARD, {})(
+          outdentList(editorAnalyticsAPIFake)(INPUT_METHOD.KEYBOARD, {})(
             editorView.state,
             editorView.dispatch,
           );
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
             action: 'outdented',
             actionSubject: 'list',
             actionSubjectId: 'numberedList',
@@ -421,11 +418,13 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
-            editorView.state,
-            editorView.dispatch,
-          );
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          outdentList(editorAnalyticsAPIFake)(
+            INPUT_METHOD.KEYBOARD,
+            featureFlags,
+          )(editorView.state, editorView.dispatch);
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
             action: 'outdented',
             actionSubject: 'list',
             actionSubjectId: 'numberedList',
@@ -434,7 +433,9 @@ describe('lists plugin -> commands -> outdentList', () => {
               inputMethod: 'keyboard',
             }),
           });
-          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith(
             expect.objectContaining({
               attributes: expect.not.objectContaining({
                 outdentScenario: expect.anything(),
@@ -452,11 +453,13 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
-            editorView.state,
-            editorView.dispatch,
-          );
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          outdentList(editorAnalyticsAPIFake)(
+            INPUT_METHOD.KEYBOARD,
+            featureFlags,
+          )(editorView.state, editorView.dispatch);
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
             action: 'outdented',
             actionSubject: 'list',
             actionSubjectId: 'numberedList',
@@ -479,11 +482,13 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
-            editorView.state,
-            editorView.dispatch,
-          );
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          outdentList(editorAnalyticsAPIFake)(
+            INPUT_METHOD.KEYBOARD,
+            featureFlags,
+          )(editorView.state, editorView.dispatch);
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
             action: 'outdented',
             actionSubject: 'list',
             actionSubjectId: 'numberedList',
@@ -515,11 +520,13 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
-            editorView.state,
-            editorView.dispatch,
-          );
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          outdentList(editorAnalyticsAPIFake)(
+            INPUT_METHOD.KEYBOARD,
+            featureFlags,
+          )(editorView.state, editorView.dispatch);
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
             action: 'outdented',
             actionSubject: 'list',
             actionSubjectId: 'numberedList',
@@ -548,11 +555,13 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
-            editorView.state,
-            editorView.dispatch,
-          );
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          outdentList(editorAnalyticsAPIFake)(
+            INPUT_METHOD.KEYBOARD,
+            featureFlags,
+          )(editorView.state, editorView.dispatch);
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
             action: 'outdented',
             actionSubject: 'list',
             actionSubjectId: 'numberedList',
@@ -574,11 +583,13 @@ describe('lists plugin -> commands -> outdentList', () => {
             )
           );
           const { editorView } = editor(document, featureFlags);
-          outdentList(INPUT_METHOD.KEYBOARD, featureFlags)(
-            editorView.state,
-            editorView.dispatch,
-          );
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
+          outdentList(editorAnalyticsAPIFake)(
+            INPUT_METHOD.KEYBOARD,
+            featureFlags,
+          )(editorView.state, editorView.dispatch);
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith({
             action: 'outdented',
             actionSubject: 'list',
             actionSubjectId: 'numberedList',
@@ -587,7 +598,9 @@ describe('lists plugin -> commands -> outdentList', () => {
               inputMethod: 'keyboard',
             }),
           });
-          expect(createAnalyticsEvent).toHaveBeenCalledWith(
+          expect(
+            editorAnalyticsAPIFake.attachAnalyticsEvent,
+          ).toHaveBeenCalledWith(
             expect.objectContaining({
               attributes: expect.not.objectContaining({
                 outdentScenario: expect.anything(),

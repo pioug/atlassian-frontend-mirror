@@ -1,4 +1,4 @@
-import { ResolvedPos, Schema } from 'prosemirror-model';
+import type { ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 
 /*
   isPositionNearTableRow()

@@ -1,13 +1,13 @@
-import {
+import type {
   EditorState,
-  TextSelection,
-  Selection,
   SelectionBookmark,
   Transaction,
-} from 'prosemirror-state';
-import { Decoration, DecorationSet } from 'prosemirror-view';
-import { Slice, Node, ResolvedPos } from 'prosemirror-model';
-import { Mappable } from 'prosemirror-transform';
+} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Mappable } from '@atlaskit/editor-prosemirror/transform';
 
 export class FakeTextCursorBookmark {
   pos: undefined | number = undefined;

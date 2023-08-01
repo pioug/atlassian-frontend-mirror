@@ -54,6 +54,11 @@ export const lintObjectForSpacing = (
 
   const value = getValue(node.value, context);
 
+  // Value is a token string (e.g. set via a variable)
+  if (typeof value === 'string' && /\${token\(.*\)}/.test(value)) {
+    return;
+  }
+
   // value is either NaN or it can't be resolved (e.g. em, 100% etc...)
   if (!(value && isValidSpacingValue(value, fontSize))) {
     return context.report({

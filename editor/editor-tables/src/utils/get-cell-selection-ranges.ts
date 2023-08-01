@@ -1,5 +1,8 @@
-import { Node as PMNode, ResolvedPos } from 'prosemirror-model';
-import { SelectionRange } from 'prosemirror-state';
+import {
+  Node as PMNode,
+  ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
+import { SelectionRange } from '@atlaskit/editor-prosemirror/state';
 
 import { TableMap } from '../table-map';
 

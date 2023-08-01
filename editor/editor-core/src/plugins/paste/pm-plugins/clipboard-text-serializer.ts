@@ -1,4 +1,4 @@
-import { Slice, Node } from 'prosemirror-model';
+import type { Slice, Node } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * Returns a plain text serialization of a given slice. This is used for populating the plain text

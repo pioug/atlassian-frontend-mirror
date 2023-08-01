@@ -1,9 +1,6 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-import { findParentNodeOfTypeClosestToPos } from 'prosemirror-utils';
-import * as prosemirrorUtils from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
 import { createIntl, IntlProvider } from 'react-intl-next';
 
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -13,6 +10,9 @@ import {
   CONTENT_COMPONENT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
+import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
@@ -39,10 +39,12 @@ import {
   Props as FloatingInsertButtonProps,
 } from '../../../plugins/table/ui/FloatingInsertButton';
 
-jest.mock('prosemirror-utils', () => {
+jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:
   // Workaround to enable spy on prosemirror-utils cjs bundle
-  const originalModule = jest.requireActual('prosemirror-utils');
+  const originalModule = jest.requireActual(
+    '@atlaskit/editor-prosemirror/utils',
+  );
 
   return {
     __esModule: true,

@@ -1,9 +1,9 @@
-import {
+import type {
   ReadonlyTransaction,
   Selection,
-  NodeSelection,
-} from 'prosemirror-state';
-import { DatePluginState, DatePluginMeta } from './types';
+} from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { DatePluginState, DatePluginMeta } from './types';
 
 export function reducer(
   pluginState: DatePluginState,

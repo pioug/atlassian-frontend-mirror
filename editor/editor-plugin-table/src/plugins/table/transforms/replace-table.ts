@@ -1,6 +1,3 @@
-import { Fragment, Slice } from 'prosemirror-model';
-import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
-
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -8,6 +5,12 @@ import {
   TABLE_ACTION,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import {
+  EditorState,
+  TextSelection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { getSelectedTableInfo } from '../utils';

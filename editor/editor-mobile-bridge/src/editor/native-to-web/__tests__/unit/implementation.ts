@@ -8,7 +8,7 @@ import {
 } from '@atlaskit/editor-core';
 import { DocBuilder, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { EditorViewWithComposition } from '../../../../types';
 import MobileEditorConfiguration from '../../../editor-configuration';
 import NativeBridge from '../../../web-to-native/bridge';

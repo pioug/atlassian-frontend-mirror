@@ -1,4 +1,4 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type {
   CollabEventInitData,
@@ -10,7 +10,7 @@ import type {
   CollabEditProvider,
 } from '@atlaskit/collab-provider';
 
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
 import {
   handleInit,
@@ -23,7 +23,7 @@ import {
   addSynchronyEntityAnalytics,
   addSynchronyErrorAnalytics,
 } from '../analytics';
-import { PrivateCollabEditOptions } from '../types';
+import type { PrivateCollabEditOptions } from '../types';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 

@@ -1,29 +1,31 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   createMediaLinkingCommand,
   getMediaLinkingState,
   mediaLinkingPluginKey,
 } from '../pm-plugins/linking';
-import { Node } from 'prosemirror-model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
-import { CommandDispatch } from '../../../types/command';
+import type { CommandDispatch } from '../../../types/command';
 import { createToggleBlockMarkOnRange } from '../../../commands';
-import { LinkAttributes } from '@atlaskit/adf-schema';
+import type { LinkAttributes } from '@atlaskit/adf-schema';
 import { MediaLinkingActionsTypes } from '../pm-plugins/linking/actions';
-import { EditorState, Transaction } from 'prosemirror-state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { INPUT_METHOD, MediaLinkAEP } from '../../analytics';
 import {
   addAnalytics,
   EVENT_TYPE,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  INPUT_METHOD,
-  MediaLinkAEP,
 } from '../../analytics';
 import { currentMediaNode } from '../utils/current-media-node';
 import { checkMediaType } from '../utils/check-media-type';
 import { getMediaPluginState } from '../pm-plugins/main';
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 
 export const showLinkingToolbar = createMediaLinkingCommand((state) => {
   const mediaLinkingState = getMediaLinkingState(state);

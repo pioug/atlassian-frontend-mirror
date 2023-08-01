@@ -1,6 +1,3 @@
-import { Node as PmNode } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
 import { IntlShape } from 'react-intl-next';
 
 import {
@@ -13,6 +10,9 @@ import { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 
 import type tablePlugin from './index';

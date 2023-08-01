@@ -1,4 +1,4 @@
-import type { Step } from 'prosemirror-transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Manager } from 'socket.io-client';
 import type { InternalError } from './errors/error-types';

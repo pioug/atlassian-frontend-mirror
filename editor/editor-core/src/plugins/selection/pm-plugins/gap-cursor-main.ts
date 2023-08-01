@@ -1,8 +1,10 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, NodeSelection } from 'prosemirror-state';
-import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
-import { ResolvedPos } from 'prosemirror-model';
-import { findPositionOfNodeBefore } from 'prosemirror-utils';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { hideCaretModifier } from '../gap-cursor/styles';
 import {

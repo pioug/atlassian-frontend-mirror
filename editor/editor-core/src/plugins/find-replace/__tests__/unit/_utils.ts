@@ -1,12 +1,18 @@
-import {
-  createProsemirrorEditorFactory,
-  Preset,
+import type {
   LightEditorPlugin,
   CreatePMEditorOptions,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import { EditorView } from 'prosemirror-view';
-import { EditorState, TextSelection, PluginKey } from 'prosemirror-state';
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
+  EditorState,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import findReplacePlugin from '../../index';
 import { getPluginState } from '../../plugin';
 import { findReplacePluginKey } from '../../types';
@@ -14,7 +20,7 @@ import { selectedSearchMatchClass } from '../../styles';
 import deprecatedAnalyticsPlugin from '../../../analytics/plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { textFormattingPlugin } from '../../../index';
-import { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 export const createEditor = createProsemirrorEditorFactory();

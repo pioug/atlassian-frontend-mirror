@@ -37,7 +37,7 @@ import {
 } from '../../src/ui/Renderer/types';
 import { CodeBlock } from '@atlaskit/code';
 import { MentionProvider } from '@atlaskit/mention/types';
-import { Schema } from 'prosemirror-model';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 import { MediaOptions } from '@atlaskit/editor-core';
 
 import { token } from '@atlaskit/tokens';

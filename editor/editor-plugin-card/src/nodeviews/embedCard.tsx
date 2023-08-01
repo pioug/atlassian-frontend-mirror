@@ -1,9 +1,6 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorState, PluginKey } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
 import rafSchedule from 'raf-schd';
 
 import { RichMediaLayout } from '@atlaskit/adf-schema';
@@ -29,6 +26,9 @@ import {
   isRichMediaInsideOfBlockNode,
 } from '@atlaskit/editor-common/utils';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   DEFAULT_EMBED_CARD_HEIGHT,
   DEFAULT_EMBED_CARD_WIDTH,

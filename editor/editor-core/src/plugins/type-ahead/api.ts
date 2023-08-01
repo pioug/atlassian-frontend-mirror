@@ -1,5 +1,5 @@
-import { EditorView } from 'prosemirror-view';
-import { Transaction } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
 import {
   TypeAheadAvailableNodes,

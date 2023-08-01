@@ -165,6 +165,25 @@ export const spacingTests: Tests = {
         padding: 'space.250',
       });`,
     },
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: `
+        const myPadding = token('space.200', '16px');
+        const styles = css({
+          padding: myPadding,
+        })
+      `,
+    },
+    {
+      options: [{ domains: ['spacing'], applyImport: false }],
+      code: `
+        export const BodyWrapper = styled.div\`
+          margin-bottom: $\{token('space.100',
+          '8px',
+          )\} !important;
+        \`;
+      `,
+    },
   ],
   invalid: [
     // just literals

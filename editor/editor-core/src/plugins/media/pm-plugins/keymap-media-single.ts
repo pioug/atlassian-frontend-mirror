@@ -1,15 +1,22 @@
-import { keymap } from 'prosemirror-keymap';
-import { Schema, NodeType, Node } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, Selection } from 'prosemirror-state';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import type {
+  Schema,
+  NodeType,
+  Node,
+} from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type {
+  EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import * as keymaps from '../../../keymaps';
 import {
   isEmptyNode,
   isSelectionInsideLastNodeInDocument,
 } from '../../../utils';
-import { Command, CommandDispatch } from '../../../types';
-import { safeInsert } from 'prosemirror-utils';
-import { selectNodeBackward } from 'prosemirror-commands';
+import type { Command, CommandDispatch } from '../../../types';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import { selectNodeBackward } from '@atlaskit/editor-prosemirror/commands';
 import { atTheEndOfDoc } from '../../../utils/prosemirror/position';
 
 /**

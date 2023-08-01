@@ -1,5 +1,5 @@
-import { PluginKey } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import rafSchedule from 'raf-schd';
 import {
   EventDispatcher,

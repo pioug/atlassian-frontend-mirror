@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React, { useCallback } from 'react';
 import { jsx } from '@emotion/react';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 

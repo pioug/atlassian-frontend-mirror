@@ -1,10 +1,18 @@
-import { Node, NodeType, ResolvedPos } from 'prosemirror-model';
-import { EditorState, Selection, Transaction } from 'prosemirror-state';
-import { liftTarget } from 'prosemirror-transform';
+import type {
+  Node,
+  NodeType,
+  ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 import {
   findParentNodeClosestToPos,
   hasParentNodeOfType,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 
 import { findFarthestParentNode } from '../../../utils';
 

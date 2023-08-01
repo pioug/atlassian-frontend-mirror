@@ -1,9 +1,12 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { browser } from '@atlaskit/editor-common/utils';
-import { NodeSelection } from 'prosemirror-state';
-import { EditorView, EditorProps as PMEditorProps } from 'prosemirror-view';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type {
+  EditorView,
+  EditorProps as PMEditorProps,
+} from '@atlaskit/editor-prosemirror/view';
 
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import type { EditorProps } from '../../../types';
 import { codeBlockNodeView } from '../nodeviews/code-block';
 import { createSelectionClickHandler } from '../../selection/utils';
@@ -15,7 +18,7 @@ import {
 } from '../actions';
 import { findCodeBlock } from '../utils';
 import { codeBlockClassNames } from '../ui/class-names';
-import { CodeBlockState } from './main-state';
+import type { CodeBlockState } from './main-state';
 
 export const createPlugin = ({
   useLongPressSelection = false,

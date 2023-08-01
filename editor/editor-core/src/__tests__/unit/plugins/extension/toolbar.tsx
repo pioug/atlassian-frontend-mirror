@@ -1,23 +1,21 @@
 import React from 'react';
 import { createIntl } from 'react-intl-next';
-import { NodeSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { activityProviderFactory } from '@atlaskit/editor-test-helpers/mock-activity-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   dataConsumer,
   doc,
-  DocBuilder,
   extension,
   fragmentMark,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
-import {
-  ProviderFactory,
-  MacroProvider,
-} from '@atlaskit/editor-common/provider-factory';
+import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { setNodeSelection } from '@atlaskit/editor-common/utils';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import EditIcon from '@atlaskit/icon/glyph/editor/edit';
@@ -28,7 +26,7 @@ import {
 } from '../../../../plugins/extension/pm-plugins/main';
 import { getToolbarConfig } from '../../../../plugins/extension/toolbar';
 import commonMessages from '../../../../messages';
-import { EditorProps } from '../../../../types';
+import type { EditorProps } from '../../../../types';
 import {
   waitForProvider,
   flushPromises,

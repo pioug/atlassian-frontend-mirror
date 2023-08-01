@@ -7,11 +7,13 @@ import type {
   ResolvedPos,
   Schema,
   Slice,
-} from 'prosemirror-model';
-import type { EditorState, Transaction } from 'prosemirror-state';
-import type { Step } from 'prosemirror-transform';
-import { findParentNodeOfType } from 'prosemirror-utils';
-
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { CardAppearance } from '@atlaskit/smart-card';
 
 /**

@@ -1,9 +1,8 @@
-import {
-  NodeSelection,
-  Plugin,
+import type {
   Transaction,
   ReadonlyTransaction,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, Plugin } from '@atlaskit/editor-prosemirror/state';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';

@@ -1,7 +1,7 @@
 import type { ReactElement, RefObject } from 'react';
 
-import type { Node, Schema } from 'prosemirror-model';
-import type { EditorView } from 'prosemirror-view';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { ActivityProvider } from '@atlaskit/activity-provider';
 import type { CardOptions } from '@atlaskit/editor-common/card';

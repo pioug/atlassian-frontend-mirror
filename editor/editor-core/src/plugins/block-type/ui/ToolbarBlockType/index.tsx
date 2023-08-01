@@ -18,7 +18,7 @@ import { tooltip, findKeymapByDescription } from '../../../../keymaps';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { BlockTypeButton } from './blocktype-button';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export type DropdownItem = MenuItem & {
   value: BlockType;

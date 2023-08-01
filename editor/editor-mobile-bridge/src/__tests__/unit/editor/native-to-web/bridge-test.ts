@@ -46,9 +46,15 @@ describe('quick insert should work', () => {
 describe('lists should work', () => {
   const bridge: any = new WebBridgeImpl();
   const commands = {
-    indentList: jest.fn(() => () => {}),
-    outdentList: jest.fn(() => () => {}),
-    toggleOrderedList: jest.fn(() => () => {}),
+    indentList: jest.fn(() => {
+      return () => () => {};
+    }),
+    outdentList: jest.fn(() => {
+      return () => () => {};
+    }),
+    toggleOrderedList: jest.fn(() => {
+      return () => () => {};
+    }),
     toggleBulletList: jest.fn(() => () => {}),
   };
 

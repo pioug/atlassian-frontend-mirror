@@ -1,6 +1,6 @@
 import { name } from '../../../version-wrapper';
-import { Selection } from 'prosemirror-state';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   sortByRank,
@@ -8,7 +8,7 @@ import {
   createPMPlugins,
   processPluginsList,
 } from '../../../create-editor/create-editor';
-import { EditorConfig } from '../../../types';
+import type { EditorConfig } from '../../../types';
 
 describe(name, () => {
   describe('create-editor', () => {

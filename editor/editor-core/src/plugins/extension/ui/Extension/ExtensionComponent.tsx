@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
-import { EditorView } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import memoizeOne from 'memoize-one';
 
 import {
@@ -21,10 +21,10 @@ import { getExtensionRenderer } from '@atlaskit/editor-common/utils';
 
 import Extension from './Extension';
 import InlineExtension from './InlineExtension';
-import { ProsemirrorGetPosHandler } from '../../../../nodeviews';
-import { EditorAppearance } from '../../../../types/editor-appearance';
+import type { ProsemirrorGetPosHandler } from '../../../../nodeviews';
+import type { EditorAppearance } from '../../../../types/editor-appearance';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
+import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
 
 export interface Props {
   editorView: EditorView;

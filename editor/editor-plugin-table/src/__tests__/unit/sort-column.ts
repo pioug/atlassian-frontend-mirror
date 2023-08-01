@@ -1,5 +1,3 @@
-import { PluginKey } from 'prosemirror-state';
-
 import { uuid } from '@atlaskit/adf-schema';
 import { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -7,6 +5,7 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

@@ -1,17 +1,17 @@
 import { uuid } from '@atlaskit/adf-schema';
 import { uuid as uuidTable } from '@atlaskit/editor-tables';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import { EditorView } from 'prosemirror-view';
-import { EditorState } from 'prosemirror-state';
-import { Node as PMNode } from 'prosemirror-model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
-  DocBuilder,
   doc,
   p,
   taskItem,
@@ -31,9 +31,9 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import typeAheadPlugin from '../..';
-import { EditorPlugin } from '../../../../types/editor-plugin';
+import type { EditorPlugin } from '../../../../types/editor-plugin';
 import { getPluginState } from '../../utils';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';

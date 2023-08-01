@@ -1,25 +1,25 @@
 import React from 'react';
 
-import { Node as PMNode } from 'prosemirror-model';
-import { Decoration, NodeView } from 'prosemirror-view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Decoration, NodeView } from '@atlaskit/editor-prosemirror/view';
 
-import {
+import type {
   AnalyticsEventPayload,
-  AnalyticsListener,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import { AnalyticsListener } from '@atlaskit/analytics-next';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 
-import { EventDispatcher } from '../../../event-dispatcher';
-import {
+import type { EventDispatcher } from '../../../event-dispatcher';
+import type {
   ForwardRef,
   getPosHandler,
   getPosHandlerNode,
 } from '../../../nodeviews';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 import WithPluginState from '../../../ui/WithPluginState';
 import { stateKey as taskPluginKey } from '../pm-plugins/plugin-key';
 import TaskItem from '../ui/Task';

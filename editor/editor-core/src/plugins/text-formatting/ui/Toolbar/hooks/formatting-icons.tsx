@@ -2,8 +2,8 @@
 import React, { useMemo } from 'react';
 import { jsx } from '@emotion/react';
 import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
-import type { Schema } from 'prosemirror-model';
-import type { EditorState } from 'prosemirror-state';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
 import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';

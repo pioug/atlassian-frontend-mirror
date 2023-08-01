@@ -1,10 +1,10 @@
-import { EditorView } from 'prosemirror-view';
-import { Schema } from 'prosemirror-model';
-import {
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type {
   RefsNode,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import {
   doc,
@@ -12,10 +12,10 @@ import {
   annotation,
   strong,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { RESOLVE_METHOD } from './../../../analytics/types/inline-comment-events';
 import { getPluginState, inlineCommentPluginKey } from '../../utils';
@@ -36,7 +36,8 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import textFormatting from '../../../text-formatting';
 import * as pluginFactory from '../../pm-plugins/plugin-factory';
 import { inlineCommentProvider } from '../_utils';
-import annotationPlugin, { AnnotationInfo } from '../..';
+import type { AnnotationInfo } from '../..';
+import annotationPlugin from '../..';
 import { ACTIONS } from '../../pm-plugins/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 

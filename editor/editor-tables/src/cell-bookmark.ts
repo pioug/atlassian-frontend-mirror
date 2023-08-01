@@ -1,6 +1,9 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { Selection, SelectionBookmark } from 'prosemirror-state';
-import { Mappable } from 'prosemirror-transform';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import {
+  Selection,
+  SelectionBookmark,
+} from '@atlaskit/editor-prosemirror/state';
+import { Mappable } from '@atlaskit/editor-prosemirror/transform';
 
 import { SerializedCellSelection } from './types';
 import { inSameTable } from './utils/tables';

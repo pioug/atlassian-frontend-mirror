@@ -6,14 +6,14 @@ import React, {
 } from 'react';
 
 import classNames from 'classnames';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
 
 import { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
 import { EditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 
 import { TABLE_MAX_WIDTH } from '../pm-plugins/table-resizing/utils';

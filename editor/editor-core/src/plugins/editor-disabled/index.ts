@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from 'prosemirror-state';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { Dispatch } from '../../event-dispatcher';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { Dispatch } from '../../event-dispatcher';
 
 import { pluginFactory } from '../../utils/plugin-state-factory';
 

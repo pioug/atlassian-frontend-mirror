@@ -1,4 +1,5 @@
-import { EditorState, TextSelection } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import {
   getLinesFromSelection,
@@ -16,7 +17,7 @@ import {
   INDENT_TYPE,
   ACTION_SUBJECT,
 } from '../../analytics';
-import { CommandDispatch } from '../../../types';
+import type { CommandDispatch } from '../../../types';
 
 /**
  * Return the current indentation level

@@ -1,13 +1,13 @@
-import { Fragment } from 'prosemirror-model';
-import { NodeSelection } from 'prosemirror-state';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   isNodeSelection,
   removeSelectedNode,
   safeInsert,
-} from 'prosemirror-utils';
-import { BorderMarkAttributes } from '@atlaskit/adf-schema';
+} from '@atlaskit/editor-prosemirror/utils';
+import type { BorderMarkAttributes } from '@atlaskit/adf-schema';
 
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 import {
   ACTION,
   ACTION_SUBJECT,

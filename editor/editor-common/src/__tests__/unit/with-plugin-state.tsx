@@ -2,8 +2,8 @@ import React from 'react';
 
 import { render as mount } from '@testing-library/react';
 import PropTypes from 'prop-types';
-import { PluginKey } from 'prosemirror-state';
 
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 

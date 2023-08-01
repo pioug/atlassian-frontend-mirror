@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-react-indicator
 
+## 0.16.0
+
+### Minor Changes
+
+- [`3ccb90e7480`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ccb90e7480) - Changed folder structure of package. There should be no visible changes.
+
 ## 0.15.0
 
 ### Minor Changes

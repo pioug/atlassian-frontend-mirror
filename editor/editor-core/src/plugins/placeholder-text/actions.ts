@@ -1,4 +1,7 @@
-import { EditorState, Transaction } from 'prosemirror-state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { pluginKey } from './plugin-key';
 
 export const showPlaceholderFloatingToolbar = (

@@ -1,8 +1,3 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { ContentNodeWithPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-
 import { CellAttributes } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
 import {
@@ -10,6 +5,10 @@ import {
   tableNewColumnMinWidth,
 } from '@atlaskit/editor-common/styles';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';

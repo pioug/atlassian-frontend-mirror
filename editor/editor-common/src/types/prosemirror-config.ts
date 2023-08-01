@@ -1,5 +1,5 @@
-import type { MarkSpec, NodeSpec } from 'prosemirror-model';
-import type { NodeView } from 'prosemirror-view';
+import type { MarkSpec, NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 
 export interface NodeConfig {
   name: string;

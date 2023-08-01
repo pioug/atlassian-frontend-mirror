@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
-import { EditorView } from 'prosemirror-view';
 import { IntlProvider } from 'react-intl-next';
 
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getCellsInColumn, selectTable } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {

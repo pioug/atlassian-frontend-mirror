@@ -1,4 +1,8 @@
-import { Plugin, ReadonlyTransaction, Transaction } from 'prosemirror-state';
+import {
+  Plugin,
+  ReadonlyTransaction,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import { handlePaste } from '../utils';
 import { drawCellSelection } from '../utils/draw-cell-selection';

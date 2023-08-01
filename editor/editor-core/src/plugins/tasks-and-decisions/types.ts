@@ -1,8 +1,11 @@
-import { NodeType } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
-import { INPUT_METHOD, USER_CONTEXT } from '../analytics';
-import { LongPressSelectionPluginOptions } from '../selection/types';
+import type { INPUT_METHOD, USER_CONTEXT } from '../analytics';
+import type { LongPressSelectionPluginOptions } from '../selection/types';
 
 export type TaskDecisionListType = 'taskList' | 'decisionList';
 

@@ -1,19 +1,12 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import {
-  ProviderFactory,
-  AutoformattingProvider,
-} from '@atlaskit/editor-common/provider-factory';
-import {
-  doc,
-  p,
-  ul,
-  li,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { AutoformattingProvider } from '@atlaskit/editor-common/provider-factory';
+import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, ul, li } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
-  LightEditorPlugin,
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -24,6 +17,7 @@ import customAutoformatPlugin from '../../index';
 import basePlugin from '../../../base';
 import listPlugin from '../../../list';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 describe('custom-autoformat', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -52,6 +46,7 @@ describe('custom-autoformat', () => {
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
+        .add([analyticsPlugin, {}])
         .add(customAutoformatPlugin)
         .add(basePlugin)
         .add(listPlugin),

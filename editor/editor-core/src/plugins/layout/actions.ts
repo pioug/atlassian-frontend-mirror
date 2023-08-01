@@ -1,12 +1,15 @@
-import { safeInsert } from 'prosemirror-utils';
-import { Fragment, Node, Schema, Slice } from 'prosemirror-model';
-import { Command } from '../../types/command';
-import {
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Command } from '../../types/command';
+import type {
   EditorState,
-  TextSelection,
   Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  TextSelection,
   NodeSelection,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
 import { flatmap, mapChildren } from '../../utils/slice';
 import { getStepRange, isEmptyDocument } from '@atlaskit/editor-common/utils';
 import {
@@ -18,9 +21,9 @@ import {
 import { addAnalytics, withAnalytics } from '../analytics/utils';
 import { LAYOUT_TYPE } from '../analytics/types/node-events';
 import { pluginKey } from './pm-plugins/plugin-key';
-import { LayoutState } from './pm-plugins/types';
-import { Change, PresetLayout } from './types';
-import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+import type { LayoutState } from './pm-plugins/types';
+import type { Change, PresetLayout } from './types';
+import type { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 
 export const ONE_COL_LAYOUTS: PresetLayout[] = ['single'];
 export const TWO_COL_LAYOUTS: PresetLayout[] = [

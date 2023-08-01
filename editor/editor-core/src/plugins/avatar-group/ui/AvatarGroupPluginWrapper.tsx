@@ -2,19 +2,19 @@
 import { useEffect } from 'react';
 import { css, jsx } from '@emotion/react';
 import AvatarsWithPluginState from '../../collab-edit/ui/avatars-with-plugin-state';
-import { EventDispatcher } from '../../../event-dispatcher';
-import { EditorView } from 'prosemirror-view';
-import { CollabEditOptions } from '../../collab-edit';
+import type { EventDispatcher } from '../../../event-dispatcher';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { CollabEditOptions } from '../../collab-edit';
 import { useIntl } from 'react-intl-next';
 import { avatarGroupMessages } from '../messages';
+import type { DispatchAnalyticsEvent } from '../../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
-  DispatchAnalyticsEvent,
 } from '../../analytics';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 const toolbarButtonWrapper = css`
   display: flex;

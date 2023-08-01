@@ -8,7 +8,7 @@ import {
   findAndTrackUnsupportedContentNodes,
 } from '@atlaskit/editor-common/utils';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
-import { Node as PMNode, Schema } from 'prosemirror-model';
+import { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import {
   ACTION,
   ACTION_SUBJECT,

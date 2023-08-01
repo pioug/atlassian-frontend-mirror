@@ -1,16 +1,31 @@
-import { closeHistory } from 'prosemirror-history';
-import { Fragment, Node as PMNode, Slice } from 'prosemirror-model';
-import type { Mark, MarkType, Schema } from 'prosemirror-model';
-import { TextSelection, NodeSelection } from 'prosemirror-state';
-import type { EditorState, Selection, Transaction } from 'prosemirror-state';
+import { closeHistory } from '@atlaskit/editor-prosemirror/history';
+import {
+  Fragment,
+  Node as PMNode,
+  Slice,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  Mark,
+  MarkType,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import {
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type {
+  EditorState,
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import {
   canInsert,
   findParentNodeOfType,
   findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
   safeInsert,
-} from 'prosemirror-utils';
-import type { EditorView } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import uuid from 'uuid/v4';
 
 import type { MentionAttributes } from '@atlaskit/adf-schema';

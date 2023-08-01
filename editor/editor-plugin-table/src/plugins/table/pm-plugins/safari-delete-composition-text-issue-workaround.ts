@@ -3,10 +3,13 @@
  * https://github.com/ProseMirror/prosemirror/issues/934
  * We will remove this plugin when Webkit fix the problem itself.
  */
-import { PluginKey } from 'prosemirror-state';
-import { Decoration, DecorationSet, EditorView } from 'prosemirror-view';
-
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import {
+  Decoration,
+  DecorationSet,
+  EditorView,
+} from '@atlaskit/editor-prosemirror/view';
 
 interface SafariDeleteCompositionTextIssueWorkaroundPluginState {
   renderSpan: boolean;

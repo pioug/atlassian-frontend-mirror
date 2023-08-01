@@ -1,11 +1,11 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import {
+import type {
   FloatingToolbarButton,
   FloatingToolbarConfig,
   FloatingToolbarItem,
 } from '../types';
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 import { processCopyButtonItems } from '../../copy-button/toolbar';
 
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';

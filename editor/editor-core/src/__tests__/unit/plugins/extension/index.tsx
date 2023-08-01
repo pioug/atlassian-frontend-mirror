@@ -1,16 +1,16 @@
 import React from 'react';
-import { NodeSelection } from 'prosemirror-state';
-import { findParentNodeOfType } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import {
+import type {
   ExtensionHandlers,
   ExtensionProvider,
   UpdateExtension,
-  combineExtensionProviders,
   TransformBefore,
   TransformAfter,
 } from '@atlaskit/editor-common/extensions';
+import { combineExtensionProviders } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { REACT_INTL_ERROR_MESSAGE } from '@atlaskit/editor-common/ui';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -24,6 +24,7 @@ import {
 } from '@atlaskit/editor-test-helpers/mock-macro-provider';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p as paragraph,
@@ -34,7 +35,6 @@ import {
   media,
   mediaSingle,
   underline,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';

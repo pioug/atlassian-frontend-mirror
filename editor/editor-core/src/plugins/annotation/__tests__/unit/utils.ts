@@ -1,5 +1,9 @@
-import { Decoration } from 'prosemirror-view';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { AnnotationSharedClassNames } from '@atlaskit/editor-common/styles';
+import type {
+  RefsNode,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   annotation,
   doc,
@@ -11,13 +15,11 @@ import {
   media,
   code_block,
   hardBreak,
-  RefsNode,
   panel,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
@@ -39,7 +41,8 @@ import {
   stripNonExistingAnnotations,
   findAnnotationsInSelection,
 } from '../../utils';
-import { AnnotationInfo, AnnotationSelectionType } from '../../types';
+import type { AnnotationInfo } from '../../types';
+import { AnnotationSelectionType } from '../../types';
 
 import annotationPlugin from '../..';
 import { textFormattingPlugin } from '../../../';
@@ -54,12 +57,16 @@ import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import panelPlugin from '../../../panel';
 import editorDisabledPlugin from '../../../editor-disabled';
 
-import {
+import type {
   InlineCommentMap,
   InlineCommentPluginState,
 } from '../../pm-plugins/types';
-import { EditorState, TextSelection } from 'prosemirror-state';
-import { Slice, Fragment, Schema } from 'prosemirror-model';
+import type {
+  EditorState,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 

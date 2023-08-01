@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { Node as PmNode } from 'prosemirror-model';
-import { findDomRefAtPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -18,6 +15,9 @@ import {
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import { closestElement } from '@atlaskit/editor-common/utils';
+import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';

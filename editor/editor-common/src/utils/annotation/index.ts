@@ -1,4 +1,8 @@
-import { Mark, Node as PMNode, Schema } from 'prosemirror-model';
+import {
+  Mark,
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 
 type Range = {
   from: number;

@@ -20,7 +20,14 @@ export type LoadingButtonProps = Omit<BaseProps, 'overlay'> &
  * - [Examples](https://atlassian.design/components/button/examples#loading-button)
  */
 const LoadingButton = React.forwardRef(function LoadingButton(
-  { isLoading = false, ...rest }: LoadingButtonProps,
+  {
+    appearance,
+    isDisabled,
+    isSelected,
+    isLoading = false,
+    spacing,
+    ...rest
+  }: LoadingButtonProps,
   ref: React.Ref<HTMLElement>,
 ) {
   // Button already has React.memo, so just leaning on that
@@ -28,8 +35,21 @@ const LoadingButton = React.forwardRef(function LoadingButton(
     <Button
       {...rest}
       ref={ref}
+      appearance={appearance}
       aria-busy={isLoading}
-      overlay={isLoading ? <LoadingSpinner {...rest} /> : null}
+      isDisabled={isDisabled}
+      isSelected={isSelected}
+      overlay={
+        isLoading ? (
+          <LoadingSpinner
+            spacing={spacing}
+            appearance={appearance}
+            isDisabled={isDisabled}
+            isSelected={isSelected}
+          />
+        ) : null
+      }
+      spacing={spacing}
     />
   );
 });

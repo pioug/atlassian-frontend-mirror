@@ -1,14 +1,10 @@
 import { RESOLVE_METHOD } from './../../../analytics/types/inline-comment-events';
-import { EditorView } from 'prosemirror-view';
-import {
-  doc,
-  p,
-  annotation,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, annotation } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
@@ -19,7 +15,7 @@ import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import deprecatedAnalyticsPlugin from '../../../analytics/plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
   ACTION_SUBJECT,

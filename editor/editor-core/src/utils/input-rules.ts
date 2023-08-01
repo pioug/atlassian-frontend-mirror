@@ -1,6 +1,12 @@
-import type { Node as PMNode, NodeType } from 'prosemirror-model';
-import type { EditorState, Transaction } from 'prosemirror-state';
-import { canJoin, findWrapping } from 'prosemirror-transform';
+import type {
+  Node as PMNode,
+  NodeType,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import type {
   InputRuleHandler,
   InputRuleWrapper,

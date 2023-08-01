@@ -1,6 +1,6 @@
-import { EditorState } from 'prosemirror-state';
-import { Node as PMNode } from 'prosemirror-model';
-import { NodeWithPos } from 'prosemirror-utils';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 type FindNodesByIdsOption = {
   includeDocNode?: boolean;

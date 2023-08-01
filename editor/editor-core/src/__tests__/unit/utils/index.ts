@@ -1,5 +1,6 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   code_block,
@@ -19,11 +20,10 @@ import {
   media,
   mediaGroup,
   mediaSingle,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
-import { toggleMark } from 'prosemirror-commands';
+import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 
 import {
   isMarkTypeAllowedInCurrentSelection,
@@ -36,7 +36,7 @@ import {
 } from '../../../utils';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 
-import { Node, Schema } from 'prosemirror-model';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { closestElement } from '../../../utils/dom';
 
 describe('@atlaskit/editore-core/utils', () => {

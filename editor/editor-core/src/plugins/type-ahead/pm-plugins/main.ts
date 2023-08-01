@@ -1,11 +1,14 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, ReadonlyTransaction } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
+import type {
+  EditorState,
+  ReadonlyTransaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Dispatch } from '../../../event-dispatcher';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { Dispatch } from '../../../event-dispatcher';
 import type {
   PopupMountPointReference,
   TypeAheadHandler,

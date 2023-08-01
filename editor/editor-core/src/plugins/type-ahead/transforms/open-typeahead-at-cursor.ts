@@ -1,5 +1,5 @@
-import type { Transaction } from 'prosemirror-state';
-import { TextSelection } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { pluginKey } from '../pm-plugins/key';
 import { ACTIONS } from '../pm-plugins/actions';

@@ -1,8 +1,9 @@
-import {
-  findParentNodeClosestToPos,
-  ContentNodeWithPos,
-} from 'prosemirror-utils';
-import { ResolvedPos, Node as PMNode } from 'prosemirror-model';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
+import type {
+  ResolvedPos,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 
 export function findFirstParentListNode($pos: ResolvedPos): {

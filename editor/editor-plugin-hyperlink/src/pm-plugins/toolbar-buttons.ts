@@ -1,11 +1,15 @@
-import { EditorState, PluginKey, Transaction } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
 import type { IntlShape } from 'react-intl-next';
 
 import type { QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { FloatingToolbarItem } from '@atlaskit/editor-common/types';
+import type { FloatingToolbarItem } from '@atlaskit/editor-common/types';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 type HyperlinkToolbarItemsState = {
   items: GetToolbarItems;

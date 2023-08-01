@@ -1,5 +1,5 @@
-import { Slice } from 'prosemirror-model';
-import { PresetLayout } from '../types';
+import type { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { PresetLayout } from '../types';
 
 export type LayoutState = {
   pos: number | null;

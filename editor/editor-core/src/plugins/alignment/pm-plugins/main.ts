@@ -1,9 +1,10 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, PluginKey } from 'prosemirror-state';
-import { Dispatch } from '../../../event-dispatcher';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { Dispatch } from '../../../event-dispatcher';
 import { isAlignable } from '../commands';
 import { getActiveAlignment } from '../utils';
-import { AlignmentPluginState } from './types';
+import type { AlignmentPluginState } from './types';
 
 export function createInitialPluginState(
   editorState: EditorState,

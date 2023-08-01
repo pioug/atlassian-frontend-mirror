@@ -1,8 +1,8 @@
-import { Step } from 'prosemirror-transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
-  DispatchAnalyticsEvent,
   ACTION_SUBJECT,
   ACTION,
   EVENT_TYPE,

@@ -19,6 +19,8 @@ const VRCardView: React.FC<VRCardViewProps> = ({ appearance, client }) => (
         appearance={appearance}
         showServerActions={true}
         url="https://some.url"
+        /* Embed-specific props */
+        frameStyle="show"
       />
     </SmartCardProvider>
   </VRTestWrapper>

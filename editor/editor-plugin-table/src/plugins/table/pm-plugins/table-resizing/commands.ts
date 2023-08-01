@@ -1,8 +1,7 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { ContentNodeWithPos } from 'prosemirror-utils';
-
 import type { Command } from '@atlaskit/editor-common/types';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import { updateColumnWidths } from '../../transforms';

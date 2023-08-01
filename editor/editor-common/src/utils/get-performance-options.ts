@@ -1,5 +1,8 @@
-import type { EditorState, PluginKey } from 'prosemirror-state';
-import type { EditorView } from 'prosemirror-view';
+import type {
+  EditorState,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import {
   ACTION,

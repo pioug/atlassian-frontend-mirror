@@ -1,4 +1,4 @@
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 
 export const sendArrowLeftKey = (

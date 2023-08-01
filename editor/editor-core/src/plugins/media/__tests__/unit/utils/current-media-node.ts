@@ -6,7 +6,7 @@ import {
   border,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { EditorState, NodeSelection } from 'prosemirror-state';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   currentMediaNode,
   currentMediaNodeWithPos,

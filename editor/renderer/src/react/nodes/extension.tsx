@@ -1,5 +1,8 @@
 import React from 'react';
-import { Mark as PMMark, Node as PMNode } from 'prosemirror-model';
+import {
+  Mark as PMMark,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 import { RendererContext } from '../types';
 import { ExtensionLayout } from '@atlaskit/adf-schema';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';

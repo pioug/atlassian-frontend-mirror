@@ -1,5 +1,4 @@
-import { Selection, Transaction } from 'prosemirror-state';
-
+import { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
 import {

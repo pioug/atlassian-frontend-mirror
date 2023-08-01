@@ -1,6 +1,10 @@
-import { NodeSelection, Selection, Transaction } from 'prosemirror-state';
+import type {
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
-import { StatusType } from './types';
+import type { StatusType } from './types';
 
 export const mayGetStatusAtSelection = (
   selection: Selection,

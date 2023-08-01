@@ -1,7 +1,7 @@
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { createLogger } from '../helpers/utils';
 import type { CatchupOptions, StepsPayload } from '../types';
-import { StepMap, Mapping, Step } from 'prosemirror-transform';
+import { StepMap, Mapping, Step } from '@atlaskit/editor-prosemirror/transform';
 
 const logger = createLogger('Catchup', 'red');
 

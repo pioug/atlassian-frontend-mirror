@@ -1,19 +1,16 @@
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
-  EditorState,
   TextSelection,
   NodeSelection,
   Selection,
-} from 'prosemirror-state';
-import { findChildrenByType, NodeWithPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/state';
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { StatusLocalIdRegex } from '@atlaskit/editor-test-helpers/constants';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  p,
-  status,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, status } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import {
   commitStatusPicker,
@@ -22,7 +19,7 @@ import {
 } from '../../../../plugins/status/actions';
 import { setNodeSelectionNearPos } from '../../../../plugins/status/utils';
 import { pluginKey } from '../../../../plugins/status/plugin';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';

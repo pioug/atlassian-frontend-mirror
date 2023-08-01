@@ -1,4 +1,4 @@
-import { Mark, Node as PMNode } from 'prosemirror-model';
+import { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 export type NodeSerializer = (opts: NodeSerializerOpts) => string;
 export type MarkSerializer = (opts: MarkSerializerOpts) => string;

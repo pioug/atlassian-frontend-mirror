@@ -1,4 +1,4 @@
-import type { MarkType, Schema } from 'prosemirror-model';
+import type { MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { ruleWithAnalytics } from '../../../utils/input-rules';
 import {

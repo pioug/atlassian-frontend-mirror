@@ -1,12 +1,11 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
-
 import { TableAttributes } from '@atlaskit/adf-schema';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

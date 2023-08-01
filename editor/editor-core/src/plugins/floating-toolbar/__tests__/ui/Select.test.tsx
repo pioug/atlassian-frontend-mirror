@@ -1,13 +1,14 @@
 import React from 'react';
-import { screen, fireEvent, RenderResult } from '@testing-library/react';
+import type { RenderResult } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, code_block } from '@atlaskit/editor-test-helpers/doc-builder';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import Toolbar from '../../ui/Toolbar';
-import { Command, FloatingToolbarListPicker } from '../../types';
-import { EditorView } from 'prosemirror-view';
+import type { Command, FloatingToolbarListPicker } from '../../types';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 // Selectors
 const selectFieldRole = 'combobox';

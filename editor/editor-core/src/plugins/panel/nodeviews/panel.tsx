@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Node, DOMSerializer } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
-import { PanelType, PanelAttributes } from '@atlaskit/adf-schema';
-import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { PanelAttributes } from '@atlaskit/adf-schema';
+import { PanelType } from '@atlaskit/adf-schema';
+import type { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { PanelSharedCssClassName } from '@atlaskit/editor-common/panel';
 import { Emoji } from '@atlaskit/editor-common/emoji';
-import { PanelPluginOptions } from '../types';
+import type { PanelPluginOptions } from '../types';
 import { panelAttrsToDom } from '../utils';
 import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import {

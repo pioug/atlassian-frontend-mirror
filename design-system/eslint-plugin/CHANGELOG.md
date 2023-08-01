@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.2.1
+
+### Patch Changes
+
+- [`52b35a6b571`](https://bitbucket.org/atlassian/atlassian-frontend/commits/52b35a6b571) - - Fixed an issue where the `ensure-design-token-usage` rule may incorrectly report variables that reference tokens as an error.
+  - Fixed an issue where the `ensure-design-token-usage` rule may handle expressions that span multiple lines in template literals incorrectly.
+
 ## 8.2.0
 
 ### Minor Changes

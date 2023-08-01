@@ -7,14 +7,10 @@ import {
 } from '../../../plugins/placeholder-text/actions';
 import { FakeTextCursorSelection } from '../../../plugins/fake-text-cursor/cursor';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import {
-  doc,
-  DocBuilder,
-  p,
-  placeholder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, placeholder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { Selection } from 'prosemirror-state';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { pluginKey } from '../../../plugins/placeholder-text/plugin-key';
 
 describe(name, () => {

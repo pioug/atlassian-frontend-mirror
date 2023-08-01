@@ -1,9 +1,11 @@
 /** @jsx jsx */
-import React, { ReactElement, useState, useEffect } from 'react';
+import type { ReactElement } from 'react';
+import React, { useState, useEffect } from 'react';
 import { jsx } from '@emotion/react';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { EditorView } from 'prosemirror-view';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
 import AvatarsWithPluginState from '../../../plugins/collab-edit/ui';
 import FindReplaceToolbarButtonWithState from '../../../plugins/find-replace/FindReplaceToolbarButtonWithState';
@@ -18,17 +20,17 @@ import {
   customToolbarWrapperStyle,
   MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT,
 } from './MainToolbar';
-import {
+import type {
   EditorAppearance,
   ToolbarUIComponentFactory,
   PrimaryToolbarComponents,
 } from '../../../types';
-import { CollabEditOptions } from '../../../plugins/collab-edit';
-import { DispatchAnalyticsEvent } from '../../../plugins/analytics';
-import { EventDispatcher } from '../../../event-dispatcher';
-import { EditorActions } from '../../..';
+import type { CollabEditOptions } from '../../../plugins/collab-edit';
+import type { DispatchAnalyticsEvent } from '../../../plugins/analytics';
+import type { EventDispatcher } from '../../../event-dispatcher';
+import type { EditorActions } from '../../..';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
-import { FeatureFlags } from '../../../types/feature-flags';
+import type { FeatureFlags } from '../../../types/feature-flags';
 import messages from './messages';
 import { ToolbarArrowKeyNavigationProvider } from '../../ToolbarArrowKeyNavigationProvider';
 

@@ -2,7 +2,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   setHeadingWithAnalytics,
   setHeading,

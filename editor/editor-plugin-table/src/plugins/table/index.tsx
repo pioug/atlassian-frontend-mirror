@@ -1,8 +1,5 @@
 import React from 'react';
 
-import { Transaction } from 'prosemirror-state';
-import type { EditorView } from 'prosemirror-view';
-
 import {
   table,
   tableCell,
@@ -38,6 +35,8 @@ import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { createTable } from '@atlaskit/editor-tables/utils';
 

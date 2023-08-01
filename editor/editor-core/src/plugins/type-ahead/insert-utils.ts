@@ -1,5 +1,13 @@
-import { Transaction, TextSelection, NodeSelection } from 'prosemirror-state';
-import { Node as PMNode, Slice, Fragment } from 'prosemirror-model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import {
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  Node as PMNode,
+  Slice,
+  Fragment,
+} from '@atlaskit/editor-prosemirror/model';
 import {
   safeInsert,
   normaliseNestedLayout,

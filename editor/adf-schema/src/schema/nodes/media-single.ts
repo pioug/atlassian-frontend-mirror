@@ -1,4 +1,4 @@
-import { NodeSpec, Node as PMNode } from 'prosemirror-model';
+import { NodeSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { MediaDefinition as Media } from './media';
 import { LinkDefinition } from '../marks/link';
 

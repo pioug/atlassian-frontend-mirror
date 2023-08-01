@@ -1,35 +1,40 @@
-import { NodeType, ResolvedPos, Schema, NodeRange } from 'prosemirror-model';
-import {
+import type {
+  NodeType,
+  ResolvedPos,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import { NodeRange } from '@atlaskit/editor-prosemirror/model';
+import type {
   EditorState,
   Selection,
-  TextSelection,
   Transaction,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   findParentNodeOfType,
   hasParentNodeOfType,
   replaceParentNodeOfType,
   safeInsert,
   setTextSelection,
-} from 'prosemirror-utils';
-import { liftTarget } from 'prosemirror-transform';
+} from '@atlaskit/editor-prosemirror/utils';
+import { liftTarget } from '@atlaskit/editor-prosemirror/transform';
 import { uuid } from '@atlaskit/adf-schema';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { Command } from '../../types';
+import type { Command } from '../../types';
+import type { AnalyticsEventPayload } from '../analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   addAnalytics,
-  AnalyticsEventPayload,
   EVENT_TYPE,
   INPUT_METHOD,
   USER_CONTEXT,
 } from '../analytics';
 import { GapCursorSelection } from '../selection/gap-cursor-selection';
-import { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
+import type { TOOLBAR_MENU_TYPE } from '../insert-block/ui/ToolbarInsertBlock/types';
 import { stateKey as taskDecisionStateKey } from './pm-plugins/plugin-key';
-import {
+import type {
   AddItemTransactionCreator,
   ContextData,
   TaskDecisionInputMethod,

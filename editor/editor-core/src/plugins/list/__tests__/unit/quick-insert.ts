@@ -1,18 +1,12 @@
 import { pluginKey } from '../../pm-plugins/main';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
-import {
-  doc,
-  ol,
-  ul,
-  li,
-  p,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, ol, ul, li, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EditorView } from 'prosemirror-view';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 describe('lists plugin -> quick insert', () => {
   const createEditor = createEditorFactory();

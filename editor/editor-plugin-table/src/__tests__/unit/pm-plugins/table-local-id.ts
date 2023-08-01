@@ -1,10 +1,13 @@
-import { NodeSelection, TextSelection } from 'prosemirror-state';
 // @ts-ignore
-import { __serializeForClipboard } from 'prosemirror-view';
 import { replaceRaf } from 'raf-stub';
 
 import { uuid } from '@atlaskit/adf-schema';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import { __serializeForClipboard } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { selectTable } from '@atlaskit/editor-tables/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';

@@ -1,9 +1,9 @@
 // #region Constants
-import { findParentNodeOfType } from 'prosemirror-utils';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { Command } from '@atlaskit/editor-common/types';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { Direction } from '@atlaskit/editor-tables/types';
 import {

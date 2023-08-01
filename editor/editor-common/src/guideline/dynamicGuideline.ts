@@ -1,6 +1,6 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorState, NodeSelection } from 'prosemirror-state';
-import { findChildren } from 'prosemirror-utils';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import { findChildren } from '@atlaskit/editor-prosemirror/utils';
 
 import { getMediaSinglePixelWidth } from '../media-single';
 

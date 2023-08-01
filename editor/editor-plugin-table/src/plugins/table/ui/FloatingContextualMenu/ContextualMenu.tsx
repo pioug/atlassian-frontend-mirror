@@ -2,7 +2,6 @@
 import { Component } from 'react';
 
 import { jsx } from '@emotion/react';
-import { EditorView } from 'prosemirror-view';
 import {
   defineMessages,
   injectIntl,
@@ -41,6 +40,7 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { Rect } from '@atlaskit/editor-tables/table-map';
 import { splitCell } from '@atlaskit/editor-tables/utils';

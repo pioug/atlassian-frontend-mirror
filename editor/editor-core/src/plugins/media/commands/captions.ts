@@ -1,7 +1,10 @@
-import { Node as PMNode, Schema } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { setTextSelection } from 'prosemirror-utils';
-import { Command } from '../../../types';
+import type {
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
+import type { Command } from '../../../types';
 import {
   ACTION,
   ACTION_SUBJECT,

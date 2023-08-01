@@ -4,11 +4,11 @@ import {
   PluginKey,
   TextSelection,
   type Transaction,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
 import type {
   Step as ProseMirrorStep,
   Transform as ProseMirrorTransform,
-} from 'prosemirror-transform';
+} from '@atlaskit/editor-prosemirror/transform';
 
 class Rebaseable {
   constructor(

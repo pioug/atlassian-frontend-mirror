@@ -1,14 +1,17 @@
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { EditorView } from 'prosemirror-view';
-import {
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
   EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
+import {
   NodeSelection,
   TextSelection,
   AllSelection,
-  Selection,
-} from 'prosemirror-state';
-import { Node } from 'prosemirror-model';
-import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
+} from '@atlaskit/editor-prosemirror/state';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 
 export {
   setNodeSelection,

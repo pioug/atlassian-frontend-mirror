@@ -14,7 +14,7 @@ import placeholderAdf from '../../__fixtures__/placeholder.adf.json';
 import { setADFContent, getADFContent } from '../../_utils/afe-app-helpers';
 import { callNativeBridge } from '../../../integration/_utils';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 
 type TestName = 'Placeholder - editing';
 

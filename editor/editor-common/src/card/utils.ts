@@ -1,12 +1,11 @@
+import { LinkMetaStep, LinkStepMetadata } from '@atlaskit/adf-schema/steps';
 import type {
   EditorState,
   ReadonlyTransaction,
   Selection,
   Transaction,
-} from 'prosemirror-state';
-import type { EditorView } from 'prosemirror-view';
-
-import { LinkMetaStep, LinkStepMetadata } from '@atlaskit/adf-schema/steps';
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 /**
  * Records metadata about the user action and input method relating to a transaction

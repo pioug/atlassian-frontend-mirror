@@ -1,2 +1,2 @@
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 export const pluginKey = new PluginKey('codeBlockPlugin');

@@ -1,5 +1,6 @@
-import type { Schema } from 'prosemirror-model';
 import type { IntlShape } from 'react-intl-next';
+
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 import type { DispatchAnalyticsEvent } from '../analytics/types/dispatch-analytics-event';
 import type { Dispatch, EventDispatcher } from '../event-dispatcher';

@@ -1,16 +1,19 @@
+import type {
+  Transaction,
+  EditorState,
+} from '@atlaskit/editor-prosemirror/state';
 import {
   Selection,
-  Transaction,
   TextSelection,
   NodeSelection,
-  EditorState,
-} from 'prosemirror-state';
-import { NodeRange, Slice, Fragment, ResolvedPos } from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { NodeRange, Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 import {
   liftTarget,
   ReplaceAroundStep,
   ReplaceStep,
-} from 'prosemirror-transform';
+} from '@atlaskit/editor-prosemirror/transform';
 import { getOrderFromOrderedListNode } from '@atlaskit/editor-common/utils';
 import {
   isListNode,

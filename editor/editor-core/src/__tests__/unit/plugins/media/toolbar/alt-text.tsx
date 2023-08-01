@@ -1,24 +1,24 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   media,
   mediaSingle,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { MediaAttributes } from '@atlaskit/adf-schema';
-import { EditorView } from 'prosemirror-view';
+import type { MediaAttributes } from '@atlaskit/adf-schema';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createIntl } from 'react-intl-next';
 import { messages as altTextMessages } from '../../../../../plugins/media/pm-plugins/alt-text/messages';
-import {
+import type {
   FloatingToolbarButton,
   FloatingToolbarConfig,
 } from '../../../../../plugins/floating-toolbar/types';
-import { MediaOptions } from '../../../../../plugins/media/types';
+import type { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../../../../plugins/media/toolbar';
-import { Command } from '../../../../../types';
+import type { Command } from '../../../../../types';
 import { setNodeSelection } from '../../../../../utils';
 import {
   getFreshMediaProvider,
@@ -29,7 +29,7 @@ import {
   findToolbarBtn,
   getToolbarItems,
 } from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
-import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 interface ToolbarWrapper {
   editorView: EditorView;

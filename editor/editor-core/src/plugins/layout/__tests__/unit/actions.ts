@@ -1,20 +1,20 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   layoutSection,
   layoutColumn,
   doc,
   p,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   deleteActiveLayoutNode,
   setPresetLayout,
@@ -24,9 +24,12 @@ import {
 import { layouts, buildLayoutForWidths } from './_utils';
 import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { PresetLayout } from '../../types';
+import type { PresetLayout } from '../../types';
 import layoutPlugin from '../..';
-import { TextSelection, NodeSelection } from 'prosemirror-state';
+import {
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
 import { selectNode } from '../../../../utils/commands';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

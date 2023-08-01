@@ -1,6 +1,10 @@
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
+import type {
+  BuilderContent,
+  DocBuilder,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   mention,
   em,
@@ -15,8 +19,6 @@ import {
   code_block,
   hardBreak,
   panel,
-  BuilderContent,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
@@ -29,9 +31,9 @@ import {
   strikeRegex,
   codeRegex,
 } from '../../../../plugins/text-formatting/pm-plugins/input-rule';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const createProductPayload = (product: string, originalSpelling: string) => ({
   action: 'autoSubstituted',

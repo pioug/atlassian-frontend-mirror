@@ -1,5 +1,4 @@
-import { EditorView } from 'prosemirror-view';
-
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   ExperiencePerformanceTypes,
   ExperienceTypes,

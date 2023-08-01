@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
 import { IntlShape } from 'react-intl-next';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -11,6 +9,8 @@ import {
   CardProvider,
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CardPlatform } from '@atlaskit/smart-card';
 
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';

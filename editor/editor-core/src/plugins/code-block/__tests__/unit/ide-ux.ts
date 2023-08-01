@@ -1,20 +1,16 @@
-import {
-  doc,
-  p,
-  code_block,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, code_block } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import { AllSelection } from 'prosemirror-state';
+import { AllSelection } from '@atlaskit/editor-prosemirror/state';
+import type { AnalyticsEventPayload } from '../../../analytics';
 import deprecatedAnalyticsPlugin, {
-  AnalyticsEventPayload,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
@@ -24,7 +20,7 @@ import deprecatedAnalyticsPlugin, {
   INDENT_TYPE,
 } from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import basePlugin from '../../../base';
 import codeBlockPlugin from '../../';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

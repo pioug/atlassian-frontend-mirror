@@ -1,4 +1,4 @@
-import type { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { ConfluenceTransformer } from '..';
 import { confluenceSchema } from '@atlaskit/adf-schema/schema-confluence';

@@ -1,5 +1,4 @@
-import { EditorState } from 'prosemirror-state';
-
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   BuilderContent,
   doc,

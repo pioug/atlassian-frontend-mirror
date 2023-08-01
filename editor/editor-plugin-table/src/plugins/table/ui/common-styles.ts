@@ -709,7 +709,13 @@ export const tableStyles = (
         z-index: ${akEditorUnitZIndex * 100};
       }
       // ED-15246: Trello card is visible through a border of a table border
-      td.${ClassName.HOVERED_CELL}, td.${ClassName.SELECTED_CELL} {
+      /* ED-19064: To fix when enable header column in the table,
+       and selection the header column, the right border is not tableBorderSelectedColor
+       when deleting the header column, the right border is not tableToolbarDeleteColor */
+      td.${ClassName.HOVERED_CELL},
+        td.${ClassName.SELECTED_CELL},
+        th.${ClassName.TABLE_HEADER_CELL}.${ClassName.SELECTED_CELL},
+        th.${ClassName.TABLE_HEADER_CELL}.${ClassName.HOVERED_CELL} {
         &::after {
           height: 100%;
           width: 100%;

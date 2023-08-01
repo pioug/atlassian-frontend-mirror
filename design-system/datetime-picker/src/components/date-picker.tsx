@@ -386,10 +386,14 @@ class DatePicker extends Component<DatePickerProps, State> {
   };
 
   onSelectBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const newlyFocusedElement = event.relatedTarget as HTMLElement;
+
     if (this.getSafeState().clearingFromIcon) {
       // Don't close menu if blurring after the user has clicked clear
       this.setState({ clearingFromIcon: false });
-    } else {
+    } else if (!this.containerRef?.contains(newlyFocusedElement)) {
+      // Don't close menu if focus is staying within the date picker's
+      // container. Makes keyboard accessibility of calendar possible
       this.setState({ isOpen: false, isFocused: false });
     }
     this.props.onBlur(event);

@@ -1,4 +1,4 @@
-import { Node, Schema } from 'prosemirror-model';
+import { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 
 // getIndexMatch finds the position of a given string within a given document, in accordance to the Confluence Annotation backend
 // The document is serialised into one large string, excluding any nodes that can not have annotations (eg: emojis, media).

@@ -1,6 +1,5 @@
-import { Transaction } from 'prosemirror-state';
-
 import { AnalyticsPayload } from '@atlaskit/adf-schema/steps';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 const getUndoRedoInputSource = (tr: Readonly<Transaction>): string | null => {
   // TODO: Please, do not copy or use this kind of code below

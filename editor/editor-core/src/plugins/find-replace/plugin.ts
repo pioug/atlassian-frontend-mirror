@@ -1,10 +1,12 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ReadonlyTransaction } from 'prosemirror-state';
-import { DecorationSet, Decoration } from 'prosemirror-view';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import type { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { pluginFactory } from '../../utils/plugin-state-factory';
 import reducer from './reducer';
-import { Dispatch } from '../../event-dispatcher';
-import { Match, FindReplacePluginState, findReplacePluginKey } from './types';
+import type { Dispatch } from '../../event-dispatcher';
+import type { Match, FindReplacePluginState } from './types';
+import { findReplacePluginKey } from './types';
 import {
   findMatches,
   createDecorations,

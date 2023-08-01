@@ -1,10 +1,14 @@
-import { Node, Slice, Fragment, Schema } from 'prosemirror-model';
-import { EditorState, Selection } from 'prosemirror-state';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
 import { mapSlice } from '../../utils/slice';
 import {
   findSelectedNodeOfType,
   findParentNodeOfType,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 
 function joinCodeBlocks(left: Node, right: Node) {
   const textContext = `${left.textContent!}\n${right.textContent!}`;

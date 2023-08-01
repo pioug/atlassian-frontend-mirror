@@ -1,4 +1,4 @@
-import { Node } from 'prosemirror-model';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 
 import { INPUT_METHOD } from '../analytics';
 import type { EditorAppearance } from '../types';

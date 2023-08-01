@@ -1,4 +1,8 @@
-import { EditorState, Transaction, TextSelection } from 'prosemirror-state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import {
   ACTION_SUBJECT,
@@ -8,13 +12,13 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { addAnalytics } from '../../analytics/utils';
-import { AnalyticsEventPayload } from '../../analytics/types';
+import type { AnalyticsEventPayload } from '../../analytics/types';
 import {
   getSelectionPositions,
   getPluginState,
   getDraftCommandAnalyticsPayload,
 } from '../utils';
-import { RESOLVE_METHOD } from '../../analytics/types/inline-comment-events';
+import type { RESOLVE_METHOD } from '../../analytics/types/inline-comment-events';
 import { applyMarkOnRange } from '../../../utils/commands';
 
 const addAnnotationMark =

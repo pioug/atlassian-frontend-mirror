@@ -1,5 +1,7 @@
-import { Selection, NodeSelection } from 'prosemirror-state';
-import { findParentNode, ContentNodeWithPos } from 'prosemirror-utils';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import { isSupportedNodeForBreakout } from './is-supported-node';
 
 /**

@@ -4,7 +4,7 @@ import {
   fromHTML,
 } from '@atlaskit/editor-test-helpers/adf-schema';
 import { nestedExpand } from '../../../../../src';
-import { Schema, Node } from 'prosemirror-model';
+import { Schema, Node } from '@atlaskit/editor-prosemirror/model';
 
 const findNestedExpand = (doc: Node, schema: Schema) => {
   let expand: Node | null = null;

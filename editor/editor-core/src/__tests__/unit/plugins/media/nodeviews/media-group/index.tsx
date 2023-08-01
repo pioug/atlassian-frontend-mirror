@@ -4,16 +4,14 @@ import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import { media, mediaGroup } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mountWithIntl } from '../../../../../__helpers/enzyme';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import React from 'react';
 import MediaGroup from '../../../../../../plugins/media/nodeviews/mediaGroup';
 import { MediaNodeUpdater } from '../../../../../../plugins/media/nodeviews/mediaNodeUpdater';
-import {
-  MediaProvider,
-  stateKey as mediaStateKey,
-} from '../../../../../../plugins/media/pm-plugins/main';
-import { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
-import { EditorAppearance } from '../../../../../../types';
+import type { MediaProvider } from '../../../../../../plugins/media/pm-plugins/main';
+import { stateKey as mediaStateKey } from '../../../../../../plugins/media/pm-plugins/main';
+import type { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
+import type { EditorAppearance } from '../../../../../../types';
 
 jest.mock('../../../../../../utils/', () => ({
   __esModule: true,

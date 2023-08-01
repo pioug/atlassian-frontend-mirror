@@ -1,30 +1,32 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import {
-  PluginKey,
+import type {
   Selection,
   EditorState,
   ReadonlyTransaction,
-  AllSelection,
-} from 'prosemirror-state';
-import { findDomRefAtPos, findSelectedNodeOfType } from 'prosemirror-utils';
-import { Node } from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/state';
+import { PluginKey, AllSelection } from '@atlaskit/editor-prosemirror/state';
+import {
+  findDomRefAtPos,
+  findSelectedNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 import camelCase from 'lodash/camelCase';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Popup } from '@atlaskit/editor-common/ui';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
+import type { Position } from '@atlaskit/editor-common/src/ui/Popup/utils';
 
 import WithPluginState from '../../ui/WithPluginState';
-import { Dispatch } from '../../event-dispatcher';
-import {
+import type { Dispatch } from '../../event-dispatcher';
+import type {
   DispatchAnalyticsEvent,
   AnalyticsEventPayload,
-  CONTENT_COMPONENT,
   FLOATING_CONTROLS_TITLE,
 } from '../analytics/types';
+import { CONTENT_COMPONENT } from '../analytics/types';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -38,14 +40,14 @@ import { hideConfirmDialog } from './pm-plugins/toolbar-data/commands';
 
 import { ConfirmationModal } from './ui/ConfirmationModal';
 import { ToolbarLoader } from './ui/ToolbarLoader';
-import {
+import type {
   FloatingToolbarHandler,
   FloatingToolbarConfig,
   FloatingToolbarButton,
 } from './types';
 import { findNode } from './utils';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 import { processCopyButtonItems } from '../copy-button/toolbar';
 import forceFocusPlugin, { forceFocusSelector } from './pm-plugins/force-focus';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';

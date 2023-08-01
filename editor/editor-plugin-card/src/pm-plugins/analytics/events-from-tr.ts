@@ -1,15 +1,17 @@
-import { Mark, Node, Schema } from 'prosemirror-model';
-import {
-  EditorState,
-  ReadonlyTransaction,
-  Transaction,
-} from 'prosemirror-state';
-import { AddMarkStep, RemoveMarkStep } from 'prosemirror-transform';
-
 import { LinkMetaStep, TableSortStep } from '@atlaskit/adf-schema/steps';
 import { ACTION } from '@atlaskit/editor-common/analytics';
 import { getLinkMetadataFromTransaction } from '@atlaskit/editor-common/card';
 import { isLinkMark, pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
+import { Mark, Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import {
+  EditorState,
+  ReadonlyTransaction,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  AddMarkStep,
+  RemoveMarkStep,
+} from '@atlaskit/editor-prosemirror/transform';
 
 import { LifecycleEvent } from '../../types';
 import type { Queue, Resolve } from '../../types';

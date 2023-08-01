@@ -1,7 +1,7 @@
 import React from 'react';
 import { Component } from 'react';
-import { EditorView } from 'prosemirror-view';
-import { Node as PMNode } from 'prosemirror-model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type {
   ExtensionHandlers,
   ReferenceEntity,
@@ -11,11 +11,11 @@ import {
   WithProviders,
 } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
-import { ProsemirrorGetPosHandler } from '../../../../nodeviews/types';
-import { EditorAppearance } from '../../../../types/editor-appearance';
+import type { ProsemirrorGetPosHandler } from '../../../../nodeviews/types';
+import type { EditorAppearance } from '../../../../types/editor-appearance';
 import ExtensionComponent from './ExtensionComponent';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
+import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
 
 export interface Props {
   editorView: EditorView;

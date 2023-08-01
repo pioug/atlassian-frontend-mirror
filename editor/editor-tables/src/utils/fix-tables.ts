@@ -1,5 +1,5 @@
-import { Node } from 'prosemirror-model';
-import { EditorState, Transaction } from 'prosemirror-state';
+import { Node } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { fixTablesKey } from '../pm-plugins/plugin-key';
 import {

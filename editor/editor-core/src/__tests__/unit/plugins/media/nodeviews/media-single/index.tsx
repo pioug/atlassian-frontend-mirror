@@ -3,16 +3,16 @@ import React from 'react';
 jest.mock('../../../../../../plugins/media/nodeviews/mediaNodeUpdater');
 
 import { MediaNodeUpdater } from '../../../../../../plugins/media/nodeviews/mediaNodeUpdater';
-
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, shallow, ReactWrapper } from 'enzyme';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Image } from '@atlaskit/editor-test-helpers/jsdom-fixtures';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   mediaSingle,
   media,
-  RefsNode,
   caption,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { MediaAttributes } from '@atlaskit/adf-schema';
@@ -21,23 +21,23 @@ import {
   getSchemaBasedOnStage,
 } from '@atlaskit/adf-schema/schema-default';
 import { stateKey as mediaStateKey } from '../../../../../../plugins/media/pm-plugins/plugin-key';
-import { MediaState } from '../../../../../../plugins/media/types';
-import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { MediaState } from '../../../../../../plugins/media/types';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import MediaSingle, {
   ReactMediaSingleNode,
 } from '../../../../../../plugins/media/nodeviews/mediaSingle';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import { MediaOptions } from '../../../../../../plugins/media/types';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { MediaOptions } from '../../../../../../plugins/media/types';
 import {
   nextTick,
   asMock,
   asMockReturnValue,
 } from '@atlaskit/media-test-helpers';
-import { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
-import { MediaSingleNodeViewProps } from '../../../../../../plugins/media/nodeviews/types';
+import type { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
+import type { MediaSingleNodeViewProps } from '../../../../../../plugins/media/nodeviews/types';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 
 const testCollectionName = `media-plugin-mock-collection-${randomId()}`;

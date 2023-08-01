@@ -1,4 +1,4 @@
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TableLayout } from '@atlaskit/adf-schema';
 import { RendererAppearance } from '../../../ui/Renderer/types';
 

@@ -1,12 +1,11 @@
-import PubNub from 'pubnub';
-import { MessageEvent, StatusEvent, SubscribeParameters } from 'pubnub';
+import PubNub, { StatusEvent, SubscribeParameters } from 'pubnub';
 import { OnEvent } from '../../apiTypes';
-import { Protocol, EventType } from '../../types';
+import { EventType, Protocol } from '../../types';
 import { ConnectionState, PubNubPayload, PubNubProtocolConfig } from '../types';
 import { logDebug } from '../../util/logger';
 import { EventEmitter2 } from 'eventemitter2';
 import { FeatureFlags } from '../../featureFlags';
-import HistoryFetcher from './pubNubHistoryFetcher';
+import HistoryFetcher, { MessageHandlerCallback } from './pubNubHistoryFetcher';
 
 const REQUEST_MESSAGE_COUNT_THRESHOLD = 100;
 
@@ -111,6 +110,7 @@ export default class PubNubProtocol implements Protocol {
       subscribeKey: config.subscribeKey,
       authKey: config.authKey,
       uuid: config.userUuid,
+      // @ts-ignore: this arg is missing from the type defs in DefinitelyTyped. The PubNub team raised a PR to add it: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/66230
       dedupeOnSubscribe: true,
       restore: true,
       ssl: true,
@@ -130,7 +130,7 @@ export default class PubNubProtocol implements Protocol {
     return pubNubClient;
   }
 
-  private onMessageEvent = (messageEvent: MessageEvent) => {
+  private onMessageEvent = (messageEvent: MessageHandlerCallback) => {
     if (!this.lastTimeToken || this.lastTimeToken < messageEvent.timetoken) {
       this.lastTimeToken = messageEvent.timetoken;
     }

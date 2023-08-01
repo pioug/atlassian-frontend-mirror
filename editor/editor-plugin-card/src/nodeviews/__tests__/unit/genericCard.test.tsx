@@ -2,10 +2,10 @@ jest.mock('../../../pm-plugins/doc');
 import React from 'react';
 
 import { render } from '@testing-library/react';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
 
 import type { Command } from '@atlaskit/editor-common/types';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { inlineCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import {

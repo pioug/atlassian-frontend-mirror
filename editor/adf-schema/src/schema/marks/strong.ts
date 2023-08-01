@@ -1,4 +1,4 @@
-import { MarkSpec, DOMOutputSpec } from 'prosemirror-model';
+import { MarkSpec, DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
 import { FONT_STYLE } from '../groups';
 
 /**

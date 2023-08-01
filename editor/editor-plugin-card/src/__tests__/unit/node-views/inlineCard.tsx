@@ -24,8 +24,8 @@ jest.mock('@atlaskit/editor-common/ui', () => ({
 }));
 
 import { render } from '@testing-library/react';
-import { EditorView } from 'prosemirror-view';
 
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { inlineCard } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { Card } from '@atlaskit/smart-card';

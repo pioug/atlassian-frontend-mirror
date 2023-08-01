@@ -1,18 +1,17 @@
-import { Mark, Node, ResolvedPos } from 'prosemirror-model';
-import { Selection, Transaction } from 'prosemirror-state';
-
-import { LinkAttributes } from '@atlaskit/adf-schema';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { LinkAttributes } from '@atlaskit/adf-schema';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type {
+  EditorAnalyticsAPI,
+  UnlinkToolbarAEP,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   buildEditLinkPayload,
-  EditorAnalyticsAPI,
   EVENT_TYPE,
   INPUT_METHOD,
   unlinkPayload,
-  UnlinkToolbarAEP,
 } from '@atlaskit/editor-common/analytics';
 import {
   addLinkMetadata,
@@ -26,6 +25,13 @@ import {
   getLinkCreationAnalyticsEvent,
   normalizeUrl,
 } from '@atlaskit/editor-common/utils';
+import type {
+  Mark,
+  Node,
+  ResolvedPos,
+} from '@atlaskit/editor-prosemirror/model';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { stateKey } from './pm-plugins/main';

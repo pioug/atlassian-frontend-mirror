@@ -10,14 +10,14 @@
  * TODO: https://product-fabric.atlassian.net/browse/ED-12714
  *
  */
-import { Node as ProsemirrorNode } from 'prosemirror-model';
-import { EditorState, PluginKey } from 'prosemirror-state';
 import rafSchedule from 'raf-schd';
 
 import { uuid } from '@atlaskit/adf-schema';
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { stepHasSlice } from '@atlaskit/editor-common/utils';
+import { Node as ProsemirrorNode } from '@atlaskit/editor-prosemirror/model';
+import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 interface TableLocalIdPluginState {
   // One time parse for initial load with existing tables without localIds

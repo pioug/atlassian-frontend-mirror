@@ -1,7 +1,11 @@
-import { Command, CommandDispatch } from '../../types';
+import type { Command, CommandDispatch } from '../../types';
 import { copyButtonPluginKey } from './pm-plugins/plugin-key';
-import { MarkType, NodeType } from 'prosemirror-model';
-import { EditorState, Transaction, NodeSelection } from 'prosemirror-state';
+import type { MarkType, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   copyHTMLToClipboard,
   copyHTMLToClipboardPolyfill,
@@ -10,7 +14,7 @@ import { getSelectedNodeOrNodeParentByNodeType, toDOM } from './utils';
 import { addAnalytics, ACTION, INPUT_METHOD } from '../analytics';
 import { getAnalyticsPayload } from '../clipboard/pm-plugins/main';
 import { browser } from '@atlaskit/editor-common/utils';
-import { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
+import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 
 export function createToolbarCopyCommandForMark(markType: MarkType): Command {
   function command(state: EditorState, dispatch: CommandDispatch | undefined) {

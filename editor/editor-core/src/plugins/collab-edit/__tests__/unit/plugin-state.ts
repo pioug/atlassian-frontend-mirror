@@ -1,15 +1,16 @@
-import { EditorView } from 'prosemirror-view';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
-import { CollabSendableSelection } from '@atlaskit/collab-provider';
+import type { CollabSendableSelection } from '@atlaskit/collab-provider';
 import collabEditPlugin, { pluginKey } from '../../index';
 import { createMockCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
-import { TextSelection } from 'prosemirror-state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const findTelepointerBySessionId = (

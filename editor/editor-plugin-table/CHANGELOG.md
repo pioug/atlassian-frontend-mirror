@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 2.6.4
+
+### Patch Changes
+
+- [`467515ad237`](https://bitbucket.org/atlassian/atlassian-frontend/commits/467515ad237) - [ux] ED-17628 Maximum table width is calculated using table node to make adding columns behabiour similar to current behaviuor when custom table widths is enabled.
+
+## 2.6.3
+
+### Patch Changes
+
+- [`b0277c41c33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b0277c41c33) - ED-19064: Fixed border issue when selecting and deleting header column, and fixed border issue of the column control decoration."
+
 ## 2.6.2
 
 ### Patch Changes

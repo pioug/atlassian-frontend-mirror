@@ -1,11 +1,14 @@
-import { Node } from 'prosemirror-model';
-import { NodeSelection, TextSelection } from 'prosemirror-state';
-import { findParentNode, safeInsert } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-
-import { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import type { ResolvedEditorState } from '@atlaskit/collab-provider';
+import { Node } from '@atlaskit/editor-prosemirror/model';
 import {
+  NodeSelection,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import { findParentNode, safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { ResolvedEditorState } from '@atlaskit/collab-provider';
+import type {
   ContextUpdateHandler,
   EditorActionsOptions,
   ReplaceRawValue,
@@ -17,7 +20,8 @@ import {
   processRawValue,
 } from '@atlaskit/editor-common/utils';
 
-import { createDispatch, EventDispatcher } from '../event-dispatcher';
+import type { EventDispatcher } from '../event-dispatcher';
+import { createDispatch } from '../event-dispatcher';
 import { getCollabProvider } from '../plugins/collab-edit/native-collab-provider-plugin';
 import { findNodePosWithLocalId } from '../plugins/extension/utils';
 import { toJSON } from '../utils';

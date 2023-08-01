@@ -1,5 +1,11 @@
 # @atlaskit/link-provider
 
+## 1.6.9
+
+### Patch Changes
+
+- [`e74ae7f06d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e74ae7f06d4) - Update dependency json-ld-types@3.8.0
+
 ## 1.6.8
 
 ### Patch Changes

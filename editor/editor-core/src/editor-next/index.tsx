@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 
 import { jsx } from '@emotion/react';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import uuid from 'uuid/v4';
 
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';

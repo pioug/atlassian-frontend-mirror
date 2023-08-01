@@ -275,9 +275,7 @@ export const OverflowShadow = (props: ThemeProps) => css`
       );
     left: calc(100% + 2px);
   }
-  .${ClassName.TABLE_COLUMN_CONTROLS_DECORATIONS} {
-    z-index: 0;
-  }
+
   .${ClassName.WITH_CONTROLS} {
     .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
       height: calc(100% - ${tableMarginTopWithControl}px);
@@ -319,8 +317,6 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
     left: -1px;
     top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
     height: ${columnControlsDecorationHeight}px;
-    z-index: 0;
-
     &::before {
       content: ' ';
       background-color: ${tableBorderColor(props)};

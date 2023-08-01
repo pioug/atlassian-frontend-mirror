@@ -1,4 +1,8 @@
-import { NodeSpec, Node as PMNode, Fragment } from 'prosemirror-model';
+import {
+  NodeSpec,
+  Node as PMNode,
+  Fragment,
+} from '@atlaskit/editor-prosemirror/model';
 import { TextDefinition as Text } from './text';
 import { BreakoutMarkDefinition } from '../marks/breakout';
 import { MarksObject, NoMark } from './types/mark';

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/link-test-helpers",
-  "version": "6.0.0",
+  "version": "6.0.1",
   "description": "Collection of test helpers used in linking platform examples and specs",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -41,7 +41,7 @@
     "@testing-library/react": "^12.1.5",
     "fetch-mock": "^8.0.0",
     "jest-diff": "^26.4.2",
-    "json-ld-types": "3.7.0",
+    "json-ld-types": "3.8.0",
     "lodash": "^4.17.21",
     "react-intl-next": "npm:react-intl@^5.18.1"
   },

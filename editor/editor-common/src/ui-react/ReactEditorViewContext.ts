@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 type ReactEditorViewContextProps = {
   editorView?: EditorView;

@@ -1,5 +1,5 @@
-import { NodeType, Node as PMNode } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
+import { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { TableContext, TableMap } from '../table-map';
 import { CellAttributesWithColSpan } from '../types';

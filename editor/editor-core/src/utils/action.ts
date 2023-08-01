@@ -1,5 +1,9 @@
-import { EditorState, Transaction, Selection } from 'prosemirror-state';
-import type { EditorView } from 'prosemirror-view';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { pluginKey as extensionPluginKey } from '../plugins/extension/plugin-key';
 import type { ExtensionState } from '../plugins/extension/types';

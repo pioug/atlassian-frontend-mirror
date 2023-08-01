@@ -1,34 +1,32 @@
-import { MediaADFAttrs } from '@atlaskit/adf-schema';
-import {
-  ProviderFactory,
-  WithProviders,
-} from '@atlaskit/editor-common/provider-factory';
+import type { MediaADFAttrs } from '@atlaskit/adf-schema';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
   Providers,
   MediaProvider,
   ContextIdentifierProvider,
+  ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import {
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/ui';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView, Decoration } from 'prosemirror-view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 import React from 'react';
-import { EventDispatcher } from '../../../../event-dispatcher';
-import { getPosHandler, getPosHandlerNode } from '../../../../nodeviews';
+import type { EventDispatcher } from '../../../../event-dispatcher';
+import type { getPosHandler, getPosHandlerNode } from '../../../../nodeviews';
 import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
 
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
-import { MediaOptions } from '../../types';
-import { MediaNodeViewProps } from '../types';
+import type { MediaOptions } from '../../types';
+import type { MediaNodeViewProps } from '../types';
 import MediaNode from './media';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { isMediaBlobUrlFromAttrs } from '../../utils/media-common';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type mediaPlugin from '../../index';
 
 interface MediaNodeWithProvidersProps {

@@ -1,22 +1,22 @@
 import React from 'react';
-import { Node as PmNode } from 'prosemirror-model';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import {
   NodeSelection,
   TextSelection,
-  ReadonlyTransaction,
-} from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { placeholder } from '@atlaskit/adf-schema';
 import MediaServicesTextIcon from '@atlaskit/icon/glyph/media-services/text';
-import { getPosHandler } from '../../nodeviews/types';
-import {
+import type { getPosHandler } from '../../nodeviews/types';
+import type {
   ExtractInjectionAPI,
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
-import { Dispatch } from '../../event-dispatcher';
+import type { Dispatch } from '../../event-dispatcher';
 import { isNodeEmpty } from '../../utils';
 import { FakeTextCursorSelection } from '../fake-text-cursor/cursor';
 import PlaceholderFloatingToolbar from './ui/PlaceholderFloatingToolbar';
@@ -26,7 +26,7 @@ import {
 } from './actions';
 import { PlaceholderTextNodeView } from './placeholder-text-nodeview';
 import { pluginKey } from './plugin-key';
-import { PlaceholderTextOptions, PluginState } from './types';
+import type { PlaceholderTextOptions, PluginState } from './types';
 import {
   ACTION,
   ACTION_SUBJECT,

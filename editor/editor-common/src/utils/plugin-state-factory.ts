@@ -4,7 +4,7 @@ import type {
   ReadonlyTransaction,
   SafeStateField,
   Transaction,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
 
 import { Dispatch } from '../event-dispatcher';
 import { Command } from '../types';

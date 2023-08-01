@@ -1,7 +1,7 @@
 import React from 'react';
 import { RendererContext } from '../types';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
-import { Mark as PMMark } from 'prosemirror-model';
+import { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

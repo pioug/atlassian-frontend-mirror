@@ -1,10 +1,10 @@
 import { commitStep, throttledCommitStep } from '../commit-step';
-import { ReplaceStep } from 'prosemirror-transform';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-import { EditorState } from 'prosemirror-state';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
-import { Slice } from 'prosemirror-model';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
 import { AcknowledgementResponseTypes } from '../../types';
 import { EVENT_STATUS } from '../../helpers/const';
 

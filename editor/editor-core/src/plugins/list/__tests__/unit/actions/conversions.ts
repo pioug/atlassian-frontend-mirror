@@ -1,13 +1,7 @@
-import { Schema, NodeType } from 'prosemirror-model';
+import type { Schema, NodeType } from '@atlaskit/editor-prosemirror/model';
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import {
-  doc,
-  p,
-  ul,
-  li,
-  ol,
-  RefsNode,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p, ul, li, ol } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { convertListType } from '../../../actions/conversions';
 

@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 import {
   confluenceUnsupportedBlock,
@@ -14,7 +14,7 @@ import { UnsupportedBlock } from '@atlaskit/editor-common/ui';
 import { UnsupportedInlineNodeView } from './unsupported-inline-node-view';
 
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
-import {
+import type {
   NextEditorPlugin,
   PMPluginFactory,
   PMPluginFactoryParams,

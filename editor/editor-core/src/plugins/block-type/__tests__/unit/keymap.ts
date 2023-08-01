@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockquote,
   panel,
@@ -16,24 +17,23 @@ import {
   tdEmpty,
   tdCursor,
   thEmpty,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import simulatePlatform, {
   Platforms,
 } from '@atlaskit/editor-test-helpers/simulate-platform';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { setNodeSelection } from '../../../../utils';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import blockTypePlugin from '../../';
 import deprecatedAnalyticsPlugin from '../../../analytics';

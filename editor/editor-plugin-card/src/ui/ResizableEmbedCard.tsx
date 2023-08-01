@@ -2,10 +2,6 @@
 import React from 'react';
 
 import { jsx } from '@emotion/react';
-import {
-  findParentNodeOfTypeClosestToPos,
-  hasParentNodeOfType,
-} from 'prosemirror-utils';
 
 import { RichMediaLayout } from '@atlaskit/adf-schema';
 import { embedSpacingStyles } from '@atlaskit/editor-common/styles';
@@ -23,6 +19,10 @@ import {
   wrappedLayouts,
   wrapperStyle,
 } from '@atlaskit/editor-common/ui';
+import {
+  findParentNodeOfTypeClosestToPos,
+  hasParentNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
 import {
   akEditorBreakoutPadding,
   akEditorMediaResizeHandlerPaddingWide,

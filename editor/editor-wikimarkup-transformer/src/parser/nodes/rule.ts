@@ -1,4 +1,8 @@
-import { Node as PMNode, NodeType, Schema } from 'prosemirror-model';
+import {
+  Node as PMNode,
+  NodeType,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
 
 const HORIZONTAL_LINE_INSIDE_MACRO = '---';
 

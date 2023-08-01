@@ -1,11 +1,3 @@
-import { Node as ProseMirrorNode } from 'prosemirror-model';
-import { EditorState, TextSelection, Transaction } from 'prosemirror-state';
-import {
-  findParentDomRefOfType,
-  findParentNodeOfType,
-} from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -34,6 +26,17 @@ import type {
   getPosHandler,
 } from '@atlaskit/editor-common/types';
 import { browser, closestElement } from '@atlaskit/editor-common/utils';
+import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import {
+  EditorState,
+  TextSelection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  findParentDomRefOfType,
+  findParentNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import {

@@ -1,4 +1,8 @@
-import { NodeSpec, Node, AttributeSpec } from 'prosemirror-model';
+import {
+  NodeSpec,
+  Node,
+  AttributeSpec,
+} from '@atlaskit/editor-prosemirror/model';
 import { ParagraphDefinition as Paragraph } from './paragraph';
 import { OrderedListDefinition as OrderedList } from './types/list';
 import { BulletListDefinition as BulletList } from './types/list';

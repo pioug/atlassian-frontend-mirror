@@ -17,13 +17,25 @@ import listPlugin from '../../..';
 import codeBlockPlugin from '../../../../code-block';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import {
+  CreateUIAnalyticsEvent,
+  UIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
 
 describe('backspaceKeyCommand', () => {
   const createEditor = createProsemirrorEditorFactory();
 
+  let createAnalyticsEvent: CreateUIAnalyticsEvent;
+
+  beforeEach(() => {
+    createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
+  });
+
   const editor = (doc: DocBuilder) => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
+      .add([analyticsPlugin, { createAnalyticsEvent }])
       .add(decorationsPlugin)
       .add(listPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }]);
@@ -38,7 +50,7 @@ describe('backspaceKeyCommand', () => {
     it('should ignore when there is no previous node', () => {
       const unchangedDoc = doc(ul(li(p('{<>}a'))));
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = listBackspace(
+      const commandReturn = listBackspace(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -49,7 +61,7 @@ describe('backspaceKeyCommand', () => {
     it('should ignore when previous node is not in a list', () => {
       const unchangedDoc = doc(p('a'), ul(li(p('{<>}b'))));
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = listBackspace(
+      const commandReturn = listBackspace(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -60,7 +72,7 @@ describe('backspaceKeyCommand', () => {
     it('should ignore when selection is not in a paragraph', () => {
       const unchangedDoc = doc(ul(li(p('a')), li(code_block()('{<>}b'))));
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = listBackspace(
+      const commandReturn = listBackspace(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -71,7 +83,7 @@ describe('backspaceKeyCommand', () => {
     it('should ignore when selection is not the first child of its parent', () => {
       const unchangedDoc = doc(ul(li(p('a')), li(p('b'), p('{<>}c'))));
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = listBackspace(
+      const commandReturn = listBackspace(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -82,7 +94,7 @@ describe('backspaceKeyCommand', () => {
     it('should ignore when selection is not empty and at the start', () => {
       const unchangedDoc = doc(ul(li(p('a')), li(p('b{<>}c'))));
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = listBackspace(
+      const commandReturn = listBackspace(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -94,7 +106,7 @@ describe('backspaceKeyCommand', () => {
     it('should ignore when selection is not in a list', () => {
       const unchangedDoc = doc(ul(li(p('a'))), p('{<>}b'));
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = listBackspace(
+      const commandReturn = listBackspace(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -109,7 +121,7 @@ describe('backspaceKeyCommand', () => {
         code_block()('d'),
       );
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = listBackspace(
+      const commandReturn = listBackspace(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -122,7 +134,7 @@ describe('backspaceKeyCommand', () => {
         ul(li(p('a'), code_block()('b')), li(p('{<>}c'), code_block()('d'))),
       );
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = listBackspace(
+      const commandReturn = listBackspace(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -146,7 +158,7 @@ describe('backspaceKeyCommand', () => {
         ),
       );
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = listBackspace(
+      const commandReturn = listBackspace(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -162,7 +174,7 @@ describe('backspaceKeyCommand', () => {
         ),
       );
       const { editorView } = editor(unchangedDoc);
-      const commandReturn = listBackspace(
+      const commandReturn = listBackspace(undefined)(
         editorView.state,
         editorView.dispatch,
       );
@@ -179,7 +191,7 @@ describe('backspaceKeyCommand', () => {
 
       const { editorView } = editor(initialDoc);
 
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
 
       expect(editorView.state.doc).toEqualDocument(expectedDoc);
     });
@@ -194,7 +206,7 @@ describe('backspaceKeyCommand', () => {
 
       const { editorView } = editor(initialDoc);
 
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
 
       expect(editorView.state.doc).toEqualDocument(expectedDoc);
     });
@@ -205,7 +217,7 @@ describe('backspaceKeyCommand', () => {
       const initialDoc = doc(ul(li(p('')), li(p('{<>}'))));
       const expectedDoc = doc(ul(li(p('{<>}'))));
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -224,7 +236,7 @@ describe('backspaceKeyCommand', () => {
         p('g'),
       );
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -234,7 +246,7 @@ describe('backspaceKeyCommand', () => {
       const initialDoc = doc(ul(li(p(''), ul(li(p('{<>}'))))));
       const expectedDoc = doc(ul(li(p('{<>}'))));
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -251,7 +263,7 @@ describe('backspaceKeyCommand', () => {
         p('e'),
       );
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -279,7 +291,7 @@ describe('backspaceKeyCommand', () => {
         p('g'),
       );
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -307,7 +319,7 @@ describe('backspaceKeyCommand', () => {
         p('g'),
       );
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -339,7 +351,7 @@ describe('backspaceKeyCommand', () => {
         p('i'),
       );
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });
@@ -349,7 +361,7 @@ describe('backspaceKeyCommand', () => {
       const initialDoc = doc(ul(li(p(''), ul(li(p('')))), li(p('{<>}'))));
       const expectedDoc = doc(ul(li(p(''), ul(li(p(''))))));
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -369,7 +381,7 @@ describe('backspaceKeyCommand', () => {
         p('f'),
       );
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -396,7 +408,7 @@ describe('backspaceKeyCommand', () => {
         p('h'),
       );
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
 
@@ -434,7 +446,7 @@ describe('backspaceKeyCommand', () => {
         p('j'),
       );
       const { editorView } = editor(initialDoc);
-      backspaceKeyCommand({})(editorView.state, editorView.dispatch);
+      backspaceKeyCommand(undefined)({})(editorView.state, editorView.dispatch);
       expect(editorView.state).toEqualDocumentAndSelection(expectedDoc);
     });
   });

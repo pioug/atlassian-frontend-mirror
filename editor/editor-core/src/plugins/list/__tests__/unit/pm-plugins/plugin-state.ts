@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   p,
   ul,
@@ -5,12 +6,11 @@ import {
   li,
   doc,
   h1,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import { ListState } from '../../../types';
+import type { ListState } from '../../../types';
 import { pluginKey, createPlugin } from '../../../pm-plugins/main';
-import { DecorationSet } from 'prosemirror-view';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 describe('outdent-list-items-selected', () => {
   const eventDispatch = jest.fn();

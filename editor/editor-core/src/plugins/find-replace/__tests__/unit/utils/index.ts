@@ -1,4 +1,4 @@
-import { Decoration } from 'prosemirror-view';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import {
   findLostAdjacentDecorations,
   isMatchAffectedByStep,

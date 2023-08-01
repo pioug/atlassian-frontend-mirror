@@ -1,7 +1,10 @@
-import { EditorState } from 'prosemirror-state';
-import { Node as PMNode, NodeType } from 'prosemirror-model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type {
+  Node as PMNode,
+  NodeType,
+} from '@atlaskit/editor-prosemirror/model';
 
-import { FeatureFlags } from '../../../../types/feature-flags';
+import type { FeatureFlags } from '../../../../types/feature-flags';
 import { ruleWithAnalytics } from '../../../../utils/input-rules';
 import { createWrappingJoinRule } from './wrapping-join-rule';
 
@@ -12,7 +15,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
   AnalyticsEventPayload,
-} from '../../../analytics';
+} from '@atlaskit/editor-common/analytics';
 
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics';
 

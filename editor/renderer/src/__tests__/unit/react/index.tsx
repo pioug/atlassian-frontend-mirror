@@ -36,7 +36,7 @@ import * as expandWithMedia from '../../__fixtures__/expand-with-media.adf.json'
 import * as nestedExpandWithMedia from '../../__fixtures__/nested-expand-with-media.json';
 import * as layoutWithMedia from '../../__fixtures__/layout-with-media.json';
 import * as tableWithMedia from '../../__fixtures__/table-with-media.json';
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { AnalyticsEventPayload } from '../../../analytics/events';
 const docFromSchema = schema.nodeFromJSON(doc);
 const headingDocFromSchema = schema.nodeFromJSON(headingDoc);

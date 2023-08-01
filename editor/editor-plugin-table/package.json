@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-table",
-  "version": "2.6.2",
+  "version": "2.6.4",
   "description": "Table plugin for the @atlaskit/editor",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -27,11 +27,12 @@
     "releaseModel": "continuous"
   },
   "dependencies": {
-    "@atlaskit/adf-schema": "^26.3.0",
+    "@atlaskit/adf-schema": "^26.4.0",
     "@atlaskit/editor-common": "^74.29.0",
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-plugin-analytics": "^0.1.0",
     "@atlaskit/editor-plugin-content-insertion": "^0.0.6",
+    "@atlaskit/editor-prosemirror": "1.0.2",
     "@atlaskit/editor-shared-styles": "^2.5.0",
     "@atlaskit/editor-tables": "^2.3.0",
     "@atlaskit/icon": "^21.12.0",
@@ -44,13 +45,6 @@
     "classnames": "^2.2.5",
     "lodash": "^4.17.21",
     "memoize-one": "^6.0.0",
-    "prosemirror-commands": "1.1.11",
-    "prosemirror-keymap": "1.1.4",
-    "prosemirror-model": "1.16.0",
-    "prosemirror-state": "1.3.4",
-    "prosemirror-transform": "1.3.2",
-    "prosemirror-utils": "^1.0.0-0",
-    "prosemirror-view": "1.23.7",
     "raf-schd": "^4.0.3",
     "uuid": "^3.1.0"
   },
@@ -73,7 +67,6 @@
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",
     "@atlassian/feature-flags-test-utils": "^0.1.2",
     "@testing-library/react": "^12.1.5",
-    "prosemirror-history": "^1.1.3",
     "raf-stub": "^2.0.1",
     "typescript": "~4.9.5"
   },

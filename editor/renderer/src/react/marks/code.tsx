@@ -2,7 +2,7 @@ import React from 'react';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 import AkCode from '@atlaskit/code/inline';
 import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
-import { Mark } from 'prosemirror-model';
+import { Mark } from '@atlaskit/editor-prosemirror/model';
 
 import type { MarkProps } from '../types';
 

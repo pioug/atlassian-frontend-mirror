@@ -1,8 +1,8 @@
 import React from 'react';
-import { findDomRefAtPos } from 'prosemirror-utils';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import Loadable from 'react-loadable';
 import { date } from '@atlaskit/adf-schema';
-import {
+import type {
   NextEditorPlugin,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
@@ -27,10 +27,10 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import { DatePluginConfig, DateType } from './types';
+import type { DatePluginConfig, DateType } from './types';
 import { pluginKey as datePluginKey } from './pm-plugins/plugin-key';
 import type { Props as DatePickerProps } from './ui/DatePicker';
-import { UiComponentFactoryParams } from '@atlaskit/editor-common/types';
+import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { WeekDay } from '@atlaskit/calendar/types';

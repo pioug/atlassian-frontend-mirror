@@ -4,7 +4,7 @@ import {
   ReactTestInstance,
 } from 'react-test-renderer';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ReactSerializer } from '../../../index';
 import AnnotationComponent from '../../marks/annotation';
 import { AnnotationMark } from '../../../ui/annotations';

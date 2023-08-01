@@ -1,13 +1,5 @@
 import React from 'react';
 
-import {
-  DOMOutputSpec,
-  DOMSerializer,
-  Node as PmNode,
-} from 'prosemirror-model';
-import { EditorState, PluginKey } from 'prosemirror-state';
-import { EditorView, NodeView } from 'prosemirror-view';
-
 import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
@@ -20,6 +12,13 @@ import type {
   getPosHandlerNode,
 } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
+import {
+  DOMOutputSpec,
+  DOMSerializer,
+  Node as PmNode,
+} from '@atlaskit/editor-prosemirror/model';
+import { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 

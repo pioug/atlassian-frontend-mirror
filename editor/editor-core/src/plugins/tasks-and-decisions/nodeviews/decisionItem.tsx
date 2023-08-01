@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Node as PMNode } from 'prosemirror-model';
-import { Decoration, NodeView } from 'prosemirror-view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Decoration, NodeView } from '@atlaskit/editor-prosemirror/view';
 
-import { EventDispatcher } from '../../../event-dispatcher';
-import { ForwardRef, getPosHandler } from '../../../nodeviews';
+import type { EventDispatcher } from '../../../event-dispatcher';
+import type { ForwardRef, getPosHandler } from '../../../nodeviews';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
 import DecisionItem from '../ui/Decision';
 import { isTypeAheadOpen } from '../../type-ahead/utils';

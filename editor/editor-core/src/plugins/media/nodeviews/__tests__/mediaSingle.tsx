@@ -1,17 +1,20 @@
 import * as mocks from './mediaSingle.mock';
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
-import { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { mediaSingle, media } from '@atlaskit/editor-test-helpers/doc-builder';
-import { ExternalMediaAttributes, MediaAttributes } from '@atlaskit/adf-schema';
+import type {
+  ExternalMediaAttributes,
+  MediaAttributes,
+} from '@atlaskit/adf-schema';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import MediaSingleNode from '../mediaSingle';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import { MediaPluginState } from '../../pm-plugins/types';
+import type { MediaPluginState } from '../../pm-plugins/types';
 import { fireEvent, render } from '@testing-library/react';
-import { NodeSelection, EditorState } from 'prosemirror-state';
-import { MediaSingleNodeProps } from '../types';
+import { NodeSelection, EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { MediaSingleNodeProps } from '../types';
 import { IntlProvider } from 'react-intl-next';
 
 export const createMediaProvider = async (): Promise<MediaProvider> =>

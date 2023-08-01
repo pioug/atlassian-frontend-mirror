@@ -1,10 +1,10 @@
 import React from 'react';
-import { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Popup } from '@atlaskit/editor-common/ui';
 import InsertMenu from '../../../../ui/ElementBrowser/InsertMenu';
-import { BlockMenuItem } from './create-items';
+import type { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
-import { OnInsert } from '../../../../ui/ElementBrowser/types';
+import type { OnInsert } from '../../../../ui/ElementBrowser/types';
 
 type SimpleEventHandler<T> = (event?: T) => void;
 

@@ -1,4 +1,4 @@
-import { Node as PMNode, NodeSpec } from 'prosemirror-model';
+import { Node as PMNode, NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { NoMark } from './types/mark';
 import { ParagraphDefinition as Paragraph } from './paragraph';
 import { HeadingDefinition as Heading } from './heading';

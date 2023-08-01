@@ -1,11 +1,16 @@
-import { NodeType, Node as PMNode } from 'prosemirror-model';
-import { hasParentNodeOfType } from 'prosemirror-utils';
+import type {
+  NodeType,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import {
   TextSelection,
   NodeSelection,
-  EditorState,
-  Transaction,
-} from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/state';
 
 export const insertBlock = (
   state: EditorState,

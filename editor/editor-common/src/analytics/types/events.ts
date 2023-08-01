@@ -1,6 +1,8 @@
-import type { EditorState, PluginKey } from 'prosemirror-state';
-
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type {
+  EditorState,
+  PluginKey,
+} from '@atlaskit/editor-prosemirror/state';
 
 import type { NewCollabSyncUpErrorAttributes } from '../../collab';
 import type {

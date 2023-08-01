@@ -1,5 +1,5 @@
 import React from 'react';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import ToolbarListsIndentation from './ui';
 import WithPluginState from '../../ui/WithPluginState';
 import { ToolbarSize } from '../../ui/Toolbar/types';
@@ -9,6 +9,8 @@ import {
   createPlugin as indentationButtonsPlugin,
 } from './pm-plugins/indentation-buttons';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 
 type Config = {
   showIndentationButtons: boolean;
@@ -18,11 +20,16 @@ const toolbarListsIndentationPlugin: NextEditorPlugin<
   'toolbarListsIndentation',
   {
     pluginConfiguration: Config;
-    dependencies: [typeof featureFlagsPlugin];
+    dependencies: [
+      typeof featureFlagsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+    ];
   }
 > = ({ showIndentationButtons, allowHeadingAndParagraphIndentation }, api) => {
   const featureFlags =
     api?.dependencies.featureFlags.sharedState.currentState() || {};
+  const editorAnalyticsAPI = api?.dependencies.analytics?.actions;
+
   return {
     name: 'toolbarListsIndentation',
 
@@ -79,6 +86,7 @@ const toolbarListsIndentationPlugin: NextEditorPlugin<
                 showIndentationButtons={!!showIndentationButtons}
                 indentDisabled={indentationState!.indentDisabled}
                 outdentDisabled={indentationState!.outdentDisabled}
+                editorAnalyticsAPI={editorAnalyticsAPI}
               />
             );
           }}

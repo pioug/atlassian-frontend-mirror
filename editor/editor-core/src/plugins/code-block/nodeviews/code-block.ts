@@ -1,8 +1,9 @@
 import rafSchedule from 'raf-schd';
 import { browser } from '@atlaskit/editor-common/utils';
-import { EditorView } from 'prosemirror-view';
-import { Node, DOMSerializer, DOMOutputSpec } from 'prosemirror-model';
-import { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node, DOMOutputSpec } from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
+import type { getPosHandlerNode, getPosHandler } from '../../../nodeviews/';
 import { codeBlockClassNames } from '../ui/class-names';
 import { resetShouldIgnoreFollowingMutations } from '../actions';
 import { getPluginState } from '../pm-plugins/main-state';

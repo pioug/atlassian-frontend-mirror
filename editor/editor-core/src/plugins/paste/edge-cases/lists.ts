@@ -1,6 +1,11 @@
-import { Fragment, Node as PMNode, Slice } from 'prosemirror-model';
-import { TextSelection, NodeSelection, Transaction } from 'prosemirror-state';
-import { Transform } from 'prosemirror-transform';
+import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import {
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import { Transform } from '@atlaskit/editor-prosemirror/transform';
 
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 

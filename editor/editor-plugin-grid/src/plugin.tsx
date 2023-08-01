@@ -2,8 +2,6 @@ import React from 'react';
 
 import { withTheme } from '@emotion/react';
 import classnames from 'classnames';
-import { PluginKey } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -12,6 +10,8 @@ import {
   NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorBreakoutPadding,
   akEditorFullPageMaxWidth,

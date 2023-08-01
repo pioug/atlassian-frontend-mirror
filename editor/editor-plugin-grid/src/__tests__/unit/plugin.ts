@@ -1,8 +1,8 @@
 import { act, render } from '@testing-library/react';
-import { EditorView } from 'prosemirror-view';
 
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,

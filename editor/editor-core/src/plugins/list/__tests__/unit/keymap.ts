@@ -1,5 +1,6 @@
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   emoji,
@@ -12,11 +13,10 @@ import {
   mediaSingle,
   code_block,
   br,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
@@ -41,9 +41,9 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import simulatePlatform, {
   Platforms,
 } from '@atlaskit/editor-test-helpers/simulate-platform';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EditorView } from 'prosemirror-view';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 

@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 74.29.1
+
+### Patch Changes
+
+- [`f0153f75b5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f0153f75b5d) - Added generateDefaultGuideline to editor-common/guideline
+
 ## 74.29.0
 
 ### Minor Changes

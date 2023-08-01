@@ -1,5 +1,5 @@
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
-import { Fragment } from 'prosemirror-model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { splitIntoParagraphs } from '../../transforms';
 
 describe('transforms', () => {

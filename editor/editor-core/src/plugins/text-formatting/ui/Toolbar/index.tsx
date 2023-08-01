@@ -2,8 +2,8 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { jsx } from '@emotion/react';
 
-import type { EditorView } from 'prosemirror-view';
-import type { EditorState } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 

@@ -1,4 +1,4 @@
-import { Node } from 'prosemirror-model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 export interface GetAttrsChange<T, V> {
   node: Node;

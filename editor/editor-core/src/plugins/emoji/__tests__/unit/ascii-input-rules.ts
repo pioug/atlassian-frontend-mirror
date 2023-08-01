@@ -1,5 +1,6 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { EmojiDescription } from '@atlaskit/emoji/types';
+import type { EmojiDescription } from '@atlaskit/emoji/types';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -7,20 +8,19 @@ import {
   code_block,
   hardBreak,
   emoji,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 // Editor Plugins
 import deprecatedAnalyticsPlugin from '../../../analytics';

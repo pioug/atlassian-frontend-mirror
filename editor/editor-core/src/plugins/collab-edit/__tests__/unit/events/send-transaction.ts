@@ -1,10 +1,10 @@
-import type { Plugin, Transaction } from 'prosemirror-state';
+import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { CollabEditProvider } from '@atlaskit/collab-provider';
 import { sendTransaction } from '../../../events/send-transaction';
 import collabEditPlugin from '../../../';
 
-import { EditorState } from 'prosemirror-state';
-import { Schema } from 'prosemirror-model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 
 describe('collab-edit: send-transaction.ts', () => {
   const schema = new Schema({

@@ -1,4 +1,5 @@
-import { Fragment, Node } from 'prosemirror-model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { p, strong, clean } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { mapFragment } from '../../../utils/slice';

@@ -1,17 +1,21 @@
 import React from 'react';
 import uuid from 'uuid';
-import { Schema, Fragment, Node as PMNode } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import {
-  isResolvingMentionProvider,
+import type {
+  Schema,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type {
   MentionDescription,
   MentionProvider,
 } from '@atlaskit/mention/resource';
+import { isResolvingMentionProvider } from '@atlaskit/mention/resource';
 import { MENTION_ITEM_HEIGHT, MentionItem } from '@atlaskit/mention/item';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { MentionStats } from '@atlaskit/mention';
 
-import { TeamMember } from '@atlaskit/mention/team-resource';
+import type { TeamMember } from '@atlaskit/mention/team-resource';
 import {
   buildTypeAheadCancelPayload,
   buildTypeAheadInsertedPayload,

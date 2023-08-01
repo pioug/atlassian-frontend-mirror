@@ -1,8 +1,8 @@
 import { memoProcessItems } from '..';
-import { QuickInsertHandler } from '../types';
+import type { QuickInsertHandler } from '../types';
 
-import { IntlShape } from 'react-intl-next';
-import { EditorState } from 'prosemirror-state';
+import type { IntlShape } from 'react-intl-next';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 describe('processItems', () => {
   const intlMock = {

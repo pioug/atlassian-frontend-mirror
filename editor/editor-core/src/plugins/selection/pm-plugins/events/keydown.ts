@@ -1,6 +1,9 @@
-import { EditorView } from 'prosemirror-view';
-import { ResolvedPos, Node as PMNode } from 'prosemirror-model';
-import { TextSelection } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
+  ResolvedPos,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 const isCollpasedExpand = (node: PMNode | null | undefined): boolean => {
   return Boolean(

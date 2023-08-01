@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 26.13.0
+
+### Minor Changes
+
+- [`d2ef5ede462`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2ef5ede462) - Added a new analytics event that will fire on resolution of data for hover cards. The change is behind a FF and will only surface if we pass the FF as true to SmartCardProvider.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.12.1
+
+### Patch Changes
+
+- [`e74ae7f06d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e74ae7f06d4) - Update dependency json-ld-types@3.8.0
+
 ## 26.12.0
 
 ### Minor Changes

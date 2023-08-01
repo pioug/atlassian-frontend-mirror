@@ -1,6 +1,9 @@
-import type { EditorState, PluginKey, Transaction } from 'prosemirror-state';
-
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
+import type {
+  EditorState,
+  PluginKey,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import {
   leafNodeReplacementCharacter,

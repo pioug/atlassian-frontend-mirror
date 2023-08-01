@@ -4,7 +4,7 @@ import { jsx } from '@emotion/react';
 import {
   findParentNodeOfTypeClosestToPos,
   hasParentNodeOfType,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { getMediaClient } from '@atlaskit/media-client';

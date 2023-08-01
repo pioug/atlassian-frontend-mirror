@@ -1,10 +1,14 @@
-import { Mappable, Step, StepResult } from 'prosemirror-transform';
+import {
+  Mappable,
+  Step,
+  StepResult,
+} from '@atlaskit/editor-prosemirror/transform';
 import {
   Node as ProseMirrorNode,
   Slice,
   Fragment,
   Schema,
-} from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/model';
 
 /**
  * For more context on what this is about:

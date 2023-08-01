@@ -1251,6 +1251,7 @@ export const useSmartLinkAnalytics: (
       reason?: TrackQuickActionFailureReason;
       step?: string;
     }) => void;
+    hoverCardResolutionStarted: () => void;
   };
   screen: {
     authPopupEvent: ({

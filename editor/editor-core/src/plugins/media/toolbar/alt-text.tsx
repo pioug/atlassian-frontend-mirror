@@ -1,20 +1,20 @@
 import React from 'react';
-import { IntlShape } from 'react-intl-next';
-import { EditorView } from 'prosemirror-view';
-import {
+import type { IntlShape } from 'react-intl-next';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
   FloatingToolbarButton,
   FloatingToolbarCustom,
   FloatingToolbarConfig,
 } from '../../floating-toolbar/types';
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 import { openMediaAltTextMenu } from '../pm-plugins/alt-text/commands';
 import { ToolTipContent, addAltText } from '../../../keymaps';
-import { MediaToolbarBaseConfig } from '../types';
+import type { MediaToolbarBaseConfig } from '../types';
 import { messages } from '../pm-plugins/alt-text/messages';
 import AltTextEdit from '../pm-plugins/alt-text/ui/AltTextEdit';
 import { CONTAINER_WIDTH_IN_PX } from '../pm-plugins/alt-text/ui/AltTextEdit';
 import { getMediaNodeFromSelection } from '../utils/media-common';
-import { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ClassNames } from '../pm-plugins/alt-text/style';
 import { withOuterListeners } from '@atlaskit/editor-common/ui';
 import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';

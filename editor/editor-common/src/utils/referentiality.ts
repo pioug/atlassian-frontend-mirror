@@ -1,7 +1,6 @@
-import { Mark, Node as PMNode } from 'prosemirror-model';
-import type { EditorState } from 'prosemirror-state';
-
 import type { FragmentAttributes } from '@atlaskit/adf-schema/schema';
+import { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import { ConfirmDialogChildInfo } from '../types';
 

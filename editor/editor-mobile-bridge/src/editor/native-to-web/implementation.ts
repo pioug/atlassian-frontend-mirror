@@ -53,12 +53,12 @@ import {
   Selection,
   EditorState,
   Transaction,
-} from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   redo as pmHistoryRedo,
   undo as pmHistoryUndo,
-} from 'prosemirror-history';
+} from '@atlaskit/editor-prosemirror/history';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { Color as StatusColor } from '@atlaskit/status/element';
 import NativeToWebBridge from './bridge';
@@ -513,19 +513,25 @@ export default class WebBridgeImpl
 
   onOrderedListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands().toggleOrderedList(this.editorView, inputMethod);
+      getListCommands().toggleOrderedList(this.editorAnalyticsApi)(
+        this.editorView,
+        inputMethod,
+      );
     }
   }
 
   onBulletListSelected(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands().toggleBulletList(this.editorView, inputMethod);
+      getListCommands().toggleBulletList(this.editorAnalyticsApi)(
+        this.editorView,
+        inputMethod,
+      );
     }
   }
 
   onIndentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands().indentList(inputMethod)(
+      getListCommands().indentList(this.editorAnalyticsApi)(inputMethod)(
         this.editorView.state,
         this.editorView.dispatch,
       );
@@ -534,10 +540,10 @@ export default class WebBridgeImpl
 
   onOutdentList(inputMethod: ListInputMethod = INPUT_METHOD.TOOLBAR) {
     if (this.listBridgeState && this.editorView) {
-      getListCommands().outdentList(inputMethod, this.featureFlags)(
-        this.editorView.state,
-        this.editorView.dispatch,
-      );
+      getListCommands().outdentList(this.editorAnalyticsApi)(
+        inputMethod,
+        this.featureFlags,
+      )(this.editorView.state, this.editorView.dispatch);
     }
   }
 

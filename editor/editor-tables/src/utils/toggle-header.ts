@@ -1,4 +1,4 @@
-import { NodeType } from 'prosemirror-model';
+import { NodeType } from '@atlaskit/editor-prosemirror/model';
 
 import { Rect } from '../table-map';
 import { Command } from '../types';

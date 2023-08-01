@@ -1,10 +1,10 @@
-import { ReadonlyTransaction } from 'prosemirror-state';
-import { DecorationSet } from 'prosemirror-view';
+import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
+import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import {
   InsertTypeAheadStep,
   InsertTypeAheadStages,
 } from '@atlaskit/adf-schema/steps';
-import {
+import type {
   CreateTypeAheadDecorations,
   PopupMountPointReference,
   RemoveTypeAheadDecorations,

@@ -1,5 +1,5 @@
-import { ResolvedPos } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
+import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { CellSelection } from '../cell-selection';
 import { TableMap } from '../table-map';

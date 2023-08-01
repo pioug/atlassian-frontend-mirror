@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Node as PMNode } from 'prosemirror-model';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import {
   Decoration,
   DecorationSource,
   EditorView,
   NodeView,
-} from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/view';
 
 import {
   ACTION_SUBJECT,

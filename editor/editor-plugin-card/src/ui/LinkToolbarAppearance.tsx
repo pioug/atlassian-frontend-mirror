@@ -1,9 +1,6 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
-import { Fragment } from 'prosemirror-model';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
 import { IntlShape } from 'react-intl-next';
 
 import {
@@ -24,6 +21,9 @@ import nodeNames, {
 import { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import { Command } from '@atlaskit/editor-common/types';
 import { isSupportedInParent } from '@atlaskit/editor-common/utils';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CardContext } from '@atlaskit/link-provider';
 import { CardPlatform } from '@atlaskit/smart-card';
 

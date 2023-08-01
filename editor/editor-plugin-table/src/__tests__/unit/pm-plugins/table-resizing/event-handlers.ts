@@ -1,6 +1,3 @@
-import { EditorState, TextSelection } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
-
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -12,6 +9,8 @@ import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorDefaultLayoutWidth,
   akEditorFullPageMaxWidth,

@@ -1,10 +1,14 @@
 import React from 'react';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorView } from 'prosemirror-view';
-import { Node as PMNode, Mark as PMMark } from 'prosemirror-model';
-import { breakout, BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
+  Node as PMNode,
+  Mark as PMMark,
+} from '@atlaskit/editor-prosemirror/model';
+import type { BreakoutMarkAttrs } from '@atlaskit/adf-schema';
+import { breakout } from '@atlaskit/adf-schema';
 import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
-import {
+import type {
   NextEditorPlugin,
   ExtractInjectionAPI,
   PMPluginFactoryParams,
@@ -13,14 +17,15 @@ import type {
   WidthPluginState,
   widthPlugin,
 } from '@atlaskit/editor-plugin-width';
-import LayoutButton, { Props as LayoutButtonProps } from './ui/LayoutButton';
+import type { Props as LayoutButtonProps } from './ui/LayoutButton';
+import LayoutButton from './ui/LayoutButton';
 import { BreakoutCssClassName } from './constants';
 import { pluginKey } from './plugin-key';
 import { findSupportedNodeForBreakout } from './utils/find-breakout-node';
-import { BreakoutPluginState } from './types';
+import type { BreakoutPluginState } from './types';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { ContentNodeWithPos } from 'prosemirror-utils';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 
 type BreakoutPMMark = Omit<PMMark, 'attrs'> & { attrs: BreakoutMarkAttrs };
 

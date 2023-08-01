@@ -1,4 +1,4 @@
-import type { Node as PMNode } from 'prosemirror-model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import createJIRASchema from '@atlaskit/adf-schema/schema-jira';
 import { JIRATransformer } from '../..';

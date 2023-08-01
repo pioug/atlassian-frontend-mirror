@@ -1,8 +1,8 @@
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView, NodeView } from 'prosemirror-view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import React, { useEffect, useState } from 'react';
-import { EventDispatcher } from '../../../event-dispatcher';
-import {
+import type { EventDispatcher } from '../../../event-dispatcher';
+import type {
   getPosHandler,
   getPosHandlerNode,
   ProsemirrorGetPosHandler,
@@ -11,23 +11,23 @@ import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-
 
 import WithPluginState from '../../../ui/WithPluginState';
 import { MediaInlineCard } from '@atlaskit/media-card';
-import { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { FileIdentifier } from '@atlaskit/media-client';
-import {
-  WithProviders,
+import type { MediaClientConfig } from '@atlaskit/media-core/auth';
+import type { FileIdentifier } from '@atlaskit/media-client';
+import { WithProviders } from '@atlaskit/editor-common/provider-factory';
+import type {
+  MediaProvider,
   ProviderFactory,
   ContextIdentifierProvider,
 } from '@atlaskit/editor-common/provider-factory';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
 
 import { MediaInlineNodeSelector } from './styles';
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
-import { MediaPluginState } from '../pm-plugins/types';
+import type { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
-import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type mediaPlugin from '../index';
 
 export interface MediaInlineProps {

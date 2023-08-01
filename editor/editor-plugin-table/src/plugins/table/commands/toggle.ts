@@ -1,8 +1,8 @@
 //#region Imports
-import { Transaction } from 'prosemirror-state';
 
 import { TableLayout } from '@atlaskit/adf-schema';
 import { Command } from '@atlaskit/editor-common/types';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findTable, toggleHeader } from '@atlaskit/editor-tables/utils';
 
 import { createCommand } from '../pm-plugins/plugin-factory';

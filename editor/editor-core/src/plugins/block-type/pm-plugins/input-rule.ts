@@ -1,23 +1,21 @@
-import { Schema, NodeType } from 'prosemirror-model';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Schema, NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
   createJoinNodesRule,
   createWrappingTextBlockRule,
   ruleWithAnalytics,
 } from '../../../utils/input-rules';
 import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
-import { FeatureFlags } from '../../../types/feature-flags';
+import type { FeatureFlags } from '../../../types/feature-flags';
 
-import {
-  leafNodeReplacementCharacter,
-  InputRuleWrapper,
-} from '@atlaskit/prosemirror-input-rules';
+import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
+import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import {
   isConvertableToCodeBlock,
   transformToCodeBlockAction,
 } from '../commands/transform-to-code-block';
 import { insertBlock } from '../commands/insert-block';
-import { safeInsert } from 'prosemirror-utils';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import {
   INPUT_METHOD,
   ACTION,
@@ -26,7 +24,7 @@ import {
   ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
 
-import { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
+import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 
 const MAX_HEADING_LEVEL = 6;
 

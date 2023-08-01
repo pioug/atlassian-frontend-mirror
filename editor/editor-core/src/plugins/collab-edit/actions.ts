@@ -1,12 +1,14 @@
 import { receiveTransaction } from '@atlaskit/prosemirror-collab';
-import { Step } from 'prosemirror-transform';
+import { Step } from '@atlaskit/editor-prosemirror/transform';
+import type {
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import {
   AllSelection,
   NodeSelection,
-  Selection,
-  Transaction,
-} from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type {
   CollabEventInitData,
@@ -17,7 +19,7 @@ import type {
   CollabSendableSelection,
 } from '@atlaskit/collab-provider';
 
-import { PrivateCollabEditOptions } from './types';
+import type { PrivateCollabEditOptions } from './types';
 
 import { replaceDocument } from './utils';
 

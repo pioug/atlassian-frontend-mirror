@@ -1,16 +1,19 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { EditorState, Transaction } from 'prosemirror-state';
-import { findParentNodeOfType } from 'prosemirror-utils';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { pluginKey } from './plugin-key';
 import captionNodeView from './../nodeviews';
-import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-import {
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
+import type {
   Dispatch,
   EventDispatcher,
 } from '@atlaskit/editor-common/event-dispatcher';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
-  EditorAnalyticsAPI,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,

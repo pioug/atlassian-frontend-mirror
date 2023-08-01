@@ -1,5 +1,9 @@
-import type { MarkType, Mark as PMMark, Mark } from 'prosemirror-model';
-import type { EditorState } from 'prosemirror-state';
+import type {
+  MarkType,
+  Mark as PMMark,
+  Mark,
+} from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
 import {

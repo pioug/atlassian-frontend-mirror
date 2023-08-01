@@ -1,5 +1,3 @@
-import { DOMSerializer, Node } from 'prosemirror-model';
-import { EditorView, NodeView } from 'prosemirror-view';
 import uuid from 'uuid';
 
 import {
@@ -12,6 +10,8 @@ import type {
   GetEditorFeatureFlags,
   getPosHandler,
 } from '@atlaskit/editor-common/types';
+import { DOMSerializer, Node } from '@atlaskit/editor-prosemirror/model';
+import { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
 const DEFAULT_COL_SPAN = 1;
 const DEFAULT_ROW_SPAN = 1;

@@ -61,7 +61,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { mountWithIntl } from '../../../__tests__/__helpers/enzyme';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -69,9 +69,10 @@ import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
 import { toJSON } from '../../../utils';
 import { ReactEditorView } from '../../ReactEditorView';
 import { editorMessages } from '../../messages';
-import { EditorConfig } from '../../../types/editor-config';
+import type { EditorConfig } from '../../../types/editor-config';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
-import { TextSelection } from 'prosemirror-state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
@@ -81,19 +82,21 @@ import {
   mention,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { MentionProvider } from '@atlaskit/mention/resource';
+import type { MentionProvider } from '@atlaskit/mention/resource';
 import { EventDispatcher } from '../../../event-dispatcher';
+import type {
+  AnalyticsEventPayload,
+  DispatchAnalyticsEvent,
+} from '../../../plugins/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   addAnalytics,
-  AnalyticsEventPayload,
-  DispatchAnalyticsEvent,
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../../plugins/analytics';
-import { EditorAppearance, EditorProps } from '../../../types';
+import type { EditorAppearance, EditorProps } from '../../../types';
 import {
   analyticsEventKey,
   editorAnalyticsChannel,

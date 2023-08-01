@@ -1,5 +1,9 @@
-import { Node as PMNode, NodeType, Fragment } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
+import type {
+  Node as PMNode,
+  NodeType,
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 export {
   isListNode,
   isListItemNode,

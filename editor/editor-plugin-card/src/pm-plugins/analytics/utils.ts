@@ -1,7 +1,9 @@
-import { Node, Schema } from 'prosemirror-model';
-import { ReadonlyTransaction, Transaction } from 'prosemirror-state';
-
 import { isLinkMark } from '@atlaskit/editor-common/utils';
+import { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import {
+  ReadonlyTransaction,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 import { appearanceForNodeType } from '../../utils';
 

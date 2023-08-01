@@ -1,7 +1,10 @@
-import { ResolvedPos } from 'prosemirror-model';
-import { findWrapping, ReplaceAroundStep } from 'prosemirror-transform';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import {
+  findWrapping,
+  ReplaceAroundStep,
+} from '@atlaskit/editor-prosemirror/transform';
 
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 import { findCutBefore } from '../../../utils/commands';
 
 import {

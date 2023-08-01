@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.8.3
+
+### Patch Changes
+
+- [`11cd2f83450`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11cd2f83450) - Refactor loading button to use less rest props to pass props more explicitly.
+
 ## 16.8.2
 
 ### Patch Changes

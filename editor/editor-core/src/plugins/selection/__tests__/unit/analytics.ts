@@ -1,12 +1,15 @@
-import { PluginKey } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import {
-  createProsemirrorEditorFactory,
+import type {
   LightEditorPlugin,
-  Preset,
   DispatchAnalyticsEvent,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   hr,
@@ -17,14 +20,14 @@ import {
   tr,
   th,
   td,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import rulePlugin from '../../../rule';
 import layoutPlugin from '../../../layout';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import selectionPlugin from '../../index';
-import { selectionPluginKey, SelectionPluginState } from '../../types';
+import type { SelectionPluginState } from '../../types';
+import { selectionPluginKey } from '../../types';
 import {
   setNodeSelection,
   setTextSelection,

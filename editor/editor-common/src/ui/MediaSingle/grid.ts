@@ -1,6 +1,5 @@
-import type { EditorState } from 'prosemirror-state';
-
 import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
   akEditorBreakoutPadding,
   breakoutWideScaleRatio,

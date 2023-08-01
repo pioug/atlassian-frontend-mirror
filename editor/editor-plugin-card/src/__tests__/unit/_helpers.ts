@@ -1,8 +1,7 @@
-import { EditorView } from 'prosemirror-view';
-
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { SmartCardContext } from '@atlaskit/link-provider';
 import { CardAppearance } from '@atlaskit/smart-card';
 

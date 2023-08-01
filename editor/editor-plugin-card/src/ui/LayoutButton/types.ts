@@ -1,7 +1,7 @@
-import { EditorView } from 'prosemirror-view';
 import { IntlShape } from 'react-intl-next';
 
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { cardPlugin } from '../../index';
 

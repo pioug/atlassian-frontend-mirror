@@ -1,4 +1,4 @@
-import { keymap } from 'prosemirror-keymap';
+import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
 import * as keymaps from '@atlaskit/editor-common/keymaps';

@@ -1,6 +1,7 @@
 import isEqual from 'lodash/isEqual';
 import throttle from 'lodash/throttle';
-import type { EditorState } from 'prosemirror-state';
+
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type {
   DefaultEditorPlugin,

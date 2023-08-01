@@ -1,4 +1,4 @@
-import { ResolvedPos } from 'prosemirror-model';
+import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 
 import { TableMap } from '../table-map';
 import { Axis } from '../types';

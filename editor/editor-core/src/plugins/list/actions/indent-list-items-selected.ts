@@ -1,10 +1,11 @@
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
   Selection,
-  Transaction,
   TextSelection,
   NodeSelection,
-} from 'prosemirror-state';
-import { Fragment, Slice, NodeRange, NodeType } from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/state';
+import type { NodeRange, NodeType } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import { isListItemNode, isListNode } from '../utils/node';
 import { findFirstParentListItemNode } from '../utils/find';
 import { normalizeListItemsSelection } from '../utils/selection';

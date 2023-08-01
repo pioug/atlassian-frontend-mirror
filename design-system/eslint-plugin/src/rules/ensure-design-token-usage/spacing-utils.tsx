@@ -246,7 +246,11 @@ export const getRawExpression = (
   }
   const [start, end] = node.range;
 
-  return context.getSourceCode().getText().substring(start, end);
+  return context
+    .getSourceCode()
+    .getText()
+    .substring(start, end)
+    .replaceAll('\n', '');
 };
 
 const getValueFromIdentifier = (
@@ -630,7 +634,6 @@ export function getFontSizeValueInScope(
 /**
  * Attempts to remove all non-essential words & characters from a style block.
  * Including selectors and queries
- * Adapted from ensure-design-token-usage
  * @param styleString string of css properties
  */
 export function splitCssProperties(styleString: string): string[] {

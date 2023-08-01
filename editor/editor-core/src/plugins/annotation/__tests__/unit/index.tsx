@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react';
 import type { RenderResult } from '@testing-library/react';
-import type { EditorView } from 'prosemirror-view';
-import { TextSelection, Selection } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { TextSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import * as prosemirrorUtils from 'prosemirror-utils';
+import * as prosemirrorUtils from '@atlaskit/editor-prosemirror/utils';
 
 import type {
   Refs,
@@ -43,10 +43,12 @@ import * as commands from '../../commands/index';
 import { inlineCommentPluginKey, getPluginState } from '../../utils';
 import { getAnnotationViewClassname } from '../../nodeviews';
 
-jest.mock('prosemirror-utils', () => {
+jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:
   // Workaround to enable spy on prosemirror-utils cjs bundle
-  const originalModule = jest.requireActual('prosemirror-utils');
+  const originalModule = jest.requireActual(
+    '@atlaskit/editor-prosemirror/utils',
+  );
 
   return {
     __esModule: true,

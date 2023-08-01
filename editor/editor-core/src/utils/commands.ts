@@ -1,6 +1,12 @@
-import type { EditorState, Transaction } from 'prosemirror-state';
-import { TextSelection, NodeSelection } from 'prosemirror-state';
-import type { EditorView } from 'prosemirror-view';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type {
   ResolvedPos,
@@ -8,7 +14,7 @@ import type {
   Mark,
   Node as PMNode,
   Fragment,
-} from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/model';
 import { transformSmartCharsMentionsAndEmojis } from '../plugins/text-formatting/commands/transform-to-code';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type {

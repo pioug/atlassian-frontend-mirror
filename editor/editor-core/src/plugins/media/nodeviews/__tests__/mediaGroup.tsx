@@ -1,12 +1,13 @@
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { Filmstrip } from '@atlaskit/media-filmstrip/filmstrip';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorView } from 'prosemirror-view';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import React from 'react';
-import { MediaProvider, stateKey } from '../../pm-plugins/main';
+import type { MediaProvider } from '../../pm-plugins/main';
+import { stateKey } from '../../pm-plugins/main';
 import MediaGroup from '../mediaGroup';
-import { MediaPluginState } from '../../pm-plugins/types';
+import type { MediaPluginState } from '../../pm-plugins/types';
 
 type PropsForeachCallback = (node: any, offset: number, index: number) => void;
 

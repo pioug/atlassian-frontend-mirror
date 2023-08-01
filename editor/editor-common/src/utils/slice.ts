@@ -1,4 +1,4 @@
-import { Fragment, Node, Slice } from 'prosemirror-model';
+import { Fragment, Node, Slice } from '@atlaskit/editor-prosemirror/model';
 
 /**
  * A helper to get the underlying array of a fragment.

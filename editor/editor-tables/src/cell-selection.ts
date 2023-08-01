@@ -10,9 +10,13 @@ import {
   Node as PMNode,
   ResolvedPos,
   Slice,
-} from 'prosemirror-model';
-import { Selection, TextSelection, Transaction } from 'prosemirror-state';
-import { Mapping } from 'prosemirror-transform';
+} from '@atlaskit/editor-prosemirror/model';
+import {
+  Selection,
+  TextSelection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { Mapping } from '@atlaskit/editor-prosemirror/transform';
 
 import { CellBookmark } from './cell-bookmark';
 import { TableMap } from './table-map';

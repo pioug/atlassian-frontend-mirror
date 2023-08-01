@@ -1,6 +1,6 @@
-import { Slice } from 'prosemirror-model';
-import type { EditorState } from 'prosemirror-state';
-import { TextSelection } from 'prosemirror-state';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
@@ -78,7 +78,6 @@ import floatingToolbarPlugin from '../../../floating-toolbar';
 import codeBlockPlugin from '../../../code-block';
 
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -1020,6 +1019,7 @@ describe('handleRichText', () => {
       const editor = (doc: any) => {
         const preset = new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
+          .add([analyticsPlugin, {}])
           .add([pastePlugin, {}])
           .add(decorationsPlugin)
           .add(panelPlugin)
@@ -2002,7 +2002,6 @@ describe('handlePasteIntoCaption', () => {
       const preset = new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
-        .add([deprecatedAnalyticsPlugin, {}])
         .add(decorationsPlugin)
         .add([pastePlugin, {}])
         .add(panelPlugin)

@@ -4,7 +4,7 @@ import {
   Node as PMNode,
   Schema,
   MarkType,
-} from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/model';
 
 import { normalizeHexColor } from '@atlaskit/adf-schema';
 import { AC_XMLNS } from './encode-cxhtml';

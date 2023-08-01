@@ -1,6 +1,5 @@
-import { Node as PMNode } from 'prosemirror-model';
-
 import { createSchema } from '@atlaskit/adf-schema';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../../analytics';
 import {

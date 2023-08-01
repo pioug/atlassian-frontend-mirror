@@ -22,7 +22,7 @@
   "sideEffects": false,
   "atlaskit:src": "src/index.js",
   "atlassian": {
-    "team": "Design System Maker Experience",
+    "team": "Design System Team",
     "deprecatedAutoEntryPoints": true,
     "releaseModel": "continuous",
     "website": {

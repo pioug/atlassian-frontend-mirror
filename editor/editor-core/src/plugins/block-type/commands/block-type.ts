@@ -1,8 +1,14 @@
-import { EditorState, TextSelection } from 'prosemirror-state';
-import { Node as PMNode, NodeType } from 'prosemirror-model';
-import { findWrapping } from 'prosemirror-transform';
-import { safeInsert } from 'prosemirror-utils';
-import { Command } from '../../../types';
+import type {
+  EditorState,
+  TextSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import type {
+  Node as PMNode,
+  NodeType,
+} from '@atlaskit/editor-prosemirror/model';
+import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
+import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import type { Command } from '../../../types';
 import {
   CODE_BLOCK,
   BLOCK_QUOTE,
@@ -10,24 +16,24 @@ import {
   HEADINGS_BY_NAME,
   NORMAL_TEXT,
 } from '../types';
-import { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
+import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 
 import { removeBlockMarks } from '../../../utils/mark';
 import { shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
 import { withAnalytics as withAnalyticsDeprecated } from '../../analytics';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-  INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { filterChildrenBetween } from '../../../utils';
 import { PanelType } from '@atlaskit/adf-schema';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { transformToCodeBlockAction } from './transform-to-code-block';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export type InputMethod =
   | INPUT_METHOD.TOOLBAR

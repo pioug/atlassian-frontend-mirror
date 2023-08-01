@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl-next';
-import { EditorView } from 'prosemirror-view';
-import { Step } from 'prosemirror-transform';
-import { TextSelection } from 'prosemirror-state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { Step } from '@atlaskit/editor-prosemirror/transform';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import DeprecatedThemeProvider from '@atlaskit/theme/deprecated-provider-please-do-not-use';
@@ -26,20 +26,18 @@ import {
   ExampleViewInlineCommentComponent,
 } from '@atlaskit/editor-test-helpers/example-inline-comment-component';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
-import { TestExtensionProviders } from '@atlaskit/editor-test-helpers/vr-utils';
+import type { TestExtensionProviders } from '@atlaskit/editor-test-helpers/vr-utils';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
-import {
-  JSONTransformer,
-  JSONDocNode,
-} from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { MockActivityResource } from './activity-provider';
 import ClipboardHelper from '../examples/1-clipboard-helper';
-import EditorActions from '../src/actions';
+import type EditorActions from '../src/actions';
 import { withSidebarContainer } from './SidebarContainer';
 import quickInsertProviderFactory from './quick-insert-provider';
 
-import { EditorProps } from '../src';
+import type { EditorProps } from '../src';
 import { createTestExtensionProvider } from '../src/plugins/floating-toolbar/__tests__/_helpers';
 import { createExtensionFramesProvider } from '../src/__tests__/visual-regression/common/__helpers__/extensionFrameManifest';
 import { getConfluenceMacrosExtensionProvider } from './confluence-macros';

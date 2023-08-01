@@ -1,5 +1,4 @@
-import { Node } from 'prosemirror-model';
-
+import { Node } from '@atlaskit/editor-prosemirror/model';
 import { a, cleanOne, text } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 

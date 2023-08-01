@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { findDomRefAtPos } from 'prosemirror-utils';
+import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 
 import { status } from '@atlaskit/adf-schema';
 
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import WithPluginState from '../../ui/WithPluginState';
 import {
   ACTION,
@@ -21,7 +21,7 @@ import { commitStatusPicker, createStatus, updateStatus } from './actions';
 import { keymapPlugin } from './keymap';
 import createStatusPlugin from './plugin';
 import { pluginKey } from './plugin-key';
-import { StatusPluginOptions, StatusState, StatusType } from './types';
+import type { StatusPluginOptions, StatusState, StatusType } from './types';
 import StatusPicker from './ui/statusPicker';
 
 const baseStatusPlugin: NextEditorPlugin<

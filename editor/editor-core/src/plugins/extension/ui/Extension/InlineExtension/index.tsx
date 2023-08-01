@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx } from '@emotion/react';
 import { Component } from 'react';
-import { Node as PmNode } from 'prosemirror-model';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { overlay } from '../styles';
 import ExtensionLozenge from '../Lozenge';
 import { wrapperStyle } from './styles';

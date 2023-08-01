@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 
-import { EditorView } from 'prosemirror-view';
-
 import { EmbedCardAttributes } from '@atlaskit/adf-schema';
 import {
   AnalyticsListener,
   useAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { embedCard, RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { renderWithIntl as render } from '@atlaskit/media-test-helpers/renderWithIntl';

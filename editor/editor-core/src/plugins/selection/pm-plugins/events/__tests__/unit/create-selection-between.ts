@@ -1,5 +1,5 @@
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
-import { TextSelection } from 'prosemirror-state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import {
   doc,
   p,

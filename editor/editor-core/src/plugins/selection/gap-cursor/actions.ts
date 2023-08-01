@@ -1,22 +1,24 @@
-import {
+import type {
   EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import {
   NodeSelection,
   Selection,
   TextSelection,
-  Transaction,
-} from 'prosemirror-state';
-import { ResolvedPos } from 'prosemirror-model';
+} from '@atlaskit/editor-prosemirror/state';
+import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import {
   findDomRefAtPos,
   findPositionOfNodeBefore,
   removeNodeBefore,
-} from 'prosemirror-utils';
+} from '@atlaskit/editor-prosemirror/utils';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/utils';
 import { Direction, isBackward, isForward } from './direction';
 import { GapCursorSelection, Side } from './selection';
 import { isTextBlockNearPos } from './utils';
 import { isValidTargetNode } from './utils/is-valid-target-node';
-import { Command } from '../../../types';
+import type { Command } from '../../../types';
 import {
   atTheBeginningOfDoc,
   atTheEndOfDoc,

@@ -2,8 +2,13 @@
 import React from 'react';
 
 import { jsx } from '@emotion/react';
-import { Node as PMNode } from 'prosemirror-model';
-import { Decoration, EditorView, NodeView } from 'prosemirror-view';
+
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import {
+  Decoration,
+  EditorView,
+  NodeView,
+} from '@atlaskit/editor-prosemirror/view';
 
 import {
   ACTION_SUBJECT,

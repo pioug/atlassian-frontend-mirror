@@ -1,6 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from 'prosemirror-state';
-import { isNodeSelection } from 'prosemirror-utils';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { isNodeSelection } from '@atlaskit/editor-prosemirror/utils';
 
 function isDivHTMLElement(elm: Element): elm is HTMLDivElement {
   return elm.tagName.toLowerCase() === 'div';

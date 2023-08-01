@@ -1,22 +1,18 @@
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
-import {
-  createEditorFactory,
-  TypeAheadTool,
-} from '@atlaskit/editor-test-helpers/create-editor';
+import type { TypeAheadTool } from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { doc, p, mention, a } from '@atlaskit/editor-test-helpers/doc-builder';
-import {
-  MockMentionResource,
-  MockMentionConfig,
-} from '@atlaskit/util-data-test/mock-mention-resource';
+import type { MockMentionConfig } from '@atlaskit/util-data-test/mock-mention-resource';
+import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import {
+import type {
   MentionProvider,
   MentionDescription,
   MentionNameResolver,
 } from '@atlaskit/mention/resource';
-import { EditorView } from 'prosemirror-view';
-import {
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -25,7 +21,7 @@ import {
   isInviteItem,
   shouldKeepInviteItem,
 } from '../../../../plugins/mentions/utils';
-import { EditorProps } from '../../../../types';
+import type { EditorProps } from '../../../../types';
 
 const packageName = process.env._PACKAGE_NAME_;
 const packageVersion = process.env._PACKAGE_VERSION_;

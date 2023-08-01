@@ -1,11 +1,18 @@
-import type { Node as PMNode, Schema } from 'prosemirror-model';
-import { Fragment, Slice } from 'prosemirror-model';
-import type { EditorView } from 'prosemirror-view';
+import type {
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   safeInsert as pmSafeInsert,
   hasParentNodeOfType,
-} from 'prosemirror-utils';
-import type { EditorState, Selection, Transaction } from 'prosemirror-state';
+} from '@atlaskit/editor-prosemirror/utils';
+import type {
+  EditorState,
+  Selection,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { checkNodeDown } from '../../../utils';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import { MEDIA_SINGLE_MIN_PIXEL_WIDTH } from '@atlaskit/editor-common/media-single';

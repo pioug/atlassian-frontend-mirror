@@ -1,5 +1,3 @@
-import type { Schema } from 'prosemirror-model';
-
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import { validator } from '@atlaskit/adf-utils/validator';
 import type {
@@ -8,6 +6,7 @@ import type {
   ValidationError,
   ValidationErrorMap,
 } from '@atlaskit/adf-utils/validatorTypes';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 import { ACTION_SUBJECT_ID } from '../analytics';
 

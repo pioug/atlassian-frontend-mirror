@@ -1,9 +1,4 @@
 // #region Imports
-import { Node as PMNode, Schema, Slice } from 'prosemirror-model';
-import { TextSelection, Transaction } from 'prosemirror-state';
-import { ContentNodeWithPos } from 'prosemirror-utils';
-import { EditorView } from 'prosemirror-view';
-
 import { CellAttributes } from '@atlaskit/adf-schema';
 import { Command } from '@atlaskit/editor-common/types';
 import {
@@ -12,6 +7,14 @@ import {
   isTextSelection,
   mapSlice,
 } from '@atlaskit/editor-common/utils';
+import {
+  Node as PMNode,
+  Schema,
+  Slice,
+} from '@atlaskit/editor-prosemirror/model';
+import { TextSelection, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {

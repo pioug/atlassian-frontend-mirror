@@ -6,9 +6,6 @@ import React, {
   useState,
 } from 'react';
 
-import { Node as PMNode } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
 import rafSchd from 'raf-schd';
 
 import {
@@ -24,6 +21,9 @@ import {
   ResizerNext,
 } from '@atlaskit/editor-common/resizer';
 import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
+import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
 

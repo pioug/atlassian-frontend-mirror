@@ -1,11 +1,16 @@
 // #region Imports
-import { NodeType } from 'prosemirror-model';
-// @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
-import { ReadonlyTransaction, Transaction } from 'prosemirror-state';
-import { ContentNodeWithPos, findParentNodeOfType } from 'prosemirror-utils';
-
 import { TableColumnOrdering, TableSortStep } from '@atlaskit/adf-schema/steps';
 import { isTextInput } from '@atlaskit/editor-common/utils';
+import { NodeType } from '@atlaskit/editor-prosemirror/model';
+// @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
+import {
+  ReadonlyTransaction,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  ContentNodeWithPos,
+  findParentNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import { defaultTableSelection } from './pm-plugins/default-table-selection';

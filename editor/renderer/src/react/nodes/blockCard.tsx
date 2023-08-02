@@ -28,8 +28,6 @@ import {
 
 //  Temporary, until we add aspect ratio to the datasource table
 const datasourceContainerStyle = css({
-  height: '500px',
-  overflow: 'auto',
   borderRadius: `${token('border.radius.100', akEditorRuleBorderRadius)}`,
   border: `1px solid ${token('color.border', N40)}`,
   marginLeft: '50%',

@@ -8,6 +8,11 @@ import { IconType, MediaType } from '../../constants';
  */
 export type FlexibleUiDataContext = {
   /**
+   * An array containing data used to populate the AssignedToGroup element.
+   * @see AvatarGroup
+   */
+  assignedToGroup?: LinkPerson[];
+  /**
    * Contains the number of attachments on the linked resource.
    * @type number
    * @see AttachmentCount
@@ -18,6 +23,7 @@ export type FlexibleUiDataContext = {
    * @see AvatarGroup
    */
   authorGroup?: LinkPerson[];
+
   /**
    * A string displaying progress on a checklist
    * @see ChecklistProgress
@@ -60,6 +66,12 @@ export type FlexibleUiDataContext = {
    */
   voteCount?: number;
   /**
+   * Contains the name of the entity that has the resource assigend to.
+   * @type string
+   * @see AssignedTo
+   */
+  assignedTo?: string;
+  /**
    * Contains the name of the entity that created the resource.
    * @type string
    * @see CreatedBy
@@ -71,6 +83,12 @@ export type FlexibleUiDataContext = {
    * @see OwnedBy
    */
   ownedBy?: string;
+  /**
+   * Contains the person that owns the resource.
+   * @type LinkPerson
+   * @see OwnedByGroup
+   */
+  ownedByGroup?: LinkPerson[];
   /**
    * Contains the ISO timestamp of when the resource was created.
    * @type string - ISO Timestamp
@@ -152,6 +170,10 @@ export type FlexibleUiDataContext = {
    */
   snippet?: string;
   /**
+   * Contains read time (time taken to read) of the resource
+   */
+  readTime?: string;
+  /**
    * Contains the source branch name of the link typed pull request.
    * @type string
    * @see SourceBranch
@@ -163,6 +185,10 @@ export type FlexibleUiDataContext = {
    * @see SubscriberCount
    */
   subscriberCount?: number;
+  /**
+   * A string displaying progress on subtasks
+   */
+  subTasksProgress?: string;
   /**
    * Contains the number of subscribers of the linked resource.
    * @type number

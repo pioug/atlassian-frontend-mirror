@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { getGlobalTheme } from './get-global-theme';
+import getGlobalTheme from './get-global-theme';
 import { ActiveThemeState } from './set-global-theme';
-import { ThemeMutationObserver } from './theme-mutation-observer';
+import ThemeMutationObserver from './theme-mutation-observer';
 
 /**
  * A React hook which returns the current themes and color-mode set on `<html>`.
@@ -17,7 +17,7 @@ import { ThemeMutationObserver } from './theme-mutation-observer';
  * }, [theme.colorMode]);
  * ```
  */
-export const useThemeObserver: () => Partial<ActiveThemeState> = () => {
+const useThemeObserver: () => Partial<ActiveThemeState> = () => {
   const [theme, setTheme] = useState(getGlobalTheme());
 
   useEffect(() => {
@@ -28,3 +28,5 @@ export const useThemeObserver: () => Partial<ActiveThemeState> = () => {
 
   return theme;
 };
+
+export default useThemeObserver;

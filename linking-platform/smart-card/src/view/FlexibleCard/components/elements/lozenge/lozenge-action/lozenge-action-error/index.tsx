@@ -16,10 +16,12 @@ import {
   linkStyles,
   textStyles,
 } from './styled';
-import { getFormattedMessage } from '../../../../utils';
+import {
+  getFormattedMessage,
+  openEmbedModalWithFlexibleUiIcon,
+} from '../../../../utils';
 import { messages } from '../../../../../../../messages';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../../state/flexible-ui-context';
-import { openPreviewModal } from '../../../../../../EmbedModal/utils';
 import useResolve from '../../../../../../../state/hooks/use-resolve';
 
 const MAX_LINE_NUMBER = 8;
@@ -45,7 +47,7 @@ const LozengeActionError: FC<LozengeActionErrorProps> = ({
     if (isPreviewAvailable) {
       analytics?.ui.smartLinkLozengeActionErrorOpenPreviewClickedEvent();
 
-      return openPreviewModal({
+      return openEmbedModalWithFlexibleUiIcon({
         ...previewData,
         analytics,
         onClose: handlePreviewClose,

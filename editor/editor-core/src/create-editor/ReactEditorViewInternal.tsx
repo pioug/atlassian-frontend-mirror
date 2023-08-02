@@ -23,6 +23,8 @@ import {
   startMeasure,
   stopMeasure,
   shouldForceTracking,
+  processRawValue,
+  analyticsEventKey,
 } from '@atlaskit/editor-common/utils';
 
 import {
@@ -37,7 +39,6 @@ import type {
 
 import type { Dispatch } from '../event-dispatcher';
 import { createDispatch, EventDispatcher } from '../event-dispatcher';
-import { processRawValue } from '@atlaskit/editor-common/utils';
 import { freezeUnsafeTransactionProperties } from '../utils/performance/safer-transactions';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 import {
@@ -77,20 +78,18 @@ import { getDocStructure } from '../utils/document-logger';
 import { isFullPage } from '../utils/is-full-page';
 import measurements from '../utils/performance/measure-enum';
 import { getNodesCount } from '../utils/document';
-import { analyticsEventKey } from '@atlaskit/editor-common/utils';
 import { createSchema } from './create-schema';
 import { PluginPerformanceObserver } from '../utils/performance/plugin-performance-observer';
-import type { PluginPerformanceReportData } from '@atlaskit/editor-common/analytics';
 import { getParticipantsCount } from '../plugins/collab-edit/get-participants-count';
-import { countNodes } from '../utils/count-nodes';
-import { TransactionTracker } from '../utils/performance/track-transactions';
 import {
   EVENT_NAME_DISPATCH_TRANSACTION,
   EVENT_NAME_STATE_APPLY,
   EVENT_NAME_UPDATE_STATE,
   EVENT_NAME_VIEW_STATE_UPDATED,
   EVENT_NAME_ON_CHANGE,
+  TransactionTracker,
 } from '../utils/performance/track-transactions';
+import { countNodes } from '../utils/count-nodes';
 import {
   PROSEMIRROR_RENDERED_NORMAL_SEVERITY_THRESHOLD,
   PROSEMIRROR_RENDERED_DEGRADED_SEVERITY_THRESHOLD,
@@ -98,15 +97,17 @@ import {
 } from './consts';
 import { getContextIdentifier } from '../plugins/base/pm-plugins/context-identifier';
 import type {
+  UfoSessionCompletePayloadAEP,
   FireAnalyticsCallback,
   AnalyticsDispatch,
   AnalyticsEventPayload,
   DispatchAnalyticsEvent,
+  PluginPerformanceReportData,
 } from '@atlaskit/editor-common/analytics';
-import type { UfoSessionCompletePayloadAEP } from '@atlaskit/editor-common/analytics';
 import ReactEditorViewContext from './ReactEditorViewContext';
 import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
+import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui';
 
 export interface EditorViewProps {
   editorProps: EditorProps | EditorNextProps;
@@ -186,8 +187,6 @@ interface CreateEditorStateOptions {
   resetting?: boolean;
   selectionAtStart?: boolean;
 }
-
-export const EDIT_AREA_ID = 'ak-editor-textarea';
 
 export class ReactEditorView<T = {}> extends React.Component<
   EditorViewProps & WrappedComponentProps & T,

@@ -7,15 +7,11 @@ import {
   NodeSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type {
   ResolvedPos,
-  MarkType,
-  Mark,
   Node as PMNode,
   Fragment,
 } from '@atlaskit/editor-prosemirror/model';
-import { transformSmartCharsMentionsAndEmojis } from '../plugins/text-formatting/commands/transform-to-code';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import type {
   Command,
@@ -93,144 +89,6 @@ function findCutBefore($pos: ResolvedPos): ResolvedPos | null {
 
   return null;
 }
-
-const applyMarkOnRange = (
-  from: number,
-  to: number,
-  removeMark: boolean,
-  mark: Mark,
-  tr: Transaction,
-) => {
-  const { schema } = tr.doc.type;
-  const { code } = schema.marks;
-  if (mark.type === code) {
-    transformSmartCharsMentionsAndEmojis(from, to, tr);
-  }
-
-  tr.doc.nodesBetween(tr.mapping.map(from), tr.mapping.map(to), (node, pos) => {
-    if (!node.isText) {
-      return true;
-    }
-
-    // This is an issue when the user selects some text.
-    // We need to check if the current node position is less than the range selection from.
-    // If it’s true, that means we should apply the mark using the range selection,
-    // not the current node position.
-    const nodeBetweenFrom = Math.max(pos, tr.mapping.map(from));
-    const nodeBetweenTo = Math.min(pos + node.nodeSize, tr.mapping.map(to));
-
-    if (removeMark) {
-      tr.removeMark(nodeBetweenFrom, nodeBetweenTo, mark);
-    } else {
-      tr.addMark(nodeBetweenFrom, nodeBetweenTo, mark);
-    }
-
-    return true;
-  });
-
-  return tr;
-};
-
-const entireSelectionContainsMark = (
-  mark: Mark,
-  doc: PMNode,
-  fromPos: number,
-  toPos: number,
-) => {
-  let onlyContainsMark = true;
-
-  doc.nodesBetween(fromPos, toPos, (node) => {
-    // Skip recursion once we've found text which doesn't include the mark
-    if (!onlyContainsMark) {
-      return false;
-    }
-    if (node.isText) {
-      onlyContainsMark && (onlyContainsMark = mark.isInSet(node.marks));
-    }
-  });
-  return onlyContainsMark;
-};
-
-const toggleMarkInRange =
-  (mark: Mark): Command =>
-  (state, dispatch) => {
-    const tr = state.tr;
-    if (state.selection instanceof CellSelection) {
-      let removeMark = true;
-      const cells: { node: PMNode; pos: number }[] = [];
-      state.selection.forEachCell((cell, cellPos) => {
-        cells.push({ node: cell, pos: cellPos });
-        const from = cellPos;
-        const to = cellPos + cell.nodeSize;
-
-        removeMark &&
-          (removeMark = entireSelectionContainsMark(mark, state.doc, from, to));
-      });
-
-      for (let i = cells.length - 1; i >= 0; i--) {
-        const cell = cells[i];
-        const from = cell.pos;
-        const to = from + cell.node.nodeSize;
-
-        applyMarkOnRange(from, to, removeMark, mark, tr);
-      }
-    } else {
-      const { $from, $to } = state.selection;
-      // We decide to remove the mark only if the entire selection contains the mark
-      // Examples with *bold* text
-      // Scenario 1: Selection contains both bold and non-bold text -> bold entire selection
-      // Scenario 2: Selection contains only bold text -> un-bold entire selection
-      // Scenario 3: Selection contains no bold text -> bold entire selection
-      const removeMark = entireSelectionContainsMark(
-        mark,
-        state.doc,
-        $from.pos,
-        $to.pos,
-      );
-
-      applyMarkOnRange($from.pos, $to.pos, removeMark, mark, tr);
-    }
-
-    if (tr.docChanged) {
-      if (dispatch) {
-        dispatch(tr);
-      }
-      return true;
-    }
-
-    return false;
-  };
-
-/**
- * A wrapper over the default toggleMark, except when we have a selection
- * we only toggle marks on text nodes rather than inline nodes.
- * @param markType
- * @param attrs
- */
-const toggleMark =
-  (markType: MarkType, attrs?: { [key: string]: any }): Command =>
-  (state, dispatch) => {
-    const mark = markType.create(attrs);
-
-    // For cursor selections we can use the default behaviour.
-    if (state.selection instanceof TextSelection && state.selection.$cursor) {
-      const tr = state.tr;
-      if (mark.isInSet(state.storedMarks || state.selection.$cursor.marks())) {
-        tr.removeStoredMark(mark);
-      } else {
-        tr.addStoredMark(mark);
-      }
-
-      if (dispatch) {
-        dispatch(tr);
-        return true;
-      }
-
-      return false;
-    }
-
-    return toggleMarkInRange(mark)(state, dispatch);
-  };
 
 const withScrollIntoView: HigherOrderCommand =
   (command: Command): Command =>
@@ -389,8 +247,6 @@ export {
   isFirstChildOfParent,
   isNthParentOfType,
   findCutBefore,
-  toggleMark,
-  applyMarkOnRange,
   withScrollIntoView,
   walkNextNode,
   walkPrevNode,

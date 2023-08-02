@@ -2,6 +2,7 @@ import React from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { ReactWrapper, mount } from 'enzyme';
+import { mountWithIntl } from '../../../../__helpers/enzyme';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji';
@@ -34,7 +35,9 @@ import rulePlugin from '../../../../../plugins/rule';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import statusPlugin from '../../../../../plugins/status';
 import expandPlugin from '../../../../../plugins/expand';
-import deprecatedAnalyticsPlugin from '../../../../../plugins/analytics';
+import deprecatedAnalyticsPlugin, {
+  INPUT_METHOD,
+} from '../../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import typeAheadPlugin from '../../../../../plugins/type-ahead';
 import quickInsertPlugin from '../../../../../plugins/quick-insert';
@@ -59,20 +62,17 @@ import { LinkAction } from '@atlaskit/editor-common/link';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 
 import type { DispatchAnalyticsEvent } from '../../../../../plugins/analytics';
-import { INPUT_METHOD } from '../../../../../plugins/analytics';
 
 import { messages } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/messages';
 import { messages as blockTypeMessages } from '../../../../../plugins/block-type/messages';
 import type { Props as ToolbarInsertBlockProps } from '../../../../../plugins/insert-block/ui/ToolbarInsertBlock/types';
 
-import type { MenuItem } from '../../../../../ui/DropdownMenu/types';
-import DropdownMenu from '../../../../../ui/DropdownMenu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
 
 import { openElementBrowserModal } from '../../../../../plugins/quick-insert/commands';
 import InsertMenu from '../../../../../ui/ElementBrowser/InsertMenu';
-
-import { mountWithIntl } from '../../../../__helpers/enzyme';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

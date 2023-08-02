@@ -178,15 +178,14 @@ describe('Modal', () => {
     ).toMatchProdImageSnapshot();
 
     await page.click(insertButtonSelector);
+    await page.waitForSelector(jiraModal, { hidden: true });
+
     await page.waitForSelector(generatedAdfCodeBlockSelector);
 
-    expect(
-      await takeElementScreenShot(page, generatedAdfCodeBlockSelector),
-    ).toMatchProdImageSnapshot();
+    expect(await page.screenshot()).toMatchProdImageSnapshot();
   });
 
-  // FIXME: This test was automatically skipped due to failure on 17/06/2023: https://product-fabric.atlassian.net/browse/EDM-7029
-  it.skip('should render smart link when result is single row', async () => {
+  it('should render smart link when result is single row', async () => {
     const siteSelectorTrigger = await page.waitForSelector(
       jiraModalSiteSelector,
       {
@@ -211,11 +210,12 @@ describe('Modal', () => {
     ).toMatchProdImageSnapshot();
 
     await page.click(insertButtonSelector);
+
+    await page.waitForSelector(jiraModal, { hidden: true });
+
     await page.waitForSelector(generatedAdfCodeBlockSelector);
 
-    expect(
-      await takeElementScreenShot(page, generatedAdfCodeBlockSelector),
-    ).toMatchProdImageSnapshot();
+    expect(await page.screenshot()).toMatchProdImageSnapshot();
   });
 
   it('should render no results when results is empty', async () => {
@@ -302,12 +302,16 @@ describe('Modal', () => {
 
     await page.click(basicSearchButtonSelector);
 
+    // There seems to be some condition that pressing insert button too fast doesn't closes/registered
+    await page.waitForTimeout(500);
+
     await page.click(insertButtonSelector);
+
+    await page.waitForSelector(jiraModal, { hidden: true });
+
     await page.waitForSelector(generatedAdfCodeBlockSelector);
 
-    expect(
-      await takeElementScreenShot(page, generatedAdfCodeBlockSelector),
-    ).toMatchProdImageSnapshot();
+    expect(await page.screenshot()).toMatchProdImageSnapshot();
   });
 
   it('should close column picker on first ESC keydown, close modal on second ESC keydown', async () => {

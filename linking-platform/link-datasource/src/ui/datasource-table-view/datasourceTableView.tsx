@@ -1,27 +1,17 @@
 /** @jsx jsx */
 import { useEffect } from 'react';
 
-import { css, jsx } from '@emotion/react';
-
-import Spinner from '@atlaskit/spinner';
-import { token } from '@atlaskit/tokens';
+import { jsx } from '@emotion/react';
 
 import { useDatasourceTableState } from '../../hooks/useDatasourceTableState';
 import { AccessRequired } from '../common/error-state/access-required';
 import { LoadingError } from '../common/error-state/loading-error';
 import { NoResults } from '../common/error-state/no-results';
 import { IssueLikeDataTableView } from '../issue-like-table';
+import EmptyState from '../issue-like-table/empty-state';
 import { TableFooter } from '../table-footer';
 
 import { DatasourceTableViewProps } from './types';
-
-const TableViewWrapperStyles = css({
-  display: 'grid',
-  position: 'relative',
-  padding: token('space.200', '16px'),
-  paddingBottom: 0,
-  boxSizing: 'border-box',
-});
 
 export const DatasourceTableView = ({
   datasourceId,
@@ -72,26 +62,31 @@ export const DatasourceTableView = ({
     return <LoadingError onRefresh={reset} />;
   }
 
-  return columns.length > 0 ? (
-    <div css={TableViewWrapperStyles}>
-      <IssueLikeDataTableView
-        testId={'datasource-table-view'}
-        hasNextPage={hasNextPage}
-        items={responseItems}
-        onNextPage={onNextPage}
-        onLoadDatasourceDetails={loadDatasourceDetails}
-        status={status}
-        columns={columns}
-        visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
-        onVisibleColumnKeysChange={onVisibleColumnKeysChange}
-      />
+  const isDataReady = columns.length > 0;
+
+  return (
+    <div>
+      {isDataReady ? (
+        <IssueLikeDataTableView
+          testId={'datasource-table-view'}
+          hasNextPage={hasNextPage}
+          items={responseItems}
+          onNextPage={onNextPage}
+          onLoadDatasourceDetails={loadDatasourceDetails}
+          status={status}
+          columns={columns}
+          visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
+          onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+          scrollableContainerHeight={590}
+        />
+      ) : (
+        <EmptyState testId="datasource-table-view-skeleton" isCompact />
+      )}
       <TableFooter
-        issueCount={totalCount}
+        issueCount={isDataReady ? totalCount : undefined}
         onRefresh={reset}
-        isLoading={status === 'loading'}
+        isLoading={!isDataReady || status === 'loading'}
       />
     </div>
-  ) : (
-    <Spinner testId={'datasource-table-view-spinner'} />
   );
 };

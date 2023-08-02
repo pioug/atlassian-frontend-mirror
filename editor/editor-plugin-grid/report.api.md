@@ -15,7 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { EditorView } from 'prosemirror-view';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { GridType } from '@atlaskit/editor-common/types';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';

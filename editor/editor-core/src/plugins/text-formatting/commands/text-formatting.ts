@@ -1,7 +1,7 @@
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Command } from '@atlaskit/editor-common/types';
-import { applyMarkOnRange, toggleMark } from '../../../utils/commands';
+import { applyMarkOnRange, toggleMark } from '@atlaskit/editor-common/mark';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,

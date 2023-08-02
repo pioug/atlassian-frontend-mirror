@@ -12,7 +12,7 @@ import {
   tooltip,
 } from '../../../keymaps';
 import type { DropdownItem } from '../../block-type/ui/ToolbarBlockType';
-import DropdownMenu from '../../../ui/DropdownMenu';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import ToolbarButton from '../../../ui/ToolbarButton';
 import { expandIconWrapperStyle, shortcutStyle } from '../../../ui/styles';
 import { wrapperStyle, separatorStyles } from '@atlaskit/editor-common/styles';

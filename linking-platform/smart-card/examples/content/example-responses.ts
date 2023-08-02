@@ -60,8 +60,13 @@ export const unicornResponse = {
     },
     'atlassian:priority': 'Major',
     'atlassian:reactCount': 78,
+    'atlassian:readTimeInMinutes': 5,
     'atlassian:state': 'draft',
     'atlassian:subscriberCount': 45,
+    'atlassian:subTasks': {
+      totalCount: 6,
+      resolvedCount: 4,
+    },
     'atlassian:attachmentCount': 11,
     'atlassian:checkItems': {
       checkedItems: 4,

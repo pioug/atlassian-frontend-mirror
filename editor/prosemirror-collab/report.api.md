@@ -15,11 +15,11 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { EditorState } from 'prosemirror-state';
-import { Plugin as Plugin_2 } from 'prosemirror-state';
-import type { Step } from 'prosemirror-transform';
-import { Transaction } from 'prosemirror-state';
-import type { Transform } from 'prosemirror-transform';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Plugin as Plugin_2 } from '@atlaskit/editor-prosemirror/state';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { Transform } from '@atlaskit/editor-prosemirror/transform';
 
 // @public (undocumented)
 export function collab(config?: CollabConfig): Plugin_2;

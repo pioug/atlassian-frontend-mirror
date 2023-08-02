@@ -13,7 +13,8 @@ import type {
 import type { EmojiProvider } from '@atlaskit/emoji';
 import type { BlockType } from '../../../block-type/types';
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory';
-import type { MenuItem } from '../../../../ui/DropdownMenu/types';
+
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { BlockMenuItem } from './create-items';
 import type insertBlockPlugin from '../../index';

@@ -17,7 +17,6 @@ const mockOnChange = jest.fn();
 const renderColumnPicker = (
   columns: DatasourceResponseSchemaProperty[],
   selectedColumnKeys: string[],
-  isDatasourceLoading: boolean,
 ) => {
   return render(
     <IntlProvider locale="en">
@@ -25,7 +24,6 @@ const renderColumnPicker = (
         columns={columns}
         onSelectedColumnKeysChange={mockOnChange}
         selectedColumnKeys={selectedColumnKeys}
-        isDatasourceLoading={isDatasourceLoading}
       />
     </IntlProvider>,
   );
@@ -33,40 +31,13 @@ const renderColumnPicker = (
 
 describe('Column picker', () => {
   it('should have specific html element id', async () => {
-    const { getByTestId } = renderColumnPicker([], [], false);
+    const { getByTestId } = renderColumnPicker([], []);
 
     // open popup
     const triggerButton = getByTestId('column-picker-trigger-button');
     fireEvent.click(triggerButton);
 
     expect(document.getElementById('column-picker-popup')).not.toBeNull();
-  });
-
-  it('popup button should be disabled if table is loading', async () => {
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'type',
-        type: 'icon',
-        title: 'Type',
-      },
-      {
-        key: 'blah',
-        type: 'string',
-        title: 'Blah',
-      },
-    ];
-
-    const selectedColumnKeys: string[] = ['type'];
-
-    const { getByTestId } = renderColumnPicker(
-      columns,
-      selectedColumnKeys,
-      true,
-    );
-
-    // open popup
-    const triggerButton = getByTestId('column-picker-trigger-button');
-    expect(triggerButton).toBeDisabled();
   });
 
   it('should have correct default checked and unchecked checkboxes based on the columns info passed in', async () => {
@@ -88,7 +59,6 @@ describe('Column picker', () => {
     const { getByText, getByTestId } = renderColumnPicker(
       columns,
       selectedColumnKeys,
-      false,
     );
 
     // open popup
@@ -118,7 +88,6 @@ describe('Column picker', () => {
     const { getByText, getByTestId } = renderColumnPicker(
       columns,
       selectedColumnKeys,
-      false,
     );
 
     // open popup
@@ -148,7 +117,6 @@ describe('Column picker', () => {
     const { getByText, getByTestId } = renderColumnPicker(
       columns,
       selectedColumnKeys,
-      false,
     );
 
     // open popup
@@ -183,7 +151,6 @@ describe('Column picker', () => {
     const { getByText, getByTestId } = renderColumnPicker(
       columns,
       selectedColumnKeys,
-      false,
     );
 
     // open popup
@@ -225,7 +192,6 @@ describe('Column picker', () => {
     const { getByText, getByTestId } = renderColumnPicker(
       columns,
       selectedColumnKeys,
-      false,
     );
 
     // open popup
@@ -237,7 +203,7 @@ describe('Column picker', () => {
   });
 
   it('should show loading text when no columns are passed', async () => {
-    const { getByText, getByTestId } = renderColumnPicker([], [], false);
+    const { getByText, getByTestId } = renderColumnPicker([], []);
 
     // open popup
     const triggerButton = getByTestId('column-picker-trigger-button');

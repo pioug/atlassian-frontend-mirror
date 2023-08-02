@@ -16,9 +16,9 @@
 
 ```ts
 import type { Command } from '@atlaskit/editor-common/types';
-import { Decoration } from 'prosemirror-view';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { NodeType } from 'prosemirror-model';
+import { NodeType } from '@atlaskit/editor-prosemirror/model';
 
 // @public (undocumented)
 export const decorationsPlugin: NextEditorPlugin<

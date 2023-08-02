@@ -1,5 +1,5 @@
 import { COLOR_MODE_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from './constants';
-import { getGlobalTheme } from './get-global-theme';
+import getGlobalTheme from './get-global-theme';
 import { ActiveThemeState } from './set-global-theme';
 
 /**
@@ -15,7 +15,7 @@ import { ActiveThemeState } from './set-global-theme';
  * observer.observe();
  * ```
  */
-export class ThemeMutationObserver {
+export default class ThemeMutationObserver {
   observer: MutationObserver | null = null;
   mediaObserver: any = null;
 

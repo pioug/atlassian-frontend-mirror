@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "74.29.1",
+  "version": "74.30.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -74,7 +74,8 @@
     "./selection-based-node-view": "./src/selection-based-node-view/index.ts",
     "./guideline": "./src/guideline/index.ts",
     "./quick-insert": "./src/quick-insert/index.ts",
-    "./link": "./src/link/index.ts"
+    "./link": "./src/link/index.ts",
+    "./mark": "./src/mark/index.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
@@ -90,11 +91,12 @@
     "@atlaskit/editor-palette": "1.5.1",
     "@atlaskit/editor-prosemirror": "1.0.2",
     "@atlaskit/editor-shared-styles": "^2.5.0",
+    "@atlaskit/editor-tables": "^2.3.0",
     "@atlaskit/emoji": "^67.4.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/in-product-testing": "^0.2.0",
-    "@atlaskit/link-datasource": "^0.30.0",
+    "@atlaskit/link-datasource": "^0.31.0",
     "@atlaskit/link-picker": "^1.25.0",
     "@atlaskit/media-card": "^76.1.0",
     "@atlaskit/media-client": "^23.1.0",
@@ -141,7 +143,7 @@
     "@atlaskit/editor-test-helpers": "^18.10.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-test-helpers": "^33.0.0",
-    "@atlaskit/smart-card": "^26.13.0",
+    "@atlaskit/smart-card": "^26.14.0",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlaskit/visual-regression": "*",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

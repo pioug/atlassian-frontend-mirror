@@ -47,6 +47,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/visual-regression": "*",
     "@atlaskit/webdriver-runner": "*",

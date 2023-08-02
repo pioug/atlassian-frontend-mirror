@@ -1,5 +1,4 @@
 import { Icon } from '../../../../../../state/flexible-ui-context/types';
-import { EmbedModalProps } from '../../../../../../view/EmbedModal/types';
 import { ActionProps } from '../types';
 
 export type PreviewActionProps = ActionProps & FlexibleEmbedProps;
@@ -21,8 +20,3 @@ export type FlexibleEmbedProps = {
   /* It determines whether a link source supports different design theme modes */
   isSupportTheming?: boolean;
 };
-
-export interface PreviewFunctionProps extends EmbedModalProps {
-  /* The id of a HTML element that will be used OR created to mount the modal from */
-  popupMountPointId: string;
-}

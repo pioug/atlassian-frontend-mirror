@@ -5,6 +5,7 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { ReactWrapper } from 'enzyme';
 import { mountWithIntl } from '../../../../../__tests__/__helpers/enzyme';
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, p, indentation } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -12,7 +13,7 @@ import { pluginKey } from '../../../../list/pm-plugins/main';
 import { messages as listMessages } from '../../../../list/messages';
 import { messages as indentationMessages } from '../../../../indentation/messages';
 import ToolbarButton from '../../../../../ui/ToolbarButton';
-import DropdownMenu from '../../../../../ui/DropdownMenu';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import basePlugin from '../../../../base';
 import deprecatedAnalyticsPlugin from '../../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -24,7 +25,6 @@ import textFormattingPlugin from '../../../../text-formatting';
 import type { Props as ToolbarListsIndentationProps } from '../../../ui';
 import ToolbarListsIndentation from '../../../ui';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import type { ReactWrapper } from 'enzyme';
 
 import { render } from '@testing-library/react';
 import { Toolbar } from '../../../ui/Toolbar';

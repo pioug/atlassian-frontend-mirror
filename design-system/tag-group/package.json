@@ -30,6 +30,7 @@
     "react": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@af/visual-regression": "*",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/ssr": "*",

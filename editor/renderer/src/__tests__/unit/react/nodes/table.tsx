@@ -1148,5 +1148,66 @@ describe('Renderer - React/Nodes/Table', () => {
         },
       );
     });
+
+    describe('table column not scales down when renderer width is bigger than table width', () => {
+      const scale = 0.7;
+      const tableNode = createDefaultTable();
+      const rendererWidth = 1400;
+      const colWidths = [420, 220, 620];
+      const expectedScaleWidths = colWidths.map((w) => w * scale);
+      const expectedNotScaledWidths = colWidths.map((w) => w - 1);
+
+      ffTest(
+        'platform.editor.disable-default-width-table-scaling-renderer',
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth, [420, 220, 620]);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          checkColWidths(tableContainer, expectedNotScaledWidths);
+        },
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth, [420, 220, 620]);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          checkColWidths(tableContainer, expectedScaleWidths);
+        },
+      );
+    });
+
+    describe('table columns scales down when renderer width is smaller than table width', () => {
+      const scale = 0.7;
+      const tableNode = createDefaultTable();
+      const rendererWidth = 700;
+      const colWidths = [420, 220, 620];
+      const expectedScaleWidths = colWidths.map((w) => w * scale);
+
+      ffTest(
+        'platform.editor.disable-default-width-table-scaling-renderer',
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth, [420, 220, 620]);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          checkColWidths(tableContainer, expectedScaleWidths);
+        },
+        () => {
+          const wrap = mountTable(tableNode, rendererWidth, [420, 220, 620]);
+
+          const tableContainer = wrap.find(
+            `.${TableSharedCssClassName.TABLE_CONTAINER}`,
+          );
+
+          checkColWidths(tableContainer, expectedScaleWidths);
+        },
+      );
+    });
   });
 });

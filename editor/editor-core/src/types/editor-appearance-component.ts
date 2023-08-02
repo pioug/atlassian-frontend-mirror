@@ -1,6 +1,4 @@
-import type { RefObject } from 'react';
-import type { ReactElement } from 'react';
-
+import type { RefObject, ReactElement } from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -14,10 +12,11 @@ import type { CollabEditOptions } from '../plugins/collab-edit/types';
 import type {
   PrimaryToolbarComponents,
   ReactComponents,
-  UseStickyToolbarType,
 } from '../types/editor-props';
+import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import type { UIComponentFactory } from '../types/ui-components';
-import type { MenuItem } from '../ui/DropdownMenu/types';
+
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
 
 import type { EditorAppearance } from './editor-appearance';

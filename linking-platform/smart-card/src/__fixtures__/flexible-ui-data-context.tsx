@@ -28,6 +28,19 @@ const context: FlexibleUiDataContext = {
   modifiedBy: 'Tony Stark',
   modifiedOn: '2022-01-12T12:40:12.353+0800',
   ownedBy: 'Bruce Banner',
+  ownedByGroup: [
+    {
+      name: 'Bruce Banner',
+      src: 'https://person-url',
+    },
+  ],
+  assignedTo: 'Bruce Assigned',
+  assignedToGroup: [
+    {
+      name: 'Bruce Assigned',
+      src: 'https://person-url',
+    },
+  ],
   preview: { type: MediaType.Image, url: 'image-url' },
   previewAction: {
     downloadUrl: 'https://www.link-url.com',
@@ -47,6 +60,7 @@ const context: FlexibleUiDataContext = {
     label: 'Confluence',
   },
   reactCount: 31,
+  readTime: '5 minutes',
   snippet: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   sourceBranch: 'lp-flexible-smart-links',
   state: {
@@ -54,6 +68,7 @@ const context: FlexibleUiDataContext = {
     text: 'Link state',
   },
   subscriberCount: 20,
+  subTasksProgress: '3/4',
   targetBranch: 'master',
   title: 'Link title',
   url: 'https://www.link-url.com',

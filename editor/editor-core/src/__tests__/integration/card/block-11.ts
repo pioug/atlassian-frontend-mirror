@@ -43,20 +43,20 @@ BrowserTestCase(
       { clickInEditor: false },
     );
 
-    const firstDatasourceSelector =
+    const firstDatasourceHeaderSelector =
       '.datasourceView-content-wrap:first-of-type';
-    const lastDatasourceSelector = '.datasourceView-content-wrap:last-of-type';
+    const lastDatasourceHeaderSelector =
+      '.datasourceView-content-wrap:last-of-type';
     const layoutButtonSelector =
       '[data-testid="datasource-table-layout-button"]';
 
-    await waitForDatasourceSelection(page);
+    await waitForDatasourceSelection(page, firstDatasourceHeaderSelector);
 
     expect(
       await page.$eval(editable, getDocFromElement),
     ).toMatchCustomDocSnapshot(`${testName}-initial-state`);
 
     // to make layout wide for first table
-    await page.click(firstDatasourceSelector);
     await page.click(layoutButtonSelector);
 
     expect(
@@ -64,17 +64,16 @@ BrowserTestCase(
     ).toMatchCustomDocSnapshot(`${testName}-first-table-layout-wide`);
 
     // to make layout full width for first table
-    await page.click(firstDatasourceSelector);
     await page.click(layoutButtonSelector);
 
     expect(
       await page.$eval(editable, getDocFromElement),
     ).toMatchCustomDocSnapshot(`${testName}-first-table-layout-full-width`);
 
-    (await page.$(lastDatasourceSelector)).scrollIntoView();
+    (await page.$(lastDatasourceHeaderSelector)).scrollIntoView();
 
     // to make layout wide for second table
-    await page.click(lastDatasourceSelector);
+    await waitForDatasourceSelection(page, lastDatasourceHeaderSelector);
     await page.click(layoutButtonSelector);
 
     expect(
@@ -82,7 +81,6 @@ BrowserTestCase(
     ).toMatchCustomDocSnapshot(`${testName}-second-table-layout-wide`);
 
     // to make layout full width for second table
-    await page.click(lastDatasourceSelector);
     await page.click(layoutButtonSelector);
 
     expect(

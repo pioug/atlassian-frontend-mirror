@@ -1,5 +1,11 @@
 # @atlaskit/table-tree
 
+## 9.6.1
+
+### Patch Changes
+
+- [`fbce2074415`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fbce2074415) - Fix issues with inappropriate roles and `aria-controls` application.
+
 ## 9.6.0
 
 ### Minor Changes

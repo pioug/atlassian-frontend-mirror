@@ -1,7 +1,6 @@
 import rawTokensDark from '../artifacts/atlassian-dark-token-value-for-contrast-check';
 import tokens from '../artifacts/token-names';
-import { CSSColor } from '../custom-theme';
-import { ThemeColorModes } from '../theme-config';
+import { CSSColor, ThemeColorModes } from '../theme-config';
 
 import {
   deltaE,

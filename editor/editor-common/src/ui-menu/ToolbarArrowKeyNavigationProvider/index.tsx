@@ -1,15 +1,15 @@
 /** @jsx jsx */
 /* eslint-disable no-console */
-import { jsx } from '@emotion/react';
-import { centeredToolbarContainer } from '../styles';
-import type { EditorAppearance } from '../../types';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { ReactNode } from 'react';
-import React, { useCallback, useLayoutEffect, useRef } from 'react';
-import type { UseStickyToolbarType } from '../../types/editor-props';
-import { EDIT_AREA_ID } from '../../create-editor/ReactEditorViewInternal';
-import type { IntlShape } from 'react-intl-next/src/types';
-import messages from '../Appearance/FullPage/messages';
+import React, { ReactNode, useCallback, useLayoutEffect, useRef } from 'react';
+
+import { css, jsx } from '@emotion/react';
+import { IntlShape } from 'react-intl-next/src/types';
+
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
+
+import { fullPageMessages as messages } from '../../messages';
+import { EditorAppearance } from '../../types';
+import { EDIT_AREA_ID, UseStickyToolbarType } from '../../ui';
 
 export interface KeyDownHandlerContext {
   handleArrowLeft: () => void;
@@ -29,6 +29,12 @@ export const KeyDownHandlerContext = React.createContext<KeyDownHandlerContext>(
     handleTab: () => {},
   },
 );
+
+const centeredToolbarContainer = css`
+  display: flex;
+  width: 100%;
+  align-items: center;
+`;
 
 /**
  * This component is a wrapper of main toolbar which listens to keydown events of children

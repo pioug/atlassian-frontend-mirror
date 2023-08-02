@@ -3,7 +3,7 @@ import { ElementItem } from '../../view/FlexibleCard/components/blocks/types';
 import { MetadataOptions } from '../../view/HoverCard/types';
 import { JsonLd } from 'json-ld-types';
 
-const elementNamesToItems = (elementNames: string[]): ElementItem[] => {
+export const elementNamesToItems = (elementNames: string[]): ElementItem[] => {
   return elementNames
     .filter((element) => element in ElementName)
     .map(

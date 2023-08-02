@@ -14,7 +14,7 @@ describe('useAssetsClient', () => {
   const schemaId = 'schemaId';
   const initialParameters = {
     aql: '',
-    cloudId: '',
+    workspaceId: '',
     schemaId,
   };
   const mockGetWorkspaceId = asMock(getWorkspaceId);

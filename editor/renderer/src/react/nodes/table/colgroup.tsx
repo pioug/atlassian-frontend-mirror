@@ -13,6 +13,7 @@ import {
   akEditorDefaultLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { SharedTableProps } from './types';
 import { isTableResizingEnabled } from '../table';
 
@@ -119,7 +120,12 @@ export const Colgroup = (props: SharedTableProps) => {
   const maxTableWidth =
     renderWidth < tableContainerWidth ? renderWidth : tableContainerWidth;
 
-  if (layout === 'default') {
+  if (
+    !getBooleanFF(
+      'platform.editor.disable-default-width-table-scaling-renderer',
+    ) &&
+    layout === 'default'
+  ) {
     renderWidth = Math.min(renderWidth, tableContainerWidth);
   }
 

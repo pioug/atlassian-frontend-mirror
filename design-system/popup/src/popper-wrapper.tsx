@@ -56,7 +56,7 @@ function PopperWrapper({
     null,
   );
 
-  useFocusManager({ initialFocusRef, popupRef, autoFocus });
+  useFocusManager({ initialFocusRef, popupRef });
   useCloseManager({
     isOpen,
     onClose,

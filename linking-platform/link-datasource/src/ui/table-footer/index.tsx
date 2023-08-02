@@ -21,21 +21,20 @@ export type TableFooterProps = {
 };
 
 const FooterWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: ${token('space.250', '20px')} 0;
-  position: sticky;
-  bottom: 0;
+  padding: 0 ${token('space.200', '16px')};
+  box-sizing: border-box;
   background: ${token('color.background.input', N0)};
-  border-top-style: solid;
-  border-top-color: ${token('color.background.neutral', N40)};
-  margin-top: -2px;
-  align-self: center;
+`;
+
+const TopBorderWrapper = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+  padding: ${token('space.250', '20px')} 0;
+  border-top: 2px solid ${token('color.background.accent.gray.subtler', N40)};
 `;
 
 const IssueCounterWrapper = styled.div`
-  margin-left: 10px;
   display: flex;
   align-self: center;
   color: ${token('color.text.accent.gray', N800)};
@@ -72,41 +71,43 @@ export const TableFooter = ({
   // ensure correct positioning since 'justify-content: space-between' is used).
   return onRefresh || showIssueCount ? (
     <FooterWrapper data-testid="table-footer">
-      <IssueCounterWrapper>
-        {showIssueCount && (
-          <Heading testId="issue-count" level="h400">
-            <FormattedNumber value={issueCount as number} />{' '}
-            <FormattedMessage
-              {...footerMessages.issueText}
-              values={{ issueCount }}
-            />
-          </Heading>
-        )}
-      </IssueCounterWrapper>
-      <SyncWrapper>
-        {onRefresh && (
-          <Fragment>
-            <SyncTextWrapper data-testid="sync-text">
-              {isLoading ? (
-                <FormattedMessage {...footerMessages.loadingText} />
-              ) : (
-                <SyncInfo lastSyncTime={lastSyncTime} />
-              )}
-            </SyncTextWrapper>
-            <Button
-              onClick={onRefresh}
-              appearance="subtle"
-              iconBefore={
-                <RefreshIcon
-                  label={intl.formatMessage(footerMessages.refreshLabel)}
-                />
-              }
-              isDisabled={isLoading}
-              testId="refresh-button"
-            />
-          </Fragment>
-        )}
-      </SyncWrapper>
+      <TopBorderWrapper>
+        <IssueCounterWrapper data-testid={'issue-count-wrapper'}>
+          {showIssueCount && (
+            <Heading testId="issue-count" level="h400">
+              <FormattedNumber value={issueCount as number} />{' '}
+              <FormattedMessage
+                {...footerMessages.issueText}
+                values={{ issueCount }}
+              />
+            </Heading>
+          )}
+        </IssueCounterWrapper>
+        <SyncWrapper>
+          {onRefresh && (
+            <Fragment>
+              <SyncTextWrapper data-testid="sync-text">
+                {isLoading ? (
+                  <FormattedMessage {...footerMessages.loadingText} />
+                ) : (
+                  <SyncInfo lastSyncTime={lastSyncTime} />
+                )}
+              </SyncTextWrapper>
+              <Button
+                onClick={onRefresh}
+                appearance="subtle"
+                iconBefore={
+                  <RefreshIcon
+                    label={intl.formatMessage(footerMessages.refreshLabel)}
+                  />
+                }
+                isDisabled={isLoading}
+                testId="refresh-button"
+              />
+            </Fragment>
+          )}
+        </SyncWrapper>
+      </TopBorderWrapper>
     </FooterWrapper>
   ) : null;
 };

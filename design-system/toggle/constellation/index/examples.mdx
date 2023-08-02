@@ -3,11 +3,13 @@ order: 0
 ---
 
 import ToggleDefault from '../../examples/constellation/toggle-default';
+import ToggleDefaultChecked from '../../examples/constellation/toggle-default-checked';
 import ToggleStateless from '../../examples/constellation/toggle-stateless-default';
 import ToggleLarge from '../../examples/constellation/toggle-large';
 import ToggleDisabled from '../../examples/constellation/toggle-disabled';
 import ToggleTooltip from '../../examples/constellation/toggle-tooltip';
 import ToggleLabeled from '../../examples/constellation/toggle-label';
+
 
 ## Size
 
@@ -39,11 +41,11 @@ use a [tooltip](/components/tooltip).
 
 <Example Component={ToggleTooltip} packageName="@atlaskit/toggle" />
 
-## Default
+## Checked
 
 Set the initial checked value by setting `defaultChecked` (this is optional, by default it will be set as false if not provided). After that point the checked value is controlled by the component. Provide an `onChange` handler to be notified of checked value changes.
 
-<Example Component={ToggleDefault} packageName="@atlaskit/toggle" />
+<Example Component={ToggleDefaultChecked} packageName="@atlaskit/toggle" />
 
 ## Stateless
 

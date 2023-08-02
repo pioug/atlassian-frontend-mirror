@@ -177,7 +177,11 @@ describe('EmbedCard Views', () => {
   describe('view: unauthorised', () => {
     it('renders view', () => {
       const { getByTestId, getByText } = renderWithIntl(
-        <EmbedCardUnauthorisedView link="" analytics={mockAnalytics} />,
+        <EmbedCardUnauthorisedView
+          link=""
+          analytics={mockAnalytics}
+          onAuthorise={() => {}}
+        />,
       );
       const view = getByTestId('embed-card-unauthorized-view');
       const message = getByText(/Connect your.*account/);

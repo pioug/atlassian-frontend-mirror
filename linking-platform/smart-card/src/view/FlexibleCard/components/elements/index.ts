@@ -13,6 +13,18 @@ import { MediaProps } from './media/types';
 // This will help reducing the code for mapping elements inside
 // createElement and renderElementItems
 /**
+ * Creates a AssignedTo text element using the data from AssignedTo in the Flexible UI Context.
+ * @see Text
+ */
+export const AssignedTo = createElement<TextProps>(ElementName.AssignedTo);
+/**
+ * An AvatarGroup element using the data from AssignedToGroup in the Flexible UI Context.
+ * @see AvatarGroup
+ */
+export const AssignedToGroup = createElement<AvatarGroupProps>(
+  ElementName.AssignedToGroup,
+);
+/**
  * Creates a AttachmentCount Badge element using the data from AttachmentCount in the Flexible UI Context.
  * @see Badge
  */
@@ -91,6 +103,13 @@ export const ModifiedOn = createElement<DateTimeProps>(ElementName.ModifiedOn);
  */
 export const OwnedBy = createElement<TextProps>(ElementName.OwnedBy);
 /**
+ * An AvatarGroup element using the data from OwnedByGroup in the Flexible UI Context.
+ * @see AvatarGroup
+ */
+export const OwnedByGroup = createElement<AvatarGroupProps>(
+  ElementName.OwnedByGroup,
+);
+/**
  * Creates a Preview element using the data from Preview in the Flexible UI Context.
  * @see Preview
  */
@@ -118,6 +137,10 @@ export const Provider = createElement<BadgeProps>(ElementName.Provider);
  */
 export const ReactCount = createElement<BadgeProps>(ElementName.ReactCount);
 /**
+ * Creates a ReadTime Text element using the data from readTime in the Flexible UI Context
+ */
+export const ReadTime = createElement<TextProps>(ElementName.ReadTime);
+/**
  * Creates a Snippet element using the data from Snippet in the Flexible UI Context.
  * @see Text
  */
@@ -138,6 +161,13 @@ export const State = createElement<LozengeProps>(ElementName.State);
  */
 export const SubscriberCount = createElement<BadgeProps>(
   ElementName.SubscriberCount,
+);
+/**
+ * Create a SubTasks Badge element using the data from subTasks in the Flexible UI Context.
+ * @see Badge
+ */
+export const SubTasksProgress = createElement<BadgeProps>(
+  ElementName.SubTasksProgress,
 );
 /**
  * Creates a TargetBranch Text element using the data from targetBranch in the Flexible UI Context.

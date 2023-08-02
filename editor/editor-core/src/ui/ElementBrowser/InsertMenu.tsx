@@ -1,18 +1,13 @@
 /** @jsx jsx */
-import {
-  useCallback,
-  useState,
-  ComponentClass,
-  ReactElement,
-  HTMLAttributes,
-} from 'react';
+import type { ComponentClass, ReactElement, HTMLAttributes } from 'react';
+import { useCallback, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
-import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { borderRadius } from '@atlaskit/theme';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import { themed } from '@atlaskit/theme/components';
 import { DN50, N0, N30A, N60A } from '@atlaskit/theme/colors';
 
@@ -27,7 +22,7 @@ import {
   IconStatus,
 } from '@atlaskit/editor-common/quick-insert';
 
-import { QuickInsertPluginState } from '../../plugins/quick-insert/types';
+import type { QuickInsertPluginState } from '../../plugins/quick-insert/types';
 import withOuterListeners from '../with-outer-listeners';
 import WithPluginState from '../WithPluginState';
 import { pluginKey } from '../../plugins/quick-insert/plugin-key';
@@ -38,9 +33,9 @@ import {
 import { insertItem } from '../../plugins/quick-insert/commands';
 import ElementBrowser from './components/ElementBrowserLoader';
 
-import { MenuItem } from '../DropdownMenu/types';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { ELEMENT_ITEM_HEIGHT } from './constants';
-import { InsertMenuProps, SvgGetterParams } from './types';
+import type { InsertMenuProps, SvgGetterParams } from './types';
 import { token } from '@atlaskit/tokens';
 
 const InsertMenu = ({

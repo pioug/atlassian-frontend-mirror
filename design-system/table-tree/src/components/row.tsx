@@ -119,7 +119,7 @@ class Row extends Component<any, any> {
           extendedLabel={extendedLabel}
           isExpanded={isExpanded}
           onExpandToggle={this.onExpandToggle}
-          ariaControls={toItemId(props.itemId)}
+          ariaControls={isExpanded ? toItemId(props.itemId) : undefined}
           rowId={props.itemId}
         />,
       ].concat(cellContent);

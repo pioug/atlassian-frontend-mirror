@@ -2,6 +2,7 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
+import ReactDOM from 'react-dom';
 import invariant from 'tiny-invariant';
 
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
@@ -17,18 +18,19 @@ import {
   monitorForElements,
 } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { offsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/offset-from-pointer';
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
 import { token } from '@atlaskit/tokens';
 
 import { TableHeading } from './styled';
 
-type DraggableStatus = 'idle' | 'preview' | 'dragging';
-
-const tableHeadingStyles = css({
-  cursor: 'grab',
-});
+type DraggableState =
+  | { type: 'idle' }
+  | { type: 'preview'; container: HTMLElement }
+  | { type: 'dragging' };
 
 const tableHeadingStatusStyles: Partial<
-  Record<DraggableStatus, SerializedStyles>
+  Record<DraggableState['type'], SerializedStyles>
 > = {
   idle: css({
     ':hover': {
@@ -51,6 +53,14 @@ const dragHandleStyles = css({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
+  overflow: 'hidden',
+  width: 0,
+  transition: 'width 0.5s',
+});
+
+const dragHandleSpacerStyles = css({
+  width: 24,
+  transition: 'width 0.5s',
 });
 
 const dropTargetStyles = css({
@@ -64,27 +74,28 @@ const noPointerEventsStyles = css({
   pointerEvents: 'none',
 });
 
+const idleState: DraggableState = { type: 'idle' };
+const draggingState: DraggableState = { type: 'dragging' };
+
 export const DraggableTableHeading = ({
   children,
   id,
   index,
   tableId,
   dndPreviewHeight,
+  dragPreview,
   maxWidth,
-  onDragPreviewStart,
-  onDragPreviewEnd,
 }: {
   children: ReactNode;
   id: string;
   index: number;
   tableId: Symbol;
   dndPreviewHeight: number;
+  dragPreview: React.ReactNode;
   maxWidth?: number;
-  onDragPreviewStart: () => void;
-  onDragPreviewEnd: () => void;
 }) => {
   const ref = useRef<HTMLTableCellElement>(null);
-  const [status, setStatus] = useState<DraggableStatus>('idle');
+  const [state, setState] = useState<DraggableState>(idleState);
 
   const [isDraggingAnyColumn, setIsDraggingAnyColumn] = useState(false);
   const [closestEdge, setClosestEdge] = useState<Edge | null>(null);
@@ -102,20 +113,32 @@ export const DraggableTableHeading = ({
         getInitialData() {
           return { type: 'table-header', id, index, tableId };
         },
-        onGenerateDragPreview() {
-          setStatus('preview');
-          onDragPreviewStart();
+        onGenerateDragPreview({ nativeSetDragImage }) {
+          setCustomNativeDragPreview({
+            getOffset: offsetFromPointer({
+              x: '18px',
+              y: '18px',
+            }),
+            render: ({ container }) => {
+              // Cause a `react` re-render to create your portal synchronously
+              setState({ type: 'preview', container });
+              // In our cleanup function: cause a `react` re-render to create remove your portal
+              // Note: you can also remove the portal in `onDragStart`,
+              // which is when the cleanup function is called
+              return () => setState(draggingState);
+            },
+            nativeSetDragImage,
+          });
         },
         onDragStart() {
-          setStatus('dragging');
-          onDragPreviewEnd();
+          setState(draggingState);
         },
         onDrop() {
-          setStatus('idle');
+          setState(idleState);
         },
       }),
     );
-  }, [id, index, onDragPreviewEnd, onDragPreviewStart, tableId]);
+  }, [id, index, tableId]);
 
   // Here we handle drop target, that in our case is absolutely positioned div that covers full width and height
   // of this column (has height of whole table). It sits on top of everything, but has `pointerEvents: 'none'` by default
@@ -179,7 +202,7 @@ export const DraggableTableHeading = ({
   return (
     <TableHeading
       ref={ref}
-      css={[tableHeadingStyles, tableHeadingStatusStyles[status]]}
+      css={[tableHeadingStatusStyles[state.type]]}
       data-testid={`${id}-column-heading`}
       style={{
         maxWidth,
@@ -199,11 +222,22 @@ export const DraggableTableHeading = ({
         {closestEdge && <DropIndicator edge={closestEdge} />}
       </div>
       <div css={verticallyAlignedStyles}>
-        <div css={dragHandleStyles}>
+        <div css={dragHandleStyles} className="issue-like-table-drag-handle">
           <DragHandlerIcon label={`${id}-drag-icon`} size="medium" />
         </div>
         {children}
+        {/*
+        Special spacer to keep overall width of the column same
+        when hovered and drag handle is there vs when it is not hovered and drag handle is hidden
+        */}
+        <div
+          css={dragHandleSpacerStyles}
+          className="issue-like-table-drag-handle-spacer"
+        ></div>
       </div>
+      {state.type === 'preview'
+        ? ReactDOM.createPortal(dragPreview, state.container)
+        : null}
     </TableHeading>
   );
 };

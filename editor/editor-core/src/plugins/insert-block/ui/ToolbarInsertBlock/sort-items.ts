@@ -1,4 +1,4 @@
-import { MenuItem } from '../../../../ui/DropdownMenu/types';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 
 const endPositionNames = ['macro-browser', 'slash-onboarding'];
 

@@ -5,7 +5,7 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 
-import DropdownMenu from '../../../../ui/DropdownMenu';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
 import type { BlockTypeState } from '../../pm-plugins/main';
 import type { BlockType } from '../../types';

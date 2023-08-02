@@ -60,6 +60,9 @@ const elementMappings: Record<
   },
   [ElementName.CreatedBy]: { component: Text },
   [ElementName.OwnedBy]: { component: Text },
+  [ElementName.AssignedTo]: { component: Text },
+  [ElementName.AssignedToGroup]: { component: AvatarGroup },
+  [ElementName.OwnedByGroup]: { component: AvatarGroup },
   [ElementName.CreatedOn]: { component: DateTime },
   [ElementName.DueOn]: { component: Lozenge },
   [ElementName.LatestCommit]: {
@@ -76,6 +79,7 @@ const elementMappings: Record<
     props: { icon: IconType.ProgrammingLanguage },
   },
   [ElementName.Provider]: { component: Badge },
+  [ElementName.ReadTime]: { component: Text },
   [ElementName.Snippet]: {
     component: Text,
     props: {
@@ -90,6 +94,10 @@ const elementMappings: Record<
   [ElementName.SubscriberCount]: {
     component: Badge,
     props: { icon: IconType.Subscriber },
+  },
+  [ElementName.SubTasksProgress]: {
+    component: Badge,
+    props: { icon: IconType.CheckItem },
   },
   [ElementName.TargetBranch]: { component: Text },
   [ElementName.Title]: { component: Link },
@@ -119,7 +127,9 @@ const getData = (
   const data = context[contextKey as keyof typeof context];
   switch (elementName) {
     case ElementName.AuthorGroup:
+    case ElementName.AssignedToGroup:
     case ElementName.CollaboratorGroup:
+    case ElementName.OwnedByGroup:
       return toAvatarGroupProps(data as AvatarItemProps[]);
     case ElementName.AttachmentCount:
     case ElementName.ChecklistProgress:
@@ -130,9 +140,12 @@ const getData = (
     case ElementName.ProgrammingLanguage:
     case ElementName.SubscriberCount:
     case ElementName.LatestCommit:
+    case ElementName.SubTasksProgress:
       return toBadgeProps(data as string);
     case ElementName.CreatedBy:
       return toFormattedTextProps(messages.created_by, context.createdBy);
+    case ElementName.AssignedTo:
+      return toFormattedTextProps(messages.assigned_to, context.assignedTo);
     case ElementName.OwnedBy:
       return toFormattedTextProps(messages.owned_by, context.ownedBy);
     case ElementName.CreatedOn:
@@ -143,6 +156,8 @@ const getData = (
       return toFormattedTextProps(messages.modified_by, context.modifiedBy);
     case ElementName.ModifiedOn:
       return toDateTimeProps('modified', context.modifiedOn);
+    case ElementName.ReadTime:
+      return toFormattedTextProps(messages.read_time, data as string);
     case ElementName.Snippet:
     case ElementName.SourceBranch:
     case ElementName.TargetBranch:

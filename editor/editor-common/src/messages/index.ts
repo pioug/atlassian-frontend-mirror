@@ -8,6 +8,7 @@ export { codeBlockButtonMessages } from './codeBlockButton';
 export { toolbarInsertBlockMessages } from './insert-block';
 export { toolbarMessages as mediaAndEmbedToolbarMessages } from './media-and-embed-toolbar';
 export { messages as cardMessages } from './card';
+export { messages as fullPageMessages } from './full-page';
 
 export default defineMessages({
   layoutFixedWidth: {

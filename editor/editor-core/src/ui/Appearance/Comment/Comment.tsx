@@ -11,14 +11,12 @@ import Toolbar from '../../Toolbar';
 import PluginSlot from '../../PluginSlot';
 import WithPluginState from '../../WithPluginState';
 
-import {
+import type {
   EditorAppearanceComponentProps,
   EditorAppearance,
 } from '../../../types';
-import {
-  pluginKey as maxContentSizePluginKey,
-  MaxContentSizePluginState,
-} from '../../../plugins/max-content-size';
+import type { MaxContentSizePluginState } from '../../../plugins/max-content-size';
+import { pluginKey as maxContentSizePluginKey } from '../../../plugins/max-content-size';
 import { stateKey as mediaPluginKey } from '../../../plugins/media/pm-plugins/plugin-key';
 import { ClickAreaBlock } from '../../Addon';
 import { tableCommentEditorStyles } from '@atlaskit/editor-plugin-table/ui/common-styles';
@@ -27,9 +25,10 @@ import { WidthConsumer } from '@atlaskit/editor-common/ui';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
 import classnames from 'classnames';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import messages from '../../../messages';
-import { MediaPluginState } from '../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../../../plugins/media/pm-plugins/types';
 
 import {
   TableControlsPadding,
@@ -37,17 +36,17 @@ import {
   mainToolbarCustomComponentsSlotStyle,
 } from './Toolbar';
 import { createEditorContentStyle } from '../../ContentStyles';
-import { ToolbarArrowKeyNavigationProvider } from '../../ToolbarArrowKeyNavigationProvider';
+import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 
 const CommentEditorMargin = 14;
-const CommentEditorSmallerMargin = 8;
 
 const commentEditorStyle = css`
   display: flex;
   flex-direction: column;
 
   .less-margin .ProseMirror {
-    margin: 12px ${CommentEditorSmallerMargin}px ${CommentEditorSmallerMargin}px;
+    margin: ${token('space.150', '12px')} ${token('space.100', '8px')}
+      ${token('space.100', '8px')};
   }
 
   min-width: 272px;
@@ -73,7 +72,8 @@ const ContentArea = createEditorContentStyle(css`
   /** Hack for Bitbucket to ensure entire editorView gets drop event; see ED-3294 **/
   /** Hack for table controls. Otherwise margin collapse and controls are misplaced. **/
   .ProseMirror {
-    margin: 12px ${CommentEditorMargin}px ${CommentEditorMargin}px;
+    margin: ${token('space.150', '12px')} ${CommentEditorMargin}px
+      ${CommentEditorMargin}px;
   }
 
   .gridParent {
@@ -93,7 +93,7 @@ const secondaryToolbarStyle = css`
   justify-content: flex-end;
   align-items: center;
   display: flex;
-  padding: 12px 1px;
+  padding: ${token('space.150', '12px')} 1px;
 `;
 
 interface EditorAppearanceComponentState {}

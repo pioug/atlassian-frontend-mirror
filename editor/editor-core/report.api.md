@@ -25,7 +25,7 @@ import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { ActivityProvider } from '@atlaskit/activity-provider';
 import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
+import type { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { BrowserFreezetracking } from '@atlaskit/editor-common/types';
@@ -35,31 +35,32 @@ import { Color } from '@atlaskit/status/element';
 import { Command as Command_2 } from '@atlaskit/editor-common/types';
 import { ComponentType } from 'react';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
-import { ContextUpdateHandler } from '@atlaskit/editor-common/types';
+import type { ContextUpdateHandler } from '@atlaskit/editor-common/types';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { CreateUIAnalyticsEvent as CreateUIAnalyticsEvent_2 } from '@atlaskit/analytics-next/types';
+import type { CreateUIAnalyticsEvent as CreateUIAnalyticsEvent_2 } from '@atlaskit/analytics-next/types';
 import { darkModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
-import { DecorationSet } from 'prosemirror-view';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
-import type { DirectEditorProps } from 'prosemirror-view';
+import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { DropdownOptionT } from '@atlaskit/editor-common/types';
-import { EditorActionsOptions } from '@atlaskit/editor-common/types';
+import type { EditorActionsOptions } from '@atlaskit/editor-common/types';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
 import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
 import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { EditorReactContext } from '@atlaskit/editor-common/types';
-import { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { EditorSelectionAPI } from '@atlaskit/editor-common/selection';
+import { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { EditorView as EditorView_2 } from 'prosemirror-view';
 import { EmojiResource } from '@atlaskit/emoji/resource';
 import { EmptyStateHandler } from '@atlaskit/editor-common/types';
-import { ErrorReporter } from '@atlaskit/editor-common/utils';
+import type { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import { EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -85,9 +86,9 @@ import { FloatingToolbarSelect } from '@atlaskit/editor-common/types';
 import { FULL_WIDTH_MODE } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
-import { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
+import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
+import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
@@ -101,26 +102,26 @@ import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { MarkConfig } from '@atlaskit/editor-common/types';
 import { MediaClientConfig } from '@atlaskit/media-core';
-import { MediaFeatureFlags } from '@atlaskit/media-common';
+import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import { MediaFeatureFlags as MediaFeatureFlags_2 } from '@atlaskit/media-common/mediaFeatureFlags';
-import { MediaFile } from '@atlaskit/media-picker/types';
+import type { MediaFile } from '@atlaskit/media-picker/types';
 import type { MediaProvider as MediaProvider_2 } from '@atlaskit/editor-common/provider-factory';
 import type { MentionDescription } from '@atlaskit/mention';
 import { MentionProvider } from '@atlaskit/mention/resource';
 import type { MentionProvider as MentionProvider_2 } from '@atlaskit/mention';
 import { MentionResource } from '@atlaskit/mention/resource';
-import { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { default as messages } from '@atlaskit/editor-common/messages';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { Node as Node_2 } from 'prosemirror-model';
+import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import { NodeConfig } from '@atlaskit/editor-common/types';
-import { NodeType } from 'prosemirror-model';
-import { NodeView } from 'prosemirror-view';
+import type { NodeType } from '@atlaskit/editor-prosemirror/model';
+import type { NodeView } from '@atlaskit/editor-prosemirror/view';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { PerformanceTracking } from '@atlaskit/editor-common/types';
 import type { PluginConfig } from '@atlaskit/editor-plugin-table/types';
-import { PluginKey } from 'prosemirror-state';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { PMPlugin } from '@atlaskit/editor-common/types';
 import { PortalProvider } from '@atlaskit/editor-common/portal-provider';
 import { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
@@ -129,7 +130,7 @@ import { PositionType } from '@atlaskit/tooltip/types';
 import { PresenceProvider } from '@atlaskit/mention/resource';
 import { PresenceResource } from '@atlaskit/mention/resource';
 import PropTypes from 'prop-types';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { Providers } from '@atlaskit/editor-common/provider-factory';
 import { PureComponent } from 'react';
 import { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
@@ -139,11 +140,10 @@ import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import { default as React_2 } from 'react';
 import { ReactElement } from 'react';
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
-import type { RefObject } from 'react';
-import { ReplaceRawValue } from '@atlaskit/editor-common/types';
+import type { ReplaceRawValue } from '@atlaskit/editor-common/types';
 import type { ResolvedEditorState } from '@atlaskit/collab-provider';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
-import type { Schema } from 'prosemirror-model';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { SelectOption } from '@atlaskit/editor-common/types';
@@ -152,7 +152,7 @@ import type { SEVERITY } from '@atlaskit/editor-common/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';
 import { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
-import { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TransactionTracking } from '@atlaskit/editor-common/types';
 import type { Transformer as Transformer_2 } from '@atlaskit/editor-common/types';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
@@ -164,6 +164,7 @@ import { UploadEndEventPayload } from '@atlaskit/media-picker/types';
 import { UploadErrorEventPayload } from '@atlaskit/media-picker/types';
 import { UploadParams } from '@atlaskit/media-picker/types';
 import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
+import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 import type { WeekDay } from '@atlaskit/calendar/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
@@ -1140,10 +1141,10 @@ export const getListCommands: () => {
   ) => Command;
   toggleOrderedList: (
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-  ) => (view: EditorView, inputMethod?: ListInputMethod) => boolean;
+  ) => (view: EditorView_2, inputMethod?: ListInputMethod) => boolean;
   toggleBulletList: (
     editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-  ) => (view: EditorView, inputMethod?: ListInputMethod) => boolean;
+  ) => (view: EditorView_2, inputMethod?: ListInputMethod) => boolean;
 };
 
 // @public (undocumented)
@@ -2441,14 +2442,6 @@ export const updateStatusWithAnalytics: (
   inputMethod: InsertBlockInputMethodToolbar,
   status?: StatusType,
 ) => Command;
-
-// @public (undocumented)
-type UseStickyToolbarType =
-  | RefObject<HTMLElement>
-  | boolean
-  | {
-      offsetTop: number;
-    };
 
 // @public (undocumented)
 export const version: string;

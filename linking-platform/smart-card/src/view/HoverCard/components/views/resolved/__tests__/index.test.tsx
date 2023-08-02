@@ -4,6 +4,7 @@ import { mocked } from 'ts-jest/utils';
 import { JsonLd } from 'json-ld-types';
 import { fireEvent, render } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
   mockBaseResponseWithErrorPreview,
@@ -86,7 +87,7 @@ describe('HoverCardResolvedView', () => {
   }: { mockResponse?: JsonLd.Response; cardActions?: LinkAction[] } = {}) => {
     const cardState = getCardState(mockResponse.data, mockResponse.meta);
 
-    const { queryByTestId, findByTestId, findByText } = render(
+    const { queryByTestId, findByTestId, findByText, findAllByTestId } = render(
       <IntlProvider locale="en">
         <HoverCardResolvedView
           analytics={analyticsEvents}
@@ -106,7 +107,7 @@ describe('HoverCardResolvedView', () => {
       </IntlProvider>,
     );
 
-    return { queryByTestId, findByTestId, findByText };
+    return { queryByTestId, findByTestId, findByText, findAllByTestId };
   };
 
   describe('hover card blocks', () => {
@@ -259,6 +260,50 @@ describe('HoverCardResolvedView', () => {
       expect(titleBlock.textContent?.trim()).toBe('I love cheese');
       expect(modifiedOn.textContent).toBe('Updated on Jan 1, 2022');
       expect(createdBy.textContent).toBe('Created by Michael Schrute');
+    });
+
+    describe('elements rendered in top block or bottom metadata block, depending on the FF  ', () => {
+      ffTest(
+        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+        async () => {
+          const { findAllByTestId, findByTestId } = await setup({
+            mockResponse: mockConfluenceResponse as JsonLd.Response,
+          });
+          const metadataElements = await findAllByTestId(
+            'smart-block-metadata-resolved-view',
+          );
+          const commentCount = await findByTestId(
+            'commentcount-metadata-element',
+          );
+          const reactCount = await findByTestId('reactcount-metadata-element');
+          expect(metadataElements.length).toEqual(2);
+          expect(metadataElements[1].children).toContain(
+            commentCount.parentElement,
+          );
+          expect(metadataElements[1].children).toContain(
+            reactCount.parentElement,
+          );
+        },
+        async () => {
+          const { findAllByTestId, findByTestId } = await setup({
+            mockResponse: mockConfluenceResponse as JsonLd.Response,
+          });
+          const metadataElements = await findAllByTestId(
+            'smart-block-metadata-resolved-view',
+          );
+          const commentCount = await findByTestId(
+            'commentcount-metadata-element',
+          );
+          const reactCount = await findByTestId('reactcount-metadata-element');
+          expect(metadataElements.length).toEqual(1);
+          expect(metadataElements[0]).toContainElement(
+            commentCount.parentElement,
+          );
+          expect(metadataElements[0]).toContainElement(
+            reactCount.parentElement,
+          );
+        },
+      );
     });
   });
 

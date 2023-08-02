@@ -9,7 +9,9 @@ import {
   extractPersonOwnedBy,
   extractPersonCreatedBy,
   extractPersonUpdatedBy,
+  LinkPerson,
   LinkTypeUpdatedBy,
+  extractPersonAssignedTo,
 } from '@atlaskit/link-extractors';
 import { LinkLocation } from '../../state/flexible-ui-context/types';
 
@@ -62,6 +64,26 @@ export const extractOwnedBy = (
   if (persons && persons.length) {
     return persons[0].name;
   }
+};
+
+export const extractAssignedTo = (
+  data: JsonLd.Data.BaseData,
+): string | undefined => {
+  const person = extractPersonAssignedTo(
+    data as JsonLd.Data.Task | JsonLd.Data.TaskType,
+  );
+  if (person) {
+    return person.name;
+  }
+};
+
+export const extractPersonAssignedToAsArray = (
+  data: JsonLd.Data.BaseData,
+): LinkPerson[] | undefined => {
+  const person = extractPersonAssignedTo(
+    data as JsonLd.Data.Task | JsonLd.Data.TaskType,
+  );
+  return person ? [person] : undefined;
 };
 
 export const extractCreatedBy = (
@@ -134,4 +156,25 @@ export const extractLocation = (
       url,
     };
   }
+};
+
+export const extractSubTasksProgress = (
+  data: JsonLd.Data.BaseData,
+): string | undefined => {
+  const subTasksObject = extractValue<
+    JsonLd.Data.Task,
+    JsonLd.Primitives.SubTasksProgress
+  >(data, 'atlassian:subTasks');
+  return subTasksObject && subTasksObject.totalCount
+    ? `${subTasksObject.resolvedCount}/${subTasksObject.totalCount}`
+    : undefined;
+};
+
+export const extractReadTime = (
+  data: JsonLd.Data.BaseData,
+): string | undefined => {
+  return extractValue<JsonLd.Data.Document, string>(
+    data,
+    'atlassian:readTimeInMinutes',
+  );
 };

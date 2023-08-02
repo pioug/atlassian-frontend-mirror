@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/standard-button';
 import FocusRing from '@atlaskit/focus-ring';
+import { Label } from '@atlaskit/form';
 import {
   BitbucketIcon,
   ConfluenceIcon,
@@ -17,56 +18,6 @@ import { N20, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { Centered } from '../../examples-utils';
-
-const MotionResizeHeightExample = () => {
-  const [num, setNum] = useState(1);
-
-  return (
-    <div>
-      <div css={containerStyles}>
-        {[1, 2, 3, 4, 5].map((number) => (
-          <Button
-            testId={`button--${number}`}
-            key={number}
-            isSelected={num === number}
-            onClick={() => {
-              setNum(number);
-            }}
-          >
-            {number}
-          </Button>
-        ))}
-      </div>
-
-      <Centered>
-        <div data-testid="menu" {...useResizingHeight()} css={containerStyles}>
-          <FocusRing isInset>
-            <input
-              type="text"
-              readOnly
-              value={searchTerm[`s${num}`]}
-              css={centeredContainerStyles}
-            />
-          </FocusRing>
-          <StaggeredEntrance columns={1}>
-            {Array(num)
-              .fill(undefined)
-              .map((_, index) => (
-                <FadeIn key={index}>
-                  {(motion) => (
-                    <div css={logoContainerStyles} {...motion}>
-                      {logos[index][0]}
-                      <h3 css={headerStyles}>{logos[index][1]}</h3>
-                    </div>
-                  )}
-                </FadeIn>
-              ))}
-          </StaggeredEntrance>
-        </div>
-      </Centered>
-    </div>
-  );
-};
 
 const logos = [
   [<BitbucketIcon size="small" />, 'Bitbucket'],
@@ -94,7 +45,6 @@ const containerStyles = css({
 const centeredContainerStyles = css({
   width: '100%',
   maxWidth: '500px',
-  marginTop: token('space.300', '24px'),
   marginBottom: token('space.800', '56px'),
   paddingBottom: token('space.100', '8px'),
   borderRadius: token('border.radius.100', '3px'),
@@ -119,5 +69,64 @@ const headerStyles = css({
   marginLeft: token('space.100', '8px'),
   fontWeight: 300,
 });
+
+const inputContainerStyles = css({
+  marginTop: token('space.300', '24px'),
+  textAlign: 'start',
+});
+
+const MotionResizeHeightExample = () => {
+  const [num, setNum] = useState(1);
+
+  return (
+    <div>
+      <div css={containerStyles}>
+        {[1, 2, 3, 4, 5].map((number) => (
+          <Button
+            testId={`button--${number}`}
+            key={number}
+            isSelected={num === number}
+            onClick={() => {
+              setNum(number);
+            }}
+          >
+            {number}
+          </Button>
+        ))}
+      </div>
+
+      <Centered>
+        <div data-testid="menu" {...useResizingHeight()} css={containerStyles}>
+          <div css={inputContainerStyles}>
+            <Label htmlFor="input-options">Motion options</Label>
+            <FocusRing isInset>
+              <input
+                id="input-options"
+                type="text"
+                readOnly
+                value={searchTerm[`s${num}`]}
+                css={centeredContainerStyles}
+              />
+            </FocusRing>
+          </div>
+          <StaggeredEntrance columns={1}>
+            {Array(num)
+              .fill(undefined)
+              .map((_, index) => (
+                <FadeIn key={index}>
+                  {(motion) => (
+                    <div css={logoContainerStyles} {...motion}>
+                      {logos[index][0]}
+                      <h3 css={headerStyles}>{logos[index][1]}</h3>
+                    </div>
+                  )}
+                </FadeIn>
+              ))}
+          </StaggeredEntrance>
+        </div>
+      </Centered>
+    </div>
+  );
+};
 
 export default MotionResizeHeightExample;

@@ -15,7 +15,7 @@ import JSMAssetsConfigModal from '../src/ui/assets-modal';
 
 const mockParameters: AssetsDatasourceParameters = {
   aql: 'dummy aql',
-  cloudId: '',
+  workspaceId: '',
   schemaId: '1',
 };
 export default () => {

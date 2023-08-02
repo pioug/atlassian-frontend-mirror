@@ -1,5 +1,11 @@
 # @atlaskit/modal-dialog
 
+## 12.6.5
+
+### Patch Changes
+
+- [`c2484be748e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2484be748e) - [ux] DSP-11269: hard coded the warning icon to improve color contrast
+
 ## 12.6.4
 
 ### Patch Changes

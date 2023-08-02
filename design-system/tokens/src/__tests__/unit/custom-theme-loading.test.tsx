@@ -1,13 +1,13 @@
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../../constants';
 import {
   CUSTOM_STYLE_ELEMENTS_SIZE_THRESHOLD,
-  CustomBrandSchema,
   loadAndAppendCustomThemeCss,
 } from '../../custom-theme';
+import { ThemeOptionsSchema } from '../../theme-config';
 import { findMissingCustomStyleElements } from '../../utils/custom-theme-loading-utils';
 import { hash } from '../../utils/hash';
 
-const UNSAFE_themeOptions: CustomBrandSchema = { brandColor: '#ff0000' };
+const UNSAFE_themeOptions: ThemeOptionsSchema = { brandColor: '#ff0000' };
 const hashedId = hash(JSON.stringify(UNSAFE_themeOptions));
 
 describe('loadAndAppendCustomThemeCss', () => {
@@ -89,7 +89,7 @@ describe('loadAndAppendCustomThemeCss', () => {
     ];
 
     await colors.forEach(async (color) => {
-      const options = { brandColor: color } as CustomBrandSchema;
+      const options = { brandColor: color } as ThemeOptionsSchema;
       await loadAndAppendCustomThemeCss({
         colorMode: 'light',
         UNSAFE_themeOptions: options,
@@ -106,14 +106,16 @@ describe('loadAndAppendCustomThemeCss', () => {
     const colors = ['#65D26E', '#FFEBE6', '#FFFAE6', '#36B37E'];
 
     await colors.forEach(async (color) => {
-      const options = { brandColor: color } as CustomBrandSchema;
+      const options = { brandColor: color } as ThemeOptionsSchema;
       await loadAndAppendCustomThemeCss({
         colorMode: 'light',
         UNSAFE_themeOptions: options,
       });
     });
 
-    const existingThemeOptions = { brandColor: colors[0] } as CustomBrandSchema;
+    const existingThemeOptions = {
+      brandColor: colors[0],
+    } as ThemeOptionsSchema;
     // attempt to load the first custom theme twice
     await loadAndAppendCustomThemeCss({
       colorMode: 'light',

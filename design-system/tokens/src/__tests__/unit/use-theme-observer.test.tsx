@@ -5,7 +5,7 @@ import { cleanup, fireEvent, render } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 
 import setGlobalTheme from '../../set-global-theme';
-import { useThemeObserver } from '../../use-theme-observer';
+import useThemeObserver from '../../use-theme-observer';
 
 beforeEach(cleanup);
 

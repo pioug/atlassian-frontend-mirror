@@ -1,8 +1,8 @@
-import { ThemeState } from '../../set-global-theme';
+import { ThemeState } from '../../theme-config';
 import {
   themeObjectToString,
   themeStringToObject,
-} from '../../utils/theme-state-transformer';
+} from '../../theme-state-transformer';
 
 describe('themeObjectToString', () => {
   it('should convert theme state object to a formatted string', () => {

@@ -23,52 +23,6 @@ The default form of a button, used for most cases. They are not impactful enough
 
 <Example Component={ButtonDefault} packageName="@atlaskit/button" />
 
-## Variants
-
-### Button (standard button)
-
-The most commonly used button component. This button has different appearances, as well as supported the existing dark mode solution.
-
-It does not support the discouraged theming approach.
-
-```js
-// from named entry point (to ensure minimum code is brought in)
-import Button from '@atlaskit/button/standard-button';   
-
-// from main entry point
-import Button from '@atlaskit/button';
-```
-
-### Loading button
-
-A small wrapper around `Button` that allows you to show an `@atlaskit/spinner` as an overlay on the button when you set an isLoading prop to true.
-
-`LoadingButton` takes care of applying a spinner with the correct size and color based on the button spacing and appearance props.
-
-To assist screen readers, it will also set the `aria-busy` attribute based on the value of `isLoading`. For this reason, it's important that elements containing `LoadingButton`'s have an `aria-live` attribute (e.g. `aria-live="polite"`).
-
-```js
-// from named entry point (to ensure minimum code is brought in)
-import LoadingButton from '@atlaskit/button/loading-button';   
-
-// from main entry point
-import { LoadingButton } from '@atlaskit/button';
-```
-
-### Custom theme button
-
-Avoid using this component. It exists for those already using custom theming, which is hard to use and has performance issues.
-
-This theming approach will be improved in future.
-
-```js
-// from named entry point (to ensure minimum code is brought in)
-import CustomThemeButton from '@atlaskit/button/custom-theme-button';   
-
-// from main entry point
-import { CustomThemeButton } from '@atlaskit/button';
-```
-
 <!-- WARNING: A pollinator test visits this page and searches for this title to validate the page loaded correctly -->
 <!-- https://pollinator.prod.atl-paas.net/checks/f7425790-6c31-4368-9911-3facd24cb51f -->
 <!-- If this title "Appearance" is removed from the page, please update the pollinator test -->
@@ -132,6 +86,8 @@ Set `isSelected` to indicate the button is selected.
 
 Set `isLoading` to indicate the button is loading. The button text is hidden and a spinner is shown in its place, while maintaining the width that it would have if the text were visible.
 
+To assist screen readers, it will also set the `aria-busy` attribute based on the value of `isLoading`. For this reason, it's important that elements containing `LoadingButton`'s have an `aria-live` attribute (e.g. `aria-live="polite"`).
+
 <Example Component={ButtonLoading} packageName="@atlaskit/button" />
 
 ## Spacing
@@ -170,9 +126,19 @@ in place of a `<button>` or `<a>` element.
 This is useful for using Button with the `<Link>` component from popular routing libraries.
 
 ```js
-import Link from '@popular/routing-library'
+import Link from '@popular/routing-library';
 import Button from '@atlaskit/button';
 
 // Set a custom component
-<PrimaryButton component={Link}>Your Work</PrimaryButton>
+<PrimaryButton component={Link}>Your Work</PrimaryButton>;
+```
+
+### Custom theme button
+
+Avoid using this component. It exists for those already using custom theming, which is hard to use and has performance issues.
+
+Latest versions of button use design tokens. These have theming and dark mode support built in.
+
+```js
+import { CustomThemeButton } from '@atlaskit/button';
 ```

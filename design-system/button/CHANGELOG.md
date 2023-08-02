@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.8.4
+
+### Patch Changes
+
+- [`4b3cfb2276b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4b3cfb2276b) - Refactor button base to remove rest props and make props more explicit.
+
 ## 16.8.3
 
 ### Patch Changes

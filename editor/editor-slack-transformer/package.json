@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-slack-transformer",
-  "version": "3.2.4",
+  "version": "3.2.5",
   "description": "Editor Slack transformer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

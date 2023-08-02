@@ -72,6 +72,7 @@ const PopupContentUpdateExample = () => {
         <p>Updates {isUpdateOn ? 'on' : 'off'}</p>
         <Toggle
           size="large"
+          label="Updates toggle switch controls"
           isChecked={isUpdateOn}
           onChange={(e) => setIsUpdateOn(e.currentTarget.checked)}
         />

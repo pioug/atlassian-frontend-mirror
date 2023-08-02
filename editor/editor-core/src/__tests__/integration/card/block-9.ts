@@ -9,6 +9,7 @@ import {
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import blockCardDatasourceAdf from './_fixtures_/block-card-datasource.adf.json';
+import { waitForDatasourceSelection } from '@atlaskit/media-integration-test-helpers';
 
 type ClientType = Parameters<typeof goToEditorTestingWDExample>[0];
 
@@ -38,7 +39,7 @@ BrowserTestCase(
       { clickInEditor: false },
     );
 
-    await page.click('.datasourceView-content-wrap');
+    await waitForDatasourceSelection(page);
 
     await page.keys(['ArrowDown', 'Enter']);
 

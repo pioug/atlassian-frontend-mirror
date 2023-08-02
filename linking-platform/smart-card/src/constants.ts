@@ -98,6 +98,8 @@ export enum SmartLinkWidth {
  *    (src/view/FlexibleCard/components/blocks/utils.tsx)
  */
 export enum ElementName {
+  AssignedTo = 'AssignedTo',
+  AssignedToGroup = 'AssignedToGroup',
   AttachmentCount = 'AttachmentCount',
   AuthorGroup = 'AuthorGroup',
   ChecklistProgress = 'ChecklistProgress',
@@ -112,15 +114,18 @@ export enum ElementName {
   ModifiedBy = 'ModifiedBy',
   ModifiedOn = 'ModifiedOn',
   OwnedBy = 'OwnedBy',
+  OwnedByGroup = 'OwnedByGroup',
   Preview = 'Preview',
   Priority = 'Priority',
   ProgrammingLanguage = 'ProgrammingLanguage',
   Provider = 'Provider',
   ReactCount = 'ReactCount',
+  ReadTime = 'ReadTime',
   Snippet = 'Snippet',
   SourceBranch = 'SourceBranch',
   State = 'State',
   SubscriberCount = 'SubscriberCount',
+  SubTasksProgress = 'SubTasksProgress',
   TargetBranch = 'TargetBranch',
   Title = 'Title',
   ViewCount = 'ViewCount',
@@ -142,6 +147,7 @@ export enum ActionName {
 /**
  * Flexible UI icons - each mapped to AK icons.
  */
+
 export enum IconType {
   Archive = 'FileType:Archive',
   Audio = 'FileType:Audio',

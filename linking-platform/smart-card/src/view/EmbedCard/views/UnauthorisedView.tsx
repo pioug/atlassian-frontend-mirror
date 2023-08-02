@@ -1,6 +1,6 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { EmbedCardUnresolvedView } from './UnresolvedView';
-import { UnauthorisedImage } from '../constants';
+import { LockImage, UnauthorisedImage } from '../constants';
 import { ExpandedFrame } from '../components/ExpandedFrame';
 import { ImageIcon } from '../components/ImageIcon';
 import { ContextViewModel } from '../types';
@@ -46,6 +46,50 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
     }
   }, [onAuthorise, analytics.track, extensionKey]);
 
+  const view = useMemo(() => {
+    if (onAuthorise) {
+      return (
+        <EmbedCardUnresolvedView
+          button={{
+            appearance: 'primary',
+            text: 'connect_unauthorised_account_action',
+            testId: 'connect-account',
+          }}
+          context={context && context.text}
+          description="connect_unauthorised_account_description"
+          image={context?.image ?? UnauthorisedImage}
+          onClick={handleOnAuthorizeClick}
+          testId={testId}
+          title="connect_link_account_card_name"
+        >
+          <UnauthorisedViewContent
+            analytics={analytics}
+            providerName={context?.text}
+            testId={testId}
+          />
+        </EmbedCardUnresolvedView>
+      );
+    }
+
+    return (
+      <EmbedCardUnresolvedView
+        description={
+          context?.text
+            ? 'unauthorised_account_description'
+            : 'unauthorised_account_description_no_provider'
+        }
+        image={context?.image ?? LockImage}
+        context={context?.text}
+        testId={testId}
+        title={
+          context?.text
+            ? 'unauthorised_account_name'
+            : 'unauthorised_account_name_no_provider'
+        }
+      />
+    );
+  }, [analytics, context, handleOnAuthorizeClick, onAuthorise, testId]);
+
   return (
     <ExpandedFrame
       href={link}
@@ -58,29 +102,7 @@ export const EmbedCardUnauthorisedView: FC<EmbedCardUnauthorisedViewProps> = ({
       testId={testId}
       allowScrollBar={true}
     >
-      <EmbedCardUnresolvedView
-        image={context?.image ?? UnauthorisedImage}
-        title="connect_link_account_card_name"
-        description="connect_unauthorised_account_description"
-        context={context && context.text}
-        button={
-          onAuthorise
-            ? {
-                appearance: 'primary',
-                text: 'connect_unauthorised_account_action',
-                testId: 'connect-account',
-              }
-            : undefined
-        }
-        onClick={onAuthorise ? handleOnAuthorizeClick : undefined}
-        testId={testId}
-      >
-        <UnauthorisedViewContent
-          analytics={analytics}
-          providerName={context?.text}
-          testId={testId}
-        />
-      </EmbedCardUnresolvedView>
+      {view}
     </ExpandedFrame>
   );
 };

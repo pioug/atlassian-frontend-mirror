@@ -14,7 +14,7 @@ import Modal, {
   ModalTitle,
   ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { B400, N0, N800 } from '@atlaskit/theme/colors';
+import { B400, N0, N40, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
@@ -47,8 +47,12 @@ const dropdownContainerStyles = css({
 
 const contentContainerStyles = css({
   display: 'grid',
-  height: '420px',
+  maxHeight: '420px',
   overflow: 'auto',
+  borderBottom: `2px solid ${token(
+    'color.background.accent.gray.subtler',
+    N40,
+  )}`,
 });
 
 const placeholderSmartLinkStyles = css({
@@ -254,17 +258,19 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
 
   const issueLikeDataTableView = useMemo(
     () => (
-      <IssueLikeDataTableView
-        testId="jira-jql-datasource-table"
-        status={status}
-        columns={columns}
-        items={responseItems}
-        hasNextPage={hasNextPage}
-        visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
-        onNextPage={onNextPage}
-        onLoadDatasourceDetails={loadDatasourceDetails}
-        onVisibleColumnKeysChange={setVisibleColumnKeys}
-      />
+      <div css={contentContainerStyles}>
+        <IssueLikeDataTableView
+          testId="jira-jql-datasource-table"
+          status={status}
+          columns={columns}
+          items={responseItems}
+          hasNextPage={hasNextPage}
+          visibleColumnKeys={visibleColumnKeys || defaultVisibleColumnKeys}
+          onNextPage={onNextPage}
+          onLoadDatasourceDetails={loadDatasourceDetails}
+          onVisibleColumnKeysChange={setVisibleColumnKeys}
+        />
+      </div>
     ),
     [
       columns,
@@ -314,7 +320,11 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
       return <NoResults />;
     } else if (status === 'empty' || !columns.length) {
       // persist the empty state when making the initial /data request which contains the columns
-      return <EmptyState testId={`jira-jql-datasource-modal--empty-state`} />;
+      return (
+        <div css={contentContainerStyles}>
+          <EmptyState testId={`jira-jql-datasource-modal--empty-state`} />
+        </div>
+      );
     }
 
     const firstIssueUrl = retrieveUrlForSmartCardRender();
@@ -387,11 +397,9 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
             parameters={parameters}
             onSearch={onSearch}
           />
-          <div css={contentContainerStyles}>
-            {currentViewMode === 'count'
-              ? renderCountModeContent()
-              : renderIssuesModeContent()}
-          </div>
+          {currentViewMode === 'count'
+            ? renderCountModeContent()
+            : renderIssuesModeContent()}
         </ModalBody>
         <ModalFooter>
           {shouldShowIssueCount && (

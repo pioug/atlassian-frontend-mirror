@@ -1,49 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider } from 'react-intl-next';
-import { PreviewFunctionProps } from '../FlexibleCard/components/actions/action/preview-action/types';
-import { PreviewActionData } from '../../state/flexible-ui-context/types';
-import Icon from '../FlexibleCard/components/elements/icon';
-import { AnalyticsFacade } from '../../state/analytics';
-import { SmartLinkSize } from '../../constants';
+import { EmbedModalProps } from './types';
 
-type PreviewModalProps = {
-  analytics?: AnalyticsFacade;
-  onClose?: () => void;
-} & PreviewActionData;
-
-export const openPreviewModal = ({
-  analytics,
-  downloadUrl: download,
-  isSupportTheming,
-  linkIcon,
-  onClose = () => {},
-  providerName,
-  src,
-  title,
-  url,
-}: PreviewModalProps) => {
-  const EmbedIcon = {
-    icon: <Icon {...linkIcon} size={SmartLinkSize.Large} />,
-    isFlexibleUi: true,
-  };
-
-  return previewFunction({
-    popupMountPointId: 'twp-editor-preview-iframe',
-    showModal: true,
-    iframeName: 'twp-editor-preview-iframe',
-    onClose,
-    download,
-    icon: EmbedIcon,
-    providerName: providerName || 'Preview',
-    src,
-    title,
-    url,
-    analytics,
-    origin: 'smartLinkCard',
-    isSupportTheming,
-  });
-};
+const IFRAME_NAME = 'twp-editor-preview-iframe';
+const POPUP_MOUNT_POINT_ID = 'twp-editor-preview-iframe';
 
 /*
   Explanatory note:
@@ -58,17 +19,16 @@ export const openPreviewModal = ({
   you find an elegant solution around this, you should definitely feel free to
   refactor it.
 */
-export async function previewFunction({
-  popupMountPointId,
-  onClose: onEmbedClose,
-  ...rest
-}: PreviewFunctionProps) {
+export async function openEmbedModal({
+  onClose = () => {},
+  ...props
+}: Partial<EmbedModalProps> = {}) {
   let popupMountPoint: HTMLElement | null;
 
-  popupMountPoint = document.getElementById(popupMountPointId);
+  popupMountPoint = document.getElementById(POPUP_MOUNT_POINT_ID);
   if (!popupMountPoint) {
     popupMountPoint = document.createElement('div');
-    popupMountPoint.id = popupMountPointId;
+    popupMountPoint.id = POPUP_MOUNT_POINT_ID;
     popupMountPoint.setAttribute('data-testid', 'preview-modal');
     document.body.appendChild(popupMountPoint);
   }
@@ -78,15 +38,17 @@ export async function previewFunction({
   ReactDOM.render(
     <IntlProvider locale="en">
       <Modal.default
-        {...rest}
+        {...props}
+        iframeName={IFRAME_NAME}
         onClose={(_context) => {
           if (popupMountPoint) {
             ReactDOM.unmountComponentAtNode(popupMountPoint);
           }
-          if (onEmbedClose) {
-            onEmbedClose(_context);
+          if (onClose) {
+            onClose(_context);
           }
         }}
+        showModal={true}
       />
     </IntlProvider>,
     popupMountPoint,

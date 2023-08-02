@@ -34,7 +34,7 @@ import { CollabParticipant } from '@atlaskit/editor-common/collab';
 import { CollabPresencePayload } from '@atlaskit/editor-common/collab';
 import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
-import type { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Manager } from 'socket.io-client';
 import type { Metadata as Metadata_2 } from '@atlaskit/editor-common/collab';
@@ -43,9 +43,9 @@ import { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';
 import { ProviderError } from '@atlaskit/editor-common/collab';
 import { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import { ResolvedEditorState } from '@atlaskit/editor-common/collab';
-import type { Step } from 'prosemirror-transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { SyncUpErrorFunction } from '@atlaskit/editor-common/collab';
-import type { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 // @public (undocumented)
 type AuthCallback = (cb: (data: InitAndAuthData) => void) => void;

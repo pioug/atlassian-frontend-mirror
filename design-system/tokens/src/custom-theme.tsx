@@ -1,10 +1,11 @@
 import { COLOR_MODE_ATTRIBUTE, CUSTOM_THEME_ATTRIBUTE } from './constants';
+import { ThemeStyles } from './get-theme-styles';
 import {
+  ThemeIds,
+  ThemeOptionsSchema,
   ThemeState,
   themeStateDefaults,
-  ThemeStyles,
-} from './set-global-theme';
-import { ThemeIds } from './theme-config';
+} from './theme-config';
 import {
   limitSizeOfCustomStyleElements,
   reduceTokenMap,
@@ -16,14 +17,6 @@ import {
 import { hash } from './utils/hash';
 
 export const CUSTOM_STYLE_ELEMENTS_SIZE_THRESHOLD = 10;
-
-type HEX = `#${string}`;
-
-export type CSSColor = HEX;
-
-export interface CustomBrandSchema {
-  brandColor: CSSColor;
-}
 
 /**
  *
@@ -43,7 +36,7 @@ export interface CustomBrandSchema {
  */
 export async function getCustomThemeStyles(
   themeState: Partial<ThemeState> & {
-    UNSAFE_themeOptions: CustomBrandSchema;
+    UNSAFE_themeOptions: ThemeOptionsSchema;
   },
 ): Promise<ThemeStyles[]> {
   const brandColor = themeState?.UNSAFE_themeOptions?.brandColor;
@@ -92,18 +85,18 @@ html[${CUSTOM_THEME_ATTRIBUTE}="${uniqueId}"][${COLOR_MODE_ATTRIBUTE}="dark"][da
 
 export async function loadAndAppendCustomThemeCss(
   themeState: Partial<ThemeState> & {
-    UNSAFE_themeOptions: CustomBrandSchema;
+    UNSAFE_themeOptions: ThemeOptionsSchema;
   },
 ) {
-  getCustomThemeStyles(themeState).then((themes) => {
-    limitSizeOfCustomStyleElements(CUSTOM_STYLE_ELEMENTS_SIZE_THRESHOLD);
-    themes.map((theme) => {
-      const styleTag = document.createElement('style');
-      document.head.appendChild(styleTag);
-      (styleTag as HTMLStyleElement).dataset.theme = theme.attrs['data-theme'];
-      (styleTag as HTMLStyleElement).dataset.customTheme =
-        theme.attrs['data-custom-theme'];
-      styleTag.textContent = theme.css;
-    });
+  const themes = await getCustomThemeStyles(themeState);
+
+  limitSizeOfCustomStyleElements(CUSTOM_STYLE_ELEMENTS_SIZE_THRESHOLD);
+  themes.map((theme) => {
+    const styleTag = document.createElement('style');
+    document.head.appendChild(styleTag);
+    (styleTag as HTMLStyleElement).dataset.theme = theme.attrs['data-theme'];
+    (styleTag as HTMLStyleElement).dataset.customTheme =
+      theme.attrs['data-custom-theme'];
+    styleTag.textContent = theme.css;
   });
 }

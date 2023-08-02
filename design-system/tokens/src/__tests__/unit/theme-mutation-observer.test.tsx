@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/dom';
 
 import setGlobalTheme from '../../set-global-theme';
-import { ThemeMutationObserver } from '../../theme-mutation-observer';
+import ThemeMutationObserver from '../../theme-mutation-observer';
 
 describe('ThemeMutationObserver', () => {
   it('should observe the theme', async () => {

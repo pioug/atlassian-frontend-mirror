@@ -218,6 +218,8 @@ export type OnActionMenuOpenChangeOptions = {
  * A type that contains all the possible combinations of elements with their corresponding props.
  */
 export type ElementItemProps =
+  | AssignedTo
+  | AssignedToGroup
   | AttachmentCount
   | AuthorGroup
   | ChecklistProgress
@@ -232,15 +234,18 @@ export type ElementItemProps =
   | ModifiedBy
   | ModifiedOn
   | OwnedBy
+  | OwnedByGroup
   | Preview
   | Priority
   | ProgrammingLanguage
   | Provider
   | ReactCount
+  | ReadTime
   | Snippet
   | SourceBranch
   | State
   | SubscriberCount
+  | SubTasksProgress
   | TargetBranch
   | Title
   | ViewCount
@@ -261,6 +266,21 @@ export type AuthorGroup = {
   name: ElementName.AuthorGroup;
 };
 /**
+ * Represents the props available for an OwnedByGroup element.
+ * @see AuthorGroup
+ */
+export type OwnedByGroup = {
+  name: ElementName.OwnedByGroup;
+};
+/**
+ * Represents the props available for an AssignedToGroup element.
+ * @see AuthorGroup
+ */
+export type AssignedToGroup = {
+  name: ElementName.AssignedToGroup;
+};
+
+/**
  * Represents the props available for an ChecklistProgress element.
  * @see ChecklistProgress
  */
@@ -280,6 +300,13 @@ export type CollaboratorGroup = {
  */
 export type CommentCount = {
   name: ElementName.CommentCount;
+};
+/**
+ * Represents the props available for an AssignedTo element.
+ * @see AssignedTo
+ */
+export type AssignedTo = {
+  name: ElementName.AssignedTo;
 };
 /**
  * Represents the props available for an CreatedBy element.
@@ -387,6 +414,12 @@ export type ReactCount = {
   name: ElementName.ReactCount;
 };
 /**
+ * Represents the props available for a ReadTime element.
+ */
+export type ReadTime = {
+  name: ElementName.ReadTime;
+};
+/**
  * Represents the props available for an Snippet element.
  * @see Snippet
  */
@@ -408,11 +441,17 @@ export type State = {
   name: ElementName.State;
 };
 /**
- * Represents the props available for an SubscriberCount element.
+ * Represents the props available for a SubscriberCount element.
  * @see SubscriberCount
  */
 export type SubscriberCount = {
   name: ElementName.SubscriberCount;
+};
+/**
+ * Represents the props available for a Subtasks element.
+ */
+export type SubTasksProgress = {
+  name: ElementName.SubTasksProgress;
 };
 /**
  * Represents the props available for an TargetBranch element.

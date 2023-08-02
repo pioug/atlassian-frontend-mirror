@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 26.14.1
+
+### Patch Changes
+
+- [`f3cefce58df`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f3cefce58df) - Refactor embed modal helper function (internal)
+
+## 26.14.0
+
+### Minor Changes
+
+- [`d8799deba6e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8799deba6e) - Add new Flexui elements-OwnedByGroup, AssignedTogroup, AssignedTo, ReadTime & SubtasksProgress. Add provider specific logic for metadata display for Hover Cards & Block Cards.
+
+## 26.13.1
+
+### Patch Changes
+
+- [`72d087f0de3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/72d087f0de3) - [ux] Update smart link unauthorised view when there is no auth flow available
+
 ## 26.13.0
 
 ### Minor Changes

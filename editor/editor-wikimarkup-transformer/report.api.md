@@ -15,8 +15,8 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { Node as Node_2 } from 'prosemirror-model';
-import { Schema } from 'prosemirror-model';
+import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 
 // @public (undocumented)
 interface Context {

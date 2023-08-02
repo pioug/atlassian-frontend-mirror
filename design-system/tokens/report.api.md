@@ -903,12 +903,6 @@ type CSSTokenMap = {
 };
 
 // @public (undocumented)
-export interface CustomBrandSchema {
-  // (undocumented)
-  brandColor: CSSColor;
-}
-
-// @public (undocumented)
 type DataColorModes = Exclude<ThemeColorModes, 'auto'>;
 
 // @public (undocumented)
@@ -1512,6 +1506,12 @@ export class ThemeMutationObserver {
 // @public
 export const themeObjectToString: (themeState: Partial<ThemeState>) => string;
 
+// @public
+export interface ThemeOptionsSchema {
+  // (undocumented)
+  brandColor: CSSColor;
+}
+
 // @public (undocumented)
 type ThemeOverrideIds = (typeof themeOverrideIds)[number];
 
@@ -1536,7 +1536,7 @@ export type Themes =
   | 'atlassian-spacing'
   | 'atlassian-typography';
 
-// @public (undocumented)
+// @public
 export interface ThemeState {
   // (undocumented)
   colorMode: ThemeColorModes;
@@ -1551,7 +1551,7 @@ export interface ThemeState {
   // (undocumented)
   typography?: Extract<ThemeIds, 'typography'>;
   // (undocumented)
-  UNSAFE_themeOptions?: CustomBrandSchema;
+  UNSAFE_themeOptions?: ThemeOptionsSchema;
 }
 
 // @public

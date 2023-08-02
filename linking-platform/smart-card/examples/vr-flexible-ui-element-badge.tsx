@@ -15,6 +15,7 @@ import {
   VoteCount,
   Provider,
   LatestCommit,
+  SubTasksProgress,
 } from '../src/view/FlexibleCard/components/elements';
 import { IconType, SmartLinkSize } from '../src/constants';
 
@@ -32,6 +33,7 @@ const context = getContext({
   viewCount: 2,
   reactCount: 3,
   voteCount: 4,
+  subTasksProgress: '3/4',
   priority: { icon: IconType.PriorityLow },
   programmingLanguage: 'JS',
   subscriberCount: 999,
@@ -71,6 +73,7 @@ export default () => (
             <Provider />
             <Provider label="Provider" />
             <LatestCommit size={size} testId="vr-test-badge-latest-commit" />
+            <SubTasksProgress testId="vr-test-badge-subtasks-progress" />
           </HorizontalWrapper>
         </React.Fragment>
       ))}

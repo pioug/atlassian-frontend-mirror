@@ -148,7 +148,7 @@ describe('DatasourceTableView', () => {
     });
 
     expect(queryByTestId('datasource-table-view')).toBe(null);
-    expect(queryByTestId('datasource-table-view-spinner')).toBeInTheDocument();
+    expect(queryByTestId('datasource-table-view-skeleton')).toBeInTheDocument();
   });
 
   it('should render table footer', () => {

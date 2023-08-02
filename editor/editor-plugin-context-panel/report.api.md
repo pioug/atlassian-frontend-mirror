@@ -16,7 +16,7 @@
 
 ```ts
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { Transaction } from 'prosemirror-state';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 // @public (undocumented)
 const applyChange: (tr: Transaction) => Transaction;

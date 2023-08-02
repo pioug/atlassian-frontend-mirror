@@ -297,13 +297,13 @@ describe('smart-card: card states, embed', () => {
         it('embed: renders without connect flow', async () => {
           mocks.unauthorized.meta.auth = [];
           mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-          const { getByText } = render(
+          const { findByTestId } = render(
             <Provider client={mockClient}>
               <Card appearance="embed" url={mockUrl} onError={mockOnError} />
             </Provider>,
           );
-          const unauthorizedLink = await waitFor(() =>
-            getByText(/Connect your.*?account/),
+          const unauthorizedLink = await findByTestId(
+            'embed-card-unauthorized-view-unresolved-title',
           );
           expect(unauthorizedLink).toBeTruthy();
           expect(mockFetch).toBeCalled();

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React, { MouseEventHandler, PureComponent } from 'react';
+import React, { MouseEventHandler, PureComponent, useContext } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
@@ -17,6 +17,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip, { PositionType } from '@atlaskit/tooltip';
 
 import { DropdownMenuSharedCssClassName } from '../../styles';
+import { KeyDownHandlerContext } from '../../ui-menu/ToolbarArrowKeyNavigationProvider';
 import { withReactEditorViewOuterListeners } from '../../ui-react';
 import DropList from '../../ui/DropList';
 import Popup from '../../ui/Popup';
@@ -385,3 +386,20 @@ function DropdownMenuItem({
 
   return dropListItem;
 }
+
+export const DropdownMenuWithKeyboardNavigation: React.FC<any> = React.memo(
+  ({ ...props }) => {
+    const keyDownHandlerContext = useContext(KeyDownHandlerContext);
+    //This context is to handle the tab, Arrow Right/Left key events for dropdown.
+    //Default context has the void callbacks for above key events
+    return (
+      <DropdownMenuWrapper
+        arrowKeyNavigationProviderOptions={{
+          ...props.arrowKeyNavigationProviderOptions,
+          keyDownHandlerContext,
+        }}
+        {...props}
+      />
+    );
+  },
+);

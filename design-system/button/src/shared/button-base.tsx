@@ -39,19 +39,30 @@ type ButtonBaseProps = BaseProps & {
 export default React.forwardRef<HTMLElement, ButtonBaseProps>(
   function ButtonBase(props: ButtonBaseProps, ref: React.Ref<HTMLElement>) {
     const {
+      // I don't think analytics should be in button, but for now it is
+      analyticsContext,
       appearance = 'default',
-      buttonCss,
-      spacing = 'default',
       autoFocus = false,
-      isDisabled = false,
-      shouldFitContainer = false,
-      isSelected = false,
-      iconBefore,
-      iconAfter,
+      buttonCss,
       children,
       className,
       href,
+      // use the provided component prop,
+      // else default to anchor if there is a href, and button if there is no href
+      component: Component = href ? 'a' : 'button',
+      iconAfter,
+      iconBefore,
+      interactionName,
+      isDisabled = false,
+      isSelected = false,
+      onBlur,
+      onClick: providedOnClick = noop,
+      onFocus,
+      onMouseDown: providedOnMouseDown = noop,
       overlay,
+      // Pulling out so it doesn't spread on rendered component
+      shouldFitContainer,
+      spacing = 'default',
       // Don't set unnecessary tabIndex for focus if using standard <button> or <a>
       // html elements. Set to `0` for custom components to ensure other elements can
       // be focused (although the custom component could be a <button> or <a>...)
@@ -59,17 +70,8 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
       getBooleanFF('platform.design-system-team.clove-sprint-a11y-button_5rz5j')
         ? undefined
         : 0,
-
       type = !href ? 'button' : undefined,
-      onMouseDown: providedOnMouseDown = noop,
-      onClick: providedOnClick = noop,
-      // use the provided component prop,
-      // else default to anchor if there is a href, and button if there is no href
-      component: Component = href ? 'a' : 'button',
       testId,
-      interactionName,
-      // I don't think this should be in button, but for now it is
-      analyticsContext,
       ...rest
     } = props;
 
@@ -88,6 +90,7 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
           return;
         }
 
+        // We can write to ref's `current` property, but Typescript does not like it.
         // @ts-ignore
         ref.current = node;
       },
@@ -166,21 +169,23 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
       <FocusRing>
         <Component
           {...rest}
-          css={[buttonCss, isInteractive ? null : noPointerEventsOnChildrenCss]}
-          className={className}
           ref={setRef}
-          onClick={onClick}
-          onMouseDown={onMouseDown}
-          disabled={isDisabled}
-          href={isInteractive ? href : undefined}
+          className={className}
+          css={[buttonCss, isInteractive ? null : noPointerEventsOnChildrenCss]}
           // using undefined so that the property doesn't exist when false
           data-has-overlay={hasOverlay ? true : undefined}
           data-testid={testId}
-          type={type}
+          disabled={isDisabled}
+          href={isInteractive ? href : undefined}
+          onBlur={onBlur}
+          onClick={onClick}
+          onFocus={onFocus}
+          onMouseDown={onMouseDown}
           // Adding a tab index so element is always focusable, even when not a <button> or <a>
           // Disabling focus via keyboard navigation when disabled
           // as this is standard button behaviour
           tabIndex={isDisabled ? -1 : tabIndex}
+          type={type}
           {...blockEvents({ isInteractive })}
         >
           {iconBefore ? (

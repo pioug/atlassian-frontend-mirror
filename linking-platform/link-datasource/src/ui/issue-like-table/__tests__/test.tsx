@@ -816,6 +816,7 @@ describe('IssueLikeDataTableView', () => {
       getByTestId('emoji-column-heading'),
       'column-drop-target',
     );
+    expect(dropTarget).toBeDefined();
 
     await dragAndDrop(dragHandle, dropTarget);
     expect(onVisibleColumnKeysChange).toBeCalledTimes(1);
@@ -900,9 +901,9 @@ describe('IssueLikeDataTableView', () => {
     });
 
     it('should not show when table is loading', async () => {
-      const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
+      const { columns, visibleColumnKeys } = makeDragAndDropTableProps();
       const { queryByTestId, queryByLabelText } = setup({
-        items,
+        items: [],
         columns,
         status: 'loading',
         visibleColumnKeys,
@@ -951,18 +952,23 @@ describe('IssueLikeDataTableView', () => {
         type: 'tag',
         isList: true,
       },
+      status: {
+        key: 'status',
+        title: 'Status',
+        type: 'status',
+      },
     });
 
     it('should render the header and cells with width from the configured fields', () => {
       const items: DatasourceDataResponseItem[] = [
-        { summary: { data: 'summary' }, key: { data: 'KEY-123' } },
+        { summary: { data: 'summary' }, status: { data: { text: 'done' } } },
       ];
       const columns = prepColumns();
 
       const { queryByTestId } = setup({
         items,
-        columns: [columns.summary, columns.key],
-        visibleColumnKeys: ['summary', 'key'],
+        columns: [columns.summary, columns.status],
+        visibleColumnKeys: ['summary', 'status'],
         hasNextPage: false,
         onVisibleColumnKeysChange: undefined,
       });
@@ -974,11 +980,11 @@ describe('IssueLikeDataTableView', () => {
         'max-width': '360px',
       });
 
-      expect(queryByTestId('key-column-heading')).toHaveStyle({
-        'max-width': '80px',
+      expect(queryByTestId('status-column-heading')).toHaveStyle({
+        'max-width': `${8 * 18}px`,
       });
       expect(queryByTestId('sometable--cell-1')).toHaveStyle({
-        'max-width': '80px',
+        'max-width': `${8 * 18}px`,
       });
     });
 
@@ -1042,13 +1048,13 @@ describe('IssueLikeDataTableView', () => {
 
     it('should render the header and cells with width in draggable mode', () => {
       const items: DatasourceDataResponseItem[] = [
-        { summary: { data: 'summary' }, key: { data: 'KEY-123' } },
+        { summary: { data: 'summary' }, status: { data: { text: 'done' } } },
       ];
       const columns = prepColumns();
       const { queryByTestId } = setup({
         items,
-        columns: [columns.summary, columns.key],
-        visibleColumnKeys: ['summary', 'key'],
+        columns: [columns.summary, columns.status],
+        visibleColumnKeys: ['summary', 'status'],
         hasNextPage: false,
       });
 
@@ -1059,11 +1065,11 @@ describe('IssueLikeDataTableView', () => {
         'max-width': '360px',
       });
 
-      expect(queryByTestId('key-column-heading')).toHaveStyle({
-        'max-width': '80px',
+      expect(queryByTestId('status-column-heading')).toHaveStyle({
+        'max-width': `${8 * 18}px`,
       });
       expect(queryByTestId('sometable--cell-1')).toHaveStyle({
-        'max-width': '80px',
+        'max-width': `${8 * 18}px`,
       });
     });
 

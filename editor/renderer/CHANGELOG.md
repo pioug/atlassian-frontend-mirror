@@ -1,5 +1,29 @@
 # @atlaskit/renderer
 
+## 108.8.8
+
+### Patch Changes
+
+- [`02d1ab1d57d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02d1ab1d57d) - Improve DnD Experience in Datasource Table view
+
+## 108.8.7
+
+### Patch Changes
+
+- [`2babc4663c5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2babc4663c5) - Fix unnecessary table scaling in Renderer
+
+## 108.8.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.8.5
+
+### Patch Changes
+
+- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+
 ## 108.8.4
 
 ### Patch Changes

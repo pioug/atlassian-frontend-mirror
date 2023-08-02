@@ -179,7 +179,7 @@ describe('Flexible Card', () => {
       const url = getURL('vr-flexible-ui-element-text-and-date');
       const page = await setup(url);
       await page.waitForSelector('[data-testid="vr-test-text"]');
-      const image = await takeSnapshot(page, 360);
+      const image = await takeSnapshot(page, 390);
 
       expect(image).toMatchProdImageSnapshot();
     });

@@ -205,4 +205,40 @@ const themeConfig: Record<Themes | ThemeOverrides, ThemeConfig> = {
   },
 };
 
+type HEX = `#${string}`;
+export type CSSColor = HEX;
+
+/**
+ * ThemeOptionsSchema: additional configuration options used to customize Atlassian's themes
+ */
+export interface ThemeOptionsSchema {
+  brandColor: CSSColor;
+}
+
+/**
+ * ThemeState: the standard representation of an app's current theme and preferences
+ */
+export interface ThemeState {
+  light: Extract<ThemeIds, 'light' | 'dark' | 'legacy-dark' | 'legacy-light'>;
+  dark: Extract<ThemeIds, 'light' | 'dark' | 'legacy-dark' | 'legacy-light'>;
+  colorMode: ThemeColorModes;
+  shape?: Extract<ThemeIds, 'shape'>;
+  spacing?: Extract<ThemeIds, 'spacing'>;
+  typography?: Extract<ThemeIds, 'typography'>;
+  UNSAFE_themeOptions?: ThemeOptionsSchema;
+}
+
+/**
+ * themeStateDefaults: the default values for ThemeState used by theming utilities
+ */
+export const themeStateDefaults: ThemeState = {
+  colorMode: 'auto',
+  dark: 'dark',
+  light: 'light',
+  shape: undefined,
+  spacing: undefined,
+  typography: undefined,
+  UNSAFE_themeOptions: undefined,
+};
+
 export default themeConfig;

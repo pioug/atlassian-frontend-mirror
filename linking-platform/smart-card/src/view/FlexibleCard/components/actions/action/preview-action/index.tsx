@@ -3,10 +3,10 @@ import { PreviewActionProps } from './types';
 import Action from '../index';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
 import { useSmartLinkAnalytics } from '../../../../../../state';
-import { openPreviewModal } from '../../../../../EmbedModal/utils';
 import { FormattedMessage } from 'react-intl-next';
 import { messages } from '../../../../../../messages';
 import { useFeatureFlag } from '@atlaskit/link-provider';
+import { openEmbedModalWithFlexibleUiIcon } from '../../../utils';
 
 const PreviewAction: React.FC<PreviewActionProps> = (
   props: PreviewActionProps,
@@ -38,7 +38,7 @@ const PreviewAction: React.FC<PreviewActionProps> = (
 
   if (src && url) {
     const embedModal = () =>
-      openPreviewModal({
+      openEmbedModalWithFlexibleUiIcon({
         title,
         providerName,
         downloadUrl,

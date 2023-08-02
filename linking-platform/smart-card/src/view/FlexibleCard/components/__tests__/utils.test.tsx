@@ -1,4 +1,8 @@
-import { hasWhiteSpace } from '../utils';
+import React, { useEffect } from 'react';
+
+import { hasWhiteSpace, openEmbedModalWithFlexibleUiIcon } from '../utils';
+import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { IconType } from '../../../../constants';
 
 describe('hasWhiteSpace', () => {
   it('returns true when string contains whitespace', () => {
@@ -61,5 +65,26 @@ describe('hasWhiteSpace', () => {
 
   it('returns false when string is empty', () => {
     expect(hasWhiteSpace('')).toBeFalsy();
+  });
+});
+
+describe('openEmbedModalWithFlexibleUiIcon', () => {
+  it('opens embed modal with icon element', async () => {
+    const Wrapper = () => {
+      useEffect(() => {
+        openEmbedModalWithFlexibleUiIcon({
+          linkIcon: { icon: IconType.File },
+        });
+      }, []);
+
+      return <div>Open</div>;
+    };
+
+    const { findByTestId } = renderWithIntl(<Wrapper />);
+    const modal = await findByTestId('smart-embed-preview-modal');
+    const icon = await findByTestId('smart-element-icon');
+
+    expect(modal).toBeInTheDocument();
+    expect(icon).toBeInTheDocument();
   });
 });

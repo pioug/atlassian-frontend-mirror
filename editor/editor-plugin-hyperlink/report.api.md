@@ -17,10 +17,10 @@
 ```ts
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Command } from '@atlaskit/editor-common/types';
-import { EditorState } from 'prosemirror-state';
-import { EditorView } from 'prosemirror-view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { FloatingToolbarItem } from '@atlaskit/editor-common/types';
+import type { FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import type { HyperlinkState } from '@atlaskit/editor-common/link';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -30,8 +30,8 @@ import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
-import { Transaction } from 'prosemirror-state';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 // @public (undocumented)
 type GetToolbarItems = (

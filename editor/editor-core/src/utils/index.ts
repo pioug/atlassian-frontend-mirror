@@ -382,25 +382,6 @@ export const isInsideBlockQuote = (state: EditorState): boolean => {
   return hasParentNodeOfType(blockquote)(state.selection);
 };
 
-export function filterChildrenBetween(
-  doc: Node,
-  from: number,
-  to: number,
-  predicate: (
-    node: Node,
-    pos: number,
-    parent: Node | null,
-  ) => boolean | undefined,
-) {
-  const results = [] as { node: Node; pos: number }[];
-  doc.nodesBetween(from, to, (node, pos, parent) => {
-    if (predicate(node, pos, parent)) {
-      results.push({ node, pos });
-    }
-  });
-  return results;
-}
-
 export function dedupe<T>(
   list: T[] = [],
   iteratee: (p: T) => T[keyof T] | T = (p) => p,

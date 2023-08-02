@@ -1,7 +1,7 @@
 import React from 'react';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import DropdownMenu from '../../../../ui/DropdownMenu';
-import { BlockMenuItem } from './create-items';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
+import type { BlockMenuItem } from './create-items';
 import { DropDownButton } from './dropdown-button';
 
 export interface BlockInsertMenuLegacyProps {

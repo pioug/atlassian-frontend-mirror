@@ -24,7 +24,7 @@ export default () => {
   const [showModal, setShowModal] = useState(true);
   const [parameters, setParameters] = useState<AssetsDatasourceParameters>({
     aql: 'dummy aql',
-    cloudId: '',
+    workspaceId: '',
     schemaId: '1',
   });
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<

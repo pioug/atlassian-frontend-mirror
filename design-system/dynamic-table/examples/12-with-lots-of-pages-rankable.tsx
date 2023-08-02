@@ -38,6 +38,7 @@ export default class extends React.Component<{}, State> {
       <div>
         <div>
           <Toggle
+            label="Fixed size"
             onChange={this.onToggleFixedChange}
             isChecked={this.state.isFixedSize}
           />
@@ -45,6 +46,7 @@ export default class extends React.Component<{}, State> {
         </div>
         <div>
           <Toggle
+            label="Loading"
             onChange={this.onLoadingChange}
             isChecked={this.state.isLoading}
           />

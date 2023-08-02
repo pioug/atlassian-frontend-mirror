@@ -4,11 +4,12 @@ import {
   isEmptySelectionAtStart,
   isFirstChildOfParent,
   findCutBefore,
-  toggleMark,
 } from '../../../utils/commands';
+import { toggleMark } from '@atlaskit/editor-common/mark';
 import { filterCommands as filter } from '@atlaskit/editor-common/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   p,
   table,
@@ -25,14 +26,13 @@ import {
   code,
   emoji,
   mention,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { uuid } from '@atlaskit/adf-schema';
 
-import { Command } from '../../../types';
+import type { Command } from '@atlaskit/editor-common/types';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

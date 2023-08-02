@@ -11,6 +11,7 @@ export type RequestAccessMessageKey =
   | 'request_denied_description';
 
 export type MessageKey =
+  | 'assigned_to'
   | 'cannot_find_link'
   | 'connect_link_account_card'
   | 'connect_link_account_card_name'
@@ -63,6 +64,7 @@ export type MessageKey =
   | 'priority_undefined'
   | 'forbidden_access'
   | 'pending_request'
+  | 'read_time'
   | 'restricted_link'
   | 'request_access_to_view'
   | 'request_denied'
@@ -71,6 +73,10 @@ export type MessageKey =
   | 'status_change_update_error'
   | 'try_again'
   | 'try_another_account'
+  | 'unauthorised_account_description'
+  | 'unauthorised_account_description_no_provider'
+  | 'unauthorised_account_name'
+  | 'unauthorised_account_name_no_provider'
   | 'view'
   | 'viewIn'
   | 'viewOriginal'
@@ -103,6 +109,12 @@ export const messages: Messages = defineMessages({
     id: 'fabric.linking.add_account',
     defaultMessage: 'Add account',
     description: 'Allows to add a new account',
+  },
+  assigned_to: {
+    id: 'fabric.linking.assigned_to',
+    defaultMessage: 'Assigned to {context}',
+    description:
+      'Indicates the person or entity that the resource is assigned to.',
   },
   cancel: {
     id: 'fabric.linking.cancel',
@@ -193,7 +205,7 @@ export const messages: Messages = defineMessages({
       'Shown when a user does not have access to a link, but can connect their external account to view the link on card view.',
   },
   connect_unauthorised_account_description_no_provider: {
-    id: 'fabric.linking.connect_unauthorised_account_description',
+    id: 'fabric.linking.connect_unauthorised_account_description_no_provider',
     defaultMessage:
       'Connect to Atlassian to view more details of your work and collaborate from one place.',
     description:
@@ -428,6 +440,11 @@ export const messages: Messages = defineMessages({
     description:
       'Shown when a user has requested an access but status is pending.',
   },
+  read_time: {
+    id: 'fabric.linking.read_time',
+    defaultMessage: '{context} min read',
+    description: 'Estimated time to read this resource',
+  },
   restricted_link: {
     id: 'fabric.linking.restricted_link',
     defaultMessage: 'Restricted link, try another account',
@@ -518,6 +535,28 @@ export const messages: Messages = defineMessages({
     defaultMessage:
       'The link {unsafeLinkText} is taking you to a different site, <a>actual link here</a>',
     description: 'Link safety check warning message',
+  },
+  unauthorised_account_description: {
+    id: 'fabric.linking.unauthorised_account_description',
+    defaultMessage:
+      "You're trying to preview a link to a private {context} page. We recommend you review the URL or contact the page owner.",
+    description: 'Explains that user does not have access to a link.',
+  },
+  unauthorised_account_description_no_provider: {
+    id: 'fabric.linking.unauthorised_account_description_no_provider',
+    defaultMessage:
+      "You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.",
+    description: 'Explains that user does not have access to a link.',
+  },
+  unauthorised_account_name: {
+    id: 'fabric.linking.unauthorised_account_name',
+    defaultMessage: "We can't display private pages from {context}",
+    description: 'Shown when a user does not have access to a link.',
+  },
+  unauthorised_account_name_no_provider: {
+    id: 'fabric.linking.unauthorised_account_name_no_provider',
+    defaultMessage: "We can't display private pages",
+    description: 'Shown when a user does not have access to a link.',
   },
   unlink_account: {
     id: 'fabric.linking.unlink_account',

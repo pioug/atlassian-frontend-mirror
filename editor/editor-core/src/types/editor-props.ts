@@ -1,4 +1,4 @@
-import type { ReactElement, RefObject } from 'react';
+import type { ReactElement } from 'react';
 
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -18,8 +18,8 @@ import type {
 import type {
   AllEditorPresetPluginTypes,
   Transformer,
+  LinkingOptions,
 } from '@atlaskit/editor-common/types';
-import type { LinkingOptions } from '@atlaskit/editor-common/types';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import type { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
 import type { MentionProvider } from '@atlaskit/mention/resource';
@@ -40,7 +40,7 @@ import type { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
 import type { QuickInsertOptions } from '../plugins/quick-insert/types';
 import type { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
 import type { TextFormattingOptions } from '../plugins/text-formatting/types';
-import type { MenuItem } from '../ui/DropdownMenu/types';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 
 import type { EditorAppearance } from './editor-appearance';
 import type { EditorOnChangeHandler } from './editor-onchange';
@@ -48,6 +48,9 @@ import type { EditorPlugin } from './editor-plugin';
 import type { EmptyStateHandler } from './empty-state-handler';
 import type { ExtensionConfig } from './extension-config';
 import type { PerformanceTracking } from './performance-tracking';
+import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
+
+export type { UseStickyToolbarType };
 
 export type ReactComponents = ReactElement<any> | ReactElement<any>[];
 
@@ -80,11 +83,6 @@ export type BeforeAndAfterToolbarComponents = {
 export type PrimaryToolbarComponents =
   | BeforeAndAfterToolbarComponents
   | ReactComponents;
-
-export type UseStickyToolbarType =
-  | boolean
-  | RefObject<HTMLElement>
-  | { offsetTop: number };
 
 interface EditorBaseProps {
   // Note: this comment is replicated in packages/editor/renderer/src/ui/Renderer/types.ts

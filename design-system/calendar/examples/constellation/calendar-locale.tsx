@@ -1,5 +1,9 @@
-import React, { useCallback, useState } from 'react';
+/** @jsx jsx */
+import { useCallback, useState } from 'react';
 
+import { css, jsx } from '@emotion/react';
+
+import { Label } from '@atlaskit/form';
 import LocaleSelect, { Locale } from '@atlaskit/locale/LocaleSelect';
 import { Box, xcss } from '@atlaskit/primitives';
 import Select, { ValueType } from '@atlaskit/select';
@@ -8,6 +12,7 @@ import Calendar from '../../src';
 import type { WeekDay } from '../../src/types';
 
 const localeContainerStyles = xcss({ maxWidth: '300px' });
+const localeInputStyles = css({ marginTop: '-0.5em' });
 
 type WeekStartDayOption = {
   value: WeekDay;
@@ -42,9 +47,11 @@ export default () => {
         testId="test"
       />
       <Box xcss={localeContainerStyles}>
-        <label htmlFor="week-start-day">Locale</label>
-        <LocaleSelect onLocaleChange={handleLocaleChange} />
-        <label htmlFor="week-start-day">Start of the week</label>
+        <Label htmlFor="locale-input">Locale</Label>
+        <div css={localeInputStyles}>
+          <LocaleSelect id="locale-input" onLocaleChange={handleLocaleChange} />
+        </div>
+        <Label htmlFor="week-start-day">Start of the week</Label>
         <Select<WeekStartDayOption>
           inputId="week-start-day"
           options={[

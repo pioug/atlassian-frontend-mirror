@@ -1,5 +1,5 @@
-import { Command } from '../../../types';
-import { toggleMark } from '../../../utils/commands';
+import type { Command } from '../../../types';
+import { toggleMark } from '@atlaskit/editor-common/mark';
 import { ACTIONS, pluginKey } from '../pm-plugins/main';
 import { getDisabledState } from '../utils/disabled';
 

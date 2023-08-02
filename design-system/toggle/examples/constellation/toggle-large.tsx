@@ -8,7 +8,7 @@ export default function Example() {
   return (
     <>
       <Label htmlFor="toggle-large">Allow pull requests</Label>
-      <Toggle id="toggle-large" size="large" defaultChecked />
+      <Toggle id="toggle-large" size="large" />
     </>
   );
 }

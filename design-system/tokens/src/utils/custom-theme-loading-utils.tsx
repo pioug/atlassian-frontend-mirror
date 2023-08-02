@@ -1,7 +1,6 @@
 import tokens from '../artifacts/token-names';
 import { CUSTOM_THEME_ATTRIBUTE, THEME_DATA_ATTRIBUTE } from '../constants';
-import { CustomBrandSchema } from '../custom-theme';
-import { ThemeColorModes } from '../theme-config';
+import { ThemeColorModes, ThemeOptionsSchema } from '../theme-config';
 
 import { hash } from './hash';
 
@@ -9,7 +8,7 @@ type Token = keyof typeof tokens;
 type ThemeAttributeId = 'light' | 'dark';
 
 export function findMissingCustomStyleElements(
-  UNSAFE_themeOptions: CustomBrandSchema,
+  UNSAFE_themeOptions: ThemeOptionsSchema,
   mode: ThemeColorModes,
 ): ThemeAttributeId[] {
   const optionString = JSON.stringify(UNSAFE_themeOptions);

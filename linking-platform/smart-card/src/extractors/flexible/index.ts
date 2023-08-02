@@ -18,6 +18,10 @@ import {
   extractDueOn,
   extractLocation,
   extractOwnedBy,
+  extractAssignedTo,
+  extractSubTasksProgress,
+  extractReadTime,
+  extractPersonAssignedToAsArray,
 } from './utils';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
 import {
@@ -27,6 +31,7 @@ import {
   extractDateCreated,
   LinkTypeCreated,
   extractLink,
+  extractPersonOwnedBy,
 } from '@atlaskit/link-extractors';
 import extractPriority from './extract-priority';
 import extractProviderIcon from './icon/extract-provider-icon';
@@ -56,8 +61,12 @@ const extractFlexibleUiContext = ({
   const showLozengeAction = featureFlags?.useLozengeAction === 'experiment';
 
   return {
+    assignedToGroup: extractPersonAssignedToAsArray(
+      data as JsonLd.Data.Task | JsonLd.Data.TaskType,
+    ),
     attachmentCount: extractAttachmentCount(data),
     authorGroup: extractPersonCreatedBy(data),
+    ownedByGroup: extractPersonOwnedBy(data),
     collaboratorGroup: extractPersonsUpdatedBy(data as JsonLd.Data.Document),
     commentCount: extractCommentCount(data),
     viewCount: extractViewCount(data),
@@ -66,6 +75,7 @@ const extractFlexibleUiContext = ({
     checklistProgress: extractChecklistProgress(data),
     createdBy: extractCreatedBy(data),
     ownedBy: extractOwnedBy(data),
+    assignedTo: extractAssignedTo(data),
     createdOn: extractDateCreated(data as LinkTypeCreated),
     dueOn: extractDueOn(data),
     previewAction: extractPreviewAction(response),
@@ -80,12 +90,14 @@ const extractFlexibleUiContext = ({
     priority: extractPriority(data as JsonLd.Data.Task),
     provider: extractProviderIcon(data),
     programmingLanguage: extractProgrammingLanguage(data),
+    readTime: extractReadTime(data),
     snippet: extractSummary(data) || undefined, // Explicitly set here to remove an empty string
     sourceBranch: extractSourceBranch(
       data as JsonLd.Data.SourceCodePullRequest,
     ),
     state: extractState(response, showServerActions || showLozengeAction, id),
     subscriberCount: extractSubscriberCount(data),
+    subTasksProgress: extractSubTasksProgress(data),
     targetBranch: extractTargetBranch(
       data as JsonLd.Data.SourceCodePullRequest,
     ),

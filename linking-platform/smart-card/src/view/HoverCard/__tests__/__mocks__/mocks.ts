@@ -33,6 +33,7 @@ export const mockBaseResponse = {
       name: 'Michael Schrute',
     },
     preview: {
+      '@type': 'Link',
       href: overrideEmbedContent,
     },
     url: 'https://some.url',
@@ -65,6 +66,14 @@ export const mockConfluenceResponseWithOwnedBy = {
     ...mockBaseResponse.data,
     'schema:commentCount': 4,
     'atlassian:reactCount': 8,
+    'atlassian:ownedBy': {
+      '@type': 'Person',
+      icon: {
+        '@type': 'Image',
+        url: 'avatar_url',
+      },
+      name: 'Michael Schrute',
+    },
     generator: {
       '@type': 'Application',
       '@id': 'https://www.atlassian.com/#Confluence',
@@ -151,6 +160,29 @@ export const mockBaseResponseWithPreview = {
       '@type': 'Image',
       url: 'mock-image-url',
     },
+  },
+};
+
+export const mockBaseResponseAtlasProject = {
+  meta: {
+    ...mockBaseResponse.meta,
+  },
+  data: {
+    ...mockBaseResponse.data,
+    '@type': ['atlassian:Project'],
+    image: {
+      '@type': 'Image',
+      url: 'mock-image-url',
+    },
+  },
+};
+export const mockBBPullRequest = {
+  meta: {
+    ...mockBaseResponse.meta,
+  },
+  data: {
+    ...mockBaseResponse.data,
+    '@type': ['atlassian:SourceCodePullRequest'],
   },
 };
 

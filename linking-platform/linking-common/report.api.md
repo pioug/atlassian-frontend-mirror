@@ -356,7 +356,7 @@ export const Skeleton: ({
 // @public (undocumented)
 interface SkeletonProps {
   // (undocumented)
-  appearance?: 'blue' | 'gray';
+  appearance?: 'blue' | 'darkGray' | 'gray';
   // (undocumented)
   borderRadius?: number | string;
   // (undocumented)

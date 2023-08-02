@@ -9,6 +9,8 @@ import { exampleTokens, getContext } from './utils/flexible-ui';
 import {
   AuthorGroup,
   CollaboratorGroup,
+  OwnedByGroup,
+  AssignedToGroup,
 } from '../src/view/FlexibleCard/components/elements';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
@@ -36,10 +38,13 @@ const collaboratorGroup = [
   { name: 'Hamilton' },
   { name: 'Lasagna' },
 ];
-
+const ownedByGroup = [{ name: 'Alexander Owner' }];
+const assignedToGroup = [{ name: 'Alexander Assigned' }];
 const context = getContext({
   authorGroup,
   collaboratorGroup,
+  ownedByGroup,
+  assignedToGroup,
 });
 
 export default () => (
@@ -56,6 +61,14 @@ export default () => (
             <CollaboratorGroup
               size={size}
               testId={`vr-test-collaborator-group-${size}-${tIdx}`}
+            />
+            <OwnedByGroup
+              size={size}
+              testId={`vr-test-ownedBy-group-${size}-${tIdx}`}
+            />
+            <AssignedToGroup
+              size={size}
+              testId={`vr-test-assignedTo-group-${size}-${tIdx}`}
             />
           </div>
         </React.Fragment>

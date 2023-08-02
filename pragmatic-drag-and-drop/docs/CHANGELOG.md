@@ -1,5 +1,11 @@
 # @atlaskit/pragmatic-drag-and-drop-docs
 
+## 0.6.0
+
+### Minor Changes
+
+- [`8ca10b64c7d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8ca10b64c7d) - Dev dependencies changed.
+
 ## 0.5.4
 
 ### Patch Changes

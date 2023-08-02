@@ -18,10 +18,10 @@
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CommandDispatch } from '@atlaskit/editor-common/types';
-import type { EditorState } from 'prosemirror-state';
-import type { Fragment } from 'prosemirror-model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { Node as Node_2 } from 'prosemirror-model';
+import type { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 
 // @public (undocumented)
 export const contentInsertionPlugin: NextEditorPlugin<

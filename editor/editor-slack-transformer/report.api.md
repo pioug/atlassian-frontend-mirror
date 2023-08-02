@@ -15,7 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { Node as Node_2 } from 'prosemirror-model';
+import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 
 // @public (undocumented)
 export class SlackTransformer implements Transformer_2<string> {

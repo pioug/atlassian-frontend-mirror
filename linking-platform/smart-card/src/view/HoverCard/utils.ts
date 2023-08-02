@@ -41,7 +41,11 @@ export const getSimulatedMetadata = (
       return {
         metadata: {
           primary: [ElementName.AuthorGroup, primaryAttribution],
-          secondary: [ElementName.CommentCount, ElementName.ReactCount],
+          secondary: [
+            ElementName.ReactCount,
+            ElementName.CommentCount,
+            ElementName.ViewCount,
+          ],
           subtitle: [],
         },
       };
@@ -112,5 +116,146 @@ export const getSimulatedMetadata = (
           subtitle: [],
         },
       };
+  }
+};
+
+export const getSimulatedBetterMetadata = (
+  extensionKey: string = '',
+  data: JsonLd.Data.BaseData,
+): JsonLd.Primitives.Property<any> => {
+  const types = data ? extractType(data) : undefined;
+  const defaultMetadata = {
+    topMetadataBlock: {
+      primary: [ElementName.ModifiedOn, ElementName.CreatedBy],
+      secondary: [],
+      subtitle: [],
+    },
+    bottomMetadataBlock: {
+      primary: [],
+      secondary: [],
+      subtitle: [],
+    },
+  };
+
+  switch (extensionKey) {
+    case 'bitbucket-object-provider':
+    case 'native-bitbucket-object-provider':
+      if (types?.includes('atlassian:SourceCodePullRequest')) {
+        return {
+          ...defaultMetadata,
+          topMetadataBlock: {
+            primary: [
+              ElementName.AuthorGroup,
+              ElementName.ModifiedOn,
+              ElementName.SubscriberCount,
+              ElementName.State,
+            ],
+            secondary: [],
+            subtitle: [ElementName.SourceBranch, ElementName.TargetBranch],
+          },
+        };
+      }
+      return {
+        ...defaultMetadata,
+        topMetadataBlock: {
+          primary: [ElementName.ModifiedOn, ElementName.CreatedBy],
+          secondary: [],
+          subtitle: [],
+        },
+      };
+    case 'confluence-object-provider':
+      const primaryAttribution =
+        data && extractOwnedBy(data)
+          ? ElementName.OwnedByGroup
+          : ElementName.AuthorGroup;
+      return {
+        topMetadataBlock: {
+          primary: [primaryAttribution, ElementName.ModifiedOn],
+          secondary: [],
+          subtitle: [],
+        },
+        bottomMetadataBlock: {
+          primary: [
+            ElementName.CommentCount,
+            ElementName.ReactCount,
+            ElementName.ViewCount,
+          ],
+          secondary: [],
+          subtitle: [],
+        },
+      };
+    case 'jira-object-provider':
+      return {
+        ...defaultMetadata,
+        topMetadataBlock: {
+          primary: [
+            ElementName.AssignedToGroup,
+            ElementName.State,
+            ElementName.Priority,
+          ],
+          secondary: [],
+          subtitle: [],
+        },
+      };
+
+    case 'trello-object-provider':
+      return {
+        ...defaultMetadata,
+        topMetadataBlock: {
+          primary: [
+            ElementName.AuthorGroup,
+            ElementName.State,
+            ElementName.DueOn,
+          ],
+          secondary: [
+            ElementName.ReactCount,
+            ElementName.CommentCount,
+            ElementName.AttachmentCount,
+            ElementName.ChecklistProgress,
+          ],
+          subtitle: [ElementName.Location],
+        },
+      };
+
+    case 'watermelon-object-provider':
+      if (types?.includes('atlassian:Project')) {
+        return {
+          ...defaultMetadata,
+          topMetadataBlock: {
+            primary: [
+              ElementName.AuthorGroup,
+              ElementName.ModifiedOn,
+              ElementName.State,
+              ElementName.DueOn,
+            ],
+            secondary: [],
+            subtitle: [],
+          },
+        };
+      }
+      return {
+        ...defaultMetadata,
+        topMetadataBlock: {
+          primary: [
+            ElementName.AuthorGroup,
+            ElementName.State,
+            ElementName.DueOn,
+          ],
+          secondary: [],
+          subtitle: [],
+        },
+      };
+    case 'google-object-provider':
+      return {
+        ...defaultMetadata,
+        topMetadataBlock: {
+          primary: [ElementName.AuthorGroup, ElementName.ModifiedOn],
+          secondary: [],
+          subtitle: [],
+        },
+      };
+
+    default:
+      return defaultMetadata;
   }
 };

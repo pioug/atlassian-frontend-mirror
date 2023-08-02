@@ -1,8 +1,10 @@
 /** @jsx jsx */
 import { jsx, useTheme } from '@emotion/react';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { WidthConsumer } from '@atlaskit/editor-common/ui';
-import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
+import {
+  WidthConsumer,
+  ContextPanelConsumer,
+} from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { ReactElement } from 'react';
 import React, { useImperativeHandle, useRef } from 'react';
@@ -28,7 +30,7 @@ import {
   positionedOverEditorStyle,
 } from './StyledComponents';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import messages from './messages';
+import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ThemeProps } from '@atlaskit/theme/types';
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 import type { FeatureFlags } from '../../../types/feature-flags';

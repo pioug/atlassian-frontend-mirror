@@ -3,7 +3,7 @@ import React from 'react';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { B50, N30, N40 } from '@atlaskit/theme/colors';
+import { B50, N30, N40, N50, N60 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { SkeletonProps } from './types';
 
@@ -18,6 +18,10 @@ const placeholderShimmer = keyframes`
 `;
 
 const appearanceValues = {
+  darkGray: {
+    background: token('color.background.accent.gray.subtler', N50),
+    animation: token('color.background.accent.gray.subtle', N60),
+  },
   gray: {
     background: token('color.background.accent.gray.subtlest', N30),
     animation: token('color.skeleton', N40),

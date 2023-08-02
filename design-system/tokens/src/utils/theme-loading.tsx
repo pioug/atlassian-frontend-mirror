@@ -23,3 +23,5 @@ export const loadThemeCss = async (themeId: ThemeIdsWithOverrides) => {
   const { default: themeCss } = await themeImportMap[themeId]();
   return themeCss;
 };
+
+export const darkModeMediaQuery = '(prefers-color-scheme: dark)';

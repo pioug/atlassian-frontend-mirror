@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.3.0
+
+### Minor Changes
+
+- [`220d407e10c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/220d407e10c) - [ux] Update empty state skeleton UI and add empty state to datasourceTableView
+
 ## 4.2.0
 
 ### Minor Changes

@@ -1,4 +1,4 @@
-import { N30, N900, R400, Y400 } from '@atlaskit/theme/colors';
+import { N30, N900, R400 } from '@atlaskit/theme/colors';
 import {
   borderRadius as getBorderRadius,
   // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
@@ -42,5 +42,5 @@ export const textColor = token('color.text', N900);
 
 export const iconColor: { [key in Appearance]: string } = {
   danger: token('color.icon.danger', R400),
-  warning: token('color.icon.warning', Y400),
+  warning: token('color.icon.warning', '#D97008'),
 } as const;

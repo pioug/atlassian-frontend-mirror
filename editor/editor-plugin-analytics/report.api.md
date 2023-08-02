@@ -21,7 +21,7 @@ import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { PerformanceTracking } from '@atlaskit/editor-common/types';
-import type { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 // @public (undocumented)
 export const analyticsPlugin: NextEditorPlugin<

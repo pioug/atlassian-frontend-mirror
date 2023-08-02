@@ -15,9 +15,9 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import type { EditorState } from 'prosemirror-state';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Transaction } from 'prosemirror-state';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 // @public (undocumented)
 export function createInputRulePlugin(

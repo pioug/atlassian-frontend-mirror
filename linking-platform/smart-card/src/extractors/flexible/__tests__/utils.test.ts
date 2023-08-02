@@ -9,6 +9,7 @@ import {
   TEST_URL,
 } from '../../common/__mocks__/jsonld';
 import {
+  extractAssignedTo,
   extractAttachmentCount,
   extractChecklistProgress,
   extractCommentCount,
@@ -18,9 +19,12 @@ import {
   extractModifiedBy,
   extractOwnedBy,
   extractProgrammingLanguage,
+  extractSubTasksProgress,
+  extractReadTime,
   extractSourceBranch,
   extractSubscriberCount,
   extractTargetBranch,
+  extractPersonAssignedToAsArray,
 } from '../utils';
 
 describe('extractAttachmentCount', () => {
@@ -291,5 +295,76 @@ describe('extractLocation', () => {
       text: 'Location McLocationtion',
       url: 'https://somelink.com/foo',
     });
+  });
+});
+
+describe('extractAssignedTo', () => {
+  it('returns undefined when there is no data on who the resource is assignedTo', () => {
+    expect(extractAssignedTo(TEST_BASE_DATA)).toBeUndefined();
+  });
+
+  it('returns name of the person/entity that the resource is assigned to', () => {
+    const value = extractAssignedTo({
+      ...TEST_BASE_DATA,
+      'atlassian:assignedTo': TEST_PERSON,
+    } as JsonLd.Data.BaseData);
+    expect(value).toEqual(TEST_NAME);
+  });
+});
+
+describe('extractReadTime', () => {
+  it('returns undefined when there is no data for readTimeInMinutes', () => {
+    expect(extractReadTime(TEST_BASE_DATA)).toBeUndefined();
+  });
+
+  it('returns number of minutes when data is present', () => {
+    const value = extractReadTime({
+      ...TEST_BASE_DATA,
+      'atlassian:readTimeInMinutes': 10,
+    } as JsonLd.Data.BaseData);
+    expect(value).toEqual(10);
+  });
+});
+
+describe('extractSubTasksProgress', () => {
+  it('returns undefined when there is no data for subTasks', () => {
+    expect(extractSubTasksProgress(TEST_BASE_DATA)).toBeUndefined();
+  });
+  it('returns undefined when there is no data for subTasks totalCount', () => {
+    const value = extractSubTasksProgress({
+      ...TEST_BASE_DATA,
+      'atlassian:subTasks': {
+        resolvedCount: 0,
+        totalCount: 0,
+      },
+    } as JsonLd.Data.BaseData);
+    expect(value).toBeUndefined();
+  });
+
+  it('returns progress when atlassian:subTasks present', () => {
+    const value = extractSubTasksProgress({
+      ...TEST_BASE_DATA,
+      'atlassian:subTasks': {
+        resolvedCount: 2,
+        totalCount: 7,
+      },
+    } as JsonLd.Data.BaseData);
+    expect(value).toBeDefined();
+    expect(value).toBe('2/7');
+  });
+});
+
+describe('extractPersonAssignedToAsArray', () => {
+  it('returns undefined when there is no data on who the resource is assignedTo', () => {
+    expect(extractPersonAssignedToAsArray(TEST_BASE_DATA)).toBeUndefined();
+  });
+
+  it('returns an array with the person/entity that the resource is assigned to', () => {
+    const value = extractPersonAssignedToAsArray({
+      ...TEST_BASE_DATA,
+      'atlassian:assignedTo': TEST_PERSON,
+    } as JsonLd.Data.Task);
+    expect(value).toBeDefined();
+    expect(value).toEqual([{ name: TEST_PERSON.name, src: TEST_PERSON.url }]);
   });
 });

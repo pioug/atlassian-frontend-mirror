@@ -1,5 +1,9 @@
-import type { ThemeState } from '../set-global-theme';
-import { ThemeColorModes, ThemeIds, themeIds } from '../theme-config';
+import {
+  ThemeColorModes,
+  ThemeIds,
+  themeIds,
+  ThemeState,
+} from './theme-config';
 
 const themeKinds = ['light', 'dark', 'spacing', 'typography', 'shape'] as const;
 type ThemeKind = (typeof themeKinds)[number];

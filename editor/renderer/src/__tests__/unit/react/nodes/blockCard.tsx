@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import '@atlaskit/link-test-helpers/jest';
 import { mount, ReactWrapper } from 'enzyme';
+import { IntlProvider } from 'react-intl-next';
 
 import { Card, Provider, Client } from '@atlaskit/smart-card';
 
@@ -182,11 +183,13 @@ describe('Renderer - React/Nodes/BlockCard', () => {
         () => {
           node = mount(
             <Provider client={new Client('staging')}>
-              <BlockCard
-                url={url}
-                datasource={datasourceAttributePropertiesWithRealJiraId}
-                smartLinks={{ showServerActions: true }}
-              />
+              <IntlProvider locale="en">
+                <BlockCard
+                  url={url}
+                  datasource={datasourceAttributePropertiesWithRealJiraId}
+                  smartLinks={{ showServerActions: true }}
+                />
+              </IntlProvider>
             </Provider>,
           );
           expect(node.find(DatasourceTableView).prop('datasourceId')).toEqual(
@@ -203,11 +206,13 @@ describe('Renderer - React/Nodes/BlockCard', () => {
         () => {
           node = mount(
             <Provider client={new Client('staging')}>
-              <BlockCard
-                url={url}
-                datasource={datasourceAttributePropertiesWithRealJiraId}
-                smartLinks={{ showServerActions: true }}
-              />
+              <IntlProvider locale="en">
+                <BlockCard
+                  url={url}
+                  datasource={datasourceAttributePropertiesWithRealJiraId}
+                  smartLinks={{ showServerActions: true }}
+                />
+              </IntlProvider>
             </Provider>,
           );
 

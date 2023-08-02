@@ -11,6 +11,7 @@ import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/standard-button';
+import { Label } from '@atlaskit/form';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import Select, { ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
@@ -201,16 +202,28 @@ function Example() {
   return (
     <DelayContext.Provider value={delay}>
       <div css={controlContainerStyles}>
-        <Select
-          options={contentDelayOptions}
-          defaultValue={defaultContentDelay}
-          onChange={onContentDelayChange}
-        />
-        <Select
-          options={spinnerDelayOptions}
-          defaultValue={defaultSpinnerDelay}
-          onChange={onSpinnerDelayChange}
-        />
+        <div>
+          <Label htmlFor="input-content-delay-options">
+            Content delay options
+          </Label>
+          <Select
+            inputId="input-content-delay-options"
+            options={contentDelayOptions}
+            defaultValue={defaultContentDelay}
+            onChange={onContentDelayChange}
+          />
+        </div>
+        <div>
+          <Label htmlFor="input-spinner-delay-options">
+            Spinner delay options
+          </Label>
+          <Select
+            inputId="input-spinner-delay-options"
+            options={spinnerDelayOptions}
+            defaultValue={defaultSpinnerDelay}
+            onChange={onSpinnerDelayChange}
+          />
+        </div>
       </div>
       <div css={layoutStyles}>
         <Basic />

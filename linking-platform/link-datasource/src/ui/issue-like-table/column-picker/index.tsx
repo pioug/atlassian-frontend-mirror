@@ -14,7 +14,6 @@ import { columnPickerMessages } from './messages';
 import { ColumnPickerProps } from './types';
 
 export const ColumnPicker = ({
-  isDatasourceLoading,
   columns,
   selectedColumnKeys,
   onSelectedColumnKeysChange,
@@ -127,7 +126,6 @@ export const ColumnPicker = ({
           spacing="compact"
           appearance="subtle"
           testId="column-picker-trigger-button"
-          isDisabled={isDatasourceLoading}
         />
       )}
     />

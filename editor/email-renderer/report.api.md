@@ -15,10 +15,10 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { Fragment } from 'prosemirror-model';
-import { Mark } from 'prosemirror-model';
-import { Node as Node_2 } from 'prosemirror-model';
-import { Schema } from 'prosemirror-model';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { Mark } from '@atlaskit/editor-prosemirror/model';
+import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 
 // @public (undocumented)
 export type Attrs = {

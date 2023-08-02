@@ -1,11 +1,15 @@
-export { default as DropdownMenu } from '../ui-menu/DropdownMenu';
-export type { MenuItem } from '../ui-menu/DropdownMenu';
 export {
-  default as ToolbarButton,
-  TOOLBAR_BUTTON,
-} from '../ui-menu/ToolbarButton';
-export type { ToolbarButtonRef } from '../ui-menu/ToolbarButton';
-export { ArrowKeyNavigationProvider } from '../ui-menu/ArrowKeyNavigationProvider';
-export { ArrowKeyNavigationType } from '../ui-menu/ArrowKeyNavigationProvider/types';
+  default as DropdownMenu,
+  DropdownMenuWithKeyboardNavigation,
+} from './DropdownMenu';
+export type { MenuItem } from './DropdownMenu';
+export { default as ToolbarButton, TOOLBAR_BUTTON } from './ToolbarButton';
+export type { ToolbarButtonRef } from './ToolbarButton';
+export { ArrowKeyNavigationProvider } from './ArrowKeyNavigationProvider';
+export {
+  ToolbarArrowKeyNavigationProvider,
+  KeyDownHandlerContext,
+} from './ToolbarArrowKeyNavigationProvider';
+export { ArrowKeyNavigationType } from './ArrowKeyNavigationProvider/types';
 export { ColorPaletteArrowKeyNavigationProvider } from './ArrowKeyNavigationProvider/ColorPaletteArrowKeyNavigationProvider';
 export { default as Dropdown } from './Dropdown';

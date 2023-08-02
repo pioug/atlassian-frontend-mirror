@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import React, { RefObject, useEffect, useState } from 'react';
+import type { RefObject } from 'react';
+import React, { useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -7,7 +8,7 @@ import {
   akEditorToolbarKeylineHeight,
   akEditorMenuZIndex,
 } from '@atlaskit/editor-shared-styles';
-import { UseStickyToolbarType } from '../../../types/editor-props';
+import type { UseStickyToolbarType } from '@atlaskit/editor-common/ui';
 
 export const TableControlsPadding = 20;
 
@@ -19,7 +20,7 @@ const mainToolbarWrapperStyle = css`
   height: auto;
   background-color: ${token('elevation.surface', 'white')};
   box-shadow: none;
-  padding-left: ${TableControlsPadding}px;
+  padding-left: ${token('space.250', '20px')};
 
   & > div {
     > :first-child:not(style),
@@ -138,7 +139,7 @@ export const mainToolbarCustomComponentsSlotStyle = css`
   justify-content: flex-end;
   align-items: center;
   flex-grow: 1;
-  padding-right: ${TableControlsPadding}px;
+  padding-right: ${token('space.250', '20px')};
   > div {
     display: flex;
     flex-shrink: 0;

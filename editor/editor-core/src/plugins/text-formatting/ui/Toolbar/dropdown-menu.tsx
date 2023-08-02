@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
-import DropdownMenu from '../../../../ui/DropdownMenu';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import { useMenuState } from './hooks/menu-state';
 import { MoreButton } from './more-button';
 

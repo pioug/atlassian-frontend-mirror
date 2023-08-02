@@ -15,15 +15,15 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-import { ContentNodeWithPos } from 'prosemirror-utils';
-import { Mappable } from 'prosemirror-transform';
-import { Mapping } from 'prosemirror-transform';
-import { Node as Node_2 } from 'prosemirror-model';
-import { ResolvedPos } from 'prosemirror-model';
-import { Selection as Selection_2 } from 'prosemirror-state';
-import { SelectionBookmark } from 'prosemirror-state';
-import { Slice } from 'prosemirror-model';
-import { Transaction } from 'prosemirror-state';
+import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import { Mappable } from '@atlaskit/editor-prosemirror/transform';
+import { Mapping } from '@atlaskit/editor-prosemirror/transform';
+import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
+import { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { Selection as Selection_2 } from '@atlaskit/editor-prosemirror/state';
+import { SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
+import { Slice } from '@atlaskit/editor-prosemirror/model';
+import { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 // @public (undocumented)
 type Axis = 'horiz' | 'vert';

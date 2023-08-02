@@ -65,9 +65,9 @@ export interface AssetsDatasourceParameters {
   // (undocumented)
   aql: string;
   // (undocumented)
-  cloudId: string;
+  schemaId: string;
   // (undocumented)
-  schemaId?: string;
+  workspaceId: string;
 }
 
 export { DatasourceAdf };

@@ -1,5 +1,11 @@
 # @atlaskit/prosemirror-input-rules
 
+## 2.3.1
+
+### Patch Changes
+
+- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+
 ## 2.3.0
 
 ### Minor Changes

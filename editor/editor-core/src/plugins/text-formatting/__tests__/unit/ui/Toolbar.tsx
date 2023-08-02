@@ -10,6 +10,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import textFormattingPlugin from '../../../';
 import {
   doc,
   p,
@@ -19,7 +20,6 @@ import {
   subsup,
   underline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import textFormattingPlugin from '../../../';
 import type {
   UIAnalyticsEvent,
   CreateUIAnalyticsEvent,

@@ -22,7 +22,7 @@ import InfoIcon from '@atlaskit/icon/glyph/editor/info';
 import QuoteIcon from '@atlaskit/icon/glyph/quote';
 
 import { shortcutStyle } from '../../../../ui/styles';
-import { MenuItem } from '../../../../ui/DropdownMenu/types';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { tooltip, addLink, toggleTable } from '../../../../keymaps';
 import { shallowEquals } from './shallow-equals';
 import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';

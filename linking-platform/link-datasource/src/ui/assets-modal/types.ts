@@ -4,9 +4,9 @@ import {
   InlineCardAdf,
 } from '@atlaskit/linking-common/types';
 export interface AssetsDatasourceParameters {
-  cloudId: string;
+  workspaceId: string;
   aql: string;
-  schemaId?: string;
+  schemaId: string;
 }
 export interface AssetsDatasourceAdf extends DatasourceAdf {
   attrs: {

@@ -11,7 +11,7 @@ import { messages as blockTypeMessages } from '../../../block-type/messages';
 
 import type { BlockType } from '../../../block-type/types';
 import { ToolTipContent } from '../../../../keymaps';
-import type { MenuItem } from '../../../../ui/DropdownMenu/types';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { MacroProvider } from '../../../macro';
 import { sortItems } from './sort-items';
 import {

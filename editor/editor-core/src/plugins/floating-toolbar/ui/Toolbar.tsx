@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import React from 'react';
+import React, { Component } from 'react';
 import { css, jsx } from '@emotion/react';
-import { Component } from 'react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 
@@ -17,7 +16,10 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { FloatingToolbarItem } from '../types';
 import { compareArrays, shallowEqual } from '../utils';
 import { showConfirmDialog } from '../pm-plugins/toolbar-data/commands';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+import {
+  FloatingToolbarButton as Button,
+  Announcer,
+} from '@atlaskit/editor-common/ui';
 
 import Dropdown from './Dropdown';
 import type { SelectOption } from './Select';
@@ -29,7 +31,6 @@ import ColorPickerButton from '../../../ui/ColorPickerButton';
 import { backgroundPaletteTooltipMessages } from '../../../ui/ColorPalette';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import { EmojiPickerButton } from './EmojiPickerButton';
-import { Announcer } from '@atlaskit/editor-common/ui';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import messages from './messages';
@@ -39,7 +40,7 @@ import { token } from '@atlaskit/tokens';
 import { clearHoverSelection } from '@atlaskit/editor-plugin-table/commands';
 
 import ScrollButtons from './ScrollButtons';
-import { ToolbarArrowKeyNavigationProvider } from '../../../ui/ToolbarArrowKeyNavigationProvider';
+import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import {
   checkShouldForceFocusAndApply,
   forceFocusSelector,

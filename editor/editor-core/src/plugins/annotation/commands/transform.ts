@@ -19,7 +19,7 @@ import {
   getDraftCommandAnalyticsPayload,
 } from '../utils';
 import type { RESOLVE_METHOD } from '../../analytics/types/inline-comment-events';
-import { applyMarkOnRange } from '../../../utils/commands';
+import { applyMarkOnRange } from '@atlaskit/editor-common/mark';
 
 const addAnnotationMark =
   (id: string) => (transaction: Transaction, state: EditorState) => {

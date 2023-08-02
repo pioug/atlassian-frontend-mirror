@@ -9,7 +9,6 @@ import { FocusManagerHook } from './types';
 export const useFocusManager = ({
   popupRef,
   initialFocusRef,
-  autoFocus,
 }: FocusManagerHook): void => {
   useEffect(() => {
     if (!popupRef) {
@@ -39,5 +38,5 @@ export const useFocusManager = ({
       }
       focusTrap.deactivate();
     };
-  }, [popupRef, initialFocusRef, autoFocus]);
+  }, [popupRef, initialFocusRef]);
 };

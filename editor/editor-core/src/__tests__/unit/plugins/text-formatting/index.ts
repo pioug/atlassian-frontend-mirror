@@ -1,5 +1,6 @@
 import { browser } from '@atlaskit/editor-common/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   strike,
@@ -11,25 +12,24 @@ import {
   subsup,
   mention,
   code_block,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import {
-  TextFormattingState,
-  pluginKey as textFormattingPluginKey,
-} from '../../../../plugins/text-formatting/pm-plugins/main';
+import type { TextFormattingState } from '../../../../plugins/text-formatting/pm-plugins/main';
+import { pluginKey as textFormattingPluginKey } from '../../../../plugins/text-formatting/pm-plugins/main';
 import * as commands from '../../../../plugins/text-formatting/commands/text-formatting';
 import { anyMarkActive } from '../../../../plugins/text-formatting/utils';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import {
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type {
   AnalyticsEventPayload,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
+import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   INPUT_METHOD,
   ACTION_SUBJECT_ID,
-  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 
 describe('text-formatting', () => {

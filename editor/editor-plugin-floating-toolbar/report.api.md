@@ -17,7 +17,7 @@
 ```ts
 import type { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';

@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.7.4
+
+### Patch Changes
+
+- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+
 ## 9.7.3
 
 ### Patch Changes

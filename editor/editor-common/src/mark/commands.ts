@@ -1,0 +1,265 @@
+import type {
+  Mark,
+  MarkType,
+  Node as PMNode,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+// eslint-disable-next-line no-duplicate-imports
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+
+import type { Command } from '../types';
+
+const SMART_TO_ASCII = {
+  '…': '...',
+  '→': '->',
+  '←': '<-',
+  '–': '--',
+  '“': '"',
+  '”': '"',
+  '‘': "'",
+  '’': "'",
+};
+
+const FIND_SMART_CHAR = new RegExp(
+  `[${Object.keys(SMART_TO_ASCII).join('')}]`,
+  'g',
+);
+
+const isNodeTextBlock = (schema: Schema) => {
+  const { mention, text, emoji } = schema.nodes;
+
+  return (node: PMNode, _: any, parent: PMNode | null) => {
+    if (node.type === mention || node.type === emoji || node.type === text) {
+      return parent?.isTextblock;
+    }
+    return;
+  };
+};
+
+const replaceSmartCharsToAscii = (
+  position: number,
+  textContent: string,
+  tr: Transaction,
+): void => {
+  const { schema } = tr.doc.type;
+  let match: RegExpExecArray | null;
+
+  while ((match = FIND_SMART_CHAR.exec(textContent))) {
+    const { 0: smartChar, index: offset } = match;
+    const replacePos = tr.mapping.map(position + offset);
+    const replacementText = schema.text(
+      SMART_TO_ASCII[smartChar as keyof typeof SMART_TO_ASCII],
+    );
+    tr.replaceWith(replacePos, replacePos + smartChar.length, replacementText);
+  }
+};
+
+const replaceMentionOrEmojiForTextContent = (
+  position: number,
+  nodeSize: number,
+  textContent: string,
+  tr: Transaction,
+): void => {
+  const currentPos = tr.mapping.map(position);
+  const { schema } = tr.doc.type;
+
+  tr.replaceWith(currentPos, currentPos + nodeSize, schema.text(textContent));
+};
+
+export function filterChildrenBetween(
+  doc: PMNode,
+  from: number,
+  to: number,
+  predicate: (
+    node: PMNode,
+    pos: number,
+    parent: PMNode | null,
+  ) => boolean | undefined,
+) {
+  const results = [] as { node: PMNode; pos: number }[];
+  doc.nodesBetween(from, to, (node, pos, parent) => {
+    if (predicate(node, pos, parent)) {
+      results.push({ node, pos });
+    }
+  });
+  return results;
+}
+
+export const transformSmartCharsMentionsAndEmojis = (
+  from: number,
+  to: number,
+  tr: Transaction,
+): void => {
+  const { schema } = tr.doc.type;
+  const { mention, text, emoji } = schema.nodes;
+  // Traverse through all the nodes within the range and replace them with their plaintext counterpart
+  const children = filterChildrenBetween(
+    tr.doc,
+    from,
+    to,
+    isNodeTextBlock(schema),
+  );
+
+  children.forEach(({ node, pos }) => {
+    if (node.type === mention || node.type === emoji) {
+      // Convert gracefully when no text found, ProseMirror will blow up if you try to create a node with an empty string or undefined
+      let replacementText = node.attrs.text;
+      if (typeof replacementText === 'undefined' || replacementText === '') {
+        replacementText = `${node.type.name} text missing`;
+      }
+
+      replaceMentionOrEmojiForTextContent(
+        pos,
+        node.nodeSize,
+        replacementText,
+        tr,
+      );
+    } else if (node.type === text && node.text) {
+      const replacePosition = pos > from ? pos : from;
+      const textToReplace =
+        pos > from ? node.text : node.text.substr(from - pos);
+
+      replaceSmartCharsToAscii(replacePosition, textToReplace, tr);
+    }
+  });
+};
+
+export const applyMarkOnRange = (
+  from: number,
+  to: number,
+  removeMark: boolean,
+  mark: Mark,
+  tr: Transaction,
+) => {
+  const { schema } = tr.doc.type;
+  const { code } = schema.marks;
+  if (mark.type === code) {
+    transformSmartCharsMentionsAndEmojis(from, to, tr);
+  }
+
+  tr.doc.nodesBetween(tr.mapping.map(from), tr.mapping.map(to), (node, pos) => {
+    if (!node.isText) {
+      return true;
+    }
+
+    // This is an issue when the user selects some text.
+    // We need to check if the current node position is less than the range selection from.
+    // If it’s true, that means we should apply the mark using the range selection,
+    // not the current node position.
+    const nodeBetweenFrom = Math.max(pos, tr.mapping.map(from));
+    const nodeBetweenTo = Math.min(pos + node.nodeSize, tr.mapping.map(to));
+
+    if (removeMark) {
+      tr.removeMark(nodeBetweenFrom, nodeBetweenTo, mark);
+    } else {
+      tr.addMark(nodeBetweenFrom, nodeBetweenTo, mark);
+    }
+
+    return true;
+  });
+
+  return tr;
+};
+
+const entireSelectionContainsMark = (
+  mark: Mark,
+  doc: PMNode,
+  fromPos: number,
+  toPos: number,
+) => {
+  let onlyContainsMark = true;
+
+  doc.nodesBetween(fromPos, toPos, (node) => {
+    // Skip recursion once we've found text which doesn't include the mark
+    if (!onlyContainsMark) {
+      return false;
+    }
+    if (node.isText) {
+      onlyContainsMark && (onlyContainsMark = mark.isInSet(node.marks));
+    }
+  });
+  return onlyContainsMark;
+};
+
+const toggleMarkInRange =
+  (mark: Mark): Command =>
+  (state, dispatch) => {
+    const { tr } = state;
+    if (state.selection instanceof CellSelection) {
+      let removeMark = true;
+      const cells: { node: PMNode; pos: number }[] = [];
+      state.selection.forEachCell((cell, cellPos) => {
+        cells.push({ node: cell, pos: cellPos });
+        const from = cellPos;
+        const to = cellPos + cell.nodeSize;
+
+        removeMark &&
+          (removeMark = entireSelectionContainsMark(mark, state.doc, from, to));
+      });
+
+      for (let i = cells.length - 1; i >= 0; i--) {
+        const cell = cells[i];
+        const from = cell.pos;
+        const to = from + cell.node.nodeSize;
+
+        applyMarkOnRange(from, to, removeMark, mark, tr);
+      }
+    } else {
+      const { $from, $to } = state.selection;
+      // We decide to remove the mark only if the entire selection contains the mark
+      // Examples with *bold* text
+      // Scenario 1: Selection contains both bold and non-bold text -> bold entire selection
+      // Scenario 2: Selection contains only bold text -> un-bold entire selection
+      // Scenario 3: Selection contains no bold text -> bold entire selection
+      const removeMark = entireSelectionContainsMark(
+        mark,
+        state.doc,
+        $from.pos,
+        $to.pos,
+      );
+
+      applyMarkOnRange($from.pos, $to.pos, removeMark, mark, tr);
+    }
+
+    if (tr.docChanged) {
+      if (dispatch) {
+        dispatch(tr);
+      }
+      return true;
+    }
+
+    return false;
+  };
+
+/**
+ * A wrapper over the default toggleMark, except when we have a selection
+ * we only toggle marks on text nodes rather than inline nodes.
+ * @param markType
+ * @param attrs
+ */
+export const toggleMark =
+  (markType: MarkType, attrs?: { [key: string]: any }): Command =>
+  (state, dispatch) => {
+    const mark = markType.create(attrs);
+
+    // For cursor selections we can use the default behaviour.
+    if (state.selection instanceof TextSelection && state.selection.$cursor) {
+      const { tr } = state;
+      if (mark.isInSet(state.storedMarks || state.selection.$cursor.marks())) {
+        tr.removeStoredMark(mark);
+      } else {
+        tr.addStoredMark(mark);
+      }
+
+      if (dispatch) {
+        dispatch(tr);
+        return true;
+      }
+
+      return false;
+    }
+
+    return toggleMarkInRange(mark)(state, dispatch);
+  };

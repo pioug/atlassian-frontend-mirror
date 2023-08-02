@@ -1,7 +1,6 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import type { FeatureFlags } from '../../../types/feature-flags';
-
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { ruleWithAnalytics } from '../../../utils/input-rules';
 import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 

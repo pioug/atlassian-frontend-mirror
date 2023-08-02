@@ -62,7 +62,6 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
       aql: aql || '',
       schemaId: schemaId || '',
       workspaceId: workspaceId || '',
-      cloudId: '',
     }),
     [aql, schemaId, workspaceId],
   );
@@ -116,7 +115,7 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
   }, [responseItems]);
 
   const onInsertPressed = useCallback(() => {
-    if (!aql || !schemaId) {
+    if (!aql || !schemaId || !workspaceId) {
       return;
     }
 
@@ -135,8 +134,8 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
           datasource: {
             id: datasourceId,
             parameters: {
-              cloudId: '', // TODO FLY-1278: get actual cloudID
-              aql: aql,
+              workspaceId,
+              aql,
               schemaId,
             },
             views: [
@@ -158,6 +157,7 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     responseItems.length,
     retrieveUrlForSmartCardRender,
     schemaId,
+    workspaceId,
     visibleColumnKeys,
   ]);
 

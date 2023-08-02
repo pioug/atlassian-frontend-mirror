@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 187.8.7
+
+### Patch Changes
+
+- [`22e9c894ca1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/22e9c894ca1) - update test for numbered column table
+- [`3a1cd78b42a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a1cd78b42a) - [ED-19203] Moving some common logic, styles, and types to editor-common to make it easier to extract the text-formatting plugin from editor-core
+- Updated dependencies
+
+## 187.8.3
+
+### Patch Changes
+
+- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+- Updated dependencies
+
 ## 187.8.0
 
 ### Minor Changes

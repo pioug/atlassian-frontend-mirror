@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import invariant from 'tiny-invariant';
 
+import Heading from '@atlaskit/heading';
 import { Skeleton } from '@atlaskit/linking-common';
 import {
   DatasourceResponseSchemaProperty,
@@ -15,9 +16,11 @@ import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/r
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
+import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ColumnPicker } from './column-picker';
+import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState from './empty-state';
 import { fallbackRenderType } from './render-type';
@@ -25,19 +28,29 @@ import { Table, TableHeading } from './styled';
 import { IssueLikeDataTableViewProps } from './types';
 import { useIsOnScreen } from './useIsOnScreen';
 
+const tableSidePadding = token('space.200', '16px');
+
 const tableHeadStyles = css({
   background: token('elevation.surface', '#FFF'),
-  borderTop: '2px solid transparent',
+  position: 'sticky',
+  top: 0,
+  zIndex: 10,
 });
 
-const ColumnPickerHeader = styled.td`
+const ColumnPickerHeader = styled.th`
   width: 40px;
-  padding-block: ${token('space.100', '8px')};
   position: sticky;
-  right: 0px;
+  right: calc(-1 * ${tableSidePadding});
   background-color: ${token('elevation.surface', '#FFF')};
-  &:last-child {
-    padding-right: ${token('space.100', '8px')};
+  border-bottom: 2px solid ${token('color.background.accent.gray.subtler', N40)}; /* It is required to have solid (not half-transparent) color because of this gradient business bellow */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    ${token('elevation.surface', '#FFF')} 10%
+  );
+  vertical-align: middle; /* Keeps dropdown button in the middle */
+  &:last-of-type {
+    padding-right: ${tableSidePadding};
   }
 `;
 
@@ -47,12 +60,23 @@ const truncatedCellStyles = css({
   whiteSpace: 'nowrap',
 });
 
-const tableDragPreviewStyles = css({
-  backgroundColor: token('elevation.surface', '#FFF'),
+const scrollableContainerStyles = css({
+  overflow: 'auto',
+  padding: `0 ${tableSidePadding} 0 ${tableSidePadding}`,
+  boxSizing: 'border-box',
 });
 
-const containerDragPreviewStyles = css({
-  overflow: 'hidden',
+const tableStyles = css({
+  // These styles are needed to prevent thead bottom border from scrolling away.
+  // This happens because it is sticky. https://stackoverflow.com/questions/50361698/border-style-do-not-work-with-sticky-position-element
+  borderCollapse: 'separate',
+  borderSpacing: 0,
+});
+
+// By default tbody and thead have border-bottom: 2px ...
+// This removes it, because for header we handle it via `th` styling and footer supply bottom border
+const noDefaultBorderStyles = css({
+  borderBottom: 0,
 });
 
 export interface RowType {
@@ -100,9 +124,8 @@ function getColumnWidth(
   key: string,
   type: DatasourceType['type'],
 ): number | undefined {
-  const keyBasedWidth: Record<string, number> = {
+  const keyBasedWidth: Record<string, number | undefined> = {
     assignee: BASE_WIDTH * 22,
-    key: BASE_WIDTH * 10,
     labels: BASE_WIDTH * 22,
     priority: BASE_WIDTH * 8,
     status: BASE_WIDTH * 18,
@@ -137,12 +160,12 @@ export const IssueLikeDataTableView = ({
   onVisibleColumnKeysChange,
   status,
   hasNextPage,
+  scrollableContainerHeight,
 }: IssueLikeDataTableViewProps) => {
   const tableId = useMemo(() => Symbol('unique-id'), []);
 
   const [lastRowElement, setLastRowElement] =
     useState<HTMLTableRowElement | null>(null);
-  const [isDragPreview, setIsDragPreview] = useState(false);
   const [hasFullSchema, setHasFullSchema] = useState(false);
   const isBottomOfTableVisibleRaw = useIsOnScreen(lastRowElement);
 
@@ -190,13 +213,15 @@ export const IssueLikeDataTableView = ({
     [visibleSortedColumns],
   );
 
-  const headColumns: Array<RowCellType> = visibleSortedColumns.map(
-    ({ key, title, type }) => ({
-      key,
-      content: title,
-      shouldTruncate: true,
-      maxWidth: getColumnWidth(key, type),
-    }),
+  const headColumns: Array<RowCellType> = useMemo(
+    () =>
+      visibleSortedColumns.map(({ key, title, type }) => ({
+        key,
+        content: title,
+        shouldTruncate: true,
+        maxWidth: getColumnWidth(key, type),
+      })),
+    [visibleSortedColumns],
   );
 
   useEffect(() => {
@@ -207,26 +232,30 @@ export const IssueLikeDataTableView = ({
     }
   }, [isBottomOfTableVisibleRaw, status, hasNextPage, onNextPage]);
 
-  let dndPreviewHeight = 0;
-  if (items.length > 0 && containerRef.current) {
-    const containerEl = containerRef.current;
-    invariant(containerEl);
-    dndPreviewHeight = containerEl.offsetHeight;
-  }
+  const hasData = items.length > 0;
 
   // This variable contains initial Y mouse coordinate, so we can restrict
   // autoScroller in X axis only
   const initialAutoScrollerClientY = useRef<number | null>();
   useEffect(() => {
-    if (!onVisibleColumnKeysChange) {
+    if (!onVisibleColumnKeysChange || !hasData) {
       return;
     }
+
     return combine(
       monitorForElements({
         onDragStart: ({ location }) => {
           initialAutoScrollerClientY.current = location.current.input.clientY;
           autoScroller.start({
-            input: location.current.input,
+            input: {
+              ...location.current.input,
+              clientY:
+                // The goal is to have clientY the same and in the middle of the scrollable area
+                // Since clientY is taken from to of the viewport we need to plus that in order to get
+                // middle of the scrollable area in reference to the viewport
+                (initialAutoScrollerClientY.current || 0) +
+                (containerRef.current?.offsetHeight || 0) / 2,
+            },
             behavior: 'container-only',
           });
         },
@@ -234,12 +263,13 @@ export const IssueLikeDataTableView = ({
           autoScroller.updateInput({
             input: {
               ...location.current.input,
-              clientY: initialAutoScrollerClientY.current || 0,
+              clientY:
+                (initialAutoScrollerClientY.current || 0) +
+                (containerRef.current?.offsetHeight || 0) / 2,
             },
           });
         },
         onDrop({ source, location }) {
-          initialAutoScrollerClientY.current = null;
           autoScroller.stop();
           if (location.current.dropTargets.length === 0) {
             return;
@@ -280,7 +310,7 @@ export const IssueLikeDataTableView = ({
         },
       }),
     );
-  }, [visibleColumnKeys, onVisibleColumnKeysChange, tableId]);
+  }, [visibleColumnKeys, onVisibleColumnKeysChange, tableId, hasData]);
 
   const tableRows: Array<RowType> = useMemo(
     () =>
@@ -312,15 +342,9 @@ export const IssueLikeDataTableView = ({
     [identityColumnKey, renderItem, items, visibleSortedColumns],
   );
 
-  const rows = [...tableRows, ...(status === 'loading' ? [loadingRow] : [])];
-
-  const setIsDragPreviewOn = useCallback(
-    () => setIsDragPreview(true),
-    [setIsDragPreview],
-  );
-  const setIsDragPreviewOff = useCallback(
-    () => setIsDragPreview(false),
-    [setIsDragPreview],
+  const rows = useMemo(
+    () => [...tableRows, ...(status === 'loading' ? [loadingRow] : [])],
+    [loadingRow, status, tableRows],
   );
 
   const onSelectedColumnKeysChange = useCallback(
@@ -346,19 +370,41 @@ export const IssueLikeDataTableView = ({
   return (
     <div
       ref={containerRef}
-      css={isDragPreview ? containerDragPreviewStyles : null}
+      css={scrollableContainerHeight ? scrollableContainerStyles : null}
+      style={
+        scrollableContainerHeight
+          ? {
+              maxHeight: `${scrollableContainerHeight}px`,
+            }
+          : undefined
+      }
     >
-      <Table
-        css={isDragPreview ? tableDragPreviewStyles : null}
-        data-testid={testId}
-      >
-        <thead data-testid={testId && `${testId}--head`} css={tableHeadStyles}>
+      <Table css={tableStyles} data-testid={testId}>
+        <thead
+          data-testid={testId && `${testId}--head`}
+          css={[noDefaultBorderStyles, tableHeadStyles]}
+        >
           <tr>
             {headColumns.map(({ key, content, maxWidth }, cellIndex) => {
-              const TruncatedContent = () => (
-                <div css={truncatedCellStyles}>{content}</div>
-              );
-              if (onVisibleColumnKeysChange && status !== 'loading') {
+              if (onVisibleColumnKeysChange && hasData) {
+                const previewRows = tableRows
+                  .map(({ cells }) => {
+                    const cell: RowCellType | undefined = cells.find(
+                      ({ key: cellKey }) => cellKey === key,
+                    );
+                    if (cell) {
+                      return cell.content;
+                    }
+                  })
+                  .slice(0, 5);
+
+                const dragPreview = (
+                  <DragColumnPreview
+                    title={<Heading level="h400">{content}</Heading>}
+                    rows={previewRows}
+                  />
+                );
+
                 return (
                   <DraggableTableHeading
                     tableId={tableId}
@@ -366,11 +412,10 @@ export const IssueLikeDataTableView = ({
                     id={key}
                     index={cellIndex}
                     maxWidth={maxWidth}
-                    dndPreviewHeight={dndPreviewHeight}
-                    onDragPreviewStart={setIsDragPreviewOn}
-                    onDragPreviewEnd={setIsDragPreviewOff}
+                    dndPreviewHeight={containerRef.current?.offsetHeight || 0}
+                    dragPreview={dragPreview}
                   >
-                    <TruncatedContent />
+                    <Heading level="h400">{content}</Heading>
                   </DraggableTableHeading>
                 );
               } else {
@@ -382,17 +427,16 @@ export const IssueLikeDataTableView = ({
                       maxWidth,
                     }}
                   >
-                    <TruncatedContent />
+                    <Heading level="h400">{content}</Heading>
                   </TableHeading>
                 );
               }
             })}
-            {onVisibleColumnKeysChange && (
+            {onVisibleColumnKeysChange && hasData && (
               <ColumnPickerHeader>
                 <ColumnPicker
                   columns={hasFullSchema ? orderedColumns : []}
                   selectedColumnKeys={hasFullSchema ? visibleColumnKeys : []}
-                  isDatasourceLoading={status === 'loading'}
                   onSelectedColumnKeysChange={onSelectedColumnKeysChange}
                   onOpen={handlePickerOpen}
                 />
@@ -400,7 +444,10 @@ export const IssueLikeDataTableView = ({
             )}
           </tr>
         </thead>
-        <tbody data-testid={testId && `${testId}--body`}>
+        <tbody
+          css={noDefaultBorderStyles}
+          data-testid={testId && `${testId}--body`}
+        >
           {rows.map(({ key, cells, ref }) => (
             <tr
               key={key}

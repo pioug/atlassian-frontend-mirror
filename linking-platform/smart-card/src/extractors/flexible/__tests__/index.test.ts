@@ -70,6 +70,12 @@ describe('extractFlexibleUiContext', () => {
       subscriberCount: 21,
       provider: expectedConfluenceProvider,
       ownedBy: 'Angie Mccarthy',
+      ownedByGroup: [
+        {
+          name: 'Angie Mccarthy',
+          src: 'https://person-url',
+        },
+      ],
       previewAction: {
         linkIcon: {
           icon: 'FileType:Document',
@@ -102,6 +108,12 @@ describe('extractFlexibleUiContext', () => {
       subscriberCount: 17,
       provider: expectedConfluenceProvider,
       ownedBy: 'Angie Mccarthy',
+      ownedByGroup: [
+        {
+          name: 'Angie Mccarthy',
+          src: 'https://person-url',
+        },
+      ],
       previewAction: {
         linkIcon: {
           icon: 'FileType:Blog',

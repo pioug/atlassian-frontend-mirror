@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.13.2
+
+### Patch Changes
+
+- [`f29001ccc8c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f29001ccc8c) - Renamed type "CustomBrandSchema" to "ThemeOptionsSchema" for experimental custom theming API
+
 ## 1.13.1
 
 ### Patch Changes

@@ -66,6 +66,8 @@ describe('renderElementItems', () => {
     switch (name) {
       case ElementName.AuthorGroup:
       case ElementName.CollaboratorGroup:
+      case ElementName.OwnedByGroup:
+      case ElementName.AssignedToGroup:
         return `${testId}--avatar-group`;
       default:
         return testId;

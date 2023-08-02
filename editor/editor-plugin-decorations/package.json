@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-plugin-decorations",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Decorations plugin for @atlaskit/editor-core",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -23,7 +23,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.29.0",
+    "@atlaskit/editor-common": "^74.30.0",
     "@atlaskit/editor-prosemirror": "1.0.2",
     "@babel/runtime": "^7.0.0"
   },

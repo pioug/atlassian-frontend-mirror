@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-card
 
+## 0.3.3
+
+### Patch Changes
+
+- [`02d1ab1d57d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02d1ab1d57d) - Improve DnD Experience in Datasource Table view
+
+## 0.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.3.1
+
+### Patch Changes
+
+- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+
 ## 0.3.0
 
 ### Minor Changes

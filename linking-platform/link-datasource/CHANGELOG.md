@@ -1,5 +1,33 @@
 # @atlaskit/link-datasource
 
+## 0.31.3
+
+### Patch Changes
+
+- [`02d1ab1d57d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02d1ab1d57d) - Improve DnD Experience in Datasource Table view
+
+## 0.31.2
+
+### Patch Changes
+
+- [`ab5b543f761`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ab5b543f761) - Assets List of Links send actual workspaceId to fetch data on insert
+
+## 0.31.1
+
+### Patch Changes
+
+- [`ac9d6f74970`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac9d6f74970) - List of Links Assets Modal uses workspaceId instead of cloudId
+
+## 0.31.0
+
+### Minor Changes
+
+- [`220d407e10c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/220d407e10c) - [ux] Update empty state skeleton UI and add empty state to datasourceTableView
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.30.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { filterChildrenBetween } from '../../../utils';
+import { filterChildrenBetween } from '@atlaskit/editor-common/mark';
 
 const SMART_TO_ASCII = {
   '…': '...',

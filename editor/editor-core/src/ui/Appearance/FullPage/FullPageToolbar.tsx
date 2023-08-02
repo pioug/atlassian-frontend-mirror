@@ -31,8 +31,8 @@ import type { EventDispatcher } from '../../../event-dispatcher';
 import type { EditorActions } from '../../..';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import type { FeatureFlags } from '../../../types/feature-flags';
-import messages from './messages';
-import { ToolbarArrowKeyNavigationProvider } from '../../ToolbarArrowKeyNavigationProvider';
+import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
+import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 
 export interface FullPageToolbarProps {
   appearance?: EditorAppearance;

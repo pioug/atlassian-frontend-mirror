@@ -149,6 +149,16 @@ type AnchorTarget = '_blank' | '_parent' | '_self' | '_top';
 export { APIError };
 
 // @public
+type AssignedTo = {
+  name: ElementName.AssignedTo;
+};
+
+// @public
+type AssignedToGroup = {
+  name: ElementName.AssignedToGroup;
+};
+
+// @public
 type AttachmentCount = {
   name: ElementName.AttachmentCount;
 };
@@ -446,6 +456,8 @@ export type ElementItem = {
 
 // @public
 type ElementItemProps =
+  | AssignedTo
+  | AssignedToGroup
   | AttachmentCount
   | AuthorGroup
   | ChecklistProgress
@@ -460,14 +472,17 @@ type ElementItemProps =
   | ModifiedBy
   | ModifiedOn
   | OwnedBy
+  | OwnedByGroup
   | Preview
   | Priority
   | ProgrammingLanguage
   | Provider_2
   | ReactCount
+  | ReadTime
   | Snippet
   | SourceBranch
   | State_2
+  | SubTasksProgress
   | SubscriberCount
   | TargetBranch
   | Title
@@ -476,6 +491,10 @@ type ElementItemProps =
 
 // @public
 export enum ElementName {
+  // (undocumented)
+  AssignedTo = 'AssignedTo',
+  // (undocumented)
+  AssignedToGroup = 'AssignedToGroup',
   // (undocumented)
   AttachmentCount = 'AttachmentCount',
   // (undocumented)
@@ -505,6 +524,8 @@ export enum ElementName {
   // (undocumented)
   OwnedBy = 'OwnedBy',
   // (undocumented)
+  OwnedByGroup = 'OwnedByGroup',
+  // (undocumented)
   Preview = 'Preview',
   // (undocumented)
   Priority = 'Priority',
@@ -515,6 +536,8 @@ export enum ElementName {
   // (undocumented)
   ReactCount = 'ReactCount',
   // (undocumented)
+  ReadTime = 'ReadTime',
+  // (undocumented)
   Snippet = 'Snippet',
   // (undocumented)
   SourceBranch = 'SourceBranch',
@@ -522,6 +545,8 @@ export enum ElementName {
   State = 'State',
   // (undocumented)
   SubscriberCount = 'SubscriberCount',
+  // (undocumented)
+  SubTasksProgress = 'SubTasksProgress',
   // (undocumented)
   TargetBranch = 'TargetBranch',
   // (undocumented)
@@ -705,6 +730,11 @@ type OwnedBy = {
 };
 
 // @public
+type OwnedByGroup = {
+  name: ElementName.OwnedByGroup;
+};
+
+// @public
 type Preview = {
   name: ElementName.Preview;
 };
@@ -755,6 +785,11 @@ export { ProviderProps };
 // @public
 type ReactCount = {
   name: ElementName.ReactCount;
+};
+
+// @public
+type ReadTime = {
+  name: ElementName.ReadTime;
 };
 
 // @public (undocumented)
@@ -868,6 +903,11 @@ type State_2 = {
 // @public
 type SubscriberCount = {
   name: ElementName.SubscriberCount;
+};
+
+// @public
+type SubTasksProgress = {
+  name: ElementName.SubTasksProgress;
 };
 
 // @public

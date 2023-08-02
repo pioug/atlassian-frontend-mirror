@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import FlexibleCard from '../../../FlexibleCard';
 import TitleBlock from '../../../FlexibleCard/components/blocks/title-block';
-import { ElementItem } from '../../../FlexibleCard/components/blocks/types';
 import {
   FooterBlock,
   MetadataBlock,
   PreviewBlock,
   SnippetBlock,
 } from '../../../FlexibleCard/components/blocks';
+import { metadataBlockCss, titleBlockCss } from './styled';
 import {
   ActionName,
   CardDisplay,
   ElementName,
   MediaPlacement,
   SmartLinkPosition,
+  SmartLinkSize,
 } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
 import uuid from 'uuid';
-import { extractOwnedBy } from '../../../../extractors/flexible/utils';
-import { JsonLd } from 'json-ld-types';
+import { getSimulatedMetadata, getSimulatedBetterMetadata } from './utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 /**
  * This view represents a Block card that has an 'Resolved' status.
@@ -47,22 +48,11 @@ const FlexibleResolvedView = ({
 
   const [analyticsId] = useState(() => (id ? id : uuid()));
 
-  const baseMetadata: ElementItem[] = [
-    { name: ElementName.ModifiedOn },
-    { name: ElementName.AttachmentCount },
-    { name: ElementName.CommentCount },
-    { name: ElementName.ReactCount },
-    { name: ElementName.SubscriberCount },
-    { name: ElementName.ViewCount },
-    { name: ElementName.VoteCount },
-    { name: ElementName.ChecklistProgress },
-    { name: ElementName.DueOn },
-  ];
-  const metadata: ElementItem[] =
-    cardState?.details?.data &&
-    extractOwnedBy(cardState?.details?.data as JsonLd.Data.BaseData)
-      ? [{ name: ElementName.OwnedBy }, ...baseMetadata]
-      : [{ name: ElementName.ModifiedBy }, ...baseMetadata];
+  const { titleMetadata, topMetadata, bottomMetadata } = getBooleanFF(
+    'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+  )
+    ? getSimulatedBetterMetadata(cardState.details)
+    : getSimulatedMetadata(cardState.details);
 
   return (
     <FlexibleCard
@@ -79,19 +69,28 @@ const FlexibleResolvedView = ({
     >
       <TitleBlock
         position={SmartLinkPosition.Center}
-        metadata={[
-          { name: ElementName.AuthorGroup },
-          { name: ElementName.Priority },
-          { name: ElementName.State },
-        ]}
+        metadata={titleMetadata}
         hideRetry={true}
         subtitle={[{ name: ElementName.Location }]}
         metadataPosition={SmartLinkPosition.Top}
         anchorTarget={anchorTarget}
+        {...(getBooleanFF(
+          'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+        ) && { overrideCss: titleBlockCss, size: SmartLinkSize.Large })}
       />
-      <MetadataBlock primary={metadata} maxLines={1} />
-
+      <MetadataBlock
+        primary={topMetadata}
+        maxLines={1}
+        {...(getBooleanFF(
+          'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+        ) && { overrideCss: metadataBlockCss })}
+      />
       <SnippetBlock />
+
+      {getBooleanFF(
+        'platform.linking-platform.smart-card.enable-better-metadata_iojwg',
+      ) && <MetadataBlock primary={bottomMetadata} maxLines={1} />}
+
       {!isPreviewBlockErrored ? (
         <PreviewBlock
           placement={MediaPlacement.Right}

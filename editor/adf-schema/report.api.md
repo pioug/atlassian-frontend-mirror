@@ -17,11 +17,11 @@
 ```ts
 import { CellAttributes } from '@atlaskit/editor-tables/types';
 import LinkifyIt from 'linkify-it';
-import { Mark } from 'prosemirror-model';
-import { MarkSpec } from 'prosemirror-model';
-import { Node as Node_2 } from 'prosemirror-model';
-import { NodeSpec } from 'prosemirror-model';
-import { Schema } from 'prosemirror-model';
+import { Mark } from '@atlaskit/editor-prosemirror/model';
+import { MarkSpec } from '@atlaskit/editor-prosemirror/model';
+import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
+import { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import { Schema } from '@atlaskit/editor-prosemirror/model';
 
 // @public (undocumented)
 export function acNameToEmoji(acName: NameToEmoji): {

@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl-next';
 import FlexibleCard from '../../../FlexibleCard';
 import { ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { AuthorizeAction } from '../../actions/flexible/AuthorizeAction';
@@ -14,6 +15,7 @@ import { JsonLd } from 'json-ld-types';
 import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
 import { css } from '@emotion/react';
 import { tokens } from '../../../../utils/token';
+import { messages } from '../../../../messages';
 
 const contentStyles = css`
   color: ${tokens.text};
@@ -53,6 +55,27 @@ const FlexibleUnauthorisedView = ({
     }
   }, [onAuthorize, extensionKey, analytics.track]);
 
+  const content = useMemo(
+    () =>
+      onAuthorize ? (
+        <UnauthorisedViewContent
+          providerName={providerName}
+          analytics={analytics}
+          testId={testId}
+        />
+      ) : (
+        <FormattedMessage
+          {...messages[
+            providerName
+              ? 'unauthorised_account_description'
+              : 'unauthorised_account_description_no_provider'
+          ]}
+          values={{ context: providerName }}
+        />
+      ),
+    [analytics, onAuthorize, providerName, testId],
+  );
+
   const actions = useMemo<ActionItem[]>(
     () => (onAuthorize ? [AuthorizeAction(handleAuthorize, providerName)] : []),
     [handleAuthorize, onAuthorize, providerName],
@@ -71,13 +94,7 @@ const FlexibleUnauthorisedView = ({
     >
       <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
       <CustomBlock overrideCss={contentStyles} testId={`${testId}-content`}>
-        <div>
-          <UnauthorisedViewContent
-            providerName={providerName}
-            analytics={analytics}
-            testId={testId}
-          />
-        </div>
+        <div>{content}</div>
       </CustomBlock>
       <CustomBlock>
         <BlockCardFooter

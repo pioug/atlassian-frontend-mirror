@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
 
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
@@ -26,11 +26,6 @@ import {
 
 import type { cardPlugin } from '../index';
 import { DatasourceTableLayout } from '../ui/LayoutButton/types';
-
-const containerStyles = css({
-  height: '500px',
-  overflow: 'auto',
-});
 
 interface DatasourceProps extends ReactComponentProps {
   node: PMNode;
@@ -192,7 +187,6 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
     return (
       <div
         className={DATASOURCE_INNER_CONTAINER_CLASSNAME}
-        css={containerStyles}
         style={{
           minWidth: calculatedWidth,
         }}

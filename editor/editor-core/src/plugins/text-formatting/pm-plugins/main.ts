@@ -1,3 +1,5 @@
+// TODO: Ideally this should use the custom toggleMark function from @atlaskit/editor-common so we also disable the options when selecting inline nodes but it disables the marks when the selection is empty at this point in time which is undesirable
+// import { toggleMark } from '@atlaskit/editor-common/mark';
 import { toggleMark } from '@atlaskit/editor-prosemirror/commands';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -7,7 +9,6 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import * as keymaps from '@atlaskit/editor-common/keymaps';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 import { createInlineCodeFromTextInputWithAnalytics } from '../commands/text-formatting';
-// eslint-disable-next-line no-duplicate-imports
 import * as commands from '../commands/text-formatting';
 import { anyMarkActive } from '../utils';
 import type { TextFormattingState } from '../types';

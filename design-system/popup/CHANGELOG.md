@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.9.1
+
+### Patch Changes
+
+- [`6a0a3c059ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a0a3c059ba) - Remove unused argument from internal focus management function.
+
 ## 1.9.0
 
 ### Minor Changes

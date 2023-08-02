@@ -21,7 +21,7 @@ jest.mock('../../../../hooks/useAssetsClient');
 
 describe('AssetsConfigModal', () => {
   const getDefaultParameters: () => AssetsDatasourceParameters = () => ({
-    cloudId: '',
+    workspaceId: 'some-workspace-id',
     aql: 'some-query',
     schemaId: '123',
   });
@@ -102,7 +102,7 @@ describe('AssetsConfigModal', () => {
     });
 
   const getAssetsClientDefaultHookState: () => UseAssetsClientState = () => ({
-    workspaceId: 'workspaceId',
+    workspaceId: 'some-workspace-id',
     workspaceError: undefined,
     objectSchema: undefined,
     assetsClientLoading: false,
@@ -212,7 +212,7 @@ describe('AssetsConfigModal', () => {
     it('should disable insert button', async () => {
       const { getByRole } = await setup({
         visibleColumnKeys: undefined,
-        parameters: { cloudId: '', aql: '' },
+        parameters: { workspaceId: '', aql: '', schemaId: '' },
         datasourceTableHookState: getEmptyDatasourceTableHookState(),
       });
       expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
@@ -223,7 +223,7 @@ describe('AssetsConfigModal', () => {
     it('should disable insert button', async () => {
       const { getByRole } = await setup({
         visibleColumnKeys: undefined,
-        parameters: { cloudId: 'abc123', aql: 'cool' },
+        parameters: { workspaceId: 'abc123', aql: 'cool', schemaId: '123' },
         datasourceTableHookState: getLoadingDatasourceTableHookState(),
       });
       expect(getByRole('button', { name: 'Insert objects' })).toBeDisabled();
@@ -302,7 +302,7 @@ describe('AssetsConfigModal', () => {
             datasource: {
               id: 'some-assets-datasource-id',
               parameters: {
-                cloudId: '',
+                workspaceId: 'some-workspace-id',
                 aql: 'some-query',
                 schemaId: '123',
               },
@@ -334,7 +334,7 @@ describe('AssetsConfigModal', () => {
             datasource: {
               id: 'some-assets-datasource-id',
               parameters: {
-                cloudId: '',
+                workspaceId: 'some-workspace-id',
                 aql: 'some-query',
                 schemaId: '123',
               },

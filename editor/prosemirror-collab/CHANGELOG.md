@@ -1,5 +1,11 @@
 ## 1.3.0 (2022-05-30)
 
+## 0.2.6
+
+### Patch Changes
+
+- [`4e6f1bf8511`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4e6f1bf8511) - [ED-19233] Import prosemirror libraries from internal facade package
+
 ## 0.2.5
 
 ### Patch Changes

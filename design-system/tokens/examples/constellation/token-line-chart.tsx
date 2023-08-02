@@ -7,7 +7,7 @@ import { G400, G500, N0, N40, N500, N800 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import { Example } from '../../../../../services/design-system-docs/src/__DO_NOT_ADD_TO_THIS_FOLDER__/gatsby-theme-brisk/components/example/Example';
 import getTokenValue from '../../src/get-token-value';
-import { useThemeObserver } from '../../src/use-theme-observer';
+import useThemeObserver from '../../src/use-theme-observer';
 
 const TokensLineChartCodeBlock = `
 //  This is using echarts-for-react to generate graphs and it's using canvas under the hood

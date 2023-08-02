@@ -46,4 +46,10 @@ export interface IssueLikeDataTableViewProps {
    * @param visibleColumnKeys
    */
   onVisibleColumnKeysChange?: (visibleColumnKeys: string[]) => void;
+
+  /**
+   * If this number is set it will restrict (max-height) maximum size of the component AND make main container a scrollable container.
+   * It this number is undefined it will not restrict height and not make container scrollable.
+   */
+  scrollableContainerHeight?: number;
 }

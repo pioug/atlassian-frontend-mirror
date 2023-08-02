@@ -10,7 +10,7 @@ import { EmbedCardProps } from '../types';
 import { mockAnalytics } from '../../../utils/mocks';
 import { JsonLd } from 'json-ld-types';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { UnauthorisedImage } from '../constants';
+import { LockImage, UnauthorisedImage } from '../constants';
 import { CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../../constants';
 
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
@@ -206,9 +206,15 @@ describe('EmbedCard view component', () => {
 
   describe('unauthorised embed', () => {
     const expectedUrl = 'https://some.url';
+    const imageTestId = 'embed-card-unauthorized-view-unresolved-image';
+    const titleTestId = 'embed-card-unauthorized-view-unresolved-title';
+    const descriptionTestId =
+      'embed-card-unauthorized-view-unresolved-description';
+    const buttonTestId = 'button-connect-account';
 
     const getUnauthorizedCardState = (
       image?: JsonLd.Primitives.Image,
+      hideProviderName?: boolean,
     ): CardState => ({
       status: 'unauthorized',
       details: {
@@ -220,12 +226,12 @@ describe('EmbedCard view component', () => {
           ...baseData,
           generator: {
             '@type': 'Application',
-            name: '3P',
             icon: {
               '@type': 'Image',
               url: 'https://some.icon.url',
             },
             ...(image ? { image } : {}),
+            ...(!hideProviderName ? { name: '3P' } : {}),
           },
           url: expectedUrl,
         },
@@ -239,9 +245,7 @@ describe('EmbedCard view component', () => {
       const unauthorizedView = getByTestId('embed-card-unauthorized-view');
       expect(unauthorizedView).toBeTruthy();
 
-      const unauthorizedViewImage = getByTestId(
-        'embed-card-unauthorized-view-unresolved-image',
-      );
+      const unauthorizedViewImage = getByTestId(imageTestId);
       expect(unauthorizedViewImage.getAttribute('src')).toBe(expectedImageUrl);
     });
 
@@ -256,9 +260,7 @@ describe('EmbedCard view component', () => {
       const unauthorizedView = getByTestId('embed-card-unauthorized-view');
       expect(unauthorizedView).toBeTruthy();
 
-      const unauthorizedViewImage = getByTestId(
-        'embed-card-unauthorized-view-unresolved-image',
-      );
+      const unauthorizedViewImage = getByTestId(imageTestId);
       expect(unauthorizedViewImage.getAttribute('src')).toBe(expectedImageUrl);
     });
 
@@ -269,21 +271,17 @@ describe('EmbedCard view component', () => {
       const unauthorizedView = getByTestId('embed-card-unauthorized-view');
       expect(unauthorizedView).toBeTruthy();
 
-      const title = getByTestId(
-        'embed-card-unauthorized-view-unresolved-title',
-      );
+      const title = getByTestId(titleTestId);
       expect(title.textContent).toBe('Connect your 3P account');
       expect(title).toHaveStyle('max-width: 400px');
 
-      const description = getByTestId(
-        'embed-card-unauthorized-view-unresolved-description',
-      );
+      const description = getByTestId(descriptionTestId);
       expect(description.textContent).toBe(
         'Connect 3P to Atlassian to view more details of your work and collaborate from one place. Learn more about Smart Links.',
       );
       expect(description).toHaveStyle('max-width: 400px');
 
-      const action = getByTestId('button-connect-account');
+      const action = getByTestId(buttonTestId);
       expect(action.textContent).toBe('Connect to 3P');
     });
 
@@ -304,17 +302,48 @@ describe('EmbedCard view component', () => {
       const cardState = getUnauthorizedCardState(undefined);
       const { getByTestId } = setup(cardState, expectedUrl);
 
-      const button = getByTestId('button-connect-account');
+      const button = getByTestId(buttonTestId);
       expect(button).toBeInTheDocument();
     });
 
-    it('does not render connect button without an onClick callback', () => {
+    it('renders unauthorised view without connect flow with provider name', () => {
       const cardState = getUnauthorizedCardState(undefined);
-      const { queryByTestId } = setup(cardState, expectedUrl, {
+      const { getByTestId, queryByTestId } = setup(cardState, expectedUrl, {
         handleAuthorize: undefined,
       });
 
-      const button = queryByTestId('button-connect-account');
+      const image = getByTestId(imageTestId);
+      expect(image.getAttribute('src')).toBe(LockImage);
+
+      const title = getByTestId(titleTestId);
+      expect(title.textContent).toBe("We can't display private pages from 3P");
+
+      const description = getByTestId(descriptionTestId);
+      expect(description.textContent).toBe(
+        "You're trying to preview a link to a private 3P page. We recommend you review the URL or contact the page owner.",
+      );
+
+      const button = queryByTestId(buttonTestId);
+      expect(button).not.toBeInTheDocument();
+    });
+
+    it('renders unauthorised view without connect flow without provider name', () => {
+      const cardState = getUnauthorizedCardState(undefined, true);
+      const { getByTestId, queryByTestId } = setup(cardState, expectedUrl, {
+        handleAuthorize: undefined,
+      });
+
+      const image = getByTestId(imageTestId);
+      expect(image.getAttribute('src')).toBe(LockImage);
+      const title = getByTestId(titleTestId);
+      expect(title.textContent).toBe("We can't display private pages");
+
+      const description = getByTestId(descriptionTestId);
+      expect(description.textContent).toBe(
+        "You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.",
+      );
+
+      const button = queryByTestId(buttonTestId);
       expect(button).not.toBeInTheDocument();
     });
   });

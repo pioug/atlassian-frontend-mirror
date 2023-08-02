@@ -19,7 +19,7 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import { transformSmartCharsMentionsAndEmojis } from '../commands/transform-to-code';
+import { transformSmartCharsMentionsAndEmojis } from '@atlaskit/editor-common/mark';
 
 enum ValidAutoformatChars {
   STRONG = '__',

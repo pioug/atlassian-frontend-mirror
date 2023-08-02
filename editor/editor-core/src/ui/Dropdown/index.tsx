@@ -1,6 +1,8 @@
-import { Dropdown as DropdownComponent } from '@atlaskit/editor-common/ui-menu';
+import {
+  Dropdown as DropdownComponent,
+  KeyDownHandlerContext,
+} from '@atlaskit/editor-common/ui-menu';
 import React, { useContext } from 'react';
-import { KeyDownHandlerContext } from '../ToolbarArrowKeyNavigationProvider';
 
 const Dropdown: React.FC<any> = React.memo(({ ...props }) => {
   const keyDownHandlerContext = useContext(KeyDownHandlerContext);

@@ -13,7 +13,8 @@ import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { Radio } from '@atlaskit/radio';
 import Select from '@atlaskit/select';
 
-import { CustomBrandSchema, setGlobalTheme, token } from '../src';
+import { setGlobalTheme, token } from '../src';
+import { ThemeOptionsSchema } from '../src/theme-config';
 import { getContrastRatio } from '../src/utils/color-utils';
 import {
   generateColors,
@@ -72,7 +73,7 @@ const colorTextStyles = css({
 type HEX = `#${string}`;
 
 export default () => {
-  const [customTheme, setCustomTheme] = useState<CustomBrandSchema>({
+  const [customTheme, setCustomTheme] = useState<ThemeOptionsSchema>({
     brandColor: '#65D26E',
   });
   const [colorMode, setColorMode] = useState<'light' | 'dark'>('light');

@@ -1,20 +1,19 @@
 /** @jsx jsx */
-import { useCallback } from 'react';
-
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { Skeleton } from '@atlaskit/linking-common';
 import { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types';
+import { token } from '@atlaskit/tokens';
 
 import UserType from '../render-type/user';
-import { TableHeading } from '../styled';
+import { EmptyStateTableHeading } from '../styled';
 
 import Priority from './priority';
 import Type from './type';
 import { IssuePriority, IssueType } from './types';
 
-type Column = Omit<DatasourceResponseSchemaProperty, 'type'> & {
-  width?: number;
+type Column = Omit<DatasourceResponseSchemaProperty, 'type' | 'title'> & {
+  width: number;
 };
 
 type Row = {
@@ -25,44 +24,46 @@ type Row = {
   statusWidth: number;
 };
 
-const columns: Column[] = [
+const tableBodyStyles = css({
+  borderBottom: 0,
+});
+
+const baseColumns: Column[] = [
   {
     key: 'type',
-    title: 'Type',
+    width: 50,
   },
   {
     key: 'issue',
-    title: 'Key',
     width: 50,
   },
   {
     key: 'summary',
-    title: 'Summary',
+    width: 70,
   },
   {
     key: 'assignee',
-    title: 'Assignee',
     width: 100,
   },
   {
     key: 'priority',
-    title: 'P',
+    width: 60,
   },
   {
     key: 'status',
-    title: 'Status',
+    width: 60,
   },
   {
     key: 'resolution',
-    title: 'Resolution',
+    width: 55,
   },
   {
     key: 'created',
-    title: 'Created',
+    width: 50,
   },
   {
     key: 'due',
-    title: 'Updated',
+    width: 50,
   },
 ];
 
@@ -103,68 +104,84 @@ const rows: Row[] = new Array(10).fill(null).map((_, index) => ({
   statusWidth: statusColumnWidths[index],
 }));
 
+const cellStyles = css({
+  '&:first-child': {
+    paddingLeft: token('space.100', '8px'),
+  },
+  '&:last-child': {
+    paddingRight: token('space.100', '8px'),
+  },
+});
+
+const renderItem = (
+  { key, width }: Column,
+  { priority, type, summaryWidth, statusWidth }: Row,
+) => {
+  switch (key) {
+    case 'assignee':
+      return (
+        <UserType>
+          <Skeleton width={width} height={13} borderRadius={8} />
+        </UserType>
+      );
+    case 'priority':
+      return <Priority priority={priority} />;
+    case 'type':
+      return <Type type={type} />;
+    case 'summary':
+      return (
+        <Skeleton
+          appearance="blue"
+          width={summaryWidth}
+          borderRadius={10}
+          height={13}
+        />
+      );
+    case 'status':
+      return (
+        <Skeleton
+          appearance="blue"
+          width={statusWidth}
+          height={16}
+          borderRadius={3}
+        />
+      );
+    default:
+      return <Skeleton width={width} height={13} borderRadius={8} />;
+  }
+};
+
 export interface Props {
+  isCompact?: boolean;
   testId?: string;
 }
 
-export default (props: Props) => {
-  const renderItem = useCallback(
-    (
-      { key, width }: Column,
-      { priority, type, summaryWidth, statusWidth }: Row,
-    ) => {
-      switch (key) {
-        case 'assignee':
-          return (
-            <UserType>
-              <Skeleton width={width} height={13} borderRadius={8} />
-            </UserType>
-          );
-        case 'priority':
-          return <Priority priority={priority} />;
-        case 'type':
-          return <Type type={type} />;
-        case 'summary':
-          return (
-            <Skeleton
-              appearance="blue"
-              width={summaryWidth}
-              borderRadius={10}
-              height={13}
-            />
-          );
-        case 'status':
-          return (
-            <Skeleton
-              appearance="blue"
-              width={statusWidth}
-              height={16}
-              borderRadius={3}
-            />
-          );
-        default:
-          return <Skeleton width={width} height={13} borderRadius={8} />;
-      }
-    },
-    [],
-  );
+export default ({ isCompact, testId }: Props) => {
+  const columnsToRender = isCompact ? baseColumns.slice(0, 6) : baseColumns;
 
   return (
-    <table data-testid={props.testId}>
+    <table data-testid={testId}>
       <thead>
         <tr>
-          {columns.map(({ title, key, width }) => (
-            <TableHeading key={key} style={{ width }}>
-              {title}
-            </TableHeading>
+          {columnsToRender.map(({ key, width }) => (
+            <EmptyStateTableHeading key={key} style={{ width }}>
+              <Skeleton
+                appearance="darkGray"
+                width={width}
+                height={13}
+                borderRadius={8}
+              />
+            </EmptyStateTableHeading>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody css={tableBodyStyles}>
         {rows.map(row => (
           <tr key={row.id}>
-            {columns.map(column => (
-              <td key={column.key}>{renderItem(column, row)}</td>
+            {columnsToRender.map(column => (
+              <td css={cellStyles} key={column.key}>
+                {renderItem(column, row)}
+              </td>
             ))}
           </tr>
         ))}

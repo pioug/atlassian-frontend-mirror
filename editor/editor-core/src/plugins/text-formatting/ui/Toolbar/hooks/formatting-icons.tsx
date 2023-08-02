@@ -25,12 +25,12 @@ import {
   toggleSubscript,
   toggleSuperscript,
   ToolTipContent,
-} from '../../../../../keymaps';
+  getAriaKeyshortcuts,
+} from '@atlaskit/editor-common/keymaps';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { TextFormattingState } from '../../../pm-plugins/main';
 import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';
 import { IconTypes } from '../types';
-import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const withToolbarInputMethod = (

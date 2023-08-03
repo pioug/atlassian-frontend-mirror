@@ -461,6 +461,15 @@ export type FeatureFlags = {
    * @default false
    */
   useFragmentMarkBreakoutWidthStylingFix?: boolean;
+
+  /**
+   * @description
+   * Enable the new editor media resize experience.
+   *
+   * @see https://product-fabric.atlassian.net/browse/ED-18316
+   * @default false
+   */
+  extendedMediaResizeExperience?: boolean | undefined;
 };
 
 export type FeatureFlagKey = keyof FeatureFlags;

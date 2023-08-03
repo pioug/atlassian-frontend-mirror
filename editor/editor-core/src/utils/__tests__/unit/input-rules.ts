@@ -1,16 +1,16 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   ul,
   li,
   mediaSingle,
   media,
-  DocBuilder,
   alignment,
   a as link,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listPlugin from '../../../plugins/list';
@@ -20,6 +20,7 @@ import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 
 import editorDisabledPlugin from '../../../plugins/editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
@@ -45,6 +46,7 @@ describe('createWrappingJoinRule()', () => {
         .add(hyperlinkPlugin)
         .add(alignmentPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
         .add([mediaPlugin, { allowMediaSingle: true }]),

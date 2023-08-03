@@ -1,4 +1,4 @@
-import { insertContentDeleteRange } from '../../../../utils/commands';
+import { insertContentDeleteRange } from '@atlaskit/editor-common/utils';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 

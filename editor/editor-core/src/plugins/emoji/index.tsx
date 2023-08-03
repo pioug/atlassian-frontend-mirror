@@ -234,7 +234,12 @@ const emojiPlugin: NextEditorPlugin<
         {
           name: 'emojiAsciiInputRule',
           plugin: ({ schema, providerFactory, featureFlags }) =>
-            asciiInputRulePlugin(schema, providerFactory, featureFlags),
+            asciiInputRulePlugin(
+              schema,
+              providerFactory,
+              featureFlags,
+              api?.dependencies.analytics?.actions,
+            ),
         },
       ];
     },

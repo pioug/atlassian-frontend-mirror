@@ -6,9 +6,9 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import type { NodeRange, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import { isListItemNode, isListNode } from '../utils/node';
+import { normalizeListItemsSelection } from '@atlaskit/editor-common/lists';
 import { findFirstParentListItemNode } from '../utils/find';
-import { normalizeListItemsSelection } from '../utils/selection';
+import { isListItemNode, isListNode } from '@atlaskit/editor-common/utils';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 
 export const indentListItemsSelected = (tr: Transaction) => {

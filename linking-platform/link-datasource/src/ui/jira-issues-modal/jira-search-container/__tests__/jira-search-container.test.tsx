@@ -2,10 +2,13 @@ import React from 'react';
 
 import { JQLEditor, JQLEditorProps } from '@atlassianlabs/jql-editor';
 import { act, fireEvent, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 
+import { EVENT_CHANNEL } from '../../../../analytics';
 import { JiraIssueDatasourceParameters } from '../../types';
 import { JiraSearchContainer, SearchContainerProps } from '../index';
 
@@ -21,32 +24,36 @@ jest.mock('@atlassianlabs/jql-editor', () => ({
     .mockReturnValue(<div data-testid={'mocked-jql-editor'}></div>),
 }));
 
-describe('JiraSearchContainer', () => {
-  const initialParameters: JiraIssueDatasourceParameters = {
-    cloudId: '12345',
-    jql: '',
-  };
+const onAnalyticFireEvent = jest.fn();
 
-  const setup = (propsOverride: Partial<SearchContainerProps> = {}) => {
-    const mockOnSearch = jest.fn();
-    const component = render(
+const initialParameters: JiraIssueDatasourceParameters = {
+  cloudId: '12345',
+  jql: '',
+};
+
+const setup = (propsOverride: Partial<SearchContainerProps> = {}) => {
+  const mockOnSearch = jest.fn();
+  const component = render(
+    <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
       <IntlProvider locale="en">
         <JiraSearchContainer
           onSearch={mockOnSearch}
           parameters={{ ...initialParameters }}
           {...propsOverride}
         />
-      </IntlProvider>,
-    );
+      </IntlProvider>
+    </AnalyticsListener>,
+  );
 
-    const getLatestJQLEditorProps = () => {
-      let calls = asMock(JQLEditor).mock.calls;
-      return calls[calls.length - 1][0] as JQLEditorProps;
-    };
-
-    return { ...component, mockOnSearch, getLatestJQLEditorProps };
+  const getLatestJQLEditorProps = () => {
+    let calls = asMock(JQLEditor).mock.calls;
+    return calls[calls.length - 1][0] as JQLEditorProps;
   };
 
+  return { ...component, mockOnSearch, getLatestJQLEditorProps };
+};
+
+describe('JiraSearchContainer', () => {
   it('renders the basic input when initially rendered without parameters', () => {
     const { getByTestId, getByPlaceholderText } = setup();
 
@@ -237,6 +244,84 @@ describe('JiraSearchContainer', () => {
 
     expect(getLatestJQLEditorProps().query).toEqual(
       'created >= -30d order by created DESC',
+    );
+  });
+});
+
+describe('Analytics: JiraSearchContainer', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('ui.form.submitted.basicSearch', () => {
+    it('should fire event on search button click', async () => {
+      const { getByPlaceholderText, getByTestId } = setup();
+
+      const basicTextInput = getByPlaceholderText('Search');
+      fireEvent.change(basicTextInput, {
+        target: { value: 'testing' },
+      });
+
+      fireEvent.click(
+        getByTestId('jira-jql-datasource-modal--basic-search-button'),
+      );
+
+      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'submitted',
+            actionSubject: 'form',
+            actionSubjectId: 'basicSearch',
+            attributes: {},
+            eventType: 'ui',
+          },
+        },
+        EVENT_CHANNEL,
+      );
+    });
+
+    it('should fire event on enter key press', async () => {
+      const { getByPlaceholderText } = setup();
+
+      const basicTextInput = getByPlaceholderText('Search');
+      await userEvent.type(basicTextInput, 'testing{enter}');
+
+      expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+        {
+          payload: {
+            action: 'submitted',
+            actionSubject: 'form',
+            actionSubjectId: 'basicSearch',
+            attributes: {},
+            eventType: 'ui',
+          },
+        },
+        EVENT_CHANNEL,
+      );
+    });
+  });
+
+  it('should fire "ui.jqlEditor.searched" when search is initiated via jql input', () => {
+    const { getLatestJQLEditorProps, getByTestId } = setup();
+
+    fireEvent.click(getByTestId('mode-toggle-jql'));
+
+    getLatestJQLEditorProps().onSearch!('some-other-query', {
+      represents: '',
+      errors: [],
+      query: undefined,
+    });
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          action: 'searched',
+          actionSubject: 'jqlEditor',
+          attributes: {},
+          eventType: 'ui',
+        },
+      },
+      EVENT_CHANNEL,
     );
   });
 });

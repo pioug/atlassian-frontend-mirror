@@ -1,4 +1,5 @@
 import sampleSchema from '@atlaskit/editor-test-helpers/schema';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   p,
   ul,
@@ -6,10 +7,9 @@ import {
   li,
   doc,
   panel,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
-import { joinSiblingLists, JoinDirection } from '../../../utils/node';
+import { joinSiblingLists, JoinDirection } from '@atlaskit/editor-common/lists';
 
 type ListsJoined = {
   orderedList: number;

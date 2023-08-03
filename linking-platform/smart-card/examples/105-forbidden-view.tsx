@@ -18,7 +18,7 @@ class Example extends React.Component {
 
   render() {
     const ForbiddenView = getBooleanFF(
-      'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
     )
       ? RedesignedInlineCardForbiddenView
       : InlineCardForbiddenView;

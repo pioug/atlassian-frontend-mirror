@@ -7,9 +7,11 @@ import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { gs as gridSize } from '../../common/utils';
 import { FrameStyle } from '../types';
+import { N40 } from '@atlaskit/theme/colors';
+import { themed } from '@atlaskit/theme/components';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export const className = 'media-card-frame';
-export const cardShadow = ``;
 
 export interface WrapperProps {
   minWidth?: number;
@@ -22,6 +24,16 @@ export interface WrapperProps {
 
 export const borderRadius = `
   border-radius: ${akBorderRadius()}px;
+`;
+
+const BACKGROUND_COLOR_DARK = '#262B31';
+
+const wrapperBorderRadius = `
+  border-radius: ${token('border.radius.400', '16px')};
+`;
+
+const contentBorderRadius = `
+  border-radius: ${token('border.radius.300', '12px')};
 `;
 
 export const ellipsis = (maxWidth: string | number = '100%') => {
@@ -65,6 +77,7 @@ function getInteractiveStyles({ isInteractive, frameStyle }: WrapperProps) {
     ? `
       &:hover {
         ${frameStyle !== 'hide' && visibleStyles}
+
       }
       &:active {
         background-color: ${token('color.background.selected', colors.B50)};
@@ -86,13 +99,28 @@ function selected({ isSelected, frameStyle }: WrapperProps) {
       height: 100%;
       width: 100%;
       left: 0;
-      ${borderRadius}
+      ${
+        getBooleanFF(
+          'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+        )
+          ? wrapperBorderRadius
+          : borderRadius
+      }
     }
     `
     : isSelected && frameStyle === 'hide'
     ? `
-        box-shadow: 0 0 0 3px ${token('color.border.selected', colors.B100)};
-        ${borderRadius}
+        ${
+          getBooleanFF(
+            'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+          )
+            ? contentBorderRadius
+            : `box-shadow: 0 0 0 3px ${token(
+                'color.border.selected',
+                colors.B100,
+              )};
+              ${borderRadius}`
+        }
       `
     : '';
 }
@@ -101,7 +129,13 @@ const height = ({ inheritDimensions }: WrapperProps) =>
   inheritDimensions ? 'height: 100%;' : `height: ${gridSize(54)}`;
 
 const wrapperStyles = (props: WrapperProps) => `
-  ${borderRadius}
+  ${
+    getBooleanFF(
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+    )
+      ? wrapperBorderRadius
+      : borderRadius
+  }
   ${minWidth(props)}
   ${maxWidth(props)}
   ${getInteractiveStyles(props)}
@@ -120,21 +154,49 @@ const wrapperStyles = (props: WrapperProps) => `
 
   &:after {
     content: '';
-    background: transparent;
     transition: background 0.3s, box-shadow 0.3s;
     position: absolute;
     width: calc(100% + ${token('space.200', '16px')});
     height: calc(100% + ${token('space.100', '8px')});
     left: calc(-1 * ${token('space.100', '8px')});
-    ${borderRadius}
+    ${
+      getBooleanFF(
+        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+      )
+        ? wrapperBorderRadius
+        : `background: transparent;
+           ${borderRadius}`
+    }
   }
 `;
 
 const visibleStyles = `
-  background-color: ${token('color.background.neutral.subtle', colors.N30)};
+  ${
+    getBooleanFF(
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+    )
+      ? ``
+      : `background-color: ${token(
+          'color.background.neutral.subtle',
+          colors.N30,
+        )};`
+  }
 
   &:after {
-    background: ${token('color.background.neutral', colors.N30)} !important;
+    ${
+      getBooleanFF(
+        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+      )
+        ? `outline: 1px solid ${token('color.border.input', N40)};
+           background-color: ${themed({
+             light: token('elevation.surface.raised', 'white'),
+             dark: token('elevation.surface.raised', BACKGROUND_COLOR_DARK),
+           })()};`
+        : `background: ${token(
+            'color.background.neutral',
+            colors.N30,
+          )} !important;`
+    }
   }
   .embed-header {
     opacity: 1;
@@ -215,8 +277,12 @@ export interface ContentProps {
 // the internal contents of the `iframe` should
 // manage scrolling behaviour.
 export const Content = styled.div`
-  ${borderRadius}
-  ${cardShadow}
+  ${getBooleanFF(
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+  )
+    ? `${contentBorderRadius};
+       outline: 1px solid ${token('color.border.input', N40)};`
+    : borderRadius}
   background-color: ${token('elevation.surface.raised', 'white')};
   position: absolute;
   z-index: 1;
@@ -235,7 +301,12 @@ export const Content = styled.div`
   }
 
   ${({ isInteractive }: ContentProps) => {
-    if (isInteractive) {
+    if (
+      isInteractive &&
+      !getBooleanFF(
+        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+      )
+    ) {
       return `
           .${className}:hover & {
             box-shadow: ${token(

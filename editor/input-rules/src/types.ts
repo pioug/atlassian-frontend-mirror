@@ -1,15 +1,13 @@
 import type {
+  InputRuleHandler,
+  InputRuleWrapper,
+  OnHandlerApply,
+} from '@atlaskit/editor-common/types';
+import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-
-export type InputRuleHandler = (
-  state: EditorState,
-  matchResult: RegExpExecArray,
-  start: number,
-  end: number,
-) => Transaction | null;
 
 export type HandleInputEvent = (props: {
   view: EditorView;
@@ -25,18 +23,6 @@ export type InputRulePluginState = {
   textInserted: string;
 } | null;
 
-export type OnHandlerApply = (
-  state: EditorState,
-  tr: Transaction,
-  matchResult: RegExpExecArray,
-) => void;
-
-export interface InputRuleWrapper {
-  match: RegExp;
-  handler: InputRuleHandler;
-  onHandlerApply?: OnHandlerApply;
-}
-
 export type MatchedRule = InputRuleWrapper & {
   result: RegExpExecArray;
 };
@@ -48,3 +34,18 @@ export type OnInputEvent = (props: {
 }) => boolean;
 
 export type OnBeforeRegexMatch = (tr: Transaction) => void;
+
+export type {
+  /**
+   * @deprecated Please import this type from @atlaskit/editor-commmon/types
+   */
+  InputRuleHandler,
+  /**
+   * @deprecated Please import this type from @atlaskit/editor-commmon/types
+   */
+  OnHandlerApply,
+  /**
+   * @deprecated Please import this type from @atlaskit/editor-commmon/types
+   */
+  InputRuleWrapper,
+};

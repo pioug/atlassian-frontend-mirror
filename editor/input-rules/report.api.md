@@ -16,6 +16,9 @@
 
 ```ts
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { InputRuleHandler } from '@atlaskit/editor-common/types';
+import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
+import type { OnHandlerApply } from '@atlaskit/editor-common/types';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -39,23 +42,9 @@ export const createRule: (
   handler: InputRuleHandler,
 ) => InputRuleWrapper;
 
-// @public (undocumented)
-export type InputRuleHandler = (
-  state: EditorState,
-  matchResult: RegExpExecArray,
-  start: number,
-  end: number,
-) => Transaction | null;
+export { InputRuleHandler };
 
-// @public (undocumented)
-export interface InputRuleWrapper {
-  // (undocumented)
-  handler: InputRuleHandler;
-  // (undocumented)
-  match: RegExp;
-  // (undocumented)
-  onHandlerApply?: OnHandlerApply;
-}
+export { InputRuleWrapper };
 
 // @public (undocumented)
 export const leafNodeReplacementCharacter = '\uFFFC';
@@ -66,12 +55,7 @@ export const MAX_REGEX_MATCH = 500;
 // @public (undocumented)
 type OnBeforeRegexMatch = (tr: Transaction) => void;
 
-// @public (undocumented)
-export type OnHandlerApply = (
-  state: EditorState,
-  tr: Transaction,
-  matchResult: RegExpExecArray,
-) => void;
+export { OnHandlerApply };
 
 // @public (undocumented)
 export type OnInputEvent = (props: {

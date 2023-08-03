@@ -4,10 +4,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import classnames from 'classnames';
 
-import {
-  RichMediaLayout as MediaSingleLayout,
-  RichMediaLayout,
-} from '@atlaskit/adf-schema';
+import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
   akEditorMediaResizeHandlerPaddingWide,
   DEFAULT_EMBED_CARD_WIDTH,
@@ -15,8 +12,8 @@ import {
 
 import { MEDIA_SINGLE_GUTTER_SIZE } from '../../media-single/constants';
 import { getMediaSinglePixelWidth } from '../../media-single/utils';
+import { shouldAddDefaultWrappedWidth } from '../../utils/rich-media-utils';
 
-import { wrappedLayouts } from './grid';
 import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
 import type { MediaSingleSize, MediaSingleWidthType } from './types';
 
@@ -50,19 +47,6 @@ export interface Props {
   hasFallbackContainer?: boolean;
   handleMediaSingleRef?: React.RefObject<HTMLDivElement>;
 }
-
-export const shouldAddDefaultWrappedWidth = (
-  layout: RichMediaLayout,
-  width?: number,
-  lineLength?: number,
-) => {
-  return (
-    wrappedLayouts.indexOf(layout) > -1 &&
-    lineLength &&
-    width &&
-    width > 0.5 * lineLength
-  );
-};
 
 export type { MediaSingleWidthType, MediaSingleSize };
 

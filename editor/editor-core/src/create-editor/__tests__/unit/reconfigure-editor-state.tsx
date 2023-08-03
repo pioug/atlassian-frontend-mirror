@@ -36,10 +36,12 @@ describe('ReactEditorView/reconfigureState', () => {
     mockFire = jest.fn();
     (fireAnalyticsEvent as jest.Mock).mockReturnValue(mockFire);
   });
+
   afterEach(() => {
     (fireAnalyticsEvent as jest.Mock).mockRestore();
     jest.resetAllMocks();
   });
+
   describe('when the component is created', () => {
     it('should send the feature flag', () => {
       const editorProps = {
@@ -59,9 +61,11 @@ describe('ReactEditorView/reconfigureState', () => {
         1,
         expect.anything(),
         expect.objectContaining({ tableOverflowShadowsOptimization: true }),
+        undefined, // No Analytics API injected
       );
     });
   });
+
   describe('when the editor props flag changes', () => {
     it('should reconfigure the state using new allowUndoRedoButtons', () => {
       const editorProps = {
@@ -91,10 +95,12 @@ describe('ReactEditorView/reconfigureState', () => {
         2,
         expect.anything(),
         expect.objectContaining({ undoRedoButtons: true }),
+        undefined, // No Analytics API injected
       );
       unmount();
     });
   });
+
   describe('when the editor props flag changes on mobile appearance', () => {
     it('should reconfigure the state using the new feature flag', () => {
       const editorProps = {
@@ -129,6 +135,7 @@ describe('ReactEditorView/reconfigureState', () => {
         2,
         expect.anything(),
         expect.objectContaining({ tableOverflowShadowsOptimization: false }),
+        undefined, // No Analytics API injected
       );
       unmount();
     });

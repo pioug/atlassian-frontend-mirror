@@ -18,17 +18,14 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import schema from '@atlaskit/editor-test-helpers/schema';
-import {
-  isNodeEmpty,
-  processRawFragmentValue,
-  hasVisibleContent,
-} from '../../../utils/document';
+import { isNodeEmpty, processRawFragmentValue } from '../../../utils/document';
+import { hasVisibleContent } from '@atlaskit/editor-common/utils';
 import {
   isEmptyParagraph,
   isEmptyDocument,
   processRawValue,
 } from '@atlaskit/editor-common/utils';
-import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   ACTION,
   ACTION_SUBJECT,

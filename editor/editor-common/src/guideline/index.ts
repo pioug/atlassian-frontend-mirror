@@ -1,5 +1,4 @@
 export { generateDynamicGuidelines } from './dynamicGuideline';
-
 export {
   createFixedGuidelinesFromLengths,
   createGuidesFromLengths,
@@ -18,7 +17,7 @@ export type {
   VerticalPosition,
   HorizontalPosition,
 } from './types';
-
+export { getSnapWidth, findClosestSnap } from './snapping';
 export {
   isVerticalPosition,
   getContainerWidthOrFullEditorWidth,

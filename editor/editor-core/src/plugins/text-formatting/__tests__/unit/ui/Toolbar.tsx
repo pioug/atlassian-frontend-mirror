@@ -16,7 +16,6 @@ import {
   p,
   strike,
   code,
-  code_block as codeBlock,
   subsup,
   underline,
 } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -27,8 +26,6 @@ import type {
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import codeBlockPlugin from '../../../../../plugins/code-block';
-import deprecatedAnalyticsPlugin from '../../../../../plugins/analytics';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import Toolbar from '../../../ui/Toolbar';
@@ -144,9 +141,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
           .add([featureFlagsPlugin, {}])
           .add(decorationsPlugin)
           .add(textFormattingPlugin)
-          .add([codeBlockPlugin, { appearance: 'full-page' }])
-          .add([analyticsPlugin, { createAnalyticsEvent }])
-          .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
+          .add([analyticsPlugin, { createAnalyticsEvent }]),
       });
 
     beforeEach(() => {
@@ -212,66 +207,6 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
       fireEvent.click(moreButton);
       const group = getByRole('group');
       expect(within(group).getAllByRole('button')).toHaveLength(6);
-    });
-
-    describe('when formatting is not allowed', () => {
-      it.each(['Bold', 'Italic'])(
-        'should disable the %s toolbar button',
-        (buttonName) => {
-          const { editorView } = editor(
-            doc(codeBlock({ language: 'js' })('Hello {<>}world')),
-          );
-          const { getByTestId } = render(
-            <ToolbarWrapper>
-              <Toolbar
-                isToolbarDisabled={false}
-                toolbarSize={ToolbarSize.M}
-                isReducedSpacing={false}
-                shouldUseResponsiveToolbar={false}
-                editorView={editorView}
-                editorState={editorView.state}
-              />
-            </ToolbarWrapper>,
-          );
-          const button = getByTestId(`editor-toolbar__${buttonName}`);
-          expect(button).toBeDisabled();
-        },
-      );
-
-      it.each([
-        'Code',
-        'Subscript',
-        'Underline',
-        'Superscript',
-        'Strikethrough',
-      ])(
-        'should disable the %s button inside more button group',
-        (buttonName) => {
-          const { editorView } = editor(
-            doc(codeBlock({ language: 'js' })('Hello {<>}world')),
-          );
-          const { getByLabelText, getByRole } = render(
-            <ToolbarWrapper>
-              <Toolbar
-                isToolbarDisabled={false}
-                toolbarSize={ToolbarSize.M}
-                isReducedSpacing={false}
-                shouldUseResponsiveToolbar={false}
-                editorView={editorView}
-                editorState={editorView.state}
-              />
-            </ToolbarWrapper>,
-          );
-          const moreButton = getByLabelText('More formatting');
-          fireEvent.click(moreButton);
-          const group = getByRole('group');
-          const button = within(group).getByTestId(
-            `dropdown-item__${buttonName}`,
-          );
-
-          expect(button).toHaveAttribute('aria-disabled', 'true');
-        },
-      );
     });
 
     it.each([

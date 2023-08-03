@@ -13,7 +13,7 @@ import {
   deleteBlockContent,
   insertBlockTypesWithAnalytics,
 } from '../commands';
-import { deleteEmptyParagraphAndMoveBlockUp } from '../../../utils/commands';
+import { deleteEmptyParagraphAndMoveBlockUp } from '@atlaskit/editor-common/utils';
 import { INPUT_METHOD } from '../../analytics';
 import { isNodeAWrappingBlockNode } from '../utils';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';

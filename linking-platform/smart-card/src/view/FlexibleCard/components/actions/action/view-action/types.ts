@@ -6,7 +6,3 @@ export type ViewActionProps = ActionProps & {
   /* Base link URL used for analytics. */
   url: string;
 };
-
-export interface ViewFunctionProps {
-  url?: string;
-}

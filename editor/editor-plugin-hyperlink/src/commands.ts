@@ -21,7 +21,7 @@ import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { isTextAtPos, LinkAction } from '@atlaskit/editor-common/link';
 import type { Command, LinkInputType } from '@atlaskit/editor-common/types';
 import {
-  filterCommands as filter,
+  filterCommand as filter,
   getLinkCreationAnalyticsEvent,
   normalizeUrl,
 } from '@atlaskit/editor-common/utils';

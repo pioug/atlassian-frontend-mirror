@@ -1,23 +1,25 @@
 /** @jsx jsx */
 import React, { memo } from 'react';
 import { css, jsx } from '@emotion/react';
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import Textfield from '@atlaskit/textfield';
 import SearchIcon from '@atlaskit/icon/glyph/search';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import { token } from '@atlaskit/tokens';
 import { N200 } from '@atlaskit/theme/colors';
 import { shortcutStyle } from '../../styles';
 import { GRID_SIZE, SEARCH_ITEM_HEIGHT_WIDTH } from '../constants';
 import useFocus from '../hooks/use-focus';
 import { Modes } from '../types';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import { token } from '@atlaskit/tokens';
 
 interface Props {
   onSearch: (value: string) => void;
   mode: keyof typeof Modes;
   focus: boolean;
   onClick: (e: React.MouseEvent) => void;
+  onKeyDown: (e: React.KeyboardEvent) => void;
   searchTerm?: string;
 }
 
@@ -27,6 +29,7 @@ function ElementSearch({
   intl: { formatMessage },
   focus,
   onClick,
+  onKeyDown,
   searchTerm,
 }: Props & WrappedComponentProps): JSX.Element {
   const ref = useFocus(focus);
@@ -45,6 +48,7 @@ function ElementSearch({
         onChange={onChange}
         onClick={onClick}
         onFocus={onFocus}
+        onKeyDown={onKeyDown}
         onBlur={onBlur}
         elemBeforeInput={
           <div
@@ -103,7 +107,7 @@ const wrapper = css`
     & > [data-ds--text-field--input] {
       margin-bottom: 3px;
       font-size: ${relativeFontSizeToBase16(14)};
-      padding: ${GRID_SIZE}px 6px ${GRID_SIZE}px 0;
+      padding: ${GRID_SIZE}px ${token('space.075', '6px')} ${GRID_SIZE}px 0;
     }
   }
 `;
@@ -117,7 +121,7 @@ const wrapperInline = css`
 `;
 
 const elementBeforeInput = css`
-  margin: 1px 6px 0 8px;
+  margin: 1px ${token('space.075', '6px')} 0 ${token('space.100', '8px')};
   color: ${token('color.icon', N200)};
 
   // Custom SearchIcon style
@@ -129,7 +133,7 @@ const elementBeforeInput = css`
 `;
 
 const elementAfterInput = css`
-  margin: 0 8px;
+  margin: 0 ${token('space.100', '8px')};
   height: ${SEARCH_ITEM_HEIGHT_WIDTH};
   text-align: center;
 `;

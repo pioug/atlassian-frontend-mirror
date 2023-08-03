@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 108.8.10
+
+### Patch Changes
+
+- [`35dbae44050`](https://bitbucket.org/atlassian/atlassian-frontend/commits/35dbae44050) - [ux] [ED-19225] fix width of numbered column in table for renderer
+
+## 108.8.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.8.8
 
 ### Patch Changes

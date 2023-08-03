@@ -6,7 +6,7 @@ import {
   findWrapping,
   canSplit,
 } from '@atlaskit/editor-prosemirror/transform';
-import { autoJoinTr } from '../../../utils/prosemirror/autojoin';
+import { autoJoinTr } from '@atlaskit/editor-common/utils';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 import { isWrappingPossible } from '../utils/selection';
 

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/smart-card",
-  "version": "26.14.1",
+  "version": "26.14.3",
   "description": "Smart card component",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -140,7 +140,7 @@
     "platform.linking-platform.smart-card.should-call-onclick-in-warning-modal-only-when-safe": {
       "type": "boolean"
     },
-    "platform.linking-platform.smart-card.show-inline-card-refreshed-design": {
+    "platform.linking-platform.smart-card.show-smart-links-refreshed-design": {
       "type": "boolean"
     },
     "platform.linking-platform.smart-card.enable-better-metadata_iojwg": {

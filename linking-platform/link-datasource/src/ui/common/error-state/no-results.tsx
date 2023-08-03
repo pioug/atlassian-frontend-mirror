@@ -1,9 +1,13 @@
 /** @jsx jsx */
+import { useEffect } from 'react';
+
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
+
+import { useDatasourceAnalyticsEvents } from '../../../analytics';
 
 import { loadingErrorMessages } from './messages';
 
@@ -30,6 +34,12 @@ interface NoResultsProps {
 }
 
 export const NoResults = ({ onRefresh }: NoResultsProps) => {
+  const { fireEvent } = useDatasourceAnalyticsEvents();
+
+  useEffect(() => {
+    fireEvent('ui.emptyResult.shown.datasource', {});
+  }, [fireEvent]);
+
   return (
     <div
       css={noResultsContainerStyles}

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage, FormattedNumber, useIntl } from 'react-intl-next';
 
+import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
 import { Link } from '@atlaskit/linking-types';
@@ -17,11 +18,21 @@ import Modal, {
 import { B400, N0, N40, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { useDatasourceAnalyticsEvents } from '../../../analytics';
+import type {
+  AnalyticsContextAttributesType,
+  AnalyticsContextType,
+  PackageMetaDataType,
+} from '../../../analytics/generated/analytics.types';
 import { useDatasourceTableState } from '../../../hooks/useDatasourceTableState';
 import {
   getAvailableJiraSites,
   Site,
 } from '../../../services/getAvailableJiraSites';
+import {
+  name as packageName,
+  version as packageVersion,
+} from '../../../version.json';
 import { AccessRequired } from '../../common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { NoResults } from '../../common/error-state/no-results';
@@ -74,7 +85,9 @@ const smartLinkContainerStyles = css({
   paddingLeft: '1px',
 });
 
-export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
+export const PlainJiraIssuesConfigModal = (
+  props: JiraIssuesConfigModalProps,
+) => {
   const {
     datasourceId,
     parameters: initialParameters,
@@ -124,6 +137,7 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
   });
 
   const { formatMessage } = useIntl();
+  const { fireEvent } = useDatasourceAnalyticsEvents();
 
   const selectedJiraSite = useMemo<Site | undefined>(
     () =>
@@ -149,6 +163,10 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     !!totalCount && totalCount !== 1 && currentViewMode === 'issue';
 
   useEffect(() => {
+    fireEvent('screen.datasourceModalDialog.viewed', {});
+  }, [fireEvent]);
+
+  useEffect(() => {
     const newVisibleColumnKeys =
       !initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
         ? defaultVisibleColumnKeys
@@ -161,10 +179,14 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     const fetchSiteDisplayNames = async () => {
       const jiraSites = await getAvailableJiraSites();
       setAvailableSites(jiraSites);
+
+      fireEvent('ui.modal.ready.datasource', {
+        instancesCount: jiraSites.length,
+      });
     };
 
     void fetchSiteDisplayNames();
-  }, []);
+  }, [fireEvent]);
 
   useEffect(() => {
     if (!cloudId && selectedJiraSite) {
@@ -430,3 +452,24 @@ export const JiraIssuesConfigModal = (props: JiraIssuesConfigModalProps) => {
     </ModalTransition>
   );
 };
+
+const analyticsContextAttributes: AnalyticsContextAttributesType = {
+  dataProvider: 'jira-issues',
+};
+
+const analyticsContextData: AnalyticsContextType & PackageMetaDataType = {
+  packageName,
+  packageVersion,
+  source: 'datasourceConfigModal',
+};
+
+const contextData = {
+  ...analyticsContextData,
+  attributes: {
+    ...analyticsContextAttributes,
+  },
+};
+
+export const JiraIssuesConfigModal = withAnalyticsContext(contextData)(
+  PlainJiraIssuesConfigModal,
+);

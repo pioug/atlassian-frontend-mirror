@@ -1,4 +1,4 @@
-import { isListNode } from '../utils/node';
+import { isListNode } from '@atlaskit/editor-common/utils';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 type MergeNextListAtPositionProps = {

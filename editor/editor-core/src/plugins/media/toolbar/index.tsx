@@ -40,8 +40,13 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '@atlaskit/media-ui';
 import { cardMessages } from '@atlaskit/editor-common/messages';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { FilePreviewItem } from './filePreviewItem';
-import { downloadMedia, removeMediaGroupNode } from './utils';
+import {
+  downloadMedia,
+  getSelectedMediaSingle,
+  removeMediaGroupNode,
+} from './utils';
 import {
   changeInlineToMediaCard,
   changeMediaCardToInline,
@@ -306,14 +311,32 @@ const generateMediaSingleFloatingToolbar = (
   }
 
   if (allowAdvancedToolBarOptions) {
+    const widthPlugin = pluginInjectionApi?.dependencies.width;
+    let isChangingLayoutDisabled = false;
+
+    if (getBooleanFF('platform.editor.media.extended-resize-experience')) {
+      const contentWidth = widthPlugin?.sharedState.currentState()?.lineLength;
+      const selectedNode = getSelectedMediaSingle(state);
+      if (selectedNode && contentWidth) {
+        const { width } = selectedNode.node.attrs;
+
+        if (width >= contentWidth) {
+          isChangingLayoutDisabled = true;
+        }
+      }
+    }
+
     const layoutButtons = buildLayoutButtons(
       state,
       intl,
       state.schema.nodes.mediaSingle,
-      pluginInjectionApi?.dependencies.width,
+      widthPlugin,
       pluginInjectionApi?.dependencies.analytics?.actions,
       allowResizing,
       allowResizingInTables,
+      true,
+      true,
+      isChangingLayoutDisabled,
     );
     toolbarButtons = [...toolbarButtons, ...layoutButtons];
 
@@ -430,7 +453,7 @@ export const floatingToolbar = (
   const { hoverDecoration } =
     pluginInjectionApi?.dependencies.decorations.actions ?? {};
 
-  if (!mediaPluginState) {
+  if (!mediaPluginState || mediaPluginState.isResizing) {
     return;
   }
   const nodeType = allowMediaInline

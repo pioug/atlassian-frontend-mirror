@@ -130,9 +130,9 @@ describe('@atlaskit/editor-core/utils insert', () => {
             doc(
               layoutSection(
                 layoutColumn({ width: 50 })(
-                  mediaSingle({ layout: 'center' })(
-                    temporaryMediaWithDimensions(),
-                  ),
+                  mediaSingle({
+                    layout: 'center',
+                  })(temporaryMediaWithDimensions()),
                   p('onetwo'),
                 ),
                 layoutColumn({ width: 50 })(p('three')),
@@ -148,9 +148,9 @@ describe('@atlaskit/editor-core/utils insert', () => {
 
             expect(editorView.state.doc).toEqualDocument(
               doc(
-                mediaSingle({ layout: 'center' })(
-                  temporaryMediaWithDimensions(),
-                ),
+                mediaSingle({
+                  layout: 'center',
+                })(temporaryMediaWithDimensions()),
                 panel()(p('onetwo')),
               ),
             );
@@ -162,9 +162,9 @@ describe('@atlaskit/editor-core/utils insert', () => {
             expect(editorView.state).toEqualDocumentAndSelection(
               doc(
                 panel()(p('onetwo')),
-                mediaSingle({ layout: 'center' })(
-                  temporaryMediaWithDimensions(),
-                ),
+                mediaSingle({
+                  layout: 'center',
+                })(temporaryMediaWithDimensions()),
               ),
             );
           });

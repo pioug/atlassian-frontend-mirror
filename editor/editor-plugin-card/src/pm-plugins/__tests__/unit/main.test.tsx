@@ -25,20 +25,15 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource';
+import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { CardProps } from '@atlaskit/smart-card';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { createEventsQueue } from '../../../analytics/create-events-queue';
 import { Request } from '../../../types';
-import { createAnalyticsQueue } from '../../analytics/create-analytics-queue';
 import { pluginKey } from '../../plugin-key';
 import { resolveWithProvider } from '../../util/resolve';
 import { getPluginState } from '../../util/state';
-
-const mockAnalyticsQueue = {
-  push: jest.fn(),
-  flush: jest.fn(),
-  canDispatch: jest.fn(() => true),
-};
 
 jest.mock('@atlaskit/link-datasource', () => ({
   ...jest.requireActual('@atlaskit/link-datasource'),
@@ -82,8 +77,8 @@ jest.mock('@atlaskit/smart-card', () => {
   };
 });
 
-jest.mock('../../analytics/create-analytics-queue', () => ({
-  createAnalyticsQueue: jest.fn(() => mockAnalyticsQueue),
+jest.mock('../../../analytics/create-events-queue', () => ({
+  createEventsQueue: jest.fn(),
 }));
 
 describe('resolveWithProvider()', () => {
@@ -590,9 +585,15 @@ describe('datasource', () => {
   });
 });
 
-describe('analytics queue', () => {
+describe('analytics events queue', () => {
+  const mockAnalyticsQueue = {
+    push: jest.fn(),
+    flush: jest.fn(),
+  };
+
   beforeEach(() => {
-    jest.restoreAllMocks();
+    jest.resetAllMocks();
+    asMock(createEventsQueue).mockReturnValue(mockAnalyticsQueue);
   });
 
   const createEditor = createEditorFactory();
@@ -625,7 +626,7 @@ describe('analytics queue', () => {
       },
     );
 
-    expect(createAnalyticsQueue).toHaveBeenCalledWith(true);
+    expect(createEventsQueue).toHaveBeenCalled();
   });
 
   it('should disable dispatch of events if `lp-analytics-events-next` is not provided', () => {
@@ -642,10 +643,10 @@ describe('analytics queue', () => {
       {},
     );
 
-    expect(createAnalyticsQueue).toHaveBeenCalledWith(false);
+    expect(createEventsQueue).not.toHaveBeenCalled();
   });
 
-  it('should disable dispatch of events if `lp-analytics-events-next` is provided as `false`', () => {
+  it('should not initialise events queue if `lp-analytics-events-next` is provided as `false`', () => {
     const url = 'https://atlassian.com';
     editor(
       doc(
@@ -661,7 +662,7 @@ describe('analytics queue', () => {
       },
     );
 
-    expect(createAnalyticsQueue).toHaveBeenCalledWith(false);
+    expect(createEventsQueue).not.toHaveBeenCalled();
   });
 
   it('should flush events when the editor updates and flush should always be called after push', () => {

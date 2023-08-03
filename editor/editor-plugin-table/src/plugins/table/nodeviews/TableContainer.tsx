@@ -8,10 +8,10 @@ import React, {
 import classNames from 'classnames';
 
 import { TableEventPayload } from '@atlaskit/editor-common/analytics';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { calcTableWidth } from '@atlaskit/editor-common/styles';
 import { EditorContainerWidth } from '@atlaskit/editor-common/types';
-import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
@@ -118,7 +118,7 @@ export const ResizableTableContainer = ({
 
   const attachAnalyticsEvent = useCallback(
     (payload: TableEventPayload) => {
-      return pluginInjectionApi?.dependencies?.analytics.actions.attachAnalyticsEvent(
+      return pluginInjectionApi?.dependencies?.analytics?.actions.attachAnalyticsEvent(
         payload,
       );
     },

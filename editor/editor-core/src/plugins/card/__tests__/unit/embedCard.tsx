@@ -24,6 +24,7 @@ import {
   CardProps,
   EmbedResizeMessageListener,
 } from '@atlaskit/smart-card';
+import { IntlProvider } from 'react-intl-next';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
 import {
@@ -77,15 +78,17 @@ describe('EmbedCard', () => {
 
     const getPos = jest.fn(() => 0);
     const component = mount<EmbedCardComponent, SmartCardProps, EmbedCardState>(
-      <EmbedCardComponent
-        node={node}
-        view={editorView}
-        getPos={getPos}
-        dispatchAnalyticsEvent={mockDispatchAnalytics}
-        cardContext={createCardContext()}
-        allowResizing={true}
-        {...props}
-      />,
+      <IntlProvider locale="en">
+        <EmbedCardComponent
+          node={node}
+          view={editorView}
+          getPos={getPos}
+          dispatchAnalyticsEvent={mockDispatchAnalytics}
+          cardContext={createCardContext()}
+          allowResizing={true}
+          {...props}
+        />
+      </IntlProvider>,
     );
     const cardComponent = component.find(Card) as ReactWrapper<CardProps, any>;
     const resizeListener = component.find(EmbedResizeMessageListener);

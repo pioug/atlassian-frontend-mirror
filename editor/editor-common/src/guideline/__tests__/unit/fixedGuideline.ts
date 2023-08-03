@@ -1,10 +1,8 @@
-import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
-
 import {
   createFixedGuidelinesFromLengths,
   createGuidesFromLengths,
 } from '../../fixedGuideline';
-import { LengthGuide } from '../../types';
+import { GuidelineConfig, LengthGuide } from '../../types';
 
 describe('fixedGuideline', () => {
   test.each<[string, any[], LengthGuide[]]>([

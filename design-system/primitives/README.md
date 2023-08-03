@@ -10,4 +10,4 @@ Detailed docs and example usage can be found at:
 - [Box](https://staging.atlassian.design/components/primitives/box)
 - [Inline](https://staging.atlassian.design/components/primitives/inline)
 - [Stack](https://staging.atlassian.design/components/primitives/stack)
-- [xCSS](https://staging.atlassian.design/components/primitives/xcss)
+- [xcss](https://staging.atlassian.design/components/primitives/xcss)

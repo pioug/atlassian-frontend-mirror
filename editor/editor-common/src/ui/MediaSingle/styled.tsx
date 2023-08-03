@@ -7,8 +7,10 @@ import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
   akEditorFullPageMaxWidth,
   akEditorFullWidthLayoutWidth,
+  akEditorGutterPadding,
 } from '@atlaskit/editor-shared-styles';
 
+import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
 
 function float(layout: MediaSingleLayout): string {
@@ -95,6 +97,43 @@ function calcMaxWidth(layout: MediaSingleLayout, containerWidth: number) {
   }
 }
 
+const getEffectiveFullWidth = (
+  containerWidth: number,
+  fullWidthMode: boolean | undefined,
+) => {
+  if (fullWidthMode) {
+    return '100%';
+  }
+  // There is always padding for renderer, so we don't need padding for it
+  const fullWidthPadding = akEditorGutterPadding * 2;
+  return `${Math.min(
+    containerWidth - fullWidthPadding,
+    akEditorFullWidthLayoutWidth,
+  )}px`;
+};
+
+const calcMaxWidthWhenResizing = (
+  containerWidth: number,
+  fullWidthMode: boolean | undefined,
+  isNestedNode: boolean,
+) => {
+  if (isNestedNode) {
+    return '100%';
+  }
+  // non-nested node can resize up to full width
+  return getEffectiveFullWidth(containerWidth, fullWidthMode);
+};
+
+const calcMaxWidthWhenNotResizing = (
+  containerWidth: number,
+  mediaSingleWidth: number,
+) => {
+  return `${Math.min(
+    mediaSingleWidth,
+    containerWidth - akEditorGutterPadding * 2,
+  )}px`;
+};
+
 function calcMargin(layout: MediaSingleLayout): string {
   switch (layout) {
     case 'wrap-right':
@@ -131,6 +170,8 @@ export interface MediaSingleWrapperProps {
   mediaSingleWidth?: number;
   width?: number;
   innerRef?: ((elem: HTMLDivElement) => void) | RefObject<HTMLDivElement>;
+  isExtendedResizeExperienceOn?: boolean;
+  isNestedNode?: boolean;
 }
 
 /**
@@ -145,6 +186,8 @@ export const MediaSingleDimensionHelper = ({
   pctWidth,
   mediaSingleWidth,
   width,
+  isExtendedResizeExperienceOn,
+  isNestedNode = false,
 }: MediaSingleWrapperProps) => css`
   /* For nested rich media items, set max-width to 100% */
   tr &,
@@ -167,6 +210,50 @@ export const MediaSingleDimensionHelper = ({
     min-width: 100%;
   `}
   max-width: ${calcMaxWidth(layout, containerWidth)};
+  &[class*='is-resizing'] {
+    ${isExtendedResizeExperienceOn &&
+    `max-width: ${calcMaxWidthWhenResizing(
+      containerWidth,
+      fullWidthMode,
+      isNestedNode,
+    )};
+
+    ${
+      nonWrappedLayouts.includes(layout) &&
+      `margin-left: 50%;
+      transform: translateX(-50%);`
+    }
+
+    .new-file-experience-wrapper {
+      box-shadow: none;
+    }`}
+  }
+
+  /* Handles responsiveness of non-nested, not-resizing nodes in editor */
+  &[class*='not-resizing'] {
+    ${!isNestedNode &&
+    `max-width: ${
+      layout !== 'full-width' &&
+      mediaSingleWidth &&
+      calcMaxWidthWhenNotResizing(containerWidth, mediaSingleWidth)
+    };
+
+    ${
+      nonWrappedLayouts.includes(layout) &&
+      `margin-left: 50%;
+      transform: translateX(-50%);`
+    }
+
+    // override min-width to counteract max-width set in old experience
+    ${
+      layout === 'full-width' &&
+      `min-width: ${getEffectiveFullWidth(
+        containerWidth,
+        fullWidthMode,
+      )} !important;`
+    };`}
+  }
+
   float: ${float(layout)};
   margin: ${calcMargin(layout)};
   ${isImageAligned(layout)};

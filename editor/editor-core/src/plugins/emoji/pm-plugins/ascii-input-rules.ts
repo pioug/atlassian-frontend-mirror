@@ -12,14 +12,14 @@ import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 import type { FeatureFlags } from '../../../types/feature-flags';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
-  addAnalytics,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   INPUT_METHOD,
   EVENT_TYPE,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 
 let matcher: AsciiEmojiMatcher;
 
@@ -27,12 +27,13 @@ export function inputRulePlugin(
   schema: Schema,
   providerFactory: ProviderFactory,
   featureFlags: FeatureFlags,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): SafePlugin | undefined {
   if (schema.nodes.emoji && providerFactory) {
     initMatcher(providerFactory);
     const asciiEmojiRule = createRule(
       AsciiEmojiMatcher.REGEX,
-      inputRuleHandler,
+      inputRuleHandler(editorAnalyticsAPI),
     );
 
     return createPlugin('emoji', [asciiEmojiRule]);
@@ -56,28 +57,31 @@ function initMatcher(providerFactory: ProviderFactory) {
   providerFactory.subscribe('emojiProvider', handleProvider);
 }
 
-function inputRuleHandler(
-  state: EditorState,
-  matchParts: Array<string>,
-  start: number,
-  end: number,
-): Transaction | null {
-  if (!matcher) {
-    return null;
-  }
+const inputRuleHandler =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
+  (
+    state: EditorState,
+    matchParts: Array<string>,
+    start: number,
+    end: number,
+  ): Transaction | null => {
+    if (!matcher) {
+      return null;
+    }
 
-  const match = matcher.match(matchParts);
-  if (match) {
-    const transactionCreator = new AsciiEmojiTransactionCreator(
-      state,
-      match,
-      start,
-      end,
-    );
-    return transactionCreator.create();
-  }
-  return null;
-}
+    const match = matcher.match(matchParts);
+    if (match) {
+      const transactionCreator = new AsciiEmojiTransactionCreator(
+        state,
+        match,
+        start,
+        end,
+        editorAnalyticsAPI,
+      );
+      return transactionCreator.create();
+    }
+    return null;
+  };
 
 type AsciiEmojiMatch = {
   emoji: EmojiDescription;
@@ -208,17 +212,20 @@ class AsciiEmojiTransactionCreator {
   private match: AsciiEmojiMatch;
   private start: number;
   private end: number;
+  private editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 
   constructor(
     state: EditorState,
     match: AsciiEmojiMatch,
     start: number,
     end: number,
+    editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
   ) {
     this.state = state;
     this.match = match;
     this.start = start;
     this.end = end;
+    this.editorAnalyticsAPI = editorAnalyticsAPI;
   }
 
   create(): Transaction {
@@ -227,13 +234,14 @@ class AsciiEmojiTransactionCreator {
       this.to,
       this.createNodes(),
     );
-    return addAnalytics(this.state, tr, {
+    this.editorAnalyticsAPI?.attachAnalyticsEvent({
       action: ACTION.INSERTED,
       actionSubject: ACTION_SUBJECT.DOCUMENT,
       actionSubjectId: ACTION_SUBJECT_ID.EMOJI,
       attributes: { inputMethod: INPUT_METHOD.ASCII },
       eventType: EVENT_TYPE.TRACK,
-    });
+    })(tr);
+    return tr;
   }
 
   private get from(): number {
@@ -281,10 +289,11 @@ const plugins = (
   schema: Schema,
   providerFactory: ProviderFactory,
   featureFlags: FeatureFlags,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) => {
-  return [inputRulePlugin(schema, providerFactory, featureFlags)].filter(
-    (plugin) => !!plugin,
-  ) as SafePlugin[];
+  return [
+    inputRulePlugin(schema, providerFactory, featureFlags, editorAnalyticsAPI),
+  ].filter((plugin) => !!plugin) as SafePlugin[];
 };
 
 export default plugins;

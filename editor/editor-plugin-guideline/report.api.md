@@ -16,12 +16,9 @@
 
 ```ts
 import { DisplayGuideline } from '@atlaskit/editor-common/guideline';
-import { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { GuidelinePluginState } from '@atlaskit/editor-common/guideline';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-
-export { GuidelineConfig };
 
 // @public (undocumented)
 export const guidelinePlugin: NextEditorPlugin<

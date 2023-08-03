@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-card
 
+## 0.3.5
+
+### Patch Changes
+
+- [`f9cdc991f20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f9cdc991f20) - Updates analytics to better support datasources
+- Updated dependencies
+
+## 0.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.3
 
 ### Patch Changes

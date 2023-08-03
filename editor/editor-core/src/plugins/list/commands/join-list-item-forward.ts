@@ -1,4 +1,8 @@
-import { isEmptySelectionAtEnd, walkNextNode } from '../../../utils/commands';
+import {
+  isEmptySelectionAtEnd,
+  walkNextNode,
+} from '@atlaskit/editor-common/utils';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -6,7 +10,6 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
   DELETE_DIRECTION,
-  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 import { Command } from '../../../types';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';

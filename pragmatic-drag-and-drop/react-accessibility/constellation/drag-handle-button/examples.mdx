@@ -1,0 +1,21 @@
+---
+order: 0
+title: Drag Handle Button
+description: A button styled to look like a drag handle
+---
+
+import { Code } from '@atlaskit/code';
+import SectionMessage from '@atlaskit/section-message';
+
+import DragHandleButtonExample from '../../examples/drag-handle-button';
+
+<SectionMessage appearance="warning">
+  This component does not use the <Code>@atlaskit/button</Code> component,
+  because <Code>@atlaskit/button</Code> cancels <Code>mousedown</Code> events
+  and prevents dragging from occurring.
+  Instead this component uses a native <Code>&lt;button&gt;</Code> element.
+</SectionMessage>
+
+## Default
+
+<Example Component={DragHandleButtonExample} />

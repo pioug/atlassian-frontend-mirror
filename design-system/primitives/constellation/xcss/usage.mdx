@@ -1,6 +1,6 @@
 ---
-title: xCSS
-description: xCSS is a safer, tokens-first approach to CSS-in-JS.
+title: xcss
+description: xcss is a safer, tokens-first approach to CSS-in-JS.
 order: 0
 ---
 import { MediaQueriesTable } from '@af/design-system-docs-ui';
@@ -55,7 +55,7 @@ Note: styles generated from `xcss` cannot be applied directly to the `className`
 
 ### Type safety
 
-`xcss` uses strongly-typed values generated from design token definitions, making it simpler to apply the right token to the right CSS property. 
+`xcss` uses strongly-typed values generated from design token definitions, making it simpler to apply the right token to the right CSS property.
 This is intended to be more ergonomic and intuitive, but also prevent the misapplication of tokens to the wrong properties.
 
 Any [valid token name](/components/tokens/all-tokens) is available to be applied against its
@@ -74,7 +74,7 @@ const someStyles = xcss({
 ```
 
 ### Restricted nesting
-`xcss` is flexible enough to implement any design, but it does restrict the application of styles in one key way. 
+`xcss` is flexible enough to implement any design, but it does restrict the application of styles in one key way.
 Selectors cannot be nested or target elements beyond the element on which styles are applied.
 This restriction is intended to encourage better component encapsulation, reduce side-effects and make the codebase more resilient to change.
 
@@ -108,14 +108,14 @@ These unsafe selectors will throw a type error if applied.
 For richer examples of how to use `xcss` please see the [primitives `xcss` documentation](/components/primitives/xcss/examples).
 
 ### Media Queries
-xCSS can create responsive layouts at predefined breakpoints that are consistent with the Atlassian Design System. To enable responsive behavior, xCSS exposes the following pre-defined breakpoints:
+xcss can create responsive layouts at predefined breakpoints that are consistent with the Atlassian Design System. To enable responsive behavior, xcss exposes the following pre-defined breakpoints:
 <MediaQueriesTable />
 
 Media queries can be applied through keys that can be imported from `@atlaskit/primitives/responsive`.
 For in depth examples on how to enable responsive behavior, please see our [primitive responsiveness documentation](/components/primitives/xcss/examples#responsiveness).
 
-The objects defined at each breakpoint behave in much the same way as a normal xCSS object, and can apply responsiveness to any CSS.
-The only limitation is that a media query can't contain another media query. This is to prevent arbitrary nesting. 
+The objects defined at each breakpoint behave in much the same way as a normal xcss object, and can apply responsiveness to any CSS.
+The only limitation is that a media query can't contain another media query. This is to prevent arbitrary nesting.
 Additionally, pseudo-selectors can't contain media queries. To use media queries and pseudos, the media query must contain the pseudo.
 
 ```

@@ -10,7 +10,7 @@ const inlineCardTests = [
 
 inlineCardTests.forEach((testName: string) => {
   ffTest(
-    'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
     async () => {
       const url = getURL(testName);
       const page = await setup(url);
@@ -29,7 +29,7 @@ inlineCardTests.forEach((testName: string) => {
 });
 
 ffTest(
-  'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+  'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
   async () => {
     const url = getURL('vr-inline-card-unresolved-views');
 
@@ -45,7 +45,7 @@ const unresolvedViews = ['errored', 'forbidden', 'not-found', 'unauthorized'];
 
 unresolvedViews.forEach((status: string) => {
   ffTest(
-    'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+    'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
     async () => {
       const url = getURL('vr-inline-card-unresolved-views');
       const page = await setup(url);
@@ -61,7 +61,7 @@ unresolvedViews.forEach((status: string) => {
 });
 
 ffTest(
-  'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+  'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
   async () => {
     const url = getURL('vr-inline-card-unresolved-views');
     const page = await setup(url);
@@ -75,7 +75,7 @@ ffTest(
 );
 
 ffTest(
-  'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+  'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
   async () => {
     const url = getURL('vr-inline-card-unresolved-views');
 

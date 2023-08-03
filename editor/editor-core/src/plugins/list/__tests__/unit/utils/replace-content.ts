@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
-import { moveTargetIntoList } from '../../../utils/replace-content';
+import { moveTargetIntoList } from '@atlaskit/editor-common/lists';
 
 describe('plugins/lists/backspace: move content inside lists', () => {
   const testCollectionName = `media-plugin-mock-collection-${randomId()}`;

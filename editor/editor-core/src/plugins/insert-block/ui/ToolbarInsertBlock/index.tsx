@@ -30,6 +30,7 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '../../../analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { insertEmoji } from '../../../emoji/commands/insert-emoji';
 import type { DropdownItem } from '../../../block-type/ui/ToolbarBlockType';
 import type { OnInsert } from '../../../../ui/ElementBrowser/types';
@@ -55,6 +56,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
   private dropdownButtonRef?: HTMLElement;
   private emojiButtonRef?: HTMLElement;
   private plusButtonRef?: HTMLElement;
+  private editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 
   state: State = {
     isPlusMenuOpen: false,
@@ -462,7 +464,7 @@ export class ToolbarInsertBlock extends React.PureComponent<
 
   private handleSelectedEmoji = (emojiId: EmojiId): boolean => {
     this.props.editorView.focus();
-    insertEmoji(emojiId, INPUT_METHOD.PICKER)(
+    insertEmoji(this.editorAnalyticsAPI)(emojiId, INPUT_METHOD.PICKER)(
       this.props.editorView.state,
       this.props.editorView.dispatch,
     );

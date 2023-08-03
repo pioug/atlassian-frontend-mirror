@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 13.1.17
+
+### Patch Changes
+
+- [`0ed39bbcb73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ed39bbcb73) - [ux] correct fallback color of focused state to meet contrast requirement
+
 ## 13.1.16
 
 ### Patch Changes

@@ -13,7 +13,6 @@ import type {
 
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type {
   Transformer,
   ReplaceRawValue,
@@ -25,40 +24,8 @@ import {
   processRawValue,
   hasDocAsParent,
   getStepRange,
+  isEmptyParagraph,
 } from '@atlaskit/editor-common/utils';
-
-/**
- * Returns false if node contains only empty inline nodes and hardBreaks.
- */
-export function hasVisibleContent(node: Node): boolean {
-  const isInlineNodeHasVisibleContent = (inlineNode: Node) => {
-    return inlineNode.isText
-      ? !!inlineNode.textContent.trim()
-      : inlineNode.type.name !== 'hardBreak';
-  };
-
-  if (node.isInline) {
-    return isInlineNodeHasVisibleContent(node);
-  } else if (node.isBlock && (node.isLeaf || node.isAtom)) {
-    return true;
-  } else if (!node.childCount) {
-    return false;
-  }
-
-  for (let index = 0; index < node.childCount; index++) {
-    const child = node.child(index);
-    const invisibleNodeTypes = ['paragraph', 'text', 'hardBreak'];
-
-    if (
-      !invisibleNodeTypes.includes(child.type.name) ||
-      hasVisibleContent(child)
-    ) {
-      return true;
-    }
-  }
-
-  return false;
-}
 
 /**
  * Checks if a node has any content. Ignores node that only contain empty block nodes.

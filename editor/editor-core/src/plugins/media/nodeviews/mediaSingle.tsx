@@ -11,7 +11,7 @@ import type {
 import type {
   RichMediaLayout as MediaSingleLayout,
   MediaADFAttrs,
-  RichMediaAttributes,
+  ExtendedMediaAttributes,
 } from '@atlaskit/adf-schema';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type {
@@ -39,6 +39,7 @@ import type {
   ForwardRef,
 } from '../../../nodeviews/';
 import { setNodeSelection, setTextSelection } from '../../../utils';
+import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import type { EventDispatcher } from '../../../event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
@@ -60,6 +61,8 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
 import type mediaPlugin from '../index';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import { getMediaSinglePixelWidth } from '@atlaskit/editor-common/media-single';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface MediaSingleNodeState {
   width?: number;
@@ -221,10 +224,12 @@ export default class MediaSingleNode extends Component<
     if (typeof pos === 'undefined') {
       return;
     }
+
     const tr = state.tr.setNodeMarkup(pos, undefined, {
       ...this.props.node.attrs,
       layout,
       width,
+      widthType: 'pixel',
     });
     tr.setMeta('scrollIntoView', false);
     /**
@@ -262,12 +267,21 @@ export default class MediaSingleNode extends Component<
       fullWidthMode,
       view: { state },
       view,
+      pluginInjectionApi,
+      width: containerWidth,
+      lineLength,
+      dispatchAnalyticsEvent,
     } = this.props;
 
-    const { layout, width: mediaSingleWidth } =
-      node.attrs as RichMediaAttributes;
+    const {
+      layout,
+      widthType,
+      width: mediaSingleWidthAttribute,
+    } = node.attrs as ExtendedMediaAttributes;
     const childNode = node.firstChild!;
     const attrs = childNode.attrs as MediaADFAttrs;
+
+    // original width and height of child media node (scaled)
     let { width, height } = attrs;
 
     if (attrs.type === 'external') {
@@ -295,15 +309,38 @@ export default class MediaSingleNode extends Component<
       height = DEFAULT_IMAGE_HEIGHT;
     }
 
+    const isSelected = selected();
+
     const mediaSingleProps = {
       layout,
       width,
       height,
-      containerWidth: this.props.width,
-      lineLength: this.props.lineLength,
-      pctWidth: mediaSingleWidth,
+      containerWidth: containerWidth,
+      lineLength: this.getLineLength(view, getPos()) || lineLength,
+      pctWidth: mediaSingleWidthAttribute,
       fullWidthMode,
       hasFallbackContainer: false,
+      mediaSingleWidth:
+        mediaSingleWidthAttribute &&
+        getMediaSinglePixelWidth(
+          mediaSingleWidthAttribute,
+          lineLength,
+          widthType,
+        ),
+    };
+
+    const ResizableMediaSingleProps = {
+      view: view,
+      getPos: getPos,
+      updateSize: this.updateSize,
+      gridSize: 12,
+      viewMediaClientConfig: this.state.viewMediaClientConfig,
+      allowBreakoutSnapPoints:
+        mediaOptions && mediaOptions.allowBreakoutSnapPoints,
+      selected: isSelected,
+      dispatchAnalyticsEvent: dispatchAnalyticsEvent,
+      pluginInjectionApi: pluginInjectionApi,
+      ...mediaSingleProps,
     };
 
     let canResize = !!this.props.mediaOptions.allowResizing;
@@ -319,11 +356,6 @@ export default class MediaSingleNode extends Component<
       }
     }
 
-    const lineLength =
-      this.getLineLength(view, getPos()) || this.props.lineLength;
-
-    const isSelected = selected();
-
     const shouldShowPlaceholder =
       getMediaFeatureFlag('captions', mediaOptions.featureFlags) &&
       node.childCount !== 2 &&
@@ -333,7 +365,7 @@ export default class MediaSingleNode extends Component<
     const MediaChildren = (
       <figure
         ref={this.mediaSingleWrapperRef}
-        css={figureWrapper}
+        css={[figureWrapper]}
         className={MediaSingleNodeSelector}
         onClick={this.onMediaSingleClicked}
       >
@@ -346,25 +378,16 @@ export default class MediaSingleNode extends Component<
         )}
       </figure>
     );
-
     return canResize ? (
-      <ResizableMediaSingle
-        {...mediaSingleProps}
-        lineLength={lineLength}
-        view={this.props.view}
-        getPos={getPos}
-        updateSize={this.updateSize}
-        gridSize={12}
-        viewMediaClientConfig={this.state.viewMediaClientConfig}
-        allowBreakoutSnapPoints={
-          mediaOptions && mediaOptions.allowBreakoutSnapPoints
-        }
-        selected={isSelected}
-        dispatchAnalyticsEvent={this.props.dispatchAnalyticsEvent}
-        pluginInjectionApi={this.props.pluginInjectionApi}
-      >
-        {MediaChildren}
-      </ResizableMediaSingle>
+      getBooleanFF('platform.editor.media.extended-resize-experience') ? (
+        <ResizableMediaSingleNext {...ResizableMediaSingleProps}>
+          {MediaChildren}
+        </ResizableMediaSingleNext>
+      ) : (
+        <ResizableMediaSingle {...ResizableMediaSingleProps}>
+          {MediaChildren}
+        </ResizableMediaSingle>
+      )
     ) : (
       <MediaSingle {...mediaSingleProps}>{MediaChildren}</MediaSingle>
     );

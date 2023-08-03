@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.3.8
+
+### Patch Changes
+
+- [`936c30f8dc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/936c30f8dc9) - support new image resize experience under feature flag
+- Updated dependencies
+
 ## 0.3.7
 
 ### Patch Changes

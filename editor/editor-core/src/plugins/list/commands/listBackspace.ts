@@ -1,10 +1,13 @@
-import type { WalkNode } from '../../../utils/commands';
+import type { WalkNode } from '@atlaskit/editor-common/utils';
 import {
   insertContentDeleteRange,
   isEmptySelectionAtStart,
   walkPrevNode,
-} from '../../../utils/commands';
+  isListNode,
+  isParagraphNode,
+} from '@atlaskit/editor-common/utils';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -21,7 +24,6 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { CommandDispatch } from '../../../types';
-import { isListNode, isParagraphNode } from '@atlaskit/editor-common/utils';
 
 import { isPosInsideList, isPosInsideParagraph } from '../utils/selection';
 

@@ -18,6 +18,7 @@ export type MediaStateStatus =
   | 'error'
   | 'mobile-upload-end';
 
+export type MediaSingleWithType = 'pixel' | 'percentage';
 export interface MediaOptions {
   provider?: Providers['mediaProvider'];
   allowMediaSingle?: boolean | MediaSingleOptions;

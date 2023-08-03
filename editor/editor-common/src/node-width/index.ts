@@ -158,3 +158,14 @@ export const getTableContainerWidth = (node: PMNode): number => {
 
   return layoutToWidth[node.attrs.layout as TableLayout];
 };
+
+export const getTableWidthWithNumberColumn = (
+  node: PMNode,
+  offset: number,
+): number => {
+  const isNumberColumnEnabled = node.attrs.isNumberColumnEnabled;
+  if (isNumberColumnEnabled && offset > 0) {
+    return getTableContainerWidth(node) - offset;
+  }
+  return getTableContainerWidth(node);
+};

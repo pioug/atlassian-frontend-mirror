@@ -69,12 +69,10 @@ import type {
   BeforeAndAfterToolbarComponents,
   EditorSharedPropsWithPlugins,
   PrimaryToolbarComponents,
-} from '../../../types/editor-props';
-import type { FeatureFlags } from '../../../types/feature-flags';
-import type {
   EditorPluginFeatureProps,
   EditorProviderProps,
 } from '../../../types/editor-props';
+import type { FeatureFlags } from '../../../types/feature-flags';
 import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 
 type UniversalPresetProps = EditorPresetProps &

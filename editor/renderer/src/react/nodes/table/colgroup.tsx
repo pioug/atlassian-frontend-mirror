@@ -102,7 +102,7 @@ export const Colgroup = (props: SharedTableProps) => {
           <col style={{ width: akEditorTableNumberColumnWidth }} />
         )}
         {columnWidths.map((_, idx) => (
-          <col key={idx} style={{ width: `${tableCellMinWidth}px` }} />
+          <col key={idx} style={{ minWidth: `${tableCellMinWidth}px` }} />
         ))}
       </colgroup>
     );

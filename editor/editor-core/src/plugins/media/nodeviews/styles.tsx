@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react';
 import { css, jsx } from '@emotion/react';
-import { NumericalCardDimensions } from '@atlaskit/media-card';
+import type { NumericalCardDimensions } from '@atlaskit/media-card';
 import { IMAGE_AND_BORDER_ADJUSTMENT } from '@atlaskit/editor-common/ui';
 
 export const MediaInlineNodeSelector = 'media-inline-node';

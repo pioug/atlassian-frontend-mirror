@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   inlineCard,
@@ -5,11 +6,10 @@ import {
   li,
   p,
   panel,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';

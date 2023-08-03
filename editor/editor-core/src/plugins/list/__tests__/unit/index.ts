@@ -1,6 +1,7 @@
 import { pluginKey } from '../../pm-plugins/main';
 import randomId from '@atlaskit/editor-test-helpers/random-id';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   h1,
@@ -16,11 +17,10 @@ import {
   table,
   tr,
   td,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listPlugin from '../..';

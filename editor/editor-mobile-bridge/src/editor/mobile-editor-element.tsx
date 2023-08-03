@@ -6,8 +6,8 @@ import {
   EditorProps,
   MentionProvider,
   EditorContext,
-  hasVisibleContent,
 } from '@atlaskit/editor-core';
+import { hasVisibleContent } from '@atlaskit/editor-common/utils';
 import { Editor } from './editor-wrapper';
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners';
 import { Provider as CollabProvider } from '@atlaskit/collab-provider';

@@ -132,13 +132,7 @@ export {
 } from './plugins/mobile-dimensions/commands';
 
 // Used in editor-test-helpers and mobile bridge
-export {
-  setTextSelection,
-  dedupe,
-  getNodesCount,
-  measurements,
-  hasVisibleContent,
-} from './utils';
+export { setTextSelection, dedupe, getNodesCount, measurements } from './utils';
 export { getListCommands } from './utils/list-commands';
 export { ReactEditorView, BaseReactEditorView } from './create-editor';
 export { getDefaultPresetOptionsFromEditorProps } from './create-editor';

@@ -1,6 +1,6 @@
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { p, ol, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
-import { hasValidListIndentationLevel } from '../../../utils/indentation';
+import { hasValidListIndentationLevel } from '@atlaskit/editor-common/lists';
 
 describe('utils', () => {
   describe('indentation', () => {

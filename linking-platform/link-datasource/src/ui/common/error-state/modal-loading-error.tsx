@@ -1,8 +1,12 @@
 /** @jsx jsx */
+import { useEffect } from 'react';
+
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { token } from '@atlaskit/tokens';
+
+import { useDatasourceAnalyticsEvents } from '../../../analytics';
 
 import { LoadingErrorSVG } from './loading-error-svg';
 import { loadingErrorMessages } from './messages';
@@ -34,6 +38,14 @@ interface ModalLoadingErrorProps {
 }
 
 export const ModalLoadingError = ({ url }: ModalLoadingErrorProps) => {
+  const { fireEvent } = useDatasourceAnalyticsEvents();
+
+  useEffect(() => {
+    fireEvent('ui.error.shown', {
+      reason: 'network',
+    });
+  }, [fireEvent]);
+
   return (
     <div
       css={errorContainerStyles}

@@ -8,7 +8,7 @@ import {
   findParentNodeOfType,
   findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import { filterCommands as filter } from '@atlaskit/editor-common/utils';
+import { filterCommand as filter } from '@atlaskit/editor-common/utils';
 import type { Command } from '../../../types/command';
 import { createSelectionClickHandler } from '../../selection/utils';
 import {

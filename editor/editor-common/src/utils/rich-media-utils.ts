@@ -4,8 +4,20 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
 
 import { SnapPointsProps } from '../types';
-import { shouldAddDefaultWrappedWidth } from '../ui/MediaSingle';
 import { calcPxFromColumns, wrappedLayouts } from '../ui/MediaSingle/grid';
+
+export const shouldAddDefaultWrappedWidth = (
+  layout: RichMediaLayout,
+  width?: number,
+  lineLength?: number,
+) => {
+  return (
+    wrappedLayouts.indexOf(layout) > -1 &&
+    lineLength &&
+    width &&
+    width > 0.5 * lineLength
+  );
+};
 
 export const nonWrappedLayouts: RichMediaLayout[] = [
   'center',

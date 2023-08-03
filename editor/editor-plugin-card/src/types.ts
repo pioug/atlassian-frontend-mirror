@@ -15,6 +15,8 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 
+import { EditorCardPluginEvents } from './analytics/create-events-queue';
+import { CardPluginEvent } from './analytics/types';
 import { DatasourceTableLayout } from './ui/LayoutButton/types';
 
 export type CardInfo = {
@@ -77,48 +79,12 @@ export type Request = {
   sourceEvent?: UIAnalyticsEvent | null | undefined;
 };
 
-export type Metadata<T = {}> = {
-  url: string;
-  display: string;
-  isUndo?: boolean;
-  isRedo?: boolean;
-  action?: string;
-  inputMethod?: string;
-  sourceEvent?: unknown;
-  nodeContext?: string;
-} & T;
-
-export type UpdateMetadata = {
-  previousDisplay?: string;
-};
-
-export type SmartLinkEventsNext = {
-  created: (metadata: Metadata) => void;
-  updated: (metadata: Metadata<UpdateMetadata>) => void;
-  deleted: (metadata: Metadata) => void;
-};
-
-export type LifecycleEventType = keyof SmartLinkEventsNext;
-
-/**
- * Describes the shape of an event that will be stored
- * in the Card state until it can be dispatched
- * as a side-effect in a view update
- */
-export type LifecycleEvent<
-  Type extends keyof SmartLinkEventsNext = keyof SmartLinkEventsNext,
-> = {
-  type: Type;
-  data: Parameters<SmartLinkEventsNext[Type]>[0];
-};
-
 export type CardPluginState = {
   requests: Request[];
   provider: CardProvider | null;
   cards: CardInfo[];
   showLinkingToolbar: boolean;
   smartLinkEvents?: SmartLinkEvents;
-  smartLinkEventsNext?: SmartLinkEventsNext;
   editorAppearance?: EditorAppearance;
   showDatasourceModal: boolean;
   datasourceModalType?: DatasourceModalType;
@@ -131,6 +97,7 @@ export type CardPluginOptions = CardOptions & {
   platform: 'mobile' | 'web';
   fullWidthMode?: boolean;
   linkPicker?: LinkPickerOptions;
+  cardPluginEvents?: EditorCardPluginEvents<CardPluginEvent>;
 };
 
 // actions
@@ -176,11 +143,6 @@ export type RegisterSmartCardEvents = {
   smartLinkEvents: SmartLinkEvents;
 };
 
-export type RegisterSmartCardEventsNext = {
-  type: 'REGISTER_EVENTS_NEXT';
-  smartLinkEvents: SmartLinkEventsNext;
-};
-
 export type SetDatasourceTableRef = {
   type: 'SET_DATASOURCE_TABLE_REF';
   datasourceTableRef?: HTMLElement;
@@ -207,7 +169,6 @@ export type CardPluginAction =
   | ShowDatasourceModal
   | HideDatasourceModal
   | RegisterSmartCardEvents
-  | RegisterSmartCardEventsNext
   | SetDatasourceTableRef
   | SetCardLayout
   | SetCardLayoutAndDatasourceTableRef;

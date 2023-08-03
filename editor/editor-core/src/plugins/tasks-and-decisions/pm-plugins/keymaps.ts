@@ -21,11 +21,11 @@ import { uuid } from '@atlaskit/adf-schema';
 
 import type { Command } from '../../../types';
 import {
+  filterCommand as filter,
   isEmptySelectionAtStart,
   deleteEmptyParagraphAndMoveBlockUp,
   isEmptySelectionAtEnd,
-} from '../../../utils/commands';
-import { filterCommands as filter } from '@atlaskit/editor-common/utils';
+} from '@atlaskit/editor-common/utils';
 
 import type { AnalyticsEventPayload } from '../../analytics';
 import {

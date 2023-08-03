@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.6.6
+
+### Patch Changes
+
+- [`fb2597b2dc3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb2597b2dc3) - Check analytic plugin exists before accessing attach function
+
 ## 2.6.5
 
 ### Patch Changes

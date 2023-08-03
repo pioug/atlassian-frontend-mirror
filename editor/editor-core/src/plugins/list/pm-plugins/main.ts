@@ -9,7 +9,7 @@ import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { isWrappingPossible } from '../utils/selection';
-import { isListNode } from '../utils/node';
+import { isListNode } from '@atlaskit/editor-common/utils';
 import type { Dispatch } from '../../../event-dispatcher';
 import { pluginFactory } from '../../../utils/plugin-state-factory';
 import type { ListState } from '../types';

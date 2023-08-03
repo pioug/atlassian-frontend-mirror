@@ -1,5 +1,12 @@
 # @atlaskit/prosemirror-input-rules
 
+## 2.3.2
+
+### Patch Changes
+
+- [`d2ecb6bf1a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d2ecb6bf1a3) - [ED-19203] Moved input rule types to editor-common to avoid circular dependencies
+- Updated dependencies
+
 ## 2.3.1
 
 ### Patch Changes

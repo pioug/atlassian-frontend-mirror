@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 74.33.0
+
+### Minor Changes
+
+- [`936c30f8dc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/936c30f8dc9) - support new image resize experience under feature flag
+
+## 74.32.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 74.32.0
+
+### Minor Changes
+
+- [`2b54c3b0d24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b54c3b0d24) - [ED-19203] Decouple text-formatting plugin and editor-core
+
+## 74.31.0
+
+### Minor Changes
+
+- [`d8c1bcdc71a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8c1bcdc71a) - ED-19217 decoupled lists related util functions from editor-core
+
 ## 74.30.0
 
 ### Minor Changes

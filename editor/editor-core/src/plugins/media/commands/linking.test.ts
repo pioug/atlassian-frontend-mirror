@@ -8,9 +8,9 @@ import {
   flushPromises,
   getDefaultMediaClientConfig,
 } from '@atlaskit/media-test-helpers';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
@@ -20,6 +20,7 @@ import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import mediaPlugin from '../';
 import floatingToolbarPlugin from '../../floating-toolbar';
@@ -60,6 +61,7 @@ describe('image linking', () => {
         .add([analyticsPlugin, {}])
         .add(decorationsPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
         .add(editorDisabledPlugin)

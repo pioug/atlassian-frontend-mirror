@@ -4,7 +4,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import { getCursor } from '../../../utils';
-import { filterCommands as filter } from '@atlaskit/editor-common/utils';
+import { filterCommand as filter } from '@atlaskit/editor-common/utils';
 import {
   isCursorBeforeClosingCharacter,
   isClosingCharacter,

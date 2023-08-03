@@ -152,6 +152,7 @@ export type { ShallowPropsDifference, PropsDifference } from './compare-props';
 export { useComponentRenderTracking } from './performance/hooks/use-component-render-tracking';
 export type { UseComponentRenderTrackingArgs } from './performance/hooks/use-component-render-tracking';
 export { isOutdatedBrowser } from './outdated-browsers';
+export { autoJoinTr } from './prosemirror/autojoin';
 
 export {
   isReferencedSource,
@@ -195,6 +196,7 @@ export {
   processRawValue,
   hasDocAsParent,
   bracketTyped,
+  hasVisibleContent,
 } from './document';
 
 export {
@@ -202,12 +204,23 @@ export {
   isRichMediaInsideOfBlockNode,
   calculateSnapPoints,
   alignAttributes,
+  nonWrappedLayouts,
 } from './rich-media-utils';
 
 export { sanitizeNodeForPrivacy } from './filter/privacy-filter';
 
 export { canRenderDatasource } from './datasource';
-export { filter as filterCommands } from './commands';
+
+export {
+  filterCommand,
+  walkPrevNode,
+  walkNextNode,
+  isEmptySelectionAtStart,
+  isEmptySelectionAtEnd,
+  insertContentDeleteRange,
+  deleteEmptyParagraphAndMoveBlockUp,
+} from './commands';
+export type { WalkNode } from './commands';
 
 export function shallowEqual(obj1: any = {}, obj2: any = {}) {
   const keys1 = Object.keys(obj1);
@@ -218,3 +231,5 @@ export function shallowEqual(obj1: any = {}, obj2: any = {}) {
     keys1.reduce((acc, key) => acc && obj1[key] === obj2[key], true)
   );
 }
+
+export { inputRuleWithAnalytics } from './input-rules';

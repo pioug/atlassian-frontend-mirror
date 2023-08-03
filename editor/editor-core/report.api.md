@@ -88,6 +88,7 @@ import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
@@ -1103,10 +1104,11 @@ export { FloatingToolbarListPicker };
 export const floatingToolbarPluginKey: PluginKey<FloatingToolbarPluginState>;
 
 // @public (undocumented)
-export type FloatingToolbarPluginState = Record<
-  'getConfigWithNodeInfo',
-  (state: EditorState) => ConfigWithNodeInfo | null | undefined
->;
+export type FloatingToolbarPluginState = {
+  getConfigWithNodeInfo: (
+    state: EditorState,
+  ) => ConfigWithNodeInfo | null | undefined;
+};
 
 export { FloatingToolbarSelect };
 
@@ -1155,9 +1157,6 @@ type getPosHandler = boolean | getPosHandlerNode;
 
 // @public (undocumented)
 type getPosHandlerNode = () => number | undefined;
-
-// @public
-export function hasVisibleContent(node: Node_2): boolean;
 
 // @public
 export const historyPluginKey: PluginKey<HistoryPluginState>;
@@ -1421,6 +1420,7 @@ export const mediaPlugin: NextEditorPlugin<
     dependencies: [
       typeof featureFlagsPlugin,
       OptionalPlugin<typeof analyticsPlugin>,
+      typeof guidelinePlugin,
       typeof gridPlugin,
       typeof widthPlugin,
       typeof decorationsPlugin,

@@ -14,21 +14,21 @@ import {
   ReplaceAroundStep,
   ReplaceStep,
 } from '@atlaskit/editor-prosemirror/transform';
-import { getOrderFromOrderedListNode } from '@atlaskit/editor-common/utils';
 import {
+  getOrderFromOrderedListNode,
   isListNode,
   isListItemNode,
+} from '@atlaskit/editor-common/utils';
+import {
   joinSiblingLists,
   JoinDirection,
-} from '../utils/node';
+  normalizeListItemsSelection,
+} from '@atlaskit/editor-common/lists';
 import {
   findFirstParentListItemNode,
   findRootParentListNode,
 } from '../utils/find';
-import {
-  normalizeListItemsSelection,
-  createListNodeRange,
-} from '../utils/selection';
+import { createListNodeRange } from '../utils/selection';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import {

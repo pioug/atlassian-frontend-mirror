@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "74.30.0",
+  "version": "74.33.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -75,7 +75,8 @@
     "./guideline": "./src/guideline/index.ts",
     "./quick-insert": "./src/quick-insert/index.ts",
     "./link": "./src/link/index.ts",
-    "./mark": "./src/mark/index.ts"
+    "./mark": "./src/mark/index.ts",
+    "./lists": "./src/lists/index.ts"
   },
   "dependencies": {
     "@atlaskit/activity-provider": "^2.4.0",
@@ -96,7 +97,7 @@
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/icon-object": "^6.3.0",
     "@atlaskit/in-product-testing": "^0.2.0",
-    "@atlaskit/link-datasource": "^0.31.0",
+    "@atlaskit/link-datasource": "^0.32.0",
     "@atlaskit/link-picker": "^1.25.0",
     "@atlaskit/media-card": "^76.1.0",
     "@atlaskit/media-client": "^23.1.0",
@@ -188,6 +189,9 @@
       "type": "boolean"
     },
     "platform.linking-platform.datasource-jira_issues": {
+      "type": "boolean"
+    },
+    "platform.editor.media.extended-resize-experience": {
       "type": "boolean"
     },
     "platform.linking-platform.datasource-assets_objects": {

@@ -301,3 +301,10 @@ export const importWithRetry = async <T,>(
     }
   }
 };
+
+export const openUrl = async (url?: string) => {
+  if (!url) {
+    return;
+  }
+  window.open(url, '_blank', 'noopener=yes');
+};

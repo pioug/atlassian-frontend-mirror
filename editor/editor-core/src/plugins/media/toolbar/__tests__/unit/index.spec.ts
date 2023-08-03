@@ -28,7 +28,11 @@ import {
   p,
   mediaSingle,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { MediaAttributes } from '@atlaskit/adf-schema';
+import type {
+  MediaAttributes,
+  ExtendedMediaAttributes,
+} from '@atlaskit/adf-schema';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import { createIntl } from 'react-intl-next';
 import type { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
@@ -51,6 +55,13 @@ const mockInjectionAPI: any = {
     decorations: {
       actions: {
         hoverDecoration: () => () => {},
+      },
+    },
+    width: {
+      sharedState: {
+        currentState: () => {
+          return { lineLength: 760, width: 1800 };
+        },
       },
     },
   },
@@ -249,7 +260,10 @@ describe('floatingToolbar()', () => {
   });
 
   describe('mediaSingle', () => {
-    const setup = async (allowBorder: boolean = false) => {
+    const setup = async (
+      allowBorder: boolean = false,
+      mediaSingleAttrs?: ExtendedMediaAttributes,
+    ) => {
       const attrs: MediaAttributes = {
         id: temporaryFileId,
         type: 'file',
@@ -261,7 +275,7 @@ describe('floatingToolbar()', () => {
       };
 
       const document = doc(
-        mediaSingle({ layout: 'center' })(media({ ...attrs })()),
+        mediaSingle(mediaSingleAttrs)(media({ ...attrs })()),
       );
       const { editorView, pluginState } = editor(document, {}, allowBorder);
       await pluginState.setMediaProvider(getFreshMediaProvider());
@@ -297,6 +311,81 @@ describe('floatingToolbar()', () => {
       const { items } = await setup(true);
 
       expect(items).toMatchSnapshot();
+    });
+
+    const layoutButtonTitles = [
+      'Wrap left',
+      'Wrap right',
+      'Align right',
+      'Align left',
+      'Align center',
+    ];
+
+    describe('should disable layout buttons when media width is greater than content width', () => {
+      ffTest(
+        'platform.editor.media.extended-resize-experience',
+        async () => {
+          const { items } = await setup(undefined, {
+            layout: 'wide',
+            width: 900,
+            widthType: 'pixel',
+          });
+          layoutButtonTitles.forEach((layout) => {
+            const button = findToolbarBtn(items, layout);
+            expect(button).toBeDefined();
+
+            if (layout === 'Align center') {
+              expect(button.disabled).toBe(false);
+            } else {
+              expect(button.disabled).toBe(true);
+            }
+          });
+        },
+        // check no buttons are disabled when FF is off
+        async () => {
+          const { items } = await setup(undefined, {
+            layout: 'wide',
+            width: 900,
+            widthType: 'pixel',
+          });
+          layoutButtonTitles.forEach((layout) => {
+            const button = findToolbarBtn(items, layout);
+            expect(button).toBeDefined();
+            expect(button.disabled).toBeUndefined();
+          });
+        },
+      );
+    });
+
+    describe('should enable layout buttons when media width is less than content width', () => {
+      ffTest(
+        'platform.editor.media.extended-resize-experience',
+        async () => {
+          const { items } = await setup(undefined, {
+            layout: 'center',
+            width: 500,
+            widthType: 'pixel',
+          });
+          layoutButtonTitles.forEach((layout) => {
+            const button = findToolbarBtn(items, layout);
+            expect(button).toBeDefined();
+            expect(button.disabled).toBeUndefined();
+          });
+        },
+        // check no buttons are disabled when FF is off
+        async () => {
+          const { items } = await setup(undefined, {
+            layout: 'center',
+            width: 500,
+            widthType: 'pixel',
+          });
+          layoutButtonTitles.forEach((layout) => {
+            const button = findToolbarBtn(items, layout);
+            expect(button).toBeDefined();
+            expect(button.disabled).toBeUndefined();
+          });
+        },
+      );
     });
   });
 });

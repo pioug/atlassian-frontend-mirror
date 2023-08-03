@@ -1,4 +1,7 @@
+/** @jsx jsx */
 import React, { FC, ReactNode } from 'react';
+
+import { css, jsx } from '@emotion/react';
 
 import {
   createAndFireEvent,
@@ -7,6 +10,8 @@ import {
   withAnalyticsEvents,
   WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
+import { N500 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import Field from './field';
 
@@ -39,6 +44,13 @@ export interface AuthorProps extends WithAnalyticsEventsProps {
   onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
+const headingStyles = css({
+  display: 'inline-block',
+  color: token('color.text.subtle', N500),
+  fontSize: token('font.size.100', '14px'),
+  letterSpacing: '0',
+});
+
 const Author: FC<AuthorProps> = ({
   children,
   href,
@@ -54,7 +66,7 @@ const Author: FC<AuthorProps> = ({
       onFocus={onFocus}
       onMouseOver={onMouseOver}
     >
-      {children}
+      <h3 css={headingStyles}>{children}</h3>
     </Field>
   );
 };

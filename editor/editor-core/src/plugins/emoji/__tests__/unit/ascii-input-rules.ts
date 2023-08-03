@@ -1,4 +1,5 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import type { EmojiDescription } from '@atlaskit/emoji/types';
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
@@ -15,15 +16,11 @@ import {
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import type {
-  CreateUIAnalyticsEvent,
-  UIAnalyticsEvent,
-} from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 // Editor Plugins
-import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import emojiPlugin from '../../';
 import basePlugin from '../../../base';
@@ -38,17 +35,15 @@ const providerFactory = ProviderFactory.create({ emojiProvider });
 
 describe('ascii emojis - input rules', () => {
   const createEditor = createProsemirrorEditorFactory();
-
   let createAnalyticsEvent: CreateUIAnalyticsEvent;
+  createAnalyticsEvent = createAnalyticsEventMock();
 
   const editor = (doc: DocBuilder) => {
-    createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(decorationsPlugin)
         .add(emojiPlugin)
         .add(blockTypePlugin)

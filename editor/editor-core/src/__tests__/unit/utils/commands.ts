@@ -1,12 +1,16 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import {
   isNthParentOfType,
-  isEmptySelectionAtStart,
   isFirstChildOfParent,
   findCutBefore,
 } from '../../../utils/commands';
+
 import { toggleMark } from '@atlaskit/editor-common/mark';
-import { filterCommands as filter } from '@atlaskit/editor-common/utils';
+
+import {
+  filterCommand as filter,
+  isEmptySelectionAtStart,
+} from '@atlaskit/editor-common/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';

@@ -31,6 +31,7 @@ import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import type { LinkPickerOptions } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -63,11 +64,15 @@ export const cardPlugin: NextEditorPlugin<
 >;
 
 // @public (undocumented)
+type CardPluginEvent = DatasourceEvent | LinkEvent;
+
+// @public (undocumented)
 type CardPluginOptions = CardOptions & {
   editorAppearance?: EditorAppearance;
   platform: 'mobile' | 'web';
   fullWidthMode?: boolean;
   linkPicker?: LinkPickerOptions;
+  cardPluginEvents?: EditorCardPluginEvents<CardPluginEvent>;
 };
 
 // @public (undocumented)
@@ -77,7 +82,6 @@ type CardPluginState = {
   cards: CardInfo[];
   showLinkingToolbar: boolean;
   smartLinkEvents?: SmartLinkEvents;
-  smartLinkEventsNext?: SmartLinkEventsNext;
   editorAppearance?: EditorAppearance;
   showDatasourceModal: boolean;
   datasourceModalType?: DatasourceModalType;
@@ -86,12 +90,88 @@ type CardPluginState = {
 };
 
 // @public (undocumented)
+type DatasourceCreatedEvent = {
+  event: EVENT.CREATED;
+  subject: EVENT_SUBJECT.DATASOURCE;
+  data: Metadata_2;
+};
+
+// @public (undocumented)
+type DatasourceDeletedEvent = {
+  event: EVENT.DELETED;
+  subject: EVENT_SUBJECT.DATASOURCE;
+  data: Metadata_2;
+};
+
+// @public (undocumented)
+type DatasourceEvent =
+  | DatasourceCreatedEvent
+  | DatasourceDeletedEvent
+  | DatasourceUpdatedEvent;
+
+// @public (undocumented)
 type DatasourceTableLayout = 'center' | 'full-width' | 'wide';
 
 // @public (undocumented)
+type DatasourceUpdatedEvent = {
+  event: EVENT.UPDATED;
+  subject: EVENT_SUBJECT.DATASOURCE;
+  data: Metadata_2<UpdateMetadata>;
+};
+
+// @public (undocumented)
+type EditorCardPluginEvents<T> = {
+  push: (...events: T[]) => void;
+  subscribe: (listener: Subscriber<T>) => () => void;
+  flush: () => void;
+  getSize: () => number;
+};
+
+// @public (undocumented)
+enum EVENT {
+  // (undocumented)
+  CREATED = 'created',
+  // (undocumented)
+  DELETED = 'deleted',
+  // (undocumented)
+  UPDATED = 'updated',
+}
+
+// @public (undocumented)
+enum EVENT_SUBJECT {
+  // (undocumented)
+  DATASOURCE = 'datasource',
+  // (undocumented)
+  LINK = 'link',
+}
+
+// @public
+type LinkCreatedEvent = {
+  event: EVENT.CREATED;
+  subject: EVENT_SUBJECT.LINK;
+  data: Metadata_2;
+};
+
+// @public (undocumented)
+type LinkDeletedEvent = {
+  event: EVENT.DELETED;
+  subject: EVENT_SUBJECT.LINK;
+  data: Metadata_2;
+};
+
+// @public (undocumented)
+type LinkEvent = LinkCreatedEvent | LinkDeletedEvent | LinkUpdatedEvent;
+
+// @public (undocumented)
+type LinkUpdatedEvent = {
+  event: EVENT.UPDATED;
+  subject: EVENT_SUBJECT.LINK;
+  data: Metadata_2<UpdateMetadata>;
+};
+
+// @public (undocumented)
 type Metadata_2<T = {}> = {
-  url: string;
-  display: string;
+  node: Node_2;
   isUndo?: boolean;
   isRedo?: boolean;
   action?: string;
@@ -115,11 +195,7 @@ type Request_2 = {
 export { Request_2 as Request };
 
 // @public (undocumented)
-type SmartLinkEventsNext = {
-  created: (metadata: Metadata_2) => void;
-  updated: (metadata: Metadata_2<UpdateMetadata>) => void;
-  deleted: (metadata: Metadata_2) => void;
-};
+type Subscriber<T> = (event: T) => void;
 
 // @public (undocumented)
 type UpdateMetadata = {

@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.14.3
+
+### Patch Changes
+
+- [`c5a8ab5629d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c5a8ab5629d) - Refactor view url action
+
+## 26.14.2
+
+### Patch Changes
+
+- [`6a807668da6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6a807668da6) - [ux] Refreshed design for the Embed Smart Links view added under the FF
+
 ## 26.14.1
 
 ### Patch Changes

@@ -219,6 +219,7 @@ export function TableHeader({
   amountOfHeaders: number;
 }) {
   const ref = useRef<HTMLTableCellElement | null>(null);
+  const dragHandleRef = useRef<HTMLButtonElement>(null);
   const dropTargetRef = useRef<HTMLDivElement | null>(null);
   const resizerRef = useRef<HTMLDivElement | null>(null);
   const [state, setState] = useState<HeaderState>(idleState);
@@ -313,8 +314,13 @@ export function TableHeader({
   useEffect(() => {
     const el = ref.current;
     invariant(el);
+
+    const dragHandle = dragHandleRef.current;
+    invariant(dragHandle);
+
     return draggable({
       element: el,
+      dragHandle,
       getInitialData() {
         return { type: 'table-header', property, index };
       },
@@ -445,7 +451,7 @@ export function TableHeader({
         {label}
 
         <ColumnMenuButton
-          columnId={label}
+          ref={dragHandleRef}
           columnIndex={index}
           amountOfHeaders={amountOfHeaders}
         />

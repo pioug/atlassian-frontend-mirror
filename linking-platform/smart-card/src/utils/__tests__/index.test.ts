@@ -1,4 +1,4 @@
-import { importWithRetry } from '../index';
+import { importWithRetry, openUrl } from '../index';
 import * as utils from '../index';
 
 export class ChunkLoadError extends Error {
@@ -72,5 +72,29 @@ describe('importWithRetry', () => {
     );
 
     expect(importFunction).toHaveBeenCalledTimes(3);
+  });
+});
+
+describe('openUrl', () => {
+  const url = 'some-url';
+  let openSpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    openSpy = jest.spyOn(window, 'open');
+  });
+
+  afterEach(() => {
+    openSpy.mockRestore();
+  });
+
+  it('opens url in a new tab', async () => {
+    await openUrl(url);
+    expect(openSpy).toBeCalledTimes(1);
+    expect(openSpy).toBeCalledWith(url, '_blank', 'noopener=yes');
+  });
+
+  it('does not open url', async () => {
+    await openUrl();
+    expect(openSpy).not.toHaveBeenCalled();
   });
 });

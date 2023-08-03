@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
@@ -40,19 +41,21 @@ describe('ResizableEmbedCard', () => {
     const { editorView } = editor(doc(mockInlinePmNode));
 
     const { getAllByTestId } = render(
-      <ResizableEmbedCard
-        getPos={getPos}
-        view={editorView}
-        layout={'center'}
-        lineLength={420}
-        gridSize={12}
-        containerWidth={550}
-        updateSize={updateSize}
-        displayGrid={displayGrid}
-        {...props}
-      >
-        <div>some content</div>
-      </ResizableEmbedCard>,
+      <IntlProvider locale="en">
+        <ResizableEmbedCard
+          getPos={getPos}
+          view={editorView}
+          layout={'center'}
+          lineLength={420}
+          gridSize={12}
+          containerWidth={550}
+          updateSize={updateSize}
+          displayGrid={displayGrid}
+          {...props}
+        >
+          <div>some content</div>
+        </ResizableEmbedCard>
+      </IntlProvider>,
     );
 
     const heightDefiner = getAllByTestId(

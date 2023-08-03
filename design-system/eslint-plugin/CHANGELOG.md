@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.2.2
+
+### Patch Changes
+
+- [`1859bc0b8c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1859bc0b8c7) - Update the casing on `xcss` to ensure consistency with the API and package consumption.
+
 ## 8.2.1
 
 ### Patch Changes

@@ -1,4 +1,5 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import {
   evilburnsEmoji,
@@ -24,7 +25,7 @@ import {
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import emojiPlugin, { emojiPluginKey } from '../../';
 import { insertEmoji } from '../../commands/insert-emoji';
-import deprecatedAnalyticsPlugin, { INPUT_METHOD } from '../../../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import typeAheadPlugin from '../../../type-ahead';
 import quickInsertPlugin from '../../../quick-insert';
@@ -50,19 +51,30 @@ const evilburnsEmojiId = {
 
 describe('emojis', () => {
   const createEditor = createProsemirrorEditorFactory();
+  let createAnalyticsEvent: CreateUIAnalyticsEvent;
+  const mockDispatchAnalyticsEvent = jest.fn();
+  const mockAnalyticsPlugin = () => {
+    return {
+      name: 'analytics',
+      actions: {
+        attachAnalyticsEvent: (payload: any) => {
+          mockDispatchAnalyticsEvent(payload);
+          return () => {};
+        },
+      },
+    };
+  };
+  createAnalyticsEvent = createAnalyticsEventMock();
 
   const providerFactory = ProviderFactory.create({ emojiProvider });
-  let createAnalyticsEvent: CreateUIAnalyticsEvent;
 
   const editor = (doc: DocBuilder) => {
-    createAnalyticsEvent = jest.fn().mockReturnValue({ fire() {} });
     return createEditor({
       doc,
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add(emojiPlugin)
         .add([analyticsPlugin, { createAnalyticsEvent }])
-        .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(blockTypePlugin)
         .add(listPlugin)
         .add(typeAheadPlugin)
@@ -76,7 +88,7 @@ describe('emojis', () => {
     it('should insert emoji-node', () => {
       const { editorView } = editor(doc(p('{<>}')));
 
-      insertEmoji({
+      insertEmoji(mockAnalyticsPlugin().actions as any)({
         fallback: 'Oscar Wallhult',
         shortName: 'oscar',
         id: '1234',
@@ -90,7 +102,10 @@ describe('emojis', () => {
     it('should insert a space after the emoji-node', () => {
       const { editorView } = editor(doc(p('{<>}')));
 
-      insertEmoji(grinEmojiId)(editorView.state, editorView.dispatch);
+      insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId)(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(emoji(grinEmojiId)(), ' ')),
@@ -100,7 +115,10 @@ describe('emojis', () => {
     it('should allow inserting multiple emojis next to each other', () => {
       const { editorView } = editor(doc(p(emoji(grinEmojiId)(), ' ', '{<>}')));
 
-      insertEmoji(evilburnsEmojiId)(editorView.state, editorView.dispatch);
+      insertEmoji(mockAnalyticsPlugin().actions as any)(evilburnsEmojiId)(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(emoji(grinEmojiId)(), ' ', emoji(evilburnsEmojiId)(), ' ')),
@@ -110,7 +128,10 @@ describe('emojis', () => {
     it('should allow inserting emoji on new line after hard break', () => {
       const { editorView } = editor(doc(p(br(), '{<>}')));
 
-      insertEmoji(grinEmojiId)(editorView.state, editorView.dispatch);
+      insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId)(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(p(br(), emoji(grinEmojiId)(), ' ')),
@@ -122,7 +143,10 @@ describe('emojis', () => {
         doc(ul(li(p('One')), li(p('Two ', '{<>}')), li(p('Three')))),
       );
 
-      insertEmoji(grinEmojiId)(editorView.state, editorView.dispatch);
+      insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId)(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -138,7 +162,10 @@ describe('emojis', () => {
     it('should insert only 1 emoji at a time inside blockqoute', () => {
       const { editorView } = editor(doc(blockquote(p('Hello ', '{<>}'))));
 
-      insertEmoji(grinEmojiId)(editorView.state, editorView.dispatch);
+      insertEmoji(mockAnalyticsPlugin().actions as any)(grinEmojiId)(
+        editorView.state,
+        editorView.dispatch,
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(blockquote(p('Hello ', emoji(grinEmojiId)(), ' '))),
@@ -152,11 +179,11 @@ describe('emojis', () => {
 
     it('should fire analytics event when insert emoji', () => {
       const { editorView } = editor(doc(p('{<>}')));
-      insertEmoji(grinEmojiId, INPUT_METHOD.PICKER)(
-        editorView.state,
-        editorView.dispatch,
-      );
-      expect(createAnalyticsEvent).toBeCalledWith({
+      insertEmoji(mockAnalyticsPlugin().actions as any)(
+        grinEmojiId,
+        INPUT_METHOD.PICKER,
+      )(editorView.state, editorView.dispatch);
+      expect(mockDispatchAnalyticsEvent).toBeCalledWith({
         action: 'inserted',
         actionSubject: 'document',
         actionSubjectId: 'emoji',

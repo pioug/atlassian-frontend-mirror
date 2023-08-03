@@ -8,6 +8,7 @@ import {
   table,
   tr,
   td,
+  bodiedExtension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 describe('#onKeydown', () => {
@@ -23,44 +24,91 @@ describe('#onKeydown', () => {
     );
   });
 
-  describe('when cursor is before a collapsed expand and shift+arrow up pressed', () => {
-    describe.each([
-      doc(
-        // prettier-disable
-        p('Hello'),
-        '{nextExpandSelection}',
-        expand({
-          __expanded: false,
-        })(p('')),
-        p('{here}'),
-      ),
+  const cases = [
+    doc(
+      p('Hello'),
+      '{nextSelection}',
+      expand({
+        __expanded: false,
+      })(p('')),
+      p('{here}'),
+    ),
 
-      // first node
-      doc(
-        // prettier-disable
-        '{nextExpandSelection}',
-        expand({
-          __expanded: false,
-        })(p('')),
-        p('{here}'),
-      ),
+    // first node
+    doc(
+      '{nextSelection}',
+      expand({
+        __expanded: false,
+      })(p('')),
+      p('{here}'),
+    ),
 
-      // first nested expand node
-      doc(
-        // prettier-disable
-        table()(
-          tr(
-            td()(
-              '{nextExpandSelection}',
-              nestedExpand({
-                __expanded: false,
-              })(p('')),
-              p('{here}'),
-            ),
+    // first nested expand node
+    doc(
+      table()(
+        tr(
+          td()(
+            '{nextSelection}',
+            nestedExpand({
+              __expanded: false,
+            })(p('')),
+            p('{here}'),
           ),
         ),
       ),
-    ])('%#', (docBuilder) => {
+    ),
+
+    doc(
+      p('Hello'),
+      '{nextSelection}',
+      bodiedExtension({
+        extensionType: 'com.atlassian.confluence.macro.core',
+        extensionKey: 'bodied-eh',
+        parameters: {
+          macroParams: {},
+          macroMetadata: {
+            placeholder: [
+              {
+                data: {
+                  url: '',
+                },
+                type: 'icon',
+              },
+            ],
+          },
+        },
+        layout: 'default',
+      })(p('')),
+      p('{here}'),
+    ),
+
+    // first node
+    doc(
+      '{nextSelection}',
+      bodiedExtension({
+        extensionType: 'com.atlassian.confluence.macro.core',
+        extensionKey: 'bodied-eh',
+        parameters: {
+          macroParams: {},
+          macroMetadata: {
+            placeholder: [
+              {
+                data: {
+                  url: '',
+                },
+                type: 'icon',
+              },
+            ],
+          },
+        },
+        layout: 'default',
+      })(p('')),
+      p('{here}'),
+    ),
+  ];
+
+  describe('when cursor is before a collapsed expand and shift+arrow up pressed', () => {
+    describe.each(cases)('%#', (docBuilder) => {
       const fakeDoc = docBuilder(sampleSchema);
       const $anchor = fakeDoc.resolve(fakeDoc.refs.here);
       const $head = fakeDoc.resolve(fakeDoc.refs.here);
@@ -104,10 +152,10 @@ describe('#onKeydown', () => {
         expect(fakeTr.setSelection).toHaveBeenCalled();
       });
 
-      it('should select the collpased expanded', () => {
+      it('should select the node', () => {
         const selection = fakeTr.setSelection.mock.calls[0][0];
 
-        expect(selection.$head.pos).toBe(fakeDoc.refs.nextExpandSelection);
+        expect(selection.$head.pos).toBe(fakeDoc.refs.nextSelection);
       });
     });
   });

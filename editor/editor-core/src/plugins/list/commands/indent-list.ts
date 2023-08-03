@@ -1,23 +1,23 @@
 import type { Command } from '../../../types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  EditorAnalyticsAPI,
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { hasValidListIndentationLevel } from '../utils/indentation';
+import {
+  hasValidListIndentationLevel,
+  getListItemAttributes,
+  getCommonListAnalyticsAttributes,
+} from '@atlaskit/editor-common/lists';
 import { indentListItemsSelected as indentListAction } from '../actions/indent-list-items-selected';
-import { isBulletList } from '../utils/node';
+import { isBulletList } from '@atlaskit/editor-common/utils';
 import { findFirstParentListNode } from '../utils/find';
 import { MAX_NESTED_LIST_INDENTATION } from '../types';
-import {
-  isInsideListItem,
-  isInsideTableCell,
-  getListItemAttributes,
-} from '../utils/selection';
-import { getCommonListAnalyticsAttributes } from '../utils/analytics';
+import { isInsideListItem, isInsideTableCell } from '../utils/selection';
+
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 
 type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;

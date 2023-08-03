@@ -308,7 +308,7 @@ function Component({
         showServerActions: showServerActions,
       };
       return getBooleanFF(
-        'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
       ) ? (
         <RedesignedInlineCard {...inlineProps} />
       ) : (

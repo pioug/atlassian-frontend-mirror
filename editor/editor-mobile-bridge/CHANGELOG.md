@@ -1,5 +1,60 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.9.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.8.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.8.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.8.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.8.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.8.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.8.10
+
+### Patch Changes
+
+- [`d8c1bcdc71a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8c1bcdc71a) - ED-19217 decoupled lists related util functions from editor-core
+- Updated dependencies
+
 ## 187.8.9
 
 ### Patch Changes

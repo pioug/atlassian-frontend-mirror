@@ -12,8 +12,9 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { MediaSingle } from '@atlaskit/editor-common/ui';
+import { IntlProvider } from 'react-intl-next';
 
-import { MediaOptions } from '../../../../../../plugins/media/types';
+import type { MediaOptions } from '../../../../../../plugins/media/types';
 import { mediaEditor, testCollectionName } from '../../_utils';
 import NodeViewMediaSingle from '../../../../../../plugins/media/nodeviews/mediaSingle';
 import ResizableMediaSingle from '../../../../../../plugins/media/ui/ResizableMediaSingle';
@@ -47,20 +48,22 @@ describe('media resizing', () => {
     );
 
     return mount(
-      <NodeViewMediaSingle
-        view={editorView}
-        eventDispatcher={eventDispatcher}
-        node={editorView.state.doc.nodeAt(0)!}
-        lineLength={680}
-        getPos={() => 1}
-        width={123}
-        selected={() => 1}
-        mediaOptions={mediaOptions}
-        mediaProvider={(editorProps.media || {}).provider}
-        contextIdentifierProvider={editorProps.contextIdentifierProvider}
-        mediaPluginState={pluginState}
-        forwardRef={() => {}}
-      />,
+      <IntlProvider locale="en">
+        <NodeViewMediaSingle
+          view={editorView}
+          eventDispatcher={eventDispatcher}
+          node={editorView.state.doc.nodeAt(0)!}
+          lineLength={680}
+          getPos={() => 1}
+          width={123}
+          selected={() => 1}
+          mediaOptions={mediaOptions}
+          mediaProvider={(editorProps.media || {}).provider}
+          contextIdentifierProvider={editorProps.contextIdentifierProvider}
+          mediaPluginState={pluginState}
+          forwardRef={() => {}}
+        />
+      </IntlProvider>,
     );
   };
 

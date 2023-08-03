@@ -13,6 +13,7 @@ import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { eventsFromTransaction } from '../analytics/events-from-tr';
 import type { cardPlugin } from '../index';
 import { BlockCard, BlockCardNodeViewProps } from '../nodeviews/blockCard';
 import { Datasource } from '../nodeviews/datasource';
@@ -24,7 +25,6 @@ import {
   setCardLayoutAndDatasourceTableRef,
   setDatasourceTableRef,
 } from './actions';
-import { createAnalyticsQueue, eventsFromTransaction } from './analytics';
 import { pluginKey } from './plugin-key';
 import reducer from './reducers';
 import { handleProvider, resolveWithProvider } from './util/resolve';
@@ -44,9 +44,6 @@ export const createPlugin =
   (
     pmPluginFactoryParams: PMPluginFactoryParams,
   ): SafePlugin<CardPluginState> => {
-    const { lpAnalyticsEventsNext } = pmPluginFactoryParams.featureFlags;
-    const analyticsQueue = createAnalyticsQueue(!!lpAnalyticsEventsNext);
-
     const {
       editorAppearance,
       platform,
@@ -54,6 +51,7 @@ export const createPlugin =
       useAlternativePreloader,
       fullWidthMode,
       showServerActions,
+      cardPluginEvents,
     } = options;
 
     const inlineCardViewProducer = getInlineNodeViewProducer({
@@ -71,7 +69,6 @@ export const createPlugin =
             cards: [],
             showLinkingToolbar: false,
             smartLinkEvents: undefined,
-            smartLinkEventsNext: undefined,
             editorAppearance,
             showDatasourceModal: false,
             datasourceModalType: undefined,
@@ -91,20 +88,13 @@ export const createPlugin =
           // apply any actions
           const meta = tr.getMeta(pluginKey);
 
-          const events = eventsFromTransaction(tr, prevEditorState);
-          analyticsQueue.push(...events);
+          if (cardPluginEvents) {
+            const events = eventsFromTransaction(tr, prevEditorState);
+            cardPluginEvents.push(...events);
+          }
 
           if (meta) {
-            const nextState = reducer(pluginStateWithUpdatedPos, meta);
-
-            if (
-              !pluginState.smartLinkEventsNext &&
-              nextState.smartLinkEventsNext
-            ) {
-              analyticsQueue.setCallbacks(nextState.smartLinkEventsNext);
-            }
-
-            return nextState;
+            return reducer(pluginStateWithUpdatedPos, meta);
           }
 
           return pluginStateWithUpdatedPos;
@@ -199,7 +189,12 @@ export const createPlugin =
               });
             }
 
-            analyticsQueue.flush();
+            /**
+             * If there have been any events queued, flush them
+             * so subscribers can now be notified and dispatch
+             * analytics events
+             */
+            cardPluginEvents?.flush();
           },
 
           destroy() {

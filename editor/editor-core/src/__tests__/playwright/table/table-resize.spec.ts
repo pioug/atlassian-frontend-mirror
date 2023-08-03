@@ -5,8 +5,6 @@ import {
   EditorFloatingToolbarModel,
   editorTestCase as test,
   expect,
-  fixTest,
-  BROWSERS,
 } from '@af/editor-libra';
 import {
   simpleTableWithOneParagraphAfter,
@@ -20,6 +18,7 @@ test.use({
     allowTables: {
       advanced: true,
     },
+    allowAnalyticsGASV3: true,
   },
   adf: simpleTableWithOneParagraphAfter,
   platformFeatureFlags: { 'platform.editor.custom-table-width': true },
@@ -49,13 +48,6 @@ test.describe('resizing a table', () => {
   test('should resize to correct width and centre when dragging handle larger', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-19263, ED-19273, ED-19284',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19263',
-      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();
@@ -70,13 +62,6 @@ test.describe('resizing a table', () => {
   test('should resize to correct width and centre when dragging handle smaller', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-19264, ED-19274, ED-19285',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19264',
-      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();
@@ -91,13 +76,6 @@ test.describe('resizing a table', () => {
   test('should hide the table controls when resizing and show them when finishing', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-19265, ED-19275, ED-19286',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19265',
-      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();
@@ -138,13 +116,6 @@ test.describe('resizing a table', () => {
   test('should resize to correct width and snap to closest guideline', async ({
     editor,
   }) => {
-    fixTest({
-      jiraIssueId: 'ED-19266, ED-19276, ED-19287',
-      reason:
-        'FIXME: This test was automatically skipped due to failure on 28/07/2023: https://product-fabric.atlassian.net/browse/ED-19266',
-      browsers: [BROWSERS.chromium, BROWSERS.firefox, BROWSERS.webkit],
-    });
-
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();
@@ -161,37 +132,35 @@ test.describe('resizing a table', () => {
     expect(await tableModel.containerWidth()).toBe(960);
   });
 
-  // FIXME: This test was manually skipped due to flakiness: https://atlassian.slack.com/archives/C05F7EJ6C0L/p1690349111624389
-  test.fixme(
-    "should resize to the closest guideline and back to it's original size correctly",
-    async ({ editor }) => {
-      const nodes = EditorNodeContainerModel.from(editor);
-      const tableModel = EditorTableModel.from(nodes.table);
-      const resizerModel = tableModel.resizer();
+  test("should resize to the closest guideline and back to it's original size correctly", async ({
+    editor,
+  }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const resizerModel = tableModel.resizer();
 
-      // Before we resize we make sure the current size is what we expect it to be.
-      expect(await resizerModel.containerWidth()).toBe(760);
+    // Before we resize we make sure the current size is what we expect it to be.
+    expect(await resizerModel.containerWidth()).toBe(760);
 
-      await resizerModel.resize({ mouse: editor.page.mouse, moveDistance: 99 });
+    await resizerModel.resize({ mouse: editor.page.mouse, moveDistance: 99 });
 
-      expect(await resizerModel.containerWidth()).toBe(960);
+    expect(await resizerModel.containerWidth()).toBe(960);
 
-      await resizerModel.resizeAndHold({
-        mouse: editor.page.mouse,
-        moveDistance: -99,
-      });
+    await resizerModel.resizeAndHold({
+      mouse: editor.page.mouse,
+      moveDistance: -99,
+    });
 
-      // IMPORTANT: We need to ensure that no margin is being applied before we release the up button.
-      expect(await resizerModel.containerMarginLeft()).toBe('0px');
+    // IMPORTANT: We need to ensure that no margin is being applied before we release the up button.
+    expect(await resizerModel.containerMarginLeft()).toBe('0px');
 
-      await editor.page.mouse.up();
+    await editor.page.mouse.up();
 
-      expect(await resizerModel.containerMarginLeft()).toBe('0px');
-      // NOTE: the widths are not committed until after the mouse up has occured.
-      expect(await resizerModel.containerWidth()).toBe(760);
-      expect(await tableModel.containerWidth()).toBe(760);
-    },
-  );
+    expect(await resizerModel.containerMarginLeft()).toBe('0px');
+    // NOTE: the widths are not committed until after the mouse up has occured.
+    expect(await resizerModel.containerWidth()).toBe(760);
+    expect(await tableModel.containerWidth()).toBe(760);
+  });
 });
 
 test.describe('rendering table width', () => {

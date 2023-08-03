@@ -882,7 +882,9 @@ describe('Media plugin', () => {
       it('returns dom', () => {
         const { editorView, pluginState } = editor(
           doc(
-            mediaSingle({ layout: 'wrap-left' })(
+            mediaSingle({
+              layout: 'wrap-left',
+            })(
               media({
                 id: 'media',
                 type: 'file',

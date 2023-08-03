@@ -5,8 +5,8 @@ import { NodeRange } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
-import { isListNode, joinSiblingLists } from '../utils/node';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import { isEmptyParagraph, isListNode } from '@atlaskit/editor-common/utils';
+import { joinSiblingLists } from '@atlaskit/editor-common/lists';
 import { findFirstParentListNode } from '../utils/find';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 

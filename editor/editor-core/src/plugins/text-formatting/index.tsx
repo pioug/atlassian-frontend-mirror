@@ -72,14 +72,21 @@ const textFormatting: NextEditorPlugin<
       },
       {
         name: 'textFormattingInputRule',
+        // Don't remove the unused featureFlags, this gets used to test if we're properly passing them to the PM plugin
         plugin: ({ schema, featureFlags }) =>
-          textFormattingInputRulePlugin(schema, featureFlags),
+          textFormattingInputRulePlugin(
+            schema,
+            featureFlags,
+            api?.dependencies.analytics?.actions,
+          ),
       },
       {
         name: 'textFormattingSmartRule',
-        plugin: ({ featureFlags }) =>
+        plugin: () =>
           !options.disableSmartTextCompletion
-            ? textFormattingSmartInputRulePlugin(featureFlags)
+            ? textFormattingSmartInputRulePlugin(
+                api?.dependencies.analytics?.actions,
+              )
             : undefined,
       },
       {

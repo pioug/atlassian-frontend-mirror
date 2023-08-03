@@ -1,12 +1,10 @@
 import type { MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ruleWithAnalytics } from '../../../utils/input-rules';
 import {
   createRule,
   createPlugin,
   leafNodeReplacementCharacter,
 } from '@atlaskit/prosemirror-input-rules';
-
 import type {
   InputRuleWrapper,
   InputRuleHandler,
@@ -18,8 +16,10 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { transformSmartCharsMentionsAndEmojis } from '@atlaskit/editor-common/mark';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 enum ValidAutoformatChars {
   STRONG = '__',
@@ -204,16 +204,22 @@ export const codeRegex = buildRegex(ValidAutoformatChars.CODE);
  * @param {Schema} schema
  * @returns {InputRuleWrapper[]}
  */
-function getStrongInputRules(schema: Schema): InputRuleWrapper[] {
-  const ruleWithStrongAnalytics = ruleWithAnalytics(() => ({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRONG,
-    eventType: EVENT_TYPE.TRACK,
-    attributes: {
-      inputMethod: INPUT_METHOD.FORMATTING,
+function getStrongInputRules(
+  schema: Schema,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): InputRuleWrapper[] {
+  const ruleWithStrongAnalytics = inputRuleWithAnalytics(
+    {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRONG,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: {
+        inputMethod: INPUT_METHOD.FORMATTING,
+      },
     },
-  }));
+    editorAnalyticsAPI,
+  );
   // **string** or __strong__ should bold the text
   const doubleUnderscoreRule = createRule(
     strongRegex1,
@@ -237,16 +243,22 @@ function getStrongInputRules(schema: Schema): InputRuleWrapper[] {
  * @param {Schema} schema
  * @returns {InputRuleWrapper[]}
  */
-function getItalicInputRules(schema: Schema): InputRuleWrapper[] {
-  const ruleWithItalicAnalytics = ruleWithAnalytics(() => ({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_ITALIC,
-    eventType: EVENT_TYPE.TRACK,
-    attributes: {
-      inputMethod: INPUT_METHOD.FORMATTING,
+function getItalicInputRules(
+  schema: Schema,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): InputRuleWrapper[] {
+  const ruleWithItalicAnalytics = inputRuleWithAnalytics(
+    {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_ITALIC,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: {
+        inputMethod: INPUT_METHOD.FORMATTING,
+      },
     },
-  }));
+    editorAnalyticsAPI,
+  );
 
   const underscoreRule = createRule(
     italicRegex1,
@@ -270,16 +282,22 @@ function getItalicInputRules(schema: Schema): InputRuleWrapper[] {
  * @param {Schema} schema
  * @returns {InputRuleWrapper[]}
  */
-function getStrikeInputRules(schema: Schema): InputRuleWrapper[] {
-  const ruleWithStrikeAnalytics = ruleWithAnalytics(() => ({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRIKE,
-    eventType: EVENT_TYPE.TRACK,
-    attributes: {
-      inputMethod: INPUT_METHOD.FORMATTING,
+function getStrikeInputRules(
+  schema: Schema,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): InputRuleWrapper[] {
+  const ruleWithStrikeAnalytics = inputRuleWithAnalytics(
+    {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_STRIKE,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: {
+        inputMethod: INPUT_METHOD.FORMATTING,
+      },
     },
-  }));
+    editorAnalyticsAPI,
+  );
 
   const doubleTildeRule = createRule(
     strikeRegex,
@@ -295,16 +313,22 @@ function getStrikeInputRules(schema: Schema): InputRuleWrapper[] {
  * @param {Schema} schema
  * @returns {InputRuleWrapper[]}
  */
-function getCodeInputRules(schema: Schema): InputRuleWrapper[] {
-  const ruleWithCodeAnalytics = ruleWithAnalytics(() => ({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
-    eventType: EVENT_TYPE.TRACK,
-    attributes: {
-      inputMethod: INPUT_METHOD.FORMATTING,
+function getCodeInputRules(
+  schema: Schema,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): InputRuleWrapper[] {
+  const ruleWithCodeAnalytics = inputRuleWithAnalytics(
+    {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CODE,
+      eventType: EVENT_TYPE.TRACK,
+      attributes: {
+        inputMethod: INPUT_METHOD.FORMATTING,
+      },
     },
-  }));
+    editorAnalyticsAPI,
+  );
 
   const backTickRule = createRule(
     codeRegex,
@@ -316,24 +340,26 @@ function getCodeInputRules(schema: Schema): InputRuleWrapper[] {
 
 export function inputRulePlugin(
   schema: Schema,
-  featureFlags: FeatureFlags,
+  // Don't remove the unused featureFlags, this gets used to test if we're properly passing them to the PM plugin
+  _featureFlags: FeatureFlags,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): SafePlugin | undefined {
   const rules: Array<InputRuleWrapper> = [];
 
   if (schema.marks.strong) {
-    rules.push(...getStrongInputRules(schema));
+    rules.push(...getStrongInputRules(schema, editorAnalyticsAPI));
   }
 
   if (schema.marks.em) {
-    rules.push(...getItalicInputRules(schema));
+    rules.push(...getItalicInputRules(schema, editorAnalyticsAPI));
   }
 
   if (schema.marks.strike) {
-    rules.push(...getStrikeInputRules(schema));
+    rules.push(...getStrikeInputRules(schema, editorAnalyticsAPI));
   }
 
   if (schema.marks.code) {
-    rules.push(...getCodeInputRules(schema));
+    rules.push(...getCodeInputRules(schema, editorAnalyticsAPI));
   }
 
   if (rules.length !== 0) {

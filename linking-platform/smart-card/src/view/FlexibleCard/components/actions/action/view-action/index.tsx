@@ -1,6 +1,7 @@
 import React from 'react';
-import { ViewActionProps, ViewFunctionProps } from './types';
+import { ViewActionProps } from './types';
 import Action from '../index';
+import { openUrl } from '../../../../../../utils';
 
 const ViewAction: React.FC<ViewActionProps> = (props: ViewActionProps) => {
   const { appearance, asDropDownItem, testId, onClick, viewUrl, url } = props;
@@ -9,9 +10,7 @@ const ViewAction: React.FC<ViewActionProps> = (props: ViewActionProps) => {
     const action = {
       ...props,
       onClick: () => {
-        viewFunction({
-          url: viewUrl,
-        });
+        openUrl(viewUrl);
         if (onClick) {
           onClick();
         }
@@ -30,12 +29,5 @@ const ViewAction: React.FC<ViewActionProps> = (props: ViewActionProps) => {
     return null;
   }
 };
-
-export async function viewFunction({ url }: ViewFunctionProps) {
-  if (!url) {
-    return;
-  }
-  window.open(url, '_blank', 'noopener=yes');
-}
 
 export default ViewAction;

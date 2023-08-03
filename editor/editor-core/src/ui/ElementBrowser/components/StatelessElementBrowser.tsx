@@ -2,12 +2,12 @@
 import React, { memo, useState, useCallback, useEffect } from 'react';
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
-import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
-
+import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
+import { token } from '@atlaskit/tokens';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
   withAnalyticsContext,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
 import {
   fireAnalyticsEvent,
@@ -29,8 +29,8 @@ import {
 
 import useContainerWidth from '../hooks/use-container-width';
 import useSelectAndFocusOnArrowNavigation from '../hooks/use-select-and-focus-on-arrow-navigation';
-import { Category, Modes, SelectedItemProps } from '../types';
-import { EmptyStateHandler } from '../../../types/empty-state-handler';
+import type { Category, Modes, SelectedItemProps } from '../types';
+import type { EmptyStateHandler } from '../../../types/empty-state-handler';
 import { ViewMore } from '../ViewMore';
 
 export type StatelessElementBrowserProps = {
@@ -91,7 +91,8 @@ const baseSidebarStyles = css`
 const mobileSideBar = css`
   ${baseSidebarStyles};
   flex: 0 0 ${INLINE_SIDEBAR_HEIGHT};
-  padding: 12px 12px 0 12px;
+  padding: ${token('space.150', '12px')} ${token('space.150', '12px')} 0
+    ${token('space.150', '12px')};
 `;
 
 const mobileSideBarShowCategories = css`
@@ -158,7 +159,7 @@ const categoryListWrapper = css`
 `;
 
 function StatelessElementBrowser(props: StatelessElementBrowserProps) {
-  const { items, onSelectItem, viewMoreItem } = props;
+  const { items, onSelectItem, onInsertItem, viewMoreItem } = props;
 
   const { containerWidth, ContainerWidthMonitor } = useContainerWidth();
 
@@ -213,11 +214,12 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
       if (e.key !== 'Enter') {
         return;
       }
-      if (onSelectItem && selectedItem != null) {
-        onSelectItem(selectedItem);
+      if (onInsertItem && selectedItem != null) {
+        onInsertItem(selectedItem);
       }
+      e.preventDefault();
     },
-    [onSelectItem, selectedItem],
+    [onInsertItem, selectedItem],
   );
 
   /**
@@ -300,7 +302,6 @@ function MobileBrowser({
   return (
     <div
       css={mobileElementBrowserContainer}
-      onKeyPress={onKeyPress}
       onKeyDown={onKeyDown}
       data-testid="mobile__element-browser"
     >
@@ -314,6 +315,7 @@ function MobileBrowser({
         {showSearch && (
           <ElementSearch
             onSearch={onSearch}
+            onKeyDown={onKeyPress}
             mode={mode}
             focus={focusOnSearch}
             onClick={setFocusOnSearch}
@@ -401,16 +403,12 @@ function DesktopBrowser({
           </nav>
         </div>
       )}
-      <div
-        css={mainContent}
-        onKeyPress={onKeyPress}
-        onKeyDown={onKeyDown}
-        data-testid="main-content"
-      >
+      <div css={mainContent} onKeyDown={onKeyDown} data-testid="main-content">
         {showSearch && (
           <div css={searchContainer}>
             <ElementSearch
               onSearch={onSearch}
+              onKeyDown={onKeyPress}
               mode={mode}
               focus={focusOnSearch}
               onClick={setFocusOnSearch}

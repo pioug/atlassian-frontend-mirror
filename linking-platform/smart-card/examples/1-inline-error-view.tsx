@@ -18,7 +18,7 @@ class Example extends React.Component {
 
   render() {
     const ErroredView = getBooleanFF(
-      'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+      'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
     )
       ? RedesignedInlineCardErroredView
       : InlineCardErroredView;

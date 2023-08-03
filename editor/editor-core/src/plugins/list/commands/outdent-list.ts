@@ -1,5 +1,9 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { RestartListsAttributesForListOutdented as RestartListAttributes } from '@atlaskit/editor-common/analytics';
+import type {
+  RestartListsAttributesForListOutdented as RestartListAttributes,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
+import { getCommonListAnalyticsAttributes } from '@atlaskit/editor-common/lists';
 import type { Command } from '../../../types';
 import {
   ACTION,
@@ -8,15 +12,11 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
   OUTDENT_SCENARIOS,
-  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 import { isInsideListItem, isInsideTableCell } from '../utils/selection';
-import { isBulletList } from '../utils/node';
+import { isBulletList } from '@atlaskit/editor-common/utils';
 import { findFirstParentListNode } from '../utils/find';
-import {
-  getCommonListAnalyticsAttributes,
-  getRestartListsAttributes,
-} from '../utils/analytics';
+import { getRestartListsAttributes } from '../utils/analytics';
 import { outdentListItemsSelected as outdentListAction } from '../actions/outdent-list-items-selected';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';

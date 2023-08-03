@@ -6,6 +6,7 @@ import { useIntl } from 'react-intl-next';
 
 import { token } from '@atlaskit/tokens';
 
+import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { BasicSearchInput } from '../basic-search-input';
 import { JiraJQLEditor } from '../jql-editor';
 import { ModeSwitcher } from '../mode-switcher';
@@ -48,6 +49,7 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
   const [jql, setJql] = useState(initialJql || DEFAULT_JQL_QUERY);
   const [orderKey, setOrderKey] = useState<string | undefined>();
   const [orderDirection, setOrderDirection] = useState<string | undefined>();
+  const { fireEvent } = useDatasourceAnalyticsEvents();
 
   const onSearchModeChange = (searchMode: string) => {
     setCurrentSearchMode(searchMode);
@@ -82,6 +84,12 @@ export const JiraSearchContainer = (props: SearchContainerProps) => {
 
   const handleSearch = () => {
     onSearch({ jql });
+
+    if (currentSearchMode === basicModeValue) {
+      fireEvent('ui.form.submitted.basicSearch', {});
+    } else if (currentSearchMode === jqlModeValue) {
+      fireEvent('ui.jqlEditor.searched', {});
+    }
   };
 
   return (

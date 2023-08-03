@@ -12,23 +12,10 @@ import type {
 import {
   doc,
   p,
-  subsup,
-  strike,
-  textColor,
-  status,
-  em,
   strong,
   code,
-  emoji,
-  blockquote,
-  panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import textFormatting from '../../..';
-import blockType from '../../../../block-type';
-import textColorPlugin from '../../../../text-color';
-import statusPlugin from '../../../../status';
-import emojiPlugin from '../../../../emoji';
-import panelPlugin from '../../../../panel';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
@@ -83,87 +70,10 @@ describe('text-formatting input rules', () => {
         preset: new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
           .add(textFormatting)
-          .add(blockType)
-          .add(decorationsPlugin)
-          .add(textColorPlugin)
-          .add([statusPlugin, { menuDisabled: true }])
-          .add(emojiPlugin)
-          .add(panelPlugin),
+          .add(decorationsPlugin),
       });
     };
-    it('should preserve formatting to inner content', () => {
-      const { editorView, refs } = editor(
-        doc(
-          p(
-            textColor({ color: '#ffc400' })('{<>}This'),
-            ' ',
-            subsup({ type: 'sub' })('is '),
-            subsup({ type: 'sup' })('some '),
-            em('formatted'),
-            ' ',
-            strike('text.{nextPos}'),
-          ),
-        ),
-      );
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p(
-            textColor({ color: '#ffc400' })(`${quote}This`),
-            ' ',
-            subsup({ type: 'sub' })('is '),
-            subsup({ type: 'sup' })('some '),
-            em('formatted'),
-            ' ',
-            strike('text.'),
-          ),
-        ),
-      );
-      moveCursorToNextPos(editorView, refs, quote);
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p(
-            textColor({ color: '#ffc400' })(`${startSmartQuote}This`),
-            ' ',
-            subsup({ type: 'sub' })('is '),
-            subsup({ type: 'sup' })('some '),
-            em('formatted'),
-            ' ',
-            strike(`text.${endSmartQuote}`),
-          ),
-        ),
-      );
-    });
-    it('should preserve content when adding quotes from middle of line', () => {
-      const { editorView, refs } = editor(
-        doc(
-          p(
-            textColor({ color: '#ffc400' })('This'),
-            ' is {<>}some content.{nextPos}',
-          ),
-        ),
-      );
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p(
-            textColor({ color: '#ffc400' })('This'),
-            ` is ${quote}some content.`,
-          ),
-        ),
-      );
-      moveCursorToNextPos(editorView, refs, quote);
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p(
-            textColor({ color: '#ffc400' })('This'),
-            ` is ${startSmartQuote}some content.${endSmartQuote}`,
-          ),
-        ),
-      );
-    });
+
     it('should add smart quotes over multiline', () => {
       const longParagraph = 'Hello world. '.repeat(10);
       const { editorView, refs } = editor(
@@ -185,177 +95,7 @@ describe('text-formatting input rules', () => {
         ),
       );
     });
-    it('should add smart quotes with node at beginning/end of line', () => {
-      const { editorView, refs } = editor(
-        doc(
-          p(
-            '{<>}',
-            status({
-              text: 'Status',
-              color: 'neutral',
-              localId: '6bddf351-6c0d-4c5f-a7a9-3c3e7fb3c761',
-            }),
-            ' some content ',
-            status({
-              text: 'Status',
-              color: 'neutral',
-              localId: '6bddf351-6c0d-4c5f-a7a9-3c3e7fb3c761',
-            }),
-            '{nextPos}',
-          ),
-        ),
-      );
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p(
-            quote,
-            status({
-              text: 'Status',
-              color: 'neutral',
-              localId: '6bddf351-6c0d-4c5f-a7a9-3c3e7fb3c761',
-            }),
-            ' some content ',
-            status({
-              text: 'Status',
-              color: 'neutral',
-              localId: '6bddf351-6c0d-4c5f-a7a9-3c3e7fb3c761',
-            }),
-          ),
-        ),
-      );
-      moveCursorToNextPos(editorView, refs, quote);
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p(
-            startSmartQuote,
-            status({
-              text: 'Status',
-              color: 'neutral',
-              localId: '6bddf351-6c0d-4c5f-a7a9-3c3e7fb3c761',
-            }),
-            ' some content ',
-            status({
-              text: 'Status',
-              color: 'neutral',
-              localId: '6bddf351-6c0d-4c5f-a7a9-3c3e7fb3c761',
-            }),
-            endSmartQuote,
-          ),
-        ),
-      );
-    });
-    it('should add smart quotes with emoji at beginning/end of line', () => {
-      const { editorView, refs } = editor(
-        doc(
-          p(
-            '{<>}',
-            emoji({ shortName: ':slight_smile:', id: '1f642', text: '🙂' })(),
-            ' some content ',
-            emoji({ shortName: ':slight_smile:', id: '1f642', text: '🙂' })(),
-            '{nextPos}',
-          ),
-        ),
-      );
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p(
-            quote,
-            emoji({ shortName: ':slight_smile:', id: '1f642', text: '🙂' })(),
-            ' some content ',
-            emoji({ shortName: ':slight_smile:', id: '1f642', text: '🙂' })(),
-          ),
-        ),
-      );
-      moveCursorToNextPos(editorView, refs, quote);
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p(
-            startSmartQuote,
-            emoji({ shortName: ':slight_smile:', id: '1f642', text: '🙂' })(),
-            ' some content ',
-            emoji({ shortName: ':slight_smile:', id: '1f642', text: '🙂' })(),
-            endSmartQuote,
-          ),
-        ),
-      );
-    });
-    it('should add smart quotes inside block quote', () => {
-      const { editorView, refs } = editor(
-        doc(blockquote(p('some {<>}content inside a quote block{nextPos}'))),
-      );
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(blockquote(p(`some ${quote}content inside a quote block`))),
-      );
-      moveCursorToNextPos(editorView, refs, quote);
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          blockquote(
-            p(
-              `some ${startSmartQuote}content inside a quote block${endSmartQuote}`,
-            ),
-          ),
-        ),
-      );
-    });
-    it('should add smart quotes inside panel', () => {
-      const { editorView, refs } = editor(
-        doc(
-          panel({ panelType: 'info' })(
-            p('{<>}Some content inside a panel{nextPos}'),
-          ),
-        ),
-      );
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(panel({ panelType: 'info' })(p("'Some content inside a panel"))),
-      );
-      moveCursorToNextPos(editorView, refs, quote);
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          panel({ panelType: 'info' })(
-            p(`${startSmartQuote}Some content inside a panel${endSmartQuote}`),
-          ),
-        ),
-      );
-    });
-    it('should not add smart quotes if only a node exists in inner content', () => {
-      const { editorView, refs } = editor(
-        doc(
-          p(
-            '{<>}',
-            emoji({ shortName: ':slight_smile:', id: '1f642', text: '🙂' })(),
-            '{nextPos}',
-          ),
-        ),
-      );
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p(
-            quote,
-            emoji({ shortName: ':slight_smile:', id: '1f642', text: '🙂' })(),
-          ),
-        ),
-      );
-      moveCursorToNextPos(editorView, refs, quote);
-      typeText(editorView, quote);
-      expect(editorView.state.doc).toEqualDocument(
-        doc(
-          p(
-            quote,
-            emoji({ shortName: ':slight_smile:', id: '1f642', text: '🙂' })(),
-            quote,
-          ),
-        ),
-      );
-    });
+
     it('should not add smart quotes if empty space in inner content', () => {
       const { editorView } = editor(doc(p('{<>}')));
       typeText(editorView, "' '");

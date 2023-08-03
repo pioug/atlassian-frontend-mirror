@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.32.0
+
+### Minor Changes
+
+- [`bfe11404834`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bfe11404834) - Adds Analytics support for datasource.
+
 ## 0.31.3
 
 ### Patch Changes

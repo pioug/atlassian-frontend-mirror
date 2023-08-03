@@ -3,12 +3,7 @@ import type { DatasourceModalType } from '@atlaskit/editor-common/types';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { SmartLinkEvents } from '@atlaskit/smart-card';
 
-import {
-  CardInfo,
-  CardPluginAction,
-  Request,
-  SmartLinkEventsNext,
-} from '../types';
+import { CardInfo, CardPluginAction, Request } from '../types';
 import { DatasourceTableLayout } from '../ui/LayoutButton/types';
 
 import { pluginKey } from './plugin-key';
@@ -42,13 +37,6 @@ export const registerSmartCardEvents =
   (smartLinkEvents: SmartLinkEvents) => (tr: Transaction) =>
     cardAction(tr, {
       type: 'REGISTER_EVENTS',
-      smartLinkEvents,
-    });
-
-export const registerSmartCardEventsNext =
-  (smartLinkEvents: SmartLinkEventsNext) => (tr: Transaction) =>
-    cardAction(tr, {
-      type: 'REGISTER_EVENTS_NEXT',
       smartLinkEvents,
     });
 

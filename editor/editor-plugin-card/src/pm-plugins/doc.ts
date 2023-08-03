@@ -641,6 +641,9 @@ export const updateExistingDatasource = (
         ...node.attrs,
         ...newAdf.attrs,
       });
+      addLinkMetadata(state.selection, tr, {
+        action: ACTION.UPDATED,
+      });
     }
   } else if (newAdf.type === 'inlineCard') {
     // datasource to inline

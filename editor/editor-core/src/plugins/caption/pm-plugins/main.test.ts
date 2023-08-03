@@ -1,20 +1,21 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import mediaPlugin from '../../media';
-import floatingToolbarPlugin from '../../floating-toolbar';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import floatingToolbarPlugin from '../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import captionPlugin from '../';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   caption,
   doc,
   media,
   mediaSingle,
   p,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { pluginKey } from './plugin-key';
 import { setTextSelection } from '../../../utils/selection';
@@ -39,6 +40,7 @@ describe('Caption plugin', () => {
         .add(decorationsPlugin)
         .add(editorDisabledPlugin)
         .add(widthPlugin)
+        .add(guidelinePlugin)
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
         .add([

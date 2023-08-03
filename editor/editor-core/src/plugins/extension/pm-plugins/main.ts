@@ -1,5 +1,13 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import {
+  TextSelection,
+  NodeSelection,
+} from '@atlaskit/editor-prosemirror/state';
+import {
+  findParentNodeOfTypeClosestToPos,
+  findSelectedNodeOfType,
+} from '@atlaskit/editor-prosemirror/utils';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
   ExtensionHandlers,
@@ -9,9 +17,14 @@ import type {
   ExtensionHandler,
 } from '@atlaskit/editor-common/extensions';
 
+import {
+  isSelectionAtStartOfNode,
+  isSelectionAtEndOfNode,
+} from '@atlaskit/editor-common/selection';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import type { EditorAppearance } from '../../../types/editor-appearance';
 import type {
   Dispatch,
@@ -31,7 +44,6 @@ import {
 import { pluginKey } from '../plugin-key';
 import { updateEditButton } from './utils';
 import type extensionPlugin from '../index';
-import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 
 const shouldShowEditButton = (
   extensionHandler?: Extension | ExtensionHandler,
@@ -261,6 +273,84 @@ const createPlugin = (
     },
     key: pluginKey,
     props: {
+      handleDOMEvents: {
+        /**
+         * ED-18072 - Cannot shift + arrow past bodied extension if it is not empty.
+         * This code is to handle the case where the selection starts inside or on the node and the user is trying to shift + arrow.
+         * For other part of the solution see code in: packages/editor/editor-core/src/plugins/selection/pm-plugins/events/keydown.ts
+         */
+        keydown: (view, event) => {
+          if (
+            event instanceof KeyboardEvent &&
+            event.shiftKey &&
+            ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(
+              event.key,
+            )
+          ) {
+            const {
+              schema,
+              selection,
+              selection: { $head },
+              doc,
+              tr,
+            } = view.state;
+            const { bodiedExtension } = schema.nodes;
+
+            if (
+              selection instanceof TextSelection ||
+              selection instanceof NodeSelection
+            ) {
+              const maybeBodiedExtension =
+                selection instanceof TextSelection
+                  ? findParentNodeOfTypeClosestToPos($head, bodiedExtension)
+                  : findSelectedNodeOfType(bodiedExtension)(selection);
+
+              if (maybeBodiedExtension) {
+                const end =
+                  maybeBodiedExtension.pos + maybeBodiedExtension.node.nodeSize;
+
+                if (
+                  event.key === 'ArrowUp' ||
+                  (event.key === 'ArrowLeft' &&
+                    isSelectionAtStartOfNode($head, maybeBodiedExtension))
+                ) {
+                  const anchor = end + 1;
+
+                  // an offset is used here so that left arrow selects the first character before the node (consistent with arrow right)
+                  const headOffset = event.key === 'ArrowLeft' ? -1 : 0;
+                  const head = maybeBodiedExtension.pos + headOffset;
+
+                  const newSelection = TextSelection.create(
+                    doc,
+                    Math.max(anchor, selection.anchor),
+                    head,
+                  );
+                  view.dispatch(tr.setSelection(newSelection));
+                  return true;
+                }
+
+                if (
+                  event.key === 'ArrowDown' ||
+                  (event.key === 'ArrowRight' &&
+                    isSelectionAtEndOfNode($head, maybeBodiedExtension))
+                ) {
+                  const anchor = maybeBodiedExtension.pos - 1;
+                  const head = end + 1;
+
+                  const newSelection = TextSelection.create(
+                    doc,
+                    Math.min(anchor, selection.anchor),
+                    head,
+                  );
+                  view.dispatch(tr.setSelection(newSelection));
+                  return true;
+                }
+              }
+            }
+          }
+          return false;
+        },
+      },
       nodeViews: {
         // WARNING: referentiality-plugin also creates these nodeviews
         extension: ExtensionNodeView(

@@ -5,6 +5,7 @@ import {
   findParentNodeOfType,
   removeParentNodeOfType,
   removeSelectedNode,
+  findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { MediaPluginState } from '../pm-plugins/types';
 
@@ -52,4 +53,13 @@ export const removeMediaGroupNode = (state: EditorState) => {
     tr = removeSelectedNode(tr);
   }
   return tr;
+};
+
+export const getSelectedMediaSingle = (state: EditorState) => {
+  const { mediaSingle } = state.schema.nodes;
+
+  return (
+    findSelectedNodeOfType(mediaSingle)(state.selection) ||
+    findParentNodeOfType(mediaSingle)(state.selection)
+  );
 };

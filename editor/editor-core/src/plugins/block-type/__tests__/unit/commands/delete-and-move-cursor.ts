@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   ul,
@@ -10,11 +11,10 @@ import {
   td,
   layoutSection,
   layoutColumn,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
@@ -25,11 +25,10 @@ import layoutPlugin from '../../../../layout';
 import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
-
 import editorDisabledPlugin from '../../../../editor-disabled';
-import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';

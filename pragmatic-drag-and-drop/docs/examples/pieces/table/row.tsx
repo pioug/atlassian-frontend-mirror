@@ -76,6 +76,7 @@ export const Row = memo(function Row({
   amountOfRows: number;
 }) {
   const ref = useRef<HTMLTableRowElement | null>(null);
+  const dragHandleRef = useRef<HTMLButtonElement>(null);
   const { register } = useContext(TableContext);
   const [state, setState] = useState<State>({ type: 'idle' });
 
@@ -90,9 +91,12 @@ export const Row = memo(function Row({
   useEffect(() => {
     const element = ref.current;
     invariant(element);
+    const dragHandle = dragHandleRef.current;
+    invariant(dragHandle);
     return combine(
       draggable({
         element,
+        dragHandle,
         getInitialData() {
           return { type: 'item-row', item, index };
         },
@@ -158,26 +162,46 @@ export const Row = memo(function Row({
         },
       }),
     );
-  }, [item, index]);
+    /**
+     * Using `properties` as a dependency to ensure that the `draggable()` call
+     * is rerun when the column order changes. This is because the `dragHandle`
+     * value will change when the column order changes.
+     *
+     * If we do not rerun the `draggable()` call then dragging will not work
+     * because the `dragHandle` reference will be stale.
+     *
+     * This could be avoided by making a separate cell component that takes a
+     * prop such as `shouldRenderDragHandle`. Then you could call the
+     * `draggable` setup in the cell, using `shouldRenderDragHandle` as a
+     * dependency.
+     *
+     * Using the cell-based approach could be preferable if you have stricter
+     * performance needs, and would allow for optimizations such as memoization.
+     */
+  }, [item, index, properties]);
 
   return (
     <Fragment>
       <tr draggable ref={ref} css={rowStyles}>
         {properties.map((property, columnIndex) => (
           <td key={property} css={textOverflowStyles}>
+            {
+              /**
+               * Rendering this in only the first column of each row
+               */
+              columnIndex === 0 && (
+                <RowMenuButton
+                  ref={dragHandleRef}
+                  rowIndex={index}
+                  amountOfRows={amountOfRows}
+                />
+              )
+            }
+
             {getField({ item, property })}
             {state.type === 'is-over' && state.closestEdge ? (
               <DropIndicator edge={state.closestEdge} />
             ) : null}
-
-            {
-              /**
-               * Rendering this in only the last column of each row
-               */
-              columnIndex === properties.length - 1 && (
-                <RowMenuButton rowIndex={index} amountOfRows={amountOfRows} />
-              )
-            }
           </td>
         ))}
       </tr>

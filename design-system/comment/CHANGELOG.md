@@ -1,5 +1,11 @@
 # @atlaskit/comment
 
+## 10.8.15
+
+### Patch Changes
+
+- [`89f8aa330d4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/89f8aa330d4) - Accessibility changes. Now an author is an `h3` element.
+
 ## 10.8.14
 
 ### Patch Changes

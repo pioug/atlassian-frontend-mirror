@@ -53,6 +53,7 @@ import codeBlockPlugin from '../../../code-block';
 import blockTypePlugin from '../../../block-type';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import panelPlugin from '../../../panel';
 import editorDisabledPlugin from '../../../editor-disabled';
@@ -83,6 +84,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
   .add([codeBlockPlugin, { appearance: 'full-page' }])
   .add(blockTypePlugin)
   .add(widthPlugin)
+  .add(guidelinePlugin)
   .add(gridPlugin)
   .add(floatingToolbarPlugin)
   .add(editorDisabledPlugin)

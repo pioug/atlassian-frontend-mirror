@@ -2010,6 +2010,7 @@ describe('handlePasteIntoCaption', () => {
         .add(captionPlugin)
         .add(widthPlugin)
         .add(gridPlugin)
+        .add(guidelinePlugin)
         .add(floatingToolbarPlugin)
         .add([
           mediaPlugin,

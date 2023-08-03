@@ -3,6 +3,7 @@ import {
   akEditorTableNumberColumnWidth,
   akEditorDefaultLayoutWidth,
   akEditorTableLegacyCellMinWidth as tableCellMinWidth,
+  akEditorTableCellMinWidth,
 } from '@atlaskit/editor-shared-styles';
 import { TableLayout } from '@atlaskit/adf-schema';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
@@ -185,6 +186,68 @@ describe('Renderer - React/Nodes/Table', () => {
           );
         }
       });
+    });
+
+    describe('should have the correct width for numbered column when no columnWidths', () => {
+      ffTest(
+        'platform.editor.custom-table-width',
+        () => {
+          const table = mountWithIntl(
+            <Table
+              layout="default"
+              columnWidths={[0, 0]}
+              isNumberColumnEnabled={true}
+              renderWidth={renderWidth}
+              rendererAppearance="full-page"
+            >
+              <TableRow>
+                <TableCell />
+                <TableCell />
+              </TableRow>
+              <TableRow>
+                <TableCell />
+                <TableCell />
+              </TableRow>
+            </Table>,
+          );
+
+          expect(table.find('col')).toHaveLength(3);
+
+          table.find('col').forEach((col, index) => {
+            if (index === 0) {
+              expect(col.prop('style')!.width).toEqual(
+                akEditorTableNumberColumnWidth,
+              );
+            } else {
+              expect(col.prop('style')!.minWidth).toEqual(
+                `${akEditorTableCellMinWidth}px`,
+              );
+            }
+          });
+        },
+        () => {
+          const table = mountWithIntl(
+            <Table
+              layout="default"
+              columnWidths={[0, 0]}
+              isNumberColumnEnabled={true}
+              renderWidth={renderWidth}
+              rendererAppearance="full-page"
+            >
+              <TableRow>
+                <TableCell />
+                <TableCell />
+              </TableRow>
+              <TableRow>
+                <TableCell />
+                <TableCell />
+              </TableRow>
+            </Table>,
+          );
+
+          expect(table.find('col')).toHaveLength(0);
+        },
+      );
     });
   });
 

@@ -27,7 +27,6 @@ import { isMediaNode } from '@atlaskit/editor-common/utils';
 export { insideTable } from '@atlaskit/editor-common/core-utils';
 
 export {
-  hasVisibleContent,
   isNodeEmpty,
   findFarthestParentNode,
   isSelectionEndOfParagraph,

@@ -2,9 +2,9 @@ import { CSSObject } from '@emotion/react';
 
 import {
   B100,
+  B200,
   B400,
   B50,
-  B75,
   DN600,
   N0,
   N200,
@@ -41,8 +41,8 @@ const selectedBackground = {
   dark: token('color.background.selected', N0),
 };
 const borderColorFocused = {
-  light: token('color.border.focused', B100),
-  dark: token('color.border.focused', B75),
+  light: token('color.border.focused', B200),
+  dark: token('color.border.focused', B100),
 };
 
 export const dateCellStyles = (mode: ThemeModes = 'light'): CSSObject => ({

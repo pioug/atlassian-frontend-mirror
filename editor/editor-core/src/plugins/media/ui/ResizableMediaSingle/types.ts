@@ -21,5 +21,6 @@ export type Props = MediaSingleProps & {
   viewMediaClientConfig?: MediaClientConfig;
   fullWidthMode?: boolean;
   dispatchAnalyticsEvent: DispatchAnalyticsEvent;
+  mediaSingleWidth?: number;
   pluginInjectionApi: ExtractInjectionAPI<typeof mediaPlugin> | undefined;
 };

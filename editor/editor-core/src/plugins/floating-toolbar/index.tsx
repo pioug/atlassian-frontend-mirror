@@ -52,10 +52,12 @@ import { processCopyButtonItems } from '../copy-button/toolbar';
 import forceFocusPlugin, { forceFocusSelector } from './pm-plugins/force-focus';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
 
-export type FloatingToolbarPluginState = Record<
-  'getConfigWithNodeInfo',
-  (state: EditorState) => ConfigWithNodeInfo | null | undefined
->;
+export type FloatingToolbarPluginState = {
+  getConfigWithNodeInfo: (
+    state: EditorState,
+  ) => ConfigWithNodeInfo | null | undefined;
+};
+
 export type ConfigWithNodeInfo = {
   config: FloatingToolbarConfig | undefined;
   pos: number;
@@ -411,8 +413,11 @@ function floatingToolbarPluginFactory(options: {
     return relevantConfig;
   };
 
-  const apply = (tr: ReadonlyTransaction, pluginState: any) => {
-    const newPluginState = { getConfigWithNodeInfo };
+  const apply = (
+    tr: ReadonlyTransaction,
+    pluginState: FloatingToolbarPluginState,
+  ) => {
+    const newPluginState: FloatingToolbarPluginState = { ...pluginState };
     dispatch(pluginKey, newPluginState);
     return newPluginState;
   };

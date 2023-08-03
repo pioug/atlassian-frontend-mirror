@@ -1,13 +1,12 @@
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import { ruleWithAnalytics } from '../../../utils/input-rules';
 import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
 
 import type {
   InputRuleWrapper,
   InputRuleHandler,
 } from '@atlaskit/prosemirror-input-rules';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -16,6 +15,7 @@ import {
   PUNC,
   SYMBOL,
 } from '@atlaskit/editor-common/analytics';
+import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
 
 /**
  * Creates an InputRuleHandler that will match on a regular expression of the
@@ -113,18 +113,23 @@ function createSingleQuotesRules(): Array<InputRuleWrapper> {
 /**
  * Get replacement rules related to product
  */
-function getProductRules(): Array<InputRuleWrapper> {
+function getProductRules(
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+): Array<InputRuleWrapper> {
   const productRuleWithAnalytics = (product: string) =>
-    ruleWithAnalytics((_state, match) => ({
-      action: ACTION.SUBSTITUTED,
-      actionSubject: ACTION_SUBJECT.TEXT,
-      actionSubjectId: ACTION_SUBJECT_ID.PRODUCT_NAME,
-      eventType: EVENT_TYPE.TRACK,
-      attributes: {
-        product,
-        originalSpelling: match[2],
-      },
-    }));
+    inputRuleWithAnalytics(
+      (_, match) => ({
+        action: ACTION.SUBSTITUTED,
+        actionSubject: ACTION_SUBJECT.TEXT,
+        actionSubjectId: ACTION_SUBJECT_ID.PRODUCT_NAME,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          product,
+          originalSpelling: match[2],
+        },
+      }),
+      editorAnalyticsAPI,
+    );
 
   return createReplacementRules(
     {
@@ -141,7 +146,7 @@ function getProductRules(): Array<InputRuleWrapper> {
 /**
  * Get replacement rules related to symbol
  */
-function getSymbolRules() {
+function getSymbolRules(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) {
   const symbolToString: {
     [s: string]: SYMBOL.ARROW_RIGHT | SYMBOL.ARROW_LEFT | SYMBOL.ARROW_DOUBLE;
   } = {
@@ -149,16 +154,20 @@ function getSymbolRules() {
     '←': SYMBOL.ARROW_LEFT,
     '↔︎': SYMBOL.ARROW_DOUBLE,
   };
+
   const symbolRuleWithAnalytics = (symbol: string) =>
-    ruleWithAnalytics(() => ({
-      action: ACTION.SUBSTITUTED,
-      actionSubject: ACTION_SUBJECT.TEXT,
-      actionSubjectId: ACTION_SUBJECT_ID.SYMBOL,
-      eventType: EVENT_TYPE.TRACK,
-      attributes: {
-        symbol: symbolToString[symbol],
+    inputRuleWithAnalytics(
+      {
+        action: ACTION.SUBSTITUTED,
+        actionSubject: ACTION_SUBJECT.TEXT,
+        actionSubjectId: ACTION_SUBJECT_ID.SYMBOL,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          symbol: symbolToString[symbol],
+        },
       },
-    }));
+      editorAnalyticsAPI,
+    );
 
   return createReplacementRules(
     {
@@ -173,7 +182,9 @@ function getSymbolRules() {
 /**
  * Get replacement rules related to punctuation
  */
-function getPunctuationRules() {
+function getPunctuationRules(
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+) {
   const punctuationToString: {
     [s: string]:
       | PUNC.DASH
@@ -183,20 +194,24 @@ function getPunctuationRules() {
   } = {
     '–': PUNC.DASH,
     '…': PUNC.ELLIPSIS,
-    '“': PUNC.QUOTE_DOUBLE,
+
     '”': PUNC.QUOTE_DOUBLE,
     [PUNC.QUOTE_SINGLE]: PUNC.QUOTE_SINGLE,
   };
+
   const punctuationRuleWithAnalytics = (punctuation: string) =>
-    ruleWithAnalytics(() => ({
-      action: ACTION.SUBSTITUTED,
-      actionSubject: ACTION_SUBJECT.TEXT,
-      actionSubjectId: ACTION_SUBJECT_ID.PUNC,
-      eventType: EVENT_TYPE.TRACK,
-      attributes: {
-        punctuation: punctuationToString[punctuation],
+    inputRuleWithAnalytics(
+      {
+        action: ACTION.SUBSTITUTED,
+        actionSubject: ACTION_SUBJECT.TEXT,
+        actionSubjectId: ACTION_SUBJECT_ID.PUNC,
+        eventType: EVENT_TYPE.TRACK,
+        attributes: {
+          punctuation: punctuationToString[punctuation],
+        },
       },
-    }));
+      editorAnalyticsAPI,
+    );
 
   const dashEllipsisRules = createReplacementRules(
     {
@@ -225,9 +240,9 @@ function getPunctuationRules() {
   ];
 }
 
-export default (featureFlags: FeatureFlags) =>
+export default (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   createPlugin('text-formatting:smart-input', [
-    ...getProductRules(),
-    ...getSymbolRules(),
-    ...getPunctuationRules(),
+    ...getProductRules(editorAnalyticsAPI),
+    ...getSymbolRules(editorAnalyticsAPI),
+    ...getPunctuationRules(editorAnalyticsAPI),
   ]);

@@ -152,7 +152,7 @@ const rule = createLintRule({
   meta: {
     name: 'consistent-css-prop-usage',
     docs: {
-      description: 'Ensures consistency with CSS and xCSS prop usages',
+      description: 'Ensures consistency with CSS and xcss prop usages',
       url: 'https://developer.atlassian.com/cloud/framework/atlassian-frontend/development/styling',
       recommended: true,
       severity: 'error',

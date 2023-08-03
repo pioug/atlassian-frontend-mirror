@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.0.9
+
+### Patch Changes
+
+- [`1859bc0b8c7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1859bc0b8c7) - Update the casing on `xcss` to ensure consistency with the API and package consumption.
+
 ## 1.0.8
 
 ### Patch Changes
@@ -96,7 +102,7 @@
 
 ### Patch Changes
 
-- [`4c026f170d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c026f170d6) - Remove warnings for non-token values passed to xCSS in non-development environments.
+- [`4c026f170d6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c026f170d6) - Remove warnings for non-token values passed to xcss in non-development environments.
 
 ## 0.14.2
 
@@ -173,7 +179,7 @@
 
 ### Minor Changes
 
-- [`8bd6dc6027f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bd6dc6027f) - Box backgroundColor prop now accepts full token names, abbreviated forms will no longer work. xCSS now accepts full token names, abbreviated forms will no longer work.
+- [`8bd6dc6027f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8bd6dc6027f) - Box backgroundColor prop now accepts full token names, abbreviated forms will no longer work. xcss now accepts full token names, abbreviated forms will no longer work.
 
 ## 0.10.1
 
@@ -186,7 +192,7 @@
 
 ### Minor Changes
 
-- [`313d71fce9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/313d71fce9c) - Allow media queries at predefined breakpoints to be applied through xCSS.
+- [`313d71fce9c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/313d71fce9c) - Allow media queries at predefined breakpoints to be applied through xcss.
 
 ## 0.9.5
 

@@ -1,11 +1,13 @@
-import { insertContentDeleteRange } from '../../../../utils/commands';
+import {
+  insertContentDeleteRange,
+  isListNode,
+} from '@atlaskit/editor-common/utils';
 import type {
   ResolvedPos,
   Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { isListNode } from '../../utils/node';
 
 type DeleteAction = (props: {
   tr: Transaction;

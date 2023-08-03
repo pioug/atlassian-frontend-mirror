@@ -15,12 +15,12 @@ import {
   TableEventPayload,
 } from '@atlaskit/editor-common/analytics';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
   HandleHeightSizeType,
   HandleResize,
   ResizerNext,
 } from '@atlaskit/editor-common/resizer';
-import type { GuidelineConfig } from '@atlaskit/editor-plugin-guideline';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';

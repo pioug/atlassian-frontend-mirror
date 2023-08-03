@@ -43,6 +43,7 @@ import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { ReactMediaNode } from './nodeviews/mediaNodeView';
 import { ReactMediaInlineNode } from './nodeviews/mediaInline';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import type { widthPlugin } from '@atlaskit/editor-plugin-width';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -62,6 +63,7 @@ const mediaPlugin: NextEditorPlugin<
     dependencies: [
       typeof featureFlagsPlugin,
       OptionalPlugin<typeof analyticsPlugin>,
+      typeof guidelinePlugin,
       typeof gridPlugin,
       typeof widthPlugin,
       typeof decorationsPlugin,

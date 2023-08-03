@@ -1,5 +1,42 @@
 # @atlaskit/editor-core
 
+## 187.9.2
+
+### Patch Changes
+
+- [`6190030df97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6190030df97) - Migrate `emoji` plugin to the new Analytics API
+- [`78068814a36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/78068814a36) - [ux] Fix user selection via arrow keys getting stuck inside nested body macro if it's not empty or cannot shift + arrow into the macro
+
+## 187.9.0
+
+### Minor Changes
+
+- [`936c30f8dc9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/936c30f8dc9) - support new image resize experience under feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.8.13
+
+### Patch Changes
+
+- [`0756bf2b120`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0756bf2b120) - [ux] ED-18780 Add first element to page when pressing enter on Insert Menu
+
+## 187.8.11
+
+### Patch Changes
+
+- [`2b54c3b0d24`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2b54c3b0d24) - [ED-19203] Decouple text-formatting plugin and editor-core
+- Updated dependencies
+
+## 187.8.10
+
+### Patch Changes
+
+- [`d8c1bcdc71a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d8c1bcdc71a) - ED-19217 decoupled lists related util functions from editor-core
+- Updated dependencies
+
 ## 187.8.7
 
 ### Patch Changes

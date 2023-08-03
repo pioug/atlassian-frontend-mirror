@@ -55,8 +55,6 @@ import EditorContext from '../../../../ui/EditorContext';
 import EditorActions from '../../../../actions';
 import type { EditorProps } from '../../../../types';
 import { createDispatch } from '../../../../event-dispatcher';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { getPluginState } from '../../../../../../editor-plugin-card/src/pm-plugins/util/state';
 
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as any;
@@ -299,27 +297,6 @@ describe('Analytics key events', () => {
       redo,
     };
   };
-
-  it('should lifecycle callbacks to card plugin state', async () => {
-    const { editorView } = await setup({
-      editorProps: (props) => ({
-        ...props,
-        featureFlags: {
-          ...props.featureFlags,
-          'lp-analytics-events-next': true,
-        },
-      }),
-    });
-
-    const cardPluginState = getPluginState(editorView.state);
-
-    expect(cardPluginState?.smartLinkEventsNext).toStrictEqual({
-      created: expect.any(Function),
-      updated: expect.any(Function),
-      deleted: expect.any(Function),
-    });
-    expect(useSmartLinkLifecycleAnalytics).toHaveBeenCalledTimes(1);
-  });
 
   describe('document inserted smartLink', () => {
     it('should fire `document inserted smartLink` when pasting a smart link', async () => {
@@ -2212,10 +2189,8 @@ describe('Analytics key events', () => {
       });
 
     it('does not bind lifecycle callbacks to card plugin state', async () => {
-      const { editorView } = await setupWithoutFF();
-      const cardPluginState = getPluginState(editorView.state);
+      await setupWithoutFF();
 
-      expect(cardPluginState?.smartLinkEventsNext).toBeUndefined();
       expect(useSmartLinkLifecycleAnalytics).toHaveBeenCalledTimes(0);
     });
 

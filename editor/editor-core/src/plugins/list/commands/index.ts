@@ -12,15 +12,18 @@ import {
   findPositionOfNodeBefore,
   hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import { hasVisibleContent } from '../../../utils/document';
-import {
-  findCutBefore,
-  isEmptySelectionAtStart,
-  isFirstChildOfParent,
-} from '../../../utils/commands';
-import { filterCommands as filter } from '@atlaskit/editor-common/utils';
 
+import {
+  filterCommand as filter,
+  hasVisibleContent,
+  isEmptySelectionAtStart,
+} from '@atlaskit/editor-common/utils';
+
+import { isFirstChildOfParent, findCutBefore } from '../../../utils/commands';
 import { sanitiseMarksInSelection } from '../../../utils';
+
+import { getCommonListAnalyticsAttributes } from '@atlaskit/editor-common/lists';
+
 import {
   liftFollowingList,
   liftTextSelectionList,
@@ -28,27 +31,26 @@ import {
 } from '../transforms';
 import type { Command } from '../../../types';
 import { GapCursorSelection } from '../../selection/gap-cursor-selection';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 import {
   isInsideListItem,
   canJoinToPreviousListItem,
   selectionContainsList,
 } from '../utils/selection';
-import { getCommonListAnalyticsAttributes } from '../utils/analytics';
 import { listBackspace } from './listBackspace';
 import { joinListItemForward } from './join-list-item-forward';
 import { convertListType } from '../actions/conversions';
 import { wrapInListAndJoin } from '../actions/wrap-and-join-lists';
 import { outdentList } from './outdent-list';
 import { indentList } from './indent-list';
-import { moveTargetIntoList } from '../utils/replace-content';
+import { moveTargetIntoList } from '@atlaskit/editor-common/lists';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export { outdentList, indentList };

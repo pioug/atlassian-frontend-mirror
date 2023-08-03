@@ -23,7 +23,6 @@ import type {
   MediaProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import { ErrorReporter, browser } from '@atlaskit/editor-common/utils';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import assert from 'assert';
 import {
@@ -68,6 +67,7 @@ import { CAPTION_PLACEHOLDER_ID } from '../ui/CaptionPlaceholder';
 import type { IntlShape } from 'react-intl-next';
 import { RawIntlProvider } from 'react-intl-next';
 import { MediaTaskManager } from './mediaTaskManager';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type mediaPlugin from '../index';
 

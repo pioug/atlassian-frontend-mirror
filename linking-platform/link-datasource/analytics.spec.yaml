@@ -1,0 +1,89 @@
+common:
+  source: linkDatasource
+  product: media
+
+context:
+  PackageMetaData: &PackageMetaDataContext
+    packageName:
+      type: ["@atlaskit/link-datasource"]
+      description: name of the package the event was fired from.
+    packageVersion:
+      type: string
+      description: version of the package the event was fired from.
+  AnalyticsContext: &AnalyticsContext
+    source:
+      type: ["datasourceConfigModal", "datasourceConfluenceEditor"]
+      description: The source where the event is fired from.
+  AnalyticsContextAttributes: &AnalyticsContextAttributes
+    dataProvider:
+      type: ["jira-issues"]
+      description: Data provider that the configuration modal supports.
+
+events:
+  # actionSubject action (actionSubjectId)
+  - datasourceModalDialog viewed:
+      type: screen
+      description: Fires when user sees modal dialog.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+  - modal ready (datasource):
+      type: ui
+      description: Fires when the datasource modal is ready for searching and displaying search results.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+        instancesCount:
+          type: "number"
+          description: The number of instances sites (instances) of this user connected to.
+  - jqlEditor searched:
+      type: ui
+      description: Fires when search is initiated via the search icon or enter key press for jql editor input field.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+  - form submitted (basicSearch):
+      type: ui
+      description: Fires when search is initiated via the search icon or enter key press from the basic input textfield.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+  - emptyResult shown (datasource):
+      type: ui
+      description: Fires when datasource results are empty.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+  - error shown:
+      type: ui
+      description: Fires when datasource errors state is shown.
+      attributes:
+        <<:
+          [
+            *PackageMetaDataContext,
+            *AnalyticsContext,
+            *AnalyticsContextAttributes,
+          ]
+        reason:
+          type: ["network", "access"]
+          description: The reason why datasource was not able to render.

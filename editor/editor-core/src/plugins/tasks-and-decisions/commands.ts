@@ -41,7 +41,7 @@ import type {
   TaskDecisionListType,
 } from './types';
 
-import { autoJoinTr } from '../../utils/prosemirror/autojoin';
+import { autoJoinTr } from '@atlaskit/editor-common/utils';
 
 const getContextData = (
   contextProvider: ContextIdentifierProvider = {} as ContextIdentifierProvider,

@@ -13,7 +13,7 @@ import {
   doc,
   code_block,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { normalizeListItemsSelection } from '../../../utils/selection';
+import { normalizeListItemsSelection } from '@atlaskit/editor-common/lists';
 
 type DocumentType = DocBuilder;
 function createRefsDocNode(documentNode: DocumentType): RefsNode {

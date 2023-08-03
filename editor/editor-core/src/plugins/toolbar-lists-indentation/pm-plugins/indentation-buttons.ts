@@ -5,10 +5,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 import type { Dispatch } from '../../../event-dispatcher';
 
-import {
-  getListItemAttributes,
-  isInsideListItem,
-} from '../../list/utils/selection';
+import { isInsideListItem } from '../../list/utils/selection';
 import {
   getCurrentIndentLevel as getTaskListIndentLevel,
   getTaskItemIndex,
@@ -18,6 +15,8 @@ import {
   isIndentationAllowed,
   MAX_INDENTATION_LEVEL,
 } from '../../indentation/commands';
+
+import { getListItemAttributes } from '@atlaskit/editor-common/lists';
 
 export interface IndentationButtons {
   indentDisabled: boolean;

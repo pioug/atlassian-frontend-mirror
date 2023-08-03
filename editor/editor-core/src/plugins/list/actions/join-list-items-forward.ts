@@ -1,8 +1,12 @@
-import type { WalkNode } from '../../../utils/commands';
+import type { WalkNode } from '@atlaskit/editor-common/utils';
 import { LIST_TEXT_SCENARIOS } from '../../analytics';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { isParagraphNode, isListNode, isListItemNode } from '../utils/node';
+import {
+  isParagraphNode,
+  isListNode,
+  isListItemNode,
+} from '@atlaskit/editor-common/utils';
 import { isPosInsideList, isPosInsideParagraph } from '../utils/selection';
 import {
   joinParagrapWithList,

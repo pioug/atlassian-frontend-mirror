@@ -6,7 +6,6 @@ import {
   Queue,
   Register,
   RegisterSmartCardEvents,
-  RegisterSmartCardEventsNext,
   Request,
   Resolve,
   SetCardLayout,
@@ -81,13 +80,6 @@ const registerEvents = (
   return { ...state, smartLinkEvents: action.smartLinkEvents };
 };
 
-const registerEventsNext = (
-  state: CardPluginState,
-  action: RegisterSmartCardEventsNext,
-) => {
-  return { ...state, smartLinkEventsNext: action.smartLinkEvents };
-};
-
 const setLinkToolbar = (
   state: CardPluginState,
   action: ShowLinkToolbar | HideLinkToolbar,
@@ -133,8 +125,6 @@ export default (
       return register(state, action);
     case 'REGISTER_EVENTS':
       return registerEvents(state, action);
-    case 'REGISTER_EVENTS_NEXT':
-      return registerEventsNext(state, action);
     case 'SET_DATASOURCE_TABLE_REF':
       return setDatasourceTableRef(state, action);
     case 'SET_CARD_LAYOUT':

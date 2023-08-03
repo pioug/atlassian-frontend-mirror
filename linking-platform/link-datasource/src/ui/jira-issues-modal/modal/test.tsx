@@ -3,6 +3,7 @@ import React from 'react';
 import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { mockSiteData } from '@atlaskit/link-test-helpers/datasource';
@@ -10,6 +11,7 @@ import { asMock } from '@atlaskit/link-test-helpers/jest';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
 
 import SmartLinkClient from '../../../../examples-helpers/smartLinkCustomClient';
+import { EVENT_CHANNEL } from '../../../analytics';
 import {
   DatasourceTableState,
   useDatasourceTableState,
@@ -45,39 +47,161 @@ jest.mock('../../issue-like-table', () => ({
 
 mockSimpleIntersectionObserver(); // for smart link rendering
 
+const getDefaultParameters: () => JiraIssueDatasourceParameters = () => ({
+  cloudId: '67899',
+  jql: 'some-query',
+});
+
+const getDefaultHookState: () => DatasourceTableState = () => ({
+  reset: jest.fn(),
+  status: 'resolved',
+  onNextPage: jest.fn(),
+  loadDatasourceDetails: jest.fn(),
+  hasNextPage: false,
+  responseItems: [
+    {
+      myColumn: { data: 'some-value' },
+      otherColumn: { data: 'other-column-value' },
+      myId: { data: 'some-id1' },
+    },
+    {
+      myColumn: { data: 'other-value' },
+      otherColumn: { data: 'other-column-other-value' },
+      myId: { data: 'some-id2' },
+    },
+  ],
+  columns: [
+    { key: 'myColumn', title: 'My Column', type: 'string' },
+    { key: 'otherColumn', title: 'My Other Column', type: 'string' },
+    { key: 'myId', title: 'ID', type: 'string', isIdentity: true },
+  ],
+  defaultVisibleColumnKeys: ['myColumn', 'otherColumn'],
+  totalCount: 3,
+});
+
+const getErrorHookState: () => DatasourceTableState = () => ({
+  columns: [],
+  status: 'rejected',
+  responseItems: [],
+  hasNextPage: true,
+  defaultVisibleColumnKeys: [],
+  onNextPage: jest.fn(),
+  loadDatasourceDetails: jest.fn(),
+  reset: jest.fn(),
+  totalCount: undefined,
+});
+
+const setup = async (
+  args: {
+    parameters?: JiraIssueDatasourceParameters;
+    hookState?: DatasourceTableState;
+    visibleColumnKeys?: string[];
+    dontWaitForSitesToLoad?: boolean;
+  } = {},
+) => {
+  asMock(getAvailableJiraSites).mockResolvedValue(mockSiteData);
+  asMock(useDatasourceTableState).mockReturnValue(
+    args.hookState || getDefaultHookState(),
+  );
+
+  const onCancel = jest.fn();
+  const onInsert = jest.fn();
+  const onAnalyticFireEvent = jest.fn();
+
+  let renderFunction = render;
+
+  const renderComponent = () =>
+    renderFunction(
+      <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+        <IntlProvider locale="en">
+          <SmartCardProvider client={new SmartLinkClient()}>
+            <JiraIssuesConfigModal
+              datasourceId={'some-jira-jql-datasource-id'}
+              parameters={
+                Object.keys(args).includes('parameters')
+                  ? args.parameters
+                  : getDefaultParameters()
+              }
+              onCancel={onCancel}
+              onInsert={onInsert}
+              visibleColumnKeys={
+                Object.keys(args).includes('visibleColumnKeys')
+                  ? args.visibleColumnKeys
+                  : ['myColumn']
+              }
+            />
+          </SmartCardProvider>
+        </IntlProvider>
+      </AnalyticsListener>,
+    );
+
+  const component = renderComponent();
+  renderFunction = component.rerender as typeof render;
+
+  const getLatestJiraSearchContainerProps = () => {
+    let calls = asMock(JiraSearchContainer).mock.calls;
+    return calls[calls.length - 1][0] as SearchContainerProps;
+  };
+
+  const getLatestIssueLikeTableProps = () => {
+    let calls = asMock(IssueLikeDataTableView).mock.calls;
+    return calls[calls.length - 1][0] as IssueLikeDataTableViewProps;
+  };
+
+  if (!args.dontWaitForSitesToLoad) {
+    await component.findByTestId(
+      'jira-jql-datasource-modal--site-selector--trigger',
+    );
+  }
+
+  const assertInsertResult = (
+    args: {
+      cloudId?: string;
+      jql?: string;
+      columnKeys?: string[];
+      jqlUrl?: string;
+    } = {},
+  ) => {
+    const button = component.getByRole('button', { name: 'Insert issues' });
+    button.click();
+    expect(onInsert).toHaveBeenCalledWith({
+      type: 'blockCard',
+      attrs: {
+        url: args?.jqlUrl,
+        datasource: {
+          id: 'some-jira-jql-datasource-id',
+          parameters: {
+            cloudId: args.cloudId || '67899',
+            jql: args.jql || 'some-query',
+          },
+          views: [
+            {
+              type: 'table',
+              properties: {
+                columns: Object.keys(args).includes('columnKeys')
+                  ? args.columnKeys?.map(key => ({ key }))
+                  : [{ key: 'myColumn' }],
+              },
+            },
+          ],
+        },
+      },
+    } as JiraIssuesDatasourceAdf);
+  };
+
+  return {
+    ...component,
+    renderComponent,
+    onCancel,
+    onInsert,
+    onAnalyticFireEvent,
+    assertInsertResult,
+    getLatestJiraSearchContainerProps,
+    getLatestIssueLikeTableProps,
+  };
+};
+
 describe('JiraIssuesConfigModal', () => {
-  const getDefaultParameters: () => JiraIssueDatasourceParameters = () => ({
-    cloudId: '67899',
-    jql: 'some-query',
-  });
-
-  const getDefaultHookState: () => DatasourceTableState = () => ({
-    reset: jest.fn(),
-    status: 'resolved',
-    onNextPage: jest.fn(),
-    loadDatasourceDetails: jest.fn(),
-    hasNextPage: false,
-    responseItems: [
-      {
-        myColumn: { data: 'some-value' },
-        otherColumn: { data: 'other-column-value' },
-        myId: { data: 'some-id1' },
-      },
-      {
-        myColumn: { data: 'other-value' },
-        otherColumn: { data: 'other-column-other-value' },
-        myId: { data: 'some-id2' },
-      },
-    ],
-    columns: [
-      { key: 'myColumn', title: 'My Column', type: 'string' },
-      { key: 'otherColumn', title: 'My Other Column', type: 'string' },
-      { key: 'myId', title: 'ID', type: 'string', isIdentity: true },
-    ],
-    defaultVisibleColumnKeys: ['myColumn', 'otherColumn'],
-    totalCount: 3,
-  });
-
   const getSingleIssueHookState: () => DatasourceTableState = () => ({
     ...getDefaultHookState(),
     responseItems: [
@@ -101,18 +225,6 @@ describe('JiraIssuesConfigModal', () => {
     totalCount: undefined,
   });
 
-  const getErrorHookState: () => DatasourceTableState = () => ({
-    columns: [],
-    status: 'rejected',
-    responseItems: [],
-    hasNextPage: true,
-    defaultVisibleColumnKeys: [],
-    onNextPage: jest.fn(),
-    loadDatasourceDetails: jest.fn(),
-    reset: jest.fn(),
-    totalCount: undefined,
-  });
-
   const getLoadingHookState: () => DatasourceTableState = () => ({
     columns: [],
     status: 'loading',
@@ -123,112 +235,6 @@ describe('JiraIssuesConfigModal', () => {
     loadDatasourceDetails: jest.fn(),
     reset: jest.fn(),
   });
-
-  const setup = async (
-    args: {
-      parameters?: JiraIssueDatasourceParameters;
-      hookState?: DatasourceTableState;
-      visibleColumnKeys?: string[];
-      dontWaitForSitesToLoad?: boolean;
-    } = {},
-  ) => {
-    asMock(getAvailableJiraSites).mockResolvedValue(mockSiteData);
-    asMock(useDatasourceTableState).mockReturnValue(
-      args.hookState || getDefaultHookState(),
-    );
-
-    const onCancel = jest.fn();
-    const onInsert = jest.fn();
-
-    let renderFunction = render;
-
-    const renderComponent = () =>
-      renderFunction(
-        <IntlProvider locale="en">
-          <SmartCardProvider client={new SmartLinkClient()}>
-            <JiraIssuesConfigModal
-              datasourceId={'some-jira-jql-datasource-id'}
-              parameters={
-                Object.keys(args).includes('parameters')
-                  ? args.parameters
-                  : getDefaultParameters()
-              }
-              onCancel={onCancel}
-              onInsert={onInsert}
-              visibleColumnKeys={
-                Object.keys(args).includes('visibleColumnKeys')
-                  ? args.visibleColumnKeys
-                  : ['myColumn']
-              }
-            />
-          </SmartCardProvider>
-        </IntlProvider>,
-      );
-
-    const component = renderComponent();
-    renderFunction = component.rerender as typeof render;
-
-    const getLatestJiraSearchContainerProps = () => {
-      let calls = asMock(JiraSearchContainer).mock.calls;
-      return calls[calls.length - 1][0] as SearchContainerProps;
-    };
-
-    const getLatestIssueLikeTableProps = () => {
-      let calls = asMock(IssueLikeDataTableView).mock.calls;
-      return calls[calls.length - 1][0] as IssueLikeDataTableViewProps;
-    };
-
-    if (!args.dontWaitForSitesToLoad) {
-      await component.findByTestId(
-        'jira-jql-datasource-modal--site-selector--trigger',
-      );
-    }
-
-    const assertInsertResult = (
-      args: {
-        cloudId?: string;
-        jql?: string;
-        columnKeys?: string[];
-        jqlUrl?: string;
-      } = {},
-    ) => {
-      const button = component.getByRole('button', { name: 'Insert issues' });
-      button.click();
-      expect(onInsert).toHaveBeenCalledWith({
-        type: 'blockCard',
-        attrs: {
-          url: args?.jqlUrl,
-          datasource: {
-            id: 'some-jira-jql-datasource-id',
-            parameters: {
-              cloudId: args.cloudId || '67899',
-              jql: args.jql || 'some-query',
-            },
-            views: [
-              {
-                type: 'table',
-                properties: {
-                  columns: Object.keys(args).includes('columnKeys')
-                    ? args.columnKeys?.map(key => ({ key }))
-                    : [{ key: 'myColumn' }],
-                },
-              },
-            ],
-          },
-        },
-      } as JiraIssuesDatasourceAdf);
-    };
-
-    return {
-      ...component,
-      renderComponent,
-      onCancel,
-      onInsert,
-      assertInsertResult,
-      getLatestJiraSearchContainerProps,
-      getLatestIssueLikeTableProps,
-    };
-  };
 
   beforeEach(() => {
     jest.clearAllMocks();
@@ -905,5 +911,145 @@ describe('JiraIssuesConfigModal', () => {
       expect(getByText("You don't have access to hello")).toBeInTheDocument();
       expect(getByRole('button', { name: 'Insert issues' })).toBeDisabled();
     });
+  });
+});
+
+describe('Analytics: JiraIssuesConfigModal', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should fire "screen.datasourceModalDialog.viewed" when the modal is rendered', async () => {
+    const { onAnalyticFireEvent } = await setup();
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'screen',
+          name: 'datasourceModalDialog',
+          action: 'viewed',
+          attributes: {},
+        },
+        context: [
+          {
+            packageName: '@atlaskit/link-datasource',
+            packageVersion: '999.9.9',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.modal.ready.datasource" when modal is ready for the user to search and display data', async () => {
+    const { onAnalyticFireEvent } = await setup();
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          eventType: 'ui',
+          action: 'ready',
+          actionSubject: 'modal',
+          actionSubjectId: 'datasource',
+          attributes: {
+            instancesCount: 8,
+          },
+        },
+        context: [
+          {
+            packageName: '@atlaskit/link-datasource',
+            packageVersion: '999.9.9',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.emptyResult.shown.datasource" when datasource results are empty', async () => {
+    const { onAnalyticFireEvent } = await setup({
+      hookState: { ...getDefaultHookState(), responseItems: [] },
+    });
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          action: 'shown',
+          actionSubject: 'emptyResult',
+          actionSubjectId: 'datasource',
+          attributes: {},
+          eventType: 'ui',
+        },
+        context: [
+          {
+            packageName: '@atlaskit/link-datasource',
+            packageVersion: '999.9.9',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.error.shown" with reason as "access" when the user unauthorised', async () => {
+    const { onAnalyticFireEvent } = await setup({
+      hookState: { ...getErrorHookState(), status: 'unauthorized' },
+    });
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          action: 'shown',
+          actionSubject: 'error',
+          attributes: {
+            reason: 'access',
+          },
+          eventType: 'ui',
+        },
+        context: [
+          {
+            packageName: '@atlaskit/link-datasource',
+            packageVersion: '999.9.9',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
+  });
+
+  it('should fire "ui.error.shown" with reason as "network" when the user request failed', async () => {
+    const { onAnalyticFireEvent } = await setup({
+      hookState: { ...getErrorHookState() },
+    });
+
+    expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+      {
+        payload: {
+          action: 'shown',
+          actionSubject: 'error',
+          attributes: {
+            reason: 'network',
+          },
+          eventType: 'ui',
+        },
+        context: [
+          {
+            packageName: '@atlaskit/link-datasource',
+            packageVersion: '999.9.9',
+            source: 'datasourceConfigModal',
+            attributes: { dataProvider: 'jira-issues' },
+          },
+        ],
+      },
+      EVENT_CHANNEL,
+    );
   });
 });

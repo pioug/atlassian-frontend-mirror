@@ -201,3 +201,9 @@ export type {
 } from './block-type';
 
 export type { ColumnResizingPluginState } from './tables';
+
+export type {
+  InputRuleHandler,
+  OnHandlerApply,
+  InputRuleWrapper,
+} from './input-rules';

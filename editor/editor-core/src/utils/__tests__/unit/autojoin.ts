@@ -3,7 +3,7 @@ import { p, ul, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { autoJoinTr } from '../../prosemirror/autojoin';
+import { autoJoinTr } from '@atlaskit/editor-common/utils';
 import { wrapInList } from '../../../plugins/list/actions/wrap-and-join-lists';
 
 describe('autoJoinTr', () => {

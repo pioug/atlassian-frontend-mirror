@@ -1043,7 +1043,7 @@ describe('HoverCard', () => {
         'auth tooltip %p render when prop is %p on card',
         (outcome, showAuthTooltip) => {
           ffTest(
-            'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+            'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
             async () => {
               const setupProps = {
                 extraCardProps: { showAuthTooltip },
@@ -1090,7 +1090,7 @@ describe('HoverCard', () => {
         };
 
         ffTest(
-          'platform.linking-platform.smart-card.show-inline-card-refreshed-design',
+          'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
           async () => {
             const { queryByTestId } = await setup(setupProps);
             jest.runAllTimers();

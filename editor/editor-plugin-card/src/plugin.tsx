@@ -24,6 +24,8 @@ import {
   JIRA_LIST_OF_LINKS_DATASOURCE_ID,
 } from '@atlaskit/link-datasource';
 
+import { createEventsQueue } from './analytics/create-events-queue';
+import { CardPluginEvent } from './analytics/types';
 import { messages } from './messages';
 import { hideLinkToolbar, showDatasourceModal } from './pm-plugins/actions';
 import {
@@ -38,8 +40,8 @@ import { pluginKey } from './pm-plugins/plugin-key';
 import { floatingToolbar } from './toolbar';
 import type { CardPluginOptions, CardPluginState } from './types';
 import DatasourceModalWithState from './ui/DatasourceModal/ModalWithState';
+import { EditorLinkingPlatformAnalytics } from './ui/EditorLinkingPlatformAnalytics';
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
-import { EditorSmartCardEventsNext } from './ui/EditorSmartCardEventsNext';
 import LayoutButton from './ui/LayoutButton';
 
 export const cardPlugin: NextEditorPlugin<
@@ -61,6 +63,10 @@ export const cardPlugin: NextEditorPlugin<
 > = (options, api) => {
   const featureFlags =
     api?.dependencies?.featureFlags?.sharedState.currentState() || {};
+
+  const cardPluginEvents = featureFlags?.lpAnalyticsEventsNext
+    ? createEventsQueue<CardPluginEvent>()
+    : undefined;
 
   return {
     name: 'card',
@@ -108,6 +114,7 @@ export const cardPlugin: NextEditorPlugin<
               allowWrapping,
               allowAlignment,
               allowDatasource,
+              cardPluginEvents,
             },
             api,
           ),
@@ -134,13 +141,14 @@ export const cardPlugin: NextEditorPlugin<
       popupsScrollableElement,
       popupsBoundariesElement,
     }) {
-      const { lpAnalyticsEventsNext } = featureFlags;
-
       return (
         <>
           <EditorSmartCardEvents editorView={editorView} />
-          {lpAnalyticsEventsNext && (
-            <EditorSmartCardEventsNext editorView={editorView} />
+          {cardPluginEvents && (
+            <EditorLinkingPlatformAnalytics
+              cardPluginEvents={cardPluginEvents}
+              editorView={editorView}
+            />
           )}
           <LayoutButton
             api={api}

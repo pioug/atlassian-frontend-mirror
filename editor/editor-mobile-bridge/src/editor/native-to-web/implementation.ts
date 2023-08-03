@@ -38,8 +38,8 @@ import {
   insertHorizontalRule,
   createTypeAheadTools,
   createQuickInsertTools,
-  hasVisibleContent,
 } from '@atlaskit/editor-core';
+import { hasVisibleContent } from '@atlaskit/editor-common/utils';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { isTextAtPos, isLinkAtPos } from '@atlaskit/editor-common/link';
 import type {

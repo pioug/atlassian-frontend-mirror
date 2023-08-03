@@ -5,6 +5,17 @@ import type {
 } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 
+/*
+ * The way expand was built, no browser reconize selection on it.
+ * For instance, when a selection going to a "collapsed" expand
+ * the browser will try to send the cursor to inside the expand content (wrong),
+ * this behavior is caused because the expand content is never true hidden
+ * we just set the height to 1px.
+ *
+ * So, we need to capture a possible selection event
+ * when a collapsed exxpand is the next node in the common depth.
+ * If that is true, we create a new TextSelection and stop the event bubble
+ */
 const isCollpasedExpand = (node: PMNode | null | undefined): boolean => {
   return Boolean(
     node &&
@@ -13,26 +24,65 @@ const isCollpasedExpand = (node: PMNode | null | undefined): boolean => {
   );
 };
 
+/**
+ * ED-18072 - Cannot shift + arrow past bodied extension if it is not empty
+ */
+const isBodiedExtension = (node: PMNode | null | undefined): boolean => {
+  return Boolean(node && ['bodiedExtension'].includes(node.type.name));
+};
+
+const isProblematicNode = (node: PMNode | null | undefined): boolean => {
+  return isCollpasedExpand(node) || isBodiedExtension(node);
+};
+
 const findFixedProblematicNodePosition = (
-  $pos: ResolvedPos,
+  doc: PMNode,
+  $head: ResolvedPos,
   direction: 'down' | 'up',
 ): ResolvedPos | null => {
-  if ($pos.pos === 0 || $pos.depth === 0) {
+  if ($head.pos === 0 || $head.depth === 0) {
     return null;
   }
-  const pos = direction === 'up' ? $pos.before() : $pos.after();
-  const $posResolved = $pos.doc.resolve(pos);
-  const maybeExpandNode =
-    direction === 'up' ? $posResolved.nodeBefore : $posResolved.nodeAfter;
 
-  if (maybeExpandNode && isCollpasedExpand(maybeExpandNode)) {
-    const nodeSize = maybeExpandNode.nodeSize;
-    const expandPosition = direction === 'up' ? pos - nodeSize : pos + nodeSize;
-    const startPosNode = Math.max(expandPosition, 0);
-    const $startPosNode = $pos.doc.resolve(
-      Math.min(startPosNode, $pos.doc.content.size),
-    );
-    return $startPosNode;
+  if (direction === 'up') {
+    const pos = $head.before();
+    const $posResolved = $head.doc.resolve(pos);
+    const maybeProblematicNode = $posResolved.nodeBefore;
+
+    if (maybeProblematicNode && isProblematicNode(maybeProblematicNode)) {
+      const nodeSize = maybeProblematicNode.nodeSize;
+      const nodeStartPosition = pos - nodeSize;
+
+      // ($head.pos - 1) will correspond to (nodeStartPosition + nodeSize) when we are at the start of the text node
+      const isAtEndOfProblematicNode =
+        $head.pos - 1 === nodeStartPosition + nodeSize;
+      if (isAtEndOfProblematicNode) {
+        const startPosNode = Math.max(nodeStartPosition, 0);
+        const $startPosNode = $head.doc.resolve(
+          Math.min(startPosNode, $head.doc.content.size),
+        );
+        return $startPosNode;
+      }
+    }
+  }
+
+  if (direction === 'down') {
+    const pos = $head.after();
+    const maybeProblematicNode = doc.nodeAt(pos);
+
+    if (
+      maybeProblematicNode &&
+      isProblematicNode(maybeProblematicNode) &&
+      $head.pos + 1 === pos
+    ) {
+      const nodeSize = maybeProblematicNode.nodeSize;
+      const nodePosition = pos + nodeSize;
+      const startPosNode = Math.max(nodePosition, 0);
+      const $startPosNode = $head.doc.resolve(
+        Math.min(startPosNode, $head.doc.content.size),
+      );
+      return $startPosNode;
+    }
   }
 
   return null;
@@ -40,17 +90,9 @@ const findFixedProblematicNodePosition = (
 
 export const onKeydown = (view: EditorView, event: Event): boolean => {
   /*
-   * This workaround is needed for some specific situation with collapsed expand.
-   *
-   * The way expand was built, no browser reconize selection on it.
-   * For instance, when a selection going to a "collapsed" expand
-   * the browser will try to send the cursor to inside the expand content (wrong),
-   * this behavior is caused because the expand content is never true hidden
-   * we just set the height to 1px.
-   *
-   * So, we need to capture a possible selection event
-   * when a collapsed exxpand is the next node in the common depth.
-   * If that is true, we create a new TextSelection and stop the event bubble
+   * This workaround is needed for some specific situations.
+   * - expand collapse
+   * - bodied extension
    */
   if (!(event instanceof KeyboardEvent)) {
     return false;
@@ -74,6 +116,7 @@ export const onKeydown = (view: EditorView, event: Event): boolean => {
   }
 
   const {
+    doc,
     selection: { $head, $anchor },
   } = view.state;
 
@@ -88,15 +131,20 @@ export const onKeydown = (view: EditorView, event: Event): boolean => {
     ? 'up'
     : 'down';
   const $fixedProblematicNodePosition = findFixedProblematicNodePosition(
+    doc,
     $head,
     direction,
   );
 
   if ($fixedProblematicNodePosition) {
+    // an offset is used here so that left arrow selects the first character before the node (consistent with arrow right)
+    const headOffset = event.key === 'ArrowLeft' ? -1 : 0;
+    const head = $fixedProblematicNodePosition.pos + headOffset;
+
     const forcedTextSelection = TextSelection.create(
       view.state.doc,
       $anchor.pos,
-      $fixedProblematicNodePosition.pos,
+      head,
     );
 
     const tr = view.state.tr;

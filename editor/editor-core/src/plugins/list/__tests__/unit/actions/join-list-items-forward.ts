@@ -1,13 +1,8 @@
-import {
-  p,
-  ul,
-  li,
-  doc,
-  DocBuilder,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { p, ul, li, doc } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import { calcJoinListScenario } from '../../../actions/join-list-items-forward';
-import { walkNextNode } from '../../../../../utils/commands';
+import { walkNextNode } from '@atlaskit/editor-common/utils';
 import { LIST_TEXT_SCENARIOS } from '../../../../analytics';
 
 describe('list-delete', () => {

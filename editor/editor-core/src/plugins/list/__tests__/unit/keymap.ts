@@ -30,6 +30,7 @@ import floatingToolbarPlugin from '../../../floating-toolbar';
 import editorDisabledPlugin from '../../../editor-disabled';
 
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 
 import deprecatedAnalyticsPlugin from '../../../analytics';
@@ -41,9 +42,11 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import simulatePlatform, {
   Platforms,
 } from '@atlaskit/editor-test-helpers/simulate-platform';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type {
+  CreateUIAnalyticsEvent,
+  UIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
@@ -75,6 +78,7 @@ describe('lists plugin -> keymap', () => {
       .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
       .add(widthPlugin)
+      .add(guidelinePlugin)
       .add(gridPlugin)
       .add(floatingToolbarPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }]);

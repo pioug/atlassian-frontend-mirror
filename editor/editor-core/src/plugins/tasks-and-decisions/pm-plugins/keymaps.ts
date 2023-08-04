@@ -23,8 +23,8 @@ import type { Command } from '../../../types';
 import {
   filterCommand as filter,
   isEmptySelectionAtStart,
-  deleteEmptyParagraphAndMoveBlockUp,
   isEmptySelectionAtEnd,
+  deleteEmptyParagraphAndMoveBlockUp,
 } from '@atlaskit/editor-common/utils';
 
 import type { AnalyticsEventPayload } from '../../analytics';

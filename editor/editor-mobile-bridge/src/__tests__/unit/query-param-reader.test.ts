@@ -2,7 +2,6 @@ import {
   getAllowCaptions,
   getAllowMediaInline,
   getRestartNumberedLists,
-  getListNumberContinuity,
 } from '../../query-param-reader';
 
 describe('Query param reader', () => {
@@ -60,22 +59,6 @@ describe('Query param reader', () => {
       window.location.search =
         'restartNumberedLists=false&andOneMoreThing=true';
       expect(getRestartNumberedLists()).toBeFalsy();
-    });
-  });
-
-  describe('getListNumberContinuity', () => {
-    it('should return true if listNumberContinuity is true in query string', () => {
-      window.location.search = 'listNumberContinuity=true&anotherThing=false';
-      expect(getListNumberContinuity()).toBeTruthy();
-    });
-    it('should return false if listNumberContinuity is not in query string', () => {
-      window.location.search = 'anotherThing=false&andOneMoreThing=true';
-      expect(getListNumberContinuity()).toBeFalsy();
-    });
-    it('should return false if listNumberContinuity is false in query string', () => {
-      window.location.search =
-        'listNumberContinuity=false&andOneMoreThing=true';
-      expect(getListNumberContinuity()).toBeFalsy();
     });
   });
 });

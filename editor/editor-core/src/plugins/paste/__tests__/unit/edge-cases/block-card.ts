@@ -27,6 +27,7 @@ import basePlugin from '../../../../base';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
 describe('paste paragraph edge cases', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -46,6 +47,7 @@ describe('paste paragraph edge cases', () => {
         .add(blockTypePlugin)
         .add(layoutPlugin)
         .add(panelPlugin)
+        .add(editorDisabledPlugin)
         .add(floatingToolbarPlugin)
         .add([cardPlugin, { allowBlockCards: true, platform: 'web' }]),
     });

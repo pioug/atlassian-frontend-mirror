@@ -156,8 +156,6 @@ export default function createUniversalPreset(
       listPlugin,
       {
         restartNumberedLists: featureFlags?.restartNumberedLists,
-        restartNumberedListsToolbar: featureFlags?.restartNumberedListsToolbar,
-        listNumberContinuity: featureFlags?.listNumberContinuity,
       },
     ])
     .maybeAdd(rulePlugin, (plugin, builder) => {

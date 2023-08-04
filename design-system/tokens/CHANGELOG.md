@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.14.0
+
+### Minor Changes
+
+- [`d9d7c284713`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d9d7c284713) - Add custom theming support to `ThemeObjectToString` and `ThemeStringToObject` functions.
+
 ## 1.13.2
 
 ### Patch Changes

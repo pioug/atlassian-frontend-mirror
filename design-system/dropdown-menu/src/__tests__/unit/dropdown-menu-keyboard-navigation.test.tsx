@@ -262,6 +262,38 @@ describe('dropdown menu keyboard navigation', () => {
     expect(getByText('Second').closest('button')).toHaveFocus();
   });
 
+  it('should skip disabled elements and focus on the first focusable element with autoFucus', () => {
+    const triggerText = 'click me to open';
+
+    const { getByText, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown" autoFocus>
+        <DropdownItemGroup>
+          <DropdownItem isDisabled>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+    openDropdownWithClick(getByTestId('dropdown--trigger'));
+    expect(getByText('Clone').closest('button')).toHaveFocus();
+  });
+
+  it('should skip disabled elements and focus on the first focusable element with keyboard navigation', () => {
+    const triggerText = 'click me to open';
+
+    const { getByText, getByTestId } = render(
+      <DropdownMenu trigger={triggerText} testId="dropdown">
+        <DropdownItemGroup>
+          <DropdownItem isDisabled>Move</DropdownItem>
+          <DropdownItem>Clone</DropdownItem>
+          <DropdownItem>Delete</DropdownItem>
+        </DropdownItemGroup>
+      </DropdownMenu>,
+    );
+    openDropdownWithKeydown(getByTestId('dropdown--trigger'));
+    expect(getByText('Clone').closest('button')).toHaveFocus();
+  });
+
   it('should focus the first element on pressing the HOME arrow', () => {
     const triggerText = 'click me to open';
 

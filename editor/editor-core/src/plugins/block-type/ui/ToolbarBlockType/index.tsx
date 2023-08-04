@@ -3,22 +3,27 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
-import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 
-import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import {
+  getAriaKeyshortcuts,
+  tooltip,
+  findKeymapByDescription,
+} from '@atlaskit/editor-common/keymaps';
 import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
+import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
+
 import type { BlockTypeState } from '../../pm-plugins/main';
 import type { BlockType } from '../../types';
+
 import {
   blockTypeMenuItemStyle,
   keyboardShortcut,
   keyboardShortcutSelect,
 } from './styled';
-import { tooltip, findKeymapByDescription } from '../../../../keymaps';
-import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { BlockTypeButton } from './blocktype-button';
-import { getAriaKeyshortcuts } from '@atlaskit/editor-common/keymaps';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 export type DropdownItem = MenuItem & {
   value: BlockType;
@@ -171,7 +176,9 @@ class ToolbarBlockType extends React.PureComponent<
       const isActive = currentBlockType === blockType;
       const tagName = blockType.tagName || 'p';
       const Tag = tagName as keyof React.ReactHTML;
-      const keyMap = findKeymapByDescription(blockType.title.defaultMessage);
+      const keyMap = findKeymapByDescription(
+        blockType.title.defaultMessage as string,
+      );
 
       return {
         content: (

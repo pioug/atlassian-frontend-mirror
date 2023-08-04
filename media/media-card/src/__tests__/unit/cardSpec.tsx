@@ -924,12 +924,12 @@ describe('Card', () => {
       expect(component.state('shouldAutoplay')).toBeFalsy();
     });
 
-    it('should set isPlayingFile=false when status is uploading', () => {
+    it('should set isPlayingFile=false when mimeType is not supported and status is uploading', () => {
       const fileState: FileState = {
         id: 'some-id',
-        name: 'some-video.mp4',
+        name: 'some-video.mov',
         mediaType: 'video',
-        mimeType: 'video/mp4',
+        mimeType: 'video/mov',
         size: 12345,
         status: 'uploading',
         progress: 0.2,
@@ -953,12 +953,12 @@ describe('Card', () => {
       expect(component.state('shouldAutoplay')).toBeFalsy();
     });
 
-    it('should set isPlayingFile=false when status is processing', () => {
+    it('should set isPlayingFile=false when mimeType is not supported and status is processing', () => {
       const fileState: FileState = {
         id: 'some-id',
-        name: 'some-video.mp4',
+        name: 'some-video.mov',
         mediaType: 'video',
-        mimeType: 'video/mp4',
+        mimeType: 'video/mov',
         size: 12345,
         status: 'processing',
         preview: {

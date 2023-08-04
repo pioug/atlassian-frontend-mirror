@@ -91,10 +91,14 @@ export const getLinkingToolbar = (
                     /** Focus should move to the 'Add link' button when the toolbar closes
                      * and not close the floating toolbar.
                      */
+                    const {
+                      state: { tr },
+                      dispatch,
+                    } = view;
                     pluginInjectionApi?.dependencies.floatingToolbar.actions?.forceFocusSelector(
                       FORCE_FOCUS_SELECTOR,
-                      view,
-                    );
+                    )(tr);
+                    dispatch(tr);
                   }}
                   onSubmit={(href, meta) => {
                     setUrlToMedia(href, meta.inputMethod)(

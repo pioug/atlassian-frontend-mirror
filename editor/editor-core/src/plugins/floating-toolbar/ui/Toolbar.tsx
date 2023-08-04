@@ -68,7 +68,7 @@ export interface Props {
   dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
   target?: HTMLElement;
   node: Node;
-  extensionsProvider?: ExtensionProvider;
+  extensionsProvider?: Promise<ExtensionProvider>;
   scrollable?: boolean;
   featureFlags: FeatureFlags;
   api:
@@ -579,7 +579,15 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
   }
 
   componentWillUnmount() {
-    forceFocusSelector(null, this.props.editorView);
+    const { editorView } = this.props;
+    if (editorView) {
+      const {
+        state: { tr },
+        dispatch,
+      } = editorView;
+      dispatch(forceFocusSelector(null)(tr));
+    }
+
     this.resetStyling({
       table: this.props.node.type.name === 'table',
     });

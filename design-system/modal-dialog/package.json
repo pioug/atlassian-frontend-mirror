@@ -36,7 +36,7 @@
     "@atlaskit/portal": "^4.3.0",
     "@atlaskit/primitives": "^1.0.2",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.13.0",
+    "@atlaskit/tokens": "^1.14.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",
     "bind-event-listener": "^2.1.1",

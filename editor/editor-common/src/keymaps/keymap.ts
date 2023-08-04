@@ -1,6 +1,8 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { base, keyName } from 'w3c-keyname';
+
+import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
+
+import { SafePlugin } from '../safe-plugin';
 
 /**
  * A workaround for mostly Cyrillic but should have a positive affect

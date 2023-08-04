@@ -10,7 +10,7 @@ import {
   waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import mediaSingleVideoAlignmentAdf from './__fixtures__/mediaSingle-video-alignment.adf.json';
 import mediaSingleVideoWrapAdf from './__fixtures__/mediaSingle-video-wrap.adf.json';
 import videoInsideExpandAdf from './__fixtures__/video-inside-expand-toolbar.adf.json';
@@ -131,8 +131,6 @@ describe('Snapshot Test: Media', () => {
       });
 
       await waitForMediaToBeLoaded(page);
-      await page.click('[data-testid="media-file-card-view"]');
-      await page.waitForSelector('[data-testid="media-card-inline-player"]');
       await page.click('[data-testid="media-card-inline-player"]');
       await makeSnapshot(page);
     });
@@ -150,8 +148,6 @@ describe('Snapshot Test: Media', () => {
       });
 
       await waitForMediaToBeLoaded(page);
-      await page.click('[data-testid="media-file-card-view"]');
-      await page.waitForSelector('[data-testid="media-card-inline-player"]');
       await page.click('[data-testid="media-card-inline-player"]');
       await makeSnapshot(page);
     });

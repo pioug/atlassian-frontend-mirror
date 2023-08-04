@@ -17,10 +17,20 @@
 ```ts
 import type { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+
+// @public (undocumented)
+export type ConfigWithNodeInfo = {
+  config: FloatingToolbarConfig | undefined;
+  pos: number;
+  node: Node_2;
+};
 
 // @public (undocumented)
 export type FloatingToolbarPlugin = NextEditorPlugin<
@@ -30,18 +40,29 @@ export type FloatingToolbarPlugin = NextEditorPlugin<
       typeof featureFlagsPlugin,
       typeof decorationsPlugin,
       OptionalPlugin<typeof contextPanelPlugin>,
+      EditorDisabledPlugin,
     ];
     actions: {
       forceFocusSelector: ForceFocusSelector;
     };
+    sharedState:
+      | undefined
+      | {
+          configWithNodeInfo: ConfigWithNodeInfo | undefined;
+          floatingToolbarData: FloatingToolbarPluginData | undefined;
+        };
   }
 >;
 
 // @public (undocumented)
+export type FloatingToolbarPluginData = {
+  confirmDialogForItem?: number;
+};
+
+// @public (undocumented)
 export type ForceFocusSelector = (
   selector: null | string,
-  view?: EditorView,
-) => void;
+) => (tr: Transaction) => Transaction;
 
 // (No @packageDocumentation comment for this package)
 ```

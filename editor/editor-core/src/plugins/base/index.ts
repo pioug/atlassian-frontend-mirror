@@ -14,7 +14,7 @@ import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
 import betterTypeHistoryPlugin from './pm-plugins/better-type-history';
 import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter';
 import scrollGutter from './pm-plugins/scroll-gutter';
-import { keymap } from '../../utils/keymap';
+import { keymap } from '@atlaskit/editor-common/keymaps';
 import frozenEditor from './pm-plugins/frozen-editor';
 import type {
   InputTracking,

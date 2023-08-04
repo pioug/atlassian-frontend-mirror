@@ -28,7 +28,7 @@
   "dependencies": {
     "@atlaskit/pragmatic-drag-and-drop": "^0.19.0",
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.11.0",
-    "@atlaskit/tokens": "^1.13.0",
+    "@atlaskit/tokens": "^1.14.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1"
   },

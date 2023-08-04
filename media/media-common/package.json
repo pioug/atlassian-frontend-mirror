@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/media-common",
-  "version": "7.1.0",
+  "version": "8.0.0",
   "description": "Includes common utilities used by other media packages",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

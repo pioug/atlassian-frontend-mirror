@@ -1,9 +1,16 @@
-import { Node, NodeType, Slice } from '@atlaskit/editor-prosemirror/model';
+import {
+  Mark,
+  MarkType,
+  Node,
+  NodeType,
+  Slice,
+} from '@atlaskit/editor-prosemirror/model';
 import {
   EditorState,
   NodeSelection,
   Selection,
   TextSelection,
+  Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import {
   ReplaceAroundStep,
@@ -123,3 +130,64 @@ export const isValidPosition = (
 export const isInLayoutColumn = (state: EditorState): boolean => {
   return hasParentNodeOfType(state.schema.nodes.layoutSection)(state.selection);
 };
+
+export function filterChildrenBetween(
+  doc: Node,
+  from: number,
+  to: number,
+  predicate: (
+    node: Node,
+    pos: number,
+    parent: Node | null,
+  ) => boolean | undefined,
+) {
+  const results = [] as { node: Node; pos: number }[];
+  doc.nodesBetween(from, to, (node, pos, parent) => {
+    if (predicate(node, pos, parent)) {
+      results.push({ node, pos });
+    }
+  });
+  return results;
+}
+
+export const removeBlockMarks = (
+  state: EditorState,
+  marks: Array<MarkType | undefined>,
+): Transaction | undefined => {
+  const { selection, schema } = state;
+  let { tr } = state;
+
+  // Marks might not exist in Schema
+  const marksToRemove = marks.filter(Boolean);
+  if (marksToRemove.length === 0) {
+    return undefined;
+  }
+
+  /** Saves an extra dispatch */
+  let blockMarksExists = false;
+
+  const hasMark = (mark: Mark) => marksToRemove.indexOf(mark.type) > -1;
+  /**
+   * When you need to toggle the selection
+   * when another type which does not allow alignment is applied
+   */
+  state.doc.nodesBetween(selection.from, selection.to, (node, pos) => {
+    if (node.type === schema.nodes.paragraph && node.marks.some(hasMark)) {
+      blockMarksExists = true;
+      const resolvedPos = state.doc.resolve(pos);
+      const withoutBlockMarks = node.marks.filter(not(hasMark));
+      tr = tr.setNodeMarkup(
+        resolvedPos.pos,
+        undefined,
+        node.attrs,
+        withoutBlockMarks,
+      );
+    }
+  });
+  return blockMarksExists ? tr : undefined;
+};
+
+const not =
+  <T>(fn: (args: T) => boolean) =>
+  (arg: T) =>
+    !fn(arg);

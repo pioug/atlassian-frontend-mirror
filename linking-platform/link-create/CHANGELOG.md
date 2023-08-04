@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.0.1
+
+### Patch Changes
+
+- [`572ea7d92bd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/572ea7d92bd) - revised form mutator types
+
 ## 1.0.0
 
 ### Major Changes

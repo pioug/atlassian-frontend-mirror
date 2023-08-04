@@ -15,7 +15,7 @@ import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import {
   createParagraphNear,
   createNewParagraphBelow,
-} from '../../../commands';
+} from '@atlaskit/editor-common/utils';
 import { isTemporary } from '../../../utils';
 import type { ProsemirrorGetPosHandler } from '../../../nodeviews';
 import type { MediaState } from '../types';

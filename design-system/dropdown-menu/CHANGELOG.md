@@ -1,5 +1,11 @@
 # @atlaskit/dropdown-menu
 
+## 11.11.3
+
+### Patch Changes
+
+- [`1af7a3c5ab9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1af7a3c5ab9) - fix: support to skip disabled elements when autoFocus is on
+
 ## 11.11.2
 
 ### Patch Changes

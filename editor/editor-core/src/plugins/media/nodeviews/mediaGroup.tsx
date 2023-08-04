@@ -25,7 +25,8 @@ import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider'
 
 import { setNodeSelection } from '../../../utils';
 import { isNodeSelectedOrInRange, SelectedState } from '../../../utils/nodes';
-import type { EditorDisabledPluginState } from '../../editor-disabled';
+import type { EditorDisabledPluginState } from '@atlaskit/editor-plugin-editor-disabled';
+
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../pm-plugins/types';
 import { MediaNodeUpdater } from './mediaNodeUpdater';

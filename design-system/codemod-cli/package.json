@@ -32,7 +32,7 @@
     "codemod-cli": "./bin/codemod-cli.js"
   },
   "dependencies": {
-    "@atlaskit/tokens": "^1.13.0",
+    "@atlaskit/tokens": "^1.14.0",
     "@babel/runtime": "^7.0.0",
     "@codeshift/utils": "^0.2.4",
     "@types/jscodeshift": "^0.11.0",

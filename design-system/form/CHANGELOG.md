@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.11.10
+
+### Patch Changes
+
+- [`7c7704ad529`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c7704ad529) - Imports from @atlaskit/form/Messages will no longer pull react-final-form and Field in the bundle.
+
 ## 8.11.9
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 74.34.1
+
+### Patch Changes
+
+- [`7cca8fcf473`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cca8fcf473) - ED-18274: Remove unused feature flags listNumberContinuity and restartNumberedListsToolbar (not planned for future use either) (all related to the restart lists project)
+
+## 74.34.0
+
+### Minor Changes
+
+- [`1944b35b538`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1944b35b538) - move common utilities to editor-common, to help with decoupling block-type plugin
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 74.33.0
 
 ### Minor Changes

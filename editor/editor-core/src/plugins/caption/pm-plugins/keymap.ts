@@ -4,7 +4,7 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import * as keymaps from '../../../keymaps';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { Command } from '../../../types';
-import { createNewParagraphBelow } from '../../../commands';
+import { createNewParagraphBelow } from '@atlaskit/editor-common/utils';
 import { GapCursorSelection } from '../../selection/gap-cursor/selection';
 
 export function captionKeymap(): SafePlugin {

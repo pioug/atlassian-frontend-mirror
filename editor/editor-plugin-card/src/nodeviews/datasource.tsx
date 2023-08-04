@@ -15,7 +15,7 @@ import {
   SmartCardSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
+import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -25,7 +25,6 @@ import {
 } from '@atlaskit/link-datasource';
 
 import type { cardPlugin } from '../index';
-import { DatasourceTableLayout } from '../ui/LayoutButton/types';
 
 interface DatasourceProps extends ReactComponentProps {
   node: PMNode;
@@ -169,26 +168,14 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
     return domRef;
   }
 
-  calcTableWidth = (
-    layout: DatasourceTableLayout,
-    containerWidth?: number,
-  ): number | 'inherit' => {
-    if (layout === 'center') {
-      return 'inherit';
-    }
-
-    return calcBreakoutWidthPx(layout, containerWidth);
-  };
-
   render() {
     const { attrs } = this.node;
-    const calculatedWidth = this.calcTableWidth(attrs.layout, this.tableWidth);
 
     return (
       <div
         className={DATASOURCE_INNER_CONTAINER_CLASSNAME}
         style={{
-          minWidth: calculatedWidth,
+          minWidth: calcBreakoutWidth(attrs.layout, this.tableWidth),
         }}
       >
         <DatasourceComponent

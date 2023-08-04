@@ -195,6 +195,7 @@ export type {
 } from './image-upload-reference-event';
 
 export type {
+  AllowedBlockTypes,
   HeadingLevels,
   NormalTextLevel,
   HeadingLevelsAndNormalText,

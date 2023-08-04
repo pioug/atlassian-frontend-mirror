@@ -38,7 +38,7 @@ import datePlugin from '../../index';
 import quickInsertPlugin from '../../../quick-insert';
 import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
-import editorDisabledPlugin from '../../../editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { pluginKey } from '../../pm-plugins/plugin-key';
 import { parseDateType } from '../../utils/formatParse';

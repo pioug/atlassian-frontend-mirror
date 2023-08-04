@@ -16,7 +16,6 @@ import { CONTAINER_WIDTH_IN_PX } from '../pm-plugins/alt-text/ui/AltTextEdit';
 import { getMediaNodeFromSelection } from '../utils/media-common';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ClassNames } from '../pm-plugins/alt-text/style';
-import { withOuterListeners } from '@atlaskit/editor-common/ui';
 import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';
 
 const testId = 'alt-text-edit-button';
@@ -40,8 +39,6 @@ export const altTextButton = (
   };
 };
 
-const AltTextEditWithListeners = withOuterListeners(AltTextEdit);
-
 export const altTextEditComponent = (
   options?: AltTextToolbarOptions,
 ): FloatingToolbarCustom<Command> => {
@@ -62,17 +59,21 @@ export const altTextEditComponent = (
       /** Focus should move to the 'Alt text' button when the toolbar closes
        * and not close the floating toolbar.
        */
-      const handleEsc = (e: KeyboardEvent) => {
-        forceFocusSelector(`[data-testid="${testId}"]`, view);
+      const handleEsc = () => {
+        const {
+          state: { tr },
+          dispatch,
+        } = view;
+        dispatch(forceFocusSelector(`[data-testid="${testId}"]`)(tr));
       };
 
       return (
-        <AltTextEditWithListeners
+        <AltTextEdit
           view={view}
           key={idx}
           value={mediaNode.attrs.alt}
           altTextValidator={options && options.altTextValidator}
-          handleEscapeKeydown={handleEsc}
+          onEscape={handleEsc}
         />
       );
     },

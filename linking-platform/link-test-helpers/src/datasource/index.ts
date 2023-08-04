@@ -272,7 +272,15 @@ const generateDataResponse = ({
 
 let numberOfLoads = 0;
 
-export const mockDatasourceFetchRequests = (datasourceId?: string | null) => {
+interface MockOptions {
+  datasourceId?: string | null;
+  shouldMockORSBatch?: boolean;
+}
+
+export const mockDatasourceFetchRequests = ({
+  datasourceId,
+  shouldMockORSBatch,
+}: MockOptions = {}) => {
   let datasourceMatcher = '[^/]+';
   if (datasourceId) {
     datasourceMatcher = datasourceId;
@@ -285,26 +293,29 @@ export const mockDatasourceFetchRequests = (datasourceId?: string | null) => {
     },
   );
 
-  // Mock JUST jql=... requests. Kind of related to mocking datasources.
-  fetchMock.post(
-    new RegExp(`object-resolver/resolve/batch`),
-    async (url: string, request: FetchMockRequestDetails) => {
-      const requestJson = JSON.parse(request.body) as ResolveBatchRequest;
-      if (requestJson.length === 1) {
-        const isJqlRequest = new URL(
-          requestJson[0].resourceUrl,
-        ).search.includes('jql=');
-        if (isJqlRequest) {
-          return Promise.resolve([resolveJqlSuccess]);
+  // Mock this for the editor's testing examples.
+  if (shouldMockORSBatch) {
+    // Mock JUST jql=... requests. Kind of related to mocking datasources.
+    fetchMock.post(
+      new RegExp(`object-resolver/resolve/batch`),
+      async (url: string, request: FetchMockRequestDetails) => {
+        const requestJson = JSON.parse(request.body) as ResolveBatchRequest;
+        if (requestJson.length === 1) {
+          const isJqlRequest = new URL(
+            requestJson[0].resourceUrl,
+          ).search.includes('jql=');
+          if (isJqlRequest) {
+            return Promise.resolve([resolveJqlSuccess]);
+          }
         }
-      }
-      return fetchMock.realFetch(url, {
-        method: 'POST',
-        headers: request.headers,
-        body: request.body,
-      });
-    },
-  );
+        return fetchMock.realFetch(url, {
+          method: 'POST',
+          headers: request.headers,
+          body: request.body,
+        });
+      },
+    );
+  }
 
   fetchMock.post(
     new RegExp(

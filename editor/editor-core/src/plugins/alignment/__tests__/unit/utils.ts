@@ -1,15 +1,15 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   alignment as alignmentMark,
   doc,
   p,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { removeBlockMarks } from '../../../../utils/mark';
+import { removeBlockMarks } from '@atlaskit/editor-common/utils';
 import alignmentPlugin from '../../';
 
 const alignmentPreset = new Preset<LightEditorPlugin>().add(alignmentPlugin);

@@ -39,7 +39,6 @@ import {
   getMediaImageResize,
   getAllowMediaInline,
   getRestartNumberedLists,
-  getListNumberContinuity,
 } from '../query-param-reader';
 import { useEditorLifecycle } from './hooks/use-editor-life-cycle';
 import { usePluginListeners } from './hooks/use-plugin-listeners';
@@ -207,7 +206,6 @@ export function MobileEditor(props: MobileEditorProps) {
     tableCellOptionsInFloatingToolbar:
       editorConfiguration.isTableCellOptionsInFloatingToolbar(),
     restartNumberedLists: getRestartNumberedLists(),
-    listNumberContinuity: getListNumberContinuity(),
     enableViewUpdateSubscription: true,
   };
 

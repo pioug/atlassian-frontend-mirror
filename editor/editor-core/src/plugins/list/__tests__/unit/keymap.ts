@@ -27,7 +27,7 @@ import codeBlockTypePlugin from '../../../code-block';
 import emojiPlugin, { emojiPluginKey } from '../../../emoji';
 import panelPlugin from '../../../panel';
 import floatingToolbarPlugin from '../../../floating-toolbar';
-import editorDisabledPlugin from '../../../editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';

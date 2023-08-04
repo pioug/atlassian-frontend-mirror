@@ -51,7 +51,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import expandPlugin from '../../../../expand';
 import layoutPlugin from '../../../../layout';
 import textFormattingPlugin from '../../../../text-formatting';
-import editorDisabledPlugin from '../../../../editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 

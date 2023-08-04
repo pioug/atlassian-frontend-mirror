@@ -1,22 +1,28 @@
 import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
+
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import * as keymaps from '../../../keymaps';
-import * as commands from '../../../commands';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import * as keymaps from '@atlaskit/editor-common/keymaps';
+import { keymap } from '@atlaskit/editor-common/keymaps';
+import {
+  insertNewLineWithAnalytics,
+  createNewParagraphAbove,
+  createNewParagraphBelow,
+  deleteEmptyParagraphAndMoveBlockUp,
+} from '@atlaskit/editor-common/utils';
+
 import * as blockTypes from '../types';
-import { keymap } from '../../../utils/keymap';
-import type { FeatureFlags } from '../../../types/feature-flags';
 import {
   cleanUpAtTheStartOfDocument,
   deleteAndMoveCursor,
   deleteBlockContent,
   insertBlockTypesWithAnalytics,
 } from '../commands';
-import { deleteEmptyParagraphAndMoveBlockUp } from '@atlaskit/editor-common/utils';
-import { INPUT_METHOD } from '../../analytics';
 import { isNodeAWrappingBlockNode } from '../utils';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const backspace = chainCommands(
   cleanUpAtTheStartOfDocument,
@@ -31,25 +37,25 @@ const del = chainCommands(
 );
 
 export default function keymapPlugin(
-  schema: Schema,
-  featureFlags: FeatureFlags,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+  schema: Schema,
+  _featureFlags: FeatureFlags,
 ): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
     keymaps.insertNewLine.common!,
-    commands.insertNewLineWithAnalytics,
+    insertNewLineWithAnalytics(editorAnalyticsApi),
     list,
   );
   keymaps.bindKeymapWithCommand(
     keymaps.moveUp.common!,
-    commands.createNewParagraphAbove,
+    createNewParagraphAbove,
     list,
   );
   keymaps.bindKeymapWithCommand(
     keymaps.moveDown.common!,
-    commands.createNewParagraphBelow,
+    createNewParagraphBelow,
     list,
   );
   keymaps.bindKeymapWithCommand(

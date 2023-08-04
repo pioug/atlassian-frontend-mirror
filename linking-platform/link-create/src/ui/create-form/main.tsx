@@ -2,6 +2,7 @@
 import { ReactNode, useCallback } from 'react';
 
 import { css, jsx } from '@emotion/react';
+import { MutableState, Tools } from 'final-form';
 import { Form } from 'react-final-form';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
@@ -83,10 +84,10 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
       mutators={{
         setField: <K extends keyof FormData>(
           args: [K, FormData[K]],
-          state: any,
-          tools: any,
+          state: MutableState<FormData>,
+          tools: Tools<FormData>,
         ) => {
-          tools.changeValue(state, args[0], () => args[1]);
+          tools.changeValue(state, args[0].toString(), () => args[1]);
         },
       }}
     >

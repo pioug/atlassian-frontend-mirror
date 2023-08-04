@@ -1,10 +1,8 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { pluginKey as datePluginKey } from '../../date/pm-plugins/plugin-key';
 import type { DatePluginState } from '../../date/pm-plugins/types';
-import type {
-  FloatingToolbarPluginState,
-  ConfigWithNodeInfo,
-} from '../../floating-toolbar';
+import type { FloatingToolbarPluginState } from '../../floating-toolbar';
+import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
 import { pluginKey as floatingToolbarPluginKey } from '../../floating-toolbar';
 import type { StatusState } from '../../status/types';
 import { pluginKey as statusPluginKey } from '../../status/plugin-key';

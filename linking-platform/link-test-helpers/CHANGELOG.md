@@ -1,5 +1,11 @@
 # @atlaskit/link-test-helpers
 
+## 6.0.2
+
+### Patch Changes
+
+- [`e4137f1638e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e4137f1638e) - Added an option to disable ORS mocking.
+
 ## 6.0.1
 
 ### Patch Changes

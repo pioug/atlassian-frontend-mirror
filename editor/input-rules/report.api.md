@@ -15,6 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import { createRule } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { InputRuleHandler } from '@atlaskit/editor-common/types';
 import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
@@ -36,11 +37,7 @@ export const createPlugin: (
   options?: Options_2,
 ) => SafePlugin;
 
-// @public (undocumented)
-export const createRule: (
-  match: RegExp,
-  handler: InputRuleHandler,
-) => InputRuleWrapper;
+export { createRule };
 
 export { InputRuleHandler };
 

@@ -8,6 +8,8 @@ import {
 const themeKinds = ['light', 'dark', 'spacing', 'typography', 'shape'] as const;
 type ThemeKind = (typeof themeKinds)[number];
 
+const customThemeOptions = 'UNSAFE_themeOptions';
+
 const isThemeKind = (themeKind: string): themeKind is ThemeKind => {
   return themeKinds.find((kind) => kind === themeKind) !== undefined;
 };
@@ -36,7 +38,7 @@ export const themeStringToObject = (
 ): Partial<ThemeState> => {
   return themeState
     .split(' ')
-    .map((theme) => theme.split(':'))
+    .map((theme) => theme.split(/:(.*)/s))
     .reduce<Partial<ThemeState>>((themeObject, [kind, id]) => {
       if (kind === 'colorMode' && isColorMode(id)) {
         themeObject[kind] = id;
@@ -45,6 +47,14 @@ export const themeStringToObject = (
       if (isThemeKind(kind) && isThemeIds(id)) {
         // @ts-expect-error FIXME - this is a valid ts error
         themeObject[kind] = id;
+      }
+
+      if (kind === customThemeOptions) {
+        try {
+          themeObject[customThemeOptions] = JSON.parse(id);
+        } catch (e) {
+          new Error('Invalid custom theme string');
+        }
       }
 
       return themeObject;
@@ -62,16 +72,22 @@ export const themeStringToObject = (
  * // returns 'dark:dark light:legacy-light spacing:spacing'
  * ```
  */
-export const themeObjectToString = (
-  themeState: Partial<ThemeState>,
-): string => {
-  return Object.entries(themeState).reduce<string>(
-    (themeString, [kind, id]) =>
-      (kind === 'colorMode' || isThemeKind(kind)) &&
-      typeof id === 'string' &&
-      (isThemeIds(id) || isColorMode(id))
-        ? themeString + `${themeString ? ' ' : ''}` + `${kind}:${id}`
-        : themeString,
-    '',
-  );
-};
+export const themeObjectToString = (themeState: Partial<ThemeState>): string =>
+  Object.entries(themeState).reduce<string>((themeString, [kind, id]) => {
+    if (
+      // colorMode theme state
+      (kind === 'colorMode' && typeof id === 'string' && isColorMode(id)) ||
+      // custom theme state
+      (kind === customThemeOptions && typeof id === 'object') ||
+      // other theme states
+      (isThemeKind(kind) && typeof id === 'string' && isThemeIds(id))
+    ) {
+      return (
+        themeString +
+        `${themeString ? ' ' : ''}` +
+        `${kind}:${typeof id === 'object' ? JSON.stringify(id) : id}`
+      );
+    }
+
+    return themeString;
+  }, '');

@@ -1,18 +1,21 @@
 import React from 'react';
 import type { IntlShape } from 'react-intl-next';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+
 import { blockquote, hardBreak, heading } from '@atlaskit/adf-schema';
+
+import type {
+  QuickInsertActionInsert,
+  QuickInsertItem,
+  QuickInsertItemId,
+} from '@atlaskit/editor-common/provider-factory';
 import type {
   NextEditorPlugin,
   OptionalPlugin,
   HeadingLevels,
 } from '@atlaskit/editor-common/types';
-import { createPlugin, pluginKey } from './pm-plugins/main';
-import keymapPlugin from './pm-plugins/keymap';
-import inputRulePlugin from './pm-plugins/input-rule';
-import ToolbarBlockType from './ui/ToolbarBlockType';
-import WithPluginState from '../../ui/WithPluginState';
-import { setBlockTypeWithAnalytics } from './commands';
-import type { BlockTypeNode, BlockTypePluginOptions } from './types';
+import { ToolbarSize } from '@atlaskit/editor-common/types';
+import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -20,19 +23,19 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import * as keymaps from '../../keymaps';
 import { IconHeading, IconQuote } from '@atlaskit/editor-common/quick-insert';
-import type {
-  QuickInsertActionInsert,
-  QuickInsertItem,
-  QuickInsertItemId,
-} from '@atlaskit/editor-common/provider-factory';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { messages } from './messages';
-import { ToolbarSize } from '../../ui/Toolbar/types';
+import * as keymaps from '@atlaskit/editor-common/keymaps';
 
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
+import { createPlugin, pluginKey } from './pm-plugins/main';
+import keymapPlugin from './pm-plugins/keymap';
+import inputRulePlugin from './pm-plugins/input-rule';
+import ToolbarBlockType from './ui/ToolbarBlockType';
+import { setBlockTypeWithAnalytics } from './commands';
+import type { BlockTypeNode, BlockTypePluginOptions } from './types';
+import { messages } from './messages';
 
 const headingPluginOptions = (
   { formatMessage }: IntlShape,
@@ -152,12 +155,20 @@ const blockTypePlugin: NextEditorPlugin<
       {
         name: 'blockType',
         plugin: ({ dispatch }) =>
-          createPlugin(dispatch, options && options.lastNodeMustBeParagraph),
+          createPlugin(
+            api?.dependencies.analytics?.actions,
+            dispatch,
+            options && options.lastNodeMustBeParagraph,
+          ),
       },
       {
         name: 'blockTypeInputRule',
         plugin: ({ schema, featureFlags }) =>
-          inputRulePlugin(schema, featureFlags),
+          inputRulePlugin(
+            api?.dependencies.analytics?.actions,
+            schema,
+            featureFlags,
+          ),
       },
       // Needs to be lower priority than editor-tables.tableEditing
       // plugin as it is currently swallowing right/down arrow events inside tables
@@ -165,9 +176,9 @@ const blockTypePlugin: NextEditorPlugin<
         name: 'blockTypeKeyMap',
         plugin: ({ schema, featureFlags }) =>
           keymapPlugin(
+            api?.dependencies.analytics?.actions,
             schema,
             featureFlags,
-            api?.dependencies.analytics?.actions,
           ),
       },
     ];
@@ -188,10 +199,11 @@ const blockTypePlugin: NextEditorPlugin<
         ? toolbarSize < ToolbarSize.XXL
         : toolbarSize < ToolbarSize.XL;
     const boundSetBlockType = (name: string) =>
-      setBlockTypeWithAnalytics(name, INPUT_METHOD.TOOLBAR)(
-        editorView.state,
-        editorView.dispatch,
-      );
+      setBlockTypeWithAnalytics(
+        name,
+        INPUT_METHOD.TOOLBAR,
+        api?.dependencies.analytics?.actions,
+      )(editorView.state, editorView.dispatch);
 
     return (
       <WithPluginState

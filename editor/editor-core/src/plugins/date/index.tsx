@@ -16,7 +16,7 @@ import {
 import createDatePlugin from './pm-plugins/main';
 import keymap from './pm-plugins/keymap';
 
-import type editorDisabledPlugin from '../editor-disabled';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { IconDate } from '@atlaskit/editor-common/quick-insert';
 
 import {
@@ -131,7 +131,7 @@ const datePlugin: NextEditorPlugin<
   'date',
   {
     pluginConfiguration: DatePluginConfig | undefined;
-    dependencies: [typeof analyticsPlugin, typeof editorDisabledPlugin];
+    dependencies: [typeof analyticsPlugin, EditorDisabledPlugin];
     sharedState: {
       showDatePickerAt?: number | null;
       isNew: boolean;

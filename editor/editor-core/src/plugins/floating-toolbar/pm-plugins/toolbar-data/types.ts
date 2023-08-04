@@ -1,7 +1,3 @@
-export type FloatingToolbarPluginData = {
-  confirmDialogForItem?: number;
-};
-
 export type FloatingToolbarPluginAction =
   | {
       type: 'SHOW_CONFIRM_DIALOG';

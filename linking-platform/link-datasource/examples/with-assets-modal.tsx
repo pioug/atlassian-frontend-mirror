@@ -18,7 +18,9 @@ import {
 import JSMAssetsConfigModal from '../src/ui/assets-modal';
 
 export default () => {
-  mockDatasourceFetchRequests(ASSETS_LIST_OF_LINKS_DATASOURCE_ID);
+  mockDatasourceFetchRequests({
+    datasourceId: ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  });
   mockAssetsClientFetchRequests();
   const [generatedAdf, setGeneratedAdf] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(true);

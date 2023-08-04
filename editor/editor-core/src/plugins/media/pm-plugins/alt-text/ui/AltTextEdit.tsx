@@ -85,6 +85,7 @@ type Props = {
   view: EditorView;
   value?: string;
   altTextValidator?: (value: string) => string[];
+  onEscape?: () => void;
 } & WrappedComponentProps &
   WithAnalyticsEventsProps;
 
@@ -235,12 +236,13 @@ export class AltTextEditComponent extends React.Component<
   }
 
   private dispatchCancelEvent = (event: KeyboardEvent) => {
-    const { view } = this.props;
+    const { view, onEscape } = this.props;
 
     // We need to pass down the ESCAPE keymap
     // because when we focus on the Toolbar, Prosemirror blur,
     // making all keyboard shortcuts not working
     view.someProp('handleKeyDown', (fn: any) => fn(view, event));
+    onEscape?.();
   };
 
   private updateAltText = (newAltText: string) => {

@@ -28,7 +28,6 @@ interface EditorConfig {
   allowMediaInline?: boolean;
   tableCellOptionsInFloatingToolbar?: boolean;
   restartNumberedLists?: boolean;
-  listNumberContinuity?: boolean;
 }
 
 export default class MobileEditorConfiguration

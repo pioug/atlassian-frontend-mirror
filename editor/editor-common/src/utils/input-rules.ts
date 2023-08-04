@@ -1,8 +1,20 @@
-import type { EditorState, Transaction } from 'prosemirror-state';
+import { closeHistory } from '@atlaskit/editor-prosemirror/history';
+import type {
+  NodeType,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
+import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
 
-import type { EditorAnalyticsAPI } from '../analytics';
-import type { AnalyticsEventPayload } from '../analytics/types';
-import type { InputRuleWrapper } from '../types/input-rules';
+import {
+  type AnalyticsEventPayload,
+  type EditorAnalyticsAPI,
+  JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
+} from '../analytics';
+import { InputRuleHandler, InputRuleWrapper } from '../types';
 
 type GetPayload =
   | AnalyticsEventPayload
@@ -38,5 +50,96 @@ export const inputRuleWithAnalytics = (
       ...originalRule,
       onHandlerApply,
     };
+  };
+};
+
+type WrappingRuleProps = {
+  match: RegExp;
+  nodeType: NodeType;
+  getAttrs?:
+    | Record<string, any>
+    | ((matchResult: RegExpExecArray) => Record<string, any>);
+  joinPredicate?: (
+    matchResult: RegExpExecArray,
+    node: PMNode,
+    joinScenario: JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
+  ) => boolean;
+};
+
+export const createWrappingJoinRule = ({
+  match,
+  nodeType,
+  getAttrs,
+  joinPredicate,
+}: WrappingRuleProps): InputRuleWrapper => {
+  const handler: InputRuleHandler = (
+    state: EditorState,
+    match: RegExpExecArray,
+    start: number,
+    end: number,
+  ) => {
+    const attrs =
+      (getAttrs instanceof Function ? getAttrs(match) : getAttrs) || {};
+
+    const tr = state.tr;
+    const fixedStart = Math.max(start, 1);
+    tr.delete(fixedStart, end);
+
+    const $start = tr.doc.resolve(fixedStart);
+    const range = $start.blockRange();
+    const wrapping = range && findWrapping(range, nodeType, attrs);
+
+    if (!wrapping || !range) {
+      return null;
+    }
+
+    const parentNodePosMapped = tr.mapping.map(range.start);
+    const parentNode = tr.doc.nodeAt(parentNodePosMapped);
+    const lastWrap = wrapping[wrapping.length - 1];
+
+    if (parentNode && lastWrap) {
+      const allowedMarks = lastWrap.type.allowedMarks(parentNode.marks) || [];
+      tr.setNodeMarkup(
+        parentNodePosMapped,
+        parentNode.type,
+        parentNode.attrs,
+        allowedMarks,
+      );
+    }
+
+    tr.wrap(range, wrapping);
+
+    const before = tr.doc.resolve(fixedStart - 1).nodeBefore;
+
+    if (
+      before &&
+      before.type === nodeType &&
+      canJoin(tr.doc, fixedStart - 1) &&
+      (!joinPredicate ||
+        joinPredicate(
+          match,
+          before,
+          JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST.JOINED_TO_LIST_ABOVE,
+        ))
+    ) {
+      tr.join(fixedStart - 1);
+    }
+
+    return tr;
+  };
+
+  return createRule(match, handler);
+};
+
+export const createRule = (
+  match: RegExp,
+  handler: InputRuleHandler,
+): InputRuleWrapper => {
+  return {
+    match,
+    handler,
+    onHandlerApply: (_state, tr) => {
+      closeHistory(tr);
+    },
   };
 };

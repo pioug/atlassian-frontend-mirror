@@ -20,6 +20,36 @@ describe('themeObjectToString', () => {
     expect(themeObjectToString(themeState)).toBe(expected);
   });
 
+  it('should convert theme state object to a formatted string if custom theme options provided', () => {
+    const themeState: ThemeState = {
+      colorMode: 'auto',
+      dark: 'dark',
+      light: 'legacy-light',
+      UNSAFE_themeOptions: { brandColor: '#ff0000' },
+    };
+
+    const expected =
+      'colorMode:auto dark:dark light:legacy-light UNSAFE_themeOptions:{"brandColor":"#ff0000"}';
+
+    expect(themeObjectToString(themeState)).toBe(expected);
+  });
+
+  it('should convert theme state object to a formatted string which can be encoded with encodeURIComponent, and then decoded with decodeURIComponent', () => {
+    const themeState: ThemeState = {
+      colorMode: 'auto',
+      dark: 'dark',
+      light: 'light',
+      UNSAFE_themeOptions: { brandColor: '#ff0000' },
+    };
+    const themeStateString = themeObjectToString(themeState);
+
+    const expectedEncodedURI =
+      'colorMode%3Aauto%20dark%3Adark%20light%3Alight%20UNSAFE_themeOptions%3A%7B%22brandColor%22%3A%22%23ff0000%22%7D';
+
+    expect(encodeURIComponent(themeStateString)).toBe(expectedEncodedURI);
+    expect(decodeURIComponent(expectedEncodedURI)).toBe(themeStateString);
+  });
+
   it('should convert partial theme state object to a formatted string', () => {
     const themeState: Partial<ThemeState> = {
       dark: 'legacy-dark',
@@ -63,6 +93,25 @@ describe('themeStringToObject', () => {
       spacing: 'spacing',
       typography: 'typography',
     };
+
+    expect(themeStringToObject(themeState)).toEqual(expected);
+  });
+
+  it('should convert theme state string that contains custom theme options to an object', () => {
+    const themeState = 'dark:dark UNSAFE_themeOptions:{"brandColor":"#ff0000"}';
+
+    const expected = {
+      dark: 'dark',
+      UNSAFE_themeOptions: { brandColor: '#ff0000' },
+    };
+
+    expect(themeStringToObject(themeState)).toEqual(expected);
+  });
+
+  it('should not contain custom theme options in the converted object if provided an invalid custom theme options string', () => {
+    const themeState = 'UNSAFE_themeOptions:{"brandColor":"#ff0000"';
+
+    const expected = {};
 
     expect(themeStringToObject(themeState)).toEqual(expected);
   });

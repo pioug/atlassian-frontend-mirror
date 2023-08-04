@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 26.14.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.14.4
+
+### Patch Changes
+
+- [`f6e68d0feb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f6e68d0feb1) - Update css style for avatar groups in block card
+
 ## 26.14.3
 
 ### Patch Changes

@@ -56,7 +56,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import panelPlugin from '../../../panel';
-import editorDisabledPlugin from '../../../editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
 import type {
   InlineCommentMap,
@@ -86,8 +86,8 @@ const annotationPreset = new Preset<LightEditorPlugin>()
   .add(widthPlugin)
   .add(guidelinePlugin)
   .add(gridPlugin)
-  .add(floatingToolbarPlugin)
   .add(editorDisabledPlugin)
+  .add(floatingToolbarPlugin)
   .add([
     mediaPlugin,
     {

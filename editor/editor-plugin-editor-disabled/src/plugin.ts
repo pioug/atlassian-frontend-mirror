@@ -1,13 +1,12 @@
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { Dispatch } from '../../event-dispatcher';
-
-import { pluginFactory } from '../../utils/plugin-state-factory';
+import { pluginFactory } from '@atlaskit/editor-common/utils';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
 export type EditorDisabledPluginState = { editorDisabled: boolean };
 
-export const pluginKey = new PluginKey<EditorDisabledPluginState>(
+const pluginKey = new PluginKey<EditorDisabledPluginState>(
   'editorDisabledPlugin',
 );
 
@@ -25,7 +24,7 @@ Stores the state of the editor enabled/disabled for panel and floating
 toolbar to subscribe to through <WithPluginState>. Otherwise the NodeViews
 won't re-render when it changes.
 */
-export function createPlugin(
+function createPlugin(
   dispatch: Dispatch<EditorDisabledPluginState>,
 ): SafePlugin | undefined {
   return new SafePlugin({
@@ -48,10 +47,12 @@ export function createPlugin(
   });
 }
 
-const editorDisabledPlugin: NextEditorPlugin<
+export type EditorDisabledPlugin = NextEditorPlugin<
   'editorDisabled',
   { sharedState: EditorDisabledPluginState }
-> = () => ({
+>;
+
+export const editorDisabledPlugin: EditorDisabledPlugin = () => ({
   name: 'editorDisabled',
 
   getSharedState(editorState) {
@@ -79,5 +80,3 @@ const editorDisabledPlugin: NextEditorPlugin<
     },
   ],
 });
-
-export default editorDisabledPlugin;

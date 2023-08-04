@@ -6,11 +6,14 @@
 //
 // Rather than half-match half-not, this plugin introduces its own
 // nomenclature for what 'block type' is active.
-import type { AllowedBlockTypes } from '../../types/allowed-block-types';
-import type { MessageDescriptor } from '../../types/i18n';
+
+import type { MessageDescriptor } from 'react-intl-next';
 import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
+import type {
+  HeadingLevelsAndNormalText,
+  AllowedBlockTypes,
+} from '@atlaskit/editor-common/types';
 import { messages } from './messages';
-import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 
 export const NORMAL_TEXT: BlockType = {
   name: 'normal',

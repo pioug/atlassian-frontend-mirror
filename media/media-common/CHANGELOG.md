@@ -1,5 +1,11 @@
 # @atlaskit/media-common
 
+## 8.0.0
+
+### Major Changes
+
+- [`ed81e630547`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed81e630547) - MEX-2089 Remove timestamp feature flag on AFP
+
 ## 7.1.0
 
 ### Minor Changes

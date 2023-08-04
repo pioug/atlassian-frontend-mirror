@@ -32,7 +32,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/editor-common": "^74.33.0",
+    "@atlaskit/editor-common": "^74.34.0",
     "@atlaskit/editor-prosemirror": "1.0.2",
     "@babel/runtime": "^7.0.0"
   },

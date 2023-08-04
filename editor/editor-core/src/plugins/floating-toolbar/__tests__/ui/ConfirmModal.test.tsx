@@ -2,22 +2,24 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import { IntlProvider } from 'react-intl-next';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import { Command } from '../../../../types/command';
+import type { Command } from '../../../../types/command';
 import { pluginKey as toolbarDataPluginKey } from '../../pm-plugins/toolbar-data/plugin-key';
-import { FloatingToolbarPluginData } from '../../pm-plugins/toolbar-data/types';
+import type { FloatingToolbarPluginData } from '@atlaskit/editor-plugin-floating-toolbar';
 import * as commands from '../../pm-plugins/toolbar-data/commands';
 import { ConfirmationModal } from '../../ui/ConfirmationModal';
 import floatingToolbarPlugin from '../../index';
 import Toolbar from '../../ui/Toolbar';
-import { FloatingToolbarItem } from '../../types';
+import type { FloatingToolbarItem } from '../../types';
 import floatingToolbarMessages from '../../ui/messages';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
 const emptyDoc = doc(p(''));
 
@@ -29,6 +31,7 @@ describe('toolbar-data', () => {
       preset: new EditorPresetBuilder()
         .add([featureFlagsPlugin, {}])
         .add(decorationsPlugin)
+        .add(editorDisabledPlugin)
         .add(floatingToolbarPlugin),
     });
   };
@@ -72,6 +75,7 @@ describe('<Toolbar />', () => {
       preset: new EditorPresetBuilder()
         .add([featureFlagsPlugin, {}])
         .add(decorationsPlugin)
+        .add(editorDisabledPlugin)
         .add(floatingToolbarPlugin),
     });
   };

@@ -15,9 +15,9 @@ import { Editor, ContextPanel } from '../src';
 import { SaveAndCancelButtons } from './5-full-page';
 import { TitleInput } from '../example-helpers/PageElements';
 import { getDefaultLinkPickerOptions } from '../example-helpers/link-picker';
-import { CollabEditOptions } from '../src/plugins/collab-edit';
+import type { CollabEditOptions } from '../src/plugins/collab-edit';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-import { EditorProps } from '../src/types/editor-props';
+import type { EditorProps } from '../src/types/editor-props';
 
 const EditorTitle: React.FC<{ setDisabled: (arg: boolean) => void }> = ({
   setDisabled,
@@ -174,7 +174,7 @@ export default function EditorExampleForIntegrationTests({ clipboard = true }) {
       );
 
       if (props.linking?.smartLinks || props.smartLinks) {
-        mockDatasourceFetchRequests();
+        mockDatasourceFetchRequests({ shouldMockORSBatch: true });
         return (
           <SmartCardProvider client={cardClient}>
             {editorContent}

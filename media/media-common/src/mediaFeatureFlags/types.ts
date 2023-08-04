@@ -5,7 +5,6 @@ export interface MediaFeatureFlags {
   // We can't yet switch this feature on
   // https://product-fabric.atlassian.net/browse/MEX-104
   folderUploads?: boolean;
-  timestampOnVideo?: boolean;
 }
 
 export interface WithMediaFeatureFlags {

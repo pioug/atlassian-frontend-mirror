@@ -14,6 +14,7 @@ import {
 } from '../../../common/types';
 import { UnauthenticatedError } from '../../../common/utils/errors';
 
+import FeatureDiscovery from './feature-discovery';
 import { formFooterActionStyles, formFooterStyles } from './styled';
 import { checkSubmitDisabled } from './utils';
 
@@ -39,6 +40,8 @@ export const testIds = {
   insertButton: 'link-picker-insert-button',
   cancelButton: 'link-picker-cancel-button',
   actionButton: 'link-picker-action-button',
+  /** Feature discovery for action button (css pulse) */
+  actionButtonDiscovery: 'link-picker-action-button-discovery',
 } as const;
 
 interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
@@ -51,6 +54,7 @@ interface FormFooterProps extends React.HTMLAttributes<HTMLElement> {
   isEditing?: boolean;
   onCancel?: () => void;
   action?: LinkPickerPluginAction;
+  createFeatureDiscovery?: boolean;
 }
 
 export const FormFooter = memo(
@@ -63,6 +67,7 @@ export const FormFooter = memo(
     isEditing,
     onCancel,
     action,
+    createFeatureDiscovery = false,
     ...restProps
   }: FormFooterProps) => {
     const intl = useIntl();
@@ -83,20 +88,30 @@ export const FormFooter = memo(
       ? messages.saveButton
       : messages.insertButton;
 
+    const createButton = (pluginAction: LinkPickerPluginAction) => (
+      <Button
+        testId={testIds.actionButton}
+        onClick={pluginAction.callback}
+        appearance="default"
+        iconBefore={<EditorAddIcon label="" size="medium" />}
+      >
+        {typeof pluginAction.label === 'string'
+          ? pluginAction.label
+          : intl.formatMessage(pluginAction.label)}
+      </Button>
+    );
+
     return (
       <footer css={formFooterStyles} {...restProps}>
         {action && (
           <div css={formFooterActionStyles}>
-            <Button
-              testId={testIds.actionButton}
-              onClick={action.callback}
-              appearance="default"
-              iconBefore={<EditorAddIcon label="" size="medium" />}
-            >
-              {typeof action.label === 'string'
-                ? action.label
-                : intl.formatMessage(action.label)}
-            </Button>
+            {createFeatureDiscovery ? (
+              <FeatureDiscovery testId={testIds.actionButtonDiscovery}>
+                {createButton(action)}
+              </FeatureDiscovery>
+            ) : (
+              createButton(action)
+            )}
           </div>
         )}
         <ButtonGroup>

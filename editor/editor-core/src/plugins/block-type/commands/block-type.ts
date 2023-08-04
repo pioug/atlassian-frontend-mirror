@@ -8,19 +8,14 @@ import type {
 } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
-import type { Command } from '../../../types';
-import {
-  CODE_BLOCK,
-  BLOCK_QUOTE,
-  PANEL,
-  HEADINGS_BY_NAME,
-  NORMAL_TEXT,
-} from '../types';
-import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
 
-import { removeBlockMarks } from '../../../utils/mark';
+import { PanelType } from '@atlaskit/adf-schema';
+import { CellSelection } from '@atlaskit/editor-tables';
+import type {
+  HeadingLevelsAndNormalText,
+  Command,
+} from '@atlaskit/editor-common/types';
 import { shouldSplitSelectedNodeOnNodeInsertion } from '@atlaskit/editor-common/insert';
-import { withAnalytics as withAnalyticsDeprecated } from '../../analytics';
 import type {
   INPUT_METHOD,
   EditorAnalyticsAPI,
@@ -32,9 +27,18 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import { filterChildrenBetween } from '@atlaskit/editor-common/mark';
-import { PanelType } from '@atlaskit/adf-schema';
-import { CellSelection } from '@atlaskit/editor-tables';
+import {
+  filterChildrenBetween,
+  removeBlockMarks,
+} from '@atlaskit/editor-common/utils';
+
+import {
+  CODE_BLOCK,
+  BLOCK_QUOTE,
+  PANEL,
+  HEADINGS_BY_NAME,
+  NORMAL_TEXT,
+} from '../types';
 import { transformToCodeBlockAction } from './transform-to-code-block';
 
 export type InputMethod =
@@ -63,19 +67,24 @@ export function setBlockType(name: string): Command {
 export function setBlockTypeWithAnalytics(
   name: string,
   inputMethod: InputMethod,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): Command {
   return (state, dispatch) => {
     const { nodes } = state.schema;
     if (name === NORMAL_TEXT.name && nodes.paragraph) {
-      return setNormalTextWithAnalytics(inputMethod)(state, dispatch);
+      return setNormalTextWithAnalytics(inputMethod, editorAnalyticsApi)(
+        state,
+        dispatch,
+      );
     }
 
     const headingBlockType = HEADINGS_BY_NAME[name];
     if (headingBlockType && nodes.heading && headingBlockType.level) {
-      return setHeadingWithAnalytics(headingBlockType.level, inputMethod)(
-        state,
-        dispatch,
-      );
+      return setHeadingWithAnalytics(
+        headingBlockType.level,
+        inputMethod,
+        editorAnalyticsApi,
+      )(state, dispatch);
     }
 
     return false;
@@ -130,9 +139,12 @@ function withCurrentHeadingLevel(
   };
 }
 
-export function setNormalTextWithAnalytics(inputMethod: InputMethod): Command {
+export function setNormalTextWithAnalytics(
+  inputMethod: InputMethod,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+): Command {
   return withCurrentHeadingLevel((previousHeadingLevel) =>
-    withAnalyticsDeprecated({
+    withAnalytics(editorAnalyticsApi, {
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
       eventType: EVENT_TYPE.TRACK,
@@ -167,9 +179,10 @@ export function setHeading(level: HeadingLevelsAndNormalText): Command {
 export const setHeadingWithAnalytics = (
   newHeadingLevel: HeadingLevelsAndNormalText,
   inputMethod: InputMethod,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ) => {
   return withCurrentHeadingLevel((previousHeadingLevel) =>
-    withAnalyticsDeprecated({
+    withAnalytics(editorAnalyticsApi, {
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
       eventType: EVENT_TYPE.TRACK,

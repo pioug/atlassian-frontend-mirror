@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import {
-  createContext,
   FormEvent,
   MutableRefObject,
   ReactNode,
@@ -18,6 +17,7 @@ import invariant from 'tiny-invariant';
 
 import { token } from '@atlaskit/tokens';
 
+import { FieldId } from './field-id-context';
 import { FormContext, IsDisabledContext } from './form';
 import { Label } from './label';
 import RequiredAsterisk from './required-asterisk';
@@ -147,13 +147,6 @@ interface State<FieldValue, Element extends SupportedElements> {
   valid: boolean;
   meta: Meta;
 }
-
-/**
- * __Field id__
- *
- * A field id uses the context API. It provides the id of the field to message components. This links the message with the field of screenreaders.
- */
-export const FieldId = createContext<string | undefined>(undefined);
 
 function usePreviousRef<T>(current: T): MutableRefObject<T> {
   const ref = useRef(current);

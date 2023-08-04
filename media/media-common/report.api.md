@@ -154,8 +154,6 @@ export interface MediaFeatureFlags {
   folderUploads?: boolean;
   // (undocumented)
   mediaInline?: boolean;
-  // (undocumented)
-  timestampOnVideo?: boolean;
 }
 
 // @public (undocumented)

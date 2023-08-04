@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.6.7
+
+### Patch Changes
+
+- [`56f4b88f7c2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56f4b88f7c2) - [ux] ED-19317: fix numbered column shifted up issue when sticky header
+
 ## 2.6.6
 
 ### Patch Changes

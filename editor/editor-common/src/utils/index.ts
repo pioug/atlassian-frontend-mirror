@@ -29,6 +29,8 @@ export {
   isValidPosition,
   isEmptyParagraph,
   isInLayoutColumn,
+  removeBlockMarks,
+  filterChildrenBetween,
 } from './editor-core-utils';
 export { withImageLoader } from './imageLoader';
 export type {
@@ -210,15 +212,18 @@ export {
 export { sanitizeNodeForPrivacy } from './filter/privacy-filter';
 
 export { canRenderDatasource } from './datasource';
-
 export {
   filterCommand,
-  walkPrevNode,
-  walkNextNode,
   isEmptySelectionAtStart,
   isEmptySelectionAtEnd,
   insertContentDeleteRange,
   deleteEmptyParagraphAndMoveBlockUp,
+  insertNewLineWithAnalytics,
+  createNewParagraphAbove,
+  createNewParagraphBelow,
+  createParagraphNear,
+  walkNextNode,
+  walkPrevNode,
 } from './commands';
 export type { WalkNode } from './commands';
 
@@ -232,4 +237,8 @@ export function shallowEqual(obj1: any = {}, obj2: any = {}) {
   );
 }
 
-export { inputRuleWithAnalytics } from './input-rules';
+export {
+  inputRuleWithAnalytics,
+  createWrappingJoinRule,
+  createRule,
+} from './input-rules';

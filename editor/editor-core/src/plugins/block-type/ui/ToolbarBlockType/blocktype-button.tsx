@@ -1,21 +1,21 @@
 /** @jsx jsx */
 import React from 'react';
 import { jsx } from '@emotion/react';
-import type { WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps, MessageDescriptor } from 'react-intl-next';
 import { FormattedMessage, defineMessages } from 'react-intl-next';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import TextStyleIcon from '@atlaskit/icon/glyph/editor/text-style';
+import { wrapperStyle } from '@atlaskit/editor-common/styles';
+import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 
-import type { MessageDescriptor } from '../../../../types/i18n';
-import ToolbarButton from '../../../../ui/ToolbarButton';
+import { NORMAL_TEXT } from '../../types';
+
 import {
   buttonContentStyle,
   buttonContentReducedSpacingStyle,
   wrapperSmallStyle,
   expandIconWrapperStyle,
-} from '../../../../ui/styles';
-import { wrapperStyle } from '@atlaskit/editor-common/styles';
-import { NORMAL_TEXT } from '../../types';
+} from './styled';
 
 export interface BlockTypeButtonProps {
   isSmall?: boolean;

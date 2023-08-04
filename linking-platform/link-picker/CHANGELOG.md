@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.28.0
+
+### Minor Changes
+
+- [`db2a42eb771`](https://bitbucket.org/atlassian/atlassian-frontend/commits/db2a42eb771) - [ux] EDM-7273 Jira create feature discovery
+
 ## 1.27.2
 
 ### Patch Changes

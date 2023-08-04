@@ -13,7 +13,7 @@ import panelPlugin from '../../../panel';
 import layoutPlugin from '../../../layout';
 import datePlugin from '../../../date';
 import tasksDecisionsPlugin from '../../../tasks-and-decisions';
-import editorDisabledPlugin from '../../../editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import selectionPlugin from '../../index';
 import type { SelectionPluginState } from '../../types';
 import { selectionPluginKey } from '../../types';

@@ -7,6 +7,13 @@ import type {
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { browser } from '@atlaskit/editor-common/utils';
+import type {
+  HeadingLevels,
+  HeadingLevelsAndNormalText,
+} from '@atlaskit/editor-common/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+
 import type { BlockType } from '../types';
 import {
   NORMAL_TEXT,
@@ -24,18 +31,13 @@ import {
   WRAPPER_BLOCK_TYPES,
   HEADINGS_BY_LEVEL,
 } from '../types';
-import type {
-  HeadingLevels,
-  HeadingLevelsAndNormalText,
-} from '@atlaskit/editor-common/types';
 
-import { areBlockTypesDisabled } from '../../../utils';
+import { HEADING_KEYS } from '../consts';
 import {
   setHeadingWithAnalytics,
   setNormalTextWithAnalytics,
 } from '../commands';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { HEADING_KEYS } from '../../../keymaps/consts';
+import { areBlockTypesDisabled } from '../utils';
 
 export type BlockTypeState = {
   currentBlockType: BlockType;
@@ -109,9 +111,10 @@ const detectBlockType = (
 const autoformatHeading = (
   headingLevel: HeadingLevelsAndNormalText,
   view: EditorView,
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): boolean => {
   if (headingLevel === 0) {
-    setNormalTextWithAnalytics(INPUT_METHOD.FORMATTING)(
+    setNormalTextWithAnalytics(INPUT_METHOD.FORMATTING, editorAnalyticsApi)(
       view.state,
       view.dispatch,
     );
@@ -119,6 +122,7 @@ const autoformatHeading = (
     setHeadingWithAnalytics(
       headingLevel as HeadingLevels,
       INPUT_METHOD.FORMATTING,
+      editorAnalyticsApi,
     )(view.state, view.dispatch);
   }
   return true;
@@ -126,6 +130,7 @@ const autoformatHeading = (
 
 export const pluginKey = new PluginKey<BlockTypeState>('blockTypePlugin');
 export const createPlugin = (
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
   dispatch: (eventName: string | PluginKey, data: any) => void,
   lastNodeMustBeParagraph?: boolean,
 ) => {
@@ -211,13 +216,13 @@ export const createPlugin = (
         ) as HeadingLevels;
         if (headingLevel > -1 && event.altKey) {
           if (browser.mac && event.metaKey) {
-            return autoformatHeading(headingLevel, view);
+            return autoformatHeading(headingLevel, view, editorAnalyticsApi);
           } else if (
             !browser.mac &&
             event.ctrlKey &&
             altKeyLocation !== event.DOM_KEY_LOCATION_RIGHT
           ) {
-            return autoformatHeading(headingLevel, view);
+            return autoformatHeading(headingLevel, view, editorAnalyticsApi);
           }
         } else if (event.key === 'Alt') {
           // event.location is for the current key only; when a user hits Ctrl-Alt-1 the

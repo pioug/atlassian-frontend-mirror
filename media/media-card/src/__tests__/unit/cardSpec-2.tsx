@@ -1073,7 +1073,6 @@ describe('Media Card', () => {
           identifier={indentifiers.file}
           disableOverlay={true}
           useInlinePlayer={true}
-          featureFlags={{ timestampOnVideo: true }}
         />,
       );
 

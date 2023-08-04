@@ -453,62 +453,6 @@ describe('Feature Flags from Props', () => {
     });
   });
 
-  describe('listNumberContinuity', () => {
-    it('should add the FF value', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            listNumberContinuity: true,
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          listNumberContinuity: true,
-        }),
-      );
-    });
-
-    it('should default to false if nothing passed in', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {},
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          listNumberContinuity: false,
-        }),
-      );
-    });
-  });
-
-  describe('restartNumberedListsToolbar', () => {
-    it('should add the FF value', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {
-            restartNumberedListsToolbar: true,
-          },
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          restartNumberedListsToolbar: true,
-        }),
-      );
-    });
-
-    it('should default to false if nothing passed in', () => {
-      expect(
-        createFeatureFlagsFromProps({
-          featureFlags: {},
-        }),
-      ).toEqual(
-        expect.objectContaining({
-          restartNumberedListsToolbar: false,
-        }),
-      );
-    });
-  });
-
   describe('lpLinkPickerFocusTrap', () => {
     it('should add the FF value', () => {
       expect(

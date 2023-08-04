@@ -83,4 +83,5 @@ export interface PickerState {
   activeTab: number;
   /** When true, even if the selected index is -1, don't hide the recents. */
   preventHidingRecents: boolean;
+  allowCreateFeatureDiscovery: boolean;
 }

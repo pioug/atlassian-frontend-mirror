@@ -1,7 +1,5 @@
-import {
-  FloatingToolbarPluginAction,
-  FloatingToolbarPluginData,
-} from './types';
+import type { FloatingToolbarPluginAction } from './types';
+import type { FloatingToolbarPluginData } from '@atlaskit/editor-plugin-floating-toolbar';
 
 export const reducer = (
   pluginState: FloatingToolbarPluginData,

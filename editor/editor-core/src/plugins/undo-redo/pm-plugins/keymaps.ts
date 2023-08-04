@@ -1,6 +1,6 @@
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../keymaps';
-import { keymap } from '../../../utils/keymap';
+import { keymap } from '@atlaskit/editor-common/keymaps';
 import { redoFromKeyboard, undoFromKeyboard } from '../commands';
 
 export function keymapPlugin(): SafePlugin {

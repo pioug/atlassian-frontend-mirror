@@ -1,1 +1,6 @@
-export type { FloatingToolbarPlugin, ForceFocusSelector } from './types';
+export type {
+  FloatingToolbarPlugin,
+  ForceFocusSelector,
+  ConfigWithNodeInfo,
+  FloatingToolbarPluginData,
+} from './types';

@@ -15,6 +15,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import { UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { isSafeUrl, normalizeUrl } from '@atlaskit/linking-common/url';
 import { browser } from '@atlaskit/linking-common/user-agent';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import {
@@ -118,15 +119,22 @@ const initState: PickerState = {
   invalidUrl: false,
   activeTab: 0,
   preventHidingRecents: false,
+  /** This only allows the feature discovery pulse - to be shown the ff must be on and active tab be Jira */
+  allowCreateFeatureDiscovery: true,
 };
 
-function reducer(state: PickerState, payload: Partial<PickerState>) {
+function reducer(
+  state: PickerState,
+  payload: Partial<PickerState>,
+): PickerState {
   if (payload.url && state.url !== payload.url) {
     return {
       ...state,
       invalidUrl: false,
       selectedIndex:
         isSafeUrl(payload.url) && payload.url.length ? -1 : state.selectedIndex,
+      /** When the user starts entering a url, stop pulsing the create button */
+      allowCreateFeatureDiscovery: false,
       ...payload,
     };
   }
@@ -184,6 +192,7 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
         displayText,
         invalidUrl,
         activeTab,
+        allowCreateFeatureDiscovery,
       } = state;
 
       const intl = useIntl();
@@ -527,6 +536,15 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
             onCancel={onCancel}
             action={pluginAction}
             css={!queryState || !plugins?.length ? formFooterMargin : undefined}
+            /* Show the feature discovery pulse when we're on the Jira tab, we haven't started typing a url and
+            the feature flag is enabled */
+            createFeatureDiscovery={
+              activePlugin?.tabKey === 'jira' &&
+              allowCreateFeatureDiscovery &&
+              getBooleanFF(
+                'platform.linking-platform.link-picker.enable-jira-create',
+              )
+            }
           />
         </form>
       );

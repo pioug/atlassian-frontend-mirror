@@ -21,7 +21,7 @@ import panelPlugin from '../../../../panel';
 import { cardPlugin } from '@atlaskit/editor-plugin-card';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
-import editorDisabledPlugin from '../../../../editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';

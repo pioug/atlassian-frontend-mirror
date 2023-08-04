@@ -23,6 +23,7 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': 'warn',
     'no-duplicate-imports': 'off',
     '@typescript-eslint/no-duplicate-imports': 'warn',
+    '@typescript-eslint/no-explicit-any': 'warn',
   },
   overrides: [
     {

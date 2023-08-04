@@ -19,7 +19,9 @@ const mockParameters: AssetsDatasourceParameters = {
   schemaId: '1',
 };
 export default () => {
-  mockDatasourceFetchRequests(ASSETS_LIST_OF_LINKS_DATASOURCE_ID);
+  mockDatasourceFetchRequests({
+    datasourceId: ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  });
   mockAssetsClientFetchRequests();
   return (
     <IntlProvider locale="en">

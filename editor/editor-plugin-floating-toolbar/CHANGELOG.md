@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 0.3.0
+
+### Minor Changes
+
+- [`31405891e32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31405891e32) - Extract editor disabled plugin as separate package.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.3
 
 ### Patch Changes

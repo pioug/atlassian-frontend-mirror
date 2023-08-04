@@ -18,7 +18,6 @@ import {
   getEnableLightDarkTheming,
   getAllowCaptions,
   getRestartNumberedLists,
-  getListNumberContinuity,
   getEnableTokenThemes,
 } from '../query-param-reader';
 import { rendererAnalyticsClient } from './renderer-analytics-client';
@@ -156,7 +155,6 @@ const BasicRenderer: React.FC<WithCreateAnalyticsEventProps> = ({
       allowCustomPanels={allowCustomPanels}
       featureFlags={{
         'restart-numbered-lists': getRestartNumberedLists(),
-        'list-number-continuity': getListNumberContinuity(),
       }}
     />
   );

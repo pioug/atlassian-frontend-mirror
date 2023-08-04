@@ -1,24 +1,26 @@
 /** @jsx jsx */
 import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { ErrorMessage } from '@atlaskit/editor-common/ui';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 // Common Translations will live here
-import { IntlShape, WrappedComponentProps } from 'react-intl-next';
+import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 import Separator from '../../floating-toolbar/ui/Separator';
+import type {
+  ChildProps,
+  RecentSearchInputTypes,
+  RecentSearchSubmitOptions,
+} from '@atlaskit/editor-common/link';
 import {
   container,
   containerWithProvider,
   inputWrapper,
   RecentSearch,
-  ChildProps,
-  RecentSearchInputTypes,
-  RecentSearchSubmitOptions,
 } from '@atlaskit/editor-common/link';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 
@@ -45,8 +47,9 @@ export type Props = {
 
 const validationWrapper = css`
   line-height: 0;
-  padding: 12px 24px 12px 0;
-  margin: 0 4px 0 32px;
+  padding: ${token('space.150', '12px')} ${token('space.300', '24px')}
+    ${token('space.150', '12px')} 0;
+  margin: 0 ${token('space.050', '4px')} 0 ${token('space.400', '32px')};
   border-top: 1px solid ${token('color.border.danger', R400)};
   align-items: start;
   display: flex;
@@ -54,7 +57,8 @@ const validationWrapper = css`
 `;
 
 const buttonWrapper = css`
-  padding: 4px 8px 4px 0px;
+  padding: ${token('space.050', '4px')} ${token('space.100', '8px')}
+    ${token('space.050', '4px')} 0px;
 `;
 
 export class LinkAddToolbar extends React.PureComponent<

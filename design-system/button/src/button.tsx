@@ -8,7 +8,7 @@ import { useGlobalTheme } from '@atlaskit/theme/components';
 import ButtonBase from './shared/button-base';
 import { getCss } from './shared/css';
 import getIsOnlySingleIcon from './shared/get-is-only-single-icon';
-import { Appearance, BaseProps, Spacing } from './types';
+import { BaseProps } from './types';
 
 const isFirefox: boolean =
   typeof navigator !== 'undefined' &&
@@ -28,18 +28,25 @@ export interface ButtonProps extends BaseProps {}
 const Button = React.memo(
   React.forwardRef(function Button(
     {
+      appearance = 'default',
+      children,
+      iconBefore,
+      iconAfter,
+      isSelected = false,
       onMouseDown: providedOnMouseDown = noop,
       onMouseUp: providedOnMouseUp = noop,
+      shouldFitContainer = false,
+      spacing = 'default',
       ...rest
     }: ButtonProps,
     ref: React.Ref<HTMLElement>,
   ) {
     const { mode } = useGlobalTheme();
-    const appearance: Appearance = rest.appearance || 'default';
-    const spacing: Spacing = rest.spacing || 'default';
-    const shouldFitContainer: boolean = Boolean(rest.shouldFitContainer);
-    const isSelected: boolean = Boolean(rest.isSelected);
-    const isOnlySingleIcon: boolean = getIsOnlySingleIcon(rest);
+    const isOnlySingleIcon: boolean = getIsOnlySingleIcon({
+      children,
+      iconBefore,
+      iconAfter,
+    });
 
     const [isActive, setIsActive] = useState<boolean>(false);
 
@@ -89,12 +96,18 @@ const Button = React.memo(
       <ButtonBase
         {...rest}
         ref={ref}
+        appearance={appearance}
         buttonCss={buttonCss}
+        children={children}
         // Due to how click events are set, we need to set active styles
         //  manually in Firefox and wrap onMouseDown/onMouseUp
         data-firefox-is-active={isActive ? true : undefined}
+        iconAfter={iconAfter}
+        iconBefore={iconBefore}
+        isSelected={isSelected}
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
+        spacing={spacing}
       />
     );
   }),

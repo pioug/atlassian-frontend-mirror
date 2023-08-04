@@ -2,11 +2,8 @@
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 
-import {
-  Popup,
-  PopupPosition,
-  withOuterListeners,
-} from '@atlaskit/editor-common/ui';
+import type { PopupPosition } from '@atlaskit/editor-common/ui';
+import { Popup, withOuterListeners } from '@atlaskit/editor-common/ui';
 import {
   ArrowKeyNavigationProvider,
   ArrowKeyNavigationType,
@@ -17,17 +14,20 @@ import Tooltip from '@atlaskit/tooltip';
 import { DN50, N0, N60A, N30A } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 
 import ColorPalette from '../ColorPalette';
 import { DEFAULT_BORDER_COLOR } from '../ColorPalette/Palettes/common';
-import { PaletteColor, PaletteTooltipMessages } from '../ColorPalette/Palettes';
+import type {
+  PaletteColor,
+  PaletteTooltipMessages,
+} from '../ColorPalette/Palettes';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import {
   withAnalyticsContext,
   withAnalyticsEvents,
-  WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next';
-import { ColorPickerAEP } from '../../plugins/analytics/types/general-events';
+import type { ColorPickerAEP } from '../../plugins/analytics/types/general-events';
 import { editorAnalyticsChannel } from '../../plugins/analytics/consts';
 import {
   ACTION,
@@ -86,6 +86,8 @@ type Props = WithAnalyticsEventsProps & {
   skipFocusButtonAfterPick?: boolean;
 };
 
+const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
+
 const ColorPickerButton = (props: Props) => {
   const buttonRef = React.useRef<HTMLButtonElement>(null);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
@@ -122,8 +124,6 @@ const ColorPickerButton = (props: Props) => {
     setIsPopupPositioned(true);
     return position;
   }, []);
-
-  const ColorPaletteWithListeners = withOuterListeners(ColorPalette);
 
   const {
     onChange,
@@ -258,7 +258,7 @@ const ColorPickerButton = (props: Props) => {
       width: ${props.size?.width || '14px'};
       height: ${props.size?.height || '14px'};
       padding: 0;
-      margin: 0px 2px;
+      margin: 0px ${token('space.025', '2px')};
     }
     &:hover {
       background: ${themed({

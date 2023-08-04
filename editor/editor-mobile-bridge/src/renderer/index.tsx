@@ -18,7 +18,6 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Serialized } from '../types';
 import {
   getEnableLegacyMobileMacros,
-  getListNumberContinuity,
   getRestartNumberedLists,
 } from '../query-param-reader';
 import { eventHandlers } from './event-handlers';
@@ -70,7 +69,6 @@ export const App: React.FC<AppProps> = (props) => {
       allowCustomPanels={rendererConfiguration.isCustomPanelEnabled()}
       featureFlags={{
         restartNumberedLists: getRestartNumberedLists(),
-        listNumberContinuity: getListNumberContinuity(),
       }}
     />
   );

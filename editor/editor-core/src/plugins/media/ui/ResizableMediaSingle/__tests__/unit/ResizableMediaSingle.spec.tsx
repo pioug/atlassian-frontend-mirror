@@ -70,7 +70,7 @@ import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
 import floatingToolbarPlugin from '../../../../../../plugins/floating-toolbar';
 
-import editorDisabledPlugin from '../../../../../../plugins/editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -107,8 +107,8 @@ const getEditorView = (document: CreatePMEditorOptions['doc']) => {
     .add(widthPlugin)
     .add(guidelinePlugin)
     .add(gridPlugin)
-    .add(floatingToolbarPlugin)
     .add(editorDisabledPlugin)
+    .add(floatingToolbarPlugin)
     .add([mediaPlugin, { allowMediaSingle: true }])
     .add(layoutPlugin);
 

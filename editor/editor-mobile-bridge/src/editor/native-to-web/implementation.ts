@@ -507,7 +507,11 @@ export default class WebBridgeImpl
   ) {
     if (this.editorView) {
       const { state, dispatch } = this.editorView;
-      setBlockTypeWithAnalytics(blockType, inputMethod)(state, dispatch);
+      setBlockTypeWithAnalytics(
+        blockType,
+        inputMethod,
+        this.editorAnalyticsApi,
+      )(state, dispatch);
     }
   }
 

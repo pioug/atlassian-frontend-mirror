@@ -81,7 +81,10 @@ const MenuWrapper = ({
   }, [isLoading, onUpdate]);
 
   useEffect(() => {
-    setInitialFocusRef?.(menuItemRefs[0]);
+    const firstFocusableRef =
+      menuItemRefs.find((ref) => !ref.hasAttribute('disabled')) ?? null;
+
+    setInitialFocusRef?.(firstFocusableRef);
   }, [menuItemRefs, setInitialFocusRef]);
 
   return (

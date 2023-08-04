@@ -10,9 +10,4 @@ export interface ListState {
   decorationSet: DecorationSet; // used to add attributes representing indentation level
 }
 
-export type ListPluginOptions = Pick<
-  FeatureFlags,
-  | 'restartNumberedLists'
-  | 'restartNumberedListsToolbar'
-  | 'listNumberContinuity'
->;
+export type ListPluginOptions = Pick<FeatureFlags, 'restartNumberedLists'>;

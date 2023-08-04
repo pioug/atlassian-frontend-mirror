@@ -1,7 +1,7 @@
-import { EditorProps } from '../types';
+import type { EditorProps } from '../types';
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
 import type { FeatureFlags } from '../types/feature-flags';
-import { DisableSpellcheckByBrowser } from '../types/browser';
+import type { DisableSpellcheckByBrowser } from '../types/browser';
 
 function verifyJSON(json: string) {
   try {
@@ -232,14 +232,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
     restartNumberedLists:
       normalizedFeatureFlags.restartNumberedLists === true ||
       props.featureFlags?.restartNumberedLists === true,
-
-    listNumberContinuity:
-      normalizedFeatureFlags.listNumberContinuity === true ||
-      props.featureFlags?.listNumberContinuity === true,
-
-    restartNumberedListsToolbar:
-      normalizedFeatureFlags.restartNumberedListsToolbar === true ||
-      props.featureFlags?.restartNumberedListsToolbar === true,
 
     useSomewhatSemanticTextColorNames: Boolean(
       (typeof normalizedFeatureFlags.useSomewhatSemanticTextColorNames ===

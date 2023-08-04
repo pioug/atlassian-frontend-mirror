@@ -98,7 +98,9 @@ export const createTestExtensionProvider = (
 ) => {
   const testManifest = floatingToolbarManifest(action, items);
 
-  return new DefaultExtensionProvider<any>([testManifest], []);
+  return Promise.resolve(new DefaultExtensionProvider<any>([testManifest], []));
 };
 
-export const emptyExtensionProvider = new DefaultExtensionProvider<any>([], []);
+export const emptyExtensionProvider = Promise.resolve(
+  new DefaultExtensionProvider<any>([], []),
+);

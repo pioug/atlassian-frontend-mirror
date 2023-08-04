@@ -3,7 +3,6 @@ import type {
   Mark as PMMark,
   MarkType,
   Node,
-  NodeType,
   ResolvedPos,
   Schema,
   Slice,
@@ -12,17 +11,12 @@ import type {
   EditorState,
   Selection,
 } from '@atlaskit/editor-prosemirror/state';
-import {
-  NodeSelection,
-  TextSelection,
-} from '@atlaskit/editor-prosemirror/state';
+import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { isNodeEmpty } from './document';
-import { atTheBeginningOfDoc, atTheEndOfDoc } from './prosemirror/position';
-import { isMediaNode } from '@atlaskit/editor-common/utils';
 
 export { insideTable } from '@atlaskit/editor-common/core-utils';
 
@@ -58,42 +52,6 @@ function isMarkTypeAllowedInNode(
   state: EditorState,
 ): boolean {
   return toggleMark(markType)(state);
-}
-
-export function canMoveUp(state: EditorState): boolean {
-  const { selection } = state;
-  /**
-   * If there's a media element on the selection it will use a gap cursor to move
-   */
-  if (selection instanceof NodeSelection && isMediaNode(selection.node)) {
-    return true;
-  }
-
-  if (selection instanceof TextSelection) {
-    if (!selection.empty) {
-      return true;
-    }
-  }
-
-  return !atTheBeginningOfDoc(state);
-}
-
-export function canMoveDown(state: EditorState): boolean {
-  const { selection } = state;
-
-  /**
-   * If there's a media element on the selection it will use a gap cursor to move
-   */
-  if (selection instanceof NodeSelection && isMediaNode(selection.node)) {
-    return true;
-  }
-  if (selection instanceof TextSelection) {
-    if (!selection.empty) {
-      return true;
-    }
-  }
-
-  return !atTheEndOfDoc(state);
 }
 
 export function isSelectionInsideLastNodeInDocument(
@@ -245,57 +203,6 @@ export function whichTransitionEvent<TransitionEventName extends string>() {
   }
 
   return;
-}
-
-/**
- * Function will create a list of wrapper blocks present in a selection.
- */
-function getSelectedWrapperNodes(state: EditorState): NodeType[] {
-  const nodes: Array<NodeType> = [];
-  if (state.selection) {
-    const { $from, $to } = state.selection;
-    const {
-      blockquote,
-      panel,
-      orderedList,
-      bulletList,
-      listItem,
-      codeBlock,
-      decisionItem,
-      decisionList,
-      taskItem,
-      taskList,
-    } = state.schema.nodes;
-    state.doc.nodesBetween($from.pos, $to.pos, (node) => {
-      if (
-        node.isBlock &&
-        [
-          blockquote,
-          panel,
-          orderedList,
-          bulletList,
-          listItem,
-          codeBlock,
-          decisionItem,
-          decisionList,
-          taskItem,
-          taskList,
-        ].indexOf(node.type) >= 0
-      ) {
-        nodes.push(node.type);
-      }
-    });
-  }
-  return nodes;
-}
-
-/**
- * Function will check if changing block types: Paragraph, Heading is enabled.
- */
-export function areBlockTypesDisabled(state: EditorState): boolean {
-  const nodesTypes: NodeType[] = getSelectedWrapperNodes(state);
-  const { panel } = state.schema.nodes;
-  return nodesTypes.filter((type) => type !== panel).length > 0;
 }
 
 export const isTemporary = (id: string): boolean => {

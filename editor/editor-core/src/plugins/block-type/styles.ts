@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import {
   blockquoteSharedStyles,
   headingsSharedStyles,
 } from '@atlaskit/editor-common/styles';
-import { ThemeProps } from '@atlaskit/theme/types';
 
 export const blocktypeStyles = (props: ThemeProps) => css`
   .ProseMirror {

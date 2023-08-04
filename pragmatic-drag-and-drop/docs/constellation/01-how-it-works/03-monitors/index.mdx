@@ -22,10 +22,10 @@ A _monitor_ can be located anywhere and is not tied to any element.
 ```tsx
 // basic usage with react
 import React, { useEffect, useRef } from 'react';
-import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/elements';
+import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 
 function App() {
-  // It is often convinant to tie monitors to components using effects
+  // It is often convenient to tie monitors to components using effects
   // By doing this you can ensure you monitors are cleaned up
   // when a component is no longer being used.
   useEffect(() => {

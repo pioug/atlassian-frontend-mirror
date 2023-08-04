@@ -10,7 +10,7 @@ Drop targets are elements that can be dropped upon by something that is dragging
 
 ```ts
 // drop targets are exposed through adapters
-import { dropTargetForFiles } from '@atlaskit/pragmatic-drag-and-drop/adapter/files';
+import { dropTargetForFiles } from '@atlaskit/pragmatic-drag-and-drop/adapter/file';
 
 const cleanup = dropTargetForFiles({
   element: myElement,
@@ -20,7 +20,7 @@ const cleanup = dropTargetForFiles({
 ```ts
 // basic usage with react
 import React, { useEffect, useRef } from 'react';
-import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/elements';
+import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 
 function DropTarget() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -242,19 +242,18 @@ We can leverage the fact that `location.current.dropTargets` is always bubbled o
 ```ts
 dropTargetForElements({
   element: parent,
-  onDrop({location, self}) {
+  onDrop({ location, self }) {
     // we know that if 'self' is in the first position, then no inner drop target was dropped on
-    if(location.current.dropTargets[0]?.element === self.element) {
+    if (location.current.dropTargets[0]?.element === self.element) {
       action1();
       return;
     }
     // at this point we know that an inner drop target was dropped on
     action2();
-  }
-})
+  },
+});
 ```
 
 ## Related
 
 - [Visual affordances for drop targets](/components/pragmatic-drag-and-drop/design-guidelines/visual-affordances#moving-items-between-drop-targets)
-

@@ -216,7 +216,7 @@ The `themeObjectToString()` function converts a theme state object into a format
 }`}
   required={true}
 />
-<TokenPropsTable propName={'return value'} description={'A string in the format used by the `data-theme` html attribute.'} typing={`string`} />
+<TokenPropsTable propName={'return value'} description={'A string in the format used by the `data-theme` html attribute; or a stringified theme state object used for constructing a URL as query params'} typing={`string`} />
 
 #### Example usage
 
@@ -241,13 +241,15 @@ console.log(themeQueryString);
 
 ### themeStringToObject(themes)
 
-The `themeStringToObject()` function converts a string representation of the theme state into an object that can be passed to the `setGlobalTheme()` function.
+The `themeStringToObject()` function converts a string representation of the theme state into an object that:
+- can be passed to the `setGlobalTheme()` function;
+- can be used for parsing a URL query parameters from a stringified theme state object.
 
 An example of the expected formatting of the `themes` string is `'dark:dark light:legacy-light spacing:spacing'`.
 
 <TokenPropsTable
   propName={'themes'}
-  description={'A string in the format used by the `data-theme` html attribute.'}
+  description={'A string in the format used by the `data-theme` html attribute; or a stringigied theme state object as a URL qeury string'}
   typing={`string`}
   required={true}
 />
@@ -267,9 +269,17 @@ An example of the expected formatting of the `themes` string is `'dark:dark ligh
 ```tsx
 import { setGlobalTheme, themeStringToObject } from '@atlaskit/tokens';
 
+const newTheme = 'colorMode:auto dark:dark light:legacy-light spacing:spacing';
 function onThemeChangeHandler(newTheme) {
   setGlobalTheme(themeStringToObject(newTheme));
 }
+
+const parsedUrlProps = {
+  contentId: 'contentId',
+  hostname: 'hostname',
+  themeState: 'colorMode:auto dark:dark light:legacy-light UNSAFE_themeOptions:{"brandColor":"#ff0000"}',
+};
+parsedThemeState = themeStringToObject(decodeURIComponent(parsedUrlProps.themeState));
 ```
 
 ### getTokenValue(path, fallback)

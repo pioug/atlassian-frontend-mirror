@@ -18,7 +18,7 @@ import basePlugin from '../../../plugins/base';
 import mediaPlugin from '../../../plugins/media';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
 
-import editorDisabledPlugin from '../../../plugins/editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -29,7 +29,7 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
-import { createWrappingJoinRule } from '../../input-rules';
+import { createWrappingJoinRule } from '@atlaskit/editor-common/utils';
 
 describe('createWrappingJoinRule()', () => {
   const createEditor = createProsemirrorEditorFactory();

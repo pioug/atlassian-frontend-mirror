@@ -1,3 +1,5 @@
+export type { AllowedBlockTypes } from '@atlaskit/editor-common/types';
+
 export type { EditorInstance } from './editor-instance';
 export type { EditorConfig } from './editor-config';
 export type {
@@ -17,7 +19,6 @@ export type { EditorAppearanceComponentProps } from './editor-appearance-compone
 export type { Command, CommandDispatch } from './command';
 export type { MessageDescriptor } from './i18n';
 export type { DomAtPos } from './dom-at-pos';
-export type { AllowedBlockTypes } from './allowed-block-types';
 export type { ExtensionConfig } from './extension-config';
 export type { EditorAppearance } from './editor-appearance';
 export type {

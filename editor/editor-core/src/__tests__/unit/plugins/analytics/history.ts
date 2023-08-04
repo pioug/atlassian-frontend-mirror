@@ -3,10 +3,7 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import {
-  setHeadingWithAnalytics,
-  setHeading,
-} from '../../../../plugins/block-type/commands';
+import { setHeading } from '../../../../plugins/block-type/commands';
 import {
   INPUT_METHOD,
   ACTION,
@@ -33,10 +30,17 @@ describe('Analytics Plugin: History Events', () => {
   const undo = () => sendKeyToPm(editorView, 'Ctrl-z');
   const redo = () => sendKeyToPm(editorView, 'Ctrl-y');
   const insertHeading = () =>
-    setHeadingWithAnalytics(1, INPUT_METHOD.TOOLBAR)(
-      editorView.state,
-      editorView.dispatch,
-    );
+    withAnalytics({
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_HEADING,
+      attributes: {
+        inputMethod: INPUT_METHOD.TOOLBAR,
+        newHeadingLevel: 1,
+        previousHeadingLevel: 0,
+      },
+    })(setHeading(1))(editorView.state, editorView.dispatch);
   const insertTable = () =>
     withAnalytics({
       action: ACTION.INSERTED,

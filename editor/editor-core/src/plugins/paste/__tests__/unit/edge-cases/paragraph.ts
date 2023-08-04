@@ -35,7 +35,7 @@ import mediaPlugin from '../../../../media';
 import pastePlugin from '../../../index';
 import blockTypePlugin from '../../../../block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import editorDisabledPlugin from '../../../../editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import listPlugin from '../../../../list';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';

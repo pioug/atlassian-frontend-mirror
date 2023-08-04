@@ -12,7 +12,7 @@ import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
 import { h200 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-import { FieldId } from './field';
+import { FieldId } from './field-id-context';
 
 type MessageAppearance = 'default' | 'error' | 'valid';
 

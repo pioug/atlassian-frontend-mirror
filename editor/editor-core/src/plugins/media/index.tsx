@@ -50,7 +50,8 @@ import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { MediaPluginState } from './pm-plugins/types';
 import { stateKey } from './pm-plugins/plugin-key';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import type editorDisabled from '../editor-disabled';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export type { MediaState, MediaProvider, CustomMediaPicker };
@@ -68,7 +69,7 @@ const mediaPlugin: NextEditorPlugin<
       typeof widthPlugin,
       typeof decorationsPlugin,
       FloatingToolbarPlugin,
-      typeof editorDisabled,
+      EditorDisabledPlugin,
     ];
     sharedState: MediaPluginState | null;
   }

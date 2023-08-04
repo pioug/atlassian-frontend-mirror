@@ -397,6 +397,242 @@ describe(name, () => {
         expect(result!.toJSON()).toEqual(expected);
       });
 
+      it('should wrap in unsupportedBlock for nestedExpand node', () => {
+        const expected = {
+          type: 'doc',
+          content: [
+            {
+              type: 'table',
+              attrs: {
+                __autoSize: false,
+                isNumberColumnEnabled: false,
+                layout: 'default',
+                localId: 'a4ffec03-04b5-4243-aebc-0f6dc934c96e',
+                width: null,
+              },
+              content: [
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableHeader',
+                      attrs: {
+                        background: null,
+                        colspan: 1,
+                        colwidth: null,
+                        rowspan: 1,
+                      },
+                      content: [
+                        {
+                          type: 'paragraph',
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      attrs: {
+                        background: null,
+                        colspan: 1,
+                        colwidth: null,
+                        rowspan: 1,
+                      },
+                      content: [
+                        {
+                          type: 'paragraph',
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      attrs: {
+                        background: null,
+                        colspan: 1,
+                        colwidth: null,
+                        rowspan: 1,
+                      },
+                      content: [
+                        {
+                          type: 'paragraph',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableCell',
+                      attrs: {
+                        background: null,
+                        colspan: 1,
+                        colwidth: null,
+                        rowspan: 1,
+                      },
+                      content: [
+                        {
+                          type: 'nestedExpand',
+                          attrs: {
+                            __expanded: true,
+                            title: '',
+                          },
+                          content: [
+                            {
+                              type: 'unsupportedBlock',
+                              attrs: {
+                                originalValue: {
+                                  type: 'invalidChildComponent',
+                                  content: [
+                                    {
+                                      type: 'text',
+                                      text: 'This is an item',
+                                    },
+                                  ],
+                                },
+                              },
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {
+                        background: null,
+                        colspan: 1,
+                        colwidth: null,
+                        rowspan: 1,
+                      },
+                      content: [
+                        {
+                          type: 'paragraph',
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {
+                        background: null,
+                        colspan: 1,
+                        colwidth: null,
+                        rowspan: 1,
+                      },
+                      content: [
+                        {
+                          type: 'paragraph',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        };
+
+        const result = processRawValue(schema, {
+          type: 'doc',
+          content: [
+            {
+              type: 'table',
+              attrs: {
+                isNumberColumnEnabled: false,
+                layout: 'default',
+                localId: 'a4ffec03-04b5-4243-aebc-0f6dc934c96e',
+              },
+              content: [
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'nestedExpand',
+                          attrs: {
+                            title: '',
+                          },
+                          content: [
+                            {
+                              type: 'invalidChildComponent',
+                              content: [
+                                {
+                                  type: 'text',
+                                  text: 'This is an item',
+                                },
+                              ],
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      attrs: {},
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        });
+
+        expect(result).toBeDefined();
+        expect(result!.toJSON()).toEqual(expected);
+      });
+
       it('should wrap in unsupportedBlock for blockquote node', () => {
         const expected = {
           type: 'doc',

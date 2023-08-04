@@ -1,21 +1,12 @@
 import type { Schema, NodeType } from '@atlaskit/editor-prosemirror/model';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import {
-  createJoinNodesRule,
-  createWrappingTextBlockRule,
-  ruleWithAnalytics,
-} from '../../../utils/input-rules';
-import { createRule, createPlugin } from '@atlaskit/prosemirror-input-rules';
-import type { FeatureFlags } from '../../../types/feature-flags';
-
-import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
-import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
-import {
-  isConvertableToCodeBlock,
-  transformToCodeBlockAction,
-} from '../commands/transform-to-code-block';
-import { insertBlock } from '../commands/insert-block';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import type { InputRuleWrapper } from '@atlaskit/prosemirror-input-rules';
+import {
+  createRule,
+  createPlugin,
+  leafNodeReplacementCharacter,
+} from '@atlaskit/prosemirror-input-rules';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   INPUT_METHOD,
   ACTION,
@@ -23,8 +14,20 @@ import {
   EVENT_TYPE,
   ACTION_SUBJECT_ID,
 } from '@atlaskit/editor-common/analytics';
+import type {
+  HeadingLevelsAndNormalText,
+  FeatureFlags,
+} from '@atlaskit/editor-common/types';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
 
-import type { HeadingLevelsAndNormalText } from '@atlaskit/editor-common/types';
+import {
+  isConvertableToCodeBlock,
+  transformToCodeBlockAction,
+} from '../commands/transform-to-code-block';
+import { insertBlock } from '../commands/insert-block';
+
+import { createJoinNodesRule, createWrappingTextBlockRule } from '../utils';
 
 const MAX_HEADING_LEVEL = 6;
 
@@ -54,7 +57,10 @@ function blockQuoteRule(nodeType: NodeType) {
  * @param {Schema} schema
  * @returns {InputRuleWithHandler[]}
  */
-function getHeadingRules(schema: Schema): InputRuleWrapper[] {
+function getHeadingRules(
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  schema: Schema,
+): InputRuleWrapper[] {
   // '# ' for h1, '## ' for h2 and etc
   const hashRule = headingRule(schema.nodes.heading, MAX_HEADING_LEVEL);
 
@@ -74,7 +80,7 @@ function getHeadingRules(schema: Schema): InputRuleWrapper[] {
   );
 
   // New analytics handler
-  const ruleWithHeadingAnalytics = ruleWithAnalytics(
+  const ruleWithHeadingAnalytics = inputRuleWithAnalytics(
     (_state, matchResult: RegExpExecArray) => ({
       action: ACTION.FORMATTED,
       actionSubject: ACTION_SUBJECT.TEXT,
@@ -85,6 +91,7 @@ function getHeadingRules(schema: Schema): InputRuleWrapper[] {
         newHeadingLevel: getHeadingLevel(matchResult).level,
       },
     }),
+    editorAnalyticsAPI,
   );
 
   return [
@@ -99,7 +106,10 @@ function getHeadingRules(schema: Schema): InputRuleWrapper[] {
  * @param {Schema} schema
  * @returns {InputRuleWithHandler[]}
  */
-function getBlockQuoteRules(schema: Schema): InputRuleWrapper[] {
+function getBlockQuoteRules(
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  schema: Schema,
+): InputRuleWrapper[] {
   // '> ' for blockquote
   const greatherThanRule = blockQuoteRule(schema.nodes.blockquote);
 
@@ -117,15 +127,18 @@ function getBlockQuoteRules(schema: Schema): InputRuleWrapper[] {
   );
 
   // Analytics V3 handler
-  const ruleWithBlockQuoteAnalytics = ruleWithAnalytics({
-    action: ACTION.FORMATTED,
-    actionSubject: ACTION_SUBJECT.TEXT,
-    eventType: EVENT_TYPE.TRACK,
-    actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BLOCK_QUOTE,
-    attributes: {
-      inputMethod: INPUT_METHOD.FORMATTING,
+  const ruleWithBlockQuoteAnalytics = inputRuleWithAnalytics(
+    {
+      action: ACTION.FORMATTED,
+      actionSubject: ACTION_SUBJECT.TEXT,
+      eventType: EVENT_TYPE.TRACK,
+      actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BLOCK_QUOTE,
+      attributes: {
+        inputMethod: INPUT_METHOD.FORMATTING,
+      },
     },
-  });
+    editorAnalyticsAPI,
+  );
 
   return [
     ruleWithBlockQuoteAnalytics(greatherThanRule),
@@ -139,14 +152,20 @@ function getBlockQuoteRules(schema: Schema): InputRuleWrapper[] {
  * @param {Schema} schema
  * @returns {InputRuleWithHandler[]}
  */
-function getCodeBlockRules(schema: Schema): InputRuleWrapper[] {
-  const ruleAnalytics = ruleWithAnalytics({
-    action: ACTION.INSERTED,
-    actionSubject: ACTION_SUBJECT.DOCUMENT,
-    actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
-    attributes: { inputMethod: INPUT_METHOD.FORMATTING },
-    eventType: EVENT_TYPE.TRACK,
-  });
+function getCodeBlockRules(
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+  schema: Schema,
+): InputRuleWrapper[] {
+  const ruleAnalytics = inputRuleWithAnalytics(
+    {
+      action: ACTION.INSERTED,
+      actionSubject: ACTION_SUBJECT.DOCUMENT,
+      actionSubjectId: ACTION_SUBJECT_ID.CODE_BLOCK,
+      attributes: { inputMethod: INPUT_METHOD.FORMATTING },
+      eventType: EVENT_TYPE.TRACK,
+    },
+    editorAnalyticsAPI,
+  );
 
   const validMatchLength = (match: RegExpExecArray) =>
     match.length > 0 && match[0].length === 3;
@@ -209,21 +228,22 @@ function getCodeBlockRules(schema: Schema): InputRuleWrapper[] {
 }
 
 function inputRulePlugin(
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
   schema: Schema,
   featureFlags: FeatureFlags,
 ): SafePlugin | undefined {
   const rules: Array<InputRuleWrapper> = [];
 
   if (schema.nodes.heading) {
-    rules.push(...getHeadingRules(schema));
+    rules.push(...getHeadingRules(editorAnalyticsAPI, schema));
   }
 
   if (schema.nodes.blockquote) {
-    rules.push(...getBlockQuoteRules(schema));
+    rules.push(...getBlockQuoteRules(editorAnalyticsAPI, schema));
   }
 
   if (schema.nodes.codeBlock) {
-    rules.push(...getCodeBlockRules(schema));
+    rules.push(...getCodeBlockRules(editorAnalyticsAPI, schema));
   }
 
   if (rules.length !== 0) {

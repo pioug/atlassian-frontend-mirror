@@ -1,9 +1,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
-import type {
-  InputRuleHandler,
-  InputRuleWrapper,
-} from '@atlaskit/editor-common/types';
+import type { InputRuleWrapper } from '@atlaskit/editor-common/types';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -11,18 +8,7 @@ import { EditorState, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { createInputRulePlugin } from './plugin';
 import type { OnInputEvent } from './types';
 
-export const createRule = (
-  match: RegExp,
-  handler: InputRuleHandler,
-): InputRuleWrapper => {
-  return {
-    match,
-    handler,
-    onHandlerApply: (state, tr) => {
-      closeHistory(tr);
-    },
-  };
-};
+export { createRule } from '@atlaskit/editor-common/utils';
 
 const hasUnsupportedMarks = (
   state: EditorState,

@@ -32,7 +32,6 @@ import {
   LINKPICKER_HEIGHT_IN_PX,
   RECENT_SEARCH_HEIGHT_IN_PX,
   RECENT_SEARCH_WIDTH_IN_PX,
-  withOuterListeners,
 } from '@atlaskit/editor-common/ui';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 import { Node } from '@atlaskit/editor-prosemirror/model';
@@ -69,9 +68,6 @@ export type EditLinkToolbarProps = InjectionAPI & {
   featureFlags: FeatureFlags;
   forceFocusSelector: ForceFocusSelector | undefined;
 };
-const HyperLinkToolbarWithListeners = withOuterListeners(
-  HyperlinkAddToolbarWithState,
-);
 
 export function HyperlinkAddToolbarWithState({
   linkPickerOptions = {},
@@ -122,20 +118,11 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
     this.hideLinkToolbar();
   }
 
-  /** Focus should move to the 'Edit link' button when the toolbar closes
-   * and not close the floating toolbar.
-   */
-  private handleEsc = (e: KeyboardEvent) => {
-    this.props.forceFocusSelector?.(
-      `[aria-label="${linkToolbarMessages.editLink.defaultMessage}"]`,
-      this.props.view,
-    );
-  };
-
   private hideLinkToolbar() {
     const { view } = this.props;
     view.dispatch(hideLinkToolbar(view.state.tr));
   }
+
   render() {
     const {
       linkPickerOptions,
@@ -146,17 +133,17 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
       featureFlags,
       onSubmit,
       pluginInjectionApi,
+      forceFocusSelector,
     } = this.props;
 
     return (
-      <HyperLinkToolbarWithListeners
+      <HyperlinkAddToolbarWithState
         pluginInjectionApi={pluginInjectionApi}
         view={view}
         linkPickerOptions={linkPickerOptions}
         providerFactory={providerFactory}
         displayUrl={url}
         displayText={text}
-        handleEscapeKeydown={this.handleEsc}
         // Assumes that the smart card link picker can only ever be invoked by clicking "edit"
         // via the floating toolbar
         invokeMethod={INPUT_METHOD.FLOATING_TB}
@@ -173,6 +160,10 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
             tr,
           );
           hideLinkToolbar(tr);
+
+          forceFocusSelector?.(
+            `[aria-label="${linkToolbarMessages.editLink.defaultMessage}"]`,
+          )(tr);
 
           if (dispatch) {
             dispatch(tr);

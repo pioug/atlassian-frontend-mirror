@@ -385,26 +385,6 @@ export type FeatureFlags = {
 
   /**
    * @description
-   * Allow lists to continue their numbering when split by other nodes
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3257270398/MAKE+PP+Restart+Numbered+Lists
-   * @see https://product-fabric.atlassian.net/browse/ED-15210
-   * @default false
-   */
-  listNumberContinuity?: boolean;
-
-  /**
-   * @description
-   * Show a toolbar for users to restart the numbering of a list
-   *
-   * @see https://product-fabric.atlassian.net/wiki/spaces/EUXQ/pages/3257270398/MAKE+PP+Restart+Numbered+Lists
-   * @see https://product-fabric.atlassian.net/browse/ED-15210
-   * @default false
-   */
-  restartNumberedListsToolbar?: boolean;
-
-  /**
-   * @description
    * This feature flag is used to turn on or off somewhat semantic
    *  tooltip names in text, background and table charts color palette.
    * Show semantic color names in tooltips when hovering over colors in the text,

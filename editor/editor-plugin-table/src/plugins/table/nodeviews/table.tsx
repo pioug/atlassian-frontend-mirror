@@ -48,22 +48,29 @@ const tableAttributes = (
   const shouldHaveInlineWidth =
     options?.isTableResizingEnabled && !isTableNested(state, pos);
 
-  let style = shouldHaveInlineWidth
-    ? `width: ${
-        node.attrs.isNumberColumnEnabled
-          ? getTableContainerWidth(node) - akEditorTableNumberColumnWidth
-          : getTableContainerWidth(node)
-      }px`
-    : undefined;
+  let style = `width: ${
+    node.attrs.isNumberColumnEnabled
+      ? getTableContainerWidth(node) - akEditorTableNumberColumnWidth
+      : getTableContainerWidth(node)
+  }px`;
 
-  return {
+  const dataAttrsInTable = {
     'data-number-column': node.attrs.isNumberColumnEnabled,
     'data-layout': node.attrs.layout,
     'data-autosize': node.attrs.__autoSize,
     'data-table-local-id': node.attrs.localId || '',
     'data-table-width': node.attrs.width,
-    style,
   };
+
+  if (shouldHaveInlineWidth) {
+    // this should be fixed because style will overwrite any existing styles, current found conflict with sticky headers
+    return {
+      ...dataAttrsInTable,
+      style,
+    };
+  }
+
+  return dataAttrsInTable;
 };
 
 const toDOM = (node: PmNode, props: Props) => {

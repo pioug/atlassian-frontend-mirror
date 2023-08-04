@@ -1,4 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -27,15 +28,12 @@ export default () =>
 /**
  * The provided selector should be the floating toolbar button that needs focus.
  */
-export function forceFocusSelector(selector: string | null, view?: EditorView) {
-  if (view) {
-    return view.dispatch(
-      view.state.tr.setMeta(forceFocusStateKey, {
-        selector,
-      }),
-    );
-  }
-}
+export const forceFocusSelector =
+  (selector: string | null) => (tr: Transaction) => {
+    return tr.setMeta(forceFocusStateKey, {
+      selector,
+    });
+  };
 
 /**
  * If a selector is set and the element exists, focus it.
@@ -54,7 +52,12 @@ export function checkShouldForceFocusAndApply(view?: EditorView) {
         });
         (focusableElement as HTMLElement).focus();
 
-        forceFocusSelector(null, view);
+        const {
+          state: { tr },
+          dispatch,
+        } = view;
+
+        dispatch(forceFocusSelector(null)(tr));
       }
     }
   }

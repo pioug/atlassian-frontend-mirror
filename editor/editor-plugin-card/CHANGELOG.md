@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-card
 
+## 0.3.7
+
+### Patch Changes
+
+- [`31405891e32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/31405891e32) - Extract editor disabled plugin as separate package.
+- Updated dependencies
+
+## 0.3.6
+
+### Patch Changes
+
+- [`fd24b65bb62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd24b65bb62) - Fix table width bug when layout is undefined for datasource.
+
 ## 0.3.5
 
 ### Patch Changes

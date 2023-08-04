@@ -30,7 +30,9 @@ const tableContainerStyles = css({
   overflow: 'scroll',
 });
 export default () => {
-  mockDatasourceFetchRequests(ASSETS_LIST_OF_LINKS_DATASOURCE_ID);
+  mockDatasourceFetchRequests({
+    datasourceId: ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+  });
   // Change the below url to http://localhost:3000 when running locally with a proxy
   // forceCmdbBaseUrl('http://localhost:3000');
   forceCmdbBaseUrl('https://jsm-cmdb-dev1.jira-dev.com');

@@ -88,7 +88,6 @@ import {
   MediaCardSsrData,
 } from '../utils/globalScope';
 import { getCardStateFromFileState, createStateUpdater } from './cardState';
-import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import { isBigger } from '../utils/dimensionComparer';
 import { getMediaCardCursor } from '../utils/getMediaCardCursor';
 import {
@@ -393,8 +392,7 @@ export class CardBase extends Component<CardBaseProps, CardState> {
       !isPlayingFile &&
       disableOverlay &&
       useInlinePlayer &&
-      isVideoPlayable &&
-      getMediaFeatureFlag('timestampOnVideo', this.props.featureFlags)
+      isVideoPlayable
     ) {
       this.setState({
         isPlayingFile: true,

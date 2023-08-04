@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import userEvent from '@testing-library/user-event';
 import { fireEvent, screen } from '@testing-library/react';
@@ -27,10 +25,6 @@ import {
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type {
-  Dispatch,
-  EventDispatcher,
-} from '@atlaskit/editor-common/event-dispatcher';
 
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { MockMacroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
@@ -54,7 +48,6 @@ import PluginSlot from '../../../../ui/PluginSlot';
 import EditorContext from '../../../../ui/EditorContext';
 import EditorActions from '../../../../actions';
 import type { EditorProps } from '../../../../types';
-import { createDispatch } from '../../../../event-dispatcher';
 
 replaceRaf();
 const requestAnimationFrame = window.requestAnimationFrame as any;
@@ -78,42 +71,6 @@ jest.mock('@atlaskit/smart-card', () => {
 jest.mock('@atlaskit/link-analytics', () => ({
   useSmartLinkLifecycleAnalytics: jest.fn(),
 }));
-
-/**
- * TODO: ED-19106
- * Copied `EditorSharedConfigProvider` (which we removed) since floating-toolbar needs it for
- * `WithPluginState` to work correctly in this test. When we migrate across to `useSharedPluginState`
- * we can remove this.
- */
-export type EditorSharedConfig = {
-  editorView: EditorView;
-  eventDispatcher: EventDispatcher;
-  dispatch: Dispatch;
-};
-
-const EditorSharedConfigContext =
-  React.createContext<EditorSharedConfig | null>(null);
-
-export class EditorSharedConfigProvider extends React.Component<
-  { value: EditorSharedConfig | null },
-  any
-> {
-  static childContextTypes = {
-    editorSharedConfig: PropTypes.object,
-  };
-
-  getChildContext() {
-    return { editorSharedConfig: this.props.value };
-  }
-
-  render() {
-    return (
-      <EditorSharedConfigContext.Provider value={this.props.value}>
-        {this.props.children}
-      </EditorSharedConfigContext.Provider>
-    );
-  }
-}
 
 describe('Analytics key events', () => {
   const toDisplayButtonName = (display: string) => {
@@ -231,25 +188,17 @@ describe('Analytics key events', () => {
       providerFactory,
       editorRender: ({ editor, eventDispatcher, view, config }) => (
         <EditorContext editorActions={editorActions}>
-          <EditorSharedConfigProvider
-            value={{
-              editorView: view!,
-              eventDispatcher,
-              dispatch: createDispatch(eventDispatcher),
-            }}
-          >
-            {editor}
-            <PluginSlot
-              editorView={view}
-              eventDispatcher={eventDispatcher}
-              providerFactory={providerFactory}
-              items={config.contentComponents}
-              containerElement={null}
-              wrapperElement={null}
-              disabled={false}
-              pluginHooks={config.pluginHooks}
-            />
-          </EditorSharedConfigProvider>
+          {editor}
+          <PluginSlot
+            editorView={view}
+            eventDispatcher={eventDispatcher}
+            providerFactory={providerFactory}
+            items={config.contentComponents}
+            containerElement={null}
+            wrapperElement={null}
+            disabled={false}
+            pluginHooks={config.pluginHooks}
+          />
         </EditorContext>
       ),
       renderOpts: {

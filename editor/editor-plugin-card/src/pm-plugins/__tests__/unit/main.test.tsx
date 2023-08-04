@@ -300,7 +300,7 @@ describe('datasource', () => {
     const nodeDOM = editorView.nodeDOM(0);
     expect((nodeDOM as HTMLDivElement).innerHTML).toMatch(
       new RegExp(
-        '<div class="[\\w- ]+"><button data-testid="mock-datasource-table-view">Mock Datasource Table View</button></div>',
+        '<div class="[\\w- ]+" style="min-width: 100%;"><button data-testid="mock-datasource-table-view">Mock Datasource Table View</button></div>',
       ),
     );
   });
@@ -563,7 +563,7 @@ describe('datasource', () => {
         const nodeDOM = editorView.nodeDOM(0);
         expect((nodeDOM as HTMLDivElement).innerHTML).toMatch(
           new RegExp(
-            '<div class="[\\w- ]+"><button data-testid="mock-datasource-table-view">Mock Datasource Table View</button></div>',
+            '<div class="[\\w- ]+" style="min-width: 100%;"><button data-testid="mock-datasource-table-view">Mock Datasource Table View</button></div>',
           ),
         );
       },

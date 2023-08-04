@@ -43,7 +43,7 @@
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/spinner": "^15.5.0",
     "@atlaskit/theme": "^12.5.0",
-    "@atlaskit/tokens": "^1.13.0",
+    "@atlaskit/tokens": "^1.14.0",
     "@atlaskit/visually-hidden": "^1.2.0",
     "@babel/runtime": "^7.0.0",
     "@emotion/react": "^11.7.1",

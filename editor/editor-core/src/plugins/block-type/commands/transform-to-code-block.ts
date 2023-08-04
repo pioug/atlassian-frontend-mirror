@@ -3,10 +3,10 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { mapSlice } from '../../../utils/slice';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
-import { timestampToString } from '@atlaskit/editor-common/utils';
+
+import { timestampToString, mapSlice } from '@atlaskit/editor-common/utils';
 
 export function transformToCodeBlockAction(
   state: EditorState,

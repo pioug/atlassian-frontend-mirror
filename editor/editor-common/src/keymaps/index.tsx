@@ -135,7 +135,7 @@ const arrowKeysMap: Record<string, string> = {
 const tooltipShortcutStyle = css`
   border-radius: 2px;
   background-color: ${token('color.background.inverse.subtle', N400)};
-  padding: 0 2px;
+  padding: 0 ${token('space.025', '2px')};
 
   /* TODO: fix in develop: https://atlassian.slack.com/archives/CFG3PSQ9E/p1647395052443259?thread_ts=1647394572.556029&cid=CFG3PSQ9E */
   /* stylelint-disable-next-line */
@@ -369,3 +369,5 @@ export {
   RIGHT,
   UP,
 } from './consts';
+
+export { keymap } from './keymap';

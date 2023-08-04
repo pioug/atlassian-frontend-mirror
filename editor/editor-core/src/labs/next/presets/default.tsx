@@ -8,7 +8,7 @@ import textFormattingPlugin from '../../../plugins/text-formatting';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import unsupportedContentPlugin from '../../../plugins/unsupported-content';
 import basePlugin, { BasePluginOptions } from '../../../plugins/base';
-import editorDisabledPlugin from '../../../plugins/editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import typeAheadPlugin from '../../../plugins/type-ahead';
 import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';

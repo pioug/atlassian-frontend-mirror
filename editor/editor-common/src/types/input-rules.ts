@@ -1,4 +1,7 @@
-import type { EditorState, Transaction } from 'prosemirror-state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 export type InputRuleHandler = (
   state: EditorState,

@@ -1,5 +1,12 @@
 # @atlaskit/media-card
 
+## 76.1.1
+
+### Patch Changes
+
+- [`ed81e630547`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ed81e630547) - MEX-2089 Remove timestamp feature flag on AFP
+- Updated dependencies
+
 ## 76.1.0
 
 ### Minor Changes

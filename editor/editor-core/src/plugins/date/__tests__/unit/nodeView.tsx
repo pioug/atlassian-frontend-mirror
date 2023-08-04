@@ -22,7 +22,7 @@ import { insertDate } from '../../actions';
 import { DateNodeView } from '../../nodeviews/date';
 
 // Editor plugins
-import editorDisabledPlugin from '../../../editor-disabled';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import datePlugin from '../../index';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

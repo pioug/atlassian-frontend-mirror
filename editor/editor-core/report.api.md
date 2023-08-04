@@ -24,6 +24,7 @@ import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { ActivityProvider } from '@atlaskit/activity-provider';
 import type { AllEditorPresetPluginTypes } from '@atlaskit/editor-common/types';
+import type { AllowedBlockTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -34,6 +35,7 @@ import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { Color } from '@atlaskit/status/element';
 import { Command as Command_2 } from '@atlaskit/editor-common/types';
 import { ComponentType } from 'react';
+import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ContextUpdateHandler } from '@atlaskit/editor-common/types';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
@@ -50,6 +52,7 @@ import { DropdownOptionT } from '@atlaskit/editor-common/types';
 import type { EditorActionsOptions } from '@atlaskit/editor-common/types';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { FeatureFlags as EditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { EditorPlugin } from '@atlaskit/editor-common/types';
 import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
@@ -112,6 +115,7 @@ import { MentionProvider } from '@atlaskit/mention/resource';
 import type { MentionProvider as MentionProvider_2 } from '@atlaskit/mention';
 import { MentionResource } from '@atlaskit/mention/resource';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
+import type { MessageDescriptor } from 'react-intl-next';
 import { default as messages } from '@atlaskit/editor-common/messages';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
@@ -190,9 +194,6 @@ type AddItemTransactionCreator = (opts: {
   listLocalId: string;
   itemLocalId: string;
 }) => Transaction | null;
-
-// @public (undocumented)
-type AllowedBlockTypes = 'blockquote' | 'codeBlock' | 'hardBreak' | 'heading';
 
 // @public (undocumented)
 interface AllSelectionData {
@@ -404,13 +405,6 @@ export type CommandDispatch = (tr: Transaction) => void;
 
 // @public (undocumented)
 export const commitStatusPicker: () => (editorView: EditorView) => void;
-
-// @public (undocumented)
-type ConfigWithNodeInfo = {
-  config: FloatingToolbarConfig | undefined;
-  pos: number;
-  node: Node_2;
-};
 
 // @public (undocumented)
 export function ContextPanel(props: Props_4): jsx.JSX.Element;
@@ -765,19 +759,6 @@ export class EditorContext extends React_2.Component<EditorContextProps, {}> {
 // @public (undocumented)
 type EditorContextProps = {
   editorActions?: EditorActions;
-};
-
-// @public (undocumented)
-const editorDisabledPlugin: NextEditorPlugin<
-  'editorDisabled',
-  {
-    sharedState: EditorDisabledPluginState;
-  }
->;
-
-// @public (undocumented)
-type EditorDisabledPluginState = {
-  editorDisabled: boolean;
 };
 
 export { EditorFeatureFlags };
@@ -1204,7 +1185,7 @@ export type InsertBlockInputMethodToolbar =
   | INPUT_METHOD.TOOLBAR;
 
 // @public (undocumented)
-export function insertBlockType(name: string): Command;
+export function insertBlockType(name: string): Command_2;
 
 // @public (undocumented)
 export const insertBlockTypesWithAnalytics: (
@@ -1425,7 +1406,7 @@ export const mediaPlugin: NextEditorPlugin<
       typeof widthPlugin,
       typeof decorationsPlugin,
       FloatingToolbarPlugin,
-      typeof editorDisabledPlugin,
+      EditorDisabledPlugin,
     ];
     sharedState: MediaPluginState | null;
   }
@@ -1648,16 +1629,6 @@ export type MentionPluginState = {
 export { MentionProvider };
 
 export { MentionResource };
-
-// @public (undocumented)
-interface MessageDescriptor {
-  // (undocumented)
-  defaultMessage: string;
-  // (undocumented)
-  description: string;
-  // (undocumented)
-  id: string;
-}
 
 export { messages };
 
@@ -2046,13 +2017,14 @@ interface SelectionPluginOptions extends LongPressSelectionPluginOptions {}
 export { SelectOption };
 
 // @public (undocumented)
-export function setBlockType(name: string): Command;
+export function setBlockType(name: string): Command_2;
 
 // @public (undocumented)
 export function setBlockTypeWithAnalytics(
   name: string,
   inputMethod: BlockTypeInputMethod,
-): Command;
+  editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+): Command_2;
 
 // @public (undocumented)
 export const setIsExpanded: (isExpanded: boolean) => Command_2;

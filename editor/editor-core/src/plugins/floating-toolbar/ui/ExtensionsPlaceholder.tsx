@@ -20,7 +20,7 @@ import Separator from './Separator';
 
 interface Props {
   node: PMNode;
-  extensionProvider: ExtensionProvider;
+  extensionProvider: Promise<ExtensionProvider>;
   editorView: EditorView;
   separator?: 'start' | 'end' | 'both';
   applyChangeToContextPanel: ApplyChangeHandler | undefined;
@@ -106,11 +106,13 @@ export const ExtensionsPlaceholder = (props: Props) => {
   const [extensions, setExtensions] = useState<ExtensionManifest<any>[]>([]);
 
   useEffect(() => {
-    if (extensionProvider) {
-      getExtensions();
-    }
+    getExtensions();
+
     async function getExtensions() {
-      setExtensions(await extensionProvider.getExtensions());
+      const provider = await extensionProvider;
+      if (provider) {
+        setExtensions(await provider.getExtensions());
+      }
     }
     // leaving dependencies array empty so that this effect runs just once on component mount
     // eslint-disable-next-line react-hooks/exhaustive-deps

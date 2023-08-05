@@ -7,5 +7,9 @@ _getCopyButtonTestSuite({
     allowExtension: true,
     defaultValue: fullWidthExtensionADF,
   },
-  nodeSelector: '.extension-container',
+
+  // prosemirror-bump-fix
+  // ProseMirror now is dealing better with clicks inside nested content
+  // So, this change is to make sure the node clicked is the first extension and not the internal one
+  nodeSelector: '.extension-container [aria-label="bodied-eh"]',
 });

@@ -170,7 +170,9 @@ const buildMenuIconState =
     BuildIconProps,
     'schema' | 'textFormattingPluginState'
   >): MenuIconState => {
-    const hasPluginState = Boolean(textFormattingPluginState);
+    const hasPluginState = Boolean(
+      Object.keys(textFormattingPluginState || {}).length,
+    );
     const markSchema = IconsMarkSchema[iconMark];
     const hasSchemaMark = Boolean(schema.marks[markSchema]);
 

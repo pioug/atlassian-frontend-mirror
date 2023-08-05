@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.33.0
+
+### Minor Changes
+
+- [`6ee82691c4e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6ee82691c4e) - [ux] Changed shimmer on empty state view to only occur when loading data initially
+
 ## 0.32.0
 
 ### Minor Changes

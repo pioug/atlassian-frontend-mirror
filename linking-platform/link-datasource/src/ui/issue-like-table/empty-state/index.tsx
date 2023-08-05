@@ -116,12 +116,19 @@ const cellStyles = css({
 const renderItem = (
   { key, width }: Column,
   { priority, type, summaryWidth, statusWidth }: Row,
+  isShimmering: boolean,
 ) => {
   switch (key) {
     case 'assignee':
       return (
         <UserType>
-          <Skeleton width={width} height={13} borderRadius={8} />
+          <Skeleton
+            borderRadius={8}
+            testId="empty-state-skeleton"
+            height={13}
+            isShimmering={isShimmering}
+            width={width}
+          />
         </UserType>
       );
     case 'priority':
@@ -132,31 +139,44 @@ const renderItem = (
       return (
         <Skeleton
           appearance="blue"
-          width={summaryWidth}
           borderRadius={10}
+          testId="empty-state-skeleton"
           height={13}
+          isShimmering={isShimmering}
+          width={summaryWidth}
         />
       );
     case 'status':
       return (
         <Skeleton
           appearance="blue"
-          width={statusWidth}
-          height={16}
           borderRadius={3}
+          testId="empty-state-skeleton"
+          height={16}
+          isShimmering={isShimmering}
+          width={statusWidth}
         />
       );
     default:
-      return <Skeleton width={width} height={13} borderRadius={8} />;
+      return (
+        <Skeleton
+          borderRadius={8}
+          testId="empty-state-skeleton"
+          height={13}
+          isShimmering={isShimmering}
+          width={width}
+        />
+      );
   }
 };
 
 export interface Props {
   isCompact?: boolean;
+  isLoading?: boolean;
   testId?: string;
 }
 
-export default ({ isCompact, testId }: Props) => {
+export default ({ isCompact, isLoading = false, testId }: Props) => {
   const columnsToRender = isCompact ? baseColumns.slice(0, 6) : baseColumns;
 
   return (
@@ -167,9 +187,11 @@ export default ({ isCompact, testId }: Props) => {
             <EmptyStateTableHeading key={key} style={{ width }}>
               <Skeleton
                 appearance="darkGray"
-                width={width}
-                height={13}
                 borderRadius={8}
+                testId="empty-state-skeleton"
+                isShimmering={isLoading}
+                height={13}
+                width={width}
               />
             </EmptyStateTableHeading>
           ))}
@@ -180,7 +202,7 @@ export default ({ isCompact, testId }: Props) => {
           <tr key={row.id}>
             {columnsToRender.map(column => (
               <td css={cellStyles} key={column.key}>
-                {renderItem(column, row)}
+                {renderItem(column, row, isLoading)}
               </td>
             ))}
           </tr>

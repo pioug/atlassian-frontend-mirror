@@ -80,7 +80,11 @@ export const DatasourceTableView = ({
           scrollableContainerHeight={590}
         />
       ) : (
-        <EmptyState testId="datasource-table-view-skeleton" isCompact />
+        <EmptyState
+          testId="datasource-table-view-skeleton"
+          isCompact
+          isLoading={!isDataReady || status === 'loading'}
+        />
       )}
       <TableFooter
         issueCount={isDataReady ? totalCount : undefined}

@@ -1,11 +1,12 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
   isPerformanceAPIAvailable,
   measureRender,
 } from '@atlaskit/editor-common/utils';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { ACTION, AnalyticsEventPayload, EVENT_TYPE } from './types';
+import type { AnalyticsEventPayload } from './types';
+import { ACTION, EVENT_TYPE } from './types';
 import { analyticsPluginKey } from './plugin-key';
 import {
   fireAnalyticsEvent,
@@ -17,7 +18,7 @@ import type {
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import { PerformanceTracking } from '../../types/performance-tracking';
+import type { PerformanceTracking } from '../../types/performance-tracking';
 import type { analyticsPlugin as newAnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 interface AnalyticsPluginOptions {
@@ -81,7 +82,9 @@ function createPlugin(
                   // due to measureRender requiring unique measureNames)
                   measureName,
                   ({ duration, distortedDuration }) => {
-                    fireAnalyticsEvent(pluginState.createAnalyticsEvent)({
+                    fireAnalyticsEvent(
+                      pluginState.createAnalyticsEvent || undefined,
+                    )({
                       payload: extendPayload({
                         payload,
                         duration,

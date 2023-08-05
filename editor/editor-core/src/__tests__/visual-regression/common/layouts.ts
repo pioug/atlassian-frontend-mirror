@@ -4,7 +4,7 @@ import {
   Appearance,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
 import { getBoundingClientRect } from '@atlaskit/editor-test-helpers/vr-utils/bounding-client-rect';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { layoutSelectors } from '@atlaskit/editor-test-helpers/page-objects/layouts';
 import { decisionSelectors } from '@atlaskit/editor-test-helpers/page-objects/decision';
 import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
@@ -93,7 +93,14 @@ describe('Layouts:', () => {
       page,
       layoutSelectors.section,
     );
-    await page.mouse.click(contentBoundingRect.left, contentBoundingRect.top);
+    // prosemirror-bump-fix
+    // The posAtCoords after prosemirror-view@1.30.2 has a slight adjust
+    // to figure out if the user is clicking at the node or on its side.
+    // Hence, this small offset guarantees a click inside the node then the selection created will be a node one
+    await page.mouse.click(
+      contentBoundingRect.left + 1,
+      contentBoundingRect.top + 1,
+    );
   });
 
   describe('decisions', () => {

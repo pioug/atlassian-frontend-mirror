@@ -1,5 +1,11 @@
 # @atlaskit/editor-core
 
+## 187.10.4
+
+### Patch Changes
+
+- [`14fb6018157`](https://bitbucket.org/atlassian/atlassian-frontend/commits/14fb6018157) - [ED-19354] Small fixes to respect the next ProseMirror version
+
 ## 187.10.3
 
 ### Patch Changes

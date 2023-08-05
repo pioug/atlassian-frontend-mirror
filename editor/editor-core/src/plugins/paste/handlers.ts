@@ -488,13 +488,22 @@ export function handlePasteAsPlainText(
   _event: ClipboardEvent,
 ): Command {
   return (state: EditorState, dispatch?, view?: EditorView): boolean => {
+    if (!view) {
+      return false;
+    }
+
+    // prosemirror-bump-fix
+    // Yes, this is wrong by default. But, we need to keep the private PAI usage to unblock the prosemirror bump
+    // So, this code will make sure we are checking for both version (current and the newest prosemirror-view version
+    const isShiftKeyPressed =
+      (view as any).shiftKey || (view as any).input?.shiftKey;
     // In case of SHIFT+CMD+V ("Paste and Match Style") we don't want to run the usual
     // fuzzy matching of content. ProseMirror already handles this scenario and will
     // provide us with slice containing paragraphs with plain text, which we decorate
     // with "stored marks".
     // @see prosemirror-view/src/clipboard.js:parseFromClipboard()).
     // @see prosemirror-view/src/input.js:doPaste().
-    if (view && (view as any).shiftKey) {
+    if (isShiftKeyPressed) {
       let tr = closeHistory(state.tr);
 
       const { selection } = tr;

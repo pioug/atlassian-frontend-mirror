@@ -16,6 +16,11 @@ import { fireEvent, render } from '@testing-library/react';
 import { NodeSelection, EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { MediaSingleNodeProps } from '../types';
 import { IntlProvider } from 'react-intl-next';
+import {
+  ffTest,
+  getCurrentFeatureFlag,
+} from '@atlassian/feature-flags-test-utils';
+import { resizerNextTestId } from '../../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 
 export const createMediaProvider = async (): Promise<MediaProvider> =>
   ({} as MediaProvider);
@@ -168,5 +173,78 @@ describe('mediaSingle', () => {
     fireEvent.click(getByTestId('caption-placeholder'));
 
     expect(mocks.mockInsertCaptionAtPos).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('mediaSingle in new experience', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('ResizableMediaSingleNext should update its width state when lineLength updates', () => {
+    ffTest(
+      'platform.editor.media.extended-resize-experience',
+      () => {
+        const mediaAttrs: MediaAttributes = {
+          id: 'my-media-test-id',
+          type: 'file',
+          collection: 'collection-1',
+          width: 600,
+          height: 900,
+        };
+
+        const mediaSingleNode = mediaSingle({ layout: 'center', width: 50 })(
+          media(mediaAttrs)(),
+        );
+        const node = mediaSingleNode(defaultSchema);
+        const getProps: () => Partial<MediaSingleNodeProps> = () => ({
+          view: new EditorView(null, {
+            state: EditorState.create({ schema: defaultSchema }),
+          }),
+          node: node,
+          getPos: jest.fn(() => undefined),
+          selected: jest.fn(),
+          width: 1800,
+          mediaOptions: { allowResizing: true, allowResizingInTables: true },
+        });
+        const { getByTestId, rerender } = render(
+          <IntlProvider locale="en">
+            <MediaSingleNode
+              {...{
+                ...getProps(),
+                lineLength: undefined,
+              }}
+            />
+          </IntlProvider>,
+        );
+
+        const resizerNext = getByTestId(resizerNextTestId);
+        const style = window.getComputedStyle(resizerNext);
+        expect(style.width).toBe('888px');
+
+        // simulate when lineLength get resolved to a value
+        rerender(
+          <IntlProvider locale="en">
+            <MediaSingleNode
+              {...{
+                ...getProps(),
+                lineLength: 760,
+              }}
+            />
+          </IntlProvider>,
+        );
+        const resizerNextNew = getByTestId(resizerNextTestId);
+        const styleNew = window.getComputedStyle(resizerNextNew);
+        expect(styleNew.width).toBe('368px');
+      },
+      () => {
+        // No need to test how legacy experience behaves here
+        // so use dummy check to pass the test
+        expect(getCurrentFeatureFlag()).toEqual([
+          'platform.editor.media.extended-resize-experience',
+          false,
+        ]);
+      },
+    );
   });
 });

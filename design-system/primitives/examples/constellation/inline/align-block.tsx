@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 const flexContainerStyles = xcss({
   display: 'flex',
@@ -17,9 +17,9 @@ export default function Example() {
         "start" (default)
         <VisualContainer>
           <Inline space="space.050" alignBlock="start">
-            <Block />
-            <Block />
-            <Block padding="space.300" />
+            <ExampleBox />
+            <ExampleBox />
+            <ExampleBox padding="space.300" />
           </Inline>
         </VisualContainer>
       </Stack>
@@ -27,9 +27,9 @@ export default function Example() {
         "center"
         <VisualContainer>
           <Inline space="space.050" alignBlock="center">
-            <Block />
-            <Block />
-            <Block padding="space.300" />
+            <ExampleBox />
+            <ExampleBox />
+            <ExampleBox padding="space.300" />
           </Inline>
         </VisualContainer>
       </Stack>
@@ -37,9 +37,9 @@ export default function Example() {
         "end"
         <VisualContainer>
           <Inline space="space.050" alignBlock="end">
-            <Block />
-            <Block />
-            <Block padding="space.300" />
+            <ExampleBox />
+            <ExampleBox />
+            <ExampleBox padding="space.300" />
           </Inline>
         </VisualContainer>
       </Stack>
@@ -47,9 +47,9 @@ export default function Example() {
         "baseline"
         <VisualContainer>
           <Inline space="space.050" alignBlock="baseline">
-            <Block />
-            <Block />
-            <Block padding="space.300" />
+            <ExampleBox />
+            <ExampleBox />
+            <ExampleBox padding="space.300" />
           </Inline>
         </VisualContainer>
       </Stack>
@@ -57,9 +57,9 @@ export default function Example() {
         "stretch"
         <VisualContainer>
           <Inline space="space.050" alignBlock="stretch">
-            <Block />
-            <Block />
-            <Block padding="space.300" />
+            <ExampleBox />
+            <ExampleBox />
+            <ExampleBox padding="space.300" />
           </Inline>
         </VisualContainer>
       </Stack>

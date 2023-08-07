@@ -59,10 +59,17 @@ export const getSimulatedBetterMetadata = (
           ? [
               { name: ElementName.AssignedToGroup },
               { name: ElementName.AssignedTo },
-              ...baseTopMetadata,
+              { name: ElementName.ModifiedOn },
             ]
-          : defaultTopMetadata,
-        bottomMetadata: defaultBottomMetadata,
+          : [
+              { name: ElementName.AuthorGroup },
+              { name: ElementName.CreatedBy },
+              { name: ElementName.ModifiedOn },
+            ],
+        bottomMetadata: [
+          { name: ElementName.Priority },
+          { name: ElementName.SubTasksProgress },
+        ],
       };
     default:
       return {

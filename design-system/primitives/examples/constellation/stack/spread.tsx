@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Button from '@atlaskit/button';
 import { Inline, Stack } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 export default function Example() {
   const [spread, setSpread] = useState<'space-between' | undefined>(undefined);
@@ -18,14 +18,14 @@ export default function Example() {
       </Button>
       <Inline alignBlock="stretch">
         <Stack space="space.1000">
-          <Block />
-          <Block />
-          <Block />
+          <ExampleBox />
+          <ExampleBox />
+          <ExampleBox />
         </Stack>
         <Stack spread={spread}>
-          <Block />
-          <Block />
-          <Block />
+          <ExampleBox />
+          <ExampleBox />
+          <ExampleBox />
         </Stack>
       </Inline>
     </Stack>

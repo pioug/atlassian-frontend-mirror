@@ -9,7 +9,7 @@ import type {
 import {
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
-} from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/media-single';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, Decoration } from '@atlaskit/editor-prosemirror/view';
 import React from 'react';

@@ -1,6 +1,6 @@
 /** @jsx jsx */
 
-import { forwardRef, HTMLAttributes } from 'react';
+import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 import { css, jsx, SerializedStyles } from '@emotion/react';
 
@@ -56,7 +56,7 @@ const buttonAppearanceStyles: Record<
   }),
 };
 
-export type DragHandleButtonProps = HTMLAttributes<HTMLButtonElement> & {
+export type DragHandleButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   /**
    * Change the style to indicate the button is selected
    */
@@ -92,6 +92,16 @@ export const DragHandleButton = forwardRef<
     testId,
     appearance: appearanceProp = 'default',
     label,
+    /**
+     * Defaulting to `button` instead of `submit` (native default in some cases).
+     *
+     * A type of `submit` only makes sense in a form context, and isn't very
+     * relevant to a drag handle.
+     *
+     * `@atlaskit/button` also defaults to a type of `button` as well, as it
+     * is more semantically appropriate in a wider range of cases.
+     */
+    type = 'button',
     ...buttonProps
   },
   ref,
@@ -104,6 +114,7 @@ export const DragHandleButton = forwardRef<
         ref={ref}
         css={[buttonStyles, buttonAppearanceStyles[appearance]]}
         data-testid={testId}
+        type={type}
         {...buttonProps}
       >
         <DragHandlerIcon label={label} />

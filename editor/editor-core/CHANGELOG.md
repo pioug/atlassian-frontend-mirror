@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 187.10.8
+
+### Patch Changes
+
+- [`7c8a9a4c0c1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7c8a9a4c0c1) - Update mediaSingleWidth props to render legacy media single with correct dimensions
+
+## 187.10.6
+
+### Patch Changes
+
+- [`eeecb78b23f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eeecb78b23f) - Added media-single utils to editor-common and moved utils from editor-core/media to edtor-common/media-single.
+
 ## 187.10.4
 
 ### Patch Changes

@@ -21,14 +21,12 @@ const verticalStyles = css({
   borderWidth: `0 0 0 1px`,
   width: '1px',
   height: '100%',
-  transform: 'translateX(-50%)',
 });
 
 const horizontalStyles = css({
   borderWidth: `1px 0 0 0`,
   width: '100%',
   height: '1px',
-  transform: 'translateY(-50%)',
 });
 
 const activeGuidelineStyles = css({

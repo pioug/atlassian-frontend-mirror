@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Grid } from '@atlaskit/primitives';
 
-import Square from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 export default function Basic() {
   return (
@@ -12,8 +12,8 @@ export default function Basic() {
       columnGap="space.400"
       templateRows="3rem 2rem"
     >
-      <Square />
-      <Square />
+      <ExampleBox />
+      <ExampleBox />
     </Grid>
   );
 }

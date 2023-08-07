@@ -214,6 +214,7 @@ interface Props_2 {
   feedbackGroupLabels?: Record<SelectValue, SelectOptionDetails>;
   feedbackTitle?: React_2.ReactText;
   feedbackTitleDetails?: React_2.ReactChild;
+  hasDescriptionDefaultValue?: boolean;
   locale?: string;
   onClose: () => void;
   onSubmit: (formValues: FormFields) => Promise<void>;

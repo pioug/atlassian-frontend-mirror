@@ -1,32 +1,15 @@
 /**@jsx jsx */
 import { jsx } from '@emotion/react';
-import { PureComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
-import { predefinedAvatarViewWrapperStyles } from './styles';
+import {
+  largeAvatarImageStyles,
+  predefinedAvatarViewWrapperStyles,
+} from './styles';
 import { Avatar } from '../avatar-list';
 
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
-import Button from '@atlaskit/button/custom-theme-button';
-import { LargeAvatarImage } from './largeImageAvatar';
-import { imageButton } from '../avatar-list/styles';
-
-export interface BackBtnProps {
-  onClick?: () => void;
-}
-
-const BackBtn = ({ onClick }: BackBtnProps) => {
-  const intl = useIntl();
-
-  return (
-    <Button
-      aria-label={intl.formatMessage(messages.avatar_picker_back_btn_label)}
-      className="back-button"
-      iconAfter={<ArrowLeftIcon label="" />}
-      onClick={onClick}
-    />
-  );
-};
+import Button from '@atlaskit/button/standard-button';
 
 export interface PredefinedAvatarViewProps {
   avatars: Array<Avatar>;
@@ -34,64 +17,75 @@ export interface PredefinedAvatarViewProps {
   onAvatarSelected: (avatar: Avatar) => void;
   selectedAvatar?: Avatar;
   predefinedAvatarsText?: string;
+  selectAvatarLabel?: string;
 }
 
-export class PredefinedAvatarView extends PureComponent<
-  PredefinedAvatarViewProps,
-  {}
-> {
-  static defaultProps: PredefinedAvatarViewProps = {
-    avatars: [],
-    onAvatarSelected() {},
-  };
+export const PredefinedAvatarView = ({
+  avatars = [],
+  onAvatarSelected,
+  selectedAvatar,
+  onGoBack,
+  predefinedAvatarsText,
+  selectAvatarLabel,
+}: PredefinedAvatarViewProps) => {
+  const intl = useIntl();
 
-  render() {
-    const { avatars, selectedAvatar, onGoBack, predefinedAvatarsText } =
-      this.props;
-    const cards = avatars.map((avatar, idx) => {
-      const elementKey = `predefined-avatar-${idx}`;
-
-      return (
-        <li key={elementKey}>
-          <button
-            onClick={this.createOnItemClickHandler(avatar)}
-            aria-label={avatar.name || undefined}
-            css={imageButton({ isSelected: avatar === selectedAvatar })}
-          >
-            <LargeAvatarImage
-              isSelected={avatar === selectedAvatar}
-              src={avatar.dataURI}
-              alt={avatar.name || undefined}
-            />
-          </button>
-        </li>
-      );
-    });
-
-    return (
-      <div
-        css={predefinedAvatarViewWrapperStyles}
-        id="predefined-avatar-view-wrapper"
-      >
-        <div className="header">
-          <BackBtn onClick={onGoBack} />
-          <div className="description">
-            {predefinedAvatarsText || (
-              <FormattedMessage {...messages.default_avatars} />
-            )}
-          </div>
-        </div>
-        <ul>{cards}</ul>
-      </div>
-    );
-  }
-
-  createOnItemClickHandler(avatar: Avatar) {
-    const { onAvatarSelected } = this.props;
+  const createOnItemClickHandler = (avatar: Avatar) => {
     return () => {
       if (onAvatarSelected) {
         onAvatarSelected(avatar);
       }
     };
-  }
-}
+  };
+
+  const cards = avatars.map((avatar, idx) => {
+    const elementKey = `predefined-avatar-${idx}`;
+    return (
+      <label key={elementKey}>
+        <input
+          type="radio"
+          name="avatar"
+          value={avatar.dataURI}
+          checked={avatar === selectedAvatar}
+          onChange={createOnItemClickHandler(avatar)}
+        />
+
+        <img
+          css={largeAvatarImageStyles}
+          src={avatar.dataURI}
+          alt={avatar.name || undefined}
+        />
+      </label>
+    );
+  });
+
+  return (
+    <div
+      css={predefinedAvatarViewWrapperStyles}
+      id="predefined-avatar-view-wrapper"
+    >
+      <div className="header">
+        <Button
+          aria-label={intl.formatMessage(messages.avatar_picker_back_btn_label)}
+          className="back-button"
+          iconAfter={<ArrowLeftIcon label="" />}
+          onClick={onGoBack}
+        />
+        <div className="description">
+          {predefinedAvatarsText || (
+            <FormattedMessage {...messages.default_avatars} />
+          )}
+        </div>
+      </div>
+      <div
+        role="radiogroup"
+        aria-label={
+          selectAvatarLabel || intl.formatMessage(messages.select_an_avatar)
+        }
+        className="body"
+      >
+        {cards}
+      </div>
+    </div>
+  );
+};

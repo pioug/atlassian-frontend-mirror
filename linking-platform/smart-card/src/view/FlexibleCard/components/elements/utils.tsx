@@ -97,7 +97,7 @@ const elementMappings: Record<
   },
   [ElementName.SubTasksProgress]: {
     component: Badge,
-    props: { icon: IconType.CheckItem },
+    props: { icon: IconType.SubTasksProgress },
   },
   [ElementName.TargetBranch]: { component: Text },
   [ElementName.Title]: { component: Link },

@@ -14,7 +14,6 @@ import {
   handleSides,
   imageAlignmentMap,
   calcColumnsFromPx,
-  DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/ui';
 import {
   nonWrappedLayouts,
@@ -54,17 +53,16 @@ import {
   MEDIA_SINGLE_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_SNAP_GAP,
   MEDIA_SINGLE_HIGHLIGHT_GAP,
+  DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/media-single';
 import {
   findClosestSnap,
   getSnapWidth,
   getGuidelinesWithHighlights,
+  generateDynamicGuidelines,
 } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import {
-  generateDefaultGuidelines,
-  generateDynamicGuidelines,
-} from './guidelines';
+import { generateDefaultGuidelines } from './guidelines';
 
 type State = {
   offsetLeft: number;
@@ -120,7 +118,7 @@ class ResizableMediaSingleNext extends React.Component<
 > {
   constructor(props: ResizableMediaSingleNextProps) {
     super(props);
-    const initialWidth = props.mediaSingleWidth || this.calcInitialWidth();
+    const initialWidth = props.mediaSingleWidth || DEFAULT_IMAGE_WIDTH;
 
     this.state = {
       offsetLeft: calcOffsetLeft(
@@ -187,13 +185,12 @@ class ResizableMediaSingleNext extends React.Component<
     }
 
     if (
-      prevProps.lineLength === undefined &&
-      this.props.lineLength !== undefined &&
-      this.props.mediaSingleWidth === null
+      prevProps.mediaSingleWidth !== this.props.mediaSingleWidth &&
+      this.props.mediaSingleWidth
     ) {
-      // re-initalises size when lineLength becomes defined later
+      // update size when lineLength becomes defined later
       // ensures extended experience renders legacy image with the same size as the legacy experience
-      const initialWidth = this.calcInitialWidth();
+      const initialWidth = this.props.mediaSingleWidth;
 
       this.setState({
         size: {
@@ -223,13 +220,13 @@ class ResizableMediaSingleNext extends React.Component<
   // Calculate width of media nodes for snaps based on dynamic guidelines
   // TODO:  refactor this later, maybe use state to hold snaps array
   private getSnaps() {
-    const { view } = this.props;
+    const { view, lineLength } = this.props;
     const { dom } = view;
     const defaultGuidelines = this.getDefaultGuidelines();
     // disable guidelines for nested media single node
     const dynamicGuidelines = this.isNestedNode()
       ? []
-      : generateDynamicGuidelines(view);
+      : generateDynamicGuidelines(view.state, lineLength);
     const guidelines = [...defaultGuidelines, ...dynamicGuidelines];
     const mediaSingleSelector =
       'div.mediaSingleView-content-wrap.ProseMirror-selectednode';

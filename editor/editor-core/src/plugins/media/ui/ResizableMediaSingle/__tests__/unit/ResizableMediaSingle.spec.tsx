@@ -59,7 +59,7 @@ import {
   getDefaultMediaClientConfig,
   nextTick,
 } from '@atlaskit/media-test-helpers';
-import ResizableMediaSingle, { calcOffsetLeft } from '../../index';
+import ResizableMediaSingle from '../../index';
 import ResizableMediaSingleNext, {
   UnwrappedResizableMediaSingleNext,
   resizerNextTestId,
@@ -216,66 +216,6 @@ describe('<ResizableMediaSingle />', () => {
     resizableMediaSingle.setProps({ pctWidth: 100 });
     resizableMediaSingle.update();
     expect(resizableMediaSingle.state('resizedPctWidth')).toBe(100);
-  });
-});
-
-describe('ResizableMediaSingle calculations', () => {
-  describe('offset left', () => {
-    const testWrapper: HTMLElement = document.createElement('div');
-    const testPmViewDom: Element = document.createElement('div');
-
-    beforeEach(() => {
-      jest.spyOn(testWrapper, 'getBoundingClientRect').mockReturnValue({
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-        top: 0,
-        left: 200,
-        right: 0,
-        bottom: 0,
-        toJSON: () => {},
-      });
-      jest.spyOn(testPmViewDom, 'getBoundingClientRect').mockReturnValue({
-        x: 0,
-        y: 0,
-        width: 0,
-        height: 0,
-        top: 0,
-        left: 100,
-        right: 0,
-        bottom: 0,
-        toJSON: () => {},
-      });
-    });
-
-    it('should have an offset left of zero when inside layout', () => {
-      const testInsideInlineLike: boolean = true;
-      const testInsideLayout: boolean = true;
-
-      const offsetLeft = calcOffsetLeft(
-        testInsideInlineLike,
-        testInsideLayout,
-        testPmViewDom,
-        testWrapper,
-      );
-
-      expect(offsetLeft).toEqual(0);
-    });
-
-    it('should have a non-zero offset left when outside of layout', () => {
-      const testInsideInlineLike: boolean = true;
-      const testInsideLayout: boolean = false;
-
-      const offsetLeft = calcOffsetLeft(
-        testInsideInlineLike,
-        testInsideLayout,
-        testPmViewDom,
-        testWrapper,
-      );
-
-      expect(offsetLeft).toEqual(100);
-    });
   });
 });
 

@@ -221,6 +221,7 @@ export enum IconType {
   PriorityUndefined = 'Badge:PriorityUndefined',
   ProgrammingLanguage = 'Badge:ProgrammingLanguage',
   Subscriber = 'Badge:Subscriber',
+  SubTasksProgress = 'Badge:SubTask',
 }
 
 /**

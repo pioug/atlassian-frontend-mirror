@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 26.14.6
+
+### Patch Changes
+
+- [`88b90baf84c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/88b90baf84c) - Update icon for SubTasksProgress flex ui element & update metadata elements order in Block & Hover Card
+- [`e6d7b777ce0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e6d7b777ce0) - Remove dependency to @atlaskit/media-common
+
 ## 26.14.5
 
 ### Patch Changes

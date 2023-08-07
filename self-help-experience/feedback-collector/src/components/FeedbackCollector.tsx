@@ -466,6 +466,7 @@ export default class FeedbackCollector extends Component<Props> {
         feedbackTitleDetails={this.props.feedbackTitleDetails}
         showTypeField={this.props.showTypeField}
         showDefaultTextFields={this.props.showDefaultTextFields}
+        hasDescriptionDefaultValue={!!this.props.descriptionDefaultValue}
         canBeContactedLabel={this.props.canBeContactedLabel}
         enrolInResearchLabel={this.props.enrolInResearchLabel}
         summaryPlaceholder={this.props.summaryPlaceholder}

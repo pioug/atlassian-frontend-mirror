@@ -1,5 +1,11 @@
 # @atlaskit/grid
 
+## 0.11.10
+
+### Patch Changes
+
+- [`8914885e490`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8914885e490) - Updates metadata in grid package.
+
 ## 0.11.9
 
 ### Patch Changes

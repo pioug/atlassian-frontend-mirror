@@ -4,7 +4,7 @@ import Button from '@atlaskit/button';
 import Heading from '@atlaskit/heading';
 import { Box, Stack } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 const alignmentValues = ['start', 'center', 'end'] as const;
 
@@ -31,9 +31,9 @@ export default function Example() {
           grow="fill"
           alignInline={alignmentValues[alignmentIndex]}
         >
-          <Block />
-          <Block />
-          <Block />
+          <ExampleBox />
+          <ExampleBox />
+          <ExampleBox />
         </Stack>
       </Stack>
     </Stack>

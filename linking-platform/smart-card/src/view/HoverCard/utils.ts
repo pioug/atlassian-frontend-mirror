@@ -176,8 +176,8 @@ export const getSimulatedBetterMetadata = (
         },
         bottomMetadataBlock: {
           primary: [
-            ElementName.CommentCount,
             ElementName.ReactCount,
+            ElementName.CommentCount,
             ElementName.ViewCount,
           ],
           secondary: [],

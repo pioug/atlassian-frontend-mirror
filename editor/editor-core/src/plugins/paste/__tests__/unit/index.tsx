@@ -109,8 +109,8 @@ import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import layoutPlugin from '../../../layout';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { setupProvider } from '../../../../../../editor-plugin-card/src/__tests__/unit/_helpers';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { setupProvider } from '@atlaskit/editor-plugin-card/src/__tests__/unit/_helpers';
 import type { InlineCommentAnnotationProvider } from '../../../annotation/types';
 import annotationPlugin from '../../../annotation';
 import type {

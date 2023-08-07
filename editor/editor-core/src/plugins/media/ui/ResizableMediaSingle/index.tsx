@@ -22,6 +22,7 @@ import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { wrapperStyle } from './styled';
 import type { Props, EnabledHandles } from './types';
 import type { GridType, SnapPointsProps } from '@atlaskit/editor-common/types';
+import { calculateOffsetLeft } from '@atlaskit/editor-common/media-single';
 import type { Highlights } from '@atlaskit/editor-plugin-grid';
 import { calculateSnapPoints } from '@atlaskit/editor-common/utils';
 
@@ -36,7 +37,7 @@ export default class ResizableMediaSingle extends React.Component<
   State
 > {
   state: State = {
-    offsetLeft: calcOffsetLeft(
+    offsetLeft: calculateOffsetLeft(
       this.insideInlineLike,
       this.insideLayout,
       this.props.view.dom,
@@ -48,7 +49,7 @@ export default class ResizableMediaSingle extends React.Component<
   };
 
   componentDidUpdate(prevProps: Props) {
-    const offsetLeft = calcOffsetLeft(
+    const offsetLeft = calculateOffsetLeft(
       this.insideInlineLike,
       this.insideLayout,
       this.props.view.dom,
@@ -404,19 +405,4 @@ export default class ResizableMediaSingle extends React.Component<
       </div>
     );
   }
-}
-
-export function calcOffsetLeft(
-  insideInlineLike: boolean,
-  insideLayout: boolean,
-  pmViewDom: Element,
-  wrapper?: HTMLElement,
-) {
-  let offsetLeft = 0;
-  if (wrapper && insideInlineLike && !insideLayout) {
-    const currentNode: HTMLElement = wrapper;
-    const boundingRect = currentNode.getBoundingClientRect();
-    offsetLeft = boundingRect.left - pmViewDom.getBoundingClientRect().left;
-  }
-  return offsetLeft;
 }

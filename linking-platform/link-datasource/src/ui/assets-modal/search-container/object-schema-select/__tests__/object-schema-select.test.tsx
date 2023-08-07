@@ -85,9 +85,11 @@ describe('AssetsObjectSchemaSelect', () => {
     jest.clearAllTimers();
   });
 
-  it('should not call fetchObjectSchemas on mount', async () => {
+  it('should call fetchObjectSchemas on mount', async () => {
     await renderDefaultObjectSchemaSelect();
-    expect(mockFetchObjectSchemas).not.toBeCalled();
+    await waitFor(() => {
+      expect(mockFetchObjectSchemas).toHaveBeenNthCalledWith(1, '');
+    });
   });
 
   it('should fetch default options only once on focus', async () => {

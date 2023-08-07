@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.10.4",
+  "version": "187.10.8",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -86,7 +86,7 @@
     "@atlaskit/media-common": "^8.0.0",
     "@atlaskit/media-filmstrip": "^47.0.0",
     "@atlaskit/media-picker": "^66.1.0",
-    "@atlaskit/media-ui": "^23.2.0",
+    "@atlaskit/media-ui": "^23.3.0",
     "@atlaskit/media-viewer": "^48.0.0",
     "@atlaskit/mention": "^22.1.0",
     "@atlaskit/menu": "^1.9.0",

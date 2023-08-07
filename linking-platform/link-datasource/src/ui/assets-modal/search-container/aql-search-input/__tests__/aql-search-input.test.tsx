@@ -131,6 +131,13 @@ describe('AqlSearchInput', () => {
       ).toBeInTheDocument();
     });
 
+    it('should show help icon', async () => {
+      const { findByTestId } = await renderDefaultAqlSearchInput();
+      expect(
+        await findByTestId('assets-datasource-modal-help'),
+      ).toBeInTheDocument();
+    });
+
     it('should show correct icon when aql string is valid', async () => {
       const { findByTestId, getByTestId } = await renderDefaultAqlSearchInput();
       const textInput = getByTestId(searchInputTestId);

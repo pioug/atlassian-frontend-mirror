@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Stack } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 export default function Example() {
   return (
     <Stack>
-      <Block />
-      <Block />
-      <Block />
+      <ExampleBox />
+      <ExampleBox />
+      <ExampleBox />
     </Stack>
   );
 }

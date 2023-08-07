@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.3.9
+
+### Patch Changes
+
+- [`75fe8860154`](https://bitbucket.org/atlassian/atlassian-frontend/commits/75fe8860154) - Update styles of guidelines so they align correctly
+
 ## 0.3.8
 
 ### Patch Changes

@@ -3,20 +3,20 @@ import React from 'react';
 import { Code } from '@atlaskit/code';
 import { Inline, Stack } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 export default function Example() {
   return (
     <Stack alignInline="start" space="space.100">
       <Inline grow="hug">
-        <Block style={{ flexGrow: 1 }}>
+        <ExampleBox style={{ display: 'block', flexGrow: 1 }}>
           Wrapping <Code>Inline</Code> is set to <Code>grow="hug"</Code>
-        </Block>
+        </ExampleBox>
       </Inline>
       <Inline grow="fill">
-        <Block style={{ flexGrow: 1 }}>
+        <ExampleBox style={{ display: 'block', flexGrow: 1 }}>
           Wrapping <Code>Inline</Code> is set to <Code>grow="fill"</Code>
-        </Block>
+        </ExampleBox>
       </Inline>
     </Stack>
   );

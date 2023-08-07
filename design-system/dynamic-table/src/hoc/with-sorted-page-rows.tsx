@@ -4,6 +4,20 @@ import { ASC } from '../internal/constants';
 import { getPageRows, validateSortKey } from '../internal/helpers';
 import { HeadType, RowCellType, RowType, SortOrderType } from '../types';
 
+const getSortingCellValue = (
+  cells: RowCellType[],
+  head: HeadType,
+  sortKey: string,
+) => {
+  for (let i = 0; i < cells.length; i++) {
+    if (head.cells[i] && head.cells[i]?.key === sortKey) {
+      return cells[i]?.key;
+    }
+  }
+
+  return undefined;
+};
+
 // sort all rows based on sort key and order
 const getSortedRows = (
   head?: HeadType,
@@ -18,18 +32,13 @@ const getSortedRows = (
     return [];
   }
 
-  // return value which will be used for sorting
-  const getSortingCellValue = (
-    cells: Array<RowCellType>,
-  ): string | number | undefined => {
-    for (let i = 0; i < cells.length; i++) {
-      if (head.cells[i] && head.cells[i].key === sortKey) {
-        return cells[i].key;
-      }
-    }
+  const modifier = sortOrder === ASC ? 1 : -1;
 
-    return undefined;
-  };
+  // Re-initialising an I18n Collator on every sort is performance intensive, thus constructed outside
+  const collator = new Intl.Collator(undefined, {
+    numeric: true,
+    sensitivity: 'accent',
+  });
 
   // Get copy of rows to avoid sorting prop in place
   const sortableRows = Array.from(rows);
@@ -37,11 +46,9 @@ const getSortedRows = (
   // Reorder rows in table based on sorting cell value
   // Algorithm will sort numerics or strings, but not both
   return sortableRows.sort((a, b) => {
-    const valA = getSortingCellValue(a.cells);
-    const valB = getSortingCellValue(b.cells);
+    const valA = getSortingCellValue(a.cells, head, sortKey);
+    const valB = getSortingCellValue(b.cells, head, sortKey);
 
-    // modifier used for sorting type (ascending or descending)
-    const modifier = sortOrder === ASC ? 1 : -1;
     if (valA === undefined || valB === undefined) {
       return modifier;
     }
@@ -63,15 +70,8 @@ const getSortedRows = (
       }
     }
 
-    // Sort strings using localeCompare
     if (typeof valA === 'string' && typeof valB === 'string') {
-      return (
-        modifier *
-        valA.localeCompare(valB, undefined, {
-          sensitivity: 'accent',
-          numeric: true,
-        })
-      );
+      return modifier * collator.compare(valA, valB);
     }
 
     if ((!valA && valA !== 0) || valA < valB) {

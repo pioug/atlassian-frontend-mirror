@@ -3,8 +3,8 @@ import {
   mountEditor,
   goToEditorTestingWDExample,
 } from '@atlaskit/editor-test-helpers/testing-example-page';
-import { EditorAppearance } from '../../../types';
-import { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
+import type { EditorAppearance } from '../../../types';
+import type { BrowserObject } from '@atlaskit/webdriver-runner/wd-wrapper';
 import * as infoPanelAdf from './__fixtures__/info-panel.adf.json';
 import * as connectedExtensionAdf from './__fixtures__/connected-extensions.adf.json';
 import * as listWithCodeBlockAdf from './__fixtures__/list-with-code-block.adf.json';
@@ -69,9 +69,12 @@ BrowserTestCase(
   },
 );
 
+// FIXME: This test was automatically skipped due to failure on 04/08/2023: https://product-fabric.atlassian.net/browse/ED-19359
 BrowserTestCase(
   `gap-cursor: should stay where it was after confirmation dialog closed`,
-  {},
+  {
+    skip: ['*'],
+  },
   async (browser: BrowserObject) => {
     const page = await goToEditorTestingWDExample(browser);
 

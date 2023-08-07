@@ -42,8 +42,8 @@ describe('getSimulatedBetterMetadata', () => {
       );
       const topMetadata = [ElementName.AuthorGroup, ElementName.ModifiedOn];
       const bottomPrimary = [
-        ElementName.CommentCount,
         ElementName.ReactCount,
+        ElementName.CommentCount,
         ElementName.ViewCount,
       ];
       expect(metadata.topMetadataBlock.primary).toEqual(topMetadata);

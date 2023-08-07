@@ -6,4 +6,9 @@ export const searchInputMessages = defineMessages({
     description: 'Display text for AQL search button',
     defaultMessage: 'Search via AQL',
   },
+  helpTooltipText: {
+    id: 'linkDataSource.assets.configModal.aqlSearchInput.helpTooltipText',
+    description: 'Link to AQL Syntax help document',
+    defaultMessage: 'Syntax help',
+  },
 });

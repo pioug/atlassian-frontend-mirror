@@ -27,7 +27,11 @@ export interface CreateFormFooterProps {
   submitting: boolean;
   testId?: string;
 }
-
+/**
+ * Footer for the Create Form, used as a wrapper for action buttons
+ * and form error messages. This component is unmounted if
+ * hideFooter is true in the Create Form.
+ */
 export function CreateFormFooter({
   formErrorMessage,
   handleCancel,

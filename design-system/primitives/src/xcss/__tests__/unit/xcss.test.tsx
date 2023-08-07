@@ -122,6 +122,12 @@ describe('xcss()', () => {
       '::before': {
         content: '>',
       },
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+      '@media (min-width: 110rem)': {
+        ':hover': {
+          color: 'color.text',
+        },
+      },
     });
 
     expect(styles).toMatchInlineSnapshot(`
@@ -129,6 +135,29 @@ describe('xcss()', () => {
         Symbol(UNSAFE_INTERNAL_styles): Object {
           "::before": Object {
             "content": ">",
+          },
+          "@media (min-width: 110rem)": Object {
+            ":hover": Object {
+              "color": "var(--ds-text, #172B4D)",
+            },
+          },
+        },
+      }
+    `);
+  });
+
+  it('allows @supports elements', () => {
+    const styles = xcss({
+      '@supports not selector(*:focus-visible)': {
+        padding: 'space.100',
+      },
+    });
+
+    expect(styles).toMatchInlineSnapshot(`
+      Object {
+        Symbol(UNSAFE_INTERNAL_styles): Object {
+          "@supports not selector(*:focus-visible)": Object {
+            "padding": "var(--ds-space-100, 8px)",
           },
         },
       }
@@ -177,6 +206,34 @@ describe('xcss()', () => {
     `);
   });
 
+  it('allows non-token values to be passed through for tokenisable properties', () => {
+    const styles = xcss({
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+      '@media (min-width: 100px)': {
+        padding: 'space.100',
+      },
+      // @ts-expect-error
+      padding: '10px',
+      // @ts-expect-error
+      color: '#F0F0F0',
+      // @ts-expect-error
+      top: 0,
+    });
+
+    expect(styles).toMatchInlineSnapshot(`
+      Object {
+        Symbol(UNSAFE_INTERNAL_styles): Object {
+          "@media (min-width: 100px)": Object {
+            "padding": "var(--ds-space-100, 8px)",
+          },
+          "color": "#F0F0F0",
+          "padding": "10px",
+          "top": 0,
+        },
+      }
+    `);
+  });
+
   it('should not throw warning on flexShrink: 0', () => {
     const styles = xcss({
       flexShrink: '0',
@@ -196,44 +253,29 @@ describe('xcss()', () => {
   it('throws on unsupported selectors', () => {
     process.env.NODE_ENV = 'development';
     [
-      { '.container': { gap: 'space.200' } },
-      { '#some-id': { gap: 'space.200' } },
-      { '[data-testid="beep"]': { gap: 'space.200' } },
-      { 'div[aria-labelledby="boop"]': { gap: 'space.200' } },
-      { '> *': { gap: 'space.200' } },
-      { '&': { gap: 'space.200' } },
-      { '&&': { gap: 'space.200' } },
-    ].forEach(style => {
-      // @ts-expect-error -- These are not valid selectors
-      expect(() => xcss(style)).toThrow();
+      // @ts-expect-error
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+      () => xcss({ '.container': { gap: 'space.200' } }),
+      // @ts-expect-error
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+      () => xcss({ '#some-id': { gap: 'space.200' } }),
+      // @ts-expect-error
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+      () => xcss({ '[data-testid="beep"]': { gap: 'space.200' } }),
+      // @ts-expect-error
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+      () => xcss({ 'div[aria-labelledby="boop"]': { gap: 'space.200' } }),
+      // @ts-expect-error
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+      () => xcss({ '> *': { gap: 'space.200' } }),
+      // @ts-expect-error
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+      () => xcss({ '&': { gap: 'space.200' } }),
+      // @ts-expect-error
+      // eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+      () => xcss({ '&&': { gap: 'space.200' } }),
+    ].forEach(fn => {
+      expect(() => fn()).toThrow();
     });
-  });
-
-  it('supports arrays', () => {
-    const colorStyles = {
-      backgroundColor: 'color.background.brand.bold',
-      color: 'color.text',
-    } as const;
-    const spacingStyles = {
-      paddingBlock: 'space.100',
-      paddingInline: 'space.200',
-    } as const;
-
-    const styles = xcss([colorStyles, spacingStyles]);
-
-    expect(styles).toMatchInlineSnapshot(`
-      Object {
-        Symbol(UNSAFE_INTERNAL_styles): Array [
-          Object {
-            "backgroundColor": "var(--ds-background-brand-bold, #0052CC)",
-            "color": "var(--ds-text, #172B4D)",
-          },
-          Object {
-            "paddingBlock": "var(--ds-space-100, 8px)",
-            "paddingInline": "var(--ds-space-200, 16px)",
-          },
-        ],
-      }
-    `);
   });
 });

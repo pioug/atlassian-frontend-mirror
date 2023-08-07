@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.0.2
+
+### Patch Changes
+
+- [`758e7d99631`](https://bitbucket.org/atlassian/atlassian-frontend/commits/758e7d99631) - Fixed submit button locking mechanism when the description field is hidden and a default description value has been provided
+
 ## 13.0.1
 
 ### Patch Changes

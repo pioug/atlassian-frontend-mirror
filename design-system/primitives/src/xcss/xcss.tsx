@@ -8,8 +8,6 @@ import type {
 } from '@emotion/serialize';
 import type * as CSS from 'csstype';
 
-import { Box } from '../index';
-import { media } from '../responsive/media-helper';
 import type { MediaQuery } from '../responsive/types';
 
 import {
@@ -93,20 +91,7 @@ const isSafeEnvToThrow = () =>
   process.env.NODE_ENV !== 'production';
 
 const reNestedSelectors = /(\.|\s|&+|\*\>|#|\[.*\])/;
-const rePseudos = /^::?.*$/;
-
-const reMediaQuery = /^@media .*$/;
-
-/**
- * Reduce our media queries into a safe string for regex comparison.
- */
-const reValidMediaQuery = new RegExp(
-  `^(${Object.values(media.above)
-    .map(
-      (mediaQuery: MediaQuery) => mediaQuery.replace(/[.()]/g, '\\$&'), // Escape the ".", "(", and ")" in the media query syntax.
-    )
-    .join('|')})$`,
-);
+const safeSelectors = /^@media .*$|^::?.*$|^@supports .*$/;
 
 const transformStyles = (
   styleObj?: CSSObject | CSSObject[],
@@ -123,24 +108,18 @@ const transformStyles = (
   // Modifies styleObj in place. Be careful.
   Object.entries(styleObj).forEach(
     ([key, value]: [string, CSSInterpolation]) => {
-      if (isSafeEnvToThrow()) {
-        // We don't support `.class`, `[data-testid]`, `> *`, `#some-id`
-        if (reNestedSelectors.test(key) && !reValidMediaQuery.test(key)) {
-          throw new Error(`Styles not supported for key '${key}'.`);
-        }
-      }
-
       // If key is a pseudo class or a pseudo element, then value should be an object.
       // So, call transformStyles on the value
-      if (rePseudos.test(key)) {
+      if (typeof value === 'object' && safeSelectors.test(key)) {
         styleObj[key] = transformStyles(value as CSSObject);
         return;
       }
 
-      if (reMediaQuery.test(key)) {
-        // @ts-expect-error
-        styleObj[key] = transformStyles(value as CSSMediaQueries[MediaQuery]);
-        return;
+      if (isSafeEnvToThrow()) {
+        // We don't support `.class`, `[data-testid]`, `> *`, `#some-id`
+        if (reNestedSelectors.test(key)) {
+          throw new Error(`Styles not supported for key '${key}'.`);
+        }
       }
 
       // We have now dealt with all the special cases, so,
@@ -159,13 +138,13 @@ const transformStyles = (
   return styleObj;
 };
 
-const baseXcss = <T,>(style?: SafeCSSObject | SafeCSSObject[]) => {
+const baseXcss = (style?: SafeCSSObject | SafeCSSObject[]) => {
   const transformedStyles = transformStyles(style as CSSObject);
 
   return {
     [uniqueSymbol]: cssEmotion(
       transformedStyles as CSSInterpolation,
-    ) as unknown as T,
+    ) as SerializedStyles,
   } as const;
 };
 
@@ -176,7 +155,9 @@ const baseXcss = <T,>(style?: SafeCSSObject | SafeCSSObject[]) => {
 type ParsedXcss =
   | ReturnType<typeof cssEmotion>
   | ReturnType<typeof cssEmotion>[];
-export const parseXcss = (args: XCSS | XCSSArray): ParsedXcss => {
+export const parseXcss = (
+  args: XCSS | (XCSS | false | undefined)[],
+): ParsedXcss => {
   if (Array.isArray(args)) {
     return args.map(x => x && parseXcss(x)).filter(Boolean) as ParsedXcss;
   }
@@ -196,60 +177,35 @@ export const parseXcss = (args: XCSS | XCSSArray): ParsedXcss => {
   return styles;
 };
 
+type AllMedia =
+  | MediaQuery
+  | '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)'
+  | '@media (prefers-color-scheme: dark)'
+  | '@media (prefers-color-scheme: light)'
+  | '@media (prefers-reduced-motion: reduce)';
+
 // Media queries should not contain nested media queries
-type CSSMediaQueries = { [MQ in MediaQuery]?: Omit<SafeCSSObject, MediaQuery> };
+type CSSMediaQueries = { [MQ in AllMedia]?: Omit<SafeCSSObject, AllMedia> };
 // Pseudos should not contain nested pseudos, or media queries
 type CSSPseudos = {
-  [Pseudo in CSS.Pseudos]?: Omit<SafeCSSObject, CSS.Pseudos | MediaQuery>;
+  [Pseudo in CSS.Pseudos]?: Omit<SafeCSSObject, CSS.Pseudos | AllMedia>;
+};
+
+type AtRulesWithoutMedia = Exclude<CSS.AtRules, '@media'>;
+
+type CSSAtRules = {
+  [AtRule in AtRulesWithoutMedia as `${AtRule}${string}`]?: Omit<
+    SafeCSSObject,
+    AtRulesWithoutMedia
+  >;
 };
 type SafeCSSObject = CSSPseudos &
+  CSSAtRules &
   TokenisedProps &
   CSSMediaQueries &
   Omit<CSSPropertiesWithMultiValues, keyof TokenisedProps>;
 
-type ScopedSafeCSSObject<T extends keyof SafeCSSObject> = Pick<
-  SafeCSSObject,
-  T
->;
-
-// unused private functions only so we can extract the return type from a generic function
-const boxWrapper = (style: any) => xcss<typeof Box>(style);
-const spaceWrapper = (style: any) => xcss<void>(style);
-
-type XCSS = ReturnType<typeof boxWrapper> | ReturnType<typeof spaceWrapper>;
-type XCSSArray = Array<XCSS | false | undefined>;
-
-type AllowedBoxStyles = keyof SafeCSSObject;
-type Spacing =
-  | 'columnGap'
-  | 'gap'
-  | 'inset'
-  | 'insetBlock'
-  | 'insetBlockEnd'
-  | 'insetBlockStart'
-  | 'insetInline'
-  | 'insetInlineEnd'
-  | 'insetInlineStart'
-  | 'margin'
-  | 'marginBlock'
-  | 'marginBlockEnd'
-  | 'marginBlockStart'
-  | 'marginInline'
-  | 'marginInlineEnd'
-  | 'marginInlineStart'
-  | 'outlineOffset'
-  | 'padding'
-  | 'paddingBlock'
-  | 'paddingBlockEnd'
-  | 'paddingBlockStart'
-  | 'paddingBottom'
-  | 'paddingInline'
-  | 'paddingInlineEnd'
-  | 'paddingInlineStart'
-  | 'paddingLeft'
-  | 'paddingRight'
-  | 'paddingTop'
-  | 'rowGap';
+export type XCSS = ReturnType<typeof xcss>;
 
 /**
  * ### xcss
@@ -263,35 +219,6 @@ type Spacing =
  * })
  * ```
  */
-export function xcss<Primitive extends typeof Box | void = typeof Box>(
-  style: Primitive extends typeof Box
-    ?
-        | ScopedSafeCSSObject<AllowedBoxStyles>
-        | ScopedSafeCSSObject<AllowedBoxStyles>[]
-    : Primitive extends void
-    ? ScopedSafeCSSObject<Spacing> | ScopedSafeCSSObject<Spacing>[]
-    : never,
-) {
-  return baseXcss<
-    Primitive extends typeof Box
-      ? BoxStyles
-      : Primitive extends void
-      ? SpaceStyles
-      : never
-  >(style);
+export function xcss(style: SafeCSSObject) {
+  return baseXcss(style);
 }
-
-declare const boxTag: unique symbol;
-declare const spaceTag: unique symbol;
-export type BoxStyles = SerializedStyles & {
-  [boxTag]: true;
-};
-export type SpaceStyles = SerializedStyles & {
-  [spaceTag]: true;
-};
-export type BoxXCSS =
-  | {
-      readonly [uniqueSymbol]: BoxStyles;
-    }
-  | false
-  | undefined;

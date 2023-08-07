@@ -1,15 +1,9 @@
 import { token } from '@atlaskit/tokens';
 import { css, keyframes } from '@emotion/react';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { N200 } from '@atlaskit/theme/colors';
 import { checkeredBg } from './images';
 
 import { AVATAR_DIALOG_WIDTH } from '../avatar-picker-dialog/layout-const';
-
-const spin = keyframes`
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-`;
 
 export const imageBgStyles = css`
   position: absolute;
@@ -18,11 +12,10 @@ export const imageBgStyles = css`
   width: 256px;
   height: 256px;
   background: url('${checkeredBg}');
-  border-radius: ${borderRadius()};
+  border-radius: ${token('border.radius', '3px')};
 `;
 
 export const containerStyles = css`
-  width: ${gridSize() * 32}px;
   box-sizing: border-box;
   *,
   *::before,
@@ -50,13 +43,18 @@ export const fileInputStyles = css`
   display: none;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const imageUploaderStyles = css`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 10px ${token('space.250', '20px')} 10px;
+  margin: 0 ${token('space.150', '10px')} ${token('space.250', '20px')}
+    ${token('space.150', '10px')};
+`;
+
+const spin = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 `;
 
 const droppingAnimation = css`
@@ -86,7 +84,6 @@ const getDroppingAnimation = (isDroppingFile: boolean) =>
       `
     : '';
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const dragZoneStyles = (props: DragZoneProps) => css`
   width: 200px;
   height: 200px;
@@ -94,7 +91,7 @@ export const dragZoneStyles = (props: DragZoneProps) => css`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 15px;
+  padding: ${token('space.200', '15px')};
   position: relative;
   border-radius: 100%;
   transition: background-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -123,7 +120,10 @@ export const dragZoneImageStyles = css`
 const getWidth = (isFullSize: boolean) =>
   `${
     isFullSize
-      ? `width:${AVATAR_DIALOG_WIDTH - gridSize() * 8}px`
+      ? `width: calc(${AVATAR_DIALOG_WIDTH} - ${token(
+          'space.100',
+          '8px',
+        )} * 8)px`
       : 'width:auto'
   }`;
 
@@ -147,10 +147,9 @@ export const selectionBlockerStyles = css`
   user-select: none;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const paddedBreakStyles = css`
-  margin-top: 10px !important;
-  margin-bottom: 10px;
+  margin-top: ${token('space.100', '10px')} !important;
+  margin-bottom: ${token('space.100', '10px')};
 `;
 
 export const sliderWrapperStyles = css`

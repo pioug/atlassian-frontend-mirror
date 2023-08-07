@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 
 import { Box, Flex, Stack, xcss } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 const flexContainerStyles = xcss({
   display: 'flex',
@@ -17,9 +17,9 @@ export default function Example() {
         "start" (default)
         <VisualContainer>
           <Flex gap="space.050" alignItems="start">
-            <Block />
-            <Block />
-            <Block padding="space.300" />
+            <ExampleBox />
+            <ExampleBox />
+            <ExampleBox padding="space.300" />
           </Flex>
         </VisualContainer>
       </Stack>
@@ -27,9 +27,9 @@ export default function Example() {
         "center"
         <VisualContainer>
           <Flex gap="space.050" alignItems="center">
-            <Block />
-            <Block />
-            <Block padding="space.300" />
+            <ExampleBox />
+            <ExampleBox />
+            <ExampleBox padding="space.300" />
           </Flex>
         </VisualContainer>
       </Stack>
@@ -37,9 +37,9 @@ export default function Example() {
         "end"
         <VisualContainer>
           <Flex gap="space.050" alignItems="end">
-            <Block />
-            <Block />
-            <Block padding="space.300" />
+            <ExampleBox />
+            <ExampleBox />
+            <ExampleBox padding="space.300" />
           </Flex>
         </VisualContainer>
       </Stack>
@@ -47,9 +47,9 @@ export default function Example() {
         "baseline"
         <VisualContainer>
           <Flex gap="space.050" alignItems="baseline">
-            <Block />
-            <Block />
-            <Block padding="space.300" />
+            <ExampleBox />
+            <ExampleBox />
+            <ExampleBox padding="space.300" />
           </Flex>
         </VisualContainer>
       </Stack>

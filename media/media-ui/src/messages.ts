@@ -41,7 +41,11 @@ export type MessageKey =
   | 'connect_link_account_card_description'
   | 'invalid_permissions'
   | 'invalid_permissions_description'
+  | 'select_an_avatar'
   | 'upload_an_avatar'
+  | 'or_select_default_avatars'
+  | 'select_an_avatar_from_all_defaults'
+  | 'show_more_avatars_btn_label'
   | 'loading'
   | 'loading_file'
   | 'save'
@@ -351,10 +355,32 @@ export const messages: Messages = defineMessages({
     description:
       'Message shown when a user does not have permissions to view an item. Displayed as description.',
   },
+  select_an_avatar: {
+    id: 'fabric.media.select_an_avatar',
+    defaultMessage: 'Select a default avatar',
+    description: 'Shown when the user selects an avatar from a list of avatars',
+  },
   upload_an_avatar: {
     id: 'fabric.media.upload_an_avatar',
     defaultMessage: 'Upload an avatar',
     description: 'Indicates that the user can upload a new avatar',
+  },
+  select_an_avatar_from_all_defaults: {
+    id: 'fabric.media.select_an_avatar_from_all_defaults',
+    defaultMessage: 'Select from all default options',
+    description:
+      'Announced when user is required to select an avatar from the complete list of default options',
+  },
+  show_more_avatars_btn_label: {
+    id: 'fabric.media.show_more_avatars_btn_label',
+    defaultMessage: 'Show more',
+    description: 'Button label to show more default avatar options',
+  },
+  or_select_default_avatars: {
+    id: 'fabric.media.or_select_default_avatars',
+    defaultMessage: 'Upload a photo or select from some default options',
+    description:
+      'Announced when a user is required to select an avatar by uploading an avatar or selecting from default options',
   },
   loading: {
     id: 'fabric.media.loading',

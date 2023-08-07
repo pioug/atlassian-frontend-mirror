@@ -1,10 +1,13 @@
 import uuidV4 from 'uuid/v4';
 import type { MediaAttributes, MediaADFAttrs } from '@atlaskit/adf-schema';
-import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type {
+  MediaProvider,
+  ContextIdentifierProvider,
+} from '@atlaskit/editor-common/provider-factory';
 import {
   DEFAULT_IMAGE_HEIGHT,
   DEFAULT_IMAGE_WIDTH,
-} from '@atlaskit/editor-common/ui';
+} from '@atlaskit/editor-common/media-single';
 import type { FileState } from '@atlaskit/media-client';
 import {
   getMediaClient,
@@ -14,7 +17,6 @@ import {
 } from '@atlaskit/media-client';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,

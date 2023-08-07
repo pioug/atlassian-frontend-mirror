@@ -49,4 +49,5 @@ export interface AvatarPickerDialogState {
   selectedImage?: File;
   selectedImageSource?: string;
   errorMessage?: string;
+  isSubmitted: boolean;
 }

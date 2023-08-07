@@ -46,6 +46,7 @@
     "react-dom": "^16.8.0"
   },
   "devDependencies": {
+    "@af/accessibility-testing": "*",
     "@atlaskit/ssr": "*",
     "@atlaskit/tokens": "^1.14.0",
     "@atlaskit/visual-regression": "*",

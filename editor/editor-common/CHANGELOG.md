@@ -1,5 +1,17 @@
 # @atlaskit/editor-common
 
+## 74.34.4
+
+### Patch Changes
+
+- [`0d297244de3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0d297244de3) - Add calcMediaSingleMaxWidth, move default image constants to /media-single
+
+## 74.34.3
+
+### Patch Changes
+
+- [`eeecb78b23f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eeecb78b23f) - Added media-single utils to editor-common and moved utils from editor-core/media to edtor-common/media-single.
+
 ## 74.34.2
 
 ### Patch Changes

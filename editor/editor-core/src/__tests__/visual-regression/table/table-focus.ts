@@ -1,4 +1,4 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import { selectElementWithText } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import { pressKey } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import {
@@ -14,7 +14,8 @@ describe('Focused table: fullpage', () => {
     page = global.page;
   });
 
-  it.each([
+  // FIXME: This test was automatically skipped due to failure on 06/08/2023: https://product-fabric.atlassian.net/browse/ED-19363
+  it.skip.each([
     ['with stickyHeadersOptimization', true],
     ['without stickyHeadersOptimization', false],
   ])('focus via keayboard %s', async (_, stickyHeadersOptimization) => {

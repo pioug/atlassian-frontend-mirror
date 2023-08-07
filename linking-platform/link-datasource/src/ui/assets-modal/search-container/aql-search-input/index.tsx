@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useCallback, useRef } from 'react';
+import { Fragment, useCallback, useRef } from 'react';
 
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
@@ -9,9 +9,12 @@ import { Field } from '@atlaskit/form';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
 import SearchIcon from '@atlaskit/icon/glyph/editor/search';
+import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import Spinner from '@atlaskit/spinner';
 import Textfield from '@atlaskit/textfield';
+import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import { useValidateAqlText } from '../../../../hooks/useValidateAqlText';
 import { aqlKey } from '../../../../types/assets/types';
@@ -33,6 +36,18 @@ interface Meta {
   validating?: boolean;
 }
 
+const buttonBaseStyles = css({
+  display: 'flex',
+  height: '100%',
+  position: 'relative',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexDirection: 'column',
+  marginRight: token('space.100', '0.5em'),
+});
+
+const AQLSupportDocumentLink =
+  'https://support.atlassian.com/jira-service-management-cloud/docs/use-assets-query-language-aql/';
 export interface AqlSearchInputProps {
   value: string;
   workspaceId: string;
@@ -152,20 +167,39 @@ export const AqlSearchInput = ({
               </span>
             }
             elemAfterInput={
-              <LoadingButton
-                appearance="primary"
-                css={searchButtonStyles}
-                iconBefore={
-                  <SearchIcon
-                    label={formatMessage(searchInputMessages.placeholder)}
-                    size="medium"
-                  />
-                }
-                isLoading={isSearching}
-                spacing="none"
-                testId="assets-datasource-modal--aql-search-button"
-                type="submit"
-              />
+              <Fragment>
+                <Tooltip
+                  content={formatMessage(searchInputMessages.helpTooltipText)}
+                  position="bottom"
+                >
+                  <a
+                    href={AQLSupportDocumentLink}
+                    target="_blank"
+                    css={buttonBaseStyles}
+                  >
+                    <QuestionCircleIcon
+                      label="label"
+                      primaryColor={token('color.icon', N500)}
+                      size="medium"
+                      testId="assets-datasource-modal-help"
+                    />
+                  </a>
+                </Tooltip>
+                <LoadingButton
+                  appearance="primary"
+                  css={searchButtonStyles}
+                  iconBefore={
+                    <SearchIcon
+                      label={formatMessage(searchInputMessages.placeholder)}
+                      size="medium"
+                    />
+                  }
+                  isLoading={isSearching}
+                  spacing="none"
+                  testId="assets-datasource-modal--aql-search-button"
+                  type="submit"
+                />
+              </Fragment>
             }
             placeholder={formatMessage(searchInputMessages.placeholder)}
             testId={testId}

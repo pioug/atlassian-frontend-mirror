@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 0.33.2
+
+### Patch Changes
+
+- [`7e77ad40512`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e77ad40512) - [ux] Add question mark to search field with link to aql docs
+
+## 0.33.1
+
+### Patch Changes
+
+- [`3c77a5b1377`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3c77a5b1377) - Change behaviour of Assets Config Modal schema select to fetch on mount
+
 ## 0.33.0
 
 ### Minor Changes

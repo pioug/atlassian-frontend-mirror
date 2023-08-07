@@ -14,7 +14,6 @@ export interface IconAndTitleLayoutProps {
   emoji?: React.ReactNode;
   icon?: React.ReactNode;
   title: React.ReactNode;
-  right?: React.ReactNode;
   titleColor?: string;
   children?: React.ReactNode;
   defaultIcon?: React.ReactNode;

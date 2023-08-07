@@ -15,8 +15,6 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
-/// <reference types="react" />
-
 import { ComponentPropsWithoutRef } from 'react';
 import { ComponentPropsWithRef } from 'react';
 import type * as CSS_2 from 'csstype';
@@ -26,7 +24,6 @@ import { ElementType } from 'react';
 import { FC } from 'react';
 import { ForwardRefExoticComponent } from 'react';
 import { jsx } from '@emotion/react';
-import { JSXElementConstructor } from 'react';
 import { MemoExoticComponent } from 'react';
 import { ReactElement } from 'react';
 import { ReactNode } from 'react';
@@ -84,7 +81,15 @@ const alignItemsMap_2: {
 };
 
 // @public (undocumented)
-type AllowedBoxStyles = keyof SafeCSSObject;
+type AllMedia =
+  | '@media (prefers-color-scheme: dark)'
+  | '@media (prefers-color-scheme: light)'
+  | '@media (prefers-reduced-motion: reduce)'
+  | '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)'
+  | MediaQuery;
+
+// @public (undocumented)
+type AtRulesWithoutMedia = Exclude<CSS_2.AtRules, '@media'>;
 
 // @public (undocumented)
 type AutoComplete<T extends string> = Omit<string, T> | T;
@@ -241,7 +246,7 @@ type BaseBoxPropsFoundation<T extends ElementType> = {
 type BasePrimitiveProps = {
   testId?: string;
   style?: CSSProperties;
-  xcss?: BoxXCSS | BoxXCSS[];
+  xcss?: Array<XCSS | false | undefined> | XCSS;
   role?: string;
 };
 
@@ -337,22 +342,6 @@ export type BoxProps<T extends ElementType> = Omit<
   BasePrimitiveProps &
   BaseBoxPropsFoundation<T>;
 
-// @public (undocumented)
-type BoxStyles = SerializedStyles & {
-  [boxTag]: true;
-};
-
-// @public (undocumented)
-const boxTag: unique symbol;
-
-// @public (undocumented)
-type BoxXCSS =
-  | false
-  | undefined
-  | {
-      readonly [uniqueSymbol]: BoxStyles;
-    };
-
 // @public
 export type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxs';
 
@@ -362,13 +351,21 @@ type ClassName = {
 };
 
 // @public (undocumented)
+type CSSAtRules = {
+  [AtRule in AtRulesWithoutMedia as `${AtRule}${string}`]?: Omit<
+    SafeCSSObject,
+    AtRulesWithoutMedia
+  >;
+};
+
+// @public (undocumented)
 type CSSMediaQueries = {
-  [MQ in MediaQuery]?: Omit<SafeCSSObject, MediaQuery>;
+  [MQ in AllMedia]?: Omit<SafeCSSObject, AllMedia>;
 };
 
 // @public (undocumented)
 type CSSPseudos = {
-  [Pseudo in CSS_2.Pseudos]?: Omit<SafeCSSObject, CSS_2.Pseudos | MediaQuery>;
+  [Pseudo in CSS_2.Pseudos]?: Omit<SafeCSSObject, AllMedia | CSS_2.Pseudos>;
 };
 
 // @public (undocumented)
@@ -815,15 +812,10 @@ export type PressableProps = Omit<
 
 // @public (undocumented)
 type SafeCSSObject = CSSPseudos &
+  CSSAtRules &
   TokenisedProps &
   CSSMediaQueries &
   Omit<CSSPropertiesWithMultiValues, keyof TokenisedProps>;
-
-// @public (undocumented)
-type ScopedSafeCSSObject<T extends keyof SafeCSSObject> = Pick<
-  SafeCSSObject,
-  T
->;
 
 // @public (undocumented)
 export type Shadow = keyof typeof shadowMap;
@@ -865,46 +857,6 @@ const spaceMap: {
   'space.800': 'var(--ds-space-800)';
   'space.1000': 'var(--ds-space-1000)';
 };
-
-// @public (undocumented)
-type SpaceStyles = SerializedStyles & {
-  [spaceTag]: true;
-};
-
-// @public (undocumented)
-const spaceTag: unique symbol;
-
-// @public (undocumented)
-type Spacing =
-  | 'columnGap'
-  | 'gap'
-  | 'inset'
-  | 'insetBlock'
-  | 'insetBlockEnd'
-  | 'insetBlockStart'
-  | 'insetInline'
-  | 'insetInlineEnd'
-  | 'insetInlineStart'
-  | 'margin'
-  | 'marginBlock'
-  | 'marginBlockEnd'
-  | 'marginBlockStart'
-  | 'marginInline'
-  | 'marginInlineEnd'
-  | 'marginInlineStart'
-  | 'outlineOffset'
-  | 'padding'
-  | 'paddingBlock'
-  | 'paddingBlockEnd'
-  | 'paddingBlockStart'
-  | 'paddingBottom'
-  | 'paddingInline'
-  | 'paddingInlineEnd'
-  | 'paddingInlineStart'
-  | 'paddingLeft'
-  | 'paddingRight'
-  | 'paddingTop'
-  | 'rowGap';
 
 // @public (undocumented)
 type Spread = 'space-between';
@@ -1126,24 +1078,12 @@ export const UNSAFE_media: {
 // @public (undocumented)
 type Wrap = keyof typeof flexWrapMap;
 
+// @public (undocumented)
+type XCSS = ReturnType<typeof xcss>;
+
 // @public
-export function xcss<Primitive extends typeof Box | void = typeof Box>(
-  style: Primitive extends typeof Box
-    ?
-        | ScopedSafeCSSObject<AllowedBoxStyles>
-        | ScopedSafeCSSObject<AllowedBoxStyles>[]
-    : Primitive extends void
-    ? ScopedSafeCSSObject<Spacing> | ScopedSafeCSSObject<Spacing>[]
-    : never,
-): {
-  readonly [uniqueSymbol]: Primitive extends (<T extends ElementType<any>>(
-    props: BoxProps<T>,
-  ) => ReactElement<any, JSXElementConstructor<any> | string> | null) &
-    FC<BoxProps<'div'>>
-    ? BoxStyles
-    : Primitive extends void
-    ? SpaceStyles
-    : never;
+export function xcss(style: SafeCSSObject): {
+  readonly [uniqueSymbol]: SerializedStyles;
 };
 
 // (No @packageDocumentation comment for this package)

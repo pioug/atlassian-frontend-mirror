@@ -1,5 +1,8 @@
-jest.mock('@atlaskit/media-common');
-import { downloadUrl } from '@atlaskit/media-common';
+jest.mock('../../utils', () => ({
+  ...jest.requireActual('../../utils'),
+  downloadUrl: jest.fn(),
+}));
+import { downloadUrl } from '../../utils';
 import { ViewAction } from '../../view/BlockCard/actions/ViewAction';
 import { DownloadAction } from '../../view/BlockCard/actions/DownloadAction';
 

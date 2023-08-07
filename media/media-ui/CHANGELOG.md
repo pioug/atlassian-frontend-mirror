@@ -1,5 +1,17 @@
 # @atlaskit/media-ui
 
+## 23.3.0
+
+### Minor Changes
+
+- [`9435778d504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9435778d504) - Added additional messages for Media Avatar Picker for improved accessibility
+
+## 23.2.2
+
+### Patch Changes
+
+- [`07ffc8e6fbd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/07ffc8e6fbd) - remove unused right prop from IconAndTitleLayout
+
 ## 23.2.1
 
 ### Patch Changes

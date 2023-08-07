@@ -16,7 +16,7 @@ import { GuidelineConfig } from './types';
  */
 export const getEditorCenterX = (editorView: EditorView): number => {
   const editorRect = (editorView.dom as HTMLElement).getBoundingClientRect();
-  return editorRect.width / 2 + editorRect.x;
+  return Math.round(editorRect.width / 2 + editorRect.x);
 };
 
 const defaultGrids = [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6];

@@ -30,6 +30,8 @@ interface Props {
   showTypeField?: boolean;
   /**  Override to hide the default text fields for feedback **/
   showDefaultTextFields?: boolean;
+  /** Indicates if the description field has a default value to unlock the form submission */
+  hasDescriptionDefaultValue?: boolean;
   /**  Message which will be shown below the title of the feedback dialog **/
   feedbackTitleDetails?: React.ReactChild;
   /**  Message which will be shown next to the enrol in research checkbox **/
@@ -76,6 +78,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
   submitButtonLabel,
   cancelButtonLabel,
   anonymousFeedback,
+  hasDescriptionDefaultValue,
 }) => {
   const [canBeContacted, setCanBeContacted] =
     useState<FormFields['canBeContacted']>(false);
@@ -89,9 +92,10 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 
   const canShowTextField = isTypeSelected() || !showTypeField;
 
+  const hasDescription = description || hasDescriptionDefaultValue;
   const isDisabled = showTypeField
-    ? !isTypeSelected() || !description
-    : !description;
+    ? !isTypeSelected() || !hasDescription
+    : !hasDescription;
 
   const getFieldLabels = (
     record?: Record<SelectValue, SelectOptionDetails>,

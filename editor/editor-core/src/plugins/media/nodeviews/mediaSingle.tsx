@@ -19,11 +19,7 @@ import type {
   ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-  MediaSingle,
-  DEFAULT_IMAGE_HEIGHT,
-  DEFAULT_IMAGE_WIDTH,
-} from '@atlaskit/editor-common/ui';
+import { MediaSingle } from '@atlaskit/editor-common/ui';
 import {
   browser,
   floatingLayouts,
@@ -61,7 +57,12 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
 import type mediaPlugin from '../index';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { getMediaSinglePixelWidth } from '@atlaskit/editor-common/media-single';
+import {
+  calcMediaSinglePixelWidth,
+  MEDIA_SINGLE_GUTTER_SIZE,
+  DEFAULT_IMAGE_HEIGHT,
+  DEFAULT_IMAGE_WIDTH,
+} from '@atlaskit/editor-common/media-single';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 export interface MediaSingleNodeState {
@@ -310,23 +311,26 @@ export default class MediaSingleNode extends Component<
     }
 
     const isSelected = selected();
+    const contentWidth = this.getLineLength(view, getPos()) || lineLength;
 
     const mediaSingleProps = {
       layout,
       width,
       height,
       containerWidth: containerWidth,
-      lineLength: this.getLineLength(view, getPos()) || lineLength,
+      lineLength: contentWidth,
       pctWidth: mediaSingleWidthAttribute,
       fullWidthMode,
       hasFallbackContainer: false,
-      mediaSingleWidth:
-        mediaSingleWidthAttribute &&
-        getMediaSinglePixelWidth(
-          mediaSingleWidthAttribute,
-          lineLength,
-          widthType,
-        ),
+      mediaSingleWidth: calcMediaSinglePixelWidth({
+        width: mediaSingleWidthAttribute,
+        widthType,
+        origWidth: width,
+        layout,
+        contentWidth,
+        containerWidth,
+        gutterOffset: MEDIA_SINGLE_GUTTER_SIZE,
+      }),
     };
 
     const ResizableMediaSingleProps = {

@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 
-import { type BoxXCSS } from '../xcss/xcss';
+import type { XCSS } from '../xcss/xcss';
 
 export type BasePrimitiveProps = {
   /**
@@ -9,14 +9,15 @@ export type BasePrimitiveProps = {
   testId?: string;
 
   /**
-   * Inline styles to be applied to the primitive.
+   * Inline styles to be applied to the primitive. Only apply as a last resort, or where
+   * styles cannot otherwise be calculated outside of the runtime of the component they're applied.
    */
   style?: CSSProperties;
 
   /**
    * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
    */
-  xcss?: BoxXCSS | BoxXCSS[];
+  xcss?: XCSS | Array<XCSS | false | undefined>;
 
   /**
    * Accessible role

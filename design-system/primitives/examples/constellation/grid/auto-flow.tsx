@@ -2,14 +2,14 @@ import React from 'react';
 
 import { Grid } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 export default function Basic() {
   return (
     <Grid autoFlow="column" gap="space.200">
-      <Block />
-      <Block />
-      <Block />
+      <ExampleBox />
+      <ExampleBox />
+      <ExampleBox />
     </Grid>
   );
 }

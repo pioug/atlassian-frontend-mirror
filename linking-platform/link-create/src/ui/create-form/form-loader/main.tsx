@@ -12,6 +12,10 @@ const formLoaderStyles = css({
   minHeight: `${CREATE_FORM_MIN_HEIGHT_IN_PX}px`,
 });
 
+/**
+ * Wrapper component for the Spinner, shows while the form
+ * performs async functions on load.
+ */
 export function CreateFormLoader({ size = 'large' }: Partial<SpinnerProps>) {
   return (
     <div css={formLoaderStyles}>

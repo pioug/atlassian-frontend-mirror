@@ -1,5 +1,12 @@
 # @atlaskit/media-avatar-picker
 
+## 24.3.6
+
+### Patch Changes
+
+- [`9435778d504`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9435778d504) - [ux] MEX-2482 Improve accessibility of avatar picker by converting it into a form; enforcing appropriate announcements to screen readers; and preventing the submit button from being disabled.
+- Updated dependencies
+
 ## 24.3.5
 
 ### Patch Changes

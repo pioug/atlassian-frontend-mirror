@@ -1,43 +1,47 @@
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
+import {
+  visuallyHiddenRadioStyles,
+  selectedShadow,
+  focusedShadow,
+} from '../styles';
+import { avatarImageStyles } from '../styles';
 
-const avatarImageStyles = () => css`
-  border-radius: ${borderRadius()};
-  cursor: pointer;
-`;
-
-export const largeAvatarImageStyles = () => css`
-  ${avatarImageStyles()}
-  width: ${gridSize() * 9}px;
-  height: ${gridSize() * 9}px;
-`;
-
-export const smallAvatarImageStyles = () => css`
-  ${avatarImageStyles()}
-  width: ${token('space.500', '40px')};
-  height: ${token('space.500', '40px')};
+export const largeAvatarImageStyles = css`
+  ${avatarImageStyles}
+  width: calc(${token('space.100', '8px')} * 9);
+  height: calc(${token('space.100', '8px')} * 9);
 `;
 
 export const predefinedAvatarViewWrapperStyles = css`
-  ul {
+  .body {
     display: flex;
     flex-flow: row wrap;
     width: 353px;
     max-height: 294px;
     overflow-y: auto;
 
-    padding: 0;
+    padding: ${token('space.100', '8px')} 0 0;
     margin: 0;
+  }
 
-    list-style-type: none;
+  input {
+    ${visuallyHiddenRadioStyles}
+  }
 
-    li {
-      padding-right: ${token('space.050', '4px')};
-      padding-left: ${token('space.050', '4px')};
-      padding-bottom: ${token('space.100', '8px')};
-      margin: 0;
-    }
+  input:checked + img {
+    ${selectedShadow}
+  }
+
+  input:focus + img {
+    ${focusedShadow}
+  }
+
+  label {
+    padding-right: ${token('space.050', '4px')};
+    padding-left: ${token('space.050', '4px')};
+    padding-bottom: ${token('space.100', '8px')};
+    display: inline-flex;
   }
 
   .header {
@@ -54,7 +58,7 @@ export const predefinedAvatarViewWrapperStyles = css`
     .back-button {
       width: 32px;
       height: 32px;
-      border-radius: 16px;
+      border-radius: ${token('border.radius.400', '16px')};
 
       align-items: center;
       justify-content: center;
@@ -62,16 +66,5 @@ export const predefinedAvatarViewWrapperStyles = css`
       margin: 0;
       padding: 0;
     }
-  }
-
-  /* hide tickbox and file type icon in overlay
-   * because those are not necessary for avatars */
-
-  .tickbox {
-    visibility: hidden;
-  }
-
-  .file-type-icon {
-    visibility: hidden;
   }
 `;

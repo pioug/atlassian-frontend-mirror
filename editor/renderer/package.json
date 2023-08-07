@@ -43,7 +43,7 @@
     "@atlaskit/media-client": "^23.1.0",
     "@atlaskit/media-common": "^8.0.0",
     "@atlaskit/media-filmstrip": "^47.0.0",
-    "@atlaskit/media-ui": "^23.2.0",
+    "@atlaskit/media-ui": "^23.3.0",
     "@atlaskit/media-viewer": "^48.0.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
     "@atlaskit/smart-card": "^26.14.0",

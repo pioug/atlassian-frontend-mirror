@@ -1,16 +1,24 @@
+import { token } from '@atlaskit/tokens';
 import { css } from '@emotion/react';
+
+export const avatarPickerErrorStyles = css`
+  margin: 0 ${token('space.200', '16px')} ${token('space.200', '16px')};
+`;
+
+export const formStyles = css`
+  margin: 0;
+`;
 
 export const avatarPickerViewWrapperStyles = css`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   text-align: center;
   min-height: 339px;
 `;
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 export const modalHeaderStyles = css`
-  margin: 15px;
+  margin: ${token('space.200', '16px')};
   font-weight: 500;
   font-size: 20px;
 `;
@@ -21,15 +29,5 @@ export const croppingWrapperStyles = css`
 
   * {
     user-select: none;
-  }
-`;
-
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const modalFooterButtonsStyles = css`
-  text-align: right;
-  width: 100%;
-
-  button:first-child {
-    margin-right: 3px;
   }
 `;

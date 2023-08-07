@@ -2,22 +2,22 @@ import React from 'react';
 
 import { Bleed, Box, Stack } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 export default function Basic() {
   return (
     <Box padding="space.200" backgroundColor="color.background.neutral">
       <Stack space="space.100">
-        <Block />
-        <Block />
+        <ExampleBox />
+        <ExampleBox />
         <Bleed block="space.150">
-          <Block
+          <ExampleBox
             style={{ position: 'relative' }}
             backgroundColor="color.background.discovery.pressed"
           />
         </Bleed>
-        <Block />
-        <Block />
+        <ExampleBox />
+        <ExampleBox />
       </Stack>
     </Box>
   );

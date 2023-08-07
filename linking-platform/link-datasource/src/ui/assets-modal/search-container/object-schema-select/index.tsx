@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { useState } from 'react';
 
 import { jsx } from '@emotion/react';
 import debounce from 'debounce-promise';
@@ -7,6 +6,7 @@ import { useIntl } from 'react-intl-next';
 
 import { Field } from '@atlaskit/form';
 import { AsyncSelect } from '@atlaskit/select';
+import { layers } from '@atlaskit/theme/constants';
 
 import { useObjectSchemas } from '../../../../hooks/useObjectSchemas';
 import {
@@ -27,6 +27,17 @@ type AssetsObjectSchemaSelectProps = {
 
 export const SEARCH_DEBOUNCE_MS = 350;
 
+/**
+ * Rendering a `<Select>` in a `<Modal>` results in the select options getting cut off by the bottom of the modal and
+ * scrolling. This is a work-around for that, see https://atlassian.slack.com/archives/CFJ9DU39U/p1623179496484100
+ */
+export const selectInAModalStyleFixProps = {
+  styles: {
+    menuPortal: (base: any) => ({ ...base, zIndex: layers.modal() }),
+  },
+  menuPortalTarget: document.body,
+};
+
 export const AssetsObjectSchemaSelect = ({
   value,
   workspaceId,
@@ -35,9 +46,6 @@ export const AssetsObjectSchemaSelect = ({
   const { formatMessage } = useIntl();
   const { fetchObjectSchemas, objectSchemasLoading } =
     useObjectSchemas(workspaceId);
-  const [defaultOptions, setDefaultOptions] = useState<
-    ObjectSchemaOption[] | undefined
-  >(undefined);
 
   const selectedObjectSchema = value
     ? objectSchemaToSelectOption(value)
@@ -73,16 +81,12 @@ export const AssetsObjectSchemaSelect = ({
           <AsyncSelect
             classNamePrefix={classNamePrefix}
             isLoading={objectSchemasLoading}
-            defaultOptions={defaultOptions || []}
+            defaultOptions // setting to true causes the loadOptions to be called on mount
             isSearchable
             loadOptions={debouncedLoadOptions}
             placeholder={formatMessage(objectSchemaSelectMessages.placeholder)}
             onChange={newOption => newOption && onChange(newOption)}
-            onFocus={() => {
-              if (!defaultOptions) {
-                loadOptions('').then(setDefaultOptions);
-              }
-            }}
+            {...selectInAModalStyleFixProps}
             {...restFieldProps}
           />
         )}

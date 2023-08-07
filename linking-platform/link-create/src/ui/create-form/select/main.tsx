@@ -10,8 +10,8 @@ import { SelectProps } from './types';
 
 export const TEST_ID = 'link-create-select';
 /**
- * A select utilising the Atlaskit Select and Field components from
- * `@atlaskit/form`.  Validation is handled by the form on form submission. Any
+ * A select component utilising the Atlaskit Select and CreateField.
+ * Validation is handled by the form on form submission. Any
  * errors returned by the handleSubmit function passed to the form <Form> that
  * have a key matching the `name` of this field are shown below the field.
  */

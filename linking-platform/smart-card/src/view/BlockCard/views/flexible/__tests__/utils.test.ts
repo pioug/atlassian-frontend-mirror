@@ -44,11 +44,15 @@ describe('getSimulatedBetterMetadata', () => {
       const topMetadata = [
         { name: ElementName.AssignedToGroup },
         { name: ElementName.AssignedTo },
-        ...baseTopMetadata,
+        { name: ElementName.ModifiedOn },
+      ];
+      const bottomMetadata = [
+        { name: ElementName.Priority },
+        { name: ElementName.SubTasksProgress },
       ];
       expect(metadata.titleMetadata).toEqual(defaultTitleMetadata);
       expect(metadata.topMetadata).toEqual(topMetadata);
-      expect(metadata.bottomMetadata).toEqual(defaultBottomMetadata);
+      expect(metadata.bottomMetadata).toEqual(bottomMetadata);
     });
   });
 

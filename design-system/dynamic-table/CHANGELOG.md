@@ -1,5 +1,11 @@
 # @atlaskit/dynamic-table
 
+## 14.11.3
+
+### Patch Changes
+
+- [`a486e54d1ef`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a486e54d1ef) - Improved performance of built-in table sorting for stateful dynamic tables
+
 ## 14.11.2
 
 ### Patch Changes

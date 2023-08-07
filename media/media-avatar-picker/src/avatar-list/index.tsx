@@ -1,9 +1,8 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
-import { PureComponent } from 'react';
-
-import { avatarListWrapperStyles, imageButton } from './styles';
-import { SmallAvatarImage } from '../predefined-avatar-view/smallImageAvatar';
+import { useIntl } from 'react-intl-next';
+import { messages } from '@atlaskit/media-ui';
+import { avatarListWrapperStyles, smallAvatarImageStyles } from './styles';
 
 export interface Avatar {
   dataURI: string;
@@ -14,47 +13,53 @@ export interface AvatarListProps {
   avatars: Array<Avatar>;
   onItemClick?: (avatar: Avatar) => void;
   selectedAvatar?: Avatar;
+  selectAvatarLabel?: string;
 }
 
-export class AvatarList extends PureComponent<AvatarListProps, {}> {
-  static defaultProps = {
-    avatars: [],
-  };
+export const AvatarList = ({
+  avatars = [],
+  selectedAvatar,
+  onItemClick,
+  selectAvatarLabel,
+}: AvatarListProps) => {
+  const intl = useIntl();
 
-  render() {
-    const { avatars, selectedAvatar } = this.props;
-
-    const cards = avatars.map((avatar, idx) => {
-      const elementKey = `predefined-avatar-${idx}`;
-      return (
-        <li key={elementKey}>
-          <button
-            onClick={this.onItemClick(avatar)}
-            aria-label={avatar.name || undefined}
-            css={imageButton({ isSelected: avatar === selectedAvatar })}
-          >
-            <SmallAvatarImage
-              isSelected={avatar === selectedAvatar}
-              src={avatar.dataURI}
-              id="small-avatar-image"
-              alt={avatar.name || undefined}
-            />
-          </button>
-        </li>
-      );
-    });
-
-    return (
-      <div css={avatarListWrapperStyles}>
-        <ul>{cards}</ul>
-      </div>
-    );
-  }
-
-  onItemClick = (avatar: Avatar) => () => {
-    const { onItemClick } = this.props;
+  const createOnItemClickHandler = (avatar: Avatar) => () => {
     if (onItemClick) {
       onItemClick(avatar);
     }
   };
-}
+
+  const cards = avatars.map((avatar, idx) => {
+    const elementKey = `predefined-avatar-${idx}`;
+    return (
+      <label key={elementKey}>
+        <input
+          type="radio"
+          name="avatar"
+          value={avatar.dataURI}
+          checked={avatar === selectedAvatar}
+          onChange={createOnItemClickHandler(avatar)}
+        />
+
+        <img
+          css={smallAvatarImageStyles}
+          src={avatar.dataURI}
+          alt={avatar.name || undefined}
+        />
+      </label>
+    );
+  });
+
+  return (
+    <div
+      role="radiogroup"
+      aria-label={
+        selectAvatarLabel || intl.formatMessage(messages.select_an_avatar)
+      }
+      css={avatarListWrapperStyles}
+    >
+      {cards}
+    </div>
+  );
+};

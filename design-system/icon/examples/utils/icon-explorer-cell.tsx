@@ -13,14 +13,11 @@ import Modal, {
 import Tooltip from '@atlaskit/tooltip';
 import { N30A } from '@atlaskit/theme/colors';
 
-const iconExplorerLinkStyles = css({
+const iconExplorerButtonStyles = css({
   '&,&:hover,&:active,&:focus': {
     display: 'block',
-    // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-    padding: 10,
     borderRadius: token('border.radius', '4px'),
     color: 'inherit',
-    cursor: 'pointer',
     lineHeight: 0,
   },
   '&:hover': {
@@ -100,13 +97,14 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
         {componentName}
       </h3>
       <ModalBody>
-        {/* TODO: Remove role="presentation", since div's have no semantics anyway (DSP-11587) */}
-        <div
-          onClick={() => inputEl && inputEl.current!.select()}
-          role="presentation"
-        >
-          <Textfield isReadOnly value={importStatement} ref={inputEl} />
-        </div>
+        <Textfield
+          isReadOnly
+          value={importStatement}
+          ref={inputEl}
+          onClick={(e) => {
+            e.currentTarget.select();
+          }}
+        />
       </ModalBody>
       <ModalFooter>
         <Button onClick={closeModal} appearance="subtle">
@@ -122,11 +120,13 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
   return (
     <div>
       <Tooltip content={componentName}>
-        {/* TODO: This should be converted to a button (DSP-11749) */}
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */}
-        <a css={iconExplorerLinkStyles} onClick={openModal}>
+        <Button
+          css={iconExplorerButtonStyles}
+          onClick={openModal}
+          appearance="subtle"
+        >
           <Icon label={componentName} size="medium" />
-        </a>
+        </Button>
       </Tooltip>
       <ModalTransition>{isModalOpen ? modal : null}</ModalTransition>
     </div>

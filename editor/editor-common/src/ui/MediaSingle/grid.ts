@@ -54,7 +54,7 @@ export const wrappedLayouts: MediaSingleLayout[] = [
   'align-start',
 ];
 
-const calcPctWidth = (
+export const calcPctWidth = (
   containerWidth: EditorContainerWidth,
   pctWidth?: number,
   origWidth?: number,
@@ -73,7 +73,7 @@ const calcPctWidth = (
 export const calcMediaPxWidth = (opts: {
   origWidth: number;
   origHeight: number;
-  state: EditorState;
+  state?: EditorState;
   containerWidth: EditorContainerWidth;
   layout?: MediaSingleLayout;
   pctWidth?: number;

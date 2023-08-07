@@ -5,7 +5,7 @@ import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import { Box, Flex, Stack } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 const alignmentValues = ['start', 'center', 'end'] as const;
 
@@ -30,9 +30,9 @@ export default function Example() {
           Justify content <Code>{alignmentValues[alignmentIndex]}</Code>
         </Heading>
         <Flex gap="space.100" justifyContent={alignmentValues[alignmentIndex]}>
-          <Block />
-          <Block />
-          <Block />
+          <ExampleBox />
+          <ExampleBox />
+          <ExampleBox />
         </Flex>
       </Stack>
     </Stack>

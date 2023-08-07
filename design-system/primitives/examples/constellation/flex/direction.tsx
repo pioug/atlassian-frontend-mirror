@@ -5,7 +5,7 @@ import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import { Box, Flex, Stack } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 export default function Example() {
   const [direction, setDirection] = useState<'row' | 'column'>('row');
@@ -28,9 +28,9 @@ export default function Example() {
           Flex direction <Code>{direction}</Code>
         </Heading>
         <Flex gap="space.100" direction={direction}>
-          <Block />
-          <Block />
-          <Block />
+          <ExampleBox />
+          <ExampleBox />
+          <ExampleBox />
         </Flex>
       </Stack>
     </Stack>

@@ -4,7 +4,7 @@ import Button from '@atlaskit/button';
 import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 const alignmentValues = ['start', 'center', 'end'] as const;
 
@@ -27,9 +27,9 @@ export default function Example() {
       <Stack space="space.100">
         <Heading level="h400">Inline alignment</Heading>
         <Inline space="space.100" alignInline={alignmentValues[alignmentIndex]}>
-          <Block />
-          <Block />
-          <Block />
+          <ExampleBox />
+          <ExampleBox />
+          <ExampleBox />
         </Inline>
       </Stack>
     </Stack>

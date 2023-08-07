@@ -11,8 +11,8 @@ import { EmbedCardAttributes } from '@atlaskit/adf-schema';
 import { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { MediaSingle as RichMediaWrapper } from '@atlaskit/editor-common/ui';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { setDragging } from '../../../../../../editor-plugin-table/src/plugins/table/pm-plugins/table-resizing/commands';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { setDragging } from '@atlaskit/editor-plugin-table/src/plugins/table/pm-plugins/table-resizing/commands';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import {
   doc,
@@ -26,19 +26,16 @@ import {
 } from '@atlaskit/smart-card';
 import { IntlProvider } from 'react-intl-next';
 
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import {
-  EmbedCardComponent,
-  EmbedCardState,
-} from '../../../../../../editor-plugin-card/src/nodeviews/embedCard';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { SmartCardProps } from '../../../../../../editor-plugin-card/src/nodeviews/genericCard';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import ResizableEmbedCard from '../../../../../../editor-plugin-card/src/ui/ResizableEmbedCard';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { createCardContext } from '../../../../../../editor-plugin-card/src/__tests__/unit/_helpers';
-
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import type { EmbedCardState } from '@atlaskit/editor-plugin-card/src/nodeviews/embedCard';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { EmbedCardComponent } from '@atlaskit/editor-plugin-card/src/nodeviews/embedCard';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import type { SmartCardProps } from '@atlaskit/editor-plugin-card/src/nodeviews/genericCard';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import ResizableEmbedCard from '@atlaskit/editor-plugin-card/src/ui/ResizableEmbedCard';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import { createCardContext } from '@atlaskit/editor-plugin-card/src/__tests__/unit/_helpers';
 
 describe('EmbedCard', () => {
   const createEditor = createEditorFactory();

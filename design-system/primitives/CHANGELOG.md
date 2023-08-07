@@ -1,5 +1,11 @@
 # @atlaskit/primitives
 
+## 1.0.10
+
+### Patch Changes
+
+- [`ac645224013`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ac645224013) - Removes generic for `xcss` fn. Adds support for other `AtTypes`.
+
 ## 1.0.9
 
 ### Patch Changes

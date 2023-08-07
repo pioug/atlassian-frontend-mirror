@@ -6,7 +6,3 @@ export type DownloadActionProps = ActionProps & {
   /* Base link URL used for analytics. */
   url: string;
 };
-
-export interface DownloadFunctionProps {
-  url?: string;
-}

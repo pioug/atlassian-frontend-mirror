@@ -18,8 +18,8 @@ import { AsyncSelectProps } from './types';
 export const TEST_ID = 'link-create-async-select';
 
 /**
- * An async select utilising the Atlaskit AsyncSelect and Field components from
- * `@atlaskit/form`.  Validation is handled by the form on form submission. Any
+ * An async select utilising the Atlaskit AsyncSelect and CreateField.
+ * Validation is handled by the form on form submission. Any
  * errors returned by the handleSubmit function passed to the form <Form> that
  * have a key matching the `name` of this field are shown below the field.
  */

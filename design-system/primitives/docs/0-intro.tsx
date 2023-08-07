@@ -1,17 +1,15 @@
 import React from 'react';
 
-import {
-  AtlassianInternalWarning,
-  DevPreviewWarning,
-  md,
-} from '@atlaskit/docs';
-
-import { Stack } from '../src';
+import { md } from '@atlaskit/docs';
+import SectionMessage from '@atlaskit/section-message';
 
 export default md`
 ${(
-  <Stack space="space.100">
-    <AtlassianInternalWarning />
-    <DevPreviewWarning />
-  </Stack>
-)}`;
+  <SectionMessage appearance="information">
+    This package is now documented on
+    <a href="https://atlassian.design/components/primitives/">
+      atlassian.design
+    </a>
+  </SectionMessage>
+)}
+`;

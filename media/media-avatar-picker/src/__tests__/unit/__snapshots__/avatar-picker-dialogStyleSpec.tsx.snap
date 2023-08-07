@@ -35,7 +35,7 @@ exports[`Avatar Picker Styles image-navigator DragZone is dropping file 1`] = `
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-  padding: 15px;
+  padding: var(--ds-space-200, 15px);
   position: relative;
   border-radius: 100%;
   -webkit-transition: background-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -86,7 +86,7 @@ exports[`Avatar Picker Styles image-navigator DragZone is not dropping file 1`] 
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-  padding: 15px;
+  padding: var(--ds-space-200, 15px);
   position: relative;
   border-radius: 100%;
   -webkit-transition: background-color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);

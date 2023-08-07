@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button';
 import { Inline, Stack } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 export default function Example() {
   const [rowSpace, setRowSpace] = useState<'space.100' | undefined>(undefined);
@@ -18,7 +18,7 @@ export default function Example() {
       </Button>
       <Inline space="space.200" rowSpace={rowSpace} shouldWrap>
         {[...Array(24).keys()].map(i => (
-          <Block />
+          <ExampleBox />
         ))}
       </Inline>
     </Stack>

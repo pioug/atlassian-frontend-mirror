@@ -1,7 +1,6 @@
 import * as mocks from './avatar-picker-dialogSpec.mock';
 import React from 'react';
 import { ModalFooter } from '@atlaskit/modal-dialog';
-import Button from '@atlaskit/button/custom-theme-button';
 import { smallImage, mountWithIntlContext } from '@atlaskit/media-test-helpers';
 import { Avatar } from '../../avatar-list';
 import { ImageNavigator } from '../../image-navigator';
@@ -51,10 +50,6 @@ describe('Avatar Picker Dialog', () => {
     component.update();
   };
 
-  const renderSaveButton = (props: Partial<AvatarPickerDialogProps> = {}) => {
-    return renderWithProps(props).find(ModalFooter).find(Button).first();
-  };
-
   it('when save button is clicked onImagePicked should be called', () => {
     const onImagePicked = jest.fn();
 
@@ -67,11 +62,7 @@ describe('Avatar Picker Dialog', () => {
     const croppedImgDataURI = 'data:image/meme;based64:w0w';
     component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
 
-    component
-      .find(ModalFooter)
-      .find('button[type="button"]')
-      .first()
-      .simulate('click');
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
 
     expect(onImagePicked.mock.calls[0][1]).toEqual(fixedCrop);
   });
@@ -88,16 +79,12 @@ describe('Avatar Picker Dialog', () => {
     const croppedImgDataURI = 'data:image/meme;based64:w0w';
     component.instance()['exportCroppedImage'] = () => croppedImgDataURI;
 
-    component
-      .find(ModalFooter)
-      .find('button[type="button"]')
-      .first()
-      .simulate('click');
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
 
     expect(onImagePickedDataURI).toBeCalledWith(croppedImgDataURI);
   });
 
-  it('when save button is clicked onSaveAvatar should be called', () => {
+  it('when save button is clicked onAvatarPicked should be called', () => {
     const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/453' };
     const avatars = [selectedAvatar];
     const onAvatarPicked = jest.fn();
@@ -106,11 +93,21 @@ describe('Avatar Picker Dialog', () => {
     const { onAvatarSelected } = component.find(PredefinedAvatarList).props();
     onAvatarSelected(selectedAvatar);
 
-    component
-      .find(ModalFooter)
-      .find('button[type="button"]')
-      .first()
-      .simulate('click');
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+
+    expect(onAvatarPicked).toBeCalledWith(selectedAvatar);
+  });
+
+  it('when save button is clicked with predefined avatar passed as default, onAvatarPicked should be called', () => {
+    const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/453' };
+    const avatars = [selectedAvatar];
+    const onAvatarPicked = jest.fn();
+    const component = renderWithProps({
+      avatars,
+      defaultSelectedAvatar: selectedAvatar,
+      onAvatarPicked,
+    });
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
 
     expect(onAvatarPicked).toBeCalledWith(selectedAvatar);
   });
@@ -141,26 +138,49 @@ describe('Avatar Picker Dialog', () => {
     expect(component.find(PredefinedAvatarList)).toHaveLength(0);
   });
 
-  it('should not allow save without selected image or selected avatar', () => {
-    const saveButton = renderSaveButton();
-    expect(saveButton.props().isDisabled).toBeTruthy();
+  it('should not trigger callbacks when save button is clicked without selected image or selected avatar', () => {
+    const onAvatarPicked = jest.fn();
+    const onImagePicked = jest.fn();
+    const onImagePickedDataURI = jest.fn();
+    const component = renderWithProps({
+      onAvatarPicked,
+      onImagePicked,
+      onImagePickedDataURI,
+    });
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    expect(onAvatarPicked).not.toHaveBeenCalled();
+    expect(onImagePicked).not.toHaveBeenCalled();
+    expect(onImagePickedDataURI).not.toHaveBeenCalled();
+  });
+
+  it('should alert when save button is clicked without selected image or selected avatar', () => {
+    const component = renderWithProps({});
+
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    expect(component.find('#avatar-picker-error')).toHaveLength(1);
+  });
+
+  it('should alert even on predefined avatars mode', () => {
+    const component = renderWithProps({});
+
+    component.setState({ mode: Mode.PredefinedAvatars });
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    expect(component.find('#avatar-picker-error')).toHaveLength(1);
   });
 
   it('should allow save with selected image passed as default', () => {
-    const saveButton = renderSaveButton({
+    const onAvatarPicked = jest.fn();
+    const onImagePicked = jest.fn();
+    const onImagePickedDataURI = jest.fn();
+    const component = renderWithProps({
       imageSource: smallImage,
     });
-    expect(saveButton.props().isDisabled).toBeFalsy();
-  });
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    expect(onAvatarPicked).not.toHaveBeenCalled();
+    expect(onImagePicked).not.toHaveBeenCalled();
+    expect(onImagePickedDataURI).not.toHaveBeenCalled();
 
-  it('should allow save with predefined avatar passed as default', () => {
-    const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/453' };
-    const avatars = [selectedAvatar];
-    const saveButton = renderSaveButton({
-      avatars,
-      defaultSelectedAvatar: selectedAvatar,
-    });
-    expect(saveButton.props().isDisabled).toBeFalsy();
+    expect(component.find('#avatar-picker-error')).toHaveLength(0);
   });
 
   it('should ensure selected avatars beyond visible limit are shown when selected', () => {
@@ -213,24 +233,24 @@ describe('Avatar Picker Dialog', () => {
   it('should render default primary button text', () => {
     const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
     const avatars = [selectedAvatar];
-    const component = renderSaveButton({ avatars });
+    const component = renderWithProps({ avatars })
+      .find(ModalFooter)
+      .find('button[type="submit"]');
 
-    expect((component.props() as any).children.props.defaultMessage).toBe(
-      'Save',
-    );
+    expect(component.text()).toEqual('Save');
   });
 
   it('should by able to customise primary button text', () => {
     const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
     const avatars = [selectedAvatar];
-    const component = renderSaveButton({
+    const component = renderWithProps({
       avatars,
       primaryButtonText: 'test-primary-text',
     });
 
-    expect((component.props() as React.Props<{}>).children).toBe(
-      'test-primary-text',
-    );
+    expect(
+      component.find(ModalFooter).find('button[type="submit"]').text(),
+    ).toEqual('test-primary-text');
   });
 
   it('should clear selected image when cross clicked', () => {
@@ -264,9 +284,8 @@ describe('Avatar Picker Dialog', () => {
       imageSource: smallImage,
       isLoading: true,
     });
-    const button = renderSaveButton({ isLoading: true });
 
-    expect(button.prop('isDisabled')).toBeTruthy();
+    expect(component.find(ModalFooter).find('LoadingSpinner')).toBeTruthy();
     expect(component.find(ImageNavigator).prop('isLoading')).toBeTruthy();
     expect(component.find(PredefinedAvatarList)).toHaveLength(0);
   });
@@ -283,5 +302,67 @@ describe('Avatar Picker Dialog', () => {
     expect(
       component.find(PredefinedAvatarView).prop('predefinedAvatarsText'),
     ).toEqual('some text');
+  });
+
+  it('should announce instructions to screen readers on cropping mode', () => {
+    const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
+    const avatars = [selectedAvatar];
+    const component = renderWithProps({
+      avatars,
+    });
+
+    expect(component.find('div[aria-live="polite"]').text()).toEqual(
+      'Upload a photo or select from some default options',
+    );
+  });
+
+  it('should announce instructions to screen readers on predefined avatar mode', () => {
+    const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
+    const avatars = [selectedAvatar];
+    const component = renderWithProps({
+      avatars,
+    });
+
+    component.setState({ mode: Mode.PredefinedAvatars });
+    expect(component.find('div[aria-live="polite"]').text()).toEqual(
+      'Select from all default options',
+    );
+  });
+
+  it('should not announce screen reader instructions when there is no predefined list of avatars', () => {
+    const component = renderWithProps({ avatars: [] });
+
+    expect(component.find(PredefinedAvatarList)).toHaveLength(0);
+    expect(component.find('div[aria-live="polite"]')).toHaveLength(0);
+  });
+
+  it('should remove alert when a default avatar is selected', () => {
+    const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
+    const avatars = [selectedAvatar];
+    const component = renderWithProps({ avatars });
+
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    expect(component.find('#avatar-picker-error')).toHaveLength(1);
+
+    component.find('input[type="radio"]').simulate('change', {
+      target: { value: selectedAvatar },
+    });
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    expect(component.find('#avatar-picker-error')).toHaveLength(0);
+  });
+
+  it('should remove alert when a default avatar is selected', () => {
+    const selectedAvatar: Avatar = { dataURI: 'http://an.avatar.com/123' };
+    const avatars = [selectedAvatar];
+    const component = renderWithProps({ avatars });
+
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    expect(component.find('#avatar-picker-error')).toHaveLength(1);
+
+    component.find('input[type="radio"]').simulate('change', {
+      target: { value: selectedAvatar },
+    });
+    component.find(ModalFooter).find('button[type="submit"]').simulate('click');
+    expect(component.find('#avatar-picker-error')).toHaveLength(0);
   });
 });

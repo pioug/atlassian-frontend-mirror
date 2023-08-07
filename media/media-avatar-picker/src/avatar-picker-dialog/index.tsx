@@ -3,7 +3,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
 import ModalDialog, { ModalFooter, ModalBody } from '@atlaskit/modal-dialog';
-import Button from '@atlaskit/button/custom-theme-button';
+import Button from '@atlaskit/button/standard-button';
 import {
   FormattedMessage,
   IntlProvider,
@@ -15,13 +15,14 @@ import { Avatar } from '../avatar-list';
 import ImageNavigator, { CropProperties } from '../image-navigator';
 import { PredefinedAvatarList } from '../predefined-avatar-list';
 import {
+  formStyles,
   avatarPickerViewWrapperStyles,
   modalHeaderStyles,
   croppingWrapperStyles,
-  modalFooterButtonsStyles,
 } from './styles';
 import { PredefinedAvatarView } from '../predefined-avatar-view';
 import { LoadParameters } from '../image-navigator/index';
+import ButtonGroup from '@atlaskit/button/button-group';
 
 import { DEFAULT_VISIBLE_PREDEFINED_AVATARS } from './layout-const';
 import {
@@ -34,6 +35,9 @@ import {
   AvatarPickerDialogState,
   Mode,
 } from './types';
+import { SRLiveTitle } from './SRLiveTitle';
+import LoadingButton from '@atlaskit/button/loading-button';
+import { SubmitErrorDialog } from './SubmitErrorDialog';
 
 export const MAX_SIZE_MB = 10;
 
@@ -70,6 +74,7 @@ export class AvatarPickerDialog extends PureComponent<
       : this.props.imageSource,
     selectedImage: undefined,
     errorMessage: this.props.errorMessage,
+    isSubmitted: false,
   };
 
   setSelectedImageState = async (selectedImage: File) => {
@@ -85,6 +90,7 @@ export class AvatarPickerDialog extends PureComponent<
   setSelectedAvatarState = (avatar: Avatar) => {
     this.setState({
       selectedAvatar: avatar,
+      isSubmitted: false,
     });
   };
 
@@ -98,10 +104,21 @@ export class AvatarPickerDialog extends PureComponent<
    */
   exportCroppedImage = (outputSize?: number) => '';
 
-  onSaveClick = () => {
-    const { onImagePicked, onImagePickedDataURI, onAvatarPicked, outputSize } =
-      this.props;
+  onSaveClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    const {
+      onImagePicked,
+      onImagePickedDataURI,
+      onAvatarPicked,
+      outputSize,
+      imageSource,
+    } = this.props;
     const { selectedImage, selectedAvatar } = this.state;
+
+    if (!(imageSource || selectedImage || selectedAvatar)) {
+      event.preventDefault();
+      this.setState({ isSubmitted: true });
+      return;
+    }
 
     if (selectedImage) {
       const exportedCroppedImageURI = this.exportCroppedImage(outputSize);
@@ -117,7 +134,7 @@ export class AvatarPickerDialog extends PureComponent<
   };
 
   onShowMore = () => {
-    this.setState({ mode: Mode.PredefinedAvatars });
+    this.setState({ mode: Mode.PredefinedAvatars, isSubmitted: false });
   };
 
   onGoBack = () => {
@@ -136,6 +153,7 @@ export class AvatarPickerDialog extends PureComponent<
     this.setState({
       mode: Mode.Cropping,
       errorMessage: undefined,
+      isSubmitted: false,
     });
   };
 
@@ -162,11 +180,20 @@ export class AvatarPickerDialog extends PureComponent<
         shouldScrollInViewport
         onClose={this.props.onCancel}
       >
+        {this.props.avatars.length > 0 && (
+          <SRLiveTitle mode={this.state.mode} />
+        )}
+
         {this.headerContent()}
-        <ModalBody>
-          <div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>
-        </ModalBody>
-        {this.footerContent()}
+
+        {this.state.isSubmitted && <SubmitErrorDialog />}
+
+        <form css={formStyles}>
+          <ModalBody>
+            <div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>
+          </ModalBody>
+          {this.footerContent()}
+        </form>
       </ModalDialog>
     );
 
@@ -187,32 +214,26 @@ export class AvatarPickerDialog extends PureComponent<
   };
 
   footerContent = () => {
-    const { primaryButtonText, onCancel } = this.props;
-    const { onSaveClick, isDisabled } = this;
+    const { primaryButtonText, onCancel, isLoading } = this.props;
+    const { onSaveClick } = this;
     return (
       <ModalFooter>
-        <div css={modalFooterButtonsStyles}>
-          <Button
-            appearance="primary"
-            onClick={onSaveClick}
-            isDisabled={isDisabled}
-          >
-            {primaryButtonText || <FormattedMessage {...messages.save} />}
-          </Button>
+        <ButtonGroup>
           <Button appearance="default" onClick={onCancel}>
             <FormattedMessage {...messages.cancel} />
           </Button>
-        </div>
+          <LoadingButton
+            appearance="primary"
+            onClick={onSaveClick}
+            isLoading={isLoading}
+            type="submit"
+          >
+            {primaryButtonText || <FormattedMessage {...messages.save} />}
+          </LoadingButton>
+        </ButtonGroup>
       </ModalFooter>
     );
   };
-
-  get isDisabled() {
-    const { selectedImage, selectedAvatar } = this.state;
-    const { imageSource, isLoading } = this.props;
-
-    return isLoading || !(imageSource || selectedImage || selectedAvatar);
-  }
 
   getPredefinedAvatars(): Avatar[] {
     const { avatars } = this.props;
@@ -275,15 +296,13 @@ export class AvatarPickerDialog extends PureComponent<
         );
       case Mode.PredefinedAvatars:
         return (
-          <div>
-            <PredefinedAvatarView
-              avatars={avatars}
-              onAvatarSelected={this.setSelectedAvatarState}
-              onGoBack={this.onGoBack}
-              selectedAvatar={selectedAvatar}
-              predefinedAvatarsText={predefinedAvatarsText}
-            />
-          </div>
+          <PredefinedAvatarView
+            avatars={avatars}
+            onAvatarSelected={this.setSelectedAvatarState}
+            onGoBack={this.onGoBack}
+            selectedAvatar={selectedAvatar}
+            predefinedAvatarsText={predefinedAvatarsText}
+          />
         );
     }
   }

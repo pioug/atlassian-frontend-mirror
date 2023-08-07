@@ -15,7 +15,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { checkNodeDown } from '../../../utils';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import { MEDIA_SINGLE_MIN_PIXEL_WIDTH } from '@atlaskit/editor-common/media-single';
+import { getMediaSingleInitialWidth } from '@atlaskit/editor-common/media-single';
 
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import type { MediaState } from '../types';
@@ -23,7 +23,6 @@ import type { Command } from '../../../types';
 import { mapSlice } from '../../../utils/slice';
 import { addAnalytics } from '../../analytics';
 
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import type {
   InputMethodInsertMedia,
   InsertEventPayload,
@@ -44,7 +43,6 @@ import { atTheBeginningOfBlock } from '../../../utils/prosemirror/position';
 import { getRandomHex } from '@atlaskit/media-common';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/ui';
 
 export interface MediaSingleState extends MediaState {
   dimensions: { width: number; height: number };
@@ -169,6 +167,7 @@ export const insertMediaSingleNode = (
     state.schema,
     collection,
     contentWidth,
+    // pass undefined to use default min width
     undefined,
     alignLeftOnInsert,
   )(mediaState as MediaSingleState);
@@ -224,8 +223,8 @@ export const createMediaSingleNode =
   (
     schema: Schema,
     collection: string,
-    maxWidth: number = akEditorDefaultLayoutWidth,
-    minWidth: number = MEDIA_SINGLE_MIN_PIXEL_WIDTH,
+    maxWidth?: number,
+    minWidth?: number,
     alignLeftOnInsert?: boolean,
   ) =>
   (mediaState: MediaSingleState) => {
@@ -253,11 +252,7 @@ export const createMediaSingleNode =
     )
       ? {
           ...mediaSingleAttrs,
-          // constrain initial width between max width (editor content width) and min width (default to 24)
-          width: Math.max(
-            Math.min(scaledWidth || DEFAULT_IMAGE_WIDTH, maxWidth),
-            minWidth,
-          ),
+          width: getMediaSingleInitialWidth(scaledWidth, maxWidth, minWidth),
           // TODO: change to use enum
           widthType: 'pixel',
         }

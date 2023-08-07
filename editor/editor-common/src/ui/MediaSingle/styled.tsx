@@ -10,6 +10,7 @@ import {
   akEditorGutterPadding,
 } from '@atlaskit/editor-shared-styles';
 
+import { calcMediaSingleMaxWidth } from '../../media-single';
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
 
@@ -104,12 +105,8 @@ const getEffectiveFullWidth = (
   if (fullWidthMode) {
     return '100%';
   }
-  // There is always padding for renderer, so we don't need padding for it
-  const fullWidthPadding = akEditorGutterPadding * 2;
-  return `${Math.min(
-    containerWidth - fullWidthPadding,
-    akEditorFullWidthLayoutWidth,
-  )}px`;
+
+  return `${calcMediaSingleMaxWidth(containerWidth)}px`;
 };
 
 const calcMaxWidthWhenResizing = (

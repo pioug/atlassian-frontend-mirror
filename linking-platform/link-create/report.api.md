@@ -74,7 +74,7 @@ export const CreateForm: <FormData_1 extends Record<string, any> = {}>({
   initialValues,
 }: CreateFormProps<FormData_1>) => jsx.JSX.Element;
 
-// @public (undocumented)
+// @public
 export function CreateFormLoader({
   size,
 }: Partial<SpinnerProps>): jsx.JSX.Element;

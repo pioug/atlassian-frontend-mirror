@@ -3,7 +3,7 @@ import React from 'react';
 import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import Block from '../shared/block';
+import ExampleBox from '../shared/example-box';
 
 const containerStyles = xcss({
   display: 'flex',
@@ -22,9 +22,9 @@ export default function Example() {
             }}
           >
             <Stack space="space.050" alignBlock="start">
-              <Block />
-              <Block />
-              <Block />
+              <ExampleBox />
+              <ExampleBox />
+              <ExampleBox />
             </Stack>
           </Box>
         </Stack>
@@ -37,9 +37,9 @@ export default function Example() {
             }}
           >
             <Stack space="space.050" alignBlock="center">
-              <Block />
-              <Block />
-              <Block />
+              <ExampleBox />
+              <ExampleBox />
+              <ExampleBox />
             </Stack>
           </Box>
         </Stack>
@@ -52,9 +52,9 @@ export default function Example() {
             }}
           >
             <Stack space="space.050" alignBlock="end">
-              <Block />
-              <Block />
-              <Block />
+              <ExampleBox />
+              <ExampleBox />
+              <ExampleBox />
             </Stack>
           </Box>
         </Stack>

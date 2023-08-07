@@ -10,7 +10,7 @@ import { TextFieldProps } from './types';
 export const TEST_ID = 'link-create-text-field';
 
 /**
- * A text field utilising the Atlaskit Textfield and Field objects from `@atlaskit/form`.
+ * A text field utilising the Atlaskit Textfield and CreateField.
  * Validation is handled by the form as it is on form submission. Any errors returned by
  * the handleSubmit function passed to the form <Form> that have a key matching the `name`
  * of this text field are shown above the field.

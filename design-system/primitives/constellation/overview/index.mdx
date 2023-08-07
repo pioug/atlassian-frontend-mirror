@@ -23,9 +23,8 @@ Primitives are a new type of component for layouts and the placement of elements
 They act as simple building blocks to compose different parts of the user experience,
 from the smallest design decisions (for example, the spacing around an icon) to larger layout decisions (for example, how a page is structured).
 
-Primitives are a combination of design tokens that go a step further.
-These are component-like abstractions powered by design tokens that add a layer of ergonomics and accessibility. Tokens are great at describing the what of a design decision;
-primitives make it easier to reason about the when and how. This reduces cognitive overhead and prevents accidents or mistakes.
+Primitives are powered by design tokens and add a layer of ergonomics and accessibility to token application. Tokens are great at describing the what of a design decision;
+primitives make it easier to reason about the when and how. This reduces cognitive overhead, improves productivity and prevents accidents or mistakes.
 
 ## Available Primitives
 
@@ -57,14 +56,14 @@ This involves breaking down a design into its core layout components to as granu
 
 You might like to think first about breaking down a page into `Box` containers,
 identifying larger pieces of a design that function in a similar manner or fulfill a singular purpose
-in a layout and grouping them together under a Box.
+in a layout and grouping them together under a `Box`.
 
 <Image src={boxUsageExample} />
 
 The behavior within and around these boxes can then be broken down into their horizontal `Inline` and vertical `Stack` components.
 
 <SectionMessage>
-The ESLint rule use-primitives offers suggestions for possible primitives in a layout.
+The ESLint rule <a href="/components/eslint-plugin-design-system/usage#use-primitives">use-primitives</a> offers suggestions for possible primitives to apply in a layout.
 </SectionMessage>
 
 <Image src={inlineUsageExample} />
@@ -75,3 +74,6 @@ The ESLint rule use-primitives offers suggestions for possible primitives in a l
 - [Learn more about the Box primitive](/components/primitives/box/usage)
 - [Learn more about the Inline primitive](/components/primitives/inline/usage)
 - [Learn more about the Stack primitive](/components/primitives/stack/usage)
+- [Learn more about the Grid primitive](/components/primitives/grid/examples)
+- [Learn more about the Bleed primitive](/components/primitives/bleed/examples)
+- [Learn more about the Fkex primitive](/components/primitives/flex/examples)

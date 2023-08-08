@@ -1,3 +1,19 @@
+import {
+  toggleCode,
+  toggleCodeWithAnalytics,
+  toggleEm,
+  toggleEmWithAnalytics,
+  toggleStrong,
+  toggleStrongWithAnalytics,
+  toggleUnderline,
+  toggleUnderlineWithAnalytics,
+  toggleStrike,
+  toggleStrikeWithAnalytics,
+  toggleSubscript,
+  toggleSubscriptWithAnalytics,
+  toggleSuperscript,
+  toggleSuperscriptWithAnalytics,
+} from '../../../actions';
 import { browser } from '@atlaskit/editor-common/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -15,10 +31,9 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
-import type { TextFormattingState } from '../../../../plugins/text-formatting/pm-plugins/main';
-import { pluginKey as textFormattingPluginKey } from '../../../../plugins/text-formatting/pm-plugins/main';
-import * as commands from '../../../../plugins/text-formatting/commands/text-formatting';
-import { anyMarkActive } from '../../../../plugins/text-formatting/utils';
+import type { TextFormattingState } from '@atlaskit/editor-common/types';
+import { pluginKey as textFormattingPluginKey } from '../../../pm-plugins/main';
+import { anyMarkActive } from '@atlaskit/editor-common/mark';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type {
   AnalyticsEventPayload,
@@ -348,7 +363,7 @@ describe('text-formatting', () => {
 
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleCodeWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
+      toggleCodeWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
         editorView.state,
         editorView.dispatch,
       );
@@ -361,9 +376,9 @@ describe('text-formatting', () => {
 
     it('should be able to toggle code on a character', () => {
       const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(doc(p(code('t'), 'ext')));
-      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -395,11 +410,11 @@ describe('text-formatting', () => {
 
     it('should convert smart characters to normal ascii', () => {
       const { editorView } = editor(doc(p('{<}… → ← – “ ” ‘ ’{>}')));
-      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(p(code('... -> <- -- " " \' \''))),
       );
-      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(p('... -> <- -- " " \' \'')),
       );
@@ -409,11 +424,11 @@ describe('text-formatting', () => {
       const { editorView } = editor(
         doc(p(''), p('{<}hello … → ← – “ ” ‘ ’ world{>}')),
       );
-      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(p(''), p(code('hello ... -> <- -- " " \' \' world'))),
       );
-      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(p(''), p('hello ... -> <- -- " " \' \' world')),
       );
@@ -423,7 +438,7 @@ describe('text-formatting', () => {
       const { editorView } = editor(
         doc(p(''), p(''), p(''), p(''), p('{<}hello … → ← – “ ” ‘ ’ world{>}')),
       );
-      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(''),
@@ -433,7 +448,7 @@ describe('text-formatting', () => {
           p(code('hello ... -> <- -- " " \' \' world')),
         ),
       );
-      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(''),
@@ -449,7 +464,7 @@ describe('text-formatting', () => {
       const { editorView } = editor(
         doc(p(''), p(''), p('he{<}llo … → ← – “ ” ‘ ’ wor{>}ld')),
       );
-      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(''),
@@ -457,7 +472,7 @@ describe('text-formatting', () => {
           p('he', code('llo ... -> <- -- " " \' \' wor'), 'ld'),
         ),
       );
-      expect(commands.toggleCode()(editorView.state, editorView.dispatch));
+      expect(toggleCode()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(p(''), p(''), p('hello ... -> <- -- " " \' \' world')),
       );
@@ -484,7 +499,7 @@ describe('text-formatting', () => {
 
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleEmWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
+      toggleEmWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
         editorView.state,
         editorView.dispatch,
       );
@@ -497,9 +512,9 @@ describe('text-formatting', () => {
 
     it('should be able to toggle em on a character', () => {
       const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(commands.toggleEm()(editorView.state, editorView.dispatch));
+      expect(toggleEm()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(doc(p(em('t'), 'ext')));
-      expect(commands.toggleEm()(editorView.state, editorView.dispatch));
+      expect(toggleEm()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -543,7 +558,7 @@ describe('text-formatting', () => {
 
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleStrongWithAnalytics(mockEditorAnalyticsAPI)({
+      toggleStrongWithAnalytics(mockEditorAnalyticsAPI)({
         inputMethod,
       })(editorView.state, editorView.dispatch);
 
@@ -555,9 +570,9 @@ describe('text-formatting', () => {
 
     it('should be able to toggle strong on a character', () => {
       const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(commands.toggleStrong()(editorView.state, editorView.dispatch));
+      expect(toggleStrong()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(doc(p(strong('t'), 'ext')));
-      expect(commands.toggleStrong()(editorView.state, editorView.dispatch));
+      expect(toggleStrong()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -600,7 +615,7 @@ describe('text-formatting', () => {
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleUnderlineWithAnalytics(mockEditorAnalyticsAPI)({
+      toggleUnderlineWithAnalytics(mockEditorAnalyticsAPI)({
         inputMethod,
       })(editorView.state, editorView.dispatch);
 
@@ -612,11 +627,11 @@ describe('text-formatting', () => {
 
     it('should be able to toggle underline on a character', () => {
       const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(commands.toggleUnderline()(editorView.state, editorView.dispatch));
+      expect(toggleUnderline()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(p(underline('t'), 'ext')),
       );
-      expect(commands.toggleUnderline()(editorView.state, editorView.dispatch));
+      expect(toggleUnderline()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -659,7 +674,7 @@ describe('text-formatting', () => {
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleStrikeWithAnalytics(mockEditorAnalyticsAPI)({
+      toggleStrikeWithAnalytics(mockEditorAnalyticsAPI)({
         inputMethod,
       })(editorView.state, editorView.dispatch);
 
@@ -671,9 +686,9 @@ describe('text-formatting', () => {
 
     it('should be able to toggle strike on a character', () => {
       const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(commands.toggleStrike()(editorView.state, editorView.dispatch));
+      expect(toggleStrike()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(doc(p(strike('t'), 'ext')));
-      expect(commands.toggleStrike()(editorView.state, editorView.dispatch));
+      expect(toggleStrike()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -716,7 +731,7 @@ describe('text-formatting', () => {
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleSubscriptWithAnalytics(mockEditorAnalyticsAPI)({
+      toggleSubscriptWithAnalytics(mockEditorAnalyticsAPI)({
         inputMethod,
       })(editorView.state, editorView.dispatch);
 
@@ -728,11 +743,11 @@ describe('text-formatting', () => {
 
     it('should be able to toggle subscript on a character', () => {
       const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(commands.toggleSubscript()(editorView.state, editorView.dispatch));
+      expect(toggleSubscript()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(
         doc(p(subsup({ type: 'sub' })('t'), 'ext')),
       );
-      expect(commands.toggleSubscript()(editorView.state, editorView.dispatch));
+      expect(toggleSubscript()(editorView.state, editorView.dispatch));
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -793,7 +808,7 @@ describe('text-formatting', () => {
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleSuperscriptWithAnalytics(mockEditorAnalyticsAPI)({
+      toggleSuperscriptWithAnalytics(mockEditorAnalyticsAPI)({
         inputMethod,
       })(editorView.state, editorView.dispatch);
 
@@ -805,11 +820,11 @@ describe('text-formatting', () => {
 
     it('should be able to toggle superscript on a character', () => {
       const { editorView } = editor(doc(p('{<}t{>}ext')));
-      commands.toggleSuperscript()(editorView.state, editorView.dispatch);
+      toggleSuperscript()(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(subsup({ type: 'sup' })('t'), 'ext')),
       );
-      commands.toggleSuperscript()(editorView.state, editorView.dispatch);
+      toggleSuperscript()(editorView.state, editorView.dispatch);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -839,15 +854,15 @@ describe('text-formatting', () => {
 
     it('deactives subscript after toggling superscript for an empty selection', () => {
       const { editorView, pluginState } = editor(doc(p('te{<>}xt')));
-      commands.toggleSubscript()(editorView.state, editorView.dispatch);
-      commands.toggleSuperscript()(editorView.state, editorView.dispatch);
+      toggleSubscript()(editorView.state, editorView.dispatch);
+      toggleSuperscript()(editorView.state, editorView.dispatch);
       expect(pluginState.subscriptActive).toBe(false);
     });
 
     it('deactives subscript after toggling superscript for selected text', () => {
       const { editorView, pluginState } = editor(doc(p('t{<}e{>}xt')));
-      commands.toggleSubscript()(editorView.state, editorView.dispatch);
-      commands.toggleSuperscript()(editorView.state, editorView.dispatch);
+      toggleSubscript()(editorView.state, editorView.dispatch);
+      toggleSuperscript()(editorView.state, editorView.dispatch);
       expect(pluginState.subscriptActive).toBe(false);
     });
 
@@ -877,7 +892,7 @@ describe('text-formatting', () => {
       };
       const { editorView } = editor(doc(p('{<}t{>}ext')));
 
-      commands.toggleCodeWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
+      toggleCodeWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
         editorView.state,
         editorView.dispatch,
       );

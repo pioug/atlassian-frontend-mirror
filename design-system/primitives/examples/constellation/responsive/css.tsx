@@ -27,6 +27,7 @@ const cardStyles = css({
 
 export default () => (
   <div css={cardStyles}>
-    Your order details will be available here once completed.
+    Border becomes narrower at smaller breakpoints. Try it out by resizing the
+    browser window.
   </div>
 );

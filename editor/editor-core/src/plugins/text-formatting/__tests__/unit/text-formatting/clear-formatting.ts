@@ -1,6 +1,7 @@
 import { browser } from '@atlaskit/editor-common/utils';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   a as link,
   blockquote,
@@ -27,23 +28,22 @@ import {
   tr,
   td,
   th,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { uuid } from '@atlaskit/adf-schema';
-import { pluginKey as clearFormattingPluginKey } from '../../../../plugins/text-formatting/pm-plugins/clear-formatting';
+import { pluginKey as clearFormattingPluginKey } from '../../../pm-plugins/clear-formatting';
 import {
   clearFormatting,
   clearFormattingWithAnalytics,
-} from '../../../../plugins/text-formatting/commands/clear-formatting';
-import { checkFormattingIsPresent } from '../../../../plugins/text-formatting/utils';
-import {
+} from '../../../commands/clear-formatting';
+import { checkFormattingIsPresent } from '../../../utils';
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-import { INPUT_METHOD } from '../../../../plugins/analytics';
-import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '../../../../analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 

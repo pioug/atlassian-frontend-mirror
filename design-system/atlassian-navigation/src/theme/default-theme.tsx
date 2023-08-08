@@ -1,8 +1,10 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
   B200,
   B400,
   B50,
   N0,
+  N100,
   N20,
   N200,
   N40,
@@ -155,7 +157,12 @@ const defaultTheme: { mode: Mode } = {
       default: {
         backgroundColor: token('color.background.input', N0),
         color: token('color.text.subtlest', N200),
-        borderColor: token('color.border.input', N40),
+        borderColor: token(
+          'color.border.input',
+          getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+            ? N100
+            : N40,
+        ),
       },
       focus: {
         borderColor: token('color.border.focused', B200),

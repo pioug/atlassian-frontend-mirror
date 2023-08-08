@@ -7,8 +7,13 @@
  */
 //Japanese
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'AQL で検索',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'スキーマを選択',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'スキーマを選択',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'スキーマは必須です',
   'linkDataSource.assets.configmodal.cancelButtonText': 'キャンセル',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'オブジェクトを挿入',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'オブジェクトの挿入元',
   'linkDataSource.column-picker.search': 'フィールドを検索',
   'linkDataSource.jira-issues.accessInstructions': 'アクセスをリクエストするには、管理者にお問い合わせください。',
   'linkDataSource.jira-issues.accessRequired': 'このサイトへのアクセス権がありません',

@@ -1,5 +1,23 @@
 # @atlaskit/dropdown-menu
 
+## 11.11.6
+
+### Patch Changes
+
+- [`d420deeebe5`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d420deeebe5) - Fix checkbox and radio item color contrast issue under feature flag
+
+## 11.11.5
+
+### Patch Changes
+
+- [`9e84eaacfbe`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9e84eaacfbe) - Nested dropdown menus are now accessible using arrow key navigation.
+
+## 11.11.4
+
+### Patch Changes
+
+- [`303603a5525`](https://bitbucket.org/atlassian/atlassian-frontend/commits/303603a5525) - Internal changes.
+
 ## 11.11.3
 
 ### Patch Changes

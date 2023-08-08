@@ -6,7 +6,7 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { scrollIntoViewPluginKey } from '../../../../plugins/scroll-into-view';
 import type { CommandDispatch } from '../../../../types';
-import { toggleStrong } from '../../../../plugins/text-formatting/commands/text-formatting';
+import { toggleMark } from '@atlaskit/editor-common/mark';
 
 describe('ScrollIntoView plugin', () => {
   const createEditor = createEditorFactory();
@@ -50,7 +50,8 @@ describe('ScrollIntoView plugin', () => {
   });
 
   it('scrolls into view when transaction updates stored marks', () => {
-    toggleStrong()(state, dispatch);
+    const { strong } = state.schema.marks;
+    toggleMark(strong)(state, dispatch);
     expect(getAppendedTr().scrolledIntoView).toEqual(true);
   });
 

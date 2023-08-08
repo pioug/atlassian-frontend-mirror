@@ -7,8 +7,16 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import BoldIcon from '@atlaskit/icon/glyph/editor/bold';
 import ItalicIcon from '@atlaskit/icon/glyph/editor/italic';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { toolbarMessages } from '../toolbar-messages';
-import * as commands from '../../../commands/text-formatting';
+import { toolbarMessages } from '@atlaskit/editor-common/messages';
+import {
+  toggleStrongWithAnalytics,
+  toggleEmWithAnalytics,
+  toggleCodeWithAnalytics,
+  toggleStrikeWithAnalytics,
+  toggleSubscriptWithAnalytics,
+  toggleSuperscriptWithAnalytics,
+  toggleUnderlineWithAnalytics,
+} from '../../../actions';
 import {
   TOOLBAR_ACTION_SUBJECT_ID,
   INPUT_METHOD,
@@ -27,8 +35,10 @@ import {
   ToolTipContent,
   getAriaKeyshortcuts,
 } from '@atlaskit/editor-common/keymaps';
-import type { Command } from '@atlaskit/editor-common/types';
-import type { TextFormattingState } from '../../../pm-plugins/main';
+import type {
+  Command,
+  TextFormattingState,
+} from '@atlaskit/editor-common/types';
 import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';
 import { IconTypes } from '../types';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -57,7 +67,7 @@ const IconButtons = (
   strong: {
     buttonId: TOOLBAR_ACTION_SUBJECT_ID.TEXT_FORMATTING_STRONG,
     command: withToolbarInputMethod(
-      commands.toggleStrongWithAnalytics(editorAnalyticsAPI),
+      toggleStrongWithAnalytics(editorAnalyticsAPI),
     ),
     message: toolbarMessages.bold,
     tooltipKeymap: toggleBold,
@@ -65,44 +75,42 @@ const IconButtons = (
   },
   em: {
     buttonId: TOOLBAR_ACTION_SUBJECT_ID.TEXT_FORMATTING_ITALIC,
-    command: withToolbarInputMethod(
-      commands.toggleEmWithAnalytics(editorAnalyticsAPI),
-    ),
+    command: withToolbarInputMethod(toggleEmWithAnalytics(editorAnalyticsAPI)),
     message: toolbarMessages.italic,
     tooltipKeymap: toggleItalic,
     component: () => <ItalicIcon label="" />,
   },
   underline: {
     command: withToolbarInputMethod(
-      commands.toggleUnderlineWithAnalytics(editorAnalyticsAPI),
+      toggleUnderlineWithAnalytics(editorAnalyticsAPI),
     ),
     message: toolbarMessages.underline,
     tooltipKeymap: toggleUnderline,
   },
   strike: {
     command: withToolbarInputMethod(
-      commands.toggleStrikeWithAnalytics(editorAnalyticsAPI),
+      toggleStrikeWithAnalytics(editorAnalyticsAPI),
     ),
     message: toolbarMessages.strike,
     tooltipKeymap: toggleStrikethrough,
   },
   code: {
     command: withToolbarInputMethod(
-      commands.toggleCodeWithAnalytics(editorAnalyticsAPI),
+      toggleCodeWithAnalytics(editorAnalyticsAPI),
     ),
     message: toolbarMessages.code,
     tooltipKeymap: toggleCode,
   },
   subscript: {
     command: withToolbarInputMethod(
-      commands.toggleSubscriptWithAnalytics(editorAnalyticsAPI),
+      toggleSubscriptWithAnalytics(editorAnalyticsAPI),
     ),
     message: toolbarMessages.subscript,
     tooltipKeymap: toggleSubscript,
   },
   superscript: {
     command: withToolbarInputMethod(
-      commands.toggleSuperscriptWithAnalytics(editorAnalyticsAPI),
+      toggleSuperscriptWithAnalytics(editorAnalyticsAPI),
     ),
     message: toolbarMessages.superscript,
     tooltipKeymap: toggleSuperscript,

@@ -13,6 +13,7 @@ import { LengthGuide } from './types';
  *  {left: 100, right: -100, length: -200},
  *  {left: -100.5, right: 100.5, length: 201},
  * ]
+ * When length is 0, return  {left: 0, right: 0, length: 0}
  *
  * @param lengths A colection of length values which will be split into a left & right guides.
  * @returns A collection of LengthGuide objects which can be used to draw left & right guides
@@ -20,8 +21,11 @@ import { LengthGuide } from './types';
 export const createGuidesFromLengths = (lengths: number[]): LengthGuide[] => {
   return Array.from(new Set(lengths)).reduce<LengthGuide[]>((acc, length) => {
     const h = length * 0.5;
+    if (length === 0) {
+      return [...acc, { left: 0, right: 0, length }];
+    }
     if (!h || !Number.isFinite(length)) {
-      // Filter out nonsensical values, like 0
+      // Filter out nonsensical values, null, undefined, NaN, empty string
       return acc;
     }
     return [...acc, { left: -h, right: h, length }];
@@ -31,6 +35,8 @@ export const createGuidesFromLengths = (lengths: number[]): LengthGuide[] => {
 /**
  * This creates a Guideline configuration generating a collection of guideline pairs from each supplied length value.
  * Each length value generates a guideline config for both the left and right side of the length.
+ * When length is 0, generate a guideline at position: {x: 0}
+ *
  */
 export const createFixedGuidelinesFromLengths = (
   lengths: number[],
@@ -38,22 +44,33 @@ export const createFixedGuidelinesFromLengths = (
 ): { key: string; position: { x: number } }[] => {
   return createGuidesFromLengths(lengths).reduce<
     { key: string; position: { x: number } }[]
-  >(
-    (acc, { left, right, length }) => [
-      ...acc,
-      {
-        key: `${key}-${length}-left`,
-        position: {
-          x: left,
+  >((acc, { left, right, length }) => {
+    if (length === 0) {
+      return [
+        ...acc,
+        {
+          key: `${key}-${length}-centre`,
+          position: {
+            x: left,
+          },
         },
-      },
-      {
-        key: `${key}-${length}-right`,
-        position: {
-          x: right,
+      ];
+    } else {
+      return [
+        ...acc,
+        {
+          key: `${key}-${length}-left`,
+          position: {
+            x: left,
+          },
         },
-      },
-    ],
-    [],
-  );
+        {
+          key: `${key}-${length}-right`,
+          position: {
+            x: right,
+          },
+        },
+      ];
+    }
+  }, []);
 };

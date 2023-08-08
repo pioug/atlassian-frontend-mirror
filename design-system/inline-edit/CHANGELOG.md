@@ -1,5 +1,13 @@
 # @atlaskit/inline-edit
 
+## 12.4.0
+
+### Minor Changes
+
+- [`2f2e72c5189`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2f2e72c5189) - Remove unintentionally exposed types: `ref` and `createAnalyticsEvent` from the component props interface.
+
+  This could result in a change with TypeScript validate in theory, but these were never used and should not have been passed to this component for several major versions.
+
 ## 12.3.5
 
 ### Patch Changes

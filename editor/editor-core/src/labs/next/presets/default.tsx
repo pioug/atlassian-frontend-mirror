@@ -1,44 +1,45 @@
 // #region Imports
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import pastePlugin, { PastePluginOptions } from '../../../plugins/paste';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { PastePluginOptions } from '../../../plugins/paste';
+import pastePlugin from '../../../plugins/paste';
 import blockTypePlugin from '../../../plugins/block-type';
 import clearMarksOnChangeToEmptyDocumentPlugin from '../../../plugins/clear-marks-on-change-to-empty-document';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import textFormattingPlugin from '../../../plugins/text-formatting';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import unsupportedContentPlugin from '../../../plugins/unsupported-content';
-import basePlugin, { BasePluginOptions } from '../../../plugins/base';
+import type { BasePluginOptions } from '../../../plugins/base';
+import basePlugin from '../../../plugins/base';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import typeAheadPlugin from '../../../plugins/type-ahead';
 import submitEditorPlugin from '../../../plugins/submit-editor';
 import fakeTextCursorPlugin from '../../../plugins/fake-text-cursor';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
-import { EditorProps } from '../../../types/editor-props';
-import { EditorPresetProps } from './types';
+import type { EditorProps } from '../../../types/editor-props';
+import type { EditorPresetProps } from './types';
 import clipboardPlugin from '../../../plugins/clipboard';
 import { analyticsPlugin as deprecatedAnalyticsPlugin } from '../../../plugins';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { BlockTypePluginOptions } from '../../../plugins/block-type/types';
-import placeholderPlugin, {
-  PlaceholderPluginOptions,
-} from '../../../plugins/placeholder';
-import annotationPlugin, {
-  AnnotationProviders,
-} from '../../../plugins/annotation';
-import { TextFormattingOptions } from '../../../plugins/text-formatting/types';
-import quickInsertPlugin, {
-  QuickInsertPluginOptions,
-} from '../../../plugins/quick-insert';
+import type { BlockTypePluginOptions } from '../../../plugins/block-type/types';
+import type { PlaceholderPluginOptions } from '../../../plugins/placeholder';
+import placeholderPlugin from '../../../plugins/placeholder';
+import type { AnnotationProviders } from '../../../plugins/annotation';
+import annotationPlugin from '../../../plugins/annotation';
+import type {
+  TextFormattingOptions,
+  HyperlinkPluginOptions,
+} from '@atlaskit/editor-common/types';
+import type { QuickInsertPluginOptions } from '../../../plugins/quick-insert';
+import quickInsertPlugin from '../../../plugins/quick-insert';
 import selectionPlugin from '../../../plugins/selection';
 import codeBlockPlugin from '../../../plugins/code-block';
-import { CodeBlockOptions } from '../../../plugins/code-block/types';
-import { SelectionPluginOptions } from '../../../plugins/selection/types';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { CodeBlockOptions } from '../../../plugins/code-block/types';
+import type { SelectionPluginOptions } from '../../../plugins/selection/types';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 import undoRedoPlugin from '../../../plugins/undo-redo';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import { TypeAheadPluginOptions } from '../../../plugins/type-ahead';
-import type { HyperlinkPluginOptions } from '@atlaskit/editor-common/types';
+import type { TypeAheadPluginOptions } from '../../../plugins/type-ahead';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 // #endregion
 

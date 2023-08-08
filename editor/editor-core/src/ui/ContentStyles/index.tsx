@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React, { useMemo } from 'react';
-import { jsx, css, useTheme, SerializedStyles } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
+import { jsx, css, useTheme } from '@emotion/react';
 import {
   whitespaceSharedStyles,
   paragraphSharedStyles,
@@ -36,7 +37,6 @@ import { panelStyles } from '../../plugins/panel/styles';
 import { fakeCursorStyles } from '../../plugins/fake-text-cursor/styles';
 import { mentionsStyles } from '../../plugins/mentions/styles';
 import { emojiStyles } from '../../plugins/emoji/styles';
-import { textFormattingStyles } from '../../plugins/text-formatting/styles';
 import { placeholderTextStyles } from '../../plugins/placeholder-text/styles';
 import { extensionStyles } from '../../plugins/extension/ui/styles';
 import { expandStyles } from '../../plugins/expand/ui/styles';
@@ -48,7 +48,10 @@ import { dateStyles } from '../../plugins/date/styles';
 import type { FeatureFlags } from '../../types/feature-flags';
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
 
-import { linkSharedStyle } from '@atlaskit/editor-common/styles';
+import {
+  linkSharedStyle,
+  codeMarkSharedStyles,
+} from '@atlaskit/editor-common/styles';
 
 export const linkStyles = css`
   .ProseMirror {
@@ -99,7 +102,7 @@ const contentStyles = (props: ContentStylesProps) => css`
   ${codeBlockStyles(props)}
 
   ${blocktypeStyles(props)}
-  ${textFormattingStyles(props)}
+  ${codeMarkSharedStyles(props)}
   ${textColorStyles}
   ${listsStyles}
   ${ruleStyles(props)}

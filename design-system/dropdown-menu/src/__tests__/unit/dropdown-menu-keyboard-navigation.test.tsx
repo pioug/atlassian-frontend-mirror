@@ -482,4 +482,65 @@ describe('dropdown menu keyboard navigation', () => {
     expect(queryByTestId('dropdown--content')).toBeInTheDocument();
     expect(onOpenChange).not.toHaveBeenCalled();
   });
+
+  describe('nested dropdown', () => {
+    const NestedDropdown = ({ level = 0 }) => {
+      return (
+        <DropdownMenu
+          placement="right-start"
+          trigger="nested"
+          testId={`nested-${level}`}
+        >
+          <DropdownItemGroup>
+            <NestedDropdown level={level + 1} />
+            <DropdownItem testId={`nested-item1-${level + 1}`}>
+              One of many items
+            </DropdownItem>
+            <DropdownItem testId={`nested-item2-${level + 1}`}>
+              One of many items
+            </DropdownItem>
+          </DropdownItemGroup>
+        </DropdownMenu>
+      );
+    };
+    it('should have arrow navigation work', async () => {
+      const { getByTestId } = render(<NestedDropdown />);
+      let level = 0;
+      while (level < 3) {
+        // test nested dropdown can be opened correctly
+        const nestedTrigger = getByTestId(`nested-${level}--trigger`);
+        expect(nestedTrigger).toBeInTheDocument();
+        openDropdownWithKeydown(nestedTrigger);
+        level += 1;
+      }
+      const nestedTrigger = getByTestId(`nested-${level}--trigger`);
+      expect(nestedTrigger.closest('button')).toHaveFocus();
+      // test on arrow navigation
+      act(() => {
+        fireEvent.keyDown(window, {
+          key: KEY_DOWN,
+          code: KEY_DOWN,
+        });
+      });
+      const nestedItem1 = getByTestId(`nested-item1-${level}`);
+      expect(nestedItem1.closest('button')).toHaveFocus();
+
+      act(() => {
+        fireEvent.keyDown(window, {
+          key: KEY_DOWN,
+          code: KEY_DOWN,
+        });
+      });
+      const nestedItem2 = getByTestId(`nested-item2-${level}`);
+      expect(nestedItem2.closest('button')).toHaveFocus();
+
+      act(() => {
+        fireEvent.keyDown(window, {
+          key: KEY_UP,
+          code: KEY_UP,
+        });
+      });
+      expect(nestedItem1.closest('button')).toHaveFocus();
+    });
+  });
 });

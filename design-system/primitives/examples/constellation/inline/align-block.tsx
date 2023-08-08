@@ -1,10 +1,17 @@
 import React, { ReactNode } from 'react';
 
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Flex, Inline, media, Stack, xcss } from '@atlaskit/primitives';
 
 import ExampleBox from '../shared/example-box';
 
-const flexContainerStyles = xcss({
+const flexStyles = xcss({
+  flexDirection: 'column',
+  [media.above.lg]: {
+    flexDirection: 'row',
+  },
+});
+
+const visualContainerStyles = xcss({
   display: 'flex',
   borderRadius: 'border.radius.050',
   height: 'size.600',
@@ -12,7 +19,7 @@ const flexContainerStyles = xcss({
 
 export default function Example() {
   return (
-    <Inline spread="space-between">
+    <Flex xcss={flexStyles} justifyContent="space-between">
       <Stack alignInline="center">
         "start" (default)
         <VisualContainer>
@@ -63,7 +70,7 @@ export default function Example() {
           </Inline>
         </VisualContainer>
       </Stack>
-    </Inline>
+    </Flex>
   );
 }
 
@@ -71,7 +78,7 @@ const VisualContainer = ({ children }: { children: ReactNode }) => (
   <Box
     backgroundColor="color.background.neutral"
     padding="space.050"
-    xcss={flexContainerStyles}
+    xcss={visualContainerStyles}
   >
     {children}
   </Box>

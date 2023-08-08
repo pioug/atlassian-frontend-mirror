@@ -7,8 +7,13 @@
  */
 //Czech
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Vyhledat pomocí AQL',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Vyberte schéma.',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Vyberte schéma.',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Je nutné vybrat schéma',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Zrušit',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Vložit objekty',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Vložit objekty z:',
   'linkDataSource.column-picker.search': 'Vyhledat pole',
   'linkDataSource.jira-issues.accessInstructions': 'Chcete-li požádat o přístup, obraťte se na správce.',
   'linkDataSource.jira-issues.accessRequired': 'K tomuto webu nemáte přístup',

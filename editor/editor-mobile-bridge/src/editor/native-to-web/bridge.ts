@@ -2,9 +2,11 @@ import {
   BlockTypeInputMethod,
   InsertBlockInputMethodToolbar,
   ListInputMethod,
-  TextFormattingInputMethodBasic,
 } from '@atlaskit/editor-core';
-import type { LinkInputType as LinkInputMethod } from '@atlaskit/editor-common/types';
+import type {
+  LinkInputType as LinkInputMethod,
+  InputMethodBasic as TextFormattingInputMethodBasic,
+} from '@atlaskit/editor-common/types';
 
 import { Color as StatusColor } from '@atlaskit/status/element';
 

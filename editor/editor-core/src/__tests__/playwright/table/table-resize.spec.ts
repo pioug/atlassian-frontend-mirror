@@ -5,6 +5,8 @@ import {
   EditorFloatingToolbarModel,
   editorTestCase as test,
   expect,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import {
   simpleTableWithOneParagraphAfter,
@@ -135,6 +137,12 @@ test.describe('resizing a table', () => {
   test("should resize to the closest guideline and back to it's original size correctly", async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-19364',
+      reason: 'this test is flaky on webkit',
+      browsers: [BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
     const resizerModel = tableModel.resizer();

@@ -95,45 +95,33 @@ describe('dropdown menu', () => {
   });
 
   describe('nested dropdown', () => {
-    const NestedDropdownItem = ({ level = 1 }) => {
+    const NestedDropdown = ({ level = 0 }) => {
       return (
-        <DropdownItem
-          component={({ children }) => {
-            return (
-              <DropdownMenu
-                placement="right-start"
-                trigger="nested"
-                testId={`nested-${level}`}
-              >
-                {children}
-              </DropdownMenu>
-            );
-          }}
+        <DropdownMenu
+          placement="right-start"
+          trigger="nested"
+          testId={`nested-${level}`}
         >
           <DropdownItemGroup>
-            <NestedDropdownItem level={level + 1} />
-            <DropdownItem>One of many items</DropdownItem>
+            <NestedDropdown level={level + 1} />
+            <DropdownItem testId={`nested-item1-${level}`}>
+              One of many items
+            </DropdownItem>
+            <DropdownItem testId={`nested-item2-${level}`}>
+              One of many items
+            </DropdownItem>
           </DropdownItemGroup>
-        </DropdownItem>
+        </DropdownMenu>
       );
     };
     it('should render nested dropdown on the page', async () => {
-      const { getByTestId, queryByTestId } = render(
-        <DropdownMenu trigger="nested" testId="nested-0">
-          <DropdownItemGroup>
-            <NestedDropdownItem />
-            <DropdownItem>One of many items</DropdownItem>
-            <DropdownItem>One of many items</DropdownItem>
-          </DropdownItemGroup>
-        </DropdownMenu>,
-      );
+      const { getByTestId, queryByTestId } = render(<NestedDropdown />);
       let level = 0;
       while (level < 5) {
         // test nested dropdown can be opened correctly
         const nestedTrigger = getByTestId(`nested-${level}--trigger`);
         expect(nestedTrigger).toBeInTheDocument();
         act(() => {
-          nestedTrigger.focus();
           fireEvent.click(nestedTrigger);
         });
         level += 1;

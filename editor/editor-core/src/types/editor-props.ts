@@ -19,6 +19,7 @@ import type {
   AllEditorPresetPluginTypes,
   Transformer,
   LinkingOptions,
+  TextFormattingOptions,
 } from '@atlaskit/editor-common/types';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/utils';
 import type { PluginConfig as TablesPluginConfig } from '@atlaskit/editor-plugin-table/types';
@@ -39,7 +40,6 @@ import type { PanelPluginConfig } from '../plugins/panel/types';
 import type { PlaceholderTextOptions } from '../plugins/placeholder-text/types';
 import type { QuickInsertOptions } from '../plugins/quick-insert/types';
 import type { TextColorPluginConfig } from '../plugins/text-color/pm-plugins/main';
-import type { TextFormattingOptions } from '../plugins/text-formatting/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 
 import type { EditorAppearance } from './editor-appearance';
@@ -124,11 +124,6 @@ interface EditorBaseProps {
 
   contentTransformerProvider?: (schema: Schema) => Transformer<string>;
 
-  // Set to disable text formatting styles. If not specified, they will be all enabled by default. Code here refers to inline code.
-  // Smart text completion refers to the auto replacement of characters like arrows, quotes and correct casing of Atlassian product names.
-  // This should only be disabled if the user has an OS setting that disables this.
-  textFormatting?: TextFormattingOptions;
-
   // Set to configure the maximum editor height in pixels for `comment`, `chromeless` and `mobile` editor modes.
   maxHeight?: number;
 
@@ -186,8 +181,6 @@ interface EditorBaseProps {
   // Experimental support for modern React Context for @atlaskit/analytics-next.
   // Enables re-providing of AnalyticsContext for all ReactNodeViews.
   UNSAFE_useAnalyticsContext?: boolean;
-
-  codeBlock?: CodeBlockOptions;
 
   /**
    * @default undefined
@@ -254,37 +247,28 @@ export interface EditorSharedPropsWithPlugins {
   // Flag to remove private content such as mention names
   sanitizePrivateContent?: boolean;
 
-  allowAnalyticsGASV3?: boolean;
-
   // Set to configure media features. Media single refers to the embedded version of media,
   // which is probably what you want. Media group refers to a filmstrip, thumbnail view of media files which was used in Stride.
   media?: MediaOptions;
+
   collabEdit?: CollabEditOptions;
 
-  // Set to add custom menu items to the insert (plus) menu dropdown.
-  insertMenuItems?: MenuItem[];
+  codeBlock?: CodeBlockOptions;
+
+  // Set to disable text formatting styles. If not specified, they will be all enabled by default. Code here refers to inline code.
+  // Smart text completion refers to the auto replacement of characters like arrows, quotes and correct casing of Atlassian product names.
+  // This should only be disabled if the user has an OS setting that disables this.
+  textFormatting?: TextFormattingOptions;
 
   primaryToolbarComponents?: PrimaryToolbarComponents;
 
   // Enable undo/redo buttons within the editor.
   allowUndoRedoButtons?: boolean;
 
-  // Enables tables. You can enable individual table features like table header rows and cell background colour.
-  // You will most likely need backend ADF storage for the advanced table features.
-  allowTables?: boolean | TablesPluginConfig;
-
-  /** @deprecated Use smartLinks instead. */
-  UNSAFE_cards?: CardOptions;
-
-  /** @deprecated Use linking instead. */
-  smartLinks?: CardOptions;
-
   /**
    *  Configure and extend editor linking behaviour
    */
   linking?: LinkingOptions;
-
-  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 }
 
 export interface EditorProps
@@ -330,6 +314,8 @@ export interface EditorProviderProps {
 
   // This is temporary for Confluence. **Please do not use**.
   macroProvider?: Providers['macroProvider'];
+
+  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 }
 
 export interface EditorPluginFeatureProps {
@@ -460,4 +446,19 @@ export interface EditorPluginFeatureProps {
 
   // Enables text colour. Ew are you sure you want to enable this?
   allowTextColor?: boolean | TextColorPluginConfig;
+
+  // Enables tables. You can enable individual table features like table header rows and cell background colour.
+  // You will most likely need backend ADF storage for the advanced table features.
+  allowTables?: boolean | TablesPluginConfig;
+
+  // Set to add custom menu items to the insert (plus) menu dropdown.
+  insertMenuItems?: MenuItem[];
+
+  /** @deprecated Use smartLinks instead. */
+  UNSAFE_cards?: CardOptions;
+
+  /** @deprecated Use linking instead. */
+  smartLinks?: CardOptions;
+
+  allowAnalyticsGASV3?: boolean;
 }

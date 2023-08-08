@@ -9,7 +9,6 @@ import { IntlErrorBoundary } from '@atlaskit/editor-common/ui';
 import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
 import { sniffUserBrowserExtensions } from '@atlaskit/editor-common/utils';
 import type { CustomData } from '@atlaskit/ufo/types';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type {
   ErrorEventAttributes,
   ErrorEventPayload,
@@ -120,12 +119,10 @@ export class ErrorBoundaryWithEditorView extends React.Component<
       });
     }
 
-    if (getBooleanFF('platform.editor.sentry-error-monitoring_6bksu')) {
-      logException(error, {
-        location: 'editor-core/create-editor',
-        product,
-      });
-    }
+    logException(error, {
+      location: 'editor-core/create-editor',
+      product,
+    });
   };
 
   private getProductName = async () => {

@@ -27,8 +27,9 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 ## Basic
 
-Inline is an abstraction to efficiently lay-out a group of elements horizontally.
-Use the given props to configure display behaviour using scalable recommendations from the Atlassian Design System.
+Inline should be used to efficiently lay-out a group of elements horizontally.
+
+Use the given props to configure display behaviour using designs tokens, as shown in the more complex examples below.
 
 <Example Component={InlineBasic} packageName="@atlaskit/primitives/inline" />
 
@@ -38,16 +39,15 @@ Spacing between items can be controlled with the `space` prop:
 
 <Example Component={InlineSpaceBasic} packageName="@atlaskit/primitives/inline" />
 
-When content is set to wrap the `space` prop applies equal spacing between rows as well:
+When content is set to wrap, the `space` prop applies equal spacing between rows.
+
+For a different space value between rows use the `rowSpace` prop.
 
 <Example Component={InlineSpaceWrap} packageName="@atlaskit/primitives/inline" />
 
-For a different space value between rows use the `rowSpace` prop, as shown in the dynamic example above.
-
 ## Alignment
 
-To control the alignment of items you can use the `alignBlock` and `alignInline` props which control
-alignment in the block and inline directions respectively.
+To control the alignment of items you can use the `alignBlock` and `alignInline` props which control alignment in the vertical and horizontal axis respectively.
 
 ### Block alignment
 
@@ -59,7 +59,7 @@ alignment in the block and inline directions respectively.
 
 ## Spread
 
-Elements can be set to stay together next to each other (default behaviour) or spread equally in the space available.
+Elements can be set to stay together, spaced at the given value (default behaviour) or spread equally in the space available.
 
 <Example Component={InlineSpread} packageName="@atlaskit/primitives/inline" />
 
@@ -71,15 +71,14 @@ When the number of items goes beyond the available space `shouldWrap` can be use
 
 ## Separator
 
-For logically related elements it's possible to specify a `separator` value.
+For logically related elements it's possible to specify a `separator` character value.
 
 <Example Component={InlineSeparator} packageName="@atlaskit/primitives/inline" />
 
 ## Width control
 
-By default an `Inline` will have its width influenced by the context where it appears.
-
-To control that the `grow` prop can be used with the values:
+By default an `Inline` will have its width influenced by the context where it appears. 
+To control the width, the `grow` prop can be used with the values:
 
 * `hug` (default) to use space only as required by its children, or
 * `fill` to take all space provided by the parent element.
@@ -92,6 +91,8 @@ It's possible to control the rendered HTML element with the `as` prop.
 
 <Example Component={InlineAs} packageName="@atlaskit/primitives/inline" />
 
-## Practical Use Case
+## Practical use case
+
+An example of how an `Inline` might be used in product, using Atlassian Design System components.
 
 <Example Component={InlinePracticalUseCase} packageName="@atlaskit/primitives/inline" />

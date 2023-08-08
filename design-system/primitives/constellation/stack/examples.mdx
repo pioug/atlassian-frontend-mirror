@@ -23,21 +23,20 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 ## Basic
 
-Stack is an abstraction to lay-out a group of elements vertically.
-Use the given props to configure display behaviour using scalable recommendations from the Atlassian Design System.
+Stack should be used to efficiently lay-out a group of elements vertically.
+Use the given props to configure display behaviour using designs tokens, as shown in the more complex examples below.
 
 <Example Component={StackBasic} packageName="@atlaskit/primitives/stack" />
 
 ## Space
 
-Spacing between items can be controlled with the `space` prop:
+Spacing between items can be controlled with the `space` prop.
 
 <Example Component={StackSpaceBasic} packageName="@atlaskit/primitives/stack" />
 
 ## Alignment
 
-To control the alignment of items you can use the `alignBlock` and `alignInline` props which control
-alignment in the block and inline directions respectively.
+To control the alignment of items you can use the `alignBlock` and `alignInline` props which control alignment in the vertical and horizontal axis respectively.
 
 ### Block alignment
 
@@ -49,13 +48,13 @@ alignment in the block and inline directions respectively.
 
 ## Spread
 
-Elements can be set to stay together next to each other (default behaviour) or spread equally in the space available.
+Elements can be set to stay together, spaced at the given value (default behaviour) or spread equally in the space available.
 
 <Example Component={StackSpread} packageName="@atlaskit/primitives/stack" />
 
 ## Width control
 
-By default a `Stack` will have its width influenced by the context where it appears.
+By default a `Stack` will have its width influenced by the context where it appears. To control the width the `grow` prop can be used with the values:
 
 To control that the `grow` prop can be used with the values:
 
@@ -70,6 +69,6 @@ It's possible to control the rendered HTML element with the `as` prop.
 
 <Example Component={StackAs} packageName="@atlaskit/primitives/stack" />
 
-## Practical Use Case
+## Practical use case
 
 <Example Component={PracticalUseCase} packageName="@atlaskit/primitives/stack" />

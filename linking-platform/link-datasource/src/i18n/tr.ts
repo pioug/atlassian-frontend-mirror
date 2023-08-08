@@ -7,8 +7,13 @@
  */
 //Turkish (Turkey)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'AQL ile arayın',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Şema seçin',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Şema seçin',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Şema gerekli',
   'linkDataSource.assets.configmodal.cancelButtonText': 'İptal',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Nesne ekle',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Şuradan nesne ekleyin:',
   'linkDataSource.column-picker.search': 'Alan arayın',
   'linkDataSource.jira-issues.accessInstructions': 'Erişim talep etmek için yöneticinizle iletişime geçin.',
   'linkDataSource.jira-issues.accessRequired': 'Bu siteye erişiminiz yok',

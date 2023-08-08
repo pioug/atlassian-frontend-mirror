@@ -6,12 +6,13 @@ order: 2
 
 ## Media query helpers
 
-We expose two media query helper objects which map to our [breakpoints](/components/grid/usage#breakpoints) as media queries for use in css-in-js:
- - `media.above[breakpoint]` to target all viewports **above** (larger than) the min-width of a given breakpoint
+The media query helper object `media.above[breakpoint]` maps to our [breakpoints](/components/grid/usage#breakpoints) as a media query for use in css-in-js. `media.above[breakpoint]` targets all viewports **above** (larger than) the min-width of a given breakpoint
+
+These responsive helpers are designed be used in conjunction with [xcss](/components/primitives/xcss). It is recommended that both are used when available as this uses our media queries to allow for safe, responsive styling.
 
 ### A basic example:
 
-Compose your default styles alongside media overrides in [xcss](/components/primitives/xcss) or `css`
+Compose your default styles alongside media overrides in [xcss](/components/primitives/xcss) or `css`.
 
 ```tsx
 const customStyles = xcss({
@@ -28,7 +29,7 @@ export const Component = ({ children }: { children: ReactNode }) => (
 
 ### `media.above` usage
 
-Please note that `media.above.xxs` will **always** match; it is explicitly `'@media all'`.  This is only included for easy programatic usage, but it has a negative performance impact.
+It is important to note that the `media.above.xxs` will **always** match, it is explicitly `'@media all'`. This is only included for easy programatic usage, but it has a negative performance impact.
 
 ```tsx
 const customStyles = css({
@@ -47,7 +48,3 @@ This is intentionally excluded at the moment as we're shipping our opinion that 
 We understand this will not scale and we're open to change, but we'd like to change this with feedback.
 
 If we do add it back, we'd suggest codebases prefer a single approach (eg. `above` or `below`) and use that consistently.  Mixing them results in confusion (though they can be safely used together and can result in better CSS performance when done correctly).
-
-### Some notes and suggestions
-
-- Please combine this with our [xcss](/components/primitives/xcss) when available as this uses our media queries to allow for safe, responsive styling.

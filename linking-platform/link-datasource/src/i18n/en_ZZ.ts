@@ -7,8 +7,19 @@
  */
 //
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': '⁣⁢Search via AQL⁡⁡⁬؜⁮؜⁮⁡‍؜⁯⁫⁮؜⁮⁮‌⁮⁭‌⁫⁣⁤',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': '⁣⁢Select schema⁪⁫⁪⁠⁭‌⁫⁮⁭⁡⁭⁯⁬⁡⁮⁬⁬؜‍⁬‌⁯⁣⁤',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': '⁣⁢Select schema⁪⁯‌⁮⁭‍‍⁯⁬‌⁯⁠‍⁭‌⁯⁣⁤',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': '⁣⁢Schema is required⁯⁯⁠⁫‌⁡⁡؜⁬⁠‍⁮⁭‍⁬؜‍⁪⁪⁡⁯‌⁣⁤',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.learnMoreLink':
+    '⁣⁢Learn more about searching with AQL.‍⁠‍⁯⁡⁪⁮⁠؜؜⁡⁫⁫⁫⁯‌؜⁫⁡⁮؜⁣⁤',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    '⁣⁢Start typing or use AQL to search.⁠⁠⁬‌⁠⁯⁯⁫⁡‌⁭‍⁪⁬؜‌⁡⁯⁪‍⁠⁮⁪؜⁣⁤',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    '⁣⁢Search for objects or object types⁮؜⁯‌‌⁫⁬‍⁪⁡⁯⁮⁡⁮⁮⁠⁬⁡⁠⁡‍⁭⁣⁤',
   'linkDataSource.assets.configmodal.cancelButtonText': '⁣⁢Cancel⁯؜‌⁭⁮⁭‌⁡⁬⁮⁭⁭⁫⁮‌⁯⁭⁬؜⁫⁬⁠⁪⁠⁣⁤',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': '⁣⁢Insert objects⁡⁡؜؜⁭؜⁭⁫‌⁠⁫؜⁭⁭‌⁬⁯⁭⁫⁭⁡⁬⁭⁣⁤',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': '⁣⁢Insert objects from⁫‍؜‌⁭⁠⁬؜⁠؜⁪⁡‌⁬⁯⁯‍⁯⁪⁫⁣⁤',
   'linkDataSource.column-picker.search': '⁣⁢Search for fields⁭⁮⁡⁪⁠‌‍⁫؜⁪⁬⁫؜⁡⁯⁭⁡⁬⁬⁫⁠⁡‌‍⁣⁤',
   'linkDataSource.jira-issues.accessInstructions': '⁣⁢To request access, contact your admin.‌‌⁬⁫⁭⁫؜‍؜⁡⁯⁬‍⁮⁯⁠‌⁡‍⁯‌⁮⁣⁤',
   'linkDataSource.jira-issues.accessRequired': "⁣⁢You don't have access to this site⁪⁡⁭⁠‌‌⁮⁠⁯⁯⁡⁪⁬؜‌⁫⁬⁯‌؜⁭⁭⁭⁮‍⁣⁤",

@@ -1,6 +1,5 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import {
-  B100,
   B200,
   B300,
   B400,
@@ -39,7 +38,7 @@ const theme = {
       active: token('color.border', B50),
       invalid: token('color.border.danger', R300),
       invalidAndChecked: token('color.border.danger', R300),
-      focused: token('color.border.focused', B100),
+      focused: token('color.border.focused', B200),
       hoveredAndChecked: token('color.background.selected.bold.hovered', B300),
     },
     boxColor: {

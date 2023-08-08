@@ -1,13 +1,10 @@
 import React from 'react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
-import {
-  ACTION,
+import type {
   DispatchAnalyticsEvent,
   ErrorEventPayload,
-  EVENT_TYPE,
 } from '../../analytics';
+import { ACTION, EVENT_TYPE } from '../../analytics';
 import { logException } from '../../monitoring/error';
 
 type ErrorCrashPayload = Extract<
@@ -54,9 +51,7 @@ export class ErrorBoundary extends React.Component<
         },
       });
     }
-    if (getBooleanFF('platform.editor.sentry-error-monitoring_6bksu')) {
-      logException(error, { location: 'editor-common' });
-    }
+    logException(error, { location: 'editor-common' });
 
     if (this.hasFallback()) {
       this.setState({ errorCaptured: true });

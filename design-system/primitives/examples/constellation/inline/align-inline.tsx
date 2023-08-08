@@ -18,14 +18,14 @@ export default function Example() {
     setAlignmentIndex(nextIndex);
   }, [nextIndex]);
   return (
-    <Stack space="space.500">
+    <Stack space="space.300">
+      <Heading level="h500">Inline alignment</Heading>
       <Box>
         <Button appearance="primary" onClick={changeAlignment}>
           Change alignment to "{alignmentValues[nextIndex]}"
         </Button>
       </Box>
       <Stack space="space.100">
-        <Heading level="h400">Inline alignment</Heading>
         <Inline space="space.100" alignInline={alignmentValues[alignmentIndex]}>
           <ExampleBox />
           <ExampleBox />

@@ -36,7 +36,7 @@ export const Popup: FC<PopupProps> = memo(
   }: PopupProps) => {
     const [triggerRef, setTriggerRef] = useState<HTMLElement | null>(null);
 
-    const renderPopperWrapper = () => (
+    const renderPopperWrapper = (
       <PopperWrapper
         content={content}
         isOpen={isOpen}
@@ -82,12 +82,12 @@ export const Popup: FC<PopupProps> = memo(
             'platform.design-system-team.render-popup-in-parent_f73ij',
           ) ? (
             shouldRenderToParent ? (
-              renderPopperWrapper()
+              renderPopperWrapper
             ) : (
-              <Portal zIndex={zIndex}>{renderPopperWrapper()}</Portal>
+              <Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
             )
           ) : (
-            <Portal zIndex={zIndex}>{renderPopperWrapper()}</Portal>
+            <Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
           ))}
       </Manager>
     );

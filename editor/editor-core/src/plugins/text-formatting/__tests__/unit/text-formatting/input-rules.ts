@@ -30,7 +30,7 @@ import {
   italicRegex2,
   strikeRegex,
   codeRegex,
-} from '../../../../plugins/text-formatting/pm-plugins/input-rule';
+} from '../../../pm-plugins/input-rule';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';

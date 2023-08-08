@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.10.8",
+  "version": "187.13.0",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.7.0",
-    "@atlaskit/editor-common": "^74.34.0",
+    "@atlaskit/editor-common": "^74.36.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
@@ -140,7 +140,7 @@
     "@af/editor-libra": "*",
     "@af/integration-testing": "*",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/collab-provider": "9.7.4",
+    "@atlaskit/collab-provider": "9.8.0",
     "@atlaskit/dropdown-menu": "^11.11.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
     "@atlaskit/editor-plugin-table": "^2.6.0",
@@ -156,7 +156,7 @@
     "@atlaskit/media-test-helpers": "^33.0.0",
     "@atlaskit/menu": "^1.9.0",
     "@atlaskit/platform-feature-flags": "^0.2.0",
-    "@atlaskit/renderer": "^108.8.0",
+    "@atlaskit/renderer": "^108.9.0",
     "@atlaskit/section-message": "^6.4.0",
     "@atlaskit/smart-user-picker": "^6.1.0",
     "@atlaskit/synchrony-test-helpers": "^2.3.0",
@@ -224,9 +224,6 @@
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
-    "platform.editor.sentry-error-monitoring_6bksu": {
-      "type": "boolean"
-    },
     "platform.editor.custom-table-width": {
       "type": "boolean"
     },

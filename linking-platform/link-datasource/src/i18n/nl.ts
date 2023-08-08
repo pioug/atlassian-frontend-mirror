@@ -7,8 +7,13 @@
  */
 //Dutch (Netherlands)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Zoeken via AQL',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Selecteer schema',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Selecteer schema',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Er is een schema nodig',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Annuleren',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Objecten invoegen',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Objecten invoegen van',
   'linkDataSource.column-picker.search': 'Zoek naar velden',
   'linkDataSource.jira-issues.accessInstructions': 'Neem contact op met je beheerder om toegang aan te vragen.',
   'linkDataSource.jira-issues.accessRequired': 'Je hebt geen toegang tot deze site',

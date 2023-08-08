@@ -3,6 +3,7 @@ import React, {
   FC,
   ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useRef,
 } from 'react';
@@ -13,6 +14,8 @@ import __noop from '@atlaskit/ds-lib/noop';
 
 import { FocusableElement } from '../../types';
 import handleFocus from '../utils/handle-focus';
+
+import { NestedLevelContext, TrackMaxLevelContext } from './context';
 
 /**
  *
@@ -41,12 +44,22 @@ const FocusManager: FC<{ children: ReactNode }> = ({ children }) => {
     }
   }, []);
 
+  const nestedLevel = useContext(NestedLevelContext);
+  const { maxLevelRef, setMaxLevel } = useContext(TrackMaxLevelContext);
   // Intentionally rebinding on each render
   useEffect(() => {
-    return bind(window, {
+    const prevLevel = nestedLevel - 1;
+    setMaxLevel(nestedLevel);
+    const unbind = bind(window, {
       type: 'keydown',
-      listener: handleFocus(menuItemRefs.current),
+      listener: handleFocus(menuItemRefs.current, nestedLevel, maxLevelRef),
     });
+    return () => {
+      // Always get the minimun level when multiple levels of menu are closed
+      // If the stored level is smaller, we won't update it
+      setMaxLevel(prevLevel, true);
+      unbind();
+    };
   });
 
   const contextValue = {

@@ -3,8 +3,6 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import rafSchedule from 'raf-schd';
 import {
   EventDispatcher,
-  textFormattingStateKey,
-  TextFormattingState,
   blockPluginStateKey,
   BlockTypeState,
   listStateKey,
@@ -16,9 +14,7 @@ import {
   SelectionDataState,
   selectionPluginKey,
 } from '@atlaskit/editor-core';
-
 import { valueOf as valueOfListState } from '../web-to-native/listState';
-import { valueOf as valueOfMarkState } from '../web-to-native/markState';
 import WebBridgeImpl from '../native-to-web';
 import { toNativeBridge } from '../web-to-native';
 import { createPromise } from '../../cross-platform-promise';
@@ -56,15 +52,6 @@ export const configFactory = (
   editorConfiguration: EditorConfiguration,
 ): Array<BridgePluginListener<any>> => {
   const configs: Array<BridgePluginListener<any>> = [
-    createListenerConfig<TextFormattingState>({
-      bridge: 'textFormatBridge',
-      pluginKey: textFormattingStateKey,
-      updater: (pluginState) => {
-        toNativeBridge.call('textFormatBridge', 'updateTextFormat', {
-          states: JSON.stringify(valueOfMarkState(pluginState)),
-        });
-      },
-    }),
     createListenerConfig<BlockTypeState>({
       bridge: 'blockFormatBridge',
       pluginKey: blockPluginStateKey,

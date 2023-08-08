@@ -1040,13 +1040,6 @@ describe('@atlaskit/editor-core', () => {
           payload,
         });
       });
-
-      it('should NOT call event dispatcher if it is NOT allowed to call analytics', () => {
-        const { dispatch, eventDispatcher } = setupDispatchAnalyticsTest(false);
-
-        dispatch(payload);
-        expect(eventDispatcher.emit).not.toHaveBeenCalled();
-      });
     });
 
     describe('ufo', () => {

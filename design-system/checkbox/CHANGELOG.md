@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.6.8
+
+### Patch Changes
+
+- [`ba0a43d8ccc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ba0a43d8ccc) - [ux] update focused color fallback to meet contrast requirement
+
 ## 12.6.7
 
 ### Patch Changes

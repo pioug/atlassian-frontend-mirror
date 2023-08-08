@@ -12,7 +12,7 @@ import {
 const boxStyles = xcss({
   borderStyle: 'solid',
   borderRadius: 'border.radius',
-  borderWidth: 'border.width.outline',
+  borderWidth: 'border.width',
 });
 
 const borderColorStylesMap = {

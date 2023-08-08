@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { ACTION, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-import { ComponentCrashErrorAEP, PLATFORM } from '../../analytics/events';
+import type { ComponentCrashErrorAEP } from '../../analytics/events';
+import { PLATFORM } from '../../analytics/events';
 
 interface ErrorBoundaryProps {
   component: ComponentCrashErrorAEP['actionSubject'];
@@ -57,10 +57,7 @@ export class ErrorBoundary extends React.Component<
         errorStack: error?.stack,
       },
     });
-
-    if (getBooleanFF('platform.editor.sentry-error-monitoring_6bksu')) {
-      logException(error, { location: 'renderer' });
-    }
+    logException(error, { location: 'renderer' });
 
     if (this.hasFallback()) {
       this.setState({ errorCaptured: true }, () => {

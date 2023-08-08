@@ -7,8 +7,13 @@
  */
 //Russian
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Поиск с помощью AQL',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Выберите схему',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Выберите схему',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Укажите схему',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Отмена',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Вставить объекты',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставить объекты из',
   'linkDataSource.column-picker.search': 'Поиск полей',
   'linkDataSource.jira-issues.accessInstructions': 'Чтобы запросить доступ, обратитесь к администратору.',
   'linkDataSource.jira-issues.accessRequired': 'У вас нет доступа к этому сайту',

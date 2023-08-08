@@ -7,8 +7,13 @@
  */
 //Portuguese (Brazil)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Pesquisar via AQL',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Selecionar esquema',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Selecionar esquema',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'O esquema é obrigatório',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Cancelar',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Inserir objeto',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Inserir objetos de',
   'linkDataSource.column-picker.search': 'Pesquisar campos',
   'linkDataSource.jira-issues.accessInstructions': 'Para solicitar acesso, entre em contato com o administrador.',
   'linkDataSource.jira-issues.accessRequired': 'Você não tem acesso a este site',

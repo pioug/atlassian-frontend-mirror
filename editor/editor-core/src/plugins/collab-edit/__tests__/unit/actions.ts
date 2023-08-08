@@ -16,7 +16,7 @@ import collabEditPlugin from '../../index';
 import mentionsPlugin from '../../../mentions';
 import unsupportedContentPlugin from '../../../unsupported-content';
 import textFormattingPlugin from '../../../text-formatting';
-import { toggleStrong } from '../../../text-formatting/commands/text-formatting';
+import { toggleMark } from '@atlaskit/editor-common/mark';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 const initializeCollab = (view: EditorView) =>
@@ -78,7 +78,9 @@ describe('collab-edit: actions', () => {
       const { editorView } = editor(doc(p('This is all my text{<>}')));
       const { state, dispatch } = editorView;
 
-      toggleStrong()(state, dispatch);
+      const { strong } = state.schema.marks;
+      toggleMark(strong)(state, dispatch);
+
       expect(editorView.state.storedMarks).toEqual([
         editorView.state.schema.marks.strong.create(),
       ]);

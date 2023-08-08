@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.33.3
+
+### Patch Changes
+
+- [`60170e1d0cd`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60170e1d0cd) - Fixes to table view header: Remove drag handles, add tooltip, fix padding in editor context
+
 ## 0.33.2
 
 ### Patch Changes

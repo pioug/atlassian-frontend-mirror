@@ -5,7 +5,15 @@ import * as keymaps from '@atlaskit/editor-common/keymaps';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import * as commands from '../commands/text-formatting';
+import {
+  toggleStrongWithAnalytics,
+  toggleEmWithAnalytics,
+  toggleCodeWithAnalytics,
+  toggleStrikeWithAnalytics,
+  toggleSubscriptWithAnalytics,
+  toggleSuperscriptWithAnalytics,
+  toggleUnderlineWithAnalytics,
+} from '../actions';
 
 export default function keymapPlugin(
   schema: Schema,
@@ -16,7 +24,7 @@ export default function keymapPlugin(
   if (schema.marks.strong) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleBold.common!,
-      commands.toggleStrongWithAnalytics(editorAnalyticsAPI)({
+      toggleStrongWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -26,7 +34,7 @@ export default function keymapPlugin(
   if (schema.marks.em) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleItalic.common!,
-      commands.toggleEmWithAnalytics(editorAnalyticsAPI)({
+      toggleEmWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -36,7 +44,7 @@ export default function keymapPlugin(
   if (schema.marks.code) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleCode.common!,
-      commands.toggleCodeWithAnalytics(editorAnalyticsAPI)({
+      toggleCodeWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -46,7 +54,7 @@ export default function keymapPlugin(
   if (schema.marks.strike) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleStrikethrough.common!,
-      commands.toggleStrikeWithAnalytics(editorAnalyticsAPI)({
+      toggleStrikeWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -56,7 +64,7 @@ export default function keymapPlugin(
   if (schema.marks.subsup) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleSubscript.common!,
-      commands.toggleSubscriptWithAnalytics(editorAnalyticsAPI)({
+      toggleSubscriptWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -66,7 +74,7 @@ export default function keymapPlugin(
   if (schema.marks.subsup) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleSuperscript.common!,
-      commands.toggleSuperscriptWithAnalytics(editorAnalyticsAPI)({
+      toggleSuperscriptWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,
@@ -76,7 +84,7 @@ export default function keymapPlugin(
   if (schema.marks.underline) {
     keymaps.bindKeymapWithCommand(
       keymaps.toggleUnderline.common!,
-      commands.toggleUnderlineWithAnalytics(editorAnalyticsAPI)({
+      toggleUnderlineWithAnalytics(editorAnalyticsAPI)({
         inputMethod: INPUT_METHOD.SHORTCUT,
       }),
       list,

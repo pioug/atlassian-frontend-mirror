@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.6.8
+
+### Patch Changes
+
+- [`d432ad14798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d432ad14798) - [ux] Added standard page guidelines when custom table width enabled and is resizing table.
+
 ## 2.6.7
 
 ### Patch Changes

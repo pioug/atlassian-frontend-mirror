@@ -7,7 +7,7 @@ import {
   strong,
   emoji,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import textFormattingCursorPlugin from '../../../../plugins/text-formatting/pm-plugins/cursor';
+import textFormattingCursorPlugin from '../../../pm-plugins/cursor';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';

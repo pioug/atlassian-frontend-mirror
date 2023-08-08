@@ -1,5 +1,4 @@
 import React, {
-  createContext,
   useCallback,
   useContext,
   useEffect,
@@ -11,6 +10,7 @@ import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/standard-button';
 import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
@@ -20,9 +20,14 @@ import Popup, { TriggerProps } from '@atlaskit/popup';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
 
+import {
+  NestedLevelContext,
+  TrackLevelProvider,
+} from './internal/components/context';
 import FocusManager from './internal/components/focus-manager';
 import MenuWrapper from './internal/components/menu-wrapper';
 import SelectionStore from './internal/context/selection-store';
+import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
 import useGeneratedId, { PREFIX } from './internal/utils/use-generated-id';
 import type { DropdownMenuProps, Placement } from './types';
 
@@ -78,7 +83,6 @@ const getFallbackPlacements = (
     ] as Placement[];
   }
 };
-const NestedContext = createContext(false);
 
 /**
  * __Dropdown menu__
@@ -111,7 +115,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
     isOpen,
     () => defaultOpen,
   );
-  const isNested = useContext(NestedContext);
+  const nestedLevel = useContext(NestedLevelContext);
 
   const [isTriggeredUsingKeyboard, setTriggeredUsingKeyboard] = useState(false);
   const fallbackPlacements = useMemo(
@@ -189,6 +193,8 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
   }, [isFocused, isLocalOpen, handleTriggerClicked]);
 
   const id = useGeneratedId();
+  const isNested = nestedLevel > 0;
+  const itemRef = useRegisterItemWithFocusManager();
 
   return (
     <SelectionStore>
@@ -216,7 +222,7 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
             return trigger({
               ...providedProps,
               ...bindFocus,
-              triggerRef: ref,
+              triggerRef: isNested ? mergeRefs([ref, itemRef]) : ref,
               isSelected: isLocalOpen,
               onClick: handleTriggerClicked,
               testId: testId && `${testId}--trigger`,
@@ -226,7 +232,11 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
           return (
             <Button
               {...bindFocus}
-              ref={triggerProps.ref}
+              ref={
+                isNested
+                  ? mergeRefs([triggerProps.ref, itemRef])
+                  : triggerProps.ref
+              }
               aria-controls={triggerProps['aria-controls']}
               aria-expanded={triggerProps['aria-expanded']}
               aria-haspopup={triggerProps['aria-haspopup']}
@@ -239,33 +249,35 @@ const DropdownMenu = <T extends HTMLElement = HTMLElement>(
             </Button>
           );
         }}
-        content={({ setInitialFocusRef, update }) => (
-          <FocusManager>
-            <MenuWrapper
-              spacing={spacing}
-              maxHeight={MAX_HEIGHT}
-              maxWidth={800}
-              onClose={handleOnClose}
-              onUpdate={update}
-              isLoading={isLoading}
-              statusLabel={statusLabel}
-              setInitialFocusRef={
-                isTriggeredUsingKeyboard || autoFocus
-                  ? setInitialFocusRef
-                  : undefined
-              }
-            >
-              {/* only render one provider for all nested dropdown */}
-              {isNested ? (
-                children
-              ) : (
-                <NestedContext.Provider value={true}>
+        content={({ setInitialFocusRef, update }) => {
+          const content = (
+            <FocusManager>
+              <MenuWrapper
+                spacing={spacing}
+                maxHeight={MAX_HEIGHT}
+                maxWidth={800}
+                onClose={handleOnClose}
+                onUpdate={update}
+                isLoading={isLoading}
+                statusLabel={statusLabel}
+                setInitialFocusRef={
+                  isTriggeredUsingKeyboard || autoFocus
+                    ? setInitialFocusRef
+                    : undefined
+                }
+              >
+                <NestedLevelContext.Provider value={nestedLevel + 1}>
                   {children}
-                </NestedContext.Provider>
-              )}
-            </MenuWrapper>
-          </FocusManager>
-        )}
+                </NestedLevelContext.Provider>
+              </MenuWrapper>
+            </FocusManager>
+          );
+          return isNested ? (
+            content
+          ) : (
+            <TrackLevelProvider>{content}</TrackLevelProvider>
+          );
+        }}
       />
     </SelectionStore>
   );

@@ -138,6 +138,8 @@ interface Config {
   // (undocumented)
   initialDraft?: InitialDraft;
   // (undocumented)
+  isBufferingEnabled?: boolean;
+  // (undocumented)
   lifecycle?: Lifecycle;
   // (undocumented)
   need404?: boolean;

@@ -1,5 +1,11 @@
 # @atlaskit/atlassian-navigation
 
+## 2.6.18
+
+### Patch Changes
+
+- [`11114bf2063`](https://bitbucket.org/atlassian/atlassian-frontend/commits/11114bf2063) - [ux] Introduce new border of search input with 1px border and 2px on selected under feature flag
+
 ## 2.6.17
 
 ### Patch Changes

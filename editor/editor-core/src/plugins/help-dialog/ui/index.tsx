@@ -27,7 +27,7 @@ import {
 } from './styles';
 import * as keymaps from '../../../keymaps';
 import ToolbarButton from '../../../ui/ToolbarButton';
-import { toolbarMessages } from '../../text-formatting/ui/Toolbar/toolbar-messages';
+import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { messages as listMessages } from '../../list/messages';
 import { messages as insertBlockMessages } from '../../insert-block/ui/ToolbarInsertBlock/messages';
 import { messages as blockTypeMessages } from '../../block-type/messages';

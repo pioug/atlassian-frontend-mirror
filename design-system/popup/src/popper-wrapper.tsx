@@ -3,6 +3,7 @@ import { forwardRef, useMemo, useState } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Popper } from '@atlaskit/popper';
 import { N0, N50A, N60A } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
@@ -13,22 +14,26 @@ import { PopperWrapperProps, PopupComponentProps } from './types';
 import { useCloseManager } from './use-close-manager';
 import { useFocusManager } from './use-focus-manager';
 
-const popupStyles = css({
-  display: 'block',
-  boxSizing: 'border-box',
-  zIndex: layers.layer(),
-  flex: '1 1 auto',
-  backgroundColor: token('elevation.surface.overlay', N0),
-  borderRadius: token('border.radius', '3px'),
-  boxShadow: token(
-    'elevation.shadow.overlay',
-    `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
-  ),
-  overflow: 'auto',
-  ':focus': {
-    outline: 'none',
+const popupStyles = css(
+  {
+    display: 'block',
+    boxSizing: 'border-box',
+    zIndex: layers.layer(),
+    flex: '1 1 auto',
+    backgroundColor: token('elevation.surface.overlay', N0),
+    borderRadius: token('border.radius', '3px'),
+    boxShadow: token(
+      'elevation.shadow.overlay',
+      `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`,
+    ),
+    ':focus': {
+      outline: 'none',
+    },
   },
-});
+  !getBooleanFF('platform.design-system-team.render-popup-in-parent_f73ij') && {
+    overflow: 'auto',
+  },
+);
 const DefaultPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>(
   (props, ref) => <div css={popupStyles} {...props} ref={ref} />,
 );

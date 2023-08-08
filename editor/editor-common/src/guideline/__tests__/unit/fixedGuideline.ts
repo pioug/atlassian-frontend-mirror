@@ -23,9 +23,19 @@ describe('fixedGuideline', () => {
       ],
     ],
     ['with empty length values', [], []],
+    ['with length value is 0', [0], [{ left: 0, right: 0, length: 0 }]],
+    [
+      'with length values contain 0',
+      [-100, 0, 666],
+      [
+        { left: 50, right: -50, length: -100 },
+        { left: 0, right: 0, length: 0 },
+        { left: -333, right: 333, length: 666 },
+      ],
+    ],
     [
       'excluding nonsensical values',
-      [0, 'a', null, undefined, NaN, false, true, []],
+      ['a', null, undefined, NaN, false, true, []],
       [],
     ],
     [
@@ -74,8 +84,24 @@ describe('fixedGuideline', () => {
     ],
     ['with empty length values', [], []],
     [
+      'with length value is 0',
+      [0],
+      [{ key: 'test-0-centre', position: { x: 0 } }],
+    ],
+    [
+      'with length values contain 0',
+      [-100, 0, 666],
+      [
+        { key: 'test--100-left', position: { x: 50 } },
+        { key: 'test--100-right', position: { x: -50 } },
+        { key: 'test-0-centre', position: { x: 0 } },
+        { key: 'test-666-left', position: { x: -333 } },
+        { key: 'test-666-right', position: { x: 333 } },
+      ],
+    ],
+    [
       'excluding nonsensical values',
-      [0, 'a', null, undefined, NaN, false, true, []],
+      ['a', null, undefined, NaN, false, true, []],
       [],
     ],
     [

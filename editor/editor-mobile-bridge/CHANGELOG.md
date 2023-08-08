@@ -1,5 +1,41 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.13.0
+
+### Minor Changes
+
+- [`8695abdde8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8695abdde8e) - [ED-18289] Clean-up Editor Sentry feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.12.0
+
+### Minor Changes
+
+- [`c2279d7aeb1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2279d7aeb1) - [ED-19205] Update text formatting plugin API to abstract away the analytics implementation
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.11.0
+
+### Minor Changes
+
+- [`c6c3b7e43d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6c3b7e43d3) - [ED-19202] Remove direct dependency of editor-core code on text-formatting plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.10.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.10.8
 
 ### Patch Changes

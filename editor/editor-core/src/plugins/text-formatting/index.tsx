@@ -12,6 +12,7 @@ import {
 import type {
   NextEditorPlugin,
   OptionalPlugin,
+  TextFormattingOptions,
 } from '@atlaskit/editor-common/types';
 import { WithPluginState } from '@atlaskit/editor-common/with-plugin-state';
 
@@ -29,15 +30,33 @@ import textFormattingCursorPlugin from './pm-plugins/cursor';
 import textFormattingInputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
 import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
-import type { TextFormattingOptions } from './types';
 import Toolbar from './ui/Toolbar';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import {
+  toggleSuperscriptWithAnalytics,
+  toggleSubscriptWithAnalytics,
+  toggleStrikeWithAnalytics,
+  toggleCodeWithAnalytics,
+  toggleUnderlineWithAnalytics,
+  toggleEmWithAnalytics,
+  toggleStrongWithAnalytics,
+} from './actions';
+import type { ToggleMarkWithAnalyticsCommand } from './actions';
 
 const textFormatting: NextEditorPlugin<
   'textFormatting',
   {
     pluginConfiguration: TextFormattingOptions | undefined;
     dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    actions: {
+      toggleSuperscript: ToggleMarkWithAnalyticsCommand;
+      toggleSubscript: ToggleMarkWithAnalyticsCommand;
+      toggleStrike: ToggleMarkWithAnalyticsCommand;
+      toggleCode: ToggleMarkWithAnalyticsCommand;
+      toggleUnderline: ToggleMarkWithAnalyticsCommand;
+      toggleEm: ToggleMarkWithAnalyticsCommand;
+      toggleStrong: ToggleMarkWithAnalyticsCommand;
+    };
   }
 > = (options = {}, api) => ({
   name: 'textFormatting',
@@ -139,6 +158,26 @@ const textFormatting: NextEditorPlugin<
         }}
       />
     );
+  },
+
+  actions: {
+    toggleSuperscript: toggleSuperscriptWithAnalytics(
+      api?.dependencies.analytics?.actions,
+    ),
+    toggleSubscript: toggleSubscriptWithAnalytics(
+      api?.dependencies.analytics?.actions,
+    ),
+    toggleStrike: toggleStrikeWithAnalytics(
+      api?.dependencies.analytics?.actions,
+    ),
+    toggleCode: toggleCodeWithAnalytics(api?.dependencies.analytics?.actions),
+    toggleUnderline: toggleUnderlineWithAnalytics(
+      api?.dependencies.analytics?.actions,
+    ),
+    toggleEm: toggleEmWithAnalytics(api?.dependencies.analytics?.actions),
+    toggleStrong: toggleStrongWithAnalytics(
+      api?.dependencies.analytics?.actions,
+    ),
   },
 });
 

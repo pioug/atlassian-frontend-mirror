@@ -7,8 +7,13 @@
  */
 //Swedish
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Sök via AQL',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Välj schema',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Välj schema',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Schema krävs',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Avbryt',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Infoga objekt',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Infoga objekt från',
   'linkDataSource.column-picker.search': 'Sök efter fält',
   'linkDataSource.jira-issues.accessInstructions': 'Kontakta din administratör för att begära åtkomst.',
   'linkDataSource.jira-issues.accessRequired': 'Du har inte tillgång till den här webbplatsen',

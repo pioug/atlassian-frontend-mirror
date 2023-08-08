@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
-import Button from '@atlaskit/button';
 import { Inline, Stack } from '@atlaskit/primitives';
+import Toggle from '@atlaskit/toggle';
 
 import ExampleBox from '../shared/example-box';
 
@@ -13,9 +13,10 @@ export default function Example() {
 
   return (
     <Stack alignInline="start" space="space.500">
-      <Button appearance="primary" onClick={toggleSpread}>
+      <Inline alignBlock="center">
         Toggle spread
-      </Button>
+        <Toggle onChange={toggleSpread} />
+      </Inline>
       <Inline space="space.100" grow="fill" spread={spread}>
         <ExampleBox />
         <ExampleBox />

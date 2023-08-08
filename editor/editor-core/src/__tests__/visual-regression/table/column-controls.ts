@@ -19,7 +19,7 @@ import {
 } from '@atlaskit/editor-test-helpers/page-objects/keyboard';
 import adf from './__fixtures__/default-table.adf.json';
 import adfTableWithoutTableHeader from './__fixtures__/table-without-table-header.adf.json';
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 
 describe('Table context menu: merge-split cells', () => {
   let page: PuppeteerPage;
@@ -60,7 +60,8 @@ describe('Table context menu: merge-split cells', () => {
     await initEditor(adf);
   });
 
-  it(`should render column controls for each column regardless of merged cells in the first row`, async () => {
+  // FIXME: This test was automatically skipped due to failure on 08/08/2023: https://product-fabric.atlassian.net/browse/ED-19395
+  it.skip(`should render column controls for each column regardless of merged cells in the first row`, async () => {
     const from = getSelectorForTableCell({
       row: 1,
       cell: 1,

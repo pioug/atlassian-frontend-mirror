@@ -1,4 +1,13 @@
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+// TODO: These should be updated once we extract these plugins to separate packages
+// eslint-disable-next-line import/no-extraneous-dependencies
+import layoutPlugin from '@atlaskit/editor-core/src/plugins/layout';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { deleteActiveLayoutNode } from '@atlaskit/editor-core/src/plugins/layout/actions';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import mentionsPlugin from '@atlaskit/editor-core/src/plugins/mentions';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import panelPlugin from '@atlaskit/editor-core/src/plugins/panel';
 import {
   createProsemirrorEditorFactory,
   LightEditorPlugin,
@@ -14,15 +23,6 @@ import {
   panel,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
-// TODO: These should be updated once we extract these plugins to separate packages
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import layoutPlugin from '../../../../editor-core/src/plugins/layout';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import { deleteActiveLayoutNode } from '../../../../editor-core/src/plugins/layout/actions';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import mentionsPlugin from '../../../../editor-core/src/plugins/mentions';
-// eslint-disable-next-line @atlassian/tangerine/import/no-relative-package-imports
-import panelPlugin from '../../../../editor-core/src/plugins/panel';
 import { decorationsPlugin } from '../../plugin';
 import type { DecorationState } from '../../pm-plugin';
 

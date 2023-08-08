@@ -18,9 +18,9 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 ### Show
 
-This allows you to Show the children using CSS `display: …` either above or below a breakpoint.  By default, unless the breakpoint is met, contents are hidden.
+Using `Show` allows you to show the children using CSS `display: …` when the viewport size is above a specified breakpoint. By default, unless the breakpoint is met, contents are hidden.
 
-Note that this does not skip rendering of your children; the contents are rendered into the DOM at all times, so there is typically little performance savings—primarily that this is not painted.
+Children that are not shown are still rendered into the DOM, so there so there is typically little performance savings — primarily that they are not painted.
 
 <Example Component={ShowExample} packageName="@atlaskit/primitives/responsive" />
 

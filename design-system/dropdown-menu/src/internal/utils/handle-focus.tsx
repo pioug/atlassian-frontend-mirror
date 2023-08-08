@@ -1,3 +1,5 @@
+import { MutableRefObject } from 'react';
+
 import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
 
 import { Action, FocusableElement } from '../../types';
@@ -20,8 +22,7 @@ const getNextFocusableElement = (
   currentFocusedIdx: number,
 ) => {
   while (currentFocusedIdx + 1 < refs.length) {
-    const isDisabled =
-      refs[currentFocusedIdx + 1].getAttribute('disabled') !== null;
+    const isDisabled = refs[currentFocusedIdx + 1].hasAttribute('disabled');
 
     if (!isDisabled) {
       return refs[currentFocusedIdx + 1];
@@ -41,8 +42,7 @@ const getPrevFocusableElement = (
   currentFocusedIdx: number,
 ) => {
   while (currentFocusedIdx > 0) {
-    const isDisabled =
-      refs[currentFocusedIdx - 1].getAttribute('disabled') !== null;
+    const isDisabled = refs[currentFocusedIdx - 1].hasAttribute('disabled');
 
     if (!isDisabled) {
       return refs[currentFocusedIdx - 1];
@@ -51,13 +51,22 @@ const getPrevFocusableElement = (
   }
 };
 
-export default function handleFocus(refs: Array<FocusableElement>) {
+export default function handleFocus(
+  refs: Array<FocusableElement>,
+  nestedLevel: Number,
+  maxLevelRef: MutableRefObject<number>,
+) {
   return (e: KeyboardEvent) => {
     const currentFocusedIdx = refs.findIndex(
       (el: HTMLButtonElement | HTMLAnchorElement) =>
         document.activeElement?.isSameNode(el),
     );
 
+    if (nestedLevel < maxLevelRef.current) {
+      // if it is a nested dropdown and the level of the given dropdown is not the current level,
+      // we don't need to have focus on it
+      return;
+    }
     const action = actionMap[e.key];
 
     switch (action) {
@@ -69,8 +78,7 @@ export default function handleFocus(refs: Array<FocusableElement>) {
             refs,
             currentFocusedIdx,
           );
-
-          nextFocusableElement && nextFocusableElement.focus();
+          nextFocusableElement?.focus();
         }
         break;
 
@@ -83,7 +91,7 @@ export default function handleFocus(refs: Array<FocusableElement>) {
             currentFocusedIdx,
           );
 
-          prevFocusableElement && prevFocusableElement.focus();
+          prevFocusableElement?.focus();
         }
         break;
 
@@ -91,14 +99,14 @@ export default function handleFocus(refs: Array<FocusableElement>) {
         e.preventDefault();
         // Search for first non-disabled element if first element is disabled
         const nextFocusableElement = getNextFocusableElement(refs, -1);
-        nextFocusableElement && nextFocusableElement.focus();
+        nextFocusableElement?.focus();
         break;
 
       case 'last':
         e.preventDefault();
         // Search for last non-disabled element if last element is disabled
         const prevFocusableElement = getPrevFocusableElement(refs, refs.length);
-        prevFocusableElement && prevFocusableElement.focus();
+        prevFocusableElement?.focus();
         break;
 
       default:

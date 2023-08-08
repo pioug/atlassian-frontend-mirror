@@ -114,7 +114,6 @@ export interface EditorViewProps {
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   providerFactory: ProviderFactory;
   portalProviderAPI: PortalProviderAPI;
-  allowAnalyticsGASV3?: boolean;
   disabled?: boolean;
   experienceStore?: ExperienceStore;
   render?: (props: {
@@ -502,9 +501,6 @@ export class ReactEditorView<T = {}> extends React.Component<
   }
 
   handleAnalyticsEvent: FireAnalyticsCallback = (payload) => {
-    if (!this.props.allowAnalyticsGASV3) {
-      return;
-    }
     fireAnalyticsEvent(this.props.createAnalyticsEvent)(payload);
   };
 
@@ -1017,7 +1013,7 @@ export class ReactEditorView<T = {}> extends React.Component<
   };
 
   dispatchAnalyticsEvent = (payload: AnalyticsEventPayload): void => {
-    if (this.props.allowAnalyticsGASV3 && this.eventDispatcher) {
+    if (this.eventDispatcher) {
       const dispatch: AnalyticsDispatch = createDispatch(this.eventDispatcher);
       dispatch(analyticsEventKey, {
         payload,

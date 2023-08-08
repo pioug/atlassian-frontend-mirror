@@ -20,15 +20,6 @@ import {
   setIsExpanded,
   StatusState,
   StatusType,
-  TextFormattingInputMethodBasic,
-  TextFormattingState,
-  toggleCodeWithAnalytics,
-  toggleEmWithAnalytics,
-  toggleStrikeWithAnalytics,
-  toggleStrongWithAnalytics,
-  toggleSubscriptWithAnalytics,
-  toggleSuperscriptWithAnalytics,
-  toggleUnderlineWithAnalytics,
   updateStatusWithAnalytics,
   insertExpand,
   QuickInsertItemId,
@@ -39,6 +30,8 @@ import {
   createTypeAheadTools,
   createQuickInsertTools,
 } from '@atlaskit/editor-core';
+import type { InputMethodBasic as TextFormattingInputMethodBasic } from '@atlaskit/editor-common/types';
+import type { TextFormattingState } from '@atlaskit/editor-common/types';
 import { hasVisibleContent } from '@atlaskit/editor-common/utils';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { isTextAtPos, isLinkAtPos } from '@atlaskit/editor-common/link';
@@ -259,10 +252,10 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleStrongWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
-        this.editorView.state,
-        this.editorView.dispatch,
-      );
+      const { state, dispatch } = this.editorView;
+      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleStrong(
+        { inputMethod },
+      )(state, dispatch);
     }
   }
 
@@ -270,10 +263,10 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleEmWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
-        this.editorView.state,
-        this.editorView.dispatch,
-      );
+      const { state, dispatch } = this.editorView;
+      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleEm({
+        inputMethod,
+      })(state, dispatch);
     }
   }
 
@@ -281,10 +274,10 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleUnderlineWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
-        this.editorView.state,
-        this.editorView.dispatch,
-      );
+      const { state, dispatch } = this.editorView;
+      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleUnderline(
+        { inputMethod },
+      )(state, dispatch);
     }
   }
 
@@ -292,10 +285,10 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleCodeWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
-        this.editorView.state,
-        this.editorView.dispatch,
-      );
+      const { state, dispatch } = this.editorView;
+      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleCode({
+        inputMethod,
+      })(state, dispatch);
     }
   }
 
@@ -303,10 +296,10 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleStrikeWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
-        this.editorView.state,
-        this.editorView.dispatch,
-      );
+      const { state, dispatch } = this.editorView;
+      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleStrike(
+        { inputMethod },
+      )(state, dispatch);
     }
   }
 
@@ -314,10 +307,10 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleSuperscriptWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
-        this.editorView.state,
-        this.editorView.dispatch,
-      );
+      const { state, dispatch } = this.editorView;
+      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleSuperscript(
+        { inputMethod },
+      )(state, dispatch);
     }
   }
 
@@ -325,10 +318,10 @@ export default class WebBridgeImpl
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
     if (this.textFormatBridgeState && this.editorView) {
-      toggleSubscriptWithAnalytics(this.editorAnalyticsApi)({ inputMethod })(
-        this.editorView.state,
-        this.editorView.dispatch,
-      );
+      const { state, dispatch } = this.editorView;
+      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleSubscript(
+        { inputMethod },
+      )(state, dispatch);
     }
   }
 

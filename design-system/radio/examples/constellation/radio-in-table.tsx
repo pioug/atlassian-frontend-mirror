@@ -77,7 +77,7 @@ export default function RadioInputExample() {
       <table>
         <thead>
           <tr>
-            <th style={{ width: 0 }} />
+            <td style={{ width: 0 }} />
             <th id="head-description">Branch</th>
             <th id="head-commit">Last commit</th>
             <th id="head-updated">Updated</th>
@@ -96,7 +96,7 @@ export default function RadioInputExample() {
                 transition: 'background-color 200ms ease-in-out',
               }}
             >
-              <td style={{ width: 24, paddingRight: 0 }}>
+              <th scope="row" style={{ width: 24, paddingRight: 0 }}>
                 <Radio
                   isChecked={item.value === value}
                   onChange={onChange}
@@ -104,7 +104,7 @@ export default function RadioInputExample() {
                   value={item.value}
                   aria-labelledby={`head-description row-${item.id}-description head-commit row-${item.id}-commit head-updated row-${item.id}-updated`}
                 />
-              </td>
+              </th>
               <td id={`row-${item.id}-description`}>{item.description}</td>
               <td id={`row-${item.id}-commit`}>{item.commit}</td>
               <td id={`row-${item.id}-updated`}>{item.updated}</td>

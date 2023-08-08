@@ -1,4 +1,4 @@
-import { TextFormattingState } from '@atlaskit/editor-core';
+import type { TextFormattingState } from '@atlaskit/editor-common/types';
 
 export interface MarkState {
   name: string;

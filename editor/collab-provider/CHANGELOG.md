@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.8.0
+
+### Minor Changes
+
+- [`aceff84b101`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aceff84b101) - initializing provider on setup if buffering is enabled
+
 ## 9.7.4
 
 ### Patch Changes

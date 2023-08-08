@@ -3,6 +3,8 @@ import {
   EditorTableModel,
   editorTestCase as test,
   expect,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 
 import {
@@ -149,6 +151,13 @@ test.describe('New column created in a table with resized columns', () => {
     });
 
     test('should display correctly', async ({ editor }) => {
+      fixTest({
+        jiraIssueId: 'ED-19387',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 07/08/2023: https://product-fabric.atlassian.net/browse/ED-19387',
+        browsers: [BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 
@@ -171,6 +180,13 @@ test.describe('New column created in a table with resized columns', () => {
     });
 
     test('should display correctly', async ({ editor }) => {
+      fixTest({
+        jiraIssueId: 'ED-19387',
+        reason:
+          'FIXME: This test was automatically skipped due to failure on 07/08/2023: https://product-fabric.atlassian.net/browse/ED-19387',
+        browsers: [BROWSERS.webkit],
+      });
+
       const nodes = EditorNodeContainerModel.from(editor);
       const tableModel = EditorTableModel.from(nodes.table);
 

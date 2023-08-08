@@ -279,6 +279,13 @@ const colorTests: Tests = {
       [icon.name]: { ...metadata[icon.name], component: icon.icon },
     };`,
     },
+    // Custom theming options
+    {
+      code: `
+          import { setGlobalTheme } from '@atlaskit/tokens'
+          setGlobalTheme({ UNSAFE_themeOptions: {brandColor: '#ff0000'}});
+          `,
+    },
     {
       // arbitrary jsx
       code: `

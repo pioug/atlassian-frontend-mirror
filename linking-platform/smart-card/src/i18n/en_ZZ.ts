@@ -9,6 +9,7 @@
 export default {
   'fabric.linking.actions': '⁣⁢Actions⁬⁪⁮؜‌‌⁠‌⁡‌⁭‌⁭؜⁪⁫⁯⁭⁬⁣⁤',
   'fabric.linking.add_account': '⁣⁢Add account‌‍‌⁯⁬⁡⁠⁠⁭⁬⁯‌⁭‌⁡⁪‌⁫⁠⁣⁤',
+  'fabric.linking.assigned_to': '⁣⁢Assigned to {context}؜⁯‌‍⁬⁬‍⁡؜⁯؜‌‌‍⁡⁫⁭⁮‍⁠⁠؜⁯⁣⁤',
   'fabric.linking.cancel': '⁣⁢Cancel؜⁯⁡⁪⁮‌‌⁪؜⁭⁡‌⁫‌⁠‍⁪‍‍⁯⁣⁤',
   'fabric.linking.cannot_connect': "⁣⁢Can't connect, try again⁪⁪⁪⁯⁮‌‍⁯⁮‍⁫⁡؜؜⁡‌⁬⁮⁡⁣⁤",
   'fabric.linking.cannot_find_link': "⁣⁢Can't find link⁡‌‌⁯‌‌⁡‍⁪⁬⁯⁡⁭⁫⁯⁬⁮⁣⁤",
@@ -27,7 +28,9 @@ export default {
   'fabric.linking.connect_to': '⁣⁢Connect to {name}؜‌⁭⁪؜⁭⁡⁫⁯‌⁫؜‍⁫⁬⁡⁭‌‍⁪⁣⁤',
   'fabric.linking.connect_unauthorised_account_action': '⁣⁢Connect to {context}‌⁪⁬⁠⁬⁠⁫⁪⁡⁭‌؜⁫⁯‌⁫⁫⁯؜⁪⁬⁣⁤',
   'fabric.linking.connect_unauthorised_account_description':
-    '⁣⁢Connect to Atlassian to view more details of your work and collaborate from one place.⁮⁫⁠⁡؜⁡؜⁫⁡⁡⁯‌⁯⁬؜⁪‍؜⁫⁭‌⁫⁮‍⁪⁫⁣⁤',
+    '⁣⁢Connect {context} to Atlassian to view more details of your work and collaborate from one place.؜⁯‍⁯⁫‍⁮‍⁫؜⁬؜‍‌⁭‍‌⁯⁣⁤',
+  'fabric.linking.connect_unauthorised_account_description_no_provider':
+    '⁣⁢Connect to Atlassian to view more details of your work and collaborate from one place.⁠⁯‌⁠‍⁠‍‌‌⁫⁭⁡⁫⁭⁭‍⁭⁯⁪⁫⁡⁭⁡⁣⁤',
   'fabric.linking.continue': '⁣⁢Continue⁭‌؜⁪⁡⁭⁬⁯⁯؜⁠⁡⁬⁠‌؜⁯⁫⁫⁠⁣⁤',
   'fabric.linking.copy_url_to_clipboard': '⁣⁢Copy link⁡⁯⁬‍⁯⁠⁯⁯⁫⁬⁫‍‌⁫⁭⁮⁫‍⁫⁡⁯⁠⁣⁤',
   'fabric.linking.couldnt_load_link': "⁣⁢We couldn't load this link for an unknown reason.⁫؜⁮⁯‍⁬⁡⁭⁭⁬⁡؜‌⁪‌؜⁡؜⁫⁫⁯⁣⁤",
@@ -75,6 +78,7 @@ export default {
   'fabric.linking.priority_minor': '⁣⁢Minor⁯⁭⁠⁬⁯⁠⁮⁫⁪⁬‍؜⁯⁫⁭⁫⁭⁭‍⁯⁠⁯⁣⁤',
   'fabric.linking.priority_trivial': '⁣⁢Trivial⁡⁪⁪‌⁠⁭؜؜⁬⁫‍؜⁡⁬⁡⁬⁠⁪⁡⁡⁡⁣⁤',
   'fabric.linking.priority_undefined': '⁣⁢Undefined⁯⁫⁯⁠⁡⁪⁡؜⁪⁫‌⁪⁡⁬⁫⁠⁭⁮‍⁠⁯⁡⁠⁬⁣⁤',
+  'fabric.linking.read_time': '⁣⁢{context} min read؜⁮⁯⁬‍⁠⁭⁯؜‌⁫⁪⁬⁬⁪⁠⁪⁠⁭⁬⁣⁤',
   'fabric.linking.request_access': '⁣⁢Request access⁪؜⁫‌⁪⁪⁫؜⁯‌⁮‍⁫⁮⁬⁯⁯⁬‌‌⁠⁡⁣⁤',
   'fabric.linking.request_access_description':
     '⁣⁢Request access to {context} view this preview.؜⁭⁫⁮⁯‌‌⁭⁡⁬⁬‌⁮‍‌⁯⁪⁫⁫‍⁭⁣⁤',
@@ -95,6 +99,13 @@ export default {
   'fabric.linking.status_change_update_error': '⁣⁢We couldn’t update the status⁬⁠⁫‌⁠‍⁠⁪⁮‍‍⁡⁠‍‌⁮⁠⁡⁯‌⁬⁪‍⁪⁬⁪⁣⁤',
   'fabric.linking.try_again': '⁣⁢Try again؜⁯⁪؜⁫؜⁫⁠⁮‍⁫⁠‌⁮⁡⁯⁫⁯⁪‌⁮⁫⁮⁣⁤',
   'fabric.linking.try_another_account': '⁣⁢Try another account⁫؜‌⁫؜؜‍⁪‍⁬؜⁬‌⁠⁭⁫⁫⁠⁠⁠⁣⁤',
+  'fabric.linking.unauthorised_account_description':
+    "⁣⁢You're trying to preview a link to a private {context} page. We recommend you review the URL or contact the page owner.⁮⁭⁭⁬⁫⁯؜‌⁬؜⁬⁪⁬‍⁫⁫⁫⁭⁪⁣⁤",
+  'fabric.linking.unauthorised_account_description_no_provider':
+    "⁣⁢You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.⁡⁭⁫⁫⁪⁬⁠‌⁠‌⁭‌⁪⁮⁭⁮⁬⁫‍⁬⁯⁣⁤",
+  'fabric.linking.unauthorised_account_name':
+    "⁣⁢We can't display private pages from {context}⁪⁬‌؜⁪‍⁠‌⁪⁡⁫⁭⁫⁫⁪؜⁠⁬⁫⁬‍⁯⁬⁪⁣⁤",
+  'fabric.linking.unauthorised_account_name_no_provider': "⁣⁢We can't display private pages⁬⁭⁭‌⁮⁮⁡؜⁠⁯؜⁭‌⁪⁯⁭⁭؜⁫‌⁡⁠⁫⁣⁤",
   'fabric.linking.unlink_account': '⁣⁢Unlink Account⁫⁯⁫⁫⁬⁠⁭⁭⁮⁡⁭⁭⁯⁬⁫⁡‌⁯⁡⁣⁤',
   'fabric.linking.updated_by': '⁣⁢Modified by {context}؜⁫⁪⁬⁪⁬⁠⁬‍‍⁯⁡⁭⁡‌⁪⁮⁡⁪‌⁮⁫⁣⁤',
   'fabric.linking.view': '⁣⁢View⁡⁭⁫‍⁬⁭⁬⁠‍⁯⁠؜⁪⁯؜⁠⁡⁬⁪؜‌⁪⁯‌⁣⁤',

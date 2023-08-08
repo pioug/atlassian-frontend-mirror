@@ -1,3 +1,7 @@
+import { INPUT_METHOD } from '../analytics';
+/**
+ * Configuration for the Text Formatting plugin
+ */
 export interface TextFormattingOptions {
   disableSuperscriptAndSubscript?: boolean;
   disableUnderline?: boolean;
@@ -29,3 +33,9 @@ export interface TextFormattingState {
   subscriptDisabled?: boolean;
   subscriptHidden?: boolean;
 }
+
+export type InputMethodToolbar = INPUT_METHOD.TOOLBAR;
+export type InputMethodBasic =
+  | InputMethodToolbar
+  | INPUT_METHOD.SHORTCUT
+  | INPUT_METHOD.FORMATTING;

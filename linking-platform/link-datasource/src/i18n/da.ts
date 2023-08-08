@@ -7,8 +7,13 @@
  */
 //Danish (Denmark)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Søg via AQL',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Vælg skema',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Vælg skema',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Skema er påkrævet',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Annuller',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Indsæt objekter',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Indsæt objekter fra',
   'linkDataSource.column-picker.search': 'Søg efter felter',
   'linkDataSource.jira-issues.accessInstructions': 'Kontakt din administrator for at anmode om adgang.',
   'linkDataSource.jira-issues.accessRequired': 'Du har ikke adgang til dette websted',

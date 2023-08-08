@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 108.9.0
+
+### Minor Changes
+
+- [`8695abdde8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8695abdde8e) - [ED-18289] Clean-up Editor Sentry feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.8.12
 
 ### Patch Changes

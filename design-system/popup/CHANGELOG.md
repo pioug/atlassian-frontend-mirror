@@ -1,5 +1,11 @@
 # @atlaskit/popup
 
+## 1.9.2
+
+### Patch Changes
+
+- [`065da872439`](https://bitbucket.org/atlassian/atlassian-frontend/commits/065da872439) - Css changes for testing the feature flag `platform.design-system-team.render-popup-in-parent_f73ij`.
+
 ## 1.9.1
 
 ### Patch Changes

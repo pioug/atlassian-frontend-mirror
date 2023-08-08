@@ -301,6 +301,136 @@ describe('Provider', () => {
         done();
       });
     });
+
+    describe('when initializing provider earlier with initial draft and buffering enabled', () => {
+      const testProviderConfigWithDraft = {
+        initialDraft: {
+          document: 'test-document' as any,
+          version: 1,
+          metadata: { title: 'random-title' },
+        },
+        ...testProviderConfig,
+        isBufferingEnabled: true,
+      };
+      it('should successfully initialize provider if channel connects before editor state is defined', async (done) => {
+        expect.assertions(6);
+        const sid = 'expected-sid-123';
+        const provider = createSocketIOCollabProvider(
+          testProviderConfigWithDraft,
+        );
+        const sendStepsFromCurrentStateSpy = jest.spyOn(
+          // @ts-ignore
+          provider.documentService as any,
+          'sendStepsFromCurrentState',
+        );
+        provider.setup({ getState: undefined });
+        expect((provider as any).isPreinitializing).toEqual(true);
+        provider.on('connected', ({ sid }) => {
+          expect((provider as any).isProviderInitialized).toEqual(false);
+          expect(sid).toBe('expected-sid-123');
+          expect(sendStepsFromCurrentStateSpy).toHaveBeenCalledTimes(0);
+        });
+        provider.on('init', async (data) => {
+          expect(data).toEqual({
+            doc: 'test-document',
+            version: 1,
+            metadata: { title: 'random-title' },
+          });
+          expect((provider as any).isProviderInitialized).toEqual(true);
+          done();
+        });
+        channel.emit('connected', { sid, initialized: true });
+        provider.setup({ getState: () => editorState });
+      });
+
+      it('should successfully initialize provider and call catchup if channel connects after editor state is defined', async (done) => {
+        expect.assertions(5);
+        const sid = 'expected-sid-123';
+        const provider = createSocketIOCollabProvider(
+          testProviderConfigWithDraft,
+        );
+        const sendStepsFromCurrentStateSpy = jest.spyOn(
+          // @ts-ignore
+          provider.documentService as any,
+          'sendStepsFromCurrentState',
+        );
+        provider.setup({ getState: undefined });
+        expect((provider as any).isPreinitializing).toEqual(true);
+        provider.on('connected', ({ sid }) => {
+          expect(sid).toBe('expected-sid-123');
+          expect((provider as any).isProviderInitialized).toEqual(true);
+          expect(sendStepsFromCurrentStateSpy).toHaveBeenCalledTimes(1);
+        });
+        provider.on('init', (data) => {
+          expect(data).toEqual({
+            doc: 'test-document',
+            version: 1,
+            metadata: { title: 'random-title' },
+          });
+        });
+        provider.setup({ getState: () => editorState });
+        channel.emit('connected', { sid, initialized: true });
+        done();
+      });
+
+      it('should start document setup and channel connection when editor state is defined', (done) => {
+        expect.assertions(4);
+        const provider = createSocketIOCollabProvider(
+          testProviderConfigWithDraft,
+        );
+        const mockEditorState = jest.fn(() => editorState);
+        const documentSetupSpy = jest.spyOn(
+          // @ts-ignore
+          provider.documentService as any,
+          'setup',
+        );
+        const initializeChannelSpy = jest.spyOn(
+          provider as any,
+          'initializeChannel',
+        );
+        const resolveOnSetupPromiseSpy = jest.spyOn(
+          provider as any,
+          'resolveOnSetupPromise',
+        );
+        provider.setup({ getState: mockEditorState });
+        expect(documentSetupSpy).toHaveBeenCalledTimes(1);
+        expect(documentSetupSpy).toHaveBeenCalledWith({
+          getState: mockEditorState,
+          clientId: 'some-random-prosemirror-client-Id',
+          onSyncUpError: undefined,
+        });
+        expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
+        expect(resolveOnSetupPromiseSpy).toHaveBeenCalledTimes(0);
+        done();
+      });
+
+      it('should start channel connection if editor state is initially undefined', (done) => {
+        expect.assertions(3);
+        const provider = createSocketIOCollabProvider(
+          testProviderConfigWithDraft,
+        );
+        const documentSetupSpy = jest.spyOn(
+          // @ts-ignore
+          provider.documentService as any,
+          'setup',
+        );
+        const initializeChannelSpy = jest.spyOn(
+          provider as any,
+          'initializeChannel',
+        );
+        const resolveOnSetupPromiseSpy = jest.spyOn(
+          provider as any,
+          'resolveOnSetupPromise',
+        );
+        provider.setup({
+          getState: undefined,
+        });
+        expect(documentSetupSpy).toHaveBeenCalledTimes(0);
+        expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
+        expect(resolveOnSetupPromiseSpy).toHaveBeenCalledTimes(0);
+        done();
+      });
+    });
   });
 
   describe('initialisation', () => {

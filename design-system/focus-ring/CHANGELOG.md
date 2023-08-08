@@ -1,5 +1,11 @@
 # @atlaskit/focus-ring
 
+## 1.3.5
+
+### Patch Changes
+
+- [`63ee052ee1b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/63ee052ee1b) - Fix focus-ring border width token with `border.width.outline`
+
 ## 1.3.4
 
 ### Patch Changes

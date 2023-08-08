@@ -7,8 +7,13 @@
  */
 //Finnish
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Hae AQL:n kautta',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Valitse kaavio',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Valitse kaavio',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Kaavio vaaditaan',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Peruuta',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Lisää kohteet',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Lisää objekteja kohteesta',
   'linkDataSource.column-picker.search': 'Hae kenttiä',
   'linkDataSource.jira-issues.accessInstructions': 'Pyydä pääsyä ottamalla yhteys ylläpitäjään.',
   'linkDataSource.jira-issues.accessRequired': 'Sinulla ei ole pääsyä tähän sivustoon',

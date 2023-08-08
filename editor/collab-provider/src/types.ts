@@ -105,6 +105,7 @@ export interface Config {
   throwOnNotConnected?: boolean;
   // initial draft passed on provider creation
   initialDraft?: InitialDraft;
+  isBufferingEnabled?: boolean;
   /**
    * When a page is being published this number can control the number of failed steps until a catchup is triggered.
    * The default value is MAX_STEP_REJECTED_ERROR (15).

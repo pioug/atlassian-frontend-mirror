@@ -3,7 +3,8 @@ import { useCallback, useMemo } from 'react';
 import { jsx } from '@emotion/react';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { toolbarMessages } from '../toolbar-messages';
+
+import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { clearFormattingWithAnalytics } from '../../../commands/clear-formatting';
 import type { ClearFormattingState } from '../../../pm-plugins/clear-formatting';
 import { pluginKey as clearFormattingPluginKey } from '../../../pm-plugins/clear-formatting';

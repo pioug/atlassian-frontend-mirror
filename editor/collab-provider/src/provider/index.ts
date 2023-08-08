@@ -60,6 +60,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
   private initialDraft?: InitialDraft;
   private isProviderInitialized: boolean = false;
 
+  // isBufferingEnabled is a boolean value passed to the config during provider creation.
+  // It determines if the provider should initialize immediately and will only be true if:
+  // the feature flag is enabled and the initial draft fetched from NCS is also passed in the config.
+  private isBufferingEnabled: boolean = false;
+
   // isPreinitializating acts as a feature flag to determine when the provider has been initialized early
   // and also contains the initial draft
   private isPreinitializing: boolean = false;
@@ -146,6 +151,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     this.channel = new Channel(config, this.analyticsHelper);
     this.isChannelInitialized = false;
     this.initialDraft = this.config.initialDraft;
+    this.isBufferingEnabled = Boolean(this.config.isBufferingEnabled);
     this.isProviderInitialized = false;
     this.isPreinitializing = false;
     this.participantsService = new ParticipantsService(
@@ -187,6 +193,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
     this.channel
       .on('connected', ({ sid, initialized }) => {
         this.sessionId = sid;
+        // if buffering is enabled and the provider is initialized before connection, call catchup
+        // once setup resolves with the defined editor state
+        if (this.isBufferingEnabled && this.isProviderInitialized) {
+          this.onSetupPromise.then(() => {
+            this.documentService.sendStepsFromCurrentState();
+          });
+        }
         this.emitCallback('connected', {
           sid,
           initial: !initialized,
@@ -327,6 +340,19 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         // a defined getState (ie editor state is ready) AND after documentService sets the editor state
         if (this.isPreinitializing) {
           this.resolveOnSetupPromise();
+          if (
+            this.isBufferingEnabled &&
+            this.initialDraft &&
+            !this.isProviderInitialized
+          ) {
+            const { document, version, metadata }: InitialDraft =
+              this.initialDraft;
+            this.updateDocumentAndMetadata({
+              doc: document,
+              version,
+              metadata,
+            });
+          }
         }
       }
 

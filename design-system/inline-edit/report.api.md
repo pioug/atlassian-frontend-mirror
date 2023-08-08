@@ -19,10 +19,9 @@ import { FieldProps } from '@atlaskit/form';
 import { jsx } from '@emotion/react';
 import { default as React_2 } from 'react';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 
 // @public (undocumented)
-interface CommonProps extends WithAnalyticsEventsProps {
+interface CommonProps {
   analyticsContext?: Record<string, any>;
   cancelButtonLabel?: string;
   confirmButtonLabel?: string;

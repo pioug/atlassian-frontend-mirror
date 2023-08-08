@@ -7,8 +7,16 @@
  */
 //Korean
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'AQL로 검색',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': '스키마 선택',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': '스키마 선택',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': '스키마가 필요합니다',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    '입력을 시작하거나 AQL을 사용하여 검색합니다.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '개체 또는 개체 유형 검색',
   'linkDataSource.assets.configmodal.cancelButtonText': '취소',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': '개체 삽입',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': '다음의 개체 삽입',
   'linkDataSource.column-picker.search': '필드 검색',
   'linkDataSource.jira-issues.accessInstructions': '액세스를 요청하려면 관리자에게 문의하세요.',
   'linkDataSource.jira-issues.accessRequired': '이 사이트에 대한 액세스 권한이 없습니다',

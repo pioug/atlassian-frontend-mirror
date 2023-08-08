@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
+import { Checkbox } from '@atlaskit/checkbox';
 import { Code } from '@atlaskit/code';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
-import { Radio } from '@atlaskit/radio';
 
+const listStyles = xcss({ padding: 'space.0' });
 const listItemStyles = xcss({ listStyle: 'none' });
 
-const InlineLink = () => (
+const InlineLink = ({ children }: { children: ReactNode }) => (
   <Box as="li" xcss={listItemStyles}>
-    <a href="http://atlassian.com">Atlassian</a>
+    {children}
   </Box>
 );
 
@@ -18,37 +19,37 @@ export default function Example() {
       <Box>
         <Code>Inline</Code> rendering as <Code>div</Code>:
         <Inline space="space.200">
-          <Radio label="Option 1" />
-          <Radio label="Option 2" />
-          <Radio label="Option 3" />
-          <Radio label="Option 4" />
+          <Checkbox label="Option 1" />
+          <Checkbox label="Option 2" />
+          <Checkbox label="Option 3" />
+          <Checkbox label="Option 4" />
         </Inline>
       </Box>
       <Box>
         <Code>Inline</Code> rendering as <Code>span</Code>:
         <Inline as="span" space="space.200">
-          <Radio label="Option 1" />
-          <Radio label="Option 2" />
-          <Radio label="Option 3" />
-          <Radio label="Option 4" />
+          <Checkbox label="Option 1" />
+          <Checkbox label="Option 2" />
+          <Checkbox label="Option 3" />
+          <Checkbox label="Option 4" />
         </Inline>
       </Box>
       <Box>
         <Code>Inline</Code> rendering as <Code>ul</Code>:
-        <Inline as="ul" separator="·" space="space.100">
-          <InlineLink />
-          <InlineLink />
-          <InlineLink />
-          <InlineLink />
+        <Inline as="ul" xcss={listStyles} separator="·" space="space.100">
+          <InlineLink>Jira</InlineLink>
+          <InlineLink>Confluence</InlineLink>
+          <InlineLink>BitBucket</InlineLink>
+          <InlineLink>Trello</InlineLink>
         </Inline>
       </Box>
       <Box>
         <Code>Inline</Code> rendering as <Code>ol</Code>:
-        <Inline as="ul" separator="·" space="space.100">
-          <InlineLink />
-          <InlineLink />
-          <InlineLink />
-          <InlineLink />
+        <Inline as="ul" xcss={listStyles} separator="·" space="space.100">
+          <InlineLink>Jira</InlineLink>
+          <InlineLink>Confluence</InlineLink>
+          <InlineLink>BitBucket</InlineLink>
+          <InlineLink>Trello</InlineLink>
         </Inline>
       </Box>
     </Stack>

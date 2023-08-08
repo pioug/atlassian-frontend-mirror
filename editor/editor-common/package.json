@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-common",
-  "version": "74.34.4",
+  "version": "74.36.0",
   "description": "A package that contains common classes and components for editor and renderer",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -183,9 +183,6 @@
   },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.1",
   "platform-feature-flags": {
-    "platform.editor.sentry-error-monitoring_6bksu": {
-      "type": "boolean"
-    },
     "platform.design-system-team.menu-selected-state-change_0see9": {
       "type": "boolean"
     },

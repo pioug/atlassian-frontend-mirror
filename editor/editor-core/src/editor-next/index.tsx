@@ -28,7 +28,6 @@ import { useConstructor } from '@atlaskit/editor-common/hooks';
 import { useEditorContext } from '../ui/EditorContext';
 import measurements from '../utils/performance/measure-enum';
 import EditorInternal from './editor-internal';
-import deprecationWarnings from './utils/deprecationWarnings';
 import sendDurationAnalytics from './utils/sendDurationAnalytics';
 import trackEditorActions from './utils/trackEditorActions';
 
@@ -53,7 +52,6 @@ export function Editor(passedProps: EditorNextProps) {
     fireAnalyticsEvent(createAnalyticsEvent)(data);
 
   useConstructor(() => {
-    deprecationWarnings(props);
     trackEditorActions(
       editorActions.current,
       props.performanceTracking,

@@ -28,7 +28,7 @@ import type { MenuIconItem } from './types';
 import { SingleToolbarButtons } from './single-toolbar-buttons';
 import { MoreButton } from './more-button';
 import { FormattingTextDropdownMenu } from './dropdown-menu';
-import { toolbarMessages } from './toolbar-messages';
+import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { compareItemsArrays, isArrayContainsContent } from '../../utils';
 import { Announcer } from '@atlaskit/editor-common/ui';
 import { usePreviousState } from '@atlaskit/editor-common/hooks';

@@ -1,9 +1,7 @@
-import { EditorNextProps, EditorProps } from '../../types/editor-props';
-import { nextMajorVersion } from '../../version-wrapper';
+import type { EditorProps } from '../types/editor-props';
+import { nextMajorVersion } from '../version-wrapper';
 
-export default function deprecationWarnings(
-  props: EditorProps | EditorNextProps,
-) {
+export default function editorDeprecationWarnings(props: EditorProps) {
   if (process.env.NODE_ENV === 'production') {
     return;
   }

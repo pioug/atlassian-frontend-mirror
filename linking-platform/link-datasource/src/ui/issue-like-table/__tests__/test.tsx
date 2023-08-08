@@ -84,38 +84,58 @@ describe('IssueLikeDataTableView', () => {
     };
   };
 
-  async function assertColumnTitles(onColumnChange?: () => void) {
-    const items = [
-      {
+  const getSimpleItems = (amount: number = 3): DatasourceDataResponseItem[] =>
+    Array(amount)
+      .fill(null)
+      .map<DatasourceDataResponseItem>((_, i) => ({
         id: {
-          data: 'id0',
+          data: `id${i}`,
         },
-        someKey: {
-          data: 'someData',
-        },
-        someOtherKey: {
-          data: 'someOtherValue',
-        },
-      },
-    ];
+      }));
 
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
+  const getComplexItems = (): DatasourceDataResponseItem[] => [
+    {
+      id: {
+        data: 'id0',
       },
-      {
-        key: 'someKey',
-        title: 'Some key',
-        type: 'string',
+      someKey: {
+        data: 'someData',
       },
-      {
-        key: 'someOtherKey',
-        title: 'Some Other key',
-        type: 'string',
+      someOtherKey: {
+        data: 'someOtherValue',
       },
-    ];
+    },
+  ];
+
+  const getSimpleColumns = (): DatasourceResponseSchemaProperty[] => [
+    {
+      key: 'id',
+      title: 'ID',
+      type: 'string',
+    },
+  ];
+
+  const getComplexColumns = (): DatasourceResponseSchemaProperty[] => [
+    {
+      key: 'id',
+      title: 'Some Id',
+      type: 'string',
+    },
+    {
+      key: 'someKey',
+      title: 'Some key',
+      type: 'string',
+    },
+    {
+      key: 'someOtherKey',
+      title: 'Some Other key',
+      type: 'string',
+    },
+  ];
+
+  async function assertColumnTitles(onColumnChange?: () => void) {
+    const items = getComplexItems();
+    const columns = getComplexColumns();
 
     const { getByTestId } = setup({
       items,
@@ -124,7 +144,7 @@ describe('IssueLikeDataTableView', () => {
       onVisibleColumnKeysChange: onColumnChange,
     });
 
-    expect(getByTestId('id-column-heading')).toHaveTextContent('ID');
+    expect(getByTestId('id-column-heading')).toHaveTextContent('Some Id');
     expect(getByTestId('someOtherKey-column-heading')).toHaveTextContent(
       'Some Other key',
     );
@@ -172,37 +192,8 @@ describe('IssueLikeDataTableView', () => {
   });
 
   it('should display only selected columns', async () => {
-    const items: DatasourceDataResponseItem[] = [
-      {
-        id: {
-          data: 'id0',
-        },
-        someKey: {
-          data: 'someData',
-        },
-        someOtherKey: {
-          data: 'someOtherValue',
-        },
-      },
-    ];
-
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
-      },
-      {
-        key: 'someKey',
-        title: 'Some key',
-        type: 'string',
-      },
-      {
-        key: 'someOtherKey',
-        title: 'Some Other key',
-        type: 'string',
-      },
-    ];
+    const items = getComplexItems();
+    const columns = getComplexColumns();
 
     const visibleColumnKeys = ['id', 'someOtherKey'];
 
@@ -229,6 +220,33 @@ describe('IssueLikeDataTableView', () => {
 
   it('should have column titles in table header', async () => {
     await assertColumnTitles(() => {});
+  });
+
+  it('should show tooltip when table header title is hovered', async () => {
+    jest.useFakeTimers();
+    const items = getComplexItems();
+    const columns = getComplexColumns();
+
+    setup({
+      items,
+      columns,
+      visibleColumnKeys: ['id', 'someOtherKey'],
+    });
+
+    const headerText = screen.getByText('Some Id');
+    expect(headerText).toBeInTheDocument();
+
+    // hover over the tooltip
+    act(() => {
+      fireEvent.mouseOver(headerText);
+      jest.runAllTimers();
+    });
+
+    const usersListWrapper = await screen.findByRole('tooltip');
+    expect(usersListWrapper).toBeInTheDocument();
+    expect(usersListWrapper).toHaveAttribute('data-placement', 'bottom');
+
+    expect(usersListWrapper.textContent).toEqual('Some Id');
   });
 
   it('should render list type', async () => {
@@ -368,33 +386,8 @@ describe('IssueLikeDataTableView', () => {
   it('should call onNextPage again when scrolled to the bottom and actually has a next page', async () => {
     jest.useFakeTimers();
 
-    let counter = 0;
-
-    const items: DatasourceDataResponseItem[] = [
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-    ];
-
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
-      },
-    ];
+    const items = getSimpleItems();
+    const columns = getSimpleColumns();
 
     const { onNextPage } = setup({
       items,
@@ -415,34 +408,8 @@ describe('IssueLikeDataTableView', () => {
 
   it('should not call nextPage again when scrolled to the bottom and does not have a next page', async () => {
     jest.useFakeTimers();
-
-    let counter = 0;
-
-    const items: DatasourceDataResponseItem[] = [
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-    ];
-
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
-      },
-    ];
+    const items = getSimpleItems();
+    const columns = getSimpleColumns();
 
     const { onNextPage } = setup({
       items,
@@ -462,32 +429,8 @@ describe('IssueLikeDataTableView', () => {
   it('should not call nextPage when scrolled to the bottom and next page is already loading', async () => {
     jest.useFakeTimers();
 
-    let counter = 0;
-    const items: DatasourceDataResponseItem[] = [
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-    ];
-
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
-      },
-    ];
+    const items = getSimpleItems();
+    const columns = getSimpleColumns();
 
     const { onNextPage } = setup({
       items,
@@ -524,32 +467,8 @@ describe('IssueLikeDataTableView', () => {
 
   it('should show special loading row when new page is loading', async () => {
     jest.useFakeTimers();
-    let counter = 0;
-    const items: DatasourceDataResponseItem[] = [
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-    ];
-
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
-      },
-    ];
+    const items = getSimpleItems();
+    const columns = getSimpleColumns();
 
     const { getByTestId } = setup({
       items,
@@ -571,32 +490,9 @@ describe('IssueLikeDataTableView', () => {
 
   it('should not show column picker button if onColumnsChange is not passed in', async () => {
     jest.useFakeTimers();
-    let counter = 0;
-    const items: DatasourceDataResponseItem[] = [
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-    ];
 
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
-      },
-    ];
+    const items = getSimpleItems();
+    const columns = getSimpleColumns();
 
     setup({
       items,
@@ -612,32 +508,8 @@ describe('IssueLikeDataTableView', () => {
 
   it('should show column picker button if onColumnsChange is passed in', async () => {
     jest.useFakeTimers();
-    let counter = 0;
-    const items: DatasourceDataResponseItem[] = [
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-    ];
-
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
-      },
-    ];
+    const items = getSimpleItems();
+    const columns = getSimpleColumns();
 
     setup({
       items,
@@ -652,32 +524,8 @@ describe('IssueLikeDataTableView', () => {
 
   it('should call onLoadDatasourceDetails when opening the picker for the first time', async () => {
     jest.useFakeTimers();
-    let counter = 0;
-    const items: DatasourceDataResponseItem[] = [
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-    ];
-
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
-      },
-    ];
+    const items = getSimpleItems();
+    const columns = getSimpleColumns();
 
     const { onLoadDatasourceDetails, getByTestId, getByText } = setup({
       items,
@@ -697,32 +545,8 @@ describe('IssueLikeDataTableView', () => {
 
   it('should not call onLoadDatasourceDetails after opening the picker for the first time', async () => {
     jest.useFakeTimers();
-    let counter = 0;
-    const items: DatasourceDataResponseItem[] = [
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-      {
-        id: {
-          data: `id${counter++}`,
-        },
-      },
-    ];
-
-    const columns: DatasourceResponseSchemaProperty[] = [
-      {
-        key: 'id',
-        title: 'ID',
-        type: 'string',
-      },
-    ];
+    const items = getSimpleItems();
+    const columns = getSimpleColumns();
 
     const { onLoadDatasourceDetails, getByTestId } = setup({
       items,
@@ -802,14 +626,12 @@ describe('IssueLikeDataTableView', () => {
   it('should have correct column order after a drag and drop reorder', async () => {
     const { columns, items, visibleColumnKeys } = makeDragAndDropTableProps();
 
-    const { onVisibleColumnKeysChange, getByTestId, getByLabelText } = setup({
+    const { onVisibleColumnKeysChange, getByTestId } = setup({
       items,
       columns,
       visibleColumnKeys,
       hasNextPage: false,
     });
-
-    expect(getByLabelText('emoji-drag-icon')).toBeInTheDocument();
 
     const dragHandle = screen.getByTestId('id-column-heading');
     const dropTarget = await findByTestId(

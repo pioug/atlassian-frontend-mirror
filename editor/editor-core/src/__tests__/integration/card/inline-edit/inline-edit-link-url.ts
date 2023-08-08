@@ -11,11 +11,14 @@ import {
 } from '@atlaskit/editor-test-helpers/testing-example-page';
 
 import { waitForInlineCardSelection } from '@atlaskit/media-integration-test-helpers';
-import Page from '@atlaskit/webdriver-runner/wd-wrapper';
+import type Page from '@atlaskit/webdriver-runner/wd-wrapper';
 
+// FIXME: This test was automatically skipped due to failure on 07/08/2023: https://product-fabric.atlassian.net/browse/ED-19388
 BrowserTestCase(
   'card: changing the link URL of an inline link to another supported link should reresolve smart card',
-  {},
+  {
+    skip: ['*'],
+  },
   async (client: ConstructorParameters<typeof Page>[0], testName: string) => {
     // Copy stuff to clipboard and go to editor
     const page = await goToEditorTestingWDClipboardExample(

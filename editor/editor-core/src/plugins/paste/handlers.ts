@@ -50,13 +50,9 @@ import {
 import { mapSlice } from '../../utils/slice';
 import type { InputMethodInsertMedia } from '../analytics';
 import { INPUT_METHOD } from '../analytics';
-import type { CardOptions } from '@atlaskit/editor-common/card';
 import { GapCursorSelection, Side } from '../selection/gap-cursor-selection';
-import { linkifyContent } from '@atlaskit/editor-common/utils';
 import { runMacroAutoConvert } from '../macro';
 import { insertMediaAsMediaSingle } from '../media/utils/media-single';
-import type { TextFormattingState } from '../text-formatting/pm-plugins/main';
-import { pluginKey as textFormattingPluginKey } from '../text-formatting/pm-plugins/main';
 
 import {
   addReplaceSelectedTableAnalytics,
@@ -64,6 +60,7 @@ import {
   hasOnlyNodesOfType,
 } from './util';
 import {
+  linkifyContent,
   isListItemNode,
   isListNode,
   canLinkBeCreatedInRange,
@@ -76,7 +73,11 @@ import {
 } from './commands';
 import { getPluginState as getPastePluginState } from './pm-plugins/plugin-factory';
 import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../utils/lists';
-import type { QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
+import type {
+  QueueCardsFromTransactionAction,
+  CardOptions,
+} from '@atlaskit/editor-common/card';
+import { anyMarkActive } from '@atlaskit/editor-common/mark';
 
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {
@@ -173,15 +174,12 @@ export function handlePasteIntoTaskOrDecisionOrPanel(
 
     const selectionMarks = selection.$head.marks();
 
-    const textFormattingState: TextFormattingState | undefined =
-      textFormattingPluginKey.getState(state);
-
     if (
       selection instanceof TextSelection &&
       Array.isArray(selectionMarks) &&
       selectionMarks.length > 0 &&
       hasOnlyNodesOfType(paragraph, text, emoji, mention, hardBreak)(slice) &&
-      (!codeMark.isInSet(selectionMarks) || textFormattingState?.codeActive) // for codeMarks let's make sure mark is active
+      (!codeMark.isInSet(selectionMarks) || anyMarkActive(state, codeMark)) // check if there is a code mark anywhere in the selection
     ) {
       filters.push(applyTextMarksToSlice(schema, selection.$head.marks()));
     }
@@ -568,12 +566,9 @@ export function handlePastePreservingMarks(
       return false;
     }
 
-    const textFormattingState: TextFormattingState | undefined =
-      textFormattingPluginKey.getState(state);
-
     // special case for codeMark: will preserve mark only if codeMark is currently active
     // won't preserve mark if cursor is on the edge on the mark (namely inactive)
-    if (codeMark.isInSet(selectionMarks) && !textFormattingState?.codeActive) {
+    if (codeMark.isInSet(selectionMarks) && !anyMarkActive(state, codeMark)) {
       return false;
     }
 

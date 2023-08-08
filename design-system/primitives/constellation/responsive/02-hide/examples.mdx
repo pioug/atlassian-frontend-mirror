@@ -17,9 +17,9 @@ import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
 ### Hide
 
-This allows you to Hide the children using CSS `display: none` either above or below a breakpoint.  By default, unless the breakpoint is met, contents are hidden.
+Using Hide allows you to Hide the children using CSS `display: none` when the viewport size is above a specified breakpoint. By default, unless the breakpoint is met, contents are hidden.
 
-When hidden, this does not skip rendering of your children; the contents are rendered into the DOM at all times so there is typically little performance savings—primarily that this is not painted.
+Children that are hidden are still rendered into the DOM, so there so there is typically little performance savings — primarily that they are not painted.
 
 <Example Component={HideExample} packageName="@atlaskit/primitives/responsive" />
 

@@ -154,7 +154,6 @@ export function EditorInternalWithoutHooks({
                       providerFactory={providerFactory}
                       onEditorCreated={onEditorCreated}
                       onEditorDestroyed={onEditorDestroyed}
-                      allowAnalyticsGASV3={props.allowAnalyticsGASV3}
                       disabled={props.disabled}
                       preset={preset}
                       render={({
@@ -199,7 +198,6 @@ export function EditorInternalWithoutHooks({
                             secondaryToolbarComponents={
                               config.secondaryToolbarComponents
                             }
-                            insertMenuItems={props.insertMenuItems}
                             customContentComponents={props.contentComponents}
                             customPrimaryToolbarComponents={
                               props.primaryToolbarComponents

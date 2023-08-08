@@ -1,7 +1,8 @@
 import React from 'react';
 
 import SVGIcon from '@atlaskit/icon/svg';
-import { B400, N10, N40 } from '@atlaskit/theme/colors';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { B400, N10, N100, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 /**
@@ -34,9 +35,20 @@ const RadioIcon = ({ checked }: { checked: boolean }) => {
           stroke={
             checked
               ? token('color.border.selected', B400)
-              : token('color.border.input', N40)
+              : token(
+                  'color.border.input',
+                  getBooleanFF(
+                    'platform.design-system-team.border-checkbox_nyoiu',
+                  )
+                    ? N100
+                    : N40,
+                )
           }
-          strokeWidth={2}
+          strokeWidth={
+            getBooleanFF('platform.design-system-team.border-checkbox_nyoiu')
+              ? 1
+              : 2
+          }
         />
         <circle fill="inherit" cx="12" cy="12" r="2" />
       </g>

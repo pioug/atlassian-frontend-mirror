@@ -6,7 +6,7 @@ const boxStyles = xcss({
   borderColor: 'color.border.discovery',
   borderStyle: 'solid',
   borderRadius: 'border.radius',
-  borderWidth: 'border.width.outline',
+  borderWidth: 'border.width',
 });
 
 export default function Example() {

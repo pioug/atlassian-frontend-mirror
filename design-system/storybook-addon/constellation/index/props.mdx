@@ -1,0 +1,19 @@
+After installing the package, register the addon with your Storybook configuration in the `.storybook/main.js` file.
+
+```diff
+module.exports = {
+  addons: [
++    '@atlaskit/storybook-addon-design-system'
+  ]
+};
+```
+
+To add the decorator to `.storybook/preview.js`, which is responsible for applying the logic which has the ability to modify the DOM of your stories.
+
+```diff
++import { withDesignTokens } from '@atlaskit/storybook-addon-design-system';
+
+const { addDecorator } = require('@storybook/react');
+
++addDecorator(withDesignTokens);
+```

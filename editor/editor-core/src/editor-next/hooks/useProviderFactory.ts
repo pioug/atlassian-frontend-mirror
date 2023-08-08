@@ -1,17 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 
-import EditorActions from '../../actions';
-import {
+import type EditorActions from '../../actions';
+import type {
   QuickInsertOptions,
   QuickInsertProvider,
 } from '../../plugins/quick-insert/types';
-import {
+import type {
   EditorNextProps,
+  EditorProps,
   ExtensionProvidersProp,
 } from '../../types/editor-props';
 import prepareExtensionProvider from '../../utils/prepare-extension-provider';
@@ -63,8 +64,6 @@ export default function useProviderFactory(
     extensionProviders,
     quickInsert,
     linking,
-    smartLinks,
-    UNSAFE_cards,
     autoformattingProvider,
     media,
     emojiProvider,
@@ -79,6 +78,9 @@ export default function useProviderFactory(
     collabEditProvider,
     presenceProvider,
   } = props;
+
+  const UNSAFE_cards = (props as EditorProps).UNSAFE_cards;
+  const smartLinks = (props as EditorProps).smartLinks;
 
   const providerFactory = useRef(new ProviderFactory());
   const [providerState, setProviderState] = useState<ProviderFactoryState>(

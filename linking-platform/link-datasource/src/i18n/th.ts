@@ -7,8 +7,13 @@
  */
 //Thai (Thailand)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'ค้นหาผ่าน AQL',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'เลือกรายละเอียดเรื่อง',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'เลือกรายละเอียดเรื่อง',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'ต้องระบุรายละเอียดเรื่อง',
   'linkDataSource.assets.configmodal.cancelButtonText': 'ยกเลิก',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'แทรกเรื่อง',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'แทรกเรื่องจาก',
   'linkDataSource.column-picker.search': 'ค้นหาฟิลด์',
   'linkDataSource.jira-issues.accessInstructions': 'หากต้องการส่งคำขอการเข้าถึง โปรดติดต่อผู้ดูแลของคุณ',
   'linkDataSource.jira-issues.accessRequired': 'คุณไม่มีสิทธิ์การเข้าถึงเว็บไซต์นี้',

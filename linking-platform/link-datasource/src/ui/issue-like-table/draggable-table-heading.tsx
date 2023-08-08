@@ -5,7 +5,6 @@ import { css, jsx, SerializedStyles } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import invariant from 'tiny-invariant';
 
-import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import {
   attachClosestEdge,
   Edge,
@@ -47,20 +46,6 @@ const verticallyAlignedStyles = css({
   display: 'flex',
   alignItems: 'center',
   whiteSpace: 'nowrap',
-});
-
-const dragHandleStyles = css({
-  position: 'relative',
-  display: 'flex',
-  alignItems: 'center',
-  overflow: 'hidden',
-  width: 0,
-  transition: 'width 0.5s',
-});
-
-const dragHandleSpacerStyles = css({
-  width: 24,
-  transition: 'width 0.5s',
 });
 
 const dropTargetStyles = css({
@@ -221,20 +206,7 @@ export const DraggableTableHeading = ({
       >
         {closestEdge && <DropIndicator edge={closestEdge} />}
       </div>
-      <div css={verticallyAlignedStyles}>
-        <div css={dragHandleStyles} className="issue-like-table-drag-handle">
-          <DragHandlerIcon label={`${id}-drag-icon`} size="medium" />
-        </div>
-        {children}
-        {/*
-        Special spacer to keep overall width of the column same
-        when hovered and drag handle is there vs when it is not hovered and drag handle is hidden
-        */}
-        <div
-          css={dragHandleSpacerStyles}
-          className="issue-like-table-drag-handle-spacer"
-        ></div>
-      </div>
+      <div css={verticallyAlignedStyles}>{children}</div>
       {state.type === 'preview'
         ? ReactDOM.createPortal(dragPreview, state.container)
         : null}

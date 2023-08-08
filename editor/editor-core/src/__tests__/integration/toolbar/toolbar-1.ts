@@ -5,7 +5,7 @@ import {
   fullpage,
   editable,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { toolbarMessages as textFormattingMessages } from '../../../plugins/text-formatting/ui/Toolbar/toolbar-messages';
+import { toolbarMessages as textFormattingMessages } from '@atlaskit/editor-common/messages';
 import { toolbarMessages as blockTypeToolbarMessages } from '../../../plugins/block-type/ui/ToolbarBlockType/toolbar-messages';
 import {
   goToEditorTestingWDExample,

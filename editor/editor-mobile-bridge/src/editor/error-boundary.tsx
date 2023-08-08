@@ -1,6 +1,5 @@
 import React from 'react';
 import { logException } from '@atlaskit/editor-common/monitoring';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { toNativeBridge } from './web-to-native';
 
 export class ErrorBoundary extends React.Component {
@@ -11,10 +10,7 @@ export class ErrorBoundary extends React.Component {
         errorInfo?.toString() || undefined,
       );
     }
-
-    if (getBooleanFF('platform.editor.sentry-error-monitoring_6bksu')) {
-      logException(error, { location: 'editor-mobile-bridge' });
-    }
+    logException(error, { location: 'editor-mobile-bridge' });
   }
 
   render() {

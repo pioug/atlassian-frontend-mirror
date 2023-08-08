@@ -7,8 +7,13 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Søk via AQL',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Velg oppsett',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Velg oppsett',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Oppsett kreves',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Avbryt',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Sett inn objekter',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Sett inn objekter fra',
   'linkDataSource.column-picker.search': 'Søk etter felt',
   'linkDataSource.jira-issues.accessInstructions': 'Kontakt administratoren for å be om tilgang.',
   'linkDataSource.jira-issues.accessRequired': 'Du har ikke tilgang til dette nettstedet',

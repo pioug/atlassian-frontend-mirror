@@ -7,8 +7,13 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Пошук через AQL',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Вибрати схему',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Виберіть схему',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Необхідно вибрати схему',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Скасувати',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Вставити об’єкти',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Вставка об’єктів з',
   'linkDataSource.column-picker.search': 'Пошук полів',
   'linkDataSource.jira-issues.accessInstructions': 'Щоб запитати доступ, зверніться до адміністратора.',
   'linkDataSource.jira-issues.accessRequired': 'У вас немає доступу до цього сайту',

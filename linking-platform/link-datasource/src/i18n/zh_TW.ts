@@ -7,8 +7,16 @@
  */
 //Chinese (Traditional)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': '透過 AQL 搜尋',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': '選取結構描述',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': '選取結構描述',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': '結構描述為必要項目',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    '開始輸入或使用 AQL 進行搜尋。',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle': '搜尋物件或物件類型',
   'linkDataSource.assets.configmodal.cancelButtonText': '取消',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': '插入物件',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': '插入物件來源：',
   'linkDataSource.column-picker.search': '搜尋欄位',
   'linkDataSource.jira-issues.accessInstructions': '若要要求存取權，請連絡您的管理員。',
   'linkDataSource.jira-issues.accessRequired': '您無法存取此網站',

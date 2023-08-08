@@ -208,3 +208,10 @@ export type {
   OnHandlerApply,
   InputRuleWrapper,
 } from './input-rules';
+
+export type {
+  TextFormattingOptions,
+  TextFormattingState,
+  InputMethodToolbar,
+  InputMethodBasic,
+} from './text-formatting';

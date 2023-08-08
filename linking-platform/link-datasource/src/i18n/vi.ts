@@ -7,8 +7,13 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Tìm qua AQL',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Chọn sơ đồ',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Chọn sơ đồ',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'Cần có sơ đồ',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Hủy',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Chèn đối tượng',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Chèn đối tượng từ',
   'linkDataSource.column-picker.search': 'Tìm kiếm trường',
   'linkDataSource.jira-issues.accessInstructions': 'Hãy liên hệ với quản trị viên để yêu cầu quyền truy cập.',
   'linkDataSource.jira-issues.accessRequired': 'Bạn không có quyền truy cập vào trang web này',

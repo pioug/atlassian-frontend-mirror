@@ -51,7 +51,7 @@ const MyBox = () => {
 ```
 The `xcss` prop and the `xcss` function are direct complements and are designed to be used together.
 
-Note: styles generated from `xcss` cannot be applied directly to the `className` property or `css` as they are with other CSS-in-JS libraries.
+It is important to note that styles generated from `xcss` cannot be applied directly to the `className` property or `css` as they are with other CSS-in-JS libraries.
 
 ### Type safety
 
@@ -77,13 +77,6 @@ const someStyles = xcss({
 `xcss` is flexible enough to implement any design, but it does restrict the application of styles in one key way.
 Selectors cannot be nested or target elements beyond the element on which styles are applied.
 This restriction is intended to encourage better component encapsulation, reduce side-effects and make the codebase more resilient to change.
-
-
-`xcss` is meant to be flexible enough for you to implement any design but it does
-restrict the application of styles in one key way. Selectors cannot be
-nested or target elements beyond the element on which styles are applied.
-This restriction is intended to encourage better component encapsulation, reduce side-effects and make
-your codebase more resilient to change.
 
 ```tsx
 import { xcss } from '@atlaskit/primitives';

@@ -7,8 +7,11 @@ const listStyles = xcss({
 });
 
 const boxStyles = xcss({
-  color: 'color.text.inverse',
-  backgroundColor: 'color.background.success.bold',
+  color: 'color.text',
+  backgroundColor: 'color.background.discovery',
+  borderWidth: 'border.width',
+  borderStyle: 'solid',
+  borderColor: 'color.border.discovery',
   padding: 'space.100',
   borderRadius: 'border.radius.100',
   transitionDuration: '200ms',
@@ -22,7 +25,8 @@ const boxStyles = xcss({
     paddingInlineStart: 'space.050',
   },
   ':hover': {
-    backgroundColor: 'color.background.success.bold.hovered',
+    backgroundColor: 'color.background.discovery.bold.hovered',
+    color: 'color.text.inverse',
     transform: 'scale(1.02)',
   },
 });

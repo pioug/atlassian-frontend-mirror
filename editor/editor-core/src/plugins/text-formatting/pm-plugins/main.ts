@@ -10,13 +10,12 @@ import * as keymaps from '@atlaskit/editor-common/keymaps';
 import { shallowEqual } from '@atlaskit/editor-common/utils';
 import { createInlineCodeFromTextInputWithAnalytics } from '../commands/text-formatting';
 import * as commands from '../commands/text-formatting';
-import { anyMarkActive } from '../utils';
-import type { TextFormattingState } from '../types';
+import { anyMarkActive } from '@atlaskit/editor-common/mark';
+import type { TextFormattingState } from '@atlaskit/editor-common/types';
 import { pluginKey } from './plugin-key';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export { pluginKey };
-export type { TextFormattingState };
 
 const getTextFormattingState = (
   editorState: EditorState,

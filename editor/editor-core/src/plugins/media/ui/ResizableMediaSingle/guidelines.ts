@@ -1,6 +1,6 @@
 import memoizeOne from 'memoize-one';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import type { EditorView } from 'prosemirror-view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorGutterPadding,
   akEditorFullWidthLayoutWidth,

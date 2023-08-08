@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 74.36.0
+
+### Minor Changes
+
+- [`8695abdde8e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8695abdde8e) - [ED-18289] Clean-up Editor Sentry feature flag
+
+## 74.35.0
+
+### Minor Changes
+
+- [`c6c3b7e43d3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c6c3b7e43d3) - [ED-19202] Remove direct dependency of editor-core code on text-formatting plugin
+
+## 74.34.5
+
+### Patch Changes
+
+- [`d432ad14798`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d432ad14798) - [ux] Added standard page guidelines when custom table width enabled and is resizing table.
+
 ## 74.34.4
 
 ### Patch Changes

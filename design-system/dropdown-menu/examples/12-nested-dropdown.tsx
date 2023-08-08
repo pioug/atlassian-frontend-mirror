@@ -6,46 +6,38 @@ import { token } from '@atlaskit/tokens';
 
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '../src';
 
-const NestedDropdownItem = () => {
+const NestedDropdown = () => {
   return (
-    <DropdownItem
-      component={({ children }) => {
-        return (
-          <DropdownMenu
-            placement="right-start"
-            trigger={({ triggerRef, ...triggerProps }) => (
-              <ButtonItem
-                {...triggerProps}
-                ref={triggerRef}
-                iconAfter={
-                  <ChevronRightIcon
-                    primaryColor={token('color.icon.subtle', '')}
-                    label=""
-                  />
-                }
-              >
-                <span>Nested Menu</span>
-              </ButtonItem>
-            )}
-          >
-            {children}
-          </DropdownMenu>
-        );
-      }}
+    <DropdownMenu
+      placement="right-start"
+      trigger={({ triggerRef, ...triggerProps }) => (
+        <ButtonItem
+          {...triggerProps}
+          ref={triggerRef}
+          iconAfter={
+            <ChevronRightIcon
+              primaryColor={token('color.icon.subtle', '')}
+              label=""
+            />
+          }
+        >
+          <span>Nested Menu</span>
+        </ButtonItem>
+      )}
     >
       <DropdownItemGroup>
-        <NestedDropdownItem />
+        <NestedDropdown />
         <DropdownItem>One of many items</DropdownItem>
         <DropdownItem>One of many items</DropdownItem>
       </DropdownItemGroup>
-    </DropdownItem>
+    </DropdownMenu>
   );
 };
 const NestedDropdownMenuExample = () => {
   return (
     <DropdownMenu trigger="Nested">
       <DropdownItemGroup>
-        <NestedDropdownItem />
+        <NestedDropdown />
         <DropdownItem>One of many items</DropdownItem>
         <DropdownItem>One of many items</DropdownItem>
       </DropdownItemGroup>

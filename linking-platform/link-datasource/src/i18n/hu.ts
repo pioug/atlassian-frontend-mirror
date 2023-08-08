@@ -7,8 +7,17 @@
  */
 //Hungarian
 export default {
+  'linkDataSource.assets.configModal.aqlSearchInput.placeholder': 'Keresés az AQL-lel',
+  'linkDataSource.assets.configModal.objectSchemaSelect.label': 'Séma kiválasztása',
+  'linkDataSource.assets.configModal.objectSchemaSelect.placeholder': 'Séma kiválasztása',
+  'linkDataSource.assets.configModal.objectSchemaSelect.schemaRequired': 'A séma megadása kötelező',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription':
+    'A kereséshez kezdj el gépelni vagy használj AQL-t.',
+  'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle':
+    'Objektumok vagy objektumtípusok keresése',
   'linkDataSource.assets.configmodal.cancelButtonText': 'Mégse',
   'linkDataSource.assets.configmodal.insertIssuesButtonText': 'Objektumok beszúrása',
+  'linkDataSource.assets.configmodal.insertObjectsTitle': 'Objektumok beszúrása innen:',
   'linkDataSource.column-picker.search': 'Mezők keresése',
   'linkDataSource.jira-issues.accessInstructions': 'Hozzáférés igényléséhez fordulj az adminisztrátorodhoz.',
   'linkDataSource.jira-issues.accessRequired': 'Nincs hozzáférésed a webhelyhez',

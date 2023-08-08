@@ -156,6 +156,9 @@ import { setTextSelection } from '@atlaskit/editor-common/utils';
 import type { SEVERITY } from '@atlaskit/editor-common/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 import { TeamMentionResource } from '@atlaskit/mention/team-resource';
+import { InputMethodBasic as TextFormattingInputMethodBasic } from '@atlaskit/editor-common/types';
+import { InputMethodToolbar as TextFormattingInputMethodToolbar } from '@atlaskit/editor-common/types';
+import type { TextFormattingOptions } from '@atlaskit/editor-common/types';
 import { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TransactionTracking } from '@atlaskit/editor-common/types';
@@ -579,6 +582,7 @@ export { DropdownOptionT };
 
 // @public (undocumented)
 export class Editor extends React_2.Component<EditorProps> {
+  constructor(props: EditorProps);
   // (undocumented)
   static defaultProps: EditorProps;
   // (undocumented)
@@ -652,8 +656,6 @@ interface EditorBaseProps {
   // (undocumented)
   assistiveLabel?: string;
   // (undocumented)
-  codeBlock?: CodeBlockOptions;
-  // (undocumented)
   contentComponents?: ReactComponents;
   // (undocumented)
   contentTransformerProvider?: (schema: Schema) => Transformer_2<string>;
@@ -706,8 +708,6 @@ interface EditorBaseProps {
   secondaryToolbarComponents?: ReactComponents;
   // (undocumented)
   shouldFocus?: boolean;
-  // (undocumented)
-  textFormatting?: TextFormattingOptions;
   trackValidTransactions?:
     | boolean
     | {
@@ -808,6 +808,8 @@ export { EditorPlugin };
 // @public (undocumented)
 interface EditorPluginFeatureProps {
   // (undocumented)
+  allowAnalyticsGASV3?: boolean;
+  // (undocumented)
   allowBlockType?: BlockTypePluginOptions['allowBlockType'];
   // (undocumented)
   allowBreakout?: boolean;
@@ -849,6 +851,8 @@ interface EditorPluginFeatureProps {
         menuDisabled: boolean;
       };
   // (undocumented)
+  allowTables?: PluginConfig | boolean;
+  // (undocumented)
   allowTasksAndDecisions?: boolean;
   // (undocumented)
   allowTemplatePlaceholders?: PlaceholderTextOptions | boolean;
@@ -869,6 +873,8 @@ interface EditorPluginFeatureProps {
   // (undocumented)
   feedbackInfo?: FeedbackInfo;
   // (undocumented)
+  insertMenuItems?: MenuItem[];
+  // (undocumented)
   maxContentSize?: number;
   // (undocumented)
   mention?: MentionPluginConfig;
@@ -876,7 +882,11 @@ interface EditorPluginFeatureProps {
   mentionInsertDisplayName?: boolean;
   // (undocumented)
   saveOnEnter?: boolean;
+  // @deprecated (undocumented)
+  smartLinks?: CardOptions;
   UNSAFE_allowBorderMark?: boolean;
+  // @deprecated (undocumented)
+  UNSAFE_cards?: CardOptions;
   // (undocumented)
   uploadErrorHandler?: (state: MediaState) => void;
   // (undocumented)
@@ -919,6 +929,8 @@ interface EditorProviderProps {
   // (undocumented)
   collabEditProvider?: Providers['collabEditProvider'];
   // (undocumented)
+  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
+  // (undocumented)
   emojiProvider?: Providers['emojiProvider'];
   // (undocumented)
   legacyImageUploadProvider?: Providers['imageUploadProvider'];
@@ -937,17 +949,11 @@ interface EditorProviderProps {
 // @public (undocumented)
 interface EditorSharedPropsWithPlugins {
   // (undocumented)
-  allowAnalyticsGASV3?: boolean;
-  // (undocumented)
-  allowTables?: PluginConfig | boolean;
-  // (undocumented)
   allowUndoRedoButtons?: boolean;
   // (undocumented)
+  codeBlock?: CodeBlockOptions;
+  // (undocumented)
   collabEdit?: CollabEditOptions;
-  // (undocumented)
-  contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
-  // (undocumented)
-  insertMenuItems?: MenuItem[];
   linking?: LinkingOptions;
   // (undocumented)
   media?: MediaOptions;
@@ -958,16 +964,12 @@ interface EditorSharedPropsWithPlugins {
   primaryToolbarComponents?: PrimaryToolbarComponents;
   // (undocumented)
   sanitizePrivateContent?: boolean;
-  // @deprecated (undocumented)
-  smartLinks?: CardOptions;
-  // @deprecated (undocumented)
-  UNSAFE_cards?: CardOptions;
+  // (undocumented)
+  textFormatting?: TextFormattingOptions;
 }
 
 // @public (undocumented)
 interface EditorViewProps {
-  // (undocumented)
-  allowAnalyticsGASV3?: boolean;
   // (undocumented)
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   // (undocumented)
@@ -2161,77 +2163,27 @@ export type TextColorPluginState = {
   color: null | string;
 };
 
-// @public (undocumented)
-export type TextFormattingInputMethodBasic =
-  | INPUT_METHOD.FORMATTING
-  | INPUT_METHOD.SHORTCUT
-  | TextFormattingInputMethodToolbar;
+export { TextFormattingInputMethodBasic };
+
+export { TextFormattingInputMethodToolbar };
 
 // @public (undocumented)
-export type TextFormattingInputMethodToolbar = INPUT_METHOD.TOOLBAR;
-
-// @public (undocumented)
-interface TextFormattingOptions {
-  // (undocumented)
-  disableCode?: boolean;
-  // (undocumented)
-  disableSmartTextCompletion?: boolean;
-  // (undocumented)
-  disableSuperscriptAndSubscript?: boolean;
-  // (undocumented)
-  disableUnderline?: boolean;
-  // (undocumented)
-  responsiveToolbarMenu?: boolean;
-}
-
-// @public (undocumented)
-export interface TextFormattingState {
-  // (undocumented)
-  codeActive?: boolean;
-  // (undocumented)
-  codeDisabled?: boolean;
-  // (undocumented)
-  codeHidden?: boolean;
-  // (undocumented)
-  emActive?: boolean;
-  // (undocumented)
-  emDisabled?: boolean;
-  // (undocumented)
-  emHidden?: boolean;
-  // (undocumented)
-  strikeActive?: boolean;
-  // (undocumented)
-  strikeDisabled?: boolean;
-  // (undocumented)
-  strikeHidden?: boolean;
-  // (undocumented)
-  strongActive?: boolean;
-  // (undocumented)
-  strongDisabled?: boolean;
-  // (undocumented)
-  strongHidden?: boolean;
-  // (undocumented)
-  subscriptActive?: boolean;
-  // (undocumented)
-  subscriptDisabled?: boolean;
-  // (undocumented)
-  subscriptHidden?: boolean;
-  // (undocumented)
-  superscriptActive?: boolean;
-  // (undocumented)
-  superscriptDisabled?: boolean;
-  // (undocumented)
-  superscriptHidden?: boolean;
-  // (undocumented)
-  underlineActive?: boolean;
-  // (undocumented)
-  underlineDisabled?: boolean;
-  // (undocumented)
-  underlineHidden?: boolean;
-}
-
-// @public (undocumented)
-export const textFormattingStateKey: PluginKey<TextFormattingState>;
+export const textFormattingPlugin: NextEditorPlugin<
+  'textFormatting',
+  {
+    pluginConfiguration: TextFormattingOptions | undefined;
+    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    actions: {
+      toggleSuperscript: ToggleMarkWithAnalyticsCommand;
+      toggleSubscript: ToggleMarkWithAnalyticsCommand;
+      toggleStrike: ToggleMarkWithAnalyticsCommand;
+      toggleCode: ToggleMarkWithAnalyticsCommand;
+      toggleUnderline: ToggleMarkWithAnalyticsCommand;
+      toggleEm: ToggleMarkWithAnalyticsCommand;
+      toggleStrong: ToggleMarkWithAnalyticsCommand;
+    };
+  }
+>;
 
 // @public (undocumented)
 interface TextSelectionData {
@@ -2244,86 +2196,7 @@ interface TextSelectionData {
 }
 
 // @public (undocumented)
-export const toggleCode: () => Command_2;
-
-// @public (undocumented)
-export const toggleCodeWithAnalytics: (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => ({
-  inputMethod,
-}: {
-  inputMethod: TextFormattingInputMethodBasic;
-}) => Command_2;
-
-// @public (undocumented)
-export const toggleEm: () => Command_2;
-
-// @public (undocumented)
-export const toggleEmWithAnalytics: (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => ({
-  inputMethod,
-}: {
-  inputMethod: TextFormattingInputMethodBasic;
-}) => Command_2;
-
-// @public (undocumented)
-export const toggleStrike: () => Command_2;
-
-// @public (undocumented)
-export const toggleStrikeWithAnalytics: (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => ({
-  inputMethod,
-}: {
-  inputMethod: TextFormattingInputMethodBasic;
-}) => Command_2;
-
-// @public (undocumented)
-export const toggleStrong: () => Command_2;
-
-// @public (undocumented)
-export const toggleStrongWithAnalytics: (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => ({
-  inputMethod,
-}: {
-  inputMethod: TextFormattingInputMethodBasic;
-}) => Command_2;
-
-// @public (undocumented)
-export const toggleSubscript: () => Command_2;
-
-// @public (undocumented)
-export const toggleSubscriptWithAnalytics: (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => ({
-  inputMethod,
-}: {
-  inputMethod: TextFormattingInputMethodBasic;
-}) => Command_2;
-
-// @public (undocumented)
-export const toggleSuperscript: () => Command_2;
-
-// @public (undocumented)
-export const toggleSuperscriptWithAnalytics: (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => ({
-  inputMethod,
-}: {
-  inputMethod: TextFormattingInputMethodBasic;
-}) => Command_2;
-
-// @public (undocumented)
-export const toggleUnderline: () => Command_2;
-
-// @public (undocumented)
-export const toggleUnderlineWithAnalytics: (
-  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-) => ({
-  inputMethod,
-}: {
+type ToggleMarkWithAnalyticsCommand = (analyticsMetadata: {
   inputMethod: TextFormattingInputMethodBasic;
 }) => Command_2;
 

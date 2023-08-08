@@ -1,12 +1,9 @@
 import React from 'react';
 
-import {
-  UIAnalyticsEvent,
-  WithAnalyticsEventsProps,
-} from '@atlaskit/analytics-next';
+import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FieldProps } from '@atlaskit/form';
 
-interface CommonProps extends WithAnalyticsEventsProps {
+interface CommonProps {
   /** Additional information to be included in the `context` of analytics events that come from button. */
   analyticsContext?: Record<string, any>;
   /** Accessibility label for the cancel action button. */

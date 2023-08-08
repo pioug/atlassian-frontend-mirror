@@ -18,6 +18,7 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/el
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import Tooltip from '@atlaskit/tooltip';
 
 import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
@@ -386,6 +387,17 @@ export const IssueLikeDataTableView = ({
         >
           <tr>
             {headColumns.map(({ key, content, maxWidth }, cellIndex) => {
+              const heading = (
+                <Tooltip
+                  content={content}
+                  tag="span"
+                  testId={'datasource-header-content'}
+                >
+                  <Heading level="h400" as={'span'}>
+                    {content}
+                  </Heading>
+                </Tooltip>
+              );
               if (onVisibleColumnKeysChange && hasData) {
                 const previewRows = tableRows
                   .map(({ cells }) => {
@@ -399,10 +411,7 @@ export const IssueLikeDataTableView = ({
                   .slice(0, 5);
 
                 const dragPreview = (
-                  <DragColumnPreview
-                    title={<Heading level="h400">{content}</Heading>}
-                    rows={previewRows}
-                  />
+                  <DragColumnPreview title={heading} rows={previewRows} />
                 );
 
                 return (
@@ -415,7 +424,7 @@ export const IssueLikeDataTableView = ({
                     dndPreviewHeight={containerRef.current?.offsetHeight || 0}
                     dragPreview={dragPreview}
                   >
-                    <Heading level="h400">{content}</Heading>
+                    {heading}
                   </DraggableTableHeading>
                 );
               } else {
@@ -427,7 +436,7 @@ export const IssueLikeDataTableView = ({
                       maxWidth,
                     }}
                   >
-                    <Heading level="h400">{content}</Heading>
+                    {heading}
                   </TableHeading>
                 );
               }

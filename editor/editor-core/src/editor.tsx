@@ -4,6 +4,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import type { EditorProps } from './types/editor-props';
+import editorDeprecationWarnings from './utils/editorDeprecationWarnings';
 
 export type {
   AllowedBlockTypes,
@@ -56,6 +57,11 @@ export default class Editor extends React.Component<EditorProps> {
     allowNewInsertionBehaviour: true,
     quickInsert: true,
   };
+
+  constructor(props: EditorProps) {
+    super(props);
+    editorDeprecationWarnings(props);
+  }
 
   render() {
     return <EditorNextWrapper props={this.props} />;

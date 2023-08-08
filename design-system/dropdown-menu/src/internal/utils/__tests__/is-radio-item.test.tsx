@@ -1,39 +1,37 @@
-/* eslint-disable jsx-a11y/role-has-required-aria-props */
-/* TODO: Use proper items and aria-attributes for tests (DSP-11469) */
-
 import React from 'react';
 
 import { render } from '@testing-library/react';
+import cases from 'jest-in-case';
+
+import { ButtonItem } from '@atlaskit/menu';
 
 import isRadioItem from '../is-radio-item';
 
-const Button = ({ role, children }: any) => (
-  <button type="button" role={role} aria-checked>
-    {children}
-  </button>
-);
-
-describe('#isCheckboxItem', () => {
-  it('should return true for radioitems with in browsers with voiceover support', () => {
-    const text = 'fake radio';
-    const { getByText } = render(<Button role="radio">{text}</Button>);
-
-    expect(isRadioItem(getByText(text))).toBe(true);
-  });
-
-  it('should return true for radioitems with in browsers with voiceover support', () => {
-    const text = 'fake radio';
-    const { getByText } = render(<Button role="menuitemradio">{text}</Button>);
-
-    expect(isRadioItem(getByText(text))).toBe(true);
-  });
+describe('#isRadioItem', () => {
+  cases(
+    'should return true for radioitems with in browsers with voiceover support',
+    async ({ role, text }: { role: string; text: string }) => {
+      const { getByRole } = render(
+        <ButtonItem role={role} aria-checked={true}>
+          {text}
+        </ButtonItem>,
+      );
+      expect(isRadioItem(getByRole(role))).toBe(true);
+    },
+    [
+      { name: 'Button with role radio', role: 'radio', text: 'fake radio' },
+      {
+        name: 'Button with role menuitemradio',
+        role: 'menuitemradio',
+        text: 'fake menuitemradio',
+      },
+    ],
+  );
 
   it('should return false for non-radioitems with in browsers with voiceover support', () => {
-    const text = 'fake radio';
-    const { getByText } = render(
-      <Button role="menuitemcheckbox">{text}</Button>,
-    );
+    const text = 'button';
+    const { getByRole } = render(<ButtonItem>{text}</ButtonItem>);
 
-    expect(isRadioItem(getByText(text))).toBe(false);
+    expect(isRadioItem(getByRole('button'))).toBe(false);
   });
 });

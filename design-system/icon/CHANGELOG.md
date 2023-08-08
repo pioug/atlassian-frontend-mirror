@@ -1,5 +1,11 @@
 # @atlaskit/icon
 
+## 21.12.7
+
+### Patch Changes
+
+- [`8a5ce2c105e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8a5ce2c105e) - This package is now onboarded onto the product push model.Th
+
 ## 21.12.6
 
 ### Patch Changes

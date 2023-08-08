@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { toggleStrong } from '../../../text-formatting/commands/text-formatting';
+import { toggleMark } from '@atlaskit/editor-common/mark';
 import pastePlugin from '../../index';
 import blockTypePlugin from '../../../block-type';
 import { textFormattingPlugin } from '../../../index';
@@ -64,7 +64,8 @@ describe('Paste plugin', () => {
         });
 
         it('preserves current formatting when pasting (ie. removes formatting, applies active formatting)', () => {
-          toggleStrong()(editorView.state, editorView.dispatch);
+          const { strong } = editorView.state.schema.marks;
+          toggleMark(strong)(editorView.state, editorView.dispatch);
           paste();
           expect(editorView.state.doc).toMatchSnapshot();
         });
@@ -82,6 +83,7 @@ describe('Paste plugin', () => {
             { shift: true },
           );
         };
+
         it('pastes plain text but creates hyperlink (ie. removes formatting from pasted content)', () => {
           // This does not test that it doesn't create a *smart* link.
           paste();
@@ -90,7 +92,8 @@ describe('Paste plugin', () => {
 
         it('preserves current formatting when pasting, creates hyperlink (ie. removes formatting, applies active formatting)', () => {
           // This does not test that it doesn't create a *smart* link.
-          toggleStrong()(editorView.state, editorView.dispatch);
+          const { strong } = editorView.state.schema.marks;
+          toggleMark(strong)(editorView.state, editorView.dispatch);
           paste();
           expect(editorView.state.doc).toMatchSnapshot();
         });

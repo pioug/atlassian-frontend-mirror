@@ -51,8 +51,6 @@ export type {
 // Used in mobile bridge
 export { stateKey as mediaPluginKey } from './plugins/media/pm-plugins/main';
 export { mentionPluginKey } from './plugins/mentions';
-export { pluginKey as textFormattingStateKey } from './plugins/text-formatting/pm-plugins/main';
-export type { TextFormattingState } from './plugins/text-formatting/pm-plugins/main';
 export { textColorPluginKey } from './plugins/text-color';
 export type { TextColorPluginState } from './plugins/text-color';
 export { changeColor } from './plugins/text-color/commands/change-color';
@@ -62,28 +60,12 @@ export type { BlockTypeState } from './plugins';
 export { pluginKey as listStateKey } from './plugins/list/pm-plugins/main';
 export type { ListState } from './plugins/list/types';
 export type { InputMethod as ListInputMethod } from './plugins/list/commands';
-export {
-  toggleSuperscript,
-  toggleSuperscriptWithAnalytics,
-  toggleSubscript,
-  toggleSubscriptWithAnalytics,
-  toggleStrike,
-  toggleStrikeWithAnalytics,
-  toggleCode,
-  toggleCodeWithAnalytics,
-  toggleUnderline,
-  toggleUnderlineWithAnalytics,
-  toggleEm,
-  toggleEmWithAnalytics,
-  toggleStrong,
-  toggleStrongWithAnalytics,
-} from './plugins/text-formatting/commands/text-formatting';
 export { subscribeToToolbarAndPickerUpdates } from './plugins/view-update-subscription/subscribe/toolbarAndPickerUpdates';
 export { subscribeTypeAheadUpdates } from './plugins/view-update-subscription/subscribe/type-ahead-updates';
 export type {
   InputMethodToolbar as TextFormattingInputMethodToolbar,
   InputMethodBasic as TextFormattingInputMethodBasic,
-} from './plugins/text-formatting/commands/text-formatting';
+} from '@atlaskit/editor-common/types';
 export {
   insertBlockType,
   insertBlockTypesWithAnalytics,
@@ -196,3 +178,10 @@ export { DEFAULT_BORDER_COLOR } from './ui/ColorPalette/Palettes/common';
 export { default as messages, statusMessages, dateMessages } from './messages';
 export { createTypeAheadTools } from './plugins/type-ahead/api';
 export { createQuickInsertTools } from './plugins/quick-insert/api';
+
+export type {
+  /**
+   * Temporary, until we extract the plugin to its own package
+   * @deprecated Don't use this
+   */ textFormattingPlugin,
+} from './plugins';

@@ -5,7 +5,7 @@ import {
   fullpage,
   editable,
 } from '@atlaskit/editor-test-helpers/integration/helpers';
-import { toolbarMessages } from '../../../plugins/text-formatting/ui/Toolbar/toolbar-messages';
+import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import {
   goToEditorTestingWDExample,
   mountEditor,

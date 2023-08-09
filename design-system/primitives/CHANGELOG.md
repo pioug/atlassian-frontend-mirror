@@ -1,5 +1,18 @@
 # @atlaskit/primitives
 
+## 1.1.0
+
+### Minor Changes
+
+- [`0116391a81e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0116391a81e) - - Support `xcss` in `Pressable`
+  - Remove dependency on `@atlaskit/focus-ring`
+
+## 1.0.11
+
+### Patch Changes
+
+- [`30fb9fe0ff4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30fb9fe0ff4) - Mark Pressable exports as unsafe (for internal use only)
+
 ## 1.0.10
 
 ### Patch Changes

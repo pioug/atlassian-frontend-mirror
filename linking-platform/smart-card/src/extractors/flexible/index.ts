@@ -20,6 +20,7 @@ import {
   extractOwnedBy,
   extractAssignedTo,
   extractSubTasksProgress,
+  extractStoryPoints,
   extractReadTime,
   extractPersonAssignedToAsArray,
 } from './utils';
@@ -98,6 +99,7 @@ const extractFlexibleUiContext = ({
     state: extractState(response, showServerActions || showLozengeAction, id),
     subscriberCount: extractSubscriberCount(data),
     subTasksProgress: extractSubTasksProgress(data),
+    storyPoints: extractStoryPoints(data),
     targetBranch: extractTargetBranch(
       data as JsonLd.Data.SourceCodePullRequest,
     ),

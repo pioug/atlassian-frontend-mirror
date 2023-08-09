@@ -1,5 +1,11 @@
 # @atlaskit/profilecard
 
+## 19.5.4
+
+### Patch Changes
+
+- [`cc13658d9b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cc13658d9b4) - Fix for incorrect GraphQL query variable in team card
+
 ## 19.5.3
 
 ### Patch Changes

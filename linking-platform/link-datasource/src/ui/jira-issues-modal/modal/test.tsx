@@ -283,7 +283,7 @@ describe('JiraIssuesConfigModal', () => {
       const availableJiraSiteDropdownItems = getAllByRole('menuitem');
 
       availableJiraSiteDropdownItems[0].click();
-      expect(hookState.reset).toHaveBeenCalled();
+      expect(hookState.reset).toHaveBeenCalledWith(true);
     });
 
     it('should produce ADF with new cloudId', async () => {
@@ -408,7 +408,7 @@ describe('JiraIssuesConfigModal', () => {
         });
       });
 
-      expect(hookState.reset).toHaveBeenCalled();
+      expect(hookState.reset).toHaveBeenCalledWith(true);
     });
 
     it('should show a smart link in count view', async () => {

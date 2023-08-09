@@ -1,5 +1,12 @@
 # @atlaskit/link-datasource
 
+## 0.33.4
+
+### Patch Changes
+
+- [`8e94b911608`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8e94b911608) - Use caching mechanism of `useDatasourceClientExtension` hook. Force actual request in cases like search button or refresh button
+- Updated dependencies
+
 ## 0.33.3
 
 ### Patch Changes

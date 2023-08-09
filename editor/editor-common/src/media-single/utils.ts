@@ -8,6 +8,7 @@ import {
 
 import {
   DEFAULT_IMAGE_WIDTH,
+  DEFAULT_ROUNDING_INTERVAL,
   MEDIA_SINGLE_MIN_PIXEL_WIDTH,
   wrappedLayouts,
 } from './constants';
@@ -159,3 +160,14 @@ export function calculateOffsetLeft(
   }
   return offsetLeft;
 }
+
+/**
+ * Returns the number rounded to the nearest interval.
+ * @param {number} value    The number to round
+ * @param {number} interval The numeric interval to round to, default to 0.5
+ * @return {number} the rounded number
+ */
+export const roundToNearest = (
+  value: number,
+  interval: number = DEFAULT_ROUNDING_INTERVAL,
+): number => Math.round(value / interval) * interval;

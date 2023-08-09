@@ -1,5 +1,11 @@
 # @atlaskit/editor-shared-styles
 
+## 2.6.0
+
+### Minor Changes
+
+- [`79dc812733f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79dc812733f) - [ED-19293] Exposes a new constant value for table guidelines to align with nodes that are using wide layout
+
 ## 2.5.0
 
 ### Minor Changes

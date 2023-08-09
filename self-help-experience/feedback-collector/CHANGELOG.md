@@ -1,5 +1,11 @@
 # @atlaskit/feedback-collector
 
+## 13.0.3
+
+### Patch Changes
+
+- [`026e8c5ae33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/026e8c5ae33) - [ux] Remove visible label
+
 ## 13.0.2
 
 ### Patch Changes

@@ -13,6 +13,7 @@ export const createMockService = (config: Partial<Config> = {}) => {
   } as unknown as ParticipantsService;
 
   const fetchCatchupMock = jest.fn();
+  const fetchReconcileMock = jest.fn();
   const providerEmitCallbackMock = jest.fn();
   const sendMetadataMock = jest.fn();
   const broadcastMock = jest.fn();
@@ -27,6 +28,7 @@ export const createMockService = (config: Partial<Config> = {}) => {
     // @ts-expect-error - mock class
     new AnalyticsHelper(),
     fetchCatchupMock,
+    fetchReconcileMock,
     providerEmitCallbackMock,
     broadcastMock,
     getUserIdMock,
@@ -34,6 +36,7 @@ export const createMockService = (config: Partial<Config> = {}) => {
     metadataService,
     config.failedStepLimitBeforeCatchupOnPublish,
     config.enableErrorOnFailedDocumentApply,
+    config.featureFlags,
   );
 
   // @ts-expect-error - jest mock class
@@ -46,6 +49,7 @@ export const createMockService = (config: Partial<Config> = {}) => {
     analyticsHelperMock,
     participantsServiceMock,
     fetchCatchupMock,
+    fetchReconcileMock,
     providerEmitCallbackMock,
     sendMetadataMock,
     broadcastMock,

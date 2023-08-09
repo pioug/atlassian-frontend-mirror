@@ -34,6 +34,7 @@ export const configs: {
       '@atlaskit/platform/ensure-test-runner-nested-count': string;
       '@atlaskit/platform/no-invalid-feature-flag-usage': string;
       '@atlaskit/platform/no-invalid-storybook-decorator-usage': string;
+      '@atlaskit/platform/ensure-atlassian-team': string;
     };
   };
 };
@@ -49,6 +50,7 @@ export const rules: {
   'ensure-feature-flag-prefix': Rule.RuleModule;
   'ensure-test-runner-arguments': Rule.RuleModule;
   'ensure-test-runner-nested-count': Rule.RuleModule;
+  'ensure-atlassian-team': Rule.RuleModule;
   'no-invalid-feature-flag-usage': Rule.RuleModule;
   'no-pre-post-install-scripts': Rule.RuleModule;
   'no-invalid-storybook-decorator-usage': Rule.RuleModule;

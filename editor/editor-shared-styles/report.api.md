@@ -30,6 +30,9 @@ export const akEditorBlockquoteBorderColor = '#DFE1E6';
 export const akEditorBreakoutPadding = 96;
 
 // @public (undocumented)
+export const akEditorCalculatedWideLayoutWidth = 1011;
+
+// @public (undocumented)
 export const akEditorCodeBackground = '#F4F5F7';
 
 // @public (undocumented)

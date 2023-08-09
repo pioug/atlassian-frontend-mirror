@@ -53,17 +53,17 @@ import {
   MEDIA_SINGLE_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_SNAP_GAP,
   MEDIA_SINGLE_HIGHLIGHT_GAP,
+  calculateOffsetLeft,
   DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/media-single';
 import {
   findClosestSnap,
   getSnapWidth,
   getGuidelinesWithHighlights,
+  generateDefaultGuidelines,
   generateDynamicGuidelines,
 } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import { generateDefaultGuidelines } from './guidelines';
-
 type State = {
   offsetLeft: number;
   isVideoFile: boolean;
@@ -73,22 +73,6 @@ type State = {
 };
 
 export const resizerNextTestId = 'mediaSingle.resizerNext.testid';
-
-export function calcOffsetLeft(
-  insideInlineLike: boolean,
-  insideLayout: boolean,
-  pmViewDom: Element,
-  wrapper?: HTMLElement,
-) {
-  if (wrapper && insideInlineLike && !insideLayout) {
-    const currentNode: HTMLElement = wrapper;
-    const boundingRect = currentNode.getBoundingClientRect();
-
-    return boundingRect.left - pmViewDom.getBoundingClientRect().left;
-  }
-
-  return 0;
-}
 
 // TODO: Create new fixed image size event
 const getResizeAnalyticsEvent = (
@@ -121,7 +105,7 @@ class ResizableMediaSingleNext extends React.Component<
     const initialWidth = props.mediaSingleWidth || DEFAULT_IMAGE_WIDTH;
 
     this.state = {
-      offsetLeft: calcOffsetLeft(
+      offsetLeft: calculateOffsetLeft(
         this.insideInlineLike,
         this.insideLayout,
         this.props.view.dom,
@@ -160,7 +144,7 @@ class ResizableMediaSingleNext extends React.Component<
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
-    const offsetLeft = calcOffsetLeft(
+    const offsetLeft = calculateOffsetLeft(
       this.insideInlineLike,
       this.insideLayout,
       this.props.view.dom,
@@ -226,7 +210,12 @@ class ResizableMediaSingleNext extends React.Component<
     // disable guidelines for nested media single node
     const dynamicGuidelines = this.isNestedNode()
       ? []
-      : generateDynamicGuidelines(view.state, lineLength);
+      : generateDynamicGuidelines(view.state, lineLength, {
+          styles: {
+            lineStyle: 'dashed',
+          },
+          show: false,
+        });
     const guidelines = [...defaultGuidelines, ...dynamicGuidelines];
     const mediaSingleSelector =
       'div.mediaSingleView-content-wrap.ProseMirror-selectednode';

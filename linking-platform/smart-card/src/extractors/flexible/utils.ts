@@ -178,3 +178,9 @@ export const extractReadTime = (
     'atlassian:readTimeInMinutes',
   );
 };
+
+export const extractStoryPoints = (
+  data: JsonLd.Data.BaseData,
+): number | undefined => {
+  return extractValue<JsonLd.Data.Task, number>(data, 'atlassian:storyPoints');
+};

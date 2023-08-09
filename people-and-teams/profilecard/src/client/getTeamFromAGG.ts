@@ -67,9 +67,9 @@ const TEAM_FRAGMENT = `
 `;
 
 // We alias the team node to always be team
-export const GATEWAY_QUERY_V2 = `query TeamCard($teamId: ID!, $siteID: ID!) {
+export const GATEWAY_QUERY_V2 = `query TeamCard($teamId: ID!, $siteId: String!) {
   Team: team {
-    team: teamV2(id: $teamId, siteId: $siteId) {
+    team: teamV2(id: $teamId, siteId: $siteId) @optIn(to: "Team-v2") {
       ${TEAM_FRAGMENT}
     }
   }

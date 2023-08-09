@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 108.10.0
+
+### Minor Changes
+
+- [`b9a083dc04d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9a083dc04d) - [ux] Adds error boundaries specific to datasource in editor and renderer. Fallback to unsupported block if no url or inline if url
+
+## 108.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.9.0
 
 ### Minor Changes

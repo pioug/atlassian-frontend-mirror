@@ -68,6 +68,7 @@ const context: FlexibleUiDataContext = {
     text: 'Link state',
   },
   subscriberCount: 20,
+  storyPoints: 3,
   subTasksProgress: '3/4',
   targetBranch: 'master',
   title: 'Link title',

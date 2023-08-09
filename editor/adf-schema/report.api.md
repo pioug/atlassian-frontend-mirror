@@ -1669,7 +1669,6 @@ export const tableCellContentWrapperSelector: string;
 
 // @public
 export interface TableCellDefinition {
-  // (undocumented)
   attrs?: CellAttributes;
   // (undocumented)
   content: TableCellContent;
@@ -1684,7 +1683,6 @@ export const tableCellSelector: string;
 export interface TableDefinition {
   // (undocumented)
   attrs?: TableAttributes;
-  // (undocumented)
   content: Array<TableRowDefinition>;
   // (undocumented)
   marks?: Array<FragmentDefinition>;
@@ -1697,7 +1695,6 @@ export const tableHeader: NodeSpec;
 
 // @public
 export interface TableHeaderDefinition {
-  // (undocumented)
   attrs?: CellAttributes;
   // (undocumented)
   content: TableCellContent;
@@ -1719,7 +1716,6 @@ export const tableRow: NodeSpec;
 
 // @public
 export interface TableRowDefinition {
-  // (undocumented)
   content: Array<TableCellDefinition | TableHeaderDefinition>;
   // (undocumented)
   type: 'tableRow';

@@ -1,4 +1,6 @@
 import React from 'react';
+import { InlineCard } from './';
+import { isSafeUrl } from '@atlaskit/adf-schema';
 
 export type CardErrorBoundaryProps = {
   unsupportedComponent: React.ComponentType;
@@ -8,6 +10,7 @@ export class CardErrorBoundary extends React.PureComponent<
   {
     url?: string;
     onClick?: (e: React.MouseEvent<HTMLElement>, url?: string) => void;
+    isDatasource?: boolean;
   } & CardErrorBoundaryProps
 > {
   state = {
@@ -23,17 +26,27 @@ export class CardErrorBoundary extends React.PureComponent<
     }
   };
 
+  static getDerivedStateFromError() {
+    return { isError: true };
+  }
+
   render() {
     if (this.state.isError) {
-      const { url } = this.props;
+      const {
+        url,
+        isDatasource,
+        unsupportedComponent: UnsupportedComponent,
+      } = this.props;
       if (url) {
+        if (isDatasource && isSafeUrl(url)) {
+          return <InlineCard {...this.props} />;
+        }
         return (
           <a href={url} onClick={this.onClickFallback}>
             {url}
           </a>
         );
       } else {
-        const { unsupportedComponent: UnsupportedComponent } = this.props;
         return <UnsupportedComponent />;
       }
     }

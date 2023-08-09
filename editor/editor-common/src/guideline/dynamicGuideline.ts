@@ -2,13 +2,15 @@ import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findChildren } from '@atlaskit/editor-prosemirror/utils';
 
-import { getMediaSinglePixelWidth } from '../media-single';
+import { getMediaSinglePixelWidth, roundToNearest } from '../media-single';
 
 import { MEDIA_DYNAMIC_GUIDELINE_PREFIX } from './constants';
+import type { GuidelineConfig } from './types';
 
 export const generateDynamicGuidelines = (
   state: EditorState,
   editorWidth: number,
+  styles: Omit<GuidelineConfig, 'key' | 'position'> = {},
 ) => {
   const selectedNode =
     state.selection instanceof NodeSelection &&
@@ -38,39 +40,34 @@ export const generateDynamicGuidelines = (
         widthType,
       );
 
-      const commonStyles = {
-        style: 'dashed',
-        show: true,
-      };
-
       const key = `${MEDIA_DYNAMIC_GUIDELINE_PREFIX}${index}`;
 
       switch (layout) {
         case 'align-start':
         case 'wrap-left':
           return {
-            position: { x: pixelWidth - offset },
+            position: { x: roundToNearest(pixelWidth - offset) },
             key,
-            ...commonStyles,
+            ...styles,
           };
         case 'align-end':
         case 'wrap-right':
           return {
-            position: { x: editorWidth - pixelWidth - offset },
+            position: { x: roundToNearest(offset - pixelWidth) },
             key,
-            ...commonStyles,
+            ...styles,
           };
         case 'center':
           return [
             {
-              position: { x: pixelWidth / 2 },
+              position: { x: roundToNearest(pixelWidth / 2) },
               key: `${key}_right`,
-              ...commonStyles,
+              ...styles,
             },
             {
-              position: { x: -pixelWidth / 2 },
+              position: { x: -roundToNearest(pixelWidth / 2) },
               key: `${key}_left`,
-              ...commonStyles,
+              ...styles,
             },
           ];
         // we ignore full-width and wide

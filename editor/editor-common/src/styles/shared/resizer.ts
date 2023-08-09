@@ -59,6 +59,8 @@ export const resizerStyles = css`
     .${resizerItemClassName}:hover
     .${resizerHandleRightClassName},
     .${resizerItemClassName}.display-handle
+    .${resizerHandleLeftClassName},
+    .${resizerItemClassName}.display-handle
     .${resizerHandleRightClassName} {
     visibility: visible;
   }
@@ -67,6 +69,8 @@ export const resizerStyles = css`
     .${resizerHandleLeftClassName}::after,
     .${resizerItemClassName}:hover
     .${resizerHandleRightClassName}::after,
+    .${resizerItemClassName}.display-handle
+    .${resizerHandleLeftClassName}::after,
     .${resizerItemClassName}.display-handle
     .${resizerHandleRightClassName}::after {
     background: ${token('color.border', N60)};

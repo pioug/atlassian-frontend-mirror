@@ -24,3 +24,5 @@ export const wrappedLayouts: RichMediaLayout[] = [
   'align-end',
   'align-start',
 ];
+
+export const DEFAULT_ROUNDING_INTERVAL = 0.5;

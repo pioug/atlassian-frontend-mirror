@@ -59,6 +59,7 @@ function Parent(props: {
       maxWidth={700} // max width will be 700
       snap={snap}
       snapGap={10}
+      isHandleVisible={true}
     >
       <div
         style={{

@@ -8,6 +8,7 @@ import { AvatarGroupProps } from './avatar-group/types';
 import { TextProps } from './text/types';
 import { DateTimeProps } from './date-time/types';
 import { MediaProps } from './media/types';
+import { AtlaskitBadgeProps } from './atlaskit-badge/types';
 
 // Attention: Keep the export name and element name the same.
 // This will help reducing the code for mapping elements inside
@@ -168,6 +169,13 @@ export const SubscriberCount = createElement<BadgeProps>(
  */
 export const SubTasksProgress = createElement<BadgeProps>(
   ElementName.SubTasksProgress,
+);
+/**
+ * Create a StoryPoints Badge element using the data from storyPoints in the Flexible UI Context.
+ * @see AtlaskitBadge
+ */
+export const StoryPoints = createElement<AtlaskitBadgeProps>(
+  ElementName.StoryPoints,
 );
 /**
  * Creates a TargetBranch Text element using the data from targetBranch in the Flexible UI Context.

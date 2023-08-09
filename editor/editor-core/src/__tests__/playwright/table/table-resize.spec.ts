@@ -14,6 +14,8 @@ import {
   tableWithWidthAttributeAndLayout,
 } from './__fixtures__/base-adfs';
 
+import { akEditorCalculatedWideLayoutWidth } from '@atlaskit/editor-shared-styles';
+
 test.use({
   editorProps: {
     appearance: 'full-page',
@@ -125,13 +127,17 @@ test.describe('resizing a table', () => {
     // Before we resize we make sure the current size is what we expect it to be.
     expect(await resizerModel.containerWidth()).toBe(760);
 
-    // 95 is because we want to move it to within 1 pixel of the table snap gap, which at the moment is 3px (1px each side).
-    // and since the next closest guideline is 200px (100px at 2x scale) away (ie. 960px wide) we're going to move 100 - 1 pixels.
+    // 124 is because we want to move it to within 1-2 pixel of the table snap gap, which at the moment is 3px (1px each side).
+    // and since the next closest guideline is ~250px (125px at 2x scale) away (ie. 1011px wide) we're going to move 125 - 1 pixels.
     // The result of doing this will cause the resize to snap to the guideline.
-    await resizerModel.resize({ mouse: editor.page.mouse, moveDistance: 99 });
+    await resizerModel.resize({ mouse: editor.page.mouse, moveDistance: 124 });
 
-    expect(await resizerModel.containerWidth()).toBe(960);
-    expect(await tableModel.containerWidth()).toBe(960);
+    expect(await resizerModel.containerWidth()).toBe(
+      akEditorCalculatedWideLayoutWidth,
+    );
+    expect(await resizerModel.containerWidth()).toBe(
+      akEditorCalculatedWideLayoutWidth,
+    );
   });
 
   test("should resize to the closest guideline and back to it's original size correctly", async ({
@@ -150,13 +156,13 @@ test.describe('resizing a table', () => {
     // Before we resize we make sure the current size is what we expect it to be.
     expect(await resizerModel.containerWidth()).toBe(760);
 
-    await resizerModel.resize({ mouse: editor.page.mouse, moveDistance: 99 });
+    await resizerModel.resize({ mouse: editor.page.mouse, moveDistance: 100 });
 
     expect(await resizerModel.containerWidth()).toBe(960);
 
     await resizerModel.resizeAndHold({
       mouse: editor.page.mouse,
-      moveDistance: -99,
+      moveDistance: -100,
     });
 
     // IMPORTANT: We need to ensure that no margin is being applied before we release the up button.

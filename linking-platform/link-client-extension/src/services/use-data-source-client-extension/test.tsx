@@ -11,9 +11,16 @@ import type {
   DatasourceDetailsResponse,
 } from '@atlaskit/linking-types';
 
-import { mockDatasourceDataResponse, mockDatasourceResponse } from './mocks';
+import {
+  mockDatasourceDataResponse,
+  mockDatasourceDetailsResponse,
+} from './mocks';
 
-import { useDatasourceClientExtension } from './index';
+import {
+  datasourceDataResponsePromiseCache,
+  datasourceDetailsResponsePromiseCache,
+  useDatasourceClientExtension,
+} from './index';
 
 const allErrorCodes = [
   400, 401, 402, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414,
@@ -63,6 +70,8 @@ describe('useDatasourceClientExtension', () => {
   };
 
   beforeEach(() => {
+    datasourceDetailsResponsePromiseCache.clear();
+    datasourceDataResponsePromiseCache.clear();
     jest.resetModules();
     mockFetch = jest.fn();
     (global as any).fetch = mockFetch;
@@ -154,7 +163,7 @@ describe('useDatasourceClientExtension', () => {
       const { getDatasourceDetails, datasourceDetailsParams } = setup();
 
       const expectedResponse: DatasourceDetailsResponse =
-        mockDatasourceResponse;
+        mockDatasourceDetailsResponse;
 
       mockFetch.mockResolvedValueOnce({
         body: '{}',
@@ -169,6 +178,124 @@ describe('useDatasourceClientExtension', () => {
       );
 
       expect(actualResponse).toEqual(expectedResponse);
+    });
+
+    describe('with caching', () => {
+      describe('when response is ok', () => {
+        let expectedResponseOne: DatasourceDetailsResponse;
+
+        beforeEach(() => {
+          const { meta, data } = mockDatasourceDetailsResponse;
+          expectedResponseOne = { meta, data: { ...data, name: 'One' } };
+          const expectedResponseTwo: DatasourceDetailsResponse = {
+            meta,
+            data: { ...data, name: 'Two' },
+          };
+
+          mockFetch.mockResolvedValueOnce({
+            body: '{}',
+            json: async () => expectedResponseOne,
+            ok: true,
+            text: async () => JSON.stringify(expectedResponseOne),
+          });
+          mockFetch.mockResolvedValueOnce({
+            body: '{}',
+            json: async () => expectedResponseTwo,
+            ok: true,
+            text: async () => JSON.stringify(expectedResponseTwo),
+          });
+        });
+
+        it('should not make another request with the same set of input parameters', async () => {
+          const { getDatasourceDetails, datasourceDetailsParams } = setup();
+
+          await getDatasourceDetails(datasourceId, {
+            ...datasourceDetailsParams,
+          });
+          await getDatasourceDetails(datasourceId, {
+            ...datasourceDetailsParams,
+          });
+          expect(mockFetch).toHaveBeenCalledTimes(1);
+        });
+
+        it('should return response from first request when called second time', async () => {
+          const { getDatasourceDetails, datasourceDetailsParams } = setup();
+
+          const actualResponseOne = await getDatasourceDetails(datasourceId, {
+            ...datasourceDetailsParams,
+          });
+          const actualResponseTwo = await getDatasourceDetails(datasourceId, {
+            ...datasourceDetailsParams,
+          });
+
+          expect(actualResponseOne).toEqual(expectedResponseOne);
+          expect(actualResponseTwo).toEqual(expectedResponseOne);
+        });
+
+        it("should return response from first request even if it hasn't finished when second request", async () => {
+          const { getDatasourceDetails, datasourceDetailsParams } = setup();
+
+          const actualResponseOnePromise = getDatasourceDetails(datasourceId, {
+            ...datasourceDetailsParams,
+          });
+          const actualResponseTwoPromise = getDatasourceDetails(datasourceId, {
+            ...datasourceDetailsParams,
+          });
+
+          expect(await actualResponseOnePromise).toEqual(expectedResponseOne);
+          expect(await actualResponseTwoPromise).toEqual(expectedResponseOne);
+        });
+
+        it('should force http call when requested', async () => {
+          const { getDatasourceDetails, datasourceDetailsParams } = setup();
+
+          await getDatasourceDetails(datasourceId, {
+            ...datasourceDetailsParams,
+          });
+          await getDatasourceDetails(datasourceId, {
+            ...datasourceDetailsParams,
+          });
+          await getDatasourceDetails(
+            datasourceId,
+            {
+              ...datasourceDetailsParams,
+            },
+            true,
+          );
+          await getDatasourceDetails(datasourceId, {
+            ...datasourceDetailsParams,
+          });
+          expect(mockFetch).toHaveBeenCalledTimes(2);
+        });
+      });
+
+      it.each(allErrorCodes)(
+        'should not cache %s response',
+        async (status: number) => {
+          const rejectedFetchResult = {
+            ok: false,
+            status,
+          };
+          mockFetch.mockResolvedValueOnce(rejectedFetchResult);
+          mockFetch.mockResolvedValueOnce({
+            body: '{}',
+            json: async () => mockDatasourceDetailsResponse,
+            ok: true,
+            text: async () => JSON.stringify(mockDatasourceDetailsResponse),
+          });
+
+          const { getDatasourceDetails, datasourceDetailsParams } = setup();
+
+          await expect(
+            getDatasourceDetails(datasourceId, { ...datasourceDetailsParams }),
+          ).rejects.toBe(rejectedFetchResult);
+          expect(
+            await getDatasourceDetails(datasourceId, {
+              ...datasourceDetailsParams,
+            }),
+          ).toEqual({ ...mockDatasourceDetailsResponse });
+        },
+      );
     });
   });
 
@@ -262,6 +389,110 @@ describe('useDatasourceClientExtension', () => {
       );
 
       expect(response).toEqual(expectedResponse);
+    });
+
+    describe('with caching', () => {
+      describe('when response is ok', () => {
+        let expectedResponseOne: DatasourceDataResponse;
+
+        beforeEach(() => {
+          const { meta, data } = mockDatasourceDataResponse;
+          expectedResponseOne = { meta, data: { ...data, totalCount: 1 } };
+          const expectedResponseTwo: DatasourceDataResponse = {
+            meta,
+            data: { ...data, totalCount: 2 },
+          };
+
+          mockFetch.mockResolvedValueOnce({
+            body: '{}',
+            json: async () => expectedResponseOne,
+            ok: true,
+            text: async () => JSON.stringify(expectedResponseOne),
+          });
+          mockFetch.mockResolvedValueOnce({
+            body: '{}',
+            json: async () => expectedResponseTwo,
+            ok: true,
+            text: async () => JSON.stringify(expectedResponseTwo),
+          });
+        });
+
+        it('should not make another request with the same set of input parameters', async () => {
+          const { getDatasourceData, datasourceDataParams } = setup();
+
+          await getDatasourceData(datasourceId, { ...datasourceDataParams });
+          await getDatasourceData(datasourceId, { ...datasourceDataParams });
+          expect(mockFetch).toHaveBeenCalledTimes(1);
+        });
+
+        it('should return response from first request when called second time', async () => {
+          const { getDatasourceData, datasourceDataParams } = setup();
+
+          const actualResponseOne = await getDatasourceData(datasourceId, {
+            ...datasourceDataParams,
+          });
+          const actualResponseTwo = await getDatasourceData(datasourceId, {
+            ...datasourceDataParams,
+          });
+
+          expect(actualResponseOne).toEqual(expectedResponseOne);
+          expect(actualResponseTwo).toEqual(expectedResponseOne);
+        });
+
+        it("should return response from first request even if it hasn't finished when second request", async () => {
+          const { getDatasourceData, datasourceDataParams } = setup();
+
+          const actualResponseOnePromise = getDatasourceData(datasourceId, {
+            ...datasourceDataParams,
+          });
+          const actualResponseTwoPromise = getDatasourceData(datasourceId, {
+            ...datasourceDataParams,
+          });
+
+          expect(await actualResponseOnePromise).toEqual(expectedResponseOne);
+          expect(await actualResponseTwoPromise).toEqual(expectedResponseOne);
+        });
+
+        it('should force http call when requested', async () => {
+          const { getDatasourceData, datasourceDataParams } = setup();
+
+          await getDatasourceData(datasourceId, { ...datasourceDataParams });
+          await getDatasourceData(datasourceId, { ...datasourceDataParams });
+          await getDatasourceData(
+            datasourceId,
+            { ...datasourceDataParams },
+            true,
+          );
+          await getDatasourceData(datasourceId, { ...datasourceDataParams });
+          expect(mockFetch).toHaveBeenCalledTimes(2);
+        });
+      });
+
+      it.each(allErrorCodes)(
+        'should not cache %s response',
+        async (status: number) => {
+          const rejectedFetchResult = {
+            ok: false,
+            status,
+          };
+          mockFetch.mockResolvedValueOnce(rejectedFetchResult);
+          mockFetch.mockResolvedValueOnce({
+            body: '{}',
+            json: async () => mockDatasourceDataResponse,
+            ok: true,
+            text: async () => JSON.stringify(mockDatasourceDataResponse),
+          });
+
+          const { getDatasourceData, datasourceDataParams } = setup();
+
+          await expect(
+            getDatasourceData(datasourceId, { ...datasourceDataParams }),
+          ).rejects.toBe(rejectedFetchResult);
+          expect(
+            await getDatasourceData(datasourceId, { ...datasourceDataParams }),
+          ).toEqual({ ...mockDatasourceDataResponse });
+        },
+      );
     });
   });
 });

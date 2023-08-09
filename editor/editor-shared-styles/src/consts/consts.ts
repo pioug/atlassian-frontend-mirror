@@ -103,7 +103,7 @@ export const akEditorTableBorderRadius = '3px';
 export const akEditorTableCellBackgroundOpacity = 0.5;
 export const akEditorFullPageMaxWidth = 680;
 export const akEditorDefaultLayoutWidth = 760;
-export const akEditorWideLayoutWidth = 960;
+export const akEditorWideLayoutWidth = 960; // This value is used for tables with breakouts and is used to calculate `breakoutWidthPx`
 export const akEditorFullWidthLayoutWidth = 1800;
 export const akEditorFullWidthLayoutLineLength = 1792;
 export const akEditorTableNumberColumnWidth = 42;
@@ -117,6 +117,7 @@ export const akEditorMediaResizeHandlerPadding = 4;
 export const akEditorSwoopCubicBezier = `cubic-bezier(0.15, 1, 0.3, 1)`;
 export const gridMediumMaxWidth = 1024;
 export const breakoutWideScaleRatio = 1.33;
+export const akEditorCalculatedWideLayoutWidth = 1011; // = akEditorDefaultLayoutWidth * breakoutWideScaleRatio = 1010.8 ~ 1011 This is a resulting width value that is applied to nodes that currently use breakouts (except table) and are set to `wide` when the viewport's width is > 1329px.
 export const akRichMediaResizeZIndex = akEditorUnitZIndex * 99;
 export const akLayoutGutterOffset = gridSize() * 1.5;
 export const akEditorLineHeight = 1.714;

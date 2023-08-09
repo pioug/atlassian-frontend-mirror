@@ -246,6 +246,7 @@ export type ElementItemProps =
   | State
   | SubscriberCount
   | SubTasksProgress
+  | StoryPoints
   | TargetBranch
   | Title
   | ViewCount
@@ -448,10 +449,16 @@ export type SubscriberCount = {
   name: ElementName.SubscriberCount;
 };
 /**
- * Represents the props available for a Subtasks element.
+ * Represents the props available for a SubtasksProgress element.
  */
 export type SubTasksProgress = {
   name: ElementName.SubTasksProgress;
+};
+/**
+ * Represents the props available for a StoryPoints element.
+ */
+export type StoryPoints = {
+  name: ElementName.StoryPoints;
 };
 /**
  * Represents the props available for an TargetBranch element.

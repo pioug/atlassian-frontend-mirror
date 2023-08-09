@@ -876,7 +876,7 @@ describe('Feedback Collector unit tests', () => {
       wrapper.update();
       expect(wrapper.find(Select)).toHaveLength(1);
       expect(wrapper.find('textarea')).toHaveLength(1);
-      expect(wrapper.find(Field).at(1).props().label).toBe('anonymousFeedback');
+      expect(wrapper.find(Field).at(1).props().name).toBe('anonymousFeedback');
     });
 
     test('should render a field label based on type', () => {

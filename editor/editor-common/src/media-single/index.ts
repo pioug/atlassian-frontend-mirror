@@ -14,4 +14,5 @@ export {
   calcMediaSingleMaxWidth,
   getMediaSingleInitialWidth,
   calculateOffsetLeft,
+  roundToNearest,
 } from './utils';

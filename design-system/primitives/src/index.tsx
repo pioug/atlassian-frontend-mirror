@@ -11,8 +11,6 @@ export type {
 
 export { default as Box } from './components/box';
 export type { BoxProps } from './components/box';
-export { default as Pressable } from './components/pressable';
-export type { PressableProps } from './components/pressable';
 export { default as Inline } from './components/inline';
 export type { InlineProps } from './components/inline';
 export { xcss } from './xcss/xcss';

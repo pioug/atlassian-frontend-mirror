@@ -404,6 +404,10 @@ describe('IssueLikeDataTableView', () => {
 
     // should be called twice total since nextPage is called on initial page load and then when bottom is visible
     expect(onNextPage).toHaveBeenCalledTimes(1);
+    expect(onNextPage).toHaveBeenCalledWith({
+      isSchemaFromData: false,
+      shouldForceRequest: true,
+    });
   });
 
   it('should not call nextPage again when scrolled to the bottom and does not have a next page', async () => {

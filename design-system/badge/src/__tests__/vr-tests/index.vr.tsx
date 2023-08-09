@@ -26,12 +26,4 @@ snapshot(BadgeBasic, {
       },
     },
   ],
-  ignoredLogs: [
-    {
-      pattern: /TypeError/i,
-      ignoredBecause:
-        'This error is expected now since the VR test would throw an error when an unhanded exception is thrown.',
-      jiraIssueId: 'TODO-1',
-    },
-  ],
 });

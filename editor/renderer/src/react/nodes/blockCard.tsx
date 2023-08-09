@@ -2,7 +2,11 @@
 import { useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 import { Card } from '@atlaskit/smart-card';
-import { UnsupportedBlock, WidthConsumer } from '@atlaskit/editor-common/ui';
+import {
+  UnsupportedBlock,
+  UnsupportedInline,
+  WidthConsumer,
+} from '@atlaskit/editor-common/ui';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 
 import { getPlatform } from '../../utils';
@@ -54,7 +58,13 @@ export default function BlockCard(props: {
     [rendererAppearance],
   );
 
-  const cardProps = { url, data, onClick, container: portal };
+  const cardProps = {
+    url,
+    data,
+    onClick,
+    container: portal,
+    isDatasource: !!props.datasource,
+  };
 
   const analyticsData = {
     attributes: {
@@ -90,7 +100,7 @@ export default function BlockCard(props: {
       return (
         <AnalyticsContext data={analyticsData}>
           <CardErrorBoundary
-            unsupportedComponent={UnsupportedBlock}
+            unsupportedComponent={UnsupportedInline}
             {...cardProps}
           >
             <WidthConsumer>

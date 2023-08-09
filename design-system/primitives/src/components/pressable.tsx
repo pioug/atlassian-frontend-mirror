@@ -1,19 +1,16 @@
-/** @jsx jsx */
-import {
+import React, {
   type ComponentPropsWithRef,
   forwardRef,
   type ReactElement,
   type ReactNode,
 } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { type XCSS, xcss } from '../xcss/xcss';
 
-import FocusRing from '@atlaskit/focus-ring';
-
-import BaseBox, { type BaseBoxProps } from './internal/base-box';
+import Box, { type BoxProps } from './box';
 
 export type PressableProps = Omit<
-  BaseBoxProps<'button'>,
+  BoxProps<'button'>,
   // Handled by `isDisabled`
   | 'disabled'
   // Should not allow custom elements
@@ -37,12 +34,38 @@ type PressableComponent = (
   displayName: string,
 ) => ReactElement | null;
 
-const defaultStyles = css({
+const defaultStyles = xcss({
   cursor: 'pointer',
 });
 
+// TODO: Duplicated FocusRing styles due to lack of `xcss` support
+// and to prevent additional dependency
+const baseFocusRingStyles = {
+  outlineColor: 'color.border.focused',
+  outlineWidth: 'border.width.outline',
+  outlineStyle: 'solid',
+  outlineOffset: 'space.025',
+} as const;
+
+const focusRingStyles = xcss({
+  ':focus-visible': baseFocusRingStyles,
+
+  '@supports not selector(*:focus-visible)': {
+    ':focus': baseFocusRingStyles,
+  },
+
+  '@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)':
+    {
+      ':focus-visible': {
+        outline: '1px solid',
+      },
+    },
+});
+
 /**
- * __Pressable__
+ * __UNSAFE_PRESSABLE__
+ *
+ * @internal Still under development. Do not use.
  *
  * A Pressable is a primitive component that renders a `<button>`.
  *
@@ -50,7 +73,7 @@ const defaultStyles = css({
  * - [Code](https://atlassian.design/components/primitives/pressable/code)
  * - [Usage](https://atlassian.design/components/primitives/pressable/usage)
  */
-const Pressable: PressableComponent = forwardRef(
+const UNSAFE_PRESSABLE: PressableComponent = forwardRef(
   (
     {
       children,
@@ -65,34 +88,43 @@ const Pressable: PressableComponent = forwardRef(
       isDisabled,
       type = 'button',
       testId,
+      xcss: xcssStyles,
       ...htmlAttributes
     }: PressableProps,
     ref?: ComponentPropsWithRef<'button'>['ref'],
   ) => {
+    // Combine default styles with supplied styles. XCSS does not support deep nested arrays
+    let styles: XCSS | Array<XCSS | false | undefined> = [
+      defaultStyles,
+      focusRingStyles,
+    ];
+    styles = Array.isArray(xcssStyles)
+      ? [...styles, ...xcssStyles]
+      : [...styles, xcssStyles];
+
     return (
-      <FocusRing>
-        <BaseBox<'button'>
-          {...htmlAttributes}
-          ref={ref}
-          testId={testId}
-          type={type}
-          backgroundColor={backgroundColor}
-          padding={padding}
-          paddingBlock={paddingBlock}
-          paddingBlockStart={paddingBlockStart}
-          paddingBlockEnd={paddingBlockEnd}
-          paddingInline={paddingInline}
-          paddingInlineStart={paddingInlineStart}
-          paddingInlineEnd={paddingInlineEnd}
-          as="button"
-          css={defaultStyles}
-          disabled={isDisabled}
-        >
-          {children}
-        </BaseBox>
-      </FocusRing>
+      <Box<'button'>
+        {...htmlAttributes}
+        ref={ref}
+        testId={testId}
+        type={type}
+        backgroundColor={backgroundColor}
+        padding={padding}
+        paddingBlock={paddingBlock}
+        paddingBlockStart={paddingBlockStart}
+        paddingBlockEnd={paddingBlockEnd}
+        paddingInline={paddingInline}
+        paddingInlineStart={paddingInlineStart}
+        paddingInlineEnd={paddingInlineEnd}
+        as="button"
+        // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+        xcss={styles}
+        disabled={isDisabled}
+      >
+        {children}
+      </Box>
     );
   },
 );
 
-export default Pressable;
+export default UNSAFE_PRESSABLE;

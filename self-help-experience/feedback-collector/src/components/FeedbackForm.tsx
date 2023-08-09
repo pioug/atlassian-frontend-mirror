@@ -284,10 +284,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
                     </>
                   )) || (
                     <>
-                      <Field
-                        name={'anonymousFeedback'}
-                        label={'anonymousFeedback'}
-                      >
+                      <Field name={'anonymousFeedback'}>
                         {() => (
                           <SectionMessage
                             title={formatMessage(

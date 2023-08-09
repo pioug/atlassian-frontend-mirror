@@ -144,7 +144,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   showEditingDialog?: boolean;
   mediaOptions?: MediaOptions;
   dispatch?: Dispatch;
-  widthPluginState?: WidthPluginState | undefined;
+  pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin>;
 
   constructor(
     state: EditorState,
@@ -152,14 +152,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     mediaOptions?: MediaOptions,
     newInsertionBehaviour?: boolean,
     dispatch?: Dispatch,
-    pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
+    pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin>,
   ) {
     this.options = options;
     this.mediaOptions = mediaOptions;
     this.newInsertionBehaviour = newInsertionBehaviour;
     this.dispatch = dispatch;
-    this.widthPluginState =
-      pluginInjectionApi?.dependencies?.width?.sharedState.currentState();
+    this.pluginInjectionApi = pluginInjectionApi;
+
     this.waitForMediaUpload =
       options.waitForMediaUpload === undefined
         ? true
@@ -358,6 +358,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     }
 
     if (isMediaSingle(state.schema, mediaStateWithContext.fileMimeType)) {
+      // read width state right before inserting to get up-to-date and define values
+      const widthPluginState: WidthPluginState | undefined =
+        this.pluginInjectionApi?.dependencies.width.sharedState.currentState();
+
       insertMediaSingleNode(
         this.view,
         mediaStateWithContext,
@@ -365,7 +369,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         collection,
         this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
         this.newInsertionBehaviour,
-        this.widthPluginState,
+        widthPluginState,
       );
     } else if (
       getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags) &&
@@ -728,7 +732,7 @@ export const createPlugin = (
   dispatch?: Dispatch,
   mediaOptions?: MediaOptions,
   newInsertionBehaviour?: boolean,
-  pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
+  pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin>,
 ) => {
   const intl = getIntl();
 

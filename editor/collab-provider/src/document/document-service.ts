@@ -1,6 +1,11 @@
 import AnalyticsHelper from '../analytics/analytics-helper';
 import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
-import { CatchupResponse, ChannelEvent, StepsPayload } from '../types';
+import {
+  CatchupResponse,
+  ReconcileResponse,
+  ChannelEvent,
+  StepsPayload,
+} from '../types';
 import type {
   SyncUpErrorFunction,
   ResolvedEditorState,
@@ -40,6 +45,7 @@ import { catchup } from './catchup';
 import { ParticipantsService } from '../participants/participants-service';
 import { StepQueueState } from './step-queue-state';
 import type { InternalError } from '../errors/error-types';
+import { getCollabProviderFeatureFlag } from '../feature-flags';
 
 import {
   CantSyncUpError,
@@ -70,6 +76,7 @@ export class DocumentService {
    * and to emit their telepointers from steps they add
    * @param analyticsHelper - Helper for analytics events
    * @param fetchCatchup - Function to fetch "catchup" data, data required to rebase current steps to the latest version.
+   * @param fetchReconcile - Function to call "reconcile" from NCS backend
    * @param providerEmitCallback - Callback for emitting events to listeners on the provider
    * @param broadcast - Callback for broadcasting events to other clients
    * @param getUserId - Callback to fetch the current user's ID
@@ -77,11 +84,15 @@ export class DocumentService {
    * @param metadataService
    * @param failedStepsBeforeCatchupOnPublish - Control MAX_STEP_REJECTED_ERROR during page publishes.
    * @param enableErrorOnFailedDocumentApply - Enable failed document update exceptions.
+   * @param featureFlags - Feature flag config
    */
   constructor(
     private participantsService: ParticipantsService,
     private analyticsHelper: AnalyticsHelper | undefined,
     private fetchCatchup: (fromVersion: number) => Promise<CatchupResponse>,
+    private fetchReconcile: (
+      currentStateDoc: string,
+    ) => Promise<ReconcileResponse>,
     private providerEmitCallback: (evt: keyof CollabEvents, data: any) => void,
     private broadcast: <K extends keyof ChannelEvent>(
       type: K,
@@ -93,6 +104,7 @@ export class DocumentService {
     private metadataService: MetadataService,
     private failedStepsBeforeCatchupOnPublish: number = MAX_STEP_REJECTED_ERROR,
     private enableErrorOnFailedDocumentApply: boolean = false,
+    private featureFlags: { [key: string]: boolean } | undefined,
   ) {
     this.stepQueue = new StepQueueState();
   }
@@ -397,12 +409,36 @@ export class DocumentService {
 
   getFinalAcknowledgedState = async (): Promise<ResolvedEditorState> => {
     this.aggressiveCatchup = true;
+
     try {
       startMeasure(MEASURE_NAME.PUBLISH_PAGE, this.analyticsHelper);
+      let finalAcknowledgedState: ResolvedEditorState;
 
-      await this.commitUnconfirmedSteps();
-
-      const currentState = await this.getCurrentState();
+      if (
+        getCollabProviderFeatureFlag(
+          'enableFallbackToReconcile',
+          this.featureFlags,
+        )
+      ) {
+        try {
+          await this.commitUnconfirmedSteps();
+          finalAcknowledgedState = await this.getCurrentState();
+        } catch (error) {
+          // if fails to commit unconfirmed steps, send reconcile request to NCS BE and return the doc to CC
+          const currentState = await this.getCurrentState();
+          const reconcileResponse = await this.fetchReconcile(
+            JSON.stringify(currentState.content),
+          );
+          finalAcknowledgedState = {
+            content: JSON.parse(reconcileResponse.document),
+            title: currentState.title,
+            stepVersion: reconcileResponse.version,
+          };
+        }
+      } else {
+        await this.commitUnconfirmedSteps();
+        finalAcknowledgedState = await this.getCurrentState();
+      }
 
       const measure = stopMeasure(
         MEASURE_NAME.PUBLISH_PAGE,
@@ -416,7 +452,7 @@ export class DocumentService {
         },
       );
       this.aggressiveCatchup = false;
-      return currentState;
+      return finalAcknowledgedState;
     } catch (error) {
       this.aggressiveCatchup = false;
       const measure = stopMeasure(

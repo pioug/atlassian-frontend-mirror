@@ -12,6 +12,7 @@ import {
 export interface onNextPageProps {
   isSchemaFromData?: boolean;
   shouldRequestFirstPage?: boolean;
+  shouldForceRequest?: boolean;
 }
 
 export type NextPageType = (requestInfo?: onNextPageProps) => void;
@@ -20,7 +21,7 @@ export interface DatasourceTableState {
   status: DatasourceTableStatusType;
   onNextPage: NextPageType;
   // Resets state of the hook to be as if it is a first time it is being called.
-  reset: () => void;
+  reset: (shouldForceRequest?: boolean) => void;
   loadDatasourceDetails: () => void;
   responseItems: DatasourceDataResponseItem[];
   hasNextPage: boolean;
@@ -56,6 +57,7 @@ export const useDatasourceTableState = ({
   const [columns, setColumns] = useState<DatasourceTableState['columns']>([]);
   const [totalCount, setTotalCount] =
     useState<DatasourceTableState['totalCount']>(undefined);
+  const [shouldForceRequest, setShouldForceRequest] = useState<boolean>(false);
 
   const { getDatasourceData, getDatasourceDetails } =
     useDatasourceClientExtension();
@@ -124,13 +126,20 @@ export const useDatasourceTableState = ({
         return;
       }
 
-      const { isSchemaFromData = true, shouldRequestFirstPage } = requestInfo;
+      const {
+        isSchemaFromData = true,
+        shouldRequestFirstPage,
+        shouldForceRequest = false,
+      } = requestInfo;
 
+      const sortedFieldKeys = [...fieldKeys];
+      // Sort keys to use cached version of response regardless of the order
+      sortedFieldKeys.sort();
       const datasourceDataRequest: DatasourceDataRequest = {
         parameters,
         pageSize: 20,
         pageCursor: shouldRequestFirstPage ? undefined : nextCursor,
-        fields: fieldKeys,
+        fields: sortedFieldKeys,
         includeSchema: isSchemaFromData,
       };
 
@@ -140,7 +149,11 @@ export const useDatasourceTableState = ({
         const {
           meta: { access },
           data: { items, nextPageCursor, totalCount, schema },
-        } = await getDatasourceData(datasourceId, datasourceDataRequest);
+        } = await getDatasourceData(
+          datasourceId,
+          datasourceDataRequest,
+          shouldForceRequest,
+        );
 
         if (access === 'forbidden' || access === 'unauthorized') {
           setStatus('unauthorized');
@@ -181,13 +194,14 @@ export const useDatasourceTableState = ({
     ],
   );
 
-  const reset = useCallback(() => {
+  const reset = useCallback((shouldForceRequest: boolean = false) => {
     setStatus('empty');
     setResponseItems([]);
     setHasNextPage(true);
     setNextCursor(undefined);
     setTotalCount(undefined);
     setLastRequestedFieldKeys([]);
+    setShouldForceRequest(shouldForceRequest);
   }, []);
 
   // this takes care of requesting /data initally
@@ -198,13 +212,17 @@ export const useDatasourceTableState = ({
       status === 'empty';
 
     if (isEmptyState) {
-      void onNextPage();
+      void onNextPage({
+        shouldForceRequest,
+      });
+      setShouldForceRequest(false);
     }
   }, [
     lastRequestedFieldKeys,
     loadDatasourceDetails,
     onNextPage,
     parameters,
+    shouldForceRequest,
     status,
   ]);
 

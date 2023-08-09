@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -50,6 +50,10 @@ export const DatasourceTableView = ({
     }
   }, [visibleColumnKeys, defaultVisibleColumnKeys, onVisibleColumnKeysChange]);
 
+  const forcedReset = useCallback(() => {
+    reset(true);
+  }, [reset]);
+
   if (status === 'resolved' && !responseItems.length) {
     return <NoResults onRefresh={reset} />;
   }
@@ -88,7 +92,7 @@ export const DatasourceTableView = ({
       )}
       <TableFooter
         issueCount={isDataReady ? totalCount : undefined}
-        onRefresh={reset}
+        onRefresh={forcedReset}
         isLoading={!isDataReady || status === 'loading'}
       />
     </div>

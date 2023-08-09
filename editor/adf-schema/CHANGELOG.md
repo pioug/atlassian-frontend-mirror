@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 27.0.0
+
+### Major Changes
+
+- [`30d82d3462c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d82d3462c) - [ED-19175] add missing support for the unsupportedBlock in table related nodes
+
 ## 26.4.1
 
 ### Patch Changes

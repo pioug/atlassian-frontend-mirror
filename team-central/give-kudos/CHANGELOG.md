@@ -1,5 +1,11 @@
 # @atlassian/give-kudos
 
+## 2.0.1
+
+### Patch Changes
+
+- [`7490bbf65f2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7490bbf65f2) - Exporting types
+
 ## 2.0.0
 
 ### Major Changes

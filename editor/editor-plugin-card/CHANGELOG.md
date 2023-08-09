@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-card
 
+## 0.4.0
+
+### Minor Changes
+
+- [`b9a083dc04d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b9a083dc04d) - [ux] Adds error boundaries specific to datasource in editor and renderer. Fallback to unsupported block if no url or inline if url
+
+## 0.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.3.8
 
 ### Patch Changes

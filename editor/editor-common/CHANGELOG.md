@@ -1,5 +1,24 @@
 # @atlaskit/editor-common
 
+## 74.36.3
+
+### Patch Changes
+
+- [`30d82d3462c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d82d3462c) - [ED-19175] add missing support for the unsupportedBlock in table related nodes
+- Updated dependencies
+
+## 74.36.2
+
+### Patch Changes
+
+- [`62d6f381722`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62d6f381722) - ED-18969 preliminaary refactor for relative guideline.
+
+## 74.36.1
+
+### Patch Changes
+
+- [`f5550db8a7f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f5550db8a7f) - Ensure isHandleVisible affects both handles
+
 ## 74.36.0
 
 ### Minor Changes

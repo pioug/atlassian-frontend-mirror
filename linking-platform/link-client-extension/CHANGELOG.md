@@ -1,5 +1,12 @@
 # @atlaskit/link-client-extension
 
+## 1.6.0
+
+### Minor Changes
+
+- [`5bc0af1de85`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5bc0af1de85) - Introduce caching layer for both `getDatasourceDetails` and `getDatasourceData` calls. Export new member - `mockDatasourceDetailsResponse` that has same value as previously exported `mockDatasourceResponse`
+- [`b3b6782c3a0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b3b6782c3a0) - Add new member `mockDatasourceDetailsResponse` that has same value as existing `mockDatasourceResponse`; Add third optional boolean argument to `getDatasourceDetails` and `getDatasourceData` from `useDatasourceClientExtension` hook called `force` — when it is false (Default) cached version of response promise will be returned (in case request with same parameters has been made), when true new request will be made regardless of cache state.
+
 ## 1.5.4
 
 ### Patch Changes

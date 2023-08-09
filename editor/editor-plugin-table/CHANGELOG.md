@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 2.6.10
+
+### Patch Changes
+
+- [`79dc812733f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/79dc812733f) - [ux] [ED-19293] Updates table's guideline used for wide layout. The value is aligned with other nodes that use breakouts and are set to wide.
+- Updated dependencies
+
+## 2.6.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.8
 
 ### Patch Changes

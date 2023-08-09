@@ -8,6 +8,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { generateDynamicGuidelines } from '../../dynamicGuideline';
+import type { GuidelineConfig } from '../../types';
 
 describe('dynamicGuideline', () => {
   const defaultMediaNode = media({
@@ -17,8 +18,19 @@ describe('dynamicGuideline', () => {
     __fileMimeType: 'image/png',
   })();
 
-  const guidelineConfig = (key: string, xPosition: number) => {
-    return { key, position: { x: xPosition }, show: true, style: 'dashed' };
+  const defaultStyle: Omit<GuidelineConfig, 'key' | 'position'> = {
+    styles: {
+      lineStyle: 'dashed',
+    },
+    show: false,
+  };
+
+  const guidelineConfig = (
+    key: string,
+    xPosition: number,
+    styles: Omit<GuidelineConfig, 'key' | 'position'> = defaultStyle,
+  ) => {
+    return { key, position: { x: xPosition }, ...styles };
   };
 
   test.each<[string, ExtendedMediaAttributes, Object[]]>([
@@ -95,7 +107,7 @@ describe('dynamicGuideline', () => {
       const state = createEditorState(
         doc(mediaSingle(attrs)(defaultMediaNode)),
       );
-      const guidelines = generateDynamicGuidelines(state, 760);
+      const guidelines = generateDynamicGuidelines(state, 760, defaultStyle);
 
       expect(guidelines.length).toEqual(result.length);
 
@@ -140,56 +152,50 @@ describe('dynamicGuideline', () => {
       ),
     );
 
-    const guidelines = generateDynamicGuidelines(state, 760);
+    const guidelines = generateDynamicGuidelines(state, 760, defaultStyle);
     expect(guidelines).toEqual([
-      { key: 'media_0', position: { x: -180 }, show: true, style: 'dashed' },
+      { key: 'media_0', position: { x: -180 }, ...defaultStyle },
       {
         key: 'media_1',
         position: {
           x: 180,
         },
-        show: true,
-        style: 'dashed',
+        ...defaultStyle,
       },
       {
         key: 'media_2',
         position: {
           x: 190,
         },
-        show: true,
-        style: 'dashed',
+        ...defaultStyle,
       },
       {
         key: 'media_4_right',
         position: {
           x: 150,
         },
-        show: true,
-        style: 'dashed',
+        ...defaultStyle,
       },
       {
         key: 'media_4_left',
         position: {
           x: -150,
         },
-        show: true,
-        style: 'dashed',
+        ...defaultStyle,
       },
       {
         key: 'media_5_right',
         position: {
           x: 190,
         },
-        show: true,
-        style: 'dashed',
+        ...defaultStyle,
       },
       {
         key: 'media_5_left',
         position: {
           x: -190,
         },
-        show: true,
-        style: 'dashed',
+        ...defaultStyle,
       },
     ]);
   });

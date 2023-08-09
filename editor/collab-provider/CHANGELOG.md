@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.9.0
+
+### Minor Changes
+
+- [`4c6ebd50aeb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4c6ebd50aeb) - call reconcile when commitUnconfirmedSteps fails (mitigation for 'can't sync up' errors)
+
 ## 9.8.0
 
 ### Minor Changes

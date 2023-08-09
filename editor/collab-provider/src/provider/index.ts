@@ -172,6 +172,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.participantsService,
       this.analyticsHelper,
       this.channel.fetchCatchup,
+      this.channel.fetchReconcile,
       this.emitCallback,
       this.channel.broadcast,
       () => this.userId,
@@ -179,6 +180,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
       this.metadataService,
       this.config.failedStepLimitBeforeCatchupOnPublish,
       this.config.enableErrorOnFailedDocumentApply,
+      this.config.featureFlags,
     );
     this.onSetupPromise = new Promise((resolve) => {
       this.resolveOnSetupPromise = resolve;

@@ -15,6 +15,7 @@ import {
   SmartCardSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 import { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { UnsupportedInline } from '@atlaskit/editor-common/ui';
 import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -24,9 +25,22 @@ import {
   DatasourceTableView,
 } from '@atlaskit/link-datasource';
 
+import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
 import type { cardPlugin } from '../index';
+import { getLinkNodeType, LinkNodes } from '../pm-plugins/doc';
 
-interface DatasourceProps extends ReactComponentProps {
+const getPosSafely = (pos: getPosHandler) => {
+  if (!pos || typeof pos === 'boolean') {
+    return;
+  }
+  try {
+    return pos();
+  } catch (e) {
+    // Can blow up in rare cases, when node has been removed.
+  }
+};
+
+export interface DatasourceProps extends ReactComponentProps {
   node: PMNode;
   view: EditorView;
   getPos: getPosHandler;
@@ -50,18 +64,6 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
     super(props);
   }
 
-  private getPosSafely = () => {
-    const { getPos } = this.props;
-    if (!getPos || typeof getPos === 'boolean') {
-      return;
-    }
-    try {
-      return getPos();
-    } catch (e) {
-      // Can blow up in rare cases, when node has been removed.
-    }
-  };
-
   private getDatasource = () =>
     (this.props.node.attrs as DatasourceAdf['attrs']).datasource;
 
@@ -75,7 +77,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 
   handleColumnChange = (columnKeys: string[]) => {
     const { state, dispatch } = this.props.view;
-    const pos = this.getPosSafely();
+    const pos = getPosSafely(this.props.getPos);
     if (pos === undefined) {
       return;
     }
@@ -96,6 +98,12 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
     });
     tr.setMeta('scrollIntoView', false);
     dispatch(tr);
+  };
+
+  onError = ({ err }: { err?: Error }) => {
+    if (err) {
+      throw err;
+    }
   };
 
   render() {
@@ -162,6 +170,20 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
     });
   }
 
+  // this is necessary so that the datasource toolbar won't be rendered on error
+  updateNodeRemoveAttrs = () => {
+    const { url } = this.node.attrs;
+    const { state, dispatch } = this.view;
+    const pos = getPosSafely(this.getPos);
+    if (pos === undefined) {
+      return;
+    }
+    const nodeType = getLinkNodeType('inline', state.schema.nodes as LinkNodes);
+    const tr = state.tr.setNodeMarkup(pos, nodeType, { url });
+    tr.setMeta('scrollIntoView', false);
+    return dispatch(tr);
+  };
+
   createDomRef(): HTMLElement {
     const domRef = document.createElement('div');
     domRef.classList.add(SmartCardSharedCssClassName.DATASOURCE_CONTAINER);
@@ -170,20 +192,26 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 
   render() {
     const { attrs } = this.node;
-
     return (
-      <div
-        className={DATASOURCE_INNER_CONTAINER_CLASSNAME}
-        style={{
-          minWidth: calcBreakoutWidth(attrs.layout, this.tableWidth),
-        }}
+      <DatasourceErrorBoundary
+        handleError={this.updateNodeRemoveAttrs}
+        unsupportedComponent={UnsupportedInline}
+        view={this.view}
+        url={attrs.url}
       >
-        <DatasourceComponent
-          node={this.node}
-          view={this.view}
-          getPos={this.getPos}
-        />
-      </div>
+        <div
+          className={DATASOURCE_INNER_CONTAINER_CLASSNAME}
+          style={{
+            minWidth: calcBreakoutWidth(attrs.layout, this.tableWidth),
+          }}
+        >
+          <DatasourceComponent
+            node={this.node}
+            view={this.view}
+            getPos={this.getPos}
+          />
+        </div>
+      </DatasourceErrorBoundary>
     );
   }
 }

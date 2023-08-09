@@ -71,6 +71,70 @@ function EditorTyping() {
     />
   );
 
+  const test5 = (
+    <EditorNext
+      preset={new EditorPresetBuilder()}
+      // @ts-expect-error no allow-* props
+      allowTables={true}
+    />
+  );
+
+  const test6 = (
+    <EditorNext
+      preset={new EditorPresetBuilder()}
+      // @ts-expect-error no allow-* props
+      allowTextColor={true}
+    />
+  );
+
+  const test7 = (
+    <EditorNext
+      preset={new EditorPresetBuilder()}
+      // @ts-expect-error no insertMenuItems
+      insertMenuItems={[]}
+    />
+  );
+
+  const test8 = (
+    <EditorNext
+      preset={new EditorPresetBuilder()}
+      // @ts-expect-error no UNSAFE_cards
+      UNSAFE_cards={null}
+    />
+  );
+
+  const test9 = (
+    <EditorNext
+      preset={new EditorPresetBuilder()}
+      // @ts-expect-error no smartLinks
+      smartLinks={null}
+    />
+  );
+
+  const test10 = (
+    <EditorNext
+      preset={new EditorPresetBuilder()}
+      // @ts-expect-error no allow-* props
+      allowAnalyticsGASV3={true}
+    />
+  );
+
+  const test11 = (
+    <EditorNext
+      preset={new EditorPresetBuilder()}
+      // @ts-expect-error no codeBlock
+      codeBlock={null}
+    />
+  );
+
+  const test12 = (
+    <EditorNext
+      preset={new EditorPresetBuilder()}
+      // @ts-expect-error no textFormatting
+      textFormatting={null}
+    />
+  );
+
   // eslint-disable-next-line
   console.log(test1);
 
@@ -82,6 +146,30 @@ function EditorTyping() {
 
   // eslint-disable-next-line
   console.log(test4);
+
+  // eslint-disable-next-line
+  console.log(test5);
+
+  // eslint-disable-next-line
+  console.log(test6);
+
+  // eslint-disable-next-line
+  console.log(test7);
+
+  // eslint-disable-next-line
+  console.log(test8);
+
+  // eslint-disable-next-line
+  console.log(test9);
+
+  // eslint-disable-next-line
+  console.log(test10);
+
+  // eslint-disable-next-line
+  console.log(test11);
+
+  // eslint-disable-next-line
+  console.log(test12);
 }
 
 // eslint-disable-next-line

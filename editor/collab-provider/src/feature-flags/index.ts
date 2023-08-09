@@ -8,6 +8,7 @@ import {
 const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
   testFF: false,
   socketMessageMetricsFF: false,
+  enableFallbackToReconcile: false,
 };
 
 /**
@@ -15,9 +16,11 @@ const defaultNCSFeatureFlags: Required<NCSFeatureFlags> = {
  */
 const productKeys: ProductKeys = {
   confluence: {
-    testFF: 'confluence.fe.collab.provider.testFF',
+    testFF: 'confluence.frontend.collab.provider.testFF',
     socketMessageMetricsFF:
-      'confluence.fe.collab.provider.socketMessageMetricsFF',
+      'confluence.frontend.collab.provider.socketMessageMetricsFF',
+    enableFallbackToReconcile:
+      'confluence.frontend.collab.provider.enable-fallback-to-reconcile',
   },
 };
 

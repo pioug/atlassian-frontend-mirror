@@ -367,6 +367,116 @@ describe('document-service', () => {
         );
       });
     });
+    describe('getFinalAcknowledgedState, with enableFallbackToReconcile FF enabled', () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+      });
+
+      it('Calls reconcile if commitUnconfirmedSteps fails', async () => {
+        const { service, fetchReconcileMock, analyticsHelperMock } =
+          createMockService({
+            featureFlags: { enableFallbackToReconcile: true },
+          });
+        jest
+          .spyOn(service, 'commitUnconfirmedSteps')
+          .mockRejectedValue(new Error('My Error'));
+        jest.spyOn(service, 'getCurrentState').mockResolvedValue({
+          title: 'title',
+          stepVersion: 2,
+          content: {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Hello ',
+                  },
+                  {
+                    type: 'text',
+                    text: 'world',
+                    marks: [
+                      {
+                        type: 'strong',
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        });
+        fetchReconcileMock.mockResolvedValue({
+          document:
+            '{"version":1,"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"This is a sample text para for demo purposes"}]}]}',
+          version: 2,
+        });
+
+        await service.getFinalAcknowledgedState();
+        expect(fetchReconcileMock).toBeCalledWith(
+          '{"version":1,"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Hello "},{"type":"text","text":"world","marks":[{"type":"strong"}]}]}]}',
+        );
+        expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(1);
+        expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(
+          'publishPage',
+          'SUCCESS',
+          { latency: undefined },
+        );
+      });
+
+      it('Throws error when both commitUnconfirmedSteps and reconcile fail', async () => {
+        const { service, fetchReconcileMock, analyticsHelperMock } =
+          createMockService({
+            featureFlags: { enableFallbackToReconcile: true },
+          });
+        jest
+          .spyOn(service, 'commitUnconfirmedSteps')
+          .mockRejectedValue(new Error('My Error'));
+        jest.spyOn(service, 'getCurrentState').mockResolvedValue({
+          title: 'title',
+          stepVersion: 2,
+          content: {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: 'paragraph',
+                content: [
+                  {
+                    type: 'text',
+                    text: 'Hello ',
+                  },
+                  {
+                    type: 'text',
+                    text: 'world',
+                    marks: [
+                      {
+                        type: 'strong',
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        });
+        fetchReconcileMock.mockRejectedValue(new Error('Failed reconcile'));
+
+        await expect(service.getFinalAcknowledgedState).rejects.toThrowError(
+          'Failed reconcile',
+        );
+        expect(service.commitUnconfirmedSteps).toBeCalledTimes(1);
+        expect(fetchReconcileMock).toBeCalledTimes(1);
+        expect(analyticsHelperMock.sendActionEvent).toBeCalledTimes(1);
+        expect(analyticsHelperMock.sendActionEvent).toBeCalledWith(
+          'publishPage',
+          'FAILURE',
+          { latency: undefined },
+        );
+      });
+    });
 
     it('applyLocalSteps calls the provider emit callback', () => {
       const { service, providerEmitCallbackMock } = createMockService();

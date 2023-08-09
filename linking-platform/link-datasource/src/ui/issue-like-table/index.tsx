@@ -229,6 +229,7 @@ export const IssueLikeDataTableView = ({
     if (isBottomOfTableVisibleRaw && hasNextPage && status === 'resolved') {
       void onNextPage({
         isSchemaFromData: false,
+        shouldForceRequest: true,
       });
     }
   }, [isBottomOfTableVisibleRaw, status, hasNextPage, onNextPage]);

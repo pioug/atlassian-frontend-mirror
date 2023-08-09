@@ -2,15 +2,15 @@ import React from 'react';
 
 import Tooltip from '@atlaskit/tooltip';
 
-import { Pressable } from '../src';
+import UNSAFE_PRESSABLE from '../src/components/pressable';
 
 export default function DisabledWithTooltip() {
   return (
     // Tooltip should not display
     <Tooltip content="Tooltip content">
-      <Pressable testId="pressable-disabled-with-tooltip" isDisabled>
+      <UNSAFE_PRESSABLE testId="pressable-disabled-with-tooltip" isDisabled>
         Disabled
-      </Pressable>
+      </UNSAFE_PRESSABLE>
     </Tooltip>
   );
 }

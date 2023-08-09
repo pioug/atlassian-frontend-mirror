@@ -1,5 +1,11 @@
 # @atlaskit/onboarding
 
+## 10.8.6
+
+### Patch Changes
+
+- [`36e3e86da5d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/36e3e86da5d) - SpotlightCard width prop now accepts either a number or the string `'100%'` and refactors how our range of 160px – 600px works via css `min-width` and `max-width` instead of raw math.
+
 ## 10.8.5
 
 ### Patch Changes

@@ -7,4 +7,8 @@ export const restrictedPaths = [
     path: '@atlaskit/ds-explorations',
     message: `The @atlaskit/ds-explorations package is used for experiments and should not be consumed directly.`,
   },
+  {
+    path: '@atlaskit/primitives/pressable',
+    message: `The @atlaskit/primitives/pressable export is currently under development and should not be consumed directly.`,
+  },
 ];

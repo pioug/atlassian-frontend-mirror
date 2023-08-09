@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.2.4
+
+### Patch Changes
+
+- [`eb64cbdd681`](https://bitbucket.org/atlassian/atlassian-frontend/commits/eb64cbdd681) - Add a new rule to verify that the atlassian team is defined if the relevant section exists in the package.json
+
 ## 0.2.3
 
 ### Patch Changes

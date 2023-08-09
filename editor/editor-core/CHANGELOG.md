@@ -1,5 +1,37 @@
 # @atlaskit/editor-core
 
+## 187.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.14.0
+
+### Minor Changes
+
+- [`ffd94268ee9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ffd94268ee9) - ED-16575 follow up refactor of EditorNext plugins
+
+## 187.13.5
+
+### Patch Changes
+
+- [`30d82d3462c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/30d82d3462c) - [ED-19175] add missing support for the unsupportedBlock in table related nodes
+- [`b041e51896d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b041e51896d) - Fix width plugin state reading when inserting a media single node
+- Updated dependencies
+
+## 187.13.3
+
+### Patch Changes
+
+- [`62d6f381722`](https://bitbucket.org/atlassian/atlassian-frontend/commits/62d6f381722) - ED-18969 preliminaary refactor for relative guideline.
+
+## 187.13.2
+
+### Patch Changes
+
+- [`f194fae5d20`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f194fae5d20) - Refactored ResizableMediaSingleNext to use editor-common utils
+
 ## 187.13.0
 
 ### Minor Changes

@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
+import { isSafeUrl } from '@atlaskit/adf-schema';
 
 describe('Renderer - React/Nodes/Fallback', () => {
   const MockedUnsupportedInline = () => <div>UnsupportedInline</div>;
@@ -27,17 +28,19 @@ describe('Renderer - React/Nodes/Fallback', () => {
     expect(node.find(MockedChildren)).toHaveLength(1);
   });
 
-  it('should render url if error occurs, when url is present', () => {
+  it('should render url if error occurs when datasource is not present and url is present', () => {
     node = mount(
       <CardErrorBoundary
         url={url}
         unsupportedComponent={MockedUnsupportedInline}
+        isDatasource={false}
       >
         <MockedChildren />
       </CardErrorBoundary>,
     );
 
     node.setState({ isError: true });
+    node.update();
 
     const link = node.find('a');
 
@@ -56,6 +59,50 @@ describe('Renderer - React/Nodes/Fallback', () => {
 
     expect(node.find('a')).toHaveLength(0);
     expect(node.find(MockedUnsupportedInline)).toHaveLength(1);
+  });
+
+  it('should render InlineCard if error occurs, when url is present and isDatasource is true and isSafeUrl is true', () => {
+    node = mount(
+      <CardErrorBoundary
+        url={url}
+        unsupportedComponent={MockedUnsupportedInline}
+        isDatasource={true}
+      >
+        <MockedChildren />
+      </CardErrorBoundary>,
+    );
+
+    expect(isSafeUrl(url)).toBe(true);
+
+    node.setState({ isError: true });
+    node.update();
+
+    // InlineCard is a LoadableComponent, checking for actual InlineCard would need to mock the provider
+    expect(node.children().name()).toBe('LoadableComponent');
+    expect(node.children().props().url).toEqual(url);
+  });
+
+  it('should render blue link if error occurs, when url is present and isDatasource is true and isSafeUrl is false', () => {
+    const unsafeUrl = 'javascript:alert(1)';
+    node = mount(
+      <CardErrorBoundary
+        url={unsafeUrl}
+        unsupportedComponent={MockedUnsupportedInline}
+        isDatasource={true}
+      >
+        <MockedChildren />
+      </CardErrorBoundary>,
+    );
+
+    expect(isSafeUrl(unsafeUrl)).toBe(false);
+
+    node.setState({ isError: true });
+    node.update();
+
+    const link = node.find('a');
+
+    expect(link.prop('href')).toEqual(unsafeUrl);
+    expect(node.find(MockedChildren)).toHaveLength(0);
   });
 
   it('should render url if error occurs and click on anchor should trigger onClick callback, when url is present', () => {

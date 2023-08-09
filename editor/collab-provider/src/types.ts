@@ -259,6 +259,13 @@ export interface CatchupResponse {
   metadata?: Metadata;
 }
 
+export interface ReconcileResponse {
+  document: string;
+  version: number;
+  ari?: string;
+  metadata?: Metadata;
+}
+
 // Catchup
 export interface CatchupOptions {
   getCurrentPmVersion: () => number;

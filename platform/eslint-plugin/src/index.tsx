@@ -3,6 +3,7 @@ import ensureFeatureFlagRegistration from './rules/ensure-feature-flag-registrat
 import noPreAndPostInstallScripts from './rules/no-pre-post-installs';
 import ensureTestRunnerArguments from './rules/ensure-test-runner-arguments';
 import ensureTestRunnerNestedCount from './rules/ensure-test-runner-nested-count';
+import ensureAtlassianTeam from './rules/ensure-atlassian-team';
 import noInvalidFeatureFlagUsage from './rules/no-invalid-feature-flag-usage';
 import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
@@ -12,6 +13,7 @@ export const rules = {
   'ensure-feature-flag-prefix': ensureFeatureFlagPrefix,
   'ensure-test-runner-arguments': ensureTestRunnerArguments,
   'ensure-test-runner-nested-count': ensureTestRunnerNestedCount,
+  'ensure-atlassian-team': ensureAtlassianTeam,
   'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
   'no-pre-post-install-scripts': noPreAndPostInstallScripts,
   'no-invalid-storybook-decorator-usage': noInvalidStorybookDecoratorUsage,
@@ -30,6 +32,7 @@ export const configs = {
       '@atlaskit/platform/ensure-test-runner-nested-count': 'warn',
       '@atlaskit/platform/no-invalid-feature-flag-usage': 'error',
       '@atlaskit/platform/no-invalid-storybook-decorator-usage': 'error',
+      '@atlaskit/platform/ensure-atlassian-team': 'error',
     },
   },
 };

@@ -11,6 +11,7 @@ import type {
   NamespaceStatus,
   AuthCallback,
   BroadcastIncomingPayload,
+  ReconcileResponse,
 } from './types';
 import { createLogger, getProduct, getSubProduct } from './helpers/utils';
 import {
@@ -585,6 +586,54 @@ export class Channel extends Emitter<ChannelEvent> {
         },
       };
       this.emit('error', errorCatchup);
+      throw error;
+    }
+  };
+
+  fetchReconcile = async (
+    currentStateDoc: string,
+  ): Promise<ReconcileResponse> => {
+    try {
+      const reqBody = JSON.stringify({
+        doc: currentStateDoc,
+        productId: 'ccollab',
+        reason: 'UNKNOWN', // different reason here?
+      });
+      const reconcileResponse = await utils.requestService<any>(this.config, {
+        path: `document/${encodeURIComponent(
+          this.config.documentAri,
+        )}/reconcile`,
+        requestInit: {
+          headers: {
+            ...(this.config.permissionTokenRefresh
+              ? {
+                  'x-token':
+                    this.token ??
+                    (await this.config
+                      .permissionTokenRefresh()
+                      .then((token) => {
+                        if (token) {
+                          this.setToken(token);
+                        }
+                        return token;
+                      })) ??
+                    undefined,
+                }
+              : {}),
+            'x-product': getProduct(this.config.productInfo),
+            'x-subproduct': getSubProduct(this.config.productInfo),
+            'Content-Type': 'application/json',
+          },
+          method: 'POST',
+          body: reqBody,
+        },
+      });
+      return reconcileResponse;
+    } catch (error: any) {
+      this.analyticsHelper?.sendErrorEvent(
+        error,
+        'Error while fetching reconciled document',
+      );
       throw error;
     }
   };

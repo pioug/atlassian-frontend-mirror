@@ -584,11 +584,11 @@ export const setSelectedCardAppearance: (
   return true;
 };
 
-type LinkNodes = {
+export type LinkNodes = {
   [key in 'inlineCard' | 'blockCard' | 'embedCard']: NodeType;
 };
 
-const getLinkNodeType = (
+export const getLinkNodeType = (
   appearance: CardAppearance,
   linkNodes: LinkNodes,
 ): NodeType => {

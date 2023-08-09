@@ -196,6 +196,12 @@ export type FlexibleUiDataContext = {
    */
   state?: LinkLozenge;
   /**
+   * Contains the no of story points for a task.
+   * @type string
+   * @see StoryPoints
+   */
+  storyPoints?: number;
+  /**
    * Contains the target branch name of the link typed pull request.
    * @type string
    * @see TargetBranch

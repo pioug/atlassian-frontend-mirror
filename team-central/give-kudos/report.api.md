@@ -21,6 +21,32 @@ import { jsx } from '@emotion/react';
 import { LazyExoticComponent } from 'react';
 
 // @public (undocumented)
+export interface FlagEvent {
+  // (undocumented)
+  eventType: FlagEventType;
+  // (undocumented)
+  jiraKudosFormUrl?: string;
+  // (undocumented)
+  jiraKudosUrl?: string;
+  // (undocumented)
+  kudosUuid?: string;
+}
+
+// @public (undocumented)
+export enum FlagEventType {
+  // (undocumented)
+  CLOSE = 'close',
+  // (undocumented)
+  DIRTY = 'dirty',
+  // (undocumented)
+  JIRA_KUDOS_CREATED = 'jira-kudos-created',
+  // (undocumented)
+  JIRA_KUDOS_FAILED = 'jira-kudos-failed',
+  // (undocumented)
+  KUDOS_CREATED = 'kudos-created',
+}
+
+// @public (undocumented)
 export interface GiveKudosDrawerProps {
   // (undocumented)
   addFlag?: (flag: any) => void;

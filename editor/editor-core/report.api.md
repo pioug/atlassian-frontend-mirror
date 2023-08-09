@@ -862,6 +862,8 @@ interface EditorPluginFeatureProps {
   allowTextColor?: TextColorPluginConfig | boolean;
   autoScrollIntoView?: boolean;
   // (undocumented)
+  codeBlock?: CodeBlockOptions;
+  // (undocumented)
   elementBrowser?: {
     showModal?: boolean;
     replacePlusMenu?: boolean;
@@ -884,6 +886,8 @@ interface EditorPluginFeatureProps {
   saveOnEnter?: boolean;
   // @deprecated (undocumented)
   smartLinks?: CardOptions;
+  // (undocumented)
+  textFormatting?: TextFormattingOptions;
   UNSAFE_allowBorderMark?: boolean;
   // @deprecated (undocumented)
   UNSAFE_cards?: CardOptions;
@@ -951,8 +955,6 @@ interface EditorSharedPropsWithPlugins {
   // (undocumented)
   allowUndoRedoButtons?: boolean;
   // (undocumented)
-  codeBlock?: CodeBlockOptions;
-  // (undocumented)
   collabEdit?: CollabEditOptions;
   linking?: LinkingOptions;
   // (undocumented)
@@ -964,8 +966,6 @@ interface EditorSharedPropsWithPlugins {
   primaryToolbarComponents?: PrimaryToolbarComponents;
   // (undocumented)
   sanitizePrivateContent?: boolean;
-  // (undocumented)
-  textFormatting?: TextFormattingOptions;
 }
 
 // @public (undocumented)

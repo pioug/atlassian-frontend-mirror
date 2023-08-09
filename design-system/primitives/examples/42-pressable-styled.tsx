@@ -1,24 +1,22 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
+import React from 'react';
 
-import { token } from '@atlaskit/tokens';
+import { xcss } from '../src';
+import UNSAFE_PRESSABLE from '../src/components/pressable';
 
-import { Pressable } from '../src';
-
-const pressableStyles = css({
-  borderRadius: token('border.radius.100', '3px'),
-  color: token('color.text.inverse', '#FFF'),
+const pressableStyles = xcss({
+  borderRadius: 'border.radius.100',
+  color: 'color.text.inverse',
 });
 
 export default function Styled() {
   return (
-    <Pressable
+    <UNSAFE_PRESSABLE
       testId="pressable-styled"
       backgroundColor="color.background.brand.bold"
       padding="space.100"
-      css={pressableStyles}
+      xcss={pressableStyles}
     >
       Press me
-    </Pressable>
+    </UNSAFE_PRESSABLE>
   );
 }

@@ -46,6 +46,7 @@ export const ElementDisplaySchema: Record<
   [ElementName.State]: ['inline'],
   [ElementName.SubscriberCount]: ['inline'],
   [ElementName.SubTasksProgress]: ['inline'],
+  [ElementName.StoryPoints]: ['inline'],
   [ElementName.TargetBranch]: ['inline'],
   [ElementName.Title]: ['inline'],
   [ElementName.ViewCount]: ['inline'],

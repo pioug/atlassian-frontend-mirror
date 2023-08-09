@@ -482,6 +482,7 @@ type ElementItemProps =
   | Snippet
   | SourceBranch
   | State_2
+  | StoryPoints
   | SubTasksProgress
   | SubscriberCount
   | TargetBranch
@@ -543,6 +544,8 @@ export enum ElementName {
   SourceBranch = 'SourceBranch',
   // (undocumented)
   State = 'State',
+  // (undocumented)
+  StoryPoints = 'StoryPoints',
   // (undocumented)
   SubscriberCount = 'SubscriberCount',
   // (undocumented)
@@ -898,6 +901,11 @@ interface State {}
 // @public
 type State_2 = {
   name: ElementName.State;
+};
+
+// @public
+type StoryPoints = {
+  name: ElementName.StoryPoints;
 };
 
 // @public

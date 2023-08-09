@@ -23,6 +23,7 @@ import {
   extractReadTime,
   extractSourceBranch,
   extractSubscriberCount,
+  extractStoryPoints,
   extractTargetBranch,
   extractPersonAssignedToAsArray,
 } from '../utils';
@@ -366,5 +367,20 @@ describe('extractPersonAssignedToAsArray', () => {
     } as JsonLd.Data.Task);
     expect(value).toBeDefined();
     expect(value).toEqual([{ name: TEST_PERSON.name, src: TEST_PERSON.url }]);
+  });
+});
+
+describe('extractStoryPoints', () => {
+  it('returns undefined when no subscriber count present', () => {
+    expect(extractStoryPoints(TEST_BASE_DATA)).toBe(undefined);
+  });
+
+  it('returns number and icon when subscriber count present', () => {
+    const value = extractStoryPoints({
+      ...TEST_BASE_DATA,
+      'atlassian:storyPoints': 3,
+    } as JsonLd.Data.Task);
+    expect(value).toBeDefined();
+    expect(value).toBe(3);
   });
 });

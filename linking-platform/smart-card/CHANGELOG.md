@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.15.0
+
+### Minor Changes
+
+- [`560f5be1d2c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/560f5be1d2c) - Add FlexUI element for dispalying StoryPoints as a Badge
+
 ## 26.14.6
 
 ### Patch Changes

@@ -189,6 +189,18 @@ describe('DatasourceTableView', () => {
     expect(mockReset).toBeCalledTimes(2);
   });
 
+  it('should call reset() when refresh button is preset', () => {
+    const { mockReset } = setup();
+    const { getByRole } = renderComponent();
+
+    asMock(mockReset).mockReset();
+
+    getByRole('button', { name: 'Refresh' }).click();
+
+    expect(mockReset).toHaveBeenCalledTimes(1);
+    expect(mockReset).toHaveBeenCalledWith(true);
+  });
+
   describe('when results are not returned', () => {
     it('should show no results if no responseItems are returned', () => {
       const { mockReset } = setup({ responseItems: [] });

@@ -124,10 +124,14 @@ interface SpotlightCardProps {
    */
   // eslint-disable-next-line @repo/internal/react/consistent-props-definitions
   theme?: ThemeProp<CardTokens, {}>;
+
   /**
-   * Width of the card in pixels.
+   * Specifies the width of the card component. Accepts either a number or the string '100%'.
+   * When a number is provided, the width is set in pixels. When '100%' is provided, the width
+   * is set to occupy 100% of the parent container's width. Regardless of whether `width` is set,
+   * the width is constrained to a minimum width of 160px and a maximum width of 600px.
    */
-  width?: number;
+  width?: number | '100%';
   /**
    * @deprecated
    * Use `ref` instead.
@@ -181,7 +185,11 @@ const SpotlightCard = forwardRef<HTMLDivElement, SpotlightCardProps>(
                     // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
                     container,
                   ]}
-                  style={{ width: `${Math.min(Math.max(width!, 160), 600)}px` }}
+                  style={{
+                    minWidth: '160px',
+                    maxWidth: '600px',
+                    width: typeof width === 'string' ? width : `${width}px`,
+                  }}
                   ref={ref || innerRef}
                   data-testid={testId}
                 >

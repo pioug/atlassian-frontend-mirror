@@ -48,17 +48,21 @@ export const mockDatasourceDataResponse: DatasourceDataResponse;
 export const mockDatasourceDataResponseWithSchema: DatasourceDataResponse;
 
 // @public (undocumented)
-export const mockDatasourceResponse: DatasourceDetailsResponse;
+const mockDatasourceDetailsResponse: DatasourceDetailsResponse;
+export { mockDatasourceDetailsResponse };
+export { mockDatasourceDetailsResponse as mockDatasourceResponse };
 
 // @public (undocumented)
 export const useDatasourceClientExtension: () => {
   getDatasourceDetails: (
     datasourceId: string,
     data: DatasourceDetailsRequest,
+    force?: any,
   ) => Promise<DatasourceDetailsResponse>;
   getDatasourceData: (
     datasourceId: string,
     data: DatasourceDataRequest,
+    force?: any,
   ) => Promise<DatasourceDataResponse>;
 };
 

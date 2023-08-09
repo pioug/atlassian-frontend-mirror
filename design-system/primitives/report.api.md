@@ -219,15 +219,6 @@ const backgroundColorMap: {
 };
 
 // @public (undocumented)
-type BaseBoxProps<T extends ElementType> = Omit<
-  ComponentPropsWithoutRef<T>,
-  'as' | 'className'
-> &
-  BasePrimitiveProps &
-  BaseBoxPropsFoundation<T> &
-  ClassName;
-
-// @public (undocumented)
 type BaseBoxPropsFoundation<T extends ElementType> = {
   as?: T;
   children?: ReactNode;
@@ -344,11 +335,6 @@ export type BoxProps<T extends ElementType> = Omit<
 
 // @public
 export type Breakpoint = 'lg' | 'md' | 'sm' | 'xl' | 'xs' | 'xxs';
-
-// @public (undocumented)
-type ClassName = {
-  className?: string;
-};
 
 // @public (undocumented)
 type CSSAtRules = {
@@ -791,24 +777,6 @@ export const media: {
 
 // @public
 type MediaQuery = (typeof media.above)[Breakpoint];
-
-// @public
-export const Pressable: PressableComponent;
-
-// @public (undocumented)
-type PressableComponent = (
-  props: PressableProps,
-  displayName: string,
-) => ReactElement | null;
-
-// @public (undocumented)
-export type PressableProps = Omit<
-  BaseBoxProps<'button'>,
-  'as' | 'children' | 'disabled' | 'role' | 'style'
-> & {
-  children: ReactNode;
-  isDisabled?: boolean;
-};
 
 // @public (undocumented)
 type SafeCSSObject = CSSPseudos &

@@ -1,5 +1,5 @@
-export type { KudosRecipient, GiveKudosDrawerProps } from './types';
-export { KudosType } from './types';
+export type { KudosRecipient, GiveKudosDrawerProps, FlagEvent } from './types';
+export { KudosType, FlagEventType } from './types';
 
 import GiveKudosLauncher from './ui/GiveKudosLauncher/main';
 export { GiveKudosLauncher };

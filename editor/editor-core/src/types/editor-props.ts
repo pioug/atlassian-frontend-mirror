@@ -234,6 +234,7 @@ interface EditorBaseProps {
   featureFlags?: { [featureFlag: string]: string | boolean };
 }
 
+// These are props that are shared between the editor and the plugin components.
 // TODO: We should refactor this to ensure these are not shared
 export interface EditorSharedPropsWithPlugins {
   // Set for an on save callback.
@@ -252,13 +253,6 @@ export interface EditorSharedPropsWithPlugins {
   media?: MediaOptions;
 
   collabEdit?: CollabEditOptions;
-
-  codeBlock?: CodeBlockOptions;
-
-  // Set to disable text formatting styles. If not specified, they will be all enabled by default. Code here refers to inline code.
-  // Smart text completion refers to the auto replacement of characters like arrows, quotes and correct casing of Atlassian product names.
-  // This should only be disabled if the user has an OS setting that disables this.
-  textFormatting?: TextFormattingOptions;
 
   primaryToolbarComponents?: PrimaryToolbarComponents;
 
@@ -461,4 +455,11 @@ export interface EditorPluginFeatureProps {
   smartLinks?: CardOptions;
 
   allowAnalyticsGASV3?: boolean;
+
+  codeBlock?: CodeBlockOptions;
+
+  // Set to disable text formatting styles. If not specified, they will be all enabled by default. Code here refers to inline code.
+  // Smart text completion refers to the auto replacement of characters like arrows, quotes and correct casing of Atlassian product names.
+  // This should only be disabled if the user has an OS setting that disables this.
+  textFormatting?: TextFormattingOptions;
 }

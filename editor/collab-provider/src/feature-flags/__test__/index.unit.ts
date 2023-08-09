@@ -6,12 +6,17 @@ import {
 describe('Feature flags', () => {
   it('getProductSpecificFeatureFlags', () => {
     const result = getProductSpecificFeatureFlags(
-      { testFF: true, socketMessageMetricsFF: true },
+      {
+        testFF: true,
+        socketMessageMetricsFF: true,
+        enableFallbackToReconcile: true,
+      },
       'confluence',
     );
     expect(result).toEqual([
-      'confluence.fe.collab.provider.testFF',
-      'confluence.fe.collab.provider.socketMessageMetricsFF',
+      'confluence.frontend.collab.provider.testFF',
+      'confluence.frontend.collab.provider.socketMessageMetricsFF',
+      'confluence.frontend.collab.provider.enable-fallback-to-reconcile',
     ]);
   });
 

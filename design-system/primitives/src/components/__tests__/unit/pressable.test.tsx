@@ -1,14 +1,13 @@
-/** @jsx jsx */
-import { Fragment } from 'react';
+import React, { Fragment } from 'react';
 
-import { css, jsx } from '@emotion/react';
 import { fireEvent, render } from '@testing-library/react';
 
+import { xcss } from '../../../xcss/xcss';
 import Pressable from '../../pressable';
 
 const testId = 'test-pressable';
 
-const pressableStyles = css({
+const pressableStyles = xcss({
   textTransform: 'uppercase',
 });
 
@@ -113,10 +112,10 @@ describe('Pressable component', () => {
     expect(mockOnClick).toHaveBeenCalled();
   });
 
-  it('should apply styles with `css`', () => {
+  it('should apply styles with `xcss`', () => {
     const { getByTestId } = render(
-      <Pressable testId={testId} css={pressableStyles}>
-        Pressable with css styles
+      <Pressable testId={testId} xcss={pressableStyles}>
+        Pressable with xcss styles
       </Pressable>,
     );
 

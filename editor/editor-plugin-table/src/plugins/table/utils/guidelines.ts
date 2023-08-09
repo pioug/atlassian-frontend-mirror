@@ -1,9 +1,9 @@
 import { createFixedGuidelinesFromLengths } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
+  akEditorCalculatedWideLayoutWidth,
   akEditorDefaultLayoutWidth,
   akEditorFullWidthLayoutWidth,
-  akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
 const numberOfLanesInDefaultLayoutWidth = 12;
@@ -21,7 +21,7 @@ const calculateGuidelineWidthsInDefaultLayoutWidth = () => {
 export const defaultGuidelineWidths = [
   ...calculateGuidelineWidthsInDefaultLayoutWidth(),
   akEditorDefaultLayoutWidth,
-  akEditorWideLayoutWidth,
+  akEditorCalculatedWideLayoutWidth,
   akEditorFullWidthLayoutWidth,
 ];
 

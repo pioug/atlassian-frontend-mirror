@@ -126,6 +126,7 @@ export enum ElementName {
   State = 'State',
   SubscriberCount = 'SubscriberCount',
   SubTasksProgress = 'SubTasksProgress',
+  StoryPoints = 'StoryPoints',
   TargetBranch = 'TargetBranch',
   Title = 'Title',
   ViewCount = 'ViewCount',

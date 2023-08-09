@@ -131,7 +131,7 @@ interface SpotlightCardProps {
   testId?: string;
   // @deprecated (undocumented)
   theme?: ThemeProp<CardTokens, {}>;
-  width?: number;
+  width?: '100%' | number;
 }
 
 // @public

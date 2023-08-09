@@ -9,7 +9,7 @@ import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-c
 import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth';
 
 snapshot(InlineCardDefaultIcon, {
-  ignoredLogs: [
+  ignoredErrors: [
     {
       pattern: /Failed to load resource/,
       ignoredBecause:
@@ -20,7 +20,7 @@ snapshot(InlineCardDefaultIcon, {
 });
 snapshot(InlineCardLozenge);
 snapshot(InlineCardTextWrap, {
-  ignoredLogs: [
+  ignoredErrors: [
     {
       pattern: /Failed to load resource/,
       ignoredBecause:

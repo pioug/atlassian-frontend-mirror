@@ -9,7 +9,7 @@ import {
 import {
   mockDatasourceDataResponse,
   mockDatasourceDataResponseWithSchema,
-  mockDatasourceResponse,
+  mockDatasourceDetailsResponse,
   useDatasourceClientExtension,
 } from '@atlaskit/link-client-extension';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
@@ -73,7 +73,9 @@ describe('useDatasourceTableState', () => {
 
   beforeEach(() => {
     jest.resetModules();
-    getDatasourceDetails = jest.fn().mockResolvedValue(mockDatasourceResponse);
+    getDatasourceDetails = jest
+      .fn()
+      .mockResolvedValue(mockDatasourceDetailsResponse);
     getDatasourceData = jest.fn().mockResolvedValue(mockDatasourceDataResponse);
   });
 
@@ -136,18 +138,22 @@ describe('useDatasourceTableState', () => {
     });
 
     it('should call #getDatasourceData with expected arguments', async () => {
-      const { waitForNextUpdate } = setup(['name', 'city']);
+      const { waitForNextUpdate } = setup(['name', 'abcd', 'city']);
 
-      expect(getDatasourceData).toHaveBeenCalledWith(mockDatasourceId, {
-        parameters: {
-          cloudId: mockCloudId,
-          jql: mockParameterValue,
+      expect(getDatasourceData).toHaveBeenCalledWith(
+        mockDatasourceId,
+        {
+          parameters: {
+            cloudId: mockCloudId,
+            jql: mockParameterValue,
+          },
+          pageSize: 20,
+          pageCursor: undefined,
+          fields: ['abcd', 'city', 'name'],
+          includeSchema: true,
         },
-        pageSize: 20,
-        pageCursor: undefined,
-        fields: ['name', 'city'],
-        includeSchema: true,
-      });
+        false,
+      );
       await waitForNextUpdate();
     });
 
@@ -226,16 +232,20 @@ describe('useDatasourceTableState', () => {
         });
         await waitForNextUpdate();
 
-        expect(getDatasourceData).toHaveBeenCalledWith(mockDatasourceId, {
-          parameters: {
-            cloudId: mockCloudId,
-            jql: mockParameterValue,
+        expect(getDatasourceData).toHaveBeenCalledWith(
+          mockDatasourceId,
+          {
+            parameters: {
+              cloudId: mockCloudId,
+              jql: mockParameterValue,
+            },
+            pageSize: 20,
+            pageCursor: undefined,
+            fields: [],
+            includeSchema: true,
           },
-          pageSize: 20,
-          pageCursor: undefined,
-          fields: [],
-          includeSchema: true,
-        });
+          false,
+        );
 
         act(() => {
           result.current.onNextPage();
@@ -243,16 +253,20 @@ describe('useDatasourceTableState', () => {
 
         await waitForNextUpdate();
 
-        expect(getDatasourceData).toHaveBeenCalledWith(mockDatasourceId, {
-          parameters: {
-            cloudId: mockCloudId,
-            jql: mockParameterValue,
+        expect(getDatasourceData).toHaveBeenCalledWith(
+          mockDatasourceId,
+          {
+            parameters: {
+              cloudId: mockCloudId,
+              jql: mockParameterValue,
+            },
+            pageSize: 20,
+            pageCursor: mockDatasourceDataResponse.data.nextPageCursor,
+            fields: [],
+            includeSchema: true,
           },
-          pageSize: 20,
-          pageCursor: mockDatasourceDataResponse.data.nextPageCursor,
-          fields: [],
-          includeSchema: true,
-        });
+          false,
+        );
       });
 
       it('should populate responseItems with new data coming from getDatasourceData', async () => {
@@ -349,7 +363,7 @@ describe('useDatasourceTableState', () => {
   describe('#loadDatasourceDetails', () => {
     it('should update only if new columns are available', async () => {
       asMock(getDatasourceDetails).mockResolvedValue({
-        ...mockDatasourceResponse,
+        ...mockDatasourceDetailsResponse,
         data: {
           schema: {
             properties: [
@@ -494,6 +508,46 @@ describe('useDatasourceTableState', () => {
       expect(result.current.totalCount).toBe(undefined);
     });
 
+    it('should call onNextPage after reset() called', async () => {
+      const { result, waitForNextUpdate } = setup();
+      await waitForNextUpdate();
+      expect(getDatasourceData).toHaveBeenCalledTimes(1);
+      // Check third, shouldForceRequest argument to be false by default
+      expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(false);
+
+      asMock(getDatasourceData).mockReset();
+      act(() => {
+        result.current.reset();
+      });
+      await waitForNextUpdate();
+
+      expect(getDatasourceData).toHaveBeenCalledTimes(1);
+      // Check third, shouldForceRequest argument to be still false by default
+      expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(false);
+    });
+
+    it('should use provided shouldForceRequest value when next time data requested', async () => {
+      const { result, waitForNextUpdate } = setup();
+      await waitForNextUpdate();
+
+      asMock(getDatasourceData).mockReset();
+      act(() => {
+        result.current.reset(true);
+      });
+      await waitForNextUpdate();
+      expect(getDatasourceData).toHaveBeenCalledTimes(1);
+      // Check third, shouldForceRequest argument to be true this time only;
+      expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(true);
+
+      asMock(getDatasourceData).mockReset();
+      act(() => {
+        result.current.reset();
+      });
+      await waitForNextUpdate();
+      // Check third, shouldForceRequest argument to be back to false by default
+      expect(asMock(getDatasourceData).mock.calls[0][2]).toBe(false);
+    });
+
     it('should set nextCursor to undefined when reset() called', async () => {
       const { result, waitForNextUpdate, rerender } = setup();
       await waitForNextUpdate();
@@ -508,6 +562,7 @@ describe('useDatasourceTableState', () => {
         expect.objectContaining({
           pageCursor: mockDatasourceDataResponse.data.nextPageCursor,
         }),
+        false,
       );
 
       rerender({
@@ -528,6 +583,7 @@ describe('useDatasourceTableState', () => {
         expect.objectContaining({
           pageCursor: undefined,
         }),
+        false,
       );
     });
   });

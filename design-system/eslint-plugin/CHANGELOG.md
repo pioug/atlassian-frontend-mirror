@@ -1,5 +1,11 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 8.3.0
+
+### Minor Changes
+
+- [`87feea3d8e0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87feea3d8e0) - Add banned import rule for `@atlaskit/primitives/pressable`
+
 ## 8.2.2
 
 ### Patch Changes

@@ -25,6 +25,8 @@ import { LinkProps } from './link/types';
 import { TextProps } from './text/types';
 import { tokens } from '../../../../utils/token';
 import { LozengeProps } from './lozenge/types';
+import AtlaskitBadge from './atlaskit-badge';
+import { AtlaskitBadgeProps } from './atlaskit-badge/types';
 
 const SNIPPET_DEFAULT_MAX_LINES = 3;
 
@@ -99,6 +101,9 @@ const elementMappings: Record<
     component: Badge,
     props: { icon: IconType.SubTasksProgress },
   },
+  [ElementName.StoryPoints]: {
+    component: AtlaskitBadge,
+  },
   [ElementName.TargetBranch]: { component: Text },
   [ElementName.Title]: { component: Link },
   [ElementName.Location]: {
@@ -142,6 +147,8 @@ const getData = (
     case ElementName.LatestCommit:
     case ElementName.SubTasksProgress:
       return toBadgeProps(data as string);
+    case ElementName.StoryPoints:
+      return toAtlaskitBadgeProps(data as number);
     case ElementName.CreatedBy:
       return toFormattedTextProps(messages.created_by, context.createdBy);
     case ElementName.AssignedTo:
@@ -177,6 +184,12 @@ const toAvatarGroupProps = (
 
 const toBadgeProps = (label?: string): Partial<BadgeProps> | undefined => {
   return label ? { label } : undefined;
+};
+
+const toAtlaskitBadgeProps = (
+  value?: number,
+): Partial<AtlaskitBadgeProps> | undefined => {
+  return value ? { value } : undefined;
 };
 
 const toDateLozengeProps = (

@@ -85,6 +85,7 @@ export const unicornResponse = {
       { '@type': 'Person', icon: avatar2, name: 'Steve' },
       { '@type': 'Person', icon: avatar3, name: 'Aliza' },
     ],
+    'atlassian:assignedTo': { '@type': 'Person', icon: avatar3, name: 'Aliza' },
     generator: {
       '@type': 'Application',
       '@id': 'https://www.atlassian.com/#Confluence',
@@ -103,6 +104,7 @@ export const unicornResponse = {
     'schema:dateCreated': '2022-01-21T10:25:11.676+1100',
     'schema:programmingLanguage': 'Javascript',
     'atlassian:downloadUrl': '/favicon.ico',
+    'atlassian:storyPoints': 3,
     'schema:potentialAction': [
       { '@type': 'DownloadAction', name: 'Download' },
       { '@type': 'ViewAction', name: 'View' },

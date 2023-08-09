@@ -87,7 +87,7 @@ export const mockDatasourceDataResponse: DatasourceDataResponse = {
   },
 };
 
-export const mockDatasourceResponse: DatasourceDetailsResponse = {
+export const mockDatasourceDetailsResponse: DatasourceDetailsResponse = {
   meta: {
     key: 'jira-object-provider',
     access: 'granted',
@@ -186,7 +186,7 @@ export const mockDatasourceDataResponseWithSchema: DatasourceDataResponse = {
   data: {
     ...mockDatasourceDataResponse.data,
     schema: {
-      properties: mockDatasourceResponse.data.schema.properties,
+      properties: mockDatasourceDetailsResponse.data.schema.properties,
     },
   },
 };

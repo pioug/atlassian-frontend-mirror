@@ -1,5 +1,7 @@
 import React from 'react';
-import { Team } from '../../../user-picker/src';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Team } from '@atlaskit/user-picker';
 import ChevronRight from './ChevronRight';
 
 export const userPickerTeamData: Team[] = [

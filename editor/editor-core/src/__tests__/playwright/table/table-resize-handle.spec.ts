@@ -159,6 +159,24 @@ test.describe('resize handle should be visible when table is selected', () => {
   });
 });
 
+test.describe('resize handle shadow', () => {
+  test('should show and hide correctly', async ({ editor }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+    const resizerModel = tableModel.resizer();
+
+    await test.step('should show when hovering handle', async () => {
+      await resizerModel.hoverHandle();
+      expect(await resizerModel.waitForHandleShadowToBeVisible()).toBeTruthy();
+    });
+
+    await test.step('show hide when not hovering handle', async () => {
+      await tableModel.hoverBody();
+      expect(await resizerModel.waitForHandleShadowToBeHidden()).toBeTruthy();
+    });
+  });
+});
+
 test.describe('resize handle should not overlap the table', () => {
   test('when table has three rows', async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);

@@ -25,7 +25,7 @@ import type {
   ToolbarUIComponentFactory,
   PrimaryToolbarComponents,
 } from '../../../types';
-import type { CollabEditOptions } from '../../../plugins/collab-edit';
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { DispatchAnalyticsEvent } from '../../../plugins/analytics';
 import type { EventDispatcher } from '../../../event-dispatcher';
 import type { EditorActions } from '../../..';

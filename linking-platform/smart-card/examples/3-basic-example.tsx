@@ -13,6 +13,7 @@ import { RadioGroup } from '@atlaskit/radio';
 import urlsJSON from '../examples-helpers/example-urls.json';
 import { ufologger } from '@atlaskit/ufo';
 import { token } from '@atlaskit/tokens';
+import { isSafeUrl } from '@atlaskit/linking-common/url';
 
 ufologger.enable();
 
@@ -21,9 +22,10 @@ const params =
     ? new URLSearchParams(location.search.slice(1))
     : null;
 const param = params ? params.get('url') : null;
-const defaultURL = param
-  ? param
-  : 'https://docs.google.com/document/d/1igbED2X5Qt8rQCeO-5rbDGG6u51wUNumlo2P_EtC9lo/edit';
+const defaultURL =
+  param && isSafeUrl(param)
+    ? param
+    : 'https://docs.google.com/document/d/1igbED2X5Qt8rQCeO-5rbDGG6u51wUNumlo2P_EtC9lo/edit';
 
 export interface ExampleState {
   appearance: CardAppearance;

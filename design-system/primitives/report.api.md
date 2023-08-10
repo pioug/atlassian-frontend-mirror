@@ -887,7 +887,7 @@ export type StackProps<T extends ElementType = 'div'> = {
 } & BasePrimitiveProps;
 
 // @public (undocumented)
-type TextColor = keyof typeof textColorMap;
+export type TextColor = keyof typeof textColorMap;
 
 // @public (undocumented)
 const textColorMap: {
@@ -924,6 +924,8 @@ const textColorMap: {
   readonly 'color.text.information': 'var(--ds-text-information)';
   readonly 'color.text.subtlest': 'var(--ds-text-subtlest)';
   readonly 'color.text.subtle': 'var(--ds-text-subtle)';
+  readonly 'color.link': 'var(--ds-link)';
+  readonly 'color.link.pressed': 'var(--ds-link-pressed)';
 };
 
 // @public (undocumented)

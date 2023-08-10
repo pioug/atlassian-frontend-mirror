@@ -16,6 +16,7 @@ import { FlexibleBlockCardProps } from './types';
 import { getForbiddenJsonLd } from '../../../../utils/jsonld';
 import { extractProvider } from '@atlaskit/link-extractors';
 import { extractRequestAccessContext } from '../../../../extractors/common/context';
+import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 /**
  * This view represent a Block Card with the 'Forbidden' status.
@@ -31,7 +32,6 @@ const FlexibleForbiddenView = ({
   onClick,
   onError,
   testId = 'smart-block-forbidden-view',
-  ui,
   url,
 }: FlexibleBlockCardProps) => {
   const status = cardState.status as SmartLinkStatus;
@@ -83,7 +83,7 @@ const FlexibleForbiddenView = ({
       onClick={onClick}
       onError={onError}
       testId={testId}
-      ui={ui}
+      ui={{ hideElevation: true }}
       url={url}
     >
       <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
@@ -107,4 +107,4 @@ const FlexibleForbiddenView = ({
     </FlexibleCard>
   );
 };
-export default FlexibleForbiddenView;
+export default withFlexibleUIBlockCardStyle(FlexibleForbiddenView);

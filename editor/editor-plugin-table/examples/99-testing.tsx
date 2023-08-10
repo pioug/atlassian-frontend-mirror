@@ -3,6 +3,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import {
   createEditorExampleForTests,
   mapProvidersToProps,
@@ -11,7 +12,6 @@ import { getDefaultLinkPickerOptions } from '@atlaskit/editor-core/example-helpe
 import { TitleInput } from '@atlaskit/editor-core/example-helpers/PageElements';
 import { SaveAndCancelButtons } from '@atlaskit/editor-core/examples/5-full-page';
 import { ContextPanel, Editor } from '@atlaskit/editor-core/src';
-import { CollabEditOptions } from '@atlaskit/editor-core/src/plugins/collab-edit';
 import { customInsertMenuItems } from '@atlaskit/editor-test-helpers/mock-insert-menu';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';

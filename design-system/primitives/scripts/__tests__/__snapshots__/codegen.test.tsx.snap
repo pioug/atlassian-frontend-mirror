@@ -512,6 +512,8 @@ exports[`@atlaskit/primitives text styles are generated correctly 1`] = `
   'color.text.information': token('color.text.information', '#0052CC'),
   'color.text.subtlest': token('color.text.subtlest', '#7A869A'),
   'color.text.subtle': token('color.text.subtle', '#42526E'),
+  'color.link': token('color.link', '#0052CC'),
+  'color.link.pressed': token('color.link.pressed', '#0747A6'),
 } as const;
 
 export type TextColor = keyof typeof textColorMap;

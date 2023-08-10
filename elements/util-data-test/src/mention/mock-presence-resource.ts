@@ -1,4 +1,6 @@
-import { AbstractPresenceResource } from '../../../mention/src/resource';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { AbstractPresenceResource } from '@atlaskit/mention/resource';
 
 export class MockPresenceResource extends AbstractPresenceResource {
   private minTimeout: number;

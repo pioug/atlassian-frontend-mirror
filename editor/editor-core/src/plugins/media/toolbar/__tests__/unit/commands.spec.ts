@@ -1,16 +1,16 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   media,
   mediaGroup,
-  DocBuilder,
   mediaInline,
   mediaSingle,
   doc,
   p,
   border,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { MediaAttributes } from '@atlaskit/adf-schema';
-import { MediaOptions } from '../../../../../plugins/media/types';
+import type { MediaAttributes } from '@atlaskit/adf-schema';
+import type { MediaOptions } from '../../../../../plugins/media/types';
 import {
   temporaryFileId,
   testCollectionName,
@@ -24,7 +24,8 @@ import {
   setBorderMark,
   toggleBorderMark,
 } from '../../commands';
-import * as analyticsUtils from '../../../../analytics/utils';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const attrs: MediaAttributes = {
   id: temporaryFileId,
@@ -45,6 +46,11 @@ const mediaNodeWithBorder = mediaSingle({ layout: 'center' })(
 
 const createMediaNodeDoc = () => doc(mediaNode);
 const createMediaNodeWithBorderDoc = () => doc(mediaNodeWithBorder);
+
+const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+  attachAnalyticsEvent,
+};
 
 describe('commands', () => {
   const createEditor = createEditorFactory();
@@ -89,18 +95,22 @@ describe('commands', () => {
   describe('changeInlineToMediaCard', () => {
     it('should change media inline item to media group', async () => {
       const { editorView } = await setup(createMediaInlineDoc());
-      changeInlineToMediaCard(editorView.state, editorView.dispatch);
+      changeInlineToMediaCard(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(
         doc(p('{<>}'), mediaGroup(media(attrs)())),
       );
     });
 
     it('creates a changed type analytic', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
       const { editorView } = await setup(createMediaInlineDoc());
-      changeInlineToMediaCard(editorView.state, editorView.dispatch);
-      expect(addAnalyticsSpy).toBeCalled();
-      expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
+      changeInlineToMediaCard(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'changedType',
         actionSubject: 'media',
         eventType: 'track',
@@ -115,18 +125,22 @@ describe('commands', () => {
   describe('changeMediaCardToInline', () => {
     it('should change media group item to media inline', async () => {
       const { editorView } = await setup(createMediaGroupDoc());
-      changeMediaCardToInline(editorView.state, editorView.dispatch);
+      changeMediaCardToInline(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(
         doc(p(mediaInline(attrs)(), ' '), p()),
       );
     });
 
     it('creates a changed type analytic', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
       const { editorView } = await setup(createMediaGroupDoc());
-      changeMediaCardToInline(editorView.state, editorView.dispatch);
-      expect(addAnalyticsSpy).toBeCalled();
-      expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
+      changeMediaCardToInline(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'changedType',
         actionSubject: 'media',
         eventType: 'track',
@@ -141,18 +155,23 @@ describe('commands', () => {
   describe('toggleBorderMark', () => {
     it('should add border mark with default color and size', async () => {
       const { editorView } = await setup(createMediaNodeDoc());
-      toggleBorderMark(editorView.state, editorView.dispatch);
+      toggleBorderMark(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(
         doc(mediaNodeWithBorder),
       );
     });
 
     it('should trigger add border mark analytic event', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
       const { editorView } = await setup(createMediaNodeDoc());
-      toggleBorderMark(editorView.state, editorView.dispatch);
-      expect(addAnalyticsSpy).toBeCalled();
-      expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
+      toggleBorderMark(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(attachAnalyticsEvent).toBeCalled();
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'added',
         actionSubject: 'media',
         actionSubjectId: 'border',
@@ -166,16 +185,21 @@ describe('commands', () => {
 
     it('should remove border mark', async () => {
       const { editorView } = await setup(createMediaNodeWithBorderDoc());
-      toggleBorderMark(editorView.state, editorView.dispatch);
+      toggleBorderMark(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(doc(mediaNode));
     });
 
     it('should trigger remove border mark analytic event', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
       const { editorView } = await setup(createMediaNodeWithBorderDoc());
-      toggleBorderMark(editorView.state, editorView.dispatch);
-      expect(addAnalyticsSpy).toBeCalled();
-      expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
+      toggleBorderMark(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(attachAnalyticsEvent).toBeCalled();
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'deleted',
         actionSubject: 'media',
         actionSubjectId: 'border',
@@ -189,7 +213,10 @@ describe('commands', () => {
 
     it('should have no effect when there is no media node', async () => {
       const { editorView } = await setup(doc(p('hello<> world')));
-      toggleBorderMark(editorView.state, editorView.dispatch);
+      toggleBorderMark(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(
         doc(p('hello<> world')),
       );
@@ -197,7 +224,10 @@ describe('commands', () => {
 
     it('should return false when there is no media node', async () => {
       const { editorView } = await setup(doc(p('hello<> world')));
-      const result = toggleBorderMark(editorView.state, editorView.dispatch);
+      const result = toggleBorderMark(mockEditorAnalyticsAPI)(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(result).toEqual(false);
     });
   });
@@ -205,7 +235,7 @@ describe('commands', () => {
   describe('setBorderMark', () => {
     it('should set border mark with the selected color', async () => {
       const { editorView } = await setup(createMediaNodeDoc());
-      setBorderMark({ color: '#758195' })(
+      setBorderMark(mockEditorAnalyticsAPI)({ color: '#758195' })(
         editorView.state,
         editorView.dispatch,
       );
@@ -221,14 +251,13 @@ describe('commands', () => {
     });
 
     it('should trigger updated analytics event when updating the border color', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
       const { editorView } = await setup(createMediaNodeDoc());
-      setBorderMark({ color: '#758195' })(
+      setBorderMark(mockEditorAnalyticsAPI)({ color: '#758195' })(
         editorView.state,
         editorView.dispatch,
       );
-      expect(addAnalyticsSpy).toBeCalled();
-      expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
+      expect(attachAnalyticsEvent).toBeCalled();
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'updated',
         actionSubject: 'media',
         actionSubjectId: 'border',
@@ -244,7 +273,10 @@ describe('commands', () => {
 
     it('should set border mark with the selected width', async () => {
       const { editorView } = await setup(createMediaNodeDoc());
-      setBorderMark({ size: 1 })(editorView.state, editorView.dispatch);
+      setBorderMark(mockEditorAnalyticsAPI)({ size: 1 })(
+        editorView.state,
+        editorView.dispatch,
+      );
       expect(editorView.state).toEqualDocumentAndSelection(
         doc(
           mediaSingle({ layout: 'center' })(
@@ -257,11 +289,13 @@ describe('commands', () => {
     });
 
     it('should trigger updated analytics event when updating the border width', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
       const { editorView } = await setup(createMediaNodeDoc());
-      setBorderMark({ size: 1 })(editorView.state, editorView.dispatch);
-      expect(addAnalyticsSpy).toBeCalled();
-      expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
+      setBorderMark(mockEditorAnalyticsAPI)({ size: 1 })(
+        editorView.state,
+        editorView.dispatch,
+      );
+      expect(attachAnalyticsEvent).toBeCalled();
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'updated',
         actionSubject: 'media',
         actionSubjectId: 'border',
@@ -277,7 +311,7 @@ describe('commands', () => {
 
     it('should set border mark with the selected width and selected color', async () => {
       const { editorView } = await setup(createMediaNodeDoc());
-      setBorderMark({ color: '#758195', size: 1 })(
+      setBorderMark(mockEditorAnalyticsAPI)({ color: '#758195', size: 1 })(
         editorView.state,
         editorView.dispatch,
       );
@@ -291,13 +325,12 @@ describe('commands', () => {
     });
 
     it('should trigger updated analytics event when updating the border width and color', async () => {
-      const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
       const { editorView } = await setup(createMediaNodeDoc());
-      setBorderMark({ color: '#758195', size: 1 })(
+      setBorderMark(mockEditorAnalyticsAPI)({ color: '#758195', size: 1 })(
         editorView.state,
         editorView.dispatch,
       );
-      expect(addAnalyticsSpy.mock.calls[0][2]).toMatchObject({
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith({
         action: 'updated',
         actionSubject: 'media',
         actionSubjectId: 'border',
@@ -313,7 +346,7 @@ describe('commands', () => {
 
     it('should have no effect when there is no media node', async () => {
       const { editorView } = await setup(doc(p('hello<> world')));
-      setBorderMark({ color: '#758195', size: 1 })(
+      setBorderMark(mockEditorAnalyticsAPI)({ color: '#758195', size: 1 })(
         editorView.state,
         editorView.dispatch,
       );
@@ -324,10 +357,10 @@ describe('commands', () => {
 
     it('should return false when there is no media node', async () => {
       const { editorView } = await setup(doc(p('hello<> world')));
-      const result = setBorderMark({ color: '#758195', size: 1 })(
-        editorView.state,
-        editorView.dispatch,
-      );
+      const result = setBorderMark(mockEditorAnalyticsAPI)({
+        color: '#758195',
+        size: 1,
+      })(editorView.state, editorView.dispatch);
       expect(result).toEqual(false);
     });
   });

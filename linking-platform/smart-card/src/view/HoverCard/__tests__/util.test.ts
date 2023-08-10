@@ -25,6 +25,7 @@ describe('getSimulatedBetterMetadata', () => {
       const topMetadata = [
         ElementName.AssignedToGroup,
         ElementName.State,
+        ElementName.StoryPoints,
         ElementName.Priority,
       ];
       expect(metadata.topMetadataBlock.primary).toEqual(topMetadata);

@@ -25,7 +25,8 @@ const tokenStyles = {
     prefix: 'color.text.',
     cssProperty: 'color',
     filterFn: <T extends Token>(t: T) =>
-      t.token.startsWith(tokenStyles.text.prefix),
+      t.token.startsWith(tokenStyles.text.prefix) ||
+      t.token.startsWith('color.link'),
   },
   background: {
     objectName: 'backgroundColor',

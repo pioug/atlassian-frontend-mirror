@@ -7,6 +7,10 @@
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { EditorPlugin } from './editor-plugin';
+import type {
+  PluginCommand,
+  PluginCommandWithMetadata,
+} from './plugin-command';
 
 type IsAny<T> = 0 extends 1 & T ? true : false;
 
@@ -33,6 +37,13 @@ type PickActionsPropertyName<Metadata extends NextEditorPluginMetadata> =
     ? never
     : 'actions';
 
+type PickCommandsPropertyName<Metadata extends NextEditorPluginMetadata> =
+  IsAny<Metadata> extends true
+    ? never
+    : ExtractCommandsFromMetadata<Metadata> extends never
+    ? never
+    : 'commands';
+
 type WithActions<Metadata extends NextEditorPluginMetadata> = {
   [Property in keyof Pick<
     Metadata,
@@ -40,23 +51,37 @@ type WithActions<Metadata extends NextEditorPluginMetadata> = {
   > as PickActionsPropertyName<Metadata>]: ExtractActionsFromMetadata<Metadata>;
 };
 
+type WithCommands<Metadata extends NextEditorPluginMetadata> = {
+  [Property in keyof Pick<
+    Metadata,
+    'commands'
+  > as PickCommandsPropertyName<Metadata>]: ExtractCommandsFromMetadata<Metadata>;
+};
+
 export type DefaultEditorPlugin<
   Name extends string,
   Metadata extends NextEditorPluginMetadata,
 > = EditorPlugin &
   WithSharedState<Metadata> &
-  WithActions<Metadata> & {
+  WithActions<Metadata> &
+  WithCommands<Metadata> & {
     name: Name;
   };
 
 type MaybeAction = ((...agrs: any) => any) | ((...agrs: any) => void);
 type NextEditorPluginActions = Record<string, MaybeAction>;
 
+type NextEditorPluginCommands = Record<
+  string,
+  PluginCommandWithMetadata | PluginCommand
+>;
+
 export interface NextEditorPluginMetadata {
   readonly sharedState?: any;
   readonly pluginConfiguration?: any;
   readonly dependencies?: DependencyPlugin[];
   readonly actions?: NextEditorPluginActions;
+  readonly commands?: NextEditorPluginCommands;
 }
 
 export type PluginInjectionAPI<
@@ -168,6 +193,10 @@ type ExtractActionsFromMetadata<Metadata> = 'actions' extends keyof Metadata
   ? Metadata['actions']
   : never;
 
+type ExtractCommandsFromMetadata<Metadata> = 'commands' extends keyof Metadata
+  ? Metadata['commands']
+  : never;
+
 type ExtractPluginConfigurationFromMetadata<Metadata> =
   'pluginConfiguration' extends keyof Metadata
     ? Metadata['pluginConfiguration']
@@ -239,6 +268,9 @@ export type PluginDependenciesAPI<Plugin extends NextEditorPlugin<any, any>> = {
     ) => Unsubscribe;
   };
   actions: ExtractPluginActions<Plugin>;
+  commands: Plugin extends NextEditorPlugin<any, infer Metadata>
+    ? ExtractCommandsFromMetadata<Metadata>
+    : never;
 };
 
 export type CreatePluginDependenciesAPI<

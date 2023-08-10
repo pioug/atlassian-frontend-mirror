@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.33.5
+
+### Patch Changes
+
+- [`c3646d11ef0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c3646d11ef0) - [ux] Updates width of datasource modals
+
 ## 0.33.4
 
 ### Patch Changes

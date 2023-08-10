@@ -19,7 +19,11 @@ import {
 } from '@atlaskit/editor-common/card';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { isTextAtPos, LinkAction } from '@atlaskit/editor-common/link';
-import type { Command, LinkInputType } from '@atlaskit/editor-common/types';
+import type {
+  Command,
+  LinkInputType,
+  PluginCommand,
+} from '@atlaskit/editor-common/types';
 import {
   filterCommand as filter,
   getLinkCreationAnalyticsEvent,
@@ -291,28 +295,25 @@ type InputMethod =
   | INPUT_METHOD.SHORTCUT
   | INPUT_METHOD.INSERT_MENU;
 
-export type ShowLinkToolbar = (inputMethod: InputMethod) => Command;
+export type ShowLinkToolbar = (inputMethod: InputMethod) => PluginCommand;
 
 export function showLinkToolbar(
   inputMethod: InputMethod,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-): Command {
-  return function (state, dispatch) {
-    if (dispatch) {
-      const tr = state.tr.setMeta(stateKey, {
-        type: LinkAction.SHOW_INSERT_TOOLBAR,
-        inputMethod,
-      });
-      editorAnalyticsApi?.attachAnalyticsEvent({
-        action: ACTION.INVOKED,
-        actionSubject: ACTION_SUBJECT.TYPEAHEAD,
-        actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_LINK,
-        attributes: { inputMethod },
-        eventType: EVENT_TYPE.UI,
-      })(tr);
-      dispatch(tr);
-    }
-    return true;
+): PluginCommand {
+  return ({ tr }) => {
+    const newTr = tr.setMeta(stateKey, {
+      type: LinkAction.SHOW_INSERT_TOOLBAR,
+      inputMethod,
+    });
+    editorAnalyticsApi?.attachAnalyticsEvent({
+      action: ACTION.INVOKED,
+      actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+      actionSubjectId: ACTION_SUBJECT_ID.TYPEAHEAD_LINK,
+      attributes: { inputMethod },
+      eventType: EVENT_TYPE.UI,
+    })(newTr);
+    return newTr;
   };
 }
 

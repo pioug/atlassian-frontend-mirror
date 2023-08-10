@@ -29,8 +29,7 @@ const breakoutConsts: any = {
   mapBreakpointToLayoutMaxWidth,
   getBreakpoint,
   /**
-   * Consumers are opinionated that this will always return a string ending in
-   * `px` when called with `full-width` or `wide` as the layout parameter.
+   * This function can return percentage value or px value depending upon the inputs
    */
   calcBreakoutWidth: (
     layout: 'full-width' | 'wide' | string,
@@ -45,7 +44,18 @@ const breakoutConsts: any = {
           breakoutConsts.fullWidthLayoutWidth,
         )}px`;
       case 'wide':
-        return breakoutConsts.calcWideWidth(containerWidth);
+        if (effectiveFullWidth <= 0) {
+          return '100%';
+        }
+
+        let wideWidth = breakoutConsts.calcWideWidth(containerWidth);
+        if (wideWidth.endsWith('%')) {
+          return `${Math.min(
+            effectiveFullWidth,
+            breakoutConsts.fullWidthLayoutWidth,
+          )}px`;
+        }
+        return wideWidth;
       default:
         return '100%';
     }

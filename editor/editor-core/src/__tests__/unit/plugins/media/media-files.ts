@@ -1,4 +1,5 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   mediaGroup,
@@ -17,7 +18,6 @@ import {
   td,
   layoutSection,
   layoutColumn,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 import { uuid } from '@atlaskit/adf-schema';
@@ -35,6 +35,8 @@ import {
   getFreshMediaProvider,
 } from './_utils';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
@@ -64,12 +66,16 @@ describe('media-files', () => {
       },
       providerFactory,
     });
+  const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+  const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+    attachAnalyticsEvent,
+  };
 
   describe('when cursor is at the end of a text block', () => {
     it('inserts media node into the document after current paragraph node', () => {
       const { editorView } = editor(doc(p('text{<>}')));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -83,7 +89,7 @@ describe('media-files', () => {
     it('puts cursor to the next paragraph after inserting media node', () => {
       const { editorView } = editor(doc(p('text{<>}')));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -101,7 +107,11 @@ describe('media-files', () => {
     it('should prepend media node to existing media group after it', () => {
       const { editorView } = editor(doc(p('text{<>}'), temporaryMediaGroup));
 
-      insertMediaGroupNode(editorView, [{ id: 'mock2' }], testCollectionName);
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
+        editorView,
+        [{ id: 'mock2' }],
+        testCollectionName,
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -123,7 +133,11 @@ describe('media-files', () => {
     it('should prepend media node to existing media group before it', () => {
       const { editorView } = editor(doc(temporaryMediaGroup, p('{<>}text')));
 
-      insertMediaGroupNode(editorView, [{ id: 'mock2' }], testCollectionName);
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
+        editorView,
+        [{ id: 'mock2' }],
+        testCollectionName,
+      );
 
       expect(editorView.state.doc).toEqualDocument(
         doc(
@@ -146,7 +160,7 @@ describe('media-files', () => {
       it('splits text', () => {
         const { editorView } = editor(doc(p('te{<>}xt')));
 
-        insertMediaGroupNode(
+        insertMediaGroupNode(mockEditorAnalyticsAPI)(
           editorView,
           [{ id: temporaryFileId }],
           testCollectionName,
@@ -165,7 +179,7 @@ describe('media-files', () => {
           editorView.state.schema,
         ).nodeSize;
 
-        insertMediaGroupNode(
+        insertMediaGroupNode(mockEditorAnalyticsAPI)(
           editorView,
           [{ id: temporaryFileId }],
           testCollectionName,
@@ -181,7 +195,7 @@ describe('media-files', () => {
       it('preserves heading', () => {
         const { editorView } = editor(doc(h1('te{<>}xt')));
 
-        insertMediaGroupNode(
+        insertMediaGroupNode(mockEditorAnalyticsAPI)(
           editorView,
           [{ id: temporaryFileId }],
           testCollectionName,
@@ -199,7 +213,7 @@ describe('media-files', () => {
         it('replaces selection with a media node', () => {
           const { editorView } = editor(doc(p('te{<}x{>}t')));
 
-          insertMediaGroupNode(
+          insertMediaGroupNode(mockEditorAnalyticsAPI)(
             editorView,
             [{ id: temporaryFileId }],
             testCollectionName,
@@ -217,7 +231,7 @@ describe('media-files', () => {
             it('replaces selection with a media node', () => {
               const { editorView } = editor(doc(p('{<}text{>}')));
 
-              insertMediaGroupNode(
+              insertMediaGroupNode(mockEditorAnalyticsAPI)(
                 editorView,
                 [{ id: temporaryFileId }],
                 testCollectionName,
@@ -233,7 +247,7 @@ describe('media-files', () => {
             it('replaces selection with a media node', () => {
               const { editorView } = editor(doc(h1('{<}text{>}')));
 
-              insertMediaGroupNode(
+              insertMediaGroupNode(mockEditorAnalyticsAPI)(
                 editorView,
                 [{ id: temporaryFileId }],
                 testCollectionName,
@@ -252,7 +266,11 @@ describe('media-files', () => {
               doc(temporaryMediaGroup, p('{<}text{>}'), temporaryMediaGroup),
             );
 
-            const newMedia = insertMediaGroupItem(editorView, 'new one');
+            const newMedia = insertMediaGroupItem(
+              editorView,
+              'new one',
+              mockEditorAnalyticsAPI,
+            );
 
             expect(editorView.state.doc).toEqualDocument(
               doc(
@@ -269,7 +287,7 @@ describe('media-files', () => {
         it('replaces selection with a media node', () => {
           const { editorView } = editor(doc(p('te{<}xt{>}')));
 
-          insertMediaGroupNode(
+          insertMediaGroupNode(mockEditorAnalyticsAPI)(
             editorView,
             [{ id: temporaryFileId }],
             testCollectionName,
@@ -285,7 +303,7 @@ describe('media-files', () => {
             doc(p('te{<}xt{>}'), temporaryMediaGroup),
           );
 
-          insertMediaGroupNode(
+          insertMediaGroupNode(mockEditorAnalyticsAPI)(
             editorView,
             [{ id: 'new one' }],
             testCollectionName,
@@ -316,7 +334,7 @@ describe('media-files', () => {
           );
           setNodeSelection(editorView, sel);
 
-          insertMediaGroupNode(
+          insertMediaGroupNode(mockEditorAnalyticsAPI)(
             editorView,
             [{ id: temporaryFileId }],
             testCollectionName,
@@ -333,7 +351,7 @@ describe('media-files', () => {
           const { editorView } = editor(doc(temporaryMediaGroup, p('text')));
           setNodeSelection(editorView, 1);
 
-          insertMediaGroupNode(
+          insertMediaGroupNode(mockEditorAnalyticsAPI)(
             editorView,
             [{ id: 'new one' }],
             testCollectionName,
@@ -358,7 +376,7 @@ describe('media-files', () => {
           const { editorView } = editor(doc(temporaryMediaGroup));
           setNodeSelection(editorView, 1);
 
-          insertMediaGroupNode(
+          insertMediaGroupNode(mockEditorAnalyticsAPI)(
             editorView,
             [{ id: 'new one' }],
             testCollectionName,
@@ -382,7 +400,7 @@ describe('media-files', () => {
           const { editorView } = editor(doc(temporaryMediaGroup, p('text')));
           setNodeSelection(editorView, 1);
 
-          insertMediaGroupNode(
+          insertMediaGroupNode(mockEditorAnalyticsAPI)(
             editorView,
             [{ id: 'new one' }],
             testCollectionName,
@@ -408,7 +426,7 @@ describe('media-files', () => {
             const { editorView } = editor(doc(hr()));
             setNodeSelection(editorView, 0);
 
-            insertMediaGroupNode(
+            insertMediaGroupNode(mockEditorAnalyticsAPI)(
               editorView,
               [{ id: temporaryFileId }],
               testCollectionName,
@@ -429,7 +447,7 @@ describe('media-files', () => {
               ).nodeSize;
               setNodeSelection(editorView, mediaGroupNodeSize);
 
-              insertMediaGroupNode(
+              insertMediaGroupNode(mockEditorAnalyticsAPI)(
                 editorView,
                 [{ id: 'new one' }],
                 testCollectionName,
@@ -457,7 +475,7 @@ describe('media-files', () => {
               const { editorView } = editor(doc(hr(), temporaryMediaGroup));
               setNodeSelection(editorView, 0);
 
-              insertMediaGroupNode(
+              insertMediaGroupNode(mockEditorAnalyticsAPI)(
                 editorView,
                 [{ id: 'new one' }],
                 testCollectionName,
@@ -489,7 +507,7 @@ describe('media-files', () => {
               ).nodeSize;
               setNodeSelection(editorView, mediaGroupNodeSize);
 
-              insertMediaGroupNode(
+              insertMediaGroupNode(mockEditorAnalyticsAPI)(
                 editorView,
                 [{ id: 'new one' }],
                 testCollectionName,
@@ -519,7 +537,7 @@ describe('media-files', () => {
       it('replaces selection with a media node', () => {
         const { editorView } = editor(doc(p('{<}te{>}xt')));
 
-        insertMediaGroupNode(
+        insertMediaGroupNode(mockEditorAnalyticsAPI)(
           editorView,
           [{ id: temporaryFileId }],
           testCollectionName,
@@ -535,7 +553,7 @@ describe('media-files', () => {
           doc(temporaryMediaGroup, p('{<}te{>}xt')),
         );
 
-        insertMediaGroupNode(
+        insertMediaGroupNode(mockEditorAnalyticsAPI)(
           editorView,
           [{ id: 'new one' }],
           testCollectionName,
@@ -561,7 +579,7 @@ describe('media-files', () => {
   it(`should insert media node into the document after current heading node`, () => {
     const { editorView } = editor(doc(h1('text{<>}')));
 
-    insertMediaGroupNode(
+    insertMediaGroupNode(mockEditorAnalyticsAPI)(
       editorView,
       [{ id: temporaryFileId }],
       testCollectionName,
@@ -575,7 +593,7 @@ describe('media-files', () => {
   it(`should insert media node into the document after current codeblock node`, () => {
     const { editorView } = editor(doc(code_block()('text{<>}')));
 
-    insertMediaGroupNode(
+    insertMediaGroupNode(mockEditorAnalyticsAPI)(
       editorView,
       [{ id: temporaryFileId }],
       testCollectionName,
@@ -590,7 +608,7 @@ describe('media-files', () => {
     it('replaces empty paragraph with the media grroup in an empty document', () => {
       const { editorView } = editor(doc(p('{<>}')));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -604,7 +622,7 @@ describe('media-files', () => {
     it('apends media group to empty paragraph in an empty code block', () => {
       const { editorView } = editor(doc(code_block()('{<>}')));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -618,7 +636,7 @@ describe('media-files', () => {
     it('apends media group to empty paragraph in an empty heading', () => {
       const { editorView } = editor(doc(h1('{<>}')));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -632,7 +650,7 @@ describe('media-files', () => {
     it('prepends media to existing media group before the empty paragraph', () => {
       const { editorView } = editor(doc(temporaryMediaGroup, p('{<>}')));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: 'another one' }],
         testCollectionName,
@@ -656,7 +674,7 @@ describe('media-files', () => {
     it('should replace empty paragraph with mediaGroup and preserve next empty paragraph', () => {
       const { editorView } = editor(doc(p('{<>}'), p()));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -670,7 +688,7 @@ describe('media-files', () => {
     it('should add empty paragraph after mediaGroup when in table cell', () => {
       const { editorView } = editor(doc(table()(row(td({})(p('{<>}'), p())))));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -688,7 +706,7 @@ describe('media-files', () => {
     it('should add empty paragraph after mediaGroup when in table head', () => {
       const { editorView } = editor(doc(table()(row(th({})(p('{<>}'), p())))));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -707,7 +725,7 @@ describe('media-files', () => {
       // TODO Ask Vij - is that rather a bug?
       const { editorView } = editor(doc(ul(li(p('{<>}'))), p()));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -728,7 +746,7 @@ describe('media-files', () => {
         ),
       );
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -747,7 +765,7 @@ describe('media-files', () => {
     it('should replace empty paragraph with mediaGroup and preserve previous empty paragraph', () => {
       const { editorView } = editor(doc(p(), p('{<>}')));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,
@@ -761,7 +779,7 @@ describe('media-files', () => {
     it('should insert all media nodes on the same line', async () => {
       const { editorView } = editor(doc(p('{<>}')));
 
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: 'mock1' }, { id: 'mock2' }],
         testCollectionName,
@@ -791,7 +809,7 @@ describe('media-files', () => {
     it('should append media below panel', () => {
       const panelDoc = doc(panel({})(p('{<>}')));
       const { editorView } = editor(panelDoc);
-      insertMediaGroupNode(
+      insertMediaGroupNode(mockEditorAnalyticsAPI)(
         editorView,
         [{ id: temporaryFileId }],
         testCollectionName,

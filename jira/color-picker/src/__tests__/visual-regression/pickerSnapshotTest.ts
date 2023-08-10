@@ -5,7 +5,7 @@ import {
 } from '@atlaskit/visual-regression/helper';
 
 const openPickerBtn = 'button';
-const colorPalette = "[role='grid']";
+const colorPalette = "[role='radiogroup']";
 
 describe('Snapshot Test', () => {
   it('Color Palette should match production example', async () => {

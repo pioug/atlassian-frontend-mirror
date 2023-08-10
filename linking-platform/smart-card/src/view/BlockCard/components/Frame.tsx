@@ -3,7 +3,6 @@ import { jsx } from '@emotion/react';
 import React from 'react';
 import { N20A, N30A, B200, N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
 import { gs, br, mq } from '../../common/utils';
 
 export interface FrameProps {

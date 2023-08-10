@@ -4,6 +4,7 @@ import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
+import Tooltip from '@atlaskit/tooltip';
 import {
   ColorCardOption,
   ColorCardContent,
@@ -68,23 +69,27 @@ export default class ColorCard extends PureComponent<Props> {
     } = this.props;
 
     return (
-      <ColorCardOption
-        onClick={this.onClick}
-        onMouseDown={this.onMouseDown}
-        focused={focused}
-        aria-label={`${label}${selected ? ' selected' : ''}`}
-        tabIndex={0}
-        onKeyDown={this.onKeyDown}
-        isTabbing={isTabbing}
-      >
-        <ColorCardContent color={value || 'transparent'}>
-          {selected && (
-            <ColorCardContentCheckMark>
-              <EditorDoneIcon primaryColor={checkMarkColor} label="" />
-            </ColorCardContentCheckMark>
-          )}
-        </ColorCardContent>
-      </ColorCardOption>
+      <Tooltip content={label}>
+        <ColorCardOption
+          onClick={this.onClick}
+          onMouseDown={this.onMouseDown}
+          focused={focused}
+          role="radio"
+          aria-checked={selected}
+          aria-label={label}
+          tabIndex={0}
+          onKeyDown={this.onKeyDown}
+          isTabbing={isTabbing}
+        >
+          <ColorCardContent color={value || 'transparent'}>
+            {selected && (
+              <ColorCardContentCheckMark>
+                <EditorDoneIcon primaryColor={checkMarkColor} label="" />
+              </ColorCardContentCheckMark>
+            )}
+          </ColorCardContent>
+        </ColorCardOption>
+      </Tooltip>
     );
   }
 }

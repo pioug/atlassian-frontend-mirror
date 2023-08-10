@@ -5,6 +5,7 @@ import { gridSize, colors } from '@atlaskit/theme';
 import { getWidth } from '../utils';
 import { Mode } from '../types';
 import { token } from '@atlaskit/tokens';
+import { COLOR_CARD_SIZE } from '../constants';
 
 type Props = {
   mode?: Mode;
@@ -18,6 +19,7 @@ type ColorPaletteMenuProps = {
 export const ColorCardWrapper = styled.div`
   display: flex;
   margin: ${token('space.025', '2px')};
+  height: ${COLOR_CARD_SIZE}px;
 `;
 
 export const ColorPaletteContainer = styled.div<

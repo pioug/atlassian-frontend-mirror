@@ -39,7 +39,7 @@ export const ColorCardOption = styled.div<
   ${(props) => {
     if (props.isTabbing === undefined || props.isTabbing) {
       return `&:hover,
-      &:focus {
+  &:focus {
         border-color: ${token('color.border.focused', colors.B75)};
       }`;
     }

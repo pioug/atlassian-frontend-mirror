@@ -1,58 +1,67 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 
 import {
   ColorPickerWithoutAnalytics as ColorPicker,
   ColorPickerProps,
 } from '../..';
 import Trigger from '../../components/Trigger';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 describe('ColorPicker', () => {
-  test('should pass default popperProps to PopupSelect', () => {
-    const mockFn = jest.fn();
-    const value = { value: 'blue', label: 'Blue' };
-    const wrapper = shallow(
-      <ColorPicker palette={[value]} onChange={mockFn} />,
-    );
+  const mockFn = jest.fn();
 
-    const select = wrapper.find('PopupSelect');
-
-    expect(select.prop('popperProps')).toEqual({
-      strategy: 'fixed',
-      modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
-      placement: 'bottom-start',
-    });
-  });
-
-  test('should popperProps to PopupSelect', () => {
-    const mockFn = jest.fn();
-    const value = { value: 'blue', label: 'Blue' };
+  const renderUI = () => {
+    const palette = [
+      { value: 'blue', label: 'Blue' },
+      { value: 'red', label: 'Red' },
+    ];
     const popperProps: ColorPickerProps['popperProps'] = {
       placement: 'bottom',
     };
-    const wrapper = shallow(
+    return render(
       <ColorPicker
-        palette={[value]}
-        popperProps={popperProps}
+        palette={palette}
         onChange={mockFn}
+        popperProps={popperProps}
       />,
     );
+  };
 
-    const select = wrapper.find('PopupSelect');
-
-    expect(select.prop('popperProps')).toEqual(popperProps);
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
-  test('should not submit form when click on trigger', () => {
+  test('should render ColorPicker', () => {
+    const { getByLabelText } = renderUI();
+    const colorButton = getByLabelText('Color picker, Blue selected');
+
+    expect(colorButton).toBeInTheDocument();
+  });
+
+  test('should render ColorPickerMenu on ColorPicker click', async () => {
+    const { getByLabelText, getAllByRole } = renderUI();
+    const colorButton = getByLabelText('Color picker, Blue selected');
+    expect(colorButton).toHaveAttribute('aria-expanded', 'false');
+    expect(colorButton).toBeInTheDocument();
+
+    // click on trigger
+    await userEvent.click(colorButton);
+    expect(colorButton).toHaveAttribute('aria-expanded', 'true');
+
+    // popup to have color options
+    expect(getAllByRole('radio')).toHaveLength(2);
+  });
+
+  test('should not submit form when click on trigger', async () => {
     const mockSubmit = jest.fn();
-    const wrapper = shallow(
+    const { getByRole } = render(
       <form onSubmit={mockSubmit}>
         <Trigger value="blue" label="Blue" expanded={false} />
       </form>,
     );
 
-    expect(wrapper.find(Trigger).length).toBe(1);
-    wrapper.find(Trigger).simulate('click');
+    await userEvent.click(getByRole('button'));
     expect(mockSubmit.mock.calls.length).toBe(0);
   });
 });

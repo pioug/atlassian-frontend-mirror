@@ -1,5 +1,11 @@
 # @atlaskit/inline-edit
 
+## 12.4.1
+
+### Patch Changes
+
+- [`4f5a3b9d776`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f5a3b9d776) - Improvement to last regression bugfix where internal form state persisted across blur and cancel incorrectly
+
 ## 12.4.0
 
 ### Minor Changes

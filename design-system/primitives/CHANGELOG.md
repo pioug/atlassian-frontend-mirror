@@ -1,5 +1,12 @@
 # @atlaskit/primitives
 
+## 1.2.0
+
+### Minor Changes
+
+- [`37e0d67942b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/37e0d67942b) - - Add missing `xcss` type export for `TextColor`
+  - Fixes a bug where the `xcss` function did not accept `color.link` or `color.link.pressed` token values for text color
+
 ## 1.1.0
 
 ### Minor Changes

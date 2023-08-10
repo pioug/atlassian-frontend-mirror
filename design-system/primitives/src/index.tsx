@@ -6,6 +6,7 @@ export type {
   BorderRadius,
   BorderWidth,
   Layer,
+  TextColor,
   Shadow,
 } from './xcss/style-maps.partial';
 

@@ -1,17 +1,18 @@
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   caption,
   doc,
   media,
   mediaSingle,
   p,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import * as analyticsUtils from '../../analytics/utils';
 import {
   insertAndSelectCaptionFromMediaSinglePos,
   selectCaptionFromMediaSinglePos,
 } from './captions';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('Caption plugin', () => {
   const createEditor = createEditorFactory();
@@ -20,6 +21,11 @@ describe('Caption plugin', () => {
       doc,
       ...opts,
     });
+
+  const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+  const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+    attachAnalyticsEvent,
+  };
 
   it('should insert the caption node and select it', () => {
     const { editorView } = editor(
@@ -40,10 +46,10 @@ describe('Caption plugin', () => {
         },
       },
     );
-    insertAndSelectCaptionFromMediaSinglePos(0, editorView.state.doc.child(0))(
-      editorView.state,
-      editorView.dispatch,
-    );
+    insertAndSelectCaptionFromMediaSinglePos(mockEditorAnalyticsAPI)(
+      0,
+      editorView.state.doc.child(0),
+    )(editorView.state, editorView.dispatch);
     expect(editorView.state).toEqualDocumentAndSelection(
       doc(
         mediaSingle()(
@@ -80,7 +86,7 @@ describe('Caption plugin', () => {
       },
     );
     expect(
-      insertAndSelectCaptionFromMediaSinglePos(
+      insertAndSelectCaptionFromMediaSinglePos(mockEditorAnalyticsAPI)(
         0,
         editorView.state.doc.child(0),
       )(editorView.state, editorView.dispatch),
@@ -88,7 +94,6 @@ describe('Caption plugin', () => {
   });
 
   it('create an added analytic for captions', () => {
-    const addAnalyticsSpy = jest.spyOn(analyticsUtils, 'addAnalytics');
     const { editorView } = editor(
       doc(
         '{<node>}',
@@ -107,12 +112,12 @@ describe('Caption plugin', () => {
         },
       },
     );
-    insertAndSelectCaptionFromMediaSinglePos(0, editorView.state.doc.child(0))(
-      editorView.state,
-      editorView.dispatch,
-    );
-    expect(addAnalyticsSpy).toBeCalled();
-    expect(addAnalyticsSpy.mock.calls[0][2]).toEqual({
+    insertAndSelectCaptionFromMediaSinglePos(mockEditorAnalyticsAPI)(
+      0,
+      editorView.state.doc.child(0),
+    )(editorView.state, editorView.dispatch);
+    expect(attachAnalyticsEvent).toBeCalled();
+    expect(attachAnalyticsEvent).toHaveBeenCalledWith({
       action: 'added',
       actionSubject: 'mediaSingle',
       actionSubjectId: 'caption',

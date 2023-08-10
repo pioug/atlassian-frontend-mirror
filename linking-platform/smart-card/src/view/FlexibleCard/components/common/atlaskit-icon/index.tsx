@@ -90,7 +90,7 @@ const importIconMapper: {
   [IconType.PriorityUndefined]: () => import(/* webpackChunkName: "glyphUndefined" */ '@atlaskit/icon/glyph/question'),
   [IconType.ProgrammingLanguage]: () => import(/* webpackChunkName: "glyphProgrammingLanguage" */ '@atlaskit/icon/glyph/code'),
   [IconType.Subscriber]: () => import(/* webpackChunkName: "glyphSubscriber" */ '@atlaskit/icon/glyph/people'),
-  [IconType.SubTasksProgress]: () => import(/* webpackChunkName: "glyphSubtask" */ '@atlaskit/icon/glyph/subtask'),
+  [IconType.SubTasksProgress]: () => import(/* webpackChunkName: "glyphSubtaskProgress" */ '@atlaskit/icon/glyph/subtask'),
 };
 
 const getIconImportFn = (icon: IconType): (() => Promise<any>) | undefined =>

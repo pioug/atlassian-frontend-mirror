@@ -84,6 +84,7 @@ export {
 export { default as IntlProviderIfMissingWrapper } from './IntlProviderIfMissingWrapper';
 
 export { default as FloatingToolbarButton } from './FloatingToolbar/Button';
+export { default as FloatingToolbarSeparator } from './FloatingToolbar/Separator';
 
 export {
   RECENT_SEARCH_WIDTH_IN_PX,

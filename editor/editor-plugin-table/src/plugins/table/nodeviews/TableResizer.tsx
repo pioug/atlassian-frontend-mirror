@@ -21,6 +21,7 @@ import {
   HandleResize,
   ResizerNext,
 } from '@atlaskit/editor-common/resizer';
+import { resizerHandleShadowClassName } from '@atlaskit/editor-common/styles';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -54,7 +55,7 @@ interface TableResizerProps {
 }
 
 const handles = { right: true };
-const tableHandleMarginTop = 11;
+const tableHandleMarginTop = 12;
 
 const generateResizedPayload = (props: {
   originalNode: PMNode;
@@ -258,6 +259,24 @@ export const TableResizer = ({
 
   const scheduleResize = useMemo(() => rafSchd(handleResize), [handleResize]);
 
+  const handleComponent = useMemo(
+    () => ({
+      left: (
+        <div
+          className={resizerHandleShadowClassName}
+          style={{ height: 'calc(100% - 24px)' }}
+        />
+      ),
+      right: (
+        <div
+          className={resizerHandleShadowClassName}
+          style={{ height: 'calc(100% - 24px)' }}
+        />
+      ),
+    }),
+    [],
+  );
+
   return (
     <ResizerNext
       enable={handles}
@@ -275,6 +294,7 @@ export const TableResizer = ({
       snap={guidelineSnaps}
       handlePositioning="adjacent"
       isHandleVisible={findTable(editorView.state?.selection)?.pos === getPos()}
+      handleComponent={handleComponent}
     >
       {children}
     </ResizerNext>

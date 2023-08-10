@@ -36,7 +36,7 @@
   "dependencies": {
     "@atlaskit/analytics-gas-types": "^5.1.0",
     "@atlaskit/analytics-listeners": "^8.7.0",
-    "@atlaskit/editor-common": "^74.36.0",
+    "@atlaskit/editor-common": "^74.41.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-prosemirror": "1.0.2",
     "@atlaskit/prosemirror-collab": "^0.2.0",
@@ -62,7 +62,7 @@
     }
   },
   "devDependencies": {
-    "@atlaskit/adf-schema": "^27.0.0",
+    "@atlaskit/adf-schema": "^28.0.0",
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/editor-test-helpers": "^18.10.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.1": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.1",

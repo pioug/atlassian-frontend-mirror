@@ -1,5 +1,65 @@
 # @atlaskit/editor-common
 
+## 74.41.0
+
+### Minor Changes
+
+- [`7b8e8b52110`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b8e8b52110) - [ED-16733] Editor Media Extraction: Moving Floating Toolbar Separator to editor-common
+
+## 74.40.1
+
+### Patch Changes
+
+- [`736af94f8b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/736af94f8b0) - [ux] Fixing the bug due to which break-out layout and expand node on narrow viewport resizes to be too narrow
+- [`39099193642`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39099193642) - Cleanup breakout styling when table has fragment mark ff
+
+## 74.40.0
+
+### Minor Changes
+
+- [`960a2b478c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/960a2b478c8) - [ux] [ED-19167] Add blue shadow to resizer handle on hover
+
+## 74.39.0
+
+### Minor Changes
+
+- [`021d5f488ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/021d5f488ec) - [ED-16733] Media Plugin Extractation - Move core commands to common entrypoint
+
+## 74.38.1
+
+### Patch Changes
+
+- [`4cbae03c15c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cbae03c15c) - Set maxWidth for ResizerNext to stop lable updating when reaching max width
+
+## 74.38.0
+
+### Minor Changes
+
+- [`a675f834911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a675f834911) - Introduce `commands` optional parameter to `NextEditorPlugin`. It can be used similarly to `actions` in `NextEditorPlugin` but `commands` must adhere to the type of `PluginCommand`:
+
+  ```ts
+  type PluginCommand = ({ tr }: { tr: Transaction }) => Transaction | null;
+  ```
+
+  `PluginCommand`s are specifically used for code that is executed to modify a Transaction. They should be used in preference to the existing prosemirror `Command` type.
+
+### Patch Changes
+
+- [`3bbe8f91f34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3bbe8f91f34) - refactor ResizableMediaSingleNext around guidelines and snapping
+
+## 74.37.0
+
+### Minor Changes
+
+- [`8699cf99ceb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8699cf99ceb) - Exporting LayoutPluginOptions and CollabEditOptions from editor-common.
+
+## 74.36.4
+
+### Patch Changes
+
+- [`9064e2d0f28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9064e2d0f28) - [ux] HOT-104783 Reverting https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37639
+- Updated dependencies
+
 ## 74.36.3
 
 ### Patch Changes

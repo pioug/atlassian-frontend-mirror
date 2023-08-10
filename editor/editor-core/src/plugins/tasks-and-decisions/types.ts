@@ -4,8 +4,11 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
-import type { INPUT_METHOD, USER_CONTEXT } from '../analytics';
-import type { LongPressSelectionPluginOptions } from '../selection/types';
+import type {
+  INPUT_METHOD,
+  USER_CONTEXT,
+} from '@atlaskit/editor-common/analytics';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 
 export type TaskDecisionListType = 'taskList' | 'decisionList';
 

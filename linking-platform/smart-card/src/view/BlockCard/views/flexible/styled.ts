@@ -1,4 +1,8 @@
+import { token } from '@atlaskit/tokens';
+import { tokens } from '../../../../utils/token';
 import { css } from '@emotion/react';
+import { N40 } from '@atlaskit/theme/colors';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 // in editor prosemirror adds padding-left so we need to overwrite it
 export const metadataBlockCss = css`
@@ -12,3 +16,22 @@ export const metadataBlockCss = css`
 export const titleBlockCss = css`
   gap: 0.5em;
 `;
+
+const flexibleBlockCardElevationStyle = css`
+  border-radius: 1.5px;
+  box-shadow: ${tokens.elevation};
+  margin: ${token('space.025', '2px')};
+`;
+
+const refreshedFlexibleBlockCardStyle = css`
+  & > div {
+    border-radius: ${token('border.radius.300', '12px')};
+    border: 1px solid ${token('color.border.input', N40)};
+  }
+`;
+
+export const flexibleBlockCardStyle = getBooleanFF(
+  'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+)
+  ? refreshedFlexibleBlockCardStyle
+  : flexibleBlockCardElevationStyle;

@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.3.10
+
+### Patch Changes
+
+- [`8b9fec4c803`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b9fec4c803) - [ux] improve guidelines styles left position
+- Updated dependencies
+
 ## 0.3.9
 
 ### Patch Changes

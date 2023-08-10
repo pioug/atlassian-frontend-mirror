@@ -14,18 +14,21 @@ import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import type { INPUT_METHOD, MediaLinkAEP } from '../../analytics';
 import {
-  addAnalytics,
   EVENT_TYPE,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
 import { currentMediaNode } from '../utils/current-media-node';
 import { checkMediaType } from '../utils/check-media-type';
 import { getMediaPluginState } from '../pm-plugins/main';
 import type { Command } from '../../../types';
+import type {
+  INPUT_METHOD,
+  MediaLinkAEP,
+  EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 
 export const showLinkingToolbar = createMediaLinkingCommand((state) => {
   const mediaLinkingState = getMediaLinkingState(state);
@@ -171,28 +174,35 @@ function toggleLinkMark(
 
 const fireAnalyticForMediaLink = <T extends MediaLinkAEP>(
   tr: Transaction,
-  state: EditorState,
   action: T['action'],
   attributes: T['attributes'] = undefined,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ) => {
-  return addAnalytics(state, tr, {
+  editorAnalyticsAPI?.attachAnalyticsEvent({
     action,
     eventType: EVENT_TYPE.TRACK,
     actionSubject: ACTION_SUBJECT.MEDIA,
     actionSubjectId: ACTION_SUBJECT_ID.LINK,
     attributes,
-  });
+  })(tr);
+  return tr;
 };
 
-export const unlink = createMediaLinkingCommand(
-  {
-    type: MediaLinkingActionsTypes.unlink,
-  },
-  (tr, state) => {
-    const transaction = toggleLinkMark(tr, state, { forceRemove: true });
-    return fireAnalyticForMediaLink(transaction, state, ACTION.DELETED);
-  },
-);
+export const unlink = (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined) =>
+  createMediaLinkingCommand(
+    {
+      type: MediaLinkingActionsTypes.unlink,
+    },
+    (tr, state) => {
+      const transaction = toggleLinkMark(tr, state, { forceRemove: true });
+      return fireAnalyticForMediaLink(
+        transaction,
+        ACTION.DELETED,
+        undefined,
+        editorAnalyticsAPI,
+      );
+    },
+  );
 
 const getAction = (newUrl: string, state: EditorState) => {
   const currentUrl = getCurrentUrl(state);
@@ -207,6 +217,7 @@ const getAction = (newUrl: string, state: EditorState) => {
 export const setUrlToMedia = (
   url: string,
   inputMethod: INPUT_METHOD.TYPEAHEAD | INPUT_METHOD.MANUAL,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ) =>
   createMediaLinkingCommand(
     {
@@ -223,15 +234,20 @@ export const setUrlToMedia = (
         const toggleLinkMarkResult = toggleLinkMark(tr, state, { url: url });
         fireAnalyticForMediaLink(
           tr,
-          state,
           action,
           action === ACTION.ADDED ? { inputMethod } : undefined,
+          editorAnalyticsAPI,
         );
         return toggleLinkMarkResult;
       } catch (e) {
-        fireAnalyticForMediaLink(tr, state, ACTION.ERRORED, {
-          action: action,
-        });
+        fireAnalyticForMediaLink(
+          tr,
+          ACTION.ERRORED,
+          {
+            action: action,
+          },
+          editorAnalyticsAPI,
+        );
         throw e;
       }
     },

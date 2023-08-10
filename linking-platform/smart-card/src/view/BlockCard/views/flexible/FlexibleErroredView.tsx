@@ -12,6 +12,7 @@ import { CustomBlock } from '../../../FlexibleCard/components/blocks';
 import Text from '../../../FlexibleCard/components/elements/text';
 import { SmartLinkStatus } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
+import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 /**
  * This view represents a Block Card with an 'Errored' status.
@@ -24,7 +25,6 @@ const FlexibleErroredView = ({
   cardState,
   onAuthorize,
   onError,
-  ui,
   url,
   onClick,
   testId = 'smart-block-errored-view',
@@ -43,7 +43,7 @@ const FlexibleErroredView = ({
       onClick={onClick}
       onError={onError}
       testId={testId}
-      ui={ui}
+      ui={{ hideElevation: true }}
       url={url}
     >
       <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
@@ -67,4 +67,4 @@ const FlexibleErroredView = ({
   );
 };
 
-export default FlexibleErroredView;
+export default withFlexibleUIBlockCardStyle(FlexibleErroredView);

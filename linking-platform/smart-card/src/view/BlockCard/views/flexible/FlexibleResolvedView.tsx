@@ -20,6 +20,7 @@ import { FlexibleBlockCardProps } from './types';
 import uuid from 'uuid';
 import { getSimulatedMetadata, getSimulatedBetterMetadata } from './utils';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 /**
  * This view represents a Block card that has an 'Resolved' status.
@@ -35,7 +36,6 @@ const FlexibleResolvedView = ({
   showServerActions,
   anchorTarget,
   testId = 'smart-block-resolved-view',
-  ui,
   url,
   analytics,
 }: FlexibleBlockCardProps) => {
@@ -64,7 +64,7 @@ const FlexibleResolvedView = ({
       onResolve={onResolve}
       showServerActions={showServerActions}
       testId={testId}
-      ui={ui}
+      ui={{ hideElevation: true }}
       url={url}
     >
       <TitleBlock
@@ -156,4 +156,4 @@ const FlexibleResolvedView = ({
   );
 };
 
-export default FlexibleResolvedView;
+export default withFlexibleUIBlockCardStyle(FlexibleResolvedView);

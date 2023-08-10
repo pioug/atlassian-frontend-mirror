@@ -1,5 +1,5 @@
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { CSSToken } from '@atlaskit/tokens';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { CSSToken } from '@atlaskit/tokens';
 
 export enum WidthTypes {
   PERCENTAGE = 'percentage',
@@ -46,3 +46,16 @@ export interface GuidelinePluginOptions {}
 
 export type DisplayGrid = (props: Required<GuidelinePluginState>) => boolean;
 export type DisplayGuideline = (view: EditorView) => DisplayGrid;
+
+export type GuidelineSnap = {
+  guidelineKey: string;
+  width: number;
+};
+
+export type GuidelineSnapsReference = {
+  snaps: {
+    x?: number[];
+    y?: number[];
+  };
+  guidelineReference: GuidelineSnap[];
+};

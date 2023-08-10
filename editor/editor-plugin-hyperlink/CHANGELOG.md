@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 0.3.0
+
+### Minor Changes
+
+- [`a675f834911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a675f834911) - Introduce `commands` optional parameter to `NextEditorPlugin`. It can be used similarly to `actions` in `NextEditorPlugin` but `commands` must adhere to the type of `PluginCommand`:
+
+  ```ts
+  type PluginCommand = ({ tr }: { tr: Transaction }) => Transaction | null;
+  ```
+
+  `PluginCommand`s are specifically used for code that is executed to modify a Transaction. They should be used in preference to the existing prosemirror `Command` type.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.3
 
 ### Patch Changes

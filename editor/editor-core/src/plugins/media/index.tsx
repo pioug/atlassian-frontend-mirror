@@ -202,7 +202,11 @@ const mediaPlugin: NextEditorPlugin<
             );
           },
         },
-        { name: 'mediaKeymap', plugin: () => keymapPlugin(options) },
+        {
+          name: 'mediaKeymap',
+          plugin: () =>
+            keymapPlugin(options, api?.dependencies.analytics?.actions),
+        },
       ];
 
       if (options && options.allowMediaSingle) {

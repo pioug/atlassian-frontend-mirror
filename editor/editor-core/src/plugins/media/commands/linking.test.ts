@@ -31,16 +31,22 @@ import { checkMediaType } from '../utils/check-media-type';
 import { mediaLinkingPluginKey } from '../pm-plugins/linking';
 import * as linking from './linking';
 import { INPUT_METHOD } from '../../analytics/types';
-import * as analyticUtils from '../../analytics/utils';
 import * as commands from '../../../commands';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
 const { setUrlToMedia, showLinkingToolbarWithMediaTypeCheck, unlink } = linking;
 
 jest.mock('../utils/check-media-type', () => ({
   checkMediaType: jest.fn(),
+}));
+
+jest.mock('../../../commands', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('../../../commands'),
 }));
 
 describe('image linking', () => {
@@ -71,6 +77,11 @@ describe('image linking', () => {
     });
   };
 
+  const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+  const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+    attachAnalyticsEvent,
+  };
+
   const document = doc(
     '{<node>}',
     mediaSingle()(
@@ -96,36 +107,28 @@ describe('image linking', () => {
   });
 
   describe('analytics', () => {
-    const FIRST_CALL = 0;
-    const ANALYTIC_PAYLOAD = 2;
-    const analyticUtilsSpy = jest.spyOn(analyticUtils, 'addAnalytics');
-    beforeEach(() => {
-      analyticUtilsSpy.mockReset();
+    afterEach(() => {
+      attachAnalyticsEvent.mockClear();
     });
-
     afterAll(() => {
       jest.resetAllMocks();
     });
 
     it('should call analytic when creating a link', () => {
       const { editorView } = editor(document);
+      setUrlToMedia(
+        'http://google.com',
+        INPUT_METHOD.MANUAL,
+        mockEditorAnalyticsAPI,
+      )(editorView.state, mockDispatch, editorView);
 
-      setUrlToMedia('http://google.com', INPUT_METHOD.MANUAL)(
-        editorView.state,
-        mockDispatch,
-        editorView,
-      );
-
-      expect(analyticUtilsSpy).toBeCalled();
-      expect(analyticUtilsSpy.mock.calls[FIRST_CALL][ANALYTIC_PAYLOAD]).toEqual(
-        {
-          action: 'added',
-          actionSubject: 'media',
-          actionSubjectId: 'link',
-          attributes: expect.objectContaining({ inputMethod: 'manual' }),
-          eventType: 'track',
-        },
-      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith({
+        action: 'added',
+        actionSubject: 'media',
+        actionSubjectId: 'link',
+        attributes: expect.objectContaining({ inputMethod: 'manual' }),
+        eventType: 'track',
+      });
     });
 
     describe('existing links', () => {
@@ -145,16 +148,13 @@ describe('image linking', () => {
 
       it('should add edit analytic when modifying link', () => {
         const { editorView } = editor(documentWithMediaWithLink);
-        setUrlToMedia('http://random-url.com', INPUT_METHOD.MANUAL)(
-          editorView.state,
-          editorView.dispatch,
-          editorView,
-        );
+        setUrlToMedia(
+          'http://random-url.com',
+          INPUT_METHOD.MANUAL,
+          mockEditorAnalyticsAPI,
+        )(editorView.state, editorView.dispatch, editorView);
 
-        expect(analyticUtilsSpy).toHaveBeenCalledTimes(1);
-        expect(
-          analyticUtilsSpy.mock.calls[FIRST_CALL][ANALYTIC_PAYLOAD],
-        ).toEqual({
+        expect(attachAnalyticsEvent).toHaveBeenCalledWith({
           action: 'edited',
           actionSubject: 'media',
           actionSubjectId: 'link',
@@ -165,12 +165,13 @@ describe('image linking', () => {
       it('should delete analytic when removing a link', () => {
         const { editorView } = editor(documentWithMediaWithLink);
 
-        unlink(editorView.state, editorView.dispatch, editorView);
+        unlink(mockEditorAnalyticsAPI)(
+          editorView.state,
+          editorView.dispatch,
+          editorView,
+        );
 
-        expect(analyticUtilsSpy).toBeCalledTimes(1);
-        expect(
-          analyticUtilsSpy.mock.calls[FIRST_CALL][ANALYTIC_PAYLOAD],
-        ).toEqual({
+        expect(attachAnalyticsEvent).toHaveBeenCalledWith({
           action: 'deleted',
           actionSubject: 'media',
           actionSubjectId: 'link',
@@ -181,13 +182,13 @@ describe('image linking', () => {
       it("shouldn't call an analytic if the url was modified to the same url", () => {
         const { editorView } = editor(documentWithMediaWithLink);
 
-        setUrlToMedia(googleUrl, INPUT_METHOD.MANUAL)(
+        setUrlToMedia(googleUrl, INPUT_METHOD.MANUAL, mockEditorAnalyticsAPI)(
           editorView.state,
           mockDispatch,
           editorView,
         );
 
-        expect(analyticUtilsSpy).not.toBeCalled();
+        expect(attachAnalyticsEvent).not.toBeCalled();
       });
     });
 
@@ -203,18 +204,16 @@ describe('image linking', () => {
         const { editorView } = editor(document);
 
         try {
-          setUrlToMedia('http://google.com', INPUT_METHOD.MANUAL)(
-            editorView.state,
-            mockDispatch,
-            editorView,
-          );
+          setUrlToMedia(
+            'http://google.com',
+            INPUT_METHOD.MANUAL,
+            mockEditorAnalyticsAPI,
+          )(editorView.state, mockDispatch, editorView);
         } catch (e) {
           // noop
         }
 
-        expect(
-          analyticUtilsSpy.mock.calls[FIRST_CALL][ANALYTIC_PAYLOAD],
-        ).toEqual({
+        expect(attachAnalyticsEvent).toHaveBeenCalledWith({
           action: 'errored',
           actionSubject: 'media',
           actionSubjectId: 'link',

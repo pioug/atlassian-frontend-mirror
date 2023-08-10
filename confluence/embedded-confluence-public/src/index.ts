@@ -9,3 +9,5 @@ export {
   ExperienceTrackerContext,
   ExperienceTracker,
 } from '@atlassian/experience-tracker';
+
+export { themeStateObjectToQueryString } from '@atlassian/embedded-confluence-common';

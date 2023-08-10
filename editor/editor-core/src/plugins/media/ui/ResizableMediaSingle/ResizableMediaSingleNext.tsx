@@ -31,6 +31,7 @@ import type {
   HandleResize,
   HandleResizeStart,
   Position,
+  Snap,
 } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import ResizeLabel from '../../../../ui/Resizer/ResizeLabel';
@@ -52,24 +53,30 @@ import {
 import {
   MEDIA_SINGLE_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_SNAP_GAP,
-  MEDIA_SINGLE_HIGHLIGHT_GAP,
   calculateOffsetLeft,
   DEFAULT_IMAGE_WIDTH,
+  calcMediaSingleMaxWidth,
 } from '@atlaskit/editor-common/media-single';
 import {
   findClosestSnap,
-  getSnapWidth,
   getGuidelinesWithHighlights,
   generateDefaultGuidelines,
   generateDynamicGuidelines,
+  getGuidelineSnaps,
 } from '@atlaskit/editor-common/guideline';
-import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
+import type {
+  GuidelineConfig,
+  GuidelineSnapsReference,
+} from '@atlaskit/editor-common/guideline';
+import memoizeOne from 'memoize-one';
+
 type State = {
   offsetLeft: number;
   isVideoFile: boolean;
   resizedPctWidth?: number;
   isResizing: boolean;
   size: Dimensions;
+  snaps: Snap;
 };
 
 export const resizerNextTestId = 'mediaSingle.resizerNext.testid';
@@ -100,6 +107,8 @@ class ResizableMediaSingleNext extends React.Component<
   ResizableMediaSingleNextProps,
   State
 > {
+  private guidelines: GuidelineConfig[] = [];
+
   constructor(props: ResizableMediaSingleNextProps) {
     super(props);
     const initialWidth = props.mediaSingleWidth || DEFAULT_IMAGE_WIDTH;
@@ -118,6 +127,7 @@ class ResizableMediaSingleNext extends React.Component<
         width: initialWidth,
         height: this.calcPxHeight(initialWidth),
       },
+      snaps: {},
     };
   }
 
@@ -143,7 +153,7 @@ class ResizableMediaSingleNext extends React.Component<
     );
   }
 
-  componentDidUpdate(prevProps: Props, prevState: State) {
+  componentDidUpdate(prevProps: Props) {
     const offsetLeft = calculateOffsetLeft(
       this.insideInlineLike,
       this.insideLayout,
@@ -158,14 +168,6 @@ class ResizableMediaSingleNext extends React.Component<
     // we sync up with the internal state.
     if (prevProps.pctWidth !== this.props.pctWidth) {
       this.setState({ resizedPctWidth: this.props.pctWidth });
-    }
-
-    if (
-      prevState.isResizing !== this.state.isResizing &&
-      this.state.isResizing
-    ) {
-      const guidelines = this.getDefaultGuidelines();
-      this.displayGuideline(guidelines);
     }
 
     if (
@@ -201,11 +203,8 @@ class ResizableMediaSingleNext extends React.Component<
       : generateDefaultGuidelines(lineLength, containerWidth, fullWidthMode);
   }
 
-  // Calculate width of media nodes for snaps based on dynamic guidelines
-  // TODO:  refactor this later, maybe use state to hold snaps array
-  private getSnaps() {
+  private getAllGuidelines = () => {
     const { view, lineLength } = this.props;
-    const { dom } = view;
     const defaultGuidelines = this.getDefaultGuidelines();
     // disable guidelines for nested media single node
     const dynamicGuidelines = this.isNestedNode()
@@ -217,66 +216,8 @@ class ResizableMediaSingleNext extends React.Component<
           show: false,
         });
     const guidelines = [...defaultGuidelines, ...dynamicGuidelines];
-    const mediaSingleSelector =
-      'div.mediaSingleView-content-wrap.ProseMirror-selectednode';
-
-    const { width } = dom.getBoundingClientRect();
-    const halfWidth = width / 2;
-
-    const selectedMedia = dom.querySelector(mediaSingleSelector);
-
-    if (selectedMedia) {
-      const pixelWidth =
-        parseFloat(selectedMedia.getAttribute('width') || '') || 0;
-
-      const layout = selectedMedia.getAttribute('layout') as MediaSingleLayout;
-      let snap = 0;
-      switch (layout) {
-        case 'align-start':
-        case 'wrap-left':
-          snap = pixelWidth - halfWidth;
-          break;
-        case 'align-end':
-        case 'wrap-right':
-          snap = width - pixelWidth - halfWidth;
-          break;
-        case 'center':
-        case 'wide':
-        case 'full-width':
-          snap = -pixelWidth / 2;
-          break;
-        // we ingnore full-width and wide
-        default:
-          snap = 0;
-      }
-
-      const snapWidths = getSnapWidth(guidelines, pixelWidth, snap, layout);
-
-      const snapToWidths = snapWidths.map((s) => s && s.width);
-
-      // update guidelines
-      if (this.state.isResizing) {
-        const { gap, keys: activeGuidelineKeys } = findClosestSnap(
-          this.state.size.width,
-          snapToWidths,
-          snapWidths,
-          MEDIA_SINGLE_HIGHLIGHT_GAP,
-        );
-
-        this.displayGuideline(
-          getGuidelinesWithHighlights(
-            gap,
-            MEDIA_SINGLE_HIGHLIGHT_GAP,
-            activeGuidelineKeys,
-            guidelines,
-          ),
-        );
-      }
-
-      return snapToWidths.length > 0 ? { x: snapToWidths } : {};
-    }
-    return {};
-  }
+    return guidelines;
+  };
 
   get wrappedLayout() {
     return wrappedLayouts.indexOf(this.props.layout) > -1;
@@ -462,6 +403,160 @@ class ResizableMediaSingleNext extends React.Component<
     return dispatch(tr);
   };
 
+  private calcMaxWidth = memoizeOne(
+    (contentWidth: number, containerWidth: number, fullWidthMode?: boolean) => {
+      if (this.isNestedNode() || fullWidthMode) {
+        return contentWidth;
+      }
+
+      return calcMediaSingleMaxWidth(containerWidth);
+    },
+  );
+
+  updateActiveGuidelines = (
+    width = 0,
+    guidelines: GuidelineConfig[],
+    guidelineSnapsReference: GuidelineSnapsReference,
+  ) => {
+    if (guidelineSnapsReference.snaps.x) {
+      const { gap, keys: activeGuidelineKeys } = findClosestSnap(
+        width,
+        guidelineSnapsReference.snaps.x,
+        guidelineSnapsReference.guidelineReference,
+        MEDIA_SINGLE_SNAP_GAP,
+      );
+
+      this.displayGuideline(
+        getGuidelinesWithHighlights(
+          gap,
+          MEDIA_SINGLE_SNAP_GAP,
+          activeGuidelineKeys,
+          guidelines,
+        ),
+      );
+    }
+  };
+
+  roundPixelValue = (value: number) => Math.round(value);
+
+  getHeightFromNewWidth = (
+    originalWidth: number,
+    originalHeight: number,
+    newWidth: number,
+  ) => this.roundPixelValue((originalHeight / originalWidth) * newWidth);
+
+  calculateSizeState = (
+    size: Position & Dimensions,
+    delta: Dimensions,
+    originalWidth: number = 0,
+    originalHeight: number,
+    onResizeStop: boolean = false,
+  ) => {
+    const calculatedWidth = this.roundPixelValue(size.width + delta.width);
+    const calculatedWidthWithLayout = this.calcNewSize(
+      calculatedWidth,
+      onResizeStop,
+    );
+    const calculatedHeightWithLayout = this.getHeightFromNewWidth(
+      originalWidth,
+      originalHeight,
+      calculatedWidth,
+    );
+
+    return {
+      width: calculatedWidth,
+      height: calculatedHeightWithLayout,
+      calculatedWidthWithLayout,
+    };
+  };
+
+  selectCurrentMediaNode = () => {
+    // TODO: if adding !this.props.selected, it doesn't work if media single node is at top postion
+    if (typeof this.props.getPos === 'function') {
+      const propPos = this.props.getPos();
+      if (propPos !== undefined) {
+        setNodeSelection(this.props.view, propPos);
+      }
+    }
+  };
+
+  handleResizeStart: HandleResizeStart = () => {
+    this.setState({ isResizing: true });
+    this.selectCurrentMediaNode();
+    this.setIsResizing(true);
+    // re-calucate guidelines
+    this.guidelines = this.getAllGuidelines();
+    return 0;
+  };
+
+  handleResize: HandleResize = (size, delta) => {
+    const {
+      width: originalWidth,
+      height: originalHeight,
+      layout,
+      updateSize,
+      lineLength,
+    } = this.props;
+    const { width, height, calculatedWidthWithLayout } =
+      this.calculateSizeState(size, delta, originalWidth, originalHeight);
+
+    const guidelineSnaps = getGuidelineSnaps(
+      this.guidelines,
+      lineLength,
+      layout,
+    );
+
+    this.updateActiveGuidelines(width, this.guidelines, guidelineSnaps);
+
+    this.setState({
+      size: {
+        width,
+        height,
+      },
+      snaps: guidelineSnaps.snaps,
+    });
+
+    if (calculatedWidthWithLayout.layout !== layout) {
+      updateSize(width, calculatedWidthWithLayout.layout);
+    }
+  };
+
+  handleResizeStop: HandleResize = (size, delta) => {
+    const {
+      width: originalWidth,
+      height: originalHeight,
+      updateSize,
+      dispatchAnalyticsEvent,
+      nodeType,
+    } = this.props;
+    const { width, height, calculatedWidthWithLayout } =
+      this.calculateSizeState(size, delta, originalWidth, originalHeight, true);
+    this.setIsResizing(false);
+    this.displayGuideline([]);
+    if (dispatchAnalyticsEvent) {
+      dispatchAnalyticsEvent(
+        getResizeAnalyticsEvent(
+          nodeType,
+          calculatedWidthWithLayout.width,
+          calculatedWidthWithLayout.layout,
+        ),
+      );
+    }
+
+    this.setState(
+      {
+        isResizing: false,
+        size: {
+          width,
+          height,
+        },
+      },
+      () => {
+        updateSize(width, calculatedWidthWithLayout.layout);
+      },
+    );
+  };
+
   render() {
     const {
       width: origWidth,
@@ -472,6 +567,7 @@ class ResizableMediaSingleNext extends React.Component<
       selected,
       children,
       intl,
+      lineLength,
     } = this.props;
 
     const { isResizing, size } = this.state;
@@ -491,133 +587,6 @@ class ResizableMediaSingleNext extends React.Component<
         enable[side] = false;
       }
     });
-
-    /**
-     * NEW REFACTOR
-     */
-    const roundPixelValue = (value: number) => Math.round(value);
-
-    const getHeightFromNewWidth = (
-      originalWidth: number,
-      originalHeight: number,
-      newWidth: number,
-    ) => roundPixelValue((originalHeight / originalWidth) * newWidth);
-
-    const calculateSizeState = (
-      size: Position & Dimensions,
-      delta: Dimensions,
-      originalWidth: number = 0,
-      originalHeight: number,
-      onResizeStop: boolean = false,
-    ) => {
-      const calculatedWidth = roundPixelValue(size.width + delta.width);
-      const calculatedWidthWithLayout = this.calcNewSize(
-        calculatedWidth,
-        onResizeStop,
-      );
-      const calculatedHeightWithLayout = getHeightFromNewWidth(
-        originalWidth,
-        originalHeight,
-        calculatedWidth,
-      );
-
-      return {
-        width: calculatedWidth,
-        height: calculatedHeightWithLayout,
-        calculatedWidthWithLayout,
-      };
-    };
-
-    const selectCurrentMediaNode = () => {
-      if (!this.props.selected && typeof this.props.getPos === 'function') {
-        const propPos = this.props.getPos();
-        if (propPos !== undefined) {
-          setNodeSelection(this.props.view, propPos);
-        }
-      }
-    };
-
-    const handleResizeStart: HandleResizeStart = () => {
-      this.setState({ isResizing: true });
-      selectCurrentMediaNode();
-      this.setIsResizing(true);
-
-      // TODO: Update once type updated from editor common resizer
-      return 0;
-    };
-
-    const handleResize: HandleResize = (size, delta) => {
-      const {
-        width: originalWidth,
-        height: originalHeight,
-        layout,
-        updateSize,
-      } = this.props;
-      const { width, height, calculatedWidthWithLayout } = calculateSizeState(
-        size,
-        delta,
-        originalWidth,
-        originalHeight,
-      );
-
-      this.setState({
-        size: {
-          width,
-          height,
-        },
-      });
-
-      if (calculatedWidthWithLayout.layout !== layout) {
-        updateSize(width, calculatedWidthWithLayout.layout);
-      }
-
-      // TODO: Update once type updated from editor common resizer
-      return 0;
-    };
-
-    const handleResizeStop: HandleResize = (size, delta) => {
-      const {
-        width: originalWidth,
-        height: originalHeight,
-        updateSize,
-        dispatchAnalyticsEvent,
-        nodeType,
-      } = this.props;
-      const { width, height, calculatedWidthWithLayout } = calculateSizeState(
-        size,
-        delta,
-        originalWidth,
-        originalHeight,
-        true,
-      );
-      this.setIsResizing(false);
-      this.displayGuideline([]);
-      if (dispatchAnalyticsEvent) {
-        dispatchAnalyticsEvent(
-          getResizeAnalyticsEvent(
-            nodeType,
-            calculatedWidthWithLayout.width,
-            calculatedWidthWithLayout.layout,
-          ),
-        );
-      }
-
-      this.setState(
-        {
-          isResizing: false,
-          size: {
-            width,
-            height,
-          },
-        },
-        () => {
-          updateSize(width, calculatedWidthWithLayout.layout);
-        },
-      );
-
-      // TODO: Update once type updated from editor common resizer
-      return 0;
-    };
 
     // TODO: Clean up where this lives and how it gets generated
     const className = classnames(
@@ -639,6 +608,12 @@ class ResizableMediaSingleNext extends React.Component<
         ? intl.formatMessage(messages.fullWidthImage)
         : `${this.state.size.width} x ${this.state.size.height}`;
 
+    const maxWidth = this.calcMaxWidth(
+      lineLength,
+      containerWidth,
+      fullWidthMode,
+    );
+
     return (
       <div
         ref={this.saveWrapper}
@@ -654,14 +629,15 @@ class ResizableMediaSingleNext extends React.Component<
       >
         <ResizerNext
           minWidth={MEDIA_SINGLE_MIN_PIXEL_WIDTH}
+          maxWidth={maxWidth}
           className={resizerNextClassName}
           snapGap={MEDIA_SINGLE_SNAP_GAP}
           enable={enable}
           width={size.width}
-          handleResizeStart={handleResizeStart}
-          handleResize={handleResize}
-          handleResizeStop={handleResizeStop}
-          snap={this.getSnaps()}
+          handleResizeStart={this.handleResizeStart}
+          handleResize={this.handleResize}
+          handleResizeStop={this.handleResizeStop}
+          snap={this.state.snaps}
           resizeRatio={nonWrappedLayouts.includes(layout) ? 2 : 1}
           data-testid={resizerNextTestId}
         >

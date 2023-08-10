@@ -41,6 +41,15 @@ function hasActions(
   return typeof (plugin as any).actions === 'object';
 }
 
+function hasCommands(
+  plugin: ReturnType<NextEditorPlugin<any, any>>,
+): plugin is DefaultEditorPlugin<
+  any,
+  { commands: Record<string, (...args: any) => any> }
+> {
+  return typeof (plugin as any).commands === 'object';
+}
+
 type FilterPluginsWithListenersProps = {
   plugins: Map<string, NextEditorPluginInitializedType>;
   listeners: Map<string, Set<Callback>>;
@@ -141,6 +150,23 @@ class ActionsAPI {
     }
 
     return new Proxy(plugin.actions || {}, {
+      get: function (target, prop: string, receiver) {
+        // We will be able to track perfomance here
+        return Reflect.get(target, prop);
+      },
+    });
+  }
+}
+
+class PluginCommandsAPI {
+  createAPI(
+    plugin: ReturnType<NextEditorPlugin<any, any>> | undefined,
+  ): PluginDependenciesAPI<NextEditorPlugin<any, any>>['commands'] {
+    if (!plugin || !hasCommands(plugin)) {
+      return {};
+    }
+
+    return new Proxy(plugin.commands || {}, {
       get: function (target, prop: string, receiver) {
         // We will be able to track perfomance here
         return Reflect.get(target, prop);
@@ -251,16 +277,18 @@ interface PluginInjectionAPIDefinition {
 export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
   private sharedStateAPI: SharedStateAPI;
   private actionsAPI: ActionsAPI;
+  private commandsAPI: PluginCommandsAPI;
   private plugins: Map<string, NextEditorPluginInitializedType>;
 
   constructor({ getEditorState }: SharedStateAPIProps) {
     this.sharedStateAPI = new SharedStateAPI({ getEditorState });
     this.plugins = new Map();
     this.actionsAPI = new ActionsAPI();
+    this.commandsAPI = new PluginCommandsAPI();
   }
 
   api<T extends NextEditorPlugin<any, any>>() {
-    const { sharedStateAPI, actionsAPI, getPluginByName } = this;
+    const { sharedStateAPI, actionsAPI, commandsAPI, getPluginByName } = this;
     type DependenciesGenericType = PluginInjectionAPI<
       T extends NextEditorPlugin<infer Name, any> ? Name : never,
       T extends NextEditorPlugin<any, infer Metadata> ? Metadata : never
@@ -284,11 +312,13 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
         }
         const sharedState = sharedStateAPI.createAPI(plugin);
         const actions = actionsAPI.createAPI(plugin);
+        const commands = commandsAPI.createAPI(plugin);
 
         const proxyCoreAPI: PluginDependenciesAPI<NextEditorPlugin<any, any>> =
           {
             sharedState,
             actions,
+            commands,
           };
 
         return proxyCoreAPI;

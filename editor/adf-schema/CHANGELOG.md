@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 28.0.0
+
+### Major Changes
+
+- [`9064e2d0f28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9064e2d0f28) - [ux] HOT-104783 Reverting https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37639
+
 ## 27.0.0
 
 ### Major Changes

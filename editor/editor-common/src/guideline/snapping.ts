@@ -1,14 +1,10 @@
-import { RichMediaLayout } from '@atlaskit/adf-schema';
+import memoizeOne from 'memoize-one';
 
-import { MediaSingleLayout } from '../media-single';
+import type { RichMediaLayout } from '@atlaskit/adf-schema';
 
 import { MEDIA_DYNAMIC_GUIDELINE_PREFIX } from './constants';
-import type { GuidelineConfig } from './types';
-
-export type SnapTo = {
-  guidelineKey: string;
-  width: number;
-};
+import type { GuidelineConfig, GuidelineSnap } from './types';
+import { isVerticalPosition } from './utils';
 
 /**
  * Returns keys of guidelines that are closest to the image and withthin the snapGap.
@@ -17,7 +13,7 @@ export type SnapTo = {
 export const findClosestSnap = (
   mediaSingleWidth: number,
   snapArray: number[],
-  snapTo: SnapTo[],
+  guidelineSnaps: GuidelineSnap[],
   snapGap: number = 0,
 ) => {
   const closestGapIndex = snapArray.reduce(
@@ -28,13 +24,15 @@ export const findClosestSnap = (
         : prev,
     0,
   );
+
   const gap = Math.abs(snapArray[closestGapIndex] - mediaSingleWidth);
   if (gap < snapGap) {
-    const snappingWidth = Math.round(snapTo[closestGapIndex].width);
+    const snappingWidth = snapArray[closestGapIndex];
     let guidelineKeys: string[] = [];
-    snapTo.forEach((s) => {
-      if (Math.round(Math.abs(s.width)) === snappingWidth) {
-        guidelineKeys.push(s.guidelineKey);
+    // find wich guideline have the matching snap width
+    guidelineSnaps.forEach((gs) => {
+      if (gs.width === snappingWidth) {
+        guidelineKeys.push(gs.guidelineKey);
       }
     });
 
@@ -57,51 +55,49 @@ export const findClosestSnap = (
   return { gap, keys: [] };
 };
 
-/**
- * Get snapping widths and respective guideline keys
- */
-export const getSnapWidth = (
-  guidelines: GuidelineConfig[],
-  mediaSingleWidth: number,
-  snap: number,
-  layout: RichMediaLayout | null,
-) => {
-  return guidelines
-    .map((guideline) => {
-      const positionX =
-        guideline.position?.x && typeof guideline.position.x === 'number'
-          ? guideline.position.x
-          : 0;
-      if (
-        layout === MediaSingleLayout.CENTER ||
-        layout === MediaSingleLayout.WIDE ||
-        layout === MediaSingleLayout.FULL_WIDTH
-      ) {
+export const getGuidelineSnaps = memoizeOne(
+  (
+    guidelines: GuidelineConfig[],
+    editorWidth: number,
+    layout: RichMediaLayout = 'center',
+  ) => {
+    const offset = editorWidth / 2;
+    const getPositionX = (position: GuidelineConfig['position']) => {
+      return isVerticalPosition(position) ? position.x : 0;
+    };
+
+    const calcXSnaps = (guidelineReference: GuidelineSnap[]) => {
+      const snapsWidth = guidelineReference
+        .filter((g) => g.width > 0)
+        .map((g) => g.width);
+      const uniqueSnapWidth = [...new Set(snapsWidth)];
+      return snapsWidth.length ? uniqueSnapWidth : undefined;
+    };
+
+    const guidelinesSnapsReference = guidelines.map((guideline) => {
+      const positionX = getPositionX(guideline.position);
+      if (['align-end', 'wrap-right'].includes(layout)) {
         return {
           guidelineKey: guideline.key,
-          width: mediaSingleWidth + (snap - positionX) * 2,
-        } as SnapTo;
-      } else if (
-        layout === MediaSingleLayout.ALIGN_END ||
-        layout === MediaSingleLayout.WRAP_RIGHT
-      ) {
-        return {
-          guidelineKey: guideline.key,
-          width: mediaSingleWidth + (snap - positionX),
+          width: offset - positionX,
         };
-      } else if (
-        layout === MediaSingleLayout.ALIGN_START ||
-        layout === MediaSingleLayout.WRAP_LEFT
-      ) {
+      } else if (['align-start', 'wrap-left'].includes(layout)) {
         return {
           guidelineKey: guideline.key,
-          width: mediaSingleWidth + positionX - snap,
+          width: positionX + offset,
         };
       }
       return {
-        guidelineKey: '',
-        width: 0,
+        guidelineKey: guideline.key,
+        width: Math.abs(positionX) * 2,
       };
-    })
-    .filter((guideline) => guideline.guidelineKey !== '');
-};
+    });
+
+    return {
+      guidelineReference: guidelinesSnapsReference,
+      snaps: {
+        x: calcXSnaps(guidelinesSnapsReference),
+      },
+    };
+  },
+);

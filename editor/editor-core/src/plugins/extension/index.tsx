@@ -3,14 +3,14 @@ import {
   bodiedExtension,
   inlineExtension,
 } from '@atlaskit/adf-schema';
-import { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
+import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import {
+import type {
   NextEditorPlugin,
   EditorAppearance,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import { LongPressSelectionPluginOptions } from '../selection/types';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import { createPlugin } from './pm-plugins/main';
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';

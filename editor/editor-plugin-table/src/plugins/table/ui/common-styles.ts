@@ -136,30 +136,19 @@ const listLargeNumericMarkersOldStyles = `
   }
 `;
 
-const breakoutWidthStyling = (
-  useFragmentMarkBreakoutWidthStylingFix: boolean,
-) => {
-  if (useFragmentMarkBreakoutWidthStylingFix) {
-    return css`
-      > *:not([data-mark-type='fragment'])
-        .${ClassName.NODEVIEW_WRAPPER}
-        .${ClassName.TABLE_CONTAINER} {
-        margin-left: unset !important;
-        width: 100% !important;
-      }
-
-      > [data-mark-type='fragment']
-        *
-        .${ClassName.NODEVIEW_WRAPPER}
-        .${ClassName.TABLE_CONTAINER} {
-        margin-left: unset !important;
-        width: 100% !important;
-      }
-    `;
-  }
-
+const breakoutWidthStyling = () => {
   return css`
-    > * .${ClassName.NODEVIEW_WRAPPER} .${ClassName.TABLE_CONTAINER} {
+    > *:not([data-mark-type='fragment'])
+      .${ClassName.NODEVIEW_WRAPPER}
+      .${ClassName.TABLE_CONTAINER} {
+      margin-left: unset !important;
+      width: 100% !important;
+    }
+
+    > [data-mark-type='fragment']
+      *
+      .${ClassName.NODEVIEW_WRAPPER}
+      .${ClassName.TABLE_CONTAINER} {
       margin-left: unset !important;
       width: 100% !important;
     }
@@ -438,9 +427,7 @@ export const tableStyles = (
     }
 
     /* Breakout only works on top level unless wrapped in fragment mark */
-    ${breakoutWidthStyling(
-      props.featureFlags?.useFragmentMarkBreakoutWidthStylingFix ?? true,
-    )}
+    ${breakoutWidthStyling()}
 
     ${columnControlsDecoration(props)};
 

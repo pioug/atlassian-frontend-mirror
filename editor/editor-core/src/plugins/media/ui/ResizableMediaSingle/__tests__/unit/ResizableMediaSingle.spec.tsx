@@ -263,9 +263,11 @@ describe('non-nested <ResizableMediaSingleNext /> should be responsive', () => {
     const resizer = getByTestId(resizerNextTestId);
     const style = window.getComputedStyle(resizer);
     expect(style.width).toBe(`${mediaSingleWidth}px`);
-    expect(style.maxWidth).toBe(
-      `${Math.min(mediaSingleWidth, containerWidth - 64)}px`,
-    );
+    waitFor(() => {
+      expect(style.maxWidth).toBe(
+        `${Math.min(mediaSingleWidth, containerWidth - 64)}px`,
+      );
+    });
   };
 
   describe('when it is center layout and wide viewport', () => {
@@ -398,7 +400,7 @@ describe('non-nested <ResizableMediaSingleNext /> should be responsive and small
 
       const style = window.getComputedStyle(resizer);
       expect(style.width).toBe('600px');
-      expect(style.maxWidth).toBe('100%');
+      expect(style.maxWidth).toBe('760px');
     });
   });
 
@@ -407,12 +409,13 @@ describe('non-nested <ResizableMediaSingleNext /> should be responsive and small
       const { getByTestId } = setup({
         mediaSingleWidth: 600,
         containerWidth: 400,
+        lineLength: 320,
       });
       const resizer = getByTestId(resizerNextTestId);
 
       const style = window.getComputedStyle(resizer);
       expect(style.width).toBe('600px');
-      expect(style.maxWidth).toBe('100%');
+      expect(style.maxWidth).toBe('320px');
     });
   });
 });

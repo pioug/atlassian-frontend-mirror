@@ -6,7 +6,9 @@ import { css, jsx } from '@emotion/react';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { pluginCommandToPMCommand } from '../preset/plugin-commands';
 import type { Command } from '../types/command';
+import type { PluginCommand } from '../types/plugin-command';
 import { browser } from '../utils';
 
 export const addAltText = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
@@ -329,19 +331,27 @@ export interface Keymap {
   common?: string;
 }
 
+function combineWithOldCommand(cmd: Command, oldCmd: Command): Command {
+  return (state, dispatch, editorView) => {
+    return oldCmd(state, dispatch) || cmd(state, dispatch, editorView);
+  };
+}
+
 export function bindKeymapWithCommand(
   shortcut: string,
   cmd: Command,
-  keymap: { [key: string]: Function },
+  keymap: { [key: string]: Command },
 ) {
   const oldCmd = keymap[shortcut];
-  let newCmd = cmd;
-  if (keymap[shortcut]) {
-    newCmd = (state, dispatch, editorView) => {
-      return oldCmd(state, dispatch) || cmd(state, dispatch, editorView);
-    };
-  }
-  keymap[shortcut] = newCmd;
+  keymap[shortcut] = oldCmd ? combineWithOldCommand(cmd, oldCmd) : cmd;
+}
+
+export function bindKeymapWithPluginCommand(
+  shortcut: string,
+  cmd: PluginCommand,
+  keymap: { [key: string]: Command },
+) {
+  bindKeymapWithCommand(shortcut, pluginCommandToPMCommand(cmd), keymap);
 }
 
 export function findKeyMapForBrowser(keyMap: Keymap): string | undefined {

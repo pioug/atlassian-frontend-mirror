@@ -60,7 +60,7 @@ export {
 } from './shared/code-block';
 export { LAYOUT_SECTION_MARGIN, LAYOUT_COLUMN_PADDING } from './shared/layout';
 export { EXTENSION_PADDING, BODIED_EXT_PADDING } from './shared/extension';
-export { resizerStyles } from './shared/resizer';
+export { resizerStyles, resizerHandleShadowClassName } from './shared/resizer';
 export { gridStyles, GRID_GUTTER } from './shared/grid';
 export {
   smartCardStyles,

@@ -2,7 +2,6 @@
 import { FC } from 'react';
 import { BlockCardProps } from './types';
 import { JsonLd } from 'json-ld-types';
-import { token } from '@atlaskit/tokens';
 import { getExtensionKey } from '../../state/helpers';
 import { extractBlockProps } from '../../extractors/block';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
@@ -23,8 +22,7 @@ import FlexibleUnauthorisedView from './views/flexible/FlexibleUnauthorisedView'
 import FlexibleNotFoundView from './views/flexible/FlexibleNotFoundView';
 import FlexibleErroredView from './views/flexible/FlexibleErroredView';
 import FlexibleForbiddenView from './views/flexible/FlexibleForbiddenView';
-import { tokens } from '../../utils/token';
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { handleClickCommon } from './utils/handlers';
 import { useFeatureFlag } from '@atlaskit/link-provider';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
@@ -43,12 +41,6 @@ export {
   BlockCardErroredView,
   BlockCardNotFoundView,
 };
-
-const flexibleBlockCardElevationStyle = css`
-  border-radius: 1.5px;
-  box-shadow: ${tokens.elevation};
-  margin: ${token('space.025', '2px')};
-`;
 
 export const BlockCard: FC<BlockCardProps> = ({
   id,
@@ -87,7 +79,6 @@ export const BlockCard: FC<BlockCardProps> = ({
   );
 
   if (enableFlexibleBlockCard) {
-    const ui = { hideElevation: true };
     const anchorTarget: AnchorTarget | undefined = getBooleanFF(
       'platform.linking-platform.smart-card.enable-block-card-clicks-opening-in-same-tab',
     )
@@ -105,7 +96,6 @@ export const BlockCard: FC<BlockCardProps> = ({
       onResolve,
       renderers,
       showServerActions,
-      ui,
       analytics,
       extensionKey,
       ...(anchorTarget ? { anchorTarget } : {}),
@@ -114,45 +104,33 @@ export const BlockCard: FC<BlockCardProps> = ({
       case 'pending':
       case 'resolving':
         return (
-          <div css={flexibleBlockCardElevationStyle}>
-            <FlexibleResolvedView
-              {...flexibleProps}
-              testId={'smart-block-resolving-view'}
-            />
-          </div>
+          <FlexibleResolvedView
+            {...flexibleProps}
+            testId={'smart-block-resolving-view'}
+          />
         );
       case 'resolved':
-        return (
-          <div css={flexibleBlockCardElevationStyle}>
-            <FlexibleResolvedView {...flexibleProps} />
-          </div>
-        );
+        return <FlexibleResolvedView {...flexibleProps} />;
       case 'unauthorized':
         return (
-          <div css={flexibleBlockCardElevationStyle}>
-            <FlexibleUnauthorisedView
-              {...flexibleProps}
-              onAuthorize={handleAuthorize}
-            />
-          </div>
+          <FlexibleUnauthorisedView
+            {...flexibleProps}
+            onAuthorize={handleAuthorize}
+          />
         );
       case 'forbidden':
         return (
-          <div css={flexibleBlockCardElevationStyle}>
-            <FlexibleForbiddenView
-              {...flexibleProps}
-              onAuthorize={handleAuthorize}
-            />
-          </div>
+          <FlexibleForbiddenView
+            {...flexibleProps}
+            onAuthorize={handleAuthorize}
+          />
         );
       case 'not_found':
         return (
-          <div css={flexibleBlockCardElevationStyle}>
-            <FlexibleNotFoundView
-              {...flexibleProps}
-              onAuthorize={handleAuthorize}
-            />
-          </div>
+          <FlexibleNotFoundView
+            {...flexibleProps}
+            onAuthorize={handleAuthorize}
+          />
         );
       case 'fallback':
       case 'errored':
@@ -171,12 +149,10 @@ export const BlockCard: FC<BlockCardProps> = ({
           );
         }
         return (
-          <div css={flexibleBlockCardElevationStyle}>
-            <FlexibleErroredView
-              {...flexibleProps}
-              onAuthorize={handleAuthorize}
-            />
-          </div>
+          <FlexibleErroredView
+            {...flexibleProps}
+            onAuthorize={handleAuthorize}
+          />
         );
     }
   }

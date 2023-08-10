@@ -2,6 +2,8 @@ import memoizeOne from 'memoize-one';
 
 import { breakoutWideScaleRatio } from '@atlaskit/editor-shared-styles';
 
+import { roundToNearest } from '../media-single';
+
 import type { GuidelineConfig } from './types';
 import { getContainerWidthOrFullEditorWidth } from './utils';
 
@@ -9,13 +11,15 @@ const getDefaultGuidelines = memoizeOne((editorWidth) => {
   return [-6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6].map((val, index) => ({
     key: `grid_${index}`,
     position: {
-      x: (val / 12) * editorWidth,
+      x: roundToNearest((val / 12) * editorWidth),
     },
   })) as GuidelineConfig[];
 });
 
 const getWideGuidelines = memoizeOne((editorWidth: number) => {
-  const wideSpacing = (editorWidth * breakoutWideScaleRatio) / 2;
+  const wideSpacing = roundToNearest(
+    (editorWidth * breakoutWideScaleRatio) / 2,
+  );
   return [
     {
       key: `wide_left`,
@@ -33,7 +37,9 @@ const getWideGuidelines = memoizeOne((editorWidth: number) => {
 });
 
 const getFullWidthGuidelines = memoizeOne((containerWidth: number) => {
-  const fullWidth = getContainerWidthOrFullEditorWidth(containerWidth);
+  const fullWidth = roundToNearest(
+    getContainerWidthOrFullEditorWidth(containerWidth),
+  );
 
   return [
     {

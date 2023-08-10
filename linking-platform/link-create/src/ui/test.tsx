@@ -84,11 +84,11 @@ describe('<LinkCreate />', () => {
     return render(
       <IntlProvider locale="en">
         <LinkCreate
-          {...props}
           testId={testId}
           plugins={[plugin]}
           entityKey={'entity-key'}
-          active={props?.active ?? true}
+          active={true}
+          {...props}
           onCreate={onCreateMock}
           onFailure={onFailureMock}
           onCancel={onCloseMock}
@@ -159,5 +159,15 @@ describe('<LinkCreate />', () => {
       expect(queryByTestId(testId)).not.toBeInTheDocument();
       expect(onCloseComplete).toHaveBeenCalledTimes(1);
     });
+  });
+
+  it('should display an error boundary on unhandled error', async () => {
+    const { findByTestId } = setUpLinkCreate({
+      entityKey: 'undefined' as any,
+    });
+
+    expect(
+      await findByTestId('link-create-error-boundary-ui'),
+    ).toBeInTheDocument();
   });
 });

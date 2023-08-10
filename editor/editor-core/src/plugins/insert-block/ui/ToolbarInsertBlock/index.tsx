@@ -8,6 +8,7 @@ import { injectIntl } from 'react-intl-next';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import type { EmojiId } from '@atlaskit/emoji/types';
 import { Popup } from '@atlaskit/editor-common/ui';
+import { pluginCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type { ToolbarButtonRef } from '../../../../ui/ToolbarButton';
 import ToolbarButton from '../../../../ui/ToolbarButton';
 import {
@@ -345,9 +346,13 @@ export class ToolbarInsertBlock extends React.PureComponent<
     const { editorView, pluginInjectionApi } = this.props;
     const { state, dispatch } = editorView;
 
-    pluginInjectionApi?.dependencies?.hyperlink?.actions.showLinkToolbar(
-      inputMethod,
+    // We should update this to use `pluginInjectionApi.executeCommand` once available
+    pluginCommandToPMCommand(
+      pluginInjectionApi?.dependencies?.hyperlink?.commands.showLinkToolbar(
+        inputMethod,
+      ),
     )(state, dispatch);
+
     return true;
   };
 

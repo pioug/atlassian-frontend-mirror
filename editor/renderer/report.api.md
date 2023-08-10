@@ -657,7 +657,7 @@ type StickyHeaderConfig = {
 };
 
 // @public (undocumented)
-type StickyHeaderProps =
+export type StickyHeaderProps =
   | ({
       show?: boolean;
     } & StickyHeaderConfig)

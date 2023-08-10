@@ -285,6 +285,13 @@ export class TableRowNodeView implements NodeView {
           return;
         }
         const { table } = this.tree;
+
+        if (table.rows.length < 2) {
+          // ED-19307 - When there's only one row in a table the top & bottom sentinels become inverted. This creates some nasty visiblity
+          // toggling side-effects because the intersection observers gets confused.
+          return;
+        }
+
         entries.forEach((entry) => {
           const target = entry.target as HTMLElement;
 

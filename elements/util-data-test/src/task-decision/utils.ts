@@ -1,4 +1,4 @@
-import type { ObjectKey } from '../../../task-decision/src';
+import type { ObjectKey } from '@atlaskit/task-decision';
 
 // Copy of helper functions from @atlaskit/task-decision
 // NOTE: if this is changed in the original package, this must also be modified

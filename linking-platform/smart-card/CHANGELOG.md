@@ -1,5 +1,29 @@
 # @atlaskit/smart-card
 
+## 26.15.4
+
+### Patch Changes
+
+- [`2e4ceb4b6b1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2e4ceb4b6b1) - [ux] Refreshed design for flexible block and hover cards.
+
+## 26.15.3
+
+### Patch Changes
+
+- [`5ef68120bed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5ef68120bed) - fix for the padding issue on the Link Safety Warning Modal
+
+## 26.15.2
+
+### Patch Changes
+
+- [`3355d65ed83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3355d65ed83) - Fix duplicate WebpackChunkName for GlyphSubtask & GlyphSubtaskProgress"
+
+## 26.15.1
+
+### Patch Changes
+
+- [`60b5cb9448d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/60b5cb9448d) - Add StoryPoints FlexUI Element to Jira Block & Hover Card
+
 ## 26.15.0
 
 ### Minor Changes

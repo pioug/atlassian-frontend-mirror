@@ -1,9 +1,13 @@
+import type { ReactElement } from 'react';
+
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
+
+import type { Providers } from '../provider-factory';
 
 // Format of the payload returned by the call-back function passed to the collab provider
 // that gets called when syncing with the back-end service fails
@@ -416,4 +420,32 @@ export interface CollabEditProvider<
   sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
 
   getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
+}
+
+export type CollabEditOptions = {
+  provider?: Providers['collabEditProvider'];
+  userId?: string;
+  useNativePlugin?: boolean;
+} & CollabInviteToEditProps &
+  CollabAnalyticsProps;
+
+export type InviteToEditButtonProps = {
+  onClick: (event: React.MouseEvent<HTMLElement>) => void;
+  selected: boolean;
+};
+
+export type InviteToEditComponentProps = {
+  children: ReactElement<InviteToEditButtonProps>;
+};
+export interface CollabInviteToEditProps {
+  inviteToEditHandler?: (event: React.MouseEvent<HTMLElement>) => void;
+  isInviteToEditButtonSelected?: boolean;
+  inviteToEditComponent?: React.ComponentType<InviteToEditComponentProps>;
+}
+
+export interface CollabAnalyticsProps {
+  /**
+   * @description Control wether Synchrony entity error events are tracked
+   */
+  EXPERIMENTAL_allowInternalErrorAnalytics?: boolean;
 }

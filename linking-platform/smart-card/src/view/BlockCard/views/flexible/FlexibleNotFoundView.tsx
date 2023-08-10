@@ -10,6 +10,7 @@ import Text from '../../../FlexibleCard/components/elements/text';
 import { CustomBlock } from '../../../FlexibleCard/components/blocks';
 import { SmartLinkStatus } from '../../../../constants';
 import { FlexibleBlockCardProps } from './types';
+import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 /**
  * This view represents a Block Card with a 'Not_Found' status.
@@ -22,7 +23,6 @@ const FlexibleNotFoundView = ({
   cardState,
   onAuthorize,
   onError,
-  ui,
   url,
   onClick,
   testId = 'smart-block-not-found-view',
@@ -37,7 +37,7 @@ const FlexibleNotFoundView = ({
       onClick={onClick}
       onError={onError}
       testId={testId}
-      ui={ui}
+      ui={{ hideElevation: true }}
       url={url}
     >
       <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
@@ -61,4 +61,4 @@ const FlexibleNotFoundView = ({
     </FlexibleCard>
   );
 };
-export default FlexibleNotFoundView;
+export default withFlexibleUIBlockCardStyle(FlexibleNotFoundView);

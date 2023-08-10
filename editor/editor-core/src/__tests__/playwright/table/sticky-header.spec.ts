@@ -128,4 +128,21 @@ test.describe('sticky header', () => {
       await expect(firstNumberedRow).toHaveCSS('top', 'auto');
     });
   });
+
+  test.describe('floating insert column button', async () => {
+    test('should be visible when sticky header is enabled', async ({
+      editor,
+    }) => {
+      const nodes = EditorNodeContainerModel.from(editor);
+      const tableModel = EditorTableModel.from(nodes.table);
+
+      const scrollAnchor = await nodes.table.locator('[localid="scroll-here"]');
+      await scrollAnchor.scrollIntoViewIfNeeded();
+
+      const columnControls = await tableModel.columnControls({ index: 0 });
+      await columnControls.hover();
+
+      expect(await columnControls.isInsertColumnButtonVisible()).toBeTruthy();
+    });
+  });
 });

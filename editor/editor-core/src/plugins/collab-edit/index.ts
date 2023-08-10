@@ -7,7 +7,6 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { createPlugin, pluginKey } from './plugin';
 import {
-  CollabEditOptions,
   ProviderBuilder,
   ProviderCallback,
   PrivateCollabEditOptions,
@@ -18,7 +17,6 @@ import { nativeCollabProviderPlugin } from './native-collab-provider-plugin';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 export { pluginKey };
-export type { CollabEditOptions };
 
 const providerBuilder: ProviderBuilder =
   (collabEditProviderPromise: Promise<CollabEditProvider>) =>

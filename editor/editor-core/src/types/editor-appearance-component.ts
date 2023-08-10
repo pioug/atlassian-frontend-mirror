@@ -8,7 +8,7 @@ import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 
 import type EditorActions from '../actions';
 import type { EventDispatcher } from '../event-dispatcher';
-import type { CollabEditOptions } from '../plugins/collab-edit/types';
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type {
   PrimaryToolbarComponents,
   ReactComponents,

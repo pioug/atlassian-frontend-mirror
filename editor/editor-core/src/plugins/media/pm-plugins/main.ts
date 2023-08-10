@@ -335,6 +335,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     mediaState: MediaState,
     onMediaStateChanged: MediaStateEventSubscriber,
     pickerType?: string,
+    pluginInjectionApi?: ExtractInjectionAPI<typeof mediaPlugin> | undefined,
   ) => {
     const { state } = this.view;
 
@@ -378,6 +379,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       canInsertMediaInline(state)
     ) {
       insertMediaInlineNode(
+        pluginInjectionApi?.dependencies?.analytics?.actions,
+      )(
         this.view,
         mediaStateWithContext,
         collection,
@@ -385,6 +388,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
       );
     } else {
       insertMediaGroupNode(
+        pluginInjectionApi?.dependencies?.analytics?.actions,
+      )(
         this.view,
         [mediaStateWithContext],
         collection,

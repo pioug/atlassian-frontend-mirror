@@ -41,11 +41,11 @@ describe('breakout utils', () => {
       expect(breakoutStyles1).toMatchInlineSnapshot(`
         Object {
           "marginLeft": "50%",
-          "minWidth": undefined,
+          "minWidth": 664,
           "transform": "translateX(-50%)",
           "transition": "min-width 0.5s ${akEditorSwoopCubicBezier}",
           "type": "line-length-known",
-          "width": "100%",
+          "width": "664px",
         }
       `);
 

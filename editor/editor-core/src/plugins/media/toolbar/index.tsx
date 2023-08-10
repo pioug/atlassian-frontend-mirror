@@ -62,6 +62,7 @@ import ImageBorderItem from '../ui/ImageBorder';
 import { currentMediaNodeBorderMark } from '../utils/current-media-node';
 import { shouldShowImageBorder } from './imageBorder';
 import type mediaPlugin from '../index';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -83,6 +84,7 @@ const generateMediaCardFloatingToolbar = (
   intl: IntlShape,
   mediaPluginState: MediaPluginState,
   hoverDecoration: HoverDecorationHandler | undefined,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ) => {
   const { mediaGroup } = state.schema.nodes;
   const items: FloatingToolbarItem<Command>[] = [
@@ -96,7 +98,7 @@ const generateMediaCardFloatingToolbar = (
           title: intl.formatMessage(cardMessages.inline),
           selected: false,
           disabled: false,
-          onClick: changeMediaCardToInline,
+          onClick: changeMediaCardToInline(editorAnalyticsAPI),
           testId: 'inline-appearance',
         },
         {
@@ -174,6 +176,7 @@ const generateMediaInlineFloatingToolbar = (
   intl: IntlShape,
   mediaPluginState: MediaPluginState,
   hoverDecoration: HoverDecorationHandler | undefined,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ) => {
   const { mediaInline } = state.schema.nodes;
   const items: FloatingToolbarItem<Command>[] = [
@@ -197,7 +200,7 @@ const generateMediaInlineFloatingToolbar = (
           title: intl.formatMessage(messages.displayThumbnail),
           selected: false,
           disabled: false,
-          onClick: changeInlineToMediaCard,
+          onClick: changeInlineToMediaCard(editorAnalyticsAPI),
           testId: 'thumbnail-appearance',
         },
       ],
@@ -293,10 +296,14 @@ const generateMediaSingleFloatingToolbar = (
         return (
           <ImageBorderItem
             toggleBorder={() => {
-              toggleBorderMark(state, dispatch);
+              toggleBorderMark(
+                pluginInjectionApi?.dependencies?.analytics?.actions,
+              )(state, dispatch);
             }}
             setBorder={(attrs) => {
-              setBorderMark(attrs)(state, dispatch);
+              setBorderMark(
+                pluginInjectionApi?.dependencies?.analytics?.actions,
+              )(attrs)(state, dispatch);
             }}
             showSomewhatSemanticTooltips={
               getEditorFeatureFlags?.().useSomewhatSemanticTextColorNames
@@ -512,6 +519,7 @@ export const floatingToolbar = (
       intl,
       mediaPluginState,
       hoverDecoration,
+      pluginInjectionApi?.dependencies?.analytics?.actions,
     );
   } else if (
     allowMediaInline &&
@@ -529,6 +537,7 @@ export const floatingToolbar = (
       intl,
       mediaPluginState,
       hoverDecoration,
+      pluginInjectionApi?.dependencies?.analytics?.actions,
     );
   } else {
     baseToolbar.getDomRef = () => {

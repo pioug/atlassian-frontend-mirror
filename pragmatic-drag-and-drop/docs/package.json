@@ -51,7 +51,7 @@
     "@atlaskit/pragmatic-drag-and-drop-hitbox": "^0.11.0",
     "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^0.6.0",
     "@atlaskit/pragmatic-drag-and-drop-react-indicator": "^0.16.0",
-    "@atlaskit/primitives": "^1.1.0",
+    "@atlaskit/primitives": "^1.2.0",
     "@atlaskit/theme": "^12.4.0",
     "@atlaskit/tokens": "^1.14.0",
     "@atlaskit/visual-regression": "*",

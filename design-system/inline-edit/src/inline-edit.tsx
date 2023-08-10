@@ -187,21 +187,23 @@ const InnerInlineEdit = <FieldValue extends unknown>(
     );
   };
 
-  /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-  return (
-    <Form onSubmit={(data: { inlineEdit: any }) => onConfirm(data.inlineEdit)}>
-      {({ formProps: { onKeyDown, onSubmit, ref: formRef } }) => (
-        <form
-          onKeyDown={(e) => {
-            onKeyDown(e);
-            if (e.key === 'Esc' || e.key === 'Escape') {
-              onCancel();
-            }
-          }}
-          onSubmit={onSubmit}
-          ref={formRef}
-        >
-          {shouldBeEditing ? (
+  if (shouldBeEditing) {
+    return (
+      <Form
+        onSubmit={(data: { inlineEdit: any }) => onConfirm(data.inlineEdit)}
+      >
+        {({ formProps: { onKeyDown, onSubmit, ref: formRef } }) => (
+          /* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */
+          <form
+            onKeyDown={(e) => {
+              onKeyDown(e);
+              if (e.key === 'Esc' || e.key === 'Escape') {
+                onCancel();
+              }
+            }}
+            onSubmit={onSubmit}
+            ref={formRef}
+          >
             <Field
               name="inlineEdit"
               label={label}
@@ -247,23 +249,26 @@ const InnerInlineEdit = <FieldValue extends unknown>(
                 </div>
               )}
             </Field>
-          ) : (
-            /** Field is used here only for the label */
-            <Field
-              name="inlineEdit"
-              label={label}
-              defaultValue=""
-              isRequired={isRequired}
-              key="read-view" // used for reset to default value
-            >
-              {renderReadView}
-            </Field>
-          )}
-        </form>
-      )}
-    </Form>
+          </form>
+        )}
+      </Form>
+    );
+  }
+
+  return (
+    /** Form, Field are used here only for the label and spacing */
+    <form>
+      <Field
+        name="inlineEdit"
+        label={label}
+        defaultValue=""
+        isRequired={isRequired}
+        key="read-view" // used for reset to default value
+      >
+        {renderReadView}
+      </Field>
+    </form>
   );
-  /* eslint-enable jsx-a11y/no-noninteractive-element-interactions */
 };
 
 const InlineEdit = <FieldValue extends unknown = string>(

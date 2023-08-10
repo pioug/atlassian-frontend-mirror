@@ -1,38 +1,14 @@
-import { ReactElement } from 'react';
-import { Providers } from '@atlaskit/editor-common/provider-factory';
 import type {
   CollabEditProvider,
   SyncUpErrorFunction,
 } from '@atlaskit/collab-provider';
-
-export type InviteToEditComponentProps = {
-  children: ReactElement<InviteToEditButtonProps>;
-};
-
-export type InviteToEditButtonProps = {
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
-  selected: boolean;
-};
-
-export interface CollabInviteToEditProps {
-  inviteToEditHandler?: (event: React.MouseEvent<HTMLElement>) => void;
-  isInviteToEditButtonSelected?: boolean;
-  inviteToEditComponent?: React.ComponentType<InviteToEditComponentProps>;
-}
-
-export interface CollabAnalyticsProps {
-  /**
-   * @description Control wether Synchrony entity error events are tracked
-   */
-  EXPERIMENTAL_allowInternalErrorAnalytics?: boolean;
-}
-
-export type CollabEditOptions = {
-  provider?: Providers['collabEditProvider'];
-  userId?: string;
-  useNativePlugin?: boolean;
-} & CollabInviteToEditProps &
-  CollabAnalyticsProps;
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
+export type {
+  InviteToEditComponentProps,
+  InviteToEditButtonProps,
+  CollabInviteToEditProps,
+  CollabAnalyticsProps,
+} from '@atlaskit/editor-common/collab';
 
 export type PrivateCollabEditOptions = CollabEditOptions & {
   sanitizePrivateContent?: boolean;

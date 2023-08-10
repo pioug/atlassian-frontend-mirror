@@ -324,11 +324,11 @@ Here are the supported locales for `@atlaskit/embedded-confluence`
 | Ukrainian                | "uk" or "uk-UA"                                           |
 | Vietnamese               | "vi" or "vi-VN"                                           |
 
-## themeMode
+## themeMode **`themeMode` is going to be deprecated from 09/01/2023, so please use `themeState` instead**
 
 ### `themeMode` description
 
-Both `ViewPage` and `EditPage` components accept `themeMode` prop. This is the prop that the embedding parent can use to apply a theme preference to the Embedded component that matches that of the parent.
+Both `ViewPage` and `EditPage` components accept `themeMode` prop. This is the prop that the embedding parent can use to apply a theme preference to the Embedded component.
 
 ### `themeMode` definition
 
@@ -360,16 +360,78 @@ const MyComponent = props => (
 );
 ```
 
-Applying a theme to the Edit Page Component:
+## themeState
+
+### `themeState` description
+
+Both `ViewPage` and `EditPage` components accept `themeState` prop. This is the prop that the embedding parent can use to apply a user’s Atlassian theme preference to the Embedded component.
+
+You can learn more about theme preferences at the Atlassian Design Systems documentation [`here`](https://atlassian.design/components/tokens/code#setglobalthemethemestate)
+
+### `themeState` definition
+
+- `themeState` : (Optional) ThemeState that represents the theme preference provided by the embedding parent as a React prop.
+
+```ts
+// https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader
+To get the latest version of `ThemeState` object please check-out the[`Atlassian Design System documentation`](https://atlassian.design/components/tokens/code#setglobalthemethemestate-themeloader)
+type ThemeState = {
+  light: Extract<ThemeIds, 'light' | 'dark' | 'legacy-dark' | 'legacy-light'>;
+  dark: Extract<ThemeIds, 'light' | 'dark' | 'legacy-dark' | 'legacy-light'>;
+  colorMode: ThemeColorModes;
+  shape?: Extract<ThemeIds, 'shape'>;
+  spacing?: Extract<ThemeIds, 'spacing'>;
+  typography?: Extract<ThemeIds, 'typography'>;
+  UNSAFE_themeOptions?: CustomBrandSchema;
+}
+{
+  themeState?: Partial<ThemeState>
+}
+```
+
+### `themeState` examples
+
+Applying a theme to the View Page Component:
 
 ```jsx
-import { EditPage } from '@atlaskit/embedded-confluence';
+import { ViewPage } from '@atlaskit/embedded-confluence';
+import { useThemeObserver } from '@atlaskit/tokens';
+
+const MyComponent = props => {
+  const themeState = useThemeObserver();
+
+  return (
+    <ViewPage
+      contentId={props.contentId}
+      locale={'en-US'}
+      parentProductContentContainerId={props.parentProductContentContainerId}
+      parentProduct={props.parentProduct}
+      spaceKey={props.spaceKey}
+      themeState={themeState}
+    />
+  );
+};
+```
+
+If you are using `Page` component you can get the `themeState` object from `useThemeObserver`, then append the encoded version of `themeState` to the value of `url` prop. You can use `themeStateObjectToQueryString` utility to convert themeState Object to encoded string :
+
+```jsx
+import { useThemeObserver } from '@atlaskit/tokens';
+import { themeStateObjectToQueryString } from '@atlassian/embedded-confluence-common';
+
+const exampleViewPageUrl = "https://hello.atlassian.net/wiki/spaces/ABC/pages/123?parentProduct=TestProduct";
+const exampleEditPageUrl = "https://hello.atlassian.net/wiki/spaces/ABC/pages/edit-embedded/123?parentProduct=TestProduct";
 
 const MyComponent = props => (
-  <EditPage
-    navigationPolicy={navigationPolicy}
-    themeMode="dark"
-    {...otherProps}
-  />
+  // Get theme from design tokens hook or fetch the user theme preference if it is stored elsewhere
+  const themeState = useThemeObserver();
+  const encodedString = themeStateObjectToQueryString(themeStateObject); // ex: encodedString = "light%3Alight%20dark%3Alegacy-dark%20colorMode%3Aauto%20spacing%3Aspacing%20typography%3Atypography"
+  const url = exampleViewPageUrl || exampleEditPageUrl // depending on if you wish to display an Embedded View Page or Embedded Edit Page
+
+  <ArticleWrapper>
+      <Page
+        url={`${url}&themeState=${encodedString}`}
+      />
+  </ArticleWrapper>
 );
 ```

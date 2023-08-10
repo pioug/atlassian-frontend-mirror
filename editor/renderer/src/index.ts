@@ -7,6 +7,7 @@ export { default as ReactRenderer } from './ui/Renderer';
 export type {
   HeadingAnchorLinksProps,
   RendererAppearance,
+  StickyHeaderProps,
 } from './ui/Renderer/types';
 export type { RendererProps } from './ui/renderer-props';
 export type { RendererContext } from './react/types';

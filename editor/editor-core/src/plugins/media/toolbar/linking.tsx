@@ -75,7 +75,11 @@ export const getLinkingToolbar = (
                   providerFactory={providerFactory}
                   intl={intl}
                   editing={editing}
-                  onUnlink={() => unlink(view.state, view.dispatch, view)}
+                  onUnlink={() =>
+                    unlink(
+                      pluginInjectionApi?.dependencies?.analytics?.actions,
+                    )(view.state, view.dispatch, view)
+                  }
                   onBack={(href, meta) => {
                     if (href.trim() && meta.inputMethod) {
                       setUrlToMedia(href, meta.inputMethod)(

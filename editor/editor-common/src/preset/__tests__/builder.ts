@@ -614,6 +614,9 @@ describe('building a builder', () => {
           typeof plugin1,
           OptionalPlugin<typeof pluginWithOptionalDependenciesComplex>,
         ];
+        actions: {
+          doesSomething: () => void;
+        };
       }
     > = (_, api) => {
       api?.dependencies.one.sharedState.currentState();
@@ -622,8 +625,18 @@ describe('building a builder', () => {
       api?.dependencies.withOptionalDepsComplex.sharedState.currentState();
 
       api?.dependencies.withOptionalDepsComplex?.sharedState.currentState();
+
+      // Actions should be typed appropriately
+      api?.dependencies.dependingOnOptional.actions.doesSomething();
+
+      // @ts-expect-error
+      api?.dependencies.dependingOnOptional.actions.doesNothing();
+
       return {
         name: 'dependingOnOptional',
+        actions: {
+          doesSomething: () => {},
+        },
       };
     };
 

@@ -1,16 +1,21 @@
 ---
 order: 2
 title: Accessibility
-description: Accessible design lets people of all abilities interact with, understand, and navigate our products.
+description: Patterns for enabling accessible alternative flows
 ---
 
 import SectionMessage from '@atlaskit/section-message';
 
-Alternative flows can be implemented in a variety of ways.
+When it comes to implementing assistive technology friendly mechanisms to achieve the same outcomes as a drag and drop operation ("alternative flows"), there are two important pieces you will need to add.
 
-For reference, we've collected some patterns for alternative flows. These are not expected to be implemented exactly as shown and can be adapted where necessary.
+1. A control to allow users to trigger operations
+2. Screen reader messaging after an operation to tell the user what occurred.
 
-## Action buttons
+## Controls
+
+Here is a collection of assistive technology friendly controls that can be used to power alternative flows. These are not expected to be implemented exactly as shown and can be adapted where necessary.
+
+### Action buttons
 
 <SectionMessage>
 
@@ -56,31 +61,59 @@ export function CardExample() {
 }
 ```
 
-### Drag handle button
+#### Drag handle button
 
 A variant of action buttons is a drag handle button. It functions as both a drag handle and a menu button.
 
 We have created an [optional convenience package](/components/pragmatic-drag-and-drop/packages/react-accessibility/about) for creating drag handle buttons in React. This includes a plain drag handle button, as well as a drag handle with a dropdown menu already wired up.
 
-## Modal dialogs
+### Modal dialogs
 
 Modals are an alternative to the `DropDownMenu` approach. Rather than your action button triggering a `DropDownMenu`, your action button can trigger a `Modal`. A `Modal` can be used to to power more complex interactions. For example:
 
 - Interactions that require user input
 - Interactions that require multiple choices to be made
 
-## Inline buttons
+### Inline buttons
 
 Buttons can be placed inside draggable items, providing directional input. This is useful for free movement experiences such as diagrams and drawing.
 
-## Toggles
+### Toggles
 
 Toggles can be used to show or hide edit controls.
 
 This pattern can be combined with other patterns.
 
-## Select and move
+### Select and move
 
 A move mode can be triggered where only drop targets are focusable/clickable.
 
 The item(s) being moved are selected, then an anchor item is chosen. Item(s) are moved above or below the anchor item.
+
+## Screen Reader Messaging
+
+After an action has been performed by an assistive technology friendly control, it is important that you let the user know what has occurred by announcing what occurred to screen readers.
+
+```ts
+import { announce } from '@atlaskit/live-region';
+
+function onReorderItem({
+  item,
+  startIndex,
+  newIndex,
+}: {
+  item: { label: string };
+  startIndex: number;
+  newIndex: number;
+}) {
+  // reorder item in state to update UI
+
+
+  // let screen reader users know what has occurred
+  announce(
+    `You've moved ${item.label} from position ${startIndex + 1} to position ${
+      newIndex + 1
+    } of ${items.length}.`,
+  );
+}
+```

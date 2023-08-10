@@ -1,4 +1,5 @@
-import React, { FC } from 'react';
+/** @jsx jsx */
+import React from 'react';
 import Button from '@atlaskit/button/standard-button';
 import Modal, {
   ModalBody,
@@ -13,7 +14,8 @@ import {
   injectIntl,
   WrappedComponentProps,
 } from 'react-intl-next';
-
+import { breakWordsCss } from './styled';
+import { jsx } from '@emotion/react';
 import { messages } from '../../../messages';
 interface LinkWarningModalProps {
   isOpen: boolean;
@@ -23,7 +25,7 @@ interface LinkWarningModalProps {
   url: string | null;
 }
 
-const WarningModal: FC<LinkWarningModalProps & WrappedComponentProps> = (
+const WarningModal: React.FC<LinkWarningModalProps & WrappedComponentProps> = (
   props,
 ) => {
   const { isOpen, unsafeLinkText, url, onClose, onContinue, intl } = props;
@@ -38,19 +40,21 @@ const WarningModal: FC<LinkWarningModalProps & WrappedComponentProps> = (
             </ModalTitle>
           </ModalHeader>
           <ModalBody>
-            {url && unsafeLinkText && (
-              <FormattedMessage
-                {...messages.link_safety_warning_message}
-                values={{
-                  unsafeLinkText: unsafeLinkText,
-                  a: () => (
-                    <a href={url} target="_blank" rel="noopener noreferrer">
-                      {url}
-                    </a>
-                  ),
-                }}
-              />
-            )}
+            <div css={breakWordsCss}>
+              {url && unsafeLinkText && (
+                <FormattedMessage
+                  {...messages.link_safety_warning_message}
+                  values={{
+                    unsafeLinkText: unsafeLinkText,
+                    a: () => (
+                      <a href={url} target="_blank" rel="noopener noreferrer">
+                        {url}
+                      </a>
+                    ),
+                  }}
+                />
+              )}
+            </div>
           </ModalBody>
           <ModalFooter>
             <Button appearance="subtle" onClick={onClose}>

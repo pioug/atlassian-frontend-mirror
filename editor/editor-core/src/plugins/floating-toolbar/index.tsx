@@ -457,7 +457,9 @@ function floatingToolbarPluginFactory(options: {
     tr: ReadonlyTransaction,
     pluginState: FloatingToolbarPluginState,
   ) => {
-    const newPluginState: FloatingToolbarPluginState = { ...pluginState };
+    const newPluginState: FloatingToolbarPluginState = {
+      getConfigWithNodeInfo,
+    };
     return newPluginState;
   };
 

@@ -202,7 +202,7 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
       <Modal
         testId={'asset-datasource-modal'}
         onClose={onCancel}
-        width="x-large"
+        width="calc(100% - 80px)"
         shouldScrollInViewport={true}
         shouldCloseOnOverlayClick={false}
       >

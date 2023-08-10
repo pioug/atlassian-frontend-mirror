@@ -82,7 +82,12 @@ export class ColorPaletteMenuWithoutAnalytics extends React.Component<Props> {
     const fullLabel = `${label}, ${selectedValue.label} selected`;
 
     return (
-      <ColorPaletteMenu cols={cols} aria-label={fullLabel} mode={mode}>
+      <ColorPaletteMenu
+        cols={cols}
+        aria-label={fullLabel}
+        mode={mode}
+        role="radiogroup"
+      >
         <ColorPaletteContainer mode={mode}>
           {options.map(({ label, value }) => (
             <ColorCardWrapper key={value}>

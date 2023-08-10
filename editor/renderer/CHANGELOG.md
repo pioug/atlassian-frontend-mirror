@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 108.11.1
+
+### Patch Changes
+
+- [`39099193642`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39099193642) - Cleanup breakout styling when table has fragment mark ff
+
+## 108.11.0
+
+### Minor Changes
+
+- [`0ea10bbad32`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0ea10bbad32) - Export type StickyHeaderProps for usages in CFE
+
+## 108.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 108.10.0
 
 ### Minor Changes

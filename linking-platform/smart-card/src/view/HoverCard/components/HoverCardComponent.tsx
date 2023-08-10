@@ -6,6 +6,7 @@ import { useSmartLinkActions } from '../../../state/hooks-external/useSmartLinkA
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import HoverCardContent from '../components/HoverCardContent';
+import CustomPopupContainer from '../components/CustomPopupContainer';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { HoverCardComponentProps } from '../types';
 import { CardDisplay } from '../../../constants';
@@ -13,6 +14,7 @@ import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAna
 import { useSmartCardActions } from '../../../state/actions';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
 import { useFeatureFlag } from '@atlaskit/link-provider';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
 
@@ -284,6 +286,11 @@ export const HoverCardComponent: FC<HoverCardComponentProps> = ({
       content={content}
       trigger={trigger}
       zIndex={zIndex}
+      {...(getBooleanFF(
+        'platform.linking-platform.smart-card.show-smart-links-refreshed-design',
+      ) && {
+        popupComponent: CustomPopupContainer,
+      })}
     />
   );
 };

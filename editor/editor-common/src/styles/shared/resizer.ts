@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 
-import { B200, N60 } from '@atlaskit/theme/colors';
+import { B200, B50, N60 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 /*
@@ -12,6 +12,7 @@ export const resizerItemClassName = 'resizer-item';
 export const resizerHandleRightClassName = 'resizer-handle-right';
 export const resizerHandleLeftClassName = 'resizer-handle-left';
 export const resizerHandleStickyClassName = 'resizer-handle-sticky';
+export const resizerHandleShadowClassName = 'resizer-handle-shadow';
 
 // akEditorSelectedNodeClassName from '@atlaskit/editor-shared-styles';
 const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
@@ -34,6 +35,8 @@ export const resizerStyles = css`
     visibility: hidden;
     flex-direction: column;
     justify-content: center;
+    width: 7px;
+    transition: visibility 0.2s;
   }
 
   .${resizerHandleRightClassName} {
@@ -50,6 +53,7 @@ export const resizerStyles = css`
     display: flex;
     width: 3px;
     height: 64px;
+    transition: background-color 0.2s;
 
     border-radius: 6px;
   }
@@ -59,9 +63,9 @@ export const resizerStyles = css`
     .${resizerItemClassName}:hover
     .${resizerHandleRightClassName},
     .${resizerItemClassName}.display-handle
-    .${resizerHandleLeftClassName},
+    .${resizerHandleRightClassName},
     .${resizerItemClassName}.display-handle
-    .${resizerHandleRightClassName} {
+    .${resizerHandleLeftClassName} {
     visibility: visible;
   }
 
@@ -70,9 +74,9 @@ export const resizerStyles = css`
     .${resizerItemClassName}:hover
     .${resizerHandleRightClassName}::after,
     .${resizerItemClassName}.display-handle
-    .${resizerHandleLeftClassName}::after,
+    .${resizerHandleRightClassName}::after,
     .${resizerItemClassName}.display-handle
-    .${resizerHandleRightClassName}::after {
+    .${resizerHandleLeftClassName}::after {
     background: ${token('color.border', N60)};
   }
 
@@ -111,5 +115,23 @@ export const resizerStyles = css`
     position: sticky;
     top: 10px;
     bottom: 10px;
+  }
+
+  .${resizerHandleShadowClassName} {
+    visibility: hidden;
+    position: absolute;
+    width: 7px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: background-color 0.2s, visibility 0.2s;
+  }
+
+  .${resizerHandleRightClassName}:hover
+    .${resizerHandleShadowClassName},
+    .${resizerHandleLeftClassName}:hover
+    .${resizerHandleShadowClassName} {
+    visibility: visible;
+    background-color: ${token('color.background.selected', B50)};
+    opacity: 0.5;
   }
 `;

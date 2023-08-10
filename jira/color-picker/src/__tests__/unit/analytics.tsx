@@ -1,19 +1,38 @@
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import React from 'react';
-import { mount } from 'enzyme';
-
 import ColorPicker from '../..';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-describe('ColorPicker', () => {
-  it('should call onChange analytics event when onChange is not provided', () => {
-    const mockFn = jest.fn();
-    const value = { value: 'blue', label: 'Blue' };
-    const wrapper = mount(<ColorPicker palette={[value]} onChange={mockFn} />);
-    const select = wrapper.find('PopupSelect');
+describe('Analytics on Tigger', () => {
+  const mockFn = jest.fn();
 
-    (select.prop('onChange') as any)(value);
+  const renderUI = () => {
+    const palette = [
+      { value: 'blue', label: 'Blue' },
+      { value: 'red', label: 'Red' },
+    ];
+    return render(<ColorPicker palette={palette} onChange={mockFn} />);
+  };
 
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
+  it('Analytics event should occur on color change', async () => {
+    const { getByLabelText } = renderUI();
+    // get color button or Trigger
+    const colorButton = getByLabelText('Color picker, Blue selected');
+    expect(colorButton).toHaveAttribute('aria-expanded', 'false');
+    expect(colorButton).toBeInTheDocument();
+
+    // click on trigger
+    await userEvent.click(colorButton);
+    expect(colorButton).toHaveAttribute('aria-expanded', 'true');
+
+    // click on color option and check onChange called with Analytics
+    await userEvent.click(getByLabelText('Red'));
     expect(mockFn.mock.calls.length).toBe(1);
-    expect(mockFn).toBeCalledWith(value.value, expect.any(UIAnalyticsEvent));
+    expect(mockFn).toBeCalledWith('red', expect.any(UIAnalyticsEvent));
   });
 });

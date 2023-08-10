@@ -1,9 +1,12 @@
-import { EmojiRepository } from '../../../emoji/src/resource';
-import { denormaliseEmojiServiceResponse } from '../../../emoji/src/utils';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+/* eslint-disable import/no-extraneous-dependencies */
+import { EmojiRepository } from '@atlaskit/emoji/resource';
+import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji';
 import type {
   EmojiProvider,
   EmojiServiceResponse,
-} from '../../../emoji/src/types';
+} from '@atlaskit/emoji/types';
+/* eslint-disable import/no-extraneous-dependencies */
 
 import { MockEmojiResource } from './mock-emoji-resource';
 import { MockEmojiResourceConfig } from './types';

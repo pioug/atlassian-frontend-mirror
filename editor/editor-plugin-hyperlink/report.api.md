@@ -28,6 +28,7 @@ import type { IntlShape } from 'react-intl-next';
 import type { LinkInputType } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { PluginCommand } from '@atlaskit/editor-common/types';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -55,10 +56,12 @@ export const hyperlinkPlugin: NextEditorPlugin<
     ];
     actions: {
       prependToolbarButtons: PrependToolbarButtons;
-      showLinkToolbar: ShowLinkToolbar;
       hideLinkToolbar: HideLinkToolbar;
       insertLink: InsertLink;
       updateLink: UpdateLink;
+    };
+    commands: {
+      showLinkToolbar: ShowLinkToolbar;
     };
     sharedState: HyperlinkState | undefined;
   }
@@ -100,7 +103,7 @@ interface PrependToolbarButtonsProps extends HyperlinkToolbarItemsState {
 }
 
 // @public (undocumented)
-export type ShowLinkToolbar = (inputMethod: InputMethod) => Command;
+export type ShowLinkToolbar = (inputMethod: InputMethod) => PluginCommand;
 
 // @public (undocumented)
 export type UpdateLink = (

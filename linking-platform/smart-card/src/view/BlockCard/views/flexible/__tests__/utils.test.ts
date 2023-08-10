@@ -47,6 +47,7 @@ describe('getSimulatedBetterMetadata', () => {
         { name: ElementName.ModifiedOn },
       ];
       const bottomMetadata = [
+        { name: ElementName.StoryPoints },
         { name: ElementName.Priority },
         { name: ElementName.SubTasksProgress },
       ];

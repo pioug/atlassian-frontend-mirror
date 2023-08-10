@@ -1,4 +1,4 @@
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
 
 export interface Transformer<T> {
   encode(node: Node): T;
@@ -152,6 +152,11 @@ export type {
   PluginInjectionAPIWithDependencies,
 } from './next-editor-plugin';
 
+export type {
+  PluginCommand,
+  PluginCommandWithMetadata,
+} from './plugin-command';
+
 export type IconProps = {
   label?: string;
 };
@@ -215,3 +220,6 @@ export type {
   InputMethodToolbar,
   InputMethodBasic,
 } from './text-formatting';
+
+export type { LayoutPluginOptions } from './layout';
+export type { LongPressSelectionPluginOptions } from './selection';

@@ -1,5 +1,11 @@
 # @atlaskit/color-picker
 
+## 3.1.4
+
+### Patch Changes
+
+- [`bada4c7ae21`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bada4c7ae21) - Role and Tooltip added for Accessibility
+
 ## 3.1.3
 
 ### Patch Changes

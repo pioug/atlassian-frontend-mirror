@@ -16,6 +16,7 @@ import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
 import { css } from '@emotion/react';
 import { tokens } from '../../../../utils/token';
 import { messages } from '../../../../messages';
+import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 const contentStyles = css`
   color: ${tokens.text};
@@ -39,7 +40,6 @@ const FlexibleUnauthorisedView = ({
   onClick,
   onError,
   testId = 'smart-block-unauthorized-view',
-  ui,
   url,
 }: FlexibleBlockCardProps) => {
   const data = cardState.details?.data as JsonLd.Data.BaseData;
@@ -89,7 +89,7 @@ const FlexibleUnauthorisedView = ({
       onClick={onClick}
       onError={onError}
       testId={testId}
-      ui={ui}
+      ui={{ hideElevation: true }}
       url={url}
     >
       <TitleBlock hideRetry={true} anchorTarget={anchorTarget} />
@@ -107,4 +107,4 @@ const FlexibleUnauthorisedView = ({
   );
 };
 
-export default FlexibleUnauthorisedView;
+export default withFlexibleUIBlockCardStyle(FlexibleUnauthorisedView);

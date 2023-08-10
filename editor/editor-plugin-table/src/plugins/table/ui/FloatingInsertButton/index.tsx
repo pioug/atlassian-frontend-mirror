@@ -18,6 +18,7 @@ import { closestElement } from '@atlaskit/editor-common/utils';
 import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
@@ -176,6 +177,13 @@ export class FloatingInsertButton extends React.Component<
       editorView.state.selection,
     );
 
+    // ED-19336: Fixed the 'add column button' not visible issue when sticky header is enabled
+    // By setting the Popup z-index higher than the sticky header z-index ( common-styles.ts tr.sticky)
+    // Only when inserting a column, otherwise set to undefined
+    // Need to set z-index in the Popup, set z-index in the <InsertButton /> will not work
+    const zIndex: number | undefined =
+      type === 'column' ? akEditorTableCellOnStickyHeaderZIndex : undefined;
+
     return (
       <Popup
         target={targetCellRef}
@@ -190,6 +198,7 @@ export class FloatingInsertButton extends React.Component<
           hasNumberedColumns,
           tableContainerWrapper,
         )}
+        zIndex={zIndex}
       >
         <InsertButton
           type={type}

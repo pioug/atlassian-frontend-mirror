@@ -1,5 +1,5 @@
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import type { LongPressSelectionPluginOptions } from '../selection/types';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 
 export const pluginKey = new PluginKey('panelPlugin');
 

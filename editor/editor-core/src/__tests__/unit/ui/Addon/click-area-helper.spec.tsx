@@ -19,6 +19,10 @@ import * as actions from '../../../../../src/plugins/selection/gap-cursor/action
 
 import Modal from '@atlaskit/modal-dialog';
 
+jest.mock('../../../../commands', () => ({
+  __esModule: true,
+  ...jest.requireActual<Object>('../../../../commands'),
+}));
 jest.mock('@atlaskit/editor-common/utils', () => ({
   ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   closestElement: jest.fn(),

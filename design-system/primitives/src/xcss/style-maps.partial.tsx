@@ -57,7 +57,7 @@ export type Space = keyof typeof spaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::58f7acf912c1f55cbaa7a5be887f1b44>>
+ * @codegen <<SignedSource::0de38f66a11617229ed4985ae2051e3e>>
  * @codegenId colors
  * @codegenCommand yarn workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "shadow", "text", "fill"]
@@ -593,6 +593,8 @@ export const textColorMap = {
   'color.text.information': token('color.text.information', '#0052CC'),
   'color.text.subtlest': token('color.text.subtlest', '#7A869A'),
   'color.text.subtle': token('color.text.subtle', '#42526E'),
+  'color.link': token('color.link', '#0052CC'),
+  'color.link.pressed': token('color.link.pressed', '#0747A6'),
 } as const;
 
 export type TextColor = keyof typeof textColorMap;

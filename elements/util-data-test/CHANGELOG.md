@@ -1,5 +1,11 @@
 # @atlaskit/util-data-test
 
+## 17.8.5
+
+### Patch Changes
+
+- [`4da111eca36`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4da111eca36) - Revert relative imports
+
 ## 17.8.4
 
 ### Patch Changes

@@ -32,6 +32,8 @@ import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { BrowserFreezetracking } from '@atlaskit/editor-common/types';
 import { CardOptions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
+import { clearEditorContent } from '@atlaskit/editor-common/commands';
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import { Color } from '@atlaskit/status/element';
 import { Command as Command_2 } from '@atlaskit/editor-common/types';
 import { ComponentType } from 'react';
@@ -102,6 +104,7 @@ import { JSONDocNode } from '@atlaskit/editor-json-transformer/types';
 import { jsx } from '@emotion/react';
 import { lightModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { LinkingOptions } from '@atlaskit/editor-common/types';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import { MacroAttributes } from '@atlaskit/editor-common/provider-factory';
 import { MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import { MarkConfig } from '@atlaskit/editor-common/types';
@@ -136,14 +139,14 @@ import { PresenceProvider } from '@atlaskit/mention/resource';
 import { PresenceResource } from '@atlaskit/mention/resource';
 import PropTypes from 'prop-types';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { PureComponent } from 'react';
 import { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { QuickInsertItemId } from '@atlaskit/editor-common/provider-factory';
 import { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import { default as React_2 } from 'react';
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 import type { ReplaceRawValue } from '@atlaskit/editor-common/types';
 import type { ResolvedEditorState } from '@atlaskit/collab-provider';
@@ -338,8 +341,7 @@ interface CellSelectionData {
 // @public (undocumented)
 export const changeColor: (color: string) => Command;
 
-// @public (undocumented)
-export const clearEditorContent: Command;
+export { clearEditorContent };
 
 // @public (undocumented)
 type CloseOptions = {
@@ -355,29 +357,6 @@ interface CodeBlockOptions extends LongPressSelectionPluginOptions {
   allowCopyToClipboard?: boolean;
   // (undocumented)
   appearance?: EditorAppearance | undefined;
-}
-
-// @public (undocumented)
-interface CollabAnalyticsProps {
-  EXPERIMENTAL_allowInternalErrorAnalytics?: boolean;
-}
-
-// @public (undocumented)
-type CollabEditOptions = {
-  provider?: Providers['collabEditProvider'];
-  userId?: string;
-  useNativePlugin?: boolean;
-} & CollabInviteToEditProps &
-  CollabAnalyticsProps;
-
-// @public (undocumented)
-interface CollabInviteToEditProps {
-  // (undocumented)
-  inviteToEditComponent?: React.ComponentType<InviteToEditComponentProps>;
-  // (undocumented)
-  inviteToEditHandler?: (event: React.MouseEvent<HTMLElement>) => void;
-  // (undocumented)
-  isInviteToEditButtonSelected?: boolean;
 }
 
 // @public (undocumented)
@@ -1249,17 +1228,6 @@ export const insertTaskDecisionCommand: (
 ) => Command;
 
 // @public (undocumented)
-type InviteToEditButtonProps = {
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
-  selected: boolean;
-};
-
-// @public (undocumented)
-type InviteToEditComponentProps = {
-  children: ReactElement<InviteToEditButtonProps>;
-};
-
-// @public (undocumented)
 interface LayoutPluginOptions extends LongPressSelectionPluginOptions {
   // (undocumented)
   allowBreakout?: boolean;
@@ -1293,12 +1261,6 @@ export interface ListState {
 
 // @public (undocumented)
 export const listStateKey: PluginKey<ListState>;
-
-// @public (undocumented)
-interface LongPressSelectionPluginOptions {
-  // (undocumented)
-  useLongPressSelection?: boolean;
-}
 
 export { MacroAttributes };
 

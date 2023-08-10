@@ -106,10 +106,5 @@
       ]
     }
   },
-  "techstackIgnore": {
-    "stricter": [
-      "@atlassian/tangerine/project-structure"
-    ]
-  },
   "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
 }

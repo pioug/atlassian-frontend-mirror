@@ -3,6 +3,8 @@ import { loadingPlaceholderClassName } from '../../index';
 import { SmartLinkSize, SmartLinkTheme } from '../../constants';
 import { FlexibleUiOptions } from '../FlexibleCard/types';
 import { layers } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
+import { themed } from '@atlaskit/theme/components';
 
 // Temporary fix for Confluence inline comment on editor mod has z-index of 500, Jira issue view has z-index of 510
 export const HOVER_CARD_Z_INDEX = layers.modal();
@@ -65,4 +67,22 @@ export const titleBlockCss = css`
 export const getTransitionStyles = (snippetHeight: number) => css`
   transition: height 300ms ease-in-out;
   height: ${snippetHeight}px;
+`;
+
+export const popupContainerStyles = css`
+  border-radius: ${token('border.radius.300', '12px')};
+  background-color: ${themed({
+    light: token('elevation.surface.raised', 'white'),
+    dark: token('elevation.surface.raised', '#262B31'),
+  })()};
+  box-shadow: ${themed({
+    light: token(
+      'elevation.shadow.overlay',
+      '0px 8px 12px rgba(9, 30, 66, 0.15),0px 0px 1px rgba(9, 30, 66, 0.31)',
+    ),
+    dark: token(
+      'elevation.shadow.overlay',
+      '0px 0px 0px rgba(188, 214, 240, 0.12),0px 8px 12px rgba(3, 4, 4, 0.36),0px 0px 1px rgba(3, 4, 4, 0.5)',
+    ),
+  })()};
 `;

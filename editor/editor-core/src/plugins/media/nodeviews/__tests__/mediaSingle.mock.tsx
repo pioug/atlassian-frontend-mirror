@@ -2,8 +2,7 @@
 export const mockHandleExternalMedia = jest.fn();
 export const mockHasDifferentContextId = jest.fn();
 export const mockCopyNode = jest.fn();
-export const mockInsertCaptionAtPos = jest.fn();
-mockInsertCaptionAtPos.mockReturnValue(jest.fn());
+export const mockInsertCaptionAtPos = jest.fn(() => () => () => {});
 
 jest.mock('../mediaNodeView/media', () => () => null);
 jest.mock('../mediaNodeUpdater', () => ({

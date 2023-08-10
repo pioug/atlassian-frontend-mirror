@@ -9,9 +9,9 @@ import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  addAnalytics,
   EVENT_TYPE,
-} from '../../analytics';
+} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export const selectCaptionFromMediaSinglePos =
   (mediaSingleNodePos: number, mediaSingleNode: PMNode): Command =>
@@ -40,6 +40,7 @@ export const selectCaptionFromMediaSinglePos =
   };
 
 export const insertAndSelectCaptionFromMediaSinglePos =
+  (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
   (mediaSingleNodePos: number | undefined, mediaSingleNode: PMNode): Command =>
   (state, dispatch) => {
     if (typeof mediaSingleNodePos !== 'number') {
@@ -66,12 +67,12 @@ export const insertAndSelectCaptionFromMediaSinglePos =
       );
 
       tr.setMeta('scrollIntoView', false);
-      addAnalytics(state, tr, {
+      editorAnalyticsAPI?.attachAnalyticsEvent({
         action: ACTION.ADDED,
         eventType: EVENT_TYPE.TRACK,
         actionSubject: ACTION_SUBJECT.MEDIA_SINGLE,
         actionSubjectId: ACTION_SUBJECT_ID.CAPTION,
-      });
+      })(tr);
       dispatch(tr);
     }
 

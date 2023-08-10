@@ -15,7 +15,12 @@ import {
   selectCaptionFromMediaSinglePos,
 } from '../commands/captions';
 
-export function keymapPlugin(options?: MediaOptions): SafePlugin {
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
+export function keymapPlugin(
+  options?: MediaOptions,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+): SafePlugin {
   const list = {};
   const { featureFlags } = options || {};
 
@@ -24,12 +29,12 @@ export function keymapPlugin(options?: MediaOptions): SafePlugin {
   if (getMediaFeatureFlag('captions', featureFlags)) {
     keymaps.bindKeymapWithCommand(
       keymaps.moveDown.common!,
-      insertAndSelectCaption,
+      insertAndSelectCaption(editorAnalyticsAPI),
       list,
     );
     keymaps.bindKeymapWithCommand(
       keymaps.tab.common!,
-      insertAndSelectCaption,
+      insertAndSelectCaption(editorAnalyticsAPI),
       list,
     );
 
@@ -65,25 +70,30 @@ const splitMediaGroup: Command = (state) => {
   return mediaPluginState.splitMediaGroup();
 };
 
-const insertAndSelectCaption: Command = (state, dispatch) => {
-  const { selection, schema } = state;
-  if (
-    selection instanceof NodeSelection &&
-    selection.node.type === schema.nodes.mediaSingle &&
-    schema.nodes.caption
-  ) {
-    if (dispatch) {
-      const { from, node } = selection;
-      if (
-        !insertAndSelectCaptionFromMediaSinglePos(from, node)(state, dispatch)
-      ) {
-        selectCaptionFromMediaSinglePos(from, node)(state, dispatch);
+const insertAndSelectCaption =
+  (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined): Command =>
+  (state, dispatch) => {
+    const { selection, schema } = state;
+    if (
+      selection instanceof NodeSelection &&
+      selection.node.type === schema.nodes.mediaSingle &&
+      schema.nodes.caption
+    ) {
+      if (dispatch) {
+        const { from, node } = selection;
+        if (
+          !insertAndSelectCaptionFromMediaSinglePos(editorAnalyticsAPI)(
+            from,
+            node,
+          )(state, dispatch)
+        ) {
+          selectCaptionFromMediaSinglePos(from, node)(state, dispatch);
+        }
       }
+      return true;
     }
-    return true;
-  }
-  return false;
-};
+    return false;
+  };
 
 const arrowLeftFromMediaSingle =
   (editorSelectionAPI: EditorSelectionAPI | undefined | null): Command =>

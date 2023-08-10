@@ -4,7 +4,7 @@ import { css, jsx } from '@emotion/react';
 import AvatarsWithPluginState from '../../collab-edit/ui/avatars-with-plugin-state';
 import type { EventDispatcher } from '../../../event-dispatcher';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { CollabEditOptions } from '../../collab-edit';
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import { useIntl } from 'react-intl-next';
 import { avatarGroupMessages } from '../messages';
 import type { DispatchAnalyticsEvent } from '../../analytics';

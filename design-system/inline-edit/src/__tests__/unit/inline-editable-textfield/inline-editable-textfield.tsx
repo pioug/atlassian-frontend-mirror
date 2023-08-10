@@ -95,14 +95,22 @@ describe('Simple render', () => {
     const textField = container.querySelector(
       '[data-testid="editable-textfield"]',
     ) as HTMLInputElement;
+    expect(textField).toBeInTheDocument();
     const cancel = container.querySelector('[aria-label="Cancel"]');
 
     fireEvent.change(textField!, { target: { value: 'New content' } });
+    expect(onCancel).not.toHaveBeenCalled();
+
     fireEvent.click(cancel!);
     expect(onCancel).toHaveBeenCalled();
 
-    fireEvent.click(read!);
-    expect(textField!.value).not.toEqual('New content');
+    const button2 = container.querySelector('[aria-label="Edit"]');
+    fireEvent.click(button2!);
+    const textField2 = container.querySelector(
+      '[data-testid="editable-textfield"]',
+    ) as HTMLInputElement;
+    expect(textField2).toBeInTheDocument();
+    expect(textField2!.value).toEqual('Default content');
   });
 
   it('onblur should not clear the unsaved edit content back to defaultValue', () => {

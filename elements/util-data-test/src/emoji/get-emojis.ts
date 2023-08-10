@@ -1,4 +1,6 @@
-import { denormaliseEmojiServiceResponse } from '../../../emoji/src/utils';
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { denormaliseEmojiServiceResponse } from '@atlaskit/emoji';
 import { getAtlassianEmojiData } from './get-atlassian-emoji-data';
 import { getSiteEmojiData } from './get-site-emoji-data';
 import { getStandardEmojiData } from './get-standard-emoji-data';

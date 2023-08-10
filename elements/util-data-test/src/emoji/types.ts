@@ -1,8 +1,10 @@
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import type {
   EmojiUpload,
   EmojiDescription,
   User,
-} from '../../../emoji/src/types';
+} from '@atlaskit/emoji/types';
 
 export interface PromiseBuilder<R> {
   (result: R, context: string): Promise<R>;

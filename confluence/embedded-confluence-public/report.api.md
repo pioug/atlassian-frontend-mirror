@@ -20,6 +20,7 @@ import { ExperienceTracker } from '@atlassian/experience-tracker';
 import { ExperienceTrackerContext } from '@atlassian/experience-tracker';
 import { Page as Page_2 } from '@atlassian/embedded-confluence-common';
 import { default as React_2 } from 'react';
+import { themeStateObjectToQueryString } from '@atlassian/embedded-confluence-common';
 import type { ViewPageProps } from '@atlassian/embedded-confluence-common';
 
 // @public (undocumented)
@@ -36,6 +37,8 @@ export const Page: (
     'editComponent' | 'viewComponent'
   >,
 ) => JSX.Element;
+
+export { themeStateObjectToQueryString };
 
 // @public (undocumented)
 export const ViewPage: React_2.FC<ViewPageProps>;

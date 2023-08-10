@@ -311,7 +311,10 @@ export default class MediaSingleNode extends Component<
     }
 
     const isSelected = selected();
-    const contentWidth = this.getLineLength(view, getPos()) || lineLength;
+
+    const contentWidthForLegacyExperience =
+      this.getLineLength(view, getPos()) || lineLength;
+    const contentWidth = this.getLineLength(view, getPos(), true) || lineLength;
 
     const mediaSingleProps = {
       layout,
@@ -327,7 +330,9 @@ export default class MediaSingleNode extends Component<
         widthType,
         origWidth: width,
         layout,
-        contentWidth,
+        // This will only be used when calculating legacy media single width
+        // thus we use the legecy value (exclude table as container node)
+        contentWidth: contentWidthForLegacyExperience,
         containerWidth,
         gutterOffset: MEDIA_SINGLE_GUTTER_SIZE,
       }),
@@ -388,7 +393,10 @@ export default class MediaSingleNode extends Component<
           {MediaChildren}
         </ResizableMediaSingleNext>
       ) : (
-        <ResizableMediaSingle {...ResizableMediaSingleProps}>
+        <ResizableMediaSingle
+          {...ResizableMediaSingleProps}
+          lineLength={contentWidthForLegacyExperience}
+        >
           {MediaChildren}
         </ResizableMediaSingle>
       )
@@ -398,26 +406,32 @@ export default class MediaSingleNode extends Component<
   }
 
   private clickPlaceholder = () => {
-    const { view, getPos, node } = this.props;
+    const { view, getPos, node, pluginInjectionApi } = this.props;
 
     if (typeof getPos === 'boolean') {
       return;
     }
 
-    insertAndSelectCaptionFromMediaSinglePos(getPos(), node)(
-      view.state,
-      view.dispatch,
-    );
+    insertAndSelectCaptionFromMediaSinglePos(
+      pluginInjectionApi?.dependencies?.analytics?.actions,
+    )(getPos(), node)(view.state, view.dispatch);
   };
 
+  /**
+   * Get parent width for a nested media single node
+   * @param view Editor view
+   * @param pos node position
+   * @param includeMoreParentNodeTypes should consider table and list as parent nodes(only true for new experience)
+   */
   private getLineLength = (
     view: EditorView,
     pos: number | undefined,
+    includeMoreParentNodeTypes?: boolean,
   ): number | null => {
     if (typeof pos !== 'number') {
       return null;
     }
-    if (isRichMediaInsideOfBlockNode(view, pos)) {
+    if (isRichMediaInsideOfBlockNode(view, pos, includeMoreParentNodeTypes)) {
       const $pos = view.state.doc.resolve(pos);
       const domNode = view.nodeDOM($pos.pos);
 

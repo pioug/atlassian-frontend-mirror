@@ -375,7 +375,7 @@ export const PlainJiraIssuesConfigModal = (
       <Modal
         testId={'jira-jql-datasource-modal'}
         onClose={onCancel}
-        width="x-large"
+        width="calc(100% - 80px)"
         shouldScrollInViewport={true}
       >
         <ModalHeader>

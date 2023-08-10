@@ -11,13 +11,13 @@ Array [
   Object {
     "key": "grid_1",
     "position": Object {
-      "x": -333.33333333333337,
+      "x": -333.5,
     },
   },
   Object {
     "key": "grid_2",
     "position": Object {
-      "x": -266.66666666666663,
+      "x": -266.5,
     },
   },
   Object {
@@ -29,13 +29,13 @@ Array [
   Object {
     "key": "grid_4",
     "position": Object {
-      "x": -133.33333333333331,
+      "x": -133.5,
     },
   },
   Object {
     "key": "grid_5",
     "position": Object {
-      "x": -66.66666666666666,
+      "x": -66.5,
     },
   },
   Object {
@@ -47,13 +47,13 @@ Array [
   Object {
     "key": "grid_7",
     "position": Object {
-      "x": 66.66666666666666,
+      "x": 66.5,
     },
   },
   Object {
     "key": "grid_8",
     "position": Object {
-      "x": 133.33333333333331,
+      "x": 133.5,
     },
   },
   Object {
@@ -65,13 +65,13 @@ Array [
   Object {
     "key": "grid_10",
     "position": Object {
-      "x": 266.66666666666663,
+      "x": 266.5,
     },
   },
   Object {
     "key": "grid_11",
     "position": Object {
-      "x": 333.33333333333337,
+      "x": 333.5,
     },
   },
   Object {
@@ -225,13 +225,13 @@ Array [
   Object {
     "key": "grid_1",
     "position": Object {
-      "x": -458.33333333333337,
+      "x": -458.5,
     },
   },
   Object {
     "key": "grid_2",
     "position": Object {
-      "x": -366.66666666666663,
+      "x": -366.5,
     },
   },
   Object {
@@ -243,13 +243,13 @@ Array [
   Object {
     "key": "grid_4",
     "position": Object {
-      "x": -183.33333333333331,
+      "x": -183.5,
     },
   },
   Object {
     "key": "grid_5",
     "position": Object {
-      "x": -91.66666666666666,
+      "x": -91.5,
     },
   },
   Object {
@@ -261,13 +261,13 @@ Array [
   Object {
     "key": "grid_7",
     "position": Object {
-      "x": 91.66666666666666,
+      "x": 91.5,
     },
   },
   Object {
     "key": "grid_8",
     "position": Object {
-      "x": 183.33333333333331,
+      "x": 183.5,
     },
   },
   Object {
@@ -279,13 +279,13 @@ Array [
   Object {
     "key": "grid_10",
     "position": Object {
-      "x": 366.66666666666663,
+      "x": 366.5,
     },
   },
   Object {
     "key": "grid_11",
     "position": Object {
-      "x": 458.33333333333337,
+      "x": 458.5,
     },
   },
   Object {

@@ -18,7 +18,7 @@ export const MenuList = (props: MenuListComponentProps<Color>) => {
 
   return (
     <ColorPaletteContainer
-      role="grid"
+      role="radiogroup"
       style={{
         maxWidth: cols ? getWidth(cols) : undefined,
       }}

@@ -48,7 +48,7 @@ import {
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { addAnalytics } from '../../analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 export interface Range {
   start: number;
@@ -149,49 +149,49 @@ function shouldAppendParagraph(
  * @param mediaState Media file to be added to the editor
  * @param collection Collection for the media to be added
  */
-export const insertMediaInlineNode = (
-  view: EditorView,
-  mediaState: MediaState,
-  collection: string,
-  inputMethod?: InputMethodInsertMedia,
-): boolean => {
-  const { state, dispatch } = view;
-  const { schema, tr } = state;
-  const { mediaInline } = schema.nodes;
+export const insertMediaInlineNode =
+  (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined) =>
+  (
+    view: EditorView,
+    mediaState: MediaState,
+    collection: string,
+    inputMethod?: InputMethodInsertMedia,
+  ): boolean => {
+    const { state, dispatch } = view;
+    const { schema, tr } = state;
+    const { mediaInline } = schema.nodes;
 
-  // Do nothing if no media found
-  if (!mediaInline || !mediaState || collection === undefined) {
-    return false;
-  }
+    // Do nothing if no media found
+    if (!mediaInline || !mediaState || collection === undefined) {
+      return false;
+    }
 
-  const { id } = mediaState;
-  const mediaInlineNode = mediaInline.create({ id, collection });
-  const space = state.schema.text(' ');
-  let pos = state.selection.$to.pos;
+    const { id } = mediaState;
+    const mediaInlineNode = mediaInline.create({ id, collection });
+    const space = state.schema.text(' ');
+    let pos = state.selection.$to.pos;
 
-  // If the selection is inside an empty list item set pos inside paragraph
-  if (isInListItem(state) && isInsidePotentialEmptyParagraph(state)) {
-    pos = pos + 1;
-  }
+    // If the selection is inside an empty list item set pos inside paragraph
+    if (isInListItem(state) && isInsidePotentialEmptyParagraph(state)) {
+      pos = pos + 1;
+    }
 
-  let content = Fragment.from([mediaInlineNode, space]);
+    let content = Fragment.from([mediaInlineNode, space]);
 
-  // Delete the selection if a selection is made
-  const deleteRange = findDeleteRange(state);
-  if (!deleteRange) {
-    tr.insert(pos, content);
-  } else {
-    tr.insert(pos, content).deleteRange(deleteRange.start, deleteRange.end);
-  }
+    // Delete the selection if a selection is made
+    const deleteRange = findDeleteRange(state);
+    if (!deleteRange) {
+      tr.insert(pos, content);
+    } else {
+      tr.insert(pos, content).deleteRange(deleteRange.start, deleteRange.end);
+    }
 
-  addAnalytics(
-    state,
-    tr,
-    getInsertMediaInlineAnalytics(mediaState, inputMethod),
-  );
-  dispatch(tr);
-  return true;
-};
+    editorAnalyticsAPI?.attachAnalyticsEvent(
+      getInsertMediaInlineAnalytics(mediaState, inputMethod),
+    )(tr);
+    dispatch(tr);
+    return true;
+  };
 
 /**
  * Insert a media into an existing media group
@@ -200,78 +200,76 @@ export const insertMediaInlineNode = (
  * @param mediaStates Media files to be added to the editor
  * @param collection Collection for the media to be added
  */
-export const insertMediaGroupNode = (
-  view: EditorView,
-  mediaStates: MediaState[],
-  collection: string,
-  inputMethod?: InputMethodInsertMedia,
-): void => {
-  const { state, dispatch } = view;
-  const { tr, schema } = state;
-  const { media, paragraph } = schema.nodes;
+export const insertMediaGroupNode =
+  (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined) =>
+  (
+    view: EditorView,
+    mediaStates: MediaState[],
+    collection: string,
+    inputMethod?: InputMethodInsertMedia,
+  ): void => {
+    const { state, dispatch } = view;
+    const { tr, schema } = state;
+    const { media, paragraph } = schema.nodes;
 
-  // Do nothing if no media found
-  if (!media || !mediaStates.length) {
-    return;
-  }
-  const mediaNodes = createMediaFileNodes(mediaStates, collection, media);
-  const mediaInsertPos = findMediaInsertPos(state);
-  const resolvedInsertPos = tr.doc.resolve(mediaInsertPos);
-  const parent = resolvedInsertPos.parent;
-  const nodeAtInsertionPoint = tr.doc.nodeAt(mediaInsertPos);
-  const shouldSplit =
-    !isSelectionMediaGroup(state) &&
-    isSupportedInParent(
-      state,
-      Fragment.from(
-        state.schema.nodes.mediaGroup.createChecked({}, mediaNodes),
-      ),
-    );
-
-  const withParagraph = shouldAppendParagraph(state, nodeAtInsertionPoint);
-  let content: PMNode[] =
-    parent.type === schema.nodes.mediaGroup
-      ? mediaNodes // If parent is a mediaGroup do not wrap items again.
-      : [schema.nodes.mediaGroup.createChecked({}, mediaNodes)];
-  if (shouldSplit) {
-    content = withParagraph ? content.concat(paragraph.create()) : content;
-    // delete the selection or empty paragraph
-    const deleteRange = findDeleteRange(state);
-    if (!deleteRange) {
-      tr.insert(mediaInsertPos, content);
-    } else if (mediaInsertPos <= deleteRange.start) {
-      tr.deleteRange(deleteRange.start, deleteRange.end).insert(
-        mediaInsertPos,
-        content,
-      );
-    } else {
-      tr.insert(mediaInsertPos, content).deleteRange(
-        deleteRange.start,
-        deleteRange.end,
-      );
+    // Do nothing if no media found
+    if (!media || !mediaStates.length) {
+      return;
     }
-    addAnalytics(
-      state,
-      tr,
+    const mediaNodes = createMediaFileNodes(mediaStates, collection, media);
+    const mediaInsertPos = findMediaInsertPos(state);
+    const resolvedInsertPos = tr.doc.resolve(mediaInsertPos);
+    const parent = resolvedInsertPos.parent;
+    const nodeAtInsertionPoint = tr.doc.nodeAt(mediaInsertPos);
+    const shouldSplit =
+      !isSelectionMediaGroup(state) &&
+      isSupportedInParent(
+        state,
+        Fragment.from(
+          state.schema.nodes.mediaGroup.createChecked({}, mediaNodes),
+        ),
+      );
+
+    const withParagraph = shouldAppendParagraph(state, nodeAtInsertionPoint);
+    let content: PMNode[] =
+      parent.type === schema.nodes.mediaGroup
+        ? mediaNodes // If parent is a mediaGroup do not wrap items again.
+        : [schema.nodes.mediaGroup.createChecked({}, mediaNodes)];
+    if (shouldSplit) {
+      content = withParagraph ? content.concat(paragraph.create()) : content;
+      // delete the selection or empty paragraph
+      const deleteRange = findDeleteRange(state);
+      if (!deleteRange) {
+        tr.insert(mediaInsertPos, content);
+      } else if (mediaInsertPos <= deleteRange.start) {
+        tr.deleteRange(deleteRange.start, deleteRange.end).insert(
+          mediaInsertPos,
+          content,
+        );
+      } else {
+        tr.insert(mediaInsertPos, content).deleteRange(
+          deleteRange.start,
+          deleteRange.end,
+        );
+      }
+      editorAnalyticsAPI?.attachAnalyticsEvent(
+        getInsertMediaGroupAnalytics(mediaStates, inputMethod),
+      )(tr);
+      dispatch(tr);
+      setSelectionAfterMediaInsertion(view);
+      return;
+    }
+
+    // Don't append new paragraph when adding media to a existing mediaGroup
+    if (withParagraph && parent.type !== schema.nodes.mediaGroup) {
+      content.push(paragraph.create());
+    }
+    editorAnalyticsAPI?.attachAnalyticsEvent(
       getInsertMediaGroupAnalytics(mediaStates, inputMethod),
-    );
-    dispatch(tr);
-    setSelectionAfterMediaInsertion(view);
-    return;
-  }
+    )(tr);
 
-  // Don't append new paragraph when adding media to a existing mediaGroup
-  if (withParagraph && parent.type !== schema.nodes.mediaGroup) {
-    content.push(paragraph.create());
-  }
-  addAnalytics(
-    state,
-    tr,
-    getInsertMediaGroupAnalytics(mediaStates, inputMethod),
-  );
-
-  dispatch(safeInsert(Fragment.fromArray(content), mediaInsertPos)(tr));
-};
+    dispatch(safeInsert(Fragment.fromArray(content), mediaInsertPos)(tr));
+  };
 
 const createMediaFileNodes = (
   mediaStates: MediaState[],

@@ -18,6 +18,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { insertMediaGroupNode } from '../../../../plugins/media/utils/media-files';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { MediaPluginState } from '../../../../plugins/media/pm-plugins/types';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
 export {
   getFreshMediaProvider,
   temporaryMediaGroup,
@@ -79,8 +81,12 @@ export const mediaEditor = (
  * @param view The EditorView under test.
  * @param id The initially inserted id and __key for the media node.
  */
-export const insertMediaGroupItem = (view: EditorView, id: string) => {
-  insertMediaGroupNode(view, [{ id }], testCollectionName);
+export const insertMediaGroupItem = (
+  view: EditorView,
+  id: string,
+  editorAnalyticsAPI: EditorAnalyticsAPI,
+) => {
+  insertMediaGroupNode(editorAnalyticsAPI)(view, [{ id }], testCollectionName);
 
   return media({
     id,

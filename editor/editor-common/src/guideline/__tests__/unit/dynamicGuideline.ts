@@ -1,4 +1,4 @@
-import { ExtendedMediaAttributes } from '@atlaskit/adf-schema';
+import type { ExtendedMediaAttributes } from '@atlaskit/adf-schema';
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
 import {
   doc,

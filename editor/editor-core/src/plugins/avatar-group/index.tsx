@@ -1,6 +1,6 @@
 import React from 'react';
 import { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { CollabEditOptions } from '../collab-edit';
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import AvatarGroupPluginWrapper from './ui/AvatarGroupPluginWrapper';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 

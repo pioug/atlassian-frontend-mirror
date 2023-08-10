@@ -21,22 +21,24 @@ import type {
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
-import {
+import type {
   HideLinkToolbar,
-  hideLinkToolbarSetMeta,
   InsertLink,
-  insertLinkWithAnalytics,
   ShowLinkToolbar,
-  showLinkToolbar,
   UpdateLink,
+} from './commands';
+import {
+  hideLinkToolbarSetMeta,
+  insertLinkWithAnalytics,
+  showLinkToolbar,
   updateLink,
 } from './commands';
 import fakeCursorToolbarPlugin from './pm-plugins/fake-cursor-for-toolbar';
 import { createInputRulePlugin } from './pm-plugins/input-rule';
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey } from './pm-plugins/main';
+import type { PrependToolbarButtons } from './pm-plugins/toolbar-buttons';
 import {
-  PrependToolbarButtons,
   prependToolbarButtons,
   toolbarButtonsPlugin,
 } from './pm-plugins/toolbar-buttons';
@@ -60,21 +62,23 @@ export const hyperlinkPlugin: NextEditorPlugin<
        * - onInsertLinkCallback (optional): To be called when a link is inserted and it can be changed into a card.
        */
       prependToolbarButtons: PrependToolbarButtons;
+      hideLinkToolbar: HideLinkToolbar;
+      insertLink: InsertLink;
+      updateLink: UpdateLink;
+    };
+    commands: {
       /**
-       * Higher-order Command to show link toolbar.
+       * PluginCommand to show link toolbar.
        *
        * Example:
        *
        * ```
-       * pluginInjectionApi?.dependencies.hyperlink.actions.showLinkToolbar(
+       * const newTr = pluginInjectionApi?.dependencies.hyperlink.commands.showLinkToolbar(
        *   inputMethod
-       * )(state, dispatch)
+       * )({ tr })
        * ```
        */
       showLinkToolbar: ShowLinkToolbar;
-      hideLinkToolbar: HideLinkToolbar;
-      insertLink: InsertLink;
-      updateLink: UpdateLink;
     };
     sharedState: HyperlinkState | undefined;
   }
@@ -88,10 +92,13 @@ export const hyperlinkPlugin: NextEditorPlugin<
       return [{ name: 'link', mark: link }];
     },
 
-    actions: {
-      prependToolbarButtons,
+    commands: {
       showLinkToolbar: (inputMethod = INPUT_METHOD.TOOLBAR) =>
         showLinkToolbar(inputMethod, api?.dependencies.analytics?.actions),
+    },
+
+    actions: {
+      prependToolbarButtons,
       hideLinkToolbar: hideLinkToolbarSetMeta,
       insertLink: (
         inputMethod,

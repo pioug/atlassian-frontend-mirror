@@ -191,6 +191,7 @@ export const getSimulatedBetterMetadata = (
           primary: [
             ElementName.AssignedToGroup,
             ElementName.State,
+            ElementName.StoryPoints,
             ElementName.Priority,
           ],
           secondary: [],

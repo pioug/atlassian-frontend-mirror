@@ -15,7 +15,7 @@ import { Editor, ContextPanel } from '../src';
 import { SaveAndCancelButtons } from './5-full-page';
 import { TitleInput } from '../example-helpers/PageElements';
 import { getDefaultLinkPickerOptions } from '../example-helpers/link-picker';
-import type { CollabEditOptions } from '../src/plugins/collab-edit';
+import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 import type { EditorProps } from '../src/types/editor-props';
 

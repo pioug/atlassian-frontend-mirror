@@ -15,7 +15,7 @@ import {
 import { getToolbarConfig } from './toolbar';
 import { createExpandNode } from './commands';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
-import type { LongPressSelectionPluginOptions } from '../selection/types';
+import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { createWrapSelectionTransaction } from '../block-type/commands/block-type';

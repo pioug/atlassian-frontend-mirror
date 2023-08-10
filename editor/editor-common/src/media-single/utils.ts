@@ -121,7 +121,7 @@ const calcLegacyWideWidth = (
 };
 
 /**
- * Calculate maximum width allowed for media single in new experience
+ * Calculate maximum width allowed for media single node in fix-width editor in new experience
  * @param containerWidth width of editor container
  */
 export const calcMediaSingleMaxWidth = (containerWidth: number) => {
@@ -146,6 +146,7 @@ export const getMediaSingleInitialWidth = (
 ) => {
   return Math.max(Math.min(origWidth, maxWidth), minWidth);
 };
+
 export function calculateOffsetLeft(
   insideInlineLike: boolean,
   insideLayout: boolean,

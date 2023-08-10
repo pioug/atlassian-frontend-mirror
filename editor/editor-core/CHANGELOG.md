@@ -1,5 +1,67 @@
 # @atlaskit/editor-core
 
+## 187.14.12
+
+### Patch Changes
+
+- [`7b8e8b52110`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7b8e8b52110) - [ED-16733] Editor Media Extraction: Moving Floating Toolbar Separator to editor-common
+- Updated dependencies
+
+## 187.14.11
+
+### Patch Changes
+
+- [`bc706129ddb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bc706129ddb) - Updated media to no longer use the old addAnalytics, using new AnalyticsAPI
+
+## 187.14.9
+
+### Patch Changes
+
+- [`021d5f488ec`](https://bitbucket.org/atlassian/atlassian-frontend/commits/021d5f488ec) - [ED-16733] Media Plugin Extractation - Move core commands to common entrypoint
+- Updated dependencies
+
+## 187.14.8
+
+### Patch Changes
+
+- [`8fe864e4f7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fe864e4f7a) - [ux] ED-19336: Fixed insert column button not visible when sticky header is enabled."
+- [`4cbae03c15c`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cbae03c15c) - Set maxWidth for ResizerNext to stop lable updating when reaching max width
+
+## 187.14.7
+
+### Patch Changes
+
+- [`3bbe8f91f34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3bbe8f91f34) - refactor ResizableMediaSingleNext around guidelines and snapping
+- [`a675f834911`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a675f834911) - Introduce `commands` optional parameter to `NextEditorPlugin`. It can be used similarly to `actions` in `NextEditorPlugin` but `commands` must adhere to the type of `PluginCommand`:
+
+  ```ts
+  type PluginCommand = ({ tr }: { tr: Transaction }) => Transaction | null;
+  ```
+
+  `PluginCommand`s are specifically used for code that is executed to modify a Transaction. They should be used in preference to the existing prosemirror `Command` type.
+
+- Updated dependencies
+
+## 187.14.4
+
+### Patch Changes
+
+- [`8699cf99ceb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8699cf99ceb) - Exporting LayoutPluginOptions and CollabEditOptions from editor-common.
+- Updated dependencies
+
+## 187.14.3
+
+### Patch Changes
+
+- [`c8c91a25360`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c8c91a25360) - [ux] Fix floating toolbar breakout buttons on extensions.
+
+## 187.14.2
+
+### Patch Changes
+
+- [`9064e2d0f28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9064e2d0f28) - [ux] HOT-104783 Reverting https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37639
+- Updated dependencies
+
 ## 187.14.1
 
 ### Patch Changes

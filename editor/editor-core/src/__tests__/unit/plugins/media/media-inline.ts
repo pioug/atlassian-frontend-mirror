@@ -1,5 +1,6 @@
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -9,7 +10,6 @@ import {
   mention,
   code_block,
   panel,
-  DocBuilder,
   mediaSingle,
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
@@ -23,6 +23,8 @@ import {
   getFreshMediaProvider,
 } from './_utils';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('media-inline', () => {
   const createEditor = createEditorFactory();
@@ -47,11 +49,16 @@ describe('media-inline', () => {
       providerFactory,
     });
 
+  const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+  const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+    attachAnalyticsEvent,
+  };
+
   describe('when cursor is at the end of a text block', () => {
     it('inserts media inline node into the document inside current paragraph node', () => {
       const { editorView } = editor(doc(p('text{<>}')));
 
-      insertMediaInlineNode(
+      insertMediaInlineNode(mockEditorAnalyticsAPI)(
         editorView,
         { id: temporaryFileId },
         testCollectionName,
@@ -65,7 +72,7 @@ describe('media-inline', () => {
     it('puts cursor to the next text space after inserting media inline node', () => {
       const { editorView } = editor(doc(p('text{<>}')));
 
-      insertMediaInlineNode(
+      insertMediaInlineNode(mockEditorAnalyticsAPI)(
         editorView,
         { id: temporaryFileId },
         testCollectionName,
@@ -85,7 +92,7 @@ describe('media-inline', () => {
     it('should prepend media inline node to paragraph', () => {
       const { editorView } = editor(doc(p('{<>}text')));
 
-      insertMediaInlineNode(
+      insertMediaInlineNode(mockEditorAnalyticsAPI)(
         editorView,
         { id: temporaryFileId },
         testCollectionName,
@@ -102,7 +109,7 @@ describe('media-inline', () => {
       it('splits text', () => {
         const { editorView } = editor(doc(p('te{<>}xt')));
 
-        insertMediaInlineNode(
+        insertMediaInlineNode(mockEditorAnalyticsAPI)(
           editorView,
           { id: temporaryFileId },
           testCollectionName,
@@ -121,7 +128,7 @@ describe('media-inline', () => {
           editorView.state.schema,
         ).nodeSize;
 
-        insertMediaInlineNode(
+        insertMediaInlineNode(mockEditorAnalyticsAPI)(
           editorView,
           { id: temporaryFileId },
           testCollectionName,
@@ -137,7 +144,7 @@ describe('media-inline', () => {
       it('preserves heading', () => {
         const { editorView } = editor(doc(h1('te{<>}xt')));
 
-        insertMediaInlineNode(
+        insertMediaInlineNode(mockEditorAnalyticsAPI)(
           editorView,
           { id: temporaryFileId },
           testCollectionName,
@@ -156,7 +163,7 @@ describe('media-inline', () => {
         it('replaces selection with a media node', () => {
           const { editorView } = editor(doc(p('te{<}x{>}t')));
 
-          insertMediaInlineNode(
+          insertMediaInlineNode(mockEditorAnalyticsAPI)(
             editorView,
             { id: temporaryFileId },
             testCollectionName,
@@ -173,7 +180,7 @@ describe('media-inline', () => {
           it('replaces selection with a media inline node', () => {
             const { editorView } = editor(doc(h1('{<}text{>}')));
 
-            insertMediaInlineNode(
+            insertMediaInlineNode(mockEditorAnalyticsAPI)(
               editorView,
               { id: temporaryFileId },
               testCollectionName,
@@ -190,7 +197,7 @@ describe('media-inline', () => {
         it('replaces selection with a media inline node', () => {
           const { editorView } = editor(doc(p('te{<}xt{>}')));
 
-          insertMediaInlineNode(
+          insertMediaInlineNode(mockEditorAnalyticsAPI)(
             editorView,
             { id: temporaryFileId },
             testCollectionName,
@@ -211,7 +218,7 @@ describe('media-inline', () => {
           );
           setNodeSelection(editorView, sel);
 
-          insertMediaInlineNode(
+          insertMediaInlineNode(mockEditorAnalyticsAPI)(
             editorView,
             { id: temporaryFileId },
             testCollectionName,
@@ -228,7 +235,7 @@ describe('media-inline', () => {
       it('replaces selection with a media inline node', () => {
         const { editorView } = editor(doc(p('{<}te{>}xt')));
 
-        insertMediaInlineNode(
+        insertMediaInlineNode(mockEditorAnalyticsAPI)(
           editorView,
           { id: temporaryFileId },
           testCollectionName,
@@ -244,7 +251,7 @@ describe('media-inline', () => {
   it(`should insert media inline node into the document after current heading node`, () => {
     const { editorView } = editor(doc(h1('text{<>}')));
 
-    insertMediaInlineNode(
+    insertMediaInlineNode(mockEditorAnalyticsAPI)(
       editorView,
       { id: temporaryFileId },
       testCollectionName,
@@ -258,7 +265,7 @@ describe('media-inline', () => {
   it(`should insert media inline node into the document after current codeblock node`, () => {
     const { editorView } = editor(doc(code_block()('text{<>}')));
 
-    insertMediaInlineNode(
+    insertMediaInlineNode(mockEditorAnalyticsAPI)(
       editorView,
       { id: temporaryFileId },
       testCollectionName,
@@ -273,7 +280,7 @@ describe('media-inline', () => {
     it('should append media inline inside panel', () => {
       const panelDoc = doc(panel({})(p('text{<>}')));
       const { editorView } = editor(panelDoc);
-      insertMediaInlineNode(
+      insertMediaInlineNode(mockEditorAnalyticsAPI)(
         editorView,
         { id: temporaryFileId },
         testCollectionName,
@@ -287,7 +294,7 @@ describe('media-inline', () => {
   describe('when selection is inside a listItem', () => {
     it('should insert media inline inside empty listItem', () => {
       const { editorView } = editor(doc(ul(li(p('{<>}')))));
-      insertMediaInlineNode(
+      insertMediaInlineNode(mockEditorAnalyticsAPI)(
         editorView,
         { id: temporaryFileId },
         testCollectionName,
@@ -299,7 +306,7 @@ describe('media-inline', () => {
 
     it('should append media inline inside listItem', () => {
       const { editorView } = editor(doc(ul(li(p('text{<>}')))));
-      insertMediaInlineNode(
+      insertMediaInlineNode(mockEditorAnalyticsAPI)(
         editorView,
         { id: temporaryFileId },
         testCollectionName,

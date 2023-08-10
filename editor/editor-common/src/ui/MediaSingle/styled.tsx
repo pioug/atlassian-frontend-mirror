@@ -1,13 +1,13 @@
 /** @jsx jsx */
-import React, { RefObject } from 'react';
+import type { RefObject } from 'react';
+import React from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
+import type { RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import {
   akEditorFullPageMaxWidth,
   akEditorFullWidthLayoutWidth,
-  akEditorGutterPadding,
 } from '@atlaskit/editor-shared-styles';
 
 import { calcMediaSingleMaxWidth } from '../../media-single';
@@ -109,28 +109,6 @@ const getEffectiveFullWidth = (
   return `${calcMediaSingleMaxWidth(containerWidth)}px`;
 };
 
-const calcMaxWidthWhenResizing = (
-  containerWidth: number,
-  fullWidthMode: boolean | undefined,
-  isNestedNode: boolean,
-) => {
-  if (isNestedNode) {
-    return '100%';
-  }
-  // non-nested node can resize up to full width
-  return getEffectiveFullWidth(containerWidth, fullWidthMode);
-};
-
-const calcMaxWidthWhenNotResizing = (
-  containerWidth: number,
-  mediaSingleWidth: number,
-) => {
-  return `${Math.min(
-    mediaSingleWidth,
-    containerWidth - akEditorGutterPadding * 2,
-  )}px`;
-};
-
 function calcMargin(layout: MediaSingleLayout): string {
   switch (layout) {
     case 'wrap-right':
@@ -207,41 +185,30 @@ export const MediaSingleDimensionHelper = ({
     min-width: 100%;
   `}
   max-width: ${calcMaxWidth(layout, containerWidth)};
-  &[class*='is-resizing'] {
-    ${isExtendedResizeExperienceOn &&
-    `max-width: ${calcMaxWidthWhenResizing(
-      containerWidth,
-      fullWidthMode,
-      isNestedNode,
-    )};
+
+  ${isExtendedResizeExperienceOn &&
+  `&[class*='is-resizing'] {
+    .new-file-experience-wrapper {
+      box-shadow: none !important;
+    }
 
     ${
+      !isNestedNode &&
       nonWrappedLayouts.includes(layout) &&
       `margin-left: 50%;
       transform: translateX(-50%);`
     }
+  }`}
 
-    .new-file-experience-wrapper {
-      box-shadow: none;
-    }`}
-  }
-
-  /* Handles responsiveness of non-nested, not-resizing nodes in editor */
   &[class*='not-resizing'] {
     ${!isNestedNode &&
-    `max-width: ${
-      layout !== 'full-width' &&
-      mediaSingleWidth &&
-      calcMaxWidthWhenNotResizing(containerWidth, mediaSingleWidth)
-    };
-
-    ${
+    `${
       nonWrappedLayouts.includes(layout) &&
       `margin-left: 50%;
       transform: translateX(-50%);`
     }
 
-    // override min-width to counteract max-width set in old experience
+    // override min-width to counteract max-width set by ResizerNext inline style
     ${
       layout === 'full-width' &&
       `min-width: ${getEffectiveFullWidth(

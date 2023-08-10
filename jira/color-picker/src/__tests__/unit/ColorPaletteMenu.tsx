@@ -1,47 +1,66 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { ColorPaletteMenuWithoutAnalytics as ColorPaletteMenu } from '../..';
-import { ColorCardWrapper } from '../../styled/ColorPalette';
-import ColorCard from '../../components/ColorCard';
 
 describe('ColorPaletteMenu', () => {
-  test('should render Color option', () => {
-    const mockFn = jest.fn();
-    const value = { value: 'blue', label: 'Blue' };
-    const wrapper = shallow(
-      <ColorPaletteMenu palette={[value]} onChange={mockFn} />,
+  const mockFn = jest.fn();
+
+  const renderUI = () => {
+    const palette = [
+      { value: 'blue', label: 'Blue' },
+      { value: 'red', label: 'Red' },
+    ];
+    return render(
+      <ColorPaletteMenu
+        palette={palette}
+        onChange={mockFn}
+        selectedColor="blue"
+      />,
     );
+  };
 
-    expect(wrapper.find(ColorCardWrapper)).toHaveLength(1);
-    expect(wrapper.find(ColorCard)).toHaveLength(1);
-
-    expect(wrapper.find(ColorCard).props()['value']).toBe('blue');
-    expect(wrapper.find(ColorCard).props()['label']).toBe('Blue');
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
-  test('should call onChange prop onClick', () => {
-    const mockFn = jest.fn();
-    const value = { value: 'blue', label: 'Blue' };
-    const wrapper = shallow(
-      <ColorPaletteMenu palette={[value]} onChange={mockFn} />,
+  test('should render ColorPaletteMenu with ColorCard', () => {
+    const { getByRole, getAllByRole } = renderUI();
+
+    const colorPaletteMenu = getByRole('radiogroup');
+    expect(colorPaletteMenu).toBeInTheDocument();
+    expect(colorPaletteMenu).toHaveAttribute(
+      'aria-label',
+      'Color picker, Blue selected',
     );
 
-    const colorCard = wrapper.find(ColorCard);
-
-    (colorCard.props() as any).onClick('blue');
-    expect(mockFn).toHaveBeenCalledTimes(1);
+    const colorCard = getAllByRole('radio');
+    expect(colorCard).toHaveLength(2);
+    expect(colorCard[0]).toHaveAttribute('aria-label', 'Blue');
+    expect(colorCard[0]).toHaveAttribute('aria-checked', 'true');
   });
 
-  test('should call onChange prop onKeydown', () => {
-    const mockFn = jest.fn();
-    const value = { value: 'blue', label: 'Blue' };
-    const wrapper = shallow(
-      <ColorPaletteMenu palette={[value]} onChange={mockFn} />,
-    );
-    const colorCard = wrapper.find(ColorCard);
+  test('should call onChange prop onClick and onKeydown', async () => {
+    const { getByRole, getAllByRole } = renderUI();
 
-    (colorCard.props() as any).onKeyDown('blue');
+    const colorPaletteMenu = getByRole('radiogroup');
+    expect(colorPaletteMenu).toBeInTheDocument();
 
-    expect(mockFn).toHaveBeenCalledTimes(1);
+    // render - blue selected
+    const colorCard = getAllByRole('radio');
+    expect(colorCard).toHaveLength(2);
+    const [blueOption, redOption] = colorCard;
+    expect(blueOption).toHaveAttribute('aria-checked', 'true');
+    expect(redOption).toHaveAttribute('aria-checked', 'false');
+
+    // onClick - on red color
+    await userEvent.click(redOption);
+    expect(mockFn).toBeCalled();
+
+    // onKeydown - blue color
+    await userEvent.tab();
+    expect(blueOption).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    expect(mockFn).toBeCalled();
   });
 });

@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 19.0.2
+
+### Patch Changes
+
+- [`9064e2d0f28`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9064e2d0f28) - [ux] HOT-104783 Reverting https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/37639
+- Updated dependencies
+
 ## 19.0.1
 
 ### Patch Changes

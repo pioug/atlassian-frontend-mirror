@@ -1,5 +1,7 @@
 import { Search } from 'js-search';
 
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   MentionDescription,
   MentionsResult,
@@ -10,12 +12,15 @@ import {
   MentionNameStatus,
   SLI_EVENT_TYPE,
   MentionProvider,
-} from '../../../mention/src/resource';
+} from '@atlaskit/mention/resource';
+
+// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   InviteExperimentCohort,
   InviteFlow,
   UserRole,
-} from '../../../mention/src';
+} from '@atlaskit/mention';
 import debug from '../logger';
 import { mentionTestResult } from './mention-test-data';
 import { HttpError } from './utils';

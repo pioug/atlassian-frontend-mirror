@@ -491,10 +491,6 @@ export class Renderer extends PureComponent<RendererProps> {
                   allowWrapCodeBlock={allowWrapCodeBlock}
                   allowCustomPanels={allowCustomPanels}
                   allowPlaceholderText={allowPlaceholderText}
-                  useFragmentMarkBreakoutWidthStylingFix={
-                    featureFlags.featureFlags
-                      .useFragmentMarkBreakoutWidthStylingFix ?? true
-                  }
                   useBlockRenderForCodeBlock={
                     featureFlags.featureFlags.useBlockRenderForCodeBlock ?? true
                   }
@@ -556,10 +552,6 @@ export class Renderer extends PureComponent<RendererProps> {
           allowPlaceholderText={allowPlaceholderText}
           allowColumnSorting={allowColumnSorting}
           allowNestedHeaderLinks={allowNestedHeaderLinks}
-          useFragmentMarkBreakoutWidthStylingFix={
-            featureFlags.featureFlags.useFragmentMarkBreakoutWidthStylingFix ??
-            true
-          }
           useBlockRenderForCodeBlock={
             featureFlags.featureFlags.useBlockRenderForCodeBlock ?? true
           }
@@ -628,7 +620,6 @@ type RendererWrapperProps = {
   allowPlaceholderText?: boolean;
   allowCustomPanels?: boolean;
   allowNestedHeaderLinks: boolean;
-  useFragmentMarkBreakoutWidthStylingFix: boolean;
   useBlockRenderForCodeBlock: boolean;
   onClick?: (event: React.MouseEvent) => void;
   onMouseDown?: (event: React.MouseEvent) => void;
@@ -643,7 +634,6 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
     children,
     onClick,
     onMouseDown,
-    useFragmentMarkBreakoutWidthStylingFix,
     useBlockRenderForCodeBlock,
   } = props;
 
@@ -664,7 +654,6 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
             appearance,
             allowNestedHeaderLinks,
             allowColumnSorting: !!allowColumnSorting,
-            useFragmentMarkBreakoutWidthStylingFix,
             useBlockRenderForCodeBlock,
           })}
         >

@@ -1,5 +1,49 @@
 # @atlaskit/editor-plugin-table
 
+## 2.7.1
+
+### Patch Changes
+
+- [`39099193642`](https://bitbucket.org/atlassian/atlassian-frontend/commits/39099193642) - Cleanup breakout styling when table has fragment mark ff
+
+## 2.7.0
+
+### Minor Changes
+
+- [`960a2b478c8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/960a2b478c8) - [ux] [ED-19167] Add blue shadow to resizer handle on hover
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.6.13
+
+### Patch Changes
+
+- [`8fe864e4f7a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8fe864e4f7a) - [ux] ED-19336: Fixed insert column button not visible when sticky header is enabled."
+
+## 2.6.12
+
+### Patch Changes
+
+- [`08bae0f0926`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08bae0f0926) - [ux] When there's only one row in a table the top & bottom sentinels become inverted. This creates some nasty visiblity
+  toggling side-effects because the intersection observers gets confused and ends up toggling the sticky header on when it should
+  be off and vice-versa.
+
+  This is due to their positioning using css relative top & bottom respectively. A row is only ~44px height and the bottom sentinel is
+  positioned ~67px off the bottom, and the top sentinel is ~25px off the top (which aligns to the top of the row).
+  So when only 1 row exist the bottom sentinel ends up being ~23px above the top sentinel. Which means the logic for
+  toggling becomes inverted and when the sentinels are scrolled off the screen the top on is now last and ends up displaying the
+  sticky header, where previously the bottom sentinel would hide it.
+
+- Updated dependencies
+
+## 2.6.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.10
 
 ### Patch Changes

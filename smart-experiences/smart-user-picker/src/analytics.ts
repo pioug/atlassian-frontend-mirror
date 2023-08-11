@@ -3,11 +3,10 @@ import {
   AnalyticsEventPayload,
 } from '@atlaskit/analytics-next';
 import { v4 as uuid } from 'uuid';
-import versionJson from './version.json';
 import { Props, State } from './types';
 
-const packageName = versionJson.name;
-const packageVersion = versionJson.version;
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export type UserPickerSession = {
   id: string;

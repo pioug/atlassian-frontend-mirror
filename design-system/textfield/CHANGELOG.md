@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 5.6.4
+
+### Patch Changes
+
+- [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This package is now onboarded onto the product push model.
+
 ## 5.6.3
 
 ### Patch Changes

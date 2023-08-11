@@ -24,7 +24,6 @@ test.use({
     allowExpand: true,
     featureFlags: {
       floatingToolbarCopyButton: true,
-      tableCellOptionsInFloatingToolbar: true,
     },
   },
   platformFeatureFlags: { 'platform.editor.custom-table-width': true },

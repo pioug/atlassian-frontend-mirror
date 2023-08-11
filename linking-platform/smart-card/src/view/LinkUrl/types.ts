@@ -8,7 +8,7 @@ export interface LinkUrlProps
 }
 
 export type PackageDataType = {
-  packageName: '@atlaskit/smart-card';
+  packageName: string;
   packageVersion: string;
   componentName: 'linkUrl';
 };

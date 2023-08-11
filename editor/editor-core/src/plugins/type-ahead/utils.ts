@@ -92,14 +92,9 @@ export const findHandlerByTrigger = ({
 type MoveSelectedIndexProps = {
   editorView: EditorView;
   direction: 'next' | 'previous';
-  useBetterTypeaheadNavigation?: boolean;
 };
 export const moveSelectedIndex =
-  ({
-    editorView,
-    direction,
-    useBetterTypeaheadNavigation,
-  }: MoveSelectedIndexProps) =>
+  ({ editorView, direction }: MoveSelectedIndexProps) =>
   () => {
     const typeAheadState = getPluginState(editorView.state);
     if (!typeAheadState) {
@@ -114,23 +109,20 @@ export const moveSelectedIndex =
     let nextIndex;
     if (direction === 'next') {
       stats.increaseArrowDown();
-      if (useBetterTypeaheadNavigation) {
-        /**
-         * See: https://product-fabric.atlassian.net/browse/ED-17200
-         * `selectedIndex` is forced to -1 now to not immediately focus the typeahead
-         * and only do so when there is explicit logic to focus into the typeahead
-         * options.
-         *
-         * This check for "set index to 1 when -1"
-         * - is a temporary workaround to get back the previous behaviour without
-         *    entirely reverting the a11y improvements
-         *
-         */
-        if (selectedIndex === -1 && items.length > 1) {
-          nextIndex = 1;
-        } else {
-          nextIndex = selectedIndex >= items.length - 1 ? 0 : selectedIndex + 1;
-        }
+
+      /**
+       * See: https://product-fabric.atlassian.net/browse/ED-17200
+       * `selectedIndex` is forced to -1 now to not immediately focus the typeahead
+       * and only do so when there is explicit logic to focus into the typeahead
+       * options.
+       *
+       * This check for "set index to 1 when -1"
+       * - is a temporary workaround to get back the previous behaviour without
+       *    entirely reverting the a11y improvements
+       *
+       */
+      if (selectedIndex === -1 && items.length > 1) {
+        nextIndex = 1;
       } else {
         nextIndex = selectedIndex >= items.length - 1 ? 0 : selectedIndex + 1;
       }

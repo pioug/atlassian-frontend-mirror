@@ -10,7 +10,7 @@ import type {
   FloatingToolbarButton,
   FloatingToolbarColorPicker,
   FloatingToolbarEmojiPicker,
-} from '../floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import { DEFAULT_BORDER_COLOR } from '../../ui/ColorPalette/Palettes';
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {

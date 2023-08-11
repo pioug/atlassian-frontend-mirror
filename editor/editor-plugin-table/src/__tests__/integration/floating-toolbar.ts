@@ -35,7 +35,6 @@ BrowserTestCase(
         advanced: true,
         allowColumnSorting: true,
         allowDistributeColumns: true,
-        allowCellOptionsInFloatingToolbar: true,
       },
       defaultValue: basicTable,
     });
@@ -91,7 +90,6 @@ BrowserTestCase(
         advanced: true,
         allowColumnSorting: true,
         allowDistributeColumns: true,
-        allowCellOptionsInFloatingToolbar: true,
       },
       defaultValue: basicTable,
     });
@@ -138,7 +136,6 @@ BrowserTestCase(
       allowTables: {
         allowColumnSorting: true,
         allowDistributeColumns: true,
-        allowCellOptionsInFloatingToolbar: true,
       },
       defaultValue: basicTable,
     });
@@ -185,7 +182,6 @@ BrowserTestCase(
       allowTables: {
         allowColumnSorting: true,
         allowDistributeColumns: true,
-        allowCellOptionsInFloatingToolbar: true,
       },
       defaultValue: documentWithMergedCells,
     });
@@ -247,7 +243,6 @@ BrowserTestCase(
       allowTables: {
         allowColumnSorting: true,
         allowDistributeColumns: true,
-        allowCellOptionsInFloatingToolbar: true,
       },
       defaultValue: basicTableWithMergedCell,
     });
@@ -295,7 +290,6 @@ BrowserTestCase(
       allowTables: {
         allowColumnSorting: true,
         allowDistributeColumns: true,
-        allowCellOptionsInFloatingToolbar: true,
       },
       defaultValue: basicTableWithMergedCell,
     });
@@ -343,7 +337,6 @@ BrowserTestCase(
       allowTables: {
         allowColumnSorting: true,
         allowDistributeColumns: true,
-        allowCellOptionsInFloatingToolbar: true,
       },
       defaultValue: basicTable,
     });

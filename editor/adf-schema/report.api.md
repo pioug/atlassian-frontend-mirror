@@ -1002,7 +1002,6 @@ export interface ListItemArray
 
 // @public
 export interface ListItemDefinition {
-  // (undocumented)
   content: ListItemArray;
   // (undocumented)
   type: 'listItem';

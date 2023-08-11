@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.9.0
+
+### Minor Changes
+
+- [`f4aff27416d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f4aff27416d) - [ux] We are testing icon button internal spacing fix behind a feature flag. Now the space between icons and right or left edge of the button will be optically perceived as even. If this fix is successful it will be available in a later release.
+
 ## 16.8.5
 
 ### Patch Changes

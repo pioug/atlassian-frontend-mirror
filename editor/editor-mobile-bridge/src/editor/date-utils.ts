@@ -1,14 +1,16 @@
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { IntlShape } from 'react-intl-next';
 import {
-  Command,
   dateMessages,
   deleteDate,
-  FloatingToolbarConfig,
-  INPUT_METHOD,
   insertDate,
   messages,
 } from '@atlaskit/editor-core';
+import type {
+  FloatingToolbarConfig,
+  Command,
+} from '@atlaskit/editor-common/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
 export const createFloatingToolbarConfigForDate = (

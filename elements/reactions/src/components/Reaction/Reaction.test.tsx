@@ -174,7 +174,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
             attributes: {
               added: true,
               emojiId: toEmojiId(grinning).id!,
-              packageName: '@atlaskit/reactions',
+              packageName: expect.any(String),
               packageVersion: expect.any(String),
             },
           }),
@@ -221,7 +221,7 @@ describe('@atlaskit/reactions/components/Reaction', () => {
             actionSubject: 'existingReaction',
             eventType: 'ui',
             attributes: {
-              packageName: '@atlaskit/reactions',
+              packageName: expect.any(String),
               packageVersion: expect.any(String),
             },
           }),

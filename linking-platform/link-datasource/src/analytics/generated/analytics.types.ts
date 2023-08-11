@@ -3,11 +3,11 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::75446f307933096c01c4784a1d7f2aa9>>
+ * @codegen <<SignedSource::959aae264b9713da4bc176284dc53ca5>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource
  */
 export type PackageMetaDataType = {
-  packageName: '@atlaskit/link-datasource';
+  packageName: string;
   packageVersion: string;
 };
 export type AnalyticsContextType = {

@@ -8,9 +8,11 @@ import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
 // Common Translations will live here
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+import {
+  FloatingToolbarButton as Button,
+  FloatingToolbarSeparator as Separator,
+} from '@atlaskit/editor-common/ui';
 
-import Separator from '../../floating-toolbar/ui/Separator';
 import type {
   ChildProps,
   RecentSearchInputTypes,

@@ -9,10 +9,6 @@ import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/standard-button';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 import { messages } from '../../messages';
 
 import { CloseButtonContainer } from './styled';
@@ -76,8 +72,8 @@ const CloseButtonWithContext: React.FC<Props & WrappedComponentProps> = (
     <AnalyticsContext
       data={{
         componentName: 'closeButton',
-        packageName,
-        packageVersion,
+        packageName: process.env._PACKAGE_NAME_,
+        packageVersion: process.env._PACKAGE_VERSION_,
       }}
     >
       <CloseButton {...props} />

@@ -1,5 +1,11 @@
 # @atlaskit/checkbox
 
+## 12.6.9
+
+### Patch Changes
+
+- [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This package is now onboarded onto the product push model.
+
 ## 12.6.8
 
 ### Patch Changes

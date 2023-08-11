@@ -12,7 +12,8 @@ import {
   extractFromEventContext,
   getExtraAttributes,
 } from '../atlaskit/extract-data-from-event';
-import { version as listenerVersion } from '../version.json';
+
+const listenerVersion = process.env._PACKAGE_VERSION_ as string;
 
 function getMediaContexts(event: UIAnalyticsEvent) {
   return extractFromEventContext(MEDIA_CONTEXT, event);

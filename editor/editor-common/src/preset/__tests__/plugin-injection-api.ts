@@ -1,7 +1,11 @@
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type {
+  ExtractInjectionAPI,
+  NextEditorPlugin,
+} from '@atlaskit/editor-common/types';
 
+import { PluginCommand } from '../../types/plugin-command';
 import {
   EditorPluginInjectionAPI,
   SharedStateAPI,
@@ -11,14 +15,24 @@ describe('EditorPluginInjectionAPI', () => {
   afterEach(jest.clearAllMocks);
 
   let coreAPI: EditorPluginInjectionAPI;
+  const fakeDispatch = jest.fn();
+  const fakeTr = { insertText: jest.fn().mockReturnValue(42) };
 
   beforeEach(() => {
     const getEditorStateFake = jest.fn().mockReturnValue(() => {
       return {}; // Fake EditorState
     }) as any;
 
+    const getEditorViewFake = jest.fn().mockImplementation(() => {
+      return {
+        dispatch: fakeDispatch,
+        state: { tr: fakeTr },
+      };
+    }) as any;
+
     coreAPI = new EditorPluginInjectionAPI({
       getEditorState: getEditorStateFake,
+      getEditorView: getEditorViewFake,
     });
   });
 
@@ -333,6 +347,74 @@ describe('EditorPluginInjectionAPI', () => {
         prevSharedState: 4,
         nextSharedState: 5,
       });
+    });
+  });
+
+  describe('executeCommand', () => {
+    it('shouldnt dispatch a transaction if no command passed', () => {
+      const api = coreAPI.api();
+      expect(api.executeCommand(undefined)).toBe(false);
+    });
+
+    it('shouldnt dispatch a transaction if the PluginCommand returns null', () => {
+      const api = coreAPI.api();
+      expect(api.executeCommand(() => null)).toBe(false);
+    });
+
+    it('should dispatch a transaction if the PluginCommand returns a transaction', () => {
+      const api = coreAPI.api();
+      expect(api.executeCommand(({ tr }) => tr)).toBe(true);
+      expect(fakeDispatch).toHaveBeenCalledWith(fakeTr);
+    });
+
+    it('should dispatch a plugin command', () => {
+      const plugin1: NextEditorPlugin<
+        'one',
+        { commands: { updateTransaction: PluginCommand } }
+      > = (_, api) => {
+        return {
+          name: 'one',
+          commands: {
+            updateTransaction: ({ tr }) => {
+              return tr.insertText('hello');
+            },
+          },
+        };
+      };
+      const api: ExtractInjectionAPI<typeof plugin1> = coreAPI.api();
+
+      coreAPI.onEditorPluginInitialized(plugin1(undefined, api));
+
+      api.executeCommand(api?.dependencies.one?.commands?.updateTransaction);
+      expect(fakeTr.insertText).toHaveBeenCalledWith('hello');
+      expect(fakeDispatch).toHaveBeenCalledWith(42);
+    });
+
+    it('should dispatch a plugin command with metadata', () => {
+      const plugin1: NextEditorPlugin<
+        'one',
+        { commands: { updateTransaction: (meta: string) => PluginCommand } }
+      > = (_, api) => {
+        return {
+          name: 'one',
+          commands: {
+            updateTransaction:
+              (meta) =>
+              ({ tr }) => {
+                return tr.insertText(meta);
+              },
+          },
+        };
+      };
+      const api: ExtractInjectionAPI<typeof plugin1> = coreAPI.api();
+
+      coreAPI.onEditorPluginInitialized(plugin1(undefined, api));
+
+      api.executeCommand(
+        api?.dependencies.one?.commands?.updateTransaction('yo'),
+      );
+      expect(fakeTr.insertText).toHaveBeenCalledWith('yo');
+      expect(fakeDispatch).toHaveBeenCalledWith(42);
     });
   });
 });

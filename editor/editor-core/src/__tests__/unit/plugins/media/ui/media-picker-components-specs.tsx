@@ -4,20 +4,30 @@ jest.mock('@atlaskit/editor-common/ui', () => {
     findOverflowScrollParent: jest.fn(),
   };
 });
-jest.mock('../../../../../ui/WithPluginState', () => ({
-  __esModule: true,
-  default: ({ render }: any) => {
-    return render({ focus: true });
-  },
-}));
 
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 import React from 'react';
-import { Props } from '../../../../../plugins/media/ui/MediaPicker/PickerFacadeProvider';
-import { Clipboard as ClipboardComponent } from '@atlaskit/media-picker';
-import { Browser as BrowserComponent } from '@atlaskit/media-picker';
-import { Dropzone as DropzoneComponent } from '@atlaskit/media-picker';
+import type { Props } from '../../../../../plugins/media/ui/MediaPicker/PickerFacadeProvider';
+import {
+  Clipboard as ClipboardComponent,
+  Browser as BrowserComponent,
+  Dropzone as DropzoneComponent,
+} from '@atlaskit/media-picker';
+
+jest.mock('@atlaskit/editor-common/hooks', () => {
+  const fakeUseSharedPluginState = jest.fn().mockReturnValue({
+    focusState: {
+      hasFocus: true,
+    },
+  });
+
+  return {
+    ...jest.requireActual<Object>('@atlaskit/editor-common/hooks'),
+    useSharedPluginState: fakeUseSharedPluginState,
+  };
+});
 
 jest.mock(
   '../../../../../plugins/media/ui/MediaPicker/PickerFacadeProvider.tsx',
@@ -55,7 +65,7 @@ import { ClipboardWrapper } from '../../../../../plugins/media/ui/MediaPicker/Cl
 import { BrowserWrapper } from '../../../../../plugins/media/ui/MediaPicker/BrowserWrapper';
 import { DropzoneWrapper } from '../../../../../plugins/media/ui/MediaPicker/DropzoneWrapper';
 import { MediaPickerComponents } from '../../../../../plugins/media/ui/MediaPicker';
-import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 import { asMock } from '@atlaskit/media-test-helpers';
 
 describe('MediaPickerComponents', () => {
@@ -89,6 +99,7 @@ describe('MediaPickerComponents', () => {
         editorDomElement={editorDomElement}
         mediaState={pluginState}
         appearance="full-page"
+        api={undefined}
       />,
     );
     expect(pluginState.onPopupToggle).toBeCalled();
@@ -102,6 +113,7 @@ describe('MediaPickerComponents', () => {
         editorDomElement={editorDomElement}
         mediaState={pluginState}
         appearance="full-page"
+        api={undefined}
       />,
     );
     callback(true);
@@ -116,6 +128,7 @@ describe('MediaPickerComponents', () => {
         editorDomElement={editorDomElement}
         mediaState={pluginState}
         appearance="full-page"
+        api={undefined}
       />,
     );
     expect(wrapper.find(ClipboardWrapper)).toHaveLength(1);
@@ -130,6 +143,7 @@ describe('MediaPickerComponents', () => {
           editorDomElement={editorDomElement}
           mediaState={pluginState}
           appearance="full-page"
+          api={undefined}
         />,
       );
       expect(wrapper.find(BrowserWrapper)).toHaveLength(1);
@@ -144,6 +158,7 @@ describe('MediaPickerComponents', () => {
           editorDomElement={editorDomElement}
           mediaState={pluginState}
           appearance="full-page"
+          api={undefined}
         />,
       );
       const browser = wrapper.find(BrowserComponent);
@@ -162,6 +177,7 @@ describe('MediaPickerComponents', () => {
           editorDomElement={editorDomElement}
           mediaState={pluginState}
           appearance="full-page"
+          api={undefined}
         />,
       );
       expect(wrapper.find(DropzoneWrapper)).toHaveLength(1);
@@ -173,6 +189,7 @@ describe('MediaPickerComponents', () => {
           editorDomElement={editorDomElement}
           mediaState={pluginState}
           appearance="full-page"
+          api={undefined}
         />,
       );
       wrapper.setState({
@@ -193,6 +210,7 @@ describe('MediaPickerComponents', () => {
           editorDomElement={editorDomElement}
           mediaState={pluginState}
           appearance="full-page"
+          api={undefined}
         />,
       );
       wrapper.setState({
@@ -210,6 +228,7 @@ describe('MediaPickerComponents', () => {
           editorDomElement={editorDomElement}
           mediaState={pluginState}
           appearance="full-page"
+          api={undefined}
         />,
       );
       expect(wrapper.find(DropzoneComponent)).toHaveLength(1);
@@ -227,6 +246,7 @@ describe('MediaPickerComponents', () => {
           editorDomElement={editorDomElement}
           mediaState={pluginState}
           appearance="full-page"
+          api={undefined}
         />,
       );
       expect(wrapper.find(DropzoneComponent)).toHaveLength(1);
@@ -243,6 +263,7 @@ describe('MediaPickerComponents', () => {
           editorDomElement={editorDomElement}
           mediaState={pluginState}
           appearance="full-page"
+          api={undefined}
         />,
       );
       expect(wrapper.find(DropzoneComponent)).toHaveLength(1);

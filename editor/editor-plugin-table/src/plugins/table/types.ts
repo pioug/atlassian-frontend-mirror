@@ -53,7 +53,6 @@ export interface PluginConfig {
   permittedLayouts?: PermittedLayoutsDescriptor;
   allowControls?: boolean;
   stickyHeaders?: boolean;
-  allowCellOptionsInFloatingToolbar?: boolean;
   tableCellOptimization?: boolean;
   tableRenderOptimization?: boolean;
   stickyHeadersOptimization?: boolean;

@@ -1,18 +1,18 @@
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
-import { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 
-import { IntlShape, MessageDescriptor } from 'react-intl-next';
-import { FloatingToolbarButton } from '../../../../plugins/floating-toolbar/types';
+import type { IntlShape, MessageDescriptor } from 'react-intl-next';
+import type { FloatingToolbarButton } from '@atlaskit/editor-common/types';
 
 import { getCopyButtonConfig } from '../../../copy-button/toolbar';
 

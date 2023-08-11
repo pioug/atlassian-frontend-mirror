@@ -4,10 +4,6 @@ import {
   CreateUIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
 import { EmojiDescription } from '../../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 
 export const createAndFireEventInElementsChannel =
   createAndFireEvent('fabric-elements');
@@ -24,8 +20,8 @@ const createEvent = (
   actionSubject,
   actionSubjectId,
   attributes: {
-    packageName,
-    packageVersion,
+    packageName: process.env._PACKAGE_NAME_,
+    packageVersion: process.env._PACKAGE_VERSION_,
     ...attributes,
   },
 });

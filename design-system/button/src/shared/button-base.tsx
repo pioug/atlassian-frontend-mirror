@@ -1,5 +1,11 @@
 /** @jsx jsx */
-import React, { useCallback, useContext, useEffect, useRef } from 'react';
+import React, {
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 
 import { css, CSSObject, jsx, SerializedStyles } from '@emotion/react';
 
@@ -21,6 +27,7 @@ import { BaseProps } from '../types';
 
 import blockEvents from './block-events';
 import { getContentStyle, getFadingCss, getIconStyle, overlayCss } from './css';
+import { getIfVisuallyHiddenChildren } from './get-if-visually-hidden-children';
 
 // Disabled buttons will still publish events for nested elements in webkit.
 // We are disabling pointer events on child elements so that
@@ -34,6 +41,42 @@ const noPointerEventsOnChildrenCss: CSSObject = {
 
 type ButtonBaseProps = BaseProps & {
   buttonCss: CSSObject;
+};
+
+const iconBeforeSpacingFixStyle = css({
+  marginLeft: '-4px',
+});
+
+const iconAfterSpacingFixStyle = css({
+  marginRight: '-4px',
+});
+
+const getSpacingFix = (
+  children: ReactNode,
+  spacingStyles: SerializedStyles,
+): null | SerializedStyles => {
+  if (
+    !getBooleanFF(
+      'platform.design-system-team.icon-button-spacing-fix_o1zc5',
+    ) ||
+    !children ||
+    getIfVisuallyHiddenChildren(children)
+  ) {
+    return null;
+  }
+
+  return spacingStyles;
+};
+
+const getChildren = (
+  children: ReactNode,
+  childrenStyles: SerializedStyles[],
+) => {
+  if (getIfVisuallyHiddenChildren(children)) {
+    return children;
+  }
+
+  return children ? <span css={childrenStyles}>{children}</span> : null;
 };
 
 export default React.forwardRef<HTMLElement, ButtonBaseProps>(
@@ -189,15 +232,36 @@ export default React.forwardRef<HTMLElement, ButtonBaseProps>(
           {...blockEvents({ isInteractive })}
         >
           {iconBefore ? (
-            <span css={[fadeCss, getIconStyle({ spacing })]}>{iconBefore}</span>
+            <span
+              css={[
+                fadeCss,
+                getIconStyle({ spacing }),
+                getSpacingFix(children, iconBeforeSpacingFixStyle),
+              ]}
+            >
+              {iconBefore}
+            </span>
           ) : null}
-          {children ? (
+          {!getBooleanFF(
+            'platform.design-system-team.icon-button-spacing-fix_o1zc5',
+          ) && children ? (
             <span css={[fadeCss, getContentStyle({ spacing })]}>
               {children}
             </span>
           ) : null}
+          {getBooleanFF(
+            'platform.design-system-team.icon-button-spacing-fix_o1zc5',
+          ) && getChildren(children, [fadeCss, getContentStyle({ spacing })])}
           {iconAfter ? (
-            <span css={[fadeCss, getIconStyle({ spacing })]}>{iconAfter}</span>
+            <span
+              css={[
+                fadeCss,
+                getIconStyle({ spacing }),
+                getSpacingFix(children, iconAfterSpacingFixStyle),
+              ]}
+            >
+              {iconAfter}
+            </span>
           ) : null}
           {overlay ? (
             <span css={[overlayCss, spinnerHackCss]}>{overlay}</span>

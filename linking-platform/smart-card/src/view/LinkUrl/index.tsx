@@ -1,10 +1,6 @@
 import React from 'react';
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 import { withLinkClickedEvent } from '../../utils/analytics/click';
 import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext';
 import { useLinkWarningModal } from './LinkWarningModal/hooks/use-link-warning-modal';
@@ -13,8 +9,8 @@ import { LinkUrlProps, PackageDataType } from './types';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 const PACKAGE_DATA: PackageDataType = {
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
   componentName: 'linkUrl',
 };
 

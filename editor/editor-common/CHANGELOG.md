@@ -1,5 +1,37 @@
 # @atlaskit/editor-common
 
+## 74.42.2
+
+### Patch Changes
+
+- [`9a44011d87e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9a44011d87e) - ED-15896 Move editor-json-transformer to dependency to prevent errors when re-exporting types from this package.
+- Updated dependencies
+
+## 74.42.1
+
+### Patch Changes
+
+- [`5f8e4780f9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f8e4780f9e) - [ux] ED-19473 & ED-19435 Adds dark mode icons for action, code, decision, divider and Editor example to test them in none, light and dark modes.
+
+## 74.42.0
+
+### Minor Changes
+
+- [`7472b6ab3b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7472b6ab3b4) - [ED-19329] Add analytics event for table resize framerate
+- [`9d2794a7753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d2794a7753) - Add `executeCommand` to `pluginInjectionAPI` which should be used to dispatch a `PluginCommand` - from the `commands` property of a plugin.
+
+## 74.41.2
+
+### Patch Changes
+
+- [`8b104cb7575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b104cb7575) - [ED-14769] Remove tableCellOptionsinFloatingToolbar feature flag & make it default behaviour
+
+## 74.41.1
+
+### Patch Changes
+
+- [`3df14c86161`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3df14c86161) - Cleaning up better typeahead feature flag.
+
 ## 74.41.0
 
 ### Minor Changes

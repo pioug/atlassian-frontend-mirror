@@ -29,6 +29,23 @@ import {
 import { pluginKey } from '../../../plugins/table/pm-plugins/plugin-key';
 import { TablePluginState } from '../../../plugins/table/types';
 
+const mockStartMeasure = jest.fn();
+const mockEndMeasure = jest.fn(() => {
+  return [51, 52, 53, 54];
+});
+const mockCountFrames = jest.fn();
+
+jest.mock('../../../plugins/table/utils/analytics', () => ({
+  ...jest.requireActual('../../../plugins/table/utils/analytics'),
+  useMeasureFramerate: () => {
+    return {
+      startMeasure: mockStartMeasure,
+      endMeasure: mockEndMeasure,
+      countFrames: mockCountFrames,
+    };
+  },
+}));
+
 describe('table -> nodeviews -> TableContainer.tsx', () => {
   const createEditor = createEditorFactory<TablePluginState>();
   const editor = (
@@ -202,7 +219,7 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
       fireEvent.mouseMove(container.querySelector('.resizer-handle-right')!);
       fireEvent.mouseUp(container.querySelector('.resizer-handle-right')!);
 
-      expect(analyticsMock).toHaveBeenLastCalledWith({
+      expect(analyticsMock).toHaveBeenCalledWith({
         action: TABLE_ACTION.RESIZED,
         actionSubject: ACTION_SUBJECT.TABLE,
         eventType: EVENT_TYPE.TRACK,
@@ -215,6 +232,45 @@ describe('table -> nodeviews -> TableContainer.tsx', () => {
           totalColumnCount: 3,
         },
       });
+
+      expect(analyticsMock).toHaveBeenCalledWith({
+        action: TABLE_ACTION.RESIZE_PERF_SAMPLING,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        eventType: EVENT_TYPE.OPERATIONAL,
+        attributes: {
+          docSize: 22,
+          frameRate: 51,
+          isInitialSample: true,
+          nodeSize: 20,
+        },
+      });
+
+      expect(analyticsMock).toHaveBeenCalledWith({
+        action: TABLE_ACTION.RESIZE_PERF_SAMPLING,
+        actionSubject: ACTION_SUBJECT.TABLE,
+        eventType: EVENT_TYPE.OPERATIONAL,
+        attributes: {
+          docSize: 22,
+          frameRate: 53,
+          isInitialSample: false,
+          nodeSize: 20,
+        },
+      });
+
+      analyticsMock.mockReset();
+    });
+
+    test('calls useMeasureFramerate handlers', async () => {
+      const { container } = buildContainer({ layout: 'wide' });
+
+      fireEvent.mouseDown(container.querySelector('.resizer-handle-right')!);
+      fireEvent.mouseMove(container.querySelector('.resizer-handle-right')!, {
+        clientX: 100,
+      });
+      fireEvent.mouseUp(container.querySelector('.resizer-handle-right')!);
+
+      expect(mockStartMeasure).toHaveBeenCalled();
+      expect(mockEndMeasure).toHaveBeenCalled();
     });
   });
 });

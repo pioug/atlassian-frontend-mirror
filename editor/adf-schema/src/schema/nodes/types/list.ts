@@ -20,6 +20,7 @@ export interface ListItemDefinition {
   type: 'listItem';
   /**
    * @minItems 1
+   * @allowUnsupportedBlock true
    */
   content: ListItemArray;
 }

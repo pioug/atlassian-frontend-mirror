@@ -246,8 +246,8 @@ describe('ExternalUserOption', () => {
         actionSubject: 'userInfo',
         attributes: {
           accountId: 'abc123abc123abc123abc123',
-          packageName: '@atlaskit/user-picker',
-          packageVersion: '999.9.9',
+          packageName: expect.any(String),
+          packageVersion: expect.any(String),
           sources: ['google'],
         },
         eventType: 'ui',
@@ -276,8 +276,8 @@ describe('ExternalUserOption', () => {
         actionSubject: 'userInfo',
         attributes: {
           accountId: null,
-          packageName: '@atlaskit/user-picker',
-          packageVersion: '999.9.9',
+          packageName: expect.any(String),
+          packageVersion: expect.any(String),
           sources: ['google'],
         },
         eventType: 'ui',

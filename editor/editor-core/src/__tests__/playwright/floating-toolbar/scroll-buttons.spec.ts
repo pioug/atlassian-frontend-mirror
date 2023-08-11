@@ -15,7 +15,6 @@ test.use({
     },
     featureFlags: {
       floatingToolbarCopyButton: true,
-      tableCellOptionsInFloatingToolbar: true,
     },
   },
   adf: simpleTable,

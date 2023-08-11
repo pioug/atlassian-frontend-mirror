@@ -9,10 +9,6 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { token } from '@atlaskit/tokens';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import { ArticleItem } from '../../../model/Article';
 
 import {
@@ -25,8 +21,8 @@ import {
 
 const ANALYTICS_CONTEXT_DATA = {
   componentName: 'ArticlesListItem',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 interface Props {

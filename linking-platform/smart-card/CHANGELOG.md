@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 26.15.5
+
+### Patch Changes
+
+- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+
 ## 26.15.4
 
 ### Patch Changes

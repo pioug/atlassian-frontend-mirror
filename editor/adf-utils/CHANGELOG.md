@@ -1,5 +1,12 @@
 # @atlaskit/adf-utils
 
+## 19.0.3
+
+### Patch Changes
+
+- [`106c54b0ce4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/106c54b0ce4) - [ux] ED-15896 - Added support for unsupported nodes in listItem
+- Updated dependencies
+
 ## 19.0.2
 
 ### Patch Changes

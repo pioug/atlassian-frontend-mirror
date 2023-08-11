@@ -1,10 +1,6 @@
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import {
-  FloatingToolbarConfig,
   updateStatusWithAnalytics,
-  Command,
-  CommandDispatch,
-  INPUT_METHOD,
   PaletteColor,
   StatusType,
   lightModeStatusColorPalette,
@@ -13,6 +9,12 @@ import {
   statusMessages,
   removeStatus,
 } from '@atlaskit/editor-core';
+import type {
+  Command,
+  CommandDispatch,
+  FloatingToolbarConfig,
+} from '@atlaskit/editor-common/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeType } from '@atlaskit/editor-prosemirror/model';
 import EditorConfiguration from './editor-configuration';

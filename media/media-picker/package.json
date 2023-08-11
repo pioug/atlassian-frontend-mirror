@@ -60,7 +60,7 @@
   "devDependencies": {
     "@atlaskit/analytics-listeners": "^8.7.0",
     "@atlaskit/analytics-namespaced-context": "^6.7.0",
-    "@atlaskit/button": "^16.8.0",
+    "@atlaskit/button": "^16.9.0",
     "@atlaskit/media-card": "^76.1.0",
     "@atlaskit/media-core": "^34.1.0",
     "@atlaskit/media-test-helpers": "^33.0.0",

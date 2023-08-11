@@ -13,7 +13,7 @@ import { addInlineComment, ToolTipContent } from '../../keymaps';
 import type {
   FloatingToolbarConfig,
   FloatingToolbarButton,
-} from '../../plugins/floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import { setInlineCommentDraftState } from './commands';
 import { AnnotationTestIds, AnnotationSelectionType } from './types';
 import { isSelectionValid } from './utils';

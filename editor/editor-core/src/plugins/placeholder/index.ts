@@ -1,13 +1,19 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { browser } from '@atlaskit/editor-common/utils';
+import {
+  browser,
+  isEmptyDocument,
+  bracketTyped,
+} from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, Decoration } from '@atlaskit/editor-prosemirror/view';
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import { isEmptyDocument, bracketTyped } from '@atlaskit/editor-common/utils';
+import type {
+  NextEditorPlugin,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
+import type { focusPlugin } from '@atlaskit/editor-plugin-focus';
 
 export const pluginKey = new PluginKey('placeholderPlugin');
-import { focusStateKey } from '../base/pm-plugins/focus-handler';
 import { isTypeAheadOpen } from '../type-ahead/utils';
 import { isComposing } from '../base/pm-plugins/composition';
 
@@ -77,12 +83,11 @@ function setPlaceHolderState(
 const emptyPlaceholder: PlaceHolderState = { hasPlaceholder: false };
 
 function createPlaceHolderStateFrom(
+  isEditorFocused: boolean,
   editorState: EditorState,
   defaultPlaceholderText?: string,
   bracketPlaceholderText?: string,
 ): PlaceHolderState {
-  const isEditorFocused = focusStateKey.getState(editorState);
-
   if (isTypeAheadOpen(editorState)) {
     return emptyPlaceholder;
   }
@@ -103,6 +108,7 @@ function createPlaceHolderStateFrom(
 export function createPlugin(
   defaultPlaceholderText?: string,
   bracketPlaceholderText?: string,
+  api?: ExtractInjectionAPI<typeof placeholderPlugin>,
 ): SafePlugin | undefined {
   if (!defaultPlaceholderText && !bracketPlaceholderText) {
     return;
@@ -113,12 +119,16 @@ export function createPlugin(
     state: {
       init: (_, state) =>
         createPlaceHolderStateFrom(
+          Boolean(api?.dependencies.focus.sharedState.currentState()?.hasFocus),
           state,
           defaultPlaceholderText,
           bracketPlaceholderText,
         ),
       apply: (tr, _oldPluginState, _oldEditorState, newEditorState) => {
         const meta = tr.getMeta(pluginKey);
+        const isEditorFocused = Boolean(
+          api?.dependencies.focus.sharedState.currentState()?.hasFocus,
+        );
 
         if (meta) {
           if (meta.removePlaceholder) {
@@ -127,6 +137,7 @@ export function createPlugin(
 
           if (meta.applyPlaceholderIfEmpty) {
             return createPlaceHolderStateFrom(
+              isEditorFocused,
               newEditorState,
               defaultPlaceholderText,
               bracketPlaceholderText,
@@ -135,6 +146,7 @@ export function createPlugin(
         }
 
         return createPlaceHolderStateFrom(
+          isEditorFocused,
           newEditorState,
           defaultPlaceholderText,
           bracketPlaceholderText,
@@ -169,8 +181,9 @@ const placeholderPlugin: NextEditorPlugin<
   'placeholder',
   {
     pluginConfiguration: PlaceholderPluginOptions | undefined;
+    dependencies: [typeof focusPlugin];
   }
-> = (options?) => ({
+> = (options, api) => ({
   name: 'placeholder',
 
   pmPlugins() {
@@ -181,6 +194,7 @@ const placeholderPlugin: NextEditorPlugin<
           createPlugin(
             options && options.placeholder,
             options && options.placeholderBracketHint,
+            api,
           ),
       },
     ];

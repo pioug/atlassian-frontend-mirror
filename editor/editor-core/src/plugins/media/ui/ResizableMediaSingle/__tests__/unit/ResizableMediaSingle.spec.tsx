@@ -20,6 +20,7 @@ import {
   media,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {
@@ -61,7 +62,6 @@ import {
 } from '@atlaskit/media-test-helpers';
 import ResizableMediaSingle from '../../index';
 import ResizableMediaSingleNext, {
-  UnwrappedResizableMediaSingleNext,
   resizerNextTestId,
 } from '../../ResizableMediaSingleNext';
 import type { Props } from '../../types';
@@ -76,7 +76,6 @@ import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { MediaClientConfig } from '@atlaskit/media-core';
-import { IntlProvider } from 'react-intl-next';
 
 const getMediaClient = () => {
   const mediaClientConfig = getDefaultMediaClientConfig();
@@ -109,6 +108,7 @@ const getEditorView = (document: CreatePMEditorOptions['doc']) => {
     .add(gridPlugin)
     .add(editorDisabledPlugin)
     .add(floatingToolbarPlugin)
+    .add(focusPlugin)
     .add([mediaPlugin, { allowMediaSingle: true }])
     .add(layoutPlugin);
 
@@ -226,25 +226,23 @@ const setup = (
   const { editorView } = getEditorView(document);
 
   return render(
-    <IntlProvider locale="en">
-      <ResizableMediaSingleNext
-        updateSize={jest.fn()}
-        getPos={jest.fn().mockReturnValue(0)}
-        view={editorView}
-        lineLength={760}
-        gridSize={12}
-        containerWidth={1680}
-        layout={'center'}
-        width={1200}
-        height={1000}
-        selected={true}
-        dispatchAnalyticsEvent={jest.fn()}
-        pluginInjectionApi={undefined}
-        {...customProps}
-      >
-        <div></div>
-      </ResizableMediaSingleNext>
-    </IntlProvider>,
+    <ResizableMediaSingleNext
+      updateSize={jest.fn()}
+      getPos={jest.fn().mockReturnValue(0)}
+      view={editorView}
+      lineLength={760}
+      gridSize={12}
+      containerWidth={1680}
+      layout={'center'}
+      width={1200}
+      height={1000}
+      selected={true}
+      dispatchAnalyticsEvent={jest.fn()}
+      pluginInjectionApi={undefined}
+      {...customProps}
+    >
+      <div></div>
+    </ResizableMediaSingleNext>,
   );
 };
 
@@ -382,7 +380,7 @@ describe('non-nested <ResizableMediaSingleNext /> should be responsive and small
   let nestedNodeCheckSpy: jest.SpyInstance;
   beforeEach(() => {
     nestedNodeCheckSpy = jest
-      .spyOn(UnwrappedResizableMediaSingleNext.prototype, 'isNestedNode')
+      .spyOn(ResizableMediaSingleNext.prototype, 'isNestedNode')
       .mockReturnValue(true);
   });
 

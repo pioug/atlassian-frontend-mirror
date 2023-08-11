@@ -2,10 +2,10 @@ import { processCopyButtonItems } from '../../../copy-button/toolbar';
 import { copyButtonPluginKey } from '../../pm-plugins/plugin-key';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 import { createIntl } from 'react-intl-next';
-import {
+import type {
   FloatingToolbarItem,
   Command,
-} from '../../../../plugins/floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 
 describe('process copy button', () => {
   const intl = createIntl({

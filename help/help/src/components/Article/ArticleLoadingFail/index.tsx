@@ -7,10 +7,6 @@ import {
   AnalyticsContext,
 } from '@atlaskit/analytics-next';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import { messages } from '../../../messages';
 import SomethingWrongImage from '../../../assets/SomethingWrongImage';
 
@@ -18,8 +14,8 @@ import { LoadingErrorMessage, LoadingErrorButtonContainer } from './styled';
 
 const ANALYTICS_CONTEXT_DATA = {
   componentName: 'ArticleLoadingFail',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 interface Props {

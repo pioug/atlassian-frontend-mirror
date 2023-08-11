@@ -3,4 +3,5 @@ export type {
   ForceFocusSelector,
   ConfigWithNodeInfo,
   FloatingToolbarPluginData,
+  FloatingToolbarPluginState,
 } from './types';

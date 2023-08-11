@@ -5,7 +5,7 @@ common:
 context:
   PackageMetaData: &PackageMetaDataContext
     packageName:
-      type: ["@atlaskit/link-datasource"]
+      type: string
       description: name of the package the event was fired from.
     packageVersion:
       type: string

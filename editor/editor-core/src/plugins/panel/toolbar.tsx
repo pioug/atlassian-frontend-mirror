@@ -4,7 +4,7 @@ import type {
   FloatingToolbarEmojiPicker,
   FloatingToolbarItem,
   FloatingToolbarButton,
-} from './../floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import type { EmojiInfo, PanelPluginOptions } from './types';
 import type { IntlShape } from 'react-intl-next';
 import SuccessIcon from '@atlaskit/icon/glyph/editor/success';

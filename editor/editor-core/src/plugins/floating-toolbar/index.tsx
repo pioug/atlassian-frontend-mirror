@@ -41,7 +41,7 @@ import type {
   FloatingToolbarHandler,
   FloatingToolbarConfig,
   FloatingToolbarButton,
-} from './types';
+} from '@atlaskit/editor-common/types';
 import { findNode } from './utils';
 import { ErrorBoundary } from '../../ui/ErrorBoundary';
 import type { IntlShape } from 'react-intl-next';
@@ -50,17 +50,12 @@ import forceFocusPlugin, { forceFocusSelector } from './pm-plugins/force-focus';
 import type {
   FloatingToolbarPlugin,
   ConfigWithNodeInfo,
+  FloatingToolbarPluginState,
 } from '@atlaskit/editor-plugin-floating-toolbar';
 import type {
   UiComponentFactoryParams,
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
-
-export type FloatingToolbarPluginState = {
-  getConfigWithNodeInfo: (
-    state: EditorState,
-  ) => ConfigWithNodeInfo | null | undefined;
-};
 
 export const getRelevantConfig = (
   selection: Selection,

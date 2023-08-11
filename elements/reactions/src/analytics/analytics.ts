@@ -8,11 +8,10 @@ import {
   OPERATIONAL_EVENT_TYPE,
   EventType,
 } from '@atlaskit/analytics-gas-types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 import { ReactionSummary, ReactionSource } from '../types';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export type PreviousState = 'new' | 'existingNotReacted' | 'existingReacted';
 

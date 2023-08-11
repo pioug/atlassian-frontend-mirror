@@ -13,7 +13,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type {
   FloatingToolbarConfig,
   FloatingToolbarItem,
-} from '../../../floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import type { Command } from '../../../../types';
 import commonMessages from '../../../../messages';
 import { buildLayoutForWidths } from './_utils';

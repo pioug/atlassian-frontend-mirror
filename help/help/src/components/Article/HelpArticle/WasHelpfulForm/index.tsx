@@ -18,10 +18,6 @@ import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { colors } from '@atlaskit/theme';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../../version.json';
 import { messages } from '../../../../messages';
 import { ArticleFeedback } from '../../../../model/Article';
 
@@ -37,8 +33,8 @@ import {
 const FEEDBACK_REASON_TEXT_MAX_LENGTH = '16000';
 const ANALYTICS_CONTEXT_DATA = {
   componentName: 'ArticleWasHelpfulForm',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 interface Props {

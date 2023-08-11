@@ -1257,7 +1257,7 @@ describe('BaseUserPicker', () => {
               attributes: {
                 context: 'test',
                 sessionDuration: expect.any(Number),
-                packageName: '@atlaskit/user-picker',
+                packageName: expect.any(String),
                 packageVersion: expect.any(String),
                 sessionId: expect.any(String),
                 journeyId: expect.any(String),
@@ -1297,7 +1297,7 @@ describe('BaseUserPicker', () => {
               attributes: {
                 context: 'test',
                 sessionDuration: expect.any(Number),
-                packageName: '@atlaskit/user-picker',
+                packageName: expect.any(String),
                 packageVersion: expect.any(String),
                 sessionId: expect.any(String),
                 journeyId: expect.any(String),
@@ -1339,7 +1339,7 @@ describe('BaseUserPicker', () => {
               attributes: {
                 context: 'test',
                 sessionDuration: expect.any(Number),
-                packageName: '@atlaskit/user-picker',
+                packageName: expect.any(String),
                 packageVersion: expect.any(String),
                 journeyId: expect.any(String),
                 sessionId: expect.any(String),
@@ -1381,7 +1381,7 @@ describe('BaseUserPicker', () => {
               attributes: {
                 context: 'test',
                 sessionDuration: expect.any(Number),
-                packageName: '@atlaskit/user-picker',
+                packageName: expect.any(String),
                 packageVersion: expect.any(String),
                 journeyId: expect.any(String),
                 sessionId: expect.any(String),
@@ -1427,7 +1427,7 @@ describe('BaseUserPicker', () => {
               attributes: {
                 context: 'test',
                 sessionDuration: expect.any(Number),
-                packageName: '@atlaskit/user-picker',
+                packageName: expect.any(String),
                 packageVersion: expect.any(String),
                 journeyId: expect.any(String),
                 sessionId: expect.any(String),
@@ -1466,7 +1466,7 @@ describe('BaseUserPicker', () => {
               eventType: 'ui',
               attributes: {
                 context: 'test',
-                packageName: '@atlaskit/user-picker',
+                packageName: expect.any(String),
                 packageVersion: expect.any(String),
                 journeyId: expect.any(String),
                 sessionId: expect.any(String),
@@ -1497,7 +1497,7 @@ describe('BaseUserPicker', () => {
               eventType: 'ui',
               attributes: {
                 context: 'test',
-                packageName: '@atlaskit/user-picker',
+                packageName: expect.any(String),
                 packageVersion: expect.any(String),
                 journeyId: expect.any(String),
                 sessionId: expect.any(String),
@@ -1568,7 +1568,7 @@ describe('BaseUserPicker', () => {
                   eventType: 'operational',
                   attributes: {
                     context: 'test',
-                    packageName: '@atlaskit/user-picker',
+                    packageName: expect.any(String),
                     packageVersion: expect.any(String),
                     pickerType: 'single',
                     journeyId: expect.any(String),
@@ -1623,7 +1623,7 @@ describe('BaseUserPicker', () => {
                   attributes: expect.objectContaining({
                     context: 'test',
                     packageVersion: expect.any(String),
-                    packageName: '@atlaskit/user-picker',
+                    packageName: expect.any(String),
                     journeyId: expect.any(String),
                     sessionId: expect.any(String),
                     sessionDuration: expect.any(Number),
@@ -1695,7 +1695,7 @@ describe('BaseUserPicker', () => {
                   attributes: expect.objectContaining({
                     context: 'test',
                     packageVersion: expect.any(String),
-                    packageName: '@atlaskit/user-picker',
+                    packageName: expect.any(String),
                     journeyId: expect.any(String),
                     sessionId: expect.any(String),
                     sessionDuration: expect.any(Number),
@@ -1738,7 +1738,7 @@ describe('BaseUserPicker', () => {
                   attributes: expect.objectContaining({
                     context: 'test',
                     packageVersion: expect.any(String),
-                    packageName: '@atlaskit/user-picker',
+                    packageName: expect.any(String),
                     journeyId: expect.any(String),
                     sessionId: expect.any(String),
                     sessionDuration: expect.any(Number),

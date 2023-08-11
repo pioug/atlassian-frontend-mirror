@@ -1,0 +1,3028 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PixelEntry floating bar component renders correctly 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": 
+
+.emotion-10 form {
+  width: 100%;
+}
+
+.emotion-9 {
+  display: grid;
+  grid-template-columns: 1fr 1em 1fr 0;
+  grid-template-rows: auto;
+  grid-template-areas: 'widthinput label heightinput submit';
+  width: 120px;
+  text-align: center;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-9>* {
+  margin-top: 0!important;
+}
+
+.emotion-2 {
+  margin-top: var(--ds-space-100, 8px);
+}
+
+.emotion-1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: widthinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-1:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-1[data-invalid],
+.emotion-1[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-1[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-1[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-1 input {
+  text-align: center;
+}
+
+.emotion-0 {
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: inherit;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+  width: 100%;
+  line-height: 1.4285714285714286;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-0[data-monospaced] {
+  font-family: 'SFMono-Medium','SF Mono','Segoe UI Mono','Roboto Mono','Ubuntu Mono',Menlo,Consolas,Courier,monospace;
+}
+
+.emotion-0[data-compact] {
+  padding: 4px 6px;
+  height: 2.00em;
+}
+
+.emotion-0:not([data-compact]) {
+  padding: 8px 6px;
+  height: 2.57em;
+}
+
+.emotion-0[disabled] {
+  -webkit-text-fill-color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-ms-clear {
+  display: none;
+}
+
+.emotion-0:invalid {
+  box-shadow: none;
+}
+
+.emotion-0:placeholder-shown {
+  text-overflow: ellipsis;
+}
+
+.emotion-0::-webkit-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-moz-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0:-ms-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-webkit-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-moz-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0:-ms-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-0[disabled] {
+    color: GrayText;
+  }
+}
+
+.emotion-3 {
+  grid-area: label;
+  line-height: var(--ds-space-300, 24px);
+}
+
+.emotion-5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: heightinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-5:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-5[data-invalid],
+.emotion-5[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-5[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-5[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-5 input {
+  text-align: center;
+}
+
+.emotion-8 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: var(--ds-border-radius, 3px);
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  white-space: nowrap;
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  grid-area: submit;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.emotion-8:visited {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8:hover {
+  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
+  color: var(--ds-text, #42526E)!important;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-8:active {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[data-firefox-is-active="true"] {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[disabled] {
+  background: var(--ds-background-disabled, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text-disabled, #A5ADBA)!important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-8[data-has-overlay="true"]:not([disabled]):active {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-8:focus-visible {
+  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline-offset: 2px;
+}
+
+@supports not selector(*:focus-visible) {
+  .emotion-8:focus {
+    outline: 2px solid var(--ds-border-focused, #2684FF);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
+  .emotion-8:focus-visible {
+    outline: 1px solid;
+  }
+}
+
+.emotion-7 {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<body>
+    <div>
+      <div
+        class="emotion-10"
+      >
+        <form>
+          <div
+            class="emotion-9"
+          >
+            <div
+              class="emotion-2"
+            >
+              <div
+                role="presentation"
+              >
+                <div
+                  class="emotion-1"
+                  data-ds--text-field--container="true"
+                >
+                  <input
+                    aria-describedby="inputWidth-uid1-helper"
+                    aria-label="width input"
+                    aria-labelledby="inputWidth-uid1-label"
+                    class="emotion-0"
+                    data-compact="true"
+                    data-ds--text-field--input="true"
+                    id="inputWidth-uid1"
+                    name="inputWidth"
+                    pattern="\\\\d*"
+                    value="600"
+                  />
+                </div>
+              </div>
+            </div>
+            <span
+              class="emotion-3"
+            >
+              x
+            </span>
+            <div
+              class="emotion-2"
+            >
+              <div
+                role="presentation"
+              >
+                <div
+                  class="emotion-5"
+                  data-ds--text-field--container="true"
+                >
+                  <input
+                    aria-describedby="inputHeight-uid2-valid inputHeight-uid2-helper"
+                    aria-label="height input"
+                    aria-labelledby="inputHeight-uid2-label"
+                    class="emotion-0"
+                    data-compact="true"
+                    data-ds--text-field--input="true"
+                    id="inputHeight-uid2"
+                    name="inputHeight"
+                    pattern="\\\\d*"
+                    value="800"
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              class="emotion-8"
+              tabindex="0"
+              type="submit"
+            >
+              <span
+                class="emotion-7"
+              >
+                Submit
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": 
+
+.emotion-10 form {
+  width: 100%;
+}
+
+.emotion-9 {
+  display: grid;
+  grid-template-columns: 1fr 1em 1fr 0;
+  grid-template-rows: auto;
+  grid-template-areas: 'widthinput label heightinput submit';
+  width: 120px;
+  text-align: center;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-9>* {
+  margin-top: 0!important;
+}
+
+.emotion-2 {
+  margin-top: var(--ds-space-100, 8px);
+}
+
+.emotion-1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: widthinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-1:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-1[data-invalid],
+.emotion-1[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-1[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-1[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-1 input {
+  text-align: center;
+}
+
+.emotion-0 {
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: inherit;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+  width: 100%;
+  line-height: 1.4285714285714286;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-0[data-monospaced] {
+  font-family: 'SFMono-Medium','SF Mono','Segoe UI Mono','Roboto Mono','Ubuntu Mono',Menlo,Consolas,Courier,monospace;
+}
+
+.emotion-0[data-compact] {
+  padding: 4px 6px;
+  height: 2.00em;
+}
+
+.emotion-0:not([data-compact]) {
+  padding: 8px 6px;
+  height: 2.57em;
+}
+
+.emotion-0[disabled] {
+  -webkit-text-fill-color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-ms-clear {
+  display: none;
+}
+
+.emotion-0:invalid {
+  box-shadow: none;
+}
+
+.emotion-0:placeholder-shown {
+  text-overflow: ellipsis;
+}
+
+.emotion-0::-webkit-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-moz-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0:-ms-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-webkit-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-moz-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0:-ms-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-0[disabled] {
+    color: GrayText;
+  }
+}
+
+.emotion-3 {
+  grid-area: label;
+  line-height: var(--ds-space-300, 24px);
+}
+
+.emotion-5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: heightinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-5:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-5[data-invalid],
+.emotion-5[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-5[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-5[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-5 input {
+  text-align: center;
+}
+
+.emotion-8 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: var(--ds-border-radius, 3px);
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  white-space: nowrap;
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  grid-area: submit;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.emotion-8:visited {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8:hover {
+  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
+  color: var(--ds-text, #42526E)!important;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-8:active {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[data-firefox-is-active="true"] {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[disabled] {
+  background: var(--ds-background-disabled, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text-disabled, #A5ADBA)!important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-8[data-has-overlay="true"]:not([disabled]):active {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-8:focus-visible {
+  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline-offset: 2px;
+}
+
+@supports not selector(*:focus-visible) {
+  .emotion-8:focus {
+    outline: 2px solid var(--ds-border-focused, #2684FF);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
+  .emotion-8:focus-visible {
+    outline: 1px solid;
+  }
+}
+
+.emotion-7 {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<div>
+    <div
+      class="emotion-10"
+    >
+      <form>
+        <div
+          class="emotion-9"
+        >
+          <div
+            class="emotion-2"
+          >
+            <div
+              role="presentation"
+            >
+              <div
+                class="emotion-1"
+                data-ds--text-field--container="true"
+              >
+                <input
+                  aria-describedby="inputWidth-uid1-helper"
+                  aria-label="width input"
+                  aria-labelledby="inputWidth-uid1-label"
+                  class="emotion-0"
+                  data-compact="true"
+                  data-ds--text-field--input="true"
+                  id="inputWidth-uid1"
+                  name="inputWidth"
+                  pattern="\\\\d*"
+                  value="600"
+                />
+              </div>
+            </div>
+          </div>
+          <span
+            class="emotion-3"
+          >
+            x
+          </span>
+          <div
+            class="emotion-2"
+          >
+            <div
+              role="presentation"
+            >
+              <div
+                class="emotion-5"
+                data-ds--text-field--container="true"
+              >
+                <input
+                  aria-describedby="inputHeight-uid2-valid inputHeight-uid2-helper"
+                  aria-label="height input"
+                  aria-labelledby="inputHeight-uid2-label"
+                  class="emotion-0"
+                  data-compact="true"
+                  data-ds--text-field--input="true"
+                  id="inputHeight-uid2"
+                  name="inputHeight"
+                  pattern="\\\\d*"
+                  value="800"
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            class="emotion-8"
+            tabindex="0"
+            type="submit"
+          >
+            <span
+              class="emotion-7"
+            >
+              Submit
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`PixelEntry floating bar component updates height when changing width 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": 
+
+.emotion-10 form {
+  width: 100%;
+}
+
+.emotion-9 {
+  display: grid;
+  grid-template-columns: 1fr 1em 1fr 0;
+  grid-template-rows: auto;
+  grid-template-areas: 'widthinput label heightinput submit';
+  width: 120px;
+  text-align: center;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-9>* {
+  margin-top: 0!important;
+}
+
+.emotion-2 {
+  margin-top: var(--ds-space-100, 8px);
+}
+
+.emotion-1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: widthinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-1:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-1[data-invalid],
+.emotion-1[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-1[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-1[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-1 input {
+  text-align: center;
+}
+
+.emotion-0 {
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: inherit;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+  width: 100%;
+  line-height: 1.4285714285714286;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-0[data-monospaced] {
+  font-family: 'SFMono-Medium','SF Mono','Segoe UI Mono','Roboto Mono','Ubuntu Mono',Menlo,Consolas,Courier,monospace;
+}
+
+.emotion-0[data-compact] {
+  padding: 4px 6px;
+  height: 2.00em;
+}
+
+.emotion-0:not([data-compact]) {
+  padding: 8px 6px;
+  height: 2.57em;
+}
+
+.emotion-0[disabled] {
+  -webkit-text-fill-color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-ms-clear {
+  display: none;
+}
+
+.emotion-0:invalid {
+  box-shadow: none;
+}
+
+.emotion-0:placeholder-shown {
+  text-overflow: ellipsis;
+}
+
+.emotion-0::-webkit-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-moz-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0:-ms-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-webkit-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-moz-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0:-ms-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-0[disabled] {
+    color: GrayText;
+  }
+}
+
+.emotion-3 {
+  grid-area: label;
+  line-height: var(--ds-space-300, 24px);
+}
+
+.emotion-5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: heightinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-5:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-5[data-invalid],
+.emotion-5[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-5[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-5[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-5 input {
+  text-align: center;
+}
+
+.emotion-8 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: var(--ds-border-radius, 3px);
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  white-space: nowrap;
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  grid-area: submit;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.emotion-8:visited {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8:hover {
+  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
+  color: var(--ds-text, #42526E)!important;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-8:active {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[data-firefox-is-active="true"] {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[disabled] {
+  background: var(--ds-background-disabled, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text-disabled, #A5ADBA)!important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-8[data-has-overlay="true"]:not([disabled]):active {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-8:focus-visible {
+  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline-offset: 2px;
+}
+
+@supports not selector(*:focus-visible) {
+  .emotion-8:focus {
+    outline: 2px solid var(--ds-border-focused, #2684FF);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
+  .emotion-8:focus-visible {
+    outline: 1px solid;
+  }
+}
+
+.emotion-7 {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<body>
+    <div>
+      <div
+        class="emotion-10"
+      >
+        <form>
+          <div
+            class="emotion-9"
+          >
+            <div
+              class="emotion-2"
+            >
+              <div
+                role="presentation"
+              >
+                <div
+                  class="emotion-1"
+                  data-ds--text-field--container="true"
+                >
+                  <input
+                    aria-describedby="inputWidth-uid5-helper"
+                    aria-label="width input"
+                    aria-labelledby="inputWidth-uid5-label"
+                    class="emotion-0"
+                    data-compact="true"
+                    data-ds--text-field--input="true"
+                    id="inputWidth-uid5"
+                    name="inputWidth"
+                    pattern="\\\\d*"
+                    value="1000"
+                  />
+                </div>
+              </div>
+            </div>
+            <span
+              class="emotion-3"
+            >
+              x
+            </span>
+            <div
+              class="emotion-2"
+            >
+              <div
+                role="presentation"
+              >
+                <div
+                  class="emotion-5"
+                  data-ds--text-field--container="true"
+                >
+                  <input
+                    aria-describedby="inputHeight-uid6-valid inputHeight-uid6-helper"
+                    aria-label="height input"
+                    aria-labelledby="inputHeight-uid6-label"
+                    class="emotion-0"
+                    data-compact="true"
+                    data-ds--text-field--input="true"
+                    id="inputHeight-uid6"
+                    name="inputHeight"
+                    pattern="\\\\d*"
+                    value="1333"
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              class="emotion-8"
+              tabindex="0"
+              type="submit"
+            >
+              <span
+                class="emotion-7"
+              >
+                Submit
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": 
+
+.emotion-10 form {
+  width: 100%;
+}
+
+.emotion-9 {
+  display: grid;
+  grid-template-columns: 1fr 1em 1fr 0;
+  grid-template-rows: auto;
+  grid-template-areas: 'widthinput label heightinput submit';
+  width: 120px;
+  text-align: center;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-9>* {
+  margin-top: 0!important;
+}
+
+.emotion-2 {
+  margin-top: var(--ds-space-100, 8px);
+}
+
+.emotion-1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: widthinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-1:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-1[data-invalid],
+.emotion-1[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-1[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-1[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-1 input {
+  text-align: center;
+}
+
+.emotion-0 {
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: inherit;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+  width: 100%;
+  line-height: 1.4285714285714286;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-0[data-monospaced] {
+  font-family: 'SFMono-Medium','SF Mono','Segoe UI Mono','Roboto Mono','Ubuntu Mono',Menlo,Consolas,Courier,monospace;
+}
+
+.emotion-0[data-compact] {
+  padding: 4px 6px;
+  height: 2.00em;
+}
+
+.emotion-0:not([data-compact]) {
+  padding: 8px 6px;
+  height: 2.57em;
+}
+
+.emotion-0[disabled] {
+  -webkit-text-fill-color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-ms-clear {
+  display: none;
+}
+
+.emotion-0:invalid {
+  box-shadow: none;
+}
+
+.emotion-0:placeholder-shown {
+  text-overflow: ellipsis;
+}
+
+.emotion-0::-webkit-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-moz-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0:-ms-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-webkit-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-moz-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0:-ms-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-0[disabled] {
+    color: GrayText;
+  }
+}
+
+.emotion-3 {
+  grid-area: label;
+  line-height: var(--ds-space-300, 24px);
+}
+
+.emotion-5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: heightinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-5:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-5[data-invalid],
+.emotion-5[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-5[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-5[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-5 input {
+  text-align: center;
+}
+
+.emotion-8 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: var(--ds-border-radius, 3px);
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  white-space: nowrap;
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  grid-area: submit;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.emotion-8:visited {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8:hover {
+  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
+  color: var(--ds-text, #42526E)!important;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-8:active {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[data-firefox-is-active="true"] {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[disabled] {
+  background: var(--ds-background-disabled, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text-disabled, #A5ADBA)!important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-8[data-has-overlay="true"]:not([disabled]):active {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-8:focus-visible {
+  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline-offset: 2px;
+}
+
+@supports not selector(*:focus-visible) {
+  .emotion-8:focus {
+    outline: 2px solid var(--ds-border-focused, #2684FF);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
+  .emotion-8:focus-visible {
+    outline: 1px solid;
+  }
+}
+
+.emotion-7 {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<div>
+    <div
+      class="emotion-10"
+    >
+      <form>
+        <div
+          class="emotion-9"
+        >
+          <div
+            class="emotion-2"
+          >
+            <div
+              role="presentation"
+            >
+              <div
+                class="emotion-1"
+                data-ds--text-field--container="true"
+              >
+                <input
+                  aria-describedby="inputWidth-uid5-helper"
+                  aria-label="width input"
+                  aria-labelledby="inputWidth-uid5-label"
+                  class="emotion-0"
+                  data-compact="true"
+                  data-ds--text-field--input="true"
+                  id="inputWidth-uid5"
+                  name="inputWidth"
+                  pattern="\\\\d*"
+                  value="1000"
+                />
+              </div>
+            </div>
+          </div>
+          <span
+            class="emotion-3"
+          >
+            x
+          </span>
+          <div
+            class="emotion-2"
+          >
+            <div
+              role="presentation"
+            >
+              <div
+                class="emotion-5"
+                data-ds--text-field--container="true"
+              >
+                <input
+                  aria-describedby="inputHeight-uid6-valid inputHeight-uid6-helper"
+                  aria-label="height input"
+                  aria-labelledby="inputHeight-uid6-label"
+                  class="emotion-0"
+                  data-compact="true"
+                  data-ds--text-field--input="true"
+                  id="inputHeight-uid6"
+                  name="inputHeight"
+                  pattern="\\\\d*"
+                  value="1333"
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            class="emotion-8"
+            tabindex="0"
+            type="submit"
+          >
+            <span
+              class="emotion-7"
+            >
+              Submit
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;
+
+exports[`PixelEntry floating bar component updates width when changing height 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": 
+
+.emotion-10 form {
+  width: 100%;
+}
+
+.emotion-9 {
+  display: grid;
+  grid-template-columns: 1fr 1em 1fr 0;
+  grid-template-rows: auto;
+  grid-template-areas: 'widthinput label heightinput submit';
+  width: 120px;
+  text-align: center;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-9>* {
+  margin-top: 0!important;
+}
+
+.emotion-2 {
+  margin-top: var(--ds-space-100, 8px);
+}
+
+.emotion-1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: widthinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-1:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-1[data-invalid],
+.emotion-1[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-1[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-1[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-1 input {
+  text-align: center;
+}
+
+.emotion-0 {
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: inherit;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+  width: 100%;
+  line-height: 1.4285714285714286;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-0[data-monospaced] {
+  font-family: 'SFMono-Medium','SF Mono','Segoe UI Mono','Roboto Mono','Ubuntu Mono',Menlo,Consolas,Courier,monospace;
+}
+
+.emotion-0[data-compact] {
+  padding: 4px 6px;
+  height: 2.00em;
+}
+
+.emotion-0:not([data-compact]) {
+  padding: 8px 6px;
+  height: 2.57em;
+}
+
+.emotion-0[disabled] {
+  -webkit-text-fill-color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-ms-clear {
+  display: none;
+}
+
+.emotion-0:invalid {
+  box-shadow: none;
+}
+
+.emotion-0:placeholder-shown {
+  text-overflow: ellipsis;
+}
+
+.emotion-0::-webkit-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-moz-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0:-ms-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-webkit-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-moz-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0:-ms-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-0[disabled] {
+    color: GrayText;
+  }
+}
+
+.emotion-3 {
+  grid-area: label;
+  line-height: var(--ds-space-300, 24px);
+}
+
+.emotion-5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: heightinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-5:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-5[data-invalid],
+.emotion-5[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-5[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-5[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-5 input {
+  text-align: center;
+}
+
+.emotion-8 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: var(--ds-border-radius, 3px);
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  white-space: nowrap;
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  grid-area: submit;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.emotion-8:visited {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8:hover {
+  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
+  color: var(--ds-text, #42526E)!important;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-8:active {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[data-firefox-is-active="true"] {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[disabled] {
+  background: var(--ds-background-disabled, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text-disabled, #A5ADBA)!important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-8[data-has-overlay="true"]:not([disabled]):active {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-8:focus-visible {
+  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline-offset: 2px;
+}
+
+@supports not selector(*:focus-visible) {
+  .emotion-8:focus {
+    outline: 2px solid var(--ds-border-focused, #2684FF);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
+  .emotion-8:focus-visible {
+    outline: 1px solid;
+  }
+}
+
+.emotion-7 {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<body>
+    <div>
+      <div
+        class="emotion-10"
+      >
+        <form>
+          <div
+            class="emotion-9"
+          >
+            <div
+              class="emotion-2"
+            >
+              <div
+                role="presentation"
+              >
+                <div
+                  class="emotion-1"
+                  data-ds--text-field--container="true"
+                >
+                  <input
+                    aria-describedby="inputWidth-uid7-helper"
+                    aria-label="width input"
+                    aria-labelledby="inputWidth-uid7-label"
+                    class="emotion-0"
+                    data-compact="true"
+                    data-ds--text-field--input="true"
+                    id="inputWidth-uid7"
+                    name="inputWidth"
+                    pattern="\\\\d*"
+                    value="750"
+                  />
+                </div>
+              </div>
+            </div>
+            <span
+              class="emotion-3"
+            >
+              x
+            </span>
+            <div
+              class="emotion-2"
+            >
+              <div
+                role="presentation"
+              >
+                <div
+                  class="emotion-5"
+                  data-ds--text-field--container="true"
+                >
+                  <input
+                    aria-describedby="inputHeight-uid8-valid inputHeight-uid8-helper"
+                    aria-label="height input"
+                    aria-labelledby="inputHeight-uid8-label"
+                    class="emotion-0"
+                    data-compact="true"
+                    data-ds--text-field--input="true"
+                    id="inputHeight-uid8"
+                    name="inputHeight"
+                    pattern="\\\\d*"
+                    value="1000"
+                  />
+                </div>
+              </div>
+            </div>
+            <button
+              class="emotion-8"
+              tabindex="0"
+              type="submit"
+            >
+              <span
+                class="emotion-7"
+              >
+                Submit
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>,
+  "container": 
+
+.emotion-10 form {
+  width: 100%;
+}
+
+.emotion-9 {
+  display: grid;
+  grid-template-columns: 1fr 1em 1fr 0;
+  grid-template-rows: auto;
+  grid-template-areas: 'widthinput label heightinput submit';
+  width: 120px;
+  text-align: center;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-9>* {
+  margin-top: 0!important;
+}
+
+.emotion-2 {
+  margin-top: var(--ds-space-100, 8px);
+}
+
+.emotion-1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: widthinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-1:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-1[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-1[data-invalid],
+.emotion-1[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-1[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-1[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-1[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-1 input {
+  text-align: center;
+}
+
+.emotion-0 {
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: inherit;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+  width: 100%;
+  line-height: 1.4285714285714286;
+  font-family: -apple-system,BlinkMacSystemFont,'Segoe UI','Roboto','Oxygen','Ubuntu','Fira Sans','Droid Sans','Helvetica Neue',sans-serif;
+}
+
+.emotion-0[data-monospaced] {
+  font-family: 'SFMono-Medium','SF Mono','Segoe UI Mono','Roboto Mono','Ubuntu Mono',Menlo,Consolas,Courier,monospace;
+}
+
+.emotion-0[data-compact] {
+  padding: 4px 6px;
+  height: 2.00em;
+}
+
+.emotion-0:not([data-compact]) {
+  padding: 8px 6px;
+  height: 2.57em;
+}
+
+.emotion-0[disabled] {
+  -webkit-text-fill-color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-ms-clear {
+  display: none;
+}
+
+.emotion-0:invalid {
+  box-shadow: none;
+}
+
+.emotion-0:placeholder-shown {
+  text-overflow: ellipsis;
+}
+
+.emotion-0::-webkit-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-moz-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0:-ms-input-placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::placeholder {
+  color: var(--ds-text-subtlest, #6B778C);
+}
+
+.emotion-0::-webkit-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::-moz-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0:-ms-input-placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+.emotion-0::placeholder:disabled {
+  color: var(--ds-text-disabled, #A5ADBA);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-0[disabled] {
+    color: GrayText;
+  }
+}
+
+.emotion-3 {
+  grid-area: label;
+  line-height: var(--ds-space-300, 24px);
+}
+
+.emotion-5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: none;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 100%;
+  -ms-flex: 1 1 100%;
+  flex: 1 1 100%;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  max-width: 100%;
+  overflow: hidden;
+  -webkit-transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  transition: background-color 0.2s ease-in-out,border-color 0.2s ease-in-out;
+  word-wrap: break-word;
+  vertical-align: top;
+  pointer-events: auto;
+  grid-area: heightinput;
+  width: 100%;
+  height: var(--ds-space-300, 24px);
+}
+
+.emotion-5:hover:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5:focus-within:not([data-disabled]) {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.emotion-5[data-disabled] {
+  color: var(--ds-text-disabled, #A5ADBA);
+  cursor: not-allowed;
+}
+
+.emotion-5[data-invalid],
+.emotion-5[data-invalid]:hover {
+  border-color: var(--ds-border-danger, #DE350B);
+}
+
+.emotion-5[data-invalid]:focus-within {
+  background-color: var(--ds-background-input-pressed, #FFFFFF);
+  border-color: var(--ds-border-focused, #4C9AFF);
+}
+
+@media screen and (-ms-high-contrast: active) {
+  .emotion-5[data-invalid]:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5:focus-within {
+    border-color: Highlight;
+  }
+
+  .emotion-5[data-disabled] {
+    border-color: GrayText;
+  }
+}
+
+.emotion-5 input {
+  text-align: center;
+}
+
+.emotion-8 {
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  border-width: 0;
+  border-radius: var(--ds-border-radius, 3px);
+  box-sizing: border-box;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: inherit;
+  font-style: normal;
+  font-family: inherit;
+  font-weight: 500;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  -webkit-transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  transition: background 0.1s ease-out,box-shadow 0.15s cubic-bezier(0.47, 0.03, 0.49, 1.38);
+  white-space: nowrap;
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+  cursor: pointer;
+  height: 2.2857142857142856em;
+  line-height: 2.2857142857142856em;
+  padding: 0 10px;
+  vertical-align: middle;
+  width: auto;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  grid-area: submit;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.emotion-8:visited {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8:hover {
+  background: var(--ds-background-neutral-hovered, rgba(9, 30, 66, 0.08));
+  color: var(--ds-text, #42526E)!important;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+  transition-duration: 0s,0.15s;
+}
+
+.emotion-8:active {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[data-firefox-is-active="true"] {
+  background: var(--ds-background-neutral-pressed, rgba(179, 212, 255, 0.6));
+  color: var(--ds-text, #0052CC)!important;
+  transition-duration: 0s,0s;
+}
+
+.emotion-8[disabled] {
+  background: var(--ds-background-disabled, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text-disabled, #A5ADBA)!important;
+  cursor: not-allowed;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"] {
+  cursor: default;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-8[data-has-overlay="true"]:not([disabled]):hover,
+.emotion-8[data-has-overlay="true"]:not([disabled]):active {
+  background: var(--ds-background-neutral, rgba(9, 30, 66, 0.04));
+  color: var(--ds-text, #42526E)!important;
+}
+
+.emotion-8::-moz-focus-inner {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-8:focus-visible {
+  outline: 2px solid var(--ds-border-focused, #2684FF);
+  outline-offset: 2px;
+}
+
+@supports not selector(*:focus-visible) {
+  .emotion-8:focus {
+    outline: 2px solid var(--ds-border-focused, #2684FF);
+    outline-offset: 2px;
+  }
+}
+
+@media screen and (forced-colors: active),screen and (-ms-high-contrast: active) {
+  .emotion-8:focus-visible {
+    outline: 1px solid;
+  }
+}
+
+.emotion-7 {
+  opacity: 1;
+  -webkit-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  margin: 0 2px;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  -ms-flex-negative: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+<div>
+    <div
+      class="emotion-10"
+    >
+      <form>
+        <div
+          class="emotion-9"
+        >
+          <div
+            class="emotion-2"
+          >
+            <div
+              role="presentation"
+            >
+              <div
+                class="emotion-1"
+                data-ds--text-field--container="true"
+              >
+                <input
+                  aria-describedby="inputWidth-uid7-helper"
+                  aria-label="width input"
+                  aria-labelledby="inputWidth-uid7-label"
+                  class="emotion-0"
+                  data-compact="true"
+                  data-ds--text-field--input="true"
+                  id="inputWidth-uid7"
+                  name="inputWidth"
+                  pattern="\\\\d*"
+                  value="750"
+                />
+              </div>
+            </div>
+          </div>
+          <span
+            class="emotion-3"
+          >
+            x
+          </span>
+          <div
+            class="emotion-2"
+          >
+            <div
+              role="presentation"
+            >
+              <div
+                class="emotion-5"
+                data-ds--text-field--container="true"
+              >
+                <input
+                  aria-describedby="inputHeight-uid8-valid inputHeight-uid8-helper"
+                  aria-label="height input"
+                  aria-labelledby="inputHeight-uid8-label"
+                  class="emotion-0"
+                  data-compact="true"
+                  data-ds--text-field--input="true"
+                  id="inputHeight-uid8"
+                  name="inputHeight"
+                  pattern="\\\\d*"
+                  value="1000"
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            class="emotion-8"
+            tabindex="0"
+            type="submit"
+          >
+            <span
+              class="emotion-7"
+            >
+              Submit
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

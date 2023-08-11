@@ -23,10 +23,10 @@ import {
   getComponents,
 } from '../helpers/extract-data-from-event';
 import Logger from '../helpers/logger';
-import { version as listenerVersion } from '../version.json';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const PEOPLE_TEAMS_TAG = 'peopleTeams';
+const listenerVersion = process.env._PACKAGE_VERSION_ as string;
 
 /**
  * This util exists to convert the analytics-next event format into the analytics platform format.

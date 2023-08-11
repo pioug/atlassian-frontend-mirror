@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import DropdownMenu from '../../ui/DropdownMenu';
-import { DropdownOptionT } from '../../ui/types';
+import type { DropdownOptionT } from '@atlaskit/editor-common/types';
 
 describe('<DropdownMenu />', () => {
   it('should wrap item inside a <Tooltip /> when tooltip option is present', () => {

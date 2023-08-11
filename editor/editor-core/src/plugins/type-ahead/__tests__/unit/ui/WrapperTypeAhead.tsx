@@ -80,7 +80,6 @@ const renderWrapperTypeAhead = ({
         anchorElement={anchorElement!}
         getDecorationPosition={jest.fn()}
         shouldFocusCursorInsideQuery={true!}
-        useBetterTypeaheadNavigation={true}
       />
     </IntlProvider>,
   );

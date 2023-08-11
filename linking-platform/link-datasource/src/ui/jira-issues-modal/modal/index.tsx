@@ -29,10 +29,6 @@ import {
   getAvailableJiraSites,
   Site,
 } from '../../../services/getAvailableJiraSites';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import { AccessRequired } from '../../common/error-state/access-required';
 import { ModalLoadingError } from '../../common/error-state/modal-loading-error';
 import { NoResults } from '../../common/error-state/no-results';
@@ -458,8 +454,8 @@ const analyticsContextAttributes: AnalyticsContextAttributesType = {
 };
 
 const analyticsContextData: AnalyticsContextType & PackageMetaDataType = {
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
   source: 'datasourceConfigModal',
 };
 

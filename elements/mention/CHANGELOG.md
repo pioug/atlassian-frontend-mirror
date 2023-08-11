@@ -1,5 +1,11 @@
 # @atlaskit/mention
 
+## 22.1.3
+
+### Patch Changes
+
+- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+
 ## 22.1.2
 
 ### Patch Changes

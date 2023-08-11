@@ -1,7 +1,6 @@
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import type { Team } from '../types';
-import packageInfo from '../version.json';
 
 import { graphqlQuery } from './graphqlUtils';
 
@@ -99,8 +98,8 @@ export const buildGatewayQuery = ({ teamId, siteId }: TeamQueryVariables) => ({
 export const addHeaders = (headers: Headers): Headers => {
   headers.append('X-ExperimentalApi', 'teams-beta');
   headers.append('X-ExperimentalApi', 'team-members-beta');
-  headers.append('atl-client-name', packageInfo.name);
-  headers.append('atl-client-version', packageInfo.version);
+  headers.append('atl-client-name', process.env._PACKAGE_NAME_);
+  headers.append('atl-client-version', process.env._PACKAGE_VERSION_);
 
   return headers;
 };

@@ -3,6 +3,8 @@ import {
   EditorNodeContainerModel,
   editorTestCase as test,
   expect,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import { simpleTableWithHeaderColumn } from './__fixtures__/base-adfs';
 
@@ -43,11 +45,19 @@ test.describe('when hovering delete button of the header column', () => {
   test('right border of second header column cell should be tableBorderDeleteColor', async ({
     editor,
   }) => {
+    fixTest({
+      jiraIssueId: 'ED-19416',
+      reason:
+        'FIXME: This test was manually skipped due to failure on 10/08/2023: https://product-fabric.atlassian.net/browse/ED-19416',
+      browsers: [BROWSERS.webkit],
+    });
+
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
 
     // select the first column, which is the header column
     const columnControls = await tableModel.columnControls({ index: 0 });
+
     await columnControls.select();
 
     // hover delete button

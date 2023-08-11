@@ -321,17 +321,6 @@ describe('mobile editor element', () => {
 
       expect(mockedisIndentationAllowed).toBeCalled();
     });
-
-    it('should have called isTableCellOptionsInFloatingToolbar', () => {
-      const mockedIsTableCellOptionsInFloatingToolbar = jest.spyOn(
-        MobileEditorConfiguration.prototype,
-        'isTableCellOptionsInFloatingToolbar',
-      );
-
-      initEditor();
-
-      expect(mockedIsTableCellOptionsInFloatingToolbar).toBeCalled();
-    });
   });
 
   describe('Mobile Editor on change content', () => {

@@ -22,6 +22,7 @@ import { setTextSelection } from '../../../utils/selection';
 import deprecatedAnalyticsPlugin from '../../analytics';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -43,6 +44,7 @@ describe('Caption plugin', () => {
         .add(guidelinePlugin)
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
+        .add(focusPlugin)
         .add([
           mediaPlugin,
           { allowMediaSingle: true, featureFlags: { captions: true } },

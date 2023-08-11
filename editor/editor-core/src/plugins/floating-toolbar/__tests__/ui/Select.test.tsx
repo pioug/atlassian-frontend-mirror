@@ -7,7 +7,10 @@ import { doc, code_block } from '@atlaskit/editor-test-helpers/doc-builder';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import Toolbar from '../../ui/Toolbar';
-import type { Command, FloatingToolbarListPicker } from '../../types';
+import type {
+  Command,
+  FloatingToolbarListPicker,
+} from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 // Selectors

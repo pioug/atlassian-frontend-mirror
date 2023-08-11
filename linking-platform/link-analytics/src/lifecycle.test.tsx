@@ -28,8 +28,8 @@ jest.mock('./utils', () => {
 });
 
 const PACKAGE_METADATA = {
-  packageName: '@atlaskit/link-analytics',
-  packageVersion: '999.9.9',
+  packageName: '@atlaskit/fabric',
+  packageVersion: '0.0.0',
 };
 
 describe('useSmartLinkLifecycleAnalytics', () => {

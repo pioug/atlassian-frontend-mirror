@@ -13,6 +13,7 @@ import blockTypePlugin from '../../../../block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import listPlugin from '../../../../list';
 import textFormattingPlugin from '../../../../text-formatting';
+import betterTypeHistoryPlugin from '../../../../better-type-history';
 
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -28,6 +29,7 @@ describe('Paste Markdown Plugins', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(hyperlinkPlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add([listPlugin])
         .add(blockTypePlugin)

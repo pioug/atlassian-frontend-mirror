@@ -76,7 +76,6 @@ const getLayoutOptions = memoizeOne(
 );
 
 const tableOptions: EditorProps['allowTables'] = {
-  allowCellOptionsInFloatingToolbar: true,
   allowControls: true,
   allowBackgroundColor: true,
   allowHeaderColumn: true,
@@ -203,8 +202,6 @@ export function MobileEditor(props: MobileEditorProps) {
   // Editor config overrides feature flags from props
   const extendedFeatureFlags: FeatureFlags = {
     ...featureFlags,
-    tableCellOptionsInFloatingToolbar:
-      editorConfiguration.isTableCellOptionsInFloatingToolbar(),
     restartNumberedLists: getRestartNumberedLists(),
     enableViewUpdateSubscription: true,
   };

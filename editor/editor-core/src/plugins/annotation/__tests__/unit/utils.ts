@@ -22,6 +22,7 @@ import {
   createProsemirrorEditorFactory,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -88,6 +89,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
   .add(gridPlugin)
   .add(editorDisabledPlugin)
   .add(floatingToolbarPlugin)
+  .add(focusPlugin)
   .add([
     mediaPlugin,
     {

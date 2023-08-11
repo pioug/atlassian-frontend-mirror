@@ -21,6 +21,7 @@ export default {
       ],
       isTupleLike: true,
       minItems: 1,
+      allowUnsupportedBlock: true,
     },
   },
 };

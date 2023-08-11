@@ -20,12 +20,14 @@ import {
 } from './styles';
 import { overlay } from '../styles';
 import ExtensionLozenge from '../Lozenge';
-import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import type { ProsemirrorGetPosHandler } from '../../../../../nodeviews';
 import type { EditorAppearance } from '../../../../../types/editor-appearance';
 import classnames from 'classnames';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
+import type {
+  widthPlugin,
+  WidthPluginState,
+} from '@atlaskit/editor-plugin-width';
 import type { PluginInjectionAPIWithDependency } from '@atlaskit/editor-common/types';
 
 export interface Props {

@@ -1,5 +1,11 @@
 # @atlaskit/link-create
 
+## 1.0.2
+
+### Patch Changes
+
+- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+
 ## 1.0.1
 
 ### Patch Changes

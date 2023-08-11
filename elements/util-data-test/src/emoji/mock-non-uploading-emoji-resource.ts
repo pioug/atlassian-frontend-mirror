@@ -1,11 +1,7 @@
 import { AbstractResource } from '@atlaskit/util-service-support';
 
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { EmojiProvider, EmojiRepository } from '@atlaskit/emoji/resource';
+import { EmojiProvider, EmojiRepository } from '../../../emoji/src/resource';
 
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   EmojiDescription,
   EmojiId,
@@ -16,7 +12,7 @@ import {
   User,
   OptionalUser,
   CategoryId,
-} from '@atlaskit/emoji/types';
+} from '../../../emoji/src/types';
 
 import { MockEmojiResourceConfig, PromiseBuilder } from './types';
 import { selectedToneStorageKey } from '../emoji-constants';

@@ -10,9 +10,12 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { fireEvent } from '@testing-library/react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import React from 'react';
-import type { Command, FloatingToolbarDropdown } from '../../types';
+import type {
+  Command,
+  FloatingToolbarDropdown,
+  DropdownOptions,
+} from '@atlaskit/editor-common/types';
 import Toolbar from '../../ui/Toolbar';
-import type { DropdownOptions } from '../../ui/types';
 import ReactEditorViewContext from '../../../../create-editor/ReactEditorViewContext';
 
 describe('Dropdown', () => {

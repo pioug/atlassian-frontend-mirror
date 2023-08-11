@@ -36,41 +36,45 @@ import { Props, TableOptions } from './types';
 
 type ForwardRef = (node: HTMLElement | null) => void;
 
-const tableAttributes = (
-  node: PmNode,
-  options: Props['options'],
-  state: EditorState,
-  pos: number | undefined,
-) => {
-  // provide a width for tables when custom table width is supported
-  // this is to ensure 'responsive' tables (colgroup widths are undefined) become fixed to
-  // support screen size adjustments
-  const shouldHaveInlineWidth =
-    options?.isTableResizingEnabled && !isTableNested(state, pos);
-
-  let style = `width: ${
-    node.attrs.isNumberColumnEnabled
-      ? getTableContainerWidth(node) - akEditorTableNumberColumnWidth
-      : getTableContainerWidth(node)
-  }px`;
-
-  const dataAttrsInTable = {
+const tableAttributes = (node: PmNode) => {
+  return {
     'data-number-column': node.attrs.isNumberColumnEnabled,
     'data-layout': node.attrs.layout,
     'data-autosize': node.attrs.__autoSize,
     'data-table-local-id': node.attrs.localId || '',
     'data-table-width': node.attrs.width,
   };
+};
 
-  if (shouldHaveInlineWidth) {
-    // this should be fixed because style will overwrite any existing styles, current found conflict with sticky headers
-    return {
-      ...dataAttrsInTable,
-      style,
-    };
+const getInlineWidth = (
+  node: PmNode,
+  options: Props['options'],
+  state: EditorState,
+  pos: number | undefined,
+): number | undefined => {
+  // provide a width for tables when custom table width is supported
+  // this is to ensure 'responsive' tables (colgroup widths are undefined) become fixed to
+  // support screen size adjustments
+  const shouldHaveInlineWidth =
+    options?.isTableResizingEnabled && !isTableNested(state, pos);
+
+  let widthValue = getTableContainerWidth(node);
+
+  if (node.attrs.isNumberColumnEnabled) {
+    widthValue -= akEditorTableNumberColumnWidth;
   }
 
-  return dataAttrsInTable;
+  return shouldHaveInlineWidth ? widthValue : undefined;
+};
+
+const handleInlineTableWidth = (
+  table: HTMLElement,
+  width: number | undefined,
+) => {
+  if (!table || !width) {
+    return;
+  }
+  table.style.setProperty('width', `${width}px`);
 };
 
 const toDOM = (node: PmNode, props: Props) => {
@@ -82,7 +86,7 @@ const toDOM = (node: PmNode, props: Props) => {
 
   return [
     'table',
-    tableAttributes(node, props.options, props.view.state, props.getPos()),
+    tableAttributes(node),
     colgroup,
     ['tbody', 0],
   ] as DOMOutputSpec;
@@ -123,8 +127,18 @@ export default class TableView extends ReactNodeView<Props> {
       contentDOM?: HTMLElement;
     };
 
+    const tableInlineWidth = getInlineWidth(
+      this.node,
+      this.reactComponentProps.options,
+      this.reactComponentProps.view.state,
+      this.reactComponentProps.getPos(),
+    );
+
     if (rendered.dom) {
       this.table = rendered.dom;
+      if (tableInlineWidth) {
+        handleInlineTableWidth(this.table, tableInlineWidth);
+      }
     }
 
     return rendered;
@@ -135,15 +149,22 @@ export default class TableView extends ReactNodeView<Props> {
       return;
     }
 
-    const attrs = tableAttributes(
+    const attrs = tableAttributes(node);
+    (Object.keys(attrs) as Array<keyof typeof attrs>).forEach((attr) => {
+      this.table!.setAttribute(attr, attrs[attr]);
+    });
+
+    // handle inline style when table been resized
+    const tableInlineWidth = getInlineWidth(
       node,
       (this.reactComponentProps as Props).options,
       this.view.state,
       this.getPos(),
     );
-    (Object.keys(attrs) as Array<keyof typeof attrs>).forEach((attr) => {
-      this.table!.setAttribute(attr, attrs[attr]);
-    });
+
+    if (tableInlineWidth) {
+      handleInlineTableWidth(this.table, tableInlineWidth);
+    }
   }
 
   getNode = () => {

@@ -183,8 +183,8 @@ const invalidReferenceAdfLoadableWithoutUnsupported = [
 
 const invalidReferenceAdfUnloadable = [
   'invalid/doc-without-content.json',
-  'invalid/list-with-blockquote.json',
-  'invalid/listItem-with-list-as-first-child.json',
+  'invalid/table-with-nested-table.json',
+  'invalid/table-without-cells.json',
   'invalid/table-with-nested-table.json',
   'invalid/table-without-cells.json',
   'invalid/mediaSingle-with-empty-attrs.json',

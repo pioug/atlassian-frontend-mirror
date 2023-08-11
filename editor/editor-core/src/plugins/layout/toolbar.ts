@@ -19,7 +19,7 @@ import type {
   FloatingToolbarSeparator,
   FloatingToolbarButton,
   Icon,
-} from '../../plugins/floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import {
   setPresetLayout,
   deleteActiveLayoutNode,

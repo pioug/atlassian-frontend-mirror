@@ -5,10 +5,6 @@ import { BODY_FORMAT_TYPES } from '@atlaskit/help-article';
 import RelatedArticles from '../../RelatedArticles';
 import { ARTICLE_TYPE } from '../../../model/Help';
 import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
-import {
   ArticleFeedback,
   ArticleItem,
   Article as ArticleType,
@@ -120,8 +116,8 @@ export const HelpArticle: React.FC<Props> = ({ article, isLoading }) => {
     ) => {
       analyticsEvent.payload.attributes = {
         componentName: 'Article',
-        packageName,
-        packageVersion,
+        packageName: process.env._PACKAGE_NAME_,
+        packageVersion: process.env._PACKAGE_VERSION_,
       };
       if (onRelatedArticlesShowMoreClick) {
         onRelatedArticlesShowMoreClick(event, analyticsEvent, isCollapsed);

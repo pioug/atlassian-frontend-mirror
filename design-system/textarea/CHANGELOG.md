@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 4.7.5
+
+### Patch Changes
+
+- [`356d6ebed05`](https://bitbucket.org/atlassian/atlassian-frontend/commits/356d6ebed05) - This package is now onboarded onto the product push model.
+
 ## 4.7.4
 
 ### Patch Changes

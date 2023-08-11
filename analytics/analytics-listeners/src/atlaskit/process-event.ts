@@ -23,10 +23,10 @@ import {
   getComponents,
 } from './extract-data-from-event';
 import Logger from '../helpers/logger';
-import { version as listenerVersion } from '../version.json';
 import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 const ATLASKIT_TAG = 'atlaskit';
+const listenerVersion = process.env._PACKAGE_VERSION_ as string;
 
 /**
  * This util exists to convert the Atlaskit event format into the analytics platform format.

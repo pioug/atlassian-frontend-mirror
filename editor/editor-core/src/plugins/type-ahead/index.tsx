@@ -41,7 +41,6 @@ import type { CloseSelectionOptions } from './constants';
 export type TypeAheadPluginOptions = {
   isMobile?: boolean;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
-  useBetterTypeaheadNavigation?: boolean;
 };
 
 type TypeAheadMenuType = {
@@ -166,9 +165,6 @@ const typeAheadPlugin: NextEditorPlugin<
     pluginConfiguration: TypeAheadPluginOptions | undefined;
   }
 > = (options?) => {
-  const useBetterTypeaheadNavigation =
-    options?.useBetterTypeaheadNavigation ?? true;
-
   const fireAnalyticsCallback = fireAnalyticsEvent(
     options?.createAnalyticsEvent,
   );
@@ -195,7 +191,6 @@ const typeAheadPlugin: NextEditorPlugin<
               reactDispatch: dispatch,
               typeAheadHandlers: typeAhead,
               createAnalyticsEvent: options?.createAnalyticsEvent,
-              useBetterTypeaheadNavigation,
             }),
         },
         {

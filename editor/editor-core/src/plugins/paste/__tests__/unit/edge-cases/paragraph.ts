@@ -30,6 +30,7 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import codeBlockPlugin from '../../../../code-block';
 import mediaPlugin from '../../../../media';
 import pastePlugin from '../../../index';
@@ -46,6 +47,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
+import betterTypeHistoryPlugin from '../../../../better-type-history';
 
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -65,6 +67,7 @@ describe('paste paragraph edge cases', () => {
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
         .add(blockTypePlugin)
@@ -77,6 +80,7 @@ describe('paste paragraph edge cases', () => {
         .add(layoutPlugin)
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
+        .add(focusPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([mediaPlugin, { allowMediaSingle: true }])
         .add(panelPlugin),

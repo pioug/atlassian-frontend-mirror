@@ -1,6 +1,7 @@
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   bodiedExtension,
   doc,
@@ -14,7 +15,6 @@ import {
   td,
   tr,
   ul,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 /**
@@ -34,8 +34,8 @@ jest.mock('@atlaskit/media-client', () => ({
 import { createIntl } from 'react-intl-next';
 import commonMessages from '../../../../../messages';
 import { messages as altTextMessages } from '../../../../../plugins/media/pm-plugins/alt-text/messages';
-import { FloatingToolbarItem } from '../../../../../plugins/floating-toolbar/types';
-import { MediaOptions } from '../../../../../plugins/media/types';
+import type { FloatingToolbarItem } from '@atlaskit/editor-common/types';
+import type { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../../../../plugins/media/toolbar';
 import { mediaAndEmbedToolbarMessages as toolbarMessages } from '@atlaskit/editor-common/messages';
@@ -50,8 +50,8 @@ import {
   getToolbarItems,
   findToolbarBtn,
 } from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
-import { Command } from '../../../../../types';
-import { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+import type { Command } from '../../../../../types';
+import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
 describe('media', () => {
   const createEditor = createEditorFactory<MediaPluginState>();

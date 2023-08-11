@@ -37,6 +37,7 @@ import deprecatedAnalyticsPlugin from '../../../analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import mediaPlugin from '../../../media';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import simulatePlatform, {
@@ -81,6 +82,7 @@ describe('lists plugin -> keymap', () => {
       .add(guidelinePlugin)
       .add(gridPlugin)
       .add(floatingToolbarPlugin)
+      .add(focusPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }]);
 
     return createEditor({

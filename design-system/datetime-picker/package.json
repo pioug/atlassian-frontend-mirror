@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@af/accessibility-testing": "*",
-    "@atlaskit/button": "^16.8.0",
+    "@atlaskit/button": "^16.9.0",
     "@atlaskit/docs": "*",
     "@atlaskit/form": "^8.11.0",
     "@atlaskit/modal-dialog": "^12.6.0",

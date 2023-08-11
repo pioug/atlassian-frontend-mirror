@@ -33,6 +33,7 @@ import layoutPlugin from '../../../../layout';
 import type { InlineCommentAnnotationProvider } from '../../../../annotation/types';
 import annotationPlugin from '../../../../annotation';
 import { inlineCommentPluginKey } from '../../../../annotation/utils';
+import betterTypeHistoryPlugin from '../../../../better-type-history';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { undo, redo } from '@atlaskit/editor-prosemirror/history';
@@ -83,6 +84,7 @@ describe('paste: handlePaste', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(decorationsPlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, pasteOptions])
         .add(blockTypePlugin)
         .add(textFormattingPlugin)

@@ -3,7 +3,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { IntlShape } from 'react-intl-next';
 
-import type { FloatingToolbarConfig } from '../../floating-toolbar/types';
+import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
 import { hideLinkingToolbar, setUrlToMedia, unlink } from '../commands/linking';
 import type { MediaLinkingState } from '../pm-plugins/linking';
 import { getMediaLinkingState } from '../pm-plugins/linking';

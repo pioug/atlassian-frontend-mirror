@@ -25,6 +25,7 @@ import layoutPlugin from '../../../../layout';
 import mediaPlugin from '../../../../media';
 import panelPlugin from '../../../../panel';
 import floatingToolbarPlugin from '../../../../floating-toolbar';
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
@@ -52,6 +53,7 @@ describe('delete behaviour - cursor position after delete', () => {
       .add(guidelinePlugin)
       .add(gridPlugin)
       .add(floatingToolbarPlugin)
+      .add(focusPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(tablesPlugin)
       .add(panelPlugin);

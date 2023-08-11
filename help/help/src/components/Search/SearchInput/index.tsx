@@ -12,10 +12,6 @@ import SearchIcon from '@atlaskit/icon/glyph/search';
 import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import { REQUEST_STATE } from '../../../model/Requests';
 
 import { useSearchContext } from '../../contexts/searchContext';
@@ -29,8 +25,8 @@ import {
 
 const ANALYTICS_CONTEXT_DATA = {
   componentName: 'searchInput',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 export const SearchInput: React.FC<WrappedComponentProps> = ({

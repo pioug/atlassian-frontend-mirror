@@ -1,6 +1,7 @@
 import React from 'react';
-import { WrappedComponentProps, injectIntl } from 'react-intl-next';
-import { ConfirmationDialogProps } from './types';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
+import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
 import { SimpleModal } from './SimpleModal';
 import { CheckboxModal } from './CheckboxModal';
 import { ModalTransition } from '@atlaskit/modal-dialog';

@@ -3,11 +3,11 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::e7a81d0d46e015c9728ae9557b47040f>>
+ * @codegen <<SignedSource::cd5b926575a5c379425d0d72e5339f12>>
  * @codegenCommand yarn workspace @atlaskit/link-picker run codegen-analytics
  */
 export type PackageMetaDataType = {
-  packageName: '@atlaskit/link-picker';
+  packageName: string;
   packageVersion: string;
   source: 'linkPicker';
   componentName: 'linkPicker';

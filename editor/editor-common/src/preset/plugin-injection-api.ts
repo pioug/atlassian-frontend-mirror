@@ -2,6 +2,7 @@ import isEqual from 'lodash/isEqual';
 import throttle from 'lodash/throttle';
 
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type {
   DefaultEditorPlugin,
@@ -9,12 +10,19 @@ import type {
   PluginDependenciesAPI,
   PluginInjectionAPI,
 } from '../types/next-editor-plugin';
+import type { PluginCommand } from '../types/plugin-command';
+
+import { pluginCommandToPMCommand } from './plugin-commands';
 
 type NextEditorPluginInitializedType = ReturnType<NextEditorPlugin<any>>;
 
 type SharedStateAPIProps = {
   getEditorState: () => EditorState | undefined;
 };
+
+interface PluginInjectionAPIProps extends SharedStateAPIProps {
+  getEditorView: () => EditorView | undefined;
+}
 
 type EditorStateDiff = {
   readonly newEditorState: EditorState;
@@ -279,12 +287,14 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
   private actionsAPI: ActionsAPI;
   private commandsAPI: PluginCommandsAPI;
   private plugins: Map<string, NextEditorPluginInitializedType>;
+  private getEditorView: () => EditorView | undefined;
 
-  constructor({ getEditorState }: SharedStateAPIProps) {
+  constructor({ getEditorState, getEditorView }: PluginInjectionAPIProps) {
     this.sharedStateAPI = new SharedStateAPI({ getEditorState });
     this.plugins = new Map();
     this.actionsAPI = new ActionsAPI();
     this.commandsAPI = new PluginCommandsAPI();
+    this.getEditorView = getEditorView;
   }
 
   api<T extends NextEditorPlugin<any, any>>() {
@@ -327,7 +337,18 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 
     return {
       dependencies,
+      executeCommand: this.executeCommand.bind(this),
     };
+  }
+
+  private executeCommand(command: PluginCommand | undefined): boolean {
+    const editorView = this.getEditorView();
+    if (!editorView || !command) {
+      return false;
+    }
+
+    const { state, dispatch } = editorView;
+    return pluginCommandToPMCommand(command)(state, dispatch);
   }
 
   onEditorViewUpdated = ({

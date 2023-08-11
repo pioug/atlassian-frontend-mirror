@@ -27,10 +27,8 @@ import pastePlugin from '../../../paste';
 import codeBlockPlugin from '../../../code-block';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import placeholderTextPlugin from '../../../placeholder-text';
-import {
-  pluginKey as undoRedoPluginKey,
-  default as createPMPlugin,
-} from '../../pm-plugins/better-type-history';
+import { pluginKey as undoRedoPluginKey } from '../../pm-plugins/plugin-key';
+import createPMPlugin from '../../pm-plugins/main';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -45,9 +43,9 @@ describe('close history', () => {
         .add([analyticsPlugin, {}])
         .add(decorationsPlugin)
         .add(blockTypePlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
-        .add(betterTypeHistoryPlugin)
         .add(panelPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([placeholderTextPlugin, { allowInserting: true }])

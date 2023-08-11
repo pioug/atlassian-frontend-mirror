@@ -79,7 +79,6 @@ import {
   containsAnyAnnotations,
   stripNonExistingAnnotations,
 } from '../../annotation/utils';
-import { pluginKey as betterTypePluginKey } from '../../base/pm-plugins/better-type-history';
 import { clipboardTextSerializer } from './clipboard-text-serializer';
 import {
   htmlHasIncompleteTable,
@@ -287,9 +286,13 @@ export function createPlugin(
           if (
             !isPastingTextInsidePlaceholderText &&
             !isPastingTable &&
-            !isPastingOverLayoutColumns
+            !isPastingOverLayoutColumns &&
+            pluginInjectionApi?.dependencies.betterTypeHistory
           ) {
-            tr.setMeta(betterTypePluginKey, true);
+            tr =
+              pluginInjectionApi?.dependencies.betterTypeHistory?.actions.flagPasteEvent(
+                tr,
+              );
           }
 
           addLinkMetadata(view.state.selection, tr, {

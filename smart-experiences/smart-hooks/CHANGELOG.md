@@ -1,5 +1,11 @@
 # @atlaskit/smart-hooks
 
+## 0.2.5
+
+### Patch Changes
+
+- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+
 ## 0.2.4
 
 ### Patch Changes

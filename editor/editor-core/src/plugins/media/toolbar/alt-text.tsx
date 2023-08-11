@@ -5,18 +5,19 @@ import type {
   FloatingToolbarButton,
   FloatingToolbarCustom,
   FloatingToolbarConfig,
-} from '../../floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import type { Command } from '../../../types';
 import { openMediaAltTextMenu } from '../pm-plugins/alt-text/commands';
 import { ToolTipContent, addAltText } from '../../../keymaps';
 import type { MediaToolbarBaseConfig } from '../types';
 import { messages } from '../pm-plugins/alt-text/messages';
-import AltTextEdit from '../pm-plugins/alt-text/ui/AltTextEdit';
-import { CONTAINER_WIDTH_IN_PX } from '../pm-plugins/alt-text/ui/AltTextEdit';
+import AltTextEdit, {
+  CONTAINER_WIDTH_IN_PX,
+} from '../pm-plugins/alt-text/ui/AltTextEdit';
 import { getMediaNodeFromSelection } from '../utils/media-common';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ClassNames } from '../pm-plugins/alt-text/style';
-import { forceFocusSelector } from '../../floating-toolbar/pm-plugins/force-focus';
+import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 
 const testId = 'alt-text-edit-button';
 
@@ -64,7 +65,13 @@ export const altTextEditComponent = (
           state: { tr },
           dispatch,
         } = view;
-        dispatch(forceFocusSelector(`[data-testid="${testId}"]`)(tr));
+        const newTr = options?.forceFocusSelector?.(
+          `[data-testid="${testId}"]`,
+        )(tr);
+
+        if (newTr) {
+          dispatch(newTr);
+        }
       };
 
       return (
@@ -82,6 +89,7 @@ export const altTextEditComponent = (
 
 export interface AltTextToolbarOptions {
   altTextValidator?: (value: string) => string[];
+  forceFocusSelector?: ForceFocusSelector;
 }
 
 export const getAltTextToolbar = (

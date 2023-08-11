@@ -1369,6 +1369,70 @@ describe(name, () => {
         expect(result!.toJSON()).toEqual(expected);
       });
 
+      ['bulletList', 'orderedList'].forEach((listType) => {
+        it(`should wrap in unsupportedBlock node for listItem node inside ${listType}`, () => {
+          const orderedListAttributes =
+            listType === 'orderedList' ? { attrs: { order: 1 } } : {};
+          const expected = {
+            type: 'doc',
+            content: [
+              {
+                type: listType,
+                ...orderedListAttributes,
+                content: [
+                  {
+                    type: 'listItem',
+                    content: [
+                      {
+                        type: 'unsupportedBlock',
+                        attrs: {
+                          originalValue: {
+                            type: 'invalidChildComponent',
+                            content: [
+                              {
+                                type: 'text',
+                                text: 'This is the first item',
+                              },
+                            ],
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          };
+
+          const result = processRawValue(schema, {
+            version: 1,
+            type: 'doc',
+            content: [
+              {
+                type: listType,
+                content: [
+                  {
+                    type: 'listItem',
+                    content: [
+                      {
+                        type: 'invalidChildComponent',
+                        content: [
+                          {
+                            type: 'text',
+                            text: 'This is the first item',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          });
+          expect(result!.toJSON()).toEqual(expected);
+        });
+      });
+
       it('should wrap in unsupportedInline node for decisionItem node', () => {
         const expected = {
           type: 'doc',

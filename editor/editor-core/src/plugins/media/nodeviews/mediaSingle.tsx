@@ -338,7 +338,7 @@ export default class MediaSingleNode extends Component<
       }),
     };
 
-    const ResizableMediaSingleProps = {
+    const resizableMediaSingleProps = {
       view: view,
       getPos: getPos,
       updateSize: this.updateSize,
@@ -389,12 +389,12 @@ export default class MediaSingleNode extends Component<
     );
     return canResize ? (
       getBooleanFF('platform.editor.media.extended-resize-experience') ? (
-        <ResizableMediaSingleNext {...ResizableMediaSingleProps}>
+        <ResizableMediaSingleNext {...resizableMediaSingleProps}>
           {MediaChildren}
         </ResizableMediaSingleNext>
       ) : (
         <ResizableMediaSingle
-          {...ResizableMediaSingleProps}
+          {...resizableMediaSingleProps}
           lineLength={contentWidthForLegacyExperience}
         >
           {MediaChildren}

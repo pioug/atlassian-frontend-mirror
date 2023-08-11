@@ -9,7 +9,7 @@ import type { ButtonItemProps } from '@atlaskit/menu';
 import { ButtonItem } from '@atlaskit/menu';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import Tooltip from '@atlaskit/tooltip';
-import type { DropdownOptionT } from './types';
+import type { DropdownOptionT } from '@atlaskit/editor-common/types';
 import type { WrappedComponentProps, IntlShape } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 import messages from './messages';

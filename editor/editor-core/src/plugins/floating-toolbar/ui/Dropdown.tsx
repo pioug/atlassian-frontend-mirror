@@ -9,7 +9,10 @@ import UiDropdown from '../../../ui/Dropdown';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 import DropdownMenu, { itemSpacing, menuItemDimensions } from './DropdownMenu';
-import type { DropdownOptions, DropdownOptionT } from './types';
+import type {
+  DropdownOptions,
+  DropdownOptionT,
+} from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 const dropdownExpandContainer = css`

@@ -31,7 +31,7 @@
     }
   },
   "dependencies": {
-    "@atlaskit/button": "^16.8.0",
+    "@atlaskit/button": "^16.9.0",
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/ds-lib": "^2.2.0",
     "@atlaskit/icon": "^21.12.0",

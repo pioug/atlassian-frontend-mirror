@@ -5,13 +5,11 @@ import { browser } from '@atlaskit/editor-common/utils';
 import { doc, paragraph, text } from '@atlaskit/adf-schema';
 import type { NextEditorPlugin, PMPluginFactory } from '../../types';
 import filterStepsPlugin from './pm-plugins/filter-steps';
-import focusHandlerPlugin from './pm-plugins/focus-handler';
 import fixChrome88SelectionPlugin from './pm-plugins/fix-chrome-88-selection';
 import disableSpellcheckingPlugin from './pm-plugins/disable-spell-checking';
 import contextIdentifierPlugin from './pm-plugins/context-identifier';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
-import betterTypeHistoryPlugin from './pm-plugins/better-type-history';
 import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter';
 import scrollGutter from './pm-plugins/scroll-gutter';
 import { keymap } from '@atlaskit/editor-common/keymaps';
@@ -75,10 +73,6 @@ const basePlugin: NextEditorPlugin<
 
       plugins.push(
         {
-          name: 'focusHandlerPlugin',
-          plugin: ({ dispatch }) => focusHandlerPlugin(dispatch),
-        },
-        {
           name: 'newlinePreserveMarksPlugin',
           plugin: newlinePreserveMarksPlugin,
         },
@@ -110,10 +104,6 @@ const basePlugin: NextEditorPlugin<
           name: 'contextIdentifier',
           plugin: ({ dispatch, providerFactory }) =>
             contextIdentifierPlugin(dispatch, providerFactory),
-        },
-        {
-          name: 'betterTypeHistory',
-          plugin: ({ dispatch, providerFactory }) => betterTypeHistoryPlugin(),
         },
       );
 

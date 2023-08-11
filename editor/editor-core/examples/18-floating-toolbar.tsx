@@ -11,7 +11,7 @@ import Button from '@atlaskit/button/standard-button';
 import { Skeleton } from '@atlaskit/icon';
 
 import Toolbar from '../src/plugins/floating-toolbar/ui/Toolbar';
-import { FloatingToolbarItem } from '../src/plugins/floating-toolbar/types';
+import type { FloatingToolbarItem } from '@atlaskit/editor-common/types';
 import ColorPalette from '../src/ui/ColorPalette';
 import { content } from '../example-helpers/styles';
 import cellBackgroundColorPalette from '../src/ui/ColorPalette/Palettes/cellBackgroundColorPalette';

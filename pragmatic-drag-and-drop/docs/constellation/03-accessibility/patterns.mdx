@@ -6,10 +6,17 @@ description: Patterns for enabling accessible alternative flows
 
 import SectionMessage from '@atlaskit/section-message';
 
-When it comes to implementing assistive technology friendly mechanisms to achieve the same outcomes as a drag and drop operation ("alternative flows"), there are two important pieces you will need to add.
+<SectionMessage appearance="discovery" title="Work in progress">
 
-1. A control to allow users to trigger operations
-2. Screen reader messaging after an operation to tell the user what occurred.
+This page is currently being fleshed out by the Pragmatic drag and drop team
+
+</SectionMessage>
+
+When it comes to implementing assistive technology friendly mechanisms to achieve the same outcomes as a drag and drop operation ("alternative flows"), there are a few important pieces you will need to add.
+
+1. A assistive technoglogy friendly control to allow users to trigger operations
+2. Screen reader messaging after an operation to tell the user what occurred
+3. Focus restoration where appropriate
 
 ## Controls
 
@@ -117,3 +124,7 @@ function onReorderItem({
   );
 }
 ```
+
+## Focus restoration
+
+If your accessible control is moving an entity from one position in an interface to another (for example, a card from one column to another), you should restore focus on the moved entity.By doing this, a user can continue to interact with the same entity quickly after the operation.

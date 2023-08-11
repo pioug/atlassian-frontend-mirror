@@ -44,7 +44,7 @@ import type {
   FloatingToolbarConfig,
   FloatingToolbarCustom,
   FloatingToolbarItem,
-} from '../../../../../plugins/floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import type { MediaOptions } from '../../../../../plugins/media/types';
 import type { MediaLinkingState } from '../../../../../plugins/media/pm-plugins/linking';
 import { getMediaLinkingState } from '../../../../../plugins/media/pm-plugins/linking';

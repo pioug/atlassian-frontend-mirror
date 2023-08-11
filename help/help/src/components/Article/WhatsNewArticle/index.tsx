@@ -7,10 +7,6 @@ import ShortcutIcon from '@atlaskit/icon/glyph/shortcut';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/custom-theme-button';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 import { messages } from '../../../messages';
 
 import { WhatsNewArticle as WhatsNewArticleType } from '../../../model/WhatsNew';
@@ -28,8 +24,8 @@ import {
 
 const analyticsContextData = {
   componentName: 'ArticlesListItem',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 interface Props {

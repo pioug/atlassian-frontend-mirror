@@ -7,7 +7,8 @@ import type {
   FloatingToolbarButton,
   FloatingToolbarSeparator,
   FloatingToolbarListPicker,
-} from '../floating-toolbar/types';
+  SelectOption,
+} from '@atlaskit/editor-common/types';
 import {
   removeCodeBlock,
   changeLanguage,
@@ -24,7 +25,6 @@ import {
 import type { Command } from '../../types';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { pluginKey } from './plugin-key';
-import type { SelectOption } from '../floating-toolbar/ui/Select';
 import {
   createLanguageList,
   getLanguageIdentifier,

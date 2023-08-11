@@ -4,10 +4,6 @@ import * as colors from '@atlaskit/theme/colors';
 import LightbulbIcon from '@atlaskit/icon/glyph/lightbulb';
 import { token } from '@atlaskit/tokens';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../version.json';
 
 import { useWhatsNewArticleContext } from '../../contexts/whatsNewArticleContext';
 import { useNavigationContext } from '../../contexts/navigationContext';
@@ -17,8 +13,8 @@ import { ARTICLE_TYPE } from '../../../model/Help';
 
 const ANALYTICS_CONTEXT_DATA = {
   componentName: 'WhatsNewButton',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 interface WhatsNewButtonProps {

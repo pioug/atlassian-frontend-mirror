@@ -538,7 +538,6 @@ export class ExampleEditorComponent extends React.Component<
                 }}
                 {...editorProps}
                 featureFlags={{
-                  tableCellOptionsInFloatingToolbar: true,
                   ...editorProps.featureFlags,
                   // Enabling to catch during dev by default
                   'safer-dispatched-transactions': true,

@@ -12,10 +12,6 @@ import { withLinkCreateAnalyticsContext } from '../common/utils/analytics';
 import { PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
 import { fetchMessagesForLocale } from '../common/utils/locale/fetch-messages-for-locale';
 import i18nEN from '../i18n/en';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import LinkCreate from './link-create';
 
@@ -26,8 +22,8 @@ const LinkCreateWithAnalyticsContext = withLinkCreateAnalyticsContext(
 );
 
 export const PACKAGE_DATA: PackageMetaDataType = {
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
   componentName: COMPONENT_NAME,
   source: COMPONENT_NAME,
 };

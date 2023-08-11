@@ -1,5 +1,11 @@
 # @atlaskit/user-picker
 
+## 10.5.1
+
+### Patch Changes
+
+- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+
 ## 10.5.0
 
 ### Minor Changes

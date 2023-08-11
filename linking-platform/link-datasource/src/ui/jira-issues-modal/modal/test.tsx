@@ -932,8 +932,8 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/link-datasource',
-            packageVersion: '999.9.9',
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
             source: 'datasourceConfigModal',
             attributes: { dataProvider: 'jira-issues' },
           },
@@ -959,8 +959,8 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/link-datasource',
-            packageVersion: '999.9.9',
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
             source: 'datasourceConfigModal',
             attributes: { dataProvider: 'jira-issues' },
           },
@@ -986,8 +986,8 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/link-datasource',
-            packageVersion: '999.9.9',
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
             source: 'datasourceConfigModal',
             attributes: { dataProvider: 'jira-issues' },
           },
@@ -1014,8 +1014,8 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/link-datasource',
-            packageVersion: '999.9.9',
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
             source: 'datasourceConfigModal',
             attributes: { dataProvider: 'jira-issues' },
           },
@@ -1042,8 +1042,8 @@ describe('Analytics: JiraIssuesConfigModal', () => {
         },
         context: [
           {
-            packageName: '@atlaskit/link-datasource',
-            packageVersion: '999.9.9',
+            packageName: '@atlaskit/fabric',
+            packageVersion: '0.0.0',
             source: 'datasourceConfigModal',
             attributes: { dataProvider: 'jira-issues' },
           },

@@ -13,13 +13,14 @@ import vsCodeMultiLine from './__third-party__/vs-code/multi-line/html';
 import vsCodeSingleLine from './__third-party__/vs-code/single-line/html';
 
 import { toJSON } from '../../../../utils';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
-  LightEditorPlugin,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { smallImage, dataURItoBlob } from '@atlaskit/media-test-helpers';
 import pastePlugin from '../../index';
 import textColorPlugin from '../../../text-color';
@@ -35,6 +36,7 @@ import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertio
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import betterTypeHistoryPlugin from '../../../better-type-history';
 
 describe('paste plugin: third-party', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -47,6 +49,7 @@ describe('paste plugin: third-party', () => {
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add(textColorPlugin)
         .add(blockTypePlugin)

@@ -25,8 +25,8 @@ import { inlineCommentProvider } from '../_utils';
 import type {
   FloatingToolbarConfig,
   FloatingToolbarButton,
-} from '../../../floating-toolbar/types';
-import type { Command } from '@atlaskit/editor-common/types';
+  Command,
+} from '@atlaskit/editor-common/types';
 import type { SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 0.3.1
+
+### Patch Changes
+
+- [`3413f770f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3413f770f2b) - Moving references to floating-toolbar types to `editor-common`
+
 ## 0.3.0
 
 ### Minor Changes

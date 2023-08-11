@@ -97,7 +97,6 @@ type InputQueryProps = {
   reopenQuery?: string;
   editorView: EditorView;
   items: any[];
-  useBetterTypeaheadNavigation: boolean;
 };
 
 export const InputQuery: React.FC<InputQueryProps> = React.memo(
@@ -114,7 +113,6 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
     onUndoRedo,
     editorView,
     items,
-    useBetterTypeaheadNavigation,
   }) => {
     const ref = useRef<HTMLSpanElement>(document.createElement('span'));
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -191,19 +189,17 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
               event.keyCode !== 229
             ) {
               if (selectedIndex === -1) {
-                if (useBetterTypeaheadNavigation) {
-                  /**
-                   * TODO DTR-1401: (also see ED-17200) There are two options
-                   * here, either
-                   * - set the index directly to 1 in WrapperTypeAhead.tsx's
-                   *   `insertSelectedItem` at the cost of breaking some of the a11y
-                   *   focus changes,
-                   * - or do this jank at the cost of some small analytics noise.
-                   *
-                   * The focus behaviour still needs cleanup
-                   */
-                  selectPreviousItem();
-                }
+                /**
+                 * TODO DTR-1401: (also see ED-17200) There are two options
+                 * here, either
+                 * - set the index directly to 1 in WrapperTypeAhead.tsx's
+                 *   `insertSelectedItem` at the cost of breaking some of the a11y
+                 *   focus changes,
+                 * - or do this jank at the cost of some small analytics noise.
+                 *
+                 * The focus behaviour still needs cleanup
+                 */
+                selectPreviousItem();
                 selectNextItem();
               }
               onItemSelect(
@@ -215,42 +211,26 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
             break;
           case 'Tab':
             if (selectedIndex === -1) {
-              if (useBetterTypeaheadNavigation) {
-                /**
-                 * TODO DTR-1401: (also see ED-17200) There are two options
-                 * here, either
-                 * - set the index directly to 1 in WrapperTypeAhead.tsx's
-                 *   `insertSelectedItem` at the cost of breaking some of the a11y
-                 *   focus changes,
-                 * - or do this jank at the cost of some small analytics noise.
-                 *
-                 */
-                selectPreviousItem();
-              }
+              /**
+               * TODO DTR-1401: (also see ED-17200) There are two options
+               * here, either
+               * - set the index directly to 1 in WrapperTypeAhead.tsx's
+               *   `insertSelectedItem` at the cost of breaking some of the a11y
+               *   focus changes,
+               * - or do this jank at the cost of some small analytics noise.
+               *
+               */
+              selectPreviousItem();
               selectNextItem();
             }
             // TODO DTR-1401: why is this calling select item when hitting tab? fix this in DTR-1401
             onItemSelect(SelectItemMode.TAB);
             break;
           case 'ArrowDown':
-            if (useBetterTypeaheadNavigation) {
-              selectNextItem();
-            } else {
-              // TODO DTR-1401: why were we preventing selection?
-              if (selectedIndex === -1) {
-                selectNextItem();
-              }
-            }
+            selectNextItem();
             break;
           case 'ArrowUp':
-            if (useBetterTypeaheadNavigation) {
-              selectPreviousItem();
-            } else {
-              // TODO DTR-1401: why were we preventing selection?
-              if (selectedIndex === -1) {
-                selectPreviousItem();
-              }
-            }
+            selectPreviousItem();
             break;
         }
 
@@ -266,7 +246,6 @@ export const InputQuery: React.FC<InputQueryProps> = React.memo(
         }
       },
       [
-        useBetterTypeaheadNavigation,
         onUndoRedo,
         onItemSelect,
         selectNextItem,

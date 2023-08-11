@@ -7,10 +7,6 @@ import SectionMessage from '@atlaskit/section-message';
 import Button from '@atlaskit/button/custom-theme-button';
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 import { messages } from '../../messages';
 import { ArticleItem } from '../../model/Article';
 
@@ -21,6 +17,9 @@ import { DividerLine } from '../../util/styled';
 import { RelatedArticlesTitle } from './styled';
 import useCancellablePromise from '../../util/hooks/cancellablePromise';
 import { usePrevious } from '../../util/hooks/previous';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export interface Props {
   // Style. This component has two different styles (primary and secondary)

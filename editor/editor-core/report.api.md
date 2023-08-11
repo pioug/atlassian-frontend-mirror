@@ -30,7 +30,7 @@ import type { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 import { BrowserFreezetracking } from '@atlaskit/editor-common/types';
-import { CardOptions } from '@atlaskit/editor-common/card';
+import type { CardOptions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { clearEditorContent } from '@atlaskit/editor-common/commands';
 import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
@@ -41,7 +41,7 @@ import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolba
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import type { ContextUpdateHandler } from '@atlaskit/editor-common/types';
 import { createTable } from '@atlaskit/editor-plugin-table/commands';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { CreateUIAnalyticsEvent as CreateUIAnalyticsEvent_2 } from '@atlaskit/analytics-next/types';
 import { darkModeStatusColorPalette } from '@atlaskit/editor-common/ui-color';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
@@ -50,7 +50,6 @@ import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { DropdownOptionT } from '@atlaskit/editor-common/types';
 import type { EditorActionsOptions } from '@atlaskit/editor-common/types';
 import { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { EditorAppearance } from '@atlaskit/editor-common/types';
@@ -77,17 +76,8 @@ import { ExtensionType } from '@atlaskit/editor-common/provider-factory';
 import { FC } from 'react';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
-import { FloatingToolbarButton } from '@atlaskit/editor-common/types';
-import { FloatingToolbarColorPicker } from '@atlaskit/editor-common/types';
-import { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
-import { FloatingToolbarDatePicker } from '@atlaskit/editor-common/types';
-import { FloatingToolbarDropdown } from '@atlaskit/editor-common/types';
-import { FloatingToolbarEmojiPicker } from '@atlaskit/editor-common/types';
-import { FloatingToolbarInput } from '@atlaskit/editor-common/types';
-import { FloatingToolbarItem } from '@atlaskit/editor-common/types';
-import { FloatingToolbarListPicker } from '@atlaskit/editor-common/types';
 import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import { FloatingToolbarSelect } from '@atlaskit/editor-common/types';
+import type { FocusPlugin } from '@atlaskit/editor-plugin-focus';
 import { FULL_WIDTH_MODE } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { Side as GapCursorSide } from '@atlaskit/editor-common/selection';
@@ -120,7 +110,7 @@ import { MentionResource } from '@atlaskit/mention/resource';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { MessageDescriptor } from 'react-intl-next';
 import { default as messages } from '@atlaskit/editor-common/messages';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import { Node as Node_2 } from '@atlaskit/editor-prosemirror/model';
 import { NodeConfig } from '@atlaskit/editor-common/types';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
@@ -154,7 +144,6 @@ import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type { SelectOption } from '@atlaskit/editor-common/types';
 import { setTextSelection } from '@atlaskit/editor-common/utils';
 import type { SEVERITY } from '@atlaskit/editor-common/utils';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision';
@@ -556,8 +545,6 @@ type DefaultPresetPluginOptions = {
 
 // @public
 export const deleteDate: () => Command;
-
-export { DropdownOptionT };
 
 // @public (undocumented)
 export class Editor extends React_2.Component<EditorProps> {
@@ -1044,36 +1031,6 @@ type FindReplaceOptions = {
   allowMatchCase?: boolean;
 };
 
-export { FloatingToolbarButton };
-
-export { FloatingToolbarColorPicker };
-
-export { FloatingToolbarConfig };
-
-export { FloatingToolbarDatePicker };
-
-export { FloatingToolbarDropdown };
-
-export { FloatingToolbarEmojiPicker };
-
-export { FloatingToolbarInput };
-
-export { FloatingToolbarItem };
-
-export { FloatingToolbarListPicker };
-
-// @public
-export const floatingToolbarPluginKey: PluginKey<FloatingToolbarPluginState>;
-
-// @public (undocumented)
-export type FloatingToolbarPluginState = {
-  getConfigWithNodeInfo: (
-    state: EditorState,
-  ) => ConfigWithNodeInfo | null | undefined;
-};
-
-export { FloatingToolbarSelect };
-
 export { GapCursorSelection };
 
 export { GapCursorSide };
@@ -1290,6 +1247,26 @@ export const measurements: {
 };
 
 // @public (undocumented)
+type MediaNextEditorPluginType = NextEditorPlugin<
+  'media',
+  {
+    pluginConfiguration: MediaOptions | undefined;
+    dependencies: [
+      typeof featureFlagsPlugin,
+      OptionalPlugin<typeof analyticsPlugin>,
+      typeof guidelinePlugin,
+      typeof gridPlugin,
+      typeof widthPlugin,
+      typeof decorationsPlugin,
+      FloatingToolbarPlugin,
+      EditorDisabledPlugin,
+      FocusPlugin,
+    ];
+    sharedState: MediaPluginState | null;
+  }
+>;
+
+// @public (undocumented)
 interface MediaNodeWithPosHandler {
   // (undocumented)
   getPos: ProsemirrorGetPosHandler;
@@ -1358,23 +1335,7 @@ export interface MediaOptions {
 }
 
 // @public (undocumented)
-export const mediaPlugin: NextEditorPlugin<
-  'media',
-  {
-    pluginConfiguration: MediaOptions | undefined;
-    dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-      typeof guidelinePlugin,
-      typeof gridPlugin,
-      typeof widthPlugin,
-      typeof decorationsPlugin,
-      FloatingToolbarPlugin,
-      EditorDisabledPlugin,
-    ];
-    sharedState: MediaPluginState | null;
-  }
->;
+export const mediaPlugin: MediaNextEditorPluginType;
 
 // @public (undocumented)
 export const mediaPluginKey: PluginKey<MediaPluginState>;
@@ -1900,6 +1861,8 @@ class ReactEditorView_2<T = {}> extends React_2.Component<
   // (undocumented)
   getEditorState: () => EditorState | undefined;
   // (undocumented)
+  getEditorView: () => EditorView | undefined;
+  // (undocumented)
   getPlugins(
     preset: EditorPresetBuilder<string[], AllEditorPresetPluginTypes[]>,
   ): EditorPlugin[];
@@ -1977,8 +1940,6 @@ export const selectionPluginKey: PluginKey<any>;
 
 // @public (undocumented)
 interface SelectionPluginOptions extends LongPressSelectionPluginOptions {}
-
-export { SelectOption };
 
 // @public (undocumented)
 export function setBlockType(name: string): Command_2;
@@ -2216,7 +2177,6 @@ export const typeAheadPluginKey: PluginKey<TypeAheadPluginState>;
 type TypeAheadPluginOptions = {
   isMobile?: boolean;
   createAnalyticsEvent?: CreateUIAnalyticsEvent_2;
-  useBetterTypeaheadNavigation?: boolean;
 };
 
 // @public (undocumented)

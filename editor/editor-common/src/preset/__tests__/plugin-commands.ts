@@ -86,6 +86,7 @@ describe('plugin-commands', () => {
 
   const coreAPI = new EditorPluginInjectionAPI({
     getEditorState: getEditorStateFake,
+    getEditorView: () => undefined,
   });
 
   it('should call plugin commandWithMeta', () => {

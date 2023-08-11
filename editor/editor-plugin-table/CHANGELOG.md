@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-table
 
+## 2.8.1
+
+### Patch Changes
+
+- [`800c927efd1`](https://bitbucket.org/atlassian/atlassian-frontend/commits/800c927efd1) - [ux] ED-19317: fix numbered column shift up issue with custom table FF on
+
+## 2.8.0
+
+### Minor Changes
+
+- [`7472b6ab3b4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7472b6ab3b4) - [ED-19329] Add analytics event for table resize framerate
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.7.2
+
+### Patch Changes
+
+- [`8b104cb7575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b104cb7575) - [ED-14769] Remove tableCellOptionsinFloatingToolbar feature flag & make it default behaviour
+
 ## 2.7.1
 
 ### Patch Changes

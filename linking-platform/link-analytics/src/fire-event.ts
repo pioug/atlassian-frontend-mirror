@@ -7,14 +7,13 @@ import {
   CardStore,
 } from './types';
 import { getDomainFromUrl, mergeAttributes } from './utils';
-import { name as packageName, version as packageVersion } from './version.json';
 import { resolveAttributes } from './utils';
 import { ANALYTICS_CHANNEL } from './consts';
 import createEventPayload from './common/utils/analytics/analytics.codegen';
 
 const PACKAGE_DATA = {
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 const fireEvent = (

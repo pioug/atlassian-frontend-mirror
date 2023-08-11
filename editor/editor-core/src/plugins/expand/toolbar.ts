@@ -1,7 +1,7 @@
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 
 import commonMessages from '../../messages';
-import { FloatingToolbarHandler } from '../floating-toolbar/types';
+import type { FloatingToolbarHandler } from '@atlaskit/editor-common/types';
 import { deleteExpand } from './commands';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';

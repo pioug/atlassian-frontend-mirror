@@ -1,5 +1,11 @@
 # @atlaskit/adf-schema
 
+## 28.1.0
+
+### Minor Changes
+
+- [`106c54b0ce4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/106c54b0ce4) - [ux] ED-15896 - Added support for unsupported nodes in listItem
+
 ## 28.0.0
 
 ### Major Changes

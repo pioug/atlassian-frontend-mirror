@@ -1,5 +1,55 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.17.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.17.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.17.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.17.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.16.1
+
+### Patch Changes
+
+- [`8b104cb7575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b104cb7575) - [ED-14769] Remove tableCellOptionsinFloatingToolbar feature flag & make it default behaviour
+- Updated dependencies
+
+## 187.16.0
+
+### Patch Changes
+
+- [`3413f770f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3413f770f2b) - Moving references to floating-toolbar types to `editor-common`
+- Updated dependencies
+
+## 187.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.15.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.14.12
 
 ### Patch Changes

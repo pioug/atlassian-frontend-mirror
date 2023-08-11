@@ -18,7 +18,7 @@ import type { Command } from '../../../types';
 import type {
   FloatingToolbarConfig,
   FloatingToolbarItem,
-} from '../../../plugins/floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import { stateKey } from '../pm-plugins/plugin-key';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
@@ -63,6 +63,13 @@ import { currentMediaNodeBorderMark } from '../utils/current-media-node';
 import { shouldShowImageBorder } from './imageBorder';
 import type mediaPlugin from '../index';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { PixelEntry } from '../ui/PixelEntry';
+import {
+  DEFAULT_IMAGE_WIDTH,
+  DEFAULT_IMAGE_HEIGHT,
+  MEDIA_SINGLE_MIN_PIXEL_WIDTH,
+} from '@atlaskit/editor-common/media-single';
+import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -351,6 +358,75 @@ const generateMediaSingleFloatingToolbar = (
       toolbarButtons.push({ type: 'separator' });
     }
 
+    // Pixel Entry Toolbar Support
+    if (
+      getBooleanFF('platform.editor.media.extended-resize-experience') &&
+      allowResizing
+    ) {
+      toolbarButtons.push({
+        type: 'custom',
+        fallback: [],
+        render: (editorView) => {
+          if (!editorView) {
+            return null;
+          }
+          const { state, dispatch } = editorView;
+          const selectedMediaSingleNode = getSelectedMediaSingle(state);
+
+          if (!selectedMediaSingleNode) {
+            return null;
+          }
+          const selectedMediaNode =
+            selectedMediaSingleNode.node.content.firstChild;
+          if (!selectedMediaNode) {
+            return null;
+          }
+
+          const { width: singleMediaWidth } =
+            selectedMediaSingleNode.node.attrs;
+          const { width: mediaWidth, height: mediaHeight } =
+            selectedMediaNode.attrs;
+
+          return (
+            <PixelEntry
+              intl={intl}
+              width={singleMediaWidth}
+              mediaWidth={mediaWidth || DEFAULT_IMAGE_WIDTH}
+              mediaHeight={mediaHeight || DEFAULT_IMAGE_HEIGHT}
+              validate={(value) => {
+                if (
+                  value !== '' &&
+                  !isNaN(value) &&
+                  value >= MEDIA_SINGLE_MIN_PIXEL_WIDTH &&
+                  value <= akEditorFullWidthLayoutWidth
+                ) {
+                  return true;
+                }
+
+                return false;
+              }}
+              onSubmit={({ width }) => {
+                const tr = state.tr.setNodeMarkup(
+                  selectedMediaSingleNode.pos,
+                  undefined,
+                  {
+                    ...selectedMediaSingleNode.node.attrs,
+                    width,
+                    widthType: 'pixel',
+                  },
+                );
+
+                dispatch(tr);
+              }}
+            />
+          );
+        },
+      });
+      if (!pluginState.isResizing) {
+        toolbarButtons.push({ type: 'separator' });
+      }
+    }
+
     if (allowLinking && shouldShowMediaLinkToolbar(state)) {
       toolbarButtons.push({
         type: 'custom',
@@ -496,6 +572,9 @@ export const floatingToolbar = (
     if (mediaAltTextPluginState.isAltTextEditorOpen) {
       return getAltTextToolbar(baseToolbar, {
         altTextValidator,
+        forceFocusSelector:
+          pluginInjectionApi?.dependencies.floatingToolbar.actions
+            ?.forceFocusSelector,
       });
     }
   }

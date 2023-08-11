@@ -7,10 +7,6 @@ import {
 import { injectIntl, WrappedComponentProps } from 'react-intl-next';
 
 import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../../../version.json';
-import {
   WhatsNewArticleItem,
   WHATS_NEW_ITEM_TYPES,
 } from '../../../../../model/WhatsNew';
@@ -26,8 +22,8 @@ import {
 
 const ANALYTICS_CONTEXT_DATA = {
   componentName: 'ArticlesListItem',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 interface Props {

@@ -13,7 +13,7 @@ const basicGuidelineStyles = css({
   zIndex: 0,
   opacity: 1,
   transition: 'border-color 0.15s linear, opacity 0.15s linear',
-  borderColor: `${token('color.border', N30A)}`,
+  borderColor: `${token('color.border.disabled', N30A)}`,
   borderStyle: 'solid',
 });
 
@@ -46,7 +46,7 @@ const dashedGuidelineStyles = css({
 
 const verticalCapStyles = css({
   '&:before, &:after': {
-    backgroundColor: token('color.border', N30A),
+    backgroundColor: token('color.border.disabled', N30A),
     content: '""',
     position: 'absolute',
     height: '10px',
@@ -60,7 +60,7 @@ const verticalCapStyles = css({
 
 const horizontalCapStyles = css({
   '&:before, &:after': {
-    backgroundColor: `${token('color.border', N30A)}`,
+    backgroundColor: `${token('color.border.disabled', N30A)}`,
     content: '""',
     position: 'absolute',
     height: '1px',

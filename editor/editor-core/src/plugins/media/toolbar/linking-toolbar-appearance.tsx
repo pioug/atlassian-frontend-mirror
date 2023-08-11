@@ -14,7 +14,7 @@ import type { MediaLinkingState } from '../pm-plugins/linking';
 
 import { FloatingToolbarButton as ToolbarButton } from '@atlaskit/editor-common/ui';
 
-import Separator from '../../floating-toolbar/ui/Separator';
+import { FloatingToolbarSeparator as Separator } from '@atlaskit/editor-common/ui';
 
 import { linkMessages } from '../../../messages';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages';

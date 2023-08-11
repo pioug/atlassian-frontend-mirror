@@ -8,12 +8,7 @@ import React, {
 
 import rafSchd from 'raf-schd';
 
-import {
-  ACTION_SUBJECT,
-  EVENT_TYPE,
-  TABLE_ACTION,
-  TableEventPayload,
-} from '@atlaskit/editor-common/analytics';
+import { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import {
@@ -25,21 +20,24 @@ import { resizerHandleShadowClassName } from '@atlaskit/editor-common/styles';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import {
   COLUMN_MIN_WIDTH,
   getColgroupChildrenLength,
-  hasTableBeenResized,
   previewScaleTable,
   scaleTable,
 } from '../pm-plugins/table-resizing/utils';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import { TABLE_HIGHLIGHT_GAP, TABLE_SNAP_GAP } from '../ui/consts';
-import { getTableWidth } from '../utils';
+import {
+  generateResizedPayload,
+  generateResizeFrameRatePayloads,
+  useMeasureFramerate,
+} from '../utils/analytics';
 import { defaultGuidelines, defaultGuidelineWidths } from '../utils/guidelines';
 import { findClosestSnap } from '../utils/snapping';
+
 interface TableResizerProps {
   width: number;
   maxWidth: number;
@@ -56,29 +54,6 @@ interface TableResizerProps {
 
 const handles = { right: true };
 const tableHandleMarginTop = 12;
-
-const generateResizedPayload = (props: {
-  originalNode: PMNode;
-  resizedNode: PMNode;
-}): TableEventPayload => {
-  const tableMap = TableMap.get(props.resizedNode);
-
-  return {
-    action: TABLE_ACTION.RESIZED,
-    actionSubject: ACTION_SUBJECT.TABLE,
-    eventType: EVENT_TYPE.TRACK,
-    attributes: {
-      newWidth: props.resizedNode.attrs.width,
-      prevWidth: props.originalNode.attrs.width ?? null,
-      nodeSize: props.resizedNode.nodeSize,
-      totalTableWidth: hasTableBeenResized(props.resizedNode)
-        ? getTableWidth(props.resizedNode)
-        : null,
-      totalRowCount: tableMap.height,
-      totalColumnCount: tableMap.width,
-    },
-  };
-};
 
 const getResizerHandleHeight = (tableRef: HTMLTableElement) => {
   const tableHeight = tableRef?.clientHeight;
@@ -129,6 +104,8 @@ export const TableResizer = ({
   const resizerMinWidth = getResizerMinWidth(node);
   const handleHeightSize = getResizerHandleHeight(tableRef);
 
+  const { startMeasure, endMeasure, countFrames } = useMeasureFramerate();
+
   const updateActiveGuidelines = useCallback(
     ({ gap, keys }: { gap: number; keys: string[] }) => {
       if (gap !== currentGap.current) {
@@ -157,6 +134,8 @@ export const TableResizer = ({
   );
 
   const handleResizeStart = useCallback(() => {
+    startMeasure();
+
     const {
       dispatch,
       state: { tr },
@@ -165,7 +144,7 @@ export const TableResizer = ({
     dispatch(tr.setMeta(tableWidthPluginKey, { resizing: true }));
 
     setSnappingEnabled(displayGuideline(defaultGuidelines));
-  }, [displayGuideline, editorView]);
+  }, [displayGuideline, editorView, startMeasure]);
 
   const handleResizeStop = useCallback<HandleResize>(
     (originalState, delta) => {
@@ -174,6 +153,18 @@ export const TableResizer = ({
       const pos = getPos();
 
       let tr = state.tr.setMeta(tableWidthPluginKey, { resizing: false });
+      const frameRateSamples = endMeasure();
+
+      if (frameRateSamples.length > 0) {
+        const resizeFrameRatePayloads = generateResizeFrameRatePayloads({
+          docSize: state.doc.nodeSize,
+          frameRateSamples,
+          originalNode: node,
+        });
+        resizeFrameRatePayloads.forEach((payload) => {
+          attachAnalyticsEvent(payload)?.(tr);
+        });
+      }
 
       if (typeof pos === 'number') {
         tr = tr.setNodeMarkup(pos, undefined, {
@@ -219,11 +210,13 @@ export const TableResizer = ({
       tableRef,
       displayGuideline,
       attachAnalyticsEvent,
+      endMeasure,
     ],
   );
 
   const handleResize = useCallback(
     (originalState, delta) => {
+      countFrames();
       const newWidth = originalState.width + delta.width;
       const pos = getPos();
       if (typeof pos !== 'number') {
@@ -254,7 +247,15 @@ export const TableResizer = ({
 
       return newWidth;
     },
-    [editorView, getPos, node, tableRef, updateWidth, updateActiveGuidelines],
+    [
+      editorView,
+      getPos,
+      node,
+      tableRef,
+      updateWidth,
+      updateActiveGuidelines,
+      countFrames,
+    ],
   );
 
   const scheduleResize = useMemo(() => rafSchd(handleResize), [handleResize]);

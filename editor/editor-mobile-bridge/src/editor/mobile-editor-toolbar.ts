@@ -13,7 +13,7 @@ import {
   FloatingToolbarItem,
   FloatingToolbarListPicker,
   SelectOption,
-} from '@atlaskit/editor-core';
+} from '@atlaskit/editor-common/types';
 import { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import { EmojiId } from '@atlaskit/emoji';
 import { Selection } from '@atlaskit/editor-prosemirror/state';

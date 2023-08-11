@@ -8,7 +8,7 @@ import type {
   FloatingToolbarSeparator,
   MarkOptions,
   NodeOptions,
-} from '../floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import {
   createToolbarCopyCommandForNode,
   createToolbarCopyCommandForMark,

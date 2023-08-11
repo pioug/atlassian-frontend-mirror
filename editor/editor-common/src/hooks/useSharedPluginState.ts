@@ -3,19 +3,15 @@ import { useLayoutEffect, useMemo, useState } from 'react';
 import type {
   ExtractPluginSharedState,
   NextEditorPlugin,
-  NextEditorPluginMetadata,
   PluginDependenciesAPI,
-  PluginInjectionAPI,
+  PluginInjectionAPIWithDependencies,
 } from '../types/next-editor-plugin';
 
 type NamedPluginStatesFromInjectionAPI<
-  API extends PluginInjectionAPI<any, any> | undefined,
+  API extends PluginInjectionAPIWithDependencies<any> | undefined,
   PluginList extends string[],
 > = Readonly<{
-  [K in PluginList[number] as `${K}State`]: API extends PluginInjectionAPI<
-    any,
-    any
-  >
+  [K in PluginList[number] as `${K}State`]: API extends PluginInjectionAPIWithDependencies<any>
     ? API['dependencies'][K] extends
         | PluginDependenciesAPI<infer Plugin>
         | undefined
@@ -25,23 +21,20 @@ type NamedPluginStatesFromInjectionAPI<
 }>;
 
 type NamedPluginDependencies<
-  API extends PluginInjectionAPI<any, any> | undefined,
+  API extends PluginInjectionAPIWithDependencies<any> | undefined,
   PluginList extends string[],
 > = Readonly<{
-  [K in PluginList[number] as `${K}State`]: API extends PluginInjectionAPI<
-    any,
-    any
-  >
+  [K in PluginList[number] as `${K}State`]: API extends PluginInjectionAPIWithDependencies<any>
     ? API['dependencies'][K] extends PluginDependenciesAPI<any> | undefined
       ? API['dependencies'][K] | undefined
       : never
     : never;
 }>;
 
-type ExtractPluginNames<
-  Name extends string,
-  Metadata extends NextEditorPluginMetadata,
-> = keyof PluginInjectionAPI<Name, Metadata>['dependencies'];
+type ExtractPluginNames<API extends PluginInjectionAPIWithDependencies<any>> =
+  API extends PluginInjectionAPIWithDependencies<any>
+    ? keyof API['dependencies']
+    : never;
 
 type NamedPluginKeys = Readonly<{
   [stateName: string]:
@@ -118,11 +111,12 @@ function useStaticPlugins<T>(plugins: T[]): T[] {
  * the values are the shared state exposed by that plugin.
  */
 export function useSharedPluginState<
-  Name extends string,
-  Metadata extends NextEditorPluginMetadata,
-  PluginNames extends ExtractPluginNames<Name, Metadata>[],
+  Plugins extends NextEditorPlugin<any, any>[],
+  PluginNames extends ExtractPluginNames<
+    PluginInjectionAPIWithDependencies<Plugins>
+  >[],
 >(
-  injectionApi: PluginInjectionAPI<Name, Metadata> | undefined,
+  injectionApi: PluginInjectionAPIWithDependencies<Plugins> | undefined,
   plugins: PluginNames,
 ): NamedPluginStatesFromInjectionAPI<typeof injectionApi, PluginNames> {
   const pluginNames = useStaticPlugins(plugins);

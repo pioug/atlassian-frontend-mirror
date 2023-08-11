@@ -17,7 +17,7 @@ import type {
   FloatingToolbarConfig,
   FloatingToolbarHandler,
   FloatingToolbarItem,
-} from '../floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import { editExtension } from './actions';
 import { getPluginState } from './pm-plugins/main';
 import type { ExtensionState } from './types';

@@ -1,11 +1,12 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { doc, p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   Preset,
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -17,6 +18,7 @@ import pastePlugin from '../../';
 import basePlugin from '../../../base';
 import blockTypePlugin from '../../../block-type';
 import textFormattingPlugin from '../../../text-formatting';
+import betterTypeHistoryPlugin from '../../../better-type-history';
 
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
@@ -39,6 +41,7 @@ describe('#createPasteAnalyticsPayload()', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
         .add(hyperlinkPlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add(blockTypePlugin)
         .add(textFormattingPlugin)

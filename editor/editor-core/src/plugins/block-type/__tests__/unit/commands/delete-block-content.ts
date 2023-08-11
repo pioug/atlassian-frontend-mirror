@@ -26,6 +26,7 @@ import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import basePLugin from '../../../../base';
 import { deleteBlockContent } from '../../../commands';
 import { isNodeAWrappingBlockNode } from '../../../utils';
@@ -54,6 +55,7 @@ describe('delete block content', () => {
       .add(floatingToolbarPlugin)
       .add(hyperlinkPlugin)
       .add([cardPlugin, { platform: 'web' }])
+      .add(focusPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }])
       .add(tablesPlugin)
       .add(panelPlugin);

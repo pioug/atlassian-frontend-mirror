@@ -10,14 +10,15 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import Toolbar, { areSameItems, isSameItem, Item } from '../../ui/Toolbar';
+import type { Item } from '../../ui/Toolbar';
+import Toolbar, { areSameItems, isSameItem } from '../../ui/Toolbar';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import {
   createTestExtensionProvider,
   emptyExtensionProvider,
 } from '../_helpers';
-import { FloatingToolbarColorPicker } from '../../types';
+import type { FloatingToolbarColorPicker } from '@atlaskit/editor-common/types';
 
 describe('<Toolbar />', () => {
   const createEditor = createEditorFactory();

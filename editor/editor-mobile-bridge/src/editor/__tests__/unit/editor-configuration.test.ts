@@ -15,7 +15,6 @@ describe('Editor Configuration', () => {
     expect(editorConfig.isScrollGutterPersisted()).toEqual(false);
     expect(editorConfig.isCustomPanelEnabled()).toEqual(false);
     expect(editorConfig.isCustomPanelEditable()).toEqual(false);
-    expect(editorConfig.isTableCellOptionsInFloatingToolbar()).toEqual(false);
   });
 
   it('should persist scroll gutter for compact editor', () => {
@@ -136,14 +135,6 @@ describe('Editor Configuration', () => {
     );
 
     expect(editorConfig.isCustomPanelEditable()).toEqual(true);
-  });
-
-  it('should set the tableCellOptionsInFloatingToolbar value', () => {
-    const editorConfig = new MobileEditorConfiguration(
-      '{"tableCellOptionsInFloatingToolbar": true}',
-    );
-
-    expect(editorConfig.isTableCellOptionsInFloatingToolbar()).toEqual(true);
   });
 
   it('should set the restartNumberedLists value and retain the rest with default values', () => {

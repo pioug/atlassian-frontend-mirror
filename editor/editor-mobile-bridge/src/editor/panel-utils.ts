@@ -1,11 +1,11 @@
 import EditorConfiguration from './editor-configuration';
 
+import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import {
   Command,
   FloatingToolbarConfig,
   FloatingToolbarItem,
-  PaletteColor,
-} from '@atlaskit/editor-core';
+} from '@atlaskit/editor-common/types';
 import type { ConfigWithNodeInfo } from '@atlaskit/editor-plugin-floating-toolbar';
 import { PanelType } from '@atlaskit/adf-schema/schema';
 

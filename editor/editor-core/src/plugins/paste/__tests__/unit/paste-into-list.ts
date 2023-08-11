@@ -23,10 +23,10 @@ import {
   nestedExpand,
   code_block,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import pastePlugin from '../../index';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
@@ -40,6 +40,7 @@ import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
 import codeBlockPlugin from '../../../code-block';
 import rulePlugin from '../../../rule';
+import betterTypeHistoryPlugin from '../../../better-type-history';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
 import { uuid } from '@atlaskit/adf-schema';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -1500,6 +1501,7 @@ describe('pasting into an ordered list when restartNumberedLists FF is true', ()
       .add(decorationsPlugin)
       .add(widthPlugin)
       .add(guidelinePlugin)
+      .add(betterTypeHistoryPlugin)
       .add([pastePlugin, {}])
       .add([listPlugin, { restartNumberedLists: true }])
       .add(panelPlugin)

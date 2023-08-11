@@ -25,7 +25,7 @@ describe('MediaAnalyticsListener', () => {
   const ACTION = 'render';
   const ACTION_SUBJECT = 'action-subject';
   const MEDIA_TAG = 'media';
-  const LISTENER_VERSION = '999.9.9';
+  const LISTENER_VERSION = process.env._PACKAGE_VERSION_;
   const MOCK_PACKAGE = {
     JIRA_ISSUE: {
       version: '1.1.1',

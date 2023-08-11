@@ -3,6 +3,8 @@ import {
   expect,
   EditorTitleFocusModel,
   EditorNodeContainerModel,
+  fixTest,
+  BROWSERS,
 } from '@af/editor-libra';
 import { multipleCustomPanels } from './editor-focus.spec.ts-fixtures';
 
@@ -38,12 +40,12 @@ test.describe('when there is a title managing the focus', () => {
   test.describe('and when user clicks on a panel', () => {
     test('it should enable editor', async ({ editor }) => {
       const nodes = EditorNodeContainerModel.from(editor);
-      const thridPanel = nodes.panel.nth(2);
+      const thirdPanel = nodes.panel.nth(2);
 
       const focusModel = EditorTitleFocusModel.from(editor);
       await focusModel.title.click();
 
-      await thridPanel.click();
+      await thirdPanel.click();
 
       await expect(focusModel.editorLocator).toHaveAttribute(
         'contenteditable',
@@ -54,13 +56,19 @@ test.describe('when there is a title managing the focus', () => {
     test('it should set the selection to the panel clicked', async ({
       editor,
     }) => {
+      fixTest({
+        jiraIssueId: 'ED-19417',
+        reason:
+          'FIXME: This test was manually skipped due to failure on 10/08/2023: https://product-fabric.atlassian.net/browse/ED-19417',
+        browsers: [BROWSERS.firefox],
+      });
       const nodes = EditorNodeContainerModel.from(editor);
-      const thridPanel = nodes.panel.nth(2);
+      const thirdPanel = nodes.panel.nth(2);
 
       const focusModel = EditorTitleFocusModel.from(editor);
       await focusModel.title.click();
 
-      await thridPanel.click();
+      await thirdPanel.click();
 
       await expect(editor).toHaveSelection({
         anchor: 76,

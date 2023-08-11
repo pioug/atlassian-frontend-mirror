@@ -3,9 +3,9 @@ import { annotation } from '@atlaskit/adf-schema';
 import type {
   NextEditorPlugin,
   ExtractInjectionAPI,
+  FloatingToolbarConfig,
 } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { FloatingToolbarConfig } from '../floating-toolbar/types';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { inlineCommentPlugin } from './pm-plugins/inline-comment';
 import type {

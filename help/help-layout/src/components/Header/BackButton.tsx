@@ -10,10 +10,6 @@ import ArrowleftIcon from '@atlaskit/icon/glyph/arrow-left';
 import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 import { messages } from '../../messages';
 
 import { TRANSITION_DURATION_MS, TRANSITION_STATUS } from '../constants';
@@ -97,8 +93,8 @@ const BackButtonWithContext: React.FC<Props & WrappedComponentProps> = (
     <AnalyticsContext
       data={{
         componentName: 'backButton',
-        packageName,
-        packageVersion,
+        packageName: process.env._PACKAGE_NAME_,
+        packageVersion: process.env._PACKAGE_VERSION_,
       }}
     >
       <BackButton {...props} />

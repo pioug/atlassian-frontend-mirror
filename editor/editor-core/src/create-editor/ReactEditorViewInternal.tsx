@@ -272,6 +272,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 
     this.pluginInjectionAPI = new EditorPluginInjectionAPI({
       getEditorState: this.getEditorState,
+      getEditorView: this.getEditorView,
     });
 
     this.eventDispatcher = new EventDispatcher();
@@ -339,6 +340,7 @@ export class ReactEditorView<T = {}> extends React.Component<
   }
 
   getEditorState = () => this.view?.state;
+  getEditorView = () => this.view;
 
   UNSAFE_componentWillReceiveProps(nextProps: EditorViewProps) {
     // START TEMPORARY CODE ED-10584

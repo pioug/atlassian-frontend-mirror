@@ -8,12 +8,21 @@ import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+  EditorState,
+  Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 
 export type ConfigWithNodeInfo = {
   config: FloatingToolbarConfig | undefined;
   pos: number;
   node: Node;
+};
+
+export type FloatingToolbarPluginState = {
+  getConfigWithNodeInfo: (
+    state: EditorState,
+  ) => ConfigWithNodeInfo | null | undefined;
 };
 
 export type FloatingToolbarPluginData = {

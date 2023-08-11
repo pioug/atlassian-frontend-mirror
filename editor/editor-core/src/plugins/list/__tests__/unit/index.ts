@@ -37,6 +37,7 @@ import floatingToolbarPlugin from '../../../floating-toolbar';
 
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { toggleOrderedList, toggleBulletList } from '../../commands';
 import { insertMediaAsMediaSingle } from '../../../media/utils/media-single';
@@ -64,6 +65,7 @@ describe('lists', () => {
       .add([layoutPlugin, { allowBreakout: true }])
       .add(tablesPlugin)
       .add(floatingToolbarPlugin)
+      .add(focusPlugin)
       .add([mediaPlugin, { allowMediaSingle: true }]);
 
     return createEditor({

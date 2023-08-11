@@ -21,6 +21,9 @@ const ARI_PREFIX = 'ari:cloud:identity::team';
 
 const teamId = '1234-5678-abcd-89ef';
 
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
 describe('getTeamFromAGG', () => {
   parseAndTestGraphQLQueries([GATEWAY_QUERY, GATEWAY_QUERY_V2]);
 
@@ -128,8 +131,8 @@ describe('getTeamFromAGG', () => {
 
       const result = addHeaders(headers);
 
-      expect(result.get('atl-client-name')).toEqual('@atlaskit/profilecard');
-      expect(result.get('atl-client-version')).toEqual('999.9.9');
+      expect(result.get('atl-client-name')).toEqual(packageName);
+      expect(result.get('atl-client-version')).toEqual(packageVersion);
     });
 
     it('should return the same headers instance', () => {

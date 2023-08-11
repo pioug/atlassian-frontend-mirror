@@ -8,10 +8,6 @@ import {
 import { UserSearchItem } from '@atlaskit/smart-common';
 
 import { UseUserRecommendationsProps } from '../../types';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 
 const createAndFireEventInElementsChannel = createAndFireEvent(
   FabricChannel.elements,
@@ -28,8 +24,8 @@ const createEvent = (
   actionSubject,
   source: '@atlaskit/smart-hooks/use-user-recommendations',
   attributes: {
-    packageName,
-    packageVersion,
+    packageName: process.env._PACKAGE_NAME_,
+    packageVersion: process.env._PACKAGE_VERSION_,
     ...attributes,
   },
 });

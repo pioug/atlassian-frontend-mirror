@@ -35,6 +35,7 @@ import * as commands from '../../../commands';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
@@ -71,6 +72,7 @@ describe('image linking', () => {
         .add(gridPlugin)
         .add(editorDisabledPlugin)
         .add(floatingToolbarPlugin)
+        .add(focusPlugin)
         .add([mediaPlugin, { allowMediaSingle: true, allowLinking: true }])
         .add(hyperlinkPlugin),
       providerFactory,

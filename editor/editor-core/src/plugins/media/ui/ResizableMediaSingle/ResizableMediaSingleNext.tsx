@@ -34,10 +34,6 @@ import type {
   Snap,
 } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import ResizeLabel from '../../../../ui/Resizer/ResizeLabel';
-import type { WrappedComponentProps } from 'react-intl-next';
-import { injectIntl } from 'react-intl-next';
-import { messages } from './resizable-media-single-messages';
 import type { MediaEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -101,7 +97,7 @@ const getResizeAnalyticsEvent = (
   };
 };
 
-type ResizableMediaSingleNextProps = Props & WrappedComponentProps;
+type ResizableMediaSingleNextProps = Props;
 
 class ResizableMediaSingleNext extends React.Component<
   ResizableMediaSingleNextProps,
@@ -566,7 +562,6 @@ class ResizableMediaSingleNext extends React.Component<
       fullWidthMode,
       selected,
       children,
-      intl,
       lineLength,
     } = this.props;
 
@@ -602,12 +597,6 @@ class ResizableMediaSingleNext extends React.Component<
     );
     const resizerNextClassName = classnames(className, resizerStyles);
 
-    const showSizeGuide = selected || isResizing;
-    const label =
-      layout === 'full-width'
-        ? intl.formatMessage(messages.fullWidthImage)
-        : `${this.state.size.width} x ${this.state.size.height}`;
-
     const maxWidth = this.calcMaxWidth(
       lineLength,
       containerWidth,
@@ -641,9 +630,6 @@ class ResizableMediaSingleNext extends React.Component<
           resizeRatio={nonWrappedLayouts.includes(layout) ? 2 : 1}
           data-testid={resizerNextTestId}
         >
-          {showSizeGuide && (
-            <ResizeLabel label={label} containerWidth={this.state.size.width} />
-          )}
           {children}
         </ResizerNext>
       </div>
@@ -651,6 +637,4 @@ class ResizableMediaSingleNext extends React.Component<
   }
 }
 
-// for testing purpose
-export { ResizableMediaSingleNext as UnwrappedResizableMediaSingleNext };
-export default injectIntl(ResizableMediaSingleNext);
+export default ResizableMediaSingleNext;

@@ -14,7 +14,7 @@ import { messages as altTextMessages } from '../../../../../plugins/media/pm-plu
 import type {
   FloatingToolbarButton,
   FloatingToolbarConfig,
-} from '../../../../../plugins/floating-toolbar/types';
+} from '@atlaskit/editor-common/types';
 import type { MediaOptions } from '../../../../../plugins/media/types';
 import { stateKey } from '../../../../../plugins/media/pm-plugins/main';
 import { floatingToolbar } from '../../../../../plugins/media/toolbar';

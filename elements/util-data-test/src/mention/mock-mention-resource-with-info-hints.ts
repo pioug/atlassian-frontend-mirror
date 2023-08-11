@@ -1,11 +1,10 @@
 import { Search } from 'js-search';
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
+
 import {
   MentionDescription,
   MentionsResult,
   AbstractMentionResource,
-} from '@atlaskit/mention/resource';
+} from '../../../mention/src/resource';
 import debug from '../logger';
 import { mentionTestResult } from './mention-test-data';
 import { MockMentionConfig } from './mock-mention-resource';

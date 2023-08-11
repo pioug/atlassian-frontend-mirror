@@ -10,10 +10,6 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { COMPONENT_NAME } from '../common/constants';
 import { PackageMetaDataType } from '../common/utils/analytics/analytics.codegen';
 import { LinkPickerSessionProvider } from '../controllers/session-provider';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import { ErrorBoundary } from './error-boundary';
 import { LinkPickerProps } from './link-picker';
@@ -26,8 +22,8 @@ export const testIds = {
 };
 
 export const PACKAGE_DATA: PackageMetaDataType = {
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
   componentName: COMPONENT_NAME,
   source: COMPONENT_NAME,
 };

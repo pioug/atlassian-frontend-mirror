@@ -2,6 +2,7 @@ export { default as basePlugin } from './base';
 export { default as blockTypePlugin } from './block-type';
 export { pluginKey as blockPluginStateKey } from './block-type';
 export type { BlockTypeState } from './block-type';
+export { default as betterTypeHistoryPlugin } from './better-type-history';
 export { default as clearMarksOnChangeToEmptyDocumentPlugin } from './clear-marks-on-change-to-empty-document';
 export { default as codeBlockPlugin } from './code-block';
 export { default as collabEditPlugin } from './collab-edit';

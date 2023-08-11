@@ -1,5 +1,11 @@
 # @atlaskit/linking-common
 
+## 4.4.0
+
+### Minor Changes
+
+- [`f81166160ba`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f81166160ba) - EDM-7272: export mockAvailableSitesWithError mock to be used externally.
+
 ## 4.3.0
 
 ### Minor Changes

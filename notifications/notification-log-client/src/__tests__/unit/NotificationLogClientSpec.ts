@@ -1,5 +1,4 @@
 import fetchMock from 'fetch-mock/cjs/client';
-import { version as npmPackageVersion } from '../../version.json';
 import {
   NotificationLogClient,
   NotificationCountResponse,
@@ -55,7 +54,7 @@ describe('NotificationLogClient', () => {
     const provider = new NotificationLogClient(notificationLogUrl, '123');
     return provider.countUnseenNotifications().then(() => {
       expect(fetchMock.lastOptions().headers['x-app-version']).toEqual(
-        `${npmPackageVersion}-${DEFAULT_SOURCE}`,
+        `${process.env._PACKAGE_VERSION_}-${DEFAULT_SOURCE}`,
       );
     });
   });

@@ -42,7 +42,6 @@ type Props = {
   typeAheadHandlers: Array<TypeAheadHandler>;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   getIntl: () => IntlShape;
-  useBetterTypeaheadNavigation: boolean;
 };
 export function createPlugin({
   reactDispatch,
@@ -50,14 +49,12 @@ export function createPlugin({
   createAnalyticsEvent,
   typeAheadHandlers,
   getIntl,
-  useBetterTypeaheadNavigation,
 }: Props): SafePlugin {
   const intl = getIntl();
   const { createDecorations, removeDecorations } = factoryDecorations({
     intl,
     popupMountRef,
     createAnalyticsEvent: createAnalyticsEvent,
-    useBetterTypeaheadNavigation,
   });
   const reducer = createReducer({
     createDecorations,

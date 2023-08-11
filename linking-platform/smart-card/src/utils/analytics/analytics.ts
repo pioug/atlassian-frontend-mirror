@@ -1,7 +1,3 @@
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
 import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { AnalyticsPayload } from '../types';
@@ -35,8 +31,8 @@ export const ANALYTICS_CHANNEL = 'media';
 
 export const context = {
   componentName: 'smart-cards',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 export enum TrackQuickActionType {

@@ -1,7 +1,7 @@
 import type { TableSortOrder as SortOrder } from '@atlaskit/adf-schema/steps';
 
 import type { ACTION_SUBJECT, INPUT_METHOD } from './enums';
-import type { TableAEP, UIAEP } from './utils';
+import type { OperationalAEP, TableAEP, UIAEP } from './utils';
 
 //#region Constants
 export enum TABLE_ACTION {
@@ -27,6 +27,7 @@ export enum TABLE_ACTION {
   DISTRIBUTED_COLUMNS_WIDTHS = 'distributedColumnsWidths',
   FIXED = 'fixed',
   RESIZED = 'resized',
+  RESIZE_PERF_SAMPLING = 'resizePerfSampling',
 }
 
 export enum TABLE_BREAKOUT {
@@ -71,6 +72,13 @@ type ResizedInfo = {
   totalTableWidth: number | null;
   nodeSize: number;
 } & TotalRowAndColCount;
+
+type ResizePreviewInfo = {
+  frameRate: number;
+  isInitialSample: boolean;
+  docSize: number;
+  nodeSize: number;
+};
 
 //#region Analytic Event Payloads
 type TableDeleteAEP = TableAEP<
@@ -217,6 +225,14 @@ type TableFixedAEP = TableAEP<
 
 type TableResizedAEP = TableAEP<TABLE_ACTION.RESIZED, ResizedInfo, undefined>;
 
+type TableResizePerfSamplingAEP = OperationalAEP<
+  TABLE_ACTION.RESIZE_PERF_SAMPLING,
+  ACTION_SUBJECT.TABLE,
+  undefined,
+  ResizePreviewInfo,
+  undefined
+>;
+
 //#endregion
 
 export type TableEventPayload =
@@ -235,4 +251,5 @@ export type TableEventPayload =
   | TableDistributeColumnsWidthsAEP
   | TableCollapsedAEP
   | TableFixedAEP
-  | TableResizedAEP;
+  | TableResizedAEP
+  | TableResizePerfSamplingAEP;

@@ -10,12 +10,11 @@ import {
   UI_EVENT_TYPE,
 } from '@atlaskit/analytics-gas-types';
 import { ELEMENTS_CHANNEL } from '../_constants';
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
 
 import { isSpecialMentionText } from '../types';
+
+const packageName = process.env._PACKAGE_NAME_ as string;
+const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 export const SLI_EVENT_TYPE = 'sli';
 export const SMART_EVENT_TYPE = 'smart';

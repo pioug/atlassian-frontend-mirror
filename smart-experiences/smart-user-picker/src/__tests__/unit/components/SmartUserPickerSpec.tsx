@@ -849,7 +849,7 @@ describe('SmartUserPicker', () => {
         attributes: expect.objectContaining({
           context: 'test',
           prefetch: false,
-          packageName: '@atlaskit/smart-user-picker',
+          packageName: expect.any(String),
           sessionId: ANALYTICS_SESSION_ID,
           queryLength: 0,
           ...attributes,

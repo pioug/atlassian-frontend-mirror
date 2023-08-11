@@ -1,7 +1,7 @@
 import MobileEditorToolbarActions from '../../mobile-editor-toolbar';
 import { toNativeBridge } from '../../web-to-native/index';
 import { EditorViewWithComposition } from '../../../types';
-import { FloatingToolbarConfig } from '@atlaskit/editor-core';
+import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 
 jest.mock('../../web-to-native/index');

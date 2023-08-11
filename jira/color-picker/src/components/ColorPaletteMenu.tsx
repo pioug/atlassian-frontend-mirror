@@ -1,10 +1,6 @@
 import React from 'react';
 import { Palette, Mode } from '../types';
 import {
-  name as packageName,
-  version as packageVersion,
-} from '../version.json';
-import {
   withAnalyticsEvents,
   withAnalyticsContext,
   createAndFireEvent,
@@ -54,8 +50,8 @@ export class ColorPaletteMenuWithoutAnalytics extends React.Component<Props> {
 
         attributes: {
           componentName: 'color-picker',
-          packageName,
-          packageVersion,
+          packageName: process.env._PACKAGE_NAME_,
+          packageVersion: process.env._PACKAGE_VERSION_,
         },
       })(createAnalyticsEvent);
     }
@@ -110,6 +106,6 @@ export class ColorPaletteMenuWithoutAnalytics extends React.Component<Props> {
 
 export default withAnalyticsContext({
   componentName: 'color-picker',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 })(withAnalyticsEvents()(ColorPaletteMenuWithoutAnalytics));

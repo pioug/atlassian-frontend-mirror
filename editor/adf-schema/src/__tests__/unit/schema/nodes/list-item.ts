@@ -1,3 +1,5 @@
+import { createSchema } from '../../../../schema/create-schema';
+
 import {
   toHTML,
   fromHTML,
@@ -7,6 +9,15 @@ import {
   p,
   schema,
 } from '@atlaskit/editor-test-helpers/adf-schema';
+import {
+  doc as docBuilder,
+  ol as olBuilder,
+  li as liBuilder,
+  p as pBuilder,
+  unsupportedBlock as unsupportedBlockBuilder,
+  table as tableBuilder,
+} from '@atlaskit/editor-test-helpers/doc-builder';
+
 const packageName = process.env._PACKAGE_NAME_ as string;
 
 describe(`${packageName}/schema listItem node`, () => {
@@ -50,4 +61,34 @@ describe(`${packageName}/schema listItem node`, () => {
       doc(ol()(li(p('sublist'), p('text')))).toJSON(),
     );
   });
+
+  it('when there is an unsupportedBlock inside a listItem, should not throw an invalid content exception', () => {
+    const schema = makeSchema();
+
+    const documentRaw = docBuilder(
+      olBuilder()(
+        liBuilder(
+          pBuilder('test'),
+          unsupportedBlockBuilder({ originalValue: tableBuilder() })(),
+        ),
+      ),
+    );
+
+    expect(() => {
+      documentRaw(schema);
+    }).not.toThrow();
+  });
 });
+
+function makeSchema() {
+  return createSchema({
+    nodes: [
+      'doc',
+      'unsupportedBlock',
+      'orderedList',
+      'listItem',
+      'paragraph',
+      'text',
+    ],
+  });
+}

@@ -107,14 +107,10 @@ describe('Table floating toolbar:fullpage', () => {
     );
   });
 
-  describe('When tableCellOptionsInFloatingToolbar FF enabled', () => {
+  describe('Table cell options in floating toolbar', () => {
     beforeEach(async () => {
       page = global.page;
-      await initFullPageEditorWithAdf(page, adf, undefined, undefined, {
-        featureFlags: {
-          tableCellOptionsInFloatingToolbar: true,
-        },
-      });
+      await initFullPageEditorWithAdf(page, adf, undefined, undefined, {});
       // Focus the table and select the first (non header row) cell
       await clickFirstCell(page, true);
       // Wait for floating table controls underneath the table

@@ -4,8 +4,8 @@ import { mountWithIntl } from '../../__helpers/enzyme';
 import { Popup } from '@atlaskit/editor-common/ui';
 import FloatingToolbar from '../../../ui/FloatingToolbar';
 import Toolbar from '../../../plugins/floating-toolbar/ui/Toolbar';
-import { FloatingToolbarItem } from '../../../plugins/floating-toolbar/types';
-import { Command } from '../../../types';
+import type { FloatingToolbarItem } from '@atlaskit/editor-common/types';
+import type { Command } from '../../../types';
 
 const DummyContainer = (
   <div className="dummy-container" key={1}>

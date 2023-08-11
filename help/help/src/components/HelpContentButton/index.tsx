@@ -10,11 +10,6 @@ import {
 } from '@atlaskit/analytics-next';
 
 import {
-  name as packageName,
-  version as packageVersion,
-} from '../../version.json';
-
-import {
   HelpContentButtonContainer,
   HelpContentButtonIcon,
   HelpContentButtonText,
@@ -39,8 +34,8 @@ export type Props = {
 
 const analitycsContextData = {
   componentName: 'HelpContentButton',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 const HelpContentButton = ({

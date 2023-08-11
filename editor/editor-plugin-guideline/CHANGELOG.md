@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.3.11
+
+### Patch Changes
+
+- [`c46821ab461`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c46821ab461) - Update guideline colour to color.border.disabled to provide more contrast against table borders
+- Updated dependencies
+
 ## 0.3.10
 
 ### Patch Changes

@@ -106,6 +106,10 @@ test.describe('when table is nested inside bodied extension', () => {
   test('Should delete a row ', async ({ editor }) => {
     const nodes = EditorNodeContainerModel.from(editor);
     const tableModel = EditorTableModel.from(nodes.table);
+
+    // focus table to ensure row controls are visible
+    await tableModel.selectTable();
+
     const row = await tableModel.rowControls({ index: 1 });
     await row.delete();
 

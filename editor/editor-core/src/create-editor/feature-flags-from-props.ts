@@ -38,17 +38,6 @@ function getSpellCheck(featureFlags: {
 export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
   const normalizedFeatureFlags = normalizeFeatureFlags(props.featureFlags);
 
-  const tableCellOptionsInFloatingToolbar =
-    normalizedFeatureFlags.tableCellOptionsInFloatingToolbar ||
-    props.featureFlags?.tableCellOptionsInFloatingToolbar ||
-    undefined;
-
-  // duplicated logic from `feature-flags-from-props.ts` due to presets not being finalised
-  const pseudoNormalisedUseBetterTypeaheadNavigation =
-    props.featureFlags?.['use-better-typeahead-navigation'] ??
-    props.featureFlags?.useBetterTypeaheadNavigation ??
-    null;
-
   return {
     ...normalizedFeatureFlags,
 
@@ -190,11 +179,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
           undefined
         : undefined,
 
-    tableCellOptionsInFloatingToolbar:
-      typeof tableCellOptionsInFloatingToolbar === 'boolean'
-        ? tableCellOptionsInFloatingToolbar
-        : false,
-
     showHoverPreview: Boolean(
       typeof props.featureFlags?.showHoverPreview === 'boolean'
         ? !!props.featureFlags?.showHoverPreview
@@ -251,13 +235,6 @@ export function createFeatureFlagsFromProps(props: EditorProps): FeatureFlags {
       typeof props.featureFlags?.['prevent-popup-overflow'] === 'boolean'
         ? !!props.featureFlags?.['prevent-popup-overflow']
         : false,
-    ),
-
-    // duplicated logic from `create-plugins-list.ts` due to presets not being finalised
-    useBetterTypeaheadNavigation: Boolean(
-      typeof pseudoNormalisedUseBetterTypeaheadNavigation === 'boolean'
-        ? !!pseudoNormalisedUseBetterTypeaheadNavigation
-        : true,
     ),
   };
 }

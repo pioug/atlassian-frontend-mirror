@@ -237,8 +237,8 @@ describe('LinkUrl', () => {
           context: expect.arrayContaining([
             {
               componentName: 'linkUrl',
-              packageName: '@atlaskit/smart-card',
-              packageVersion: '999.9.9',
+              packageName: expect.any(String),
+              packageVersion: expect.any(String),
             },
           ]),
         }),
@@ -273,8 +273,8 @@ describe('LinkUrl', () => {
         context: expect.arrayContaining([
           {
             componentName: 'linkUrl',
-            packageName: '@atlaskit/smart-card',
-            packageVersion: '999.9.9',
+            packageName: expect.any(String),
+            packageVersion: expect.any(String),
           },
         ]),
       }),

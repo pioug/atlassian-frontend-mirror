@@ -3,7 +3,6 @@ import {
   ServiceConfig,
   utils,
 } from '@atlaskit/util-service-support';
-import { version as npmPackageVersion } from './version.json';
 import { NotificationLogProvider, NotificationCountResponse } from './types';
 
 export const DEFAULT_SOURCE = 'atlaskitNotificationLogClient';
@@ -37,7 +36,7 @@ export default class NotificationLogClient implements NotificationLogProvider {
       requestInit: {
         mode: 'cors',
         headers: {
-          'x-app-version': `${npmPackageVersion}-${DEFAULT_SOURCE}`,
+          'x-app-version': `${process.env._PACKAGE_VERSION_}-${DEFAULT_SOURCE}`,
         },
         ...(options.requestInit || {}),
       },

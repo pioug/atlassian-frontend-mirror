@@ -18,8 +18,8 @@ import {
   isDropdownMenuItemFocused,
   retryUntilStablePosition,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { EditorProps } from '../../../../types/editor-props';
-import { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import type { EditorProps } from '../../../../types/editor-props';
+import type { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import {
   pressKey,
   pressKeyCombo,
@@ -275,7 +275,6 @@ describe('Table Floating Toolbar with Cell options', () => {
         ...editorProps,
         featureFlags: {
           floatingToolbarCopyButton: true,
-          tableCellOptionsInFloatingToolbar: true,
           ...featureFlags,
         },
       },

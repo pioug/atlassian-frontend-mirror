@@ -260,31 +260,6 @@ describe('Feature Flags from Props', () => {
     });
   });
 
-  describe('tableCellOptionsInFloatingToolbar', () => {
-    it('should default tableCellOptionsInFloatingToolbar to false if no FF is passed', () => {
-      const flags = createFeatureFlagsFromProps({});
-      expect(flags.tableCellOptionsInFloatingToolbar).toBe(false);
-    });
-
-    it('should default tableCellOptionsInFloatingToolbar to true if FF is passed to true', () => {
-      const flags = createFeatureFlagsFromProps({
-        featureFlags: {
-          'table-cell-options-in-floating-toolbar': true,
-        },
-      });
-      expect(flags.tableCellOptionsInFloatingToolbar).toBe(true);
-    });
-
-    it('should default tableCellOptionsInFloatingToolbar to false if FF is passed to false', () => {
-      const flags = createFeatureFlagsFromProps({
-        featureFlags: {
-          'table-cell-options-in-floating-toolbar': false,
-        },
-      });
-      expect(flags.tableCellOptionsInFloatingToolbar).toBe(false);
-    });
-  });
-
   describe('hover previews', () => {
     it('should add the FF value', () => {
       expect(

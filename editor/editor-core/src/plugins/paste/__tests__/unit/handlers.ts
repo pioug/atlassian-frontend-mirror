@@ -55,6 +55,7 @@ import {
   handlePastePanelOrDecisionContentIntoList,
   handleMarkdown,
 } from '../../handlers';
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import pastePlugin from '../../index';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import textFormattingPlugin from '../../../text-formatting';
@@ -76,6 +77,7 @@ import extensionPlugin from '../../../extension';
 import rulePlugin from '../../../rule';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import codeBlockPlugin from '../../../code-block';
+import betterTypeHistoryPlugin from '../../../better-type-history';
 
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -260,6 +262,7 @@ describe('handleRichText', () => {
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add(panelPlugin)
         .add(blockTypePlugin)
@@ -559,6 +562,7 @@ describe('handleRichText', () => {
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add(panelPlugin)
         .add(blockTypePlugin)
@@ -978,6 +982,7 @@ describe('handleRichText', () => {
         const preset = new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
           .add(decorationsPlugin)
+          .add(betterTypeHistoryPlugin)
           .add([pastePlugin, {}])
           .add(panelPlugin)
           .add(blockTypePlugin);
@@ -1020,6 +1025,7 @@ describe('handleRichText', () => {
         const preset = new Preset<LightEditorPlugin>()
           .add([featureFlagsPlugin, {}])
           .add([analyticsPlugin, {}])
+          .add(betterTypeHistoryPlugin)
           .add([pastePlugin, {}])
           .add(decorationsPlugin)
           .add(panelPlugin)
@@ -1078,6 +1084,7 @@ describe('handleRichText', () => {
           const preset = new Preset<LightEditorPlugin>()
             .add([featureFlagsPlugin, {}])
             .add(decorationsPlugin)
+            .add(betterTypeHistoryPlugin)
             .add([pastePlugin, {}])
             .add(tasksAndDecisionsPlugin)
             .add(panelPlugin);
@@ -1121,6 +1128,7 @@ describe('handleRichText', () => {
         .add(decorationsPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add(contextPanelPlugin)
         .add(tablesPlugin)
@@ -1316,6 +1324,7 @@ describe('handlePasteLinkOnSelectedText', () => {
       preset: new Preset<LightEditorPlugin>()
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, pasteOptions])
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin),
@@ -1617,6 +1626,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
             .add([analyticsPlugin, {}])
             .add(contentInsertionPlugin)
             .add(decorationsPlugin)
+            .add(betterTypeHistoryPlugin)
             .add([pastePlugin, {}])
             .add(hyperlinkPlugin)
             .add(tasksAndDecisionsPlugin)
@@ -1669,6 +1679,7 @@ describe('handlePastePanelOrDecisionContentIntoList', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(decorationsPlugin)
+      .add(betterTypeHistoryPlugin)
       .add([pastePlugin, {}])
       .add(listPlugin)
       .add(panelPlugin)
@@ -1946,6 +1957,7 @@ describe('handleExpand', () => {
             .add([analyticsPlugin, {}])
             .add(contentInsertionPlugin)
             .add(decorationsPlugin)
+            .add(betterTypeHistoryPlugin)
             .add([pastePlugin, {}])
             .add(widthPlugin)
             .add(guidelinePlugin)
@@ -2003,6 +2015,7 @@ describe('handlePasteIntoCaption', () => {
         .add([featureFlagsPlugin, {}])
         .add([analyticsPlugin, {}])
         .add(decorationsPlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add(panelPlugin)
         .add(blockTypePlugin)
@@ -2012,6 +2025,7 @@ describe('handlePasteIntoCaption', () => {
         .add(gridPlugin)
         .add(guidelinePlugin)
         .add(floatingToolbarPlugin)
+        .add(focusPlugin)
         .add([
           mediaPlugin,
           { allowMediaSingle: true, featureFlags: { captions: true } },
@@ -2045,6 +2059,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
       .add(decorationsPlugin)
+      .add(betterTypeHistoryPlugin)
       .add([pastePlugin, {}])
       .add(hyperlinkPlugin)
       .add(tasksAndDecisionsPlugin)
@@ -2865,6 +2880,7 @@ describe('handleMarkdown', () => {
           .add([featureFlagsPlugin, {}])
           .add([analyticsPlugin, {}])
           .add(contentInsertionPlugin)
+          .add(betterTypeHistoryPlugin)
           .add([pastePlugin, {}])
           .add(widthPlugin)
           .add(guidelinePlugin)

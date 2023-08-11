@@ -18,6 +18,7 @@
 import type { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
@@ -57,6 +58,13 @@ export type FloatingToolbarPlugin = NextEditorPlugin<
 // @public (undocumented)
 export type FloatingToolbarPluginData = {
   confirmDialogForItem?: number;
+};
+
+// @public (undocumented)
+export type FloatingToolbarPluginState = {
+  getConfigWithNodeInfo: (
+    state: EditorState,
+  ) => ConfigWithNodeInfo | null | undefined;
 };
 
 // @public (undocumented)

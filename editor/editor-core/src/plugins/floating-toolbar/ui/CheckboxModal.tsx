@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import { Checkbox } from '@atlaskit/checkbox';
 
@@ -10,7 +10,7 @@ import Modal, {
   ModalFooter,
 } from '@atlaskit/modal-dialog';
 import messages from './messages';
-import { ConfirmationDialogProps } from './types';
+import type { ConfirmationDialogProps } from '@atlaskit/editor-common/types';
 
 type ListComponentProps = {
   nodes: ConfirmDialogChildrenListItemProps[];

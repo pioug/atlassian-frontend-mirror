@@ -17,7 +17,7 @@ import {
   retryUntilStablePosition,
   waitForFloatingControl,
 } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import type { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
 import { waitForEmojisToLoad } from '@atlaskit/editor-test-helpers/page-objects/emoji';
 import {
   pressKey,
@@ -58,7 +58,6 @@ async function initEditor(options?: InitOptions) {
       ...editorProps,
       featureFlags: {
         floatingToolbarCopyButton: true,
-        tableCellOptionsInFloatingToolbar: true,
         ...featureFlags,
       },
     },

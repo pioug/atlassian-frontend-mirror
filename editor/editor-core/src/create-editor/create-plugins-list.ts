@@ -1,15 +1,13 @@
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { EditorPlugin, EditorProps } from '../types';
-import { EditorPluginFeatureProps } from '../types/editor-props';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { EditorPlugin, EditorProps } from '../types';
+import type { EditorPluginFeatureProps } from '../types/editor-props';
 
-import { BlockTypePluginOptions } from '../plugins/block-type/types';
+import type { BlockTypePluginOptions } from '../plugins/block-type/types';
 import createUniversalPreset from '../labs/next/presets/universal';
-import {
-  GUTTER_SIZE_MOBILE_IN_PX,
-  ScrollGutterPluginOptions,
-} from '../plugins/base/pm-plugins/scroll-gutter';
-import { DefaultPresetPluginOptions } from '../labs/next/presets/default';
-import { EditorPresetProps } from '../labs/next/presets/types';
+import type { ScrollGutterPluginOptions } from '../plugins/base/pm-plugins/scroll-gutter';
+import { GUTTER_SIZE_MOBILE_IN_PX } from '../plugins/base/pm-plugins/scroll-gutter';
+import type { DefaultPresetPluginOptions } from '../labs/next/presets/default';
+import type { EditorPresetProps } from '../labs/next/presets/types';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
@@ -61,24 +59,12 @@ export function getDefaultPresetOptionsFromEditorProps(
   const cardOptions =
     props.linking?.smartLinks || props.smartLinks || props.UNSAFE_cards;
 
-  // duplicated logic from `feature-flags-from-props.ts` due to presets not being finalised
-  const pseudoNormalisedUseBetterTypeaheadNavigation =
-    props.featureFlags?.['use-better-typeahead-navigation'] ??
-    props.featureFlags?.useBetterTypeaheadNavigation ??
-    null;
-  const useBetterTypeaheadNavigation = Boolean(
-    typeof pseudoNormalisedUseBetterTypeaheadNavigation === 'boolean'
-      ? !!pseudoNormalisedUseBetterTypeaheadNavigation
-      : true,
-  );
-
   return {
     ...props,
     createAnalyticsEvent,
     typeAhead: {
       createAnalyticsEvent,
       isMobile,
-      useBetterTypeaheadNavigation: useBetterTypeaheadNavigation,
     },
     featureFlags: createFeatureFlagsFromProps(props),
     paste: {

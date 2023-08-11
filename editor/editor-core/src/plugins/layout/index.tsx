@@ -3,8 +3,8 @@ import { layoutColumn, layoutSection } from '@atlaskit/adf-schema';
 import type {
   NextEditorPlugin,
   OptionalPlugin,
+  FloatingToolbarConfig,
 } from '@atlaskit/editor-common/types';
-import { FloatingToolbarConfig } from '../floating-toolbar/types';
 import { default as createLayoutPlugin } from './pm-plugins/main';
 import { buildToolbar } from './toolbar';
 import { createDefaultLayoutSection } from './actions';
@@ -18,8 +18,8 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { pluginKey } from './pm-plugins/plugin-key';
-import { LayoutState } from './pm-plugins/types';
-import { LayoutPluginOptions } from './types';
+import type { LayoutState } from './pm-plugins/types';
+import type { LayoutPluginOptions } from './types';
 import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 

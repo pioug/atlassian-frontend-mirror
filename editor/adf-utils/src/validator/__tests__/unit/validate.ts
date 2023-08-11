@@ -74,7 +74,6 @@ describe('validate', () => {
           'codeBlock-with-unknown-attribute.json',
           'mention-with-invalid-user-type.json',
           'hardBreak-with-wrong-text.json',
-          'mediaSingle-with-caption.json',
           'media-with-link-mark.json',
           'layoutSection-with-one-column.json',
           'extension-with-named-fragment-mark.json',

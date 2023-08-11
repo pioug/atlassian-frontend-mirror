@@ -14,9 +14,12 @@ import APSProtocol from './protocols/aps';
 import { logDebug, logError, logInfo } from './util/logger';
 import { utils as serviceUtils } from '@atlaskit/util-service-support';
 import { FeatureFlags } from './featureFlags';
-import { version } from './version.json';
 
 const PLATFORM = 'WEB';
+const version = {
+  name: process.env._PACKAGE_NAME_,
+  version: process.env._PACKAGE_VERSION_,
+};
 
 export const RETRY_STEP_IN_MILLISECONDS = 1000;
 export const MAX_RETRY = 10;

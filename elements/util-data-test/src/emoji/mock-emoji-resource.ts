@@ -1,18 +1,13 @@
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {
   UploadingEmojiProvider,
   EmojiRepository,
-} from '@atlaskit/emoji/resource';
-
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
+} from '../../../emoji/src/resource';
 import {
   EmojiDescription,
   EmojiId,
   EmojiUpload,
   OptionalEmojiDescriptionWithVariations,
-} from '@atlaskit/emoji/types';
+} from '../../../emoji/src/types';
 import { emojiFromUpload } from './emoji-from-upload';
 import { MockNonUploadingEmojiResource } from './mock-non-uploading-emoji-resource';
 import { MockEmojiResourceConfig, UploadDetail } from './types';

@@ -7,16 +7,12 @@ import {
 } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/custom-theme-button';
 
-import {
-  name as packageName,
-  version as packageVersion,
-} from '../../../../version.json';
 import { messages } from '../../../../messages';
 
 const ANALYTICS_CONTEXT_DATA = {
   componentName: 'ArticleWasHelpfulNoButton',
-  packageName,
-  packageVersion,
+  packageName: process.env._PACKAGE_NAME_,
+  packageVersion: process.env._PACKAGE_VERSION_,
 };
 
 interface Props {

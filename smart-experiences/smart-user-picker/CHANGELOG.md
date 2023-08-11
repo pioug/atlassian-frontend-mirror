@@ -1,5 +1,11 @@
 # @atlassian/smart-user-picker
 
+## 6.1.5
+
+### Patch Changes
+
+- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+
 ## 6.1.4
 
 ### Patch Changes

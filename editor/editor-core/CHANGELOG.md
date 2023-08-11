@@ -1,5 +1,64 @@
 # @atlaskit/editor-core
 
+## 187.17.3
+
+### Patch Changes
+
+- [`7a438d76a8a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7a438d76a8a) - [ED-16733] Extract Focus plugin to its own plugin
+- Updated dependencies
+
+## 187.17.2
+
+### Patch Changes
+
+- [`5f8e4780f9e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f8e4780f9e) - [ux] ED-19473 & ED-19435 Adds dark mode icons for action, code, decision, divider and Editor example to test them in none, light and dark modes.
+
+## 187.17.1
+
+### Patch Changes
+
+- [`9d2794a7753`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d2794a7753) - Add `executeCommand` to `pluginInjectionAPI` which should be used to dispatch a `PluginCommand` - from the `commands` property of a plugin.
+- Updated dependencies
+
+## 187.17.0
+
+### Minor Changes
+
+- [`fb3dab2b017`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fb3dab2b017) - Decouple `better-type-history` plugin from `base` plugin
+
+### Patch Changes
+
+- [`93a1fd7ce1e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/93a1fd7ce1e) - Removed ResizeLabel
+
+## 187.16.1
+
+### Patch Changes
+
+- [`8b104cb7575`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8b104cb7575) - [ED-14769] Remove tableCellOptionsinFloatingToolbar feature flag & make it default behaviour
+
+## 187.16.0
+
+### Minor Changes
+
+- [`3413f770f2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3413f770f2b) - Moving references to floating-toolbar types to `editor-common`
+
+### Patch Changes
+
+- [`3a43f854e59`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a43f854e59) - [ux] ED-18841: When cursor inside panel, at start of content, is backspaced, it should lift panel line of content out of panel, instead of only selecting the node above it (such as an expand or table node).
+- Updated dependencies
+
+## 187.15.1
+
+### Patch Changes
+
+- [`3df14c86161`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3df14c86161) - Cleaning up better typeahead feature flag.
+
+## 187.15.0
+
+### Minor Changes
+
+- [`1a15910366d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1a15910366d) - [ux] New pixel entry component for image resizing floating bar
+
 ## 187.14.12
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/form
 
+## 8.11.11
+
+### Patch Changes
+
+- [`02b609f1447`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02b609f1447) - Form now onboarded onto the product push model for Jira.
+
 ## 8.11.10
 
 ### Patch Changes

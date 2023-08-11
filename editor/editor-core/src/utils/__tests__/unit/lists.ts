@@ -9,6 +9,7 @@ import {
   listPlugin,
   panelPlugin,
   pastePlugin,
+  betterTypeHistoryPlugin,
 } from '../../../plugins';
 import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '../../lists';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -21,6 +22,7 @@ describe('doesSelectionWhichStartsOrEndsInListContainEntireList', () => {
     const preset = new Preset<LightEditorPlugin>()
       .add([featureFlagsPlugin, {}])
       .add([analyticsPlugin, {}])
+      .add(betterTypeHistoryPlugin)
       .add([pastePlugin, {}])
       .add(decorationsPlugin)
       .add(listPlugin)

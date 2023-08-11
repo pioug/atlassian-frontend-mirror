@@ -25,6 +25,7 @@ describe('useSharedPluginState', () => {
 
   const coreAPI = new EditorPluginInjectionAPI({
     getEditorState: getEditorStateFake,
+    getEditorView: () => undefined,
   });
 
   const pluginA: NextEditorPlugin<'pluginA', { sharedState: number }> = (

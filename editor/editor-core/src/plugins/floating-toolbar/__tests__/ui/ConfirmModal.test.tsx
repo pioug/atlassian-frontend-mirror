@@ -7,14 +7,16 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { createProsemirrorEditorFactory } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
-import type { Command } from '../../../../types/command';
+import type {
+  Command,
+  FloatingToolbarItem,
+} from '@atlaskit/editor-common/types';
 import { pluginKey as toolbarDataPluginKey } from '../../pm-plugins/toolbar-data/plugin-key';
 import type { FloatingToolbarPluginData } from '@atlaskit/editor-plugin-floating-toolbar';
 import * as commands from '../../pm-plugins/toolbar-data/commands';
 import { ConfirmationModal } from '../../ui/ConfirmationModal';
 import floatingToolbarPlugin from '../../index';
 import Toolbar from '../../ui/Toolbar';
-import type { FloatingToolbarItem } from '../../types';
 import floatingToolbarMessages from '../../ui/messages';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

@@ -1,12 +1,11 @@
 import React from 'react';
 import WidthDetector from '../..';
-import { name } from '../../version.json';
 import { render } from '@testing-library/react';
 
 // requestAnimationFrame is stubbed with `raf-stub`
 const requestAnimationFrame = window.requestAnimationFrame as any;
 
-describe(name, () => {
+describe('@atlaskit/width-detector', () => {
   const createChildWithSpy = (spy: Function) => (args: any) => spy(args);
 
   beforeAll(() => {

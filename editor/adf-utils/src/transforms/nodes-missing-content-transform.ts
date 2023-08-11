@@ -156,11 +156,17 @@ export const transformNodesMissingContent = (
     tableCell: fixIfTableCellInvalidEmpty(reportTransform),
   });
 
+  // Empty mediaSingle nodes get stripped from the document and so this transform
+  // will create an empty listItem if the media node is in a list. Empty listItems
+  // are invalid adf, so we need to transform the mediaSingle nodes first.
+  transformedAdf = traverse(transformedAdf || adf, {
+    mediaSingle: removeMediaSingleWithNoContent(reportTransform),
+  });
+
   transformedAdf = traverse(transformedAdf || adf, {
     bulletList: fixIfListParentWithInvalidListItemChildren(reportTransform),
     orderedList: fixIfListParentWithInvalidListItemChildren(reportTransform),
     table: fixIfTableParentWithInvalidTableRowChildren(reportTransform),
-    mediaSingle: removeMediaSingleWithNoContent(reportTransform),
   }) as ADFEntity;
 
   return {

@@ -9,9 +9,8 @@ import {
   ReplaceStep,
   ReplaceAroundStep,
 } from '@atlaskit/editor-prosemirror/transform';
-import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-
 import { extractSliceFromStep } from '../../../utils/step';
+import { pluginKey } from './plugin-key';
 
 const getEnterKeyboardActionStep = (
   trs: readonly Transaction[],
@@ -55,8 +54,6 @@ const isSliceAddingNewlineChar = (slice: Slice, schema: Schema): boolean => {
 
   return slice.content.eq(newLine);
 };
-
-export const pluginKey = new PluginKey('betterTypeHistoryPlugin');
 
 export default () => {
   return new SafePlugin({

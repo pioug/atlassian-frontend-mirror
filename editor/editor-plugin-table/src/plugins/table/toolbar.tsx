@@ -452,8 +452,6 @@ export const getToolbarConfig =
         editorAnalyticsAPI,
       );
 
-      const { tableCellOptionsInFloatingToolbar } =
-        getEditorFeatureFlags() || {};
       const cellItems = getCellItems(
         config,
         state,
@@ -461,15 +459,8 @@ export const getToolbarConfig =
         intl,
         getEditorContainerWidth,
         editorAnalyticsAPI,
-        tableCellOptionsInFloatingToolbar,
       );
-      const colorPicker = getColorPicker(
-        state,
-        menu,
-        intl,
-        editorAnalyticsAPI,
-        tableCellOptionsInFloatingToolbar,
-      );
+      const colorPicker = getColorPicker(state, menu, intl, editorAnalyticsAPI);
 
       // Check if we need to show confirm dialog for delete button
       let confirmDialog;
@@ -590,24 +581,18 @@ const getCellItems = (
   { formatMessage }: ToolbarMenuContext,
   getEditorContainerWidth: GetEditorContainerWidth,
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
-  tableCellOptionsInFloatingToolbar?: boolean,
 ): Array<FloatingToolbarItem<Command>> => {
-  if (
-    pluginConfig.allowCellOptionsInFloatingToolbar ||
-    tableCellOptionsInFloatingToolbar
-  ) {
-    const initialSelectionRect = getClosestSelectionRect(state);
-    if (initialSelectionRect) {
-      const cellOptions = getToolbarCellOptionsConfig(
-        state,
-        view,
-        initialSelectionRect,
-        { formatMessage },
-        getEditorContainerWidth,
-        editorAnalyticsAPI,
-      );
-      return [cellOptions, separator(cellOptions.hidden!)];
-    }
+  const initialSelectionRect = getClosestSelectionRect(state);
+  if (initialSelectionRect) {
+    const cellOptions = getToolbarCellOptionsConfig(
+      state,
+      view,
+      initialSelectionRect,
+      { formatMessage },
+      getEditorContainerWidth,
+      editorAnalyticsAPI,
+    );
+    return [cellOptions, separator(cellOptions.hidden!)];
   }
   return [];
 };
@@ -617,13 +602,9 @@ const getColorPicker = (
   menu: FloatingToolbarItem<Command>,
   { formatMessage }: ToolbarMenuContext,
   editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined,
-  tableCellOptionsInFloatingToolbar?: boolean,
 ): Array<FloatingToolbarItem<Command>> => {
   const { targetCellPosition, pluginConfig } = getPluginState(state);
-  if (
-    !pluginConfig.allowBackgroundColor ||
-    !tableCellOptionsInFloatingToolbar
-  ) {
+  if (!pluginConfig.allowBackgroundColor) {
     return [];
   }
   const node = targetCellPosition

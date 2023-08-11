@@ -1,5 +1,11 @@
 # @atlaskit/link-picker
 
+## 1.28.1
+
+### Patch Changes
+
+- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+
 ## 1.28.0
 
 ### Minor Changes

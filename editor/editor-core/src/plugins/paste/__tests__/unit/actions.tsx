@@ -46,7 +46,9 @@ import mediaPlugin from '../../../media';
 import captionPlugin from '../../../caption';
 import listPlugin from '../../../list';
 import floatingToolbarPlugin from '../../../floating-toolbar';
+import betterTypeHistoryPlugin from '../../../better-type-history';
 
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
@@ -88,6 +90,7 @@ describe('action paste handler', () => {
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
         .add(editorDisabledPlugin)
+        .add(betterTypeHistoryPlugin)
         .add([pastePlugin, {}])
         .add([tasksAndDecisionsPlugin, {}])
         .add(blockTypePlugin)
@@ -96,6 +99,7 @@ describe('action paste handler', () => {
         .add(guidelinePlugin)
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
+        .add(focusPlugin)
         .add([
           mediaPlugin,
           { allowMediaSingle: true, featureFlags: { captions: true } },

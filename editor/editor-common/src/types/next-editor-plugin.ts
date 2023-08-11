@@ -94,6 +94,14 @@ export type PluginInjectionAPI<
       ...ExtractPluginDependenciesFromMetadata<Metadata>,
     ]
   >;
+  /**
+   * Dispatches a PluginCommand to ProseMirror
+   *
+   * @param action A function (PluginCommand | undefined) that takes a `Transaction` and returns a `Transaction` if it
+   * is successful or `null` if it shouldn't be dispatched.
+   * @returns (boolean) if the command was successful in dispatching
+   */
+  executeCommand: (action: PluginCommand | undefined) => boolean;
 };
 
 export type PluginInjectionAPIWithDependency<Plugin> =

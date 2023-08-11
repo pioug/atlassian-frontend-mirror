@@ -211,7 +211,6 @@ export class ValidatingKitchenSinkEditor extends React.Component<
             'floating-toolbar-copy-button': true,
             'restart-numbered-lists': true,
             'use-editor-next': true,
-            tableCellOptionsInFloatingToolbar: true,
             indentationButtonsInTheToolbar: true,
             ...this.props.featureFlags,
           }}

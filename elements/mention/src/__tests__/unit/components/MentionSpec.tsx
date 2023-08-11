@@ -17,12 +17,14 @@ import {
   mockMentionProvider as mentionProvider,
 } from '../_test-helpers';
 
+const packageName = process.env._PACKAGE_NAME_ as string;
+
 const createPayload = (actionSubject: string, action: string) => ({
   payload: {
     action,
     actionSubject,
     attributes: {
-      packageName: '@atlaskit/mention',
+      packageName,
       packageVersion: expect.any(String),
       componentName: 'mention',
       accessLevel: 'CONTAINER',

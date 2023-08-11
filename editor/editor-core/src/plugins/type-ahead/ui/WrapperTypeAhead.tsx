@@ -33,7 +33,6 @@ type WrapperProps = {
   popupsScrollableElement?: HTMLElement;
   createAnalyticsEvent?: CreateUIAnalyticsEvent;
   inputMethod?: TypeAheadInputMethod;
-  useBetterTypeaheadNavigation: boolean;
 };
 
 export const WrapperTypeAhead: React.FC<WrapperProps> = React.memo(
@@ -50,7 +49,6 @@ export const WrapperTypeAhead: React.FC<WrapperProps> = React.memo(
     getDecorationPosition,
     reopenQuery,
     onUndoRedo,
-    useBetterTypeaheadNavigation,
   }) => {
     const [closed, setClosed] = useState(false);
     const [query, setQuery] = useState<string>(reopenQuery || '');
@@ -73,18 +71,16 @@ export const WrapperTypeAhead: React.FC<WrapperProps> = React.memo(
         moveSelectedIndex({
           editorView,
           direction: 'next',
-          useBetterTypeaheadNavigation,
         }),
-      [editorView, useBetterTypeaheadNavigation],
+      [editorView],
     );
     const selectPreviousItem = useMemo(
       () =>
         moveSelectedIndex({
           editorView,
           direction: 'previous',
-          useBetterTypeaheadNavigation,
         }),
-      [editorView, useBetterTypeaheadNavigation],
+      [editorView],
     );
 
     const cancel = useCallback(
@@ -159,7 +155,6 @@ export const WrapperTypeAhead: React.FC<WrapperProps> = React.memo(
     }
     return (
       <InputQuery
-        useBetterTypeaheadNavigation={useBetterTypeaheadNavigation}
         triggerQueryPrefix={triggerHandler.trigger}
         onQueryChange={setQuery}
         onItemSelect={insertSelectedItem}

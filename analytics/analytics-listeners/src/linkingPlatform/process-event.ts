@@ -11,8 +11,9 @@ import {
   getPackageInfo,
   getComponents,
 } from '../helpers/extract-data-from-event';
-import { version as listenerVersion } from '../version.json';
 import { FabricChannel } from '../types';
+
+const listenerVersion = process.env._PACKAGE_VERSION_ as string;
 
 export default (event: UIAnalyticsEvent): GasPayload => {
   const sources = getSources(event, LINKING_PLATFORM_CONTEXT);

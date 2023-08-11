@@ -9,11 +9,9 @@ import {
   mediaSingleSpec,
 } from '@atlaskit/adf-schema';
 import type {
-  NextEditorPlugin,
   PMPlugin,
   PMPluginFactoryParams,
-} from '../../types';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/types';
 import type { MediaState } from './pm-plugins/main';
 import { stateKey as pluginKey, createPlugin } from './pm-plugins/main';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
@@ -26,9 +24,8 @@ import linkingPlugin from './pm-plugins/linking';
 import ToolbarMedia from './ui/ToolbarMedia';
 import { ReactMediaGroupNode } from './nodeviews/mediaGroup';
 import { ReactMediaSingleNode } from './nodeviews/mediaSingle';
-import type { CustomMediaPicker, MediaOptions } from './types';
+import type { CustomMediaPicker } from './types';
 import { floatingToolbar } from './toolbar';
-import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
@@ -42,38 +39,16 @@ import { MediaPickerComponents } from './ui/MediaPicker';
 import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import { ReactMediaNode } from './nodeviews/mediaNodeView';
 import { ReactMediaInlineNode } from './nodeviews/mediaInline';
-import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
-import type { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
-import type { gridPlugin } from '@atlaskit/editor-plugin-grid';
-import type { widthPlugin } from '@atlaskit/editor-plugin-width';
-import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import type { MediaPluginState } from './pm-plugins/types';
-import { stateKey } from './pm-plugins/plugin-key';
-import type { FloatingToolbarPlugin } from '@atlaskit/editor-plugin-floating-toolbar';
-import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { stateKey } from './pm-plugins/plugin-key';
+
+import type { MediaNextEditorPluginType } from './next-plugin-type';
 
 export type { MediaState, MediaProvider, CustomMediaPicker };
 export { insertMediaSingleNode } from './utils/media-single';
 
-const mediaPlugin: NextEditorPlugin<
-  'media',
-  {
-    pluginConfiguration: MediaOptions | undefined;
-    dependencies: [
-      typeof featureFlagsPlugin,
-      OptionalPlugin<typeof analyticsPlugin>,
-      typeof guidelinePlugin,
-      typeof gridPlugin,
-      typeof widthPlugin,
-      typeof decorationsPlugin,
-      FloatingToolbarPlugin,
-      EditorDisabledPlugin,
-    ];
-    sharedState: MediaPluginState | null;
-  }
-> = (options = {}, api) => {
+const mediaPlugin: MediaNextEditorPluginType = (options = {}, api) => {
   const featureFlags =
     api?.dependencies?.featureFlags?.sharedState.currentState() || {};
 
@@ -291,6 +266,7 @@ const mediaPlugin: NextEditorPlugin<
                 editorDomElement={editorView.dom}
                 mediaState={mediaState!}
                 appearance={appearance}
+                api={api}
               />
             )}
           />

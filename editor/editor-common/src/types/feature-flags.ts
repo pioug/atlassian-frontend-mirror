@@ -280,13 +280,6 @@ export type FeatureFlags = {
   chromeCursorHandlerFixedVersion?: number;
 
   /**
-   * Enable table cell options in the floating toolbar
-   * @see https://product-fabric.atlassian.net/browse/ED-14418
-   * @default false
-   */
-  tableCellOptionsInFloatingToolbar?: boolean;
-
-  /**
    * @description
    * Enable display of a preview modal on mouse over of inline smart card
    *
@@ -407,17 +400,6 @@ export type FeatureFlags = {
    * @default false
    */
   preventPopupOverflow?: boolean;
-
-  /**
-   * @description
-   * Alter the default navigation behaviour of the typeahead insertion
-   *
-   * @see https://hello.atlassian.net/wiki/spaces/~970827943/blog/2023/03/29/2499685575
-   * @see https://product-fabric.atlassian.net/browse/ED-17200
-   * DUE DATE: July 2023
-   * @default true
-   */
-  useBetterTypeaheadNavigation?: boolean;
 
   /**
    * @description

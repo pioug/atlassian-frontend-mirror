@@ -4,8 +4,8 @@ import type {
   FloatingToolbarButton,
   FloatingToolbarConfig,
   FloatingToolbarItem,
-} from '../types';
-import type { Command } from '../../../types';
+  Command,
+} from '@atlaskit/editor-common/types';
 import { processCopyButtonItems } from '../../copy-button/toolbar';
 
 import { DefaultExtensionProvider } from '@atlaskit/editor-common/extensions';

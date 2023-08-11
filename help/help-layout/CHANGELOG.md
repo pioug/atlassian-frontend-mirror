@@ -1,5 +1,11 @@
 # @atlaskit/help-layout
 
+## 4.2.6
+
+### Patch Changes
+
+- [`f01deb5e6ab`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f01deb5e6ab) - Use injected env vars instead of version.json
+
 ## 4.2.5
 
 ### Patch Changes

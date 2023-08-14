@@ -12,6 +12,8 @@ export const selectors = {
   editor: '.ProseMirror[contenteditable=true]',
   testContainer: '#renderer-container',
   code: '.code-block code',
+  table: '[data-testid="renderer-table"]',
+  stickyHeader: '[data-testid="sticky-table-fixed"]',
 };
 
 export const setSelection = async (

@@ -523,13 +523,7 @@ describe('layout', () => {
       const newState = editorView.state.apply(tr);
 
       expect(newState.doc).toEqualDocument(
-        doc(
-          p('foo'),
-          layoutSection(
-            layoutColumn({ width: 50 })(p('')),
-            layoutColumn({ width: 50 })(p('')),
-          ),
-        ),
+        doc(p('foo'), layoutSection(layoutColumn({ width: 100 })(p('')))),
       );
     });
   });

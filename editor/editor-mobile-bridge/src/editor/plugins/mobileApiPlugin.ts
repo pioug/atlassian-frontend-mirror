@@ -10,7 +10,7 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import type { textFormattingPlugin } from '@atlaskit/editor-core';
+import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { useHyperlinkListener } from './useHyperlinkListener';
 import { useTextFormattingListener } from './useTextFormattingListener';
 
@@ -33,7 +33,7 @@ export const mobileApiPlugin: NextEditorPlugin<
     dependencies: [
       OptionalPlugin<typeof analyticsPlugin>,
       typeof hyperlinkPlugin,
-      typeof textFormattingPlugin,
+      TextFormattingPlugin,
     ];
     pluginConfiguration: { bridge: WebBridgeImpl };
   }

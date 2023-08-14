@@ -25,7 +25,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import emojiPlugin from '../../';
 import basePlugin from '../../../base';
 import blockTypePlugin from '../../../block-type';
-import textFormattingPlugin from '../../../text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import codeBlockPlugin from '../../../code-block';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';

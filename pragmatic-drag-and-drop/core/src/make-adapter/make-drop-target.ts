@@ -101,17 +101,18 @@ export function makeDropTarget<DragType extends AllDragTypes>({
       });
     }
 
+    // calculate our new record
     const data: Record<string | symbol, unknown> =
       args.getData?.(feedback) ?? {};
     const dropEffect: DataTransfer['dropEffect'] | null =
       args.getDropEffect?.(feedback) ?? defaultDropEffect;
-    const sticky: boolean = Boolean(args.getIsSticky?.(feedback));
-
     const record: DropTargetRecord = {
       data,
       element: args.element,
       dropEffect,
-      sticky,
+      // we are collecting _actual_ drop targets, so these are
+      // being applied _not_ due to stickiness
+      isActiveDueToStickiness: false,
     };
 
     return getActualDropTargets({
@@ -250,16 +251,6 @@ export function makeDropTarget<DragType extends AllDragTypes>({
       // At this point we have no drop target in the old spot
       // Check to see if we can use a previous sticky drop target
 
-      // stickiness is based on relationships to a parent
-      // so if we hit a drop target that is not sticky we
-      // can finish our search
-      if (!last.sticky) {
-        break;
-      }
-
-      // We only want the previous sticky item to 'stick' if
-      // the parent of the sticky item is unchanged
-
       // The "parent" is the one inside of `resultCaptureOrdered`
       // (the parent might be a drop target that was sticky)
       const parent: DropTargetRecord | undefined =
@@ -267,14 +258,48 @@ export function makeDropTarget<DragType extends AllDragTypes>({
       const lastParent: DropTargetRecord | undefined =
         lastCaptureOrdered[index - 1];
 
-      // parents are the same (might both be undefined for index == 0)
-      // we can add the last entry and keep searching
-      if (parent?.element === lastParent?.element) {
-        resultCaptureOrdered.push(last);
-        continue;
+      // Stickiness is based on parent relationships, so if the parent relationship has change
+      // then we can stop our search
+      if (parent?.element !== lastParent?.element) {
+        break;
       }
-      // parents are not the same, we can exit our search
-      break;
+
+      // We need to check whether the old drop target can still be dropped on
+
+      const argsForLast = registry.get(last.element);
+
+      // We cannot drop on a drop target that is no longer mounted
+      if (!argsForLast) {
+        break;
+      }
+
+      const feedback: DropTargetGetFeedbackArgs<DragType> = {
+        input,
+        source,
+        element: argsForLast.element,
+      };
+
+      // We cannot drop on a drop target that no longer allows being dropped on
+      if (argsForLast.canDrop && !argsForLast.canDrop(feedback)) {
+        break;
+      }
+
+      // We cannot drop on a drop target that is no longer sticky
+      if (!argsForLast.getIsSticky?.(feedback)) {
+        break;
+      }
+
+      // Note: intentionally not recollecting `getData()` or `getDropEffect()`
+      // Previous values for `data` and `dropEffect` will be borrowed
+      // This is to prevent things like the 'closest edge' changing when
+      // no longer over a drop target.
+      // We could change our mind on this behaviour in the future
+
+      resultCaptureOrdered.push({
+        ...last,
+        // making it clear to consumers this drop target is active due to stickiness
+        isActiveDueToStickiness: true,
+      });
     }
 
     // return bubble ordered result

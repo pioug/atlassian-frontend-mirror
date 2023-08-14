@@ -19,10 +19,6 @@ const serializePlaceholderNode = (node: PMNode): HTMLElement => {
   // the inline node api test suite requires the following class name
   element.classList.add('placeholderView-content-wrap');
 
-  if (browser.gecko) {
-    element.setAttribute('contenteditable', 'true');
-  }
-
   element.innerText = ZERO_WIDTH_SPACE;
 
   const elementChildren = document.createElement('span');

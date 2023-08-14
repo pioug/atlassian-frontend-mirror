@@ -1,5 +1,33 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.18.0
+
+### Minor Changes
+
+- [`80b964e24a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80b964e24a2) - [ED-19205] Extract the text-formatting editor plugin to a separate package
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.17.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.17.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.17.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.17.3
 
 ### Patch Changes

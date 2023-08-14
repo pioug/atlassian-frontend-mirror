@@ -7,6 +7,7 @@ import { waitForLoadedBackgroundImages } from '@atlaskit/visual-regression/helpe
 import * as stickyHeaderADF from '../__fixtures__/sticky-header.adf.json';
 import { emojiSelectors } from '../__helpers/page-objects/_emoji';
 import { shadowClassNames } from '@atlaskit/editor-common/ui';
+import { selectors } from '../__helpers/page-objects/_renderer';
 
 async function scrollToPos(page: PuppeteerPage, pos: number) {
   return page.evaluate((pos: number) => {
@@ -130,5 +131,48 @@ describe('Snapshot Test: sticky-headers', () => {
   it(`should have the headers not stick for an table with merged cells`, async () => {
     await initRenderer(page, stickyHeaderADF);
     await scrollToPos(page, 6033);
+  });
+});
+
+describe('when the viewport width changes', () => {
+  let page: PuppeteerPage;
+  beforeAll(() => {
+    page = global.page;
+  });
+
+  afterEach(async () => {
+    await page.waitForSelector(selectors.table);
+    await page.waitForSelector(selectors.stickyHeader);
+    const table = await page.$$(selectors.table);
+    const stickyHeader = await page.$$(selectors.stickyHeader);
+
+    // We scroll to the second table in the list
+    const tableBoundingBox = await table[1].boundingBox();
+    const stickyHeaderBoundingBox = await stickyHeader[1].boundingBox();
+
+    expect(tableBoundingBox?.width).toBe(stickyHeaderBoundingBox?.width);
+  });
+
+  beforeEach(async () => {
+    await initRenderer(page, stickyHeaderADF);
+    await scrollToPos(page, 345);
+  });
+
+  it('should be the same after increasing in size', async () => {
+    await page.setViewport({ width: 1600, height: 868 });
+  });
+
+  it('should be the same after decreasing in size', async () => {
+    await page.setViewport({ width: 600, height: 868 });
+  });
+
+  it('should be the same after increasing then decreasing in size', async () => {
+    await page.setViewport({ width: 1600, height: 868 });
+    await page.setViewport({ width: 600, height: 868 });
+  });
+
+  it('should be the same after decreasing then increasing in size', async () => {
+    await page.setViewport({ width: 600, height: 868 });
+    await page.setViewport({ width: 1600, height: 868 });
   });
 });

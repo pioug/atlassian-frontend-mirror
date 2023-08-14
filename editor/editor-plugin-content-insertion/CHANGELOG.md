@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-content-insertion
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.0.7
 
 ### Patch Changes

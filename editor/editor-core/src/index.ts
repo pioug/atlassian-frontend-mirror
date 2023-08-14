@@ -162,10 +162,3 @@ export { DEFAULT_BORDER_COLOR } from './ui/ColorPalette/Palettes/common';
 export { default as messages, statusMessages, dateMessages } from './messages';
 export { createTypeAheadTools } from './plugins/type-ahead/api';
 export { createQuickInsertTools } from './plugins/quick-insert/api';
-
-export type {
-  /**
-   * Temporary, until we extract the plugin to its own package
-   * @deprecated Don't use this
-   */ textFormattingPlugin,
-} from './plugins';

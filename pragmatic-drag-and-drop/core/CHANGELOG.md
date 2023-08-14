@@ -1,5 +1,49 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 0.20.0
+
+### Minor Changes
+
+- [`554a6d8cc34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/554a6d8cc34) - ### Stickiness algorithm improvement
+
+  We have made some improvements to the drop target stickiness algorithm to allow sticky drop targets that are no longer dragged over to cancel their stickiness.
+
+  Stickiness is no longer maintained when a sticky drop target states it cannot be dropped on
+
+  > Scenario: `[A(sticky)]` → `[]` + `A:canDrop()` returns `false`
+  > Result: `[]`
+
+  Stickiness is no longer maintained when a sticky drop start states it is no longer sticky
+
+  > Scenario: `[A(sticky)]` → `[]` + `A:getIsSticky()` returns `false`
+  > Result: `[]`
+
+  Stickiness is no longer maintained when a sticky drop start is unmounted
+
+  > Scenario: `[A(sticky)]` → `[]` + `A` is unmounted
+  > Result: `[]`
+
+  To help facilitate this change:
+
+  - `getIsSticky()` is now only called when an _drop target_ is a potential candidate for stickiness (previously it was called repeatedly)
+  - `getIsSticky()` and `canDrop()` are called on _drop targets_ that are no longer being dragged over, but are candidates for stickiness
+
+  ### Change to `DropTargetRecord` `type`
+
+  Previously, the `DropTargetRecord` type had a property called `sticky` which would represent whether the _drop target_ was registering itself as sticky via `getIsSticky()`. Knowing `sticky` is not overly helpful given that we now regularly recompute stickiness and a _drop target_ can change disable stickiness after it is applied.
+
+  What is helpful, is knowing whether a _drop target_ is active _because_ of stickiness. So we have removed `sticky` and added `isActiveDueToStickiness` to the `DropTargetRecord` type.
+
+  ```diff
+  type DropTargetRecord = {
+    element: Element;
+    data: Record<string | symbol, unknown>;
+    dropEffect: DataTransfer['dropEffect'];
+  -  sticky: boolean;
+  +  isActiveDueToStickiness: boolean;
+  };
+  ```
+
 ## 0.19.0
 
 ### Minor Changes

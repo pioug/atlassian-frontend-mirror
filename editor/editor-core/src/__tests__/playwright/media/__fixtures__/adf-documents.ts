@@ -783,3 +783,46 @@ export const adfWithOneExternalMedia = {
     },
   ],
 };
+
+export const getMediaListAdf = (type: 'bulletList' | 'orderedList') => {
+  return {
+    version: 1,
+    type: 'doc',
+    content: [
+      {
+        type: 'mediaSingle',
+        attrs: {
+          layout: 'center',
+        },
+        content: [
+          {
+            type: 'media',
+            attrs: {
+              id: 'a559980d-cd47-43e2-8377-27359fcb905f',
+              type: 'file',
+              collection: 'MediaServicesSample',
+            },
+          },
+        ],
+      },
+      {
+        type: 'paragraph',
+        content: [],
+      },
+      {
+        type: type,
+        content: [
+          {
+            type: 'listItem',
+            content: [
+              {
+                type: 'paragraph',
+                content: [],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+};

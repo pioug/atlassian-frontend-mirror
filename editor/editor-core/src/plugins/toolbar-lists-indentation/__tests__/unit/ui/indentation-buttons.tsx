@@ -23,7 +23,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import basePlugin from '../../../../base';
-import textFormattingPlugin from '../../../../text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import blockTypePlugin from '../../../../block-type';
 import listPlugin from '../../../../list';
 import tasksAndDecisionsPlugin from '../../../../tasks-and-decisions';

@@ -72,7 +72,7 @@ import {
   transformSliceToCorrectMediaWrapper,
   unwrapNestedMediaElements,
 } from '../../media/utils/media-common';
-import { upgradeTextToLists, splitParagraphs } from '../../list/transforms';
+import { upgradeTextToLists, splitParagraphs } from '../commands';
 import { md } from '@atlaskit/editor-common/paste';
 import { transformSliceToDecisionList } from '../../tasks-and-decisions/utils';
 import {

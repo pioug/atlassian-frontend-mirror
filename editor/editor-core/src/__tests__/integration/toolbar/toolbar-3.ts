@@ -75,11 +75,12 @@ const clear = `span=${toolbarMessages.clearFormatting.defaultMessage}`;
       await page.type(editable, 'hello');
       await page.keys('Return');
       await page.click(
-        `[aria-label="${blockTypeMessages.codeblock.defaultMessage}"]`,
+        `[aria-label="${blockTypeMessages.blockquote.defaultMessage}"]`,
       );
-      await page.type(editable, 'insidecode');
+      await page.type(editable, 'insideblockquote');
       await page.keys('ArrowRight');
       await page.keys('ArrowRight');
+      await page.keys('Return');
       await page.type(editable, 'world');
       await page.keys('Return');
 

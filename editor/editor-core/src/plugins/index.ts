@@ -31,7 +31,6 @@ export { default as saveOnEnterPlugin } from './save-on-enter';
 export { default as submitEditorPlugin } from './submit-editor';
 export { default as tasksAndDecisionsPlugin } from './tasks-and-decisions';
 export { default as textColorPlugin } from './text-color';
-export { default as textFormattingPlugin } from './text-formatting';
 export { default as typeAheadPlugin } from './type-ahead';
 export { default as unsupportedContentPlugin } from './unsupported-content';
 export { default as floatingToolbarPlugin } from './floating-toolbar';

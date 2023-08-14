@@ -9,7 +9,7 @@ import type { NextEditorPlugin } from '../../types';
 import { createPlugin } from './pm-plugins/main';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymapPlugin from './pm-plugins/keymap';
-import { messages } from './messages';
+import { listMessages as messages } from '@atlaskit/editor-common/messages';
 import {
   ACTION,
   EVENT_TYPE,
@@ -44,7 +44,6 @@ const listPlugin: NextEditorPlugin<
 
   return {
     name: 'list',
-
     nodes() {
       return [
         { name: 'bulletList', node: bulletList },

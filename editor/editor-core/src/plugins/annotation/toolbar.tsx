@@ -15,6 +15,7 @@ import type {
   FloatingToolbarButton,
 } from '@atlaskit/editor-common/types';
 import { setInlineCommentDraftState } from './commands';
+import type { CoordsAtPos } from './types';
 import { AnnotationTestIds, AnnotationSelectionType } from './types';
 import { isSelectionValid } from './utils';
 
@@ -37,6 +38,18 @@ export const annotationMessages = defineMessages({
       'A label for a toolbar (UI element) that creates annotations/comments in the document',
   },
 });
+/**
+ * Returns the coordintes at the bottom the selection.
+ */
+const getCoordsBelowSelection = (
+  bottomCoords: CoordsAtPos,
+  toolbarRect: DOMRect,
+) => {
+  return {
+    top: (bottomCoords.top || 0) + toolbarRect.height / 1.15,
+    left: bottomCoords.right - toolbarRect.width / 2,
+  };
+};
 
 /*
   Calculates the position of the floating toolbar relative to the selection.
@@ -84,7 +97,7 @@ const calculateToolbarPositionAboveSelection =
     const bottomCoords = editorView.coordsAtPos(
       Math.max(head, anchor) - Math.min(range.endOffset, 1),
     );
-    const top = (topCoords.top || 0) - toolbarRect.height * 1.5;
+    let top = (topCoords.top || 0) - toolbarRect.height * 1.5;
     let left = 0;
 
     // If not on the same line
@@ -97,17 +110,17 @@ const calculateToolbarPositionAboveSelection =
       }
 
       /*
-      short selection above a long paragraph
+        short selection above a long paragraph
 
-      eg. short {<}heading
-      The purpose of this text is to show the selection range{>}.
+        eg. short {<}heading
+        The purpose of this text is to show the selection range{>}.
 
-      The horizontal positioning should center around "heading",
-      not where it ends at "range".
+        The horizontal positioning should center around "heading",
+        not where it ends at "range".
 
-      Note: if it was "head<b>ing</b>" then it would only center
-      around "head". Undesireable but matches the current renderer.
-    */
+        Note: if it was "head<b>ing</b>" then it would only center
+        around "head". Undesireable but matches the current renderer.
+      */
       const cliffPosition = range.getClientRects()[0];
       if (cliffPosition.right < left) {
         left = cliffPosition.left + cliffPosition.width / 2;
@@ -117,6 +130,11 @@ const calculateToolbarPositionAboveSelection =
       left = topCoords.left + (bottomCoords.right - topCoords.left) / 2;
     }
     left -= toolbarRect.width / 2;
+
+    // Place toolbar below selection if not sufficient space above
+    if (top < wrapperBounds.top) {
+      ({ top, left } = getCoordsBelowSelection(bottomCoords, toolbarRect));
+    }
 
     // remap positions from browser document to wrapperBounds
     return {
@@ -181,9 +199,14 @@ const calculateToolbarPositionTrackHead =
       top = (topCoords.top || 0) - toolbarRect.height * 1.5;
     }
 
-    const left =
+    let left =
       (head > anchor ? bottomCoords.right : topCoords.left) -
       toolbarRect.width / 2;
+
+    // Place toolbar below selection if not sufficient space above
+    if (top < wrapperBounds.top) {
+      ({ top, left } = getCoordsBelowSelection(bottomCoords, toolbarRect));
+    }
 
     // remap positions from browser document to wrapperBounds
     return {

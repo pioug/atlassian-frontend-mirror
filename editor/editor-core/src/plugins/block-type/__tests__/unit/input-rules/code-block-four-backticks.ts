@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   br,
   doc,
@@ -9,12 +10,11 @@ import {
   ul,
   li,
   panel,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import blockTypePlugin from '../../..';
@@ -23,7 +23,7 @@ import quickInsertPlugin from '../../../../quick-insert';
 import typeAheadPlugin from '../../../../type-ahead';
 import codeBlockPlugin from '../../../../code-block';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import textFormattingPlugin from '../../../../text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import listPlugin from '../../../../list';
 import panelPlugin from '../../../../panel';

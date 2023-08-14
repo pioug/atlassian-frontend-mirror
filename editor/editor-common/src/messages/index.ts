@@ -10,6 +10,7 @@ export { toolbarMessages as mediaAndEmbedToolbarMessages } from './media-and-emb
 export { messages as cardMessages } from './card';
 export { messages as fullPageMessages } from './full-page';
 export { toolbarMessages } from './toolbar';
+export { messages as listMessages } from './list';
 
 export default defineMessages({
   layoutFixedWidth: {

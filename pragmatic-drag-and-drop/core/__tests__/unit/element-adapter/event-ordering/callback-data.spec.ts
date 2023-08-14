@@ -81,7 +81,7 @@ test('scenario: [A] -> [A] -> [] -> cancel', () => {
       {
         element: A,
         data: dropTargetData,
-        sticky: false,
+        isActiveDueToStickiness: false,
         dropEffect: 'move',
       },
     ],
@@ -335,7 +335,7 @@ test('scenario: [A] -> [A] -> cancel', () => {
       {
         element: A,
         data: dropTargetData,
-        sticky: false,
+        isActiveDueToStickiness: false,
         dropEffect: 'move',
       },
     ],
@@ -592,13 +592,13 @@ test('scenario: [B, A] -> [A] -> drop', () => {
       {
         element: B,
         data: BData,
-        sticky: false,
+        isActiveDueToStickiness: false,
         dropEffect: 'move',
       },
       {
         element: A,
         data: AData,
-        sticky: false,
+        isActiveDueToStickiness: false,
         dropEffect: 'move',
       },
     ],
@@ -832,7 +832,7 @@ test('scenario: [A] -> [A] -> drop', () => {
       {
         element: A,
         data: dropTargetData,
-        sticky: false,
+        isActiveDueToStickiness: false,
         dropEffect: 'move',
       },
     ],

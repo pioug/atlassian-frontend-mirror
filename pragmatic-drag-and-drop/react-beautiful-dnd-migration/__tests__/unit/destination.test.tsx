@@ -18,6 +18,13 @@ const getDraggable = (container: HTMLElement, draggableId: string) => {
   return el;
 };
 
+const getPlaceholder = (container: HTMLElement) => {
+  const selector = `[data-rbd-placeholder-context-id]`;
+  const el = container.querySelector(selector);
+  invariant(el instanceof HTMLElement);
+  return el;
+};
+
 const extractClosestEdge = jest.spyOn(closestEdge, 'extractClosestEdge');
 
 function dragAndDrop({
@@ -25,7 +32,7 @@ function dragAndDrop({
   target,
 }: {
   handle: HTMLElement;
-  target: { element: HTMLElement; edge: Edge };
+  target: { getElement: () => HTMLElement; edge: Edge };
 }) {
   const cleanup = setElementFromPoint(handle);
   fireEvent.dragStart(handle);
@@ -36,7 +43,7 @@ function dragAndDrop({
   cleanup();
 
   extractClosestEdge.mockReturnValue(target.edge);
-  fireEvent.dragEnter(target.element);
+  fireEvent.dragEnter(target.getElement());
 
   fireEvent.drop(handle);
 }
@@ -53,7 +60,15 @@ describe('drop destination', () => {
       const handle = getDraggable(container, 'A0');
       expect(handle).toHaveAttribute(customAttributes.draggable.index, '0');
 
-      dragAndDrop({ handle, target: { element: handle, edge: 'top' } });
+      dragAndDrop({
+        handle,
+        target: {
+          // When a drag starts, the drop target for the dragging
+          // Draggable becomes the placeholder element
+          getElement: () => getPlaceholder(container),
+          edge: 'top',
+        },
+      });
       expect(handle).toHaveAttribute(customAttributes.draggable.index, '0');
     });
 
@@ -63,7 +78,15 @@ describe('drop destination', () => {
       const handle = getDraggable(container, 'A0');
       expect(handle).toHaveAttribute(customAttributes.draggable.index, '0');
 
-      dragAndDrop({ handle, target: { element: handle, edge: 'bottom' } });
+      dragAndDrop({
+        handle,
+        target: {
+          // When a drag starts, the drop target for the dragging
+          // Draggable becomes the placeholder element
+          getElement: () => getPlaceholder(container),
+          edge: 'bottom',
+        },
+      });
       expect(handle).toHaveAttribute(customAttributes.draggable.index, '0');
     });
   });
@@ -78,7 +101,7 @@ describe('drop destination', () => {
       dragAndDrop({
         handle,
         target: {
-          element: getDraggable(container, 'A3'),
+          getElement: () => getDraggable(container, 'A3'),
           edge: 'top',
         },
       });
@@ -94,7 +117,7 @@ describe('drop destination', () => {
       dragAndDrop({
         handle,
         target: {
-          element: getDraggable(container, 'A3'),
+          getElement: () => getDraggable(container, 'A3'),
           edge: 'bottom',
         },
       });
@@ -112,7 +135,7 @@ describe('drop destination', () => {
       dragAndDrop({
         handle,
         target: {
-          element: getDraggable(container, 'A0'),
+          getElement: () => getDraggable(container, 'A0'),
           edge: 'top',
         },
       });
@@ -128,7 +151,7 @@ describe('drop destination', () => {
       dragAndDrop({
         handle,
         target: {
-          element: getDraggable(container, 'A0'),
+          getElement: () => getDraggable(container, 'A0'),
           edge: 'bottom',
         },
       });
@@ -146,7 +169,7 @@ describe('drop destination', () => {
       dragAndDrop({
         handle,
         target: {
-          element: getDraggable(container, 'B0'),
+          getElement: () => getDraggable(container, 'B0'),
           edge: 'top',
         },
       });
@@ -165,7 +188,7 @@ describe('drop destination', () => {
       dragAndDrop({
         handle,
         target: {
-          element: getDraggable(container, 'B0'),
+          getElement: () => getDraggable(container, 'B0'),
           edge: 'bottom',
         },
       });

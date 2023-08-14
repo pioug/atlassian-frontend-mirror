@@ -1,5 +1,11 @@
 ## 1.3.0 (2022-05-30)
 
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.2.6
 
 ### Patch Changes

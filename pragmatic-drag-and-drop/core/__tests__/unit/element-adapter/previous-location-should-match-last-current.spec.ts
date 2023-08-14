@@ -88,13 +88,13 @@ test('Scenario: ([B,A] -> cancel)', () => {
   const initial: DropTargetRecord[] = [
     {
       element: B,
-      sticky: false,
+      isActiveDueToStickiness: false,
       data: {},
       dropEffect: 'move',
     },
     {
       element: A,
-      sticky: false,
+      isActiveDueToStickiness: false,
       data: {},
       dropEffect: 'move',
     },
@@ -225,13 +225,13 @@ test('Scenario: ([B,A] -> [B,A] -> [A] -> drop)', () => {
   const initial: DropTargetRecord[] = [
     {
       element: B,
-      sticky: false,
+      isActiveDueToStickiness: false,
       data: {},
       dropEffect: 'move',
     },
     {
       element: A,
-      sticky: false,
+      isActiveDueToStickiness: false,
       data: {},
       dropEffect: 'move',
     },
@@ -389,13 +389,13 @@ test('Scenario: ([B, A] -> drop (lift flush)', () => {
   const initial: DropTargetRecord[] = [
     {
       element: B,
-      sticky: false,
+      isActiveDueToStickiness: false,
       data: {},
       dropEffect: 'move',
     },
     {
       element: A,
-      sticky: false,
+      isActiveDueToStickiness: false,
       data: {},
       dropEffect: 'move',
     },
@@ -494,13 +494,13 @@ test('Scenario: ([B, A] -> [B, A] (onDrag canceled by enter into) -> [A]', () =>
   const initial: DropTargetRecord[] = [
     {
       element: B,
-      sticky: false,
+      isActiveDueToStickiness: false,
       data: {},
       dropEffect: 'move',
     },
     {
       element: A,
-      sticky: false,
+      isActiveDueToStickiness: false,
       data: {},
       dropEffect: 'move',
     },

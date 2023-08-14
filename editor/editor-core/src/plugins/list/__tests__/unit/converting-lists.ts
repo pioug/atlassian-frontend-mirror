@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   code_block,
   doc,
@@ -13,16 +14,15 @@ import {
   strong,
   status,
   th,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { uuid } from '@atlaskit/adf-schema';
 import listPlugin from '../..';
-import textFormattingPlugin from '../../../text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import panelPlugin from '../../../panel';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import codeBlockPlugin from '../../../code-block';

@@ -1,67 +1,41 @@
-jest.mock('../../../plugins/text-formatting/pm-plugins/input-rule');
 import React from 'react';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import ReactEditorView from '../../ReactEditorView';
-import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
-import textFormattingInputRulePlugin from '../../../plugins/text-formatting/pm-plugins/input-rule';
-import type { FireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import * as FeatureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { createPreset } from '../../create-plugins-list';
 
-jest.mock('@atlaskit/editor-common/analytics', () => ({
-  ...jest.requireActual<Object>('@atlaskit/editor-common/analytics'),
-  fireAnalyticsEvent: jest.fn(),
-}));
-
-const portalProviderAPI: any = {
-  render() {},
-  remove() {},
-};
-const requiredProps = () => ({
-  providerFactory: ProviderFactory.create({}),
-  portalProviderAPI,
-  onEditorCreated: () => {},
-  onEditorDestroyed: () => {},
-  editorProps: {},
-});
-
-const analyticsProps = () => ({
-  allowAnalyticsGASV3: true,
-  createAnalyticsEvent: createAnalyticsEventMock() as any,
-});
 describe('ReactEditorView/reconfigureState', () => {
-  let mockFire: ReturnType<FireAnalyticsEvent>;
-  beforeEach(() => {
-    mockFire = jest.fn();
-    (fireAnalyticsEvent as jest.Mock).mockReturnValue(mockFire);
-  });
+  const defaultProps = {
+    providerFactory: ProviderFactory.create({}),
+    portalProviderAPI: {} as any,
+    onEditorCreated: () => {},
+    onEditorDestroyed: () => {},
+  };
+  const featureFlagsPluginSpy = jest.spyOn(FeatureFlagsPlugin, 'default');
 
-  afterEach(() => {
-    (fireAnalyticsEvent as jest.Mock).mockRestore();
-    jest.resetAllMocks();
-  });
+  afterEach(jest.clearAllMocks);
 
   describe('when the component is created', () => {
     it('should send the feature flag', () => {
       const editorProps = {
         featureFlags: {
-          tableOverflowShadowsOptimization: true,
+          tableOverflowShadowsOptimization: true, // Needs to be a valid FF
         },
       };
+
       renderWithIntl(
         <ReactEditorView
-          {...requiredProps()}
-          {...analyticsProps()}
+          {...defaultProps}
           editorProps={editorProps}
           preset={createPreset(editorProps)}
         />,
       );
-      expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
-        1,
-        expect.anything(),
+
+      expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
+      expect(featureFlagsPluginSpy).toHaveBeenCalledWith(
         expect.objectContaining({ tableOverflowShadowsOptimization: true }),
-        undefined, // No Analytics API injected
+        expect.objectContaining({ dependencies: {} }),
       );
     });
   });
@@ -71,32 +45,38 @@ describe('ReactEditorView/reconfigureState', () => {
       const editorProps = {
         allowUndoRedoButtons: false,
       };
-
       const { rerender, unmount } = renderWithIntl(
         <ReactEditorView
-          {...requiredProps()}
-          {...analyticsProps()}
+          {...defaultProps}
           editorProps={editorProps}
           preset={createPreset(editorProps)}
         />,
       );
+
+      expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
+      expect(featureFlagsPluginSpy).toHaveBeenCalledWith(
+        expect.objectContaining({ undoRedoButtons: false }),
+        expect.objectContaining({ dependencies: {} }),
+      );
+
       const nextEditorProps = {
         allowUndoRedoButtons: true,
       };
       rerender(
         <ReactEditorView
-          {...requiredProps()}
-          {...analyticsProps()}
+          {...defaultProps}
           editorProps={nextEditorProps}
           preset={createPreset(nextEditorProps)}
         />,
       );
-      expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
+
+      expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(2);
+      expect(featureFlagsPluginSpy).toHaveBeenNthCalledWith(
         2,
-        expect.anything(),
         expect.objectContaining({ undoRedoButtons: true }),
-        undefined, // No Analytics API injected
+        expect.objectContaining({ dependencies: {} }),
       );
+
       unmount();
     });
   });
@@ -111,12 +91,18 @@ describe('ReactEditorView/reconfigureState', () => {
       } as any;
       const { rerender, unmount } = renderWithIntl(
         <ReactEditorView
-          {...requiredProps()}
-          {...analyticsProps()}
+          {...defaultProps}
           editorProps={editorProps}
           preset={createPreset(editorProps)}
         />,
       );
+
+      expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(1);
+      expect(featureFlagsPluginSpy).toHaveBeenCalledWith(
+        expect.objectContaining({ tableOverflowShadowsOptimization: true }),
+        expect.objectContaining({ dependencies: {} }),
+      );
+
       const nextEditorProps = {
         featureFlags: {
           tableOverflowShadowsOptimization: false,
@@ -125,18 +111,19 @@ describe('ReactEditorView/reconfigureState', () => {
       };
       rerender(
         <ReactEditorView
-          {...requiredProps()}
-          {...analyticsProps()}
+          {...defaultProps}
           editorProps={nextEditorProps}
           preset={createPreset(nextEditorProps)}
         />,
       );
-      expect(textFormattingInputRulePlugin).toHaveBeenNthCalledWith(
+
+      expect(featureFlagsPluginSpy).toHaveBeenCalledTimes(2);
+      expect(featureFlagsPluginSpy).toHaveBeenNthCalledWith(
         2,
-        expect.anything(),
         expect.objectContaining({ tableOverflowShadowsOptimization: false }),
-        undefined, // No Analytics API injected
+        expect.objectContaining({ dependencies: {} }),
       );
+
       unmount();
     });
   });

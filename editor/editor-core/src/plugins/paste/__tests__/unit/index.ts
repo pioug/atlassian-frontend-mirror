@@ -9,7 +9,7 @@ import { toggleMark } from '@atlaskit/editor-common/mark';
 import pastePlugin from '../../index';
 import blockTypePlugin from '../../../block-type';
 import betterTypeHistoryPlugin from '../../../better-type-history';
-import { textFormattingPlugin } from '../../../index';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';

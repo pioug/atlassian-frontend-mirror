@@ -155,7 +155,7 @@ dropTargetForLinks({
 
 When working with nested _drop targets_, the inner most drop targets `dropEffect` is the one that will be applied; even if inner most drop target is using the default value (`"move"`)
 
-- `getIsSticky?: (args: GetFeedbackArgs) => boolean`: Drop targets are generally calculated based on where the user's pointer is currently located. In some scenarios you might want to _hold on_ to a previous drop target (make it _sticky_), even when the drop target is no longer being directly dragged over. This is useful if you want to maintain a selection while you are in _gaps_ between drop targets. `getIsSticky()` is called `repeatedly` while a drop target is being dragged over
+- `getIsSticky?: (args: GetFeedbackArgs) => boolean`: Drop targets are generally calculated based on where the user's pointer is currently located. In some scenarios you might want to _hold on_ to a previous drop target (make it _sticky_), even when the drop target is no longer being directly dragged over. This is useful if you want to maintain a selection while you are in _gaps_ between drop targets. `getIsSticky()` is called `repeatedly` while a drop target is no longer being dragged over to determine whether a drop target should be sticky.
 
 ```ts
 dropTargetForElements({
@@ -166,7 +166,7 @@ dropTargetForElements({
 dropTargetForElements({
   element: myElement,
   getIsSticky: ({ source }: GetFeedbackArgs): boolean => {
-    // only be sticky when dragging something with 'author = Alex'
+    // only be sticky when dragging something with 'author: Alex'
     return source.data.author === 'Alex';
   },
 });
@@ -174,8 +174,10 @@ dropTargetForElements({
 
 A _drop target_ that otherwise would not be dragged over any more due to changes in the users pointer, will continue to be marked as "dragged over" when:
 
-1. The drop target `getIsSticky()` returns `true` AND
-2. The parent of a _drop target_ is unchanged
+- The drop target is still mounted in the DOM, AND
+- The drop target `canDrop()` returns `true` AND
+- The drop target `getIsSticky()` returns `true` AND
+- The parent of a _drop target_ is unchanged
 
 > `[]` = Which _drop targets_ are currently dragged over
 > `[A]` = over the `A` drop target
@@ -207,7 +209,25 @@ A _drop target_ that otherwise would not be dragged over any more due to changes
 > Scenario: `[B(sticky), A(sticky)]` → `[X]`
 > Result: `[X]`
 
-All _drop targets_, regardless of stickiness, will no longer be "dragged over" when the users pointer moves out of the `window`
+Stickiness is not maintained when an old drop target states it cannot be dropped on
+
+> Scenario: `[A(sticky)]` → `[]` + `A:canDrop()` returns `false`
+> Result: `[]`
+
+Stickiness is not maintained when an old drop target states it it is no longer sticky
+
+> Scenario: `[A(sticky)]` → `[]` + `A:getIsSticky()` returns `false`
+> Result: `[]`
+
+Stickiness is not maintained when an old drop target is unmounted
+
+> Scenario: `[A(sticky)]` → `[]` + `A` is unmounted
+> Result: `[]`
+
+Notes:
+
+- All _drop targets_, regardless of stickiness, will no longer be "dragged over" when the users pointer moves out of the `window`.
+- Drop targets that are no longer dragged over, but are still active due to stickiness, will _not_ have their data recomputed with `getData()`, or drop effect recomputed with `getDropEffect()`. The last `data` and `dropEffect` created when a drop target is actively being dragged over is preserved.
 
 ## Nested drop targets
 

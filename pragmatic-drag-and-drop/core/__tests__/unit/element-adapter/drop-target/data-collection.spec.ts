@@ -15,7 +15,7 @@ import {
 
 afterEach(reset);
 
-it('should recollect data, dropEffect and stickiness during a drag', () => {
+it('should recollect data and dropEffect during a drag', () => {
   const [draggableEl, A] = getBubbleOrderedTree();
 
   const ordered: string[] = [];
@@ -87,7 +87,6 @@ it('should recollect data, dropEffect and stickiness during a drag', () => {
     'canDrop():0',
     'getData():0',
     'getDropEffect():0',
-    'getIsSticky():0',
     'draggable:start',
     'a:start',
   ]);
@@ -105,7 +104,9 @@ it('should recollect data, dropEffect and stickiness during a drag', () => {
     expect(canDrop).toHaveBeenCalledWith(expected);
     expect(getData).toHaveBeenCalledWith(expected);
     expect(getDropEffect).toHaveBeenCalledWith(expected);
-    expect(getIsSticky).toHaveBeenCalledWith(expected);
+    // getIsSticky() is only called if trying to figure out whether to
+    // make a drop target sticky
+    expect(getIsSticky).not.toHaveBeenCalled();
     canDrop.mockClear();
     getData.mockClear();
     getDropEffect.mockClear();
@@ -120,7 +121,6 @@ it('should recollect data, dropEffect and stickiness during a drag', () => {
     'canDrop():1',
     'getData():1',
     'getDropEffect():1',
-    'getIsSticky():1',
     'draggable:drag',
     'a:drag',
   ]);
@@ -137,7 +137,9 @@ it('should recollect data, dropEffect and stickiness during a drag', () => {
     expect(canDrop).toHaveBeenCalledWith(expected);
     expect(getData).toHaveBeenCalledWith(expected);
     expect(getDropEffect).toHaveBeenCalledWith(expected);
-    expect(getIsSticky).toHaveBeenCalledWith(expected);
+    // getIsSticky() is only called if trying to figure out whether to
+    // make a drop target sticky
+    expect(getIsSticky).not.toHaveBeenCalled();
   }
 
   cleanup();

@@ -163,13 +163,13 @@ test('drag events should be throttled', () => {
       element: B,
       data: {},
       dropEffect: 'move',
-      sticky: false,
+      isActiveDueToStickiness: false,
     },
     {
       element: A,
       data: {},
       dropEffect: 'move',
-      sticky: false,
+      isActiveDueToStickiness: false,
     },
   ];
   const expected: ElementEventPayloadMap['onDrag'] = {

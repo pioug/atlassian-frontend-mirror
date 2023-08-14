@@ -1,7 +1,8 @@
 import React from 'react';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import { UrlType } from '@atlaskit/adf-schema';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+
+import type { UrlType } from '@atlaskit/adf-schema';
 import {
   calcTableWidth,
   TableSharedCssClassName,
@@ -22,25 +23,23 @@ import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
 
-import {
+import type {
   RendererAppearance,
   StickyHeaderConfig,
 } from '../../ui/Renderer/types';
 import { FullPagePadding } from '../../ui/Renderer/style';
 import { TableHeader } from './tableCell';
-import {
-  withSmartCardStorage,
-  WithSmartCardStorageProps,
-} from '../../ui/SmartCardStorage';
+import type { WithSmartCardStorageProps } from '../../ui/SmartCardStorage';
+import { withSmartCardStorage } from '../../ui/SmartCardStorage';
 
+import type { StickyMode } from './table/sticky';
 import {
   StickyTable,
-  StickyMode,
   tableStickyPadding,
   OverflowParent,
 } from './table/sticky';
 import { Table } from './table/table';
-import { SharedTableProps } from './table/types';
+import type { SharedTableProps } from './table/types';
 import { isFullWidthOrFullPageAppearance } from '../utils/appearance';
 
 type TableArrayMapped = {
@@ -186,6 +185,8 @@ interface TableOrderStatus {
 
 interface TableState {
   stickyMode: StickyMode;
+  wrapperWidth: number;
+  headerRowHeight: number;
 }
 
 const canUseLinelength = (appearance: RendererAppearance) =>
@@ -197,6 +198,8 @@ export class TableContainer extends React.Component<
 > {
   state: TableState = {
     stickyMode: 'none',
+    wrapperWidth: 0,
+    headerRowHeight: 0,
   };
 
   tableRef = React.createRef<HTMLTableElement>();
@@ -209,7 +212,40 @@ export class TableContainer extends React.Component<
   nextFrame: number | undefined;
   overflowParent: OverflowParent | null = null;
 
+  private resizeObserver: ResizeObserver | null = null;
+
+  private applyResizerChange: ResizeObserverCallback = (entries) => {
+    let wrapperWidth = this.state.wrapperWidth;
+    let headerRowHeight = this.state.headerRowHeight;
+
+    for (const entry of entries) {
+      if (entry.target === this.wrapperRef.current) {
+        wrapperWidth = entry.contentRect.width;
+      } else if (entry.target === this.stickyHeaderRef.current) {
+        headerRowHeight = Math.round(entry.contentRect.height);
+      }
+    }
+
+    if (
+      headerRowHeight !== this.state.headerRowHeight ||
+      wrapperWidth !== this.state.wrapperWidth
+    ) {
+      this.setState({
+        wrapperWidth,
+        headerRowHeight,
+      });
+    }
+  };
+
   componentDidMount() {
+    this.resizeObserver = new ResizeObserver(this.applyResizerChange);
+    if (this.wrapperRef.current) {
+      this.resizeObserver.observe(this.wrapperRef.current);
+    }
+    if (this.stickyHeaderRef.current) {
+      this.resizeObserver.observe(this.stickyHeaderRef.current);
+    }
+
     if (this.props.stickyHeaders) {
       this.overflowParent = OverflowParent.fromElement(this.tableRef.current);
       this.overflowParent.addEventListener('scroll', this.onScroll);
@@ -243,6 +279,10 @@ export class TableContainer extends React.Component<
 
     if (this.nextFrame) {
       cancelAnimationFrame(this.nextFrame);
+    }
+
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
     }
   };
 
@@ -328,12 +368,6 @@ export class TableContainer extends React.Component<
     }
   }
 
-  get headerRowHeight() {
-    return this.stickyHeaderRef.current
-      ? this.stickyHeaderRef.current.offsetHeight
-      : 0;
-  }
-
   render() {
     const {
       isNumberColumnEnabled,
@@ -377,10 +411,6 @@ export class TableContainer extends React.Component<
       left = lineLength / 2 - tableWidth / 2;
     }
 
-    const wrapperWidth = this.wrapperRef.current
-      ? this.wrapperRef.current.clientWidth
-      : 0;
-
     const children = React.Children.toArray<React.ReactChild>(
       this.props.children,
     );
@@ -401,9 +431,9 @@ export class TableContainer extends React.Component<
               left={left}
               mode={stickyMode}
               innerRef={this.stickyWrapperRef}
-              wrapperWidth={wrapperWidth}
+              wrapperWidth={this.state.wrapperWidth}
               columnWidths={columnWidths}
-              rowHeight={this.headerRowHeight}
+              rowHeight={this.state.headerRowHeight}
               rendererAppearance={rendererAppearance}
             >
               {[children && children[0]]}
@@ -433,9 +463,9 @@ export class TableContainer extends React.Component<
                 top={this.stickyTop}
                 mode={stickyMode}
                 innerRef={this.stickyWrapperRef}
-                wrapperWidth={wrapperWidth}
+                wrapperWidth={this.state.wrapperWidth}
                 columnWidths={columnWidths}
-                rowHeight={this.headerRowHeight}
+                rowHeight={this.state.headerRowHeight}
                 tableNode={tableNode}
                 rendererAppearance={rendererAppearance}
               >

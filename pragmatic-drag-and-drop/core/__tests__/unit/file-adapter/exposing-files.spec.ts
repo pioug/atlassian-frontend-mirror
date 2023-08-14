@@ -41,7 +41,7 @@ it('should expose files (items) only during the drop event', () => {
     data: {},
     dropEffect: 'copy',
     element: A,
-    sticky: false,
+    isActiveDueToStickiness: false,
   };
 
   {

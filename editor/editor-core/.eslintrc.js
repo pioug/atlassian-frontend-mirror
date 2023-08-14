@@ -19,11 +19,6 @@ module.exports = {
         ],
       },
     ],
-    'react/no-danger': 'error',
-    '@typescript-eslint/consistent-type-imports': 'warn',
-    'no-duplicate-imports': 'off',
-    '@typescript-eslint/no-duplicate-imports': 'warn',
-    '@typescript-eslint/no-explicit-any': 'warn',
   },
   overrides: [
     {
@@ -34,7 +29,6 @@ module.exports = {
       ],
       rules: {
         'import/no-restricted-paths': ['off'],
-        'react/no-danger': 'off',
       },
     },
   ],

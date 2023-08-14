@@ -60,25 +60,21 @@ export default () => {
             node.appendChild(document.createTextNode(ZERO_WIDTH_SPACE));
             node.className = 'cursor-target';
 
-            return Decoration.widget(selection.from, node, {
+            const { $from } = selection;
+            const rightPosition = $from.pos;
+            const leftPosition = $from.posAtIndex(
+              Math.max($from.index() - 1, 0),
+            );
+            const widgetPos = side === 'left' ? leftPosition : rightPosition;
+
+            return Decoration.widget(widgetPos, node, {
               raw: true,
-              side: side === 'left' ? -1 : 1,
               key: 'inlineCursor',
             } as any);
           };
 
-          // Create editable decoration widgets either side of the cursor to allow
-          // text input.
-          // We check beforeInput events below to prevent content
-          // being added to the decorations.
-          //
-          // This prevents issues with the cursor disappearing
-          // or appearing in the wrong place when;
-          // - positioned between inline nodes (chrome + firefox)
-          // - positioned between the beginning of another node and an inline node (firefox)
-          // - positioned between an inline node and the end of a node (chrome)
+          // Create editable decoration widgets around the current inline node to allow proper cursor navigation.
           if (
-            !browser.safari &&
             (hasInlineNodeViewAfter || isAtEndAndInlineNodeViewBefore) &&
             (hasInlineNodeViewBefore || isAtStartAndInlineNodeViewAfter)
           ) {
@@ -88,31 +84,6 @@ export default () => {
                 positions: { from: $from.pos, to: $to.pos },
               },
             };
-          }
-
-          // Only create one widget on the left or right of the cursor in Safari.
-          // This is to prevent the left key from being blocked when at the start of a paragraph,
-          // and the right key from being blocked when at the end of a paragraph. This also
-          // improves click and drag selections, making it easier to select the first node.
-          if (browser.safari) {
-            if (
-              isAtEndAndInlineNodeViewBefore ||
-              (hasInlineNodeViewBefore && hasInlineNodeViewAfter)
-            ) {
-              return {
-                cursorTarget: {
-                  decorations: [createWidget('left')],
-                  positions: { from: $from.pos, to: $to.pos },
-                },
-              };
-            } else if (isAtStartAndInlineNodeViewAfter) {
-              return {
-                cursorTarget: {
-                  decorations: [createWidget('right')],
-                  positions: { from: $from.pos, to: $to.pos },
-                },
-              };
-            }
           }
         }
 

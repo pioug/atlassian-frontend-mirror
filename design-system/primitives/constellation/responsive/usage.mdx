@@ -41,10 +41,3 @@ const customStyles = css({
   [media.above.xl]: { marginBlock: token('space.150') },
 });
 ```
-
-### `media.below` usage
-
-This is intentionally excluded at the moment as we're shipping our opinion that teams should design mobile-first.
-We understand this will not scale and we're open to change, but we'd like to change this with feedback.
-
-If we do add it back, we'd suggest codebases prefer a single approach (eg. `above` or `below`) and use that consistently.  Mixing them results in confusion (though they can be safely used together and can result in better CSS performance when done correctly).

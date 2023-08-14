@@ -7,6 +7,7 @@ import type { CardOptions } from '@atlaskit/editor-common/card';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { cardPlugin } from '@atlaskit/editor-plugin-card';
 import type betterTypeHistoryPlugin from '../better-type-history';
+import type listPlugin from '../list';
 
 export type PastePluginOptions = {
   cardOptions?: CardOptions;
@@ -19,6 +20,7 @@ const pastePlugin: NextEditorPlugin<
     pluginConfiguration: PastePluginOptions;
     dependencies: [
       typeof featureFlagsPlugin,
+      OptionalPlugin<typeof listPlugin>,
       typeof betterTypeHistoryPlugin,
       OptionalPlugin<typeof cardPlugin>,
     ];

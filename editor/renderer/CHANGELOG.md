@@ -1,5 +1,17 @@
 # @atlaskit/renderer
 
+## 108.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 108.11.2
+
+### Patch Changes
+
+- [`32f9d24dcdb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/32f9d24dcdb) - Improve table renderer resizing performance.
+
 ## 108.11.1
 
 ### Patch Changes

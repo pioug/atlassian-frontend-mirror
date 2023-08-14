@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/adf-schema",
-  "version": "28.1.0",
+  "version": "28.1.1",
   "description": "Shared package that contains the ADF-schema (json) and ProseMirror node/mark specs",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -49,7 +49,7 @@
   "dependencies": {
     "@atlaskit/codemod-utils": "^4.2.0",
     "@atlaskit/editor-palette": "1.5.1",
-    "@atlaskit/editor-prosemirror": "1.0.2",
+    "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-tables": "^2.3.0",
     "@babel/runtime": "^7.0.0",
     "css-color-names": "0.0.4",

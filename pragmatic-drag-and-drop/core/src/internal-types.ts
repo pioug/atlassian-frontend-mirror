@@ -22,11 +22,9 @@ export type DropTargetRecord = {
    */
   dropEffect: DataTransfer['dropEffect'];
   /**
-   * Whether or not the drop target is sticky
-   *
-   * (Collected by `getIsSticky()`)
+   * Whether or not the drop target is active due to _stickiness_
    */
-  sticky: boolean;
+  isActiveDueToStickiness: boolean;
 };
 
 export type Position = { x: number; y: number };

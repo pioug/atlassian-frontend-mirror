@@ -7,6 +7,7 @@ order: 1
 import xcssBasic from '../../examples/constellation/xcss/basic';
 import xcssInteractive from '../../examples/constellation/xcss/interactivity';
 import xcssResponsive from '../../examples/constellation/xcss/responsiveness';
+import xcssConditional from '../../examples/constellation/xcss/conditional-styles';
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
 
@@ -31,6 +32,12 @@ To enable interactivity, use familiar selectors like `:hover` and `:focus-visibl
 
 ## Responsiveness
 
-xCSS also accepts a subset of media queries at [predefined breakpoints](/components/primitives/responsive/breakpoints/examples).
+`xcss` also accepts a subset of media queries at [predefined breakpoints](/components/primitives/responsive/breakpoints/examples).
 
 <Example Component={xcssResponsive} packageName="@atlaskit/primitives/xcss" />
+
+## Conditional styles
+
+To achieve conditional styles, it is usually simpler to apply conditional behavior at the `xcss` object level, rather than applying conditional behavior to individual properties.
+
+<Example Component={xcssConditional} packageName="@atlaskit/primitives/xcss" />

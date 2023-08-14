@@ -47,7 +47,7 @@ it('should notify a drop target when a draggable is being lifted inside of it', 
     element: dropTarget,
     data: { name: 'Alex' },
     dropEffect: 'move',
-    sticky: false,
+    isActiveDueToStickiness: false,
   };
   {
     const expected: ElementDropTargetEventPayloadMap['onGenerateDragPreview'] =
@@ -117,7 +117,7 @@ it('should notify a drop target with the appropriate data', () => {
     element: dropTarget,
     data: dropTargetData,
     dropEffect: 'move',
-    sticky: false,
+    isActiveDueToStickiness: false,
   };
   const expected: ElementDropTargetEventPayloadMap['onGenerateDragPreview'] = {
     location: getInitialHistory([self]),
@@ -156,7 +156,7 @@ it('should notify a drop target when a draggable and drop target are the same el
     element: element,
     data: {},
     dropEffect: 'move',
-    sticky: false,
+    isActiveDueToStickiness: false,
   };
   const expected: ElementDropTargetEventPayloadMap['onGenerateDragPreview'] = {
     location: getInitialHistory([self]),
@@ -276,13 +276,13 @@ it('should notify all drop target parents when a inner draggable is lifted', () 
     element: parent,
     data: { name: 'parent' },
     dropEffect: 'move',
-    sticky: false,
+    isActiveDueToStickiness: false,
   };
   const grandParentRecord: DropTargetRecord = {
     element: grandParent,
     data: { name: 'grandParent' },
     dropEffect: 'move',
-    sticky: false,
+    isActiveDueToStickiness: false,
   };
   {
     const expected: ElementDropTargetEventPayloadMap['onGenerateDragPreview'] =

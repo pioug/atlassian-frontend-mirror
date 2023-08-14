@@ -17,7 +17,7 @@ import deprecatedAnalyticsPlugin from '../../../analytics';
 import pastePlugin from '../../';
 import basePlugin from '../../../base';
 import blockTypePlugin from '../../../block-type';
-import textFormattingPlugin from '../../../text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import betterTypeHistoryPlugin from '../../../better-type-history';
 
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';

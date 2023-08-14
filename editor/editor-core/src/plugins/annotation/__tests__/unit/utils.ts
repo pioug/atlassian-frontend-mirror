@@ -46,7 +46,7 @@ import type { AnnotationInfo } from '../../types';
 import { AnnotationSelectionType } from '../../types';
 
 import annotationPlugin from '../..';
-import { textFormattingPlugin } from '../../../';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import emojiPlugin from '../../../emoji';
 import { inlineCommentProvider } from '../_utils';
 import mediaPlugin from '../../../media';

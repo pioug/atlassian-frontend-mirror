@@ -33,7 +33,7 @@ import {
 } from '../../../analytics/types/enums';
 import deprecatedAnalyticsPlugin from '../../../analytics/plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import textFormatting from '../../../text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import * as pluginFactory from '../../pm-plugins/plugin-factory';
 import { inlineCommentProvider } from '../_utils';
 import type { AnnotationInfo } from '../..';
@@ -52,7 +52,7 @@ describe('commands', () => {
     .add([featureFlagsPlugin, {}])
     .add([analyticsPlugin, { createAnalyticsEvent }])
     .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }])
-    .add(textFormatting)
+    .add(textFormattingPlugin)
     .add([annotationPlugin, { inlineComment: { ...inlineCommentProvider } }]);
 
   const editor = (doc: DocBuilder) =>

@@ -116,29 +116,51 @@ const plugin = new SafePlugin({
       }
       return null;
     },
-
-    // there's no space between top level nodes and the wrapping ProseMirror contenteditable area and handleClick won't capture clicks, there's nothing to click on
-    // it handles only attempts to set gap cursor for nested nodes, where we have space between parent and child nodes
-    // top level nodes are handled by <ClickAreaBlock>
-    handleClick(view: EditorView, position: number, event: MouseEvent) {
+    handleClick(view: EditorView, nodePos: number, event: MouseEvent) {
       const posAtCoords = view.posAtCoords({
         left: event.clientX,
         top: event.clientY,
       });
-
-      // this helps to ignore all of the clicks outside of the parent (e.g. nodeView controls)
-      if (
-        posAtCoords &&
-        posAtCoords.inside !== position &&
-        !isIgnoredClick(event.target as HTMLElement)
-      ) {
-        // max available space between parent and child from the left side in px
-        // this ensures the correct side of the gap cursor in case of clicking in between two block nodes
-        const leftSideOffsetX = 20;
-        const side = event.offsetX > leftSideOffsetX ? Side.RIGHT : Side.LEFT;
-        return setGapCursorAtPos(position, side)(view.state, view.dispatch);
+      if (!posAtCoords || isIgnoredClick(event.target as HTMLElement)) {
+        return false;
       }
-      return false;
+
+      const isInsideTheTarget = posAtCoords.pos === posAtCoords.inside;
+      if (isInsideTheTarget) {
+        return false;
+      }
+
+      const leftSideOffsetX = 20;
+      const side = event.offsetX > leftSideOffsetX ? Side.RIGHT : Side.LEFT;
+
+      const $pos = view.state.doc.resolve(nodePos);
+      // In the new prosemirror-view posAtCoords  is not returning a precise value for our media nodes
+      if ($pos.parent?.type.name === 'mediaSingle') {
+        const $insidePos = view.state.doc.resolve(
+          Math.max(posAtCoords.inside, 0),
+        );
+        // We don't have GapCursors problems when the node target is inside the root level
+        if ($insidePos.depth <= 1) {
+          return false;
+        }
+        const mediaGapCursor = !$pos.nodeBefore ? $pos.before() : $pos.after();
+
+        return setGapCursorAtPos(mediaGapCursor, side)(
+          view.state,
+          view.dispatch,
+        );
+      }
+
+      const docSize = view.state.doc.content.size;
+      const nodeInside =
+        posAtCoords.inside <= 0 || posAtCoords.inside > docSize
+          ? null
+          : view.state.doc.nodeAt(posAtCoords.inside);
+      if (nodeInside?.isAtom) {
+        return false;
+      }
+
+      return setGapCursorAtPos(nodePos, side)(view.state, view.dispatch);
     },
     handleDOMEvents: {
       /**

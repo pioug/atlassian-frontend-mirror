@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-card
 
+## 0.4.3
+
+### Patch Changes
+
+- [`bdb69158e0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdb69158e0a) - [ED-13910] Bump ProseMirror libraries to match prosemirror-view@1.31.6 dependencies
+- Updated dependencies
+
 ## 0.4.2
 
 ### Patch Changes

@@ -2,9 +2,12 @@ export type { Mappable } from 'prosemirror-transform';
 
 export {
   AddMarkStep,
+  AddNodeMarkStep,
+  AttrStep,
   MapResult,
   Mapping,
   RemoveMarkStep,
+  RemoveNodeMarkStep,
   ReplaceAroundStep,
   ReplaceStep,
   Step,

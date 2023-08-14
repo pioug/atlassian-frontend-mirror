@@ -1,5 +1,11 @@
 # @atlaskit/editor-prosemirror
 
+## 1.1.0
+
+### Minor Changes
+
+- [`d327371e811`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d327371e811) - [ED-13910] Bump ProseMirror libraries to match prosemirror-view@1.31.6 dependencies
+
 ## 1.0.2
 
 ### Patch Changes

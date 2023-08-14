@@ -28,7 +28,7 @@ import type { AllowedBlockTypes } from '@atlaskit/editor-common/types';
 import { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload as AnalyticsEventPayload_2 } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
+import type { AnnotationTypes } from '@atlaskit/adf-schema';
 import { BrowserFreezetracking } from '@atlaskit/editor-common/types';
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { CardProvider } from '@atlaskit/editor-common/provider-factory';
@@ -2091,24 +2091,6 @@ export { TextFormattingInputMethodBasic };
 export { TextFormattingInputMethodToolbar };
 
 // @public (undocumented)
-export const textFormattingPlugin: NextEditorPlugin<
-  'textFormatting',
-  {
-    pluginConfiguration: TextFormattingOptions | undefined;
-    dependencies: [OptionalPlugin<typeof analyticsPlugin>];
-    actions: {
-      toggleSuperscript: ToggleMarkWithAnalyticsCommand;
-      toggleSubscript: ToggleMarkWithAnalyticsCommand;
-      toggleStrike: ToggleMarkWithAnalyticsCommand;
-      toggleCode: ToggleMarkWithAnalyticsCommand;
-      toggleUnderline: ToggleMarkWithAnalyticsCommand;
-      toggleEm: ToggleMarkWithAnalyticsCommand;
-      toggleStrong: ToggleMarkWithAnalyticsCommand;
-    };
-  }
->;
-
-// @public (undocumented)
 interface TextSelectionData {
   // (undocumented)
   anchor: number;
@@ -2117,11 +2099,6 @@ interface TextSelectionData {
   // (undocumented)
   type: 'text';
 }
-
-// @public (undocumented)
-type ToggleMarkWithAnalyticsCommand = (analyticsMetadata: {
-  inputMethod: TextFormattingInputMethodBasic;
-}) => Command_2;
 
 // @public (undocumented)
 export class ToolbarFeedback extends PureComponent<Props_3, State_2> {

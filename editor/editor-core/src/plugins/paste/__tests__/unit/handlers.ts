@@ -58,7 +58,7 @@ import {
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import pastePlugin from '../../index';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import textFormattingPlugin from '../../../text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';

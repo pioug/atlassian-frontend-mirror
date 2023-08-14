@@ -16,7 +16,7 @@ import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/ed
 import ToolbarButton from '../../../ui/ToolbarButton';
 import { expandIconWrapperStyle, shortcutStyle } from '../../../ui/styles';
 import { wrapperStyle, separatorStyles } from '@atlaskit/editor-common/styles';
-import { messages as listMessages } from '../../list/messages';
+import { listMessages } from '@atlaskit/editor-common/messages';
 import { messages as indentationMessages } from '../../indentation/messages';
 import type { ButtonName, ToolbarProps } from '../types';
 

@@ -4,7 +4,6 @@ import {
   EditorTitleFocusModel,
   EditorNodeContainerModel,
   fixTest,
-  BROWSERS,
 } from '@af/editor-libra';
 import { multipleCustomPanels } from './editor-focus.spec.ts-fixtures';
 
@@ -60,7 +59,6 @@ test.describe('when there is a title managing the focus', () => {
         jiraIssueId: 'ED-19417',
         reason:
           'FIXME: This test was manually skipped due to failure on 10/08/2023: https://product-fabric.atlassian.net/browse/ED-19417',
-        browsers: [BROWSERS.firefox],
       });
       const nodes = EditorNodeContainerModel.from(editor);
       const thirdPanel = nodes.panel.nth(2);

@@ -1,3 +1,7 @@
+import type {
+  DocBuilder,
+  BuilderContent,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   blockquote,
   code_block,
@@ -18,8 +22,6 @@ import {
   taskItem,
   decisionList,
   decisionItem,
-  DocBuilder,
-  BuilderContent,
   layoutSection,
   layoutColumn,
   alignment,
@@ -28,9 +30,9 @@ import { uuid } from '@atlaskit/adf-schema';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
@@ -41,7 +43,7 @@ import codeBlockPlugin from '../../../code-block';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import listPlugin from '../../../list';
-import textFormattingPlugin from '../../../text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import emojiPlugin from '../../../emoji';
 import basePlugin from '../../../base';
 import layoutPlugin from '../../../layout';

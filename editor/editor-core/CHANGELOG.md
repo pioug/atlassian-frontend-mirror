@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 187.18.0
+
+### Minor Changes
+
+- [`80b964e24a2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/80b964e24a2) - [ED-19205] Extract the text-formatting editor plugin to a separate package
+
+### Patch Changes
+
+- [`8474692c96d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8474692c96d) - [ux] ED-18785 Place toolbar below selection if not sufficient space above
+- Updated dependencies
+
+## 187.17.6
+
+### Patch Changes
+
+- [`bdb69158e0a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bdb69158e0a) - [ED-13910] Bump ProseMirror libraries to match prosemirror-view@1.31.6 dependencies
+- Updated dependencies
+
+## 187.17.5
+
+### Patch Changes
+
+- [`c1e5a879e02`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c1e5a879e02) - [ED-17979] Remove the ability to clear formatting when selection is within a codeblock
+
 ## 187.17.3
 
 ### Patch Changes

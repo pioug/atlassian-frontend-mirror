@@ -5,7 +5,7 @@ import pastePlugin from '../../../plugins/paste';
 import blockTypePlugin from '../../../plugins/block-type';
 import clearMarksOnChangeToEmptyDocumentPlugin from '../../../plugins/clear-marks-on-change-to-empty-document';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import textFormattingPlugin from '../../../plugins/text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import unsupportedContentPlugin from '../../../plugins/unsupported-content';
 import type { BasePluginOptions } from '../../../plugins/base';
@@ -117,7 +117,6 @@ export function createDefaultPreset(
     .add([blockTypePlugin, options.blockType])
     .add([placeholderPlugin, options.placeholder])
     .add(clearMarksOnChangeToEmptyDocumentPlugin)
-
     .maybeAdd(annotationPlugin, (p, builder) => {
       if (options.annotationProviders) {
         return builder.add([p, options.annotationProviders]);

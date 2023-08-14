@@ -15,6 +15,7 @@
 <!--SECTION START: Main Entry Types-->
 
 ```ts
+import { Attrs } from 'prosemirror-model';
 import { CellAttributes } from '@atlaskit/editor-tables/types';
 import LinkifyIt from 'linkify-it';
 import { Mark } from '@atlaskit/editor-prosemirror/model';
@@ -420,9 +421,7 @@ type DataConsumerSource = string;
 // @public
 export const dataConsumerToJSON: (mark: Mark) => {
   type: string;
-  attrs: {
-    [key: string]: any;
-  };
+  attrs: Attrs;
 };
 
 // @public (undocumented)
@@ -592,9 +591,7 @@ export type ExpandDefinition = ExpandBaseDefinition & NoMark;
 
 // @public (undocumented)
 export const expandToJSON: (node: Node_2) => {
-  attrs: {
-    [key: string]: any;
-  };
+  attrs: Attrs;
 };
 
 // @public
@@ -1214,9 +1211,7 @@ export interface MentionDefinition {
 
 // @public (undocumented)
 export const mentionToJSON: (node: Node_2) => {
-  attrs: {
-    [key: string]: any;
-  };
+  attrs: Attrs;
 };
 
 // @public (undocumented)
@@ -1726,9 +1721,7 @@ export interface TableRowDefinition {
 
 // @public (undocumented)
 export const tableToJSON: (node: Node_2) => {
-  attrs: {
-    [key: string]: any;
-  };
+  attrs: Attrs;
 };
 
 // @public (undocumented)

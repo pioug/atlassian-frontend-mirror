@@ -42,7 +42,7 @@ import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';
 import tasksAndDecisionsPlugin from '../../../../tasks-and-decisions';
-import { default as textFormattingPlugin } from '../../../../text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import layoutPlugin from '../../../../layout';
 import panelPlugin from '../../../../panel';

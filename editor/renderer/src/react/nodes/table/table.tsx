@@ -20,7 +20,11 @@ export const Table = React.memo(
     rendererAppearance,
   }: TableProps) => {
     return (
-      <table data-number-column={isNumberColumnEnabled} ref={innerRef}>
+      <table
+        data-testid="renderer-table"
+        data-number-column={isNumberColumnEnabled}
+        ref={innerRef}
+      >
         <Colgroup
           columnWidths={columnWidths}
           layout={layout}

@@ -303,7 +303,7 @@ it('should publish events to monitors added during a drag if on the next event t
             element: A,
             dropEffect: 'move',
             data: { name: 'Sam' },
-            sticky: false,
+            isActiveDueToStickiness: false,
           },
         ],
       },

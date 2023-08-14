@@ -7,10 +7,10 @@ import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
 import type {
   InputRuleHandler,
   InputRuleWrapper,
-} from '@atlaskit/prosemirror-input-rules';
+  FeatureFlags,
+} from '@atlaskit/editor-common/types';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '@atlaskit/editor-common/analytics';
-import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { createRule } from '@atlaskit/prosemirror-input-rules';
 
 type WrappingRuleProps = {

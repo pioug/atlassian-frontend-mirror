@@ -1,19 +1,20 @@
 /** @jsx jsx */
 import React from 'react';
-import { css, jsx, SerializedStyles } from '@emotion/react';
+import type { SerializedStyles } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/ui';
 import { akEditorStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
-import { TableLayout } from '@atlaskit/adf-schema';
+import type { TableLayout } from '@atlaskit/adf-schema';
 import { N40A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { Table } from './table';
 import { recursivelyInjectProps } from '../../utils/inject-props';
-import { RendererAppearance } from '../../../ui/Renderer/types';
+import type { RendererAppearance } from '../../../ui/Renderer/types';
 import { isTableResizingEnabled } from '../table';
 
 export type StickyMode = 'none' | 'stick' | 'pin-bottom';

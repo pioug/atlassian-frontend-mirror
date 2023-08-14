@@ -27,7 +27,7 @@ import textColorPlugin from '../../../text-color';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import blockTypePlugin from '../../../block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
-import { textFormattingPlugin } from '../../../index';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

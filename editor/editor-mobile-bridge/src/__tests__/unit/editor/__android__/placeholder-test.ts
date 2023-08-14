@@ -24,11 +24,11 @@ describe('placeholder on mobile', () => {
   // https://github.com/ProseMirror/prosemirror-view/commit/00c3dc9c3e7f5edcd71f24f4a8a8cf3fda4b2ac7
 
   const placeholderHtmlRegex = new RegExp(
-    `<p><span data-testid=\"placeholder-test-id\" class=\"placeholder-decoration ProseMirror-widget\">potato</span><br class=\"ProseMirror-trailingBreak\"></p>`,
+    `<p><span data-testid=\"placeholder-test-id\" class=\"placeholder-decoration ProseMirror-widget\">potato</span><img class=\"ProseMirror-separator\" alt=\"\"><br class=\"ProseMirror-trailingBreak\"></p>`,
   );
 
   const placeholderHtmlOnAndroidChromeRegex = new RegExp(
-    `<p><span data-testid=\"placeholder-test-id\" class=\"placeholder-decoration ProseMirror-widget\">potato<span class=\"placeholder-android\" contenteditable=\"true\"> </span></span><br class=\"ProseMirror-trailingBreak\"></p>`,
+    `<p><span data-testid=\"placeholder-test-id\" class=\"placeholder-decoration ProseMirror-widget\">potato<span class=\"placeholder-android\" contenteditable=\"true\"> </span></span><img class=\"ProseMirror-separator\" alt=\"\"><br class=\"ProseMirror-trailingBreak\"></p>`,
   );
 
   beforeEach(() => jest.useFakeTimers());

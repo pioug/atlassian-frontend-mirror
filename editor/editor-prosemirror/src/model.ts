@@ -1,7 +1,7 @@
 export type {
-  OrderedMap,
+  //OrderedMap,
   AttributeSpec,
-  DOMOutputSpecArray,
+  //DOMOutputSpecArray,
   MarkSpec,
   NodeSpec,
   ParseOptions,

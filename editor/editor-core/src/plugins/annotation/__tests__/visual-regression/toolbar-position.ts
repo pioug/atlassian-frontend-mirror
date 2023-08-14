@@ -1,4 +1,4 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   ExampleCreateInlineCommentComponent,
   ExampleViewInlineCommentComponent,
@@ -7,6 +7,7 @@ import {
   evaluateCoordinates,
   scrollToBottom,
   scrollToElement,
+  getBoundingRect,
   selectAtPosWithProseMirror,
 } from '@atlaskit/editor-test-helpers/page-objects/editor';
 import {
@@ -170,6 +171,22 @@ describe('Annotation toolbar positioning', () => {
       await clickFirstCell(page, true);
       await selectRow(0);
       await snapshot(page);
+    });
+  });
+
+  describe(`should show annotation toolbar below selection`, () => {
+    it(`should place toolbar below selection if not enough space above`, async () => {
+      page = global.page;
+      await init(page, adf);
+      await scrollToElement(page, 'blockquote');
+      await selectAtPosWithProseMirror(page, 700, 450);
+      await page.waitForSelector(annotationSelectors.floatingToolbarCreate);
+      const lastPosition = await evaluateCoordinates(page, 700);
+      const toolbarCoords = await getBoundingRect(
+        page,
+        annotationSelectors.floatingToolbarCreate,
+      );
+      expect(toolbarCoords.top).toBeGreaterThan(lastPosition.bottom);
     });
   });
 });

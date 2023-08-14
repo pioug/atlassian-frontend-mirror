@@ -2,7 +2,10 @@
 import React, { Fragment, useContext, useLayoutEffect, useRef } from 'react';
 import { jsx } from '@emotion/react';
 import { PureComponent } from 'react';
-import { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type {
+  Schema,
+  Node as PMNode,
+} from '@atlaskit/editor-prosemirror/model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { reduce } from '@atlaskit/adf-utils/traverse';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -31,26 +34,31 @@ import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles'
 import { FabricChannel } from '@atlaskit/analytics-listeners';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
 import uuid from 'uuid/v4';
-import { ReactSerializer, renderDocument, RendererContext } from '../../';
+import type { RendererContext } from '../../';
+import { ReactSerializer, renderDocument } from '../../';
 import { rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
-import { RendererAppearance } from './types';
+import type { RendererAppearance } from './types';
 import {
   ACTION,
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { AnalyticsEventPayload, PLATFORM, MODE } from '../../analytics/events';
+import type { AnalyticsEventPayload } from '../../analytics/events';
+import { PLATFORM, MODE } from '../../analytics/events';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
-import { ReactSerializerInit } from '../../react';
+import type { ReactSerializerInit } from '../../react';
 import { BreakoutSSRInlineScript } from './breakout-ssr';
 import {
   RendererActionsContext,
   RendererContext as ActionsContext,
 } from '../RendererActionsContext';
 import { ActiveHeaderIdProvider } from '../active-header-id-provider';
-import { NormalizedObjectFeatureFlags, RendererProps } from '../renderer-props';
+import type {
+  NormalizedObjectFeatureFlags,
+  RendererProps,
+} from '../renderer-props';
 import { AnnotationsWrapper } from '../annotations';
 import {
   getActiveHeadingId,
@@ -61,10 +69,8 @@ import { isInteractiveElement } from './click-to-edit';
 import { RendererContextProvider } from '../../renderer-context';
 import memoizeOne from 'memoize-one';
 import { ErrorBoundary } from './ErrorBoundary';
-import {
-  FireAnalyticsCallback,
-  RenderTracking,
-} from '../../react/utils/performance/RenderTracking';
+import type { FireAnalyticsCallback } from '../../react/utils/performance/RenderTracking';
+import { RenderTracking } from '../../react/utils/performance/RenderTracking';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;

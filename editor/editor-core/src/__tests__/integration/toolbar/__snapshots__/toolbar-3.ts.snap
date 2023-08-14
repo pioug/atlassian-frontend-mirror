@@ -57,10 +57,13 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "insidecode",
+          "text": "insideblockquote",
           "type": "text",
         },
       ],
+      "type": "paragraph",
+    },
+    Object {
       "type": "paragraph",
     },
     Object {
@@ -70,9 +73,6 @@ Object {
           "type": "text",
         },
       ],
-      "type": "paragraph",
-    },
-    Object {
       "type": "paragraph",
     },
     Object {
@@ -140,7 +140,7 @@ Object {
     Object {
       "content": Array [
         Object {
-          "text": "insidecode",
+          "text": "insideblockquote",
           "type": "text",
         },
       ],

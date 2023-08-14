@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   p,
   ul,
@@ -8,16 +9,15 @@ import {
   status,
   panel,
   code_block,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { joinListItemForward } from '../../../commands/join-list-item-forward';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { deleteKeyCommand } from '../../../commands';
@@ -27,7 +27,8 @@ import blockType from '../../../../block-type';
 import codeBlockTypePlugin from '../../../../code-block';
 import statusInlineBlockTypePlugin from '../../../../status';
 import panelBlockTypePlugin from '../../../../panel';
-import textFormattingPlugin from '../../../../text-formatting';
+import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   LIST_TEXT_SCENARIOS,
   ACTION,
@@ -36,7 +37,6 @@ import {
   EVENT_TYPE,
   INPUT_METHOD,
   DELETE_DIRECTION,
-  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

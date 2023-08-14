@@ -70,38 +70,6 @@ const getMediaListAdf = (type: 'bulletList' | 'orderedList') => {
   };
 };
 
-// FIXME: This test was automatically skipped due to failure on 10/06/2023: https://product-fabric.atlassian.net/browse/ED-18762
-BrowserTestCase(
-  `list: insert a media single inside a bullet list`,
-  {
-    skip: ['*'],
-  },
-  async (client: any, testName: string) => {
-    const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, {
-      appearance: Appearance.fullPage,
-      defaultValue: JSON.stringify(getMediaListAdf('bulletList')),
-      media: {
-        allowMediaSingle: true,
-      },
-    });
-
-    const image = await page.$('.ProseMirror [data-testid="media-image"]');
-    await image.click();
-    await page.copy();
-
-    await page.waitForSelector('[data-testid="Bullet list"]');
-    await page.click('[data-testid="Bullet list"]');
-    await page.paste();
-
-    const doc = await page.$eval(editable, getDocFromElement);
-    expectUniqueGeneratedMediaAttrs(doc);
-    expect(removeUniqueGeneratedMediaAttrs(doc)).toMatchCustomDocSnapshot(
-      testName,
-    );
-  },
-);
-
 BrowserTestCase(
   `list: insert a media single inside a numbered list`,
   {},

@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 16.9.1
+
+### Patch Changes
+
+- [`696e8c196a3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/696e8c196a3) - Update our documentation of our CustomThemeButton export to note the impending deprecation that we have planned.
+
 ## 16.9.0
 
 ### Minor Changes

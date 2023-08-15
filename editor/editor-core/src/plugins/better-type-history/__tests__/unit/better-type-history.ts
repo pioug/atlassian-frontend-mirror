@@ -25,6 +25,7 @@ import panelPlugin from '../../../panel';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import pastePlugin from '../../../paste';
 import codeBlockPlugin from '../../../code-block';
+import compositionPlugin from '../../../composition';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import placeholderTextPlugin from '../../../placeholder-text';
 import { pluginKey as undoRedoPluginKey } from '../../pm-plugins/plugin-key';
@@ -47,6 +48,7 @@ describe('close history', () => {
         .add([pastePlugin, {}])
         .add(hyperlinkPlugin)
         .add(panelPlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([placeholderTextPlugin, { allowInserting: true }])
         .add(tasksAndDecisionsPlugin),

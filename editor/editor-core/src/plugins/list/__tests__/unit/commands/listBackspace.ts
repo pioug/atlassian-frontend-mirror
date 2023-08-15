@@ -1,24 +1,25 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   ul,
   li,
   p,
   code_block,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { backspaceKeyCommand } from '../../../commands';
 import { listBackspace } from '../../../commands/listBackspace';
 import listPlugin from '../../..';
 import codeBlockPlugin from '../../../../code-block';
+import compositionPlugin from '../../../../composition';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
@@ -38,6 +39,7 @@ describe('backspaceKeyCommand', () => {
       .add([analyticsPlugin, { createAnalyticsEvent }])
       .add(decorationsPlugin)
       .add(listPlugin)
+      .add(compositionPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }]);
 
     return createEditor({

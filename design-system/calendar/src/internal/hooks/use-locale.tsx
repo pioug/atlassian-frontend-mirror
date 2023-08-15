@@ -19,9 +19,14 @@ export default function useLocale({
     () => l10n.getDaysShort(weekStartDay),
     [l10n, weekStartDay],
   );
+  const daysLong = useMemo(
+    () => l10n.getDaysLong(weekStartDay),
+    [l10n, weekStartDay],
+  );
 
   return {
     monthsLong,
     daysShort,
+    daysLong,
   };
 }

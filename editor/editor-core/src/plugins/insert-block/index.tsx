@@ -13,7 +13,7 @@ import { pluginKey as blockTypeStateKey } from '../block-type/pm-plugins/main';
 import { stateKey as mediaStateKey } from '../media/pm-plugins/plugin-key';
 import type { MediaPluginState } from '../media/pm-plugins/types';
 
-import type { ImageUploadPlugin } from '../image-upload';
+import type { ImageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
 import { isTypeAheadAllowed } from '../type-ahead/utils';
 
 import { pluginKey as layoutStateKey } from '../layout';

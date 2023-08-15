@@ -1,7 +1,5 @@
 export type {
-  //OrderedMap,
   AttributeSpec,
-  //DOMOutputSpecArray,
   MarkSpec,
   NodeSpec,
   ParseOptions,

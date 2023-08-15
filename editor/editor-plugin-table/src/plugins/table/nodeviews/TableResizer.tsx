@@ -1,25 +1,20 @@
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import type { PropsWithChildren } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 
 import rafSchd from 'raf-schd';
 
-import { TableEventPayload } from '@atlaskit/editor-common/analytics';
+import type { TableEventPayload } from '@atlaskit/editor-common/analytics';
 import { getGuidelinesWithHighlights } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import {
+import type {
   HandleHeightSizeType,
   HandleResize,
-  ResizerNext,
 } from '@atlaskit/editor-common/resizer';
+import { ResizerNext } from '@atlaskit/editor-common/resizer';
 import { resizerHandleShadowClassName } from '@atlaskit/editor-common/styles';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import {
@@ -146,6 +141,52 @@ export const TableResizer = ({
     setSnappingEnabled(displayGuideline(defaultGuidelines));
   }, [displayGuideline, editorView, startMeasure]);
 
+  const handleResize = useCallback(
+    (originalState, delta) => {
+      countFrames();
+      const newWidth = originalState.width + delta.width;
+      const pos = getPos();
+      if (typeof pos !== 'number') {
+        return;
+      }
+
+      previewScaleTable(
+        tableRef,
+        {
+          node,
+          prevNode: node,
+          start: pos + 1,
+          parentWidth: newWidth,
+        },
+        editorView.domAtPos.bind(editorView),
+      );
+
+      updateActiveGuidelines(
+        findClosestSnap(
+          newWidth,
+          defaultGuidelineWidths,
+          defaultGuidelines,
+          TABLE_HIGHLIGHT_GAP,
+        ),
+      );
+
+      updateWidth(newWidth);
+
+      return newWidth;
+    },
+    [
+      editorView,
+      getPos,
+      node,
+      tableRef,
+      updateWidth,
+      updateActiveGuidelines,
+      countFrames,
+    ],
+  );
+
+  const scheduleResize = useMemo(() => rafSchd(handleResize), [handleResize]);
+
   const handleResizeStop = useCallback<HandleResize>(
     (originalState, delta) => {
       const newWidth = originalState.width + delta.width;
@@ -199,6 +240,7 @@ export const TableResizer = ({
       // Hide guidelines when resizing stops
       displayGuideline([]);
       updateWidth(newWidth);
+      scheduleResize.cancel();
 
       return newWidth;
     },
@@ -208,57 +250,12 @@ export const TableResizer = ({
       getPos,
       node,
       tableRef,
+      scheduleResize,
       displayGuideline,
       attachAnalyticsEvent,
       endMeasure,
     ],
   );
-
-  const handleResize = useCallback(
-    (originalState, delta) => {
-      countFrames();
-      const newWidth = originalState.width + delta.width;
-      const pos = getPos();
-      if (typeof pos !== 'number') {
-        return;
-      }
-
-      previewScaleTable(
-        tableRef,
-        {
-          node,
-          prevNode: node,
-          start: pos + 1,
-          parentWidth: newWidth,
-        },
-        editorView.domAtPos.bind(editorView),
-      );
-
-      updateActiveGuidelines(
-        findClosestSnap(
-          newWidth,
-          defaultGuidelineWidths,
-          defaultGuidelines,
-          TABLE_HIGHLIGHT_GAP,
-        ),
-      );
-
-      updateWidth(newWidth);
-
-      return newWidth;
-    },
-    [
-      editorView,
-      getPos,
-      node,
-      tableRef,
-      updateWidth,
-      updateActiveGuidelines,
-      countFrames,
-    ],
-  );
-
-  const scheduleResize = useMemo(() => rafSchd(handleResize), [handleResize]);
 
   const handleComponent = useMemo(
     () => ({

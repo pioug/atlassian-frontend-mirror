@@ -22,6 +22,7 @@ export interface Week {
   values: Array<
     {
       id: string;
+      weekDayName: string;
     } & DateObj &
       WeekDayState
   >;

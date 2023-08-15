@@ -150,18 +150,14 @@ const PositionExample = () => {
         </ButtonDiv>
         <ButtonDiv>Content: {tooltipSize[state.tooltipContent]}</ButtonDiv>
       </CenterDiv>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-      <div
-        onClick={changeDirection}
-        style={{ position: 'absolute', ...viewportStyle }}
-      >
+      <div style={{ position: 'absolute', ...viewportStyle }}>
         <Tooltip
           content={getTooltipContent(position, state.tooltipContent)}
           position={tooltipPosition}
           mousePosition={mousePosition}
         >
           {(tooltipProps) => (
-            <BigTarget color="blue" tabIndex={0} {...tooltipProps}>
+            <BigTarget color="blue" {...tooltipProps} onClick={changeDirection}>
               <span>Target</span>
               <span>Position: {tooltipPosition}</span>
               <span>

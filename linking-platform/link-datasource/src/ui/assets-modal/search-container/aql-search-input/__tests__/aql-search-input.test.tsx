@@ -181,4 +181,72 @@ describe('AqlSearchInput', () => {
       ).toBeInTheDocument();
     });
   });
+
+  describe('Submit button', () => {
+    it('should disable submit button when AQL is empty or trims to empty', async () => {
+      mockValidateAqlText.mockResolvedValue(mockValidateAqlTextInvalid);
+      const { findByTestId, getByTestId } = await renderDefaultAqlSearchInput();
+      const textInput = getByTestId(searchInputTestId);
+
+      // Disabled by default (empty)
+      expect(
+        await findByTestId('assets-datasource-modal--aql-search-button'),
+      ).toBeDisabled();
+
+      // Disabled after typing space (trims to empty)
+      fireEvent.focus(textInput);
+      fireEvent.change(textInput, { target: { value: ' ' } });
+      jest.advanceTimersByTime(SEARCH_DEBOUNCE_MS);
+      expect(
+        await findByTestId('assets-datasource-modal--aql-search-button'),
+      ).toBeDisabled();
+    });
+
+    it('should disable submit button when AQL is invalid', async () => {
+      mockValidateAqlText.mockResolvedValue(mockValidateAqlTextInvalid);
+      const { findByTestId, getByTestId } = await renderDefaultAqlSearchInput();
+      const textInput = getByTestId(searchInputTestId);
+
+      fireEvent.focus(textInput);
+      fireEvent.change(textInput, { target: { value: 'INVALID AQL' } });
+      jest.advanceTimersByTime(SEARCH_DEBOUNCE_MS);
+
+      expect(
+        await findByTestId('assets-datasource-modal--aql-search-button'),
+      ).toBeDisabled();
+    });
+
+    it('should enable submit button when AQL is valid', async () => {
+      mockValidateAqlText.mockResolvedValue(mockValidateAqlTextValid);
+      const { findByTestId, getByTestId } = await renderDefaultAqlSearchInput();
+      const textInput = getByTestId(searchInputTestId);
+
+      fireEvent.focus(textInput);
+      fireEvent.change(textInput, { target: { value: 'Name LIKE A' } });
+      jest.advanceTimersByTime(SEARCH_DEBOUNCE_MS);
+
+      expect(
+        await findByTestId('assets-datasource-modal--aql-search-button'),
+      ).not.toBeDisabled();
+    });
+
+    it('should disable submit while AQL is being validated', async () => {
+      mockValidateAqlText.mockResolvedValue(mockValidateAqlTextValid);
+      const { findByTestId, getByTestId } = await renderDefaultAqlSearchInput();
+      const textInput = getByTestId(searchInputTestId);
+
+      fireEvent.focus(textInput);
+      fireEvent.change(textInput, { target: { value: 'Name LIKE A' } });
+
+      expect(
+        await findByTestId('assets-datasource-modal--aql-search-button'),
+      ).toBeDisabled();
+
+      jest.advanceTimersByTime(SEARCH_DEBOUNCE_MS);
+
+      expect(
+        await findByTestId('assets-datasource-modal--aql-search-button'),
+      ).not.toBeDisabled();
+    });
+  });
 });

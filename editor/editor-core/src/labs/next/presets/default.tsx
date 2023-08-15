@@ -27,6 +27,7 @@ import type { PlaceholderPluginOptions } from '../../../plugins/placeholder';
 import placeholderPlugin from '../../../plugins/placeholder';
 import type { AnnotationProviders } from '../../../plugins/annotation';
 import annotationPlugin from '../../../plugins/annotation';
+import compositionPlugin from '../../../plugins/composition';
 import type {
   TextFormattingOptions,
   HyperlinkPluginOptions,
@@ -105,6 +106,7 @@ export function createDefaultPreset(
     .add([pastePlugin, options.paste])
     .add(clipboardPlugin)
     .add(focusPlugin)
+    .add(compositionPlugin)
     .add([basePlugin, options.base])
     .add(decorationsPlugin)
     .maybeAdd(undoRedoPlugin, (p, builder) => {

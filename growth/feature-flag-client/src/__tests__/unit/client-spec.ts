@@ -1278,6 +1278,19 @@ describe('Feature Flag Client', () => {
                   errorKind: 'FLAG_NOT_FOUND',
                 });
               });
+
+              test('should not send automatic exposure event with errorKind:FLAG_NOT_FOUND when a missing flag is requested for "platform." feature flags', () => {
+                client = createDefaultClient(true);
+
+                expect(
+                  client.getBooleanValue('platform.flag', {
+                    default: true,
+                    shouldTrackExposureEvent: false,
+                  }),
+                ).toBe(true);
+
+                assertNoExposures();
+              });
             });
           });
 

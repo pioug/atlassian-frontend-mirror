@@ -4,6 +4,7 @@ import { memo } from 'react';
 import { jsx } from '@emotion/react';
 
 import Text from '@atlaskit/ds-explorations/text';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import type { ThemeModes } from '@atlaskit/theme/types';
 
@@ -30,14 +31,19 @@ const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({
   return (
     <WeekDayGrid testId={testId && `${testId}--column-headers`}>
       {daysShort.map((shortDay) => (
-        // TODO: Determine if there is a better way to render the button
-        // (should be fixed with introduction of keyboard accessibility of
-        // Calendar in DSP-9939) (DSP-11588)
         <Box
+          aria-hidden={
+            getBooleanFF(
+              'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+            )
+              ? 'true'
+              : undefined
+          }
           padding="space.100"
           xcss={columnHeaderStyles}
           key={shortDay}
           role="columnheader"
+          testId={testId && `${testId}--column-header`}
         >
           <Text
             fontWeight="bold"

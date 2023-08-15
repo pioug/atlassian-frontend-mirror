@@ -41,6 +41,7 @@ import {
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import compositionPlugin from '../../../../composition';
 
 describe('join-list-item-forward', () => {
   const createEditor = createProsemirrorEditorFactory();
@@ -58,6 +59,7 @@ describe('join-list-item-forward', () => {
       .add(basePlugins)
       .add(decorationsPlugin)
       .add(blockType)
+      .add(compositionPlugin)
       .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelBlockTypePlugin)
       .add([statusInlineBlockTypePlugin, { menuDisabled: false }])

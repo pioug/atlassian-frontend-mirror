@@ -50,6 +50,7 @@ import type {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import compositionPlugin from '../../../composition';
 
 const emojiProvider = getTestEmojiResource();
 
@@ -76,6 +77,7 @@ describe('lists plugin -> keymap', () => {
       .add([listPlugin, { restartNumberedLists: true }])
       .add(blockTypePlugin)
       .add(emojiPlugin)
+      .add(compositionPlugin)
       .add([codeBlockTypePlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
       .add(widthPlugin)

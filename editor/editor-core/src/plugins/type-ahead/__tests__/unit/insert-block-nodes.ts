@@ -42,6 +42,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
 import layoutPlugin from '../../../layout';
 import codeBlockPlugin from '../../../code-block';
+import compositionPlugin from '../../../composition';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import { createTable } from '@atlaskit/editor-tables/utils';
 import type {
@@ -167,6 +168,7 @@ describe('type-ahead', () => {
       .add(tasksAndDecisionsPlugin)
       .add(panelPlugin)
       .add(expandPlugin)
+      .add(compositionPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(guidelinePlugin)
       .add(tablesPlugin)

@@ -30,6 +30,7 @@ import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
+import compositionPlugin from '../../../composition';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
@@ -56,6 +57,7 @@ describe('paste plugin: third-party', () => {
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin)
         .add(listPlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(widthPlugin)
         .add(guidelinePlugin)

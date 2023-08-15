@@ -7,17 +7,12 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import {
-  createDispatch,
-  Dispatch,
-  EventDispatcher,
-} from '../../event-dispatcher';
+import type { Dispatch } from '../../event-dispatcher';
+import { createDispatch, EventDispatcher } from '../../event-dispatcher';
 import { SafePlugin } from '../../safe-plugin';
-import { EditorPlugin } from '../../types/editor-plugin';
-import {
-  EditorActionsPrivateAccess,
-  WithPluginState,
-} from '../../with-plugin-state';
+import type { EditorPlugin } from '../../types/editor-plugin';
+import type { EditorActionsPrivateAccess } from '../../with-plugin-state';
+import { WithPluginState } from '../../with-plugin-state';
 
 type EditorContextProps = {
   editorActions: EditorActionsPrivateAccess;
@@ -383,7 +378,7 @@ describe('with-plugin-state', () => {
             actionSubject: 'editor',
             attributes: {
               duration: expect.any(Number),
-              plugin: 'plugin$2',
+              plugin: (pluginKey as any).key,
             },
             eventType: 'operational',
           },

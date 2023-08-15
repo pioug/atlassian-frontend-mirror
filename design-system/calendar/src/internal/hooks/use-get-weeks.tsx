@@ -42,6 +42,7 @@ function useGetCalendarWithSixthWeek(
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export default function useGetWeeks({
   day,
+  daysLong,
   month,
   year,
   today,
@@ -54,6 +55,7 @@ export default function useGetWeeks({
   weekStartDay,
 }: {
   day: number;
+  daysLong: string[];
   month: number;
   year: number;
   today: string;
@@ -92,6 +94,7 @@ export default function useGetWeeks({
       const JSDate = needJsDate ? parseISO(dateAsString) : undefined;
 
       let week;
+
       if (date.weekDay === weekStartDay) {
         week = { id: dateAsString, values: [] };
         weeks.push(week);
@@ -99,7 +102,10 @@ export default function useGetWeeks({
         week = weeks[weeks.length - 1];
       }
 
+      const weekDayOffset = ((date.weekDay as WeekDay) - weekStartDay) % 7;
+
       // Define a bunch of `const`s
+      const weekDayName = daysLong[weekDayOffset];
       const isDisabledByArray = disabled
         ? disabled.indexOf(dateAsString) > -1
         : false;
@@ -132,6 +138,7 @@ export default function useGetWeeks({
         isSiblingMonth,
         year: date.year,
         day: date.day,
+        weekDayName,
       });
     });
 
@@ -148,5 +155,6 @@ export default function useGetWeeks({
     selected,
     today,
     weekStartDay,
+    daysLong,
   ]);
 }

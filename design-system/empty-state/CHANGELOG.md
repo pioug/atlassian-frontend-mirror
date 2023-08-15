@@ -1,5 +1,11 @@
 # @atlaskit/empty-state
 
+## 7.6.2
+
+### Patch Changes
+
+- [`4f17f1d839e`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4f17f1d839e) - Added this package into push model consumption
+
 ## 7.6.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @atlaskit/feature-flag-client
 
+## 5.4.0
+
+### Minor Changes
+
+- [`08c4f9a0a3b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/08c4f9a0a3b) - Prevent automatic exposure events for missing platform. flags to be sent
+
 ## 5.3.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-table
 
+## 2.8.3
+
+### Patch Changes
+
+- [`77b74847baa`](https://bitbucket.org/atlassian/atlassian-frontend/commits/77b74847baa) - ED-19152 Cancels scheduled resize to avoid handleResize being called after handleResizeStop.
+
 ## 2.8.2
 
 ### Patch Changes

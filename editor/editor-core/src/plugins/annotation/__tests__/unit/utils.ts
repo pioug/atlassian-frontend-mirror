@@ -51,6 +51,7 @@ import emojiPlugin from '../../../emoji';
 import { inlineCommentProvider } from '../_utils';
 import mediaPlugin from '../../../media';
 import codeBlockPlugin from '../../../code-block';
+import compositionPlugin from '../../../composition';
 import blockTypePlugin from '../../../block-type';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
@@ -82,6 +83,7 @@ const annotationPreset = new Preset<LightEditorPlugin>()
   .add(emojiPlugin)
   .add(decorationsPlugin)
   .add(panelPlugin)
+  .add(compositionPlugin)
   .add([codeBlockPlugin, { appearance: 'full-page' }])
   .add(blockTypePlugin)
   .add(widthPlugin)

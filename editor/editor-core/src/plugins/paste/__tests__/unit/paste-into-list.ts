@@ -39,6 +39,7 @@ import blockTypePlugin from '../../../block-type';
 import listPlugin from '../../../list';
 import extensionPlugin from '../../../extension';
 import codeBlockPlugin from '../../../code-block';
+import compositionPlugin from '../../../composition';
 import rulePlugin from '../../../rule';
 import betterTypeHistoryPlugin from '../../../better-type-history';
 import dispatchPasteEvent from '@atlaskit/editor-test-helpers/dispatch-paste-event';
@@ -1513,6 +1514,7 @@ describe('pasting into an ordered list when restartNumberedLists FF is true', ()
       .add(extensionPlugin)
       .add(tablesPlugin)
       .add(layoutPlugin)
+      .add(compositionPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(rulePlugin);
 

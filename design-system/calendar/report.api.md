@@ -99,7 +99,7 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
   previousMonthLabel?: string;
   selected?: Array<string>;
   style?: CSSProperties;
-  tabIndex?: number;
+  tabIndex?: TabIndex;
   testId?: string;
   today?: string;
   weekStartDay?: WeekDay;
@@ -132,6 +132,9 @@ type ISODate = string;
 export type SelectEvent = {
   iso: ISODate;
 } & DateObj;
+
+// @public (undocumented)
+type TabIndex = -1 | 0;
 
 // @public (undocumented)
 type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;

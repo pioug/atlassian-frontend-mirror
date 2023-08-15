@@ -103,6 +103,7 @@ export default class FeatureFlagClient {
     }
 
     const flag = this.flags.get(flagKey);
+
     if (flag) {
       wrapper = new BasicFlag(
         flagKey,
@@ -114,14 +115,21 @@ export default class FeatureFlagClient {
     } else {
       wrapper = new MissingFlag(
         flagKey,
-        this.isMissingFlagEventsDisabled
-          ? null
-          : this.sendAutomaticExposure.bind(this),
+        this.shouldSendMissingFlagAutomaticExposure(flagKey)
+          ? this.sendAutomaticExposure.bind(this)
+          : null,
       );
     }
 
     this.flagWrapperCache.set(flagKey, wrapper);
     return wrapper;
+  }
+
+  private shouldSendMissingFlagAutomaticExposure(flagKey: string): boolean {
+    // Skip sending automatic exposure for platform flags as they are often released to a single product,
+    // and registering them for all products that consume platform components is costly.
+    const isPlatform = flagKey.startsWith('platform.');
+    return !this.isMissingFlagEventsDisabled && !isPlatform;
   }
 
   clear() {

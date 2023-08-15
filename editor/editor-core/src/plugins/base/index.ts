@@ -18,7 +18,6 @@ import type {
   InputTracking,
   BrowserFreezetracking,
 } from '../../types/performance-tracking';
-import compositionPlugin from './pm-plugins/composition';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 
 export interface BasePluginOptions {
@@ -124,11 +123,6 @@ const basePlugin: NextEditorPlugin<
       plugins.push({
         name: 'disableSpellcheckingPlugin',
         plugin: () => disableSpellcheckingPlugin(featureFlags),
-      });
-
-      plugins.push({
-        name: 'compositionPlugin',
-        plugin: () => compositionPlugin(),
       });
 
       return plugins;

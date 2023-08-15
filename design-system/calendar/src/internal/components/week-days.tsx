@@ -6,6 +6,7 @@ import { jsx } from '@emotion/react';
 import Box from '@atlaskit/primitives/box';
 import type { ThemeModes } from '@atlaskit/theme/types';
 
+import type { TabIndex } from '../../types';
 import { DateObj, Week } from '../types';
 
 import DateComponent from './date';
@@ -15,6 +16,9 @@ interface WeekDaysProps {
   weeks: Week[];
   handleClickDay: (date: DateObj) => void;
   mode?: ThemeModes;
+  monthsLong: string[];
+  shouldSetFocus: boolean;
+  tabIndex: TabIndex;
   testId?: string;
 }
 
@@ -22,6 +26,9 @@ const WeekDays = memo<WeekDaysProps>(function WeekDays({
   weeks,
   handleClickDay,
   mode,
+  monthsLong,
+  shouldSetFocus,
+  tabIndex,
   testId,
 }) {
   return (
@@ -37,13 +44,17 @@ const WeekDays = memo<WeekDaysProps>(function WeekDays({
               isDisabled={weekDay.isDisabled}
               isFocused={weekDay.isFocused}
               isToday={weekDay.isToday}
+              dayLong={weekDay.weekDayName}
               month={weekDay.month}
+              monthLong={monthsLong[weekDay.month - 1]}
               onClick={handleClickDay}
               isPreviouslySelected={weekDay.isPreviouslySelected}
               isSelected={weekDay.isSelected}
               isSibling={weekDay.isSiblingMonth}
               year={weekDay.year}
               mode={mode}
+              shouldSetFocus={shouldSetFocus}
+              tabIndex={tabIndex}
               testId={testId}
             >
               {weekDay.day}

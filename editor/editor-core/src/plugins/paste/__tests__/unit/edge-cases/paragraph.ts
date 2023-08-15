@@ -32,6 +32,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import codeBlockPlugin from '../../../../code-block';
+import compositionPlugin from '../../../../composition';
 import mediaPlugin from '../../../../media';
 import pastePlugin from '../../../index';
 import blockTypePlugin from '../../../../block-type';
@@ -81,6 +82,7 @@ describe('paste paragraph edge cases', () => {
         .add(gridPlugin)
         .add(floatingToolbarPlugin)
         .add(focusPlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([mediaPlugin, { allowMediaSingle: true }])
         .add(panelPlugin),

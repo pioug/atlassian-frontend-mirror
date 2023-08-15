@@ -1,3 +1,4 @@
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   p,
@@ -11,15 +12,15 @@ import {
   tdEmpty,
   layoutSection,
   layoutColumn,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import codeBlockPlugin from '../../';
+import compositionPlugin from '../../../composition';
 import layoutPlugin from '../../../layout';
 import blockTypePlugin from '../../../block-type';
 import basePlugin from '../../../base';
@@ -44,6 +45,7 @@ describe('codeBlock - keymaps', () => {
         .add([analyticsPlugin, {}])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(layoutPlugin)
         .add(blockTypePlugin)

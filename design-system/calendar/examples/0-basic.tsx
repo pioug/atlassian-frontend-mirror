@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Box from '@atlaskit/primitives/box';
+
 import Calendar from '../src';
 
 const log = (msg: string) => (e: any) => console.log(msg, e);
@@ -13,17 +15,20 @@ const onFocus = () => log('Focus');
 const onSelect = () => log('Select');
 
 export default () => (
-  <Calendar
-    disabled={disabledArray}
-    maxDate={'2020-12-25'}
-    defaultPreviouslySelected={defaultPreviouslySelected}
-    defaultSelected={defaultSelected}
-    defaultMonth={12}
-    defaultYear={2020}
-    onBlur={onBlur}
-    onChange={onChange}
-    onFocus={onFocus}
-    onSelect={onSelect}
-    testId={'calendar'}
-  />
+  // Necessary to pass the SSR hydration test
+  <Box display="block">
+    <Calendar
+      disabled={disabledArray}
+      maxDate={'2020-12-25'}
+      defaultPreviouslySelected={defaultPreviouslySelected}
+      defaultSelected={defaultSelected}
+      defaultMonth={12}
+      defaultYear={2020}
+      onBlur={onBlur}
+      onChange={onChange}
+      onFocus={onFocus}
+      onSelect={onSelect}
+      testId={'calendar'}
+    />
+  </Box>
 );

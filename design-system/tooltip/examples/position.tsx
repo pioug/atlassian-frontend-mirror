@@ -28,7 +28,6 @@ const PositionExample: FC<Props> = ({ color = 'blue' }) => {
   const positionText = VALID_POSITIONS[position];
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
     <div
       style={{
         padding: `${token('space.500', '40px')} ${token('space.500', '40px')}`,

@@ -1,25 +1,5 @@
-import ClipboardPolyfill, * as clipboard from 'clipboard-polyfill';
-
-export function checkClipboardTypes(
-  type: DOMStringList | ReadonlyArray<string>,
-  item: string,
-) {
-  const isDOMStringList = (t: any): t is DOMStringList =>
-    !t.indexOf && !!t.contains;
-  return isDOMStringList(type) ? type.contains(item) : type.indexOf(item) > -1;
-}
-
-// Typeguard Function
-export const isClipboardEvent = (event: Event): event is ClipboardEvent =>
-  'clipboardData' in event;
-
-export function isPastedFile(rawEvent: Event) {
-  const { clipboardData } = rawEvent as ClipboardEvent;
-  if (!clipboardData) {
-    return false;
-  }
-  return checkClipboardTypes(clipboardData.types, 'Files');
-}
+import type ClipboardPolyfill from 'clipboard-polyfill';
+import * as clipboard from 'clipboard-polyfill';
 
 const isClipboardApiSupported = () =>
   !!navigator.clipboard && typeof navigator.clipboard.writeText === 'function';

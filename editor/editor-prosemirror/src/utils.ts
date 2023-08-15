@@ -3,8 +3,6 @@ export type {
   DomAtPos,
   ContentNodeWithPos,
   NodeWithPos,
-  //CellTransform,
-  //MovementOptions,
 } from 'prosemirror-utils';
 
 export {

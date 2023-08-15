@@ -1,7 +1,5 @@
 export type {
   DecorationSource,
-  //WidgetDecorationSpec,
-  //InlineDecorationSpec,
   DecorationAttrs,
   EditorProps,
   DirectEditorProps,

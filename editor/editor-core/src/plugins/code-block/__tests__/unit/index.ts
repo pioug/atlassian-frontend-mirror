@@ -29,6 +29,7 @@ import {
 import { setTextSelection } from '../../../../utils';
 import { copyToClipboard } from '../../../../utils/clipboard';
 import codeBlockPlugin from '../../';
+import compositionPlugin from '../../../composition';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import basePlugin from '../../../base';
 import typeAheadPlugin from '../../../type-ahead';
@@ -58,6 +59,7 @@ describe('code-block', () => {
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add(contentInsertionPlugin)
         .add(decorationsPlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(widthPlugin)
         .add(guidelinePlugin)

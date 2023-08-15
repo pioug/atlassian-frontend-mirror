@@ -38,6 +38,7 @@ import datePlugin from '../../index';
 import quickInsertPlugin from '../../../quick-insert';
 import typeAheadPlugin from '../../../type-ahead';
 import codeBlockPlugin from '../../../code-block';
+import compositionPlugin from '../../../composition';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import { pluginKey } from '../../pm-plugins/plugin-key';
@@ -69,6 +70,7 @@ describe('date plugin', () => {
         .add(quickInsertPlugin)
         .add(widthPlugin)
         .add(guidelinePlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(tablesPlugin),
     });

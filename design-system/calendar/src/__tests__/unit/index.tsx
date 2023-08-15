@@ -10,8 +10,11 @@ import {
 import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import Calendar, { CalendarProps } from '../../index';
-import { WeekDay } from '../../types';
+import dateToString from '../../internal/utils/date-to-string';
+import { TabIndex, WeekDay } from '../../types';
 
 jest.mock('react-uid', () => ({
   useUIDSeed: () => () => 'react-uid',
@@ -19,10 +22,35 @@ jest.mock('react-uid', () => ({
 
 const getById = queryByAttribute.bind(null, 'id');
 
-const getDayElement = (renderResult: RenderResult, textContent: string) =>
+const getAnnouncerElementTextContent = (container: HTMLElement) =>
+  getById(container, 'announce-react-uid')?.textContent;
+
+const getDayElementButton = (renderResult: RenderResult, textContent: string) =>
+  renderResult.getAllByRole(
+    (content, element) =>
+      content === 'button' && element?.textContent === textContent,
+  )[0];
+
+const getDayElementGridcell = (
+  renderResult: RenderResult,
+  textContent: string,
+) =>
   renderResult.getAllByRole(
     (content, element) =>
       content === 'gridcell' && element?.textContent === textContent,
+  )[0];
+
+const getSelectedDayButton = (renderResult: RenderResult) =>
+  renderResult.getAllByRole(
+    (content, element) =>
+      content === 'button' && element!.getAttribute('aria-pressed') === 'true',
+  )[0];
+
+const getSelectedDayGridcell = (renderResult: RenderResult) =>
+  renderResult.getAllByRole(
+    (content, element) =>
+      content === 'gridcell' &&
+      element!.getAttribute('aria-selected') === 'true',
   )[0];
 
 const getSwitchMonthElement = (renderResult: RenderResult, label: string) =>
@@ -32,9 +60,6 @@ const getSwitchMonthElement = (renderResult: RenderResult, label: string) =>
     { hidden: true },
   )[0];
 
-const getAnnouncerElementTextContent = (container: HTMLElement) =>
-  getById(container, 'announce-react-uid')?.textContent;
-
 const weekendFilter = (date: string) => {
   const dayOfWeek = parseISO(date).getDay();
   return dayOfWeek === 0 || dayOfWeek === 6;
@@ -43,20 +68,46 @@ const weekendFilter = (date: string) => {
 describe('Calendar', () => {
   const testId = 'calendar';
   const testIdMonth = `${testId}--month`;
+  const defaultDay = 1;
+  const defaultDisabledDay = 4;
+  const defaultPreviouslySelectedDay = 6;
+  const defaultSelectedDay = 8;
+  const defaultMonth = 12;
+  const defaultMonthName = 'December';
+  const defaultYear = 2019;
+  const defaultTabIndex = 0;
 
   const setup = (calendarProps: Partial<CalendarProps> = {}) => {
     const props = {
-      disabled: ['2019-12-04'],
-      defaultPreviouslySelected: ['2019-12-06'],
-      defaultSelected: ['2019-12-08'],
-      defaultDay: 1,
-      defaultMonth: 12,
-      defaultYear: 2019,
+      disabled: [
+        dateToString({
+          day: defaultDisabledDay,
+          month: defaultMonth,
+          year: defaultYear,
+        }),
+      ],
+      defaultPreviouslySelected: [
+        dateToString({
+          day: defaultPreviouslySelectedDay,
+          month: defaultMonth,
+          year: defaultYear,
+        }),
+      ],
+      defaultSelected: [
+        dateToString({
+          day: defaultSelectedDay,
+          month: defaultMonth,
+          year: defaultYear,
+        }),
+      ],
+      defaultDay,
+      defaultMonth,
+      defaultYear,
       onBlur: jest.fn(),
       onChange: jest.fn(),
       onFocus: jest.fn(),
       onSelect: jest.fn(),
-      testId: 'calendar',
+      testId,
     };
     const ref = React.createRef<HTMLDivElement>();
 
@@ -71,177 +122,755 @@ describe('Calendar', () => {
     };
   };
 
-  it('should render announcer date', () => {
-    const { renderResult } = setup();
-
-    expect(getAnnouncerElementTextContent(renderResult.container)).toContain(
-      'Sun Dec 01 2019',
+  describe('should render announcer date', () => {
+    ffTest(
+      'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+      () => {
+        const { renderResult } = setup();
+        expect(
+          getAnnouncerElementTextContent(renderResult.container),
+        ).toBeUndefined();
+      },
+      () => {
+        const { renderResult } = setup();
+        expect(
+          getAnnouncerElementTextContent(renderResult.container),
+        ).toContain('Sun Dec 01 2019');
+      },
     );
   });
-
   describe('Heading', () => {
-    it('should render the title', () => {
-      const { renderResult } = setup();
+    describe('should render the title', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup();
 
-      expect(renderResult.getByText('December 2019')).toBeInTheDocument();
-    });
+          const heading = renderResult.getByRole('heading');
+          expect(heading).toBeInTheDocument();
+          expect(heading).toHaveTextContent('December 2019');
+        },
+        () => {
+          const { renderResult } = setup();
 
-    it('should switch to previous month when clicked on left arrow button', () => {
-      const { renderResult, props } = setup();
-
-      fireEvent.click(getSwitchMonthElement(renderResult, 'Last month'));
-
-      expect(renderResult.getByText('November 2019')).toBeInTheDocument();
-
-      expect(getAnnouncerElementTextContent(renderResult.container)).toContain(
-        'Fri Nov 01 2019',
-      );
-
-      expect(props.onChange).toHaveBeenCalledWith(
-        { day: 1, iso: '2019-11-01', month: 11, type: 'prev', year: 2019 },
-        expect.anything(),
+          expect(renderResult.getByText('December 2019')).toBeInTheDocument();
+        },
       );
     });
 
-    it('should switch to next month when clicked on right arrow button', () => {
-      const { renderResult, props } = setup();
+    describe('should render month/year section as a live region', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup();
 
-      fireEvent.click(getSwitchMonthElement(renderResult, 'Next month'));
+          const headingContainer = renderResult.getByTestId(
+            `${testId}--current-month-year--container`,
+          );
 
-      expect(renderResult.getByText('January 2020')).toBeInTheDocument();
+          expect(headingContainer).toHaveAttribute('aria-live');
+        },
+        () => {
+          const { renderResult } = setup();
 
-      expect(getAnnouncerElementTextContent(renderResult.container)).toContain(
-        'Wed Jan 01 2020',
-      );
+          const headingContainer = renderResult.getByTestId(
+            `${testId}--current-month-year`,
+          );
 
-      expect(props.onChange).toHaveBeenCalledWith(
-        { day: 1, iso: '2020-01-01', month: 1, type: 'next', year: 2020 },
-        expect.anything(),
-      );
-    });
-
-    it('month arrow buttons should have tabindex=-1', () => {
-      const { renderResult } = setup();
-
-      expect(
-        renderResult.getByTestId('calendar--previous-month'),
-      ).toHaveAttribute('tabindex', '-1');
-
-      expect(renderResult.getByTestId('calendar--next-month')).toHaveAttribute(
-        'tabindex',
-        '-1',
+          expect(headingContainer).not.toHaveAttribute('aria-live');
+        },
       );
     });
 
-    it('month arrow buttons should have default aria labels', () => {
-      const { renderResult } = setup();
+    describe('should label previous/next buttons with next/previous month/year', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const firstMonth = 1;
+          const lastMonth = 12;
 
-      expect(
-        renderResult.getByTestId('calendar--previous-month-icon'),
-      ).toHaveAttribute('aria-label', 'Last month');
+          const { renderResult: firstMonthRenderResult } = setup({
+            month: firstMonth,
+          });
 
-      expect(
-        renderResult.getByTestId('calendar--next-month-icon'),
-      ).toHaveAttribute('aria-label', 'Next month');
+          expect(
+            firstMonthRenderResult.getByTestId(
+              `${testId}--previous-month-icon`,
+            ),
+          ).toHaveAttribute(
+            'aria-label',
+            expect.stringMatching(/, December 2018$/),
+          );
+
+          expect(
+            firstMonthRenderResult.getByTestId(`${testId}--next-month-icon`),
+          ).toHaveAttribute(
+            'aria-label',
+            expect.stringMatching(/, February 2019$/),
+          );
+
+          firstMonthRenderResult.unmount();
+
+          const { renderResult: lastMonthResnderResult } = setup({
+            month: lastMonth,
+          });
+
+          expect(
+            lastMonthResnderResult.getByTestId(
+              `${testId}--previous-month-icon`,
+            ),
+          ).toHaveAttribute(
+            'aria-label',
+            expect.stringMatching(/, November 2019$/),
+          );
+
+          expect(
+            lastMonthResnderResult.getByTestId(`${testId}--next-month-icon`),
+          ).toHaveAttribute(
+            'aria-label',
+            expect.stringMatching(/, January 2020$/),
+          );
+        },
+        () => {
+          const { renderResult } = setup();
+
+          expect(
+            getSwitchMonthElement(renderResult, 'Last month'),
+          ).toHaveAttribute('aria-label', expect.stringMatching(/Last month/));
+
+          expect(
+            getSwitchMonthElement(renderResult, 'Next month'),
+          ).toHaveAttribute('aria-label', expect.stringMatching(/Next month/));
+        },
+      );
+    });
+
+    describe('should switch to previous month when clicked on left arrow button', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult, props } = setup();
+
+          fireEvent.click(
+            renderResult.getByTestId(`${testId}--previous-month-icon`),
+          );
+
+          expect(
+            renderResult.getByTestId(`${testId}--current-month-year`),
+          ).toHaveTextContent('November 2019');
+
+          expect(props.onChange).toHaveBeenCalledWith(
+            { day: 1, iso: '2019-11-01', month: 11, type: 'prev', year: 2019 },
+            expect.anything(),
+          );
+        },
+        () => {
+          const { renderResult, props } = setup();
+
+          fireEvent.click(getSwitchMonthElement(renderResult, 'Last month'));
+
+          expect(renderResult.getByText('November 2019')).toBeInTheDocument();
+
+          expect(
+            getAnnouncerElementTextContent(renderResult.container),
+          ).toContain('Fri Nov 01 2019');
+
+          expect(props.onChange).toHaveBeenCalledWith(
+            { day: 1, iso: '2019-11-01', month: 11, type: 'prev', year: 2019 },
+            expect.anything(),
+          );
+        },
+      );
+    });
+
+    describe('should switch to next month when clicked on right arrow button', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult, props } = setup();
+
+          fireEvent.click(
+            renderResult.getByTestId(`${testId}--next-month-icon`),
+          );
+
+          expect(
+            renderResult.getByTestId(`${testId}--current-month-year`),
+          ).toHaveTextContent('January 2020');
+
+          expect(props.onChange).toHaveBeenCalledWith(
+            { day: 1, iso: '2020-01-01', month: 1, type: 'next', year: 2020 },
+            expect.anything(),
+          );
+        },
+        () => {
+          const { renderResult, props } = setup();
+
+          fireEvent.click(getSwitchMonthElement(renderResult, 'Next month'));
+
+          expect(renderResult.getByText('January 2020')).toBeInTheDocument();
+
+          expect(
+            getAnnouncerElementTextContent(renderResult.container),
+          ).toContain('Wed Jan 01 2020');
+
+          expect(props.onChange).toHaveBeenCalledWith(
+            { day: 1, iso: '2020-01-01', month: 1, type: 'next', year: 2020 },
+            expect.anything(),
+          );
+        },
+      );
+    });
+
+    describe('should have month arrow buttons accessible by keyboard', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup();
+
+          expect(
+            renderResult.getByTestId(`${testId}--previous-month`),
+          ).toHaveAttribute('tabindex', String(defaultTabIndex));
+
+          expect(
+            renderResult.getByTestId(`${testId}--next-month`),
+          ).toHaveAttribute('tabindex', String(defaultTabIndex));
+        },
+        () => {
+          const { renderResult } = setup();
+
+          expect(
+            renderResult.getByTestId(`${testId}--previous-month`),
+          ).toHaveAttribute('tabindex', '-1');
+
+          expect(
+            renderResult.getByTestId(`${testId}--next-month`),
+          ).toHaveAttribute('tabindex', '-1');
+        },
+      );
+    });
+
+    describe('should have default aria labels on month arrow buttons', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup();
+
+          expect(
+            renderResult.getByTestId(`${testId}--previous-month-icon`),
+          ).toHaveAttribute(
+            'aria-label',
+            expect.stringMatching(/^Previous month/),
+          );
+
+          expect(
+            renderResult.getByTestId(`${testId}--next-month-icon`),
+          ).toHaveAttribute('aria-label', expect.stringMatching(/^Next month/));
+        },
+        () => {
+          const { renderResult } = setup();
+
+          expect(
+            renderResult.getByTestId(`${testId}--previous-month-icon`),
+          ).toHaveAttribute('aria-label', expect.stringMatching(/^Last month/));
+
+          expect(
+            renderResult.getByTestId(`${testId}--next-month-icon`),
+          ).toHaveAttribute('aria-label', expect.stringMatching(/^Next month/));
+        },
+      );
     });
   });
 
   describe('Date', () => {
-    it('should render default selected day', () => {
-      const { renderResult } = setup();
-
-      const selectedDayElement = getDayElement(renderResult, '8');
-
-      expect(selectedDayElement).toHaveAttribute('aria-selected', 'true');
-    });
-
-    it('should handle day selection behavior', () => {
-      const { renderResult, props } = setup();
-
-      const selectedDayElement = getDayElement(renderResult, '8');
-      const nextUnselectedDayElement =
-        selectedDayElement.nextSibling as HTMLTableDataCellElement;
-
-      expect(nextUnselectedDayElement).toHaveAttribute(
-        'aria-selected',
-        'false',
-      );
-
-      fireEvent.click(nextUnselectedDayElement);
-
-      expect(nextUnselectedDayElement).toHaveAttribute('aria-selected', 'true');
-      expect(props.onSelect).toHaveBeenCalledWith(
-        {
-          day: 9,
-          iso: '2019-12-09',
-          month: 12,
-          year: 2019,
+    describe('should be labelled by month/year header', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup();
+          const heading = renderResult.getByRole('heading');
+          const headingId = heading.getAttribute('id');
+          const calendarGrid = renderResult.getByRole('grid');
+          expect(calendarGrid.getAttribute('aria-labelledby')).toBe(headingId);
         },
-        expect.anything(),
+        () => {
+          const { renderResult } = setup();
+          const calendarGrid = renderResult.getByRole('grid');
+          expect(calendarGrid).not.toHaveAttribute('aria-labelledby');
+        },
       );
     });
 
-    it('should be correctly disabled via disabled array props', () => {
-      const { renderResult } = setup();
+    describe('should render default selected day', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup();
 
-      const disabledDayElement = getDayElement(renderResult, '4');
-      expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+          const selectedDayElement = getSelectedDayButton(renderResult);
+
+          expect(selectedDayElement).toHaveAttribute('aria-pressed', 'true');
+        },
+        () => {
+          const { renderResult } = setup();
+
+          const selectedDayElement = getSelectedDayGridcell(renderResult);
+
+          expect(selectedDayElement).toHaveAttribute('aria-selected', 'true');
+        },
+      );
     });
 
-    it('should be correctly disabled via minDate and maxDate props', () => {
-      const { renderResult } = setup({
-        minDate: '2019-12-03',
-        maxDate: '2019-12-19',
-      });
+    describe('should render each day with a label containing the full date', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup();
 
-      const outOfRangeDates = ['2', '20'];
-      outOfRangeDates.forEach((date) => {
-        const disabledDayElement = getDayElement(renderResult, date);
-        expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
-      });
+          const selectedDayElement = getSelectedDayButton(renderResult);
 
-      const inRangeDates = ['3', '19'];
-      inRangeDates.forEach((date) => {
-        const disabledDayElement = getDayElement(renderResult, date);
-        expect(disabledDayElement).not.toHaveAttribute('data-disabled', 'true');
-      });
+          expect(selectedDayElement).toHaveAttribute(
+            'aria-label',
+            '8, Sunday December 2019',
+          );
+        },
+        () => {
+          const { renderResult } = setup();
+
+          const selectedDayElement = getSelectedDayGridcell(renderResult);
+
+          expect(selectedDayElement).not.toHaveAttribute('aria-label');
+        },
+      );
     });
 
-    it('should be correctly disabled via disabledDateFilter props', () => {
-      const { renderResult } = setup({
-        disabledDateFilter: weekendFilter,
-      });
+    describe('should have tabindex="-1" for all days but focused day, which will use tabIndex prop', () => {
+      const tabIndexValues = [-1 as TabIndex, 0 as TabIndex];
 
-      const disabledDayElement = getDayElement(renderResult, '14');
-      expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          tabIndexValues.forEach((tabIndex) => {
+            const { renderResult } = setup({ tabIndex });
+
+            const dayButtons = renderResult.getAllByRole(
+              (content, element) =>
+                content === 'button' &&
+                element?.parentElement?.getAttribute('role') === 'gridcell',
+            );
+
+            dayButtons.forEach((dayButton) => {
+              if (dayButton.getAttribute('data-focused') === 'true') {
+                expect(dayButton).toHaveAttribute('tabindex', String(tabIndex));
+              } else {
+                expect(dayButton).toHaveAttribute('tabindex', '-1');
+              }
+            });
+
+            renderResult.unmount();
+          });
+        },
+        () => {
+          const { renderResult } = setup();
+
+          const dayButtons = renderResult.getAllByRole(
+            (content, element) => content === 'gridcell',
+          );
+
+          // Ensure the selector is getting the days
+          expect(dayButtons.length).toBeGreaterThan(28);
+
+          dayButtons.forEach((dayButton) => {
+            // This is how it was before the fix, so leaving it.
+            if (dayButton.getAttribute('aria-selected') === 'true') {
+              expect(dayButton).toHaveAttribute('tabindex', '0');
+            } else {
+              expect(dayButton).toHaveAttribute('tabindex', '-1');
+            }
+          });
+        },
+      );
     });
 
-    it('should not select day if disabled', () => {
-      const { renderResult, props } = setup();
-      const disabledDayElement = getDayElement(renderResult, '4');
-      fireEvent.click(disabledDayElement);
-      expect(props.onSelect).not.toHaveBeenCalled();
+    describe('should handle day selection behavior', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const dayAfterSelectedDay = defaultSelectedDay + 1;
+          const { renderResult, props } = setup();
+
+          const selectedDay = getSelectedDayButton(renderResult);
+
+          expect(selectedDay).toHaveAttribute('aria-pressed', 'true');
+
+          const unselectedDay = getDayElementButton(
+            renderResult,
+            String(dayAfterSelectedDay),
+          );
+
+          expect(unselectedDay).toHaveAttribute('aria-pressed', 'false');
+
+          fireEvent.click(unselectedDay);
+
+          expect(unselectedDay).toHaveAttribute('aria-pressed', 'true');
+          expect(props.onSelect).toHaveBeenCalledWith(
+            {
+              day: dayAfterSelectedDay,
+              iso: dateToString({
+                day: dayAfterSelectedDay,
+                month: defaultMonth,
+                year: defaultYear,
+              }),
+              month: defaultMonth,
+              year: defaultYear,
+            },
+            expect.anything(),
+          );
+        },
+        () => {
+          const { renderResult, props } = setup();
+
+          const selectedDayElement = getDayElementGridcell(
+            renderResult,
+            String(defaultSelectedDay),
+          );
+
+          expect(selectedDayElement).toHaveAttribute('aria-selected', 'true');
+
+          const nextUnselectedDayElement =
+            selectedDayElement.nextSibling as HTMLButtonElement;
+
+          expect(nextUnselectedDayElement).toHaveAttribute(
+            'aria-selected',
+            'false',
+          );
+
+          fireEvent.click(nextUnselectedDayElement);
+
+          expect(nextUnselectedDayElement).toHaveAttribute(
+            'aria-selected',
+            'true',
+          );
+          expect(props.onSelect).toHaveBeenCalledWith(
+            {
+              day: 9,
+              iso: '2019-12-09',
+              month: 12,
+              year: 2019,
+            },
+            expect.anything(),
+          );
+        },
+      );
+    });
+
+    describe('should be correctly disabled via disabled array props', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup();
+
+          const disabledDayElement = getDayElementButton(
+            renderResult,
+            String(defaultDisabledDay),
+          );
+          const notDisabledDayElement = getDayElementButton(
+            renderResult,
+            String(defaultDisabledDay + 1),
+          );
+
+          expect(disabledDayElement).toHaveAttribute('aria-disabled', 'true');
+          expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+          expect(notDisabledDayElement).not.toHaveAttribute('aria-disabled');
+          expect(notDisabledDayElement).not.toHaveAttribute('data-disabled');
+        },
+        () => {
+          const { renderResult } = setup();
+
+          const disabledDayElement = getDayElementGridcell(
+            renderResult,
+            String(defaultDisabledDay),
+          );
+          const notDisabledDayElement = getDayElementGridcell(
+            renderResult,
+            String(defaultDisabledDay + 1),
+          );
+          expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+          expect(notDisabledDayElement).not.toHaveAttribute(
+            'data-disabled',
+            'true',
+          );
+        },
+      );
+    });
+
+    describe('should be correctly disabled via minDate and maxDate props', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup({
+            minDate: '2019-12-03',
+            maxDate: '2019-12-19',
+          });
+
+          const outOfRangeDates = ['2', '20'];
+          outOfRangeDates.forEach((date) => {
+            const disabledDayElement = getDayElementButton(renderResult, date);
+            expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+          });
+
+          const inRangeDates = ['3', '19'];
+          inRangeDates.forEach((date) => {
+            const disabledDayElement = getDayElementButton(renderResult, date);
+            expect(disabledDayElement).not.toHaveAttribute(
+              'data-disabled',
+              'true',
+            );
+          });
+        },
+        () => {
+          const { renderResult } = setup({
+            minDate: '2019-12-03',
+            maxDate: '2019-12-19',
+          });
+
+          const outOfRangeDates = ['2', '20'];
+          outOfRangeDates.forEach((date) => {
+            const disabledDayElement = getDayElementGridcell(
+              renderResult,
+              date,
+            );
+            expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+          });
+
+          const inRangeDates = ['3', '19'];
+          inRangeDates.forEach((date) => {
+            const disabledDayElement = getDayElementGridcell(
+              renderResult,
+              date,
+            );
+            expect(disabledDayElement).not.toHaveAttribute(
+              'data-disabled',
+              'true',
+            );
+          });
+        },
+      );
+    });
+
+    describe('should be correctly disabled via disabledDateFilter props', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup({
+            disabledDateFilter: weekendFilter,
+          });
+
+          const disabledDayElement = getDayElementButton(renderResult, '14');
+          expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+        },
+        () => {
+          const { renderResult } = setup({
+            disabledDateFilter: weekendFilter,
+          });
+
+          const disabledDayElement = getDayElementGridcell(renderResult, '14');
+          expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
+        },
+      );
+    });
+
+    describe('should not select day if disabled', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult, props } = setup();
+          const disabledDayElement = getDayElementButton(
+            renderResult,
+            String(defaultDisabledDay),
+          );
+          fireEvent.click(disabledDayElement);
+          expect(props.onSelect).not.toHaveBeenCalled();
+        },
+        () => {
+          const { renderResult, props } = setup();
+          const disabledDayElement = getDayElementGridcell(
+            renderResult,
+            String(defaultDisabledDay),
+          );
+          fireEvent.click(disabledDayElement);
+          expect(props.onSelect).not.toHaveBeenCalled();
+        },
+      );
     });
   });
 
   describe('Date cell cursor', () => {
-    it('show cursor pointer', () => {
-      const { renderResult } = setup();
-      const cell = getDayElement(renderResult, '15');
-      expect(cell).toHaveStyle('cursor: pointer');
+    describe('show cursor pointer', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup();
+          const cell = getDayElementButton(renderResult, '15');
+          expect(cell).toHaveStyle('cursor: pointer');
+        },
+        () => {
+          const { renderResult } = setup();
+          const cell = getDayElementGridcell(renderResult, '15');
+          expect(cell).toHaveStyle('cursor: pointer');
+        },
+      );
     });
-    it('cursor not-allowed when disabled', () => {
-      const { renderResult } = setup();
-      const disabledCell = getDayElement(renderResult, '4');
-      expect(disabledCell).toHaveStyle('cursor: not-allowed');
+
+    describe('cursor not-allowed when disabled', () => {
+      ffTest(
+        'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        () => {
+          const { renderResult } = setup();
+          const disabledCell = getDayElementButton(renderResult, '4');
+          expect(disabledCell).toHaveStyle('cursor: not-allowed');
+        },
+        () => {
+          const { renderResult } = setup();
+          const disabledCell = getDayElementGridcell(renderResult, '4');
+          expect(disabledCell).toHaveStyle('cursor: not-allowed');
+        },
+      );
     });
   });
 
-  it('should have tabindex=0', () => {
-    const { renderResult } = setup();
+  describe('should propagate tabindex to all interactive elements', () => {
+    const tabIndexValues = [-1 as TabIndex, 0 as TabIndex];
+    ffTest(
+      'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+      () => {
+        tabIndexValues.forEach((tabIndexValue) => {
+          const {
+            renderResult: { getByTestId, unmount },
+          } = setup({ tabIndex: tabIndexValue });
 
-    const calendarElement = renderResult.getByTestId(`${testId}--calendar`);
-    expect(calendarElement).toHaveAttribute('tabindex', '0');
+          // Header
+          const previousMonthButton = getByTestId(`${testId}--previous-month`);
+          const nextMonthButton = getByTestId(`${testId}--next-month`);
+
+          expect(previousMonthButton).toHaveAttribute(
+            'tabindex',
+            String(tabIndexValue),
+          );
+          expect(nextMonthButton).toHaveAttribute(
+            'tabindex',
+            String(tabIndexValue),
+          );
+          // Body
+          const calendarDatesElement = getByTestId(`${testId}--calendar-dates`);
+
+          expect(calendarDatesElement).toHaveAttribute(
+            'tabindex',
+            String(tabIndexValue),
+          );
+          unmount();
+        });
+      },
+      () => {
+        tabIndexValues.forEach((tabIndexValue) => {
+          const {
+            renderResult: { getByTestId, unmount },
+          } = setup({ tabIndex: tabIndexValue });
+
+          const calendarElement = getByTestId(`${testId}--calendar`);
+
+          expect(calendarElement).toHaveAttribute(
+            'tabindex',
+            String(tabIndexValue),
+          );
+
+          unmount();
+        });
+      },
+    );
+  });
+
+  describe('should set appropriate attributes on focus', () => {
+    ffTest(
+      'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+      () => {
+        const { renderResult } = setup();
+
+        const focusedDayElement = getDayElementButton(
+          renderResult,
+          String(defaultDay),
+        );
+        const unfocusedDayElement = getDayElementButton(
+          renderResult,
+          String(defaultDay + 1),
+        );
+
+        expect(focusedDayElement).toHaveAttribute('data-focused', 'true');
+        expect(unfocusedDayElement).not.toHaveAttribute('data-focused');
+      },
+      () => {
+        const { renderResult } = setup();
+
+        const focusedDayElement = getDayElementGridcell(
+          renderResult,
+          String(defaultDay),
+        );
+        const unfocusedDayElement = getDayElementGridcell(
+          renderResult,
+          String(defaultDay + 1),
+        );
+
+        expect(focusedDayElement).toHaveAttribute('data-focused', 'true');
+        expect(unfocusedDayElement).not.toHaveAttribute('data-focused');
+      },
+    );
+  });
+
+  describe('should set appropriate attributes when current day', () => {
+    ffTest(
+      'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+      () => {
+        const today = new Date();
+
+        const { renderResult } = setup({
+          day: today.getDate(),
+          month: today.getMonth() + 1,
+          year: today.getFullYear(),
+        });
+
+        const todayElement = getDayElementButton(
+          renderResult,
+          String(today.getDate()),
+        );
+        const notTodayElement = getDayElementButton(
+          renderResult,
+          String(today.getDate() + 1),
+        );
+
+        expect(todayElement).toHaveAttribute('aria-current', 'date');
+        expect(notTodayElement).not.toHaveAttribute('aria-current');
+      },
+      () => {
+        const today = new Date();
+
+        const { renderResult } = setup({
+          day: today.getDate(),
+          month: today.getMonth() + 1,
+          year: today.getFullYear(),
+        });
+
+        const todayElement = getDayElementGridcell(
+          renderResult,
+          String(today.getDate()),
+        );
+        const notTodayElement = getDayElementGridcell(
+          renderResult,
+          String(today.getDate() + 1),
+        );
+
+        expect(todayElement).toHaveAttribute('data-today', 'true');
+        expect(notTodayElement).not.toHaveAttribute('data-today');
+      },
+    );
   });
 
   it('should handle onBlur and focus event', () => {
@@ -253,37 +882,32 @@ describe('Calendar', () => {
     fireEvent.focus(calendarContainerElement);
 
     expect(props.onFocus).toHaveBeenCalledTimes(1);
-    expect(getAnnouncerElementTextContent(container)).toContain(
-      'Sun Dec 01 2019',
-    );
 
     fireEvent.blur(calendarContainerElement);
 
     expect(props.onBlur).toHaveBeenCalledTimes(1);
-    expect(getAnnouncerElementTextContent(container)).toContain(
-      'Sun Dec 01 2019',
-    );
 
     fireEvent.focus(calendarContainerElement);
 
     expect(props.onFocus).toHaveBeenCalledTimes(2);
-    expect(getAnnouncerElementTextContent(container)).toContain(
-      'Sun Dec 01 2019',
-    );
   });
 
   cases(
     'should select day when following keys are pressed',
     ({ key, code }: { key: string; code: string }) => {
+      const focusedDay = 10;
       const { renderResult, props } = setup({
-        defaultDay: 10,
+        defaultDay: focusedDay,
       });
 
-      const currentSelectedDayElement = getDayElement(renderResult, '8');
+      // Using Gridcell method here because it covers both cases and then I
+      // don't have to break out a `cases` call for feature flags. When feature
+      // flag is removed, this should be changed to use the Button method
+      // instead.
+      const currentSelectedDayGridcell = getSelectedDayGridcell(renderResult);
 
-      expect(currentSelectedDayElement).toHaveAttribute(
-        'aria-selected',
-        'true',
+      expect(currentSelectedDayGridcell).toHaveTextContent(
+        String(defaultSelectedDay),
       );
 
       const calendarGrid = renderResult.getByTestId(testIdMonth);
@@ -292,9 +916,9 @@ describe('Calendar', () => {
         code,
       });
 
-      const newSelectedDayElement = getDayElement(renderResult, '10');
+      const newSelectedDayGridcell = getSelectedDayGridcell(renderResult);
 
-      expect(newSelectedDayElement).toHaveAttribute('aria-selected', 'true');
+      expect(newSelectedDayGridcell).toHaveTextContent(String(focusedDay));
 
       expect(isPrevented).toBe(false);
       expect(props.onSelect).toHaveBeenCalledWith(
@@ -424,21 +1048,76 @@ describe('Calendar', () => {
     expect(ref.current).toBe(renderResult.container.firstChild);
   });
 
-  it('should rerender calendar with new date when passed from outside', () => {
-    const { renderResult } = setup({
-      day: 10,
-      month: 5,
-      year: 2019,
-    });
+  describe('should rerender calendar with new date when passed from outside', () => {
+    ffTest(
+      'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+      () => {
+        // Can't test with different years/months because then the view changes and
+        // the selected date is no longer accessible via visible calendar grid
+        const newDay = defaultDay + 1;
 
-    expect(getAnnouncerElementTextContent(renderResult.container)).toContain(
-      'Fri May 10 2019',
-    );
+        const { renderResult } = setup({
+          day: defaultDay,
+          month: defaultMonth,
+          year: defaultYear,
+          selected: [
+            dateToString({
+              day: defaultDay,
+              month: defaultMonth,
+              year: defaultYear,
+            }),
+          ],
+        });
+        const monthYear = renderResult.getByTestId(
+          `${testId}--current-month-year`,
+        );
 
-    renderResult.rerender(<Calendar day={15} month={5} year={2019} />);
+        expect(monthYear).toHaveTextContent(
+          `${defaultMonthName} ${defaultYear}`,
+        );
+        expect(getSelectedDayButton(renderResult)).toHaveTextContent(
+          String(defaultDay),
+        );
 
-    expect(getAnnouncerElementTextContent(renderResult.container)).toContain(
-      'Wed May 15 2019',
+        renderResult.rerender(
+          <Calendar
+            day={newDay}
+            month={defaultMonth}
+            year={defaultYear}
+            selected={[
+              dateToString({
+                day: newDay,
+                month: defaultMonth,
+                year: defaultYear,
+              }),
+            ]}
+          />,
+        );
+
+        expect(monthYear).toHaveTextContent(
+          `${defaultMonthName} ${defaultYear}`,
+        );
+        expect(getSelectedDayButton(renderResult)).toHaveTextContent(
+          String(newDay),
+        );
+      },
+      () => {
+        const { renderResult } = setup({
+          day: 10,
+          month: 5,
+          year: 2019,
+        });
+
+        expect(
+          getAnnouncerElementTextContent(renderResult.container),
+        ).toContain('Fri May 10 2019');
+
+        renderResult.rerender(<Calendar day={15} month={5} year={2019} />);
+
+        expect(
+          getAnnouncerElementTextContent(renderResult.container),
+        ).toContain('Wed May 15 2019');
+      },
     );
   });
 

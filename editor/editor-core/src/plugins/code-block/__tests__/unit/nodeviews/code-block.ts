@@ -1,14 +1,10 @@
 import createStub from 'raf-stub';
-import {
-  code_block,
-  doc,
-  p,
-  RefsNode,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import type { RefsNode } from '@atlaskit/editor-test-helpers/doc-builder';
+import { code_block, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import codeBlockPlugin from '../../../';
@@ -19,6 +15,7 @@ import {
   resetShouldIgnoreFollowingMutations,
 } from '../../../actions';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import compositionPlugin from '../../../../composition';
 
 const codeBlock =
   (attrs?: {}) =>
@@ -158,6 +155,7 @@ describe('Code Block - NodeView', () => {
         doc: doc(p('paragraph{pPos}'), code_block()('codeBlock{<>}')),
         preset: new Preset<LightEditorPlugin>()
           .add(decorationsPlugin)
+          .add(compositionPlugin)
           .add([codeBlockPlugin, { appearance: 'full-page' }]),
         pluginKey: codeBlockPluginKey,
       });
@@ -178,6 +176,7 @@ describe('Code Block - NodeView', () => {
         doc: doc(p('paragraph{pPos}'), code_block()('codeBlock{<>}')),
         preset: new Preset<LightEditorPlugin>()
           .add(decorationsPlugin)
+          .add(compositionPlugin)
           .add([codeBlockPlugin, { appearance: 'full-page' }]),
         pluginKey: codeBlockPluginKey,
       });

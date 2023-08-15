@@ -43,6 +43,7 @@ import listPlugin from '../../..';
 import blockTypePlugin from '../../../../block-type';
 import datePlugin from '../../../../date';
 import codeBlockPlugin from '../../../../code-block';
+import compositionPlugin from '../../../../composition';
 import panelPlugin from '../../../../panel';
 import indentationPlugin from '../../../../indentation';
 import alignmentPlugin from '../../../../alignment';
@@ -69,6 +70,7 @@ describe('lists plugin -> commands', () => {
       .add(blockTypePlugin)
       .add(editorDisabledPlugin)
       .add(datePlugin)
+      .add(compositionPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }])
       .add(panelPlugin)
       .add(indentationPlugin)

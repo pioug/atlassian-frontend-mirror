@@ -1,5 +1,11 @@
 # @atlaskit/toggle
 
+## 12.6.10
+
+### Patch Changes
+
+- [`aff17bcbf09`](https://bitbucket.org/atlassian/atlassian-frontend/commits/aff17bcbf09) - This package is now onboarded onto the product push model.
+
 ## 12.6.9
 
 ### Patch Changes

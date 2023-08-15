@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 74.44.1
+
+### Patch Changes
+
+- [`494826929c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/494826929c3) - Fix with-plugin-state test
+
+## 74.44.0
+
+### Minor Changes
+
+- [`079e7748c62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/079e7748c62) - Extracted `editor-plugin-image-upload` from `editor-core`.
+
+## 74.43.0
+
+### Minor Changes
+
+- [`7e77fe6f2ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e77fe6f2ed) - ED-19330 Decouple list plugin from editor-core
+
 ## 74.42.3
 
 ### Patch Changes

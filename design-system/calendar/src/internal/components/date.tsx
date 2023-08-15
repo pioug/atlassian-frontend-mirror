@@ -11,8 +11,11 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import noop from '@atlaskit/ds-lib/noop';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { Grid } from '@atlaskit/primitives';
 import { ThemeModes } from '@atlaskit/theme/types';
 
+import type { TabIndex } from '../../types';
 import { dateCellStyles as getDateCellStyles } from '../styles/date';
 import type { DateObj } from '../types';
 
@@ -21,13 +24,17 @@ interface DateProps {
   isDisabled?: boolean;
   isFocused?: boolean;
   isToday?: boolean;
+  dayLong: string;
   month: number;
+  monthLong: string;
   onClick?: ({ day, month, year }: DateObj) => void;
   isPreviouslySelected?: boolean;
   isSelected?: boolean;
   isSibling?: boolean;
   year: number;
   mode?: ThemeModes;
+  shouldSetFocus: boolean;
+  tabIndex: TabIndex;
   testId?: string;
 }
 
@@ -38,13 +45,17 @@ const Date = memo(
       isDisabled = false,
       isFocused = false,
       isToday = false,
+      dayLong,
       month,
+      monthLong,
       onClick = noop,
       isPreviouslySelected = false,
       isSelected = false,
       isSibling = false,
       year,
       mode,
+      shouldSetFocus,
+      tabIndex,
       testId,
     },
     ref,
@@ -59,6 +70,21 @@ const Date = memo(
         isDisabled,
       };
     }, [day, month, year, isDisabled]);
+
+    const focusRef = useRef(null);
+
+    useEffect(() => {
+      if (
+        getBooleanFF(
+          'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        ) &&
+        isFocused &&
+        shouldSetFocus &&
+        focusRef.current
+      ) {
+        (focusRef.current as HTMLButtonElement).focus();
+      }
+    }, [isFocused, shouldSetFocus]);
 
     const handleClick = useCallback(() => {
       const {
@@ -79,10 +105,36 @@ const Date = memo(
 
     const dateCellStyles = useMemo(() => css(getDateCellStyles(mode)), [mode]);
 
-    return (
-      // TODO: Determine if there is a better way to render the button (should
-      // be fixed with introduction of keyboard accessibility of Calendar in
-      // DSP-9939) (DSP-11588)
+    return getBooleanFF(
+      'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+    ) ? (
+      <Grid role="gridcell" alignItems="center">
+        <button
+          // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+          css={dateCellStyles}
+          aria-current={isToday ? 'date' : undefined}
+          aria-disabled={isDisabled || undefined}
+          aria-label={`${day}, ${dayLong} ${monthLong} ${year}`}
+          aria-pressed={isSelected ? 'true' : 'false'}
+          tabIndex={isFocused ? tabIndex : -1}
+          type="button"
+          onClick={handleClick}
+          ref={focusRef}
+          data-disabled={isDisabled || undefined}
+          data-focused={isFocused || undefined}
+          data-prev-selected={isPreviouslySelected || undefined}
+          data-selected={isSelected || undefined}
+          data-sibling={isSibling || undefined}
+          data-today={isToday || undefined}
+          data-testid={
+            testId &&
+            (isSelected ? `${testId}--selected-day` : `${testId}--day`)
+          }
+        >
+          {day}
+        </button>
+      </Grid>
+    ) : (
       <button
         // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
         css={dateCellStyles}
@@ -99,7 +151,7 @@ const Date = memo(
         data-sibling={isSibling || undefined}
         data-today={isToday || undefined}
         data-testid={
-          testId && isSelected ? `${testId}--selected-day` : undefined
+          testId && (isSelected ? `${testId}--selected-day` : `${testId}--day`)
         }
       >
         {day}

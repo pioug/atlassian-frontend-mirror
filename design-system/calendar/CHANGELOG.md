@@ -1,5 +1,11 @@
 # @atlaskit/calendar
 
+## 13.2.0
+
+### Minor Changes
+
+- [`b5716b91b31`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b5716b91b31) - [ux] We are testing adding keyboard accessibility for Calendar behind a feature flag. This will add more affordances for users of assistive technologies to use the calendar, and updates the `tabIndex` prop to only use recommended values. If this fix is successful it will be available in a later release.
+
 ## 13.1.17
 
 ### Patch Changes

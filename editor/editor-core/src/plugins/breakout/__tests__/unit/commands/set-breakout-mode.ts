@@ -4,9 +4,9 @@ import {
   breakout,
   p,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
-  LightEditorPlugin,
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import { setBreakoutMode } from '../../../commands/set-breakout-mode';
@@ -15,6 +15,7 @@ import { setBreakoutMode } from '../../../commands/set-breakout-mode';
 import breakoutPlugin from '../../../';
 import { widthPlugin } from '@atlaskit/editor-plugin-width';
 import codeBlockPlugin from '../../../../code-block';
+import compositionPlugin from '../../../../composition';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
 describe('Breakout Commands: set-breakout-mode', () => {
@@ -26,6 +27,7 @@ describe('Breakout Commands: set-breakout-mode', () => {
       preset: new Preset<LightEditorPlugin>()
         .add(widthPlugin)
         .add(decorationsPlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([breakoutPlugin, { allowBreakoutButton: true }]),
     });
@@ -42,6 +44,7 @@ describe('Breakout Commands: set-breakout-mode', () => {
       preset: new Preset<LightEditorPlugin>()
         .add(widthPlugin)
         .add(decorationsPlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([breakoutPlugin, { allowBreakoutButton: true }]),
     });
@@ -72,6 +75,7 @@ describe('Breakout Commands: set-breakout-mode', () => {
       preset: new Preset<LightEditorPlugin>()
         .add(widthPlugin)
         .add(decorationsPlugin)
+        .add(compositionPlugin)
         .add([breakoutPlugin, { allowBreakoutButton: true }])
         .add([codeBlockPlugin, { appearance: 'full-page' }]),
     });

@@ -11,7 +11,6 @@ export { default as emojiPlugin } from './emoji';
 export { default as extensionPlugin } from './extension';
 export { default as fakeTextCursorPlugin } from './fake-text-cursor';
 export { default as helpDialogPlugin } from './help-dialog';
-export { default as imageUploadPlugin } from './image-upload';
 export { default as insertBlockPlugin } from './insert-block';
 export { default as jiraIssuePlugin } from './jira-issue';
 export { default as layoutPlugin } from './layout';

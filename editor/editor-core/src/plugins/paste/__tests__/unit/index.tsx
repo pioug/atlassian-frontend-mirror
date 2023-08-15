@@ -104,6 +104,7 @@ import blockTypePlugin from '../../../block-type';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import listPlugin from '../../../list';
 import codeBlockPlugin from '../../../code-block';
+import compositionPlugin from '../../../composition';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import layoutPlugin from '../../../layout';
@@ -248,6 +249,7 @@ describe('paste plugins', () => {
         .add(hyperlinkPlugin)
         .add(textFormattingPlugin)
         .add(listPlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(panelPlugin)
         .add([tasksAndDecisionsPlugin])

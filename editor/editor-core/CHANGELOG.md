@@ -1,5 +1,25 @@
 # @atlaskit/editor-core
 
+## 187.19.0
+
+### Minor Changes
+
+- [`7cb6ec49e68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7cb6ec49e68) - Decouple `composition` plugin from `base` plugin
+
+## 187.18.2
+
+### Patch Changes
+
+- [`079e7748c62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/079e7748c62) - Extracted `editor-plugin-image-upload` from `editor-core`.
+- Updated dependencies
+
+## 187.18.1
+
+### Patch Changes
+
+- [`7e77fe6f2ed`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7e77fe6f2ed) - ED-19330 Decouple list plugin from editor-core
+- Updated dependencies
+
 ## 187.18.0
 
 ### Minor Changes

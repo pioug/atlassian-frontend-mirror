@@ -4,6 +4,7 @@ import {
   fixTest,
   BROWSERS,
   EditorNodeContainerModel,
+  EditorListModel,
 } from '@af/editor-libra';
 import {
   p,
@@ -72,8 +73,9 @@ test.describe('list', () => {
     await editor.copy();
 
     // Pre-validate Paste already rendered media image
-    await expect(nodes.listItem).toHaveCount(1);
-    const bulletListNode = nodes.listItem.nth(0);
+    const listNode = EditorListModel.from(editor);
+    expect(await listNode.size()).toEqual(1);
+    const bulletListNode = await listNode.listItem(0);
     await bulletListNode.click();
     await editor.paste();
 

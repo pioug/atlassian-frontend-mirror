@@ -39,11 +39,13 @@ export default function useHandleDateChange({
   day: [dayValue, setDayValue],
   month: [monthValue, setMonthValue],
   year: [yearValue, setYearValue],
+  shouldSetFocus: [shouldSetFocus, setShouldSetFocus],
   onChange,
 }: {
   day: readonly [number, (newValue: number) => void];
   month: readonly [number, (newValue: number) => void];
   year: readonly [number, (newValue: number) => void];
+  shouldSetFocus: readonly [boolean, (newValue: boolean) => void];
   onChange: (event: ChangeEvent) => void;
 }) {
   const dateRef = useRef({
@@ -63,13 +65,15 @@ export default function useHandleDateChange({
   const triggerOnChange = useCallback(
     ({ year, month, day, type }: Omit<ChangeEvent, 'iso'>) => {
       const iso = dateToString({ year, month, day });
+      const isFocusableType = ['up', 'down', 'left', 'right'].includes(type);
 
       onChange({ day, month, year, iso, type });
       setDayValue(day);
       setMonthValue(month);
       setYearValue(year);
+      setShouldSetFocus(isFocusableType);
     },
-    [onChange, setDayValue, setMonthValue, setYearValue],
+    [onChange, setDayValue, setMonthValue, setYearValue, setShouldSetFocus],
   );
 
   const navigate = useCallback(

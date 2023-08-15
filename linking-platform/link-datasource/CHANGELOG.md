@@ -1,5 +1,11 @@
 # @atlaskit/link-datasource
 
+## 0.33.9
+
+### Patch Changes
+
+- [`bb7599728b7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/bb7599728b7) - [ux] Disable assets modal search button while AQL is invalid
+
 ## 0.33.8
 
 ### Patch Changes

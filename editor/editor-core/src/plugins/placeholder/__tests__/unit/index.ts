@@ -9,6 +9,7 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
 import placeholderPlugin, { placeholderTestId } from '../../';
+import compositionPlugin from '../../../composition';
 import typeAheadPlugin from '../../../type-ahead';
 
 function expectNoPlaceholder(editorView: EditorView) {
@@ -40,6 +41,7 @@ describe('placeholder', () => {
         doc,
         preset: new Preset<LightEditorPlugin>()
           .add(focusPlugin)
+          .add(compositionPlugin)
           .add([placeholderPlugin, { placeholder: defaultPlaceholder }])
           .add(typeAheadPlugin),
       });
@@ -64,12 +66,15 @@ describe('placeholder', () => {
     const fullPlaceholderEditor = (doc: DocBuilder) =>
       createProsemirrorEditor({
         doc,
-        preset: new Preset<LightEditorPlugin>().add(focusPlugin).add([
-          placeholderPlugin,
-          {
-            placeholder: defaultPlaceholder,
-          },
-        ]),
+        preset: new Preset<LightEditorPlugin>()
+          .add(focusPlugin)
+          .add(compositionPlugin)
+          .add([
+            placeholderPlugin,
+            {
+              placeholder: defaultPlaceholder,
+            },
+          ]),
       });
     it('renders the default placeholder on a blank content', async () => {
       const { editorView } = await fullPlaceholderEditor(doc(p()));

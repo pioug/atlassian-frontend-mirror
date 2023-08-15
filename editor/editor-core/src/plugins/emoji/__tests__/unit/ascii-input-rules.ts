@@ -27,6 +27,7 @@ import basePlugin from '../../../base';
 import blockTypePlugin from '../../../block-type';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import codeBlockPlugin from '../../../code-block';
+import compositionPlugin from '../../../composition';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
@@ -47,6 +48,7 @@ describe('ascii emojis - input rules', () => {
         .add(decorationsPlugin)
         .add(emojiPlugin)
         .add(blockTypePlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(textFormattingPlugin)
         .add(basePlugin),

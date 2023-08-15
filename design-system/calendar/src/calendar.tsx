@@ -1,10 +1,11 @@
 /** @jsx jsx */
-import { forwardRef, memo, useMemo } from 'react';
+import { forwardRef, memo, useMemo, useState } from 'react';
 
 import { jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import noop from '@atlaskit/ds-lib/noop';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
 import GlobalTheme from '@atlaskit/theme/components';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -90,6 +91,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       previouslySelected,
       defaultPreviouslySelected,
     });
+    const [shouldSetFocus, setShouldSetFocus] = useState(false);
 
     const onChangeWithAnalytics = usePlatformLeafEventHandler({
       fn: onChange,
@@ -102,6 +104,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       day: [dayValue, setDayValue],
       month: [monthValue, setMonthValue],
       year: [yearValue, setYearValue],
+      shouldSetFocus: [shouldSetFocus, setShouldSetFocus],
       onChange: onChangeWithAnalytics,
     });
 
@@ -131,6 +134,11 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       navigate,
     });
 
+    const { monthsLong, daysShort, daysLong } = useLocale({
+      locale,
+      weekStartDay,
+    });
+
     const weeks = useGetWeeks({
       day: dayValue,
       month: monthValue,
@@ -142,6 +150,7 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       disabledDateFilter,
       minDate,
       maxDate,
+      daysLong,
       weekStartDay,
     });
 
@@ -150,7 +159,28 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
       () => new Date(yearValue, monthValue - 1, dayValue).toString(),
       [dayValue, monthValue, yearValue],
     );
-    const { monthsLong, daysShort } = useLocale({ locale, weekStartDay });
+
+    const getNextHeading = () => {
+      // Next month is (currentMonth - 1) + 1, or just currentMonth in this
+      // instance.
+      const nextMonth = monthValue % 12;
+      const showNextYear = monthValue === 12;
+      return `${monthsLong[nextMonth]} ${
+        showNextYear ? yearValue + 1 : yearValue
+      }`;
+    };
+
+    const getPreviousHeading = () => {
+      // Previous month is (monthValue - 1) - 1. Need to add 12 so the modulo
+      // works as expected and stays positive.
+      const previousMonth = (monthValue + 12 - 2) % 12;
+      const showPreviousYear = monthValue === 1;
+      return `${monthsLong[previousMonth]} ${
+        showPreviousYear ? yearValue - 1 : yearValue
+      }`;
+    };
+
+    const headerId = useUniqueId('month-year-header');
 
     return (
       // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/no-static-element-interactions
@@ -159,21 +189,43 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
         style={style}
         onBlur={handleContainerBlur}
         onFocus={handleContainerFocus}
-        onKeyDown={handleContainerKeyDown}
+        onKeyDown={
+          getBooleanFF(
+            'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+          )
+            ? undefined
+            : handleContainerKeyDown
+        }
         data-testid={testId && `${testId}--container`}
         ref={ref}
       >
-        <VisuallyHidden>
-          <span id={announceId} aria-live="assertive" aria-relevant="text">
-            {announcerDate}
-          </span>
-        </VisuallyHidden>
+        {getBooleanFF(
+          'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+        ) ? null : (
+          <VisuallyHidden>
+            <span id={announceId} aria-live="assertive" aria-relevant="text">
+              {announcerDate}
+            </span>
+          </VisuallyHidden>
+        )}
         <Box
           xcss={boxStyles}
           padding="space.200"
-          aria-describedby={announceId}
+          aria-describedby={
+            getBooleanFF(
+              'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+            )
+              ? undefined
+              : announceId
+          }
           aria-label="calendar"
-          tabIndex={tabIndex}
+          tabIndex={
+            getBooleanFF(
+              'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+            )
+              ? undefined
+              : tabIndex
+          }
           testId={testId && `${testId}--calendar`}
         >
           <Stack space="space.150">
@@ -184,12 +236,46 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
               year={yearValue}
               nextMonthLabel={nextMonthLabel}
               previousMonthLabel={previousMonthLabel}
+              nextHeading={getNextHeading()}
+              previousHeading={getPreviousHeading()}
               handleClickNext={handleClickNext}
               handleClickPrev={handleClickPrev}
+              headerId={headerId}
               mode={mode}
+              tabIndex={
+                getBooleanFF(
+                  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+                )
+                  ? tabIndex
+                  : undefined
+              }
               testId={testId}
             />
-            <Box role="grid">
+            <Box
+              role="grid"
+              tabIndex={
+                getBooleanFF(
+                  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+                )
+                  ? tabIndex
+                  : undefined
+              }
+              onKeyDown={
+                getBooleanFF(
+                  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+                )
+                  ? handleContainerKeyDown
+                  : undefined
+              }
+              aria-labelledby={
+                getBooleanFF(
+                  'platform.design-system-team.calendar-keyboard-accessibility_967h1',
+                )
+                  ? headerId
+                  : undefined
+              }
+              testId={testId && `${testId}--calendar-dates`}
+            >
               <WeekHeaderComponent
                 daysShort={daysShort}
                 mode={mode}
@@ -199,6 +285,9 @@ const CalendarWithMode = forwardRef<HTMLDivElement, CalendarProps>(
                 weeks={weeks}
                 handleClickDay={handleClickDay}
                 mode={mode}
+                monthsLong={monthsLong}
+                shouldSetFocus={shouldSetFocus}
+                tabIndex={tabIndex}
                 testId={testId}
               />
             </Box>

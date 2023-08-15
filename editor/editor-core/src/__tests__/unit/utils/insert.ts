@@ -1,6 +1,10 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TypeAheadTool } from '@atlaskit/editor-test-helpers/create-editor';
-import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import {
+  createProsemirrorEditorFactory,
+  Preset,
+} from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
@@ -21,6 +25,7 @@ import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { safeInsert } from '@atlaskit/editor-common/insert';
 import { insertMediaSingleNode } from '../../../plugins/media/utils/media-single';
 import { INPUT_METHOD } from '../../../plugins/analytics';
+import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import {
   temporaryMediaWithDimensions,
   temporaryFileId,
@@ -28,21 +33,56 @@ import {
 } from '../plugins/media/_utils';
 import { insertHorizontalRule } from '../../../plugins/rule/commands';
 
+import layoutPlugin from '../../../plugins/layout';
+import panelPlugin from '../../../plugins/panel';
+import rulePlugin from '../../../plugins/rule';
+import typeAheadPlugin from '../../../plugins/type-ahead';
+import quickInsertPlugin from '../../../plugins/quick-insert';
+import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import floatingToolbarPlugin from '../../../plugins/floating-toolbar';
+import { widthPlugin } from '@atlaskit/editor-plugin-width';
+import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
+import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
+import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import codeBlockPlugin from '../../../plugins/code-block';
+import { gridPlugin } from '@atlaskit/editor-plugin-grid';
+import mediaPlugin from '../../../plugins/media';
+import listPlugin from '../../../plugins/list';
+import { focusPlugin } from '@atlaskit/editor-plugin-focus';
+import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
+import compositionPlugin from '../../../plugins/composition';
+import type {
+  CreateUIAnalyticsEvent,
+  UIAnalyticsEvent,
+} from '@atlaskit/analytics-next';
+
 describe('@atlaskit/editor-core/utils insert', () => {
-  const createEditor = createEditorFactory();
+  const createEditor = createProsemirrorEditorFactory();
+  let createAnalyticsEvent: CreateUIAnalyticsEvent;
+  createAnalyticsEvent = jest.fn(() => ({ fire() {} } as UIAnalyticsEvent));
   const editor = (doc: DocBuilder) => {
     return createEditor({
       doc,
-      editorProps: {
-        allowPanel: true,
-        allowRule: true,
-        allowLayouts: true,
-        allowNewInsertionBehaviour: true,
-        quickInsert: true,
-        media: {
-          allowMediaSingle: true,
-        },
-      },
+      preset: new Preset<LightEditorPlugin>()
+        .add([featureFlagsPlugin, { newInsertionBehaviour: true }])
+        .add([analyticsPlugin, { createAnalyticsEvent }])
+        .add(editorDisabledPlugin)
+        .add(widthPlugin)
+        .add(guidelinePlugin)
+        .add(gridPlugin)
+        .add(decorationsPlugin)
+        .add(floatingToolbarPlugin)
+        .add(focusPlugin)
+        .add(compositionPlugin)
+        .add(contentInsertionPlugin)
+        .add(layoutPlugin)
+        .add(panelPlugin)
+        .add(rulePlugin)
+        .add([typeAheadPlugin, { createAnalyticsEvent }])
+        .add([mediaPlugin, { allowMediaSingle: true }])
+        .add(listPlugin)
+        .add([quickInsertPlugin, {}])
+        .add([codeBlockPlugin, { appearance: 'full-page' }]),
     });
   };
 

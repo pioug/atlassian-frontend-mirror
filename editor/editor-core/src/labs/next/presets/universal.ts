@@ -10,7 +10,6 @@ import {
   extensionPlugin,
   fragmentMarkPlugin,
   helpDialogPlugin,
-  imageUploadPlugin,
   insertBlockPlugin,
   jiraIssuePlugin,
   layoutPlugin,
@@ -48,6 +47,7 @@ import {
   borderPlugin,
 } from '../../../plugins';
 
+import { imageUploadPlugin } from '@atlaskit/editor-plugin-image-upload';
 import { guidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid';

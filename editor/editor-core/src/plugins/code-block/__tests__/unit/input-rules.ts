@@ -16,6 +16,7 @@ import {
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import blockTypePlugin from '../../../block-type';
 import codeBlockPlugin from '../../';
+import compositionPlugin from '../../../composition';
 import panelPlugin from '../../../panel';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
 import listPlugin from '../../../list';
@@ -34,6 +35,7 @@ describe('inputrules', () => {
         .add([analyticsPlugin, {}])
         .add(blockTypePlugin)
         .add(decorationsPlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add(panelPlugin)
         .add(listPlugin)

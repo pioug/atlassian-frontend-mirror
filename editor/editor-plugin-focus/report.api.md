@@ -21,14 +21,17 @@ import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 export type FocusPlugin = NextEditorPlugin<
   'focus',
   {
-    sharedState: {
-      hasFocus: boolean;
-    };
+    sharedState: FocusState;
   }
 >;
 
 // @public (undocumented)
 export const focusPlugin: FocusPlugin;
+
+// @public (undocumented)
+type FocusState = {
+  hasFocus: boolean;
+};
 
 // (No @packageDocumentation comment for this package)
 ```

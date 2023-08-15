@@ -13,21 +13,22 @@ import {
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { IconCode } from '@atlaskit/editor-common/quick-insert';
-import {
+import type {
   PMPluginFactoryParams,
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { messages } from '../block-type/messages';
-import { CodeBlockOptions } from './types';
+import type { CodeBlockOptions } from './types';
 import refreshBrowserSelectionOnChange from './refresh-browser-selection';
-import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
-import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
+import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 // Theres an existing interelationship between these files, where the imported function is being called for code-block
 // Insertions via the drop down menu
 // tslint-ignore-next-line
 import { createInsertCodeBlockTransaction } from '../block-type/commands/block-type';
+import type compositionPlugin from '../composition';
 
 const codeBlockPlugin: NextEditorPlugin<
   'codeBlock',
@@ -35,6 +36,7 @@ const codeBlockPlugin: NextEditorPlugin<
     pluginConfiguration: CodeBlockOptions;
     dependencies: [
       typeof decorationsPlugin,
+      typeof compositionPlugin,
       OptionalPlugin<typeof analyticsPlugin>,
     ];
   }
@@ -58,7 +60,7 @@ const codeBlockPlugin: NextEditorPlugin<
       },
       {
         name: 'codeBlockIDEKeyBindings',
-        plugin: () => ideUX,
+        plugin: () => ideUX(api),
       },
       {
         name: 'codeBlockKeyMap',

@@ -10,6 +10,8 @@ import type { ArrowKeys, DateObj, ISODate } from './internal/types';
 
 export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
+export type TabIndex = -1 | 0;
+
 export type ChangeEvent = {
   iso: ISODate;
   type: 'left' | 'up' | 'right' | 'down' | 'prev' | 'next';
@@ -159,9 +161,10 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
    */
   mode?: ThemeModes;
   /**
-   * Tab index indicates if the calendar can be focused by keyboard or only programmatically.
+   * Indicates if the calendar can be focused by keyboard or only
+   * programmatically. Defaults to "0".
    */
-  tabIndex?: number;
+  tabIndex?: TabIndex;
 }
 
 export interface CalendarRef {

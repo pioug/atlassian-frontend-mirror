@@ -77,6 +77,7 @@ import extensionPlugin from '../../../extension';
 import rulePlugin from '../../../rule';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import codeBlockPlugin from '../../../code-block';
+import compositionPlugin from '../../../composition';
 import betterTypeHistoryPlugin from '../../../better-type-history';
 
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -2066,6 +2067,7 @@ describe('handlePasteIntoTaskOrDecisionOrPanel', () => {
       .add(panelPlugin)
       .add(emojiPlugin)
       .add(blockTypePlugin)
+      .add(compositionPlugin)
       .add([codeBlockPlugin, {}]);
 
     return createEditor({

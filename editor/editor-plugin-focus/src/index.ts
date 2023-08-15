@@ -1,41 +1,66 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
-import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
+const key = new PluginKey<FocusState>('focusPluginHandler');
+type FocusState = { hasFocus: boolean };
 export type FocusPlugin = NextEditorPlugin<
   'focus',
-  { sharedState: { hasFocus: boolean } }
+  { sharedState: FocusState }
 >;
 const focusPlugin: FocusPlugin = (_, api) => {
-  const viewRef: { current: EditorView | null } = { current: null };
   return {
     name: 'focus',
 
-    getSharedState() {
+    getSharedState(editorState) {
+      if (!editorState) {
+        return {
+          hasFocus: false,
+        };
+      }
+
       return {
-        hasFocus: Boolean(viewRef.current?.hasFocus()),
+        hasFocus: Boolean(key.getState(editorState)?.hasFocus),
       };
     },
 
     pmPlugins() {
-      const plugin = new SafePlugin({
-        view(view) {
-          viewRef.current = view;
-          return {
-            destroy() {
-              viewRef.current = null;
-            },
-          };
+      const plugin = new SafePlugin<FocusState>({
+        key,
+        state: {
+          init() {
+            return {
+              hasFocus: false,
+            };
+          },
+
+          apply(tr, oldPluginState) {
+            const meta = tr.getMeta(key) as boolean;
+            if (typeof meta === 'boolean') {
+              if (meta !== oldPluginState.hasFocus) {
+                return {
+                  hasFocus: meta,
+                };
+              }
+            }
+            return oldPluginState;
+          },
         },
 
         props: {
           handleDOMEvents: {
             focus: view => {
-              view.dispatch(view.state.tr);
+              const focusState = key.getState(view.state);
+              if (!focusState?.hasFocus) {
+                view.dispatch(view.state.tr.setMeta(key, true));
+              }
               return false;
             },
             blur: view => {
-              view.dispatch(view.state.tr);
+              const focusState = key.getState(view.state);
+              if (focusState?.hasFocus) {
+                view.dispatch(view.state.tr.setMeta(key, false));
+              }
               return false;
             },
           },

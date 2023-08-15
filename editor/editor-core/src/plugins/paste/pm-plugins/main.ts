@@ -18,7 +18,7 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import { getExtensionAutoConvertersFromProvider } from '@atlaskit/editor-common/extensions';
 
-import * as clipboard from '../../../utils/clipboard';
+import { isPastedFile as isPastedFileFromEvent } from '@atlaskit/editor-common/paste';
 import { transformSliceForMedia } from '../../media/utils/media-single';
 
 import {
@@ -199,7 +199,7 @@ export function createPlugin(
           text = text.replace(/\r/g, '');
         }
 
-        const isPastedFile = clipboard.isPastedFile(event);
+        const isPastedFile = isPastedFileFromEvent(event);
         const isPlainText = text && !html;
         const isRichText = !!html;
 

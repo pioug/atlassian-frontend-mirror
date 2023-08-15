@@ -30,7 +30,7 @@ interface StyledProps {
 }
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const Target = styled.div<StyledProps>`
+export const Target = styled.button<StyledProps>`
   background-color: ${(p) =>
     color[p.color] ||
     themed({
@@ -38,18 +38,20 @@ export const Target = styled.div<StyledProps>`
       dark: token('color.background.brand.bold', colors.B100),
     })};
   border-radius: 3px;
+  border: 0;
+  box-sizing: initial;
   color: white;
   cursor: pointer;
   display: inline-block;
+  font-size: inherit;
   height: 30px;
   line-height: 30px;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding: 0 1em;
   user-select: none;
 `;
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-export const BigTarget = styled.div<StyledProps>`
+export const BigTarget = styled.button<StyledProps>`
   background-color: ${(p) =>
     color[p.color] ||
     themed({
@@ -57,16 +59,19 @@ export const BigTarget = styled.div<StyledProps>`
       dark: token('color.background.brand.bold', colors.B100),
     })};
   border-radius: 3px;
+  border: 0;
+  box-sizing: initial;
   color: white;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  font-size: inherit;
+  line-height: unset;
   align-items: center;
   justify-content: center;
   height: 100px;
   width: 150px;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding: 0 1em;
   user-select: none;
   text-align: center;
 `;

@@ -198,6 +198,11 @@ export const AqlSearchInput = ({
                   spacing="none"
                   testId="assets-datasource-modal--aql-search-button"
                   type="submit"
+                  isDisabled={
+                    fieldProps.value.trim() === '' ||
+                    meta.validating ||
+                    !meta.valid
+                  }
                 />
               </Fragment>
             }

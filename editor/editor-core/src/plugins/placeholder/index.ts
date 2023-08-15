@@ -15,7 +15,7 @@ import type { focusPlugin } from '@atlaskit/editor-plugin-focus';
 
 export const pluginKey = new PluginKey('placeholderPlugin');
 import { isTypeAheadOpen } from '../type-ahead/utils';
-import { isComposing } from '../base/pm-plugins/composition';
+import type compositionPlugin from '../composition';
 
 interface PlaceHolderState {
   hasPlaceholder: boolean;
@@ -158,11 +158,13 @@ export function createPlugin(
         const { hasPlaceholder, placeholderText, pos } =
           getPlaceholderState(editorState);
 
+        const compositionPluginState =
+          api?.dependencies.composition.sharedState.currentState();
         if (
           hasPlaceholder &&
           placeholderText &&
           pos !== undefined &&
-          !isComposing(editorState)
+          !compositionPluginState?.isComposing
         ) {
           return createPlaceholderDecoration(editorState, placeholderText, pos);
         }
@@ -181,7 +183,7 @@ const placeholderPlugin: NextEditorPlugin<
   'placeholder',
   {
     pluginConfiguration: PlaceholderPluginOptions | undefined;
-    dependencies: [typeof focusPlugin];
+    dependencies: [typeof focusPlugin, typeof compositionPlugin];
   }
 > = (options, api) => ({
   name: 'placeholder',

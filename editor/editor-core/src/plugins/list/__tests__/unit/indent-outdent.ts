@@ -13,6 +13,7 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import listPlugin from '../..';
 import codeBlockPlugin from '../../../code-block';
+import compositionPlugin from '../../../composition';
 import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import { insertText } from '@atlaskit/editor-test-helpers/transactions';
 import { undo } from '@atlaskit/editor-prosemirror/history';
@@ -29,6 +30,7 @@ describe('lists plugin -> indent and outdent', () => {
       .add([analyticsPlugin, {}])
       .add(decorationsPlugin)
       .add(listPlugin)
+      .add(compositionPlugin)
       .add([codeBlockPlugin, { appearance: 'full-page' }]);
 
     return createEditor({

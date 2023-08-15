@@ -1099,13 +1099,7 @@ export class PopupSelect<
             children,
             innerProps,
             ...props
-          }: MenuProps<OptionType, boolean>) => jsx /**
-            The props passed down to React Popper.
-
-            Use these to override the default positioning strategy, behaviour and placement used by this library.
-            For more information, see the Popper Props section below, or [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).
-
-            */;
+          }: MenuProps<OptionType, boolean>) => jsx;
         };
         mergedPopperProps: PopperPropsNoChildren<string>;
       }
@@ -1118,13 +1112,7 @@ export class PopupSelect<
             children,
             innerProps,
             ...props
-          }: MenuProps<OptionType, boolean>) => jsx /**
-            The props passed down to React Popper.
-
-            Use these to override the default positioning strategy, behaviour and placement used by this library.
-            For more information, see the Popper Props section below, or [React Popper documentation](https://popper.js.org/react-popper/v2/render-props).
-
-            */;
+          }: MenuProps<OptionType, boolean>) => jsx;
         };
         mergedPopperProps: PopperPropsNoChildren<string>;
         focusLockEnabled?: undefined;

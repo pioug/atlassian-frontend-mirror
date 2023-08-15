@@ -23,6 +23,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import basePlugin from '../../../base';
 import codeBlockPlugin from '../../';
+import compositionPlugin from '../../../composition';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
@@ -49,6 +50,7 @@ describe('IDE UX plugin', () => {
         .add([featureFlagsPlugin, {}])
         .add(basePlugin)
         .add(decorationsPlugin)
+        .add(compositionPlugin)
         .add([codeBlockPlugin, { appearance: 'full-page' }])
         .add([analyticsPlugin, { createAnalyticsEvent }])
         .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),

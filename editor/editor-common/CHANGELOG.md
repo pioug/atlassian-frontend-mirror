@@ -1,5 +1,20 @@
 # @atlaskit/editor-common
 
+## 74.45.1
+
+### Patch Changes
+
+- [`d6f1bb321b2`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6f1bb321b2) - Revert back to legacy implementation and styling
+- [`469b5c12303`](https://bitbucket.org/atlassian/atlassian-frontend/commits/469b5c12303) - NO-ISSUE Move CollabEventLocalStepData to editor-common
+- [`da58165fe10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da58165fe10) - [ux] ED-19440 - Adds dark mode icons for bullet list, numbered list, quote, status and table
+
+## 74.45.0
+
+### Minor Changes
+
+- [`43c51e0a282`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43c51e0a282) - [ED-19431] Migrate all text-formatting plugin actions over to plugin commands
+- [`8375e041861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8375e041861) - [ED-16733] Extract common functions used by media plugin to editor-common
+
 ## 74.44.1
 
 ### Patch Changes

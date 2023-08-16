@@ -15,6 +15,7 @@ import {
   sidebarHeaderWrapperStyles,
   sidebarItemWrapperStyles,
 } from './styles';
+import { TouchScrollable } from 'react-scrolllock';
 
 type Children = {
   children?: ReactNode;
@@ -28,7 +29,11 @@ export const ArchiveItemViewerWrapper = ({ children }: Children) => {
 };
 
 export const ArchiveSideBar = ({ children }: Children) => {
-  return <div css={archiveSideBarStyles}>{children}</div>;
+  return (
+    <TouchScrollable>
+      <div css={archiveSideBarStyles}>{children}</div>
+    </TouchScrollable>
+  );
 };
 
 export const ArchiveSidebarFolderWrapper = ({ children }: Children) => {

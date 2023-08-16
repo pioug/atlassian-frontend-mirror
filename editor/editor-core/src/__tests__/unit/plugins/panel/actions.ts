@@ -1,23 +1,23 @@
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
   createProsemirrorEditorFactory,
   Preset,
-  LightEditorPlugin,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   panel,
   p,
   emoji,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
-import { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { PanelType } from '@atlaskit/adf-schema';
 import {
   removePanel,
   changePanelType,
 } from '../../../../plugins/panel/actions';
 import panelPlugin from '../../../../plugins/panel';
-import emojiPlugin from '../../../../plugins/emoji';
+import { emojiPlugin } from '../../../../plugins/emoji';
 import deprecatedAnalyticsPlugin from '../../../../plugins/analytics';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { selectNode } from '../../../../utils/commands';

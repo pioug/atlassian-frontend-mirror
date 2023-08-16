@@ -31,6 +31,15 @@ export const additionalChecks: AdditionalContrastCheck[] = [
     ],
   },
   {
+    foreground: 'color.text.brand',
+    backgroundLight: 'color.background.selected',
+    backgroundDark: 'color.background.selected',
+    desiredContrast: 4.5,
+    // In light mode: darken the following tokens by one base token
+    // In dark mode: lighten the following tokens by one base toke
+    updatedTokens: ['color.text.brand', 'color.link', 'color.link.pressed'],
+  },
+  {
     foreground: 'color.text.selected',
     backgroundLight: 'color.background.selected',
     backgroundDark: 'color.background.selected',
@@ -48,6 +57,7 @@ export const additionalChecks: AdditionalContrastCheck[] = [
     // In dark mode: lighten the following tokens by one base toke
     updatedTokens: ['color.border.brand', 'color.border.selected'],
   },
+
   {
     foreground: 'color.chart.brand',
     backgroundLight: 'elevation.surface.sunken',
@@ -75,7 +85,7 @@ export const additionalContrastChecker = ({
   mode,
   themeRamp,
 }: {
-  customThemeTokenMap: { [key: string]: number };
+  customThemeTokenMap: { [key: string]: number | string };
   mode: 'light' | 'dark';
   themeRamp: string[];
 }): { [key: string]: number } => {
@@ -92,11 +102,18 @@ export const additionalContrastChecker = ({
     } = pairing;
     const background = mode === 'light' ? backgroundLight : backgroundDark;
 
+    const foregroundTokenValue = customThemeTokenMap[foreground];
+    const backgroundTokenValue = customThemeTokenMap[background];
+
     const foregroundColor = brandTokens.includes(foreground)
-      ? themeRamp[customThemeTokenMap[foreground]]
+      ? typeof foregroundTokenValue === 'string'
+        ? foregroundTokenValue
+        : themeRamp[foregroundTokenValue]
       : getColorFromTokenRaw(foreground, mode);
     const backgroundColor = brandTokens.includes(background)
-      ? themeRamp[customThemeTokenMap[background]]
+      ? typeof backgroundTokenValue === 'string'
+        ? backgroundTokenValue
+        : themeRamp[backgroundTokenValue]
       : getColorFromTokenRaw(background, mode);
     const contrast = getContrastRatio(
       foregroundColor as string,
@@ -105,8 +122,10 @@ export const additionalContrastChecker = ({
     if (contrast <= desiredContrast) {
       updatedTokens.forEach((token: Token) => {
         const rampValue = customThemeTokenMap[token];
-        updatedCustomThemeTokenMap[token] =
-          mode === 'light' ? rampValue + 1 : rampValue - 1;
+        if (typeof rampValue === 'number') {
+          updatedCustomThemeTokenMap[token] =
+            mode === 'light' ? rampValue + 1 : rampValue - 1;
+        }
       });
     }
   });

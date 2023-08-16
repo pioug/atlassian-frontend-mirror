@@ -39,6 +39,7 @@ import { NamespaceService } from '../namespace/namespace-service';
 import { ParticipantsService } from '../participants/participants-service';
 import { errorCodeMapper } from '../errors/error-code-mapper';
 import type { InternalError } from '../errors/error-types';
+import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 
 const logger = createLogger('Provider', 'black');
 
@@ -234,6 +235,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
                 metadata,
               });
             }
+            this.analyticsHelper?.sendActionEvent(
+              EVENT_ACTION.PROVIDER_INITIALIZED,
+              EVENT_STATUS.INFO,
+              {
+                isPreinitializing: this.isPreinitializing,
+              },
+            );
           }
         }
         // If already initialized, `connected` means reconnected
@@ -321,6 +329,17 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
         this.isPreinitializing = true;
       }
 
+      if (this.initialDraft) {
+        this.analyticsHelper?.sendActionEvent(
+          EVENT_ACTION.PROVIDER_SETUP,
+          EVENT_STATUS.INFO,
+          {
+            isPreinitializing: this.isPreinitializing,
+            hasState: Boolean(getState),
+          },
+        );
+      }
+
       if (getState) {
         const collabPlugin = getState().plugins.find(
           (p: any) => p.key === 'collab$',
@@ -354,6 +373,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
               version,
               metadata,
             });
+            this.analyticsHelper?.sendActionEvent(
+              EVENT_ACTION.PROVIDER_INITIALIZED,
+              EVENT_STATUS.INFO,
+              {
+                isPreinitializing: this.isPreinitializing,
+                isBuffered: true,
+              },
+            );
           }
         }
       }

@@ -1,4 +1,4 @@
-import type { CollabEditProvider } from '@atlaskit/collab-provider';
+import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

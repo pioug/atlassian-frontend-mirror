@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { jsx } from '@emotion/react';
 
@@ -35,9 +35,16 @@ export const DatasourceTableView = ({
     fieldKeys: visibleColumnKeys,
   });
 
-  // Need this to make sure that the datasource in the editor gets updated new info if any edits are made in the modal
+  /*  Need this to make sure that the datasource in the editor gets updated new info if any edits are made in the modal
+      But we don't want to call it on initial load. This screws up useDatasourceTableState's internal
+      mechanism of initial loading. Use of ref here makes it basically work as a `componentDidUpdate` but not `componentDidMount`
+   */
+  const isInitialRender = useRef(true);
   useEffect(() => {
-    reset();
+    if (!isInitialRender.current) {
+      reset();
+    }
+    isInitialRender.current = false;
   }, [reset, parameters]);
 
   useEffect(() => {

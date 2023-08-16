@@ -64,7 +64,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugin-table';
 import expandPlugin from '../../../expand';
 import layoutPlugin from '../../../layout';
 import panelPlugin from '../../../panel';
-import emojiPlugin from '../../../emoji';
+import { emojiPlugin } from '../../../emoji';
 import blockTypePlugin from '../../../block-type';
 import captionPlugin from '../../../caption';
 import mediaPlugin from '../../../media';

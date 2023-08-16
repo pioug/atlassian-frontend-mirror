@@ -1,13 +1,11 @@
-import {
-  createEditorFactory,
-  Options as CreateEditorOptions,
-} from '@atlaskit/editor-test-helpers/create-editor';
+import type { Options as CreateEditorOptions } from '@atlaskit/editor-test-helpers/create-editor';
+import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   doc,
   mediaSingle,
   media,
   p,
-  DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import {
   updateAltText,
@@ -16,17 +14,19 @@ import {
 import { getFreshMediaProvider } from '../media/_utils';
 import { pluginKey as mediaEditorPluginKey } from '../../../../plugins/media/pm-plugins/media-editor-plugin-factory';
 
-import { MediaEditorState } from '../../../../plugins/media/types';
+import type { MediaEditorState } from '../../../../plugins/media/types';
 import {
   EVENT_TYPE,
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
 } from '../../../../plugins/analytics';
-import {
+import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('commands', () => {
   const createEditor = createEditorFactory<MediaEditorState>();
@@ -145,24 +145,39 @@ describe('commands', () => {
       });
 
       describe('when alt text edit popup is opened', () => {
+        const attachAnalyticsEvent = jest
+          .fn()
+          .mockImplementation(() => () => {});
+        const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+          attachAnalyticsEvent,
+        };
         it('fires analytics event', () => {
           const { editorView } = editor(defaultDoc);
-          openMediaAltTextMenu(editorView.state, editorView.dispatch);
-          expect(createAnalyticsEvent).toHaveBeenCalledWith({
-            action: ACTION.OPENED,
-            actionSubject: ACTION_SUBJECT.MEDIA,
-            actionSubjectId: ACTION_SUBJECT_ID.ALT_TEXT,
-            eventType: EVENT_TYPE.TRACK,
-          });
+          openMediaAltTextMenu(mockEditorAnalyticsAPI)(
+            editorView.state,
+            editorView.dispatch,
+          );
+          expect(attachAnalyticsEvent).toHaveBeenCalledWith(
+            {
+              action: ACTION.OPENED,
+              actionSubject: ACTION_SUBJECT.MEDIA,
+              actionSubjectId: ACTION_SUBJECT_ID.ALT_TEXT,
+              eventType: EVENT_TYPE.TRACK,
+            },
+            undefined,
+          );
         });
 
         it('should set meta attribute scrollIntoView to false', () => {
           const { editorView } = editor(defaultDoc);
 
-          openMediaAltTextMenu(editorView.state, (tr) => {
-            expect(tr.getMeta('scrollIntoView')).toBeFalsy();
-            editorView.dispatch(tr);
-          });
+          openMediaAltTextMenu(mockEditorAnalyticsAPI)(
+            editorView.state,
+            (tr) => {
+              expect(tr.getMeta('scrollIntoView')).toBeFalsy();
+              editorView.dispatch(tr);
+            },
+          );
         });
       });
     });

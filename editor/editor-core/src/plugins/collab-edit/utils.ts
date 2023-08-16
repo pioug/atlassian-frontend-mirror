@@ -14,9 +14,10 @@ import { addAnalytics } from '../analytics/utils';
 import type { AnalyticsEventPayload } from '../analytics/types';
 import { EVENT_TYPE, ACTION, ACTION_SUBJECT } from '../analytics/types';
 
-import type { CollabParticipant } from '@atlaskit/collab-provider';
-
-import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
+import type {
+  CollabParticipant,
+  CollabEditOptions,
+} from '@atlaskit/editor-common/collab';
 
 export interface Color {
   solid: string;

@@ -152,12 +152,12 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
     }
   }, [
     aql,
-    datasourceId,
-    onInsert,
-    responseItems.length,
-    retrieveUrlForSmartCardRender,
     schemaId,
     workspaceId,
+    retrieveUrlForSmartCardRender,
+    responseItems.length,
+    onInsert,
+    datasourceId,
     visibleColumnKeys,
   ]);
 
@@ -243,7 +243,12 @@ export const AssetsConfigModal = (props: AssetsConfigModalProps) => {
             isDisabled={isDisabled}
             testId={'asset-datasource-modal--insert-button'}
           >
-            <FormattedMessage {...modalMessages.insertIssuesButtonText} />
+            <FormattedMessage
+              {...modalMessages.insertIssuesButtonText}
+              values={{
+                objectsCount: responseItems.length,
+              }}
+            />
           </Button>
         </ModalFooter>
       </Modal>

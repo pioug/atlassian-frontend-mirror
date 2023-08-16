@@ -14,7 +14,7 @@ import {
   Side,
 } from '../gap-cursor/selection';
 import {
-  getBreakoutModeFromTargetNode,
+  getLayoutModeFromTargetNode,
   isIgnoredClick,
 } from '../gap-cursor/utils';
 import { toDOM } from '../gap-cursor/utils/place-gap-cursor';
@@ -88,11 +88,12 @@ const plugin = new SafePlugin({
         }
 
         const node = isRightCursor ? $from.nodeBefore : $from.nodeAfter;
-        const breakoutMode = node && getBreakoutModeFromTargetNode(node);
+        const layoutMode = node && getLayoutModeFromTargetNode(node);
+
         return DecorationSet.create(doc, [
           Decoration.widget(position, toDOM, {
-            key: `${JSON_ID}-${side}-${breakoutMode}`,
-            side: breakoutMode ? -1 : 0,
+            key: `${JSON_ID}-${side}-${layoutMode}`,
+            side: layoutMode ? -1 : 0,
           }),
         ]);
       }

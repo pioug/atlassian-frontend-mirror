@@ -1,0 +1,78 @@
+{
+  "name": "@atlaskit/pragmatic-drag-and-drop-auto-scroll",
+  "version": "0.2.0",
+  "description": "An optional auto scroller for Pragmatic drag and drop",
+  "author": "Atlassian Pty Ltd",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "atlassian": {
+    "team": "Design System Team",
+    "inPublicMirror": true,
+    "releaseModel": "continuous",
+    "website": {
+      "name": "Auto scroll",
+      "category": "Libraries",
+      "status": {
+        "type": "alpha"
+      }
+    }
+  },
+  "repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "module:es2019": "dist/es2019/index.js",
+  "types": "dist/types/index.d.ts",
+  "typesVersions": {
+    ">=4.5 <4.9": {
+      "*": [
+        "dist/types-ts4.5/*",
+        "dist/types-ts4.5/index.d.ts"
+      ]
+    }
+  },
+  "sideEffects": false,
+  "atlaskit:src": "src/index.ts",
+  "af:exports": {
+    ".": "./src/index.ts",
+    "./element": "./src/entry-point/element.ts",
+    "./file": "./src/entry-point/file.ts"
+  },
+  "dependencies": {
+    "@atlaskit/pragmatic-drag-and-drop": "^0.21.0",
+    "@babel/runtime": "^7.0.0"
+  },
+  "devDependencies": {
+    "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0",
+    "@testing-library/dom": "^8.17.1",
+    "raf-stub": "^2.0.1",
+    "typescript": "~4.9.5",
+    "wait-for-expect": "^1.2.0"
+  },
+  "techstack": {
+    "@atlassian/frontend": {
+      "import-structure": [
+        "atlassian-conventions"
+      ],
+      "circular-dependencies": [
+        "file-and-folder-level"
+      ]
+    },
+    "@repo/internal": {
+      "dom-events": "use-bind-event-listener",
+      "ui-components": "lite-mode",
+      "analytics": "analytics-next",
+      "design-tokens": [
+        "color"
+      ],
+      "deprecation": "no-deprecated-imports",
+      "styling": [
+        "emotion",
+        "static"
+      ]
+    }
+  },
+  "homepage": "https://atlassian.design/components/pragmatic-drag-and-drop/",
+  "prettier": "@atlassian/atlassian-frontend-prettier-config-1.0.0"
+}

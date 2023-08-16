@@ -30,6 +30,8 @@ export const MenuDialog: FC<MenuDialogProps> = ({
   style,
 }) => (
   <div
+    // TODO: Make these use proper dynamic styling (DSP-12490)
+    // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
     css={{
       backgroundColor: token('elevation.surface.overlay', 'white'),
       borderRadius: 4,
@@ -54,6 +56,8 @@ export const MenuDialog: FC<MenuDialogProps> = ({
 
 const DropdownIndicator = () => (
   <div
+    // TODO: Make these use proper dynamic styling (DSP-12490)
+    // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
     css={{
       marginRight: token('space.025', '2px'),
       textAlign: 'center',
@@ -71,6 +75,8 @@ const Control: FC<ControlProps<OptionType, boolean>> = ({
 }) => (
   <div
     ref={innerRef}
+    // TODO: Make these use proper dynamic styling (DSP-12490)
+    // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
     css={{
       padding: `${token('space.100', '8px')} ${token(
         'space.100',

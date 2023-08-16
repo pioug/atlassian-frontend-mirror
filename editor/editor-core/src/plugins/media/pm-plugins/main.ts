@@ -57,8 +57,8 @@ import type {
   PickerFacadeConfig,
 } from '../picker-facade';
 import PickerFacade from '../picker-facade';
-import type { InputMethodInsertMedia } from '../../analytics/types';
-import { INPUT_METHOD } from '../../analytics/types';
+import type { InputMethodInsertMedia } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
 import { isInEmptyLine } from '../../../utils/document';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
@@ -76,6 +76,8 @@ export { stateKey } from './plugin-key';
 
 export const MEDIA_CONTENT_WRAP_CLASS_NAME = 'media-content-wrap';
 export const MEDIA_PLUGIN_IS_RESIZING_KEY = 'mediaSinglePlugin.isResizing';
+export const MEDIA_PLUGIN_RESIZING_WIDTH_KEY =
+  'mediaSinglePlugin.resizing-width';
 
 const createDropPlaceholder = (intl: IntlShape, allowDropLine?: boolean) => {
   const dropPlaceholder = document.createElement('div');
@@ -122,6 +124,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
   mediaProvider?: MediaProvider;
   newInsertionBehaviour?: boolean;
   isResizing: boolean = false;
+  resizingWidth: number = 0;
 
   private view!: EditorView;
   private destroyed = false;
@@ -281,6 +284,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
     this.isResizing = isResizing;
   }
 
+  setResizingWidth(width: number) {
+    this.resizingWidth = width;
+  }
+
   updateElement(): void {
     let newElement;
     const selectedContainer = this.selectedMediaContainerNode();
@@ -371,6 +378,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
         this.mediaOptions && this.mediaOptions.alignLeftOnInsert,
         this.newInsertionBehaviour,
         widthPluginState,
+        pluginInjectionApi?.dependencies?.analytics?.actions,
       );
     } else if (
       getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags) &&
@@ -760,9 +768,14 @@ export const createPlugin = (
       },
       apply(tr, pluginState: MediaPluginState) {
         const isResizing = tr.getMeta(MEDIA_PLUGIN_IS_RESIZING_KEY);
+        const resizingWidth = tr.getMeta(MEDIA_PLUGIN_RESIZING_WIDTH_KEY);
 
         if (isResizing !== undefined) {
           pluginState.setIsResizing(isResizing);
+        }
+
+        if (resizingWidth) {
+          pluginState.setResizingWidth(resizingWidth);
         }
 
         // remap editing media single position if we're in collab

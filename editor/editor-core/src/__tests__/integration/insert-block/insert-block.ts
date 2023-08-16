@@ -17,23 +17,6 @@ import { runEscapeKeydownSuite } from '@atlaskit/editor-test-helpers/integration
 
 const emojiPanel = '[data-emoji-picker-container="true"]';
 
-// FIXME: This test was automatically skipped due to failure on 27/05/2023: https://product-fabric.atlassian.net/browse/ED-18103
-BrowserTestCase(
-  'insert-block.ts: opens emoji picker from toolbar button',
-  {
-    skip: ['*'],
-  },
-  async (client: any) => {
-    const page = await goToEditorTestingWDExample(client);
-    await mountEditor(page, fullpage);
-
-    await page.click(editable);
-    await page.click(toolbarMenuItemsSelectors[ToolbarMenuItem.emoji]);
-
-    await page.waitForSelector(emojiPanel);
-  },
-);
-
 BrowserTestCase(
   'insert-block.ts: opens emoji picker from dropdown after resizing',
   {},

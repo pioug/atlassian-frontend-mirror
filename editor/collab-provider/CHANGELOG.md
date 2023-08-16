@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 9.10.1
+
+### Patch Changes
+
+- [`469b5c12303`](https://bitbucket.org/atlassian/atlassian-frontend/commits/469b5c12303) - NO-ISSUE Move CollabEventLocalStepData to editor-common
+
+## 9.10.0
+
+### Minor Changes
+
+- [`592dcbd5756`](https://bitbucket.org/atlassian/atlassian-frontend/commits/592dcbd5756) - Adding analytics events for early provider initialization and buffering
+
 ## 9.9.1
 
 ### Patch Changes

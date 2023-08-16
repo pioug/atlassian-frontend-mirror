@@ -99,8 +99,9 @@ export const isTextBlockNearPos = (
   return false;
 };
 
-export function getBreakoutModeFromTargetNode(node: PMNode): string {
+export function getLayoutModeFromTargetNode(node: PMNode): string {
   let layout;
+
   if (node.attrs.layout) {
     layout = node.attrs.layout;
   }
@@ -113,7 +114,11 @@ export function getBreakoutModeFromTargetNode(node: PMNode): string {
     ).attrs.mode;
   }
 
-  if (['wide', 'full-width'].indexOf(layout) === -1) {
+  if (node.type.name === 'table' && node.attrs.width) {
+    layout = 'fixed-width';
+  }
+
+  if (['wide', 'full-width', 'fixed-width'].indexOf(layout) === -1) {
     return '';
   }
 

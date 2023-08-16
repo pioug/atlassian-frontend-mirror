@@ -1,5 +1,6 @@
 import type {
   Node as PMNode,
+  ResolvedPos,
   Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -14,18 +15,21 @@ import type {
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { checkNodeDown } from '../../../utils';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
+import {
+  isEmptyParagraph,
+  floatingLayouts,
+} from '@atlaskit/editor-common/utils';
 import { getMediaSingleInitialWidth } from '@atlaskit/editor-common/media-single';
 
 import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
 import type { MediaState } from '../types';
 import type { Command } from '../../../types';
 import { mapSlice } from '../../../utils/slice';
-import { addAnalytics } from '../../analytics';
 
 import type {
   InputMethodInsertMedia,
   InsertEventPayload,
+  EditorAnalyticsAPI,
 } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
@@ -78,6 +82,7 @@ function insertNodesWithOptionalParagraph(
     inputMethod?: InputMethodInsertMedia;
     fileExtension?: string;
   } = {},
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ): Command {
   return function (state, dispatch) {
     const { tr, schema } = state;
@@ -92,11 +97,9 @@ function insertNodesWithOptionalParagraph(
 
     tr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
     if (inputMethod) {
-      addAnalytics(
-        state,
-        tr,
+      editorAnalyticsAPI?.attachAnalyticsEvent(
         getInsertMediaAnalytics(inputMethod, fileExtension),
-      );
+      )(tr);
     }
 
     if (dispatch) {
@@ -113,6 +116,7 @@ export const insertMediaAsMediaSingle = (
   view: EditorView,
   node: PMNode,
   inputMethod: InputMethodInsertMedia,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ): boolean => {
   const { state, dispatch } = view;
   const { mediaSingle, media } = state.schema.nodes;
@@ -135,10 +139,11 @@ export const insertMediaAsMediaSingle = (
     inputMethod,
     fileExtension: node.attrs.__fileMimeType,
   };
-  return insertNodesWithOptionalParagraph(nodes, analyticsAttributes)(
-    state,
-    dispatch,
-  );
+  return insertNodesWithOptionalParagraph(
+    nodes,
+    analyticsAttributes,
+    editorAnalyticsAPI,
+  )(state, dispatch);
 };
 
 export const insertMediaSingleNode = (
@@ -149,6 +154,7 @@ export const insertMediaSingleNode = (
   alignLeftOnInsert?: boolean,
   newInsertionBehaviour?: boolean,
   widthPluginState?: WidthPluginState | undefined,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ): boolean => {
   if (collection === undefined) {
     return false;
@@ -189,10 +195,11 @@ export const insertMediaSingleNode = (
       content: node,
     })
   ) {
-    insertNodesWithOptionalParagraph([node], { fileExtension, inputMethod })(
-      state,
-      dispatch,
-    );
+    insertNodesWithOptionalParagraph(
+      [node],
+      { fileExtension, inputMethod },
+      editorAnalyticsAPI,
+    )(state, dispatch);
   } else {
     let tr: Transaction | null = null;
     if (newInsertionBehaviour) {
@@ -207,11 +214,9 @@ export const insertMediaSingleNode = (
     }
 
     if (inputMethod) {
-      tr = addAnalytics(
-        state,
-        tr,
+      editorAnalyticsAPI?.attachAnalyticsEvent(
         getInsertMediaAnalytics(inputMethod, fileExtension),
-      );
+      )(tr);
     }
     dispatch(tr);
   }
@@ -343,3 +348,32 @@ export function isCaptionNode(editorView: EditorView) {
   }
   return false;
 }
+
+export const getParentWidthForNestedMediaSingleNode = (
+  resolvedPos: ResolvedPos,
+  view: EditorView,
+): number | null => {
+  const domNode = view.nodeDOM(resolvedPos.pos);
+
+  if (
+    resolvedPos.nodeAfter &&
+    floatingLayouts.includes(resolvedPos.nodeAfter.attrs.layout) &&
+    domNode &&
+    domNode.parentElement
+  ) {
+    const { tableCell, tableHeader } = view.state.schema.nodes;
+    if ([tableCell, tableHeader].includes(resolvedPos.parent.type)) {
+      // since table has constant padding, use hardcoded constant instead of query the dom
+      const tablePadding = 8;
+      return domNode.parentElement.offsetWidth - tablePadding * 2;
+    }
+
+    return domNode.parentElement.offsetWidth;
+  }
+
+  if (domNode instanceof HTMLElement) {
+    return domNode.offsetWidth;
+  }
+
+  return null;
+};

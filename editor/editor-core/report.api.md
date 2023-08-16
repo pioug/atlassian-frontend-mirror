@@ -139,7 +139,7 @@ import { default as React_2 } from 'react';
 import type { ReactElement } from 'react';
 import type { ReactHookFactory } from '@atlaskit/editor-common/types';
 import type { ReplaceRawValue } from '@atlaskit/editor-common/types';
-import type { ResolvedEditorState } from '@atlaskit/collab-provider';
+import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { SearchProvider } from '@atlaskit/editor-common/provider-factory';
@@ -1170,6 +1170,7 @@ export const insertMediaSingleNode: (
   alignLeftOnInsert?: boolean,
   newInsertionBehaviour?: boolean,
   widthPluginState?: WidthPluginState | undefined,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ) => boolean;
 
 // @public (undocumented)
@@ -1434,6 +1435,8 @@ interface MediaPluginState {
   // (undocumented)
   removeSelectedMediaContainer: () => boolean;
   // (undocumented)
+  resizingWidth: number;
+  // (undocumented)
   selectedMediaContainerNode: () => Node_2 | undefined;
   // (undocumented)
   setBrowseFn: (browseFn: () => void) => void;
@@ -1441,6 +1444,8 @@ interface MediaPluginState {
   setIsResizing(isResizing: boolean): void;
   // (undocumented)
   setMediaProvider: (mediaProvider?: Promise<MediaProvider_2>) => Promise<void>;
+  // (undocumented)
+  setResizingWidth(width: number): void;
   // (undocumented)
   setView(view: EditorView): void;
   // (undocumented)

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/editor-core",
-  "version": "187.19.0",
+  "version": "187.20.1",
   "description": "A package contains Atlassian editor core functionality",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -55,7 +55,7 @@
     "@atlaskit/code": "^14.6.0",
     "@atlaskit/date": "^0.10.0",
     "@atlaskit/datetime-picker": "^12.7.0",
-    "@atlaskit/editor-common": "^74.44.0",
+    "@atlaskit/editor-common": "^74.45.0",
     "@atlaskit/editor-json-transformer": "^8.10.0",
     "@atlaskit/editor-markdown-transformer": "^5.2.5",
     "@atlaskit/editor-palette": "1.5.1",
@@ -73,7 +73,7 @@
     "@atlaskit/editor-plugin-hyperlink": "^0.3.0",
     "@atlaskit/editor-plugin-image-upload": "^0.1.0",
     "@atlaskit/editor-plugin-table": "^2.8.0",
-    "@atlaskit/editor-plugin-text-formatting": "^0.1.0",
+    "@atlaskit/editor-plugin-text-formatting": "^0.2.0",
     "@atlaskit/editor-plugin-width": "^0.1.0",
     "@atlaskit/editor-prosemirror": "1.1.0",
     "@atlaskit/editor-shared-styles": "^2.6.0",
@@ -143,7 +143,7 @@
     "@af/editor-libra": "*",
     "@af/integration-testing": "*",
     "@atlaskit/code": "^14.6.0",
-    "@atlaskit/collab-provider": "9.9.1",
+    "@atlaskit/collab-provider": "9.10.1",
     "@atlaskit/dropdown-menu": "^11.11.0",
     "@atlaskit/editor-extension-dropbox": "^0.4.0",
     "@atlaskit/editor-plugin-table": "^2.8.0",

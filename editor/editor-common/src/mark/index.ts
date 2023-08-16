@@ -1,7 +1,7 @@
 export {
   transformSmartCharsMentionsAndEmojis,
   applyMarkOnRange,
-  toggleMark,
   filterChildrenBetween,
+  toggleMark,
 } from './commands';
 export { anyMarkActive } from './text-formatting';

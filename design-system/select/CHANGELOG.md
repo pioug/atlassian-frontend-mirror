@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 16.5.9
+
+### Patch Changes
+
+- [`2c77d477cbb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/2c77d477cbb) - Ensures static linting occurs in the techstack, fixes one example's eslint error.
+
+## 16.5.8
+
+### Patch Changes
+
+- [`5c22f7ade33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c22f7ade33) - Convert CSS tagged templates to explicit function calls with objects.
+
 ## 16.5.7
 
 ### Patch Changes

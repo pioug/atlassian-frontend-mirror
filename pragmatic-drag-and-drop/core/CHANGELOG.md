@@ -1,5 +1,25 @@
 # @atlaskit/pragmatic-drag-and-drop
 
+## 0.21.0
+
+### Minor Changes
+
+- [`de7463c7096`](https://bitbucket.org/atlassian/atlassian-frontend/commits/de7463c7096) - Exposing some additional TypeScript types. These can be helpful when creating helper packages.
+
+  ```ts
+  import type {
+    // These types are not needed for consumers
+    // They are mostly helpful for other packages
+    AllDragTypes,
+    MonitorArgs,
+    BaseEventPayload,
+  } from '@atlaskit/pragmatic-drag-and-drop/types';
+  ```
+
+  - `AllDragTypes`: representation of all entities types in the system (eg element and file)
+  - `MonitorArgs<DragType extends AllDragTypes>`: the arguments that can be passed to a monitor
+  - `BaseEventPayload<DragType extends AllDragTypes>`: the shared properties in all events
+
 ## 0.20.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @atlaskit/notification-indicator
 
+## 9.1.3
+
+### Patch Changes
+
+- [`ddc9497fb17`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ddc9497fb17) - check if document exists before using, for confluence SSR to work
+
 ## 9.1.2
 
 ### Patch Changes

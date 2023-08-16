@@ -445,7 +445,11 @@ export interface CollabInviteToEditProps {
 
 export interface CollabAnalyticsProps {
   /**
-   * @description Control wether Synchrony entity error events are tracked
+   * @description Control whether Synchrony entity error events are tracked
    */
   EXPERIMENTAL_allowInternalErrorAnalytics?: boolean;
+}
+
+export interface CollabEventLocalStepData {
+  steps: Array<Step>;
 }

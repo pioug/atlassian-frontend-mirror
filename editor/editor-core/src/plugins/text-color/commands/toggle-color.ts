@@ -2,6 +2,7 @@ import type { Command } from '../../../types';
 import { toggleMark } from '@atlaskit/editor-common/mark';
 import { ACTIONS, pluginKey } from '../pm-plugins/main';
 import { getDisabledState } from '../utils/disabled';
+import { pluginCommandToPMCommand } from '@atlaskit/editor-common/preset';
 
 export const toggleColor =
   (color: string): Command =>
@@ -21,7 +22,10 @@ export const toggleColor =
     if (dispatch) {
       state.tr.setMeta(pluginKey, { action: ACTIONS.SET_COLOR, color });
       state.tr.scrollIntoView();
-      toggleMark(textColor, { color })(state, dispatch);
+      pluginCommandToPMCommand(toggleMark(textColor, { color }))(
+        state,
+        dispatch,
+      );
     }
     return true;
   };

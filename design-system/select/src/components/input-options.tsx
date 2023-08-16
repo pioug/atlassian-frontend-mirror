@@ -222,8 +222,12 @@ class ControlOption<
        * @see https://product-fabric.atlassian.net/browse/DSP-6063
        */
       // @ts-ignore
+      // TODO: Make these use proper dynamic styling (DSP-12490)
+      // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
       <div css={styles} className={classes} ref={innerRef} {...props}>
         <div
+          // TODO: Make these use proper dynamic styling (DSP-12490)
+          // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
           css={{
             alignItems: 'center',
             display: 'flex ',
@@ -251,6 +255,8 @@ class ControlOption<
           ) : null}
         </div>
         <div
+          // TODO: Make these use proper dynamic styling (DSP-12490)
+          // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
           css={{
             textOverflow: 'ellipsis',
             overflowX: 'hidden',

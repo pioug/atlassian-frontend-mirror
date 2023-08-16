@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import invariant from 'tiny-invariant';
 
@@ -18,10 +18,8 @@ export default function BoardExample() {
     columnMap: ColumnMap;
     orderedColumnIds: string[];
   }>(() => getInitialData());
-  const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    invariant(ref.current);
     return combine(
       monitorForFiles({
         onDragStart: args => console.log('start:file', args.source.items),
@@ -219,7 +217,7 @@ export default function BoardExample() {
   }, [data]);
 
   return (
-    <Board ref={ref}>
+    <Board>
       {data.orderedColumnIds.map(columnId => {
         return <Column column={data.columnMap[columnId]} key={columnId} />;
       })}

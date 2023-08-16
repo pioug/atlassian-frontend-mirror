@@ -1,16 +1,18 @@
 import { createMockCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
+import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import {
-  LightEditorPlugin,
   Preset,
   createProsemirrorEditorFactory,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
-import { p, DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
-import type { CollabEditProvider } from '@atlaskit/collab-provider';
+import type { DocBuilder } from '@atlaskit/editor-test-helpers/doc-builder';
+import { p } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import collabEditPlugin from '../../../index';
-import { Cleanup, subscribe } from '../../../events/handlers';
+import type { Cleanup } from '../../../events/handlers';
+import { subscribe } from '../../../events/handlers';
 import { applyRemoteData } from '../../../actions';
-import { PrivateCollabEditOptions } from '../../../types';
-import { MockCollabEditProvider } from '@atlaskit/synchrony-test-helpers/mock-collab-provider';
+import type { PrivateCollabEditOptions } from '../../../types';
+import type { MockCollabEditProvider } from '@atlaskit/synchrony-test-helpers/mock-collab-provider';
 import { EventEmitter } from 'events';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 

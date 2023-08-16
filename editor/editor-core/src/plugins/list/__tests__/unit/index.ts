@@ -46,6 +46,8 @@ import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugin-content-insertion';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
 describe('lists', () => {
   const createEditor = createProsemirrorEditorFactory();
 
@@ -363,6 +365,13 @@ describe('lists', () => {
   });
 
   describe('when adding media inside list', () => {
+    const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+    const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+      attachAnalyticsEvent,
+    };
+    beforeEach(() => {
+      attachAnalyticsEvent.mockClear();
+    });
     it('should add media as media single', () => {
       const { editorView } = editor(doc(ul(li(p('Three')), li(p('Four{<>}')))));
 
@@ -375,6 +384,7 @@ describe('lists', () => {
           __fileMimeType: 'image/png',
         })()(editorView.state.schema),
         INPUT_METHOD.PICKER_CLOUD,
+        mockEditorAnalyticsAPI,
       );
 
       expect(editorView.state.doc).toEqualDocument(
@@ -409,6 +419,7 @@ describe('lists', () => {
           __fileMimeType: 'pdf',
         })()(editorView.state.schema),
         INPUT_METHOD.PICKER_CLOUD,
+        mockEditorAnalyticsAPI,
       );
 
       expect(editorView.state.doc).toEqualDocument(

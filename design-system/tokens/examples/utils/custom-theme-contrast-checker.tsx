@@ -35,7 +35,7 @@ export const customThemeContrastChecker = ({
   mode,
   themeRamp,
 }: {
-  customThemeTokenMap: { [key: string]: number };
+  customThemeTokenMap: { [key: string]: number | string };
   mode: 'light' | 'dark';
   themeRamp: string[];
 }): CustomThemeContrastCheckResult[] => {
@@ -52,10 +52,15 @@ export const customThemeContrastChecker = ({
     }
 
     const rawForegroundColor = getColorFromTokenRaw(foreground, mode);
-    const foregroundColor = themeRamp[customThemeTokenMap[foreground] ?? -1];
+    const foregroundColor =
+      typeof customThemeTokenMap[foreground] === 'number'
+        ? themeRamp[customThemeTokenMap[foreground] as number]
+        : (customThemeTokenMap[foreground] as string);
     const rawBackgroundColor = getColorFromTokenRaw(background, mode);
-    const backgroundColor = themeRamp[customThemeTokenMap[background] ?? -1];
-
+    const backgroundColor =
+      typeof customThemeTokenMap[background] === 'number'
+        ? themeRamp[customThemeTokenMap[background] as number]
+        : (customThemeTokenMap[background] as string);
     const contrast = getContrastRatio(
       foregroundColor || rawForegroundColor,
       backgroundColor || rawBackgroundColor,

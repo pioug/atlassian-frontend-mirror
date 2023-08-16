@@ -38,6 +38,7 @@ export interface MediaPluginState {
   showEditingDialog?: boolean;
   mediaOptions?: MediaOptions;
   isResizing: boolean;
+  resizingWidth: number;
   dispatch?: Dispatch;
   onContextIdentifierProvider: (
     _name: string,
@@ -81,6 +82,7 @@ export interface MediaPluginState {
 
   updateElement(): void;
   setIsResizing(isResizing: boolean): void;
+  setResizingWidth(width: number): void;
 
   setView(view: EditorView): void;
 

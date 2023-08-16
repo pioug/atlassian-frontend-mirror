@@ -5,6 +5,7 @@ import type {
   FloatingToolbarConfig,
   FloatingToolbarItem,
   Command,
+  FloatingToolbarCustom,
 } from '@atlaskit/editor-common/types';
 import { processCopyButtonItems } from '../../copy-button/toolbar';
 
@@ -25,6 +26,13 @@ export const getToolbarItems = (
     undefined,
   );
 };
+
+export const findPixelEntry = (
+  items: Array<FloatingToolbarItem<Command>>,
+): FloatingToolbarCustom<Command> =>
+  items.find(
+    (item) => item.type === 'custom',
+  ) as FloatingToolbarCustom<Command>;
 
 export const findToolbarBtn = (
   items: Array<FloatingToolbarItem<Command>>,

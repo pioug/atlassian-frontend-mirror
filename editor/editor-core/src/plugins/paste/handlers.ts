@@ -79,6 +79,8 @@ import type {
 } from '@atlaskit/editor-common/card';
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
 // remove text attribute from mention for copy/paste (GDPR)
 export function handleMention(slice: Slice, schema: Schema): Slice {
   return mapSlice(slice, (node) => {
@@ -803,7 +805,10 @@ function isOnlyMediaSingle(state: EditorState, slice: Slice) {
   );
 }
 
-export function handleMediaSingle(inputMethod: InputMethodInsertMedia) {
+export function handleMediaSingle(
+  inputMethod: InputMethodInsertMedia,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+) {
   return function (slice: Slice): Command {
     return (state, dispatch, view) => {
       if (view) {
@@ -812,6 +817,7 @@ export function handleMediaSingle(inputMethod: InputMethodInsertMedia) {
             view,
             slice.content.firstChild!,
             inputMethod,
+            editorAnalyticsAPI,
           );
         }
 

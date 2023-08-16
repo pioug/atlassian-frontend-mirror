@@ -22,7 +22,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 // Editor Plugins
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import emojiPlugin from '../../';
+import { emojiPlugin } from '../../';
 import basePlugin from '../../../base';
 import blockTypePlugin from '../../../block-type';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';

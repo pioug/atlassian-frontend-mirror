@@ -43,7 +43,7 @@ export async function getCustomThemeStyles(
   const mode = themeState?.colorMode || themeStateDefaults['colorMode'];
   const optionString = JSON.stringify(themeState?.UNSAFE_themeOptions);
   const uniqueId = hash(optionString);
-  const themeRamp = generateColors(brandColor);
+  const themeRamp = generateColors(brandColor).ramp;
 
   // outputs object to generate to CSS from
   const themes = [];

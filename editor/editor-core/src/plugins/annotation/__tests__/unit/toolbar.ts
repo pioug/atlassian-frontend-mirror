@@ -17,7 +17,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 import annotationPlugin from '../..';
-import emojiPlugin from '../../../emoji';
+import { emojiPlugin } from '../../../emoji';
 import blockTypePlugin from '../../../block-type';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import { buildToolbar } from '../../toolbar';

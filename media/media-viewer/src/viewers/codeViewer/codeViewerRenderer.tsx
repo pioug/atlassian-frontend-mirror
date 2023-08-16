@@ -14,6 +14,7 @@ import {
   codeViewWrapperStyles,
   codeViewerHTMLStyles,
 } from './styles';
+import { TouchScrollable } from 'react-scrolllock';
 
 // Based on some basic benchmarking with @atlaskit/code it was found that ~10,000 lines took around ~5secs to render, which locks the main thread.
 // Therefore we set a hard limit on the amount of lines which we apply formatting to,
@@ -31,9 +32,11 @@ export const CodeViewWrapper = ({
   'data-testid': string | undefined;
 }) => {
   return (
-    <div css={codeViewWrapperStyles} data-testid={testId}>
-      {children}
-    </div>
+    <TouchScrollable>
+      <div css={codeViewWrapperStyles} data-testid={testId}>
+        {children}
+      </div>
+    </TouchScrollable>
   );
 };
 

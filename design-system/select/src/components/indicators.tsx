@@ -38,9 +38,12 @@ export const DropdownIndicator: FC<DropdownIndicatorProps<any>> = (props) => (
 );
 
 export const LoadingIndicator: FC<LoadingIndicatorProps<any>> = (props) => {
-  const loadingCSS = css(props.getStyles('loadingIndicator', props));
+  const loadingStyles = css(props.getStyles('loadingIndicator', props));
   return (
-    <div css={loadingCSS} {...props.innerProps}>
+    // This *must* be constructed this way because this is being consumed by
+    // `react-select` and we don't control what it wants.
+    // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+    <div css={loadingStyles} {...props.innerProps}>
       <Spinner size="small" />
     </div>
   );

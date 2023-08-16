@@ -1,12 +1,12 @@
 import { collab } from '@atlaskit/prosemirror-collab';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { CollabEditProvider } from '@atlaskit/collab-provider';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { createPlugin, pluginKey } from './plugin';
-import {
+import type {
   ProviderBuilder,
   ProviderCallback,
   PrivateCollabEditOptions,

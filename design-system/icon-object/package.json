@@ -25,9 +25,6 @@
   "sideEffects": false,
   "atlassian": {
     "team": "Design System Team",
-    "productPushConsumption": [
-      "jira"
-    ],
     "releaseModel": "continuous",
     "website": {
       "name": "Icon object",

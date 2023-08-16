@@ -9,7 +9,8 @@ export const modalMessages = defineMessages({
   insertIssuesButtonText: {
     id: 'linkDataSource.assets.configmodal.insertIssuesButtonText',
     description: 'Button text to insert the displayed content',
-    defaultMessage: 'Insert objects',
+    defaultMessage:
+      'Insert {objectsCount, plural, one {object} other {objects}}',
   },
   insertObjectsTitle: {
     id: 'linkDataSource.assets.configmodal.insertObjectsTitle',

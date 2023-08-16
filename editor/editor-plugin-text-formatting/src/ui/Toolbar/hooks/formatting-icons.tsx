@@ -23,8 +23,10 @@ import {
   ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
+import { pluginCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type {
   Command,
+  PluginCommand,
   TextFormattingState,
 } from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
@@ -41,14 +43,14 @@ import {
   toggleSubscriptWithAnalytics,
   toggleSuperscriptWithAnalytics,
   toggleUnderlineWithAnalytics,
-} from '../../../actions';
+} from '../../../commands';
 import { pluginKey as textFormattingPluginKey } from '../../../pm-plugins/plugin-key';
 import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';
 import { IconTypes } from '../types';
 
 const withToolbarInputMethod = (
-  func: (props: { inputMethod: INPUT_METHOD.TOOLBAR }) => Command,
-): Command => func({ inputMethod: INPUT_METHOD.TOOLBAR });
+  func: (inputMethod: INPUT_METHOD.TOOLBAR) => PluginCommand,
+): Command => pluginCommandToPMCommand(func(INPUT_METHOD.TOOLBAR));
 
 type BuildIconProps = {
   isToolbarDisabled: boolean;

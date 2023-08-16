@@ -13,7 +13,7 @@ const lowContrastBrandColor = '#B2CDB4';
 
 describe('generateColors', () => {
   it('should generate a list of colors from a brand color', () => {
-    const colors = generateColors(brandColor);
+    const { ramp: colors, replacedColor } = generateColors(brandColor);
     const expectedColors = [
       '#ddffd7',
       '#90ff95',
@@ -27,6 +27,7 @@ describe('generateColors', () => {
       '#003c0f',
     ];
     expect(colors).toEqual(expectedColors);
+    expect(replacedColor).toEqual('#61ce6a');
   });
 });
 
@@ -40,7 +41,7 @@ describe('generateTokenMap', () => {
 
     Object.entries(lightTokenMap!).forEach(([tokenName, index]) => {
       const darkIndex = darkTokenMap![tokenName as Token] as number;
-      expect(darkIndex + index).toEqual(9);
+      expect(darkIndex + Number(index)).toEqual(9);
     });
   });
 
@@ -55,7 +56,7 @@ describe('generateTokenMap', () => {
   });
 
   it('should use inputted brand color in brand tokens if the brand color has a high-contrast (>= 4.5)', () => {
-    const colors = generateColors(highContrastBrandColor);
+    const colors = generateColors(highContrastBrandColor).ramp;
     const lightTokenMap = generateTokenMap(
       highContrastBrandColor,
       'light',
@@ -86,6 +87,35 @@ describe('generateTokenMap', () => {
     expect(lightTokenMap['color.text.brand']).toEqual(6);
   });
 
+  it('should use the generated color instead of inputted brand color for color.background.selected.bold and color.background.brand.bold when inputted brand color contrast in the range of [4, 4.5)', () => {
+    const brandColorWithContrast4Point2 = '#987700';
+    const lightTokenMap = generateTokenMap(
+      brandColorWithContrast4Point2,
+      'light',
+    ).light!;
+    const colors = generateColors(brandColorWithContrast4Point2).ramp;
+
+    expect(
+      colors[lightTokenMap['color.background.selected.bold'] as number],
+    ).not.toEqual(brandColorWithContrast4Point2);
+    expect(
+      colors[lightTokenMap['color.background.brand.bold'] as number],
+    ).not.toEqual(brandColorWithContrast4Point2);
+  });
+
+  it('should use one-level darker color instead of brand color for text tokens when inputted brand color contrast in the range of [4.8, 5.4)', () => {
+    const brandColorWithContrast5 = '#008259';
+    const lightTokenMap = generateTokenMap(brandColorWithContrast5, 'light')
+      .light!;
+    const colors = generateColors(brandColorWithContrast5).ramp;
+    const closestColorIndex = getClosestColorIndex(
+      colors,
+      brandColorWithContrast5,
+    );
+    expect(lightTokenMap['color.text.brand']).toEqual(closestColorIndex + 1);
+    expect(lightTokenMap['color.link']).toEqual(closestColorIndex + 1);
+  });
+
   it('should shift brand background token in dark mode if input brand color meets 4.5 contrast again inverse text color', () => {
     const tokenMap = generateTokenMap(brandColor, 'dark').dark!;
     expect(tokenMap['color.background.brand.bold']).toEqual(3);
@@ -95,7 +125,7 @@ describe('generateTokenMap', () => {
       'dark',
     ).dark!;
     const closestColorIndex = getClosestColorIndex(
-      generateColors(lowContrastBrandColor),
+      generateColors(lowContrastBrandColor).ramp,
       lowContrastBrandColor,
     );
     expect(lessSaturatedTokenMap['color.background.brand.bold']).toEqual(

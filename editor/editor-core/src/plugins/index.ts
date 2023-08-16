@@ -7,7 +7,7 @@ export { default as clearMarksOnChangeToEmptyDocumentPlugin } from './clear-mark
 export { default as codeBlockPlugin } from './code-block';
 export { default as collabEditPlugin } from './collab-edit';
 export { default as datePlugin } from './date';
-export { default as emojiPlugin } from './emoji';
+export { emojiPlugin } from './emoji';
 export { default as extensionPlugin } from './extension';
 export { default as fakeTextCursorPlugin } from './fake-text-cursor';
 export { default as helpDialogPlugin } from './help-dialog';

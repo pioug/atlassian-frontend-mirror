@@ -7,7 +7,7 @@ import {
   Preset,
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
-import type { CollabSendableSelection } from '@atlaskit/collab-provider';
+import type { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import collabEditPlugin, { pluginKey } from '../../index';
 import { createMockCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';

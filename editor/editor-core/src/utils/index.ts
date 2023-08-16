@@ -4,7 +4,6 @@ import type {
   MarkType,
   Node,
   ResolvedPos,
-  Schema,
   Slice,
 } from '@atlaskit/editor-prosemirror/model';
 import type {
@@ -16,7 +15,14 @@ import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { FakeTextCursorSelection } from '../plugins/fake-text-cursor/cursor';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
-import { isNodeEmpty } from './document';
+
+export {
+  isEmptyNode,
+  isSelectionInsideLastNodeInDocument,
+  checkNodeDown,
+  insideTableCell,
+  isInListItem,
+} from '@atlaskit/editor-common/utils';
 
 export { insideTable } from '@atlaskit/editor-common/core-utils';
 
@@ -52,15 +58,6 @@ function isMarkTypeAllowedInNode(
   state: EditorState,
 ): boolean {
   return toggleMark(markType)(state);
-}
-
-export function isSelectionInsideLastNodeInDocument(
-  selection: Selection,
-): boolean {
-  const docNode = selection.$anchor.node(0);
-  const rootNode = selection.$anchor.node(1);
-
-  return docNode.lastChild === rootNode;
 }
 
 export function getCursor(selection: Selection): ResolvedPos | undefined {
@@ -119,46 +116,6 @@ export function isMarkTypeAllowedInCurrentSelection(
   });
 }
 
-export function checkNodeDown(
-  selection: Selection,
-  doc: Node,
-  filter: (node: Node) => boolean,
-): boolean {
-  const ancestorDepth = findAncestorPosition(doc, selection.$to).depth;
-
-  // Top level node
-  if (ancestorDepth === 0) {
-    return false;
-  }
-
-  const res = doc.resolve(selection.$to.after(ancestorDepth));
-  return res.nodeAfter ? filter(res.nodeAfter) : false;
-}
-
-/**
- * Traverse the document until an "ancestor" is found. Any nestable block can be an ancestor.
- */
-function findAncestorPosition(doc: Node, pos: ResolvedPos): any {
-  const nestableBlocks = ['blockquote', 'bulletList', 'orderedList'];
-
-  if (pos.depth === 1) {
-    return pos;
-  }
-
-  let node: Node | undefined = pos.node(pos.depth);
-  let newPos = pos;
-  while (pos.depth >= 1) {
-    pos = doc.resolve(pos.before(pos.depth));
-    node = pos.node(pos.depth);
-
-    if (node && nestableBlocks.indexOf(node.type.name) !== -1) {
-      newPos = pos;
-    }
-  }
-
-  return newPos;
-}
-
 const transformer = new JSONTransformer();
 export function toJSON(node: Node): JSONDocNode {
   return transformer.encode(node);
@@ -207,75 +164,6 @@ export function whichTransitionEvent<TransitionEventName extends string>() {
 
 export const isTemporary = (id: string): boolean => {
   return id.indexOf('temporary:') === 0;
-};
-
-export const isEmptyNode = (schema: Schema) => {
-  const {
-    doc,
-    paragraph,
-    codeBlock,
-    blockquote,
-    panel,
-    heading,
-    listItem,
-    bulletList,
-    orderedList,
-    taskList,
-    taskItem,
-    decisionList,
-    decisionItem,
-    media,
-    mediaGroup,
-    mediaSingle,
-  } = schema.nodes;
-  const innerIsEmptyNode = (node: Node): boolean => {
-    switch (node.type) {
-      case media:
-      case mediaGroup:
-      case mediaSingle:
-        return false;
-      case paragraph:
-      case codeBlock:
-      case heading:
-      case taskItem:
-      case decisionItem:
-        return node.content.size === 0;
-      case blockquote:
-      case panel:
-      case listItem:
-        return (
-          node.content.size === 2 && innerIsEmptyNode(node.content.firstChild!)
-        );
-      case bulletList:
-      case orderedList:
-        return (
-          node.content.size === 4 && innerIsEmptyNode(node.content.firstChild!)
-        );
-      case taskList:
-      case decisionList:
-        return (
-          node.content.size === 2 && innerIsEmptyNode(node.content.firstChild!)
-        );
-      case doc:
-        let isEmpty = true;
-        node.content.forEach((child) => {
-          isEmpty = isEmpty && innerIsEmptyNode(child);
-        });
-        return isEmpty;
-      default:
-        return isNodeEmpty(node);
-    }
-  };
-  return innerIsEmptyNode;
-};
-
-export const insideTableCell = (state: EditorState) => {
-  const { tableCell, tableHeader } = state.schema.nodes;
-  return hasParentNodeOfType([tableCell, tableHeader])(state.selection);
-};
-
-export const isInListItem = (state: EditorState): boolean => {
-  return hasParentNodeOfType(state.schema.nodes.listItem)(state.selection);
 };
 
 export const hasOpenEnd = (slice: Slice): boolean => {

@@ -31,6 +31,8 @@ import { Blanket, SidebarWrapper } from './styleWrappers';
 import { start } from 'perf-marks';
 import { MediaViewerExtensions } from './components/types';
 import { mediaViewerPopupClass } from './classnames';
+import ScrollLock from 'react-scrolllock';
+import FocusLock from 'react-focus-lock';
 
 export type Props = {
   onClose?: () => void;
@@ -40,6 +42,7 @@ export type Props = {
   items: Identifier[];
   extensions?: MediaViewerExtensions;
   contextId?: string;
+  innerRef?: React.Ref<HTMLDivElement>;
 } & WithAnalyticsEventsProps;
 
 export interface State {
@@ -119,34 +122,43 @@ export class MediaViewerComponent extends React.Component<
   };
 
   render() {
-    const { mediaClient, onClose, items, extensions, contextId, featureFlags } =
-      this.props;
+    const {
+      mediaClient,
+      onClose,
+      items,
+      extensions,
+      contextId,
+      featureFlags,
+      innerRef,
+    } = this.props;
     const { isSidebarVisible } = this.state;
     const content = (
-      <Blanket
-        data-testid="media-viewer-popup"
-        className={mediaViewerPopupClass}
-      >
-        <Shortcut keyCode={27} handler={this.onShortcutClosed} />
-        <Content
-          isSidebarVisible={isSidebarVisible}
-          onClose={this.onContentClose}
+      <div ref={innerRef}>
+        <Blanket
+          data-testid="media-viewer-popup"
+          className={mediaViewerPopupClass}
         >
-          <List
-            defaultSelectedItem={this.defaultSelectedItem || items[0]}
-            items={items}
-            mediaClient={mediaClient}
-            onClose={onClose}
-            extensions={extensions}
-            onNavigationChange={this.onNavigationChange}
-            onSidebarButtonClick={this.toggleSidebar}
+          <Shortcut keyCode={27} handler={this.onShortcutClosed} />
+          <Content
             isSidebarVisible={isSidebarVisible}
-            contextId={contextId}
-            featureFlags={featureFlags}
-          />
-        </Content>
-        {this.renderSidebar()}
-      </Blanket>
+            onClose={this.onContentClose}
+          >
+            <List
+              defaultSelectedItem={this.defaultSelectedItem || items[0]}
+              items={items}
+              mediaClient={mediaClient}
+              onClose={onClose}
+              extensions={extensions}
+              onNavigationChange={this.onNavigationChange}
+              onSidebarButtonClick={this.toggleSidebar}
+              isSidebarVisible={isSidebarVisible}
+              contextId={contextId}
+              featureFlags={featureFlags}
+            />
+          </Content>
+          {this.renderSidebar()}
+        </Blanket>
+      </div>
     );
 
     return this.props.intl ? (
@@ -161,6 +173,23 @@ export class MediaViewerComponent extends React.Component<
   };
 }
 
+const MediaViewerWithRef = React.forwardRef<
+  HTMLDivElement,
+  Props & WrappedComponentProps
+>((props, ref) => {
+  return <MediaViewerComponent {...props} innerRef={ref} />;
+});
+
+const MediaViewerWithScrollLock = (props: Props & WrappedComponentProps) => {
+  return (
+    <FocusLock autoFocus returnFocus>
+      <ScrollLock />
+
+      <MediaViewerWithRef {...props} />
+    </FocusLock>
+  );
+};
+
 export const MediaViewer: React.ComponentType<Props> =
   withMediaAnalyticsContext({
     packageName,
@@ -169,6 +198,6 @@ export const MediaViewer: React.ComponentType<Props> =
     componentName,
   })(
     withAnalyticsEvents()(
-      injectIntl(MediaViewerComponent, { enforceContext: false }),
+      injectIntl(MediaViewerWithScrollLock, { enforceContext: false }),
     ),
   );

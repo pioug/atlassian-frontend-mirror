@@ -1,3 +1,15 @@
+import type {
+  Node as PMNode,
+  ResolvedPos,
+  Schema,
+} from '@atlaskit/editor-prosemirror/model';
+import type {
+  EditorState,
+  Selection,
+} from '@atlaskit/editor-prosemirror/state';
+import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+
 export {
   canApplyAnnotationOnRange,
   getAnnotationIdsFromRange,
@@ -32,6 +44,7 @@ export {
   removeBlockMarks,
   filterChildrenBetween,
 } from './editor-core-utils';
+import { isEmptyParagraph } from './editor-core-utils';
 export { withImageLoader } from './imageLoader';
 export type {
   ImageLoaderProps,
@@ -242,3 +255,180 @@ export {
   createWrappingJoinRule,
   createRule,
 } from './input-rules';
+
+export function isSelectionInsideLastNodeInDocument(
+  selection: Selection,
+): boolean {
+  const docNode = selection.$anchor.node(0);
+  const rootNode = selection.$anchor.node(1);
+
+  return docNode.lastChild === rootNode;
+}
+
+export const isInListItem = (state: EditorState): boolean => {
+  return hasParentNodeOfType(state.schema.nodes.listItem)(state.selection);
+};
+
+/**
+ * Find the farthest node given a condition
+ * @param predicate Function to check the node
+ */
+export const findFarthestParentNode =
+  (predicate: (node: PMNode) => boolean) =>
+  ($pos: ResolvedPos): ContentNodeWithPos | null => {
+    let candidate: ContentNodeWithPos | null = null;
+
+    for (let i = $pos.depth; i > 0; i--) {
+      const node = $pos.node(i);
+      if (predicate(node)) {
+        candidate = {
+          pos: i > 0 ? $pos.before(i) : 0,
+          start: $pos.start(i),
+          depth: i,
+          node,
+        };
+      }
+    }
+    return candidate;
+  };
+
+export const insideTableCell = (state: EditorState) => {
+  const { tableCell, tableHeader } = state.schema.nodes;
+  return hasParentNodeOfType([tableCell, tableHeader])(state.selection);
+};
+
+/**
+ * Traverse the document until an "ancestor" is found. Any nestable block can be an ancestor.
+ */
+function findAncestorPosition(doc: PMNode, pos: ResolvedPos): any {
+  const nestableBlocks = ['blockquote', 'bulletList', 'orderedList'];
+
+  if (pos.depth === 1) {
+    return pos;
+  }
+
+  let node: PMNode | undefined = pos.node(pos.depth);
+  let newPos = pos;
+  while (pos.depth >= 1) {
+    pos = doc.resolve(pos.before(pos.depth));
+    node = pos.node(pos.depth);
+
+    if (node && nestableBlocks.indexOf(node.type.name) !== -1) {
+      newPos = pos;
+    }
+  }
+
+  return newPos;
+}
+
+export function checkNodeDown(
+  selection: Selection,
+  doc: PMNode,
+  filter: (node: PMNode) => boolean,
+): boolean {
+  const ancestorDepth = findAncestorPosition(doc, selection.$to).depth;
+
+  // Top level node
+  if (ancestorDepth === 0) {
+    return false;
+  }
+
+  const res = doc.resolve(selection.$to.after(ancestorDepth));
+  return res.nodeAfter ? filter(res.nodeAfter) : false;
+}
+
+export const isEmptyNode = (schema: Schema) => {
+  const {
+    doc,
+    paragraph,
+    codeBlock,
+    blockquote,
+    panel,
+    heading,
+    listItem,
+    bulletList,
+    orderedList,
+    taskList,
+    taskItem,
+    decisionList,
+    decisionItem,
+    media,
+    mediaGroup,
+    mediaSingle,
+  } = schema.nodes;
+  const innerIsEmptyNode = (node: PMNode): boolean => {
+    switch (node.type) {
+      case media:
+      case mediaGroup:
+      case mediaSingle:
+        return false;
+      case paragraph:
+      case codeBlock:
+      case heading:
+      case taskItem:
+      case decisionItem:
+        return node.content.size === 0;
+      case blockquote:
+      case panel:
+      case listItem:
+        return (
+          node.content.size === 2 && innerIsEmptyNode(node.content.firstChild!)
+        );
+      case bulletList:
+      case orderedList:
+        return (
+          node.content.size === 4 && innerIsEmptyNode(node.content.firstChild!)
+        );
+      case taskList:
+      case decisionList:
+        return (
+          node.content.size === 2 && innerIsEmptyNode(node.content.firstChild!)
+        );
+      case doc:
+        let isEmpty = true;
+        node.content.forEach((child) => {
+          isEmpty = isEmpty && innerIsEmptyNode(child);
+        });
+        return isEmpty;
+      default:
+        return isNodeEmpty(node);
+    }
+  };
+  return innerIsEmptyNode;
+};
+
+/**
+ * Checks if a node has any content. Ignores node that only contain empty block nodes.
+ */
+export function isNodeEmpty(node?: PMNode): boolean {
+  if (node && node.textContent) {
+    return false;
+  }
+
+  if (
+    !node ||
+    !node.childCount ||
+    (node.childCount === 1 && isEmptyParagraph(node.firstChild))
+  ) {
+    return true;
+  }
+
+  const block: PMNode[] = [];
+  const nonBlock: PMNode[] = [];
+
+  node.forEach((child) => {
+    child.isInline ? nonBlock.push(child) : block.push(child);
+  });
+
+  return (
+    !nonBlock.length &&
+    !block.filter(
+      (childNode) =>
+        (!!childNode.childCount &&
+          !(
+            childNode.childCount === 1 && isEmptyParagraph(childNode.firstChild)
+          )) ||
+        childNode.isAtom,
+    ).length
+  );
+}

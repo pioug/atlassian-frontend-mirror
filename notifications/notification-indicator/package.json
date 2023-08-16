@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/notification-indicator",
-  "version": "9.1.2",
+  "version": "9.1.3",
   "description": "A wrapped React component used to display whether user has any new notifications.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

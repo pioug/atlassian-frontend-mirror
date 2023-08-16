@@ -198,7 +198,11 @@ const mediaPlugin: MediaNextEditorPluginType = (options = {}, api) => {
         });
         pmPlugins.push({
           name: 'mediaAltTextKeymap',
-          plugin: ({ schema }) => keymapMediaAltTextPlugin(schema),
+          plugin: ({ schema }) =>
+            keymapMediaAltTextPlugin(
+              schema,
+              api?.dependencies.analytics?.actions,
+            ),
         });
       }
 

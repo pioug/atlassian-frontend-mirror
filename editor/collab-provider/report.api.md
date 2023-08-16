@@ -23,6 +23,7 @@ import { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { CollabEventConnectingData } from '@atlaskit/editor-common/collab';
 import { CollabEventConnectionData } from '@atlaskit/editor-common/collab';
 import { CollabEventInitData } from '@atlaskit/editor-common/collab';
+import { CollabEventLocalStepData } from '@atlaskit/editor-common/collab';
 import { CollabEventPresenceData } from '@atlaskit/editor-common/collab';
 import { CollabEventRemoteData } from '@atlaskit/editor-common/collab';
 import { CollabEvents } from '@atlaskit/editor-common/collab';
@@ -35,7 +36,7 @@ import { CollabPresencePayload } from '@atlaskit/editor-common/collab';
 import { CollabSendableSelection } from '@atlaskit/editor-common/collab';
 import { CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Manager } from 'socket.io-client';
 import type { Metadata as Metadata_2 } from '@atlaskit/editor-common/collab';
 import { NewCollabSyncUpErrorAttributes } from '@atlaskit/editor-common/collab';
@@ -84,11 +85,7 @@ export interface CollabEventDisconnectedData {
 
 export { CollabEventInitData };
 
-// @public (undocumented)
-export interface CollabEventLocalStepData {
-  // (undocumented)
-  steps: Array<Step>;
-}
+export { CollabEventLocalStepData };
 
 export { CollabEventPresenceData };
 

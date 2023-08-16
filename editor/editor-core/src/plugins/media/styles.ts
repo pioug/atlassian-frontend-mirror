@@ -28,6 +28,12 @@ export const mediaStyles = css`
       transform: translateX(-50%);
     }
 
+    .media-extended-resize-experience[layout^='wrap-'] {
+      // override 'overflow: auto' when viewport <= 410 set by mediaSingleSharedStyle
+      // to prevent scroll bar
+      overflow: visible !important;
+    }
+
     & [layout^='wrap-'] + [layout^='wrap-'] {
       clear: none;
       & + p,
@@ -89,13 +95,13 @@ export const mediaStyles = css`
 
   .richMedia-resize-handle-right {
     align-items: flex-end;
-    padding-right: 12px;
+    padding-right: ${token('space.150', '12px')};
     margin-right: -${akEditorMediaResizeHandlerPadding}px;
   }
 
   .richMedia-resize-handle-left {
     align-items: flex-start;
-    padding-left: 12px;
+    padding-left: ${token('space.150', '12px')};
     margin-left: -${akEditorMediaResizeHandlerPadding}px;
   }
 

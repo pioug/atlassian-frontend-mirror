@@ -52,6 +52,8 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type pastePlugin from '../';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
 type PasteContext = {
   type: PasteType;
   asPlain?: boolean;
@@ -418,12 +420,13 @@ export const handleMediaSingleWithAnalytics = (
   event: ClipboardEvent,
   slice: Slice,
   type: PasteType,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ): Command =>
   injectAnalyticsPayloadBeforeCommand(
     createPasteAnalyticsPayloadBySelection(event, slice, {
       type,
     }),
-  )(handleMediaSingle(INPUT_METHOD.CLIPBOARD)(slice));
+  )(handleMediaSingle(INPUT_METHOD.CLIPBOARD, editorAnalyticsAPI)(slice));
 
 export const handlePastePreservingMarksWithAnalytics = (
   view: EditorView,

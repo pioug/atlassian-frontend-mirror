@@ -493,7 +493,7 @@ export interface RendererProps {
   truncated?: boolean;
   // (undocumented)
   unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking;
-  // (undocumented)
+  // @deprecated (undocumented)
   useSpecBasedValidator?: boolean;
 }
 

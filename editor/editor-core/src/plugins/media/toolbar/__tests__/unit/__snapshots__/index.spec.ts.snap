@@ -194,25 +194,6 @@ Array [
     "type": "separator",
   },
   Object {
-    "icon": [Function],
-    "id": undefined,
-    "onClick": [Function],
-    "selected": false,
-    "title": "Go wide",
-    "type": "button",
-  },
-  Object {
-    "icon": [Function],
-    "id": undefined,
-    "onClick": [Function],
-    "selected": false,
-    "title": "Go full width",
-    "type": "button",
-  },
-  Object {
-    "type": "separator",
-  },
-  Object {
     "appearance": "danger",
     "focusEditoronEnter": true,
     "icon": [Function],
@@ -280,25 +261,6 @@ Array [
     "onClick": [Function],
     "selected": false,
     "title": "Wrap right",
-    "type": "button",
-  },
-  Object {
-    "type": "separator",
-  },
-  Object {
-    "icon": [Function],
-    "id": undefined,
-    "onClick": [Function],
-    "selected": false,
-    "title": "Go wide",
-    "type": "button",
-  },
-  Object {
-    "icon": [Function],
-    "id": undefined,
-    "onClick": [Function],
-    "selected": false,
-    "title": "Go full width",
     "type": "button",
   },
   Object {

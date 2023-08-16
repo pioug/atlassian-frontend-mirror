@@ -2,7 +2,7 @@ import type { EmojiId } from '@atlaskit/emoji';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import type { Command } from '../../../types';
+import type { PluginCommand } from '@atlaskit/editor-common/types';
 import type {
   INPUT_METHOD,
   EditorAnalyticsAPI,
@@ -22,40 +22,37 @@ export const insertEmoji =
       | INPUT_METHOD.PICKER
       | INPUT_METHOD.ASCII
       | INPUT_METHOD.TYPEAHEAD,
-  ): Command => {
-    return (state, dispatch) => {
-      const { emoji } = state.schema.nodes;
+  ): PluginCommand => {
+    return ({ tr }) => {
+      const { doc, selection } = tr;
+      const { emoji } = tr.doc.type.schema.nodes;
 
       if (emoji && emojiId) {
         const node = emoji.createChecked({
           ...emojiId,
           text: emojiId.fallback || emojiId.shortName,
         });
-        const textNode = state.schema.text(' ');
+        const textNode = doc.type.schema.text(' ');
 
-        if (dispatch) {
-          const fragment = Fragment.fromArray([node, textNode]);
-          const tr = safeInsert(fragment)(state.tr);
-          if (inputMethod) {
-            editorAnalyticsAPI?.attachAnalyticsEvent({
-              action: ACTION.INSERTED,
-              actionSubject: ACTION_SUBJECT.DOCUMENT,
-              actionSubjectId: ACTION_SUBJECT_ID.EMOJI,
-              attributes: { inputMethod },
-              eventType: EVENT_TYPE.TRACK,
-            })(tr);
-          }
-
-          dispatch(
-            tr.setSelection(
-              Selection.near(
-                tr.doc.resolve(state.selection.$from.pos + fragment.size),
-              ),
-            ),
-          );
+        const fragment = Fragment.fromArray([node, textNode]);
+        const newTr = safeInsert(fragment)(tr);
+        if (inputMethod) {
+          editorAnalyticsAPI?.attachAnalyticsEvent({
+            action: ACTION.INSERTED,
+            actionSubject: ACTION_SUBJECT.DOCUMENT,
+            actionSubjectId: ACTION_SUBJECT_ID.EMOJI,
+            attributes: { inputMethod },
+            eventType: EVENT_TYPE.TRACK,
+          })(newTr);
         }
-        return true;
+
+        newTr.setSelection(
+          Selection.near(
+            newTr.doc.resolve(selection.$from.pos + fragment.size),
+          ),
+        );
+        return newTr;
       }
-      return false;
+      return null;
     };
   };

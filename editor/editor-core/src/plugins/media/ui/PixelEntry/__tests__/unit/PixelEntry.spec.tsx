@@ -43,11 +43,6 @@ const setup = (propsOverrides?: Partial<PixelEntryProps>) => {
 };
 
 describe('PixelEntry floating bar component', () => {
-  test('renders correctly', () => {
-    const { wrapper } = setup();
-
-    expect(wrapper).toMatchSnapshot();
-  });
   test('renders two inputs with default values', () => {
     setup();
 
@@ -56,30 +51,42 @@ describe('PixelEntry floating bar component', () => {
 
     expect(inputWidth).toBeInTheDocument();
     expect(inputWidth).toHaveAttribute('name', 'inputWidth');
+    expect(inputWidth).toHaveAttribute('value', '600');
     expect(inputHeight).toBeInTheDocument();
     expect(inputHeight).toHaveAttribute('name', 'inputHeight');
+    expect(inputHeight).toHaveAttribute('value', '800');
   });
   test('updates height when changing width', async () => {
-    const { wrapper } = setup();
+    setup();
 
+    const inputHeight = screen.getByDisplayValue('800');
     const inputWidth = screen.getByDisplayValue('600');
 
     await fireEvent.click(inputWidth);
     await userEvent.clear(inputWidth);
     await userEvent.type(inputWidth, '1000');
 
-    expect(wrapper).toMatchSnapshot();
+    expect(inputWidth).toBeInTheDocument();
+    expect(inputWidth).toHaveAttribute('name', 'inputWidth');
+    expect(inputHeight).toBeInTheDocument();
+    expect(inputHeight).toHaveAttribute('name', 'inputHeight');
+    expect(inputHeight).toHaveAttribute('value', '1333');
   });
   test('updates width when changing height', async () => {
-    const { wrapper } = setup();
+    setup();
 
     const inputHeight = screen.getByDisplayValue('800');
+    const inputWidth = screen.getByDisplayValue('600');
 
     await fireEvent.click(inputHeight);
     await userEvent.clear(inputHeight);
     await userEvent.type(inputHeight, '1000');
 
-    expect(wrapper).toMatchSnapshot();
+    expect(inputWidth).toBeInTheDocument();
+    expect(inputWidth).toHaveAttribute('name', 'inputWidth');
+    expect(inputWidth).toHaveAttribute('value', '750');
+    expect(inputHeight).toBeInTheDocument();
+    expect(inputHeight).toHaveAttribute('name', 'inputHeight');
   });
   test('calls submit handler when uses presses enter in inputWidth', async () => {
     const onSubmitMock = jest.fn();

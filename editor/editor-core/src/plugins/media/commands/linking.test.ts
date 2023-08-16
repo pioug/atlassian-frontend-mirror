@@ -30,7 +30,7 @@ import { MediaLinkingActionsTypes } from '../pm-plugins/linking/actions';
 import { checkMediaType } from '../utils/check-media-type';
 import { mediaLinkingPluginKey } from '../pm-plugins/linking';
 import * as linking from './linking';
-import { INPUT_METHOD } from '../../analytics/types';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import * as commands from '../../../commands';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';

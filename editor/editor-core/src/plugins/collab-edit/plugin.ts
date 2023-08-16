@@ -1,8 +1,8 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { Dispatch } from '../../event-dispatcher';
+import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type { Dispatch } from '../../event-dispatcher';
 import { initialize } from './events/initialize';
-import { PrivateCollabEditOptions, ProviderCallback } from './types';
+import type { PrivateCollabEditOptions, ProviderCallback } from './types';
 import { PluginState } from './plugin-state';
 import { pluginKey } from './plugin-key';
 import { addSynchronyErrorAnalytics } from './analytics';
@@ -12,12 +12,14 @@ import {
   ACTION_SUBJECT,
   EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
-import { FeatureFlags } from '@atlaskit/editor-common/types';
+import type {
+  FeatureFlags,
+  ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import type {
   CollabEditProvider,
   SyncUpErrorFunction,
-} from '@atlaskit/collab-provider/types';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+} from '@atlaskit/editor-common/collab';
 import type collabEditPlugin from './index';
 
 export { PluginState, pluginKey };

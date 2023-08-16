@@ -51,7 +51,8 @@ export const gapCursorStyles = css`
         right: -3px;
       }
       & span[layout='full-width'],
-      & span[layout='wide'] {
+      & span[layout='wide'],
+      & span[layout='fixed-width'] {
         margin-left: 50%;
         transform: translateX(-50%);
       }

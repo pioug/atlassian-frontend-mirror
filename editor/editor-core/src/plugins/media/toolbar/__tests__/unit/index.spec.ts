@@ -15,6 +15,7 @@ jest.mock('@atlaskit/media-client', () => ({
     },
   }),
 }));
+
 import { getMediaClient } from '@atlaskit/media-client';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -47,6 +48,7 @@ import {
 import {
   getToolbarItems,
   findToolbarBtn,
+  findPixelEntry,
 } from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
 import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
 
@@ -260,6 +262,12 @@ describe('floatingToolbar()', () => {
   });
 
   describe('mediaSingle', () => {
+    const exampleMediaWidth = 100;
+    const exampleMediaHeight = 100;
+    const pixelEntryMediaProps = {
+      mediaWidth: exampleMediaWidth,
+      mediaHeight: exampleMediaHeight,
+    };
     const setup = async (
       allowBorder: boolean = false,
       mediaSingleAttrs?: ExtendedMediaAttributes,
@@ -270,8 +278,8 @@ describe('floatingToolbar()', () => {
         collection: testCollectionName,
         __fileMimeType: 'image/png',
         __contextId: 'DUMMY-OBJECT-ID',
-        width: 100,
-        height: 100,
+        width: exampleMediaWidth,
+        height: exampleMediaHeight,
       };
 
       const document = doc(
@@ -286,6 +294,7 @@ describe('floatingToolbar()', () => {
         {
           allowLinking: true,
           allowAdvancedToolBarOptions: true,
+          allowResizing: true,
         },
         mockInjectionAPI,
       );
@@ -386,6 +395,142 @@ describe('floatingToolbar()', () => {
           });
         },
       );
+    });
+
+    describe.each<{
+      id: string;
+      source: ExtendedMediaAttributes;
+      result: { width: number; mediaWidth: number; mediaHeight: number };
+    }>([
+      {
+        id: 'no widthType and no width',
+        source: {
+          layout: 'center',
+        },
+        result: {
+          ...pixelEntryMediaProps,
+          width: 100,
+        },
+      },
+      {
+        id: 'no widthType and wide',
+        source: {
+          layout: 'wide',
+        },
+        result: {
+          ...pixelEntryMediaProps,
+          width: 1011,
+        },
+      },
+      {
+        id: 'no widthType and fullwidth',
+        source: {
+          layout: 'full-width',
+        },
+        result: {
+          ...pixelEntryMediaProps,
+          width: 1736,
+        },
+      },
+      {
+        id: '50% width',
+        source: {
+          layout: 'center',
+          widthType: 'percentage',
+          width: 50,
+        },
+        result: {
+          ...pixelEntryMediaProps,
+          width: 368,
+        },
+      },
+      {
+        id: '100% width',
+        source: {
+          layout: 'center',
+          widthType: 'percentage',
+          width: 100,
+        },
+        result: {
+          ...pixelEntryMediaProps,
+          width: 760,
+        },
+      },
+      {
+        id: '100% width wide',
+        source: {
+          layout: 'wide',
+          widthType: 'percentage',
+          width: 100,
+        },
+        result: {
+          ...pixelEntryMediaProps,
+          width: 1011,
+        },
+      },
+      {
+        id: '100% width full-width',
+        source: {
+          layout: 'full-width',
+          widthType: 'percentage',
+          width: 100,
+        },
+        result: {
+          ...pixelEntryMediaProps,
+          width: 1736,
+        },
+      },
+      {
+        id: 'pixel type',
+        source: {
+          layout: 'center',
+          widthType: 'pixel',
+          width: 123,
+        },
+        result: {
+          ...pixelEntryMediaProps,
+          width: 123,
+        },
+      },
+      {
+        id: 'pixel type full-width',
+        source: {
+          layout: 'full-width',
+          widthType: 'pixel',
+          width: 1800,
+        },
+        result: {
+          ...pixelEntryMediaProps,
+          width: 1800,
+        },
+      },
+    ])('pixel entry initial values', ({ id, source, result }) => {
+      describe(`${id}`, () => {
+        ffTest(
+          'platform.editor.media.extended-resize-experience',
+          async () => {
+            const { items, editorView } = await setup(undefined, source);
+            const pixelEntry = findPixelEntry(items);
+            const pixelEntryInstance = pixelEntry.render(editorView) as any;
+            expect(pixelEntryInstance).not.toBe(null);
+            if (pixelEntryInstance) {
+              expect(pixelEntryInstance.props.width).toBe(result.width);
+              expect(pixelEntryInstance.props.mediaWidth).toBe(
+                result.mediaWidth,
+              );
+              expect(pixelEntryInstance.props.mediaHeight).toBe(
+                result.mediaHeight,
+              );
+            }
+          },
+          // check no buttons are disabled when FF is off
+          async () => {
+            const { items } = await setup(undefined, source);
+            const pixelEntry = findPixelEntry(items);
+            expect(pixelEntry).not.toBeDefined();
+          },
+        );
+      });
     });
   });
 });

@@ -45,7 +45,7 @@ import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import tasksAndDecisionsPlugin from '../../../tasks-and-decisions';
 import listPlugin from '../../../list';
 import { textFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
-import emojiPlugin from '../../../emoji';
+import { emojiPlugin } from '../../../emoji';
 import basePlugin from '../../../base';
 import layoutPlugin from '../../../layout';
 import rulePlugin from '../../../rule';

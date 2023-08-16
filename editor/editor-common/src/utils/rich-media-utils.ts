@@ -1,9 +1,12 @@
-import { RichMediaAttributes, RichMediaLayout } from '@atlaskit/adf-schema';
+import type {
+  RichMediaAttributes,
+  RichMediaLayout,
+} from '@atlaskit/adf-schema';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
 
-import { SnapPointsProps } from '../types';
+import type { SnapPointsProps } from '../types';
 import { calcPxFromColumns, wrappedLayouts } from '../ui/MediaSingle/grid';
 
 export const shouldAddDefaultWrappedWidth = (
@@ -30,7 +33,6 @@ export const floatingLayouts = ['wrap-left', 'wrap-right'];
 export const isRichMediaInsideOfBlockNode = (
   view: EditorView,
   pos: number | boolean,
-  includeMoreParentNodeTypes?: boolean,
 ) => {
   if (typeof pos !== 'number' || isNaN(pos) || !view) {
     return false;
@@ -38,15 +40,12 @@ export const isRichMediaInsideOfBlockNode = (
 
   const $pos = view.state.doc.resolve(pos);
 
-  const { expand, nestedExpand, layoutColumn, tableCell, listItem } =
-    view.state.schema.nodes;
-  const parentNodeTypes = [expand, nestedExpand, layoutColumn];
-  return !!findParentNodeOfTypeClosestToPos(
-    $pos,
-    includeMoreParentNodeTypes
-      ? [...parentNodeTypes, tableCell, listItem]
-      : parentNodeTypes,
-  );
+  const { expand, nestedExpand, layoutColumn } = view.state.schema.nodes;
+  return !!findParentNodeOfTypeClosestToPos($pos, [
+    expand,
+    nestedExpand,
+    layoutColumn,
+  ]);
 };
 
 export const alignAttributes = (

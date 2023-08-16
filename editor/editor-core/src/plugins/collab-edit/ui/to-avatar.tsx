@@ -1,7 +1,7 @@
 import React from 'react';
-import { AvatarProps } from '@atlaskit/avatar-group';
+import type { AvatarProps } from '@atlaskit/avatar-group';
 import memoizeOne from 'memoize-one';
-import type { CollabParticipant } from '@atlaskit/collab-provider';
+import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import { ColoredAvatarItem } from './colored-avatar-item';
 
 const toAvatar = (participant: CollabParticipant): AvatarProps => ({

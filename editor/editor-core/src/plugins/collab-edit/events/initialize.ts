@@ -6,7 +6,7 @@ import memoizeOne from 'memoize-one';
 import type {
   CollabEditProvider,
   SyncUpErrorFunction,
-} from '@atlaskit/collab-provider';
+} from '@atlaskit/editor-common/collab';
 import type { PrivateCollabEditOptions } from '../types';
 import type { Cleanup } from './handlers';
 import { subscribe } from './handlers';

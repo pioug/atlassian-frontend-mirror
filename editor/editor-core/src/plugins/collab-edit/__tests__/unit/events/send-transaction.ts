@@ -1,5 +1,5 @@
 import type { Plugin, Transaction } from '@atlaskit/editor-prosemirror/state';
-import type { CollabEditProvider } from '@atlaskit/collab-provider';
+import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import { sendTransaction } from '../../../events/send-transaction';
 import collabEditPlugin from '../../../';
 

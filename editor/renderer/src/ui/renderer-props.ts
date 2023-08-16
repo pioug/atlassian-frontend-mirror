@@ -66,6 +66,7 @@ export interface RendererProps {
   allowAnnotations?: boolean;
   annotationProvider?: AnnotationProviders | null;
   innerRef?: React.RefObject<HTMLDivElement>;
+  /** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-3649 Internal documentation for deprecation (no external access)} This prop will be removed and set as default enabled, as the same flag on the Editor is also now default enabled. */
   useSpecBasedValidator?: boolean;
   allowCopyToClipboard?: boolean;
   allowWrapCodeBlock?: boolean;

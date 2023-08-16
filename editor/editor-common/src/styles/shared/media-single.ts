@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 const richMediaClassName = 'rich-media-item';
@@ -66,17 +65,16 @@ const mediaSingleSharedStyle = css`
     margin-left: 0;
   }
 
-  ${!getBooleanFF('platform.editor.media.extended-resize-experience') &&
-  `@media all and (max-width: ${wrappedMediaBreakoutPoint}px) {
+  @media all and (max-width: ${wrappedMediaBreakoutPoint}px) {
     div.mediaSingleView-content-wrap[layout='wrap-left'],
     div.mediaSingleView-content-wrap[data-layout='wrap-left'],
     div.mediaSingleView-content-wrap[layout='wrap-right'],
     div.mediaSingleView-content-wrap[data-layout='wrap-right'] {
       float: none;
       overflow: auto;
-      margin: 12px 0;
+      margin: ${token('space.150', '12px')} 0;
     }
-  }`}
+  }
 `;
 
 export { mediaSingleSharedStyle, richMediaClassName };

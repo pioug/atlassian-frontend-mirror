@@ -51,25 +51,6 @@ const colorContainerStyles = css({
   },
 });
 
-const brandColorTextStyles = css({
-  width: '100%',
-  paddingTop: 8,
-  position: 'absolute',
-  top: 0,
-  transition: 'all 0.2s',
-});
-
-const colorTextStyles = css({
-  boxSizing: 'border-box',
-  width: '100%',
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  opacity: 0,
-  textAlign: 'center',
-  transition: 'all 0.3s',
-});
-
 type HEX = `#${string}`;
 
 export default () => {
@@ -78,8 +59,12 @@ export default () => {
   });
   const [colorMode, setColorMode] = useState<'light' | 'dark'>('light');
   const [themeRamp, setThemeRamp] = useState<string[]>([]);
-  const [darkTokens, setDarkTokens] = useState<{ [key: string]: number }>({});
-  const [lightTokens, setLightTokens] = useState<{ [key: string]: number }>({});
+  const [darkTokens, setDarkTokens] = useState<{
+    [key: string]: number | string;
+  }>({});
+  const [lightTokens, setLightTokens] = useState<{
+    [key: string]: number | string;
+  }>({});
   const [contrastCheckResults, setContrastCheckResults] = useState<
     CustomThemeContrastCheckResult[]
   >([]);
@@ -89,26 +74,25 @@ export default () => {
       colorMode: colorMode,
       UNSAFE_themeOptions: customTheme,
       spacing: 'spacing',
-    }).then(() => {
-      const themeRamp = generateColors(customTheme.brandColor);
-      setThemeRamp(themeRamp);
-
-      const tokenMaps = generateTokenMapWithContrastCheck(
-        customTheme.brandColor,
-        'auto',
-        themeRamp,
-      );
-      setLightTokens(tokenMaps.light!);
-      setDarkTokens(tokenMaps.dark!);
-
-      const contrastCheckResults = customThemeContrastChecker({
-        customThemeTokenMap:
-          colorMode === 'light' ? tokenMaps.light! : tokenMaps.dark!,
-        mode: colorMode,
-        themeRamp,
-      });
-      setContrastCheckResults(contrastCheckResults);
     });
+    const themeRamp = generateColors(customTheme.brandColor).ramp;
+    setThemeRamp(themeRamp);
+
+    const tokenMaps = generateTokenMapWithContrastCheck(
+      customTheme.brandColor,
+      'auto',
+      themeRamp,
+    );
+    setLightTokens(tokenMaps.light!);
+    setDarkTokens(tokenMaps.dark!);
+
+    const contrastCheckResults = customThemeContrastChecker({
+      customThemeTokenMap:
+        colorMode === 'light' ? tokenMaps.light! : tokenMaps.dark!,
+      mode: colorMode,
+      themeRamp,
+    });
+    setContrastCheckResults(contrastCheckResults);
   }, [customTheme, colorMode]);
 
   const debouncedBrandColorChange = debounce((brandColor: HEX) => {
@@ -164,24 +148,25 @@ export default () => {
     [colorMode],
   );
 
-  const renderTokenColor = (value: number, darkValue?: number) => (
-    <code
-      style={{
-        // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-        backgroundColor: themeRamp[darkValue ?? value],
-        color:
-          getContrastRatio('#ffffff', themeRamp[darkValue ?? value]) >= 4.5
-            ? 'white'
-            : 'black',
-        borderRadius: '24px',
-        padding: '0 4px',
-        whiteSpace: 'nowrap',
-      }}
-    >
-      {darkValue === undefined ? 'Light: ' : 'Dark: '}
-      {`X${(darkValue ?? value) + 1}00`}
-    </code>
-  );
+  const renderTokenColor = (value: number | string, isLight?: boolean) => {
+    const color = typeof value === 'string' ? value : themeRamp[value];
+    const rampValue = typeof value === 'string' ? value : `X${value + 1}00`;
+    return (
+      <code
+        style={{
+          // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+          backgroundColor: color,
+          color: getContrastRatio('#ffffff', color) >= 4.5 ? 'white' : 'black',
+          borderRadius: '24px',
+          padding: '0 4px',
+          whiteSpace: 'nowrap',
+        }}
+      >
+        {isLight ? 'Light: ' : 'Dark: '}
+        {rampValue}
+      </code>
+    );
+  };
 
   return (
     <Box padding="space.200" testId="custom-theming">
@@ -242,13 +227,38 @@ export default () => {
                 }}
               >
                 {colorString === customTheme.brandColor && (
-                  <p css={brandColorTextStyles}>Brand</p>
+                  <Box
+                    as="p"
+                    xcss={xcss({
+                      width: '100%',
+                      paddingTop: 8,
+                      position: 'absolute',
+                      top: 'space.0',
+                      transition: 'all 0.2s',
+                    })}
+                  >
+                    Brand
+                  </Box>
                 )}
                 <b>
                   X{i + 1}
                   00
                 </b>
-                <span css={colorTextStyles}>{colorString}</span>
+                <Box
+                  as="span"
+                  xcss={xcss({
+                    boxSizing: 'border-box',
+                    width: '100%',
+                    position: 'absolute',
+                    bottom: 'space.0',
+                    left: 'space.0',
+                    opacity: 0,
+                    textAlign: 'center',
+                    transition: 'all 0.3s',
+                  })}
+                >
+                  {colorString}
+                </Box>
               </div>
             ))}
           </Inline>
@@ -258,26 +268,22 @@ export default () => {
 
           {Object.entries(lightTokens).map(([tokenName, value]) => {
             return (
-              <div
+              <Box
                 key={tokenName}
-                style={{
-                  // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-                  padding: `${token('space.050', '4px')} ${token(
-                    'space.100',
-                    // eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
-                    '8px',
-                  )}`,
-                  borderRadius: '24px',
+                paddingInline="space.100"
+                paddingBlock="space.050"
+                xcss={xcss({
                   border: `1px solid ${token('color.border')}`,
                   width: 'fit-content',
-                }}
+                  borderRadius: 'border.radius.circle',
+                })}
               >
                 <Inline space="space.100">
-                  {renderTokenColor(value)}
-                  {renderTokenColor(value, darkTokens[tokenName])}
+                  {renderTokenColor(value, true)}
+                  {renderTokenColor(darkTokens[tokenName])}
                   <code>{tokenName}</code>
                 </Inline>
-              </div>
+              </Box>
             );
           })}
         </Stack>

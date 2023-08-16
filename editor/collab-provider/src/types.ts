@@ -2,9 +2,9 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Manager } from 'socket.io-client';
 import type { InternalError } from './errors/error-types';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { GetUserType } from './participants/participants-helper';
-import AnalyticsHelper from './analytics/analytics-helper';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { GetUserType } from './participants/participants-helper';
+import type AnalyticsHelper from './analytics/analytics-helper';
 import type {
   CollabInitPayload,
   StepJson,
@@ -39,6 +39,7 @@ export type {
   CollabEditProvider,
   NewCollabSyncUpErrorAttributes,
   SyncUpErrorFunction,
+  CollabEventLocalStepData,
 } from '@atlaskit/editor-common/collab';
 
 export interface CollabEventDisconnectedData {
@@ -50,10 +51,6 @@ export interface CollabEventDisconnectedData {
     | 'SOCKET_ERROR'
     | 'SOCKET_TIMEOUT'
     | 'UNKNOWN_DISCONNECT';
-}
-
-export interface CollabEventLocalStepData {
-  steps: Array<Step>;
 }
 
 // types from editor common end

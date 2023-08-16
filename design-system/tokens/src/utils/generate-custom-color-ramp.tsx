@@ -22,7 +22,7 @@ const highLuminanceContrastRatios = [
   1.08, 1.24, 1.55, 1.99, 2.45, 3.34, 4.64, 6.1, 10.19, 12.6,
 ];
 type Token = keyof typeof tokens;
-type TokenMap = { [key in Token]?: number };
+type TokenMap = { [key in Token]?: number | string };
 type Mode = 'light' | 'dark';
 
 export const getClosestColorIndex = (
@@ -46,7 +46,9 @@ export const getClosestColorIndex = (
   return closestColorIndex;
 };
 
-export const generateColors = (brandColor: CSSColor): CSSColor[] => {
+export const generateColors = (
+  brandColor: CSSColor,
+): { ramp: CSSColor[]; replacedColor: CSSColor } => {
   // Determine luminance
   const HSLBrandColorHue = hexToHSL(brandColor)[0];
   const baseRgb = HSLToRGB(HSLBrandColorHue, 100, 60);
@@ -81,7 +83,12 @@ export const generateColors = (brandColor: CSSColor): CSSColor[] => {
   // Replace closet color with brandColor
   const updatedThemeRamp = [...themeRamp];
   updatedThemeRamp[closestColorIndex] = brandColor;
-  return updatedThemeRamp;
+
+  return {
+    ramp: updatedThemeRamp,
+    // add the replaced color into the result
+    replacedColor: themeRamp[closestColorIndex],
+  };
 };
 
 /**
@@ -113,7 +120,8 @@ export const generateTokenMap = (
   mode: ThemeColorModes,
   themeRamp?: CSSColor[],
 ): { [mode in Mode]?: TokenMap } => {
-  const colors = themeRamp || generateColors(brandColor);
+  const { ramp, replacedColor } = generateColors(brandColor);
+  const colors = themeRamp || ramp;
   const closestColorIndex = getClosestColorIndex(colors, brandColor);
 
   let customThemeTokenMapLight: TokenMap = {};
@@ -130,6 +138,17 @@ export const generateTokenMap = (
     const [brandBoldSelectedHoveredIndex, brandBoldSelectedPressedIndex] =
       getInteractionStates(closestColorIndex, 2, colors);
 
+    let brandTextIndex = closestColorIndex;
+    if (
+      inputContrast < 5.4 &&
+      inputContrast >= 4.8 &&
+      closestColorIndex === 6
+    ) {
+      // Use the one-level darker closest color (X800) for color.text.brand
+      // and color.link to avoid contrast breaches
+      brandTextIndex = closestColorIndex + 1;
+    }
+
     /**
      * Generate interaction token for color.link:
      * If inputted color replaces X1000
@@ -138,10 +157,10 @@ export const generateTokenMap = (
      * If inputted color replaces X700-X900
      * - Shift one 1 step darker
      */
-    const [linkPressed] = getInteractionStates(closestColorIndex, 1, colors);
+    const [linkPressed] = getInteractionStates(brandTextIndex, 1, colors);
 
     customThemeTokenMapLight = {
-      'color.text.brand': closestColorIndex,
+      'color.text.brand': brandTextIndex,
       'color.icon.brand': closestColorIndex,
       'color.background.brand.subtlest': 0,
       'color.background.brand.subtlest.hovered': 1,
@@ -153,13 +172,13 @@ export const generateTokenMap = (
       'color.background.brand.boldest.hovered': 8,
       'color.background.brand.boldest.pressed': 7,
       'color.border.brand': closestColorIndex,
-      'color.text.selected': closestColorIndex,
+      'color.text.selected': brandTextIndex,
       'color.icon.selected': closestColorIndex,
       'color.background.selected.bold': closestColorIndex,
       'color.background.selected.bold.hovered': brandBoldSelectedHoveredIndex,
       'color.background.selected.bold.pressed': brandBoldSelectedPressedIndex,
       'color.border.selected': closestColorIndex,
-      'color.link': closestColorIndex,
+      'color.link': brandTextIndex,
       'color.link.pressed': linkPressed,
       'color.chart.brand': 5,
       'color.chart.brand.hovered': 6,
@@ -168,18 +187,26 @@ export const generateTokenMap = (
       'color.background.selected.pressed': 2,
     };
   } else {
+    let brandBackgroundIndex: CSSColor | number = 6;
+    if (inputContrast < 4.5 && inputContrast >= 4 && closestColorIndex === 6) {
+      // Use the generated closest color instead of the input brand color for
+      // color.background.selected.bold and color.background.brand.bold
+      // to avoid contrast breaches
+      brandBackgroundIndex = replacedColor;
+    }
+
     customThemeTokenMapLight = {
       'color.background.brand.subtlest': 0,
       'color.background.brand.subtlest.hovered': 1,
       'color.background.brand.subtlest.pressed': 2,
-      'color.background.brand.bold': 6,
+      'color.background.brand.bold': brandBackgroundIndex,
       'color.background.brand.bold.hovered': 7,
       'color.background.brand.bold.pressed': 8,
       'color.background.brand.boldest': 9,
       'color.background.brand.boldest.hovered': 8,
       'color.background.brand.boldest.pressed': 7,
       'color.border.brand': 6,
-      'color.background.selected.bold': 6,
+      'color.background.selected.bold': brandBackgroundIndex,
       'color.background.selected.bold.hovered': 7,
       'color.background.selected.bold.pressed': 8,
       'color.text.brand': 6,
@@ -205,7 +232,8 @@ export const generateTokenMap = (
    * Generate dark mode values using rule of symmetry
    */
   Object.entries(customThemeTokenMapLight).forEach(([key, value]) => {
-    customThemeTokenMapDark[key as Token] = 9 - value;
+    customThemeTokenMapDark[key as Token] =
+      9 - (typeof value === 'string' ? closestColorIndex : value);
   });
 
   /**
@@ -240,7 +268,7 @@ export const generateTokenMapWithContrastCheck = (
   mode: ThemeColorModes,
   themeRamp?: CSSColor[],
 ): { [mode in Mode]?: TokenMap } => {
-  const colors = themeRamp || generateColors(brandColor);
+  const colors = themeRamp || generateColors(brandColor).ramp;
   const tokenMaps = generateTokenMap(brandColor, mode, colors);
 
   const result: { [mode in Mode]?: TokenMap } = {};

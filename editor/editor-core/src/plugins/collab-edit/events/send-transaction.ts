@@ -1,7 +1,7 @@
 import type {
   CollabEditProvider,
   CollabTelepointerPayload,
-} from '@atlaskit/collab-provider';
+} from '@atlaskit/editor-common/collab';
 import type {
   Transaction,
   EditorState,

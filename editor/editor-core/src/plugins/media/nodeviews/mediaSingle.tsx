@@ -35,6 +35,7 @@ import type {
   ForwardRef,
 } from '../../../nodeviews/';
 import { setNodeSelection, setTextSelection } from '../../../utils';
+import { getParentWidthForNestedMediaSingleNode } from '../utils/media-single';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import type { EventDispatcher } from '../../../event-dispatcher';
@@ -314,7 +315,7 @@ export default class MediaSingleNode extends Component<
 
     const contentWidthForLegacyExperience =
       this.getLineLength(view, getPos()) || lineLength;
-    const contentWidth = this.getLineLength(view, getPos(), true) || lineLength;
+    const contentWidth = this.getLineLengthNext(view, getPos()) || lineLength;
 
     const mediaSingleProps = {
       layout,
@@ -421,7 +422,6 @@ export default class MediaSingleNode extends Component<
    * Get parent width for a nested media single node
    * @param view Editor view
    * @param pos node position
-   * @param includeMoreParentNodeTypes should consider table and list as parent nodes(only true for new experience)
    */
   private getLineLength = (
     view: EditorView,
@@ -431,7 +431,7 @@ export default class MediaSingleNode extends Component<
     if (typeof pos !== 'number') {
       return null;
     }
-    if (isRichMediaInsideOfBlockNode(view, pos, includeMoreParentNodeTypes)) {
+    if (isRichMediaInsideOfBlockNode(view, pos)) {
       const $pos = view.state.doc.resolve(pos);
       const domNode = view.nodeDOM($pos.pos);
 
@@ -447,6 +447,26 @@ export default class MediaSingleNode extends Component<
       if (domNode instanceof HTMLElement) {
         return domNode.offsetWidth;
       }
+    }
+
+    return null;
+  };
+
+  /**
+   * Get parent width for a nested media single node for new experience
+   * @param view Editor view
+   * @param pos node position
+   */
+  private getLineLengthNext = (
+    view: EditorView,
+    pos: number | undefined,
+  ): number | null => {
+    if (typeof pos !== 'number') {
+      return null;
+    }
+    const $pos = view.state.doc.resolve(pos);
+    if ($pos && $pos.parent.type.name !== 'doc') {
+      return getParentWidthForNestedMediaSingleNode($pos, view);
     }
 
     return null;
@@ -506,6 +526,10 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
       // workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
       // see also: https://github.com/ProseMirror/prosemirror/issues/884
       domRef.contentEditable = 'true';
+    }
+
+    if (getBooleanFF('platform.editor.media.extended-resize-experience')) {
+      domRef.classList.add('media-extended-resize-experience');
     }
     return domRef;
   }

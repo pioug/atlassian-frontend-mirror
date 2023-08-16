@@ -2,7 +2,7 @@ import AndroidBridge from './android-impl';
 import IosBridge from './ios-impl';
 import DummyBridge from './dummy-impl';
 import WebBridge from './web-impl';
-import NativeBridge from './bridge';
+import type NativeBridge from './bridge';
 import { IS_DEV, IS_TEST, IS_ATLASKIT } from '../../utils';
 
 export type { EditorBridges, EditorBridgeNames } from './bridge';

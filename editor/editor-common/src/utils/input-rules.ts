@@ -9,12 +9,9 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { canJoin, findWrapping } from '@atlaskit/editor-prosemirror/transform';
 
-import {
-  type AnalyticsEventPayload,
-  type EditorAnalyticsAPI,
-  JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
-} from '../analytics';
-import { InputRuleHandler, InputRuleWrapper } from '../types';
+import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '../analytics';
+import { JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST } from '../analytics';
+import type { InputRuleHandler, InputRuleWrapper } from '../types';
 
 type GetPayload =
   | AnalyticsEventPayload

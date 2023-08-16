@@ -10,7 +10,6 @@ import {
   akEditorFullWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
-import { calcMediaSingleMaxWidth } from '../../media-single';
 import { nonWrappedLayouts } from '../../utils';
 import { calcBreakoutWidth, calcWideWidth } from '../../utils/breakout';
 
@@ -97,17 +96,6 @@ function calcMaxWidth(layout: MediaSingleLayout, containerWidth: number) {
       return '100%';
   }
 }
-
-const getEffectiveFullWidth = (
-  containerWidth: number,
-  fullWidthMode: boolean | undefined,
-) => {
-  if (fullWidthMode) {
-    return '100%';
-  }
-
-  return `${calcMediaSingleMaxWidth(containerWidth)}px`;
-};
 
 function calcMargin(layout: MediaSingleLayout): string {
   switch (layout) {
@@ -206,16 +194,7 @@ export const MediaSingleDimensionHelper = ({
       nonWrappedLayouts.includes(layout) &&
       `margin-left: 50%;
       transform: translateX(-50%);`
-    }
-
-    // override min-width to counteract max-width set by ResizerNext inline style
-    ${
-      layout === 'full-width' &&
-      `min-width: ${getEffectiveFullWidth(
-        containerWidth,
-        fullWidthMode,
-      )} !important;`
-    };`}
+    }`}
   }
 
   float: ${float(layout)};

@@ -3,13 +3,17 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import * as keymaps from '../../../../keymaps';
 import { openMediaAltTextMenu, closeMediaAltTextMenu } from './commands';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
-export default function keymapPlugin(schema: Schema): SafePlugin {
+export default function keymapPlugin(
+  schema: Schema,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+): SafePlugin {
   const list = {};
 
   keymaps.bindKeymapWithCommand(
     keymaps.addAltText.common!,
-    openMediaAltTextMenu,
+    openMediaAltTextMenu(editorAnalyticsAPI),
     list,
   );
 

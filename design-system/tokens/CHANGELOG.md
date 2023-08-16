@@ -1,5 +1,11 @@
 # @atlaskit/tokens
 
+## 1.14.1
+
+### Patch Changes
+
+- [`b423f118bb8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/b423f118bb8) - Adjusted color generation system for custom theming to improve accessibility.
+
 ## 1.14.0
 
 ### Minor Changes

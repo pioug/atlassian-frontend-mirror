@@ -48,9 +48,7 @@ const PopupContent: FC = () => {
         )}
         offset={[0, 12]}
         trigger={(triggerProps) => (
-          // TODO: Use a button instead of an a (DSP-11749)
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-          <a
+          <Button
             id="popup-trigger"
             {...triggerProps}
             // @ts-ignore
@@ -58,7 +56,7 @@ const PopupContent: FC = () => {
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? 'Close' : 'Open'} Popup
-          </a>
+          </Button>
         )}
       />
       <OtherItems />

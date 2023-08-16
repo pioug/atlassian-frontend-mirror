@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 0.33.12
+
+### Patch Changes
+
+- [`0aadfa0dc26`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0aadfa0dc26) - Fix double loading inside table view
+
+## 0.33.11
+
+### Patch Changes
+
+- [`d6c7bae4615`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d6c7bae4615) - [ux] Insert button correctly displays without plural for single object
+
+## 0.33.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.33.9
 
 ### Patch Changes

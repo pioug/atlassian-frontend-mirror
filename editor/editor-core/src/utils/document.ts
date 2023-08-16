@@ -1,8 +1,4 @@
-import type {
-  Node,
-  Schema,
-  ResolvedPos,
-} from '@atlaskit/editor-prosemirror/model';
+import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type {
   Transaction,
@@ -11,7 +7,6 @@ import type {
   TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
 
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
   Transformer,
@@ -26,6 +21,8 @@ import {
   getStepRange,
   isEmptyParagraph,
 } from '@atlaskit/editor-common/utils';
+
+export { findFarthestParentNode } from '@atlaskit/editor-common/utils';
 
 /**
  * Checks if a node has any content. Ignores node that only contain empty block nodes.
@@ -110,29 +107,6 @@ export function processRawFragmentValue(
 
   return Fragment.from(adfEntities);
 }
-
-/**
- * Find the farthest node given a condition
- * @param predicate Function to check the node
- */
-export const findFarthestParentNode =
-  (predicate: (node: Node) => boolean) =>
-  ($pos: ResolvedPos): ContentNodeWithPos | null => {
-    let candidate: ContentNodeWithPos | null = null;
-
-    for (let i = $pos.depth; i > 0; i--) {
-      const node = $pos.node(i);
-      if (predicate(node)) {
-        candidate = {
-          pos: i > 0 ? $pos.before(i) : 0,
-          start: $pos.start(i),
-          depth: i,
-          node,
-        };
-      }
-    }
-    return candidate;
-  };
 
 export const isSelectionEndOfParagraph = (state: EditorState): boolean =>
   state.selection.$to.parent.type === state.schema.nodes.paragraph &&

@@ -1,5 +1,5 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { getBreakoutModeFromTargetNode, isLeftCursor } from '../utils';
+import { getLayoutModeFromTargetNode, isLeftCursor } from '../utils';
 import type { GapCursorSelection } from '../selection';
 import { Side } from '../selection';
 
@@ -110,9 +110,10 @@ export const toDOM = (view: EditorView, getPos: () => number | undefined) => {
       gapCursor.style.marginTop = style.getPropertyValue('margin-top');
     }
 
-    const breakoutMode = node && getBreakoutModeFromTargetNode(node);
-    if (breakoutMode) {
-      gapCursor.setAttribute('layout', breakoutMode);
+    const layoutMode = node && getLayoutModeFromTargetNode(node);
+
+    if (layoutMode) {
+      gapCursor.setAttribute('layout', layoutMode);
       gapCursor.style.width = `${measureWidth(style)}px`;
     } else {
       mutateElementStyle(gapCursor, style, selection.side);

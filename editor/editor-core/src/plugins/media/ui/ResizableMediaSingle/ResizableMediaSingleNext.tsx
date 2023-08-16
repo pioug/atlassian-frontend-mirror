@@ -49,6 +49,7 @@ import {
 import {
   MEDIA_SINGLE_MIN_PIXEL_WIDTH,
   MEDIA_SINGLE_SNAP_GAP,
+  MEDIA_SINGLE_RESIZE_THROTTLE_TIME,
   calculateOffsetLeft,
   DEFAULT_IMAGE_WIDTH,
   calcMediaSingleMaxWidth,
@@ -65,6 +66,11 @@ import type {
   GuidelineSnapsReference,
 } from '@atlaskit/editor-common/guideline';
 import memoizeOne from 'memoize-one';
+import throttle from 'lodash/throttle';
+import {
+  MEDIA_PLUGIN_IS_RESIZING_KEY,
+  MEDIA_PLUGIN_RESIZING_WIDTH_KEY,
+} from '../../pm-plugins/main';
 
 type State = {
   offsetLeft: number;
@@ -182,6 +188,23 @@ class ResizableMediaSingleNext extends React.Component<
       });
     }
 
+    if (
+      this.props.layout === 'full-width' &&
+      !this.isNestedNode() &&
+      prevProps.containerWidth !== this.props.containerWidth
+    ) {
+      // To achieve edge-to-edge for full-width, we need to update its width according to containerWidth
+      // Update state to allow resizer to get most up-to-date width to avoid jumping when start resizing
+      this.setState((prevState) => {
+        return {
+          size: {
+            width: calcMediaSingleMaxWidth(this.props.containerWidth),
+            height: prevState.size.height,
+          },
+        };
+      });
+    }
+
     return true;
   }
 
@@ -267,6 +290,7 @@ class ResizableMediaSingleNext extends React.Component<
       view: { state },
       containerWidth,
       lineLength,
+      fullWidthMode,
     } = this.props;
 
     const newPct = calcPctFromPx(newWidth, this.props.lineLength) * 100;
@@ -276,7 +300,12 @@ class ResizableMediaSingleNext extends React.Component<
       state.schema.nodes.table,
     )(state.selection)
       ? layout
-      : this.calcUnwrappedLayout(newWidth, containerWidth, lineLength);
+      : this.calcUnwrappedLayout(
+          newWidth,
+          containerWidth,
+          lineLength,
+          fullWidthMode,
+        );
 
     if (newPct <= 100) {
       if (this.wrappedLayout && (stop ? newPct !== 100 : true)) {
@@ -298,7 +327,15 @@ class ResizableMediaSingleNext extends React.Component<
     width: number,
     containerWidth: number,
     contentWidth: number,
+    fullWidthMode?: boolean,
   ): 'center' | 'wide' | 'full-width' => {
+    if (fullWidthMode) {
+      if (width < contentWidth) {
+        return 'center';
+      }
+      return 'full-width';
+    }
+
     if (width <= contentWidth) {
       return 'center';
     }
@@ -395,7 +432,14 @@ class ResizableMediaSingleNext extends React.Component<
   private setIsResizing = (isResizing: boolean) => {
     const { state, dispatch } = this.props.view;
     const tr = state.tr;
-    tr.setMeta('mediaSinglePlugin.isResizing', isResizing);
+    tr.setMeta(MEDIA_PLUGIN_IS_RESIZING_KEY, isResizing);
+    return dispatch(tr);
+  };
+
+  private updateSizeInPluginState = (width: number | null) => {
+    const { state, dispatch } = this.props.view;
+    const tr = state.tr;
+    tr.setMeta(MEDIA_PLUGIN_RESIZING_WIDTH_KEY, width);
     return dispatch(tr);
   };
 
@@ -480,12 +524,13 @@ class ResizableMediaSingleNext extends React.Component<
     this.setState({ isResizing: true });
     this.selectCurrentMediaNode();
     this.setIsResizing(true);
+    this.updateSizeInPluginState(this.state.size.width);
     // re-calucate guidelines
     this.guidelines = this.getAllGuidelines();
     return 0;
   };
 
-  handleResize: HandleResize = (size, delta) => {
+  handleResize: HandleResize = throttle((size, delta) => {
     const {
       width: originalWidth,
       height: originalHeight,
@@ -512,10 +557,12 @@ class ResizableMediaSingleNext extends React.Component<
       snaps: guidelineSnaps.snaps,
     });
 
+    this.updateSizeInPluginState(width);
+
     if (calculatedWidthWithLayout.layout !== layout) {
       updateSize(width, calculatedWidthWithLayout.layout);
     }
-  };
+  }, MEDIA_SINGLE_RESIZE_THROTTLE_TIME);
 
   handleResizeStop: HandleResize = (size, delta) => {
     const {

@@ -1,5 +1,11 @@
 # @atlaskit/media-viewer
 
+## 48.0.8
+
+### Patch Changes
+
+- [`5953474fd5f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5953474fd5f) - [ux] [MEX-2514] Prevent the body (i.e. the background) from scrolling when Media Viewer is open to improve the user experience
+
 ## 48.0.7
 
 ### Patch Changes

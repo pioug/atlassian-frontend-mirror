@@ -49,7 +49,7 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/util/combine';
 _Draggables_, _drop targets_ and _monitors_ return a cleanup function.
 
 ```ts
-import { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
+import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
 
 const cleanup: CleanupFn = draggable({ element: myElement });

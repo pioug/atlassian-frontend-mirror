@@ -24,7 +24,7 @@ import { grinEmoji } from '@atlaskit/util-data-test/emoji-samples';
 import listPlugin from '../..';
 import blockTypePlugin from '../../../block-type';
 import codeBlockTypePlugin from '../../../code-block';
-import emojiPlugin, { emojiPluginKey } from '../../../emoji';
+import { emojiPlugin, emojiPluginKey } from '../../../emoji';
 import panelPlugin from '../../../panel';
 import floatingToolbarPlugin from '../../../floating-toolbar';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';

@@ -32,7 +32,6 @@ import {
 } from '../analytics';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { emojiPluginKey } from '../emoji';
 import { G75 } from '@atlaskit/theme/colors';
 import type { EmojiId } from '@atlaskit/emoji';
 import { decorationsPlugin } from '@atlaskit/editor-plugin-decorations';
@@ -364,7 +363,6 @@ describe('getToolbarItems', () => {
           .add([analyticsPlugin, { createAnalyticsEvent }])
           .add([deprecatedAnalyticsPlugin, { createAnalyticsEvent }]),
         providerFactory,
-        pluginKey: emojiPluginKey,
       }));
     });
 

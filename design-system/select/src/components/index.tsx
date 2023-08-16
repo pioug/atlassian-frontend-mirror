@@ -10,13 +10,13 @@ export {
   LoadingIndicator,
 } from './indicators';
 
-const disabledProps = css`
-  display: none;
-`;
+const disabledStyles = css({
+  display: 'none',
+});
 
-const enabledProps = css`
-  display: inherit;
-`;
+const enabledStyles = css({
+  display: 'inherit',
+});
 
 export const MultiValueRemove = (props: MultiValueRemoveProps<any>) => {
   const { isDisabled } = props.selectProps;
@@ -24,7 +24,7 @@ export const MultiValueRemove = (props: MultiValueRemoveProps<any>) => {
   return (
     <components.MultiValueRemove {...props}>
       <div
-        css={isDisabled ? disabledProps : enabledProps}
+        css={isDisabled ? disabledStyles : enabledStyles}
         data-testid={isDisabled ? 'hide-clear-icon' : 'show-clear-icon'}
       >
         <SelectClearIcon

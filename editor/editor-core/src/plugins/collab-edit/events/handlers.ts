@@ -8,7 +8,7 @@ import type {
   CollabEventRemoteData,
   CollabEventLocalStepData,
   CollabEditProvider,
-} from '@atlaskit/collab-provider';
+} from '@atlaskit/editor-common/collab';
 
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 

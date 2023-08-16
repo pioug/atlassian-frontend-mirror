@@ -9,7 +9,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
-import type { Command } from '../types';
+import type { PluginCommand } from '../types';
 
 const SMART_TO_ASCII = {
   '…': '...',
@@ -184,19 +184,18 @@ const entireSelectionContainsMark = (
 };
 
 const toggleMarkInRange =
-  (mark: Mark): Command =>
-  (state, dispatch) => {
-    const { tr } = state;
-    if (state.selection instanceof CellSelection) {
+  (mark: Mark): PluginCommand =>
+  ({ tr }) => {
+    if (tr.selection instanceof CellSelection) {
       let removeMark = true;
       const cells: { node: PMNode; pos: number }[] = [];
-      state.selection.forEachCell((cell, cellPos) => {
+      tr.selection.forEachCell((cell, cellPos) => {
         cells.push({ node: cell, pos: cellPos });
         const from = cellPos;
         const to = cellPos + cell.nodeSize;
 
         removeMark &&
-          (removeMark = entireSelectionContainsMark(mark, state.doc, from, to));
+          (removeMark = entireSelectionContainsMark(mark, tr.doc, from, to));
       });
 
       for (let i = cells.length - 1; i >= 0; i--) {
@@ -207,7 +206,7 @@ const toggleMarkInRange =
         applyMarkOnRange(from, to, removeMark, mark, tr);
       }
     } else {
-      const { $from, $to } = state.selection;
+      const { $from, $to } = tr.selection;
       // We decide to remove the mark only if the entire selection contains the mark
       // Examples with *bold* text
       // Scenario 1: Selection contains both bold and non-bold text -> bold entire selection
@@ -215,7 +214,7 @@ const toggleMarkInRange =
       // Scenario 3: Selection contains no bold text -> bold entire selection
       const removeMark = entireSelectionContainsMark(
         mark,
-        state.doc,
+        tr.doc,
         $from.pos,
         $to.pos,
       );
@@ -224,42 +223,33 @@ const toggleMarkInRange =
     }
 
     if (tr.docChanged) {
-      if (dispatch) {
-        dispatch(tr);
-      }
-      return true;
+      return tr;
     }
 
-    return false;
+    return null;
   };
 
 /**
- * A wrapper over the default toggleMark, except when we have a selection
- * we only toggle marks on text nodes rather than inline nodes.
+ * A custom version of the ProseMirror toggleMark, where we only toggle marks
+ * on text nodes in the selection rather than all inline nodes.
  * @param markType
  * @param attrs
  */
 export const toggleMark =
-  (markType: MarkType, attrs?: { [key: string]: any }): Command =>
-  (state, dispatch) => {
+  (markType: MarkType, attrs?: { [key: string]: any }): PluginCommand =>
+  ({ tr }) => {
     const mark = markType.create(attrs);
 
     // For cursor selections we can use the default behaviour.
-    if (state.selection instanceof TextSelection && state.selection.$cursor) {
-      const { tr } = state;
-      if (mark.isInSet(state.storedMarks || state.selection.$cursor.marks())) {
+    if (tr.selection instanceof TextSelection && tr.selection.$cursor) {
+      if (mark.isInSet(tr.storedMarks || tr.selection.$cursor.marks())) {
         tr.removeStoredMark(mark);
       } else {
         tr.addStoredMark(mark);
       }
 
-      if (dispatch) {
-        dispatch(tr);
-        return true;
-      }
-
-      return false;
+      return tr;
     }
 
-    return toggleMarkInRange(mark)(state, dispatch);
+    return toggleMarkInRange(mark)({ tr });
   };

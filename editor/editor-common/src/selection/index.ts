@@ -10,4 +10,13 @@ export {
 
 export { isIgnored, isValidTargetNode } from './gap-cursor/utils';
 
-export { isSelectionAtStartOfNode, isSelectionAtEndOfNode } from './utils';
+export {
+  atTheBeginningOfBlock,
+  atTheBeginningOfDoc,
+  atTheEndOfBlock,
+  atTheEndOfDoc,
+  endPositionOfParent,
+  isSelectionAtEndOfNode,
+  isSelectionAtStartOfNode,
+  startPositionOfParent,
+} from './utils';

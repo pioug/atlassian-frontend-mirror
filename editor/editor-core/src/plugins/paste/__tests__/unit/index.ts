@@ -24,10 +24,12 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
 
 describe('Paste plugin', () => {
   const createEditor = createProsemirrorEditorFactory();
   let editorView: EditorView;
+  let pluginInjectionAPI: EditorPluginInjectionAPI;
 
   const editor = (doc: DocBuilder) =>
     createEditor({
@@ -44,7 +46,7 @@ describe('Paste plugin', () => {
 
   describe('With plain text link pasting', () => {
     beforeEach(() => {
-      ({ editorView } = editor(doc(p('{<>}'))));
+      ({ editorView, pluginInjectionAPI } = editor(doc(p('{<>}'))));
     });
 
     describe('cmd+shift+v', () => {
@@ -67,7 +69,8 @@ describe('Paste plugin', () => {
 
         it('preserves current formatting when pasting (ie. removes formatting, applies active formatting)', () => {
           const { strong } = editorView.state.schema.marks;
-          toggleMark(strong)(editorView.state, editorView.dispatch);
+
+          pluginInjectionAPI.api().executeCommand(toggleMark(strong));
           paste();
           expect(editorView.state.doc).toMatchSnapshot();
         });
@@ -95,7 +98,7 @@ describe('Paste plugin', () => {
         it('preserves current formatting when pasting, creates hyperlink (ie. removes formatting, applies active formatting)', () => {
           // This does not test that it doesn't create a *smart* link.
           const { strong } = editorView.state.schema.marks;
-          toggleMark(strong)(editorView.state, editorView.dispatch);
+          pluginInjectionAPI.api().executeCommand(toggleMark(strong));
           paste();
           expect(editorView.state.doc).toMatchSnapshot();
         });

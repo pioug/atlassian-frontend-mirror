@@ -1,4 +1,3 @@
-import { render, waitFor } from '@testing-library/react';
 import * as ProseMirrorUtils from '@atlaskit/editor-prosemirror/utils';
 import React from 'react';
 import { shallow } from 'enzyme';
@@ -21,7 +20,6 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 import { focusPlugin } from '@atlaskit/editor-plugin-focus';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('@atlaskit/editor-prosemirror/utils', () => {
   // Unblock prosemirror bump:
@@ -61,10 +59,7 @@ import {
   nextTick,
 } from '@atlaskit/media-test-helpers';
 import ResizableMediaSingle from '../../index';
-import ResizableMediaSingleNext, {
-  resizerNextTestId,
-} from '../../ResizableMediaSingleNext';
-import type { Props } from '../../types';
+
 import { Resizer } from '@atlaskit/editor-common/ui';
 import layoutPlugin from '../../../../../../plugins/layout';
 import mediaPlugin from '../../../../../../plugins/media';
@@ -216,204 +211,5 @@ describe('<ResizableMediaSingle />', () => {
     resizableMediaSingle.setProps({ pctWidth: 100 });
     resizableMediaSingle.update();
     expect(resizableMediaSingle.state('resizedPctWidth')).toBe(100);
-  });
-});
-
-const setup = (
-  customProps?: Partial<Props>,
-  document: CreatePMEditorOptions['doc'] = defaultDocument,
-) => {
-  const { editorView } = getEditorView(document);
-
-  return render(
-    <ResizableMediaSingleNext
-      updateSize={jest.fn()}
-      getPos={jest.fn().mockReturnValue(0)}
-      view={editorView}
-      lineLength={760}
-      gridSize={12}
-      containerWidth={1680}
-      layout={'center'}
-      width={1200}
-      height={1000}
-      selected={true}
-      dispatchAnalyticsEvent={jest.fn()}
-      pluginInjectionApi={undefined}
-      {...customProps}
-    >
-      <div></div>
-    </ResizableMediaSingleNext>,
-  );
-};
-
-describe('non-nested <ResizableMediaSingleNext /> should be responsive', () => {
-  const testResponsiveness = (
-    mediaSingleWidth: number,
-    containerWidth: number,
-    customProps?: Partial<Props>,
-  ) => {
-    const { getByTestId } = setup({
-      mediaSingleWidth,
-      containerWidth,
-      lineLength: Math.min(containerWidth - 64, 760),
-      ...customProps,
-    });
-    const resizer = getByTestId(resizerNextTestId);
-    const style = window.getComputedStyle(resizer);
-    expect(style.width).toBe(`${mediaSingleWidth}px`);
-    waitFor(() => {
-      expect(style.maxWidth).toBe(
-        `${Math.min(mediaSingleWidth, containerWidth - 64)}px`,
-      );
-    });
-  };
-
-  describe('when it is center layout and wide viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(600, 1800);
-    });
-  });
-
-  describe('when it is center layout and narrow viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(600, 464);
-    });
-  });
-
-  describe('when it is wide layout and wide viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(880, 1800);
-    });
-  });
-
-  describe('when it is wide layout and narrow viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(880, 600);
-    });
-  });
-
-  describe('when it is align-start layout and wide viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(600, 1800, { layout: 'align-start' });
-    });
-  });
-
-  describe('when it is align-start layout and narrow viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(600, 400, { layout: 'align-start' });
-    });
-  });
-
-  describe('when it is align-end layout and wide viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(600, 1800, { layout: 'align-end' });
-    });
-  });
-
-  describe('when it is align-end layout and narrow viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(600, 400, { layout: 'align-end' });
-    });
-  });
-
-  describe('when it is wrap-left layout and wide viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(600, 1800, { layout: 'wrap-left' });
-    });
-  });
-
-  describe('when it is wrap-left layout and narrow viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(600, 400, { layout: 'wrap-left' });
-    });
-  });
-
-  describe('when it is wrap-right layout and wide viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(600, 1800, { layout: 'wrap-right' });
-    });
-  });
-
-  describe('when it is wrap-right layout and narrow viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      testResponsiveness(600, 400, { layout: 'wrap-right' });
-    });
-  });
-
-  describe('when it is full-width layout and wide viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      const { getByTestId } = setup({
-        mediaSingleWidth: 1800,
-        containerWidth: 2480,
-        layout: 'full-width',
-      });
-      const resizer = getByTestId(resizerNextTestId);
-
-      const style = window.getComputedStyle(resizer);
-      waitFor(() => {
-        expect(style.width).toBe('1800px');
-        expect(style.minWidth).toBe(`1800px`);
-      });
-    });
-  });
-
-  describe('when it is full-width layout and narrow viewport', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      const { getByTestId } = setup({
-        mediaSingleWidth: 936,
-        containerWidth: 1000,
-        layout: 'full-width',
-      });
-      const resizer = getByTestId(resizerNextTestId);
-
-      const style = window.getComputedStyle(resizer);
-      expect(style.width).toBe('936px');
-      // Need to wait as min-width is override width !important
-      waitFor(() => {
-        expect(style.minWidth).toBe(`936px`);
-      });
-    });
-  });
-});
-
-describe('non-nested <ResizableMediaSingleNext /> should be responsive and smaller than parent node', () => {
-  let nestedNodeCheckSpy: jest.SpyInstance;
-  beforeEach(() => {
-    nestedNodeCheckSpy = jest
-      .spyOn(ResizableMediaSingleNext.prototype, 'isNestedNode')
-      .mockReturnValue(true);
-  });
-
-  afterEach(() => {
-    nestedNodeCheckSpy.mockRestore();
-  });
-
-  describe('when viewport is wide', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      const { getByTestId } = setup({
-        mediaSingleWidth: 600,
-        containerWidth: 1000,
-      });
-      const resizer = getByTestId(resizerNextTestId);
-
-      const style = window.getComputedStyle(resizer);
-      expect(style.width).toBe('600px');
-      expect(style.maxWidth).toBe('760px');
-    });
-  });
-
-  describe('when viewport is narrow', () => {
-    ffTest('platform.editor.media.extended-resize-experience', async () => {
-      const { getByTestId } = setup({
-        mediaSingleWidth: 600,
-        containerWidth: 400,
-        lineLength: 320,
-      });
-      const resizer = getByTestId(resizerNextTestId);
-
-      const style = window.getComputedStyle(resizer);
-      expect(style.width).toBe('600px');
-      expect(style.maxWidth).toBe('320px');
-    });
   });
 });

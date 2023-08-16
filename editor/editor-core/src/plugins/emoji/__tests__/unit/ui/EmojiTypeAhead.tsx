@@ -9,7 +9,7 @@ import {
 
 // Editor plugins
 import type { TypeAheadItem } from '../../../../type-ahead/types';
-import emojiPlugin, { emojiToTypeaheadItem, memoize } from '../../../';
+import { emojiPlugin, emojiToTypeaheadItem, memoize } from '../../../';
 import typeAheadPlugin from '../../../../type-ahead';
 import type { EmojiPluginOptions } from '../../../types';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

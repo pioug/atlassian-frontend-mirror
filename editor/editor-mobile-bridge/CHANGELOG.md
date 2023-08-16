@@ -1,5 +1,27 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.20.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.20.0
+
+### Minor Changes
+
+- [`43c51e0a282`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43c51e0a282) - [ED-19431] Migrate all text-formatting plugin actions over to plugin commands
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.19.0
 
 ### Patch Changes

@@ -20,8 +20,7 @@ import { pluginKey as layoutStateKey } from '../layout';
 import type { LayoutState } from '../layout/pm-plugins/types';
 import type { MacroState } from '../macro';
 import { insertMacroFromMacroBrowser } from '../macro';
-import { emojiPluginKey } from '../emoji';
-import type { EmojiPluginState } from '../emoji/types';
+import type { EmojiPlugin } from '../emoji';
 import WithPluginState from '../../ui/WithPluginState';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { pluginKey as typeAheadPluginKey } from '../type-ahead/pm-plugins/key';
@@ -94,6 +93,7 @@ const insertBlockPlugin: NextEditorPlugin<
       OptionalPlugin<typeof analyticsPlugin>,
       OptionalPlugin<ImageUploadPlugin>,
       OptionalPlugin<typeof mentionsPlugin>,
+      OptionalPlugin<EmojiPlugin>,
     ];
   }
 > = (options = {}, api?) => {
@@ -125,7 +125,6 @@ const insertBlockPlugin: NextEditorPlugin<
               blockTypeState: blockTypeStateKey,
               mediaState: mediaStateKey,
               macroState: macroStateKey,
-              emojiState: emojiPluginKey,
               placeholderTextState: placeholderTextStateKey,
               layoutState: layoutStateKey,
             }}
@@ -133,7 +132,6 @@ const insertBlockPlugin: NextEditorPlugin<
               blockTypeState,
               mediaState,
               macroState = {} as MacroState,
-              emojiState,
               placeholderTextState,
               layoutState,
             }) => (
@@ -154,7 +152,6 @@ const insertBlockPlugin: NextEditorPlugin<
                 blockTypeState={blockTypeState}
                 mediaState={mediaState}
                 macroState={macroState}
-                emojiState={emojiState}
                 placeholderTextState={placeholderTextState}
                 layoutState={layoutState}
                 providers={providers}
@@ -190,7 +187,6 @@ interface ToolbarInsertBlockWithInjectionApiProps
   blockTypeState: BlockTypeState | undefined;
   mediaState: MediaPluginState | undefined;
   macroState: MacroState;
-  emojiState: EmojiPluginState | undefined;
   placeholderTextState: PlaceholderTextPluginState | undefined;
   layoutState: LayoutState | undefined;
 }
@@ -213,19 +209,24 @@ function ToolbarInsertBlockWithInjectionApi({
   blockTypeState,
   mediaState,
   macroState,
-  emojiState,
   placeholderTextState,
   layoutState,
   featureFlags,
 }: ToolbarInsertBlockWithInjectionApiProps) {
   const buttons = toolbarSizeToButtons(toolbarSize);
-  const { dateState, hyperlinkState, imageUploadState, mentionState } =
-    useSharedPluginState(pluginInjectionApi, [
-      'hyperlink',
-      'date',
-      'imageUpload',
-      'mention',
-    ]);
+  const {
+    dateState,
+    hyperlinkState,
+    imageUploadState,
+    mentionState,
+    emojiState,
+  } = useSharedPluginState(pluginInjectionApi, [
+    'hyperlink',
+    'date',
+    'imageUpload',
+    'mention',
+    'emoji',
+  ]);
 
   return (
     <ToolbarInsertBlock

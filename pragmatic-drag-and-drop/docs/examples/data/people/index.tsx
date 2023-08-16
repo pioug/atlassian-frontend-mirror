@@ -125,22 +125,24 @@ export type ColumnType = {
 };
 export type ColumnMap = { [columnId: string]: ColumnType };
 
-export function getInitialData() {
+export function getInitialData(
+  { itemsPerColumn }: { itemsPerColumn: number } = { itemsPerColumn: 10 },
+) {
   const columnMap: ColumnMap = {
     confluence: {
       title: 'Confluence',
       columnId: 'confluence',
-      items: getPeople({ amount: 10 }),
+      items: getPeople({ amount: itemsPerColumn }),
     },
     jira: {
       title: 'Jira',
       columnId: 'jira',
-      items: getPeople({ amount: 10 }),
+      items: getPeople({ amount: itemsPerColumn }),
     },
     trello: {
       title: 'Trello',
       columnId: 'trello',
-      items: getPeople({ amount: 10 }),
+      items: getPeople({ amount: itemsPerColumn }),
     },
   };
 

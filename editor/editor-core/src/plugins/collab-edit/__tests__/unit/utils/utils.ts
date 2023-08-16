@@ -20,7 +20,7 @@ import {
   getPositionOfTelepointer,
   scrollToCollabCursor,
 } from '../../../utils';
-import type { CollabParticipant } from '@atlaskit/collab-provider';
+import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import { getValidPos } from '../../../plugin-state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';

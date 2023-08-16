@@ -24,8 +24,8 @@ import {
   toggleSubscriptWithAnalytics,
   toggleSuperscriptWithAnalytics,
   toggleUnderlineWithAnalytics,
-} from './actions';
-import type { ToggleMarkWithAnalyticsCommand } from './actions';
+} from './commands';
+import type { ToggleMarkPluginCommand } from './commands';
 import {
   plugin as clearFormattingPlugin,
   pluginKey as clearFormattingPluginKey,
@@ -46,14 +46,14 @@ export type TextFormattingPlugin = NextEditorPlugin<
   {
     pluginConfiguration: TextFormattingOptions | undefined;
     dependencies: [OptionalPlugin<typeof analyticsPlugin>];
-    actions: {
-      toggleSuperscript: ToggleMarkWithAnalyticsCommand;
-      toggleSubscript: ToggleMarkWithAnalyticsCommand;
-      toggleStrike: ToggleMarkWithAnalyticsCommand;
-      toggleCode: ToggleMarkWithAnalyticsCommand;
-      toggleUnderline: ToggleMarkWithAnalyticsCommand;
-      toggleEm: ToggleMarkWithAnalyticsCommand;
-      toggleStrong: ToggleMarkWithAnalyticsCommand;
+    commands: {
+      toggleSuperscript: ToggleMarkPluginCommand;
+      toggleSubscript: ToggleMarkPluginCommand;
+      toggleStrike: ToggleMarkPluginCommand;
+      toggleCode: ToggleMarkPluginCommand;
+      toggleUnderline: ToggleMarkPluginCommand;
+      toggleEm: ToggleMarkPluginCommand;
+      toggleStrong: ToggleMarkPluginCommand;
     };
   }
 >;
@@ -161,7 +161,7 @@ export const textFormattingPlugin: TextFormattingPlugin = (
     );
   },
 
-  actions: {
+  commands: {
     toggleSuperscript: toggleSuperscriptWithAnalytics(
       api?.dependencies.analytics?.actions,
     ),

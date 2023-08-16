@@ -19,11 +19,14 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { ClassNames } from '../pm-plugins/alt-text/style';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
 const testId = 'alt-text-edit-button';
 
 export const altTextButton = (
   intl: IntlShape,
   state: EditorState,
+  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ): FloatingToolbarButton<Command> => {
   const mediaNode = getMediaNodeFromSelection(state);
   const message =
@@ -33,7 +36,7 @@ export const altTextButton = (
     title,
     id: 'editor.media.altText',
     type: 'button',
-    onClick: openMediaAltTextMenu,
+    onClick: openMediaAltTextMenu(editorAnalyticsAPI),
     showTitle: true,
     testId,
     tooltipContent: <ToolTipContent description={title} keymap={addAltText} />,

@@ -164,11 +164,15 @@ describe('DatasourceTableView', () => {
     expect(getByTestId('table-footer')).toBeInTheDocument();
   });
 
+  it('should not call reset() on initial load (only when parameters change)', () => {
+    const { mockReset } = setup();
+    renderComponent();
+    expect(mockReset).not.toHaveBeenCalled();
+  });
+
   it('should call reset() when parameters change', () => {
     const { mockReset } = setup();
     const { rerender } = renderComponent();
-
-    expect(mockReset).toBeCalledTimes(1);
 
     const newParameters = {
       cloudId: 'new-cloud-id',
@@ -176,17 +180,19 @@ describe('DatasourceTableView', () => {
     };
 
     rerender(
-      <IntlProvider locale="en">
-        <DatasourceTableView
-          datasourceId={'some-datasource-id'}
-          parameters={newParameters}
-          visibleColumnKeys={['visible-column-1', 'visible-column-2']}
-          onVisibleColumnKeysChange={jest.fn()}
-        />
-      </IntlProvider>,
+      <AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
+        <IntlProvider locale="en">
+          <DatasourceTableView
+            datasourceId={'some-datasource-id'}
+            parameters={newParameters}
+            visibleColumnKeys={['visible-column-1', 'visible-column-2']}
+            onVisibleColumnKeysChange={jest.fn()}
+          />
+        </IntlProvider>
+      </AnalyticsListener>,
     );
 
-    expect(mockReset).toBeCalledTimes(2);
+    expect(mockReset).toBeCalledTimes(1);
   });
 
   it('should call reset() when refresh button is preset', () => {
@@ -206,13 +212,10 @@ describe('DatasourceTableView', () => {
       const { mockReset } = setup({ responseItems: [] });
       const { getByRole, getByText } = renderComponent();
 
-      // initial load will run reset
-      expect(mockReset).toHaveBeenCalledTimes(1);
-
       expect(getByText('No results found')).toBeInTheDocument();
 
       getByRole('button', { name: 'Refresh' }).click();
-      expect(mockReset).toHaveBeenCalledTimes(2);
+      expect(mockReset).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -221,13 +224,10 @@ describe('DatasourceTableView', () => {
       const { mockReset } = setup({ status: 'rejected' });
       const { getByRole, getByText } = renderComponent();
 
-      // initial load will run reset
-      expect(mockReset).toHaveBeenCalledTimes(1);
-
       expect(getByText('Unable to load issues')).toBeInTheDocument();
 
       getByRole('button', { name: 'Refresh' }).click();
-      expect(mockReset).toHaveBeenCalledTimes(2);
+      expect(mockReset).toHaveBeenCalledTimes(1);
     });
 
     it('should show an unauthorized message on 403 response', () => {

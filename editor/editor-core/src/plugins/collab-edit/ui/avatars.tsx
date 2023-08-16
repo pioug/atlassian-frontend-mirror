@@ -7,7 +7,7 @@ import AvatarGroup from '@atlaskit/avatar-group';
 import { avatarContainer } from './styles';
 import type { ReadOnlyParticipants } from '../participants';
 import toAvatar from './to-avatar';
-import type { CollabParticipant } from '@atlaskit/collab-provider';
+import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import { scrollToCollabCursor } from '../utils';
 import type { AnalyticsEvent } from '@atlaskit/analytics-next';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';

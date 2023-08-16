@@ -299,20 +299,16 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
         );
         const button = getByTestId(`editor-toolbar__${buttonName}`);
         fireEvent.click(button);
-        const expectedPayload = {
+
+        expect(attachAnalyticsEvent).toHaveBeenCalledWith({
           action: 'formatted',
           actionSubject: 'text',
           actionSubjectId,
           eventType: 'track',
-          attributes: expect.objectContaining({
+          attributes: {
             inputMethod: 'toolbar',
-          }),
-        };
-
-        expect(attachAnalyticsEvent).toHaveBeenCalledWith(
-          expectedPayload,
-          undefined,
-        );
+          },
+        });
       },
     );
 
@@ -365,10 +361,7 @@ describe('@atlaskit/editor-core/ui/Toolbar', () => {
           }),
         };
 
-        expect(attachAnalyticsEvent).toHaveBeenCalledWith(
-          expectedPayload,
-          undefined,
-        );
+        expect(attachAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
       },
     );
 

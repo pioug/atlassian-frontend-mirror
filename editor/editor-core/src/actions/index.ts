@@ -7,13 +7,14 @@ import { findParentNode, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
-import type { ResolvedEditorState } from '@atlaskit/collab-provider';
+import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import type {
   ContextUpdateHandler,
   EditorActionsOptions,
   ReplaceRawValue,
+  FeatureFlags,
+  Transformer,
 } from '@atlaskit/editor-common/types';
-import type { FeatureFlags, Transformer } from '@atlaskit/editor-common/types';
 import {
   analyticsEventKey,
   isEmptyDocument,

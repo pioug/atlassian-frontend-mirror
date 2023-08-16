@@ -6,16 +6,20 @@ import {
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
-  withAnalytics,
   ACTION_SUBJECT_ID,
   ACTION,
-} from '../../../analytics';
+} from '@atlaskit/editor-common/analytics';
+import type {
+  EditorAnalyticsAPI,
+  MediaAltTextActionType,
+} from '@atlaskit/editor-common/analytics';
 import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 
-import type { MediaAltTextActionType } from '../../../analytics/types/media-events';
+import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
+
 import type {
   OpenMediaAltTextMenu,
   CloseMediaAltTextMenu,
@@ -29,12 +33,13 @@ const createCommandWithAnalytics = (
   ) => false | OpenMediaAltTextMenu | CloseMediaAltTextMenu | UpdateAltText,
   transform?: (tr: Transaction, state: EditorState) => Transaction,
 ) => {
-  return withAnalytics({
-    action: actionType,
-    actionSubject: ACTION_SUBJECT.MEDIA,
-    actionSubjectId: ACTION_SUBJECT_ID.ALT_TEXT,
-    eventType: EVENT_TYPE.TRACK,
-  })(createCommand(action, transform));
+  return (editorAnalyticsAPI?: EditorAnalyticsAPI | undefined) =>
+    withAnalytics(editorAnalyticsAPI, {
+      action: actionType,
+      actionSubject: ACTION_SUBJECT.MEDIA,
+      actionSubjectId: ACTION_SUBJECT_ID.ALT_TEXT,
+      eventType: EVENT_TYPE.TRACK,
+    })(createCommand(action, transform));
 };
 
 export const closeMediaAltTextMenu = createCommand((state) => {

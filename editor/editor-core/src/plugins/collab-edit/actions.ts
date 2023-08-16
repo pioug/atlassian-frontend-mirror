@@ -17,7 +17,7 @@ import type {
   CollabEventPresenceData,
   CollabTelepointerPayload,
   CollabSendableSelection,
-} from '@atlaskit/collab-provider';
+} from '@atlaskit/editor-common/collab';
 
 import type { PrivateCollabEditOptions } from './types';
 

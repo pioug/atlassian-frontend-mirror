@@ -430,6 +430,7 @@ export function createPlugin(
             event,
             slice,
             isPastedFile ? PasteTypes.binary : PasteTypes.richText,
+            pluginInjectionApi?.dependencies?.analytics?.actions,
           )(state, dispatch, view)
         ) {
           return true;

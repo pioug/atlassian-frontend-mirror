@@ -1,8 +1,8 @@
 import type {
   CollabEditProvider,
   SyncUpErrorFunction,
-} from '@atlaskit/collab-provider';
-import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
+  CollabEditOptions,
+} from '@atlaskit/editor-common/collab';
 export type {
   InviteToEditComponentProps,
   InviteToEditButtonProps,

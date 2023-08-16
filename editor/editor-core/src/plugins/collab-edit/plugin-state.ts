@@ -11,7 +11,7 @@ import type {
   CollabEventConnectionData,
   CollabEventPresenceData,
   CollabTelepointerPayload,
-} from '@atlaskit/collab-provider';
+} from '@atlaskit/editor-common/collab';
 
 import type { ReadOnlyParticipants } from './participants';
 import { Participants } from './participants';

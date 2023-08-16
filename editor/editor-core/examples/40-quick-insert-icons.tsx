@@ -5,7 +5,13 @@ import {
   IconCode,
   IconDecision,
   IconDivider,
+  IconList,
+  IconListNumber,
+  IconQuote,
+  IconStatus,
 } from '@atlaskit/editor-common/quick-insert';
+
+import { IconTable } from '@atlaskit/editor-common/icons';
 
 const iconWrapper = {
   display: 'flex',
@@ -21,7 +27,17 @@ const iconWrapper = {
  * and that their colours correctly change when the theme is changed.
  */
 const QuickInsertIconsExample = () => {
-  const icons = [IconAction, IconCode, IconDecision, IconDivider];
+  const icons = [
+    IconAction,
+    IconCode,
+    IconDecision,
+    IconDivider,
+    IconList,
+    IconListNumber,
+    IconQuote,
+    IconStatus,
+    IconTable,
+  ];
   return (
     <div style={iconWrapper}>
       {icons.map((Icon, index) => (

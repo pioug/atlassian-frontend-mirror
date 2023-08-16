@@ -66,7 +66,9 @@ class NotificationIndicator extends Component<Props, State> {
     this.notificationLogProvider = await this.props.notificationLogProvider;
     this.refresh('mount');
     this.updateInterval();
-    document.addEventListener('visibilitychange', this.onVisibilityChange);
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', this.onVisibilityChange);
+    }
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -79,7 +81,9 @@ class NotificationIndicator extends Component<Props, State> {
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
-    document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    if (typeof document !== 'undefined') {
+      document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    }
   }
 
   private updateInterval() {
@@ -100,7 +104,10 @@ class NotificationIndicator extends Component<Props, State> {
   };
 
   private shouldRefresh = () => {
-    return !document.hidden || this.props.refreshOnHidden;
+    return (
+      (typeof document !== 'undefined' && !document.hidden) ||
+      this.props.refreshOnHidden
+    );
   };
 
   private timerTick = () => {

@@ -1,6 +1,15 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import * as keymaps from '@atlaskit/editor-common/keymaps';
+import {
+  bindKeymapWithPluginCommand,
+  toggleBold,
+  toggleCode,
+  toggleItalic,
+  toggleStrikethrough,
+  toggleSubscript,
+  toggleSuperscript,
+  toggleUnderline,
+} from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
@@ -13,7 +22,7 @@ import {
   toggleSubscriptWithAnalytics,
   toggleSuperscriptWithAnalytics,
   toggleUnderlineWithAnalytics,
-} from '../actions';
+} from '../commands';
 
 export default function keymapPlugin(
   schema: Schema,
@@ -22,71 +31,57 @@ export default function keymapPlugin(
   const list = {};
 
   if (schema.marks.strong) {
-    keymaps.bindKeymapWithCommand(
-      keymaps.toggleBold.common!,
-      toggleStrongWithAnalytics(editorAnalyticsAPI)({
-        inputMethod: INPUT_METHOD.SHORTCUT,
-      }),
+    bindKeymapWithPluginCommand(
+      toggleBold.common!,
+      toggleStrongWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
     );
   }
 
   if (schema.marks.em) {
-    keymaps.bindKeymapWithCommand(
-      keymaps.toggleItalic.common!,
-      toggleEmWithAnalytics(editorAnalyticsAPI)({
-        inputMethod: INPUT_METHOD.SHORTCUT,
-      }),
+    bindKeymapWithPluginCommand(
+      toggleItalic.common!,
+      toggleEmWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
     );
   }
 
   if (schema.marks.code) {
-    keymaps.bindKeymapWithCommand(
-      keymaps.toggleCode.common!,
-      toggleCodeWithAnalytics(editorAnalyticsAPI)({
-        inputMethod: INPUT_METHOD.SHORTCUT,
-      }),
+    bindKeymapWithPluginCommand(
+      toggleCode.common!,
+      toggleCodeWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
     );
   }
 
   if (schema.marks.strike) {
-    keymaps.bindKeymapWithCommand(
-      keymaps.toggleStrikethrough.common!,
-      toggleStrikeWithAnalytics(editorAnalyticsAPI)({
-        inputMethod: INPUT_METHOD.SHORTCUT,
-      }),
+    bindKeymapWithPluginCommand(
+      toggleStrikethrough.common!,
+      toggleStrikeWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
     );
   }
 
   if (schema.marks.subsup) {
-    keymaps.bindKeymapWithCommand(
-      keymaps.toggleSubscript.common!,
-      toggleSubscriptWithAnalytics(editorAnalyticsAPI)({
-        inputMethod: INPUT_METHOD.SHORTCUT,
-      }),
+    bindKeymapWithPluginCommand(
+      toggleSubscript.common!,
+      toggleSubscriptWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
     );
   }
 
   if (schema.marks.subsup) {
-    keymaps.bindKeymapWithCommand(
-      keymaps.toggleSuperscript.common!,
-      toggleSuperscriptWithAnalytics(editorAnalyticsAPI)({
-        inputMethod: INPUT_METHOD.SHORTCUT,
-      }),
+    bindKeymapWithPluginCommand(
+      toggleSuperscript.common!,
+      toggleSuperscriptWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
     );
   }
 
   if (schema.marks.underline) {
-    keymaps.bindKeymapWithCommand(
-      keymaps.toggleUnderline.common!,
-      toggleUnderlineWithAnalytics(editorAnalyticsAPI)({
-        inputMethod: INPUT_METHOD.SHORTCUT,
-      }),
+    bindKeymapWithPluginCommand(
+      toggleUnderline.common!,
+      toggleUnderlineWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
     );
   }

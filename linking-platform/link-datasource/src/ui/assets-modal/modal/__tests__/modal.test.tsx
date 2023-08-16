@@ -13,11 +13,16 @@ import {
   DatasourceTableState,
   useDatasourceTableState,
 } from '../../../../hooks/useDatasourceTableState';
+import {
+  useObjectSchemas,
+  UseObjectSchemasState,
+} from '../../../../hooks/useObjectSchemas';
 import { AssetsDatasourceParameters } from '../../types';
 import { AssetsConfigModal } from '../index'; // Using async one to test lazy integration at the same time
 
 jest.mock('../../../../hooks/useDatasourceTableState');
 jest.mock('../../../../hooks/useAssetsClient');
+jest.mock('../../../../hooks/useObjectSchemas');
 
 describe('AssetsConfigModal', () => {
   const getDefaultParameters: () => AssetsDatasourceParameters = () => ({
@@ -101,6 +106,13 @@ describe('AssetsConfigModal', () => {
       reset: jest.fn(),
     });
 
+  const getObjectSchemasDefaultHookState: () => UseObjectSchemasState = () => ({
+    fetchObjectSchemas: jest.fn(),
+    objectSchemasError: undefined,
+    objectSchemasLoading: false,
+    objectSchemas: undefined,
+  });
+
   const getAssetsClientDefaultHookState: () => UseAssetsClientState = () => ({
     workspaceId: 'some-workspace-id',
     workspaceError: undefined,
@@ -136,6 +148,9 @@ describe('AssetsConfigModal', () => {
     );
     asMock(useAssetsClient).mockReturnValue(
       args.assetsClientHookState || getAssetsClientDefaultHookState(),
+    );
+    asMock(useObjectSchemas).mockReturnValue(
+      getObjectSchemasDefaultHookState(),
     );
 
     const onCancel = jest.fn();
@@ -237,7 +252,7 @@ describe('AssetsConfigModal', () => {
         const { getByRole, onInsert } = await setup({
           datasourceTableHookState,
         });
-        const insertButton = getByRole('button', { name: 'Insert objects' });
+        const insertButton = getByRole('button', { name: 'Insert object' });
 
         expect(insertButton).toBeEnabled();
         insertButton.click();
@@ -261,7 +276,7 @@ describe('AssetsConfigModal', () => {
         const { getByRole, onInsert } = await setup({
           datasourceTableHookState,
         });
-        const insertButton = getByRole('button', { name: 'Insert objects' });
+        const insertButton = getByRole('button', { name: 'Insert object' });
 
         expect(insertButton).toBeEnabled();
         insertButton.click();
@@ -278,7 +293,7 @@ describe('AssetsConfigModal', () => {
         const { getByRole, onInsert } = await setup({
           datasourceTableHookState,
         });
-        const insertButton = getByRole('button', { name: 'Insert objects' });
+        const insertButton = getByRole('button', { name: 'Insert object' });
 
         expect(insertButton).toBeEnabled();
         insertButton.click();
@@ -353,6 +368,27 @@ describe('AssetsConfigModal', () => {
           },
         });
       });
+    });
+    it("should show insert button with 'Insert object' text when only one asset is returned", async () => {
+      const datasourceTableHookState = getSingleAssetHookState();
+      const { getByRole } = await setup({
+        datasourceTableHookState,
+      });
+      const insertButton = getByRole('button', {
+        name: 'Insert object',
+      });
+      expect(insertButton).toBeInTheDocument();
+    });
+
+    it("should show insert button with 'Insert objects' text when more than one asset is returned", async () => {
+      const datasourceTableHookState = getDefaultDataSourceTableHookState();
+      const { getByRole } = await setup({
+        datasourceTableHookState,
+      });
+      const insertButton = getByRole('button', {
+        name: 'Insert objects',
+      });
+      expect(insertButton).toBeInTheDocument();
     });
   });
 

@@ -45,7 +45,7 @@ import {
   toggleSuperscriptWithAnalytics,
   toggleUnderline,
   toggleUnderlineWithAnalytics,
-} from '../../../actions';
+} from '../../../commands';
 import { pluginKey as textFormattingPluginKey } from '../../../pm-plugins/main';
 
 describe('text-formatting', () => {
@@ -362,24 +362,22 @@ describe('text-formatting', () => {
         }),
       };
 
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
+      const { pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
 
-      toggleCodeWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
-        editorView.state,
-        editorView.dispatch,
-      );
+      pluginInjectionAPI
+        .api()
+        .executeCommand(
+          toggleCodeWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
+        );
 
-      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
-        expectedPayload,
-        undefined,
-      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
     });
 
     it('should be able to toggle code on a character', () => {
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(toggleCode()(editorView.state, editorView.dispatch));
+      const { editorView, pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
+      pluginInjectionAPI.api().executeCommand(toggleCode);
       expect(editorView.state.doc).toEqualDocument(doc(p(code('t'), 'ext')));
-      expect(toggleCode()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleCode);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -410,36 +408,40 @@ describe('text-formatting', () => {
     });
 
     it('should convert smart characters to normal ascii', () => {
-      const { editorView } = editor(doc(p('{<}… → ← – “ ” ‘ ’{>}')));
-      expect(toggleCode()(editorView.state, editorView.dispatch));
+      const { editorView, pluginInjectionAPI } = editor(
+        doc(p('{<}… → ← – “ ” ‘ ’{>}')),
+      );
+
+      pluginInjectionAPI.api().executeCommand(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(code('... -> <- -- " " \' \''))),
       );
-      expect(toggleCode()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(p('... -> <- -- " " \' \'')),
       );
     });
 
     it('should convert smart characters to normal ascii in the middle of a paragraph', () => {
-      const { editorView } = editor(
+      const { editorView, pluginInjectionAPI } = editor(
         doc(p(''), p('{<}hello … → ← – “ ” ‘ ’ world{>}')),
       );
-      expect(toggleCode()(editorView.state, editorView.dispatch));
+
+      pluginInjectionAPI.api().executeCommand(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(''), p(code('hello ... -> <- -- " " \' \' world'))),
       );
-      expect(toggleCode()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(''), p('hello ... -> <- -- " " \' \' world')),
       );
     });
 
     it('should convert smart characters to normal ascii in the middle of a paragraph and way down the document', () => {
-      const { editorView } = editor(
+      const { editorView, pluginInjectionAPI } = editor(
         doc(p(''), p(''), p(''), p(''), p('{<}hello … → ← – “ ” ‘ ’ world{>}')),
       );
-      expect(toggleCode()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(''),
@@ -449,7 +451,7 @@ describe('text-formatting', () => {
           p(code('hello ... -> <- -- " " \' \' world')),
         ),
       );
-      expect(toggleCode()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(''),
@@ -462,10 +464,10 @@ describe('text-formatting', () => {
     });
 
     it('should convert smart characters to normal ascii in the middle of a word', () => {
-      const { editorView } = editor(
+      const { editorView, pluginInjectionAPI } = editor(
         doc(p(''), p(''), p('he{<}llo … → ← – “ ” ‘ ’ wor{>}ld')),
       );
-      expect(toggleCode()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(
           p(''),
@@ -473,7 +475,7 @@ describe('text-formatting', () => {
           p('he', code('llo ... -> <- -- " " \' \' wor'), 'ld'),
         ),
       );
-      expect(toggleCode()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleCode);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(''), p(''), p('hello ... -> <- -- " " \' \' world')),
       );
@@ -498,24 +500,22 @@ describe('text-formatting', () => {
         }),
       };
 
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
+      const { pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
 
-      toggleEmWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
-        editorView.state,
-        editorView.dispatch,
-      );
+      pluginInjectionAPI
+        .api()
+        .executeCommand(
+          toggleEmWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
+        );
 
-      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
-        expectedPayload,
-        undefined,
-      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
     });
 
     it('should be able to toggle em on a character', () => {
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(toggleEm()(editorView.state, editorView.dispatch));
+      const { editorView, pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
+      pluginInjectionAPI.api().executeCommand(toggleEm);
       expect(editorView.state.doc).toEqualDocument(doc(p(em('t'), 'ext')));
-      expect(toggleEm()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleEm);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -557,23 +557,22 @@ describe('text-formatting', () => {
         }),
       };
 
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
+      const { pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
 
-      toggleStrongWithAnalytics(mockEditorAnalyticsAPI)({
-        inputMethod,
-      })(editorView.state, editorView.dispatch);
+      pluginInjectionAPI
+        .api()
+        .executeCommand(
+          toggleStrongWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
+        );
 
-      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
-        expectedPayload,
-        undefined,
-      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
     });
 
     it('should be able to toggle strong on a character', () => {
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(toggleStrong()(editorView.state, editorView.dispatch));
+      const { editorView, pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
+      pluginInjectionAPI.api().executeCommand(toggleStrong);
       expect(editorView.state.doc).toEqualDocument(doc(p(strong('t'), 'ext')));
-      expect(toggleStrong()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleStrong);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -614,25 +613,24 @@ describe('text-formatting', () => {
           inputMethod,
         }),
       };
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
+      const { pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
 
-      toggleUnderlineWithAnalytics(mockEditorAnalyticsAPI)({
-        inputMethod,
-      })(editorView.state, editorView.dispatch);
+      pluginInjectionAPI
+        .api()
+        .executeCommand(
+          toggleUnderlineWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
+        );
 
-      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
-        expectedPayload,
-        undefined,
-      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
     });
 
     it('should be able to toggle underline on a character', () => {
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(toggleUnderline()(editorView.state, editorView.dispatch));
+      const { editorView, pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
+      pluginInjectionAPI.api().executeCommand(toggleUnderline);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(underline('t'), 'ext')),
       );
-      expect(toggleUnderline()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleUnderline);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -673,23 +671,22 @@ describe('text-formatting', () => {
           inputMethod,
         }),
       };
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
+      const { pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
 
-      toggleStrikeWithAnalytics(mockEditorAnalyticsAPI)({
-        inputMethod,
-      })(editorView.state, editorView.dispatch);
+      pluginInjectionAPI
+        .api()
+        .executeCommand(
+          toggleStrikeWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
+        );
 
-      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
-        expectedPayload,
-        undefined,
-      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
     });
 
     it('should be able to toggle strike on a character', () => {
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(toggleStrike()(editorView.state, editorView.dispatch));
+      const { editorView, pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
+      pluginInjectionAPI.api().executeCommand(toggleStrike);
       expect(editorView.state.doc).toEqualDocument(doc(p(strike('t'), 'ext')));
-      expect(toggleStrike()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleStrike);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -730,25 +727,25 @@ describe('text-formatting', () => {
           inputMethod,
         }),
       };
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
+      const { pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
 
-      toggleSubscriptWithAnalytics(mockEditorAnalyticsAPI)({
-        inputMethod,
-      })(editorView.state, editorView.dispatch);
+      pluginInjectionAPI
+        .api()
+        .executeCommand(
+          toggleSubscriptWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
+        );
 
-      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
-        expectedPayload,
-        undefined,
-      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledTimes(1);
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
     });
 
     it('should be able to toggle subscript on a character', () => {
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
-      expect(toggleSubscript()(editorView.state, editorView.dispatch));
+      const { editorView, pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
+      pluginInjectionAPI.api().executeCommand(toggleSubscript);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(subsup({ type: 'sub' })('t'), 'ext')),
       );
-      expect(toggleSubscript()(editorView.state, editorView.dispatch));
+      pluginInjectionAPI.api().executeCommand(toggleSubscript);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -807,25 +804,25 @@ describe('text-formatting', () => {
           inputMethod,
         }),
       };
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
+      const { pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
 
-      toggleSuperscriptWithAnalytics(mockEditorAnalyticsAPI)({
-        inputMethod,
-      })(editorView.state, editorView.dispatch);
+      pluginInjectionAPI
+        .api()
+        .executeCommand(
+          toggleSuperscriptWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
+        );
 
-      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
-        expectedPayload,
-        undefined,
-      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
     });
 
     it('should be able to toggle superscript on a character', () => {
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
-      toggleSuperscript()(editorView.state, editorView.dispatch);
+      const { editorView, pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
+
+      pluginInjectionAPI.api().executeCommand(toggleSuperscript);
       expect(editorView.state.doc).toEqualDocument(
         doc(p(subsup({ type: 'sup' })('t'), 'ext')),
       );
-      toggleSuperscript()(editorView.state, editorView.dispatch);
+      pluginInjectionAPI.api().executeCommand(toggleSuperscript);
       expect(editorView.state.doc).toEqualDocument(doc(p('text')));
     });
 
@@ -854,16 +851,16 @@ describe('text-formatting', () => {
     });
 
     it('deactives subscript after toggling superscript for an empty selection', () => {
-      const { editorView, pluginState } = editor(doc(p('te{<>}xt')));
-      toggleSubscript()(editorView.state, editorView.dispatch);
-      toggleSuperscript()(editorView.state, editorView.dispatch);
+      const { pluginInjectionAPI, pluginState } = editor(doc(p('te{<>}xt')));
+      pluginInjectionAPI.api().executeCommand(toggleSubscript);
+      pluginInjectionAPI.api().executeCommand(toggleSuperscript);
       expect(pluginState.subscriptActive).toBe(false);
     });
 
     it('deactives subscript after toggling superscript for selected text', () => {
-      const { editorView, pluginState } = editor(doc(p('t{<}e{>}xt')));
-      toggleSubscript()(editorView.state, editorView.dispatch);
-      toggleSuperscript()(editorView.state, editorView.dispatch);
+      const { pluginInjectionAPI, pluginState } = editor(doc(p('t{<}e{>}xt')));
+      pluginInjectionAPI.api().executeCommand(toggleSubscript);
+      pluginInjectionAPI.api().executeCommand(toggleSuperscript);
       expect(pluginState.subscriptActive).toBe(false);
     });
 
@@ -891,17 +888,15 @@ describe('text-formatting', () => {
           inputMethod,
         }),
       };
-      const { editorView } = editor(doc(p('{<}t{>}ext')));
+      const { pluginInjectionAPI } = editor(doc(p('{<}t{>}ext')));
 
-      toggleCodeWithAnalytics(mockEditorAnalyticsAPI)({ inputMethod })(
-        editorView.state,
-        editorView.dispatch,
-      );
+      pluginInjectionAPI
+        .api()
+        .executeCommand(
+          toggleCodeWithAnalytics(mockEditorAnalyticsAPI)(inputMethod),
+        );
 
-      expect(attachAnalyticsEvent).toHaveBeenCalledWith(
-        expectedPayload,
-        undefined,
-      );
+      expect(attachAnalyticsEvent).toHaveBeenCalledWith(expectedPayload);
     });
 
     describe('when the cursor is right after the code mark', () => {

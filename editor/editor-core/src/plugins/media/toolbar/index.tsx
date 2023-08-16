@@ -12,13 +12,11 @@ import { mediaFilmstripItemDOMSelector } from '@atlaskit/media-filmstrip';
 import type {
   GetEditorFeatureFlags,
   ExtractInjectionAPI,
-} from '@atlaskit/editor-common/types';
-import commonMessages from '../../../messages';
-import type { Command } from '../../../types';
-import type {
   FloatingToolbarConfig,
   FloatingToolbarItem,
 } from '@atlaskit/editor-common/types';
+import commonMessages from '../../../messages';
+import type { Command } from '../../../types';
 import { stateKey } from '../pm-plugins/plugin-key';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations';
 import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
@@ -68,8 +66,13 @@ import {
   DEFAULT_IMAGE_WIDTH,
   DEFAULT_IMAGE_HEIGHT,
   MEDIA_SINGLE_MIN_PIXEL_WIDTH,
+  MEDIA_SINGLE_GUTTER_SIZE,
+  calcMediaSinglePixelWidth,
 } from '@atlaskit/editor-common/media-single';
-import { akEditorFullWidthLayoutWidth } from '@atlaskit/editor-shared-styles';
+import {
+  akEditorDefaultLayoutWidth,
+  akEditorFullWidthLayoutWidth,
+} from '@atlaskit/editor-shared-styles';
 
 const remove: Command = (state, dispatch) => {
   if (dispatch) {
@@ -371,7 +374,16 @@ const generateMediaSingleFloatingToolbar = (
             return null;
           }
           const { state, dispatch } = editorView;
+
           const selectedMediaSingleNode = getSelectedMediaSingle(state);
+
+          const contentWidth =
+            widthPlugin?.sharedState.currentState()?.lineLength ||
+            akEditorDefaultLayoutWidth;
+
+          const containerWidth =
+            widthPlugin?.sharedState.currentState()?.width ||
+            akEditorFullWidthLayoutWidth;
 
           if (!selectedMediaSingleNode) {
             return null;
@@ -382,15 +394,30 @@ const generateMediaSingleFloatingToolbar = (
             return null;
           }
 
-          const { width: singleMediaWidth } =
-            selectedMediaSingleNode.node.attrs;
+          const {
+            width: singleMediaWidth,
+            widthType,
+            layout,
+          } = selectedMediaSingleNode.node.attrs;
           const { width: mediaWidth, height: mediaHeight } =
             selectedMediaNode.attrs;
+
+          const pixelWidth = calcMediaSinglePixelWidth({
+            width: singleMediaWidth,
+            widthType,
+            origWidth: mediaWidth || DEFAULT_IMAGE_WIDTH,
+            layout,
+            contentWidth,
+            containerWidth,
+            gutterOffset: MEDIA_SINGLE_GUTTER_SIZE,
+          });
 
           return (
             <PixelEntry
               intl={intl}
-              width={singleMediaWidth}
+              width={
+                pluginState.isResizing ? pluginState.resizingWidth : pixelWidth
+              }
               mediaWidth={mediaWidth || DEFAULT_IMAGE_WIDTH}
               mediaHeight={mediaHeight || DEFAULT_IMAGE_HEIGHT}
               validate={(value) => {
@@ -415,16 +442,13 @@ const generateMediaSingleFloatingToolbar = (
                     widthType: 'pixel',
                   },
                 );
-
                 dispatch(tr);
               }}
             />
           );
         },
       });
-      if (!pluginState.isResizing) {
-        toolbarButtons.push({ type: 'separator' });
-      }
+      toolbarButtons.push({ type: 'separator' });
     }
 
     if (allowLinking && shouldShowMediaLinkToolbar(state)) {
@@ -478,7 +502,14 @@ const generateMediaSingleFloatingToolbar = (
   }
 
   if (allowAltTextOnImages) {
-    toolbarButtons.push(altTextButton(intl, state), { type: 'separator' });
+    toolbarButtons.push(
+      altTextButton(
+        intl,
+        state,
+        pluginInjectionApi?.dependencies.analytics?.actions,
+      ),
+      { type: 'separator' },
+    );
   }
   const { hoverDecoration } =
     pluginInjectionApi?.dependencies.decorations.actions ?? {};
@@ -532,11 +563,12 @@ export const floatingToolbar = (
   } = options;
   const mediaPluginState: MediaPluginState | undefined =
     stateKey.getState(state);
+
   const mediaLinkingState: MediaLinkingState = getMediaLinkingState(state);
   const { hoverDecoration } =
     pluginInjectionApi?.dependencies.decorations.actions ?? {};
 
-  if (!mediaPluginState || mediaPluginState.isResizing) {
+  if (!mediaPluginState) {
     return;
   }
   const nodeType = allowMediaInline

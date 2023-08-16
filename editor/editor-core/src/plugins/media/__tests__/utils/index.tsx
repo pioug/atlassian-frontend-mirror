@@ -78,6 +78,8 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import type { MediaPluginState } from '../../pm-plugins/types';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
 const pdfFile = {
   id: `${randomId()}`,
   fileName: 'lala.pdf',
@@ -89,6 +91,10 @@ const pdfFile = {
 const TABLE_LOCAL_ID = 'test-table-local-id';
 
 describe('Media plugin', () => {
+  beforeEach(() => {
+    attachAnalyticsEvent.mockClear();
+  });
+
   beforeAll(() => {
     uuid.setStatic(TABLE_LOCAL_ID);
   });
@@ -112,6 +118,11 @@ describe('Media plugin', () => {
     allowMediaSingle: true,
     customDropzoneContainer: dropzoneContainer,
   });
+
+  const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+  const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+    attachAnalyticsEvent,
+  };
 
   const editor = (
     doc: DocBuilder,
@@ -406,6 +417,7 @@ describe('Media plugin', () => {
               __fileMimeType: 'image/png',
             })()(editorView.state.schema),
             INPUT_METHOD.CLIPBOARD,
+            mockEditorAnalyticsAPI,
           );
 
           insertMediaAsMediaSingle(
@@ -417,6 +429,7 @@ describe('Media plugin', () => {
               __fileMimeType: 'image/png',
             })()(editorView.state.schema),
             INPUT_METHOD.CLIPBOARD,
+            mockEditorAnalyticsAPI,
           );
 
           expect(editorView.state.doc).toEqualDocument(
@@ -464,6 +477,7 @@ describe('Media plugin', () => {
               __fileMimeType: 'image/png',
             })()(editorView.state.schema),
             INPUT_METHOD.CLIPBOARD,
+            mockEditorAnalyticsAPI,
           );
 
           // Different from media single that those optional properties are copied over only when the thumbnail is ready in media group.

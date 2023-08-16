@@ -7,6 +7,7 @@ export const MEDIA_SINGLE_HANDLE_MARGIN = 12;
 export const MEDIA_SINGLE_GUTTER_SIZE = MEDIA_SINGLE_HANDLE_MARGIN * 2;
 export const DEFAULT_IMAGE_WIDTH = 250;
 export const DEFAULT_IMAGE_HEIGHT = 200;
+export const MEDIA_SINGLE_RESIZE_THROTTLE_TIME = 100;
 
 export enum Layout {
   FULL_WIDTH = 'full-width',

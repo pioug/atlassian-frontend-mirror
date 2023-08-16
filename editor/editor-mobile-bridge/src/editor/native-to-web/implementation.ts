@@ -1,28 +1,30 @@
-import {
+import type {
   BlockTypeInputMethod,
   BlockTypeState,
-  changeColor,
-  clearEditorContent,
-  commitStatusPicker,
-  createTable,
   CustomMediaPicker,
-  EditorActions,
   InsertBlockInputMethodToolbar,
-  insertBlockTypesWithAnalytics,
-  insertTaskDecisionCommand,
   ListInputMethod,
   ListState,
   MentionPluginState,
   QuickInsertItem,
+  StatusState,
+  StatusType,
+  QuickInsertItemId,
+} from '@atlaskit/editor-core';
+import {
+  changeColor,
+  clearEditorContent,
+  commitStatusPicker,
+  createTable,
+  EditorActions,
+  insertBlockTypesWithAnalytics,
+  insertTaskDecisionCommand,
   setBlockTypeWithAnalytics,
   setKeyboardHeight,
   setMobilePaddingTop,
   setIsExpanded,
-  StatusState,
-  StatusType,
   updateStatusWithAnalytics,
   insertExpand,
-  QuickInsertItemId,
   getListCommands,
   insertDate,
   dateToDateType,
@@ -40,38 +42,35 @@ import type {
   ExtractInjectionAPI,
 } from '@atlaskit/editor-common/types';
 import type { TypeAheadItem } from '@atlaskit/editor-common/provider-factory';
-import { EditorViewWithComposition } from '../../types';
-import {
-  TextSelection,
-  Selection,
+import type { EditorViewWithComposition } from '../../types';
+import type {
   EditorState,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { TextSelection, Selection } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   redo as pmHistoryRedo,
   undo as pmHistoryUndo,
 } from '@atlaskit/editor-prosemirror/history';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import { Color as StatusColor } from '@atlaskit/status/element';
-import NativeToWebBridge from './bridge';
+import type { Color as StatusColor } from '@atlaskit/status/element';
+import type NativeToWebBridge from './bridge';
 import WebBridge from '../../web-bridge';
-import { createDeferred, DeferredValue } from '../../utils';
+import type { DeferredValue } from '../../utils';
+import { createDeferred } from '../../utils';
 import { rejectPromise, resolvePromise } from '../../cross-platform-promise';
 import { assertSelectionPayload } from '../../validation';
 import { CollabSocket } from './collab-socket';
-import { Socket } from '@atlaskit/collab-provider/types';
+import type { Socket } from '@atlaskit/collab-provider/types';
 import { LifecycleImpl } from './lifecycle';
-import {
-  BridgeEventEmitter,
-  allowListPayloadType,
-  EventTypes,
-} from '../event-dispatch';
-import { Serialized } from '../../types';
-import { Provider as CollabProvider } from '@atlaskit/collab-provider';
+import type { allowListPayloadType } from '../event-dispatch';
+import { BridgeEventEmitter, EventTypes } from '../event-dispatch';
+import type { Serialized } from '../../types';
+import type { Provider as CollabProvider } from '@atlaskit/collab-provider';
 import { toNativeBridge } from '../web-to-native';
 import MobileEditorConfiguration from '../editor-configuration';
-import { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import {
   measureContentRenderedPerformance,
   PerformanceMatrices,
@@ -79,16 +78,16 @@ import {
 } from '../../utils/bridge';
 import MobileEditorToolbarActions from '../mobile-editor-toolbar';
 import { trackFontSizeUpdated } from '../track-analytics';
-import {
+import type {
   MobileUpload,
   MobileUploadStartEvent,
   MobileUploadProgressEvent,
   MobileUploadEndEvent,
   MobileUploadErrorEvent,
 } from '@atlaskit/media-client';
-import { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
+import type { UploadPreviewUpdateEventPayload } from '@atlaskit/media-picker/types';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
-import NativeBridge from '../web-to-native/bridge';
+import type NativeBridge from '../web-to-native/bridge';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { mobileApiPlugin } from '../plugins/mobileApiPlugin';
 
@@ -251,77 +250,84 @@ export default class WebBridgeImpl
   onBoldClicked(
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
-    if (this.textFormatBridgeState && this.editorView) {
-      const { state, dispatch } = this.editorView;
-      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleStrong(
-        { inputMethod },
-      )(state, dispatch);
+    if (this.textFormatBridgeState) {
+      this.pluginInjectionApi?.executeCommand(
+        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleStrong(
+          inputMethod,
+        ),
+      );
     }
   }
 
   onItalicClicked(
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
-    if (this.textFormatBridgeState && this.editorView) {
-      const { state, dispatch } = this.editorView;
-      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleEm({
-        inputMethod,
-      })(state, dispatch);
+    if (this.textFormatBridgeState) {
+      this.pluginInjectionApi?.executeCommand(
+        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleEm(
+          inputMethod,
+        ),
+      );
     }
   }
 
   onUnderlineClicked(
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
-    if (this.textFormatBridgeState && this.editorView) {
-      const { state, dispatch } = this.editorView;
-      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleUnderline(
-        { inputMethod },
-      )(state, dispatch);
+    if (this.textFormatBridgeState) {
+      this.pluginInjectionApi?.executeCommand(
+        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleUnderline(
+          inputMethod,
+        ),
+      );
     }
   }
 
   onCodeClicked(
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
-    if (this.textFormatBridgeState && this.editorView) {
-      const { state, dispatch } = this.editorView;
-      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleCode({
-        inputMethod,
-      })(state, dispatch);
+    if (this.textFormatBridgeState) {
+      this.pluginInjectionApi?.executeCommand(
+        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleCode(
+          inputMethod,
+        ),
+      );
     }
   }
 
   onStrikeClicked(
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
-    if (this.textFormatBridgeState && this.editorView) {
-      const { state, dispatch } = this.editorView;
-      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleStrike(
-        { inputMethod },
-      )(state, dispatch);
+    if (this.textFormatBridgeState) {
+      this.pluginInjectionApi?.executeCommand(
+        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleStrike(
+          inputMethod,
+        ),
+      );
     }
   }
 
   onSuperClicked(
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
-    if (this.textFormatBridgeState && this.editorView) {
-      const { state, dispatch } = this.editorView;
-      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleSuperscript(
-        { inputMethod },
-      )(state, dispatch);
+    if (this.textFormatBridgeState) {
+      this.pluginInjectionApi?.executeCommand(
+        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleSuperscript(
+          inputMethod,
+        ),
+      );
     }
   }
 
   onSubClicked(
     inputMethod: TextFormattingInputMethodBasic = INPUT_METHOD.TOOLBAR,
   ) {
-    if (this.textFormatBridgeState && this.editorView) {
-      const { state, dispatch } = this.editorView;
-      this.pluginInjectionApi?.dependencies.textFormatting.actions.toggleSubscript(
-        { inputMethod },
-      )(state, dispatch);
+    if (this.textFormatBridgeState) {
+      this.pluginInjectionApi?.executeCommand(
+        this.pluginInjectionApi?.dependencies.textFormatting.commands.toggleSubscript(
+          inputMethod,
+        ),
+      );
     }
   }
 

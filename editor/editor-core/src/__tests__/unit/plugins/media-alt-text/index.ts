@@ -30,7 +30,13 @@ import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+
 describe('media alt text', () => {
+  const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});
+  const mockEditorAnalyticsAPI: EditorAnalyticsAPI = {
+    attachAnalyticsEvent,
+  };
   const createEditor = createEditorFactory<MediaEditorState>();
 
   const mediaProvider = getFreshMediaProvider();
@@ -75,7 +81,7 @@ describe('media alt text', () => {
 
     it('should set isAltTextEditorOpen as true', () => {
       getPluginState(view.state).isAltTextEditorOpen = false;
-      openMediaAltTextMenu(view.state, view.dispatch);
+      openMediaAltTextMenu(mockEditorAnalyticsAPI)(view.state, view.dispatch);
 
       expect(getPluginState(view.state).isAltTextEditorOpen).toBeTruthy();
     });
@@ -107,9 +113,10 @@ describe('media alt text', () => {
       const { editorView } = editor(defaultDoc);
       view = editorView;
     });
+
     it('should not set isAltTextEditorOpen as true', () => {
       getPluginState(view.state).isAltTextEditorOpen = false;
-      openMediaAltTextMenu(view.state, view.dispatch);
+      openMediaAltTextMenu(mockEditorAnalyticsAPI)(view.state, view.dispatch);
 
       expect(getPluginState(view.state).isAltTextEditorOpen).toBeFalsy();
     });

@@ -49,6 +49,8 @@ import {
   zoomLevelIndicatorStyles,
   zoomWrapperStyles,
 } from './styles';
+import { TouchScrollable } from 'react-scrolllock';
+import { useMergeRefs } from 'use-callback-ref';
 
 type Children = {
   children: ReactNode;
@@ -180,17 +182,27 @@ export const Video = ({ autoPlay, controls, src }: VideoProps) => (
   <video css={videoStyles} autoPlay={autoPlay} controls={controls} src={src} />
 );
 
-type PDFWrapperProps = DataTestID & Children;
-export const PDFWrapper = forwardRef(
-  ({ 'data-testid': datatestId, children }: PDFWrapperProps, ref) => (
-    <div
-      css={pdfWrapperStyles}
-      ref={ref as React.RefObject<HTMLDivElement>}
-      data-testid={datatestId}
-    >
+const PDFWrapperBody = forwardRef<
+  HTMLDivElement,
+  { innerRef: React.Ref<HTMLDivElement> } & PDFWrapperProps
+>(({ innerRef, 'data-testid': datatestId, children }, ref) => {
+  const bodyRef = useMergeRefs([ref, innerRef]);
+  return (
+    <div css={pdfWrapperStyles} ref={bodyRef} data-testid={datatestId}>
       {children}
     </div>
-  ),
+  );
+});
+
+type PDFWrapperProps = DataTestID & Children;
+export const PDFWrapper = forwardRef<HTMLDivElement, PDFWrapperProps>(
+  (props, ref) => {
+    return (
+      <TouchScrollable>
+        <PDFWrapperBody innerRef={ref} {...props} />
+      </TouchScrollable>
+    );
+  },
 );
 
 export const Arrow = ({ className, children }: ClassName & Children) => (

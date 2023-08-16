@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 import { Fragment } from 'react';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
 import Button from '@atlaskit/button';
@@ -34,9 +34,15 @@ const defaults = {
   onChange,
 };
 
+const flexStyles = css({ display: 'flex' });
+
+const spaceBetweenStyles = css({
+  justifyContent: 'space-between',
+});
+
 const PopupSelectExample = () => (
   <Fragment>
-    <div css={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div css={[flexStyles, spaceBetweenStyles]}>
       <PopupSelect
         {...defaults}
         value={regions[0].options[0]}
@@ -66,7 +72,7 @@ const PopupSelectExample = () => (
         popperProps={{ placement: 'right-start' }}
       />
     </div>
-    <div css={{ display: 'flex' }}>
+    <div css={flexStyles}>
       <div
         style={{
           background: token('color.background.neutral', 'AliceBlue'),

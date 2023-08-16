@@ -8,19 +8,19 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { emoji } from '@atlaskit/adf-schema';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
+import type { EmojiDescription, EmojiProvider, EmojiId } from '@atlaskit/emoji';
 import {
   EmojiTypeAheadItem,
   SearchSort,
   recordSelectionSucceededSli,
   recordSelectionFailedSli,
 } from '@atlaskit/emoji';
-
 import type {
   Command,
   NextEditorPlugin,
   PMPluginFactoryParams,
   OptionalPlugin,
+  PluginCommand,
 } from '@atlaskit/editor-common/types';
 
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
@@ -39,6 +39,7 @@ import { messages } from '../insert-block/ui/ToolbarInsertBlock/messages';
 import type { EmojiPluginOptions, EmojiPluginState } from './types';
 import { openTypeAheadAtCursor } from '../type-ahead/transforms/open-typeahead-at-cursor';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import { insertEmoji } from './commands/insert-emoji';
 
 export const emojiToTypeaheadItem = (
   emoji: EmojiDescription,
@@ -104,13 +105,25 @@ type EmojiProviderChangeHandler = {
   result: (res: { emojis: Array<EmojiDescription> }) => void;
 };
 const TRIGGER = ':';
-const emojiPlugin: NextEditorPlugin<
+export type EmojiPlugin = NextEditorPlugin<
   'emoji',
   {
     pluginConfiguration: EmojiPluginOptions | undefined;
     dependencies: [OptionalPlugin<typeof analyticsPlugin>];
+    sharedState: EmojiPluginState | undefined;
+    commands: {
+      insertEmoji: (
+        emojiId: EmojiId,
+        inputMethod?:
+          | INPUT_METHOD.PICKER
+          | INPUT_METHOD.ASCII
+          | INPUT_METHOD.TYPEAHEAD,
+      ) => PluginCommand;
+    };
   }
-> = (options, api) => {
+>;
+
+export const emojiPlugin: EmojiPlugin = (options, api) => {
   const typeAhead: TypeAheadHandler = {
     id: TypeAheadAvailableNodes.EMOJI,
     trigger: TRIGGER,
@@ -244,6 +257,17 @@ const emojiPlugin: NextEditorPlugin<
       ];
     },
 
+    getSharedState(editorState) {
+      if (!editorState) {
+        return undefined;
+      }
+      return emojiPluginKey.getState(editorState);
+    },
+
+    commands: {
+      insertEmoji: insertEmoji(api?.dependencies.analytics?.actions),
+    },
+
     pluginsOptions: {
       quickInsert: ({ formatMessage }) => [
         {
@@ -276,8 +300,6 @@ const emojiPlugin: NextEditorPlugin<
     },
   };
 };
-
-export default emojiPlugin;
 
 /**
  * Actions

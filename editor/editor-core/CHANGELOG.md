@@ -1,5 +1,37 @@
 # @atlaskit/editor-core
 
+## 187.20.1
+
+### Patch Changes
+
+- [`24f092238be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24f092238be) - NO-ISSUE Switch collab type imports in editor-core to editor-common
+- [`469b5c12303`](https://bitbucket.org/atlassian/atlassian-frontend/commits/469b5c12303) - NO-ISSUE Move CollabEventLocalStepData to editor-common
+- [`c2cd174b721`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c2cd174b721) - - Add layout calculation in full width editor
+  - Prevent scroll bar for wrapped layout in small viewport
+  - Limit resizing for nested node with wrapped layout
+  - Update size state for full-width layout to avoid flicker when first resizing
+- [`da58165fe10`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da58165fe10) - [ux] ED-19440 - Adds dark mode icons for bullet list, numbered list, quote, status and table
+
+## 187.20.0
+
+### Minor Changes
+
+- [`644c7942b34`](https://bitbucket.org/atlassian/atlassian-frontend/commits/644c7942b34) - [ux] support updating pixel entry in media toolbar when resize media single
+- [`43c51e0a282`](https://bitbucket.org/atlassian/atlassian-frontend/commits/43c51e0a282) - [ED-19431] Migrate all text-formatting plugin actions over to plugin commands
+- [`a867b562d62`](https://bitbucket.org/atlassian/atlassian-frontend/commits/a867b562d62) - Add insertEmoji command and sharedState to emoji plugin.
+
+### Patch Changes
+
+- [`8375e041861`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8375e041861) - [ED-16733] Extract common functions used by media plugin to editor-common
+- Updated dependencies
+
+## 187.19.1
+
+### Patch Changes
+
+- [`f284dd4d761`](https://bitbucket.org/atlassian/atlassian-frontend/commits/f284dd4d761) - updated withAnalytics usage to new EditorAnalyticsAPI
+- [`442d9be406d`](https://bitbucket.org/atlassian/atlassian-frontend/commits/442d9be406d) - [ux] [ED-19027] Fixed gap cursor for nodes with fixed width
+
 ## 187.19.0
 
 ### Minor Changes

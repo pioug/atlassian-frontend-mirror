@@ -177,7 +177,7 @@ export const useDatasourceTableState = ({
           setLastRequestedFieldKeys(fieldKeys);
         }
 
-        if (isSchemaFromData && schema) {
+        if (isSchemaFromData && schema && items.length > 0) {
           applySchemaProperties(schema.properties);
         }
       } catch (e: any) {

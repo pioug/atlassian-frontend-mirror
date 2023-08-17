@@ -31,6 +31,7 @@ import {
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { richMediaClassName } from '@atlaskit/editor-common/styles';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { processRawValue } from '@atlaskit/editor-common/utils';
 import {
   createSchema,
@@ -49,6 +50,9 @@ const createMediaState = (
 });
 
 describe('media-single', () => {
+  const fakeEditorAnalyticsAPI: EditorAnalyticsAPI = {
+    attachAnalyticsEvent: jest.fn().mockReturnValue(jest.fn()),
+  };
   const createEditor = createEditorFactory();
   const editor = (doc: DocBuilder) => {
     const contextIdentifierProvider = storyContextIdentifierProviderFactory();
@@ -76,6 +80,7 @@ describe('media-single', () => {
           editorView,
           p('world')(editorView.state.schema),
           INPUT_METHOD.PICKER_CLOUD,
+          fakeEditorAnalyticsAPI,
         );
 
         expect(editorView.state.doc).toEqualDocument(doc(p('text')));
@@ -95,6 +100,7 @@ describe('media-single', () => {
               __fileMimeType: 'pdf',
             })()(editorView.state.schema),
             INPUT_METHOD.PICKER_CLOUD,
+            fakeEditorAnalyticsAPI,
           );
 
           expect(editorView.state.doc).toEqualDocument(doc(p('text')));
@@ -113,6 +119,7 @@ describe('media-single', () => {
               __fileMimeType: 'image/png',
             })()(editorView.state.schema),
             INPUT_METHOD.PICKER_CLOUD,
+            fakeEditorAnalyticsAPI,
           );
 
           expect(editorView.state.doc).toEqualDocument(

@@ -24,7 +24,11 @@ import {
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { IconHeading, IconQuote } from '@atlaskit/editor-common/quick-insert';
-import * as keymaps from '@atlaskit/editor-common/keymaps';
+import {
+  tooltip,
+  toggleBlockQuote,
+  keymap,
+} from '@atlaskit/editor-common/keymaps';
 
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
@@ -51,9 +55,7 @@ const headingPluginOptions = (
     const descriptionDescriptor = (messages as any)[
       `heading${level}Description`
     ];
-    const keyshortcut = keymaps.tooltip(
-      (keymaps as any)[`toggleHeading${level}`],
-    );
+    const keyshortcut = tooltip((keymap as any)[`toggleHeading${level}`]);
 
     const id = `heading${level}` as QuickInsertItemId;
 
@@ -99,7 +101,7 @@ const blockquotePluginOptions = (
       title: formatMessage(messages.blockquote),
       description: formatMessage(messages.blockquoteDescription),
       priority: 1300,
-      keyshortcut: keymaps.tooltip(keymaps.toggleBlockQuote),
+      keyshortcut: tooltip(toggleBlockQuote),
       icon: () => <IconQuote />,
       action(insert, state) {
         const tr = insert(

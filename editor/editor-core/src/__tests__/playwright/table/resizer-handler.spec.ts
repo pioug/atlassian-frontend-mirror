@@ -65,7 +65,7 @@ test.describe('when cell borders are hovered', () => {
         expect(await lastCell.isResizeHandlerVisible()).toBeTruthy();
       });
 
-      await test.step('Hover first cell right border and check resizer hadnler', async () => {
+      await test.step('Hover first cell right border and check resizer handler', async () => {
         await firstCell.hoverBorder({ cellSide: 'right' });
 
         expect(await firstCell.isResizeHandlerVisible()).toBeTruthy();
@@ -93,11 +93,39 @@ test.describe('when cell borders are hovered', () => {
         expect(await lastCell.isResizeHandlerVisible()).toBeTruthy();
       });
 
-      await test.step('Hover first cell right border and check resizer hadnler', async () => {
+      await test.step('Hover first cell right border and check resizer handler', async () => {
         await firstCell.hoverBorder({ cellSide: 'right' });
 
         expect(await firstCell.isResizeHandlerVisible()).toBeTruthy();
       });
     });
+  });
+});
+
+// TODO: convert to regular test above after FF is cleaned up
+test.describe('when last cell border is hovered with platform.editor.custom-table-width enabled', () => {
+  test.use({
+    editorProps: {
+      appearance: 'full-page',
+      allowTables: {
+        advanced: true,
+      },
+    },
+    platformFeatureFlags: { 'platform.editor.custom-table-width': true },
+  });
+
+  test('should not cause table to overflow', async ({ editor }) => {
+    const toolbar = EditorMainToolbarModel.from(editor);
+
+    await toolbar.clickAt('Table');
+
+    const { table } = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(table);
+
+    const lastCell = await tableModel.cell(2);
+
+    await lastCell.hoverBorder({ cellSide: 'right' });
+
+    expect(await tableModel.hasOverflowed()).toBeFalsy();
   });
 });

@@ -1,5 +1,11 @@
 # @atlaskit/editor-wikimarkup-transformer
 
+## 11.2.12
+
+### Patch Changes
+
+- [`03022b35109`](https://bitbucket.org/atlassian/atlassian-frontend/commits/03022b35109) - Fix codeblock bug by reverting changes from ADFEXP-371. Strike througth fix will come in future patch
+
 ## 11.2.11
 
 ### Patch Changes

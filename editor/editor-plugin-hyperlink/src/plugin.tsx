@@ -44,7 +44,7 @@ import {
 } from './pm-plugins/toolbar-buttons';
 import { getToolbarConfig } from './Toolbar';
 
-export const hyperlinkPlugin: NextEditorPlugin<
+export type HyperlinkPlugin = NextEditorPlugin<
   'hyperlink',
   {
     pluginConfiguration: HyperlinkPluginOptions | undefined;
@@ -68,7 +68,7 @@ export const hyperlinkPlugin: NextEditorPlugin<
     };
     commands: {
       /**
-       * PluginCommand to show link toolbar.
+       * EditorCommand to show link toolbar.
        *
        * Example:
        *
@@ -82,7 +82,9 @@ export const hyperlinkPlugin: NextEditorPlugin<
     };
     sharedState: HyperlinkState | undefined;
   }
-> = (options = {}, api) => {
+>;
+
+export const hyperlinkPlugin: HyperlinkPlugin = (options = {}, api) => {
   const featureFlags =
     api?.dependencies?.featureFlags?.sharedState.currentState() || {};
   return {

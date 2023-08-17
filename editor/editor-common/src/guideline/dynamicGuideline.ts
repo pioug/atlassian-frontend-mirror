@@ -3,78 +3,142 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findChildren } from '@atlaskit/editor-prosemirror/utils';
 
-import { getMediaSinglePixelWidth, roundToNearest } from '../media-single';
+import { roundToNearest } from '../media-single';
 
 import { MEDIA_DYNAMIC_GUIDELINE_PREFIX } from './constants';
-import type { GuidelineConfig } from './types';
+import type { GuidelineConfig, GuidelineStyles, RelativeGuides } from './types';
+import { getMediaSingleDimensions } from './utils';
 
 export const generateDynamicGuidelines = (
   state: EditorState,
   editorWidth: number,
-  styles: Omit<GuidelineConfig, 'key' | 'position'> = {},
-) => {
+  styles: GuidelineStyles = {},
+): {
+  dynamicGuides: GuidelineConfig[];
+  relativeGuides: RelativeGuides;
+} => {
   const selectedNode =
     state.selection instanceof NodeSelection &&
     (state.selection as NodeSelection).node;
 
-  const mediaSingleNode = findChildren(
-    state.tr.doc,
-    (node: PMNode) => {
-      return node.type === state.schema.nodes.mediaSingle;
-    },
-    false, // only top level
-  );
-
   const offset = editorWidth / 2;
 
-  return mediaSingleNode
-    .map(({ node }, index) => {
-      if (selectedNode === node) {
-        return [];
+  return findChildren(
+    state.tr.doc,
+    (node: PMNode) => node.type === state.schema.nodes.mediaSingle,
+  ).reduce<{
+    dynamicGuides: GuidelineConfig[];
+    relativeGuides: RelativeGuides;
+  }>(
+    (acc, nodeWithPos, index) => {
+      const { node, pos } = nodeWithPos;
+
+      // if the current node the selected node
+      // or the node is not using pixel width,
+      // We will skip the node.
+      if (selectedNode === node || node.attrs.widthType !== 'pixel') {
+        return acc;
       }
 
-      const { layout, width, widthType } = node.attrs;
+      const $pos = state.tr.doc.resolve(pos);
 
-      const pixelWidth = getMediaSinglePixelWidth(
-        width,
-        editorWidth,
-        widthType,
-      );
-
-      const key = `${MEDIA_DYNAMIC_GUIDELINE_PREFIX}${index}`;
-
-      switch (layout) {
-        case 'align-start':
-        case 'wrap-left':
-          return {
-            position: { x: roundToNearest(pixelWidth - offset) },
-            key,
-            ...styles,
-          };
-        case 'align-end':
-        case 'wrap-right':
-          return {
-            position: { x: roundToNearest(offset - pixelWidth) },
-            key,
-            ...styles,
-          };
-        case 'center':
-          return [
-            {
-              position: { x: roundToNearest(pixelWidth / 2) },
-              key: `${key}_right`,
-              ...styles,
-            },
-            {
-              position: { x: -roundToNearest(pixelWidth / 2) },
-              key: `${key}_left`,
-              ...styles,
-            },
-          ];
-        // we ignore full-width and wide
-        default:
-          return [];
+      if ($pos.parent.type !== state.schema.nodes.doc) {
+        return acc;
       }
-    })
-    .flat();
+
+      const dimensions = getMediaSingleDimensions(node, editorWidth);
+
+      if (!dimensions) {
+        return acc;
+      }
+
+      const { width, height } = dimensions;
+
+      const dynamicGuides = [
+        ...acc.dynamicGuides,
+        ...getDynamicGuides(
+          node.attrs.layout,
+          width,
+          offset,
+          `${MEDIA_DYNAMIC_GUIDELINE_PREFIX}${index}`,
+          styles,
+        ),
+      ];
+
+      const accRelativeGuidesWidth = acc.relativeGuides?.width || {};
+      const accRelativeGuidesHeight = acc.relativeGuides?.height || {};
+
+      const relativeGuidesWidth = {
+        ...accRelativeGuidesWidth,
+        [width]: [...(accRelativeGuidesWidth[width] || []), nodeWithPos],
+      };
+
+      const relativeGuidesWidthHeight = {
+        ...accRelativeGuidesHeight,
+        [Math.round(height)]: [
+          ...(accRelativeGuidesHeight[height] || []),
+          nodeWithPos,
+        ],
+      };
+
+      return {
+        dynamicGuides,
+        relativeGuides: {
+          width: relativeGuidesWidth,
+          height: relativeGuidesWidthHeight,
+        },
+      };
+    },
+    {
+      relativeGuides: {
+        width: {},
+        height: {},
+      },
+      dynamicGuides: [],
+    },
+  );
+};
+
+const getDynamicGuides = (
+  layout: string,
+  width: number,
+  offset: number,
+  key: string,
+  styles: GuidelineStyles,
+): GuidelineConfig[] => {
+  switch (layout) {
+    case 'align-start':
+    case 'wrap-left':
+      return [
+        {
+          position: { x: roundToNearest(width - offset) },
+          key,
+          ...styles,
+        },
+      ];
+    case 'align-end':
+    case 'wrap-right':
+      return [
+        {
+          position: { x: roundToNearest(offset - width) },
+          key,
+          ...styles,
+        },
+      ];
+    case 'center':
+      return [
+        {
+          position: { x: roundToNearest(width / 2) },
+          key: `${key}_right`,
+          ...styles,
+        },
+        {
+          position: { x: -roundToNearest(width / 2) },
+          key: `${key}_left`,
+          ...styles,
+        },
+      ];
+    default:
+      return [];
+  }
 };

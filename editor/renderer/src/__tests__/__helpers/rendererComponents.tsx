@@ -1,9 +1,13 @@
 import React from 'react';
 import type { ComponentType } from 'react';
+import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { fakeMediaProvider } from '@atlaskit/editor-test-helpers/media-provider';
 import pixelWidthMedia from '../__fixtures__/media-pixel-size.adf.json';
 import pixelWidthMediaNested from '../__fixtures__/media-pixel-size-nested.adf.json';
+import datasourceWithRichtext from '../__fixtures__/datasource-with-richtext.adf.json';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
@@ -27,6 +31,7 @@ const defaultBaseRendererProps: Omit<RendererProps, 'document'> = {
 
 export const generateRendererComponent = (
   props: RendererProps,
+  mockDatasources = false,
 ): ComponentType<any> => {
   const renderProps = {
     ...defaultBaseRendererProps,
@@ -34,9 +39,21 @@ export const generateRendererComponent = (
   };
 
   return () => {
+    const smartCardClient = React.useMemo(() => new CardClient('stg'), []);
+    const datasourcesMocked = React.useRef(false);
+    if (mockDatasources && !datasourcesMocked.current) {
+      datasourcesMocked.current = true;
+      mockDatasourceFetchRequests({
+        initialVisibleColumnKeys: ['key', 'assignee', 'summary', 'description'],
+        delayedResponse: false,
+      });
+    }
+
     return (
       <IntlProvider locale="en">
-        <Renderer {...renderProps} />
+        <SmartCardProvider client={smartCardClient}>
+          <Renderer {...renderProps} />
+        </SmartCardProvider>
       </IntlProvider>
     );
   };
@@ -61,3 +78,19 @@ export const MediaWithPixelWidthFullWidthNested = generateRendererComponent({
   document: pixelWidthMediaNested,
   appearance: 'full-width',
 });
+
+export const DatasourceWithRichTextFullPage = generateRendererComponent(
+  {
+    document: datasourceWithRichtext,
+    appearance: 'full-page',
+  },
+  true,
+);
+
+export const DatasourceWithRichTextFullWidth = generateRendererComponent(
+  {
+    document: datasourceWithRichtext,
+    appearance: 'full-width',
+  },
+  true,
+);

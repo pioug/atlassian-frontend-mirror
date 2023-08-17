@@ -12,7 +12,7 @@ import { injectIntl } from 'react-intl-next';
 import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
 
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
-import * as keymaps from '../../../../../keymaps';
+import { escape } from '@atlaskit/editor-common/keymaps';
 import { ToolTipContent } from '../../../../../keymaps';
 import { closeMediaAltTextMenu, updateAltText } from '../commands';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
@@ -152,7 +152,7 @@ export class AltTextEditComponent extends React.Component<
     const backButtonMessageComponent = (
       <ToolTipContent
         description={backButtonMessage}
-        keymap={keymaps.escape}
+        keymap={escape}
         shortcutOverride="Esc"
       />
     );

@@ -21,8 +21,8 @@ import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { isTextAtPos, LinkAction } from '@atlaskit/editor-common/link';
 import type {
   Command,
+  EditorCommand,
   LinkInputType,
-  PluginCommand,
 } from '@atlaskit/editor-common/types';
 import {
   filterCommand as filter,
@@ -295,12 +295,12 @@ type InputMethod =
   | INPUT_METHOD.SHORTCUT
   | INPUT_METHOD.INSERT_MENU;
 
-export type ShowLinkToolbar = (inputMethod: InputMethod) => PluginCommand;
+export type ShowLinkToolbar = (inputMethod: InputMethod) => EditorCommand;
 
 export function showLinkToolbar(
   inputMethod: InputMethod,
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-): PluginCommand {
+): EditorCommand {
   return ({ tr }) => {
     const newTr = tr.setMeta(stateKey, {
       type: LinkAction.SHOW_INSERT_TOOLBAR,

@@ -1,4 +1,4 @@
-import type { WidthTypes } from '../../guideline/types';
+import type { GuidelineTypes, WidthTypes } from '../../guideline/types';
 
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import type { TrackAEP, UIAEP } from './utils';
@@ -55,10 +55,10 @@ type MediaUIAction = UIAEP<
 >;
 
 type MediaResizeAttributes = {
-  size?: number;
+  width?: number;
   widthType: WidthTypes;
   layout: string;
-  snapType: 'default' | 'temporary' | 'relative' | 'none';
+  snapType: GuidelineTypes;
   parentNode?: string;
 };
 

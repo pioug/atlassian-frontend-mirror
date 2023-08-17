@@ -12,6 +12,7 @@ export {
 export type {
   WidthTypes,
   Position,
+  GuidelineStyles,
   GuidelineConfig,
   GuidelinePluginState,
   GuidelinePluginOptions,
@@ -19,11 +20,19 @@ export type {
   DisplayGrid,
   VerticalPosition,
   HorizontalPosition,
+  RelativeGuides,
   GuidelineSnap,
   GuidelineSnapsReference,
+  GuidelineTypes,
 } from './types';
 export { getGuidelineSnaps, findClosestSnap } from './snapping';
 export {
   isVerticalPosition,
+  getMediaSingleDimensions,
   getContainerWidthOrFullEditorWidth,
+  getGuidelineTypeFromKey,
 } from './utils';
+export {
+  getRelativeGuideSnaps,
+  getRelativeGuidelines,
+} from './relativeGuideline';

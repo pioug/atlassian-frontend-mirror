@@ -7,19 +7,19 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { toggleMark } from '@atlaskit/editor-common/mark';
 import type {
+  EditorCommand,
   InputMethodBasic,
-  PluginCommand,
 } from '@atlaskit/editor-common/types';
 
-type ToggleMarkWithAnalyticsPluginCommand = (
+type ToggleMarkWithAnalyticsEditorCommand = (
   editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-) => ToggleMarkPluginCommand;
+) => ToggleMarkEditorCommand;
 
-export type ToggleMarkPluginCommand = (
+export type ToggleMarkEditorCommand = (
   inputMethod: InputMethodBasic,
-) => PluginCommand;
+) => EditorCommand;
 
-export const toggleEm: PluginCommand = ({ tr }) => {
+export const toggleEm: EditorCommand = ({ tr }) => {
   const { em } = tr.doc.type.schema.marks;
   if (!em) {
     // No transaction to apply
@@ -28,7 +28,7 @@ export const toggleEm: PluginCommand = ({ tr }) => {
   return toggleMark(em)({ tr });
 };
 
-export const toggleEmWithAnalytics: ToggleMarkWithAnalyticsPluginCommand =
+export const toggleEmWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
   editorAnalyticsApi =>
   inputMethod =>
   ({ tr }) => {
@@ -51,7 +51,7 @@ export const toggleEmWithAnalytics: ToggleMarkWithAnalyticsPluginCommand =
     return newTr;
   };
 
-export const toggleStrike: PluginCommand = ({ tr }) => {
+export const toggleStrike: EditorCommand = ({ tr }) => {
   const { strike } = tr.doc.type.schema.marks;
   if (!strike) {
     // No transaction to apply
@@ -60,7 +60,7 @@ export const toggleStrike: PluginCommand = ({ tr }) => {
   return toggleMark(strike)({ tr });
 };
 
-export const toggleStrikeWithAnalytics: ToggleMarkWithAnalyticsPluginCommand =
+export const toggleStrikeWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
   editorAnalyticsApi =>
   inputMethod =>
   ({ tr }) => {
@@ -83,7 +83,7 @@ export const toggleStrikeWithAnalytics: ToggleMarkWithAnalyticsPluginCommand =
     return newTr;
   };
 
-export const toggleStrong: PluginCommand = ({ tr }) => {
+export const toggleStrong: EditorCommand = ({ tr }) => {
   const { strong } = tr.doc.type.schema.marks;
   if (!strong) {
     // No transaction to apply
@@ -92,7 +92,7 @@ export const toggleStrong: PluginCommand = ({ tr }) => {
   return toggleMark(strong)({ tr });
 };
 
-export const toggleStrongWithAnalytics: ToggleMarkWithAnalyticsPluginCommand =
+export const toggleStrongWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
   editorAnalyticsApi =>
   inputMethod =>
   ({ tr }) => {
@@ -115,7 +115,7 @@ export const toggleStrongWithAnalytics: ToggleMarkWithAnalyticsPluginCommand =
     return newTr;
   };
 
-export const toggleUnderline: PluginCommand = ({ tr }) => {
+export const toggleUnderline: EditorCommand = ({ tr }) => {
   const { underline } = tr.doc.type.schema.marks;
   if (!underline) {
     // No transaction to apply
@@ -124,7 +124,7 @@ export const toggleUnderline: PluginCommand = ({ tr }) => {
   return toggleMark(underline)({ tr });
 };
 
-export const toggleUnderlineWithAnalytics: ToggleMarkWithAnalyticsPluginCommand =
+export const toggleUnderlineWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
 
     editorAnalyticsApi =>
     inputMethod =>
@@ -148,7 +148,7 @@ export const toggleUnderlineWithAnalytics: ToggleMarkWithAnalyticsPluginCommand 
       return newTr;
     };
 
-export const toggleSuperscript: PluginCommand = ({ tr }) => {
+export const toggleSuperscript: EditorCommand = ({ tr }) => {
   const { subsup } = tr.doc.type.schema.marks;
   if (!subsup) {
     // No transaction to apply
@@ -157,7 +157,7 @@ export const toggleSuperscript: PluginCommand = ({ tr }) => {
   return toggleMark(subsup, { type: 'sup' })({ tr });
 };
 
-export const toggleSuperscriptWithAnalytics: ToggleMarkWithAnalyticsPluginCommand =
+export const toggleSuperscriptWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
 
     editorAnalyticsApi =>
     inputMethod =>
@@ -181,7 +181,7 @@ export const toggleSuperscriptWithAnalytics: ToggleMarkWithAnalyticsPluginComman
       return newTr;
     };
 
-export const toggleSubscript: PluginCommand = ({ tr }) => {
+export const toggleSubscript: EditorCommand = ({ tr }) => {
   const { subsup } = tr.doc.type.schema.marks;
   if (!subsup) {
     // No transaction to apply
@@ -190,7 +190,7 @@ export const toggleSubscript: PluginCommand = ({ tr }) => {
   return toggleMark(subsup, { type: 'sub' })({ tr });
 };
 
-export const toggleSubscriptWithAnalytics: ToggleMarkWithAnalyticsPluginCommand =
+export const toggleSubscriptWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
 
     editorAnalyticsApi =>
     inputMethod =>
@@ -214,7 +214,7 @@ export const toggleSubscriptWithAnalytics: ToggleMarkWithAnalyticsPluginCommand 
       return newTr;
     };
 
-export const toggleCode: PluginCommand = ({ tr }) => {
+export const toggleCode: EditorCommand = ({ tr }) => {
   const { code } = tr.doc.type.schema.marks;
   if (!code) {
     // No transaction to apply
@@ -223,7 +223,7 @@ export const toggleCode: PluginCommand = ({ tr }) => {
   return toggleMark(code)({ tr });
 };
 
-export const toggleCodeWithAnalytics: ToggleMarkWithAnalyticsPluginCommand =
+export const toggleCodeWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
   editorAnalyticsApi =>
   inputMethod =>
   ({ tr }) => {

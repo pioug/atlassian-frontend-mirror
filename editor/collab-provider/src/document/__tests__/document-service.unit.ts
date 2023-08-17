@@ -22,11 +22,11 @@ jest.mock('@atlaskit/prosemirror-collab', () => {
 });
 
 import { catchup } from '../catchup';
-import { DocumentService } from '../document-service';
-import AnalyticsHelper from '../../analytics/analytics-helper';
+import type { DocumentService } from '../document-service';
+import type AnalyticsHelper from '../../analytics/analytics-helper';
 import { ACK_MAX_TRY } from '../../helpers/const';
 import { getVersion, sendableSteps } from '@atlaskit/prosemirror-collab';
-import { StepsPayload } from '../../types';
+import type { StepsPayload } from '../../types';
 import type { CollabInitPayload } from '@atlaskit/editor-common/collab';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
@@ -114,10 +114,6 @@ describe('document-service', () => {
         'catchup',
         'FAILURE',
         { latency: 0 },
-      );
-      expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
-        'Err',
-        'Error while catching up',
       );
 
       // The service must continue processing even if catchup throws an exception

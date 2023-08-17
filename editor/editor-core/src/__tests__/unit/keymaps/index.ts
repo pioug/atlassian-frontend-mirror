@@ -1,5 +1,12 @@
 import { browser } from '@atlaskit/editor-common/utils';
-import * as keymaps from '../../../keymaps';
+import {
+  tooltip,
+  findShortcutByDescription,
+  findKeymapByDescription,
+  toggleBold,
+  makeKeyMapWithCommon,
+  makeKeymap,
+} from '@atlaskit/editor-common/keymaps';
 
 describe('keymaps', () => {
   [true, false].forEach((isMac) => {
@@ -20,9 +27,9 @@ describe('keymaps', () => {
           };
 
           if (browser.mac) {
-            expect(keymaps.tooltip(keymap)).toEqual('⌘⇧⌥K');
+            expect(tooltip(keymap)).toEqual('⌘⇧⌥K');
           } else {
-            expect(keymaps.tooltip(keymap)).toEqual('Ctrl+Shift+Alt+K');
+            expect(tooltip(keymap)).toEqual('Ctrl+Shift+Alt+K');
           }
         });
 
@@ -35,9 +42,9 @@ describe('keymaps', () => {
           };
 
           if (browser.mac) {
-            expect(keymaps.tooltip(keymap)).toEqual('⌘⇧⌥↑');
+            expect(tooltip(keymap)).toEqual('⌘⇧⌥↑');
           } else {
-            expect(keymaps.tooltip(keymap)).toEqual('Ctrl+Shift+Alt+↑');
+            expect(tooltip(keymap)).toEqual('Ctrl+Shift+Alt+↑');
           }
         });
       });
@@ -45,46 +52,38 @@ describe('keymaps', () => {
       describe('findShortcutByDescription', () => {
         it('should return matched shortcut for Quote if found', () => {
           if (browser.mac) {
-            expect(keymaps.findShortcutByDescription('Quote')).toEqual(
-              'Cmd-Shift-9',
-            );
+            expect(findShortcutByDescription('Quote')).toEqual('Cmd-Shift-9');
           } else {
-            expect(keymaps.findShortcutByDescription('Quote')).toEqual(
-              'Ctrl-Shift-9',
-            );
+            expect(findShortcutByDescription('Quote')).toEqual('Ctrl-Shift-9');
           }
         });
 
         it('should return matched shortcut for Redo if found', () => {
           if (browser.mac) {
-            expect(keymaps.findShortcutByDescription('Redo')).toEqual(
-              'Cmd-Shift-z',
-            );
+            expect(findShortcutByDescription('Redo')).toEqual('Cmd-Shift-z');
           } else {
-            expect(keymaps.findShortcutByDescription('Redo')).toEqual('Ctrl-y');
+            expect(findShortcutByDescription('Redo')).toEqual('Ctrl-y');
           }
         });
 
         it('should return undefined if shortcut not found', () => {
-          expect(keymaps.findShortcutByDescription('random')).toBe(undefined);
+          expect(findShortcutByDescription('random')).toBe(undefined);
         });
       });
 
       describe('findKeymapByDescription', () => {
         it('should return keymap when keymap is found', () => {
-          expect(keymaps.findKeymapByDescription('Bold')).toEqual(
-            keymaps.toggleBold,
-          );
+          expect(findKeymapByDescription('Bold')).toEqual(toggleBold);
         });
 
         it('should return undefined when keymap is not found', () => {
-          expect(keymaps.findKeymapByDescription('random')).toBe(undefined);
+          expect(findKeymapByDescription('random')).toBe(undefined);
         });
       });
 
       describe('makeKeyMapWithCommon', () => {
         it('replaces Mod with Ctrl for Windows and Cmd for Mac', () => {
-          expect(keymaps.makeKeyMapWithCommon('Undo', 'Mod-z')).toEqual({
+          expect(makeKeyMapWithCommon('Undo', 'Mod-z')).toEqual({
             common: 'Mod-z',
             description: 'Undo',
             mac: 'Cmd-z',
@@ -95,7 +94,7 @@ describe('keymaps', () => {
 
       describe('makeKeyMap', () => {
         it('replaces Mod with Ctrl for Windows and Cmd for Mac', () => {
-          expect(keymaps.makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z')).toEqual({
+          expect(makeKeymap('Redo', 'Ctrl-y', 'Mod-Shift-z')).toEqual({
             common: undefined,
             description: 'Redo',
             mac: 'Cmd-Shift-z',

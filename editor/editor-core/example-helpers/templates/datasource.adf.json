@@ -24,7 +24,8 @@
                   { "key": "priority" },
                   { "key": "labels" },
                   { "key": "status" },
-                  { "key": "created" }
+                  { "key": "created" },
+                  { "key": "description" }
                 ]
               }
             }

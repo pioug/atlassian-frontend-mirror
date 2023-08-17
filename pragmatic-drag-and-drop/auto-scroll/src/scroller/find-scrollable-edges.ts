@@ -27,7 +27,7 @@ const getHitbox: {
 } = {
   top: ({ clientRect, config }) => {
     const hitboxHeight: number = Math.min(
-      config.startScrollFromPercentage.top * clientRect.height,
+      config.startHitboxAtPercentageRemainingOfElement.top * clientRect.height,
       maxHitboxSize,
     );
 
@@ -40,7 +40,7 @@ const getHitbox: {
   },
   right: ({ clientRect, config }) => {
     const hitboxWidth: number = Math.min(
-      config.startScrollFromPercentage.right * clientRect.width,
+      config.startHitboxAtPercentageRemainingOfElement.right * clientRect.width,
       maxHitboxSize,
     );
 
@@ -53,7 +53,8 @@ const getHitbox: {
   },
   bottom: ({ clientRect, config }) => {
     const hitboxHeight: number = Math.min(
-      config.startScrollFromPercentage.bottom * clientRect.height,
+      config.startHitboxAtPercentageRemainingOfElement.bottom *
+        clientRect.height,
       maxHitboxSize,
     );
 
@@ -66,7 +67,7 @@ const getHitbox: {
   },
   left: ({ clientRect, config }) => {
     const hitboxWidth: number = Math.min(
-      config.startScrollFromPercentage.left * clientRect.width,
+      config.startHitboxAtPercentageRemainingOfElement.left * clientRect.width,
       maxHitboxSize,
     );
 
@@ -146,7 +147,6 @@ export function findScrollableEdges<DragType extends AllDragTypes>({
       return {
         edge,
         hitbox,
-        clientRect,
       };
     })
     .filter((value): value is ScrollableEdge => Boolean(value));

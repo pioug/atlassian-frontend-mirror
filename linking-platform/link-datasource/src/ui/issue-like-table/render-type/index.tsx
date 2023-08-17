@@ -7,6 +7,7 @@ import DateTimeRenderType from './date-time';
 import IconRenderType from './icon';
 import LinkRenderType from './link';
 import NumberRenderType from './number';
+import RichTextRenderType from './richtext';
 import StatusRenderType from './status';
 import TagRenderType from './tag';
 import StringRenderType from './text';
@@ -42,6 +43,8 @@ export const fallbackRenderType: TableViewPropsRenderType = item => {
     case 'user':
       return <UserRenderType {...item.value} />;
 
+    case 'richtext':
+      return <RichTextRenderType value={item.value} />;
     default:
       return <></>;
   }

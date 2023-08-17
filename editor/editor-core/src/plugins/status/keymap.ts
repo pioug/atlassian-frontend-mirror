@@ -1,15 +1,15 @@
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
-import * as keymaps from '../../keymaps';
+import { bindKeymapWithCommand, enter, tab } from '../../keymaps';
 import type { Command } from '../../types';
 
 import { mayGetStatusAtSelection } from './utils';
 
 export function keymapPlugin(): SafePlugin {
   const list = {};
-  keymaps.bindKeymapWithCommand(keymaps.enter.common!, consumeKeyEvent, list);
-  keymaps.bindKeymapWithCommand(keymaps.tab.common!, consumeKeyEvent, list);
+  bindKeymapWithCommand(enter.common!, consumeKeyEvent, list);
+  bindKeymapWithCommand(tab.common!, consumeKeyEvent, list);
   return keymap(list) as SafePlugin;
 }
 

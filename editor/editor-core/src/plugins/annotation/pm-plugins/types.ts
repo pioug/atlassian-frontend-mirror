@@ -18,6 +18,7 @@ export enum ACTIONS {
   ADD_INLINE_COMMENT,
   INLINE_COMMENT_SET_VISIBLE,
   CLOSE_COMPONENT,
+  SET_SELECTED_ANNOTATION,
 }
 
 export interface InlineCommentPluginOptions {
@@ -60,7 +61,11 @@ export type InlineCommentAction =
         selectedAnnotations: AnnotationInfo[];
       };
     }
-  | { type: ACTIONS.INLINE_COMMENT_SET_VISIBLE; data: { isVisible: boolean } };
+  | { type: ACTIONS.INLINE_COMMENT_SET_VISIBLE; data: { isVisible: boolean } }
+  | {
+      type: ACTIONS.SET_SELECTED_ANNOTATION;
+      data: { selectedAnnotations: AnnotationInfo[] };
+    };
 
 export type InlineCommentPluginState = {
   annotations: InlineCommentMap;

@@ -6,6 +6,7 @@ import {
   DatasourceDataResponseItem,
   DatasourceDetailsResponse,
   DatasourceResponseSchemaProperty,
+  RichText,
   StatusType,
 } from '@atlaskit/linking-types';
 
@@ -54,6 +55,11 @@ const columns: DatasourceResponseSchemaProperty[] = [
     type: 'link',
   },
   {
+    key: 'description',
+    title: 'Description',
+    type: 'richtext',
+  },
+  {
     key: 'assignee',
     title: 'Assignee',
     type: 'user',
@@ -93,7 +99,580 @@ const columns: DatasourceResponseSchemaProperty[] = [
     .map((prop, i) => ({ ...prop, key: prop.key + i, title: prop.title + i })),
 ];
 
-export const initialVisibleColumnKeys: string[] = [
+const adfTableSample = {
+  data: {
+    type: 'adf',
+    text: JSON.stringify({
+      type: 'doc',
+      version: 1,
+      content: [
+        {
+          type: 'table',
+          attrs: {
+            layout: 'full-width',
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Header content 1',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Header content 2',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Header content 3',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 1',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 2',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 3',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'table',
+          attrs: {
+            layout: 'wide',
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableHeader',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Header content 1',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Header content 2',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableHeader',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Header content 3',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 1',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  content: [
+                    {
+                      type: 'mediaSingle',
+                      attrs: {
+                        layout: 'center',
+                      },
+                      content: [
+                        {
+                          type: 'media',
+                          attrs: {
+                            type: 'external',
+                            url: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==',
+                          },
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 3',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'bodiedExtension',
+          attrs: {
+            extensionType: 'com.atlassian.confluence.macro.core',
+            extensionKey: 'bodied-eh',
+            parameters: {
+              macroParams: {},
+              macroMetadata: {
+                macroId: {
+                  value: 1532948101320,
+                },
+                placeholder: {
+                  '0': {
+                    data: {
+                      url: '',
+                    },
+                    type: 'icon',
+                  },
+                },
+              },
+            },
+            layout: 'wide',
+          },
+          content: [
+            {
+              type: 'table',
+              attrs: {
+                layout: 'full-width',
+              },
+              content: [
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableHeader',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'Header content 1',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'Header content 2',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableHeader',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'Header content 3',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableRow',
+                  content: [
+                    {
+                      type: 'tableCell',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'This table is inside a bodied extension.',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'Body content 2',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    {
+                      type: 'tableCell',
+                      content: [
+                        {
+                          type: 'paragraph',
+                          content: [
+                            {
+                              type: 'text',
+                              text: 'Body content 3',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'table',
+          attrs: {
+            isNumberColumnEnabled: true,
+            layout: 'default',
+          },
+          content: [
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 1',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 2',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 3',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 1',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 2',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 3',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'tableRow',
+              content: [
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 1',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 2',
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  type: 'tableCell',
+                  attrs: {},
+                  content: [
+                    {
+                      type: 'paragraph',
+                      content: [
+                        {
+                          type: 'text',
+                          text: 'Body content 3',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+  },
+};
+
+const adfSample: { data: RichText } = {
+  data: {
+    type: 'adf',
+    text: JSON.stringify({
+      version: 1,
+      type: 'doc',
+      content: [
+        {
+          type: 'panel',
+          attrs: {
+            panelType: 'info',
+          },
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'normal info panel',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'panel',
+          attrs: {
+            panelType: 'custom',
+          },
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'custom - missing defaults',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: 'panel',
+          attrs: {
+            panelType: 'custom',
+            panelColor: '#34eb6e',
+          },
+          content: [
+            {
+              type: 'paragraph',
+              content: [
+                {
+                  type: 'text',
+                  text: 'custom - only background',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }),
+  },
+};
+
+export const defaultInitialVisibleColumnKeys: string[] = [
   // Order of actual columns is in different order is on purpose
   // To demonstrate that this list is a king
   'type',
@@ -104,9 +683,10 @@ export const initialVisibleColumnKeys: string[] = [
   'labels',
   'status',
   'created',
+  'description',
 ];
 
-const detailsResponse: DatasourceDetailsResponse = {
+const defaultDetailsResponse: DatasourceDetailsResponse = {
   meta: {
     key: 'jira-object-provider',
     access: 'granted',
@@ -134,7 +714,7 @@ const detailsResponse: DatasourceDetailsResponse = {
     ],
     schema: {
       properties: columns,
-      defaultProperties: initialVisibleColumnKeys,
+      defaultProperties: defaultInitialVisibleColumnKeys,
     },
   },
 };
@@ -180,6 +760,7 @@ const generateDataResponse = ({
   maxItems = 99,
   numberOfLoads = 0,
   includeSchema,
+  initialVisibleColumnKeys,
   isUnauthorized = false,
 }: {
   cloudId: string;
@@ -187,11 +768,14 @@ const generateDataResponse = ({
   numberOfLoads?: number;
   includeSchema: boolean;
   isUnauthorized?: boolean;
+  initialVisibleColumnKeys: string[];
 }): DatasourceDataResponse => {
   const schema = {
-    properties: detailsResponse.data.schema.properties.filter(({ key }) => {
-      return initialVisibleColumnKeys.includes(key);
-    }),
+    properties: defaultDetailsResponse.data.schema.properties.filter(
+      ({ key }) => {
+        return initialVisibleColumnKeys.includes(key);
+      },
+    ),
   };
 
   return {
@@ -206,7 +790,7 @@ const generateDataResponse = ({
     data: {
       items: mockJiraData.data
         .slice(0, maxItems)
-        .map((item): DatasourceDataResponseItem => {
+        .map((item, idx): DatasourceDataResponseItem => {
           return {
             // Fake identifier attribute that is a primitive value.
             // Adding number of pages to make all issueNumbers unique
@@ -225,6 +809,7 @@ const generateDataResponse = ({
                 },
               },
             },
+            description: idx % 2 === 0 ? adfSample : adfTableSample,
             summary: {
               data: { url: item.link, text: `[${cloudId}] ${item.summary}` },
             },
@@ -275,21 +860,41 @@ let numberOfLoads = 0;
 interface MockOptions {
   datasourceId?: string | null;
   shouldMockORSBatch?: boolean;
+  initialVisibleColumnKeys?: string[];
+  delayedResponse?: boolean; // For playwright VR tests
 }
 
 export const mockDatasourceFetchRequests = ({
   datasourceId,
-  shouldMockORSBatch,
+  shouldMockORSBatch = false,
+  initialVisibleColumnKeys = defaultInitialVisibleColumnKeys,
+  delayedResponse = true,
 }: MockOptions = {}) => {
   let datasourceMatcher = '[^/]+';
   if (datasourceId) {
     datasourceMatcher = datasourceId;
   }
 
+  // Playwright VR tests do not like setTimeout
+  const setTimeoutConfigured = delayedResponse
+    ? setTimeout
+    : (cb: Function, _: number) => cb();
+
   fetchMock.post(
     new RegExp(`object-resolver/datasource/${datasourceMatcher}/fetch/details`),
     async () => {
-      return new Promise(resolve => resolve(detailsResponse));
+      return new Promise(resolve =>
+        resolve({
+          ...defaultDetailsResponse,
+          data: {
+            ...defaultDetailsResponse.data,
+            schema: {
+              ...defaultDetailsResponse.data.schema,
+              defaultProperties: initialVisibleColumnKeys,
+            },
+          },
+        }),
+      );
     },
   );
 
@@ -329,7 +934,8 @@ export const mockDatasourceFetchRequests = ({
       } = requestBody;
       return new Promise((resolve, reject) => {
         const delay = numberOfLoads * 1000;
-        setTimeout(() => {
+
+        setTimeoutConfigured(() => {
           if (cloudId === '11111') {
             resolve(
               generateDataResponse({
@@ -337,6 +943,7 @@ export const mockDatasourceFetchRequests = ({
                 maxItems: 1,
                 numberOfLoads,
                 includeSchema,
+                initialVisibleColumnKeys,
               }),
             );
           } else if (cloudId === '22222') {
@@ -346,6 +953,7 @@ export const mockDatasourceFetchRequests = ({
                 maxItems: 0,
                 numberOfLoads,
                 includeSchema,
+                initialVisibleColumnKeys,
               }),
             );
           } else if (cloudId === '33333') {
@@ -357,11 +965,17 @@ export const mockDatasourceFetchRequests = ({
                 numberOfLoads,
                 includeSchema,
                 isUnauthorized: true,
+                initialVisibleColumnKeys,
               }),
             );
           } else {
             resolve(
-              generateDataResponse({ cloudId, numberOfLoads, includeSchema }),
+              generateDataResponse({
+                cloudId,
+                numberOfLoads,
+                includeSchema,
+                initialVisibleColumnKeys,
+              }),
             );
           }
           numberOfLoads += 1;
@@ -381,7 +995,7 @@ export const mockDatasourceFetchRequests = ({
     async () => {
       return new Promise(resolve => {
         const delay = 150;
-        setTimeout(() => {
+        setTimeoutConfigured(() => {
           resolve(mockSuggestionData);
         }, delay);
       });
@@ -393,7 +1007,7 @@ export const mockDatasourceFetchRequests = ({
     async () => {
       return new Promise(resolve => {
         const delay = 150;
-        setTimeout(() => {
+        setTimeoutConfigured(() => {
           resolve(mockAutoCompleteData);
         }, delay);
       });

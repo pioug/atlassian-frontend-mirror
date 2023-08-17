@@ -25,7 +25,7 @@ import {
   toggleSuperscriptWithAnalytics,
   toggleUnderlineWithAnalytics,
 } from './commands';
-import type { ToggleMarkPluginCommand } from './commands';
+import type { ToggleMarkEditorCommand } from './commands';
 import {
   plugin as clearFormattingPlugin,
   pluginKey as clearFormattingPluginKey,
@@ -47,13 +47,13 @@ export type TextFormattingPlugin = NextEditorPlugin<
     pluginConfiguration: TextFormattingOptions | undefined;
     dependencies: [OptionalPlugin<typeof analyticsPlugin>];
     commands: {
-      toggleSuperscript: ToggleMarkPluginCommand;
-      toggleSubscript: ToggleMarkPluginCommand;
-      toggleStrike: ToggleMarkPluginCommand;
-      toggleCode: ToggleMarkPluginCommand;
-      toggleUnderline: ToggleMarkPluginCommand;
-      toggleEm: ToggleMarkPluginCommand;
-      toggleStrong: ToggleMarkPluginCommand;
+      toggleSuperscript: ToggleMarkEditorCommand;
+      toggleSubscript: ToggleMarkEditorCommand;
+      toggleStrike: ToggleMarkEditorCommand;
+      toggleCode: ToggleMarkEditorCommand;
+      toggleUnderline: ToggleMarkEditorCommand;
+      toggleEm: ToggleMarkEditorCommand;
+      toggleStrong: ToggleMarkEditorCommand;
     };
   }
 >;

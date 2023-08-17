@@ -52,6 +52,7 @@ import {
 } from '../../../../../plugins/floating-toolbar/__tests__/_helpers';
 import type { Command } from '../../../../../types';
 import type { MediaPluginState } from '../../../../../plugins/media/pm-plugins/types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 describe('media', () => {
   const createEditor = createEditorFactory<MediaPluginState>();
@@ -390,6 +391,46 @@ describe('media', () => {
       expect(analyticsFn).toBeCalled();
       expect(editorView.state.doc).toEqualDocument(
         doc(mediaSingle({ layout: 'align-start' })(temporaryMedia)),
+      );
+    });
+
+    describe('should render only pixel size input component when resizing', () => {
+      ffTest(
+        'platform.editor.media.extended-resize-experience',
+        async () => {
+          const { editorView } = editor(docWithMediaSingle);
+          const mediaPluginState: MediaPluginState | undefined =
+            stateKey.getState(editorView.state);
+          mediaPluginState?.setIsResizing(true);
+
+          const toolbar = floatingToolbar(
+            editorView.state,
+            intl,
+            {
+              allowResizing: true,
+              allowAdvancedToolBarOptions: true,
+            },
+            undefined,
+          );
+          expect(toolbar!.items.length).toBe(1);
+        },
+        async () => {
+          const { editorView } = editor(docWithMediaSingle);
+          const mediaPluginState: MediaPluginState | undefined =
+            stateKey.getState(editorView.state);
+          mediaPluginState?.setIsResizing(true);
+
+          const toolbar = floatingToolbar(
+            editorView.state,
+            intl,
+            {
+              allowResizing: true,
+              allowAdvancedToolBarOptions: true,
+            },
+            undefined,
+          );
+          expect(toolbar!.items.length).toBe(9);
+        },
       );
     });
   });

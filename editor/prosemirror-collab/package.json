@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@atlaskit/adf-schema": "^28.1.0",
-    "@atlaskit/editor-test-helpers": "^18.10.0",
+    "@atlaskit/editor-test-helpers": "^18.11.0",
     "@atlassian/atlassian-frontend-prettier-config-1.0.0": "npm:@atlassian/atlassian-frontend-prettier-config@1.0.0"
   },
   "techstack": {

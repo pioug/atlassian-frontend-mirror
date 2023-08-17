@@ -16,10 +16,10 @@
 
 ```ts
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { InputMethodBasic } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { PluginCommand } from '@atlaskit/editor-common/types';
 import type { TextFormattingOptions } from '@atlaskit/editor-common/types';
 
 // @public (undocumented)
@@ -29,13 +29,13 @@ export type TextFormattingPlugin = NextEditorPlugin<
     pluginConfiguration: TextFormattingOptions | undefined;
     dependencies: [OptionalPlugin<typeof analyticsPlugin>];
     commands: {
-      toggleSuperscript: ToggleMarkPluginCommand;
-      toggleSubscript: ToggleMarkPluginCommand;
-      toggleStrike: ToggleMarkPluginCommand;
-      toggleCode: ToggleMarkPluginCommand;
-      toggleUnderline: ToggleMarkPluginCommand;
-      toggleEm: ToggleMarkPluginCommand;
-      toggleStrong: ToggleMarkPluginCommand;
+      toggleSuperscript: ToggleMarkEditorCommand;
+      toggleSubscript: ToggleMarkEditorCommand;
+      toggleStrike: ToggleMarkEditorCommand;
+      toggleCode: ToggleMarkEditorCommand;
+      toggleUnderline: ToggleMarkEditorCommand;
+      toggleEm: ToggleMarkEditorCommand;
+      toggleStrong: ToggleMarkEditorCommand;
     };
   }
 >;
@@ -44,9 +44,9 @@ export type TextFormattingPlugin = NextEditorPlugin<
 export const textFormattingPlugin: TextFormattingPlugin;
 
 // @public (undocumented)
-export type ToggleMarkPluginCommand = (
+export type ToggleMarkEditorCommand = (
   inputMethod: InputMethodBasic,
-) => PluginCommand;
+) => EditorCommand;
 
 // (No @packageDocumentation comment for this package)
 ```

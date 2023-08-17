@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-guideline
 
+## 0.3.13
+
+### Patch Changes
+
+- [`51e6a0128eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51e6a0128eb) - ED-18969 Implemented relative guideline
+
 ## 0.3.12
 
 ### Patch Changes

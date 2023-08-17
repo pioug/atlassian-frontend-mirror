@@ -10,9 +10,10 @@ import {
   akEditorTableNumberColumnWidth,
   akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B300, N0, N300, N40A, N60A, Y200, Y50 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
 
 import { TableCssClassName as ClassName } from '../types';
@@ -36,6 +37,7 @@ import {
   tableDeleteButtonSize,
   tableHeaderCellBackgroundColor,
   tableInsertColumnButtonSize,
+  tableOverflowShadowWidth,
   tableToolbarDeleteColor,
   tableToolbarSelectedColor,
   tableToolbarSize,
@@ -244,7 +246,7 @@ export const OverflowShadow = (props: ThemeProps) => css`
     pointer-events: none;
     top: ${tableMarginTop}px;
     z-index: ${akEditorShadowZIndex};
-    width: 8px;
+    width: ${tableOverflowShadowWidth}px;
   }
   .${ClassName.TABLE_LEFT_SHADOW} {
     background: linear-gradient(
@@ -273,9 +275,10 @@ export const OverflowShadow = (props: ThemeProps) => css`
         ${token('elevation.shadow.overflow.perimeter', 'transparent')} 0px,
         transparent 1px
       );
-    left: calc(100% + 2px);
+    left: ${getBooleanFF('platform.editor.custom-table-width')
+      ? `calc(100% - ${tableOverflowShadowWidth}px)`
+      : 'calc(100% + 2px)'};
   }
-
   .${ClassName.WITH_CONTROLS} {
     .${ClassName.TABLE_RIGHT_SHADOW}, .${ClassName.TABLE_LEFT_SHADOW} {
       height: calc(100% - ${tableMarginTopWithControl}px);
@@ -308,6 +311,29 @@ const columnHeaderButtonSelected = (props: ThemeProps) => css`
   z-index: ${columnControlsSelectedZIndex};
 `;
 
+const getFloatingDotOverrides = (props: ThemeProps) => {
+  return getBooleanFF('platform.editor.custom-table-width')
+    ? css`
+        tr
+          th:last-child
+          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::before,
+          tr
+          td:last-child
+          .${ClassName.COLUMN_CONTROLS_DECORATIONS}::before {
+          content: '';
+          background-color: ${tableBorderColor(props)};
+          position: absolute;
+          height: ${lineMarkerSize}px;
+          width: ${lineMarkerSize}px;
+          border-radius: 50%;
+          pointer-events: none;
+          top: ${token('space.025', '2px')};
+          right: 0px;
+        }
+      `
+    : '';
+};
+
 export const columnControlsDecoration = (props: ThemeProps) => css`
   .${ClassName.COLUMN_CONTROLS_DECORATIONS} {
     display: none;
@@ -317,6 +343,7 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
     left: -1px;
     top: -${columnControlsDecorationHeight + tableCellBorderWidth}px;
     height: ${columnControlsDecorationHeight}px;
+    // floating dot for adding column button
     &::before {
       content: ' ';
       background-color: ${tableBorderColor(props)};
@@ -349,6 +376,9 @@ export const columnControlsDecoration = (props: ThemeProps) => css`
       )}
     }
   }
+
+  // floating dot for adding column button - overriding style on last column to avoid scroll
+  ${getFloatingDotOverrides(props)}
 
   div.${ClassName.WITH_CONTROLS}>.${ClassName.ROW_CONTROLS_WRAPPER}::after {
     content: ' ';
@@ -439,6 +469,29 @@ export const hoveredWarningCell = css`
   }
 `;
 
+// move the resize handle zone completely inside the table cell to avoid overflow
+const getLastColumnResizerOverrides = () => {
+  return getBooleanFF('platform.editor.custom-table-width')
+    ? css`
+        tr
+          th:last-child
+          .${ClassName.RESIZE_HANDLE_DECORATION},
+          tr
+          td:last-child
+          .${ClassName.RESIZE_HANDLE_DECORATION} {
+          background-color: transparent;
+          position: absolute;
+          width: ${resizeHandlerAreaWidth}px;
+          height: 100%;
+          top: 0;
+          right: 0;
+          cursor: col-resize;
+          z-index: ${resizeHandlerZIndex};
+        }
+      `
+    : '';
+};
+
 export const resizeHandle = (props: ThemeProps) => css`
   .${ClassName.TABLE_CONTAINER} {
     .${ClassName.RESIZE_HANDLE_DECORATION} {
@@ -451,6 +504,8 @@ export const resizeHandle = (props: ThemeProps) => css`
       cursor: col-resize;
       z-index: ${resizeHandlerZIndex};
     }
+
+    ${getLastColumnResizerOverrides()}
 
     td.${ClassName.WITH_RESIZE_LINE}::before {
       content: ' ';

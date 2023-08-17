@@ -4,7 +4,6 @@ import { TableCssClassName as ClassName } from '../types';
 
 export const updateShadowListForStickyStyles = (
   heightStyle: string,
-
   shadows: HTMLCollection,
 ) => {
   Array.from(shadows).forEach((shadow) => {

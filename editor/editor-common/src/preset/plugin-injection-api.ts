@@ -4,15 +4,15 @@ import throttle from 'lodash/throttle';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import type { EditorCommand } from '../types/editor-command';
 import type {
   DefaultEditorPlugin,
   NextEditorPlugin,
   PluginDependenciesAPI,
   PluginInjectionAPI,
 } from '../types/next-editor-plugin';
-import type { PluginCommand } from '../types/plugin-command';
 
-import { pluginCommandToPMCommand } from './plugin-commands';
+import { editorCommandToPMCommand } from './editor-commands';
 
 type NextEditorPluginInitializedType = ReturnType<NextEditorPlugin<any>>;
 
@@ -166,7 +166,7 @@ class ActionsAPI {
   }
 }
 
-class PluginCommandsAPI {
+class EditorCommandsAPI {
   createAPI(
     plugin: ReturnType<NextEditorPlugin<any, any>> | undefined,
   ): PluginDependenciesAPI<NextEditorPlugin<any, any>>['commands'] {
@@ -285,7 +285,7 @@ interface PluginInjectionAPIDefinition {
 export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
   private sharedStateAPI: SharedStateAPI;
   private actionsAPI: ActionsAPI;
-  private commandsAPI: PluginCommandsAPI;
+  private commandsAPI: EditorCommandsAPI;
   private plugins: Map<string, NextEditorPluginInitializedType>;
   private getEditorView: () => EditorView | undefined;
 
@@ -293,7 +293,7 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
     this.sharedStateAPI = new SharedStateAPI({ getEditorState });
     this.plugins = new Map();
     this.actionsAPI = new ActionsAPI();
-    this.commandsAPI = new PluginCommandsAPI();
+    this.commandsAPI = new EditorCommandsAPI();
     this.getEditorView = getEditorView;
   }
 
@@ -341,14 +341,14 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
     };
   }
 
-  private executeCommand(command: PluginCommand | undefined): boolean {
+  private executeCommand(command: EditorCommand | undefined): boolean {
     const editorView = this.getEditorView();
     if (!editorView || !command) {
       return false;
     }
 
     const { state, dispatch } = editorView;
-    return pluginCommandToPMCommand(command)(state, dispatch);
+    return editorCommandToPMCommand(command)(state, dispatch);
   }
 
   onEditorViewUpdated = ({

@@ -1,5 +1,5 @@
 import { catchup, rebaseSteps } from '../catchup';
-import { CatchupOptions } from '../../types';
+import type { CatchupOptions } from '../../types';
 import { StepMap } from '@atlaskit/editor-prosemirror/transform';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 
@@ -144,6 +144,81 @@ describe('Catchup ', () => {
       metadata: undefined,
       reserveCursor: true,
     });
+  });
+
+  it('Should send error analytics event for fetchCatchup failing', async () => {
+    const error = new Error('fake error');
+    const options: CatchupOptions = {
+      getCurrentPmVersion: jest.fn().mockReturnValue(1),
+      getUnconfirmedSteps: jest.fn().mockReturnValue(undefined),
+      fetchCatchup: jest.fn().mockRejectedValueOnce(error),
+      filterQueue: jest.fn(),
+      updateDocument: jest.fn(),
+      updateMetadata: jest.fn(),
+      applyLocalSteps: jest.fn(),
+      analyticsHelper: new AnalyticsHelper('fake-document-ari'),
+    };
+
+    const sendErrorEventSpy = jest.spyOn(
+      AnalyticsHelper.prototype,
+      'sendErrorEvent',
+    );
+
+    try {
+      await catchup(options);
+    } catch (err) {
+      expect(options.fetchCatchup).toBeCalledWith(1);
+      expect(sendErrorEventSpy).toBeCalledWith(
+        error,
+        'Error while fetching catchup from server',
+      );
+    }
+  });
+
+  it('Should send error analytics event for apply catchup steps failing', async () => {
+    const exampleDoc = JSON.stringify({ a: 'example' });
+    const mockUnconfirmedSteps = [
+      { map: jest.fn().mockReturnValue('rebasedStep1') },
+      { map: jest.fn().mockReturnValue('rebasedStep2') },
+    ];
+    const error = new Error('fake error');
+
+    const options: CatchupOptions = {
+      getCurrentPmVersion: jest.fn().mockReturnValue(1),
+      getUnconfirmedSteps: jest.fn().mockReturnValue(mockUnconfirmedSteps),
+      fetchCatchup: jest.fn().mockResolvedValue({
+        doc: exampleDoc,
+        stepMaps: [
+          {
+            ranges: [0, 1, 2],
+            inverted: false,
+          },
+        ],
+        version: 2,
+      }),
+      filterQueue: jest.fn(),
+      updateDocument: jest.fn(),
+      updateMetadata: jest.fn(),
+      applyLocalSteps: jest.fn().mockImplementation(() => {
+        throw error;
+      }),
+      analyticsHelper: new AnalyticsHelper('fake-document-ari'),
+    };
+
+    const sendErrorEventSpy = jest.spyOn(
+      AnalyticsHelper.prototype,
+      'sendErrorEvent',
+    );
+
+    try {
+      await catchup(options);
+    } catch (err) {
+      expect(options.fetchCatchup).toBeCalledWith(1);
+      expect(sendErrorEventSpy).toHaveBeenCalledWith(
+        error,
+        'Failed to apply catchup result in the editor',
+      );
+    }
   });
 
   describe('rebaseSteps', () => {

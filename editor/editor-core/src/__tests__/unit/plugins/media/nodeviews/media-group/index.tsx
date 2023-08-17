@@ -13,7 +13,8 @@ import { stateKey as mediaStateKey } from '../../../../../../plugins/media/pm-pl
 import type { MediaPluginState } from '../../../../../../plugins/media/pm-plugins/types';
 import type { EditorAppearance } from '../../../../../../types';
 
-jest.mock('../../../../../../utils/', () => ({
+jest.mock('@atlaskit/editor-common/utils', () => ({
+  ...jest.requireActual<Object>('@atlaskit/editor-common/utils'),
   __esModule: true,
   setNodeSelection: jest.fn(),
 }));

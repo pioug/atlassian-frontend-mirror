@@ -9,8 +9,12 @@ import type {
   NextEditorPlugin,
   OptionalPlugin,
 } from '@atlaskit/editor-common/types';
-import * as keymaps from '../../keymaps';
-import { openHelp, tooltip } from '../../keymaps';
+import {
+  bindKeymapWithCommand,
+  openHelp,
+  tooltip,
+} from '@atlaskit/editor-common/keymaps';
+
 import WithPluginState from '../../ui/WithPluginState';
 import { HelpDialogLoader } from './ui/HelpDialogLoader';
 import { pluginKey as quickInsertPluginKey } from '../quick-insert';
@@ -123,8 +127,8 @@ const keymapPlugin = (
   editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): SafePlugin => {
   const list = {};
-  keymaps.bindKeymapWithCommand(
-    keymaps.openHelp.common!,
+  bindKeymapWithCommand(
+    openHelp.common!,
     (state, dispatch) => {
       let { tr } = state;
       const isVisible = tr.getMeta(pluginKey);

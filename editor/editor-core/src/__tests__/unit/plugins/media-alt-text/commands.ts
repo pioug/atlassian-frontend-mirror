@@ -11,6 +11,7 @@ import {
   updateAltText,
   openMediaAltTextMenu,
 } from '../../../../plugins/media/pm-plugins/alt-text/commands';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { getFreshMediaProvider } from '../media/_utils';
 import { pluginKey as mediaEditorPluginKey } from '../../../../plugins/media/pm-plugins/media-editor-plugin-factory';
 
@@ -25,8 +26,6 @@ import type {
   CreateUIAnalyticsEvent,
   UIAnalyticsEvent,
 } from '@atlaskit/analytics-next';
-
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('commands', () => {
   const createEditor = createEditorFactory<MediaEditorState>();
@@ -153,6 +152,7 @@ describe('commands', () => {
         };
         it('fires analytics event', () => {
           const { editorView } = editor(defaultDoc);
+
           openMediaAltTextMenu(mockEditorAnalyticsAPI)(
             editorView.state,
             editorView.dispatch,

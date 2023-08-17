@@ -5,7 +5,7 @@ import type {
   NextEditorPlugin,
 } from '@atlaskit/editor-common/types';
 
-import { PluginCommand } from '../../types/plugin-command';
+import type { EditorCommand } from '../../types/editor-command';
 import {
   EditorPluginInjectionAPI,
   SharedStateAPI,
@@ -356,12 +356,12 @@ describe('EditorPluginInjectionAPI', () => {
       expect(api.executeCommand(undefined)).toBe(false);
     });
 
-    it('shouldnt dispatch a transaction if the PluginCommand returns null', () => {
+    it('shouldnt dispatch a transaction if the EditorCommand returns null', () => {
       const api = coreAPI.api();
       expect(api.executeCommand(() => null)).toBe(false);
     });
 
-    it('should dispatch a transaction if the PluginCommand returns a transaction', () => {
+    it('should dispatch a transaction if the EditorCommand returns a transaction', () => {
       const api = coreAPI.api();
       expect(api.executeCommand(({ tr }) => tr)).toBe(true);
       expect(fakeDispatch).toHaveBeenCalledWith(fakeTr);
@@ -370,7 +370,7 @@ describe('EditorPluginInjectionAPI', () => {
     it('should dispatch a plugin command', () => {
       const plugin1: NextEditorPlugin<
         'one',
-        { commands: { updateTransaction: PluginCommand } }
+        { commands: { updateTransaction: EditorCommand } }
       > = (_, api) => {
         return {
           name: 'one',
@@ -393,7 +393,7 @@ describe('EditorPluginInjectionAPI', () => {
     it('should dispatch a plugin command with metadata', () => {
       const plugin1: NextEditorPlugin<
         'one',
-        { commands: { updateTransaction: (meta: string) => PluginCommand } }
+        { commands: { updateTransaction: (meta: string) => EditorCommand } }
       > = (_, api) => {
         return {
           name: 'one',

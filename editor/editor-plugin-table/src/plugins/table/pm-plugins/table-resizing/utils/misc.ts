@@ -1,4 +1,4 @@
-import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
+import type { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
 import {
   getParentNodeWidth,
   layoutToWidth,
@@ -10,13 +10,13 @@ import {
   mapBreakpointToLayoutMaxWidth,
 } from '@atlaskit/editor-common/ui';
 import { containsClassName } from '@atlaskit/editor-common/utils';
-import {
+import type {
   NodeSpec,
   Node as PMNode,
   ResolvedPos,
 } from '@atlaskit/editor-prosemirror/model';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
   akEditorFullWidthLayoutWidth,
   akEditorGutterPadding,
@@ -24,7 +24,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { TableOptions } from '../../../nodeviews/types';
+import type { TableOptions } from '../../../nodeviews/types';
 
 // Translates named layouts in number values.
 export function getLayoutSize(
@@ -120,15 +120,11 @@ export const getTableMaxWidth = ({
   const containerWidth = getEditorContainerWidth();
   const parentWidth = getParentNodeWidth(tableStart, state, containerWidth);
 
-  let maxWidth;
-  if (getBooleanFF('platform.editor.custom-table-width')) {
-    maxWidth =
-      parentWidth ||
+  let maxWidth = getBooleanFF('platform.editor.custom-table-width')
+    ? parentWidth ||
       table.attrs.width ||
-      getLayoutSize(layout, containerWidth.width, {});
-  } else {
-    maxWidth = parentWidth || getLayoutSize(layout, containerWidth.width, {});
-  }
+      getLayoutSize(layout, containerWidth.width, {})
+    : parentWidth || getLayoutSize(layout, containerWidth.width, {});
 
   if (table.attrs.isNumberColumnEnabled) {
     maxWidth -= akEditorTableNumberColumnWidth;

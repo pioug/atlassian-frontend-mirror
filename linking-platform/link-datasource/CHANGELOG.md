@@ -1,5 +1,24 @@
 # @atlaskit/link-datasource
 
+## 0.34.2
+
+### Patch Changes
+
+- [`4929f0c37cc`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4929f0c37cc) - [ux] Update empty state in assets modal with link
+- Updated dependencies
+
+## 0.34.1
+
+### Patch Changes
+
+- [`0260eb48f1a`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0260eb48f1a) - [ux] Skip column schema apply if no results on initial query
+
+## 0.34.0
+
+### Minor Changes
+
+- [`02ac9829cf8`](https://bitbucket.org/atlassian/atlassian-frontend/commits/02ac9829cf8) - [ux] Added support for richtext.
+
 ## 0.33.12
 
 ### Patch Changes

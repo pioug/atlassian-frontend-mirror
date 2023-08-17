@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import React, { useCallback, useMemo, useLayoutEffect } from 'react';
 import { css, jsx } from '@emotion/react';
-import { DN600, N200, N800, N30, B100 } from '@atlaskit/theme/colors';
+import { DN600, N200, N800, N30, B400 } from '@atlaskit/theme/colors';
 import { themed } from '@atlaskit/theme/components';
 import { borderRadius } from '@atlaskit/theme/constants';
-import { ThemeProps } from '@atlaskit/theme/types';
+import type { ThemeProps } from '@atlaskit/theme/types';
 import { ButtonItem } from '@atlaskit/menu';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 
@@ -67,11 +67,9 @@ const itemAfter = css`
 
 const customRenderItemDivStyle = css`
   overflow: hidden;
-  &:hover {
-    background-color: ${token('color.background.selected', N30)};
-  }
   &:focus {
-    box-shadow: inset 0px 0px 0px 2px ${token('color.border.focused', B100)};
+    box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
+    background-color: ${token('color.background.neutral.subtle.hovered', N30)};
     outline: none;
   }
 `;
@@ -83,16 +81,22 @@ const customRenderItemDivStyle = css`
  */
 const selectionFrame = {
   '& > button:focus': {
-    boxShadow: `inset 0px 0px 0px 2px ${token('color.border.focused', B100)}`,
+    boxShadow: `inset 2px 0px 0px ${token('color.border.focused', B400)};`,
+    backgroundColor: `${token('color.background.neutral.subtle.hovered', N30)}`,
     outline: 'none',
     '&:active': {
       boxShadow: 'none',
     },
   },
+  '& > button:hover': {
+    backgroundColor: 'inherit',
+    outline: 'none',
+  },
 };
 
 const selectedStyle = css`
-  background-color: ${token('color.background.selected', N30)};
+  background-color: ${token('color.background.neutral.subtle.hovered', N30)};
+  box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
 `;
 
 const FallbackIcon: React.FC<Record<'label', string>> = React.memo(
@@ -221,9 +225,9 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
   if (customItem) {
     return customItem;
   }
-
+  const listItemClasses = [selectionFrame, isSelected && selectedStyle];
   return (
-    <span css={selectionFrame}>
+    <span css={listItemClasses}>
       <ButtonItem
         onClick={insertSelectedItem}
         iconBefore={elementIcon}
@@ -233,6 +237,7 @@ export const TypeAheadListItem: React.FC<TypeAheadListItemProps> = ({
         aria-setsize={itemsLength}
         role="option"
         ref={buttonItemRef}
+        css={listItemClasses}
       >
         <div aria-hidden={true}>
           <div css={itemText}>

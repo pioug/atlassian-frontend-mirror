@@ -1,7 +1,15 @@
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import * as keymaps from '../../../keymaps';
+import {
+  bindKeymapWithCommand,
+  moveDown,
+  enter,
+  moveUp,
+  shiftTab,
+  tab,
+  moveLeft,
+} from '@atlaskit/editor-common/keymaps';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { Command } from '../../../types';
 import { createNewParagraphBelow } from '@atlaskit/editor-common/utils';
@@ -10,41 +18,21 @@ import { GapCursorSelection } from '../../selection/gap-cursor/selection';
 export function captionKeymap(): SafePlugin {
   const list = {};
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveDown.common!,
-    createNewParagraphBelowCaption,
-    list,
-  );
-  keymaps.bindKeymapWithCommand(
-    keymaps.enter.common!,
-    createNewParagraphBelowCaption,
-    list,
-  );
+  bindKeymapWithCommand(moveDown.common!, createNewParagraphBelowCaption, list);
+  bindKeymapWithCommand(enter.common!, createNewParagraphBelowCaption, list);
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveDown.common!,
-    getOutOfCaption,
-    list,
-  );
+  bindKeymapWithCommand(moveDown.common!, getOutOfCaption, list);
 
-  keymaps.bindKeymapWithCommand(keymaps.enter.common!, getOutOfCaption, list);
+  bindKeymapWithCommand(enter.common!, getOutOfCaption, list);
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveUp.common!,
-    selectParentMediaSingle,
-    list,
-  );
+  bindKeymapWithCommand(moveUp.common!, selectParentMediaSingle, list);
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.shiftTab.common!,
-    selectParentMediaSingle,
-    list,
-  );
+  bindKeymapWithCommand(shiftTab.common!, selectParentMediaSingle, list);
 
-  keymaps.bindKeymapWithCommand(keymaps.tab.common!, getOutOfCaption, list);
+  bindKeymapWithCommand(tab.common!, getOutOfCaption, list);
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveLeft.common!,
+  bindKeymapWithCommand(
+    moveLeft.common!,
     gapCursorSelectLeftParentMediaSingle,
     list,
   );

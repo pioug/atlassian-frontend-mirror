@@ -1,4 +1,4 @@
-import { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
+import type { CellAttributes, TableLayout } from '@atlaskit/adf-schema';
 import {
   ACTION_SUBJECT,
   EVENT_TYPE,
@@ -11,10 +11,11 @@ import type {
   GetEditorContainerWidth,
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { updateColumnWidths } from '../../transforms';
 import { getSelectedColumnIndexes, updateResizeHandles } from '../../utils';
@@ -65,13 +66,21 @@ export const handleMouseDown = (
   const containerWidth = getEditorContainerWidth();
   const parentWidth = getParentNodeWidth(start, state, containerWidth);
 
-  let maxSize =
-    parentWidth ||
-    getLayoutSize(
-      dom.getAttribute('data-layout') as TableLayout,
-      containerWidth.width,
-      {},
-    );
+  let maxSize = getBooleanFF('platform.editor.custom-table-width')
+    ? parentWidth ||
+      // its safe to reference table width from node as this will not have changed
+      originalTable.attrs.width ||
+      getLayoutSize(
+        dom.getAttribute('data-layout') as TableLayout,
+        containerWidth.width,
+        {},
+      )
+    : parentWidth ||
+      getLayoutSize(
+        dom.getAttribute('data-layout') as TableLayout,
+        containerWidth.width,
+        {},
+      );
 
   if (originalTable.attrs.isNumberColumnEnabled) {
     maxSize -= akEditorTableNumberColumnWidth;

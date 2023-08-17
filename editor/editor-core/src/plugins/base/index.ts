@@ -1,5 +1,6 @@
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { history } from '@atlaskit/editor-prosemirror/history';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { browser } from '@atlaskit/editor-common/utils';
 import { doc, paragraph, text } from '@atlaskit/adf-schema';
@@ -113,7 +114,10 @@ const basePlugin: NextEditorPlugin<
         });
       }
 
-      if (isChromeWithSelectionBug) {
+      if (
+        isChromeWithSelectionBug &&
+        !getBooleanFF('platform.editor.disable-chrome-88-selection-fix_uk53m')
+      ) {
         plugins.push({
           name: 'fixChrome88SelectionPlugin',
           plugin: () => fixChrome88SelectionPlugin(),

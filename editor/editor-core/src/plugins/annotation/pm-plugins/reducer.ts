@@ -70,7 +70,11 @@ export default (
         ...(isVisible ? pluginState : getNewDraftState(pluginState, false)),
         isVisible,
       };
-
+    case ACTIONS.SET_SELECTED_ANNOTATION:
+      return {
+        ...pluginState,
+        selectedAnnotations: [...action.data.selectedAnnotations],
+      };
     default:
       return pluginState;
   }

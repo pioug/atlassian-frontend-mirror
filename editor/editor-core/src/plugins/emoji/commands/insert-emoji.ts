@@ -2,7 +2,7 @@ import type { EmojiId } from '@atlaskit/emoji';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
-import type { PluginCommand } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type {
   INPUT_METHOD,
   EditorAnalyticsAPI,
@@ -22,7 +22,7 @@ export const insertEmoji =
       | INPUT_METHOD.PICKER
       | INPUT_METHOD.ASCII
       | INPUT_METHOD.TYPEAHEAD,
-  ): PluginCommand => {
+  ): EditorCommand => {
     return ({ tr }) => {
       const { doc, selection } = tr;
       const { emoji } = tr.doc.type.schema.nodes;

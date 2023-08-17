@@ -1,3 +1,3 @@
 export { textFormattingPlugin } from './plugin';
 export type { TextFormattingPlugin } from './plugin';
-export type { ToggleMarkPluginCommand } from './commands';
+export type { ToggleMarkEditorCommand } from './commands';

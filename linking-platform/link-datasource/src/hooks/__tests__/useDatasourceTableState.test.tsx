@@ -157,7 +157,7 @@ describe('useDatasourceTableState', () => {
       await waitForNextUpdate();
     });
 
-    it('should populate columns and defaultVisibleColumnKeys after getDatasourceData call', async () => {
+    it('should populate columns and defaultVisibleColumnKeys after getDatasourceData call with response items', async () => {
       asMock(getDatasourceData).mockResolvedValue(
         mockDatasourceDataResponseWithSchema,
       );
@@ -174,6 +174,18 @@ describe('useDatasourceTableState', () => {
       expect(result.current.defaultVisibleColumnKeys).toEqual(
         expectedDefaultProperties,
       );
+    });
+
+    it('should not populate columns after getDatasourceData call with no response items', async () => {
+      asMock(getDatasourceData).mockResolvedValue({
+        ...mockDatasourceDataResponseWithSchema,
+        data: { ...mockDatasourceDataResponseWithSchema.data, items: [] },
+      });
+      const { waitForNextUpdate, result } = setup();
+      await waitForNextUpdate();
+
+      expect(result.current.columns.length).toEqual(0);
+      expect(result.current.defaultVisibleColumnKeys.length).toEqual(0);
     });
 
     it('should change status to "resolved" when getDatasourceData call is complete', async () => {

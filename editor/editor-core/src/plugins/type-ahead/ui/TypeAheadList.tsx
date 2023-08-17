@@ -167,6 +167,15 @@ const TypeAheadListComponent = React.memo(
       [selectedIndex, lastVisibleStartIndex, lastVisibleStopIndex],
     );
 
+    const onMouseMove = (event: React.MouseEvent, index: number) => {
+      event.preventDefault();
+      event.stopPropagation();
+      if (selectedIndex === index) {
+        return;
+      }
+      updateSelectedIndex(index)(editorView.state, editorView.dispatch);
+    };
+
     useLayoutEffect(() => {
       if (!listRef.current) {
         return;
@@ -289,7 +298,10 @@ const TypeAheadListComponent = React.memo(
           rowIndex={index}
         >
           <div style={style} data-index={index}>
-            <div data-testid={`list-item-height-observed-${index}`}>
+            <div
+              data-testid={`list-item-height-observed-${index}`}
+              onMouseMove={(e) => onMouseMove(e, index)}
+            >
               <TypeAheadListItem
                 key={items[index].title}
                 item={currentItem}

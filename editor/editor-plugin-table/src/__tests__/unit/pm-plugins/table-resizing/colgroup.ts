@@ -6,6 +6,7 @@ import {
   tr,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
   generateColgroup,
@@ -15,74 +16,169 @@ import { isMinCellWidthTable } from '../../../../plugins/table/pm-plugins/table-
 
 describe('table-resizing/colgroup', () => {
   describe('#generateColgroup', () => {
-    describe('creates col with correct widths ', () => {
-      it('based on colwidth cell attributes', () => {
-        const result = generateColgroup(
-          getTable([
-            {
-              colwidth: [10],
-              colspan: 1,
-            },
-            {
-              colwidth: [20],
-              colspan: 1,
-            },
-          ]),
-        );
+    describe('creates col with correct widths', () => {
+      describe('based on colwidth cell attributes', () => {
+        ffTest(
+          'platform.editor.custom-table-width',
+          () => {
+            const result = generateColgroup(
+              getTable([
+                {
+                  colwidth: [10],
+                  colspan: 1,
+                },
+                {
+                  colwidth: [20],
+                  colspan: 1,
+                },
+              ]),
+            );
 
-        expect(result).toEqual([
-          ['col', { style: 'width: 10px;' }],
-          ['col', { style: 'width: 20px;' }],
-        ]);
+            expect(result).toEqual([
+              ['col', { style: 'width: 47.5px;' }],
+              ['col', { style: 'width: 47.5px;' }],
+            ]);
+          },
+          () => {
+            const result = generateColgroup(
+              getTable([
+                {
+                  colwidth: [10],
+                  colspan: 1,
+                },
+                {
+                  colwidth: [20],
+                  colspan: 1,
+                },
+              ]),
+            );
+
+            expect(result).toEqual([
+              ['col', { style: 'width: 10px;' }],
+              ['col', { style: 'width: 20px;' }],
+            ]);
+          },
+        );
       });
 
-      it('when colwidth is not an array', () => {
-        const result = generateColgroup(
-          getTable([
-            {
-              colwidth: 10,
-              colspan: 1,
-            },
-            {
-              colwidth: null,
-              colspan: 1,
-            },
-            {
-              colwidth: undefined,
-              colspan: 1,
-            },
-          ]),
-        );
+      describe('when colwidth is not an array', () => {
+        ffTest(
+          'platform.editor.custom-table-width',
+          () => {
+            const result = generateColgroup(
+              getTable([
+                {
+                  colwidth: 10,
+                  colspan: 1,
+                },
+                {
+                  colwidth: null,
+                  colspan: 1,
+                },
+                {
+                  colwidth: undefined,
+                  colspan: 1,
+                },
+              ]),
+            );
 
-        expect(result).toEqual([
-          ['col', {}],
-          ['col', {}],
-          ['col', {}],
-        ]);
+            expect(result).toEqual([
+              ['col', { style: 'width: 48px;' }],
+              ['col', { style: 'width: 48px;' }],
+              ['col', { style: 'width: 48px;' }],
+            ]);
+          },
+          () => {
+            const result = generateColgroup(
+              getTable([
+                {
+                  colwidth: 10,
+                  colspan: 1,
+                },
+                {
+                  colwidth: null,
+                  colspan: 1,
+                },
+                {
+                  colwidth: undefined,
+                  colspan: 1,
+                },
+              ]),
+            );
+
+            expect(result).toEqual([
+              ['col', {}],
+              ['col', {}],
+              ['col', {}],
+            ]);
+          },
+        );
       });
 
-      it('when colwidth has falsy values', () => {
-        const result = generateColgroup(
-          getTable([
-            {
-              colwidth: [0],
-              colspan: 1,
-            },
-            {
-              colwidth: [null],
-              colspan: 1,
-            },
-            {
-              colwidth: [undefined],
-              colspan: 1,
-            },
-          ]),
+      describe('when colwidth has falsy values', () => {
+        ffTest(
+          'platform.editor.custom-table-width',
+          () => {
+            const result = generateColgroup(
+              getTable([
+                {
+                  colwidth: [0],
+                  colspan: 1,
+                },
+                {
+                  colwidth: [null],
+                  colspan: 1,
+                },
+                {
+                  colwidth: [undefined],
+                  colspan: 1,
+                },
+              ]),
+            );
+
+            expect(result).toEqual(
+              expect.arrayContaining([
+                // (.666*) -> match unknown number of 6's
+                // (.?) -> match rounding errors e.g. 47.6666664px
+                [
+                  'col',
+                  { style: expect.stringMatching(/^width: 47.666*.?px/) },
+                ],
+                [
+                  'col',
+                  { style: expect.stringMatching(/^width: 47.666*.?px/) },
+                ],
+                [
+                  'col',
+                  { style: expect.stringMatching(/^width: 47.666*.?px/) },
+                ],
+              ]),
+            );
+          },
+          () => {
+            const result = generateColgroup(
+              getTable([
+                {
+                  colwidth: [0],
+                  colspan: 1,
+                },
+                {
+                  colwidth: [null],
+                  colspan: 1,
+                },
+                {
+                  colwidth: [undefined],
+                  colspan: 1,
+                },
+              ]),
+            );
+            expect(result).toEqual([
+              ['col', {}],
+              ['col', {}],
+              ['col', {}],
+            ]);
+          },
         );
-        expect(result).toEqual([
-          ['col', {}],
-          ['col', {}],
-          ['col', {}],
-        ]);
       });
 
       function getTable(cellAttributes: { [key: string]: any }[]) {

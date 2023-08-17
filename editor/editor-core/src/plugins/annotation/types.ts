@@ -46,6 +46,10 @@ export type InlineCommentViewComponentProps = AnnotationComponentProps & {
    * Removes the annotation from the document
    */
   onDelete?: (id: string) => void;
+  /**
+   * Ordered list of annotation ids as shown in the document
+   */
+  annotationsList?: string[];
 };
 
 export interface AnnotationState<Type, State> {

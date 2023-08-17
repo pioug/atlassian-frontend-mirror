@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-table
 
+## 2.9.0
+
+### Minor Changes
+
+- [`4cb3deef759`](https://bitbucket.org/atlassian/atlassian-frontend/commits/4cb3deef759) - Improved table container/wrapper styles to better support custom table widths
+
+  - Remove padding on table wrapper so table overflow is restricted correctly, so it doesn't spew out
+  - Update shadows to match these new styles
+  - Move floating add column dot by 1px to avoid scroll
+  - Ensure the colgroup is always one pixel less than overall table container, done in a few places
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.8.6
+
+### Patch Changes
+
+- [`5365e42ef97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5365e42ef97) - cleaned up more of the \* as keymaps imports to enable better tree-shaking
+
+## 2.8.5
+
+### Patch Changes
+
+- [`58fa188ef48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58fa188ef48) - [ux] [ED-19461] Reduce draggable zone of adjacent resize handle.
+
+## 2.8.4
+
+### Patch Changes
+
+- [`e73d62af335`](https://bitbucket.org/atlassian/atlassian-frontend/commits/e73d62af335) - [ux] Adjusted the guidelines to be 1 pixel smaller then the snapping widths due to the fact that the tbody is 1 pixel smaller then the table. The table snaps to the snap widths and the guidelines align to the tbody cell borders
+
 ## 2.8.3
 
 ### Patch Changes

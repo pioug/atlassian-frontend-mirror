@@ -1,5 +1,11 @@
 # @atlaskit/datetime-picker
 
+## 12.7.9
+
+### Patch Changes
+
+- [`6f1daf0e449`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6f1daf0e449) - Prevent calander from overlaying input when at the bottom of viewport
+
 ## 12.7.8
 
 ### Patch Changes

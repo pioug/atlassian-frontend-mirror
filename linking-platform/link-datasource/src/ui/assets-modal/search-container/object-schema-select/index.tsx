@@ -79,6 +79,7 @@ export const AssetsObjectSchemaSelect = ({
       >
         {({ fieldProps: { onChange, onFocus, ...restFieldProps } }) => (
           <AsyncSelect
+            autoFocus
             classNamePrefix={classNamePrefix}
             isLoading={objectSchemasLoading}
             defaultOptions // setting to true causes the loadOptions to be called on mount

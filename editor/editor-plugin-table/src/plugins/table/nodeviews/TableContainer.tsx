@@ -208,7 +208,7 @@ export const TableContainer = ({
     <InnerContainer
       node={node}
       className={classNames(className, {
-        'less-padding': editorWidth < akEditorMobileBreakoutPoint,
+        'less-padding': editorWidth < akEditorMobileBreakoutPoint && !isNested,
       })}
       style={{
         width: tableWidth,

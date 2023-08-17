@@ -807,7 +807,7 @@ function isOnlyMediaSingle(state: EditorState, slice: Slice) {
 
 export function handleMediaSingle(
   inputMethod: InputMethodInsertMedia,
-  editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
+  editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ) {
   return function (slice: Slice): Command {
     return (state, dispatch, view) => {

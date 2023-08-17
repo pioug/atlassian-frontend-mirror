@@ -99,10 +99,10 @@ function getSpeed({
   // a scroll container, or when lifting in a scroll container
 
   const percentageDistanceDampening: number = (() => {
-    const size = scrollableEdge.clientRect[axisValue.size];
     // We want to hit the max speed before the edge of the hitbox
     const maxSpeedBuffer =
-      size * defaultConfig.maxScrollAtPercentage[scrollableEdge.edge];
+      scrollableEdge.hitbox[axisValue.size] *
+      defaultConfig.maxScrollAtPercentageRemainingOfHitbox[scrollableEdge.edge];
 
     if (direction === 'forward') {
       return getPercentageInRange({

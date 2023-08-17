@@ -42,7 +42,6 @@ export type Edge = keyof Spacing;
 export type ScrollableEdge = {
   edge: Edge;
   hitbox: DOMRect;
-  clientRect: DOMRect;
 };
 
 export type EngagementHistoryEntry = {
@@ -50,8 +49,8 @@ export type EngagementHistoryEntry = {
 };
 
 type BaseConfig = {
-  startScrollFromPercentage: Spacing;
-  maxScrollAtPercentage: Spacing;
+  startHitboxAtPercentageRemainingOfElement: Spacing;
+  maxScrollAtPercentageRemainingOfHitbox: Spacing;
   // speed: SpeedConfiguration;
   // allowedAxis: AllowAxis;
   // Using seconds so we get the same speed regardless of frame rate

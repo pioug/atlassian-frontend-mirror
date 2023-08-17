@@ -1,10 +1,8 @@
+import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CSSToken } from '@atlaskit/tokens';
 
-export enum WidthTypes {
-  PERCENTAGE = 'percentage',
-  PIXEL = 'pixel',
-}
+export type WidthTypes = 'percentage' | 'pixel';
 
 export type LengthGuide = { left: number; right: number; length: number };
 
@@ -26,9 +24,7 @@ export type VerticalPosition = { x: number; y?: Range };
 export type HorizontalPosition = { x?: Range; y: number };
 export type Position = VerticalPosition | HorizontalPosition;
 
-export type GuidelineConfig = {
-  key: string; // will be used as the React key
-  position: Position;
+export type GuidelineStyles = {
   active?: boolean;
   show?: boolean;
   styles?: {
@@ -37,6 +33,11 @@ export type GuidelineConfig = {
     color?: CSSToken;
   };
 };
+
+export type GuidelineConfig = {
+  key: string; // will be used as the React key
+  position: Position;
+} & GuidelineStyles;
 
 export type GuidelinePluginState = {
   guidelines: GuidelineConfig[];
@@ -58,4 +59,15 @@ export type GuidelineSnapsReference = {
     y?: number[];
   };
   guidelineReference: GuidelineSnap[];
+};
+
+export type GuidelineTypes = 'default' | 'temporary' | 'relative' | 'none';
+
+export type RelativeGuides = {
+  width?: {
+    [key: number]: NodeWithPos[];
+  };
+  height?: {
+    [key: number]: NodeWithPos[];
+  };
 };

@@ -5,10 +5,11 @@ export function hasValue(str?: string): boolean {
 export const IS_DEV = process.env.NODE_ENV === 'development';
 export const IS_TEST = process.env.NODE_ENV === 'test';
 export const IS_DUMMY = !window.webkit && !window.promiseBridge;
-// Webpack sets IS_ATLASKIT as a boolean, before it was a string
-// if this changes the docs will break.
+// Webpack sets IS_ATLASKIT as a boolean when its the default value
+// If we override it it will be a string so we check both cases.
 export const IS_ATLASKIT =
-  (process.env.IS_ATLASKIT as unknown as boolean) === true;
+  (process.env.IS_ATLASKIT as unknown as boolean) === true ||
+  process.env.IS_ATLASKIT === 'true';
 
 export interface DeferredValue<T> extends Promise<T> {
   resolve(v: T): void;

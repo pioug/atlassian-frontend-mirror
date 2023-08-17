@@ -5,7 +5,7 @@ export const initialStateViewMessages = defineMessages({
     id: 'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchTitle',
     description:
       'The initial search state title that gives the user some idea about how to get information',
-    defaultMessage: 'Search for objects or object types',
+    defaultMessage: 'Search for objects',
   },
   searchDescription: {
     id: 'linkDataSource.assets.configModal.renderAssetsContent.initialStateView.searchDescription',

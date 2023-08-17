@@ -7,7 +7,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
-  initialVisibleColumnKeys,
+  defaultInitialVisibleColumnKeys,
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 
@@ -54,7 +54,7 @@ const ExampleBody = ({ isReadonly }: Props) => {
   });
 
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<string[]>(
-    initialVisibleColumnKeys,
+    defaultInitialVisibleColumnKeys,
   );
 
   useEffect(() => {

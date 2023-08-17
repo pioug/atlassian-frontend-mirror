@@ -1,3 +1,5 @@
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+
 import { TableCssClassName as ClassName, ShadowEvent } from '../types';
 import { tableInsertColumnButtonSize } from '../ui/consts';
 
@@ -63,7 +65,9 @@ export class OverflowShadowsObserver {
         {
           threshold: [0, 1],
           root: this.wrapper,
-          rootMargin: `0px ${tableInsertColumnButtonSize / 2}px 0px 0px`,
+          rootMargin: getBooleanFF('platform.editor.custom-table-width')
+            ? '0px'
+            : `0px ${tableInsertColumnButtonSize / 2}px 0px 0px`,
         },
       );
       return;

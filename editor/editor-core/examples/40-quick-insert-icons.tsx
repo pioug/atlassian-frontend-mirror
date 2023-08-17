@@ -3,6 +3,7 @@ import React from 'react';
 import {
   IconAction,
   IconCode,
+  IconDate,
   IconDecision,
   IconDivider,
   IconList,
@@ -14,12 +15,12 @@ import {
 import { IconTable } from '@atlaskit/editor-common/icons';
 
 const iconWrapper = {
-  display: 'flex',
-  'flex-wrap': 'wrap',
-  'justify-content': 'space-between',
+  display: 'grid',
+  'grid-template-columns': 'repeat(auto-fill, minmax(40px, 1fr))',
+  'justify-items': 'center',
+  'align-items': 'center',
   gap: '20px',
-  width: '500px',
-  padding: '20px',
+  'max-width': '500px',
 };
 
 /**
@@ -30,6 +31,7 @@ const QuickInsertIconsExample = () => {
   const icons = [
     IconAction,
     IconCode,
+    IconDate,
     IconDecision,
     IconDivider,
     IconList,
@@ -41,9 +43,7 @@ const QuickInsertIconsExample = () => {
   return (
     <div style={iconWrapper}>
       {icons.map((Icon, index) => (
-        <div key={index}>
-          <Icon />
-        </div>
+        <Icon key={index} />
       ))}
     </div>
   );

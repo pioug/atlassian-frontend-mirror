@@ -1,8 +1,14 @@
-import React, { SyntheticEvent } from 'react';
+import type { SyntheticEvent } from 'react';
+import React from 'react';
 
-import { injectIntl, WrappedComponentProps } from 'react-intl-next';
+import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 
-import * as keymaps from '@atlaskit/editor-common/keymaps';
+import {
+  addColumnAfter,
+  addRowAfter,
+  ToolTipContent,
+} from '@atlaskit/editor-common/keymaps';
 import { tableMarginTop } from '@atlaskit/editor-common/styles';
 import { closestElement } from '@atlaskit/editor-common/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
@@ -77,9 +83,9 @@ const InsertButton = ({
   const content = (
     <Tooltip
       content={
-        <keymaps.ToolTipContent
+        <ToolTipContent
           description={formatMessage(tooltipMessageByType(type))}
-          keymap={type === 'row' ? keymaps.addRowAfter : keymaps.addColumnAfter}
+          keymap={type === 'row' ? addRowAfter : addColumnAfter}
         />
       }
       position="top"

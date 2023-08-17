@@ -1,28 +1,34 @@
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
-import * as keymaps from '../../../keymaps';
+import {
+  bindKeymapWithCommand,
+  findShortcutByKeymap,
+  outdent,
+  indent,
+  backspace,
+} from '@atlaskit/editor-common/keymaps';
 import { isTextSelection } from '../../../utils';
 import { getIndentCommand, getOutdentCommand } from '../commands';
-import { INPUT_METHOD } from '../../analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 
 export function keymapPlugin(): SafePlugin | undefined {
   const list = {};
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.findShortcutByKeymap(keymaps.indent)!,
+  bindKeymapWithCommand(
+    findShortcutByKeymap(indent)!,
     getIndentCommand(INPUT_METHOD.KEYBOARD),
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.findShortcutByKeymap(keymaps.outdent)!,
+  bindKeymapWithCommand(
+    findShortcutByKeymap(outdent)!,
     getOutdentCommand(INPUT_METHOD.KEYBOARD),
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.findShortcutByKeymap(keymaps.backspace)!,
+  bindKeymapWithCommand(
+    findShortcutByKeymap(backspace)!,
     (state, dispatch) => {
       const { selection } = state;
       if (

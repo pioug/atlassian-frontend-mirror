@@ -1,13 +1,23 @@
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
-  EditorAnalyticsAPI,
   EVENT_TYPE,
   INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import * as keymaps from '@atlaskit/editor-common/keymaps';
-import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import {
+  addColumnAfter,
+  addColumnBefore,
+  addRowAfter,
+  addRowBefore,
+  backspace,
+  bindKeymapWithCommand,
+  nextCell,
+  previousCell,
+  toggleTable,
+} from '@atlaskit/editor-common/keymaps';
+import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
@@ -23,7 +33,10 @@ import {
   deleteTableIfSelectedWithAnalytics,
   emptyMultipleCellsWithAnalytics,
 } from '../commands-with-analytics';
-import { addColumnAfter, addColumnBefore } from '../commands/insert';
+import {
+  addColumnAfter as addColumnAfterCommand,
+  addColumnBefore as addColumnBeforeCommand,
+} from '../commands/insert';
 import { withEditorAnalyticsAPI } from '../utils/analytics';
 
 const createTableWithAnalytics = (
@@ -43,23 +56,23 @@ export function keymapPlugin(
 ): SafePlugin {
   const list = {};
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.nextCell.common!,
+  bindKeymapWithCommand(
+    nextCell.common!,
     goToNextCell(editorAnalyticsAPI)(1),
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.previousCell.common!,
+  bindKeymapWithCommand(
+    previousCell.common!,
     goToNextCell(editorAnalyticsAPI)(-1),
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.toggleTable.common!,
+  bindKeymapWithCommand(
+    toggleTable.common!,
     createTableWithAnalytics(editorAnalyticsAPI),
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.backspace.common!,
+  bindKeymapWithCommand(
+    backspace.common!,
     chainCommands(
       deleteTableIfSelectedWithAnalytics(editorAnalyticsAPI)(
         INPUT_METHOD.KEYBOARD,
@@ -70,34 +83,30 @@ export function keymapPlugin(
     ),
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.backspace.common!,
-    moveCursorBackward,
-    list,
-  );
+  bindKeymapWithCommand(backspace.common!, moveCursorBackward, list);
 
   // Add row/column shortcuts
-  keymaps.bindKeymapWithCommand(
-    keymaps.addRowBefore.common!,
+  bindKeymapWithCommand(
+    addRowBefore.common!,
     addRowAroundSelection(editorAnalyticsAPI)('TOP'),
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.addRowAfter.common!,
+  bindKeymapWithCommand(
+    addRowAfter.common!,
     addRowAroundSelection(editorAnalyticsAPI)('BOTTOM'),
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.addColumnBefore.common!,
-    triggerUnlessTableHeader(addColumnBefore(getEditorContainerWidth)),
+  bindKeymapWithCommand(
+    addColumnBefore.common!,
+    triggerUnlessTableHeader(addColumnBeforeCommand(getEditorContainerWidth)),
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.addColumnAfter.common!,
-    addColumnAfter(getEditorContainerWidth),
+  bindKeymapWithCommand(
+    addColumnAfter.common!,
+    addColumnAfterCommand(getEditorContainerWidth),
     list,
   );
 

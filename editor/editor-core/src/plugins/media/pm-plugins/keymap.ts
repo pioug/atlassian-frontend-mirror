@@ -2,7 +2,16 @@ import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
-import * as keymaps from '../../../keymaps';
+import {
+  bindKeymapWithCommand,
+  undo,
+  enter,
+  tab,
+  moveLeft,
+  moveRight,
+  moveDown,
+  insertNewLine,
+} from '@atlaskit/editor-common/keymaps';
 import { stateKey } from '../pm-plugins/plugin-key';
 import type { Command } from '../../../types';
 import type { MediaPluginState } from './types';
@@ -24,37 +33,33 @@ export function keymapPlugin(
   const list = {};
   const { featureFlags } = options || {};
 
-  keymaps.bindKeymapWithCommand(keymaps.undo.common!, ignoreLinksInSteps, list);
-  keymaps.bindKeymapWithCommand(keymaps.enter.common!, splitMediaGroup, list);
+  bindKeymapWithCommand(undo.common!, ignoreLinksInSteps, list);
+  bindKeymapWithCommand(enter.common!, splitMediaGroup, list);
   if (getMediaFeatureFlag('captions', featureFlags)) {
-    keymaps.bindKeymapWithCommand(
-      keymaps.moveDown.common!,
+    bindKeymapWithCommand(
+      moveDown.common!,
       insertAndSelectCaption(editorAnalyticsAPI),
       list,
     );
-    keymaps.bindKeymapWithCommand(
-      keymaps.tab.common!,
+    bindKeymapWithCommand(
+      tab.common!,
       insertAndSelectCaption(editorAnalyticsAPI),
       list,
     );
 
-    keymaps.bindKeymapWithCommand(
-      keymaps.moveLeft.common!,
+    bindKeymapWithCommand(
+      moveLeft.common!,
       arrowLeftFromMediaSingle(options?.editorSelectionAPI),
       list,
     );
-    keymaps.bindKeymapWithCommand(
-      keymaps.moveRight.common!,
+    bindKeymapWithCommand(
+      moveRight.common!,
       arrowRightFromMediaSingle(options?.editorSelectionAPI),
       list,
     );
   }
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.insertNewLine.common!,
-    splitMediaGroup,
-    list,
-  );
+  bindKeymapWithCommand(insertNewLine.common!, splitMediaGroup, list);
 
   return keymap(list) as SafePlugin;
 }

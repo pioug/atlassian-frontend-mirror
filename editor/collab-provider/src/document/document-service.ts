@@ -1,6 +1,6 @@
-import AnalyticsHelper from '../analytics/analytics-helper';
+import type AnalyticsHelper from '../analytics/analytics-helper';
 import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
-import {
+import type {
   CatchupResponse,
   ReconcileResponse,
   ChannelEvent,
@@ -26,12 +26,8 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import {
-  UGCFreeStepDetails,
-  createLogger,
-  getStepUGCFreeDetails,
-  sleep,
-} from '../helpers/utils';
+import type { UGCFreeStepDetails } from '../helpers/utils';
+import { createLogger, getStepUGCFreeDetails, sleep } from '../helpers/utils';
 import throttle from 'lodash/throttle';
 import { throttledCommitStep } from '../provider/commit-step';
 import {
@@ -42,7 +38,7 @@ import {
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
 import { MAX_STEP_REJECTED_ERROR } from '../provider';
 import { catchup } from './catchup';
-import { ParticipantsService } from '../participants/participants-service';
+import type { ParticipantsService } from '../participants/participants-service';
 import { StepQueueState } from './step-queue-state';
 import type { InternalError } from '../errors/error-types';
 import { getCollabProviderFeatureFlag } from '../feature-flags';
@@ -158,8 +154,6 @@ export class DocumentService {
           latency,
         },
       );
-      this.analyticsHelper?.sendErrorEvent(error, 'Error while catching up');
-      logger(`Catch-Up Failed:`, (error as InternalError).message);
     } finally {
       this.stepQueue.resumeQueue();
       this.processQueue();

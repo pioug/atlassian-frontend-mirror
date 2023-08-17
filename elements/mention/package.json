@@ -57,7 +57,7 @@
     "react-intl-next": "npm:react-intl@^5.18.1"
   },
   "devDependencies": {
-    "@atlaskit/editor-test-helpers": "^18.10.0",
+    "@atlaskit/editor-test-helpers": "^18.11.0",
     "@atlaskit/elements-test-helpers": "^0.7.0",
     "@atlaskit/util-data-test": "^17.8.0",
     "@atlaskit/visual-regression": "*",

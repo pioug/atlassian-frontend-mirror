@@ -1,4 +1,4 @@
-import { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   snapshot,
   initEditorWithAdf,
@@ -25,6 +25,7 @@ const secondItemSelectedSelector =
   '#typeahaed_decoration_element_id [data-index]:nth-child(2) [aria-selected="true"]';
 
 const secondItemBackgroundColor = `window.getComputedStyle(document.querySelector('${secondItemUnselectedSelector}')).backgroundColor`;
+const secondItemSelectedBackgroundColor = `window.getComputedStyle(document.querySelector('${secondItemSelectedSelector}')).backgroundColor`;
 const secondItemBoxShadow = `window.getComputedStyle(document.querySelector('${secondItemSelectedSelector}')).boxShadow`;
 
 describe('Quick Insert:', () => {
@@ -62,7 +63,7 @@ describe('Quick Insert:', () => {
   });
 });
 
-describe('should render the quick insert menu and highlight the menu item when hovered', () => {
+describe('should render the quick insert menu, highlight and select the menu item when hovered', () => {
   let page: PuppeteerPage;
   beforeEach(async () => {
     page = global.page;
@@ -83,7 +84,7 @@ describe('should render the quick insert menu and highlight the menu item when h
     await page.hover(secondItemUnselectedSelector);
 
     // expect the background value is different when hovered
-    expect(await page.evaluate(secondItemBackgroundColor)).not.toBe(
+    expect(await page.evaluate(secondItemSelectedBackgroundColor)).not.toBe(
       defaultBgColor,
     );
   });
@@ -99,7 +100,7 @@ describe('should render the quick insert menu and highlight the menu item when h
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
     const defaultBgColor = await page.evaluate(secondItemBackgroundColor);
     await page.hover(secondItemUnselectedSelector);
-    expect(await page.evaluate(secondItemBackgroundColor)).not.toBe(
+    expect(await page.evaluate(secondItemSelectedBackgroundColor)).not.toBe(
       defaultBgColor,
     );
   });
@@ -115,7 +116,7 @@ describe('should render the quick insert menu and highlight the menu item when h
     await page.waitForSelector(selectors.typeaheadPopup, { visible: true });
     const defaultBgColor = await page.evaluate(secondItemBackgroundColor);
     await page.hover(secondItemUnselectedSelector);
-    expect(await page.evaluate(secondItemBackgroundColor)).not.toBe(
+    expect(await page.evaluate(secondItemSelectedBackgroundColor)).not.toBe(
       defaultBgColor,
     );
   });

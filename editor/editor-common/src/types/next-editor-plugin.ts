@@ -6,11 +6,11 @@
  */
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import type { EditorPlugin } from './editor-plugin';
 import type {
-  PluginCommand,
-  PluginCommandWithMetadata,
-} from './plugin-command';
+  EditorCommand,
+  EditorCommandWithMetadata,
+} from './editor-command';
+import type { EditorPlugin } from './editor-plugin';
 
 type IsAny<T> = 0 extends 1 & T ? true : false;
 
@@ -71,9 +71,9 @@ export type DefaultEditorPlugin<
 type MaybeAction = ((...agrs: any) => any) | ((...agrs: any) => void);
 type NextEditorPluginActions = Record<string, MaybeAction>;
 
-type NextEditorPluginCommands = Record<
+type NextEditorEditorCommands = Record<
   string,
-  PluginCommandWithMetadata | PluginCommand
+  EditorCommandWithMetadata | EditorCommand
 >;
 
 export interface NextEditorPluginMetadata {
@@ -81,7 +81,7 @@ export interface NextEditorPluginMetadata {
   readonly pluginConfiguration?: any;
   readonly dependencies?: DependencyPlugin[];
   readonly actions?: NextEditorPluginActions;
-  readonly commands?: NextEditorPluginCommands;
+  readonly commands?: NextEditorEditorCommands;
 }
 
 export type PluginInjectionAPI<
@@ -95,13 +95,13 @@ export type PluginInjectionAPI<
     ]
   >;
   /**
-   * Dispatches a PluginCommand to ProseMirror
+   * Dispatches an EditorCommand to ProseMirror
    *
-   * @param action A function (PluginCommand | undefined) that takes a `Transaction` and returns a `Transaction` if it
+   * @param command A function (EditorCommand | undefined) that takes an object containing a `Transaction` and returns a `Transaction` if it
    * is successful or `null` if it shouldn't be dispatched.
    * @returns (boolean) if the command was successful in dispatching
    */
-  executeCommand: (action: PluginCommand | undefined) => boolean;
+  executeCommand: (command: EditorCommand | undefined) => boolean;
 };
 
 export type PluginInjectionAPIWithDependency<Plugin> =
@@ -382,3 +382,15 @@ export type ExtractInjectionAPI<Plugin> = Plugin extends NextEditorPlugin<
 >
   ? PluginInjectionAPI<Name, Metadata>
   : never;
+
+export type PublicPluginAPI<PluginList extends NextEditorPlugin<any, any>[]> = {
+  dependencies: CreatePluginDependenciesAPI<PluginList>;
+  /**
+   * Dispatches an EditorCommand to ProseMirror
+   *
+   * @param command A function (EditorCommand | undefined) that takes an object containing a `Transaction` and returns a `Transaction` if it
+   * is successful or `null` if it shouldn't be dispatched.
+   * @returns (boolean) if the command was successful in dispatching
+   */
+  executeCommand: (command: EditorCommand | undefined) => boolean;
+};

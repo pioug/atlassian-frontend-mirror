@@ -1,19 +1,19 @@
-import { IntlShape } from 'react-intl-next';
+import type { IntlShape } from 'react-intl-next';
 
+import type { TableLayout } from '@atlaskit/adf-schema';
 import {
   tableCellSelector,
   tableHeaderSelector,
-  TableLayout,
   tablePrefixSelector,
 } from '@atlaskit/adf-schema';
-import { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import type { TableColumnOrdering } from '@atlaskit/adf-schema/steps';
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { Rect } from '@atlaskit/editor-tables/table-map';
 
 import type tablePlugin from './index';
 

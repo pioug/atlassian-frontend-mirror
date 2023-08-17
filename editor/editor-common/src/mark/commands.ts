@@ -9,7 +9,7 @@ import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
-import type { PluginCommand } from '../types';
+import type { EditorCommand } from '../types';
 
 const SMART_TO_ASCII = {
   '…': '...',
@@ -184,7 +184,7 @@ const entireSelectionContainsMark = (
 };
 
 const toggleMarkInRange =
-  (mark: Mark): PluginCommand =>
+  (mark: Mark): EditorCommand =>
   ({ tr }) => {
     if (tr.selection instanceof CellSelection) {
       let removeMark = true;
@@ -236,7 +236,7 @@ const toggleMarkInRange =
  * @param attrs
  */
 export const toggleMark =
-  (markType: MarkType, attrs?: { [key: string]: any }): PluginCommand =>
+  (markType: MarkType, attrs?: { [key: string]: any }): EditorCommand =>
   ({ tr }) => {
     const mark = markType.create(attrs);
 

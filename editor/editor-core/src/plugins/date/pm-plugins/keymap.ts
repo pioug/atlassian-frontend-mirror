@@ -1,15 +1,19 @@
-import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { closeDatePicker, openDatePicker, focusDateInput } from '../actions';
-import * as keymaps from '../../../keymaps';
+import {
+  keymap,
+  enter,
+  tab,
+  bindKeymapWithCommand,
+} from '@atlaskit/editor-common/keymaps';
 import { getPluginState } from './main';
 
 export function keymapPlugin(): SafePlugin {
   const list = {};
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.enter.common!,
+  bindKeymapWithCommand(
+    enter.common!,
     (state, dispatch) => {
       const datePlugin = getPluginState(state);
       const isDateNode =
@@ -31,8 +35,8 @@ export function keymapPlugin(): SafePlugin {
     },
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.tab.common!,
+  bindKeymapWithCommand(
+    tab.common!,
     (state, dispatch) => {
       const datePlugin = getPluginState(state);
       const isDateNode =

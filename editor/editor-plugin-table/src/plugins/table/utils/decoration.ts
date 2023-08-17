@@ -1,14 +1,15 @@
-import { CellAttributes } from '@atlaskit/adf-schema';
+import type { CellAttributes } from '@atlaskit/adf-schema';
 import { nonNullable } from '@atlaskit/editor-common/utils';
-import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 // @ts-ignore -- ReadonlyTransaction is a local declaration and will cause a TS2305 error in CCFE typecheck
-import {
+import type {
   ReadonlyTransaction,
   Selection,
   Transaction,
 } from '@atlaskit/editor-prosemirror/state';
-import { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { Rect, TableMap } from '@atlaskit/editor-tables/table-map';
 import {
   findTable,
@@ -16,12 +17,8 @@ import {
   getSelectionRect,
 } from '@atlaskit/editor-tables/utils';
 
-import {
-  Cell,
-  CellColumnPositioning,
-  TableCssClassName as ClassName,
-  TableDecorations,
-} from '../types';
+import type { Cell, CellColumnPositioning } from '../types';
+import { TableCssClassName as ClassName, TableDecorations } from '../types';
 
 const filterDecorationByKey = (
   key: TableDecorations,

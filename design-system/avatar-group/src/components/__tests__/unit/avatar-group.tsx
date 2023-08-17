@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 
 import { fireEvent, render } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import { AppearanceType, SizeType } from '@atlaskit/avatar';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -609,5 +610,31 @@ describe('<AvatarGroup />', () => {
     expect(firstAvatar).not.toBeNull();
     expect(secondAvatar).toBeNull();
     expect(thirdAvatar).not.toBeNull();
+  });
+});
+
+describe('Accessibility', () => {
+  it('Avatar Group items inside more should have role equal to button and get focus', async () => {
+    const user = userEvent.setup();
+    const { getByTestId, getByRole } = render(
+      <AvatarGroup
+        testId="test"
+        data={generateData({ avatarCount: 7, disabledIndexes: [1] })}
+        maxCount={3}
+      />,
+    );
+
+    await user.click(getByTestId('test--overflow-menu--trigger'));
+    const moreMenuContainer = getByTestId('test--overflow-menu');
+    moreMenuContainer.focus();
+
+    const moreMenuItemOne = getByRole('button', {
+      name: 'Name 2',
+    });
+    await user.tab();
+
+    expect(moreMenuContainer).toBeInTheDocument();
+    expect(moreMenuItemOne).toBeInTheDocument();
+    expect(moreMenuItemOne).toHaveFocus();
   });
 });

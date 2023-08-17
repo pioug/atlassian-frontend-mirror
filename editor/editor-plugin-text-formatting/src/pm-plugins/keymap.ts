@@ -1,7 +1,7 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
-  bindKeymapWithPluginCommand,
+  bindKeymapWithEditorCommand,
   toggleBold,
   toggleCode,
   toggleItalic,
@@ -31,7 +31,7 @@ export default function keymapPlugin(
   const list = {};
 
   if (schema.marks.strong) {
-    bindKeymapWithPluginCommand(
+    bindKeymapWithEditorCommand(
       toggleBold.common!,
       toggleStrongWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
@@ -39,7 +39,7 @@ export default function keymapPlugin(
   }
 
   if (schema.marks.em) {
-    bindKeymapWithPluginCommand(
+    bindKeymapWithEditorCommand(
       toggleItalic.common!,
       toggleEmWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
@@ -47,7 +47,7 @@ export default function keymapPlugin(
   }
 
   if (schema.marks.code) {
-    bindKeymapWithPluginCommand(
+    bindKeymapWithEditorCommand(
       toggleCode.common!,
       toggleCodeWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
@@ -55,7 +55,7 @@ export default function keymapPlugin(
   }
 
   if (schema.marks.strike) {
-    bindKeymapWithPluginCommand(
+    bindKeymapWithEditorCommand(
       toggleStrikethrough.common!,
       toggleStrikeWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
@@ -63,7 +63,7 @@ export default function keymapPlugin(
   }
 
   if (schema.marks.subsup) {
-    bindKeymapWithPluginCommand(
+    bindKeymapWithEditorCommand(
       toggleSubscript.common!,
       toggleSubscriptWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
@@ -71,7 +71,7 @@ export default function keymapPlugin(
   }
 
   if (schema.marks.subsup) {
-    bindKeymapWithPluginCommand(
+    bindKeymapWithEditorCommand(
       toggleSuperscript.common!,
       toggleSuperscriptWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,
@@ -79,7 +79,7 @@ export default function keymapPlugin(
   }
 
   if (schema.marks.underline) {
-    bindKeymapWithPluginCommand(
+    bindKeymapWithEditorCommand(
       toggleUnderline.common!,
       toggleUnderlineWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
       list,

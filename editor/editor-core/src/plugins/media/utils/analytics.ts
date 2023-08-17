@@ -1,10 +1,12 @@
+import type {
+  MediaEventPayload,
+  MediaResizeTrackAction,
+} from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
-  MediaEventPayload,
-  MediaResizeTrackAction,
 } from '@atlaskit/editor-common/analytics';
 
 export const getMediaResizeAnalyticsEvent = <T extends MediaResizeTrackAction>(
@@ -15,7 +17,7 @@ export const getMediaResizeAnalyticsEvent = <T extends MediaResizeTrackAction>(
     return;
   }
 
-  const { size, widthType, layout, snapType, parentNode } = attributes;
+  const { width, widthType, layout, snapType, parentNode } = attributes;
   const actionSubject =
     type === 'embed' ? ACTION_SUBJECT.EMBEDS : ACTION_SUBJECT.MEDIA_SINGLE;
 
@@ -24,7 +26,7 @@ export const getMediaResizeAnalyticsEvent = <T extends MediaResizeTrackAction>(
     actionSubject,
     actionSubjectId: ACTION_SUBJECT_ID.RESIZED,
     attributes: {
-      size,
+      width,
       layout,
       widthType,
       snapType,

@@ -62,11 +62,17 @@ describe('AssetsConfigModal', () => {
     return { ...component };
   };
 
-  it('Should display initial view when the status is empty', async () => {
-    const { queryByTestId } = setup({ status: 'empty' });
+  it('Should display initial view with link when the status is empty', async () => {
+    const { queryByTestId, getByRole } = setup({ status: 'empty' });
     expect(
       queryByTestId('assets-aql-datasource-modal--initial-state-view'),
     ).toBeInTheDocument();
+    expect(
+      getByRole('link', { name: 'Learn more about searching with AQL.' }),
+    ).toHaveAttribute(
+      'href',
+      'https://support.atlassian.com/jira-service-management-cloud/docs/use-assets-query-language-aql/',
+    );
   });
 
   it('Should display loading view when the status is loading', async () => {

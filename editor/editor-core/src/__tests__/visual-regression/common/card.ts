@@ -1,6 +1,6 @@
+import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
 import {
   evaluateTeardownMockDate,
-  PuppeteerPage,
   waitForLoadedImageElements,
 } from '@atlaskit/visual-regression/helper';
 import { Device } from '@atlaskit/editor-test-helpers/vr-utils/device-viewport';
@@ -16,7 +16,9 @@ import cardAdfRequestAccess from './__fixtures__/card-request-access.adf.json';
 import cardAdfBlock from './__fixtures__/card-adf.block.json';
 import cardAdfSupportedPlatforms from './__fixtures__/card-adf.supported-platforms.json';
 import cardAdfBlockLongTitle from './__fixtures__/card-adf-long-title.block.json';
+import cardAdfDatasource from './__fixtures__/card-datasource.adf.json';
 import cardInsideInfoAndLayout from './__fixtures__/card-inside-info-and-layout-adf.json';
+
 import {
   openPreviewState,
   waitForBlockCardSelection,
@@ -27,6 +29,7 @@ import {
   waitForResolvedEmbedCard,
   waitForResolvedInlineCard,
   waitForSuccessfullyResolvedEmbedCard,
+  waitForDatasourceTableView,
 } from '@atlaskit/media-integration-test-helpers';
 import { contexts } from './__helpers__/card-utils';
 
@@ -102,6 +105,84 @@ describe('Cards:', () => {
 
         await snapshot(page);
       });
+
+      if (appearance !== Appearance.mobile) {
+        it('displays datasource on non-mobile editors', async () => {
+          await initEditorWithAdf(page, {
+            adf: cardAdfDatasource,
+            appearance,
+            device: Device.LaptopHiDPI,
+            viewport: {
+              width: 2400,
+              height: 1200,
+            },
+            editorProps: {
+              smartLinks: {
+                allowBlockCards: true,
+                allowDatasource: true,
+              },
+            },
+            mode: getMode(theme),
+            forceReload: true,
+            platformFeatureFlags: {
+              'platform.linking-platform.datasource-jira_issues': true,
+            },
+            datasourceMocks: {
+              shouldMockORSBatch: true,
+              initialVisibleColumnKeys: [
+                'type',
+                'assignee',
+                'summary',
+                'description',
+              ],
+            },
+          });
+
+          await evaluateTeardownMockDate(page);
+
+          // Render an assortment of inline cards.
+          await waitForDatasourceTableView(page);
+          await snapshot(page);
+        });
+      } else {
+        it('displays inline fallback instead of datasource tables on mobile', async () => {
+          await initEditorWithAdf(page, {
+            adf: cardAdfDatasource,
+            appearance,
+            device: Device.LaptopHiDPI,
+            viewport: {
+              width: 800,
+              height: 400,
+            },
+            editorProps: {
+              smartLinks: {
+                allowBlockCards: true,
+                allowDatasource: true,
+              },
+            },
+            mode: getMode(theme),
+            forceReload: true,
+            platformFeatureFlags: {
+              'platform.linking-platform.datasource-jira_issues': true,
+            },
+            datasourceMocks: {
+              shouldMockORSBatch: true,
+              initialVisibleColumnKeys: [
+                'type',
+                'assignee',
+                'summary',
+                'description',
+              ],
+            },
+          });
+
+          await evaluateTeardownMockDate(page);
+
+          // Render an assortment of inline cards.
+          await waitForResolvedInlineCard(page, 'resolved');
+          await snapshot(page);
+        });
+      }
     });
   });
 

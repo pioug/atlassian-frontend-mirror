@@ -48,6 +48,9 @@ const expectedDatasourceBlockCard = datasourceBlockCard({
               key: 'summary',
             },
             {
+              key: 'description',
+            },
+            {
               key: 'assignee',
             },
             {

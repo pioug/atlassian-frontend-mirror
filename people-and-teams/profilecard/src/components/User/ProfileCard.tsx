@@ -8,6 +8,7 @@ import {
 } from '@atlaskit/analytics-next';
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/custom-theme-button';
+import FocusRing from '@atlaskit/focus-ring';
 import Spinner from '@atlaskit/spinner';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -17,6 +18,7 @@ import {
   ActionButtonGroup,
   ActionsFlexSpacer,
   AnimatedKudosButton,
+  AnimationWrapper,
   CardContainer,
   CardContent,
   CardWrapper,
@@ -260,17 +262,23 @@ const Actions = ({ actions, fireAnalyticsWithDuration }: ActionsProps) => {
         const isKudos = action.id === GIVE_KUDOS_ACTION_ID;
 
         const button = (
-          <Button
-            appearance="default"
-            key={action.id || index}
-            onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
-              onActionClick(action, args, event, index)
-            }
-            href={action.link}
-          >
-            {action.label}
-            {isKudos && <KudosBlobAnimation />}
-          </Button>
+          <FocusRing isInset>
+            <Button
+              appearance="default"
+              key={action.id || index}
+              onClick={(event: React.MouseEvent<HTMLElement>, ...args: any) =>
+                onActionClick(action, args, event, index)
+              }
+              href={action.link}
+            >
+              {action.label}
+              {isKudos && (
+                <AnimationWrapper>
+                  <KudosBlobAnimation />
+                </AnimationWrapper>
+              )}
+            </Button>
+          </FocusRing>
         );
 
         if (isKudos) {

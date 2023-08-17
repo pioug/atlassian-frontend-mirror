@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 
 import {
-  initialVisibleColumnKeys,
+  defaultInitialVisibleColumnKeys,
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 
@@ -14,7 +14,7 @@ export const ExampleJiraIssuesTableView = () => {
   const cloudId = 'some-cloud-id';
 
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<string[]>(
-    initialVisibleColumnKeys,
+    defaultInitialVisibleColumnKeys,
   );
 
   const parameters = useMemo<JiraIssueDatasourceParameters>(

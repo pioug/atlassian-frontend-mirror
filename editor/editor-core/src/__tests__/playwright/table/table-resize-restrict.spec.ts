@@ -8,6 +8,11 @@ import { tablesWithDifferentColumns } from './__fixtures__/base-adfs';
 
 const MIN_COLUMN_WIDTH = 48;
 const MAX_COLUMN_WIDTH = 1800;
+const minWidths = {
+  oneColumn: MIN_COLUMN_WIDTH + 1,
+  twoColumns: MIN_COLUMN_WIDTH * 2 + 1,
+  threeColumns: MIN_COLUMN_WIDTH * 3 + 1,
+};
 
 test.use({
   editorProps: {
@@ -29,14 +34,17 @@ test.describe('resizing a table', () => {
     const tableLocator = nodes.table.nth(0);
     const threeColumnTable = EditorTableModel.from(tableLocator);
     const resizerModel = threeColumnTable.resizer();
+    await threeColumnTable.selectTable();
 
     await resizerModel.resize({
       mouse: editor.page.mouse,
       moveDistance: -1000,
     });
 
-    expect(await resizerModel.containerWidth()).toBe(MIN_COLUMN_WIDTH * 3);
-    expect(await threeColumnTable.containerWidth()).toBe(MIN_COLUMN_WIDTH * 3);
+    expect(await resizerModel.containerWidth()).toBe(minWidths.threeColumns);
+    expect(await threeColumnTable.containerWidth()).toBe(
+      minWidths.threeColumns,
+    );
   });
 
   test('should limit minimum width if resizing in 2 column', async ({
@@ -46,14 +54,15 @@ test.describe('resizing a table', () => {
     const tableLocator = nodes.table.nth(1);
     const twoColumnTable = EditorTableModel.from(tableLocator);
     const resizerModel = twoColumnTable.resizer();
+    await twoColumnTable.selectTable();
 
     await resizerModel.resize({
       mouse: editor.page.mouse,
       moveDistance: -1000,
     });
 
-    expect(await resizerModel.containerWidth()).toBe(MIN_COLUMN_WIDTH * 2);
-    expect(await twoColumnTable.containerWidth()).toBe(MIN_COLUMN_WIDTH * 2);
+    expect(await resizerModel.containerWidth()).toBe(minWidths.twoColumns);
+    expect(await twoColumnTable.containerWidth()).toBe(minWidths.twoColumns);
   });
 
   test('should limit minimum width if resizing in 1 column', async ({
@@ -63,14 +72,15 @@ test.describe('resizing a table', () => {
     const tableLocator = nodes.table.nth(2);
     const oneColumnTable = EditorTableModel.from(tableLocator);
     const resizerModel = oneColumnTable.resizer();
+    await oneColumnTable.selectTable();
 
     await resizerModel.resize({
       mouse: editor.page.mouse,
       moveDistance: -1000,
     });
 
-    expect(await resizerModel.containerWidth()).toBe(MIN_COLUMN_WIDTH);
-    expect(await oneColumnTable.containerWidth()).toBe(MIN_COLUMN_WIDTH);
+    expect(await resizerModel.containerWidth()).toBe(minWidths.oneColumn);
+    expect(await oneColumnTable.containerWidth()).toBe(minWidths.oneColumn);
   });
 
   // more than 3 columns should have limitation as 3 columns
@@ -81,14 +91,15 @@ test.describe('resizing a table', () => {
     const tableLocator = nodes.table.nth(3);
     const fiveColumn = EditorTableModel.from(tableLocator);
     const resizerModel = fiveColumn.resizer();
+    await fiveColumn.selectTable();
 
     await resizerModel.resize({
       mouse: editor.page.mouse,
       moveDistance: -1000,
     });
 
-    expect(await resizerModel.containerWidth()).toBe(MIN_COLUMN_WIDTH * 3);
-    expect(await fiveColumn.containerWidth()).toBe(MIN_COLUMN_WIDTH * 3);
+    expect(await resizerModel.containerWidth()).toBe(minWidths.threeColumns);
+    expect(await fiveColumn.containerWidth()).toBe(minWidths.threeColumns);
   });
 
   test('should reach maximum width if resizing in 3 column', async ({
@@ -100,6 +111,7 @@ test.describe('resizing a table', () => {
     const tableLocator = nodes.table.nth(4);
     const fiveColumn = EditorTableModel.from(tableLocator);
     const resizerModel = fiveColumn.resizer();
+    await fiveColumn.selectTable();
 
     await resizerModel.resize({
       mouse: editor.page.mouse,

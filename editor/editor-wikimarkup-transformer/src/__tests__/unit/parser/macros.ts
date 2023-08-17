@@ -209,6 +209,14 @@ linebreaks{noformat}`,
 
       '{color:#000000}This is sample text \n {color:#000000} some text',
     ],
+    [
+      'ADFEXP-492: Code block renders correctly inside list - ignore list inside codeblock',
+      '# a \n{code} \nb \n** c \nd \n{code}',
+    ],
+    [
+      'ADFEXP-492: Code block renders correctly inside list',
+      '# a \n{code} \nb \nzz c \nd \n{code}',
+    ],
   ];
 
   const context = {

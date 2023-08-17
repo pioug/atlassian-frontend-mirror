@@ -77,7 +77,7 @@
                     "colspan": 1,
                     "rowspan": 1,
                     "colwidth": [
-                      484
+                      483
                     ],
                     "background": null
                   },
@@ -146,7 +146,7 @@
                     "colspan": 1,
                     "rowspan": 1,
                     "colwidth": [
-                      484
+                      483
                     ],
                     "background": null
                   },
@@ -215,7 +215,7 @@
                     "colspan": 1,
                     "rowspan": 1,
                     "colwidth": [
-                      484
+                      483
                     ],
                     "background": null
                   },

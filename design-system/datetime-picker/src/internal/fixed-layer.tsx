@@ -58,6 +58,23 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
       return <div />;
     }
 
+    const divStyles: React.CSSProperties = {
+      background: 'transparent',
+      position: 'absolute',
+      top: 0,
+      height: containerRef.getBoundingClientRect().height,
+      // Don't block the clear button
+      width:
+        containerRef.getBoundingClientRect().width -
+        parseInt(sizes.small.slice(0, -2)) -
+        gridSize(),
+      ...(getBooleanFF(
+        'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
+      ) && {
+        pointerEvents: 'none',
+      }),
+    };
+
     return (
       /* Need to wrap layer in a fixed position div so that it will render its content as fixed
        * We need to set the intial top value to where the container is and zIndex so that it still
@@ -65,33 +82,7 @@ export default class FixedLayer extends React.Component<FixedLayerProps> {
       <Manager>
         <ScrollLock />
         <Reference>
-          {({ ref }) => (
-            <div
-              ref={ref}
-              data-layer-child
-              style={
-                getBooleanFF(
-                  'platform.design-system-team.date-picker-input-a11y-fix_cbbxs',
-                )
-                  ? {
-                      inset: 0,
-                      pointerEvents: 'none',
-                      background: 'transparent',
-                    }
-                  : {
-                      position: 'absolute',
-                      top: 0,
-                      height: containerRef.getBoundingClientRect().height,
-                      // Don't block the clear button
-                      width:
-                        containerRef.getBoundingClientRect().width -
-                        parseInt(sizes.small.slice(0, -2)) -
-                        gridSize(),
-                      background: 'transparent',
-                    }
-              }
-            />
-          )}
+          {({ ref }) => <div ref={ref} data-layer-child style={divStyles} />}
         </Reference>
         <Popper>
           {({ ref, style, update }: PopperChildrenProps) => {

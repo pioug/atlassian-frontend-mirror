@@ -34,13 +34,6 @@ import type {
   Snap,
 } from '@atlaskit/editor-common/resizer';
 import { ResizerNext } from '@atlaskit/editor-common/resizer';
-import type { MediaEventPayload } from '@atlaskit/editor-common/analytics';
-import {
-  ACTION,
-  ACTION_SUBJECT,
-  ACTION_SUBJECT_ID,
-  EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics';
 import classnames from 'classnames';
 import {
   richMediaClassName,
@@ -60,12 +53,17 @@ import {
   generateDefaultGuidelines,
   generateDynamicGuidelines,
   getGuidelineSnaps,
+  getGuidelineTypeFromKey,
+  getRelativeGuideSnaps,
+  getRelativeGuidelines,
 } from '@atlaskit/editor-common/guideline';
 import type {
   GuidelineConfig,
+  RelativeGuides,
   GuidelineSnapsReference,
 } from '@atlaskit/editor-common/guideline';
 import memoizeOne from 'memoize-one';
+import { getMediaResizeAnalyticsEvent } from '../../utils/analytics';
 import throttle from 'lodash/throttle';
 import {
   MEDIA_PLUGIN_IS_RESIZING_KEY,
@@ -79,37 +77,19 @@ type State = {
   isResizing: boolean;
   size: Dimensions;
   snaps: Snap;
+  relativeGuides: RelativeGuides;
+  guidelines: GuidelineConfig[];
 };
 
 export const resizerNextTestId = 'mediaSingle.resizerNext.testid';
 
-// TODO: Create new fixed image size event
-const getResizeAnalyticsEvent = (
-  type: string | undefined,
-  size: number | null,
-  layout: string,
-): MediaEventPayload => {
-  const actionSubject =
-    type === 'embed' ? ACTION_SUBJECT.EMBEDS : ACTION_SUBJECT.MEDIA_SINGLE;
-  return {
-    action: ACTION.EDITED,
-    actionSubject,
-    actionSubjectId: ACTION_SUBJECT_ID.RESIZED,
-    attributes: {
-      size,
-      layout,
-    },
-    eventType: EVENT_TYPE.UI,
-  };
-};
-
 type ResizableMediaSingleNextProps = Props;
 
-class ResizableMediaSingleNext extends React.Component<
+export class ResizableMediaSingleNext extends React.Component<
   ResizableMediaSingleNextProps,
   State
 > {
-  private guidelines: GuidelineConfig[] = [];
+  private lastSnappedGuidelineKeys: string[] = [];
 
   constructor(props: ResizableMediaSingleNextProps) {
     super(props);
@@ -130,6 +110,8 @@ class ResizableMediaSingleNext extends React.Component<
         height: this.calcPxHeight(initialWidth),
       },
       snaps: {},
+      relativeGuides: {},
+      guidelines: [],
     };
   }
 
@@ -222,20 +204,28 @@ class ResizableMediaSingleNext extends React.Component<
       : generateDefaultGuidelines(lineLength, containerWidth, fullWidthMode);
   }
 
-  private getAllGuidelines = () => {
+  private updateGuidelines = () => {
     const { view, lineLength } = this.props;
     const defaultGuidelines = this.getDefaultGuidelines();
+
+    const { relativeGuides, dynamicGuides } = generateDynamicGuidelines(
+      view.state,
+      lineLength,
+      {
+        styles: {
+          lineStyle: 'dashed',
+        },
+        show: false,
+      },
+    );
+
     // disable guidelines for nested media single node
-    const dynamicGuidelines = this.isNestedNode()
-      ? []
-      : generateDynamicGuidelines(view.state, lineLength, {
-          styles: {
-            lineStyle: 'dashed',
-          },
-          show: false,
-        });
-    const guidelines = [...defaultGuidelines, ...dynamicGuidelines];
-    return guidelines;
+    const dynamicGuidelines = this.isNestedNode() ? [] : dynamicGuides;
+
+    this.setState({
+      relativeGuides,
+      guidelines: [...defaultGuidelines, ...dynamicGuidelines],
+    });
   };
 
   get wrappedLayout() {
@@ -253,6 +243,15 @@ class ResizableMediaSingleNext extends React.Component<
     if (this.props.viewMediaClientConfig !== nextProps.viewMediaClientConfig) {
       this.checkVideoFile(nextProps.viewMediaClientConfig);
     }
+  }
+
+  get aspectRatio() {
+    const { width, height } = this.props;
+    if (width) {
+      return width / height;
+    }
+    // TODO handle this case
+    return 1;
   }
 
   async checkVideoFile(viewMediaClientConfig?: MediaClientConfig) {
@@ -293,7 +292,7 @@ class ResizableMediaSingleNext extends React.Component<
       fullWidthMode,
     } = this.props;
 
-    const newPct = calcPctFromPx(newWidth, this.props.lineLength) * 100;
+    const newPct = calcPctFromPx(newWidth, lineLength) * 100;
     this.setState({ resizedPctWidth: newPct });
 
     let newLayout: MediaSingleLayout = hasParentNodeOfType(
@@ -453,6 +452,24 @@ class ResizableMediaSingleNext extends React.Component<
     },
   );
 
+  private getRelativeGuides = () => {
+    const relativeGuides: GuidelineConfig[] =
+      this.$pos && this.$pos.nodeAfter && this.state.size.width
+        ? getRelativeGuidelines(
+            this.state.relativeGuides,
+            {
+              node: this.$pos.nodeAfter,
+              pos: this.$pos.pos,
+            },
+            this.props.view,
+            this.props.lineLength,
+            this.state.size,
+          )
+        : [];
+
+    return relativeGuides;
+  };
+
   updateActiveGuidelines = (
     width = 0,
     guidelines: GuidelineConfig[],
@@ -466,14 +483,21 @@ class ResizableMediaSingleNext extends React.Component<
         MEDIA_SINGLE_SNAP_GAP,
       );
 
-      this.displayGuideline(
-        getGuidelinesWithHighlights(
+      this.lastSnappedGuidelineKeys = activeGuidelineKeys;
+
+      const relativeGuidelines = activeGuidelineKeys.length
+        ? []
+        : this.getRelativeGuides();
+
+      this.displayGuideline([
+        ...getGuidelinesWithHighlights(
           gap,
           MEDIA_SINGLE_SNAP_GAP,
           activeGuidelineKeys,
           guidelines,
         ),
-      );
+        ...relativeGuidelines,
+      ]);
     }
   };
 
@@ -520,13 +544,47 @@ class ResizableMediaSingleNext extends React.Component<
     }
   };
 
+  getParentNodeTypeNameFromCurrentPositionNode = () => {
+    const $pos = this.$pos;
+
+    if (!$pos) {
+      return undefined;
+    }
+
+    // Supported Parent Nodes
+    const {
+      listItem,
+      expand,
+      tableCell,
+      tableHeader,
+      layoutSection,
+      nestedExpand,
+    } = this.props.view.state.schema.nodes;
+    const parentNode = findParentNodeOfTypeClosestToPos($pos, [
+      listItem,
+      expand,
+      tableCell,
+      tableHeader,
+      layoutSection,
+      nestedExpand,
+    ]);
+
+    // Return matched parent node name
+    if (parentNode) {
+      return parentNode.node.type.name;
+    }
+
+    // Return undefined if parent node cannot be found
+    return undefined;
+  };
+
   handleResizeStart: HandleResizeStart = () => {
     this.setState({ isResizing: true });
     this.selectCurrentMediaNode();
     this.setIsResizing(true);
     this.updateSizeInPluginState(this.state.size.width);
     // re-calucate guidelines
-    this.guidelines = this.getAllGuidelines();
+    this.updateGuidelines();
     return 0;
   };
 
@@ -542,19 +600,26 @@ class ResizableMediaSingleNext extends React.Component<
       this.calculateSizeState(size, delta, originalWidth, originalHeight);
 
     const guidelineSnaps = getGuidelineSnaps(
-      this.guidelines,
+      this.state.guidelines,
       lineLength,
       layout,
     );
 
-    this.updateActiveGuidelines(width, this.guidelines, guidelineSnaps);
+    this.updateActiveGuidelines(width, this.state.guidelines, guidelineSnaps);
+
+    const relativeSnaps = getRelativeGuideSnaps(
+      this.state.relativeGuides,
+      this.aspectRatio,
+    );
 
     this.setState({
       size: {
         width,
         height,
       },
-      snaps: guidelineSnaps.snaps,
+      snaps: {
+        x: [...(guidelineSnaps.snaps.x || []), ...relativeSnaps],
+      },
     });
 
     this.updateSizeInPluginState(width);
@@ -574,17 +639,25 @@ class ResizableMediaSingleNext extends React.Component<
     } = this.props;
     const { width, height, calculatedWidthWithLayout } =
       this.calculateSizeState(size, delta, originalWidth, originalHeight, true);
+
+    if (dispatchAnalyticsEvent) {
+      const event = getMediaResizeAnalyticsEvent(nodeType || 'mediaSingle', {
+        width,
+        layout: calculatedWidthWithLayout.layout,
+        widthType: 'pixel',
+        snapType: getGuidelineTypeFromKey(
+          this.lastSnappedGuidelineKeys,
+          this.state.guidelines,
+        ),
+        parentNode: this.getParentNodeTypeNameFromCurrentPositionNode(),
+      });
+      if (event) {
+        dispatchAnalyticsEvent(event);
+      }
+    }
+
     this.setIsResizing(false);
     this.displayGuideline([]);
-    if (dispatchAnalyticsEvent) {
-      dispatchAnalyticsEvent(
-        getResizeAnalyticsEvent(
-          nodeType,
-          calculatedWidthWithLayout.width,
-          calculatedWidthWithLayout.layout,
-        ),
-      );
-    }
 
     this.setState(
       {

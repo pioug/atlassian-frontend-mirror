@@ -6,6 +6,7 @@ import { IntlProvider } from 'react-intl-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { DatasourceType } from '@atlaskit/linking-types';
 
+import * as AdfTable from '../examples-helpers/adfTable.json';
 import * as Image from '../examples-helpers/images.json';
 import SmartLinkClient from '../examples-helpers/smartLinkCustomClient';
 import { fallbackRenderType } from '../src/ui/issue-like-table/render-type';
@@ -29,6 +30,7 @@ const tableRowStyles = css({
 });
 
 interface Item {
+  style?: React.CSSProperties;
   type: DatasourceType['type'];
   variations: DatasourceType['value'][];
 }
@@ -129,6 +131,16 @@ const items: Item[] = [
       },
     ],
   },
+  {
+    type: 'richtext',
+    style: { maxWidth: '250px' },
+    variations: [
+      {
+        type: 'adf',
+        text: JSON.stringify(AdfTable.default),
+      },
+    ],
+  },
 ];
 
 export default () => {
@@ -148,7 +160,7 @@ export default () => {
               {items.map((item, index) => (
                 <tr css={tableRowStyles} key={index}>
                   <td>{item.type}</td>
-                  <td>
+                  <td style={item.style}>
                     {item.variations.map((variation, index) => (
                       <RenderDiv key={index}>
                         {fallbackRenderType({

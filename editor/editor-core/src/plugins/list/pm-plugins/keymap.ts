@@ -1,18 +1,28 @@
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import * as keymaps from '../../../keymaps';
 import {
+  bindKeymapWithCommand,
+  findShortcutByKeymap,
+  toggleOrderedList,
+  toggleBulletList,
   indentList,
+  outdentList,
+  enter,
+  backspace,
+  deleteKey,
+  findKeyMapForBrowser,
+  forwardDelete,
+} from '@atlaskit/editor-common/keymaps';
+import {
+  indentList as indentListCommand,
+  outdentList as outdentListCommand,
   enterKeyCommand,
   toggleList,
   backspaceKeyCommand,
   deleteKeyCommand,
 } from '../commands';
-import { outdentList } from '../commands';
-import {
-  INPUT_METHOD,
-  EditorAnalyticsAPI,
-} from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 
 export function keymapPlugin(
@@ -21,46 +31,46 @@ export function keymapPlugin(
 ): SafePlugin | undefined {
   const list = {};
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.findShortcutByKeymap(keymaps.toggleOrderedList)!,
+  bindKeymapWithCommand(
+    findShortcutByKeymap(toggleOrderedList)!,
     toggleList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, 'orderedList'),
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.findShortcutByKeymap(keymaps.toggleBulletList)!,
+  bindKeymapWithCommand(
+    findShortcutByKeymap(toggleBulletList)!,
     toggleList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, 'bulletList'),
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.indentList.common!,
-    indentList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
+  bindKeymapWithCommand(
+    indentList.common!,
+    indentListCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.outdentList.common!,
-    outdentList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, featureFlags),
+  bindKeymapWithCommand(
+    outdentList.common!,
+    outdentListCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, featureFlags),
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.enter.common!,
+  bindKeymapWithCommand(
+    enter.common!,
     enterKeyCommand(editorAnalyticsAPI)(featureFlags),
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.backspace.common!,
+  bindKeymapWithCommand(
+    backspace.common!,
     backspaceKeyCommand(editorAnalyticsAPI)(featureFlags),
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.deleteKey.common!,
+  bindKeymapWithCommand(
+    deleteKey.common!,
     deleteKeyCommand(editorAnalyticsAPI),
     list,
   );
 
   // This shortcut is Mac only
-  keymaps.bindKeymapWithCommand(
-    keymaps.findKeyMapForBrowser(keymaps.forwardDelete) as string,
+  bindKeymapWithCommand(
+    findKeyMapForBrowser(forwardDelete) as string,
     deleteKeyCommand(editorAnalyticsAPI),
     list,
   );

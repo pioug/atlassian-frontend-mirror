@@ -17,6 +17,7 @@
 ```ts
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { Command } from '@atlaskit/editor-common/types';
+import type { EditorCommand } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
@@ -28,7 +29,6 @@ import type { IntlShape } from 'react-intl-next';
 import type { LinkInputType } from '@atlaskit/editor-common/types';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { OptionalPlugin } from '@atlaskit/editor-common/types';
-import type { PluginCommand } from '@atlaskit/editor-common/types';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { QueueCardsFromTransactionAction } from '@atlaskit/editor-common/card';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -46,7 +46,7 @@ type GetToolbarItems = (
 export type HideLinkToolbar = (tr: Transaction) => Transaction;
 
 // @public (undocumented)
-export const hyperlinkPlugin: NextEditorPlugin<
+export type HyperlinkPlugin = NextEditorPlugin<
   'hyperlink',
   {
     pluginConfiguration: HyperlinkPluginOptions | undefined;
@@ -66,6 +66,9 @@ export const hyperlinkPlugin: NextEditorPlugin<
     sharedState: HyperlinkState | undefined;
   }
 >;
+
+// @public (undocumented)
+export const hyperlinkPlugin: HyperlinkPlugin;
 
 // @public (undocumented)
 type HyperlinkToolbarItemsState = {
@@ -103,7 +106,7 @@ interface PrependToolbarButtonsProps extends HyperlinkToolbarItemsState {
 }
 
 // @public (undocumented)
-export type ShowLinkToolbar = (inputMethod: InputMethod) => PluginCommand;
+export type ShowLinkToolbar = (inputMethod: InputMethod) => EditorCommand;
 
 // @public (undocumented)
 export type UpdateLink = (

@@ -1,30 +1,11 @@
 import { createFixedGuidelinesFromLengths } from '@atlaskit/editor-common/guideline';
 import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
-import {
-  akEditorCalculatedWideLayoutWidth,
-  akEditorDefaultLayoutWidth,
-  akEditorFullWidthLayoutWidth,
-} from '@atlaskit/editor-shared-styles';
 
-const numberOfLanesInDefaultLayoutWidth = 12;
+import { calculateDefaultSnappings } from './snapping';
 
-const calculateGuidelineWidthsInDefaultLayoutWidth = () => {
-  let widths: number[] = [];
-  for (let i = 0; i <= numberOfLanesInDefaultLayoutWidth / 2; i++) {
-    widths.push(
-      (akEditorDefaultLayoutWidth / numberOfLanesInDefaultLayoutWidth) * i * 2,
-    );
-  }
-  return widths;
-};
-
-export const defaultGuidelineWidths = [
-  ...calculateGuidelineWidthsInDefaultLayoutWidth(),
-  akEditorDefaultLayoutWidth,
-  akEditorCalculatedWideLayoutWidth,
-  akEditorFullWidthLayoutWidth,
-];
-
-export const defaultGuidelines = createFixedGuidelinesFromLengths(
-  defaultGuidelineWidths,
-) as GuidelineConfig[];
+// NOTE: We have to take 1 pixel off every length due to the fact that the tbody is 1px smaller then the table container.
+// If we don't do this then the guidelines will not align correctly to the edge of the table
+export const defaultGuidelines = createFixedGuidelinesFromLengths([
+  0,
+  ...calculateDefaultSnappings(-1),
+]) as GuidelineConfig[];

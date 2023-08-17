@@ -1,5 +1,18 @@
 # @atlaskit/profilecard
 
+## 19.5.7
+
+### Patch Changes
+
+- [`834a98bdc7b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/834a98bdc7b) - [ECA11Y-13] Make focus ring visible for 'Give kudos' button
+- Updated dependencies
+
+## 19.5.6
+
+### Patch Changes
+
+- [`3ef90d5fc2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ef90d5fc2f) - Cleanup the references to version.json
+
 ## 19.5.5
 
 ### Patch Changes

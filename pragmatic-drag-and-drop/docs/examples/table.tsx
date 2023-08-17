@@ -11,10 +11,12 @@ import {
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
+import { triggerPostMoveFlash } from '@atlaskit/pragmatic-drag-and-drop-flourish/trigger-post-move-flash';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/addon/closest-edge';
-import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
+import { getReorderDestinationIndex } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/get-reorder-destination-index';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element';
+import { reorder } from '@atlaskit/pragmatic-drag-and-drop/util/reorder';
 import { token } from '@atlaskit/tokens';
 
 import { getItems } from './pieces/table/data';
@@ -71,6 +73,16 @@ function extractIndex(data: Record<string, unknown>) {
   return index;
 }
 
+type Operation =
+  | {
+      type: 'row-reorder';
+      currentIndex: number;
+    }
+  | {
+      type: 'column-reorder';
+      currentIndex: number;
+    };
+
 export default function Table() {
   // Data
   const [items, setItems] = useState(() => getItems({ amount: 100 }));
@@ -80,32 +92,83 @@ export default function Table() {
     'assignee',
   ]);
 
+  const [lastOperation, setLastOperation] = useState<Operation | null>(null);
+
+  const elementMapRef = useRef(new Map<number, HTMLElement>());
+
+  useEffect(() => {
+    if (lastOperation === null) {
+      return;
+    }
+
+    if (lastOperation.type === 'row-reorder') {
+      const element = elementMapRef.current.get(lastOperation.currentIndex);
+      if (element) {
+        triggerPostMoveFlash(element);
+      }
+      return;
+    }
+
+    if (lastOperation.type === 'column-reorder') {
+      const table = tableRef.current;
+      invariant(table);
+
+      const column = table.querySelector<HTMLElement>(
+        `col:nth-of-type(${lastOperation.currentIndex + 1})`,
+      );
+      if (column) {
+        triggerPostMoveFlash(column);
+      }
+      return;
+    }
+  }, [lastOperation]);
+
   const reorderItem: ReorderFunction = useCallback(
     ({ startIndex, indexOfTarget, closestEdgeOfTarget = null }) => {
-      return setItems(items =>
-        reorderWithEdge({
+      const finishIndex = getReorderDestinationIndex({
+        axis: 'vertical',
+        startIndex,
+        indexOfTarget,
+        closestEdgeOfTarget,
+      });
+
+      setItems(items => {
+        return reorder({
           list: items,
-          axis: 'vertical',
           startIndex,
-          indexOfTarget,
-          closestEdgeOfTarget,
-        }),
-      );
+          finishIndex,
+        });
+      });
+
+      setLastOperation({
+        type: 'row-reorder',
+        currentIndex: finishIndex,
+      });
     },
     [],
   );
 
   const reorderColumn: ReorderFunction = useCallback(
     ({ startIndex, indexOfTarget, closestEdgeOfTarget = null }) => {
-      return setColumns(items =>
-        reorderWithEdge({
+      const finishIndex = getReorderDestinationIndex({
+        axis: 'horizontal',
+        startIndex,
+        indexOfTarget,
+        closestEdgeOfTarget,
+      });
+
+      setColumns(items =>
+        reorder({
           list: items,
-          axis: 'horizontal',
           startIndex,
-          indexOfTarget,
-          closestEdgeOfTarget,
+          finishIndex,
         }),
       );
+
+      setLastOperation({
+        type: 'column-reorder',
+        currentIndex: finishIndex,
+      });
     },
     [],
   );
@@ -206,9 +269,13 @@ export default function Table() {
     // so when initially mounting the `IntersectionObserver` will not be ready yet
     observerRef.current?.observe(registration.element);
 
+    elementMapRef.current.set(registration.index, registration.element);
+
     return function unregister() {
       registrationsRef.current.delete(registration.element);
       observerRef.current?.unobserve(registration.element);
+
+      elementMapRef.current.delete(registration.index);
     };
   }, []);
 
@@ -275,6 +342,11 @@ export default function Table() {
       <TableContext.Provider value={contextValue}>
         <div css={scrollableStyles} ref={scrollableRef}>
           <table css={tableStyles} ref={tableRef}>
+            <colgroup>
+              {columns.map(property => (
+                <col key={property} />
+              ))}
+            </colgroup>
             <thead css={tableHeaderStyles}>
               <tr>
                 {columns.map((property, index, array) => (

@@ -138,6 +138,14 @@ export const updateMouseState = (mouseData: InlineCommentMouseData): Command =>
     data: { mouseData },
   });
 
+export const setSelectedAnnotation = (id: string): Command =>
+  createCommand({
+    type: ACTIONS.SET_SELECTED_ANNOTATION,
+    data: {
+      selectedAnnotations: [{ id, type: AnnotationTypes.INLINE_COMMENT }],
+    },
+  });
+
 export const createAnnotation =
   (
     id: string,

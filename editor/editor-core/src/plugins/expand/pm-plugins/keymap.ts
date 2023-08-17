@@ -6,7 +6,15 @@ import {
   NodeSelection,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import * as keymaps from '../../../keymaps';
+import {
+  bindKeymapWithCommand,
+  moveRight,
+  moveLeft,
+  moveUp,
+  moveDown,
+  tab,
+  backspace,
+} from '@atlaskit/editor-common/keymaps';
 import { GapCursorSelection, Side } from '../../selection/gap-cursor-selection';
 import { findExpand } from '../utils';
 import { isEmptyNode } from '../../../utils';
@@ -25,8 +33,8 @@ const isExpandSelected = (selection: Selection) =>
 export function expandKeymap(): SafePlugin {
   const list = {};
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveRight.common!,
+  bindKeymapWithCommand(
+    moveRight.common!,
     (state, dispatch, editorView) => {
       if (!editorView) {
         return false;
@@ -45,8 +53,8 @@ export function expandKeymap(): SafePlugin {
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveLeft.common!,
+  bindKeymapWithCommand(
+    moveLeft.common!,
     (state, dispatch, editorView) => {
       if (!editorView) {
         return false;
@@ -67,8 +75,8 @@ export function expandKeymap(): SafePlugin {
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.tab.common!,
+  bindKeymapWithCommand(
+    tab.common!,
     (state, dispatch, editorView) => {
       if (
         state.selection instanceof NodeSelection &&
@@ -105,8 +113,8 @@ export function expandKeymap(): SafePlugin {
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveUp.common!,
+  bindKeymapWithCommand(
+    moveUp.common!,
     (state, dispatch, editorView) => {
       if (!editorView) {
         return false;
@@ -168,8 +176,8 @@ export function expandKeymap(): SafePlugin {
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveDown.common!,
+  bindKeymapWithCommand(
+    moveDown.common!,
     (state, dispatch, editorView) => {
       if (!editorView) {
         return false;
@@ -209,8 +217,8 @@ export function expandKeymap(): SafePlugin {
     list,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.backspace.common!,
+  bindKeymapWithCommand(
+    backspace.common!,
     (state, dispatch, editorView) => {
       const { selection } = state;
       const { $from } = selection;

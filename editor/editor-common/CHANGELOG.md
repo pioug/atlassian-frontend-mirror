@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 74.46.1
+
+### Patch Changes
+
+- [`51e6a0128eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51e6a0128eb) - ED-18969 Implemented relative guideline
+
+## 74.46.0
+
+### Minor Changes
+
+- [`24fc3925d73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24fc3925d73) - Add a new hook called `usePreset` accesed via `@atlaskit/editor-core/use-preset`. This hook can be used to safely access state and commands from outside the editor using `EditorContext`.
+
+## 74.45.5
+
+### Patch Changes
+
+- [`3a2d2104ca9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a2d2104ca9) - [ux] [ED-19468] Adds dark mode icon for date
+
+## 74.45.4
+
+### Patch Changes
+
+- [`58fa188ef48`](https://bitbucket.org/atlassian/atlassian-frontend/commits/58fa188ef48) - [ux] [ED-19461] Reduce draggable zone of adjacent resize handle.
+
+## 74.45.3
+
+### Patch Changes
+
+- [`cf71a66559b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf71a66559b) - Update analytics event for new resize experience
+
+## 74.45.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 74.45.1
 
 ### Patch Changes

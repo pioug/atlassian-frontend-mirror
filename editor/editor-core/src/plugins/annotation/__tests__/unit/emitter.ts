@@ -149,4 +149,23 @@ describe('annotation emitter', () => {
       'id-1': false,
     });
   });
+
+  it('sets annotation', () => {
+    updateSubscriber.emit('setselectedannotation', 'id-0');
+
+    const pluginState = getPluginState(editorView.state);
+    expect(pluginState?.selectedAnnotations).toStrictEqual([
+      {
+        id: 'id-0',
+        type: AnnotationTypes.INLINE_COMMENT,
+      },
+    ]);
+  });
+
+  it('deselects annotation', () => {
+    updateSubscriber.emit('setselectedannotation', undefined);
+
+    const pluginState = getPluginState(editorView.state);
+    expect(pluginState?.selectedAnnotations).toStrictEqual([]);
+  });
 });

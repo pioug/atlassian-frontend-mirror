@@ -1,5 +1,17 @@
 # @atlaskit/pragmatic-drag-and-drop-auto-scroll
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.3.0
+
+### Minor Changes
+
+- [`7803a90e9c6`](https://bitbucket.org/atlassian/atlassian-frontend/commits/7803a90e9c6) - This change makes it so that distance dampening is based on the size of the hitbox and not the container. Now that we clamp the size of the hitbox, our distance dampening needs to be based on the size of the hitbox, and not the container.
+
 ## 0.2.0
 
 ### Minor Changes

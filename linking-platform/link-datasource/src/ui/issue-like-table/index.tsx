@@ -131,6 +131,7 @@ function getColumnWidth(
     priority: BASE_WIDTH * 8,
     status: BASE_WIDTH * 18,
     summary: BASE_WIDTH * 45,
+    description: BASE_WIDTH * 31.25,
     type: BASE_WIDTH * 8,
   };
 

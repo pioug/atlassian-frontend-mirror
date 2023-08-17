@@ -24,14 +24,18 @@ import {
   scaleTable,
 } from '../pm-plugins/table-resizing/utils';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
-import { TABLE_HIGHLIGHT_GAP, TABLE_SNAP_GAP } from '../ui/consts';
+import {
+  TABLE_HIGHLIGHT_GAP,
+  TABLE_HIGHLIGHT_TOLERANCE,
+  TABLE_SNAP_GAP,
+} from '../ui/consts';
 import {
   generateResizedPayload,
   generateResizeFrameRatePayloads,
   useMeasureFramerate,
 } from '../utils/analytics';
-import { defaultGuidelines, defaultGuidelineWidths } from '../utils/guidelines';
-import { findClosestSnap } from '../utils/snapping';
+import { defaultGuidelines } from '../utils/guidelines';
+import { defaultSnappingWidths, findClosestSnap } from '../utils/snapping';
 
 interface TableResizerProps {
   width: number;
@@ -49,6 +53,7 @@ interface TableResizerProps {
 
 const handles = { right: true };
 const tableHandleMarginTop = 12;
+const tableHandlePosition = 14;
 
 const getResizerHandleHeight = (tableRef: HTMLTableElement) => {
   const tableHeight = tableRef?.clientHeight;
@@ -77,8 +82,9 @@ const getResizerMinWidth = (node: PMNode) => {
     currentColumnCount <= 3
       ? currentColumnCount * COLUMN_MIN_WIDTH
       : 3 * COLUMN_MIN_WIDTH;
-
-  return minColumnWidth;
+  // add an extra pixel as the scale table logic will scale columns to be tableContainerWidth - 1
+  // the table can't scale past its min-width, so instead restrict table container min width to avoid that situation
+  return minColumnWidth + 1;
 };
 
 export const TableResizer = ({
@@ -122,7 +128,7 @@ export const TableResizer = ({
     () =>
       snappingEnabled
         ? {
-            x: defaultGuidelineWidths,
+            x: defaultSnappingWidths,
           }
         : undefined,
     [snappingEnabled],
@@ -164,9 +170,10 @@ export const TableResizer = ({
       updateActiveGuidelines(
         findClosestSnap(
           newWidth,
-          defaultGuidelineWidths,
+          defaultSnappingWidths,
           defaultGuidelines,
           TABLE_HIGHLIGHT_GAP,
+          TABLE_HIGHLIGHT_TOLERANCE,
         ),
       );
 
@@ -291,6 +298,7 @@ export const TableResizer = ({
       snapGap={TABLE_SNAP_GAP}
       snap={guidelineSnaps}
       handlePositioning="adjacent"
+      innerPadding={tableHandlePosition}
       isHandleVisible={findTable(editorView.state?.selection)?.pos === getPos()}
       handleComponent={handleComponent}
     >

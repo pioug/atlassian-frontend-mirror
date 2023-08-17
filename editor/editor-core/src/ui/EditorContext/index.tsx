@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EditorActions from '../../actions';
+import { PresetContextProvider } from '../../presets/context';
 
 export type EditorContextProps = { editorActions?: EditorActions };
 
@@ -32,7 +33,7 @@ export default class LegacyEditorContext extends React.Component<
   render() {
     return (
       <EditorContext.Provider value={this.getChildContext()}>
-        {this.props.children}
+        <PresetContextProvider>{this.props.children}</PresetContextProvider>
       </EditorContext.Provider>
     );
   }

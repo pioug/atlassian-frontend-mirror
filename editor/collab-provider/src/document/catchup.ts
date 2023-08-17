@@ -1,7 +1,9 @@
+import type { InternalError } from '../errors/error-types';
 import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import { createLogger } from '../helpers/utils';
 import type { CatchupOptions, StepsPayload } from '../types';
-import { StepMap, Mapping, Step } from '@atlaskit/editor-prosemirror/transform';
+import type { Step } from '@atlaskit/editor-prosemirror/transform';
+import { StepMap, Mapping } from '@atlaskit/editor-prosemirror/transform';
 
 const logger = createLogger('Catchup', 'red');
 
@@ -23,119 +25,142 @@ export function rebaseSteps(steps: readonly Step[], mapping: Mapping): Step[] {
 }
 
 export const catchup = async (opt: CatchupOptions) => {
-  const {
-    doc,
-    stepMaps: serverStepMaps,
-    version: serverVersion,
-    metadata,
-  } = await opt.fetchCatchup(opt.getCurrentPmVersion());
+  let doc, serverStepMaps, serverVersion: number | undefined, metadata;
 
-  if (doc) {
-    const currentPmVersion = opt.getCurrentPmVersion();
-    if (typeof serverVersion === 'undefined') {
-      logger(`Could not determine server version`);
-    } else if (serverVersion <= currentPmVersion) {
-      // there are no step maps in this case after page recovery
-      const unconfirmedSteps = opt.getUnconfirmedSteps();
+  try {
+    ({
+      doc,
+      stepMaps: serverStepMaps,
+      version: serverVersion,
+      metadata,
+    } = await opt.fetchCatchup(opt.getCurrentPmVersion()));
+  } catch (error) {
+    opt.analyticsHelper?.sendErrorEvent(
+      error,
+      'Error while fetching catchup from server',
+    );
+    logger(
+      `Fetch catchup from server failed:`,
+      (error as InternalError).message,
+    );
+    throw error;
+  }
 
-      // replace the entire document
-      logger(`Replacing document: ${doc}`);
-      logger(`getting metadata: ${metadata}`);
-      // Replace local document and version number
-      opt.updateDocument({
-        doc: JSON.parse(doc),
-        version: serverVersion,
-        metadata,
-        reserveCursor: true,
-      });
-      opt.updateMetadata(metadata);
-      if (unconfirmedSteps?.length) {
-        opt.applyLocalSteps(unconfirmedSteps as Step[]);
-      }
-    } else {
-      // Please, do not use those steps inside of async
-      // method. That will lead to outdated steps
-      const unconfirmedSteps = opt.getUnconfirmedSteps();
-      logger(
-        `Too far behind[current: v${currentPmVersion}, server: v${serverVersion}. ${
-          serverStepMaps!.length
-        } steps need to catchup]`,
-      );
-      /**
-       * Remove steps from queue where the version is older than
-       * the version we received from service. Keep steps that might be
-       * newer.
-       */
-      opt.filterQueue((data: StepsPayload) => data.version > serverVersion);
+  try {
+    if (doc) {
+      const currentPmVersion = opt.getCurrentPmVersion();
+      if (typeof serverVersion === 'undefined') {
+        logger(`Could not determine server version`);
+      } else if (serverVersion <= currentPmVersion) {
+        // there are no step maps in this case after page recovery
+        const unconfirmedSteps = opt.getUnconfirmedSteps();
 
-      // We are too far behind - replace the entire document
-      logger(`Replacing document: ${doc}`);
-      logger(`getting metadata: ${metadata}`);
-
-      // Replace local document and version number
-      opt.updateDocument({
-        doc: JSON.parse(doc),
-        version: serverVersion,
-        metadata,
-        reserveCursor: true,
-      });
-      opt.updateMetadata(metadata);
-
-      // After replacing the whole document in the editor, we need to reapply the unconfirmed
-      // steps back into the editor, so we don't lose any data. But before that, we need to rebase
-      // those steps since their position could be changed after replacing.
-      // https://prosemirror.net/docs/guide/#transform.rebasing
-      if (unconfirmedSteps?.length) {
-        // Create StepMap from StepMap JSON
-        // eslint-disable-next-line no-unused-vars
-        const stepMaps = serverStepMaps!.map(
-          ({
-            ranges,
-            inverted,
-          }: {
-            ranges: [number, number, number];
-            inverted: boolean;
-          }) => {
-            // Due to @types/prosemirror-transform mismatch with the actual
-            // constructor, hack to set the `inverted`.
-            const stepMap = new StepMap(ranges);
-            (stepMap as any).inverted = inverted;
-            return stepMap;
-          },
-        );
-        // create Mapping used for Step.map
-        const mapping: Mapping = new Mapping(stepMaps);
+        // replace the entire document
+        logger(`Replacing document: ${doc}`);
+        logger(`getting metadata: ${metadata}`);
+        // Replace local document and version number
+        opt.updateDocument({
+          doc: JSON.parse(doc),
+          version: serverVersion,
+          metadata,
+          reserveCursor: true,
+        });
+        opt.updateMetadata(metadata);
+        if (unconfirmedSteps?.length) {
+          opt.applyLocalSteps(unconfirmedSteps as Step[]);
+        }
+      } else {
+        // Please, do not use those steps inside of async
+        // method. That will lead to outdated steps
+        const unconfirmedSteps = opt.getUnconfirmedSteps();
         logger(
-          `${
-            unconfirmedSteps.length
-          } unconfirmed steps before rebased: ${JSON.stringify(
-            unconfirmedSteps,
-          )}`,
+          `Too far behind[current: v${currentPmVersion}, server: v${serverVersion}. ${
+            serverStepMaps!.length
+          } steps need to catchup]`,
         );
-        const newUnconfirmedSteps: Step[] = rebaseSteps(
-          unconfirmedSteps,
-          mapping,
-        );
+        /**
+         * Remove steps from queue where the version is older than
+         * the version we received from service. Keep steps that might be
+         * newer.
+         */
+        opt.filterQueue((data: StepsPayload) => data.version > serverVersion!);
 
-        if (newUnconfirmedSteps?.length < unconfirmedSteps.length) {
-          // Log the dropped steps after rebase
-          opt.analyticsHelper?.sendActionEvent(
-            EVENT_ACTION.DROPPED_STEPS,
-            EVENT_STATUS.SUCCESS,
-            {
-              numOfDroppedSteps:
-                unconfirmedSteps.length - newUnconfirmedSteps?.length,
+        // We are too far behind - replace the entire document
+        logger(`Replacing document: ${doc}`);
+        logger(`getting metadata: ${metadata}`);
+
+        // Replace local document and version number
+        opt.updateDocument({
+          doc: JSON.parse(doc),
+          version: serverVersion,
+          metadata,
+          reserveCursor: true,
+        });
+        opt.updateMetadata(metadata);
+
+        // After replacing the whole document in the editor, we need to reapply the unconfirmed
+        // steps back into the editor, so we don't lose any data. But before that, we need to rebase
+        // those steps since their position could be changed after replacing.
+        // https://prosemirror.net/docs/guide/#transform.rebasing
+        if (unconfirmedSteps?.length) {
+          // Create StepMap from StepMap JSON
+          // eslint-disable-next-line no-unused-vars
+          const stepMaps = serverStepMaps!.map(
+            ({
+              ranges,
+              inverted,
+            }: {
+              ranges: [number, number, number];
+              inverted: boolean;
+            }) => {
+              // Due to @types/prosemirror-transform mismatch with the actual
+              // constructor, hack to set the `inverted`.
+              const stepMap = new StepMap(ranges);
+              (stepMap as any).inverted = inverted;
+              return stepMap;
             },
           );
+          // create Mapping used for Step.map
+          const mapping: Mapping = new Mapping(stepMaps);
+          logger(
+            `${
+              unconfirmedSteps.length
+            } unconfirmed steps before rebased: ${JSON.stringify(
+              unconfirmedSteps,
+            )}`,
+          );
+          const newUnconfirmedSteps: Step[] = rebaseSteps(
+            unconfirmedSteps,
+            mapping,
+          );
+
+          if (newUnconfirmedSteps?.length < unconfirmedSteps.length) {
+            // Log the dropped steps after rebase
+            opt.analyticsHelper?.sendActionEvent(
+              EVENT_ACTION.DROPPED_STEPS,
+              EVENT_STATUS.SUCCESS,
+              {
+                numOfDroppedSteps:
+                  unconfirmedSteps.length - newUnconfirmedSteps?.length,
+              },
+            );
+          }
+          logger(
+            `Re-aply ${
+              newUnconfirmedSteps.length
+            } mapped unconfirmed steps: ${JSON.stringify(newUnconfirmedSteps)}`,
+          );
+          // Re-apply local steps
+          opt.applyLocalSteps(newUnconfirmedSteps);
         }
-        logger(
-          `Re-aply ${
-            newUnconfirmedSteps.length
-          } mapped unconfirmed steps: ${JSON.stringify(newUnconfirmedSteps)}`,
-        );
-        // Re-apply local steps
-        opt.applyLocalSteps(newUnconfirmedSteps);
       }
     }
+  } catch (error) {
+    opt.analyticsHelper?.sendErrorEvent(
+      error,
+      'Failed to apply catchup result in the editor',
+    );
+    logger(`Apply catchup steps failed:`, (error as InternalError).message);
+    throw error;
   }
 };

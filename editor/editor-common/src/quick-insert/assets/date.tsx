@@ -1,8 +1,11 @@
-// TODO: https://product-fabric.atlassian.net/browse/DSP-4138
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import React from 'react';
 
+import { useIconThemed } from '../use-icon-themed';
+
 export default function IconDate() {
+  const { iconThemed } = useIconThemed();
+
   return (
     <svg focusable="false" aria-hidden width={40} height={40}>
       <defs>
@@ -23,14 +26,35 @@ export default function IconDate() {
           <stop stopColor="#FF7043" offset="0%" />
           <stop stopColor="#FF5630" offset="100%" />
         </linearGradient>
+        <linearGradient
+          id="date-c"
+          x1="22.5809"
+          y1="7.87041"
+          x2="-3.10914"
+          y2="7.87041"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#738496" />
+          <stop offset="0.97" stopColor="#2C333A" stopOpacity="0" />
+        </linearGradient>
       </defs>
       <g fill="none" fillRule="evenodd">
-        <path fill="#FFF" d="M0 0h40v40H0z" />
+        <path
+          fill={iconThemed({ light: '#fff', dark: '#161A1D' })}
+          d="M0 0h40v40H0z"
+        />
         <g transform="translate(8 7)">
-          <path d="M0 8h24v14a2 2 0 01-2 2H2a2 2 0 01-2-2V8z" fill="#EBECF0" />
           <path
-            d="M18.109 17.42c-2.877-1.466-5.608-.66-9.359-1.604C6.18 15.17 2.987 13.661 0 10v13.913h22.294c-.353-2.421-1.384-5.065-4.185-6.493z"
-            fill="url(#date-a)"
+            d="M0 8h24v14a2 2 0 01-2 2H2a2 2 0 01-2-2V8z"
+            fill={iconThemed({ light: '#EBECF0', dark: '#5A6977' })}
+          />
+          <path
+            d={iconThemed({
+              light:
+                'M18.109 17.42c-2.877-1.466-5.608-.66-9.359-1.604C6.18 15.17 2.987 13.661 0 10v13.913h22.294c-.353-2.421-1.384-5.065-4.185-6.493z',
+              dark: 'M18.2409 8.34041C15.3609 6.87041 12.6309 7.68041 8.88086 6.74041C6.31086 6.09041 3.12086 4.58041 0.130859 0.92041V14.8304H22.4209C22.0709 12.4104 21.0409 9.76041 18.2309 8.34041H18.2409Z',
+            })}
+            fill={iconThemed({ light: 'url(#date-a)', dark: 'url(#date-c)' })}
             fillRule="nonzero"
             opacity={0.37}
             style={{
@@ -39,12 +63,24 @@ export default function IconDate() {
           />
           <path
             d="M1 2h22a1 1 0 011 1v7H0V3a1 1 0 011-1z"
-            fill="url(#date-b)"
+            fill={iconThemed({ light: 'url(#date-b)', dark: '#B22515' })}
           />
-          <rect fill="#0065FF" x={5} width={2} height={6} rx={1} />
-          <rect fill="#0065FF" x={17} width={2} height={6} rx={1} />
+          <rect
+            fill={iconThemed({ light: '#0065FF', dark: '#0055CC' })}
+            x={5}
+            width={2}
+            height={6}
+            rx={1}
+          />
+          <rect
+            fill={iconThemed({ light: '#0065FF', dark: '#0055CC' })}
+            x={17}
+            width={2}
+            height={6}
+            rx={1}
+          />
           <path
-            fill="#C1C7D0"
+            fill={iconThemed({ light: '#C1C7D0', dark: '#8696A7' })}
             d="M4 13h4v3H4zm0 5h4v3H4zm6 0h4v3h-4zm0-5h4v3h-4zm6 5h4v3h-4zm0-5h4v3h-4z"
           />
         </g>

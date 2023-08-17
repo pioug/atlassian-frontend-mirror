@@ -18,6 +18,7 @@ import {
   SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 import { B300, N0, N20A, N300, N40A, R500 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { ThemeProps } from '@atlaskit/theme/types';
@@ -153,6 +154,32 @@ const breakoutWidthStyling = () => {
       width: 100% !important;
     }
   `;
+};
+
+const tableWrapperStyles = () => {
+  if (getBooleanFF('platform.editor.custom-table-width')) {
+    return css`
+      .${ClassName.TABLE_NODE_WRAPPER} {
+        padding-bottom: 0px;
+        /* fixes gap cursor height */
+        overflow: auto;
+        overflow-y: hidden;
+        position: relative;
+      }
+    `;
+  } else {
+    return css`
+      .${ClassName.TABLE_NODE_WRAPPER} {
+        padding-right: ${insertColumnButtonOffset}px;
+        margin-right: -${insertColumnButtonOffset}px;
+        padding-bottom: 0px;
+        /* fixes gap cursor height */
+        overflow: auto;
+        overflow-y: hidden;
+        position: relative;
+      }
+    `;
+  }
 };
 
 // TODO: https://product-fabric.atlassian.net/browse/DSP-4139
@@ -733,15 +760,7 @@ export const tableStyles = (
     .${ClassName.ROW_CONTROLS_WRAPPER} {
       left: -${tableToolbarSize}px;
     }
-    .${ClassName.TABLE_NODE_WRAPPER} {
-      padding-right: ${insertColumnButtonOffset}px;
-      margin-right: -${insertColumnButtonOffset}px;
-      padding-bottom: 0px;
-      /* fixes gap cursor height */
-      overflow: auto;
-      overflow-y: hidden;
-      position: relative;
-    }
+    ${tableWrapperStyles()}
   }
 
   .ProseMirror.${ClassName.IS_RESIZING} {

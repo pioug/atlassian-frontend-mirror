@@ -1,5 +1,86 @@
 # @atlaskit/editor-mobile-bridge
 
+## 187.24.1
+
+### Patch Changes
+
+- [`3ef90d5fc2f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3ef90d5fc2f) - Cleanup the references to version.json
+- Updated dependencies
+
+## 187.24.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.23.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.23.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.23.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.22.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.22.0
+
+### Patch Changes
+
+- [`ee20a0c6142`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee20a0c6142) - Exporting default preset via preset-default endpoint. This can be accessed like so:
+
+  ```ts
+  import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
+  ```
+
+  Also renaming the composable editor to ComposableEditor.
+
+  Before:
+
+  ```ts
+  import { Editor } from '@atlaskit/editor-core/composable-editor';
+  ```
+
+  After:
+
+  ```ts
+  import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+  ```
+
+- Updated dependencies
+
+## 187.21.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.21.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.20.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 187.20.1
 
 ### Patch Changes

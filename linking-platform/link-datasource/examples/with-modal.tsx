@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button/standard-button';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import {
-  initialVisibleColumnKeys,
+  defaultInitialVisibleColumnKeys,
   mockDatasourceFetchRequests,
 } from '@atlaskit/link-test-helpers/datasource';
 import { InlineCardAdf } from '@atlaskit/linking-common/types';
@@ -30,7 +30,7 @@ export default () => {
   >(undefined);
   const [visibleColumnKeys, setVisibleColumnKeys] = useState<
     string[] | undefined
-  >(initialVisibleColumnKeys);
+  >(defaultInitialVisibleColumnKeys);
   const toggleIsOpen = () => setShowModal(prevOpenState => !prevOpenState);
   const closeModal = () => setShowModal(false);
 

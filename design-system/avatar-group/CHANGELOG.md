@@ -1,5 +1,11 @@
 # @atlaskit/avatar-group
 
+## 9.4.0
+
+### Minor Changes
+
+- [`da7b6be2540`](https://bitbucket.org/atlassian/atlassian-frontend/commits/da7b6be2540) - Fixed keyboard support for the interactive element. Changed span to button for avatar-group
+
 ## 9.3.6
 
 ### Patch Changes

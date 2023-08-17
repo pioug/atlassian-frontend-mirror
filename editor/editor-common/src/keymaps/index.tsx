@@ -6,9 +6,9 @@ import { css, jsx } from '@emotion/react';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { pluginCommandToPMCommand } from '../preset/plugin-commands';
+import { editorCommandToPMCommand } from '../preset/editor-commands';
 import type { Command } from '../types/command';
-import type { PluginCommand } from '../types/plugin-command';
+import type { EditorCommand } from '../types/editor-command';
 import { browser } from '../utils';
 
 export const addAltText = makeKeyMapWithCommon('Add Alt Text', 'Mod-Alt-y');
@@ -346,12 +346,12 @@ export function bindKeymapWithCommand(
   keymap[shortcut] = oldCmd ? combineWithOldCommand(cmd, oldCmd) : cmd;
 }
 
-export function bindKeymapWithPluginCommand(
+export function bindKeymapWithEditorCommand(
   shortcut: string,
-  cmd: PluginCommand,
+  cmd: EditorCommand,
   keymap: { [key: string]: Command },
 ) {
-  bindKeymapWithCommand(shortcut, pluginCommandToPMCommand(cmd), keymap);
+  bindKeymapWithCommand(shortcut, editorCommandToPMCommand(cmd), keymap);
 }
 
 export function findKeyMapForBrowser(keyMap: Keymap): string | undefined {

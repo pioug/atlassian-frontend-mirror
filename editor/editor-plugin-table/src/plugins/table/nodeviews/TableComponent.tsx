@@ -1,4 +1,5 @@
-import React, { CSSProperties } from 'react';
+import type { CSSProperties } from 'react';
+import React from 'react';
 
 import classnames from 'classnames';
 import memoizeOne from 'memoize-one';
@@ -13,18 +14,21 @@ import type {
   GetEditorFeatureFlags,
 } from '@atlaskit/editor-common/types';
 import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
-import { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableToolbarSize as tableToolbarSize } from '@atlaskit/editor-shared-styles';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { autoSizeTable, clearHoverSelection } from '../commands';
 import { getPluginState } from '../pm-plugins/plugin-factory';
+import type {
+  RowStickyState,
+  StickyPluginState,
+} from '../pm-plugins/sticky-headers';
 import {
   findStickyHeaderForTable,
-  RowStickyState,
   pluginKey as stickyHeadersPluginKey,
-  StickyPluginState,
 } from '../pm-plugins/sticky-headers';
 import {
   getLayoutSize,
@@ -33,11 +37,9 @@ import {
 } from '../pm-plugins/table-resizing/utils';
 import { hasTableBeenResized } from '../pm-plugins/table-resizing/utils/colgroup';
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
-import {
-  TableCssClassName as ClassName,
-  PluginInjectionAPI,
-  ShadowEvent,
-} from '../types';
+import type { PluginInjectionAPI } from '../types';
+import { TableCssClassName as ClassName, ShadowEvent } from '../types';
+import { tableOverflowShadowWidth } from '../ui/consts';
 import TableFloatingControls from '../ui/TableFloatingControls';
 import {
   containsHeaderRow,
@@ -456,7 +458,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
           <div
             style={{
               position: 'absolute',
-              right: '-2px',
+              right: getBooleanFF('platform.editor.custom-table-width')
+                ? `${tableOverflowShadowWidth}px`
+                : '-2px',
             }}
           >
             <div
@@ -566,7 +570,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
         this.scaleTable({
           parentWidth,
           layoutChanged,
-          isTableResizingEnabled: options?.isTableResizingEnabled,
         });
       }
 
@@ -574,9 +577,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
       if (options?.isTableResizingEnabled && hasNumberedColumnChanged) {
         if (!hasTableBeenResized(prevNode)) {
           this.scaleTable({
-            parentWidth,
+            parentWidth: node.attrs.width,
             layoutChanged,
-            isTableResizingEnabled: options?.isTableResizingEnabled,
           });
         }
       }
@@ -592,7 +594,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
   private scaleTable = (scaleOptions: {
     layoutChanged: boolean;
     parentWidth?: number;
-    isTableResizingEnabled?: boolean;
   }) => {
     const { view, getNode, getPos, containerWidth, options } = this.props;
     const node = getNode();

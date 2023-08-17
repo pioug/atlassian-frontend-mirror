@@ -97,7 +97,7 @@ export const getAllAnnotations = (doc: Node): string[] => {
   doc.descendants((node) => {
     node.marks
       .filter((mark) => mark.type.name === 'annotation')
-      // filter out annotations with invalid attribues as they cause errors when interacting with them
+      // filter out annotations with invalid attributes as they cause errors when interacting with them
       .filter(validateAnnotationMark)
       .forEach((m) => allAnnotationIds.add(m.attrs.id));
     return true;

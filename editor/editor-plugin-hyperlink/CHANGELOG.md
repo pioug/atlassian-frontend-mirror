@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 0.3.2
+
+### Patch Changes
+
+- [`24fc3925d73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24fc3925d73) - Add a new hook called `usePreset` accesed via `@atlaskit/editor-core/use-preset`. This hook can be used to safely access state and commands from outside the editor using `EditorContext`.
+- Updated dependencies
+
 ## 0.3.1
 
 ### Patch Changes

@@ -1,18 +1,26 @@
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import { getFragmentBackingArray } from '@atlaskit/editor-common/utils';
-import {
-  DOMSerializer,
-  Node as PmNode,
-} from '@atlaskit/editor-prosemirror/model';
+import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 type Col = Array<string | { [name: string]: string }>;
 
-export const generateColgroup = (table: PmNode): Col[] => {
+/**
+ * This ensures the combined width of the columns (and tbody) of table is always smaller or equal
+ * than the table and table wrapper elements. This is necessary as there is no longer
+ * padding on the .pm-table-wrapper, so all elements need to be the same width to avoid
+ * overflow.
+ */
+export const getColWidthFix = (colwidth: number, tableColumnCount: number) =>
+  colwidth - 1 / tableColumnCount;
+
+export const generateColgroup = (table: PmNode) => {
   const cols: Col[] = [];
 
   if (getBooleanFF('platform.editor.custom-table-width')) {
+    const map = TableMap.get(table);
     table.content.firstChild!.content.forEach((cell) => {
       const colspan = cell.attrs.colspan || 1;
       if (Array.isArray(cell.attrs.colwidth)) {
@@ -22,9 +30,10 @@ export const generateColgroup = (table: PmNode): Col[] => {
           cols.push([
             'col',
             {
-              style: `width: ${
-                width ? Math.max(width, tableCellMinWidth) : tableCellMinWidth
-              }px;`,
+              style: `width: ${getColWidthFix(
+                width ? Math.max(width, tableCellMinWidth) : tableCellMinWidth,
+                map.width,
+              )}px;`,
             },
           ]);
         });

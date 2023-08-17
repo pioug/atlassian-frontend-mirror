@@ -41,6 +41,7 @@ import type { EditorProps } from '../src';
 import { createTestExtensionProvider } from '../src/plugins/floating-toolbar/__tests__/_helpers';
 import { createExtensionFramesProvider } from '../src/__tests__/visual-regression/common/__helpers__/extensionFrameManifest';
 import { getConfluenceMacrosExtensionProvider } from './confluence-macros';
+import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
 
 const mediaMockServer = createEditorMediaMock();
 /**
@@ -78,6 +79,15 @@ function createEditorWindowBindings<T extends EditorProps>(
     if (platformFeatureFlags) {
       setBooleanFeatureFlagResolver((ffName) => {
         return platformFeatureFlags[ffName] ?? false;
+      });
+    }
+
+    if (options.datasourceMocks) {
+      mockDatasourceFetchRequests({
+        initialVisibleColumnKeys:
+          options.datasourceMocks.initialVisibleColumnKeys,
+        shouldMockORSBatch: options.datasourceMocks.shouldMockORSBatch,
+        delayedResponse: false,
       });
     }
 
@@ -517,4 +527,9 @@ export type MountEditorOptions = {
   withLinkPickerOptions?: boolean;
   withConfluenceMacrosExtensionProvider?: boolean;
   withTitleFocusHandler?: boolean;
+  /** Api mock configurations */
+  datasourceMocks?: {
+    initialVisibleColumnKeys?: string[];
+    shouldMockORSBatch?: boolean;
+  };
 };

@@ -1,5 +1,11 @@
 # @atlaskit/collab-provider
 
+## 9.11.0
+
+### Minor Changes
+
+- [`c50ae0964ce`](https://bitbucket.org/atlassian/atlassian-frontend/commits/c50ae0964ce) - seperate catching error handling
+
 ## 9.10.1
 
 ### Patch Changes

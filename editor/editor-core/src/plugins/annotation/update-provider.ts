@@ -1,6 +1,11 @@
 import { EventEmitter } from 'events';
 
-export type UpdateEvent = 'create' | 'delete' | 'resolve' | 'unresolve';
+export type UpdateEvent =
+  | 'create'
+  | 'delete'
+  | 'resolve'
+  | 'unresolve'
+  | 'setselectedannotation';
 export type VisibilityEvent = 'setvisibility';
 
 type AnnotationCallback = (params: string) => void;

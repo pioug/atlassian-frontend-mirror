@@ -5,7 +5,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
   addLink,
   bindKeymapWithCommand,
-  bindKeymapWithPluginCommand,
+  bindKeymapWithEditorCommand,
   enter,
   escape,
   insertNewLine,
@@ -30,7 +30,7 @@ export function createKeymapPlugin(
 ): SafePlugin | undefined {
   const list = {};
 
-  bindKeymapWithPluginCommand(
+  bindKeymapWithEditorCommand(
     addLink.common!,
     showLinkToolbar(INPUT_METHOD.SHORTCUT, editorAnalyticsApi),
     list,

@@ -8,17 +8,19 @@ import {
 } from '@atlaskit/editor-test-helpers/doc-builder';
 
 import { generateDynamicGuidelines } from '../../dynamicGuideline';
-import type { GuidelineConfig } from '../../types';
+import type { GuidelineStyles } from '../../types';
 
 describe('dynamicGuideline', () => {
   const defaultMediaNode = media({
     id: 'testId',
     type: 'file',
+    width: 1280,
+    height: 720,
     collection: 'test_collection',
     __fileMimeType: 'image/png',
   })();
 
-  const defaultStyle: Omit<GuidelineConfig, 'key' | 'position'> = {
+  const defaultStyle: GuidelineStyles = {
     styles: {
       lineStyle: 'dashed',
     },
@@ -28,56 +30,84 @@ describe('dynamicGuideline', () => {
   const guidelineConfig = (
     key: string,
     xPosition: number,
-    styles: Omit<GuidelineConfig, 'key' | 'position'> = defaultStyle,
+    styles: GuidelineStyles = defaultStyle,
   ) => {
     return { key, position: { x: xPosition }, ...styles };
   };
 
-  test.each<[string, ExtendedMediaAttributes, Object[]]>([
+  test.each<[string, ExtendedMediaAttributes, Object[], Object]>([
     [
       'align-start with pixel width',
       { layout: 'align-start', width: 200, widthType: 'pixel' },
       [guidelineConfig('media_0', -180)],
+      {
+        width: { '200': [{}] },
+        height: { '112': [{}] },
+      },
     ],
     [
       'align-start with percentage width',
       { layout: 'align-start', width: 25, widthType: 'percentage' },
-      [guidelineConfig('media_0', -190)],
+      [],
+      {
+        width: {},
+        height: {},
+      },
     ],
-
     [
       'wrap-left with pixel width',
       { layout: 'wrap-left', width: 200, widthType: 'pixel' },
       [guidelineConfig('media_0', -180)],
+      {
+        width: { '200': [{}] },
+        height: { '112': [{}] },
+      },
     ],
     [
       'wrap-left with percentage width',
       { layout: 'wrap-left', width: 25, widthType: 'percentage' },
-      [guidelineConfig('media_0', -190)],
+      [],
+      {
+        width: {},
+        height: {},
+      },
     ],
-
     [
       'align-end with pixel width',
       { layout: 'align-end', width: 200, widthType: 'pixel' },
       [guidelineConfig('media_0', 180)],
+      {
+        width: { '200': [{}] },
+        height: { '112': [{}] },
+      },
     ],
     [
       'align-end with percentage width',
       { layout: 'align-end', width: 25, widthType: 'percentage' },
-      [guidelineConfig('media_0', 190)],
+      [],
+      {
+        width: {},
+        height: {},
+      },
     ],
-
     [
       'wrap-right with pixel width',
       { layout: 'wrap-right', width: 200, widthType: 'pixel' },
       [guidelineConfig('media_0', 180)],
+      {
+        width: { '200': [{}] },
+        height: { '112': [{}] },
+      },
     ],
     [
       'wrap-right with percentage width',
       { layout: 'wrap-right', width: 25, widthType: 'percentage' },
-      [guidelineConfig('media_0', 190)],
+      [],
+      {
+        width: {},
+        height: {},
+      },
     ],
-
     [
       'center with pixel width',
       { layout: 'center', width: 300, widthType: 'pixel' },
@@ -85,34 +115,57 @@ describe('dynamicGuideline', () => {
         guidelineConfig('media_0_right', 150),
         guidelineConfig('media_0_left', -150),
       ],
+      {
+        width: { '300': [{}] },
+        height: { '168': [{}] },
+      },
     ],
     [
       'center with percentage width',
       { layout: 'center', width: 50, widthType: 'percentage' },
-      [
-        guidelineConfig('media_0_right', 190),
-        guidelineConfig('media_0_left', -190),
-      ],
+      [],
+      {
+        width: {},
+        height: {},
+      },
     ],
-
-    ['center layout', { layout: 'wide', width: 300, widthType: 'pixel' }, []],
+    [
+      'center layout',
+      { layout: 'wide', width: 300, widthType: 'pixel' },
+      [],
+      {
+        width: { '300': [{}] },
+        height: { '168': [{}] },
+      },
+    ],
     [
       'full-width layout',
       { layout: 'full-width', width: 50, widthType: 'percentage' },
       [],
+      {
+        width: {},
+        height: {},
+      },
     ],
   ])(
     `should return correct guideline configs for %s`,
-    (_description, attrs, result) => {
+    (_description, attrs, result, relativeGuideResult) => {
       const state = createEditorState(
         doc(mediaSingle(attrs)(defaultMediaNode)),
       );
-      const guidelines = generateDynamicGuidelines(state, 760, defaultStyle);
 
-      expect(guidelines.length).toEqual(result.length);
+      const { dynamicGuides, relativeGuides } = generateDynamicGuidelines(
+        state,
+        760,
+        defaultStyle,
+      );
+
+      expect(relativeGuides).toMatchObject(relativeGuideResult);
+
+      expect(dynamicGuides.length).toEqual(result.length);
 
       result.forEach((guideline) => {
-        expect(guidelines).toEqual(
+        expect(dynamicGuides).toEqual(
           expect.arrayContaining([expect.objectContaining(guideline)]),
         );
       });
@@ -152,20 +205,17 @@ describe('dynamicGuideline', () => {
       ),
     );
 
-    const guidelines = generateDynamicGuidelines(state, 760, defaultStyle);
-    expect(guidelines).toEqual([
+    const { dynamicGuides } = generateDynamicGuidelines(
+      state,
+      760,
+      defaultStyle,
+    );
+    expect(dynamicGuides).toEqual([
       { key: 'media_0', position: { x: -180 }, ...defaultStyle },
       {
         key: 'media_1',
         position: {
           x: 180,
-        },
-        ...defaultStyle,
-      },
-      {
-        key: 'media_2',
-        position: {
-          x: 190,
         },
         ...defaultStyle,
       },
@@ -180,20 +230,6 @@ describe('dynamicGuideline', () => {
         key: 'media_4_left',
         position: {
           x: -150,
-        },
-        ...defaultStyle,
-      },
-      {
-        key: 'media_5_right',
-        position: {
-          x: 190,
-        },
-        ...defaultStyle,
-      },
-      {
-        key: 'media_5_left',
-        position: {
-          x: -190,
         },
         ...defaultStyle,
       },

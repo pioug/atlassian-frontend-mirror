@@ -29,6 +29,7 @@ import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';
 import EditorContext from '../ui/EditorContext';
+import { useSetPresetContext } from '../presets/context';
 import { RenderTracking } from '../utils/performance/components/RenderTracking';
 
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
@@ -104,6 +105,8 @@ export function EditorInternalWithoutHooks({
 }: InternalProps) {
   const Component = getUiComponent(props.appearance!);
 
+  const setEditorApi = useSetPresetContext();
+
   const overriddenEditorProps = {
     ...props,
     onSave: props.onSave ? handleSave : undefined,
@@ -156,6 +159,7 @@ export function EditorInternalWithoutHooks({
                       onEditorDestroyed={onEditorDestroyed}
                       disabled={props.disabled}
                       preset={preset}
+                      setEditorApi={setEditorApi}
                       render={({
                         editor,
                         view,

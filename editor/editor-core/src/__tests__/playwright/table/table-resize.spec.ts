@@ -58,9 +58,15 @@ test.describe('resizing a table', () => {
 
     await resizerModel.resize({ mouse: editor.page.mouse, moveDistance: 100 });
 
-    expect(await resizerModel.containerWidth()).toBe(960);
-    expect(await resizerModel.containerMarginLeft()).toBe('-100px');
-    expect(await tableModel.containerWidth()).toBe(960);
+    await test.step('container width is correct', async () => {
+      expect(await resizerModel.containerWidth()).toBe(960);
+      expect(await resizerModel.containerMarginLeft()).toBe('-100px');
+      expect(await tableModel.containerWidth()).toBe(960);
+    });
+
+    await test.step('body width is less than table width to avoid scroll', async () => {
+      expect(await tableModel.bodyWidth()).toBeLessThan(960);
+    });
   });
 
   test('should resize to correct width and centre when dragging handle smaller', async ({
@@ -72,9 +78,15 @@ test.describe('resizing a table', () => {
 
     await resizerModel.resize({ mouse: editor.page.mouse, moveDistance: -100 });
 
-    expect(await resizerModel.containerWidth()).toBe(560);
-    expect(await resizerModel.containerMarginLeft()).toBe('100px');
-    expect(await tableModel.containerWidth()).toBe(560);
+    await test.step('container width is correct', async () => {
+      expect(await resizerModel.containerWidth()).toBe(560);
+      expect(await resizerModel.containerMarginLeft()).toBe('100px');
+      expect(await tableModel.containerWidth()).toBe(560);
+    });
+
+    await test.step('body width is less than table width to avoid scroll', async () => {
+      expect(await tableModel.bodyWidth()).toBeLessThan(560);
+    });
   });
 
   test('should hide the table controls when resizing and show them when finishing', async ({
@@ -171,7 +183,7 @@ test.describe('resizing a table', () => {
     await editor.page.mouse.up();
 
     expect(await resizerModel.containerMarginLeft()).toBe('0px');
-    // NOTE: the widths are not committed until after the mouse up has occured.
+    // NOTE: the widths are not committed until after the mouse up has occurred.
     expect(await resizerModel.containerWidth()).toBe(760);
     expect(await tableModel.containerWidth()).toBe(760);
   });

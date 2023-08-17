@@ -1,6 +1,15 @@
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import * as keymaps from '../../../keymaps';
+import {
+  bindKeymapWithCommand,
+  insertNewLine,
+  moveLeft,
+  moveRight,
+  moveUp,
+  moveDown,
+  backspace,
+  deleteKey,
+} from '@atlaskit/editor-common/keymaps';
 import { arrow, deleteNode } from '../gap-cursor/actions';
 import { Direction } from '../gap-cursor/direction';
 import { GapCursorSelection } from '../gap-cursor/selection';
@@ -9,8 +18,8 @@ import { createParagraphNear } from '@atlaskit/editor-prosemirror/commands';
 export default function keymapPlugin(): SafePlugin {
   const map = {};
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.insertNewLine.common!,
+  bindKeymapWithCommand(
+    insertNewLine.common!,
     (state, dispatch, view) => {
       const isInGapCursor = state.selection instanceof GapCursorSelection;
       // Only operate in gap cursor
@@ -22,8 +31,8 @@ export default function keymapPlugin(): SafePlugin {
     map,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveLeft.common!,
+  bindKeymapWithCommand(
+    moveLeft.common!,
     (state, dispatch, view) => {
       const endOfTextblock = view ? view.endOfTextblock.bind(view) : undefined;
       return arrow(Direction.LEFT, endOfTextblock)(state, dispatch, view);
@@ -31,8 +40,8 @@ export default function keymapPlugin(): SafePlugin {
     map,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveRight.common!,
+  bindKeymapWithCommand(
+    moveRight.common!,
     (state, dispatch, view) => {
       const endOfTextblock = view ? view.endOfTextblock.bind(view) : undefined;
       return arrow(Direction.RIGHT, endOfTextblock)(state, dispatch);
@@ -40,8 +49,8 @@ export default function keymapPlugin(): SafePlugin {
     map,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveUp.common!,
+  bindKeymapWithCommand(
+    moveUp.common!,
     (state, dispatch, view) => {
       const endOfTextblock = view ? view.endOfTextblock.bind(view) : undefined;
       return arrow(Direction.UP, endOfTextblock)(state, dispatch);
@@ -49,8 +58,8 @@ export default function keymapPlugin(): SafePlugin {
     map,
   );
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveDown.common!,
+  bindKeymapWithCommand(
+    moveDown.common!,
     (state, dispatch, view) => {
       const endOfTextblock = view ? view.endOfTextblock.bind(view) : undefined;
       return arrow(Direction.DOWN, endOfTextblock)(state, dispatch);
@@ -59,18 +68,10 @@ export default function keymapPlugin(): SafePlugin {
   );
 
   // default PM's Backspace doesn't handle removing block nodes when cursor is after it
-  keymaps.bindKeymapWithCommand(
-    keymaps.backspace.common!,
-    deleteNode(Direction.BACKWARD),
-    map,
-  );
+  bindKeymapWithCommand(backspace.common!, deleteNode(Direction.BACKWARD), map);
 
   // handle Delete key (remove node after the cursor)
-  keymaps.bindKeymapWithCommand(
-    keymaps.deleteKey.common!,
-    deleteNode(Direction.FORWARD),
-    map,
-  );
+  bindKeymapWithCommand(deleteKey.common!, deleteNode(Direction.FORWARD), map);
 
   return keymap(map) as SafePlugin;
 }

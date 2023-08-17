@@ -2,14 +2,14 @@
 import { jsx } from '@emotion/react';
 import React from 'react';
 
-import { Editor as EditorNext } from '@atlaskit/editor-core/composable-editor';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 
-import { EditorProps } from '@atlaskit/editor-core';
+import type { EditorProps } from '@atlaskit/editor-core';
 
 import { mobileApiPlugin } from './plugins/mobileApiPlugin';
-import WebBridgeImpl from './native-to-web';
+import type WebBridgeImpl from './native-to-web';
 
 interface WrapperProps {
   props: EditorWrapperProps;
@@ -19,12 +19,12 @@ interface EditorWrapperProps extends EditorProps {
   bridge: WebBridgeImpl;
 }
 
-const EditorNextWrapper = ({ props }: WrapperProps) => {
+const ComposableEditorWrapper = ({ props }: WrapperProps) => {
   const preset = useUniversalPreset({ props }).add([
     mobileApiPlugin,
     { bridge: props.bridge },
   ]);
-  return <EditorNext preset={preset} {...props} />;
+  return <ComposableEditor preset={preset} {...props} />;
 };
 
 export class Editor extends React.Component<EditorWrapperProps> {
@@ -38,6 +38,6 @@ export class Editor extends React.Component<EditorWrapperProps> {
   };
 
   render() {
-    return <EditorNextWrapper props={this.props} />;
+    return <ComposableEditorWrapper props={this.props} />;
   }
 }

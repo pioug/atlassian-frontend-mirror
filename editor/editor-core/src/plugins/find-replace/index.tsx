@@ -1,7 +1,7 @@
 import React from 'react';
 import { createPlugin } from './plugin';
 import keymapPlugin from './keymap';
-import { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import FindReplaceToolbarButtonWithState from './FindReplaceToolbarButtonWithState';
 import type featureFlagsPlugin from '@atlaskit/editor-plugin-feature-flags';
 

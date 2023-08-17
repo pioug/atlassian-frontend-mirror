@@ -203,6 +203,46 @@ test.describe('when resizing a square table with multiple column widths', () => 
   });
 });
 
+test.describe('when resizing a square table with multiple column widths and custom table width feature flag is enabled', () => {
+  test.use({
+    editorProps: {
+      appearance: 'full-page',
+      allowTables: {
+        advanced: true,
+      },
+    },
+    platformFeatureFlags: { 'platform.editor.custom-table-width': true },
+    adf: createSquareTable({
+      lines: 3,
+      columnWidths: [247, 259, 253],
+      hasHeader: true,
+    })(sampleSchema).toJSON(),
+  });
+
+  test('should overflow and conceal the table inside the container properly', async ({
+    editor,
+  }) => {
+    const nodes = EditorNodeContainerModel.from(editor);
+    const tableModel = EditorTableModel.from(nodes.table);
+
+    const cell = await tableModel.cell(1);
+    await cell.click();
+
+    await cell.resize({
+      mouse: editor.page.mouse,
+      cellSide: 'right',
+      moveDirection: 'right',
+      moveDistance: 600,
+    });
+
+    expect(await tableModel.hasOverflowed()).toBeTruthy();
+    // expect table wrapper to be the same width as container
+    // to conceal the table properly
+    expect(await tableModel.containerWidth()).toBe(760);
+    expect(await tableModel.wrapperWidth()).toBe(760);
+  });
+});
+
 for (const overflowShadowsOptimisation of [true, false]) {
   test.describe(`and when overflowShadowsOptimisation is ${overflowShadowsOptimisation}`, () => {
     test.use({

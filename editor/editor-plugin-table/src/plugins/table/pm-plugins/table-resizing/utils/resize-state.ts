@@ -1,25 +1,27 @@
-import { TableLayout } from '@atlaskit/adf-schema';
+import type { TableLayout } from '@atlaskit/adf-schema';
 import {
   tableCellMinWidth,
   tableNewColumnMinWidth,
 } from '@atlaskit/editor-common/styles';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { calcTableColumnWidths } from '@atlaskit/editor-common/utils';
-import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { Rect } from '@atlaskit/editor-tables/table-map';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { Rect } from '@atlaskit/editor-tables/table-map';
+import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { getSelectedTableInfo } from '../../../utils';
 
-import { hasTableBeenResized, insertColgroupFromNode } from './colgroup';
 import {
-  ColumnState,
-  getCellsRefsInColumn,
-  getColumnStateFromDOM,
-} from './column-state';
+  getColWidthFix,
+  hasTableBeenResized,
+  insertColgroupFromNode,
+} from './colgroup';
+import type { ColumnState } from './column-state';
+import { getCellsRefsInColumn, getColumnStateFromDOM } from './column-state';
 import { syncStickyRowToTable } from './dom';
 import { getTableMaxWidth } from './misc';
-import { ResizeState, ResizeStateWithAnalytics } from './types';
+import type { ResizeState, ResizeStateWithAnalytics } from './types';
 
 export const getResizeState = ({
   minWidth,
@@ -83,13 +85,28 @@ export const updateColgroup = (
   tableRef: HTMLElement,
 ): void => {
   const cols = tableRef.querySelectorAll('col');
-  state.cols
-    .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
-    .forEach((column, i) => {
-      if (cols[i]) {
-        cols[i].style.width = `${column.width}px`;
-      }
-    });
+
+  if (getBooleanFF('platform.editor.custom-table-width')) {
+    const columnsCount = cols.length;
+    state.cols
+      .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
+      .forEach((column, i) => {
+        if (cols[i]) {
+          cols[i].style.width = `${getColWidthFix(
+            column.width,
+            columnsCount,
+          )}px`;
+        }
+      });
+  } else {
+    state.cols
+      .filter((column) => column && !!column.width) // if width is 0, we dont want to apply that.
+      .forEach((column, i) => {
+        if (cols[i]) {
+          cols[i].style.width = `${column.width}px`;
+        }
+      });
+  }
 
   // colgroup has updated, reflect new widths in sticky header
   syncStickyRowToTable(tableRef);

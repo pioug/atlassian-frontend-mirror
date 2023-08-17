@@ -7,13 +7,60 @@ import {
 
 import { getMediaSinglePixelWidth, roundToNearest } from '../media-single';
 
-import { Position, VerticalPosition } from './types';
+import type {
+  GuidelineConfig,
+  GuidelineTypes,
+  Position,
+  Range,
+  VerticalPosition,
+} from './types';
 
 export const isNumber = (x: unknown): x is number =>
   typeof x === 'number' && !isNaN(x) && isFinite(x);
 
+export const isRange = (range: unknown): range is Range =>
+  !!(typeof range === 'object' && range && 'start' in range && 'end' in range);
+
 export const isVerticalPosition = (pos: Position): pos is VerticalPosition =>
   isNumber(pos.x);
+
+/**
+ * Returns the type of guideline based on a guideline key and a collection of guidelines
+ */
+export const getGuidelineTypeFromKey = (
+  keys: string[],
+  guidelines: GuidelineConfig[],
+): GuidelineTypes => {
+  if (guidelines.length === 0) {
+    return 'none';
+  }
+
+  // Check for default guidelines on key
+  if (
+    keys.some((key) =>
+      ['grid_', 'wide_', 'full_width'].some(
+        (defaultGuideline) => key.indexOf(defaultGuideline) >= 0,
+      ),
+    )
+  ) {
+    return 'default';
+  }
+
+  // Find the first matched guideline (ignoring duplicates or groups)
+  const matchedGuideline = guidelines.find((guideline) =>
+    keys.some((key) => guideline.key === key),
+  );
+  if (!matchedGuideline) {
+    return 'none';
+  }
+
+  // Check whether temporary or horizontal guides
+  if (isVerticalPosition(matchedGuideline.position)) {
+    return isRange(matchedGuideline.position.y) ? 'relative' : 'temporary';
+  } else {
+    return isRange(matchedGuideline.position.x) ? 'relative' : 'none'; // Can never have temporary horizontal guides
+  }
+};
 
 /**
  * Calculates container or full editor width taking in account editor full width layout

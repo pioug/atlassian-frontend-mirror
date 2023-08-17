@@ -23,6 +23,7 @@ import {
   setInlineCommentDraftState,
   updateInlineCommentResolvedState,
   closeComponent,
+  setSelectedAnnotation,
 } from '../../commands';
 import {
   ACTION,
@@ -378,6 +379,32 @@ describe('commands', () => {
       ]);
       closeComponent()(editorView.state, editorView.dispatch);
       expect(getPluginState(editorView.state)?.selectedAnnotations).toEqual([]);
+    });
+  });
+
+  describe('setSelectedAnnotation', () => {
+    it('sets the correct annotation', async () => {
+      const { editorView } = editor(
+        doc(
+          p(
+            'Hello ',
+            annotation({
+              id: 'comment-1',
+              annotationType: AnnotationTypes.INLINE_COMMENT,
+            })('there'),
+            ' friends',
+          ),
+        ),
+      );
+
+      expect(getPluginState(editorView.state)?.selectedAnnotations).toEqual([]);
+      setSelectedAnnotation('comment-1')(editorView.state, editorView.dispatch);
+      expect(getPluginState(editorView.state)?.selectedAnnotations).toEqual([
+        {
+          id: 'comment-1',
+          type: AnnotationTypes.INLINE_COMMENT,
+        },
+      ]);
     });
   });
 });

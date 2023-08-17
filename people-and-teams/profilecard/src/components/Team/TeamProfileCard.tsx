@@ -5,13 +5,18 @@ import { FormattedMessage } from 'react-intl-next';
 import AvatarGroup from '@atlaskit/avatar-group';
 import LoadingButton from '@atlaskit/button/loading-button';
 import Button from '@atlaskit/button/standard-button';
+import FocusRing from '@atlaskit/focus-ring';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
 import { layers } from '@atlaskit/theme/constants';
 
 import messages from '../../messages';
-import { AnimatedKudosButton, KudosBlobAnimation } from '../../styled/Card';
+import {
+  AnimatedKudosButton,
+  AnimationWrapper,
+  KudosBlobAnimation,
+} from '../../styled/Card';
 import {
   ErrorWrapper,
   TeamErrorText,
@@ -194,15 +199,21 @@ const ActionButton = ({
   const isGiveKudosActionButton = action.id === GIVE_KUDOS_ACTION_ID;
 
   const actionButton = (
-    <Button
-      key={action.id || index}
-      onClick={onActionClick(action, analytics, index)}
-      href={action.link}
-      shouldFitContainer
-    >
-      {action.label}
-      {isGiveKudosActionButton && <KudosBlobAnimation />}
-    </Button>
+    <FocusRing isInset>
+      <Button
+        key={action.id || index}
+        onClick={onActionClick(action, analytics, index)}
+        href={action.link}
+        shouldFitContainer
+      >
+        {action.label}
+        {isGiveKudosActionButton && (
+          <AnimationWrapper>
+            <KudosBlobAnimation />
+          </AnimationWrapper>
+        )}
+      </Button>
+    </FocusRing>
   );
 
   if (isGiveKudosActionButton) {

@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/pragmatic-drag-and-drop-auto-scroll",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "An optional auto scroller for Pragmatic drag and drop",
   "author": "Atlassian Pty Ltd",
   "license": "Apache-2.0",
@@ -40,7 +40,7 @@
     "./file": "./src/entry-point/file.ts"
   },
   "dependencies": {
-    "@atlaskit/pragmatic-drag-and-drop": "^0.21.0",
+    "@atlaskit/pragmatic-drag-and-drop": "^0.22.0",
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {

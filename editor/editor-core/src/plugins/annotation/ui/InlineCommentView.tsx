@@ -9,6 +9,7 @@ import {
   getAnnotationViewKey,
   getSelectionPositions,
   getPluginState,
+  getAllAnnotations,
 } from '../utils';
 import {
   removeInlineCommentNearSelection,
@@ -72,6 +73,7 @@ export function InlineCommentView({
   const inlineCommentState = getPluginState(state);
   const { bookmark, selectedAnnotations, annotations } =
     inlineCommentState || {};
+  const annotationsList = getAllAnnotations(editorView.state.doc);
 
   const selection = getSelectionPositions(state, inlineCommentState);
   const position = findPosForDOM(selection);
@@ -178,6 +180,7 @@ export function InlineCommentView({
       onViewed={onAnnotationViewed}
     >
       <ViewComponent
+        annotationsList={annotationsList}
         annotations={activeAnnotations}
         dom={dom}
         onDelete={(id) => removeInlineCommentNearSelection(id)(state, dispatch)}

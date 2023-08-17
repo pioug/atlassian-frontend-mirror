@@ -5,6 +5,7 @@ import type {
   Refs,
   DocBuilder,
 } from '@atlaskit/editor-test-helpers/doc-builder';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
   doc,
   mediaSingle,
@@ -29,8 +30,6 @@ import {
 import { pmHistoryPluginKey } from '@atlaskit/editor-common/utils';
 
 import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
-
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 
 describe('media alt text', () => {
   const attachAnalyticsEvent = jest.fn().mockImplementation(() => () => {});

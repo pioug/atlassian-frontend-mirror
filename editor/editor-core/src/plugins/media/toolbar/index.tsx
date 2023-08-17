@@ -366,7 +366,7 @@ const generateMediaSingleFloatingToolbar = (
       getBooleanFF('platform.editor.media.extended-resize-experience') &&
       allowResizing
     ) {
-      toolbarButtons.push({
+      const sizeInput = {
         type: 'custom',
         fallback: [],
         render: (editorView) => {
@@ -447,7 +447,14 @@ const generateMediaSingleFloatingToolbar = (
             />
           );
         },
-      });
+      } as FloatingToolbarItem<Command>;
+
+      if (pluginState.isResizing) {
+        // If the image is resizing then only return `sizeInput` as the only toolbar item
+        return [sizeInput];
+      }
+
+      toolbarButtons.push(sizeInput);
       toolbarButtons.push({ type: 'separator' });
     }
 

@@ -9,15 +9,15 @@ import type {
   NextEditorPlugin,
   CommandDispatch,
 } from '@atlaskit/editor-common/types';
-import * as keymaps from '../../keymaps';
-import type { AnalyticsEventPayload } from '../../plugins/analytics';
+import { submit } from '@atlaskit/editor-common/keymaps';
+import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
 import {
   ACTION,
   ACTION_SUBJECT,
   ACTION_SUBJECT_ID,
   EVENT_TYPE,
   INPUT_METHOD,
-} from '../../plugins/analytics';
+} from '@atlaskit/editor-common/analytics';
 import { stateKey as mediaPluginKey } from '../../plugins/media/pm-plugins/plugin-key';
 import { analyticsEventKey } from '../analytics/consts';
 
@@ -30,7 +30,7 @@ export function createPlugin(
   }
 
   return keymap({
-    [`${keymaps.submit.common}`]: (
+    [`${submit.common}`]: (
       state: EditorState,
       _dispatch?: CommandDispatch,
       editorView?: EditorView,

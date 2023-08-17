@@ -31,8 +31,12 @@ const AvatarGroupItem = forwardRef<HTMLElement, AvatarGroupItemProps>(
       children,
       ...props
     }: CustomItemComponentProps) => {
-      // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-      return <span {...props}>{children}</span>;
+      return (
+        // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+        <button type="button" {...props}>
+          {children}
+        </button>
+      );
     };
 
     const AvatarIcon = (

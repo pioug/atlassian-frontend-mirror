@@ -130,6 +130,8 @@ export const contextualMenuDropdownWidth = 180;
 export const stickyRowZIndex = resizeHandlerZIndex + 2;
 export const stickyRowOffsetTop = 8;
 export const stickyHeaderBorderBottomWidth = 1;
+export const tableOverflowShadowWidth = 8;
 
 export const TABLE_SNAP_GAP = 9;
 export const TABLE_HIGHLIGHT_GAP = 10;
+export const TABLE_HIGHLIGHT_TOLERANCE = 2;

@@ -1,5 +1,84 @@
 # @atlaskit/editor-core
 
+## 187.24.1
+
+### Patch Changes
+
+- [`5c3064cffe3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5c3064cffe3) - Remove a selection hack for Chrome 88 to improve foucs/blur performance
+- [`51e6a0128eb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/51e6a0128eb) - ED-18969 Implemented relative guideline
+
+## 187.24.0
+
+### Minor Changes
+
+- [`24fc3925d73`](https://bitbucket.org/atlassian/atlassian-frontend/commits/24fc3925d73) - Add a new hook called `usePreset` accesed via `@atlaskit/editor-core/use-preset`. This hook can be used to safely access state and commands from outside the editor using `EditorContext`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 187.23.2
+
+### Patch Changes
+
+- [`3a2d2104ca9`](https://bitbucket.org/atlassian/atlassian-frontend/commits/3a2d2104ca9) - [ux] [ED-19468] Adds dark mode icon for date
+- [`5365e42ef97`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5365e42ef97) - cleaned up more of the \* as keymaps imports to enable better tree-shaking
+
+## 187.23.1
+
+### Patch Changes
+
+- [`20439ad4597`](https://bitbucket.org/atlassian/atlassian-frontend/commits/20439ad4597) - [ux] Remove all floatingbar items other than size input when resizing media single
+- [`86794f736c3`](https://bitbucket.org/atlassian/atlassian-frontend/commits/86794f736c3) - cleaned up some of the keymap imports, and their function calls
+
+## 187.23.0
+
+### Minor Changes
+
+- [`1cadce074e4`](https://bitbucket.org/atlassian/atlassian-frontend/commits/1cadce074e4) - [ux] ED-19213 Improved typeahead styling with single point of interaction
+
+## 187.22.1
+
+### Patch Changes
+
+- [`8d950264934`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d950264934) - typing change to hangleMediaSingle for EditorAnalyticsAPI
+
+## 187.22.0
+
+### Minor Changes
+
+- [`ee20a0c6142`](https://bitbucket.org/atlassian/atlassian-frontend/commits/ee20a0c6142) - Exporting default preset via preset-default endpoint. This can be accessed like so:
+
+  ```ts
+  import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
+  ```
+
+  Also renaming the composable editor to ComposableEditor.
+
+  Before:
+
+  ```ts
+  import { Editor } from '@atlaskit/editor-core/composable-editor';
+  ```
+
+  After:
+
+  ```ts
+  import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+  ```
+
+## 187.21.1
+
+### Patch Changes
+
+- [`cf71a66559b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cf71a66559b) - Update analytics event for new resize experience
+
+## 187.21.0
+
+### Minor Changes
+
+- [`560ce4c7a2b`](https://bitbucket.org/atlassian/atlassian-frontend/commits/560ce4c7a2b) - Pass annotations list to inline comment component
+
 ## 187.20.1
 
 ### Patch Changes

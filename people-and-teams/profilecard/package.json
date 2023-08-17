@@ -1,6 +1,6 @@
 {
   "name": "@atlaskit/profilecard",
-  "version": "19.5.5",
+  "version": "19.5.7",
   "description": "A React component to display a card with user information.",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
     "lint": "(cd ../../.. && yarn eslint 'packages/people-and-teams/profilecard/**/*.{ts,tsx}')",
     "test": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard')",
     "test:watch": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard' --watch)",
-    "test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard/src' --coverage --collectCoverageFrom='[\"packages/people-and-teams/profilecard/src/**\", \"!packages/people-and-teams/profilecard/src/__tests__/**\", \"!packages/people-and-teams/profilecard/src/version.json\", \"!packages/people-and-teams/profilecard/src/i18n/**\", \"!packages/people-and-teams/profilecard/src/mocks/**\"]')",
+    "test:coverage": "(cd ../../.. && yarn test 'packages/people-and-teams/profilecard/src' --coverage --collectCoverageFrom='[\"packages/people-and-teams/profilecard/src/**\", \"!packages/people-and-teams/profilecard/src/__tests__/**\", \"!packages/people-and-teams/profilecard/src/i18n/**\", \"!packages/people-and-teams/profilecard/src/mocks/**\"]')",
     "typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
   },
   "config": {
@@ -51,10 +51,11 @@
   "dependencies": {
     "@atlaskit/analytics-next": "^9.1.0",
     "@atlaskit/avatar": "^21.3.0",
-    "@atlaskit/avatar-group": "^9.3.0",
+    "@atlaskit/avatar-group": "^9.4.0",
     "@atlaskit/button": "^16.9.0",
     "@atlaskit/dropdown-menu": "^11.11.0",
     "@atlaskit/empty-state": "^7.6.0",
+    "@atlaskit/focus-ring": "^1.3.4",
     "@atlaskit/give-kudos": "^2.0.0",
     "@atlaskit/icon": "^21.12.0",
     "@atlaskit/lozenge": "^11.4.0",

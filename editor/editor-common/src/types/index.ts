@@ -150,12 +150,13 @@ export type {
   ExtractPluginActions,
   PluginInjectionAPIWithDependency,
   PluginInjectionAPIWithDependencies,
+  PublicPluginAPI,
 } from './next-editor-plugin';
 
 export type {
-  PluginCommand,
-  PluginCommandWithMetadata,
-} from './plugin-command';
+  EditorCommand,
+  EditorCommandWithMetadata,
+} from './editor-command';
 
 export type IconProps = {
   label?: string;

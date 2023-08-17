@@ -130,6 +130,7 @@ import { PresenceResource } from '@atlaskit/mention/resource';
 import PropTypes from 'prop-types';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { PureComponent } from 'react';
 import { QuickInsertActionInsert } from '@atlaskit/editor-common/provider-factory';
 import { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
@@ -974,6 +975,8 @@ interface EditorViewProps {
     dispatchAnalyticsEvent: DispatchAnalyticsEvent;
     editorRef: React_2.RefObject<HTMLDivElement>;
   }) => JSX.Element;
+  // (undocumented)
+  setEditorApi?: SetEditorAPI;
 }
 
 // @public (undocumented)
@@ -1113,6 +1116,7 @@ export type InlineCommentViewComponentProps = AnnotationComponentProps & {
   annotations: Array<AnnotationInfo>;
   onResolve: (id: string) => void;
   onDelete?: (id: string) => void;
+  annotationsList?: string[];
 };
 
 export { INPUT_METHOD };
@@ -1957,6 +1961,9 @@ export function setBlockTypeWithAnalytics(
 ): Command_2;
 
 // @public (undocumented)
+type SetEditorAPI = (editorApi: PublicPluginAPI<any>) => void;
+
+// @public (undocumented)
 export const setIsExpanded: (isExpanded: boolean) => Command_2;
 
 // @public (undocumented)
@@ -2181,7 +2188,12 @@ interface TypeAheadStatsSerializable extends TypeAheadStats {
 }
 
 // @public (undocumented)
-export type UpdateEvent = 'create' | 'delete' | 'resolve' | 'unresolve';
+export type UpdateEvent =
+  | 'create'
+  | 'delete'
+  | 'resolve'
+  | 'setselectedannotation'
+  | 'unresolve';
 
 // @public (undocumented)
 export const updateStatus: (status?: StatusType) => Command;

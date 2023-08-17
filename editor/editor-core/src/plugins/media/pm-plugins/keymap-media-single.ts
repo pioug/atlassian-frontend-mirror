@@ -9,7 +9,10 @@ import type {
   EditorState,
   Selection,
 } from '@atlaskit/editor-prosemirror/state';
-import * as keymaps from '../../../keymaps';
+import {
+  bindKeymapWithCommand,
+  backspace,
+} from '@atlaskit/editor-common/keymaps';
 import {
   isEmptyNode,
   isSelectionInsideLastNodeInDocument,
@@ -211,11 +214,7 @@ export default function keymapPlugin(schema: Schema): SafePlugin {
   const list = {};
   const removeMediaSingleCommand = maybeRemoveMediaSingleNode(schema);
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.backspace.common!,
-    removeMediaSingleCommand,
-    list,
-  );
+  bindKeymapWithCommand(backspace.common!, removeMediaSingleCommand, list);
 
   return keymap(list) as SafePlugin;
 }

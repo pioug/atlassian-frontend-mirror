@@ -1,4 +1,5 @@
 jest.mock('@atlaskit/link-datasource', () => ({
+  ...jest.requireActual('@atlaskit/link-datasource'),
   DatasourceTableView: ({
     onVisibleColumnKeysChange,
   }: {

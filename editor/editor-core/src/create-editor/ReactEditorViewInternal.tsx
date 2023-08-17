@@ -67,7 +67,7 @@ import type {
 import type { EditorNextProps } from '../types/editor-props';
 import type { FeatureFlags } from '../types/feature-flags';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal-provider';
-
+import type { SetEditorAPI } from '../presets/context';
 import {
   createErrorReporter,
   createPMPlugins,
@@ -116,6 +116,7 @@ export interface EditorViewProps {
   portalProviderAPI: PortalProviderAPI;
   disabled?: boolean;
   experienceStore?: ExperienceStore;
+  setEditorApi?: SetEditorAPI;
   render?: (props: {
     editor: JSX.Element;
     view?: EditorView;
@@ -274,6 +275,8 @@ export class ReactEditorView<T = {}> extends React.Component<
       getEditorState: this.getEditorState,
       getEditorView: this.getEditorView,
     });
+
+    props.setEditorApi?.(this.pluginInjectionAPI.api());
 
     this.eventDispatcher = new EventDispatcher();
 

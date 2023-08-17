@@ -10,6 +10,8 @@ import {
   updateMouseState,
   clearDirtyMark,
   setInlineCommentsVisibility,
+  setSelectedAnnotation,
+  closeComponent,
 } from '../commands';
 import type { InlineCommentAnnotationProvider } from '../types';
 import type {
@@ -143,6 +145,16 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
         onMouseUp(editorView.state, editorView.dispatch)(event);
       const setVisibility = (isVisible: boolean) =>
         onSetVisibility(editorView)(isVisible);
+      const setSelectedAnnotationFn = (annotationId?: string) => {
+        if (!annotationId) {
+          closeComponent()(editorView.state, editorView.dispatch);
+        } else {
+          setSelectedAnnotation(annotationId)(
+            editorView.state,
+            editorView.dispatch,
+          );
+        }
+      };
 
       const { updateSubscriber } = provider;
       if (updateSubscriber) {
@@ -151,7 +163,8 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
           .on('delete', resolve)
           .on('unresolve', unResolve)
           .on('create', unResolve)
-          .on('setvisibility', setVisibility);
+          .on('setvisibility', setVisibility)
+          .on('setselectedannotation', setSelectedAnnotationFn);
       }
 
       editorView.root.addEventListener('mouseup', mouseUp);
@@ -175,7 +188,8 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
               .off('delete', resolve)
               .off('unresolve', unResolve)
               .off('create', unResolve)
-              .off('setvisibility', setVisibility);
+              .off('setvisibility', setVisibility)
+              .off('setselectedannotation', setSelectedAnnotationFn);
           }
         },
       };

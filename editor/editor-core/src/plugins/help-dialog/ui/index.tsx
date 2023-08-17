@@ -25,7 +25,37 @@ import {
   column,
   dialogHeader,
 } from './styles';
-import * as keymaps from '../../../keymaps';
+import {
+  navToFloatingToolbar,
+  navToEditorToolbar,
+  toggleBold,
+  toggleItalic,
+  toggleUnderline,
+  toggleStrikethrough,
+  toggleSubscript,
+  toggleSuperscript,
+  toggleHeading1,
+  toggleHeading2,
+  toggleHeading3,
+  toggleHeading4,
+  toggleHeading5,
+  toggleHeading6,
+  toggleOrderedList,
+  insertRule,
+  addLink,
+  setNormalText,
+  alignLeft,
+  clearFormatting,
+  undo,
+  redo,
+  pastePlainText,
+  addInlineComment,
+  toggleCode,
+  openHelp,
+  toggleBulletList,
+  toggleBlockQuote,
+} from '@atlaskit/editor-common/keymaps';
+import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import ToolbarButton from '../../../ui/ToolbarButton';
 import {
   toolbarMessages,
@@ -96,12 +126,12 @@ const navigationKeymaps: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(toolbarMessages.navigateToEditorToolbar),
     type: 'navigation',
-    keymap: () => keymaps.navToEditorToolbar,
+    keymap: () => navToEditorToolbar,
   },
   {
     name: formatMessage(toolbarMessages.navigateToFloatingToolbar),
     type: 'navigation',
-    keymap: () => keymaps.navToFloatingToolbar,
+    keymap: () => navToFloatingToolbar,
   },
 ];
 
@@ -111,7 +141,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(toolbarMessages.bold),
     type: 'strong',
-    keymap: () => keymaps.toggleBold,
+    keymap: () => toggleBold,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>
@@ -125,7 +155,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(toolbarMessages.italic),
     type: 'em',
-    keymap: () => keymaps.toggleItalic,
+    keymap: () => toggleItalic,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>
@@ -137,12 +167,12 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(toolbarMessages.underline),
     type: 'underline',
-    keymap: () => keymaps.toggleUnderline,
+    keymap: () => toggleUnderline,
   },
   {
     name: formatMessage(toolbarMessages.strike),
     type: 'strike',
-    keymap: () => keymaps.toggleStrikethrough,
+    keymap: () => toggleStrikethrough,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>
@@ -156,17 +186,17 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(toolbarMessages.subscript),
     type: 'subsup',
-    keymap: () => keymaps.toggleSubscript,
+    keymap: () => toggleSubscript,
   },
   {
     name: formatMessage(toolbarMessages.superscript),
     type: 'subsup',
-    keymap: () => keymaps.toggleSuperscript,
+    keymap: () => toggleSuperscript,
   },
   {
     name: formatMessage(blockTypeMessages.heading1),
     type: 'heading',
-    keymap: () => keymaps.toggleHeading1,
+    keymap: () => toggleHeading1,
     autoFormatting: () => (
       <span>
         <span css={codeSm}>#</span> <span css={codeLg}>Space</span>
@@ -176,7 +206,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(blockTypeMessages.heading2),
     type: 'heading',
-    keymap: () => keymaps.toggleHeading2,
+    keymap: () => toggleHeading2,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>##</span> <span css={codeLg}>Space</span>
@@ -186,7 +216,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(blockTypeMessages.heading3),
     type: 'heading',
-    keymap: () => keymaps.toggleHeading3,
+    keymap: () => toggleHeading3,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>###</span> <span css={codeLg}>Space</span>
@@ -196,7 +226,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(blockTypeMessages.heading4),
     type: 'heading',
-    keymap: () => keymaps.toggleHeading4,
+    keymap: () => toggleHeading4,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>####</span> <span css={codeLg}>Space</span>
@@ -206,7 +236,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(blockTypeMessages.heading5),
     type: 'heading',
-    keymap: () => keymaps.toggleHeading5,
+    keymap: () => toggleHeading5,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>#####</span> <span css={codeLg}>Space</span>
@@ -216,7 +246,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(blockTypeMessages.heading6),
     type: 'heading',
-    keymap: () => keymaps.toggleHeading6,
+    keymap: () => toggleHeading6,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>######</span> <span css={codeLg}>Space</span>
@@ -226,12 +256,12 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(blockTypeMessages.normal),
     type: 'paragraph',
-    keymap: () => keymaps.setNormalText,
+    keymap: () => setNormalText,
   },
   {
     name: formatMessage(listMessages.orderedList),
     type: 'orderedList',
-    keymap: () => keymaps.toggleOrderedList,
+    keymap: () => toggleOrderedList,
     autoFormatting: () => (
       <span>
         <span css={codeSm}>1.</span> <span css={codeLg}>Space</span>
@@ -241,7 +271,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(listMessages.unorderedList),
     type: 'bulletList',
-    keymap: () => keymaps.toggleBulletList,
+    keymap: () => toggleBulletList,
     autoFormatting: () => (
       <span>
         <span css={codeSm}>*</span> <span css={codeLg}>Space</span>
@@ -251,7 +281,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(blockTypeMessages.blockquote),
     type: 'blockquote',
-    keymap: () => keymaps.toggleBlockQuote,
+    keymap: () => toggleBlockQuote,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>{'>'}</span> <span css={codeLg}>Space</span>
@@ -270,7 +300,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(insertBlockMessages.horizontalRule),
     type: 'rule',
-    keymap: () => keymaps.insertRule,
+    keymap: () => insertRule,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>---</span>
@@ -280,7 +310,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(insertBlockMessages.link),
     type: 'link',
-    keymap: () => keymaps.addLink,
+    keymap: () => addLink,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>
@@ -293,7 +323,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(toolbarMessages.code),
     type: 'code',
-    keymap: () => keymaps.toggleCode,
+    keymap: () => toggleCode,
     autoFormatting: () => (
       <span>
         <span css={codeLg}>
@@ -341,7 +371,7 @@ export const formatting: (intl: IntlShape) => Format[] = ({
   {
     name: formatMessage(alignmentMessages.alignLeft),
     type: 'alignment',
-    keymap: () => keymaps.alignLeft,
+    keymap: () => alignLeft,
   },
   {
     name: formatMessage(alignmentMessages.alignRight),
@@ -358,27 +388,27 @@ const otherFormatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => [
   {
     name: formatMessage(toolbarMessages.clearFormatting),
     type: 'clearFormatting',
-    keymap: () => keymaps.clearFormatting,
+    keymap: () => clearFormatting,
   },
   {
     name: formatMessage(undoRedoMessages.undo),
     type: 'undo',
-    keymap: () => keymaps.undo,
+    keymap: () => undo,
   },
   {
     name: formatMessage(undoRedoMessages.redo),
     type: 'redo',
-    keymap: () => keymaps.redo,
+    keymap: () => redo,
   },
   {
     name: formatMessage(messages.pastePlainText),
     type: 'paste',
-    keymap: () => keymaps.pastePlainText,
+    keymap: () => pastePlainText,
   },
   {
     name: formatMessage(annotationMessages.createComment),
     type: 'annotation',
-    keymap: () => keymaps.addInlineComment,
+    keymap: () => addInlineComment,
   },
 ];
 
@@ -408,7 +438,7 @@ const quickInsertAutoFormat: (intl: IntlShape) => Format = ({
   ),
 });
 
-const getKeyParts = (keymap: keymaps.Keymap) => {
+const getKeyParts = (keymap: Keymap) => {
   let shortcut: string = keymap[browser.mac ? 'mac' : 'windows'];
   if (browser.mac) {
     shortcut = shortcut.replace('Alt', 'Opt');
@@ -434,7 +464,7 @@ export const getSupportedFormatting = (
   ];
 };
 
-export const getComponentFromKeymap = (keymap: keymaps.Keymap) => {
+export const getComponentFromKeymap = (keymap: Keymap) => {
   const keyParts = getKeyParts(keymap);
   return (
     <span>
@@ -511,7 +541,7 @@ const ModalFooter = () => (
   <div css={footer}>
     <FormattedMessage
       {...messages.helpDialogTips}
-      values={{ keyMap: getComponentFromKeymap(keymaps.openHelp) }}
+      values={{ keyMap: getComponentFromKeymap(openHelp) }}
     />
   </div>
 );

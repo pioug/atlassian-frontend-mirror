@@ -6,7 +6,7 @@ import { B200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { getPositionStyles } from './positionStyles';
-import { GuidelineConfig } from './types';
+import type { GuidelineConfig } from './types';
 
 const basicGuidelineStyles = css({
   position: 'absolute',
@@ -41,7 +41,7 @@ const hiddenGuidelineStyles = css({
 });
 
 const dashedGuidelineStyles = css({
-  borderLeftStyle: 'dashed',
+  borderStyle: 'dashed',
 });
 
 const verticalCapStyles = css({
@@ -49,7 +49,7 @@ const verticalCapStyles = css({
     backgroundColor: token('color.border.disabled', N30A),
     content: '""',
     position: 'absolute',
-    height: '10px',
+    height: '5px',
     width: '1px',
     transform: 'translateY(-50%)',
   },
@@ -64,7 +64,7 @@ const horizontalCapStyles = css({
     content: '""',
     position: 'absolute',
     height: '1px',
-    width: '10px',
+    width: '5px',
     transform: 'translateX(-50%)',
   },
   '&:after': {

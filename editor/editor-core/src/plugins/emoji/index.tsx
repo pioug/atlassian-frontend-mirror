@@ -20,7 +20,7 @@ import type {
   NextEditorPlugin,
   PMPluginFactoryParams,
   OptionalPlugin,
-  PluginCommand,
+  EditorCommand,
 } from '@atlaskit/editor-common/types';
 
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
@@ -118,7 +118,7 @@ export type EmojiPlugin = NextEditorPlugin<
           | INPUT_METHOD.PICKER
           | INPUT_METHOD.ASCII
           | INPUT_METHOD.TYPEAHEAD,
-      ) => PluginCommand;
+      ) => EditorCommand;
     };
   }
 >;

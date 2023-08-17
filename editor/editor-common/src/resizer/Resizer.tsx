@@ -1,7 +1,9 @@
-import React, { PropsWithChildren, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import classnames from 'classnames';
-import { HandleComponent, Resizable, ResizeDirection } from 're-resizable';
+import type { HandleComponent, ResizeDirection } from 're-resizable';
+import { Resizable } from 're-resizable';
 
 import { token } from '@atlaskit/tokens';
 
@@ -14,7 +16,7 @@ import {
   resizerItemClassName,
 } from '../styles/shared/resizer';
 
-import {
+import type {
   Dimensions,
   EnabledHandles,
   HandleAlignmentMethod,
@@ -174,7 +176,7 @@ export default function ResizerNext(
   const baseHandleStyles: React.CSSProperties = {
     width:
       handlePositioning === 'adjacent'
-        ? token('space.250', '20px')
+        ? token('space.100', '8px')
         : token('space.300', '24px'),
     // eslint-disable-next-line
     marginTop: Number.isFinite(handleMarginTop)

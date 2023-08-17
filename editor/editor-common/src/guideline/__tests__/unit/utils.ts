@@ -1,8 +1,11 @@
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
+import { generateDefaultGuidelines } from '../../defaultGuideline';
+import type { GuidelineConfig } from '../../types';
 import {
   getContainerWidthOrFullEditorWidth,
+  getGuidelineTypeFromKey,
   getMediaSingleDimensions,
 } from '../../utils';
 
@@ -89,6 +92,90 @@ describe('utils', () => {
       expect(
         getMediaSingleDimensions(PMNode.fromJSON(defaultSchema, input)),
       ).toMatchObject(output);
+    });
+  });
+  describe('#getGuidelineTypeFromKey', () => {
+    const defaultGuidelines = generateDefaultGuidelines(1000, 1200, false);
+    const tempororayGuidelines: GuidelineConfig[] = [
+      {
+        key: 'temporary_x_guideline_1',
+        position: {
+          x: 10,
+        },
+      },
+      {
+        key: 'temporary_x_guideline_2',
+        position: {
+          x: -20,
+        },
+      },
+    ];
+    const relativeGuidelines: GuidelineConfig[] = [
+      {
+        key: 'relative_x_guideline_1',
+        position: {
+          x: 10,
+          y: { start: 20, end: 50 },
+        },
+      },
+      {
+        key: 'relative_x_guideline_2',
+        position: {
+          x: -50,
+          y: { start: 20, end: 50 },
+        },
+      },
+      {
+        key: 'relative_y_guideline_1',
+        position: {
+          y: 10,
+          x: { start: 20, end: 50 },
+        },
+      },
+    ];
+    const fullGuidelineSet = [
+      ...defaultGuidelines,
+      ...tempororayGuidelines,
+      ...relativeGuidelines,
+    ];
+    test.each<[{ keys: string[]; guidelines: GuidelineConfig[] }, string]>([
+      [{ keys: [], guidelines: [] }, 'none'],
+      [{ keys: ['inactive-guideline-key'], guidelines: [] }, 'none'],
+      [{ keys: ['grid_1'], guidelines: defaultGuidelines }, 'default'],
+      [{ keys: ['wide_1'], guidelines: defaultGuidelines }, 'default'],
+      [
+        { keys: ['grid_1', 'grid-8'], guidelines: defaultGuidelines },
+        'default',
+      ],
+      [{ keys: ['full_width_1'], guidelines: defaultGuidelines }, 'default'],
+      [
+        { keys: ['inactive-guideline-key'], guidelines: defaultGuidelines },
+        'none',
+      ],
+      [
+        { keys: ['temporary_x_guideline_1'], guidelines: fullGuidelineSet },
+        'temporary',
+      ],
+      [
+        { keys: ['temporary_x_guideline_2'], guidelines: fullGuidelineSet },
+        'temporary',
+      ],
+      [
+        { keys: ['relative_x_guideline_1'], guidelines: fullGuidelineSet },
+        'relative',
+      ],
+      [
+        { keys: ['relative_x_guideline_2'], guidelines: fullGuidelineSet },
+        'relative',
+      ],
+      [
+        { keys: ['relative_y_guideline_1'], guidelines: fullGuidelineSet },
+        'relative',
+      ],
+    ])(`Should return expected guideline type`, (input, output) => {
+      expect(getGuidelineTypeFromKey(input.keys, input.guidelines)).toEqual(
+        output,
+      );
     });
   });
 });

@@ -6,8 +6,21 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import * as keymaps from '@atlaskit/editor-common/keymaps';
-import { keymap } from '@atlaskit/editor-common/keymaps';
+import {
+  bindKeymapWithCommand,
+  moveUp,
+  moveDown,
+  findKeyMapForBrowser,
+  undo as undoKeymap,
+  redo as redoKeymap,
+  backspace,
+  deleteKey,
+  forwardDelete,
+  toggleBlockQuote,
+  keymap,
+  insertNewLine,
+  findShortcutByKeymap,
+} from '@atlaskit/editor-common/keymaps';
 import {
   insertNewLineWithAnalytics,
   createNewParagraphAbove,
@@ -24,7 +37,7 @@ import {
 } from '../commands';
 import { isNodeAWrappingBlockNode } from '../utils';
 
-const backspace = chainCommands(
+const backspaceCommand = chainCommands(
   cleanUpAtTheStartOfDocument,
   deleteBlockContent(isNodeAWrappingBlockNode),
   deleteAndMoveCursor,
@@ -43,38 +56,26 @@ export default function keymapPlugin(
 ): SafePlugin {
   const list = {};
 
-  keymaps.bindKeymapWithCommand(
-    keymaps.insertNewLine.common!,
+  bindKeymapWithCommand(
+    insertNewLine.common!,
     insertNewLineWithAnalytics(editorAnalyticsApi),
     list,
   );
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveUp.common!,
-    createNewParagraphAbove,
-    list,
-  );
-  keymaps.bindKeymapWithCommand(
-    keymaps.moveDown.common!,
-    createNewParagraphBelow,
-    list,
-  );
-  keymaps.bindKeymapWithCommand(
-    keymaps.findKeyMapForBrowser(keymaps.redo)!,
-    redo,
-    list,
-  );
+  bindKeymapWithCommand(moveUp.common!, createNewParagraphAbove, list);
+  bindKeymapWithCommand(moveDown.common!, createNewParagraphBelow, list);
+  bindKeymapWithCommand(findKeyMapForBrowser(redoKeymap)!, redo, list);
 
-  keymaps.bindKeymapWithCommand(keymaps.undo.common!, undo, list);
+  bindKeymapWithCommand(undoKeymap.common!, undo, list);
 
-  keymaps.bindKeymapWithCommand(keymaps.backspace.common!, backspace, list);
+  bindKeymapWithCommand(backspace.common!, backspaceCommand, list);
 
-  keymaps.bindKeymapWithCommand(keymaps.deleteKey.common!, del, list);
+  bindKeymapWithCommand(deleteKey.common!, del, list);
 
-  keymaps.bindKeymapWithCommand(keymaps.forwardDelete.mac, del, list);
+  bindKeymapWithCommand(forwardDelete.mac, del, list);
 
   if (schema.nodes[blockTypes.BLOCK_QUOTE.nodeName]) {
-    keymaps.bindKeymapWithCommand(
-      keymaps.findShortcutByKeymap(keymaps.toggleBlockQuote)!,
+    bindKeymapWithCommand(
+      findShortcutByKeymap(toggleBlockQuote)!,
       insertBlockTypesWithAnalytics(
         blockTypes.BLOCK_QUOTE.name,
         INPUT_METHOD.KEYBOARD,

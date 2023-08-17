@@ -323,6 +323,30 @@ draggable({
 
 Note: if you are using css variables inside of your `getOffset()` you need to be sure your css variables are available at the `<body>` element, as the `container` is temporarily mounted as a child of `<body>`
 
+3. `preserveOffsetFromPointer`: applies the initial cursor offset to the custom native drag preview for a seamless experience
+
+```ts
+import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util/set-custom-native-drag-preview';
+import { preserveOffsetFromPointer } from '@atlaskit/pragmatic-drag-and-drop/util/preserve-offset-from-pointer';
+
+draggable({
+  element: myElement,
+  onGenerateDragPreview: ({ nativeSetDragImage, location, source }) => {
+    setCustomNativeDragPreview({
+      getOffset: preserveOffsetFromPointer({
+        sourceElement: source.element,
+        input: location.current.input,
+      }),
+      render: function render({ container }) {
+        /* ... */
+      },
+      nativeSetDragImage,
+    });
+  },
+});
+```
+Note: this helper works best when the rendered preview has the same dimensions as the dragged element
+
 ###### Gotcha: CSS transforms
 
 When creating custom drag preview element with `setCustomNativeDragPreview`, there is mixed support for applying CSS transforms to the drag preview element.

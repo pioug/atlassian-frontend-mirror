@@ -3,9 +3,10 @@ import React from 'react';
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
-import { N50A, N60A } from '@atlaskit/theme/colors';
+import { B200, N50A, N60A } from '@atlaskit/theme/colors';
 import {
   borderRadius,
+  fontSize,
   fontSizeSmall,
   gridSize,
 } from '@atlaskit/theme/constants';
@@ -33,8 +34,6 @@ const getFullNameMargin = (props: FullNameLabelProps) =>
     ? `${gridSize() * 4.5}px 0 ${gridSize() * 1.5}px 0`
     : `${gridSize() * 1.5}px 0 0 0`;
 
-export const CardContainerEmpty = styled.div``;
-
 export const CardWrapper = styled.div`
   background-color: ${bgColor};
   border-radius: ${borderRadius}px;
@@ -51,10 +50,10 @@ export const ActionsFlexSpacer = styled.div`
   flex: 1 0 auto;
 `;
 
-const kudosButtonAnimationTransformation = keyframes`{
+const kudosButtonAnimationTransformation = keyframes`
   0%   { transform: translate(-80px, -50px); }
   100% { transform: translate(90px, -70px); }
-}`;
+`;
 
 export const KudosBlobAnimationStyle = styled.div`
   display: none;
@@ -62,6 +61,7 @@ export const KudosBlobAnimationStyle = styled.div`
   width: 150px;
   z-index: -1;
   position: absolute;
+  top: ${(gridSize() * 4) / fontSize()}em;
   animation-name: ${kudosButtonAnimationTransformation};
   animation-iteration-count: 1;
   animation-duration: 3s;
@@ -78,20 +78,25 @@ export const KudosBlobAnimation: React.FC = (props) => (
   <KudosBlobAnimationStyle className="kudos-blob-animation" {...props} />
 );
 
+export const AnimationWrapper = styled.div`
+  clip-path: inset(0px 0px 0px 0px round ${borderRadius}px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+`;
+
 export const AnimatedKudosButton = styled.div`
   margin-left: ${token('space.100', '8px')};
 
   /* Need babel-plugin-emotion to use component selector */
   /* Previously with styled-components: &:hover {KudosBlobAnimation} { */
+  &:focus-within .kudos-blob-animation,
+  &:focus .kudos-blob-animation,
   &:hover .kudos-blob-animation {
     display: block;
   }
-
-  button,
-  a {
-    clip-path: inset(0px 0px 0px 0px round ${borderRadius}px);
-  }
-  overflow: hidden;
 `;
 
 export const ActionButtonGroup = styled.div`
@@ -102,12 +107,27 @@ export const ActionButtonGroup = styled.div`
   justify-content: flex-end;
 
   button,
+  a {
+    position: relative;
+  }
+
+  button,
   a,
   span {
     margin-left: ${token('space.100', '8px')};
 
     &:first-child {
       margin-left: 0;
+    }
+  }
+
+  a,
+  button {
+    &:focus {
+      outline-color: ${token('color.border.focused', B200)};
+      outline-offset: ${token('border.width', '2px')};
+      outline-style: solid;
+      outline-width: ${token('border.width', '2px')};
     }
   }
 `;
@@ -117,6 +137,15 @@ export const OverflowActionButtonsWrapper = styled.div`
   width: 32px;
   height: 32px;
   margin-left: ${token('space.100', '8px')};
+
+  button {
+    &:focus {
+      outline-color: ${token('color.border.focused', B200)};
+      outline-offset: ${token('border.width', '2px')};
+      outline-style: solid;
+      outline-width: ${token('border.width', '2px')};
+    }
+  }
 `;
 
 export const CardContent = styled.div`
